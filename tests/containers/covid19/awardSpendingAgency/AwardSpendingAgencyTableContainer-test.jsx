@@ -1,69 +1,83 @@
 /**
- * BudgetCategoriesTableContainer-test.js
- * Created by Lizzie Salita 10/15/21
+ * AwardSpendingAgencyTableContainer-test.js
+ * Created by Lizzie Salita 12/15/21
  * */
 
 import React from "react";
 import { render, waitFor, screen } from "test-utils";
 import "@testing-library/jest-dom/extend-expect";
-import BudgetCategoriesTableContainer from "containers/covid19/budgetCategories/BudgetCategoriesTableContainer";
+import AwardSpendingAgencyTableContainer from "containers/covid19/awardSpendingAgency/AwardSpendingAgencyTableContainer";
 import * as api from "apis/disaster";
 import * as hooks from "containers/agencyV2/WithAgencySlugs";
 import { defaultState } from "../../../testResources/defaultReduxFilters";
 
-const mockResults = [{
-    id: 123,
-    code: "045",
-    description: "Department of Sandwiches",
-    children: [],
-    award_count: 25,
-    obligation: 2000,
-    outlay: 1500,
-    total_budgetary_resources: 2500
-}, {
-    id: 789,
-    code: "000",
-    description: "Ministry of Magic",
-    children: [],
-    award_count: 23,
-    obligation: 1000,
-    outlay: 700,
-    total_budgetary_resources: 2000
-}];
+const mockData = {
+    totals: {
+        obligation: 2000,
+        outlay: 3000,
+        total_budgetary_resources: 6000
+    },
+    results: [{
+        id: 123,
+        code: "045",
+        description: "Department of Sandwiches",
+        children: [],
+        award_count: 25,
+        obligation: 2000,
+        outlay: 1500,
+        total_budgetary_resources: 2500
+    }, {
+        id: 789,
+        code: "000",
+        description: "Ministry of Magic",
+        children: [],
+        award_count: 23,
+        obligation: 1000,
+        outlay: 700,
+        total_budgetary_resources: 2000
+    }],
+    page_metadata: {
+        page: 1,
+        total: 44,
+        limit: 10
+    }
+};
 
 let spy;
+
+const redux = {
+    ...defaultState,
+    covid19: {
+        defcParams: ["A", "B", "C"],
+        spendingByAgencyTotals: {
+            obligation: 2000,
+            outlay: 1600,
+            awardCount: 250
+        }
+    }
+};
 
 beforeEach(() => {
     jest.clearAllMocks();
 });
 
-describe("BudgetCategoriesTableContainer", () => {
+describe("AwardSpendingAgencyTableContainer", () => {
+    window.scrollTo = jest.fn();
     it("should make an API call when the DEFC params change", () => {
         // spy on the API request helper functions
-        spy = jest.spyOn(api, "fetchDisasterSpending").mockReturnValue({
+        spy = jest.spyOn(api, "fetchAwardSpendingByAgency").mockReturnValue({
             promise: Promise.resolve({
-                data: {
-                    results: mockResults,
-                    page_metadata: {
-                        total: 20
-                    }
-                }
+                data: mockData
             }),
             cancel: jest.fn()
         });
 
         const { rerender } = render(
-            <BudgetCategoriesTableContainer
-                type="agency"
-                subHeading="sub heading"
+            <AwardSpendingAgencyTableContainer
+                type="all"
                 scrollIntoView={jest.fn()} />,
             {
-                initialState: {
-                    ...defaultState,
-                    covid19: {
-                        defcParams: ["A", "B", "C"]
-                    }
-                }
+                initialState: redux
             }
         );
         waitFor(() => {
@@ -71,15 +85,19 @@ describe("BudgetCategoriesTableContainer", () => {
         });
         // re-render with different defcParams
         rerender(
-            <BudgetCategoriesTableContainer
-                type="agency"
-                subHeading="sub heading"
+            <AwardSpendingAgencyTableContainer
+                type="all"
                 scrollIntoView={jest.fn()} />,
             {
                 initialState: {
                     ...defaultState,
                     covid19: {
-                        defcParams: ["Z"]
+                        defcParams: ["Z"],
+                        spendingByAgencyTotals: {
+                            obligation: 2000,
+                            outlay: 1600,
+                            awardCount: 250
+                        }
                     }
                 }
             }
@@ -90,14 +108,9 @@ describe("BudgetCategoriesTableContainer", () => {
     });
     it('should use agency id for agency URLs if Agency Profile v2 has not been released', () => {
         // Mock the API response
-        jest.spyOn(api, "fetchDisasterSpending").mockReturnValue({
+        jest.spyOn(api, "fetchAwardSpendingByAgency").mockReturnValue({
             promise: Promise.resolve({
-                data: {
-                    results: mockResults,
-                    page_metadata: {
-                        total: 20
-                    }
-                }
+                data: mockData
             }),
             cancel: jest.fn()
         });
@@ -119,31 +132,23 @@ describe("BudgetCategoriesTableContainer", () => {
             false
         ]);
         render(
-            <BudgetCategoriesTableContainer
-                type="agency"
-                subHeading="sub heading"
+            <AwardSpendingAgencyTableContainer
+                type="all"
                 scrollIntoView={jest.fn()} />,
             {
-                initialState: {
-                    ...defaultState
-                }
+                initialState: redux
             }
         );
         waitFor(() => {
-            expect(screen.getByText(mockResults[0].description))
-                .toHaveAttribute('href', `/agency/${mockResults[0].id}`);
+            expect(screen.getByText(mockData.results[0].description))
+                .toHaveAttribute('href', `/agency/${mockData.results[0].id}`);
         });
     });
     it('should use agency slug for the agency URLs if Agency Profile v2 has been released', () => {
         // Mock the API response
-        jest.spyOn(api, "fetchDisasterSpending").mockReturnValue({
+        jest.spyOn(api, "fetchAwardSpendingByAgency").mockReturnValue({
             promise: Promise.resolve({
-                data: {
-                    results: mockResults,
-                    page_metadata: {
-                        total: 20
-                    }
-                }
+                data: mockData
             }),
             cancel: jest.fn()
         });
@@ -166,18 +171,15 @@ describe("BudgetCategoriesTableContainer", () => {
         ]);
 
         render(
-            <BudgetCategoriesTableContainer
-                type="agency"
-                subHeading="sub heading"
+            <AwardSpendingAgencyTableContainer
+                type="all"
                 scrollIntoView={jest.fn()} />,
             {
-                initialState: {
-                    ...defaultState
-                }
+                initialState: redux
             }
         );
         waitFor(() => {
-            expect(screen.getByText(mockResults[0].description))
+            expect(screen.getByText(mockData.results[0].description))
                 .toHaveAttribute('href', '/agency_v2/department-of-sandwiches');
         });
     });
