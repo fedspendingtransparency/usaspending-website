@@ -127,7 +127,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
     const errorOrLoadingWrapperRef = useRef(null);
     const request = useRef(null);
     const [unlinkedDataClass, setUnlinkedDataClass] = useState(false);
-    const [, toptierCodes, slugsLoading, slugsError] = useAgencySlugs();
+    const [, toptierCodes, , slugsError] = useAgencySlugs();
 
     const clickedAgencyProfile = (agencyName) => {
         Analytics.event({
@@ -192,7 +192,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
             if (query) link = replaceString(link, query, 'query-matched');
             const id = awardSpendingByAgencyRow._id;
             const code = awardSpendingByAgencyRow.code;
-            if (AGENCYV2_RELEASED && !slugsLoading && !slugsError && code && link) {
+            if (AGENCYV2_RELEASED && !slugsError && code && link) {
                 link = (
                     <Link
                         className="agency-profile__link"
@@ -308,7 +308,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
         else {
             changeCurrentPage(1);
         }
-    }, [pageSize, sort, order, defcParams, query, slugsLoading]);
+    }, [pageSize, sort, order, defcParams, query]);
 
     useEffect(() => {
         fetchSpendingByCategoryCallback();

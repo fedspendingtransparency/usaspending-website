@@ -113,7 +113,6 @@ const budgetDropdownColumns = {
     ]
 };
 
-
 const totalBudgetaryResourcesColumn = {
     title: 'totalBudgetaryResources',
     displayName: (
@@ -144,9 +143,9 @@ const BudgetCategoriesTableContainer = (props) => {
     const errorOrLoadingWrapperRef = useRef(null);
     const request = useRef(null);
     const [unlinkedDataClass, setUnlinkedDataClass] = useState(false);
-    const [, toptierCodes, slugsLoading, slugsError] = useAgencySlugs();
+    const [, toptierCodes, , slugsError] = useAgencySlugs();
 
-    const { overview, defcParams, allAwardTypeTotals } = useSelector((state) => state.covid19);
+    const { overview, defcParams } = useSelector((state) => state.covid19);
 
     const clickedAgencyProfile = (agencyName) => {
         Analytics.event({
@@ -244,7 +243,7 @@ const BudgetCategoriesTableContainer = (props) => {
                 );
             }
             else if (link && props.type === 'agency') {
-                if (AGENCYV2_RELEASED && !slugsLoading && !slugsError && code) {
+                if (AGENCYV2_RELEASED && !slugsError && code) {
                     link = (
                         <Link
                             className="agency-profile__link"
@@ -343,7 +342,7 @@ const BudgetCategoriesTableContainer = (props) => {
             fetchBudgetSpendingCallback();
         }
         changeCurrentPage(1);
-    }, [pageSize, sort, order, defcParams, overview, allAwardTypeTotals, slugsLoading]);
+    }, [pageSize, sort, order, defcParams]);
 
     useEffect(() => {
         fetchBudgetSpendingCallback();
