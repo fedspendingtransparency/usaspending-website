@@ -4,7 +4,7 @@
 **/
 
 import React from 'react';
-import { isEqual, omit, differenceWith, slice } from 'lodash';
+import { isEqual, omit, differenceWith } from 'lodash';
 import { isCancel } from 'axios';
 import { Search, PrefixIndexStrategy } from 'js-search';
 import PropTypes from 'prop-types';
