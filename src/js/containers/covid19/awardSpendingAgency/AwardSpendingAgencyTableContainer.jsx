@@ -227,7 +227,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
         return addUnlinkedData(parsedData, totals);
     };
 
-    const fetchSpendingByCategoryCallback = useCallback(() => {
+    const fetchSpendingByAgencyCallback = useCallback(() => {
         if (request.current) {
             request.current.cancel();
         }
@@ -286,14 +286,14 @@ const AwardSpendingAgencyTableContainer = (props) => {
         // when award type changes, sort is on faceValueOfLoan for loans; otherwise, obligation
         if (props.type === 'loans' && sort === 'faceValueOfLoan' && order === 'desc') {
             changeCurrentPage(1);
-            fetchSpendingByCategoryCallback();
+            fetchSpendingByAgencyCallback();
         }
         else if (props.type === 'loans') {
             updateSort('faceValueOfLoan', 'desc');
         }
         else if (sort === 'obligation' && order === 'desc') {
             changeCurrentPage(1);
-            fetchSpendingByCategoryCallback();
+            fetchSpendingByAgencyCallback();
         }
         else {
             updateSort('obligation', 'desc');
@@ -303,7 +303,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
     useEffect(() => {
         // Reset to the first page
         if (currentPage === 1) {
-            fetchSpendingByCategoryCallback();
+            fetchSpendingByAgencyCallback();
         }
         else {
             changeCurrentPage(1);
@@ -311,7 +311,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
     }, [pageSize, sort, order, defcParams, query]);
 
     useEffect(() => {
-        fetchSpendingByCategoryCallback();
+        fetchSpendingByAgencyCallback();
     }, [currentPage]);
 
     useEffect(() => {
