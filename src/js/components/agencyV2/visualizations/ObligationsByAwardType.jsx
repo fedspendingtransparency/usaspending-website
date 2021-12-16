@@ -7,6 +7,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import * as d3 from 'd3';
 import { TooltipWrapper } from 'data-transparency-ui';
+import { mapToFullCategoryName, getCategoryNameByAwardType, getActiveCategoryType, getOuterCategoryId } from 'helpers/agencyV2/visualizations/ObligationsByAwardTypeHelper';
 import ObligationsByAwardTypeTooltip from './ObligationsByAwardTypeTooltip';
 
 const categoryMapping = {
@@ -26,7 +27,8 @@ const propTypes = {
         PropTypes.shape({
             label: PropTypes.string.isRequired,
             value: PropTypes.number.isRequired,
-            color: PropTypes.string.isRequired
+            color: PropTypes.string.isRequired,
+            type: PropTypes.string.isRequired
         })
     ).isRequired,
     windowWidth: PropTypes.number.isRequired,
@@ -44,6 +46,7 @@ export default function ObligationsByAwardType({
     const [chartHeight, setChartHeight] = useState(0);
     const [chartWidth, setChartWidth] = useState(0);
     const [activeType, setActiveType] = useState(null);
+    const [categoryHover, setCategoryHover] = useState(null);
     const chartRef = useRef();
 
     useEffect(() => {
@@ -68,16 +71,13 @@ export default function ObligationsByAwardType({
         .append('g')
         .attr('transform', `translate(${chartWidth / 2}, ${chartHeight / 2})`);
 
-    const outerPie = d3.pie()
-        .value((d) => d.value)
-        .sortValues(null)(outer);
-    const innerPie = d3.pie()
+    const pie = d3.pie()
         .value((d) => d.value)
         .sortValues(null)(inner);
 
     // rotate chart so midpoints are 127deg off vertical
-    const rotationAxis = 127;
-    const rotation = rotationAxis - ((outerPie[0].endAngle / Math.PI) * 90); // rad => deg
+    const rotationAxis = 357;
+    const rotation = rotationAxis - ((pie[0].endAngle / Math.PI) * 90); // rad => deg
     const chart = svg
         .append('g')
         .attr('transform', `rotate (${rotation})`)
@@ -86,52 +86,88 @@ export default function ObligationsByAwardType({
 
     // outer ring.
     chart.selectAll()
-        .data(outerPie)
+        .data(pie)
         .enter()
         .append('path')
         .attr('d', d3.arc()
             .outerRadius(outerRadius)
             .innerRadius(outerRadius - outerStrokeWidth))
-        .attr('fill', (d, i) => (
+        .attr('fill', (d, i) => {
+            const activeCategory = getCategoryNameByAwardType(activeType, categoryMapping);
+            const currentCategory = getCategoryNameByAwardType(inner[i].label, categoryMapping);
+            const currentCategoryId = getOuterCategoryId(currentCategory, outer);
+
             // Use the faded color when another section is hovered over
-            ((activeType && !categoryMapping[outer[i].label[0]].includes(activeType)) && !isMobile)
-                ? outer[i].fadedColor : outer[i].color)
-        )
+            if (activeType && !isMobile && activeCategory !== currentCategory) {
+                return outer[currentCategoryId].fadedColor;
+            }
+            return outer[currentCategoryId].color;
+        })
+        .style('cursor', 'pointer')
+        .on('mouseenter', (d) => {
+            // store the award type of the section the user is hovering over
+            setActiveType(d.data.label);
+            setCategoryHover(mapToFullCategoryName(d.data.type));
+        })
+        .on('mouseleave', () => {
+            setActiveType(null);
+            setCategoryHover(null);
+        })
         .attr('aria-label', (d) => `${d.data.label}: ${d3.format("($,.2f")(d.value)}`)
         .attr('role', 'listitem');
 
+    // white ring
+    chart.selectAll()
+        .data(pie)
+        .enter()
+        .append('path')
+        .attr('d', d3.arc()
+            .outerRadius(outerRadius - outerStrokeWidth)
+            .innerRadius(innerRadius)
+        )
+        .attr('fill', 'white')
+        .style('cursor', 'pointer')
+        .on('mouseenter', (d) => {
+            // store the award type of the section the user is hovering over
+            setActiveType(d.data.label);
+        })
+        .on('mouseleave', () => {
+            setActiveType(null);
+        })
+        .attr('role', 'listitem');
+
+
     // inner ring
     chart.selectAll()
-        .data(innerPie)
+        .data(pie)
         .enter()
         .append('path')
         .attr('d', d3.arc()
             .outerRadius(innerRadius)
             .innerRadius(innerRadius / 2)
         )
-        .attr('fill', (d, i) => (
+        .attr('fill', (d, i) => {
+            if (categoryHover && categoryHover === mapToFullCategoryName(d.data.type) && !isMobile) {
+                return inner[i].color;
+            }
+
             // Use the faded color when another section is hovered over
-            ((activeType && activeType !== inner[i].label) && !isMobile)
-                ? inner[i].fadedColor : inner[i].color)
-        )
-        .attr('aria-label', (d) => `${d.data.label}: ${d3.format("($,.2f")(d.value)}`)
+            return ((activeType && activeType !== inner[i].label) && !isMobile) ? inner[i].fadedColor : inner[i].color;
+        })
+        .style('cursor', 'pointer')
         .on('mouseenter', (d) => {
             // store the award type of the section the user is hovering over
             setActiveType(d.data.label);
         })
         .on('mouseleave', () => setActiveType(null))
-        .attr('role', 'listitem');
+        .attr('aria-label', (d) => `${d.data.label}: ${d3.format("($,.2f")(d.value)}`)
+        .attr('role', 'listitem')
+        .attr('tabindex', 0)
+        .on('focus', (d) => {
+            // store the award type of the section the user is hovering over
+            setActiveType(d.data.label);
+        });
 
-    // border between categories
-    const borders = [[0, outerRadius], [0, 0], [outerPie[0].endAngle, outerRadius]];
-    chart.selectAll()
-        .data([0]) // one polyline, data in borders
-        .enter()
-        .append('path')
-        .attr('d', d3.lineRadial()(borders))
-        .attr('stroke', 'white')
-        .attr('stroke-width', 3)
-        .attr('fill', 'none');
 
     // labels
     const labelPos = (i, yOffset = 0) => {
@@ -149,7 +185,7 @@ export default function ObligationsByAwardType({
     if (outer[0].value > 0) {
         // circle
         svg.selectAll()
-            .data(outerPie)
+            .data(pie)
             .enter()
             .append('circle')
             .attr('cx', labelRadius - 70)
@@ -170,7 +206,7 @@ export default function ObligationsByAwardType({
     if (outer[1].value > 0) {
         // circle
         svg.selectAll()
-            .data(outerPie)
+            .data(pie)
             .enter()
             .append('circle')
             .attr('cx', -labelRadius + 10)
@@ -195,7 +231,9 @@ export default function ObligationsByAwardType({
                 <ObligationsByAwardTypeTooltip
                     awardTypes={inner}
                     fiscalYear={fiscalYear}
-                    activeType={activeType} />)}
+                    activeType={activeType}
+                    categoryType={getActiveCategoryType(activeType, categoryMapping)}
+                    isCategoryHover={categoryHover?.length > 0} />)}
             controlledProps={{
                 isControlled: true,
                 isVisible: activeType && !isMobile,
