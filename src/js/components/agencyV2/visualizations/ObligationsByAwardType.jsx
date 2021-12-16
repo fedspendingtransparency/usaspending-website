@@ -7,8 +7,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import * as d3 from 'd3';
 import { TooltipWrapper } from 'data-transparency-ui';
+import { mapToFullCategoryName, getCategoryNameByAwardType, getActiveCategoryType, getOuterCategoryId } from 'helpers/agencyV2/visualizations/ObligationsByAwardTypeHelper';
 import ObligationsByAwardTypeTooltip from './ObligationsByAwardTypeTooltip';
-import { mapToFullCategoryName, getCategoryNameByAwardType, getActiveCategoryType, getOuterCategoryId } from 'helpers/agencyV2/visualizations/ObligationsByAwardTypeHelper.js';
 
 const categoryMapping = {
     'All Contracts': ['Contracts', 'IDVs'],
@@ -162,7 +162,11 @@ export default function ObligationsByAwardType({
         .on('mouseleave', () => setActiveType(null))
         .attr('aria-label', (d) => `${d.data.label}: ${d3.format("($,.2f")(d.value)}`)
         .attr('role', 'listitem')
-        .attr('tabindex', 0);
+        .attr('tabindex', 0)
+        .on('focus', (d) => {
+            // store the award type of the section the user is hovering over
+            setActiveType(d.data.label);
+        });
 
 
     // labels

@@ -3,11 +3,11 @@
  * Created by Andrea Blackwell 12/15/2021
  */
 
-import { mapToFullCategoryName, getCategoryNameByAwardType, getActiveCategoryType, getOuterCategoryId } from 'helpers/agencyV2/visualizations/ObligationsByAwardTypeHelper.js';
+import { mapToFullCategoryName, getCategoryNameByAwardType, getActiveCategoryType, getOuterCategoryId } from 'helpers/agencyV2/visualizations/ObligationsByAwardTypeHelper';
 
 const mockCategories = [
     {
-        label: ['All Category1'],
+        label: ['All Category1']
     },
     {
         label: ['All Category2']
@@ -39,7 +39,6 @@ const mockCategoryMapping = {
 };
 
 describe('Obligations By Award Type Visualization', () => {
-
     it('should return a full category name from category type', () => {
         expect(mapToFullCategoryName(mockDetails[2].type))
             .toEqual('All Category1');
