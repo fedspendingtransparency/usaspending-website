@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import * as d3 from 'd3';
 import { TooltipWrapper } from 'data-transparency-ui';
 import ObligationsByAwardTypeTooltip from './ObligationsByAwardTypeTooltip';
+import { mapToFullCategoryName, getCategoryNameByAwardType, getActiveCategoryType, getOuterCategoryId } from 'helpers/agencyV2/visualizations/ObligationsByAwardTypeHelper.js';
 
 const categoryMapping = {
     'All Contracts': ['Contracts', 'IDVs'],
@@ -61,30 +62,6 @@ export default function ObligationsByAwardType({
     const outerStrokeWidth = 3;
     const innerRadius = outerRadius - (outerStrokeWidth * 2);
 
-    const mapToFullCategoryName = (categoryType) => `All ${categoryType.charAt(0).toUpperCase()}  ${categoryType.slice(1)}`;
-
-    const getCategoryNameByAwardType = (awardType) => {
-        const categoryNames = Object.keys(categoryMapping);
-        return categoryMapping[categoryNames[0]].includes(awardType) ? categoryNames[0] : categoryNames[1];
-    };
-
-    const getActiveCategoryType = () => {
-        if (activeType) {
-            const categoryNames = Object.keys(categoryMapping);
-            const category = categoryMapping[categoryNames[0]].includes(activeType) ? categoryNames[0] : categoryNames[1];
-            return category.replace(/(^All\s)/, '').toLowerCase();
-        }
-        return '';
-    };
-
-    const getOuterCategoryId = (categoryName) => {
-        for (let i = 0; i < outer.length; i++) {
-            if (outer[i].label.includes(categoryName)) return i;
-        }
-
-        return '';
-    };
-
     // clear & append the svg object to the div
     d3.select('#obl_chart').selectAll('*').remove();
     const svg = d3.select('#obl_chart')
@@ -116,9 +93,9 @@ export default function ObligationsByAwardType({
             .outerRadius(outerRadius)
             .innerRadius(outerRadius - outerStrokeWidth))
         .attr('fill', (d, i) => {
-            const activeCategory = getCategoryNameByAwardType(activeType);
-            const currentCategory = getCategoryNameByAwardType(inner[i].label);
-            const currentCategoryId = getOuterCategoryId(currentCategory);
+            const activeCategory = getCategoryNameByAwardType(activeType, categoryMapping);
+            const currentCategory = getCategoryNameByAwardType(inner[i].label, categoryMapping);
+            const currentCategoryId = getOuterCategoryId(currentCategory, outer);
 
             // Use the faded color when another section is hovered over
             if (activeType && !isMobile && activeCategory !== currentCategory) {
@@ -251,7 +228,7 @@ export default function ObligationsByAwardType({
                     awardTypes={inner}
                     fiscalYear={fiscalYear}
                     activeType={activeType}
-                    categoryType={getActiveCategoryType()}
+                    categoryType={getActiveCategoryType(activeType, categoryMapping)}
                     isCategoryHover={categoryHover?.length > 0} />)}
             controlledProps={{
                 isControlled: true,
