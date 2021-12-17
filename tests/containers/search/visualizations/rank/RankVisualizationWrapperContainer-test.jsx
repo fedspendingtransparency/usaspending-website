@@ -10,6 +10,7 @@ import { RankVisualizationWrapperContainer } from
 import { Set } from 'immutable';
 import { defaultFilters } from '../../../../testResources/defaultReduxFilters';
 import { mockActions } from '../time/mockData';
+import GlobalConstants from '../../../../../src/js/GlobalConstants';
 
 // mock the search helper
 jest.mock('helpers/searchHelper', () => require('./spendingByCategoryHelper'));
@@ -133,7 +134,7 @@ describe('RankVisualizationWrapperContainer', () => {
             expect(container.state().scope).toEqual('psc');
         });
     });
-    
+
     describe('parseData', () => {
         it('should properly restructure the API data for the rank visualization', async () => {
             // mount the container
@@ -144,6 +145,8 @@ describe('RankVisualizationWrapperContainer', () => {
             container.instance().componentDidMount();
             await container.instance().apiRequest.promise;
 
+            const agencyString = GlobalConstants.AGENCY_LINK;
+
             // validate the state contains the correctly parsed values
             const expectedState = {
                 spendingBy: 'awardingAgency',
@@ -151,7 +154,7 @@ describe('RankVisualizationWrapperContainer', () => {
                 error: false,
                 labelSeries: ['First Agency (FA)', 'Second Agency (SA)'],
                 dataSeries: ['456', '123'],
-                linkSeries: [],
+                linkSeries: [`${agencyString}/slug1`, `${agencyString}/slug2`],
                 descriptions: ['Spending by First Agency (FA): $456', 'Spending by Second Agency (SA): $123'],
                 page: 1,
                 scope: 'awarding_agency',
