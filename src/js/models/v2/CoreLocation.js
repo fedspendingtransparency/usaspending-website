@@ -58,6 +58,10 @@ const CoreLocation = {
             country = this._country && `${this._country} `;
         }
 
+        if (this._congressionalDistrict === '90') {
+            return 'MULTI-STATE';
+        }
+
         const postCode = this._zip;
         return `${city}${adminArea}${country}${postCode}`;
     },
@@ -106,7 +110,10 @@ const CoreLocation = {
         return '';
     },
     get fullCongressionalDistrict() {
-        return this.congressionalDistrict && `\nCongressional District: ${this.congressionalDistrict}`;
+        if (this._congressionalDistrict === '90') {
+            return 'CONGRESSIONAL DISTRICT: 90 (Multiple Districts)';
+        }
+        return this.congressionalDistrict && `\nCONGRESSIONAL DISTRICT: ${this.congressionalDistrict}`;
     },
     get recipientCongressionalDistrict() {
         return this.congressionalDistrict
