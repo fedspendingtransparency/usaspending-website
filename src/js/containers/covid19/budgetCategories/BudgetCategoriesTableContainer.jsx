@@ -143,7 +143,7 @@ const BudgetCategoriesTableContainer = (props) => {
     const errorOrLoadingWrapperRef = useRef(null);
     const request = useRef(null);
     const [unlinkedDataClass, setUnlinkedDataClass] = useState(false);
-    const [, toptierCodes, , slugsError] = useAgencySlugs();
+    const [, toptierCodes, , , slugsError] = useAgencySlugs();
 
     const { overview, defcParams } = useSelector((state) => state.covid19);
 

@@ -20,11 +20,13 @@ const mockAPIResponse = {
     results: [
         {
             toptier_code: "123",
-            agency_slug: "department-of-sandwiches"
+            agency_slug: "department-of-sandwiches",
+            agency_id: "12"
         },
         {
             toptier_code: "456",
-            agency_slug: "ministry-of-magic"
+            agency_slug: "ministry-of-magic",
+            agency_id: "23"
         }
     ]
 };
@@ -37,6 +39,11 @@ const mockSlugsMapping = {
 const mockTopTierMapping = {
     123: 'department-of-sandwiches',
     456: 'ministry-of-magic'
+};
+
+const mockIdMapping = {
+    12: 'department-of-sandwiches',
+    23: 'ministry-of-magic'
 };
 
 beforeEach(() => {
@@ -53,7 +60,7 @@ test('useAgencySlugs: fetches agency slugs when they are not populated', async (
     renderHook(() => useAgencySlugs());
     expect(mockFetch).toHaveBeenCalledTimes(1);
     await waitFor(() => {
-        expect(mockAction).toHaveBeenCalledWith(mockSlugsMapping, mockTopTierMapping);
+        expect(mockAction).toHaveBeenCalledWith(mockSlugsMapping, mockTopTierMapping, mockIdMapping);
     });
 });
 

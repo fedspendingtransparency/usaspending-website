@@ -111,7 +111,7 @@ const heading = (type, title, id, link, agencyIds, slugError) => {
 };
 
 const DetailHeader = (props) => {
-    const [, , , slugsError, agencyIds] = useAgencySlugs();
+    const [, , agencyIds, , slugsError] = useAgencySlugs();
 
     const type = sidebarTypes[props.within];
 

@@ -70,11 +70,11 @@ export const useAgencySlugs = () => {
         };
     }, [agencySlugs, topTierCodes, agencyIds]);
 
-    return [agencySlugs, topTierCodes, loading, error, agencyIds];
+    return [agencySlugs, topTierCodes, agencyIds, loading, error];
 };
 
 const withAgencySlugs = (WrappedComponent) => (props) => {
-    const [agencySlugs, loading, error] = useAgencySlugs();
+    const [agencySlugs, , , loading, error] = useAgencySlugs();
     return (
         <WrappedComponent
             {...props}
