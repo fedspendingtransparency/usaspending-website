@@ -14,6 +14,9 @@ import { sidebarTypes } from 'dataMapping/explorer/sidebarStrings';
 import { formatTreemapValues } from 'helpers/moneyFormatter';
 import { generateSingular } from 'helpers/singularityHelper';
 
+import { useAgencySlugs } from "containers/agencyV2/WithAgencySlugs";
+import { AGENCYV2_RELEASED, AGENCY_LINK } from 'GlobalConstants';
+
 import TruncationWarning from './TruncationWarning';
 
 const propTypes = {
@@ -65,7 +68,7 @@ const dataType = (type, parent) => {
     );
 };
 
-const heading = (type, title, id, link) => {
+const heading = (type, title, id, link, agencyIds, slugError) => {
     if (type === 'Federal Account') {
         return (
             <h2 className="detail-header__title">
@@ -79,11 +82,13 @@ const heading = (type, title, id, link) => {
         );
     }
     else if (type === 'Agency') {
+        const agencyParam = AGENCYV2_RELEASED && !slugError ? agencyIds[id] : id;
+
         let header = (
             <Link
-                to={`/agency/${id}`}
+                to={`/${AGENCY_LINK}/${agencyParam}`}
                 className="detail-header__title-link"
-                onClick={exitExplorer.bind(null, `/agency/${id}`)}>
+                onClick={exitExplorer.bind(null, `/${AGENCY_LINK}/${agencyParam}`)}>
                 {title}
             </Link>);
         if (title === "Unreported Data" || link === false) {
@@ -106,6 +111,8 @@ const heading = (type, title, id, link) => {
 };
 
 const DetailHeader = (props) => {
+    const [, , , slugsError, agencyIds] = useAgencySlugs();
+
     const type = sidebarTypes[props.within];
 
     let truncationWarning = null;
@@ -122,7 +129,7 @@ const DetailHeader = (props) => {
                     <div className="detail-header__subtitle">
                         You&apos;ve chosen
                     </div>
-                    {heading(type, props.title, props.id, props.link)}
+                    {heading(type, props.title, props.id, props.link, agencyIds, slugsError)}
                     {dataType(type, props.parent)}
                 </div>
                 <div className="right-side">
