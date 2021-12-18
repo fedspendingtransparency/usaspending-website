@@ -33,7 +33,7 @@ const defaultProps = {
     placeholder: '',
     errorHeader: '',
     errorMessage: '',
-    maxSuggestions: 10,
+    maxSuggestions: 1000,
     label: '',
     noResults: false,
     characterLimit: 524288, // default for HTML input elements

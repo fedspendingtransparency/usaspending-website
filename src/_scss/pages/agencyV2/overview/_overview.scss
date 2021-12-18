@@ -19,6 +19,9 @@
         p {
             margin: 0;
         }
+        a {
+            overflow-wrap: break-word;
+        }
     }
     .read-more-button {
         @include button-link;

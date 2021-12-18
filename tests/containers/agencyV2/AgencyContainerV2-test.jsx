@@ -6,6 +6,7 @@
 import React from 'react';
 import { render, waitFor } from 'test-utils';
 import { Route } from 'react-router-dom';
+import * as reactRedux from 'react-redux';
 import * as agencyV2 from 'apis/agencyV2';
 import * as accountHooks from 'containers/account/WithLatestFy';
 import * as queryParamHelpers from 'helpers/queryParams';
@@ -20,6 +21,11 @@ mockApiCall(agencyV2, 'fetchBudgetaryResources', {});
 jest.mock('components/agencyV2/AgencyPage', () => jest.fn(() => null));
 
 let spy;
+const mockDispatch = jest.fn();
+
+beforeAll(() => {
+    reactRedux.useDispatch = jest.fn().mockImplementation(() => mockDispatch);
+});
 
 beforeEach(() => {
     jest.clearAllMocks();
@@ -41,6 +47,7 @@ beforeEach(() => {
             'ministry-of-magic': '456'
         }
     ]);
+    reactRedux.useDispatch.mockClear();
 });
 
 test('an API request is made for the agency code mapped to the slug in the URL', () => {
@@ -63,4 +70,29 @@ test('an API request is made for the agency code mapped to the slug in the URL',
         // TODO: update expected FY param when picker is fixed
         expect(spy).toHaveBeenCalledWith('123', 2020);
     });
+});
+
+test('reset agency is called when the agency slug in the URL changes', () => {
+    const { rerender } = render((
+        <Route path="/agency_v2/:agencySlug" location={{ pathname: '/agency_v2/department-of-sandwiches' }}>
+            <AgencyContainerV2 />
+        </Route >
+    ));
+    expect(mockDispatch).not.toHaveBeenCalled();
+    rerender((
+        <Route path="/agency_v2/:agencySlug" location={{ pathname: '/agency_v2/ministry-of-magic' }}>
+            <AgencyContainerV2 />
+        </Route >
+    ));
+    expect(mockDispatch).toHaveBeenCalledWith({ type: 'RESET_AGENCY' });
+});
+
+test('reset agency is called on unmount', () => {
+    const { unmount } = render((
+        <Route path="/agency_v2/:agencySlug" location={{ pathname: '/agency_v2/department-of-sandwiches' }}>
+            <AgencyContainerV2 />
+        </Route >
+    ));
+    unmount();
+    expect(mockDispatch).toHaveBeenLastCalledWith({ type: 'RESET_AGENCY' });
 });
