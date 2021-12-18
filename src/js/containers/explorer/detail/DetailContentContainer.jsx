@@ -33,7 +33,7 @@ const propTypes = {
     resetExplorerTable: PropTypes.func,
     history: PropTypes.object,
     agencySlugs: PropTypes.object,
-    loading: PropTypes.object,
+    loading: PropTypes.bool,
     error: PropTypes.bool
 };
 

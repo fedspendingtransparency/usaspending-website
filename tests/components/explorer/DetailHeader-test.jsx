@@ -26,6 +26,10 @@ const mockAPIResponse = {
     ]
 };
 
+beforeEach(() => {
+    jest.clearAllMocks();
+});
+
 describe('DetailHeader Component', () => {
 
     const renderComponent = (id) => {
@@ -50,7 +54,16 @@ describe('DetailHeader Component', () => {
         constants.AGENCYV2_RELEASED = true;
         constants.AGENCY_LINK = "agency_v2";
 
-
+        jest.spyOn(hooks, "useAgencySlugs").mockReturnValue([
+            {},
+            {},
+            {
+                "123": 'department-of-sandwiches',
+                "789": 'ministry-of-magic'
+            },
+            false,
+            false
+        ]);
 
         renderComponent(mockAPIResponse.results[0].agency_id);
 
@@ -66,8 +79,8 @@ describe('DetailHeader Component', () => {
             {},
             {},
             {
-                123: 'department-of-sandwiches',
-                789: 'ministry-of-magic'
+                "123": 'department-of-sandwiches',
+                "789": 'ministry-of-magic'
             },
             false,
             false
@@ -87,8 +100,8 @@ describe('DetailHeader Component', () => {
             {},
             {},
             {
-                123: 'department-of-sandwiches',
-                789: 'ministry-of-magic'
+                "123": 'department-of-sandwiches',
+                "789": 'ministry-of-magic'
             },
             false,
             true

@@ -26,7 +26,7 @@ export const mapIdToSlug = (results) => (
     results.reduce((acc, agency) => {
         /* eslint-disable camelcase */
         const { agency_slug, agency_id } = agency;
-        return { ...acc, [agency_id]: agency_slug };
+        return { ...acc, [`${agency_id}`]: agency_slug };
         /* eslint-enable camelcase */
     }, {})
 );
@@ -51,6 +51,7 @@ export const useAgencySlugs = () => {
                     const slugsMapping = mapSlugToTopTierCode(data.results);
                     const topTierCodesMapping = mapTopTierCodeToSlug(data.results);
                     const idMapping = mapIdToSlug(data.results);
+                    console.log(idMapping);
                     dispatch(setAgencySlugs(slugsMapping, topTierCodesMapping, idMapping));
                     setLoading(false);
                     setError(false);
