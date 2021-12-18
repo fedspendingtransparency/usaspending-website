@@ -14,13 +14,13 @@ import { BrowserRouter } from "react-router-dom";
 const mockAPIResponse = {
     results: [
         {
-            toptier_code: "123",
-            agency_slug: "department-of-sandwiches",
+            toptier_code: "012",
+            agency_slug: "department-of-dinosaurs",
             agency_id: "123"
         },
         {
             toptier_code: "456",
-            agency_slug: "ministry-of-magic",
+            agency_slug: "ice-cream-social",
             agency_id: "789"
         }
     ]
@@ -58,8 +58,8 @@ describe('DetailHeader Component', () => {
             {},
             {},
             {
-                "123": 'department-of-sandwiches',
-                "789": 'ministry-of-magic'
+                "123": 'department-of-dinosaurs',
+                "789": 'ice-cream-social'
             },
             false,
             false
@@ -67,7 +67,7 @@ describe('DetailHeader Component', () => {
 
         renderComponent(mockAPIResponse.results[0].agency_id);
 
-        expect(screen.getByText('Mock Title')).toHaveAttribute('href', '/agency_v2/department-of-sandwiches');
+        expect(screen.getByText('Mock Title')).toHaveAttribute('href', '/agency_v2/department-of-dinosaurs');
     });
 
     it('should display the link to the agency v1 page in the Spending Explorer header', () => {
@@ -79,8 +79,8 @@ describe('DetailHeader Component', () => {
             {},
             {},
             {
-                "123": 'department-of-sandwiches',
-                "789": 'ministry-of-magic'
+                "123": 'department-of-dinosaurs',
+                "789": 'ice-cream-social'
             },
             false,
             false
@@ -100,8 +100,8 @@ describe('DetailHeader Component', () => {
             {},
             {},
             {
-                "123": 'department-of-sandwiches',
-                "789": 'ministry-of-magic'
+                "123": 'department-of-dinosaurs',
+                "789": 'ice-cream-social'
             },
             false,
             true
