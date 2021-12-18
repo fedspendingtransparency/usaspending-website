@@ -11,6 +11,7 @@ import * as api from 'apis/agencyV2';
 import * as actions from 'redux/actions/agencyV2/agencyV2Actions';
 
 import { mapSlugToTopTierCode, mapTopTierCodeToSlug, useAgencySlugs } from 'containers/agencyV2/WithAgencySlugs';
+import { mapIdToSlug } from "../../../src/js/containers/agencyV2/WithAgencySlugs";
 
 let mockFetch;
 let mockUseSelector;
@@ -79,4 +80,9 @@ test('mapSlugToTopTierCode: returns a mapping of agency_slug: toptier_code', () 
 test('mapTopTierCodeToSlug: returns a mapping of toptier_code: agency_slug', () => {
     const result = mapTopTierCodeToSlug(mockAPIResponse.results);
     expect(result).toEqual(mockTopTierMapping);
+});
+
+test('mapIdToSlug: returns a mapping of agency_id: agency_slug', () => {
+    const result = mapIdToSlug(mockAPIResponse.results);
+    expect(result).toEqual(mockIdMapping);
 });
