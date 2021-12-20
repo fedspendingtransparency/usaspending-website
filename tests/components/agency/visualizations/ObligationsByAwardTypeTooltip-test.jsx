@@ -62,7 +62,7 @@ test('displays the currently selected fiscal year in the tooltip heading', () =>
         />,
         { initialState: mockStore }
     );
-    const heading = screen.queryByText(/^FY 1999/);
+    const heading = screen.queryByText(/^FY1999/);
     expect(heading).toBeTruthy();
     expect(heading.classList.contains('tooltip__title')).toBeTruthy();
 });
