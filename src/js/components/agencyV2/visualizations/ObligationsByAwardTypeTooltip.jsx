@@ -24,12 +24,12 @@ const columns = [
     },
     {
         title: 'obligations',
-        displayName: 'Award Obligations',
+        displayName: ["Award", <br />, "Obligations"],
         right: true
     },
     {
         title: 'percent',
-        displayName: '% of Total',
+        displayName: ["% of", <br />, "Total"],
         right: true
     }
 ];
@@ -74,7 +74,7 @@ const ObligationsByAwardTypeTooltip = ({
     return (
         <div className="award-type-tooltip">
             <div className="tooltip__title">
-                FY {fiscalYear} {titles[categoryType]}: {formatMoneyWithUnitsShortLabel(totalByCategory)}
+                FY{fiscalYear} - {titles[categoryType]}: {formatMoneyWithUnitsShortLabel(totalByCategory)}
             </div>
             <div className="tooltip__text">
                 <Table
