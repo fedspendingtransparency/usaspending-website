@@ -181,4 +181,48 @@ describe("BudgetCategoriesTableContainer", () => {
                 .toHaveAttribute('href', '/agency_v2/department-of-sandwiches');
         });
     });
+    it('should just display the agency name (with no link) if no slug mapping is available', () => {
+        // Mock the API response
+        jest.spyOn(api, "fetchDisasterSpending").mockReturnValue({
+            promise: Promise.resolve({
+                data: {
+                    results: mockResults,
+                    page_metadata: {
+                        total: 20
+                    }
+                }
+            }),
+            cancel: jest.fn()
+        });
+
+        // Mock the Global Constants
+        jest.mock('GlobalConstants', () => ({
+            AGENCY_LINK: 'agency_v2',
+            AGENCYV2_RELEASED: true
+        }));
+
+        // Mock the custom hook, useAgencySlugs
+        jest.spyOn(hooks, "useAgencySlugs").mockReturnValue([
+            {},
+            { "045": 'department-of-sandwiches' },
+            false,
+            false
+        ]);
+
+        render(
+            <BudgetCategoriesTableContainer
+                type="agency"
+                subHeading="sub heading"
+                scrollIntoView={jest.fn()} />,
+            {
+                initialState: {
+                    ...defaultState
+                }
+            }
+        );
+        waitFor(() => {
+            expect(screen.getByText(mockResults[1].description))
+                .not.toHaveAttribute('href');
+        });
+    });
 });
