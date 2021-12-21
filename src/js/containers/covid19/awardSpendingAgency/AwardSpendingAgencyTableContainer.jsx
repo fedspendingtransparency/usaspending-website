@@ -127,7 +127,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
     const errorOrLoadingWrapperRef = useRef(null);
     const request = useRef(null);
     const [unlinkedDataClass, setUnlinkedDataClass] = useState(false);
-    const [, toptierCodes, , slugsError] = useAgencySlugs();
+    const [, toptierCodes, , , slugsError] = useAgencySlugs();
 
     const clickedAgencyProfile = (agencyName) => {
         Analytics.event({
