@@ -28,8 +28,8 @@ const StatusOfFunds = ({ fy }) => {
     const [level, setLevel] = useState(0);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
-    const [prevPage, currentPage, changeCurrentPage] = useStateWithPrevious(1);
-    const [prevPageSize, pageSize, changePageSize] = useStateWithPrevious(10);
+    const [currentPage, changeCurrentPage] = useStateWithPrevious(1);
+    const [pageSize, changePageSize] = useStateWithPrevious(10);
     const [totalItems, setTotalItems] = useState(0);
     const request = useRef(null);
     const [results, setResults] = useState([]);
