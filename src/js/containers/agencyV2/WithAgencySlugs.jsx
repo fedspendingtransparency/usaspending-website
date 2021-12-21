@@ -51,7 +51,6 @@ export const useAgencySlugs = () => {
                     const slugsMapping = mapSlugToTopTierCode(data.results);
                     const topTierCodesMapping = mapTopTierCodeToSlug(data.results);
                     const idMapping = mapIdToSlug(data.results);
-                    console.log(idMapping);
                     dispatch(setAgencySlugs(slugsMapping, topTierCodesMapping, idMapping));
                     setLoading(false);
                     setError(false);
