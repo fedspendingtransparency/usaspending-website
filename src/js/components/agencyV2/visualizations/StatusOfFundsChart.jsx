@@ -204,7 +204,7 @@ const StatusOfFundsChart = ({ results, fy }) => {
         .style("font-family", 'Source Sans Pro')
         .call(isLargeScreen ? wrapTextMobile : wrapText, 270);
     const tickLabelsY = d3.selectAll(".y-axis-labels");
-    tickLabelsY.each(function removeTicks(d, i) {
+    tickLabelsY.each(function removeTicks(d) {
         if (!isNaN(d)) {
             d3.select(this).remove();
         }
