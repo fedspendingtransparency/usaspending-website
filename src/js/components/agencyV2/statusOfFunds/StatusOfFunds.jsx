@@ -28,8 +28,8 @@ const StatusOfFunds = ({ fy }) => {
     const [level, setLevel] = useState(0);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
-    const [currentPage, changeCurrentPage] = useStateWithPrevious(1);
-    const [pageSize, changePageSize] = useStateWithPrevious(10);
+    const [prevPage, currentPage, changeCurrentPage] = useStateWithPrevious(1);
+    const [prevPageSize, pageSize, changePageSize] = useStateWithPrevious(10);
     const [totalItems, setTotalItems] = useState(0);
     const request = useRef(null);
     const [results, setResults] = useState([]);
@@ -73,7 +73,12 @@ const StatusOfFunds = ({ fy }) => {
     };
 
     useEffect(() => {
-        fetchAgencySubcomponents();
+        const hasParamChanged = (
+            prevPage !== currentPage || prevPageSize !== pageSize
+        );
+        if (hasParamChanged) {
+            fetchAgencySubcomponents();
+        }
     }, [currentPage]);
 
     useEffect(() => {
@@ -115,7 +120,7 @@ const StatusOfFunds = ({ fy }) => {
                         changePage={changeCurrentPage}
                         changeLimit={changePageSize}
                         resultsText
-                        pageSize={pageSize}
+                        pageSize={10}
                         totalItems={totalItems} />
                 </FlexGridCol>
             </FlexGridRow>
