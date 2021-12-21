@@ -6,6 +6,7 @@
 import BaseAgencyRecipients from 'models/v2/agency/BaseAgencyRecipients';
 import BaseAgencySubagencyCount from 'models/v2/agency/BaseAgencySubagencyCount';
 import BaseSubagencySpendingRow from 'models/v2/agency/BaseSubagencySpendingRow';
+import BaseAgencySubcomponentsList from 'models/v2/agency/BaseAgencySubcomponentsList';
 
 // Create an empty recipient object for the initial state
 const recipientDistribution = Object.create(BaseAgencyRecipients);
@@ -16,6 +17,9 @@ subagencyCount.populate();
 
 const spendingBySubagencyTotals = Object.create(BaseSubagencySpendingRow);
 spendingBySubagencyTotals.populate();
+
+const agencySubcomponentsList = Object.create(BaseAgencySubcomponentsList);
+agencySubcomponentsList.populate();
 
 export const initialState = {
     overview: {
@@ -29,7 +33,8 @@ export const initialState = {
     spendingBySubagencyTotals,
     agencySlugs: {},
     topTierCodes: {},
-    selectedSubcomponent: null
+    selectedSubcomponent: null,
+    agencySubcomponentsList
 };
 
 const agencyReducer = (state = initialState, action) => {
@@ -94,6 +99,16 @@ const agencyReducer = (state = initialState, action) => {
             return {
                 ...state,
                 spendingBySubagencyTotals: initialState.spendingBySubagencyTotals
+            };
+        case 'SET_SUBCOMPONENTS_LIST':
+            return {
+                ...state,
+                agencySubcomponentsList: action.agencySubcomponentsList
+            };
+        case 'RESET_SUBCOMPONENTS_LIST':
+            return {
+                ...state,
+                agencySubcomponentsList: initialState.agencySubcomponentsList
             };
         case 'RESET_AGENCY':
             return Object.assign({}, initialState);

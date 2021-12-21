@@ -76,14 +76,23 @@ const toptierCode = '012';
 const name = 'Department of Agriculture';
 describe('Status of Funds Chart Viz Agency v2', () => {
     it('should display formatted amount used for max x axis value', () => {
-        render(<StatusOfFundsChart data={mockChartData} fy={fy} />);
+        render(<StatusOfFundsChart results={mockChartData.results} fy={fy} />);
         // set timeout to wait for expect() to pass after call to render
         setTimeout(() => {
             expect(screen.getByText('$9.1B').toBeInTheDocument());
         }, 1000);
     });
+    it('should display subcomponent names as y axis labels', () => {
+        render(<StatusOfFundsChart results={mockChartData.results} fy={fy} />);
+        // set timeout to wait for expect() to pass after call to render
+        setTimeout(() => {
+            for (let i = 0; i < mockChartData.results.length; i++) {
+                expect(screen.getByText(mockChartData.results[i].name).toBeInTheDocument());
+            }
+        }, 1000);
+    });
     it('should display fy, agency name, and level in chart title', () => {
-        render(<VisualizationSection agencyId={toptierCode} agencyName={name} fy={fy} data={mockChartData} level={0} />);
+        render(<VisualizationSection agencyId={toptierCode} agencyName={name} fy={fy} results={mockChartData.results} level={0} />);
         // set timeout to wait for expect() to pass after call to render
         setTimeout(() => {
             expect(screen.getByText(`${name} by Sub-Component for FY 2021`).toBeInTheDocument());
