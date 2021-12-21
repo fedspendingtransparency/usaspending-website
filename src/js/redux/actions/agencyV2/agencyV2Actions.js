@@ -61,6 +61,15 @@ export const resetSubagencyTotals = () => ({
     type: 'RESET_SUBAGENCY_TOTALS'
 });
 
+export const setAgencySubcomponents = (agencySubcomponentsList) => ({
+    type: 'SET_SUBCOMPONENTS_LIST',
+    agencySubcomponentsList
+});
+
+export const resetAgencySubcomponents = () => ({
+    type: 'RESET_SUBCOMPONENTS_LIST'
+});
+
 export const resetAgency = () => ({
     type: 'RESET_AGENCY'
 });

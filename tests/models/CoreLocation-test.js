@@ -23,6 +23,26 @@ const locationData = {
 const location = Object.create(CoreLocation);
 location.populateCore(locationData);
 
+const multiLocationData = {
+    address1: '',
+    address2: '',
+    province: '',
+    city: '',
+    county: '',
+    countyCode: '',
+    stateCode: '',
+    zip5: '',
+    countryCode: 'USA',
+    country: 'USA',
+    state: '',
+    congressionalDistrict: '90'
+};
+
+const multiLocation = Object.create(CoreLocation);
+multiLocation.populateCore(multiLocationData);
+const multiLocationAddress = 'MULTI-STATE';
+const multiLocationDistrict = 'CONGRESSIONAL DISTRICT: 90 (Multiple Districts)';
+
 const foreignLocationData = {
     province: 'Quebec',
     city: 'Montreal',
@@ -101,6 +121,10 @@ describe('Core Location getter functions', () => {
 
             expect(partialLocation.regionalAddress).toEqual('Pawnee, IN 12345');
         });
+        it('should set regional address to "MULTI-STATE" when' +
+            ' congressionalDistrict is 90', () => {
+            expect(multiLocation.regionalAddress).toEqual(multiLocationAddress);
+        });
     });
     describe('Recipient Regional Address Contracts & IDV', () => {
         it('should use state name property when foreign', () => {
@@ -128,7 +152,8 @@ describe('Core Location getter functions', () => {
     });
     describe('Full Congressional District', () => {
         it('should format the congressional district with a prefix', () => {
-            expect(location.fullCongressionalDistrict).toEqual('\nCongressional District: IN-04');
+            expect(location.fullCongressionalDistrict).toEqual('\nCONGRESSIONAL' +
+                ' DISTRICT: IN-04');
         });
         it('should handle a null congressional district', () => {
             const missingData = Object.assign({}, locationData, {
@@ -138,6 +163,10 @@ describe('Core Location getter functions', () => {
             partialLocation.populateCore(missingData);
 
             expect(partialLocation.fullCongressionalDistrict).toEqual('');
+        });
+        it('should set fullCongressionalDistrict to a predetermined value if' +
+            ' congressionalDistrict is 90', () => {
+            expect(multiLocation.fullCongressionalDistrict).toEqual(multiLocationDistrict);
         });
     });
     describe('Recipient Congressional District', () => {
@@ -175,7 +204,8 @@ describe('Core Location getter functions', () => {
     });
     describe('Full Address', () => {
         it('should format the full address', () => {
-            expect(location.fullAddress).toEqual('602 Trumball Street\nApt 2\nPawnee, IN 12345\nCongressional District: IN-04');
+            expect(location.fullAddress).toEqual('602 Trumball Street\nApt' +
+                ' 2\nPawnee, IN 12345\nCONGRESSIONAL DISTRICT: IN-04');
         });
         it('should handle a null street address', () => {
             const missingData = Object.assign({}, locationData, {
@@ -185,7 +215,7 @@ describe('Core Location getter functions', () => {
             const partialLocation = Object.create(CoreLocation);
             partialLocation.populateCore(missingData);
 
-            expect(partialLocation.fullAddress).toEqual('Pawnee, IN 12345\nCongressional District: IN-04');
+            expect(partialLocation.fullAddress).toEqual('Pawnee, IN 12345\nCONGRESSIONAL DISTRICT: IN-04');
         });
         it('should handle a null city', () => {
             const missingData = Object.assign({}, locationData, {
@@ -194,7 +224,7 @@ describe('Core Location getter functions', () => {
             const partialLocation = Object.create(CoreLocation);
             partialLocation.populateCore(missingData);
 
-            expect(partialLocation.fullAddress).toEqual('602 Trumball Street\nApt 2\nIN 12345\nCongressional District: IN-04');
+            expect(partialLocation.fullAddress).toEqual('602 Trumball Street\nApt 2\nIN 12345\nCONGRESSIONAL DISTRICT: IN-04');
         });
         it('should handle a null state', () => {
             const missingData = Object.assign({}, locationData, {
@@ -214,7 +244,7 @@ describe('Core Location getter functions', () => {
             const partialLocation = Object.create(CoreLocation);
             partialLocation.populateCore(missingData);
 
-            expect(partialLocation.fullAddress).toEqual('602 Trumball Street\nApt 2\nPawnee, IN 12345\nCongressional District: IN-04');
+            expect(partialLocation.fullAddress).toEqual('602 Trumball Street\nApt 2\nPawnee, IN 12345\nCONGRESSIONAL DISTRICT: IN-04');
         });
         it('should handle a two part zip code', () => {
             const data = Object.assign({}, locationData, {

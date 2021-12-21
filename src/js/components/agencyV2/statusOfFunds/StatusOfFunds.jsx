@@ -3,11 +3,14 @@
  * Created by Lizzie Salita 10/27/21
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
-import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
-import { setSelectedSubcomponent } from 'redux/actions/agencyV2/agencyV2Actions';
+import { FlexGridRow, FlexGridCol, Pagination, LoadingMessage } from 'data-transparency-ui';
+import { setSelectedSubcomponent, setAgencySubcomponents, resetAgencySubcomponents } from 'redux/actions/agencyV2/agencyV2Actions';
+import { fetchSubcomponentsList } from 'apis/agencyV2';
+import { parseRows } from 'helpers/agencyV2/StatusOfFundsVizHelper';
+import { useStateWithPrevious } from 'helpers';
 import BaseStatusOfFundsLevel from 'models/v2/agency/BaseStatusOfFundsLevel';
 import Note from 'components/sharedComponents/Note';
 import DrilldownSidebar from './DrilldownSidebar';
@@ -20,75 +23,70 @@ const propTypes = {
 
 export const levels = ['Sub-Component', 'Federal Account'];
 
-// TODO: Replace mock data with API response once endpoints are available
-export const mockChartData = {
-    page_metadata: {
-        page: 1,
-        total: 1,
-        limit: 2,
-        next: 2,
-        previous: null,
-        hasNext: true,
-        hasPrevious: false
-    },
-    results: [
-        {
-            name: "National Oceanic and Atmospheric Administration",
-            total_budgetary_resources: 8000000000,
-            total_obligations: 6000000000
-        },
-        {
-            name: "Bureau of the Census",
-            total_budgetary_resources: 4400000000,
-            total_obligations: 2500000000
-        },
-        {
-            name: "U.S. Patent and Trademark Office",
-            total_budgetary_resources: 4200000000,
-            total_obligations: 2700000000
-        },
-        {
-            name: "Economic Development Administration",
-            total_budgetary_resources: 4150000000,
-            total_obligations: 1300000000
-        },
-        {
-            name: "National Telecommunications and Information Administration",
-            total_budgetary_resources: 2100000000,
-            total_obligations: 50000000
-        },
-        {
-            name: "National Institute of Standards and Technology",
-            total_budgetary_resources: 1900000000,
-            total_obligations: 1560000000
-        },
-        {
-            name: "International Trade Administration",
-            total_budgetary_resources: 1010000000,
-            total_obligations: 960000000
-        },
-        {
-            name: "Departmental Management",
-            total_budgetary_resources: 100500000,
-            total_obligations: 905000000
-        },
-        {
-            name: "Bureau of Industry and Security",
-            total_budgetary_resources: 10500000,
-            total_obligations: 9050000
-        },
-        {
-            name: "Bureau of Economic Analysis",
-            total_budgetary_resources: 5000000,
-            total_obligations: 4000000
-        }
-    ]
-};
-
 const StatusOfFunds = ({ fy }) => {
     const dispatch = useDispatch();
     const [level, setLevel] = useState(0);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
+    const [prevPage, currentPage, changeCurrentPage] = useStateWithPrevious(1);
+    const [prevPageSize, pageSize, changePageSize] = useStateWithPrevious(10);
+    const [totalItems, setTotalItems] = useState(0);
+    const request = useRef(null);
+    const [results, setResults] = useState([]);
     const { overview, selectedSubcomponent } = useSelector((state) => state.agencyV2);
+
+    useEffect(() => {
+        if (request.current) {
+            request.current.cancel();
+        }
+        dispatch(resetAgencySubcomponents());
+    }, []);
+
+    const fetchAgencySubcomponents = async () => {
+        if (request.current) {
+            request.current.cancel();
+        }
+        if (error) {
+            setError(false);
+        }
+        if (!loading) {
+            setLoading(true);
+        }
+        const params = {
+            limit: pageSize,
+            page: currentPage
+        };
+        request.current = fetchSubcomponentsList(overview.toptierCode, fy, params.page);
+        const agencySubcomponentsListRequest = request.current;
+        agencySubcomponentsListRequest.promise
+            .then((res) => {
+                const parsedData = parseRows(res.data.results);
+                setResults(parsedData);
+                dispatch(setAgencySubcomponents(parsedData));
+                setTotalItems(res.data.page_metadata.total);
+                setLoading(false);
+            }).catch((err) => {
+                setError(true);
+                setLoading(false);
+                console.error(err);
+            });
+    };
+
+    useEffect(() => {
+        const hasParamChanged = (
+            prevPage !== currentPage || prevPageSize !== pageSize
+        );
+        if (hasParamChanged) {
+            fetchAgencySubcomponents();
+        }
+    }, [currentPage]);
+
+    useEffect(() => {
+        if (fy && overview.toptierCode) {
+            fetchAgencySubcomponents();
+        }
+    }, [fy, overview.toptierCode]);
+
     // TODO - remove mock data when DEV-8052 is implemented
     const mockData = {
         name: "Bureau of the Census",
@@ -116,7 +114,14 @@ const StatusOfFunds = ({ fy }) => {
                         selectedSubcomponent={selectedSubcomponent} />
                 </FlexGridCol>
                 <FlexGridCol className="status-of-funds__visualization" desktop={9}>
-                    <VisualizationSection level={level} agencyId={overview.toptierCode} agencyName={overview.name} fy={fy} data={mockChartData} />
+                    { results.length !== 0 ? <VisualizationSection level={level} agencyId={overview.toptierCode} agencyName={overview.name} fy={fy} results={results} /> : <LoadingMessage /> }
+                    <Pagination
+                        currentPage={currentPage}
+                        changePage={changeCurrentPage}
+                        changeLimit={changePageSize}
+                        resultsText
+                        pageSize={10}
+                        totalItems={totalItems} />
                 </FlexGridCol>
             </FlexGridRow>
             <Note message={

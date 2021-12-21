@@ -1,17 +1,16 @@
 import React, { useRef, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import * as d3 from 'd3';
-import * as MoneyFormatter from 'helpers/moneyFormatter';
 import { scaleLinear, scaleBand } from 'd3-scale';
 import { throttle } from 'lodash';
 import { largeScreen } from 'dataMapping/shared/mobileBreakpoints';
 
 const propTypes = {
-    data: PropTypes.object,
-    fy: PropTypes.string
+    fy: PropTypes.string,
+    results: PropTypes.array
 };
 
-const StatusOfFundsChart = ({ data, fy }) => {
+const StatusOfFundsChart = ({ results, fy }) => {
     const chartRef = useRef();
     const [windowWidth, setWindowWidth] = useState(0);
     const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth < largeScreen);
@@ -24,10 +23,7 @@ const StatusOfFundsChart = ({ data, fy }) => {
     };
     const chartHeight = viewHeight - margins.top - margins.bottom;
     const chartWidth = viewWidth - margins.left - margins.right;
-    let resultNums = [];
     let resultNames = [];
-    let totalObligationsData = [];
-    const formattedAmounts = [];
 
     useEffect(() => {
         const handleResize = throttle(() => {
@@ -43,17 +39,8 @@ const StatusOfFundsChart = ({ data, fy }) => {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    // extract amounts to get max value for x axis and store agency names in order
-    for (let i = 0; i < data.results.length; i++) {
-        resultNums = resultNums.concat(data.results[i].total_budgetary_resources, data.results[i].total_obligations);
-        resultNames = resultNames.concat(data.results[i].name);
-        totalObligationsData = totalObligationsData.concat(data.results[i].name, data.results[i].total_obligations, data.results[i].total_budgetary_resources);
-    }
-    const sortedNums = data.results.sort((a, b) => (a.total_budgetary_resources > b.total_obligations ? b.total_budgetary_resources - a.total_budgetary_resources : b.total_obligations - a.total_obligations));
-    // format dollar amounts
-    for (let i = 0; i < sortedNums.length; i++) {
-        formattedAmounts.push(MoneyFormatter.formatMoneyWithUnitsShortLabel(sortedNums[i]));
-    }
+    const sortedNums = results.sort((a, b) => (a._budgetaryResources > b._obligations ? b._budgetaryResources - a._budgetaryResources : b._obligations - a._obligations));
+
     // Wrap y axis labels - reference https://bl.ocks.org/mbostock/7555321
     function wrapText(text, width) {
         text.each(function w() {
@@ -83,6 +70,7 @@ const StatusOfFundsChart = ({ data, fy }) => {
     function wrapTextMobile() {
         return '';
     }
+    // d3 responsiveness tweaks
     const chartHeightYScale = () => {
         if (isLargeScreen) {
             return chartHeight + 500;
@@ -142,7 +130,16 @@ const StatusOfFundsChart = ({ data, fy }) => {
         .append('g')
         .attr('transform', `translate(${isLargeScreen ? margins.left - 40 : margins.left}, ${margins.top})`);
     // scale to x and y data points
-    x.domain([0, Math.max(sortedNums[0].total_budgetary_resources, sortedNums[0].total_obligations)]);
+    x.domain([0, Math.max(sortedNums[0]._budgetaryResources, sortedNums[0]._obligations)]);
+    // extract sorted agency names
+    for (let i = 0; i < sortedNums.length; i++) {
+        resultNames = resultNames.concat(sortedNums[i].name);
+    }
+    if (sortedNums.length < 10) {
+        for (let i = sortedNums.length; i < 10; i++) {
+            resultNames = resultNames.concat(' ');
+        }
+    }
     y.domain(resultNames);
     const tickMobileXAxis = isLargeScreen ? 'translate(-130,0)' : 'translate(90, 0)';
     const tickMobileYAxis = isLargeScreen ? 'translate(-150,0)' : 'translate(60, 0)';
@@ -225,7 +222,7 @@ const StatusOfFundsChart = ({ data, fy }) => {
         .append("rect")
         .attr("x", isLargeScreen ? -140 : 80)
         .attr("y", (d) => (isLargeScreen ? y(d.name) + 80 : y(d.name) + 40))
-        .attr("width", (d) => x(d.total_budgetary_resources) + 11)
+        .attr("width", (d) => x(d._budgetaryResources) + 11)
         .attr("height", y.bandwidth() - 36)
         .attr('tabindex', 0)
         .attr("fill", "#BBDFC7");
@@ -237,7 +234,7 @@ const StatusOfFundsChart = ({ data, fy }) => {
         .append("rect")
         .attr("x", isLargeScreen ? -140 : 80)
         .attr("y", (d) => (isLargeScreen ? y(d.name) + 80 : y(d.name) + 40))
-        .attr("width", (d) => x(d.total_obligations) + 11)
+        .attr("width", (d) => x(d._obligations) + 11)
         .attr("height", y.bandwidth() - 36)
         .attr('tabindex', 0)
         .attr("fill", "#2B71B8");

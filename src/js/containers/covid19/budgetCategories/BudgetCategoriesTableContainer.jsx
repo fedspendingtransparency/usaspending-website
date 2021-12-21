@@ -243,7 +243,7 @@ const BudgetCategoriesTableContainer = (props) => {
                 );
             }
             else if (link && props.type === 'agency') {
-                if (AGENCYV2_RELEASED && !slugsError && code) {
+                if (AGENCYV2_RELEASED && !slugsError && code && toptierCodes[code]) {
                     link = (
                         <Link
                             className="agency-profile__link"
