@@ -44,7 +44,7 @@ export default class ChartGroup extends React.Component {
 
     processLink(label) {
         let linkClass = '';
-        if (this.props.linkID !== '') {
+        if (this.props.linkID !== '' && this.props.linkID !== 'agency_v2/') {
             linkClass = ' group-label-link';
         }
         let title = (
@@ -59,7 +59,10 @@ export default class ChartGroup extends React.Component {
 
         /* eslint-disable jsx-a11y/anchor-is-valid */
         // the link is actually valid since the URL root will provide an absolute URL
-        if (this.props.linkID !== '') {
+        /* with ticket 7829, agencies with no agency page will not have an
+        agencySlug but will still have the v2 agencyString in their linkId,
+        so we need to make sure that isn't the case before making the link*/
+        if (this.props.linkID !== '' && this.props.linkID !== 'agency_v2/') {
             title = (
                 <a xlinkHref={`${this.props.urlRoot}${this.props.linkID}`}>
                     <text
