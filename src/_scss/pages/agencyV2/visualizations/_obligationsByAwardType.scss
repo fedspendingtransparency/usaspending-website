@@ -17,13 +17,13 @@
         }
     }
 
-    @media (min-width: 991px) and (max-width: 1200px) {
+    @media (min-width: 991px) and (max-width: 1400px) {
         &.tooltip-wrapper .tooltip-spacer {
-            left: -15rem !important;
+            left: -15rem;
         }
 
         .tooltip-pointer.bottom {
-            left: 26rem !important;
+            left: 26rem;
         }
     }
 
