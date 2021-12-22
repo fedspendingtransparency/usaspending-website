@@ -106,12 +106,6 @@
           background: $color-gray;
           border: none;
         }
-        .usda-section-title__container {
-          .usda-section-title__title-icon {
-            margin-left: 0;
-            width: 4rem;
-          }
-        }
         .body__content {
           width: 100%; // Fixes an IE Flexbox bug
           h3.body__narrative {
