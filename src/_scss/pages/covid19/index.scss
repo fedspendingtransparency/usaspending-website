@@ -109,7 +109,7 @@
         }
         .body__content {
           width: 100%; // Fixes an IE Flexbox bug
-          h3.body__narrative {
+          h4.body__narrative {
             text-align: left;
             font-weight: $font-semibold;
             font-size: 2rem;

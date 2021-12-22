@@ -138,13 +138,13 @@ const AmountsVisualization = ({
                     items={[
                         <div>
                             {publicLaw === 'american-rescue-plan' ?
-                                <h3 className="body__narrative amounts-viz__title">
+                                <h4 className="body__narrative amounts-viz__title">
                                     This is how much was <strong>spent</strong> so far through the American Rescue Plan
-                                </h3>
+                                </h4>
                                 :
-                                <h3 className="body__narrative amounts-viz__title">
+                                <h4 className="body__narrative amounts-viz__title">
                                     This is how much was <strong>spent</strong> so far in response to COVID-19
-                                </h3>
+                                </h4>
                             }
                             <svg height={amountsHeight} width={width} className="amounts-viz__svg">
                                 <DefaultAmountViz
@@ -184,9 +184,9 @@ const AmountsVisualization = ({
                             }
                         </div>,
                         <div>
-                            <h3 className="body__narrative amounts-viz__title">
+                            <h4 className="body__narrative amounts-viz__title">
                                     Total Budgetary Resources
-                            </h3>
+                            </h4>
                             <svg height={amountsHeight} width={width} className="amounts-viz__svg">
                                 <DefaultAmountViz
                                     displayTooltip={displayTooltip}
@@ -205,9 +205,9 @@ const AmountsVisualization = ({
                             </div>
                         </div>,
                         <div>
-                            <h3 className="body__narrative amounts-viz__title">
+                            <h4 className="body__narrative amounts-viz__title">
                                     Total Obligations
-                            </h3>
+                            </h4>
                             <svg height={amountsHeight} width={width} className="amounts-viz__svg">
                                 <DefaultAmountViz
                                     displayTooltip={displayTooltip}
@@ -235,9 +235,9 @@ const AmountsVisualization = ({
                             </div>
                         </div>,
                         <div>
-                            <h3 className="body__narrative amounts-viz__title">
+                            <h4 className="body__narrative amounts-viz__title">
                                     Total Outlays
-                            </h3>
+                            </h4>
                             <svg height={amountsHeight} width={width} className="amounts-viz__svg">
                                 <DefaultAmountViz
                                     displayTooltip={displayTooltip}
