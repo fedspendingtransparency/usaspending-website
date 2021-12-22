@@ -103,7 +103,7 @@ const StatusOfFunds = ({ fy }) => {
     };
     return (
         <div className="body__content status-of-funds">
-            <IntroSection name={overview.name} fy={fy} />
+            <IntroSection name={overview.name} fy={fy} totalItems={totalItems} />
             <FlexGridRow hasGutter>
                 <FlexGridCol className="status-of-funds__drilldown-sidebar" desktop={3}>
                     <DrilldownSidebar
