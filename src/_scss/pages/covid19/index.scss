@@ -4,6 +4,7 @@
   @import "layouts/default/stickyHeader/header";
   @import "components/pageLoading";
   @import "./header";
+  @import "mixins/profilePage";
   
   @include display(flex);
   @include justify-content(flex-start);
@@ -112,7 +113,7 @@
             text-align: left;
             font-weight: $font-semibold;
             font-size: 2rem;
-            padding-left: 4.5rem;
+            @include profile-page-wrap;
           }
 
           .body__narrative-description {
@@ -120,7 +121,7 @@
             text-align: left;
             margin: auto;
             padding-bottom: 5rem;
-            padding-left: 4.5rem;
+            @include profile-page-wrap;
             .footnotes {
               font-size: $smallest-font-size;
               .usda-external-link {
@@ -270,7 +271,7 @@
           font-style: italic;
           letter-spacing: 0;
           line-height: 1.5rem;
-          padding-left: 5rem;
+          @include profile-page-wrap;
         }
         &.award_question {
           .body__header {

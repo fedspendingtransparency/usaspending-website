@@ -3,6 +3,7 @@
 	@import 'layouts/default/default';
 	@import 'components/pageLoading';
 	@import 'layouts/default/stickyHeader/header';
+    @import 'mixins/profilePage';
 
 	@include display(flex);
 	@include justify-content(flex-start);
@@ -86,10 +87,7 @@
             @import './statusOfFunds/statusOfFunds';
             @import 'components/Note';
             .default-note {
-                @media (min-width: $medium-screen) {
-                    padding-left: 4rem;
-                    padding-right: 4rem;
-                }
+                @include profile-page-wrap;
             }
         }
     }
