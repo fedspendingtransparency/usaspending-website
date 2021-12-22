@@ -48,3 +48,7 @@ export const fetchSubagencySummary = (code, fy, params) => apiRequest({
 export const fetchAgencySlugs = () => apiRequest({
     url: 'v2/references/toptier_agencies'
 });
+
+export const fetchSubcomponentsList = (code, fy, page) => apiRequest({
+    url: `v2/agency/${code}/sub_components/${fy ? `?fiscal_year=${fy}` : ''}${page ? `&page=${page}` : ''}`
+});

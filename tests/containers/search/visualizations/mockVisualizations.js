@@ -25,12 +25,14 @@ export const awardingAgency = {
         {
             name: 'First Agency',
             code: 'FA',
-            amount: '456'
+            amount: '456',
+            agency_slug: 'slug1'
         },
         {
             name: 'Second Agency',
             code: 'SA',
-            amount: '123'
+            amount: '123',
+            agency_slug: 'slug2'
         }
     ]
 };

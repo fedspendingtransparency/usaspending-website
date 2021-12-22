@@ -4,25 +4,26 @@
  * */
 
 import React from "react";
-import { render, waitFor } from "test-utils";
+import { render, waitFor, screen } from "test-utils";
 import "@testing-library/jest-dom/extend-expect";
 import BudgetCategoriesTableContainer from "containers/covid19/budgetCategories/BudgetCategoriesTableContainer";
 import * as api from "apis/disaster";
+import * as hooks from "containers/agencyV2/WithAgencySlugs";
 import { defaultState } from "../../../testResources/defaultReduxFilters";
 
 const mockResults = [{
     id: 123,
-    code: "020",
-    description: "Department of the Treasury",
+    code: "045",
+    description: "Department of Sandwiches",
     children: [],
     award_count: 25,
     obligation: 2000,
     outlay: 1500,
     total_budgetary_resources: 2500
 }, {
-    id: 123,
-    code: "020",
-    description: "Small Business Administration",
+    id: 789,
+    code: "000",
+    description: "Ministry of Magic",
     children: [],
     award_count: 23,
     obligation: 1000,
@@ -85,6 +86,143 @@ describe("BudgetCategoriesTableContainer", () => {
         );
         waitFor(() => {
             expect(spy).toHaveBeenCalledTimes(2);
+        });
+    });
+    it('should use agency id for agency URLs if Agency Profile v2 has not been released', () => {
+        // Mock the API response
+        jest.spyOn(api, "fetchDisasterSpending").mockReturnValue({
+            promise: Promise.resolve({
+                data: {
+                    results: mockResults,
+                    page_metadata: {
+                        total: 20
+                    }
+                }
+            }),
+            cancel: jest.fn()
+        });
+
+        // Mock the Global Constants
+        jest.mock('GlobalConstants', () => ({
+            AGENCY_LINK: 'agency',
+            AGENCYV2_RELEASED: false
+        }));
+
+        // Mock the custom hook, useAgencySlugs
+        jest.spyOn(hooks, "useAgencySlugs").mockReturnValue([
+            {},
+            {
+                "045": 'department-of-sandwiches',
+                "000": 'ministry-of-magic'
+            },
+            false,
+            false
+        ]);
+        render(
+            <BudgetCategoriesTableContainer
+                type="agency"
+                subHeading="sub heading"
+                scrollIntoView={jest.fn()} />,
+            {
+                initialState: {
+                    ...defaultState
+                }
+            }
+        );
+        waitFor(() => {
+            expect(screen.getByText(mockResults[0].description))
+                .toHaveAttribute('href', `/agency/${mockResults[0].id}`);
+        });
+    });
+    it('should use agency slug for the agency URLs if Agency Profile v2 has been released', () => {
+        // Mock the API response
+        jest.spyOn(api, "fetchDisasterSpending").mockReturnValue({
+            promise: Promise.resolve({
+                data: {
+                    results: mockResults,
+                    page_metadata: {
+                        total: 20
+                    }
+                }
+            }),
+            cancel: jest.fn()
+        });
+
+        // Mock the Global Constants
+        jest.mock('GlobalConstants', () => ({
+            AGENCY_LINK: 'agency_v2',
+            AGENCYV2_RELEASED: true
+        }));
+
+        // Mock the custom hook, useAgencySlugs
+        jest.spyOn(hooks, "useAgencySlugs").mockReturnValue([
+            {},
+            {
+                "045": 'department-of-sandwiches',
+                "000": 'ministry-of-magic'
+            },
+            false,
+            false
+        ]);
+
+        render(
+            <BudgetCategoriesTableContainer
+                type="agency"
+                subHeading="sub heading"
+                scrollIntoView={jest.fn()} />,
+            {
+                initialState: {
+                    ...defaultState
+                }
+            }
+        );
+        waitFor(() => {
+            expect(screen.getByText(mockResults[0].description))
+                .toHaveAttribute('href', '/agency_v2/department-of-sandwiches');
+        });
+    });
+    it('should just display the agency name (with no link) if no slug mapping is available', () => {
+        // Mock the API response
+        jest.spyOn(api, "fetchDisasterSpending").mockReturnValue({
+            promise: Promise.resolve({
+                data: {
+                    results: mockResults,
+                    page_metadata: {
+                        total: 20
+                    }
+                }
+            }),
+            cancel: jest.fn()
+        });
+
+        // Mock the Global Constants
+        jest.mock('GlobalConstants', () => ({
+            AGENCY_LINK: 'agency_v2',
+            AGENCYV2_RELEASED: true
+        }));
+
+        // Mock the custom hook, useAgencySlugs
+        jest.spyOn(hooks, "useAgencySlugs").mockReturnValue([
+            {},
+            { "045": 'department-of-sandwiches' },
+            false,
+            false
+        ]);
+
+        render(
+            <BudgetCategoriesTableContainer
+                type="agency"
+                subHeading="sub heading"
+                scrollIntoView={jest.fn()} />,
+            {
+                initialState: {
+                    ...defaultState
+                }
+            }
+        );
+        waitFor(() => {
+            expect(screen.getByText(mockResults[1].description))
+                .not.toHaveAttribute('href');
         });
     });
 });

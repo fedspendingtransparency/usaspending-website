@@ -1,7 +1,42 @@
 .status-of-funds__visualization {
+    .status-of-funds__visualization-pagination {
+        @media(min-width: $large-screen) {
+            margin-left: rem(32);
+        }
+    }
+    .status-of-funds__visualization-chart {
+        @media(min-width: $large-screen) {
+            margin-left: rem(20);
+        }
+        svg {
+            height: 100% !important;
+            width: 100% !important;
+        }
+        text.y-axis-labels {
+            font-size: rem(20);
+            @media(max-width: 1499px) {
+                font-size: rem(23);
+            }
+            @media(max-width: 1199px) {
+                font-size: rem(30);
+            }
+            @media(max-width: $medium-screen) {
+                font-size: rem(28);
+            }
+            @media(max-width: 599px) {
+                font-size: rem(40);
+            }
+            @media(max-width: 350px) {
+                font-size: rem(44);
+            }
+        }
+    }
     h6 {
         font-size: rem(20);
         font-weight: 400;
+        @media(min-width: $medium-screen) {
+            margin-top: 0;
+        }
         @media(min-width: $large-screen) {
             margin-left: rem(32);
         }

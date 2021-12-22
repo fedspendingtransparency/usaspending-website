@@ -13,11 +13,11 @@ import { flowRight } from 'lodash';
 
 import { SUBMISSION_PERIOD_PROPS, LATEST_PERIOD_PROPS } from 'propTypes';
 
-import * as AccountHelper from 'helpers/accountHelper';
+import * as AccountHelper from 'apis/account';
 import * as accountActions from 'redux/actions/account/accountActions';
 import * as filterActions from 'redux/actions/account/accountFilterActions';
 
-import FederalAccount from 'models/account/FederalAccount';
+import FederalAccount from 'models/v1/account/FederalAccount';
 import { fiscalYearSnapshotFields } from 'dataMapping/accounts/accountFields';
 
 import withLatestFy from 'containers/account/WithLatestFy';

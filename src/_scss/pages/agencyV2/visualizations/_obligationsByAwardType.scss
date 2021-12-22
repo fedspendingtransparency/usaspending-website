@@ -33,7 +33,6 @@
     // Tooltip content
     .award-type-tooltip {
         position: relative;
-        z-index: 15;
         .tooltip__text {
             display: block;
         }
@@ -63,14 +62,6 @@
                         &.award-type-tooltip__table-data_active {
                             font-weight: $font-semibold;
                         }
-                    }
-                }
-                &:last-child {
-                    margin-top: rem(5);
-                    border-top: solid 1px $color-gray-lighter;
-                    .usda-table__cell {
-                        font-weight: $font-semibold;
-                        padding-top: rem(8);
                     }
                 }
             }

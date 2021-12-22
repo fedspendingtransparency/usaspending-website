@@ -11,7 +11,7 @@ import { useDispatch } from 'react-redux';
 import { fetchAgencyOverview } from 'apis/agencyV2';
 import { useQueryParams } from 'helpers/queryParams';
 import BaseAgencyOverview from 'models/v2/agency/BaseAgencyOverview';
-import { setAgencyOverview } from 'redux/actions/agencyV2/agencyV2Actions';
+import { setAgencyOverview, resetAgency } from 'redux/actions/agencyV2/agencyV2Actions';
 
 import { useValidTimeBasedQueryParams, useLatestAccountData } from 'containers/account/WithLatestFy';
 import AgencyPage from 'components/agencyV2/AgencyPage';
@@ -23,7 +23,7 @@ export const AgencyProfileV2 = () => {
     const { fy: currentUrlFy } = useQueryParams(['fy']);
     const [selectedFy, setSelectedFy] = useValidTimeBasedQueryParams(currentUrlFy, null, ['fy']);
     // Use a custom hook to get the { agency slug: toptier code } mapping, or request it if not yet available
-    const [agencySlugs, slugsLoading, slugsError] = useAgencySlugs();
+    const [agencySlugs, , , slugsLoading, slugsError] = useAgencySlugs();
     const [isLoading, setLoading] = useState(true);
     const [isError, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');
@@ -75,6 +75,11 @@ export const AgencyProfileV2 = () => {
             setError(true);
         }
     }, [agencySlugs, slugsLoading, slugsError]);
+
+    useEffect(() => () => {
+        // cleanup
+        dispatch(resetAgency());
+    }, [agencySlug]);
 
     if (redirect) {
         return <Redirect to="/404" />;

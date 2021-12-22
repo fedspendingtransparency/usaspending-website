@@ -3,7 +3,7 @@
  * Created by Kevin Li 6/15/17
  */
 
-import AgencyOverviewModel from 'models/agency/AgencyOverviewModel';
+import AgencyOverviewModel from 'models/v1/agency/AgencyOverviewModel';
 
 import agencyReducer, { initialState } from 'redux/reducers/agency/agencyReducer';
 

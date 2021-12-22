@@ -16,7 +16,7 @@ import { setAppliedFilterEmptiness, resetAppliedFilters } from 'redux/actions/se
 import * as SearchHelper from 'helpers/searchHelper';
 import * as DownloadHelper from 'helpers/downloadHelper';
 
-import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
+import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 
 import SearchPage from 'components/search/SearchPage';
 

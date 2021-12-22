@@ -73,38 +73,46 @@ export default function ObligationsByAwardTypeContainer({ fiscalYear, windowWidt
                         fadedColor: 'rgb(84, 91, 163, 25%)'
                     }
                 ];
+
                 const details = [
                     {
                         label: 'Grants',
                         color: 'rgb(230, 111, 14)',
-                        fadedColor: 'rgb(230, 111, 14, 25%)'
+                        fadedColor: 'rgb(230, 111, 14, 25%)',
+                        type: 'financial'
                     },
                     {
                         label: 'Loans',
                         color: 'rgb(255, 188, 120)',
-                        fadedColor: 'rgb(255, 188, 120, 25%)'
+                        fadedColor: 'rgb(255, 188, 120, 25%)',
+                        type: 'financial'
                     },
                     {
                         label: 'Direct Payments',
                         color: 'rgb(250, 148, 65)',
-                        fadedColor: 'rgb(250, 148, 65, 25%)'
+                        fadedColor: 'rgb(250, 148, 65, 25%)',
+                        type: 'financial'
                     },
                     {
                         label: 'Other Financial Assistance',
                         color: 'rgb(252, 226, 197)',
-                        fadedColor: 'rgb(252, 226, 197, 25%)'
+                        fadedColor: 'rgb(252, 226, 197, 25%)',
+                        type: 'financial'
                     },
                     {
                         label: 'Contracts',
                         color: 'rgb(127, 132, 186)',
-                        fadedColor: 'rgb(127, 132, 186, 25%)'
+                        fadedColor: 'rgb(127, 132, 186, 25%)',
+                        type: 'contracts'
                     },
                     {
                         label: 'IDVs',
                         color: 'rgb(169, 173, 209)',
-                        fadedColor: 'rgb(169, 173, 209, 25%)'
+                        fadedColor: 'rgb(169, 173, 209, 25%)',
+                        type: 'contracts'
                     }
                 ];
+
                 res.data.results.forEach((d) => {
                     switch (d.category) {
                         case 'grants':

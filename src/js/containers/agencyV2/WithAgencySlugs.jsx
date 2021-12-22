@@ -4,7 +4,7 @@ import { isEmpty } from 'lodash';
 import { fetchAgencySlugs } from 'apis/agencyV2';
 import { setAgencySlugs } from 'redux/actions/agencyV2/agencyV2Actions';
 
-export const parseAgencySlugs = (results) => (
+export const mapSlugToTopTierCode = (results) => (
     results.reduce((acc, agency) => {
         /* eslint-disable camelcase */
         const { agency_slug, toptier_code } = agency;
@@ -13,11 +13,29 @@ export const parseAgencySlugs = (results) => (
     }, {})
 );
 
+export const mapTopTierCodeToSlug = (results) => (
+    results.reduce((acc, agency) => {
+        /* eslint-disable camelcase */
+        const { agency_slug, toptier_code } = agency;
+        return { ...acc, [toptier_code]: agency_slug };
+        /* eslint-enable camelcase */
+    }, {})
+);
+
+export const mapIdToSlug = (results) => (
+    results.reduce((acc, agency) => {
+        /* eslint-disable camelcase */
+        const { agency_slug, agency_id } = agency;
+        return { ...acc, [`${agency_id}`]: agency_slug };
+        /* eslint-enable camelcase */
+    }, {})
+);
+
 export const useAgencySlugs = () => {
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
-    const { agencySlugs } = useSelector((state) => state.agencyV2);
+    const { agencySlugs, topTierCodes, agencyIds } = useSelector((state) => state.agencyV2);
     const request = useRef();
 
     useEffect(() => {
@@ -30,8 +48,10 @@ export const useAgencySlugs = () => {
             request.current = fetchAgencySlugs();
             request.current.promise
                 .then(({ data }) => {
-                    const slugsMapping = parseAgencySlugs(data.results);
-                    dispatch(setAgencySlugs(slugsMapping));
+                    const slugsMapping = mapSlugToTopTierCode(data.results);
+                    const topTierCodesMapping = mapTopTierCodeToSlug(data.results);
+                    const idMapping = mapIdToSlug(data.results);
+                    dispatch(setAgencySlugs(slugsMapping, topTierCodesMapping, idMapping));
                     setLoading(false);
                     setError(false);
                     request.current = null;
@@ -48,13 +68,13 @@ export const useAgencySlugs = () => {
                 request.current.cancel();
             }
         };
-    }, [agencySlugs]);
+    }, [agencySlugs, topTierCodes, agencyIds]);
 
-    return [agencySlugs, loading, error];
+    return [agencySlugs, topTierCodes, agencyIds, loading, error];
 };
 
 const withAgencySlugs = (WrappedComponent) => (props) => {
-    const [agencySlugs, loading, error] = useAgencySlugs();
+    const [agencySlugs, , , loading, error] = useAgencySlugs();
     return (
         <WrappedComponent
             {...props}

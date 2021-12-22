@@ -9,9 +9,9 @@ import { useSelector } from 'react-redux';
 import { isCancel } from 'axios';
 import PropTypes from 'prop-types';
 import { Table, Pagination, Picker, TooltipWrapper } from 'data-transparency-ui';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { Link } from 'react-router-dom';
 
+import { AGENCY_LINK, AGENCYV2_RELEASED } from 'GlobalConstants';
 import Analytics from 'helpers/analytics/Analytics';
 
 import {
@@ -24,10 +24,8 @@ import {
 import { fetchDisasterSpending, fetchLoanSpending } from 'apis/disaster';
 import { handleSort, calculateUnlinkedTotals } from 'helpers/covid19Helper';
 
-import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
-import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 import BaseBudgetCategoryRow from 'models/v2/covid19/BaseBudgetCategoryRow';
-
+import { useAgencySlugs } from 'containers/agencyV2/WithAgencySlugs';
 import { SpendingTypesTT } from 'components/covid19/Covid19Tooltips';
 
 const propTypes = {
@@ -35,8 +33,6 @@ const propTypes = {
     subHeading: PropTypes.string,
     scrollIntoView: PropTypes.func.isRequired
 };
-
-let tableHeight = 'auto';
 
 const budgetDropdownColumns = {
     total_spending: [
@@ -117,7 +113,6 @@ const budgetDropdownColumns = {
     ]
 };
 
-
 const totalBudgetaryResourcesColumn = {
     title: 'totalBudgetaryResources',
     displayName: (
@@ -142,14 +137,15 @@ const BudgetCategoriesTableContainer = (props) => {
     const [results, setResults] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
-    const [spendingCategory, setSpendingCategory] = useState("total_spending");
+    const [spendingCategory, setSpendingCategory] = useState('total_spending');
     const tableRef = useRef(null);
     const tableWrapperRef = useRef(null);
     const errorOrLoadingWrapperRef = useRef(null);
     const request = useRef(null);
     const [unlinkedDataClass, setUnlinkedDataClass] = useState(false);
+    const [, toptierCodes, , , slugsError] = useAgencySlugs();
 
-    const { overview, defcParams, allAwardTypeTotals } = useSelector((state) => state.covid19);
+    const { overview, defcParams } = useSelector((state) => state.covid19);
 
     const clickedAgencyProfile = (agencyName) => {
         Analytics.event({
@@ -246,15 +242,27 @@ const BudgetCategoriesTableContainer = (props) => {
                     </Link>
                 );
             }
-            else if (link && id && props.type === 'agency') {
-                link = (
-                    <Link
-                        className="agency-profile__link"
-                        onClick={clickedAgencyProfile.bind(null, `${budgetCategoryRow.name}`)}
-                        to={`/agency/${id}`}>
-                        {budgetCategoryRow.name}
-                    </Link>
-                );
+            else if (link && props.type === 'agency') {
+                if (AGENCYV2_RELEASED && !slugsError && code && toptierCodes[code]) {
+                    link = (
+                        <Link
+                            className="agency-profile__link"
+                            onClick={clickedAgencyProfile.bind(null, `${budgetCategoryRow.name}`)}
+                            to={`/${AGENCY_LINK}/${toptierCodes[code]}`}>
+                            {budgetCategoryRow.name}
+                        </Link>
+                    );
+                }
+                else if (!AGENCYV2_RELEASED && id) {
+                    link = (
+                        <Link
+                            className="agency-profile__link"
+                            onClick={clickedAgencyProfile.bind(null, `${budgetCategoryRow.name}`)}
+                            to={`/${AGENCY_LINK}/${id}`}>
+                            {budgetCategoryRow.name}
+                        </Link>
+                    );
+                }
             }
 
             return {
@@ -291,7 +299,6 @@ const BudgetCategoriesTableContainer = (props) => {
                     order
                 }
             };
-
 
             if (spendingCategory !== 'loan_spending') {
                 params.spending_type = apiSpendingTypes[spendingCategory];
@@ -335,7 +342,7 @@ const BudgetCategoriesTableContainer = (props) => {
             fetchBudgetSpendingCallback();
         }
         changeCurrentPage(1);
-    }, [pageSize, sort, order, defcParams, overview, allAwardTypeTotals]);
+    }, [pageSize, sort, order, defcParams]);
 
     useEffect(() => {
         fetchBudgetSpendingCallback();
@@ -367,17 +374,6 @@ const BudgetCategoriesTableContainer = (props) => {
         Analytics.event({ category: 'covid-19 - profile', action: `total spending - ${props.type} - ${spendingCategory}` });
     };
 
-    if (loading) {
-        if (tableRef.current) {
-            tableHeight = tableRef.current.offsetHeight;
-        }
-    }
-    else if (error) {
-        if (tableRef.current) {
-            tableHeight = tableRef.current.offsetHeight;
-        }
-    }
-
     const spendingViewPicker = () => (
         <div className="budget-categories-table__header">
             <label htmlFor="usa-dt-picker">Show amounts based on: </label>
@@ -400,41 +396,6 @@ const BudgetCategoriesTableContainer = (props) => {
         </div>
     );
 
-    if (loading || error) {
-        return (
-            <div ref={errorOrLoadingWrapperRef}>
-                {spendingViewPicker()}
-                <Pagination
-                    currentPage={currentPage}
-                    changePage={changeCurrentPage}
-                    changeLimit={changePageSize}
-                    limitSelector
-                    resultsText
-                    pageSize={pageSize}
-                    totalItems={totalItems} />
-                <TransitionGroup>
-                    <CSSTransition
-                        classNames="table-message-fade"
-                        timeout={{ exit: 225, enter: 195 }}
-                        exit>
-                        <div className="results-table-message-container" style={{ height: tableHeight }}>
-                            {error && <ResultsTableErrorMessage />}
-                            {loading && <ResultsTableLoadingMessage />}
-                        </div>
-                    </CSSTransition>
-                </TransitionGroup>
-                <Pagination
-                    currentPage={currentPage}
-                    changePage={changeCurrentPage}
-                    changeLimit={changePageSize}
-                    limitSelector
-                    resultsText
-                    pageSize={pageSize}
-                    totalItems={totalItems} />
-            </div>
-        );
-    }
-
     return (
         <div ref={tableWrapperRef}>
             {spendingViewPicker()}
@@ -453,7 +414,9 @@ const BudgetCategoriesTableContainer = (props) => {
                     columns={renderColumns()}
                     currentSort={{ field: sort, direction: order }}
                     updateSort={updateSort}
-                    divider={props.subHeading} />
+                    divider={props.subHeading}
+                    loading={loading}
+                    error={error} />
             </div>
             <Pagination
                 currentPage={currentPage}

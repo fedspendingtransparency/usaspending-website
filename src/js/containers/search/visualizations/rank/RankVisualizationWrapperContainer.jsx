@@ -21,10 +21,12 @@ import SpendingByRecipientSection from 'components/search/visualizations/rank/se
 import SpendingByCFDASection from 'components/search/visualizations/rank/sections/SpendingByCFDASection';
 import SpendingByIndustryCodeSection from 'components/search/visualizations/rank/sections/SpendingByIndustryCodeSection';
 
-import SearchAwardsOperation from 'models/search/SearchAwardsOperation';
+import SearchAwardsOperation from 'models/v1/search/SearchAwardsOperation';
 import BaseSpendingByCategoryResult from 'models/v2/search/visualizations/rank/BaseSpendingByCategoryResult';
 
 import { categoryNames, defaultScopes } from 'dataMapping/search/spendingByCategory';
+
+import GlobalConstants from "../../../../GlobalConstants";
 
 const combinedActions = Object.assign({}, searchFilterActions, {
     setAppliedFilterCompletion
@@ -200,6 +202,11 @@ export class RankVisualizationWrapperContainer extends React.Component {
             if (this.state.scope === 'recipient_duns' && !this.props.subaward) {
                 const recipientLink = result.recipientId ? `recipient/${result.recipientId}/latest` : '';
                 linkSeries.push(recipientLink);
+            }
+
+            if (this.state.scope === 'awarding_agency') {
+                const awardingLink = `${GlobalConstants.AGENCY_LINK}/${result._agencySlug}`;
+                linkSeries.push(awardingLink);
             }
 
             const description = `Spending by ${result.name}: ${result.amount}`;
