@@ -1,8 +1,8 @@
 .agency-overview {
+    @import 'mixins/profilePage';
     @import './fySummary';
     .agency-overview__row {
-        padding-left: 4rem;
-        padding-right: 4rem;
+        @include profile-page-wrap;
         .usa-dt-flex-grid__col-4 {
             padding-left: 3.2rem;
         }

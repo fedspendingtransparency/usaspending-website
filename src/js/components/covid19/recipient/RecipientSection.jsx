@@ -28,12 +28,12 @@ const RecipientSection = ({ publicLaw }) => {
         <div className="body__content recipient__container">
             <DateNote />
             {publicLaw === 'american-rescue-plan' ?
-                <h3 className="body__narrative">
+                <h4 className="body__narrative">
                     <strong>Who</strong> received funding through American Rescue Plan awards?
-                </h3> :
-                <h3 className="body__narrative">
+                </h4> :
+                <h4 className="body__narrative">
                     <strong>Who</strong> received funding through COVID-19 awards?
-                </h3>
+                </h4>
             }
             <div className="body__narrative-description">
                 <p>
