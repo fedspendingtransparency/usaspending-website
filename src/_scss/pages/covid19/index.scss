@@ -32,7 +32,6 @@
       }
     }
     @import "./sidebar";
-    @import "./sidebarFooter";
     .body {
       @include display(flex);
       @include flex(1 1 auto);
