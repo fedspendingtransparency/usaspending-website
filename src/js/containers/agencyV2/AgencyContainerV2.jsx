@@ -24,7 +24,7 @@ export const AgencyProfileV2 = () => {
         const checkQueryString = stripUrlParams(window.location.search, "fy");
         if (checkQueryString !== window.location.search) {
             history.replace({
-                search: checkQueryString,
+                search: checkQueryString
             });
         }
     }
@@ -105,8 +105,7 @@ export const AgencyProfileV2 = () => {
             agencySlug={agencySlug}
             isLoading={isLoading}
             isError={isError}
-            errorMessage={errorMessage}
-        />
+            errorMessage={errorMessage} />
     );
 };
 
