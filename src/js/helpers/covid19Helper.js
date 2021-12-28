@@ -23,16 +23,6 @@ export const fetchOpportunityTotals = (code) => apiRequest({
     url: code ? `v2/references/cfda/totals/${code}/` : `v2/references/cfda/totals/`
 });
 
-export const getVerticalOffsetForSidebarFooter = () => {
-    const isCovidBannerHidden = Cookies.get(dataDisclaimerBannerCookie) === 'hide';
-    const padding = 20;
-    if (isCovidBannerHidden) {
-        return stickyHeaderHeight + padding;
-    }
-
-    return stickyHeaderHeight + dataDisclaimerHeight + padding;
-};
-
 export const getStickyBreakPointForCovidBanner = () => {
     const isGlobalBannerHidden = Cookies.get(globalCovidBannerCookie) === 'hide';
     if (isGlobalBannerHidden) {

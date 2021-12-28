@@ -21,7 +21,7 @@ import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
 import LinkToAdvancedSearchContainer from 'containers/covid19/LinkToAdvancedSearchContainer';
 import { handleShareOptionClick, getBaseUrl } from 'helpers/socialShare';
 import { covidPageMetaTags } from 'helpers/metaTagHelper';
-import { jumpToSection, getVerticalOffsetForSidebarFooter } from 'helpers/covid19Helper';
+import { jumpToSection } from 'helpers/covid19Helper';
 import { slug, getEmailSocialShareData } from 'dataMapping/covid19/covid19';
 import { getQueryParamString, useQueryParams } from 'helpers/queryParams';
 import { showModal } from 'redux/actions/modal/modalActions';
@@ -30,7 +30,6 @@ import OtherResources from 'components/covid19/OtherResources';
 import Analytics from 'helpers/analytics/Analytics';
 import { componentByCovid19Section } from 'containers/covid19/helpers/covid19';
 import DownloadButtonContainer from 'containers/covid19/DownloadButtonContainer';
-import SidebarFooter from 'components/covid19/SidebarFooter';
 import GlobalConstants from 'GlobalConstants';
 import PublicLawPicker from './PublicLawPicker';
 
@@ -116,15 +115,7 @@ const Covid19Page = ({ loading }) => {
                                     .map((section) => ({
                                         section: snakeCase(section),
                                         label: componentByCovid19Section()[section].title
-                                    }))} >
-                                <div className="sidebar-footer">
-                                    <SidebarFooter
-                                        pageName="covid19"
-                                        isGoingToBeSticky
-                                        verticalOffset={getVerticalOffsetForSidebarFooter()}
-                                        fixedStickyBreakpoint={getStickyBreakPointForSidebar()} />
-                                </div>
-                            </Sidebar>
+                                    }))} />
                         </div>
                     </div>
                     <div className="body usda__flex-col">
