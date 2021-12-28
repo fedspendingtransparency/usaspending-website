@@ -4,9 +4,8 @@
 **/
 
 import React from 'react';
-import { isEqual, omit, differenceWith, slice } from 'lodash';
+import { isEqual, omit, differenceWith } from 'lodash';
 import { isCancel } from 'axios';
-import { Search, PrefixIndexStrategy } from 'js-search';
 import PropTypes from 'prop-types';
 
 import * as SearchHelper from 'helpers/searchHelper';
@@ -70,34 +69,26 @@ export default class CFDAListContainer extends React.Component {
             }
 
             const cfdaSearchParams = {
-                search_text: this.state.cfdaSearchString
+                search_text: this.state.cfdaSearchString,
+                limit: 1000
             };
 
             this.cfdaSearchRequest = SearchHelper.fetchCFDA(cfdaSearchParams);
 
             this.cfdaSearchRequest.promise
                 .then((res) => {
-                    const data = res.data.results;
+                    const results = res.data.results;
                     let autocompleteData = [];
-                    const search = new Search('program_number');
-                    // ordering by prefix if there are matches returned that begin w/ the exact text
-                    search.indexStrategy = new PrefixIndexStrategy();
-                    search.addIndex(['program_number']);
-                    search.addIndex(['program_title']);
-                    search.addDocuments(data);
-                    const results = search.search(this.state.cfdaSearchString);
-                    const improvedResults = slice(results, 0, 10);
 
                     // Filter out any selected CFDA that may be in the result set
                     const selectedCFDA =
                     this.props.selectedCFDA.toArray().map((cfda) => omit(cfda, 'identifier'));
-                    if (improvedResults && improvedResults.length > 0) {
-                        autocompleteData = differenceWith(improvedResults, selectedCFDA, isEqual);
+                    if (results && results.length > 0) {
+                        autocompleteData = differenceWith(results, selectedCFDA, isEqual);
                     }
                     else {
-                        autocompleteData = improvedResults;
+                        autocompleteData = results;
                     }
-
                     this.setState({
                         noResults: autocompleteData.length === 0
                     });

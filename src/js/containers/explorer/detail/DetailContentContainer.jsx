@@ -20,7 +20,7 @@ import * as ExplorerHelper from 'helpers/explorerHelper';
 
 import DetailContent from 'components/explorer/detail/DetailContent';
 import ExplorerSidebar from 'components/explorer/detail/sidebar/ExplorerSidebar';
-
+import withAgencySlugs from "containers/agencyV2/WithAgencySlugs";
 
 const propTypes = {
     explorer: PropTypes.object,
@@ -31,7 +31,10 @@ const propTypes = {
     showTooltip: PropTypes.func,
     hideTooltip: PropTypes.func,
     resetExplorerTable: PropTypes.func,
-    history: PropTypes.object
+    history: PropTypes.object,
+    agencySlugs: PropTypes.object,
+    loading: PropTypes.bool,
+    error: PropTypes.bool
 };
 
 export class DetailContentContainer extends React.Component {
@@ -548,7 +551,7 @@ export class DetailContentContainer extends React.Component {
                     rewindToFilter={this.rewindToFilter} />
                 <DetailContent
                     isRoot={this.props.explorer.active.within === 'root'}
-                    isLoading={this.state.inFlight}
+                    isLoading={this.state.inFlight || this.props.error}
                     isTruncated={this.state.isTruncated}
                     root={this.props.explorer.root}
                     fy={this.props.explorer.fy}
@@ -571,7 +574,7 @@ export class DetailContentContainer extends React.Component {
 }
 
 DetailContentContainer.propTypes = propTypes;
-const DetailContentContainerWithRouter = withRouter(DetailContentContainer);
+const DetailContentContainerWithRouter = withRouter(withAgencySlugs(DetailContentContainer));
 
 export default connect(
     (state) => ({ explorer: state.explorer }),

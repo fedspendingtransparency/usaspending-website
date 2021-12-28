@@ -25,6 +25,7 @@ import AgencyOverview from './overview/AgencyOverview';
 import AwardSpendingSubagency from './awardSpending/AwardSpendingSubagency';
 import StatusOfFunds from './statusOfFunds/StatusOfFunds';
 import PageWrapper from '../sharedComponents/PageWrapper';
+import PageTitle from './overview/PageTitle';
 
 require('pages/agencyV2/index.scss');
 
@@ -56,7 +57,7 @@ export const AgencyProfileV2 = ({
         {
             name: 'overview',
             display: 'Overview',
-            icon: 'chart-area',
+            icon: 'landmark',
             component: <AgencyOverview fy={selectedFy} />
         },
         {
@@ -135,6 +136,7 @@ export const AgencyProfileV2 = ({
                         }))} />
                 </div>
                 <div className="body usda__flex-col">
+                    <PageTitle fy={selectedFy} />
                     {isError
                         ? <ErrorMessage description={errorMessage} />
                         : sections.map((section) => (

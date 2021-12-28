@@ -7,12 +7,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { Table } from 'data-transparency-ui';
-import { calculatePercentage, formatMoney } from 'helpers/moneyFormatter';
+import { calculatePercentage, formatMoney, formatMoneyWithUnitsShortLabel } from 'helpers/moneyFormatter';
 
 const propTypes = {
     awardTypes: PropTypes.array,
     fiscalYear: PropTypes.number,
-    activeType: PropTypes.string
+    activeType: PropTypes.string,
+    categoryType: PropTypes.string,
+    isCategoryHover: PropTypes.bool
 };
 
 const columns = [
@@ -22,20 +24,31 @@ const columns = [
     },
     {
         title: 'obligations',
-        displayName: 'Award Obligations',
+        displayName: ["Award", <br />, "Obligations"],
         right: true
     },
     {
         title: 'percent',
-        displayName: '% of Total',
+        displayName: ["% of", <br />, "Total"],
         right: true
     }
 ];
 
-const ObligationsByAwardTypeTooltip = ({ awardTypes, fiscalYear, activeType }) => {
+
+const ObligationsByAwardTypeTooltip = ({
+    awardTypes, fiscalYear, activeType, categoryType, isCategoryHover
+}) => {
     const { _awardObligations } = useSelector((state) => state.agencyV2);
-    const rows = awardTypes.map((type) => {
-        const activeClass = `award-type-tooltip__table-data${type.label === activeType ? ' award-type-tooltip__table-data_active' : ''}`;
+    const awardTypesByCategory = awardTypes.filter((item) => item.type === categoryType);
+    const totalByCategory = awardTypesByCategory.reduce((acc, item) => acc + item.value, 0);
+
+    const titles = {
+        contracts: 'Total Contract Obligations',
+        financial: 'Total Financial Assistance Obligations'
+    };
+
+    const rows = awardTypesByCategory.map((type) => {
+        const activeClass = `award-type-tooltip__table-data${!isCategoryHover && type.label === activeType ? ' award-type-tooltip__table-data_active' : ''}`;
         return [
             (
                 <div className={activeClass}>
@@ -57,16 +70,11 @@ const ObligationsByAwardTypeTooltip = ({ awardTypes, fiscalYear, activeType }) =
             )
         ];
     });
-    // Add the "Totals" row
-    rows.push([
-        'Total',
-        formatMoney(_awardObligations),
-        '100%'
-    ]);
+
     return (
         <div className="award-type-tooltip">
             <div className="tooltip__title">
-                FY {fiscalYear}
+                FY{fiscalYear} - {titles[categoryType]}: {formatMoneyWithUnitsShortLabel(totalByCategory)}
             </div>
             <div className="tooltip__text">
                 <Table

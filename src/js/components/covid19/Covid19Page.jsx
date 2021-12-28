@@ -37,10 +37,10 @@ import PublicLawPicker from './PublicLawPicker';
 require('pages/covid19/index.scss');
 
 const propTypes = {
-    areDefCodesLoading: PropTypes.bool
+    loading: PropTypes.bool
 };
 
-const Covid19Page = ({ areDefCodesLoading }) => {
+const Covid19Page = ({ loading }) => {
     const query = useQueryParams();
     const history = useHistory();
     const [activeSection, setActiveSection] = useState('overview');
@@ -99,7 +99,7 @@ const Covid19Page = ({ areDefCodesLoading }) => {
                     onShareOptionClick={handleShare} />,
                 <DownloadButtonContainer />
             ]}>
-            <LoadingWrapper isLoading={areDefCodesLoading}>
+            <LoadingWrapper isLoading={loading}>
                 <main id="main-content" className="main-content usda__flex-row">
                     <div className="sidebar">
                         <div className="sidebar__content">

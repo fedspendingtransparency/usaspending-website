@@ -5,7 +5,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { get } from 'lodash';
 
 import { setSubmissionPeriods } from 'redux/actions/account/accountActions';
-import { getLatestPeriodAsMoment, getLatestPeriod, fetchAllSubmissionDates } from 'helpers/accountHelper';
+import { getLatestPeriodAsMoment, getLatestPeriod } from 'helpers/accountHelper';
+import { fetchAllSubmissionDates } from 'apis/account';
 import {
     isPeriodVisible,
     isPeriodSelectable,

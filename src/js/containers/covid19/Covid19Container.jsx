@@ -3,7 +3,7 @@
  * Created by Jonathan Hill 06/02/20
  */
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import GlobalConstants from 'GlobalConstants';
@@ -11,6 +11,7 @@ import { useQueryParams } from 'helpers/queryParams';
 import BaseOverview from 'models/v2/covid19/BaseOverview';
 import { fetchOverview, fetchAwardAmounts } from 'apis/disaster';
 import { useDefCodes } from 'containers/covid19/WithDefCodes';
+import { useAgencySlugs } from 'containers/agencyV2/WithAgencySlugs';
 import { setOverview, setTotals, setDefcParams, resetOverview } from 'redux/actions/covid19/covid19Actions';
 import { defcByPublicLaw } from 'dataMapping/covid19/covid19';
 import Covid19Page from 'components/covid19/Covid19Page';
@@ -20,8 +21,11 @@ require('pages/covid19/index.scss');
 const Covid19Container = () => {
     const [, areDefCodesLoading, defCodes] = useDefCodes();
     const { defcParams } = useSelector((state) => state.covid19);
+    const [, , , slugsLoading] = useAgencySlugs();
     const overviewRequest = useRef(null);
+    const [overviewLoading, setOverviewLoading] = useState(true);
     const awardAmountRequest = useRef(null);
+    const [amountsLoading, setAmountsLoading] = useState(true);
     const dispatch = useDispatch();
     const history = useHistory();
     let { publicLaw } = useQueryParams();
@@ -65,9 +69,11 @@ const Covid19Container = () => {
                 const newOverview = Object.create(BaseOverview);
                 newOverview.populate(data);
                 dispatch(setOverview(newOverview));
+                setOverviewLoading(false);
             }
             catch (e) {
                 console.error(' Error Overview : ', e.message);
+                setOverviewLoading(false);
             }
         };
         const getAllAwardTypesAmount = async () => {
@@ -87,9 +93,11 @@ const Covid19Container = () => {
                     faceValueOfLoan: data.face_value_of_loan
                 };
                 dispatch(setTotals('', totals));
+                setAmountsLoading(false);
             }
             catch (e) {
                 console.error(' Error Amounts : ', e.message);
+                setAmountsLoading(false);
             }
         };
         if (defcParams && defcParams.length) {
@@ -109,7 +117,7 @@ const Covid19Container = () => {
     }, [defCodes, defcParams, dispatch]);
 
     return (
-        <Covid19Page areDefCodesLoading={areDefCodesLoading} />
+        <Covid19Page loading={areDefCodesLoading || slugsLoading || overviewLoading || amountsLoading} />
     );
 };
 

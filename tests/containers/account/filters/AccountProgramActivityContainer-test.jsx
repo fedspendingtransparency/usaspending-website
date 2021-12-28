@@ -23,7 +23,7 @@ const account = {
     id: 2525
 };
 
-jest.mock('helpers/accountHelper', () => require('../accountHelper'));
+jest.mock('apis/account', () => require('../accountHelper'));
 jasmine.DEFAULT_TIMEOUT_INTERVAL = 10000;
 
 describe('AccountProgramActivityContainer', () => {

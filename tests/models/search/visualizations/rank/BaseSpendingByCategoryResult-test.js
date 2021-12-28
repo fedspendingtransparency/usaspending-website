@@ -27,6 +27,8 @@ describe('BaseSpendingByCategoryResult', () => {
             expect(result._name).toEqual('Banana');
             expect(result._code).toEqual('1234');
             expect(result._amount).toEqual(1.01);
+            expect(result.recipientId).toBe('Chocolate');
+            expect(result._agencySlug).toBe('slug');
         });
         it('should use fallback values for certain properties when no data is provided', () => {
             const result = Object.create(BaseSpendingByCategoryResult);
