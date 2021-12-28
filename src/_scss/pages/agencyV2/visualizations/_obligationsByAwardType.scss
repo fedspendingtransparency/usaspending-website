@@ -1,3 +1,5 @@
+
+
 .obligations-by-award-type {
     // Tooltip wrapper
     width: 100%;
@@ -17,13 +19,19 @@
         }
     }
 
-    @media (min-width: 991px) and (max-width: 1400px) {
+    @media (max-width: 1400px) {
         &.tooltip-wrapper .tooltip-spacer {
             left: -15rem;
         }
 
         .tooltip-pointer.bottom {
-            left: 26rem;
+            left: 28rem;
+        }
+    }
+
+    @media (min-width: 1401px) {
+        .tooltip-pointer.bottom {
+            left: 18rem;
         }
     }
 
