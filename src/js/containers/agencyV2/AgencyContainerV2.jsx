@@ -19,10 +19,10 @@ import AgencyPage from "components/agencyV2/AgencyPage";
 import { useAgencySlugs } from "./WithAgencySlugs";
 
 export const AgencyProfileV2 = () => {
-    if (location.search !== "") {
-        const checkQueryString = stripUrlParams(location.search, "fy");
-        if (checkQueryString !== location.search) {
-            const history = useHistory();
+    const history = useHistory();
+    if (window.location.search !== "") {
+        const checkQueryString = stripUrlParams(window.location.search, "fy");
+        if (checkQueryString !== window.location.search) {
             history.replace({
                 search: checkQueryString,
             });
@@ -111,7 +111,7 @@ export const AgencyProfileV2 = () => {
 };
 
 AgencyProfileV2.propTypes = {
-    history: PropTypes.object,
+    history: PropTypes.object
 };
 
 export default AgencyProfileV2;
