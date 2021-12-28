@@ -83,6 +83,12 @@ export const useLatestAccountData = () => {
 export const useValidTimeBasedQueryParams = (currentUrlFy, currentUrlPeriod = null, requiredParams = ['fy', 'period']) => {
     const history = useHistory();
     const existingParams = useQueryParams();
+    if (existingParams.fy && !Number.isInteger(existingParams.fy)) {
+        existingParams.fy = null;
+    }
+    if (existingParams.period && !Number.isInteger(existingParams.period)) {
+        existingParams.period = null;
+    }
     const [, submissionPeriods, latestSubmission] = useLatestAccountData();
     const { year: latestFy, period: latestPeriod } = latestSubmission;
     const [{ period, fy }, setYearAndPeriod] = useState({ period: '', fy: '' });

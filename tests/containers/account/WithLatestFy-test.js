@@ -70,7 +70,8 @@ test.each([
     ['0000', '0', 2020, 12, ['fy', 'period']],
     [null, null, 2020, 12, ['fy', 'period']],
     ['2021', '0', 2020, 12, ['fy', 'period']],
-    ['2012', '14', 2020, 12, ['fy', 'period']]
+    ['2012', '14', 2020, 12, ['fy', 'period']],
+    ['2021cats', 'toast', 2020, 12, ['fy', 'period']]
 ])(
     'useValidTimeBasedQueryParams: when fy is %s and period is %s, URL is updated 👌👌👌',
     (currentFy, currentPeriod, latestFy, latestPeriod, requiredParams) => {
