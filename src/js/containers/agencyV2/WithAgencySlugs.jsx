@@ -22,11 +22,20 @@ export const mapTopTierCodeToSlug = (results) => (
     }, {})
 );
 
+export const mapIdToSlug = (results) => (
+    results.reduce((acc, agency) => {
+        /* eslint-disable camelcase */
+        const { agency_slug, agency_id } = agency;
+        return { ...acc, [`${agency_id}`]: agency_slug };
+        /* eslint-enable camelcase */
+    }, {})
+);
+
 export const useAgencySlugs = () => {
     const dispatch = useDispatch();
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
-    const { agencySlugs, topTierCodes } = useSelector((state) => state.agencyV2);
+    const { agencySlugs, topTierCodes, agencyIds } = useSelector((state) => state.agencyV2);
     const request = useRef();
 
     useEffect(() => {
@@ -41,7 +50,8 @@ export const useAgencySlugs = () => {
                 .then(({ data }) => {
                     const slugsMapping = mapSlugToTopTierCode(data.results);
                     const topTierCodesMapping = mapTopTierCodeToSlug(data.results);
-                    dispatch(setAgencySlugs(slugsMapping, topTierCodesMapping));
+                    const idMapping = mapIdToSlug(data.results);
+                    dispatch(setAgencySlugs(slugsMapping, topTierCodesMapping, idMapping));
                     setLoading(false);
                     setError(false);
                     request.current = null;
@@ -58,13 +68,13 @@ export const useAgencySlugs = () => {
                 request.current.cancel();
             }
         };
-    }, [agencySlugs, topTierCodes]);
+    }, [agencySlugs, topTierCodes, agencyIds]);
 
-    return [agencySlugs, topTierCodes, loading, error];
+    return [agencySlugs, topTierCodes, agencyIds, loading, error];
 };
 
 const withAgencySlugs = (WrappedComponent) => (props) => {
-    const [agencySlugs, loading, error] = useAgencySlugs();
+    const [agencySlugs, , , loading, error] = useAgencySlugs();
     return (
         <WrappedComponent
             {...props}

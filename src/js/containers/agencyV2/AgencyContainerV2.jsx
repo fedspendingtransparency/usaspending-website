@@ -23,7 +23,7 @@ export const AgencyProfileV2 = () => {
     const { fy: currentUrlFy } = useQueryParams(['fy']);
     const [selectedFy, setSelectedFy] = useValidTimeBasedQueryParams(currentUrlFy, null, ['fy']);
     // Use a custom hook to get the { agency slug: toptier code } mapping, or request it if not yet available
-    const [agencySlugs, , slugsLoading, slugsError] = useAgencySlugs();
+    const [agencySlugs, , , slugsLoading, slugsError] = useAgencySlugs();
     const [isLoading, setLoading] = useState(true);
     const [isError, setError] = useState(false);
     const [errorMessage, setErrorMessage] = useState('');

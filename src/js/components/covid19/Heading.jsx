@@ -18,12 +18,12 @@ const Heading = ({ publicLaw }) => {
     return (
         <div className={`heading__container ${publicLaw === 'american-rescue-plan' ? 'information-body-arp' : 'information-body'}`}>
             {publicLaw === 'american-rescue-plan' ?
-                <div className="heading__title">
+                <h2 className="heading__title">
                     The Federal Response to COVID-19: <span className="color-blue-arp">The American Rescue Plan</span>
-                </div> :
-                <div className="heading__title">
+                </h2> :
+                <h2 className="heading__title">
                     The Federal Response to <span className="color-purple">COVID-19</span>
-                </div>
+                </h2>
             }
             <div className="aligned-heading">
                 {publicLaw === 'american-rescue-plan' ?

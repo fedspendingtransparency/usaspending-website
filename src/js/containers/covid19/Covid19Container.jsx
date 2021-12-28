@@ -21,7 +21,7 @@ require('pages/covid19/index.scss');
 const Covid19Container = () => {
     const [, areDefCodesLoading, defCodes] = useDefCodes();
     const { defcParams } = useSelector((state) => state.covid19);
-    const [, , slugsLoading] = useAgencySlugs();
+    const [, , , slugsLoading] = useAgencySlugs();
     const overviewRequest = useRef(null);
     const [overviewLoading, setOverviewLoading] = useState(true);
     const awardAmountRequest = useRef(null);

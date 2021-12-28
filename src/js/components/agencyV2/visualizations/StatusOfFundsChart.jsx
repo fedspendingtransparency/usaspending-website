@@ -137,7 +137,7 @@ const StatusOfFundsChart = ({ results, fy }) => {
     }
     if (sortedNums.length < 10) {
         for (let i = sortedNums.length; i < 10; i++) {
-            resultNames = resultNames.concat(' ');
+            resultNames.push(i);
         }
     }
     y.domain(resultNames);
@@ -203,6 +203,12 @@ const StatusOfFundsChart = ({ results, fy }) => {
         .style('fill', '#555')
         .style("font-family", 'Source Sans Pro')
         .call(isLargeScreen ? wrapTextMobile : wrapText, 270);
+    const tickLabelsY = d3.selectAll(".y-axis-labels");
+    tickLabelsY.each(function removeTicks(d) {
+        if (!isNaN(d)) {
+            d3.select(this).remove();
+        }
+    });
     svg.selectAll("horizontalGridlines")
         .attr('transform', tickMobileXAxis)
         .data(sortedNums)

@@ -132,12 +132,12 @@ const SpendingByCFDA = ({ publicLaw, handleExternalLinkClick }) => {
         <div className="body__content assistance-listing">
             <DateNote />
             {publicLaw === 'american-rescue-plan' ?
-                <h3 className="body__narrative">
+                <h4 className="body__narrative">
                     <strong>Which CFDA Programs (Assistance Listings)</strong> supported the American Rescue Plan?
-                </h3> :
-                <h3 className="body__narrative">
+                </h4> :
+                <h4 className="body__narrative">
                     <strong>Which CFDA Programs (Assistance Listings)</strong> supported the response to COVID-19?
-                </h3>
+                </h4>
             }
             <div className="body__narrative-description">
                 <p>

@@ -1,9 +1,8 @@
+@import 'mixins/profilePage';
+
 .status-of-funds__intro-wrapper {
     padding-bottom: 4rem;
-    @media (min-width: $medium-screen) {
-        padding-left: 4rem;
-        padding-right: 4rem;
-    }
+    @include profile-page-wrap;
 }
 
 .status-of-funds__intro-section-title {
