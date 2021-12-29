@@ -16,7 +16,6 @@ const propTypes = {
     inFlight: PropTypes.bool,
     error: PropTypes.bool,
     results: PropTypes.array,
-    columns: PropTypes.array,
     searchString: PropTypes.string,
     order: PropTypes.object,
     updateSort: PropTypes.func
