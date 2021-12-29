@@ -132,6 +132,10 @@ const RecipientOverview = (props) => {
                         <table className="details__table">
                             <tbody>
                                 <tr>
+                                    <th>DUNS</th>
+                                    <td>{recipient.duns}</td>
+                                </tr>
+                                <tr>
                                     <th>Address</th>
                                     {address}
                                 </tr>

@@ -19,8 +19,6 @@ export const KeyWordTooltip = () => (
             </p>
             <ul className="advanced-search-tt__list">
                 <li>Recipient Name</li>
-                <li>Recipient DUNS</li>
-                <li>Recipient Parent DUNS</li>
                 <li>NAICS code and description</li>
                 <li>PSC code and description</li>
                 <li>PIID (prime award only)</li>
