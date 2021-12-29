@@ -1,7 +1,7 @@
 .recipient-labels {
     @import "pages/homepage/hero/_heroTooltip";
     @include display(inline-flex);
-    margin: 0 0 rem(30) 0;
+    margin: 0 0 rem(16) 0;
 
     .recipient-labels-wrapper {
         @include display(flex);
