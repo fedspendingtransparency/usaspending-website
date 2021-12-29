@@ -96,15 +96,37 @@
             width: rem(400);
         }
 
-        @media (max-width: 1400px) {
-            &.tooltip-wrapper .tooltip-spacer {
-                left: -380px !important;
-                z-index: 20 !important;
+        @media (max-width: 1600px) {
+            //&.tooltip-wrapper .tooltip-spacer {
+            //    left: -260px !important;
+            //    z-index: 20 !important;
+            //}
+            //
+            //.tooltip-pointer.left {
+            //    left: 280px !important;
+            //    transform: rotateY(180deg);
+            //}
+
+            .tooltip__content {
+                width: 280px;
             }
 
-            .tooltip-pointer.left {
-                left: 400px !important;
-                transform: rotateY(180deg);
+            .budgetary-resources-tooltip__amount {
+                font-size: 1.2rem !important;
+                padding-right: 2rem !important;
+            }
+
+            .budgetary-resources-tooltip__desc, .budgetary-resources-tooltip__amount {
+                font-size: 1.2rem !important;
+                padding-right: 2rem !important;
+            }
+
+            .budgetary-resources-tooltip__desc_percent, .budgetary-resources-tooltip__amount_percent {
+                font-size: 1.2rem !important;
+            }
+
+            .tooltip__message {
+                width: 280px;
             }
         }
 

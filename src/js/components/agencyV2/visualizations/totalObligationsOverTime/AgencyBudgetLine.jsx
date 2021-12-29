@@ -11,7 +11,8 @@ const propTypes = {
     todaysDate: PropTypes.number,
     padding: PropTypes.object,
     scenario: PropTypes.string,
-    showTodayLineAndText: PropTypes.bool
+    showTodayLineAndText: PropTypes.bool,
+    toggleTooltipVisibility: PropTypes.func
 };
 
 const AgencyBudgetLine = ({
@@ -24,7 +25,8 @@ const AgencyBudgetLine = ({
     padding,
     width,
     scenario,
-    showTodayLineAndText
+    showTodayLineAndText,
+    toggleTooltipVisibility
 }) => {
     const [hoveredRectangle, setHoveredRectangle] = useState(false);
     const [lineData, setLineData] = useState({
@@ -61,7 +63,7 @@ const AgencyBudgetLine = ({
                     x: padding.left,
                     y: height - yScale(agencyBudget) - padding.bottom,
                     width: showTodayLineAndText ? xScale(todaysDate) : width - padding.left - padding.right,
-                    height: height - yScale(Math.max(...data.map((x) => x.obligated))) - padding.bottom - padding.top,
+                    height: height - yScale(Math.max(...data.map((x) => x.obligated))) - padding.bottom - padding.top
                 }
             );
         }
@@ -76,7 +78,10 @@ const AgencyBudgetLine = ({
             height={rectangleData.height} />
     );
     return (
-        <g onMouseEnter={() => setHoveredRectangle(true)} onMouseLeave={() => setHoveredRectangle(false)} className="bar-chart__item">
+        <g
+            onMouseEnter={() => { setHoveredRectangle(true); toggleTooltipVisibility(true); }}
+            onMouseLeave={() => { setHoveredRectangle(false); toggleTooltipVisibility(false); }}
+            className="bar-chart__item">
             <line
                 tabIndex="0"
                 className="total-budget-line"

@@ -57,6 +57,7 @@ const TotalObligationsOverTimeVisualization = ({
     const [description, setDescription] = useState('');
     const [scenario, setScenario] = useState('normal');
     const [showTodayLineAndText, setShowTodayLineAndText] = useState(false);
+    const [tooltipIsVisible, setTooltipIsVisible] = useState(false);
     // x domain
     useEffect(() => {
         // start of the domain is October 1st of the prior selected fiscal year midnight local time
@@ -139,6 +140,10 @@ const TotalObligationsOverTimeVisualization = ({
         }
     }, [xDomain, todaysDate]);
 
+    const toggleTooltipVisibility = (isVisible) => {
+        setTooltipIsVisible(isVisible);
+    };
+
     const balance = agencyBudget - data[data.length - 1].obligated;
     const percentOfTotal = calculatePercentage(agencyBudget - data[data.length - 1].obligated, agencyBudget);
 
@@ -155,14 +160,13 @@ const TotalObligationsOverTimeVisualization = ({
             </div>
         </div>
     );
-    // {/*// <div className="tooltip-object-overflow" x={rectangleData.x} y={rectangleData.y} width={rectangleData.width + 7} height={rectangleData.height}>*/}
 
     return (
         <div className="tooltip-wrapper-overflow">
             <TooltipWrapper
                 controlledProps={{
                     isControlled: true,
-                    isVisible: true
+                    isVisible: tooltipIsVisible
                 }}
                 className="budgetary-resources__tooltip-wrapper"
                 offsetAdjustments={{ top: -5 }}
@@ -212,7 +216,8 @@ const TotalObligationsOverTimeVisualization = ({
                             todaysDate={todaysDate}
                             padding={padding}
                             scenario={scenario}
-                            showTodayLineAndText={showTodayLineAndText} />
+                            showTodayLineAndText={showTodayLineAndText}
+                            toggleTooltipVisibility={toggleTooltipVisibility} />
                         {(scenario === 'exceedsMin' || scenario === 'exceedsMaxAndMin') && <ZeroLineAndTick
                             xScale={xScale}
                             yScale={yScale}
