@@ -86,6 +86,7 @@
         .tooltip-pointer {
             &.left {
                 left: rem(-16) !important;
+                top: rem(28) !important;
                 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
                     // IE only
                     left: rem(-8);
@@ -97,6 +98,7 @@
         }
 
         @media (max-width: 1600px) {
+            // flip tooltip
             //&.tooltip-wrapper .tooltip-spacer {
             //    left: -260px !important;
             //    z-index: 20 !important;
@@ -109,11 +111,6 @@
 
             .tooltip__content {
                 width: 280px;
-            }
-
-            .budgetary-resources-tooltip__amount {
-                font-size: 1.2rem !important;
-                padding-right: 2rem !important;
             }
 
             .budgetary-resources-tooltip__desc, .budgetary-resources-tooltip__amount {
@@ -169,20 +166,20 @@
                 padding: 0 rem(2.5);
             }
         }
-        @include media($medium-screen) {
-            &:hover {
-                .tooltip__hover-wrapper {
-                    fill: $color-grass-light;
-                    //opacity: 0.3;
-                }
-            }
-            &.budgetary-resources__tooltip-wrapper_active {
-                .tooltip__hover-wrapper {
-                    fill: $color-grass-light;
-                    //opacity: 0.1;
-                }
-            }
-        }
+        //@include media($medium-screen) {
+        //    &:hover {
+        //        .tooltip__hover-wrapper {
+        //            fill: $color-grass-light;
+        //            //opacity: 0.3;
+        //        }
+        //    }
+        //    &.budgetary-resources__tooltip-wrapper_active {
+        //        .tooltip__hover-wrapper {
+        //            fill: $color-grass-light;
+        //            //opacity: 0.1;
+        //        }
+        //    }
+        //}
     }
 
 }

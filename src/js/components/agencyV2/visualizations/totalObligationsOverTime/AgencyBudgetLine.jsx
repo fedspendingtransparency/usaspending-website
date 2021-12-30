@@ -75,7 +75,8 @@ const AgencyBudgetLine = ({
             x={rectangleData.x}
             y={rectangleData.y}
             width={rectangleData.width}
-            height={rectangleData.height} />
+            height={rectangleData.height}
+            tabIndex="0" />
     );
     return (
         <g
