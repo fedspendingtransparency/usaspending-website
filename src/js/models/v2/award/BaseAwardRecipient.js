@@ -10,10 +10,12 @@ const BaseAwardRecipient = {
         this.internalId = data.recipient_hash || '';
         this._name = data.recipient_name || '';
         // this.duns = data.recipient_unique_id || '--';
-        this.duns = data.duns || '--';
-        this.uei = data.uei || '--';
+        this.duns = data.duns;
+        this.uei = data.uei;
         this.parentName = data.parent_recipient_name || '';
-        this.parentDuns = data.parent_recipient_unique_id || '--';
+        // this.parentDuns = data.parent_recipient_unique_id;
+        this.parentDuns = data.parentDuns;
+        this.parentUei = data.parentUei;
         this.parentInternalId = data.parent_recipient_hash || '';
         this.businessCategories = data.business_categories;
 
