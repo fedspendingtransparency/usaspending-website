@@ -83,10 +83,12 @@ export const useLatestAccountData = () => {
 export const useValidTimeBasedQueryParams = (currentUrlFy, currentUrlPeriod = null, requiredParams = ['fy', 'period']) => {
     const history = useHistory();
     const existingParams = useQueryParams();
-    if (existingParams.fy && !Number.isInteger(existingParams.fy)) {
+    // eslint-disable-next-line eqeqeq
+    if (existingParams.fy && existingParams.fy != parseInt(existingParams.fy, 10)) {
         existingParams.fy = null;
     }
-    if (existingParams.period && !Number.isInteger(existingParams.period)) {
+    // eslint-disable-next-line eqeqeq
+    if (existingParams.period && existingParams.period != parseInt(existingParams.period, 10)) {
         existingParams.period = null;
     }
     const [, submissionPeriods, latestSubmission] = useLatestAccountData();
