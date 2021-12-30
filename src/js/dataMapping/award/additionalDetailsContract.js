@@ -14,6 +14,9 @@ const additionalDetailsContracts = (awardData) => {
         recipient
     } = awardData;
 
+
+    console.log(recipient);
+
     const data = {
         uniqueAwardKey: {
             'Unique Award Key': awardData.generatedId,

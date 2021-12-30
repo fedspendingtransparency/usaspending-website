@@ -30,6 +30,10 @@ const additionalDetailsFinancialAssistance = (awardData) => {
         placeOfPerformance,
         recipient
     } = awardData;
+
+
+    console.log(recipient);
+
     const data = {
         uniqueAwardKey: {
             'Unique Award Key': awardData.generatedId,
