@@ -31,8 +31,12 @@ const additionalDetailsFinancialAssistance = (awardData) => {
         recipient
     } = awardData;
 
-
-    console.log(recipient);
+    const idLabel = (duns, uei) => {
+        if (uei && !duns) {
+            return 'Recipient Unique Identifier (UEI)';
+        }
+        return 'Recipient Unique Identifier(s)';
+    };
 
     const ids = (duns, uei) => {
         let returnString = '';
@@ -120,7 +124,7 @@ const additionalDetailsFinancialAssistance = (awardData) => {
                     title: recipient._name
                 }
             },
-            'Recipient Unique Identifier(s)': ids(recipient.duns, recipient.uei),
+            [idLabel(recipient.duns, recipient.uei)]: ids(recipient.duns, recipient.uei),
             'Parent Recipient': {
                 type: 'link',
                 data: {
@@ -129,7 +133,7 @@ const additionalDetailsFinancialAssistance = (awardData) => {
                     title: recipient.parentName
                 }
             },
-            'Parent Recipient Unique Identifier(s)': ids(recipient.parentDuns, recipient.parentUei),
+            [`Parent ${idLabel(recipient.duns, recipient.uei)}`]: ids(recipient.parentDuns, recipient.parentUei),
             'Recipient Address': {
                 type: 'address',
                 data: [
