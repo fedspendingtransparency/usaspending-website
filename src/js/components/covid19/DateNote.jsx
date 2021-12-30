@@ -54,7 +54,7 @@ const DateNote = ({ styles, useCache = true }) => {
 
     return (
         <div style={{ ...styles }} className="covid__date-note">
-            Data through {date?.format('MMMM DD[,] YYYY') || '--'}
+            Data through {date?.format('M/D/YYYY') || '--'}
         </div>
     );
 };
