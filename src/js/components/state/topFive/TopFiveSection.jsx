@@ -4,39 +4,33 @@
  */
 
 import React from 'react';
+import { Tabs } from 'data-transparency-ui';
 
 import { categories as topCategories } from 'dataMapping/state/topCategories';
-import ResultsTableTabs from 'components/search/table/ResultsTableTabs';
 import TopFiveContainer from 'containers/state/topFive/TopFiveContainer';
 
 const tabTypes = [
     {
-        enabled: true,
         internal: 'all',
         label: 'All Awards'
     },
     {
-        enabled: true,
         internal: 'contracts',
         label: 'Contracts'
     },
     {
-        enabled: true,
         internal: 'grants',
         label: 'Grants'
     },
     {
-        enabled: true,
         internal: 'direct_payments',
         label: 'Direct Payments'
     },
     {
-        enabled: true,
         internal: 'loans',
         label: 'Loans'
     },
     {
-        enabled: true,
         internal: 'other',
         label: 'Other Financial Assistance'
     }
@@ -79,13 +73,10 @@ export default class TopFiveSection extends React.Component {
                 <div className="state-section__description">
                     The set of tables below provide a summary of federal spending in this state through multiple angles. The initial view includes all awards types, but you can also view individual award type amounts. To see more than the top 5, you can launch directly to our Advanced Search page.
                 </div>
-                <div className="topfive__tabs">
-                    <ResultsTableTabs
-                        types={tabTypes}
-                        active={this.state.active}
-                        switchTab={this.switchTab}
-                        hideCounts />
-                </div>
+                <Tabs
+                    types={tabTypes}
+                    active={this.state.active}
+                    switchTab={this.switchTab} />
                 <div className="topfive__content">
                     {content}
                 </div>

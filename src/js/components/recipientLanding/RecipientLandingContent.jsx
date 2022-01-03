@@ -42,28 +42,16 @@ export default class RecipientLandingContent extends React.Component {
                 <RecipientLandingSearchBar
                     setRecipientSearchString={this.props.setRecipientSearchString} />
                 <div className="landing-page__info">
-                    <div className="recipient-landing__labels-wrapper">
-                        <RecipientLabels />
-                        <div className="recipient-landing__pagination recipient-landing__pagination_mobile">
-                            <Pagination
-                                resultsText
-                                changePage={this.props.onChangePage}
-                                currentPage={this.props.pageNumber}
-                                totalItems={this.props.totalItems}
-                                pageSize={this.props.pageSize} />
-                        </div>
-                        <RecipientLandingTabs
-                            setTab={this.props.setTab} />
-                    </div>
-                    <div className="recipient-landing__pagination recipient-landing__pagination_desktop">
-                        <Pagination
-                            resultsText
-                            changePage={this.props.onChangePage}
-                            currentPage={this.props.pageNumber}
-                            totalItems={this.props.totalItems}
-                            pageSize={this.props.pageSize} />
-                    </div>
+                    <RecipientLabels />
+                    <Pagination
+                        resultsText
+                        changePage={this.props.onChangePage}
+                        currentPage={this.props.pageNumber}
+                        totalItems={this.props.totalItems}
+                        pageSize={this.props.pageSize} />
                 </div>
+                <RecipientLandingTabs
+                    setTab={this.props.setTab} />
                 <RecipientLandingResultsSection
                     results={this.props.results}
                     inFlight={this.props.inFlight}
