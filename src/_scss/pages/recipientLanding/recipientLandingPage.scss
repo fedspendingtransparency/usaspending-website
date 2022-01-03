@@ -7,8 +7,6 @@
     @import "./_table";
     @import "pages/search/results/table/_tableMessages";
     @import "pages/search/results/screens/screens";
-    @import "pages/search/results/table/_tableTypes";
-    @import "pages/search/results/table/_resultsTablePicker";
 
     .recipient-landing__icon {
         color: $color-white;
@@ -36,61 +34,8 @@
     }
 
     .landing-page__info {
-        margin-top: rem(20);
-        @include display(flex);
-
-        .recipient-landing__labels-wrapper {
-            @import "./_recipientLabels";
-            @include flex(1);
-            @include align-self(flex-end);
-
-
-            .recipient-landing__pagination_mobile {
-                display: block;
-                @include media($tablet-screen) {
-                    display: none;
-                }
-                .usa-dt-pagination .usa-dt-pagination__wrapper {
-                    padding-top: rem(10);
-                    .pager .pager__item .pager__button {
-                        line-height: rem(12);
-                    }
-                }
-            }
-        }
-
-        .recipient-landing__pagination_desktop {
-            display: none;
-            border-bottom: 1px solid #aeb0b5;
-            @include media($tablet-screen) {
-                display: block;
-            }
-            .usa-dt-pagination {
-                @include flex-direction(column);
-                @include align-items(flex-end);
-                .usa-dt-pagination__wrapper {
-                    @include justify-content(flex-end);
-                    margin-top: rem(40);
-                    .pager .pager__item .pager__button {
-                        line-height: rem(12);
-                    }
-                }
-            }
-        }
-    }
-
-    .table-types {
-        margin-top: rem(5);
-        .table-type-toggle {
-            .tab-content {
-                .tab-label {
-                    margin-right: 0;
-                }
-            }
-        }
-        button.table-type-toggle.active {
-            border-bottom: 0;
-        }
+        padding: rem(16) 0;
+        @import "./_recipientLabels";
     }
 
     .results-table-section {
