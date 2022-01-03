@@ -101,7 +101,29 @@
             width: rem(400);
         }
 
-        @media (max-width: 1600px) {
+        @media (min-width: 993px) and (max-width: 1200px) {
+            .tooltip__content {
+                width: rem(320);
+            }
+
+            .budgetary-resources-tooltip__desc, .budgetary-resources-tooltip__amount {
+                padding-right: 2rem !important;
+            }
+
+            .budgetary-resources-tooltip__desc, .budgetary-resources-tooltip__desc_percent {
+                font-size: rem(14) !important;
+            }
+
+            .budgetary-resources-tooltip__amount_percent, .budgetary-resources-tooltip__amount {
+                font-size: rem(16) !important;
+            }
+
+            .tooltip__message {
+                width: rem(320);
+            }
+        }
+
+        @media (min-width: 1201px) and (max-width: 1400px) {
             // flip tooltip
             //&.tooltip-wrapper .tooltip-spacer {
             //    left: -260px !important;
@@ -114,26 +136,25 @@
             //}
 
             .tooltip__content {
-                width: 280px;
+                width: rem(350);
             }
 
             .budgetary-resources-tooltip__desc, .budgetary-resources-tooltip__amount {
-                font-size: 1.2rem !important;
                 padding-right: 2rem !important;
             }
 
-            .budgetary-resources-tooltip__desc_percent, .budgetary-resources-tooltip__amount_percent {
-                font-size: 1.2rem !important;
+            .budgetary-resources-tooltip__amount_percent, .budgetary-resources-tooltip__amount {
+                font-size: rem(18) !important;
             }
 
             .tooltip__message {
-                width: 280px;
+                width: rem(350);
             }
         }
 
         @media (min-width: 1401px) {
             .tooltip-pointer.bottom {
-                left: 18rem;
+                left: rem(180);
             }
         }
         .budgetary-resources-tooltip {
