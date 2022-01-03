@@ -3,6 +3,7 @@
     overflow: visible;
     .total-obligations-over-time-svg {
         overflow: visible;
+        cursor: default;
         .total-obligations-over-time-svg-body {
             .paths {
                 .path {
@@ -59,7 +60,10 @@
             .tooltip-object-overflow {
                 overflow: visible;
             }
-    
+
+            .total-budget-difference-hover {
+                cursor: pointer;
+            }
 
         }
     }
