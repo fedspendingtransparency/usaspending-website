@@ -1,18 +1,34 @@
 import React, { useRef, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
+import { useSelector, useDispatch } from 'react-redux';
 import * as d3 from 'd3';
+import { parseRows } from 'helpers/agencyV2/StatusOfFundsVizHelper';
+import { fetchFederalAccountsList } from 'apis/agencyV2';
+import { setFederalAccountsList, resetFederalAccountsList } from 'redux/actions/agencyV2/agencyV2Actions';
+import { useStateWithPrevious } from 'helpers';
 import { scaleLinear, scaleBand } from 'd3-scale';
 import { throttle } from 'lodash';
 import { largeScreen } from 'dataMapping/shared/mobileBreakpoints';
 
 const propTypes = {
     fy: PropTypes.string,
-    results: PropTypes.array
+    results: PropTypes.array,
+    updateResults: PropTypes.func
 };
 
-const StatusOfFundsChart = ({ results, fy }) => {
+const StatusOfFundsChart = ({ results, fy, updateResults }) => {
+    const dispatch = useDispatch();
     const chartRef = useRef();
+    const request = useRef(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
+    const [prevPage, currentPage, changeCurrentPage] = useStateWithPrevious(1);
+    const [prevPageSize, pageSize, changePageSize] = useStateWithPrevious(10);
+    const [totalItems, setTotalItems] = useState(0);
     const [windowWidth, setWindowWidth] = useState(0);
+    const [drilldownResults, setDrilldownResults] = useState(results);
+    const { overview } = useSelector((state) => state.agencyV2);
+
     const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth < largeScreen);
     const [isLargeFontBreak, setIsLargeFontBreak] = useState(window.innerWidth < 1501);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
@@ -24,6 +40,58 @@ const StatusOfFundsChart = ({ results, fy }) => {
     const chartHeight = viewHeight - margins.top - margins.bottom;
     const chartWidth = viewWidth - margins.left - margins.right;
     let resultNames = [];
+
+    useEffect(() => {
+        if (request.current) {
+            request.current.cancel();
+        }
+        dispatch(resetFederalAccountsList());
+    }, []);
+
+    const fetchFederalAccounts = async (agencySlug) => {
+        if (request.current) {
+            request.current.cancel();
+        }
+        if (error) {
+            setError(false);
+        }
+        if (!loading) {
+            setLoading(true);
+        }
+        const params = {
+            limit: pageSize,
+            page: currentPage
+        };
+        request.current = await fetchFederalAccountsList(overview.toptierCode, agencySlug, fy, params.page);
+        const federalAccountsRequest = request.current;
+        federalAccountsRequest.promise
+            .then((res) => {
+                const parsedData = parseRows(res.data.results);
+                setDrilldownResults(parsedData);
+                dispatch(setFederalAccountsList(parsedData));
+                setTotalItems(res.data.page_metadata.total);
+                setLoading(false);
+            }).catch((err) => {
+                setError(true);
+                setLoading(false);
+                console.error(err);
+            });
+    };
+
+    const handleClick = (id) => {
+        fetchFederalAccounts(id);
+        updateResults(drilldownResults);
+        console.log('res', results);
+    };
+
+    useEffect(() => {
+        const hasParamChanged = (
+            prevPage !== currentPage || prevPageSize !== pageSize
+        );
+        if (hasParamChanged) {
+            fetchFederalAccounts();
+        }
+    }, [currentPage]);
 
     useEffect(() => {
         const handleResize = throttle(() => {
@@ -129,6 +197,9 @@ const StatusOfFundsChart = ({ results, fy }) => {
         .attr("viewBox", [0, 0, viewWidth + margins.left + margins.right, isMobile ? viewHeight * 2.6 : chartHeightViewBox()])
         .append('g')
         .attr('transform', `translate(${isLargeScreen ? margins.left - 40 : margins.left}, ${margins.top})`);
+
+    const tickMobileXAxis = isLargeScreen ? 'translate(-130,0)' : 'translate(90, 0)';
+    const tickMobileYAxis = isLargeScreen ? 'translate(-150,0)' : 'translate(60, 0)';
     // scale to x and y data points
     x.domain([0, Math.max(sortedNums[0]._budgetaryResources, sortedNums[0]._obligations)]);
     // extract sorted agency names
@@ -141,8 +212,6 @@ const StatusOfFundsChart = ({ results, fy }) => {
         }
     }
     y.domain(resultNames);
-    const tickMobileXAxis = isLargeScreen ? 'translate(-130,0)' : 'translate(90, 0)';
-    const tickMobileYAxis = isLargeScreen ? 'translate(-150,0)' : 'translate(60, 0)';
 
     // append x axis (amounts)
     svg.append('g')
@@ -209,41 +278,46 @@ const StatusOfFundsChart = ({ results, fy }) => {
             d3.select(this).remove();
         }
     });
-    svg.selectAll("horizontalGridlines")
-        .attr('transform', tickMobileXAxis)
+    const barGroups = svg.append('g')
+        .attr('class', 'parent-g')
+        .selectAll('.bar-group')
         .data(sortedNums)
         .enter()
-        .append("rect")
-        .attr("x", isLargeScreen ? -140 : 80)
+        .append('g')
+        .attr('class', 'bar-group');
+    barGroups.append("rect")
+        .attr('transform', tickMobileXAxis)
+        .attr("x", isLargeScreen ? -140 : -8)
         .attr("y", (d) => (isLargeScreen ? y(d.name) + 80 : y(d.name) + 40))
         .attr("width", isLargeScreen ? chartWidth + 340 : chartWidth + 90)
         .attr("height", y.bandwidth() - 36)
-        .attr("fill", "none")
-        .attr("stroke", "#f1f1f1");
+        .attr("fill", "#fff")
+        .attr("stroke", "#f1f1f1")
+        .attr('class', 'hbars')
+        .attr('id', 'hlines');
     // append total budgetary resources bars
-    svg.selectAll("totalBudgetaryResourcesRect")
+    barGroups.append("rect")
         .attr('transform', tickMobileXAxis)
-        .data(sortedNums)
-        .enter()
-        .append("rect")
-        .attr("x", isLargeScreen ? -140 : 80)
+        .attr("x", isLargeScreen ? -140 : -8)
         .attr("y", (d) => (isLargeScreen ? y(d.name) + 80 : y(d.name) + 40))
         .attr("width", (d) => x(d._budgetaryResources) + 11)
         .attr("height", y.bandwidth() - 36)
         .attr('tabindex', 0)
-        .attr("fill", "#BBDFC7");
+        .attr("fill", "#BBDFC7")
+        .attr('class', 'hbars');
     // append total obligations bars
-    svg.selectAll("totalObligationsRect")
+    barGroups.append("rect")
         .attr('transform', tickMobileXAxis)
-        .data(sortedNums)
-        .enter()
-        .append("rect")
-        .attr("x", isLargeScreen ? -140 : 80)
+        .attr("x", isLargeScreen ? -140 : -8)
         .attr("y", (d) => (isLargeScreen ? y(d.name) + 80 : y(d.name) + 40))
         .attr("width", (d) => x(d._obligations) + 11)
         .attr("height", y.bandwidth() - 36)
         .attr('tabindex', 0)
-        .attr("fill", "#2B71B8");
+        .attr("fill", "#2B71B8")
+        .attr('class', 'hbars');
+    svg.selectAll(".bar-group").on('click', (d) => {
+        handleClick(d.id);
+    });
     // horizontal border above legend
     svg.append('line')
         .attr('transform', tickMobileXAxis)

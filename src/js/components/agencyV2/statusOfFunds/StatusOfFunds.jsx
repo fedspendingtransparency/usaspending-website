@@ -35,6 +35,10 @@ const StatusOfFunds = ({ fy }) => {
     const [results, setResults] = useState([]);
     const { overview, selectedSubcomponent } = useSelector((state) => state.agencyV2);
 
+    const updateResults = (resData) => {
+        setResults(resData);
+    };
+
     useEffect(() => {
         if (request.current) {
             request.current.cancel();
@@ -114,7 +118,7 @@ const StatusOfFunds = ({ fy }) => {
                         selectedSubcomponent={selectedSubcomponent} />
                 </FlexGridCol>
                 <FlexGridCol className="status-of-funds__visualization" desktop={9}>
-                    { results.length !== 0 ? <VisualizationSection level={level} agencyId={overview.toptierCode} agencyName={overview.name} fy={fy} results={results} /> : <LoadingMessage /> }
+                    { results.length !== 0 ? <VisualizationSection level={level} agencyId={overview.toptierCode} agencyName={overview.name} fy={fy} results={results} updateResults={updateResults} /> : <LoadingMessage /> }
                     <Pagination
                         currentPage={currentPage}
                         changePage={changeCurrentPage}
