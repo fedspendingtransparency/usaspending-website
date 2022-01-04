@@ -91,19 +91,16 @@ const StatusOfFunds = ({ fy }) => {
         }
     }, [fy, overview.toptierCode]);
 
-    // TODO - remove mock data when DEV-8052 is implemented
-    const mockData = {
-        name: "Bureau of the Census",
-        id: "bureau_of_the_census",
-        total_budgetary_resources: 5000000,
-        total_obligations: 3000000.72
-    };
-    const onClick = (selectedLevel, data = mockData) => {
+    const onClick = (selectedLevel, data) => {
         // TODO DEV-8052 move this logic to the visualization
         const subcomponent = Object.create(BaseStatusOfFundsLevel);
         subcomponent.populate(data);
         dispatch(setSelectedSubcomponent(subcomponent));
         setLevel(selectedLevel);
+    };
+    const goBack = () => {
+        setLevel(0);
+        fetchAgencySubcomponents();
     };
     return (
         <div className="body__content status-of-funds">
@@ -118,7 +115,11 @@ const StatusOfFunds = ({ fy }) => {
                         selectedSubcomponent={selectedSubcomponent} />
                 </FlexGridCol>
                 <FlexGridCol className="status-of-funds__visualization" desktop={9}>
-                    { results.length !== 0 ? <VisualizationSection level={level} agencyId={overview.toptierCode} agencyName={overview.name} fy={fy} results={results} updateResults={updateResults} /> : <LoadingMessage /> }
+                    {level === 1 ?
+                        <button onClick={goBack}>
+                            Back
+                        </button> : <></>}
+                    { !loading ? <VisualizationSection level={level} setLevel={onClick} selectedSubcomponent={selectedSubcomponent} agencyId={overview.toptierCode} agencyName={overview.name} fy={fy} results={results} updateResults={updateResults} /> : <LoadingMessage /> }
                     <Pagination
                         currentPage={currentPage}
                         changePage={changeCurrentPage}

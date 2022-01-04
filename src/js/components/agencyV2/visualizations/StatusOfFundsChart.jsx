@@ -13,10 +13,14 @@ import { largeScreen } from 'dataMapping/shared/mobileBreakpoints';
 const propTypes = {
     fy: PropTypes.string,
     results: PropTypes.array,
-    updateResults: PropTypes.func
+    updateResults: PropTypes.func,
+    level: PropTypes.number.isRequired,
+    setLevel: PropTypes.func
 };
 
-const StatusOfFundsChart = ({ results, fy, updateResults }) => {
+const StatusOfFundsChart = ({
+    results, fy, updateResults, level, setLevel
+}) => {
     const dispatch = useDispatch();
     const chartRef = useRef();
     const request = useRef(null);
@@ -48,7 +52,7 @@ const StatusOfFundsChart = ({ results, fy, updateResults }) => {
         dispatch(resetFederalAccountsList());
     }, []);
 
-    const fetchFederalAccounts = async (agencySlug) => {
+    const fetchFederalAccounts = async (agencyData) => {
         if (request.current) {
             request.current.cancel();
         }
@@ -62,14 +66,20 @@ const StatusOfFundsChart = ({ results, fy, updateResults }) => {
             limit: pageSize,
             page: currentPage
         };
-        request.current = fetchFederalAccountsList(overview.toptierCode, agencySlug, fy, params.page);
+        request.current = fetchFederalAccountsList(overview.toptierCode, agencyData.id, fy, params.page);
         const federalAccountsRequest = request.current;
         federalAccountsRequest.promise
             .then((res) => {
                 const parsedData = parseRows(res.data.results);
+                const totalsData = {
+                    name: `${agencyData.name}`,
+                    id: `${agencyData.id}`,
+                    total_budgetary_resources: `${agencyData.budgetaryResources}`,
+                    total_obligations: `${agencyData.obligations}`
+                };
+                setLevel(1, totalsData);
                 setDrilldownResults(parsedData);
                 updateResults(parsedData);
-                console.log(parsedData);
                 dispatch(setFederalAccountsList(parsedData));
                 setTotalItems(res.data.page_metadata.total);
                 setLoading(false);
@@ -80,8 +90,8 @@ const StatusOfFundsChart = ({ results, fy, updateResults }) => {
             });
     };
 
-    const handleClick = (id) => {
-        fetchFederalAccounts(id);
+    const handleClick = (data) => {
+        fetchFederalAccounts(data);
     };
 
     useEffect(() => {
@@ -316,7 +326,7 @@ const StatusOfFundsChart = ({ results, fy, updateResults }) => {
         .attr("fill", "#2B71B8")
         .attr('class', 'hbars');
     svg.selectAll(".bar-group").on('click', (d) => {
-        handleClick(d.id);
+        handleClick(d);
     });
     // horizontal border above legend
     svg.append('line')
