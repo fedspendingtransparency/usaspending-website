@@ -166,7 +166,9 @@ const TotalObligationsOverTimeVisualization = ({
             <TooltipWrapper
                 controlledProps={{
                     isControlled: true,
-                    isVisible: tooltipIsVisible
+                    isVisible: tooltipIsVisible,
+                    showTooltip: () => {},
+                    closeTooltip: () => {}
                 }}
                 className="budgetary-resources__tooltip-wrapper"
                 offsetAdjustments={{ top: -5 }}
