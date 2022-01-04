@@ -154,8 +154,8 @@ const TotalObligationsOverTimeVisualization = ({
             </div>
             <div className="tooltip__text">
                 <div className="budgetary-resources-tooltip__desc">Unobligated Balance</div>
-                <div className="budgetary-resources-tooltip__desc_percent">Percent of Total</div>
                 <div className="budgetary-resources-tooltip__amount">{formatMoney(balance)}</div>
+                <div className="budgetary-resources-tooltip__desc_percent">Percent of Total</div>
                 <div className="budgetary-resources-tooltip__amount_percent">{percentOfTotal}</div>
             </div>
         </div>
@@ -166,7 +166,7 @@ const TotalObligationsOverTimeVisualization = ({
             <TooltipWrapper
                 controlledProps={{
                     isControlled: true,
-                    isVisible: true //tooltipIsVisible
+                    isVisible: tooltipIsVisible
                 }}
                 className="budgetary-resources__tooltip-wrapper"
                 offsetAdjustments={{ top: -5 }}
