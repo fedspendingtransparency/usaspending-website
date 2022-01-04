@@ -62,12 +62,14 @@ const StatusOfFundsChart = ({ results, fy, updateResults }) => {
             limit: pageSize,
             page: currentPage
         };
-        request.current = await fetchFederalAccountsList(overview.toptierCode, agencySlug, fy, params.page);
+        request.current = fetchFederalAccountsList(overview.toptierCode, agencySlug, fy, params.page);
         const federalAccountsRequest = request.current;
         federalAccountsRequest.promise
             .then((res) => {
                 const parsedData = parseRows(res.data.results);
                 setDrilldownResults(parsedData);
+                updateResults(parsedData);
+                console.log(parsedData);
                 dispatch(setFederalAccountsList(parsedData));
                 setTotalItems(res.data.page_metadata.total);
                 setLoading(false);
@@ -80,8 +82,6 @@ const StatusOfFundsChart = ({ results, fy, updateResults }) => {
 
     const handleClick = (id) => {
         fetchFederalAccounts(id);
-        updateResults(drilldownResults);
-        console.log('res', results);
     };
 
     useEffect(() => {
