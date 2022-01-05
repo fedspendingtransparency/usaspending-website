@@ -24,10 +24,4 @@ describe('InfoBanner', () => {
         fireEvent.click(screen.getByTitle('Dismiss message'));
         expect(closeBanner).toHaveBeenCalled();
     });
-    describe('COVID-19 banner', () => {
-        it('should display again on 1/14/21', () => {
-            render(<InfoBanner {...mockProps} />);
-            expect(screen.queryByText('New to USAspending: COVID-19 Spending Data')).toBeTruthy();
-        });
-    });
 });
