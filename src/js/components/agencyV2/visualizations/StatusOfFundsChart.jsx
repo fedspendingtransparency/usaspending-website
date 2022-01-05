@@ -18,11 +18,12 @@ const propTypes = {
     setLevel: PropTypes.func,
     loading: PropTypes.bool,
     setLoading: PropTypes.func,
-    setTotalItems: PropTypes.func
+    setTotalItems: PropTypes.func,
+    fetchFederalAccounts: PropTypes.func
 };
 
 const StatusOfFundsChart = ({
-    results, fy, updateResults, level, setLevel, loading, setLoading, setTotalItems
+    results, fy, fetchFederalAccounts, setLevel
 }) => {
     const dispatch = useDispatch();
     const chartRef = useRef();
@@ -52,57 +53,11 @@ const StatusOfFundsChart = ({
         dispatch(resetFederalAccountsList());
     }, []);
 
-    const fetchFederalAccounts = async (agencyData) => {
-        if (request.current) {
-            request.current.cancel();
-        }
-        if (error) {
-            setError(false);
-        }
-        if (!loading) {
-            setLoading(true);
-        }
-        const params = {
-            limit: pageSize,
-            page: currentPage
-        };
-        request.current = fetchFederalAccountsList(overview.toptierCode, agencyData.id, fy, params.page);
-        const federalAccountsRequest = request.current;
-        federalAccountsRequest.promise
-            .then((res) => {
-                const parsedData = parseRows(res.data.results);
-                const totalsData = {
-                    name: `${agencyData.name}`,
-                    id: `${agencyData.id}`,
-                    total_budgetary_resources: `${agencyData.budgetaryResources}`,
-                    total_obligations: `${agencyData.obligations}`
-                };
-                setLevel(1, totalsData);
-                updateResults(parsedData);
-                dispatch(setFederalAccountsList(parsedData));
-                setTotalItems(res.data.page_metadata.total);
-                console.log(res.data);
-                setLoading(false);
-            }).catch((err) => {
-                setError(true);
-                setLoading(false);
-                console.error(err);
-            });
-    };
-
     const handleClick = (data) => {
+        console.log('sof', data);
         fetchFederalAccounts(data);
-        console.log(data);
+        setLevel(1, data);
     };
-
-    useEffect(() => {
-        const hasParamChanged = (
-            prevPage !== currentPage || prevPageSize !== pageSize
-        );
-        if (hasParamChanged) {
-            fetchFederalAccounts();
-        }
-    }, [currentPage]);
 
     useEffect(() => {
         const handleResize = throttle(() => {
@@ -222,7 +177,6 @@ const StatusOfFundsChart = ({
             resultNames.push(i);
         }
     }
-    console.log(resultNames);
     y.domain(resultNames);
 
     // append x axis (amounts)

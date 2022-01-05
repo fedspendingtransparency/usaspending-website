@@ -28,17 +28,13 @@ const StatusOfFunds = ({ fy }) => {
     const [level, setLevel] = useState(0);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
-    const [id, setId] = useState('');
+    const [subcomponent, setSubcomponent] = useState({});
     const [prevPage, currentPage, changeCurrentPage] = useStateWithPrevious(1);
     const [prevPageSize, pageSize, changePageSize] = useStateWithPrevious(10);
     const [totalItems, setTotalItems] = useState(0);
     const request = useRef(null);
     const [results, setResults] = useState([]);
     const { overview, selectedSubcomponent } = useSelector((state) => state.agencyV2);
-
-    const updateResults = (resData) => {
-        setResults(resData);
-    };
 
     useEffect(() => {
         if (request.current) {
@@ -64,6 +60,9 @@ const StatusOfFunds = ({ fy }) => {
         };
         request.current = fetchSubcomponentsList(overview.toptierCode, fy, params.page);
         const agencySubcomponentsListRequest = request.current;
+        if (!overview.toptierCode) {
+            console.log('debug subcomponent');
+        }
         agencySubcomponentsListRequest.promise
             .then((res) => {
                 const parsedData = parseRows(res.data.results);
@@ -78,10 +77,12 @@ const StatusOfFunds = ({ fy }) => {
             });
     };
 
-    const fetchFederalAccounts = async (agencyData) => {
+    const fetchFederalAccounts = (agencyData) => {
+        console.log('agencydata', agencyData);
         if (request.current) {
             request.current.cancel();
         }
+        console.log('agencydataReq', agencyData);
         if (error) {
             setError(false);
         }
@@ -97,6 +98,7 @@ const StatusOfFunds = ({ fy }) => {
         federalAccountsRequest.promise
             .then((res) => {
                 const parsedData = parseRows(res.data.results);
+                console.log(agencyData.id);
                 const totalsData = {
                     name: `${agencyData.name}`,
                     id: `${agencyData.id}`,
@@ -104,7 +106,7 @@ const StatusOfFunds = ({ fy }) => {
                     total_obligations: `${agencyData.obligations}`
                 };
                 setLevel(1, totalsData);
-                updateResults(parsedData);
+                setResults(parsedData);
                 dispatch(setFederalAccountsList(parsedData));
                 setTotalItems(res.data.page_metadata.total);
                 console.log(res.data);
@@ -120,19 +122,15 @@ const StatusOfFunds = ({ fy }) => {
         const hasParamChanged = (
             prevPage !== currentPage || prevPageSize !== pageSize
         );
+        console.log("level", level);
+        console.log("results", results);
         if (hasParamChanged && level === 0) {
             fetchAgencySubcomponents();
         }
-    }, [currentPage]);
-
-    useEffect(() => {
-        const hasParamChanged = (
-            prevPage !== currentPage || prevPageSize !== pageSize
-        );
         if (hasParamChanged && level === 1) {
-            fetchFederalAccounts(id);
+            fetchFederalAccounts(subcomponent);
         }
-    }, [totalItems]);
+    }, [currentPage]);
 
     useEffect(() => {
         if (fy && overview.toptierCode) {
@@ -142,16 +140,19 @@ const StatusOfFunds = ({ fy }) => {
 
     const onClick = (selectedLevel, data) => {
         // TODO DEV-8052 move this logic to the visualization
-        const subcomponent = Object.create(BaseStatusOfFundsLevel);
-        subcomponent.populate(data);
-        dispatch(setSelectedSubcomponent(subcomponent));
-        console.log(subcomponent);
-        setId(subcomponent.id);
+        const subcomponentTotalData = Object.create(BaseStatusOfFundsLevel);
+        console.log('sub', subcomponentTotalData);
+        subcomponentTotalData.populate(data);
+        dispatch(setSelectedSubcomponent(subcomponentTotalData));
+        console.log('sub', subcomponentTotalData);
+        setSubcomponent(subcomponentTotalData);
         setLevel(selectedLevel);
     };
     const goBack = () => {
-        setLevel(0);
-        fetchAgencySubcomponents();
+        if (overview.toptierCode) {
+            setLevel(0);
+            fetchAgencySubcomponents();
+        }
     };
     return (
         <div className="body__content status-of-funds">
@@ -170,7 +171,7 @@ const StatusOfFunds = ({ fy }) => {
                         <button onClick={goBack}>
                             Back
                         </button> : <></>}
-                    { !loading ? <VisualizationSection totalItems={totalItems} setTotalItems={setTotalItems} loading={loading} setLoading={setLoading} level={level} setLevel={onClick} selectedSubcomponent={selectedSubcomponent} agencyId={overview.toptierCode} agencyName={overview.name} fy={fy} results={results} updateResults={updateResults} /> : <LoadingMessage /> }
+                    { !loading ? <VisualizationSection fetchFederalAccounts={fetchFederalAccounts} totalItems={totalItems} setTotalItems={setTotalItems} loading={loading} setLoading={setLoading} level={level} setLevel={onClick} selectedSubcomponent={selectedSubcomponent} agencyId={overview.toptierCode} agencyName={overview.name} fy={fy} results={results} /> : <LoadingMessage /> }
                     <Pagination
                         currentPage={currentPage}
                         changePage={changeCurrentPage}

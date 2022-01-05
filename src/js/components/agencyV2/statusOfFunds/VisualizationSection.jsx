@@ -21,7 +21,7 @@ const propTypes = {
     agencyName: PropTypes.string,
     fy: PropTypes.string,
     results: PropTypes.array,
-    updateResults: PropTypes.func,
+    fetchFederalAccounts: PropTypes.func,
     selectedSubcomponent: PropTypes.shape({
         name: PropTypes.string,
         id: PropTypes.string,
@@ -40,13 +40,13 @@ const VisualizationSection = ({
     agencyName,
     fy,
     results,
-    updateResults,
-    selectedSubcomponent
+    selectedSubcomponent,
+    fetchFederalAccounts
 }) => (
     <div className="status-of-funds__visualization">
         <h6>{level === 1 ? selectedSubcomponent?.name : agencyName} by <strong>{levels[level]}</strong> for FY {fy}</h6>
         <div className="status-of-funds__visualization-chart">
-            <StatusOfFundsChart totalItems={totalItems} setTotalItems={setTotalItems} loading={loading} setLoading={setLoading} fy={fy} results={results} updateResults={updateResults} level={level} setLevel={setLevel} />
+            <StatusOfFundsChart fetchFederalAccounts={fetchFederalAccounts} totalItems={totalItems} setTotalItems={setTotalItems} loading={loading} setLoading={setLoading} fy={fy} results={results} level={level} setLevel={setLevel} />
         </div>
     </div>
 );
