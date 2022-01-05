@@ -7,8 +7,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { FlexGridRow, FlexGridCol, Pagination, LoadingMessage } from 'data-transparency-ui';
-import { setSelectedSubcomponent, setAgencySubcomponents, resetAgencySubcomponents } from 'redux/actions/agencyV2/agencyV2Actions';
-import { fetchSubcomponentsList } from 'apis/agencyV2';
+import { setSelectedSubcomponent, setAgencySubcomponents, resetAgencySubcomponents, setFederalAccountsList, resetFederalAccountsList } from 'redux/actions/agencyV2/agencyV2Actions';
+import { fetchSubcomponentsList, fetchFederalAccountsList } from 'apis/agencyV2';
 import { parseRows } from 'helpers/agencyV2/StatusOfFundsVizHelper';
 import { useStateWithPrevious } from 'helpers';
 import BaseStatusOfFundsLevel from 'models/v2/agency/BaseStatusOfFundsLevel';
@@ -28,6 +28,7 @@ const StatusOfFunds = ({ fy }) => {
     const [level, setLevel] = useState(0);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
+    const [id, setId] = useState('');
     const [prevPage, currentPage, changeCurrentPage] = useStateWithPrevious(1);
     const [prevPageSize, pageSize, changePageSize] = useStateWithPrevious(10);
     const [totalItems, setTotalItems] = useState(0);
@@ -44,9 +45,10 @@ const StatusOfFunds = ({ fy }) => {
             request.current.cancel();
         }
         dispatch(resetAgencySubcomponents());
+        dispatch(resetFederalAccountsList());
     }, []);
 
-    const fetchAgencySubcomponents = async () => {
+    const fetchAgencySubcomponents = () => {
         if (request.current) {
             request.current.cancel();
         }
@@ -76,14 +78,61 @@ const StatusOfFunds = ({ fy }) => {
             });
     };
 
+    const fetchFederalAccounts = async (agencyData) => {
+        if (request.current) {
+            request.current.cancel();
+        }
+        if (error) {
+            setError(false);
+        }
+        if (!loading) {
+            setLoading(true);
+        }
+        const params = {
+            limit: pageSize,
+            page: currentPage
+        };
+        request.current = fetchFederalAccountsList(overview.toptierCode, agencyData.id, fy, params.page);
+        const federalAccountsRequest = request.current;
+        federalAccountsRequest.promise
+            .then((res) => {
+                const parsedData = parseRows(res.data.results);
+                const totalsData = {
+                    name: `${agencyData.name}`,
+                    id: `${agencyData.id}`,
+                    total_budgetary_resources: `${agencyData.budgetaryResources}`,
+                    total_obligations: `${agencyData.obligations}`
+                };
+                setLevel(1, totalsData);
+                updateResults(parsedData);
+                dispatch(setFederalAccountsList(parsedData));
+                setTotalItems(res.data.page_metadata.total);
+                console.log(res.data);
+                setLoading(false);
+            }).catch((err) => {
+                setError(true);
+                setLoading(false);
+                console.error(err);
+            });
+    };
+
     useEffect(() => {
         const hasParamChanged = (
             prevPage !== currentPage || prevPageSize !== pageSize
         );
-        if (hasParamChanged) {
+        if (hasParamChanged && level === 0) {
             fetchAgencySubcomponents();
         }
     }, [currentPage]);
+
+    useEffect(() => {
+        const hasParamChanged = (
+            prevPage !== currentPage || prevPageSize !== pageSize
+        );
+        if (hasParamChanged && level === 1) {
+            fetchFederalAccounts(id);
+        }
+    }, [totalItems]);
 
     useEffect(() => {
         if (fy && overview.toptierCode) {
@@ -96,6 +145,8 @@ const StatusOfFunds = ({ fy }) => {
         const subcomponent = Object.create(BaseStatusOfFundsLevel);
         subcomponent.populate(data);
         dispatch(setSelectedSubcomponent(subcomponent));
+        console.log(subcomponent);
+        setId(subcomponent.id);
         setLevel(selectedLevel);
     };
     const goBack = () => {
@@ -119,7 +170,7 @@ const StatusOfFunds = ({ fy }) => {
                         <button onClick={goBack}>
                             Back
                         </button> : <></>}
-                    { !loading ? <VisualizationSection loading={loading} setLoading={setLoading} level={level} setLevel={onClick} selectedSubcomponent={selectedSubcomponent} agencyId={overview.toptierCode} agencyName={overview.name} fy={fy} results={results} updateResults={updateResults} /> : <LoadingMessage /> }
+                    { !loading ? <VisualizationSection totalItems={totalItems} setTotalItems={setTotalItems} loading={loading} setLoading={setLoading} level={level} setLevel={onClick} selectedSubcomponent={selectedSubcomponent} agencyId={overview.toptierCode} agencyName={overview.name} fy={fy} results={results} updateResults={updateResults} /> : <LoadingMessage /> }
                     <Pagination
                         currentPage={currentPage}
                         changePage={changeCurrentPage}

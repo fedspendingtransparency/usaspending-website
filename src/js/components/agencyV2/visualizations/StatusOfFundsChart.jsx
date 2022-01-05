@@ -17,21 +17,20 @@ const propTypes = {
     level: PropTypes.number.isRequired,
     setLevel: PropTypes.func,
     loading: PropTypes.bool,
-    setLoading: PropTypes.func
+    setLoading: PropTypes.func,
+    setTotalItems: PropTypes.func
 };
 
 const StatusOfFundsChart = ({
-    results, fy, updateResults, level, setLevel, loading, setLoading
+    results, fy, updateResults, level, setLevel, loading, setLoading, setTotalItems
 }) => {
     const dispatch = useDispatch();
     const chartRef = useRef();
     const request = useRef(null);
     const [error, setError] = useState(false);
-    const [prevPage, currentPage, changeCurrentPage] = useStateWithPrevious(1);
-    const [prevPageSize, pageSize, changePageSize] = useStateWithPrevious(10);
-    const [totalItems, setTotalItems] = useState(0);
+    const [prevPage, currentPage] = useStateWithPrevious(1);
+    const [prevPageSize, pageSize] = useStateWithPrevious(10);
     const [windowWidth, setWindowWidth] = useState(0);
-    const [drilldownResults, setDrilldownResults] = useState(results);
     const { overview } = useSelector((state) => state.agencyV2);
 
     const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth < largeScreen);
@@ -79,10 +78,10 @@ const StatusOfFundsChart = ({
                     total_obligations: `${agencyData.obligations}`
                 };
                 setLevel(1, totalsData);
-                setDrilldownResults(parsedData);
                 updateResults(parsedData);
                 dispatch(setFederalAccountsList(parsedData));
                 setTotalItems(res.data.page_metadata.total);
+                console.log(res.data);
                 setLoading(false);
             }).catch((err) => {
                 setError(true);
@@ -93,6 +92,7 @@ const StatusOfFundsChart = ({
 
     const handleClick = (data) => {
         fetchFederalAccounts(data);
+        console.log(data);
     };
 
     useEffect(() => {
