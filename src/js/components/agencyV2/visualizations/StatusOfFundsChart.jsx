@@ -215,13 +215,14 @@ const StatusOfFundsChart = ({
     x.domain([0, Math.max(sortedNums[0]._budgetaryResources, sortedNums[0]._obligations)]);
     // extract sorted agency names
     for (let i = 0; i < sortedNums.length; i++) {
-        resultNames = resultNames.concat(sortedNums[i].name);
+        resultNames = resultNames.concat(sortedNums[i].name.split(',')[0]);
     }
     if (sortedNums.length < 10) {
         for (let i = sortedNums.length; i < 10; i++) {
             resultNames.push(i);
         }
     }
+    console.log(resultNames);
     y.domain(resultNames);
 
     // append x axis (amounts)
@@ -298,8 +299,8 @@ const StatusOfFundsChart = ({
         .attr('class', 'bar-group');
     barGroups.append("rect")
         .attr('transform', tickMobileXAxis)
-        .attr("x", isLargeScreen ? -140 : -8)
-        .attr("y", (d) => (isLargeScreen ? y(d.name) + 80 : y(d.name) + 40))
+        .attr("x", -8)
+        .attr("y", (d) => (isLargeScreen ? y(d.name.split(',')[0]) + 80 : y(d.name.split(',')[0]) + 40))
         .attr("width", isLargeScreen ? chartWidth + 340 : chartWidth + 90)
         .attr("height", y.bandwidth() - 36)
         .attr("fill", "#fff")
@@ -309,8 +310,8 @@ const StatusOfFundsChart = ({
     // append total budgetary resources bars
     barGroups.append("rect")
         .attr('transform', tickMobileXAxis)
-        .attr("x", isLargeScreen ? -140 : -8)
-        .attr("y", (d) => (isLargeScreen ? y(d.name) + 80 : y(d.name) + 40))
+        .attr("x", -8)
+        .attr("y", (d) => (isLargeScreen ? y(d.name.split(',')[0]) + 80 : y(d.name.split(',')[0]) + 40))
         .attr("width", (d) => x(d._budgetaryResources) + 11)
         .attr("height", y.bandwidth() - 36)
         .attr('tabindex', 0)
@@ -319,8 +320,8 @@ const StatusOfFundsChart = ({
     // append total obligations bars
     barGroups.append("rect")
         .attr('transform', tickMobileXAxis)
-        .attr("x", isLargeScreen ? -140 : -8)
-        .attr("y", (d) => (isLargeScreen ? y(d.name) + 80 : y(d.name) + 40))
+        .attr("x", -8)
+        .attr("y", (d) => (isLargeScreen ? y(d.name.split(',')[0]) + 80 : y(d.name.split(',')[0]) + 40))
         .attr("width", (d) => x(d._obligations) + 11)
         .attr("height", y.bandwidth() - 36)
         .attr('tabindex', 0)
