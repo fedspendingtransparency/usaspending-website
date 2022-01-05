@@ -15,16 +15,17 @@ const propTypes = {
     results: PropTypes.array,
     updateResults: PropTypes.func,
     level: PropTypes.number.isRequired,
-    setLevel: PropTypes.func
+    setLevel: PropTypes.func,
+    loading: PropTypes.bool,
+    setLoading: PropTypes.func
 };
 
 const StatusOfFundsChart = ({
-    results, fy, updateResults, level, setLevel
+    results, fy, updateResults, level, setLevel, loading, setLoading
 }) => {
     const dispatch = useDispatch();
     const chartRef = useRef();
     const request = useRef(null);
-    const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [prevPage, currentPage, changeCurrentPage] = useStateWithPrevious(1);
     const [prevPageSize, pageSize, changePageSize] = useStateWithPrevious(10);

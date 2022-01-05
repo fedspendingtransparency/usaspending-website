@@ -14,6 +14,8 @@ import StatusOfFundsChart from '../visualizations/StatusOfFundsChart';
 const propTypes = {
     level: PropTypes.number.isRequired,
     setLevel: PropTypes.func,
+    loading: PropTypes.bool,
+    setLoading: PropTypes.func,
     agencyName: PropTypes.string,
     fy: PropTypes.string,
     results: PropTypes.array,
@@ -27,6 +29,8 @@ const propTypes = {
 };
 
 const VisualizationSection = ({
+    loading,
+    setLoading,
     level,
     setLevel,
     agencyName,
@@ -38,7 +42,7 @@ const VisualizationSection = ({
     <div className="status-of-funds__visualization">
         <h6>{level === 1 ? selectedSubcomponent?.name : agencyName} by <strong>{levels[level]}</strong> for FY {fy}</h6>
         <div className="status-of-funds__visualization-chart">
-            <StatusOfFundsChart fy={fy} results={results} updateResults={updateResults} level={level} setLevel={setLevel} />
+            <StatusOfFundsChart loading={loading} setLoading={setLoading} fy={fy} results={results} updateResults={updateResults} level={level} setLevel={setLevel} />
         </div>
     </div>
 );

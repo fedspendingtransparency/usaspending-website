@@ -119,7 +119,7 @@ const StatusOfFunds = ({ fy }) => {
                         <button onClick={goBack}>
                             Back
                         </button> : <></>}
-                    { !loading ? <VisualizationSection level={level} setLevel={onClick} selectedSubcomponent={selectedSubcomponent} agencyId={overview.toptierCode} agencyName={overview.name} fy={fy} results={results} updateResults={updateResults} /> : <LoadingMessage /> }
+                    { !loading ? <VisualizationSection loading={loading} setLoading={setLoading} level={level} setLevel={onClick} selectedSubcomponent={selectedSubcomponent} agencyId={overview.toptierCode} agencyName={overview.name} fy={fy} results={results} updateResults={updateResults} /> : <LoadingMessage /> }
                     <Pagination
                         currentPage={currentPage}
                         changePage={changeCurrentPage}
