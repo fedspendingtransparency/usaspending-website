@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { AGENCY_LINK } from 'GlobalConstants';
 
 import AwardSection from '../AwardSection';
 
@@ -14,10 +15,11 @@ const propTypes = {
 };
 
 const AwardingAgency = ({ awardingAgency }) => {
+    console.log('prop', awardingAgency);
     let innerComponent = awardingAgency.formattedToptier;
     if (awardingAgency.hasAgencyPage && awardingAgency.id) {
         innerComponent = (
-            <Link to={`/agency/${awardingAgency.id}`}>
+            <Link to={`/${AGENCY_LINK}/${awardingAgency.agencySlug}`}>
                 {innerComponent}
             </Link>
         );
