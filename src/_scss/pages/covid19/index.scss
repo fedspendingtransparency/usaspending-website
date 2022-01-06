@@ -48,7 +48,6 @@
         width: 70%;
       }
       .body__section {
-        @import "components/moreOptionsTabs";
         @import "components/glossaryLink";
         @import "components/externalLink";
         // Import specific styles for each section

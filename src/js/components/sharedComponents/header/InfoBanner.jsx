@@ -3,6 +3,9 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { isBefore, startOfToday } from "date-fns";
+import { isIe } from "helpers/browser";
+import ExternalLink from 'components/sharedComponents/ExternalLink';
 
 const propTypes = {
     closeBanner: PropTypes.func,
@@ -20,13 +23,28 @@ export default class InfoBanner extends React.Component {
     }
 
     render() {
-        const title = 'New to USAspending: COVID-19 Spending Data';
-        const content = (
+        let title = 'New to USAspending: COVID-19 Spending Data';
+        let content = (
             <p>
             USAspending now has spending data from federal agencies related to the Coronavirus Aid, Relief, and Economic Security (CARES) Act and other COVID-19 appropriations.
                 <button onClick={this.props.triggerModal}> Learn more</button> about the new data and features, or <Link to="/disaster/covid-19">visit the profile page</Link> to explore and download the data today!
             </p>
         );
+
+        if (isIe() && isBefore(startOfToday(), new Date(2022, 1, 18))) {
+            title = 'USAspending Ending Support for Internet Explorer';
+            content = (
+                <p>
+                    Support for Internet Explorer will end on Friday, 2/18/2022. Please use one of the following browsers to continue to access USAspending.gov:
+                    <ExternalLink url="https://support.microsoft.com/en-us/microsoft-edge/make-the-switch-from-internet-explorer-to-microsoft-edge-a6f7173e-e84a-36a3-9728-3df20ade9b3c">{' '}Microsoft Edge</ExternalLink>
+                    ,
+                    <ExternalLink url="https://support.google.com/chrome/answer/95417?hl=en&co=GENIE.Platform%3DDesktop">{' '}Google Chrome</ExternalLink>
+                    ,
+                    <ExternalLink url="https://www.mozilla.org/en-US/firefox/new/">{' '}Mozilla Firefox</ExternalLink>
+                    , Apple Safari.
+                </p>
+            );
+        }
 
         return (
             <div className="info-banner">

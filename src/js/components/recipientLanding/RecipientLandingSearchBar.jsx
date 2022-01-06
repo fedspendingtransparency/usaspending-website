@@ -59,7 +59,7 @@ export default class RecipientLandingSearchBar extends React.Component {
 
     render() {
         let icon = (
-            <Search alt="Search Recipients or DUNS" />
+            <Search alt="Search Recipients" />
         );
         if (this.state.hasSubmit) {
             icon = (
@@ -76,7 +76,7 @@ export default class RecipientLandingSearchBar extends React.Component {
                         name="recipient"
                         value={this.state.recipient}
                         onChange={this.onChange}
-                        placeholder="Search by Recipient Name or DUNS" />
+                        placeholder="Search by Recipient Name" />
                     <button
                         aria-label="Search"
                         className="search-section__button"
