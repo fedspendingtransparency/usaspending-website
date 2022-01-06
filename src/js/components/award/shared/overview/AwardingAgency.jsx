@@ -15,7 +15,6 @@ const propTypes = {
 };
 
 const AwardingAgency = ({ awardingAgency }) => {
-    console.log('prop', awardingAgency);
     let innerComponent = awardingAgency.formattedToptier;
     if (awardingAgency.hasAgencyPage && awardingAgency.id) {
         innerComponent = (

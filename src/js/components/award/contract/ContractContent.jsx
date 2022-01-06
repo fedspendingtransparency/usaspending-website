@@ -50,8 +50,6 @@ const ContractContent = ({
         jumpToSection('award-history');
     };
 
-    console.log('overview', overview);
-
     const awardAmountData = Object.create(BaseAwardAmounts);
     awardAmountData.populate(overview, overview.category, defCodes);
 
