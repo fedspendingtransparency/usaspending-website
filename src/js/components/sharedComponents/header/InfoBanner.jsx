@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { isBefore, startOfToday } from "date-fns";
+import { isIe } from "helpers/browser";
 import ExternalLink from 'components/sharedComponents/ExternalLink';
 
 const propTypes = {
@@ -30,7 +31,7 @@ export default class InfoBanner extends React.Component {
             </p>
         );
 
-        if (isBefore(startOfToday(), new Date(2022, 1, 18))) {
+        if (isIe() && isBefore(startOfToday(), new Date(2022, 1, 18))) {
             title = 'USAspending Ending Support for Internet Explorer';
             content = (
                 <p>
