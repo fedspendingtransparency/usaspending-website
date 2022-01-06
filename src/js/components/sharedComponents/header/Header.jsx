@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import Cookies from 'js-cookie';
 import { Link } from 'react-router-dom';
 import { isBefore, startOfToday } from 'date-fns';
+import { isIe } from "helpers/browser";
 
 import GlossaryContainer from 'containers/glossary/GlossaryContainer';
 import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
@@ -18,7 +19,7 @@ const clickedHeaderLink = (route) => {
 };
 
 let cookie = 'usaspending_covid_release';
-if (isBefore(startOfToday(), new Date(2022, 1, 18))) {
+if (isIe() && isBefore(startOfToday(), new Date(2022, 1, 18))) {
     cookie = 'usaspending_end_of_IE';
     Cookies.set(cookie, 'showIEBanner');
 }
