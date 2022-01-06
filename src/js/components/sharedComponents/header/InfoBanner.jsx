@@ -30,7 +30,7 @@ export default class InfoBanner extends React.Component {
             </p>
         );
 
-        if (isBefore(startOfToday(), new Date(2022, 1, 17))) {
+        if (isBefore(startOfToday(), new Date(2022, 1, 18))) {
             title = 'USAspending Ending Support for Internet Explorer';
             content = (
                 <p>
