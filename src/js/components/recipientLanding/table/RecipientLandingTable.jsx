@@ -81,6 +81,20 @@ const RecipientLandingTable = (props) => {
                             </div>
                         </th>
                         <th className="recipient-list__head-cell">
+                            <div className="header-cell ">
+                                <div className="header-cell__text">
+                                    <div className="header-cell__title header-cell__title_cap">
+                                        Duns
+                                    </div>
+                                </div>
+                                <StateLandingTableSorter
+                                    field="duns"
+                                    label="duns"
+                                    active={{ field: props.order.field, direction: props.order.direction }}
+                                    setSort={props.setSort} />
+                            </div>
+                        </th>
+                        <th className="recipient-list__head-cell">
                             <div className="header-cell  header-cell_right">
                                 <div className="header-cell__text">
                                     <div className="header-cell__title header-cell__title_center">
