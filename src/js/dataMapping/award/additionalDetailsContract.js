@@ -117,6 +117,7 @@ const additionalDetailsContracts = (awardData) => {
                     title: recipient._name
                 }
             },
+            DUNS: recipient.duns || '',
             'Parent Recipient': {
                 type: 'link',
                 data: {
@@ -125,6 +126,7 @@ const additionalDetailsContracts = (awardData) => {
                     title: recipient.parentName
                 }
             },
+            'Parent DUNS': recipient.parentDuns || '',
             'Recipient Address': {
                 type: 'address',
                 data: [
