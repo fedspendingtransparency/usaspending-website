@@ -140,6 +140,7 @@ const StatusOfFunds = ({ fy }) => {
     }, [fy, overview.toptierCode]);
 
     const onClick = (selectedLevel, data) => {
+        changeCurrentPage(1);
         const subcomponentTotalData = Object.create(BaseStatusOfFundsLevel);
         subcomponentTotalData.populate(data);
         dispatch(setSelectedSubcomponent(subcomponentTotalData));

@@ -303,7 +303,7 @@ const StatusOfFundsChart = ({
         if (results?.length > 0) {
             renderChart();
         }
-    }, [results]);
+    }, [results, isLargeScreen, isMobile]);
 
     return (
         <div id="sof_chart" className="status-of-funds__visualization" ref={chartRef} />
