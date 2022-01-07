@@ -4,6 +4,20 @@
             margin-left: rem(32);
         }
     }
+    .drilldown-back-button {
+        @media(max-width: $medium-screen) {
+            margin-top: 3rem;
+        }
+        @media(min-width: $large-screen) {
+            margin-left: rem(32);
+        }
+        margin-bottom: 2rem;
+        font-size: rem(16);
+        padding: 0;
+        border: none;
+        background: none;
+        color: $color-primary;
+    }
     .status-of-funds__visualization-chart {
         @media(min-width: $large-screen) {
             margin-left: rem(20);

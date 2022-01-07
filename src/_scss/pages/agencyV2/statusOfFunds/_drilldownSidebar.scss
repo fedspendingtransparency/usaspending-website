@@ -8,17 +8,6 @@
     .drilldown-level {
         // in mobile, hide all levels except the active level
         display: none;
-        .drilldown-level__back {
-            background-color: $color-gray-lighter;
-            color: $color-primary;
-            margin: 0;
-            padding-left: rem(8);
-            padding-right: rem(8);
-            border-top-left-radius: rem(4);
-            border-bottom-left-radius: rem(4);
-            font-size: rem(16);
-            min-width: rem(32);
-        }
         .drilldown-level__wrapper {
             padding: rem(8) rem(16);
         }

@@ -6,6 +6,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FlexGridRow, FlexGridCol, Pagination, LoadingMessage } from 'data-transparency-ui';
 import { setSelectedSubcomponent, setAgencySubcomponents, resetAgencySubcomponents, setFederalAccountsList, resetFederalAccountsList } from 'redux/actions/agencyV2/agencyV2Actions';
 import { fetchSubcomponentsList, fetchFederalAccountsList } from 'apis/agencyV2';
@@ -161,8 +162,9 @@ const StatusOfFunds = ({ fy }) => {
                 </FlexGridCol>
                 <FlexGridCol className="status-of-funds__visualization" desktop={9}>
                     {level === 1 ?
-                        <button onClick={goBack}>
-                            Back
+                        <button title="Go up a level" className="drilldown-back-button" onClick={goBack}>
+                            <FontAwesomeIcon icon="arrow-left" />
+                            &nbsp;&nbsp;Back
                         </button> : <></>}
                     { !loading ? <VisualizationSection fetchFederalAccounts={fetchFederalAccounts} totalItems={totalItems} setTotalItems={setTotalItems} loading={loading} setLoading={setLoading} level={level} setLevel={onClick} selectedSubcomponent={selectedSubcomponent} agencyId={overview.toptierCode} agencyName={overview.name} fy={fy} results={results} /> : <LoadingMessage /> }
                     <Pagination
