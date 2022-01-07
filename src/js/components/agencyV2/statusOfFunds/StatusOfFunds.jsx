@@ -119,15 +119,16 @@ const StatusOfFunds = ({ fy }) => {
     };
 
     useEffect(() => {
-        const hasParamChanged = (
-            prevPage !== currentPage || prevPageSize !== pageSize
-        );
-        console.log("level", level);
-        console.log("results", results);
-        if (hasParamChanged && level === 0) {
+        if (Object.keys(subcomponent).length !== 0) {
+            fetchFederalAccounts(subcomponent);
+        }
+    }, [subcomponent]);
+
+    useEffect(() => {
+        if (level === 0) {
             fetchAgencySubcomponents();
         }
-        if (hasParamChanged && level === 1) {
+        if (level === 1) {
             fetchFederalAccounts(subcomponent);
         }
     }, [currentPage]);
@@ -139,19 +140,16 @@ const StatusOfFunds = ({ fy }) => {
     }, [fy, overview.toptierCode]);
 
     const onClick = (selectedLevel, data) => {
-        // TODO DEV-8052 move this logic to the visualization
         const subcomponentTotalData = Object.create(BaseStatusOfFundsLevel);
-        console.log('sub', subcomponentTotalData);
         subcomponentTotalData.populate(data);
         dispatch(setSelectedSubcomponent(subcomponentTotalData));
-        console.log('sub', subcomponentTotalData);
         setSubcomponent(subcomponentTotalData);
-        setLevel(selectedLevel);
     };
     const goBack = () => {
         if (overview.toptierCode) {
             setLevel(0);
             fetchAgencySubcomponents();
+            changeCurrentPage(1);
         }
     };
     return (
