@@ -13,7 +13,7 @@ const propTypes = {
 };
 
 const StatusOfFundsChart = ({
-    results, fy, setLevel
+    results, fy, setLevel, level
 }) => {
     const chartRef = useRef();
     const [windowWidth, setWindowWidth] = useState(0);
@@ -222,13 +222,15 @@ const StatusOfFundsChart = ({
                 d3.select(this).remove();
             }
         });
+        // create bar group <g>'s for each bar component
         const barGroups = svg.append('g')
             .attr('class', 'parent-g')
             .selectAll('.bar-group')
             .data(sortedNums)
             .enter()
             .append('g')
-            .attr('class', 'bar-group');
+            .attr('class', 'bar-group')
+            .attr('tabindex', 0);
         barGroups.append("rect")
             .attr('transform', tickMobileXAxis)
             .attr("x", -8)
@@ -246,7 +248,6 @@ const StatusOfFundsChart = ({
             .attr("y", (d) => (isLargeScreen ? y(d.name.split(',')[0]) + 80 : y(d.name.split(',')[0]) + 40))
             .attr("width", (d) => x(d._budgetaryResources) + 11)
             .attr("height", y.bandwidth() - 36)
-            .attr('tabindex', 0)
             .attr("fill", "#BBDFC7")
             .attr('class', 'hbars');
         // append total obligations bars
@@ -256,12 +257,21 @@ const StatusOfFundsChart = ({
             .attr("y", (d) => (isLargeScreen ? y(d.name.split(',')[0]) + 80 : y(d.name.split(',')[0]) + 40))
             .attr("width", (d) => x(d._obligations) + 11)
             .attr("height", y.bandwidth() - 36)
-            .attr('tabindex', 0)
             .attr("fill", "#2B71B8")
             .attr('class', 'hbars');
+        // on click drilldown
         svg.selectAll(".bar-group").on('click', (d) => {
             handleClick(d);
         });
+        // tab through and enter key functionality
+        svg.selectAll(".bar-group").on("keypress", (d) => {
+            if (d3.event.keyCode === 13) {
+                handleClick(d);
+            }
+        });
+        if (level === 1) {
+            svg.selectAll(".bar-group").on('click', null);
+        }
         // horizontal border above legend
         svg.append('line')
             .attr('transform', tickMobileXAxis)
@@ -299,7 +309,6 @@ const StatusOfFundsChart = ({
     };
 
     useEffect(() => {
-        console.log(results);
         if (results?.length > 0) {
             renderChart();
         }

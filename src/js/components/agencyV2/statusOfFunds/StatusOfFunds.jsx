@@ -30,7 +30,7 @@ const StatusOfFunds = ({ fy }) => {
     const [error, setError] = useState(false);
     const [subcomponent, setSubcomponent] = useState({});
     const [prevPage, currentPage, changeCurrentPage] = useStateWithPrevious(1);
-    const [prevPageSize, pageSize, changePageSize] = useStateWithPrevious(10);
+    const [pageSize, changePageSize] = useStateWithPrevious(10);
     const [totalItems, setTotalItems] = useState(0);
     const request = useRef(null);
     const [results, setResults] = useState([]);
@@ -60,9 +60,6 @@ const StatusOfFunds = ({ fy }) => {
         };
         request.current = fetchSubcomponentsList(overview.toptierCode, fy, params.page);
         const agencySubcomponentsListRequest = request.current;
-        if (!overview.toptierCode) {
-            console.log('debug subcomponent');
-        }
         agencySubcomponentsListRequest.promise
             .then((res) => {
                 const parsedData = parseRows(res.data.results);
@@ -78,11 +75,9 @@ const StatusOfFunds = ({ fy }) => {
     };
 
     const fetchFederalAccounts = (agencyData) => {
-        console.log('agencydata', agencyData);
         if (request.current) {
             request.current.cancel();
         }
-        console.log('agencydataReq', agencyData);
         if (error) {
             setError(false);
         }
@@ -98,7 +93,6 @@ const StatusOfFunds = ({ fy }) => {
         federalAccountsRequest.promise
             .then((res) => {
                 const parsedData = parseRows(res.data.results);
-                console.log(agencyData.id);
                 const totalsData = {
                     name: `${agencyData.name}`,
                     id: `${agencyData.id}`,
@@ -109,7 +103,6 @@ const StatusOfFunds = ({ fy }) => {
                 setResults(parsedData);
                 dispatch(setFederalAccountsList(parsedData));
                 setTotalItems(res.data.page_metadata.total);
-                console.log(res.data);
                 setLoading(false);
             }).catch((err) => {
                 setError(true);
@@ -125,10 +118,10 @@ const StatusOfFunds = ({ fy }) => {
     }, [subcomponent]);
 
     useEffect(() => {
-        if (level === 0) {
+        if (prevPage !== currentPage && level === 0) {
             fetchAgencySubcomponents();
         }
-        if (level === 1) {
+        if (prevPage !== currentPage && level === 1) {
             fetchFederalAccounts(subcomponent);
         }
     }, [currentPage]);
@@ -140,6 +133,7 @@ const StatusOfFunds = ({ fy }) => {
     }, [fy, overview.toptierCode]);
 
     const onClick = (selectedLevel, data) => {
+        // reset to page 1 on drilldown
         changeCurrentPage(1);
         const subcomponentTotalData = Object.create(BaseStatusOfFundsLevel);
         subcomponentTotalData.populate(data);
