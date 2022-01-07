@@ -187,13 +187,17 @@ export class RankVisualizationWrapperContainer extends React.Component {
             const result = Object.create(BaseSpendingByCategoryResult);
             result.populate(item);
 
-            if (this.state.scope === 'awarding_agency' || this.state.scope === 'awarding_subagency' || this.state.scope === 'recipient_duns') {
+            if (this.state.scope === 'awarding_agency' || this.state.scope === 'awarding_subagency') {
                 result.nameTemplate = (code, name) => {
                     if (code) {
                         return `${name} (${code})`;
                     }
                     return name;
                 };
+            }
+
+            if (this.state.scope === 'recipient_duns') {
+                result.nameTemplate = (code, name) => name;
             }
 
             labelSeries.push(result.name);

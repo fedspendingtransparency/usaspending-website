@@ -4,6 +4,7 @@
   @import "layouts/default/stickyHeader/header";
   @import "components/pageLoading";
   @import "./header";
+  @import "mixins/profilePage";
   
   @include display(flex);
   @include justify-content(flex-start);
@@ -32,7 +33,6 @@
       }
     }
     @import "./sidebar";
-    @import "./sidebarFooter";
     .body {
       @include display(flex);
       @include flex(1 1 auto);
@@ -48,7 +48,6 @@
         width: 70%;
       }
       .body__section {
-        @import "components/moreOptionsTabs";
         @import "components/glossaryLink";
         @import "components/externalLink";
         // Import specific styles for each section
@@ -106,19 +105,13 @@
           background: $color-gray;
           border: none;
         }
-        .usda-section-title__container {
-          .usda-section-title__title-icon {
-            margin-left: 0;
-            width: 4rem;
-          }
-        }
         .body__content {
           width: 100%; // Fixes an IE Flexbox bug
-          h3.body__narrative {
+          h4.body__narrative {
             text-align: left;
             font-weight: $font-semibold;
             font-size: 2rem;
-            padding-left: 4.5rem;
+            @include profile-page-wrap;
           }
 
           .body__narrative-description {
@@ -126,7 +119,7 @@
             text-align: left;
             margin: auto;
             padding-bottom: 5rem;
-            padding-left: 4.5rem;
+            @include profile-page-wrap;
             .footnotes {
               font-size: $smallest-font-size;
               .usda-external-link {
@@ -201,6 +194,7 @@
             padding-left: 6.8rem;
             padding-right: 5rem;
             padding-top: 5rem;
+            margin: 0;
             @media (max-width: $tablet-screen) {
               padding-left: 6rem;
             }
@@ -275,7 +269,7 @@
           font-style: italic;
           letter-spacing: 0;
           line-height: 1.5rem;
-          padding-left: 5rem;
+          @include profile-page-wrap;
         }
         &.award_question {
           .body__header {

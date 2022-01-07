@@ -63,7 +63,7 @@ export default class RecipientMultiParentCollapse extends React.Component {
                             <Link
                                 className="recipient-overview__parent-link"
                                 to={`/recipient/${initialParent.parent_id}/latest`}>
-                                {initialParent.parent_name} {initialDuns}
+                                {initialParent.parent_name}
                             </Link>
                         </div>
                         :
@@ -105,7 +105,7 @@ export default class RecipientMultiParentCollapse extends React.Component {
                                 key={initialDuns}
                                 className="recipient-overview__multiparents"
                                 to={`/recipient/${initialParent.parent_id}/latest`}>
-                                {initialParent.parent_name} {initialDuns}
+                                {initialParent.parent_name}
                             </Link>
                             <div className={this.state.open ? '' : 'hide'}>
                                 {this.renderMultipleParents()}

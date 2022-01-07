@@ -77,7 +77,6 @@ const additionalDetails = (awardData) => {
                     title: recipient._name
                 }
             },
-            DUNS: recipient.duns || '',
             'Parent Recipient': {
                 type: 'link',
                 data: {
@@ -85,7 +84,6 @@ const additionalDetails = (awardData) => {
                     title: recipient.parentName
                 }
             },
-            'Parent DUNS': recipient.parentDuns || '',
             'Recipient Address': {
                 type: 'address',
                 data: [

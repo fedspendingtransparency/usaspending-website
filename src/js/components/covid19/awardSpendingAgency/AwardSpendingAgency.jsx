@@ -138,12 +138,12 @@ const AwardSpendingAgency = ({ publicLaw }) => {
         <div className="body__content spending-by-agency">
             <DateNote />
             {publicLaw === 'american-rescue-plan' ?
-                <h3 className="body__narrative">
+                <h4 className="body__narrative">
                     <strong>Which agencies</strong> issued awards using American Rescue Plan funds?
-                </h3> :
-                <h3 className="body__narrative">
+                </h4> :
+                <h4 className="body__narrative">
                     <strong>Which agencies</strong> issued awards using COVID-19 funds?
-                </h3>
+                </h4>
             }
             <div className="body__narrative-description">
                 {publicLaw === 'american-rescue-plan' ?

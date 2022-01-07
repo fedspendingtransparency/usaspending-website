@@ -7,16 +7,16 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import replaceString from 'helpers/replaceString';
 import { Link } from 'react-router-dom';
-
-const propTypes = {
-    name: PropTypes.string,
-    rowIndex: PropTypes.number,
-    column: PropTypes.string,
-    id: PropTypes.number,
-    agencySearchString: PropTypes.string
-};
+import GlobalConstants from 'GlobalConstants';
 
 export default class AgencyLinkCell extends React.Component {
+    static propTypes = {
+        name: PropTypes.string,
+        column: PropTypes.string,
+        id: PropTypes.number,
+        agencySearchString: PropTypes.string
+    };
+
     render() {
         let name = this.props.name;
         // highlight the matched string if applicable
@@ -27,7 +27,7 @@ export default class AgencyLinkCell extends React.Component {
         return (
             <div className={`agency-link-cell column-${this.props.column}`}>
                 <div className="cell-content">
-                    <Link to={`/agency/${this.props.id}`}>
+                    <Link to={`/${GlobalConstants.AGENCY_LINK}/${this.props.id}`}>
                         {name}
                     </Link>
                 </div>
@@ -35,5 +35,3 @@ export default class AgencyLinkCell extends React.Component {
         );
     }
 }
-
-AgencyLinkCell.propTypes = propTypes;
