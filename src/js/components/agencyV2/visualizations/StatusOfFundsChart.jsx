@@ -74,6 +74,12 @@ const StatusOfFundsChart = ({
             }
         });
     }
+    const truncateTextLabel = (text) => {
+        if (level === 1 && text.length > 35) {
+            return `${text.substring(0, 25)}...`;
+        }
+        return text;
+    };
     // prevent eslint error for conditional function call to wrapText()
     function wrapTextMobile() {
         return '';
@@ -215,6 +221,7 @@ const StatusOfFundsChart = ({
             .attr('aria-describedby', (d) => `y axis label-${d}`)
             .style('fill', '#555')
             .style("font-family", 'Source Sans Pro')
+            .text((d) => truncateTextLabel(d))
             .call(isLargeScreen ? wrapTextMobile : wrapText, 270);
         const tickLabelsY = d3.selectAll(".y-axis-labels");
         tickLabelsY.each(function removeTicks(d) {
