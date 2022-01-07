@@ -26,6 +26,11 @@ export const currentFiscalYear = () => {
     return currentFY;
 };
 
+export const isFyValid = (fy) => {
+    const fyVal = parseInt(fy, 10);
+    return !!fyVal && fyVal >= earliestFiscalYear;
+};
+
 export const convertFYToDateRange = (fy) => {
     const startingYear = fy - 1;
     const endingYear = fy;
