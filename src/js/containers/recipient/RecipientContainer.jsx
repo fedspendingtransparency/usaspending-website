@@ -13,21 +13,22 @@ import { withRouter } from 'react-router-dom';
 import BaseRecipientOverview from 'models/v2/recipient/BaseRecipientOverview';
 import * as recipientActions from 'redux/actions/recipient/recipientActions';
 import * as RecipientHelper from 'helpers/recipientHelper';
+import { isFyValid } from 'helpers/fiscalYearHelper';
 
 import RecipientPage from 'components/recipient/RecipientPage';
 
 require('pages/recipient/recipientPage.scss');
 
-const propTypes = {
-    setRecipientOverview: PropTypes.func,
-    setRecipientFiscalYear: PropTypes.func,
-    resetRecipient: PropTypes.func,
-    recipient: PropTypes.object,
-    match: PropTypes.object,
-    history: PropTypes.object
-};
-
 export class RecipientContainer extends React.Component {
+    static propTypes = {
+        setRecipientOverview: PropTypes.func,
+        setRecipientFiscalYear: PropTypes.func,
+        resetRecipient: PropTypes.func,
+        recipient: PropTypes.object,
+        match: PropTypes.object,
+        history: PropTypes.object
+    };
+
     constructor(props) {
         super(props);
 
@@ -41,17 +42,22 @@ export class RecipientContainer extends React.Component {
     }
 
     componentDidMount() {
-        if (!Object.keys(this.props.match.params).includes('fy')) {
+        const params = this.props.match.params;
+        if (Object.keys(params).includes('fy')) {
+            if (isFyValid(params.fy) || ['latest', 'all'].includes(params.fy)) {
+                this.props.setRecipientFiscalYear(params.fy);
+                this.loadRecipientOverview(params.recipientId, this.props.recipient.fy);
+            }
+            else {
+                this.props.history.replace(`/recipient/${this.props.match.params.recipientId}/latest`);
+            }
+        }
+        else {
             this.props.history.replace(`/recipient/${this.props.match.params.recipientId}/latest`);
         }
-        this.props.setRecipientFiscalYear(this.props.match.params.fy);
-        this.loadRecipientOverview(this.props.match.params.recipientId, this.props.recipient.fy);
     }
 
     componentDidUpdate(prevProps) {
-        if (!Object.keys(this.props.match.params).includes('fy')) {
-            this.props.history.replace(`/recipient/${this.props.match.params.recipientId}/latest`);
-        }
         if (this.props.match.params.recipientId !== prevProps.match.params.recipientId) {
             // Reset the FY
             this.props.setRecipientFiscalYear(this.props.match.params.fy);
@@ -89,7 +95,7 @@ export class RecipientContainer extends React.Component {
             })
             .catch((err) => {
                 if (!isCancel(err)) {
-                    console.log(err);
+                    console.error(err);
 
                     this.setState({
                         loading: false,
@@ -122,13 +128,10 @@ export class RecipientContainer extends React.Component {
     }
 }
 
-RecipientContainer.propTypes = propTypes;
 const RecipientContainerWithRouter = withRouter(RecipientContainer);
-
 export default connect(
     (state) => ({
         recipient: state.recipient
     }),
     (dispatch) => bindActionCreators(recipientActions, dispatch)
 )(RecipientContainerWithRouter);
-
