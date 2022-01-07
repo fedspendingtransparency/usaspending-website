@@ -32,6 +32,9 @@ const RecipientLandingTable = (props) => {
                 type={row.recipientLevel}
                 name={row.name}
                 searchString={props.searchString} />
+            <td className="recipient-list__body-cell recipient-list__body-cell_left">
+                {row.duns}
+            </td>
             <td className="recipient-list__body-cell recipient-list__body-cell_center">
                 {row.amount}
             </td>

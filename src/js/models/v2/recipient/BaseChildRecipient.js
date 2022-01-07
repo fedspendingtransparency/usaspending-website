@@ -9,6 +9,7 @@ const BaseChildRecipient = {
     populate(data) {
         this.id = data.recipient_id || null;
         this.name = data.name || 'Name not provided';
+        this.duns = data.duns || 'DUNS not provided';
         this._amount = parseFloat(data.amount) || 0;
         this.stateProvince = data.state_province || '--';
     },
