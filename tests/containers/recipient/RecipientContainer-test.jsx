@@ -110,19 +110,6 @@ describe('RecipientContainer', () => {
 
         expect(mockActions.setRecipientFiscalYear).toHaveBeenCalledWith('2009');
     });
-    it('should default to latest fy if fy url param is invalid', () => {
-        jest.clearAllMocks();
-        const props = {
-            ...mockProps,
-            match: {
-                params: {
-                    fy: 'last'
-                }
-            }
-        };
-        mount(<RecipientContainer {...props} {...mockActions} />);
-        expect(mockActions.setRecipientFiscalYear).toHaveBeenCalledWith('latest');
-    });
     it('should make an API call when the fiscal year changes', async () => {
         const container = mount(<RecipientContainer
             {...mockProps}
