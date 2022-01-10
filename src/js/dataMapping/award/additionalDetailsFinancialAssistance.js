@@ -3,7 +3,7 @@
  * Created by Jonathan Hill 09/19/19
  */
 
-import { isAwardAggregate, getSubmittingAgencyId } from 'helpers/awardSummaryHelper';
+ import { isAwardAggregate, getSubmittingAgencyId } from 'helpers/awardSummaryHelper';
 
 const getUriOrFain = ({
     generatedId,
@@ -30,13 +30,6 @@ const additionalDetailsFinancialAssistance = (awardData) => {
         placeOfPerformance,
         recipient
     } = awardData;
-
-    const idLabel = (duns, uei) => {
-        if (uei && !duns) {
-            return 'Recipient Unique Identifier (UEI)';
-        }
-        return 'Recipient Unique Identifier(s)';
-    };
 
     const ids = (duns, uei) => {
         let returnString = '';
@@ -124,7 +117,11 @@ const additionalDetailsFinancialAssistance = (awardData) => {
                     title: recipient._name
                 }
             },
-            [idLabel(recipient.duns, recipient.uei)]: ids(recipient.duns, recipient.uei),
+            'Recipient Identifier': {
+                type: 'learnMore',
+                data: {
+                    '<Modal />': ids(recipient.duns, recipient.uei),
+                }
             'Parent Recipient': {
                 type: 'link',
                 data: {
@@ -133,7 +130,7 @@ const additionalDetailsFinancialAssistance = (awardData) => {
                     title: recipient.parentName
                 }
             },
-            [`Parent ${idLabel(recipient.duns, recipient.uei)}`]: ids(recipient.parentDuns, recipient.parentUei),
+            'Parent Recipient Identifier\nLink': ids(recipient.parentDuns, recipient.parentUei),
             'Recipient Address': {
                 type: 'address',
                 data: [

@@ -44,6 +44,9 @@ export default class Accordion extends React.Component {
         if (title && path) return (<Link to={path}>{title}</Link>);
         return (<Link to={path}>Unknown</Link>);
     }
+    learnMore() {
+        
+    }
     // pass an array of address lines
     // e.g. ['1234 Sleepy Ghost Lane', 'Las Vegas, Nevada', 'Some Country']
     address(arrayOfRows) {
