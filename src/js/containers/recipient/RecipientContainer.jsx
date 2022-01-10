@@ -44,7 +44,7 @@ export class RecipientContainer extends React.Component {
     componentDidMount() {
         const params = this.props.match.params;
         if (Object.keys(params).includes('fy')) {
-            if (isFyValid(params.fy) || ['latest', 'all'].includes(params.fy)) {
+            if (['latest', 'all'].includes(params.fy) || isFyValid(params.fy)) {
                 this.props.setRecipientFiscalYear(params.fy);
                 this.loadRecipientOverview(params.recipientId, this.props.recipient.fy);
             }
