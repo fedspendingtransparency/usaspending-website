@@ -47,16 +47,16 @@
                 }
             }
             .tooltip__content {
-                width: rem(300);
+                width: rem(280);
             }
             .bar-chart-tooltip {
                 .tooltip__text {
-                    font-weight: $font-semibold;
                     .bar-chart-tooltip__desc {
-                        font-size: rem(18);
+                        font-size: rem(14);
                     }
                     .bar-chart-tooltip__amount {
-                        font-size: rem(24);
+                        font-size: rem(20);
+                        font-weight: $font-semibold;
                     }
                 }
             }

@@ -11,7 +11,6 @@
         .logo {
             @include flex(0 0 auto);
             width: rem(64);
-            min-height: rem(64);
             margin-right: rem(28);
         }
 
