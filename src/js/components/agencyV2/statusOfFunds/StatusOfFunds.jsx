@@ -119,10 +119,10 @@ const StatusOfFunds = ({ fy }) => {
     }, [subcomponent]);
 
     useEffect(() => {
-        if (prevPage !== currentPage && level === 0) {
+        if (prevPage !== currentPage && level === 0 && currentPage !== 1) {
             fetchAgencySubcomponents();
         }
-        if (prevPage !== currentPage && level === 1) {
+        if (prevPage !== currentPage && level === 1 && currentPage !== 1) {
             fetchFederalAccounts(subcomponent);
         }
     }, [currentPage]);
@@ -135,6 +135,7 @@ const StatusOfFunds = ({ fy }) => {
 
     const onClick = (selectedLevel, data) => {
         // reset to page 1 on drilldown
+        setLoading(true);
         changeCurrentPage(1);
         const subcomponentTotalData = Object.create(BaseStatusOfFundsLevel);
         subcomponentTotalData.populate(data);
