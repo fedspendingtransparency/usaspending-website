@@ -41,12 +41,12 @@ const TotalObligationsOverTimeContainer = ({
     useEffect(() => {
         setLoading(true);
         const javaScriptSubmissionPeriods = submissionPeriods.toJS();
-        if (!isLoading && !isError) {
+        if (isLoading || isError) {
             if (javaScriptSubmissionPeriods.length && obligationsByPeriod.length) {
-                setData(addSubmissionEndDatesToBudgetaryResources(obligationsByPeriod, javaScriptSubmissionPeriods, fy).sort((a, b) => a.period - b.period));
+                setData([]);
             }
             else {
-                setData([]);
+                setData(addSubmissionEndDatesToBudgetaryResources(obligationsByPeriod, javaScriptSubmissionPeriods, fy).sort((a, b) => a.period - b.period));
             }
             setLoading(false);
         }
