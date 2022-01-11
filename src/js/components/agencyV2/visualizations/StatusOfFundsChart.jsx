@@ -282,6 +282,7 @@ const StatusOfFundsChart = ({
         svg.selectAll(".y-axis-labels").append("svg:title")
             .text((d) => d);
         if (level === 1) {
+            svg.selectAll(".y-axis-labels").attr("aria-label", (d) => `Link to ${d}`); // Add aria label for screenreaders to detect links
             svg.selectAll(".bar-group").on('click', null);
             for (let i = 0; i < sortedNums.length; i++) {
                 resultIds = resultIds.concat(sortedNums[i].id);
@@ -290,6 +291,11 @@ const StatusOfFundsChart = ({
             svg.selectAll(".y-axis-labels").attr('id', 'tick-labels-links');
             svg.selectAll(".y-axis-labels").on("click", (d, i) => {
                 window.open(`/federal_account/${resultIds[i]}`);
+            });
+            svg.selectAll(".y-axis-labels").on("keypress", (d, i) => { // tab through and enter/space functionality
+                if (d3.event.keyCode === 13 || d3.event.keyCode === 32) {
+                    window.open(`/federal_account/${resultIds[i]}`);
+                }
             });
         }
         // horizontal border above legend
