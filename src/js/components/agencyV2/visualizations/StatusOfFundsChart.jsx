@@ -29,6 +29,7 @@ const StatusOfFundsChart = ({
     const chartHeight = viewHeight - margins.top - margins.bottom;
     const chartWidth = viewWidth - margins.left - margins.right;
     let resultNames = [];
+    let resultIds = [];
 
     const handleClick = (data) => {
         setLevel(1, data);
@@ -143,6 +144,7 @@ const StatusOfFundsChart = ({
         const svg = d3.select('#sof_chart')
             .append('svg')
             .attr('class', 'svg')
+            .attr('xmlns:xlink', 'http://www.w3.org/1999/xlink')
             .attr('preserveAspectRatio', 'none')
             .attr("viewBox", [0, 0, viewWidth + margins.left + margins.right, isMobile ? viewHeight * 2.6 : chartHeightViewBox()])
             .append('g')
@@ -278,6 +280,16 @@ const StatusOfFundsChart = ({
         });
         if (level === 1) {
             svg.selectAll(".bar-group").on('click', null);
+            for (let i = 0; i < sortedNums.length; i++) {
+                resultIds = resultIds.concat(sortedNums[i].id);
+            }
+            svg.selectAll(".y-axis-labels").style('fill', '#0071bc');
+            svg.selectAll(".y-axis-labels").on("mouseover", () => {
+                d3.select(this).style("text-decoration", "underline");
+            });
+            svg.selectAll(".y-axis-labels").on("click", (d, i) => {
+                window.open(`/federal_account/${resultIds[i]}`);
+            });
         }
         // horizontal border above legend
         svg.append('line')
