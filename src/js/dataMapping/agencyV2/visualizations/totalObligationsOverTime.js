@@ -13,7 +13,7 @@ export const xLabelHeightPlusPadding = xLabelHeight + xLabelSpacing;
 
 export const yOffsetForPathStrokeWidth = (pathStrokeWidth + 1) / 2;
 
-export const defaultHeight = 179;
+export const defaultHeight = 208;
 
 export const defaultPadding = {
     top: 24,
