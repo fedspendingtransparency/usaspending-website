@@ -154,7 +154,8 @@ const StatusOfFundsChart = ({
         x.domain([0, Math.max(sortedNums[0]._budgetaryResources, sortedNums[0]._obligations)]);
         // extract sorted agency names
         for (let i = 0; i < sortedNums.length; i++) {
-            resultNames = resultNames.concat(sortedNums[i].name.split(',')[0]);
+            // resultNames = resultNames.concat(sortedNums[i].name.split(',')[0]);
+            resultNames = resultNames.concat(sortedNums[i].name);
         }
         if (sortedNums.length < 10) {
             for (let i = sortedNums.length; i < 10; i++) {
@@ -162,6 +163,8 @@ const StatusOfFundsChart = ({
             }
         }
         y.domain(resultNames);
+        console.log(sortedNums);
+        console.log(resultNames);
 
         // append x axis (amounts)
         svg.append('g')
@@ -241,7 +244,7 @@ const StatusOfFundsChart = ({
         barGroups.append("rect")
             .attr('transform', tickMobileXAxis)
             .attr("x", -8)
-            .attr("y", (d) => (isLargeScreen ? y(d.name.split(',')[0]) + 80 : y(d.name.split(',')[0]) + 40))
+            .attr("y", (d) => (isLargeScreen ? y(d.name) + 80 : y(d.name) + 40))
             .attr("width", isLargeScreen ? chartWidth + 340 : chartWidth + 90)
             .attr("height", y.bandwidth() - 36)
             .attr("fill", "#fff")
@@ -252,7 +255,7 @@ const StatusOfFundsChart = ({
         barGroups.append("rect")
             .attr('transform', tickMobileXAxis)
             .attr("x", -8)
-            .attr("y", (d) => (isLargeScreen ? y(d.name.split(',')[0]) + 80 : y(d.name.split(',')[0]) + 40))
+            .attr("y", (d) => (isLargeScreen ? y(d.name) + 80 : y(d.name) + 40))
             .attr("width", (d) => x(d._budgetaryResources) + 11)
             .attr("height", y.bandwidth() - 36)
             .attr("fill", "#BBDFC7")
@@ -261,7 +264,7 @@ const StatusOfFundsChart = ({
         barGroups.append("rect")
             .attr('transform', tickMobileXAxis)
             .attr("x", -8)
-            .attr("y", (d) => (isLargeScreen ? y(d.name.split(',')[0]) + 80 : y(d.name.split(',')[0]) + 40))
+            .attr("y", (d) => (isLargeScreen ? y(d.name) + 80 : y(d.name) + 40))
             .attr("width", (d) => x(d._obligations) + 11)
             .attr("height", y.bandwidth() - 36)
             .attr("fill", "#2B71B8")
