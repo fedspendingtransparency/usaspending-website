@@ -52,7 +52,7 @@ export default function ObligationsByAwardTypeContainer({ fiscalYear, windowWidt
         }
         obligationsByAwardTypeRequest.current = fetchObligationsByAwardType(toptierCode, fiscalYear);
         obligationsByAwardTypeRequest.current.promise.then((res) => {
-            if (Object.keys(res.data).length === 0) {
+            if (Object.keys(res.data).length === 0 || res.data.total_aggregated_amount === 0) {
                 setNoData(true);
                 setLoading(false);
                 obligationsByAwardTypeRequest.current = null;
