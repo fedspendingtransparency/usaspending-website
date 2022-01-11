@@ -19,6 +19,8 @@ import RecipientPage from 'components/recipient/RecipientPage';
 
 require('pages/recipient/recipientPage.scss');
 
+const defaultFy = 'latest';
+
 export class RecipientContainer extends React.Component {
     static propTypes = {
         setRecipientOverview: PropTypes.func,
@@ -44,16 +46,18 @@ export class RecipientContainer extends React.Component {
     componentDidMount() {
         const params = this.props.match.params;
         if (Object.keys(params).includes('fy')) {
-            if (['latest', 'all'].includes(params.fy) || isFyValid(params.fy)) {
+            if ([defaultFy, 'all'].includes(params.fy) || isFyValid(params.fy)) {
                 this.props.setRecipientFiscalYear(params.fy);
                 this.loadRecipientOverview(params.recipientId, this.props.recipient.fy);
             }
             else {
-                this.props.history.replace(`/recipient/${this.props.match.params.recipientId}/latest`);
+                this.props.history.replace(`/recipient/${this.props.match.params.recipientId}/${defaultFy}`);
+                this.props.setRecipientFiscalYear(defaultFy);
+                this.loadRecipientOverview(params.recipientId, defaultFy);
             }
         }
         else {
-            this.props.history.replace(`/recipient/${this.props.match.params.recipientId}/latest`);
+            this.props.history.replace(`/recipient/${this.props.match.params.recipientId}/${defaultFy}`);
         }
     }
 
@@ -61,7 +65,7 @@ export class RecipientContainer extends React.Component {
         if (this.props.match.params.recipientId !== prevProps.match.params.recipientId) {
             // Reset the FY
             this.props.setRecipientFiscalYear(this.props.match.params.fy);
-            this.loadRecipientOverview(this.props.match.params.recipientId, 'latest');
+            this.loadRecipientOverview(this.props.match.params.recipientId, defaultFy);
         }
         if (prevProps.match.params.fy !== this.props.match.params.fy) {
             this.props.setRecipientFiscalYear(this.props.match.params.fy);
@@ -73,7 +77,7 @@ export class RecipientContainer extends React.Component {
 
     componentWillUnmount() {
         // Reset the FY
-        this.props.setRecipientFiscalYear('latest');
+        this.props.setRecipientFiscalYear(defaultFy);
         this.props.resetRecipient();
     }
 
