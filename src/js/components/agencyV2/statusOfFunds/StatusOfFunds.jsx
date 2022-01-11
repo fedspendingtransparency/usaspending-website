@@ -135,7 +135,11 @@ const StatusOfFunds = ({ fy }) => {
     useEffect(() => {
         if (resetPageChange) {
             setLoading(true);
-            changeCurrentPage(1);
+            if (currentPage === 1) {
+                setResetPageChange(false);
+            } else {
+                changeCurrentPage(1);
+            }
         }
     }, [resetPageChange]);
 
@@ -157,7 +161,11 @@ const StatusOfFunds = ({ fy }) => {
         if (overview.toptierCode) {
             setLevel(0);
             fetchAgencySubcomponents();
-            changeCurrentPage(1);
+            if (currentPage === 1) {
+                setResetPageChange(false);
+            } else {
+                changeCurrentPage(1);
+            }
         }
     };
     return (
