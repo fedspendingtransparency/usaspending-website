@@ -13,10 +13,10 @@ const BaseAgencySubcomponentsList = {
         this._obligations = data?.total_obligations || 0;
     },
     get budgetaryResources() {
-        return formatMoneyWithUnitsShortLabel(this._budgetaryResources, 1);
+        return formatMoneyWithUnitsShortLabel(this._budgetaryResources, 2);
     },
     get obligations() {
-        return formatMoneyWithUnitsShortLabel(this._obligations, 1);
+        return formatMoneyWithUnitsShortLabel(this._obligations, 2);
     }
 };
 
