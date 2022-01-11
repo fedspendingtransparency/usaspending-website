@@ -84,6 +84,25 @@ export default function ObligationsByAwardType({
         .attr('class', 'obligations-by-award-type__donut')
         .attr('role', 'list');
 
+    // invisible outer ring to force tooltip to close when mousing out of the donut
+    chart.selectAll()
+        .data(pie)
+        .enter()
+        .append('path')
+        .attr('d', d3.arc()
+            .outerRadius(outerRadius + 75)
+            .innerRadius(outerRadius + 1))
+        .attr('fill', 'white')
+        .style('cursor', 'default')
+        .on('mouseenter', null)
+        .on('mouseenter', () => {
+            // store the award type of the section the user is hovering over
+            setActiveType(null);
+        })
+        .on('mouseleave', () => {
+            setActiveType(null);
+        });
+
     // outer ring.
     chart.selectAll()
         .data(pie)
