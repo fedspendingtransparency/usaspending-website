@@ -135,7 +135,11 @@ const StatusOfFunds = ({ fy }) => {
     useEffect(() => {
         if (resetPageChange) {
             setLoading(true);
-            changeCurrentPage(1);
+            if (currentPage === 1) {
+                setResetPageChange(false);
+            } else {
+                changeCurrentPage(1);
+            }
         }
     }, [resetPageChange]);
 
@@ -147,7 +151,7 @@ const StatusOfFunds = ({ fy }) => {
 
     const onClick = (selectedLevel, data) => {
         // reset to page 1 on drilldown
-        setResetPageChange(false);
+        setResetPageChange(true);
         const subcomponentTotalData = Object.create(BaseStatusOfFundsLevel);
         subcomponentTotalData.populate(data);
         dispatch(setSelectedSubcomponent(subcomponentTotalData));
@@ -157,7 +161,11 @@ const StatusOfFunds = ({ fy }) => {
         if (overview.toptierCode) {
             setLevel(0);
             fetchAgencySubcomponents();
-            changeCurrentPage(1);
+            if (currentPage === 1) {
+                setResetPageChange(false);
+            } else {
+                changeCurrentPage(1);
+            }
         }
     };
     return (
