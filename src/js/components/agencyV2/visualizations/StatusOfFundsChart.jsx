@@ -163,8 +163,6 @@ const StatusOfFundsChart = ({
             }
         }
         y.domain(resultNames);
-        console.log(sortedNums);
-        console.log(resultNames);
 
         // append x axis (amounts)
         svg.append('g')
