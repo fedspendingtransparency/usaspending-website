@@ -278,15 +278,16 @@ const StatusOfFundsChart = ({
                 handleClick(d);
             }
         });
+        // tooltip hover for label text
+        svg.selectAll(".y-axis-labels").append("svg:title")
+            .text((d) => d);
         if (level === 1) {
             svg.selectAll(".bar-group").on('click', null);
             for (let i = 0; i < sortedNums.length; i++) {
                 resultIds = resultIds.concat(sortedNums[i].id);
             }
             svg.selectAll(".y-axis-labels").style('fill', '#0071bc');
-            svg.selectAll(".y-axis-labels").on("mouseover", () => {
-                d3.select(this).style("text-decoration", "underline");
-            });
+            svg.selectAll(".y-axis-labels").attr('id', 'tick-labels-links');
             svg.selectAll(".y-axis-labels").on("click", (d, i) => {
                 window.open(`/federal_account/${resultIds[i]}`);
             });
