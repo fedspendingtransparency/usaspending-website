@@ -148,7 +148,6 @@ const StatusOfFunds = ({ fy }) => {
     const onClick = (selectedLevel, data) => {
         // reset to page 1 on drilldown
         setResetPageChange(true);
-        changeCurrentPage(1);
         const subcomponentTotalData = Object.create(BaseStatusOfFundsLevel);
         subcomponentTotalData.populate(data);
         dispatch(setSelectedSubcomponent(subcomponentTotalData));
