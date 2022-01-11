@@ -29,6 +29,7 @@ const StatusOfFunds = ({ fy }) => {
     const [level, setLevel] = useState(0);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
+    const [resetPageChange, setResetPageChange] = useState(false);
     const [subcomponent, setSubcomponent] = useState({});
     const [prevPage, currentPage, changeCurrentPage] = useStateWithPrevious(1);
     const [pageSize, changePageSize] = useStateWithPrevious(10);
@@ -119,13 +120,24 @@ const StatusOfFunds = ({ fy }) => {
     }, [subcomponent]);
 
     useEffect(() => {
-        if (prevPage !== currentPage && level === 0 && currentPage !== 1) {
-            fetchAgencySubcomponents();
-        }
-        if (prevPage !== currentPage && level === 1 && currentPage !== 1) {
-            fetchFederalAccounts(subcomponent);
+        if (resetPageChange) {
+            setResetPageChange(false);
+        } else {
+            if (prevPage !== currentPage && level === 0) {
+                fetchAgencySubcomponents();
+            }
+            if (prevPage !== currentPage && level === 1) {
+                fetchFederalAccounts(subcomponent);
+            }
         }
     }, [currentPage]);
+
+    useEffect(() => {
+        if (resetPageChange) {
+            setLoading(true);
+            changeCurrentPage(1);
+        }
+    }, [resetPageChange]);
 
     useEffect(() => {
         if (fy && overview.toptierCode) {
@@ -135,7 +147,7 @@ const StatusOfFunds = ({ fy }) => {
 
     const onClick = (selectedLevel, data) => {
         // reset to page 1 on drilldown
-        setLoading(true);
+        setResetPageChange(true);
         changeCurrentPage(1);
         const subcomponentTotalData = Object.create(BaseStatusOfFundsLevel);
         subcomponentTotalData.populate(data);
