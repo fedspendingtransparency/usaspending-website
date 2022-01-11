@@ -112,6 +112,16 @@ const agencyReducer = (state = initialState, action) => {
                 ...state,
                 agencySubcomponentsList: initialState.agencySubcomponentsList
             };
+        case 'SET_FEDERAL_ACC_LIST':
+            return {
+                ...state,
+                agencySubcomponentsList: action.agencySubcomponentsList
+            };
+        case 'RESET_FEDERAL_ACC_LIST':
+            return {
+                ...state,
+                agencySubcomponentsList: initialState.agencySubcomponentsList
+            };
         case 'RESET_AGENCY':
             return Object.assign({}, initialState);
         default:
