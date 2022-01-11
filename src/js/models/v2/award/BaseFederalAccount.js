@@ -14,6 +14,7 @@ export default class BaseFederalAccount {
         this._fundingAgencyName = data.funding_agency_name || '';
         this._fundingAgencyAbbreviation = data.funding_agency_abbreviation || '';
         this._fundingAgencyId = data.funding_agency_id || '';
+        this._fundingAgencySlug = data.funding_agency_slug || '';
         this._total = total || 0;
 
         Object.defineProperties(this, {
@@ -63,9 +64,9 @@ export default class BaseFederalAccount {
                 enumerable: true,
                 get: () => this._fundingAgencyAbbreviation || ''
             },
-            fundingAgencyId: {
+            fundingAgencySlug: {
                 enumerable: true,
-                get: () => this._fundingAgencyId || ''
+                get: () => this._fundingAgencySlug || ''
             }
         });
     }
