@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { map, uniqueId } from 'lodash';
 import { Pagination } from 'data-transparency-ui';
 import { Link } from 'react-router-dom';
+import { AGENCY_LINK } from 'GlobalConstants';
 
 import tableMapping from 'dataMapping/award/federalAccountSectionTable';
 import StateLandingTableSorter from 'components/stateLanding/table/StateLandingTableSorter';
@@ -64,9 +65,9 @@ export default class FederalAccountsTable extends React.Component {
                         );
                     }
                     else if (key === 'fundingAgencyName') {
-                        cellData = account._fundingAgencyId ?
+                        cellData = account._fundingAgencySlug ?
                             (
-                                <Link to={`/agency/${account._fundingAgencyId}`}>
+                                <Link to={`/${AGENCY_LINK}/${account._fundingAgencySlug}`}>
                                     {`(${account._fundingAgencyAbbreviation}) ${account[key]}`}
                                 </Link>
                             )

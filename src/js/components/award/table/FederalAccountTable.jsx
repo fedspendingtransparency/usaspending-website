@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 
 import { idvTableMapping, nonIdvTableMapping } from 'dataMapping/award/federalAccountFunding';
 import { measureTableHeader } from 'helpers/textMeasurement';
+import { AGENCY_LINK } from 'GlobalConstants';
 
 import ResultsTableNoResults from 'components/search/table/ResultsTableNoResults';
 import IBTable from 'components/sharedComponents/IBTable/IBTable';
@@ -84,7 +85,7 @@ export default class FedAccountTable extends React.Component {
             link = item.generatedId ? `award/${item.generatedId}` : null;
         }
         if (column === 'agency') {
-            link = item.fundingAgencyId ? `agency/${item.fundingAgencyId}` : null;
+            link = item.fundingAgencySlug ? `${AGENCY_LINK}/${item.fundingAgencySlug}` : null;
         }
         if (column === 'fedAccount') {
             if (category === 'idv') {
@@ -95,7 +96,7 @@ export default class FedAccountTable extends React.Component {
             }
         }
         if (column === 'awardingAgencyName') {
-            link = item.awardingAgencyId ? `agency/${item.awardingAgencyId}` : null;
+            link = item.awardingAgencySlug ? `${AGENCY_LINK}/${item.awardingAgencySlug}` : null;
         }
         return (
             <FederalAccountTableGenericCell

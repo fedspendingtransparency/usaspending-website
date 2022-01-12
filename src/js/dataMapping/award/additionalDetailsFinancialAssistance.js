@@ -4,6 +4,7 @@
  */
 
 import { isAwardAggregate, getSubmittingAgencyId } from 'helpers/awardSummaryHelper';
+import { AGENCY_LINK } from 'GlobalConstants';
 
 const getUriOrFain = ({
     generatedId,
@@ -43,7 +44,7 @@ const additionalDetailsFinancialAssistance = (awardData) => {
             'Awarding Agency': {
                 type: 'link',
                 data: {
-                    path: (awardingAgency.id && awardingAgency.hasAgencyPage) ? `/agency/${awardingAgency.id}` : null,
+                    path: (awardingAgency.agencySlug && awardingAgency.hasAgencyPage) ? `/${AGENCY_LINK}/${awardingAgency.agencySlug}` : null,
                     title: awardingAgency.formattedToptier
                 }
             },
@@ -64,7 +65,7 @@ const additionalDetailsFinancialAssistance = (awardData) => {
             'Funding Agency': {
                 type: 'link',
                 data: {
-                    path: (fundingAgency.id && fundingAgency.hasAgencyPage) ? `/agency/${fundingAgency.id}` : null,
+                    path: (fundingAgency.agencySlug && fundingAgency.hasAgencyPage) ? `/${AGENCY_LINK}/${fundingAgency.agencySlug}` : null,
                     title: fundingAgency.formattedToptier
                 }
             },
