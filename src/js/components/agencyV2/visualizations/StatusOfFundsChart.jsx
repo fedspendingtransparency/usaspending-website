@@ -22,7 +22,7 @@ const StatusOfFundsChart = ({
     const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
     const [sortedNums, setSortedNums] = useState(null);
     const viewHeight = 760;
-    const viewWidth = 920;
+    const viewWidth = 1000;
     const margins = {
         top: 40, right: 10, bottom: 10, left: isLargeScreen ? 180 : 245
     };
@@ -57,7 +57,7 @@ const StatusOfFundsChart = ({
     // Wrap y axis labels - reference https://bl.ocks.org/mbostock/7555321
     function wrapText(text) {
         text.each(function w() {
-            const textWidth = chartRef.current.getBoundingClientRect().width * 0.315;
+            const textWidth = chartRef.current.getBoundingClientRect().width * 0.3125;
             const textNode = d3.select(this);
             const words = textNode.text().split(/\s+/).reverse();
             let word;
