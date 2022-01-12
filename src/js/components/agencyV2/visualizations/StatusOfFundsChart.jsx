@@ -153,7 +153,7 @@ const StatusOfFundsChart = ({
             .attr('transform', `translate(${isLargeScreen ? margins.left - 40 : margins.left}, ${margins.top})`);
 
         const tickMobileXAxis = isLargeScreen ? 'translate(-130,0)' : 'translate(90, 0)';
-        const tickMobileYAxis = isLargeScreen ? 'translate(-150,0)' : 'translate(60, 0)';
+        const tickMobileYAxis = isLargeScreen ? 'translate(-150,16)' : 'translate(60, 0)';
         // scale to x and y data points
         x.domain([0, Math.max(sortedNums[0]._budgetaryResources, sortedNums[0]._obligations)]);
         // extract sorted agency names
