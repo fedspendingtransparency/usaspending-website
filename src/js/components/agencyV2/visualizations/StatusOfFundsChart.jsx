@@ -291,6 +291,7 @@ const StatusOfFundsChart = ({
         if (level === 1) {
             svg.selectAll(".y-axis-labels").attr("aria-label", (d) => `Link to ${d}`); // Add aria label for screenreaders to detect links
             svg.selectAll(".bar-group").on('click', null);
+            svg.selectAll(".bar-group").on('keypress', null);
             for (let i = 0; i < sortedNums.length; i++) {
                 resultIds = resultIds.concat(sortedNums[i].id);
             }
