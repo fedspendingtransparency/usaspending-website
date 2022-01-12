@@ -77,7 +77,26 @@ export default function ObligationsByAwardType({
             .attr('class', 'obligations-by-award-type__donut')
             .attr('role', 'list');
 
-        // outer ring..
+        // invisible outer ring to force tooltip to close when mousing out of the donut
+        chart.selectAll()
+            .data(pie)
+            .enter()
+            .append('path')
+            .attr('d', d3.arc()
+                .outerRadius(outerRadius + 75)
+                .innerRadius(outerRadius + 1))
+            .attr('fill', 'white')
+            .style('cursor', 'default')
+            .on('mouseenter', null)
+            .on('mouseenter', () => {
+                // store the award type of the section the user is hovering over
+                setActiveType(null);
+            })
+            .on('mouseleave', () => {
+                setActiveType(null);
+            });
+
+        // outer ring.
         chart.selectAll()
             .data(pie)
             .enter()
@@ -159,8 +178,7 @@ export default function ObligationsByAwardType({
             })
             .on('blur', () => setActiveType(null))
             .attr('aria-label', (d) => `${d.data.label}: ${d3.format("($,.2f")(d.value)}`)
-            .attr('role', 'listitem')
-            .attr('tabIndex', 0);
+            .attr('role', 'listitem');
 
 
         // labels
@@ -218,14 +236,17 @@ export default function ObligationsByAwardType({
         }
     };
 
-    renderChart();
+    useEffect(() => {
+        if (chartWidth && chartHeight) {
+            renderChart();
+        }
+    }, [chartWidth, chartHeight]);
 
     useEffect(() => {
         const rect = chartRef.current.parentElement.getBoundingClientRect();
         if (rect.height !== chartHeight || rect.width !== chartWidth) {
             setChartHeight(rect.height);
             setChartWidth(rect.width);
-            renderChart();
         }
     }, [windowWidth]);
 
