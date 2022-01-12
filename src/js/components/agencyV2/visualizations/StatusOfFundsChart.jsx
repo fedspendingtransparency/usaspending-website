@@ -57,7 +57,7 @@ const StatusOfFundsChart = ({
     // Wrap y axis labels - reference https://bl.ocks.org/mbostock/7555321
     function wrapText(text) {
         text.each(function w() {
-            const textWidth = chartRef.current.getBoundingClientRect().width * 0.3125;
+            const textWidth = chartRef.current.getBoundingClientRect().width * 0.3;
             const textNode = d3.select(this);
             const words = textNode.text().split(/\s+/).reverse();
             let word;
@@ -184,7 +184,7 @@ const StatusOfFundsChart = ({
             .style("font-size", isMobile ? 36 : fontSizeScreenWidth())
             .style("font-family", 'Source Sans Pro')
             .style('fill', '#555')
-            .style('font-size', '1.4rem')
+            .style('font-size', '1.45rem')
             .attr("transform", `scale(${textScale} ${textScale})`);
 
         // d3 axis.ticks method does not precisely render tick count so we call a
@@ -228,7 +228,7 @@ const StatusOfFundsChart = ({
             .attr('aria-describedby', (d) => `y axis label-${d}`)
             .style('fill', '#555')
             .style("font-family", 'Source Sans Pro')
-            .style('font-size', '1.4rem')
+            .style('font-size', '1.45rem')
             .attr("transform", `scale(${textScale} ${textScale})`)
             .text((d) => truncateTextLabel(d))
             .call(isLargeScreen ? wrapTextMobile : wrapText);
