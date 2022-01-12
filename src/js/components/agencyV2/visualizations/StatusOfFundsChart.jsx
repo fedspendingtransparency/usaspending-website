@@ -19,8 +19,8 @@ const StatusOfFundsChart = ({
     const [windowWidth, setWindowWidth] = useState(0);
 
     const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth < largeScreen);
-    const [isLargeFontBreak, setIsLargeFontBreak] = useState(window.innerWidth < 1501);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
+    const [sortedNums, setSortedNums] = useState(null);
     const viewHeight = 760;
     const viewWidth = 1000;
     const margins = {
@@ -31,29 +31,33 @@ const StatusOfFundsChart = ({
     let resultNames = [];
     let resultIds = [];
 
+    const [textScale, setTextScale] = useState(viewWidth / viewWidth);
+
     const handleClick = (data) => {
         setLevel(1, data);
     };
 
     useEffect(() => {
+        setTextScale(viewWidth / chartRef.current.getBoundingClientRect().width);
+
         const handleResize = throttle(() => {
+            setTextScale(viewWidth / chartRef.current.getBoundingClientRect().width);
             const newWidth = window.innerWidth;
             if (windowWidth !== newWidth) {
                 setWindowWidth(newWidth);
                 setIsLargeScreen(newWidth < largeScreen);
-                setIsLargeFontBreak(newWidth < 1500);
                 setIsMobile(newWidth < 600);
             }
         }, 50);
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-    }, [windowWidth]);
+    }, []);
 
 
     // Wrap y axis labels - reference https://bl.ocks.org/mbostock/7555321
-    function wrapText(text, width) {
+    function wrapText(text) {
         text.each(function w() {
-            const textWidth = isLargeFontBreak ? 310 : width;
+            const textWidth = chartRef.current.getBoundingClientRect().width * 0.3;
             const textNode = d3.select(this);
             const words = textNode.text().split(/\s+/).reverse();
             let word;
@@ -130,8 +134,6 @@ const StatusOfFundsChart = ({
     };
 
     const renderChart = () => {
-        const sortedNums = results.sort((a, b) => (a._budgetaryResources > b._obligations ? b._budgetaryResources - a._budgetaryResources : b._obligations - a._obligations));
-
         // setup x and y scales
         const y = scaleBand()
             .range([0, isMobile ? viewHeight * 2.3 : chartHeightYScale()])
@@ -151,7 +153,7 @@ const StatusOfFundsChart = ({
             .attr('transform', `translate(${isLargeScreen ? margins.left - 40 : margins.left}, ${margins.top})`);
 
         const tickMobileXAxis = isLargeScreen ? 'translate(-130,0)' : 'translate(90, 0)';
-        const tickMobileYAxis = isLargeScreen ? 'translate(-150,0)' : 'translate(60, 0)';
+        const tickMobileYAxis = isLargeScreen ? 'translate(-150,16)' : 'translate(60, 0)';
         // scale to x and y data points
         x.domain([0, Math.max(sortedNums[0]._budgetaryResources, sortedNums[0]._obligations)]);
         // extract sorted agency names
@@ -181,7 +183,9 @@ const StatusOfFundsChart = ({
             .attr('dx', '0em')
             .style("font-size", isMobile ? 36 : fontSizeScreenWidth())
             .style("font-family", 'Source Sans Pro')
-            .style('fill', '#555');
+            .style('fill', '#555')
+            .style('font-size', '1.45rem')
+            .attr("transform", `scale(${textScale} ${textScale})`);
 
         // d3 axis.ticks method does not precisely render tick count so we call a
         // function on each tick to display 3 ticks for 20 results
@@ -224,8 +228,10 @@ const StatusOfFundsChart = ({
             .attr('aria-describedby', (d) => `y axis label-${d}`)
             .style('fill', '#555')
             .style("font-family", 'Source Sans Pro')
+            .style('font-size', '1.45rem')
+            .attr("transform", `scale(${textScale} ${textScale})`)
             .text((d) => truncateTextLabel(d))
-            .call(isLargeScreen ? wrapTextMobile : wrapText, 270);
+            .call(isLargeScreen ? wrapTextMobile : wrapText);
         const tickLabelsY = d3.selectAll(".y-axis-labels");
         tickLabelsY.each(function removeTicks(d) {
             if (!isNaN(d)) {
@@ -336,10 +342,17 @@ const StatusOfFundsChart = ({
     };
 
     useEffect(() => {
-        if (results?.length > 0) {
+        if (sortedNums?.length > 0) {
             renderChart();
         }
-    }, [results, isLargeScreen, isMobile]);
+    }, [sortedNums, textScale]);
+
+    useEffect(() => {
+        if (results?.length > 0) {
+            setSortedNums(results.sort((a, b) => (a._budgetaryResources > b._obligations ? b._budgetaryResources - a._budgetaryResources : b._obligations - a._obligations)));
+        }
+    }, [results]);
+
 
     return (
         <div id="sof_chart" className="status-of-funds__visualization" ref={chartRef} />
