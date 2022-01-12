@@ -159,7 +159,8 @@ export default function ObligationsByAwardType({
             })
             .on('blur', () => setActiveType(null))
             .attr('aria-label', (d) => `${d.data.label}: ${d3.format("($,.2f")(d.value)}`)
-            .attr('role', 'listitem');
+            .attr('role', 'listitem')
+            .attr('tabIndex', 0);
 
 
         // labels
@@ -217,10 +218,7 @@ export default function ObligationsByAwardType({
         }
     };
 
-    useEffect(() => {
-        renderChart();
-    },
-    []);
+    renderChart();
 
     useEffect(() => {
         const rect = chartRef.current.parentElement.getBoundingClientRect();
