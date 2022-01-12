@@ -41,23 +41,11 @@ const DrilldownSidebar = ({
                     active={level === i + 1}
                     name={selectedSubcomponent?.name}
                     label={dataType}
-                    obligated={selectedSubcomponent?.obligations}
-                    budgetaryResources={selectedSubcomponent?.budgetaryResources}
+                    obligated={selectedSubcomponent?._obligations}
+                    budgetaryResources={selectedSubcomponent?._budgetaryResources}
                     goBack={goBack} />
             ) : '')
             )}
-            <div>
-                {level < levels.length - 1 ? (
-                    <button onClick={() => setLevel(level + 1)}>
-                        Down
-                    </button>
-                ) : ''}
-                {level > 0 ? (
-                    <button onClick={goBack}>
-                        Up
-                    </button>
-                ) : ''}
-            </div>
         </>
     );
 };

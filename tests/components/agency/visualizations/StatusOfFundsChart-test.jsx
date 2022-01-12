@@ -4,9 +4,11 @@
  */
 
 import React from 'react';
-import { render, screen } from 'test-utils';
-import StatusOfFundsChart from "../../../../src/js/components/agencyV2/visualizations/StatusOfFundsChart";
-import VisualizationSection from '../../../../src/js/components/agencyV2/statusOfFunds/VisualizationSection';
+import { render, waitFor, screen } from 'test-utils';
+import * as api from "apis/agencyV2";
+import StatusOfFundsChart from "components/agencyV2/visualizations/StatusOfFundsChart";
+import VisualizationSection from 'components/agencyV2/statusOfFunds/VisualizationSection';
+import { defaultState } from "../../../testResources/defaultReduxFilters";
 
 const mockChartData = {
     page_metadata: {
@@ -74,16 +76,24 @@ const mockChartData = {
 const fy = '2021';
 const toptierCode = '012';
 const name = 'Department of Agriculture';
-describe('Status of Funds Chart Viz Agency v2', () => {
+
+let spy;
+
+beforeEach(() => {
+    jest.clearAllMocks();
+});
+
+
+describe('StatusOfFundsChart', () => {
     it('should display formatted amount used for max x axis value', () => {
-        render(<StatusOfFundsChart results={mockChartData.results} fy={fy} />);
+        render(<StatusOfFundsChart results={mockChartData.results} fy={fy} level={0} />);
         // set timeout to wait for expect() to pass after call to render
         setTimeout(() => {
             expect(screen.getByText('$9.1B').toBeInTheDocument());
         }, 1000);
     });
     it('should display subcomponent names as y axis labels', () => {
-        render(<StatusOfFundsChart results={mockChartData.results} fy={fy} />);
+        render(<StatusOfFundsChart results={mockChartData.results} fy={fy} level={0} />);
         // set timeout to wait for expect() to pass after call to render
         setTimeout(() => {
             for (let i = 0; i < mockChartData.results.length; i++) {
@@ -97,5 +107,60 @@ describe('Status of Funds Chart Viz Agency v2', () => {
         setTimeout(() => {
             expect(screen.getByText(`${name} by Sub-Component for FY 2021`).toBeInTheDocument());
         }, 1000);
+    });
+    it("should make an API call on level change", () => {
+        // spy on the API request helper functions
+        spy = jest.spyOn(api, "fetchSubcomponentsList").mockReturnValue({
+            promise: Promise.resolve({
+                data: {
+                    results: mockChartData,
+                    page_metadata: {
+                        total: 20
+                    }
+                }
+            }),
+            cancel: jest.fn()
+        });
+
+        const { rerender } = render(
+            <StatusOfFundsChart
+                results={mockChartData.results}
+                fy={fy}
+                level={0} />,
+            {
+                initialState: {
+                    ...defaultState
+                }
+            }
+        );
+        waitFor(() => {
+            expect(spy).toHaveBeenCalledTimes(1);
+        });
+        spy = jest.spyOn(api, "fetchFederalAccountsList").mockReturnValue({
+            promise: Promise.resolve({
+                data: {
+                    results: mockChartData,
+                    page_metadata: {
+                        total: 20
+                    }
+                }
+            }),
+            cancel: jest.fn()
+        });
+        // re-render with different defcParams
+        rerender(
+            <StatusOfFundsChart
+                results={mockChartData.results}
+                fy={fy}
+                level={1} />,
+            {
+                initialState: {
+                    ...defaultState
+                }
+            }
+        );
+        waitFor(() => {
+            expect(spy).toHaveBeenCalledTimes(2);
+        });
     });
 });

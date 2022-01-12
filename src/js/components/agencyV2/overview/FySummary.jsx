@@ -77,7 +77,7 @@ const FySummary = ({
 
     const totalBudgetaryResources = budgetaryResources[fy]?.agencyBudget || '--';
     const percentOfFederalBudget = budgetaryResources[fy]?.percentOfFederalBudget || '--';
-    const totalObligations = budgetaryResources[fy]?.agencyObligated || '--';
+    const totalObligations = budgetaryResources[fy]?.agencyObligated;
     const percentOfBudgetaryResources = budgetaryResources[fy]?.percentOfAgencyBudget || '--';
     const awardObligations = formatMoneyWithUnits(_awardObligations);
     const percentOfTotalObligations = calculatePercentage(_awardObligations, budgetaryResources[fy]?._agencyObligated);

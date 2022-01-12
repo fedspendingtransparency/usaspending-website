@@ -16,6 +16,7 @@ const CoreAwardAgency = {
         this.subtierId = data.subtierId || '';
         this.officeName = data.officeName || '';
         this.officeId = data.officeId || '';
+        this.agencySlug = data.agencySlug;
     },
     get formattedToptier() {
         if (this.toptierAbbr) {

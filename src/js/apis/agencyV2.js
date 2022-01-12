@@ -52,3 +52,7 @@ export const fetchAgencySlugs = () => apiRequest({
 export const fetchSubcomponentsList = (code, fy, page) => apiRequest({
     url: `v2/agency/${code}/sub_components/${fy ? `?fiscal_year=${fy}` : ''}${page ? `&page=${page}` : ''}`
 });
+
+export const fetchFederalAccountsList = (code, slug, fy, page) => apiRequest({
+    url: `v2/agency/${code}/sub_components/${slug}/${fy ? `?fiscal_year=${fy}` : ''}${page ? `&page=${page}` : ''}`
+});
