@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { isCancel } from 'axios';
 
 import ObligationsByAwardType from 'components/agencyV2/visualizations/ObligationsByAwardType';
-import { LoadingMessage, ErrorMessage, NoResultsMessage } from 'data-transparency-ui';
+import { LoadingMessage, ErrorMessage, GenericMessage } from 'data-transparency-ui';
 import { fetchObligationsByAwardType } from 'apis/agencyV2';
 import { setAwardObligations, resetAwardObligations } from 'redux/actions/agencyV2/agencyV2Actions';
 import { calculatePercentage } from 'helpers/moneyFormatter';
@@ -52,7 +52,7 @@ export default function ObligationsByAwardTypeContainer({ fiscalYear, windowWidt
         }
         obligationsByAwardTypeRequest.current = fetchObligationsByAwardType(toptierCode, fiscalYear);
         obligationsByAwardTypeRequest.current.promise.then((res) => {
-            if (Object.keys(res.data).length === 0) {
+            if (Object.keys(res.data).length === 0 || res.data.total_aggregated_amount === 0) {
                 setNoData(true);
                 setLoading(false);
                 obligationsByAwardTypeRequest.current = null;
@@ -175,7 +175,7 @@ export default function ObligationsByAwardTypeContainer({ fiscalYear, windowWidt
     return (<>
         {loading && <LoadingMessage />}
         {error && <ErrorMessage />}
-        {noData && <NoResultsMessage />}
+        {noData && <GenericMessage title="Chart Not Available" description="No available data to display." className="usda-message" />}
         {!loading && !error && !noData &&
             <ObligationsByAwardType
                 outer={categoriesForGraph}

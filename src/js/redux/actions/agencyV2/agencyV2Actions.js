@@ -70,6 +70,15 @@ export const resetAgencySubcomponents = () => ({
     type: 'RESET_SUBCOMPONENTS_LIST'
 });
 
+export const setFederalAccountsList = (agencyFederalAccountsList) => ({
+    type: 'SET_FEDERAL_ACC_LIST',
+    agencyFederalAccountsList
+});
+
+export const resetFederalAccountsList = () => ({
+    type: 'RESET_FEDERAL_ACC_LIST'
+});
+
 export const resetAgency = () => ({
     type: 'RESET_AGENCY'
 });

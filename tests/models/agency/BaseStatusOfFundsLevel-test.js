@@ -9,8 +9,8 @@ import BaseStatusOfFundsLevel from 'models/v2/agency/BaseStatusOfFundsLevel';
 export const mockSubcomponent = {
     name: "Bureau of the Census",
     id: "bureau_of_the_census",
-    total_budgetary_resources: 5000000,
-    total_obligations: 3000000.72
+    _budgetaryResources: 5000000,
+    _obligations: 3000000.72
 };
 
 const subcomponent = Object.create(BaseStatusOfFundsLevel);
@@ -18,9 +18,9 @@ subcomponent.populate(mockSubcomponent);
 
 describe('BaseStatusOfFundsLevel', () => {
     it('should format the budgetary resources', () => {
-        expect(subcomponent.budgetaryResources).toEqual('$5.00M');
+        expect(subcomponent._budgetaryResources).toEqual('$5.00M');
     });
     it('should format the obligations', () => {
-        expect(subcomponent.obligations).toEqual('$3.00M');
+        expect(subcomponent._obligations).toEqual('$3.00M');
     });
 });

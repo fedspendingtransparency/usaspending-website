@@ -7,10 +7,10 @@ import { formatMoneyWithUnits, calculatePercentage, formatMoneyWithUnitsShortLab
 
 const BaseAgencyBudgetaryResources = {
     populate(data) {
-        this._agencyBudget = data.agency_budgetary_resources || 0;
+        this._agencyBudget = data.agency_budgetary_resources || '--';
         this.agencyBudget = formatMoneyWithUnits(this._agencyBudget);
         this.agencyBudgetShort = formatMoneyWithUnitsShortLabel(this._agencyBudget, 2);
-        this._agencyObligated = data.agency_total_obligated || 0;
+        this._agencyObligated = data.agency_total_obligated || '--';
         this.agencyObligated = formatMoneyWithUnits(this._agencyObligated);
         this.agencyObligatedShort = formatMoneyWithUnitsShortLabel(this._agencyObligated, 2);
         this.percentOfAgencyBudget = calculatePercentage(this._agencyObligated, this._agencyBudget);

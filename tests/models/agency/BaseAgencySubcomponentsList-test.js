@@ -13,9 +13,9 @@ subcomponent.populate(mockSubcomponent);
 
 describe('BaseAgencySubcomponentsList', () => {
     it('should format the budgetary resources', () => {
-        expect(subcomponent.budgetaryResources).toEqual('$5.0M');
+        expect(subcomponent.budgetaryResources).toEqual('$5.00M');
     });
     it('should format the obligations', () => {
-        expect(subcomponent.obligations).toEqual('$3.0M');
+        expect(subcomponent.obligations).toEqual('$3.00M');
     });
 });

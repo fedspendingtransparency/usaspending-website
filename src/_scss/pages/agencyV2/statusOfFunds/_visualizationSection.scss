@@ -4,6 +4,20 @@
             margin-left: rem(32);
         }
     }
+    .drilldown-back-button {
+        @media(max-width: $medium-screen) {
+            margin-top: 3rem;
+        }
+        @media(min-width: $large-screen) {
+            margin-left: rem(32);
+        }
+        margin-bottom: 2rem;
+        font-size: rem(16);
+        padding: 0;
+        border: none;
+        background: none;
+        color: $color-primary;
+    }
     .status-of-funds__visualization-chart {
         @media(min-width: $large-screen) {
             margin-left: rem(20);
@@ -11,6 +25,15 @@
         svg {
             height: 100% !important;
             width: 100% !important;
+        }
+        .parent-g { visibility: hidden; rect#hlines { fill-opacity: 0; }}
+        .parent-g > * { visibility: visible; rect#hlines { fill-opacity: 0; }}
+        .parent-g > * { transition: opacity 150ms ease-in-out 100ms; }
+        .parent-g:hover > * { opacity: 0.4; }
+        .parent-g > *:hover { cursor: pointer; opacity: 1; transition-delay: 0ms, 0ms; rect#hlines { filter: drop-shadow(0px 8px 16px rgba(0, 0, 0, 0.1)); fill-opacity: 1; stroke: 1px }}
+        text#tick-labels-links:hover{
+            text-decoration: underline;
+            cursor: pointer;
         }
         text.y-axis-labels {
             font-size: rem(20);
