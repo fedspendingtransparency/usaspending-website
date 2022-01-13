@@ -1,4 +1,5 @@
 import BaseSubagencySpendingRow from 'models/v2/agency/BaseSubagencySpendingRow';
+import BaseSubagencySpendingRowChildren from 'models/v2/agency/BaseSubagencySpendingRowChildren';
 
 // eslint-disable-next-line import/prefer-default-export
 export const parseRows = (data) => {
@@ -25,12 +26,12 @@ export const parseRows = (data) => {
     // parse row and row's children
     const parsedData = dataAndTotalObligation.map((item) => {
         const subagencyTotalsRow = Object.create(BaseSubagencySpendingRow);
-        subagencyTotalsRow.populate(item);
+        subagencyTotalsRow.populateCore(item);
 
         let rowChildren = [];
         if (item.children && item.children.length > 0) {
             rowChildren = item.children.map((childItem) => {
-                const subagencyTotalsRowChild = Object.create(BaseSubagencySpendingRow);
+                const subagencyTotalsRowChild = Object.create(BaseSubagencySpendingRowChildren);
                 subagencyTotalsRowChild.populate(childItem);
                 return subagencyTotalsRowChild;
             });

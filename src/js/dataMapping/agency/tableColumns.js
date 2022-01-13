@@ -85,7 +85,7 @@ export const accountColumns = {
 export const subagencyColumns = [
     {
         title: 'name',
-        displayName: 'Agency Name'
+        displayName: 'Sub-Agency Name'
     },
     {
         title: 'totalObligations',
