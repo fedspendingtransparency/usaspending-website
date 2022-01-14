@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
+// eslint-disable-next-line no-unused-vars
 import { Link } from 'react-router-dom';
 
 import { formatMoney } from 'helpers/moneyFormatter';
@@ -60,20 +61,23 @@ export default class IdvActivityTooltip extends React.Component {
         window.removeEventListener('resize', this.measureWindow);
     }
 
+    // eslint-disable-next-line no-unused-vars
     getLinks(path, id, data, params) {
         if (data === '--' || id === '--') {
             return (<div>{data}</div>);
         }
-        let title;
-        if (this.state.truncated) {
-            title = params;
-        }
+        // let title;
+        // if (this.state.truncated) {
+        //     title = params;
+        // }
         return (
-            <Link
-                title={title}
-                to={`/${path}/${id}`}>
-                {data}
-            </Link>
+            <span>{data}</span>
+            // TODO update after receiving updated endpoint for DEV-8068
+            //  <Link
+            //     title={title}
+            //     to={`/${path}/${id}`}>
+            //     {data}
+            // </Link>
         );
     }
 
