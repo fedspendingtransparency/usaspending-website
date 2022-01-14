@@ -64,7 +64,9 @@ export default class ReferencedAwardsTable extends React.Component {
                             data = (<Link to={`/award/${row.internalId}`}>{row[col.name]}</Link>);
                         }
                         if (col.name === 'awardingAgency' && row.awardingAgencyId) {
-                            data = (<Link to={`/agency/${row.awardingAgencyId}`}>{row[col.name]}</Link>);
+                            // TODO update after receiving updated endpoint for DEV-8068
+                            // data = (<Link to={`/agency/${row.awardingAgencyId}`}>{row[col.name]}</Link>);
+                            data = row[col.name];
                         }
                         return (
                             <td
