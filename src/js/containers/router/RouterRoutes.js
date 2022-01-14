@@ -12,6 +12,7 @@ const ExplorerLanding = React.lazy(() => import('components/explorer/landing/Exp
 const ExplorerDetailPageContainer = React.lazy(() => import('containers/explorer/detail/ExplorerDetailPageContainer').then((comp) => comp));
 const AwardContainer = React.lazy(() => import('containers/award/AwardContainer').then((comp) => comp));
 const AccountContainer = React.lazy(() => import('containers/account/AccountContainer').then((comp) => comp));
+const AgencyContainer = React.lazy(() => import('containers/agency/AgencyContainer').then((comp) => comp));
 const About = React.lazy(() => import('components/about/About').then((comp) => comp));
 const AccessibilityPage = React.lazy(() => import('components/about/legal/AccessibilityPage').then((comp) => comp));
 const PrivacyPage = React.lazy(() => import('components/about/legal/PrivacyPage').then((comp) => comp));
@@ -72,6 +73,11 @@ export const routes = [
     {
         path: '/federal_account/:accountNumber',
         component: AccountContainer,
+        exact: true
+    },
+    {
+        path: '/agency/:agencyId',
+        component: AgencyContainer,
         exact: true
     },
     {
@@ -163,7 +169,7 @@ export const routes = [
         exact: true
     },
     {
-        path: '/agency/:agencySlug',
+        path: '/agency_v2/:agencySlug',
         component: AgencyProfileV2,
         exact: true
     },
