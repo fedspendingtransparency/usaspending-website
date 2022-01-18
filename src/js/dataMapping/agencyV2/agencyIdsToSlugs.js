@@ -1527,5 +1527,5 @@ export default [
     { agency_id: 4, agency_slug: "the-legislative-branch" },
     { agency_id: 3, agency_slug: "the-legislative-branch" },
     { agency_id: 2, agency_slug: "the-legislative-branch" },
-    { agency_id: 1, agency_slug: "the-legislative-branch" },
+    { agency_id: 1, agency_slug: "the-legislative-branch" }
 ];
