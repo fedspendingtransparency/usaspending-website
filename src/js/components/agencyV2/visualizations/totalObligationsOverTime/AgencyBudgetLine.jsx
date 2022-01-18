@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { formatMoney, calculatePercentage } from 'helpers/moneyFormatter';
-import { TooltipWrapper } from 'data-transparency-ui';
 
 const propTypes = {
     data: PropTypes.array,
@@ -13,7 +11,8 @@ const propTypes = {
     todaysDate: PropTypes.number,
     padding: PropTypes.object,
     scenario: PropTypes.string,
-    showTodayLineAndText: PropTypes.bool
+    showTodayLineAndText: PropTypes.bool,
+    toggleTooltipVisibility: PropTypes.func
 };
 
 const AgencyBudgetLine = ({
@@ -26,7 +25,8 @@ const AgencyBudgetLine = ({
     padding,
     width,
     scenario,
-    showTodayLineAndText
+    showTodayLineAndText,
+    toggleTooltipVisibility
 }) => {
     const [hoveredRectangle, setHoveredRectangle] = useState(false);
     const [lineData, setLineData] = useState({
@@ -63,27 +63,11 @@ const AgencyBudgetLine = ({
                     x: padding.left,
                     y: height - yScale(agencyBudget) - padding.bottom,
                     width: showTodayLineAndText ? xScale(todaysDate) : width - padding.left - padding.right,
-                    height: height - yScale(Math.max(...data.map((x) => x.obligated))) - padding.bottom - padding.top,
-                    balance: agencyBudget - data[data.length - 1].obligated,
-                    percentOfTotal: calculatePercentage(agencyBudget - data[data.length - 1].obligated, agencyBudget)
+                    height: height - yScale(Math.max(...data.map((x) => x.obligated))) - padding.bottom - padding.top
                 }
             );
         }
     }, [xScale, yScale, showTodayLineAndText]);
-
-    const tooltip = (
-        <div className="budgetary-resources-tooltip">
-            <div className="tooltip__title">
-                Available Budgetary Resources
-            </div>
-            <div className="tooltip__text">
-                <div className="budgetary-resources-tooltip__desc">Unobligated Balance</div>
-                <div className="budgetary-resources-tooltip__desc_percent">Percent of Total</div>
-                <div className="budgetary-resources-tooltip__amount">{formatMoney(rectangleData.balance)}</div>
-                <div className="budgetary-resources-tooltip__amount_percent">{rectangleData.percentOfTotal}</div>
-            </div>
-        </div>
-    );
 
     const rectangle = (
         <rect
@@ -91,10 +75,16 @@ const AgencyBudgetLine = ({
             x={rectangleData.x}
             y={rectangleData.y}
             width={rectangleData.width}
-            height={rectangleData.height} />
+            height={rectangleData.height}
+            tabIndex="0" />
     );
     return (
-        <g onMouseEnter={() => setHoveredRectangle(true)} onMouseLeave={() => setHoveredRectangle(false)} className="bar-chart__item">
+        <g
+            onMouseEnter={() => { setHoveredRectangle(true); toggleTooltipVisibility(true); }}
+            onMouseLeave={() => { setHoveredRectangle(false); toggleTooltipVisibility(false); }}
+            onFocus={() => { setHoveredRectangle(true); toggleTooltipVisibility(true); }}
+            onBlur={() => { setHoveredRectangle(false); toggleTooltipVisibility(false); }}
+            className="bar-chart__item">
             <line
                 tabIndex="0"
                 className="total-budget-line"
@@ -103,9 +93,6 @@ const AgencyBudgetLine = ({
                 y1={lineData.y1}
                 y2={lineData.y1} />
             {!(scenario === 'exceedsMax' || scenario === 'exceedsMaxAndMin') && rectangle}
-            <foreignObject className="tooltip-object-overflow" x={rectangleData.x} y={rectangleData.y} width={rectangleData.width + 7} height={rectangleData.height}>
-                <TooltipWrapper className="budgetary-resources__tooltip-wrapper" offsetAdjustments={{ top: -5 }} tooltipComponent={tooltip} />
-            </foreignObject>
         </g>
     );
 };

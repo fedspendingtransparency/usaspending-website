@@ -11,7 +11,6 @@ export const awardFields = {
     recipientLocationScope: 'recipient__location__location_country_code',
     recipientLocation: 'recipient__location__location_id',
     recipientName: 'recipient__recipient_name',
-    recipientDUNS: 'recipient__recipient_unique_id',
     recipientType: 'recipient__business_categories',
     fundingAgency: {
         toptier: 'funding_agency__toptier_agency__name',
@@ -63,7 +62,6 @@ export const transactionFields = {
     recipientLocationScope: 'recipient__location__location_country_code',
     recipientLocation: 'recipient__location__location_id',
     recipientName: 'recipient__recipient_name',
-    recipientDUNS: 'recipient__recipient_unique_id',
     recipientType: 'recipient__business_categories',
     awardType: 'type',
     awardId: 'award_id',
@@ -91,7 +89,6 @@ export const accountAwardsFields = {
     recipientLocationScope: 'award__recipient__location__location_country_code',
     recipientLocation: 'award__recipient__location__location_id',
     recipientName: 'award__recipient__recipient_name',
-    recipientDUNS: 'award__recipient__recipient_unique_id',
     recipientType: 'award__recipient__business_categories',
     fundingAgency: {
         toptier: 'award__funding_agency__toptier_agency__name',

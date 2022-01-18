@@ -39,8 +39,6 @@ export const awardTableColumnTypes = {
     'Place of Performance Country': 'string',
     'Place of Performance State': 'string',
     'Place of Performance Province': 'string',
-    'Recipient DUNS Number': 'number',
-    'Recipient Ultimate DUNS Number': 'number',
     'Contract Pricing Type': 'string',
     'Recipient Congressional District': 'string',
     'Recipient Phone Number': 'string',

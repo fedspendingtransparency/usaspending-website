@@ -133,8 +133,7 @@ export class TopFiveContainer extends React.Component {
             const result = Object.create(BaseStateCategoryResult);
             result.populate(item, index + 1);
 
-            // use a special naming template for DUNS
-            if (type === 'recipient_duns') {
+            if (type === 'awarding_agency' || type === 'awarding_subagency') {
                 result.nameTemplate = (code, name) => {
                     if (code) {
                         return `${name} (${code})`;
@@ -142,13 +141,8 @@ export class TopFiveContainer extends React.Component {
                     return name;
                 };
             }
-            else if (type === 'awarding_agency' || type === 'awarding_subagency') {
-                result.nameTemplate = (code, name) => {
-                    if (code) {
-                        return `${name} (${code})`;
-                    }
-                    return name;
-                };
+            else if (type === 'recipient_duns') {
+                result.nameTemplate = (code, name) => name;
             }
             else if (type === 'county' || type === 'district') {
                 result.nameTemplate = (code, name) => (name);

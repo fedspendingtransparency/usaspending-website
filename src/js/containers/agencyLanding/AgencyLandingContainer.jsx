@@ -153,7 +153,7 @@ export class AgencyLandingContainer extends React.Component {
             }
 
             const agency = {
-                agency_id: item.agency_id,
+                agency_id: item.agency_slug || item.agency_id,
                 agency_name: `${item.agency_name} ${abbreviation}`,
                 budget_authority_amount: item.budget_authority_amount,
                 percentage_of_total_budget_authority: item.percentage_of_total_budget_authority,

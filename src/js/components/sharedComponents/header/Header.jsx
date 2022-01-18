@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Cookies from 'js-cookie';
 import { Link } from 'react-router-dom';
+import { isBefore, startOfToday } from 'date-fns';
+import { isIe } from "helpers/browser";
 
 import GlossaryContainer from 'containers/glossary/GlossaryContainer';
 import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
@@ -16,7 +18,11 @@ const clickedHeaderLink = (route) => {
     });
 };
 
-const cookie = 'usaspending_covid_release';
+let cookie = 'usaspending_covid_release';
+if (isIe() && isBefore(startOfToday(), new Date(2022, 1, 18))) {
+    cookie = 'usaspending_end_of_IE';
+    Cookies.set(cookie, 'showIEBanner');
+}
 
 export default class Header extends React.Component {
     constructor(props) {
@@ -31,10 +37,12 @@ export default class Header extends React.Component {
         this.openBannerModal = this.openBannerModal.bind(this);
     }
 
+    componentDidMount() {
+        this.setShowInfoBanner();
+    }
+
     setShowInfoBanner() {
-        // check if the info banner cookie exists
-        if (!Cookies.get(cookie)) {
-            // cookie does not exist, show the banner
+        if (Cookies.get(cookie) === 'showIEBanner') {
             this.setState({
                 showInfoBanner: true
             });
@@ -55,7 +63,7 @@ export default class Header extends React.Component {
     }
     closeBanner(bannerType) {
         // set a cookie to hide the banner in the future if banner is closed
-        Cookies.set(cookie, 'hide', { expires: 730 });
+        Cookies.set(cookie, 'hide', { expires: 7 });
         this.setState({
             [bannerType]: false
         });
@@ -65,6 +73,7 @@ export default class Header extends React.Component {
         e.preventDefault();
         this.props.showModal(null, 'covid');
     }
+
 
     render() {
         let infoBanner = (

@@ -4,9 +4,12 @@
  */
 
 import { getSubmittingAgencyId } from "helpers/awardSummaryHelper";
+import { AGENCY_LINK } from 'GlobalConstants';
 
 const additionalDetails = (awardData) => {
     const {
+        awardingAgency,
+        fundingAgency,
         recipient,
         dates,
         parentAwardDetails
@@ -22,21 +25,21 @@ const additionalDetails = (awardData) => {
             'Awarding Agency': {
                 type: 'link',
                 data: {
-                    path: (awardData.awardingAgency.id && awardData.awardingAgency.hasAgencyPage) ? `/agency/${awardData.awardingAgency.id}` : null,
-                    title: awardData.awardingAgency.formattedToptier
+                    path: (awardingAgency.agencySlug && awardingAgency.hasAgencyPage) ? `/${AGENCY_LINK}/${awardingAgency.agencySlug}` : null,
+                    title: awardingAgency.formattedToptier
                 }
             },
-            'Awarding Sub-Agency': awardData.awardingAgency.subtierName,
-            'Awarding Office': awardData.awardingAgency.officeName,
+            'Awarding Sub-Agency': awardingAgency.subtierName,
+            'Awarding Office': awardingAgency.officeName,
             'Funding Agency': {
                 type: 'link',
                 data: {
-                    path: (awardData.fundingAgency.id && awardData.fundingAgency.hasAgencyPage) ? `/agency/${awardData.fundingAgency.id}` : null,
-                    title: awardData.fundingAgency.formattedToptier
+                    path: (fundingAgency.agencySlug && fundingAgency.hasAgencyPage) ? `/${AGENCY_LINK}/${fundingAgency.agencySlug}` : null,
+                    title: fundingAgency.formattedToptier
                 }
             },
-            'Funding Sub-Agency': awardData.fundingAgency.subtierName,
-            'Funding Office': awardData.fundingAgency.officeName
+            'Funding Sub-Agency': fundingAgency.subtierName,
+            'Funding Office': fundingAgency.officeName
         },
         parentAwardDetails: {
             'Parent Award Unique Key': parentAwardDetails.awardId,
@@ -77,7 +80,6 @@ const additionalDetails = (awardData) => {
                     title: recipient._name
                 }
             },
-            DUNS: recipient.duns || '',
             'Parent Recipient': {
                 type: 'link',
                 data: {
@@ -85,7 +87,6 @@ const additionalDetails = (awardData) => {
                     title: recipient.parentName
                 }
             },
-            'Parent DUNS': recipient.parentDuns || '',
             'Recipient Address': {
                 type: 'address',
                 data: [

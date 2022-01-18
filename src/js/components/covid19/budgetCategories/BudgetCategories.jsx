@@ -115,9 +115,9 @@ const BudgetCategories = ({ publicLaw }) => {
         <div className="body__content budget-categories">
             <DateNote />
             {publicLaw === 'american-rescue-plan' ?
-                <h3 className="body__narrative">How is <strong>total spending</strong> from the American Rescue Plan categorized?</h3>
+                <h4 className="body__narrative">How is <strong>total spending</strong> from the American Rescue Plan categorized?</h4>
                 :
-                <h3 className="body__narrative">How is <strong>total COVID-19 spending</strong> categorized?</h3>
+                <h4 className="body__narrative">How is <strong>total COVID-19 spending</strong> categorized?</h4>
             }
             <div className="body__narrative-description">
                 {publicLaw === 'american-rescue-plan' ?

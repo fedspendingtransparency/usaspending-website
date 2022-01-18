@@ -10,7 +10,7 @@ import { throttle } from 'lodash';
 import {
     LoadingMessage,
     ErrorMessage,
-    NoResultsMessage
+    GenericMessage
 } from 'data-transparency-ui';
 
 import TotalObligationsOverTimeVisualization from 'components/agencyV2/visualizations/totalObligationsOverTime/TotalObligationsOverTimeVisualization';
@@ -41,8 +41,13 @@ const TotalObligationsOverTimeContainer = ({
     useEffect(() => {
         setLoading(true);
         const javaScriptSubmissionPeriods = submissionPeriods.toJS();
-        if (javaScriptSubmissionPeriods.length && obligationsByPeriod.length && !isLoading && !isError) {
-            setData(addSubmissionEndDatesToBudgetaryResources(obligationsByPeriod, javaScriptSubmissionPeriods, fy).sort((a, b) => a.period - b.period));
+        if (!isLoading && !isError) {
+            if (javaScriptSubmissionPeriods.length && obligationsByPeriod.length) {
+                setData(addSubmissionEndDatesToBudgetaryResources(obligationsByPeriod, javaScriptSubmissionPeriods, fy).sort((a, b) => a.period - b.period));
+            }
+            else {
+                setData([]);
+            }
             setLoading(false);
         }
     }, [submissionPeriods, obligationsByPeriod, isLoading, isError, fy]);
@@ -65,15 +70,14 @@ const TotalObligationsOverTimeContainer = ({
         return () => {
             window.removeEventListener('resize', handleWindowResize);
         };
-    }, []);
+    }, [handleWindowResize]);
 
     return (
         <div ref={containerReference} className="total-obligations-over-time-visualization-container">
             {isError && <ErrorMessage />}
             {!isError && loading && <LoadingMessage />}
-            {!isError && !loading && !data.length && <NoResultsMessage />}
-            {
-                !isError && !loading && data.length > 0 &&
+            {!isError && !loading && !data.length && <GenericMessage title="Chart Not Available" description="No available data to display." className="usda-message" />}
+            {!isError && !loading && data.length > 0 &&
                 <TotalObligationsOverTimeVisualization
                     width={visualizationWidth}
                     agencyBudget={agencyBudget}

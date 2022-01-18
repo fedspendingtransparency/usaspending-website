@@ -16,7 +16,7 @@ const subagencyCount = Object.create(BaseAgencySubagencyCount);
 subagencyCount.populate();
 
 const spendingBySubagencyTotals = Object.create(BaseSubagencySpendingRow);
-spendingBySubagencyTotals.populate();
+spendingBySubagencyTotals.populateCore();
 
 const agencySubcomponentsList = Object.create(BaseAgencySubcomponentsList);
 agencySubcomponentsList.populate();
@@ -108,6 +108,16 @@ const agencyReducer = (state = initialState, action) => {
                 agencySubcomponentsList: action.agencySubcomponentsList
             };
         case 'RESET_SUBCOMPONENTS_LIST':
+            return {
+                ...state,
+                agencySubcomponentsList: initialState.agencySubcomponentsList
+            };
+        case 'SET_FEDERAL_ACC_LIST':
+            return {
+                ...state,
+                agencySubcomponentsList: action.agencySubcomponentsList
+            };
+        case 'RESET_FEDERAL_ACC_LIST':
             return {
                 ...state,
                 agencySubcomponentsList: initialState.agencySubcomponentsList

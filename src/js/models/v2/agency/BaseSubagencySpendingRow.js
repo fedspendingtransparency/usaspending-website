@@ -1,7 +1,7 @@
 import { formatMoney, formatNumber } from 'helpers/moneyFormatter';
 
 const BaseSubagencySpendingRow = {
-    populate(data) {
+    populateCore(data) {
         this.name = data?.name || '--';
         // eslint-disable-next-line camelcase
         this._newAwardCount = data?.new_award_count || 0;

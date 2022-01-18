@@ -6,9 +6,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FlexGridRow, FlexGridCol, Pagination, LoadingMessage } from 'data-transparency-ui';
-import { setSelectedSubcomponent, setAgencySubcomponents, resetAgencySubcomponents } from 'redux/actions/agencyV2/agencyV2Actions';
-import { fetchSubcomponentsList } from 'apis/agencyV2';
+import { setSelectedSubcomponent, setAgencySubcomponents, resetAgencySubcomponents, setFederalAccountsList, resetFederalAccountsList } from 'redux/actions/agencyV2/agencyV2Actions';
+import { fetchSubcomponentsList, fetchFederalAccountsList } from 'apis/agencyV2';
 import { parseRows } from 'helpers/agencyV2/StatusOfFundsVizHelper';
 import { useStateWithPrevious } from 'helpers';
 import BaseStatusOfFundsLevel from 'models/v2/agency/BaseStatusOfFundsLevel';
@@ -28,8 +29,10 @@ const StatusOfFunds = ({ fy }) => {
     const [level, setLevel] = useState(0);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
+    const [resetPageChange, setResetPageChange] = useState(false);
+    const [subcomponent, setSubcomponent] = useState({});
     const [prevPage, currentPage, changeCurrentPage] = useStateWithPrevious(1);
-    const [prevPageSize, pageSize, changePageSize] = useStateWithPrevious(10);
+    const [pageSize, changePageSize] = useStateWithPrevious(10);
     const [totalItems, setTotalItems] = useState(0);
     const request = useRef(null);
     const [results, setResults] = useState([]);
@@ -40,9 +43,10 @@ const StatusOfFunds = ({ fy }) => {
             request.current.cancel();
         }
         dispatch(resetAgencySubcomponents());
+        dispatch(resetFederalAccountsList());
     }, []);
 
-    const fetchAgencySubcomponents = async () => {
+    const fetchAgencySubcomponents = () => {
         if (request.current) {
             request.current.cancel();
         }
@@ -72,14 +76,72 @@ const StatusOfFunds = ({ fy }) => {
             });
     };
 
+    const fetchFederalAccounts = (agencyData) => {
+        if (request.current) {
+            request.current.cancel();
+        }
+        if (error) {
+            setError(false);
+        }
+        if (!loading) {
+            setLoading(true);
+        }
+        const params = {
+            limit: pageSize,
+            page: currentPage
+        };
+        request.current = fetchFederalAccountsList(overview.toptierCode, agencyData.id, fy, params.page);
+        const federalAccountsRequest = request.current;
+        federalAccountsRequest.promise
+            .then((res) => {
+                const parsedData = parseRows(res.data.results);
+                const totalsData = {
+                    name: `${agencyData.name}`,
+                    id: `${agencyData.id}`,
+                    total_budgetary_resources: `${agencyData.budgetaryResources}`,
+                    total_obligations: `${agencyData.obligations}`
+                };
+                setLevel(1, totalsData);
+                setResults(parsedData);
+                dispatch(setFederalAccountsList(parsedData));
+                setTotalItems(res.data.page_metadata.total);
+                setLoading(false);
+            }).catch((err) => {
+                setError(true);
+                setLoading(false);
+                console.error(err);
+            });
+    };
+
     useEffect(() => {
-        const hasParamChanged = (
-            prevPage !== currentPage || prevPageSize !== pageSize
-        );
-        if (hasParamChanged) {
-            fetchAgencySubcomponents();
+        if (Object.keys(subcomponent).length !== 0) {
+            fetchFederalAccounts(subcomponent);
+        }
+    }, [subcomponent]);
+
+    useEffect(() => {
+        if (resetPageChange) {
+            setResetPageChange(false);
+        } else {
+            if (prevPage !== currentPage && level === 0) {
+                fetchAgencySubcomponents();
+            }
+            if (prevPage !== currentPage && level === 1) {
+                fetchFederalAccounts(subcomponent);
+            }
         }
     }, [currentPage]);
+
+    useEffect(() => {
+        if (resetPageChange) {
+            setLoading(true);
+            if (currentPage === 1) {
+                setResetPageChange(false);
+            } else {
+                changeCurrentPage(1);
+            }
+        }
+    }, [resetPageChange]);
 
     useEffect(() => {
         if (fy && overview.toptierCode) {
@@ -87,19 +149,24 @@ const StatusOfFunds = ({ fy }) => {
         }
     }, [fy, overview.toptierCode]);
 
-    // TODO - remove mock data when DEV-8052 is implemented
-    const mockData = {
-        name: "Bureau of the Census",
-        id: "bureau_of_the_census",
-        total_budgetary_resources: 5000000,
-        total_obligations: 3000000.72
+    const onClick = (selectedLevel, data) => {
+        // reset to page 1 on drilldown
+        setResetPageChange(true);
+        const subcomponentTotalData = Object.create(BaseStatusOfFundsLevel);
+        subcomponentTotalData.populate(data);
+        dispatch(setSelectedSubcomponent(subcomponentTotalData));
+        setSubcomponent(subcomponentTotalData);
     };
-    const onClick = (selectedLevel, data = mockData) => {
-        // TODO DEV-8052 move this logic to the visualization
-        const subcomponent = Object.create(BaseStatusOfFundsLevel);
-        subcomponent.populate(data);
-        dispatch(setSelectedSubcomponent(subcomponent));
-        setLevel(selectedLevel);
+    const goBack = () => {
+        if (overview.toptierCode) {
+            setLevel(0);
+            fetchAgencySubcomponents();
+            if (currentPage === 1) {
+                setResetPageChange(false);
+            } else {
+                changeCurrentPage(1);
+            }
+        }
     };
     return (
         <div className="body__content status-of-funds">
@@ -114,7 +181,12 @@ const StatusOfFunds = ({ fy }) => {
                         selectedSubcomponent={selectedSubcomponent} />
                 </FlexGridCol>
                 <FlexGridCol className="status-of-funds__visualization" desktop={9}>
-                    { results.length !== 0 ? <VisualizationSection level={level} agencyId={overview.toptierCode} agencyName={overview.name} fy={fy} results={results} /> : <LoadingMessage /> }
+                    {level === 1 ?
+                        <button title="Go up a level" className="drilldown-back-button" onClick={goBack}>
+                            <FontAwesomeIcon icon="arrow-left" />
+                            &nbsp;&nbsp;Back
+                        </button> : <></>}
+                    { !loading ? <VisualizationSection fetchFederalAccounts={fetchFederalAccounts} totalItems={totalItems} setTotalItems={setTotalItems} loading={loading} setLoading={setLoading} level={level} setLevel={onClick} selectedSubcomponent={selectedSubcomponent} agencyId={overview.toptierCode} agencyName={overview.name} fy={fy} results={results} /> : <LoadingMessage /> }
                     <Pagination
                         currentPage={currentPage}
                         changePage={changeCurrentPage}

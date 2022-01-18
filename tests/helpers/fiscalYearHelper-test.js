@@ -65,6 +65,20 @@ describe('Fiscal Year helper functions', () => {
         });
     });
 
+    describe('isFyValid', () => {
+        it('should recognize valid fiscal year values', () => {
+            expect(FiscalYearHelper.isFyValid(2008)).toEqual(true);
+            expect(FiscalYearHelper.isFyValid('2011')).toEqual(true);
+        });
+
+        it('should recognize invalid fiscal year values', () => {
+            expect(FiscalYearHelper.isFyValid(2007)).toEqual(false);
+            expect(FiscalYearHelper.isFyValid('2007')).toEqual(false);
+            expect(FiscalYearHelper.isFyValid('word')).toEqual(false);
+            expect(FiscalYearHelper.isFyValid()).toEqual(false);
+        });
+    });
+
     describe('convertFYtoDateRange', () => {
         it('should convert a given fiscal year to an array of start, end date strings', () => {
             const fy = '2016';

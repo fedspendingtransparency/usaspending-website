@@ -97,7 +97,8 @@ BaseFinancialAssistance.populate = function populate(data) {
             toptierAbbr: data.awarding_agency.toptier_agency.abbreviation || '',
             subtierName: data.awarding_agency.subtier_agency.name,
             subtierAbbr: data.awarding_agency.subtier_agency.abbreviation || '',
-            officeName: data.awarding_agency.office_agency_name
+            officeName: data.awarding_agency.office_agency_name,
+            agencySlug: data.awarding_agency.toptier_agency.slug
         };
         const awardingAgency = Object.create(CoreAwardAgency);
         awardingAgency.populateCore(awardingAgencyData);
@@ -115,7 +116,8 @@ BaseFinancialAssistance.populate = function populate(data) {
             toptierAbbr: data.funding_agency.toptier_agency.abbreviation || '',
             subtierName: data.funding_agency.subtier_agency.name,
             subtierAbbr: data.funding_agency.subtier_agency.abbreviation || '',
-            officeName: data.funding_agency.office_agency_name
+            officeName: data.funding_agency.office_agency_name,
+            agencySlug: data.funding_agency.toptier_agency.slug
         };
         const fundingAgency = Object.create(CoreAwardAgency);
         fundingAgency.populateCore(fundingAgencyData);
