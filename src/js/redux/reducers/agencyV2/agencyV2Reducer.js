@@ -16,7 +16,7 @@ const subagencyCount = Object.create(BaseAgencySubagencyCount);
 subagencyCount.populate();
 
 const spendingBySubagencyTotals = Object.create(BaseSubagencySpendingRow);
-spendingBySubagencyTotals.populate();
+spendingBySubagencyTotals.populateCore();
 
 const agencySubcomponentsList = Object.create(BaseAgencySubcomponentsList);
 agencySubcomponentsList.populate();
