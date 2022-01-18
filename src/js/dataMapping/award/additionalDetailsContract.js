@@ -78,14 +78,16 @@ const additionalDetailsContracts = (awardData) => {
                 }
             },
             'Parent IDV Type': parentAwardDetails.idvType || '',
-            'Parent IDV Agency Name': {
-                type: 'link',
-                data: {
-                    path: parentAwardDetails.agencyId ?
-                        `/agency/${parentAwardDetails.agencyId}` : null,
-                    title: parentAwardDetails.agencyName
-                }
-            },
+            // TODO update after receiving updated endpoint for DEV-8068
+            // 'Parent IDV Agency Name': {
+            //     type: 'link',
+            //     data: {
+            //         path: parentAwardDetails.agencyId ?
+            //             `/agency/${parentAwardDetails.agencyId}` : null,
+            //         title: parentAwardDetails.agencyName
+            //     }
+            // },
+            'Parent IDV Agency Name': parentAwardDetails.agencyName,
             'Parent IDV Sub-Agency Name': parentAwardDetails.subAgencyName,
             'Multiple Or Single Parent Award IDV': parentAwardDetails.multipleOrSingle || ''
         },

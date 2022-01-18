@@ -25,7 +25,7 @@ export const mockAwardSpendingRow = {
 
 
 const awardSpendingRow = Object.create(BaseSubagencySpendingRow);
-awardSpendingRow.populate(mockAwardSpendingRow);
+awardSpendingRow.populateCore(mockAwardSpendingRow);
 
 describe('BaseSubagencySpendingRow', () => {
     it('should store the name', () => {
