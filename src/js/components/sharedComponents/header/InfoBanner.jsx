@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { isBefore, startOfToday } from "date-fns";
@@ -23,14 +22,15 @@ export default class InfoBanner extends React.Component {
     }
 
     render() {
-        let title = 'New to USAspending: COVID-19 Spending Data';
+        let title = 'Coming to USAspending: Unique Entity Identifiers';
         let content = (
             <p>
-            USAspending now has spending data from federal agencies related to the Coronavirus Aid, Relief, and Economic Security (CARES) Act and other COVID-19 appropriations.
-                <button onClick={this.props.triggerModal}> Learn more</button> about the new data and features, or <Link to="/disaster/covid-19">visit the profile page</Link> to explore and download the data today!
+            In April 2022, we will add a new Unique Entity Identifier (UEI) alongside DUNS numbers for awardees and recipients.
+                <button onClick={this.props.triggerModal}> Learn more about the transition and what changes you&apos;ll find on the site.</button>
             </p>
         );
 
+        // reminder that month is 0-indexed
         if (isIe() && isBefore(startOfToday(), new Date(2022, 1, 18))) {
             title = 'USAspending Ending Support for Internet Explorer';
             content = (

@@ -1,4 +1,10 @@
 @include media($small-screen) {
+    .uei-modal-header {
+        background: #205493 !important;
+        h1 {
+            padding-left: rem(48) !important;
+        }
+    }
     .usa-dt-modal.covid-modal {
         width: 100%;
         .usa-dt-modal__header {
