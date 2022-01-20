@@ -4,7 +4,6 @@
   @import "layouts/default/stickyHeader/header";
   @import "components/pageLoading";
   @import "./header";
-  @import "mixins/profilePage";
   
   @include display(flex);
   @include justify-content(flex-start);
@@ -260,16 +259,6 @@
               }
             }
           }
-        }
-        .covid__date-note {
-          @include display(flex);
-          width: 100%;
-          justify-content: left;
-          font-size: 1.2rem;
-          font-style: italic;
-          letter-spacing: 0;
-          line-height: 1.5rem;
-          @include profile-page-wrap;
         }
         &.award_question {
           .body__header {
