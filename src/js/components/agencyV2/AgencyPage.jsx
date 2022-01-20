@@ -140,7 +140,7 @@ export const AgencyProfileV2 = ({
                     {isError
                         ? <ErrorMessage description={errorMessage} />
                         : sections.map((section) => (
-                            <AgencySection key={section.name} section={section} isLoading={isLoading} icon={section.icon}>
+                            <AgencySection key={section.name} section={section} isLoading={isLoading} icon={section.icon} showAsOf={selectedFy == latestFy}>
                                 {section.component || <ComingSoon />}
                             </AgencySection>
                         ))}

@@ -17,9 +17,7 @@ const propTypes = {
     fy: PropTypes.string
 };
 
-const AgencyOverview = ({
-    fy
-}) => {
+const AgencyOverview = ({ fy }) => {
     const {
         website,
         mission,
@@ -39,7 +37,7 @@ const AgencyOverview = ({
         }, 50);
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-    }, []);
+    }, [windowWidth]);
 
     const missionBlock = (
         <div className="agency-overview__data">
@@ -102,6 +100,7 @@ const AgencyOverview = ({
                 </FlexGridCol>
             </FlexGridRow>
         </>;
+
     return (
         <div className="body__content agency-overview">
             {content}
