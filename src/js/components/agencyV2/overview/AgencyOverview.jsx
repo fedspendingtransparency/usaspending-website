@@ -14,10 +14,11 @@ import ReadMore from 'components/sharedComponents/ReadMore';
 import FySummary from './FySummary';
 
 const propTypes = {
-    fy: PropTypes.string
+    fy: PropTypes.string,
+    showAsOf: PropTypes.bool
 };
 
-const AgencyOverview = ({ fy }) => {
+const AgencyOverview = ({ fy, showAsOf }) => {
     const {
         website,
         mission,
@@ -37,7 +38,7 @@ const AgencyOverview = ({ fy }) => {
         }, 50);
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-    }, [windowWidth]);
+    }, []);
 
     const missionBlock = (
         <div className="agency-overview__data">
@@ -104,7 +105,7 @@ const AgencyOverview = ({ fy }) => {
     return (
         <div className="body__content agency-overview">
             {content}
-            <FySummary fy={fy} windowWidth={windowWidth} isMobile={isMobile} />
+            <FySummary fy={fy} showAsOf={showAsOf} windowWidth={windowWidth} isMobile={isMobile} />
         </div>
     );
 };

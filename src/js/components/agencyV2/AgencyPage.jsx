@@ -58,7 +58,8 @@ export const AgencyProfileV2 = ({
             name: 'overview',
             display: 'Overview',
             icon: 'landmark',
-            component: <AgencyOverview fy={selectedFy} />
+            // eslint-disable-next-line eqeqeq
+            component: <AgencyOverview fy={selectedFy} showAsOf={selectedFy == latestFy} />
         },
         {
             name: 'status-of-funds',
@@ -140,6 +141,7 @@ export const AgencyProfileV2 = ({
                     {isError
                         ? <ErrorMessage description={errorMessage} />
                         : sections.map((section) => (
+                            // eslint-disable-next-line eqeqeq
                             <AgencySection key={section.name} section={section} isLoading={isLoading} icon={section.icon} showAsOf={selectedFy == latestFy}>
                                 {section.component || <ComingSoon />}
                             </AgencySection>

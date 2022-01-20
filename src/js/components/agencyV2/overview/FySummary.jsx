@@ -20,12 +20,14 @@ import BarChart from './BarChart';
 
 const propTypes = {
     fy: PropTypes.string,
+    showAsOf: PropTypes.bool,
     windowWidth: PropTypes.number,
     isMobile: PropTypes.bool
 };
 
 const FySummary = ({
     fy,
+    showAsOf,
     windowWidth,
     isMobile
 }) => {
@@ -126,6 +128,7 @@ const FySummary = ({
         <div className="fy-summary">
             <h4 className="fy-summary__heading">FY {fy} Summary</h4>
             <hr />
+            {showAsOf ? <div className="section__date-note">Data through {'current'}</div> : null}
             {isMobile ? <Carousel items={sections} />
                 : (
                     <FlexGridRow hasGutter className="fy-summary__row">
