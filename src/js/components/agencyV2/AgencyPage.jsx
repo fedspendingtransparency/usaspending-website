@@ -13,6 +13,7 @@ import {
 } from 'data-transparency-ui';
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
+import moment from 'moment';
 
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
@@ -52,14 +53,14 @@ export const AgencyProfileV2 = ({
 }) => {
     const [activeSection, setActiveSection] = useState('overview');
     const { name } = useSelector((state) => state.agencyV2.overview);
+    const asOfDate = parseInt(selectedFy, 10) === latestFy ? moment('1/1/2022').format('M/D/YYYY') : null;
 
     const sections = [
         {
             name: 'overview',
             display: 'Overview',
             icon: 'landmark',
-            // eslint-disable-next-line eqeqeq
-            component: <AgencyOverview fy={selectedFy} showAsOf={selectedFy == latestFy} />
+            component: <AgencyOverview fy={selectedFy} asOfDate={asOfDate} />
         },
         {
             name: 'status-of-funds',
@@ -141,8 +142,7 @@ export const AgencyProfileV2 = ({
                     {isError
                         ? <ErrorMessage description={errorMessage} />
                         : sections.map((section) => (
-                            // eslint-disable-next-line eqeqeq
-                            <AgencySection key={section.name} section={section} isLoading={isLoading} icon={section.icon} showAsOf={selectedFy == latestFy}>
+                            <AgencySection key={section.name} section={section} isLoading={isLoading} icon={section.icon} asOfDate={asOfDate}>
                                 {section.component || <ComingSoon />}
                             </AgencySection>
                         ))}

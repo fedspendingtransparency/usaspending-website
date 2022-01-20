@@ -11,7 +11,7 @@ const propTypes = {
     icon: PropTypes.string,
     children: PropTypes.element,
     isLoading: PropTypes.bool,
-    showAsOf: PropTypes.bool
+    asOfDate: PropTypes.instanceOf(Date)
 };
 
 const AgencySection = ({
@@ -19,15 +19,14 @@ const AgencySection = ({
     icon = "chart-area",
     children,
     isLoading,
-    showAsOf
+    asOfDate
 }) => (
     <SectionTitle
         id={`agency-v2-${section.name}`}
         icon={<FontAwesomeIcon size="2x" icon={icon} />}
         title={section.display}
         isCollapsible >
-        {showAsOf ? <div className="section__date-note">Data through {'current'}</div> : null}
-        {/* <div className="section__date-note">Data through {.format('M/D/YYYY')}</div> */}
+        {asOfDate ? <div className="section__date-note">Data through {asOfDate}</div> : null}
         {isLoading ? <LoadingMessage /> : children}
     </SectionTitle>
 

@@ -15,10 +15,10 @@ import FySummary from './FySummary';
 
 const propTypes = {
     fy: PropTypes.string,
-    showAsOf: PropTypes.bool
+    asOfDate: PropTypes.instanceOf(Date)
 };
 
-const AgencyOverview = ({ fy, showAsOf }) => {
+const AgencyOverview = ({ fy, asOfDate }) => {
     const {
         website,
         mission,
@@ -105,7 +105,7 @@ const AgencyOverview = ({ fy, showAsOf }) => {
     return (
         <div className="body__content agency-overview">
             {content}
-            <FySummary fy={fy} showAsOf={showAsOf} windowWidth={windowWidth} isMobile={isMobile} />
+            <FySummary fy={fy} asOfDate={asOfDate} windowWidth={windowWidth} isMobile={isMobile} />
         </div>
     );
 };
