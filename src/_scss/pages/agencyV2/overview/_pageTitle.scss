@@ -14,9 +14,34 @@
             letter-spacing: 0;
             line-height: 2.5rem;
             padding-bottom: 0.3rem;
+            .tooltip-wrapper {
+                position: relative;
+                top: -0.8rem;
+                z-index: 20; // prevent bar chart overlap
+                @media (max-width: $medium-screen) {
+                    top: 0.8rem;
+                }
+            }
+            .tooltip-spacer {
+                width: 30rem !important;
+                @media (max-width: $x-large-screen) {
+                    right: -1rem !important;
+                    top: 4rem !important;
+                    .tooltip-pointer {
+                        &.bottom {
+                            left: 26rem !important;
+                            top: -1.6rem !important;
+                        }
+                    }
+                    
+                }
+            }
         }
         .page-title__tooltip {
-            @include display(flex);
+            @include display(inline-flex);
+            @media (max-width: $medium-screen) {
+                @include display(flex);
+            }
             @include justify-content(center);
             @include align-items(center);
             background: $color-disaster-covid-19;
@@ -27,7 +52,6 @@
             height: rem(25);
             border-radius: rem(4);
             padding: 0 0.8rem;
-            margin-top: 1.1rem;
             width: fit-content;
             .tooltip-spacer {
                 display: none;
