@@ -20,14 +20,14 @@ import BarChart from './BarChart';
 
 const propTypes = {
     fy: PropTypes.string,
-    asOfDate: PropTypes.instanceOf(Date),
+    showDataThrough: PropTypes.bool,
     windowWidth: PropTypes.number,
     isMobile: PropTypes.bool
 };
 
 const FySummary = ({
     fy,
-    asOfDate,
+    showDataThrough,
     windowWidth,
     isMobile
 }) => {
@@ -128,7 +128,7 @@ const FySummary = ({
         <div className="fy-summary">
             <h4 className="fy-summary__heading">FY {fy} Summary</h4>
             <hr />
-            {asOfDate ? <div className="section__date-note">Data through {asOfDate}</div> : null}
+            {showDataThrough ? <div className="section__date-note">Data through {showDataThrough}</div> : null}
             {isMobile ? <Carousel items={sections} />
                 : (
                     <FlexGridRow hasGutter className="fy-summary__row">
