@@ -24,7 +24,8 @@ export const formattedSpendingCategoriesByAwardType = {
         'fileCObligatedFormatted',
         'totalObligationFormatted',
         'baseExercisedOptionsFormatted',
-        'baseAndAllOptionsFormatted'
+        'baseAndAllOptionsFormatted',
+        'totalOutlays'
     ],
     idv: [
         'fileCOutlayFormatted',
@@ -90,7 +91,8 @@ export const tableTitlesBySpendingCategoryAndAwardType = {
         baseAndAllOptionsFormatted: 'Potential Amount',
         totalObligationFormatted: 'Obligated Amount',
         fileCOutlayFormatted: 'COVID-19 Outlayed Amount',
-        fileCObligatedFormatted: 'COVID-19 Obligated Amount'
+        fileCObligatedFormatted: 'COVID-19 Obligated Amount',
+        totalOutlays: 'Total Outlays'
     },
     idv: {
         baseExercisedOptionsFormatted: 'Current Amount',
