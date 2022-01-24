@@ -105,7 +105,16 @@ const SubAgencySummaryContainer = ({
             .then((res) => {
                 const subagencySummaryData = Object.create(BaseAgencySubagencyCount);
                 subagencySummaryData.populate(res.data);
-                dispatch(setAwardSpendingDataThroughDate(moment(res.data.latest_action_date).format('M/D/YYYY'))); // set "Data Through" date for section
+                
+                // set "Data Through" date for section
+                const awardSpendingDataThroughDate = res.data.latest_action_date;
+                if (awardSpendingDataThroughDate) {
+                    dispatch(setAwardSpendingDataThroughDate(moment(awardSpendingDataThroughDate).format('M/D/YYYY')));
+                }
+                else {
+                    dispatch(setAwardSpendingDataThroughDate('(no transactions)'));
+                }
+
                 setNumberOfTransactions(subagencySummaryData.transactionCount);
                 setAwardObligations(subagencySummaryData.obligations);
                 setLoading(false);
