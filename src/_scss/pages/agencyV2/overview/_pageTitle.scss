@@ -23,18 +23,16 @@
                 }
             }
             .tooltip-spacer {
-                width: 30rem !important;
-                @media (max-width: $x-large-screen) {
-                    right: -1rem !important;
+                    right: -19rem !important;
                     top: 4rem !important;
                     .tooltip-pointer {
                         &.bottom {
-                            left: 26rem !important;
+                            left: 2rem !important;
                             top: -1.6rem !important;
                         }
                     }
                     
-                }
+                
             }
         }
         .page-title__tooltip {
