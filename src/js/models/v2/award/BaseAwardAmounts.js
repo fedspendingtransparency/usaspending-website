@@ -65,6 +65,7 @@ const BaseAwardAmounts = {
     },
     populateContract(data, defCodes) {
         this._totalObligation = data._totalObligation;
+        this._totalOutlay = data._totalOutlay;
         this._baseExercisedOptions = data._baseExercisedOptions;
         this._baseAndAllOptions = data._baseAndAllOptions;
         this._fileCOutlay = getCovid19Totals(data.fileC.outlays, defCodes);

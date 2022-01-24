@@ -21,6 +21,7 @@ const CoreAward = {
         this._subawardTotal = parseFloat(data.subawardTotal) || 0;
         this.subawardCount = parseFloat(data.subawardCount) || 0;
         this._totalObligation = parseFloat(data.totalObligation) || 0;
+        this._totalOutlay = parseFloat(data.totalOutlay) || 0;
         this._baseExercisedOptions = parseFloat(data.baseExercisedOptions) || 0;
         this._baseAndAllOptions = parseFloat(data.baseAndAllOptions) || 0;
         this._dateSigned = (data.dateSigned && parseDate(data.dateSigned)) || '';
