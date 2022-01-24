@@ -8,7 +8,7 @@
 
 export const spendingCategoriesByAwardType = {
     loan: ['_subsidy', '_faceValue'],
-    contract: ['_totalObligation', '_baseExercisedOptions', '_baseAndAllOptions'],
+    contract: ['_totalObligation', '_baseExercisedOptions', '_baseAndAllOptions', '_totalOutlay'],
     idv: ['_totalObligation', '_baseExercisedOptions', '_baseAndAllOptions'],
     idv_aggregated: ['_totalObligation', '_baseExercisedOptions', '_baseAndAllOptions']
 };
@@ -25,7 +25,7 @@ export const formattedSpendingCategoriesByAwardType = {
         'totalObligationFormatted',
         'baseExercisedOptionsFormatted',
         'baseAndAllOptionsFormatted',
-        'totalOutlays'
+        'totalOutlayFormatted'
     ],
     idv: [
         'fileCOutlayFormatted',
@@ -68,7 +68,8 @@ export const awardTableClassMap = {
     "Face Value of Direct Loan": "award-amounts__data-icon_face-value",
     "Original Subsidy Cost": "award-amounts__data-icon_subsidy",
     "COVID-19 Obligated Amount": "award-amounts__file-c-obligations",
-    "COVID-19 Outlayed Amount": "award-amounts__file-c-outlays"
+    "COVID-19 Outlayed Amount": "award-amounts__file-c-outlays",
+    "Total Outlay": "award-amounts__data-icon-orange"
 };
 
 export const tableTitlesBySpendingCategoryAndAwardType = {
@@ -92,7 +93,7 @@ export const tableTitlesBySpendingCategoryAndAwardType = {
         totalObligationFormatted: 'Obligated Amount',
         fileCOutlayFormatted: 'COVID-19 Outlayed Amount',
         fileCObligatedFormatted: 'COVID-19 Obligated Amount',
-        totalOutlays: 'Total Outlays'
+        totalOutlayFormatted: 'Total Outlay'
     },
     idv: {
         baseExercisedOptionsFormatted: 'Current Amount',

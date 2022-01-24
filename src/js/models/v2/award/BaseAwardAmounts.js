@@ -104,6 +104,9 @@ const BaseAwardAmounts = {
     get totalObligationFormatted() {
         return MoneyFormatter.formatMoneyWithPrecision(this._totalObligation, 2);
     },
+    get totalOutlayFormatted() {
+        return MoneyFormatter.formatMoneyWithPrecision(this._totalOutlay, 2);
+    },
     get totalObligationAbbreviated() {
         if (Math.abs(this._totalObligation) >= MoneyFormatter.unitValues.MILLION) {
             const units = MoneyFormatter.calculateUnitForSingleValue(this._totalObligation);

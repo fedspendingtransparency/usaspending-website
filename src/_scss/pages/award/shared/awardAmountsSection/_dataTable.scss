@@ -12,7 +12,7 @@
             border-bottom: solid rem(1) $border-light-gray;
         }
     }
-    
+
     .award-amounts__data-icon {
         height: rem(10);
         width: rem(10);
@@ -20,19 +20,23 @@
         display: inline-block;
         margin-right: rem(5);
     }
-    
+
     .award-amounts__data-icon_blue {
         background-color: $color-cool-blue-light;
+    }
+
+    .award-amounts__data-icon-orange {
+        background-color: orange;
     }
 
     .award-amounts__data-icon_green {
         background-color: $colors-grants-nff;
     }
-    
+
     .award-amounts__data-icon_gray {
         background-color: #BBBBBB;
     }
-    
+
     .award-amounts__data-icon_subsidy {
         background-color: $colors-loans-subsidy;
     }
@@ -41,7 +45,7 @@
         background-color: $colors-loans-face-value;
         border: rem(2) solid #BBBBBB;
     }
-    
+
     .award-amounts__data-icon_transparent {
         background-color: white;
         border: rem(2) solid #BBBBBB;
@@ -68,7 +72,7 @@
         background-color: $color-covid-19-obligations;
         border: rem(2) solid $color-covid-19-obligations;
     }
-    
+
     .award-amounts__data-icon_overspending {
         background: repeating-linear-gradient(
             45deg,
@@ -94,7 +98,7 @@
 .award-amounts-children__data-wrapper {
   margin-top: rem(30);
   margin-bottom: rem(15);
-  
+
   .award-amounts-children__data-content {
       @extend %column-less-table__row;
       border-bottom: 0;

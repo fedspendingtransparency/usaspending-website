@@ -46,8 +46,6 @@ const AwardAmountsTable = ({
      * so we're relying on the parent in this case because we cant deduce the spending scenario
      **/
 
-    console.log('awardData', awardData);
-
     const getOverSpendingRow = (awardAmounts = awardData, scenario = spendingScenario, type = awardAmountType) => {
         switch (scenario) {
             case ('normal'):
@@ -88,8 +86,6 @@ const AwardAmountsTable = ({
         .reduce((acc, category) => buildAmountMapByCategoryTitle(acc, category), {});
 
     const overspendingRow = getOverSpendingRow(awardData, spendingScenario);
-
-    console.log('amountMapByCategoryTitle', amountMapByCategoryTitle);
 
     return (
         <div className={`award-amounts__data-wrapper ${awardAmountType}`}>
