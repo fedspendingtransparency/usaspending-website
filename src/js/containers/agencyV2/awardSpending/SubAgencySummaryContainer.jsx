@@ -1,12 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
-import { isCancel } from 'axios';
 import PropTypes from 'prop-types';
+import { useDispatch, useSelector } from 'react-redux';
+import { isCancel } from 'axios';
+import moment from 'moment';
 
 import { InformationBoxes } from "data-transparency-ui";
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import { fetchSubagencyNewAwardsCount, fetchSubagencySummary } from 'apis/agencyV2';
 import BaseAgencySubagencyCount from 'models/v2/agency/BaseAgencySubagencyCount';
+import { setAwardSpendingDataThroughDate } from 'redux/actions/agencyV2/agencyV2Actions';
 
 const propTypes = {
     fy: PropTypes.string,
@@ -81,6 +83,7 @@ const SubAgencySummaryContainer = ({
             });
     };
 
+    const dispatch = useDispatch();
     const getSubagencySummary = async () => {
         if (summaryRequest.current) {
             summaryRequest.current.cancel();
@@ -102,6 +105,7 @@ const SubAgencySummaryContainer = ({
             .then((res) => {
                 const subagencySummaryData = Object.create(BaseAgencySubagencyCount);
                 subagencySummaryData.populate(res.data);
+                dispatch(setAwardSpendingDataThroughDate(moment(res.data.latest_action_date).format('M/D/YYYY'))); // set "Data Through" date for section
                 setNumberOfTransactions(subagencySummaryData.transactionCount);
                 setAwardObligations(subagencySummaryData.obligations);
                 setLoading(false);
@@ -116,6 +120,7 @@ const SubAgencySummaryContainer = ({
                 }
             });
     };
+
     useEffect(() => {
         if (toptierCode && data) {
             getNewAwardsCount();

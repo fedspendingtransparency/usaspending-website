@@ -35,7 +35,8 @@ export const initialState = {
     topTierCodes: {},
     agencyIds: {},
     selectedSubcomponent: null,
-    agencySubcomponentsList
+    agencySubcomponentsList,
+    awardSpendingDataThroughDate: null
 };
 
 const agencyReducer = (state = initialState, action) => {
@@ -121,6 +122,11 @@ const agencyReducer = (state = initialState, action) => {
             return {
                 ...state,
                 agencySubcomponentsList: initialState.agencySubcomponentsList
+            };
+        case 'SET_AWARD_SPENDING_DATA_THROUGH_DATE':
+            return {
+                ...state,
+                awardSpendingDataThroughDate: action.throughDate
             };
         case 'RESET_AGENCY':
             return Object.assign({}, initialState);
