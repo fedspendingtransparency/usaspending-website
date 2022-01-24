@@ -8,7 +8,7 @@ import { InformationBoxes } from "data-transparency-ui";
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import { fetchSubagencyNewAwardsCount, fetchSubagencySummary } from 'apis/agencyV2';
 import BaseAgencySubagencyCount from 'models/v2/agency/BaseAgencySubagencyCount';
-import { setAwardSpendingDataThroughDate } from 'redux/actions/agencyV2/agencyV2Actions';
+import { setDataThroughDates } from 'redux/actions/agencyV2/agencyV2Actions';
 
 const propTypes = {
     fy: PropTypes.string,
@@ -84,6 +84,7 @@ const SubAgencySummaryContainer = ({
     };
 
     const dispatch = useDispatch();
+    const dataThroughDates = useSelector((state) => state.agencyV2);
     const getSubagencySummary = async () => {
         if (summaryRequest.current) {
             summaryRequest.current.cancel();
@@ -107,13 +108,14 @@ const SubAgencySummaryContainer = ({
                 subagencySummaryData.populate(res.data);
                 
                 // set "Data Through" date for section
-                const awardSpendingDataThroughDate = res.data.latest_action_date;
+                let awardSpendingDataThroughDate = res.data.latest_action_date;
                 if (awardSpendingDataThroughDate) {
-                    dispatch(setAwardSpendingDataThroughDate(moment(awardSpendingDataThroughDate).format('M/D/YYYY')));
+                    awardSpendingDataThroughDate = moment(awardSpendingDataThroughDate).format('M/D/YYYY');
                 }
                 else {
-                    dispatch(setAwardSpendingDataThroughDate('(no transactions)'));
+                    awardSpendingDataThroughDate = 'no data';
                 }
+                dispatch(setDataThroughDates({ ...dataThroughDates, awardSpendingDataThroughDate }));
 
                 setNumberOfTransactions(subagencySummaryData.transactionCount);
                 setAwardObligations(subagencySummaryData.obligations);

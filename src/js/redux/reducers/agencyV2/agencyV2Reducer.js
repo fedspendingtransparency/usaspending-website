@@ -123,10 +123,10 @@ const agencyReducer = (state = initialState, action) => {
                 ...state,
                 agencySubcomponentsList: initialState.agencySubcomponentsList
             };
-        case 'SET_AWARD_SPENDING_DATA_THROUGH_DATE':
+        case 'SET_DATA_THROUGH_DATES':
             return {
                 ...state,
-                awardSpendingDataThroughDate: action.throughDate
+                dataThroughDates: action.dates
             };
         case 'RESET_AGENCY':
             return Object.assign({}, initialState);

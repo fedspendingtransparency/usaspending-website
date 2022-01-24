@@ -55,7 +55,8 @@ export const AgencyProfileV2 = ({
     const { name } = useSelector((state) => state.agencyV2.overview);
 
     let dataThroughDate = useLatestAccountData()[0]?.format('M/D/YYYY');
-    let awardSpendingDataThroughDate = useSelector((state) => state.agencyV2.awardSpendingDataThroughDate);
+    const dataThroughDates = useSelector((state) => state.agencyV2.dataThroughDates);
+    let awardSpendingDataThroughDate = dataThroughDates?.awardSpendingDataThroughDate;
     // reset/hide if selectedFy is not latestFy
     if (parseInt(selectedFy, 10) !== latestFy) {
         dataThroughDate = null;

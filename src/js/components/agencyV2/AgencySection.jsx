@@ -20,17 +20,27 @@ const AgencySection = ({
     children,
     isLoading,
     dataThroughDate
-}) => (
-    <SectionTitle
-        id={`agency-v2-${section.name}`}
-        icon={<FontAwesomeIcon size="2x" icon={icon} />}
-        title={section.display}
-        isCollapsible >
-        {dataThroughDate ? <div className="section__date-note">Data through {dataThroughDate}</div> : null}
-        {isLoading ? <LoadingMessage /> : children}
-    </SectionTitle>
+}) => {
+    let dataThroughNote;
+    if (dataThroughDate) {
+        if (dataThroughDate === 'no data') {
+            dataThroughNote = 'No data available for the selected fiscal year';
+        }
+        else {
+            dataThroughNote = `Data through ${dataThroughDate}`;
+        }
+    }
 
-);
+    return (
+        <SectionTitle
+            id={`agency-v2-${section.name}`}
+            icon={<FontAwesomeIcon size="2x" icon={icon} />}
+            title={section.display}
+            isCollapsible >
+            {dataThroughNote ? <div className="section__date-note">{dataThroughNote}</div> : null}
+            {isLoading ? <LoadingMessage /> : children}
+        </SectionTitle>);
+};
 
 AgencySection.propTypes = propTypes;
 export default AgencySection;
