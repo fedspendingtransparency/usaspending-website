@@ -12,7 +12,7 @@ const CovidModalContainer = ({
     mounted,
     hideModal,
     clearFilters,
-    resetFilters,
+    resetFilters
 }) => {
     const history = useHistory();
 
