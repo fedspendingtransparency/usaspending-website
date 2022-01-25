@@ -31,14 +31,16 @@ const PageTitle = ({
     return (
         <div className="page-title">
             <div className="page-title__wrapper">
-                <h2 className="page-title__name">{name}</h2>
-                {name && covidDefCodes.length > 0 &&
-                    <TooltipWrapper className="page-title__tooltip" tooltipComponent={<CovidTooltip fy={fy} codes={covidDefCodes} />}>
+                <h2 className="page-title__name">
+                    {name}&nbsp;&nbsp;
+                    {name && covidDefCodes.length > 0 &&
+                    <TooltipWrapper tooltipPosition="bottom" offsetAdjustments={{ top: 0 }} className="page-title__tooltip" tooltipComponent={<CovidTooltip fy={fy} codes={covidDefCodes} />}>
                         <span className="covid-spending-flag">
-                            COVID-19 Spending
+                            Includes COVID-19 Spending
                         </span>
                     </TooltipWrapper>
-                }
+                    }
+                </h2>
             </div>
             {image}
         </div>
