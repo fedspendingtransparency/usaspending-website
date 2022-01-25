@@ -56,25 +56,31 @@ export const AgencyProfileV2 = ({
 
     let dataThroughDate = useLatestAccountData()[0]?.format('M/D/YYYY');
     const dataThroughDates = useSelector((state) => state.agencyV2.dataThroughDates);
+    let overviewDataThroughDate = dataThroughDates?.overviewDataThroughDate || dataThroughDate;
+    let statusDataThroughDate = dataThroughDates?.statusDataThroughDate || dataThroughDate;
     let awardSpendingDataThroughDate = dataThroughDates?.awardSpendingDataThroughDate;
+
     // reset/hide if selectedFy is not latestFy
     if (parseInt(selectedFy, 10) !== latestFy) {
         dataThroughDate = null;
+        overviewDataThroughDate = null;
+        statusDataThroughDate = null;
         awardSpendingDataThroughDate = null;
     }
+
     const sections = [
         {
             name: 'overview',
             display: 'Overview',
             icon: 'landmark',
-            dataThroughDate,
-            component: <AgencyOverview fy={selectedFy} dataThroughDate={dataThroughDate} />
+            dataThroughDate: overviewDataThroughDate,
+            component: <AgencyOverview fy={selectedFy} dataThroughDate={overviewDataThroughDate} />
         },
         {
             name: 'status-of-funds',
             display: 'Status of Funds',
             icon: 'money-check-alt',
-            dataThroughDate,
+            dataThroughDate: statusDataThroughDate,
             component: <StatusOfFunds fy={selectedFy} />
         },
         {

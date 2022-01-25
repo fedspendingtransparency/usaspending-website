@@ -10,7 +10,7 @@ import { Carousel, FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 
 import { fetchBudgetaryResources } from 'apis/agencyV2';
 import BaseAgencyBudgetaryResources from 'models/v2/agency/BaseAgencyBudgetaryResources';
-import { setBudgetaryResources } from 'redux/actions/agencyV2/agencyV2Actions';
+import { setBudgetaryResources, setDataThroughDates } from 'redux/actions/agencyV2/agencyV2Actions';
 import { calculatePercentage, formatMoneyWithUnits } from 'helpers/moneyFormatter';
 import TotalObligationsOverTimeContainer from 'containers/agencyV2/visualizations/TotalObligationsOverTimeContainer';
 import ObligationsByAwardTypeContainer from 'containers/agencyV2/visualizations/ObligationsByAwardTypeContainer';
@@ -65,6 +65,11 @@ const FySummary = ({
                         dataByYear[year.fiscal_year] = fyBudgetaryResources;
                     });
                     dispatch(setBudgetaryResources(dataByYear));
+                    if (dataByYear[fy].agencyBudget === "--") {
+                        dispatch(setDataThroughDates({
+                            overviewDataThroughDate: 'no data'
+                        }));
+                    }
                     setIsLoading(false);
                 })
                 .catch((e) => {
@@ -83,6 +88,16 @@ const FySummary = ({
     const percentOfBudgetaryResources = budgetaryResources[fy]?.percentOfAgencyBudget || '--';
     const awardObligations = formatMoneyWithUnits(_awardObligations);
     const percentOfTotalObligations = calculatePercentage(_awardObligations, budgetaryResources[fy]?._agencyObligated);
+
+    let dataThroughNote;
+    if (dataThroughDate) {
+        if (dataThroughDate === 'no data') {
+            dataThroughNote = 'No data available for the selected fiscal year';
+        }
+        else {
+            dataThroughNote = `Data through ${dataThroughDate}`;
+        }
+    }
 
     const sections = [
         (
@@ -128,7 +143,7 @@ const FySummary = ({
         <div className="fy-summary">
             <h4 className="fy-summary__heading">FY {fy} Summary</h4>
             <hr />
-            {dataThroughDate ? <div className="section__date-note">Data through {dataThroughDate}</div> : null}
+            {dataThroughNote ? <div className="section__date-note">{dataThroughNote}</div> : null}
             {isMobile ? <Carousel items={sections} />
                 : (
                     <FlexGridRow hasGutter className="fy-summary__row">

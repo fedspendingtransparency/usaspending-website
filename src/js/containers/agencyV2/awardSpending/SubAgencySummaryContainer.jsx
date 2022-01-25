@@ -84,7 +84,7 @@ const SubAgencySummaryContainer = ({
     };
 
     const dispatch = useDispatch();
-    const dataThroughDates = useSelector((state) => state.agencyV2);
+    const dataThroughDates = useSelector((state) => state.agencyV2.dataThroughDates);
     const getSubagencySummary = async () => {
         if (summaryRequest.current) {
             summaryRequest.current.cancel();
@@ -115,7 +115,7 @@ const SubAgencySummaryContainer = ({
                 else {
                     awardSpendingDataThroughDate = 'no data';
                 }
-                dispatch(setDataThroughDates({ ...dataThroughDates, awardSpendingDataThroughDate }));
+                dispatch(setDataThroughDates({ awardSpendingDataThroughDate }));
 
                 setNumberOfTransactions(subagencySummaryData.transactionCount);
                 setAwardObligations(subagencySummaryData.obligations);

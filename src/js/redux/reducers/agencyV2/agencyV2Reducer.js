@@ -126,7 +126,10 @@ const agencyReducer = (state = initialState, action) => {
         case 'SET_DATA_THROUGH_DATES':
             return {
                 ...state,
-                dataThroughDates: action.dates
+                dataThroughDates: {
+                    ...state.dataThroughDates,
+                    ...action.dates
+                }
             };
         case 'RESET_AGENCY':
             return Object.assign({}, initialState);
