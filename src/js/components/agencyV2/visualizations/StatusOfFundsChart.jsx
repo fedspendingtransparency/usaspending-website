@@ -97,10 +97,14 @@ const StatusOfFundsChart = ({
         return chartHeight;
     };
     const chartHeightViewBox = () => {
-        if (isLargeScreen) {
-            return 1300 + margins.top + margins.bottom;
+        if (isMobile) {
+            return viewHeight * 2.4;
         }
-        return viewHeight + margins.top + margins.bottom;
+        if (isLargeScreen) {
+            return 1255 + margins.top + margins.bottom;
+        }
+
+        return viewHeight * 1.06;
     };
     const paddingResize = () => {
         if (isLargeScreen) {
@@ -113,18 +117,6 @@ const StatusOfFundsChart = ({
             return chartHeight + 530;
         }
         return chartHeight + 40;
-    };
-    const legendObligationsYPos = () => {
-        if (isLargeScreen) {
-            return chartHeight + 560;
-        }
-        return chartHeight + 70;
-    };
-    const legendResourcesYPos = () => {
-        if (isLargeScreen) {
-            return chartHeight + 605;
-        }
-        return chartHeight + 70;
     };
     const fontSizeScreenWidth = () => {
         if (isLargeScreen) {
@@ -148,7 +140,7 @@ const StatusOfFundsChart = ({
             .attr('class', 'svg')
             .attr('xmlns:xlink', 'http://www.w3.org/1999/xlink')
             .attr('preserveAspectRatio', 'none')
-            .attr("viewBox", [0, 0, viewWidth + margins.left + margins.right, isMobile ? viewHeight * 2.6 : chartHeightViewBox()])
+            .attr("viewBox", [0, 0, viewWidth + margins.left + margins.right, chartHeightViewBox()])
             .append('g')
             .attr('transform', `translate(${isLargeScreen ? margins.left - 40 : margins.left}, ${margins.top})`);
 
@@ -319,7 +311,7 @@ const StatusOfFundsChart = ({
     return (
         <>
             <div id="sof_chart" className="status-of-funds__visualization" ref={chartRef} />
-            <FlexGridRow style={{ 'justify-content': 'center', 'flex-direction': isLargeScreen ? 'column' : 'row' }}>
+            <FlexGridRow style={{ 'justify-content': 'center', 'flex-direction': isLargeScreen ? 'column' : 'row', 'padding-bottom': '1.6rem' }}>
                 <div style={{ display: 'flex', 'align-content': 'center' }}>
                     <div style={{
                         display: 'flex',
@@ -346,14 +338,6 @@ const StatusOfFundsChart = ({
                     <div style={{ 'font-size': '1.2rem' }}>FY{fy[2]}{fy[3]} Total Budgetary Resources</div>
                 </div>
             </FlexGridRow>
-
-            {/* <div style={{*/}
-            {/*    display: 'flex',*/}
-            {/*    'align-items': 'center',*/}
-            {/*    'font-size': '1.2rem' }}>*/}
-
-
-            {/* </div>*/}
         </>
     );
 };
