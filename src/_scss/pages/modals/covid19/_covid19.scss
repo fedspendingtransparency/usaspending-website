@@ -2,8 +2,12 @@
     .uei-modal-header {
         background: #205493 !important;
         h1 {
-            padding-left: rem(48) !important;
+            padding-left: rem(24) !important;
         }
+    }
+    .uei-modal-body {
+        text-align: left !important;
+        padding: 2rem 1.5rem 5rem rem(24) !important;
     }
     .usa-dt-modal.covid-modal {
         width: 100%;

@@ -41,8 +41,8 @@ const CovidModalContainer = ({
             verticallyCenter
             escapeExits>
             <div className="usa-dt-modal covid-modal">
-                <div className="usa-dt-modal__header covid-header uei-modal-header">
-                    <h1>Coming to USAspending: Unique Entity Identifiers</h1>
+                <div className="usa-dt-modal__header uei-modal-header">
+                    <h1 className="usa-dt-modal__title">Coming to USAspending: Unique Entity Identifiers</h1>
                     <button
                         className="usa-dt-modal__close-button"
                         onClick={hideModal}
@@ -51,33 +51,31 @@ const CovidModalContainer = ({
                         <FontAwesomeIcon icon="times" size="10x" />
                     </button>
                 </div>
-                <div className="usa-dt-modal__body interim-data-modal">
+                <div className="usa-dt-modal__body uei-modal-body">
                     <p>
                         By April 2022, the federal government will transition from DUNS numbers to the new Unique Entity Identifier (UEI) as the official identifier for doing business with the U.S. government.
                     </p>
                     <p className="covid-modal-bold">
                         What does this transition mean for users of USAspending?
                     </p>
-                    <div>
-                        <ul>
-                            <li className="covid-modal-li">
-                                UEIs have been added to DUNS endpoints
-                            </li>
-                            <li className="covid-modal-li">
-                                Download files that currently list DUNS numbers now also include UEIs
-                            </li>
-                            <li className="covid-modal-li">
-                                You will start seeing UEI numbers alongside DUNS numbers in some instances on the following pages:
-                                <ul>
-                                    <li>Recipient Profiles</li>
-                                    <li>Award Profile pages</li>
-                                </ul>
-                            </li>
-                            <li>
-                                You will be able to find federal awards using UEI or DUNS number via <Link onClick={handleGoToKeywordSearch} to="/keyword_search">Keyword Search</Link> or the &apos;Recipient&apos; filter on <Link onClick={handleGoToAdvancedSearch} to="/search">Advanced Search</Link>
-                            </li>
-                        </ul>
-                    </div>
+                    <ul>
+                        <li>
+                            UEIs have been added to DUNS endpoints
+                        </li>
+                        <li>
+                            Download files that currently list DUNS numbers now also include UEIs
+                        </li>
+                        <li>
+                            You will start seeing UEI numbers alongside DUNS numbers in some instances on the following pages:
+                            <ul>
+                                <li>Recipient Profiles</li>
+                                <li>Award Profile pages</li>
+                            </ul>
+                        </li>
+                        <li>
+                            You will be able to find federal awards using UEI or DUNS number via <Link onClick={handleGoToKeywordSearch} to="/keyword_search">Keyword Search</Link> or the &apos;Recipient&apos; filter on <Link onClick={handleGoToAdvancedSearch} to="/search">Advanced Search</Link>
+                        </li>
+                    </ul>
                     <p className="covid-modal-bold">
                         What is a UEI?
                     </p>
