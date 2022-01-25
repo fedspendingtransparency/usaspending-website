@@ -26,7 +26,7 @@ export default class InfoBanner extends React.Component {
         let content = (
             <p>
                 Beginning in March, UEIs will be added to USAspending displays alongside DUNS numbers.
-                <a onClick={this.props.triggerModal}> Learn more and find out what changes you’ll see on the site.</a>
+                <a onClick={this.props.triggerModal} onKeyDown={this.props.triggerModal} role="button" tabIndex={0}> Learn more and find out what changes you’ll see on the site.</a>
             </p>
         );
 
