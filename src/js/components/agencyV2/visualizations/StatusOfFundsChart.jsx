@@ -4,6 +4,7 @@ import * as d3 from 'd3';
 import { scaleLinear, scaleBand } from 'd3-scale';
 import { throttle } from 'lodash';
 import { largeScreen } from 'dataMapping/shared/mobileBreakpoints';
+import { FlexGridRow } from 'data-transparency-ui';
 
 const propTypes = {
     fy: PropTypes.string,
@@ -50,7 +51,7 @@ const StatusOfFundsChart = ({
         }, 50);
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-    }, []);
+    }, [windowWidth]);
 
 
     // Wrap y axis labels - reference https://bl.ocks.org/mbostock/7555321
@@ -97,9 +98,9 @@ const StatusOfFundsChart = ({
     };
     const chartHeightViewBox = () => {
         if (isLargeScreen) {
-            return 1300 + margins.top + margins.bottom + 20;
+            return 1300 + margins.top + margins.bottom;
         }
-        return viewHeight + margins.top + margins.bottom + 20;
+        return viewHeight + margins.top + margins.bottom;
     };
     const paddingResize = () => {
         if (isLargeScreen) {
@@ -300,38 +301,13 @@ const StatusOfFundsChart = ({
             .attr("y1", isMobile ? chartHeight + 1040 : horizontalBorderYPos())
             .attr("x2", isLargeScreen ? chartWidth + 330 : chartWidth + 100)
             .attr("y2", isMobile ? chartHeight + 1040 : horizontalBorderYPos());
-        // append labels for legend below chart
-        svg.append("circle")
-            .attr("cx", isLargeScreen ? -130 : 180)
-            .attr("cy", isMobile ? chartHeight + 1080 : legendObligationsYPos())
-            .attr("r", 6)
-            .style("fill", "#2B71B8");
-        svg.append("circle")
-            .attr("cx", isLargeScreen ? -130 : 375)
-            .attr("cy", isMobile ? chartHeight + 1150 : legendResourcesYPos())
-            .attr("r", 6)
-            .style("fill", "#BBDFC7");
-        svg.append("text")
-            .attr("x", isLargeScreen ? -115 : 195)
-            .attr("y", isMobile ? chartHeight + 1081 : legendObligationsYPos() + 1)
-            .text(`FY${fy[2]}${fy[3]} Obligations`)
-            .attr('class', 'y-axis-labels')
-            .style('fill', '#555')
-            .attr("alignment-baseline", "middle");
-        svg.append("text")
-            .attr("x", isLargeScreen ? -115 : 390)
-            .attr("y", isMobile ? chartHeight + 1151 : legendResourcesYPos() + 1)
-            .text(`FY${fy[2]}${fy[3]} Total Budgetary Resources`)
-            .attr('class', 'y-axis-labels')
-            .style('fill', '#555')
-            .attr("alignment-baseline", "middle");
     };
 
     useEffect(() => {
         if (sortedNums?.length > 0) {
             renderChart();
         }
-    }, [sortedNums, textScale]);
+    }, [renderChart, sortedNums, textScale]);
 
     useEffect(() => {
         if (results?.length > 0) {
@@ -341,7 +317,44 @@ const StatusOfFundsChart = ({
 
 
     return (
-        <div id="sof_chart" className="status-of-funds__visualization" ref={chartRef} />
+        <>
+            <div id="sof_chart" className="status-of-funds__visualization" ref={chartRef} />
+            <FlexGridRow style={{ 'justify-content': 'center', 'flex-direction': isLargeScreen ? 'column' : 'row' }}>
+                <div style={{ display: 'flex', 'align-content': 'center' }}>
+                    <div style={{
+                        display: 'flex',
+                        'margin-right': '0.5rem',
+                        height: '0.8rem',
+                        width: '0.8rem',
+                        'border-radius': '50%',
+                        'background-color': '#2B71B8',
+                        'padding-right': '0.8rem',
+                        'align-self': 'center'
+                    }} />
+                    <div style={{ 'font-size': '1.2rem' }}>FY{fy[2]}{fy[3]} Obligations</div>&nbsp;&nbsp;&nbsp;&nbsp;
+                </div>
+                <div style={{ display: 'flex', 'align-content': 'center' }}>
+                    <div style={{
+                        'margin-right': '0.5rem',
+                        height: '0.8rem',
+                        width: '0.8rem',
+                        'border-radius': '50%',
+                        'background-color': '#BBDFC7',
+                        'padding-right': '0.8rem',
+                        'align-self': 'center'
+                    }} />
+                    <div style={{ 'font-size': '1.2rem' }}>FY{fy[2]}{fy[3]} Total Budgetary Resources</div>
+                </div>
+            </FlexGridRow>
+
+            {/* <div style={{*/}
+            {/*    display: 'flex',*/}
+            {/*    'align-items': 'center',*/}
+            {/*    'font-size': '1.2rem' }}>*/}
+
+
+            {/* </div>*/}
+        </>
     );
 };
 
