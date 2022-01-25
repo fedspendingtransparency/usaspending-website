@@ -22,11 +22,11 @@ export default class InfoBanner extends React.Component {
     }
 
     render() {
-        let title = 'Coming to USAspending: Unique Entity Identifiers';
+        let title = 'New on USAspending: Unique Entity Identifiers';
         let content = (
             <p>
-            In April 2022, we will add a new Unique Entity Identifier (UEI) alongside DUNS numbers for awardees and recipients.
-                <button onClick={this.props.triggerModal}> Learn more about the transition and what changes you&apos;ll find on the site.</button>
+                Beginning in March, UEIs will be added to USAspending displays alongside DUNS numbers.
+                <button onClick={this.props.triggerModal}> Learn more and find out what changes you’ll see on the site.</button>
             </p>
         );
 

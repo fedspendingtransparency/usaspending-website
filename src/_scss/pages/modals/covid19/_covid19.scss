@@ -11,6 +11,10 @@
     }
     .usa-dt-modal.covid-modal {
         width: 100%;
+        @media screen and (max-width: 500px) {
+            max-width: 38rem;
+            max-height: 98rem;
+        }
         .usa-dt-modal__header {
             background: $color-disaster-covid-19;
             &.covid-header {
@@ -110,6 +114,8 @@
         }
     }
 }
+
+
 
 @include media($tablet-screen) {
     .usa-dt-modal.covid-modal {
