@@ -16,7 +16,8 @@
         "lhci:wizard": "lhci wizard",
         "lhci:server": "lhci server --storage.storageMethod=sql --storage.sqlDialect=sqlite --storage.sqlDatabasePath=./db.sql",
         "lhci:audit": "npx webpack --progress --config ./webpack/webpack.prod.config.js ; npx lhci autorun",
-        "build-redirect-config": "npx babel-node scripts/buildRedirectConfig.js"
+        "build-redirect-config": "npx babel-node scripts/buildRedirectConfig.js",
+        "analyze": "ANALYZE_BUNDLE_SIZE=true webpack-dev-server --open --history-api-fallback --progress --config ./webpack/webpack.dev.config.js"
     },
     "author": "",
     "engines": {

@@ -312,7 +312,7 @@ const StatusOfFundsChart = ({
         <>
             <div id="sof_chart" className="status-of-funds__visualization" ref={chartRef} />
             <FlexGridRow style={{ 'justify-content': 'center', 'flex-direction': isLargeScreen ? 'column' : 'row', 'padding-bottom': '1.6rem' }}>
-                <div style={{ display: 'flex', 'align-content': 'center' }}>
+                <div style={{ display: 'flex' }}>
                     <div style={{
                         display: 'flex',
                         'margin-right': '0.5rem',
@@ -321,11 +321,11 @@ const StatusOfFundsChart = ({
                         'border-radius': '50%',
                         'background-color': '#2B71B8',
                         'padding-right': '0.8rem',
-                        'align-self': 'center'
+                        'margin-top': '0.4rem'
                     }} />
                     <div style={{ 'font-size': '1.2rem' }}>FY{fy[2]}{fy[3]} Obligations</div>&nbsp;&nbsp;&nbsp;&nbsp;
                 </div>
-                <div style={{ display: 'flex', 'align-content': 'center' }}>
+                <div style={{ display: 'flex' }}>
                     <div style={{
                         'margin-right': '0.5rem',
                         height: '0.8rem',
@@ -333,7 +333,7 @@ const StatusOfFundsChart = ({
                         'border-radius': '50%',
                         'background-color': '#BBDFC7',
                         'padding-right': '0.8rem',
-                        'align-self': 'center'
+                        'margin-top': '0.4rem'
                     }} />
                     <div style={{ 'font-size': '1.2rem' }}>FY{fy[2]}{fy[3]} Total Budgetary Resources</div>
                 </div>
