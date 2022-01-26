@@ -17,8 +17,8 @@ export const orderedTableTitles = [
     "Combined Potential Amounts",
     "Non-Federal Funding",
     "Total Funding",
-    "Face Value of Direct Loan",
-    "Original Subsidy Cost"
+    "Original Subsidy Cost",
+    "Face Value of Direct Loan"
 ];
 
 export const spendingCategoriesByAwardType = {
