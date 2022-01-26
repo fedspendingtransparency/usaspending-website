@@ -28,10 +28,11 @@ module.exports = {
         modules: ["node_modules", path.resolve(__dirname, "../src/_scss")]
     },
     optimization: {
+        moduleIds: 'hashed', // so that file hashes don't change unexpectedly
         splitChunks: {
             cacheGroups: {
                 default: false,
-                vendors: false,
+                defaultVendors: false,
                 // all imported code from node_modules is a single file
                 vendor: {
                     test: /[\\/]node_modules[\\/]/,
@@ -107,7 +108,7 @@ module.exports = {
         new MiniCssExtractPlugin({
             filename: "[name].[contenthash].css"
         }),
-        new webpack.HashedModuleIdsPlugin(), // so that file hashes don't change unexpectedly
+        // new webpack.HashedModuleIdsPlugin(),
         new CopyWebpackPlugin([
             {
                 from: '*.xml',
