@@ -49,6 +49,10 @@
                     padding-left: rem(2);
                 }
             }
+            a {
+                text-decoration: none;
+                cursor: pointer;
+            }
         }
         .info-banner__description-external-link {
           color: $color-link;
