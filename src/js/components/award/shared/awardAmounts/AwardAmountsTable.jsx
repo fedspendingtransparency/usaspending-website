@@ -6,7 +6,8 @@ import {
     tableTitlesBySpendingCategoryAndAwardType,
     formattedSpendingCategoriesByAwardType,
     awardTableClassMap,
-    caresActSpendingCategories
+    caresActSpendingCategories,
+    orderedTableTitles
 } from "dataMapping/award/awardAmountsSection";
 
 import { AWARD_AMOUNT_TYPE_PROPS } from "../../../../propTypes";
@@ -45,7 +46,6 @@ const AwardAmountsTable = ({
      * irrespective of whether the award exceedsPotential or exceedsCurrent
      * so we're relying on the parent in this case because we cant deduce the spending scenario
      **/
-
     const getOverSpendingRow = (awardAmounts = awardData, scenario = spendingScenario, type = awardAmountType) => {
         switch (scenario) {
             case ('normal'):
@@ -87,12 +87,14 @@ const AwardAmountsTable = ({
 
     const overspendingRow = getOverSpendingRow(awardData, spendingScenario);
 
+    const sortTableTitles = (a, b) => orderedTableTitles.indexOf(a) - orderedTableTitles.indexOf(b);
+
     return (
         <div className={`award-amounts__data-wrapper ${awardAmountType}`}>
-            {Object.keys(amountMapByCategoryTitle)
+            {Object.keys(amountMapByCategoryTitle).sort(sortTableTitles)
                 .map((title) => (
                     <div key={uniqueId(title)} className="award-amounts__data-content">
-                        <div><span className={`award-amounts__data-icon ${awardTableClassMap[title]}`} />{title}</div>
+                        <div><span className={`award-amounts__data-icon ${amountMapByCategoryTitle[title] !== '$0.00' ? awardTableClassMap[title] : ""}`} />{title}</div>
                         <span>{amountMapByCategoryTitle[title]}</span>
                     </div>
                 ))
