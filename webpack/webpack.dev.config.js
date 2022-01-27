@@ -30,7 +30,9 @@ module.exports = merge(common, {
                         loader: "sass-loader",
                         options: {
                             sourceMap: true,
-                            includePaths: ["./src/_scss", "./node_modules"]
+                            sassOptions: {
+                                includePaths: ["./src/_scss", "./node_modules"]
+                            }
                         }
                     }
                 ]

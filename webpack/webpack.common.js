@@ -27,31 +27,31 @@ module.exports = {
         extensions: [".js", ".jsx"],
         modules: ["node_modules", path.resolve(__dirname, "../src/_scss")]
     },
-    optimization: {
-        moduleIds: 'hashed', // so that file hashes don't change unexpectedly
-        splitChunks: {
-            cacheGroups: {
-                default: false,
-                defaultVendors: false,
-                // all imported code from node_modules is a single file
-                vendor: {
-                    test: /[\\/]node_modules[\\/]/,
-                    name: 'vendors',
-                    chunks: 'all',
-                    priority: 20
-                },
-                // code shared between at least 2 modules, is put into a common chunk file
-                common: {
-                    name: 'common',
-                    minChunks: 2,
-                    chunks: 'all',
-                    priority: 10,
-                    reuseExistingChunk: true,
-                    enforce: true
-                }
-            }
-        }
-    },
+    // optimization: {
+    //     // // moduleIds: 'deterministic',
+    //     // splitChunks: {
+    //     //     cacheGroups: {
+    //     //         default: false,
+    //     //         defaultVendors: false,
+    //     //         // all imported code from node_modules is a single file
+    //     //         vendor: {
+    //     //             test: /[\\/]node_modules[\\/]/,
+    //     //             name: 'vendors',
+    //     //             chunks: 'all',
+    //     //             priority: 20
+    //     //         },
+    //     //         // code shared between at least 2 modules, is put into a common chunk file
+    //     //         common: {
+    //     //             name: 'common',
+    //     //             minChunks: 2,
+    //     //             chunks: 'all',
+    //     //             priority: 10,
+    //     //             reuseExistingChunk: true,
+    //     //             enforce: true
+    //     //         }
+    //     //     }
+    //     // }
+    // },
     module: {
         noParse: /(mapbox-gl)\.js$/,
         rules: [
@@ -71,10 +71,11 @@ module.exports = {
                     }
                 ]
             },
+            // file-loader rules are being deprecated; https://webpack.js.org/guides/asset-modules/
             {
                 include: /\.(eot|ttf|woff|woff2|png|svg|ico|gif|jpg|pdf|webp)$/,
                 loader: 'file-loader',
-                query: {
+                options: {
                     name: '[path][name].[ext]'
                 }
             },
@@ -82,7 +83,7 @@ module.exports = {
                 test: /\.(json)$/,
                 type: 'javascript/auto',
                 loader: 'file-loader',
-                query: {
+                options: {
                     name: '[path][name].[ext]'
                 }
             }
@@ -133,11 +134,7 @@ module.exports = {
             ]
         }),
         new webpack.DefinePlugin({
-            'process.env': {
-                ENV: process.env.ENV
-                    ? JSON.stringify(process.env.ENV)
-                    : JSON.stringify('qat')
-            }
+            'process.env.ENV': process.env.ENV ? JSON.stringify(process.env.ENV) : JSON.stringify('qat')
         })
     ]
 };
