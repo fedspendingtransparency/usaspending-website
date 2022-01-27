@@ -5,8 +5,8 @@
     "repository": "fedspendingtransparency/usaspending-website",
     "main": "src/index.js",
     "scripts": {
-        "start": "webpack-dev-server --open --history-api-fallback --progress --config ./webpack/webpack.dev.config.js",
-        "sass": "webpack-dev-server --open --progress --config ./webpack/webpack.sass.config.js",
+        "start": "webpack serve --open --history-api-fallback --progress --config ./webpack/webpack.dev.config.js",
+        "sass": "webpack serve --open --progress --config ./webpack/webpack.sass.config.js",
         "test": "./node_modules/.bin/jest; exit 0;",
         "lint": "./node_modules/.bin/eslint --config .eslintrc --ext .jsx,.js \"src/js/**\"; exit 0;",
         "errors": "./node_modules/.bin/eslint --config .eslintrc --ext .jsx,.js \"src/js/**\" --quiet; exit 0;",

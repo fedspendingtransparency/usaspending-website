@@ -1,15 +1,15 @@
 const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const GitRevisionPlugin = require('git-revision-webpack-plugin');
+const { GitRevisionPlugin } = require('git-revision-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-const gitRevisionPlugin = new GitRevisionPlugin({ branch: true }); // 'rev-parse HEAD' is default command to find latest commit
+// const gitRevisionPlugin = new GitRevisionPlugin({ branch: true }); // 'rev-parse HEAD' is default command to find latest commit
 
-console.log("Commit Hash for this build: ", gitRevisionPlugin.commithash());
-console.log("Branch for this build: ", gitRevisionPlugin.branch());
+// console.log("Commit Hash for this build: ", gitRevisionPlugin.commithash());
+// console.log("Branch for this build: ", gitRevisionPlugin.branch());
 console.log("GA_TRACKING_ID", process.env.GA_TRACKING_ID);
 
 module.exports = {
@@ -89,10 +89,14 @@ module.exports = {
         ]
     },
     plugins: [
-        new CleanWebpackPlugin(["public"], {
-            root: path.resolve(__dirname, "../")
+        new CleanWebpackPlugin(),
+        new GitRevisionPlugin({
+            branch: true
         }),
-        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+        new webpack.IgnorePlugin({
+            resourceRegExp: /^\.\/locale$/,
+            contextRegExp: /moment$/
+        }),
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, "../src/index.ejs"),
             chunksSortMode: "none",
@@ -109,23 +113,25 @@ module.exports = {
             filename: "[name].[contenthash].css"
         }),
         // new webpack.HashedModuleIdsPlugin(),
-        new CopyWebpackPlugin([
-            {
-                from: '*.xml',
-                to: path.resolve(__dirname, "../public"),
-                context: path.resolve(__dirname, '../')
-            },
-            {
-                from: 'robots.txt',
-                to: path.resolve(__dirname, "../public"),
-                context: path.resolve(__dirname, '../')
-            },
-            {
-                from: 'redirect-config.json',
-                to: path.resolve(__dirname, "../public"),
-                context: path.resolve(__dirname, '../')
-            }
-        ]),
+        new CopyWebpackPlugin({
+            patterns: [
+                {
+                    from: '*.xml',
+                    to: path.resolve(__dirname, "../public"),
+                    context: path.resolve(__dirname, '../')
+                },
+                {
+                    from: 'robots.txt',
+                    to: path.resolve(__dirname, "../public"),
+                    context: path.resolve(__dirname, '../')
+                },
+                {
+                    from: 'redirect-config.json',
+                    to: path.resolve(__dirname, "../public"),
+                    context: path.resolve(__dirname, '../')
+                }
+            ]
+        }),
         new webpack.DefinePlugin({
             'process.env': {
                 ENV: process.env.ENV
