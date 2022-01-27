@@ -5,7 +5,7 @@
  * to determine which assets are used by the app.
  * ./src/index.js is the default entry point for webpack (https://webpack.js.org/concepts/)
  */
-
+import 'react-app-polyfill/ie11';
 import 'react-app-polyfill/stable';
 import './js/app';
 

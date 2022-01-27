@@ -109,7 +109,7 @@
         "react": "^16.13.1",
         "react-app-polyfill": "^3.0.0",
         "react-aria-modal": "^2.7.0",
-        "react-checkbox-tree": "1.6.0",
+        "react-checkbox-tree": "~1.6.0",
         "react-copy-to-clipboard": "^5.0.1",
         "react-custom-scrollbars": "^4.1.2",
         "react-day-picker": "^7.0.2",

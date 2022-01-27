@@ -30,20 +30,19 @@ module.exports = {
     optimization: {
         splitChunks: {
             cacheGroups: {
+                default: false,
+                vendors: false,
                 // all imported code from node_modules is a single file
                 vendor: {
                     test: /[\\/]node_modules[\\/]/,
                     name: 'vendors',
-                    minChunks: 2,
                     chunks: 'all',
-                    priority: 5,
-                    reuseExistingChunk: true,
-                    enforce: true
+                    priority: 20
                 },
                 // code shared between at least 2 modules, is put into a common chunk file
                 common: {
                     name: 'common',
-                    minChunks: 3,
+                    minChunks: 2,
                     chunks: 'all',
                     priority: 10,
                     reuseExistingChunk: true,
@@ -58,12 +57,7 @@ module.exports = {
             {
                 test: /\.js$|jsx$/,
                 exclude: /node_modules\.*/,
-                use: {
-                    loader: "babel-loader",
-                    options: {
-                        presets: ['@babel/preset-env']
-                    }
-                }
+                loader: "babel-loader"
             },
             {
                 test: /\.css$/,
