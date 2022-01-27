@@ -93,10 +93,13 @@ const AwardAmountsTable = ({
         <div className={`award-amounts__data-wrapper ${awardAmountType}`}>
             {Object.keys(amountMapByCategoryTitle).sort(sortTableTitles)
                 .map((title) => (
-                    <div key={uniqueId(title)} className="award-amounts__data-content">
-                        <div><span className={`award-amounts__data-icon ${(title === 'Outlayed Amount' || title === 'Combined Outlayed Amounts') ? '' : awardTableClassMap[title]}`} />{title}</div>
-                        <span>{amountMapByCategoryTitle[title]}</span>
-                    </div>
+                    ((title === 'Outlayed Amount' || title === 'Combined Outlayed Amounts') && amountMapByCategoryTitle[title] === '$0.00')
+                        ? null
+                        :
+                        <div key={uniqueId(title)} className="award-amounts__data-content">
+                            <div><span className={`award-amounts__data-icon ${(title === 'Outlayed Amount' || title === 'Combined Outlayed Amounts') ? '' : awardTableClassMap[title]}`} />{title}</div>
+                            <span>{amountMapByCategoryTitle[title]}</span>
+                        </div>
                 ))
             }
             {overspendingRow}
