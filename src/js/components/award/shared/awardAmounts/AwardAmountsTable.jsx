@@ -94,7 +94,7 @@ const AwardAmountsTable = ({
             {Object.keys(amountMapByCategoryTitle).sort(sortTableTitles)
                 .map((title) => (
                     <div key={uniqueId(title)} className="award-amounts__data-content">
-                        <div><span className={`award-amounts__data-icon ${amountMapByCategoryTitle[title] !== '$0.00' ? awardTableClassMap[title] : ""}`} />{title}</div>
+                        <div><span className={`award-amounts__data-icon ${(title === 'Outlayed Amount' || title === 'Combined Outlayed Amounts') ? '' : awardTableClassMap[title]}`} />{title}</div>
                         <span>{amountMapByCategoryTitle[title]}</span>
                     </div>
                 ))

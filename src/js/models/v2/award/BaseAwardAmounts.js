@@ -29,6 +29,9 @@ const BaseAwardAmounts = {
         this._totalObligation = parseFloat(
             data.child_award_total_obligation + data.grandchild_award_total_obligation
         ) || 0;
+        this._combinedOutlay = parseFloat(
+            data.child_award_total_outlay + data.grandchild_award_total_outlay
+        ) || 0;
         this._baseExercisedOptions = parseFloat(
             data.child_award_base_exercised_options_val + data.grandchild_award_base_exercised_options_val
         ) || 0;
@@ -45,6 +48,9 @@ const BaseAwardAmounts = {
     },
     populateIdv(data, defCodes) {
         this._totalObligation = data._totalObligation;
+        this._totalOutlay = data._totalOutlay;
+        this._childAwardTotalOutlay = data._childAwardTotalOutlay;
+        this._grandchildAwardTotalOutlay = data._grandchildAwardTotalOutlay;
         this._baseExercisedOptions = data._baseExercisedOptions;
         this._baseAndAllOptions = data._baseAndAllOptions;
         this._fileCOutlay = getCovid19Totals(data.fileC.outlays, defCodes);
@@ -53,11 +59,13 @@ const BaseAwardAmounts = {
     populateLoan(data, defCodes) {
         this._subsidy = data._subsidy;
         this._faceValue = data._faceValue;
+        this._totalOutlay = data._totalOutlay;
         this._fileCOutlay = getCovid19Totals(data.fileC.outlays, defCodes);
         this._fileCObligated = getCovid19Totals(data.fileC.obligations, defCodes);
     },
     populateAsst(data, defCodes) {
         this._totalObligation = data._totalObligation;
+        this._totalOutlay = data._totalOutlay;
         this._totalFunding = data._totalFunding;
         this._nonFederalFunding = data._nonFederalFunding;
         this._fileCOutlay = getCovid19Totals(data.fileC.outlays, defCodes);
@@ -103,6 +111,9 @@ const BaseAwardAmounts = {
     },
     get totalObligationFormatted() {
         return MoneyFormatter.formatMoneyWithPrecision(this._totalObligation, 2);
+    },
+    get combinedOutlayFormatted() {
+        return MoneyFormatter.formatMoneyWithPrecision(this._combinedOutlay, 2);
     },
     get totalOutlayFormatted() {
         return MoneyFormatter.formatMoneyWithPrecision(this._totalOutlay, 2);

@@ -39,6 +39,7 @@ BaseFinancialAssistance.populate = function populate(data) {
         subawardTotal: data.total_subaward_amount,
         subawardCount: data.subaward_count,
         totalObligation: data.total_obligation,
+        totalOutlay: data.total_outlay,
         baseExercisedOptions: data.base_exercised_options,
         dateSigned: data.date_signed,
         fileC: {
