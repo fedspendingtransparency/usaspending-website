@@ -7,13 +7,22 @@ import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
 import { FlexGridRow, FlexGridCol, Pagination, LoadingMessage } from 'data-transparency-ui';
-import { setSelectedSubcomponent, setAgencySubcomponents, resetAgencySubcomponents, setFederalAccountsList, resetFederalAccountsList } from 'redux/actions/agencyV2/agencyV2Actions';
+import {
+    setSelectedSubcomponent,
+    setAgencySubcomponents,
+    setDataThroughDates,
+    resetAgencySubcomponents,
+    setFederalAccountsList,
+    resetFederalAccountsList
+} from "redux/actions/agencyV2/agencyV2Actions";
 import { fetchSubcomponentsList, fetchFederalAccountsList } from 'apis/agencyV2';
 import { parseRows } from 'helpers/agencyV2/StatusOfFundsVizHelper';
 import { useStateWithPrevious } from 'helpers';
 import BaseStatusOfFundsLevel from 'models/v2/agency/BaseStatusOfFundsLevel';
 import Note from 'components/sharedComponents/Note';
+
 import DrilldownSidebar from './DrilldownSidebar';
 import VisualizationSection from './VisualizationSection';
 import IntroSection from './IntroSection';
@@ -68,6 +77,11 @@ const StatusOfFunds = ({ fy }) => {
                 setResults(parsedData);
                 dispatch(setAgencySubcomponents(parsedData));
                 setTotalItems(res.data.page_metadata.total);
+                if (parsedData.length === 0) {
+                    dispatch(setDataThroughDates({
+                        statusDataThroughDate: 'no data'
+                    }));
+                }
                 setLoading(false);
             }).catch((err) => {
                 setError(true);
