@@ -3,6 +3,7 @@
   * Created by Jonathan Hill 09/27/2019
   **/
 
+import 'react-app-polyfill/stable';
 import React, { Component, cloneElement } from 'react';
 import CheckBoxTree from 'react-checkbox-tree';
 import PropTypes from 'prop-types';

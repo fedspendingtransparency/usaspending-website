@@ -6,6 +6,9 @@
  * ./src/index.js is the default entry point for webpack (https://webpack.js.org/concepts/)
  */
 
+import 'react-app-polyfill/stable';
+import './js/app';
+
 // require all the static files
 require.context('./fonts', true);
 require.context('./graphics', true);
@@ -15,5 +18,3 @@ require.context('./data', true);
 // require the CSS
 require('./css/main.scss');
 
-// require the main JS file
-require('./js/app.jsx');

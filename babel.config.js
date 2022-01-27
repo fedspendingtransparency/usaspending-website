@@ -8,7 +8,7 @@ const presets = [
                 proposals: true
             },
             targets: {
-                ie: "10",
+                ie: "11",
                 node: "10"
             }
         }
