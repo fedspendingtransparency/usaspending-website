@@ -26,7 +26,7 @@ export const spendingCategoriesByAwardType = {
     loan: ['_subsidy', '_faceValue', '_totalOutlay'],
     contract: ['_totalObligation', '_baseExercisedOptions', '_baseAndAllOptions', '_totalOutlay'],
     idv: ['_totalObligation', '_baseExercisedOptions', '_baseAndAllOptions', '_totalOutlay'],
-    idv_aggregated: ['_totalObligation', '_baseExercisedOptions', '_baseAndAllOptions']
+    idv_aggregated: ['_totalObligation', '_baseExercisedOptions', '_baseAndAllOptions', '_combinedOutlay']
 };
 
 export const caresActSpendingCategories = [
