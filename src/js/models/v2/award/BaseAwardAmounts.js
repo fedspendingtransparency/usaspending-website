@@ -20,7 +20,6 @@ const BaseAwardAmounts = {
             : '';
     },
     populateAggIdv(data, defCodes) {
-        console.log('baseAwardAmounts data', data);
         this.childIDVCount = data.child_idv_count || 0;
         this.childAwardCount = data.child_award_count || 0;
         this.grandchildAwardCount = data.grandchild_award_count || 0;
