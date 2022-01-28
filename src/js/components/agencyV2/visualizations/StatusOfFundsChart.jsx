@@ -12,6 +12,30 @@ const propTypes = {
     setLevel: PropTypes.func
 };
 
+const mockChartData = {
+    page_metadata: {
+        page: 1,
+        total: 1,
+        limit: 2,
+        next: 2,
+        previous: null,
+        hasNext: true,
+        hasPrevious: false
+    },
+    results: [
+        {
+            name: "National Oceanic and Atmospheric Administration",
+            _budgetaryResources: 900000000,
+            _obligations: -490000
+        },
+        {
+            name: "Bureau of the Census",
+            _budgetaryResources: 400000000,
+            _obligations: -10000000
+        }
+    ]
+};
+
 const StatusOfFundsChart = ({
     results, fy, setLevel, level
 }) => {
@@ -20,6 +44,7 @@ const StatusOfFundsChart = ({
 
     const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth < largeScreen);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
+    const [isNegative, setIsNegative] = useState(false);
     const [sortedNums, setSortedNums] = useState(null);
     const viewHeight = 760;
     const viewWidth = 1000;
@@ -140,6 +165,13 @@ const StatusOfFundsChart = ({
         const x = scaleLinear()
             .range([0, isLargeScreen ? chartWidth + 330 : chartWidth + 80]);
 
+        const drawNegativeObligations = (data) => {
+            if (!isLargeScreen) {
+                return (chartWidth + 100) - (x(data._obligations) + 11);
+            }
+            return (chartWidth + 350) - (x(data._obligations) + 11);
+        };
+
         // append the svg object to the div
         d3.select('#sof_chart').selectAll('*').remove();
         const svg = d3.select('#sof_chart')
@@ -154,14 +186,19 @@ const StatusOfFundsChart = ({
         const tickMobileXAxis = isLargeScreen ? 'translate(-130,0)' : 'translate(90, 0)';
         const tickMobileYAxis = isLargeScreen ? 'translate(-150,16)' : 'translate(60, 0)';
         // scale to x and y data points
-        x.domain([0, Math.max(sortedNums[0]._budgetaryResources, sortedNums[0]._obligations)]);
-        // extract sorted agency names
-        for (let i = 0; i < sortedNums.length; i++) {
-            // resultNames = resultNames.concat(sortedNums[i].name.split(',')[0]);
-            resultNames = resultNames.concat(sortedNums[i].name);
+        if (mockChartData.results[0]._obligations <= 0) {
+            x.domain([mockChartData.results[mockChartData.results.length - 1]._obligations, 0]);
         }
-        if (sortedNums.length < 10) {
-            for (let i = sortedNums.length; i < 10; i++) {
+        else {
+            x.domain([0, Math.max(mockChartData.results[0]._budgetaryResources, mockChartData.results[0]._obligations)]);
+        }
+        // extract sorted agency names
+        for (let i = 0; i < mockChartData.results.length; i++) {
+            // resultNames = resultNames.concat(sortedNums[i].name.split(',')[0]);
+            resultNames = resultNames.concat(mockChartData.results[i].name);
+        }
+        if (mockChartData.results.length < 10) {
+            for (let i = mockChartData.results.length; i < 10; i++) {
                 resultNames.push(i);
             }
         }
@@ -241,7 +278,7 @@ const StatusOfFundsChart = ({
         const barGroups = svg.append('g')
             .attr('class', 'parent-g')
             .selectAll('.bar-group')
-            .data(sortedNums)
+            .data(mockChartData.results)
             .enter()
             .append('g')
             .attr('class', 'bar-group')
@@ -264,16 +301,22 @@ const StatusOfFundsChart = ({
             .attr("width", (d) => x(d._budgetaryResources) + 11)
             .attr("height", y.bandwidth() - 36)
             .attr("fill", "#BBDFC7")
-            .attr('class', 'hbars');
+            .attr('class', 'hbars')
+            .attr('id', 'tbr-bar');
         // append total obligations bars
         barGroups.append("rect")
             .attr('transform', tickMobileXAxis)
-            .attr("x", -8)
+            .attr("x", isNegative ? (d) => x(d._obligations) - 8 : -8)
             .attr("y", (d) => (isLargeScreen ? y(d.name) + 80 : y(d.name) + 40))
-            .attr("width", (d) => x(d._obligations) + 11)
+            .attr("width", isNegative ? (d) => drawNegativeObligations(d) : (d) => x(d._obligations) + 11)
             .attr("height", y.bandwidth() - 36)
             .attr("fill", "#2B71B8")
-            .attr('class', 'hbars');
+            .attr('class', 'hbars')
+            .attr('id', 'obl-bar');
+
+        if (isNegative) {
+            svg.selectAll('#tbr-bar').remove();
+        }
         // on click drilldown
         svg.selectAll(".bar-group").on('click', (d) => {
             handleClick(d);
@@ -336,6 +379,9 @@ const StatusOfFundsChart = ({
     useEffect(() => {
         if (results?.length > 0) {
             setSortedNums(results.sort((a, b) => (a._budgetaryResources > b._obligations ? b._budgetaryResources - a._budgetaryResources : b._obligations - a._obligations)));
+            if (mockChartData.results[0]._obligations <= 0) {
+                setIsNegative(true);
+            }
         }
     }, [results]);
 
