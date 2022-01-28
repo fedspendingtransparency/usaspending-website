@@ -311,31 +311,18 @@ const StatusOfFundsChart = ({
     return (
         <>
             <div id="sof_chart" className="status-of-funds__visualization" ref={chartRef} />
-            <FlexGridRow style={{ 'justify-content': 'center', 'flex-direction': isLargeScreen ? 'column' : 'row', 'padding-bottom': '1.6rem' }}>
-                <div style={{ display: 'flex' }}>
-                    <div style={{
-                        display: 'flex',
-                        'margin-right': '0.5rem',
-                        height: '0.8rem',
-                        width: '0.8rem',
-                        'border-radius': '50%',
-                        'background-color': '#2B71B8',
-                        'padding-right': '0.8rem',
-                        'margin-top': '0.4rem'
-                    }} />
-                    <div style={{ 'font-size': '1.2rem' }}>FY{fy[2]}{fy[3]} Obligations</div>&nbsp;&nbsp;&nbsp;&nbsp;
+            <FlexGridRow className="legend" style={{ 'flex-direction': isLargeScreen ? 'column' : 'row' }}>
+                <div className="legend__item">
+                    <div
+                        className="legend__circle"
+                        style={{ 'background-color': '#2B71B8' }} />
+                    <div className="legend__text">FY{fy[2]}{fy[3]} Obligations</div>&nbsp;&nbsp;&nbsp;&nbsp;
                 </div>
-                <div style={{ display: 'flex' }}>
-                    <div style={{
-                        'margin-right': '0.5rem',
-                        height: '0.8rem',
-                        width: '0.8rem',
-                        'border-radius': '50%',
-                        'background-color': '#BBDFC7',
-                        'padding-right': '0.8rem',
-                        'margin-top': '0.4rem'
-                    }} />
-                    <div style={{ 'font-size': '1.2rem' }}>FY{fy[2]}{fy[3]} Total Budgetary Resources</div>
+                <div className="legend__item">
+                    <div
+                        className="legend__circle"
+                        style={{ 'background-color': '#BBDFC7' }} />
+                    <div className="legend__text">FY{fy[2]}{fy[3]} Total Budgetary Resources</div>
                 </div>
             </FlexGridRow>
         </>
