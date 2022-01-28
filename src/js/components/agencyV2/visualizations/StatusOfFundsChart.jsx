@@ -12,30 +12,6 @@ const propTypes = {
     setLevel: PropTypes.func
 };
 
-const mockChartData = {
-    page_metadata: {
-        page: 1,
-        total: 1,
-        limit: 2,
-        next: 2,
-        previous: null,
-        hasNext: true,
-        hasPrevious: false
-    },
-    results: [
-        {
-            name: "National Oceanic and Atmospheric Administration",
-            _budgetaryResources: 900000000,
-            _obligations: -490000
-        },
-        {
-            name: "Bureau of the Census",
-            _budgetaryResources: 400000000,
-            _obligations: -10000000
-        }
-    ]
-};
-
 const StatusOfFundsChart = ({
     results, fy, setLevel, level
 }) => {
@@ -186,19 +162,19 @@ const StatusOfFundsChart = ({
         const tickMobileXAxis = isLargeScreen ? 'translate(-130,0)' : 'translate(90, 0)';
         const tickMobileYAxis = isLargeScreen ? 'translate(-150,16)' : 'translate(60, 0)';
         // scale to x and y data points
-        if (mockChartData.results[0]._obligations <= 0) {
-            x.domain([mockChartData.results[mockChartData.results.length - 1]._obligations, 0]);
+        if (sortedNums[0]._obligations <= 0) {
+            x.domain([sortedNums[sortedNums.length - 1]._obligations, 0]);
         }
         else {
-            x.domain([0, Math.max(mockChartData.results[0]._budgetaryResources, mockChartData.results[0]._obligations)]);
+            x.domain([0, Math.max(sortedNums[0]._budgetaryResources, sortedNums[0]._obligations)]);
         }
         // extract sorted agency names
-        for (let i = 0; i < mockChartData.results.length; i++) {
+        for (let i = 0; i < sortedNums.length; i++) {
             // resultNames = resultNames.concat(sortedNums[i].name.split(',')[0]);
-            resultNames = resultNames.concat(mockChartData.results[i].name);
+            resultNames = resultNames.concat(sortedNums[i].name);
         }
-        if (mockChartData.results.length < 10) {
-            for (let i = mockChartData.results.length; i < 10; i++) {
+        if (sortedNums.length < 10) {
+            for (let i = sortedNums.length; i < 10; i++) {
                 resultNames.push(i);
             }
         }
@@ -278,7 +254,7 @@ const StatusOfFundsChart = ({
         const barGroups = svg.append('g')
             .attr('class', 'parent-g')
             .selectAll('.bar-group')
-            .data(mockChartData.results)
+            .data(sortedNums)
             .enter()
             .append('g')
             .attr('class', 'bar-group')
@@ -379,7 +355,7 @@ const StatusOfFundsChart = ({
     useEffect(() => {
         if (results?.length > 0) {
             setSortedNums(results.sort((a, b) => (a._budgetaryResources > b._obligations ? b._budgetaryResources - a._budgetaryResources : b._obligations - a._obligations)));
-            if (mockChartData.results[0]._obligations <= 0) {
+            if (results[0]._obligations <= 0) {
                 setIsNegative(true);
             }
         }
