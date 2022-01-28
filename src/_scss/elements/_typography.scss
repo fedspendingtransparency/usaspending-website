@@ -248,3 +248,15 @@ dfn {
     font-size: $h6-font-size;
     margin-top: 0;
 }
+
+@import "mixins/profilePage";
+.section__date-note {
+    @include display(flex);
+    width: 100%;
+    justify-content: left;
+    font-size: 1.2rem;
+    font-style: italic;
+    letter-spacing: 0;
+    line-height: 1.5rem;
+    @include profile-page-wrap;
+}

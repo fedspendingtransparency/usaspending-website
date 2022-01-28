@@ -19,6 +19,9 @@ const clickedHeaderLink = (route) => {
 };
 
 let cookie = 'usaspending_covid_release';
+
+Cookies.set(cookie, 'showUEIBanner');
+
 if (isIe() && isBefore(startOfToday(), new Date(2022, 1, 18))) {
     cookie = 'usaspending_end_of_IE';
     Cookies.set(cookie, 'showIEBanner');
@@ -42,7 +45,7 @@ export default class Header extends React.Component {
     }
 
     setShowInfoBanner() {
-        if (Cookies.get(cookie) === 'showIEBanner') {
+        if (Cookies.get(cookie) === 'showIEBanner' || Cookies.get(cookie) === 'showUEIBanner') {
             this.setState({
                 showInfoBanner: true
             });
@@ -71,7 +74,7 @@ export default class Header extends React.Component {
 
     openBannerModal(e) {
         e.preventDefault();
-        this.props.showModal(null, 'covid');
+        this.props.showModal(null, 'uei');
     }
 
 
