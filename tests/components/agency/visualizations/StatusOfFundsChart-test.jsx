@@ -163,4 +163,11 @@ describe('StatusOfFundsChart', () => {
             expect(spy).toHaveBeenCalledTimes(2);
         });
     });
+    it('should include a legend', () => {
+        render(<VisualizationSection agencyId={toptierCode} agencyName={name} fy={fy} results={mockChartData.results} level={0} />);
+        // set timeout to wait for expect() to pass after call to render
+        setTimeout(() => {
+            expect(screen.getByText('FY21 Total Budgetary Resources').toBeInTheDocument());
+        }, 1000);
+    });
 });
