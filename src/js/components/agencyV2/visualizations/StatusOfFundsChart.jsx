@@ -344,6 +344,16 @@ const StatusOfFundsChart = ({
             .attr('class', 'y-axis-labels')
             .style('fill', '#555')
             .attr("alignment-baseline", "middle");
+        if (isNegative) {
+            svg.append('line')
+                .attr('transform', tickMobileXAxis)
+                .style("stroke", "#aeb0b5")
+                .style("stroke-width", 3)
+                .attr("x1", isLargeScreen ? chartWidth + 330 : chartWidth + 81)
+                .attr("y1", 0)
+                .attr("x2", isLargeScreen ? chartWidth + 330 : chartWidth + 81)
+                .attr("y2", chartHeight + 4);
+        }
     };
 
     useEffect(() => {
