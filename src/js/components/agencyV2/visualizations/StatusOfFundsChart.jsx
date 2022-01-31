@@ -142,10 +142,10 @@ const StatusOfFundsChart = ({
             .range([0, isLargeScreen ? chartWidth + 330 : chartWidth + 80]);
 
         const drawNegativeObligations = (data) => {
-            if (!isLargeScreen) {
-                return (chartWidth + 100) - ((x(0) - x(data._obligations)) + 11);
+            if (data._obligations <= 0) {
+                return (Math.abs(x(0) - x(data._obligations))) + 7;
             }
-            return (chartWidth + 350) - ((x(0) - x(data._obligations)) + 11);
+            return (Math.abs(x(0) - x(data._obligations))) + 2;
         };
 
         // append the svg object to the div
@@ -163,7 +163,7 @@ const StatusOfFundsChart = ({
         const tickMobileYAxis = isLargeScreen ? 'translate(-150,16)' : 'translate(60, 0)';
         // scale to x and y data points
         if (sortedNums[sortedNums.length - 1]._obligations <= 0) {
-            x.domain([sortedNums[sortedNums.length - 1]._obligations, sortedNums[0]._obligations]);
+            x.domain(d3.extent(sortedNums, (d) => d._obligations));
         }
         else {
             x.domain([0, Math.max(sortedNums[0]._budgetaryResources, sortedNums[0]._obligations)]);
@@ -216,6 +216,7 @@ const StatusOfFundsChart = ({
             }
             if (isLargeScreen) {
                 if (i === 2) d3.select(this).attr('dx', '-1em');
+                if (i === 0 && isNegative) d3.select(this).attr('dx', '0.8em');
             }
             if (i === 4) d3.select(this).attr('dx', '-1em');
         });
@@ -227,7 +228,15 @@ const StatusOfFundsChart = ({
             .style("stroke-width", 3)
             .attr("x1", -10)
             .attr("y1", 0)
-            .attr("x2", isLargeScreen ? chartWidth + 330 : chartWidth + 81)
+            .attr("x2", () => {
+                if (sortedNums[0]._obligations <= 0) {
+                    return x(0);
+                }
+                if (!isNegative) {
+                    return isLargeScreen ? chartWidth + 330 : chartWidth + 81;
+                }
+                return x(sortedNums[0]._obligations);
+            })
             .attr("y2", 0);
         // append y axis (names)
         svg.append('g')
@@ -282,7 +291,15 @@ const StatusOfFundsChart = ({
         // append total obligations bars
         barGroups.append("rect")
             .attr('transform', tickMobileXAxis)
-            .attr("x", isNegative ? x(0) - 8 : -8)
+            .attr("x", (d) => {
+                if (d._obligations <= 0) {
+                    return x(Math.min(0, d._obligations)) - 8;
+                }
+                if (!isNegative) {
+                    return x(0) - 8;
+                }
+                return x(0);
+            })
             .attr("y", (d) => (isLargeScreen ? y(d.name) + 80 : y(d.name) + 40))
             .attr("width", isNegative ? (d) => drawNegativeObligations(d) : (d) => x(d._obligations) + 11)
             .attr("height", y.bandwidth() - 36)
@@ -352,7 +369,7 @@ const StatusOfFundsChart = ({
                 .attr("x1", x(0))
                 .attr("y1", 0)
                 .attr("x2", x(0))
-                .attr("y2", chartHeight + 4);
+                .attr("y2", isLargeScreen ? chartHeight + 500 : chartHeight + 4);
         }
     };
 

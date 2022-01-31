@@ -87,7 +87,7 @@ const mockChartDataNegative = {
         {
             name: "National Oceanic and Atmospheric Administration",
             total_budgetary_resources: 9100000000,
-            total_obligations: -6000000000
+            total_obligations: 6000000000
         },
         {
             name: "Bureau of the Census",
@@ -141,6 +141,13 @@ describe('StatusOfFundsChart', () => {
         // set timeout to wait for expect() to pass after call to render
         setTimeout(() => {
             expect(screen.getByText('-$2.5B').toBeInTheDocument());
+        }, 1000);
+    });
+    it('should display $0 axis when positive and negative values are present', () => {
+        render(<StatusOfFundsChart results={mockChartDataNegative.results} fy={fy} level={0} />);
+        // set timeout to wait for expect() to pass after call to render
+        setTimeout(() => {
+            expect(screen.getByText('$0').toBeInTheDocument());
         }, 1000);
     });
     it("should make an API call on level change", () => {

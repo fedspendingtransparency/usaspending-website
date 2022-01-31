@@ -31,35 +31,6 @@ const propTypes = {
     fy: PropTypes.string
 };
 
-const mockChartData = {
-    page_metadata: {
-        page: 1,
-        total: 1,
-        limit: 2,
-        next: 2,
-        previous: null,
-        hasNext: true,
-        hasPrevious: false
-    },
-    results: [
-        {
-            name: "Bureau Oceanic",
-            _budgetaryResources: 900000000,
-            _obligations: 590000
-        },
-        {
-            name: "National Oceanic and Atmospheric Administration",
-            _budgetaryResources: 900000000,
-            _obligations: -490000
-        },
-        {
-            name: "Bureau of the Census",
-            _budgetaryResources: 400000000,
-            _obligations: -10000000
-        }
-    ]
-};
-
 export const levels = ['Sub-Component', 'Federal Account'];
 
 const StatusOfFunds = ({ fy }) => {
@@ -229,7 +200,7 @@ const StatusOfFunds = ({ fy }) => {
                             <FontAwesomeIcon icon="arrow-left" />
                             &nbsp;&nbsp;Back
                         </button> : <></>}
-                    { !loading ? <VisualizationSection fetchFederalAccounts={fetchFederalAccounts} totalItems={totalItems} setTotalItems={setTotalItems} loading={loading} setLoading={setLoading} level={level} setLevel={onClick} selectedSubcomponent={selectedSubcomponent} agencyId={overview.toptierCode} agencyName={overview.name} fy={fy} results={mockChartData.results} /> : <LoadingMessage /> }
+                    { !loading ? <VisualizationSection fetchFederalAccounts={fetchFederalAccounts} totalItems={totalItems} setTotalItems={setTotalItems} loading={loading} setLoading={setLoading} level={level} setLevel={onClick} selectedSubcomponent={selectedSubcomponent} agencyId={overview.toptierCode} agencyName={overview.name} fy={fy} results={results} /> : <LoadingMessage /> }
                     <Pagination
                         currentPage={currentPage}
                         changePage={changeCurrentPage}
