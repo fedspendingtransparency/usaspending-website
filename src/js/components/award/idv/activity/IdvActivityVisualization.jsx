@@ -23,7 +23,7 @@ export default class IdvActivityVisualization extends React.Component {
         awards: PropTypes.array,
         xSeries: PropTypes.array,
         ySeries: PropTypes.array,
-        selectedItemFunc: PropTypes.func
+        selectedItemFunc: PropTypes.func,
     };
 
     constructor(props) {
@@ -37,7 +37,7 @@ export default class IdvActivityVisualization extends React.Component {
             awards: props.awards,
             showTooltipStroke: false,
             awardIndexForTooltip: null,
-            isOverspent: false
+            isOverspent: false,
         };
 
         this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
@@ -45,16 +45,16 @@ export default class IdvActivityVisualization extends React.Component {
 
     componentDidMount() {
         this.handleWindowResize();
-        window.addEventListener('resize', this.handleWindowResize);
+        window.addEventListener("resize", this.handleWindowResize);
     }
 
     componentWillUnmount() {
-        window.removeEventListener('resize', this.handleWindowResize);
+        window.removeEventListener("resize", this.handleWindowResize);
     }
 
     setOverspent = () => {
         this.setState({ isOverspent: true });
-    }
+    };
 
     handleWindowResize() {
         // determine if the width changed
@@ -63,7 +63,7 @@ export default class IdvActivityVisualization extends React.Component {
             // width changed, update the visualization width
             this.setState({
                 windowWidth,
-                visualizationWidth: this.sectionRef.offsetWidth
+                visualizationWidth: this.sectionRef.offsetWidth,
             });
         }
     }
@@ -74,58 +74,59 @@ export default class IdvActivityVisualization extends React.Component {
                 isShowingTooltip: true,
                 toolTipData: data,
                 showTooltipStroke: true,
-                awardIndexForTooltip: data.index
+                awardIndexForTooltip: data.index,
             });
         }
-    }
+    };
 
     hideTooltip = () => {
         if (!this.state.isHoveringInTooltip) {
             this.setState({
                 isShowingTooltip: false,
                 showTooltipStroke: false,
-                awardIndexForTooltip: null
+                awardIndexForTooltip: null,
             });
         }
-    }
+    };
 
     mouseIsInTooltipDiv = (data) => {
         this.setState({
             isShowingTooltip: true,
             isHoveringInTooltip: true,
             showTooltipStroke: true,
-            awardIndexForTooltip: data.index
+            awardIndexForTooltip: data.index,
         });
-    }
+    };
 
     mouseOutOfTooltipDiv = () => {
-        this.setState({
-            isShowingTooltip: false,
-            isHoveringInTooltip: false,
-            showTooltipStroke: false,
-            awardIndexForTooltip: null
-        }, () => this.hideTooltip());
-    }
+        this.setState(
+            {
+                isShowingTooltip: false,
+                isHoveringInTooltip: false,
+                showTooltipStroke: false,
+                awardIndexForTooltip: null,
+            },
+            () => this.hideTooltip()
+        );
+    };
 
-    createMenuData = () => {
-        return [
-            {
-                key: '10',
-                value: 10,
-                label: '10'
-            },
-            {
-                key: '50',
-                value: 50,
-                label: '50'
-            },
-            {
-                key: '100',
-                value: 100,
-                label: '100'
-            }
-        ];
-    }
+    createMenuData = () => [
+        {
+            key: "10",
+            value: 10,
+            label: "10",
+        },
+        {
+            key: "50",
+            value: 50,
+            label: "50",
+        },
+        {
+            key: "100",
+            value: 100,
+            label: "100",
+        }
+    ];
 
     render() {
         const height = 360;
@@ -142,14 +143,18 @@ export default class IdvActivityVisualization extends React.Component {
                 width={this.state.visualizationWidth}
                 showTooltip={this.showTooltip}
                 hideTooltip={this.hideTooltip}
-                setOverspent={this.setOverspent} />
+                setOverspent={this.setOverspent}
+            />
         );
         let tt = null;
         if (this.state.isShowingTooltip) {
-            tt = (<ActivityChartTooltip
-                data={this.state.toolTipData}
-                mouseIsInTooltipDiv={this.mouseIsInTooltipDiv}
-                mouseOutOfTooltipDiv={this.mouseOutOfTooltipDiv} />);
+            tt = (
+                <ActivityChartTooltip
+                    data={this.state.toolTipData}
+                    mouseIsInTooltipDiv={this.mouseIsInTooltipDiv}
+                    mouseOutOfTooltipDiv={this.mouseOutOfTooltipDiv}
+                />
+            );
         }
         const pageRange = calculatePageRange(this.props.page, this.props.limit, this.props.total);
         const start = formatNumberWithPrecision(pageRange.start, 0);
@@ -157,8 +162,11 @@ export default class IdvActivityVisualization extends React.Component {
         const menuData = this.createMenuData();
         const resultsText = (
             <div className="pagination__totals">
-                Displaying award orders <span className="current-page-numbers">{start}-{end}</span> of {
-                    formatNumberWithPrecision(this.props.total, 0)}
+                Displaying award orders{" "}
+                <span className="current-page-numbers">
+                    {start}-{end}
+                </span>{" "}
+                of {formatNumberWithPrecision(this.props.total, 0)}
             </div>
         );
         return (
@@ -167,9 +175,7 @@ export default class IdvActivityVisualization extends React.Component {
                     this.sectionRef = widthRef;
                 }}
                 className="activity-visualization">
-                <div className="activity-visualization-title">
-                  Award Amounts and Periods of Performance of Award Orders
-                </div>
+                <div className="activity-visualization-title">Award Amounts and Periods of Performance of Award Orders</div>
                 {chart}
                 {tt}
                 <div className="activity-x-label">Period of Performance</div>
@@ -177,40 +183,38 @@ export default class IdvActivityVisualization extends React.Component {
                     <div className="visualization-legend__item">
                         <div
                             className="visualization-legend__circle
-                            visualization-legend__circle_obligated" />
-                        <div className="visualization-legend__label">
-                            % Obligated of Potential Award Amount
-                        </div>
+                            visualization-legend__circle_obligated"
+                        />
+                        <div className="visualization-legend__label">% Obligated of Potential Award Amount</div>
                     </div>
                     <div className="visualization-legend__item">
                         <div className="visualization-legend__circle visualization-legend__circle" />
-                        <div className="visualization-legend__label">
-                            % of Potential Funding Remaining
-                        </div>
+                        <div className="visualization-legend__label">% of Potential Funding Remaining</div>
                     </div>
-                    {this.state.isOverspent &&
+                    {this.state.isOverspent && (
                         <div className="visualization-legend__item">
                             <div
                                 className="visualization-legend__circle
-                                visualization-legend__circle_overspent" />
-                            <div className="visualization-legend__label">
-                                Over Obligated
-                            </div>
+                                visualization-legend__circle_overspent"
+                            />
+                            <div className="visualization-legend__label">Over Obligated</div>
                         </div>
-                    }
+                    )}
                 </div>
                 <Pagination
                     changePage={this.props.changePage}
                     currentPage={this.props.page}
                     totalItems={this.props.total}
                     pageSize={this.props.limit}
-                    resultsText={resultsText} />
+                    resultsText={resultsText}
+                />
                 <DefaultPicker
                     prepend="Show"
                     append="per page"
                     menuData={menuData}
                     defaultSelection={this.props.limit}
-                    selectedItemFunc={this.props.selectedItemFunc} />
+                    selectedItemFunc={this.props.selectedItemFunc}
+                />
                 <div className="activity-visualization-note">
                     <Note message={message} />
                 </div>
