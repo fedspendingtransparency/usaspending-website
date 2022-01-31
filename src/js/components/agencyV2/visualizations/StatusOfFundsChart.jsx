@@ -21,6 +21,7 @@ const StatusOfFundsChart = ({
 
     const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth < largeScreen);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
+    const [isNegative, setIsNegative] = useState(false);
     const [sortedNums, setSortedNums] = useState(null);
     const viewHeight = 760;
     const viewWidth = 1000;
@@ -51,7 +52,7 @@ const StatusOfFundsChart = ({
         }, 50);
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-    }, [windowWidth]);
+    }, []);
 
 
     // Wrap y axis labels - reference https://bl.ocks.org/mbostock/7555321
@@ -118,6 +119,18 @@ const StatusOfFundsChart = ({
         }
         return chartHeight + 40;
     };
+    const legendObligationsYPos = () => {
+        if (isLargeScreen) {
+            return chartHeight + 560;
+        }
+        return chartHeight + 70;
+    };
+    const legendResourcesYPos = () => {
+        if (isLargeScreen) {
+            return chartHeight + 605;
+        }
+        return chartHeight + 70;
+    };
     const fontSizeScreenWidth = () => {
         if (isLargeScreen) {
             return 26;
@@ -133,6 +146,13 @@ const StatusOfFundsChart = ({
         const x = scaleLinear()
             .range([0, isLargeScreen ? chartWidth + 330 : chartWidth + 80]);
 
+        const drawNegativeObligations = (data) => {
+            if (data._obligations <= 0) {
+                return (Math.abs(x(0) - x(data._obligations))) + 7;
+            }
+            return (Math.abs(x(0) - x(data._obligations))) + 2;
+        };
+
         // append the svg object to the div
         d3.select('#sof_chart').selectAll('*').remove();
         const svg = d3.select('#sof_chart')
@@ -147,7 +167,12 @@ const StatusOfFundsChart = ({
         const tickMobileXAxis = isLargeScreen ? 'translate(-130,0)' : 'translate(90, 0)';
         const tickMobileYAxis = isLargeScreen ? 'translate(-150,16)' : 'translate(60, 0)';
         // scale to x and y data points
-        x.domain([0, Math.max(sortedNums[0]._budgetaryResources, sortedNums[0]._obligations)]);
+        if (sortedNums[sortedNums.length - 1]._obligations <= 0) {
+            x.domain(d3.extent(sortedNums, (d) => d._obligations));
+        }
+        else {
+            x.domain([0, Math.max(sortedNums[0]._budgetaryResources, sortedNums[0]._obligations)]);
+        }
         // extract sorted agency names
         for (let i = 0; i < sortedNums.length; i++) {
             // resultNames = resultNames.concat(sortedNums[i].name.split(',')[0]);
@@ -196,6 +221,7 @@ const StatusOfFundsChart = ({
             }
             if (isLargeScreen) {
                 if (i === 2) d3.select(this).attr('dx', '-1em');
+                if (i === 0 && isNegative) d3.select(this).attr('dx', '0.8em');
             }
             if (i === 4) d3.select(this).attr('dx', '-1em');
         });
@@ -207,7 +233,15 @@ const StatusOfFundsChart = ({
             .style("stroke-width", 3)
             .attr("x1", -10)
             .attr("y1", 0)
-            .attr("x2", isLargeScreen ? chartWidth + 330 : chartWidth + 81)
+            .attr("x2", () => {
+                if (sortedNums[0]._obligations <= 0) {
+                    return x(0);
+                }
+                if (!isNegative) {
+                    return isLargeScreen ? chartWidth + 330 : chartWidth + 81;
+                }
+                return x(sortedNums[0]._obligations);
+            })
             .attr("y2", 0);
         // append y axis (names)
         svg.append('g')
@@ -257,16 +291,30 @@ const StatusOfFundsChart = ({
             .attr("width", (d) => x(d._budgetaryResources) + 11)
             .attr("height", y.bandwidth() - 36)
             .attr("fill", "#BBDFC7")
-            .attr('class', 'hbars');
+            .attr('class', 'hbars')
+            .attr('id', 'tbr-bar');
         // append total obligations bars
         barGroups.append("rect")
             .attr('transform', tickMobileXAxis)
-            .attr("x", -8)
+            .attr("x", (d) => {
+                if (d._obligations <= 0) {
+                    return x(Math.min(0, d._obligations)) - 8;
+                }
+                if (!isNegative) {
+                    return x(0) - 8;
+                }
+                return x(0);
+            })
             .attr("y", (d) => (isLargeScreen ? y(d.name) + 80 : y(d.name) + 40))
-            .attr("width", (d) => x(d._obligations) + 11)
+            .attr("width", isNegative ? (d) => drawNegativeObligations(d) : (d) => x(d._obligations) + 11)
             .attr("height", y.bandwidth() - 36)
             .attr("fill", "#2B71B8")
-            .attr('class', 'hbars');
+            .attr('class', 'hbars')
+            .attr('id', 'obl-bar');
+
+        if (isNegative) {
+            svg.selectAll('#tbr-bar').remove();
+        }
         // on click drilldown
         svg.selectAll(".bar-group").on('click', (d) => {
             handleClick(d);
@@ -304,6 +352,10 @@ const StatusOfFundsChart = ({
     useEffect(() => {
         if (results?.length > 0) {
             setSortedNums(results.sort((a, b) => (a._budgetaryResources > b._obligations ? b._budgetaryResources - a._budgetaryResources : b._obligations - a._obligations)));
+            if (results[results.length - 1]._obligations <= 0) {
+                setSortedNums(results.sort((a, b) => (a.obligations > b._obligations ? b._budgetaryResources - a._budgetaryResources : b._obligations - a._obligations)));
+                setIsNegative(true);
+            }
         }
     }, [results]);
 
