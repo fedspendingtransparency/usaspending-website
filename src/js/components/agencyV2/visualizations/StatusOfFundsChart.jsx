@@ -119,18 +119,6 @@ const StatusOfFundsChart = ({
         }
         return chartHeight + 40;
     };
-    const legendObligationsYPos = () => {
-        if (isLargeScreen) {
-            return chartHeight + 560;
-        }
-        return chartHeight + 70;
-    };
-    const legendResourcesYPos = () => {
-        if (isLargeScreen) {
-            return chartHeight + 605;
-        }
-        return chartHeight + 70;
-    };
     const fontSizeScreenWidth = () => {
         if (isLargeScreen) {
             return 26;
