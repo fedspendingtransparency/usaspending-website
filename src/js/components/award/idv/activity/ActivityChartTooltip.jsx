@@ -18,7 +18,7 @@ const arrayOfProperties = [
     'parentAwardPIID'
 ];
 
-export default class IdvActivityTooltip extends React.Component {
+export default class ActivityChartTooltip extends React.Component {
     static propTypes = {
         data: PropTypes.object,
         mouseIsInTooltipDiv: PropTypes.func,
@@ -65,7 +65,7 @@ export default class IdvActivityTooltip extends React.Component {
             return (<div>{data}</div>);
         }
         return (
-            <Link title={this.state.truncated ? params : ''} to={`/${path}/${id}`}>
+            <Link title={this.state.truncated ? params : ''} to={`/${path}/${slug}`}>
                 {data}
             </Link>
         );
@@ -362,7 +362,7 @@ export default class IdvActivityTooltip extends React.Component {
                                     {
                                         this.getLinks(
                                             'agency',
-                                            data.awardingAgencyId,
+                                            data.awardingAgencySlug || data.awardingAgencyId,
                                             this.state.awardingAgencyName,
                                             data.awardingAgencyName
                                         )

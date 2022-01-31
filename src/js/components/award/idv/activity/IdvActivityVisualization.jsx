@@ -14,19 +14,18 @@ import DefaultPicker from 'components/sharedComponents/pickers/DefaultPicker';
 import ActivityChart from './chart/ActivityChart';
 import ActivityChartTooltip from './ActivityChartTooltip';
 
-
-const propTypes = {
-    page: PropTypes.number,
-    total: PropTypes.number,
-    limit: PropTypes.number,
-    changePage: PropTypes.func,
-    awards: PropTypes.array,
-    xSeries: PropTypes.array,
-    ySeries: PropTypes.array,
-    selectedItemFunc: PropTypes.func
-};
-
 export default class IdvActivityVisualization extends React.Component {
+    static propTypes = {
+        page: PropTypes.number,
+        total: PropTypes.number,
+        limit: PropTypes.number,
+        changePage: PropTypes.func,
+        awards: PropTypes.array,
+        xSeries: PropTypes.array,
+        ySeries: PropTypes.array,
+        selectedItemFunc: PropTypes.func
+    };
+
     constructor(props) {
         super(props);
         this.state = {
@@ -42,12 +41,6 @@ export default class IdvActivityVisualization extends React.Component {
         };
 
         this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
-        this.showTooltip = this.showTooltip.bind(this);
-        this.hideTooltip = this.hideTooltip.bind(this);
-        this.mouseIsInTooltipDiv = this.mouseIsInTooltipDiv.bind(this);
-        this.mouseOutOfTooltipDiv = this.mouseOutOfTooltipDiv.bind(this);
-        this.setOverspent = this.setOverspent.bind(this);
-        this.createMenuData = this.createMenuData.bind(this);
     }
 
     componentDidMount() {
@@ -59,7 +52,7 @@ export default class IdvActivityVisualization extends React.Component {
         window.removeEventListener('resize', this.handleWindowResize);
     }
 
-    setOverspent() {
+    setOverspent = () => {
         this.setState({ isOverspent: true });
     }
 
@@ -75,7 +68,7 @@ export default class IdvActivityVisualization extends React.Component {
         }
     }
 
-    showTooltip(data) {
+    showTooltip = (data) => {
         if (!this.state.isShowingTooltip) {
             this.setState({
                 isShowingTooltip: true,
@@ -86,7 +79,7 @@ export default class IdvActivityVisualization extends React.Component {
         }
     }
 
-    hideTooltip() {
+    hideTooltip = () => {
         if (!this.state.isHoveringInTooltip) {
             this.setState({
                 isShowingTooltip: false,
@@ -96,7 +89,7 @@ export default class IdvActivityVisualization extends React.Component {
         }
     }
 
-    mouseIsInTooltipDiv(data) {
+    mouseIsInTooltipDiv = (data) => {
         this.setState({
             isShowingTooltip: true,
             isHoveringInTooltip: true,
@@ -105,7 +98,7 @@ export default class IdvActivityVisualization extends React.Component {
         });
     }
 
-    mouseOutOfTooltipDiv() {
+    mouseOutOfTooltipDiv = () => {
         this.setState({
             isShowingTooltip: false,
             isHoveringInTooltip: false,
@@ -114,7 +107,7 @@ export default class IdvActivityVisualization extends React.Component {
         }, () => this.hideTooltip());
     }
 
-    createMenuData() {
+    createMenuData = () => {
         return [
             {
                 key: '10',
@@ -225,5 +218,3 @@ export default class IdvActivityVisualization extends React.Component {
         );
     }
 }
-
-IdvActivityVisualization.propTypes = propTypes;
