@@ -166,7 +166,7 @@ const StatusOfFundsChart = ({
             x.domain(d3.extent(sortedNums, (d) => d._obligations)).nice();
         }
         else {
-            x.domain([0, Math.max(sortedNums[0]._budgetaryResources, sortedNums[0]._obligations)]).nice();
+            x.domain([0, Math.max(sortedNums[0]._budgetaryResources, sortedNums[0]._obligations)]).nice(2);
         }
         // extract sorted agency names
         for (let i = 0; i < sortedNums.length; i++) {
@@ -185,7 +185,7 @@ const StatusOfFundsChart = ({
             .attr('transform', tickMobileXAxis)
             .attr('class', 'tickLines-vertical')
             .style("stroke-width", 2)
-            .call(d3.axisTop(x).tickFormat((d) => `${d3.format("$.2s")(d).replace('G', 'B').replace('0.0', '0')}`).tickSize(isLargeScreen ? -chartHeight - 510 : -chartHeight - 4).ticks(isLargeScreen ? 3 : 5))
+            .call(d3.axisTop(x).tickFormat((d) => `${d3.format("$.2s")(d).replace('G', 'B').replace('0.0', '0')}`).tickSize(isLargeScreen ? -chartHeight - 510 : -chartHeight - 4).ticks(isLargeScreen ? 2 : 5))
             .call((g) => g.select(".domain").remove())
             .selectAll('.tick text')
             .attr('id', 'tick-labels-axis')
