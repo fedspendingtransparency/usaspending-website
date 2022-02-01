@@ -108,7 +108,6 @@ export class DEFCheckboxTree extends React.Component {
     };
 
     render() {
-        console.log('this.props.defCodes', this.props.defCodes);
         return (
             <div className="def-code-filter">
                 <CheckboxTree
