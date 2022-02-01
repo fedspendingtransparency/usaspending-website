@@ -166,7 +166,7 @@ const StatusOfFundsChart = ({
             x.domain(d3.extent(sortedNums, (d) => d._obligations));
         }
         else {
-            x.domain([0, Math.max(sortedNums[0]._budgetaryResources, sortedNums[0]._obligations)]);
+            x.domain([0, Math.max(sortedNums[0]._budgetaryResources, sortedNums[0]._obligations)]).nice();
         }
         // extract sorted agency names
         for (let i = 0; i < sortedNums.length; i++) {
@@ -185,7 +185,7 @@ const StatusOfFundsChart = ({
             .attr('transform', tickMobileXAxis)
             .attr('class', 'tickLines-vertical')
             .style("stroke-width", 2)
-            .call(d3.axisTop(x).tickFormat((d) => `${d3.format("$.2s")(d).replace('G', 'B').replace('0.0', '0')}`).tickSize(isLargeScreen ? -chartHeight - 510 : -chartHeight - 4).ticks(3))
+            .call(d3.axisTop(x).tickFormat((d) => `${d3.format("$.2s")(d).replace('G', 'B').replace('0.0', '0')}`).tickSize(isLargeScreen ? -chartHeight - 510 : -chartHeight - 4).ticks(isLargeScreen ? 3 : 5))
             .call((g) => g.select(".domain").remove())
             .selectAll('.tick text')
             .attr('id', 'tick-labels-axis')
@@ -198,15 +198,6 @@ const StatusOfFundsChart = ({
             .style('fill', '#555')
             .style('font-size', '1.45rem')
             .attr("transform", `scale(${textScale} ${textScale})`);
-
-        // d3 axis.ticks method does not precisely render tick count so we call a
-        // function on each tick to display 3 ticks for 20 results
-        const ticks = d3.selectAll(".tick");
-        ticks.each(function mobileTicksCount(d, i) {
-            if (isLargeScreen) {
-                if (i === 1 || i === 3) d3.select(this).remove();
-            }
-        });
 
         // shift x axis labels to match mock
         const tickTexts = d3.selectAll(".tick text");
@@ -332,9 +323,9 @@ const StatusOfFundsChart = ({
             .attr('transform', tickMobileXAxis)
             .style("stroke", "#aeb0b5")
             .style("stroke-width", 1)
-            .attr("x1", -250)
+            .attr("x1", -430)
             .attr("y1", isMobile ? chartHeight + 1040 : horizontalBorderYPos())
-            .attr("x2", isLargeScreen ? chartWidth + 330 : chartWidth + 100)
+            .attr("x2", isLargeScreen ? chartWidth + 330 : chartWidth + 165)
             .attr("y2", isMobile ? chartHeight + 1040 : horizontalBorderYPos());
         // append labels for legend below chart
         svg.append("circle")
