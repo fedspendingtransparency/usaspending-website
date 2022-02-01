@@ -206,9 +206,6 @@ const StatusOfFundsChart = ({
             if (isMobile) {
                 if (i === 0) d3.select(this).attr('dx', '0.2em');
             }
-            if (isLargeScreen) {
-                if (i === 0 && isNegative) d3.select(this).attr('dx', '-1.2em');
-            }
         });
 
         // manually add horizontal x axis line since we are removing .domain to hide the y axis line
@@ -222,10 +219,7 @@ const StatusOfFundsChart = ({
                 if (sortedNums[0]._obligations <= 0) {
                     return x(0);
                 }
-                if (!isNegative) {
-                    return isLargeScreen ? chartWidth + 330 : chartWidth + 81;
-                }
-                return x(sortedNums[0]._obligations);
+                return isLargeScreen ? chartWidth + 330 : chartWidth + 81;
             })
             .attr("y2", 0);
         // append y axis (names)
