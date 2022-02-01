@@ -71,6 +71,7 @@ const extractInfraCodes = (codes) => codes
 
 const defaultExpanded = ['COVID', 'INFRA'];
 const countLabel = { value: 'COVID-19', count: 0, label: 'COVID-19 Spending' };
+const infrastructureFilterCountLabel = { value: 'Infrastructure', count: 0, label: 'Infrastructure Spending' };
 
 export class DEFCheckboxTree extends React.Component {
     constructor(props) {
@@ -86,11 +87,18 @@ export class DEFCheckboxTree extends React.Component {
 
     stageFilter = (newChecked) => {
         const newCount = newChecked.reduce((acc) => acc + 1, 0);
-        if (newCount > 0) {
+        if (newCount > 0 && (newChecked[0] === 'Z' || newChecked[0] === '1')) {
             this.props.stageDef(
                 newChecked,
                 [],
-                [{ ...countLabel, count: newCount }]
+                [{ ...infrastructureFilterCountLabel, count: newCount }]
+            );
+        }
+        else if (newCount > 0) {
+            this.props.stageDef(
+                newChecked,
+                [],
+                [{ ...countLabel, count: newCount }],
             );
         }
         else {
