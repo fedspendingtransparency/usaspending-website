@@ -163,7 +163,7 @@ const StatusOfFundsChart = ({
         const tickMobileYAxis = isLargeScreen ? 'translate(-150,16)' : 'translate(60, 0)';
         // scale to x and y data points
         if (sortedNums[sortedNums.length - 1]._obligations <= 0) {
-            x.domain(d3.extent(sortedNums, (d) => d._obligations)).nice();
+            x.domain(d3.extent(sortedNums, (d) => d._obligations)).nice(2);
         }
         else {
             x.domain([0, Math.max(sortedNums[0]._budgetaryResources, sortedNums[0]._obligations)]).nice(2);
