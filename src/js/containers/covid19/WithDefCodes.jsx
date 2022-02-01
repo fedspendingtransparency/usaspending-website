@@ -23,7 +23,7 @@ export const useDefCodes = () => {
             request.current = fetchDEFCodes();
             request.current.promise
                 .then(({ data: { codes } }) => {
-                    dispatch(setDEFCodes(codes.filter((c) => c.disaster === 'covid_19')));
+                    dispatch(setDEFCodes(codes.filter((c) => c.disaster === 'covid_19' || c.code === '1' || c.code === 'Z')));
                     setLoading(false);
                     request.current = null;
                 })
