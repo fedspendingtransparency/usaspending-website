@@ -28,8 +28,8 @@ module.exports = {
         modules: ["node_modules", path.resolve(__dirname, "../src/_scss")]
     },
     // optimization: {
-    //     // // moduleIds: 'deterministic',
-    //     // splitChunks: {
+    //     // // moduleIds: 'deterministic', -- use default?
+    //     // splitChunks: { -- use default?
     //     //     cacheGroups: {
     //     //         default: false,
     //     //         defaultVendors: false,
