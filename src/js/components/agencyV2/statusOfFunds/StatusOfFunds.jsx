@@ -202,7 +202,6 @@ const StatusOfFunds = ({ fy }) => {
                         </button> : <></>}
                     { !loading ? <VisualizationSection fetchFederalAccounts={fetchFederalAccounts} totalItems={totalItems} setTotalItems={setTotalItems} loading={loading} setLoading={setLoading} level={level} setLevel={onClick} selectedSubcomponent={selectedSubcomponent} agencyId={overview.toptierCode} agencyName={overview.name} fy={fy} results={results} /> : <LoadingMessage /> }
                     <Pagination
-                        className="status-of-funds-pagination"
                         currentPage={currentPage}
                         changePage={changeCurrentPage}
                         changeLimit={changePageSize}
