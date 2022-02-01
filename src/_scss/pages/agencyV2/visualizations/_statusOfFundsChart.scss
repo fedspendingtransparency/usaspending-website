@@ -1,0 +1,23 @@
+.status-of-funds__visualization {
+  .legend {
+    justify-content: center;
+    padding-bottom: 1.6rem;
+
+    .legend__item {
+      display: flex;
+
+      .legend__circle {
+        margin-right: 0.5rem;
+        height: 0.8rem;
+        width: 0.8rem;
+        border-radius: 50%;
+        padding-right: 0.8rem;
+        margin-top: 0.4rem;
+      }
+
+      .legend__text {
+        font-size: 1.2rem;
+      }
+    }
+  }
+}
