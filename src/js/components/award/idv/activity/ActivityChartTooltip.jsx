@@ -362,7 +362,7 @@ export default class ActivityChartTooltip extends React.Component {
                                     {
                                         this.getLinks(
                                             'agency',
-                                            data.awardingAgencySlug || data.awardingAgencyId,
+                                            data.awardingAgencySlug,
                                             this.state.awardingAgencyName,
                                             data.awardingAgencyName
                                         )
