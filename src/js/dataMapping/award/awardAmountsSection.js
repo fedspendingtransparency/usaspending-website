@@ -5,12 +5,28 @@
  * spending categories, in ascending order (under normative case), small, bigger, biggest (optional)
  */
 
+export const orderedTableTitles = [
+    "Outlayed Amount",
+    "Obligated Amount",
+    "COVID-19 Outlayed Amount",
+    "COVID-19 Obligated Amount",
+    "Current Award Amount",
+    "Potential Award Amount",
+    "Combined Obligated Amounts",
+    "Combined Outlayed Amounts",
+    "Combined Current Award Amounts",
+    "Combined Potential Award Amounts",
+    "Non-Federal Funding",
+    "Total Funding",
+    "Original Subsidy Cost",
+    "Face Value of Direct Loan"
+];
 
 export const spendingCategoriesByAwardType = {
-    loan: ['_subsidy', '_faceValue'],
-    contract: ['_totalObligation', '_baseExercisedOptions', '_baseAndAllOptions'],
-    idv: ['_totalObligation', '_baseExercisedOptions', '_baseAndAllOptions'],
-    idv_aggregated: ['_totalObligation', '_baseExercisedOptions', '_baseAndAllOptions']
+    loan: ['_subsidy', '_faceValue', '_totalOutlay'],
+    contract: ['_totalObligation', '_baseExercisedOptions', '_baseAndAllOptions', '_totalOutlay'],
+    idv: ['_totalObligation', '_baseExercisedOptions', '_baseAndAllOptions', '_totalOutlay'],
+    idv_aggregated: ['_totalObligation', '_baseExercisedOptions', '_baseAndAllOptions', '_combinedOutlay']
 };
 
 export const caresActSpendingCategories = [
@@ -24,50 +40,57 @@ export const formattedSpendingCategoriesByAwardType = {
         'fileCObligatedFormatted',
         'totalObligationFormatted',
         'baseExercisedOptionsFormatted',
-        'baseAndAllOptionsFormatted'
+        'baseAndAllOptionsFormatted',
+        'totalOutlayFormatted'
     ],
     idv: [
         'fileCOutlayFormatted',
         'fileCObligatedFormatted',
         'totalObligationFormatted',
         'baseExercisedOptionsFormatted',
-        'baseAndAllOptionsFormatted'
+        'baseAndAllOptionsFormatted',
+        'totalOutlayFormatted'
     ],
     idv_aggregated: [
         'fileCOutlayFormatted',
         'fileCObligatedFormatted',
         'totalObligationFormatted',
         'baseExercisedOptionsFormatted',
-        'baseAndAllOptionsFormatted'
+        'baseAndAllOptionsFormatted',
+        'combinedOutlayFormatted'
     ],
     asst: [
         'fileCObligatedFormatted',
         'fileCOutlayFormatted',
         'totalObligationFormatted',
         'nonFederalFundingFormatted',
-        'totalFundingFormatted'
+        'totalFundingFormatted',
+        'totalOutlayFormatted'
     ],
     loan: [
         'fileCObligatedFormatted',
         'fileCOutlayFormatted',
         'subsidyFormatted',
-        'faceValueFormatted'
+        'faceValueFormatted',
+        'totalOutlayFormatted'
     ]
 };
 
 export const awardTableClassMap = {
     "Combined Obligated Amounts": "award-amounts__obligated",
-    "Combined Current Amounts": "award-amounts__current",
-    "Combined Potential Amounts": "award-amounts__potential",
+    "Combined Outlayed Amounts": "award-amounts__data-icon-dark-blue",
+    "Combined Current Award Amounts": "award-amounts__current",
+    "Combined Potential Award Amounts": "award-amounts__potential",
     "Obligated Amount": "award-amounts__obligated",
-    "Current Amount": "award-amounts__current",
-    "Potential Amount": "award-amounts__potential",
+    "Current Award Amount": "award-amounts__current",
+    "Potential Award Amount": "award-amounts__potential",
     "Non-Federal Funding": "award-amounts__data-icon_green",
     "Total Funding": "award-amounts__data-icon_transparent",
     "Face Value of Direct Loan": "award-amounts__data-icon_face-value",
     "Original Subsidy Cost": "award-amounts__data-icon_subsidy",
     "COVID-19 Obligated Amount": "award-amounts__file-c-obligations",
-    "COVID-19 Outlayed Amount": "award-amounts__file-c-outlays"
+    "COVID-19 Outlayed Amount": "award-amounts__file-c-outlays",
+    "Outlayed Amount": "award-amounts__data-icon-dark-blue"
 };
 
 export const tableTitlesBySpendingCategoryAndAwardType = {
@@ -76,34 +99,39 @@ export const tableTitlesBySpendingCategoryAndAwardType = {
         nonFederalFundingFormatted: 'Non-Federal Funding',
         totalObligationFormatted: 'Obligated Amount',
         fileCOutlayFormatted: 'COVID-19 Outlayed Amount',
-        fileCObligatedFormatted: 'COVID-19 Obligated Amount'
+        fileCObligatedFormatted: 'COVID-19 Obligated Amount',
+        totalOutlayFormatted: 'Outlayed Amount'
     },
     idv_aggregated: {
-        baseExercisedOptionsFormatted: 'Combined Current Amounts',
-        baseAndAllOptionsFormatted: 'Combined Potential Amounts',
+        baseExercisedOptionsFormatted: 'Combined Current Award Amounts',
+        baseAndAllOptionsFormatted: 'Combined Potential Award Amounts',
         totalObligationFormatted: 'Combined Obligated Amounts',
+        combinedOutlayFormatted: 'Combined Outlayed Amounts',
         fileCOutlayFormatted: 'COVID-19 Outlayed Amount',
         fileCObligatedFormatted: 'COVID-19 Obligated Amount'
     },
     contract: {
-        baseExercisedOptionsFormatted: 'Current Amount',
-        baseAndAllOptionsFormatted: 'Potential Amount',
+        totalOutlayFormatted: 'Outlayed Amount',
         totalObligationFormatted: 'Obligated Amount',
+        baseExercisedOptionsFormatted: 'Current Award Amount',
+        baseAndAllOptionsFormatted: 'Potential Award Amount',
         fileCOutlayFormatted: 'COVID-19 Outlayed Amount',
         fileCObligatedFormatted: 'COVID-19 Obligated Amount'
     },
     idv: {
-        baseExercisedOptionsFormatted: 'Current Amount',
-        baseAndAllOptionsFormatted: 'Potential Amount',
+        baseExercisedOptionsFormatted: 'Current Award Amount',
+        baseAndAllOptionsFormatted: 'Potential Award Amount',
         totalObligationFormatted: 'Obligated Amount',
         fileCOutlayFormatted: 'COVID-19 Outlayed Amount',
-        fileCObligatedFormatted: 'COVID-19 Obligated Amount'
+        fileCObligatedFormatted: 'COVID-19 Obligated Amount',
+        totalOutlayFormatted: 'Outlayed Amount'
     },
     loan: {
         subsidyFormatted: 'Original Subsidy Cost',
         faceValueFormatted: 'Face Value of Direct Loan',
         fileCOutlayFormatted: 'COVID-19 Outlayed Amount',
-        fileCObligatedFormatted: 'COVID-19 Obligated Amount'
+        fileCObligatedFormatted: 'COVID-19 Obligated Amount',
+        totalOutlayFormatted: 'Outlayed Amount'
     }
 };
 
