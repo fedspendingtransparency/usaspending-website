@@ -119,17 +119,20 @@ module.exports = {
                 {
                     from: '*.xml',
                     to: path.resolve(__dirname, "../public"),
-                    context: path.resolve(__dirname, '../')
+                    context: path.resolve(__dirname, '../'),
+                    noErrorOnMissing: true
                 },
                 {
                     from: 'robots.txt',
                     to: path.resolve(__dirname, "../public"),
-                    context: path.resolve(__dirname, '../')
+                    context: path.resolve(__dirname, '../'),
+                    noErrorOnMissing: true
                 },
                 {
                     from: 'redirect-config.json',
                     to: path.resolve(__dirname, "../public"),
-                    context: path.resolve(__dirname, '../')
+                    context: path.resolve(__dirname, '../'),
+                    noErrorOnMissing: true
                 }
             ]
         }),
