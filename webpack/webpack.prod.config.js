@@ -18,12 +18,10 @@ module.exports = merge(common, {
     },
     optimization: {
         minimizer: [
-            new TerserPlugin(),
-            // use defaults?
-            // new TerserPlugin({
-            //     cache: true,
-            //     parallel: true
-            // }),
+            new TerserPlugin({
+                cache: true,
+                parallel: true
+            }),
             new OptimizeCssAssetsPlugin({})
         ],
         runtimeChunk: "single",
