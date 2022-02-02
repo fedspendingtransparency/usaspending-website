@@ -16,6 +16,7 @@ const BaseIdvActivityBar = {
         this.parentGeneratedId = data.parent_generated_unique_award_id || '--';
         this.parentAwardPIID = data.parent_award_piid || '--';
         this.awardingAgencyId = (data.awarding_agency_id && `${data.awarding_agency_id}`) || '--';
+        this.awardingAgencySlug = data.awarding_agency_slug;
         this._endDate = data.period_of_performance_potential_end_date ?
             parseDate(data.period_of_performance_potential_end_date) : null;
         this._awardedAmount = data.awarded_amount || 0;

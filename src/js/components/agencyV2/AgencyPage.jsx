@@ -18,6 +18,7 @@ import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
 import { scrollToY } from 'helpers/scrollToHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
+import { useLatestAccountData } from 'containers/account/WithLatestFy';
 
 import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
 import AgencySection from './AgencySection';
@@ -53,23 +54,40 @@ export const AgencyProfileV2 = ({
     const [activeSection, setActiveSection] = useState('overview');
     const { name } = useSelector((state) => state.agencyV2.overview);
 
+    let dataThroughDate = useLatestAccountData()[0]?.format('M/D/YYYY');
+    const dataThroughDates = useSelector((state) => state.agencyV2.dataThroughDates);
+    let overviewDataThroughDate = dataThroughDates?.overviewDataThroughDate || dataThroughDate;
+    let statusDataThroughDate = dataThroughDates?.statusDataThroughDate || dataThroughDate;
+    let awardSpendingDataThroughDate = dataThroughDates?.awardSpendingDataThroughDate;
+
+    // reset/hide if selectedFy is not latestFy
+    if (parseInt(selectedFy, 10) !== latestFy) {
+        dataThroughDate = null;
+        overviewDataThroughDate = null;
+        statusDataThroughDate = null;
+        awardSpendingDataThroughDate = null;
+    }
+
     const sections = [
         {
             name: 'overview',
             display: 'Overview',
             icon: 'landmark',
-            component: <AgencyOverview fy={selectedFy} />
+            dataThroughDate: overviewDataThroughDate,
+            component: <AgencyOverview fy={selectedFy} dataThroughDate={overviewDataThroughDate} />
         },
         {
             name: 'status-of-funds',
             display: 'Status of Funds',
             icon: 'money-check-alt',
+            dataThroughDate: statusDataThroughDate,
             component: <StatusOfFunds fy={selectedFy} />
         },
         {
             name: 'sub-agency',
             display: 'Award Spending',
             icon: 'hand-holding-usd',
+            dataThroughDate: awardSpendingDataThroughDate,
             component: <AwardSpendingSubagency fy={`${selectedFy}`} />
         }
     ];
@@ -140,7 +158,7 @@ export const AgencyProfileV2 = ({
                     {isError
                         ? <ErrorMessage description={errorMessage} />
                         : sections.map((section) => (
-                            <AgencySection key={section.name} section={section} isLoading={isLoading} icon={section.icon}>
+                            <AgencySection key={section.name} section={section} isLoading={isLoading} icon={section.icon} dataThroughDate={section.dataThroughDate}>
                                 {section.component || <ComingSoon />}
                             </AgencySection>
                         ))}

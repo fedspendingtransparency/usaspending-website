@@ -7,6 +7,7 @@ export const mockContract = {
     generated_unique_award_id: '6657452ew23',
     date_signed: '2005-02-18',
     total_obligation: 123231313,
+    total_outlay: 987987987,
     base_and_all_options: 234234.00,
     subaward_count: 2342334,
     total_subaward_amount: 3242342,
@@ -277,6 +278,9 @@ export const mockIdv = {
     generated_unique_award_id: '6657452ew23',
     description: 'ewraijwrw',
     total_obligation: 0,
+    total_outlay: 0,
+    child_award_total_outlay: 0,
+    grandchild_award_total_outlay: 0,
     base_exercised_options: 0.0,
     base_and_all_options: 0.0,
     account_obligations_by_defc: [],
@@ -446,6 +450,8 @@ export const mockAwardAmounts = {
     grandchild_award_base_and_all_options_value: 53493660.55,
     child_award_total_obligation: 811660.51,
     grandchild_award_total_obligation: 811660.51,
+    child_award_total_outlay: 1111111.11,
+    grandchild_award_total_outlay: 1111111.11,
     child_account_obligations_by_defc: [],
     child_account_outlays_by_defc: [],
     grandchild_account_obligations_by_defc: [{ code: 'N', amount: 100 }],
@@ -532,7 +538,7 @@ export const mockFileDownloadResponseContract = {
     file_name: `contract.zip`,
     file_url: `S3/path_to/bucket/012_account_balances_20180613140845.zip`,
     status_url: `download/status?file_name=contract.zip`,
-    download_request: {download_details: `for contract`}
+    download_request: { download_details: `for contract` }
 };
 
 export const mockFileDownloadResponseAssistance = {

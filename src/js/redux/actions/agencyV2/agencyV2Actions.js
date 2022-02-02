@@ -79,6 +79,11 @@ export const resetFederalAccountsList = () => ({
     type: 'RESET_FEDERAL_ACC_LIST'
 });
 
+export const setDataThroughDates = (dates) => ({
+    type: 'SET_DATA_THROUGH_DATES',
+    dates
+});
+
 export const resetAgency = () => ({
     type: 'RESET_AGENCY'
 });
