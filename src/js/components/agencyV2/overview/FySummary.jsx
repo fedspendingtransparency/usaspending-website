@@ -51,7 +51,6 @@ const FySummary = ({
     }, []);
 
     // eslint-disable-next-line eqeqeq
-    // eslint-disable-next-line camelcase
     let overviewDataThroughDate = useLatestAccountData()[1].toArray().filter((i) => i.submission_fiscal_year == fy)[0]?.period_end_date;
     useEffect(() => {
         if (toptierCode) {
