@@ -18,7 +18,6 @@ import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
 import { scrollToY } from 'helpers/scrollToHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
-import { useLatestAccountData } from 'containers/account/WithLatestFy';
 
 import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
 import AgencySection from './AgencySection';
@@ -54,19 +53,10 @@ export const AgencyProfileV2 = ({
     const [activeSection, setActiveSection] = useState('overview');
     const { name } = useSelector((state) => state.agencyV2.overview);
 
-    let dataThroughDate = useLatestAccountData()[0]?.format('M/D/YYYY');
     const dataThroughDates = useSelector((state) => state.agencyV2.dataThroughDates);
-    let overviewDataThroughDate = dataThroughDates?.overviewDataThroughDate || dataThroughDate;
-    let statusDataThroughDate = dataThroughDates?.statusDataThroughDate || dataThroughDate;
-    let awardSpendingDataThroughDate = dataThroughDates?.awardSpendingDataThroughDate;
-
-    // reset/hide if selectedFy is not latestFy
-    if (parseInt(selectedFy, 10) !== latestFy) {
-        dataThroughDate = null;
-        overviewDataThroughDate = null;
-        statusDataThroughDate = null;
-        awardSpendingDataThroughDate = null;
-    }
+    const overviewDataThroughDate = dataThroughDates?.overviewDataThroughDate;
+    const statusDataThroughDate = dataThroughDates?.statusDataThroughDate;
+    const awardSpendingDataThroughDate = dataThroughDates?.awardSpendingDataThroughDate;
 
     const sections = [
         {

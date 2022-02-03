@@ -6,12 +6,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import { Carousel, FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 
 import { fetchBudgetaryResources } from 'apis/agencyV2';
 import BaseAgencyBudgetaryResources from 'models/v2/agency/BaseAgencyBudgetaryResources';
 import { setBudgetaryResources, setDataThroughDates } from 'redux/actions/agencyV2/agencyV2Actions';
 import { calculatePercentage, formatMoneyWithUnits } from 'helpers/moneyFormatter';
+import { useLatestAccountData } from 'containers/account/WithLatestFy';
 import TotalObligationsOverTimeContainer from 'containers/agencyV2/visualizations/TotalObligationsOverTimeContainer';
 import ObligationsByAwardTypeContainer from 'containers/agencyV2/visualizations/ObligationsByAwardTypeContainer';
 
@@ -48,6 +50,8 @@ const FySummary = ({
         }
     }, []);
 
+    // eslint-disable-next-line eqeqeq, camelcase
+    let overviewDataThroughDate = useLatestAccountData()[1].toArray().filter((i) => i.submission_fiscal_year == fy)[0]?.period_end_date;
     useEffect(() => {
         if (toptierCode) {
             setIsLoading(true);
@@ -65,11 +69,14 @@ const FySummary = ({
                         dataByYear[year.fiscal_year] = fyBudgetaryResources;
                     });
                     dispatch(setBudgetaryResources(dataByYear));
+
                     if (dataByYear[fy].agencyBudget === "--") {
-                        dispatch(setDataThroughDates({
-                            overviewDataThroughDate: 'no data'
-                        }));
+                        overviewDataThroughDate = 'no data';
                     }
+                    dispatch(setDataThroughDates({
+                        overviewDataThroughDate
+                    }));
+
                     setIsLoading(false);
                 })
                 .catch((e) => {
@@ -95,7 +102,7 @@ const FySummary = ({
             dataThroughNote = 'No data available for the selected fiscal year';
         }
         else {
-            dataThroughNote = `Data through ${dataThroughDate}`;
+            dataThroughNote = `Data through ${moment(dataThroughDate).format('M/D/YYYY')}`;
         }
     }
 

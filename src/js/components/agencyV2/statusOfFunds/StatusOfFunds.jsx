@@ -20,6 +20,7 @@ import {
 import { fetchSubcomponentsList, fetchFederalAccountsList } from 'apis/agencyV2';
 import { parseRows } from 'helpers/agencyV2/StatusOfFundsVizHelper';
 import { useStateWithPrevious } from 'helpers';
+import { useLatestAccountData } from 'containers/account/WithLatestFy';
 import BaseStatusOfFundsLevel from 'models/v2/agency/BaseStatusOfFundsLevel';
 import Note from 'components/sharedComponents/Note';
 
@@ -55,6 +56,8 @@ const StatusOfFunds = ({ fy }) => {
         dispatch(resetFederalAccountsList());
     }, []);
 
+    // eslint-disable-next-line eqeqeq
+    let statusDataThroughDate = useLatestAccountData()[1].toArray().filter((i) => i.submission_fiscal_year == fy)[0].period_end_date;
     const fetchAgencySubcomponents = () => {
         if (request.current) {
             request.current.cancel();
@@ -77,11 +80,14 @@ const StatusOfFunds = ({ fy }) => {
                 setResults(parsedData);
                 dispatch(setAgencySubcomponents(parsedData));
                 setTotalItems(res.data.page_metadata.total);
+
                 if (parsedData.length === 0) {
-                    dispatch(setDataThroughDates({
-                        statusDataThroughDate: 'no data'
-                    }));
+                    statusDataThroughDate = 'no data';
                 }
+                dispatch(setDataThroughDates({
+                    statusDataThroughDate
+                }));
+
                 setLoading(false);
             }).catch((err) => {
                 setError(true);
