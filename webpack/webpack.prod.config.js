@@ -18,10 +18,11 @@ module.exports = merge(common, {
     },
     optimization: {
         minimizer: [
-            new TerserPlugin({
-                cache: true,
-                parallel: true
-            }),
+            new TerserPlugin(),
+            // new TerserPlugin({
+            //     cache: true,
+            //     parallel: true
+            // }),
             new OptimizeCssAssetsPlugin({})
         ],
         runtimeChunk: "single",
@@ -49,7 +50,9 @@ module.exports = merge(common, {
                         loader: "sass-loader",
                         options: {
                             sourceMap: false,
-                            includePaths: ["./src/_scss", "./node_modules"]
+                            sassOptions: {
+                                includePaths: ["./src/_scss", "./node_modules"]
+                            }
                         }
                     }
                 ]
