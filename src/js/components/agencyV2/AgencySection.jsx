@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import moment from 'moment';
 import { LoadingMessage, SectionTitle } from 'data-transparency-ui';
 
 const propTypes = {
@@ -27,7 +28,7 @@ const AgencySection = ({
             dataThroughNote = 'No data available for the selected fiscal year';
         }
         else {
-            dataThroughNote = `Data through ${dataThroughDate}`;
+            dataThroughNote = `Data through ${moment(dataThroughDate).format('M/D/YYYY')}`;
         }
     }
 
