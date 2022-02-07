@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 const merge = require('webpack-merge');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+// const BundleAnalyzerPlugin = require("webpack-bundle-analyzer").BundleAnalyzerPlugin;
 const common = require('./webpack.common');
 
 module.exports = merge(common, {
@@ -40,6 +41,7 @@ module.exports = merge(common, {
         ]
     },
     plugins: [
+        // new BundleAnalyzerPlugin(), // Webpack bundle volume analysis
         new webpack.DefinePlugin({
             'process.env': {
                 USASPENDING_API: process.env.USASPENDING_API
