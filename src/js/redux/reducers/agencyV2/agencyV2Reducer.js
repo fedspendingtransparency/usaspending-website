@@ -16,7 +16,7 @@ const subagencyCount = Object.create(BaseAgencySubagencyCount);
 subagencyCount.populate();
 
 const spendingBySubagencyTotals = Object.create(BaseSubagencySpendingRow);
-spendingBySubagencyTotals.populate();
+spendingBySubagencyTotals.populateCore();
 
 const agencySubcomponentsList = Object.create(BaseAgencySubcomponentsList);
 agencySubcomponentsList.populate();
@@ -35,7 +35,8 @@ export const initialState = {
     topTierCodes: {},
     agencyIds: {},
     selectedSubcomponent: null,
-    agencySubcomponentsList
+    agencySubcomponentsList,
+    awardSpendingDataThroughDate: null
 };
 
 const agencyReducer = (state = initialState, action) => {
@@ -121,6 +122,14 @@ const agencyReducer = (state = initialState, action) => {
             return {
                 ...state,
                 agencySubcomponentsList: initialState.agencySubcomponentsList
+            };
+        case 'SET_DATA_THROUGH_DATES':
+            return {
+                ...state,
+                dataThroughDates: {
+                    ...state.dataThroughDates,
+                    ...action.dates
+                }
             };
         case 'RESET_AGENCY':
             return Object.assign({}, initialState);

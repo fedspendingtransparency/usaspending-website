@@ -1,5 +1,5 @@
 .status-of-funds__visualization {
-    .status-of-funds__visualization-pagination {
+    .usa-dt-pagination__totals {
         @media(min-width: $large-screen) {
             margin-left: rem(32);
         }
@@ -31,10 +31,7 @@
         .parent-g > * { transition: opacity 150ms ease-in-out 100ms; }
         .parent-g:hover > * { opacity: 0.4; }
         .parent-g > *:hover { cursor: pointer; opacity: 1; transition-delay: 0ms, 0ms; rect#hlines { filter: drop-shadow(0px 8px 16px rgba(0, 0, 0, 0.1)); fill-opacity: 1; stroke: 1px }}
-        text#tick-labels-links:hover{
-            text-decoration: underline;
-            cursor: pointer;
-        }
+
         text.y-axis-labels {
             font-size: rem(20);
             @media(max-width: 1499px) {

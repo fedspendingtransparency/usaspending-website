@@ -10,12 +10,6 @@ import { Link } from 'react-router-dom';
 
 import { formatMoney } from 'helpers/moneyFormatter';
 
-const propTypes = {
-    data: PropTypes.object,
-    mouseIsInTooltipDiv: PropTypes.func,
-    mouseOutOfTooltipDiv: PropTypes.func
-};
-
 // current list of properties we might truncate
 const arrayOfProperties = [
     'recipientName',
@@ -24,7 +18,13 @@ const arrayOfProperties = [
     'parentAwardPIID'
 ];
 
-export default class IdvActivityTooltip extends React.Component {
+export default class ActivityChartTooltip extends React.Component {
+    static propTypes = {
+        data: PropTypes.object,
+        mouseIsInTooltipDiv: PropTypes.func,
+        mouseOutOfTooltipDiv: PropTypes.func
+    };
+
     constructor(props) {
         super(props);
 
@@ -60,18 +60,12 @@ export default class IdvActivityTooltip extends React.Component {
         window.removeEventListener('resize', this.measureWindow);
     }
 
-    getLinks(path, id, data, params) {
-        if (data === '--' || id === '--') {
+    getLinks(path, slug, data, params) {
+        if (data === '--' || !slug) {
             return (<div>{data}</div>);
         }
-        let title;
-        if (this.state.truncated) {
-            title = params;
-        }
         return (
-            <Link
-                title={title}
-                to={`/${path}/${id}`}>
+            <Link title={this.state.truncated ? params : ''} to={`/${path}/${slug}`}>
                 {data}
             </Link>
         );
@@ -368,7 +362,7 @@ export default class IdvActivityTooltip extends React.Component {
                                     {
                                         this.getLinks(
                                             'agency',
-                                            data.awardingAgencyId,
+                                            data.awardingAgencySlug,
                                             this.state.awardingAgencyName,
                                             data.awardingAgencyName
                                         )
@@ -441,5 +435,3 @@ export default class IdvActivityTooltip extends React.Component {
         );
     }
 }
-
-IdvActivityTooltip.propTypes = propTypes;

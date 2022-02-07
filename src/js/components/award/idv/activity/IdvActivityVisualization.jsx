@@ -14,19 +14,18 @@ import DefaultPicker from 'components/sharedComponents/pickers/DefaultPicker';
 import ActivityChart from './chart/ActivityChart';
 import ActivityChartTooltip from './ActivityChartTooltip';
 
-
-const propTypes = {
-    page: PropTypes.number,
-    total: PropTypes.number,
-    limit: PropTypes.number,
-    changePage: PropTypes.func,
-    awards: PropTypes.array,
-    xSeries: PropTypes.array,
-    ySeries: PropTypes.array,
-    selectedItemFunc: PropTypes.func
-};
-
 export default class IdvActivityVisualization extends React.Component {
+    static propTypes = {
+        page: PropTypes.number,
+        total: PropTypes.number,
+        limit: PropTypes.number,
+        changePage: PropTypes.func,
+        awards: PropTypes.array,
+        xSeries: PropTypes.array,
+        ySeries: PropTypes.array,
+        selectedItemFunc: PropTypes.func
+    };
+
     constructor(props) {
         super(props);
         this.state = {
@@ -42,26 +41,20 @@ export default class IdvActivityVisualization extends React.Component {
         };
 
         this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
-        this.showTooltip = this.showTooltip.bind(this);
-        this.hideTooltip = this.hideTooltip.bind(this);
-        this.mouseIsInTooltipDiv = this.mouseIsInTooltipDiv.bind(this);
-        this.mouseOutOfTooltipDiv = this.mouseOutOfTooltipDiv.bind(this);
-        this.setOverspent = this.setOverspent.bind(this);
-        this.createMenuData = this.createMenuData.bind(this);
     }
 
     componentDidMount() {
         this.handleWindowResize();
-        window.addEventListener('resize', this.handleWindowResize);
+        window.addEventListener("resize", this.handleWindowResize);
     }
 
     componentWillUnmount() {
-        window.removeEventListener('resize', this.handleWindowResize);
+        window.removeEventListener("resize", this.handleWindowResize);
     }
 
-    setOverspent() {
+    setOverspent = () => {
         this.setState({ isOverspent: true });
-    }
+    };
 
     handleWindowResize() {
         // determine if the width changed
@@ -75,7 +68,7 @@ export default class IdvActivityVisualization extends React.Component {
         }
     }
 
-    showTooltip(data) {
+    showTooltip = (data) => {
         if (!this.state.isShowingTooltip) {
             this.setState({
                 isShowingTooltip: true,
@@ -84,9 +77,9 @@ export default class IdvActivityVisualization extends React.Component {
                 awardIndexForTooltip: data.index
             });
         }
-    }
+    };
 
-    hideTooltip() {
+    hideTooltip = () => {
         if (!this.state.isHoveringInTooltip) {
             this.setState({
                 isShowingTooltip: false,
@@ -94,45 +87,46 @@ export default class IdvActivityVisualization extends React.Component {
                 awardIndexForTooltip: null
             });
         }
-    }
+    };
 
-    mouseIsInTooltipDiv(data) {
+    mouseIsInTooltipDiv = (data) => {
         this.setState({
             isShowingTooltip: true,
             isHoveringInTooltip: true,
             showTooltipStroke: true,
             awardIndexForTooltip: data.index
         });
-    }
+    };
 
-    mouseOutOfTooltipDiv() {
-        this.setState({
-            isShowingTooltip: false,
-            isHoveringInTooltip: false,
-            showTooltipStroke: false,
-            awardIndexForTooltip: null
-        }, () => this.hideTooltip());
-    }
+    mouseOutOfTooltipDiv = () => {
+        this.setState(
+            {
+                isShowingTooltip: false,
+                isHoveringInTooltip: false,
+                showTooltipStroke: false,
+                awardIndexForTooltip: null
+            },
+            () => this.hideTooltip()
+        );
+    };
 
-    createMenuData() {
-        return [
-            {
-                key: '10',
-                value: 10,
-                label: '10'
-            },
-            {
-                key: '50',
-                value: 50,
-                label: '50'
-            },
-            {
-                key: '100',
-                value: 100,
-                label: '100'
-            }
-        ];
-    }
+    createMenuData = () => [
+        {
+            key: "10",
+            value: 10,
+            label: "10"
+        },
+        {
+            key: "50",
+            value: 50,
+            label: "50"
+        },
+        {
+            key: "100",
+            value: 100,
+            label: "100"
+        }
+    ];
 
     render() {
         const height = 360;
@@ -153,10 +147,12 @@ export default class IdvActivityVisualization extends React.Component {
         );
         let tt = null;
         if (this.state.isShowingTooltip) {
-            tt = (<ActivityChartTooltip
-                data={this.state.toolTipData}
-                mouseIsInTooltipDiv={this.mouseIsInTooltipDiv}
-                mouseOutOfTooltipDiv={this.mouseOutOfTooltipDiv} />);
+            tt = (
+                <ActivityChartTooltip
+                    data={this.state.toolTipData}
+                    mouseIsInTooltipDiv={this.mouseIsInTooltipDiv}
+                    mouseOutOfTooltipDiv={this.mouseOutOfTooltipDiv} />
+            );
         }
         const pageRange = calculatePageRange(this.props.page, this.props.limit, this.props.total);
         const start = formatNumberWithPrecision(pageRange.start, 0);
@@ -164,8 +160,11 @@ export default class IdvActivityVisualization extends React.Component {
         const menuData = this.createMenuData();
         const resultsText = (
             <div className="pagination__totals">
-                Displaying award orders <span className="current-page-numbers">{start}-{end}</span> of {
-                    formatNumberWithPrecision(this.props.total, 0)}
+                Displaying award orders{" "}
+                <span className="current-page-numbers">
+                    {start}-{end}
+                </span>{" "}
+                of {formatNumberWithPrecision(this.props.total, 0)}
             </div>
         );
         return (
@@ -174,9 +173,7 @@ export default class IdvActivityVisualization extends React.Component {
                     this.sectionRef = widthRef;
                 }}
                 className="activity-visualization">
-                <div className="activity-visualization-title">
-                  Award Amounts and Periods of Performance of Award Orders
-                </div>
+                <div className="activity-visualization-title">Award Amounts and Periods of Performance of Award Orders</div>
                 {chart}
                 {tt}
                 <div className="activity-x-label">Period of Performance</div>
@@ -185,26 +182,20 @@ export default class IdvActivityVisualization extends React.Component {
                         <div
                             className="visualization-legend__circle
                             visualization-legend__circle_obligated" />
-                        <div className="visualization-legend__label">
-                            % Obligated of Potential Award Amount
-                        </div>
+                        <div className="visualization-legend__label">% Obligated of Potential Award Amount</div>
                     </div>
                     <div className="visualization-legend__item">
                         <div className="visualization-legend__circle visualization-legend__circle" />
-                        <div className="visualization-legend__label">
-                            % of Potential Funding Remaining
-                        </div>
+                        <div className="visualization-legend__label">% of Potential Funding Remaining</div>
                     </div>
-                    {this.state.isOverspent &&
+                    {this.state.isOverspent && (
                         <div className="visualization-legend__item">
                             <div
                                 className="visualization-legend__circle
                                 visualization-legend__circle_overspent" />
-                            <div className="visualization-legend__label">
-                                Over Obligated
-                            </div>
+                            <div className="visualization-legend__label">Over Obligated</div>
                         </div>
-                    }
+                    )}
                 </div>
                 <Pagination
                     changePage={this.props.changePage}
@@ -225,5 +216,3 @@ export default class IdvActivityVisualization extends React.Component {
         );
     }
 }
-
-IdvActivityVisualization.propTypes = propTypes;

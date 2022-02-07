@@ -14,12 +14,11 @@ import ReadMore from 'components/sharedComponents/ReadMore';
 import FySummary from './FySummary';
 
 const propTypes = {
-    fy: PropTypes.string
+    fy: PropTypes.string,
+    dataThroughDate: PropTypes.string
 };
 
-const AgencyOverview = ({
-    fy
-}) => {
+const AgencyOverview = ({ fy, dataThroughDate }) => {
     const {
         website,
         mission,
@@ -102,10 +101,11 @@ const AgencyOverview = ({
                 </FlexGridCol>
             </FlexGridRow>
         </>;
+
     return (
         <div className="body__content agency-overview">
             {content}
-            <FySummary fy={fy} windowWidth={windowWidth} isMobile={isMobile} />
+            <FySummary fy={fy} dataThroughDate={dataThroughDate} windowWidth={windowWidth} isMobile={isMobile} />
         </div>
     );
 };

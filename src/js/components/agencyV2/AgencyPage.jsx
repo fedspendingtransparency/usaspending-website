@@ -53,23 +53,31 @@ export const AgencyProfileV2 = ({
     const [activeSection, setActiveSection] = useState('overview');
     const { name } = useSelector((state) => state.agencyV2.overview);
 
+    const dataThroughDates = useSelector((state) => state.agencyV2.dataThroughDates);
+    const overviewDataThroughDate = dataThroughDates?.overviewDataThroughDate;
+    const statusDataThroughDate = dataThroughDates?.statusDataThroughDate;
+    const awardSpendingDataThroughDate = dataThroughDates?.awardSpendingDataThroughDate;
+
     const sections = [
         {
             name: 'overview',
             display: 'Overview',
             icon: 'landmark',
-            component: <AgencyOverview fy={selectedFy} />
+            dataThroughDate: overviewDataThroughDate,
+            component: <AgencyOverview fy={selectedFy} dataThroughDate={overviewDataThroughDate} />
         },
         {
             name: 'status-of-funds',
             display: 'Status of Funds',
             icon: 'money-check-alt',
+            dataThroughDate: statusDataThroughDate,
             component: <StatusOfFunds fy={selectedFy} />
         },
         {
             name: 'sub-agency',
             display: 'Award Spending',
             icon: 'hand-holding-usd',
+            dataThroughDate: awardSpendingDataThroughDate,
             component: <AwardSpendingSubagency fy={`${selectedFy}`} />
         }
     ];
@@ -140,7 +148,7 @@ export const AgencyProfileV2 = ({
                     {isError
                         ? <ErrorMessage description={errorMessage} />
                         : sections.map((section) => (
-                            <AgencySection key={section.name} section={section} isLoading={isLoading} icon={section.icon}>
+                            <AgencySection key={section.name} section={section} isLoading={isLoading} icon={section.icon} dataThroughDate={section.dataThroughDate}>
                                 {section.component || <ComingSoon />}
                             </AgencySection>
                         ))}
