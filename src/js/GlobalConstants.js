@@ -21,7 +21,8 @@ const globalConstants = {
     FILES_SERVER_BASE_URL: filesServerUrlByEnv[process.env.ENV],
     ARP_RELEASED: process.env.ENV !== 'prod',
     AGENCYV2_RELEASED: true,
-    AGENCY_LINK: 'agency'
+    AGENCY_LINK: 'agency',
+    DUNS_LABEL: 'DUNS' // 'Legacy DUNS' later...
 };
 
 module.exports = globalConstants;

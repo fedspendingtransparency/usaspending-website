@@ -10,17 +10,17 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { createOnKeyDownHandler } from 'helpers/keyboardEventsHelper';
 
-const propTypes = {
-    accordionName: PropTypes.string,
-    accordionIcon: PropTypes.string,
-    iconClassName: PropTypes.string,
-    accordionData: PropTypes.object,
-    globalToggle: PropTypes.bool
-};
-
 const awardIdField = 'Unique Award Key';
 
 export default class Accordion extends React.Component {
+    static propTypes = {
+        accordionName: PropTypes.string,
+        accordionIcon: PropTypes.string,
+        iconClassName: PropTypes.string,
+        accordionData: PropTypes.object,
+        globalToggle: PropTypes.bool
+    };
+
     constructor(props) {
         super(props);
         this.state = {
@@ -28,11 +28,13 @@ export default class Accordion extends React.Component {
         };
         this.handleClick = this.handleClick.bind(this);
     }
+
     componentDidUpdate(prevProps) {
         if (this.props.globalToggle !== prevProps.globalToggle) {
             this.globalOverride();
         }
     }
+
     handleClick() {
         this.setState({ open: !this.state.open });
     }
@@ -44,9 +46,7 @@ export default class Accordion extends React.Component {
         if (title && path) return (<Link to={path}>{title}</Link>);
         return (<Link to={path}>Unknown</Link>);
     }
-    learnMore() {
-        
-    }
+
     // pass an array of address lines
     // e.g. ['1234 Sleepy Ghost Lane', 'Las Vegas, Nevada', 'Some Country']
     address(arrayOfRows) {
@@ -65,7 +65,8 @@ export default class Accordion extends React.Component {
             </div>
         );
     }
-    // pass and array of data
+    
+    // pass an array of data
     // e.g. ['have', 'a', 'good', 'day']
     list(arrayOfData) {
         const array = compact(arrayOfData);
@@ -138,5 +139,3 @@ export default class Accordion extends React.Component {
         );
     }
 }
-
-Accordion.propTypes = propTypes;

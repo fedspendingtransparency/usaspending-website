@@ -4,7 +4,7 @@
  */
 
 import { isAwardAggregate, getSubmittingAgencyId } from 'helpers/awardSummaryHelper';
-import { AGENCY_LINK } from 'GlobalConstants';
+import { idList } from '../shared/recipientIdentifiers';
 
 const getUriOrFain = ({
     generatedId,
@@ -32,17 +32,6 @@ const additionalDetailsFinancialAssistance = (awardData) => {
         recipient
     } = awardData;
 
-    const ids = (duns, uei) => {
-        let returnString = '';
-        if (duns) {
-            returnString = `${duns} (DUNS) ${uei ? '\n' : ''}`;
-        }
-        if (uei) {
-            returnString += `${uei} (UEI)`;
-        }
-        return returnString || '--';
-    };
-
     const data = {
         uniqueAwardKey: {
             'Unique Award Key': awardData.generatedId,
@@ -56,7 +45,7 @@ const additionalDetailsFinancialAssistance = (awardData) => {
             'Awarding Agency': {
                 type: 'link',
                 data: {
-                    path: (awardingAgency.agencySlug && awardingAgency.hasAgencyPage) ? `/${AGENCY_LINK}/${awardingAgency.agencySlug}` : null,
+                    path: (awardingAgency.agencySlug && awardingAgency.hasAgencyPage) ? `/agency/${awardingAgency.agencySlug}` : null,
                     title: awardingAgency.formattedToptier
                 }
             },
@@ -77,7 +66,7 @@ const additionalDetailsFinancialAssistance = (awardData) => {
             'Funding Agency': {
                 type: 'link',
                 data: {
-                    path: (fundingAgency.agencySlug && fundingAgency.hasAgencyPage) ? `/${AGENCY_LINK}/${fundingAgency.agencySlug}` : null,
+                    path: (fundingAgency.agencySlug && fundingAgency.hasAgencyPage) ? `/agency/${fundingAgency.agencySlug}` : null,
                     title: fundingAgency.formattedToptier
                 }
             },
@@ -119,19 +108,13 @@ const additionalDetailsFinancialAssistance = (awardData) => {
                 }
             },
             'Recipient Identifier': {
-                type: 'learnMore',
-                data: {
-                    '<Modal />': ids(recipient.duns, recipient.uei),
-                }
-            'Parent Recipient': {
-                type: 'link',
-                data: {
-                    path: recipient.parentInternalId ?
-                        `/recipient/${recipient.parentInternalId}/latest` : null,
-                    title: recipient.parentName
-                }
+                type: 'list',
+                data: idList(recipient.duns, recipient.uei)
             },
-            'Parent Recipient Identifier\nLink': ids(recipient.parentDuns, recipient.parentUei),
+            'Parent Recipient Identifier': {
+                type: 'list',
+                data: idList(recipient.parentDuns, recipient.parentUei)
+            },
             'Recipient Address': {
                 type: 'address',
                 data: [
