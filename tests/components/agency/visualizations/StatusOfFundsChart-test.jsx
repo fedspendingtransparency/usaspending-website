@@ -73,6 +73,34 @@ const mockChartData = {
         }
     ]
 };
+const mockChartDataNegative = {
+    page_metadata: {
+        page: 1,
+        total: 1,
+        limit: 2,
+        next: 2,
+        previous: null,
+        hasNext: true,
+        hasPrevious: false
+    },
+    results: [
+        {
+            name: "National Oceanic and Atmospheric Administration",
+            total_budgetary_resources: 9100000000,
+            total_obligations: 6000000000
+        },
+        {
+            name: "Bureau of the Census",
+            total_budgetary_resources: 4400000000,
+            total_obligations: -2500000000
+        },
+        {
+            name: "U.S. Patent and Trademark Office",
+            total_budgetary_resources: 4200000000,
+            total_obligations: -2700000000
+        }
+    ]
+};
 const fy = '2021';
 const toptierCode = '012';
 const name = 'Department of Agriculture';
@@ -106,6 +134,20 @@ describe('StatusOfFundsChart', () => {
         // set timeout to wait for expect() to pass after call to render
         setTimeout(() => {
             expect(screen.getByText(`${name} by Sub-Component for FY 2021`).toBeInTheDocument());
+        }, 1000);
+    });
+    it('should display negative formatted amount used for max x axis value', () => {
+        render(<StatusOfFundsChart results={mockChartDataNegative.results} fy={fy} level={0} />);
+        // set timeout to wait for expect() to pass after call to render
+        setTimeout(() => {
+            expect(screen.getByText('-$2.5B').toBeInTheDocument());
+        }, 1000);
+    });
+    it('should display $0 axis when positive and negative values are present', () => {
+        render(<StatusOfFundsChart results={mockChartDataNegative.results} fy={fy} level={0} />);
+        // set timeout to wait for expect() to pass after call to render
+        setTimeout(() => {
+            expect(screen.getByText('$0').toBeInTheDocument());
         }, 1000);
     });
     it("should make an API call on level change", () => {
@@ -162,5 +204,12 @@ describe('StatusOfFundsChart', () => {
         waitFor(() => {
             expect(spy).toHaveBeenCalledTimes(2);
         });
+    });
+    it('should include a legend', () => {
+        render(<VisualizationSection agencyId={toptierCode} agencyName={name} fy={fy} results={mockChartData.results} level={0} />);
+        // set timeout to wait for expect() to pass after call to render
+        setTimeout(() => {
+            expect(screen.getByText('FY21 Total Budgetary Resources').toBeInTheDocument());
+        }, 1000);
     });
 });

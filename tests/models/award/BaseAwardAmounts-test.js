@@ -126,6 +126,9 @@ describe('BaseAwardAmounts', () => {
         it('should format the obligated amount', () => {
             expect(awardAmounts.totalObligationFormatted).toEqual('$1,623,321.02');
         });
+        it('should format the combined outlay amount', () => {
+            expect(awardAmounts.combinedOutlayFormatted).toEqual('$2,222,222.22');
+        });
         it('should format the totalObligation options with units', () => {
             expect(awardAmounts.totalObligationAbbreviated).toEqual('$1.6 M');
         });
@@ -165,6 +168,7 @@ describe('BaseAwardAmounts', () => {
         it('should successfully return spending data for the IDV itself (non-combined)', () => {
             expect(nonAggregateIdvNormal.baseExercisedOptionsFormatted).toEqual('$0.00');
             expect(nonAggregateIdvNormal.totalObligationFormatted).toEqual('$0.00');
+            expect(nonAggregateIdvNormal.totalOutlayFormatted).toEqual('$0.00');
             expect(nonAggregateIdvNormal.baseAndAllOptionsFormatted).toEqual('$0.00');
             expect(nonAggregateIdvNormal.overspendingFormatted).toEqual('$0.00');
             expect(nonAggregateIdvNormal.extremeOverspendingFormatted).toEqual('$0.00');
@@ -172,6 +176,7 @@ describe('BaseAwardAmounts', () => {
         it('should handle overspending', () => {
             expect(nonAggregateIdvOverspent.baseExercisedOptionsFormatted).toEqual('$10.00');
             expect(nonAggregateIdvOverspent.totalObligationFormatted).toEqual('$0.00');
+            expect(nonAggregateIdvNormal.totalOutlayFormatted).toEqual('$0.00');
             expect(nonAggregateIdvOverspent.baseAndAllOptionsFormatted).toEqual('$0.00');
             expect(nonAggregateIdvOverspent.overspendingFormatted).toEqual('-$10.00');
             expect(nonAggregateIdvOverspent.extremeOverspendingFormatted).toEqual('$0.00');
@@ -179,6 +184,7 @@ describe('BaseAwardAmounts', () => {
         it('should handle extremeOverspending', () => {
             expect(nonAggregateIdvExtremeOverspent.baseExercisedOptionsFormatted).toEqual('$0.00');
             expect(nonAggregateIdvExtremeOverspent.totalObligationFormatted).toEqual('$0.00');
+            expect(nonAggregateIdvNormal.totalOutlayFormatted).toEqual('$0.00');
             expect(nonAggregateIdvExtremeOverspent.baseAndAllOptionsFormatted).toEqual('$10.00');
             expect(nonAggregateIdvExtremeOverspent.overspendingFormatted).toEqual('$0.00');
             expect(nonAggregateIdvExtremeOverspent.extremeOverspendingFormatted).toEqual('-$10.00');
@@ -200,6 +206,8 @@ describe('BaseAwardAmounts', () => {
             expect(arrayOfObjectProperties.includes("childIDVCount")).toEqual(false);
             expect(arrayOfObjectProperties.includes("childAwardCount")).toEqual(false);
             expect(arrayOfObjectProperties.includes("grandchildAwardCount")).toEqual(false);
+            expect(arrayOfObjectProperties.includes("childAwardTotalOutlay")).toEqual(false);
+            expect(arrayOfObjectProperties.includes("grandchildAwardTotalOutlay")).toEqual(false);
         });
     });
     describe('Grant Award Amounts', () => {
@@ -211,6 +219,8 @@ describe('BaseAwardAmounts', () => {
             expect(arrayOfObjectProperties.includes("childIDVCount")).toEqual(false);
             expect(arrayOfObjectProperties.includes("childAwardCount")).toEqual(false);
             expect(arrayOfObjectProperties.includes("grandchildAwardCount")).toEqual(false);
+            expect(arrayOfObjectProperties.includes("childAwardTotalOutlay")).toEqual(false);
+            expect(arrayOfObjectProperties.includes("grandchildAwardTotalOutlay")).toEqual(false);
         });
         it('creates grant specific properties w/ correct formatting', () => {
             expect(grantAwardAmounts._nonFederalFunding).toEqual(1130000);

@@ -15,21 +15,21 @@ import ResultsTableNoResults from 'components/search/table/ResultsTableNoResults
 import ResultsTableLoadingMessage from 'components/search/table/ResultsTableLoadingMessage';
 import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorMessage';
 
-const propTypes = {
-    tableType: PropTypes.string,
-    results: PropTypes.array,
-    counts: PropTypes.object,
-    inFlight: PropTypes.bool,
-    error: PropTypes.bool,
-    page: PropTypes.object,
-    limit: PropTypes.number,
-    sort: PropTypes.object,
-    order: PropTypes.object,
-    changePage: PropTypes.func,
-    updateSort: PropTypes.func
-};
-
 export default class ReferencedAwardsTable extends React.Component {
+    static propTypes = {
+        tableType: PropTypes.string,
+        results: PropTypes.array,
+        counts: PropTypes.object,
+        inFlight: PropTypes.bool,
+        error: PropTypes.bool,
+        page: PropTypes.object,
+        limit: PropTypes.number,
+        sort: PropTypes.object,
+        order: PropTypes.object,
+        changePage: PropTypes.func,
+        updateSort: PropTypes.func
+    };
+
     generateHeaderCells() {
         const { tableType, sort, order } = this.props;
         return referencedAwardsColumns[this.props.tableType].map((col) => (
@@ -63,10 +63,8 @@ export default class ReferencedAwardsTable extends React.Component {
                         if (col.name === 'piid') {
                             data = (<Link to={`/award/${row.internalId}`}>{row[col.name]}</Link>);
                         }
-                        if (col.name === 'awardingAgency' && row.awardingAgencyId) {
-                            // TODO update after receiving updated endpoint for DEV-8068
-                            // data = (<Link to={`/agency/${row.awardingAgencyId}`}>{row[col.name]}</Link>);
-                            data = row[col.name];
+                        if (col.name === 'awardingAgency' && row.awardingAgencySlug) {
+                            data = (<Link to={`/agency/${row.awardingAgencySlug}`}>{row[col.name]}</Link>);
                         }
                         return (
                             <td
@@ -138,5 +136,3 @@ export default class ReferencedAwardsTable extends React.Component {
         );
     }
 }
-
-ReferencedAwardsTable.propTypes = propTypes;

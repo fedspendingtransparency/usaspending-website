@@ -9,25 +9,24 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import additionalDetailsContract from 'dataMapping/award/additionalDetailsContract';
-import additionalDetailsFinancialAssistance from
-    'dataMapping/award/additionalDetailsFinancialAssistance';
+import additionalDetailsFinancialAssistance from 'dataMapping/award/additionalDetailsFinancialAssistance';
 import additionalDetailsIdv from 'dataMapping/award/additionalDetailsIdv';
 import Accordion from './Accordion';
 import IdvPeriodOfPerformance from './IdvPeriodOfPerformance';
 
-const propTypes = {
-    overview: PropTypes.object
-};
-
 export default class AdditionalInfo extends React.Component {
+    static propTypes = {
+        overview: PropTypes.object
+    };
+
     constructor(props) {
         super(props);
         this.state = {
             globalToggle: false
         };
-        this.handleClick = this.handleClick.bind(this);
     }
-    handleClick() {
+
+    handleClick = () => {
         this.setState({ globalToggle: !this.state.globalToggle });
     }
 
@@ -233,4 +232,3 @@ export default class AdditionalInfo extends React.Component {
         );
     }
 }
-AdditionalInfo.propTypes = propTypes;

@@ -13,6 +13,7 @@ import InterimDataDisclaimerModal from 'components/covid19/InterimDataDisclaimer
 import CovidModalContainer from 'containers/covid19/CovidModalContainer';
 
 import { globalModalProps } from '../../propTypes';
+import UEIModalContainer from "../homepage/UEIModalContainer";
 
 const propTypes = {
     globalModal: globalModalProps,
@@ -39,6 +40,13 @@ export class GlobalModalContainer extends React.Component {
         if (this.props.globalModal.modal === "covid-data-disclaimer") {
             return (
                 <InterimDataDisclaimerModal
+                    mounted={this.props.globalModal.display}
+                    hideModal={this.props.hideModal} />
+            );
+        }
+        if (this.props.globalModal.modal === "uei") {
+            return (
+                <UEIModalContainer
                     mounted={this.props.globalModal.display}
                     hideModal={this.props.hideModal} />
             );
