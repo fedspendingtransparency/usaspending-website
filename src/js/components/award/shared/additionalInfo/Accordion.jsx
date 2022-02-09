@@ -65,7 +65,7 @@ export default class Accordion extends React.Component {
             </div>
         );
     }
-    
+
     // pass an array of data
     // e.g. ['have', 'a', 'good', 'day']
     list(arrayOfData) {

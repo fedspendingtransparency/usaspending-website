@@ -5,6 +5,7 @@
 
 import { getSubmittingAgencyId } from "helpers/awardSummaryHelper";
 import { idList } from '../shared/recipientIdentifiers';
+
 const additionalDetails = (awardData) => {
     const {
         awardingAgency,
