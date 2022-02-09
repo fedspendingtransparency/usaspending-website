@@ -3,7 +3,9 @@
 
     .award-amounts__data-content {
         @extend %column-less-table__row;
+        flex-wrap: wrap;
         border-bottom: 0;
+        white-space: nowrap;
         &:nth-of-type(1) {
             border-radius: rem(5) rem(5) 0 0;
         }
@@ -15,9 +17,10 @@
 
     .award-amounts__data-icon {
         height: rem(10);
-        width: rem(10);
+        min-width: rem(10);
         border-radius: 50%;
         display: inline-block;
+        margin-top: rem(5);
         margin-right: rem(5);
     }
 
