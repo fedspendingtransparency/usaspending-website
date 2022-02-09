@@ -111,6 +111,13 @@ const additionalDetailsFinancialAssistance = (awardData) => {
                 type: 'list',
                 data: idList(recipient.duns, recipient.uei)
             },
+            'Parent Recipient': {
+                type: 'link',
+                data: {
+                    path: recipient.parentInternalId ? `/recipient/${recipient.parentInternalId}/latest` : null,
+                    title: recipient.parentName
+                }
+            },
             'Parent Recipient Identifier': {
                 type: 'list',
                 data: idList(recipient.parentDuns, recipient.parentUei)

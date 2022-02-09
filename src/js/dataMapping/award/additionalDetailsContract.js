@@ -3,7 +3,7 @@
  * Created by Kwadwo Opoku-Debrah 12/17/18
  */
 import { getSubmittingAgencyId } from "helpers/awardSummaryHelper";
-import { AGENCY_LINK } from 'GlobalConstants';
+import { idList } from '../shared/recipientIdentifiers';
 
 const additionalDetailsContracts = (awardData) => {
     const {
@@ -28,7 +28,7 @@ const additionalDetailsContracts = (awardData) => {
             'Awarding Agency': {
                 type: 'link',
                 data: {
-                    path: (awardingAgency.agencySlug && awardingAgency.hasAgencyPage) ? `/${AGENCY_LINK}/${awardingAgency.agencySlug}` : null,
+                    path: (awardingAgency.agencySlug && awardingAgency.hasAgencyPage) ? `/agency/${awardingAgency.agencySlug}` : null,
                     title: awardingAgency.formattedToptier
                 }
             },
@@ -49,7 +49,7 @@ const additionalDetailsContracts = (awardData) => {
             'Funding Agency': {
                 type: 'link',
                 data: {
-                    path: (fundingAgency.agencySlug && fundingAgency.hasAgencyPage) ? `/${AGENCY_LINK}/${fundingAgency.agencySlug}` : null,
+                    path: (fundingAgency.agencySlug && fundingAgency.hasAgencyPage) ? `/agency/${fundingAgency.agencySlug}` : null,
                     title: fundingAgency.formattedToptier
                 }
             },
@@ -81,8 +81,7 @@ const additionalDetailsContracts = (awardData) => {
             'Parent IDV Agency Name': {
                 type: 'link',
                 data: {
-                    path: parentAwardDetails.agencySlug ?
-                        `/agency/${parentAwardDetails.agencySlug}` : null,
+                    path: parentAwardDetails.agencySlug ? `/agency/${parentAwardDetails.agencySlug}` : null,
                     title: parentAwardDetails.agencyName
                 }
             },
@@ -118,16 +117,21 @@ const additionalDetailsContracts = (awardData) => {
                     title: recipient._name
                 }
             },
-            'Recipient Unique Identifier(s)': recipient.duns,
+            'Recipient Identifier': {
+                type: 'list',
+                data: idList(recipient.duns, recipient.uei)
+            },
             'Parent Recipient': {
                 type: 'link',
                 data: {
-                    path: recipient.parentInternalId ?
-                        `/recipient/${recipient.parentInternalId}/latest` : null,
+                    path: recipient.parentInternalId ? `/recipient/${recipient.parentInternalId}/latest` : null,
                     title: recipient.parentName
                 }
             },
-            'Parent DUNS': recipient.parentDuns || '',
+            'Parent Recipient Identifier': {
+                type: 'list',
+                data: idList(recipient.parentDuns, recipient.parentUei)
+            },
             'Recipient Address': {
                 type: 'address',
                 data: [

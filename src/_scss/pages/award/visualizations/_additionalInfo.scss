@@ -12,7 +12,6 @@
       padding-top: rem(20);
         .award__col {
             width: 100%;
-            white-space: pre-line; // line breaks in recipient IDs
             // Override space between columns when stacked in mobile
             &:first-child {
                 padding-bottom: 0;
