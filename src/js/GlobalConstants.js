@@ -22,7 +22,7 @@ const globalConstants = {
     ARP_RELEASED: process.env.ENV !== 'prod',
     AGENCYV2_RELEASED: true,
     AGENCY_LINK: 'agency',
-    DUNS_LABEL: 'DUNS' // 'Legacy DUNS' later...
+    DUNS_LABEL: '' // 'Legacy ' later...
 };
 
 module.exports = globalConstants;

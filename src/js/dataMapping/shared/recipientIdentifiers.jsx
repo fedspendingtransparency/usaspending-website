@@ -20,7 +20,7 @@ export const idList = (duns, uei) => {
     if (duns) {
         ids.push(
             <>
-                {duns} ({DUNS_LABEL} <GlossaryLink term="duns" />)
+                {duns} ({DUNS_LABEL}DUNS <GlossaryLink term="duns" />)
             </>
         );
     }
