@@ -13,7 +13,7 @@ export const idList = (duns, uei) => {
     if (uei) {
         ids.push(
             <>
-                {uei} (UEI <GlossaryLink term="Unique Entity Identifier (UEI)" />)
+                {uei} (UEI <GlossaryLink term="unique-entity-identifier-uei" />)
             </>
         );
     }
