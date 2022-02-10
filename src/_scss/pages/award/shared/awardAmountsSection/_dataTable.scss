@@ -13,6 +13,10 @@
             border-radius: 0 0 rem(5) rem(5);
             border-bottom: solid rem(1) $border-light-gray;
         }
+
+        .indent {
+            padding-left: 1.5rem;
+        }
     }
 
     .award-amounts__data-icon {
