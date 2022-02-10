@@ -76,7 +76,7 @@ export default class RecipientLandingSearchBar extends React.Component {
                         name="recipient"
                         value={this.state.recipient}
                         onChange={this.onChange}
-                        placeholder="Search by Recipient Name or DUNS" />
+                        placeholder="Search by Recipient Name, UEI, or DUNS" />
                     <button
                         aria-label="Search"
                         className="search-section__button"
