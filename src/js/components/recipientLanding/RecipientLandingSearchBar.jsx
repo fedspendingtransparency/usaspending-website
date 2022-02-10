@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { Search, Close } from 'components/sharedComponents/icons/Icons';
+import { DUNS_LABEL } from 'GlobalConstants';
 
 const propTypes = {
     setRecipientSearchString: PropTypes.func.isRequired
@@ -76,7 +77,7 @@ export default class RecipientLandingSearchBar extends React.Component {
                         name="recipient"
                         value={this.state.recipient}
                         onChange={this.onChange}
-                        placeholder="Search by Recipient Name, UEI, or DUNS" />
+                        placeholder={`Search by Recipient Name, UEI, or ${DUNS_LABEL.toLowerCase()}DUNS`} />
                     <button
                         aria-label="Search"
                         className="search-section__button"
