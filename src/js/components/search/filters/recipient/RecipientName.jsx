@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 
 import Warning from 'components/sharedComponents/autocomplete/Warning';
 import IndividualSubmit from 'components/search/filters/IndividualSubmit';
+import { DUNS_LABEL } from 'GlobalConstants';
 
 const propTypes = {
     searchRecipient: PropTypes.func,
@@ -61,7 +62,7 @@ export default class RecipientName extends React.Component {
                             id="search"
                             type="text"
                             className="recipient-input"
-                            placeholder="Recipient Name or DUNS"
+                            placeholder={`Search by Recipient Name, UEI, or ${DUNS_LABEL?.toLowerCase()}DUNS`}
                             value={this.props.value}
                             onChange={this.props.changedInput} />
                         <IndividualSubmit
