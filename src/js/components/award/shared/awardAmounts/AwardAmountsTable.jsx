@@ -97,11 +97,11 @@ const AwardAmountsTable = ({
                         ? null
                         :
                         <div key={uniqueId(title)} className="award-amounts__data-content">
-                            <div>
+                            <div className="hanging">
                                 <span className={`award-amounts__data-icon ${(title === 'Outlayed Amount' || title === 'Combined Outlayed Amounts') ? '' : awardTableClassMap[title]}`} />
                                 {title}
                             </div>
-                            <span className="indent">{amountMapByCategoryTitle[title]}</span>
+                            <span>{amountMapByCategoryTitle[title]}</span>
                         </div>
                 ))
             }
