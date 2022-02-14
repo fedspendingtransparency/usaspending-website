@@ -1,0 +1,28 @@
+.info-banner {
+  @include usa-alert-warning;
+  @include display(flex);
+  border: solid 1px $color-gold;
+  text-align: left;
+  padding: rem(18) rem(10);
+  .modal-disclaimer__icon {
+    @include flex(0 0 auto);
+    color: $color-gold;
+    font-size: rem(26);
+    margin-right: rem(10);
+  }
+  .info-banner__content {
+    @include flex (1 1 auto);
+    info-banner__title-text {
+      margin: 0 0 rem(6);
+      font-weight: $font-semibold;
+      font-size: rem(18);
+      line-height: rem(22);
+    }
+    p {
+      margin: 0;
+      a {
+        font-weight: $font-semibold;
+      }
+    }
+  }
+}

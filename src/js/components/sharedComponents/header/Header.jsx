@@ -8,7 +8,7 @@ import { isIe } from "helpers/browser";
 import GlossaryContainer from 'containers/glossary/GlossaryContainer';
 import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
 import Analytics from 'helpers/analytics/Analytics';
-import InfoBanner from './InfoBanner';
+import UEIInfoBanner from './UEIInfoBanner';
 import NavBar from './NavBar';
 
 const clickedHeaderLink = (route) => {
@@ -80,7 +80,7 @@ export default class Header extends React.Component {
 
     render() {
         let infoBanner = (
-            <InfoBanner
+            <UEIInfoBanner
                 triggerModal={this.openBannerModal}
                 closeBanner={this.closeBanner} />
         );

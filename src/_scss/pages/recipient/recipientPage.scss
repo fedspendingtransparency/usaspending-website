@@ -6,6 +6,10 @@
 	$color-gray-border: #D8D8D8;
 	$color-blue-background: #F5FBFC;
 
+	.info-banner-container {
+		@import "./_recipientInfoBanner";
+	}
+
 	.usda-page-header .usda-page-header__container .usda-page-header__toolbar {
 		@media(max-width: $medium-screen) {
 			border-bottom: rem(1) solid $color-gray-lighter;
