@@ -62,7 +62,7 @@ export default class RecipientName extends React.Component {
                             id="search"
                             type="text"
                             className="recipient-input"
-                            placeholder={`Search by Recipient Name, UEI, or ${DUNS_LABEL?.toLowerCase()}DUNS`}
+                            placeholder={`Recipient Name, UEI, or ${DUNS_LABEL?.toLowerCase()}DUNS`}
                             value={this.props.value}
                             onChange={this.props.changedInput} />
                         <IndividualSubmit
