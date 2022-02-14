@@ -19,6 +19,7 @@
             text-indent: -1.5rem;
 
             @media (max-width: $tablet-screen) {
+                padding-bottom: 4px;
                 flex-basis: 100%;
             }
         }
