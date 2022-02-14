@@ -5,7 +5,8 @@
         @extend %column-less-table__row;
         flex-wrap: wrap;
         border-bottom: 0;
-        white-space: nowrap;
+        // white-space: nowrap;
+        padding-left: 2.3rem;
         &:nth-of-type(1) {
             border-radius: rem(5) rem(5) 0 0;
         }
@@ -14,8 +15,8 @@
             border-bottom: solid rem(1) $border-light-gray;
         }
 
-        .indent {
-            padding-left: 1.5rem;
+        .hanging {
+            text-indent: -1.5rem;
 
             @media (max-width: $tablet-screen) {
                 flex-basis: 100%;
