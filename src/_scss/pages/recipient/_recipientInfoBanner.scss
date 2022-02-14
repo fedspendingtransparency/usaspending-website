@@ -1,3 +1,5 @@
+@import '../../layouts/default/header/warning';
+
 .info-banner {
   @include usa-alert-warning;
   @include display(flex);
