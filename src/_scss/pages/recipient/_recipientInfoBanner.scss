@@ -2,26 +2,8 @@
 
 .info-banner {
   @include usa-alert-warning;
-  @include display(flex);
   border-top: solid 5px $color-gold;
-  text-align: left;
   .info-banner__exclamation-triangle {
-    @include flex(0 0 auto);
     color: $color-gold;
-  }
-  .info-banner__content {
-    @include flex (1 1 auto);
-    info-banner__title-text {
-      margin: 0 0 rem(6);
-      font-weight: $font-semibold;
-      font-size: rem(18);
-      line-height: rem(22);
-    }
-    p {
-      margin: 0;
-      a {
-        font-weight: $font-semibold;
-      }
-    }
   }
 }
