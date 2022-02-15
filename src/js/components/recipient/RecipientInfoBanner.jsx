@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Cookies from "js-cookie";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import InfoBanner from "../sharedComponents/header/InfoBanner";
-import PropTypes from "prop-types";
 
-const propTypes = {
-    closeBanner: PropTypes.func
-};
+const RecipientInfoBanner = () => {
+    const [showInfoBanner, setShowInfoBanner] = useState(false);
 
-const RecipientInfoBanner = (props) => {
-    const [showBanner, setShowBanner] = useState(true);
+    const cookie = 'usaspending-recipient-uei-warning';
 
-    const cookie = 'recipient-uei-warning';
-
-    Cookies.set(cookie, 'showUEIBanner');
+    useEffect(() => {
+        if (!Cookies.get(cookie) || Cookies.get(cookie) === 'show') {
+            setShowInfoBanner(true);
+            Cookies.set(cookie, 'show', { expires: 730 });
+        }
+    });
 
     const title = 'NOTICE';
     const content = (
@@ -30,11 +30,10 @@ const RecipientInfoBanner = (props) => {
     const closeBanner = () => {
         // set a cookie to hide the banner in the future if banner is closed
         Cookies.set(cookie, 'hide', { expires: 7 });
-        setShowBanner(false);
+        setShowInfoBanner(false);
     };
 
-    return <>{showBanner && <InfoBanner {...props} title={title} content={content} icon={icon} closeBanner={closeBanner} />}</>;
+    return <>{showInfoBanner && <InfoBanner closeBanner={closeBanner} title={title} content={content} icon={icon} />}</>;
 };
 
-RecipientInfoBanner.propTypes = propTypes;
 export default RecipientInfoBanner;

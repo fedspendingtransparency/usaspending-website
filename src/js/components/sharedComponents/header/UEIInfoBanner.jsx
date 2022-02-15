@@ -21,7 +21,6 @@ const UEIInfoBanner = (props) => {
 
     const closeBanner = () => {
         // set a cookie to hide the banner in the future if banner is closed
-        console.log('here');
         Cookies.set(cookie, 'hide', { expires: 730 });
         setShowInfoBanner(false);
     };
