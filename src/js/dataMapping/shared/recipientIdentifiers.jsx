@@ -9,6 +9,9 @@ import { DUNS_LABEL } from "GlobalConstants";
  * @returns array of string(s) with value, label and glossary link
  */
 export const idList = (duns, uei) => {
+    if (!duns && !uei) {
+        return ["Identifier not provided"];
+    }
     const ids = [];
     if (uei) {
         ids.push(
