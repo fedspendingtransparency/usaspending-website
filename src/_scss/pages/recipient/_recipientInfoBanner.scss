@@ -3,14 +3,11 @@
 .info-banner {
   @include usa-alert-warning;
   @include display(flex);
-  border: solid 1px $color-gold;
+  border-top: solid 5px $color-gold;
   text-align: left;
-  padding: rem(18) rem(10);
-  .modal-disclaimer__icon {
+  .info-banner__exclamation-triangle {
     @include flex(0 0 auto);
     color: $color-gold;
-    font-size: rem(26);
-    margin-right: rem(10);
   }
   .info-banner__content {
     @include flex (1 1 auto);

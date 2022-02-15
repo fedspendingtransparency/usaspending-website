@@ -11,7 +11,7 @@ const RecipientInfoBanner = (props) => {
         </p>
     );
     const icon = (
-        <span className="modal-disclaimer__icon">
+        <span className="info-banner__exclamation-triangle">
             <FontAwesomeIcon size="lg" icon="exclamation-triangle" />
         </span>
     );
