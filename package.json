@@ -85,7 +85,7 @@
         "@fortawesome/free-solid-svg-icons": "^5.13.0",
         "@fortawesome/react-fontawesome": "^0.1.4",
         "accounting": "^0.4.1",
-        "axios": "^0.25.0",
+        "axios": "^0.26.0",
         "clean-webpack-plugin": "^0.1.16",
         "commonmark": "^0.27.0",
         "core-js": "^3.0.1",
