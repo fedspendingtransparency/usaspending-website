@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const propTypes = {
     closeBanner: PropTypes.func,
-    triggerModal: PropTypes.func,
     title: PropTypes.string,
     content: PropTypes.string,
     icon: PropTypes.string
