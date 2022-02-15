@@ -11,7 +11,7 @@ const RecipientInfoBanner = () => {
     useEffect(() => {
         if (!Cookies.get(cookie) || Cookies.get(cookie) === 'show') {
             setShowInfoBanner(true);
-            Cookies.set(cookie, 'show', { expires: 730 });
+            Cookies.set(cookie, 'show', { expires: 7 });
         }
     });
 

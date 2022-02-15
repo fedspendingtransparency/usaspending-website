@@ -15,13 +15,13 @@ const UEIInfoBanner = (props) => {
     useEffect(() => {
         if (!Cookies.get(cookie) || Cookies.get(cookie) === 'show') {
             setShowInfoBanner(true);
-            Cookies.set(cookie, 'show', { expires: 730 });
+            Cookies.set(cookie, 'show', { expires: 7 });
         }
     }, []);
 
     const closeBanner = () => {
         // set a cookie to hide the banner in the future if banner is closed
-        Cookies.set(cookie, 'hide', { expires: 730 });
+        Cookies.set(cookie, 'hide', { expires: 7 });
         setShowInfoBanner(false);
     };
 
