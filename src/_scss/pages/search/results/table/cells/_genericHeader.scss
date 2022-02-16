@@ -8,7 +8,6 @@
         font-size: rem(14);
         line-height: rem(28);
         color: $color-white;
-        cursor: pointer;
 
         .header-sort {
             display: table;
@@ -17,6 +16,7 @@
             .header-label {
                 display: table-cell;
                 vertical-align: middle;
+                cursor: pointer;
             }
 
             .header-icons {
