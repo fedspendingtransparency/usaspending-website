@@ -26,10 +26,10 @@ const StatusOfFundsChart = ({
     const viewHeight = 760;
     const viewWidth = 1000;
     const margins = {
-        top: 40, right: 10, bottom: 10, left: isLargeScreen ? 180 : 245
+        top: 40, right: 0, bottom: 10, left: isLargeScreen ? 180 : 245
     };
     const chartHeight = viewHeight - margins.top - margins.bottom;
-    const chartWidth = viewWidth - margins.left - margins.right;
+    const chartWidth = (viewWidth - margins.left - margins.right) + 60;
     let resultNames = [];
 
     const [textScale, setTextScale] = useState(viewWidth / viewWidth);
@@ -132,7 +132,7 @@ const StatusOfFundsChart = ({
             .range([0, isMobile ? viewHeight * 2.3 : chartHeightYScale()])
             .padding(isMobile ? 0.5 : paddingResize());
         const x = scaleLinear()
-            .range([0, isLargeScreen ? chartWidth + 330 : chartWidth + 80]);
+            .range([0, isLargeScreen ? chartWidth + 289 : chartWidth + 80]);
 
         const drawNegativeObligations = (data) => {
             if (data._obligations <= 0) {
@@ -156,10 +156,10 @@ const StatusOfFundsChart = ({
         const tickMobileYAxis = isLargeScreen ? 'translate(-150,16)' : 'translate(60, 0)';
         // scale to x and y data points
         if (sortedNums[sortedNums.length - 1]._obligations <= 0) {
-            x.domain(d3.extent(sortedNums, (d) => d._obligations));
+            x.domain(d3.extent(sortedNums, (d) => d._obligations)).nice(2);
         }
         else {
-            x.domain([0, Math.max(sortedNums[0]._budgetaryResources, sortedNums[0]._obligations)]);
+            x.domain([0, Math.max(sortedNums[0]._budgetaryResources, sortedNums[0]._obligations)]).nice(2);
         }
         // extract sorted agency names
         for (let i = 0; i < sortedNums.length; i++) {
@@ -178,7 +178,7 @@ const StatusOfFundsChart = ({
             .attr('transform', tickMobileXAxis)
             .attr('class', 'tickLines-vertical')
             .style("stroke-width", 2)
-            .call(d3.axisTop(x).tickFormat((d) => `${d3.format("$.2s")(d).replace('G', 'B').replace('0.0', '0')}`).tickSize(isLargeScreen ? -chartHeight - 510 : -chartHeight - 4).ticks(3))
+            .call(d3.axisTop(x).tickFormat((d) => `${d3.format("$.2s")(d).replace('G', 'B').replace('0.0', '0')}`).tickSize(isLargeScreen ? -chartHeight - 510 : -chartHeight - 4).ticks(isLargeScreen ? 2 : 5))
             .call((g) => g.select(".domain").remove())
             .selectAll('.tick text')
             .attr('id', 'tick-labels-axis')
@@ -189,29 +189,16 @@ const StatusOfFundsChart = ({
             .style("font-size", isMobile ? 36 : fontSizeScreenWidth())
             .style("font-family", 'Source Sans Pro')
             .style('fill', '#555')
-            .style('font-size', '1.45rem')
+            .style('font-size', isMobile ? '1.3rem' : '1.45rem')
             .attr("transform", `scale(${textScale} ${textScale})`);
-
-        // d3 axis.ticks method does not precisely render tick count so we call a
-        // function on each tick to display 3 ticks for 20 results
-        const ticks = d3.selectAll(".tick");
-        ticks.each(function mobileTicksCount(d, i) {
-            if (isLargeScreen) {
-                if (i === 1 || i === 3) d3.select(this).remove();
-            }
-        });
 
         // shift x axis labels to match mock
         const tickTexts = d3.selectAll(".tick text");
-        tickTexts.each(function mobileTextCount(d, i) {
+        tickTexts.each(function mobileTextCount(d, i, n) {
+            if (i === n.length - 1) d3.select(this).attr('dx', '-1.2em');
             if (isMobile) {
                 if (i === 0) d3.select(this).attr('dx', '0.2em');
             }
-            if (isLargeScreen) {
-                if (i === 2) d3.select(this).attr('dx', '-1em');
-                if (i === 0 && isNegative) d3.select(this).attr('dx', '0.8em');
-            }
-            if (i === 4) d3.select(this).attr('dx', '-1em');
         });
 
         // manually add horizontal x axis line since we are removing .domain to hide the y axis line
@@ -225,10 +212,7 @@ const StatusOfFundsChart = ({
                 if (sortedNums[0]._obligations <= 0) {
                     return x(0);
                 }
-                if (!isNegative) {
-                    return isLargeScreen ? chartWidth + 330 : chartWidth + 81;
-                }
-                return x(sortedNums[0]._obligations);
+                return isLargeScreen ? chartWidth + 330 : chartWidth + 81;
             })
             .attr("y2", 0);
         // append y axis (names)
@@ -248,6 +232,10 @@ const StatusOfFundsChart = ({
             .call(isLargeScreen ? wrapTextMobile : wrapText);
         const tickLabelsY = d3.selectAll(".y-axis-labels");
         tickLabelsY.each(function removeTicks(d) {
+            if (isMobile) {
+                d3.select(this).attr('dx', '-0.25em');
+                d3.select(this).attr('dy', '-0.4em');
+            }
             if (!isNaN(d)) {
                 d3.select(this).remove();
             }
@@ -325,9 +313,9 @@ const StatusOfFundsChart = ({
             .attr('transform', tickMobileXAxis)
             .style("stroke", "#aeb0b5")
             .style("stroke-width", 1)
-            .attr("x1", -250)
+            .attr("x1", -320)
             .attr("y1", isMobile ? chartHeight + 1040 : horizontalBorderYPos())
-            .attr("x2", isLargeScreen ? chartWidth + 330 : chartWidth + 100)
+            .attr("x2", isLargeScreen ? chartWidth + 330 : chartWidth + 85)
             .attr("y2", isMobile ? chartHeight + 1040 : horizontalBorderYPos());
         if (isNegative) {
             svg.append('line')

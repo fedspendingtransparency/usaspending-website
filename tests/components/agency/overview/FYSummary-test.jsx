@@ -6,8 +6,11 @@
 import React from 'react';
 import { render, waitFor } from 'test-utils';
 import * as redux from 'react-redux';
+import { List } from "immutable";
 
 import * as helpers from 'apis/agencyV2';
+import * as accountHooks from 'containers/account/WithLatestFy';
+
 import FYSummary from 'components/agencyV2/overview/FySummary';
 import BaseAgencyRecipients from 'models/v2/agency/BaseAgencyRecipients';
 
@@ -42,6 +45,13 @@ beforeEach(() => {
             toptierCode: '010'
         }
     });
+    jest.spyOn(accountHooks, "useLatestAccountData").mockImplementation(() =>
+        [null,
+            new List([{
+                submission_fiscal_year: null,
+                period_end_date: null
+            }])
+        ]);
 });
 
 test('No duplicate API requests', () => {
