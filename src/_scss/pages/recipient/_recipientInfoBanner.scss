@@ -1,0 +1,9 @@
+@import '../../layouts/default/header/warning';
+
+.info-banner {
+  @include usa-alert-warning;
+  border-top: solid 5px $color-gold;
+  .info-banner__exclamation-triangle {
+    color: $color-gold;
+  }
+}
