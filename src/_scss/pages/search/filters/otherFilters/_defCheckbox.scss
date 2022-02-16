@@ -23,7 +23,7 @@
                       .checkbox-tree-label__value-container {
                         display: none;
                       }
-                      .checkbox-tree-label__covid {
+                      .def-checkbox-tree-label__covid {
                         @include justify-content(center);
                         background: $color-disaster-covid-19;
                         color: white;
@@ -34,7 +34,7 @@
                         border: 1px solid #C7C7C7;
                         border-radius: 4px;
                       }
-                      .checkbox-tree-label__notCovid     {
+                      .def-checkbox-tree-label__notCovid     {
                         @include justify-content(center);
                         background: $color-gray-lightest;
                         color: $color-gray-medium;
