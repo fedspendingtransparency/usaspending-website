@@ -1,14 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Cookies from 'js-cookie';
 import { Link } from 'react-router-dom';
-import { isBefore, startOfToday } from 'date-fns';
-import { isIe } from "helpers/browser";
 
 import GlossaryContainer from 'containers/glossary/GlossaryContainer';
 import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
 import Analytics from 'helpers/analytics/Analytics';
-import InfoBanner from './InfoBanner';
+import UEIInfoBanner from './UEIInfoBanner';
 import NavBar from './NavBar';
 
 const clickedHeaderLink = (route) => {
@@ -18,39 +15,14 @@ const clickedHeaderLink = (route) => {
     });
 };
 
-let cookie = 'usaspending_covid_release';
-
-Cookies.set(cookie, 'showUEIBanner');
-
-if (isIe() && isBefore(startOfToday(), new Date(2022, 1, 18))) {
-    cookie = 'usaspending_end_of_IE';
-    Cookies.set(cookie, 'showIEBanner');
-}
-
 export default class Header extends React.Component {
     constructor(props) {
         super(props);
 
-        this.state = {
-            showInfoBanner: false
-        };
         // bind functions
         this.skippedNav = this.skippedNav.bind(this);
-        this.closeBanner = this.closeBanner.bind(this);
-        this.openBannerModal = this.openBannerModal.bind(this);
     }
 
-    componentDidMount() {
-        this.setShowInfoBanner();
-    }
-
-    setShowInfoBanner() {
-        if (Cookies.get(cookie) === 'showIEBanner' || Cookies.get(cookie) === 'showUEIBanner') {
-            this.setState({
-                showInfoBanner: true
-            });
-        }
-    }
     skippedNav(e) {
         // don't update the URL due to potential React Router conflicts
         e.preventDefault();
@@ -64,29 +36,12 @@ export default class Header extends React.Component {
             mainFocus.focus();
         }
     }
-    closeBanner(bannerType) {
-        // set a cookie to hide the banner in the future if banner is closed
-        Cookies.set(cookie, 'hide', { expires: 7 });
-        this.setState({
-            [bannerType]: false
-        });
-    }
-
-    openBannerModal(e) {
-        e.preventDefault();
-        this.props.showModal(null, 'uei');
-    }
-
 
     render() {
-        let infoBanner = (
-            <InfoBanner
-                triggerModal={this.openBannerModal}
-                closeBanner={this.closeBanner} />
+        const infoBanner = (
+            <UEIInfoBanner showModal={this.props.showModal} />
         );
-        if (!this.state.showInfoBanner) {
-            infoBanner = null;
-        }
+
         return (
             <div className="site-header">
                 <a
