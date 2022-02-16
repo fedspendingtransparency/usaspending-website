@@ -9,23 +9,20 @@
     }
 
     .sidebar__content {
-        position: relative;
-        
-        .covid19-sidebar-reference {
-            display: none;
-            &.float-sidebar {
-                display: block;
-            }
-        }
-    
-        .covid19-sidebar-content {
-            height: 654px;
-            overflow-y: scroll;
+        position: sticky;
+        top: rem(86);
 
-            @media (min-width: 1244px) {
-                height: auto;
-                overflow-y: auto;
-            }
+        //todo - find this div and delete it
+        //.covid19-sidebar-reference {
+        //    display: none;
+        //    &.float-sidebar {
+        //        display: block;
+        //    }
+        //}
+
+        .covid19-sidebar-content {
+            height: auto;
+            overflow-y: auto;
 
             .covid19-sidebar-content-background {
               background-color: $color-white;
@@ -36,18 +33,13 @@
               border-bottom: 1px solid $color-gray-border;
               border-radius: rem(5);
             }
-            &.float-sidebar {
-                position: fixed;
-                // fixed site header (66px) and banner (75px)
-                top: rem(96);
-            }
             ul {
                 @include unstyled-list;
                 padding: rem(30) rem(20);
-    
+
                 li {
                     margin-bottom: rem(24);
-    
+
                     &:last-child {
                         margin-bottom: rem(0);
                     }
@@ -55,16 +47,16 @@
                         border-bottom: 5px solid $color-primary;
                     }
                 }
-    
+
                 a.sidebar-link {
                     color: $color-base;
                     font-size: rem(19);
                     line-height: rem(20);
-    
+
                     text-decoration: none;
                     border-bottom: 5px solid transparent;
                     @include transition(all 0.15s ease-in-out);
-    
+
                     &.active {
                         font-weight: $font-bold;
                         border-bottom: 5px solid $color-primary;

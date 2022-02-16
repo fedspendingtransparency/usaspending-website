@@ -8,12 +8,13 @@
         margin: rem(20);
     }
 
-    .agency-v2-sidebar-reference {
-        display: none;
-        &.float-sidebar {
-            display: block;
-        }
-    }
+    //todo - find this div and delete it
+    //.agency-v2-sidebar-reference {
+    //    display: none;
+    //    &.float-sidebar {
+    //        display: block;
+    //    }
+    //}
 
     .agency-v2-sidebar-content {
         background-color: $color-white;
@@ -56,7 +57,7 @@
                         letter-spacing: 0.3px;
                     }
                 }
-                
+
             }
         }
     }

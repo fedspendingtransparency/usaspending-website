@@ -56,7 +56,7 @@ $footer-horizontal: 920px;
             justify-content: center;
             @include align-items(center);
             @include flex(0 1 auto);
-            
+
             @include media($footer-horizontal) {
                 margin-right: rem(10);
 
@@ -109,7 +109,7 @@ $footer-horizontal: 920px;
         .social-link {
             margin: 0;
             padding: 0 rem(15);
-            
+
             &:hover {
                 svg {
                     color: white;
