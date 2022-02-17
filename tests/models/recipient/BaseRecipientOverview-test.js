@@ -34,7 +34,7 @@ describe('BaseRecipientOverview', () => {
         });
         const updatedRecipient = Object.create(BaseRecipientOverview);
         updatedRecipient.populate(updatedData);
-        expect(updatedRecipient.duns).toEqual('DUNS not provided');
+        expect(updatedRecipient.duns).toBeNull();
     });
     it('should indicate when the recipient name is not provided', () => {
         const updatedData = Object.assign(recipient, {}, {
