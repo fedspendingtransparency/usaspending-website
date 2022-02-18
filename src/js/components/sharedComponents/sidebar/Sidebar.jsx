@@ -49,38 +49,38 @@ const Sidebar = ({
     children
 }) => {
     // yPosition, in px, of sections referenced in sidebar
-    const outerReferenceDiv = useRef();
-    const referenceDiv = useRef();
-    const div = useRef();
+    // const outerReferenceDiv = useRef();
+    // const referenceDiv = useRef();
+    // const div = useRef();
     const [sectionPositions, setSectionPositions] = useState([]);
-    const [sidebarWidth, setSidebarWidth] = useState("auto");
-    const [isSidebarSticky, , , handleScroll] = useDynamicStickyClass(referenceDiv, fixedStickyBreakpoint);
+    // const [sidebarWidth, setSidebarWidth] = useState("auto");
+    // const [isSidebarSticky, , , handleScroll] = useDynamicStickyClass(referenceDiv, fixedStickyBreakpoint);
     const [activeSection, setActiveSection] = useState(active || sections[0].section);
 
-    useEffect(() => {
-        const updateSidebarWidth = throttle(() => {
-            if (isGoingToBeSticky && (sidebarWidth !== `${div.current.offsetWidth}px`)) { // set width so no flicker on load
-                setSidebarWidth(`${div.current.offsetWidth}px`);
-            }
-            if (isGoingToBeSticky && (sidebarWidth !== `${outerReferenceDiv.current.offsetWidth}px`)) { // set width on resize
-                setSidebarWidth(`${outerReferenceDiv.current.offsetWidth}px`);
-            }
-            if (!isGoingToBeSticky) {
-                if (isSidebarSticky && sidebarWidth !== `${referenceDiv.current.offsetWidth}px`) {
-                    setSidebarWidth(`${referenceDiv.current.offsetWidth}px`);
-                }
-                else if (!isSidebarSticky && sidebarWidth !== div.current.offsetWidth) {
-                    setSidebarWidth(`auto`);
-                }
-            }
-        }, 100);
-        updateSidebarWidth();
-        window.addEventListener('resize', updateSidebarWidth);
-
-        return () => {
-            window.removeEventListener('resize', updateSidebarWidth);
-        };
-    }, [sidebarWidth, setSidebarWidth, isSidebarSticky, isGoingToBeSticky]);
+    // useEffect(() => {
+    //     const updateSidebarWidth = throttle(() => {
+    //         if (isGoingToBeSticky && (sidebarWidth !== `${div.current.offsetWidth}px`)) { // set width so no flicker on load
+    //             setSidebarWidth(`${div.current.offsetWidth}px`);
+    //         }
+    //         if (isGoingToBeSticky && (sidebarWidth !== `${outerReferenceDiv.current.offsetWidth}px`)) { // set width on resize
+    //             setSidebarWidth(`${outerReferenceDiv.current.offsetWidth}px`);
+    //         }
+    //         if (!isGoingToBeSticky) {
+    //             if (isSidebarSticky && sidebarWidth !== `${referenceDiv.current.offsetWidth}px`) {
+    //                 setSidebarWidth(`${referenceDiv.current.offsetWidth}px`);
+    //             }
+    //             else if (!isSidebarSticky && sidebarWidth !== div.current.offsetWidth) {
+    //                 setSidebarWidth(`auto`);
+    //             }
+    //         }
+    //     }, 100);
+    //     updateSidebarWidth();
+    //     window.addEventListener('resize', updateSidebarWidth);
+    //
+    //     return () => {
+    //         window.removeEventListener('resize', updateSidebarWidth);
+    //     };
+    // }, [sidebarWidth, setSidebarWidth, isSidebarSticky, isGoingToBeSticky]);
 
     const cacheSectionPositions = throttle(() => {
         // Measure section positions on windowResize and first render
@@ -190,7 +190,7 @@ const Sidebar = ({
 
         const handleScrollAndSetActiveSection = () => {
             cacheSectionPositions();
-            handleScroll();
+            // handleScroll();
             if (detectActiveSection) highlightCurrentSection();
         };
 
@@ -205,7 +205,7 @@ const Sidebar = ({
         detectActiveSection,
         cacheSectionPositions,
         highlightCurrentSection,
-        handleScroll,
+        // handleScroll,
         sectionPositions.length
     ]);
 
@@ -241,16 +241,16 @@ const Sidebar = ({
         );
     };
 
-    const floatSidebar = isSidebarSticky
-        ? 'float-sidebar'
-        : '';
+    // const floatSidebar = isSidebarSticky
+    //     ? 'float-sidebar'
+    //     : '';
 
     return (
-        <div ref={outerReferenceDiv}>
-            <div className={`${pageName}-sidebar-reference ${floatSidebar}`} ref={referenceDiv}>
-              &nbsp;
-            </div>
-            <div ref={div} className={`${pageName}-sidebar-content ${floatSidebar}`} style={{ width: sidebarWidth }}>
+        <div>
+            {/*<div className={`${pageName}-sidebar-reference ${floatSidebar}`} ref={referenceDiv}>*/}
+            {/*  &nbsp;*/}
+            {/*</div>*/}
+            <div className={`${pageName}-sidebar-content`}>
                 <div className={`${pageName}-sidebar-content-background`}>
                     {fyPicker && (
                         <FYPicker

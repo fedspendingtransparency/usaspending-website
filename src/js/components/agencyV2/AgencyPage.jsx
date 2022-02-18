@@ -14,12 +14,13 @@ import {
 import { useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
 
-import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
 import { scrollToY } from 'helpers/scrollToHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 
 import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
+import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
+import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import AgencySection from './AgencySection';
 import AgencyOverview from './overview/AgencyOverview';
 import AwardSpendingSubagency from './awardSpending/AwardSpendingSubagency';
@@ -131,17 +132,20 @@ export const AgencyProfileV2 = ({
             ]}>
             <main id="main-content" className="main-content usda__flex-row">
                 <div className="sidebar usda__flex-col">
-                    <Sidebar
-                        pageName="agency-v2"
-                        fixedStickyBreakpoint={scrollPositionOfSiteHeader}
-                        isGoingToBeSticky
-                        active={activeSection}
-                        jumpToSection={jumpToSection}
-                        detectActiveSection={setActiveSection}
-                        sections={sections.map((section) => ({
-                            section: section.name,
-                            label: section.display
-                        }))} />
+                    <div className="sidebar__content">
+                        <Sidebar
+                            pageName="agency-v2"
+                            fixedStickyBreakpoint={scrollPositionOfSiteHeader}
+                            isGoingToBeSticky
+                            active={activeSection}
+                            jumpToSection={jumpToSection}
+                            detectActiveSection={setActiveSection}
+                            verticalSectionOffset={stickyHeaderHeight}
+                            sections={sections.map((section) => ({
+                                section: section.name,
+                                label: section.display
+                            }))} />
+                    </div>
                 </div>
                 <div className="body usda__flex-col">
                     <PageTitle fy={selectedFy} />
