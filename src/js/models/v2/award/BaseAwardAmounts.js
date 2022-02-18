@@ -119,9 +119,9 @@ const BaseAwardAmounts = {
         if (Math.abs(this._combinedOutlay) >= MoneyFormatter.unitValues.MILLION) {
             const units = MoneyFormatter.calculateUnitForSingleValue(this._combinedOutlay);
             if (this._combinedOutlay < 0) {
-                return `(${MoneyFormatter.formatMoneyWithPrecision(Math.abs(this._combinedOutlay) / units.unit, 1)} ${units.unitLabel})`;
+                return `(${MoneyFormatter.formatMoneyWithPrecision(Math.abs(this._combinedOutlay) / units.unit, 1)} ${units.longLabel.charAt(0).toUpperCase() + units.longLabel.slice(1)})`;
             }
-            return `${MoneyFormatter.formatMoneyWithPrecision(this._combinedOutlay / units.unit, 1)} ${units.unitLabel}`;
+            return `${MoneyFormatter.formatMoneyWithPrecision(this._combinedOutlay / units.unit, 1)} ${units.longLabel.charAt(0).toUpperCase() + units.longLabel.slice(1)}`;
         }
         else if (this._combinedOutlay < 0) {
             return `(${Math.abs(MoneyFormatter.formatMoney(this._combinedOutlay))})`;
@@ -148,9 +148,9 @@ const BaseAwardAmounts = {
         if (Math.abs(this._totalObligation) >= MoneyFormatter.unitValues.MILLION) {
             const units = MoneyFormatter.calculateUnitForSingleValue(this._totalObligation);
             if (this._totalObligation < 0) {
-                return `(${MoneyFormatter.formatMoneyWithPrecision(Math.abs(this._totalObligation) / units.unit, 1)} ${units.unitLabel})`;
+                return `(${MoneyFormatter.formatMoneyWithPrecision(Math.abs(this._totalObligation) / units.unit, 1)} ${units.longLabel.charAt(0).toUpperCase() + units.longLabel.slice(1)})`;
             }
-            return `${MoneyFormatter.formatMoneyWithPrecision(this._totalObligation / units.unit, 1)} ${units.unitLabel}`;
+            return `${MoneyFormatter.formatMoneyWithPrecision(this._totalObligation / units.unit, 1)} ${units.longLabel.charAt(0).toUpperCase() + units.longLabel.slice(1)}`;
         }
         else if (this._totalObligation < 0) {
             return `(${Math.abs(MoneyFormatter.formatMoney(this._totalObligation))})`;

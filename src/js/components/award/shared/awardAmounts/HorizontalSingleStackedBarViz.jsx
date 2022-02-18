@@ -53,8 +53,12 @@ const HorizontalSingleStackedBarViz = ({
 
     const currentAmountValue = numerator.value;
     const currentAmountLabel = numerator.text;
-    // const outlayedAmountValue = numerator2.value;
-    // console.log(numerator2);
+    const outlayedAmountValue = numerator2.value;
+    const outlayedAmountLabel = numerator2.text;
+    const obligatedAmountValue = numerator.children[0].value;
+    const obligatedAmountLabel = numerator.children[0].text;
+    const potentialAmountValue = denominator.value;
+    const potentialAmountLabel = denominator.text;
 
     useEffect(() => {
         const renderBarChart = () => {
@@ -103,7 +107,7 @@ const HorizontalSingleStackedBarViz = ({
             // outlay line
             chartSvg.append("line")
                 .attr("x1", x(propsArr[3]))
-                .attr("y1", 0)
+                .attr("y1", 30)
                 .attr("x2", x(propsArr[3]))
                 .attr("y2", (height / 2.5) + 35)
                 .style("stroke-width", 4)
@@ -112,7 +116,7 @@ const HorizontalSingleStackedBarViz = ({
             // obligated line
             chartSvg.append("line")
                 .attr("x1", x(propsArr[2]))
-                .attr("y1", 85)
+                .attr("y1", 90)
                 .attr("x2", x(propsArr[2]))
                 .attr("y2", (height / 2.5) + 40)
                 .style("stroke-width", 4)
@@ -123,7 +127,7 @@ const HorizontalSingleStackedBarViz = ({
                 .attr("x1", x(propsArr[1]))
                 .attr("y1", (height / 2.5) + 5)
                 .attr("x2", x(propsArr[1]))
-                .attr("y2", height - 120)
+                .attr("y2", 275)
                 .style("stroke-width", 4)
                 .style("stroke", "#8aa6c9")
                 .style("fill", "none");
@@ -136,16 +140,52 @@ const HorizontalSingleStackedBarViz = ({
                 .style("stroke-width", 4)
                 .style("stroke", "#dce4ee")
                 .style("fill", "none");
+            // potential label
+            chartSvg.append("foreignObject")
+                .attr('width', x(propsArr[0]) - 15)
+                .attr('height', 70)
+                .attr('x', 0)
+                .attr('y', 330)
+                .html(`<div className="award-amounts-viz-outlays__desc-text"><strong>${potentialAmountValue}</strong><br />${potentialAmountLabel}</div>`)
+                .select('div')
+                .style('float', 'right')
+                .style('text-align', 'right')
+                .select('strong')
+                .style('font-size', '20px');
             // current label
             chartSvg.append("foreignObject")
                 .attr('width', x(propsArr[1]) - 10)
-                .attr('height', 60)
+                .attr('height', 70)
                 .attr('x', 0)
-                .attr('y', height - 160)
+                .attr('y', 230)
                 .html(`<div className="award-amounts-viz-outlays__desc-text"><strong>${currentAmountValue}</strong><br />${currentAmountLabel}</div>`)
                 .select('div')
                 .style('float', 'right')
                 .style('text-align', 'right')
+                .select('strong')
+                .style('font-size', '20px');
+            // outlay label
+            chartSvg.append("foreignObject")
+                .attr('width', x(propsArr[0]))
+                .attr('height', 70)
+                .attr('x', x(propsArr[3]) + 10)
+                .attr('y', 30)
+                .html(`<div className="award-amounts-viz-outlays__desc-text"><strong>${outlayedAmountValue}</strong><br />${outlayedAmountLabel}</div>`)
+                .select('div')
+                .style('float', 'left')
+                .style('text-align', 'left')
+                .select('strong')
+                .style('font-size', '20px');
+            // obligated label
+            chartSvg.append("foreignObject")
+                .attr('width', x(propsArr[0]) - x(propsArr[2]) - 10)
+                .attr('height', 70)
+                .attr('x', x(propsArr[2]) + 10)
+                .attr('y', 90)
+                .html(`<div className="award-amounts-viz-outlays__desc-text"><strong>${obligatedAmountValue}</strong><br />${obligatedAmountLabel}</div>`)
+                .select('div')
+                .style('float', 'left')
+                .style('text-align', 'left')
                 .select('strong')
                 .style('font-size', '20px');
         };
