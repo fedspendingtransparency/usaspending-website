@@ -38,7 +38,7 @@
     }
 
     .award-amounts__data-icon-dark-blue {
-        background-color: $colors-obligated;
+        background-color: $colors-outlayed;
     }
 
     .award-amounts__data-icon_green {
@@ -78,6 +78,10 @@
 
     .award-amounts__obligated {
         background-color: $colors-obligated;
+    }
+
+    .award-amounts__outlayed {
+        background-color: $colors-outlayed;
     }
 
     .award-amounts__file-c-obligations {

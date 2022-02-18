@@ -138,9 +138,10 @@ export const tableTitlesBySpendingCategoryAndAwardType = {
 // similar relationship between spending categories
 export const asstAwardTypesWithSimilarAwardAmountData = ['grant', 'other', 'insurance', 'direct payment'];
 
-export const obligatedColor = '#0A2F5A';
-export const currentColor = '#558EC6';
-export const potentialColor = '#AAC6E2';
+export const outlayColor = '#0b2e5a';
+export const obligatedColor = '#4773aa';
+export const currentColor = '#8aa6c9';
+export const potentialColor = '#dce4ee';
 export const subsidyColor = '#0B424D';
 export const faceValueColor = '#F3F3F3';
 export const nonFederalFundingColor = '#47AAA7';
