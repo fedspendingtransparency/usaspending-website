@@ -1,52 +1,61 @@
-.about-sidebar-reference {
+.sidebar {
     display: none;
-
-    &.float-sidebar {
-        display: block;
-    }
-}
-.about-sidebar-content {
-    &.float-sidebar {
-        position: fixed;
-        top: rem(96);
+    position: relative;
+    @media(min-width: $medium-screen) {
+        @include display(flex);
+        @include flex-direction(column);
+        width: 22%;
+        margin: rem(20);
     }
 
-    background-color: $color-white;
-    box-shadow: $container-shadow;
-    color: $color-base;
-    border-top: 1px solid $color-gray-border;
-    border-right: 1px solid $color-gray-border;
-    border-bottom: 1px solid $color-gray-border;
-    padding: rem(40) rem(46);
+    .sidebar__content {
+        position: sticky;
+        top: rem(86);
 
-    ul {
-        @include unstyled-list;
+        .about-sidebar-content {
+            height: auto;
+            overflow-y: auto;
 
-        li {
-            margin-bottom: rem(15);
-
-            &:last-child {
-                margin-bottom: rem(0);
+            .about-sidebar-content-background {
+                background-color: $color-white;
+                box-shadow: $container-shadow;
+                color: $color-base;
+                border-top: 1px solid $color-gray-border;
+                border-right: 1px solid $color-gray-border;
+                border-bottom: 1px solid $color-gray-border;
+                border-radius: rem(5);
+                padding: rem(40) rem(46);
             }
-        }
+            ul {
+                @include unstyled-list;
 
-        a.sidebar-link {
-            color: $color-base;
-            font-size: rem(19);
-            line-height: rem(35);
-            padding-bottom: rem(5);
+                li {
+                    margin-bottom: rem(15);
 
-            text-decoration: none;
-            border-bottom: 5px solid transparent;
-            @include transition(all 0.15s ease-in-out);
+                    &:last-child {
+                        margin-bottom: rem(0);
+                    }
+                }
 
-            &:hover {
-                border-bottom: 5px solid $color-gold;
-            }
+                a.sidebar-link {
+                    color: $color-base;
+                    font-size: rem(19);
+                    line-height: rem(35);
+                    padding-bottom: rem(5);
 
-            &.active {
-                font-weight: $font-bold;
-                border-bottom: 5px solid $color-gold;
+                    text-decoration: none;
+                    border-bottom: 5px solid transparent;
+                    @include transition(all 0.15s ease-in-out);
+
+                    &:hover {
+                        border-bottom: 5px solid $color-gold;
+                    }
+
+                    &.active {
+                        font-weight: $font-bold;
+                        border-bottom: 5px solid $color-gold;
+                    }
+                }
             }
         }
     }

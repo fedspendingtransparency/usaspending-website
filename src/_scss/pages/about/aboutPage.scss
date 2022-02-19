@@ -1,10 +1,10 @@
-.usa-da-about-page, .usa-da-legal-page {
+.usa-da-legal-page {
     @import "all";
     @import "layouts/default/default";
     @import "layouts/default/stickyHeader/header";
 
     $color-gray-border: #D8D8D8;
-    $color-blue-background: #F5FBFC; 
+    $color-blue-background: #F5FBFC;
 
     .main-content {
         @import "../../mixins/fullSectionWrap";

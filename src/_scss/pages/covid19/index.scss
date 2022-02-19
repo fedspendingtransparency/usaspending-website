@@ -1,10 +1,10 @@
-.usa-da-covid19-page {
+.usa-da-covid19-page, .usa-da-about-page {
   @import "all";
   @import "layouts/default/default";
   @import "layouts/default/stickyHeader/header";
   @import "components/pageLoading";
   @import "./header";
-  
+
   @include display(flex);
   @include justify-content(flex-start);
   @include align-items(center);
@@ -32,6 +32,7 @@
       }
     }
     @import "./sidebar";
+    @import "src/_scss/pages/about/_sidebar.scss";
     .body {
       @include display(flex);
       @include flex(1 1 auto);

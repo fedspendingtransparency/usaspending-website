@@ -25,6 +25,9 @@ import Development from './Development';
 import Careers from './Careers';
 import Licensing from './Licensing';
 
+require('pages/covid19/index.scss');
+require('pages/about/_contentWrap.scss');
+
 const aboutSections = [
     {
         section: 'mission',
@@ -104,18 +107,20 @@ const AboutContent = () => {
     }, [history, location.search, query.section]);
 
     return (
-        <div className="about-content-wrapper">
-            <div className="about-sidebar">
-                <Sidebar
-                    isGoingToBeSticky
-                    active={activeSection}
-                    pageName="about"
-                    sections={aboutSections}
-                    detectActiveSection={setActiveSection}
-                    jumpToSection={jumpToSection}
-                    fixedStickyBreakpoint={getStickyBreakPointForSidebar()} />
+        <div className="main-content usda__flex-row">
+            <div className="sidebar usda__flex-col">
+                <div className="sidebar__content">
+                    <Sidebar
+                        isGoingToBeSticky
+                        active={activeSection}
+                        pageName="about"
+                        sections={aboutSections}
+                        detectActiveSection={setActiveSection}
+                        jumpToSection={jumpToSection}
+                        fixedStickyBreakpoint={getStickyBreakPointForSidebar()} />
+                </div>
             </div>
-            <div className="about-content">
+            <div className="about-content body usda__flex-col">
                 <div className="about-padded-content">
                     <Mission />
                     <Background />
