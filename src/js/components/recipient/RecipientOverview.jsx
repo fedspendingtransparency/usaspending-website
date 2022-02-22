@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { recipientOverviewLoanInfo } from 'components/recipient/InfoTooltipContent';
+import { idList } from 'dataMapping/shared/recipientIdentifiers';
 import FaceValueOfLoans from '../sharedComponents/FaceValueOfLoans';
 import RecipientMultiParentCollapse from './RecipientMultiParentCollapse';
 
@@ -29,7 +30,7 @@ const RecipientOverview = (props) => {
         // This is a child recipient
         label = (
             <div className="recipient-overview__label recipient-overview__label_child">
-                    Child Recipient
+                Child Recipient
             </div>
         );
         parent = (<RecipientMultiParentCollapse
@@ -38,9 +39,8 @@ const RecipientOverview = (props) => {
     else if (recipient.level === 'P') {
         // This is a parent recipient
         label = (
-            <span
-                className="recipient-overview__label recipient-overview__label_parent">
-                    Parent Recipient
+            <span className="recipient-overview__label recipient-overview__label_parent">
+                Parent Recipient
             </span>
         );
         viewChildren = (
@@ -132,8 +132,8 @@ const RecipientOverview = (props) => {
                         <table className="details__table">
                             <tbody>
                                 <tr>
-                                    <th>DUNS</th>
-                                    <td>{recipient.duns}</td>
+                                    <th>Recipient Identifier</th>
+                                    <td>{idList(recipient.duns, recipient.uei).map((i) => <>{i}<br /></>)}</td>
                                 </tr>
                                 <tr>
                                     <th>Address</th>

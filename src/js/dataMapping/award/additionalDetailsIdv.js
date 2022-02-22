@@ -4,7 +4,7 @@
  */
 
 import { getSubmittingAgencyId } from "helpers/awardSummaryHelper";
-import { AGENCY_LINK } from 'GlobalConstants';
+import { idList } from '../shared/recipientIdentifiers';
 
 const additionalDetails = (awardData) => {
     const {
@@ -14,6 +14,7 @@ const additionalDetails = (awardData) => {
         dates,
         parentAwardDetails
     } = awardData;
+
     const data = {
         uniqueAwardKey: {
             'Unique Award Key': awardData.generatedId,
@@ -25,7 +26,7 @@ const additionalDetails = (awardData) => {
             'Awarding Agency': {
                 type: 'link',
                 data: {
-                    path: (awardingAgency.agencySlug && awardingAgency.hasAgencyPage) ? `/${AGENCY_LINK}/${awardingAgency.agencySlug}` : null,
+                    path: (awardingAgency.agencySlug && awardingAgency.hasAgencyPage) ? `/agency/${awardingAgency.agencySlug}` : null,
                     title: awardingAgency.formattedToptier
                 }
             },
@@ -34,7 +35,7 @@ const additionalDetails = (awardData) => {
             'Funding Agency': {
                 type: 'link',
                 data: {
-                    path: (fundingAgency.agencySlug && fundingAgency.hasAgencyPage) ? `/${AGENCY_LINK}/${fundingAgency.agencySlug}` : null,
+                    path: (fundingAgency.agencySlug && fundingAgency.hasAgencyPage) ? `/agency/${fundingAgency.agencySlug}` : null,
                     title: fundingAgency.formattedToptier
                 }
             },
@@ -80,12 +81,20 @@ const additionalDetails = (awardData) => {
                     title: recipient._name
                 }
             },
+            'Recipient Identifier': {
+                type: 'list',
+                data: idList(recipient.duns, recipient.uei)
+            },
             'Parent Recipient': {
                 type: 'link',
                 data: {
                     path: recipient.parentInternalId ? `/recipient/${recipient.parentInternalId}/latest` : null,
                     title: recipient.parentName
                 }
+            },
+            'Parent Recipient Identifier': {
+                type: 'list',
+                data: idList(recipient.parentDuns, recipient.parentUei)
             },
             'Recipient Address': {
                 type: 'address',
