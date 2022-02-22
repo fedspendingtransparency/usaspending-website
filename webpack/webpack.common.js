@@ -27,31 +27,31 @@ module.exports = {
         extensions: [".js", ".jsx"],
         modules: ["node_modules", path.resolve(__dirname, "../src/_scss")]
     },
-    // optimization: {
-    //     // // moduleIds: 'deterministic', -- use default?
-    //     // splitChunks: { -- use default?
-    //     //     cacheGroups: {
-    //     //         default: false,
-    //     //         defaultVendors: false,
-    //     //         // all imported code from node_modules is a single file
-    //     //         vendor: {
-    //     //             test: /[\\/]node_modules[\\/]/,
-    //     //             name: 'vendors',
-    //     //             chunks: 'all',
-    //     //             priority: 20
-    //     //         },
-    //     //         // code shared between at least 2 modules, is put into a common chunk file
-    //     //         common: {
-    //     //             name: 'common',
-    //     //             minChunks: 2,
-    //     //             chunks: 'all',
-    //     //             priority: 10,
-    //     //             reuseExistingChunk: true,
-    //     //             enforce: true
-    //     //         }
-    //     //     }
-    //     // }
-    // },
+    optimization: {
+        // moduleIds: 'deterministic', -- use default?
+        splitChunks: { chunks: 'all' }
+        // cacheGroups: {
+        //     default: false,
+        //     defaultVendors: false,
+        //     // all imported code from node_modules is a single file
+        //     vendor: {
+        //         test: /[\\/]node_modules[\\/]/,
+        //         name: 'vendors',
+        //         chunks: 'all',
+        //         priority: 20
+        //     },
+        //     // code shared between at least 2 modules, is put into a common chunk file
+        //     common: {
+        //         name: 'common',
+        //         minChunks: 2,
+        //         chunks: 'all',
+        //         priority: 10,
+        //         reuseExistingChunk: true,
+        //         enforce: true
+        //     }
+        // }
+    // }
+    },
     module: {
         noParse: /(mapbox-gl)\.js$/,
         rules: [
