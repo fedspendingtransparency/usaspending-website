@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import GlobalConstants from 'GlobalConstants';
 
 import { Search, Close } from 'components/sharedComponents/icons/Icons';
 
