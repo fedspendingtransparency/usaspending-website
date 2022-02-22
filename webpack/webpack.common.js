@@ -101,7 +101,11 @@ module.exports = {
                     process.env.ENV === 'qat' ||
                     process.env.ENV === 'sandbox'
                 ),
-                GTM_ID: process.env.GTM_ID || ''
+                GTM_ID: process.env.GTM_ID || '',
+                IS_PROD: (
+                    process.env.ENV === 'prod'
+                )
+
             }
         }),
         new MiniCssExtractPlugin({

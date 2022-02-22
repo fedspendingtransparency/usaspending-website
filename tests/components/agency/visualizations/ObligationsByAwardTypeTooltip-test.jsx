@@ -91,7 +91,7 @@ test('formats the percent of total', () => {
         />,
         { initialState: mockStore }
     );
-    const directPaymentsPercent = screen.queryByText('30%');
+    const directPaymentsPercent = screen.queryByText('30.0%');
     expect(directPaymentsPercent).toBeTruthy();
 });
 

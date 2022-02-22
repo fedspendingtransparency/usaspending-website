@@ -3,7 +3,6 @@
     padding: rem(12);
     .def-checkbox-tree {
       margin-bottom: 2rem;
-      border-bottom: rem(1) solid rgb(214, 215, 217);
         .react-checkbox-tree {
             ol {
                 border-left: none;
@@ -24,7 +23,7 @@
                       .checkbox-tree-label__value-container {
                         display: none;
                       }
-                      .checkbox-tree-label__label {
+                      .def-checkbox-tree-label__covid {
                         @include justify-content(center);
                         background: $color-disaster-covid-19;
                         color: white;
@@ -33,6 +32,16 @@
                         padding: rem(5) rem(10);
                         font-size: rem(16);
                         border: 1px solid #C7C7C7;
+                        border-radius: 4px;
+                      }
+                      .def-checkbox-tree-label__notCovid     {
+                        @include justify-content(center);
+                        background: $color-gray-lightest;
+                        color: $color-gray-medium;
+                        display: flex;
+                        align-items: center;
+                        padding: rem(5) rem(10);
+                        font-size: rem(16);
                         border-radius: 4px;
                       }
                     }
