@@ -106,46 +106,46 @@ const HorizontalSingleStackedBarViz = ({
                 .attr("fill", "#0b2e5a");
             // outlay line
             chartSvg.append("line")
-                .attr("x1", x(propsArr[3]))
-                .attr("y1", 30)
-                .attr("x2", x(propsArr[3]))
+                .attr("x1", x(propsArr[3]) - 2)
+                .attr("y1", 20)
+                .attr("x2", x(propsArr[3]) - 2)
                 .attr("y2", (height / 2.5) + 35)
                 .style("stroke-width", 4)
                 .style("stroke", "#0b2e5a")
-                .style("fill", "none");
-            // obligated line
-            chartSvg.append("line")
-                .attr("x1", x(propsArr[2]))
-                .attr("y1", 90)
-                .attr("x2", x(propsArr[2]))
-                .attr("y2", (height / 2.5) + 40)
-                .style("stroke-width", 4)
-                .style("stroke", "#4773aa")
-                .style("fill", "none");
-            // current line
-            chartSvg.append("line")
-                .attr("x1", x(propsArr[1]))
-                .attr("y1", (height / 2.5) + 5)
-                .attr("x2", x(propsArr[1]))
-                .attr("y2", 275)
-                .style("stroke-width", 4)
-                .style("stroke", "#8aa6c9")
                 .style("fill", "none");
             // potential line
             chartSvg.append("line")
                 .attr("x1", x(propsArr[0]) - 2)
                 .attr("y1", (height / 2.5))
                 .attr("x2", x(propsArr[0]) - 2)
-                .attr("y2", height - 20)
+                .attr("y2", height - 50)
                 .style("stroke-width", 4)
                 .style("stroke", "#dce4ee")
                 .style("fill", "none");
+            // current line
+            chartSvg.append("line")
+                .attr("x1", x(propsArr[1]) - 2)
+                .attr("y1", (height / 2.5) + 5)
+                .attr("x2", x(propsArr[1]) - 2)
+                .attr("y2", 275)
+                .style("stroke-width", 4)
+                .style("stroke", "#8aa6c9")
+                .style("fill", "none");
+            // obligated line
+            chartSvg.append("line")
+                .attr("x1", x(propsArr[2]) - 2)
+                .attr("y1", 90)
+                .attr("x2", x(propsArr[2]) - 2)
+                .attr("y2", (height / 2.5) + 40)
+                .style("stroke-width", 4)
+                .style("stroke", "#4773aa")
+                .style("fill", "none");
             // potential label
             chartSvg.append("foreignObject")
-                .attr('width', x(propsArr[0]) - 15)
-                .attr('height', 70)
+                .attr('width', x(propsArr[0]) - 10)
+                .attr('height', 60)
                 .attr('x', 0)
-                .attr('y', 330)
+                .attr('y', 300)
                 .html(`<div className="award-amounts-viz-outlays__desc-text"><strong>${potentialAmountValue}</strong><br />${potentialAmountLabel}</div>`)
                 .select('div')
                 .style('float', 'right')
@@ -168,24 +168,24 @@ const HorizontalSingleStackedBarViz = ({
             chartSvg.append("foreignObject")
                 .attr('width', x(propsArr[0]))
                 .attr('height', 70)
-                .attr('x', x(propsArr[3]) + 10)
-                .attr('y', 30)
+                .attr('x', (x(propsArr[3]) + 10) > 600 ? 582 : x(propsArr[3]) + 10)
+                .attr('y', 20)
                 .html(`<div className="award-amounts-viz-outlays__desc-text"><strong>${outlayedAmountValue}</strong><br />${outlayedAmountLabel}</div>`)
                 .select('div')
                 .style('float', 'left')
-                .style('text-align', 'left')
+                .style('text-align', (x(propsArr[3]) + 10) > 600 ? 'right' : 'left')
                 .select('strong')
                 .style('font-size', '20px');
             // obligated label
             chartSvg.append("foreignObject")
-                .attr('width', x(propsArr[0]) - x(propsArr[2]) - 10)
+                .attr('width', (x(propsArr[2]) + 10) > 600 ? x(propsArr[0]) : x(propsArr[0]) - x(propsArr[2]) - 10)
                 .attr('height', 70)
-                .attr('x', x(propsArr[2]) + 10)
+                .attr('x', (x(propsArr[2]) + 10) > 600 ? 578 : x(propsArr[2]) + 10)
                 .attr('y', 90)
                 .html(`<div className="award-amounts-viz-outlays__desc-text"><strong>${obligatedAmountValue}</strong><br />${obligatedAmountLabel}</div>`)
                 .select('div')
                 .style('float', 'left')
-                .style('text-align', 'left')
+                .style('text-align', (x(propsArr[2]) + 10) > 600 ? 'right' : 'left')
                 .select('strong')
                 .style('font-size', '20px');
         };
