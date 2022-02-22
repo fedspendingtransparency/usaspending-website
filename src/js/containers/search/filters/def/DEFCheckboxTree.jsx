@@ -25,6 +25,16 @@ const covidParentNode = {
     children: []
 };
 
+const infrastructureParentNode = {
+    label: "Infrastructure Spending",
+    value: "INFRA",
+    className: "def-checkbox-label--covid",
+    expandDisabled: true,
+    isSearchable: false,
+    showNodeIcon: false,
+    children: []
+};
+
 const parseCovidCodes = (codes) => codes
     .filter((code) => code.disaster === 'covid_19')
     .reduce((acc, covidCode) => ({
@@ -41,8 +51,29 @@ const parseCovidCodes = (codes) => codes
                 return 0;
             })
     }), covidParentNode);
-const defaultExpanded = ['COVID'];
-const countLabel = { value: 'COVID-19', count: 0, label: 'COVID-19 Spending' };
+
+const extractInfraCodes = (codes) => codes
+    .filter((code) => code.code === '1' || code.code === 'Z')
+    .reduce((acc, infraCode) => ({
+        ...acc,
+        children: acc.children.concat([{
+            label: infraCode.title,
+            subLabel: infraCode.public_law,
+            value: infraCode.code,
+            expandDisabled: true
+        }])
+            .sort((a, b) => {
+                if (a.value < b.value) return 1;
+                if (a.value > b.value) return -1;
+                return 0;
+            })
+    }), infrastructureParentNode);
+
+const parseTreeCodes = (codes) => [parseCovidCodes(codes), extractInfraCodes(codes)];
+
+const defaultExpanded = ['COVID', 'INFRA'];
+const covidCountLabel = { value: 'COVID-19', count: 0, label: 'COVID-19 Spending' };
+const infrastructureCountLabel = { value: 'Infrastructure', count: 0, label: 'Infrastructure Spending' };
 
 export class DEFCheckboxTree extends React.Component {
     constructor(props) {
@@ -59,10 +90,19 @@ export class DEFCheckboxTree extends React.Component {
     stageFilter = (newChecked) => {
         const newCount = newChecked.reduce((acc) => acc + 1, 0);
         if (newCount > 0) {
+            const infraCount = newChecked.filter((checked) => checked === 'Z' || checked === '1').length;
+            const covidCount = newChecked.length - infraCount;
+            const labels = [];
+            if (covidCount) {
+                labels.push({ ...covidCountLabel, count: covidCount });
+            }
+            if (infraCount) {
+                labels.push({ ...infrastructureCountLabel, count: infraCount });
+            }
             this.props.stageDef(
                 newChecked,
                 [],
-                [{ ...countLabel, count: newCount }]
+                labels
             );
         }
         else {
@@ -86,7 +126,7 @@ export class DEFCheckboxTree extends React.Component {
                     className="def-checkbox-tree"
                     checked={this.props.checked}
                     expanded={defaultExpanded}
-                    data={[parseCovidCodes(this.props.defCodes)]}
+                    data={parseTreeCodes(this.props.defCodes)}
                     isError={this.state.isError}
                     errorMessage={this.props.defCodeFetchError}
                     isLoading={this.props.areDefCodesLoading}
