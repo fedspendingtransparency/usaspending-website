@@ -20,10 +20,6 @@ module.exports = merge(common, {
     optimization: {
         minimizer: [
             new TerserPlugin(),
-            // new TerserPlugin({
-            //     cache: true,
-            //     parallel: true
-            // }),
             new OptimizeCssAssetsPlugin({})
         ],
         runtimeChunk: "single",
