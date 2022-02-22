@@ -103,9 +103,15 @@ const BaseAwardAmounts = {
         return MoneyFormatter.formatMoneyWithPrecision(this._baseAndAllOptions, 2);
     },
     get baseAndAllOptionsAbbreviated() {
-        if (this._baseAndAllOptions >= MoneyFormatter.unitValues.MILLION) {
+        if (Math.abs(this._baseAndAllOptions) >= MoneyFormatter.unitValues.MILLION) {
             const units = MoneyFormatter.calculateUnitForSingleValue(this._baseAndAllOptions);
-            return `${MoneyFormatter.formatMoneyWithPrecision(this._baseAndAllOptions / units.unit, 1)} ${units.unitLabel}`;
+            if (this._baseAndAllOptions < 0) {
+                return `(${MoneyFormatter.formatMoneyWithPrecision(Math.abs(this._baseAndAllOptions) / units.unit, 1)} ${units.longLabel.charAt(0).toUpperCase() + units.longLabel.slice(1)})`;
+            }
+            return `${MoneyFormatter.formatMoneyWithPrecision(this._baseAndAllOptions / units.unit, 1)} ${units.longLabel.charAt(0).toUpperCase() + units.longLabel.slice(1)}`;
+        }
+        else if (this._baseAndAllOptions < 0) {
+            return `(${Math.abs(MoneyFormatter.formatMoney(this._baseAndAllOptions))})`;
         }
         return MoneyFormatter.formatMoney(this._baseAndAllOptions);
     },
@@ -115,16 +121,42 @@ const BaseAwardAmounts = {
     get combinedOutlayFormatted() {
         return MoneyFormatter.formatMoneyWithPrecision(this._combinedOutlay, 2);
     },
+    get combinedOutlayAbbreviated() {
+        if (Math.abs(this._combinedOutlay) >= MoneyFormatter.unitValues.MILLION) {
+            const units = MoneyFormatter.calculateUnitForSingleValue(this._combinedOutlay);
+            if (this._combinedOutlay < 0) {
+                return `(${MoneyFormatter.formatMoneyWithPrecision(Math.abs(this._combinedOutlay) / units.unit, 1)} ${units.longLabel.charAt(0).toUpperCase() + units.longLabel.slice(1)})`;
+            }
+            return `${MoneyFormatter.formatMoneyWithPrecision(this._combinedOutlay / units.unit, 1)} ${units.longLabel.charAt(0).toUpperCase() + units.longLabel.slice(1)}`;
+        }
+        else if (this._combinedOutlay < 0) {
+            return `(${Math.abs(MoneyFormatter.formatMoney(this._combinedOutlay))})`;
+        }
+        return MoneyFormatter.formatMoney(this._combinedOutlay);
+    },
     get totalOutlayFormatted() {
         return MoneyFormatter.formatMoneyWithPrecision(this._totalOutlay, 2);
+    },
+    get totalOutlayAbbreviated() {
+        if (Math.abs(this._totalOutlay) >= MoneyFormatter.unitValues.MILLION) {
+            const units = MoneyFormatter.calculateUnitForSingleValue(this._totalOutlay);
+            if (this._totalOutlay < 0) {
+                return `(${MoneyFormatter.formatMoneyWithPrecision(Math.abs(this._totalOutlay) / units.unit, 1)} ${units.longLabel.charAt(0).toUpperCase() + units.longLabel.slice(1)})`;
+            }
+            return `${MoneyFormatter.formatMoneyWithPrecision(this._totalOutlay / units.unit, 1)} ${units.longLabel.charAt(0).toUpperCase() + units.longLabel.slice(1)}`;
+        }
+        else if (this._totalOutlay < 0) {
+            return `(${Math.abs(MoneyFormatter.formatMoney(this._totalOutlay))})`;
+        }
+        return MoneyFormatter.formatMoney(this._totalOutlay);
     },
     get totalObligationAbbreviated() {
         if (Math.abs(this._totalObligation) >= MoneyFormatter.unitValues.MILLION) {
             const units = MoneyFormatter.calculateUnitForSingleValue(this._totalObligation);
             if (this._totalObligation < 0) {
-                return `(${MoneyFormatter.formatMoneyWithPrecision(Math.abs(this._totalObligation) / units.unit, 1)} ${units.unitLabel})`;
+                return `(${MoneyFormatter.formatMoneyWithPrecision(Math.abs(this._totalObligation) / units.unit, 1)} ${units.longLabel.charAt(0).toUpperCase() + units.longLabel.slice(1)})`;
             }
-            return `${MoneyFormatter.formatMoneyWithPrecision(this._totalObligation / units.unit, 1)} ${units.unitLabel}`;
+            return `${MoneyFormatter.formatMoneyWithPrecision(this._totalObligation / units.unit, 1)} ${units.longLabel.charAt(0).toUpperCase() + units.longLabel.slice(1)}`;
         }
         else if (this._totalObligation < 0) {
             return `(${Math.abs(MoneyFormatter.formatMoney(this._totalObligation))})`;
@@ -137,7 +169,7 @@ const BaseAwardAmounts = {
     get baseExercisedOptionsAbbreviated() {
         if (this._baseExercisedOptions >= MoneyFormatter.unitValues.MILLION) {
             const units = MoneyFormatter.calculateUnitForSingleValue(this._baseExercisedOptions);
-            return `${MoneyFormatter.formatMoneyWithPrecision(this._baseExercisedOptions / units.unit, 1)} ${units.unitLabel}`;
+            return `${MoneyFormatter.formatMoneyWithPrecision(this._baseExercisedOptions / units.unit, 1)} ${units.longLabel.charAt(0).toUpperCase() + units.longLabel.slice(1)}`;
         }
         return MoneyFormatter.formatMoney(this._baseExercisedOptions);
     },

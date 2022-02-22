@@ -121,7 +121,7 @@ describe('BaseAwardAmounts', () => {
             expect(awardAmounts.baseExercisedOptionsFormatted).toEqual('$10,000,000.00');
         });
         it('should format the combined current award amounts amounts with units', () => {
-            expect(awardAmounts.baseExercisedOptionsAbbreviated).toEqual('$10.0 M');
+            expect(awardAmounts.baseExercisedOptionsAbbreviated).toEqual('$10.0 Million');
         });
         it('should format the obligated amount', () => {
             expect(awardAmounts.totalObligationFormatted).toEqual('$1,623,321.02');
@@ -130,16 +130,16 @@ describe('BaseAwardAmounts', () => {
             expect(awardAmounts.combinedOutlayFormatted).toEqual('$2,222,222.22');
         });
         it('should format the totalObligation options with units', () => {
-            expect(awardAmounts.totalObligationAbbreviated).toEqual('$1.6 M');
+            expect(awardAmounts.totalObligationAbbreviated).toEqual('$1.6 Million');
         });
         it('should format negative obligations', () => {
-            expect(awardAmountsNeg.totalObligationAbbreviated).toEqual('($1.6 M)');
+            expect(awardAmountsNeg.totalObligationAbbreviated).toEqual('($1.6 Million)');
         });
         it('should format the combined potential award amounts amounts', () => {
             expect(awardAmounts.baseAndAllOptionsFormatted).toEqual('$106,987,321.10');
         });
         it('should format the combined potential award amounts amounts with units', () => {
-            expect(awardAmounts.baseAndAllOptionsAbbreviated).toEqual('$107.0 M');
+            expect(awardAmounts.baseAndAllOptionsAbbreviated).toEqual('$107.0 Million');
         });
         it('should format the amount by which obligations exceed the current amounts', () => {
             expect(awardAmountsOverspent.overspendingFormatted).toEqual('$2,500,000.00');
