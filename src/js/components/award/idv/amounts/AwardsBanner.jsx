@@ -33,7 +33,7 @@ export default class AwardsBanner extends React.Component {
                     <button
                         onClick={this.props.jumpToReferencedAwardsTable}
                         className="award-viz__button">
-                        referencing awards table
+                        table of awards under this IDV
                     </button>
                     &nbsp;on this page.
                 </p>
