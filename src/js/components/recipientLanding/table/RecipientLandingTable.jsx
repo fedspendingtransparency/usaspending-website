@@ -92,8 +92,8 @@ const RecipientLandingTable = (props) => {
                                     </div>
                                 </div>
                                 <StateLandingTableSorter
-                                    field="duns"
-                                    label="duns"
+                                    field="uei"
+                                    label="uei"
                                     active={{ field: props.order.field, direction: props.order.direction }}
                                     setSort={props.setSort} />
                             </div>
