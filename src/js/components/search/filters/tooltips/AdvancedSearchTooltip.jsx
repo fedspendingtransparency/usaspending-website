@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { DUNS_LABEL } from 'GlobalConstants';
 
 export const KeyWordTooltip = () => (
     <div className="advanced-search-tt">
@@ -19,8 +20,10 @@ export const KeyWordTooltip = () => (
             </p>
             <ul className="advanced-search-tt__list">
                 <li>Recipient Name</li>
-                <li>Recipient DUNS</li>
-                <li>Recipient Parent DUNS</li>
+                <li>Recipient UEI</li>
+                <li>Recipient Parent UEI</li>
+                <li>Recipient {DUNS_LABEL.toLowerCase()}DUNS</li>
+                <li>Recipient Parent {DUNS_LABEL.toLowerCase()}DUNS</li>
                 <li>NAICS code and description</li>
                 <li>PSC code and description</li>
                 <li>PIID (prime award only)</li>

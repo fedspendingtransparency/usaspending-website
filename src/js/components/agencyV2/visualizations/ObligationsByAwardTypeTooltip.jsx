@@ -65,7 +65,7 @@ const ObligationsByAwardTypeTooltip = ({
             ),
             (
                 <div className={activeClass}>
-                    {type.value >= 0 ? calculatePercentage(type.value, _awardObligations, '--', 0) : '--'}
+                    {type.value >= 0 ? calculatePercentage(type.value, _awardObligations, '--', 1) : '--'}
                 </div>
             )
         ];

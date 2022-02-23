@@ -28,6 +28,9 @@ $proc-current-offset: rem(5);
         position: relative;
         z-index: 4;
     }
+    strong {
+        font-weight: 600;
+    }
     // Parent element for the Bars Viz, not their labels or text.
     .award-amounts-viz__bar-container {
         border: rem(2) solid $color-gray;
@@ -376,6 +379,7 @@ $proc-current-offset: rem(5);
                         padding-right: rem(10);
                         strong {
                             font-size: $lead-font-size;
+                            font-weight: 600;
                         }
                         .award-amounts-viz__desc-text-wrapper {
                             @include display(flex);

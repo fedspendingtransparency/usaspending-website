@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import GlobalConstants from 'GlobalConstants';
 
 import StateLandingTableSorter from 'components/stateLanding/table/StateLandingTableSorter';
 import RecipientLinkCell from './RecipientLinkCell';
@@ -32,6 +33,9 @@ const RecipientLandingTable = (props) => {
                 type={row.recipientLevel}
                 name={row.name}
                 searchString={props.searchString} />
+            <td className="recipient-list__body-cell recipient-list__body-cell_left">
+                {row.uei}
+            </td>
             <td className="recipient-list__body-cell recipient-list__body-cell_left">
                 {row.duns}
             </td>
@@ -84,7 +88,21 @@ const RecipientLandingTable = (props) => {
                             <div className="header-cell ">
                                 <div className="header-cell__text">
                                     <div className="header-cell__title header-cell__title_cap">
-                                        Duns
+                                        UEI
+                                    </div>
+                                </div>
+                                <StateLandingTableSorter
+                                    field="uei"
+                                    label="uei"
+                                    active={{ field: props.order.field, direction: props.order.direction }}
+                                    setSort={props.setSort} />
+                            </div>
+                        </th>
+                        <th className="recipient-list__head-cell">
+                            <div className="header-cell ">
+                                <div className="header-cell__text">
+                                    <div className="header-cell__title header-cell__title_cap">
+                                        {GlobalConstants.DUNS_LABEL}DUNS
                                     </div>
                                 </div>
                                 <StateLandingTableSorter
