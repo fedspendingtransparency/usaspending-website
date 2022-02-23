@@ -38,7 +38,7 @@
     }
 
     .award-amounts__data-icon-dark-blue {
-        background-color: $colors-obligated;
+        background-color: $colors-outlayed;
     }
 
     .award-amounts__data-icon_green {
@@ -80,6 +80,10 @@
         background-color: $colors-obligated;
     }
 
+    .award-amounts__outlayed {
+        background-color: $colors-outlayed;
+    }
+
     .award-amounts__file-c-obligations {
         background-color: $color-covid-19-obligations;
         border: rem(2) solid $color-covid-19-obligations;
@@ -110,6 +114,34 @@
 .award-amounts-children__data-wrapper {
   margin-top: rem(30);
   margin-bottom: rem(15);
+
+  strong {
+      font-weight: 600;
+  }
+
+  .count-of-awards-title-text {
+      line-height: 0;
+  }
+  .total-title-text {
+      line-height: 0;
+      margin-right: 0.8rem;
+      float: right;
+  }
+  .award-viz__button {
+      margin-right: 0;
+      margin-left: auto;
+      margin-top: 0.8rem;
+      @media (max-width: 510px) {
+        margin-left: 0;
+      }
+  }
+  .title-and-link-span {
+      width: 100%;
+      display: inline-flex;
+      @media (max-width: 510px) {
+        display: block;
+      }
+  }
 
   .award-amounts-children__data-content {
       @extend %column-less-table__row;

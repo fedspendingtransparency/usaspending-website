@@ -33,7 +33,7 @@ const tabTypes = [
     {
         enabled: true,
         internal: 'awards',
-        label: 'Award Orders Under this IDV'
+        label: 'Awards Under this IDV'
     },
     {
         enabled: true,

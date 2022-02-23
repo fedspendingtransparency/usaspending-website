@@ -1,15 +1,15 @@
 const webpack = require('webpack');
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const GitRevisionPlugin = require('git-revision-webpack-plugin');
+const { GitRevisionPlugin } = require('git-revision-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 
-const gitRevisionPlugin = new GitRevisionPlugin({ branch: true }); // 'rev-parse HEAD' is default command to find latest commit
+// const gitRevisionPlugin = new GitRevisionPlugin({ branch: true }); // 'rev-parse HEAD' is default command to find latest commit
 
-console.log("Commit Hash for this build: ", gitRevisionPlugin.commithash());
-console.log("Branch for this build: ", gitRevisionPlugin.branch());
+// console.log("Commit Hash for this build: ", gitRevisionPlugin.commithash());
+// console.log("Branch for this build: ", gitRevisionPlugin.branch());
 console.log("GA_TRACKING_ID", process.env.GA_TRACKING_ID);
 
 module.exports = {
@@ -28,28 +28,7 @@ module.exports = {
         modules: ["node_modules", path.resolve(__dirname, "../src/_scss")]
     },
     optimization: {
-        splitChunks: {
-            cacheGroups: {
-                default: false,
-                vendors: false,
-                // all imported code from node_modules is a single file
-                vendor: {
-                    test: /[\\/]node_modules[\\/]/,
-                    name: 'vendors',
-                    chunks: 'all',
-                    priority: 20
-                },
-                // code shared between at least 2 modules, is put into a common chunk file
-                common: {
-                    name: 'common',
-                    minChunks: 2,
-                    chunks: 'all',
-                    priority: 10,
-                    reuseExistingChunk: true,
-                    enforce: true
-                }
-            }
-        }
+        splitChunks: { chunks: 'all' }
     },
     module: {
         noParse: /(mapbox-gl)\.js$/,
@@ -70,10 +49,11 @@ module.exports = {
                     }
                 ]
             },
+            // file-loader rules are being deprecated; https://webpack.js.org/guides/asset-modules/
             {
                 include: /\.(eot|ttf|woff|woff2|png|svg|ico|gif|jpg|pdf|webp)$/,
                 loader: 'file-loader',
-                query: {
+                options: {
                     name: '[path][name].[ext]'
                 }
             },
@@ -81,17 +61,21 @@ module.exports = {
                 test: /\.(json)$/,
                 type: 'javascript/auto',
                 loader: 'file-loader',
-                query: {
+                options: {
                     name: '[path][name].[ext]'
                 }
             }
         ]
     },
     plugins: [
-        new CleanWebpackPlugin(["public"], {
-            root: path.resolve(__dirname, "../")
+        new CleanWebpackPlugin(),
+        new GitRevisionPlugin({
+            branch: true
         }),
-        new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/),
+        new webpack.IgnorePlugin({
+            resourceRegExp: /^\.\/locale$/,
+            contextRegExp: /moment$/
+        }),
         new HtmlWebpackPlugin({
             template: path.resolve(__dirname, "../src/index.ejs"),
             chunksSortMode: "none",
@@ -101,36 +85,41 @@ module.exports = {
                     process.env.ENV === 'qat' ||
                     process.env.ENV === 'sandbox'
                 ),
-                GTM_ID: process.env.GTM_ID || ''
+                GTM_ID: process.env.GTM_ID || '',
+                IS_PROD: (
+                    process.env.ENV === 'prod'
+                )
+
             }
         }),
         new MiniCssExtractPlugin({
             filename: "[name].[contenthash].css"
         }),
-        new webpack.HashedModuleIdsPlugin(), // so that file hashes don't change unexpectedly
-        new CopyWebpackPlugin([
-            {
-                from: '*.xml',
-                to: path.resolve(__dirname, "../public"),
-                context: path.resolve(__dirname, '../')
-            },
-            {
-                from: 'robots.txt',
-                to: path.resolve(__dirname, "../public"),
-                context: path.resolve(__dirname, '../')
-            },
-            {
-                from: 'redirect-config.json',
-                to: path.resolve(__dirname, "../public"),
-                context: path.resolve(__dirname, '../')
-            }
-        ]),
+        // new webpack.HashedModuleIdsPlugin(),
+        new CopyWebpackPlugin({
+            patterns: [
+                {
+                    from: '*.xml',
+                    to: path.resolve(__dirname, "../public"),
+                    context: path.resolve(__dirname, '../'),
+                    noErrorOnMissing: true
+                },
+                {
+                    from: 'robots.txt',
+                    to: path.resolve(__dirname, "../public"),
+                    context: path.resolve(__dirname, '../'),
+                    noErrorOnMissing: true
+                },
+                {
+                    from: 'redirect-config.json',
+                    to: path.resolve(__dirname, "../public"),
+                    context: path.resolve(__dirname, '../'),
+                    noErrorOnMissing: true
+                }
+            ]
+        }),
         new webpack.DefinePlugin({
-            'process.env': {
-                ENV: process.env.ENV
-                    ? JSON.stringify(process.env.ENV)
-                    : JSON.stringify('qat')
-            }
+            'process.env.ENV': process.env.ENV ? JSON.stringify(process.env.ENV) : JSON.stringify('qat')
         })
     ]
 };
