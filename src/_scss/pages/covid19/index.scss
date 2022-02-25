@@ -5,6 +5,8 @@
   @import "components/pageLoading";
   @import "./header";
 
+  @import "src/_scss/pages/about/_section.scss";
+
   @include display(flex);
   @include justify-content(flex-start);
   @include align-items(center);
