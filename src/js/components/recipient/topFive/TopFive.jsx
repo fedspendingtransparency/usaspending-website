@@ -109,7 +109,7 @@ export default class TopFive extends React.Component {
                         <img
                             className="category-table__title-icon"
                             src={`img/state-categories/${this.props.category}.png`}
-                            alt={recipientCategoryTitles[this.props.category]} />
+                            alt="" />
                         <div className="category-table__title-name">
                             {recipientCategoryTitles[this.props.category]}
                         </div>
