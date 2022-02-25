@@ -1124,7 +1124,7 @@ export const ContractAwardAmountsInfo = (
         </div>
         <div className="tooltip__text">
             <p>This section illustrates how much the government has spent on this award.</p>
-            <p>The Obligated Amount of a contract represents the amount an agency has promised to pay the vendor in its financial system. It usually matches the current value of the contract, but certain agencies (e.g., DOD) are allowed to incrementally fund some contracts in their financial systems. In these cases, the obligated amount may lag the current award amount.</p>
+            <p>The Obligated Amount of a contract represents the amount an agency has promised to pay the vendor in its financial system. It usually matches the current value of the contract, but certain agencies (e.g., DOD) are allowed to incrementally fund some contracts in their financial systems. In these cases, the Obligated Amount may lag behind the Current Award Amount.</p>
             <p>The current value of a contract (Current Award Amount) represents the value of the base contract and any exercised options. </p>
             <p>The potential value of a contract (Potential Award Amount) represents the value of the base contract and all options, if they happen to be exercised in the future. This is sometimes called the contract ceiling or capacity.</p>
             <p>If a recipient fails to deliver on the terms of the contract, the contract can end or be modified, reducing the current and potential value through a deobligation.</p>

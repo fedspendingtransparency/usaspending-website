@@ -20,12 +20,15 @@ const GlossaryListener = ({
     const queryParams = useQueryParams();
 
     useEffect(() => {
-        if (location.hash) {
-            const urlWithNoHash = location.hash.split("#").length > 1
-                ? location.hash.split("#")[1]
-                : '';
-            history.replace(urlWithNoHash);
+        // The #fscommand=fstest is used to access the Foresee survey admin panel
+        if (!location.hash || location.hash.indexOf('#fscommand=fstest') > -1) {
+            return;
         }
+
+        const urlWithNoHash = location.hash.split("#").length > 1
+            ? location.hash.split("#")[1]
+            : '';
+        history.replace(urlWithNoHash);
     }, [location, history]);
 
     useEffect(() => {

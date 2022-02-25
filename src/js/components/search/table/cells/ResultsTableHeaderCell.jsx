@@ -26,7 +26,8 @@ const defaultProps = {
 
 const TableHeaderCell = (props) => {
     const clickedSort = (e) => {
-        props.updateSort(props.title, e.target.value);
+        e.preventDefault();
+        props.updateSort(props.title, e.currentTarget.value);
     };
 
     const clickedDefault = () => {
@@ -68,14 +69,15 @@ const TableHeaderCell = (props) => {
         <div className={`award-result-header-cell ${lastClass}`}>
             <div
                 className="cell-content"
-                style={customStyle}
-                onClick={clickedDefault}
-                onKeyDown={pressedKey}
-                role="presentation"
-                aria-label={props.title}
-                tabIndex={0}>
+                style={customStyle}>
                 <div className="header-sort">
-                    <div className="header-label">
+                    <div
+                        onClick={clickedDefault}
+                        onKeyDown={pressedKey}
+                        className="header-label"
+                        role="presentation"
+                        aria-label={props.title}
+                        tabIndex={0}>
                         {props.displayName}{props.subtitle ? (<div>{props.subtitle}</div>) : ''}
                     </div>
                     <div className="header-icons">
