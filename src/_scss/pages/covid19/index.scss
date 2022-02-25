@@ -5,8 +5,6 @@
   @import "components/pageLoading";
   @import "./header";
 
-  @import "src/_scss/pages/about/_section.scss";
-
   @include display(flex);
   @include justify-content(flex-start);
   @include align-items(center);
@@ -35,6 +33,7 @@
     }
     @import "./sidebar";
     @import "src/_scss/pages/about/_sidebar.scss";
+    @import "src/_scss/pages/about/_section.scss";
     .body {
       @include display(flex);
       @include flex(1 1 auto);
