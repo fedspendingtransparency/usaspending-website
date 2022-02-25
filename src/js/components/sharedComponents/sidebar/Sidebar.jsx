@@ -3,13 +3,13 @@
  * Created by Kevin Li 6/8/17
  */
 
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
 import { Link } from 'react-router-dom';
 
 import FYPicker from 'components/state/RecipientFYPicker';
-import { useDynamicStickyClass } from 'helpers/stickyHeaderHelper';
+// import { useDynamicStickyClass } from 'helpers/stickyHeaderHelper';
 import SidebarLink from './SidebarLink';
 
 const propTypes = {
@@ -43,8 +43,8 @@ const Sidebar = ({
     selectedFy,
     pickedYear,
     detectActiveSection = false,
-    fixedStickyBreakpoint = null,
-    isGoingToBeSticky = false,
+    // fixedStickyBreakpoint = null,
+    // isGoingToBeSticky = false,
     verticalSectionOffset = 0,
     children
 }) => {
@@ -247,9 +247,10 @@ const Sidebar = ({
 
     return (
         <div>
-            {/*<div className={`${pageName}-sidebar-reference ${floatSidebar}`} ref={referenceDiv}>*/}
-            {/*  &nbsp;*/}
-            {/*</div>*/}
+            {/* <div className={`${pageName}-sidebar-reference ${floatSidebar}`}
+             ref={referenceDiv}> */}
+            {/*  &nbsp; */}
+            {/* </div> */}
             <div className={`${pageName}-sidebar-content`}>
                 <div className={`${pageName}-sidebar-content-background`}>
                     {fyPicker && (
