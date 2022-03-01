@@ -74,6 +74,7 @@ require('pages/data-sources/index.scss');
 const getDefCValues = (errorMsg, isLoading, codes) => {
     if (isLoading) return "Loading...";
     if (errorMsg) return "There was an error fetching DEFC values";
+
     return (
         <span>
             {codes
@@ -125,6 +126,11 @@ export default () => {
     const dataDisclaimerBannerRef = useRef(null);
     const [dataDisclaimerBanner, setDataDisclaimerBanner] = useState(Cookies.get('usaspending_data_disclaimer'));
     const [isBannerSticky, , , setBannerStickyOnScroll] = useDynamicStickyClass(dataDisclaimerBannerRef, getStickyBreakPointForCovidBanner(Cookies.get('usaspending_covid_homepage')));
+    const [covidDefCodes, setCovidDefCodes] = useState();
+
+    useEffect(() => {
+        setCovidDefCodes(defCodes.filter((c) => c.disaster === 'covid_19'));
+    }, [defCodes]);
 
     useEffect(() => {
         window.addEventListener('scroll', setBannerStickyOnScroll);
@@ -451,7 +457,7 @@ export default () => {
                                             If it is after FY20, repeat this process for each FY after FY20 until you have reached the current FY (one file per FY)
                                                 </li>
                                                 <li>
-                                            Filter for rows with DEFC values {getDefCValues(errorMsg, isLoading, defCodes)} in the downloaded file
+                                            Filter for rows with DEFC values {getDefCValues(errorMsg, isLoading, covidDefCodes)} in the downloaded file
                                                 </li>
                                             </ol>
                                         </div>
@@ -466,7 +472,7 @@ export default () => {
                                                 <ExternalLink
                                                     url="https://www.whitehouse.gov/wp-content/uploads/2020/04/Implementation-Guidance-for-Supplemental-Funding-Provided-in-Response.pdf">
                                             Memorandum M-20-21
-                                                </ExternalLink>, <strong>COVID-19 supplemental appropriations are identified by a Disaster Emergency Fund Code (DEFC)</strong>. The COVID-19 Spending profile page download is pre-filtered to include only spending data associated with COVID-19 DEFC values. If you use the <Link to="/download_center/custom_account_data">Custom Account Data</Link> page to download Broker File C data, be sure to filter for rows with DEFC values {getDefCValues(errorMsg, isLoading, defCodes)} in the downloaded file.
+                                                </ExternalLink>, <strong>COVID-19 supplemental appropriations are identified by a Disaster Emergency Fund Code (DEFC)</strong>. The COVID-19 Spending profile page download is pre-filtered to include only spending data associated with COVID-19 DEFC values. If you use the <Link to="/download_center/custom_account_data">Custom Account Data</Link> page to download Broker File C data, be sure to filter for rows with DEFC values {getDefCValues(errorMsg, isLoading, covidDefCodes)} in the downloaded file.
                                             </p>
                                             <p>
                                         Note that the <strong>National Interest Action (NIA)</strong> code is also used to track COVID-19 spending. However, it only applies to procurement actions (i.e., contracts) and is not necessarily tied to COVID-19 supplemental appropriations. Thus, awards with the COVID-19 NIA value may not have a COVID-19 DEFC value, and vice versa.
@@ -475,7 +481,7 @@ export default () => {
                                         The relevant codes for COVID-19 response funding and their associated legislation are as follows:
                                             </p>
                                             <ul>
-                                                {renderDefCodes(errorMsg, isLoading, defCodes)}
+                                                {renderDefCodes(errorMsg, isLoading, covidDefCodes)}
                                             </ul>
                                         </div>
                                     </div>
