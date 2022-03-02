@@ -19,7 +19,7 @@ import PageWrapper from 'components/sharedComponents/PageWrapper';
 import Error from 'components/sharedComponents/Error';
 
 import RecipientContent from './RecipientContent';
-import RecipientInfoBanner from "./RecipientInfoBanner";
+// import RecipientInfoBanner from "./RecipientInfoBanner";
 
 const propTypes = {
     loading: PropTypes.bool,
