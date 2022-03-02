@@ -19,7 +19,7 @@ import PageWrapper from 'components/sharedComponents/PageWrapper';
 import Error from 'components/sharedComponents/Error';
 
 import RecipientContent from './RecipientContent';
-import RecipientInfoBanner from "./RecipientInfoBanner";
+// import RecipientInfoBanner from "./RecipientInfoBanner";
 
 const propTypes = {
     loading: PropTypes.bool,
@@ -87,9 +87,9 @@ export const RecipientPage = ({
                     url={getBaseUrl(slug)} />
             ]}>
             <>
-                <div className="info-banner-container">
-                    <RecipientInfoBanner />
-                </div>
+                {/* <div className="info-banner-container">*/}
+                {/*    <RecipientInfoBanner />*/}
+                {/* </div>*/}
                 <main id="main-content" className="main-content">
                     <LoadingWrapper isLoading={loading}>
                         {content}
