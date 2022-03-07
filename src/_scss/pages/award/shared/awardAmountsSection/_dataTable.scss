@@ -3,7 +3,9 @@
 
     .award-amounts__data-content {
         @extend %column-less-table__row;
+        flex-wrap: wrap;
         border-bottom: 0;
+        padding-left: 2.3rem;
         &:nth-of-type(1) {
             border-radius: rem(5) rem(5) 0 0;
         }
@@ -11,13 +13,23 @@
             border-radius: 0 0 rem(5) rem(5);
             border-bottom: solid rem(1) $border-light-gray;
         }
+
+        .hanging {
+            text-indent: -1.5rem;
+
+            @media (max-width: $tablet-screen) {
+                padding-bottom: 4px;
+                flex-basis: 100%;
+            }
+        }
     }
 
     .award-amounts__data-icon {
         height: rem(10);
-        width: rem(10);
+        min-width: rem(10);
         border-radius: 50%;
         display: inline-block;
+        margin-top: rem(5);
         margin-right: rem(5);
     }
 
@@ -26,7 +38,7 @@
     }
 
     .award-amounts__data-icon-dark-blue {
-        background-color: $colors-obligated;
+        background-color: $colors-outlayed;
     }
 
     .award-amounts__data-icon_green {
@@ -68,6 +80,10 @@
         background-color: $colors-obligated;
     }
 
+    .award-amounts__outlayed {
+        background-color: $colors-outlayed;
+    }
+
     .award-amounts__file-c-obligations {
         background-color: $color-covid-19-obligations;
         border: rem(2) solid $color-covid-19-obligations;
@@ -98,6 +114,34 @@
 .award-amounts-children__data-wrapper {
   margin-top: rem(30);
   margin-bottom: rem(15);
+
+  strong {
+      font-weight: 600;
+  }
+
+  .count-of-awards-title-text {
+      line-height: 0;
+  }
+  .total-title-text {
+      line-height: 0;
+      margin-right: 0.8rem;
+      float: right;
+  }
+  .award-viz__button {
+      margin-right: 0;
+      margin-left: auto;
+      margin-top: 0.8rem;
+      @media (max-width: 510px) {
+        margin-left: 0;
+      }
+  }
+  .title-and-link-span {
+      width: 100%;
+      display: inline-flex;
+      @media (max-width: 510px) {
+        display: block;
+      }
+  }
 
   .award-amounts-children__data-content {
       @extend %column-less-table__row;

@@ -132,7 +132,6 @@
             width: 100%;
             @include display(flex);
             @include align-items(flex-end);
-            padding: 0 10%;
             @include media($medium-screen) {
                 padding: 0 rem(2.5);
             }

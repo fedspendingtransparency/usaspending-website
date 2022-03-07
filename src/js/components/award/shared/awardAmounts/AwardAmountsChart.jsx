@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import {
     asstAwardTypesWithSimilarAwardAmountData,
+    outlayColor,
     obligatedColor,
     currentColor,
     potentialColor,
@@ -18,6 +19,7 @@ import { getTooltipPropsByAwardTypeAndSpendingCategory } from './Tooltips';
 import NoResultsMessage from '../../../sharedComponents/NoResultsMessage';
 import { AWARD_OVERVIEW_AWARD_AMOUNTS_SECTION_PROPS } from '../../../../propTypes/index';
 import RectanglePercentViz from './RectanglePercentViz';
+import HorizontalSingleStackedBarViz from './HorizontalSingleStackedBarViz';
 
 const propTypes = {
     awardType: PropTypes.string,
@@ -26,7 +28,7 @@ const propTypes = {
 };
 
 // Only for Contract and IDV Awards
-const buildNormalProps = (awardType, data, hasFileC) => {
+const buildNormalProps = (awardType, data, hasFileC, hasOutlays) => {
     const chartProps = {
         denominator: {
             labelSortOrder: 3,
@@ -72,6 +74,66 @@ const buildNormalProps = (awardType, data, hasFileC) => {
             ]
         }
     };
+    const chartPropsOutlays = {
+        denominator: {
+            labelSortOrder: 3,
+            labelPosition: 'bottom',
+            className: `${awardType}-potential`,
+            rawValue: data._baseAndAllOptions,
+            value: data.baseAndAllOptionsAbbreviated,
+            color: potentialColor,
+            lineOffset: lineOffsetsBySpendingCategory.potential,
+            text: awardType === 'idv'
+                ? "Combined Potential Award Amounts"
+                : "Potential Award Amount"
+        },
+        // outlays numerator
+        numerator2: {
+            labelSortOrder: 0,
+            labelPosition: 'top',
+            className: `${awardType}-outlayed`,
+            rawValue: awardType === 'idv'
+                ? data._combinedOutlay
+                : data._totalOutlay,
+            value: awardType === 'idv'
+                ? data.combinedOutlayAbbreviated
+                : data.totalOutlayAbbreviated,
+            color: outlayColor,
+            lineOffset: lineOffsetsBySpendingCategory.potential,
+            text: awardType === 'idv'
+                ? "Combined Outlayed Amounts"
+                : "Outlayed Amount"
+        },
+        numerator: {
+            labelSortOrder: 2,
+            labelPosition: 'bottom',
+            className: `${awardType}-current`,
+            rawValue: data._baseExercisedOptions,
+            denominatorValue: data._baseAndAllOptions,
+            value: data.baseExercisedOptionsAbbreviated,
+            lineOffset: lineOffsetsBySpendingCategory.current,
+            text: awardType === 'idv'
+                ? "Combined Current Award Amounts"
+                : "Current Award Amount",
+            color: currentColor,
+            children: [
+                {
+                    labelSortOrder: 1,
+                    labelPosition: 'top',
+                    className: `${awardType}-obligated`,
+                    rawValue: data._totalObligation,
+                    denominatorValue: data._baseExercisedOptions,
+                    value: data.totalObligationAbbreviated,
+                    text: awardType === 'idv'
+                        ? "Combined Obligated Amounts"
+                        : "Obligated Amount",
+                    color: obligatedColor,
+                    lineOffset: lineOffsetsBySpendingCategory.obligationProcurement
+                }
+            ]
+        }
+    };
+    if (hasOutlays) return chartPropsOutlays; // show outlays for non-covid only first
     if (!hasFileC) return chartProps;
     return {
         ...chartProps,
@@ -394,6 +456,7 @@ const AwardAmountsChart = ({
         awardAmounts = awardOverview
     ) => {
         const hasFileC = awardAmounts._fileCObligated > 0;
+        const hasOutlays = awardAmounts._combinedOutlay > 0 || awardAmounts._totalOutlay > 0;
         switch (scenario) {
             case "exceedsBigger": {
                 return (
@@ -406,6 +469,11 @@ const AwardAmountsChart = ({
                 );
             }
             case "normal":
+                if (hasOutlays) {
+                    return (
+                        <HorizontalSingleStackedBarViz {...buildNormalProps(type, awardAmounts, hasFileC, hasOutlays)} />
+                    );
+                }
                 return (
                     <RectanglePercentViz {...buildNormalProps(type, awardAmounts, hasFileC)} />
                 );

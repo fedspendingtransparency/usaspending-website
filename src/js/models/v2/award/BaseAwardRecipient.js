@@ -9,9 +9,11 @@ const BaseAwardRecipient = {
     populate(data) {
         this.internalId = data.recipient_hash || '';
         this._name = data.recipient_name || '';
-        this.duns = data.recipient_unique_id || '--';
+        this.duns = data.recipient_unique_id;
+        this.uei = data.recipient_uei;
         this.parentName = data.parent_recipient_name || '';
-        this.parentDuns = data.parent_recipient_unique_id || '--';
+        this.parentDuns = data.parent_recipient_unique_id;
+        this.parentUei = data.parent_recipient_uei;
         this.parentInternalId = data.parent_recipient_hash || '';
         this.businessCategories = data.business_categories;
 
