@@ -24,7 +24,9 @@ const globalConstants = {
     AGENCY_LINK: 'agency',
     DUNS_LABEL: '', // 'Legacy ' later...
     HOMEPAGE_UPDATE_RELEASED: false,
-    HOMEPAGE_UPDATE_LINK: (process.env.ENV !== 'prod' || process.env.ENV !== 'staging') ? '/homepage_update' : ''
+    HOMEPAGE_UPDATE_LINK: (process.env.ENV !== 'prod' || process.env.ENV !== 'staging') ? '/homepage_update' : '',
+    IS_HOMEPAGE_UPDATE: (process.env.ENV !== 'prod' || process.env.ENV !== 'staging')
+
 };
 
 module.exports = globalConstants;
