@@ -1,7 +1,6 @@
 .usa-da-home-page {
-  @import "all";
+  @import 'all';
   @import "layouts/default/default";
-
   @import "layouts/default/header/_warning";
 
   .homepage-content {
@@ -29,10 +28,8 @@
     }
   }
 
-  @import "../homepage/hero/hero";
-  @import "../homepage/features/features";
   @import "../homepage/download/download";
   @import "../homepage/community/community";
-  @import "../homepage/hero/covid-hero";
 }
+
 
