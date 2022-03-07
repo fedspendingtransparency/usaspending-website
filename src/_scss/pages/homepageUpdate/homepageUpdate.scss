@@ -1,0 +1,19 @@
+.usa-da-home-page {
+  @import "all";
+  @import "layouts/default/default";
+
+  @import "layouts/default/header/_warning";
+
+  .homepage-content {
+    .usa-dt-flex-grid__row.grid-content {
+      margin: 0 $col-1;
+    }
+  }
+
+  @import "../homepage/hero/hero";
+  @import "../homepage/features/features";
+  @import "../homepage/download/download";
+  @import "../homepage/community/community";
+  @import "../homepage/hero/covid-hero";
+}
+

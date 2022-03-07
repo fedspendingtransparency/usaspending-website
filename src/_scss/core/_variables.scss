@@ -111,6 +111,8 @@ $global-pad-mrg: rem(15);
 $global-pad: $global-pad-mrg;
 $global-mrg: $global-pad-mrg;
 
+// Global grid system
+$col-1: 8.33%;
 
 // Mobile First Breakpoints
 $small-screen:      320px;
