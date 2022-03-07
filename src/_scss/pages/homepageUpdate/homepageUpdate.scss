@@ -26,6 +26,13 @@
         height: 400px;
         background-color: white;
     }
+
+    @media screen and (max-width: $tablet-screen) {
+      .homepage-hero-content, .usa-dt-flex-grid__row.grid-content {
+        margin: 0 rem(16);
+      }
+    }
+
   }
 
   @import "../homepage/download/download";
