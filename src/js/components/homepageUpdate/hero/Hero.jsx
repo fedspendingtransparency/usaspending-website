@@ -1,7 +1,10 @@
+/**
+ * Hero.jsx
+ * Created by Andrea Blackwell 03/07/22
+ */
+
 import React from 'react';
 
-
-const Hero = () => (<div style={{ width: '100%', height: '600px', 'background-color': 'lightblue' }}>&nbsp;</div>);
-
+const Hero = () => (<section className="homepage-hero-content" aria-label="Hero sections">&nbsp;</section>);
 
 export default Hero;

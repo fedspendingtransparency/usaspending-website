@@ -41,7 +41,7 @@ const DataDictionaryPage = React.lazy(() => import('components/dataDictionary/Da
 // eslint-disable-next-line import/prefer-default-export
 export const routes = [
     {
-        path: '/',
+        path: `/`,
         component: Homepage,
         exact: true
     },

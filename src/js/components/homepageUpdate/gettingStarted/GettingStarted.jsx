@@ -1,3 +1,8 @@
+/**
+ * GettingStarted.jsx
+ * Created by Andrea Blackwell 03/07/22
+ */
+
 import React from 'react';
 import { FlexGridRow } from "data-transparency-ui";
 
@@ -5,14 +10,10 @@ import { FlexGridRow } from "data-transparency-ui";
 const GettingStarted = () => (
     <section
         className="homepage-getting-started"
-        aria-label="Getting started sections"
-        style={{ width: '100%', height: '400px', 'background-color': 'white' }}>
+        aria-label="Getting Started sections">
         <FlexGridRow
-            className="grid-content"
-            style={{
-                height: '400px', 'background-color': 'white'
-            }}>
-            content goes here
+            className="grid-content">
+            Getting Started content goes here
         </FlexGridRow>
     </section>
 );

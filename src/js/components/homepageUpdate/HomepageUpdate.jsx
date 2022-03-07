@@ -1,6 +1,6 @@
 /**
- * Homepage.jsx
- * Created by Kevin Li 1/18/18
+ * HomepageUpdate.jsx
+ * Created by Andrea Blackwell 03/07/22
  */
 
 import React from 'react';
