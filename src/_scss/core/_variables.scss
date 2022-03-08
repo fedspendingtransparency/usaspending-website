@@ -111,8 +111,14 @@ $global-pad-mrg: rem(15);
 $global-pad: $global-pad-mrg;
 $global-mrg: $global-pad-mrg;
 
-// Global grid system
-$col-1: 8.33%;
+// Global Padding and Margins (new units for 2022 homepage redesign)
+// (example usage {padding: ($global-padding * 4);} = 40px of padding.)
+$global-spacing-unit: rem(8);
+$global-padding: $global-spacing-unit;
+$global-margin: $global-spacing-unit;
+
+// Grid Sizes
+$grid-column: 8.33%;
 
 // Mobile First Breakpoints
 $small-screen:      320px;

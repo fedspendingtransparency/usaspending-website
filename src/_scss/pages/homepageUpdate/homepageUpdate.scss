@@ -18,11 +18,11 @@
     .homepage-hero-content {
       height: 600px;
       background-color: lightblue;
-      margin: 0 rem(40);
+      margin: 0 $global-margin * 5;
     }
 
     .usa-dt-flex-grid__row.grid-content {
-        margin: 0 $col-1;
+        margin: 0 $grid-column;
         height: 400px;
         background-color: white;
     }
