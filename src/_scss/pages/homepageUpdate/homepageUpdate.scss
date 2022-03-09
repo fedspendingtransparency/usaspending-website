@@ -1,0 +1,42 @@
+.usa-da-home-page {
+  @import 'all';
+  @import "layouts/default/default";
+  @import "layouts/default/header/_warning";
+
+  .homepage-content {
+
+    .homepage-covid {
+      height: 400px;
+      background-color: lightgrey;
+    }
+
+    .homepage-getting-started {
+      height: 400px;
+      background-color: lightgrey;
+    }
+
+    .homepage-hero-content {
+      height: 600px;
+      background-color: lightblue;
+      margin: 0 $global-margin * 5;
+    }
+
+    .usa-dt-flex-grid__row.grid-content {
+        margin: 0 $grid-column;
+        height: 400px;
+        background-color: white;
+    }
+
+    @media screen and (max-width: $tablet-screen) {
+      .homepage-hero-content, .usa-dt-flex-grid__row.grid-content {
+        margin: 0 rem(16);
+      }
+    }
+
+  }
+
+  @import "../homepage/download/download";
+  @import "../homepage/community/community";
+}
+
+
