@@ -22,7 +22,7 @@ const ErrorPage = (props) => {
         h2Text = 'The page you are looking for has been updated.';
         paragraphText = (
             <p>
-                Please return to our <Link to="/recipient">Recipient Profile Page</Link> and update any saved links.;
+                Please return to our <Link to="/recipient">Recipient Profile Page</Link> and update any saved links.
             </p>
         );
     }
