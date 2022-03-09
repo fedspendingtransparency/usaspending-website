@@ -63,6 +63,11 @@
         border: rem(2) solid #BBBBBB;
     }
 
+    .award-amounts__data-icon_transparent-green {
+        background-color: white;
+        border: rem(2) solid $colors-grants-nff;
+    }
+
     .award-amounts__file-c-outlays {
         background-color: $color-disaster-covid-19;
         border: rem(2) solid $color-disaster-covid-19;
