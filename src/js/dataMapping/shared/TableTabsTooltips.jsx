@@ -18,16 +18,16 @@ const tooltipContent = () => ({
     }
 });
 
-const tableTabsTooltips = (type) => {
+const TableTabsTooltips = (type) => {
     const tooltipProps = tooltipContent()[type];
     if (!tooltipProps) return null;
     return (
         <TooltipWrapper
             className="award-section-tt"
             icon="info"
-            tooltipPosition="left"
+            tooltipPosition="right"
             tooltipComponent={<TooltipComponent data={tooltipProps} />} />
     );
 };
 
-export default tableTabsTooltips;
+export default TableTabsTooltips;
