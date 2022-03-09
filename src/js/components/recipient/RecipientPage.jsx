@@ -5,19 +5,15 @@
 
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from "react-router-dom";
 import { ShareIcon, FiscalYearPicker } from 'data-transparency-ui';
-
 import { currentFiscalYear, earliestFiscalYear, getFiscalYearsWithLatestAndAll } from 'helpers/fiscalYearHelper';
 import { recipientPageMetaTags } from 'helpers/metaTagHelper';
-
 import { LoadingWrapper } from "components/sharedComponents/Loading";
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
-
 import ChildRecipientModalContainer from 'containers/recipient/modal/ChildRecipientModalContainer';
 import { AlternateNamesRecipientModalContainer } from 'containers/recipient/modal/AlternateNamesRecipientModalContainer';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
-import Error from 'components/sharedComponents/Error';
-
 import RecipientContent from './RecipientContent';
 // import RecipientInfoBanner from "./RecipientInfoBanner";
 
@@ -54,19 +50,19 @@ export const RecipientPage = ({
         handleShareOptionClick(name, slug, emailArgs);
     };
 
-    let content = (
+    const content = (
         <RecipientContent
             id={id}
             showChildRecipientModal={showChildRecipientModal}
             showAlternateNamesRecipientModal={showAlternateModal}
             recipient={recipient}
-            loading={loading}
-            error={error} />
+            loading={loading} />
     );
     if (error) {
-        content = (<Error
-            title="Invalid Recipient"
-            message="The recipient ID provided is invalid. Please check the ID and try again." />);
+        return (<Redirect to={{
+            pathname: '/404',
+            state: { recipientError: true }
+        }} />);
     }
 
 
