@@ -225,10 +225,10 @@ describe('BaseAwardAmounts', () => {
         it('creates grant specific properties w/ correct formatting', () => {
             expect(grantAwardAmounts._nonFederalFunding).toEqual(1130000);
             expect(grantAwardAmounts.nonFederalFundingFormatted).toEqual("$1,130,000.00");
-            expect(grantAwardAmounts.nonFederalFundingAbbreviated).toEqual("$1.1 M");
+            expect(grantAwardAmounts.nonFederalFundingAbbreviated).toEqual("$1.1 Million");
             expect(grantAwardAmounts._totalFunding).toEqual(1130000000);
             expect(grantAwardAmounts.totalFundingFormatted).toEqual("$1,130,000,000.00");
-            expect(grantAwardAmounts.totalFundingAbbreviated).toEqual("$1.1 B");
+            expect(grantAwardAmounts.totalFundingAbbreviated).toEqual("$1.1 Billion");
         });
     });
     describe('Loan Award Amounts', () => {
