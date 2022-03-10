@@ -25,7 +25,7 @@ const TableTabsTooltips = (type) => {
         <TooltipWrapper
             className="award-section-tt"
             icon="info"
-            tooltipPosition="right"
+            tooltipPosition="left"
             tooltipComponent={<TooltipComponent data={tooltipProps} />} />
     );
 };

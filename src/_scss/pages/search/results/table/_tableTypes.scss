@@ -4,7 +4,6 @@
     display: none;
     @include media($tablet-screen) {
         @include display(flex);
-        overflow: hidden;
     }
 
     .table-type-toggle__wrapper {
@@ -41,7 +40,7 @@
                 border-left: 1px solid $color-gray-light;
                 color: $color-base;
             }
-    
+
             .tab-content {
                 @include display(flex);
                 @include align-items(center);
@@ -52,14 +51,14 @@
                     margin-right: rem(5);
                     white-space: nowrap;
                 }
-    
+
                 .count-badge {
                     @include flex(1 1 auto);
                     background-color: $color-gray-lighter;
                     font-size: rem(12);
                     line-height: rem(16);
                     padding: rem(0) rem(5);
-    
+
                     &.active {
                         background-color: $color-gold;
                     }
@@ -76,7 +75,7 @@
                     }
                   }
             }
-    
+
             &[disabled] {
                 pointer-events: none;
                 color: #1010104d;
