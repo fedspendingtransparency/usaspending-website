@@ -87,9 +87,9 @@ export const RecipientPage = ({
                     url={getBaseUrl(slug)} />
             ]}>
             <>
-                 <div className="info-banner-container">
+                <div className="info-banner-container">
                     <RecipientInfoBanner />
-                 </div>
+                </div>
                 <main id="main-content" className="main-content">
                     <LoadingWrapper isLoading={loading}>
                         {content}
