@@ -12,6 +12,7 @@ import SubAgencySummaryContainer from 'containers/agencyV2/awardSpending/SubAgen
 import SubagencyTableContainer from 'containers/agencyV2/awardSpending/SubagencyTableContainer';
 import { useStateWithPrevious } from 'helpers';
 import Note from 'components/sharedComponents/Note';
+import AwardSpendingIntro from "./AwardSpendingIntro";
 
 const propTypes = {
     fy: PropTypes.string
@@ -70,8 +71,9 @@ const initialActiveTabState = {
 };
 
 const AwardSpendingSubagency = ({ fy }) => {
-    const { subagencyCount } = useSelector((state) => state.agencyV2);
+    const { overview, subagencyCount } = useSelector((state) => state.agencyV2);
     const [prevActiveTab, activeTab, setActiveTab] = useStateWithPrevious(initialActiveTabState);
+
 
     const moreOptionsTabsRef = useRef(null);
 
@@ -89,6 +91,7 @@ const AwardSpendingSubagency = ({ fy }) => {
 
     return (
         <div className="body__content">
+            <AwardSpendingIntro name={overview.name} />
             <div ref={moreOptionsTabsRef}>
                 <Tabs active={activeTab.internal} types={awardTabs} switchTab={changeActiveTab} />
             </div>
