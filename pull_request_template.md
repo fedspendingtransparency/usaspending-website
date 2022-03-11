@@ -17,7 +17,7 @@ The following are ALL required for the PR to be merged:
 Author:
 - [ ] Linked to this PR in JIRA ticket
 - [ ] Scheduled demo including Design/Testing/Front-end OR Provided instructions for testing in JIRA and PR `if applicable`
-- [ ] Verified cross-browser compatibility: Chrome, Safari, Firefox, Internet Explorer, Edge
+- [ ] Verified cross-browser compatibility: Chrome, Safari, Firefox, Edge
 - [ ] Verified mobile/tablet/desktop/monitor responsiveness
 - [ ] Verified that this PR does not create any *new* accessibility issues (via Axe Chrome extension)
 - [ ] Added Unit Tests for helper functions, reducers, models and Container/Component Interactivity Expectations `if applicable` [React Testing Library](react-testing-library.md)
