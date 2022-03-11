@@ -163,14 +163,14 @@ const HorizontalSingleStackedBarViz = ({
                 }
                 // obligated label
                 chartSvg.append("foreignObject")
-                    .attr('width', x(propsArr[2]) - x(propsArr[3]) - 10)
+                    .attr('width', x(propsArr[0]) - x(propsArr[2]) <= 100 ? x(propsArr[2]) - x(propsArr[3]) - 10 : x(propsArr[0]) - x(propsArr[2]) - 10)
                     .attr('height', 70)
-                    .attr('x', x(propsArr[0]) - x(propsArr[3]) <= 100 ? 0 : x(propsArr[3]))
+                    .attr('x', x(propsArr[0]) - x(propsArr[2]) <= 100 ? x(propsArr[3]) : x(propsArr[2]) + 10)
                     .attr('y', 90)
                     .html(`<div className="award-amounts-viz-outlays__desc-text"><strong>${obligatedAmountValue}</strong><br />${obligatedAmountLabel}</div>`)
                     .select('div')
-                    .style('float', 'right')
-                    .style('text-align', 'right')
+                    .style('float', x(propsArr[0]) - x(propsArr[2]) <= 100 ? 'right' : 'left')
+                    .style('text-align', x(propsArr[0]) - x(propsArr[2]) <= 100 ? 'right' : 'left')
                     .select('strong')
                     .style('font-size', '20px');
             }
