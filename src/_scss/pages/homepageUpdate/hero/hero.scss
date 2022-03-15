@@ -1,0 +1,150 @@
+@import 'all';
+
+.homepage-hero-content {
+    padding: rem(32) 0;
+    background: rgba(136, 180, 192, .15);
+    @media (min-width: $medium-screen) {
+        height: 500px;
+        margin: 0 $global-margin * 5;
+    }
+
+    .hero__temp-h1 {
+        font-size: rem(40);
+        font-weight: bold;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        text-align: center;
+        color: #2d6878;
+        padding-bottom: rem(40);
+
+        @media (min-width: $tablet-screen) {
+            font-size: rem(56);
+            //padding: 0 10% 0;
+        }
+    }
+
+    .hero__lower-wrapper {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+
+        .hero__left-image-wrapper {
+            @media (max-width: $medium-screen) {
+                display: none;
+            }
+            width: 25%;
+            padding-left: 2rem;
+        }
+
+        .hero__right-image-wrapper {
+            @media (max-width: $medium-screen) {
+                display: none;
+            }
+            width: 25%;
+            padding-right: 2rem;
+        }
+
+        .hero__center-content-wrapper {
+            display: flex;
+            @media (min-width: $medium-screen) {
+                width: 50%;
+            }
+
+            .hero__center-content {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+
+                .hero__button-container {
+                    width: 100%;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    @media (min-width: $medium-screen) {
+                        flex-direction: row;
+                    }
+
+                    .hero__button-search {
+                        display: flex;
+                        justify-content: center;
+                        flex-wrap: nowrap;
+
+                        font-weight: $font-semibold;
+                        font-size: rem(16);
+                        white-space: nowrap;
+                        color: $color-white;
+                        background-color: $color-primary;
+                        padding: rem(10) rem(25);
+                        border-radius: rem(6);
+                        margin-bottom: rem(16);
+                        @media (min-width: $medium-screen) {
+                            font-size: rem(20);
+                            margin: 0 rem(8) rem(16) rem(16);
+                        }
+
+                        &:hover, &:active {
+                            text-decoration: none;
+                            background-color: darken($color-primary, 10%);
+                        }
+                    }
+                    .hero__button-learn {
+                        display: flex;
+                        justify-content: center;
+                        flex-wrap: nowrap;
+
+                        font-weight: $font-semibold;
+                        font-size: rem(16);
+                        white-space: nowrap;
+                        color: $color-primary;
+                        background-color: #edf4f6;
+                        border: solid 1px;
+                        border-color: $color-primary;
+                        padding: rem(10) rem(25);
+                        border-radius: rem(6);
+                        margin-bottom: rem(32);
+                        @media (min-width: $medium-screen) {
+                            font-size: rem(20);
+                            margin: 0 rem(16) rem(16) rem(8);
+                        }
+
+                        &:hover, &:active {
+                            text-decoration: none;
+                            background-color: lighten($color-white, 10%);
+                        }
+                    }
+                }
+                .hero__text-container {
+                    display: flex;
+                    justify-content: center;
+                    margin-bottom: rem(32);
+                    p {
+                        font-size: 16px;
+                        font-weight: normal;
+                        font-stretch: normal;
+                        font-style: normal;
+                        line-height: 1.5;
+                        letter-spacing: normal;
+                        text-align: center;
+                        color: #555;
+                    }
+                }
+                .hero__pause-button-container {
+                    display: flex;
+                    justify-content: center;
+                    p {
+                        font-size: 14px;
+                        font-weight: 600;
+                        font-stretch: normal;
+                        font-style: normal;
+                        line-height: 1.25;
+                        letter-spacing: normal;
+                        color: #2d6878;
+                    }
+                }
+            }
+        }
+    }
+}
