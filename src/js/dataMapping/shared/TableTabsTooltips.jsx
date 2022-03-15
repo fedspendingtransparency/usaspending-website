@@ -18,7 +18,7 @@ const tooltipContent = () => ({
     }
 });
 
-const tableTabsTooltips = (type) => {
+const TableTabsTooltips = (type) => {
     const tooltipProps = tooltipContent()[type];
     if (!tooltipProps) return null;
     return (
@@ -30,4 +30,4 @@ const tableTabsTooltips = (type) => {
     );
 };
 
-export default tableTabsTooltips;
+export default TableTabsTooltips;
