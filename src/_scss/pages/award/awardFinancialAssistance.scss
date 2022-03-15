@@ -23,6 +23,9 @@
                     padding: 0;
                     margin: 0;
                 }
+                a {
+                  overflow-wrap: break-word;
+                }
 
                 .cfda-grants-gov-opportunities__section {
                   button.award-expandable-btn {
