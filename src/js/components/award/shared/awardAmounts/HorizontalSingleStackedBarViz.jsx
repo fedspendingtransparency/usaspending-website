@@ -47,7 +47,12 @@ const HorizontalSingleStackedBarViz = ({
     const propsArr = [];
 
     const propValuesToArr = (num, num2, den) => {
-        propsArr.push(den.rawValue, num.rawValue, num.children[0].rawValue, num2.rawValue);
+        if (numerator.className === 'loan-subsidy') {
+            propsArr.push(den.rawValue, num.rawValue, num2.rawValue);
+        }
+        else {
+            propsArr.push(den.rawValue, num.rawValue, num.children[0].rawValue, num2.rawValue);
+        }
     };
     propValuesToArr(numerator, numerator2, denominator);
 
@@ -84,7 +89,7 @@ const HorizontalSingleStackedBarViz = ({
                 .attr("width", x(propsArr[0]))
                 .attr("height", '50')
                 .attr("fill", "#dce4ee");
-            // for grants, direct payments, other
+            // grants, direct payments, other
             if (numerator.className === "asst-non-federal-funding") {
                 // obligated rect
                 chartSvg.append("rect")
@@ -282,12 +287,118 @@ const HorizontalSingleStackedBarViz = ({
                 .select('strong')
                 .style('font-size', '20px');
         };
+        // for Loans award type only
+        const renderBarChartLoans = () => {
+            // append the svg object to the div
+            d3.select('#aa_chart').selectAll('*').remove();
+            const chartSvg = d3.select('#aa_chart')
+                .append('svg')
+                .attr("height", height)
+                .attr("width", '100%');
+            // set x scale (potential amount as max domain)
+            const x = scaleLinear()
+                .range([0, windowWidth]);
+            x.domain([0, propsArr[0]]);
+            // parent g for nested bars (adjust y and height by constant factor to add more layers)
+            chartSvg.append('g')
+                .attr('class', 'parent-g')
+                .selectAll('.bar-group');
+            // face value of direct loan rect
+            chartSvg.append("rect")
+                .attr("x", 0)
+                .attr("y", height / 2.5)
+                .attr("width", x(propsArr[0]))
+                .attr("height", '50')
+                .attr("fill", "#ded5db");
+            // subsidy cost rect
+            chartSvg.append("rect")
+                .attr("x", 0)
+                .attr("y", (height / 2.5) + 5)
+                .attr("width", x(propsArr[1]))
+                .attr("height", '40')
+                .attr("fill", "#8c6e86");
+            // outlayed rect
+            chartSvg.append("rect")
+                .attr("x", 0)
+                .attr("y", (height / 2.5) + 10)
+                .attr("width", x(propsArr[2]))
+                .attr("height", '30')
+                .attr("fill", "#0b2e5a");
+            // face value line
+            chartSvg.append("line")
+                .attr("x1", x(propsArr[0]) - 2)
+                .attr("y1", (height / 2.5) + 5)
+                .attr("x2", x(propsArr[0]) - 2)
+                .attr("y2", 275)
+                .style("stroke-width", 4)
+                .style("stroke", "#ded5db")
+                .style("fill", "none");
+            // subsidy line
+            chartSvg.append("line")
+                .attr("x1", x(propsArr[1]) - 2)
+                .attr("y1", 90)
+                .attr("x2", x(propsArr[1]) - 2)
+                .attr("y2", (height / 2.5) + 45)
+                .style("stroke-width", 4)
+                .style("stroke", "#8c6e86")
+                .style("fill", "none");
+            // outlay line
+            chartSvg.append("line")
+                .attr("x1", x(propsArr[2]) - 2)
+                .attr("y1", 20)
+                .attr("x2", x(propsArr[2]) - 2)
+                .attr("y2", (height / 2.5) + 40)
+                .style("stroke-width", 4)
+                .style("stroke", "#0b2e5a")
+                .style("fill", "none");
+            // subsidy label
+            chartSvg.append("foreignObject")
+                .attr('width', x(propsArr[0]) - x(propsArr[1]) <= 100 ? x(propsArr[1]) - 10 : x(propsArr[0]) - x(propsArr[1]) - 10)
+                .attr('height', 70)
+                .attr('x', x(propsArr[0]) - x(propsArr[1]) <= 100 ? 0 : x(propsArr[1]) + 10)
+                .attr('y', 90)
+                .html(`<div className="award-amounts-viz-outlays__desc-text"><strong>${currentAmountValue}</strong><br />${currentAmountLabel}</div>`)
+                .select('div')
+                .style('float', x(propsArr[0]) - x(propsArr[1]) <= 100 ? 'right' : 'left')
+                .style('text-align', x(propsArr[0]) - x(propsArr[1]) <= 100 ? 'right' : 'left')
+                .select('strong')
+                .style('font-size', '20px');
+            // outlay label
+            chartSvg.append("foreignObject")
+                .attr('width', x(propsArr[0]) - x(propsArr[2]) <= 100 ? x(propsArr[2]) - 10 : x(propsArr[0]) - x(propsArr[2]) - 10)
+                .attr('height', 70)
+                .attr('x', x(propsArr[0]) - x(propsArr[2]) <= 100 ? 0 : x(propsArr[2]) + 10)
+                .attr('y', 20)
+                .html(`<div className="award-amounts-viz-outlays__desc-text"><strong>${outlayedAmountValue}</strong><br />${outlayedAmountLabel}</div>`)
+                .select('div')
+                .style('float', x(propsArr[0]) - x(propsArr[2]) <= 100 ? 'right' : 'left')
+                .style('text-align', x(propsArr[0]) - x(propsArr[2]) <= 100 ? 'right' : 'left')
+                .select('strong')
+                .style('font-size', '20px');
+            // face value label
+            chartSvg.append("foreignObject")
+                .attr('width', x(propsArr[0]) - 10)
+                .attr('height', 70)
+                .attr('x', 0)
+                .attr('y', 230)
+                .html(`<div className="award-amounts-viz-outlays__desc-text"><strong>${potentialAmountValue}</strong><br />${potentialAmountLabel}</div>`)
+                .select('div')
+                .style('float', 'right')
+                .style('text-align', 'right')
+                .select('strong')
+                .style('font-size', '20px');
+        };
         // init width if 0 to prevent first render bug
         if (windowWidth === 0) {
             const newWidth = chartRef.current.getBoundingClientRect().width;
             setWindowWidth(newWidth);
         }
-        renderBarChart();
+        if (numerator.className === 'loan-subsidy') {
+            renderBarChartLoans();
+        }
+        else {
+            renderBarChart();
+        }
     }, [windowWidth, propsArr]);
 
     useEffect(() => {

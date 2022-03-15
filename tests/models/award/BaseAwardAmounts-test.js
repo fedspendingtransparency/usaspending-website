@@ -237,10 +237,10 @@ describe('BaseAwardAmounts', () => {
         it('creates loan specific properties w/ correct formatting', () => {
             expect(loanAwardAmounts._subsidy).toEqual(1290000.00);
             expect(loanAwardAmounts.subsidyFormatted).toEqual("$1,290,000.00");
-            expect(loanAwardAmounts.subsidyAbbreviated).toEqual("$1.3 M");
+            expect(loanAwardAmounts.subsidyAbbreviated).toEqual("$1.3 Million");
             expect(loanAwardAmounts._faceValue).toEqual(2497000000.00);
             expect(loanAwardAmounts.faceValueFormatted).toEqual("$2,497,000,000.00");
-            expect(loanAwardAmounts.faceValueAbbreviated).toEqual("$2.5 B");
+            expect(loanAwardAmounts.faceValueAbbreviated).toEqual("$2.5 Billion");
         });
     });
     describe('fileC getters', () => {
