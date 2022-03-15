@@ -36,9 +36,9 @@ export default class SpendingByRecipientSection extends React.Component {
                             <ComingSoonLabel />
                         </div>
                         <RankVisualizationScopeButton
-                            value="recipient_duns"
+                            value="recipient"
                             label="Recipient"
-                            active={this.props.scope === 'recipient_duns'}
+                            active={this.props.scope === 'recipient'}
                             changeScope={this.props.changeScope} />
                     </div>
                 </div>
