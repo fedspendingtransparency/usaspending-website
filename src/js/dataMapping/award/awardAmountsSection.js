@@ -142,8 +142,8 @@ export const outlayColor = '#0b2e5a';
 export const obligatedColor = '#4773aa';
 export const currentColor = '#8aa6c9';
 export const potentialColor = '#dce4ee';
-export const subsidyColor = '#0B424D';
-export const faceValueColor = '#F3F3F3';
+export const subsidyColor = '#8c6e86';
+export const faceValueColor = '#ded5db';
 export const nonFederalFundingColor = '#47AAA7';
 
 // Offsets per DEV-5242:
