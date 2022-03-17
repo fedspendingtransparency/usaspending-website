@@ -24,6 +24,9 @@
 
     .table-types {
         @include display(flex);
+        @media (max-width: $tablet-screen) {
+            display: none;
+        }
 
         .table-type-toggle {
             @include display(flex);

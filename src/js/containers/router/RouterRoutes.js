@@ -6,6 +6,7 @@
 import React from 'react';
 
 const Homepage = React.lazy(() => import('components/homepage/Homepage').then((comp) => comp));
+const HomepageUpdate = React.lazy(() => import('components/homepageUpdate/HomepageUpdate').then((comp) => comp));
 const SearchContainer = React.lazy(() => import('containers/search/SearchContainer').then((comp) => comp));
 const SearchContainerRedirect = React.lazy(() => import('containers/search/SearchContainer').then((module) => ({ default: module.SearchContainerRedirect })));
 const ExplorerLanding = React.lazy(() => import('components/explorer/landing/ExplorerLanding').then((comp) => comp));
@@ -40,8 +41,13 @@ const DataDictionaryPage = React.lazy(() => import('components/dataDictionary/Da
 // eslint-disable-next-line import/prefer-default-export
 export const routes = [
     {
-        path: '/',
+        path: `/`,
         component: Homepage,
+        exact: true
+    },
+    {
+        path: '/homepage_update',
+        component: HomepageUpdate,
         exact: true
     },
     {

@@ -171,9 +171,9 @@
                           padding-top: 0;
                       }
                   }
-                  @include media($tablet-screen) {
+                  @include media(700px) {
                       // forces content to go to single column layout 
-                      min-width: 450px;
+                      min-width: 470px;
                   }
                   .award__col__content {
                       height: 100%;
