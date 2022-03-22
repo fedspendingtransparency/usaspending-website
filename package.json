@@ -12,7 +12,7 @@
         "errors": "./node_modules/.bin/eslint --config .eslintrc --ext .jsx,.js \"src/js/**\" --quiet; exit 0;",
         "dev": "webpack --progress --config ./webpack/webpack.dev.config.js",
         "prod": "webpack --progress --config ./webpack/webpack.prod.config.js",
-        "travis": "npm audit --audit-level=low --production && ./node_modules/.bin/eslint --config .eslintrc --ext .jsx,.js \"src/js/**\" && ./node_modules/.bin/jest --runInBand;",
+        "travis": "npm audit --audit-level=critical --production && ./node_modules/.bin/eslint --config .eslintrc --ext .jsx,.js \"src/js/**\" && ./node_modules/.bin/jest --runInBand;",
         "lhci:wizard": "lhci wizard",
         "lhci:server": "lhci server --storage.storageMethod=sql --storage.sqlDialect=sqlite --storage.sqlDatabasePath=./db.sql",
         "lhci:audit": "npx webpack --progress --config ./webpack/webpack.prod.config.js ; npx lhci autorun",
