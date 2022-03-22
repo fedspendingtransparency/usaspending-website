@@ -7,8 +7,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import GlossaryLink from '../../sharedComponents/GlossaryLink';
 
-require('pages/agencyV2/statusOfFunds/_introSection.scss');
-
 const propTypes = {
     name: PropTypes.string.isRequired
 };
