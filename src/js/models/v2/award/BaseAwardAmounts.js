@@ -214,9 +214,15 @@ const BaseAwardAmounts = {
         return MoneyFormatter.formatMoney(this._fileCObligated);
     },
     get totalFundingAbbreviated() {
-        if (this._totalFunding >= MoneyFormatter.unitValues.MILLION) {
+        if (Math.abs(this._totalFunding) >= MoneyFormatter.unitValues.MILLION) {
             const units = MoneyFormatter.calculateUnitForSingleValue(this._totalFunding);
-            return `${MoneyFormatter.formatMoneyWithPrecision((this._totalFunding) / units.unit, 1)} ${units.unitLabel}`;
+            if (this._totalFunding < 0) {
+                return `(${MoneyFormatter.formatMoneyWithPrecision(Math.abs(this._totalFunding) / units.unit, 1)} ${units.longLabel.charAt(0).toUpperCase() + units.longLabel.slice(1)})`;
+            }
+            return `${MoneyFormatter.formatMoneyWithPrecision(this._totalFunding / units.unit, 1)} ${units.longLabel.charAt(0).toUpperCase() + units.longLabel.slice(1)}`;
+        }
+        else if (this._totalFunding < 0) {
+            return `(${Math.abs(MoneyFormatter.formatMoney(this._totalFunding))})`;
         }
         return MoneyFormatter.formatMoney(this._totalFunding);
     },
@@ -227,16 +233,28 @@ const BaseAwardAmounts = {
         return MoneyFormatter.formatMoneyWithPrecision(this._nonFederalFunding, 2);
     },
     get nonFederalFundingAbbreviated() {
-        if (this._nonFederalFunding >= MoneyFormatter.unitValues.MILLION) {
+        if (Math.abs(this._nonFederalFunding) >= MoneyFormatter.unitValues.MILLION) {
             const units = MoneyFormatter.calculateUnitForSingleValue(this._nonFederalFunding);
-            return `${MoneyFormatter.formatMoneyWithPrecision((this._nonFederalFunding) / units.unit, 1)} ${units.unitLabel}`;
+            if (this._nonFederalFunding < 0) {
+                return `(${MoneyFormatter.formatMoneyWithPrecision(Math.abs(this._nonFederalFunding) / units.unit, 1)} ${units.longLabel.charAt(0).toUpperCase() + units.longLabel.slice(1)})`;
+            }
+            return `${MoneyFormatter.formatMoneyWithPrecision(this._nonFederalFunding / units.unit, 1)} ${units.longLabel.charAt(0).toUpperCase() + units.longLabel.slice(1)}`;
+        }
+        else if (this._nonFederalFunding < 0) {
+            return `(${Math.abs(MoneyFormatter.formatMoney(this._nonFederalFunding))})`;
         }
         return MoneyFormatter.formatMoney(this._nonFederalFunding);
     },
     get faceValueAbbreviated() {
-        if (this._faceValue >= MoneyFormatter.unitValues.MILLION) {
+        if (Math.abs(this._faceValue) >= MoneyFormatter.unitValues.MILLION) {
             const units = MoneyFormatter.calculateUnitForSingleValue(this._faceValue);
-            return `${MoneyFormatter.formatMoneyWithPrecision(this._faceValue / units.unit, 1)} ${units.unitLabel}`;
+            if (this._faceValue < 0) {
+                return `(${MoneyFormatter.formatMoneyWithPrecision(Math.abs(this._faceValue) / units.unit, 1)} ${units.longLabel.charAt(0).toUpperCase() + units.longLabel.slice(1)})`;
+            }
+            return `${MoneyFormatter.formatMoneyWithPrecision(this._faceValue / units.unit, 1)} ${units.longLabel.charAt(0).toUpperCase() + units.longLabel.slice(1)}`;
+        }
+        else if (this._faceValue < 0) {
+            return `(${Math.abs(MoneyFormatter.formatMoney(this._faceValue))})`;
         }
         return MoneyFormatter.formatMoney(this._faceValue);
     },
@@ -244,9 +262,15 @@ const BaseAwardAmounts = {
         return MoneyFormatter.formatMoneyWithPrecision(this._faceValue, 2);
     },
     get subsidyAbbreviated() {
-        if (this._subsidy >= MoneyFormatter.unitValues.MILLION) {
+        if (Math.abs(this._subsidy) >= MoneyFormatter.unitValues.MILLION) {
             const units = MoneyFormatter.calculateUnitForSingleValue(this._subsidy);
-            return `${MoneyFormatter.formatMoneyWithPrecision(this._subsidy / units.unit, 1)} ${units.unitLabel}`;
+            if (this._subsidy < 0) {
+                return `(${MoneyFormatter.formatMoneyWithPrecision(Math.abs(this._subsidy) / units.unit, 1)} ${units.longLabel.charAt(0).toUpperCase() + units.longLabel.slice(1)})`;
+            }
+            return `${MoneyFormatter.formatMoneyWithPrecision(this._subsidy / units.unit, 1)} ${units.longLabel.charAt(0).toUpperCase() + units.longLabel.slice(1)}`;
+        }
+        else if (this._subsidy < 0) {
+            return `(${Math.abs(MoneyFormatter.formatMoney(this._subsidy))})`;
         }
         return MoneyFormatter.formatMoney(this._subsidy);
     },

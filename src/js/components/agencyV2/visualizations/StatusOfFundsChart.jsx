@@ -135,7 +135,7 @@ const StatusOfFundsChart = ({
             .range([0, isLargeScreen ? chartWidth + 289 : chartWidth + 80]);
 
         const drawNegativeObligations = (data) => {
-            if (data._obligations <= 0) {
+            if (data._obligations < 0) {
                 return (Math.abs(x(0) - x(data._obligations))) + 7;
             }
             return (Math.abs(x(0) - x(data._obligations))) + 2;
@@ -155,7 +155,7 @@ const StatusOfFundsChart = ({
         const tickMobileXAxis = isLargeScreen ? 'translate(-130,0)' : 'translate(90, 0)';
         const tickMobileYAxis = isLargeScreen ? 'translate(-150,16)' : 'translate(60, 0)';
         // scale to x and y data points
-        if (sortedNums[sortedNums.length - 1]._obligations <= 0) {
+        if (sortedNums[sortedNums.length - 1]._obligations < 0) {
             x.domain(d3.extent(sortedNums, (d) => d._obligations)).nice(2);
         }
         else {
@@ -209,7 +209,7 @@ const StatusOfFundsChart = ({
             .attr("x1", -10)
             .attr("y1", 0)
             .attr("x2", () => {
-                if (sortedNums[0]._obligations <= 0) {
+                if (sortedNums[0]._obligations < 0) {
                     return x(0);
                 }
                 return isLargeScreen ? chartWidth + 330 : chartWidth + 81;
@@ -273,7 +273,7 @@ const StatusOfFundsChart = ({
         barGroups.append("rect")
             .attr('transform', tickMobileXAxis)
             .attr("x", (d) => {
-                if (d._obligations <= 0) {
+                if (d._obligations < 0) {
                     return x(Math.min(0, d._obligations)) - 8;
                 }
                 if (!isNegative) {
@@ -282,7 +282,15 @@ const StatusOfFundsChart = ({
                 return x(0);
             })
             .attr("y", (d) => (isLargeScreen ? y(d.name) + 80 : y(d.name) + 40))
-            .attr("width", isNegative ? (d) => drawNegativeObligations(d) : (d) => x(d._obligations) + 11)
+            .attr("width", (d) => {
+                if (isNegative) {
+                    return drawNegativeObligations(d);
+                }
+                if (d._obligations === 0) {
+                    return 0;
+                }
+                return x(d._obligations) + 11;
+            })
             .attr("height", y.bandwidth() - 36)
             .attr("fill", "#2B71B8")
             .attr('class', 'hbars')
@@ -338,7 +346,7 @@ const StatusOfFundsChart = ({
     useEffect(() => {
         if (results?.length > 0) {
             setSortedNums(results.sort((a, b) => (a._budgetaryResources > b._obligations ? b._budgetaryResources - a._budgetaryResources : b._obligations - a._obligations)));
-            if (results[results.length - 1]._obligations <= 0) {
+            if (results[results.length - 1]._obligations < 0) {
                 setSortedNums(results.sort((a, b) => (a.obligations > b._obligations ? b._budgetaryResources - a._budgetaryResources : b._obligations - a._obligations)));
                 setIsNegative(true);
             }
