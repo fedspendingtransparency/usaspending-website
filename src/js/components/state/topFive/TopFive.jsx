@@ -49,7 +49,7 @@ const TopFive = (props) => {
                 <img
                     className="category-table__title-icon"
                     src={`img/state-categories/${props.category}.png`}
-                    alt={categoryTitles[props.category]} />
+                    alt="" />
                 <div className="category-table__title-name">
                     {categoryTitles[props.category]}
                 </div>
