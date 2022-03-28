@@ -3,11 +3,68 @@
  * Created by Andrea Blackwell 03/07/22
  */
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { throttle } from 'lodash';
 import { FlexGridCol, FlexGridRow } from "data-transparency-ui";
+import { tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
 
-
-const GettingStarted = () => (
+const GettingStarted = () => {
+    const [windowWidth, setWindowWidth] = useState(0);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < tabletScreen);
+    useEffect(() => {
+        const handleResize = throttle(() => {
+            const newWidth = window.innerWidth;
+            if (windowWidth !== newWidth) {
+                setWindowWidth(newWidth);
+                setIsMobile(newWidth < tabletScreen);
+            }
+        }, 50);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+    const carouselLayout = isMobile ?
+        <>
+            <FlexGridCol className="homepage-search-feature" width={9} tablet={6}>
+                <div class="homepage-search-feature__img-wrapper">
+                    Search feature carousel
+                </div>
+            </FlexGridCol>
+            <FlexGridCol className="homepage-search-feature" width={9} tablet={6}>
+                <div className="homepage-search-feature__background-flair" />
+                    <div class="homepage-search-feature-desc">
+                        <h5>A targeted approach to finding federal award data</h5>
+                        <p>
+                            Whether you're a congressional staffer, government employee, researcher, or data buff, our Award Search will help you answer your toughest questions about federal spending.
+                        </p>
+                        <p>
+                            Use Keyword Search for a broad view of award data, but if you want to dig deeper, our Advanced Search offers filters that let you customize your data sets. Interactive visualizations — including a spending map — complement downloadable files. 
+                        </p>
+                        <button>Select Search Type</button>
+                    </div>
+            </FlexGridCol>
+        </>
+        :
+        <>
+            <FlexGridCol className="homepage-search-feature" width={9} tablet={6}>
+                <div className="homepage-search-feature__background-flair" />
+                    <div class="homepage-search-feature-desc">
+                        <h5>A targeted approach to finding federal award data</h5>
+                        <p>
+                            Whether you're a congressional staffer, government employee, researcher, or data buff, our Award Search will help you answer your toughest questions about federal spending.
+                        </p>
+                        <p>
+                            Use Keyword Search for a broad view of award data, but if you want to dig deeper, our Advanced Search offers filters that let you customize your data sets. Interactive visualizations — including a spending map — complement downloadable files. 
+                        </p>
+                        <button>Select Search Type</button>
+                    </div>
+            </FlexGridCol>
+            <FlexGridCol className="homepage-search-feature" width={9} tablet={6}>
+                <div class="homepage-search-feature__img-wrapper">
+                    Search feature carousel
+                </div>
+            </FlexGridCol>
+        </>;
+    return (
     <section
         className="homepage-getting-started"
         aria-label="Getting Started sections">
@@ -30,24 +87,7 @@ const GettingStarted = () => (
                     <button>Try Spending Explorer</button>
                 </div>
             </FlexGridCol>
-            <FlexGridCol className="homepage-search-feature" width={9} tablet={6}>
-            <div className="homepage-search-feature__background-flair" />
-                <div class="homepage-search-feature-desc">
-                    <h5>A targeted approach to finding federal award data</h5>
-                    <p>
-                        Whether you're a congressional staffer, government employee, researcher, or data buff, our Award Search will help you answer your toughest questions about federal spending.
-                    </p>
-                    <p>
-                        Use Keyword Search for a broad view of award data, but if you want to dig deeper, our Advanced Search offers filters that let you customize your data sets. Interactive visualizations — including a spending map — complement downloadable files. 
-                    </p>
-                    <button>Select Search Type</button>
-                </div>
-            </FlexGridCol>
-            <FlexGridCol className="homepage-search-feature" width={9} tablet={6}>
-                <div class="homepage-search-feature__img-wrapper">
-                    Search feature carousel
-                </div>
-            </FlexGridCol>
+            {carouselLayout}
             <FlexGridCol className="homepage-search-feature" width={9} tablet={6}>
                 <div class="homepage-search-feature__img-wrapper">
                     Profiles feature carousel
@@ -64,6 +104,7 @@ const GettingStarted = () => (
             </FlexGridCol>
         </FlexGridRow>
     </section>
-);
+    )
+};
 
 export default GettingStarted;
