@@ -11,8 +11,40 @@
     }
 
     .homepage-getting-started {
-      height: 400px;
+      height: 100%;
       background-color: lightgrey;
+      .grid-content {
+        .section-heading-title-wrapper  {
+          width: 100%;
+          margin: 0 auto;
+          text-align: center;
+        }
+        .homepage-spending-explorer {
+          .homepage-spending-explorer__img-wrapper {
+            background-color: lightblue;
+            height: 554px;
+          }
+          .homepage-spending-explorer-desc {
+            margin-left: 8rem;
+            margin-right: 4rem;
+          }
+        }
+        .homepage-search-feature {
+          .homepage-search-feature__img-wrapper {
+            background-color: lightblue;
+            height: 554px;
+          }
+          .homepage-search-feature-desc {
+            margin-left: 8rem;
+            margin-right: 4rem;
+          }
+        }
+      }
+      h3.section-heading-title {
+        line-height: 50px;
+        font-weight: 600;
+        font-size: 3rem;
+      }
     }
 
     .homepage-hero-content {
@@ -23,7 +55,7 @@
 
     .usa-dt-flex-grid__row.grid-content {
         margin: 0 $grid-column;
-        height: 400px;
+        height: 100%;
         background-color: white;
     }
 
