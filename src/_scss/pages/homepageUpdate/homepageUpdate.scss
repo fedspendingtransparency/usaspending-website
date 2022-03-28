@@ -27,6 +27,10 @@
           .homepage-spending-explorer-desc {
             margin-left: 8rem;
             margin-right: 4rem;
+            @media (max-width: $tablet-screen) {
+              margin-right: 1.6rem;
+              margin-left: 1.6rem;
+            }
           }
         }
         .homepage-search-feature {
@@ -37,6 +41,10 @@
           .homepage-search-feature-desc {
             margin-left: 8rem;
             margin-right: 4rem;
+            @media (max-width: $tablet-screen) {
+              margin-right: 1.6rem;
+              margin-left: 1.6rem;
+            }
           }
         }
       }
