@@ -16,12 +16,12 @@ const GettingStarted = () => (
             <div className="section-heading-title-wrapper">
                 <h3 className="section-heading-title">Getting Started on USAspending</h3>
             </div>
-            <FlexGridCol className="homepage-spending-explorer" width={6}>
+            <FlexGridCol className="homepage-spending-explorer" width={9} tablet={6}>
                 <div class="homepage-spending-explorer__img-wrapper">
                     Spending explorer feature image
                 </div>
             </FlexGridCol>
-            <FlexGridCol className="homepage-spending-explorer" width={6}>
+            <FlexGridCol className="homepage-spending-explorer" width={9} tablet={6}>
                 <div class="homepage-spending-explorer-desc">
                     <h5>A big-picture view of government spending</h5>
                     <p>
@@ -30,7 +30,7 @@ const GettingStarted = () => (
                     <button>Try Spending Explorer</button>
                 </div>
             </FlexGridCol>
-            <FlexGridCol className="homepage-search-feature" width={6}>
+            <FlexGridCol className="homepage-search-feature" width={9} tablet={6}>
             <div className="homepage-search-feature__background-flair" />
                 <div class="homepage-search-feature-desc">
                     <h5>A targeted approach to finding federal award data</h5>
@@ -43,17 +43,17 @@ const GettingStarted = () => (
                     <button>Select Search Type</button>
                 </div>
             </FlexGridCol>
-            <FlexGridCol className="homepage-search-feature" width={6}>
+            <FlexGridCol className="homepage-search-feature" width={9} tablet={6}>
                 <div class="homepage-search-feature__img-wrapper">
                     Search feature carousel
                 </div>
             </FlexGridCol>
-            <FlexGridCol className="homepage-search-feature" width={6}>
+            <FlexGridCol className="homepage-search-feature" width={9} tablet={6}>
                 <div class="homepage-search-feature__img-wrapper">
                     Profiles feature carousel
                 </div>
             </FlexGridCol>
-            <FlexGridCol className="homepage-search-feature" width={6}>
+            <FlexGridCol className="homepage-search-feature" width={9} tablet={6}>
                 <div class="homepage-search-feature-desc">
                     <h5>A snapshot of federal spending</h5>
                     <p>
