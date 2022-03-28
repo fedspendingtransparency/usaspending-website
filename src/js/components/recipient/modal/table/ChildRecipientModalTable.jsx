@@ -29,6 +29,9 @@ export default class ChildRecipientModalTable extends React.Component {
                     <Link to={`/recipient/${child.id}/latest`} onClick={this.props.hideModal}>{child.name}</Link>
                 </td>
                 <td className="recipients-list__body-cell">
+                    {child.uei}
+                </td>
+                <td className="recipients-list__body-cell">
                     {child.duns}
                 </td>
                 <td className="recipients-list__body-cell">
@@ -64,6 +67,20 @@ export default class ChildRecipientModalTable extends React.Component {
                                 <Sorter
                                     field="name"
                                     label="recipient name"
+                                    active={{ field: this.props.sortField, direction: this.props.sortDirection }}
+                                    setSort={this.props.updateSort} />
+                            </div>
+                        </th>
+                        <th className="recipients-list__head-cell">
+                            <div className="header-cell">
+                                <div className="header-cell__text">
+                                    <div className="header-cell__title">
+                                        UEI
+                                    </div>
+                                </div>
+                                <Sorter
+                                    field="uei"
+                                    label="UEI"
                                     active={{ field: this.props.sortField, direction: this.props.sortDirection }}
                                     setSort={this.props.updateSort} />
                             </div>
