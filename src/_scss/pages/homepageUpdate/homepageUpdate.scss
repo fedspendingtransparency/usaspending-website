@@ -21,30 +21,27 @@
         }
         .homepage-spending-explorer {
           .homepage-spending-explorer__img-wrapper {
-            background-color: lightblue;
-            height: 554px;
+            img {
+              max-width: 90%;
+              padding-top: $global-padding * 3;
+            }
+            
           }
           .homepage-spending-explorer-desc {
-            margin-left: 8rem;
-            margin-right: 4rem;
-            @media (max-width: $tablet-screen) {
-              margin-right: 1.6rem;
-              margin-left: 1.6rem;
-            }
+            margin-top: $global-margin * 8;
+            margin-right: $global-margin;
           }
         }
         .homepage-search-feature {
-          .homepage-search-feature__img-wrapper {
-            background-color: lightblue;
-            height: 554px;
+          .homepage-search-feature__img-carousel {
+            padding-top: $global-padding * 10;
           }
           .homepage-search-feature-desc {
-            margin-left: 8rem;
-            margin-right: 4rem;
-            @media (max-width: $tablet-screen) {
-              margin-right: 1.6rem;
-              margin-left: 1.6rem;
+            margin-top: $global-margin * 12;
+            @media (min-width: $large-screen) {
+              margin-top: $global-margin * 20;
             }
+            margin-right: $global-margin;
           }
         }
       }
@@ -77,6 +74,7 @@
 
   @import "../homepage/download/download";
   @import "../homepage/community/community";
+  @import "../homepage/features/_carousel";
 }
 
 
