@@ -1,0 +1,17 @@
+@import 'all';
+
+.homepage-covid__column-one-content-wrapper {
+  display: flex;
+  flex-flow: column nowrap;
+}
+
+.homepage-covid__heading {
+  font-size: rem(40);
+  font-weight: $font-semibold;
+  color: #1b1b1b;
+}
+
+.homepage-covid__content {
+  font-size: rem(32);
+  font-weight: $font-normal;
+}
