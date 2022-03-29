@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import Sorter from 'components/stateLanding/table/StateLandingTableSorter';
+import GlobalConstants from '../../../../GlobalConstants';
 
 const propTypes = {
     total: PropTypes.number,
@@ -89,7 +90,7 @@ export default class ChildRecipientModalTable extends React.Component {
                             <div className="header-cell">
                                 <div className="header-cell__text">
                                     <div className="header-cell__title">
-                                    DUNS
+                                        {GlobalConstants.DUNS_LABEL}DUNS
                                     </div>
                                 </div>
                                 <Sorter
