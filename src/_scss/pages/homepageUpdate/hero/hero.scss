@@ -108,7 +108,7 @@
                             white-space: nowrap;
                             color: $color-primary;
                             background-color: #edf4f6;
-                            border: solid 1px;
+                            border: solid rem(1);
                             border-color: $color-primary;
                             padding: rem(10) rem(25);
                             border-radius: rem(6);
@@ -131,7 +131,7 @@
                         margin-bottom: rem(32);
 
                         p {
-                            font-size: 16px;
+                            font-size: rem(16);
                             font-weight: normal;
                             font-stretch: normal;
                             font-style: normal;
@@ -147,7 +147,7 @@
                         justify-content: center;
 
                         p {
-                            font-size: 14px;
+                            font-size: rem(14);
                             font-weight: 600;
                             font-stretch: normal;
                             font-style: normal;
