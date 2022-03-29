@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import GlobalConstants from 'GlobalConstants';
 
 import { Search, Close } from 'components/sharedComponents/icons/Icons';
 
@@ -59,7 +60,7 @@ export default class RecipientLandingSearchBar extends React.Component {
 
     render() {
         let icon = (
-            <Search alt="Search Recipients or DUNS" />
+            <Search alt={`Search Recipients or ${GlobalConstants.DUNS_LABEL} DUNS`} />
         );
         if (this.state.hasSubmit) {
             icon = (
@@ -76,7 +77,7 @@ export default class RecipientLandingSearchBar extends React.Component {
                         name="recipient"
                         value={this.state.recipient}
                         onChange={this.onChange}
-                        placeholder="Recipient Name, UEI, or DUNS" />
+                        placeholder={`Recipient Name, UEI, or ${GlobalConstants.DUNS_LABEL}DUNS`} />
                     <button
                         aria-label="Search"
                         className="search-section__button"

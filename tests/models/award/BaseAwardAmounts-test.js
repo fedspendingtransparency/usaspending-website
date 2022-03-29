@@ -225,10 +225,10 @@ describe('BaseAwardAmounts', () => {
         it('creates grant specific properties w/ correct formatting', () => {
             expect(grantAwardAmounts._nonFederalFunding).toEqual(1130000);
             expect(grantAwardAmounts.nonFederalFundingFormatted).toEqual("$1,130,000.00");
-            expect(grantAwardAmounts.nonFederalFundingAbbreviated).toEqual("$1.1 M");
+            expect(grantAwardAmounts.nonFederalFundingAbbreviated).toEqual("$1.1 Million");
             expect(grantAwardAmounts._totalFunding).toEqual(1130000000);
             expect(grantAwardAmounts.totalFundingFormatted).toEqual("$1,130,000,000.00");
-            expect(grantAwardAmounts.totalFundingAbbreviated).toEqual("$1.1 B");
+            expect(grantAwardAmounts.totalFundingAbbreviated).toEqual("$1.1 Billion");
         });
     });
     describe('Loan Award Amounts', () => {
@@ -237,10 +237,10 @@ describe('BaseAwardAmounts', () => {
         it('creates loan specific properties w/ correct formatting', () => {
             expect(loanAwardAmounts._subsidy).toEqual(1290000.00);
             expect(loanAwardAmounts.subsidyFormatted).toEqual("$1,290,000.00");
-            expect(loanAwardAmounts.subsidyAbbreviated).toEqual("$1.3 M");
+            expect(loanAwardAmounts.subsidyAbbreviated).toEqual("$1.3 Million");
             expect(loanAwardAmounts._faceValue).toEqual(2497000000.00);
             expect(loanAwardAmounts.faceValueFormatted).toEqual("$2,497,000,000.00");
-            expect(loanAwardAmounts.faceValueAbbreviated).toEqual("$2.5 B");
+            expect(loanAwardAmounts.faceValueAbbreviated).toEqual("$2.5 Billion");
         });
     });
     describe('fileC getters', () => {

@@ -491,6 +491,7 @@ const AwardAmountsChart = ({
         if (asstAwardTypesWithSimilarAwardAmountData.includes(type) && isNormal) {
             const isNffZero = awardAmounts._nonFederalFunding === 0;
             const showFileC = awardAmounts._fileCObligated > 0;
+            const hasOutlays = awardAmounts._combinedOutlay > 0 || awardAmounts._totalOutlay > 0;
             const chartProps = {
                 denominator: {
                     labelPosition: 'bottom',
@@ -536,6 +537,59 @@ const AwardAmountsChart = ({
                     }
                 }
             };
+            const chartPropsOutlays = {
+                denominator: {
+                    labelPosition: 'bottom',
+                    labelSortOrder: 3,
+                    className: `asst-total-funding`,
+                    rawValue: awardAmounts._totalFunding,
+                    value: awardAmounts.totalFundingAbbreviated,
+                    color: `#FFF`,
+                    lineOffset: 0,
+                    text: `Total Funding`,
+                    tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'totalFunding', awardAmounts)
+                },
+                numerator: {
+                    className: `asst-non-federal-funding`,
+                    labelSortOrder: 2,
+                    labelPosition: 'bottom',
+                    // fudging this for to get the correct tooltip position.
+                    rawValue: awardAmounts._nonFederalFunding + awardAmounts._totalObligation,
+                    lineOffset: lineOffsetsBySpendingCategory.nonFederalFunding,
+                    barWidthOverrides: {
+                        applyToLine: true,
+                        rawValue: awardAmounts._nonFederalFunding,
+                        denominatorValue: awardAmounts._totalFunding
+                    },
+                    value: awardAmounts.nonFederalFundingAbbreviated,
+                    color: nonFederalFundingColor,
+                    text: "Non-Federal Funding",
+                    children: [
+                        {
+                            className: `asst-obligation`,
+                            labelSortOrder: 1,
+                            labelPosition: 'top',
+                            tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'obligated', awardAmounts),
+                            rawValue: awardAmounts._totalObligation,
+                            denominatorValue: awardAmounts._totalFunding,
+                            value: awardAmounts.totalObligationAbbreviated,
+                            lineOffset: lineOffsetsBySpendingCategory.obligationAsst,
+                            text: 'Obligated Amount',
+                            color: obligatedColor
+                        }
+                    ]
+                },
+                numerator2: {
+                    labelSortOrder: 0,
+                    labelPosition: 'top',
+                    className: `${awardType}-outlayed`,
+                    rawValue: awardAmounts._totalOutlay,
+                    value: awardAmounts.totalOutlayAbbreviated,
+                    color: outlayColor,
+                    lineOffset: lineOffsetsBySpendingCategory.potential,
+                    text: 'Outlayed Amount'
+                }
+            };
             if (showFileC) {
                 // eslint-disable-next-line no-multi-assign
                 chartProps.numerator.children = [
@@ -565,12 +619,18 @@ const AwardAmountsChart = ({
                     }
                 ];
             }
+            if (hasOutlays) {
+                return (
+                    <HorizontalSingleStackedBarViz {...chartPropsOutlays} />
+                );
+            }
             return (
                 <RectanglePercentViz {...chartProps} />
             );
         }
         else if (type === 'loan' && isNormal) {
             const showFileC = awardAmounts._fileCObligated > 0;
+            const hasOutlays = awardAmounts._combinedOutlay > 0 || awardAmounts._totalOutlay > 0;
             const propsWithoutFileC = {
                 numerator: {
                     labelPosition: 'top',
@@ -593,6 +653,52 @@ const AwardAmountsChart = ({
                     color: faceValueColor,
                     text: 'Face Value of Direct Loan',
                     tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory('loan', 'faceValue', awardAmounts)
+                }
+            };
+            const propsWithoutFileCAndOutlays = {
+                numerator: {
+                    labelPosition: 'top',
+                    labelSortOrder: 1,
+                    className: `${awardType}-subsidy`,
+                    rawValue: awardAmounts._subsidy,
+                    value: awardAmounts.subsidyAbbreviated,
+                    lineOffset: lineOffsetsBySpendingCategory.subsidy,
+                    text: 'Original Subsidy Cost',
+                    color: subsidyColor,
+                    children: [
+                        {
+                            className: `asst-obligation`,
+                            labelSortOrder: 1,
+                            labelPosition: 'top',
+                            tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'obligated', awardAmounts),
+                            rawValue: awardAmounts._totalObligation,
+                            denominatorValue: awardAmounts._totalFunding,
+                            value: awardAmounts.totalObligationAbbreviated,
+                            lineOffset: lineOffsetsBySpendingCategory.obligationAsst,
+                            text: 'Obligated Amount',
+                            color: obligatedColor
+                        }
+                    ]
+                },
+                denominator: {
+                    labelPosition: 'bottom',
+                    labelSortOrder: 3,
+                    className: `${awardType}-face-value`,
+                    rawValue: awardAmounts._faceValue,
+                    value: awardAmounts.faceValueAbbreviated,
+                    lineOffset: lineOffsetsBySpendingCategory.faceValue,
+                    color: faceValueColor,
+                    text: 'Face Value of Direct Loan'
+                },
+                numerator2: {
+                    labelSortOrder: 0,
+                    labelPosition: 'top',
+                    className: `${awardType}-outlayed`,
+                    rawValue: awardAmounts._totalOutlay,
+                    value: awardAmounts.totalOutlayAbbreviated,
+                    color: outlayColor,
+                    lineOffset: lineOffsetsBySpendingCategory.potential,
+                    text: 'Outlayed Amount'
                 }
             };
             const props = showFileC
@@ -627,6 +733,9 @@ const AwardAmountsChart = ({
                     }
                 }
                 : propsWithoutFileC;
+            if (hasOutlays) {
+                return <HorizontalSingleStackedBarViz {...propsWithoutFileCAndOutlays} />;
+            }
             return <RectanglePercentViz {...props} />;
         }
         else if (type === 'idv' || type === 'contract') {

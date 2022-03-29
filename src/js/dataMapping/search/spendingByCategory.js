@@ -7,7 +7,7 @@ export const defaultScopes = {
     awardingAgency: 'awarding_agency',
     cfda: 'cfda',
     industryCode: 'psc',
-    recipient: 'recipient_duns'
+    recipient: 'recipient'
 };
 
 export const categoryNames = {

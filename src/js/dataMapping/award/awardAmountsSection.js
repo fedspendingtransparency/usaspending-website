@@ -84,8 +84,8 @@ export const awardTableClassMap = {
     "Obligated Amount": "award-amounts__obligated",
     "Current Award Amount": "award-amounts__current",
     "Potential Award Amount": "award-amounts__potential",
-    "Non-Federal Funding": "award-amounts__data-icon_green",
-    "Total Funding": "award-amounts__data-icon_transparent",
+    "Non-Federal Funding": "award-amounts__data-icon_transparent-green",
+    "Total Funding": "award-amounts__data-icon_gray",
     "Face Value of Direct Loan": "award-amounts__data-icon_face-value",
     "Original Subsidy Cost": "award-amounts__data-icon_subsidy",
     "COVID-19 Obligated Amount": "award-amounts__file-c-obligations",
@@ -142,8 +142,8 @@ export const outlayColor = '#0b2e5a';
 export const obligatedColor = '#4773aa';
 export const currentColor = '#8aa6c9';
 export const potentialColor = '#dce4ee';
-export const subsidyColor = '#0B424D';
-export const faceValueColor = '#F3F3F3';
+export const subsidyColor = '#8c6e86';
+export const faceValueColor = '#ded5db';
 export const nonFederalFundingColor = '#47AAA7';
 
 // Offsets per DEV-5242:

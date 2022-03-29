@@ -6,6 +6,7 @@ import agencyIdsToSlugs from '../src/js/dataMapping/agencyV2/agencyIdsToSlugs';
 
 const legacyRedirects = {
     "^/Pages/Default.aspx/": "/",
+    "^/index.html": "/",
     "^/Pages/AdvancedSearch.aspx/": "/search",
     "^/DownloadCenter/Pages/DataDownload.aspx/": "/download_center/custom_award_data",
     "^/DownloadCenter/Pages/dataarchives.aspx/": "/download_center/award_data_archive",
