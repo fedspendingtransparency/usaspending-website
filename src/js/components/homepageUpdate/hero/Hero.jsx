@@ -21,7 +21,6 @@ const Hero = () => {
     return (
         <section className="homepage-hero-container" aria-label="Hero sections">
             <div className="homepage-hero-content">
-            {/* temporary, until the animated component is done */ }
                 <div className="hero__temp-h1">Download government spending by who
                     receives money
                 </div>
