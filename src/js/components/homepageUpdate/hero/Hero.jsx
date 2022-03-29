@@ -6,6 +6,7 @@
 import React from 'react';
 import { Link } from "react-router-dom";
 import Analytics from 'helpers/analytics/Analytics';
+import HeroPoc from './HeroPoc';
 
 const Hero = () => {
     const trackSearchLink = () => Analytics.event({
@@ -21,10 +22,7 @@ const Hero = () => {
     return (
         <section className="homepage-hero-container" aria-label="Hero sections">
             <div className="homepage-hero-content">
-            {/* temporary, until the animated component is done */ }
-                <div className="hero__temp-h1">Download government spending by who
-                    receives money
-                </div>
+                <HeroPoc />
                 <div className="hero__lower-wrapper">
                     <div className="hero__left-image-wrapper">
                         <picture>
