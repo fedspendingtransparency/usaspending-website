@@ -7,8 +7,6 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import Analytics from 'helpers/analytics/Analytics';
 
-require('pages/homepageUpdate/hero/hero.scss');
-
 const Hero = () => {
     const trackSearchLink = () => Analytics.event({
         category: 'Homepage',
