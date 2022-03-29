@@ -5,13 +5,14 @@
 
 import { apiRequest } from "./apiRequest";
 
+// ids are uei or duns
 export const fetchRecipientOverview = (id, year) => apiRequest({
-    url: `v2/recipient/duns/${id}/`,
+    url: `v2/recipient/${id}/`,
     params: { year }
 });
 
-export const fetchChildRecipients = (duns, year) => apiRequest({
-    url: `v2/recipient/children/${duns}/`,
+export const fetchChildRecipients = (id, year) => apiRequest({
+    url: `v2/recipient/children/${id}/`,
     params: { year }
 });
 
