@@ -33,15 +33,49 @@
           }
         }
         .homepage-search-feature {
+          .homepage-search-feature__background-flair {
+            position: absolute;
+            z-index: 0;
+            top: rem(-30);
+            bottom: rem(-30);
+            width: 83.4vw;
+    
+            background-color: $color-gray-warm-light;
+            opacity: 0.5;
+    
+            @include transform(skewY(5deg));
+    
+            @include media($medium-screen) {
+                top: 0;
+                bottom: 0;
+            }
+        }
           .homepage-search-feature__img-carousel {
             padding-top: $global-padding * 10;
           }
           .homepage-search-feature-desc {
+            position: relative;
+            z-index: 3;
             margin-top: $global-margin * 12;
             @media (min-width: $large-screen) {
               margin-top: $global-margin * 20;
             }
             margin-right: $global-margin;
+          }
+        }
+        .homepage-profile-feature {
+          .homepage-profile-feature__img-carousel {
+            padding-top: $global-padding * 10;
+          }
+          .homepage-profile-feature-desc {
+            margin-top: $global-margin * 12;
+            @media (min-width: $large-screen) {
+              margin-top: $global-margin * 15;
+            }
+            margin-left: 0;
+            @media (min-width: $medium-screen) {
+              margin-left: $global-margin * 4;
+            }
           }
         }
       }

@@ -134,14 +134,14 @@ const GettingStarted = () => {
                     </div>
                 </FlexGridCol>
                 {carouselLayout}
-                <FlexGridCol className="homepage-search-feature" width={12} desktop={6}>
-                    <div className="feature-profile__image-wrapper">
+                <FlexGridCol className="homepage-profile-feature" width={12} desktop={6}>
+                    <div className="homepage-profile-feature__img-carousel">
                         <ImageCarousel
                             images={profileImages} />
                     </div>
                 </FlexGridCol>
-                <FlexGridCol className="homepage-search-feature" width={12} desktop={6}>
-                    <div className="homepage-search-feature-desc">
+                <FlexGridCol className="homepage-profile-feature" width={12} desktop={6}>
+                    <div className="homepage-profile-feature-desc">
                         <h5>A snapshot of federal spending</h5>
                         <p>
                             Interested in how specific agencies spend their funding? Or how federal funding is being spent in your state? Our Profiles make it easier to understand questions like these and more with interactive charts and tables that offer a snapshot of spending by agency, state, recipient, and the federal accounts that agencies use to spend their funding. Use our COVID-19 Spending profile to learn how federal funding is being spent in response to the pandemic.
