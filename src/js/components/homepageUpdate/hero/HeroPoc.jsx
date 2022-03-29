@@ -1,32 +1,25 @@
-import React, { useRef, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./HeroPoc.scss";
-
-// Stephanie had a clever thought to include the css as code, to dymanically update with positions, sizes, etc
 
 const HeroPoc = () => {
     const [paused, togglePaused] = useState(true);
     const leftWords = ['Explore', 'Search', 'Track', 'Download', 'Analyze'];
-    const rightWords = ['over time.', 'by agency.', 'by who receives money.', 'to your community.', 'by industry.', 'on contracts.', 'on grants.', 'by state.'];
+    const rightWords = ['over time', 'by agency', 'by recipient', 'to communities', 'by industry', 'on contracts', 'on grants', 'by state'];
 
     const getRandomInt = (max) => Math.floor(Math.random() * max);
-    let currentLeftWordIndex;
-    const tempLeftWords = [...leftWords];
-    let currentRightWordsIndex;
-    const tempRightWords = [...rightWords];
-    let previousLeftWord;
 
     const rotatingWords = {
         left: {
             index: null,
             previousWord: null,
-            wordsArray: ['Explore', 'Search', 'Track', 'Download', 'Analyze'],
-            tempWordsArray: ['Explore', 'Search', 'Track', 'Download', 'Analyze']
+            wordsArray: [...leftWords],
+            tempWordsArray: [...leftWords]
         },
         right: {
             index: null,
             previousWord: null,
-            wordsArray: ['over time.', 'by agency.', 'by who receives money.', 'to your community.', 'by industry.', 'on contracts.', 'on grants.', 'by state.'],
-            tempWordsArray: ['over time.', 'by agency.', 'by who receives money.', 'to your community.', 'by industry.', 'on contracts.', 'on grants.', 'by state.']
+            wordsArray: [...rightWords],
+            tempWordsArray: [...rightWords]
         }
     };
 
