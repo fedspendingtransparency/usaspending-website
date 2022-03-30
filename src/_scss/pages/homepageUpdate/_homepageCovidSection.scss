@@ -33,12 +33,22 @@
         font-size: rem(40);
         font-weight: $font-semibold;
         color: #1b1b1b;
-        padding-bottom: $global-padding * 4;
+        padding-bottom: $global-padding * 3;
       }
 
       .homepage-covid__content {
         font-size: rem(32);
         font-weight: $font-normal;
+      }
+    }
+    .homepage-covid__column-two {
+      display: flex;
+
+      .homepage-covid__column-two-content-wrapper {
+        width: 100%;
+        margin: 0 rem(10);
+        flex-direction: row;
+        justify-content: center;
       }
     }
   }

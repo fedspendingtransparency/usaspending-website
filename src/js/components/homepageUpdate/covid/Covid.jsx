@@ -7,6 +7,7 @@ import React, { useState, useEffect } from 'react';
 import { throttle } from 'lodash';
 import {FlexGridRow, FlexGridCol} from 'data-transparency-ui';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
+import Card from "../../sharedComponents/Card";
 
 require('pages/homepageUpdate/_homepageCovidSection.scss');
 
@@ -43,8 +44,9 @@ const Covid = () => {
                     </div>
                 </FlexGridCol>
                 <FlexGridCol width={12} desktop={6} className="homepage-covid__column-two">
-                    <div className="homepage-covi__column-two-content-wrapper">
-                        Column Two Content
+                    <div className="homepage-covid__column-two-content-wrapper">
+                        <Card></Card>
+                        <Card></Card>
                     </div>
                 </FlexGridCol>
             </FlexGridRow>
