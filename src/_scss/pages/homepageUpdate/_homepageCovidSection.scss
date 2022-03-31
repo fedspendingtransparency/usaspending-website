@@ -4,8 +4,9 @@
   height: 100%;
   width: 100%;
   margin: 0 auto;
-  //background-color: lightgrey;
+  background-color: white;
   .grid-content {
+    padding-top: $global-padding * 12;
     .homepage-covid__background-flair {
       position: absolute;
       top: 1061px;
@@ -23,7 +24,7 @@
       //}
     }
     .homepage-covid__column-one {
-      margin: $global-margin * 12 0 $global-margin * 4;
+      margin-bottom: $global-margin * 4;
       .homepage-covid__column-one-content-wrapper {
         display: flex;
         flex-flow: column nowrap;

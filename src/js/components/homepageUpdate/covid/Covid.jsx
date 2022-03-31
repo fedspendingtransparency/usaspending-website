@@ -41,6 +41,9 @@ const Covid = () => {
                         <div className="homepage-covid__content">
                             The federal government has spent [$3.59 trillion] in response to COVID-19.
                         </div>
+                        <div className="homepage-covid__image-wrapper">
+                            image here
+                        </div>
                     </div>
                 </FlexGridCol>
                 <FlexGridCol width={12} desktop={6} className="homepage-covid__column-two">

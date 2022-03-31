@@ -4,5 +4,8 @@
   width: 100%;
   background-color: white;
   border-radius: 6px;
-  margin: 0 0 $global-margin * 2;
+  margin: 0 0 $global-margin * 4;
+  padding: $global-padding * 2;
+  min-height: 250px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
