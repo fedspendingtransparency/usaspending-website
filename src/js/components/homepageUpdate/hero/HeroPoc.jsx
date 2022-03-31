@@ -53,20 +53,20 @@ const HeroPoc = () => {
         <div style={{ "margin-bottom": "4rem" }}>
             <h2 className="sentence hero__temp-h1">
                 {!paused ?
-                    <>
+                    <div className="phraseIntro">
                         <div className="leftWords initialVertical">
-                            <span>{rotatingWords.left.tempWordsArray[pickWord('left')]}</span>
+                            <span>{rotatingWords.left.tempWordsArray[pickWord('left')]}&nbsp;</span>
                         </div>
                         <div className="leftWords slidingVertical">
-                            <span>{rotatingWords.left.tempWordsArray[pickWord('left')]}</span>
-                            <span>{rotatingWords.left.tempWordsArray[pickWord('left')]}</span>
-                            <span>{rotatingWords.left.tempWordsArray[pickWord('left')]}</span>
+                            <span>{rotatingWords.left.tempWordsArray[pickWord('left')]}&nbsp;</span>
+                            <span>{rotatingWords.left.tempWordsArray[pickWord('left')]}&nbsp;</span>
+                            <span>{rotatingWords.left.tempWordsArray[pickWord('left')]}&nbsp;</span>
                         </div>
                         <div className="leftWords finalVertical">
-                            <span>{rotatingWords.left.tempWordsArray[pickWord('left')]}</span>
+                            <span>{rotatingWords.left.tempWordsArray[pickWord('left')]}&nbsp;</span>
                         </div>
 
-                    </>
+                    </div>
                     :
                     <div className="leftWords">
                         <span>{rotatingWords.left.tempWordsArray[rotatingWords.left.index]}</span>
@@ -77,15 +77,15 @@ const HeroPoc = () => {
                 {!paused ?
                     <>
                         <div className="rightWords initialVertical">
-                            <span>{rotatingWords.right.tempWordsArray[pickWord('right')]}</span>
+                            <span>&nbsp;{rotatingWords.right.tempWordsArray[pickWord('right')]}</span>
                         </div>
                         <div className="rightWords slidingVertical">
-                            <span>{rotatingWords.right.tempWordsArray[pickWord('right')]}</span>
-                            <span>{rotatingWords.right.tempWordsArray[pickWord('right')]}</span>
-                            <span>{rotatingWords.right.tempWordsArray[pickWord('right')]}</span>
+                            <span>&nbsp;{rotatingWords.right.tempWordsArray[pickWord('right')]}</span>
+                            <span>&nbsp;{rotatingWords.right.tempWordsArray[pickWord('right')]}</span>
+                            <span>&nbsp;{rotatingWords.right.tempWordsArray[pickWord('right')]}</span>
                         </div>
                         <div className="rightWords finalVertical">
-                            <span>{rotatingWords.right.tempWordsArray[pickWord('right')]}</span>
+                            <span>&nbsp;{rotatingWords.right.tempWordsArray[pickWord('right')]}</span>
                         </div>
                     </>
                     :
