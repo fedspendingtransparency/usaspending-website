@@ -18,6 +18,7 @@
     background-color: #1b4485;
 
     .hero__left-item__content {
+      width: 100%;
       @media (min-width: $medium-screen) {
         width: 60%;
       }
@@ -46,7 +47,7 @@
       flex-direction: column;
       width: 50%;
       height: 100%;
-      background-color: #768eb5;;
+      background-color: #768eb5;
     }
   }
 }

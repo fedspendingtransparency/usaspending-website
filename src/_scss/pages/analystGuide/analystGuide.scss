@@ -10,4 +10,11 @@
       margin-bottom: rem(60);
     }
   }
+
+  .analyst-guide-body {
+    margin: 0 $global-margin * 2;
+    @media (min-width: $medium-screen) {
+      margin: 0;
+    }
+  }
 }

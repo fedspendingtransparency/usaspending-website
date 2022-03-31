@@ -35,7 +35,7 @@ const AnalystGuidePage = () => {
                     <AnalystGuideHeader title="Analyst&apos;s Guide to Federal Spending Data" subtitle="Guidance on effectively using USAspending.gov data." />
                 </section>
                 <FlexGridRow style={{ justifyContent: 'center' }}>
-                    <FlexGridCol width={6}>
+                    <FlexGridCol desktop={6} tablet={12} className="analyst-guide-body">
                         <AnalystGuideIntro />
                         <AnalystGuideQuestions />
                     </FlexGridCol>
