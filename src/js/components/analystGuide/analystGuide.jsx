@@ -6,18 +6,18 @@
 import React, { useState, useEffect } from 'react';
 import { Redirect } from "react-router-dom";
 
-import AnalystGuideHeader from './header/AnalystGuideHeader';
+import AnalystGuideHeader from './AnalystGuideHeader';
 import PageWrapper from "../sharedComponents/PageWrapper";
 import { homePageMetaTags } from "../../helpers/metaTagHelper";
-import { SHOW_HOMEPAGE_UPDATE } from '../../GlobalConstants';
+import { SHOW_ANALYSTGUIDE } from '../../GlobalConstants';
 
 const AnalystGuide = () => {
     const [hideContent, setHideContent] = useState();
 
     useEffect(() => {
-        console.log(SHOW_HOMEPAGE_UPDATE);
-        setHideContent(!SHOW_HOMEPAGE_UPDATE);
-    }, [SHOW_HOMEPAGE_UPDATE]);
+        console.log(SHOW_ANALYSTGUIDE);
+        setHideContent(!SHOW_ANALYSTGUIDE);
+    }, [SHOW_ANALYSTGUIDE]);
 
     return (<>{hideContent ?
         <Redirect to="/404" />

@@ -19,7 +19,6 @@ const AnalystGuidePage = () => {
     const [hideContent, setHideContent] = useState();
 
     useEffect(() => {
-        console.log(SHOW_HOMEPAGE_UPDATE);
         setHideContent(!SHOW_HOMEPAGE_UPDATE);
     }, [SHOW_HOMEPAGE_UPDATE]);
 
@@ -27,7 +26,7 @@ const AnalystGuidePage = () => {
         <Redirect to="/404" />
         :
         <PageWrapper
-            pageName="AnaystGuide"
+            pageName="AnalystGuide"
             classNames="usa-da-analyst-guide-page"
             noHeader
             metaTagProps={{ ...homePageMetaTags }}>
@@ -35,7 +34,7 @@ const AnalystGuidePage = () => {
                 <section>
                     <AnalystGuideHeader title="Analyst&apos;s Guide to Federal Spending Data" subtitle="Guidance on effectively using USAspending.gov data." />
                 </section>
-                <FlexGridRow style={{justifyContent: 'center'}}>
+                <FlexGridRow style={{ justifyContent: 'center' }}>
                     <FlexGridCol width={6}>
                         <AnalystGuideIntro />
                         <AnalystGuideQuestions />
