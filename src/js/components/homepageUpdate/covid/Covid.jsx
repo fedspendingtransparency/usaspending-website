@@ -42,7 +42,12 @@ const Covid = () => {
                             The federal government has spent [$3.59 trillion] in response to COVID-19.
                         </div>
                         <div className="homepage-covid__image-wrapper">
-                            image here
+                            <picture>
+                                <img
+                                    role="presentation"
+                                    src="../../../../img/homepage-covid-official-spending-data.svg"
+                                    alt="" />
+                            </picture>
                         </div>
                     </div>
                 </FlexGridCol>
