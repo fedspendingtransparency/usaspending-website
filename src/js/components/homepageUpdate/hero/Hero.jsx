@@ -28,8 +28,9 @@ const Hero = () => {
                     <div className="hero__left-image-wrapper">
                         <picture>
                             <img
+                                role="presentation"
                                 src="../../../../img/homepage-hero-person-left.svg"
-                                alt="left" />
+                                alt="" />
                         </picture>
                     </div>
                     <div className="hero__center-content-wrapper">
@@ -61,8 +62,9 @@ const Hero = () => {
                     <div className="hero__right-image-wrapper">
                         <picture>
                             <img
+                                role="presentation"
                                 src="../../../../img/homepage-hero-people-right.svg"
-                                alt="right" />
+                                alt="" />
                         </picture>
                     </div>
                 </div>
