@@ -9,19 +9,21 @@
     padding-top: $global-padding * 12;
     .homepage-covid__background-flair {
       position: absolute;
-      top: 1061px;
-      bottom: -449px;
+      top: 1376px;
+      bottom: -1132px;
+      left: 0px;
       width: 100vw;
-
       background-color: #88b4c0;
       opacity: 0.15;
 
       @include transform(skewY(130deg));
 
-      //@include media($medium-screen) {
-      //  top: 0;
-      //  bottom: 0;
-      //}
+      @media (min-width: $medium-screen) {
+        top: 1095px;
+        bottom: -376px;
+        @include transform(skewY(170deg));
+      }
+
     }
     .homepage-covid__column-one {
       margin-bottom: $global-margin * 4;
