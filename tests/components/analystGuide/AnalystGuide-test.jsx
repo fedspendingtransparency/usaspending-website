@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { render, screen } from 'test-utils';
-import AnalystGuideHeader from "components/analystGuide/header/AnalystGuideHeader";
+import AnalystGuideHeader from "components/analystGuide/AnalystGuideHeader";
 
 
 describe('Analyst Guide', () => {
