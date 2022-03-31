@@ -1,5 +1,4 @@
 .accordion-container {
-
   button {
     background-color: unset !important;
   }
@@ -8,8 +7,6 @@
   }
 
   .accordion {
-    border: 1px solid #eee;
-
     ul {
       list-style-type: disc;
     }
@@ -32,11 +29,11 @@
 
   .content {
     padding: 0 25px;
-    line-height: 0;
+    max-height: 0;
     color: #1b1b1b;
     text-align: left;
     visibility: hidden;
-    transition: line-height 0.5s ease;
+    transition: ease-in-out max-height 500ms, visibility 500ms;
   }
 
   .toggle {
@@ -61,10 +58,10 @@
   .open {
     .content {
       line-height: 1.2;
+      max-height: 100%;
       padding-top: 15px;
       padding-bottom: 25px;
-      border-color: #eee;
-      display: block;
+      border: 1px solid #eee;
       visibility: visible;
     }
 
