@@ -15,12 +15,6 @@
       background-color: lightgrey;
     }
 
-    .homepage-hero-content {
-      height: 600px;
-      background-color: lightblue;
-      margin: 0 $global-margin * 5;
-    }
-
     .usa-dt-flex-grid__row.grid-content {
         margin: 0 $grid-column;
         height: 400px;
@@ -37,6 +31,8 @@
 
   @import "../homepage/download/download";
   @import "../homepage/community/community";
+  @import "./hero/_hero.scss";
+
 }
 
 
