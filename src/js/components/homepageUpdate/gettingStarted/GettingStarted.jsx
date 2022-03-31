@@ -24,8 +24,8 @@ const searchImages = [
 
 const profileImages = [
     {
-        srcSet: 'img/homepage-profile-agency.webp 1x, img/homepage-profile-agency@2x.webp 2x',
-        src: 'img/homepage-profile-agency.png',
+        srcSet: 'img/homepage-profiles/img:homepage-profile-agency@1-5x.webp 1x',
+        src: 'img/homepage-profiles/img:homepage-profile-agency@1-5x.png',
         alt: 'Screenshot of the Agency Profile page'
     },
     {
@@ -59,9 +59,12 @@ const GettingStarted = () => {
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
-    const carouselLayout = isMobile ?
+    const searchCarouselLayout = isMobile ?
         <>
             <FlexGridCol className="homepage-search-feature" width={12} desktop={6}>
+                <div className="homepage-search-feature-desc">
+                    <h2 className="homepage-search-feature-desc__title">A targeted approach to finding federal award data</h2>
+                </div>
                 <div className="homepage-search-feature__img-carousel">
                     <ImageCarousel
                         images={searchImages}
@@ -69,14 +72,12 @@ const GettingStarted = () => {
                 </div>
             </FlexGridCol>
             <FlexGridCol className="homepage-search-feature" width={12} desktop={6}>
-                <div className="homepage-search-feature__background-flair" />
                 <div className="homepage-search-feature-desc">
-                    <h5>A targeted approach to finding federal award data</h5>
                     <p>
-                        Whether you&apos;re a congressional staffer, government employee, researcher, or data buff, our Award Search will help you answer your toughest questions about federal spending.
+                        Whether you&apos;re a congressional staffer, government employee, researcher, or data buff, our <strong>Award Search</strong> will help you answer your toughest questions about federal spending.
                     </p>
                     <p>
-                        Use Keyword Search for a broad view of award data, but if you want to dig deeper, our Advanced Search offers filters that let you customize your data sets. Interactive visualizations — including a spending map — complement downloadable files.
+                        Use <strong>Keyword Search</strong> for a broad view of award data, but if you want to dig deeper, our <strong>Advanced Search</strong> offers filters that let you customize your data sets. Interactive visualizations — including a spending map — complement downloadable files.
                     </p>
                     <button>Select Search Type</button>
                 </div>
@@ -87,12 +88,12 @@ const GettingStarted = () => {
             <FlexGridCol className="homepage-search-feature" width={12} desktop={6}>
                 <div className="homepage-search-feature__background-flair" />
                 <div className="homepage-search-feature-desc">
-                    <h5>A targeted approach to finding federal award data</h5>
+                    <h2 className="homepage-search-feature-desc__title">A targeted approach to finding federal award data</h2>
                     <p>
-                        Whether you&apos;re a congressional staffer, government employee, researcher, or data buff, our Award Search will help you answer your toughest questions about federal spending.
+                        Whether you&apos;re a congressional staffer, government employee, researcher, or data buff, our <strong>Award Search</strong> will help you answer your toughest questions about federal spending.
                     </p>
                     <p>
-                        Use Keyword Search for a broad view of award data, but if you want to dig deeper, our Advanced Search offers filters that let you customize your data sets. Interactive visualizations — including a spending map — complement downloadable files.
+                        Use <strong>Keyword Search</strong> for a broad view of award data, but if you want to dig deeper, our <strong>Advanced Search</strong> offers filters that let you customize your data sets. Interactive visualizations — including a spending map — complement downloadable files.
                     </p>
                     <button>Select Search Type</button>
                 </div>
@@ -106,6 +107,90 @@ const GettingStarted = () => {
             </FlexGridCol>
         </>;
 
+    const profileCarouselLayout = isMobile ?
+    <>
+        <FlexGridCol className="homepage-profile-feature" width={12} desktop={6}>
+            <div className="homepage-profile-feature-desc">
+                <h5 className="homepage-profile-feature-desc__title">A snapshot of federal spending</h5>
+            </div>
+            <div className="homepage-profile-feature__img-carousel">
+                <ImageCarousel
+                    images={profileImages} />
+            </div>
+        </FlexGridCol>
+        <FlexGridCol className="homepage-profile-feature" width={12} desktop={6}>
+            <div className="homepage-profile-feature-desc">
+                <p>
+                    Interested in how specific agencies spend their funding? Or how federal funding is being spent in your state? Our <strong>Profiles</strong> make it easier to understand questions like these and more with interactive charts and tables that offer a snapshot of spending by agency, state, recipient, and the federal accounts that agencies use to spend their funding. Use our COVID-19 Spending profile to learn how federal funding is being spent in response to the pandemic.
+                </p>
+                <button>Browse Profiles</button>
+            </div>
+        </FlexGridCol>
+    </>
+        :
+    <>
+        <FlexGridCol className="homepage-profile-feature" width={12} desktop={6}>
+            <div className="homepage-profile-feature__img-carousel">
+                <ImageCarousel
+                    images={profileImages} />
+            </div>
+        </FlexGridCol>
+        <FlexGridCol className="homepage-profile-feature" width={12} desktop={6}>
+            <div className="homepage-profile-feature-desc">
+                <h5 className="homepage-profile-feature-desc__title">A snapshot of federal spending</h5>
+                <p>
+                    Interested in how specific agencies spend their funding? Or how federal funding is being spent in your state? Our <strong>Profiles</strong> make it easier to understand questions like these and more with interactive charts and tables that offer a snapshot of spending by agency, state, recipient, and the federal accounts that agencies use to spend their funding. Use our COVID-19 Spending profile to learn how federal funding is being spent in response to the pandemic.
+                </p>
+                <button>Browse Profiles</button>
+            </div>
+        </FlexGridCol>
+    </>;
+
+    const spendingExplorerLayout = isMobile ?
+    <>
+        <FlexGridCol className="homepage-spending-explorer" width={12} desktop={6}>
+            <div className="homepage-spending-explorer-desc">
+                <h5 className="homepage-spending-explorer-desc__title">A big-picture view of government spending</h5>
+            </div>
+            <div className="homepage-spending-explorer__img-wrapper">
+                <picture className="homepage-spending-explorer__img">
+                    <source srcSet="img/homepage-spending-explorer/homepage-spending-explorer@1-5x.webp" type="image/webp" />
+                    <source srcSet="img/homepage-spending-explorer/homepage-spending-explorer@1-5x.png" type="image/png" />
+                    <img src="img/homepage-spending-explorer/homepage-spending-explorer@1-5x.png" alt="Screenshot of the Spending Explorer" />
+                </picture>
+            </div>
+        </FlexGridCol>
+        <FlexGridCol className="homepage-spending-explorer" width={12} desktop={6}>
+            <div className="homepage-spending-explorer-desc">
+                <p>
+                    The <strong>Spending Explorer</strong> lets you explore the entire federal budget in increasing detail, making it easier to understand how funding flows from Congress to federal agencies and how those agencies spend that funding. Interactive charts and tables help break down the budget in multiple ways to clarify the relationships between federal spending components.
+                </p>
+                <button>Try Spending Explorer</button>
+            </div>
+        </FlexGridCol>
+    </>
+        :
+    <>
+        <FlexGridCol className="homepage-spending-explorer" width={12} desktop={6}>
+            <div className="homepage-spending-explorer__img-wrapper">
+                <picture className="homepage-spending-explorer__img">
+                    <source srcSet="img/homepage-spending-explorer/homepage-spending-explorer@1-5x.webp" type="image/webp" />
+                    <source srcSet="img/homepage-spending-explorer/homepage-spending-explorer@1-5x.png" type="image/png" />
+                    <img src="img/homepage-spending-explorer/homepage-spending-explorer@1-5x.png" alt="Screenshot of the Spending Explorer" />
+                </picture>
+            </div>
+        </FlexGridCol>
+        <FlexGridCol className="homepage-spending-explorer" width={12} desktop={6}>
+            <div className="homepage-spending-explorer-desc">
+                <h5 className="homepage-spending-explorer-desc__title">A big-picture view of government spending</h5>
+                <p>
+                    The <strong>Spending Explorer</strong> lets you explore the entire federal budget in increasing detail, making it easier to understand how funding flows from Congress to federal agencies and how those agencies spend that funding. Interactive charts and tables help break down the budget in multiple ways to clarify the relationships between federal spending components.
+                </p>
+                <button>Try Spending Explorer</button>
+            </div>
+        </FlexGridCol>
+    </>;
+
     return (
         <section
             className="homepage-getting-started"
@@ -113,42 +198,11 @@ const GettingStarted = () => {
             <FlexGridRow
                 className="grid-content">
                 <div className="section-heading-title-wrapper">
-                    <h3 className="section-heading-title">Getting Started on USAspending</h3>
+                    <h1 className="section-heading-title">Getting Started on USAspending</h1>
                 </div>
-                <FlexGridCol className="homepage-spending-explorer" width={12} desktop={6}>
-                    <div className="homepage-spending-explorer__img-wrapper">
-                        <picture className="homepage-spending-explorer__img">
-                            <source srcSet="img/homepage-spending-explorer/homepage-spending-explorer@1-5x.webp" type="image/webp" />
-                            <source srcSet="img/homepage-spending-explorer/homepage-spending-explorer@1-5x.png" type="image/png" />
-                            <img src="img/homepage-spending-explorer/homepage-spending-explorer@1-5x.png" alt="Screenshot of the Spending Explorer" />
-                        </picture>
-                    </div>
-                </FlexGridCol>
-                <FlexGridCol className="homepage-spending-explorer" width={12} desktop={6}>
-                    <div className="homepage-spending-explorer-desc">
-                        <h5>A big-picture view of government spending</h5>
-                        <p>
-                            The <strong>Spending Explorer</strong> lets you explore the entire federal budget in increasing detail, making it easier to understand how funding flows from Congress to federal agencies and how those agencies spend that funding. Interactive charts and tables help break down the budget in multiple ways to clarify the relationships between federal spending components.
-                        </p>
-                        <button>Try Spending Explorer</button>
-                    </div>
-                </FlexGridCol>
-                {carouselLayout}
-                <FlexGridCol className="homepage-profile-feature" width={12} desktop={6}>
-                    <div className="homepage-profile-feature__img-carousel">
-                        <ImageCarousel
-                            images={profileImages} />
-                    </div>
-                </FlexGridCol>
-                <FlexGridCol className="homepage-profile-feature" width={12} desktop={6}>
-                    <div className="homepage-profile-feature-desc">
-                        <h5>A snapshot of federal spending</h5>
-                        <p>
-                            Interested in how specific agencies spend their funding? Or how federal funding is being spent in your state? Our Profiles make it easier to understand questions like these and more with interactive charts and tables that offer a snapshot of spending by agency, state, recipient, and the federal accounts that agencies use to spend their funding. Use our COVID-19 Spending profile to learn how federal funding is being spent in response to the pandemic.
-                        </p>
-                        <button>Browse Profiles</button>
-                    </div>
-                </FlexGridCol>
+                {spendingExplorerLayout}
+                {searchCarouselLayout}
+                {profileCarouselLayout}
             </FlexGridRow>
         </section>
     );
