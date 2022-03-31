@@ -1,9 +1,15 @@
 .usa-da-home-page h2 {
     margin: 0 !important;
     display: flex;
+    flex-wrap: wrap;
 }
 
 .phraseIntro {
+    flex-basis: 300px;
+    flex-shrink: 0;
+}
+
+.phraseEnd {
     flex-basis: 300px;
     flex-shrink: 0;
 }
@@ -24,9 +30,12 @@
 
 .rightWords {
     display: flex;
+    flex-wrap: wrap;
     -webkit-align-self: center;
-    padding-top: 50px;
-    white-space: nowrap;
+    justify-content: center;
+    justify-self: center;
+    align-content: center;
+    align-self: center;
     position: relative;
     span {
         position: absolute;

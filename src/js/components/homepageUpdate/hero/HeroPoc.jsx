@@ -75,7 +75,7 @@ const HeroPoc = () => {
                 <div className="staticBlock">government spending</div>
 
                 {!paused ?
-                    <>
+                    <div className="phraseEnd">
                         <div className="rightWords initialVertical">
                             <span>&nbsp;{rotatingWords.right.tempWordsArray[pickWord('right')]}</span>
                         </div>
@@ -87,7 +87,7 @@ const HeroPoc = () => {
                         <div className="rightWords finalVertical">
                             <span>&nbsp;{rotatingWords.right.tempWordsArray[pickWord('right')]}</span>
                         </div>
-                    </>
+                    </div>
                     :
                     <div className="rightWords">
                         <span>{rotatingWords.right.tempWordsArray[rotatingWords.right.index]}</span>
