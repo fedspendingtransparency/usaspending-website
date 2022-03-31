@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { throttle } from 'lodash';
-import {FlexGridRow, FlexGridCol} from 'data-transparency-ui';
+import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import Card from "../../sharedComponents/Card";
 
@@ -13,7 +13,7 @@ require('pages/homepageUpdate/_homepageCovidSection.scss');
 
 const Covid = () => {
     const [windowWidth, setWindowWidth] = useState(0);
-    const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
+    const [, setIsMobile] = useState(window.innerWidth < mediumScreen);
     useEffect(() => {
         const handleResize = throttle(() => {
             const newWidth = window.innerWidth;
@@ -53,8 +53,8 @@ const Covid = () => {
                 </FlexGridCol>
                 <FlexGridCol width={12} desktop={6} className="homepage-covid__column-two">
                     <div className="homepage-covid__column-two-content-wrapper">
-                        <Card></Card>
-                        <Card></Card>
+                        <Card />
+                        <Card />
                     </div>
                 </FlexGridCol>
             </FlexGridRow>
