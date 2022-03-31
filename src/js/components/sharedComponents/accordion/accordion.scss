@@ -1,0 +1,90 @@
+.accordion-container {
+
+  button {
+    background-color: unset !important;
+  }
+  .container {
+    margin-bottom: 25px;
+  }
+
+  .accordion {
+    border: 1px solid #eee;
+
+    ul {
+      list-style-type: disc;
+    }
+  }
+
+  .heading {
+    padding: 12px 12px 12px 24px;
+    font-size: rem(16);
+    line-height: rem(24);
+    font-weight: 600;
+    text-align: left;
+    margin: 0;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: nowrap;
+    border: 1px solid #eee;
+  }
+
+  .content {
+    padding: 0 25px;
+    line-height: 0;
+    color: #1b1b1b;
+    text-align: left;
+    visibility: hidden;
+    transition: line-height 0.5s ease;
+  }
+
+  .toggle {
+    font-size: 1.125rem;
+    background: transparent;
+    border: none;
+    float: right;
+    width: 26px;
+    cursor: pointer;
+  }
+
+  .plus {
+    display: block;
+    color: #0071bc;
+  }
+
+  .minus {
+    display: none;
+    color: #0071bc;
+  }
+
+  .open {
+    .content {
+      line-height: 1.2;
+      padding-top: 15px;
+      padding-bottom: 25px;
+      border-color: #eee;
+      display: block;
+      visibility: visible;
+    }
+
+    .plus {
+      display: none;
+    }
+
+    .minus {
+      display: block;
+    }
+  }
+
+  .sr-only {
+    position: absolute;
+    height: 1px;
+    width: 1px;
+    clip: rect(1px, 1px, 1px, 1px);
+    clip-path: polygon(0px 0px, 0px 0px, 0px 0px);
+    -webkit-clip-path: polygon(0px 0px, 0px 0px, 0px 0px);
+    overflow: hidden !important;
+  }
+}
+
