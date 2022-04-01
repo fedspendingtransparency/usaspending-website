@@ -9,7 +9,7 @@
         }
 
         .hero__temp-h1 {
-            font-size: rem(28);
+            font-size: rem(40);
             font-weight: bold;
             font-stretch: normal;
             font-style: normal;
@@ -55,7 +55,7 @@
                 align-items: center;
 
                 @media (min-width: $medium-screen) {
-                    flex-basis: rem(1000);
+                    //flex-basis: rem(1000);
                 }
 
                 .hero__center-content {

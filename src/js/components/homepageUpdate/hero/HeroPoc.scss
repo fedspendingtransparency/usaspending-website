@@ -3,27 +3,44 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    @media (max-width: 992px) {
+        display: block;
+    }
 }
 
 .phraseIntro {
     width: 200px;
     flex-shrink: 0;
     white-space: nowrap;
-    @media (max-width: 390px) {
-        width: 0px;
+
+    @media (max-width: 992px) {
+        display: block;
+        //position: relative;
+        width: unset;
+        flex-shrink: unset;
+        height: 50px;
+        text-align: left;
+        left: 0;
     }
 }
 
 .phraseEnd {
-    flex-basis: 300px;
+    width: 300px;
     flex-shrink: 0;
     white-space: nowrap;
+    @media (max-width: 992px) {
+        display: block;
+    }
 }
 
 .staticBlock {
     white-space: nowrap;
     flex-shrink: 0;
     color: #1b1b1b;
+    @media (max-width: 992px) {
+        display: block;
+        text-align: left;
+    }
 }
 
 /*Vertical Sliding*/
@@ -32,6 +49,15 @@
     span {
         position: absolute;
         right: 0;
+        @media (max-width: 992px) {
+            //position: static;
+            left: 0;
+        }
+    }
+
+    @media (max-width: 992px) {
+        //position: absolute;
+        left: 0;
     }
 }
 
