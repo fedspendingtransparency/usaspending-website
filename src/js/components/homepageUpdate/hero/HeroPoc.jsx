@@ -3,7 +3,6 @@ import "./HeroPoc.scss";
 
 const HeroPoc = () => {
     const [paused, togglePaused] = useState(true);
-    const [isMobile, setIsMobile] = useState(false);
     const leftWords = ['Explore', 'Search', 'Track', 'Download', 'Analyze'];
     const rightWords = ['over time', 'by agency', 'by recipient', 'to communities', 'by industry', 'on contracts', 'on grants', 'by state'];
 
@@ -25,80 +24,85 @@ const HeroPoc = () => {
     };
 
     const pickWord = (position) => {
-        console.log(rotatingWords[position]);
-        // const {
-        //     index, previousWord, wordsArray
-        // } = rotatingWords[position];
+        const { wordsArray } = rotatingWords[position];
 
-        if (rotatingWords[position].previousWord) {
-            rotatingWords[position].tempWordsArray.splice(rotatingWords[position].tempWordsArray.indexOf(rotatingWords[position].tempWordsArray[rotatingWords[position].index]), 1);
+        let {
+            index, previousWord, tempWordsArray
+        } = rotatingWords[position];
+
+        if (previousWord) {
+            tempWordsArray.splice(tempWordsArray.indexOf(tempWordsArray[index]), 1);
         }
 
-        if (rotatingWords[position].tempWordsArray?.length === 0) {
-            rotatingWords[position].tempWordsArray = [...rotatingWords[position].wordsArray];
+        if (tempWordsArray?.length === 0) {
+            tempWordsArray = [...wordsArray];
         }
 
         do {
-            rotatingWords[position].index = getRandomInt(rotatingWords[position].tempWordsArray.length);
-        } while (rotatingWords[position].previousWord === rotatingWords[position].tempWordsArray[rotatingWords[position].index]);
+            index = getRandomInt(tempWordsArray.length);
+        } while (previousWord === tempWordsArray[index]);
 
-        rotatingWords[position].previousWord = rotatingWords[position].tempWordsArray[rotatingWords[position].index];
-        return rotatingWords[position].index;
+        previousWord = tempWordsArray[index];
+        return index;
     };
 
     useEffect(() => {
         togglePaused(false);
     }, []);
 
-    const desktopView = () => (<div style={{ "margin-bottom": "4rem" }}>
+    const rotatingText = () => (<div style={{ "margin-bottom": "4rem" }}>
         <div className="hero__heading-wrapper">
             <h2 className="sentence hero__temp-h1" style={{ flexBasis: '517px' }}>
-            {!paused ?
-                <div className="phraseIntro">
-                    <div className="leftWords initialVertical">
-                        <span>{rotatingWords.left.tempWordsArray[pickWord('left')]}&nbsp;</span>
-                    </div>
-                    <div className="leftWords slidingVertical">
-                        <span>{rotatingWords.left.tempWordsArray[pickWord('left')]}&nbsp;</span>
-                        <span>{rotatingWords.left.tempWordsArray[pickWord('left')]}&nbsp;</span>
-                        <span>{rotatingWords.left.tempWordsArray[pickWord('left')]}&nbsp;</span>
-                    </div>
-                    <div className="leftWords finalVertical">
-                        <span>{rotatingWords.left.tempWordsArray[pickWord('left')]}&nbsp;</span>
-                    </div>
+                {!paused ?
+                    <div className="phraseIntro">
+                        <div className="leftWords initialVertical">
+                            <span>{rotatingWords.left.tempWordsArray[pickWord('left')]}&nbsp;</span>
+                        </div>
+                        <div className="leftWords slidingVertical">
+                            <span>{rotatingWords.left.tempWordsArray[pickWord('left')]}&nbsp;</span>
+                            <span>{rotatingWords.left.tempWordsArray[pickWord('left')]}&nbsp;</span>
+                            <span>{rotatingWords.left.tempWordsArray[pickWord('left')]}&nbsp;</span>
+                        </div>
+                        <div className="leftWords finalVertical">
+                            <span>{rotatingWords.left.tempWordsArray[pickWord('left')]}&nbsp;</span>
+                        </div>
 
-                </div>
-                :
-                <div className="leftWords">
-                    <span>{rotatingWords.left.tempWordsArray[rotatingWords.left.index]}</span>
-                </div>
-            }
-            <div className="staticBlock">government spending&nbsp;</div>
-            {!paused ?
-                <div className="phraseEnd">
-                    <div className="rightWords initialVertical">
-                        <span>{rotatingWords.right.tempWordsArray[pickWord('right')]}</span>
                     </div>
-                    <div className="rightWords slidingVertical">
-                        <span>{rotatingWords.right.tempWordsArray[pickWord('right')]}</span>
-                        <span>{rotatingWords.right.tempWordsArray[pickWord('right')]}</span>
-                        <span>{rotatingWords.right.tempWordsArray[pickWord('right')]}</span>
+                    :
+                    <div className="leftWords">
+                        <span>{rotatingWords.left.tempWordsArray[rotatingWords.left.index]}</span>
                     </div>
-                    <div className="rightWords finalVertical">
-                        <span>{rotatingWords.right.tempWordsArray[pickWord('right')]}</span>
+                }
+                <div className="staticBlock">government spending&nbsp;</div>
+                {!paused ?
+                    <div className="phraseEnd">
+                        <div className="rightWords initialVertical">
+                            <span>{rotatingWords.right.tempWordsArray[pickWord('right')]}</span>
+                        </div>
+                        <div className="rightWords slidingVertical">
+                            <span>{rotatingWords.right.tempWordsArray[pickWord('right')]}</span>
+                            <span>{rotatingWords.right.tempWordsArray[pickWord('right')]}</span>
+                            <span>{rotatingWords.right.tempWordsArray[pickWord('right')]}</span>
+                        </div>
+                        <div className="rightWords finalVertical">
+                            <span>{rotatingWords.right.tempWordsArray[pickWord('right')]}</span>
+                        </div>
                     </div>
-                </div>
-                :
-                <div className="rightWords">
-                    <span>{rotatingWords.right.tempWordsArray[rotatingWords.right.index]}</span>
-                </div>
-            }
-        </h2>
+                    :
+                    <div className="rightWords">
+                        <span>{rotatingWords.right.tempWordsArray[rotatingWords.right.index]}</span>
+                    </div>
+                }
+                {/*<br/>*/}
+                {/*<div className="phraseEnd">*/}
+                {/*    <div className="rightWords finalVertical"><span>The official source of government spending data.</span></div>*/}
+                {/*</div>*/}
+            </h2>
         </div>
     </div>);
 
 
-    return (<>{isMobile ? '' : desktopView()}</>);
+    return (<>{rotatingText()}</>);
 };
 
 export default HeroPoc;
