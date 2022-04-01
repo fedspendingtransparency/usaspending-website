@@ -11,7 +11,7 @@ import * as KeywordHelper from 'helpers/keywordHelper';
 import { availableColumns, defaultSort } from 'dataMapping/keyword/resultsTableColumns';
 import { awardTypeGroups } from 'dataMapping/search/awardType';
 import { measureTableHeader } from 'helpers/textMeasurement';
-import tableTabsTooltips from 'dataMapping/shared/tableTabsTooltips';
+import TableTabsTooltips from 'dataMapping/shared/TableTabsTooltips';
 import Analytics from 'helpers/analytics/Analytics';
 
 import ResultsTableSection from 'components/keyword/table/ResultsTableSection';
@@ -41,7 +41,7 @@ const tableTypes = [
     {
         label: 'Loans',
         internal: 'loans',
-        tooltip: tableTabsTooltips('loans')
+        tooltip: TableTabsTooltips('loans')
     },
     {
         label: 'Other',

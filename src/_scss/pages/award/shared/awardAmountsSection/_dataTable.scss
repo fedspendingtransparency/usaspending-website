@@ -46,7 +46,7 @@
     }
 
     .award-amounts__data-icon_gray {
-        background-color: #BBBBBB;
+        background-color: #dce4ee;
     }
 
     .award-amounts__data-icon_subsidy {
@@ -55,12 +55,16 @@
 
     .award-amounts__data-icon_face-value {
         background-color: $colors-loans-face-value;
-        border: rem(2) solid #BBBBBB;
     }
 
     .award-amounts__data-icon_transparent {
         background-color: white;
         border: rem(2) solid #BBBBBB;
+    }
+
+    .award-amounts__data-icon_transparent-green {
+        background-color: white;
+        border: rem(2) solid $colors-grants-nff;
     }
 
     .award-amounts__file-c-outlays {

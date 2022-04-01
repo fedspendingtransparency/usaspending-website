@@ -85,6 +85,7 @@
                 }
             }
             @import './statusOfFunds/statusOfFunds';
+            @import './statusOfFunds/introSection';
             @import 'components/Note';
             .default-note {
                 @include profile-page-wrap;

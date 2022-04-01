@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 import Sorter from 'components/stateLanding/table/StateLandingTableSorter';
+import GlobalConstants from '../../../../GlobalConstants';
 
 const propTypes = {
     total: PropTypes.number,
@@ -24,9 +25,12 @@ export default class ChildRecipientModalTable extends React.Component {
         const body = this.props.childRecipients.map((child) => (
             <tr
                 className="recipients-list__body-row"
-                key={child.duns}>
+                key={child.uei}>
                 <td className="recipients-list__body-cell">
                     <Link to={`/recipient/${child.id}/latest`} onClick={this.props.hideModal}>{child.name}</Link>
+                </td>
+                <td className="recipients-list__body-cell">
+                    {child.uei}
                 </td>
                 <td className="recipients-list__body-cell">
                     {child.duns}
@@ -72,7 +76,21 @@ export default class ChildRecipientModalTable extends React.Component {
                             <div className="header-cell">
                                 <div className="header-cell__text">
                                     <div className="header-cell__title">
-                                    DUNS
+                                        UEI
+                                    </div>
+                                </div>
+                                <Sorter
+                                    field="uei"
+                                    label="UEI"
+                                    active={{ field: this.props.sortField, direction: this.props.sortDirection }}
+                                    setSort={this.props.updateSort} />
+                            </div>
+                        </th>
+                        <th className="recipients-list__head-cell">
+                            <div className="header-cell">
+                                <div className="header-cell__text">
+                                    <div className="header-cell__title">
+                                        {GlobalConstants.DUNS_LABEL}DUNS
                                     </div>
                                 </div>
                                 <Sorter

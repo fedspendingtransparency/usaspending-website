@@ -141,7 +141,7 @@ export class TopFiveContainer extends React.Component {
                     return name;
                 };
             }
-            else if (type === 'recipient_duns') {
+            else if (type === 'recipient') {
                 result.nameTemplate = (code, name) => name;
             }
             else if (type === 'county' || type === 'district') {

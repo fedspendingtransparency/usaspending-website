@@ -196,14 +196,14 @@ export class RankVisualizationWrapperContainer extends React.Component {
                 };
             }
 
-            if (this.state.scope === 'recipient_duns') {
+            if (this.state.scope === 'recipient') {
                 result.nameTemplate = (code, name) => name;
             }
 
             labelSeries.push(result.name);
             dataSeries.push(result._amount);
 
-            if (this.state.scope === 'recipient_duns' && !this.props.subaward) {
+            if (this.state.scope === 'recipient' && !this.props.subaward) {
                 const recipientLink = result.recipientId ? `recipient/${result.recipientId}/latest` : '';
                 linkSeries.push(recipientLink);
             }
