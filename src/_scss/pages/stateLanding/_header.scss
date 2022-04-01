@@ -21,6 +21,10 @@
         &.header-cell__title_right {
             text-align: right;
         }
+
+    }
+    .header-cell__longer-title {
+        padding-top: rem(18);
     }
     .header-cell__subtitle {
         text-align: right;
