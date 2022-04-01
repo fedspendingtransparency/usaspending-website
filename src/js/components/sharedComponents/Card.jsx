@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from "prop-types";
+import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 
 require('components/_card.scss');
 
@@ -18,20 +19,20 @@ const propTypes = {
 const Card = ({
     icon, heading, content, link
 }) => (
-    <div className="card-content">
-        <div className="card__icon-wrapper">
+    <FlexGridRow className="card-content">
+        <FlexGridCol width={12} desktop={1} className="card__icon-wrapper">
             {icon}
-        </div>
-        <div className="card__heading-wrapper">
+        </FlexGridCol>
+        <FlexGridCol width={12} desktop={10} className="card__heading-wrapper">
             {heading}
-        </div>
-        <div className="card__content-wrapper">
+        </FlexGridCol>
+        <FlexGridCol width={12} desktop={12} className="card__content-wrapper">
             {content}
-        </div>
-        <div className="card__link-wrapper">
+        </FlexGridCol>
+        <FlexGridCol width={12} desktop={12} className="card__link-wrapper">
             {link}
-        </div>
-    </div>
+        </FlexGridCol>
+    </FlexGridRow>
 );
 
 Card.propTypes = propTypes;

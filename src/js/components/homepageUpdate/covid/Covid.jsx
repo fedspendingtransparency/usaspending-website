@@ -19,7 +19,7 @@ const Covid = () => {
     const [windowWidth, setWindowWidth] = useState(0);
     const [, setIsMobile] = useState(window.innerWidth < mediumScreen);
 
-    const searchCardIcon = <FontAwesomeIcon icon={faSearch} size="lg" inverse />;
+    const searchCardIcon = <FontAwesomeIcon icon={faSearch} size="lg" />;
     const searchCardHeading = 'Search COVID-19 Spending Data';
     const searchCardContent = (
         <p>
@@ -31,7 +31,7 @@ const Covid = () => {
             Search the Data
         </Link>);
 
-    const trackCardIcon = <FontAwesomeIcon icon={faChartBar} size="lg" inverse />;
+    const trackCardIcon = <FontAwesomeIcon icon={faChartBar} size="lg" />;
     const trackCardHeading = 'Track COVID-19 Spending';
     const trackCardContent = (
         <p>

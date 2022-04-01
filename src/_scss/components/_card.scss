@@ -5,7 +5,48 @@
   background-color: white;
   border-radius: 6px;
   margin: 0 0 $global-margin * 4;
-  padding: $global-padding * 2;
+  padding: $global-padding * 3;
+  @media (min-width: $medium-screen) {
+    display: flex;
+    padding: $global-margin * 5;
+  }
   min-height: 250px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+
+  .card__icon-wrapper {
+    @media (max-width: $medium-screen) {
+      margin-bottom: rem(16);
+    }
+    @media (min-width: $medium-screen) {
+      padding: $global-margin;
+    }
+  }
+  .card__heading-wrapper {
+    font-size: $h4-font-size;
+    font-weight: $font-semibold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.25;
+    letter-spacing: normal;
+    color: #1b1b1b;
+  }
+  .card__content-wrapper {
+    font-size: $base-font-size;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    color: #555;
+    margin-bottom: $global-margin * 3;
+  }
+  .card__link-wrapper {
+    font-size: $h5-font-size;
+    font-weight: $font-semibold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.25;
+    letter-spacing: normal;
+    color: $color-primary;
+  }
 }
