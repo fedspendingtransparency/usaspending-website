@@ -73,7 +73,6 @@ const HeroPoc = () => {
                     </div>
                 }
                 <div className="staticBlock">government spending</div>
-
                 {!paused ?
                     <div className="phraseEnd">
                         <div className="rightWords initialVertical">

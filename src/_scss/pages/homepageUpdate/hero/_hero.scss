@@ -9,7 +9,7 @@
         }
 
         .hero__temp-h1 {
-            font-size: rem(40);
+            font-size: rem(28);
             font-weight: bold;
             font-stretch: normal;
             font-style: normal;
@@ -18,8 +18,7 @@
             text-align: center;
             color: #2d6878;
             padding-bottom: rem(40);
-
-            @media (min-width: $tablet-screen) {
+            @media (min-width: 992px) {
                 font-size: rem(56);
             }
         }

@@ -2,19 +2,26 @@
     margin: 0 !important;
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
 }
 
 .phraseIntro {
-    flex-basis: 300px;
+    width: 200px;
     flex-shrink: 0;
+    white-space: nowrap;
+    @media (max-width: 390px) {
+        width: 0px;
+    }
 }
 
 .phraseEnd {
     flex-basis: 300px;
     flex-shrink: 0;
+    white-space: nowrap;
 }
 
 .staticBlock {
+    white-space: nowrap;
     flex-shrink: 0;
     color: #1b1b1b;
 }
@@ -60,7 +67,6 @@
     color: #2d6878;
     opacity: 0;
     overflow: hidden;
-    //position: absolute;
 }
 
 .finalVertical span {
@@ -70,7 +76,6 @@
     color: #2d6878;
     opacity: 1;
     overflow: hidden;
-    //position: absolute;
 }
 
 /* fade out */
