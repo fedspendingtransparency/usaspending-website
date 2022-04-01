@@ -21,7 +21,7 @@
       padding: $global-margin;
     }
   }
-  .card__heading-wrapper {
+  .card__heading {
     font-size: $h4-font-size;
     font-weight: $font-semibold;
     font-stretch: normal;
@@ -29,7 +29,13 @@
     line-height: 1.25;
     letter-spacing: normal;
     color: #1b1b1b;
+
+    margin-top: 0px;
+    @media (max-width: $medium-screen) {
+      margin-bottom: 16px;
+    }
   }
+  
   .card__content-wrapper {
     font-size: $base-font-size;
     font-weight: normal;

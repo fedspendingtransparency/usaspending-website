@@ -20,10 +20,10 @@ const Covid = () => {
     const [, setIsMobile] = useState(window.innerWidth < mediumScreen);
 
     const searchCardIcon = <FontAwesomeIcon icon={faSearch} size="lg" />;
-    const searchCardHeading = 'Search COVID-19 Spending Data';
+    const searchCardHeading = <h4 className="card__heading">Search <span>COVID-19</span> Spending Data</h4>;
     const searchCardContent = (
         <p>
-        Use the <strong>Disaster Emergency Fund Code (DEFC)</strong> filter in Advanced Search to find awards related to COVID-19 spending. Narrow your search with additional filters to help you find the data you need.
+        Use the <strong>Disaster Emergency Fund Code (DEFC)</strong> filter in Advanced Search to find awards related to <span>COVID-19</span> spending. Narrow your search with additional filters to help you find the data you need.
         </p>);
     const searchCardLink = (
         <Link
@@ -32,11 +32,11 @@ const Covid = () => {
         </Link>);
 
     const trackCardIcon = <FontAwesomeIcon icon={faChartBar} size="lg" />;
-    const trackCardHeading = 'Track COVID-19 Spending';
+    const trackCardHeading = <h4 className="card__heading">Track <span>COVID-19</span> Spending</h4>;
     const trackCardContent = (
         <p>
-        Our COVID-19 profile page helps you track COVID-19 spending by who is receiving funding, which agencies have paid out funds, which programs were funded, and more.
-        All COVID-19 spending data is available for download on the profile page with one click. You can also read about our datasets and calculations on the <Link to="/disaster/covid-19/data-sources">Data Sources & Methodology page</Link>.
+        Our <span>COVID-19</span> profile page helps you track <span>COVID-19</span> spending by who is receiving funding, which agencies have paid out funds, which programs were funded, and more.
+        All <span>COVID-19</span> spending data is available for download on the profile page with one click. You can also read about our datasets and calculations on the <Link to="/disaster/covid-19/data-sources">Data Sources & Methodology page</Link>.
         </p>);
     const trackCardLink = (
         <Link
@@ -66,10 +66,10 @@ const Covid = () => {
                 <FlexGridCol width={12} desktop={6} className="homepage-covid__column-one">
                     <div className="homepage-covid__column-one-content-wrapper">
                         <div className="homepage-covid__heading">
-                            The Federal Response to COVID-19
+                            The Federal Response to <span>COVID-19</span>
                         </div>
                         <div className="homepage-covid__content">
-                            The federal government has spent [$3.59 trillion] in response to COVID-19.
+                            The federal government has spent [$3.59 trillion] in response to <span>COVID-19</span>.
                         </div>
                         <div className="homepage-covid__image-wrapper">
                             <picture>

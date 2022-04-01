@@ -11,7 +11,7 @@ require('components/_card.scss');
 
 const propTypes = {
     icon: PropTypes.object,
-    heading: PropTypes.string,
+    heading: PropTypes.object,
     content: PropTypes.object,
     link: PropTypes.object
 };
