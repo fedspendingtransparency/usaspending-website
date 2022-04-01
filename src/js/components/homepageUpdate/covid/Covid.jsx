@@ -5,12 +5,9 @@
 
 import React, { useState, useEffect } from 'react';
 import { throttle } from 'lodash';
-import { Link, useHistory } from "react-router-dom";
-import { connect, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
-import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
-import { applyStagedFilters, resetAppliedFilters, setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
-import { initialState as defaultFilters, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch, faChartBar } from '@fortawesome/free-solid-svg-icons';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
@@ -21,25 +18,6 @@ require('pages/homepageUpdate/_homepageCovidSection.scss');
 const Covid = () => {
     const [windowWidth, setWindowWidth] = useState(0);
     const [, setIsMobile] = useState(window.innerWidth < mediumScreen);
-    const history = useHistory();
-    const reduxDefCodes = useSelector((state) => state.covid19.defCodes);
-
-    // const handleGoToAdvancedSearch = (e) => {
-    //     e.preventDefault();
-    //     clickedHomepageLink("search");
-    //     clearFilters();
-    //     resetFilters();
-    //     setAppliedFilters(false);
-    //     stageDefCodesForAdvancedSearch({
-    //         ...defaultFilters,
-    //         defCodes: new CheckboxTreeSelections({
-    //             require: reduxDefCodes.map((code) => code.code),
-    //             exclude: [],
-    //             counts: [{ value: "COVID-19", count: reduxDefCodes.length || 0, label: "COVID-19 Spending" }]
-    //         })
-    //     });
-    //     history.push('/search');
-    // };
 
     const searchCardIcon = <FontAwesomeIcon icon={faSearch} size="lg" inverse />;
     const searchCardHeading = 'Search COVID-19 Spending Data';
@@ -122,12 +100,5 @@ const Covid = () => {
     );
 };
 
-const mapDispatchToProps = (dispatch) => ({
-    resetFilters: () => dispatch(resetAppliedFilters()),
-    clearFilters: () => dispatch(clearAllFilters()),
-    stageDefCodesForAdvancedSearch: (filters) => dispatch(applyStagedFilters(filters)),
-    setAppliedFilters: (areApplied) => dispatch(setAppliedFilterCompletion(areApplied))
-});
-
-export default connect(null, mapDispatchToProps)(Covid);
+export default Covid;
 
