@@ -5,6 +5,9 @@
   width: 100%;
   margin: 0 auto;
   background-color: white;
+  span {
+    white-space: nowrap;
+  }
   .grid-content {
     padding-top: $global-padding * 12;
     .homepage-covid__background-flair {

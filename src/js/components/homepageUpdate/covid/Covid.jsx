@@ -20,7 +20,7 @@ const Covid = () => {
     const [, setIsMobile] = useState(window.innerWidth < mediumScreen);
 
     const searchCardIcon = <FontAwesomeIcon icon={faSearch} size="lg" />;
-    const searchCardHeading = <h4 className="card__heading">Search <span>COVID-19</span> Spending Data</h4>;
+    const searchCardHeading = <p>Search <span>COVID-19</span> Spending Data</p>;
     const searchCardContent = (
         <p>
         Use the <strong>Disaster Emergency Fund Code (DEFC)</strong> filter in Advanced Search to find awards related to <span>COVID-19</span> spending. Narrow your search with additional filters to help you find the data you need.
@@ -32,7 +32,7 @@ const Covid = () => {
         </Link>);
 
     const trackCardIcon = <FontAwesomeIcon icon={faChartBar} size="lg" />;
-    const trackCardHeading = <h4 className="card__heading">Track <span>COVID-19</span> Spending</h4>;
+    const trackCardHeading = <p>Track <span>COVID-19</span> Spending</p>;
     const trackCardContent = (
         <p>
         Our <span>COVID-19</span> profile page helps you track <span>COVID-19</span> spending by who is receiving funding, which agencies have paid out funds, which programs were funded, and more.
