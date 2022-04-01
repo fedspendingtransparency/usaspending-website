@@ -15,24 +15,24 @@ const propTypes = {
     link: PropTypes.object
 };
 
-const Card = ({
-    icon, heading, content, link
-}) => (
-    <div className="card-content">
-        <div className="card__icon-wrapper">
-            {icon}
+const Card = () => {
+    return (
+        <div className="card-content">
+            <div className="card__icon-wrapper">
+                placeholder for icon
+            </div>
+            <div className="card__heading-wrapper">
+                placeholder for heading
+            </div>
+            <div className="card__content-wrapper">
+                placeholder for content
+            </div>
+            <div className="card__link-wrapper">
+                placeholder for link
+            </div>
         </div>
-        <div className="card__heading-wrapper">
-            {heading}
-        </div>
-        <div className="card__content-wrapper">
-            {content}
-        </div>
-        <div className="card__link-wrapper">
-            {link}
-        </div>
-    </div>
-);
+    );
+};
 
 Card.propTypes = propTypes;
 export default Card;
