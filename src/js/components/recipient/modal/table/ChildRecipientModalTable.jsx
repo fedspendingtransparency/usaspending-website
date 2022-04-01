@@ -117,7 +117,7 @@ export default class ChildRecipientModalTable extends React.Component {
                         <th className="recipients-list__head-cell">
                             <div className="header-cell header-cell_right">
                                 <div className="header-cell__text">
-                                    <div className="header-cell__title header-cell__title_right">
+                                    <div className="header-cell__title header-cell__title_right header-cell__longer-title">
                                     Transaction Amount
                                         <div className="header-cell__subtitle">
                                             {timePeriod}
