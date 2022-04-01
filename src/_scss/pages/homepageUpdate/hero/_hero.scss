@@ -2,10 +2,18 @@
     background: rgba(136, 180, 192, .15);
 
     .homepage-hero-content {
-        margin: 0 $global-margin * 2.5;
+        padding: $global-margin * 2.5;
         @media (min-width: $medium-screen) {
             padding: rem(88) 0 rem(40) 0;
             margin: 0 $global-margin * 5;
+        }
+
+        .hero__heading-wrapper {
+            @media (max-width: $medium-screen) {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+            }
         }
 
         .hero__temp-h1 {

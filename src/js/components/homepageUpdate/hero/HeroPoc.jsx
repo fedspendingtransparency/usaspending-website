@@ -51,7 +51,8 @@ const HeroPoc = () => {
     }, []);
 
     const desktopView = () => (<div style={{ "margin-bottom": "4rem" }}>
-        <h2 className="sentence hero__temp-h1">
+        <div className="hero__heading-wrapper">
+            <h2 className="sentence hero__temp-h1" style={{ flexBasis: '517px' }}>
             {!paused ?
                 <div className="phraseIntro">
                     <div className="leftWords initialVertical">
@@ -93,6 +94,7 @@ const HeroPoc = () => {
                 </div>
             }
         </h2>
+        </div>
     </div>);
 
 
