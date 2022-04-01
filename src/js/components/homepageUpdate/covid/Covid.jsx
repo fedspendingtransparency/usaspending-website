@@ -6,12 +6,13 @@
 import React, { useState, useEffect } from 'react';
 import { throttle } from 'lodash';
 import { Link, useHistory } from "react-router-dom";
-import {connect, useSelector} from "react-redux";
+import { connect, useSelector } from "react-redux";
 import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
 import { applyStagedFilters, resetAppliedFilters, setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
 import { initialState as defaultFilters, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
-
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSearch, faChartBar } from '@fortawesome/free-solid-svg-icons';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import Card from "../../sharedComponents/Card";
 
@@ -40,7 +41,7 @@ const Covid = () => {
     //     history.push('/search');
     // };
 
-    const searchCardIcon = {};
+    const searchCardIcon = <FontAwesomeIcon icon={faSearch} size="lg" inverse />;
     const searchCardHeading = 'Search COVID-19 Spending Data';
     const searchCardContent = (
         <p>
@@ -52,7 +53,7 @@ const Covid = () => {
             Search the Data
         </Link>);
 
-    const trackCardIcon = {};
+    const trackCardIcon = <FontAwesomeIcon icon={faChartBar} size="lg" inverse />;
     const trackCardHeading = 'Track COVID-19 Spending';
     const trackCardContent = (
         <p>
@@ -75,7 +76,7 @@ const Covid = () => {
         }, 50);
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-    }, []);
+    }, [windowWidth]);
 
     return (
         <section
@@ -105,10 +106,12 @@ const Covid = () => {
                 <FlexGridCol width={12} desktop={6} className="homepage-covid__column-two">
                     <div className="homepage-covid__column-two-content-wrapper">
                         <Card
+                            icon={searchCardIcon}
                             heading={searchCardHeading}
                             content={searchCardContent}
                             link={searchCardLink} />
                         <Card
+                            icon={trackCardIcon}
                             heading={trackCardHeading}
                             content={trackCardContent}
                             link={trackCardLink} />
