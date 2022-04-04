@@ -1,0 +1,20 @@
+.usa-da-analyst-guide-page {
+  @import 'all';
+  @import "./_analystGuideHeader.scss";
+
+  background-color: #ffffff;
+
+  .main-content {
+    margin-bottom: rem(40);
+    @media (min-width: $medium-screen) {
+      margin-bottom: rem(60);
+    }
+  }
+
+  .analyst-guide-body {
+    margin: 0 $global-margin * 2;
+    @media (min-width: $medium-screen) {
+      margin: 0;
+    }
+  }
+}
