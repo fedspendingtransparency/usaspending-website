@@ -8,17 +8,21 @@
   padding: $global-padding * 3;
   @media (min-width: $medium-screen) {
     display: flex;
+    align-items: center;
     padding: $global-margin * 5;
   }
   min-height: 250px;
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
   .card__icon-wrapper {
+    width: 35px;
+    height: 35px;
+    background: #1b1b1b;
+    text-align: center;
+    border-radius: 4px;
+    padding: $global-padding;
     @media (max-width: $medium-screen) {
       margin-bottom: rem(16);
-    }
-    @media (min-width: $medium-screen) {
-      padding: $global-margin;
     }
   }
   .card__heading-wrapper {
@@ -30,7 +34,8 @@
     letter-spacing: normal;
     color: #1b1b1b;
     @media (min-width: $medium-screen) {
-      margin-left: 16px;
+      margin-left: $global-margin * 2;
+      padding-bottom: 2px;
     }
 
     p {

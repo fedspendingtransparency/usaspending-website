@@ -18,12 +18,10 @@ const Covid = () => {
     const [windowWidth, setWindowWidth] = useState(0);
     const [, setIsMobile] = useState(window.innerWidth < mediumScreen);
 
-    const searchCardIcon = (<span
-        className="fa-layers fa-fw"
-        style={{
-            background: "black", textAlign: "center", borderRadius: "5px", padding: "8px", width: "35px", height: "35px"
-        }}><FontAwesomeIcon icon="search" inverse size="xl" style={{ width: "20px", height: "20px" }} />
-    </span>);
+    const searchCardIcon = (
+        <span
+            className="fa-layers fa-fw"><FontAwesomeIcon icon="search" inverse size="xl" style={{ height: '20px', width: '20px' }} />
+        </span>);
     const searchCardHeading = <p>Search <span>COVID-19</span> Spending Data</p>;
     const searchCardContent = (
         <p>
@@ -35,12 +33,10 @@ const Covid = () => {
             Search the Data
         </Link>);
 
-    const trackCardIcon = (<span
-        className="fa-layers fa-fw"
-        style={{
-            background: "black", textAlign: "center", borderRadius: "5px", padding: "8px", width: "35px", height: "35px"
-        }}><FontAwesomeIcon icon="chart-bar" inverse size="xl" style={{ width: "20px", height: "20px" }} />
-    </span>);
+    const trackCardIcon = (
+        <span
+            className="fa-layers fa-fw"><FontAwesomeIcon icon="chart-bar" inverse size="xl" style={{ height: '20px', width: '20px' }} />
+        </span>);
     const trackCardHeading = <p>Track <span>COVID-19</span> Spending</p>;
     const trackCardContent = (
         <p>
