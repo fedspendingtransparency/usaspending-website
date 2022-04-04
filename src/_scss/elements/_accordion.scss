@@ -25,6 +25,7 @@
     align-items: center;
     flex-wrap: nowrap;
     border: 1px solid #eee;
+    color: #1b1b1b;
   }
 
   .content {
@@ -33,7 +34,7 @@
     color: #1b1b1b;
     text-align: left;
     visibility: hidden;
-    transition: ease-in-out max-height 500ms, visibility 500ms;
+    transition: ease-in-out max-height 50ms, visibility 50ms;
   }
 
   .toggle {
