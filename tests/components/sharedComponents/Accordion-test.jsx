@@ -3,7 +3,7 @@ import '@testing-library/jest-dom/extend-expect';
 // import { render, screen, fireEvent } from '@test-utils';
 import { render, screen, fireEvent } from '@testing-library/react';
 
-import Accordion from '../../../src/js/components/sharedComponents/accordion/accordion';
+import Accordion from '../../../src/js/components/sharedComponents/accordion/Accordion';
 
 describe('Accordion', () => {
     const titleText = 'Placeholder Title';

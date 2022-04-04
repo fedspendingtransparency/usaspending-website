@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import './accordion.scss';
+import '../../../../_scss/elements/_accordion.scss';
 
 const Accordion = ({ title, children }) => {
     const [closed, setClosed] = useState(true);
@@ -11,23 +11,30 @@ const Accordion = ({ title, children }) => {
         setClosed((prevClosed) => !prevClosed);
     };
 
+    const keyClickToggle = (e) => {
+        if (e.keyCode === '13') {
+            e.stopPropagation();
+            setClosed((prevClosed) => !prevClosed);
+        }
+    };
+
     return (
         <div className="accordion-container">
             <section data-testid="accordion" className={!closed ? `open accordion--open accordion` : `accordion`}>
-                <div onClick={toggleOpen} className="heading">
+                {/* eslint-disable-next-line jsx-a11y/interactive-supports-focus */}
+                <div onClick={toggleOpen} onKeyDown={keyClickToggle} className="heading" role="button">
                     {title}
                     <button
                         onClick={toggleOpen}
+                        onKeyDown={keyClickToggle}
                         className="toggle"
                         aria-label={closed ? 'Open toggle' : 'Close toggle'}>
                         <FontAwesomeIcon
                             icon="plus"
-                            className="plus"
-                        />
+                            className="plus" />
                         <FontAwesomeIcon
                             icon="minus"
-                            className="minus"
-                        />
+                            className="minus" />
                     </button>
                 </div>
                 <div className="content">{children}</div>
