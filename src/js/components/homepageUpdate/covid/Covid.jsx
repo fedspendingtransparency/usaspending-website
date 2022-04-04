@@ -9,7 +9,6 @@ import { Link } from "react-router-dom";
 import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch, faChartBar } from '@fortawesome/free-solid-svg-icons';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import Card from "../../sharedComponents/Card";
 
@@ -19,7 +18,12 @@ const Covid = () => {
     const [windowWidth, setWindowWidth] = useState(0);
     const [, setIsMobile] = useState(window.innerWidth < mediumScreen);
 
-    const searchCardIcon = <FontAwesomeIcon icon={faSearch} size="lg" />;
+    const searchCardIcon = (<span
+        className="fa-layers fa-fw"
+        style={{
+            background: "black", textAlign: "center", borderRadius: "5px", padding: "8px", width: "35px", height: "35px"
+        }}><FontAwesomeIcon icon="search" inverse size="xl" style={{ width: "20px", height: "20px" }} />
+    </span>);
     const searchCardHeading = <p>Search <span>COVID-19</span> Spending Data</p>;
     const searchCardContent = (
         <p>
@@ -31,7 +35,12 @@ const Covid = () => {
             Search the Data
         </Link>);
 
-    const trackCardIcon = <FontAwesomeIcon icon={faChartBar} size="lg" />;
+    const trackCardIcon = (<span
+        className="fa-layers fa-fw"
+        style={{
+            background: "black", textAlign: "center", borderRadius: "5px", padding: "8px", width: "35px", height: "35px"
+        }}><FontAwesomeIcon icon="chart-bar" inverse size="xl" style={{ width: "20px", height: "20px" }} />
+    </span>);
     const trackCardHeading = <p>Track <span>COVID-19</span> Spending</p>;
     const trackCardContent = (
         <p>

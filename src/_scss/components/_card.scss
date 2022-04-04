@@ -29,6 +29,9 @@
     line-height: 1.25;
     letter-spacing: normal;
     color: #1b1b1b;
+    @media (min-width: $medium-screen) {
+      margin-left: 16px;
+    }
 
     p {
       margin: 0;
