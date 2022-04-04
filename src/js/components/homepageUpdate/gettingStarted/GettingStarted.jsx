@@ -53,7 +53,7 @@ const GettingStarted = () => {
             const newWidth = window.innerWidth;
             if (windowWidth !== newWidth) {
                 setWindowWidth(newWidth);
-                setIsMobile(newWidth < mediumScreen);
+                setIsMobile(newWidth <= mediumScreen);
             }
         }, 50);
         window.addEventListener('resize', handleResize);
@@ -61,7 +61,7 @@ const GettingStarted = () => {
     }, []);
     const searchCarouselLayout = isMobile ?
         <>
-            <FlexGridCol className="homepage-search-feature" width={12} desktop={6}>
+            <FlexGridCol className="homepage-search-feature" width={12}>
                 <div className="homepage-search-feature-desc">
                     <h2 className="homepage-search-feature-desc__title">A targeted approach to finding federal award data</h2>
                 </div>
@@ -71,7 +71,7 @@ const GettingStarted = () => {
                         label="Image carousel of Award Search screenshots " />
                 </div>
             </FlexGridCol>
-            <FlexGridCol className="homepage-search-feature" width={12} desktop={6}>
+            <FlexGridCol className="homepage-search-feature" width={12}>
                 <div className="homepage-search-feature-desc">
                     <p>
                         Whether you&apos;re a congressional staffer, government employee, researcher, or data buff, our <strong>Award Search</strong> will help you answer your toughest questions about federal spending.
@@ -85,7 +85,7 @@ const GettingStarted = () => {
         </>
         :
         <>
-            <FlexGridCol className="homepage-search-feature" width={12} desktop={6}>
+            <FlexGridCol className="homepage-search-feature" width={5}>
                 <div className="homepage-search-feature__background-flair" />
                 <div className="homepage-search-feature-desc">
                     <h2 className="homepage-search-feature-desc__title">A targeted approach to finding federal award data</h2>
@@ -98,7 +98,7 @@ const GettingStarted = () => {
                     <button>Select Search Type</button>
                 </div>
             </FlexGridCol>
-            <FlexGridCol className="homepage-search-feature" width={12} desktop={6}>
+            <FlexGridCol className="homepage-search-feature" width={7}>
                 <div className="homepage-search-feature__img-carousel">
                     <ImageCarousel
                         images={searchImages}
@@ -109,7 +109,7 @@ const GettingStarted = () => {
 
     const profileCarouselLayout = isMobile ?
     <>
-        <FlexGridCol className="homepage-profile-feature" width={12} desktop={6}>
+        <FlexGridCol className="homepage-profile-feature" width={12}>
             <div className="homepage-profile-feature-desc">
                 <h5 className="homepage-profile-feature-desc__title">A snapshot of federal spending</h5>
             </div>
@@ -118,7 +118,7 @@ const GettingStarted = () => {
                     images={profileImages} />
             </div>
         </FlexGridCol>
-        <FlexGridCol className="homepage-profile-feature" width={12} desktop={6}>
+        <FlexGridCol className="homepage-profile-feature" width={12}>
             <div className="homepage-profile-feature-desc">
                 <p>
                     Interested in how specific agencies spend their funding? Or how federal funding is being spent in your state? Our <strong>Profiles</strong> make it easier to understand questions like these and more with interactive charts and tables that offer a snapshot of spending by agency, state, recipient, and the federal accounts that agencies use to spend their funding. Use our COVID-19 Spending profile to learn how federal funding is being spent in response to the pandemic.
@@ -129,13 +129,13 @@ const GettingStarted = () => {
     </>
         :
     <>
-        <FlexGridCol className="homepage-profile-feature" width={12} desktop={6}>
+        <FlexGridCol className="homepage-profile-feature" width={7}>
             <div className="homepage-profile-feature__img-carousel">
                 <ImageCarousel
                     images={profileImages} />
             </div>
         </FlexGridCol>
-        <FlexGridCol className="homepage-profile-feature" width={12} desktop={6}>
+        <FlexGridCol className="homepage-profile-feature" width={5}>
             <div className="homepage-profile-feature-desc">
                 <h5 className="homepage-profile-feature-desc__title">A snapshot of federal spending</h5>
                 <p>
@@ -148,7 +148,7 @@ const GettingStarted = () => {
 
     const spendingExplorerLayout = isMobile ?
     <>
-        <FlexGridCol className="homepage-spending-explorer" width={12} desktop={6}>
+        <FlexGridCol className="homepage-spending-explorer" width={12}>
             <div className="homepage-spending-explorer-desc">
                 <h5 className="homepage-spending-explorer-desc__title">A big-picture view of government spending</h5>
             </div>
@@ -160,7 +160,7 @@ const GettingStarted = () => {
                 </picture>
             </div>
         </FlexGridCol>
-        <FlexGridCol className="homepage-spending-explorer" width={12} desktop={6}>
+        <FlexGridCol className="homepage-spending-explorer" width={12}>
             <div className="homepage-spending-explorer-desc">
                 <p>
                     The <strong>Spending Explorer</strong> lets you explore the entire federal budget in increasing detail, making it easier to understand how funding flows from Congress to federal agencies and how those agencies spend that funding. Interactive charts and tables help break down the budget in multiple ways to clarify the relationships between federal spending components.
@@ -171,7 +171,7 @@ const GettingStarted = () => {
     </>
         :
     <>
-        <FlexGridCol className="homepage-spending-explorer" width={12} desktop={6}>
+        <FlexGridCol className="homepage-spending-explorer" width={7}>
             <div className="homepage-spending-explorer__img-wrapper">
                 <picture className="homepage-spending-explorer__img">
                     <source srcSet="img/homepage-spending-explorer/homepage-spending-explorer@1-5x.webp" type="image/webp" />
@@ -180,7 +180,7 @@ const GettingStarted = () => {
                 </picture>
             </div>
         </FlexGridCol>
-        <FlexGridCol className="homepage-spending-explorer" width={12} desktop={6}>
+        <FlexGridCol className="homepage-spending-explorer" width={5}>
             <div className="homepage-spending-explorer-desc">
                 <h5 className="homepage-spending-explorer-desc__title">A big-picture view of government spending</h5>
                 <p>

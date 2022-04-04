@@ -41,7 +41,7 @@
               padding-top: $global-padding * 3;
             }
             img {
-              max-width: 90%;
+              max-width: 86%;
               @media (max-width: $medium-screen) {
                 max-width: 100%;
               }
@@ -50,9 +50,11 @@
           }
           .homepage-spending-explorer-desc {
             margin-top: $global-margin * 16;
-            margin-right: $global-margin;
             @media (max-width: $medium-screen) {
               margin-top: $global-margin * 3;
+            }
+            @media (max-width: $large-screen) {
+              margin-top: $global-margin * 8;
             }
             .homepage-spending-explorer-desc__title {
               font-size: 28px;
@@ -96,8 +98,10 @@
         }
           .homepage-search-feature__img-carousel {
             padding-top: $global-padding * 20;
+            padding-left: $global-padding * 5;
             @media (max-width: $medium-screen) {
               padding-top: $global-padding * 3;
+              padding-left: 0;
             }
           }
           .homepage-search-feature-desc {
@@ -128,6 +132,7 @@
             padding-top: 0;
           }
           .homepage-profile-feature__img-carousel {
+            width: 92%;
             padding-top: $global-padding * 10;
             @media (max-width: $medium-screen) {
               padding-top: $global-padding * 3;
@@ -149,10 +154,6 @@
             }
             @media (max-width: $medium-screen) {
               margin-top: 0;
-            }
-            margin-left: 0;
-            @media (min-width: $medium-screen) {
-              margin-left: $global-margin * 4;
             }
           }
         }
