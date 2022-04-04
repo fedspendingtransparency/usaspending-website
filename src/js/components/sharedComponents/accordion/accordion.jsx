@@ -13,7 +13,7 @@ const Accordion = ({ title, children }) => {
 
     return (
         <div className="accordion-container">
-            <section className={!closed ? `accordion open accordion--open` : `accordion`}>
+            <section data-testid="accordion" className={!closed ? `accordion open accordion--open` : `accordion`}>
                 <div onClick={toggleOpen} className="heading">
                     {title}
                     <button
@@ -45,6 +45,6 @@ backgroundColor: background of collapsed box
 */
 Accordion.propTypes = {
     title: PropTypes.string.isRequired,
-    children: PropTypes.element
+    children: PropTypes.element || PropTypes.string
 
 };
