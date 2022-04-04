@@ -41,7 +41,7 @@
               padding-top: $global-padding * 3;
             }
             img {
-              max-width: 86%;
+              max-width: 85%;
               @media (max-width: $medium-screen) {
                 max-width: 100%;
               }
@@ -98,7 +98,7 @@
         }
           .homepage-search-feature__img-carousel {
             padding-top: $global-padding * 20;
-            padding-left: $global-padding * 5;
+            padding-left: $global-padding * 10;
             @media (max-width: $medium-screen) {
               padding-top: $global-padding * 3;
               padding-left: 0;
@@ -132,10 +132,11 @@
             padding-top: 0;
           }
           .homepage-profile-feature__img-carousel {
-            width: 92%;
             padding-top: $global-padding * 10;
+            padding-right: $global-padding * 10;
             @media (max-width: $medium-screen) {
               padding-top: $global-padding * 3;
+              padding-right: 0;
             }
           }
           .homepage-profile-feature-desc {
