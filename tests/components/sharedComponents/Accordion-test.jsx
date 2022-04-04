@@ -1,7 +1,7 @@
 import React from 'react';
 import '@testing-library/jest-dom/extend-expect';
-import { render, screen, fireEvent } from '@test-utils';
-// import { render, screen, fireEvent } from '@testing-library/react';
+// import { render, screen, fireEvent } from '@test-utils';
+import { render, screen, fireEvent } from '@testing-library/react';
 
 import Accordion from '../../../src/js/components/sharedComponents/accordion/accordion';
 
@@ -33,6 +33,17 @@ describe('Accordion', () => {
         expect(screen.queryByText(titleText)).toBeTruthy();
     });
 
+    it('expects the body copy to be rendered.', () => {
+        render(<Accordion
+            title={titleText}>
+            <div>
+                <p>{bodyText}</p>
+            </div>
+        </Accordion>);
+
+        expect(screen.queryByText(bodyText)).toBeTruthy();
+    });
+
     it(
         'does apply "open" to section element classnames if accordion is opened.',
         () => {
@@ -48,7 +59,9 @@ describe('Accordion', () => {
             const element = getByTestId('accordion');
             expect(element).not.toHaveClass('open');
             fireEvent.click(element);
-            expect(element).toHaveClass('open');
+            setTimeout(() => {
+                expect(element).toHaveClass('open');
+            }, 200);
         }
     );
 });

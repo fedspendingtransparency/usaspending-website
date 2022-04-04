@@ -8,12 +8,12 @@ const Accordion = ({ title, children }) => {
 
     const toggleOpen = (e) => {
         e.stopPropagation();
-        setClosed(!closed);
+        setClosed((prevClosed) => !prevClosed);
     };
 
     return (
         <div className="accordion-container">
-            <section data-testid="accordion" className={!closed ? `accordion open accordion--open` : `accordion`}>
+            <section data-testid="accordion" className={!closed ? `open accordion--open accordion` : `accordion`}>
                 <div onClick={toggleOpen} className="heading">
                     {title}
                     <button
