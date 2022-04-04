@@ -25,7 +25,7 @@ export default class ChildRecipientModalTable extends React.Component {
         const body = this.props.childRecipients.map((child) => (
             <tr
                 className="recipients-list__body-row"
-                key={child.duns}>
+                key={child.uei}>
                 <td className="recipients-list__body-cell">
                     <Link to={`/recipient/${child.id}/latest`} onClick={this.props.hideModal}>{child.name}</Link>
                 </td>
@@ -117,7 +117,7 @@ export default class ChildRecipientModalTable extends React.Component {
                         <th className="recipients-list__head-cell">
                             <div className="header-cell header-cell_right">
                                 <div className="header-cell__text">
-                                    <div className="header-cell__title header-cell__title_right">
+                                    <div className="header-cell__title header-cell__title_right header-cell__longer-title">
                                     Transaction Amount
                                         <div className="header-cell__subtitle">
                                             {timePeriod}
