@@ -22,8 +22,8 @@ export const KeyWordTooltip = () => (
                 <li>Recipient Name</li>
                 <li>Recipient UEI</li>
                 <li>Recipient Parent UEI</li>
-                <li>Recipient {DUNS_LABEL.toLowerCase()}DUNS</li>
-                <li>Recipient Parent {DUNS_LABEL.toLowerCase()}DUNS</li>
+                <li>Recipient {DUNS_LABEL}DUNS</li>
+                <li>Recipient Parent {DUNS_LABEL}DUNS</li>
                 <li>NAICS code and description</li>
                 <li>PSC code and description</li>
                 <li>PIID (prime award only)</li>
