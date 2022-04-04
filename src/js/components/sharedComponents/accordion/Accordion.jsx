@@ -21,8 +21,8 @@ const Accordion = ({ title, children }) => {
     return (
         <div className="accordion-container">
             <section data-testid="accordion" className={!closed ? `open accordion--open accordion` : `accordion`}>
-                {/* eslint-disable-next-line jsx-a11y/interactive-supports-focus */}
-                <div onClick={toggleOpen} onKeyDown={keyClickToggle} className="heading" role="button">
+                {/* eslint-disable-next-line jsx-a11y/interactive-supports-focus,jsx-a11y/no-static-element-interactions */}
+                <div onClick={toggleOpen} onKeyDown={keyClickToggle} className="heading">
                     {title}
                     <button
                         onClick={toggleOpen}
