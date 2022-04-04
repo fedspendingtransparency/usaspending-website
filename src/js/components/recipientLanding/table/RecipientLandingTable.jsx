@@ -101,8 +101,8 @@ const RecipientLandingTable = (props) => {
                         <th className="recipient-list__head-cell">
                             <div className="header-cell ">
                                 <div className="header-cell__text">
-                                    <div className="header-cell__title header-cell__title_cap">
-                                        {GlobalConstants.DUNS_LABEL}DUNS
+                                    <div className="header-cell__title">
+                                        {GlobalConstants.DUNS_LABEL}<span className="header-cell__title_cap">DUNS</span>
                                     </div>
                                 </div>
                                 <StateLandingTableSorter
