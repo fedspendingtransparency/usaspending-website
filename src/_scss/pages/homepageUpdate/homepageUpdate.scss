@@ -12,7 +12,40 @@
 
     .homepage-getting-started {
       height: 100%;
-      background-color: lightgrey;
+      background-color: white;
+      .homepage-background-flair {
+        position: absolute;
+        z-index: 0;
+        top: 218rem;
+        @media (max-width: 1600px) {
+          top: 200rem;
+          height: 60vw;
+        }
+        @media (max-width: $medium-screen) {
+          top: 245rem;
+          height: 120vw;
+        }
+        @media (max-width: 870px) {
+          top: 240rem;
+          height: 128vw;
+        }
+        @media (max-width: $tablet-screen) {
+          top: 236rem;
+          height: 170vw;
+        }
+        @media (max-width: 600px) {
+          top: 236rem;
+          height: 110rem;
+        }
+        left: 0;
+        width: 100%;
+        height: 50vw;
+
+        background-color: $color-gray-warm-light;
+        opacity: 0.5;
+
+        @include transform(skewY(5deg));
+    }
       .grid-content {
         button {
           border-radius: 4px;
@@ -68,34 +101,7 @@
           }
         }
         .homepage-search-feature {
-          .homepage-search-feature__background-flair {
-            position: absolute;
-            z-index: 0;
-            top: rem(-30);
-            bottom: rem(-30);
-            width: 83.4vw;
-            height: 50vw;
-            @media (max-width: $medium-screen) {
-              top: -72rem;
-              height: 100vw;
-            }
-            @media (max-width: 1300px) {
-              height: 70vw;
-            }
-            @media (max-width: $medium-screen) {
-              width: 100%;
-            }
-    
-            background-color: $color-gray-warm-light;
-            opacity: 0.5;
-    
-            @include transform(skewY(5deg));
-    
-            @include media($medium-screen) {
-                top: 0;
-                bottom: 0;
-            }
-        }
+          margin-top: 6.5rem;
           .homepage-search-feature__img-carousel {
             padding-top: $global-padding * 20;
             padding-left: $global-padding * 10;
@@ -127,10 +133,7 @@
           }
         }
         .homepage-profile-feature {
-          padding-top: $global-padding * 25;
-          @media (max-width: $medium-screen) {
-            padding-top: 0;
-          }
+          margin-top: 6.5rem;
           .homepage-profile-feature__img-carousel {
             padding-top: $global-padding * 10;
             padding-right: $global-padding * 10;
