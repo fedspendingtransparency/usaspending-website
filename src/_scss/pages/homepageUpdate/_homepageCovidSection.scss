@@ -36,17 +36,27 @@
         display: flex;
         flex-flow: column nowrap;
       }
-
       .homepage-covid__heading {
         font-size: rem(40);
         font-weight: $font-semibold;
         color: #1b1b1b;
         padding-bottom: $global-padding * 3;
       }
-
       .homepage-covid__content {
         font-size: rem(32);
         font-weight: $font-normal;
+        @media (min-width: $medium-screen) {
+          margin-bottom: $global-margin * 16;
+        }
+        @media (min-width: 1200px) {
+          margin-bottom: $global-margin * 10;
+        }
+        @media (min-width: 1500px) {
+          margin-bottom: $global-margin * 8;
+        }
+        @media (min-width: 1700px) {
+          margin-bottom: 0;
+        }
       }
       .homepage-covid__image-wrapper {
         @media (max-width: $medium-screen) {
