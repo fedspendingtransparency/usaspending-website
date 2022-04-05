@@ -1,3 +1,5 @@
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable max-len */
 import React from 'react';
 import Accordion from "../sharedComponents/accordion/Accordion";
 
@@ -171,12 +173,12 @@ const dataAccessQuestions = [{
     answer: (<>
         <p>The following files contain account spending data:</p>
         <ul>
-            <li>•	FA_AccountBalances</li>
-            <li>•	TAS_AccountBalances</li>
-            <li>•	FA_AccountBreakdownByPA-OC</li>
-            <li>•	TAS_AccountBreakdownByPA-OC</li>
-            <li>•	FA_AccountBreakdownByAward</li>
-            <li>•	TAS_AccountBreakdownByAward</li>
+            <li>FA_AccountBalances</li>
+            <li>TAS_AccountBalances</li>
+            <li>FA_AccountBreakdownByPA-OC</li>
+            <li>TAS_AccountBreakdownByPA-OC</li>
+            <li>FA_AccountBreakdownByAward</li>
+            <li>TAS_AccountBreakdownByAward</li>
         </ul>
         <p>These files are available through the Custom Account Data download feature.</p>
         <p>The AccountBalances files include account balance information. These files will be returned if the Custom Account Data file type filter includes “Account Balances.”</p>
