@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "./HeroPoc.scss";
 
-const HeroPoc = () => {
-    const [paused, togglePaused] = useState(true);
+const HeroPoc = ({ paused }) => {
+    const [isPaused, setPaused] = useState(true);
     const leftWords = ['Explore', 'Search', 'Track', 'Download', 'Analyze'];
     const rightWords = ['over time', 'by agency', 'by recipient', 'to communities', 'by industry', 'on contracts', 'on grants', 'by state'];
+    let currentLeftWord;
+    const [currentRightWords, setCurrentRightWords] = useState(null);
 
     const getRandomInt = (max) => Math.floor(Math.random() * max);
 
@@ -13,13 +15,15 @@ const HeroPoc = () => {
             index: null,
             previousWord: null,
             wordsArray: [...leftWords],
-            tempWordsArray: [...leftWords]
+            tempWordsArray: [...leftWords],
+            currentWord: null
         },
         right: {
             index: null,
             previousWord: null,
             wordsArray: [...rightWords],
-            tempWordsArray: [...rightWords]
+            tempWordsArray: [...rightWords],
+            currentWord: null
         }
     };
 
@@ -43,61 +47,58 @@ const HeroPoc = () => {
         } while (previousWord === tempWordsArray[index]);
 
         previousWord = tempWordsArray[index];
+        rotatingWords[position].currentWord = previousWord;
         return index;
     };
 
     useEffect(() => {
-        togglePaused(false);
-    }, []);
+        document.getElementById("initialVertical").getElementsByTagName('span')[0].style.animationPlayState = paused ? "paused" : "running";
+        document.getElementById("slidingVertical").getElementsByTagName('span')[0].style.animationPlayState = paused ? "paused" : "running";
+        document.getElementById("slidingVertical").getElementsByTagName('span')[1].style.animationPlayState = paused ? "paused" : "running";
+        document.getElementById("slidingVertical").getElementsByTagName('span')[2].style.animationPlayState = paused ? "paused" : "running";
+        document.getElementById("slidingVertical").getElementsByTagName('span')[3].style.animationPlayState = paused ? "paused" : "running";
+
+        document.getElementById("initialVertical2").getElementsByTagName('span')[0].style.animationPlayState = paused ? "paused" : "running";
+        document.getElementById("slidingVertical2").getElementsByTagName('span')[0].style.animationPlayState = paused ? "paused" : "running";
+        document.getElementById("slidingVertical2").getElementsByTagName('span')[1].style.animationPlayState = paused ? "paused" : "running";
+        document.getElementById("slidingVertical2").getElementsByTagName('span')[2].style.animationPlayState = paused ? "paused" : "running";
+        document.getElementById("slidingVertical2").getElementsByTagName('span')[3].style.animationPlayState = paused ? "paused" : "running";
+
+
+    }, [paused]);
 
     const rotatingText = () => (<div style={{ "margin-bottom": "4rem" }}>
         <div className="hero__heading-wrapper">
-            <h2 className="sentence hero__temp-h1" style={{ flexBasis: '517px' }}>
-                {!paused ?
-                    <div className="phraseIntro">
-                        <div className="leftWords initialVertical">
-                            <span>{rotatingWords.left.tempWordsArray[pickWord('left')]}&nbsp;</span>
+            <div className="sentence hero__temp-h1">
+                <div className="landingPhrase finalVertical">
+                    <span>The official source of government spending data.</span>
+                </div>
+                <div className="wholePhrase">
+                    <div className="phraseIntro" id="phraseIntro">
+                        <div className="leftWords initialVertical" id="initialVertical">
+                            <span>{rotatingWords.left.tempWordsArray[1]}&nbsp;</span>
                         </div>
-                        <div className="leftWords slidingVertical">
-                            <span>{rotatingWords.left.tempWordsArray[pickWord('left')]}&nbsp;</span>
-                            <span>{rotatingWords.left.tempWordsArray[pickWord('left')]}&nbsp;</span>
-                            <span>{rotatingWords.left.tempWordsArray[pickWord('left')]}&nbsp;</span>
+                        <div className="leftWords slidingVertical" id="slidingVertical">
+                            <span>{rotatingWords.left.tempWordsArray[3]}&nbsp;</span>
+                            <span>{rotatingWords.left.tempWordsArray[4]}&nbsp;</span>
+                            <span>{rotatingWords.left.tempWordsArray[2]}&nbsp;</span>
+                            <span>{rotatingWords.left.tempWordsArray[0]}&nbsp;</span>
                         </div>
-                        <div className="leftWords finalVertical">
-                            <span>{rotatingWords.left.tempWordsArray[pickWord('left')]}&nbsp;</span>
-                        </div>
-
                     </div>
-                    :
-                    <div className="leftWords">
-                        <span>{rotatingWords.left.tempWordsArray[rotatingWords.left.index]}</span>
-                    </div>
-                }
-                <div className="staticBlock">government spending&nbsp;</div>
-                {!paused ?
+                    <div className="staticBlock">government spending&nbsp;</div>
                     <div className="phraseEnd">
-                        <div className="rightWords initialVertical">
-                            <span>{rotatingWords.right.tempWordsArray[pickWord('right')]}</span>
+                        <div className="rightWords initialVertical" id="initialVertical2">
+                            <span>{rotatingWords.right.tempWordsArray[5]}</span>
                         </div>
-                        <div className="rightWords slidingVertical">
-                            <span>{rotatingWords.right.tempWordsArray[pickWord('right')]}</span>
-                            <span>{rotatingWords.right.tempWordsArray[pickWord('right')]}</span>
-                            <span>{rotatingWords.right.tempWordsArray[pickWord('right')]}</span>
-                        </div>
-                        <div className="rightWords finalVertical">
-                            <span>{rotatingWords.right.tempWordsArray[pickWord('right')]}</span>
+                        <div className="rightWords slidingVertical" id="slidingVertical2">
+                            <span>{rotatingWords.right.tempWordsArray[3]}</span>
+                            <span>{rotatingWords.right.tempWordsArray[2]}</span>
+                            <span>{rotatingWords.right.tempWordsArray[7]}</span>
+                            <span>{rotatingWords.right.tempWordsArray[4]}</span>
                         </div>
                     </div>
-                    :
-                    <div className="rightWords">
-                        <span>{rotatingWords.right.tempWordsArray[rotatingWords.right.index]}</span>
-                    </div>
-                }
-                {/*<br/>*/}
-                {/*<div className="phraseEnd">*/}
-                {/*    <div className="rightWords finalVertical"><span>The official source of government spending data.</span></div>*/}
-                {/*</div>*/}
-            </h2>
+                </div>
+            </div>
         </div>
     </div>);
 

@@ -3,12 +3,15 @@
  * Created by Andrea Blackwell 03/07/22
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import Analytics from 'helpers/analytics/Analytics';
 import HeroPoc from './HeroPoc';
 
 const Hero = () => {
+
+    const [ isPaused, setIsPaused ] = useState(false);
+
     const trackSearchLink = () => Analytics.event({
         category: 'Homepage',
         action: 'Link',
@@ -19,10 +22,11 @@ const Hero = () => {
         action: 'Link',
         label: 'about'
     });
+
     return (
         <section className="homepage-hero-container" aria-label="Hero sections">
             <div className="homepage-hero-content">
-                <HeroPoc />
+                <HeroPoc paused={ isPaused } />
                 <div className="hero__lower-wrapper">
                     <div className="hero__left-image-wrapper">
                         <picture>
@@ -54,7 +58,7 @@ const Hero = () => {
                                 </p>
                             </div>
                             <div className="hero__pause-button-container">
-                                <p>pause button placeholder</p>
+                                <button onClick={() => { setIsPaused((previousIsPaused) => !previousIsPaused) }}>pause button placeholder</button>
                             </div>
                         </div>
                     </div>
