@@ -17,4 +17,16 @@
       margin: 0;
     }
   }
+
+  .analyst-guide__topTitle {
+    width: 328px;
+    height: 68px;
+    font-size: 28px;
+    font-weight: $font-semibold;
+    font-stretch: $font-normal;
+    font-style: $font-normal;
+    line-height: 1.21;
+    letter-spacing: normal;
+    color: $color-grayblack;
+  }
 }

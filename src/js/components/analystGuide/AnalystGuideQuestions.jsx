@@ -19,7 +19,7 @@ const awardAccountSpendingComparisonQuestions = [{
     </>)
 },
 {
-    question: "‘How is award spending linked to account spending?",
+    question: "How is award spending linked to account spending?",
     answer: (<>
         <p>Agencies periodically upload account spending in various formats. One format (account breakdown by award) represents award activity and includes details on federal accounts funding that activity. Agencies also upload transaction level award spending for both contracts and financial assistance. </p>
         <p>These files can be linked together to associate award spending with account spending. If a shared ID cannot be found between these files, award spending may be unlinked to any account.</p>
