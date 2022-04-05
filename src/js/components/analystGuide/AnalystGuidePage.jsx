@@ -10,7 +10,7 @@ import 'pages/analystGuide/analystGuide.scss';
 
 import AnalystGuideHeader from './AnalystGuideHeader';
 import PageWrapper from "../sharedComponents/PageWrapper";
-import { homePageMetaTags } from "../../helpers/metaTagHelper";
+import { analystGuideMetaTags } from "../../helpers/metaTagHelper";
 import { SHOW_HOMEPAGE_UPDATE } from '../../GlobalConstants';
 import AnalystGuideQuestions from "./AnalystGuideQuestions";
 import AnalystGuideIntro from "./AnalystGuideIntro";
@@ -20,7 +20,7 @@ const AnalystGuidePage = () => {
 
     useEffect(() => {
         setHideContent(!SHOW_HOMEPAGE_UPDATE);
-    }, [SHOW_HOMEPAGE_UPDATE]);
+    }, []);
 
     return (<>{hideContent ?
         <Redirect to="/404" />
@@ -29,7 +29,7 @@ const AnalystGuidePage = () => {
             pageName="AnalystGuide"
             classNames="usa-da-analyst-guide-page"
             noHeader
-            metaTagProps={{ ...homePageMetaTags }}>
+            metaTagProps={{ ...analystGuideMetaTags }}>
             <main id="main-content" className="main-content">
                 <section>
                     <AnalystGuideHeader title="Analyst&apos;s Guide to Federal Spending Data" subtitle="Guidance on effectively using USAspending.gov data." />

@@ -292,37 +292,246 @@ const agencyDataQuestions = [{
 }];
 
 const accountDataQuestions = [{
-    question: "",
-    answer: (<></>)
+    question: "What is a Treasury Account Symbol (TAS)?",
+    answer: (<>
+        <p>Account spending occurs through Treasury accounts. A Treasury Account Symbol (TAS) is a code used to represent and provide information about a Treasury account. The TAS provides critical information about account and linked award spending associated with a Treasury account.</p>
+        <p>Each TAS is composed of the following elements:</p>
+        <ul>
+            <li>Agency Identifier (AID): 3 digits that identify the agency responsible for a Treasury account. The AID is assigned by Congress.</li>
+            <li>Main Account Code (MAC): 4 digits that identify the Treasury account type and purpose. The MAC cannot be blank.</li>
+            <li>Sub Account Code (SAC): 3 digits that identify a sub-division of the Treasury account. The SAC cannot be blank. A SAC value of &quot;000&quot; means that the Treasury account is the parent account.</li>
+            <li>Allocation Transfer Agency ID (ATA): 3 digits that identify the agency that receives funds through an allocation (non-expenditure) transfer.</li>
+            <li>Beginning Period of Availability (BPOA): 4 digits that identify the first year that an appropriation account may incur new obligations. The BPOA is used for annual and multi-year funds only.</li>
+        </ul>
+        <p>AND</p>
+        <ul>
+            <li>Ending Period of Availability (EPOA): 4 digits that identify the last year that an appropriation account may incur new obligations. The EPOA is for annual and multi-year funds only.</li>
+        </ul>
+        <p>OR (if no BPOA or EPOA)</p>
+        <ul>
+            <li>Availability Type Code (ATC): 1 character that identifies the availability (or time period) for obligations to be made on the Treasury account. An ATC value of “X” means that there is an unlimited or indefinite period to incur new obligations.</li>
+        </ul>
+        <p>The TAS filter on Advanced Search can be used to filter award spending by TAS.</p>
+        <p>The Treasury Account Symbol chart in the Spending by Category section of Federal Account Profile pages display all Treasury accounts associated with a federal account. </p>
+    </>)
+},
+{
+    question: "What are federal accounts?",
+    answer: (<>
+        <p>Federal accounts are groupings of related Treasury accounts. Federal accounts are created by combining all Treasury accounts that share an AID and MAC. Together, these codes create a Federal Account Symbol that can be used to represent a federal account. Federal accounts are used to track how agencies receive and spend congressional funding. There are more than 2,000 federal accounts across the federal government. Federal accounts are found in the budget that the President submits to Congress for approval.</p>
+        <p>Each AID should have at least one federal account associated with it, so the agency can conduct its function and carry out its mission. Despite the name, there are instances where an AID is shared among more than one agency. In these cases, each agency within the shared AID will have at least one federal account of its own.</p>
+        </>)
+},
+{
+    question: "Which fields in USAspending download files contain TAS and federal account information?",
+    answer: (<>
+        <p>The agency_identifier_code, main_account_code, sub_account_code, allocation_transfer_agency_identifier_code, beginning_period_of_availability, ending_period_of_availability, and availability_type_code fields contain constituent TAS component information. The Treasury_account_symbol and federal_account_symbol fields contain full account symbols. The Treasury_account_name and federal_account_name fields contain descriptive account names. </p>
+        <p>All of these fields are available on all Treasury account level account download files.</p>
+        <p>The federal_account_name and federal_account_symbol fields are available on all account download files. </p>
+        <p>The federal_accounts_funding_this_award and Treasury_accounts_funding_this_award fields contain information on accounts funding award spending. These fields are available on all award download files.</p>
+        <p>The TAS filter on Advanced Search can be used to filter award spending by these data elements. </p>
+        <p>More information about these fields is available in the Custom Account Data Dictionary and the Data Dictionary.</p>
+        <p>More information on how to download data from USAspending is available in the HOW TO ACCESS THE DATA section of this guide.</p>
+    </>)
+},
+{
+    question: "Which USAspending features are used to browse and download TAS and federal account data?",
+    answer: (<>
+        <p>The Federal Account Profile can be used to browse detailed information on federal accounts.</p>
+        <p>The TAS filter on Advanced Search can be used to filter award spending by these data elements. </p>
+        <p>The federal account filter on Custom Account Download can be used to download account spending data by federal account.</p>
+    </>)
+},
+{
+    question: "What is the difference between a Treasury account and a federal account?",
+    answer: (<>
+        <p>Federal accounts are comprised of a TAS or multiple TASs. You can understand their relationship using the analogy of a bank account. Say you have a bank account, and in that account, you have checking, growth, and savings accounts. In this scenario, your bank account is the federal account, and the checking, growth, and savings accounts are your TASs. Checking, growth, and savings accounts have different purposes and are at the level where transactions take place. These “TASs” would be grouped under your account based on your Social Security Number, in the same way that a federal account is based on a Federal Account Symbol. Just like checking, growth, and savings accounts, the Student Financial Assistance federal account has several related TASs that have different obligation amounts.</p>
+    </>)
+},
+{
+    question: "What does it mean when one agency’s TAS is part of a second agency’s submissions?",
+    answer: (<>
+        <p>Sometimes the funding associated with a TAS is executed by a different agency than the one indicated by the Agency Identifier. When this occurs, quite often the executing agency will submit the financial and award information associated with the TAS. Since the funding was assigned by Congress to the agency indicated by the Agency Identifier, we group by Agency Identifier so that users can see both the budgetary resources assigned to the agency as well as the spending that flows from the related accounts.</p>
+    </>)
+},
+{
+    question: "How can I see account spending for prior years?",
+    answer: (<>
+        <p>The fiscal year and quarter filter on the Custom Account Data download feature can be used to download account spending from 2017 to present. For data before 2017, you can see similar information in the Office of Management and Budget (OMB) budget appendices.</p>
+    </>)
 }];
 
 const industryProductQuestions = [{
-    question: "",
-    answer: (<></>)
+    question: "What are Product and Service Codes (PSC)?",
+    answer: (<>
+        <p>The Product and Service Code (PSC) system describes the type of product or service purchased by contract spending.  You can find a list of Product Service Codes at acquisition.gov. Only contract spending includes PSC codes. PSC data on USAspending make it possible to study how much money the government spends on different types of products.</p>
+    </>)
+},
+{
+    question: "What is the North American Industrial Classification System (NAICS)?",
+    answer: (<>
+        <p>The North American Industry Classification System (NAICS) is the standard used by Federal statistical agencies to classify business establishments to collect, analyze, and publish statistical data related to the U.S. business economy. You can learn more about NAICS codes at https://www.census.gov/naics/. Only contract spending includes NAICS codes. NAICS data on USAspending make it possible to study how much money the government spends by industry.</p>
+    </>)
+},
+{
+    question: "Which fields in USAspending download files contain PSC and NAICS information?",
+    answer: (<>
+        <p>The product_or_service_code, product_or_service_code_description, naics_code, and naics_description fields contain PSC and NAICS information.</p>
+        <p>These fields are all available on contract prime award transaction and summary downloads, and account breakdown by award account downloads.</p>
+        <p>The PSC and NAICS filters on Advanced Search can be used to filter award spending by these data elements. </p>
+        <p>More information about these fields is available in the Custom Account Data Dictionary and the Data Dictionary.</p>
+        <p>More information on how to download data from USAspending is available in the HOW TO ACCESS THE DATA section of this guide.</p>
+    </>)
 }];
 
 const disasterEmergencyQuestions = [{
-    question: "",
-    answer: (<></>)
+    question: "What are Disaster Emergency Fund Codes (DEFCs)?",
+    answer: (<>
+        <p>DEFCs are used to track spending for disasters and emergencies such as COVID-19, or other events. Each code links spending to one or more public laws authorizing the funding. Both financial assistance and contracts spending include Disaster Emergency Fund Codes (DEFC) information. </p>
+        <p>The Office of Management and Budget (OMB) assigns new DEFC domain values for each enacted appropriation with disaster or emergency funding. A DEFC domain value code will be assigned based on public law number and disaster or emergency designations. </p>
+    </>)
+},
+{
+    question: "How can I view and download spending by DEFC?",
+    answer: (<>
+        <p>There are a few ways to access DEFC spending on USAspending. The DEFC filter on Advanced Search can be used to filter award spending by this data element. All COVID-19 spending is included in on our COVID-19 Spending profile page. Finally, account spending can be downloaded by DEFC using Custom Account Download.</p>
+    </>)
+},
+{
+    question: "Which fields in USAspending download files contain DEFC information?",
+    answer: (<>
+        <p>The disaster_emergency_fund_code and disaster_emergency_fund_codes_for_overall_award fields contain DEFC information. The disaster_emergency_fund_codes field is available on all account download files, and financial assistance and contract prime award summary download files.</p>
+        <p>The Custom Account Data download DEFC filter can be used to filter award download files by DEFC.</p>
+        <p>The COVID-19 Spending profile page download can be used to download all COVID-19 spending.</p>
+        <p>The DEFC filter on Advanced Search can be used to filter award spending by this data element. </p>
+        <p>More information about these fields is available in the Custom Account Data Dictionary and the Data Dictionary.</p>
+        <p>More information on how to download data from USAspending is available in the HOW TO ACCESS THE DATA section of this guide. </p>
+    </>)
 }];
 
 const assistanceListingQuestions = [{
-    question: "",
-    answer: (<></>)
+    question: "What are Assistance Listings?",
+    answer: (<>
+        <p>Assistance listings are detailed public descriptions of federal programs that provide grants, loans, scholarships, insurance, and other types of assistance awards. Assistance Listings were formally referred to as the Catalog of Federal Domestic Assistance (CFDA). Only financial assistance spending includes Assistance Listings information; contract spending does not. More information about Assistance Listings is available on sam.gov. </p>
+    </>)
+},
+{
+    question: "Which fields in USAspending download files contain Assistance Listings information?",
+    answer: (<>
+        <p>The cfda_number and cfda_title fields contain Assistance Listings information. These fields are both available on financial assistance prime award transaction and summary download files, and Treasury and federal account level account breakdown by award download files. </p>
+        <p>The Advanced Search CFDA Program filter can be used to filter award spending by assistance listing.</p>
+        <p>More information about these fields is available in the Custom Account Data Dictionary and the Data Dictionary.</p>
+        <p>More information on how to download data from USAspending is available in the HOW TO ACCESS THE DATA section of this guide.</p>
+    </>)
 }];
 
 const recipientDataQuestions = [{
-    question: "",
-    answer: (<></>)
+    question: "What is a recipient?",
+    answer: (<>
+        <p>A recipient is a company, organization, individual, or government entity (i.e., state, local, tribal, federal, or foreign), that receives funding from the U.S. government. The Recipient Profile page includes detailed information on government spending to individual recipients. Both financial assistance and contracts spending include recipient information such as recipient name, recipient location, and recipient type.</p>
+        <p>More information on recipient location information is available in the LOCATION DATA ELEMENTS section of this guide.</p>
+    </>)
+},
+{
+    question: "How are recipients identified?",
+    answer: (<>
+        <p>With limited exceptions, virtually all award recipients have two unique identifies - a Unique Entity Identifier (UEI) and a DUNS number. Larger entities with multiple locations or departments may contain many entities with different UEI or DUNS numbers. These recipients may be grouped together using parent recipient data elements. Recipients of aggregate awards such as Social Security Retirement Insurance recipients do not have a UEI or DUNS to protect personal identifiable information.  </p>
+        <p>By April of 2022, the federal government will have stopped using the DUNS number to uniquely identify entities. At that point, entities doing business with the federal government will use UEI. More information about the DUNS to UEI transition is available online.</p>
+    </>)
+},
+{
+    question: "Which fields in USAspending download files contain recipient identifier information?",
+    answer: (<>
+        <p>The recipient_name, recipient_parent_name, recipient_uei, recipient_parent_uei, recipient_duns, and recipient_parent_duns fields contain recipient identifier information. These fields are all available on financial assistance and contract prime award transaction and summary download files, and Treasury and federal account level account breakdown by award download files.</p>
+        <p>The recipient_parent data elements reference the ultimate parent of an awardee or recipient and can be used to group together related recipients.</p>
+        <p>The Advanced Search Recipient filter can be used to filter award spending by these data elements.</p>
+        <p>More information about these fields is available in the Custom Account Data Dictionary and the Data Dictionary.</p>
+        <p>More information on how to download data from USAspending is available in the HOW TO ACCESS THE DATA section of this guide.</p>
+    </>)
+},
+{
+    question: "What are recipient types?",
+    answer: (<>
+        <p>Recipient types (aka business types) are socio-economic and other organizational/business characteristics that are used to categorize financial assistance and contract recipients.</p>
+    </>)
+},
+{
+    question: "Which recipient type categories are available for contract vs financial assistance recipients?",
+    answer: (<>
+        <p>Both financial assistance and contract spending include recipient type information. However, most recipient type categories only apply to contract award recipients. An Advanced Search which combines mutually exclusive Recipient Type and Award Type filter options, such as this search, will return zero results. </p>
+        <p>The only recipient type categories available in Advanced Search which apply to financial assistance recipients are: </p>
+        <ul>
+            <li>Small Business</li>
+            <li>Other Than Small Business</li>
+            <li>Nonprofit</li>
+            <li>Public Institution of Higher Education</li>
+            <li>Private Institution of Higher Education</li>
+            <li>Minority-Serving Institution of Higher Education</li>
+            <li>Regional and State Government</li>
+            <li>Regional Organization</li>
+            <li>U.S. Territory or Possession</li>
+            <li>Local Government</li>
+            <li>Indian Native American Tribal Government</li>
+            <li>Authorities and Commissions</li>
+            <li>Individuals</li>
+        </ul>
+        <p>Each of these recipient type categories also apply to contract recipients, except for Regional Organization, U.S. Territory, or Possession and Individuals.</p>
+    </>)
 }];
 
 const locationDataQuestions = [{
-    question: "",
-    answer: (<></>)
+    question: "What are the different location types?",
+    answer: (<>
+        <p>The two different location types are primary place of performance and recipient location. Primary place of performance is the principal place of business, where the majority of the work of an award is performed. For example, in a manufacturing contract, this would be the main plant where items are produced. Recipient location is Legal business address of an award recipient. Both financial assistance and contract spending include location information. Both location types may be measured at several geographic levels including country, state, county, city, congressional district, or zip code. Not all geographic levels are available for all award spending. </p>
+    </>)
+},
+{
+    question: "Which fields in USAspending download files contain recipient location information?",
+    answer: (<>
+        <p>Some of the most important recipient fields are recipient_city_name, recipient_county_name, recipient_state_name, and recipient_zip_code. These fields are all available in financial assistance and contract prime award transaction and summary download files. The recipient_zip_code field is also available on federal and Treasury account level account breakdown by award account download files.</p>
+        <p>The Recipient Location filters on Advanced Search can be used to filter award spending by these data elements.</p>
+        <p>More information about these fields is available in the Custom Account Data Dictionary and the Data Dictionary.</p>
+        <p>More information on how to download data from USAspending is available in the HOW TO ACCESS THE DATA section of this guide.</p>
+    </>)
+},
+{
+    question: "Which fields in USAspending download files contain primary place of performance location information?",
+    answer: (<>
+        <p>Some of the most important primary place of performance fields are: </p>
+        <ul>
+            <li>primary_place_of_performance_city_name</li>
+            <li>primary_place_of_performance_county_name</li>
+            <li>primary_place_of_performance_state_name </li>
+            <li>primary_place_of_performance_zip_4 </li>
+            <li>primary_place_of_performance_zip_code</li>
+        </ul>
+        <p>The first four fields are all available in financial assistance and contract prime award transaction and summary download files. The primary_place_of_performance_zip_code field is available on federal and Treasury account level account breakdown by award account download files.</p>
+        <p>The Place of Performance filters on Advanced Search can be used to filter award spending by these data elements.</p>
+        <p>More information about these fields is available in the Custom Account Data Dictionary and the Data Dictionary.</p>
+        <p>More information on how to download data from USAspending is available in the HOW TO ACCESS THE DATA section of this guide.</p>
+    </>)
 }];
+
+const additionalResources = [{
+    question: "How do I find the meanings of particular terms and field names?",
+    answer: (<>
+        <p>The Glossary lists plain-language definitions of terms used throughout USAspending.</p>
+        <p>The Data Dictionary defines data elements included in the various download files available on USAspending.</p>
+        <p>The FPDS Data Dictionary includes descriptions of terminology related to contract data.</p>
+    </>)
+},
+{
+    question: "What other resources are available to help understand the data in USAspending?",
+    answer: (<>
+        <p>The github wiki provides information for developers on how the USAspending application works.</p>
+        <p>The USAspending&apos;s FAQ page provides additional advice for getting the most out of the site.</p>
+        <p>The DATA Act Information Model Schema (DAIMS) page provides more information on various systems related to the data in USAspending.</p>
+        </>)
+}];
+
 const AnalystGuideQuestions = () => (
     <>
-        <h4>AWARD AND ACCOUNT SPENDING COMPARISON</h4>
+        <h4>Award And Account Spending Comparison</h4>
         {awardAccountSpendingComparisonQuestions.map((item, i) => (
             <Accordion
                 key={`item_${i}`}
@@ -330,7 +539,7 @@ const AnalystGuideQuestions = () => (
             </Accordion>
         ))}
 
-        <h4>AWARD SPENDING</h4>
+        <h4>Award Spending</h4>
         {awardSpendingQuestions.map((item, i) => (
             <Accordion
                 key={`item_${i}`}
@@ -338,7 +547,7 @@ const AnalystGuideQuestions = () => (
             </Accordion>
         ))}
 
-        <h4>FINANCIAL ASSISTANCE TRANSACTIONS AND AWARD SUMMARIES</h4>
+        <h4>Financial Assistance Transactions And Award Summaries</h4>
         {financialAssistanceQuestions.map((item, i) => (
             <Accordion
                 key={`item_${i}`}
@@ -346,7 +555,7 @@ const AnalystGuideQuestions = () => (
             </Accordion>
         ))}
 
-        <h4>CONTRACT TRANSACTIONS AND AWARD SUMMARIES</h4>
+        <h4>Contract Transactions And Award Summaries</h4>
         {contractTransactionQuestions.map((item, i) => (
             <Accordion
                 key={`item_${i}`}
@@ -354,7 +563,7 @@ const AnalystGuideQuestions = () => (
             </Accordion>
         ))}
 
-        <h4>HOW TO ACCESS THE DATA</h4>
+        <h4>How To Access The Data</h4>
         {dataAccessQuestions.map((item, i) => (
             <Accordion
                 key={`item_${i}`}
@@ -362,7 +571,7 @@ const AnalystGuideQuestions = () => (
             </Accordion>
         ))}
 
-        <h4>AGENCY DATA ELEMENTS</h4>
+        <h4>Agency Data Elements</h4>
         {agencyDataQuestions.map((item, i) => (
             <Accordion
                 key={`item_${i}`}
@@ -370,7 +579,7 @@ const AnalystGuideQuestions = () => (
             </Accordion>
         ))}
 
-        <h4>ACCOUNT DATA ELEMENTS</h4>
+        <h4>Account Data Elements</h4>
         {accountDataQuestions.map((item, i) => (
             <Accordion
                 key={`item_${i}`}
@@ -378,7 +587,7 @@ const AnalystGuideQuestions = () => (
             </Accordion>
         ))}
 
-        <h4>INDUSTRY AND PRODUCT DATA ELEMENTS</h4>
+        <h4>Industry And Product Data Elements</h4>
         {industryProductQuestions.map((item, i) => (
             <Accordion
                 key={`item_${i}`}
@@ -386,7 +595,7 @@ const AnalystGuideQuestions = () => (
             </Accordion>
         ))}
 
-        <h4>DISASTER AND EMERGENCY DATA ELEMENTS</h4>
+        <h4>Disaster And Emergency Data Elements</h4>
         {disasterEmergencyQuestions.map((item, i) => (
             <Accordion
                 key={`item_${i}`}
@@ -394,7 +603,7 @@ const AnalystGuideQuestions = () => (
             </Accordion>
         ))}
 
-        <h4>ASSISTANCE LISTINGS DATA ELEMENTS</h4>
+        <h4>Assistance Listings Data Elements</h4>
         {assistanceListingQuestions.map((item, i) => (
             <Accordion
                 key={`item_${i}`}
@@ -402,7 +611,7 @@ const AnalystGuideQuestions = () => (
             </Accordion>
         ))}
 
-        <h4>RECIPIENT DATA ELEMENTS</h4>
+        <h4>Recipient Data Elements</h4>
         {recipientDataQuestions.map((item, i) => (
             <Accordion
                 key={`item_${i}`}
@@ -410,8 +619,15 @@ const AnalystGuideQuestions = () => (
             </Accordion>
         ))}
 
-        <h4>LOCATION DATA ELEMENTS</h4>
+        <h4>Location Data Elements</h4>
         {locationDataQuestions.map((item, i) => (
+            <Accordion
+                key={`item_${i}`}
+                title={item.question}>{item.answer}
+            </Accordion>
+        ))}
+        <h4>Additional Resources</h4>
+        {additionalResources.map((item, i) => (
             <Accordion
                 key={`item_${i}`}
                 title={item.question}>{item.answer}
