@@ -7,7 +7,9 @@ import React, { useState, useEffect } from 'react';
 import { throttle } from 'lodash';
 import { FlexGridCol, FlexGridRow } from "data-transparency-ui";
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
+import { searchOptions, profileOptions } from 'dataMapping/navigation/menuOptions';
 import ImageCarousel from '../../homepage/features/ImageCarousel';
+import FeatureDropdown from '../../homepage/features/FeatureDropdown';
 
 const searchImages = [
     {
@@ -94,7 +96,12 @@ const GettingStarted = () => {
                     <p>
                         Use <strong>Keyword Search</strong> for a broad view of award data, but if you want to dig deeper, our <strong>Advanced Search</strong> offers filters that let you customize your data sets. Interactive visualizations — including a spending map — complement downloadable files.
                     </p>
-                    <button>Select Search Type</button>
+                    <div className="feature-award-search__dropdown">
+                        <FeatureDropdown
+                            items={searchOptions}>
+                            Select <strong>Search Type</strong>
+                        </FeatureDropdown>
+                    </div>
                 </div>
             </FlexGridCol>
             <FlexGridCol className="homepage-search-feature" width={7}>
@@ -140,7 +147,12 @@ const GettingStarted = () => {
                 <p>
                     Interested in how specific agencies spend their funding? Or how federal funding is being spent in your state? Our <strong>Profiles</strong> make it easier to understand questions like these and more with interactive charts and tables that offer a snapshot of spending by agency, state, recipient, and the federal accounts that agencies use to spend their funding. Use our COVID-19 Spending profile to learn how federal funding is being spent in response to the pandemic.
                 </p>
-                <button>Browse Profiles</button>
+                <div className="feature-profile__dropdown">
+                    <FeatureDropdown
+                        items={profileOptions}>
+                        Browse <strong>Profiles</strong>
+                    </FeatureDropdown>
+                </div>
             </div>
         </FlexGridCol>
     </>;
@@ -185,7 +197,7 @@ const GettingStarted = () => {
                 <p>
                     The <strong>Spending Explorer</strong> lets you explore the entire federal budget in increasing detail, making it easier to understand how funding flows from Congress to federal agencies and how those agencies spend that funding. Interactive charts and tables help break down the budget in multiple ways to clarify the relationships between federal spending components.
                 </p>
-                <button>Try Spending Explorer</button>
+                <button className="homepage-spending-explorer__button">Try Spending Explorer</button>
             </div>
         </FlexGridCol>
     </>;

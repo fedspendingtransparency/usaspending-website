@@ -13,6 +13,7 @@
     .homepage-getting-started {
       height: 100%;
       background-color: white;
+      padding-bottom: $global-padding * 20;
       .homepage-background-flair {
         position: absolute;
         z-index: 0;
@@ -22,12 +23,12 @@
           height: 60vw;
         }
         @media (max-width: $medium-screen) {
-          top: 235rem;
-          height: 120vw;
+          top: 240rem;
+          height: 130vw;
         }
         @media (max-width: $tablet-screen) {
-          top: 232rem;
-          height: 100rem;
+          top: 235rem;
+          height: 115rem;
         }
         left: 0;
         width: 100%;
@@ -92,6 +93,12 @@
               font-size: 20px;
               line-height: 1.5;
             }
+            .homepage-spending-explorer__button {
+              margin: 0;
+              font-size: 20px;
+              padding: 1.5rem 2rem;
+              font-weight: 600;
+            }
           }
         }
         .homepage-search-feature {
@@ -109,7 +116,7 @@
             z-index: 3;
             margin-top: $global-margin * 20;
             @media (min-width: $x-large-screen) {
-              margin-top: $global-margin * 35;
+              margin-top: $global-margin * 26;
             }
             @media (max-width: $medium-screen) {
               margin-top: -6.5rem !important;
@@ -125,7 +132,7 @@
               line-height: 1.25;
               color: #1b1b1b;
               @media (max-width: $medium-screen) {
-                margin-top: 10rem;
+                margin-top: 20rem;
               }
             }
           }
@@ -150,7 +157,7 @@
               line-height: 1.25;
               color: #1b1b1b;
               @media (max-width: $medium-screen) {
-                margin-top: 10rem;
+                margin-top: 20rem;
               }
             }
             p {
@@ -197,6 +204,10 @@
   @import "../homepage/download/download";
   @import "../homepage/community/community";
   @import "../homepage/features/_carousel";
+  @import "../homepage/features/_dropdown";
+  @import "../homepage/features/_search";
+  @import "../homepage/features/_profile";
+  @import "../homepage/features/_spendingExplorer";
 }
 
 
