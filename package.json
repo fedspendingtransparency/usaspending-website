@@ -5,6 +5,7 @@
     "repository": "fedspendingtransparency/usaspending-website",
     "main": "src/index.js",
     "scripts": {
+        "preinstall": "npx npm-force-resolutions",
         "start": "webpack serve --open --history-api-fallback --progress --config ./webpack/webpack.dev.config.js",
         "sass": "webpack serve --open --progress --config ./webpack/webpack.sass.config.js",
         "test": "./node_modules/.bin/jest; exit 0;",
@@ -52,6 +53,7 @@
         "babel-plugin-module-resolver": "^3.2.0",
         "copy-webpack-plugin": "^10.2.4",
         "css-loader": "^6.5.1",
+        "css-minimizer-webpack-plugin": "^3.4.1",
         "enzyme": "^3.9.0",
         "enzyme-adapter-react-16": "^1.11.2",
         "eslint": "^4.19.1",
@@ -69,8 +71,8 @@
         "jest-cli": "^26.4.2",
         "json-loader": "^0.5.4",
         "mini-css-extract-plugin": "^2.5.3",
+        "minimist": "^1.2.6",
         "node-sass": "^7.0.1",
-        "optimize-css-assets-webpack-plugin": "^6.0.1",
         "progress-bar-webpack-plugin": "^2.1.0",
         "sass-loader": "^12.4.0",
         "sinon": "^2.3.8",
@@ -83,6 +85,9 @@
         "webpack-cli": "^4.9.2",
         "webpack-dev-server": "^3.2.1",
         "webpack-merge": "^4.1.0"
+    },
+    "resolutions": {
+        "minimist": "^1.2.6"
     },
     "dependencies": {
         "@fortawesome/fontawesome-svg-core": "^1.2.15",
