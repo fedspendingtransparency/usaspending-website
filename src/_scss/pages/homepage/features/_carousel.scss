@@ -19,6 +19,14 @@
             @include media($tablet-screen) {
                 display: block;
             }
+            font-size: 28px;
+
+            .fa-chevron-right {
+                color: #555;
+            }
+            .fa-chevron-left {
+                color: #555;
+            }
 
             svg {
                 fill: $color-gray;

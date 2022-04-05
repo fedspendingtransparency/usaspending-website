@@ -29,8 +29,8 @@ const profileImages = [
         alt: 'Screenshot of the Agency Profile page'
     },
     {
-        srcSet: 'img/homepage-profile-fedaccount.webp 1x, img/homepage-profile-fedaccount@2x.webp 2x',
-        src: 'img/homepage-profile-fedaccount.png',
+        srcSet: 'img/homepage-profiles/img:homepage-profile-covid19.webp',
+        src: 'img/homepage-profiles/img:homepage-profile-covid19.png',
         alt: 'Screenshot of the Federal Account Profile page'
     },
     {
@@ -63,7 +63,7 @@ const GettingStarted = () => {
         <>
             <FlexGridCol className="homepage-search-feature" width={12}>
                 <div className="homepage-search-feature-desc">
-                    <h2 className="homepage-search-feature-desc__title">A targeted approach to finding federal award data</h2>
+                    <h2 className="homepage-search-feature-desc__title">A targeted approach to finding federal award&nbsp;data</h2>
                 </div>
                 <div className="homepage-search-feature__img-carousel">
                     <ImageCarousel
@@ -87,7 +87,7 @@ const GettingStarted = () => {
         <>
             <FlexGridCol className="homepage-search-feature" width={5}>
                 <div className="homepage-search-feature-desc">
-                    <h2 className="homepage-search-feature-desc__title">A targeted approach to finding federal award data</h2>
+                    <h2 className="homepage-search-feature-desc__title">A targeted approach to finding federal award&nbsp;data</h2>
                     <p>
                         Whether you&apos;re a congressional staffer, government employee, researcher, or data buff, our <strong>Award Search</strong> will help you answer your toughest questions about federal spending.
                     </p>

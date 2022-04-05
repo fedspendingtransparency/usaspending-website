@@ -16,26 +16,18 @@
       .homepage-background-flair {
         position: absolute;
         z-index: 0;
-        top: 218rem;
+        top: 224rem;
         @media (max-width: 1600px) {
-          top: 200rem;
+          top: 210rem;
           height: 60vw;
         }
         @media (max-width: $medium-screen) {
-          top: 245rem;
+          top: 235rem;
           height: 120vw;
         }
-        @media (max-width: 870px) {
-          top: 240rem;
-          height: 128vw;
-        }
         @media (max-width: $tablet-screen) {
-          top: 236rem;
-          height: 170vw;
-        }
-        @media (max-width: 600px) {
-          top: 236rem;
-          height: 110rem;
+          top: 232rem;
+          height: 100rem;
         }
         left: 0;
         width: 100%;
@@ -63,6 +55,7 @@
           .section-heading-title {
             font-size: 40px;
             font-weight: 600;
+            color: #1b1b1b;
           }
         }
         .homepage-spending-explorer {
@@ -84,7 +77,7 @@
           .homepage-spending-explorer-desc {
             margin-top: $global-margin * 16;
             @media (max-width: $medium-screen) {
-              margin-top: $global-margin * 3;
+              margin-top: 1.5rem !important;
             }
             @media (max-width: $large-screen) {
               margin-top: $global-margin * 8;
@@ -93,6 +86,7 @@
               font-size: 28px;
               font-weight: 600;
               line-height: 1.25;
+              color: #1b1b1b;
             }
             p {
               font-size: 20px;
@@ -118,7 +112,7 @@
               margin-top: $global-margin * 35;
             }
             @media (max-width: $medium-screen) {
-              margin-top: 0;
+              margin-top: -6.5rem !important;
             }
             margin-right: $global-margin;
             p {
@@ -129,11 +123,18 @@
               font-size: 28px;
               font-weight: 600;
               line-height: 1.25;
+              color: #1b1b1b;
+              @media (max-width: $medium-screen) {
+                margin-top: 10rem;
+              }
             }
           }
         }
         .homepage-profile-feature {
-          margin-top: 6.5rem;
+          margin-top: $global-margin * 30;
+          @media (max-width: $tablet-screen) {
+            margin-top: $global-margin * 10;
+          }
           .homepage-profile-feature__img-carousel {
             padding-top: $global-padding * 10;
             padding-right: $global-padding * 10;
@@ -147,6 +148,10 @@
               font-size: 28px;
               font-weight: 600;
               line-height: 1.25;
+              color: #1b1b1b;
+              @media (max-width: $medium-screen) {
+                margin-top: 10rem;
+              }
             }
             p {
               font-size: 20px;
@@ -157,7 +162,7 @@
               margin-top: $global-margin * 15;
             }
             @media (max-width: $medium-screen) {
-              margin-top: 0;
+              margin-top: -7.5rem !important;
             }
           }
         }
