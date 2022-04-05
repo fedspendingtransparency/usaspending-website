@@ -32,7 +32,6 @@ const Covid = () => {
             aria-label="Covid sections">
             <FlexGridRow
                 className="grid-content">
-                <div className="homepage-covid__background-flair" />
                 <FlexGridCol width={12} desktop={6} className="homepage-covid__column-one">
                     <div className="homepage-covid__column-one-content-wrapper">
                         <div className="homepage-covid__heading">
