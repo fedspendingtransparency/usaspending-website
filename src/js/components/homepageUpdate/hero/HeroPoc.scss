@@ -27,6 +27,10 @@
         display: block;
         width: 513px;
     }
+    @media (max-width: 468px) {
+        display: block;
+        width: unset;
+    }
 }
 
 .landingPhrase {
@@ -72,7 +76,7 @@
     @media (max-width: 992px) {
         display: block;
         text-align: left;
-        white-space: break-spaces;
+        white-space: break-spaces !important;
     }
 }
 
