@@ -4,12 +4,6 @@
   @import "layouts/default/header/_warning";
 
   .homepage-content {
-
-    .homepage-covid {
-      height: 400px;
-      background-color: lightgrey;
-    }
-
     .homepage-getting-started {
       height: 100%;
       background-color: white;
@@ -57,6 +51,17 @@
             font-size: 40px;
             font-weight: 600;
             color: #1b1b1b;
+            line-height: 1.25;
+            font-weight: 600;
+          }
+        }
+        p {
+          font-size: 20px;
+          line-height: 1.5;
+        }
+        button {
+          @media (max-width: $medium-screen) {
+            width: 100%;
           }
         }
         .homepage-spending-explorer {
@@ -179,18 +184,24 @@
             }
           }
         }
+        .homepage-profile-feature {
+          .homepage-profile-feature__img-wrapper {
+            background-color: lightblue;
+            height: 554px;
+          }
+          .homepage-profile-feature-desc {
+            margin-left: 8rem;
+            @media (max-width: $medium-screen) {
+              margin-left: 0;
+            }
+            .homepage-profile-feature-desc__title {
+              font-size: 28px;
+              font-weight: 600;
+              line-height: 1.25;
+            }
+          }
+        }
       }
-      h3.section-heading-title {
-        line-height: 50px;
-        font-weight: 600;
-        font-size: 3rem;
-      }
-    }
-
-    .homepage-hero-content {
-      height: 600px;
-      background-color: lightblue;
-      margin: 0 $global-margin * 5;
     }
 
     .usa-dt-flex-grid__row.grid-content {
@@ -214,6 +225,8 @@
   @import "../homepage/features/_search";
   @import "../homepage/features/_profile";
   @import "../homepage/features/_spendingExplorer";
+  @import "hero/hero";
+  @import "./homepageCovidSection";
 }
 
 

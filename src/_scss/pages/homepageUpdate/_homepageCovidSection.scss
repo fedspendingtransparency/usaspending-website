@@ -1,0 +1,51 @@
+.homepage-covid {
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+  background-color: white;
+  .grid-content {
+    padding-top: $global-padding * 12;
+    .homepage-covid__column-one {
+      margin-bottom: $global-margin * 4;
+      @media (min-width: $medium-screen) {
+        padding-right: $global-margin * 3;
+      }
+      .homepage-covid__column-one-content-wrapper {
+        display: flex;
+        flex-flow: column nowrap;
+      }
+
+      .homepage-covid__heading {
+        font-size: rem(40);
+        font-weight: $font-semibold;
+        color: #1b1b1b;
+        padding-bottom: $global-padding * 3;
+      }
+
+      .homepage-covid__content {
+        font-size: rem(32);
+        font-weight: $font-normal;
+      }
+      .homepage-covid__image-wrapper {
+        @media (max-width: $medium-screen) {
+          display: none;
+        }
+        width: 100%;
+      }
+    }
+    .homepage-covid__column-two {
+      display: flex;
+      margin-bottom: $global-margin * 4;
+      @media (min-width: $medium-screen) {
+        padding-left: $global-margin * 3;
+      }
+
+      .homepage-covid__column-two-content-wrapper {
+        width: 100%;
+        flex-direction: row;
+        justify-content: center;
+      }
+    }
+  }
+  @import "../../components/card";
+}
