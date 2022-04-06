@@ -49,6 +49,9 @@
             }
 
             .hero__left-image-wrapper {
+                display: flex;
+                flex-direction: column;
+                justify-content: end;
                 @media (max-width: $medium-screen) {
                     display: none;
                 }
@@ -59,6 +62,9 @@
             }
 
             .hero__right-image-wrapper {
+                display: flex;
+                flex-direction: column;
+                justify-content: end;
                 @media (max-width: $medium-screen) {
                     display: none;
                 }

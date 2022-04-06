@@ -5,6 +5,8 @@
 
 import React, { useState } from 'react';
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 import Analytics from 'helpers/analytics/Analytics';
 import HeroPoc from './HeroPoc';
 
@@ -58,7 +60,9 @@ const Hero = () => {
                                 </p>
                             </div>
                             <div className="hero__pause-button-container">
-                                <button onClick={() => { setIsPaused((previousIsPaused) => !previousIsPaused) }}>pause button placeholder</button>
+                                <a className="hero__pause-button" onClick={() => { setIsPaused((previousIsPaused) => !previousIsPaused); }}>
+                                    <FontAwesomeIcon icon="fa-equals" />Pause text animation
+                                </a>
                             </div>
                         </div>
                     </div>
