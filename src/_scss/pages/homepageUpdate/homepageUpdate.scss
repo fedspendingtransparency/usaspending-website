@@ -13,7 +13,7 @@
     .homepage-getting-started {
       height: 100%;
       background-color: white;
-      padding-bottom: $global-padding * 20;
+      padding-bottom: $global-padding * 30;
       .homepage-background-flair {
         position: absolute;
         z-index: 0;
@@ -163,6 +163,12 @@
             p {
               font-size: 20px;
               line-height: 1.5;
+              @media (max-width: $medium-screen) {
+                margin-top: -21rem !important;
+              }
+              @media (max-width: $tablet-screen) {
+                margin-top: 2rem !important;
+              }
             }
             margin-top: $global-margin * 12;
             @media (min-width: $large-screen) {

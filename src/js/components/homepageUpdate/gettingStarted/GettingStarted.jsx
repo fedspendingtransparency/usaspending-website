@@ -13,13 +13,13 @@ import FeatureDropdown from '../../homepage/features/FeatureDropdown';
 
 const searchImages = [
     {
-        srcSet: 'img/homepage-award-search.webp 1x, img/homepage-award-search@2x.webp 2x',
-        src: 'img/homepage-award-search.png',
+        srcSet: 'img/homepage-features-search/img:homepage-award-search.webp',
+        src: 'img/homepage-features-search/img:homepage-award-search.png',
         alt: 'Screenshot of the Award Search page, showing a map data visualization'
     },
     {
-        srcSet: 'img/homepage-keyword-search.webp 1x, img/homepage-keyword-search@2x.webp 2x',
-        src: 'img/homepage-keyword-search.png',
+        srcSet: 'img/homepage-features-search/img:homepage-keyword-search.webp',
+        src: 'img/homepage-features-search/img:homepage-keyword-search.png',
         alt: 'Screenshot of the Keyword Search page'
     }
 ];
@@ -31,19 +31,24 @@ const profileImages = [
         alt: 'Screenshot of the Agency Profile page'
     },
     {
+        srcSet: 'img/homepage-profiles/img:homepage-profile-fedaccount@1-5x.webp',
+        src: 'img/homepage-profiles/img:homepage-profile-fedaccount.png',
+        alt: 'Screenshot of Federal Account Profile page'
+    },
+    {
+        srcSet: 'img/homepage-profiles/img:homepage-profile-state.webp',
+        src: 'img/homepage-profiles/img:homepage-profile-state.png',
+        alt: 'Screenshot of the State Spending Profile page'
+    },
+    {
+        srcSet: 'img/homepage-profiles/img:homepage-profile-recipient.webp',
+        src: 'img/homepage-profiles/img:homepage-profile-recipient.png',
+        alt: 'Screenshot of the Recipient Profile page'
+    },
+    {
         srcSet: 'img/homepage-profiles/img:homepage-profile-covid19.webp',
         src: 'img/homepage-profiles/img:homepage-profile-covid19.png',
-        alt: 'Screenshot of the Federal Account Profile page'
-    },
-    {
-        srcSet: 'img/homepage-profile-state.webp 1x, img/homepage-profile-state@2x.webp 2x',
-        src: 'img/homepage-profile-state.png',
-        alt: 'Screenshot of State Profile page'
-    },
-    {
-        srcSet: 'img/homepage-profile-recipient.webp 1x, img/homepage-profile-recipient@2x.webp 2x',
-        src: 'img/homepage-profile-recipient.png',
-        alt: 'Recipient Profile page coming soon'
+        alt: 'Screenshot of the COVID-19 Spending Profile page'
     }
 ];
 
@@ -81,7 +86,12 @@ const GettingStarted = () => {
                     <p>
                         Use <strong>Keyword Search</strong> for a broad view of award data, but if you want to dig deeper, our <strong>Advanced Search</strong> offers filters that let you customize your data sets. Interactive visualizations — including a spending map — complement downloadable files.
                     </p>
-                    <button>Select Search Type</button>
+                    <div className="feature-award-search__dropdown">
+                        <FeatureDropdown
+                            items={searchOptions}>
+                            Select <strong>Search Type</strong>
+                        </FeatureDropdown>
+                    </div>
                 </div>
             </FlexGridCol>
         </>
@@ -129,7 +139,12 @@ const GettingStarted = () => {
                 <p>
                     Interested in how specific agencies spend their funding? Or how federal funding is being spent in your state? Our <strong>Profiles</strong> make it easier to understand questions like these and more with interactive charts and tables that offer a snapshot of spending by agency, state, recipient, and the federal accounts that agencies use to spend their funding. Use our COVID-19 Spending profile to learn how federal funding is being spent in response to the pandemic.
                 </p>
-                <button>Browse Profiles</button>
+                <div className="feature-profile__dropdown">
+                    <FeatureDropdown
+                        items={profileOptions}>
+                        Browse <strong>Profiles</strong>
+                    </FeatureDropdown>
+                </div>
             </div>
         </FlexGridCol>
     </>
@@ -176,7 +191,16 @@ const GettingStarted = () => {
                 <p>
                     The <strong>Spending Explorer</strong> lets you explore the entire federal budget in increasing detail, making it easier to understand how funding flows from Congress to federal agencies and how those agencies spend that funding. Interactive charts and tables help break down the budget in multiple ways to clarify the relationships between federal spending components.
                 </p>
-                <button>Try Spending Explorer</button>
+                <a
+                    rel="noopener noreferrer"
+                    href="/explorer">
+                    <button
+                        className="homepage-spending-explorer__button"
+                        aria-label="Try Spending Explorer"
+                        title="Try Spending Explorer">
+                        Try Spending Explorer
+                    </button>
+                </a>
             </div>
         </FlexGridCol>
     </>
@@ -197,7 +221,16 @@ const GettingStarted = () => {
                 <p>
                     The <strong>Spending Explorer</strong> lets you explore the entire federal budget in increasing detail, making it easier to understand how funding flows from Congress to federal agencies and how those agencies spend that funding. Interactive charts and tables help break down the budget in multiple ways to clarify the relationships between federal spending components.
                 </p>
-                <button className="homepage-spending-explorer__button">Try Spending Explorer</button>
+                <a
+                    rel="noopener noreferrer"
+                    href="/explorer">
+                    <button
+                        className="homepage-spending-explorer__button"
+                        aria-label="Try Spending Explorer"
+                        title="Try Spending Explorer">
+                        Try Spending Explorer
+                    </button>
+                </a>
             </div>
         </FlexGridCol>
     </>;
