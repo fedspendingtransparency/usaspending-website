@@ -6,8 +6,6 @@
 import React from 'react';
 import PropTypes from "prop-types";
 
-require('components/_card.scss');
-
 const propTypes = {
     icon: PropTypes.object,
     heading: PropTypes.string,
