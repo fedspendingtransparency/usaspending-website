@@ -24,21 +24,6 @@
             }
         }
 
-        .hero__temp-h1 {
-            font-size: rem(40);
-            font-weight: bold;
-            font-stretch: normal;
-            font-style: normal;
-            line-height: normal;
-            letter-spacing: normal;
-            text-align: center;
-            color: #2d6878;
-            padding-bottom: rem(40);
-            @media (min-width: 992px) {
-                font-size: rem(56);
-            }
-        }
-
         .hero__lower-wrapper {
             display: flex;
             flex-direction: row;
@@ -107,7 +92,7 @@
                             font-size: rem(16);
                             white-space: nowrap;
                             color: $color-primary;
-                            background-color: #edf4f6;
+                            background-color: transparent;
                             border: solid rem(1);
                             border-color: $color-primary;
                             padding: rem(10) rem(24);

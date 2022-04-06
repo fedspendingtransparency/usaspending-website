@@ -8,7 +8,7 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import Analytics from 'helpers/analytics/Analytics';
-import HeroPoc from './HeroPoc';
+import RotatingText from './RotatingText';
 
 const Hero = () => {
 
@@ -28,7 +28,7 @@ const Hero = () => {
     return (
         <section className="homepage-hero-container" aria-label="Hero sections">
             <div className="homepage-hero-content">
-                <HeroPoc paused={ isPaused } />
+                <RotatingText paused={ isPaused } />
                 <div className="hero__lower-wrapper">
                     <div className="hero__left-image-wrapper">
                         <picture>
@@ -61,7 +61,11 @@ const Hero = () => {
                             </div>
                             <div className="hero__pause-button-container">
                                 <a className="hero__pause-button" onClick={() => { setIsPaused((previousIsPaused) => !previousIsPaused); }}>
-                                    <FontAwesomeIcon icon="fa-equals" />Pause text animation
+                                    { isPaused ?
+                                        <><FontAwesomeIcon icon="play" width={10} />Play text animation</>
+                                        :
+                                        <><FontAwesomeIcon icon="pause" width={10} />Pause text animation</>
+                                    }
                                 </a>
                             </div>
                         </div>
