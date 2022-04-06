@@ -101,8 +101,8 @@
 
   @import "../homepage/download/download";
   @import "../homepage/community/community";
-  @import "./hero/_hero.scss";
-
+  @import "hero/_hero";
+  @import "./homepageCovidSection";
 }
 
 
