@@ -40,13 +40,13 @@ const Hero = () => {
                         <div className="hero__center-content">
                             <div className="hero__button-container">
                                 <Link
-                                    className="hero__button-search"
+                                    className="hero__button hero__button--action shadow"
                                     to="/search"
                                     onClick={trackSearchLink}>
                                     Start Searching Awards
                                 </Link>
                                 <Link
-                                    className="hero__button-learn"
+                                    className="hero__button shadow"
                                     to="/about"
                                     onClick={trackAboutLink}>
                                     Learn About USAspending

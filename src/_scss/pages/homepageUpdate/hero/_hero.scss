@@ -1,6 +1,14 @@
 .homepage-hero-container {
     background: rgba(136, 180, 192, .15);
 
+    @media (min-width: $medium-screen) {
+        max-width: rem(1600);
+    }
+
+    .shadow {
+        box-shadow: 0 0 rem(16) 0 rgba(0, 0, 0, 0.1);
+    }
+
     .homepage-hero-content {
         padding: $global-margin * 2.5;
         @media (min-width: $medium-screen) {
@@ -44,16 +52,19 @@
                 @media (max-width: $medium-screen) {
                     display: none;
                 }
-                width: 25%;
-                padding-left: 2rem;
+                width: 100%;
+                max-width: rem(215);
+                padding: 0 rem(40);
+                justify-self: end;
             }
 
             .hero__right-image-wrapper {
                 @media (max-width: $medium-screen) {
                     display: none;
                 }
-                width: 30%;
-                padding-right: 2rem;
+                width: 100%;
+                max-width: rem(260);
+                padding: 0 rem(40);
             }
 
             .hero__center-content-wrapper {
@@ -79,34 +90,12 @@
                             flex-direction: row;
                         }
 
-                        .hero__button-search {
+                        .hero__button {
                             display: flex;
                             justify-content: center;
+                            align-items: center;
                             flex-wrap: nowrap;
-
-                            font-weight: $font-semibold;
-                            font-size: rem(16);
-                            white-space: nowrap;
-                            color: $color-white;
-                            background-color: $color-primary;
-                            padding: rem(10) rem(25);
-                            border-radius: rem(6);
-                            margin-bottom: rem(16);
-                            @media (min-width: $medium-screen) {
-                                font-size: rem(20);
-                                margin: 0 rem(8) rem(16) rem(16);
-                            }
-
-                            &:hover, &:active {
-                                text-decoration: none;
-                                background-color: darken($color-primary, 10%);
-                            }
-                        }
-
-                        .hero__button-learn {
-                            display: flex;
-                            justify-content: center;
-                            flex-wrap: nowrap;
+                            height: rem(56);
 
                             font-weight: $font-semibold;
                             font-size: rem(16);
@@ -115,7 +104,7 @@
                             background-color: #edf4f6;
                             border: solid rem(1);
                             border-color: $color-primary;
-                            padding: rem(10) rem(25);
+                            padding: rem(10) rem(24);
                             border-radius: rem(6);
                             margin-bottom: rem(32);
                             @media (min-width: $medium-screen) {
@@ -126,8 +115,26 @@
                             &:hover, &:active {
                                 text-decoration: none;
                                 background-color: lighten($color-white, 10%);
+                                border-radius: rem(4);
                             }
                         }
+
+                        .hero__button--action {
+                            color: $color-white;
+                            background-color: $color-primary;
+                            @media (min-width: $medium-screen) {
+                                font-size: rem(20);
+                                margin: 0 rem(8) rem(16) rem(16);
+                                background-color: $color-primary;
+                            }
+
+                            &:hover, &:active {
+                                text-decoration: none;
+                                background-color: darken($color-primary, 10%);
+                            }
+                        }
+
+
                     }
 
                     .hero__text-container {
@@ -136,7 +143,7 @@
                         margin-bottom: rem(32);
 
                         p {
-                            font-size: rem(16);
+                            font-size: rem(20);
                             font-weight: normal;
                             font-stretch: normal;
                             font-style: normal;
