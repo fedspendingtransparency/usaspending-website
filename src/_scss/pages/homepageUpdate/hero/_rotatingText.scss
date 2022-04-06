@@ -44,7 +44,7 @@
         //    }
         //}
 
-        .landing-phrase {
+        h1.landing-phrase {
             position: absolute;
             @media (max-width: 992px) {
                 display: block;
@@ -74,8 +74,6 @@
                 text-align: left;
                 left: 0;
             }
-
-
         }
 
         .phrase-intro__item {
