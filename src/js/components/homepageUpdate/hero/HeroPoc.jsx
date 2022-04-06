@@ -67,35 +67,33 @@ const HeroPoc = ({ paused }) => {
 
     }, [paused]);
 
-    const rotatingText = () => (<div style={{ "margin-bottom": "4rem" }}>
+    const rotatingText = () => (<div className="rotation-text-container">
         <div className="hero__heading-wrapper">
             <div className="sentence hero__temp-h1">
                 <div className="landingPhrase finalVertical">
                     <span>The official source of government spending data.</span>
                 </div>
-                <div className="wholePhrase">
-                    <div className="phraseIntro" id="phraseIntro">
-                        <div className="leftWords initialVertical" id="initialVertical">
-                            <span>{rotatingWords.left.tempWordsArray[1]}&nbsp;</span>
-                        </div>
-                        <div className="leftWords slidingVertical" id="slidingVertical">
-                            <span>{rotatingWords.left.tempWordsArray[3]}&nbsp;</span>
-                            <span>{rotatingWords.left.tempWordsArray[4]}&nbsp;</span>
-                            <span>{rotatingWords.left.tempWordsArray[2]}&nbsp;</span>
-                            <span>{rotatingWords.left.tempWordsArray[0]}&nbsp;</span>
-                        </div>
+                <div className="phraseIntro wholePhrase" id="phraseIntro">
+                    <div className="leftWords initialVertical" id="initialVertical">
+                        <span>{rotatingWords.left.tempWordsArray[1]}&nbsp;</span>
                     </div>
-                    <div className="staticBlock">government spending&nbsp;</div>
-                    <div className="phraseEnd">
-                        <div className="rightWords initialVertical" id="initialVertical2">
-                            <span>{rotatingWords.right.tempWordsArray[5]}</span>
-                        </div>
-                        <div className="rightWords slidingVertical" id="slidingVertical2">
-                            <span>{rotatingWords.right.tempWordsArray[3]}</span>
-                            <span>{rotatingWords.right.tempWordsArray[2]}</span>
-                            <span>{rotatingWords.right.tempWordsArray[7]}</span>
-                            <span>{rotatingWords.right.tempWordsArray[4]}</span>
-                        </div>
+                    <div className="leftWords slidingVertical" id="slidingVertical">
+                        <span>{rotatingWords.left.tempWordsArray[3]}&nbsp;</span>
+                        <span>{rotatingWords.left.tempWordsArray[4]}&nbsp;</span>
+                        <span>{rotatingWords.left.tempWordsArray[2]}&nbsp;</span>
+                        <span>{rotatingWords.left.tempWordsArray[0]}&nbsp;</span>
+                    </div>
+                </div>
+                <div className="staticBlock wholePhrase">government spending&nbsp;</div>
+                <div className="phraseEnd wholePhrase">
+                    <div className="rightWords initialVertical" id="initialVertical2">
+                        <span>{rotatingWords.right.tempWordsArray[5]}</span>
+                    </div>
+                    <div className="rightWords slidingVertical" id="slidingVertical2">
+                        <span>{rotatingWords.right.tempWordsArray[3]}</span>
+                        <span>{rotatingWords.right.tempWordsArray[2]}</span>
+                        <span>{rotatingWords.right.tempWordsArray[7]}</span>
+                        <span>{rotatingWords.right.tempWordsArray[4]}</span>
                     </div>
                 </div>
             </div>
