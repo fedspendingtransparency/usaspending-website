@@ -14,11 +14,13 @@ module.exports = merge(common, {
         }
     },
     devServer: {
-        contentBase: path.resolve(__dirname, "public"),
         host: "0.0.0.0", // this allows VMs to access the server
         port: 3000,
-        disableHostCheck: true,
-        historyApiFallback: true
+        allowedHosts: "all",
+        historyApiFallback: true,
+        static: {
+            directory: path.resolve(__dirname, "public"),
+        }
     },
     module: {
         rules: [

@@ -25,7 +25,8 @@ module.exports = {
     context: path.resolve(__dirname, "../src"),
     resolve: {
         extensions: [".js", ".jsx"],
-        modules: ["node_modules", path.resolve(__dirname, "../src/_scss")]
+        modules: ["node_modules", path.resolve(__dirname, "../src/_scss")],
+        fallback: { querystring: require.resolve("querystring-es3") }
     },
     optimization: {
         splitChunks: { chunks: 'all' }
@@ -122,4 +123,5 @@ module.exports = {
             'process.env.ENV': process.env.ENV ? JSON.stringify(process.env.ENV) : JSON.stringify('qat')
         })
     ]
+
 };
