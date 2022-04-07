@@ -1,6 +1,7 @@
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable max-len */
 import React from 'react';
+import { Link } from "react-router-dom";
 import Accordion from "../sharedComponents/accordion/Accordion";
 
 const awardAccountSpendingComparisonQuestions = [{
@@ -23,7 +24,10 @@ const awardAccountSpendingComparisonQuestions = [{
     answer: (<>
         <p className="analyst-guide__answerStyle">Agencies periodically upload account spending in various formats. One format (account breakdown by award) represents award activity and includes details on federal accounts funding that activity. Agencies also upload transaction level award spending for both contracts and financial assistance. </p>
         <p className="analyst-guide__answerStyle">These files can be linked together to associate award spending with account spending. If a shared ID cannot be found between these files, award spending may be unlinked to any account.</p>
-        <p className="analyst-guide__answerStyle">The MAKE THIS A LINK Agency Submission Statistics page contains data on this linkage under the “Number of Unlinked Contract Awards” and “Number of Unlinked Assistance Awards” columns.</p>
+        <p className="analyst-guide__answerStyle">The{' '}
+            <Link to="/submission-statistics?tab=submissions&fy=2022&period=2">Agency Submission Statistics page</Link>
+            {' '}contains data on this linkage under the “Number of Unlinked Contract Awards” and “Number of Unlinked Assistance Awards” columns.
+        </p>
         <p className="analyst-guide__answerStyle">More information about federal accounts is discussed in the ACCOUNT DATA ELEMENTS section of this guide.</p>
 
     </>)

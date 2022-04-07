@@ -7,6 +7,10 @@ import React, { useState, useEffect } from 'react';
 import { Redirect } from "react-router-dom";
 import { FlexGridRow, FlexGridCol } from "data-transparency-ui";
 import 'pages/analystGuide/analystGuide.scss';
+import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useDispatch } from "react-redux";
+import { showModal } from 'redux/actions/modal/modalActions';
 
 import AnalystGuideHeader from './AnalystGuideHeader';
 import PageWrapper from "../sharedComponents/PageWrapper";
@@ -15,12 +19,31 @@ import { SHOW_HOMEPAGE_UPDATE } from '../../GlobalConstants';
 import AnalystGuideQuestions from "./AnalystGuideQuestions";
 import AnalystGuideIntro from "./AnalystGuideIntro";
 
+
 const AnalystGuidePage = () => {
     const [hideContent, setHideContent] = useState();
+    const slug = '/analyst-guide';
 
     useEffect(() => {
         setHideContent(!SHOW_HOMEPAGE_UPDATE);
     }, []);
+
+    const onShareClick = (name) => {
+        const emailSubject = `USAspending.gov Analyst's Guide`;
+        const emailArgs = {
+            subject: `${emailSubject}`,
+            body: `Interested in learning how to effectively use Federal Spending Data? Check out #USAspending Analyst Guide! ${getBaseUrl(slug)}`
+        };
+        handleShareOptionClick(name, slug, emailArgs);
+    };
+
+    const dispatch = useDispatch();
+    const onExternalLinkClick = (e) => {
+        e.persist();
+        if (e?.target) {
+            dispatch(showModal(e.target.parentNode.getAttribute('data-href') || e.target.getAttribute('data-href') || e.target.value));
+        }
+    };
 
     return (<>{hideContent ?
         <Redirect to="/404" />
@@ -36,7 +59,15 @@ const AnalystGuidePage = () => {
                 </section>
                 <FlexGridRow style={{ justifyContent: 'center' }}>
                     <FlexGridCol desktop={6} tablet={12} className="analyst-guide-body">
-                        <AnalystGuideIntro />
+                        <div className="analyst-guide__share-icon">
+                            <button onShareOptionClick={onShareClick}>
+                                <FontAwesomeIcon icon="share-alt" size="lg" />
+                            </button>
+                        </div>
+                        <div className="analyst-guide__share-text">
+                            Share
+                        </div>
+                        <AnalystGuideIntro onExternalLinkClick={onExternalLinkClick} />
                         <AnalystGuideQuestions />
                     </FlexGridCol>
                 </FlexGridRow>

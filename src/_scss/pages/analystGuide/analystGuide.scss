@@ -18,6 +18,22 @@
     }
   }
 
+  .analyst-guide__share-icon {
+    color: $color-primary;
+    background-color: white;
+    margin: $global-margin * 4 $global-margin * 2 0;
+    @media (min-width: $medium-screen) {
+      margin-left: 0;
+    }
+  }
+
+  .analyst-guide__share-text {
+    color: $color-primary;
+    @media (max-width: $medium-screen) {
+      margin-left: $global-margin * 2;
+    }
+  }
+
   .analyst-guide__topTitle {
     font-weight: $font-semibold;
     font-stretch: normal;
@@ -43,6 +59,17 @@
     color: $color-base;
     @media (max-width: $medium-screen) {
       margin: 20px 16px 40px;
+    }
+
+    .analyst-guide__external-link {
+      @include button-unstyled;
+      color: $color-primary;
+      font-size: inherit;
+      cursor: pointer;
+      width: fit-content;
+      &:hover {
+        color: $color-primary;
+      }
     }
   }
 
@@ -74,7 +101,6 @@
   }
 
   .analyst-guide__questionLine {
-    
     @media (max-width: $medium-screen) {
       margin: 2px 16px 20px;
     }
@@ -84,5 +110,6 @@
 
   .analyst-guide__answerStyle {
     color: #555;
+    font-weight: $font-normal;
   }
 }
