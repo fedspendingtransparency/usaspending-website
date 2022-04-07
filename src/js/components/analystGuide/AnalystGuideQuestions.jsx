@@ -533,8 +533,9 @@ const additionalResources = [{
 const AnalystGuideQuestions = () => (
     <>
         <div>
-            <span className="analyst-guide__questionSections">Award And Account Spending Comparison</span>
+            <h4 className="analyst-guide__questionSections">Award And Account Spending Comparison</h4>
         </div>
+        <div className="analyst-guide__questionLine" />
         <div className="analyst-guide__answerSection">
             {awardAccountSpendingComparisonQuestions.map((item, i) => (
                 <div className="analyst-guide__questionAnswers">
@@ -547,8 +548,10 @@ const AnalystGuideQuestions = () => (
         </div>
 
         <div>
-            <span className="analyst-guide__questionSections">Award Spending</span>
+            <h4 className="analyst-guide__questionSections">Award Spending</h4>
         </div>
+        <div className="analyst-guide__questionLine" />
+
         <div className="analyst-guide__answerSection">
             {awardSpendingQuestions.map((item, i) => (
                 <div className="analyst-guide__questionAnswers">
@@ -561,10 +564,11 @@ const AnalystGuideQuestions = () => (
         </div>
 
         <div>
-            <span className="analyst-guide__questionSections">Financial Assistance Transactions And Award Summaries</span>
+            <h4 className="analyst-guide__questionSections">Financial Assistance Transactions And Award Summaries</h4>
         </div>
-        <div className="analyst-guide__answerSection">
+        <div className="analyst-guide__questionLine" />
 
+        <div className="analyst-guide__answerSection">
             {financialAssistanceQuestions.map((item, i) => (
                 <div className="analyst-guide__questionAnswers">
                     <Accordion
@@ -576,10 +580,11 @@ const AnalystGuideQuestions = () => (
         </div>
 
         <div>
-            <span className="analyst-guide__questionSections">Contract Transactions And Award Summaries</span>
+            <h4 className="analyst-guide__questionSections">Contract Transactions And Award Summaries</h4>
         </div>
-        <div className="analyst-guide__answerSection">
+        <div className="analyst-guide__questionLine" />
 
+        <div className="analyst-guide__answerSection">
             {contractTransactionQuestions.map((item, i) => (
                 <div className="analyst-guide__questionAnswers">
                     <Accordion
@@ -591,10 +596,11 @@ const AnalystGuideQuestions = () => (
         </div>
 
         <div>
-            <span className="analyst-guide__questionSections">How To Access The Data</span>
+            <h4 className="analyst-guide__questionSections">How To Access The Data</h4>
         </div>
-        <div className="analyst-guide__answerSection">
+        <div className="analyst-guide__questionLine" />
 
+        <div className="analyst-guide__answerSection">
             {dataAccessQuestions.map((item, i) => (
                 <div className="analyst-guide__questionAnswers">
                     <Accordion
@@ -606,10 +612,11 @@ const AnalystGuideQuestions = () => (
         </div>
 
         <div>
-            <span className="analyst-guide__questionSections">Agency Data Elements</span>
+            <h4 className="analyst-guide__questionSections">Agency Data Elements</h4>
         </div>
-        <div className="analyst-guide__answerSection">
+        <div className="analyst-guide__questionLine" />
 
+        <div className="analyst-guide__answerSection">
             {agencyDataQuestions.map((item, i) => (
                 <div className="analyst-guide__questionAnswers">
                     <Accordion
@@ -621,10 +628,11 @@ const AnalystGuideQuestions = () => (
         </div>
 
         <div>
-            <span className="analyst-guide__questionSections">Account Data Elements</span>
+            <h4 className="analyst-guide__questionSections">Account Data Elements</h4>
         </div>
-        <div className="analyst-guide__answerSection">
+        <div className="analyst-guide__questionLine" />
 
+        <div className="analyst-guide__answerSection">
             {accountDataQuestions.map((item, i) => (
                 <div className="analyst-guide__questionAnswers">
                     <Accordion
@@ -636,10 +644,11 @@ const AnalystGuideQuestions = () => (
         </div>
 
         <div>
-            <span className="analyst-guide__questionSections">Industry And Product Data Elements</span>
+            <h4 className="analyst-guide__questionSections">Industry And Product Data Elements</h4>
         </div>
-        <div className="analyst-guide__answerSection">
+        <div className="analyst-guide__questionLine" />
 
+        <div className="analyst-guide__answerSection">
             {industryProductQuestions.map((item, i) => (
                 <div className="analyst-guide__questionAnswers">
                     <Accordion
@@ -651,10 +660,11 @@ const AnalystGuideQuestions = () => (
         </div>
 
         <div>
-            <span className="analyst-guide__questionSections">Disaster And Emergency Data Elements</span>
+            <h4 className="analyst-guide__questionSections">Disaster And Emergency Data Elements</h4>
         </div>
-        <div className="analyst-guide__answerSection">
+        <div className="analyst-guide__questionLine" />
 
+        <div className="analyst-guide__answerSection">
             {disasterEmergencyQuestions.map((item, i) => (
                 <div className="analyst-guide__questionAnswers">
                     <Accordion
@@ -666,10 +676,11 @@ const AnalystGuideQuestions = () => (
         </div>
 
         <div>
-            <span className="analyst-guide__questionSections">Assistance Listings Data Elements</span>
+            <h4 className="analyst-guide__questionSections">Assistance Listings Data Elements</h4>
         </div>
-        <div className="analyst-guide__answerSection">
+        <div className="analyst-guide__questionLine" />
 
+        <div className="analyst-guide__answerSection">
             {assistanceListingQuestions.map((item, i) => (
                 <div className="analyst-guide__questionAnswers">
                     <Accordion
@@ -681,10 +692,11 @@ const AnalystGuideQuestions = () => (
         </div>
 
         <div>
-            <span className="analyst-guide__questionSections">Recipient Data Elements</span>
+            <h4 className="analyst-guide__questionSections">Recipient Data Elements</h4>
         </div>
-        <div className="analyst-guide__answerSection">
+        <div className="analyst-guide__questionLine" />
 
+        <div className="analyst-guide__answerSection">
             {recipientDataQuestions.map((item, i) => (
                 <div className="analyst-guide__questionAnswers">
                     <Accordion
@@ -696,10 +708,11 @@ const AnalystGuideQuestions = () => (
         </div>
 
         <div>
-            <span className="analyst-guide__questionSections">Location Data Elements</span>
+            <h4 className="analyst-guide__questionSections">Location Data Elements</h4>
         </div>
-        <div className="analyst-guide__answerSection">
+        <div className="analyst-guide__questionLine" />
 
+        <div className="analyst-guide__answerSection">
             {locationDataQuestions.map((item, i) => (
                 <div className="analyst-guide__questionAnswers">
                     <Accordion
@@ -711,10 +724,11 @@ const AnalystGuideQuestions = () => (
         </div>
 
         <div>
-            <span className="analyst-guide__questionSections">Additional Resources</span>
+            <h4 className="analyst-guide__questionSections">Additional Resources</h4>
         </div>
-        <div className="analyst-guide__answerSection">
+        <div className="analyst-guide__questionLine" />
 
+        <div className="analyst-guide__answerSection">
             {additionalResources.map((item, i) => (
                 <div className="analyst-guide__questionAnswers">
                     <Accordion
