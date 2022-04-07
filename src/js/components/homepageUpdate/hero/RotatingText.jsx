@@ -57,11 +57,11 @@ const RotatingText = ({ paused }) => {
         document.getElementById("phrase-intro__rotating-item").getElementsByTagName('span')[3].style.animationPlayState = paused ? "paused" : "running";
         document.getElementById("landing-phrase").getElementsByTagName('span')[0].style.animationPlayState = paused ? "paused" : "running";
 
-        document.getElementById("initialVertical2").getElementsByTagName('span')[0].style.animationPlayState = paused ? "paused" : "running";
-        document.getElementById("slidingVertical2").getElementsByTagName('span')[0].style.animationPlayState = paused ? "paused" : "running";
-        document.getElementById("slidingVertical2").getElementsByTagName('span')[1].style.animationPlayState = paused ? "paused" : "running";
-        document.getElementById("slidingVertical2").getElementsByTagName('span')[2].style.animationPlayState = paused ? "paused" : "running";
-        document.getElementById("slidingVertical2").getElementsByTagName('span')[3].style.animationPlayState = paused ? "paused" : "running";
+        document.getElementById("phase-end__first-rotating-item").getElementsByTagName('span')[0].style.animationPlayState = paused ? "paused" : "running";
+        document.getElementById("phase-end__rotating-item").getElementsByTagName('span')[0].style.animationPlayState = paused ? "paused" : "running";
+        document.getElementById("phase-end__rotating-item").getElementsByTagName('span')[1].style.animationPlayState = paused ? "paused" : "running";
+        document.getElementById("phase-end__rotating-item").getElementsByTagName('span')[2].style.animationPlayState = paused ? "paused" : "running";
+        document.getElementById("phase-end__rotating-item").getElementsByTagName('span')[3].style.animationPlayState = paused ? "paused" : "running";
 
         // document.getElementsByClassName("phrase-part").style.animationPlayState = paused ? "paused" : "running";
 
@@ -86,10 +86,10 @@ const RotatingText = ({ paused }) => {
             </div>
             <div className="static__item phrase-part">government spending&nbsp;</div>
             <div className="phrase-end phrase-part">
-                <div className="phrase-end__item first-rotating-item" id="initialVertical2">
+                <div className="phrase-end__item first-rotating-item" id="phase-end__first-rotating-item">
                     <span>{rotatingWords.right.tempWordsArray[5]}</span>
                 </div>
-                <div className="phrase-end__item rotating-item" id="slidingVertical2">
+                <div className="phrase-end__item rotating-item" id="phase-end__rotating-item">
                     <span>{rotatingWords.right.tempWordsArray[3]}</span>
                     <span>{rotatingWords.right.tempWordsArray[2]}</span>
                     <span>{rotatingWords.right.tempWordsArray[7]}</span>

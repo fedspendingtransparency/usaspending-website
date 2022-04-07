@@ -1,10 +1,6 @@
 .homepage-hero-container {
     background: rgba(136, 180, 192, .15);
 
-    @media (min-width: $medium-screen) {
-        max-width: rem(1600);
-    }
-
     .shadow {
         box-shadow: 0 0 rem(16) 0 rgba(0, 0, 0, 0.1);
     }
@@ -14,6 +10,7 @@
         @media (min-width: $medium-screen) {
             padding: rem(88) 0 rem(40) 0;
             margin: 0 $global-margin * 5;
+            max-width: rem(1600);
         }
 
         .hero__heading-wrapper {
