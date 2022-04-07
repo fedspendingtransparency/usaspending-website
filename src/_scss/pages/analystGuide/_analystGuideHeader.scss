@@ -25,16 +25,34 @@
       color: #ffffff;
 
       h1 {
-        margin: 0;
-        font-weight: 600;
+        color: #fff;
+        margin: 0 0 24px;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.2;
+        letter-spacing: normal;
+        font-weight: $font-semibold;
         font-size: rem(40);
-        line-height: rem(48);
       }
 
       h2 {
+        color: #fff;
         font-size: rem(20);
         line-height: rem(30);
-        font-weight: 600;
+        font-weight: $font-semibold;
+        margin: 24px 0 0;
+        font-stretch: normal;
+        font-style: normal;
+        letter-spacing: normal;
+        @media (max-width: $medium-screen) {
+          font-size: rem(28);
+          font-weight: $font-semibold;
+          margin: 24px 0 0;
+          font-stretch: normal;
+          font-style: normal;
+          line-height: 1.25;
+          letter-spacing: normal;
+        }
       }
     }
   }

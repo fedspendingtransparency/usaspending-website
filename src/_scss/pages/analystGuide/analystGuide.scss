@@ -19,34 +19,38 @@
   }
 
   .analyst-guide__topTitle {
+    font-weight: $font-semibold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: $heading-line-height;
+    letter-spacing: normal;
+    color: $color-grayblack;
+    font-size: 28px;
+    margin: 36px 0px 20px;
     @media (max-width: $medium-screen) {
       margin: 32px 16px 20px;
-      font-size: 28px;
-      font-weight: $font-semibold;
-      font-stretch: normal;
-      font-style: normal;
-      line-height: $heading-line-height;
-      letter-spacing: normal;
-      color: $color-grayblack;
     }
   }
 
   .analyst-guide__bodyText {
+    margin: 36px 0px 20px;
+    font-size: $base-font-size;
+    font-weight: $font-normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: $base-line-height;
+    letter-spacing: normal;
+    color: $color-base;
     @media (max-width: $medium-screen) {
       margin: 20px 16px 40px;
-      font-size: $base-font-size;
-      font-weight: $font-normal;
-      font-stretch: normal;
-      font-style: normal;
-      line-height: $base-line-height;
-      letter-spacing: normal;
-      color: $color-base;
     }
   }
 
   .analyst-guide__questionSections {
     @media (max-width: $medium-screen) {
       margin: 40px 16px 2px;
+    }
+      margin: 40px 0px 2px;
       font-size: 20px;
       font-weight: $font-semibold;
       font-stretch: normal;
@@ -54,7 +58,7 @@
       line-height: $heading-line-height;
       letter-spacing: normal;
       color: $color-grayblack;
-    }
+
   }
 
   .analyst-guide__answerSection {
@@ -70,10 +74,12 @@
   }
 
   .analyst-guide__questionLine {
+    
     @media (max-width: $medium-screen) {
       margin: 2px 16px 20px;
-      border-bottom: 2px solid black;
     }
+      margin: 2px 0px 20px;
+      border-bottom: 2px solid black;
   }
 
   .analyst-guide__answerStyle {
