@@ -68,7 +68,7 @@ const AnalystGuidePage = () => {
                             Share
                         </div>
                         <AnalystGuideIntro onExternalLinkClick={onExternalLinkClick} />
-                        <AnalystGuideQuestions />
+                        <AnalystGuideQuestions onExternalLinkClick={onExternalLinkClick} />
                     </FlexGridCol>
                 </FlexGridRow>
             </main>

@@ -111,5 +111,16 @@
   .analyst-guide__answerStyle {
     color: #555;
     font-weight: $font-normal;
+
+    .analyst-guide__external-link {
+      @include button-unstyled;
+      color: $color-primary;
+      font-size: inherit;
+      cursor: pointer;
+      width: fit-content;
+      &:hover {
+        color: $color-primary;
+      }
+    }
   }
 }
