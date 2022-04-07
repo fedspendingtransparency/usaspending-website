@@ -20,7 +20,7 @@
 
   .analyst-guide__topTitle {
     @media (max-width: $medium-screen) {
-      margin: 32px 0px 20px;
+      margin: 32px 16px 20px;
       font-size: 28px;
       font-weight: $font-semibold;
       font-stretch: normal;
@@ -33,7 +33,7 @@
 
   .analyst-guide__bodyText {
     @media (max-width: $medium-screen) {
-      margin: 20px 0px 40px;
+      margin: 20px 16px 40px;
       font-size: $base-font-size;
       font-weight: $font-normal;
       font-stretch: normal;
@@ -46,7 +46,7 @@
 
   .analyst-guide__questionSections {
     @media (max-width: $medium-screen) {
-      margin: 40px 0px 2px;
+      margin: 40px 16px 2px;
       font-size: 20px;
       font-weight: $font-semibold;
       font-stretch: normal;
@@ -59,7 +59,7 @@
 
   .analyst-guide__answerSection {
     @media (max-width: $medium-screen) {
-      margin-top: 8px;
+      margin: 8px 16px;
     }
   }
 
@@ -71,7 +71,7 @@
 
   .analyst-guide__questionLine {
     @media (max-width: $medium-screen) {
-      margin: 2px 0px 20px;
+      margin: 2px 16px 20px;
       border-bottom: 2px solid black;
     }
   }
