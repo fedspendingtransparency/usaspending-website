@@ -35,10 +35,12 @@
     }
       .grid-content {
         button {
-          border-radius: 4px;
-          @media (max-width: $medium-screen) {
+          @media (max-width: $tablet-screen) {
             width: 100%;
           }
+        }
+        .feature-dropdown__wrapper {
+          display: block;
         }
         button.feature-carousel-content__arrow {
           width: fit-content;

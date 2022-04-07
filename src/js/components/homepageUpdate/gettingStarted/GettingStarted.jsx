@@ -211,7 +211,7 @@ const GettingStarted = () => {
                 <picture className="homepage-spending-explorer__img">
                     <source srcSet="img/homepage-spending-explorer/homepage-spending-explorer@1-5x.webp" type="image/webp" />
                     <source srcSet="img/homepage-spending-explorer/homepage-spending-explorer@1-5x.png" type="image/png" />
-                    <img src="img/homepage-spending-explorer/homepage-spending-explorer@1-5x.png" alt="Screenshot of the Spending Explorer" />
+                    <img src="img/homepage-spending-explorer/homepage-spending-explorer@1-5x.webp" alt="Screenshot of the Spending Explorer" />
                 </picture>
             </div>
         </FlexGridCol>
