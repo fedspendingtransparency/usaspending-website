@@ -26,6 +26,10 @@
     @media (min-width: $medium-screen) {
       margin-left: -40px;
     }
+
+    .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__button {
+      margin: 0 0.625rem;
+    }
   }
 
   .analyst-guide__topTitle {
