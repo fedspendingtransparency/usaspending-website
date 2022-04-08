@@ -8,30 +8,24 @@
       height: 100%;
       background-color: white;
       padding-bottom: $global-padding * 30;
+      overflow: hidden;
       .homepage-background-flair {
         position: absolute;
-        z-index: 0;
-        top: 224rem;
-        @media (max-width: 1600px) {
-          top: 210rem;
-          height: 60vw;
-        }
-        @media (max-width: $medium-screen) {
-          top: 240rem;
-          height: 130vw;
-        }
-        @media (max-width: $tablet-screen) {
-          top: 235rem;
-          height: 115rem;
-        }
-        left: 0;
-        width: 100%;
-        height: 50vw;
+        top: 5rem;
+        bottom: -50rem;
+        width: 125vw;
+        margin-left: calc(50% - 50vw);
 
         background-color: $color-gray-warm-light;
         opacity: 0.5;
 
         @include transform(skewY(5deg));
+
+        @include media($medium-screen) {
+            top: 0;
+            bottom: 0;
+            height: 80rem;
+        }
     }
       .grid-content {
         button {

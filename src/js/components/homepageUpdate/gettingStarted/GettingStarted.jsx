@@ -69,6 +69,7 @@ const GettingStarted = () => {
     const searchCarouselLayout = isMobile ?
         <>
             <FlexGridCol className="homepage-search-feature" width={12}>
+                <div className="homepage-background-flair" />
                 <div className="homepage-search-feature-desc">
                     <h2 className="homepage-search-feature-desc__title">A targeted approach to finding federal award&nbsp;data</h2>
                 </div>
@@ -98,6 +99,7 @@ const GettingStarted = () => {
         :
         <>
             <FlexGridCol className="homepage-search-feature" width={5}>
+                <div className="homepage-background-flair" />
                 <div className="homepage-search-feature-desc">
                     <h2 className="homepage-search-feature-desc__title">A targeted approach to finding federal award&nbsp;data</h2>
                     <p>
@@ -239,7 +241,6 @@ const GettingStarted = () => {
         <section
             className="homepage-getting-started"
             aria-label="Getting Started sections">
-            <div className="homepage-background-flair" />
             <FlexGridRow
                 className="grid-content">
                 <div className="section-heading-title-wrapper">
