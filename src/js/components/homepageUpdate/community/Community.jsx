@@ -30,10 +30,10 @@ const Community = () => (
                 </p>
                 <a
                     className="homepage-community__link"
-                    href="https://usaspending-help.zendesk.com/hc/en-us/community/topics"
+                    href="https://fiscalservice.force.com/usaspending/s/"
                     target="_blank"
                     rel="noopener noreferrer"
-                    onClick={clickedHomepageLink.bind(null, 'https://usaspending-help.zendesk.com/hc/en-us/community/topics')}>
+                    onClick={clickedHomepageLink.bind(null, 'https://fiscalservice.force.com/usaspending/s/')}>
                     Visit our community page
                 </a>
             </div>
