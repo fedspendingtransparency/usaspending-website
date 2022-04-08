@@ -5,10 +5,9 @@
 
 import React, { useState, useEffect } from 'react';
 import { Redirect } from "react-router-dom";
-import { FlexGridRow, FlexGridCol } from "data-transparency-ui";
+import { FlexGridRow, FlexGridCol, ShareIcon } from "data-transparency-ui";
 import 'pages/analystGuide/analystGuide.scss';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch } from "react-redux";
 import { showModal } from 'redux/actions/modal/modalActions';
 
@@ -60,12 +59,9 @@ const AnalystGuidePage = () => {
                 <FlexGridRow style={{ justifyContent: 'center' }}>
                     <FlexGridCol desktop={6} tablet={12} className="analyst-guide-body">
                         <div className="analyst-guide__share-wrapper">
-                            <button className="analyst-guide__share-button" onClick={onShareClick}>
-                                <FontAwesomeIcon icon="share-alt" size="lg" className="analyst-guide__share-icon" />
-                            </button>
-                        </div>
-                        <div className="analyst-guide__share-text">
-                            Share
+                            <ShareIcon
+                                url={getBaseUrl(slug)}
+                                onShareOptionClick={onShareClick} />
                         </div>
                         <AnalystGuideIntro onExternalLinkClick={onExternalLinkClick} />
                         <AnalystGuideQuestions onExternalLinkClick={onExternalLinkClick} />
