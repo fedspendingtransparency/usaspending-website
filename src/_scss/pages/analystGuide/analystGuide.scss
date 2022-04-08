@@ -39,7 +39,7 @@
     line-height: $heading-line-height;
     letter-spacing: normal;
     color: $color-grayblack;
-    font-size: 28px;
+    font-size: rem(28);
     margin: 36px 0px 20px;
     @media (max-width: $medium-screen) {
       margin: 32px 16px 20px;
@@ -76,7 +76,7 @@
       margin: 40px 16px 2px;
     }
       margin: 40px 0px 2px;
-      font-size: 20px;
+      font-size: rem(20);
       font-weight: $font-semibold;
       font-stretch: normal;
       font-style: normal;

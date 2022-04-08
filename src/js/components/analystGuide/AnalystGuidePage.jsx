@@ -14,7 +14,7 @@ import { showModal } from 'redux/actions/modal/modalActions';
 import AnalystGuideHeader from './AnalystGuideHeader';
 import PageWrapper from "../sharedComponents/PageWrapper";
 import { analystGuideMetaTags } from "../../helpers/metaTagHelper";
-import { SHOW_HOMEPAGE_UPDATE } from '../../GlobalConstants';
+import { SHOW_ANALYSTGUIDE } from '../../GlobalConstants';
 import AnalystGuideQuestions from "./AnalystGuideQuestions";
 import AnalystGuideIntro from "./AnalystGuideIntro";
 
@@ -24,7 +24,7 @@ const AnalystGuidePage = () => {
     const slug = '/analyst-guide';
 
     useEffect(() => {
-        setHideContent(!SHOW_HOMEPAGE_UPDATE);
+        setHideContent(!SHOW_ANALYSTGUIDE);
     }, []);
 
     const onShareClick = (name) => {
