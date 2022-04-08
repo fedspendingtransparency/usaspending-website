@@ -49,7 +49,6 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
                     ACCOUNT DATA ELEMENTS
                 </button>{' '}section of this guide.
             </p>
-
             </>)
     }];
 
@@ -93,7 +92,14 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
             </p>
             <p className="analyst-guide__answerStyle">The Award ID filter on <Link to="/search">Advanced Search</Link> can be used to filter award spending by the PIID, FAIN and URI data elements. These data elements are important components of prime award summary identifier information.</p>
             <p className="analyst-guide__answerStyle">More information about these fields is available in the <Link to="/data-dictionary">Data Dictionary</Link> and the <a href="https://files.usaspending.gov/docs/Custom+Account+Data+Dictionary.xlsx">Custom Account Data Dictionary</a>.</p>
-            <p className="analyst-guide__answerStyle">More information on how to download data from USAspending is available in the HOW TO ACCESS THE DATA section of this guide.</p>
+            <p className="analyst-guide__answerStyle">More information on how to download data from USAspending is available in the{' '}
+                <button
+                    role="link"
+                    className="analyst-guide__sectionJump"
+                    onClick={() => jumpToSection("analyst-guide__DataAccess")}>
+                    HOW TO ACCESS THE DATA
+                </button>{' '}section of this guide.
+            </p>
             </>)
     },
     {
@@ -109,8 +115,22 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
             <p className="analyst-guide__answerStyle">The assistance_type_code and assistance_type_description fields are available on financial assistance prime award transaction and summary files. The award_type_code and award_type fields are available on contract prime award transaction and summary files, and Treasury and federal account level account breakdown by award files. The parent_award_type and parent_award_type_code fields are available on contract prime award transaction and summary files.</p>
             <p className="analyst-guide__answerStyle">The Award Type filter on <Link to="/search">Advanced Search</Link> can be used to filter award spending by these data elements.</p>
             <p className="analyst-guide__answerStyle">More information about these fields is available in the <Link to="/data-dictionary">Data Dictionary</Link> and the <a href="https://files.usaspending.gov/docs/Custom+Account+Data+Dictionary.xlsx">Custom Account Data Dictionary</a>.</p>
-            <p className="analyst-guide__answerStyle">More information on how to download data from USAspending is available in the HOW TO ACCESS THE DATA section of this guide.</p>
-            <p className="analyst-guide__answerStyle">More information about parent awards is available in the CONTRACTS AWARDS AND TRANSACTIONS section of this guide.</p>
+            <p className="analyst-guide__answerStyle">More information on how to download data from USAspending is available in the{' '}
+                <button
+                    role="link"
+                    className="analyst-guide__sectionJump"
+                    onClick={() => jumpToSection("analyst-guide__DataAccess")}>
+                    HOW TO ACCESS THE DATA
+                </button>{' '}section of this guide.
+            </p>
+            <p className="analyst-guide__answerStyle">More information about parent awards is available in the {' '}
+                <button
+                    role="link"
+                    className="analyst-guide__sectionJump"
+                    onClick={() => jumpToSection("analyst-guide__ContractTransactions")}>
+                    CONTRACT TRANSACTIONS AND AWARD SUMMARIES
+                </button>{' '}section of this guide.
+            </p>
             </>)
     },
     {
@@ -120,16 +140,44 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
             <p className="analyst-guide__answerStyle">The federal_action_obligation field is available on financial assistance and contract prime award transaction download files. The total_obligated_amount field is available on financial assistance and contract prime award transaction and summary download files. The original_loan_subsidy_cost field is available on financial assistance prime award transaction download files. The total_loan_subsidy_cost field is available on financial assistance prime award transaction and summary download files.</p>
             <p className="analyst-guide__answerStyle">The Award Amount filter on <Link to="/search">Advanced Search</Link> can be used to filter award spending by these data elements.</p>
             <p className="analyst-guide__answerStyle">More information about these fields is available in the <Link to="/data-dictionary">Data Dictionary</Link> and the <a href="https://files.usaspending.gov/docs/Custom+Account+Data+Dictionary.xlsx">Custom Account Data Dictionary</a>.</p>
-            <p className="analyst-guide__answerStyle">More information on how to download data from USAspending is available in the HOW TO ACCESS THE DATA section of this guide.</p>
+            <p className="analyst-guide__answerStyle">More information on how to download data from USAspending is available in the{' '}
+                <button
+                    role="link"
+                    className="analyst-guide__sectionJump"
+                    onClick={() => jumpToSection("analyst-guide__DataAccess")}>
+                    HOW TO ACCESS THE DATA
+                </button>{' '}section of this guide.
+            </p>
             </>)
     },
     {
         question: "How are data on financial assistance and contract spending different?",
         answer: (<>
             <p className="analyst-guide__answerStyle">Only financial assistance spending includes Assistance Listings information (formerly CFDA Program). Only contract spending includes North American Industry Classification System (NAICS) and Product and Service Codes (PSC) information. Both financial assistance and contract spending include recipient type information. However, different recipient type categories apply to financial assistance versus contract spending. Financial assistance and contract spending use different fields to identify awards.</p>
-            <p className="analyst-guide__answerStyle">More information about Assistance Listings data elements is discussed in the ASSISTANCE LISTINGS DATA ELEMENTS section of this guide.</p>
-            <p className="analyst-guide__answerStyle">More information about NAICS and PSC data elements is discussed in the INDUSTRY AND PRODUCT DATA ELEMENTS section of this guide.</p>
-            <p className="analyst-guide__answerStyle">More information about recipient data elements is discussed in the RECIPIENT DATA ELEMENTS section of this guide.</p>
+            <p className="analyst-guide__answerStyle">More information about Assistance Listings data elements is discussed in the {' '}
+                <button
+                    role="link"
+                    className="analyst-guide__sectionJump"
+                    onClick={() => jumpToSection("analyst-guide__AssistanceListings")}>
+                    ASSISTANCE LISTINGS DATA ELEMENTS
+                </button>{' '}section of this guide.
+            </p>
+            <p className="analyst-guide__answerStyle">More information about NAICS and PSC data elements is discussed in the {' '}
+                <button
+                    role="link"
+                    className="analyst-guide__sectionJump"
+                    onClick={() => jumpToSection("analyst-guide__Industry")}>
+                   INDUSTRY AND PRODUCT DATA ELEMENTS
+                </button>{' '}section of this guide.
+            </p>
+            <p className="analyst-guide__answerStyle">More information about recipient data elements is discussed in the {' '}
+                <button
+                    role="link"
+                    className="analyst-guide__sectionJump"
+                    onClick={() => jumpToSection("analyst-guide__Recipient")}>
+                    RECIPIENT DATA ELEMENTS
+                </button>{' '}section of this guide.
+            </p>
             </>)
     },
     {
@@ -142,10 +190,38 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
                 <li className="analyst-guide__answerStyle">Recipient information, including recipient name, recipient type and recipient location</li>
                 <li className="analyst-guide__answerStyle">Disaster Emergency Fund Codes (DEFC) categories</li>
             </ul>
-            <p className="analyst-guide__answerStyle">More information about account data elements is available in the ACCOUNT DATA ELEMENTS section of this guide.</p>
-            <p className="analyst-guide__answerStyle">More information about location data elements is available in the LOCATION DATA ELEMENTS section of this guide.</p>
-            <p className="analyst-guide__answerStyle">More information about recipient data elements is available in the RECIPIENT DATA ELEMENTS section of this guide.</p>
-            <p className="analyst-guide__answerStyle">More information about DEFC data elements is available in the DEFC DATA ELEMENTS section of this guide.</p>
+            <p className="analyst-guide__answerStyle">More information about account data elements is available in the {' '}
+                <button
+                    role="link"
+                    className="analyst-guide__sectionJump"
+                    onClick={() => jumpToSection("analyst-guide__AccountData")}>
+                    ACCOUNT DATA ELEMENTS
+                </button>{' '}section of this guide.
+            </p>
+            <p className="analyst-guide__answerStyle">More information about location data elements is available in the {' '}
+                <button
+                    role="link"
+                    className="analyst-guide__sectionJump"
+                    onClick={() => jumpToSection("analyst-guide__LocationData")}>
+                    LOCATION DATA ELEMENTS
+                </button>{' '}section of this guide.
+            </p>
+            <p className="analyst-guide__answerStyle">More information about recipient data elements is available in the {' '}
+                <button
+                    role="link"
+                    className="analyst-guide__sectionJump"
+                    onClick={() => jumpToSection("analyst-guide__Recipient")}>
+                    RECIPIENT DATA ELEMENTS
+                </button>{' '}section of this guide.
+            </p>
+            <p className="analyst-guide__answerStyle">More information about DEFC data elements is available in the {' '}
+                <button
+                    role="link"
+                    className="analyst-guide__sectionJump"
+                    onClick={() => jumpToSection("analyst-guide__Disaster")}>
+                  DISASTER AND EMERGENCY DATA ELEMENTS
+                </button>{' '}section of this guide.
+            </p>
             </>)
     },
     {
@@ -183,7 +259,14 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
             <p className="analyst-guide__answerStyle">All four fields are available in financial assistance prime award transaction download files. The total_face_value_of_loan and total_loan_subsidy_cost fields are also available in financial assistance prime award summary download files.</p>
             <p className="analyst-guide__answerStyle">The Award Amount filter on <Link to="/search">Advanced Search</Link> can be used to filter award spending by loan subsidy cost.</p>
             <p className="analyst-guide__answerStyle">More information about these fields is available in the <Link to="/data-dictionary">Data Dictionary</Link>.</p>
-            <p className="analyst-guide__answerStyle">More information on how to download data from USAspending is available in the HOW TO ACCESS THE DATA section of this guide. </p>
+            <p className="analyst-guide__answerStyle">More information on how to download data from USAspending is available in the{' '}
+                <button
+                    role="link"
+                    className="analyst-guide__sectionJump"
+                    onClick={() => jumpToSection("analyst-guide__DataAccess")}>
+                    HOW TO ACCESS THE DATA
+                </button>{' '}section of this guide.
+            </p>
             </>)
     }];
 
@@ -224,7 +307,14 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
             <p className="analyst-guide__answerStyle">The AccountBreakdownByAward files include account data with prime award level information. These files will be returned if the Custom Account Data file type filter includes “Account Breakdown by Award.”</p>
             <p className="analyst-guide__answerStyle">The data in account spending files which begin with “FA” are aggregated to the Federal Account level. The data in account spending files which begin with “TAS” are broken out to the Treasury Account Symbol level.</p>
             <p className="analyst-guide__answerStyle">More information about these fields is available in the <Link to="/data-dictionary">Data Dictionary</Link> and the <a href="https://files.usaspending.gov/docs/Custom+Account+Data+Dictionary.xlsx">Custom Account Data Dictionary</a>.</p>
-            <p className="analyst-guide__answerStyle">More information on federal and Treasury accounts is available in the ACCOUNTS DATA ELEMENTS section of this guide.</p>
+            <p className="analyst-guide__answerStyle">More information on federal and Treasury accounts is available in the{' '}
+                <button
+                    role="link"
+                    className="analyst-guide__sectionJump"
+                    onClick={() => jumpToSection("analyst-guide__AccountData")}>
+                  ACCOUNT DATA ELEMENTS
+                </button>{' '}section of this guide.
+            </p>
         </>)
     },
     {
@@ -301,7 +391,14 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
             <p className="analyst-guide__answerStyle">The awarding_agency_code, awarding_agency_name, awarding_sub_agency_code (aka awarding_subagency_code), awarding_sub_agency_name (aka awarding_subagency_name), awarding_office_code, and awarding_office_name fields contain awarding agency identifier information. </p>
             <p className="analyst-guide__answerStyle">Each of these fields are available on financial assistance and contract prime award transaction and summary download files, as well as Treasury and federal account level account breakdown by award download files. Account download files use the awarding_subagency_code and awarding_subagency_name fields.</p>
             <p className="analyst-guide__answerStyle">More information about these fields is available in the <a href="https://files.usaspending.gov/docs/Custom+Account+Data+Dictionary.xlsx">Custom Account Data Dictionary</a> and the <Link to="/data-dictionary">Data Dictionary</Link>.</p>
-            <p className="analyst-guide__answerStyle">More information on how to download data from USAspending is available in the HOW TO ACCESS THE DATA section of this guide.</p>
+            <p className="analyst-guide__answerStyle">More information on how to download data from USAspending is available in the{' '}
+                <button
+                    role="link"
+                    className="analyst-guide__sectionJump"
+                    onClick={() => jumpToSection("analyst-guide__DataAccess")}>
+                    HOW TO ACCESS THE DATA
+                </button>{' '}section of this guide.
+            </p>
             </>)
     }, {
         question: "Which fields in USAspending download files contain funding agency identifier information?",
@@ -310,7 +407,14 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
             <p className="analyst-guide__answerStyle">Each these fields are available on financial assistance and contract prime award transaction and summary download files, and federal and Treasury account level account breakdown by award download files.</p>
             <p className="analyst-guide__answerStyle">The Funding Agency filter on <Link to="/search">Advanced Search</Link> can be used to filter award spending by these data elements.</p>
             <p className="analyst-guide__answerStyle">More information about these fields is available in the <a href="https://files.usaspending.gov/docs/Custom+Account+Data+Dictionary.xlsx">Custom Account Data Dictionary</a> and the <Link to="/data-dictionary">Data Dictionary</Link>.</p>
-            <p className="analyst-guide__answerStyle">More information on how to download data from USAspending is available in the HOW TO ACCESS THE DATA section of this guide.</p>
+            <p className="analyst-guide__answerStyle">More information on how to download data from USAspending is available in the{' '}
+                <button
+                    role="link"
+                    className="analyst-guide__sectionJump"
+                    onClick={() => jumpToSection("analyst-guide__DataAccess")}>
+                    HOW TO ACCESS THE DATA
+                </button>{' '}section of this guide.
+            </p>
             </>)
     }, {
         question: "Which USAspending features are used to browse and download agency data?",
@@ -369,7 +473,14 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
             <p className="analyst-guide__answerStyle">The federal_accounts_funding_this_award and Treasury_accounts_funding_this_award fields contain information on accounts funding award spending. These fields are available on all award download files.</p>
             <p className="analyst-guide__answerStyle">The TAS filter on <Link to="/search">Advanced Search</Link> can be used to filter award spending by these data elements. </p>
             <p className="analyst-guide__answerStyle">More information about these fields is available in the <a href="https://files.usaspending.gov/docs/Custom+Account+Data+Dictionary.xlsx">Custom Account Data Dictionary</a> and the <Link to="/data-dictionary">Data Dictionary</Link>.</p>
-            <p className="analyst-guide__answerStyle">More information on how to download data from USAspending is available in the HOW TO ACCESS THE DATA section of this guide.</p>
+            <p className="analyst-guide__answerStyle">More information on how to download data from USAspending is available in the{' '}
+                <button
+                    role="link"
+                    className="analyst-guide__sectionJump"
+                    onClick={() => jumpToSection("analyst-guide__DataAccess")}>
+                    HOW TO ACCESS THE DATA
+                </button>{' '}section of this guide.
+            </p>
             </>)
     },
     {
@@ -418,7 +529,14 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
             <p className="analyst-guide__answerStyle">These fields are all available on contract prime award transaction and summary downloads, and account breakdown by award account downloads.</p>
             <p className="analyst-guide__answerStyle">The PSC and NAICS filters on <Link to="/search">Advanced Search</Link> can be used to filter award spending by these data elements. </p>
             <p className="analyst-guide__answerStyle">More information about these fields is available in the <a href="https://files.usaspending.gov/docs/Custom+Account+Data+Dictionary.xlsx">Custom Account Data Dictionary</a> and the <Link to="/data-dictionary">Data Dictionary</Link>.</p>
-            <p className="analyst-guide__answerStyle">More information on how to download data from USAspending is available in the HOW TO ACCESS THE DATA section of this guide.</p>
+            <p className="analyst-guide__answerStyle">More information on how to download data from USAspending is available in the{' '}
+                <button
+                    role="link"
+                    className="analyst-guide__sectionJump"
+                    onClick={() => jumpToSection("analyst-guide__DataAccess")}>
+                    HOW TO ACCESS THE DATA
+                </button>{' '}section of this guide.
+            </p>
             </>)
     }];
 
@@ -443,7 +561,14 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
             <p className="analyst-guide__answerStyle">The <Link to="/disaster/covid-19">COVID-19 Spending profile page</Link> download can be used to download all COVID-19 spending.</p>
             <p className="analyst-guide__answerStyle">The DEFC filter on <Link to="/search">Advanced Search</Link> can be used to filter award spending by this data element. </p>
             <p className="analyst-guide__answerStyle">More information about these fields is available in the <a href="https://files.usaspending.gov/docs/Custom+Account+Data+Dictionary.xlsx">Custom Account Data Dictionary</a> and the <Link to="/data-dictionary">Data Dictionary</Link>.</p>
-            <p className="analyst-guide__answerStyle">More information on how to download data from USAspending is available in the HOW TO ACCESS THE DATA section of this guide. </p>
+            <p className="analyst-guide__answerStyle">More information on how to download data from USAspending is available in the{' '}
+                <button
+                    role="link"
+                    className="analyst-guide__sectionJump"
+                    onClick={() => jumpToSection("analyst-guide__DataAccess")}>
+                    HOW TO ACCESS THE DATA
+                </button>{' '}section of this guide.
+            </p>
             </>)
     }];
 
@@ -459,7 +584,14 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
             <p className="analyst-guide__answerStyle">The cfda_number and cfda_title fields contain Assistance Listings information. These fields are both available on financial assistance prime award transaction and summary download files, and Treasury and federal account level account breakdown by award download files. </p>
             <p className="analyst-guide__answerStyle">The <Link to="/search">Advanced Search</Link> CFDA Program filter can be used to filter award spending by assistance listing.</p>
             <p className="analyst-guide__answerStyle">More information about these fields is available in the <a href="https://files.usaspending.gov/docs/Custom+Account+Data+Dictionary.xlsx">Custom Account Data Dictionary</a> and the <Link to="/data-dictionary">Data Dictionary</Link>.</p>
-            <p className="analyst-guide__answerStyle">More information on how to download data from USAspending is available in the HOW TO ACCESS THE DATA section of this guide.</p>
+            <p className="analyst-guide__answerStyle">More information on how to download data from USAspending is available in the{' '}
+                <button
+                    role="link"
+                    className="analyst-guide__sectionJump"
+                    onClick={() => jumpToSection("analyst-guide__DataAccess")}>
+                    HOW TO ACCESS THE DATA
+                </button>{' '}section of this guide.
+            </p>
             </>)
     }];
 
@@ -467,7 +599,14 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
         question: "What is a recipient?",
         answer: (<>
             <p className="analyst-guide__answerStyle">A recipient is a company, organization, individual, or government entity (i.e., state, local, tribal, federal, or foreign), that receives funding from the U.S. government. The <Link to="/recipient">Recipient Profile page</Link> includes detailed information on government spending to individual recipients. Both financial assistance and contracts spending include recipient information such as recipient name, recipient location, and recipient type.</p>
-            <p className="analyst-guide__answerStyle">More information on recipient location information is available in the LOCATION DATA ELEMENTS section of this guide.</p>
+            <p className="analyst-guide__answerStyle">More information on recipient location information is available in the {' '}
+                <button
+                    role="link"
+                    className="analyst-guide__sectionJump"
+                    onClick={() => jumpToSection("analyst-guide__LocationData")}>
+                    LOCATION DATA ELEMENTS
+                </button>{' '}section of this guide.
+            </p>
         </>)
     },
     {
@@ -484,7 +623,14 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
             <p className="analyst-guide__answerStyle">The recipient_parent data elements reference the ultimate parent of an awardee or recipient and can be used to group together related recipients.</p>
             <p className="analyst-guide__answerStyle">The <Link to="/search">Advanced Search</Link> Recipient filter can be used to filter award spending by these data elements.</p>
             <p className="analyst-guide__answerStyle">More information about these fields is available in the <a href="https://files.usaspending.gov/docs/Custom+Account+Data+Dictionary.xlsx">Custom Account Data Dictionary</a> and the <Link to="/data-dictionary">Data Dictionary</Link>.</p>
-            <p className="analyst-guide__answerStyle">More information on how to download data from USAspending is available in the HOW TO ACCESS THE DATA section of this guide.</p>
+            <p className="analyst-guide__answerStyle">More information on how to download data from USAspending is available in the{' '}
+                <button
+                    role="link"
+                    className="analyst-guide__sectionJump"
+                    onClick={() => jumpToSection("analyst-guide__DataAccess")}>
+                    HOW TO ACCESS THE DATA
+                </button>{' '}section of this guide.
+            </p>
             </>)
     },
     {
@@ -529,7 +675,14 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
             <p className="analyst-guide__answerStyle">Some of the most important recipient fields are recipient_city_name, recipient_county_name, recipient_state_name, and recipient_zip_code. These fields are all available in financial assistance and contract prime award transaction and summary download files. The recipient_zip_code field is also available on federal and Treasury account level account breakdown by award account download files.</p>
             <p className="analyst-guide__answerStyle">The Recipient Location filters on <Link to="/search">Advanced Search</Link> can be used to filter award spending by these data elements.</p>
             <p className="analyst-guide__answerStyle">More information about these fields is available in the <a href="https://files.usaspending.gov/docs/Custom+Account+Data+Dictionary.xlsx">Custom Account Data Dictionary</a> and the <Link to="/data-dictionary">Data Dictionary</Link>.</p>
-            <p className="analyst-guide__answerStyle">More information on how to download data from USAspending is available in the HOW TO ACCESS THE DATA section of this guide.</p>
+            <p className="analyst-guide__answerStyle">More information on how to download data from USAspending is available in the{' '}
+                <button
+                    role="link"
+                    className="analyst-guide__sectionJump"
+                    onClick={() => jumpToSection("analyst-guide__DataAccess")}>
+                    HOW TO ACCESS THE DATA
+                </button>{' '}section of this guide.
+            </p>
             </>)
     },
     {
@@ -546,7 +699,14 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
             <p className="analyst-guide__answerStyle">The first four fields are all available in financial assistance and contract prime award transaction and summary download files. The primary_place_of_performance_zip_code field is available on federal and Treasury account level account breakdown by award account download files.</p>
             <p className="analyst-guide__answerStyle">The Place of Performance filters on <Link to="/search">Advanced Search</Link> can be used to filter award spending by these data elements.</p>
             <p className="analyst-guide__answerStyle">More information about these fields is available in the <a href="https://files.usaspending.gov/docs/Custom+Account+Data+Dictionary.xlsx">Custom Account Data Dictionary</a> and the <Link to="/data-dictionary">Data Dictionary</Link>.</p>
-            <p className="analyst-guide__answerStyle">More information on how to download data from USAspending is available in the HOW TO ACCESS THE DATA section of this guide.</p>
+            <p className="analyst-guide__answerStyle">More information on how to download data from USAspending is available in the{' '}
+                <button
+                    role="link"
+                    className="analyst-guide__sectionJump"
+                    onClick={() => jumpToSection("analyst-guide__DataAccess")}>
+                    HOW TO ACCESS THE DATA
+                </button>{' '}section of this guide.
+            </p>
             </>)
     }];
 
