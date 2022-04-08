@@ -60,7 +60,7 @@ const AnalystGuidePage = () => {
                 <FlexGridRow style={{ justifyContent: 'center' }}>
                     <FlexGridCol desktop={6} tablet={12} className="analyst-guide-body">
                         <div className="analyst-guide__share-wrapper">
-                            <button className="analyst-guide__share-button" onShareOptionClick={onShareClick}>
+                            <button className="analyst-guide__share-button" onClick={onShareClick}>
                                 <FontAwesomeIcon icon="share-alt" size="lg" className="analyst-guide__share-icon" />
                             </button>
                         </div>
