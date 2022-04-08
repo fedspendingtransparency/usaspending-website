@@ -123,4 +123,9 @@
       }
     }
   }
+
+  .analyst-guide__sectionJump {
+    @include button-unstyled;
+    color: $color-primary;
+  }
 }

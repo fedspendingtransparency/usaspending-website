@@ -4,10 +4,19 @@
 import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
+import { scrollToY } from '../../helpers/scrollToHelper';
+
 import Accordion from "../sharedComponents/accordion/Accordion";
 
-
 const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
+    const jumpToSection = (section = '') => {
+        const sectionDom = document.querySelector(`#${section}`);
+        if (!sectionDom) {
+            return;
+        }
+        scrollToY(sectionDom.offsetTop + 250, 700);
+    };
+
     const awardAccountSpendingComparisonQuestions = [{
         question: "What is the difference between award and account spending?",
         answer: (<><p className="analyst-guide__answerStyle">Account spending includes all government spending. Award spending is a subset of account spending that includes only money the federal government has paid or promised to pay a non-federal recipient through financial assistance or a contract.</p>
@@ -32,7 +41,14 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
                 <Link to="/submission-statistics?tab=submissions&fy=2022&period=2">Agency Submission Statistics page</Link>
                 {' '}contains data on this linkage under the “Number of Unlinked Contract Awards” and “Number of Unlinked Assistance Awards” columns.
             </p>
-            <p className="analyst-guide__answerStyle">More information about federal accounts is discussed in the ACCOUNT DATA ELEMENTS section of this guide.</p>
+            <p className="analyst-guide__answerStyle">More information about federal accounts is discussed in the{' '}
+                <button
+                    role="link"
+                    className="analyst-guide__sectionJump"
+                    onClick={() => jumpToSection("analyst-guide__AccountData")}>
+                    ACCOUNT DATA ELEMENTS
+                </button>{' '}section of this guide.
+            </p>
 
             </>)
     }];
