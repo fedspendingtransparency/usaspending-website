@@ -70,6 +70,8 @@
       background-color: #768eb5;
     }
     .hero__right-image-wrapper {
+      display: flex;
+      justify-content: center;
       width: 60%;
       height: 60%;
       margin-bottom: rem(90);
