@@ -18,12 +18,19 @@
     }
   }
 
-  .analyst-guide__share-icon {
+  .analyst-guide__share-wrapper {
     color: $color-primary;
     background-color: white;
-    margin: $global-margin * 4 $global-margin * 2 0;
+    margin: $global-margin * 4 0 0 $global-margin * 3;
     @media (min-width: $medium-screen) {
-      margin-left: 0;
+      margin: $global-margin * 4 0 $global-margin $global-margin;
+    }
+    .analyst-guide__share-button {
+      @include button-unstyled;
+    }
+    .analyst-guide__share-icon {
+      color: $color-primary;
+      background-color: white;
     }
   }
 
@@ -126,6 +133,11 @@
 
   .analyst-guide__sectionJump {
     @include button-unstyled;
+    font-size: rem(16);
     color: $color-primary;
+    &:hover {
+      background-color: white;
+      color: $color-primary-darker;
+    }
   }
 }
