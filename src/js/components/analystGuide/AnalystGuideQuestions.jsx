@@ -1,9 +1,11 @@
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable max-len */
 import React from 'react';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import Accordion from "../sharedComponents/accordion/Accordion";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 
 const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
     const awardAccountSpendingComparisonQuestions = [{
@@ -564,231 +566,228 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
                     role="link"
                     className="analyst-guide__external-link"
                     onClick={onExternalLinkClick}>
-                    FAQ page{' '}
+        FAQ page{' '}
                     <span
                         data-href="https://usaspending-help.zendesk.com/hc/en-us/sections/115000739433-Frequently-Ask-Questions-"
                         className="usa-button-link__icon">
                         <FontAwesomeIcon data-href="https://usaspending-help.zendesk.com/hc/en-us/sections/115000739433-Frequently-Ask-Questions-" icon="external-link-alt" />
                     </span>
-                    .
+        .
                 </button>
                 {' '}provides additional advice for getting the most out of the site.
             </p>
             <p className="analyst-guide__answerStyle">The <a href="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html">DATA Act Information Model Schema (DAIMS) page</a> provides more information on various systems related to the data in USAspending.</p>
             </>)
     }];
-
     return (
-        <>
-            <div>
-                <h4 className="analyst-guide__questionSections">Award And Account Spending Comparison</h4>
-            </div>
-            <div className="analyst-guide__questionLine" />
-            <div className="analyst-guide__answerSection">
-                {awardAccountSpendingComparisonQuestions.map((item, i) => (
-                    <div className="analyst-guide__questionAnswers">
-                        <Accordion
-                            key={`item_${i}`}
-                            title={item.question}>{item.answer}
-                        </Accordion>
-                    </div>
-                ))}
-            </div>
+    <>
+        <div>
+            <h4 className="analyst-guide__questionSections" id="analyst-guide__AwardAccountSpending">Award And Account Spending Comparison</h4>
+        </div>
+        <div className="analyst-guide__questionLine" />
+        <div className="analyst-guide__answerSection">
+            {awardAccountSpendingComparisonQuestions.map((item, i) => (
+                <div className="analyst-guide__questionAnswers">
+                    <Accordion
+                        key={`item_${i}`}
+                        title={item.question}>{item.answer}
+                    </Accordion>
+                </div>
+            ))}
+        </div>
 
-            <div>
-                <h4 className="analyst-guide__questionSections">Award Spending</h4>
-            </div>
-            <div className="analyst-guide__questionLine" />
+        <div>
+            <h4 className="analyst-guide__questionSections" id="analyst-guide__Award">Award Spending</h4>
+        </div>
+        <div className="analyst-guide__questionLine" />
 
-            <div className="analyst-guide__answerSection">
-                {awardSpendingQuestions.map((item, i) => (
-                    <div className="analyst-guide__questionAnswers">
-                        <Accordion
-                            key={`item_${i}`}
-                            title={item.question}>{item.answer}
-                        </Accordion>
-                    </div>
-                ))}
-            </div>
+        <div className="analyst-guide__answerSection">
+            {awardSpendingQuestions.map((item, i) => (
+                <div className="analyst-guide__questionAnswers">
+                    <Accordion
+                        key={`item_${i}`}
+                        title={item.question}>{item.answer}
+                    </Accordion>
+                </div>
+            ))}
+        </div>
 
-            <div>
-                <h4 className="analyst-guide__questionSections">Financial Assistance Transactions And Award
-                    Summaries
-                </h4>
-            </div>
-            <div className="analyst-guide__questionLine" />
+        <div>
+            <h4 className="analyst-guide__questionSections" id="analyst-guide__FinancialAssistance">Financial Assistance Transactions And Award Summaries</h4>
+        </div>
+        <div className="analyst-guide__questionLine" />
 
-            <div className="analyst-guide__answerSection">
-                {financialAssistanceQuestions.map((item, i) => (
-                    <div className="analyst-guide__questionAnswers">
-                        <Accordion
-                            key={`item_${i}`}
-                            title={item.question}>{item.answer}
-                        </Accordion>
-                    </div>
-                ))}
-            </div>
+        <div className="analyst-guide__answerSection">
+            {financialAssistanceQuestions.map((item, i) => (
+                <div className="analyst-guide__questionAnswers">
+                    <Accordion
+                        key={`item_${i}`}
+                        title={item.question}>{item.answer}
+                    </Accordion>
+                </div>
+            ))}
+        </div>
 
-            <div>
-                <h4 className="analyst-guide__questionSections">Contract Transactions And Award Summaries</h4>
-            </div>
-            <div className="analyst-guide__questionLine" />
+        <div>
+            <h4 className="analyst-guide__questionSections" id="analyst-guide__ContractTransactions">Contract Transactions And Award Summaries</h4>
+        </div>
+        <div className="analyst-guide__questionLine" />
 
-            <div className="analyst-guide__answerSection">
-                {contractTransactionQuestions.map((item, i) => (
-                    <div className="analyst-guide__questionAnswers">
-                        <Accordion
-                            key={`item_${i}`}
-                            title={item.question}>{item.answer}
-                        </Accordion>
-                    </div>
-                ))}
-            </div>
+        <div className="analyst-guide__answerSection">
+            {contractTransactionQuestions.map((item, i) => (
+                <div className="analyst-guide__questionAnswers">
+                    <Accordion
+                        key={`item_${i}`}
+                        title={item.question}>{item.answer}
+                    </Accordion>
+                </div>
+            ))}
+        </div>
 
-            <div>
-                <h4 className="analyst-guide__questionSections">How To Access The Data</h4>
-            </div>
-            <div className="analyst-guide__questionLine" />
+        <div>
+            <h4 className="analyst-guide__questionSections" id="analyst-guide__DataAccess">How To Access The Data</h4>
+        </div>
+        <div className="analyst-guide__questionLine" />
 
-            <div className="analyst-guide__answerSection">
-                {dataAccessQuestions.map((item, i) => (
-                    <div className="analyst-guide__questionAnswers">
-                        <Accordion
-                            key={`item_${i}`}
-                            title={item.question}>{item.answer}
-                        </Accordion>
-                    </div>
-                ))}
-            </div>
+        <div className="analyst-guide__answerSection">
+            {dataAccessQuestions.map((item, i) => (
+                <div className="analyst-guide__questionAnswers">
+                    <Accordion
+                        key={`item_${i}`}
+                        title={item.question}>{item.answer}
+                    </Accordion>
+                </div>
+            ))}
+        </div>
 
-            <div>
-                <h4 className="analyst-guide__questionSections">Agency Data Elements</h4>
-            </div>
-            <div className="analyst-guide__questionLine" />
+        <div>
+            <h4 className="analyst-guide__questionSections" id="analyst-guide__AgencyData">Agency Data Elements</h4>
+        </div>
+        <div className="analyst-guide__questionLine" />
 
-            <div className="analyst-guide__answerSection">
-                {agencyDataQuestions.map((item, i) => (
-                    <div className="analyst-guide__questionAnswers">
-                        <Accordion
-                            key={`item_${i}`}
-                            title={item.question}>{item.answer}
-                        </Accordion>
-                    </div>
-                ))}
-            </div>
+        <div className="analyst-guide__answerSection">
+            {agencyDataQuestions.map((item, i) => (
+                <div className="analyst-guide__questionAnswers">
+                    <Accordion
+                        key={`item_${i}`}
+                        title={item.question}>{item.answer}
+                    </Accordion>
+                </div>
+            ))}
+        </div>
 
-            <div>
-                <h4 className="analyst-guide__questionSections">Account Data Elements</h4>
-            </div>
-            <div className="analyst-guide__questionLine" />
+        <div>
+            <h4 className="analyst-guide__questionSections" id="analyst-guide__AccountData">Account Data Elements</h4>
+        </div>
+        <div className="analyst-guide__questionLine" />
 
-            <div className="analyst-guide__answerSection">
-                {accountDataQuestions.map((item, i) => (
-                    <div className="analyst-guide__questionAnswers">
-                        <Accordion
-                            key={`item_${i}`}
-                            title={item.question}>{item.answer}
-                        </Accordion>
-                    </div>
-                ))}
-            </div>
+        <div className="analyst-guide__answerSection">
+            {accountDataQuestions.map((item, i) => (
+                <div className="analyst-guide__questionAnswers">
+                    <Accordion
+                        key={`item_${i}`}
+                        title={item.question}>{item.answer}
+                    </Accordion>
+                </div>
+            ))}
+        </div>
 
-            <div>
-                <h4 className="analyst-guide__questionSections">Industry And Product Data Elements</h4>
-            </div>
-            <div className="analyst-guide__questionLine" />
+        <div>
+            <h4 className="analyst-guide__questionSections" id="analyst-guide__Industry">Industry And Product Data Elements</h4>
+        </div>
+        <div className="analyst-guide__questionLine" />
 
-            <div className="analyst-guide__answerSection">
-                {industryProductQuestions.map((item, i) => (
-                    <div className="analyst-guide__questionAnswers">
-                        <Accordion
-                            key={`item_${i}`}
-                            title={item.question}>{item.answer}
-                        </Accordion>
-                    </div>
-                ))}
-            </div>
+        <div className="analyst-guide__answerSection">
+            {industryProductQuestions.map((item, i) => (
+                <div className="analyst-guide__questionAnswers">
+                    <Accordion
+                        key={`item_${i}`}
+                        title={item.question}>{item.answer}
+                    </Accordion>
+                </div>
+            ))}
+        </div>
 
-            <div>
-                <h4 className="analyst-guide__questionSections">Disaster And Emergency Data Elements</h4>
-            </div>
-            <div className="analyst-guide__questionLine" />
+        <div>
+            <h4 className="analyst-guide__questionSections" id="analyst-guide__Disaster">Disaster And Emergency Data Elements</h4>
+        </div>
+        <div className="analyst-guide__questionLine" />
 
-            <div className="analyst-guide__answerSection">
-                {disasterEmergencyQuestions.map((item, i) => (
-                    <div className="analyst-guide__questionAnswers">
-                        <Accordion
-                            key={`item_${i}`}
-                            title={item.question}>{item.answer}
-                        </Accordion>
-                    </div>
-                ))}
-            </div>
+        <div className="analyst-guide__answerSection">
+            {disasterEmergencyQuestions.map((item, i) => (
+                <div className="analyst-guide__questionAnswers">
+                    <Accordion
+                        key={`item_${i}`}
+                        title={item.question}>{item.answer}
+                    </Accordion>
+                </div>
+            ))}
+        </div>
 
-            <div>
-                <h4 className="analyst-guide__questionSections">Assistance Listings Data Elements</h4>
-            </div>
-            <div className="analyst-guide__questionLine" />
+        <div>
+            <h4 className="analyst-guide__questionSections" id="analyst-guide__AssistanceListings">Assistance Listings Data Elements</h4>
+        </div>
+        <div className="analyst-guide__questionLine" />
 
-            <div className="analyst-guide__answerSection">
-                {assistanceListingQuestions.map((item, i) => (
-                    <div className="analyst-guide__questionAnswers">
-                        <Accordion
-                            key={`item_${i}`}
-                            title={item.question}>{item.answer}
-                        </Accordion>
-                    </div>
-                ))}
-            </div>
+        <div className="analyst-guide__answerSection">
+            {assistanceListingQuestions.map((item, i) => (
+                <div className="analyst-guide__questionAnswers">
+                    <Accordion
+                        key={`item_${i}`}
+                        title={item.question}>{item.answer}
+                    </Accordion>
+                </div>
+            ))}
+        </div>
 
-            <div>
-                <h4 className="analyst-guide__questionSections">Recipient Data Elements</h4>
-            </div>
-            <div className="analyst-guide__questionLine" />
+        <div>
+            <h4 className="analyst-guide__questionSections" id="analyst-guide__Recipient">Recipient Data Elements</h4>
+        </div>
+        <div className="analyst-guide__questionLine" />
 
-            <div className="analyst-guide__answerSection">
-                {recipientDataQuestions.map((item, i) => (
-                    <div className="analyst-guide__questionAnswers">
-                        <Accordion
-                            key={`item_${i}`}
-                            title={item.question}>{item.answer}
-                        </Accordion>
-                    </div>
-                ))}
-            </div>
+        <div className="analyst-guide__answerSection">
+            {recipientDataQuestions.map((item, i) => (
+                <div className="analyst-guide__questionAnswers">
+                    <Accordion
+                        key={`item_${i}`}
+                        title={item.question}>{item.answer}
+                    </Accordion>
+                </div>
+            ))}
+        </div>
 
-            <div>
-                <h4 className="analyst-guide__questionSections">Location Data Elements</h4>
-            </div>
-            <div className="analyst-guide__questionLine" />
+        <div>
+            <h4 className="analyst-guide__questionSections" id="analyst-guide__LocationData">Location Data Elements</h4>
+        </div>
+        <div className="analyst-guide__questionLine" />
 
-            <div className="analyst-guide__answerSection">
-                {locationDataQuestions.map((item, i) => (
-                    <div className="analyst-guide__questionAnswers">
-                        <Accordion
-                            key={`item_${i}`}
-                            title={item.question}>{item.answer}
-                        </Accordion>
-                    </div>
-                ))}
-            </div>
+        <div className="analyst-guide__answerSection">
+            {locationDataQuestions.map((item, i) => (
+                <div className="analyst-guide__questionAnswers">
+                    <Accordion
+                        key={`item_${i}`}
+                        title={item.question}>{item.answer}
+                    </Accordion>
+                </div>
+            ))}
+        </div>
 
-            <div>
-                <h4 className="analyst-guide__questionSections">Additional Resources</h4>
-            </div>
-            <div className="analyst-guide__questionLine" />
+        <div>
+            <h4 className="analyst-guide__questionSections" id="analyst-guide__AdditionalResources">Additional Resources</h4>
+        </div>
+        <div className="analyst-guide__questionLine" />
 
-            <div className="analyst-guide__answerSection">
-                {additionalResources.map((item, i) => (
-                    <div className="analyst-guide__questionAnswers">
-                        <Accordion
-                            key={`item_${i}`}
-                            title={item.question}>{item.answer}
-                        </Accordion>
-                    </div>
-                ))}
-            </div>
-        </>
+        <div className="analyst-guide__answerSection">
+            {additionalResources.map((item, i) => (
+                <div className="analyst-guide__questionAnswers">
+                    <Accordion
+                        key={`item_${i}`}
+                        title={item.question}>{item.answer}
+                    </Accordion>
+                </div>
+            ))}
+        </div>
+    </>
     );
 };
 
