@@ -61,7 +61,9 @@ const AnalystGuidePage = () => {
                         <div className="analyst-guide__share-wrapper">
                             <ShareIcon
                                 url={getBaseUrl(slug)}
-                                onShareOptionClick={onShareClick} />
+                                onShareOptionClick={onShareClick}
+                                colors={{ backgroundColor: "white", color: "#0071bc" }}
+                                classNames="" />
                         </div>
                         <AnalystGuideIntro onExternalLinkClick={onExternalLinkClick} />
                         <AnalystGuideQuestions onExternalLinkClick={onExternalLinkClick} />
