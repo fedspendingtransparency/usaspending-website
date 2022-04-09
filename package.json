@@ -118,7 +118,7 @@
         "js-search": "^1.4.2",
         "lodash": "^4.17.12",
         "mapbox-gl": "^1.13.0",
-        "moment": "2.19.3",
+        "moment": "2.29.2",
         "moment-timezone": "^0.5.4",
         "mousetrap": "^1.6.1",
         "prop-types": "^15.7.2",
