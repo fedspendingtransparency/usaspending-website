@@ -1,9 +1,7 @@
 .accordion-container {
   button {
     background-color: unset !important;
-  }
-  .container {
-    margin-bottom: 25px;
+    margin-right: 0;
   }
 
   .accordion {
@@ -56,6 +54,7 @@
   }
 
   .open {
+    margin-bottom: 16px;
     .content {
       line-height: 1.2;
       max-height: 100%;

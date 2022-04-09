@@ -313,6 +313,15 @@ export const covidDataSourcesMetaTags = {
     og_image: `${productionURL}${imgDirectory}${facebookImage}`
 };
 
+export const analystGuideMetaTags = {
+    og_url: `${productionURL}analyst-guide`,
+    og_title: 'Analyst’s Guide to Federal Spending Data | USAspending',
+    og_description:
+        'Find guidance on how to use USAspending.gov data. Get answers to questions to help you conduct your own analyses and develop tools using federal spending data.',
+    og_site_name: siteName,
+    og_image: `${productionURL}${imgDirectory}${facebookImage}`
+};
+
 /* eslint-enable max-len */
 
 export const isCustomPageTitleDefined = (title = "USAspending.gov") => {
