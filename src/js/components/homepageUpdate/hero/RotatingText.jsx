@@ -68,8 +68,8 @@ const RotatingText = ({ paused }) => {
 
     }, [paused]);
 
-    const rotatingText = () => (<div className="hero__headline-container">
-        <div className="hero__headline">
+    const rotatingText = () => (<div className="hero__headline">
+        <div className="hero__headline__phrase-container">
             <h1 className="landing-phrase" id="landing-phrase">
                 <span>The official source of government spending data.</span>
             </h1>

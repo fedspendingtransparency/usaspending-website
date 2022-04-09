@@ -1,8 +1,28 @@
-$hold-increment: 2s;
-$scroll-increment: 0.5s;
-$second-increment: 3s;
+$hold-increment: 2500ms;
+$scroll-increment: 100ms;
+$second-increment: $hold-increment + $scroll-increment * 2;
 
-.hero__headline-container {
+@mixin rotation ($increment, $delay, $color, $animation) {
+    animation: $animation $increment linear;
+    -ms-animation: $animation $increment linear;
+    -webkit-animation: $animation $increment linear;
+    animation-delay: $delay;
+    -ms-animation-delay: $delay;
+    -webkit-animation-delay: $delay;
+    color: $color;
+    opacity: 0;
+    overflow: hidden;
+    position: absolute;
+}
+
+@mixin rotation-delay ($delay) {
+    animation-delay: $delay;
+    -ms-animation-delay: $delay;
+    -webkit-animation-delay: $delay;
+}
+
+
+.hero__headline {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
@@ -12,7 +32,7 @@ $second-increment: 3s;
         margin: 0;
     }
 
-    .hero__headline {
+    .hero__headline__phrase-container {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
@@ -108,32 +128,17 @@ $second-increment: 3s;
         }
 
         .rotating-item span {
-            animation: scroll-in $second-increment linear;
-            -ms-animation: scroll-in $second-increment linear;
-            -webkit-animation: scroll-in $second-increment linear;
-            animation-delay: $hold-increment;
-            -ms-animation-delay: $hold-increment;
-            -webkit-animation-delay: $hold-increment;
-            color: #2d6878;
-            opacity: 0;
-            overflow: hidden;
-            position: absolute;
+            @include rotation($second-increment, $hold-increment, '#2d6878',  'scroll-in');
         }
 
         .rotating-item span:nth-child(2){
-            animation-delay: ($hold-increment + $scroll-increment) * 2;
-            -ms-animation-delay: ($hold-increment + $scroll-increment) * 2;
-            -webkit-animation-delay: ($hold-increment + $scroll-increment) * 2;
+            @include rotation-delay(($hold-increment + $scroll-increment) * 2);
         }
         .rotating-item span:nth-child(3){
-            animation-delay: ($hold-increment + $scroll-increment) * 3;
-            -ms-animation-delay: ($hold-increment + $scroll-increment) * 3;
-            -webkit-animation-delay: ($hold-increment + $scroll-increment) * 3;
+            @include rotation-delay(($hold-increment + $scroll-increment) * 3);
         }
         .rotating-item span:nth-child(4){
-            animation-delay: ($hold-increment + $scroll-increment) * 4;
-            -ms-animation-delay: ($hold-increment + $scroll-increment) * 4;
-            -webkit-animation-delay: ($hold-increment + $scroll-increment) * 4;
+            @include rotation-delay(($hold-increment + $scroll-increment) * 4);
         }
 
         .phrase-end {
@@ -187,7 +192,7 @@ $second-increment: 3s;
 
     @-webkit-keyframes scroll-out {
         0% { opacity: 1; -webkit-transform: translateY(0px); }
-        80% { opacity: 1; -webkit-transform: translateY(0px); }
+        90% { opacity: 1; -webkit-transform: translateY(0px); }
         100% { opacity: 0; -webkit-transform: translateY(-50px); }
     }
 
@@ -202,8 +207,8 @@ $second-increment: 3s;
 
     @-webkit-keyframes scroll-in {
         0% { opacity: 1; -webkit-transform: translateY(50px); }
-        16.7% { opacity: 1; -webkit-transform: translateY(0px); }
-        83.3% { opacity: 1; -webkit-transform: translateY(0px); }
+        10% { opacity: 1; -webkit-transform: translateY(0px); }
+        90% { opacity: 1; -webkit-transform: translateY(0px); }
         100% { opacity: 0; -webkit-transform: translateY(-50px); }
     }
 }
