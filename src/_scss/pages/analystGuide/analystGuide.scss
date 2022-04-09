@@ -17,4 +17,118 @@
       margin: 0;
     }
   }
+
+  .analyst-guide__share-wrapper {
+    color: $color-primary;
+    background-color: white;
+    margin-top: $global-margin * 4;
+    margin-left: -24px;
+    @media (min-width: $medium-screen) {
+      margin-left: -40px;
+    }
+
+    .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__button {
+      margin: 0 0.625rem;
+    }
+  }
+
+  .analyst-guide__topTitle {
+    font-weight: $font-semibold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: $heading-line-height;
+    letter-spacing: normal;
+    color: $color-grayblack;
+    font-size: rem(28);
+    margin: 36px 0px 20px;
+    @media (max-width: $medium-screen) {
+      margin: 32px 16px 20px;
+    }
+  }
+
+  .analyst-guide__bodyText {
+    margin: 36px 0px 20px;
+    font-size: $base-font-size;
+    font-weight: $font-normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: $base-line-height;
+    letter-spacing: normal;
+    color: $color-base;
+    @media (max-width: $medium-screen) {
+      margin: 20px 16px 40px;
+    }
+
+    .analyst-guide__external-link {
+      @include button-unstyled;
+      color: $color-primary;
+      font-size: inherit;
+      cursor: pointer;
+      width: fit-content;
+      &:hover {
+        color: $color-primary;
+      }
+    }
+  }
+
+  .analyst-guide__questionSections {
+    @media (max-width: $medium-screen) {
+      margin: 40px 16px 2px;
+    }
+      margin: 40px 0px 2px;
+      font-size: rem(20);
+      font-weight: $font-semibold;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: $heading-line-height;
+      letter-spacing: normal;
+      color: $color-grayblack;
+
+  }
+
+  .analyst-guide__answerSection {
+    @media (max-width: $medium-screen) {
+      margin: 8px 16px;
+    }
+  }
+
+  .analyst-guide__questionAnswers {
+    @media (max-width: $medium-screen) {
+      margin-top: 4px;
+    }
+  }
+
+  .analyst-guide__questionLine {
+    @media (max-width: $medium-screen) {
+      margin: 2px 16px 20px;
+    }
+      margin: 2px 0px 20px;
+      border-bottom: 2px solid black;
+  }
+
+  .analyst-guide__answerStyle {
+    color: #555;
+    font-weight: $font-normal;
+
+    .analyst-guide__external-link {
+      @include button-unstyled;
+      color: $color-primary;
+      font-size: inherit;
+      cursor: pointer;
+      width: fit-content;
+      &:hover {
+        color: $color-primary;
+      }
+    }
+  }
+
+  .analyst-guide__sectionJump {
+    @include button-unstyled;
+    font-size: rem(16);
+    color: $color-primary;
+    &:hover {
+      background-color: white;
+      color: $color-primary-darker;
+    }
+  }
 }

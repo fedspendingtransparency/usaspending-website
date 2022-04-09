@@ -95,12 +95,12 @@ const Footer = ({
                             <ul className="links">
                                 <li>
                                     <FooterExternalLink
-                                        link="https://usaspending-help.zendesk.com/hc/en-us/sections/115000739433-Frequently-Ask-Questions-"
+                                        link="https://fiscalservice.force.com/usaspending/s/"
                                         title="FAQs" />
                                 </li>
                                 <li>
                                     <FooterExternalLink
-                                        link="https://usaspending-help.zendesk.com/hc/en-us/community/topics"
+                                        link="https://fiscalservice.force.com/usaspending/s/"
                                         title="Community" />
                                 </li>
                                 <li>
