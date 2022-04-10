@@ -57,7 +57,7 @@ const AnimatedHeading = ({ paused }) => {
             item.style.animationPlayState = paused ? "paused" : "running";
         });
 
-        document.querySelector(".phrase__landing span").style.animationPlayState = paused ? "paused" : "running";
+        document.querySelector(".landing-phrase span").style.animationPlayState = paused ? "paused" : "running";
 
         document.querySelector(".phrase__static__item").style.animationPlayState = paused ? "paused" : "running";
     }, [paused]);
@@ -65,21 +65,20 @@ const AnimatedHeading = ({ paused }) => {
     useEffect(() => {
         const animated = document.querySelector('.phrase__end__item--rotation').lastElementChild;
         animated.addEventListener('animationstart', () => {
-            const oldPhraseItems = document.querySelectorAll('.phrase--exit');
-            oldPhraseItems.forEach((item) => {
-                item.classList.add('phrase--exit-animation');
-            });
-
-            document.querySelector('.phrase__landing').classList.add('phrase__landing--entrance-animation');
+            document.querySelector('.phrase').classList.add('phrase--exit-animation');
+            setTimeout(() => {
+                document.querySelector('.phrase').style.display = 'none';
+                document.querySelector('.landing-phrase').classList.add('landing-phrase--entrance-animation');
+            }, 500);
         });
     }, []);
 
     const rotatingText = () => (<div className="hero__headline">
+        <h1 className="landing-phrase">
+            <span>The official source of government spending data.</span>
+        </h1>
         <div className="phrase">
-            <h1 className="phrase__landing">
-                <span>The official source of government spending data.</span>
-            </h1>
-            <div className="phrase__intro phrase--exit">
+            <div className="phrase__intro">
                 <div className="phrase__intro__item">
                     <div className="phrase__intro__item--entrance">
                         <span>{rotatingWords.left.tempWordsArray[1]}&nbsp;</span>
@@ -92,8 +91,8 @@ const AnimatedHeading = ({ paused }) => {
                     </div>
                 </div>
             </div>
-            <div className="phrase__static__item phrase--exit">government spending&nbsp;</div>
-            <div className="phrase__end phrase--exit">
+            <div className="phrase__static__item">government spending&nbsp;</div>
+            <div className="phrase__end">
                 <div className="phrase__end__item" id="phase-end__first-rotating-item">
                     <div className="phrase__intro__item--entrance">
                         <span>{rotatingWords.right.tempWordsArray[5]}</span>
