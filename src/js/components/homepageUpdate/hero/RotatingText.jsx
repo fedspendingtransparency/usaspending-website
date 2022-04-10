@@ -50,22 +50,19 @@ const RotatingText = ({ paused }) => {
     // };
 
     useEffect(() => {
-        // document.getElementById("phrase-intro__first-rotating-item").getElementsByTagName('span')[0].style.animationPlayState = paused ? "paused" : "running";
-        // document.getElementById("phrase-intro__rotating-item").getElementsByTagName('span')[0].style.animationPlayState = paused ? "paused" : "running";
-        // document.getElementById("phrase-intro__rotating-item").getElementsByTagName('span')[1].style.animationPlayState = paused ? "paused" : "running";
-        // document.getElementById("phrase-intro__rotating-item").getElementsByTagName('span')[2].style.animationPlayState = paused ? "paused" : "running";
-        // document.getElementById("phrase-intro__rotating-item").getElementsByTagName('span')[3].style.animationPlayState = paused ? "paused" : "running";
-        // document.getElementById("landing-phrase").getElementsByTagName('span')[0].style.animationPlayState = paused ? "paused" : "running";
-        //
-        // document.getElementById("phase-end__first-rotating-item").getElementsByTagName('span')[0].style.animationPlayState = paused ? "paused" : "running";
-        // document.getElementById("phase-end__rotating-item").getElementsByTagName('span')[0].style.animationPlayState = paused ? "paused" : "running";
-        // document.getElementById("phase-end__rotating-item").getElementsByTagName('span')[1].style.animationPlayState = paused ? "paused" : "running";
-        // document.getElementById("phase-end__rotating-item").getElementsByTagName('span')[2].style.animationPlayState = paused ? "paused" : "running";
-        // document.getElementById("phase-end__rotating-item").getElementsByTagName('span')[3].style.animationPlayState = paused ? "paused" : "running";
+        // document.querySelector(".phrase__intro__item--entrance").style.animationPlayState = paused ? "paused" : "running";
 
-        // document.getElementsByClassName("phrase-part").style.animationPlayState = paused ? "paused" : "running";
+        document.querySelectorAll(".phrase__intro__item span").forEach((item) => {
+            item.style.animationPlayState = paused ? "paused" : "running";
+        });
 
+        document.querySelectorAll(".phrase__end__item span").forEach((item) => {
+            item.style.animationPlayState = paused ? "paused" : "running";
+        });
 
+        document.querySelector(".phrase__landing span").style.animationPlayState = paused ? "paused" : "running";
+
+        document.querySelector(".phrase__static__item").style.animationPlayState = paused ? "paused" : "running";
     }, [paused]);
 
     useEffect(() => {
