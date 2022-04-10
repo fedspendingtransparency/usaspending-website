@@ -3,9 +3,7 @@ import React, { useEffect } from "react";
 const RotatingText = ({ paused }) => {
     const leftWords = ['Explore', 'Search', 'Track', 'Download', 'Analyze'];
     const rightWords = ['over time', 'by agency', 'by recipient', 'to communities', 'by industry', 'on contracts', 'on grants', 'by state'];
-    // let currentLeftWord;
-    // const [currentRightWords, setCurrentRightWords] = useState(null);
-
+    // TODO with DEV-8677
     // const getRandomInt = (max) => Math.floor(Math.random() * max);
 
     const rotatingWords = {
@@ -25,6 +23,7 @@ const RotatingText = ({ paused }) => {
         }
     };
 
+    // TODO with DEV-8677
     // const pickWord = (position) => {
     //     const { wordsArray } = rotatingWords[position];
     //
@@ -50,8 +49,6 @@ const RotatingText = ({ paused }) => {
     // };
 
     useEffect(() => {
-        // document.querySelector(".phrase__intro__item--entrance").style.animationPlayState = paused ? "paused" : "running";
-
         document.querySelectorAll(".phrase__intro__item span").forEach((item) => {
             item.style.animationPlayState = paused ? "paused" : "running";
         });
