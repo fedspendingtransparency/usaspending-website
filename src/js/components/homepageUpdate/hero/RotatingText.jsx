@@ -50,50 +50,66 @@ const RotatingText = ({ paused }) => {
     // };
 
     useEffect(() => {
-        document.getElementById("phrase-intro__first-rotating-item").getElementsByTagName('span')[0].style.animationPlayState = paused ? "paused" : "running";
-        document.getElementById("phrase-intro__rotating-item").getElementsByTagName('span')[0].style.animationPlayState = paused ? "paused" : "running";
-        document.getElementById("phrase-intro__rotating-item").getElementsByTagName('span')[1].style.animationPlayState = paused ? "paused" : "running";
-        document.getElementById("phrase-intro__rotating-item").getElementsByTagName('span')[2].style.animationPlayState = paused ? "paused" : "running";
-        document.getElementById("phrase-intro__rotating-item").getElementsByTagName('span')[3].style.animationPlayState = paused ? "paused" : "running";
-        document.getElementById("landing-phrase").getElementsByTagName('span')[0].style.animationPlayState = paused ? "paused" : "running";
-
-        document.getElementById("phase-end__first-rotating-item").getElementsByTagName('span')[0].style.animationPlayState = paused ? "paused" : "running";
-        document.getElementById("phase-end__rotating-item").getElementsByTagName('span')[0].style.animationPlayState = paused ? "paused" : "running";
-        document.getElementById("phase-end__rotating-item").getElementsByTagName('span')[1].style.animationPlayState = paused ? "paused" : "running";
-        document.getElementById("phase-end__rotating-item").getElementsByTagName('span')[2].style.animationPlayState = paused ? "paused" : "running";
-        document.getElementById("phase-end__rotating-item").getElementsByTagName('span')[3].style.animationPlayState = paused ? "paused" : "running";
+        // document.getElementById("phrase-intro__first-rotating-item").getElementsByTagName('span')[0].style.animationPlayState = paused ? "paused" : "running";
+        // document.getElementById("phrase-intro__rotating-item").getElementsByTagName('span')[0].style.animationPlayState = paused ? "paused" : "running";
+        // document.getElementById("phrase-intro__rotating-item").getElementsByTagName('span')[1].style.animationPlayState = paused ? "paused" : "running";
+        // document.getElementById("phrase-intro__rotating-item").getElementsByTagName('span')[2].style.animationPlayState = paused ? "paused" : "running";
+        // document.getElementById("phrase-intro__rotating-item").getElementsByTagName('span')[3].style.animationPlayState = paused ? "paused" : "running";
+        // document.getElementById("landing-phrase").getElementsByTagName('span')[0].style.animationPlayState = paused ? "paused" : "running";
+        //
+        // document.getElementById("phase-end__first-rotating-item").getElementsByTagName('span')[0].style.animationPlayState = paused ? "paused" : "running";
+        // document.getElementById("phase-end__rotating-item").getElementsByTagName('span')[0].style.animationPlayState = paused ? "paused" : "running";
+        // document.getElementById("phase-end__rotating-item").getElementsByTagName('span')[1].style.animationPlayState = paused ? "paused" : "running";
+        // document.getElementById("phase-end__rotating-item").getElementsByTagName('span')[2].style.animationPlayState = paused ? "paused" : "running";
+        // document.getElementById("phase-end__rotating-item").getElementsByTagName('span')[3].style.animationPlayState = paused ? "paused" : "running";
 
         // document.getElementsByClassName("phrase-part").style.animationPlayState = paused ? "paused" : "running";
 
 
     }, [paused]);
 
+    useEffect(() => {
+        const animated = document.querySelector('.phrase__end__item--rotation').lastElementChild;
+        animated.addEventListener('animationstart', () => {
+            const oldPhraseItems = document.querySelectorAll('.phrase--exit');
+            oldPhraseItems.forEach((item) => {
+                item.classList.add('phrase--exit-animation');
+            });
+
+            document.querySelector('.phrase__landing').classList.add('phrase__landing--entrance-animation');
+        });
+    }, []);
+
     const rotatingText = () => (<div className="hero__headline">
-        <div className="hero__headline__phrase-container">
-            <h1 className="landing-phrase" id="landing-phrase">
+        <div className="phrase">
+            <h1 className="phrase__landing">
                 <span>The official source of government spending data.</span>
             </h1>
-            <div className="phrase-intro phrase-part" id="phrase-intro">
-                <div className="phrase-intro__item first-rotating-item" id="phrase-intro__first-rotating-item">
-                    <span>{rotatingWords.left.tempWordsArray[1]}&nbsp;</span>
-                </div>
-                <div className="phrase-intro__item rotating-item" id="phrase-intro__rotating-item">
-                    <span>{rotatingWords.left.tempWordsArray[3]}&nbsp;</span>
-                    <span>{rotatingWords.left.tempWordsArray[4]}&nbsp;</span>
-                    <span>{rotatingWords.left.tempWordsArray[2]}&nbsp;</span>
-                    <span>{rotatingWords.left.tempWordsArray[0]}&nbsp;</span>
+            <div className="phrase__intro phrase--exit">
+                <div className="phrase__intro__item">
+                    <div className="phrase__intro__item--entrance">
+                        <span>{rotatingWords.left.tempWordsArray[1]}&nbsp;</span>
+                    </div>
+                    <div className="phrase__intro__item--rotation">
+                        <span>{rotatingWords.left.tempWordsArray[3]}&nbsp;</span>
+                        <span>{rotatingWords.left.tempWordsArray[4]}&nbsp;</span>
+                        <span>{rotatingWords.left.tempWordsArray[0]}&nbsp;</span>
+                        <span>{rotatingWords.left.tempWordsArray[2]}&nbsp;</span>
+                    </div>
                 </div>
             </div>
-            <div className="static__item phrase-part">government spending&nbsp;</div>
-            <div className="phrase-end phrase-part">
-                <div className="phrase-end__item first-rotating-item" id="phase-end__first-rotating-item">
-                    <span>{rotatingWords.right.tempWordsArray[5]}</span>
-                </div>
-                <div className="phrase-end__item rotating-item" id="phase-end__rotating-item">
-                    <span>{rotatingWords.right.tempWordsArray[3]}</span>
-                    <span>{rotatingWords.right.tempWordsArray[2]}</span>
-                    <span>{rotatingWords.right.tempWordsArray[7]}</span>
-                    <span>{rotatingWords.right.tempWordsArray[4]}</span>
+            <div className="phrase__static__item phrase--exit">government spending&nbsp;</div>
+            <div className="phrase__end phrase--exit">
+                <div className="phrase__end__item" id="phase-end__first-rotating-item">
+                    <div className="phrase__intro__item--entrance">
+                        <span>{rotatingWords.right.tempWordsArray[5]}</span>
+                    </div>
+                    <div className="phrase__end__item--rotation">
+                        <span>{rotatingWords.right.tempWordsArray[3]}</span>
+                        <span>{rotatingWords.right.tempWordsArray[2]}</span>
+                        <span>{rotatingWords.right.tempWordsArray[7]}</span>
+                        <span>{rotatingWords.right.tempWordsArray[4]}</span>
+                    </div>
                 </div>
             </div>
         </div>
