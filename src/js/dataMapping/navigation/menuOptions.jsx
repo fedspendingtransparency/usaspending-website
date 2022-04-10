@@ -68,6 +68,16 @@ export const resourceOptions = [
         externalLink: false
     },
     {
+        label: 'Analyst Guide',
+        type: 'analyst-guide',
+        url: '/analyst-guide',
+        shouldOpenNewTab: false,
+        enabled: GlobalConstants.SHOW_ANALYSTGUIDE,
+        externalLink: false,
+        isNewTab: true
+
+    },
+    {
         label: 'Data Model',
         enabled: true,
         url: 'https://fiscal.treasury.gov/data-transparency/DAIMS-current.html',
