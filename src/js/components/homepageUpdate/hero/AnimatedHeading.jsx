@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-const RotatingText = ({ paused }) => {
+const AnimatedHeading = ({ paused }) => {
     const leftWords = ['Explore', 'Search', 'Track', 'Download', 'Analyze'];
     const rightWords = ['over time', 'by agency', 'by recipient', 'to communities', 'by industry', 'on contracts', 'on grants', 'by state'];
     // TODO with DEV-8677
@@ -113,4 +113,4 @@ const RotatingText = ({ paused }) => {
     return (<>{rotatingText()}</>);
 };
 
-export default RotatingText;
+export default AnimatedHeading;

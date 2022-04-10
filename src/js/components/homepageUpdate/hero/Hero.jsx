@@ -8,11 +8,10 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import Analytics from 'helpers/analytics/Analytics';
-import RotatingText from './RotatingText';
+import AnimatedHeading from './AnimatedHeading';
 
 const Hero = () => {
-
-    const [ isPaused, setIsPaused ] = useState(false);
+    const [isPaused, setIsPaused] = useState(false);
 
     const trackSearchLink = () => Analytics.event({
         category: 'Homepage',
@@ -28,7 +27,7 @@ const Hero = () => {
     return (
         <section className="homepage-hero-container" aria-label="Hero sections">
             <div className="homepage-hero-content">
-                <RotatingText paused={ isPaused } />
+                <AnimatedHeading paused={isPaused} />
                 <div className="hero__lower-wrapper">
                     <div className="hero__left-image-wrapper">
                         <picture>
@@ -60,11 +59,15 @@ const Hero = () => {
                                 </p>
                             </div>
                             <div className="hero__pause-button-container">
-                                <a className="hero__pause-button" onClick={() => { setIsPaused((previousIsPaused) => !previousIsPaused); }}>
+                                <a
+                                    className="hero__pause-button"
+                                    onClick={() => {
+                                        setIsPaused((previousIsPaused) => !previousIsPaused);
+                                    }}>
                                     { isPaused ?
-                                        <><FontAwesomeIcon icon="play" width={10} />Play text animation</>
+                                        <><FontAwesomeIcon icon="play" width={10} />&nbsp;&nbsp;Play text animation</>
                                         :
-                                        <><FontAwesomeIcon icon="pause" width={10} />Pause text animation</>
+                                        <><FontAwesomeIcon icon="pause" width={10} />&nbsp;&nbsp;Pause text animation</>
                                     }
                                 </a>
                             </div>
