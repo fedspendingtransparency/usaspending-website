@@ -21,9 +21,8 @@ const HomepageUpdate = () => {
     const [hideContent, setHideContent] = useState();
 
     useEffect(() => {
-        console.log(SHOW_HOMEPAGE_UPDATE);
         setHideContent(!SHOW_HOMEPAGE_UPDATE);
-    }, [SHOW_HOMEPAGE_UPDATE]);
+    }, []);
 
     return (<>{hideContent ?
         <Redirect to="/404" />
