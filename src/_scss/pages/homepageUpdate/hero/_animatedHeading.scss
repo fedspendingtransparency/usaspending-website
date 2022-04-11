@@ -31,7 +31,6 @@ $grey-text: #1b1b1b;
     flex-wrap: wrap;
     justify-content: center;
     @media (max-width: $medium-screen) {
-        display: block;
         margin: 0;
     }
 }
@@ -42,14 +41,17 @@ $grey-text: #1b1b1b;
     display: none;
     color: $green-text;
     text-align: center;
-    margin-bottom: rem(80);
     @media (max-width: $medium-screen) {
-        display: block;
         text-align: left;
         max-width: rem(400);
+        font-size: rem(40);
+        line-height: rem(50) !important;
     }
     span {
         line-height: rem(70);
+        @media (max-width: $medium-screen) {
+            line-height: rem(50) !important;
+        }
     }
 }
 
@@ -65,38 +67,33 @@ $grey-text: #1b1b1b;
     flex-wrap: wrap;
     justify-content: center;
     @media (max-width: $medium-screen) {
-        display: block;
-        width: rem(640);
-    }
-    @media (max-width: 468px) {
-        display: block;
-        width: unset;
+        width: rem(400);
+        justify-content: normal;
     }
     font-size: rem(40);
     font-weight: bold;
     text-align: center;
     color: $green-text;
-    padding-bottom: rem(80);
     @media (min-width: $medium-screen) {
         font-size: rem(56);
     }
 }
 
 .phrase span {
+    display: block;
     line-height: rem(70);
-    padding-bottom: rem(80);
-
+    @media (max-width: $medium-screen) {
+        line-height: rem(50) !important;
+        text-align: left;
+    }
 }
 
 .phrase__intro {
-    width: 400px;
+    width: rem(200);
+    height: rem(50);
     flex-shrink: 0;
     white-space: nowrap;
     @media (max-width: $medium-screen) {
-        display: block;
-        width: unset;
-        flex-shrink: unset;
-        height: 100%;
         text-align: left;
         left: 0;
     }
@@ -104,9 +101,8 @@ $grey-text: #1b1b1b;
 
 .phrase__intro__item {
     position: relative;
-    width: 100%;
-    height: 100%;
     span {
+        position: absolute;
         color: $green-text;
         right: 0;
         @media (max-width: $medium-screen) {
@@ -139,8 +135,10 @@ $grey-text: #1b1b1b;
 }
 
 .phrase__static__item {
-    color: $grey-text;
-    line-height: rem(70);
+    span {
+        color: $grey-text;
+        line-height: rem(70);
+    }
 }
 
 .phrase__end {
@@ -148,7 +146,6 @@ $grey-text: #1b1b1b;
     flex-shrink: 0;
     white-space: nowrap;
     flex-wrap: wrap;
-    height: 100%;
     @media (max-width: $medium-screen) {
         display: block;
     }
@@ -156,23 +153,18 @@ $grey-text: #1b1b1b;
 
 .phrase__end__item {
     position: absolute;
-    height: 100%;
     color: $green-text;
     @media (min-width: $large-screen) {
         white-space: nowrap;
     }
 }
 
-.phrase__end__item--entrance {
-    span {
-        @include rotation('scroll-out', $hold-increment + $scroll-increment * 4,  $scroll-increment * 2);
-    }
+.phrase__end__item--entrance span {
+    @include rotation('scroll-out', $hold-increment + $scroll-increment * 4,  $scroll-increment * 2);
 }
 
-.phrase__end__item--rotation {
-    span {
-        @include rotation('scroll-in', $second-increment + $scroll-increment * 4, $hold-increment + $scroll-increment*4);
-    }
+.phrase__end__item--rotation span {
+    @include rotation('scroll-in', $second-increment + $scroll-increment * 4, $hold-increment + $scroll-increment*4);
 }
 
 .phrase__end__item--rotation span:nth-child(2) {
@@ -186,17 +178,6 @@ $grey-text: #1b1b1b;
 .phrase__end__item--rotation span:nth-child(4) {
     @include rotation-delay(($hold-increment + $scroll-increment*4) * 4);
 }
-
-//.phrase--exit {
-//    white-space: nowrap;
-//    flex-shrink: 0;
-//    color: $grey-text;
-//    @media (max-width: $medium-screen) {
-//        display: block;
-//        text-align: left;
-//        white-space: break-spaces !important;
-//    }
-//}
 
 .phrase--exit-animation {
     @include rotation-exit('fade-out-phrase-part', $scroll-increment * 8, 0);

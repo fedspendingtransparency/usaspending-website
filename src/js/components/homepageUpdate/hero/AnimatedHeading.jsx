@@ -91,7 +91,7 @@ const AnimatedHeading = ({ paused }) => {
                     </div>
                 </div>
             </div>
-            <div className="phrase__static__item">government spending&nbsp;</div>
+            <div className="phrase__static__item"><span>government spending&nbsp;</span></div>
             <div className="phrase__end">
                 <div className="phrase__end__item" id="phase-end__first-rotating-item">
                     <div className="phrase__intro__item--entrance">
