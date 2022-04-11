@@ -109,7 +109,7 @@
   .analyst-guide__answerStyle {
     color: #555;
     font-weight: $font-normal;
-
+    word-break: break-word;
     .analyst-guide__external-link {
       @include button-unstyled;
       color: $color-primary;
