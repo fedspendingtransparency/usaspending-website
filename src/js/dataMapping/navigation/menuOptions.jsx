@@ -91,7 +91,7 @@ export const resourceOptions = [
             search: '?tab=submissions'
         },
         enabled: true,
-        isNewTab: true
+        isNewTab: false
     },
     {
         label: 'API Tutorial',
