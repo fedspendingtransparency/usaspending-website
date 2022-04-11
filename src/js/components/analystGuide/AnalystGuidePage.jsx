@@ -21,7 +21,7 @@ import AnalystGuideIntro from "./AnalystGuideIntro";
 
 const AnalystGuidePage = () => {
     const [hideContent, setHideContent] = useState();
-    const slug = '/analyst-guide';
+    const slug = 'analyst-guide';
 
     useEffect(() => {
         setHideContent(!SHOW_ANALYSTGUIDE);
