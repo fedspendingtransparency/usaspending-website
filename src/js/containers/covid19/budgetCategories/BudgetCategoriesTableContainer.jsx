@@ -378,6 +378,7 @@ const BudgetCategoriesTableContainer = (props) => {
         <div className="budget-categories-table__header">
             <label htmlFor="usa-dt-picker">Show amounts based on: </label>
             <Picker
+                backgroundColor="#ffffff"
                 sortFn={handleSort}
                 icon=""
                 selectedOption={budgetDropdownFieldValues[spendingCategory].label}

@@ -25,9 +25,9 @@ const globalConstants = {
     DUNS_LABEL: 'Legacy ', // 'Legacy ' later...
     HOMEPAGE_UPDATE_RELEASED: false,
     ANALYSTGUIDE_RELEASED: false,
-    HOMEPAGE_UPDATE_LINK: (process.env.ENV !== 'prod' || process.env.ENV !== 'staging') ? '/homepage_update' : '',
-    SHOW_HOMEPAGE_UPDATE: (process.env.ENV !== 'prod' || process.env.ENV !== 'staging'),
-    SHOW_ANALYSTGUIDE: (process.env.ENV !== 'prod' || process.env.ENV !== 'staging')
+    HOMEPAGE_UPDATE_LINK: (process.env.ENV !== 'prod' && process.env.ENV !== 'staging') ? '/homepage_update' : '',
+    SHOW_HOMEPAGE_UPDATE: (process.env.ENV !== 'prod' && process.env.ENV !== 'staging'),
+    SHOW_ANALYSTGUIDE: (process.env.ENV !== 'prod' && process.env.ENV !== 'staging')
 
 
 };

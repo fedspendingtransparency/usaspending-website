@@ -32,6 +32,7 @@ const MapFilters = ({ filters, activeFilters, isOpen }) => (
                             {filters[filter].label}
                         </div>
                         <Picker
+                            backgroundColor="#ffffff"
                             sortFn={handleSort}
                             selectedOption={filters[filter].options.find((option) => option.value === activeFilters[filter]).label}
                             options={
