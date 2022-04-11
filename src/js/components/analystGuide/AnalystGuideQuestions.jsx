@@ -14,7 +14,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
         if (!sectionDom) {
             return;
         }
-        scrollToY(sectionDom.offsetTop + 250, 700);
+        scrollToY(sectionDom.offsetTop + 585, 700);
     };
 
     const awardAccountSpendingComparisonQuestions = [{
