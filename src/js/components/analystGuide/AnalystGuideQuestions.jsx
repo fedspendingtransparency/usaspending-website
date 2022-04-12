@@ -232,7 +232,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
     }];
 
     const financialAssistanceQuestions = [{
-        question: "How is the value of loan measured?",
+        question: "How is the value of a loan measured?",
         answer: (<>
             <p className="analyst-guide__answerStyle">There are two data elements used to measure the value of a loan: the face value of the loan and the loan subsidy cost. The face value of a loan is the total amount of the loan. The loan subsidy cost is the government’s estimate of the loan’s likely cost to the government, in net present value terms. Because federal loans are expected to be repaid, the face value of a loan is not considered federal spending (and for loan guarantees, the face value is not even directly provided by the government, but instead from a third-party financial institution).</p>
             <p className="analyst-guide__answerStyle">Loan subsidy cost is calculated based on a credit model specific to the program and, in some cases, the recipient’s characteristics or credit history. Loan subsidy cost allows the government to budget for potential defaults on loans. </p>
@@ -738,15 +738,15 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
             </p>
             <p className="analyst-guide__answerStyle">The USAspending&apos;s{' '}
                 <button
-                    value="https://usaspending-help.zendesk.com/hc/en-us/sections/115000739433-Frequently-Ask-Questions-"
+                    value="https://fiscalservice.force.com/usaspending/s/"
                     role="link"
                     className="analyst-guide__external-link"
                     onClick={onExternalLinkClick}>
         FAQ page{' '}
                     <span
-                        data-href="https://usaspending-help.zendesk.com/hc/en-us/sections/115000739433-Frequently-Ask-Questions-"
+                        data-href="https://fiscalservice.force.com/usaspending/s/"
                         className="usa-button-link__icon">
-                        <FontAwesomeIcon data-href="https://usaspending-help.zendesk.com/hc/en-us/sections/115000739433-Frequently-Ask-Questions-" icon="external-link-alt" />
+                        <FontAwesomeIcon data-href="https://fiscalservice.force.com/usaspending/s/" icon="external-link-alt" />
                     </span>
         .
                 </button>
