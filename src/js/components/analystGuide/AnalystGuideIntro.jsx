@@ -9,15 +9,15 @@ const AnalystGuideIntro = ({ onExternalLinkClick }) => (
             <p>Welcome to the Analyst&apos;s Guide to Federal Spending Data. Here, you&apos;ll find guidance on effectively using USAspending.gov data, making it easier for you to conduct your own analyses and develop tools using federal spending data</p>
             <p>If you&apos;d like to recommend a question to be added to this guide, please share it on our{' '}
                 <button
-                    value="https://usaspending-help.zendesk.com/hc/en-us/community/topics"
+                    value="https://fiscalservice.force.com/usaspending/s/"
                     role="link"
                     className="analyst-guide__external-link"
                     onClick={onExternalLinkClick}>
                     Community page{' '}
                     <span
-                        data-href="https://usaspending-help.zendesk.com/hc/en-us/community/topics"
+                        data-href="https://fiscalservice.force.com/usaspending/s/"
                         className="usa-button-link__icon">
-                        <FontAwesomeIcon data-href="https://usaspending-help.zendesk.com/hc/en-us/community/topics" icon="external-link-alt" />
+                        <FontAwesomeIcon data-href="https://fiscalservice.force.com/usaspending/s/" icon="external-link-alt" />
                     </span>
                     .
                 </button>

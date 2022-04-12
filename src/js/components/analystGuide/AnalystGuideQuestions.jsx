@@ -5,8 +5,8 @@ import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { scrollToY } from '../../helpers/scrollToHelper';
-
 import Accordion from "../sharedComponents/accordion/Accordion";
+import GlossaryLink from '../sharedComponents/GlossaryLink';
 
 const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
     const jumpToSection = (section = '') => {
@@ -14,7 +14,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
         if (!sectionDom) {
             return;
         }
-        scrollToY(sectionDom.offsetTop + 250, 700);
+        scrollToY(sectionDom.offsetTop + 585, 700);
     };
 
     const awardAccountSpendingComparisonQuestions = [{
@@ -38,7 +38,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
             <p className="analyst-guide__answerStyle">Agencies periodically upload account spending in various formats. One format (account breakdown by award) represents award activity and includes details on federal accounts funding that activity. Agencies also upload transaction level award spending for both contracts and financial assistance. </p>
             <p className="analyst-guide__answerStyle">These files can be linked together to associate award spending with account spending. If a shared ID cannot be found between these files, award spending may be unlinked to any account.</p>
             <p className="analyst-guide__answerStyle">The{' '}
-                <Link to="/submission-statistics?tab=submissions&fy=2022&period=2">Agency Submission Statistics page</Link>
+                <Link to="/submission-statistics?tab=submissions&fy=2022&period=5">Agency Submission Statistics page</Link>
                 {' '}contains data on this linkage under the “Number of Unlinked Contract Awards” and “Number of Unlinked Assistance Awards” columns.
             </p>
             <p className="analyst-guide__answerStyle">More information about federal accounts is discussed in the{' '}
@@ -232,7 +232,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
     }];
 
     const financialAssistanceQuestions = [{
-        question: "How is the value of loan measured?",
+        question: "How is the value of a loan measured?",
         answer: (<>
             <p className="analyst-guide__answerStyle">There are two data elements used to measure the value of a loan: the face value of the loan and the loan subsidy cost. The face value of a loan is the total amount of the loan. The loan subsidy cost is the government’s estimate of the loan’s likely cost to the government, in net present value terms. Because federal loans are expected to be repaid, the face value of a loan is not considered federal spending (and for loan guarantees, the face value is not even directly provided by the government, but instead from a third-party financial institution).</p>
             <p className="analyst-guide__answerStyle">Loan subsidy cost is calculated based on a credit model specific to the program and, in some cases, the recipient’s characteristics or credit history. Loan subsidy cost allows the government to budget for potential defaults on loans. </p>
@@ -713,7 +713,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
     const additionalResources = [{
         question: "How do I find the meanings of particular terms and field names?",
         answer: (<>
-            <p className="analyst-guide__answerStyle">The <Link to="/?glossary&">Glossary</Link> lists plain-language definitions of terms used throughout USAspending.</p>
+            <p className="analyst-guide__answerStyle">The <span>Glossary</span>{' '}<GlossaryLink term="/" />{' '} lists plain-language definitions of terms used throughout USAspending.</p>
             <p className="analyst-guide__answerStyle">The <Link to="/data-dictionary">Data Dictionary</Link> defines data elements included in the various download files available on USAspending.</p>
             <p className="analyst-guide__answerStyle">The <a href="https://www.fpds.gov/downloads/Version_1.5_specs/FPDS_DataDictionary_V1.5.pdf">FPDS Data Dictionary</a> includes descriptions of terminology related to contract data.</p>
         </>)
@@ -738,15 +738,15 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
             </p>
             <p className="analyst-guide__answerStyle">The USAspending&apos;s{' '}
                 <button
-                    value="https://usaspending-help.zendesk.com/hc/en-us/sections/115000739433-Frequently-Ask-Questions-"
+                    value="https://fiscalservice.force.com/usaspending/s/"
                     role="link"
                     className="analyst-guide__external-link"
                     onClick={onExternalLinkClick}>
         FAQ page{' '}
                     <span
-                        data-href="https://usaspending-help.zendesk.com/hc/en-us/sections/115000739433-Frequently-Ask-Questions-"
+                        data-href="https://fiscalservice.force.com/usaspending/s/"
                         className="usa-button-link__icon">
-                        <FontAwesomeIcon data-href="https://usaspending-help.zendesk.com/hc/en-us/sections/115000739433-Frequently-Ask-Questions-" icon="external-link-alt" />
+                        <FontAwesomeIcon data-href="https://fiscalservice.force.com/usaspending/s/" icon="external-link-alt" />
                     </span>
         .
                 </button>

@@ -24,9 +24,9 @@ const globalConstants = {
     AGENCY_LINK: 'agency',
     DUNS_LABEL: 'Legacy ', // 'Legacy ' later...
     HOMEPAGE_UPDATE_RELEASED: false,
-    ANALYSTGUIDE_RELEASED: false,
-    SHOW_HOMEPAGE_UPDATE: (process.env.ENV === 'qat' || process.env.ENV === 'sandbox'),
-    SHOW_ANALYSTGUIDE: (process.env.ENV === 'qat' || process.env.ENV === 'sandbox')
+    ANALYSTGUIDE_RELEASED: true,
+    SHOW_HOMEPAGE_UPDATE: (process.env.ENV !== 'prod' && process.env.ENV !== 'staging'),
+    SHOW_ANALYSTGUIDE: true
 
 
 };
