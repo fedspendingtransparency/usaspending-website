@@ -33,37 +33,37 @@
     // these affect the share dropdown position
     // overriding the styles in data-transparency-ui Picker, sent by ShareIcon
     @media (min-width: $small-screen) and (max-width: 374px) {
-      ul {
+      .usa-dt-picker .usa-dt-picker__dropdown-container ul {
         right: 110px !important;
       }
     }
     @media (min-width: 375px) and (max-width: 474px){
-      ul {
+      .usa-dt-picker .usa-dt-picker__dropdown-container ul {
         right: 132px !important;
       }
     }
     @media (min-width: 475px) and (max-width: 574px){
-      ul {
+      .usa-dt-picker .usa-dt-picker__dropdown-container ul {
         right: 232px !important;
       }
     }
     @media (min-width: 575px) and (max-width: 674px){
-      ul {
+      .usa-dt-picker .usa-dt-picker__dropdown-container ul {
         right: 332px !important;
       }
     }
     @media (min-width: 675px) and (max-width: 767px){
-      ul {
+      .usa-dt-picker .usa-dt-picker__dropdown-container ul {
         right: 444px !important;
       }
     }
     @media (min-width: 768px) and (max-width: 868px){
-      ul {
+      .usa-dt-picker .usa-dt-picker__dropdown-container ul {
         right: 525px !important;
       }
     }
     @media (min-width: 869px) and (max-width: $medium-screen){
-      ul {
+      .usa-dt-picker .usa-dt-picker__dropdown-container ul {
         right: 625px !important;
       }
     }
