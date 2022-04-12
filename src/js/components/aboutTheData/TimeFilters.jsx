@@ -117,6 +117,7 @@ const TimePeriodFilters = ({
             <div className="filter-container fy-picker">
                 <span className="filter__title fy-picker__title">FISCAL YEAR</span>
                 <Picker
+                    backgroundColor="#ffffff"
                     icon=""
                     isFixedWidth
                     className="fy-picker"
@@ -137,6 +138,7 @@ const TimePeriodFilters = ({
                 <div className="filter-container period-picker">
                     <span className="filter__title period-picker__title">PERIOD</span>
                     <Picker
+                        backgroundColor="#ffffff"
                         icon=""
                         className="period-picker"
                         sortFn={sortPeriods}
