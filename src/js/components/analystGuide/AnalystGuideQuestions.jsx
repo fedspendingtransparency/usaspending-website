@@ -5,8 +5,8 @@ import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { scrollToY } from '../../helpers/scrollToHelper';
-
 import Accordion from "../sharedComponents/accordion/Accordion";
+import GlossaryLink from '../sharedComponents/GlossaryLink';
 
 const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
     const jumpToSection = (section = '') => {
@@ -713,7 +713,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
     const additionalResources = [{
         question: "How do I find the meanings of particular terms and field names?",
         answer: (<>
-            <p className="analyst-guide__answerStyle">The <Link to="/analyst-guide/?glossary">Glossary</Link> lists plain-language definitions of terms used throughout USAspending.</p>
+            <p className="analyst-guide__answerStyle">The <span>Glossary</span>{' '}<GlossaryLink term="/" />{' '} lists plain-language definitions of terms used throughout USAspending.</p>
             <p className="analyst-guide__answerStyle">The <Link to="/data-dictionary">Data Dictionary</Link> defines data elements included in the various download files available on USAspending.</p>
             <p className="analyst-guide__answerStyle">The <a href="https://www.fpds.gov/downloads/Version_1.5_specs/FPDS_DataDictionary_V1.5.pdf">FPDS Data Dictionary</a> includes descriptions of terminology related to contract data.</p>
         </>)
