@@ -5,8 +5,8 @@ import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { scrollToY } from '../../helpers/scrollToHelper';
-
 import Accordion from "../sharedComponents/accordion/Accordion";
+import GlossaryLink from '../sharedComponents/GlossaryLink';
 
 const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
     const jumpToSection = (section = '') => {
@@ -14,7 +14,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
         if (!sectionDom) {
             return;
         }
-        scrollToY(sectionDom.offsetTop + 250, 700);
+        scrollToY(sectionDom.offsetTop + 585, 700);
     };
 
     const awardAccountSpendingComparisonQuestions = [{
@@ -38,7 +38,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
             <p className="analyst-guide__answerStyle">Agencies periodically upload account spending in various formats. One format (account breakdown by award) represents award activity and includes details on federal accounts funding that activity. Agencies also upload transaction level award spending for both contracts and financial assistance. </p>
             <p className="analyst-guide__answerStyle">These files can be linked together to associate award spending with account spending. If a shared ID cannot be found between these files, award spending may be unlinked to any account.</p>
             <p className="analyst-guide__answerStyle">The{' '}
-                <Link to="/submission-statistics?tab=submissions&fy=2022&period=2">Agency Submission Statistics page</Link>
+                <Link to="/submission-statistics?tab=submissions&fy=2022&period=5">Agency Submission Statistics page</Link>
                 {' '}contains data on this linkage under the “Number of Unlinked Contract Awards” and “Number of Unlinked Assistance Awards” columns.
             </p>
             <p className="analyst-guide__answerStyle">More information about federal accounts is discussed in the{' '}
@@ -713,7 +713,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
     const additionalResources = [{
         question: "How do I find the meanings of particular terms and field names?",
         answer: (<>
-            <p className="analyst-guide__answerStyle">The <Link to="/?glossary&">Glossary</Link> lists plain-language definitions of terms used throughout USAspending.</p>
+            <p className="analyst-guide__answerStyle">The <span>Glossary</span>{' '}<GlossaryLink term="/" />{' '} lists plain-language definitions of terms used throughout USAspending.</p>
             <p className="analyst-guide__answerStyle">The <Link to="/data-dictionary">Data Dictionary</Link> defines data elements included in the various download files available on USAspending.</p>
             <p className="analyst-guide__answerStyle">The <a href="https://www.fpds.gov/downloads/Version_1.5_specs/FPDS_DataDictionary_V1.5.pdf">FPDS Data Dictionary</a> includes descriptions of terminology related to contract data.</p>
         </>)
