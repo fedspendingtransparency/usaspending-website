@@ -26,6 +26,28 @@ export const currentFiscalYear = () => {
     return currentFY;
 };
 
+export const getCurrentPeriod = (month) => {
+    const periodMapping = new Map();
+    periodMapping.set('10', "1");
+    periodMapping.set('11', "2");
+    periodMapping.set('12', "3");
+    periodMapping.set('1', "4");
+    periodMapping.set('2', "5");
+    periodMapping.set('3', "6");
+    periodMapping.set('4', "7");
+    periodMapping.set('5', "8");
+    periodMapping.set('6', "9");
+    periodMapping.set('7', "10");
+    periodMapping.set('8', "11");
+    periodMapping.set('9', "12");
+
+    if (periodMapping.has(month)) {
+        return periodMapping.get(month);
+    }
+
+    return undefined;
+};
+
 export const isFyValid = (fy) => {
     const fyVal = parseInt(fy, 10);
     return !!fyVal && fyVal >= earliestFiscalYear;
