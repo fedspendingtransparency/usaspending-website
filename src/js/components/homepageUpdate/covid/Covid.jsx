@@ -3,18 +3,60 @@
  * Created by Andrea Blackwell 03/07/22
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { throttle } from 'lodash';
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
+import CovidOverviewModel from 'models/v2/covid19/BaseOverview';
+import { fetchOverview } from 'apis/disaster';
+import { useDispatch, useSelector } from 'react-redux';
+import { setOverview } from 'redux/actions/covid19/covid19Actions';
+import { useDefCodes } from 'containers/covid19/WithDefCodes';
+import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
+import { applyStagedFilters, resetAppliedFilters, setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
+import { initialState as defaultFilters, CheckboxTreeSelections } from 'redux/reducers/search/searchFiltersReducer';
+import Analytics from 'helpers/analytics/Analytics';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import Card from "../../sharedComponents/Card";
+import TotalAmount from "../../homepage/hero/TotalAmount";
+
 
 const Covid = () => {
     const [windowWidth, setWindowWidth] = useState(0);
     const [, setIsMobile] = useState(window.innerWidth < mediumScreen);
+    const [, setIsIncrementComplete] = useState(false);
+    const [isAmountLoading, setIsAmounLoading] = useState(true);
+    const [, , validDefCodes] = useDefCodes();
+    const request = useRef(null);
+    const dispatch = useDispatch();
+    const totalSpendingAmount = useSelector((state) => state.covid19.overview._totalOutlays);
+    const history = useHistory();
+
+    const clickedHomepageLink = (route) => {
+        Analytics.event({
+            category: 'Homepage - Link',
+            action: route
+        });
+    };
+
+    const handleGoToAdvancedSearch = (e) => {
+        e.preventDefault();
+        clickedHomepageLink("search");
+        dispatch(clearAllFilters());
+        dispatch(resetAppliedFilters());
+        dispatch(setAppliedFilterCompletion(false));
+        dispatch(applyStagedFilters({
+            ...defaultFilters,
+            defCodes: new CheckboxTreeSelections({
+                require: validDefCodes.map((code) => code.code),
+                exclude: [],
+                counts: [{ value: "COVID-19", count: validDefCodes.length || 0, label: "COVID-19 Spending" }]
+            })
+        }));
+        history.push('/search');
+    };
 
     const searchCardIcon = (
         <span
@@ -27,9 +69,14 @@ const Covid = () => {
         </p>);
     const searchCardLink = (
         <Link
-            to="/search">
+            to="/search"
+            onClick={handleGoToAdvancedSearch}>
             Search the Data
         </Link>);
+        // <Link
+        //     to="/search">
+        //     Search the Data
+        // </Link>);
 
     const trackCardIcon = (
         <span
@@ -46,6 +93,29 @@ const Covid = () => {
             to="/disaster/covid-19">
             Explore the Data
         </Link>);
+
+    const completeIncrementAndTriggerScroll = () => {
+        setIsIncrementComplete(true);
+    };
+
+    useEffect(() => {
+        if (request.current) {
+            request.current.cancel();
+        }
+        setIsIncrementComplete(false);
+        setIsAmounLoading(true);
+        request.current = fetchOverview(validDefCodes.map((c) => c.code));
+        request.current.promise
+            .then((res) => {
+                if (totalSpendingAmount && totalSpendingAmount > 0) {
+                    setIsAmounLoading(false);
+                    setIsIncrementComplete(true);
+                }
+                const overview = Object.create(CovidOverviewModel);
+                overview.populate(res.data);
+                dispatch(setOverview(overview));
+            });
+    }, [dispatch, totalSpendingAmount, validDefCodes]);
 
     useEffect(() => {
         const handleResize = throttle(() => {
@@ -72,7 +142,13 @@ const Covid = () => {
                             The Federal Response to <span>COVID-19</span>
                         </div>
                         <div className="homepage-covid__content">
-                            The federal government has spent [$3.59 trillion] in response to <span>COVID-19</span>.
+                            The federal government has spent{' '}
+                            <TotalAmount
+                                completeIncrement={completeIncrementAndTriggerScroll}
+                                className={`covid-hero__headline--amount${isAmountLoading ? '' : ' show-amount'}`}
+                                total={totalSpendingAmount}
+                                isLoading={isAmountLoading} />
+                            {' '}in response to <span>COVID-19</span>.
                         </div>
                         <div className="homepage-covid__image-wrapper">
                             <picture>
@@ -104,4 +180,3 @@ const Covid = () => {
 };
 
 export default Covid;
-
