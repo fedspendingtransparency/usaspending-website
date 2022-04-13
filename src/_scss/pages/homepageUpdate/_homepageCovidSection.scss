@@ -1,5 +1,3 @@
-@import 'all';
-
 .homepage-covid {
   height: 100%;
   width: 100%;
@@ -79,4 +77,5 @@
       }
     }
   }
+  @import "../../components/card";
 }

@@ -20,7 +20,7 @@ const MoreInfo = () => (
                 <a
                     target="_blank"
                     rel="noopener noreferrer"
-                    href="https://usaspending-help.zendesk.com/hc/en-us/sections/115000739433-Frequently-Ask-Questions-">
+                    href="https://fiscalservice.force.com/usaspending/s/">
                     FAQs
                 </a>
                 &nbsp;and the{' '}

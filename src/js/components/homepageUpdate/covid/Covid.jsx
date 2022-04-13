@@ -12,8 +12,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import Card from "../../sharedComponents/Card";
 
-require('pages/homepageUpdate/_homepageCovidSection.scss');
-
 const Covid = () => {
     const [windowWidth, setWindowWidth] = useState(0);
     const [, setIsMobile] = useState(window.innerWidth < mediumScreen);

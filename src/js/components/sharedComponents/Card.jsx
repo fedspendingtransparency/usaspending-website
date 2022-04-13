@@ -7,8 +7,6 @@ import React from 'react';
 import PropTypes from "prop-types";
 import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 
-require('components/_card.scss');
-
 const propTypes = {
     icon: PropTypes.object,
     heading: PropTypes.object,
