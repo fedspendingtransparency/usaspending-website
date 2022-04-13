@@ -88,6 +88,19 @@ describe('Fiscal Year helper functions', () => {
         });
     });
 
+    describe('getCurrentPeriod', () => {
+        it('should convert a numbered month to the current period', () => {
+            const firstPeriod = '10';
+            const expectedPeriod = '1';
+            expect(FiscalYearHelper.getCurrentPeriod(firstPeriod)).toEqual(expectedPeriod);
+
+            const firstPeriodString = 'october';
+            expect(FiscalYearHelper.getCurrentPeriod(firstPeriodString)).toEqual(undefined);
+
+            const secondPeriod = '20';
+            expect(FiscalYearHelper.getCurrentPeriod(secondPeriod)).toEqual(undefined);
+        });
+    });
     describe('convertDateToFY', () => {
         it('should convert a Moment object to the fiscal year it occurs within', () => {
             const firstDate = moment('2015-12-01', 'YYYY-MM-DD');
@@ -111,7 +124,6 @@ describe('Fiscal Year helper functions', () => {
             expect(FiscalYearHelper.getTrailingTwelveMonths()).toEqual(expectedDates);
         });
     });
-    
     describe('nearestQuarterDate', () => {
         describe('Fiscal Quarter 1 Oct-Dec', () => {
             it('10-14-2019 - should return this quarter start quarter date in millis', () => {
