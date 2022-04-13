@@ -90,7 +90,7 @@ describe('Fiscal Year helper functions', () => {
 
     describe('getCurrentPeriod', () => {
         it('should convert a numbered month to the current period', () => {
-            const firstPeriod = '10';
+            const firstPeriod = '9';
             const expectedPeriod = '1';
             expect(FiscalYearHelper.getCurrentPeriod(firstPeriod)).toEqual(expectedPeriod);
 
