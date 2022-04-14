@@ -3,28 +3,14 @@
   width: 100%;
   margin: 0 auto;
   background-color: white;
+  background-image: url("../../../img/homepage-covid-section-background.svg");
+  background-position: bottom;
+  background-repeat: no-repeat;
   span {
     white-space: nowrap;
   }
   .grid-content {
     padding-top: $global-padding * 12;
-    .homepage-covid__background-flair {
-      position: absolute;
-      top: 1061px;
-      left: 0px;
-      bottom: -449px;
-      width: 100vw;
-
-      background-color: #88b4c0;
-      opacity: 0.15;
-
-      @include transform(skewY(130deg));
-
-      //@include media($medium-screen) {
-      //  top: 0;
-      //  bottom: 0;
-      //}
-    }
     .homepage-covid__column-one {
       margin-bottom: $global-margin * 4;
       @media (min-width: $medium-screen) {
