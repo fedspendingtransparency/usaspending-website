@@ -4,7 +4,6 @@
  */
 
 import React, { useState, useEffect, useRef } from 'react';
-import { throttle } from 'lodash';
 import { Link, useHistory } from "react-router-dom";
 import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 import CovidOverviewModel from 'models/v2/covid19/BaseOverview';
@@ -18,16 +17,13 @@ import { initialState as defaultFilters, CheckboxTreeSelections } from 'redux/re
 import Analytics from 'helpers/analytics/Analytics';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import Card from "../../sharedComponents/Card";
 import TotalAmount from "../../homepage/hero/TotalAmount";
 
 
 const Covid = () => {
-    const [windowWidth, setWindowWidth] = useState(0);
-    const [, setIsMobile] = useState(window.innerWidth < mediumScreen);
     const [, setIsIncrementComplete] = useState(false);
-    const [isAmountLoading, setIsAmounLoading] = useState(true);
+    const [isAmountLoading, setIsAmountLoading] = useState(true);
     const [, , validDefCodes] = useDefCodes();
     const request = useRef(null);
     const dispatch = useDispatch();
@@ -99,12 +95,12 @@ const Covid = () => {
             request.current.cancel();
         }
         setIsIncrementComplete(false);
-        setIsAmounLoading(true);
+        setIsAmountLoading(true);
         request.current = fetchOverview(validDefCodes.map((c) => c.code));
         request.current.promise
             .then((res) => {
                 if (totalSpendingAmount && totalSpendingAmount > 0) {
-                    setIsAmounLoading(false);
+                    setIsAmountLoading(false);
                     setIsIncrementComplete(true);
                 }
                 const overview = Object.create(CovidOverviewModel);
@@ -112,18 +108,6 @@ const Covid = () => {
                 dispatch(setOverview(overview));
             });
     }, [dispatch, totalSpendingAmount, validDefCodes]);
-
-    useEffect(() => {
-        const handleResize = throttle(() => {
-            const newWidth = window.innerWidth;
-            if (windowWidth !== newWidth) {
-                setWindowWidth(newWidth);
-                setIsMobile(newWidth < mediumScreen);
-            }
-        }, 50);
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, [windowWidth]);
 
     return (
         <section
@@ -138,6 +122,7 @@ const Covid = () => {
                         </div>
                         <div className="homepage-covid__content">
                             The federal government has spent{' '}
+                            {isAmountLoading && <div className="dot-pulse" />}
                             <TotalAmount
                                 completeIncrement={completeIncrementAndTriggerScroll}
                                 className={`covid-hero__headline--amount${isAmountLoading ? '' : ' show-amount'}`}
