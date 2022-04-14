@@ -33,7 +33,7 @@ const Hero = () => {
                         <picture>
                             <img
                                 role="presentation"
-                                src="../../../../img/homepage-hero-person-left.svg"
+                                src="../../../../img/homepage-hero-graphic-left.svg"
                                 alt="" />
                         </picture>
                     </div>
@@ -77,7 +77,7 @@ const Hero = () => {
                         <picture>
                             <img
                                 role="presentation"
-                                src="../../../../img/homepage-hero-people-right.svg"
+                                src="../../../../img/homepage-hero-graphic-right.svg"
                                 alt="" />
                         </picture>
                     </div>
