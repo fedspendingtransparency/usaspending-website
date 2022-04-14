@@ -50,10 +50,12 @@ const AnimatedHeading = ({ paused }) => {
 
     useEffect(() => {
         document.querySelectorAll(".phrase__intro__item span").forEach((item) => {
+            // eslint-disable-next-line no-param-reassign
             item.style.animationPlayState = paused ? "paused" : "running";
         });
 
         document.querySelectorAll(".phrase__end__item span").forEach((item) => {
+            // eslint-disable-next-line no-param-reassign
             item.style.animationPlayState = paused ? "paused" : "running";
         });
 
@@ -69,7 +71,7 @@ const AnimatedHeading = ({ paused }) => {
             setTimeout(() => {
                 document.querySelector('.phrase').style.display = 'none';
                 document.querySelector('.landing-phrase').classList.add('landing-phrase--entrance-animation');
-            }, 100);
+            }, 2000);
         });
 
         const endingAnimation = document.querySelector('.phrase__end__item--entrance span');

@@ -1,6 +1,6 @@
 $hold-increment: 2000ms;
 $scroll-increment: 100ms;
-$second-increment: $hold-increment + $scroll-increment * 2;
+$iteration-increment: $hold-increment + $scroll-increment;
 $green-text: #2d6878;
 $grey-text: #1b1b1b;
 
@@ -41,24 +41,24 @@ $grey-text: #1b1b1b;
     display: none;
     color: $green-text;
     text-align: center;
-    @media (max-width: $medium-screen) {
-        text-align: left;
-        max-width: rem(400);
-        font-size: rem(40);
-        line-height: rem(50) !important;
-    }
     span {
         line-height: rem(70);
         @media (max-width: $medium-screen) {
             line-height: rem(50) !important;
         }
     }
+    @media (max-width: $medium-screen) {
+        text-align: left;
+        font-size: rem(40);
+        line-height: rem(50) !important;
+        flex-basis: rem(641);
+    }
 }
 
 .landing-phrase--entrance-animation {
-    display: block !important;
+    display: flex !important;
     span {
-        @include rotation('fade-in-landing-phrase', $scroll-increment * 10, 0, 1, 'static');
+        @include rotation('fade-in-landing-phrase', $hold-increment, 0, 1, 'static');
     }
 }
 
@@ -67,7 +67,7 @@ $grey-text: #1b1b1b;
     flex-wrap: wrap;
     justify-content: center;
     @media (max-width: $medium-screen) {
-        width: rem(400);
+        flex-basis: rem(641);
         justify-content: normal;
         font-size: rem(40);
     }
@@ -113,29 +113,32 @@ $grey-text: #1b1b1b;
 }
 
 .phrase__intro__item--entrance span {
-    @include rotation('scroll-out', $hold-increment + $scroll-increment, 0);
+    @include rotation('scroll-out', $iteration-increment, 0);
 }
 
 .phrase__intro__item--rotation span {
-    @include rotation('scroll-in', ($hold-increment + $scroll-increment) * 2, $hold-increment + $scroll-increment);
+    @include rotation('scroll-in', $iteration-increment * 2, $iteration-increment);
 }
 
 .phrase__intro__item--rotation span:nth-child(2){
-    @include rotation-delay(($hold-increment + $scroll-increment) * 3);
+    @include rotation-delay($iteration-increment * 3);
 }
 
 .phrase__intro__item--rotation span:nth-child(3){
-    @include rotation-delay(($hold-increment + $scroll-increment) * 5);
+    @include rotation-delay($iteration-increment * 5);
 }
 
 .phrase__intro__item--rotation span:nth-child(4) {
-    @include rotation-delay(($hold-increment + $scroll-increment) * 7);
+    @include rotation-delay($iteration-increment * 7);
 }
 
 .phrase__static__item {
     span {
         color: $grey-text;
         line-height: rem(70);
+    }
+    @media (max-width: $medium-screen) {
+        width: 100%;
     }
 }
 
@@ -164,39 +167,39 @@ $grey-text: #1b1b1b;
 }
 
 .phrase__end__item--entrance span {
-    @include rotation('scroll-out', ($hold-increment + $scroll-increment) * 2,  0);
+    @include rotation('scroll-out', $iteration-increment * 2,  0);
 }
 
 .phrase__end__item--rotate span {
-    @include rotation('scroll-in', ($hold-increment + $scroll-increment) * 2, $hold-increment + $scroll-increment);
+    @include rotation('scroll-in', $iteration-increment * 2, 0);
 }
 
 .phrase__end__item--rotate span:nth-child(2) {
-    @include rotation-delay(($hold-increment + $scroll-increment));
+    @include rotation-delay($iteration-increment * 2);
 }
 
 .phrase__end__item--rotate span:nth-child(3) {
-    @include rotation-delay(($hold-increment + $scroll-increment) * 5);
+    @include rotation-delay($iteration-increment * 4);
 }
 
 .phrase__end__item--rotate span:nth-child(4) {
-    @include rotation-delay(($hold-increment + $scroll-increment) * 7.5);
+    @include rotation-delay($iteration-increment * 6);
 }
 
 .phrase--exit-animation {
-    @include rotation-exit('fade-out-phrase-part', $scroll-increment * 8, 0);
+    @include rotation-exit('fade-out-phrase-part', $hold-increment * 3 + $scroll-increment, 0);
 }
 
 @keyframes fade-in-landing-phrase {
     0% { opacity: 0; vibility: hidden; }
     40% { opacity: 0; vibility: hidden; }
-    60% { opacity: 1; vibility: visible; }
+    90% { opacity: 1; vibility: visible; }
     100% { opacity: 1; vibility: visible; }
 }
 
 @keyframes fade-out-phrase-part {
     0% { opacity: 1 }
-    30% { opacity: 1 }
+    95% { opacity: 1 }
     100% { opacity: 0 }
 
 }
