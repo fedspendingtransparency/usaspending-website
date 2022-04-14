@@ -37,6 +37,8 @@ const Covid = () => {
         });
     };
 
+    const onlyCovidDefCodes = validDefCodes.filter((code) => code.disaster === 'covid_19');
+
     const handleGoToAdvancedSearch = (e) => {
         e.preventDefault();
         clickedHomepageLink("search");
@@ -46,9 +48,9 @@ const Covid = () => {
         dispatch(applyStagedFilters({
             ...defaultFilters,
             defCodes: new CheckboxTreeSelections({
-                require: validDefCodes.map((code) => code.code),
+                require: onlyCovidDefCodes.map((code) => code.code),
                 exclude: [],
-                counts: [{ value: "COVID-19", count: validDefCodes.length || 0, label: "COVID-19 Spending" }]
+                counts: [{ value: "COVID-19", count: onlyCovidDefCodes.length || 0, label: "COVID-19 Spending" }]
             })
         }));
         history.push('/search');
