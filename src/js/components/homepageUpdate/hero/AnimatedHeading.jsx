@@ -78,43 +78,43 @@ const AnimatedHeading = ({ paused }) => {
         endingAnimation.addEventListener('animationend', () => {
             document.querySelector('.phrase__end-rotation').classList.add('phrase__end__item--rotate');
         });
-
     }, []);
 
-    const rotatingText = () => (<div className="hero__headline">
-        <h1 className="landing-phrase">
-            <span>The official source of government spending data</span>
-        </h1>
-        <div className="phrase">
-            <div className="phrase__intro">
-                <div className="phrase__intro__item">
-                    <div className="phrase__intro__item--entrance">
-                        <span>{rotatingWords.left.tempWordsArray[0]}&nbsp;</span>
+    const rotatingText = () => (
+        <div className="hero__headline">
+            <h1 className="landing-phrase">
+                <span>The official source of government spending data</span>
+            </h1>
+            <div className="phrase">
+                <div className="phrase__intro">
+                    <div className="phrase__intro__item">
+                        <div className="phrase__intro__item--entrance">
+                            <span>{rotatingWords.left.tempWordsArray[0]}&nbsp;</span>
+                        </div>
+                        <div className="phrase__intro__item--rotation">
+                            <span>{rotatingWords.left.tempWordsArray[1]}&nbsp;</span>
+                            <span>{rotatingWords.left.tempWordsArray[2]}&nbsp;</span>
+                            <span>{rotatingWords.left.tempWordsArray[3]}&nbsp;</span>
+                            <span>{rotatingWords.left.tempWordsArray[4]}&nbsp;</span>
+                        </div>
                     </div>
-                    <div className="phrase__intro__item--rotation">
-                        <span>{rotatingWords.left.tempWordsArray[1]}&nbsp;</span>
-                        <span>{rotatingWords.left.tempWordsArray[2]}&nbsp;</span>
-                        <span>{rotatingWords.left.tempWordsArray[3]}&nbsp;</span>
-                        <span>{rotatingWords.left.tempWordsArray[4]}&nbsp;</span>
+                </div>
+                <div className="phrase__static__item"><span>government spending&nbsp;</span></div>
+                <div className="phrase__end">
+                    <div className="phrase__end__item">
+                        <div className="phrase__end__item--entrance">
+                            <span>{rotatingWords.right.tempWordsArray[0]}</span>
+                        </div>
+                        <div className="phrase__end-rotation">
+                            <span>{rotatingWords.right.tempWordsArray[1]}</span>
+                            <span>{rotatingWords.right.tempWordsArray[2]}</span>
+                            <span>{rotatingWords.right.tempWordsArray[3]}</span>
+                            <span>{rotatingWords.right.tempWordsArray[4]}</span>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div className="phrase__static__item"><span>government spending&nbsp;</span></div>
-            <div className="phrase__end">
-                <div className="phrase__end__item">
-                    <div className="phrase__end__item--entrance">
-                        <span>{rotatingWords.right.tempWordsArray[0]}</span>
-                    </div>
-                    <div className="phrase__end-rotation">
-                        <span>{rotatingWords.right.tempWordsArray[1]}</span>
-                        <span>{rotatingWords.right.tempWordsArray[2]}</span>
-                        <span>{rotatingWords.right.tempWordsArray[3]}</span>
-                        <span>{rotatingWords.right.tempWordsArray[4]}</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>);
+        </div>);
 
 
     return (<>{rotatingText()}</>);

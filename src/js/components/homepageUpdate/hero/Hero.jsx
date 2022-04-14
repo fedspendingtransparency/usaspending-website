@@ -24,6 +24,12 @@ const Hero = () => {
         label: 'about'
     });
 
+    const keyPressHandler = (e) => {
+        if (e.key === 'Enter') {
+            setIsPaused((previousIsPaused) => !previousIsPaused);
+        }
+    };
+
     return (
         <section className="homepage-hero-container" aria-label="Hero sections">
             <div className="homepage-hero-content">
@@ -61,9 +67,12 @@ const Hero = () => {
                             <div className="hero__pause-button-container">
                                 <a
                                     className="hero__pause-button"
+                                    role="button"
+                                    tabIndex="0"
                                     onClick={() => {
                                         setIsPaused((previousIsPaused) => !previousIsPaused);
-                                    }}>
+                                    }}
+                                    onKeyPress={(e) => { keyPressHandler(e); }}>
                                     { isPaused ?
                                         <><FontAwesomeIcon icon="play" width={10} />&nbsp;&nbsp;Play text animation</>
                                         :
