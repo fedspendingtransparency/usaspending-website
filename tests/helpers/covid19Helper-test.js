@@ -7,7 +7,7 @@ import {
     calculateUnlinkedTotals
 } from 'helpers/covid19Helper';
 
-describe('HomepageCovidContainer 19 Helper', () => {
+describe('Covid 19 Helper', () => {
     describe('areCountsDefined', () => {
         it('should return false when count object has null', () => {
             expect(areCountsDefined({ test: null, test2: 5 })).toEqual(false);

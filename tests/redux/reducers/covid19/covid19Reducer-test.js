@@ -14,7 +14,7 @@ import {
 } from 'redux/actions/covid19/covid19Actions';
 import { defCodes, overview, defcParams } from './mockData';
 
-describe('HomepageCovidContainer 19 Reducer', () => {
+describe('Covid 19 Reducer', () => {
     it('should SET_DEF_CODES', () => {
         let state = covid19Reducer(undefined, {});
         state = covid19Reducer(state, setDEFCodes(defCodes));

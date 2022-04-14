@@ -49,7 +49,7 @@ const Covid19Container = () => {
         else if (!areDefCodesLoading) {
             // set DEFC params based on the currently selected public law
             if (publicLaw === 'all') {
-                // use all HomepageCovidContainer 19 DEFC
+                // use all Covid 19 DEFC
                 dispatch(setDefcParams(defCodes.filter((c) => c.disaster === 'covid_19').map((code) => code.code)));
             }
             else {
