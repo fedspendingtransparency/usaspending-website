@@ -9,6 +9,7 @@
         padding: rem(40) rem(16);
         @media (min-width: $medium-screen) {
             padding: rem(88) 0 rem(48) 0;
+            margin: 0 rem(40);
             max-width: rem(1600);
         }
 
