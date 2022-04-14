@@ -19,6 +19,7 @@
       .homepage-covid__column-one-content-wrapper {
         display: flex;
         flex-flow: column nowrap;
+        height: 100%
       }
       .homepage-covid__heading {
         font-size: rem(40);
@@ -43,24 +44,18 @@
             opacity: 1;
           }
         }
-        @media (min-width: $medium-screen) {
-          margin-bottom: $global-margin * 16;
-        }
-        @media (min-width: 1200px) {
-          margin-bottom: $global-margin * 10;
-        }
-        @media (min-width: 1500px) {
-          margin-bottom: $global-margin * 8;
-        }
-        @media (min-width: 1700px) {
-          margin-bottom: 0;
-        }
       }
       .homepage-covid__image-wrapper {
         @media (max-width: $medium-screen) {
           display: none;
         }
-        width: 100%;
+        @media (min-width: $medium-screen) {
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-end;
+        }
+        height: 100%;
+        margin-bottom: $global-margin * 4;
       }
     }
     .homepage-covid__column-two {
