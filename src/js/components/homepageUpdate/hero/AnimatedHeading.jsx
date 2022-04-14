@@ -63,19 +63,25 @@ const AnimatedHeading = ({ paused }) => {
     }, [paused]);
 
     useEffect(() => {
-        const animated = document.querySelector('.phrase__end__item--rotation').lastElementChild;
+        const animated = document.querySelector('.phrase__end-rotation').lastElementChild;
         animated.addEventListener('animationstart', () => {
             document.querySelector('.phrase').classList.add('phrase--exit-animation');
             setTimeout(() => {
                 document.querySelector('.phrase').style.display = 'none';
                 document.querySelector('.landing-phrase').classList.add('landing-phrase--entrance-animation');
-            }, 500);
+            }, 100);
         });
+
+        const endingAnimation = document.querySelector('.phrase__end__item--entrance span');
+        endingAnimation.addEventListener('animationend', () => {
+            document.querySelector('.phrase__end-rotation').classList.add('phrase__end__item--rotate');
+        });
+
     }, []);
 
     const rotatingText = () => (<div className="hero__headline">
         <h1 className="landing-phrase">
-            <span>The official source of government spending data.</span>
+            <span>The official source of government spending data</span>
         </h1>
         <div className="phrase">
             <div className="phrase__intro">
@@ -93,11 +99,11 @@ const AnimatedHeading = ({ paused }) => {
             </div>
             <div className="phrase__static__item"><span>government spending&nbsp;</span></div>
             <div className="phrase__end">
-                <div className="phrase__end__item" id="phase-end__first-rotating-item">
-                    <div className="phrase__intro__item--entrance">
+                <div className="phrase__end__item">
+                    <div className="phrase__end__item--entrance">
                         <span>{rotatingWords.right.tempWordsArray[5]}</span>
                     </div>
-                    <div className="phrase__end__item--rotation">
+                    <div className="phrase__end-rotation">
                         <span>{rotatingWords.right.tempWordsArray[3]}</span>
                         <span>{rotatingWords.right.tempWordsArray[2]}</span>
                         <span>{rotatingWords.right.tempWordsArray[7]}</span>
