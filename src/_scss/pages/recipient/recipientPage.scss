@@ -16,16 +16,6 @@
 		}
 	}
 
-	.usda-page-header__toolbar .usda-fy-picker__container .usa-dt-picker.usda-fy-picker .usa-dt-picker__button {
-		background-color: #555 !important;
-		@media(max-width: $medium-screen) {
-			background-color: #f1f1f1 !important;
-		}
-	}
-	.usa-dt-picker .usa-dt-picker__dropdown-container {
-		background-color: #555 !important;
-	}
-
 	.main-content {
 		@import "../../mixins/fullSectionWrap";
 		@include fullSectionWrap(($global-mrg * 2), ($global-mrg * 2));
