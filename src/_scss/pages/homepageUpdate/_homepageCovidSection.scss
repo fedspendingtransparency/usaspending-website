@@ -30,6 +30,9 @@
       .homepage-covid__content {
         font-size: rem(32);
         font-weight: $font-normal;
+        .dot-pulse {
+          top: rem(20);
+        }
         .covid-hero__headline--amount {
           opacity: 0;
           display: inline-block;
