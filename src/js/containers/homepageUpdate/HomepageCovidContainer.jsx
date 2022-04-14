@@ -1,5 +1,5 @@
 /**
- * Covid.jsx
+ * HomepageCovidContainer.jsx
  * Created by Andrea Blackwell 03/07/22
  */
 
@@ -17,11 +17,11 @@ import { initialState as defaultFilters, CheckboxTreeSelections } from 'redux/re
 import Analytics from 'helpers/analytics/Analytics';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Card from "../../sharedComponents/Card";
-import TotalAmount from "../../homepage/hero/TotalAmount";
+import Card from "../../components/sharedComponents/Card";
+import TotalAmount from "../../components/homepage/hero/TotalAmount";
 
 
-const Covid = () => {
+const HomepageCovidContainer = () => {
     const [, setIsIncrementComplete] = useState(false);
     const [isAmountLoading, setIsAmountLoading] = useState(true);
     const [, , validDefCodes] = useDefCodes();
@@ -114,7 +114,7 @@ const Covid = () => {
     return (
         <section
             className="homepage-covid"
-            aria-label="Covid sections">
+            aria-label="HomepageCovidContainer sections">
             <FlexGridRow
                 className="grid-content">
                 <FlexGridCol width={12} desktop={6} className="homepage-covid__column-one">
@@ -136,7 +136,7 @@ const Covid = () => {
                             <picture>
                                 <img
                                     role="presentation"
-                                    src="../../../../img/homepage-covid-official-spending-data.svg"
+                                    src="../../../img/homepage-covid-official-spending-data.svg"
                                     alt="" />
                             </picture>
                         </div>
@@ -161,4 +161,4 @@ const Covid = () => {
     );
 };
 
-export default Covid;
+export default HomepageCovidContainer;

@@ -5,7 +5,7 @@
     @include align-items(center);
     padding-bottom: 1.5rem;
     .page-title__wrapper {
-        // Wrapper including the Covid flag
+        // Wrapper including the HomepageCovidContainer flag
         @include align-items(flex-start);
         h2.page-title__name {
             margin: 0;
