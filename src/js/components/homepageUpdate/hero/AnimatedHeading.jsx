@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 
 const AnimatedHeading = ({ paused }) => {
     const leftWords = ['Explore', 'Search', 'Track', 'Download', 'Analyze'];
-    const rightWords = ['over time', 'by agency', 'by recipient', 'to communities', 'by industry', 'on contracts', 'on grants', 'by state'];
+    const rightWords = ['by industry', 'by agency', 'over time', 'to communities', 'by recipient'];
     // TODO with DEV-8677
     // const getRandomInt = (max) => Math.floor(Math.random() * max);
 
@@ -87,13 +87,13 @@ const AnimatedHeading = ({ paused }) => {
             <div className="phrase__intro">
                 <div className="phrase__intro__item">
                     <div className="phrase__intro__item--entrance">
-                        <span>{rotatingWords.left.tempWordsArray[1]}&nbsp;</span>
+                        <span>{rotatingWords.left.tempWordsArray[0]}&nbsp;</span>
                     </div>
                     <div className="phrase__intro__item--rotation">
+                        <span>{rotatingWords.left.tempWordsArray[1]}&nbsp;</span>
+                        <span>{rotatingWords.left.tempWordsArray[2]}&nbsp;</span>
                         <span>{rotatingWords.left.tempWordsArray[3]}&nbsp;</span>
                         <span>{rotatingWords.left.tempWordsArray[4]}&nbsp;</span>
-                        <span>{rotatingWords.left.tempWordsArray[0]}&nbsp;</span>
-                        <span>{rotatingWords.left.tempWordsArray[2]}&nbsp;</span>
                     </div>
                 </div>
             </div>
@@ -101,12 +101,12 @@ const AnimatedHeading = ({ paused }) => {
             <div className="phrase__end">
                 <div className="phrase__end__item">
                     <div className="phrase__end__item--entrance">
-                        <span>{rotatingWords.right.tempWordsArray[5]}</span>
+                        <span>{rotatingWords.right.tempWordsArray[0]}</span>
                     </div>
                     <div className="phrase__end-rotation">
-                        <span>{rotatingWords.right.tempWordsArray[3]}</span>
+                        <span>{rotatingWords.right.tempWordsArray[1]}</span>
                         <span>{rotatingWords.right.tempWordsArray[2]}</span>
-                        <span>{rotatingWords.right.tempWordsArray[7]}</span>
+                        <span>{rotatingWords.right.tempWordsArray[3]}</span>
                         <span>{rotatingWords.right.tempWordsArray[4]}</span>
                     </div>
                 </div>
