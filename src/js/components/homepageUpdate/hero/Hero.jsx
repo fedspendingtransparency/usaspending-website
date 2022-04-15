@@ -26,6 +26,7 @@ const Hero = () => {
 
     const keyPressHandler = (e) => {
         if (e.key === 'Enter') {
+            e.preventDefault();
             setIsPaused((previousIsPaused) => !previousIsPaused);
         }
     };
