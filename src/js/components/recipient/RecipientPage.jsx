@@ -69,6 +69,12 @@ export const RecipientPage = ({
             message="The recipient ID provided is invalid. Please check the ID and try again." />);
     }
 
+    const backgroundColor = {
+        backgroundColor: "#555",
+        ' @media(max-width: $medium-screen)': {
+            backgroundColor: "#f1f1f1"
+        }
+    };
 
     return (
         <PageWrapper
@@ -79,6 +85,7 @@ export const RecipientPage = ({
             metaTagProps={recipient.overview.id && !loading ? recipientPageMetaTags(recipient.overview) : {}}
             toolBarComponents={[
                 <FiscalYearPicker
+                    backgroundColor={backgroundColor}
                     selectedFy={recipient?.fy}
                     handleFyChange={pickedFy}
                     options={getFiscalYearsWithLatestAndAll(earliestFiscalYear, currentFiscalYear())} />,
