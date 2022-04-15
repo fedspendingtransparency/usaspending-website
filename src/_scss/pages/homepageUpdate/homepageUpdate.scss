@@ -32,6 +32,7 @@
     }
       .grid-content {
         button {
+          font-weight: $font-semibold;
           @media (max-width: $medium-screen) {
             width: 100%;
           }
