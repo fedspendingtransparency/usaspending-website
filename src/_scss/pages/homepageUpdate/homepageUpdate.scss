@@ -26,11 +26,19 @@
             bottom: 0;
             height: 80rem;
         }
+        @media (max-width: 400px) {
+          height: 108rem;
+        }
     }
       .grid-content {
         button {
-          @media (max-width: $tablet-screen) {
+          @media (max-width: $medium-screen) {
             width: 100%;
+          }
+        }
+        img {
+          @include media($medium-screen) {
+            max-height: 554px;
           }
         }
         .feature-dropdown__wrapper {
@@ -38,6 +46,7 @@
         }
         button.feature-carousel-content__arrow {
           width: fit-content;
+          z-index: 5;
         }
         .section-heading-title-wrapper  {
           width: 100%;
@@ -105,6 +114,9 @@
           .homepage-search-feature__img-carousel {
             padding-top: $global-padding * 20;
             padding-left: $global-padding * 10;
+            @include media($medium-screen) {
+              margin-right: -6rem;
+            }
             @media (max-width: $medium-screen) {
               padding-top: $global-padding * 3;
               padding-left: 0;
@@ -144,6 +156,9 @@
           .homepage-profile-feature__img-carousel {
             padding-top: $global-padding * 10;
             padding-right: $global-padding * 10;
+            @include media($medium-screen) {
+              margin-left: -6rem;
+            }
             @media (max-width: $medium-screen) {
               padding-top: $global-padding * 3;
               padding-right: 0;
@@ -204,7 +219,7 @@
         background-color: white;
     }
 
-    @media screen and (max-width: $tablet-screen) {
+    @media screen and (max-width: $medium-screen) {
       .homepage-hero-content, .usa-dt-flex-grid__row.grid-content {
         margin: 0 rem(16);
       }
