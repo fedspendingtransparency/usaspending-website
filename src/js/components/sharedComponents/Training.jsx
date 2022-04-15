@@ -6,7 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Analytics from 'helpers/analytics/Analytics';
-import { Envelope, CaretRight } from 'components/sharedComponents/icons/Icons';
+import { faCaretRight, faLaptop } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 
 const propTypes = {
@@ -33,20 +34,23 @@ const Training = (pageName) => {
     return (
         <div className="training">
             <div className="training__icon">
-                <Envelope />
+                <FontAwesomeIcon icon={faLaptop} />
             </div>
             <div className="training__callout">
                      Request training from us!&nbsp;
             </div>
             <div className="training__message">
-                     Receive customized training on how to use USAspending.gov
+                Receive customized training&nbsp;
+            </div>
+            <div className="training__message">
+                on how to use USAspending.gov
             </div>
             <a
                 className="training__link"
-                href={`mailto:join-usaspending@lists.fiscal.treasury.gov?subject=Request%20for%20Training%20on%20USAspending.gov&body=${body}`}
+                href={`mailto:usaspending.help@fiscal.treasury.gov?subject=Request%20for%20Training%20on%20USAspending.gov&body=${body}`}
                 onClick={trackLink}>
                      Sign Up
-                <CaretRight />
+                <FontAwesomeIcon icon={faCaretRight} />
             </a>
         </div>
     );
