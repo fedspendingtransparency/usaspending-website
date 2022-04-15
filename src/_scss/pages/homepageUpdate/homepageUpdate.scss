@@ -69,6 +69,9 @@
           line-height: 1.5;
         }
         .homepage-spending-explorer {
+          @include media($medium-screen) {
+            margin-bottom: -100px;
+          }
           .homepage-spending-explorer__img-wrapper {
             padding-bottom: $global-padding * 20;
             padding-top: $global-padding * 9;
@@ -112,6 +115,9 @@
         }
         .homepage-search-feature {
           margin-top: 6.5rem;
+          @include media($medium-screen) {
+            margin-bottom: -100px;
+          }
           .homepage-search-feature__img-carousel {
             padding-top: $global-padding * 20;
             padding-left: $global-padding * 10;
