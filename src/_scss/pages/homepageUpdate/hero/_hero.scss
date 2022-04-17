@@ -8,8 +8,8 @@
     .homepage-hero-content {
         padding: rem(40) rem(16);
         @media (min-width: $medium-screen) {
-            padding: rem(88) 0 rem(48) 0;
-            margin: 0 rem(40);
+            padding: rem(88) rem(40) rem(48) rem(40);
+            margin: 0 auto;
             max-width: rem(1600);
         }
 
@@ -36,7 +36,7 @@
                 display: flex;
                 flex-direction: column;
                 justify-content: end;
-                @media (max-width: $medium-screen) {
+                @media (max-width: $large-screen) {
                     display: none;
                 }
                 width: rem(272);
@@ -47,7 +47,7 @@
                 display: flex;
                 flex-direction: column;
                 justify-content: end;
-                @media (max-width: $medium-screen) {
+                @media (max-width: $large-screen) {
                     display: none;
                 }
                 width: rem(272);
@@ -142,14 +142,13 @@
                         justify-content: center;
                         cursor: pointer;
 
-                        p {
+                        a {
                             font-size: rem(14);
                             font-weight: 600;
-                            font-stretch: normal;
-                            font-style: normal;
                             line-height: 1.25;
-                            letter-spacing: normal;
-                            color: #2d6878;
+                            &:hover, &:active {
+                                text-decoration: none !important;
+                            }
                         }
                     }
                 }
