@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 const AnimatedHeading = ({ paused }) => {
     const leftWords = ['Explore', 'Search', 'Track', 'Download', 'Analyze'];
     const rightWords = ['by industry', 'by agency', 'over time', 'to communities', 'by recipient'];
-    const [ endWordTop, setEndWordTop ] = useState();
+    const [endWordTop, setEndWordTop] = useState();
     // TODO with DEV-8677
     // const getRandomInt = (max) => Math.floor(Math.random() * max);
 
@@ -95,7 +95,8 @@ const AnimatedHeading = ({ paused }) => {
                         animatedSpan[index].classList.add('phrase__end--center');
                     }
                 });
-            } else {
+            }
+            else {
                 animatedSpan.forEach((item, index) => {
                     animatedSpan[index].classList.remove('phrase__end--center');
                 });
