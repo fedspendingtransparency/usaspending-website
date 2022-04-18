@@ -118,6 +118,12 @@ export const AgencyProfileV2 = ({
         });
     };
 
+    const backgroundColor = {
+        backgroundColor: "#555",
+        ' @media(max-width: $medium-screen)': {
+            backgroundColor: "#f1f1f1"
+        }
+    };
     return (
         <PageWrapper
             pageName="Agency Profile"
@@ -126,7 +132,7 @@ export const AgencyProfileV2 = ({
             title={name}
             metaTagProps={isLoading ? {} : agencyPageMetaTags({ id: agencySlug, name })}
             toolBarComponents={[
-                <FiscalYearPicker selectedFy={selectedFy} latestFy={latestFy} handleFyChange={(fy) => setSelectedFy({ fy })} />,
+                <FiscalYearPicker backgroundColor={backgroundColor} selectedFy={selectedFy} latestFy={latestFy} handleFyChange={(fy) => setSelectedFy({ fy })} />,
                 <ShareIcon url={getBaseUrl(path)} onShareOptionClick={handleShare} />
             ]}>
             <main id="main-content" className="main-content usda__flex-row">
