@@ -5,17 +5,21 @@ import AnimatedHeading from 'components/homepageUpdate/hero/AnimatedHeading';
 
 
 describe('AnimatedHeading', () => {
-    it('animated text is showing', (done) => {
-        const element = render(<AnimatedHeading />);
-
+    it('animated text is showing', () => {
+        render(<AnimatedHeading />);
         expect(screen.queryByText('government spending')).toBeTruthy();
-        const landingHeading = document.getElementsbyClassName()
-        const style = window.getComputedStyle(element);
-        expect(style)
-        expect(screen.queryByText('The official source of government spending data')).toBeFalsy();
-        setTimeout(() => {
-            expect(screen.queryByText('The official source of government spending data')).toBeTruthy();
-        }, 12000); // 1 second
+        const landingHeading = document.querySelector(".phrase");
+        const style = window.getComputedStyle(landingHeading);
+        expect(style.display).toBe('block');
+    });
 
+    it('landing phrase is showing, animated text is hidden', () => {
+        render(<AnimatedHeading />);
+        const landingHeading = document.querySelector(".phrase");
+        const style = window.getComputedStyle(landingHeading);
+        expect(style.display).toBe('block');
+        setTimeout(() => {
+            expect(style.display).toBe('none');
+        }, 12000);
     });
 });
