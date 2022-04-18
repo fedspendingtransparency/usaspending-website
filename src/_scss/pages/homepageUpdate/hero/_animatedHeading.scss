@@ -2,7 +2,6 @@ $hold-increment: 3000ms;
 $scroll-increment: 500ms;
 $iteration-increment: $hold-increment + $scroll-increment;
 $green-text: #2d6878;
-$grey-text: #1b1b1b;
 
 @mixin rotation ($animation, $increment, $delay, $opacity: 0, $position: absolute) {
     animation: $animation $increment linear;
@@ -37,7 +36,7 @@ $grey-text: #1b1b1b;
     .landing-phrase {
         font-weight: bold;
         display: none;
-        color: $grey-text;
+        color: $color-grayblack;
         text-align: center;
         margin: 0 0 rem(10) 0;
         span {
@@ -134,7 +133,7 @@ $grey-text: #1b1b1b;
 
         .phrase__static__item {
             span {
-                color: $grey-text;
+                color: $color-grayblack;
             }
         }
 
@@ -201,10 +200,17 @@ $grey-text: #1b1b1b;
             @include rotation-exit('fade-out-phrase-part', $hold-increment * 3 + $scroll-increment, 0);
         }
 
-        @keyframes fade-in-landing-phrase {
-            0% { opacity: 0; vibility: hidden; }
-            40% { opacity: 0; vibility: hidden; }
-            90% { opacity: 1; vibility: visible; }
+        @-moz-keyframes fade-in-landing-phrase {
+            0% { opacity: 0; vibility: hidden; -moz-transform: translateY(25px);}
+            40% { opacity: 0; vibility: hidden; -moz-transform: translateY(25px);}
+            90% { opacity: 1; vibility: visible; -moz-transform: translateY(0px);}
+            100% { opacity: 1; vibility: visible; }
+        }
+
+        @-webkit-keyframes fade-in-landing-phrase {
+            0% { opacity: 0; vibility: hidden; -webkit-transform: translateY(25px);}
+            40% { opacity: 0; vibility: hidden; -webkit-transform: translateY(25px);}
+            90% { opacity: 1; vibility: visible; -webkit-transform: translateY(0px);}
             100% { opacity: 1; vibility: visible; }
         }
 
