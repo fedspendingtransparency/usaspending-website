@@ -30,11 +30,18 @@ const UEIInfoBanner = (props) => {
         props.showModal(null, 'uei');
     };
 
+    const openKeyedBannerModal = (e) => {
+        if (e.keyCode === 13) {
+            e.preventDefault();
+            props.showModal(null, 'uei');
+        }
+    };
+
     const title = 'New on USAspending: Unique Entity Identifiers';
     const content = (
         <p>
             Beginning in March, UEIs will be added to USAspending displays alongside DUNS numbers.
-            <a onClick={openBannerModal} onKeyDown={openBannerModal} role="button" tabIndex={0}> Learn more and find out what changes you’ll see on the site.</a>
+            <a onClick={openBannerModal} onKeyDown={openKeyedBannerModal} role="button" tabIndex={0}> Learn more and find out what changes you’ll see on the site.</a>
         </p>
     );
     const icon = (
