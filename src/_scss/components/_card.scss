@@ -50,6 +50,10 @@
     letter-spacing: normal;
     color: #555;
     margin-bottom: $global-margin * 3;
+
+    p {
+      margin-bottom: 0;
+    }
   }
   .card__link-wrapper {
     font-size: $h5-font-size;
@@ -59,5 +63,9 @@
     line-height: 1.25;
     letter-spacing: normal;
     color: $color-primary;
+
+    a:hover {
+      text-decoration: none;
+    }
   }
 }
