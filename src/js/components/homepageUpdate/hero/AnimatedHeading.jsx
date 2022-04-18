@@ -84,11 +84,12 @@ const AnimatedHeading = ({ paused }) => {
     // hack to center text if it goes to two lines on desktop
     const handleWindowResize = () => {
         const tempEndPart = document.querySelector(".phrase__end");
+        const tempStaticPart = document.querySelector(".phrase__static__item");
 
         if (endWordTop !== tempEndPart.offsetTop) {
             setEndWordTop(tempEndPart.offsetTop);
             const animatedSpan = document.querySelectorAll(".phrase__end span");
-            if (tempEndPart.offsetTop > 300) {
+            if (tempEndPart.offsetTop - tempStaticPart.offsetTop > 10) {
                 animatedSpan.forEach((item, index) => {
                     if (index !== 3) {
                         animatedSpan[index].classList.add('phrase__end--center');
