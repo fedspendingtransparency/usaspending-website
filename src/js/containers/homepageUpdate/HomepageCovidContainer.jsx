@@ -92,7 +92,6 @@ const HomepageCovidContainer = () => {
         setIsIncrementComplete(true);
     };
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
     useEffect(() => {
         if (request.current) {
             request.current.cancel();
