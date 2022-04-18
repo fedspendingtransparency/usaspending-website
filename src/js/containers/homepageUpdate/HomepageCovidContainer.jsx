@@ -19,6 +19,7 @@ import Analytics from 'helpers/analytics/Analytics';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Card from "../../components/sharedComponents/Card";
 import TotalAmount from "../../components/homepage/hero/TotalAmount";
+import { isCancel } from "axios";
 
 
 const HomepageCovidContainer = () => {
@@ -108,6 +109,7 @@ const HomepageCovidContainer = () => {
                 const overview = Object.create(CovidOverviewModel);
                 overview.populate(res.data);
                 dispatch(setOverview(overview));
+                request.current = null;
             });
     }, [dispatch, totalSpendingAmount, validDefCodes]);
 
