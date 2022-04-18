@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 const AnimatedHeading = ({ paused }) => {
     const leftWords = ['Explore', 'Search', 'Track', 'Download', 'Analyze'];
     const rightWords = ['by industry', 'by agency', 'over time', 'to communities', 'by recipient'];
+    const [ endWordTop, setEndWordTop ] = useState();
     // TODO with DEV-8677
     // const getRandomInt = (max) => Math.floor(Math.random() * max);
 
@@ -49,14 +50,14 @@ const AnimatedHeading = ({ paused }) => {
     // };
 
     useEffect(() => {
-        document.querySelectorAll(".phrase__intro__item span").forEach((item) => {
-            // eslint-disable-next-line no-param-reassign
-            item.style.animationPlayState = paused ? "paused" : "running";
+        const intro = document.querySelectorAll(".phrase__intro__item span");
+        intro.forEach((item, index) => {
+            intro[index].style.animationPlayState = paused ? "paused" : "running";
         });
 
-        document.querySelectorAll(".phrase__end__item span").forEach((item) => {
-            // eslint-disable-next-line no-param-reassign
-            item.style.animationPlayState = paused ? "paused" : "running";
+        const end = document.querySelectorAll(".phrase__end__item span");
+        end.forEach((item, index) => {
+            end[index].style.animationPlayState = paused ? "paused" : "running";
         });
 
         document.querySelector(".landing-phrase span").style.animationPlayState = paused ? "paused" : "running";
@@ -79,6 +80,35 @@ const AnimatedHeading = ({ paused }) => {
             document.querySelector('.phrase__end-rotation').classList.add('phrase__end__item--rotate');
         });
     }, []);
+
+    // hack to center text if it goes to two lines on desktop
+    const handleWindowResize = () => {
+        const tempEndPart = document.querySelector(".phrase__end");
+
+        if (endWordTop !== tempEndPart.offsetTop) {
+            setEndWordTop(tempEndPart.offsetTop);
+            const animatedSpan = document.querySelectorAll(".phrase__end span");
+            if (tempEndPart.offsetTop > 300) {
+                animatedSpan.forEach((item, index) => {
+                    if (index !== 3) {
+                        animatedSpan[index].classList.add('phrase__end--center');
+                    }
+                });
+            } else {
+                animatedSpan.forEach((item, index) => {
+                    animatedSpan[index].classList.remove('phrase__end--center');
+                });
+            }
+        }
+    };
+
+    useEffect(() => {
+        handleWindowResize();
+        window.addEventListener('resize', handleWindowResize);
+        return () => {
+            window.removeEventListener('resize', handleWindowResize);
+        };
+    });
 
     const rotatingText = () => (
         <div className="hero__headline">
