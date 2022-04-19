@@ -1,5 +1,5 @@
 .homepage-community {
-    background-color: #f1f1f1;
+    background-color: $color-gray-lightest;
     @include media($medium-screen) {
         padding: 0;
     }
@@ -7,14 +7,17 @@
     .homepage-community__wrapper {
         display: flex;
         margin: 0 $grid-column;
-        padding-top: $global-padding * 8;
-        padding-bottom: $global-padding * 8;
+        @media screen and (max-width: $medium-screen) {
+              margin: 0 rem(16);
+          }
+        padding-top: $global-padding * 9;
+        padding-bottom: $global-padding * 9;
     }
 
     .homepage-community__content {
         @include media($medium-screen) {
             width: 50%;
-            margin-right: auto;
+            margin-right: 8rem;
             padding-top: $global-padding * 8;
         }
     }
@@ -24,6 +27,7 @@
             display: none;
             @include media($medium-screen) {
                 display: block;
+                margin-left: auto;
             }
         }
     }
@@ -37,8 +41,11 @@
     }
 
     p.homepage-community__description {
-        font-size: rem(18);
-        line-height: rem(30);
+        font-size: rem(20);
+        line-height: 1.5;
+        color: $color-base;
+        margin-top: 3rem;
+        margin-bottom: 3rem;
     }
 
     .homepage-community-button__container {
@@ -59,16 +66,12 @@
             flex-wrap: nowrap;
 
             font-weight: $font-semibold;
-            font-size: rem(16);
+            font-size: rem(20);
             white-space: nowrap;
             color: $color-white;
             background-color: $color-primary;
-            padding: rem(10) rem(25);
-            border-radius: rem(6);
-            margin-bottom: rem(16);
-            @media (min-width: $medium-screen) {
-                font-size: rem(20);
-            }
+            padding: rem(15) rem(25);
+            margin-bottom: 1rem;
 
             &:hover, &:active {
                 text-decoration: none;
@@ -80,20 +83,19 @@
             display: flex;
             justify-content: center;
             flex-wrap: nowrap;
+            @media (min-width: $medium-screen) {
+                margin-left: 1rem;
+            }
 
             font-weight: $font-semibold;
-            font-size: rem(16);
+            font-size: rem(20);
             white-space: nowrap;
             color: $color-primary;
-            background-color: #edf4f6;
+            background-color: #f8f8f7;
             border: solid rem(1);
             border-color: $color-primary;
-            padding: rem(10) rem(25);
-            border-radius: rem(6);
+            padding: rem(15) rem(25);
             margin-bottom: rem(32);
-            @media (min-width: $medium-screen) {
-                font-size: rem(20);
-            }
 
             &:hover, &:active {
                 text-decoration: none;

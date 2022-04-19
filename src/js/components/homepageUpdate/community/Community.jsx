@@ -22,11 +22,11 @@ const Community = () => (
                 <h2
                     className="homepage-community__title"
                     tabIndex={-1}>
-                    Join the conversation
+                    Join the Conversation
                 </h2>
                 <p
                     className="homepage-community__description">
-                    We want to know how we can serve you better. Drop by our community page to ask questions, propose new features, sign up for testing, and join the conversation about federal spending data.
+                    We want to know how we can serve you better. Drop by our community page or send us a message to ask questions, propose new features, sign up to be a user tester, and join the conversation about federal spending data.
                 </p>
                 <div className="homepage-community-button__container">
                     <a
