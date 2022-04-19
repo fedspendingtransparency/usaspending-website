@@ -18,12 +18,11 @@ import Analytics from 'helpers/analytics/Analytics';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Card from "../../components/sharedComponents/Card";
-// import TotalAmount from "../../components/homepage/hero/TotalAmount";
+import TotalAmount from "../../components/homepage/hero/TotalAmount";
 
 const HomepageCovidContainer = () => {
     const [, setIsIncrementComplete] = useState(false);
-    // const [isAmountLoading, setIsAmountLoading] = useState(true);
-    const [, setIsAmountLoading] = useState(true);
+    const [isAmountLoading, setIsAmountLoading] = useState(true);
     const [, , validDefCodes] = useDefCodes();
     const request = useRef(null);
     const dispatch = useDispatch();
@@ -88,9 +87,9 @@ const HomepageCovidContainer = () => {
             Explore the Data
         </Link>);
 
-    // const completeIncrementAndTriggerScroll = () => {
-    //     setIsIncrementComplete(true);
-    // };
+    const completeIncrementAndTriggerScroll = () => {
+        setIsIncrementComplete(true);
+    };
 
     useEffect(() => {
         if (request.current) {
@@ -125,13 +124,13 @@ const HomepageCovidContainer = () => {
                         </div>
                         <div className="homepage-covid__content">
                             The federal government has spent{' '}
-                            {/* {isAmountLoading && <div className="dot-pulse" />}*/}
-                            {/* <TotalAmount*/}
-                            {/*    completeIncrement={completeIncrementAndTriggerScroll}*/}
-                            {/*    className={`covid-hero__headline--amount${isAmountLoading ? '' : ' show-amount'}`}*/}
-                            {/*    total={totalSpendingAmount}*/}
-                            {/*    isLoading={isAmountLoading} />*/}
-                            {/* {' '}in response to <span>COVID-19</span>.*/}
+                            {isAmountLoading && <div className="dot-pulse" />}
+                            <TotalAmount
+                                completeIncrement={completeIncrementAndTriggerScroll}
+                                className={`covid-hero__headline--amount${isAmountLoading ? '' : ' show-amount'}`}
+                                total={totalSpendingAmount}
+                                isLoading={isAmountLoading} />
+                            {' '}in response to <span>COVID-19</span>.
                         </div>
                         <div className="homepage-covid__image-wrapper">
                             <picture>
