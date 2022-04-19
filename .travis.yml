@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - "14.17.0"
+  - "16.14.2"
 # Need a C++ compiler
 addons:
   apt:
