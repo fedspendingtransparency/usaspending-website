@@ -1,0 +1,104 @@
+.homepage-community {
+    background-color: #f1f1f1;
+    @include media($medium-screen) {
+        padding: 0;
+    }
+
+    .homepage-community__wrapper {
+        display: flex;
+        margin: 0 $grid-column;
+        padding-top: $global-padding * 8;
+        padding-bottom: $global-padding * 8;
+    }
+
+    .homepage-community__content {
+        @include media($medium-screen) {
+            width: 50%;
+            margin-right: auto;
+            padding-top: $global-padding * 8;
+        }
+    }
+
+    .homepage-community__image-wrapper {
+        &.homepage-community__image-wrapper_desktop {
+            display: none;
+            @include media($medium-screen) {
+                display: block;
+            }
+        }
+    }
+
+    h2.homepage-community__title {
+        font-weight: $font-semibold;
+        color: $color-grayblack;
+        font-size: rem(40);
+        line-height: 1.25;
+        margin: 0;
+    }
+
+    p.homepage-community__description {
+        font-size: rem(18);
+        line-height: rem(30);
+    }
+
+    .homepage-community-button__container {
+        display: flex;
+        flex-direction: column;
+        button {
+            @media (max-width: $medium-screen) {
+                width: 100%;
+            }
+        }
+        @media (min-width: $medium-screen) {
+            flex-direction: row;
+        }
+
+        .homepage-community-button__visit {
+            display: flex;
+            justify-content: center;
+            flex-wrap: nowrap;
+
+            font-weight: $font-semibold;
+            font-size: rem(16);
+            white-space: nowrap;
+            color: $color-white;
+            background-color: $color-primary;
+            padding: rem(10) rem(25);
+            border-radius: rem(6);
+            margin-bottom: rem(16);
+            @media (min-width: $medium-screen) {
+                font-size: rem(20);
+            }
+
+            &:hover, &:active {
+                text-decoration: none;
+                background-color: darken($color-primary, 10%);
+            }
+        }
+
+        .homepage-community-button__email {
+            display: flex;
+            justify-content: center;
+            flex-wrap: nowrap;
+
+            font-weight: $font-semibold;
+            font-size: rem(16);
+            white-space: nowrap;
+            color: $color-primary;
+            background-color: #edf4f6;
+            border: solid rem(1);
+            border-color: $color-primary;
+            padding: rem(10) rem(25);
+            border-radius: rem(6);
+            margin-bottom: rem(32);
+            @media (min-width: $medium-screen) {
+                font-size: rem(20);
+            }
+
+            &:hover, &:active {
+                text-decoration: none;
+                background-color: lighten($color-white, 10%);
+            }
+        }
+    }
+}

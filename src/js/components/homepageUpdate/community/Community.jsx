@@ -28,20 +28,39 @@ const Community = () => (
                     className="homepage-community__description">
                     We want to know how we can serve you better. Drop by our community page to ask questions, propose new features, sign up for testing, and join the conversation about federal spending data.
                 </p>
-                <a
-                    className="homepage-community__link"
-                    href="https://fiscalservice.force.com/usaspending/s/"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    onClick={clickedHomepageLink.bind(null, 'https://fiscalservice.force.com/usaspending/s/')}>
-                    Visit our community page
-                </a>
+                <div className="homepage-community-button__container">
+                    <a
+                        rel="noopener noreferrer"
+                        target="_blank"
+                        href="https://fiscalservice.force.com/usaspending/s/"
+                        onClick={clickedHomepageLink.bind(null, 'https://fiscalservice.force.com/usaspending/s/')}>
+                        <button
+                            className="homepage-community-button__visit"
+                            aria-label="Visit Our Community Page"
+                            title="Visit Our Community Page">
+                            Visit Our Community Page
+                        </button>
+                    </a>
+                    <a
+                        rel="noopener noreferrer"
+                        target="_blank"
+                        href="https://fiscalservice.force.com/usaspending/s/"
+                        onClick={clickedHomepageLink.bind(null, 'https://fiscalservice.force.com/usaspending/s/')}>
+                        <button
+                            className="homepage-community-button__email"
+                            aria-label="Send Us A Message"
+                            title="Send Us A Message">
+                            Send Us A Message
+                        </button>
+                    </a>
+                </div>
             </div>
             <div className="homepage-community__image-wrapper homepage-community__image-wrapper_desktop">
                 <img
-                    src="img/homepage-community.png"
-                    srcSet="img/homepage-community.png 1x, img/homepage-community@2x.png 2x"
-                    alt="Speech bubbles" />
+                    src="img/img:homepage-community@1-5x.png"
+                    srcSet="img/img:homepage-community@1-5x.webp 1x, img/img:homepage-community@2x.webp 2x"
+                    alt=""
+                    role="presentation" />
             </div>
         </div>
     </section>
