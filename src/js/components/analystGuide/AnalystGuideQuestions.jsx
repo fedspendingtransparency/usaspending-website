@@ -7,12 +7,8 @@ import { Link } from "react-router-dom";
 import { scrollToY } from '../../helpers/scrollToHelper';
 import Accordion from "../sharedComponents/accordion/Accordion";
 import GlossaryLink from '../sharedComponents/GlossaryLink';
-import * as FiscalYearHelper from '../../helpers/fiscalYearHelper';
 
 const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
-    const date = new Date();
-    const fyandPeriodString = `/submission-statistics?tab=submissions&fy=${FiscalYearHelper.currentFiscalYear}&period=${FiscalYearHelper.getCurrentPeriod(date.getMonth())}`;
-
     const jumpToSection = (section = '') => {
         const sectionDom = document.querySelector(`#${section}`);
         if (!sectionDom) {
@@ -42,7 +38,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
             <p className="analyst-guide__answerStyle">Agencies periodically upload account spending in various formats. One format (account breakdown by award) represents award activity and includes details on federal accounts funding that activity. Agencies also upload transaction level award spending for both contracts and financial assistance. </p>
             <p className="analyst-guide__answerStyle">These files can be linked together to associate award spending with account spending. If a shared ID cannot be found between these files, award spending may be unlinked to any account.</p>
             <p className="analyst-guide__answerStyle">The{' '}
-                <Link to={fyandPeriodString}>Agency Submission Statistics page</Link>
+                <Link to="/submission-statistics">Agency Submission Statistics page</Link>
                 {' '}contains data on this linkage under the “Number of Unlinked Contract Awards” and “Number of Unlinked Assistance Awards” columns.
             </p>
             <p className="analyst-guide__answerStyle">More information about federal accounts is discussed in the{' '}
