@@ -111,6 +111,7 @@ describe('Fiscal Year helper functions', () => {
             expect(FiscalYearHelper.getTrailingTwelveMonths()).toEqual(expectedDates);
         });
     });
+
     describe('nearestQuarterDate', () => {
         describe('Fiscal Quarter 1 Oct-Dec', () => {
             it('10-14-2019 - should return this quarter start quarter date in millis', () => {
