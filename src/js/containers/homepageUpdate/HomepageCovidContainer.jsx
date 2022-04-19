@@ -107,7 +107,6 @@ const HomepageCovidContainer = () => {
                 const overview = Object.create(CovidOverviewModel);
                 overview.populate(res.data);
                 dispatch(setOverview(overview));
-                // request.current = null;
             });
     }, [dispatch, totalSpendingAmount, validDefCodes]);
 
