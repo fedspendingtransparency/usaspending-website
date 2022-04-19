@@ -88,19 +88,6 @@ describe('Fiscal Year helper functions', () => {
         });
     });
 
-    describe('getCurrentPeriod', () => {
-        it('should convert a numbered month to the current period', () => {
-            const firstPeriod = '9';
-            const expectedPeriod = '1';
-            expect(FiscalYearHelper.getCurrentPeriod(firstPeriod)).toEqual(expectedPeriod);
-
-            const firstPeriodString = 'october';
-            expect(FiscalYearHelper.getCurrentPeriod(firstPeriodString)).toEqual(undefined);
-
-            const secondPeriod = '20';
-            expect(FiscalYearHelper.getCurrentPeriod(secondPeriod)).toEqual(undefined);
-        });
-    });
     describe('convertDateToFY', () => {
         it('should convert a Moment object to the fiscal year it occurs within', () => {
             const firstDate = moment('2015-12-01', 'YYYY-MM-DD');
