@@ -10,8 +10,7 @@ addons:
       - g++-4.8
   chrome: stable
 env:
-  - CXX=g++-4.8
-  - NODE_OPTIONS=--max-old-space-size=8192
+  - CXX=g++-4.8 NODE_OPTIONS=--max-old-space-size=8192
 cache:
   directories:
     - node_modules
