@@ -68,11 +68,18 @@ const AnimatedHeading = ({ paused }) => {
     useEffect(() => {
         const animated = document.querySelector('.phrase__end-rotation').lastElementChild;
         animated.addEventListener('animationstart', () => {
-            document.querySelector('.phrase').classList.add('phrase--exit-animation');
+            // const intro = document.querySelectorAll(".phrase__intro__item span");
+            // intro.forEach((item, index) => {
+            //     intro[index].style.animationPlayState = "paused";
+            // });
+
             setTimeout(() => {
-                document.querySelector('.phrase').style.display = 'none';
-                document.querySelector('.landing-phrase').classList.add('landing-phrase--entrance-animation');
-            }, 2000);
+                document.querySelectorAll('.phrase__static__item').classList.add('phrase--exit-animation');
+                setTimeout(() => {
+                    // document.querySelector('.phrase').style.display = 'none';
+                    document.querySelector('.landing-phrase').classList.add('landing-phrase--entrance-animation');
+                }, 2000);
+            }, 3000);
         });
 
         const endingAnimation = document.querySelector('.phrase__end__item--entrance span');

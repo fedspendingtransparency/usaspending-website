@@ -19,8 +19,8 @@ $green-text: #2d6878;
 }
 
 @mixin rotation-exit ($animation, $increment, $opacity: 0) {
-    animation: fade-out-phrase-part $increment;
-    -webkit-animation: fade-out-phrase-part $increment;
+    animation: $animation $increment linear;
+    -webkit-animation: $animation $increment linear;
     overflow: hidden;
     opacity: $opacity;
 }
@@ -196,8 +196,8 @@ $green-text: #2d6878;
             @include rotation-delay($iteration-increment * 6);
         }
 
-        .phrase--exit-animation {
-            @include rotation-exit('fade-out-phrase-part', $hold-increment * 3 + $scroll-increment, 0);
+        .phrase--exit-animation span {
+            @include rotation-exit('fade-out-phrase-part', $scroll-increment * 2, 0);
         }
 
         @-moz-keyframes fade-in-landing-phrase {
@@ -216,7 +216,7 @@ $green-text: #2d6878;
 
         @keyframes fade-out-phrase-part {
             0% { opacity: 1 }
-            95% { opacity: 1 }
+            50% { opacity: 1 }
             100% { opacity: 0 }
 
         }
