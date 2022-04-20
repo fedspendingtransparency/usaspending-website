@@ -42,6 +42,13 @@ PublicLawPickerOption.propTypes = {
     className: PropTypes.string
 };
 
+const backgroundColor = {
+    backgroundColor: "#555",
+    ' @media(max-width: $medium-screen)': {
+        backgroundColor: "#f1f1f1"
+    }
+};
+
 const PublicLawPicker = ({
     selectedOption = null,
     onClick
@@ -50,6 +57,7 @@ const PublicLawPicker = ({
     return (
         <div className="public-law-picker__container">
             <Picker
+                backgroundColor={backgroundColor}
                 className="public-law-picker"
                 icon={<FontAwesomeIcon icon="scroll" size="sm" />}
                 selectedOption={selected?.title || options[0].title}

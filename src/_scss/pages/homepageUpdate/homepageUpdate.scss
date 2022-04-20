@@ -235,14 +235,15 @@
   }
 
   @import "../homepage/download/download";
-  @import "../homepage/community/community";
   @import "../homepage/features/_carousel";
   @import "../homepage/features/_dropdown";
   @import "../homepage/features/_search";
   @import "../homepage/features/_profile";
   @import "../homepage/features/_spendingExplorer";
   @import "hero/hero";
+  @import "hero/animatedHeading";
   @import "./homepageCovidSection";
+  @import "./homepageCommunity";
 }
 
 

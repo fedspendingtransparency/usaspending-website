@@ -27,7 +27,7 @@ export default class Contact extends React.Component {
                             <a
                                 target="_blank"
                                 rel="noopener noreferrer"
-                                href="https://usaspending-help.zendesk.com/hc/en-us/community/topics">
+                                href="https://fiscalservice.force.com/usaspending/s/">
                                 <button
                                     className="usa-button-outline"
                                     aria-label="Visit Our Community Page"
