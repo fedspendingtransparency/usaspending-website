@@ -21,7 +21,6 @@ $green-text: #2d6878;
 @mixin rotation-exit ($animation, $increment, $opacity: 0) {
     animation: $animation $increment linear;
     -webkit-animation: $animation $increment linear;
-    overflow: hidden;
     opacity: $opacity;
 }
 
@@ -159,44 +158,38 @@ $green-text: #2d6878;
         }
 
         .phrase__end__item {
-            position: absolute;
+            position: relative;
             color: $green-text;
             white-space: nowrap;
+            span {
+                position: absolute;
+            }
 
-        }
-
-
-        .phrase__end-rotation span {
-            position: absolute;
-            opacity: 0;
-            overflow: hidden;
-            position: absolute;
-            white-space: nowrap;
         }
 
         .phrase__end__item--entrance span {
             @include rotation('scroll-out', $iteration-increment * 2,  0);
         }
 
-        .phrase__end__item--rotate span {
+        .phrase__end__item--rotation span {
 
-            @include rotation('scroll-in', $iteration-increment * 2, 0);
+            @include rotation('scroll-in', $iteration-increment * 2, $iteration-increment * 2);
 
         }
 
-        .phrase__end__item--rotate span:nth-child(2) {
-            @include rotation-delay($iteration-increment * 2);
-        }
-
-        .phrase__end__item--rotate span:nth-child(3) {
+        .phrase__end__item--rotation span:nth-child(2) {
             @include rotation-delay($iteration-increment * 4);
         }
 
-        .phrase__end__item--rotate span:nth-child(4) {
+        .phrase__end__item--rotation span:nth-child(3) {
             @include rotation-delay($iteration-increment * 6);
         }
 
-        .phrase--exit-animation span {
+        .phrase__end__item--rotation span:nth-child(4) {
+            @include rotation-delay($iteration-increment * 8);
+        }
+
+        .phrase--exit-animation {
             @include rotation-exit('fade-out-phrase-part', $scroll-increment * 2, 0);
         }
 

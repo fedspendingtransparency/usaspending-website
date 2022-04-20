@@ -66,25 +66,18 @@ const AnimatedHeading = ({ paused }) => {
     }, [paused]);
 
     useEffect(() => {
-        const animated = document.querySelector('.phrase__end-rotation').lastElementChild;
+        const animated = document.querySelector('.phrase__end__item--rotation').lastElementChild;
         animated.addEventListener('animationstart', () => {
-            // const intro = document.querySelectorAll(".phrase__intro__item span");
-            // intro.forEach((item, index) => {
-            //     intro[index].style.animationPlayState = "paused";
-            // });
-
             setTimeout(() => {
-                document.querySelectorAll('.phrase__static__item').classList.add('phrase--exit-animation');
-                setTimeout(() => {
-                    // document.querySelector('.phrase').style.display = 'none';
-                    document.querySelector('.landing-phrase').classList.add('landing-phrase--entrance-animation');
-                }, 2000);
-            }, 3000);
-        });
+                document.querySelector('.phrase__intro__item').classList.add('phrase--exit-animation');
+                document.querySelector('.phrase__static__item span').classList.add('phrase--exit-animation');
+                document.querySelector('.phrase__end__item').classList.add('phrase--exit-animation');
 
-        const endingAnimation = document.querySelector('.phrase__end__item--entrance span');
-        endingAnimation.addEventListener('animationend', () => {
-            document.querySelector('.phrase__end-rotation').classList.add('phrase__end__item--rotate');
+                setTimeout(() => {
+                    document.querySelector('.phrase').style.display = 'none';
+                    document.querySelector('.landing-phrase').classList.add('landing-phrase--entrance-animation');
+                }, 1000);
+            }, 2500);
         });
     }, []);
 
@@ -144,7 +137,7 @@ const AnimatedHeading = ({ paused }) => {
                         <div className="phrase__end__item--entrance">
                             <span>{rotatingWords.right.tempWordsArray[0]}</span>
                         </div>
-                        <div className="phrase__end-rotation">
+                        <div className="phrase__end__item--rotation">
                             <span>{rotatingWords.right.tempWordsArray[1]}</span>
                             <span>{rotatingWords.right.tempWordsArray[2]}</span>
                             <span>{rotatingWords.right.tempWordsArray[3]}</span>
