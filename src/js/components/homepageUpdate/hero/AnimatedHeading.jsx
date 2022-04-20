@@ -79,6 +79,16 @@ const AnimatedHeading = ({ paused }) => {
                 }, 1000);
             }, 2500);
         });
+
+        const landing = document.querySelector('.landing-phrase');
+        landing.addEventListener('animationend', () => {
+            const intro = document.querySelector('.phrase__intro__item--entrance span');
+            intro.style.animation = 'none';
+            // eslint-disable-next-line no-void,no-unused-expressions
+            intro.offsetWidth;
+            intro.style.animation = null;
+            document.querySelector('.phrase').style.display = 'flex';
+        });
     }, []);
 
     // hack to center text if it goes to two lines on desktop
@@ -120,7 +130,7 @@ const AnimatedHeading = ({ paused }) => {
             <div className="phrase">
                 <div className="phrase__intro">
                     <div className="phrase__intro__item">
-                        <div className="phrase__intro__item--entrance">
+                        <div className="first__phrase__intro phrase__intro__item--entrance">
                             <span>{rotatingWords.left.tempWordsArray[0]}&nbsp;</span>
                         </div>
                         <div className="phrase__intro__item--rotation">
