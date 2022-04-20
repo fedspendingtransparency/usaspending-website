@@ -91,8 +91,7 @@ const AnimatedHeading = ({ paused }) => {
             phrase.parentNode.replaceChild(clonedNode, phrase);
             setAnimatedCnt((prevState) => prevState + 1);
         });
-
-    },[landingCnt]);
+    }, [landingCnt]);
 
     useEffect(() => {
         const phrase = document.querySelector('.phrase');
@@ -100,21 +99,22 @@ const AnimatedHeading = ({ paused }) => {
         animated.addEventListener('animationstart', () => {
             const landing = document.querySelector('.landing-phrase');
             setTimeout(() => {
-                // document.querySelector('.phrase__intro__item').classList.add('phrase--exit-animation');
-                // document.querySelector('.phrase__static__item').classList.add('phrase--exit-animation');
-                // document.querySelector('.phrase__end__item').classList.add('phrase--exit-animation');
-                document.querySelector('.phrase').style.visibility = 'hidden';
-                landing.style.visibility = 'visible';
-                const clonedNode = landing.cloneNode(true);
-                landing.parentNode.replaceChild(clonedNode, landing);
-                landing.classList.add('landing-phrase--entrance-animation');
-                document.querySelector('.phrase__intro__item').classList.remove('phrase--exit-animation');
-                document.querySelector('.phrase__static__item span').classList.remove('phrase--exit-animation');
-                document.querySelector('.phrase__end__item').classList.remove('phrase--exit-animation');
-                setLandingCnt((prevState) => prevState + 1);
+                document.querySelector('.phrase__intro__item').classList.add('phrase--exit-animation');
+                document.querySelector('.phrase__static__item').classList.add('phrase--exit-animation');
+                document.querySelector('.phrase__end__item').classList.add('phrase--exit-animation');
+                setTimeout(() => {
+                    document.querySelector('.phrase').style.visibility = 'hidden';
+                    landing.style.visibility = 'visible';
+                    const clonedNode = landing.cloneNode(true);
+                    landing.parentNode.replaceChild(clonedNode, landing);
+                    landing.classList.add('landing-phrase--entrance-animation');
+                    document.querySelector('.phrase__intro__item').classList.remove('phrase--exit-animation');
+                    document.querySelector('.phrase__static__item').classList.remove('phrase--exit-animation');
+                    document.querySelector('.phrase__end__item').classList.remove('phrase--exit-animation');
+                    setLandingCnt((prevState) => prevState + 1);
+                }, 1500);
             }, 2500);
         });
-
     }, [animatedCnt]);
 
     // hack to center text if it goes to two lines on desktop
