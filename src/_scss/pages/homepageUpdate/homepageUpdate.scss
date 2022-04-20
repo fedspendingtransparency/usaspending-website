@@ -21,7 +21,7 @@
 
         @include transform(skewY(5deg));
 
-        @include media($medium-screen) {
+        @include media($medium-screen + 1) {
             top: 0;
             bottom: 0;
             height: 80rem;
@@ -38,7 +38,7 @@
           }
         }
         img {
-          @include media($medium-screen) {
+          @include media($medium-screen + 1) {
             max-height: 554px;
           }
         }
@@ -69,7 +69,7 @@
           line-height: 1.5;
         }
         .homepage-spending-explorer {
-          @include media($medium-screen) {
+          @include media(993px) {
             margin-bottom: -100px;
           }
           .homepage-spending-explorer__img-wrapper {
@@ -115,13 +115,13 @@
         }
         .homepage-search-feature {
           margin-top: 6.5rem;
-          @include media($medium-screen) {
+          @include media($medium-screen + 1) {
             margin-bottom: -100px;
           }
           .homepage-search-feature__img-carousel {
             padding-top: $global-padding * 20;
             padding-left: $global-padding * 10;
-            @include media($medium-screen) {
+            @include media($medium-screen + 1) {
               margin-right: -6rem;
             }
             @media (max-width: $medium-screen) {
@@ -163,7 +163,7 @@
           .homepage-profile-feature__img-carousel {
             padding-top: $global-padding * 10;
             padding-right: $global-padding * 10;
-            @include media($medium-screen) {
+            @include media($medium-screen + 1) {
               margin-left: -6rem;
             }
             @media (max-width: $medium-screen) {
