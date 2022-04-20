@@ -57,15 +57,15 @@
             text-align: left;
           }
           .section-heading-title {
-            font-size: 40px;
+            font-size: rem(40);
             font-weight: 600;
-            color: #1b1b1b;
+            color: $color-gray-darker;
             line-height: 1.25;
             font-weight: 600;
           }
         }
         p {
-          font-size: 20px;
+          font-size: rem(20);
           line-height: 1.5;
         }
         .homepage-spending-explorer {
@@ -96,18 +96,18 @@
               margin-top: $global-margin * 8;
             }
             .homepage-spending-explorer-desc__title {
-              font-size: 28px;
+              font-size: rem(28);
               font-weight: 600;
               line-height: 1.25;
-              color: #1b1b1b;
+              color: $color-gray-darker;
             }
             p {
-              font-size: 20px;
+              font-size: rem(20);
               line-height: 1.5;
             }
             .homepage-spending-explorer__button {
               margin: 0;
-              font-size: 20px;
+              font-size: rem(20);
               padding: 1.5rem 2rem;
               font-weight: 600;
             }
@@ -141,14 +141,14 @@
             }
             margin-right: $global-margin;
             p {
-              font-size: 20px;
+              font-size: rem(20);
               line-height: 1.5;
             }
             .homepage-search-feature-desc__title {
-              font-size: 28px;
+              font-size: rem(28);
               font-weight: 600;
               line-height: 1.25;
-              color: #1b1b1b;
+              color: $color-gray-darker;
               @media (max-width: $medium-screen) {
                 margin-top: 20rem;
               }
@@ -173,16 +173,16 @@
           }
           .homepage-profile-feature-desc {
             .homepage-profile-feature-desc__title {
-              font-size: 28px;
+              font-size: rem(28);
               font-weight: 600;
               line-height: 1.25;
-              color: #1b1b1b;
+              color: $color-gray-darker;
               @media (max-width: $medium-screen) {
                 margin-top: 20rem;
               }
             }
             p {
-              font-size: 20px;
+              font-size: rem(20);
               line-height: 1.5;
               @media (max-width: $medium-screen) {
                 margin-top: -21rem !important;
@@ -211,7 +211,7 @@
               margin-left: 0;
             }
             .homepage-profile-feature-desc__title {
-              font-size: 28px;
+              font-size: rem(28);
               font-weight: 600;
               line-height: 1.25;
             }

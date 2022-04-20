@@ -19,7 +19,7 @@
             @include media($tablet-screen) {
                 display: block;
             }
-            font-size: 28px;
+            font-size: rem(28);
 
             .fa-chevron-right {
                 color: #555;

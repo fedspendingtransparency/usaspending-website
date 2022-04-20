@@ -244,7 +244,7 @@ const GettingStarted = () => {
             <FlexGridRow
                 className="grid-content">
                 <div className="section-heading-title-wrapper">
-                    <h1 className="section-heading-title">Getting Started on USAspending</h1>
+                    <h2 className="section-heading-title">Getting Started on USAspending</h2>
                 </div>
                 {spendingExplorerLayout}
                 {searchCarouselLayout}
