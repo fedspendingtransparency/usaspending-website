@@ -51,6 +51,13 @@ const StatePage = ({
         handleShareOptionClick(name, slug, emailArgs);
     };
 
+    const backgroundColor = {
+        backgroundColor: "#555",
+        ' @media(max-width: $medium-screen)': {
+            backgroundColor: "#f1f1f1"
+        }
+    };
+
     return (
         <PageWrapper
             pageName="State Profile"
@@ -60,6 +67,7 @@ const StatePage = ({
             metaTagProps={stateProfile.overview ? statePageMetaTags(stateProfile.overview) : {}}
             toolBarComponents={[
                 <FiscalYearPicker
+                    backgroundColor={backgroundColor}
                     selectedFy={stateProfile?.fy}
                     handleFyChange={pickedFy}
                     options={getFiscalYearsWithLatestAndAll(earliestFiscalYear, currentFiscalYear())} />,
