@@ -60,8 +60,8 @@ const Community = () => (
             </div>
             <div className="homepage-community__image-wrapper homepage-community__image-wrapper_desktop">
                 <img
-                    src="img/img:homepage-community@1-5x.png"
-                    srcSet="img/img:homepage-community@1-5x.webp 1x, img/img:homepage-community@2x.webp 2x"
+                    src="img/homepage-community/homepage-community@1-5x.png"
+                    srcSet="img/homepage-community/homepage-community@1-5x.webp 1x, img/homepage-community/homepage-community@2x.webp 2x"
                     alt=""
                     role="presentation" />
             </div>
