@@ -115,7 +115,7 @@ const AnimatedHeading = ({ paused }) => {
     const rotatingText = () => (
         <div className="hero__headline">
             <h1 className="landing-phrase">
-                <span>The official source of government spending data</span>
+                <span>The official source of government <span style={{ whiteSpace: 'nowrap' }}>spending data</span></span>
             </h1>
             <div className="phrase">
                 <div className="phrase__intro">
