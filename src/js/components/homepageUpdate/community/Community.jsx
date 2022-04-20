@@ -44,8 +44,11 @@ const Community = () => (
                     <a
                         rel="noopener noreferrer"
                         target="_blank"
-                        href="https://fiscalservice.force.com/usaspending/s/"
-                        onClick={clickedHomepageLink.bind(null, 'https://fiscalservice.force.com/usaspending/s/')}>
+                        href="mailto:usaspending.help@fiscal.treasury.gov?subject=Contact%20Us"
+                        onClick={clickedHomepageLink.bind(
+                            null,
+                            'mailto:usaspending.help@fiscal.treasury.gov?subject=Contact%20Us'
+                        )}>
                         <button
                             className="homepage-community-button__email"
                             aria-label="Send Us A Message"
