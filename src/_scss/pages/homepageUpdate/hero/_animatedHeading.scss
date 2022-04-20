@@ -34,18 +34,13 @@ $green-text: #2d6878;
 
     .landing-phrase {
         font-weight: bold;
-        display: none;
         color: $color-grayblack;
         text-align: center;
         margin: 0 0 rem(10) 0;
-        span {
-            line-height: rem(70);
-            @media (max-width: $medium-screen) {
-                max-width: rem(400);
-                line-height: rem(50);
-            }
-        }
+        line-height: rem(70);
         @media (max-width: $medium-screen) {
+            max-width: rem(400);
+            line-height: rem(50);
             text-align: left;
             font-size: rem(40);
             flex-basis: rem(641);
@@ -54,10 +49,11 @@ $green-text: #2d6878;
     }
 
     .landing-phrase--entrance-animation {
-        display: flex;
-        span {
-            @include rotation('fade-in-landing-phrase', $hold-increment/2, 0, 1, 'static');
-        }
+        @include rotation('fade-in-landing-phrase', $hold-increment/2, 0, 1, 'static');
+    }
+
+    .landing-phrase--exit-animation {
+        @include rotation('scroll-out', $iteration-increment, 0);
     }
 
     .phrase {

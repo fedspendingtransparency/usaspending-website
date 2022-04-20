@@ -4,6 +4,9 @@ const AnimatedHeading = ({ paused }) => {
     const leftWords = ['Explore', 'Search', 'Track', 'Download', 'Analyze'];
     const rightWords = ['by industry', 'by agency', 'over time', 'to communities', 'by recipient'];
     const [endWordTop, setEndWordTop] = useState();
+    const [landingCnt, setLandingCnt] = useState(0);
+    const [animatedCnt, setAnimatedCnt] = useState(0);
+
     // TODO with DEV-8677
     // const getRandomInt = (max) => Math.floor(Math.random() * max);
 
@@ -49,7 +52,8 @@ const AnimatedHeading = ({ paused }) => {
     //     return index;
     // };
 
-    useEffect(() => {
+    // eslint-disable-next-line no-shadow
+    const pauseAll = (paused, isLanding) => {
         const intro = document.querySelectorAll(".phrase__intro__item span");
         intro.forEach((item, index) => {
             intro[index].style.animationPlayState = paused ? "paused" : "running";
@@ -60,36 +64,58 @@ const AnimatedHeading = ({ paused }) => {
             end[index].style.animationPlayState = paused ? "paused" : "running";
         });
 
-        document.querySelector(".landing-phrase span").style.animationPlayState = paused ? "paused" : "running";
+        if (!isLanding) {
+            document.querySelector(".landing-phrase span").style.animationPlayState = paused ? "paused" : "running";
+        }
 
         document.querySelector(".phrase__static__item").style.animationPlayState = paused ? "paused" : "running";
+    };
+
+    useEffect(() => {
+        pauseAll(paused);
     }, [paused]);
 
     useEffect(() => {
-        const animated = document.querySelector('.phrase__end__item--rotation').lastElementChild;
-        animated.addEventListener('animationstart', () => {
-            setTimeout(() => {
-                document.querySelector('.phrase__intro__item').classList.add('phrase--exit-animation');
-                document.querySelector('.phrase__static__item span').classList.add('phrase--exit-animation');
-                document.querySelector('.phrase__end__item').classList.add('phrase--exit-animation');
-
-                setTimeout(() => {
-                    document.querySelector('.phrase').style.display = 'none';
-                    document.querySelector('.landing-phrase').classList.add('landing-phrase--entrance-animation');
-                }, 1000);
-            }, 2500);
-        });
+        pauseAll(true, true);
+        const phrase = document.querySelector('.phrase');
+        document.querySelector('.phrase').style.visibility = 'hidden';
+        document.querySelector('.landing-phrase').classList.remove('landing-phrase--entrance-animation');
 
         const landing = document.querySelector('.landing-phrase');
         landing.addEventListener('animationend', () => {
-            const intro = document.querySelector('.phrase__intro__item--entrance span');
-            intro.style.animation = 'none';
-            // eslint-disable-next-line no-void,no-unused-expressions
-            intro.offsetWidth;
-            intro.style.animation = null;
-            document.querySelector('.phrase').style.display = 'flex';
+            // fade out and start animation
+            landing.style.visibility = 'hidden';
+            phrase.style.visibility = 'visible';
+            pauseAll(false, false);
+            const clonedNode = phrase.cloneNode(true);
+            phrase.parentNode.replaceChild(clonedNode, phrase);
+            setAnimatedCnt((prevState) => prevState + 1);
         });
-    }, []);
+
+    },[landingCnt]);
+
+    useEffect(() => {
+        const phrase = document.querySelector('.phrase');
+        const animated = phrase.querySelector('.phrase__end__item--rotation').lastElementChild;
+        animated.addEventListener('animationstart', () => {
+            const landing = document.querySelector('.landing-phrase');
+            setTimeout(() => {
+                // document.querySelector('.phrase__intro__item').classList.add('phrase--exit-animation');
+                // document.querySelector('.phrase__static__item').classList.add('phrase--exit-animation');
+                // document.querySelector('.phrase__end__item').classList.add('phrase--exit-animation');
+                document.querySelector('.phrase').style.visibility = 'hidden';
+                landing.style.visibility = 'visible';
+                const clonedNode = landing.cloneNode(true);
+                landing.parentNode.replaceChild(clonedNode, landing);
+                landing.classList.add('landing-phrase--entrance-animation');
+                document.querySelector('.phrase__intro__item').classList.remove('phrase--exit-animation');
+                document.querySelector('.phrase__static__item span').classList.remove('phrase--exit-animation');
+                document.querySelector('.phrase__end__item').classList.remove('phrase--exit-animation');
+                setLandingCnt((prevState) => prevState + 1);
+            }, 2500);
+        });
+
+    }, [animatedCnt]);
 
     // hack to center text if it goes to two lines on desktop
     const handleWindowResize = () => {
@@ -124,13 +150,13 @@ const AnimatedHeading = ({ paused }) => {
 
     const rotatingText = () => (
         <div className="hero__headline">
-            <h1 className="landing-phrase">
-                <span>The official source of government <span style={{ whiteSpace: 'nowrap' }}>spending data</span></span>
+            <h1 className="landing-phrase landing-phrase--exit-animation">
+                <div>The official source of government <span style={{ whiteSpace: 'nowrap' }}>spending data</span></div>
             </h1>
             <div className="phrase">
                 <div className="phrase__intro">
                     <div className="phrase__intro__item">
-                        <div className="first__phrase__intro phrase__intro__item--entrance">
+                        <div className="phrase__intro__item--entrance">
                             <span>{rotatingWords.left.tempWordsArray[0]}&nbsp;</span>
                         </div>
                         <div className="phrase__intro__item--rotation">
