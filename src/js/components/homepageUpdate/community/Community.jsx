@@ -32,6 +32,7 @@ const Community = () => (
                     <a
                         rel="noopener noreferrer"
                         target="_blank"
+                        tabIndex={-1}
                         href="https://fiscalservice.force.com/usaspending/s/"
                         onClick={clickedHomepageLink.bind(null, 'https://fiscalservice.force.com/usaspending/s/')}>
                         <button
@@ -44,6 +45,7 @@ const Community = () => (
                     <a
                         rel="noopener noreferrer"
                         target="_blank"
+                        tabIndex={-1}
                         href="mailto:usaspending.help@fiscal.treasury.gov?subject=Contact%20Us"
                         onClick={clickedHomepageLink.bind(
                             null,
