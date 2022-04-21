@@ -1,0 +1,109 @@
+.homepage-community {
+    background-color: $color-gray-lightest;
+    @include media($medium-screen) {
+        padding: 0;
+    }
+
+    .homepage-community__wrapper {
+        display: flex;
+        margin: 0 $grid-column;
+        @media screen and (max-width: $medium-screen) {
+              margin: 0 rem(16);
+          }
+        padding-top: $global-padding * 9;
+        padding-bottom: $global-padding * 9;
+    }
+
+    .homepage-community__content {
+        @include media($medium-screen) {
+            width: 50%;
+            margin-right: 8rem;
+            padding-top: $global-padding * 8;
+        }
+    }
+
+    .homepage-community__image-wrapper {
+        &.homepage-community__image-wrapper_desktop {
+            display: none;
+            @include media($medium-screen) {
+                display: block;
+                margin-left: auto;
+            }
+        }
+    }
+
+    h2.homepage-community__title {
+        font-weight: $font-semibold;
+        color: $color-grayblack;
+        font-size: rem(40);
+        line-height: 1.25;
+        margin: 0;
+    }
+
+    p.homepage-community__description {
+        font-size: rem(20);
+        line-height: 1.5;
+        color: $color-base;
+        margin-top: 3rem;
+        margin-bottom: 3rem;
+    }
+
+    .homepage-community-button__container {
+        display: flex;
+        flex-direction: column;
+        a {
+            text-decoration: none;
+        }
+        button {
+            @media (max-width: $medium-screen) {
+                width: 100%;
+            }
+        }
+        @media (min-width: $medium-screen) {
+            flex-direction: row;
+        }
+
+        .homepage-community-button__visit {
+            display: flex;
+            justify-content: center;
+            flex-wrap: nowrap;
+
+            font-weight: $font-semibold;
+            font-size: rem(20);
+            white-space: nowrap;
+            color: $color-white;
+            background-color: $color-primary;
+            padding: rem(15) rem(25);
+            margin-bottom: 1rem;
+
+            &:hover, &:active {
+                text-decoration: none;
+                background-color: darken($color-primary, 10%);
+            }
+        }
+
+        .homepage-community-button__email {
+            display: flex;
+            justify-content: center;
+            flex-wrap: nowrap;
+            @media (min-width: $medium-screen) {
+                margin-left: 1rem;
+            }
+
+            font-weight: $font-semibold;
+            font-size: rem(20);
+            white-space: nowrap;
+            color: $color-primary;
+            background-color: #f8f8f7;
+            border: solid rem(1);
+            border-color: $color-primary;
+            padding: rem(15) rem(25);
+            margin-bottom: rem(32);
+
+            &:hover, &:active {
+                text-decoration: none;
+                background-color: lighten($color-white, 10%);
+            }
+        }
+    }
+}

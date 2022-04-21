@@ -26,7 +26,7 @@ describe('Covid 19 Reducer', () => {
         expect(state.overview).toEqual(overview);
     });
     it('should RESET_COVID_OVERVIEW', () => {
-        let state = covid19Reducer(undefined, {overview});
+        let state = covid19Reducer(undefined, { overview });
         state = covid19Reducer(state, resetOverview());
         expect(state.overview).toEqual({});
     });

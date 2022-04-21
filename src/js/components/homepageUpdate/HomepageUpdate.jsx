@@ -9,7 +9,7 @@ import { Redirect } from "react-router-dom";
 import Download from './download/Download';
 import Community from './community/Community';
 import Hero from './hero/Hero';
-import Covid from './covid/Covid';
+import HomepageCovidContainer from '../../containers/homepageUpdate/HomepageCovidContainer';
 import GettingStarted from './gettingStarted/GettingStarted';
 import PageWrapper from "../sharedComponents/PageWrapper";
 import { homePageMetaTags } from "../../helpers/metaTagHelper";
@@ -34,7 +34,7 @@ const HomepageUpdate = () => {
             metaTagProps={{ ...homePageMetaTags }}>
             <main id="main-content" className="main-content homepage-content">
                 <Hero />
-                <Covid />
+                <HomepageCovidContainer />
                 <GettingStarted />
                 <Download />
                 <Community />
