@@ -85,6 +85,7 @@ const AnimatedHeading = ({ paused }) => {
         landing.addEventListener('animationend', () => {
             // fade out and start animation
             landing.style.visibility = 'hidden';
+            landing.classList.add('landing-phrase--entrance-animation');
             phrase.style.visibility = 'visible';
             pauseAll(false, false);
             const clonedNode = phrase.cloneNode(true);
@@ -107,7 +108,6 @@ const AnimatedHeading = ({ paused }) => {
                     landing.style.visibility = 'visible';
                     const clonedNode = landing.cloneNode(true);
                     landing.parentNode.replaceChild(clonedNode, landing);
-                    landing.classList.add('landing-phrase--entrance-animation');
                     document.querySelector('.phrase__intro__item').classList.remove('phrase--exit-animation');
                     document.querySelector('.phrase__static__item').classList.remove('phrase--exit-animation');
                     document.querySelector('.phrase__end__item').classList.remove('phrase--exit-animation');
@@ -116,6 +116,10 @@ const AnimatedHeading = ({ paused }) => {
             }, 2500);
         });
     }, [animatedCnt]);
+
+    useEffect(() => {
+
+    })
 
     // hack to center text if it goes to two lines on desktop
     const handleWindowResize = () => {
