@@ -16,7 +16,7 @@ const propTypes = {
 
 const Training = (pageName) => {
     const body = (
-        `Thank you for your request for training on how to use the ${encodeURI("https://www.usaspending.gov")} website!\n\n` +
+        `Thank you for your request for training on how to use the USAspending.gov website!\n\n` +
         `Please fill out the information below and we'll respond to your inquiry as soon as possible.\n\n` +
         `Due to the volume of inquiries received, we may not be able to provide trainings for every request.\n\n` +
         `YOUR NAME: \n\n` +
