@@ -77,10 +77,14 @@ const HomepageCovidContainer = () => {
         </span>);
     const trackCardHeading = <p>Track <span>COVID-19</span> Spending</p>;
     const trackCardContent = (
-        <p>
-        Our <span>COVID-19</span> profile page helps you track <span>COVID-19</span> spending by who is receiving funding, which agencies have paid out funds, which programs were funded, and more.
-        All <span>COVID-19</span> spending data is available for download on the profile page with one click. You can also read about our datasets and calculations on the <Link to="/disaster/covid-19/data-sources">Data Sources & Methodology page</Link>.
-        </p>);
+        <div>
+            <p>
+            Our <span>COVID-19</span> profile page helps you track <span>COVID-19</span> spending by who is receiving funding, which agencies have paid out funds, which programs were funded, and more.
+            </p>
+            <p>
+            All <span>COVID-19</span> spending data is available for download on the profile page with one click. You can also read about our datasets and calculations on the <Link to="/disaster/covid-19/data-sources">Data Sources & Methodology page</Link>.
+            </p>
+        </div>);
     const trackCardLink = (
         <Link
             to="/disaster/covid-19">
