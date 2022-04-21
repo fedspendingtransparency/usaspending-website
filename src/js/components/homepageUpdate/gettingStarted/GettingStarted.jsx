@@ -195,7 +195,8 @@ const GettingStarted = () => {
                 </p>
                 <a
                     rel="noopener noreferrer"
-                    href="/explorer">
+                    href="/explorer"
+                    tabIndex={-1}>
                     <button
                         className="homepage-spending-explorer__button"
                         aria-label="Try Spending Explorer"
@@ -225,7 +226,8 @@ const GettingStarted = () => {
                 </p>
                 <a
                     rel="noopener noreferrer"
-                    href="/explorer">
+                    href="/explorer"
+                    tabIndex={-1}>
                     <button
                         className="homepage-spending-explorer__button"
                         aria-label="Try Spending Explorer"
