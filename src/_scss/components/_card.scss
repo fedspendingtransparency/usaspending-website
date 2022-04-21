@@ -1,6 +1,6 @@
 .card-content {
   width: 100%;
-  background-color: white;
+  background-color: $color-white;
   border-radius: 6px;
   margin: 0 0 $global-margin * 4;
   padding: $global-padding * 3;
@@ -15,7 +15,7 @@
   .card__icon-wrapper {
     width: 35px;
     height: 35px;
-    background: #1b1b1b;
+    background: $color-grayblack;
     text-align: center;
     border-radius: 4px;
     padding: $global-padding;
@@ -30,7 +30,7 @@
     font-style: normal;
     line-height: 1.25;
     letter-spacing: normal;
-    color: #1b1b1b;
+    color: $color-grayblack;
     @media (min-width: $medium-screen) {
       margin-left: $global-margin * 2;
       padding-bottom: 2px;
@@ -48,7 +48,7 @@
     font-style: normal;
     line-height: 1.5;
     letter-spacing: normal;
-    color: #555;
+    color: $color-base;
     margin-bottom: $global-margin * 3;
 
     p {
