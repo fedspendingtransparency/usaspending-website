@@ -30,40 +30,29 @@
     .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__button {
       margin: 0 0.625rem;
     }
+
     // these affect the share dropdown position
     // overriding the styles in data-transparency-ui Picker, sent by ShareIcon
-    @media (min-width: $small-screen) and (max-width: 374px) {
-      .usa-dt-picker .usa-dt-picker__dropdown-container ul {
+    .usa-dt-picker .usa-dt-picker__dropdown-container ul {
+      @media (min-width: $small-screen) and (max-width: 374px) {
         right: 110px !important;
       }
-    }
-    @media (min-width: 375px) and (max-width: 474px){
-      .usa-dt-picker .usa-dt-picker__dropdown-container ul {
+      @media (min-width: 375px) and (max-width: 474px) {
         right: 132px !important;
       }
-    }
-    @media (min-width: 475px) and (max-width: 574px){
-      .usa-dt-picker .usa-dt-picker__dropdown-container ul {
+      @media (min-width: 475px) and (max-width: 574px) {
         right: 232px !important;
       }
-    }
-    @media (min-width: 575px) and (max-width: 674px){
-      .usa-dt-picker .usa-dt-picker__dropdown-container ul {
+      @media (min-width: 575px) and (max-width: 674px) {
         right: 332px !important;
       }
-    }
-    @media (min-width: 675px) and (max-width: 767px){
-      .usa-dt-picker .usa-dt-picker__dropdown-container ul {
+      @media (min-width: 675px) and (max-width: 767px) {
         right: 444px !important;
       }
-    }
-    @media (min-width: 768px) and (max-width: 868px){
-      .usa-dt-picker .usa-dt-picker__dropdown-container ul {
+      @media (min-width: 768px) and (max-width: 868px) {
         right: 525px !important;
       }
-    }
-    @media (min-width: 869px) and (max-width: $medium-screen){
-      .usa-dt-picker .usa-dt-picker__dropdown-container ul {
+      @media (min-width: 869px) and (max-width: $medium-screen) {
         right: 625px !important;
       }
     }
@@ -120,7 +109,6 @@
       line-height: $heading-line-height;
       letter-spacing: normal;
       color: $color-grayblack;
-
   }
 
   .analyst-guide__answerSection {
