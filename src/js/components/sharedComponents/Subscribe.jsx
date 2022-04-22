@@ -6,7 +6,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Analytics from 'helpers/analytics/Analytics';
-import { Envelope, CaretRight } from 'components/sharedComponents/icons/Icons';
+import { faCaretRight, faEnvelope } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default class Subscribe extends React.Component {
     static propTypes = {
@@ -23,7 +24,7 @@ export default class Subscribe extends React.Component {
         return (
             <div className="subscribe">
                 <div className="subscribe__icon">
-                    <Envelope />
+                    <FontAwesomeIcon icon={faEnvelope} />
                 </div>
                 <div className="subscribe__callout">
                     Stay in touch with us!&nbsp;
@@ -36,7 +37,7 @@ export default class Subscribe extends React.Component {
                     href="mailto:join-usaspending@lists.fiscal.treasury.gov?subject=Yes!%20I'd%20like%20to%20receive%20updates."
                     onClick={this.trackLink}>
                     Sign Up
-                    <CaretRight />
+                    <FontAwesomeIcon icon={faCaretRight} />
                 </a>
             </div>
         );
