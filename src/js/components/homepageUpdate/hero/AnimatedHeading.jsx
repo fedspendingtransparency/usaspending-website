@@ -86,7 +86,8 @@ const AnimatedHeading = ({ paused }) => {
             // fade out and start animation
             landing.style.visibility = 'hidden';
             landing.classList.add('landing-phrase--entrance-animation');
-            phrase.style.visibility = 'visible';
+            phrase.classList.add('phrase--entrance-animation');
+            phrase.style.visibility = "visible";
             pauseAll(false, false);
             const clonedNode = phrase.cloneNode(true);
             phrase.parentNode.replaceChild(clonedNode, phrase);
@@ -116,10 +117,6 @@ const AnimatedHeading = ({ paused }) => {
             }, 2500);
         });
     }, [animatedCnt]);
-
-    useEffect(() => {
-
-    })
 
     // hack to center text if it goes to two lines on desktop
     const handleWindowResize = () => {
@@ -157,7 +154,7 @@ const AnimatedHeading = ({ paused }) => {
             <h1 className="landing-phrase landing-phrase--exit-animation">
                 <div>The official source of government <span style={{ whiteSpace: 'nowrap' }}>spending data</span></div>
             </h1>
-            <div className="phrase">
+            <div className="phrase phase--entrance-animation">
                 <div className="phrase__intro">
                     <div className="phrase__intro__item">
                         <div className="phrase__intro__item--entrance">

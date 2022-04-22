@@ -24,6 +24,12 @@ $green-text: #2d6878;
     opacity: $opacity;
 }
 
+@mixin rotation-in ($animation, $increment, $opacity: 0) {
+    animation: $animation $increment linear;
+    -webkit-animation: $animation $increment linear;
+    opacity: $opacity;
+}
+
 .hero__headline {
     display: flex;
     flex-wrap: wrap;
@@ -53,7 +59,7 @@ $green-text: #2d6878;
     }
 
     .landing-phrase--exit-animation {
-        @include rotation('scroll-out', $iteration-increment, 0);
+        @include rotation('rotate', $iteration-increment + $scroll-increment * 2, 0);
     }
 
     .phrase {
@@ -77,6 +83,8 @@ $green-text: #2d6878;
             justify-content: normal;
             font-size: rem(40);
         }
+
+        //@include rotation('scroll-in', $iteration-increment * 2,  1);
 
         .phrase__intro {
             width: rem(262);
@@ -110,7 +118,7 @@ $green-text: #2d6878;
             }
 
             .phrase__intro__item--rotation span {
-                @include rotation('scroll-in', $iteration-increment * 2, $iteration-increment);
+                @include rotation('rotate', $iteration-increment * 2, $iteration-increment);
             }
 
             .phrase__intro__item--rotation span:nth-child(2) {
@@ -169,7 +177,7 @@ $green-text: #2d6878;
 
         .phrase__end__item--rotation span {
 
-            @include rotation('scroll-in', $iteration-increment * 2, $iteration-increment * 2);
+            @include rotation('rotate', $iteration-increment * 2, $iteration-increment * 2);
 
         }
 
@@ -216,18 +224,28 @@ $green-text: #2d6878;
             100% { opacity: 0; }
         }
 
-        @-moz-keyframes scroll-in {
+        @-moz-keyframes rotate {
             0% { opacity: 1; -moz-transform: translateY(25px); }
             5% { opacity: 1; -moz-transform: translateY(0px); }
             85% { opacity: 1; }
             100% { opacity: 0;  }
         }
 
-        @-webkit-keyframes scroll-in {
+        @-webkit-keyframes rotate {
             0% { opacity: 1; -webkit-transform: translateY(25px); }
             5% { opacity: 1; -webkit-transform: translateY(0px); }
             85% { opacity: 1; }
             100% { opacity: 0; }
+        }
+
+        @-moz-keyframes scroll-in {
+            0% { -moz-transform: translateY(25px); }
+            100% { -moz-transform: translateY(0px); }
+        }
+
+        @-webkit-keyframes scroll-in {
+            0% { -webkit-transform: translateY(25px); }
+            100% { -webkit-transform: translateY(0px); }
         }
     }
 }
