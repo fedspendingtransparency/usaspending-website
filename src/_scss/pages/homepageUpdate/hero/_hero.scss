@@ -1,10 +1,6 @@
 .homepage-hero-container {
     background: rgba(136, 180, 192, .15);
 
-    .shadow {
-        box-shadow: 0 0 rem(16) 0 rgba(0, 0, 0, 0.1);
-    }
-
     .homepage-hero-content {
         padding: rem(40) rem(16);
         @media (min-width: $medium-screen) {
