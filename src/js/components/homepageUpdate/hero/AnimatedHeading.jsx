@@ -1,56 +1,35 @@
 import React, { useEffect, useState } from "react";
+import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 
 const AnimatedHeading = ({ paused }) => {
-    const leftWords = ['Explore', 'Search', 'Track', 'Download', 'Analyze'];
-    const rightWords = ['by industry', 'by agency', 'over time', 'to communities', 'by recipient'];
+    const wordPairs = [['Explore', 'by industry', 75], ['Search', 'by agency', 75], ['Track', 'over time', 75], ['Download', 'to communities', 0], ['Analyze', 'by recipient', 75]];
     const [endWordTop, setEndWordTop] = useState();
+    const [wordWrap, setWordWrap] = useState(false);
     const [landingCnt, setLandingCnt] = useState(0);
     const [animatedCnt, setAnimatedCnt] = useState(0);
+    const [wordOrder, setWordOrder] = useState(wordPairs);
+    const [windowWidth, setWindowWidth] = useState();
+    const [isMobile, setIsMobile] = useState(false);
 
-    // TODO with DEV-8677
-    // const getRandomInt = (max) => Math.floor(Math.random() * max);
+    const shuffle = (array) => {
+        // eslint-disable-next-line one-var
+        let currentIndex = array.length,
+            randomIndex;
 
-    const rotatingWords = {
-        left: {
-            index: null,
-            previousWord: null,
-            wordsArray: [...leftWords],
-            tempWordsArray: [...leftWords],
-            currentWord: null
-        },
-        right: {
-            index: null,
-            previousWord: null,
-            wordsArray: [...rightWords],
-            tempWordsArray: [...rightWords],
-            currentWord: null
+        // While there remain elements to shuffle.
+        while (currentIndex !== 0) {
+            // Pick a remaining element.
+            randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex--;
+
+            // And swap it with the current element.
+            // eslint-disable-next-line no-param-reassign
+            [array[currentIndex], array[randomIndex]] = [
+                array[randomIndex], array[currentIndex]];
         }
-    };
 
-    // TODO with DEV-8677
-    // const pickWord = (position) => {
-    //     const { wordsArray } = rotatingWords[position];
-    //
-    //     let {
-    //         index, previousWord, tempWordsArray
-    //     } = rotatingWords[position];
-    //
-    //     if (previousWord) {
-    //         tempWordsArray.splice(tempWordsArray.indexOf(tempWordsArray[index]), 1);
-    //     }
-    //
-    //     if (tempWordsArray?.length === 0) {
-    //         tempWordsArray = [...wordsArray];
-    //     }
-    //
-    //     do {
-    //         index = getRandomInt(tempWordsArray.length);
-    //     } while (previousWord === tempWordsArray[index]);
-    //
-    //     previousWord = tempWordsArray[index];
-    //     rotatingWords[position].currentWord = previousWord;
-    //     return index;
-    // };
+        return array;
+    };
 
     // eslint-disable-next-line no-shadow
     const pauseAll = (paused) => {
@@ -131,6 +110,7 @@ const AnimatedHeading = ({ paused }) => {
 
     useEffect(() => {
         const animated = document.querySelector('.phrase__end__item .rotating__items').lastElementChild;
+        setWordOrder((prevState) => shuffle(prevState));
         animated.addEventListener('animationstart', () => {
             setTimeout(() => {
                 document.querySelector('.phrase__intro__item').classList.add('phrase--exit-animation');
@@ -153,19 +133,13 @@ const AnimatedHeading = ({ paused }) => {
 
         if (endWordTop !== tempEndPart.offsetTop) {
             setEndWordTop(tempEndPart.offsetTop);
-            const animatedSpan = document.querySelectorAll(".phrase__end span");
-            if (tempEndPart.offsetTop - tempStaticPart.offsetTop > 10) {
-                animatedSpan.forEach((item, index) => {
-                    if (index !== 3) {
-                        animatedSpan[index].classList.add('phrase__end--center');
-                    }
-                });
-            }
-            else {
-                animatedSpan.forEach((item, index) => {
-                    animatedSpan[index].classList.remove('phrase__end--center');
-                });
-            }
+            setWordWrap(tempEndPart.offsetTop - tempStaticPart.offsetTop > 10);
+        }
+
+        const newWidth = window.innerWidth;
+        if (windowWidth !== newWidth) {
+            setWindowWidth(newWidth);
+            setIsMobile(newWidth < mediumScreen);
         }
     };
 
@@ -186,13 +160,13 @@ const AnimatedHeading = ({ paused }) => {
                 <div className="phrase__intro">
                     <div className="phrase__intro__item">
                         <div className="entrance__item">
-                            <span>{rotatingWords.left.tempWordsArray[0]}&nbsp;</span>
+                            <span>{wordOrder[0][0]}&nbsp;</span>
                         </div>
                         <div className="rotating__items">
-                            <span>{rotatingWords.left.tempWordsArray[1]}&nbsp;</span>
-                            <span>{rotatingWords.left.tempWordsArray[2]}&nbsp;</span>
-                            <span>{rotatingWords.left.tempWordsArray[3]}&nbsp;</span>
-                            <span>{rotatingWords.left.tempWordsArray[4]}&nbsp;</span>
+                            <span>{wordOrder[1][0]}&nbsp;</span>
+                            <span>{wordOrder[2][0]}&nbsp;</span>
+                            <span>{wordOrder[3][0]}&nbsp;</span>
+                            <span>{wordOrder[4][0]}&nbsp;</span>
                         </div>
                     </div>
                 </div>
@@ -200,19 +174,31 @@ const AnimatedHeading = ({ paused }) => {
                 <div className="phrase__end">
                     <div className="phrase__end__item">
                         <div className="entrance__item">
-                            <span>{rotatingWords.right.tempWordsArray[0]}</span>
+                            {isMobile ?
+                                <span>{wordOrder[0][1]}</span>
+                                :
+                                <span style={{ left: wordWrap ? `${wordOrder[0][2]}px` : 'unset' }}>{wordOrder[0][1]}</span>
+                            }
                         </div>
-                        <div className="rotating__items">
-                            <span>{rotatingWords.right.tempWordsArray[1]}</span>
-                            <span>{rotatingWords.right.tempWordsArray[2]}</span>
-                            <span>{rotatingWords.right.tempWordsArray[3]}</span>
-                            <span>{rotatingWords.right.tempWordsArray[4]}</span>
-                        </div>
+                        {isMobile ?
+                            <div className="rotating__items">
+                                <span>{wordOrder[1][1]}</span>
+                                <span>{wordOrder[2][1]}</span>
+                                <span>{wordOrder[3][1]}</span>
+                                <span>{wordOrder[4][1]}</span>
+                            </div>
+                            :
+                            <div className="rotating__items">
+                                <span style={{ left: wordWrap ? `${wordOrder[1][2]}px` : 'unset' }}>{wordOrder[1][1]}</span>
+                                <span style={{ left: wordWrap ? `${wordOrder[2][2]}px` : 'unset' }}>{wordOrder[2][1]}</span>
+                                <span style={{ left: wordWrap ? `${wordOrder[3][2]}px` : 'unset' }}>{wordOrder[3][1]}</span>
+                                <span style={{ left: wordWrap ? `${wordOrder[4][2]}px` : 'unset' }}>{wordOrder[4][1]}</span>
+                            </div>
+                        }
                     </div>
                 </div>
             </div>
         </div>);
-
 
     return (<>{rotatingText()}</>);
 };
