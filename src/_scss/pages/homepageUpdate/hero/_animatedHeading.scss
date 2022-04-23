@@ -39,16 +39,14 @@ $green-text: #2d6878;
         margin: 0 0 rem(10) 0;
         line-height: rem(70);
         @media (max-width: $medium-screen) {
-            max-width: rem(400);
             line-height: rem(50);
             text-align: left;
             font-size: rem(40);
-            margin: 0 0 rem(30) 0;
-
-            div {
-                justify-content: normal;
-                flex-basis: rem(641);
-            }
+            margin: 0 rem(32) rem(30) rem(32);
+            max-width: rem(641);
+        }
+        @media (max-width: 700px) {
+            margin: 0 rem(32);
         }
         @media (min-width: $medium-screen - 1) and (max-width: 1279px) {
             max-width: 1143px;
