@@ -79,8 +79,6 @@ const AnimatedHeading = ({ paused }) => {
         pauseAll(true, true);
         const phrase = document.querySelector('.phrase');
         document.querySelector('.phrase').style.visibility = 'hidden';
-        document.querySelector('.landing-phrase').classList.remove('landing-phrase--entrance-animation');
-
         const landing = document.querySelector('.landing-phrase');
         landing.addEventListener('animationend', () => {
             // fade out and start animation
@@ -106,6 +104,8 @@ const AnimatedHeading = ({ paused }) => {
                 document.querySelector('.phrase__end__item').classList.add('phrase--exit-animation');
                 setTimeout(() => {
                     document.querySelector('.phrase').style.visibility = 'hidden';
+                    landing.classList.remove('landing-phrase--entrance-animation');
+                    landing.classList.add('landing-phrase--exit-animation');
                     landing.style.visibility = 'visible';
                     const clonedNode = landing.cloneNode(true);
                     landing.parentNode.replaceChild(clonedNode, landing);
@@ -151,7 +151,7 @@ const AnimatedHeading = ({ paused }) => {
 
     const rotatingText = () => (
         <div className="hero__headline">
-            <h1 className="landing-phrase landing-phrase--exit-animation">
+            <h1 className="landing-phrase landing-phrase--entrance-animation">
                 <div>The official source of government <span style={{ whiteSpace: 'nowrap' }}>spending data</span></div>
             </h1>
             <div className="phrase phase--entrance-animation">

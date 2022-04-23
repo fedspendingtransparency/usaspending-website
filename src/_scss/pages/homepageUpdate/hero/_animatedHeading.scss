@@ -55,7 +55,8 @@ $green-text: #2d6878;
     }
 
     .landing-phrase--entrance-animation {
-        @include rotation('fade-in-landing-phrase', $hold-increment/2, 0, 1, 'static');
+        @include rotation('fade-out-phrase-part', $iteration-increment + $scroll-increment * 2, 0, 1);
+        //@include rotation('fade-in-landing-phrase', $hold-increment/2, 0, 1, 'static');
     }
 
     .landing-phrase--exit-animation {
