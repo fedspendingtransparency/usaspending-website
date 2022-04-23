@@ -63,19 +63,18 @@ const AnimatedHeading = ({ paused }) => {
         end.forEach((item, index) => {
             end[index].style.animationPlayState = paused ? "paused" : "running";
         });
-        document.querySelector(".phrase__end__item").style.animationPlayState = paused ? "paused" : "running";
 
-
-        document.querySelector(".landing-phrase").style.animationPlayState = paused ? "paused" : "running";
-
+        document.querySelector(".phrase__intro__item").style.animationPlayState = paused ? "paused" : "running";
         document.querySelector(".phrase__static__item").style.animationPlayState = paused ? "paused" : "running";
+        document.querySelector(".phrase__end__item").style.animationPlayState = paused ? "paused" : "running";
+        document.querySelector(".landing-phrase").style.animationPlayState = paused ? "paused" : "running";
     };
 
     useEffect(() => {
         pauseAll(paused);
     }, [paused]);
 
-    // startMainAnimation doesn't includes the initial phrase transition, only the main rotation
+    // startMainAnimation doesn't include the initial phrase transition, only the main rotation
     const startMainAnimation = () => {
         document.querySelector('.phrase__intro__item .entrance__item').classList.add('phrase__intro__item--entrance');
         document.querySelector('.phrase__intro__item .rotating__items').classList.add('phrase__intro__item--rotation');
