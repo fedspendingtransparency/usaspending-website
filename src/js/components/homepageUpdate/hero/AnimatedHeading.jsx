@@ -64,9 +64,7 @@ const AnimatedHeading = ({ paused }) => {
             end[index].style.animationPlayState = paused ? "paused" : "running";
         });
 
-        if (!isLanding) {
-            document.querySelector(".landing-phrase span").style.animationPlayState = paused ? "paused" : "running";
-        }
+        document.querySelector(".landing-phrase span").style.animationPlayState = paused ? "paused" : "running";
 
         document.querySelector(".phrase__static__item").style.animationPlayState = paused ? "paused" : "running";
     };
@@ -76,17 +74,19 @@ const AnimatedHeading = ({ paused }) => {
     }, [paused]);
 
     useEffect(() => {
-        pauseAll(true, true);
-        const phrase = document.querySelector('.phrase');
         document.querySelector('.phrase').style.visibility = 'hidden';
         const landing = document.querySelector('.landing-phrase');
         landing.addEventListener('animationend', () => {
             // fade out and start animation
             landing.style.visibility = 'hidden';
-            landing.classList.add('landing-phrase--entrance-animation');
+            const phrase = document.querySelector('.phrase');
             phrase.classList.add('phrase--entrance-animation');
+            document.querySelector('.phrase__intro__item .entrance__item').classList.add('phrase__intro__item--entrance');
+            document.querySelector('.phrase__intro__item .rotating__items').classList.add('phrase__intro__item--rotation');
+
+            document.querySelector('.phrase__end__item .entrance__item').classList.add('phrase__end__item--entrance');
+            document.querySelector('.phrase__end__item .rotating__items').classList.add('phrase__end__item--rotation');
             phrase.style.visibility = "visible";
-            pauseAll(false, false);
             const clonedNode = phrase.cloneNode(true);
             phrase.parentNode.replaceChild(clonedNode, phrase);
             setAnimatedCnt((prevState) => prevState + 1);
@@ -95,7 +95,7 @@ const AnimatedHeading = ({ paused }) => {
 
     useEffect(() => {
         const phrase = document.querySelector('.phrase');
-        const animated = phrase.querySelector('.phrase__end__item--rotation').lastElementChild;
+        const animated = phrase.querySelector('.phrase__end__item .rotating__items').lastElementChild;
         animated.addEventListener('animationstart', () => {
             const landing = document.querySelector('.landing-phrase');
             setTimeout(() => {
@@ -154,13 +154,13 @@ const AnimatedHeading = ({ paused }) => {
             <h1 className="landing-phrase landing-phrase--entrance-animation">
                 <div>The official source of government <span style={{ whiteSpace: 'nowrap' }}>spending data</span></div>
             </h1>
-            <div className="phrase phase--entrance-animation">
+            <div className="phrase">
                 <div className="phrase__intro">
                     <div className="phrase__intro__item">
-                        <div className="phrase__intro__item--entrance">
+                        <div className="entrance__item">
                             <span>{rotatingWords.left.tempWordsArray[0]}&nbsp;</span>
                         </div>
-                        <div className="phrase__intro__item--rotation">
+                        <div className="rotating__items">
                             <span>{rotatingWords.left.tempWordsArray[1]}&nbsp;</span>
                             <span>{rotatingWords.left.tempWordsArray[2]}&nbsp;</span>
                             <span>{rotatingWords.left.tempWordsArray[3]}&nbsp;</span>
@@ -171,10 +171,10 @@ const AnimatedHeading = ({ paused }) => {
                 <div className="phrase__static__item"><span>government spending&nbsp;</span></div>
                 <div className="phrase__end">
                     <div className="phrase__end__item">
-                        <div className="phrase__end__item--entrance">
+                        <div className="entrance__item">
                             <span>{rotatingWords.right.tempWordsArray[0]}</span>
                         </div>
-                        <div className="phrase__end__item--rotation">
+                        <div className="rotating__items">
                             <span>{rotatingWords.right.tempWordsArray[1]}</span>
                             <span>{rotatingWords.right.tempWordsArray[2]}</span>
                             <span>{rotatingWords.right.tempWordsArray[3]}</span>
