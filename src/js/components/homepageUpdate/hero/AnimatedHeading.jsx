@@ -53,7 +53,7 @@ const AnimatedHeading = ({ paused }) => {
     // };
 
     // eslint-disable-next-line no-shadow
-    const pauseAll = (paused, isLanding) => {
+    const pauseAll = (paused) => {
         const intro = document.querySelectorAll(".phrase__intro__item span");
         intro.forEach((item, index) => {
             intro[index].style.animationPlayState = paused ? "paused" : "running";
