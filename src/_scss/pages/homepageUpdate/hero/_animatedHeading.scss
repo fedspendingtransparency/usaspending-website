@@ -39,12 +39,16 @@ $green-text: #2d6878;
         margin: 0 0 rem(10) 0;
         line-height: rem(70);
         @media (max-width: $medium-screen) {
+            justify-content: normal;
             max-width: rem(400);
             line-height: rem(50);
             text-align: left;
             font-size: rem(40);
             flex-basis: rem(641);
             margin: 0 0 rem(30) 0;
+        }
+        @media (min-width: $medium-screen - 1) and (max-width: 1279px) {
+            max-width: 1143px;
         }
     }
 
@@ -187,7 +191,7 @@ $green-text: #2d6878;
         }
 
         .phrase--entrance-animation {
-            @include phrase-transition('scroll-in', $scroll-increment, 1);
+            @include phrase-transition('scroll-in', $scroll-increment/2, 1);
         }
 
         .phrase--exit-animation {
@@ -214,12 +218,6 @@ $green-text: #2d6878;
             100% { opacity: 0 }
 
         }
-
-        //@keyframes scroll-out {
-        //    0% { opacity: 1; }
-        //    85% { opacity: 1; }
-        //    100% { opacity: 0; }
-        //}
 
         @-moz-keyframes main-rotation {
             0% { opacity: 1; -moz-transform: translateY(25px); }

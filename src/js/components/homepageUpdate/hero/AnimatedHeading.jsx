@@ -63,8 +63,10 @@ const AnimatedHeading = ({ paused }) => {
         end.forEach((item, index) => {
             end[index].style.animationPlayState = paused ? "paused" : "running";
         });
+        document.querySelector(".phrase__end__item").style.animationPlayState = paused ? "paused" : "running";
 
-        document.querySelector(".landing-phrase span").style.animationPlayState = paused ? "paused" : "running";
+
+        document.querySelector(".landing-phrase").style.animationPlayState = paused ? "paused" : "running";
 
         document.querySelector(".phrase__static__item").style.animationPlayState = paused ? "paused" : "running";
     };
@@ -73,59 +75,72 @@ const AnimatedHeading = ({ paused }) => {
         pauseAll(paused);
     }, [paused]);
 
+    // startMainAnimation doesn't includes the initial phrase transition, only the main rotation
+    const startMainAnimation = () => {
+        document.querySelector('.phrase__intro__item .entrance__item').classList.add('phrase__intro__item--entrance');
+        document.querySelector('.phrase__intro__item .rotating__items').classList.add('phrase__intro__item--rotation');
+
+        document.querySelector('.phrase__end__item .entrance__item').classList.add('phrase__end__item--entrance');
+        document.querySelector('.phrase__end__item .rotating__items').classList.add('phrase__end__item--rotation');
+        const phrase = document.querySelector('.phrase');
+        phrase.style.visibility = "visible";
+        const clonedNode = phrase.cloneNode(true);
+        phrase.parentNode.replaceChild(clonedNode, phrase);
+    };
+
     useEffect(() => {
         document.querySelector('.phrase').style.visibility = 'hidden';
         const landing = document.querySelector('.landing-phrase');
         landing.addEventListener('animationend', () => {
-            // fade out and start animation
             landing.style.visibility = 'hidden';
             document.querySelector('.phrase__intro__item').classList.add('phrase--entrance-animation');
             document.querySelector('.phrase__static__item').classList.add('phrase--entrance-animation');
             const endPhrase = document.querySelector('.phrase__end__item');
             endPhrase.classList.add('phrase--entrance-animation');
             endPhrase.addEventListener('animationend', () => {
-                document.querySelector('.phrase__intro__item .entrance__item').classList.add('phrase__intro__item--entrance');
-                document.querySelector('.phrase__intro__item .rotating__items').classList.add('phrase__intro__item--rotation');
-
-                document.querySelector('.phrase__end__item .entrance__item').classList.add('phrase__end__item--entrance');
-                document.querySelector('.phrase__end__item .rotating__items').classList.add('phrase__end__item--rotation');
-                const phrase = document.querySelector('.phrase');
-                phrase.style.visibility = "visible";
-                const clonedNode = phrase.cloneNode(true);
-                phrase.parentNode.replaceChild(clonedNode, phrase);
+                startMainAnimation();
                 setAnimatedCnt((prevState) => prevState + 1);
             });
         });
     }, [landingCnt]);
 
+    // restartPhraseAnimation includes the initial phrase transition and the main rotation
+    const restartPhraseAnimation = () => {
+        document.querySelector('.phrase__intro__item').classList.remove('phrase--exit-animation');
+        document.querySelector('.phrase__static__item').classList.remove('phrase--exit-animation');
+        document.querySelector('.phrase__end__item').classList.remove('phrase--exit-animation');
+        document.querySelector('.phrase__intro__item').classList.remove('phrase--entrance-animation');
+        document.querySelector('.phrase__static__item').classList.remove('phrase--entrance-animation');
+        document.querySelector('.phrase__end__item').classList.remove('phrase--entrance-animation');
+        document.querySelector('.phrase__intro__item .entrance__item').classList.remove('phrase__intro__item--entrance');
+        document.querySelector('.phrase__intro__item .rotating__items').classList.remove('phrase__intro__item--rotation');
+        document.querySelector('.phrase__end__item .entrance__item').classList.remove('phrase__end__item--entrance');
+        document.querySelector('.phrase__end__item .rotating__items').classList.remove('phrase__end__item--rotation');
+        const phrase = document.querySelector('.phrase');
+        const clonedNode = phrase.cloneNode(true);
+        phrase.parentNode.replaceChild(clonedNode, phrase);
+    };
+
+    const restartLandingAnimation = () => {
+        const landing = document.querySelector('.landing-phrase');
+        landing.classList.remove('landing-phrase--entrance-animation');
+        landing.classList.add('landing-phrase--exit-animation');
+        landing.style.visibility = 'visible';
+        const clonedNode = landing.cloneNode(true);
+        landing.parentNode.replaceChild(clonedNode, landing);
+    };
+
     useEffect(() => {
         const animated = document.querySelector('.phrase__end__item .rotating__items').lastElementChild;
         animated.addEventListener('animationstart', () => {
-            const landing = document.querySelector('.landing-phrase');
             setTimeout(() => {
                 document.querySelector('.phrase__intro__item').classList.add('phrase--exit-animation');
                 document.querySelector('.phrase__static__item').classList.add('phrase--exit-animation');
                 document.querySelector('.phrase__end__item').classList.add('phrase--exit-animation');
                 setTimeout(() => {
                     document.querySelector('.phrase').style.visibility = 'hidden';
-                    landing.classList.remove('landing-phrase--entrance-animation');
-                    landing.classList.add('landing-phrase--exit-animation');
-                    landing.style.visibility = 'visible';
-                    let clonedNode = landing.cloneNode(true);
-                    landing.parentNode.replaceChild(clonedNode, landing);
-                    document.querySelector('.phrase__intro__item').classList.remove('phrase--exit-animation');
-                    document.querySelector('.phrase__static__item').classList.remove('phrase--exit-animation');
-                    document.querySelector('.phrase__end__item').classList.remove('phrase--exit-animation');
-                    document.querySelector('.phrase__intro__item').classList.remove('phrase--entrance-animation');
-                    document.querySelector('.phrase__static__item').classList.remove('phrase--entrance-animation');
-                    document.querySelector('.phrase__end__item').classList.remove('phrase--entrance-animation');
-                    document.querySelector('.phrase__intro__item .entrance__item').classList.remove('phrase__intro__item--entrance');
-                    document.querySelector('.phrase__intro__item .rotating__items').classList.remove('phrase__intro__item--rotation');
-                    document.querySelector('.phrase__end__item .entrance__item').classList.remove('phrase__end__item--entrance');
-                    document.querySelector('.phrase__end__item .rotating__items').classList.remove('phrase__end__item--rotation');
-                    const phrase = document.querySelector('.phrase');
-                    clonedNode = phrase.cloneNode(true);
-                    phrase.parentNode.replaceChild(clonedNode, phrase);
+                    restartLandingAnimation();
+                    restartPhraseAnimation();
                     setLandingCnt((prevState) => prevState + 1);
                 }, 1500);
             }, 2500);
