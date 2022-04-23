@@ -79,17 +79,22 @@ const AnimatedHeading = ({ paused }) => {
         landing.addEventListener('animationend', () => {
             // fade out and start animation
             landing.style.visibility = 'hidden';
-            const phrase = document.querySelector('.phrase');
-            phrase.classList.add('phrase--entrance-animation');
-            document.querySelector('.phrase__intro__item .entrance__item').classList.add('phrase__intro__item--entrance');
-            document.querySelector('.phrase__intro__item .rotating__items').classList.add('phrase__intro__item--rotation');
+            document.querySelector('.phrase__intro__item').classList.add('phrase--entrance-animation');
+            document.querySelector('.phrase__static__item').classList.add('phrase--entrance-animation');
+            const endPhrase = document.querySelector('.phrase__end__item');
+            endPhrase.classList.add('phrase--entrance-animation');
+            endPhrase.addEventListener('animationend', () => {
+                document.querySelector('.phrase__intro__item .entrance__item').classList.add('phrase__intro__item--entrance');
+                document.querySelector('.phrase__intro__item .rotating__items').classList.add('phrase__intro__item--rotation');
 
-            document.querySelector('.phrase__end__item .entrance__item').classList.add('phrase__end__item--entrance');
-            document.querySelector('.phrase__end__item .rotating__items').classList.add('phrase__end__item--rotation');
-            phrase.style.visibility = "visible";
-            const clonedNode = phrase.cloneNode(true);
-            phrase.parentNode.replaceChild(clonedNode, phrase);
-            setAnimatedCnt((prevState) => prevState + 1);
+                document.querySelector('.phrase__end__item .entrance__item').classList.add('phrase__end__item--entrance');
+                document.querySelector('.phrase__end__item .rotating__items').classList.add('phrase__end__item--rotation');
+                const phrase = document.querySelector('.phrase');
+                phrase.style.visibility = "visible";
+                const clonedNode = phrase.cloneNode(true);
+                phrase.parentNode.replaceChild(clonedNode, phrase);
+                setAnimatedCnt((prevState) => prevState + 1);
+            });
         });
     }, [landingCnt]);
 
