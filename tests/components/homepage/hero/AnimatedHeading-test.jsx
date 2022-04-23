@@ -3,23 +3,22 @@ import { render, screen } from '@test-utils';
 
 import AnimatedHeading from 'components/homepageUpdate/hero/AnimatedHeading';
 
-
 describe('AnimatedHeading', () => {
-    it('animated text is showing', () => {
+    it('animated text is initially hidden', () => {
         render(<AnimatedHeading />);
         expect(screen.queryByText('government spending')).toBeTruthy();
-        const landingHeading = document.querySelector(".phrase");
-        const style = window.getComputedStyle(landingHeading);
-        expect(style.display).toBe('block');
+        const phrase = document.querySelector(".phrase");
+        const style = window.getComputedStyle(phrase);
+        expect(style.visibility).toBe('hidden');
     });
 
-    it('landing phrase is showing, animated text is hidden', () => {
+    it('landing phrase is initially showing and then hidden after 3 seconds', () => {
         render(<AnimatedHeading />);
-        const landingHeading = document.querySelector(".phrase");
+        const landingHeading = document.querySelector(".landing-phrase");
         const style = window.getComputedStyle(landingHeading);
-        expect(style.display).toBe('block');
+        expect(style.visibility).toBe('visible');
         setTimeout(() => {
-            expect(style.display).toBe('none');
-        }, 12000);
+            expect(style.visibility).toBe('hidden');
+        }, 4000);
     });
 });
