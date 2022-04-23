@@ -99,8 +99,7 @@ const AnimatedHeading = ({ paused }) => {
     }, [landingCnt]);
 
     useEffect(() => {
-        const phrase = document.querySelector('.phrase');
-        const animated = phrase.querySelector('.phrase__end__item .rotating__items').lastElementChild;
+        const animated = document.querySelector('.phrase__end__item .rotating__items').lastElementChild;
         animated.addEventListener('animationstart', () => {
             const landing = document.querySelector('.landing-phrase');
             setTimeout(() => {
@@ -112,11 +111,21 @@ const AnimatedHeading = ({ paused }) => {
                     landing.classList.remove('landing-phrase--entrance-animation');
                     landing.classList.add('landing-phrase--exit-animation');
                     landing.style.visibility = 'visible';
-                    const clonedNode = landing.cloneNode(true);
+                    let clonedNode = landing.cloneNode(true);
                     landing.parentNode.replaceChild(clonedNode, landing);
                     document.querySelector('.phrase__intro__item').classList.remove('phrase--exit-animation');
                     document.querySelector('.phrase__static__item').classList.remove('phrase--exit-animation');
                     document.querySelector('.phrase__end__item').classList.remove('phrase--exit-animation');
+                    document.querySelector('.phrase__intro__item').classList.remove('phrase--entrance-animation');
+                    document.querySelector('.phrase__static__item').classList.remove('phrase--entrance-animation');
+                    document.querySelector('.phrase__end__item').classList.remove('phrase--entrance-animation');
+                    document.querySelector('.phrase__intro__item .entrance__item').classList.remove('phrase__intro__item--entrance');
+                    document.querySelector('.phrase__intro__item .rotating__items').classList.remove('phrase__intro__item--rotation');
+                    document.querySelector('.phrase__end__item .entrance__item').classList.remove('phrase__end__item--entrance');
+                    document.querySelector('.phrase__end__item .rotating__items').classList.remove('phrase__end__item--rotation');
+                    const phrase = document.querySelector('.phrase');
+                    clonedNode = phrase.cloneNode(true);
+                    phrase.parentNode.replaceChild(clonedNode, phrase);
                     setLandingCnt((prevState) => prevState + 1);
                 }, 1500);
             }, 2500);
