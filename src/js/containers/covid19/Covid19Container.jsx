@@ -57,6 +57,7 @@ const Covid19Container = () => {
                 dispatch(setDefcParams(defcByPublicLaw[publicLaw]));
             }
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [publicLaw, areDefCodesLoading]);
 
     useEffect(() => {

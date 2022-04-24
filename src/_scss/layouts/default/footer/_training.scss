@@ -1,0 +1,45 @@
+.training {
+    background-color: $color-gold-lightest;
+    padding: rem(25);
+    @include display(flex);
+    @include justify-content(center);
+    @include flex-wrap(wrap);
+    font-size: rem(18);
+    .training__icon {
+        @include display(flex);
+        @include flex(0 0 auto);
+        padding-right: rem(8);
+        svg {
+            height: rem(25);
+            width: rem(25);
+            fill: $color-base;
+        }
+    }
+    .training__callout {
+        @include display(flex);
+        @include flex(0 0 auto);
+        font-weight: $font-bold;
+    }
+    .training__message {
+        @include display(flex);
+        @include flex(0 0 auto);
+    }
+    .training__link {
+        @include display(flex);
+        @include flex(0 0 auto);
+        @include align-items(center);
+        font-weight: $font-bold;
+        padding-left: rem(8);
+        svg {
+            height: rem(20);
+            width: rem(20);
+            fill: $color-link;
+        }
+        &:hover {
+            text-decoration: none;
+            svg {
+                fill: $color-primary-darker;
+            }
+        }
+    }
+}
