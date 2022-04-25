@@ -4,7 +4,8 @@ import * as d3 from 'd3';
 import { scaleLinear, scaleBand } from 'd3-scale';
 import { throttle } from 'lodash';
 import { largeScreen } from 'dataMapping/shared/mobileBreakpoints';
-import { FlexGridRow } from 'data-transparency-ui';
+import { FlexGridRow, TooltipWrapper } from 'data-transparency-ui';
+import CovidTooltip from 'components/homepage/hero/CovidTooltip';
 
 const propTypes = {
     fy: PropTypes.string,
@@ -22,6 +23,7 @@ const StatusOfFundsChart = ({
     const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth < largeScreen);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
     const [isNegative, setIsNegative] = useState(false);
+    const [isHovered, setIsHovered] = useState(false);
     const [sortedNums, setSortedNums] = useState(null);
     const viewHeight = 760;
     const viewWidth = 1000;
@@ -308,6 +310,23 @@ const StatusOfFundsChart = ({
             if (d3.event.keyCode === 13) {
                 handleClick(d);
             }
+        });
+        // tooltip hover for bar groups
+        svg.selectAll(".bar-group").on('mouseenter', (d) => {
+            setIsHovered(true);
+            svg.append("foreignObject")
+                .attr('width', 100)
+                .attr('height', 100)
+                .attr('x', 0)
+                .attr('y', 230)
+                .html(`<div>
+                    ${<TooltipWrapper tooltipPosition="bottom" offsetAdjustments={{ top: 0 }} className="page-title__tooltip" tooltipComponent={<CovidTooltip />} />}
+                    </div>`)
+                .attr('id', 'bar-tooltip');
+        });
+        svg.selectAll(".bar-group").on('mouseleave', (d) => {
+            setIsHovered(false);
+            svg.selectAll('#bar-tooltip').remove();
         });
         // tooltip hover for label text
         svg.selectAll(".y-axis-labels").append("svg:title")
