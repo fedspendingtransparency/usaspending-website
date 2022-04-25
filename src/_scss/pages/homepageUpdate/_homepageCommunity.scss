@@ -100,7 +100,7 @@
             font-weight: $font-semibold;
             white-space: nowrap;
             color: $color-primary;
-            background-color: #f8f8f7;
+            background-color: transparent;
             border: solid rem(1);
             border-color: $color-primary;
             padding: rem(15) rem(25);
@@ -108,7 +108,8 @@
 
             &:hover, &:active {
                 text-decoration: none;
-                background-color: lighten($color-white, 10%);
+                border-color: darken($color-primary, 10%);
+                color: darken($color-primary, 10%);
             }
         }
     }
