@@ -168,10 +168,9 @@ $green-text: #2d6878;
             white-space: nowrap;
             span {
                 position: absolute;
-                //@media (max-width: 1279px) {
-                //    left: 50%;
-                //    transform: translateX(-50%);
-                //}
+                @media (max-width: $medium-screen) {
+                    left: 0 !important;
+                }
             }
         }
 
