@@ -93,8 +93,8 @@
 
                             &:hover, &:active {
                                 text-decoration: none;
-                                background-color: lighten($color-white, 10%);
-                                border-radius: rem(4);
+                                border-color: darken($color-primary, 10%);
+                                color: darken($color-primary, 10%);
                             }
                         }
 
@@ -110,6 +110,7 @@
                             &:hover, &:active {
                                 text-decoration: none;
                                 background-color: darken($color-primary, 10%);
+                                color: $color-white;
                             }
                         }
 
