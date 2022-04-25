@@ -48,16 +48,16 @@ const Hero = () => {
                         <div className="hero__center-content">
                             <div className="hero__button-container">
                                 <Link
-                                    className="hero__button hero__button--action shadow"
+                                    className="hero__button hero__button--action"
                                     to="/search"
                                     onClick={trackSearchLink}>
                                     Start Searching Awards
                                 </Link>
                                 <Link
-                                    className="hero__button shadow"
+                                    className="hero__button"
                                     to="/about"
                                     onClick={trackAboutLink}>
-                                    Learn About USAspending
+                                    Learn about USAspending
                                 </Link>
                             </div>
                             <div className="hero__text-container">
@@ -73,7 +73,9 @@ const Hero = () => {
                                     onClick={() => {
                                         setIsPaused((previousIsPaused) => !previousIsPaused);
                                     }}
-                                    onKeyPress={(e) => { keyPressHandler(e); }}>
+                                    onKeyPress={(e) => {
+                                        keyPressHandler(e);
+                                    }}>
                                     { isPaused ?
                                         <><FontAwesomeIcon icon="play" width={10} />&nbsp;&nbsp;Play text animation</>
                                         :

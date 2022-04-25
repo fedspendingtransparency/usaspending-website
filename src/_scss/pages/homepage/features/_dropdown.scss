@@ -6,8 +6,9 @@
 
     .feature-dropdown__button {
         margin: 0;
-        font-size: rem(21);
-        padding: rem(15) rem(20);
+        font-size: rem(16);
+        height: rem(40);
+        border-radius: rem(4);
         font-weight: $font-normal;
 
         &:hover, &:active, &.feature-dropdown__button_active {

@@ -1,7 +1,11 @@
 .homepage-community {
-    background-color: $color-gray-lightest;
     @include media($medium-screen) {
         padding: 0;
+    }
+
+    .homepage-community__background {
+        background-color: $color-gray-lightest;
+        opacity: 0.5;
     }
 
     .homepage-community__wrapper {
@@ -69,7 +73,10 @@
             flex-wrap: nowrap;
 
             font-weight: $font-semibold;
-            font-size: rem(20);
+            font-size: rem(16);
+            height: rem(40);
+            border-radius: rem(4);
+            align-items: center;
             white-space: nowrap;
             color: $color-white;
             background-color: $color-primary;
@@ -86,15 +93,18 @@
             display: flex;
             justify-content: center;
             flex-wrap: nowrap;
+            font-size: rem(16);
+            height: rem(40);
+            border-radius: rem(4);
+            align-items: center;
             @media (min-width: $medium-screen) {
                 margin-left: 1rem;
             }
 
             font-weight: $font-semibold;
-            font-size: rem(20);
             white-space: nowrap;
             color: $color-primary;
-            background-color: #f8f8f7;
+            background-color: transparent;
             border: solid rem(1);
             border-color: $color-primary;
             padding: rem(15) rem(25);
@@ -102,7 +112,8 @@
 
             &:hover, &:active {
                 text-decoration: none;
-                background-color: lighten($color-white, 10%);
+                border-color: darken($color-primary, 10%);
+                color: darken($color-primary, 10%);
             }
         }
     }

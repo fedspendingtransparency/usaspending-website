@@ -4,32 +4,33 @@
   @import "layouts/default/header/_warning";
 
   .homepage-content {
+    background-color: white;
+
     .homepage-getting-started {
       height: 100%;
-      background-color: white;
       padding-bottom: $global-padding * 30;
       overflow: hidden;
       .homepage-background-flair {
-        position: absolute;
-        top: 5rem;
-        bottom: -50rem;
-        width: 125vw;
-        margin-left: calc(50% - 50vw);
+          position: absolute;
+          top: 5rem;
+          bottom: -50rem;
+          width: 125vw;
+          margin-left: calc(50% - 50vw);
 
-        background-color: $color-gray-warm-light;
-        opacity: 0.5;
+          background-color: $color-gray-lightest;
+          opacity: 0.5;
 
-        @include transform(skewY(5deg));
+          @include transform(skewY(5deg));
 
-        @include media($medium-screen + 1) {
-            top: 0;
-            bottom: 0;
-            height: 80rem;
-        }
-        @media (max-width: 400px) {
-          height: 108rem;
-        }
-    }
+          @include media($medium-screen + 1) {
+              top: 0;
+              bottom: 0;
+              height: 80rem;
+          }
+          @media (max-width: 400px) {
+            height: 108rem;
+          }
+      }
       .grid-content {
         button {
           font-weight: $font-semibold;
@@ -107,8 +108,9 @@
             }
             .homepage-spending-explorer__button {
               margin: 0;
-              font-size: rem(20);
-              padding: 1.5rem 2rem;
+              font-size: rem(16);
+              height: rem(40);
+              border-radius: rem(4);
               font-weight: 600;
             }
           }
@@ -233,7 +235,7 @@
 
   }
 
-  @import "../homepage/download/download";
+  @import "download/download";
   @import "../homepage/features/_carousel";
   @import "../homepage/features/_dropdown";
   @import "../homepage/features/_search";

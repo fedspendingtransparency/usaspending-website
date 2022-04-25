@@ -1,10 +1,6 @@
 .homepage-hero-container {
     background: rgba(136, 180, 192, .15);
 
-    .shadow {
-        box-shadow: 0 0 rem(16) 0 rgba(0, 0, 0, 0.1);
-    }
-
     .homepage-hero-content {
         padding: rem(40) rem(16);
         @media (min-width: $medium-screen) {
@@ -78,8 +74,7 @@
                             justify-content: center;
                             align-items: center;
                             flex-wrap: nowrap;
-                            height: rem(56);
-
+                            height: rem(40);
                             font-weight: $font-semibold;
                             font-size: rem(16);
                             white-space: nowrap;
@@ -88,17 +83,19 @@
                             border: solid rem(1);
                             border-color: $color-primary;
                             padding: rem(10) rem(24);
-                            border-radius: rem(6);
+                            border-radius: rem(4);
                             margin-bottom: rem(16);
                             @media (min-width: $medium-screen) {
                                 font-size: rem(20);
+                                height: rem(56);
+                                border-radius: rem(6);
                                 margin: 0 rem(16) rem(28) rem(8);
                             }
 
                             &:hover, &:active {
                                 text-decoration: none;
-                                background-color: lighten($color-white, 10%);
-                                border-radius: rem(4);
+                                border-color: darken($color-primary, 10%);
+                                color: darken($color-primary, 10%);
                             }
                         }
 
@@ -114,6 +111,7 @@
                             &:hover, &:active {
                                 text-decoration: none;
                                 background-color: darken($color-primary, 10%);
+                                color: $color-white;
                             }
                         }
 
