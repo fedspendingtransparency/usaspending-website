@@ -168,8 +168,11 @@ $green-text: #2d6878;
             white-space: nowrap;
             span {
                 position: absolute;
+                //@media (max-width: 1279px) {
+                //    left: 50%;
+                //    transform: translateX(-50%);
+                //}
             }
-
         }
 
         .phrase__end__item--entrance span {

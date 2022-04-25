@@ -49,10 +49,6 @@ const AnimatedHeading = ({ paused }) => {
         document.querySelector(".landing-phrase").style.animationPlayState = paused ? "paused" : "running";
     };
 
-    useEffect(() => {
-        pauseAll(paused);
-    }, [paused]);
-
     // startMainAnimation doesn't include the initial phrase transition, only the main rotation
     const startMainAnimation = () => {
         document.querySelector('.phrase__intro__item .entrance__item').classList.add('phrase__intro__item--entrance');
@@ -65,22 +61,6 @@ const AnimatedHeading = ({ paused }) => {
         const clonedNode = phrase.cloneNode(true);
         phrase.parentNode.replaceChild(clonedNode, phrase);
     };
-
-    useEffect(() => {
-        document.querySelector('.phrase').style.visibility = 'hidden';
-        const landing = document.querySelector('.landing-phrase');
-        landing.addEventListener('animationend', () => {
-            landing.style.visibility = 'hidden';
-            document.querySelector('.phrase__intro__item').classList.add('phrase--entrance-animation');
-            document.querySelector('.phrase__static__item').classList.add('phrase--entrance-animation');
-            const endPhrase = document.querySelector('.phrase__end__item');
-            endPhrase.classList.add('phrase--entrance-animation');
-            endPhrase.addEventListener('animationend', () => {
-                startMainAnimation();
-                setAnimatedCnt((prevState) => prevState + 1);
-            });
-        });
-    }, [landingCnt]);
 
     // restartPhraseAnimation includes the initial phrase transition and the main rotation
     const restartPhraseAnimation = () => {
@@ -108,6 +88,28 @@ const AnimatedHeading = ({ paused }) => {
         landing.parentNode.replaceChild(clonedNode, landing);
     };
 
+    useEffect(() => {
+        pauseAll(paused);
+    }, [paused]);
+
+    // Listen for the landing phrase exit animation and trigger the rotating word animation
+    useEffect(() => {
+        document.querySelector('.phrase').style.visibility = 'hidden';
+        const landing = document.querySelector('.landing-phrase');
+        landing.addEventListener('animationend', () => {
+            landing.style.visibility = 'hidden';
+            document.querySelector('.phrase__intro__item').classList.add('phrase--entrance-animation');
+            document.querySelector('.phrase__static__item').classList.add('phrase--entrance-animation');
+            const endPhrase = document.querySelector('.phrase__end__item');
+            endPhrase.classList.add('phrase--entrance-animation');
+            endPhrase.addEventListener('animationend', () => {
+                startMainAnimation();
+                setAnimatedCnt((prevState) => prevState + 1);
+            });
+        });
+    }, [landingCnt]);
+
+    // Listen for the rotating word animation and trigger the  landing phrase animation
     useEffect(() => {
         const animated = document.querySelector('.phrase__end__item .rotating__items').lastElementChild;
         setWordOrder((prevState) => shuffle(prevState));
@@ -174,27 +176,14 @@ const AnimatedHeading = ({ paused }) => {
                 <div className="phrase__end">
                     <div className="phrase__end__item">
                         <div className="entrance__item">
-                            {isMobile ?
-                                <span>{wordOrder[0][1]}</span>
-                                :
-                                <span style={{ left: wordWrap ? `${wordOrder[0][2]}px` : 'unset' }}>{wordOrder[0][1]}</span>
-                            }
+                            <span style={{ left: wordWrap && !isMobile ? `${wordOrder[0][2]}px` : `0` }}>{wordOrder[0][1]}</span>
                         </div>
-                        {isMobile ?
-                            <div className="rotating__items">
-                                <span>{wordOrder[1][1]}</span>
-                                <span>{wordOrder[2][1]}</span>
-                                <span>{wordOrder[3][1]}</span>
-                                <span>{wordOrder[4][1]}</span>
-                            </div>
-                            :
-                            <div className="rotating__items">
-                                <span style={{ left: wordWrap ? `${wordOrder[1][2]}px` : 'unset' }}>{wordOrder[1][1]}</span>
-                                <span style={{ left: wordWrap ? `${wordOrder[2][2]}px` : 'unset' }}>{wordOrder[2][1]}</span>
-                                <span style={{ left: wordWrap ? `${wordOrder[3][2]}px` : 'unset' }}>{wordOrder[3][1]}</span>
-                                <span style={{ left: wordWrap ? `${wordOrder[4][2]}px` : 'unset' }}>{wordOrder[4][1]}</span>
-                            </div>
-                        }
+                        <div className="rotating__items">
+                            <span style={{ left: wordWrap && !isMobile ? `${wordOrder[1][2]}px` : `0` }}>{wordOrder[1][1]}</span>
+                            <span style={{ left: wordWrap && !isMobile ? `${wordOrder[2][2]}px` : `0` }}>{wordOrder[2][1]}</span>
+                            <span style={{ left: wordWrap && !isMobile ? `${wordOrder[3][2]}px` : `0` }}>{wordOrder[3][1]}</span>
+                            <span style={{ left: wordWrap && !isMobile ? `${wordOrder[4][2]}px` : `0` }}>{wordOrder[4][1]}</span>
+                        </div>
                     </div>
                 </div>
             </div>
