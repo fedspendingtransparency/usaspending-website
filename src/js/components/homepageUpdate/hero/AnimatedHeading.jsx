@@ -178,11 +178,11 @@ const AnimatedHeading = ({ paused }) => {
         });
     }, [animatedCnt]);
 
-    // hack to center text if it goes to two lines on desktop
     const handleWindowResize = () => {
         const tempEndPart = document.querySelector(".phrase__end");
         const tempStaticPart = document.querySelector(".phrase__static__item");
 
+        // hack to center text if it goes to two lines on desktop
         if (endWordTop !== tempEndPart.offsetTop) {
             setEndWordTop(tempEndPart.offsetTop);
             setWordWrap(tempEndPart.offsetTop - tempStaticPart.offsetTop > 10);

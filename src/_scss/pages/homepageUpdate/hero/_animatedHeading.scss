@@ -45,9 +45,6 @@ $green-text: #2d6878;
             margin: 0 rem(32) rem(30) rem(32);
             max-width: rem(641);
         }
-        //@media (max-width: 700px) {
-        //    margin: 0 rem(32);
-        //}
         @media (min-width: $medium-screen - 1) and (max-width: 1279px) {
             max-width: 1143px;
         }
@@ -55,7 +52,6 @@ $green-text: #2d6878;
 
     .landing-phrase--entrance-animation {
         @include rotation('fade-out', $iteration-increment + $scroll-increment * 2, 0, 1);
-        //@include rotation('fade-in-landing-phrase', $hold-increment/2, 0, 1, 'static');
     }
 
     .landing-phrase--exit-animation {
@@ -147,19 +143,6 @@ $green-text: #2d6878;
             white-space: nowrap;
             flex-wrap: wrap;
             padding-bottom: rem(80);
-            @media (max-width: $medium-screen) {
-                display: flex;
-                width: 100%;
-            }
-            span {
-                &.phrase__end--center {
-                    left: 75px;
-                    @media (max-width: $medium-screen) {
-                        left: unset;
-                    }
-                }
-            }
-
         }
 
         .phrase__end__item {
@@ -169,6 +152,12 @@ $green-text: #2d6878;
             span {
                 position: absolute;
                 @media (max-width: $medium-screen) {
+                    left: 0 !important;
+                }
+                @media (min-width: $medium-screen + 1) and (max-width: 1279px){
+                    left: unset;
+                }
+                @media (min-width: 1280px) {
                     left: 0 !important;
                 }
             }
