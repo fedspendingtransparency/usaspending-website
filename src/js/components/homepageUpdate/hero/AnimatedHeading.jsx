@@ -10,6 +10,7 @@ const AnimatedHeading = ({ paused }) => {
     const [wordOrder, setWordOrder] = useState(wordPairs);
     const [windowWidth, setWindowWidth] = useState();
     const [isMobile, setIsMobile] = useState(false);
+    const [hidden, setHidden] = useState(false);
 
     const shuffle = (array) => {
         // eslint-disable-next-line one-var
@@ -79,6 +80,18 @@ const AnimatedHeading = ({ paused }) => {
         phrase.parentNode.replaceChild(clonedNode, phrase);
     };
 
+    const stopPhraseAnimation = () => {
+        document.querySelector('.phrase__intro__item').classList.remove('phrase--exit-animation');
+        document.querySelector('.phrase__static__item').classList.remove('phrase--exit-animation');
+        document.querySelector('.phrase__end__item').classList.remove('phrase--exit-animation');
+        document.querySelector('.phrase__intro__item').classList.remove('phrase--entrance-animation');
+        document.querySelector('.phrase__static__item').classList.remove('phrase--entrance-animation');
+        document.querySelector('.phrase__end__item').classList.remove('phrase--entrance-animation');
+        document.querySelector('.phrase__intro__item .entrance__item').classList.remove('phrase__intro__item--entrance');
+        document.querySelector('.phrase__intro__item .rotating__items').classList.remove('phrase__intro__item--rotation');
+        document.querySelector('.phrase__end__item .entrance__item').classList.remove('phrase__end__item--entrance');
+        document.querySelector('.phrase__end__item .rotating__items').classList.remove('phrase__end__item--rotation');
+    }
     const restartLandingAnimation = () => {
         const landing = document.querySelector('.landing-phrase');
         landing.classList.remove('landing-phrase--entrance-animation');
@@ -87,6 +100,43 @@ const AnimatedHeading = ({ paused }) => {
         const clonedNode = landing.cloneNode(true);
         landing.parentNode.replaceChild(clonedNode, landing);
     };
+
+    // If the page is hidden, pause the video;
+    // if the page is shown, play the video
+    const handleVisibilityChange = () => {
+
+        if (document[hidden]) {
+            pauseAll(true);
+        }
+        else {
+            restartLandingAnimation();
+            restartPhraseAnimation();
+            setLandingCnt((prevState) => prevState + 1);
+        }
+    };
+
+    useEffect(() => {
+        // Set the name of the hidden property and the change event for visibility
+        let visibilityChange;
+
+        if (typeof document.hidden !== "undefined") { // Opera 12.10 and Firefox 18 and later support
+            setHidden("hidden");
+            visibilityChange = "visibilitychange";
+        }
+        else if (typeof document.msHidden !== "undefined") {
+            setHidden("msHidden");
+            visibilityChange = "msvisibilitychange";
+        }
+        else if (typeof document.webkitHidden !== "undefined") {
+            setHidden("webkitHidden");
+            visibilityChange = "webkitvisibilitychange";
+        }
+
+        document.addEventListener(visibilityChange, handleVisibilityChange, false);
+        return () => {
+            document.removeEventListener(visibilityChange, handleVisibilityChange);
+        };
+    }, []);
 
     useEffect(() => {
         pauseAll(paused);
