@@ -69,7 +69,10 @@
             flex-wrap: nowrap;
 
             font-weight: $font-semibold;
-            font-size: rem(20);
+            font-size: rem(16);
+            height: rem(40);
+            border-radius: rem(4);
+            align-items: center;
             white-space: nowrap;
             color: $color-white;
             background-color: $color-primary;
@@ -86,12 +89,15 @@
             display: flex;
             justify-content: center;
             flex-wrap: nowrap;
+            font-size: rem(16);
+            height: rem(40);
+            border-radius: rem(4);
+            align-items: center;
             @media (min-width: $medium-screen) {
                 margin-left: 1rem;
             }
 
             font-weight: $font-semibold;
-            font-size: rem(20);
             white-space: nowrap;
             color: $color-primary;
             background-color: #f8f8f7;

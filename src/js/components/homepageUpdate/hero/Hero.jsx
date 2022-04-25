@@ -57,7 +57,7 @@ const Hero = () => {
                                     className="hero__button"
                                     to="/about"
                                     onClick={trackAboutLink}>
-                                    Learn About USAspending
+                                    Learn about USAspending
                                 </Link>
                             </div>
                             <div className="hero__text-container">
