@@ -168,7 +168,6 @@ $green-text: #2d6878;
         }
 
         .phrase__end__item--rotation span {
-
             @include rotation('main-rotation', $iteration-increment * 2, $iteration-increment * 2);
 
         }

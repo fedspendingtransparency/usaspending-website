@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 
 const AnimatedHeading = ({ paused }) => {
     const wordPairs = [['Explore', 'by industry', 75], ['Search', 'by agency', 75], ['Track', 'over time', 75], ['Download', 'to communities', 0], ['Analyze', 'by recipient', 75]];
@@ -9,7 +8,6 @@ const AnimatedHeading = ({ paused }) => {
     const [animatedCnt, setAnimatedCnt] = useState(0);
     const [wordOrder, setWordOrder] = useState(wordPairs);
     const [windowWidth, setWindowWidth] = useState();
-    const [isMobile, setIsMobile] = useState(false);
     const [hidden, setHidden] = useState(false);
 
     const shuffle = (array) => {
@@ -80,18 +78,6 @@ const AnimatedHeading = ({ paused }) => {
         phrase.parentNode.replaceChild(clonedNode, phrase);
     };
 
-    const stopPhraseAnimation = () => {
-        document.querySelector('.phrase__intro__item').classList.remove('phrase--exit-animation');
-        document.querySelector('.phrase__static__item').classList.remove('phrase--exit-animation');
-        document.querySelector('.phrase__end__item').classList.remove('phrase--exit-animation');
-        document.querySelector('.phrase__intro__item').classList.remove('phrase--entrance-animation');
-        document.querySelector('.phrase__static__item').classList.remove('phrase--entrance-animation');
-        document.querySelector('.phrase__end__item').classList.remove('phrase--entrance-animation');
-        document.querySelector('.phrase__intro__item .entrance__item').classList.remove('phrase__intro__item--entrance');
-        document.querySelector('.phrase__intro__item .rotating__items').classList.remove('phrase__intro__item--rotation');
-        document.querySelector('.phrase__end__item .entrance__item').classList.remove('phrase__end__item--entrance');
-        document.querySelector('.phrase__end__item .rotating__items').classList.remove('phrase__end__item--rotation');
-    }
     const restartLandingAnimation = () => {
         const landing = document.querySelector('.landing-phrase');
         landing.classList.remove('landing-phrase--entrance-animation');
@@ -104,7 +90,6 @@ const AnimatedHeading = ({ paused }) => {
     // If the page is hidden, pause the video;
     // if the page is shown, play the video
     const handleVisibilityChange = () => {
-
         if (document[hidden]) {
             pauseAll(true);
         }
@@ -191,7 +176,6 @@ const AnimatedHeading = ({ paused }) => {
         const newWidth = window.innerWidth;
         if (windowWidth !== newWidth) {
             setWindowWidth(newWidth);
-            setIsMobile(newWidth < mediumScreen);
         }
     };
 
