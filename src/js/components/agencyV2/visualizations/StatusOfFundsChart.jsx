@@ -5,7 +5,6 @@ import { scaleLinear, scaleBand } from 'd3-scale';
 import { throttle } from 'lodash';
 import { largeScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { FlexGridRow, TooltipWrapper } from 'data-transparency-ui';
-import { defaultTooltipWidth } from 'dataMapping/covid19/amountsVisualization';
 
 const propTypes = {
     fy: PropTypes.string,
@@ -438,7 +437,7 @@ const StatusOfFundsChart = ({
                     width={288}
                     styles={{
                         position: 'absolute',
-                        transform: `translate(${mouseValue.x - 30}px,${mouseValue.y + 20}px)`
+                        transform: `translate(${mouseValue.x - 144}px,${mouseValue.y - 230}px)`
                     }}
                     tooltipPosition="bottom"
                     tooltipComponent={tooltip(hoverData)}
