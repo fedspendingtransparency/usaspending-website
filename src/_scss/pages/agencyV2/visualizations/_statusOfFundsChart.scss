@@ -32,7 +32,7 @@
 .sof-chart-tooltip {
   .tooltip__title {
     font-size: rem(16);
-    font-weight: 600;
+    font-weight: $font-semibold;
     color: $color-grayblack;
     background-color: $color-white;
   }
@@ -51,7 +51,7 @@
     }
     .tooltip__text-amount {
       margin-left: auto;
-      font-weight: 600;
+      font-weight: $font-semibold;
     }
     .tooltip__item {
       display: flex;
