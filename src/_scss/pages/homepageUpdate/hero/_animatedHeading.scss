@@ -190,7 +190,7 @@ $green-text: #2d6878;
         }
 
         .phrase--exit-animation {
-            @include phrase-transition('fade-out', $scroll-increment * 2, 0);
+            @include phrase-transition('fade-out', $scroll-increment, 0);
         }
 
         @-moz-keyframes fade-in-landing-phrase {
@@ -209,7 +209,7 @@ $green-text: #2d6878;
 
         @keyframes fade-out {
             0% { opacity: 1 }
-            50% { opacity: 1 }
+            80% { opacity: 1 }
             100% { opacity: 0 }
 
         }
