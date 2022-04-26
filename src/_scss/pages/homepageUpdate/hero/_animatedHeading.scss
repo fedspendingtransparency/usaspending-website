@@ -164,7 +164,7 @@ $green-text: #2d6878;
         }
 
         .phrase__end__item--entrance span {
-            @include rotation('fade-out', $iteration-increment * 2,  0);
+            @include rotation('entrance-fade-out', $iteration-increment * 2,  0);
         }
 
         .phrase__end__item--rotation span {
@@ -210,6 +210,13 @@ $green-text: #2d6878;
         @keyframes fade-out {
             0% { opacity: 1 }
             80% { opacity: 1 }
+            100% { opacity: 0 }
+
+        }
+
+        @keyframes entrance-fade-out {
+            0% { opacity: 1 }
+            90% { opacity: 1 }
             100% { opacity: 0 }
 
         }
