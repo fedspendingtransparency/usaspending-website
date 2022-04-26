@@ -21,3 +21,49 @@
     }
   }
 }
+#tooltip > div > div.tooltip-pointer.bottom {
+  display: none;
+}
+.sof-chart-tooltip {
+  .tooltip__title {
+    font-size: rem(16);
+    font-weight: 600;
+    color: $color-grayblack;
+    background-color: $color-white;
+  }
+  .tooltip__text {
+    padding-left: 2rem;
+    margin-top: -2rem;
+    hr {
+      background: $color-gray-lighter;
+      height: 1px;
+    }
+    .tooltip__text-note {
+      font-size: rem(14);
+      font-style: italic;
+      text-align: center;
+      color: $color-base;
+    }
+    .tooltip__text-amount {
+      margin-left: auto;
+      font-weight: 600;
+    }
+    .tooltip__item {
+      display: flex;
+      margin-bottom: 1.6rem;
+
+      .tooltip__circle {
+        margin-right: 0.5rem;
+        height: 0.8rem;
+        width: 0.8rem;
+        border-radius: 50%;
+        padding-right: 0.8rem;
+        margin-top: 0.4rem;
+      }
+
+      .tooltip__text {
+        font-size: rem(14);
+      }
+    }
+  }
+}
