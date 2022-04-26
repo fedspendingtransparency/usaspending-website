@@ -1,0 +1,73 @@
+.download-detail {
+    $disabled-link-color: #80b9de;
+
+    .download-detail__wrapper {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+
+        @include display(flex);
+        @include flex-direction(column);
+        @include justify-content(center);
+        @include align-items(center);
+
+        background-color: $color-primary;
+        color: $color-white;
+
+        padding: 0 rem(40);
+
+        h2.download-detail__title {
+            @include flex(0 1 auto);
+            margin: rem(50) rem(30) 0 rem(30);
+
+            font-weight: $font-semibold;
+            font-size: rem(48);
+            text-align: center;
+            align-self: stretch;
+        }
+
+        p.download-detail__description {
+            @include flex(0 1 auto);
+
+            margin: rem(30);
+
+            font-size: rem(18);
+            line-height: rem(28);
+            text-align: center;
+            align-self: stretch;
+
+            font-weight: $font-light;
+        }
+
+        a.download-detail__link, button.download-detail__link {
+            @include flex(0 1 auto);
+            display: block;
+            border: 1px solid $color-white;
+
+            font-weight: $font-semibold;
+            font-size: rem(24);
+            color: $color-white;
+
+            padding: rem(10) rem(20);            
+
+            &:hover, &:active {
+                text-decoration: none;
+                background-color: $color-primary-darker;
+            }
+        }
+
+        button.download-detail__link_disabled {
+            border: 1px solid $disabled-link-color;
+            color: $disabled-link-color;
+
+            &:hover, &:active, &:focus {
+                text-decoration: none;
+                background-color: $color-primary;
+                cursor: default;
+                box-shadow: none;
+            }
+        }
+    }
+}

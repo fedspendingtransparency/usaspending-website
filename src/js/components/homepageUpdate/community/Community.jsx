@@ -17,6 +17,7 @@ const Community = () => (
     <section
         className="homepage-community"
         aria-label="Community">
+        <div className="homepage-community__background" />
         <div className="homepage-community__wrapper">
             <div className="homepage-community__content">
                 <h2
