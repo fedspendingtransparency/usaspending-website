@@ -8,7 +8,7 @@
 
     .homepage-getting-started {
       height: 100%;
-      padding-bottom: $global-padding * 30;
+      padding-bottom: $global-padding * 12;
       overflow: hidden;
       .homepage-background-flair {
           position: absolute;
@@ -42,9 +42,6 @@
             max-height: 554px;
           }
         }
-        .feature-dropdown__wrapper {
-          display: block;
-        }
         button.feature-carousel-content__arrow {
           width: fit-content;
           z-index: 5;
@@ -67,6 +64,9 @@
         p {
           font-size: rem(20);
           line-height: 1.5;
+        }
+        .homepage-feature__dropdown {
+          margin-top: rem(32);
         }
         .homepage-spending-explorer {
           @include media(993px) {
