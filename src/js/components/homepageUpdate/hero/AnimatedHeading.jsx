@@ -152,14 +152,17 @@ const AnimatedHeading = ({ paused }) => {
             setTimeout(() => {
                 document.querySelector('.phrase__intro__item').classList.add('phrase--exit-animation');
                 document.querySelector('.phrase__static__item').classList.add('phrase--exit-animation');
-                document.querySelector('.phrase__end__item').classList.add('phrase--exit-animation');
-                setTimeout(() => {
+                const endPhrase = document.querySelector('.phrase__end__item');
+                endPhrase.classList.add('phrase--exit-animation');
+                endPhrase.addEventListener('animationend', () => {
                     document.querySelector('.phrase').style.visibility = 'hidden';
                     restartLandingAnimation();
-                    restartPhraseAnimation();
-                    setLandingCnt((prevState) => prevState + 1);
-                }, 1500);
-            }, 2500);
+                    setTimeout(() => {
+                        restartPhraseAnimation();
+                        setLandingCnt((prevState) => prevState + 1);
+                    }, [1000]);
+                }, 2000);
+            }, 2100);
         });
     }, [animatedCnt]);
 

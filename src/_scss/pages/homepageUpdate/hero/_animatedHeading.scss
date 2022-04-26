@@ -168,6 +168,7 @@ $green-text: #2d6878;
         }
 
         .phrase__end__item--rotation span {
+
             @include rotation('main-rotation', $iteration-increment * 2, $iteration-increment * 2);
 
         }
@@ -189,7 +190,7 @@ $green-text: #2d6878;
         }
 
         .phrase--exit-animation {
-            @include phrase-transition('fade-out', $scroll-increment, 0);
+            @include phrase-transition('long-fade-out', $scroll-increment * 2, 0);
         }
 
         @-moz-keyframes fade-in-landing-phrase {
@@ -204,6 +205,13 @@ $green-text: #2d6878;
             40% { opacity: 0; vibility: hidden; -webkit-transform: translateY(25px);}
             90% { opacity: 1; vibility: visible; -webkit-transform: translateY(0px);}
             100% { opacity: 1; vibility: visible; }
+        }
+
+        @keyframes long-fade-out {
+            0% { opacity: 1 }
+            50% { opacity: 1 }
+            100% { opacity: 0 }
+
         }
 
         @keyframes fade-out {
