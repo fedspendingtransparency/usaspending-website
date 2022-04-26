@@ -17,8 +17,7 @@
           width: 125vw;
           margin-left: calc(50% - 50vw);
 
-          background-color: $color-gray-lightest;
-          opacity: 0.5;
+          background-color: #f8f8f8;
 
           @include transform(skewY(5deg));
 
