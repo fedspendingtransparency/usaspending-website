@@ -1,11 +1,7 @@
 .homepage-community {
+    background-color: #f8f8f8;
     @include media($medium-screen) {
         padding: 0;
-    }
-
-    .homepage-community__background {
-        background-color: $color-gray-lightest;
-        opacity: 0.5;
     }
 
     .homepage-community__wrapper {

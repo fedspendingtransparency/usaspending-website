@@ -65,7 +65,7 @@ const GettingStarted = () => {
         }, 50);
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-    }, []);
+    }, [windowWidth]);
     const searchCarouselLayout = isMobile ?
         <>
             <FlexGridCol className="homepage-search-feature" width={12}>
@@ -87,7 +87,7 @@ const GettingStarted = () => {
                     <p>
                         Use <strong>Keyword Search</strong> for a broad view of award data, but if you want to dig deeper, our <strong>Advanced Search</strong> offers filters that let you customize your data sets. Interactive visualizations — including a spending map — complement downloadable files.
                     </p>
-                    <div className="feature-award-search__dropdown">
+                    <div className="homepage-feature__dropdown">
                         <FeatureDropdown
                             items={searchOptions}>
                             Select <strong>Search Type</strong>
@@ -108,7 +108,7 @@ const GettingStarted = () => {
                     <p>
                         Use <strong>Keyword Search</strong> for a broad view of award data, but if you want to dig deeper, our <strong>Advanced Search</strong> offers filters that let you customize your data sets. Interactive visualizations — including a spending map — complement downloadable files.
                     </p>
-                    <div className="feature-award-search__dropdown">
+                    <div className="homepage-feature__dropdown">
                         <FeatureDropdown
                             items={searchOptions}>
                             Select <strong>Search Type</strong>
@@ -141,7 +141,7 @@ const GettingStarted = () => {
                 <p>
                     Interested in how specific agencies spend their funding? Or how federal funding is being spent in your state? Our <strong>Profiles</strong> make it easier to understand questions like these and more with interactive charts and tables that offer a snapshot of spending by agency, state, recipient, and the federal accounts that agencies use to spend their funding. Use our COVID-19 Spending profile to learn how federal funding is being spent in response to the pandemic.
                 </p>
-                <div className="feature-profile__dropdown">
+                <div className="homepage-feature__dropdown">
                     <FeatureDropdown
                         items={profileOptions}>
                         Browse <strong>Profiles</strong>
@@ -164,7 +164,7 @@ const GettingStarted = () => {
                 <p>
                     Interested in how specific agencies spend their funding? Or how federal funding is being spent in your state? Our <strong>Profiles</strong> make it easier to understand questions like these and more with interactive charts and tables that offer a snapshot of spending by agency, state, recipient, and the federal accounts that agencies use to spend their funding. Use our COVID-19 Spending profile to learn how federal funding is being spent in response to the pandemic.
                 </p>
-                <div className="feature-profile__dropdown">
+                <div className="homepage-feature__dropdown">
                     <FeatureDropdown
                         items={profileOptions}>
                         Browse <strong>Profiles</strong>

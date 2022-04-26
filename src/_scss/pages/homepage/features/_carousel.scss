@@ -109,7 +109,8 @@
                 }
 
                 &:hover, &:active, &.feature-carousel-pager__dot-button_active {
-                    opacity: 1;
+                    opacity: 0.99
+                ;
                 }
             }
         }
