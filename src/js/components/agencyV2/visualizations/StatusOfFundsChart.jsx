@@ -4,7 +4,7 @@ import * as d3 from 'd3';
 import { scaleLinear, scaleBand } from 'd3-scale';
 import { throttle } from 'lodash';
 import { largeScreen } from 'dataMapping/shared/mobileBreakpoints';
-import { FlexGridRow } from 'data-transparency-ui';
+import { FlexGridRow, TooltipWrapper } from 'data-transparency-ui';
 
 const propTypes = {
     fy: PropTypes.string,
@@ -17,12 +17,16 @@ const StatusOfFundsChart = ({
     results, fy, setLevel, level
 }) => {
     const chartRef = useRef();
-    const [windowWidth, setWindowWidth] = useState(0);
 
+    const [windowWidth, setWindowWidth] = useState(0);
     const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth < largeScreen);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
     const [isNegative, setIsNegative] = useState(false);
+    const [isHovered, setIsHovered] = useState(false);
+    const [mouseValue, setMouseValue] = useState({ x: 0, y: 0 });
     const [sortedNums, setSortedNums] = useState(null);
+    const [hoverData, setHoverData] = useState(null);
+
     const viewHeight = 760;
     const viewWidth = 1000;
     const margins = {
@@ -37,6 +41,33 @@ const StatusOfFundsChart = ({
     const handleClick = (data) => {
         setLevel(1, data);
     };
+
+    const setMouseData = throttle((e) => {
+        const browser = window.navigator.userAgent;
+        if (browser.includes('Chrome')) {
+            setMouseValue({
+                x: e.clientX - document.getElementById('sof_chart').getBoundingClientRect().left,
+                y: (e.clientY - document.getElementById('sof_chart').getBoundingClientRect().top) + 5
+            });
+        }
+        else if (browser.includes('Firefox') || browser.includes('Safari')) {
+            setMouseValue({
+                x: e.clientX - document.getElementById('sof_chart').getBoundingClientRect().left,
+                y: e.clientY - document.getElementById('sof_chart').getBoundingClientRect().top
+            });
+        }
+        else {
+            setMouseValue({
+                x: e.offsetX || e.clientX,
+                y: e.offsetY || e.clientY
+            });
+        }
+    }, 100);
+
+    useEffect(() => {
+        document.getElementById('sof_chart').addEventListener('mousemove', setMouseData);
+        return () => document.getElementById('sof_chart').removeEventListener('mousemove', setMouseData);
+    }, []);
 
     useEffect(() => {
         setTextScale(viewWidth / chartRef.current.getBoundingClientRect().width);
@@ -124,6 +155,37 @@ const StatusOfFundsChart = ({
             return 26;
         }
         return 18;
+    };
+
+    const tooltip = (data) => {
+        if (hoverData) {
+            return (
+                <div className="sof-chart-tooltip">
+                    <div className="tooltip__title">
+                        {data.name}
+                    </div>
+                    <div className="tooltip__text">
+                        <div className="tooltip__item">
+                            <div
+                                className="tooltip__circle"
+                                style={{ 'background-color': '#2B71B8' }} />
+                            <div className="tooltip__text-label">FY{fy[2]}{fy[3]} Obligations</div>
+                            <div className="tooltip__text-amount">{data.obligations}</div>
+                        </div>
+                        <div className="tooltip__item">
+                            <div
+                                className="tooltip__circle"
+                                style={{ 'background-color': '#BBDFC7' }} />
+                            <div className="tooltip__text-label">FY{fy[2]}{fy[3]} Total Budgetary<br />Resources</div>
+                            <div className="tooltip__text-amount">{data.budgetaryResources}</div>
+                        </div>
+                        <hr />
+                        <div className="tooltip__text-note">Click bar to view federal accounts</div>
+                    </div>
+                </div>
+            );
+        }
+        return '';
     };
 
     const renderChart = () => {
@@ -309,6 +371,18 @@ const StatusOfFundsChart = ({
                 handleClick(d);
             }
         });
+        // tooltip hover for bar groups
+        svg.selectAll(".bar-group").on('mouseenter', (d) => {
+            setIsHovered(true);
+            setHoverData(d);
+            tooltip(hoverData);
+            console.log(hoverData);
+        });
+        svg.selectAll(".bar-group").on('mouseleave', () => {
+            setIsHovered(false);
+            setHoverData(null);
+            svg.selectAll('#bar-tooltip').remove();
+        });
         // tooltip hover for label text
         svg.selectAll(".y-axis-labels").append("svg:title")
             .text((d) => d);
@@ -341,7 +415,7 @@ const StatusOfFundsChart = ({
         if (sortedNums?.length > 0) {
             renderChart();
         }
-    }, [renderChart, sortedNums, textScale]);
+    }, [renderChart, sortedNums, textScale, hoverData]);
 
     useEffect(() => {
         if (results?.length > 0) {
@@ -356,18 +430,36 @@ const StatusOfFundsChart = ({
 
     return (
         <>
+            {
+                isHovered &&
+                <TooltipWrapper
+                    className="sof_chart-tt"
+                    width={288}
+                    styles={{
+                        position: 'absolute',
+                        transform: `translate(${mouseValue.x - 144}px,${mouseValue.y - 230}px)`
+                    }}
+                    tooltipPosition="bottom"
+                    tooltipComponent={tooltip(hoverData)}
+                    controlledProps={{
+                        isControlled: true,
+                        isVisible: isHovered,
+                        showTooltip: () => {},
+                        closeTooltip: () => {}
+                    }} />
+            }
             <div id="sof_chart" className="status-of-funds__visualization" ref={chartRef} />
-            <FlexGridRow className="legend" style={{ 'flex-direction': isLargeScreen ? 'column' : 'row' }}>
+            <FlexGridRow className="legend" style={{ flexDirection: isLargeScreen ? 'column' : 'row' }}>
                 <div className="legend__item">
                     <div
                         className="legend__circle"
-                        style={{ 'background-color': '#2B71B8' }} />
+                        style={{ backgroundColor: '#2B71B8' }} />
                     <div className="legend__text">FY{fy[2]}{fy[3]} Obligations</div>&nbsp;&nbsp;&nbsp;&nbsp;
                 </div>
                 <div className="legend__item">
                     <div
                         className="legend__circle"
-                        style={{ 'background-color': '#BBDFC7' }} />
+                        style={{ backgroundColor: '#BBDFC7' }} />
                     <div className="legend__text">FY{fy[2]}{fy[3]} Total Budgetary Resources</div>
                 </div>
             </FlexGridRow>
