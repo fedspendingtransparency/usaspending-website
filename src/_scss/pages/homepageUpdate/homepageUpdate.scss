@@ -67,6 +67,30 @@
         .homepage-feature__dropdown {
           margin-top: rem(32);
         }
+        // this block is overriding the classes from _dropdown.scss
+        // which are used in the old homepage
+        // after it is no longer active, these can move to _dropdown.scss
+        .feature-dropdown__wrapper {
+          @media (max-width: $medium-screen) {
+            display: block;
+          }
+          .feature-dropdown__button {
+            font-size: rem(16);
+            height: rem(40);
+            border-radius: rem(4);
+            padding: 0 rem(20);
+          }
+          li.feature-dropdown-item {
+            a.feature-dropdown-item__link {
+              font-size: rem(16);
+              line-height: rem(20);
+            }
+            &.feature-dropdown-item_coming-soon {
+              font-size: rem(16);
+              line-height: rem(20);
+            }
+          }
+        }
         .homepage-spending-explorer {
           @include media(993px) {
             margin-bottom: -100px;
