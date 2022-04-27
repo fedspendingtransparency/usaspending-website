@@ -30,9 +30,13 @@ $green-text: #2d6878;
     justify-content: center;
     @media (max-width: $medium-screen) {
         margin: 0;
+    }
+
+    @media (max-width: 710px) {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(262px, max-content));
     }
+
     .landing-phrase {
         font-weight: bold;
         color: $color-grayblack;
@@ -43,16 +47,12 @@ $green-text: #2d6878;
             line-height: rem(50);
             text-align: left;
             font-size: rem(40);
-            //margin: 0 rem(32) rem(30) rem(32);
             max-width: rem(640);
             justify-content: normal;
-            //display: grid;
-            //grid-template-columns: repeat(auto-fit, minmax(262px, max-content));
         }
         @media (min-width: $medium-screen - 1) and (max-width: 1279px) {
             max-width: 1143px;
         }
-
     }
 
     .landing-phrase--entrance-animation {
@@ -84,8 +84,8 @@ $green-text: #2d6878;
             justify-content: normal;
             font-size: rem(40);
         }
-        @media (max-width: 340px) {
-            margin-left: rem(32);
+        @media (max-width: 308px) {
+            margin-left: rem(16);
         }
 
         .phrase__intro {
