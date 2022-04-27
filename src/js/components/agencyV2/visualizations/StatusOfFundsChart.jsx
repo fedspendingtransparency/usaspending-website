@@ -179,8 +179,7 @@ const StatusOfFundsChart = ({
                             <div className="tooltip__text-label">FY{fy[2]}{fy[3]} Total Budgetary<br />Resources</div>
                             <div className="tooltip__text-amount">{data.budgetaryResources}</div>
                         </div>
-                        <hr />
-                        <div className="tooltip__text-note">Click bar to view federal accounts</div>
+                        {level === 0 && (<><hr /><div className="tooltip__text-note">Click bar to view Federal Accounts</div></>)}
                     </div>
                 </div>
             );
