@@ -79,8 +79,12 @@ $green-text: #2d6878;
             justify-content: normal;
             font-size: rem(40);
         }
+        @media (max-width: 462px) {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(262px, max-content));
+        }
         @media (max-width: 340px) {
-            margin: 0 rem(32);
+            margin-left: rem(32);
         }
 
         .phrase__intro {
