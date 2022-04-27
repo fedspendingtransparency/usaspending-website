@@ -1,16 +1,22 @@
 module.exports = {
     ci: {
         upload: {
-            target: 'temporary-public-storage'
+            target: 'temporary-public-storage',
+            settings: {
+                preset: "desktop"
+            }
         },
         collect: {
-            additive: true,
             staticDistDir: './public', // location of static files for lighthouse CI to serve
+            additive: true,
             isSinglePageApplication: true,
             url: [ // the urls to run lighthouse against
                 'http://localhost/',
                 'http://localhost/disaster/covid-19'
-            ]
+            ],
+            settings: {
+                preset: "desktop"
+            }
         }
     }
 };
