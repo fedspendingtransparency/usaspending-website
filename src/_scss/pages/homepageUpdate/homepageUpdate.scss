@@ -4,94 +4,16 @@
   @import "layouts/default/header/_warning";
 
   .homepage-content {
-    .homepage-getting-started {
-      height: 100%;
-      background-color: lightgrey;
-      .grid-content {
-        .section-heading-title-wrapper  {
-          width: 100%;
-          margin: 0 auto;
-          text-align: center;
-          @media (max-width: $medium-screen) {
-            text-align: left;
-          }
-          .section-heading-title {
-            line-height: 1.25;
-            font-weight: 600;
-            font-size: 40px;
-          }
-        }
-        p {
-          font-size: 20px;
-          line-height: 1.5;
-        }
-        button {
-          @media (max-width: $medium-screen) {
-            width: 100%;
-          }
-        }
-        .homepage-spending-explorer {
-          .homepage-spending-explorer__img-wrapper {
-            background-color: lightblue;
-            height: 554px;
-          }
-          .homepage-spending-explorer-desc {
-            margin-left: 8rem;
-            @media (max-width: $medium-screen) {
-              margin-left: 0;
-            }
-            .homepage-spending-explorer-desc__title {
-              font-size: 28px;
-              font-weight: 600;
-              line-height: 1.25;
-            }
-          }
-        }
-        .homepage-search-feature {
-          .homepage-search-feature__img-wrapper {
-            background-color: lightblue;
-            height: 554px;
-          }
-          .homepage-search-feature-desc {
-            margin-right: 4rem;
-            .homepage-search-feature-desc__title {
-              font-size: 28px;
-              font-weight: 600;
-              line-height: 1.25;
-            }
-            @media (max-width: $medium-screen) {
-              margin-right: 1.6rem;
-              margin-left: 1.6rem;
-            }
-          }
-        }
-        .homepage-profile-feature {
-          .homepage-profile-feature__img-wrapper {
-            background-color: lightblue;
-            height: 554px;
-          }
-          .homepage-profile-feature-desc {
-            margin-left: 8rem;
-            @media (max-width: $medium-screen) {
-              margin-left: 0;
-            }
-            .homepage-profile-feature-desc__title {
-              font-size: 28px;
-              font-weight: 600;
-              line-height: 1.25;
-            }
-          }
-        }
-      }
-    }
+    background-color: white;
+
+    @import "gettingStarted";
 
     .usa-dt-flex-grid__row.grid-content {
         margin: 0 $grid-column;
         height: 100%;
-        background-color: white;
     }
 
-    @media screen and (max-width: $tablet-screen) {
+    @media screen and (max-width: $medium-screen) {
       .homepage-hero-content, .usa-dt-flex-grid__row.grid-content {
         margin: 0 rem(16);
       }
@@ -99,10 +21,11 @@
 
   }
 
-  @import "../homepage/download/download";
-  @import "../homepage/community/community";
+  @import "download/download";
+  @import "./features/features";
   @import "hero/hero";
-  @import "./homepageCovidSection";
+  @import "covidSection";
+  @import "community";
 }
 
 

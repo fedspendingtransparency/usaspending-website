@@ -202,19 +202,19 @@ export const accountDownloadOptions = {
     submissionTypes: [
         {
             name: 'accountBalances',
-            label: 'Account Balances',
+            label: 'Account Balances (File\u00A0A)',
             apiName: 'account_balances',
             file: 'File A'
         },
         {
             name: 'accountBreakdown',
-            label: 'Account Breakdown by Program Activity & Object Class',
+            label: 'Account Breakdown by Program Activity & Object Class (File\u00A0B)',
             apiName: 'object_class_program_activity',
             file: 'File B'
         },
         {
             name: 'accountBreakdownByAward',
-            label: 'Account Breakdown by Award*',
+            label: 'Account Breakdown by Award* (File\u00A0C)',
             apiName: 'award_financial',
             file: 'File C'
         }

@@ -3,14 +3,14 @@
  * Created by Lizzie Salita 4/27/21
  */
 
-import React from 'react';
-import { render } from 'test-utils';
 import '@testing-library/jest-dom/extend-expect';
 import * as apis from 'apis/disaster';
 import * as actions from 'redux/actions/covid19/covid19Actions';
-import { useQueryParams } from 'helpers/queryParams';
-import Covid19Container from 'containers/covid19/Covid19Container';
-import { mockDefCodes, mockDefcParams } from '../../mockData/helpers/disasterHelper';
+import React from 'react';
+import { render } from "../../testResources/test-utils";
+import { useQueryParams } from "../../../src/js/helpers/queryParams";
+import { mockDefCodes } from '../../mockData/helpers/disasterHelper';
+import Covid19Container from '../../../src/js/containers/covid19/Covid19Container';
 
 // Mock the child component so we can isolate functionality of the container
 jest.mock('components/covid19/Covid19Page', () =>
