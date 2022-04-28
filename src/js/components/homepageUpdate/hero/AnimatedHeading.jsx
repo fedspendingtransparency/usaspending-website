@@ -1,3 +1,8 @@
+/**
+ * Hero.jsx
+ * Created by Andrea Blackwell 03/22
+ */
+
 import React, { useEffect, useState } from "react";
 
 const AnimatedHeading = ({ paused }) => {
