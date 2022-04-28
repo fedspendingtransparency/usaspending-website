@@ -59,7 +59,10 @@
                   .award__heading-icon {
                       @include display(flex);
                       @include flex(0 0 auto);
-                      padding-right: rem(15);
+                      padding-right: rem(10);
+                      @media (max-width: $medium-screen) {
+                          margin: rem(4) 0;
+                      }
                       svg {
                           @include display(flex);
                           height: rem(20);
@@ -88,28 +91,10 @@
                         margin: 0;
                         @include display(flex);
                         @include align-items(center);
-                        // margin-right: $global-mrg;
                         line-height: normal;
                         font-size: $h5-font-size;
                       }
                   }
-                .award-summary__covid-19-flag {
-                  padding: rem(3) rem(7);
-                  @include display(flex);
-                  @include justify-content(center);
-                  @include align-items(center);
-                  background: $color-disaster-covid-19;
-                  color: $color-white;
-                  font-size: rem(14);
-                  font-weight: 600;
-                  text-align: center;
-                  height: rem(25);
-                  border-radius: rem(4);
-                  width: rem(200);
-                  @media(min-width: $medium-screen) {
-                    margin-left: rem(10);
-                  }
-                }
               }
               .award-status-container {
                 @include media($medium-screen) {
@@ -129,6 +114,22 @@
                 }
               }
           }
+        .award-summary__covid-19-flag {
+          padding: rem(3) rem(7);
+          @include display(flex);
+          @include flex-wrap(wrap);
+          @include justify-content(center);
+          @include align-items(center);
+          background: $color-disaster-covid-19;
+          color: $color-white;
+          font-size: rem(14);
+          font-weight: 600;
+          text-align: center;
+          height: rem(25);
+          border-radius: rem(4);
+          width: rem(200);
+          margin: rem(8) 0 rem(12);
+        }
           .award__row {
               @include display(flex);
               @include flex-wrap(wrap);

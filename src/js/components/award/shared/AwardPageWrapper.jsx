@@ -38,18 +38,18 @@ const AwardPageWrapper = ({
                         <h3>{idLabel}</h3>
                         <p>{identifier}</p>
                     </div>
-                    {defCodes.length > 0 &&
-                        <TooltipWrapper className="award-summary__covid-19-flag" tooltipComponent={<CovidFlagTooltip codes={defCodes} />}>
-                            <span className="covid-spending-flag">
-                                Includes COVID-19 Spending
-                            </span>
-                        </TooltipWrapper>
-                    }
                 </div>
                 <AwardStatus
                     awardType={awardType}
                     dates={dates} />
             </div>
+            {defCodes.length > 0 &&
+                <TooltipWrapper className="award-summary__covid-19-flag" tooltipComponent={<CovidFlagTooltip codes={defCodes} />}>
+                    <span className="covid-spending-flag">
+                                Includes COVID-19 Spending
+                    </span>
+                </TooltipWrapper>
+            }
             <hr />
             {children}
         </div>
