@@ -1,0 +1,54 @@
+.feature-profile {
+    .feature-profile__wrapper {
+        display: block;
+        margin: rem(120) 0 rem(200) 0;
+        position: relative;
+
+        @include media($medium-screen) {
+            @include display(flex);
+            @include justify-content(flex-start);
+            @include align-items(flex-start);
+
+            margin-left: -1 * ($outer-gutter / 2);
+            margin-right: $outer-gutter / 2;
+        }
+
+        @include media($large-screen) {
+            margin-left: -1 * $outer-gutter;
+            margin-right: $outer-gutter;
+        }
+    }
+
+    .feature-profile__image-wrapper {
+        position: relative;
+        display: none;
+        @include media($medium-screen) {
+            @include flex(0 0 auto);
+            width: 60%;
+            display: block;
+            margin: 0;
+            margin-bottom: 0;
+        }
+    }
+
+    .feature-profile__content {
+        position: relative;
+        @include media($medium-screen) {
+            @include flex(0 1 auto);
+            padding-left: rem(55);
+        }
+
+        .feature-profile__mobile-carousel {
+            display: block;
+            margin: rem(35) 0;
+
+            @include media($medium-screen) {
+                display: none;
+            }
+        }
+
+        .feature-profile__dropdown {
+            margin-top: rem(60);
+        }
+    }
+}

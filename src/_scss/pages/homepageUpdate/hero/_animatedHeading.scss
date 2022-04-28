@@ -32,6 +32,7 @@ $green-text: #2d6878;
         margin: 0;
     }
 
+    // left aligns content in flex box justify-content: center container
     @media (max-width: 710px) {
         display: grid;
         grid-template-columns: repeat(auto-fit, minmax(262px, max-content));
@@ -89,7 +90,7 @@ $green-text: #2d6878;
         }
 
         .phrase__intro {
-            width: rem(262);
+            width: rem(262); // hardcoded to the longest intro word which is currently 'Download'
             height: rem(50);
             flex-shrink: 0;
             white-space: nowrap;
@@ -143,7 +144,7 @@ $green-text: #2d6878;
         }
 
         .phrase__end {
-            width: rem(385);
+            width: rem(385);  // hardcoded to the longest ending which is currently 'to communities'
             flex-shrink: 0;
             white-space: nowrap;
             flex-wrap: wrap;
