@@ -11,9 +11,13 @@
       padding-bottom: $global-padding * 12;
       .homepage-background-flair {
           position: absolute;
+          z-index: 0;
           top: 5rem;
           bottom: -50rem;
           width: 125vw;
+          @media (max-width: $medium-screen) {
+            width: 100vw;
+          }
           margin-left: calc(50% - 50vw);
 
           background-color: #f8f8f8;
@@ -44,6 +48,9 @@
         button.feature-carousel-content__arrow {
           width: fit-content;
           z-index: 5;
+        }
+        div.feature-carousel-image {
+          z-index: 3;
         }
         .section-heading-title-wrapper  {
           width: 100%;
