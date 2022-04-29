@@ -11,7 +11,6 @@ import PropTypes from 'prop-types';
 import { Table, Pagination, Picker, TooltipWrapper } from 'data-transparency-ui';
 import { Link } from 'react-router-dom';
 
-import { AGENCY_LINK } from 'GlobalConstants';
 import Analytics from 'helpers/analytics/Analytics';
 
 import {
@@ -248,7 +247,7 @@ const BudgetCategoriesTableContainer = (props) => {
                         <Link
                             className="agency-profile__link"
                             onClick={clickedAgencyProfile.bind(null, `${budgetCategoryRow.name}`)}
-                            to={`/${AGENCY_LINK}/${toptierCodes[code]}`}>
+                            to={`/agency/${toptierCodes[code]}`}>
                             {budgetCategoryRow.name}
                         </Link>
                     );

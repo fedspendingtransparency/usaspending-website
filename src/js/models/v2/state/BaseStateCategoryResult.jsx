@@ -42,7 +42,7 @@ const BaseStateCategoryResult = {
         return `${this.index}. ${this.combinedName}`;
     },
     get linkedName() {
-        return <a href={`/${GlobalConstants.AGENCY_LINK}/${this._slug}`}>{this.name}</a>;
+        return <a href={`/agency/${this._slug}`}>{this.name}</a>;
     }
 };
 

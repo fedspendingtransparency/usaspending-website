@@ -15,7 +15,6 @@ import { formatTreemapValues } from 'helpers/moneyFormatter';
 import { generateSingular } from 'helpers/singularityHelper';
 
 import { useAgencySlugs } from "containers/agencyV2/WithAgencySlugs";
-import { AGENCY_LINK } from 'GlobalConstants';
 
 import TruncationWarning from './TruncationWarning';
 
@@ -83,13 +82,12 @@ const heading = (type, title, id, link, agencyIds, slugError) => {
     }
     else if (type === 'Agency') {
         const agencyIdentifier = agencyIds[id];
-        const agencyLink = slugError ? 'agency' : AGENCY_LINK;
 
         let header = (
             <Link
-                to={`/${agencyLink}/${agencyIdentifier}`}
+                to={`/agency/${agencyIdentifier}`}
                 className="detail-header__title-link"
-                onClick={exitExplorer.bind(null, `/${agencyLink}/${agencyIdentifier}`)}>
+                onClick={exitExplorer.bind(null, `/agency/${agencyIdentifier}`)}>
                 {title}
             </Link>);
         if (title === "Unreported Data" || link === false) {

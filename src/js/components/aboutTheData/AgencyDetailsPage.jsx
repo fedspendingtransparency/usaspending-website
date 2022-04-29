@@ -40,7 +40,7 @@ const AgencyDetailsPage = () => {
     if (agencyOverview && agencyOverview.toptierCode) {
         slug = topTierCodes[agencyOverview.toptierCode];
     }
-    const agencyString = GlobalConstants.AGENCY_LINK;
+    const agencyString = 'agency';
 
     const modalClick = (modalType, agencyData) => {
         setModalData(agencyData);

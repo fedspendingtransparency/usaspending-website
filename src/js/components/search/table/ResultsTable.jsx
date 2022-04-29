@@ -111,7 +111,7 @@ export default class ResultsTable extends React.Component {
         else if (column.columnName === 'Awarding Agency' && this.props.results[rowIndex].awarding_agency_id) {
             cellClass = ResultsTableLinkCell;
             props.id = this.props.results[rowIndex].agency_slug || this.props.results[rowIndex].awarding_agency_id;
-            props.column = GlobalConstants.AGENCY_LINK;
+            props.column = 'agency';
         }
         else if (column.columnName === 'Prime Award ID') {
             const primeAwardId = this.props.results[rowIndex].prime_award_generated_internal_id;

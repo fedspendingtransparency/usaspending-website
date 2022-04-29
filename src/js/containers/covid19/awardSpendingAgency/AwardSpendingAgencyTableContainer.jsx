@@ -18,7 +18,6 @@ import CoreSpendingTableRow from 'models/v2/covid19/CoreSpendingTableRow';
 import Analytics from 'helpers/analytics/Analytics';
 import { calculateUnlinkedTotals } from 'helpers/covid19Helper';
 import { useAgencySlugs } from 'containers/agencyV2/WithAgencySlugs';
-import { AGENCY_LINK } from 'GlobalConstants';
 
 const propTypes = {
     type: PropTypes.string.isRequired,
@@ -197,7 +196,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
                     <Link
                         className="agency-profile__link"
                         onClick={clickedAgencyProfile.bind(null, `${awardSpendingByAgencyRow.description}`)}
-                        to={`/${AGENCY_LINK}/${toptierCodes[code]}`}>
+                        to={`/agency/${toptierCodes[code]}`}>
                         {link}
                     </Link>
                 );

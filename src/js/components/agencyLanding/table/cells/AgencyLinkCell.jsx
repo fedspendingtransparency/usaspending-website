@@ -27,7 +27,7 @@ export default class AgencyLinkCell extends React.Component {
         return (
             <div className={`agency-link-cell column-${this.props.column}`}>
                 <div className="cell-content">
-                    <Link to={`/${GlobalConstants.AGENCY_LINK}/${this.props.id}`}>
+                    <Link to={`/agency/${this.props.id}`}>
                         {name}
                     </Link>
                 </div>

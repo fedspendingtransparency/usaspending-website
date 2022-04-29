@@ -209,7 +209,7 @@ export class RankVisualizationWrapperContainer extends React.Component {
             }
 
             if (this.state.scope === 'awarding_agency') {
-                const awardingLink = `${GlobalConstants.AGENCY_LINK}/${result._agencySlug}`;
+                const awardingLink = `agency/${result._agencySlug}`;
                 linkSeries.push(awardingLink);
             }
 
