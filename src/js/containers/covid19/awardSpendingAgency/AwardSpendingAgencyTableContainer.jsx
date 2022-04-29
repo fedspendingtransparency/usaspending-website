@@ -18,7 +18,7 @@ import CoreSpendingTableRow from 'models/v2/covid19/CoreSpendingTableRow';
 import Analytics from 'helpers/analytics/Analytics';
 import { calculateUnlinkedTotals } from 'helpers/covid19Helper';
 import { useAgencySlugs } from 'containers/agencyV2/WithAgencySlugs';
-import { AGENCYV2_RELEASED, AGENCY_LINK } from 'GlobalConstants';
+import { AGENCY_LINK } from 'GlobalConstants';
 
 const propTypes = {
     type: PropTypes.string.isRequired,
@@ -192,7 +192,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
             if (query) link = replaceString(link, query, 'query-matched');
             const id = awardSpendingByAgencyRow._id;
             const code = awardSpendingByAgencyRow.code;
-            if (AGENCYV2_RELEASED && !slugsError && code && toptierCodes[code] && link) {
+            if (!slugsError && code && toptierCodes[code] && link) {
                 link = (
                     <Link
                         className="agency-profile__link"
@@ -202,16 +202,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
                     </Link>
                 );
             }
-            else if (!AGENCYV2_RELEASED && link && id) {
-                link = (
-                    <Link
-                        className="agency-profile__link"
-                        onClick={clickedAgencyProfile.bind(null, `${awardSpendingByAgencyRow.description}`)}
-                        to={`/agency/${id}`}>
-                        {link}
-                    </Link>
-                );
-            }
+
             return {
                 obligation: awardSpendingByAgencyRow.obligation,
                 outlay: awardSpendingByAgencyRow.outlay,

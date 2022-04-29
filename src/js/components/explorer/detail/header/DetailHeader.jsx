@@ -15,7 +15,7 @@ import { formatTreemapValues } from 'helpers/moneyFormatter';
 import { generateSingular } from 'helpers/singularityHelper';
 
 import { useAgencySlugs } from "containers/agencyV2/WithAgencySlugs";
-import { AGENCYV2_RELEASED, AGENCY_LINK } from 'GlobalConstants';
+import { AGENCY_LINK } from 'GlobalConstants';
 
 import TruncationWarning from './TruncationWarning';
 
@@ -82,7 +82,7 @@ const heading = (type, title, id, link, agencyIds, slugError) => {
         );
     }
     else if (type === 'Agency') {
-        const agencyIdentifier = AGENCYV2_RELEASED && !slugError ? agencyIds[id] : id;
+        const agencyIdentifier = agencyIds[id];
         const agencyLink = slugError ? 'agency' : AGENCY_LINK;
 
         let header = (

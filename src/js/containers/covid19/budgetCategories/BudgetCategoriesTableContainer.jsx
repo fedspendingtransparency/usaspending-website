@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 import { Table, Pagination, Picker, TooltipWrapper } from 'data-transparency-ui';
 import { Link } from 'react-router-dom';
 
-import { AGENCY_LINK, AGENCYV2_RELEASED } from 'GlobalConstants';
+import { AGENCY_LINK } from 'GlobalConstants';
 import Analytics from 'helpers/analytics/Analytics';
 
 import {
@@ -243,22 +243,12 @@ const BudgetCategoriesTableContainer = (props) => {
                 );
             }
             else if (link && props.type === 'agency') {
-                if (AGENCYV2_RELEASED && !slugsError && code && toptierCodes[code]) {
+                if (!slugsError && code && toptierCodes[code]) {
                     link = (
                         <Link
                             className="agency-profile__link"
                             onClick={clickedAgencyProfile.bind(null, `${budgetCategoryRow.name}`)}
                             to={`/${AGENCY_LINK}/${toptierCodes[code]}`}>
-                            {budgetCategoryRow.name}
-                        </Link>
-                    );
-                }
-                else if (!AGENCYV2_RELEASED && id) {
-                    link = (
-                        <Link
-                            className="agency-profile__link"
-                            onClick={clickedAgencyProfile.bind(null, `${budgetCategoryRow.name}`)}
-                            to={`/${AGENCY_LINK}/${id}`}>
                             {budgetCategoryRow.name}
                         </Link>
                     );
