@@ -42,7 +42,7 @@ export default class StateLandingContainer extends React.Component {
         }, () => {
             this.performSearch();
         });
-    }
+    };
 
     setSort = (field, direction) => {
         this.setState({
@@ -51,7 +51,7 @@ export default class StateLandingContainer extends React.Component {
         }, () => {
             this.performSearch();
         });
-    }
+    };
 
     loadData() {
         if (this.request) {

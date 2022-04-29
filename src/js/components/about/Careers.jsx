@@ -18,9 +18,9 @@ const Careers = () => (
         id="about-careers">
         <h2 className="about-section-title">
             Careers
-        </h2>
+            </h2>
         <div className="about-section-content">
-            <p>
+                    <p>
                 Are you a data storyteller who is passionate about government transparency? The Office
                 of the Chief Data Officer (Bureau of the Fiscal Service, U.S. Department of the Treasury)
                 is always on the lookout for talented analysts, marketers, and product managers. If you or
@@ -28,11 +28,11 @@ const Careers = () => (
                 to{' '}
                 <a href={mailToString}>
                     USAspending.Help@fiscal.treasury.gov
-                </a>.
+                    </a>.
                 We will let you know about any current and
                 future hiring opportunities!
             </p>
-        </div>
+                </div>
     </div>
 );
 

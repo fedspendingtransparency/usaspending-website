@@ -19,7 +19,8 @@ export const getIndexesToDelete = (shownTabs, tabs, containerWidth, moreOptionsW
 
         if (containerWidth > stopWidth) {
             stopWidth += width;
-        } else {
+        }
+        else {
             indexes.push(i);
         }
     });
@@ -42,7 +43,8 @@ export const adaptTabs = (indexesToDelete, tabTypes, tabs, setShowMoreOptions, s
                 name: col.label,
                 value: col.internal
             })));
-        } else {
+        }
+        else {
             // remove tabs and add the removed tabs to picker options dropdown
             setShowMoreOptions(true);
             setTabTypes(tabTypes.slice(0, (tabTypes.length - indexesToDelete.length) - 1));
@@ -61,9 +63,11 @@ export const selectOptionDecision = (filteredSelectedPickerOption, filteredSelec
         if (foundActiveTab && foundActiveTab.length > 0) {
             return selectOption(foundActiveTab[0].name, foundActiveTab[0].value);
         }
-    } else if (filteredSelectedOption && filteredSelectedOption.length > 0 && pickerOptions.length !== tabs.length) {
+    }
+    else if (filteredSelectedOption && filteredSelectedOption.length > 0 && pickerOptions.length !== tabs.length) {
         return selectOption(filteredSelectedOption[0].name, filteredSelectedOption[0].value);
-    } else if (filteredSelectedOption && filteredSelectedOption.length > 0 && pickerOptions.length > 0 && pickerOptions.length === tabs.length) {
+    }
+    else if (filteredSelectedOption && filteredSelectedOption.length > 0 && pickerOptions.length > 0 && pickerOptions.length === tabs.length) {
         if (pickerOptions[0] && pickerOptions[0].value === activeTab) {
             return selectOption(pickerOptions[0].name, pickerOptions[0].value);
         }

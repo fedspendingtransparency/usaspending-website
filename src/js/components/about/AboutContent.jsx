@@ -116,7 +116,7 @@ const AboutContent = () => {
                     fixedStickyBreakpoint={getStickyBreakPointForSidebar()} />
             </div>
             <div className="about-content">
-                <div className="about-padded-content">
+                    <div className="about-padded-content">
                     <Mission />
                     <Background />
                     <DataSources onExternalLinkClick={onExternalLinkClick} />
@@ -127,7 +127,7 @@ const AboutContent = () => {
                     <MoreInfo />
                     <Contact />
                 </div>
-            </div>
+                </div>
         </div>
     );
 };

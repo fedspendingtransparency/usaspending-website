@@ -66,9 +66,9 @@ const SearchTooltip = () => (
     <>
         <p>Filter the options below by typing any of the following:</p>
         <ul>
-            <li>Any PSC numeric code (or part thereof)</li>
+                <li>Any PSC numeric code (or part thereof)</li>
             <li>Any PSC label name (or part thereof)</li>
-        </ul>
+            </ul>
     </>
 );
 
@@ -192,7 +192,7 @@ export class PSCCheckboxTreeContainer extends React.Component {
         if (this.hint) {
             this.hint.showHint();
         }
-    }
+    };
 
     onUncheck = (newChecked, uncheckedNode) => {
         const [newCounts, newUnchecked] = decrementPscCountAndUpdateUnchecked(
@@ -211,7 +211,7 @@ export class PSCCheckboxTreeContainer extends React.Component {
             getPscAncestryPathForChecked(newUnchecked, this.props.nodes),
             newCounts
         );
-    }
+    };
 
     onSearchChange = debounce(() => {
         if (!this.state.searchString) return this.onClear();
@@ -229,7 +229,7 @@ export class PSCCheckboxTreeContainer extends React.Component {
             errorMessage: '',
             showNoResults: false
         });
-    }
+    };
 
     onCollapse = (newExpandedArray) => {
         if (this.state.isSearch) {
@@ -238,7 +238,7 @@ export class PSCCheckboxTreeContainer extends React.Component {
         else {
             this.props.setExpandedPsc(newExpandedArray);
         }
-    }
+    };
 
     setCheckedStateFromUrlHash = (newChecked) => {
         const { nodes } = this.props;
@@ -251,13 +251,13 @@ export class PSCCheckboxTreeContainer extends React.Component {
             this.props.setUncheckedPsc(uncheckedFromHash);
             this.setState({ isLoading: false });
         }
-    }
+    };
 
     removeSelectedFilter = (e, node) => {
         e.preventDefault();
         const newChecked = removeStagedPscFilter(this.props.nodes, this.props.checked, node.value);
         this.onUncheck(newChecked, { ...node, checked: false });
-    }
+    };
 
     autoCheckSearchResultDescendants = (checked, expanded, nodes) => {
         const newChecked = expanded
@@ -277,7 +277,7 @@ export class PSCCheckboxTreeContainer extends React.Component {
             }, []);
 
         return new Set([...checked, ...newChecked]);
-    }
+    };
 
     fetchPsc = (id = '', searchStr = '', resolveLoadingIndicator = true) => {
         if (this.request) this.request.cancel();
@@ -353,7 +353,7 @@ export class PSCCheckboxTreeContainer extends React.Component {
                 }
                 this.request = null;
             });
-    }
+    };
 
     handleTextInputChange = (e) => {
         e.persist();
@@ -372,7 +372,7 @@ export class PSCCheckboxTreeContainer extends React.Component {
         return this.setState({
             searchString: text
         });
-    }
+    };
 
     render() {
         const {
@@ -393,27 +393,27 @@ export class PSCCheckboxTreeContainer extends React.Component {
             <div className="psc-checkbox">
                 <span className="checkbox-header">Search by Code or Name <CSSOnlyTooltip definition={<SearchTooltip />} heading="PSC Search" /></span>
                 <EntityDropdownAutocomplete
-                    placeholder="Type to filter results"
-                    searchString={searchString}
-                    enabled
-                    handleTextInputChange={this.handleTextInputChange}
-                    context={{}}
-                    isClearable
-                    loading={false}
-                    onClear={this.onClear} />
+                        placeholder="Type to filter results"
+                        searchString={searchString}
+                        enabled
+                        handleTextInputChange={this.handleTextInputChange}
+                        context={{}}
+                        isClearable
+                        loading={false}
+                        onClear={this.onClear} />
                 <CheckboxTree
-                    isError={isError}
-                    errorMessage={errorMessage}
-                    isLoading={isLoading}
-                    data={nodes}
-                    checked={checked}
-                    searchText={searchString}
-                    noResults={this.state.showNoResults}
-                    expanded={isSearch ? searchExpanded : expanded}
-                    onUncheck={this.onUncheck}
-                    onCheck={this.onCheck}
-                    onExpand={this.onExpand}
-                    onCollapse={this.onCollapse} />
+                                isError={isError}
+                                errorMessage={errorMessage}
+                                isLoading={isLoading}
+                                data={nodes}
+                                checked={checked}
+                                searchText={searchString}
+                                noResults={this.state.showNoResults}
+                                expanded={isSearch ? searchExpanded : expanded}
+                                onUncheck={this.onUncheck}
+                                onCheck={this.onCheck}
+                                onExpand={this.onExpand}
+                                onCollapse={this.onCollapse} />
                 {counts.length > 0 && (
                     <div
                         className="selected-filters"
@@ -430,8 +430,8 @@ export class PSCCheckboxTreeContainer extends React.Component {
                                     aria-label={`Applied filter: ${label}`}>
                                     {label}
                                     <span className="close">
-                                        <FontAwesomeIcon icon="times" />
-                                    </span>
+                                            <FontAwesomeIcon icon="times" />
+                                        </span>
                                 </button>
                             );
                         })}

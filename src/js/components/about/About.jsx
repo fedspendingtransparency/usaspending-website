@@ -21,8 +21,8 @@ export default class About extends React.Component {
                 metaTagProps={aboutPageMetaTags}
                 title="About">
                 <main id="main-content" className="main-content">
-                    <AboutContent />
-                </main>
+                        <AboutContent />
+                    </main>
             </PageWrapper>
         );
     }

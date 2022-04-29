@@ -18,7 +18,7 @@ const PublicationOverviewRow = {
                     return {
                         isQuarterly, publicationDate: p, certificationDate: c, period
                     };
-                };
+                }
                 return {
                     publicationDate: p ? moment(p).format('MM/DD/YYYY') : null,
                     certificationDate: c ? moment(c).format('MM/DD/YYYY') : null,

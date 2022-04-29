@@ -118,7 +118,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
 
     updateMapLegendToggle = (value) => {
         this.props.updateMapLegendToggle(value);
-    }
+    };
 
     changeScope(scope) {
         if (scope === this.state.scope) {
@@ -269,7 +269,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
             data: Object.assign({}, this.valuesLocationsLabelsFromAPIData()),
             renderHash: `geo-${uniqueId()}`
         });
-    }
+    };
 
     /**
      * valuesLocationsLabelsFromAPIData
@@ -292,7 +292,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
             }
         });
         return { values, locations, labels };
-    }
+    };
 
     parseData() {
         this.props.setAppliedFilterCompletion(true);

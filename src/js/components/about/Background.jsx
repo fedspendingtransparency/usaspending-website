@@ -13,12 +13,12 @@ export default class Background extends React.Component {
                 id="about-background">
                 <h2 className="about-section-title">
                     Background
-                </h2>
+                    </h2>
                 <h3 className="about-subtitle">
                     A continuing effort.
-                </h3>
+                        </h3>
                 <div className="about-section-content">
-                    <p>
+                                <p>
                         The Federal Funding Accountability and Transparency Act of 2006 (FFATA)
                         was signed into law on September 26, 2006. The legislation required that
                         federal contract, grant, loan, and other financial assistance awards of
@@ -33,14 +33,14 @@ export default class Background extends React.Component {
                         The transparency efforts of FFATA were expanded with the enactment of
                         the Digital Accountability and Transparency Act (DATA Act) Pub. L.
                         113-101 on May 9, 2014.
-                    </p>
+                        </p>
                     <p>
-                        <strong>
+                                <strong>
                             The purpose of the DATA Act, as directed by Congress, is to:
                         </strong>
-                    </p>
+                            </p>
                     <ul>
-                        <li>
+                                    <li>
                             Expand FFATA by disclosing direct agency expenditures and linking
                             federal contract, loan, and grant spending information to federal
                             agency programs
@@ -49,17 +49,17 @@ export default class Background extends React.Component {
                             Establish government-wide data standards for financial data and
                             provide consistent, reliable, and searchable data that is displayed
                             accurately
-                        </li>
+                            </li>
                         <li>
                             Simplify reporting, streamline reporting requirements, and reduce
                             compliance costs, while improving transparency
-                        </li>
+                                </li>
                         <li>
                             Improve the quality of data submitted to USAspending.gov by holding
                             agencies accountable.
-                        </li>
-                    </ul>
-                </div>
+                                    </li>
+                                </ul>
+                            </div>
             </div>
         );
     }

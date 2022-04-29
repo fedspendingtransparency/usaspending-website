@@ -233,7 +233,8 @@ class SearchAwardsOperation {
             const locationSet = this.selectedRecipientLocations.reduce((accLocationSet, currLocation) => {
                 if (!currLocation.filter.city && currLocation.filter.country && currLocation.filter.country.toLowerCase() === 'foreign') {
                     filters[rootKeys.recipientLocationScope] = 'foreign';
-                } else {
+                }
+                else {
                     accLocationSet.push(currLocation.filter);
                 }
                 return accLocationSet;
@@ -253,7 +254,8 @@ class SearchAwardsOperation {
             const locationSet = this.selectedLocations.reduce((accLocationSet, currLocation) => {
                 if (!currLocation.filter.city && currLocation.filter.country && currLocation.filter.country.toLowerCase() === 'foreign') {
                     filters[rootKeys.placeOfPerformanceScope] = 'foreign';
-                } else {
+                }
+                else {
                     accLocationSet.push(currLocation.filter);
                 }
                 return accLocationSet;

@@ -114,14 +114,14 @@ export class RecipientTypeContainer extends React.Component {
             types: [parentType],
             direction: selection.direction
         });
-    }
+    };
 
     dirtyFilters = () => {
         if (this.justMounted || is(this.props.recipientType, this.props.appliedType)) {
             return null;
         }
         return Symbol('dirty recipient type');
-    }
+    };
 
     render() {
         return (

@@ -460,7 +460,7 @@ export class ResultsTableContainer extends React.Component {
             action: `Clicked ${id}`,
             label: new URLSearchParams(this.props.location.search).get('hash')
         });
-    }
+    };
 
     subAwardIdClick = (id) => {
         Analytics.event({
@@ -469,7 +469,7 @@ export class ResultsTableContainer extends React.Component {
             label: id
         });
         this.props.subAwardIdClicked(true);
-    }
+    };
 
     render() {
         const tableType = this.state.tableType;
