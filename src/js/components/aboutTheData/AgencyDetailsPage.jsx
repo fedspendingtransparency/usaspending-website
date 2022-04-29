@@ -40,7 +40,6 @@ const AgencyDetailsPage = () => {
     if (agencyOverview && agencyOverview.toptierCode) {
         slug = topTierCodes[agencyOverview.toptierCode];
     }
-    const agencyString = 'agency';
 
     const modalClick = (modalType, agencyData) => {
         setModalData(agencyData);
@@ -132,7 +131,7 @@ const AgencyDetailsPage = () => {
                                             <h5>Agency Profile Page</h5>
                                             <div className="more-info-note">Learn more about this Agency&#39;s spending</div>
                                             <div className="agency-info__website">
-                                                <Link to={`/${agencyString}/${slug}`}>
+                                                <Link to={`/agency/${slug}`}>
                                                     {agencyOverview.name}
                                                 </Link>
                                             </div>
