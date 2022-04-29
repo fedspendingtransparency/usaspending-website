@@ -44,7 +44,6 @@
         "@testing-library/react-hooks": "^5.0.3",
         "@testing-library/user-event": "^12.1.6",
         "@webpack-cli/serve": "^1.6.1",
-        "babel-eslint": "^8.2.6",
         "babel-jest": "^27.0.1",
         "babel-loader": "^8.2.3",
         "babel-plugin-module-resolver": "^3.2.0",
@@ -92,6 +91,7 @@
         "follow-redirects": "1.14.8"
     },
     "dependencies": {
+        "@babel/eslint-parser": "^7.17.0",
         "@fortawesome/fontawesome-svg-core": "^1.2.15",
         "@fortawesome/free-brands-svg-icons": "^5.13.0",
         "@fortawesome/free-regular-svg-icons": "^5.13.0",
