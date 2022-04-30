@@ -21,7 +21,6 @@ import ExternalLink from 'components/sharedComponents/ExternalLink';
 import { agencyNotes } from './componentMapping/agencyNotes';
 import AboutTheDataModal from './AboutTheDataModal';
 import { useAgencySlugs } from "../../containers/agencyV2/WithAgencySlugs";
-import GlobalConstants from '../../GlobalConstants';
 
 require('pages/aboutTheData/aboutTheData.scss');
 

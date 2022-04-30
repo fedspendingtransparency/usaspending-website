@@ -81,7 +81,7 @@ const heading = (type, title, id, link, agencyIds, slugError) => {
         );
     }
     else if (type === 'Agency') {
-        const agencyIdentifier = agencyIds[id];
+        const agencyIdentifier = !slugError ? agencyIds[id] : '';
 
         let header = (
             <Link

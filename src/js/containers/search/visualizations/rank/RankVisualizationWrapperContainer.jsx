@@ -26,8 +26,6 @@ import BaseSpendingByCategoryResult from 'models/v2/search/visualizations/rank/B
 
 import { categoryNames, defaultScopes } from 'dataMapping/search/spendingByCategory';
 
-import GlobalConstants from "../../../../GlobalConstants";
-
 const combinedActions = Object.assign({}, searchFilterActions, {
     setAppliedFilterCompletion
 });

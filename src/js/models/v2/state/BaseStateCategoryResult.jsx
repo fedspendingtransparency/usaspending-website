@@ -5,7 +5,6 @@
 
 import React from 'react';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
-import GlobalConstants from 'GlobalConstants';
 
 export const defaultNameTemplate = (code, name) => {
     if (code) {

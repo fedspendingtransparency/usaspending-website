@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import GlobalConstants from 'GlobalConstants';
 
 export default class TopFiveRow extends React.Component {
     static propTypes = {

@@ -189,7 +189,6 @@ const AwardSpendingAgencyTableContainer = (props) => {
 
             let link = awardSpendingByAgencyRow.description;
             if (query) link = replaceString(link, query, 'query-matched');
-            const id = awardSpendingByAgencyRow._id;
             const code = awardSpendingByAgencyRow.code;
             if (!slugsError && code && toptierCodes[code] && link) {
                 link = (
