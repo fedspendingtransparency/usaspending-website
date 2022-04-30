@@ -10,7 +10,6 @@ import { RankVisualizationWrapperContainer } from
 import { Set } from 'immutable';
 import { defaultFilters } from '../../../../testResources/defaultReduxFilters';
 import { mockActions } from '../time/mockData';
-import GlobalConstants from '../../../../../src/js/GlobalConstants';
 
 // mock the search helper
 jest.mock('helpers/searchHelper', () => require('./spendingByCategoryHelper'));

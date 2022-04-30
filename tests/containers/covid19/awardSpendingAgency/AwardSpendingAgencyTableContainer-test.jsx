@@ -106,44 +106,7 @@ describe("AwardSpendingAgencyTableContainer", () => {
             expect(spy).toHaveBeenCalledTimes(2);
         });
     });
-    it('should use agency id for agency URLs if Agency Profile v2 has not been released', () => {
-        // Mock the API response
-        jest.spyOn(api, "fetchAwardSpendingByAgency").mockReturnValue({
-            promise: Promise.resolve({
-                data: mockData
-            }),
-            cancel: jest.fn()
-        });
 
-        // Mock the Global Constants
-        jest.mock('GlobalConstants', () => ({
-            AGENCY_LINK: 'agency',
-            AGENCYV2_RELEASED: false
-        }));
-
-        // Mock the custom hook, useAgencySlugs
-        jest.spyOn(hooks, "useAgencySlugs").mockReturnValue([
-            {},
-            {
-                "045": 'department-of-sandwiches',
-                "000": 'ministry-of-magic'
-            },
-            false,
-            false
-        ]);
-        render(
-            <AwardSpendingAgencyTableContainer
-                type="all"
-                scrollIntoView={jest.fn()} />,
-            {
-                initialState: redux
-            }
-        );
-        waitFor(() => {
-            expect(screen.getByText(mockData.results[0].description))
-                .toHaveAttribute('href', `/agency/${mockData.results[0].id}`);
-        });
-    });
     it('should use agency slug for the agency URLs if Agency Profile v2 has been released', () => {
         // Mock the API response
         jest.spyOn(api, "fetchAwardSpendingByAgency").mockReturnValue({
@@ -152,13 +115,6 @@ describe("AwardSpendingAgencyTableContainer", () => {
             }),
             cancel: jest.fn()
         });
-
-        // Mock the Global Constants
-        jest.mock('GlobalConstants', () => ({
-            AGENCY_LINK: 'agency_v2',
-            AGENCYV2_RELEASED: true
-        }));
-
         // Mock the custom hook, useAgencySlugs
         jest.spyOn(hooks, "useAgencySlugs").mockReturnValue([
             {},
@@ -191,12 +147,6 @@ describe("AwardSpendingAgencyTableContainer", () => {
             }),
             cancel: jest.fn()
         });
-
-        // Mock the Global Constants
-        jest.mock('GlobalConstants', () => ({
-            AGENCY_LINK: 'agency_v2',
-            AGENCYV2_RELEASED: true
-        }));
 
         // Mock the custom hook, useAgencySlugs
         jest.spyOn(hooks, "useAgencySlugs").mockReturnValue([
