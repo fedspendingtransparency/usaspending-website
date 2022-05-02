@@ -241,14 +241,14 @@ export default class LocationPicker extends React.Component {
                   </div>
                     <div className="location-item">
                       <EntityDropdown
-                    field="county"
-                    placeholder="Select a county"
-                    title="COUNTY (US ONLY)"
-                    value={this.props.county}
-                    selectEntity={this.props.selectEntity}
-                    options={this.props.availableCounties}
-                    enabled={isCountyEnabled}
-                    generateDisclaimer={this.generateDisclaimer} />
+                        field="county"
+                        placeholder="Select a county"
+                        title="COUNTY (US ONLY)"
+                        value={this.props.county}
+                        selectEntity={this.props.selectEntity}
+                        options={this.props.availableCounties}
+                        enabled={isCountyEnabled}
+                        generateDisclaimer={this.generateDisclaimer} />
                     </div>
               {this.props.enableCitySearch &&
               <div className="location-item">

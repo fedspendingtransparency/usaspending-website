@@ -201,24 +201,24 @@ export default class UserSelections extends React.Component {
                       {this.generateLocationTypeString()}
                       {this.generateLocationString()}
                     </div>
-                  <div className="selection">
-                    <div className="selection__heading">Date Type</div>
-                    {this.generateDateTypeString()}
-                  </div>
-                    <div className="selection">
-                      <div className="selection__heading">File Format</div>
-                      {this.generateFileFormatString()}
-                    </div>
+                      <div className="selection">
+                        <div className="selection__heading">Date Type</div>
+                        {this.generateDateTypeString()}
+                      </div>
+                        <div className="selection">
+                          <div className="selection__heading">File Format</div>
+                          {this.generateFileFormatString()}
+                        </div>
                 </div>
                   <div className="download-user-selections__right-col">
                     <div className="selection">
                       <div className="selection__heading">Sub Agency</div>
                       {this.generateSubAgencyString()}
                     </div>
-                  <div className="selection">
-                    <div className="selection__heading">Date Range</div>
-                    {this.generateDateRangeString()}
-                  </div>
+                      <div className="selection">
+                        <div className="selection__heading">Date Range</div>
+                        {this.generateDateRangeString()}
+                      </div>
                   </div>
           </div>
         );

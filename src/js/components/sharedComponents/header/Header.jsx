@@ -58,27 +58,14 @@ export default class Header extends React.Component {
                     role="note">
                       <div className="official-banner__wrapper">
                         <ul
-                      className="official-banner__site-list">
-                        <li>
-                          <Link
-                            className="official-banner__site-link"
-                            to="/"
-                            onClick={clickedHeaderLink.bind(null, 'https:/www.usaspending.gov')}>
-                                        USAspending.gov
-                          </Link>
-                        </li>
-                          <li
-                            className="official-banner__site-item official-banner__site-item_spacer"
-                            aria-hidden="true">
-                                    |
-                          </li>
+                          className="official-banner__site-list">
                             <li>
-                              <a
+                              <Link
                                 className="official-banner__site-link"
-                                href="https://datalab.usaspending.gov"
-                                onClick={clickedHeaderLink.bind(null, 'https://datalab.usaspending.gov')}>
-                                        Data Lab
-                              </a>
+                                to="/"
+                                onClick={clickedHeaderLink.bind(null, 'https:/www.usaspending.gov')}>
+                                        USAspending.gov
+                              </Link>
                             </li>
                               <li
                                 className="official-banner__site-item official-banner__site-item_spacer"
@@ -86,23 +73,36 @@ export default class Header extends React.Component {
                                     |
                               </li>
                                 <li>
-                                      <a
-                                        className="official-banner__site-link"
-                                        href="http://fiscaldata.treasury.gov/"
-                                        onClick={clickedHeaderLink.bind(null, 'http://fiscaldata.treasury.gov')}>
+                                  <a
+                                    className="official-banner__site-link"
+                                    href="https://datalab.usaspending.gov"
+                                    onClick={clickedHeaderLink.bind(null, 'https://datalab.usaspending.gov')}>
+                                        Data Lab
+                                  </a>
+                                </li>
+                                  <li
+                                    className="official-banner__site-item official-banner__site-item_spacer"
+                                    aria-hidden="true">
+                                    |
+                                  </li>
+                                    <li>
+                                  <a
+                                    className="official-banner__site-link"
+                                    href="http://fiscaldata.treasury.gov/"
+                                    onClick={clickedHeaderLink.bind(null, 'http://fiscaldata.treasury.gov')}>
                                         Fiscal Data
-                                      </a>
+                                  </a>
                                     </li>
-                    </ul>
-                      <div className="official-banner__message">
-                        <p className="official-banner__text">
+                        </ul>
+                          <div className="official-banner__message">
+                            <p className="official-banner__text">
                                     An official website of the U.S. government
-                        </p>
-                          <img
-                            className="official-banner__flag"
-                            src="img/us_flag_small.png"
-                            alt="U.S. flag" />
-                      </div>
+                            </p>
+                              <img
+                                className="official-banner__flag"
+                                src="img/us_flag_small.png"
+                                alt="U.S. flag" />
+                          </div>
                       </div>
                   </div>
                 {infoBanner}

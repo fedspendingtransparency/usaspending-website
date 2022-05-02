@@ -56,18 +56,18 @@ export default class DownloadProgress extends React.Component {
                       <div className="link">{this.props.expectedUrl}</div>
 
                         <CopyToClipboard
-                      text={this.props.expectedUrl}
-                      onCopy={this.onCopy}>
-                        <button>
-                          {this.state.copied ? <span>{icon}</span> : null}
-                          {this.state.copied ? 'Copied' : 'Copy Link'}
-                        </button>
-                    </CopyToClipboard>
+                          text={this.props.expectedUrl}
+                          onCopy={this.onCopy}>
+                            <button>
+                              {this.state.copied ? <span>{icon}</span> : null}
+                              {this.state.copied ? 'Copied' : 'Copy Link'}
+                            </button>
+                        </CopyToClipboard>
                   </div>
                     <div className="sub-details">
                         To keep browsing, close this box; your download status will appear at the bottom of the screen.
                     </div>
-                  <button className="finish-button" onClick={this.props.hideModal}>Close</button>
+                      <button className="finish-button" onClick={this.props.hideModal}>Close</button>
             </div>
           </div>
         );

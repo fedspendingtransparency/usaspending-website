@@ -16,14 +16,14 @@ export const idList = (duns, uei) => {
     if (uei) {
         ids.push(
             <>
-              {uei} (UEI <GlossaryLink term="unique-entity-identifier-uei" />)
+                {uei} (UEI <GlossaryLink term="unique-entity-identifier-uei" />)
             </>
         );
     }
     if (duns) {
         ids.push(
             <>
-              {duns} ({DUNS_LABEL}DUNS <GlossaryLink term="duns" />)
+                {duns} ({DUNS_LABEL}DUNS <GlossaryLink term="duns" />)
             </>
         );
     }

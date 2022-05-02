@@ -47,18 +47,18 @@ export default class AccountLandingContent extends React.Component {
                       totalItems={this.props.totalItems}
                       pageSize={this.props.pageSize} />
                         <AccountLandingResultsSection
-                      columns={this.props.columns}
-                      results={this.props.results}
-                      inFlight={this.props.inFlight}
-                      error={this.props.error}
-                      searchString={this.props.searchString}
-                      order={this.props.order}
-                      updateSort={this.props.updateSort} />
-                        <Pagination
-                          changePage={this.props.onChangePage}
-                          currentPage={this.props.pageNumber}
-                          totalItems={this.props.totalItems}
-                          pageSize={this.props.pageSize} />
+                          columns={this.props.columns}
+                          results={this.props.results}
+                          inFlight={this.props.inFlight}
+                          error={this.props.error}
+                          searchString={this.props.searchString}
+                          order={this.props.order}
+                          updateSort={this.props.updateSort} />
+                            <Pagination
+                              changePage={this.props.onChangePage}
+                              currentPage={this.props.pageNumber}
+                              totalItems={this.props.totalItems}
+                              pageSize={this.props.pageSize} />
           </div>
         );
     }

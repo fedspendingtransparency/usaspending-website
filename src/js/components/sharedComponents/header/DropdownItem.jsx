@@ -53,7 +53,7 @@ const DropdownItem = ({
     const newLabel = isNewTab && enabled
         ? (
             <>
-              {label}
+                {label}
                   <span className="new-badge dropdown-item"> NEW</span>
             </>
         )

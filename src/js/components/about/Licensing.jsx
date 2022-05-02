@@ -34,12 +34,12 @@ const Licensing = () => {
                 <p>
                     The code in our&nbsp;
                   <button
-                  className="usa-button-link"
-                  role="link"
-                  onClick={onClick}>
+                    className="usa-button-link"
+                    role="link"
+                    onClick={onClick}>
                         public github repository
-                    <span className="usa-button-link__icon"><FontAwesomeIcon icon="external-link-alt" /></span>
-                </button>
+                      <span className="usa-button-link__icon"><FontAwesomeIcon icon="external-link-alt" /></span>
+                  </button>
                     &nbsp;is available for public use under the Creative
                     Commons CC0 Public Domain Dedication license.
                 </p>

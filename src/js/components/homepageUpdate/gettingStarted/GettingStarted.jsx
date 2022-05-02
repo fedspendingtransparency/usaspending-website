@@ -88,11 +88,11 @@ const GettingStarted = () => {
                         Use <strong>Keyword Search</strong> for a broad view of award data, but if you want to dig deeper, our <strong>Advanced Search</strong> offers filters that let you customize your data sets. Interactive visualizations — including a spending map — complement downloadable files.
                   </p>
                     <div className="homepage-feature__dropdown">
-                  <FeatureDropdown
-                    items={searchOptions}>
+                      <FeatureDropdown
+                        items={searchOptions}>
                             Select <strong>Search Type</strong>
-                  </FeatureDropdown>
-                </div>
+                      </FeatureDropdown>
+                    </div>
               </div>
             </FlexGridCol>
         </>
@@ -109,11 +109,11 @@ const GettingStarted = () => {
                         Use <strong>Keyword Search</strong> for a broad view of award data, but if you want to dig deeper, our <strong>Advanced Search</strong> offers filters that let you customize your data sets. Interactive visualizations — including a spending map — complement downloadable files.
                     </p>
                       <div className="homepage-feature__dropdown">
-                    <FeatureDropdown
-                      items={searchOptions}>
+                        <FeatureDropdown
+                          items={searchOptions}>
                             Select <strong>Search Type</strong>
-                    </FeatureDropdown>
-                  </div>
+                        </FeatureDropdown>
+                      </div>
               </div>
           </FlexGridCol>
             <FlexGridCol className="homepage-search-feature" width={7}>
@@ -166,9 +166,9 @@ const GettingStarted = () => {
                   </p>
                     <div className="homepage-feature__dropdown">
                       <FeatureDropdown
-                    items={profileOptions}>
+                        items={profileOptions}>
                         Browse <strong>Profiles</strong>
-                  </FeatureDropdown>
+                      </FeatureDropdown>
                     </div>
               </div>
             </FlexGridCol>
@@ -198,11 +198,11 @@ const GettingStarted = () => {
                     href="/explorer"
                     tabIndex={-1}>
                       <button
-                    className="homepage-spending-explorer__button"
-                    aria-label="Try Spending Explorer"
-                    title="Try Spending Explorer">
+                        className="homepage-spending-explorer__button"
+                        aria-label="Try Spending Explorer"
+                        title="Try Spending Explorer">
                         Try Spending Explorer
-                  </button>
+                      </button>
                   </a>
               </div>
             </FlexGridCol>
@@ -228,12 +228,12 @@ const GettingStarted = () => {
                       rel="noopener noreferrer"
                       href="/explorer"
                       tabIndex={-1}>
-                    <button
-                      className="homepage-spending-explorer__button"
-                      aria-label="Try Spending Explorer"
-                      title="Try Spending Explorer">
+                        <button
+                          className="homepage-spending-explorer__button"
+                          aria-label="Try Spending Explorer"
+                          title="Try Spending Explorer">
                         Try Spending Explorer
-                    </button>
+                        </button>
                     </a>
               </div>
             </FlexGridCol>

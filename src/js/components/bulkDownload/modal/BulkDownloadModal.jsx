@@ -54,7 +54,7 @@ export default class BulkDownloadModal extends React.Component {
                           onClick={this.props.hideModal}
                           title="Close"
                           aria-label="Close">
-                        <Close alt="Close modal" />
+                            <Close alt="Close modal" />
                         </button>
                       </div>
                   </div>

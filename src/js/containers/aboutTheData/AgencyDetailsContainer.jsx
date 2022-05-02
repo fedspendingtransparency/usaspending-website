@@ -2,7 +2,7 @@
  * AgencyDetailsContainer.jsx
  */
 
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useCallback, useRef, useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { isCancel } from 'axios';
 import { Table, Pagination } from 'data-transparency-ui';

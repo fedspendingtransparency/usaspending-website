@@ -351,21 +351,21 @@ export default class ActivityChart extends React.Component {
                         scale={xScale}
                         line />
                           <g
-                        className="activity-chart-data">
-                        {bars}
-                        {/* Today Line */}
-                        {xScale && <SVGLine
-                          scale={xScale}
-                          y1={-10}
-                          y2={height - padding.bottom}
-                          textY={0}
-                          text="Today"
-                          max={xRange[1]}
-                          min={xRange[0]}
-                          position={currentDate}
-                          showTextPosition="top"
-                          adjustmentX={padding.left} />}
-                      </g>
+                            className="activity-chart-data">
+                            {bars}
+                            {/* Today Line */}
+                            {xScale && <SVGLine
+                              scale={xScale}
+                              y1={-10}
+                              y2={height - padding.bottom}
+                              textY={0}
+                              text="Today"
+                              max={xRange[1]}
+                              min={xRange[0]}
+                              position={currentDate}
+                              showTextPosition="top"
+                              adjustmentX={padding.left} />}
+                          </g>
               </g>
           </svg>
         );

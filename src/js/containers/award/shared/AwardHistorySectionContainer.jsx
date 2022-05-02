@@ -161,8 +161,8 @@ export class AwardHistory extends React.Component {
                         active={activeTab}
                         switchTab={setActiveTab} />
                           <div
-                        className="tables-width-master"
-                        ref={(div) => {
+                            className="tables-width-master"
+                            ref={(div) => {
                             // this is an empty div that scales via CSS
                             // the results table width will follow this div's width
                             this.tableWidthController = div;

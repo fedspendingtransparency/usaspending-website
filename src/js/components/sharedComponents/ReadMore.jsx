@@ -26,7 +26,7 @@ const ReadMore = ({
     if (expanded && children) {
         return (
             <>
-              {children}
+                {children}
                   <div>{readLess}</div>
             </>
         );

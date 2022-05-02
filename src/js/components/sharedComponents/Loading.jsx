@@ -48,7 +48,7 @@ export const LoadingWrapper = ({
         return (
         // TODO: [DEV-5940] Make a nice App Level Loading Component.
             <>
-              {includeHeader && (
+                {includeHeader && (
                     <>
                       <Header />
                         <PageHeader title="--" stickyBreakPoint={getStickyBreakPointForSidebar()}>
@@ -64,7 +64,7 @@ export const LoadingWrapper = ({
                     <FontAwesomeIcon icon="spinner" spin size="lg" />
                       <h4>{`${msg}${dots}`}</h4>
                   </div>
-              {includeFooter && (<Footer pageName="Loading" />)}
+                  {includeFooter && (<Footer pageName="Loading" />)}
             </>
         );
     }

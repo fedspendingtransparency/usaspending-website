@@ -83,17 +83,17 @@ const IdvContent = ({
               <AwardSection type="row">
                 <IdvActivityContainer />
                   <FederalAccountsSection
-                  awardType={overview.category}
-                  jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
+                    awardType={overview.category}
+                    jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
               </AwardSection>
                 <ReferencedAwardsContainer
-                tableType={relatedAwardsActiveTab}
-                switchTab={setRelatedAwardsTab} />
-                  <AwardHistory
-                    activeTab={awardHistoryActiveTab}
-                    setActiveTab={setAwardHistoryTab}
-                    overview={overview} />
-                      <AdditionalInfo overview={overview} />
+                  tableType={relatedAwardsActiveTab}
+                  switchTab={setRelatedAwardsTab} />
+                    <AwardHistory
+                      activeTab={awardHistoryActiveTab}
+                      setActiveTab={setAwardHistoryTab}
+                      overview={overview} />
+                        <AdditionalInfo overview={overview} />
       </AwardPageWrapper>
     );
 };

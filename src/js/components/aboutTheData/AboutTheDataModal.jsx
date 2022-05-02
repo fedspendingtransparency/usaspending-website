@@ -49,8 +49,8 @@ const AboutTheDataModal = ({
                     {title}
                   </h1>
                     <div className="about-the-data-modal__fiscal-year-quarter-period">
-                    {fiscalYearQuarterPeriodText}
-                  </div>
+                      {fiscalYearQuarterPeriodText}
+                    </div>
               </div>
                 <button
                   className="usa-dt-modal__close-button"

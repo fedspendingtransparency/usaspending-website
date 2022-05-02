@@ -69,7 +69,7 @@ const TrailItem = (props) => {
                     classNames="explorer-dots-animation"
                     timeout={{ exit: 550, enter: 330 }}
                     exit>
-                    <TrailDecorator />
+                      <TrailDecorator />
                   </CSSTransition>
                         )}
                 </TransitionGroup>
@@ -79,11 +79,11 @@ const TrailItem = (props) => {
                   {filterName}
                 </div>
                   <div className={`title ${titleIsAmount}`}>
-                  {title}
-                </div>
-                  <div className={`amount ${showAmountClass}`}>
-                    {formattedAmount}
+                    {title}
                   </div>
+                    <div className={`amount ${showAmountClass}`}>
+                      {formattedAmount}
+                    </div>
               </div>
         </button>
       </li>

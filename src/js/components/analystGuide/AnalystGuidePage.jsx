@@ -59,14 +59,14 @@ const AnalystGuidePage = () => {
               <FlexGridRow style={{ justifyContent: 'center' }}>
                 <FlexGridCol desktop={6} tablet={12} className="analyst-guide-body">
                   <div className="analyst-guide__share-wrapper">
-                  <ShareIcon
-                    url={getBaseUrl(slug)}
-                    onShareOptionClick={onShareClick}
-                    colors={{ backgroundColor: "white", color: "#0071bc" }}
-                    classNames="" />
-                </div>
-                  <AnalystGuideIntro onExternalLinkClick={onExternalLinkClick} />
-                    <AnalystGuideQuestions onExternalLinkClick={onExternalLinkClick} />
+                    <ShareIcon
+                      url={getBaseUrl(slug)}
+                      onShareOptionClick={onShareClick}
+                      colors={{ backgroundColor: "white", color: "#0071bc" }}
+                      classNames="" />
+                  </div>
+                    <AnalystGuideIntro onExternalLinkClick={onExternalLinkClick} />
+                      <AnalystGuideQuestions onExternalLinkClick={onExternalLinkClick} />
                 </FlexGridCol>
               </FlexGridRow>
           </main>

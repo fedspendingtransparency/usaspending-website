@@ -3,7 +3,7 @@
  * Created by michaelbray on 5/25/17.
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';

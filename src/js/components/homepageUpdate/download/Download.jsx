@@ -109,9 +109,9 @@ export default class Download extends React.Component {
                       {center}
                     </div>
                       <ul
-                    className="homepage-download__list homepage-download__list_desktop homepage-download__list_right">
-                    {rightItems}
-                  </ul>
+                        className="homepage-download__list homepage-download__list_desktop homepage-download__list_right">
+                        {rightItems}
+                      </ul>
               </div>
           </section>
         );

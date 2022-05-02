@@ -81,12 +81,12 @@ const AgencyOverview = ({ fy, dataThroughDate }) => {
 
     const content = isMobile ?
         <>
-          {showAboutData ? aboutBlock : missionBlock}
+            {showAboutData ? aboutBlock : missionBlock}
               <ReadMore>
               {showAboutData && missionBlock}
               {websiteBlock}
               {cjBlock}
-            </ReadMore>
+              </ReadMore>
         </>
         :
         <>

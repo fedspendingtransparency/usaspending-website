@@ -141,12 +141,12 @@ const PrivacyPage = () => (
                                                   </p>
                                                     <p>
                                                       <strong>NOTE:</strong> View or print the&nbsp;
-                                                          <a
-                                                              target="_blank"
-                                                              rel="noopener noreferrer"
-                                                              href="https://www.fiscal.treasury.gov/pia.html">
+                                                        <a
+                                                          target="_blank"
+                                                          rel="noopener noreferrer"
+                                                          href="https://www.fiscal.treasury.gov/pia.html">
                 Privacy Impact Assessment (PIA)
-                                                            </a>&nbsp;performed on USAspending.gov.
+                                                        </a>&nbsp;performed on USAspending.gov.
                                                     </p>
   </LegalPage>
 );

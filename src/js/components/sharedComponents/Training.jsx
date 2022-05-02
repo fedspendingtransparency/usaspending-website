@@ -45,13 +45,13 @@ const Training = (pageName) => {
               <div className="training__message">
                 on how to use USAspending.gov
               </div>
-              <a
-                className="training__link"
-                href={`mailto:usaspending.help@fiscal.treasury.gov?subject=Request%20for%20Training%20on%20USAspending.gov&body=${encodeURIComponent(body)}`}
-                onClick={trackLink}>
+                <a
+                  className="training__link"
+                  href={`mailto:usaspending.help@fiscal.treasury.gov?subject=Request%20for%20Training%20on%20USAspending.gov&body=${encodeURIComponent(body)}`}
+                  onClick={trackLink}>
                      Sign Up
-                  <FontAwesomeIcon icon={faCaretRight} />
-              </a>
+                    <FontAwesomeIcon icon={faCaretRight} />
+                </a>
       </div>
     );
 };

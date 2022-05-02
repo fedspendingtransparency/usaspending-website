@@ -80,8 +80,8 @@ export default class DownloadTooltip extends React.Component {
                       <div className="download-tooltip__message">
                             The following fields are required:
                         <ul className="download-tooltip__list">
-                      {missingFields}
-                    </ul>
+                          {missingFields}
+                        </ul>
                       </div>
                   </div>
               </div>

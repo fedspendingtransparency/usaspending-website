@@ -103,11 +103,11 @@ export default class RankVisualizationSection extends React.Component {
                       onClick={this.clickPrevious}>
                         <div className="pager-content">
                           <div className="icon">
-                        <Icons.AngleLeft alt="Show previous ten" />
-                      </div>
-                        <div className="pager-label">
+                            <Icons.AngleLeft alt="Show previous ten" />
+                          </div>
+                            <div className="pager-label">
                                 Show previous ten
-                        </div>
+                            </div>
                         </div>
                     </button>
                       <button
@@ -116,14 +116,14 @@ export default class RankVisualizationSection extends React.Component {
                         aria-label="Show next ten"
                         disabled={disableNext}
                         onClick={this.clickNext}>
-                      <div className="pager-content">
-                        <div className="pager-label next">
+                          <div className="pager-content">
+                            <div className="pager-label next">
                                 Show next ten
-                        </div>
-                          <div className="icon">
-                            <Icons.AngleRight alt="Show next ten" />
+                            </div>
+                              <div className="icon">
+                                <Icons.AngleRight alt="Show next ten" />
+                              </div>
                           </div>
-                      </div>
                       </button>
                   </div>
           </div>

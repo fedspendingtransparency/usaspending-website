@@ -79,7 +79,7 @@ const StateContent = ({ stateProfile }) => {
                 <StateTimeVisualizationSectionContainer
                   stateProfile={stateProfile.overview} />
                     <TopFiveSection />
-                    <StateFooter />
+                      <StateFooter />
           </div>
       </div>
     );

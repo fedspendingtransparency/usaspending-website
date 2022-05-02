@@ -37,7 +37,7 @@ export default class Subscribe extends React.Component {
                     href="mailto:join-usaspending@lists.fiscal.treasury.gov?subject=Yes!%20I'd%20like%20to%20receive%20updates."
                     onClick={this.trackLink}>
                     Sign Up
-                  <FontAwesomeIcon icon={faCaretRight} />
+                      <FontAwesomeIcon icon={faCaretRight} />
                   </a>
           </div>
         );

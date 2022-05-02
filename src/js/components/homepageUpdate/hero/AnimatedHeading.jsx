@@ -207,26 +207,26 @@ const AnimatedHeading = ({ paused }) => {
                   <span>{wordOrder[0][0]}&nbsp;</span>
                 </div>
                   <div className="rotating__items">
-                  <span>{wordOrder[1][0]}&nbsp;</span>
-                    <span>{wordOrder[2][0]}&nbsp;</span>
-                      <span>{wordOrder[3][0]}&nbsp;</span>
-                        <span>{wordOrder[4][0]}&nbsp;</span>
-                </div>
+                    <span>{wordOrder[1][0]}&nbsp;</span>
+                      <span>{wordOrder[2][0]}&nbsp;</span>
+                        <span>{wordOrder[3][0]}&nbsp;</span>
+                          <span>{wordOrder[4][0]}&nbsp;</span>
+                  </div>
               </div>
             </div>
               <div className="phrase__static__item"><span>government spending&nbsp;</span></div>
                 <div className="phrase__end">
                   <div className="phrase__end__item">
-                  <div className="entrance__item">
-                    <span style={{ left: wordWrap ? `${wordOrder[0][2]}px` : `0` }}>{wordOrder[0][1]}</span>
-                  </div>
-                    <div className="rotating__items">
-                      <span style={{ left: wordWrap ? `${wordOrder[1][2]}px` : `0` }}>{wordOrder[1][1]}</span>
-                        <span style={{ left: wordWrap ? `${wordOrder[2][2]}px` : `0` }}>{wordOrder[2][1]}</span>
-                          <span style={{ left: wordWrap ? `${wordOrder[3][2]}px` : `0` }}>{wordOrder[3][1]}</span>
-                            <span style={{ left: wordWrap ? `${wordOrder[4][2]}px` : `0` }}>{wordOrder[4][1]}</span>
+                    <div className="entrance__item">
+                      <span style={{ left: wordWrap ? `${wordOrder[0][2]}px` : `0` }}>{wordOrder[0][1]}</span>
                     </div>
-                </div>
+                      <div className="rotating__items">
+                        <span style={{ left: wordWrap ? `${wordOrder[1][2]}px` : `0` }}>{wordOrder[1][1]}</span>
+                          <span style={{ left: wordWrap ? `${wordOrder[2][2]}px` : `0` }}>{wordOrder[2][1]}</span>
+                            <span style={{ left: wordWrap ? `${wordOrder[3][2]}px` : `0` }}>{wordOrder[3][1]}</span>
+                              <span style={{ left: wordWrap ? `${wordOrder[4][2]}px` : `0` }}>{wordOrder[4][1]}</span>
+                      </div>
+                  </div>
                 </div>
           </div>
       </div>);

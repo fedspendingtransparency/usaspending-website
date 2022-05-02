@@ -328,50 +328,50 @@ appropriations`}
                         title="Balance Brought Forward"
                         value={this.state.left.bbf.label}
                         hide={this.state.left.bbf.height <= 0} />
-                      <SankeyBar
-                        color="#597785"
-                        x={0}
-                        y={0}
-                        width={this.state.left.width}
-                        height={this.state.left.bbf.height}
-                        description={this.state.left.bbf.description} />
-                          <ItemLabel
-                            y={this.state.left.other.y - 25}
-                            title="Other Budgetary Resources"
-                            value={this.state.left.other.label}
-                            hide={this.state.left.other.height <= 0} />
-                              <SankeyBar
-                                color="#597785"
-                                x={0}
-                                y={this.state.left.other.y}
-                                width={this.state.left.width}
-                                height={this.state.left.other.height}
-                                description={this.state.left.other.description} />
-                                  <ItemLabel
-                                    y={this.state.left.appropriations.y - 25}
-                                    title="New Appropriations"
-                                    value={this.state.left.appropriations.label}
-                                    hide={this.state.left.appropriations.height <= 0} />
-                                      <SankeyBar
-                                        color="#597785"
-                                        x={0}
-                                        y={this.state.left.appropriations.y}
-                                        width={this.state.left.width}
-                                        height={this.state.left.appropriations.height}
-                                        description={this.state.left.appropriations.description} />
+                          <SankeyBar
+                            color="#597785"
+                            x={0}
+                            y={0}
+                            width={this.state.left.width}
+                            height={this.state.left.bbf.height}
+                            description={this.state.left.bbf.description} />
+                              <ItemLabel
+                                y={this.state.left.other.y - 25}
+                                title="Other Budgetary Resources"
+                                value={this.state.left.other.label}
+                                hide={this.state.left.other.height <= 0} />
+                                  <SankeyBar
+                                    color="#597785"
+                                    x={0}
+                                    y={this.state.left.other.y}
+                                    width={this.state.left.width}
+                                    height={this.state.left.other.height}
+                                    description={this.state.left.other.description} />
+                                      <ItemLabel
+                                        y={this.state.left.appropriations.y - 25}
+                                        title="New Appropriations"
+                                        value={this.state.left.appropriations.label}
+                                        hide={this.state.left.appropriations.height <= 0} />
+                                          <SankeyBar
+                                            color="#597785"
+                                            x={0}
+                                            y={this.state.left.appropriations.y}
+                                            width={this.state.left.width}
+                                            height={this.state.left.appropriations.height}
+                                            description={this.state.left.appropriations.description} />
                   </g>
 
                     <g
                       className="right-flows"
                       transform={`translate(${this.state.right.flow.x}, 40)`}>
-                    <SankeyFlow
-                      startY={this.state.center.y}
-                      endY={0}
-                      height={this.state.right.obligated.height}
-                      length={this.state.right.flow.length}
-                      description={`Flow of money out of total budgetary resources to \
+                        <SankeyFlow
+                          startY={this.state.center.y}
+                          endY={0}
+                          height={this.state.right.obligated.height}
+                          length={this.state.right.flow.length}
+                          description={`Flow of money out of total budgetary resources to \
 obligations incurred`}
-                      style={{
+                          style={{
                                 fill: '#bfcfd4'
                             }} />
                               <SankeyFlow
@@ -389,22 +389,22 @@ unobligated balance`}
                             }} />
                     </g>
 
-                  <DirectionLabel
-                    x={this.state.labels.inX}
-                    y={16}
-                    paddingX={85}
-                    title="Money In">
-                      <path d="M143.5 434.8L304 257 143.8 77.3 143.4 6l225.2 250.5L144 506" />
-                  </DirectionLabel>
+                      <DirectionLabel
+                        x={this.state.labels.inX}
+                        y={16}
+                        paddingX={85}
+                        title="Money In">
+                          <path d="M143.5 434.8L304 257 143.8 77.3 143.4 6l225.2 250.5L144 506" />
+                      </DirectionLabel>
 
 
-                    <g
-                      className="center-col"
-                      transform={`translate(${this.state.center.x}, 40)`}>
-                        <ItemLabel
-                          y={this.state.center.y - 25}
-                          title="Total Budgetary Resources"
-                          value={`\
+                        <g
+                          className="center-col"
+                          transform={`translate(${this.state.center.x}, 40)`}>
+                            <ItemLabel
+                              y={this.state.center.y - 25}
+                              title="Total Budgetary Resources"
+                              value={`\
 ${MoneyFormatter.formatMoney(this.props.amounts.budgetAuthority)} (100%)`} />
   <SankeyBar
     color="#597785"
@@ -413,44 +413,44 @@ ${MoneyFormatter.formatMoney(this.props.amounts.budgetAuthority)} (100%)`} />
     width={this.state.center.width}
     height={this.state.center.height}
     description={this.state.center.description} />
-                    </g>
-
-                      <DirectionLabel
-                        x={this.state.labels.outX}
-                        y={16}
-                        paddingX={100}
-                        title="Money Out">
-                          <path d="M143.5 434.8L304 257 143.8 77.3 143.4 6l225.2 250.5L144 506" />
-                      </DirectionLabel>
-
-                        <g
-                          className="right-col"
-                          transform={`translate(${this.state.right.x}, 40)`}>
-                            <ItemLabel
-                              y={-25}
-                              title="Obligations Incurred"
-                              value={this.state.right.obligated.label}
-                              hide={this.state.right.obligated.height <= 0} />
-                                    <SankeyBar
-                                      color="#083546"
-                                      x={0}
-                                      y={0}
-                                      width={this.state.right.width}
-                                      height={this.state.right.obligated.height}
-                                      description={this.state.right.obligated.description} />
-                                        <ItemLabel
-                                          y={this.state.right.unobligated.y - 25}
-                                          title="Unobligated Balance"
-                                          value={this.state.right.unobligated.label}
-                                          hide={this.state.right.unobligated.height <= 0} />
-                                            <SankeyBar
-                                              color="#083546"
-                                              x={0}
-                                              y={this.state.right.unobligated.y}
-                                              width={this.state.right.width}
-                                              height={this.state.right.unobligated.height}
-                                              description={this.state.right.unobligated.description} />
                         </g>
+
+                          <DirectionLabel
+                            x={this.state.labels.outX}
+                            y={16}
+                            paddingX={100}
+                            title="Money Out">
+                              <path d="M143.5 434.8L304 257 143.8 77.3 143.4 6l225.2 250.5L144 506" />
+                          </DirectionLabel>
+
+                            <g
+                              className="right-col"
+                              transform={`translate(${this.state.right.x}, 40)`}>
+                                <ItemLabel
+                                  y={-25}
+                                  title="Obligations Incurred"
+                                  value={this.state.right.obligated.label}
+                                  hide={this.state.right.obligated.height <= 0} />
+                                <SankeyBar
+                                  color="#083546"
+                                  x={0}
+                                  y={0}
+                                  width={this.state.right.width}
+                                  height={this.state.right.obligated.height}
+                                  description={this.state.right.obligated.description} />
+                                    <ItemLabel
+                                      y={this.state.right.unobligated.y - 25}
+                                      title="Unobligated Balance"
+                                      value={this.state.right.unobligated.label}
+                                      hide={this.state.right.unobligated.height <= 0} />
+                                        <SankeyBar
+                                          color="#083546"
+                                          x={0}
+                                          y={this.state.right.unobligated.y}
+                                          width={this.state.right.width}
+                                          height={this.state.right.unobligated.height}
+                                          description={this.state.right.unobligated.description} />
+                            </g>
             </svg>
             {disclosures}
           </div>

@@ -94,11 +94,11 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
                     <p className="analyst-guide__answerStyle">More information about these fields is available in the <Link to="/data-dictionary">Data Dictionary</Link> and the <a href="https://files.usaspending.gov/docs/Custom+Account+Data+Dictionary.xlsx">Custom Account Data Dictionary</a>.</p>
                       <p className="analyst-guide__answerStyle">More information on how to download data from USAspending is available in the{' '}
                         <button
-                      role="link"
-                      className="analyst-guide__sectionJump"
-                      onClick={() => jumpToSection("analyst-guide__DataAccess")}>
+                          role="link"
+                          className="analyst-guide__sectionJump"
+                          onClick={() => jumpToSection("analyst-guide__DataAccess")}>
                     HOW TO ACCESS THE DATA
-                    </button>{' '}section of this guide.
+                        </button>{' '}section of this guide.
                       </p>
         </>)
     },
@@ -208,20 +208,20 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
                 </p>
                   <p className="analyst-guide__answerStyle">More information about recipient data elements is available in the {' '}
                     <button
-                  role="link"
-                  className="analyst-guide__sectionJump"
-                  onClick={() => jumpToSection("analyst-guide__Recipient")}>
+                      role="link"
+                      className="analyst-guide__sectionJump"
+                      onClick={() => jumpToSection("analyst-guide__Recipient")}>
                     RECIPIENT DATA ELEMENTS
-                </button>{' '}section of this guide.
+                    </button>{' '}section of this guide.
                   </p>
-                <p className="analyst-guide__answerStyle">More information about DEFC data elements is available in the {' '}
-                  <button
-                    role="link"
-                    className="analyst-guide__sectionJump"
-                    onClick={() => jumpToSection("analyst-guide__Disaster")}>
+                    <p className="analyst-guide__answerStyle">More information about DEFC data elements is available in the {' '}
+                      <button
+                        role="link"
+                        className="analyst-guide__sectionJump"
+                        onClick={() => jumpToSection("analyst-guide__Disaster")}>
                   DISASTER AND EMERGENCY DATA ELEMENTS
-                  </button>{' '}section of this guide.
-                </p>
+                      </button>{' '}section of this guide.
+                    </p>
         </>)
     },
     {
@@ -282,7 +282,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
                       <li className="analyst-guide__answerStyle">Indefinite Delivery / Definite Quantity Contract</li>
                         <li className="analyst-guide__answerStyle">Federal Supply Schedule (FSS)</li>
                           <li className="analyst-guide__answerStyle">Basic Ordering Agreement (BOA)</li>
-                        <li className="analyst-guide__answerStyle">Blanket Purchase Agreements (BPA)</li>
+                            <li className="analyst-guide__answerStyle">Blanket Purchase Agreements (BPA)</li>
               </ul>
                 <p className="analyst-guide__answerStyle">IDVs can be browsed using award profile pages. IDVs may be searched using Advanced Search.</p>
                   <p className="analyst-guide__answerStyle">An IDV may contain many contract prime award summaries and other IDVs. The parent_award_id_piid contains the PIID of the IDV contract prime award summary under which an IDV or contract prime award summary was issued.</p>
@@ -307,14 +307,14 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
                     <p className="analyst-guide__answerStyle">The AccountBreakdownByAward files include account data with prime award level information. These files will be returned if the Custom Account Data file type filter includes “Account Breakdown by Award.”</p>
                       <p className="analyst-guide__answerStyle">The data in account spending files which begin with “FA” are aggregated to the Federal Account level. The data in account spending files which begin with “TAS” are broken out to the Treasury Account Symbol level.</p>
                         <p className="analyst-guide__answerStyle">More information about these fields is available in the <Link to="/data-dictionary">Data Dictionary</Link> and the <a href="https://files.usaspending.gov/docs/Custom+Account+Data+Dictionary.xlsx">Custom Account Data Dictionary</a>.</p>
-                      <p className="analyst-guide__answerStyle">More information on federal and Treasury accounts is available in the{' '}
-                        <button
-                          role="link"
-                          className="analyst-guide__sectionJump"
-                          onClick={() => jumpToSection("analyst-guide__AccountData")}>
+                          <p className="analyst-guide__answerStyle">More information on federal and Treasury accounts is available in the{' '}
+                            <button
+                              role="link"
+                              className="analyst-guide__sectionJump"
+                              onClick={() => jumpToSection("analyst-guide__AccountData")}>
                   ACCOUNT DATA ELEMENTS
-                        </button>{' '}section of this guide.
-                      </p>
+                            </button>{' '}section of this guide.
+                          </p>
         </>)
     },
     {
@@ -335,7 +335,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
                     <p className="analyst-guide__answerStyle">Which file you should download and how you should access the file depends on your use case.</p>
                       <p className="analyst-guide__answerStyle">The Assistance_PrimeTransactions and Contracts_PrimeTransactions files are generated on demand based on selected specifications. Use these files if you only need prime award transaction data which meet certain criteria and can wait for the USAspending server to process your request. Access these files through Advanced Search to download a smaller amount of prime award transaction data which meets very specific criteria. Access these files through Custom Award Download to download a larger amount of prime award transaction data.</p>
                         <p className="analyst-guide__answerStyle">The Assistance_Delta, Assistance_Full, Contracts_Delta, and Contracts_Full files include major agencies’ prime award transaction data for full fiscal years. These files are pre-prepared and can be accessed instantaneously. Use these files to maintain a copy of or to quickly access agency prime award transaction data.</p>
-                      <p className="analyst-guide__answerStyle">More information about the columns in these files is available in the <Link to="/data-dictionary">Data Dictionary</Link> and throughout this guide.</p>
+                          <p className="analyst-guide__answerStyle">More information about the columns in these files is available in the <Link to="/data-dictionary">Data Dictionary</Link> and throughout this guide.</p>
         </>)
     },
     {
@@ -451,10 +451,10 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
                   </ul>
                     <p className="analyst-guide__answerStyle">OR (if no BPOA or EPOA)</p>
                       <ul>
-                    <li className="analyst-guide__answerStyle">Availability Type Code (ATC): 1 character that identifies the availability (or time period) for obligations to be made on the Treasury account. An ATC value of “X” means that there is an unlimited or indefinite period to incur new obligations.</li>
-                  </ul>
-                    <p className="analyst-guide__answerStyle">The TAS filter on <Link to="/search">Advanced Search</Link> can be used to filter award spending by TAS.</p>
-                      <p className="analyst-guide__answerStyle">The Treasury Account Symbol chart in the Spending by Category section of <Link to="/federal_account">Federal Account Profile pages</Link> display all Treasury accounts associated with a federal account. </p>
+                        <li className="analyst-guide__answerStyle">Availability Type Code (ATC): 1 character that identifies the availability (or time period) for obligations to be made on the Treasury account. An ATC value of “X” means that there is an unlimited or indefinite period to incur new obligations.</li>
+                      </ul>
+                        <p className="analyst-guide__answerStyle">The TAS filter on <Link to="/search">Advanced Search</Link> can be used to filter award spending by TAS.</p>
+                          <p className="analyst-guide__answerStyle">The Treasury Account Symbol chart in the Spending by Category section of <Link to="/federal_account">Federal Account Profile pages</Link> display all Treasury accounts associated with a federal account. </p>
         </>)
     },
     {
@@ -651,13 +651,13 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
                       <li className="analyst-guide__answerStyle">Public Institution of Higher Education</li>
                         <li className="analyst-guide__answerStyle">Private Institution of Higher Education</li>
                           <li className="analyst-guide__answerStyle">Minority-Serving Institution of Higher Education</li>
-                        <li className="analyst-guide__answerStyle">Regional and State Government</li>
-                          <li className="analyst-guide__answerStyle">Regional Organization</li>
-                            <li className="analyst-guide__answerStyle">U.S. Territory or Possession</li>
-                              <li className="analyst-guide__answerStyle">Local Government</li>
-                                <li className="analyst-guide__answerStyle">Indian Native American Tribal Government</li>
-                                  <li className="analyst-guide__answerStyle">Authorities and Commissions</li>
-                                    <li className="analyst-guide__answerStyle">Individuals</li>
+                            <li className="analyst-guide__answerStyle">Regional and State Government</li>
+                              <li className="analyst-guide__answerStyle">Regional Organization</li>
+                                <li className="analyst-guide__answerStyle">U.S. Territory or Possession</li>
+                                  <li className="analyst-guide__answerStyle">Local Government</li>
+                                    <li className="analyst-guide__answerStyle">Indian Native American Tribal Government</li>
+                                      <li className="analyst-guide__answerStyle">Authorities and Commissions</li>
+                                        <li className="analyst-guide__answerStyle">Individuals</li>
               </ul>
                 <p className="analyst-guide__answerStyle">Each of these recipient type categories also apply to contract recipients, except for Regional Organization, U.S. Territory, or Possession and Individuals.</p>
         </>)
@@ -778,70 +778,70 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
                   <div className="analyst-guide__questionLine" />
 
                     <div className="analyst-guide__answerSection">
-                  {awardSpendingQuestions.map((item, i) => (
-                    <div className="analyst-guide__questionAnswers">
-                      <Accordion
-                        key={`item_${i}`}
-                        title={item.question}>{item.answer}
-                      </Accordion>
-                    </div>
-                ))}
-                </div>
-
-                  <div>
-                    <h4 className="analyst-guide__questionSections" id="analyst-guide__FinancialAssistance">Financial Assistance Transactions And Award Summaries</h4>
-                  </div>
-                    <div className="analyst-guide__questionLine" />
-
-                      <div className="analyst-guide__answerSection">
-                        {financialAssistanceQuestions.map((item, i) => (
-                          <div className="analyst-guide__questionAnswers">
-                            <Accordion
-                              key={`item_${i}`}
-                              title={item.question}>{item.answer}
-                            </Accordion>
-                          </div>
-                ))}
-                      </div>
-
-                        <div>
-                          <h4 className="analyst-guide__questionSections" id="analyst-guide__ContractTransactions">Contract Transactions And Award Summaries</h4>
+                      {awardSpendingQuestions.map((item, i) => (
+                        <div className="analyst-guide__questionAnswers">
+                          <Accordion
+                            key={`item_${i}`}
+                            title={item.question}>{item.answer}
+                          </Accordion>
                         </div>
-                          <div className="analyst-guide__questionLine" />
+                ))}
+                    </div>
 
-                            <div className="analyst-guide__answerSection">
-                                  {contractTransactionQuestions.map((item, i) => (
-                                    <div className="analyst-guide__questionAnswers">
-                                      <Accordion
-                                        key={`item_${i}`}
-                                        title={item.question}>{item.answer}
-                                      </Accordion>
-                                    </div>
+                      <div>
+                        <h4 className="analyst-guide__questionSections" id="analyst-guide__FinancialAssistance">Financial Assistance Transactions And Award Summaries</h4>
+                      </div>
+                        <div className="analyst-guide__questionLine" />
+
+                          <div className="analyst-guide__answerSection">
+                            {financialAssistanceQuestions.map((item, i) => (
+                              <div className="analyst-guide__questionAnswers">
+                                <Accordion
+                                  key={`item_${i}`}
+                                  title={item.question}>{item.answer}
+                                </Accordion>
+                              </div>
+                ))}
+                          </div>
+
+                            <div>
+                              <h4 className="analyst-guide__questionSections" id="analyst-guide__ContractTransactions">Contract Transactions And Award Summaries</h4>
+                            </div>
+                              <div className="analyst-guide__questionLine" />
+
+                                <div className="analyst-guide__answerSection">
+                              {contractTransactionQuestions.map((item, i) => (
+                                <div className="analyst-guide__questionAnswers">
+                                  <Accordion
+                                    key={`item_${i}`}
+                                    title={item.question}>{item.answer}
+                                  </Accordion>
+                                </div>
                 ))}
                                 </div>
 
-                                  <div>
-                                    <h4 className="analyst-guide__questionSections" id="analyst-guide__DataAccess">How To Access The Data</h4>
-                                  </div>
-                                    <div className="analyst-guide__questionLine" />
+                              <div>
+                                <h4 className="analyst-guide__questionSections" id="analyst-guide__DataAccess">How To Access The Data</h4>
+                              </div>
+                                <div className="analyst-guide__questionLine" />
 
-                                      <div className="analyst-guide__answerSection">
-                                        {dataAccessQuestions.map((item, i) => (
-                                          <div className="analyst-guide__questionAnswers">
-                                            <Accordion
-                                              key={`item_${i}`}
-                                              title={item.question}>{item.answer}
-                                            </Accordion>
-                                          </div>
-                ))}
+                                  <div className="analyst-guide__answerSection">
+                                    {dataAccessQuestions.map((item, i) => (
+                                      <div className="analyst-guide__questionAnswers">
+                                        <Accordion
+                                          key={`item_${i}`}
+                                          title={item.question}>{item.answer}
+                                        </Accordion>
                                       </div>
+                ))}
+                                  </div>
 
-                                        <div>
-                                          <h4 className="analyst-guide__questionSections" id="analyst-guide__AgencyData">Agency Data Elements</h4>
-                                        </div>
-                                          <div className="analyst-guide__questionLine" />
+                                    <div>
+                                      <h4 className="analyst-guide__questionSections" id="analyst-guide__AgencyData">Agency Data Elements</h4>
+                                    </div>
+                                      <div className="analyst-guide__questionLine" />
 
-                                            <div className="analyst-guide__answerSection">
+                                        <div className="analyst-guide__answerSection">
                                               {agencyDataQuestions.map((item, i) => (
                                                 <div className="analyst-guide__questionAnswers">
                                                   <Accordion
@@ -850,7 +850,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
                                                   </Accordion>
                                                 </div>
                 ))}
-                                            </div>
+                                        </div>
 
                                               <div>
                                                 <h4 className="analyst-guide__questionSections" id="analyst-guide__AccountData">Account Data Elements</h4>
@@ -907,62 +907,62 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
 
                                                                     <div className="analyst-guide__answerSection">
                                                                       {assistanceListingQuestions.map((item, i) => (
-                                                                          <div className="analyst-guide__questionAnswers">
+                                                                        <div className="analyst-guide__questionAnswers">
                                                                           <Accordion
-                                                                              key={`item_${i}`}
-                                                                              title={item.question}>{item.answer}
-                                                                            </Accordion>
+                                                                            key={`item_${i}`}
+                                                                            title={item.question}>{item.answer}
+                                                                          </Accordion>
                                                                         </div>
                 ))}
                                                                     </div>
 
-                                                                        <div>
+                                                                      <div>
                                                                         <h4 className="analyst-guide__questionSections" id="analyst-guide__Recipient">Recipient Data Elements</h4>
                                                                       </div>
-                                                                          <div className="analyst-guide__questionLine" />
+                                                                        <div className="analyst-guide__questionLine" />
 
-                                                                        <div className="analyst-guide__answerSection">
-                                                                              {recipientDataQuestions.map((item, i) => (
-                                                                          <div className="analyst-guide__questionAnswers">
-                                                                                  <Accordion
-                                                                            key={`item_${i}`}
-                                                                            title={item.question}>{item.answer}
-                                                                          </Accordion>
+                                                                          <div className="analyst-guide__answerSection">
+                                                                            {recipientDataQuestions.map((item, i) => (
+                                                                              <div className="analyst-guide__questionAnswers">
+                                                                                <Accordion
+                                                                                  key={`item_${i}`}
+                                                                                  title={item.question}>{item.answer}
+                                                                                </Accordion>
+                                                                              </div>
+                ))}
+                                                                          </div>
+
+                                                                            <div>
+                                                                              <h4 className="analyst-guide__questionSections" id="analyst-guide__LocationData">Location Data Elements</h4>
+                                                                            </div>
+                                                                              <div className="analyst-guide__questionLine" />
+
+                                                                                <div className="analyst-guide__answerSection">
+                                                                                  {locationDataQuestions.map((item, i) => (
+                                                                                      <div className="analyst-guide__questionAnswers">
+                                                                                      <Accordion
+                                                                                          key={`item_${i}`}
+                                                                                          title={item.question}>{item.answer}
+                                                                                      </Accordion>
+                                                                                      </div>
+                ))}
                                                                                 </div>
+
+                                                                                    <div>
+                                                                                    <h4 className="analyst-guide__questionSections" id="analyst-guide__AdditionalResources">Additional Resources</h4>
+                                                                                    </div>
+                                                                                      <div className="analyst-guide__questionLine" />
+
+                                                                                    <div className="analyst-guide__answerSection">
+                                                                                          {additionalResources.map((item, i) => (
+                                                                                      <div className="analyst-guide__questionAnswers">
+                                                                                              <Accordion
+                                                                                        key={`item_${i}`}
+                                                                                        title={item.question}>{item.answer}
+                                                                                              </Accordion>
+                                                                                      </div>
                 ))}
-                                                                            </div>
-
-                                                                        <div>
-                                                                                <h4 className="analyst-guide__questionSections" id="analyst-guide__LocationData">Location Data Elements</h4>
-                                                                              </div>
-                                                                        <div className="analyst-guide__questionLine" />
-
-                                                                        <div className="analyst-guide__answerSection">
-                                                                            {locationDataQuestions.map((item, i) => (
-                                                                          <div className="analyst-guide__questionAnswers">
-                                                                                <Accordion
-                                                                            key={`item_${i}`}
-                                                                            title={item.question}>{item.answer}
-                                                                          </Accordion>
-                                                                              </div>
-                ))}
-                                                                          </div>
-
-                                                                        <div>
-                                                                              <h4 className="analyst-guide__questionSections" id="analyst-guide__AdditionalResources">Additional Resources</h4>
-                                                                            </div>
-                                                                        <div className="analyst-guide__questionLine" />
-
-                                                                        <div className="analyst-guide__answerSection">
-                                                                            {additionalResources.map((item, i) => (
-                                                                          <div className="analyst-guide__questionAnswers">
-                                                                                <Accordion
-                                                                            key={`item_${i}`}
-                                                                            title={item.question}>{item.answer}
-                                                                          </Accordion>
-                                                                              </div>
-                ))}
-                                                                          </div>
+                                                                                    </div>
         </>
     );
 };

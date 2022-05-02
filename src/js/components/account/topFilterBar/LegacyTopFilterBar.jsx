@@ -67,10 +67,10 @@ export default class LegacyTopFilterBar extends React.Component {
                       onClick={this.pressedClearAll}>
                         <span className="button-label">
                                     Clear all filters
-                    </span>
-                      <span className="close-icon">
-                        <Icons.Close alt="Clear all filters" />
-                      </span>
+                        </span>
+                          <span className="close-icon">
+                            <Icons.Close alt="Clear all filters" />
+                          </span>
                     </button>
                   </div>
               </div>

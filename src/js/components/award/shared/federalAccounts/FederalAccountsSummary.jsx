@@ -41,7 +41,7 @@ const FederalAccountsSummary = ({ summary, inFlight, jumpToFederalAccountsHistor
                     </div>
                       <div className="award-funding-summary__data">
                         <span>Total Count of Federal Accounts</span>
-                    <span>{summary.federalAccountCount}</span>
+                          <span>{summary.federalAccountCount}</span>
                       </div>
               </div>
             );

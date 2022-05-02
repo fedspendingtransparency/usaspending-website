@@ -88,11 +88,11 @@ export default class ResultsTableSection extends React.Component {
                     disabled={this.props.inFlight} />
                       <div className="results-table-content">
                         <TransitionGroup>
-                      {showTableMessage && (
-                      <CSSTransition
-                        classNames="table-message-fade"
-                        timeout={{ exit: 225, enter: 195 }}
-                        exit>
+                          {showTableMessage && (
+                          <CSSTransition
+                            classNames="table-message-fade"
+                            timeout={{ exit: 225, enter: 195 }}
+                            exit>
                                 <>
                                   {!this.props.keyword && (
                                     <div className="results-table-message-container full">
@@ -115,20 +115,20 @@ export default class ResultsTableSection extends React.Component {
                                     </div>
                                     )}
                                 </>
-                      </CSSTransition>
+                          </CSSTransition>
                         )}
-                    </TransitionGroup>
-                      <div
-                        className="results-table-width-master"
-                        ref={(div) => {
+                        </TransitionGroup>
+                          <div
+                            className="results-table-width-master"
+                            ref={(div) => {
                             // this is an empty div that scales via CSS
                             // the results table width will follow this div's width
                             this.tableWidthController = div;
                         }} />
                         {showDataTable && (
-                    <ResultsTable
-                      {...this.props}
-                      visibleWidth={this.state.tableWidth} />
+                        <ResultsTable
+                          {...this.props}
+                          visibleWidth={this.state.tableWidth} />
                     )}
                       </div>
           </div>

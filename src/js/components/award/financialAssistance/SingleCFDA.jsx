@@ -75,8 +75,8 @@ const SingleCFDA = ({ currentCfda }) => {
                   <p>{cfdaFederalAgency}</p>
                     <h5>Website</h5>
                       <a href={cfdaWebsite}>{cfdaWebsite}</a>
-                      <h5>SAM.gov Page</h5>
-                        <a href={samWebsite}>{samWebsite}</a>
+                        <h5>SAM.gov Page</h5>
+                          <a href={samWebsite}>{samWebsite}</a>
           </ExpandableAwardSection>
         </div>
       </AwardSection>

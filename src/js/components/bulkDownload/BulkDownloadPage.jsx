@@ -118,8 +118,8 @@ export default class BulkDownloadPage extends React.Component {
                       {downloadDataContent}
                     </div>
                       <BulkDownloadModalContainer
-                    mounted={this.state.showModal}
-                    hideModal={this.hideModal} />
+                        mounted={this.state.showModal}
+                        hideModal={this.hideModal} />
                 </div>
               </main>
           </PageWrapper>

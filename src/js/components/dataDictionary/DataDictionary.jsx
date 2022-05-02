@@ -44,14 +44,14 @@ export default class DataDictionary extends React.Component {
                     placeholder="Search by Term" />
                       <div className="data-dictionary__download">
                         <a
-                      className="data-dictionary__download-link"
-                      onClick={handleDownloadClick}
-                      href={this.props.downloadLocation}>
-                        <div className="data-dictionary__download-icon">
-                          <FontAwesomeIcon icon="file-excel" />
-                        </div>
+                          className="data-dictionary__download-link"
+                          onClick={handleDownloadClick}
+                          href={this.props.downloadLocation}>
+                            <div className="data-dictionary__download-icon">
+                              <FontAwesomeIcon icon="file-excel" />
+                            </div>
                         Download
-                    </a>
+                        </a>
                       </div>
                 </div>
                   <div className="data-dictionary__table-wrapper">

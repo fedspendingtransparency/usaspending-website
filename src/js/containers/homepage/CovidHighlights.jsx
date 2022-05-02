@@ -300,16 +300,16 @@ export class CovidHighlights extends React.Component {
                     </span>&nbsp;
                       <strong>in response to&nbsp;</strong>
                         <span>
-                      <div className="covid-homepage-tooltip">
+                          <div className="covid-homepage-tooltip">
                                     COVID-19.
-                        <TooltipWrapper
-                          icon="info"
-                          offsetAdjustments={{
+                            <TooltipWrapper
+                              icon="info"
+                              offsetAdjustments={{
                                             top: 0
                                         }}
-                          tooltipComponent={<HomePageTooltip />} />
-                      </div>
-                    </span>
+                              tooltipComponent={<HomePageTooltip />} />
+                          </div>
+                        </span>
                 </h1>
                   <div className="covid-profile-link__button-wrap">
                     <Link

@@ -112,7 +112,7 @@ export default class FullDownloadModal extends React.Component {
                           onClick={this.props.hideModal}
                           title="Close"
                           aria-label="Close">
-                        <Close alt="Close modal" />
+                            <Close alt="Close modal" />
                         </button>
                       </div>
                   </div>
@@ -123,8 +123,8 @@ export default class FullDownloadModal extends React.Component {
                       <TopFilterBarContainer compressed />
                     </div>
                       <DownloadBreadcrumb
-                    step={this.state.downloadStep}
-                    goToStep={this.goToStep} />
+                        step={this.state.downloadStep}
+                        goToStep={this.goToStep} />
                     {content}
                   </div>
               </div>

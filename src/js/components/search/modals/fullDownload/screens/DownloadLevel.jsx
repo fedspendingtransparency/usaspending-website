@@ -58,9 +58,9 @@ export default class DownloadLevel extends React.Component {
                       onClick={this.clickedTransaction}>
                             Transaction
                     </button>
-                  <div className="level-description">
+                      <div className="level-description">
                             Includes all details of each award (known as modifications or amendments).
-                  </div>
+                      </div>
                   </div>
               </div>
           </div>

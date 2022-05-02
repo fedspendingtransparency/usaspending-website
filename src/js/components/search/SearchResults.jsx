@@ -55,9 +55,9 @@ export default class SearchResults extends React.Component {
                       <div className="mobile-filter-button-icon">
                         <AddFilter alt="Toggle filters" />
                       </div>
-                    <div className="mobile-filter-button-label">
-                      {this.pluralizeFilterLabel(this.props.filterCount)}
-                    </div>
+                        <div className="mobile-filter-button-label">
+                          {this.pluralizeFilterLabel(this.props.filterCount)}
+                        </div>
                   </div>
               </button>
             </div>
@@ -72,9 +72,9 @@ export default class SearchResults extends React.Component {
                   <TopFilterBarContainer {...this.props} />
                     <div className={`search-results ${mobileFilters}`}>
                       <VisualizationWrapperContainer
-                    isMobile={this.props.isMobile}
-                    requestsComplete={this.props.requestsComplete}
-                    noFiltersApplied={this.props.noFiltersApplied} />
+                        isMobile={this.props.isMobile}
+                        requestsComplete={this.props.requestsComplete}
+                        noFiltersApplied={this.props.noFiltersApplied} />
                     </div>
                 </div>
           </div>

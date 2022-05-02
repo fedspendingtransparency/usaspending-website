@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 7/8/20
  */
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useCallback, useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { isCancel } from 'axios';
@@ -122,13 +122,13 @@ export const parseRows = (rows, activeTab, query) => (
             const handleClick = () => clickedRecipientProfile(`${description}`);
             link = (
                 <>
-                  {description}&nbsp;(
+                    {description}&nbsp;(
                       <Link onClick={handleClick} to={`/recipient/${rowData._childId}/latest`}>
                         as Child
-                    </Link>,&nbsp;
+                      </Link>,&nbsp;
                         <Link onClick={handleClick} to={`/recipient/${rowData._recipientId}/latest`}>
                         as Recipient
-                      </Link>
+                        </Link>
                     )
                 </>
             );

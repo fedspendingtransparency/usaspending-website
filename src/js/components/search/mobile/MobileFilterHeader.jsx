@@ -35,9 +35,9 @@ export default class MobileFilterHeader extends React.Component {
                       <div className="icon">
                         <ArrowUp alt="Hide Filters" />
                       </div>
-                    <div className="label">
+                        <div className="label">
                                 Hide Filters
-                    </div>
+                        </div>
                     </div>
                 </button>
               </div>

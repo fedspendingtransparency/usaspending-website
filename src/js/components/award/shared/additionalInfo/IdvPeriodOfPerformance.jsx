@@ -61,28 +61,28 @@ export default class IdvPeriodOfPerformance extends React.Component {
                       className="accordion-table__row">
                         <td className="accordion-table__data accordion-table__data_info-tooltip">
                                     Start Date
-                      <div className="tooltip-popover-container" tabIndex="0" role="button">
-                        <FontAwesomeIcon icon="info-circle" />
-                          <span className="tooltip-popover">
+                          <div className="tooltip-popover-container" tabIndex="0" role="button">
+                            <FontAwesomeIcon icon="info-circle" />
+                              <span className="tooltip-popover">
                                         Selected based on the earliest Start Date across all transactions on this IDV
-                          </span>
-                      </div>
-                    </td>
-                      <td>{this.props.accordionData['Start Date'] || '--'}</td>
+                              </span>
+                          </div>
+                        </td>
+                          <td>{this.props.accordionData['Start Date'] || '--'}</td>
                     </tr>
                       <tr
-                    className="accordion-table__row">
-                      <td className="accordion-table__data accordion-table__data_info-tooltip">
+                        className="accordion-table__row">
+                          <td className="accordion-table__data accordion-table__data_info-tooltip">
                                     Ordering Period End Date
-                        <div className="tooltip-popover-container" tabIndex="0" role="button">
-                          <FontAwesomeIcon icon="info-circle" />
-                            <span className="tooltip-popover">
+                            <div className="tooltip-popover-container" tabIndex="0" role="button">
+                              <FontAwesomeIcon icon="info-circle" />
+                                <span className="tooltip-popover">
                                             Selected based on the latest Ordering Period End Date across all transactions on this IDV
-                            </span>
-                        </div>
-                      </td>
-                        <td>{this.props.accordionData['Ordering Period End Date'] || '--'}</td>
-                  </tr>
+                                </span>
+                            </div>
+                          </td>
+                            <td>{this.props.accordionData['Ordering Period End Date'] || '--'}</td>
+                      </tr>
                   </tbody>
                 </table>
               </div>

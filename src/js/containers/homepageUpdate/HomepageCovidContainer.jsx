@@ -127,36 +127,36 @@ const HomepageCovidContainer = () => {
                   </div>
                     <div className="homepage-covid__content">
                             The federal government has spent{' '}
-                    {isAmountLoading && <div className="dot-pulse" />}
-                      <TotalAmount
-                        completeIncrement={completeIncrementAndTriggerScroll}
-                        className={`covid-hero__headline--amount${isAmountLoading ? '' : ' show-amount'}`}
-                        total={totalSpendingAmount}
-                        isLoading={isAmountLoading} />
-                    {' '}in response to <span>COVID-19</span>.
-                  </div>
-                    <div className="homepage-covid__image-wrapper">
-                      <picture>
-                        <img
-                          role="presentation"
-                          src="../../../img/homepage-covid-official-spending-data.svg"
-                          alt="" />
-                      </picture>
+                      {isAmountLoading && <div className="dot-pulse" />}
+                        <TotalAmount
+                          completeIncrement={completeIncrementAndTriggerScroll}
+                          className={`covid-hero__headline--amount${isAmountLoading ? '' : ' show-amount'}`}
+                          total={totalSpendingAmount}
+                          isLoading={isAmountLoading} />
+                      {' '}in response to <span>COVID-19</span>.
                     </div>
+                      <div className="homepage-covid__image-wrapper">
+                        <picture>
+                          <img
+                            role="presentation"
+                            src="../../../img/homepage-covid-official-spending-data.svg"
+                            alt="" />
+                        </picture>
+                      </div>
                 </div>
               </FlexGridCol>
                 <FlexGridCol width={12} desktop={6} className="homepage-covid__column-two">
                   <div className="homepage-covid__column-two-content-wrapper">
                     <Card
-                    icon={searchCardIcon}
-                    heading={searchCardHeading}
-                    content={searchCardContent}
-                    link={searchCardLink} />
-                      <Card
-                        icon={trackCardIcon}
-                        heading={trackCardHeading}
-                        content={trackCardContent}
-                        link={trackCardLink} />
+                      icon={searchCardIcon}
+                      heading={searchCardHeading}
+                      content={searchCardContent}
+                      link={searchCardLink} />
+                        <Card
+                          icon={trackCardIcon}
+                          heading={trackCardHeading}
+                          content={trackCardContent}
+                          link={trackCardLink} />
                   </div>
                 </FlexGridCol>
           </FlexGridRow>

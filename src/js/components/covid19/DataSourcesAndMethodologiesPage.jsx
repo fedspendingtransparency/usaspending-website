@@ -735,12 +735,12 @@ export default () => {
                                                                         <ul>
                                                                           <li>
                                             Count of all distinct CFDA Programs (number or title) for every award ID (award unique key) tagged with a COVID-19 DEFC. Filter by any award type as desired.
-                                                                        </li>
+                                                                          </li>
                                                                         </ul>
-                                                                        <p>
+                                                                          <p>
                                                                             <strong>Award Obligations</strong> calculations:
                                                                           </p>
-                                                                          <ul>
+                                                                            <ul>
                                                                               <li>
                                             For <strong>Award Spending (including Loan Spending)</strong>, sum together:
                                               <ul>
@@ -751,13 +751,13 @@ export default () => {
                                                     Filter by any award type as desired.
                                                   </li>
                                               </ul>
-                                                                            </li>
+                                                                              </li>
                                                                             </ul>
-                                                                            <p>
-                                                                                  <strong>Award Outlays</strong> calculations:
-                                                                                </p>
-                                                                                    <ul>
-                                                                                    <li>
+                                                                              <p>
+                                                                                <strong>Award Outlays</strong> calculations:
+                                                                              </p>
+                                                                                <ul>
+                                                                                  <li>
                                             For <strong>Award Spending (including Loan Spending)</strong>, sum together:
                                               <ul>
                                                 <li>
@@ -770,16 +770,16 @@ export default () => {
                                                     Filter by any award type as desired.
                                                     </li>
                                               </ul>
+                                                                                  </li>
+                                                                                </ul>
+                                                                                  <p>
+                                                                                    <strong>Number of Awards</strong> calculation:
+                                                                                  </p>
+                                                                                  <ul>
+                                                                                      <li>
+                                            Count of all distinct award IDs (award unique keys) tagged with a COVID-19 DEFC. Filter by any award type as desired.
                                                                                       </li>
                                                                                   </ul>
-                                                                                      <p>
-                                                                                      <strong>Number of Awards</strong> calculation:
-                                                                                    </p>
-                                                                                    <ul>
-                                                                                        <li>
-                                            Count of all distinct award IDs (award unique keys) tagged with a COVID-19 DEFC. Filter by any award type as desired.
-                                                                                    </li>
-                                                                                      </ul>
                                                 </div>
                                             </div>
                           </div>
