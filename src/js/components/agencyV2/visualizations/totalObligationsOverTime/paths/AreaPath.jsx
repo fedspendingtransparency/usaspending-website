@@ -58,7 +58,7 @@ const AreaPath = ({
                 true
             ));
         }
-    }, [data, xScale, yScale, scenario, xProperty, padding, yProperty, height]);
+    }, [data, xScale, yScale, scenario]);
     return (
       <g tabIndex="0">
         <desc>{`The area under the curve representative of the following periods, dates, and obligations: ${description}`}</desc>
