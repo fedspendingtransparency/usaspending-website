@@ -82,7 +82,7 @@ const AgencyDetailsPage = () => {
 
     useEffect(() => {
         getOverviewData();
-    }, [agencyCode, getOverviewData]);
+    }, [agencyCode]);
 
     const message = agencyNotes[agencyCode] || '';
 
