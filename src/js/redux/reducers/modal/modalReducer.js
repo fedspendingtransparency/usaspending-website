@@ -4,30 +4,30 @@
  */
 
 export const initialState = {
-  display: false,
-  url: '',
-  modal: ''
+    display: false,
+    url: '',
+    modal: ''
 };
 
 const modalReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case 'SHOW_MODAL': {
-      return Object.assign({}, state, {
-        display: true,
-        url: action.url,
-        modal: action.modalType
-      });
+    switch (action.type) {
+        case 'SHOW_MODAL': {
+            return Object.assign({}, state, {
+                display: true,
+                url: action.url,
+                modal: action.modalType
+            });
+        }
+        case 'HIDE_MODAL': {
+            return Object.assign({}, state, {
+                display: false,
+                url: '',
+                modal: ''
+            });
+        }
+        default:
+            return state;
     }
-    case 'HIDE_MODAL': {
-      return Object.assign({}, state, {
-        display: false,
-        url: '',
-        modal: ''
-      });
-    }
-    default:
-      return state;
-  }
 };
 
 export default modalReducer;

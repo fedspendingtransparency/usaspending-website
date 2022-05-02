@@ -26,81 +26,81 @@ import GlobalConstants from '../../GlobalConstants';
 require('pages/aboutTheData/aboutTheData.scss');
 
 const AgencyDetailsPage = () => {
-  const { agencyCode } = useParams();
-  const [, topTierCodes] = useAgencySlugs();
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
-  const [agencyOverview, setAgencyOverview] = useState(null);
-  const [showModal, setShowModal] = useState('');
-  const [modalData, setModalData] = useState(null);
-  const overviewRequest = useRef(null);
+    const { agencyCode } = useParams();
+    const [, topTierCodes] = useAgencySlugs();
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
+    const [agencyOverview, setAgencyOverview] = useState(null);
+    const [showModal, setShowModal] = useState('');
+    const [modalData, setModalData] = useState(null);
+    const overviewRequest = useRef(null);
 
-  let slug = '';
-  if (agencyOverview && agencyOverview.toptierCode) {
-    slug = topTierCodes[agencyOverview.toptierCode];
-  }
-  const agencyString = GlobalConstants.AGENCY_LINK;
-
-  const modalClick = (modalType, agencyData) => {
-    setModalData(agencyData);
-    setShowModal(modalType);
-  };
-  const closeModal = () => {
-    setShowModal('');
-    setModalData(null);
-  };
-
-  const getOverviewData = async () => {
-    if (!loading) setLoading(true);
-    if (error) {
-      setError(false);
-      setErrorMessage('');
+    let slug = '';
+    if (agencyOverview && agencyOverview.toptierCode) {
+        slug = topTierCodes[agencyOverview.toptierCode];
     }
-    if (overviewRequest.current) overviewRequest.current.cancel();
-    try {
-      overviewRequest.current = fetchAgencyOverview(agencyCode);
-      const { data } = await overviewRequest.current.promise;
-      const agency = Object.create(BaseAgencyOverview);
-      agency.populate(data);
-      setAgencyOverview(agency);
-      setLoading(false);
-      overviewRequest.current = null;
-    }
-    catch (err) {
-      console.error(err);
-      setError(true);
-      setErrorMessage(err.message);
-      setLoading(false);
-      overviewRequest.current = null;
-    }
-  };
+    const agencyString = GlobalConstants.AGENCY_LINK;
 
-  useEffect(() => {
-    if (overviewRequest.current) overviewRequest.current.cancel();
-  }, []);
+    const modalClick = (modalType, agencyData) => {
+        setModalData(agencyData);
+        setShowModal(modalType);
+    };
+    const closeModal = () => {
+        setShowModal('');
+        setModalData(null);
+    };
 
-  useEffect(() => {
-    getOverviewData();
-  }, [agencyCode, getOverviewData]);
+    const getOverviewData = async () => {
+        if (!loading) setLoading(true);
+        if (error) {
+            setError(false);
+            setErrorMessage('');
+        }
+        if (overviewRequest.current) overviewRequest.current.cancel();
+        try {
+            overviewRequest.current = fetchAgencyOverview(agencyCode);
+            const { data } = await overviewRequest.current.promise;
+            const agency = Object.create(BaseAgencyOverview);
+            agency.populate(data);
+            setAgencyOverview(agency);
+            setLoading(false);
+            overviewRequest.current = null;
+        }
+        catch (err) {
+            console.error(err);
+            setError(true);
+            setErrorMessage(err.message);
+            setLoading(false);
+            overviewRequest.current = null;
+        }
+    };
 
-  const message = agencyNotes[agencyCode] || '';
+    useEffect(() => {
+        if (overviewRequest.current) overviewRequest.current.cancel();
+    }, []);
 
-  const handleShare = (name) => {
-    handleShareOptionClick(name, `submission-statistics/agency/${agencyCode}`, getAgencyDetailEmail(agencyOverview?.name, agencyCode));
-  };
+    useEffect(() => {
+        getOverviewData();
+    }, [agencyCode, getOverviewData]);
 
-  return (
-    <PageWrapper
-      pageName="Agency Profile"
-      classNames="about-the-data about-the-data_agency-details-page"
-      metaTagProps={agencyOverview ? agencyPageMetaTags(agencyOverview) : {}}
-      overLine="Agency Profile"
-      title={agencyOverview?.name}
-      toolBarComponents={[
-        <ShareIcon
-          url={getBaseUrl(`submission-statistics/agency/${agencyCode}`)}
-          onShareOptionClick={handleShare} />
+    const message = agencyNotes[agencyCode] || '';
+
+    const handleShare = (name) => {
+        handleShareOptionClick(name, `submission-statistics/agency/${agencyCode}`, getAgencyDetailEmail(agencyOverview?.name, agencyCode));
+    };
+
+    return (
+      <PageWrapper
+        pageName="Agency Profile"
+        classNames="about-the-data about-the-data_agency-details-page"
+        metaTagProps={agencyOverview ? agencyPageMetaTags(agencyOverview) : {}}
+        overLine="Agency Profile"
+        title={agencyOverview?.name}
+        toolBarComponents={[
+          <ShareIcon
+            url={getBaseUrl(`submission-statistics/agency/${agencyCode}`)}
+            onShareOptionClick={handleShare} />
             ]}>
               <main id="main-content" className="main-content">
                 {loading && <LoadingMessage />}
@@ -155,8 +155,8 @@ const AgencyDetailsPage = () => {
                     agencyData={modalData}
                     closeModal={closeModal} />
               </main>
-    </PageWrapper>
-  );
+      </PageWrapper>
+    );
 };
 
 export default AgencyDetailsPage;

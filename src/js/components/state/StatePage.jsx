@@ -18,70 +18,70 @@ import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import StateContent from './StateContent';
 
 const propTypes = {
-  loading: PropTypes.bool,
-  error: PropTypes.bool,
-  id: PropTypes.string,
-  stateProfile: PropTypes.object,
-  pickedFy: PropTypes.func
+    loading: PropTypes.bool,
+    error: PropTypes.bool,
+    id: PropTypes.string,
+    stateProfile: PropTypes.object,
+    pickedFy: PropTypes.func
 };
 
 const StatePage = ({
-  error,
-  loading,
-  id,
-  stateProfile = { fy: '' },
-  pickedFy
+    error,
+    loading,
+    id,
+    stateProfile = { fy: '' },
+    pickedFy
 }) => {
-  const slug = `state/${id}/${stateProfile.fy}`;
-  const emailArgs = {
-    subject: `USAspending.gov State Profile: ${stateProfile.overview.name}`,
-    body: `View the spending activity for this state on USAspending.gov: ${getBaseUrl(slug)}`
-  };
+    const slug = `state/${id}/${stateProfile.fy}`;
+    const emailArgs = {
+        subject: `USAspending.gov State Profile: ${stateProfile.overview.name}`,
+        body: `View the spending activity for this state on USAspending.gov: ${getBaseUrl(slug)}`
+    };
 
-  let content = <StateContent id={id} stateProfile={stateProfile} />;
-  if (error) {
-    content = (
-      <Error
-        title="Invalid State"
-        message="The state ID provided is invalid. Please check the ID and try again." />
-    );
-  }
-
-  const handleShare = (name) => {
-    handleShareOptionClick(name, slug, emailArgs);
-  };
-
-  const backgroundColor = {
-    backgroundColor: "#555",
-    ' @media(max-width: $medium-screen)': {
-      backgroundColor: "#f1f1f1"
+    let content = <StateContent id={id} stateProfile={stateProfile} />;
+    if (error) {
+        content = (
+          <Error
+            title="Invalid State"
+            message="The state ID provided is invalid. Please check the ID and try again." />
+        );
     }
-  };
 
-  return (
-    <PageWrapper
-      pageName="State Profile"
-      classNames="usa-da-state-page"
-      overLine="state profile"
-      title={stateProfile.overview.name}
-      metaTagProps={stateProfile.overview ? statePageMetaTags(stateProfile.overview) : {}}
-      toolBarComponents={[
-        <FiscalYearPicker
-          backgroundColor={backgroundColor}
-          selectedFy={stateProfile?.fy}
-          handleFyChange={pickedFy}
-          options={getFiscalYearsWithLatestAndAll(earliestFiscalYear, currentFiscalYear())} />,
-        <ShareIcon
-          onShareOptionClick={handleShare}
-          url={getBaseUrl(slug)} />
+    const handleShare = (name) => {
+        handleShareOptionClick(name, slug, emailArgs);
+    };
+
+    const backgroundColor = {
+        backgroundColor: "#555",
+        ' @media(max-width: $medium-screen)': {
+            backgroundColor: "#f1f1f1"
+        }
+    };
+
+    return (
+      <PageWrapper
+        pageName="State Profile"
+        classNames="usa-da-state-page"
+        overLine="state profile"
+        title={stateProfile.overview.name}
+        metaTagProps={stateProfile.overview ? statePageMetaTags(stateProfile.overview) : {}}
+        toolBarComponents={[
+          <FiscalYearPicker
+            backgroundColor={backgroundColor}
+            selectedFy={stateProfile?.fy}
+            handleFyChange={pickedFy}
+            options={getFiscalYearsWithLatestAndAll(earliestFiscalYear, currentFiscalYear())} />,
+          <ShareIcon
+            onShareOptionClick={handleShare}
+            url={getBaseUrl(slug)} />
             ]}>
               <main id="main-content" className="main-content">
                 <LoadingWrapper isLoading={loading}>
                   {content}
                 </LoadingWrapper>
               </main>
-    </PageWrapper>
-  );
+      </PageWrapper>
+    );
 };
 
 export default StatePage;

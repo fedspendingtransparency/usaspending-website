@@ -4,47 +4,47 @@
  */
 
 class MapBroadcaster {
-  constructor() {
-    this._events = {};
-  }
-
-  on(eventName, listener) {
-    if (!this._events[eventName]) {
-      // the event does not exist, create an array with the listener
-      this._events[eventName] = [listener];
-    }
-    else {
-      // the event exists, append the listener
-      this._events[eventName].push(listener);
+    constructor() {
+        this._events = {};
     }
 
-    // subtract 1 to return the index position of the listener
-    return {
-      event: eventName,
-      id: this._events[eventName].length - 1
-    };
-  }
+    on(eventName, listener) {
+        if (!this._events[eventName]) {
+            // the event does not exist, create an array with the listener
+            this._events[eventName] = [listener];
+        }
+        else {
+            // the event exists, append the listener
+            this._events[eventName].push(listener);
+        }
 
-  off(eventName, index) {
-    if (!this._events[eventName]) {
-      // no such event
-      return;
+        // subtract 1 to return the index position of the listener
+        return {
+            event: eventName,
+            id: this._events[eventName].length - 1
+        };
     }
 
-    this._events[eventName].splice(index, 1);
-  }
+    off(eventName, index) {
+        if (!this._events[eventName]) {
+            // no such event
+            return;
+        }
 
-  emit(eventName, ...args) {
-    if (!this._events[eventName]) {
-      // no such event
-      return;
+        this._events[eventName].splice(index, 1);
     }
 
-    const listeners = this._events[eventName];
-    listeners.forEach((listener) => {
-      listener(...args);
-    });
-  }
+    emit(eventName, ...args) {
+        if (!this._events[eventName]) {
+            // no such event
+            return;
+        }
+
+        const listeners = this._events[eventName];
+        listeners.forEach((listener) => {
+            listener(...args);
+        });
+    }
 }
 
 const singleton = new MapBroadcaster();

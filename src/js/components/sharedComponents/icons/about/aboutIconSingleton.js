@@ -6,12 +6,12 @@
 import { IconSingleton } from '../iconSingleton';
 
 class AboutIconSingleton extends IconSingleton {
-  constructor() {
-    super();
+    constructor() {
+        super();
 
-    this.notificationName = 'usa-da-icons-about.loaded';
-    this.svgPath = 'graphics/about_icons.svg';
-  }
+        this.notificationName = 'usa-da-icons-about.loaded';
+        this.svgPath = 'graphics/about_icons.svg';
+    }
 }
 
 const instance = new AboutIconSingleton();

@@ -11,8 +11,8 @@ import * as searchViewActions from 'redux/actions/search/searchViewActions';
 import VisualizationWrapper from 'components/search/visualizations/VisualizationWrapper';
 
 export default connect(
-  (state) => (
-    state.searchView
-  ),
-  (dispatch) => bindActionCreators(searchViewActions, dispatch)
+    (state) => (
+        state.searchView
+    ),
+    (dispatch) => bindActionCreators(searchViewActions, dispatch)
 )(VisualizationWrapper);

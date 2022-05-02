@@ -15,71 +15,71 @@ import { setAgencyRecipients, resetAgencyRecipients } from 'redux/actions/agency
 import RecipientDistribution from 'components/agencyV2/visualizations/RecipientDistribution';
 
 const propTypes = {
-  fiscalYear: PropTypes.string.isRequired,
-  data: PropTypes.object
+    fiscalYear: PropTypes.string.isRequired,
+    data: PropTypes.object
 };
 
 const RecipientDistributionContainer = ({ fiscalYear, data }) => {
-  const [loading, setLoading] = React.useState(true);
-  const [error, setError] = React.useState(false);
-  const request = React.useRef(null);
-  const { toptierCode } = useSelector((state) => state.agencyV2.overview);
-  const dispatch = useDispatch();
+    const [loading, setLoading] = React.useState(true);
+    const [error, setError] = React.useState(false);
+    const request = React.useRef(null);
+    const { toptierCode } = useSelector((state) => state.agencyV2.overview);
+    const dispatch = useDispatch();
 
-  useEffect(() => {
-    if (request.current) {
-      request.current.cancel();
-    }
-    dispatch(resetAgencyRecipients());
-  }, [dispatch]);
-
-  const getRecipientDistribution = () => {
-    if (request.current) {
-      request.current.cancel();
-    }
-    if (error) {
-      setError(false);
-    }
-    if (!loading) {
-      setLoading(true);
-    }
-    request.current = fetchRecipientDistribution(
-      toptierCode,
-      fiscalYear
-    );
-    request.current.promise
-      .then((res) => {
-        const recipientDistribution = Object.create(BaseAgencyRecipients);
-        recipientDistribution.populate(res.data);
-        dispatch(setAgencyRecipients(recipientDistribution));
-        setLoading(false);
-        request.current = null;
-      })
-      .catch((e) => {
-        if (!isCancel(e)) {
-          console.error(e);
-          setError(true);
-          setLoading(false);
-          request.current = null;
+    useEffect(() => {
+        if (request.current) {
+            request.current.cancel();
         }
-      });
-  };
+        dispatch(resetAgencyRecipients());
+    }, [dispatch]);
 
-  useEffect(() => {
-    if (toptierCode) {
-      getRecipientDistribution();
-    }
-  }, [fiscalYear, getRecipientDistribution, toptierCode]);
+    const getRecipientDistribution = () => {
+        if (request.current) {
+            request.current.cancel();
+        }
+        if (error) {
+            setError(false);
+        }
+        if (!loading) {
+            setLoading(true);
+        }
+        request.current = fetchRecipientDistribution(
+            toptierCode,
+            fiscalYear
+        );
+        request.current.promise
+            .then((res) => {
+                const recipientDistribution = Object.create(BaseAgencyRecipients);
+                recipientDistribution.populate(res.data);
+                dispatch(setAgencyRecipients(recipientDistribution));
+                setLoading(false);
+                request.current = null;
+            })
+            .catch((e) => {
+                if (!isCancel(e)) {
+                    console.error(e);
+                    setError(true);
+                    setLoading(false);
+                    request.current = null;
+                }
+            });
+    };
 
-  return (
-    <div className="recipient-distribution-visualization-container">
-      {loading && <LoadingMessage />}
-      {error && <ErrorMessage />}
-      {!loading && !error && (
+    useEffect(() => {
+        if (toptierCode) {
+            getRecipientDistribution();
+        }
+    }, [fiscalYear, getRecipientDistribution, toptierCode]);
+
+    return (
+      <div className="recipient-distribution-visualization-container">
+        {loading && <LoadingMessage />}
+        {error && <ErrorMessage />}
+        {!loading && !error && (
         <RecipientDistribution data={data} />
             )}
-    </div>
-  );
+      </div>
+    );
 };
 
 RecipientDistributionContainer.propTypes = propTypes;

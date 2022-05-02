@@ -10,16 +10,16 @@ const spendingByCategoryField = objectClassField;
 const awardField = `financial_set__${objectClassField}`;
 
 const commonQuery = (field, values) => ({
-  field,
-  operation: 'in',
-  value: values
+    field,
+    operation: 'in',
+    value: values
 });
 
 export const buildBalancesObjectClassQuery = (values) =>
-  commonQuery(spendingOverTimeField, values);
+    commonQuery(spendingOverTimeField, values);
 
 export const buildCategoriesObjectClassQuery = (values) =>
-  commonQuery(spendingByCategoryField, values);
+    commonQuery(spendingByCategoryField, values);
 
 export const buildAwardsObjectClassQuery = (values) =>
-  commonQuery(awardField, values);
+    commonQuery(awardField, values);

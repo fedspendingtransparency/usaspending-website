@@ -13,20 +13,20 @@ import * as downloadActions from 'redux/actions/search/downloadActions';
 import DownloadScope from 'components/search/modals/fullDownload/screens/DownloadScope';
 
 const propTypes = {
-  download: PropTypes.object
+    download: PropTypes.object
 };
 
 export class DownloadScopeContainer extends React.Component {
-  render() {
-    return (
-      <DownloadScope {...this.props} />
-    );
-  }
+    render() {
+        return (
+          <DownloadScope {...this.props} />
+        );
+    }
 }
 
 DownloadScopeContainer.propTypes = propTypes;
 
 export default connect(
-  (state) => ({ download: state.download }),
-  (dispatch) => bindActionCreators(downloadActions, dispatch)
+    (state) => ({ download: state.download }),
+    (dispatch) => bindActionCreators(downloadActions, dispatch)
 )(DownloadScopeContainer);

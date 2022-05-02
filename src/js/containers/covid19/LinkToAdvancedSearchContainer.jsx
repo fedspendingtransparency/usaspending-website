@@ -13,57 +13,57 @@ import { initialState as defaultAdvancedSearchFilters, CheckboxTreeSelections } 
 import Analytics from 'helpers/analytics/Analytics';
 
 const FooterLinkToAdvancedSearchContainer = () => {
-  const dispatch = useDispatch();
-  const history = useHistory();
-  const defCodes = useSelector((state) => state.covid19.defCodes, isEqual);
+    const dispatch = useDispatch();
+    const history = useHistory();
+    const defCodes = useSelector((state) => state.covid19.defCodes, isEqual);
 
-  const addDefCodesToAdvancedSearchFilter = () => {
-    dispatch(setAppliedFilterCompletion(false));
-    dispatch(applyStagedFilters(
-      Object.assign(
-        {}, defaultAdvancedSearchFilters,
-        {
-          defCodes: new CheckboxTreeSelections({
-            require: defCodes.map((code) => code.code),
-            exclude: [],
-            counts: [{ value: "COVID-19", count: defCodes.length, label: "COVID-19 Response" }]
-          })
-        }
-      )
-    ));
-  };
+    const addDefCodesToAdvancedSearchFilter = () => {
+        dispatch(setAppliedFilterCompletion(false));
+        dispatch(applyStagedFilters(
+            Object.assign(
+                {}, defaultAdvancedSearchFilters,
+                {
+                    defCodes: new CheckboxTreeSelections({
+                        require: defCodes.map((code) => code.code),
+                        exclude: [],
+                        counts: [{ value: "COVID-19", count: defCodes.length, label: "COVID-19 Response" }]
+                    })
+                }
+            )
+        ));
+    };
 
-  const clickedSearch = () => {
-    dispatch(clearAllFilters());
-    dispatch(resetAppliedFilters());
-    addDefCodesToAdvancedSearchFilter();
-    history.push('/search');
-    Analytics.event({
-      category: 'COVID-19 - More Information',
-      action: 'advanced search click'
-    });
-  };
+    const clickedSearch = () => {
+        dispatch(clearAllFilters());
+        dispatch(resetAppliedFilters());
+        addDefCodesToAdvancedSearchFilter();
+        history.push('/search');
+        Analytics.event({
+            category: 'COVID-19 - More Information',
+            action: 'advanced search click'
+        });
+    };
 
-  const clickedCustomAcctData = () => {
-    Analytics.event({
-      category: 'COVID-19 - More Information',
-      action: 'custom account data click'
-    });
-  };
+    const clickedCustomAcctData = () => {
+        Analytics.event({
+            category: 'COVID-19 - More Information',
+            action: 'custom account data click'
+        });
+    };
 
-  return (
-    <div className="footerLinkToAdvancedSearch">
-      <div className="footerLinkToAdvancedSearch__content footerLinkToAdvancedSearch__content_covid">
-        <h2>Looking for more information about COVID-19 federal awards?</h2>
-          <p>
-                    Visit our <button onClick={clickedSearch}>Advanced Search</button> page to see individual awards funded through the COVID-19 response and keep an eye out for purple COVID-19 badges found throughout the site.
-          </p>
+    return (
+      <div className="footerLinkToAdvancedSearch">
+        <div className="footerLinkToAdvancedSearch__content footerLinkToAdvancedSearch__content_covid">
+          <h2>Looking for more information about COVID-19 federal awards?</h2>
             <p>
-                    Visit our <Link onClick={clickedCustomAcctData} to="/download_center/custom_account_data">Custom Account Data</Link> download for COVID-19 award spending data with a higher degree of granularity.
+                    Visit our <button onClick={clickedSearch}>Advanced Search</button> page to see individual awards funded through the COVID-19 response and keep an eye out for purple COVID-19 badges found throughout the site.
             </p>
+              <p>
+                    Visit our <Link onClick={clickedCustomAcctData} to="/download_center/custom_account_data">Custom Account Data</Link> download for COVID-19 award spending data with a higher degree of granularity.
+              </p>
+        </div>
       </div>
-    </div>
-  );
+    );
 };
 
 export default FooterLinkToAdvancedSearchContainer;

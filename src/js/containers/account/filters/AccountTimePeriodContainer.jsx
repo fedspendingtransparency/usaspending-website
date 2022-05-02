@@ -23,96 +23,96 @@ import TimePeriod from 'components/search/filters/timePeriod/TimePeriod';
 const startYear = FiscalYearHelper.earliestFederalAccountYear;
 
 const propTypes = {
-  updateLatestFy: PropTypes.func,
-  updateTimePeriod: PropTypes.func,
-  filterTimePeriodType: PropTypes.string,
-  filterTimePeriodFY: PropTypes.instanceOf(Immutable.Set),
-  filterTimePeriodStart: PropTypes.string,
-  filterTimePeriodEnd: PropTypes.string,
-  submissionPeriods: SUBMISSION_PERIOD_PROPS,
-  latestPeriod: LATEST_PERIOD_PROPS
+    updateLatestFy: PropTypes.func,
+    updateTimePeriod: PropTypes.func,
+    filterTimePeriodType: PropTypes.string,
+    filterTimePeriodFY: PropTypes.instanceOf(Immutable.Set),
+    filterTimePeriodStart: PropTypes.string,
+    filterTimePeriodEnd: PropTypes.string,
+    submissionPeriods: SUBMISSION_PERIOD_PROPS,
+    latestPeriod: LATEST_PERIOD_PROPS
 };
 
 export class AccountTimePeriodContainer extends React.Component {
-  constructor(props) {
-    super(props);
+    constructor(props) {
+        super(props);
 
-    this.state = {
-      timePeriods: []
-    };
+        this.state = {
+            timePeriods: []
+        };
 
-    // bind functions
-    this.updateFilter = this.updateFilter.bind(this);
-    this.changeTab = this.changeTab.bind(this);
-  }
-
-  componentDidMount() {
-    if (this.props.latestPeriod.year) {
-      this.generateTimePeriods();
+        // bind functions
+        this.updateFilter = this.updateFilter.bind(this);
+        this.changeTab = this.changeTab.bind(this);
     }
-  }
 
-  componentDidUpdate(prevProps) {
-    if (!prevProps.latestPeriod.year && this.props.latestPeriod.year) {
-      this.generateTimePeriods();
+    componentDidMount() {
+        if (this.props.latestPeriod.year) {
+            this.generateTimePeriods();
+        }
     }
-  }
 
-  generateTimePeriods() {
-    this.setState({
-      timePeriods: FiscalYearHelper
-        .allFiscalYears(startYear, this.props.latestPeriod.year)
-        .map((int) => String(int))
-    });
-  }
+    componentDidUpdate(prevProps) {
+        if (!prevProps.latestPeriod.year && this.props.latestPeriod.year) {
+            this.generateTimePeriods();
+        }
+    }
 
-  changeTab(tab) {
-    this.updateFilter({
-      dateType: tab
-    });
-  }
+    generateTimePeriods() {
+        this.setState({
+            timePeriods: FiscalYearHelper
+                .allFiscalYears(startYear, this.props.latestPeriod.year)
+                .map((int) => String(int))
+        });
+    }
 
-  updateFilter(params) {
+    changeTab(tab) {
+        this.updateFilter({
+            dateType: tab
+        });
+    }
+
+    updateFilter(params) {
     // set the state to a clone of the filter subobject merged with the param object
-    const currentFilters = {
-      dateType: this.props.filterTimePeriodType,
-      fy: this.props.filterTimePeriodFY,
-      startDate: this.props.filterTimePeriodStart,
-      endDate: this.props.filterTimePeriodEnd
-    };
+        const currentFilters = {
+            dateType: this.props.filterTimePeriodType,
+            fy: this.props.filterTimePeriodFY,
+            startDate: this.props.filterTimePeriodStart,
+            endDate: this.props.filterTimePeriodEnd
+        };
 
-    const newFilters = Object.assign({}, currentFilters, params);
+        const newFilters = Object.assign({}, currentFilters, params);
 
-    this.props.updateTimePeriod(newFilters);
-  }
+        this.props.updateTimePeriod(newFilters);
+    }
 
-  render() {
-    return (
-      <TimePeriod
-        {...this.props}
-        latestFy={this.props.latestPeriod.year}
-        activeTab={this.props.filterTimePeriodType}
-        timePeriods={this.state.timePeriods}
-        updateFilter={this.updateFilter}
-        changeTab={this.changeTab}
-        disableDateRange />
-    );
-  }
+    render() {
+        return (
+          <TimePeriod
+            {...this.props}
+            latestFy={this.props.latestPeriod.year}
+            activeTab={this.props.filterTimePeriodType}
+            timePeriods={this.state.timePeriods}
+            updateFilter={this.updateFilter}
+            changeTab={this.changeTab}
+            disableDateRange />
+        );
+    }
 }
 
 AccountTimePeriodContainer.propTypes = propTypes;
 
 export default flowRight(
-  withLatestFy,
-  connect(
-    (state) => ({
-      filterTimePeriodType: state.account.filters.dateType,
-      filterTimePeriodFY: state.account.filters.fy,
-      filterTimePeriodStart: state.account.filters.startDate,
-      filterTimePeriodEnd: state.account.filters.endDate
-    }),
-    (dispatch) => ({
-      ...bindActionCreators(accountFilterActions, dispatch)
-    })
-  )
+    withLatestFy,
+    connect(
+        (state) => ({
+            filterTimePeriodType: state.account.filters.dateType,
+            filterTimePeriodFY: state.account.filters.fy,
+            filterTimePeriodStart: state.account.filters.startDate,
+            filterTimePeriodEnd: state.account.filters.endDate
+        }),
+        (dispatch) => ({
+            ...bindActionCreators(accountFilterActions, dispatch)
+        })
+    )
 )(AccountTimePeriodContainer);

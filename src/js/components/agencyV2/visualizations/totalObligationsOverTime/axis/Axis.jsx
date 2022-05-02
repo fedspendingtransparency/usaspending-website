@@ -9,29 +9,29 @@ import XAxis from './XAxis';
 import YAxis from './YAxis';
 
 const propTypes = {
-  padding: PropTypes.shape({
-    right: PropTypes.number,
-    left: PropTypes.number,
-    top: PropTypes.number,
-    bottom: PropTypes.number
-  }),
-  width: PropTypes.number,
-  height: PropTypes.number,
-  xTicks: PropTypes.array,
-  yTicks: PropTypes.array
+    padding: PropTypes.shape({
+        right: PropTypes.number,
+        left: PropTypes.number,
+        top: PropTypes.number,
+        bottom: PropTypes.number
+    }),
+    width: PropTypes.number,
+    height: PropTypes.number,
+    xTicks: PropTypes.array,
+    yTicks: PropTypes.array
 };
 
 const Axis = ({
-  padding = {
-    right: 0,
-    left: 0,
-    top: 0,
-    bottom: 0
-  },
-  width = 0,
-  height = 0,
-  xTicks = [],
-  yTicks = []
+    padding = {
+        right: 0,
+        left: 0,
+        top: 0,
+        bottom: 0
+    },
+    width = 0,
+    height = 0,
+    xTicks = [],
+    yTicks = []
 }) => (
   <g className="total-obligations-over-time-svg-axis">
     <XAxis

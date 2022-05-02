@@ -11,98 +11,98 @@ import { isCancel } from 'axios';
 import * as AgencyHelper from 'helpers/agencyHelper';
 
 import ObligatedVisualization from
-  'components/agency/visualizations/obligated/ObligatedVisualization';
+    'components/agency/visualizations/obligated/ObligatedVisualization';
 
 const propTypes = {
-  id: PropTypes.string,
-  activeFY: PropTypes.string,
-  agencyName: PropTypes.string,
-  asOfDate: PropTypes.string
+    id: PropTypes.string,
+    activeFY: PropTypes.string,
+    agencyName: PropTypes.string,
+    asOfDate: PropTypes.string
 };
 
 export class ObligatedContainer extends React.PureComponent {
-  constructor(props) {
-    super(props);
+    constructor(props) {
+        super(props);
 
-    this.state = {
-      inFlight: true,
-      obligatedAmount: 0,
-      budgetAuthority: 0,
-      outlay: 0
-    };
+        this.state = {
+            inFlight: true,
+            obligatedAmount: 0,
+            budgetAuthority: 0,
+            outlay: 0
+        };
 
-    this.loadData = this.loadData.bind(this);
-  }
-
-  componentDidMount() {
-    if (this.props.activeFY && this.props.id) {
-      this.loadData(this.props.id, this.props.activeFY);
+        this.loadData = this.loadData.bind(this);
     }
-  }
 
-  componentDidUpdate(prevProps) {
-    if (
-      (this.props.id !== prevProps.id || this.props.activeFY !== prevProps.activeFY) &&
+    componentDidMount() {
+        if (this.props.activeFY && this.props.id) {
+            this.loadData(this.props.id, this.props.activeFY);
+        }
+    }
+
+    componentDidUpdate(prevProps) {
+        if (
+            (this.props.id !== prevProps.id || this.props.activeFY !== prevProps.activeFY) &&
             this.props.id && this.props.activeFY
-    ) {
-      this.loadData(this.props.id, this.props.activeFY);
-    }
-  }
-
-  loadData(agencyID, activeFY) {
-    if (this.searchRequest) {
-      // A request is currently in-flight, cancel it
-      this.searchRequest.cancel();
+        ) {
+            this.loadData(this.props.id, this.props.activeFY);
+        }
     }
 
-    this.setState({
-      inFlight: true
-    });
-
-    this.searchRequest = AgencyHelper.fetchAgencyObligatedAmounts({
-      fiscal_year: activeFY,
-      funding_agency_id: agencyID
-    });
-
-    this.searchRequest.promise
-      .then((res) => {
-        this.searchRequest = null;
+    loadData(agencyID, activeFY) {
+        if (this.searchRequest) {
+            // A request is currently in-flight, cancel it
+            this.searchRequest.cancel();
+        }
 
         this.setState({
-          obligatedAmount: parseFloat(res.data.results[0].obligated_amount),
-          budgetAuthority: parseFloat(res.data.results[0].budget_authority_amount),
-          outlay: parseFloat(res.data.results[0].outlay_amount)
+            inFlight: true
         });
-      })
-      .catch((err) => {
-        if (!isCancel(err)) {
-          console.log(err);
 
-          this.setState({
-            inFlight: false
-          });
-          this.searchRequest = null;
-        }
-      });
-  }
+        this.searchRequest = AgencyHelper.fetchAgencyObligatedAmounts({
+            fiscal_year: activeFY,
+            funding_agency_id: agencyID
+        });
 
-  render() {
-    return (
-      <ObligatedVisualization
-        activeFY={this.props.activeFY}
-        agencyName={this.props.agencyName}
-        obligatedAmount={this.state.obligatedAmount}
-        budgetAuthority={this.state.budgetAuthority}
-        outlay={this.state.outlay}
-        asOfDate={this.props.asOfDate} />
-    );
-  }
+        this.searchRequest.promise
+            .then((res) => {
+                this.searchRequest = null;
+
+                this.setState({
+                    obligatedAmount: parseFloat(res.data.results[0].obligated_amount),
+                    budgetAuthority: parseFloat(res.data.results[0].budget_authority_amount),
+                    outlay: parseFloat(res.data.results[0].outlay_amount)
+                });
+            })
+            .catch((err) => {
+                if (!isCancel(err)) {
+                    console.log(err);
+
+                    this.setState({
+                        inFlight: false
+                    });
+                    this.searchRequest = null;
+                }
+            });
+    }
+
+    render() {
+        return (
+          <ObligatedVisualization
+            activeFY={this.props.activeFY}
+            agencyName={this.props.agencyName}
+            obligatedAmount={this.state.obligatedAmount}
+            budgetAuthority={this.state.budgetAuthority}
+            outlay={this.state.outlay}
+            asOfDate={this.props.asOfDate} />
+        );
+    }
 }
 
 export default connect(
-  (state) => ({
-    agency: state.agency
-  })
+    (state) => ({
+        agency: state.agency
+    })
 )(ObligatedContainer);
 
 ObligatedContainer.propTypes = propTypes;

@@ -9,45 +9,45 @@ import PropTypes from 'prop-types';
 import BaseTopFilterGroup from './BaseTopFilterGroup';
 
 const propTypes = {
-  filter: PropTypes.object,
-  redux: PropTypes.object,
-  compressed: PropTypes.bool
+    filter: PropTypes.object,
+    redux: PropTypes.object,
+    compressed: PropTypes.bool
 };
 
 export default class KeywordFilterGroup extends React.Component {
-  constructor(props) {
-    super(props);
+    constructor(props) {
+        super(props);
 
-    this.removeFilter = this.removeFilter.bind(this);
-  }
+        this.removeFilter = this.removeFilter.bind(this);
+    }
 
-  removeFilter() {
+    removeFilter() {
     // remove a single filter item
-    this.props.redux.clearFilterType('keyword');
-  }
+        this.props.redux.clearFilterType('keyword');
+    }
 
-  generateTags() {
+    generateTags() {
     // check to see if a keyword is provided
-    const tags = this.props.filter.values.map((value) => (
-      {
-        value: `${value}`,
-        title: `${value}`,
-        removeFilter: this.removeFilter
-      }
-    ));
+        const tags = this.props.filter.values.map((value) => (
+            {
+                value: `${value}`,
+                title: `${value}`,
+                removeFilter: this.removeFilter
+            }
+        ));
 
-    return tags;
-  }
+        return tags;
+    }
 
-  render() {
-    const tags = this.generateTags();
+    render() {
+        const tags = this.generateTags();
 
-    return (<BaseTopFilterGroup
-      tags={tags}
-      filter={this.props.filter}
-      clearFilterGroup={this.removeFilter}
-      compressed={this.props.compressed} />);
-  }
+        return (<BaseTopFilterGroup
+          tags={tags}
+          filter={this.props.filter}
+          clearFilterGroup={this.removeFilter}
+          compressed={this.props.compressed} />);
+    }
 }
 
 KeywordFilterGroup.propTypes = propTypes;

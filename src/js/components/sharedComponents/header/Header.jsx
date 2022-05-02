@@ -9,63 +9,76 @@ import UEIInfoBanner from './UEIInfoBanner';
 import NavBar from './NavBar';
 
 const clickedHeaderLink = (route) => {
-  Analytics.event({
-    category: 'Header - Link',
-    action: route
-  });
+    Analytics.event({
+        category: 'Header - Link',
+        action: route
+    });
 };
 
 export default class Header extends React.Component {
-  constructor(props) {
-    super(props);
+    constructor(props) {
+        super(props);
 
-    // bind functions
-    this.skippedNav = this.skippedNav.bind(this);
-  }
-
-  skippedNav(e) {
-    // don't update the URL due to potential React Router conflicts
-    e.preventDefault();
-    // scroll to the main-content id
-    const mainContent = document.getElementById('main-content');
-    const mainFocus = document.querySelector('#main-content h1');
-    const yPos = mainContent.getBoundingClientRect().top;
-    window.scrollTo(0, yPos);
-    // focus on the element
-    if (mainFocus) {
-      mainFocus.focus();
+        // bind functions
+        this.skippedNav = this.skippedNav.bind(this);
     }
-  }
 
-  render() {
-    const infoBanner = (
-      <UEIInfoBanner showModal={this.props.showModal} />
-    );
+    skippedNav(e) {
+    // don't update the URL due to potential React Router conflicts
+        e.preventDefault();
+        // scroll to the main-content id
+        const mainContent = document.getElementById('main-content');
+        const mainFocus = document.querySelector('#main-content h1');
+        const yPos = mainContent.getBoundingClientRect().top;
+        window.scrollTo(0, yPos);
+        // focus on the element
+        if (mainFocus) {
+            mainFocus.focus();
+        }
+    }
 
-    return (
-      <div className="site-header">
-        <a
-          href="#main-content"
-          className="skip-nav"
-          onClick={this.skippedNav}>
+    render() {
+        const infoBanner = (
+          <UEIInfoBanner showModal={this.props.showModal} />
+        );
+
+        return (
+          <div className="site-header">
+            <a
+              href="#main-content"
+              className="skip-nav"
+              onClick={this.skippedNav}>
                         Skip to main content
-        </a>
-          <header
-            className="site-header__wrapper"
-            aria-label="Site header">
-              <div
-                className="official-banner"
-                role="note">
-                  <div className="official-banner__wrapper">
-                    <ul
-                          className="official-banner__site-list">
-                            <li>
-                              <Link
-                                className="official-banner__site-link"
-                                to="/"
-                                onClick={clickedHeaderLink.bind(null, 'https:/www.usaspending.gov')}>
+            </a>
+              <header
+                className="site-header__wrapper"
+                aria-label="Site header">
+                  <div
+                    className="official-banner"
+                    role="note">
+                      <div className="official-banner__wrapper">
+                        <ul
+                      className="official-banner__site-list">
+                        <li>
+                          <Link
+                            className="official-banner__site-link"
+                            to="/"
+                            onClick={clickedHeaderLink.bind(null, 'https:/www.usaspending.gov')}>
                                         USAspending.gov
-                              </Link>
+                          </Link>
+                        </li>
+                          <li
+                            className="official-banner__site-item official-banner__site-item_spacer"
+                            aria-hidden="true">
+                                    |
+                          </li>
+                            <li>
+                              <a
+                                className="official-banner__site-link"
+                                href="https://datalab.usaspending.gov"
+                                onClick={clickedHeaderLink.bind(null, 'https://datalab.usaspending.gov')}>
+                                        Data Lab
+                              </a>
                             </li>
                               <li
                                 className="official-banner__site-item official-banner__site-item_spacer"
@@ -73,19 +86,6 @@ export default class Header extends React.Component {
                                     |
                               </li>
                                 <li>
-                                  <a
-                                    className="official-banner__site-link"
-                                    href="https://datalab.usaspending.gov"
-                                    onClick={clickedHeaderLink.bind(null, 'https://datalab.usaspending.gov')}>
-                                        Data Lab
-                                  </a>
-                                </li>
-                                  <li
-                                    className="official-banner__site-item official-banner__site-item_spacer"
-                                    aria-hidden="true">
-                                    |
-                                  </li>
-                                    <li>
                                       <a
                                         className="official-banner__site-link"
                                         href="http://fiscaldata.treasury.gov/"
@@ -93,28 +93,28 @@ export default class Header extends React.Component {
                                         Fiscal Data
                                       </a>
                                     </li>
-                        </ul>
-                          <div className="official-banner__message">
-                            <p className="official-banner__text">
+                    </ul>
+                      <div className="official-banner__message">
+                        <p className="official-banner__text">
                                     An official website of the U.S. government
-                            </p>
-                              <img
-                                className="official-banner__flag"
-                                src="img/us_flag_small.png"
-                                alt="U.S. flag" />
-                          </div>
+                        </p>
+                          <img
+                            className="official-banner__flag"
+                            src="img/us_flag_small.png"
+                            alt="U.S. flag" />
+                      </div>
+                      </div>
                   </div>
-              </div>
-            {infoBanner}
-              <NavBar />
-          </header>
-            <GlossaryContainer />
-              <GlobalModalContainer />
-      </div>
-    );
-  }
+                {infoBanner}
+                  <NavBar />
+              </header>
+                <GlossaryContainer />
+                  <GlobalModalContainer />
+          </div>
+        );
+    }
 }
 
 Header.propTypes = {
-  showModal: PropTypes.func
+    showModal: PropTypes.func
 };

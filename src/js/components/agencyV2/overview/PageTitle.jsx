@@ -10,41 +10,41 @@ import { TooltipWrapper } from 'data-transparency-ui';
 import CovidTooltip from './CovidTooltip';
 
 const propTypes = {
-  fy: PropTypes.string
+    fy: PropTypes.string
 };
 
 const PageTitle = ({
-  fy
+    fy
 }) => {
-  const {
-    name,
-    logo,
-    covidDefCodes
-  } = useSelector((state) => state.agencyV2.overview);
+    const {
+        name,
+        logo,
+        covidDefCodes
+    } = useSelector((state) => state.agencyV2.overview);
 
-  const image = logo ? (
-    <img
-      className="page-title__image"
-      src={`graphics/agency/${logo}`}
-      alt={`${name} logo`} />
-  ) : '';
-  return (
-    <div className="page-title">
-      <div className="page-title__wrapper">
-        <h2 className="page-title__name">
-          {name}&nbsp;&nbsp;
-          {name && covidDefCodes.length > 0 &&
+    const image = logo ? (
+      <img
+        className="page-title__image"
+        src={`graphics/agency/${logo}`}
+        alt={`${name} logo`} />
+    ) : '';
+    return (
+      <div className="page-title">
+        <div className="page-title__wrapper">
+          <h2 className="page-title__name">
+            {name}&nbsp;&nbsp;
+            {name && covidDefCodes.length > 0 &&
             <TooltipWrapper tooltipPosition="bottom" offsetAdjustments={{ top: 0 }} className="page-title__tooltip" tooltipComponent={<CovidTooltip fy={fy} codes={covidDefCodes} />}>
               <span className="covid-spending-flag">
                             Includes COVID-19 Spending
               </span>
             </TooltipWrapper>
                     }
-        </h2>
+          </h2>
+        </div>
+        {image}
       </div>
-      {image}
-    </div>
-  );
+    );
 };
 
 PageTitle.propTypes = propTypes;

@@ -30,81 +30,81 @@ const ExplorerDescription = () => (
 );
 
 export default class ExplorerLanding extends React.Component {
-  constructor(props) {
-    super(props);
+    constructor(props) {
+        super(props);
 
-    this.state = {
-      expanded: false
-    };
+        this.state = {
+            expanded: false
+        };
 
-    this.toggleDetail = this.toggleDetail.bind(this);
-  }
+        this.toggleDetail = this.toggleDetail.bind(this);
+    }
 
-  toggleDetail() {
-    this.setState({
-      expanded: !this.state.expanded
-    });
-  }
+    toggleDetail() {
+        this.setState({
+            expanded: !this.state.expanded
+        });
+    }
 
-  render() {
-    const expandLabel = this.state.expanded ? 'Hide' : 'Learn More';
+    render() {
+        const expandLabel = this.state.expanded ? 'Hide' : 'Learn More';
 
-    return (
-      <ExplorerWrapperPage showShareIcon>
-        <div className="explorer-landing">
-          <div className="explorer-landing__intro">
-            <h2
-              className="explorer-landing__title">
+        return (
+          <ExplorerWrapperPage showShareIcon>
+            <div className="explorer-landing">
+              <div className="explorer-landing__intro">
+                <h2
+                  className="explorer-landing__title">
                             Explore the spending landscape.
-            </h2>
-              <div className="explorer-landing__detail">
-                <div className="explorer-landing__detail-content explorer-description">
-                  <h3
-                    className="explorer-description__title">
+                </h2>
+                  <div className="explorer-landing__detail">
+                    <div className="explorer-landing__detail-content explorer-description">
+                      <h3
+                        className="explorer-description__title">
                                     The Spending Explorer makes it easy to understand the big picture of federal spending.
-                  </h3>
-                        <div className="explorer-description__animations">
-                          <TransitionGroup>
-                            {this.state.expanded && (
-                            <CSSTransition
-                              classNames="explorer-description-slide"
-                              timeout={195}
-                              exit>
-                                <ExplorerDescription />
-                            </CSSTransition>
+                      </h3>
+                    <div className="explorer-description__animations">
+                      <TransitionGroup>
+                        {this.state.expanded && (
+                        <CSSTransition
+                          classNames="explorer-description-slide"
+                          timeout={195}
+                          exit>
+                            <ExplorerDescription />
+                        </CSSTransition>
                                         )}
-                          </TransitionGroup>
-                        </div>
-                          <button
-                            className="explorer-description__expand"
-                            onClick={this.toggleDetail}>
-                            {expandLabel}
-                          </button>
-                </div>
+                      </TransitionGroup>
+                    </div>
+                      <button
+                        className="explorer-description__expand"
+                        onClick={this.toggleDetail}>
+                        {expandLabel}
+                      </button>
+                    </div>
+                  </div>
               </div>
-          </div>
-            <div className="explorer-landing__options">
-              <ExplorerLandingOption
-                icon="budget_function"
-                title="Budget Function"
-                description="See spending divided by a high level categorization based on purpose."
-                url="explorer/budget_function"
-                term="budget-function" />
+                <div className="explorer-landing__options">
                   <ExplorerLandingOption
-                    icon="agency"
-                    title="Agency"
-                    description="See spending divided by all U.S. government agencies."
-                    url="explorer/agency"
-                    term="agency" />
-                          <ExplorerLandingOption
-                            icon="object_class"
-                            title="Object Class"
-                            description="See spending grouped by the types of items and services purchased by the federal government."
-                            url="explorer/object_class"
-                            term="object-class" />
+                    icon="budget_function"
+                    title="Budget Function"
+                    description="See spending divided by a high level categorization based on purpose."
+                    url="explorer/budget_function"
+                    term="budget-function" />
+                      <ExplorerLandingOption
+                        icon="agency"
+                        title="Agency"
+                        description="See spending divided by all U.S. government agencies."
+                        url="explorer/agency"
+                        term="agency" />
+                      <ExplorerLandingOption
+                        icon="object_class"
+                        title="Object Class"
+                        description="See spending grouped by the types of items and services purchased by the federal government."
+                        url="explorer/object_class"
+                        term="object-class" />
+                </div>
             </div>
-        </div>
-      </ExplorerWrapperPage>
-    );
-  }
+          </ExplorerWrapperPage>
+        );
+    }
 }

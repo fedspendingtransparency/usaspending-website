@@ -7,19 +7,19 @@ import React from 'react';
 import PropTypes, { oneOfType } from 'prop-types';
 
 const propTypes = {
-  children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]),
-  subtitle: oneOfType([PropTypes.string, PropTypes.element]),
-  data: PropTypes.string,
-  secondaryData: PropTypes.string,
-  label: PropTypes.string
+    children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]),
+    subtitle: oneOfType([PropTypes.string, PropTypes.element]),
+    data: PropTypes.string,
+    secondaryData: PropTypes.string,
+    label: PropTypes.string
 };
 
 const VisualizationSection = ({
-  children,
-  subtitle,
-  data,
-  secondaryData,
-  label
+    children,
+    subtitle,
+    data,
+    secondaryData,
+    label
 }) => (
   <div className="visualization-section">
     <div className="visualization-section__subtitle">{subtitle}</div>

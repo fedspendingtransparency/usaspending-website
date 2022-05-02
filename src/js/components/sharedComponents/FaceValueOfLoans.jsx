@@ -8,15 +8,15 @@ import PropTypes from 'prop-types';
 import { TooltipWrapper } from 'data-transparency-ui';
 
 const propTypes = {
-  amount: PropTypes.string.isRequired,
-  heading: PropTypes.string.isRequired,
-  headingClass: PropTypes.string.isRequired,
-  transactions: PropTypes.string.isRequired,
-  tooltipComponent: PropTypes.element,
-  tooltipClasses: PropTypes.string,
-  tooltipPosition: PropTypes.string,
-  tooltipIcon: PropTypes.string,
-  primeAwards: PropTypes.bool
+    amount: PropTypes.string.isRequired,
+    heading: PropTypes.string.isRequired,
+    headingClass: PropTypes.string.isRequired,
+    transactions: PropTypes.string.isRequired,
+    tooltipComponent: PropTypes.element,
+    tooltipClasses: PropTypes.string,
+    tooltipPosition: PropTypes.string,
+    tooltipIcon: PropTypes.string,
+    primeAwards: PropTypes.bool
 };
 
 const FaceValueOfLoans = (props) => (

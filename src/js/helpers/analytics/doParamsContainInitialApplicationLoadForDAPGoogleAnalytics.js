@@ -5,8 +5,8 @@
 
 
 const doParamsContainInitialApplicationLoadForDAPGoogleAnalytics = (params) => {
-  if (!Array.isArray(params)) return false;
-  return params.indexOf('isInitialApplicationLoadForDAPGoogleAnalytics') !== -1;
+    if (!Array.isArray(params)) return false;
+    return params.indexOf('isInitialApplicationLoadForDAPGoogleAnalytics') !== -1;
 };
 
 export default doParamsContainInitialApplicationLoadForDAPGoogleAnalytics;

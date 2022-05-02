@@ -11,8 +11,8 @@ import BarChartStacked from './chart/BarChartStacked';
 import TimeTooltip from './TimeTooltip';
 
 const defaultProps = {
-  width: 0,
-  height: 280
+    width: 0,
+    height: 280
 };
 
 /**
@@ -27,129 +27,129 @@ const defaultProps = {
 /* eslint-disable react/no-unused-prop-types */
 // allow unused prop types. they are passed to child components, but documented here
 const propTypes = {
-  width: PropTypes.number,
-  height: PropTypes.number,
-  data: PropTypes.object,
-  loading: PropTypes.bool,
-  hasFilteredObligated: PropTypes.bool
+    width: PropTypes.number,
+    height: PropTypes.number,
+    data: PropTypes.object,
+    loading: PropTypes.bool,
+    hasFilteredObligated: PropTypes.bool
 };
 /* eslint-enable react/no-unused-prop-types */
 
 export default class TimeVisualization extends React.Component {
-  constructor(props) {
-    super(props);
+    constructor(props) {
+        super(props);
 
-    this.state = {
-      showTooltip: false,
-      tooltipData: null,
-      tooltipX: 0,
-      tooltipY: 0
-    };
+        this.state = {
+            showTooltip: false,
+            tooltipData: null,
+            tooltipX: 0,
+            tooltipY: 0
+        };
 
-    this.showTooltip = this.showTooltip.bind(this);
-    this.hideTooltip = this.hideTooltip.bind(this);
-    this.toggleTooltip = this.toggleTooltip.bind(this);
-  }
-
-  showTooltip(data) {
-    this.setState({
-      showTooltip: true,
-      tooltipData: data
-    });
-  }
-
-  hideTooltip() {
-    this.setState({
-      showTooltip: false
-    });
-  }
-
-  toggleTooltip(data) {
-    if (this.state.showTooltip) {
-      this.hideTooltip();
+        this.showTooltip = this.showTooltip.bind(this);
+        this.hideTooltip = this.hideTooltip.bind(this);
+        this.toggleTooltip = this.toggleTooltip.bind(this);
     }
-    else {
-      this.showTooltip(data);
+
+    showTooltip(data) {
+        this.setState({
+            showTooltip: true,
+            tooltipData: data
+        });
     }
-  }
 
-  render() {
-    let chart = (<ChartMessage message="No data to display" />);
-    let legend = [];
+    hideTooltip() {
+        this.setState({
+            showTooltip: false
+        });
+    }
 
-    if (this.props.hasFilteredObligated) {
-      legend = [
-        {
-          color: '#fba302',
-          label: 'Outlay',
-          offset: 0
-        },
-        {
-          color: '#2c4452',
-          label: 'Obligations Incurred (Filtered)',
-          offset: 84
-        },
-        {
-          color: '#5c7480',
-          label: 'Obligations Incurred (Other)',
-          offset: 262
-        },
-        {
-          color: '#a0bac4',
-          label: 'Unobligated Balance',
-          offset: 450
+    toggleTooltip(data) {
+        if (this.state.showTooltip) {
+            this.hideTooltip();
         }
-      ];
-    }
-    else {
-      legend = [
-        {
-          color: '#fba302',
-          label: 'Outlay',
-          offset: 0
-        },
-        {
-          color: '#5c7480',
-          label: 'Obligations Incurred',
-          offset: 84
-        },
-        {
-          color: '#a0bac4',
-          label: 'Unobligated Balance',
-          offset: 220
+        else {
+            this.showTooltip(data);
         }
-      ];
     }
 
-    if (this.props.loading) {
-      // API request is still pending
-      chart = (<ChartMessage message="Loading data..." />);
-    }
-    else if (this.props.data.xSeries.length > 0) {
-      // only mount the chart component if there is data to display
-      chart = (<BarChartStacked
-        width={this.props.width}
-        height={this.props.height}
-        data={this.props.data}
-        legend={legend}
-        showTooltip={this.showTooltip}
-        hideTooltip={this.hideTooltip}
-        toggleTooltip={this.toggleTooltip} />);
-    }
+    render() {
+        let chart = (<ChartMessage message="No data to display" />);
+        let legend = [];
 
-    let tooltip = null;
-    if (this.state.showTooltip) {
-      tooltip = (<TimeTooltip
-        {...this.state.tooltipData} />);
-    }
+        if (this.props.hasFilteredObligated) {
+            legend = [
+                {
+                    color: '#fba302',
+                    label: 'Outlay',
+                    offset: 0
+                },
+                {
+                    color: '#2c4452',
+                    label: 'Obligations Incurred (Filtered)',
+                    offset: 84
+                },
+                {
+                    color: '#5c7480',
+                    label: 'Obligations Incurred (Other)',
+                    offset: 262
+                },
+                {
+                    color: '#a0bac4',
+                    label: 'Unobligated Balance',
+                    offset: 450
+                }
+            ];
+        }
+        else {
+            legend = [
+                {
+                    color: '#fba302',
+                    label: 'Outlay',
+                    offset: 0
+                },
+                {
+                    color: '#5c7480',
+                    label: 'Obligations Incurred',
+                    offset: 84
+                },
+                {
+                    color: '#a0bac4',
+                    label: 'Unobligated Balance',
+                    offset: 220
+                }
+            ];
+        }
 
-    return (
-      <div className="results-visualization-time-container">
-        {tooltip}
-        {chart}
-      </div>
-    );
-  }
+        if (this.props.loading) {
+            // API request is still pending
+            chart = (<ChartMessage message="Loading data..." />);
+        }
+        else if (this.props.data.xSeries.length > 0) {
+            // only mount the chart component if there is data to display
+            chart = (<BarChartStacked
+              width={this.props.width}
+              height={this.props.height}
+              data={this.props.data}
+              legend={legend}
+              showTooltip={this.showTooltip}
+              hideTooltip={this.hideTooltip}
+              toggleTooltip={this.toggleTooltip} />);
+        }
+
+        let tooltip = null;
+        if (this.state.showTooltip) {
+            tooltip = (<TimeTooltip
+              {...this.state.tooltipData} />);
+        }
+
+        return (
+          <div className="results-visualization-time-container">
+            {tooltip}
+            {chart}
+          </div>
+        );
+    }
 }
 
 TimeVisualization.propTypes = propTypes;

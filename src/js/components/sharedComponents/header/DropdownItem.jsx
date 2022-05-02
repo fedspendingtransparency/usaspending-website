@@ -13,100 +13,100 @@ import { getNewUrlForGlossary } from 'helpers/glossaryHelper';
 import DropdownComingSoon from './DropdownComingSoon';
 
 const propTypes = {
-  url: PropTypes.oneOfType([PropTypes.string, PropTypes.shape({ pathname: PropTypes.string, search: PropTypes.string })]),
-  label: PropTypes.node,
-  enabled: PropTypes.bool,
-  shouldOpenNewTab: PropTypes.bool,
-  isNewTab: PropTypes.bool,
-  isFirst: PropTypes.bool,
-  appendToExistingUrl: PropTypes.bool
+    url: PropTypes.oneOfType([PropTypes.string, PropTypes.shape({ pathname: PropTypes.string, search: PropTypes.string })]),
+    label: PropTypes.node,
+    enabled: PropTypes.bool,
+    shouldOpenNewTab: PropTypes.bool,
+    isNewTab: PropTypes.bool,
+    isFirst: PropTypes.bool,
+    appendToExistingUrl: PropTypes.bool
 };
 
 const clickedHeaderLink = (route) => {
-  Analytics.event({
-    category: 'Header - Link',
-    action: route
-  });
+    Analytics.event({
+        category: 'Header - Link',
+        action: route
+    });
 };
 
 const DropdownItem = ({
-  url = '',
-  label,
-  enabled = true,
-  shouldOpenNewTab = false,
-  isFirst = false,
-  isNewTab = false,
-  appendToExistingUrl = false
+    url = '',
+    label,
+    enabled = true,
+    shouldOpenNewTab = false,
+    isFirst = false,
+    isNewTab = false,
+    appendToExistingUrl = false
 }) => {
-  const { pathname, search } = useLocation();
-  const newUrl = appendToExistingUrl
-    ? getNewUrlForGlossary(pathname, url, search)
-    : url;
+    const { pathname, search } = useLocation();
+    const newUrl = appendToExistingUrl
+        ? getNewUrlForGlossary(pathname, url, search)
+        : url;
 
-  let className = 'nav-children__link_disabled';
-  let comingSoon = (
-    <div className="nav-children__coming-soon">
-      <DropdownComingSoon />
-    </div>
-  );
+    let className = 'nav-children__link_disabled';
+    let comingSoon = (
+      <div className="nav-children__coming-soon">
+        <DropdownComingSoon />
+      </div>
+    );
 
-  const newLabel = isNewTab && enabled
-    ? (
-      <>
-        {label}
-          <span className="new-badge dropdown-item"> NEW</span>
-      </>
-    )
-    : null;
+    const newLabel = isNewTab && enabled
+        ? (
+            <>
+              {label}
+                  <span className="new-badge dropdown-item"> NEW</span>
+            </>
+        )
+        : null;
 
-  if (enabled) {
-    className = '';
-    comingSoon = null;
-  }
+    if (enabled) {
+        className = '';
+        comingSoon = null;
+    }
 
-  const newTabProps = {};
-  if (shouldOpenNewTab) {
-    newTabProps.target = '_blank';
-    newTabProps.rel = 'noopener noreferrer';
-  }
+    const newTabProps = {};
+    if (shouldOpenNewTab) {
+        newTabProps.target = '_blank';
+        newTabProps.rel = 'noopener noreferrer';
+    }
 
-  let link = (
-    <Link
-      className={`nav-children__link ${className}`}
-      to={newUrl}
-      onClick={clickedHeaderLink.bind(null, `${newUrl}`)}
-      {...newTabProps}>
-      {!newLabel && label}
-      {newLabel}
-      {comingSoon}
-    </Link>
-  );
-
-  if (typeof url === 'string' && url.includes('http')) {
-    link = (
-      <a
+    let link = (
+      <Link
         className={`nav-children__link ${className}`}
-        href={newUrl}
+        to={newUrl}
         onClick={clickedHeaderLink.bind(null, `${newUrl}`)}
         {...newTabProps}>
         {!newLabel && label}
         {newLabel}
         {comingSoon}
-      </a>
+      </Link>
     );
-  }
 
-  let firstClass = '';
-  if (isFirst) {
-    firstClass = 'nav-children__list-separator_hidden';
-  }
+    if (typeof url === 'string' && url.includes('http')) {
+        link = (
+          <a
+            className={`nav-children__link ${className}`}
+            href={newUrl}
+            onClick={clickedHeaderLink.bind(null, `${newUrl}`)}
+            {...newTabProps}>
+            {!newLabel && label}
+            {newLabel}
+            {comingSoon}
+          </a>
+        );
+    }
 
-  return (
-    <li className="nav-children__list-item">
-      <hr className={`nav-children__list-separator ${firstClass}`} />
-      {link}
-    </li>
-  );
+    let firstClass = '';
+    if (isFirst) {
+        firstClass = 'nav-children__list-separator_hidden';
+    }
+
+    return (
+      <li className="nav-children__list-item">
+        <hr className={`nav-children__list-separator ${firstClass}`} />
+        {link}
+      </li>
+    );
 };
 
 DropdownItem.propTypes = propTypes;

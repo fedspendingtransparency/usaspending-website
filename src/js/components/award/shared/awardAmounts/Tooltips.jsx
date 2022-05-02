@@ -2,18 +2,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
-  total: PropTypes.string,
-  count: PropTypes.number
+    total: PropTypes.string,
+    count: PropTypes.number
 };
 
 const totalPropTypes = {
-  total: PropTypes.string
+    total: PropTypes.string
 };
 
 const fileCProps = {
-  total: PropTypes.string,
-  awardType: PropTypes.string,
-  title: PropTypes.string
+    total: PropTypes.string,
+    awardType: PropTypes.string,
+    title: PropTypes.string
 };
 
 export const FileCOutlayTooltip = ({ total, awardType, title = "COVID-19 Outlayed Amount" }) => (
@@ -225,8 +225,8 @@ FaceValueTooltip.propTypes = totalPropTypes;
 
 // IDVs:
 export const CombinedObligatedAmounts = ({
-  total,
-  count
+    total,
+    count
 }) => (
   <div className="award-amounts-tt">
     <h4 className="tooltip__title">Combined Obligated Amounts</h4>
@@ -244,13 +244,13 @@ export const CombinedObligatedAmounts = ({
 );
 
 CombinedObligatedAmounts.propTypes = {
-  total: PropTypes.string,
-  count: PropTypes.number
+    total: PropTypes.string,
+    count: PropTypes.number
 };
 
 export const CombinedCurrentAmounts = ({
-  total,
-  count
+    total,
+    count
 }) => (
   <div className="award-amounts-tt">
     <h4 className="tooltip__title">Combined Current Award Amounts</h4>
@@ -268,13 +268,13 @@ export const CombinedCurrentAmounts = ({
 );
 
 CombinedCurrentAmounts.propTypes = {
-  total: PropTypes.string,
-  count: PropTypes.number
+    total: PropTypes.string,
+    count: PropTypes.number
 };
 
 export const CombinedPotentialAmounts = ({
-  total,
-  count
+    total,
+    count
 }) => (
   <div className="award-amounts-tt">
     <h4 className="tooltip__title">Combined Potential Award Amounts</h4>
@@ -290,13 +290,13 @@ export const CombinedPotentialAmounts = ({
 );
 
 CombinedPotentialAmounts.propTypes = {
-  total: PropTypes.string,
-  count: PropTypes.number
+    total: PropTypes.string,
+    count: PropTypes.number
 };
 
 export const CombinedExceedsPotentialAmounts = ({
-  total,
-  count
+    total,
+    count
 }) => (
   <div className="award-amounts-tt">
     <h4 className="tooltip__title">Exceeds Combined Potential Award Amounts</h4>
@@ -309,13 +309,13 @@ export const CombinedExceedsPotentialAmounts = ({
 );
 
 CombinedExceedsPotentialAmounts.propTypes = {
-  total: PropTypes.string,
-  count: PropTypes.number
+    total: PropTypes.string,
+    count: PropTypes.number
 };
 
 export const CombinedExceedsCurrentAmounts = ({
-  total,
-  count
+    total,
+    count
 }) => (
   <div className="award-amounts-tt">
     <h4 className="tooltip__title">Exceeds Combined Current Award Amount</h4>
@@ -328,8 +328,8 @@ export const CombinedExceedsCurrentAmounts = ({
 );
 
 CombinedExceedsCurrentAmounts.propTypes = {
-  total: PropTypes.string,
-  count: PropTypes.number
+    total: PropTypes.string,
+    count: PropTypes.number
 };
 
 ObligatedAmountTooltip.propTypes = propTypes;
@@ -339,116 +339,116 @@ FileCObligatedTooltip.propTypes = fileCProps;
 FileCOutlayTooltip.propTypes = fileCProps;
 
 export const getTooltipPropsByAwardTypeAndSpendingCategory = (type, category, data = {}) => {
-  const map = {
-    idv: {
-      obligated: {
-        offsetAdjustments: { top: 0 },
-        tooltipComponent: <CombinedObligatedAmounts total={data.totalObligationFormatted} count={data.childAwardCount} />
-      },
-      current: {
-        offsetAdjustments: { top: 0 },
-        tooltipComponent: <CombinedCurrentAmounts total={data.baseExercisedOptionsFormatted} count={data.childAwardCount} />
-      },
-      potential: {
-        offsetAdjustments: { top: 0 },
-        tooltipComponent: <CombinedPotentialAmounts total={data.baseAndAllOptionsFormatted} count={data.childAwardCount} />
-      },
-      exceedsCurrent: {
-        offsetAdjustments: { top: 0 },
-        tooltipComponent: <CombinedExceedsCurrentAmounts total={data.overspendingFormatted} count={data.childAwardCount} />
-      },
-      exceedsPotential: {
-        offsetAdjustments: { top: 0 },
-        tooltipComponent: <CombinedExceedsPotentialAmounts total={data.extremeOverspendingFormatted} count={data.childAwardCount} />
-      },
-      fileCObligated: {
-        offsetAdjustments: { top: 0 },
-        tooltipComponent: <FileCObligatedTooltip total={data.fileCObligatedFormatted} awardType="idv" />
-      },
-      fileCOutlay: {
-        offsetAdjustments: { top: 0 },
-        tooltipComponent: <FileCOutlayTooltip total={data.fileCOutlayFormatted} awardType="idv" />
-      }
-    },
-    contract: {
-      fileCOutlay: {
-        offsetAdjustments: { top: 0 },
-        tooltipComponent: <FileCOutlayTooltip total={data.fileCOutlayFormatted} awardType="contract" />
-      },
-      fileCObligated: {
-        offsetAdjustments: { top: 0 },
-        tooltipComponent: <FileCObligatedTooltip total={data.fileCObligatedFormatted} awardType="contract" />
-      },
-      obligated: {
-        offsetAdjustments: { top: 0 },
-        tooltipComponent: <ObligatedAmountTooltip total={data.totalObligationFormatted} />
-      },
-      current: {
-        offsetAdjustments: { top: 0 },
-        tooltipComponent: <CurrentAmountTooltip total={data.baseExercisedOptionsFormatted} />
-      },
-      potential: {
-        offsetAdjustments: { top: 0 },
-        tooltipComponent: <PotentialAmountTooltip total={data.baseAndAllOptionsFormatted} />
-      },
-      exceedsCurrent: {
-        offsetAdjustments: { top: 0 },
-        tooltipComponent: <ExceedsCurrentAmountTooltip total={data.overspendingFormatted} />
-      },
-      exceedsPotential: {
-        offsetAdjustments: { top: 0 },
-        tooltipComponent: <ExceedsPotentialAmountTooltip total={data.extremeOverspendingFormatted} />
-      }
-    },
-    loan: {
-      subsidy: {
-        offsetAdjustments: { top: 0 },
-        tooltipComponent: <SubsidyTooltip total={data.subsidyFormatted} />
-      },
-      faceValue: {
-        offsetAdjustments: { top: -7 },
-        tooltipComponent: <FaceValueTooltip total={data.faceValueFormatted} />
-      },
-      fileCObligated: {
-        offsetAdjustments: { top: 0 },
-        tooltipComponent: <FileCObligatedTooltip total={data.fileCObligatedFormatted} awardType="loan" />
-      },
-      fileCOutlay: {
-        offsetAdjustments: { top: 0 },
-        tooltipComponent: <FileCOutlayTooltip total={data.fileCOutlayFormatted} awardType="loan" />
-      }
-    },
-    asst: {
-      obligated: {
-        offsetAdjustments: { top: -7 },
-        tooltipComponent: <ObligatedAmountTooltipAsst total={data.totalObligationFormatted} />
-      },
-      nonFederalFunding: {
-        offsetAdjustments: { top: -10, right: 0 },
-        tooltipComponent: <NonFederalFundingTooltip total={data.nonFederalFundingFormatted} />
-      },
-      totalFunding: {
-        offsetAdjustments: { top: 0 },
-        tooltipComponent: <TotalFundingTooltip total={data.totalFundingFormatted} />
-      },
-      fileCObligated: {
-        offsetAdjustments: { top: 0 },
-        tooltipComponent: <FileCObligatedTooltip total={data.fileCObligatedFormatted} awardType="asst" />
-      },
-      fileCOutlay: {
-        offsetAdjustments: { top: 0 },
-        tooltipComponent: <FileCOutlayTooltip total={data.fileCOutlayFormatted} awardType="asst" />
-      }
-    }
-  };
-  if (Object.keys(map).includes(type)) {
-    return {
-      className: 'award-amounts-tt__wrapper',
-      ...map[type][category]
+    const map = {
+        idv: {
+            obligated: {
+                offsetAdjustments: { top: 0 },
+                tooltipComponent: <CombinedObligatedAmounts total={data.totalObligationFormatted} count={data.childAwardCount} />
+            },
+            current: {
+                offsetAdjustments: { top: 0 },
+                tooltipComponent: <CombinedCurrentAmounts total={data.baseExercisedOptionsFormatted} count={data.childAwardCount} />
+            },
+            potential: {
+                offsetAdjustments: { top: 0 },
+                tooltipComponent: <CombinedPotentialAmounts total={data.baseAndAllOptionsFormatted} count={data.childAwardCount} />
+            },
+            exceedsCurrent: {
+                offsetAdjustments: { top: 0 },
+                tooltipComponent: <CombinedExceedsCurrentAmounts total={data.overspendingFormatted} count={data.childAwardCount} />
+            },
+            exceedsPotential: {
+                offsetAdjustments: { top: 0 },
+                tooltipComponent: <CombinedExceedsPotentialAmounts total={data.extremeOverspendingFormatted} count={data.childAwardCount} />
+            },
+            fileCObligated: {
+                offsetAdjustments: { top: 0 },
+                tooltipComponent: <FileCObligatedTooltip total={data.fileCObligatedFormatted} awardType="idv" />
+            },
+            fileCOutlay: {
+                offsetAdjustments: { top: 0 },
+                tooltipComponent: <FileCOutlayTooltip total={data.fileCOutlayFormatted} awardType="idv" />
+            }
+        },
+        contract: {
+            fileCOutlay: {
+                offsetAdjustments: { top: 0 },
+                tooltipComponent: <FileCOutlayTooltip total={data.fileCOutlayFormatted} awardType="contract" />
+            },
+            fileCObligated: {
+                offsetAdjustments: { top: 0 },
+                tooltipComponent: <FileCObligatedTooltip total={data.fileCObligatedFormatted} awardType="contract" />
+            },
+            obligated: {
+                offsetAdjustments: { top: 0 },
+                tooltipComponent: <ObligatedAmountTooltip total={data.totalObligationFormatted} />
+            },
+            current: {
+                offsetAdjustments: { top: 0 },
+                tooltipComponent: <CurrentAmountTooltip total={data.baseExercisedOptionsFormatted} />
+            },
+            potential: {
+                offsetAdjustments: { top: 0 },
+                tooltipComponent: <PotentialAmountTooltip total={data.baseAndAllOptionsFormatted} />
+            },
+            exceedsCurrent: {
+                offsetAdjustments: { top: 0 },
+                tooltipComponent: <ExceedsCurrentAmountTooltip total={data.overspendingFormatted} />
+            },
+            exceedsPotential: {
+                offsetAdjustments: { top: 0 },
+                tooltipComponent: <ExceedsPotentialAmountTooltip total={data.extremeOverspendingFormatted} />
+            }
+        },
+        loan: {
+            subsidy: {
+                offsetAdjustments: { top: 0 },
+                tooltipComponent: <SubsidyTooltip total={data.subsidyFormatted} />
+            },
+            faceValue: {
+                offsetAdjustments: { top: -7 },
+                tooltipComponent: <FaceValueTooltip total={data.faceValueFormatted} />
+            },
+            fileCObligated: {
+                offsetAdjustments: { top: 0 },
+                tooltipComponent: <FileCObligatedTooltip total={data.fileCObligatedFormatted} awardType="loan" />
+            },
+            fileCOutlay: {
+                offsetAdjustments: { top: 0 },
+                tooltipComponent: <FileCOutlayTooltip total={data.fileCOutlayFormatted} awardType="loan" />
+            }
+        },
+        asst: {
+            obligated: {
+                offsetAdjustments: { top: -7 },
+                tooltipComponent: <ObligatedAmountTooltipAsst total={data.totalObligationFormatted} />
+            },
+            nonFederalFunding: {
+                offsetAdjustments: { top: -10, right: 0 },
+                tooltipComponent: <NonFederalFundingTooltip total={data.nonFederalFundingFormatted} />
+            },
+            totalFunding: {
+                offsetAdjustments: { top: 0 },
+                tooltipComponent: <TotalFundingTooltip total={data.totalFundingFormatted} />
+            },
+            fileCObligated: {
+                offsetAdjustments: { top: 0 },
+                tooltipComponent: <FileCObligatedTooltip total={data.fileCObligatedFormatted} awardType="asst" />
+            },
+            fileCOutlay: {
+                offsetAdjustments: { top: 0 },
+                tooltipComponent: <FileCOutlayTooltip total={data.fileCOutlayFormatted} awardType="asst" />
+            }
+        }
     };
-  }
-  return {
-    className: 'award-amounts-tt__wrapper',
-    ...map.asst[category]
-  };
+    if (Object.keys(map).includes(type)) {
+        return {
+            className: 'award-amounts-tt__wrapper',
+            ...map[type][category]
+        };
+    }
+    return {
+        className: 'award-amounts-tt__wrapper',
+        ...map.asst[category]
+    };
 };

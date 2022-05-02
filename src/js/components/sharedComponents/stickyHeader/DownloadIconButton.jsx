@@ -11,50 +11,50 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import DownloadHover from 'components/covid19/DownloadHover';
 
 const propTypes = {
-  onClick: PropTypes.func,
-  downloadInFlight: PropTypes.bool
+    onClick: PropTypes.func,
+    downloadInFlight: PropTypes.bool
 };
 
 const DownloadIconButton = ({ onClick, downloadInFlight }) => {
-  const [showHover, setShowHover] = useState(false);
-  const startDownload = (e) => {
-    e.preventDefault();
-    if (!downloadInFlight) {
-      onClick();
+    const [showHover, setShowHover] = useState(false);
+    const startDownload = (e) => {
+        e.preventDefault();
+        if (!downloadInFlight) {
+            onClick();
+        }
+    };
+
+    const onMouseEnter = () => setShowHover(true);
+    const onMouseLeave = () => setShowHover(false);
+
+    let hover = null;
+    if (showHover && !downloadInFlight) {
+        hover = (<DownloadHover />);
     }
-  };
 
-  const onMouseEnter = () => setShowHover(true);
-  const onMouseLeave = () => setShowHover(false);
+    const disabledClass = downloadInFlight ? ' sticky-header__button_disabled' : '';
+    const buttonText = downloadInFlight ? 'Preparing Download...' : 'Download';
+    const icon = downloadInFlight ? 'spinner' : 'download';
 
-  let hover = null;
-  if (showHover && !downloadInFlight) {
-    hover = (<DownloadHover />);
-  }
-
-  const disabledClass = downloadInFlight ? ' sticky-header__button_disabled' : '';
-  const buttonText = downloadInFlight ? 'Preparing Download...' : 'Download';
-  const icon = downloadInFlight ? 'spinner' : 'download';
-
-  return (
-    <div
-      className="download-wrap"
-      onMouseEnter={onMouseEnter}
-      onMouseLeave={onMouseLeave}
-      onFocus={onMouseEnter}
-      onBlur={onMouseLeave}>
-      {hover}
-        <button
-          className={`sticky-header__button${disabledClass}`}
-          title={buttonText}
-          aria-label={buttonText}
-          disabled={downloadInFlight}
-          onClick={startDownload}>
-            <FontAwesomeIcon icon={icon} spin={!!downloadInFlight} />
-        </button>
-          <span>Download</span>
-    </div>
-  );
+    return (
+      <div
+        className="download-wrap"
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        onFocus={onMouseEnter}
+        onBlur={onMouseLeave}>
+        {hover}
+          <button
+            className={`sticky-header__button${disabledClass}`}
+            title={buttonText}
+            aria-label={buttonText}
+            disabled={downloadInFlight}
+            onClick={startDownload}>
+              <FontAwesomeIcon icon={icon} spin={!!downloadInFlight} />
+          </button>
+            <span>Download</span>
+      </div>
+    );
 };
 
 DownloadIconButton.propTypes = propTypes;

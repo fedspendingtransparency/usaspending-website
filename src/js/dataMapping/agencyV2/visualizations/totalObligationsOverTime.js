@@ -16,10 +16,10 @@ export const yOffsetForPathStrokeWidth = (pathStrokeWidth + 1) / 2;
 export const defaultHeight = 208;
 
 export const defaultPadding = {
-  top: 24,
-  bottom: 24,
-  right: 30,
-  left: 30
+    top: 24,
+    bottom: 24,
+    right: 30,
+    left: 30
 };
 
 // $color-secondary
@@ -32,6 +32,6 @@ export const areaPathStopColorRed = '#f9dede';
 export const areaPathStopColorBlue = '#dce4ef';
 
 export const normalStoppingPoints = [
-  { offset: '0%', stopColor: 'blue' },
-  { offset: '100%', stopColor: 'blue' }
+    { offset: '0%', stopColor: 'blue' },
+    { offset: '100%', stopColor: 'blue' }
 ];

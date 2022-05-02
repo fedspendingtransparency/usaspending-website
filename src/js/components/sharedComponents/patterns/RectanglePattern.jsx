@@ -7,32 +7,32 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
-  patternProps: PropTypes.object,
-  rectangles: PropTypes.array
+    patternProps: PropTypes.object,
+    rectangles: PropTypes.array
 };
 
 
 const RectanglePattern = ({
-  patternProps,
-  rectangles
+    patternProps,
+    rectangles
 }) => {
-  if (!patternProps || !rectangles) return null;
-  const {
-    id,
-    width,
-    height,
-    patternTransform,
-    patternUnits
-  } = patternProps;
+    if (!patternProps || !rectangles) return null;
+    const {
+        id,
+        width,
+        height,
+        patternTransform,
+        patternUnits
+    } = patternProps;
 
-  return (
-    <pattern
-      id={id}
-      width={width}
-      height={height}
-      patternTransform={patternTransform}
-      patternUnits={patternUnits}>
-      {
+    return (
+      <pattern
+        id={id}
+        width={width}
+        height={height}
+        patternTransform={patternTransform}
+        patternUnits={patternUnits}>
+        {
                 rectangles.map((rectangle) => (
                   <rect
                     key={rectangle.key}
@@ -41,8 +41,8 @@ const RectanglePattern = ({
                     fill={rectangle.fill} />
                 ))
             }
-    </pattern>
-  );
+      </pattern>
+    );
 };
 
 RectanglePattern.propTypes = propTypes;

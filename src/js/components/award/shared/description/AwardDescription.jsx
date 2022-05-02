@@ -18,28 +18,28 @@ import { getToolTipBySectionAndAwardType } from '../../../../dataMapping/award/t
 import { AWARD_TYPE_PROPS } from "../../../../propTypes";
 
 const propTypes = {
-  awardId: PropTypes.string,
-  description: PropTypes.string,
-  naics: PropTypes.oneOfType([PropTypes.object, PropTypes.string]), // string for IDVs
-  psc: PropTypes.oneOfType([PropTypes.object, PropTypes.string]), // string for IDVs
-  awardType: AWARD_TYPE_PROPS
+    awardId: PropTypes.string,
+    description: PropTypes.string,
+    naics: PropTypes.oneOfType([PropTypes.object, PropTypes.string]), // string for IDVs
+    psc: PropTypes.oneOfType([PropTypes.object, PropTypes.string]), // string for IDVs
+    awardType: AWARD_TYPE_PROPS
 };
 
 const AwardDescription = ({
-  awardId,
-  description,
-  naics = null,
-  psc = null,
-  awardType
+    awardId,
+    description,
+    naics = null,
+    psc = null,
+    awardType
 }) => {
-  const tooltip = getToolTipBySectionAndAwardType('description', awardType);
-  const isTooltipWide = (awardType === 'contract' || awardType === 'idv');
-  return (
-    <AwardSection type="column" className="award-viz award-description">
-      <AwardSectionHeader icon={<SpeechBubble />} tooltip={tooltip} title="Description" tooltipWide={isTooltipWide} />
-        <div className="award-description__content">
-          <ExpandableAwardSection contentClassName="award-description__description" type="secondary" content={description} />
-          {naics && psc && (
+    const tooltip = getToolTipBySectionAndAwardType('description', awardType);
+    const isTooltipWide = (awardType === 'contract' || awardType === 'idv');
+    return (
+      <AwardSection type="column" className="award-viz award-description">
+        <AwardSectionHeader icon={<SpeechBubble />} tooltip={tooltip} title="Description" tooltipWide={isTooltipWide} />
+          <div className="award-description__content">
+            <ExpandableAwardSection contentClassName="award-description__description" type="secondary" content={description} />
+            {naics && psc && (
             <FlexGridRow hasGutter className="award-description__naics-psc">
               <FlexGridCol tablet={6} className="naics-psc__section">
                 <div className="naics-psc__heading">
@@ -69,9 +69,9 @@ const AwardDescription = ({
                 </FlexGridCol>
             </FlexGridRow>
                 )}
-        </div>
-    </AwardSection>
-  );
+          </div>
+      </AwardSection>
+    );
 };
 
 AwardDescription.propTypes = propTypes;

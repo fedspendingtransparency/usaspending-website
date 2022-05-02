@@ -20,124 +20,124 @@ import Note, { dodNote } from 'components/sharedComponents/Note';
 import DateNote from '../DateNote';
 
 const overviewData = [
-  {
-    type: 'resultsCount',
-    title: 'CFDA Programs'
-  },
-  {
-    type: 'awardObligations',
-    title: 'Award Obligations',
-    isMonetary: true
-  },
-  {
-    type: 'awardOutlays',
-    title: 'Award Outlays',
-    isMonetary: true
-  },
-  {
-    type: 'numberOfAwards',
-    title: 'Number of Awards'
-  }
+    {
+        type: 'resultsCount',
+        title: 'CFDA Programs'
+    },
+    {
+        type: 'awardObligations',
+        title: 'Award Obligations',
+        isMonetary: true
+    },
+    {
+        type: 'awardOutlays',
+        title: 'Award Outlays',
+        isMonetary: true
+    },
+    {
+        type: 'numberOfAwards',
+        title: 'Number of Awards'
+    }
 ];
 
 const initialState = {
-  all: null,
-  grants: null,
-  direct_payments: null,
-  loans: null,
-  other: null
+    all: null,
+    grants: null,
+    direct_payments: null,
+    loans: null,
+    other: null
 };
 const propTypes = {
-  publicLaw: PropTypes.string,
-  handleExternalLinkClick: PropTypes.func
+    publicLaw: PropTypes.string,
+    handleExternalLinkClick: PropTypes.func
 };
 
 const SpendingByCFDA = ({ publicLaw, handleExternalLinkClick }) => {
-  const { defcParams } = useSelector((state) => state.covid19);
-  const moreOptionsTabsRef = useRef(null);
+    const { defcParams } = useSelector((state) => state.covid19);
+    const moreOptionsTabsRef = useRef(null);
 
-  const [activeTab, setActiveTab] = useState(financialAssistanceTabs[0].internal);
-  const [inFlight, setInFlight] = useState(true);
-  const [tabCounts, setTabCounts] = useState(initialState);
-  const [tabs, setTabs] = useState(financialAssistanceTabs);
+    const [activeTab, setActiveTab] = useState(financialAssistanceTabs[0].internal);
+    const [inFlight, setInFlight] = useState(true);
+    const [tabCounts, setTabCounts] = useState(initialState);
+    const [tabs, setTabs] = useState(financialAssistanceTabs);
 
-  const handleClick = (e) => {
-    e.preventDefault();
-    handleExternalLinkClick(e.target.href);
-  };
+    const handleClick = (e) => {
+        e.preventDefault();
+        handleExternalLinkClick(e.target.href);
+    };
 
-  const changeActiveTab = (tab) => {
-    const selectedTab = financialAssistanceTabs.find((item) => item.internal === tab).internal;
-    setActiveTab(selectedTab);
-    Analytics.event({ category: 'COVID-19 - Award Spending by CFDA', action: `${activeTab} - click` });
-  };
+    const changeActiveTab = (tab) => {
+        const selectedTab = financialAssistanceTabs.find((item) => item.internal === tab).internal;
+        setActiveTab(selectedTab);
+        Analytics.event({ category: 'COVID-19 - Award Spending by CFDA', action: `${activeTab} - click` });
+    };
 
-  // Keep track of previous tab to prevent duplicate requests in summary
-  const prevTabRef = useRef();
-  useEffect(() => {
-    prevTabRef.current = activeTab;
-  });
-  const prevTab = prevTabRef.current;
+    // Keep track of previous tab to prevent duplicate requests in summary
+    const prevTabRef = useRef();
+    useEffect(() => {
+        prevTabRef.current = activeTab;
+    });
+    const prevTab = prevTabRef.current;
 
-  useEffect(() => {
-    if (defcParams && defcParams.length > 0) {
-      // Make an API request for the count of CFDA for each award type
-      // Post-MVP this should be updated to use a new endpoint that returns all the counts
-      setTabCounts(initialState);
-      const promises = financialAssistanceTabs.map((awardType) => {
-        const params = {
-          filter: {
-            def_codes: defcParams
-          }
-        };
-        if (awardType.internal !== 'all') {
-          // Endpoint defaults to all financial assistance types if award_type_codes is not provided
-          params.filter.award_type_codes = awardTypeGroups[awardType.internal];
+    useEffect(() => {
+        if (defcParams && defcParams.length > 0) {
+            // Make an API request for the count of CFDA for each award type
+            // Post-MVP this should be updated to use a new endpoint that returns all the counts
+            setTabCounts(initialState);
+            const promises = financialAssistanceTabs.map((awardType) => {
+                const params = {
+                    filter: {
+                        def_codes: defcParams
+                    }
+                };
+                if (awardType.internal !== 'all') {
+                    // Endpoint defaults to all financial assistance types if award_type_codes is not provided
+                    params.filter.award_type_codes = awardTypeGroups[awardType.internal];
+                }
+                return fetchCfdaCount(params).promise;
+            });
+            // Wait for all the requests to complete and then store the results in state
+            Promise.all(promises)
+                .then(([allRes, grantsRes, loansRes, directPaymentsRes, otherRes]) => {
+                    setTabCounts({
+                        all: allRes.data.count,
+                        grants: grantsRes.data.count,
+                        direct_payments: directPaymentsRes.data.count,
+                        loans: loansRes.data.count,
+                        other: otherRes.data.count
+                    });
+                });
         }
-        return fetchCfdaCount(params).promise;
-      });
-      // Wait for all the requests to complete and then store the results in state
-      Promise.all(promises)
-        .then(([allRes, grantsRes, loansRes, directPaymentsRes, otherRes]) => {
-          setTabCounts({
-            all: allRes.data.count,
-            grants: grantsRes.data.count,
-            direct_payments: directPaymentsRes.data.count,
-            loans: loansRes.data.count,
-            other: otherRes.data.count
-          });
-        });
-    }
-  }, [defcParams]);
+    }, [defcParams]);
 
-  const scrollIntoViewTable = (loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions) => {
-    scrollIntoView(loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions, moreOptionsTabsRef);
-  };
+    const scrollIntoViewTable = (loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions) => {
+        scrollIntoView(loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions, moreOptionsTabsRef);
+    };
 
-  useEffect(() => {
-    const countState = areCountsDefined(tabCounts);
-    if (!countState) {
-      setInFlight(true);
-    }
-    else if (countState) {
-      setInFlight(false);
-    }
-  }, [tabCounts, setInFlight]);
+    useEffect(() => {
+        const countState = areCountsDefined(tabCounts);
+        if (!countState) {
+            setInFlight(true);
+        }
+        else if (countState) {
+            setInFlight(false);
+        }
+    }, [tabCounts, setInFlight]);
 
-  useEffect(() => {
-    setTabs(tabs.map((tab) => ({ ...tab, count: tabCounts[tab.internal] })));
-  }, [tabCounts, tabs]);
+    useEffect(() => {
+        setTabs(tabs.map((tab) => ({ ...tab, count: tabCounts[tab.internal] })));
+    }, [tabCounts, tabs]);
 
-  return (
-    <div className="body__content assistance-listing">
-      <DateNote />
-      {publicLaw === 'american-rescue-plan' ?
-        <h4 className="body__narrative">
-          <strong>Which CFDA Programs (Assistance Listings)</strong> supported the American Rescue Plan?
-        </h4> :
-        <h4 className="body__narrative">
-          <strong>Which CFDA Programs (Assistance Listings)</strong> supported the response to COVID-19?
-        </h4>
+    return (
+      <div className="body__content assistance-listing">
+        <DateNote />
+        {publicLaw === 'american-rescue-plan' ?
+          <h4 className="body__narrative">
+            <strong>Which CFDA Programs (Assistance Listings)</strong> supported the American Rescue Plan?
+          </h4> :
+          <h4 className="body__narrative">
+            <strong>Which CFDA Programs (Assistance Listings)</strong> supported the response to COVID-19?
+          </h4>
             }
               <div className="body__narrative-description">
                 <p>
@@ -165,15 +165,15 @@ const SpendingByCFDA = ({ publicLaw, handleExternalLinkClick }) => {
                         activeTab={activeTab}
                         scrollIntoView={scrollIntoViewTable} />
                           <Note message={dodNote} />
-      {publicLaw === 'american-rescue-plan' ?
-        <Note message={(
+        {publicLaw === 'american-rescue-plan' ?
+          <Note message={(
                     <>
                         This table uses data tagged with Disaster Emergency Fund Code (DEFC) V, which was designated for Non-emergency P.L. 117-2, American Rescue Plan Act of 2021.
                     </>
                 )} /> : <div />
             }
-    </div>
-  );
+      </div>
+    );
 };
 
 SpendingByCFDA.propTypes = propTypes;

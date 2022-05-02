@@ -7,10 +7,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
-  label: PropTypes.object,
-  gridLine: PropTypes.object,
-  x: PropTypes.number,
-  y: PropTypes.number
+    label: PropTypes.object,
+    gridLine: PropTypes.object,
+    x: PropTypes.number,
+    y: PropTypes.number
 };
 
 const BarChartYAxisItem = (props) => (

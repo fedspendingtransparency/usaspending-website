@@ -16,8 +16,8 @@ import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import { dataDisclaimerHeight } from 'dataMapping/covid19/covid19';
 import { getStickyBreakPointForSidebar, useDynamicStickyClass } from 'helpers/stickyHeaderHelper';
 import {
-  getStickyBreakPointForCovidBanner,
-  createJumpToSectionForSidebar
+    getStickyBreakPointForCovidBanner,
+    createJumpToSectionForSidebar
 } from 'helpers/covid19Helper';
 
 import { useDefCodes } from 'containers/covid19/WithDefCodes';
@@ -26,58 +26,58 @@ import PageWrapper from 'components/sharedComponents/PageWrapper';
 import ExternalLink from 'components/sharedComponents/ExternalLink';
 
 const getEmailSocialShareData = {
-  subject: "COVID-19 Spending: Data Sources and Methodology",
-  body: "View COVID-19 Spending: Data Sources and Methodology on USAspending.gov: https://www.usaspending.gov/disaster/covid-19/data-sources"
+    subject: "COVID-19 Spending: Data Sources and Methodology",
+    body: "View COVID-19 Spending: Data Sources and Methodology on USAspending.gov: https://www.usaspending.gov/disaster/covid-19/data-sources"
 };
 
 const sections = [
-  {
-    label: 'What COVID-19 spending does USAspending track?',
-    section: 'covered_funds'
-  },
-  {
-    label: 'Datasets',
-    section: 'datasets'
-  },
-  {
-    label: 'Download Instructions',
-    section: 'download_instructions'
-  },
-  {
-    label: 'Disaster Emergency Fund Code (DEFC)',
-    section: 'defc'
-  },
-  {
-    label: 'Loan Spending',
-    section: 'loan_spending'
-  },
-  {
-    label: 'Overview Section',
-    section: 'overview'
-  },
-  {
-    label: 'Total Spending Section',
-    section: 'total_spending'
-  },
-  {
-    label: 'Linked and Unlinked Award Data',
-    section: 'linked_and_unlinked'
-  },
-  {
-    label: 'Award Spending Sections',
-    section: 'award_spending'
-  }
+    {
+        label: 'What COVID-19 spending does USAspending track?',
+        section: 'covered_funds'
+    },
+    {
+        label: 'Datasets',
+        section: 'datasets'
+    },
+    {
+        label: 'Download Instructions',
+        section: 'download_instructions'
+    },
+    {
+        label: 'Disaster Emergency Fund Code (DEFC)',
+        section: 'defc'
+    },
+    {
+        label: 'Loan Spending',
+        section: 'loan_spending'
+    },
+    {
+        label: 'Overview Section',
+        section: 'overview'
+    },
+    {
+        label: 'Total Spending Section',
+        section: 'total_spending'
+    },
+    {
+        label: 'Linked and Unlinked Award Data',
+        section: 'linked_and_unlinked'
+    },
+    {
+        label: 'Award Spending Sections',
+        section: 'award_spending'
+    }
 ];
 
 require('pages/data-sources/index.scss');
 
 const getDefCValues = (errorMsg, isLoading, codes) => {
-  if (isLoading) return "Loading...";
-  if (errorMsg) return "There was an error fetching DEFC values";
+    if (isLoading) return "Loading...";
+    if (errorMsg) return "There was an error fetching DEFC values";
 
-  return (
-    <span>
-      {codes
+    return (
+      <span>
+        {codes
                 .reduce((acc, c, i, arr) => {
                     const isLast = i === arr.length - 1;
                     if (isLast) {
@@ -85,89 +85,89 @@ const getDefCValues = (errorMsg, isLoading, codes) => {
                     }
                     return `${acc}"${c.code}", `;
                 }, '')}
-    </span>
-  );
+      </span>
+    );
 };
 
 const renderDefCodes = (errorMsg, isLoading, codes) => {
-  if (isLoading) {
-    return <li>Loading...</li>;
-  }
-  if (errorMsg) {
-    return <li>There was an error fetching DEFC values.</li>;
-  }
-  return codes
-    .map(({ code, public_law: pl, title }) => (
-      <li key={uniqueId()}>
-        <strong>DEFC &quot;{code}&quot;</strong>:
-          <ul>
-            <li key={uniqueId()}>
-              {pl.includes('Non-emergency') ? "Not designated as emergency" : "Designated as emergency"}
-            </li>
-            {pl
+    if (isLoading) {
+        return <li>Loading...</li>;
+    }
+    if (errorMsg) {
+        return <li>There was an error fetching DEFC values.</li>;
+    }
+    return codes
+        .map(({ code, public_law: pl, title }) => (
+          <li key={uniqueId()}>
+            <strong>DEFC &quot;{code}&quot;</strong>:
+              <ul>
+                <li key={uniqueId()}>
+                  {pl.includes('Non-emergency') ? "Not designated as emergency" : "Designated as emergency"}
+                </li>
+                {pl
                         .split("|")
                         .map((str, i) => (
                           <li key={uniqueId()}>{str}, {title.split("|")[i]}</li>
                         ))
                     }
-          </ul>
-      </li>
-    ));
+              </ul>
+          </li>
+        ));
 };
 
 const jumpToSection = createJumpToSectionForSidebar("data-sources", sections.reduce((acc, obj) => ({
-  ...acc,
-  [obj.section]: { title: obj.label }
+    ...acc,
+    [obj.section]: { title: obj.label }
 }), {}));
 
 export default () => {
-  const [errorMsg, isLoading, defCodes] = useDefCodes();
-  const [activeSection, setActiveSection] = useState(sections[0].section);
-  const dataDisclaimerBannerRef = useRef(null);
-  const [dataDisclaimerBanner, setDataDisclaimerBanner] = useState(Cookies.get('usaspending_data_disclaimer'));
-  const [isBannerSticky, , , setBannerStickyOnScroll] = useDynamicStickyClass(dataDisclaimerBannerRef, getStickyBreakPointForCovidBanner(Cookies.get('usaspending_covid_homepage')));
-  const [covidDefCodes, setCovidDefCodes] = useState();
+    const [errorMsg, isLoading, defCodes] = useDefCodes();
+    const [activeSection, setActiveSection] = useState(sections[0].section);
+    const dataDisclaimerBannerRef = useRef(null);
+    const [dataDisclaimerBanner, setDataDisclaimerBanner] = useState(Cookies.get('usaspending_data_disclaimer'));
+    const [isBannerSticky, , , setBannerStickyOnScroll] = useDynamicStickyClass(dataDisclaimerBannerRef, getStickyBreakPointForCovidBanner(Cookies.get('usaspending_covid_homepage')));
+    const [covidDefCodes, setCovidDefCodes] = useState();
 
-  useEffect(() => {
-    setCovidDefCodes(defCodes.filter((c) => c.disaster === 'covid_19'));
-  }, [defCodes]);
+    useEffect(() => {
+        setCovidDefCodes(defCodes.filter((c) => c.disaster === 'covid_19'));
+    }, [defCodes]);
 
-  useEffect(() => {
-    window.addEventListener('scroll', setBannerStickyOnScroll);
-    return () => {
-      window.removeEventListener('scroll', setBannerStickyOnScroll);
+    useEffect(() => {
+        window.addEventListener('scroll', setBannerStickyOnScroll);
+        return () => {
+            window.removeEventListener('scroll', setBannerStickyOnScroll);
+        };
+    });
+
+    const handleCloseBanner = () => {
+        Cookies.set('usaspending_data_disclaimer', 'hide', { expires: 7 });
+        setDataDisclaimerBanner('hide');
     };
-  });
 
-  const handleCloseBanner = () => {
-    Cookies.set('usaspending_data_disclaimer', 'hide', { expires: 7 });
-    setDataDisclaimerBanner('hide');
-  };
-
-  const jumpToDataSourcesSection = (section) => {
+    const jumpToDataSourcesSection = (section) => {
     // we've been provided a section to jump to
     // check if it's a valid section
-    const matchedSection = sections.find((obj) => obj.section === section);
-    jumpToSection(section);
-    setActiveSection(matchedSection.section);
-  };
+        const matchedSection = sections.find((obj) => obj.section === section);
+        jumpToSection(section);
+        setActiveSection(matchedSection.section);
+    };
 
-  const handleShare = (name) => {
-    handleShareOptionClick(name, "disaster/covid-19/data-sources", getEmailSocialShareData);
-  };
+    const handleShare = (name) => {
+        handleShareOptionClick(name, "disaster/covid-19/data-sources", getEmailSocialShareData);
+    };
 
-  return (
-    <PageWrapper
-      pageName="COVID DS&M"
-      classNames="usa-da-dsm-page"
-      ref={dataDisclaimerBannerRef}
-      overLine="Data Sources &amp; Methodology"
-      title="COVID-19 Spending"
-      metaTagProps={covidDataSourcesMetaTags}
-      toolBarComponents={[
-        <ShareIcon
-          onShareOptionClick={handleShare}
-          url={getBaseUrl("disaster/covid-19/data-sources")} />
+    return (
+      <PageWrapper
+        pageName="COVID DS&M"
+        classNames="usa-da-dsm-page"
+        ref={dataDisclaimerBannerRef}
+        overLine="Data Sources &amp; Methodology"
+        title="COVID-19 Spending"
+        metaTagProps={covidDataSourcesMetaTags}
+        toolBarComponents={[
+          <ShareIcon
+            onShareOptionClick={handleShare}
+            url={getBaseUrl("disaster/covid-19/data-sources")} />
             ]}>
             <>
               {dataDisclaimerBanner !== 'hide' && (
@@ -377,11 +377,11 @@ export default () => {
                                                                 <strong>Responsible party:</strong> prime recipients of federal awards
                                                               </li>
                                                                 <li>
-                                                                <strong>Frequency of updates:</strong> monthly
-                                                              </li>
-                                                                  <li>
-                                                                  <strong>Details:</strong> FSRS is a government database for collecting subcontract and subgrant information. It is not used in the COVID-19 Spending profile page&apos;s display, but is used to add subaward information to the page&apos;s download (specifically, all subawards associated with prime awards that were funded by COVID-19 supplemental appropriations).
+                                                                  <strong>Frequency of updates:</strong> monthly
                                                                 </li>
+                                                                  <li>
+                                                                    <strong>Details:</strong> FSRS is a government database for collecting subcontract and subgrant information. It is not used in the COVID-19 Spending profile page&apos;s display, but is used to add subaward information to the page&apos;s download (specifically, all subawards associated with prime awards that were funded by COVID-19 supplemental appropriations).
+                                                                  </li>
                                                             </ul>
                                                           </div>
                               </div>
@@ -452,13 +452,13 @@ export default () => {
                                                               </li>
                                                                 <li>
                                             Click &quot;Download&quot;
-                                                              </li>
+                                                                </li>
                                                                   <li>
                                             If it is after FY20, repeat this process for each FY after FY20 until you have reached the current FY (one file per FY)
-                                                                </li>
+                                                                  </li>
                                                                     <li>
                                             Filter for rows with DEFC values {getDefCValues(errorMsg, isLoading, covidDefCodes)} in the downloaded file
-                                                                  </li>
+                                                                    </li>
                                                   </ol>
                                     </div>
                                 </div>
@@ -565,12 +565,12 @@ export default () => {
                                                                 <ul>
                                                                   <li>
                                                     SUM[2190 – (1021 + 1033)]
-                                                                </li>
+                                                                  </li>
                                                                 </ul>
                                                               </li>
                                                                 <li>
                                             Note: SUM[] should be read as “the sum of this calculation for COVID-19 DEFC across P12 of every closed fiscal year back to FY20, plus the sum of this calculation for COVID-19 DEFC from the latest accounting period of the current fiscal year.
-                                                              </li>
+                                                                </li>
                                                         </ul>
                                                           <p>
                                                             <strong>Total Outlays</strong> calculation:
@@ -583,18 +583,18 @@ export default () => {
                                                               </li>
                                                                 <li>
                                             SUM[Gross Outlays + Recoveries of Prior Year Paid Obligations ]
-                                                              </li>
+                                                                </li>
                                                                   <li>
                                             The calculation mapped to the Line Items in the SF-133 is:
-                                                                  <ul>
+                                                                    <ul>
                                                                       <li>
                                                     SUM[3020 + 1033]
-                                                                    </li>
+                                                                      </li>
                                                                     </ul>
-                                                                </li>
+                                                                  </li>
                                                                     <li>
                                             Note: SUM[] should be read as “the sum of this calculation for COVID-19 DEFC across P12 of every closed fiscal year back to FY20, plus the sum of this calculation for COVID-19 DEFC from the latest accounting period of the current fiscal year.”
-                                                                  </li>
+                                                                    </li>
                                                             </ul>
                                           </div>
                                       </div>
@@ -653,7 +653,7 @@ export default () => {
                                                               <ul>
                                                                 <li>
                                             Refer to the calculations in the “Overview Section” above; these amounts are calculated in the exact same way as in that section.
-                                                              </li>
+                                                                </li>
                                                               </ul>
                                             </div>
                                         </div>
@@ -703,45 +703,45 @@ export default () => {
                                                               <p>
                                                                 <strong>Number of Recipients</strong> calculations:
                                                               </p>
-                                                              <ul>
+                                                                <ul>
                                                                   <li>
                                             Count of unique recipients (by Recipient name) for every award ID (award unique key) tagged with a COVID-19 DEFC value. Filter by any award type as desired.
-                                                                  <ul>
+                                                                    <ul>
                                                                       <li>
                                                     The count of recipients in this section represents the number of distinct recipient names in the dataset. Because some names are anonymized or indicate that the associated award was aggregated from many individual recipients/awards to protect personally identifiable information (PII), the true count of recipients is likely significantly higher. Names that indicate anonymized or aggregated recipients include: Multiple Recipients, Multiple Foreign Recipients, Miscellaneous Foreign Awardees, Private Individual, Individual Recipient, and Redacted Due to PII.
-                                                                    </li>
-                                                                          <li>
+                                                                      </li>
+                                                                        <li>
                                                     Note also that these are only direct recipients: often federal awards are given to state, local, or tribal governments and then further redistributed to individual citizens by those governments; in our dataset, only the award to the state, local, or tribal government is noted (though subgrants are tracked in some cases and can be viewed in the &quot;Assistance Subawards&quot; download).
-                                                                            </li>
+                                                                        </li>
                                                                     </ul>
-                                                                </li>
+                                                                  </li>
                                                                 </ul>
-                                                                <p>
+                                                                  <p>
                                                                     <strong>Number of Agencies</strong> calculations:
                                                                   </p>
-                                                                  <ul>
-                                                                        <li>
+                                                                    <ul>
+                                                                      <li>
                                             Count of unique agencies based on Funding Agency Code in the FABS and FPDS data for every award ID (award unique key) tagged with a COVID-19 DEFC value. Filter by any award type as desired.
-                                                                            <ul>
-                                                                            <li>
+                                                                        <ul>
+                                                                          <li>
                                                     In contrast to the Number of Agencies in the &quot;Total Spending by Budget Category&quot; section, this count of agencies uses only <strong>linked</strong> data (from FABS/FPDS) rather than <strong>linked and unlinked</strong> data (from Broker File C).
-                                                                              </li>
-                                                                          </ul>
                                                                           </li>
-                                                                      </ul>
-                                                                          <p>
-                                                                          <strong>Number of CFDA Programs</strong> calculations:
-                                                                        </p>
-                                                                            <ul>
-                                                                            <li>
+                                                                        </ul>
+                                                                      </li>
+                                                                    </ul>
+                                                                      <p>
+                                                                        <strong>Number of CFDA Programs</strong> calculations:
+                                                                      </p>
+                                                                        <ul>
+                                                                          <li>
                                             Count of all distinct CFDA Programs (number or title) for every award ID (award unique key) tagged with a COVID-19 DEFC. Filter by any award type as desired.
-                                                                          </li>
-                                                                          </ul>
-                                                                          <p>
-                                                                              <strong>Award Obligations</strong> calculations:
-                                                                            </p>
+                                                                        </li>
+                                                                        </ul>
+                                                                        <p>
+                                                                            <strong>Award Obligations</strong> calculations:
+                                                                          </p>
                                                                           <ul>
-                                                                                <li>
+                                                                              <li>
                                             For <strong>Award Spending (including Loan Spending)</strong>, sum together:
                                               <ul>
                                                 <li>
@@ -751,13 +751,13 @@ export default () => {
                                                     Filter by any award type as desired.
                                                   </li>
                                               </ul>
-                                                                          </li>
-                                                                              </ul>
-                                                                          <p>
-                                                                                    <strong>Award Outlays</strong> calculations:
-                                                                                  </p>
-                                                                          <ul>
-                                                                                      <li>
+                                                                            </li>
+                                                                            </ul>
+                                                                            <p>
+                                                                                  <strong>Award Outlays</strong> calculations:
+                                                                                </p>
+                                                                                    <ul>
+                                                                                    <li>
                                             For <strong>Award Spending (including Loan Spending)</strong>, sum together:
                                               <ul>
                                                 <li>
@@ -770,16 +770,16 @@ export default () => {
                                                     Filter by any award type as desired.
                                                     </li>
                                               </ul>
-                                                                          </li>
-                                                                                    </ul>
-                                                                          <p>
-                                                                                          <strong>Number of Awards</strong> calculation:
-                                                                                        </p>
-                                                                          <ul>
-                                                                                              <li>
+                                                                                      </li>
+                                                                                  </ul>
+                                                                                      <p>
+                                                                                      <strong>Number of Awards</strong> calculation:
+                                                                                    </p>
+                                                                                    <ul>
+                                                                                        <li>
                                             Count of all distinct award IDs (award unique keys) tagged with a COVID-19 DEFC. Filter by any award type as desired.
-                                                                          </li>
-                                                                                            </ul>
+                                                                                    </li>
+                                                                                      </ul>
                                                 </div>
                                             </div>
                           </div>
@@ -787,6 +787,6 @@ export default () => {
                       </div>
                   </main>
             </>
-    </PageWrapper>
-  );
+      </PageWrapper>
+    );
 };

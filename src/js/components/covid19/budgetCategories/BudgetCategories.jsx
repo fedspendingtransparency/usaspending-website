@@ -16,108 +16,108 @@ import Analytics from 'helpers/analytics/Analytics';
 import Note from 'components/sharedComponents/Note';
 
 const tabs = [
-  {
-    internal: 'agency',
-    label: 'Agencies',
-    subHeading: 'Sub-Agencies'
-  },
-  {
-    internal: 'federal_account',
-    label: 'Federal Accounts',
-    subHeading: 'Treasury Account Symbol (TAS)'
-  },
-  {
-    internal: 'object_class',
-    label: 'Object Classes',
-    subHeading: 'Object Class'
-  }
+    {
+        internal: 'agency',
+        label: 'Agencies',
+        subHeading: 'Sub-Agencies'
+    },
+    {
+        internal: 'federal_account',
+        label: 'Federal Accounts',
+        subHeading: 'Treasury Account Symbol (TAS)'
+    },
+    {
+        internal: 'object_class',
+        label: 'Object Classes',
+        subHeading: 'Object Class'
+    }
 ];
 
 const propTypes = {
-  publicLaw: PropTypes.string
+    publicLaw: PropTypes.string
 };
 
 const BudgetCategories = ({ publicLaw }) => {
-  const [activeTab, setActiveTab] = useState(tabs[0].internal);
-  const [count, setCount] = useState(null);
-  const [inFlight, setInFlight] = useState(true);
-  const moreOptionsTabsRef = useRef(null);
+    const [activeTab, setActiveTab] = useState(tabs[0].internal);
+    const [count, setCount] = useState(null);
+    const [inFlight, setInFlight] = useState(true);
+    const moreOptionsTabsRef = useRef(null);
 
-  const { defcParams, overview } = useSelector((state) => state.covid19);
-  const overviewData = [
-    {
-      type: 'count',
-      title: `Number of ${tabs.filter((tab) => tab.internal === activeTab)[0].label}`
-    },
-    {
-      type: 'totalBudgetaryResources',
-      title: 'Total Budgetary Resources',
-      isMonetary: true
-    },
-    {
-      type: 'totalObligations',
-      title: 'Total Obligations',
-      isMonetary: true
-    },
-    {
-      type: 'totalOutlays',
-      title: 'Total Outlays',
-      isMonetary: true
-    }
-  ];
-
-  const changeActiveTab = (tab) => {
-    const tabInternal = tabs.filter((item) => item.internal === tab)[0].internal;
-
-    setActiveTab(tabInternal);
-    Analytics.event({ category: 'COVID-19 - Profile', action: `Total Spending - ${activeTab}` });
-  };
-
-  useEffect(() => {
-    if (defcParams && defcParams.length > 0) {
-      // Reset any existing results
-      setCount(null);
-
-      const params = {
-        filter: {
-          def_codes: defcParams
+    const { defcParams, overview } = useSelector((state) => state.covid19);
+    const overviewData = [
+        {
+            type: 'count',
+            title: `Number of ${tabs.filter((tab) => tab.internal === activeTab)[0].label}`
+        },
+        {
+            type: 'totalBudgetaryResources',
+            title: 'Total Budgetary Resources',
+            isMonetary: true
+        },
+        {
+            type: 'totalObligations',
+            title: 'Total Obligations',
+            isMonetary: true
+        },
+        {
+            type: 'totalOutlays',
+            title: 'Total Outlays',
+            isMonetary: true
         }
-      };
-      const countRequest = fetchDisasterSpendingCount(activeTab, params);
-      countRequest.promise
-        .then((res) => {
-          setCount(res.data.count);
-        });
-    }
-  }, [activeTab, defcParams]);
+    ];
 
-  useEffect(() => {
-    if (!count) {
-      setInFlight(true);
-    }
-    else if (count) {
-      setInFlight(false);
-    }
-  }, [count, setInFlight]);
+    const changeActiveTab = (tab) => {
+        const tabInternal = tabs.filter((item) => item.internal === tab)[0].internal;
 
-  const amounts = {
-    count,
-    totalBudgetaryResources: overview._totalBudgetAuthority,
-    totalObligations: overview._totalObligations,
-    totalOutlays: overview._totalOutlays
-  };
+        setActiveTab(tabInternal);
+        Analytics.event({ category: 'COVID-19 - Profile', action: `Total Spending - ${activeTab}` });
+    };
 
-  const scrollIntoViewTable = (loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions) => {
-    scrollIntoView(loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions, moreOptionsTabsRef);
-  };
+    useEffect(() => {
+        if (defcParams && defcParams.length > 0) {
+            // Reset any existing results
+            setCount(null);
 
-  return (
-    <div className="body__content budget-categories">
-      <DateNote />
-      {publicLaw === 'american-rescue-plan' ?
-        <h4 className="body__narrative">How is <strong>total spending</strong> from the American Rescue Plan categorized?</h4>
+            const params = {
+                filter: {
+                    def_codes: defcParams
+                }
+            };
+            const countRequest = fetchDisasterSpendingCount(activeTab, params);
+            countRequest.promise
+                .then((res) => {
+                    setCount(res.data.count);
+                });
+        }
+    }, [activeTab, defcParams]);
+
+    useEffect(() => {
+        if (!count) {
+            setInFlight(true);
+        }
+        else if (count) {
+            setInFlight(false);
+        }
+    }, [count, setInFlight]);
+
+    const amounts = {
+        count,
+        totalBudgetaryResources: overview._totalBudgetAuthority,
+        totalObligations: overview._totalObligations,
+        totalOutlays: overview._totalOutlays
+    };
+
+    const scrollIntoViewTable = (loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions) => {
+        scrollIntoView(loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions, moreOptionsTabsRef);
+    };
+
+    return (
+      <div className="body__content budget-categories">
+        <DateNote />
+        {publicLaw === 'american-rescue-plan' ?
+          <h4 className="body__narrative">How is <strong>total spending</strong> from the American Rescue Plan categorized?</h4>
                 :
-        <h4 className="body__narrative">How is <strong>total COVID-19 spending</strong> categorized?</h4>
+          <h4 className="body__narrative">How is <strong>total COVID-19 spending</strong> categorized?</h4>
             }
               <div className="body__narrative-description">
                 {publicLaw === 'american-rescue-plan' ?
@@ -147,15 +147,15 @@ const BudgetCategories = ({ publicLaw }) => {
                         subHeading={tabs.filter((tab) => tab.internal === activeTab)[0].subHeading}
                         scrollIntoView={scrollIntoViewTable} />
                     </div>
-      {publicLaw === 'american-rescue-plan' ?
-        <Note message={(
+        {publicLaw === 'american-rescue-plan' ?
+          <Note message={(
                     <>
                         This table uses data tagged with Disaster Emergency Fund Code (DEFC) V, which was designated for Non-emergency P.L. 117-2, American Rescue Plan Act of 2021.
                     </>
                 )} /> : <div />
             }
-    </div>
-  );
+      </div>
+    );
 };
 
 BudgetCategories.propTypes = propTypes;

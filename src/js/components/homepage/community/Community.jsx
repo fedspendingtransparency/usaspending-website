@@ -7,10 +7,10 @@ import React from 'react';
 import Analytics from 'helpers/analytics/Analytics';
 
 const clickedHomepageLink = (route) => {
-  Analytics.event({
-    category: 'Homepage - Link',
-    action: route
-  });
+    Analytics.event({
+        category: 'Homepage - Link',
+        action: route
+    });
 };
 
 const Community = () => (

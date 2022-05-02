@@ -7,6 +7,6 @@ import { apiRequest } from './apiRequest';
 
 // eslint-disable-next-line import/prefer-default-export
 export const fetchAllAgencies = (params) => apiRequest({
-  url: 'v2/references/toptier_agencies/',
-  params
+    url: 'v2/references/toptier_agencies/',
+    params
 });

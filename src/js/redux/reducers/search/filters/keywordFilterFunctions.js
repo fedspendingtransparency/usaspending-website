@@ -4,18 +4,18 @@
 
 /* eslint-disable import/prefer-default-export */
 export const updateTextSearchInput = (state, keyword) => {
-  let updatedMap = state;
+    let updatedMap = state;
 
-  const text = `${keyword}`;
+    const text = `${keyword}`;
 
-  if (updatedMap.has(text)) {
-    updatedMap = updatedMap.delete(text);
-  }
-  else {
+    if (updatedMap.has(text)) {
+        updatedMap = updatedMap.delete(text);
+    }
+    else {
     // allows for multiple text
-    updatedMap = updatedMap.set(text, text);
-  }
+        updatedMap = updatedMap.set(text, text);
+    }
 
-  return updatedMap;
+    return updatedMap;
 };
 /* eslint-enable import/prefer-default-export */

@@ -49,10 +49,10 @@ export const DEFTooltip = () => (
 );
 
 const CSSOnlyTooltipProps = {
-  definition: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
-  heading: PropTypes.string,
-  example: PropTypes.string,
-  description: PropTypes.string
+    definition: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
+    heading: PropTypes.string,
+    example: PropTypes.string,
+    description: PropTypes.string
 };
 
 export const CSSOnlyTooltip = (props) => (

@@ -9,16 +9,16 @@ import PropTypes from 'prop-types';
 import { Search } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
-  className: PropTypes.string,
-  disabled: PropTypes.bool,
-  onClick: PropTypes.func,
-  label: PropTypes.string,
-  accessibility: PropTypes.object,
-  onKeyDown: PropTypes.func
+    className: PropTypes.string,
+    disabled: PropTypes.bool,
+    onClick: PropTypes.func,
+    label: PropTypes.string,
+    accessibility: PropTypes.object,
+    onKeyDown: PropTypes.func
 };
 
 const defaultProps = {
-  onKeyDown: () => {}
+    onKeyDown: () => {}
 };
 
 const IndividualSubmit = (props) => (

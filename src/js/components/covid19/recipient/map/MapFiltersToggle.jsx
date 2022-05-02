@@ -9,24 +9,24 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { createOnKeyDownHandler } from 'helpers/keyboardEventsHelper';
 
 const propTypes = {
-  isOpen: PropTypes.bool,
-  onClick: PropTypes.func
+    isOpen: PropTypes.bool,
+    onClick: PropTypes.func
 };
 
 const MapFiltersToggle = ({ isOpen, onClick }) => {
-  const onKeyDown = () => createOnKeyDownHandler(onClick);
+    const onKeyDown = () => createOnKeyDownHandler(onClick);
 
-  return (
-    <div
-      role="button"
-      onKeyDown={onKeyDown}
-      tabIndex={0}
-      onClick={onClick}
-      className={isOpen ? 'map__filters-toggle open' : 'map__filters-toggle closed'}
-      aria-label={`${isOpen ? 'Close' : 'Open'} map filters`} >
-        <FontAwesomeIcon icon={isOpen ? 'caret-left' : 'caret-right'} />
-    </div>
-  );
+    return (
+      <div
+        role="button"
+        onKeyDown={onKeyDown}
+        tabIndex={0}
+        onClick={onClick}
+        className={isOpen ? 'map__filters-toggle open' : 'map__filters-toggle closed'}
+        aria-label={`${isOpen ? 'Close' : 'Open'} map filters`} >
+          <FontAwesomeIcon icon={isOpen ? 'caret-left' : 'caret-right'} />
+      </div>
+    );
 };
 
 MapFiltersToggle.propTypes = propTypes;

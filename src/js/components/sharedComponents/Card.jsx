@@ -8,14 +8,14 @@ import PropTypes from "prop-types";
 import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 
 const propTypes = {
-  icon: PropTypes.object,
-  heading: PropTypes.object,
-  content: PropTypes.object,
-  link: PropTypes.object
+    icon: PropTypes.object,
+    heading: PropTypes.object,
+    content: PropTypes.object,
+    link: PropTypes.object
 };
 
 const Card = ({
-  icon, heading, content, link
+    icon, heading, content, link
 }) => (
   <FlexGridRow className="card-content">
     <FlexGridCol width={12} desktop={1} className="card__icon-wrapper">

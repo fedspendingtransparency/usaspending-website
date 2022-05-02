@@ -11,26 +11,26 @@ import ImageCarousel from './ImageCarousel';
 import FeatureDropdown from './FeatureDropdown';
 
 const images = [
-  {
-    srcSet: 'img/homepage-profile-agency.webp 1x, img/homepage-profile-agency@2x.webp 2x',
-    src: 'img/homepage-profile-agency.png',
-    alt: 'Screenshot of the Agency Profile page'
-  },
-  {
-    srcSet: 'img/homepage-profile-fedaccount.webp 1x, img/homepage-profile-fedaccount@2x.webp 2x',
-    src: 'img/homepage-profile-fedaccount.png',
-    alt: 'Screenshot of the Federal Account Profile page'
-  },
-  {
-    srcSet: 'img/homepage-profile-state.webp 1x, img/homepage-profile-state@2x.webp 2x',
-    src: 'img/homepage-profile-state.png',
-    alt: 'Screenshot of State Profile page'
-  },
-  {
-    srcSet: 'img/homepage-profile-recipient.webp 1x, img/homepage-profile-recipient@2x.webp 2x',
-    src: 'img/homepage-profile-recipient.png',
-    alt: 'Recipient Profile page coming soon'
-  }
+    {
+        srcSet: 'img/homepage-profile-agency.webp 1x, img/homepage-profile-agency@2x.webp 2x',
+        src: 'img/homepage-profile-agency.png',
+        alt: 'Screenshot of the Agency Profile page'
+    },
+    {
+        srcSet: 'img/homepage-profile-fedaccount.webp 1x, img/homepage-profile-fedaccount@2x.webp 2x',
+        src: 'img/homepage-profile-fedaccount.png',
+        alt: 'Screenshot of the Federal Account Profile page'
+    },
+    {
+        srcSet: 'img/homepage-profile-state.webp 1x, img/homepage-profile-state@2x.webp 2x',
+        src: 'img/homepage-profile-state.png',
+        alt: 'Screenshot of State Profile page'
+    },
+    {
+        srcSet: 'img/homepage-profile-recipient.webp 1x, img/homepage-profile-recipient@2x.webp 2x',
+        src: 'img/homepage-profile-recipient.png',
+        alt: 'Recipient Profile page coming soon'
+    }
 ];
 
 const ProfileFeature = () => (

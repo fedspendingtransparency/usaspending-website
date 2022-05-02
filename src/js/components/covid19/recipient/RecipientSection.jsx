@@ -14,26 +14,26 @@ import Analytics from 'helpers/analytics/Analytics';
 import Note, { dodNote } from 'components/sharedComponents/Note';
 
 const propTypes = {
-  publicLaw: PropTypes.string
+    publicLaw: PropTypes.string
 };
 
 const RecipientSection = ({ publicLaw }) => {
-  const [activeTab, setActiveTab] = useState('recipient_locations');
-  const changeActiveTab = (tab) => {
-    const tabInternal = tabs.find((item) => item.internal === tab).internal;
-    setActiveTab(tabInternal);
-    Analytics.event({ category: 'covid-19 - profile', action: `award spending by recipient - ${activeTab}` });
-  };
-  return (
-    <div className="body__content recipient__container">
-      <DateNote />
-      {publicLaw === 'american-rescue-plan' ?
-        <h4 className="body__narrative">
-          <strong>Who</strong> received funding through American Rescue Plan awards?
-        </h4> :
-        <h4 className="body__narrative">
-          <strong>Who</strong> received funding through COVID-19 awards?
-        </h4>
+    const [activeTab, setActiveTab] = useState('recipient_locations');
+    const changeActiveTab = (tab) => {
+        const tabInternal = tabs.find((item) => item.internal === tab).internal;
+        setActiveTab(tabInternal);
+        Analytics.event({ category: 'covid-19 - profile', action: `award spending by recipient - ${activeTab}` });
+    };
+    return (
+      <div className="body__content recipient__container">
+        <DateNote />
+        {publicLaw === 'american-rescue-plan' ?
+          <h4 className="body__narrative">
+            <strong>Who</strong> received funding through American Rescue Plan awards?
+          </h4> :
+          <h4 className="body__narrative">
+            <strong>Who</strong> received funding through COVID-19 awards?
+          </h4>
             }
               <div className="body__narrative-description">
                 <p>
@@ -89,8 +89,8 @@ const RecipientSection = ({ publicLaw }) => {
                     </>
                 )} />
                 </div>
-    </div>
-  );
+      </div>
+    );
 };
 
 RecipientSection.propTypes = propTypes;

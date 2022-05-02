@@ -3,9 +3,9 @@ import { useLocation } from 'react-router-dom';
 export const useQueryParams = () => Object.fromEntries(new URLSearchParams(useLocation().search));
 
 export const combineQueryParams = (existingParams, newParams) => Object
-  .entries(newParams)
-  .filter(([, value]) => value !== '' && value)
-  .reduce((acc, [key, value]) => ({ ...acc, [key]: value }), existingParams);
+    .entries(newParams)
+    .filter(([, value]) => value !== '' && value)
+    .reduce((acc, [key, value]) => ({ ...acc, [key]: value }), existingParams);
 
 export const getQueryParamString = (obj) => `?${new URLSearchParams(obj).toString()}`;
 
@@ -17,10 +17,10 @@ export const getQueryParamString = (obj) => `?${new URLSearchParams(obj).toStrin
  * returns same querystring with parameters not in allowedParams removed
  */
 export const stripUrlParams = (queryString, allowedParams) => {
-  if (queryString.length < 2) {
-    return queryString;
-  }
-  const queryParams = queryString.slice(1).split('&');
-  const allowedQuery = queryParams.filter((i) => allowedParams.includes(i.slice(0, i.indexOf('='))));
-  return `?${allowedQuery.join('&')}`;
+    if (queryString.length < 2) {
+        return queryString;
+    }
+    const queryParams = queryString.slice(1).split('&');
+    const allowedQuery = queryParams.filter((i) => allowedParams.includes(i.slice(0, i.indexOf('='))));
+    return `?${allowedQuery.join('&')}`;
 };

@@ -10,53 +10,53 @@ import { getLatestPeriodAsMoment } from 'helpers/accountHelper';
 import { fetchAllSubmissionDates } from 'apis/account';
 
 const propTypes = {
-  styles: PropTypes.object,
-  useCache: PropTypes.bool
+    styles: PropTypes.object,
+    useCache: PropTypes.bool
 };
 
 const DateNote = ({ styles, useCache = true }) => {
-  const [date, setDate] = useState(null);
-  const [error, setError] = useState(false);
-  const request = useRef(null);
+    const [date, setDate] = useState(null);
+    const [error, setError] = useState(false);
+    const request = useRef(null);
 
-  const getPeriodEndDate = async () => {
-    if (!date) {
-      setError(false);
-      request.current = fetchAllSubmissionDates(useCache);
-      try {
-        const { data } = await request.current.promise;
-        setDate(getLatestPeriodAsMoment(data.available_periods));
-        request.current = null;
-      }
-      catch (e) {
-        if (!isCancel(e)) {
-          setError(true);
-          console.error(e);
+    const getPeriodEndDate = async () => {
+        if (!date) {
+            setError(false);
+            request.current = fetchAllSubmissionDates(useCache);
+            try {
+                const { data } = await request.current.promise;
+                setDate(getLatestPeriodAsMoment(data.available_periods));
+                request.current = null;
+            }
+            catch (e) {
+                if (!isCancel(e)) {
+                    setError(true);
+                    console.error(e);
+                }
+                request.current = null;
+            }
         }
-        request.current = null;
-      }
-    }
-  };
-
-  useEffect(() => {
-    if (request.current) {
-      request.current.cancel();
-    }
-    getPeriodEndDate();
-    return () => {
-      if (request.current) {
-        request.current.cancel();
-      }
     };
-  }, [date, getPeriodEndDate]);
 
-  if (error) return null;
+    useEffect(() => {
+        if (request.current) {
+            request.current.cancel();
+        }
+        getPeriodEndDate();
+        return () => {
+            if (request.current) {
+                request.current.cancel();
+            }
+        };
+    }, [date, getPeriodEndDate]);
 
-  return (
-    <div style={{ ...styles }} className="section__date-note">
+    if (error) return null;
+
+    return (
+      <div style={{ ...styles }} className="section__date-note">
             Data through {date?.format('M/D/YYYY') || '--'}
-    </div>
-  );
+      </div>
+    );
 };
 
 DateNote.propTypes = propTypes;

@@ -4,10 +4,10 @@
  */
 
 export const setAgencyOverview = (state) => ({
-  type: 'SET_AGENCY_OVERVIEW',
-  overview: state
+    type: 'SET_AGENCY_OVERVIEW',
+    overview: state
 });
 
 export const resetAgency = () => ({
-  type: 'RESET_AGENCY'
+    type: 'RESET_AGENCY'
 });

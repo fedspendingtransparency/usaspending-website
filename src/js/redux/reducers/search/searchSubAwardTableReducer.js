@@ -5,18 +5,18 @@
 
 
 const initialState = {
-  isSubAwardIdClicked: false
+    isSubAwardIdClicked: false
 };
 
 const searchSubAwardTableReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case 'SUBAWARD_ID_CLICKED':
-      return Object.assign({}, state, {
-        isSubAwardIdClicked: action.value
-      });
-    default:
-      return state;
-  }
+    switch (action.type) {
+        case 'SUBAWARD_ID_CLICKED':
+            return Object.assign({}, state, {
+                isSubAwardIdClicked: action.value
+            });
+        default:
+            return state;
+    }
 };
 
 export default searchSubAwardTableReducer;

@@ -123,31 +123,31 @@ const PrivacyPage = () => (
             techniques to protect against unauthorized access to the site&#39;s systems. Personal
             Information is restricted to those who need such access in the course of their duties.
                                           </p>
-                                              <h3 className="about-subtitle">
+                                            <h3 className="about-subtitle">
             Linking
-                                                </h3>
-                                                <p>
+                                            </h3>
+                                              <p>
             The site may contain links to websites created and maintained by other public and/or
             private organizations. The site provides these links as a service to our users. When
             users link to an outside website, they are leaving the site and are subject to the
             privacy and security policies of the owners/sponsors of the outside website(s).
-                                                  </p>
+                                              </p>
                                                 <h3 className="about-subtitle">
             Changes to this policy
-                                                    </h3>
-                                                <p>
+                                                </h3>
+                                                  <p>
             As practices change, this policy may change, as well. Changes to the policy shall not
             apply retroactively.
-                                                      </p>
-                                                <p>
-                                                          <strong>NOTE:</strong> View or print the&nbsp;
-                                                  <a
+                                                  </p>
+                                                    <p>
+                                                      <strong>NOTE:</strong> View or print the&nbsp;
+                                                          <a
                                                               target="_blank"
                                                               rel="noopener noreferrer"
                                                               href="https://www.fiscal.treasury.gov/pia.html">
                 Privacy Impact Assessment (PIA)
                                                             </a>&nbsp;performed on USAspending.gov.
-                                                        </p>
+                                                    </p>
   </LegalPage>
 );
 

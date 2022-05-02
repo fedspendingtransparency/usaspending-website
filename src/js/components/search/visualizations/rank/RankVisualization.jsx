@@ -11,117 +11,117 @@ import RankVisualizationTooltip from './RankVisualizationTooltip';
 import ChartMessage from './RankVisualizationChartMessage';
 
 const defaultProps = {
-  labelSeries: [],
-  dataSeries: [],
-  linkSeries: [],
-  descriptions: [],
-  width: 0,
-  loading: true,
-  error: false,
-  disableTooltip: false,
-  urlRoot: ''
+    labelSeries: [],
+    dataSeries: [],
+    linkSeries: [],
+    descriptions: [],
+    width: 0,
+    loading: true,
+    error: false,
+    disableTooltip: false,
+    urlRoot: ''
 };
 
 const propTypes = {
-  dataSeries: PropTypes.array,
-  linkSeries: PropTypes.array,
-  descriptions: PropTypes.array,
-  loading: PropTypes.bool,
-  error: PropTypes.bool,
-  meta: PropTypes.object,
-  disableTooltip: PropTypes.bool,
-  industryCodeError: PropTypes.bool,
-  recipientError: PropTypes.bool
+    dataSeries: PropTypes.array,
+    linkSeries: PropTypes.array,
+    descriptions: PropTypes.array,
+    loading: PropTypes.bool,
+    error: PropTypes.bool,
+    meta: PropTypes.object,
+    disableTooltip: PropTypes.bool,
+    industryCodeError: PropTypes.bool,
+    recipientError: PropTypes.bool
 };
 
 export default class RankVisualization extends React.Component {
-  constructor(props) {
-    super(props);
+    constructor(props) {
+        super(props);
 
-    this.state = {
-      showTooltip: false,
-      selectedItem: {}
-    };
+        this.state = {
+            showTooltip: false,
+            selectedItem: {}
+        };
 
-    this.selectItem = this.selectItem.bind(this);
-    this.deselectItem = this.deselectItem.bind(this);
-  }
-
-  selectItem(data) {
-    if (this.props.disableTooltip) {
-      return;
+        this.selectItem = this.selectItem.bind(this);
+        this.deselectItem = this.deselectItem.bind(this);
     }
 
-    this.setState({
-      showTooltip: true,
-      selectedItem: data
-    });
-  }
+    selectItem(data) {
+        if (this.props.disableTooltip) {
+            return;
+        }
 
-  deselectItem() {
-    if (this.props.disableTooltip) {
-      return;
+        this.setState({
+            showTooltip: true,
+            selectedItem: data
+        });
     }
 
-    this.setState({
-      showTooltip: false
-    });
-  }
+    deselectItem() {
+        if (this.props.disableTooltip) {
+            return;
+        }
 
-  render() {
-    let chart = (<ChartMessage message="No data to display" />);
-    let legend = null;
-    if (this.props.loading) {
-      chart = (<ChartMessage message="Loading data..." />);
+        this.setState({
+            showTooltip: false
+        });
     }
-    else if (this.props.error) {
-      chart = (<ChartMessage message="An error has occurred." />);
-      if (this.props.industryCodeError) {
-        chart = (<ChartMessage message="Industry codes are unavailable for Sub-Awards." />);
-      }
-      else if (this.props.recipientError) {
-        chart = (<ChartMessage message="Paging to 10,000 records and above is not available for Spending by Recipient." />);
-      }
-    }
-    else if (this.props.dataSeries.length > 0) {
-      const itemHeight = 35;
-      // Height is number of results * item height + 30px padding
-      const height = (this.props.dataSeries.length * itemHeight) + 30;
-      chart = (
-        <HorizontalChart
-          {...this.props}
-          itemHeight={itemHeight}
-          height={height}
-          selectItem={this.selectItem}
-          deselectItem={this.deselectItem} />
-      );
-      legend = (
-        <div className="visualization-legend">
-          <div className="visualization-legend__circle" />
-            <div className="visualization-legend__label">
+
+    render() {
+        let chart = (<ChartMessage message="No data to display" />);
+        let legend = null;
+        if (this.props.loading) {
+            chart = (<ChartMessage message="Loading data..." />);
+        }
+        else if (this.props.error) {
+            chart = (<ChartMessage message="An error has occurred." />);
+            if (this.props.industryCodeError) {
+                chart = (<ChartMessage message="Industry codes are unavailable for Sub-Awards." />);
+            }
+            else if (this.props.recipientError) {
+                chart = (<ChartMessage message="Paging to 10,000 records and above is not available for Spending by Recipient." />);
+            }
+        }
+        else if (this.props.dataSeries.length > 0) {
+            const itemHeight = 35;
+            // Height is number of results * item height + 30px padding
+            const height = (this.props.dataSeries.length * itemHeight) + 30;
+            chart = (
+              <HorizontalChart
+                {...this.props}
+                itemHeight={itemHeight}
+                height={height}
+                selectItem={this.selectItem}
+                deselectItem={this.deselectItem} />
+            );
+            legend = (
+              <div className="visualization-legend">
+                <div className="visualization-legend__circle" />
+                  <div className="visualization-legend__label">
                         Amount Obligated
-            </div>
-        </div>
-      );
-    }
+                  </div>
+              </div>
+            );
+        }
 
-    let tooltip = null;
-    if (this.state.showTooltip) {
-      tooltip = (<RankVisualizationTooltip
-        {...this.state.selectedItem}
-        {...this.props.meta} />);
-    }
+        let tooltip = null;
+        if (this.state.showTooltip) {
+            tooltip = (<RankVisualizationTooltip
+              {...this.state.selectedItem}
+              {...this.props.meta} />);
+        }
 
-    return (
-      <section
-        className="results-visualization-rank-container"
-        aria-label="Spending by Category">
-        {chart}
-        {legend}
-        {tooltip}
-      </section>
-    );
-  }
+        return (
+          <section
+            className="results-visualization-rank-container"
+            aria-label="Spending by Category">
+            {chart}
+            {legend}
+            {tooltip}
+          </section>
+        );
+    }
 }
 
 RankVisualization.propTypes = propTypes;

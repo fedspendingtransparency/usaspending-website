@@ -11,63 +11,63 @@ import ArchiveTypeFilter from './filters/TypeFilter';
 import ArchiveFiscalYearFilter from './filters/FiscalYearFilter';
 
 const propTypes = {
-  filters: PropTypes.object,
-  updateFilter: PropTypes.func,
-  agencies: PropTypes.object,
-  requestResults: PropTypes.func
+    filters: PropTypes.object,
+    updateFilter: PropTypes.func,
+    agencies: PropTypes.object,
+    requestResults: PropTypes.func
 };
 
 export default class AwardDataArchiveForm extends React.Component {
-  constructor(props) {
-    super(props);
+    constructor(props) {
+        super(props);
 
-    this.state = {
-      windowWidth: 0,
-      formWidth: 0
-    };
+        this.state = {
+            windowWidth: 0,
+            formWidth: 0
+        };
 
-    this.setFormWidth = this.setFormWidth.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-  }
+        this.setFormWidth = this.setFormWidth.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
 
-  componentDidMount() {
+    componentDidMount() {
     // set the initial form width
-    this.setFormWidth();
-    // watch the window for size changes
-    window.addEventListener('resize', this.setFormWidth);
-  }
+        this.setFormWidth();
+        // watch the window for size changes
+        window.addEventListener('resize', this.setFormWidth);
+    }
 
-  componentWillUnmount() {
+    componentWillUnmount() {
     // stop watching for size changes
-    window.removeEventListener('resize', this.setFormWidth);
-  }
+        window.removeEventListener('resize', this.setFormWidth);
+    }
 
-  setFormWidth() {
-    const windowWidth = window.innerWidth;
-    const formWidth = this.formWidthController.clientWidth - 1;
-    this.setState({
-      windowWidth,
-      formWidth
-    });
-  }
+    setFormWidth() {
+        const windowWidth = window.innerWidth;
+        const formWidth = this.formWidthController.clientWidth - 1;
+        this.setState({
+            windowWidth,
+            formWidth
+        });
+    }
 
-  handleSubmit(e) {
-    e.preventDefault();
+    handleSubmit(e) {
+        e.preventDefault();
 
-    this.props.requestResults();
-  }
+        this.props.requestResults();
+    }
 
-  render() {
-    return (
-      <div className="award-data-archive-form">
-        <div className="form-title__wrapper">
-          <div className="form-title">
+    render() {
+        return (
+          <div className="award-data-archive-form">
+            <div className="form-title__wrapper">
+              <div className="form-title">
                         Filter by
-          </div>
-        </div>
-          <div
-            className="form-width-master"
-            ref={(div) => {
+              </div>
+            </div>
+              <div
+                className="form-width-master"
+                ref={(div) => {
                         // this is an empty div that scales via CSS
                         // the dropdown widths will be based on this width
                         this.formWidthController = div;
@@ -95,9 +95,9 @@ export default class AwardDataArchiveForm extends React.Component {
                                         <input type="submit" value="Apply" />
                                       </div>
                       </form>
-      </div>
-    );
-  }
+          </div>
+        );
+    }
 }
 
 AwardDataArchiveForm.propTypes = propTypes;

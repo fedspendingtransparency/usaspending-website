@@ -13,20 +13,20 @@ import * as downloadActions from 'redux/actions/search/downloadActions';
 import DownloadLevel from 'components/search/modals/fullDownload/screens/DownloadLevel';
 
 const propTypes = {
-  download: PropTypes.object
+    download: PropTypes.object
 };
 
 export class DownloadLevelContainer extends React.Component {
-  render() {
-    return (
-      <DownloadLevel {...this.props} />
-    );
-  }
+    render() {
+        return (
+          <DownloadLevel {...this.props} />
+        );
+    }
 }
 
 DownloadLevelContainer.propTypes = propTypes;
 
 export default connect(
-  (state) => ({ download: state.download }),
-  (dispatch) => bindActionCreators(downloadActions, dispatch)
+    (state) => ({ download: state.download }),
+    (dispatch) => bindActionCreators(downloadActions, dispatch)
 )(DownloadLevelContainer);

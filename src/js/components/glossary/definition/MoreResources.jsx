@@ -10,25 +10,25 @@ import ReactMarkdown from 'react-markdown';
 import SmartLink from './SmartLink';
 
 const propTypes = {
-  resources: PropTypes.string
+    resources: PropTypes.string
 };
 
 export default class MoreResources extends React.Component {
-  render() {
-    return (
-      <div className="glossary-resources">
-        <h3 className="title">
+    render() {
+        return (
+          <div className="glossary-resources">
+            <h3 className="title">
                     More Resources
-        </h3>
-          <hr />
-            <ReactMarkdown
-              source={this.props.resources}
-              renderers={Object.assign({}, ReactMarkdown.renderers, {
+            </h3>
+              <hr />
+                <ReactMarkdown
+                  source={this.props.resources}
+                  renderers={Object.assign({}, ReactMarkdown.renderers, {
                         Link: SmartLink
                     })} />
-      </div>
-    );
-  }
+          </div>
+        );
+    }
 }
 
 MoreResources.propTypes = propTypes;

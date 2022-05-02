@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
-  children: PropTypes.node
+    children: PropTypes.node
 };
 
 const MapMessage = (props) => (

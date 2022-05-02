@@ -7,18 +7,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
-  axis: PropTypes.string,
-  x: PropTypes.number,
-  y: PropTypes.number,
-  label: PropTypes.string,
-  index: PropTypes.number
+    axis: PropTypes.string,
+    x: PropTypes.number,
+    y: PropTypes.number,
+    label: PropTypes.string,
+    index: PropTypes.number
 };
 
 const AxisLabel = ({
-  axis = 'x',
-  x = 0,
-  y = 0,
-  label = ''
+    axis = 'x',
+    x = 0,
+    y = 0,
+    label = ''
 }) => (
   <text
     className={`${axis}-axis-label`}

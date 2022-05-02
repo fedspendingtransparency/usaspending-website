@@ -13,16 +13,16 @@ const spendingByCategoryField = programActivityField;
 const awardField = `financial_set__${programActivityField}`;
 
 export const commonQuery = (field, values) => ({
-  field,
-  operation: 'in',
-  value: values
+    field,
+    operation: 'in',
+    value: values
 });
 
 export const buildBalancesProgramActivityQuery = (values) =>
-  commonQuery(spendingOverTimeField, _translateFrontendIDToPrimaryKeys(values));
+    commonQuery(spendingOverTimeField, _translateFrontendIDToPrimaryKeys(values));
 
 export const buildCategoriesProgramActivityQuery = (values) =>
-  commonQuery(spendingByCategoryField, _translateFrontendIDToPrimaryKeys(values));
+    commonQuery(spendingByCategoryField, _translateFrontendIDToPrimaryKeys(values));
 
 export const buildAwardsProgramActivityQuery = (values) =>
-  commonQuery(awardField, _translateFrontendIDToPrimaryKeys(values));
+    commonQuery(awardField, _translateFrontendIDToPrimaryKeys(values));

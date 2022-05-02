@@ -16,12 +16,12 @@ import BarChartTrendline from './chart/BarChartTrendline';
 import PointTooltip from './PointTooltip';
 
 const defaultProps = {
-  groups: [],
-  xSeries: [],
-  ySeries: [],
-  zSeries: [],
-  width: 0,
-  height: 280
+    groups: [],
+    xSeries: [],
+    ySeries: [],
+    zSeries: [],
+    width: 0,
+    height: 280
 };
 /**
  * groups - an array of X-axis labels. Each group can have multiple bars/data points
@@ -36,86 +36,86 @@ const defaultProps = {
 /* eslint-disable react/no-unused-prop-types */
 // allow unused prop types. they are passed to child components, but documented here
 const propTypes = {
-  width: PropTypes.number,
-  height: PropTypes.number,
-  data: PropTypes.object,
-  loading: PropTypes.bool,
-  error: PropTypes.bool,
-  visualizationPeriod: PropTypes.string
+    width: PropTypes.number,
+    height: PropTypes.number,
+    data: PropTypes.object,
+    loading: PropTypes.bool,
+    error: PropTypes.bool,
+    visualizationPeriod: PropTypes.string
 };
 /* eslint-enable react/no-unused-prop-types */
 
 export default class RecipientTimeVisualization extends React.Component {
-  constructor(props) {
-    super(props);
+    constructor(props) {
+        super(props);
 
-    this.state = {
-      showTooltip: false,
-      tooltipData: null,
-      tooltipX: 0,
-      tooltipY: 0,
-      barWidth: 0
-    };
+        this.state = {
+            showTooltip: false,
+            tooltipData: null,
+            tooltipX: 0,
+            tooltipY: 0,
+            barWidth: 0
+        };
 
-    this.showTooltip = this.showTooltip.bind(this);
-  }
-
-  showTooltip(data, x, y, width) {
-    this.setState({
-      tooltipData: data,
-      tooltipX: x,
-      tooltipY: y,
-      barWidth: width
-    });
-  }
-
-  render() {
-    const legend = [
-      {
-        color: '#141D3B',
-        stroke: '#141D3B',
-        label: 'All Transactions',
-        offset: 0
-      },
-      {
-        color: '#FFFFFF',
-        stroke: '#F5A623',
-        label: 'Count of New Awards',
-        offset: 120
-      }
-    ];
-
-    let tooltip = null;
-    if (this.state.tooltipData && window.innerWidth > 720) {
-      if (this.state.tooltipData.type === 'bar') {
-        tooltip = (
-          <TimeTooltip
-            barWidth={this.state.barWidth}
-            data={this.state.tooltipData}
-            x={this.state.tooltipX}
-            y={this.state.tooltipY}
-            chartWidth={this.props.width} />
-        );
-      }
-      else if (this.state.tooltipData.type === 'point') {
-        tooltip = (
-          <PointTooltip
-            barWidth={this.state.barWidth}
-            data={this.state.tooltipData}
-            x={this.state.tooltipX}
-            y={this.state.tooltipY}
-            chartWidth={this.props.width} />
-        );
-      }
+        this.showTooltip = this.showTooltip.bind(this);
     }
 
-    return (
-      <div className="recipient-visualization__time-wrapper">
-        <TransitionGroup>
-          <CSSTransition
-            classNames="visualization-content-fade"
-            timeout={{ exit: 225, enter: 195 }}
-            exit>
+    showTooltip(data, x, y, width) {
+        this.setState({
+            tooltipData: data,
+            tooltipX: x,
+            tooltipY: y,
+            barWidth: width
+        });
+    }
+
+    render() {
+        const legend = [
+            {
+                color: '#141D3B',
+                stroke: '#141D3B',
+                label: 'All Transactions',
+                offset: 0
+            },
+            {
+                color: '#FFFFFF',
+                stroke: '#F5A623',
+                label: 'Count of New Awards',
+                offset: 120
+            }
+        ];
+
+        let tooltip = null;
+        if (this.state.tooltipData && window.innerWidth > 720) {
+            if (this.state.tooltipData.type === 'bar') {
+                tooltip = (
+                  <TimeTooltip
+                    barWidth={this.state.barWidth}
+                    data={this.state.tooltipData}
+                    x={this.state.tooltipX}
+                    y={this.state.tooltipY}
+                    chartWidth={this.props.width} />
+                );
+            }
+            else if (this.state.tooltipData.type === 'point') {
+                tooltip = (
+                  <PointTooltip
+                    barWidth={this.state.barWidth}
+                    data={this.state.tooltipData}
+                    x={this.state.tooltipX}
+                    y={this.state.tooltipY}
+                    chartWidth={this.props.width} />
+                );
+            }
+        }
+
+        return (
+          <div className="recipient-visualization__time-wrapper">
+            <TransitionGroup>
+              <CSSTransition
+                classNames="visualization-content-fade"
+                timeout={{ exit: 225, enter: 195 }}
+                exit>
                         <>
                           {this.props.data.groups.length > 0 && !this.props.loading && !this.props.error && (
                             <BarChartTrendline
@@ -135,12 +135,12 @@ export default class RecipientTimeVisualization extends React.Component {
                           {this.props.error && <ChartError />}
                           {this.props.loading && <ChartLoadingMessage />}
                         </>
-          </CSSTransition>
-        </TransitionGroup>
-        {tooltip}
-      </div>
-    );
-  }
+              </CSSTransition>
+            </TransitionGroup>
+            {tooltip}
+          </div>
+        );
+    }
 }
 
 RecipientTimeVisualization.propTypes = propTypes;

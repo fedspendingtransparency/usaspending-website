@@ -14,9 +14,9 @@ import { handleSort } from 'helpers/covid19Helper';
 import MapFiltersHeader from './MapFiltersHeader';
 
 const propTypes = {
-  filters: PropTypes.object,
-  activeFilters: PropTypes.object,
-  isOpen: PropTypes.bool
+    filters: PropTypes.object,
+    activeFilters: PropTypes.object,
+    isOpen: PropTypes.bool
 };
 
 const MapFilters = ({ filters, activeFilters, isOpen }) => (

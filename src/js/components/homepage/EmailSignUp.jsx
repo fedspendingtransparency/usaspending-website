@@ -6,28 +6,28 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const regex = new RegExp(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/);
 
 const propTypes = {
-  closeModal: PropTypes.func
+    closeModal: PropTypes.func
 };
 
 const EmailSignUp = ({
-  closeModal
+    closeModal
 }) => {
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [emailInput, setEmailInput] = useState('');
+    const [isSubmitted, setIsSubmitted] = useState(false);
+    const [emailInput, setEmailInput] = useState('');
 
-  const handleEmailInput = (e) => {
-    setEmailInput(e.target.value);
-  };
-  const handleSubmit = () => {
-    setIsSubmitted(true);
-  };
+    const handleEmailInput = (e) => {
+        setEmailInput(e.target.value);
+    };
+    const handleSubmit = () => {
+        setIsSubmitted(true);
+    };
 
-  const isValid = regex.test(emailInput);
+    const isValid = regex.test(emailInput);
 
-  return (
-    <div className="email-sign-up__modal-body">
-      {!isSubmitted && <h2>Subscribe the USAspending.gov newsletter</h2>}
-      {isSubmitted && (
+    return (
+      <div className="email-sign-up__modal-body">
+        {!isSubmitted && <h2>Subscribe the USAspending.gov newsletter</h2>}
+        {isSubmitted && (
         <div className="email-sign-up__confirmation">
           <FontAwesomeIcon icon="check-circle" color="#2E8540" />
             <h3>Thank you for subscribing!</h3>
@@ -35,7 +35,7 @@ const EmailSignUp = ({
                 <button onClick={closeModal}>OK</button>
         </div>
             )}
-      {!isSubmitted && (
+        {!isSubmitted && (
         <form>
           <label className="email-label" htmlFor="email">Email Address</label>
             <input
@@ -72,8 +72,8 @@ const EmailSignUp = ({
                                             <input type="hidden" name="secx" value="03b19f94" />
         </form>
             )}
-    </div>
-  );
+      </div>
+    );
 };
 
 EmailSignUp.propTypes = propTypes;

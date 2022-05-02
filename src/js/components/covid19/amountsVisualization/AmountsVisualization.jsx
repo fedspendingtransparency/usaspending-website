@@ -14,81 +14,81 @@ import PaginatedTooltipContainer from 'components/award/shared/activity/Paginate
 import Tooltip from 'components/award/shared/activity/Tooltip';
 
 import {
-  amountsHeight,
-  amountsPadding,
-  defaultTooltipWidth,
-  tooltipMapping
+    amountsHeight,
+    amountsPadding,
+    defaultTooltipWidth,
+    tooltipMapping
 } from 'dataMapping/covid19/amountsVisualization';
 import {
-  formatMoney,
-  calculatePercentage
+    formatMoney,
+    calculatePercentage
 } from 'helpers/moneyFormatter';
 
 const propTypes = {
-  overviewData: PropTypes.object,
-  width: PropTypes.number,
-  publicLaw: PropTypes.string
+    overviewData: PropTypes.object,
+    width: PropTypes.number,
+    publicLaw: PropTypes.string
 };
 
 const AmountsVisualization = ({
-  overviewData,
-  width = null,
-  publicLaw
+    overviewData,
+    width = null,
+    publicLaw
 }) => {
-  const [loading, setLoading] = useState(null);
-  const [scale, setScale] = useState(null);
-  const [showTooltip, setShowTooltip] = useState('');
-  const [mouseValue, setMouseValue] = useState({ x: 0, y: 0 });
+    const [loading, setLoading] = useState(null);
+    const [scale, setScale] = useState(null);
+    const [showTooltip, setShowTooltip] = useState('');
+    const [mouseValue, setMouseValue] = useState({ x: 0, y: 0 });
 
-  useEffect(() => {
-    setLoading(!Object.keys(overviewData).length);
-  }, [overviewData]);
+    useEffect(() => {
+        setLoading(!Object.keys(overviewData).length);
+    }, [overviewData]);
 
-  // X Scale
-  useEffect(() => {
-    if (width) {
-      const s = scaleLinear()
-        .domain([0, overviewData._totalBudgetAuthorityForBar])
-        .range([amountsPadding.left, width - amountsPadding.right]);
-      setScale(() => s);
-    }
-  }, [width, overviewData]);
+    // X Scale
+    useEffect(() => {
+        if (width) {
+            const s = scaleLinear()
+                .domain([0, overviewData._totalBudgetAuthorityForBar])
+                .range([amountsPadding.left, width - amountsPadding.right]);
+            setScale(() => s);
+        }
+    }, [width, overviewData]);
 
-  const setMouseData = throttle((e) => {
-    const browser = window.navigator.userAgent;
-    if (browser.includes('Chrome')) {
-      setMouseValue({
-        x: e.clientX - document.getElementById('amounts-viz_id').getBoundingClientRect().left,
-        y: (e.clientY - document.getElementById('amounts-viz_id').getBoundingClientRect().top) + 5
-      });
-    }
-    else if (browser.includes('Firefox') || browser.includes('Safari')) {
-      setMouseValue({
-        x: e.clientX - document.getElementById('amounts-viz_id').getBoundingClientRect().left,
-        y: e.clientY - document.getElementById('amounts-viz_id').getBoundingClientRect().top
-      });
-    }
-    else {
-      setMouseValue({
-        x: e.offsetX || e.clientX,
-        y: e.offsetY || e.clientY
-      });
-    }
-  }, 100);
+    const setMouseData = throttle((e) => {
+        const browser = window.navigator.userAgent;
+        if (browser.includes('Chrome')) {
+            setMouseValue({
+                x: e.clientX - document.getElementById('amounts-viz_id').getBoundingClientRect().left,
+                y: (e.clientY - document.getElementById('amounts-viz_id').getBoundingClientRect().top) + 5
+            });
+        }
+        else if (browser.includes('Firefox') || browser.includes('Safari')) {
+            setMouseValue({
+                x: e.clientX - document.getElementById('amounts-viz_id').getBoundingClientRect().left,
+                y: e.clientY - document.getElementById('amounts-viz_id').getBoundingClientRect().top
+            });
+        }
+        else {
+            setMouseValue({
+                x: e.offsetX || e.clientX,
+                y: e.offsetY || e.clientY
+            });
+        }
+    }, 100);
 
-  useEffect(() => {
-    document.getElementById('amounts-viz_id').addEventListener('mousemove', setMouseData);
-    return () => document.getElementById('amounts-viz_id').removeEventListener('mousemove', setMouseData);
-  }, [setMouseData]);
+    useEffect(() => {
+        document.getElementById('amounts-viz_id').addEventListener('mousemove', setMouseData);
+        return () => document.getElementById('amounts-viz_id').removeEventListener('mousemove', setMouseData);
+    }, [setMouseData]);
 
-  const tooltipData = () => ({
-    tooltipPosition: 'bottom',
-    styles: {
-      position: 'absolute',
-      transform: `translate(${mouseValue.x - (defaultTooltipWidth / 2)}px,${mouseValue.y + 10}px)`
-    },
-    tooltipComponent: <PaginatedTooltipContainer
-      data={[{
+    const tooltipData = () => ({
+        tooltipPosition: 'bottom',
+        styles: {
+            position: 'absolute',
+            transform: `translate(${mouseValue.x - (defaultTooltipWidth / 2)}px,${mouseValue.y + 10}px)`
+        },
+        tooltipComponent: <PaginatedTooltipContainer
+          data={[{
                 title: tooltipMapping[showTooltip.substring(0, showTooltip.length - 1)].title,
                 sections: [
                     {
@@ -101,24 +101,24 @@ const AmountsVisualization = ({
                 ]
             }]
             }
-      tooltipElement={<Tooltip />} />
-  });
+          tooltipElement={<Tooltip />} />
+    });
 
-  const displayTooltip = (e) => {
-    if (e.target) setShowTooltip(e.target.getAttribute('data-tooltip'));
-  };
+    const displayTooltip = (e) => {
+        if (e.target) setShowTooltip(e.target.getAttribute('data-tooltip'));
+    };
 
-  const hideTooltip = (e) => {
-    if (e.target.getAttribute('data-tooltip') === showTooltip) setShowTooltip('');
-  };
+    const hideTooltip = (e) => {
+        if (e.target.getAttribute('data-tooltip') === showTooltip) setShowTooltip('');
+    };
 
-  return (
-    <div className="amounts-viz award-amounts-viz" id="amounts-viz_id">
-      {
+    return (
+      <div className="amounts-viz award-amounts-viz" id="amounts-viz_id">
+        {
                 loading &&
                 <LoadingMessage />
             }
-      {
+        {
                 showTooltip &&
                 <TooltipWrapper
                   className="award-section-tt"
@@ -132,7 +132,7 @@ const AmountsVisualization = ({
                         closeTooltip: () => {}
                     }} />
             }
-      {
+        {
                 !loading &&
                 <Carousel
                   items={[
@@ -276,8 +276,8 @@ const AmountsVisualization = ({
                     </div>
                     ]} />
             }
-    </div>
-  );
+      </div>
+    );
 };
 
 AmountsVisualization.propTypes = propTypes;

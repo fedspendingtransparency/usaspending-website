@@ -1,3 +1,3 @@
 export default {
-  COLUMN: 'column'
+    COLUMN: 'column'
 };

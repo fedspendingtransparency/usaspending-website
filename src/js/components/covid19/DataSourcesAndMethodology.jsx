@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 const propTypes = {
-  publicLaw: PropTypes.string
+    publicLaw: PropTypes.string
 };
 
 const DataSourcesAndMethodology = ({ publicLaw }) => (

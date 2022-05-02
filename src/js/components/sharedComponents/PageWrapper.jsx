@@ -13,16 +13,16 @@ import Header from 'containers/shared/HeaderContainer';
 import Footer from 'containers/Footer';
 
 const PageWrapper = ({
-  pageName,
-  classNames,
-  metaTagProps = {},
-  children,
-  ref,
-  noHeader = false,
-  title,
-  overLine,
-  toolBarComponents = [],
-  filters = {}
+    pageName,
+    classNames,
+    metaTagProps = {},
+    children,
+    ref,
+    noHeader = false,
+    title,
+    overLine,
+    toolBarComponents = [],
+    filters = {}
 }) => (
   <div className={classNames} ref={ref}>
     <MetaTags {...metaTagProps} />
@@ -40,16 +40,16 @@ const PageWrapper = ({
 );
 
 PageWrapper.propTypes = {
-  pageName: PropTypes.string.isRequired,
-  classNames: PropTypes.string,
-  metaTagProps: PropTypes.object,
-  toolBarComponents: PropTypes.arrayOf(PropTypes.element),
-  title: PropTypes.string.isRequired,
-  overLine: PropTypes.string,
-  children: PropTypes.element,
-  ref: PropTypes.object,
-  noHeader: PropTypes.bool,
-  filters: PropTypes.object
+    pageName: PropTypes.string.isRequired,
+    classNames: PropTypes.string,
+    metaTagProps: PropTypes.object,
+    toolBarComponents: PropTypes.arrayOf(PropTypes.element),
+    title: PropTypes.string.isRequired,
+    overLine: PropTypes.string,
+    children: PropTypes.element,
+    ref: PropTypes.object,
+    noHeader: PropTypes.bool,
+    filters: PropTypes.object
 };
 
 export default PageWrapper;

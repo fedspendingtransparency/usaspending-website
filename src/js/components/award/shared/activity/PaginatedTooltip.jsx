@@ -8,21 +8,21 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
-  totalPages: PropTypes.number,
-  currentPage: PropTypes.number,
-  previousPage: PropTypes.func,
-  nextPage: PropTypes.func,
-  previousPageButtonClassnames: PropTypes.string,
-  nextPageButtonClassnames: PropTypes.string
+    totalPages: PropTypes.number,
+    currentPage: PropTypes.number,
+    previousPage: PropTypes.func,
+    nextPage: PropTypes.func,
+    previousPageButtonClassnames: PropTypes.string,
+    nextPageButtonClassnames: PropTypes.string
 };
 
 const PaginatedTooltip = ({
-  totalPages,
-  currentPage,
-  previousPage,
-  nextPage,
-  previousPageButtonClassnames,
-  nextPageButtonClassnames
+    totalPages,
+    currentPage,
+    previousPage,
+    nextPage,
+    previousPageButtonClassnames,
+    nextPageButtonClassnames
 }) => (
   <div className="tooltip-pagination-container">
     <button

@@ -7,21 +7,21 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const defaultProps = {
-  message: ''
+    message: ''
 };
 
 const propTypes = {
-  message: PropTypes.string
+    message: PropTypes.string
 };
 
 export default class ResultsTableMessage extends React.Component {
-  render() {
-    return (
-      <div className="results-table-message">
-        {this.props.message}
-      </div>
-    );
-  }
+    render() {
+        return (
+          <div className="results-table-message">
+            {this.props.message}
+          </div>
+        );
+    }
 }
 
 ResultsTableMessage.propTypes = propTypes;

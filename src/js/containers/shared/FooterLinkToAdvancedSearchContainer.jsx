@@ -12,30 +12,30 @@ import { resetAppliedFilters } from 'redux/actions/search/appliedFilterActions';
 import FooterLinkToAdvancedSearch from 'components/sharedComponents/FooterLinkToAdvancedSearch';
 
 const propTypes = {
-  title: PropTypes.string,
-  description: PropTypes.string,
-  onClick: PropTypes.func
+    title: PropTypes.string,
+    description: PropTypes.string,
+    onClick: PropTypes.func
 };
 
 const FooterLinkToAdvancedSearchContainer = ({
-  title, description, onClick
+    title, description, onClick
 }) => {
-  const dispatch = useDispatch();
-  const history = useHistory();
+    const dispatch = useDispatch();
+    const history = useHistory();
 
-  const clickedSearch = () => {
-    dispatch(clearAllFilters());
-    dispatch(resetAppliedFilters());
-    if (onClick) onClick();
-    history.push('/search');
-  };
+    const clickedSearch = () => {
+        dispatch(clearAllFilters());
+        dispatch(resetAppliedFilters());
+        if (onClick) onClick();
+        history.push('/search');
+    };
 
-  return (
-    <FooterLinkToAdvancedSearch
-      clickedSearch={clickedSearch}
-      title={title}
-      description={description} />
-  );
+    return (
+      <FooterLinkToAdvancedSearch
+        clickedSearch={clickedSearch}
+        title={title}
+        description={description} />
+    );
 };
 
 FooterLinkToAdvancedSearchContainer.propTypes = propTypes;

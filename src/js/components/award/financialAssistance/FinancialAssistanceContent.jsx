@@ -22,104 +22,104 @@ import AwardDescription from '../shared/description/AwardDescription';
 import CFDASection from './CFDASection';
 
 const propTypes = {
-  awardId: PropTypes.string,
-  overview: PropTypes.object,
-  jumpToSection: PropTypes.func,
-  isSubAwardIdClicked: PropTypes.bool,
-  subAwardIdClicked: PropTypes.func,
-  defCodes: PropTypes.array
+    awardId: PropTypes.string,
+    overview: PropTypes.object,
+    jumpToSection: PropTypes.func,
+    isSubAwardIdClicked: PropTypes.bool,
+    subAwardIdClicked: PropTypes.func,
+    defCodes: PropTypes.array
 };
 
 const FinancialAssistanceContent = ({
-  awardId,
-  overview = { generatedId: '', fileC: { obligations: [] } },
-  jumpToSection,
-  isSubAwardIdClicked,
-  subAwardIdClicked,
-  defCodes
+    awardId,
+    overview = { generatedId: '', fileC: { obligations: [] } },
+    jumpToSection,
+    isSubAwardIdClicked,
+    subAwardIdClicked,
+    defCodes
 }) => {
-  const [activeTab, setActiveTab] = useState("transaction");
-  const [CFDAOverviewLinkClicked, setCFDAOverviewLinkClicked] = useState(false);
+    const [activeTab, setActiveTab] = useState("transaction");
+    const [CFDAOverviewLinkClicked, setCFDAOverviewLinkClicked] = useState(false);
 
-  const updateCFDAOverviewLinkClicked = (didClick) => {
-    setCFDAOverviewLinkClicked(didClick);
-  };
+    const updateCFDAOverviewLinkClicked = (didClick) => {
+        setCFDAOverviewLinkClicked(didClick);
+    };
 
-  const glossaryLink = glossaryLinks[overview.type]
-    ? `/award/${awardId}?glossary=${glossaryLinks[overview.type]}`
-    : null;
+    const glossaryLink = glossaryLinks[overview.type]
+        ? `/award/${awardId}?glossary=${glossaryLinks[overview.type]}`
+        : null;
 
-  const jumpToTransactionHistoryTable = () => {
-    setActiveTab('transaction');
-    jumpToSection("award-history");
-  };
+    const jumpToTransactionHistoryTable = () => {
+        setActiveTab('transaction');
+        jumpToSection("award-history");
+    };
 
-  const jumpToFederalAccountsHistory = () => {
-    setActiveTab('federal_account');
-    jumpToSection('award-history');
-  };
+    const jumpToFederalAccountsHistory = () => {
+        setActiveTab('federal_account');
+        jumpToSection('award-history');
+    };
 
-  const jumpToSubAwardHistoryTable = () => {
-    setActiveTab('subaward');
-    jumpToSection('award-history');
-  };
+    const jumpToSubAwardHistoryTable = () => {
+        setActiveTab('subaward');
+        jumpToSection('award-history');
+    };
 
-  useEffect(() => {
-    if (isSubAwardIdClicked && awardTypesWithSubawards.includes(overview.category)) {
-      jumpToSubAwardHistoryTable();
-      subAwardIdClicked(false);
-    }
-  });
+    useEffect(() => {
+        if (isSubAwardIdClicked && awardTypesWithSubawards.includes(overview.category)) {
+            jumpToSubAwardHistoryTable();
+            subAwardIdClicked(false);
+        }
+    });
 
-  const awardAmountData = Object.create(BaseAwardAmounts);
-  awardAmountData.populate(overview, overview.category, defCodes);
+    const awardAmountData = Object.create(BaseAwardAmounts);
+    awardAmountData.populate(overview, overview.category, defCodes);
 
-  const [idLabel, identifier] = isAwardAggregate(overview.generatedId) ? ['URI', overview.uri] : ['FAIN', overview.fain];
-  const isGrant = overview.category === 'grant';
+    const [idLabel, identifier] = isAwardAggregate(overview.generatedId) ? ['URI', overview.uri] : ['FAIN', overview.fain];
+    const isGrant = overview.category === 'grant';
 
-  return (
-    <AwardPageWrapper
-      defCodes={overview.defCodes}
-      identifier={identifier}
-      idLabel={idLabel}
-      awardType={overview.category}
-      glossaryLink={glossaryLink}
-      overviewType={overview.type}
-      title={overview.title}
-      lastModifiedDateLong={overview.periodOfPerformance.lastModifiedDateLong}
-      className="award-financial-assistance"
-      dates={overview.periodOfPerformance}>
-        <AwardSection type="row" className="award-overview" id="award-overview">
-          <AwardOverviewLeftSection
-            awardingAgency={overview.awardingAgency}
-            recipient={overview.recipient}
-            recordType={overview.recordType}
-            awardType={overview.category}
-            awardId={awardId} />
-              <AwardOverviewRightSection
-                updateCFDAOverviewLinkClicked={updateCFDAOverviewLinkClicked}
-                jumpToSection={jumpToSection}
-                overview={overview} />
-        </AwardSection>
-          <AwardSection type="row">
-            <AwardAmountsSection
+    return (
+      <AwardPageWrapper
+        defCodes={overview.defCodes}
+        identifier={identifier}
+        idLabel={idLabel}
+        awardType={overview.category}
+        glossaryLink={glossaryLink}
+        overviewType={overview.type}
+        title={overview.title}
+        lastModifiedDateLong={overview.periodOfPerformance.lastModifiedDateLong}
+        className="award-financial-assistance"
+        dates={overview.periodOfPerformance}>
+          <AwardSection type="row" className="award-overview" id="award-overview">
+            <AwardOverviewLeftSection
+              awardingAgency={overview.awardingAgency}
+              recipient={overview.recipient}
+              recordType={overview.recordType}
               awardType={overview.category}
-              awardOverview={awardAmountData}
-              jumpToTransactionHistoryTable={jumpToTransactionHistoryTable} />
-                <AwardDescription
-                  description={overview.description}
-                  awardType={overview.category}
-                  awardId={awardId} />
+              awardId={awardId} />
+                <AwardOverviewRightSection
+                  updateCFDAOverviewLinkClicked={updateCFDAOverviewLinkClicked}
+                  jumpToSection={jumpToSection}
+                  overview={overview} />
           </AwardSection>
             <AwardSection type="row">
-              {
+              <AwardAmountsSection
+                awardType={overview.category}
+                awardOverview={awardAmountData}
+                jumpToTransactionHistoryTable={jumpToTransactionHistoryTable} />
+                  <AwardDescription
+                    description={overview.description}
+                    awardType={overview.category}
+                    awardId={awardId} />
+            </AwardSection>
+              <AwardSection type="row">
+                {
                     isGrant && <ContractGrantActivityContainer
                       awardId={awardId}
                       awardType={overview.category}
                       dates={overview.periodOfPerformance}
                       jumpToTransactionHistoryTable={jumpToTransactionHistoryTable} />
                 }
-              {!isGrant && (
+                {!isGrant && (
                 <CFDASection
                   cfdas={overview.cfdas}
                   CFDAOverviewLinkClicked={CFDAOverviewLinkClicked}
@@ -129,8 +129,8 @@ const FinancialAssistanceContent = ({
                   <FederalAccountsSection
                     awardType={overview.category}
                     jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
-            </AwardSection>
-      {isGrant && (
+              </AwardSection>
+        {isGrant && (
         <AwardSection type="row">
           <CFDASection
             cfdas={overview.cfdas}
@@ -145,8 +145,8 @@ const FinancialAssistanceContent = ({
                 setActiveTab={setActiveTab}
                 activeTab={activeTab} />
                   <AdditionalInfo overview={overview} />
-    </AwardPageWrapper>
-  );
+      </AwardPageWrapper>
+    );
 };
 FinancialAssistanceContent.defaultProps = { uniqueGeneratedAwardId: '' };
 FinancialAssistanceContent.propTypes = propTypes;

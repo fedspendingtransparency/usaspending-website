@@ -21,107 +21,107 @@ import AwardAmountsSection from '../shared/awardAmounts/AwardAmountsSection';
 import AwardDescription from "../shared/description/AwardDescription";
 
 const propTypes = {
-  awardId: PropTypes.string,
-  overview: PropTypes.object,
-  jumpToSection: PropTypes.func,
-  counts: PropTypes.object,
-  isSubAwardIdClicked: PropTypes.bool,
-  subAwardIdClicked: PropTypes.func,
-  defCodes: PropTypes.array
+    awardId: PropTypes.string,
+    overview: PropTypes.object,
+    jumpToSection: PropTypes.func,
+    counts: PropTypes.object,
+    isSubAwardIdClicked: PropTypes.bool,
+    subAwardIdClicked: PropTypes.func,
+    defCodes: PropTypes.array
 };
 
 const ContractContent = ({
-  awardId,
-  overview,
-  jumpToSection,
-  counts,
-  isSubAwardIdClicked,
-  subAwardIdClicked,
-  defCodes
+    awardId,
+    overview,
+    jumpToSection,
+    counts,
+    isSubAwardIdClicked,
+    subAwardIdClicked,
+    defCodes
 }) => {
-  const [activeTab, setActiveTab] = useState('transaction');
+    const [activeTab, setActiveTab] = useState('transaction');
 
-  const glossarySlug = glossaryLinks[overview.type];
-  const glossaryLink = glossarySlug
-    ? `/award/${awardId}?glossary=${glossarySlug}`
-    : null;
-  const jumpToFederalAccountsHistory = () => {
-    setActiveTab('federal_account');
-    jumpToSection('award-history');
-  };
+    const glossarySlug = glossaryLinks[overview.type];
+    const glossaryLink = glossarySlug
+        ? `/award/${awardId}?glossary=${glossarySlug}`
+        : null;
+    const jumpToFederalAccountsHistory = () => {
+        setActiveTab('federal_account');
+        jumpToSection('award-history');
+    };
 
-  const awardAmountData = Object.create(BaseAwardAmounts);
-  awardAmountData.populate(overview, overview.category, defCodes);
+    const awardAmountData = Object.create(BaseAwardAmounts);
+    awardAmountData.populate(overview, overview.category, defCodes);
 
-  const jumpToTransactionHistoryTable = () => {
-    setActiveTab('transaction');
-    jumpToSection("award-history");
-  };
+    const jumpToTransactionHistoryTable = () => {
+        setActiveTab('transaction');
+        jumpToSection("award-history");
+    };
 
-  const jumpToSubAwardHistoryTable = () => {
-    setActiveTab('subaward');
-    jumpToSection("award-history");
-  };
+    const jumpToSubAwardHistoryTable = () => {
+        setActiveTab('subaward');
+        jumpToSection("award-history");
+    };
 
-  useEffect(() => {
-    if (isSubAwardIdClicked && awardTypesWithSubawards.includes(overview.category)) {
-      jumpToSubAwardHistoryTable();
-      subAwardIdClicked(false);
-    }
-  });
-  return (
-    <AwardPageWrapper
-      defCodes={overview.defCodes}
-      glossaryLink={glossaryLink}
-      overviewType={overview.type}
-      identifier={overview.piid}
-      title={overview.title}
-      lastModifiedDateLong={overview.periodOfPerformance.lastModifiedDateLong}
-      awardType="contract"
-      dates={overview.periodOfPerformance}>
-        <AwardSection type="row" className="award-overview" id="award-overview">
-          <AwardOverviewLeftSection
-            awardingAgency={overview.awardingAgency}
-            recipient={overview.recipient} />
-              <AwardOverviewRightSection
-                jumpToSubAwardHistoryTable={jumpToSubAwardHistoryTable}
-                jumpToSection={jumpToSection}
-                counts={counts}
-                overview={overview} />
-        </AwardSection>
-          <AwardSection type="row">
-            <AwardAmountsSection
-              awardType={overview.category}
-              jumpToTransactionHistoryTable={jumpToTransactionHistoryTable}
-              awardOverview={awardAmountData} />
-                <AwardDescription
+    useEffect(() => {
+        if (isSubAwardIdClicked && awardTypesWithSubawards.includes(overview.category)) {
+            jumpToSubAwardHistoryTable();
+            subAwardIdClicked(false);
+        }
+    });
+    return (
+      <AwardPageWrapper
+        defCodes={overview.defCodes}
+        glossaryLink={glossaryLink}
+        overviewType={overview.type}
+        identifier={overview.piid}
+        title={overview.title}
+        lastModifiedDateLong={overview.periodOfPerformance.lastModifiedDateLong}
+        awardType="contract"
+        dates={overview.periodOfPerformance}>
+          <AwardSection type="row" className="award-overview" id="award-overview">
+            <AwardOverviewLeftSection
+              awardingAgency={overview.awardingAgency}
+              recipient={overview.recipient} />
+                <AwardOverviewRightSection
+                  jumpToSubAwardHistoryTable={jumpToSubAwardHistoryTable}
+                  jumpToSection={jumpToSection}
+                  counts={counts}
+                  overview={overview} />
+          </AwardSection>
+            <AwardSection type="row">
+              <AwardAmountsSection
+                awardType={overview.category}
+                jumpToTransactionHistoryTable={jumpToTransactionHistoryTable}
+                awardOverview={awardAmountData} />
+                  <AwardDescription
+                    awardId={awardId}
+                    awardType={overview.category}
+                    description={overview.description}
+                    naics={overview.naics}
+                    psc={overview.psc} />
+            </AwardSection>
+              <AwardSection className="award-contract-activity-section" type="row">
+                <ContractGrantActivityContainer
                   awardId={awardId}
                   awardType={overview.category}
-                  description={overview.description}
-                  naics={overview.naics}
-                  psc={overview.psc} />
-          </AwardSection>
-            <AwardSection className="award-contract-activity-section" type="row">
-              <ContractGrantActivityContainer
-                awardId={awardId}
-                awardType={overview.category}
-                dates={overview.periodOfPerformance}
-                totalObligation={overview._baseAndAllOptions}
-                jumpToTransactionHistoryTable={jumpToTransactionHistoryTable} />
-                    <FederalAccountsSection
-                      jumpToFederalAccountsHistory={jumpToFederalAccountsHistory}
-                      awardType={overview.category} />
-            </AwardSection>
-              <AwardSection className="award-history-section" type="row">
-                  <AwardHistory
-                    awardId={awardId}
-                    overview={overview}
-                    setActiveTab={setActiveTab}
-                    activeTab={activeTab} />
-                </AwardSection>
-                  <AdditionalInfo overview={overview} />
-    </AwardPageWrapper>
-  );
+                  dates={overview.periodOfPerformance}
+                  totalObligation={overview._baseAndAllOptions}
+                  jumpToTransactionHistoryTable={jumpToTransactionHistoryTable} />
+                  <FederalAccountsSection
+                    jumpToFederalAccountsHistory={jumpToFederalAccountsHistory}
+                    awardType={overview.category} />
+              </AwardSection>
+                <AwardSection className="award-history-section" type="row">
+                <AwardHistory
+                  awardId={awardId}
+                  overview={overview}
+                  setActiveTab={setActiveTab}
+                  activeTab={activeTab} />
+              </AwardSection>
+                <AdditionalInfo overview={overview} />
+      </AwardPageWrapper>
+    );
 };
 
 ContractContent.propTypes = propTypes;

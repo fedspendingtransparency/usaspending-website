@@ -6,18 +6,18 @@
 import * as FilterFields from 'dataMapping/search/filterFields';
 
 const buildFieldQuery = (field, values) => ({
-  field,
-  operation: 'in',
-  value: values
+    field,
+    operation: 'in',
+    value: values
 });
 
 
 export const buildQuery = (awardType, searchContext = 'award') => {
-  let awardQuery = {};
+    let awardQuery = {};
 
-  const fieldName = FilterFields[`${searchContext}Fields`].awardType;
+    const fieldName = FilterFields[`${searchContext}Fields`].awardType;
 
-  awardQuery = buildFieldQuery(fieldName, awardType);
+    awardQuery = buildFieldQuery(fieldName, awardType);
 
-  return awardQuery;
+    return awardQuery;
 };

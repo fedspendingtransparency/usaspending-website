@@ -5,8 +5,8 @@ import ReportingDifferencesContainer from 'containers/aboutTheData/modals/Report
 import UnlinkedDataContainer from 'containers/aboutTheData/modals/UnlinkedDataContainer';
 
 export const modalContentMapping = (data) => ({
-  publicationDates: (<PublicationDatesContainer {...data} />),
-  missingAccountBalance: (<MissingAccountBalanceContainer {...data} />),
-  reportingDifferences: (<ReportingDifferencesContainer {...data} />),
-  unlinkedData: (<UnlinkedDataContainer {...data} />)
+    publicationDates: (<PublicationDatesContainer {...data} />),
+    missingAccountBalance: (<MissingAccountBalanceContainer {...data} />),
+    reportingDifferences: (<ReportingDifferencesContainer {...data} />),
+    unlinkedData: (<UnlinkedDataContainer {...data} />)
 });

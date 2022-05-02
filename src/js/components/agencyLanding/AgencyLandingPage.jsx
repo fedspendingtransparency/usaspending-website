@@ -18,31 +18,31 @@ require('pages/agencyLanding/agencyLandingPage.scss');
 const emailSubject = 'USAspending.gov Agency Profiles';
 
 export default class AgencyLandingPage extends React.Component {
-  handleShare = (name) => {
-    handleShareOptionClick(name, 'agency', {
-      subject: emailSubject,
-      body: `View all of the Agency Profiles on USAspending.gov: ${getBaseUrl('agency')}`
-    });
-  };
+    handleShare = (name) => {
+        handleShareOptionClick(name, 'agency', {
+            subject: emailSubject,
+            body: `View all of the Agency Profiles on USAspending.gov: ${getBaseUrl('agency')}`
+        });
+    };
 
-  render() {
-    return (
-      <PageWrapper
-        pageName="Agency Profiles"
-        classNames="usa-da-agency-landing"
-        title="Agency Profiles"
-        metaTagProps={agencyLandingPageMetaTags}
-        toolBarComponents={[
-          <ShareIcon
-            onShareOptionClick={this.handleShare}
-            url={getBaseUrl('agency')} />
+    render() {
+        return (
+          <PageWrapper
+            pageName="Agency Profiles"
+            classNames="usa-da-agency-landing"
+            title="Agency Profiles"
+            metaTagProps={agencyLandingPageMetaTags}
+            toolBarComponents={[
+              <ShareIcon
+                onShareOptionClick={this.handleShare}
+                url={getBaseUrl('agency')} />
                 ]}>
                   <main
                     id="main-content"
                     className="main-content">
                       <AgencyLandingContainer />
                   </main>
-      </PageWrapper>
-    );
-  }
+          </PageWrapper>
+        );
+    }
 }

@@ -11,27 +11,27 @@ import SankeyVisualizationHorizontal from './SankeyVisualizationHorizontal';
 import SankeyVisualizationVertical from './SankeyVisualizationVertical';
 
 const propTypes = {
-  width: PropTypes.number,
-  fyAvailable: PropTypes.bool
+    width: PropTypes.number,
+    fyAvailable: PropTypes.bool
 };
 
 export default class SankeyVisualization extends React.Component {
-  determineOutput() {
-    if (!this.props.fyAvailable) {
-      // data is not available, don't show the Sankey
-      return (<SankeyMessage
-        message="No data available for the current fiscal year." />);
-    }
+    determineOutput() {
+        if (!this.props.fyAvailable) {
+            // data is not available, don't show the Sankey
+            return (<SankeyMessage
+              message="No data available for the current fiscal year." />);
+        }
 
-    if (this.props.width < 720) {
-      return (<SankeyVisualizationVertical {...this.props} />);
+        if (this.props.width < 720) {
+            return (<SankeyVisualizationVertical {...this.props} />);
+        }
+        return (<SankeyVisualizationHorizontal {...this.props} />);
     }
-    return (<SankeyVisualizationHorizontal {...this.props} />);
-  }
-  render() {
-    const output = this.determineOutput();
-    return output;
-  }
+    render() {
+        const output = this.determineOutput();
+        return output;
+    }
 }
 
 SankeyVisualization.propTypes = propTypes;

@@ -8,5 +8,5 @@ import * as redirectModalActions from 'redux/actions/modal/modalActions';
 
 // eslint-disable-next-line import/prefer-default-export
 export const showRedirectModal = (url) => {
-  storeSingleton.store.dispatch(redirectModalActions.showModal(url));
+    storeSingleton.store.dispatch(redirectModalActions.showModal(url));
 };

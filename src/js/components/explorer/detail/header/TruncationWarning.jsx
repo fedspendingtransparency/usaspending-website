@@ -11,7 +11,7 @@ import { InfoCircle } from 'components/sharedComponents/icons/Icons';
 import { Link } from 'react-router-dom';
 
 const TruncationWarning = ({
-  activeSubdivision = 'award'
+    activeSubdivision = 'award'
 }) => (
   <div className="truncation-warning detail-header__truncation">
     <div className="truncation-warning__icon">
@@ -34,7 +34,7 @@ const TruncationWarning = ({
 );
 
 TruncationWarning.propTypes = {
-  activeSubdivision: PropTypes.string
+    activeSubdivision: PropTypes.string
 };
 
 export default TruncationWarning;

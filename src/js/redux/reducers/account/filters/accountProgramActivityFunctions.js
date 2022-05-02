@@ -4,9 +4,9 @@
  */
 
 export const toggleItem = (selected, item) => {
-  if (selected.includes(item)) {
-    return selected.delete(item);
-  }
+    if (selected.includes(item)) {
+        return selected.delete(item);
+    }
 
-  return selected.add(item);
+    return selected.add(item);
 };

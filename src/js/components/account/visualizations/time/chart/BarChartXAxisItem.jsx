@@ -7,9 +7,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
-  label: PropTypes.string,
-  x: PropTypes.number,
-  y: PropTypes.number
+    label: PropTypes.string,
+    x: PropTypes.number,
+    y: PropTypes.number
 };
 
 const BarChartXAxisItem = (props) => (

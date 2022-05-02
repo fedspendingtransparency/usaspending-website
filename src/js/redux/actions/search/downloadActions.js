@@ -4,35 +4,35 @@
  */
 
 export const setDownloadType = (state) => ({
-  type: 'SET_DOWNLOAD_TYPE',
-  downloadType: state
+    type: 'SET_DOWNLOAD_TYPE',
+    downloadType: state
 });
 
 export const setDownloadColumns = (state) => ({
-  type: 'SET_DOWNLOAD_COLUMNS',
-  columns: state
+    type: 'SET_DOWNLOAD_COLUMNS',
+    columns: state
 });
 
 export const setDownloadExpectedFile = (state) => ({
-  type: 'SET_DOWNLOAD_EXPECTED_FILE',
-  file: state
+    type: 'SET_DOWNLOAD_EXPECTED_FILE',
+    file: state
 });
 
 export const setDownloadExpectedUrl = (state) => ({
-  type: 'SET_DOWNLOAD_EXPECTED_URL',
-  url: state
+    type: 'SET_DOWNLOAD_EXPECTED_URL',
+    url: state
 });
 
 export const setDownloadPending = (state) => ({
-  state,
-  type: 'SET_DOWNLOAD_PENDING'
+    state,
+    type: 'SET_DOWNLOAD_PENDING'
 });
 
 export const setDownloadCollapsed = (state) => ({
-  type: 'SET_DOWNLOAD_COLLAPSED',
-  collapsed: state
+    type: 'SET_DOWNLOAD_COLLAPSED',
+    collapsed: state
 });
 
 export const resetDownload = () => ({
-  type: 'RESET_DOWNLOAD'
+    type: 'RESET_DOWNLOAD'
 });

@@ -5,6 +5,6 @@
 
 // eslint-disable-next-line import/prefer-default-export
 export const subAwardIdClicked = (clicked) => ({
-  type: 'SUBAWARD_ID_CLICKED',
-  value: clicked
+    type: 'SUBAWARD_ID_CLICKED',
+    value: clicked
 });

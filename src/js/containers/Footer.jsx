@@ -15,72 +15,72 @@ import { showModal } from 'redux/actions/modal/modalActions';
 import Analytics from 'helpers/analytics/Analytics';
 import GlossaryButtonWrapperContainer from 'containers/glossary/GlossaryButtonWrapperContainer';
 import DownloadBottomBarContainer from
-  'containers/search/modals/fullDownload/DownloadBottomBarContainer';
+    'containers/search/modals/fullDownload/DownloadBottomBarContainer';
 import BulkDownloadBottomBarContainer from
-  'containers/bulkDownload/modal/BulkDownloadBottomBarContainer';
+    'containers/bulkDownload/modal/BulkDownloadBottomBarContainer';
 import FloatingGlossaryButton from 'components/sharedComponents/FloatingGlossaryButton';
 import FooterExternalLink from 'components/sharedComponents/FooterExternalLink';
 import Subscribe from '../components/sharedComponents/Subscribe';
 import Training from '../components/sharedComponents/Training';
 
 const propTypes = {
-  pageName: PropTypes.string.isRequired,
-  filters: PropTypes.object,
-  redirectUser: PropTypes.func
+    pageName: PropTypes.string.isRequired,
+    filters: PropTypes.object,
+    redirectUser: PropTypes.func
 };
 
 const clickedFooterLink = (route) => {
-  Analytics.event({
-    category: 'Footer - Link',
-    action: route
-  });
+    Analytics.event({
+        category: 'Footer - Link',
+        action: route
+    });
 };
 
 const Footer = ({
-  pageName,
-  filters,
-  redirectUser
+    pageName,
+    filters,
+    redirectUser
 }) => {
-  const generateOnClick = (url) => () => {
-    clickedFooterLink(url);
-    redirectUser(url);
-  };
-  const year = new Date().getFullYear();
-  return (
-    <div className="footer-container">
-      <GlossaryButtonWrapperContainer child={FloatingGlossaryButton} />
-        <DownloadBottomBarContainer
-          filters={filters} />
-            <BulkDownloadBottomBarContainer />
-              <Subscribe pageName={pageName} />
-                <Training pageName={pageName} />
-                  <footer
-                    className="footer-outer-wrap"
-                    role="contentinfo"
-                    aria-label="Footer">
-                        <div className="footer-container">
-                          <div className="footer-logo">
-                            <Link
-                              to="/"
-                              title="USAspending.gov Home"
-                              aria-label="USAspending.gov Home"
-                              onClick={clickedFooterLink.bind(null, '/')}>
-                                <img src="img/footer_logo.png" alt="USAspending.gov" />
-                            </Link>
-                          </div>
-                            <div className="footer-links">
-                              <div className="link-group">
-                                <div className="group-title">
+    const generateOnClick = (url) => () => {
+        clickedFooterLink(url);
+        redirectUser(url);
+    };
+    const year = new Date().getFullYear();
+    return (
+      <div className="footer-container">
+        <GlossaryButtonWrapperContainer child={FloatingGlossaryButton} />
+          <DownloadBottomBarContainer
+            filters={filters} />
+              <BulkDownloadBottomBarContainer />
+                <Subscribe pageName={pageName} />
+                  <Training pageName={pageName} />
+                    <footer
+                      className="footer-outer-wrap"
+                      role="contentinfo"
+                      aria-label="Footer">
+                      <div className="footer-container">
+                        <div className="footer-logo">
+                          <Link
+                            to="/"
+                            title="USAspending.gov Home"
+                            aria-label="USAspending.gov Home"
+                            onClick={clickedFooterLink.bind(null, '/')}>
+                              <img src="img/footer_logo.png" alt="USAspending.gov" />
+                          </Link>
+                        </div>
+                          <div className="footer-links">
+                            <div className="link-group">
+                              <div className="group-title">
                                 About
-                                </div>
-                                  <ul className="links">
-                                    <li>
-                                      <Link
+                              </div>
+                                <ul className="links">
+                                  <li>
+                                    <Link
                                         to="/about"
                                         onClick={clickedFooterLink.bind(null, '/about')}>
                                         About USAspending
                                       </Link>
-                                    </li>
+                                  </li>
                                       <li>
                                         <Link
                                           to="/about?section=careers"
@@ -88,13 +88,13 @@ const Footer = ({
                                         Careers
                                         </Link>
                                       </li>
-                                  </ul>
-                              </div>
-                                <div className="link-group">
-                                  <div className="group-title">
+                                </ul>
+                            </div>
+                              <div className="link-group">
+                                <div className="group-title">
                                 Help
-                                  </div>
-                                    <ul className="links">
+                                </div>
+                                  <ul className="links">
                                       <li>
                                         <FooterExternalLink
                                           link="https://fiscalservice.force.com/usaspending/s/"
@@ -116,9 +116,9 @@ const Footer = ({
                                             </a>
                                           </li>
                                     </ul>
-                                </div>
-                                  <div className="link-group">
-                                    <div className="group-title">
+                              </div>
+                                <div className="link-group">
+                                  <div className="group-title">
                                 Developers
                                     </div>
                                       <ul className="links">
@@ -138,7 +138,7 @@ const Footer = ({
                                                 title="Release Notes" />
                                             </li>
                                       </ul>
-                                  </div>
+                                </div>
                                     <div className="link-group">
                                       <div className="group-title">
                                     Our Sites
@@ -152,18 +152,18 @@ const Footer = ({
                                             </li>
                                         </ul>
                                     </div>
-                            </div>
-                              <div className="legal-and-social-links">
-                                <ul className="legal-links">
-                                  <li className="copyright__legal-item">
-                                    <Link
-                                      className="copyright__link"
-                                      to="/about/accessibility"
-                                      onClick={clickedFooterLink.bind(null, '/about/accessibility')}>
+                          </div>
+                            <div className="legal-and-social-links">
+                              <ul className="legal-links">
+                                <li className="copyright__legal-item">
+                                  <Link
+                                    className="copyright__link"
+                                    to="/about/accessibility"
+                                    onClick={clickedFooterLink.bind(null, '/about/accessibility')}>
                                     Accessibility
-                                    </Link>
-                                  </li>
-                                    <li className="copyright__legal-item">
+                                  </Link>
+                                </li>
+                                  <li className="copyright__legal-item">
                                       <Link
                                         className="copyright__link"
                                         to="/about/privacy"
@@ -179,9 +179,9 @@ const Footer = ({
                                     Freedom of Information Act
                                         </Link>
                                       </li>
-                                </ul>
-                                  <ul className="social-links">
-                                    <li className="social-link">
+                              </ul>
+                                <ul className="social-links">
+                                  <li className="social-link">
                                       <button onClick={generateOnClick("https://twitter.com/usaspending/")} title="Twitter">
                                         <FontAwesomeIcon icon={faTwitter} size="1x" color="#D4D4D4" />
                                       </button>
@@ -201,28 +201,28 @@ const Footer = ({
                                               <FontAwesomeIcon icon={faLinkedin} size="1x" color="#D4D4D4" />
                                             </button>
                                           </li>
-                                  </ul>
-                              </div>
-                        </div>
-                          <div className="copyright">
-                            <div className="copyright__container">
-                              <p className="copyright__notice">
-                            &copy; {year} USAspending.gov
-                              </p>
-                                <p className="copyright__db">
-                                  <strong>NOTE:</strong>&nbsp;<Link to="/db_info" target="_blank" rel="noopener noreferrer" title="Limitation on Permissible Use of Dun & Bradstreet, Inc. (D&B) Data" aria-label="Limitation on Permissible Use of Dun & Bradstreet, Inc. (D&B) Data" onClick={clickedFooterLink.bind(null, '/db_info')}>You must click here for very important D&amp;B information.</Link>
-                                </p>
+                                </ul>
                             </div>
+                      </div>
+                        <div className="copyright">
+                          <div className="copyright__container">
+                            <p className="copyright__notice">
+                            &copy; {year} USAspending.gov
+                            </p>
+                              <p className="copyright__db">
+                                <strong>NOTE:</strong>&nbsp;<Link to="/db_info" target="_blank" rel="noopener noreferrer" title="Limitation on Permissible Use of Dun & Bradstreet, Inc. (D&B) Data" aria-label="Limitation on Permissible Use of Dun & Bradstreet, Inc. (D&B) Data" onClick={clickedFooterLink.bind(null, '/db_info')}>You must click here for very important D&amp;B information.</Link>
+                              </p>
                           </div>
-                  </footer>
-    </div>
-  );
+                        </div>
+                    </footer>
+      </div>
+    );
 };
 
 Footer.propTypes = propTypes;
 
 const mapDispatchToProps = (dispatch) => ({
-  redirectUser: (url) => dispatch(showModal(url))
+    redirectUser: (url) => dispatch(showModal(url))
 });
 
 export default connect(null, mapDispatchToProps)(Footer);

@@ -26,7 +26,7 @@ const AnalystGuideHeader = ({ title, subtitle }) => (
 export default AnalystGuideHeader;
 
 AnalystGuideHeader.propTypes = {
-  title: PropTypes.string.isRequired,
-  subtitle: PropTypes.string.isRequired
+    title: PropTypes.string.isRequired,
+    subtitle: PropTypes.string.isRequired
 };
 

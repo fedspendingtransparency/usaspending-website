@@ -24,37 +24,37 @@ import { routes } from './router/RouterRoutes';
 let devExtension;
 let store;
 if (kGlobalConstants.QAT) {
-  // only enable Redux debugging in qat mode
-  devExtension = window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__({ trace: true, traceLimit: 25 }) : undefined;
+    // only enable Redux debugging in qat mode
+    devExtension = window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__({ trace: true, traceLimit: 25 }) : undefined;
 }
 
 if (kGlobalConstants.PERF_LOG) {
-  // enable performance logging
-  const createStoreWithMiddleware = applyMiddleware(perflogger)(createStore);
-  store = createStoreWithMiddleware(reducers, devExtension);
+    // enable performance logging
+    const createStoreWithMiddleware = applyMiddleware(perflogger)(createStore);
+    store = createStoreWithMiddleware(reducers, devExtension);
 }
 else {
-  store = createStore(reducers, {}, devExtension);
+    store = createStore(reducers, {}, devExtension);
 }
 
 // hold a reference to the store from the store singleton
 storeSingleton.setStore(store);
 
 const ScrollToTop = () => {
-  const { pathname } = useLocation();
+    const { pathname } = useLocation();
 
-  useEffect(() => {
-    if (window?.history?.scrollRestoration) {
-      window.history.scrollRestoration = 'manual';
-    }
-  }, []);
+    useEffect(() => {
+        if (window?.history?.scrollRestoration) {
+            window.history.scrollRestoration = 'manual';
+        }
+    }, []);
 
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, [pathname]);
 
 
-  return null;
+    return null;
 };
 
 const AppContainer = () => (

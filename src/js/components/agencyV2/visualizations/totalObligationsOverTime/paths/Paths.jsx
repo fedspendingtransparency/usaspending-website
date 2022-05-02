@@ -9,36 +9,36 @@ import Path from './Path';
 import AreaPath from './AreaPath';
 
 const propTypes = {
-  data: PropTypes.array,
-  description: PropTypes.string,
-  xScale: PropTypes.func,
-  xScaleForPath: PropTypes.func,
-  yScale: PropTypes.func,
-  yScaleForPath: PropTypes.func,
-  xProperty: PropTypes.string,
-  yProperty: PropTypes.string,
-  height: PropTypes.number,
-  width: PropTypes.number,
-  padding: PropTypes.shape({
-    left: PropTypes.number,
-    right: PropTypes.number,
-    bottom: PropTypes.number,
-    top: PropTypes.number
-  }),
-  scenario: PropTypes.string
+    data: PropTypes.array,
+    description: PropTypes.string,
+    xScale: PropTypes.func,
+    xScaleForPath: PropTypes.func,
+    yScale: PropTypes.func,
+    yScaleForPath: PropTypes.func,
+    xProperty: PropTypes.string,
+    yProperty: PropTypes.string,
+    height: PropTypes.number,
+    width: PropTypes.number,
+    padding: PropTypes.shape({
+        left: PropTypes.number,
+        right: PropTypes.number,
+        bottom: PropTypes.number,
+        top: PropTypes.number
+    }),
+    scenario: PropTypes.string
 };
 
 const Paths = ({
-  data = [],
-  description,
-  xScale = () => {},
-  xScaleForPath = () => {},
-  yScale = () => {},
-  yScaleForPath = () => {},
-  height,
-  width,
-  padding,
-  scenario
+    data = [],
+    description,
+    xScale = () => {},
+    xScaleForPath = () => {},
+    yScale = () => {},
+    yScaleForPath = () => {},
+    height,
+    width,
+    padding,
+    scenario
 }) => (
   <g className="paths">
     <AreaPath

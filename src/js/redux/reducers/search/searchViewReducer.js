@@ -4,25 +4,25 @@
  */
 
 export const initialState = {
-  type: 'table',
-  subaward: false
+    type: 'table',
+    subaward: false
 };
 
 const searchViewReducer = (state = initialState, action) => {
-  switch (action.type) {
-    case 'SET_SEARCH_VIEW_TYPE':
-      return Object.assign({}, state, {
-        type: action.value
-      });
+    switch (action.type) {
+        case 'SET_SEARCH_VIEW_TYPE':
+            return Object.assign({}, state, {
+                type: action.value
+            });
 
-    case 'SET_SEARCH_VIEW_SUBAWARD':
-      return Object.assign({}, state, {
-        subaward: action.value
-      });
+        case 'SET_SEARCH_VIEW_SUBAWARD':
+            return Object.assign({}, state, {
+                subaward: action.value
+            });
 
-    default:
-      return state;
-  }
+        default:
+            return state;
+    }
 };
 
 export default searchViewReducer;

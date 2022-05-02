@@ -8,19 +8,19 @@ import { startCase, toLower } from 'lodash';
 /* eslint-disable import/prefer-default-export */
 // We only have one export but want to maintain consistency with other helpers
 export const formatLocation = (location) => {
-  let displayValue = '';
+    let displayValue = '';
 
-  if (location.place_type !== null) {
-    displayValue = `${startCase(toLower(location.place_type))} | `;
-  }
+    if (location.place_type !== null) {
+        displayValue = `${startCase(toLower(location.place_type))} | `;
+    }
 
-  displayValue += `${location.place}`;
+    displayValue += `${location.place}`;
 
-  if (location.parent !== null &&
+    if (location.parent !== null &&
         (location.place_type !== null && location.place_type !== 'COUNTRY')) {
-    displayValue += `, ${location.parent}`;
-  }
+        displayValue += `, ${location.parent}`;
+    }
 
-  return displayValue;
+    return displayValue;
 };
 /* eslint-enable import/prefer-default-export */

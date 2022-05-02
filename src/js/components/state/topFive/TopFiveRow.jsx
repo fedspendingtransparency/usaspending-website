@@ -8,37 +8,37 @@ import PropTypes from 'prop-types';
 import GlobalConstants from 'GlobalConstants';
 
 const propTypes = {
-  data: PropTypes.object,
-  total: PropTypes.number
+    data: PropTypes.object,
+    total: PropTypes.number
 };
 
 const TopFiveRow = (props) => {
-  const percentValue = (props.data._amount / props.total) * 100;
+    const percentValue = (props.data._amount / props.total) * 100;
 
-  const percent = isNaN(percentValue) ? '--' : `${Math.round(percentValue * 100) / 100}%`;
+    const percent = isNaN(percentValue) ? '--' : `${Math.round(percentValue * 100) / 100}%`;
 
-  return (
-    <tr
-      className="category-table__table-row">
-        <td
-          className="category-table__table-cell"
-          title={props.data.name}>
-          {GlobalConstants.AGENCYV2_RELEASED && props.data._slug ?
+    return (
+      <tr
+        className="category-table__table-row">
+          <td
+            className="category-table__table-cell"
+            title={props.data.name}>
+            {GlobalConstants.AGENCYV2_RELEASED && props.data._slug ?
                     props.data.linkedName
                     : props.data.name}
-        </td>
-          <td
-            className="category-table__table-cell category-table__table-cell_centered"
-            title={props.data.amount}>
-            {props.data.amount}
           </td>
             <td
               className="category-table__table-cell category-table__table-cell_centered"
-              title={percent}>
-              {percent}
+              title={props.data.amount}>
+              {props.data.amount}
             </td>
-    </tr>
-  );
+              <td
+                className="category-table__table-cell category-table__table-cell_centered"
+                title={percent}>
+                {percent}
+              </td>
+      </tr>
+    );
 };
 
 TopFiveRow.propTypes = propTypes;

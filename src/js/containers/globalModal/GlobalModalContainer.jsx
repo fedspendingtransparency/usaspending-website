@@ -16,52 +16,52 @@ import { globalModalProps } from '../../propTypes';
 import UEIModalContainer from "../homepage/UEIModalContainer";
 
 const propTypes = {
-  globalModal: globalModalProps,
-  hideModal: PropTypes.func
+    globalModal: globalModalProps,
+    hideModal: PropTypes.func
 };
 
 export class GlobalModalContainer extends React.Component {
-  render() {
-    if (this.props.globalModal.modal === "redirect") {
-      return (
-        <RedirectModal
-          mounted={this.props.globalModal.display}
-          hideModal={this.props.hideModal}
-          url={this.props.globalModal.url} />
-      );
+    render() {
+        if (this.props.globalModal.modal === "redirect") {
+            return (
+              <RedirectModal
+                mounted={this.props.globalModal.display}
+                hideModal={this.props.hideModal}
+                url={this.props.globalModal.url} />
+            );
+        }
+        if (this.props.globalModal.modal === "covid") {
+            return (
+              <CovidModalContainer
+                mounted={this.props.globalModal.display}
+                hideModal={this.props.hideModal} />
+            );
+        }
+        if (this.props.globalModal.modal === "covid-data-disclaimer") {
+            return (
+              <InterimDataDisclaimerModal
+                mounted={this.props.globalModal.display}
+                hideModal={this.props.hideModal} />
+            );
+        }
+        if (this.props.globalModal.modal === "uei") {
+            return (
+              <UEIModalContainer
+                mounted={this.props.globalModal.display}
+                hideModal={this.props.hideModal} />
+            );
+        }
+        return null;
     }
-    if (this.props.globalModal.modal === "covid") {
-      return (
-        <CovidModalContainer
-          mounted={this.props.globalModal.display}
-          hideModal={this.props.hideModal} />
-      );
-    }
-    if (this.props.globalModal.modal === "covid-data-disclaimer") {
-      return (
-        <InterimDataDisclaimerModal
-          mounted={this.props.globalModal.display}
-          hideModal={this.props.hideModal} />
-      );
-    }
-    if (this.props.globalModal.modal === "uei") {
-      return (
-        <UEIModalContainer
-          mounted={this.props.globalModal.display}
-          hideModal={this.props.hideModal} />
-      );
-    }
-    return null;
-  }
 }
 
 GlobalModalContainer.propTypes = propTypes;
 
 export default connect(
-  (state) => ({
-    globalModal: state.modal
-  }),
-  (dispatch) => ({
-    hideModal: () => dispatch(hideModal())
-  })
+    (state) => ({
+        globalModal: state.modal
+    }),
+    (dispatch) => ({
+        hideModal: () => dispatch(hideModal())
+    })
 )(GlobalModalContainer);

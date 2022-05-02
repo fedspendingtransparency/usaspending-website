@@ -9,70 +9,70 @@ import PropTypes from 'prop-types';
 import { CheckCircle, ExclamationCircle } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
-  fileFormats: PropTypes.array,
-  currentFileFormat: PropTypes.string,
-  updateFilter: PropTypes.func,
-  valid: PropTypes.bool
+    fileFormats: PropTypes.array,
+    currentFileFormat: PropTypes.string,
+    updateFilter: PropTypes.func,
+    valid: PropTypes.bool
 };
 
 export default class FileFormatFilter extends React.Component {
-  constructor(props) {
-    super(props);
+    constructor(props) {
+        super(props);
 
-    this.onChange = this.onChange.bind(this);
-  }
-
-  onChange(e) {
-    const target = e.target;
-    this.props.updateFilter('fileFormat', target.value);
-  }
-
-  render() {
-    let icon = (
-      <div className="icon valid">
-        <CheckCircle />
-      </div>
-    );
-
-    if (!this.props.valid) {
-      icon = (
-        <div className="icon invalid">
-          <ExclamationCircle />
-        </div>
-      );
+        this.onChange = this.onChange.bind(this);
     }
 
-    const fileFormats = this.props.fileFormats.map((fileFormat) => (
-      <div
-        className="radio"
-        key={fileFormat.name}>
-          <input
-            type="radio"
-            aria-label={fileFormat.name}
-            value={fileFormat.name}
-            name="fileFormat"
-            checked={this.props.currentFileFormat === fileFormat.name}
-            onChange={this.onChange}
-            disabled={fileFormat.disabled} />
-              <label
-                className={`radio-label ${fileFormat.disabled ? 'disabled' : ''}`}
-                htmlFor="fileFormat">
-                {fileFormat.label}
-              </label>
-      </div>
-    ));
+    onChange(e) {
+        const target = e.target;
+        this.props.updateFilter('fileFormat', target.value);
+    }
 
-    return (
-      <div className="download-filter">
-        <h3 className="download-filter__title">
-          {icon} Select a <span className="download-filter__title_em">file format</span>.
-        </h3>
-          <div className="download-filter__content">
-            {fileFormats}
+    render() {
+        let icon = (
+          <div className="icon valid">
+            <CheckCircle />
           </div>
-      </div>
-    );
-  }
+        );
+
+        if (!this.props.valid) {
+            icon = (
+              <div className="icon invalid">
+                <ExclamationCircle />
+              </div>
+            );
+        }
+
+        const fileFormats = this.props.fileFormats.map((fileFormat) => (
+          <div
+            className="radio"
+            key={fileFormat.name}>
+              <input
+                type="radio"
+                aria-label={fileFormat.name}
+                value={fileFormat.name}
+                name="fileFormat"
+                checked={this.props.currentFileFormat === fileFormat.name}
+                onChange={this.onChange}
+                disabled={fileFormat.disabled} />
+                  <label
+                    className={`radio-label ${fileFormat.disabled ? 'disabled' : ''}`}
+                    htmlFor="fileFormat">
+                    {fileFormat.label}
+                  </label>
+          </div>
+        ));
+
+        return (
+          <div className="download-filter">
+            <h3 className="download-filter__title">
+              {icon} Select a <span className="download-filter__title_em">file format</span>.
+            </h3>
+              <div className="download-filter__content">
+                {fileFormats}
+              </div>
+          </div>
+        );
+    }
 }
 
 FileFormatFilter.propTypes = propTypes;

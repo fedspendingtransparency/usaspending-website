@@ -8,10 +8,10 @@ import Analytics from 'helpers/analytics/Analytics';
 import { Link } from 'react-router-dom';
 
 const clickedHomepageLink = (route) => {
-  Analytics.event({
-    category: 'Homepage - Link',
-    action: route
-  });
+    Analytics.event({
+        category: 'Homepage - Link',
+        action: route
+    });
 };
 
 const SpendingExplorerFeature = () => (

@@ -13,25 +13,25 @@ import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorM
 import AccountLandingTable from './table/AccountLandingTable';
 
 const propTypes = {
-  inFlight: PropTypes.bool,
-  error: PropTypes.bool,
-  results: PropTypes.array,
-  columns: PropTypes.array,
-  searchString: PropTypes.string,
-  order: PropTypes.object,
-  updateSort: PropTypes.func
+    inFlight: PropTypes.bool,
+    error: PropTypes.bool,
+    results: PropTypes.array,
+    columns: PropTypes.array,
+    searchString: PropTypes.string,
+    order: PropTypes.object,
+    updateSort: PropTypes.func
 };
 
 export default class AccountLandingResultsSection extends React.Component {
-  render() {
-    return (
-      <div className="results-table-section" id="account-landing-results">
-        <TransitionGroup>
-          {(this.props.error || this.props.inFlight) && (
-          <CSSTransition
-            classNames="table-message-fade"
-            timeout={{ exit: 225, enter: 195 }}
-            exit>
+    render() {
+        return (
+          <div className="results-table-section" id="account-landing-results">
+            <TransitionGroup>
+              {(this.props.error || this.props.inFlight) && (
+              <CSSTransition
+                classNames="table-message-fade"
+                timeout={{ exit: 225, enter: 195 }}
+                exit>
                             <>
                               {this.props.error && (
                                 <div className="results-table-message-container full">
@@ -44,15 +44,15 @@ export default class AccountLandingResultsSection extends React.Component {
                                 </div>
                                 )}
                             </>
-          </CSSTransition>
+              </CSSTransition>
                     )}
-        </TransitionGroup>
-        {!this.props.inFlight && !this.props.error && (
-        <AccountLandingTable {...this.props} />
+            </TransitionGroup>
+            {!this.props.inFlight && !this.props.error && (
+            <AccountLandingTable {...this.props} />
                 )}
-      </div>
-    );
-  }
+          </div>
+        );
+    }
 }
 
 AccountLandingResultsSection.propTypes = propTypes;

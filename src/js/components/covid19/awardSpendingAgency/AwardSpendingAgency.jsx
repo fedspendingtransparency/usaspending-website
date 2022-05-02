@@ -21,130 +21,130 @@ import Analytics from 'helpers/analytics/Analytics';
 import { scrollIntoView } from '../../../containers/covid19/helpers/scrollHelper';
 
 const overviewData = [
-  {
-    type: 'resultsCount',
-    title: 'Number of Agencies'
-  },
-  {
-    type: 'awardObligations',
-    title: 'Award Obligations',
-    isMonetary: true
-  },
-  {
-    type: 'awardOutlays',
-    title: 'Award Outlays',
-    isMonetary: true
-  },
-  {
-    type: 'numberOfAwards',
-    title: 'Number of Awards'
-  }
+    {
+        type: 'resultsCount',
+        title: 'Number of Agencies'
+    },
+    {
+        type: 'awardObligations',
+        title: 'Award Obligations',
+        isMonetary: true
+    },
+    {
+        type: 'awardOutlays',
+        title: 'Award Outlays',
+        isMonetary: true
+    },
+    {
+        type: 'numberOfAwards',
+        title: 'Number of Awards'
+    }
 ];
 
 const initialTabState = {
-  all: null,
-  contracts: null,
-  idvs: null,
-  grants: null,
-  direct_payments: null,
-  loans: null,
-  other: null
+    all: null,
+    contracts: null,
+    idvs: null,
+    grants: null,
+    direct_payments: null,
+    loans: null,
+    other: null
 };
 
 const initialActiveTabState = {
-  internal: awardTypeTabs[0].internal,
-  subtitle: awardTypeTabs[0].label
+    internal: awardTypeTabs[0].internal,
+    subtitle: awardTypeTabs[0].label
 };
 
 const propTypes = {
-  publicLaw: PropTypes.string
+    publicLaw: PropTypes.string
 };
 
 const AwardSpendingAgency = ({ publicLaw }) => {
-  const { defcParams } = useSelector((state) => state.covid19);
-  const [inFlight, setInFlight] = useState(true);
-  const [tabCounts, setTabCounts] = useState(initialTabState);
-  const [tabs, setTabs] = useState(awardTypeTabs);
-  const [activeTab, setActiveTab] = useState(initialActiveTabState);
+    const { defcParams } = useSelector((state) => state.covid19);
+    const [inFlight, setInFlight] = useState(true);
+    const [tabCounts, setTabCounts] = useState(initialTabState);
+    const [tabs, setTabs] = useState(awardTypeTabs);
+    const [activeTab, setActiveTab] = useState(initialActiveTabState);
 
-  const moreOptionsTabsRef = useRef(null);
+    const moreOptionsTabsRef = useRef(null);
 
-  useEffect(() => {
-    if (defcParams && defcParams.length > 0) {
-      let params = {};
+    useEffect(() => {
+        if (defcParams && defcParams.length > 0) {
+            let params = {};
 
-      // Make an API request for the count of Agency for each award type
-      // Post-MVP this should be updated to use a new endpoint that returns all the counts
-      const promises = awardTypeTabs.map((awardType) => {
-        params = {
-          filter: {
-            def_codes: defcParams
-          }
-        };
-        if (awardType.internal === 'all') {
-          params.filter.award_type_codes = [].concat(...Object.values(awardTypeGroups));
+            // Make an API request for the count of Agency for each award type
+            // Post-MVP this should be updated to use a new endpoint that returns all the counts
+            const promises = awardTypeTabs.map((awardType) => {
+                params = {
+                    filter: {
+                        def_codes: defcParams
+                    }
+                };
+                if (awardType.internal === 'all') {
+                    params.filter.award_type_codes = [].concat(...Object.values(awardTypeGroups));
+                }
+                else {
+                    params.filter.award_type_codes = awardTypeGroups[awardType.internal];
+                }
+                return fetchAgencyCount(params).promise;
+            });
+            // Wait for all the requests to complete and then store the results in state
+            Promise.all(promises)
+                .then(([allRes, grantsRes, loansRes, directPaymentsRes, otherRes, contractsRes, idvsRes]) => {
+                    setTabCounts({
+                        all: allRes.data.count,
+                        contracts: contractsRes.data.count,
+                        idvs: idvsRes.data.count,
+                        grants: grantsRes.data.count,
+                        direct_payments: directPaymentsRes.data.count,
+                        loans: loansRes.data.count,
+                        other: otherRes.data.count
+                    });
+                });
         }
-        else {
-          params.filter.award_type_codes = awardTypeGroups[awardType.internal];
+    }, [defcParams]);
+
+    useEffect(() => {
+        const countState = areCountsDefined(tabCounts);
+        if (!countState) {
+            setInFlight(true);
         }
-        return fetchAgencyCount(params).promise;
-      });
-      // Wait for all the requests to complete and then store the results in state
-      Promise.all(promises)
-        .then(([allRes, grantsRes, loansRes, directPaymentsRes, otherRes, contractsRes, idvsRes]) => {
-          setTabCounts({
-            all: allRes.data.count,
-            contracts: contractsRes.data.count,
-            idvs: idvsRes.data.count,
-            grants: grantsRes.data.count,
-            direct_payments: directPaymentsRes.data.count,
-            loans: loansRes.data.count,
-            other: otherRes.data.count
-          });
+        else if (countState) {
+            setInFlight(false);
+        }
+    }, [tabCounts, setInFlight]);
+
+    useEffect(() => {
+        setTabs(tabs.map((tab) => ({ ...tab, count: tabCounts[tab.internal] })));
+    }, [tabCounts, tabs]);
+
+    const changeActiveTab = (tab) => {
+        const tabSubtitle = awardTypeTabs.find((item) => item.internal === tab).label;
+        const tabInternal = awardTypeTabs.find((item) => item.internal === tab).internal;
+
+        setActiveTab({
+            internal: tabInternal,
+            subtitle: tabSubtitle
         });
-    }
-  }, [defcParams]);
 
-  useEffect(() => {
-    const countState = areCountsDefined(tabCounts);
-    if (!countState) {
-      setInFlight(true);
-    }
-    else if (countState) {
-      setInFlight(false);
-    }
-  }, [tabCounts, setInFlight]);
+        Analytics.event({ category: 'COVID-19 - Award Spending by Agency', action: `${tabSubtitle} - click` });
+    };
 
-  useEffect(() => {
-    setTabs(tabs.map((tab) => ({ ...tab, count: tabCounts[tab.internal] })));
-  }, [tabCounts, tabs]);
+    const scrollIntoViewTable = (loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions) => {
+        scrollIntoView(loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions, moreOptionsTabsRef);
+    };
 
-  const changeActiveTab = (tab) => {
-    const tabSubtitle = awardTypeTabs.find((item) => item.internal === tab).label;
-    const tabInternal = awardTypeTabs.find((item) => item.internal === tab).internal;
-
-    setActiveTab({
-      internal: tabInternal,
-      subtitle: tabSubtitle
-    });
-
-    Analytics.event({ category: 'COVID-19 - Award Spending by Agency', action: `${tabSubtitle} - click` });
-  };
-
-  const scrollIntoViewTable = (loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions) => {
-    scrollIntoView(loading, error, errorOrLoadingRef, tableWrapperRef, margin, scrollOptions, moreOptionsTabsRef);
-  };
-
-  return (
-    <div className="body__content spending-by-agency">
-      <DateNote />
-      {publicLaw === 'american-rescue-plan' ?
-        <h4 className="body__narrative">
-          <strong>Which agencies</strong> issued awards using American Rescue Plan funds?
-        </h4> :
-        <h4 className="body__narrative">
-          <strong>Which agencies</strong> issued awards using COVID-19 funds?
-        </h4>
+    return (
+      <div className="body__content spending-by-agency">
+        <DateNote />
+        {publicLaw === 'american-rescue-plan' ?
+          <h4 className="body__narrative">
+            <strong>Which agencies</strong> issued awards using American Rescue Plan funds?
+          </h4> :
+          <h4 className="body__narrative">
+            <strong>Which agencies</strong> issued awards using COVID-19 funds?
+          </h4>
             }
               <div className="body__narrative-description">
                 {publicLaw === 'american-rescue-plan' ?
@@ -179,8 +179,8 @@ const AwardSpendingAgency = ({ publicLaw }) => {
                     )} /> : <div />
                 }
                       </div>
-    </div>
-  );
+      </div>
+    );
 };
 
 AwardSpendingAgency.propTypes = propTypes;

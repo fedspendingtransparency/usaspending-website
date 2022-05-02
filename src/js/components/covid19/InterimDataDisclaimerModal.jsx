@@ -4,8 +4,8 @@ import Modal from 'react-aria-modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const InterimDataModal = ({
-  mounted,
-  hideModal
+    mounted,
+    hideModal
 }) => (
   <Modal
     mounted={mounted}
@@ -48,8 +48,8 @@ const InterimDataModal = ({
 );
 
 InterimDataModal.propTypes = {
-  mounted: PropTypes.bool,
-  hideModal: PropTypes.func
+    mounted: PropTypes.bool,
+    hideModal: PropTypes.func
 };
 
 export default InterimDataModal;

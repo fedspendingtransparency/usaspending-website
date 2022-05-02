@@ -7,7 +7,7 @@ import { apiRequest } from "./apiRequest";
 
 // eslint-disable-next-line import/prefer-default-export
 export const fetchAllRecipients = (data) => apiRequest({
-  url: 'v2/recipient/',
-  method: 'post',
-  data
+    url: 'v2/recipient/',
+    method: 'post',
+    data
 });

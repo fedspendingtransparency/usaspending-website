@@ -9,14 +9,14 @@ import PropTypes from 'prop-types';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 const propTypes = {
-  xValue: PropTypes.string,
-  description: PropTypes.string,
-  value: PropTypes.number,
-  x: PropTypes.number,
-  y: PropTypes.number,
-  width: PropTypes.number,
-  height: PropTypes.number,
-  color: PropTypes.string
+    xValue: PropTypes.string,
+    description: PropTypes.string,
+    value: PropTypes.number,
+    x: PropTypes.number,
+    y: PropTypes.number,
+    width: PropTypes.number,
+    height: PropTypes.number,
+    color: PropTypes.string
 };
 
 const StackedBar = (props) => (

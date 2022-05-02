@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import GlossaryLink from '../../sharedComponents/GlossaryLink';
 
 const propTypes = {
-  name: PropTypes.string.isRequired
+    name: PropTypes.string.isRequired
 };
 
 const AwardSpendingIntro = ({ name }) => (
