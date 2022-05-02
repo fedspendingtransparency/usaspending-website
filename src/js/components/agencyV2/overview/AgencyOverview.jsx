@@ -38,7 +38,7 @@ const AgencyOverview = ({ fy, dataThroughDate }) => {
         }, 50);
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-    }, [windowWidth]);
+    }, []);
 
     const missionBlock = (
       <div className="agency-overview__data">
