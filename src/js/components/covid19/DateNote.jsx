@@ -48,7 +48,7 @@ const DateNote = ({ styles, useCache = true }) => {
                 request.current.cancel();
             }
         };
-    }, [date, getPeriodEndDate]);
+    }, [date]);
 
     if (error) return null;
 
