@@ -54,7 +54,7 @@ const StatusOfFunds = ({ fy }) => {
         }
         dispatch(resetAgencySubcomponents());
         dispatch(resetFederalAccountsList());
-    }, [dispatch]);
+    }, []);
 
     // eslint-disable-next-line eqeqeq
     let statusDataThroughDate = useLatestAccountData()[1].toArray().filter((i) => i.submission_fiscal_year == fy)[0].period_end_date;
@@ -137,7 +137,7 @@ const StatusOfFunds = ({ fy }) => {
         if (Object.keys(subcomponent).length !== 0) {
             fetchFederalAccounts(subcomponent);
         }
-    }, [fetchFederalAccounts, subcomponent]);
+    }, [subcomponent]);
 
     useEffect(() => {
         if (resetPageChange) {
@@ -151,7 +151,7 @@ const StatusOfFunds = ({ fy }) => {
                 fetchFederalAccounts(subcomponent);
             }
         }
-    }, [currentPage, fetchAgencySubcomponents, fetchFederalAccounts, level, prevPage, resetPageChange, subcomponent]);
+    }, [currentPage]);
 
     useEffect(() => {
         if (resetPageChange) {
@@ -163,13 +163,13 @@ const StatusOfFunds = ({ fy }) => {
                 changeCurrentPage(1);
             }
         }
-    }, [changeCurrentPage, currentPage, resetPageChange]);
+    }, [resetPageChange]);
 
     useEffect(() => {
         if (fy && overview.toptierCode) {
             fetchAgencySubcomponents();
         }
-    }, [fetchAgencySubcomponents, fy, overview.toptierCode]);
+    }, [fy, overview.toptierCode]);
 
     const onClick = (selectedLevel, data) => {
     // reset to page 1 on drilldown
