@@ -75,7 +75,7 @@ const RecipientDistribution = ({
                 }
             );
         }
-    }, [data, height]);
+    }, []);
 
     return (
       <svg

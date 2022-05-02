@@ -67,7 +67,7 @@ const StatusOfFundsChart = ({
     useEffect(() => {
         document.getElementById('sof_chart').addEventListener('mousemove', setMouseData);
         return () => document.getElementById('sof_chart').removeEventListener('mousemove', setMouseData);
-    }, [setMouseData]);
+    }, []);
 
     useEffect(() => {
         setTextScale(viewWidth / chartRef.current.getBoundingClientRect().width);
@@ -83,7 +83,7 @@ const StatusOfFundsChart = ({
         }, 50);
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-    }, [windowWidth]);
+    }, []);
 
 
     // Wrap y axis labels - reference https://bl.ocks.org/mbostock/7555321
