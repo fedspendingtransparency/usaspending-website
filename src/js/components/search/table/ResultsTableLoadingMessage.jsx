@@ -12,7 +12,7 @@ const ResultsTableLoadingMessage = () => (
         <LoadingSpinner />
         <div className="loading-message">
             Gathering your data...
-        </div>
+            </div>
     </div>
 );
 

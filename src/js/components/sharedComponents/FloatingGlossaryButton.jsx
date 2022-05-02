@@ -84,11 +84,11 @@ export default class FloatingGlossaryButton extends React.Component {
                     className="floating-glossary-button"
                     onClick={this.clickedButton}>
                     <div className="button-content">
-                        <span className="floating-glossary-icon">
+                            <span className="floating-glossary-icon">
                             <Glossary alt="Glossary" />
                         </span>
                         Glossary
-                    </div>
+                        </div>
                 </button>
             </div>
         );

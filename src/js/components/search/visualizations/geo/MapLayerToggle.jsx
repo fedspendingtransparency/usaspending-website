@@ -35,14 +35,14 @@ const MapLayerToggle = (props) => {
             <li
                 key={layer}>
                 <button
-                    className={`map-layer-option ${active}`}
-                    onClick={clickedLayer}
-                    title={`Display by ${title}`}
-                    aria-label={`Display by ${title}`}
-                    data-content={title}
-                    value={layer}>
-                    {title}
-                </button>
+                        className={`map-layer-option ${active}`}
+                        onClick={clickedLayer}
+                        title={`Display by ${title}`}
+                        aria-label={`Display by ${title}`}
+                        data-content={title}
+                        value={layer}>
+                        {title}
+                    </button>
             </li>
         );
     });

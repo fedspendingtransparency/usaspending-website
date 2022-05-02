@@ -18,18 +18,18 @@ const TruncationWarning = ({
             <InfoCircle alt="Information" />
         </div>
         <div className="truncation-warning__message">
-            <div className="truncation-warning__title">
+                <div className="truncation-warning__title">
                 {startCase(activeSubdivision)} Display Limit
             </div>
             <div className="truncation-warning__detail">
                 Only the 500 {startCase(activeSubdivision)}s with the highest amounts are shown.
-                {activeSubdivision === 'award' && (
+                    {activeSubdivision === 'award' && (
                     <>
                         For further research on individual awards, visit our <Link to="/search">Advanced Search</Link>.
                     </>
                 )}
+                </div>
             </div>
-        </div>
     </div>
 );
 

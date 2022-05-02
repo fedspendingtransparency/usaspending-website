@@ -37,7 +37,7 @@ const MissingAccountBalanceContainer = ({
         setOrder(direction);
     };
 
-    const missingAccountBalancesRequest = async () => {
+    const missingAccountBalancesRequest = useCallback(async () => {
         if (error.error) setError({ error: false, message: '' });
         if (!loading) setLoading(true);
         if (missingAccBalancesRequest.current) missingAccBalancesRequest.current.cancel();
@@ -65,7 +65,7 @@ const MissingAccountBalanceContainer = ({
             }
             missingAccBalancesRequest.current = null;
         }
-    };
+    });
 
     // on unmount cleanup pubDatesRequest
     useEffect(() => () => {
@@ -79,11 +79,11 @@ const MissingAccountBalanceContainer = ({
         else {
             setPage(1);
         }
-    }, [sort, order, limit]);
+    }, [sort, order, limit, page, missingAccountBalancesRequest]);
     // on page change fetch new data
     useEffect(() => {
         missingAccountBalancesRequest();
-    }, [page]);
+    }, [missingAccountBalancesRequest, page]);
     // do not show deadlines in column headers if we do not have the data
     const columns = missingAccountBalanceColumns.map((column, i) => ({
         displayName: column.displayName,
@@ -102,13 +102,13 @@ const MissingAccountBalanceContainer = ({
                 currentSort={{ field: sort, direction: order }}
                 updateSort={updateSort} />
             <Pagination
-                currentPage={page}
-                changePage={setPage}
-                changeLimit={setLimit}
-                limitSelector
-                resultsText
-                pageSize={limit}
-                totalItems={total} />
+                        currentPage={page}
+                        changePage={setPage}
+                        changeLimit={setLimit}
+                        limitSelector
+                        resultsText
+                        pageSize={limit}
+                        totalItems={total} />
         </>
     );
 };

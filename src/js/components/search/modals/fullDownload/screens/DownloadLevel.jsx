@@ -37,21 +37,21 @@ export default class DownloadLevel extends React.Component {
                 </div>
 
                 <div className="level-options-container">
-                    <div className="level-option">
+                        <div className="level-option">
                         <button
-                            className="level-button"
-                            aria-label="Award"
-                            title="Award"
-                            onClick={this.clickedAward}>
+                                className="level-button"
+                                aria-label="Award"
+                                title="Award"
+                                onClick={this.clickedAward}>
                             Award
-                        </button>
+                            </button>
                         <div className="level-description">
                             Collects and combines all transactions into high-level summaries of each award.
-                        </div>
+                                </div>
                     </div>
 
                     <div className="level-option">
-                        <button
+                            <button
                             className="level-button"
                             aria-label="Transaction"
                             title="Transaction"
@@ -60,9 +60,9 @@ export default class DownloadLevel extends React.Component {
                         </button>
                         <div className="level-description">
                             Includes all details of each award (known as modifications or amendments).
+                            </div>
                         </div>
                     </div>
-                </div>
             </div>
         );
     }

@@ -45,27 +45,27 @@ export default class BulkDownloadModal extends React.Component {
                 verticallyCenter
                 escapeExits>
                 <div className="bulk-download-modal">
-                    <div className="download-header">
+                        <div className="download-header">
                         <div className="header-content">
-                            <h1>Download Data</h1>
+                                <h1>Download Data</h1>
                             <div className="close-wrapper">
-                                <button
+                                        <button
                                     className="close-button"
                                     onClick={this.props.hideModal}
                                     title="Close"
                                     aria-label="Close">
                                     <Close alt="Close modal" />
                                 </button>
+                                    </div>
                             </div>
-                        </div>
                     </div>
                     <div className="download-body">
-                        <ModalContent
+                            <ModalContent
                             hideModal={this.props.hideModal}
                             setDownloadCollapsed={this.props.setDownloadCollapsed}
                             expectedFile={this.props.expectedFile} />
+                        </div>
                     </div>
-                </div>
             </Modal>
         );
     }

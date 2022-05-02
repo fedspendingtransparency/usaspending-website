@@ -67,13 +67,13 @@ export default class SidebarButton extends React.Component {
                         {this.props.label}
                     </div>
                     <div className="coming-soon">
-                        <div className="coming-soon__icon">
+                            <div className="coming-soon__icon">
                             <ExclamationCircle alt="Coming soon" />
                         </div>
                         <div className="coming-soon__label">
                             Coming Soon
+                            </div>
                         </div>
-                    </div>
                 </div>
             );
         }

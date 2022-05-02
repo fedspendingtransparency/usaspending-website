@@ -31,8 +31,8 @@ const IndividualSubmit = (props) => (
         onKeyDown={props.onKeyDown}
         {...props.accessibility}>
         <div className="icon">
-            <Search alt={props.label} />
-        </div>
+                <Search alt={props.label} />
+            </div>
     </button>
 );
 

@@ -65,7 +65,7 @@ export class AgencyLandingContainer extends React.Component {
         }, () => {
             this.performSearch();
         });
-    }
+    };
 
     showColumns() {
         const columns = [];

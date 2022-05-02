@@ -50,7 +50,7 @@ export default class AwardDates extends Component {
     componentDidMount = () => {
         this.handleWindowResize();
         window.addEventListener('resize', this.handleWindowResize);
-    }
+    };
 
     componentWillUnmount() {
         window.removeEventListener('resize', this.handleWindowResize);
@@ -64,7 +64,7 @@ export default class AwardDates extends Component {
                 visualizationWidth: this.datesDivWidth.offsetWidth
             });
         }
-    }, 50)
+    }, 50);
 
     datesData = () => {
         const { dates, awardType } = this.props;
@@ -74,7 +74,7 @@ export default class AwardDates extends Component {
             end: endDate.valueOf(),
             currentEndDate: currentEndDate ? currentEndDate.valueOf() : null
         };
-    }
+    };
 
     datesSection = () => {
         const { startDateLong, endDateLong, potentialEndDateLong } = this.props.dates;
@@ -97,16 +97,16 @@ export default class AwardDates extends Component {
                     <div className="award-dates__label-container">
                         <div className={`award-dates__circle ${circleClassName}`} />
                         <div className="award-dates__label">
-                            {datesTitles[index]}
-                        </div>
+                                {datesTitles[index]}
+                            </div>
                     </div>
                     <div className="award-dates__date">
-                        {readableDates[index] || 'not provided'}
-                    </div>
+                            {readableDates[index] || 'not provided'}
+                        </div>
                 </div>
             );
         });
-    }
+    };
 
     titles() {
         const { awardType } = this.props;
@@ -143,27 +143,27 @@ export default class AwardDates extends Component {
                     this.datesDivWidth = widthRef;
                 }}>
                 <div className="award-dates__heading">
-                    <h6 className="award-overview-title award-dates__title">
+                        <h6 className="award-overview-title award-dates__title">
                         Dates
                         <TooltipWrapper
-                            className="award-section-tt"
-                            icon="info"
-                            pointerPostion="left"
-                            tooltipComponent={tooltipInfo} />
+                                className="award-section-tt"
+                                icon="info"
+                                pointerPostion="left"
+                                tooltipComponent={tooltipInfo} />
                     </h6>
-                </div>
+                    </div>
                 <ProgressBar
-                    domain={[start, endDate]}
-                    heightOfSVG={40}
-                    heightOfProgressBar={10}
-                    width={this.state.visualizationWidth}
-                    currentProgress={moment().valueOf()}
-                    milestones={milestones}
-                    progressText="Today"
-                    badDomainData={badDomainData}
-                    textAdjustment={{ x: 0, y: 20 }}
-                    awardType={this.props.awardType}
-                    descriptions={progressDescriptions()} />
+                            domain={[start, endDate]}
+                            heightOfSVG={40}
+                            heightOfProgressBar={10}
+                            width={this.state.visualizationWidth}
+                            currentProgress={moment().valueOf()}
+                            milestones={milestones}
+                            progressText="Today"
+                            badDomainData={badDomainData}
+                            textAdjustment={{ x: 0, y: 20 }}
+                            awardType={this.props.awardType}
+                            descriptions={progressDescriptions()} />
                 {this.datesSection()}
             </div>
         );

@@ -10,10 +10,10 @@ const ResultsTableNoResults = () => (
         <div className="no-results-icon" />
         <div className="title">
             No results found.
-        </div>
+            </div>
         <div className="description">
             Try again using different filters.
-        </div>
+                </div>
     </div>
 );
 

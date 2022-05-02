@@ -63,11 +63,11 @@ export default class Download extends React.Component {
                 className="homepage-download__list-item"
                 key={item.code}>
                 <DesktopButton
-                    {...item}
-                    index={index}
-                    active={this.state.type && this.state.type.code === item.code}
-                    changeActiveItem={this.changeActiveItem}
-                    forceClear={this.exitedSection} />
+                        {...item}
+                        index={index}
+                        active={this.state.type && this.state.type.code === item.code}
+                        changeActiveItem={this.changeActiveItem}
+                        forceClear={this.exitedSection} />
             </li>
         ));
         const rightItems = downloadOptions.slice(3, 6).map((item, index) => (
@@ -75,11 +75,11 @@ export default class Download extends React.Component {
                 className="homepage-download__list-item"
                 key={item.code}>
                 <DesktopButton
-                    {...item}
-                    index={index + 3}
-                    active={this.state.type && this.state.type.code === item.code}
-                    changeActiveItem={this.changeActiveItem}
-                    forceClear={this.exitedSection} />
+                        {...item}
+                        index={index + 3}
+                        active={this.state.type && this.state.type.code === item.code}
+                        changeActiveItem={this.changeActiveItem}
+                        forceClear={this.exitedSection} />
             </li>
         ));
 
@@ -98,21 +98,21 @@ export default class Download extends React.Component {
                 className="homepage-download"
                 aria-label="Download options">
                 <div
-                    className="homepage-download__wrapper"
-                    onMouseLeave={this.exitedSection}>
+                        className="homepage-download__wrapper"
+                        onMouseLeave={this.exitedSection}>
                     <ul
-                        className="homepage-download__list homepage-download__list_desktop homepage-download__list_left">
-                        {leftItems}
-                    </ul>
+                                className="homepage-download__list homepage-download__list_desktop homepage-download__list_left">
+                                {leftItems}
+                            </ul>
                     <div
-                        className="homepage-download__detail">
-                        {center}
-                    </div>
+                                    className="homepage-download__detail">
+                                    {center}
+                                </div>
                     <ul
-                        className="homepage-download__list homepage-download__list_desktop homepage-download__list_right">
-                        {rightItems}
-                    </ul>
-                </div>
+                                        className="homepage-download__list homepage-download__list_desktop homepage-download__list_right">
+                                        {rightItems}
+                                    </ul>
+                    </div>
             </section>
         );
     }

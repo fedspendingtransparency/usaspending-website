@@ -35,11 +35,11 @@ export default class SankeyBar extends React.Component {
                 aria-label={this.props.description}>
                 <desc>{this.props.description}</desc>
                 <rect
-                    fill={this.props.color}
-                    x="0"
-                    y="0"
-                    width={this.props.width}
-                    height={this.props.height} />
+                        fill={this.props.color}
+                        x="0"
+                        y="0"
+                        width={this.props.width}
+                        height={this.props.height} />
             </g>
         );
     }

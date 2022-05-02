@@ -71,7 +71,7 @@ export default class CheckboxTree extends Component {
                 this.unCheckedNode(checked, node);
             }
         }
-    }
+    };
     /**
      * setChildrenToLoading
      * update a node's children property to a loading div.
@@ -93,7 +93,7 @@ export default class CheckboxTree extends Component {
      */
     checkedNode = (checked, node) => {
         this.props.onCheck(checked, node);
-    }
+    };
     /**
      * unCheckedNode
      * - updates state and calls prop onCheck
@@ -104,7 +104,7 @@ export default class CheckboxTree extends Component {
     unCheckedNode = (checked, node) => {
         // update checked nodes to remove the previously checked nodes
         this.props.onUncheck(checked, node);
-    }
+    };
 
     /**
      * expandNodeAndFetchChildren
@@ -137,7 +137,7 @@ export default class CheckboxTree extends Component {
      */
     collapseNode = (newExpandedArray) => {
         this.props.onCollapse(newExpandedArray);
-    }
+    };
 
     // TODO - implement this
     // sets specific icons to custom icons passed in props
@@ -149,7 +149,7 @@ export default class CheckboxTree extends Component {
             });
         }
         return treeIcons;
-    }
+    };
     /**
      * highlightText
      * adds a <span> tag with a highlight class around matching text
@@ -241,7 +241,7 @@ export default class CheckboxTree extends Component {
                     <FontAwesomeIcon icon="ban" />
                     <div className="checkbox-tree-filter-message-container__text">
                         No Results
-                    </div>
+                        </div>
                 </div>
             );
         }

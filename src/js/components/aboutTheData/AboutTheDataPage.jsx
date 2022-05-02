@@ -77,7 +77,7 @@ const AboutTheDataPage = ({ history }) => {
                 <ShareIcon url={getBaseUrl(slug)} onShareOptionClick={handleShare} />
             ]}>
             <main id="main-content" className="main-content">
-                <div className="heading-container">
+                    <div className="heading-container">
                     <h2 className="header">About These Statistics</h2>
                     <p className="sub-header">
                             In accordance with the 2014 DATA Act, federal agencies submit financial data
@@ -85,7 +85,7 @@ const AboutTheDataPage = ({ history }) => {
                             shows information about the status and content of these submissions. It will
                             be updated as agencies publish/certify new submissions or
                             republish/recertify existing submissions. For more information about the data in this table, visit <Link to="/submission-statistics/data-sources">the Data Sources and Methodology page.</Link>
-                    </p>
+                        </p>
                 </div>
                 <LoadingWrapper isLoading={!activeTab}>
                     <>
@@ -106,38 +106,38 @@ const AboutTheDataPage = ({ history }) => {
                                     }
                                 ]} />
                             <TimeFilters
-                                submissionPeriods={submissionPeriods}
-                                latestFy={latestFy}
-                                latestPeriod={latestPeriod}
-                                activeTab={activeTab}
-                                onTimeFilterSelection={setTime}
-                                selectedPeriod={selectedPeriod}
-                                selectedFy={selectedFy}
-                                urlPeriod={urlPeriod}
-                                urlFy={urlFy} />
+                                        submissionPeriods={submissionPeriods}
+                                        latestFy={latestFy}
+                                        latestPeriod={latestPeriod}
+                                        activeTab={activeTab}
+                                        onTimeFilterSelection={setTime}
+                                        selectedPeriod={selectedPeriod}
+                                        selectedFy={selectedFy}
+                                        urlPeriod={urlPeriod}
+                                        urlFy={urlFy} />
                         </div>
                         <AgenciesContainer
-                            openModal={modalClick}
-                            activeTab={activeTab}
-                            selectedFy={selectedFy}
-                            selectedPeriod={selectedPeriod
+                                openModal={modalClick}
+                                activeTab={activeTab}
+                                selectedFy={selectedFy}
+                                selectedPeriod={selectedPeriod
                                 ? selectedPeriod.id
                                 : ''
                             } />
                         <AboutTheDataModal
-                            mounted={!!showModal.length}
-                            type={showModal}
-                            className={modalClassNames[showModal]}
-                            title={modalTitles(modalData?.type)[showModal]}
-                            agencyData={{
+                                    mounted={!!showModal.length}
+                                    type={showModal}
+                                    className={modalClassNames[showModal]}
+                                    title={modalTitles(modalData?.type)[showModal]}
+                                    agencyData={{
                                 ...modalData,
                                 fiscalYear: parseInt(selectedFy, 10),
                                 fiscalPeriod: parseInt(selectedPeriod?.id, 10) || 0
                             }}
-                            closeModal={closeModal} />
+                                    closeModal={closeModal} />
                     </>
-                </LoadingWrapper>
-            </main>
+                    </LoadingWrapper>
+                </main>
         </PageWrapper>
 
     );

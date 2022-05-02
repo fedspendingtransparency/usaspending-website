@@ -156,24 +156,24 @@ export class IdvAmountsContainer extends React.Component {
                 <div className="award-viz__heading">
                     <h3 className="award-viz__title">$ Award Amounts</h3>
                     <TooltipWrapper
-                        className="award-section-tt"
-                        icon="info"
-                        wide
-                        tooltipComponent={awardAmountsInfo} />
+                            className="award-section-tt"
+                            icon="info"
+                            wide
+                            tooltipComponent={awardAmountsInfo} />
                 </div>
                 <hr />
                 <div className="award-viz__tabs">
-                    <ResultsTableTabs
+                        <ResultsTableTabs
                         types={tabTypes}
                         active={this.state.active}
                         switchTab={this.switchTab}
                         tabsClassName={tabsClassName}
                         hideCounts />
                     <ResultsTablePicker
-                        types={tabTypes}
-                        active={this.state.active}
-                        switchTab={this.switchTab} />
-                </div>
+                                types={tabTypes}
+                                active={this.state.active}
+                                switchTab={this.switchTab} />
+                    </div>
                 {this.state.active === 'awards' && (
                     <AggregatedAwardAmounts
                         {...this.state}

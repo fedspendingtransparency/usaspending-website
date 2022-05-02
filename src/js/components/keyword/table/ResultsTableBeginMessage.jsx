@@ -14,7 +14,7 @@ const ResultsTableBeginMessage = () => (
         </div>
         <div className="description">
             Enter a keyword to begin your search.
-        </div>
+            </div>
     </div>
 );
 

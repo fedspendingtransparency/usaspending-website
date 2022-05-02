@@ -45,10 +45,10 @@ const SearchSummary = ({
             </p>
             <p className="keyword-header__summary-amount">
                 Total Prime Award Amount: <span className="keyword-header__summary-amount keyword-header__summary-amount_bold">{formattedPrimeAmount}</span>
-            </p>
+                </p>
             <p className="keyword-header__summary-amount">
                 Prime Award Transaction Count: <span className="keyword-header__summary-amount keyword-header__summary-amount_bold">{formattedPrimeCount}</span>
-            </p>
+                    </p>
         </div>
     );
 };

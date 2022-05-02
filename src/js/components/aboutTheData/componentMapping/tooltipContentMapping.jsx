@@ -14,7 +14,7 @@ export const tabTooltips = {
             </p>
             <p>
                 Fiscal years start in October (Period 1), and starting in FY 2022 (i.e., October 2021), all agencies will report data monthly to USAspending.gov.
-            </p>
+                </p>
         </>
     )
 };
@@ -27,10 +27,10 @@ export const columnTooltips = {
             </p>
             <p>
                 If you are viewing the last period in a quarter, you may notice agencies that report quarterly do not show data, or have a later report date than the agencies reporting monthly. This is because the quarterly submission deadline is slightly later than the monthly deadline. Such timing differences will disappear in October 2021 when all agencies transition to monthly reporting.
-            </p>
+                </p>
             <p>
                 &quot;--&quot; indicates that an agency has not submitted data for this period.
-            </p>
+                    </p>
         </>
     ),
     'Number of TASs Missing from Account Balance Data': (
@@ -40,10 +40,10 @@ export const columnTooltips = {
             </p>
             <p>
                 Note that financing TAS, while present in GTAS, are completely excluded from this calculation, as they do not involve budgetary spending and therefore are not appropriate for publication on USAspending.
-            </p>
+                </p>
             <p>
                 &quot;--&quot; indicates that an agency has not submitted data for this period.
-            </p>
+                    </p>
         </>
     ),
     'Reporting Difference in Obligations': (
@@ -53,10 +53,10 @@ export const columnTooltips = {
             </p>
             <p>
                 This column shows the differences in these two reported spending amounts.
-            </p>
+                </p>
             <p>
                 &quot;--&quot; indicates that an agency has not submitted data for this period.
-            </p>
+                    </p>
         </>
     ),
     'Number of Unlinked Contract Awards': (
@@ -66,13 +66,13 @@ export const columnTooltips = {
             </p>
             <p>
                 Because these data originate from communities and systems subject to different policies and reporting requirements, there are sometimes gaps between awards captured in each data set.
-            </p>
+                </p>
             <p>
                 This column shows how many awards were &ldquo;unlinked&rdquo;, or lack a common award ID that allows these two systems to match their records. When an award is linked, USAspending can include additional fields from the submitted datasets. When an award cannot be linked, it will only show up in some parts of the site and will be missing its full context.
-            </p>
+                    </p>
             <p>
                 Note that this column shows if an award was linked at any point in time to account for any timing delays.
-            </p>
+                        </p>
         </>
     ),
     'Number of Unlinked Assistance Awards': (
@@ -82,13 +82,13 @@ export const columnTooltips = {
             </p>
             <p>
                 Because these data originate from communities and systems subject to different policies and reporting requirements, there are sometimes gaps between awards captured in each data set.
-            </p>
+                </p>
             <p>
                 This column shows how many awards were &ldquo;unlinked&rdquo;, or lack a common award ID that allows these two systems to match their records. When an award is linked, USAspending can include additional fields from the submitted datasets. When an award cannot be linked, it will only show up in some parts of the site and will be missing its full context.
-            </p>
+                    </p>
             <p>
                 Note that this column shows if an award was linked at any point in time to account for any timing delays.
-            </p>
+                        </p>
         </>
     ),
     'Agency Comments': (
@@ -103,7 +103,7 @@ export const columnTooltips = {
             </p>
             <p>
                 &quot;--&quot; indicates that an agency has not submitted data for this period.
-            </p>
+                </p>
         </>
     ),
     percentOfBudgetPublications: (
@@ -113,7 +113,7 @@ export const columnTooltips = {
             </p>
             <p>
                 &quot;--&quot; indicates that an agency has not submitted data for this period.
-            </p>
+                </p>
         </>
     )
 };

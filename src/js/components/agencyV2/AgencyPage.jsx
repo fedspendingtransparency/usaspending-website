@@ -136,30 +136,30 @@ export const AgencyProfileV2 = ({
                 <ShareIcon url={getBaseUrl(path)} onShareOptionClick={handleShare} />
             ]}>
             <main id="main-content" className="main-content usda__flex-row">
-                <div className="sidebar usda__flex-col">
+                    <div className="sidebar usda__flex-col">
                     <Sidebar
-                        pageName="agency-v2"
-                        fixedStickyBreakpoint={scrollPositionOfSiteHeader}
-                        isGoingToBeSticky
-                        active={activeSection}
-                        jumpToSection={jumpToSection}
-                        detectActiveSection={setActiveSection}
-                        sections={sections.map((section) => ({
+                            pageName="agency-v2"
+                            fixedStickyBreakpoint={scrollPositionOfSiteHeader}
+                            isGoingToBeSticky
+                            active={activeSection}
+                            jumpToSection={jumpToSection}
+                            detectActiveSection={setActiveSection}
+                            sections={sections.map((section) => ({
                             section: section.name,
                             label: section.display
                         }))} />
                 </div>
                 <div className="body usda__flex-col">
-                    <PageTitle fy={selectedFy} />
-                    {isError
+                        <PageTitle fy={selectedFy} />
+                        {isError
                         ? <ErrorMessage description={errorMessage} />
                         : sections.map((section) => (
                             <AgencySection key={section.name} section={section} isLoading={isLoading} icon={section.icon} dataThroughDate={section.dataThroughDate}>
                                 {section.component || <ComingSoon />}
                             </AgencySection>
                         ))}
-                </div>
-            </main>
+                    </div>
+                </main>
         </PageWrapper>
     );
 };

@@ -64,7 +64,7 @@ export const useLatestAccountData = () => {
                 request.current.cancel();
             }
         };
-    }, [dispatch, submissionPeriods]);
+    }, [dispatch, isLoading, latestMoment, latestPeriod, submissionPeriods]);
 
     return [
         latestMoment,
@@ -104,7 +104,7 @@ export const useValidTimeBasedQueryParams = (currentUrlFy, currentUrlPeriod = nu
         });
     };
 
-    const handleTimeChange = (y, p = null) => {
+    const handleTimeChange = useCallback((y, p = null) => {
         if (y && p) {
             updateUrl({ fy: `${y}`, period: `${p}` });
         }
@@ -114,7 +114,7 @@ export const useValidTimeBasedQueryParams = (currentUrlFy, currentUrlPeriod = nu
         else if (p) {
             updateUrl({ period: `${p}` });
         }
-    };
+    });
 
     useEffect(() => {
         // Handles defining undefined params
@@ -139,7 +139,7 @@ export const useValidTimeBasedQueryParams = (currentUrlFy, currentUrlPeriod = nu
                 handleTimeChange(null, latestPeriod);
             }
         }
-    }, [history, latestFy, latestPeriod, submissionPeriods.size, currentUrlFy, currentUrlPeriod]);
+    }, [history, latestFy, latestPeriod, submissionPeriods.size, currentUrlFy, currentUrlPeriod, requiredParams, existingParams, handleTimeChange]);
 
 
     useEffect(() => {
@@ -167,7 +167,7 @@ export const useValidTimeBasedQueryParams = (currentUrlFy, currentUrlPeriod = nu
                 handleTimeChange(latestFy);
             }
         }
-    }, [submissionPeriods, currentUrlFy, currentUrlPeriod, latestPeriod, latestFy]);
+    }, [submissionPeriods, currentUrlFy, currentUrlPeriod, latestPeriod, latestFy, requiredParams, existingParams, handleTimeChange]);
 
     if (requiredParams.length === 1 && requiredParams[0] === 'fy') return [fy, updateUrl];
 

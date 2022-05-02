@@ -117,7 +117,7 @@ export class MapContainer extends React.Component {
             category: 'covid-19 - award spending by recipient - recipient locations',
             action: `${this.state.activeFilters.awardType} - amount type - ${value}`
         });
-    }
+    };
 
     updateTerritoryFilter = (value) => {
         this.setState(
@@ -135,7 +135,7 @@ export class MapContainer extends React.Component {
             category: 'covid-19 - award spending by recipient - recipient locations',
             action: `${this.state.activeFilters.awardType} - area type - ${value}`
         });
-    }
+    };
     updateSpendingTypeFilter = (value) => {
         this.setState(
             (currentState) => ({
@@ -149,7 +149,7 @@ export class MapContainer extends React.Component {
             category: 'covid-19 - award spending by recipient - recipient locations',
             action: `${this.state.activeFilters.awardType} - spending type - ${value}`
         });
-    }
+    };
     updateRecipientTypeFilter = (value) => {
         this.setState(
             (currentState) => ({
@@ -163,7 +163,7 @@ export class MapContainer extends React.Component {
             category: 'covid-19 - award spending by recipient - recipient locations',
             action: `${this.state.activeFilters.awardType} - recipient type - ${value}`
         });
-    }
+    };
     updateAwardTypeFilter = (value) => {
         this.setState(
             (currentState) => ({
@@ -177,7 +177,7 @@ export class MapContainer extends React.Component {
             category: 'covid-19 - award spending by recipient - recipient locations',
             action: `award type - ${value}`
         });
-    }
+    };
 
     mapLoaded = () => {
         this.setState({
@@ -190,7 +190,7 @@ export class MapContainer extends React.Component {
                 this.prepareFetch();
             }, 300);
         });
-    }
+    };
 
     prepareFetch = (forced = false) => {
         if (this.state.loadingTiles) {
@@ -199,7 +199,7 @@ export class MapContainer extends React.Component {
         }
 
         MapBroadcaster.emit('measureMap', forced);
-    }
+    };
 
     compareEntities = (entities) => {
         // check if the inbound list of entities is different from the existing visible entities
@@ -221,7 +221,7 @@ export class MapContainer extends React.Component {
         }
 
         return false;
-    }
+    };
 
     receivedEntities = (entities, forced) => {
         if (!forced) {
@@ -238,7 +238,7 @@ export class MapContainer extends React.Component {
         }, () => {
             this.fetchData();
         });
-    }
+    };
 
     fetchData = () => {
         const {
@@ -298,7 +298,7 @@ export class MapContainer extends React.Component {
                     });
                 }
             });
-    }
+    };
 
     amountTypeKey = () => (this.state.activeFilters.amountType === 'totalSpending' ? 'amount' : 'per_capita');
 
@@ -320,7 +320,7 @@ export class MapContainer extends React.Component {
             }
         });
         return { values, locations, labels };
-    }
+    };
 
     parseData = () => {
         this.setState({
@@ -329,7 +329,7 @@ export class MapContainer extends React.Component {
             loading: false,
             error: false
         });
-    }
+    };
 
     showTooltip = (geoId, position) => {
         // convert state code to full string name
@@ -350,14 +350,14 @@ export class MapContainer extends React.Component {
                 y: position.y
             }
         });
-    }
+    };
 
     hideTooltip = () => {
         this.setState({
             showHover: false,
             selectedItem: {}
         });
-    }
+    };
 
     addOnClickToFilters = () => Object.keys(filters).reduce((acc, filter) => {
         const filterWithOnClick = {
@@ -396,10 +396,10 @@ export class MapContainer extends React.Component {
                         </div>
                         <div className="title">
                             An error occurred.
-                        </div>
+                            </div>
                         <div className="description">
-                            {this.state.error.message}
-                        </div>
+                                    {this.state.error.message}
+                                </div>
                     </div>
                 </MapMessage>
             );
@@ -411,7 +411,7 @@ export class MapContainer extends React.Component {
                         <div className="no-results-icon" />
                         <div className="title">
                             No results found in the current map area.
-                        </div>
+                            </div>
                     </div>
                 </MapMessage>
             );
@@ -423,28 +423,28 @@ export class MapContainer extends React.Component {
                 id="results-section-geo"
                 aria-label="Spending by Geography">
                 <Tabs
-                    active={this.state.activeFilters.awardType}
-                    types={this.getAwardTypeFilterTabs()}
-                    switchTab={this.updateAwardTypeFilter}
-                    tablessStyle />
+                        active={this.state.activeFilters.awardType}
+                        types={this.getAwardTypeFilterTabs()}
+                        switchTab={this.updateAwardTypeFilter}
+                        tablessStyle />
                 <SummaryInsightsContainer activeFilter={this.state.activeFilters.awardType} />
                 <MapWrapper
-                    isMapLoaded={this.props.isMapLoaded}
-                    onMapLoaded={this.props.onMapLoaded}
-                    data={this.state.data}
-                    scope={this.state.scope}
-                    renderHash={this.state.renderHash}
-                    awardTypeFilters={awardTypeTabs}
-                    showHover={this.state.showHover}
-                    activeFilters={this.state.activeFilters}
-                    filters={this.addOnClickToFilters()}
-                    selectedItem={this.state.selectedItem}
-                    showTooltip={this.showTooltip}
-                    hideTooltip={this.hideTooltip}
-                    tooltip={RecipientMapTooltip}
-                    center={centerOfMap}>
-                    {message}
-                </MapWrapper>
+                        isMapLoaded={this.props.isMapLoaded}
+                        onMapLoaded={this.props.onMapLoaded}
+                        data={this.state.data}
+                        scope={this.state.scope}
+                        renderHash={this.state.renderHash}
+                        awardTypeFilters={awardTypeTabs}
+                        showHover={this.state.showHover}
+                        activeFilters={this.state.activeFilters}
+                        filters={this.addOnClickToFilters()}
+                        selectedItem={this.state.selectedItem}
+                        showTooltip={this.showTooltip}
+                        hideTooltip={this.hideTooltip}
+                        tooltip={RecipientMapTooltip}
+                        center={centerOfMap}>
+                        {message}
+                    </MapWrapper>
             </div>
         );
     }

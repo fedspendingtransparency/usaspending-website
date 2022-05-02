@@ -288,7 +288,7 @@ const ContractGrantsActivityChart = ({
             .nice();
         setYTicks(updatedTicksWithSpacing);
         setYScale(() => updatedScale);
-    }, [yDomain, height, totalVerticalLineTextHeight]);
+    }, [yDomain, height, addTicksForSpacing]);
     // hook - runs only on mount unless transactions change
     useEffect(() => {
         if (xDomain.length && yDomain.length) {
@@ -311,7 +311,7 @@ const ContractGrantsActivityChart = ({
             setEndLineData(Object.assign({}, endLineData, { value: getLineValue(dates._endDate, xDomain) }));
             setPotentialEndLineData(Object.assign({}, potentialEndLineData, { value: getLineValue(dates._potentialEndDate, xDomain) }));
         }
-    }, [dates, xDomain]);
+    }, [dates, endLineData, potentialEndLineData, startLineData, todayLineData, xDomain]);
     const setVerticalLineHeight = (i, lineHeight) => {
         if (i === 0) return setStartLineData(Object.assign({}, startLineData, { height: lineHeight }));
         if (i === 1) return setEndLineData(Object.assign({}, endLineData, { height: lineHeight }));
@@ -344,13 +344,7 @@ const ContractGrantsActivityChart = ({
                 }
                 return null;
             });
-    }, [
-        verticalLineTextHeight,
-        startLineData,
-        endLineData,
-        todayLineData,
-        potentialEndLineData
-    ]);
+    }, [allVerticalLines, setVerticalLineHeight, verticalLineTextHeight]);
 
     const updateTotalTextHeightAndVerticalLineHeights = useCallback(() => {
         if (!totalVerticalLineTextHeight) {
@@ -387,7 +381,7 @@ const ContractGrantsActivityChart = ({
             width={visualizationWidth}
             height={svgHeight}>
             <g className="contract-grant-activity-chart__body" transform="translate(0,10)">
-                <ActivityYAxis
+                    <ActivityYAxis
                     height={height}
                     width={visualizationWidth}
                     padding={paddingForYAxis}
@@ -395,14 +389,14 @@ const ContractGrantsActivityChart = ({
                     ticks={yTicks}
                     textAnchor="left" />
                 <ActivityXAxis
-                    height={height}
-                    width={visualizationWidth - padding.left}
-                    padding={padding}
-                    ticks={xTicks}
-                    scale={xScale}
-                    line />
-                {/* area paths */}
-                {xScale && <ContractGrantActivityChartAreaPaths
+                            height={height}
+                            width={visualizationWidth - padding.left}
+                            padding={padding}
+                            ticks={xTicks}
+                            scale={xScale}
+                            line />
+                    {/* area paths */}
+                    {xScale && <ContractGrantActivityChartAreaPaths
                     xScale={xScale}
                     yScale={yScale}
                     transactions={transactions}
@@ -414,8 +408,8 @@ const ContractGrantsActivityChart = ({
                     dates={dates}
                     xDomain={xDomain}
                     xAxisSpacing={xAxisSpacing} />}
-                {/* circles */}
-                {transactions.length && <ContractGrantActivityChartCircles
+                    {/* circles */}
+                    {transactions.length && <ContractGrantActivityChartCircles
                     transactions={transactions}
                     padding={padding}
                     xScale={xScale}
@@ -425,8 +419,8 @@ const ContractGrantsActivityChart = ({
                     showTooltip={showTooltipTransaction}
                     hideTooltip={hideTooltipTransaction}
                     hideTransactionTooltipOnBlur={hideTransactionTooltipOnBlur} />}
-                {/* vertical lines */}
-                {xScale && <ContractGrantActivityChartVerticalLines
+                    {/* vertical lines */}
+                    {xScale && <ContractGrantActivityChartVerticalLines
                     xScale={xScale}
                     height={height}
                     xDomain={xDomain}
@@ -443,8 +437,8 @@ const ContractGrantsActivityChart = ({
                     endLineHeight={endLineData.height}
                     potentialEndLineHeight={potentialEndLineData.height}
                     todayLineHeight={todayLineData.height} />}
-                {/* potential award amount line */}
-                {xScale && <SVGLine
+                    {/* potential award amount line */}
+                    {xScale && <SVGLine
                     lineClassname="potential-award-amount-line"
                     description={potentialAwardAmountLineDescription}
                     scale={yScale}
@@ -460,7 +454,7 @@ const ContractGrantsActivityChart = ({
                     onMouseLeaveLine={showHideTooltipLine}
                     onMouseMoveText={showHideTooltipLine}
                     onMouseLeaveText={showHideTooltipLine} />}
-            </g>
+                </g>
         </svg>
     );
 };

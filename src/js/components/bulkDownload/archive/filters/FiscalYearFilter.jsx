@@ -60,13 +60,13 @@ export default class ArchiveFiscalYearFilter extends React.Component {
                 className="field-item"
                 key={`field-${year}`}>
                 <button
-                    className="item-button"
-                    title={year}
-                    aria-label={year}
-                    value={year}
-                    onClick={this.handleFySelect}>
-                    {year}
-                </button>
+                        className="item-button"
+                        title={year}
+                        aria-label={year}
+                        value={year}
+                        onClick={this.handleFySelect}>
+                        {year}
+                    </button>
             </li>
         ));
 
@@ -88,26 +88,26 @@ export default class ArchiveFiscalYearFilter extends React.Component {
                     Fiscal Year
                 </label>
                 <div className="field-picker fy-select">
-                    <button
+                        <button
                         className="selected-button"
                         title={this.props.currentFY}
                         aria-label={this.props.currentFY}
                         onClick={this.toggleFyPicker}>
                         <div className="label">
-                            {this.props.currentFY}
+                                {this.props.currentFY}
                             <span className="arrow-icon">
-                                {fyIcon}
-                            </span>
-                        </div>
+                                        {fyIcon}
+                                    </span>
+                            </div>
                     </button>
                     <div
-                        className={`field-list ${showFyPicker}`}
-                        style={{ width: dropDownWidth }}>
+                            className={`field-list ${showFyPicker}`}
+                            style={{ width: dropDownWidth }}>
                         <ul>
-                            {FYs}
-                        </ul>
+                                    {FYs}
+                                </ul>
+                        </div>
                     </div>
-                </div>
             </div>
         );
     }

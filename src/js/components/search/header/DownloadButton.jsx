@@ -73,13 +73,13 @@ export default class DownloadButton extends React.Component {
                 onBlur={this.onMouseLeave}>
                 {hover}
                 <button
-                    className={`download-button ${disabled}`}
-                    title="Download your data"
-                    aria-label="Download your data"
-                    aria-disabled={!this.props.downloadAvailable}
-                    onClick={this.onClick}>
+                        className={`download-button ${disabled}`}
+                        title="Download your data"
+                        aria-label="Download your data"
+                        aria-disabled={!this.props.downloadAvailable}
+                        onClick={this.onClick}>
                     <div className="label">{buttonText}</div>
-                </button>
+                    </button>
             </div>
         );
     }

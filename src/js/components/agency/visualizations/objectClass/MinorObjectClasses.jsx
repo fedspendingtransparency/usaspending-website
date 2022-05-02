@@ -258,23 +258,23 @@ export default class MinorObjectClasses extends React.Component {
             <div className="treemap-inner-wrap">
                 {greatThanOneHundredDescription}
                 <div className="function-desc">
-                    <h1>{this.props.majorObjectClass.major_object_class_name}</h1>
+                        <h1>{this.props.majorObjectClass.major_object_class_name}</h1>
                     <h6>{totalSpend} | {percentage}</h6>
                     <p>{objectClassDefinition.description}</p>
-                </div>
+                    </div>
                 { this.createTooltip() }
                 <div
-                    className="tree-wrapper"
-                    ref={(sr) => {
+                        className="tree-wrapper"
+                        ref={(sr) => {
                         this.sectionWrapper = sr;
                     }}>
                     <svg
-                        width={this.state.visualizationWidth}
-                        height={this.state.visualizationHeight}
-                        className="treemap-svg overlay">
-                        {this.state.finalNodes}
-                    </svg>
-                </div>
+                            width={this.state.visualizationWidth}
+                            height={this.state.visualizationHeight}
+                            className="treemap-svg overlay">
+                            {this.state.finalNodes}
+                        </svg>
+                    </div>
             </div>
         );
     }

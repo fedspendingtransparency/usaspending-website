@@ -129,7 +129,7 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
             ];
         });
 
-    const fetchTableData = () => {
+    const fetchTableData = useCallback(() => {
         if (tableRequest.current) {
             tableRequest.current.cancel();
         }
@@ -156,7 +156,7 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
                     console.error(err);
                 }
             });
-    };
+    });
 
     useEffect(() => {
         prevPageRef.current = currentPage;
@@ -175,19 +175,14 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
             // only true when sort, agency-code, or page-size changed
             changeCurrentPage(1);
         }
-    }, [
-        currentPage,
-        agencyCode,
-        sortStatus,
-        pageSize
-    ]);
+    }, [currentPage, agencyCode, sortStatus, pageSize, prevPage, fetchTableData]);
 
     useEffect(() => {
         if (prevPage !== currentPage && prevPage) {
             // only true when page changes.
             fetchTableData();
         }
-    }, [currentPage]);
+    }, [currentPage, fetchTableData, prevPage]);
 
     return (
         <>
@@ -203,13 +198,13 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
                     errorMessage={errorMessage} />
             </div>
             <Pagination
-                currentPage={currentPage}
-                changePage={changeCurrentPage}
-                changeLimit={changePageSize}
-                limitSelector
-                resultsText
-                pageSize={pageSize}
-                totalItems={totalItems} />
+                    currentPage={currentPage}
+                    changePage={changeCurrentPage}
+                    changeLimit={changePageSize}
+                    limitSelector
+                    resultsText
+                    pageSize={pageSize}
+                    totalItems={totalItems} />
         </>
     );
 };

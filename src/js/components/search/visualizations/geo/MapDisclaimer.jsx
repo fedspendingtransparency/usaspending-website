@@ -18,22 +18,22 @@ const MapDisclaimer = (props) => (
             <ExclamationTriangle alt="Disclaimer" />
         </div>
         <div className="content">
-            <div className="header">
+                <div className="header">
                 <div className="title">
                     Not seeing international data?
-                </div>
+                    </div>
                 <button
-                    className="close"
-                    title="Dismiss message"
-                    aria-label="Dismiss message"
-                    onClick={props.closeDisclaimer}>
+                            className="close"
+                            title="Dismiss message"
+                            aria-label="Dismiss message"
+                            onClick={props.closeDisclaimer}>
                     <Close alt="Dismiss message" />
-                </button>
+                        </button>
             </div>
             <div className="description">
                 We&apos;re currently geocoding all of our international data and will be implementing it soon.
+                </div>
             </div>
-        </div>
     </div>
 );
 

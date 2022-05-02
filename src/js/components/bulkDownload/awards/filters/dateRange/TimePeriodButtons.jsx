@@ -84,14 +84,14 @@ export default class TimePeriodButtons extends React.Component {
                     {column1}
                 </div>
                 <div className="column">
-                    {column2}
-                </div>
+                        {column2}
+                    </div>
                 <div className="column">
-                    {column3}
-                </div>
+                            {column3}
+                        </div>
                 <div className="column">
-                    {column4}
-                </div>
+                                {column4}
+                            </div>
             </div>
         );
     }

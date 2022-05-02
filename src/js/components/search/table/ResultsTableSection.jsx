@@ -78,13 +78,13 @@ export default class ResultsTableSection extends React.Component {
                 </div>
                 <hr className="results-divider" />
                 <Tabs
-                    types={this.props.tableTypes}
-                    active={this.props.currentType}
-                    switchTab={this.props.switchTab} />
+                        types={this.props.tableTypes}
+                        active={this.props.currentType}
+                        switchTab={this.props.switchTab} />
                 <div className="results-table-content">
-                    <TransitionGroup>
+                                <TransitionGroup>
                         {showTableMessage && (
-                            <CSSTransition
+                                    <CSSTransition
                                 classNames="table-message-fade"
                                 timeout={{ exit: 225, enter: 195 }}
                                 exit>
@@ -110,20 +110,20 @@ export default class ResultsTableSection extends React.Component {
                         )}
                     </TransitionGroup>
                     <div
-                        className="results-table-width-master"
-                        ref={(div) => {
+                            className="results-table-width-master"
+                            ref={(div) => {
                             // this is an empty div that scales via CSS
                             // the results table width will follow this div's width
                             this.tableWidthController = div;
                         }} />
-                    {showDataTable && (
+                                {showDataTable && (
                         <ResultsTable
-                            {...this.props}
-                            visibleWidth={this.state.tableWidth}
-                            awardIdClick={this.props.awardIdClick}
-                            subAwardIdClick={this.props.subAwardIdClick} />
+                                    {...this.props}
+                                    visibleWidth={this.state.tableWidth}
+                                    awardIdClick={this.props.awardIdClick}
+                                    subAwardIdClick={this.props.subAwardIdClick} />
                     )}
-                </div>
+                            </div>
             </div>
         );
     }

@@ -22,8 +22,8 @@ export default class MapLegendItem extends React.Component {
                 <div className="map-legend-item">
                     <div className="color-swatch" style={swatchStyle} />
                     <div className="label">
-                        {this.props.label}
-                    </div>
+                            {this.props.label}
+                        </div>
                 </div>
             </li>
         );

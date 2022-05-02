@@ -58,12 +58,12 @@ const AwardLevelAndTypeFilter = (props) => {
                 {icon} Select the <span className="download-filter__title_em">award types</span> to include.
             </h3>
             <div className="checkbox-type-filter">
-                <div className="filter-item-wrap">
+                    <div className="filter-item-wrap">
                     <ul className="download-filter__unordered-list">
-                        {awardLevelCheckboxes}
-                    </ul>
+                            {awardLevelCheckboxes}
+                        </ul>
                 </div>
-            </div>
+                </div>
         </div>
     );
 };

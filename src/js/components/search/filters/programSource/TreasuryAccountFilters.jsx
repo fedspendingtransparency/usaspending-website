@@ -83,12 +83,12 @@ export default class TreasuryAccountFilters extends React.Component {
                     )}
                     {this.generateFilters()}
                     <div
-                        className="program-source-components__button-wrapper"
-                        onFocus={this.showWarning}
-                        onMouseEnter={this.showWarning}
-                        onBlur={this.hideWarning}
-                        onMouseLeave={this.hideWarning}>
-                        {activeTab === 2 && (
+                            className="program-source-components__button-wrapper"
+                            onFocus={this.showWarning}
+                            onMouseEnter={this.showWarning}
+                            onBlur={this.hideWarning}
+                            onMouseLeave={this.hideWarning}>
+                            {activeTab === 2 && (
                             <button
                                 disabled={!enabled}
                                 onClick={this.props.applyFilter}
@@ -97,11 +97,11 @@ export default class TreasuryAccountFilters extends React.Component {
                             </button>
                         )}
                         <div
-                            className={`program-source-warning ${this.state.showWarning ? '' : 'hide'}`}
-                            aria-hidden={enabled}>
+                                className={`program-source-warning ${this.state.showWarning ? '' : 'hide'}`}
+                                aria-hidden={enabled}>
                             <EntityWarning message={message} />
+                            </div>
                         </div>
-                    </div>
                 </div>
             </div>
         );

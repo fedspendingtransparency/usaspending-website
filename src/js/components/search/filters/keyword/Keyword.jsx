@@ -83,14 +83,14 @@ export default class Keyword extends React.Component {
                                     this.searchInput = input;
                                 }} />
                             <IndividualSubmit
-                                className="keyword-submit"
-                                onClick={this.searchKeyword}
-                                label="Filter by keyword"
-                                accessibility={accessibility} />
+                                        className="keyword-submit"
+                                        onClick={this.searchKeyword}
+                                        label="Filter by keyword"
+                                        accessibility={accessibility} />
                         </div>
                         {selectedKeywords}
                         <SubmitHint
-                            ref={(component) => {
+                                ref={(component) => {
                                 this.hint = component;
                             }} />
                     </div>

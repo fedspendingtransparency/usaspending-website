@@ -38,7 +38,7 @@ const AgencyOverview = ({ fy, dataThroughDate }) => {
         }, 50);
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-    }, []);
+    }, [windowWidth]);
 
     const missionBlock = (
         <div className="agency-overview__data">
@@ -56,7 +56,7 @@ const AgencyOverview = ({ fy, dataThroughDate }) => {
                 For more information, visit our <Link to="/about?section=data-quality">About Page</Link>.
                 To see a complete list of this agency&apos;s submissions, visit our&nbsp;
                 <Link to="/submission-statistics/agency/097">Submission Statistics page</Link>.
-            </p>
+                </p>
         </div>
     );
 
@@ -83,10 +83,10 @@ const AgencyOverview = ({ fy, dataThroughDate }) => {
         <>
             {showAboutData ? aboutBlock : missionBlock}
             <ReadMore>
-                {showAboutData && missionBlock}
-                {websiteBlock}
-                {cjBlock}
-            </ReadMore>
+                    {showAboutData && missionBlock}
+                    {websiteBlock}
+                    {cjBlock}
+                </ReadMore>
         </>
         :
         <>
@@ -96,9 +96,9 @@ const AgencyOverview = ({ fy, dataThroughDate }) => {
                     {missionBlock}
                 </FlexGridCol>
                 <FlexGridCol width={4}>
-                    {websiteBlock}
-                    {cjBlock}
-                </FlexGridCol>
+                        {websiteBlock}
+                        {cjBlock}
+                    </FlexGridCol>
             </FlexGridRow>
         </>;
 

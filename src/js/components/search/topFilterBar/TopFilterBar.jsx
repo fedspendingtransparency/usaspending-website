@@ -37,19 +37,19 @@ const TopFilterBar = (props) => {
                 role="complementary"
                 aria-label="Currently applied search filters">
                 <div className="search-top-filter-header">
-                    <h2
+                        <h2
                         className="header-title"
                         id="top-filter-bar-title">
                         {filterBarHeader}
                     </h2>
-                </div>
+                    </div>
                 <div className="search-top-filters">
-                    <div
+                            <div
                         className="search-top-filters-content"
                         role="list">
                         {filters}
                     </div>
-                </div>
+                        </div>
             </div>
         </div>
     );

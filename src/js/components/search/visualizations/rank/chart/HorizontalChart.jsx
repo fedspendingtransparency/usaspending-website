@@ -195,37 +195,37 @@ export default class HorizontalChart extends React.Component {
                     this.divRef = div;
                 }}>
                 <svg
-                    className="rank-graph"
-                    width={this.props.width}
-                    height={this.props.height}
-                    ref={(svg) => {
+                        className="rank-graph"
+                        width={this.props.width}
+                        height={this.props.height}
+                        ref={(svg) => {
                         this.svgRef = svg;
                     }}>
 
                     <g className="chart-groups">
-                        {this.state.groups}
-                    </g>
+                            {this.state.groups}
+                        </g>
 
                     <HorizontalXAxis
-                        width={this.props.width - this.props.labelWidth}
-                        height={this.props.height - this.props.padding.bottom}
-                        x={this.props.labelWidth}
-                        y={this.props.height - this.props.padding.bottom}
-                        range={this.state.xRange}
-                        xScale={this.state.xScale}
-                        data={this.props.dataSeries} />
+                                width={this.props.width - this.props.labelWidth}
+                                height={this.props.height - this.props.padding.bottom}
+                                x={this.props.labelWidth}
+                                y={this.props.height - this.props.padding.bottom}
+                                range={this.state.xRange}
+                                xScale={this.state.xScale}
+                                data={this.props.dataSeries} />
 
                     <g className="chart-bars">
-                        {this.state.bars}
-                    </g>
+                                        {this.state.bars}
+                                    </g>
 
                     <HorizontalYAxis
-                        height={this.props.height - this.props.padding.bottom}
-                        x={this.props.labelWidth}
-                        y={this.props.height - this.props.padding.bottom}
-                        xScale={this.state.xScale} />
+                                            height={this.props.height - this.props.padding.bottom}
+                                            x={this.props.labelWidth}
+                                            y={this.props.height - this.props.padding.bottom}
+                                            xScale={this.state.xScale} />
 
-                </svg>
+                    </svg>
             </div>
         );
     }

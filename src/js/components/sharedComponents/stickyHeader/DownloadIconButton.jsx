@@ -45,13 +45,13 @@ const DownloadIconButton = ({ onClick, downloadInFlight }) => {
             onBlur={onMouseLeave}>
             {hover}
             <button
-                className={`sticky-header__button${disabledClass}`}
-                title={buttonText}
-                aria-label={buttonText}
-                disabled={downloadInFlight}
-                onClick={startDownload}>
+                    className={`sticky-header__button${disabledClass}`}
+                    title={buttonText}
+                    aria-label={buttonText}
+                    disabled={downloadInFlight}
+                    onClick={startDownload}>
                 <FontAwesomeIcon icon={icon} spin={!!downloadInFlight} />
-            </button>
+                </button>
             <span>Download</span>
         </div>
     );

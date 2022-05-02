@@ -57,25 +57,25 @@ export default class ChildRecipientModal extends React.Component {
                 verticallyCenter
                 escapeExits>
                 <div className="recipients-modal__wrapper">
-                    <div className="recipients-modal__header">
+                        <div className="recipients-modal__header">
                         <h1 className="recipients-modal__title">Child Recipients</h1>
                         <button
-                            className="recipients-modal__close-button"
-                            onClick={this.props.hideModal}
-                            title="Close"
-                            aria-label="Close">
+                                className="recipients-modal__close-button"
+                                onClick={this.props.hideModal}
+                                title="Close"
+                                aria-label="Close">
                             <Close alt="Close modal" />
-                        </button>
+                            </button>
                     </div>
                     <div className="recipients-modal__body">
-                        {resultCountDisplay}
-                        {table}
-                        {resultCountDisplay}
+                            {resultCountDisplay}
+                            {table}
+                            {resultCountDisplay}
                         <div className="recipients-modal__message">
-                            {message}
+                                    {message}
+                                </div>
                         </div>
                     </div>
-                </div>
             </Modal>
         );
     }

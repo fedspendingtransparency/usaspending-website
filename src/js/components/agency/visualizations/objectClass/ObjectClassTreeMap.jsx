@@ -119,29 +119,29 @@ export default class ObjectClassTreeMap extends React.Component {
                 className="agency-section-wrapper"
                 id="agency-object-classes">
                 <div className="agency-section-title">
-                    <h4>Object Classes</h4>
+                        <h4>Object Classes</h4>
                     <hr className="results-divider" />
                     <em>FY {this.props.activeFY} data reported through {this.props.asOfDate}</em>
-                </div>
+                    </div>
                 <div className="agency-callout-description">
-                    <p>This {total} in obligations is divided among categories,
+                            <p>This {total} in obligations is divided among categories,
                         called <strong>object classes</strong>. These groupings can be helpful
                         for analysis and cross-agency comparison.
                     </p>
-                </div>
+                        </div>
                 <div className="agency-section-content">
-                    <div
+                                <div
                         className="usa-da-treemap-section"
                         ref={(sr) => {
                             this.sectionWrapper = sr;
                         }}>
                         <div className="usa-da-treemap-header">
-                            {this.generateHeader()}
-                        </div>
+                                {this.generateHeader()}
+                            </div>
                         {this.generateObjectClasses()}
                     </div>
                     <div className="agency-viz-description">This visualization represents obligated amount.</div>
-                </div>
+                            </div>
             </div>
         );
     }

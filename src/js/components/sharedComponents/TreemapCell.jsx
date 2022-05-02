@@ -138,15 +138,15 @@ export default class TreemapCell extends React.Component {
                     this.element = g;
                 }}>
                 <title>
-                    {this.props.title.text}
-                </title>
+                        {this.props.title.text}
+                    </title>
                 <rect
-                    className="explorer-cell-box"
-                    x={0}
-                    y={0}
-                    width={this.props.width}
-                    height={this.props.height}
-                    style={{
+                            className="explorer-cell-box"
+                            x={0}
+                            y={0}
+                            width={this.props.width}
+                            height={this.props.height}
+                            style={{
                         fill: this.state.backgroundColor
                     }} />
                 {cellTitle}

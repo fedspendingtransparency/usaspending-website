@@ -56,11 +56,11 @@ export default class MobileLinkItem extends React.Component {
                 {...linkParams}
                 onClick={clickedHomepageLink.bind(null, this.props.url.replace('#', ''))}>
                 <div className="mobile-download__link-icon">
-                    <div className={`homepage-download__icon homepage-download__icon_type_${this.props.code}`} />
-                </div>
+                        <div className={`homepage-download__icon homepage-download__icon_type_${this.props.code}`} />
+                    </div>
                 <div className="mobile-download__link-label">
-                    {this.props.label}
-                </div>
+                            {this.props.label}
+                        </div>
             </Link>
         );
 
@@ -70,11 +70,11 @@ export default class MobileLinkItem extends React.Component {
                     className={`mobile-download__link ${disabledLink}`}
                     onClick={this.redirect}>
                     <div className="mobile-download__link-icon">
-                        <div className={`homepage-download__icon homepage-download__icon_type_${this.props.code}`} />
-                    </div>
+                            <div className={`homepage-download__icon homepage-download__icon_type_${this.props.code}`} />
+                        </div>
                     <div className="mobile-download__link-label">
-                        {this.props.label}
-                    </div>
+                                {this.props.label}
+                            </div>
                 </button>
             );
         }
@@ -86,6 +86,6 @@ export default class MobileLinkItem extends React.Component {
             </li>
         );
     }
-};
+}
 
 MobileLinkItem.propTypes = propTypes;

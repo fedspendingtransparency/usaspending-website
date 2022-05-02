@@ -32,17 +32,17 @@ const FederalAccountsSummary = ({ summary, inFlight, jumpToFederalAccountsHistor
                         <span>{summary.obligatedAmount}</span>
                     </div>
                     <div className="award-funding-summary__data">
-                        <span>Total Count of Funding Agencies</span>
+                            <span>Total Count of Funding Agencies</span>
                         <span>{summary.fundingAgencyCount}</span>
-                    </div>
+                        </div>
                     <div className="award-funding-summary__data">
-                        <span>Total Count of Awarding Agencies</span>
+                                <span>Total Count of Awarding Agencies</span>
                         <span>{summary.awardingAgencyCount}</span>
-                    </div>
+                            </div>
                     <div className="award-funding-summary__data">
-                        <span>Total Count of Federal Accounts</span>
+                                    <span>Total Count of Federal Accounts</span>
                         <span>{summary.federalAccountCount}</span>
-                    </div>
+                                </div>
                 </div>
             );
         }
@@ -54,9 +54,9 @@ const FederalAccountsSummary = ({ summary, inFlight, jumpToFederalAccountsHistor
             <h4>Summary of All Federal Accounts used by this Award</h4>
             {generateTable()}
             <JumpToSectionButton
-                linkText="View federal funding submissions"
-                icon="table"
-                onClick={jumpToFederalAccountsHistory} />
+                    linkText="View federal funding submissions"
+                    icon="table"
+                    onClick={jumpToFederalAccountsHistory} />
         </div>
     );
 };

@@ -99,30 +99,30 @@ const Covid19Page = ({ loading }) => {
                 <DownloadButtonContainer />
             ]}>
             <LoadingWrapper isLoading={loading}>
-                <main id="main-content" className="main-content usda__flex-row">
+                    <main id="main-content" className="main-content usda__flex-row">
                     <div className="sidebar">
-                        <div className="sidebar__content">
+                            <div className="sidebar__content">
                             <Sidebar
-                                pageName="covid19"
-                                isGoingToBeSticky
-                                active={activeSection}
-                                fixedStickyBreakpoint={getStickyBreakPointForSidebar()}
-                                jumpToSection={handleJumpToSection}
-                                detectActiveSection
-                                verticalSectionOffset={stickyHeaderHeight}
-                                sections={Object.keys(componentByCovid19Section())
+                                    pageName="covid19"
+                                    isGoingToBeSticky
+                                    active={activeSection}
+                                    fixedStickyBreakpoint={getStickyBreakPointForSidebar()}
+                                    jumpToSection={handleJumpToSection}
+                                    detectActiveSection
+                                    verticalSectionOffset={stickyHeaderHeight}
+                                    sections={Object.keys(componentByCovid19Section())
                                     .filter((section) => componentByCovid19Section()[section].showInMenu)
                                     .map((section) => ({
                                         section: snakeCase(section),
                                         label: componentByCovid19Section()[section].title
                                     }))} />
                         </div>
-                    </div>
+                        </div>
                     <div className="body usda__flex-col">
-                        <section className="body__section">
+                                <section className="body__section">
                             <Heading publicLaw={query.publicLaw} />
                         </section>
-                        {Object.keys(componentByCovid19Section())
+                                {Object.keys(componentByCovid19Section())
                             .filter((section) => componentByCovid19Section()[section].showInMainSection)
                             .map((section) => (
                                 <Covid19Section
@@ -138,20 +138,20 @@ const Covid19Page = ({ loading }) => {
                                 </Covid19Section>
                             ))}
                         <section className="body__section" id="covid19-data_sources_and_methodology">
-                            <DataSourcesAndMethodology
+                                    <DataSourcesAndMethodology
                                 handleExternalLinkClick={handleExternalLinkClick}
                                 publicLaw={query.publicLaw} />
-                        </section>
+                                </section>
                         <section className="body__section" id="covid19-other_resources">
-                            <OtherResources
+                                        <OtherResources
                                 handleExternalLinkClick={handleExternalLinkClick}
                                 publicLaw={query.publicLaw} />
                             <LinkToAdvancedSearchContainer />
-                        </section>
-                    </div>
+                                    </section>
+                            </div>
                     <GlobalModalContainer />
                 </main>
-            </LoadingWrapper>
+                </LoadingWrapper>
         </PageWrapper>
     );
 };

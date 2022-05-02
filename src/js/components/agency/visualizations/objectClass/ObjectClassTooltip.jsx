@@ -90,8 +90,8 @@ export default class ObjectClassTooltip extends React.Component {
                     {this.props.value} | {this.props.percentage}
                 </div>
                 <div className="tooltip-description">
-                    {this.props.description}
-                </div>
+                        {this.props.description}
+                    </div>
             </div>);
         let smallValue = '';
 
@@ -116,23 +116,23 @@ export default class ObjectClassTooltip extends React.Component {
                     this.containerDiv = div;
                 }}>
                 <div
-                    className={`tooltip${smallValue}`}
-                    ref={(div) => {
+                        className={`tooltip${smallValue}`}
+                        ref={(div) => {
                         this.div = div;
                     }}>
                     <div
-                        className="tooltip-pointer"
-                        ref={(div) => {
+                            className="tooltip-pointer"
+                            ref={(div) => {
                             this.pointerDiv = div;
                         }} />
                     <div className="tooltip-title">
-                        {this.props.name}
-                    </div>
+                                {this.props.name}
+                            </div>
                     <div className="tooltip-body center">
-                        {desc}
+                                    {desc}
+                                </div>
+                        { footer }
                     </div>
-                    { footer }
-                </div>
             </div>
         );
     }

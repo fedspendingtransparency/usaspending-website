@@ -98,18 +98,18 @@ export const RecipientPage = ({
                     <RecipientInfoBanner />
                 </div>
                 <main id="main-content" className="main-content">
-                    <LoadingWrapper isLoading={loading}>
+                        <LoadingWrapper isLoading={loading}>
                         {content}
                         <ChildRecipientModalContainer
-                            mounted={isChildModalVisible}
-                            hideModal={hideChildRecipientModal}
-                            recipient={recipient} />
+                                mounted={isChildModalVisible}
+                                hideModal={hideChildRecipientModal}
+                                recipient={recipient} />
                         <AlternateNamesRecipientModalContainer
-                            mounted={isAlternateModalVisible}
-                            hideModal={hideAlternateModal}
-                            recipient={recipient} />
+                                        mounted={isAlternateModalVisible}
+                                        hideModal={hideAlternateModal}
+                                        recipient={recipient} />
                     </LoadingWrapper>
-                </main>
+                    </main>
             </>
         </PageWrapper>
     );

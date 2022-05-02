@@ -20,8 +20,8 @@ export default class InfoSnippet extends React.Component {
                         {this.props.label}
                     </div>
                     <div className="item-value">
-                        {this.props.value}
-                    </div>
+                            {this.props.value}
+                        </div>
                 </div>
             </li>);
     }

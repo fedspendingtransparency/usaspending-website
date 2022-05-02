@@ -80,14 +80,14 @@ const RecipientContent = ({
                     detectActiveSection={setActiveSection} />
             </div>
             <div className="recipient-content">
-                <RecipientOverview
+                    <RecipientOverview
                     showChildRecipientModal={showChildRecipientModal}
                     showAlternateNamesRecipientModal={showAlternateNamesRecipientModal}
                     recipient={recipient} />
                 <RecipientTimeVisualizationSectionContainer
-                    recipient={recipient} />
+                            recipient={recipient} />
                 <TopFiveSection />
-            </div>
+                </div>
         </div>
     );
 };

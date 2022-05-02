@@ -51,7 +51,7 @@ export default class RelatedAwards extends React.Component {
     jumpToAwardHistoryTableSubAwardsTab = () => {
         this.props.jumpToSubAwardHistoryTable('subaward');
         this.props.jumpToSection('award-history');
-    }
+    };
 
     referencedAwardCounts() {
         const { details, overview } = this.props;
@@ -106,12 +106,12 @@ export default class RelatedAwards extends React.Component {
                     ))}
                 </div>
                 <div className="related-awards__description">
-                    {map(childData, (data) => (
+                        {map(childData, (data) => (
                         <div key={`${data.glossary}text`} className="related-awards__text">
-                            {data.name} {data.postText}
-                        </div>
+                                {data.name} {data.postText}
+                            </div>
                     ))}
-                </div>
+                    </div>
             </div>
         );
     }
@@ -156,14 +156,14 @@ export default class RelatedAwards extends React.Component {
                         tooltipComponent={tooltipInfo} />
                 </h6>
                 <div className="related-awards__parent">
-                    <div className="related-awards__label">
+                        <div className="related-awards__label">
                         {awardTitle}
                     </div>
-                    {parentLink}
-                </div>
+                        {parentLink}
+                    </div>
                 <div className="related-awards__children">
-                    {this.referencedAwardCounts()}
-                </div>
+                            {this.referencedAwardCounts()}
+                        </div>
             </div>
         );
     }

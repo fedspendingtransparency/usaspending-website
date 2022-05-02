@@ -60,7 +60,7 @@ const QuarterPickerWithFY = ({
         if (latestFy && latestPeriod) {
             handlePickedYear(`${latestFy}`, `${latestPeriod}`);
         }
-    }, [latestFy, latestPeriod]);
+    }, [handlePickedYear, latestFy, latestPeriod]);
 
     return (
         <div className="quarter-picker">
@@ -72,11 +72,11 @@ const QuarterPickerWithFY = ({
                     onClick={pickedYear} />
             </div>
             <QuarterPicker
-                showPeriods
-                periodsPerQuarter={periodsPerQuarter}
-                selectedPeriods={[latestSelectedTimeInterval]}
-                disabledPeriods={disabledPeriodsInFy}
-                handleSelection={handleQuarterPickerSelection} />
+                    showPeriods
+                    periodsPerQuarter={periodsPerQuarter}
+                    selectedPeriods={[latestSelectedTimeInterval]}
+                    disabledPeriods={disabledPeriodsInFy}
+                    handleSelection={handleQuarterPickerSelection} />
         </div>
     );
 };

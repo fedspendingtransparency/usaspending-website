@@ -68,24 +68,24 @@ export default class DownloadBottomBar extends React.Component {
                         {leftIcon}
                     </div>
                     <div className="text-content">
-                        <div className="title">
+                            <div className="title">
                             {this.props.title}
                         </div>
                         <p>
-                            {this.props.description}
-                        </p>
-                        {this.state.copied ? <span>{icon}</span> : null}
+                                {this.props.description}
+                            </p>
+                            {this.state.copied ? <span>{icon}</span> : null}
                         <CopyToClipboard
-                            text={this.props.download.expectedUrl}
-                            onCopy={this.onCopy}>
+                                    text={this.props.download.expectedUrl}
+                                    onCopy={this.onCopy}>
                             <button>{this.state.copied ? 'Copied' : 'Your Download Link'}</button>
-                        </CopyToClipboard>
-                    </div>
+                                </CopyToClipboard>
+                        </div>
                 </div>
             </div>
         );
     }
-};
+}
 
 DownloadBottomBar.propTypes = propTypes;
 DownloadBottomBar.defaultProps = defaultProps;

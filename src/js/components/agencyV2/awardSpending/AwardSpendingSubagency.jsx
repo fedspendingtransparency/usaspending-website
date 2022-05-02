@@ -93,18 +93,18 @@ const AwardSpendingSubagency = ({ fy }) => {
         <div className="body__content">
             <AwardSpendingIntro name={overview.name} />
             <div ref={moreOptionsTabsRef}>
-                <Tabs active={activeTab.internal} types={awardTabs} switchTab={changeActiveTab} />
-            </div>
+                    <Tabs active={activeTab.internal} types={awardTabs} switchTab={changeActiveTab} />
+                </div>
             <SubAgencySummaryContainer
-                fy={fy}
-                summaryData={summaryData}
-                data={subagencyData}
-                activeTab={activeTab.internal} />
+                        fy={fy}
+                        summaryData={summaryData}
+                        data={subagencyData}
+                        activeTab={activeTab.internal} />
             <SubagencyTableContainer
-                fy={fy}
-                type={activeTab.internal}
-                prevType={prevActiveTab.internal}
-                subHeading="Offices" />
+                                fy={fy}
+                                type={activeTab.internal}
+                                prevType={prevActiveTab.internal}
+                                subHeading="Offices" />
             <Note message={(
                 <>
                 The sub-agencies presented in this section represent
@@ -120,7 +120,7 @@ const AwardSpendingSubagency = ({ fy }) => {
                 department or independent agency’s sub-tiers and its offices and is used
                 by federal agencies as the authoritative source for managing federal
                 funding and awarding organizations.
-                    </>)} />
+                </>)} />
         </div>
     );
 };

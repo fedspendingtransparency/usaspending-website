@@ -50,18 +50,18 @@ export default class LegacyTopFilterItem extends React.Component {
                     onClick={this.clickedButton}
                     disabled={this.props.compressed}>
                     <div className="filter-item-title">
-                        {this.props.title}
-                    </div>
-                    <div className={`filter-item-remove-container ${hideCompressed}`}>
-                        <div className="filter-remove">
-                            <span className="sr-only">
-                                {accessibleLabel}
-                            </span>
-                            <span className="close-icon">
-                                <Icons.Close alt={accessibleLabel} />
-                            </span>
+                            {this.props.title}
                         </div>
-                    </div>
+                    <div className={`filter-item-remove-container ${hideCompressed}`}>
+                                <div className="filter-remove">
+                            <span className="sr-only">
+                                        {accessibleLabel}
+                                    </span>
+                            <span className="close-icon">
+                                            <Icons.Close alt={accessibleLabel} />
+                                        </span>
+                        </div>
+                            </div>
                 </button>
             </div>
         );

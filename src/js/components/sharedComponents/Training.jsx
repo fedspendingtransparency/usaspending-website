@@ -38,20 +38,20 @@ const Training = (pageName) => {
             </div>
             <div className="training__callout">
                      Request training from us!&nbsp;
-            </div>
+                </div>
             <div className="training__message">
                 Receive customized training&nbsp;
-            </div>
+                    </div>
             <div className="training__message">
                 on how to use USAspending.gov
-            </div>
+                        </div>
             <a
-                className="training__link"
-                href={`mailto:usaspending.help@fiscal.treasury.gov?subject=Request%20for%20Training%20on%20USAspending.gov&body=${encodeURIComponent(body)}`}
-                onClick={trackLink}>
+                                className="training__link"
+                                href={`mailto:usaspending.help@fiscal.treasury.gov?subject=Request%20for%20Training%20on%20USAspending.gov&body=${encodeURIComponent(body)}`}
+                                onClick={trackLink}>
                      Sign Up
                 <FontAwesomeIcon icon={faCaretRight} />
-            </a>
+                            </a>
         </div>
     );
 };

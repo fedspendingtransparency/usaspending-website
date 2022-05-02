@@ -90,42 +90,42 @@ export default class RankVisualizationSection extends React.Component {
                 {this.props.children}
 
                 <RankVisualization
-                    {...this.props}
-                    {...this.state}
-                    width={this.state.visualizationWidth} />
+                        {...this.props}
+                        {...this.state}
+                        width={this.state.visualizationWidth} />
 
                 <div className={`visualization-pager-container ${hidePager}`}>
-                    <button
+                                <button
                         className="visualization-pager"
                         title="Show previous ten"
                         aria-label="Show previous ten"
                         disabled={disablePrev}
                         onClick={this.clickPrevious}>
                         <div className="pager-content">
-                            <div className="icon">
+                                <div className="icon">
                                 <Icons.AngleLeft alt="Show previous ten" />
                             </div>
                             <div className="pager-label">
                                 Show previous ten
+                                </div>
                             </div>
-                        </div>
                     </button>
                     <button
-                        className="visualization-pager"
-                        title="Show next ten"
-                        aria-label="Show next ten"
-                        disabled={disableNext}
-                        onClick={this.clickNext}>
+                            className="visualization-pager"
+                            title="Show next ten"
+                            aria-label="Show next ten"
+                            disabled={disableNext}
+                            onClick={this.clickNext}>
                         <div className="pager-content">
-                            <div className="pager-label next">
+                                    <div className="pager-label next">
                                 Show next ten
                             </div>
                             <div className="icon">
-                                <Icons.AngleRight alt="Show next ten" />
+                                    <Icons.AngleRight alt="Show next ten" />
+                                </div>
+                                </div>
+                        </button>
                             </div>
-                        </div>
-                    </button>
-                </div>
             </div>
         );
     }

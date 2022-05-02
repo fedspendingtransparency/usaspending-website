@@ -77,13 +77,13 @@ export default class AccountLandingSearchBar extends React.Component {
                         onChange={this.onChange}
                         placeholder="Search by Account Number, Account Name, or Agency..." />
                     <button
-                        aria-label="Search"
-                        onClick={this.handleClick}
-                        className="search-section__button">
+                                aria-label="Search"
+                                onClick={this.handleClick}
+                                className="search-section__button">
                         <div className="search-section__button-icon">
-                            {icon}
-                        </div>
-                    </button>
+                                        {icon}
+                                    </div>
+                            </button>
                 </form>
             </div>
         );

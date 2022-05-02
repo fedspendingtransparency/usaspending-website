@@ -23,8 +23,8 @@ export default class ShownAwardID extends React.Component {
                 aria-label={`Applied filter: ${this.props.label}`}>
                 {this.props.label}
                 <span className="close">
-                    <FontAwesomeIcon icon="times" />
-                </span>
+                        <FontAwesomeIcon icon="times" />
+                    </span>
             </button>
         );
     }

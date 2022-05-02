@@ -81,20 +81,20 @@ export default class CFDAViz extends React.Component {
         this.setState({
             width
         });
-    }
+    };
 
     showTooltip = (position, data) => {
         this.setState({
             showTooltip: true,
             tooltip: { ...position, ...data }
         });
-    }
+    };
 
     hideTooltip = () => {
         this.setState({
             showTooltip: false
         });
-    }
+    };
 
     tree = () => {
         if (this.props.view === 'tree') {
@@ -108,14 +108,14 @@ export default class CFDAViz extends React.Component {
                 onTreeClick={this.props.onTreeClick} />);
         }
         return null;
-    }
+    };
 
     content = () => {
         const { view } = this.props;
         if (view === 'table') return (<CFDATable {...this.props} />);
         if (view === 'single' || !view) return (<SingleCFDA currentCfda={this.props.cfda} />);
         return null;
-    }
+    };
 
     title = () => {
         const {
@@ -142,7 +142,7 @@ export default class CFDAViz extends React.Component {
             return (<h4 className="cfda-section-single-title">{`${cfda.cfdaNumber}: ${cfda.cfdaTitle.toUpperCase()}`}</h4>);
         }
         return null;
-    }
+    };
 
     chart = () => {
         const {
@@ -206,7 +206,7 @@ export default class CFDAViz extends React.Component {
             );
         }
         return null;
-    }
+    };
 
     buttons = () => {
         const { view, allCFDAs } = this.props;
@@ -216,19 +216,19 @@ export default class CFDAViz extends React.Component {
                 <div className="view-buttons-section">
                     <div className="view-buttons-section__text">{`Click on a program ${isTreeView ? 'tile' : 'title'} to see its details.`}</div>
                     <div className="view-buttons-section__buttons">
-                        <ViewTypeButton
+                            <ViewTypeButton
                             value="table"
                             label="Table"
                             icon="table"
                             changeView={this.props.changeView}
                             active={!isTreeView} />
                         <ViewTypeButton
-                            value="tree"
-                            label="Treemap"
-                            icon="th-large"
-                            changeView={this.props.changeView}
-                            active={isTreeView} />
-                    </div>
+                                    value="tree"
+                                    label="Treemap"
+                                    icon="th-large"
+                                    changeView={this.props.changeView}
+                                    active={isTreeView} />
+                        </div>
                 </div>
             );
         }
@@ -245,24 +245,24 @@ export default class CFDAViz extends React.Component {
             );
         }
         return null;
-    }
+    };
 
     render() {
         return (
             <div className="cfda-section__viz">
                 {this.state.showTooltip && <CFDATreeTooltip {...this.state.tooltip} />}
                 <div className="cfda-section-results">
-                    {this.buttons()}
-                    {this.title()}
-                    {this.chart()}
-                    {this.content()}
+                        {this.buttons()}
+                        {this.title()}
+                        {this.chart()}
+                        {this.content()}
                     <div
-                        className="cfda-section-vis__width-reference"
-                        ref={(div) => {
+                                className="cfda-section-vis__width-reference"
+                                ref={(div) => {
                             this.widthRef = div;
                         }} />
-                    {this.tree()}
-                </div>
+                        {this.tree()}
+                    </div>
             </div>
         );
     }

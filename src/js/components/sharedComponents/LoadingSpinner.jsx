@@ -17,29 +17,29 @@ const LoadingSpinner = () => (
                 opacity: 0
             }}>
             <rect
-                className="bar-one"
-                x="0"
-                y="0"
-                height="50"
-                width="10" />
+                    className="bar-one"
+                    x="0"
+                    y="0"
+                    height="50"
+                    width="10" />
             <rect
-                className="bar-two"
-                x="13"
-                y="0"
-                height="50"
-                width="10" />
+                            className="bar-two"
+                            x="13"
+                            y="0"
+                            height="50"
+                            width="10" />
             <rect
-                className="bar-three"
-                x="26"
-                y="0"
-                height="50"
-                width="10" />
+                                    className="bar-three"
+                                    x="26"
+                                    y="0"
+                                    height="50"
+                                    width="10" />
             <rect
-                className="bar-four"
-                x="39"
-                y="0"
-                height="50"
-                width="10" />
+                                            className="bar-four"
+                                            x="39"
+                                            y="0"
+                                            height="50"
+                                            width="10" />
 
         </svg>
     </div>

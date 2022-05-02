@@ -366,25 +366,25 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
                     height={this.props.height + 20}>
 
                     <BarChartYAxis
-                        {...this.state.virtualChart.yAxis}
-                        x={this.state.virtualChart.yAxis.group.x}
-                        y={this.state.virtualChart.yAxis.group.y} />
+                            {...this.state.virtualChart.yAxis}
+                            x={this.state.virtualChart.yAxis.group.x}
+                            y={this.state.virtualChart.yAxis.group.y} />
                     <BarChartXAxis
-                        {...this.state.virtualChart.xAxis} />
+                                    {...this.state.virtualChart.xAxis} />
 
                     <g
-                        className="bar-data"
-                        transform={`translate(${this.state.virtualChart.body.group.x},\
+                                            className="bar-data"
+                                            transform={`translate(${this.state.virtualChart.body.group.x},\
 ${this.state.virtualChart.body.group.y})`}>
-                        {body}
-                    </g>
+                                            {body}
+                                        </g>
 
                     <g
-                        className="legend-container"
-                        transform={`translate(${this.props.padding.left},
+                                                className="legend-container"
+                                                transform={`translate(${this.props.padding.left},
                         ${this.props.height - 20})`}>
                         <BarChartLegend legend={this.props.legend} />
-                    </g>
+                                            </g>
 
                 </svg>
             </div>

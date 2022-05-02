@@ -22,7 +22,7 @@ export default class NoAwardsScreen extends React.Component {
     clickedLink() {
         const previousIndex = this.props.currentIndex - 1;
         this.props.rewindToFilter(previousIndex);
-    };
+    }
 
     render() {
         return (
@@ -35,7 +35,7 @@ export default class NoAwardsScreen extends React.Component {
                 </div>
                 <button className="go-back" onClick={this.clickedLink}>
                     Click here to go back.
-                </button>
+                    </button>
             </div>
         );
     }

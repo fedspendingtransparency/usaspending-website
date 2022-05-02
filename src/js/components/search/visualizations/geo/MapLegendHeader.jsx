@@ -21,15 +21,15 @@ const MapLegendHeader = ({ mapLegendToggleData, mapLegendToggle, updateToggle })
                 className="map-legend-header__body-toggle-button__container"
                 key={toggleButtonData.value}>
                 <label
-                    htmlFor={`map-legend-header__body-toggle-button__${toggleButtonData.value}`}>
+                        htmlFor={`map-legend-header__body-toggle-button__${toggleButtonData.value}`}>
                     <input
-                        type="radio"
-                        id={`map-legend-header__body-toggle-button__${toggleButtonData.value}`}
-                        value={toggleButtonData.value}
-                        checked={toggleButtonData.value === mapLegendToggle}
-                        onChange={updateToggle} />
-                    {toggleButtonData.title}
-                </label>
+                                type="radio"
+                                id={`map-legend-header__body-toggle-button__${toggleButtonData.value}`}
+                                value={toggleButtonData.value}
+                                checked={toggleButtonData.value === mapLegendToggle}
+                                onChange={updateToggle} />
+                        {toggleButtonData.title}
+                    </label>
             </div>
         )));
     };
@@ -41,13 +41,13 @@ const MapLegendHeader = ({ mapLegendToggleData, mapLegendToggle, updateToggle })
                     Show on Map
                 </div>
                 <TooltipWrapper
-                    className="tooltip-wrapper award-section-tt"
-                    icon="info"
-                    tooltipComponent={mapLegendTT} />
+                        className="tooltip-wrapper award-section-tt"
+                        icon="info"
+                        tooltipComponent={mapLegendTT} />
             </div>
             <div className="map-legend-header__body">
-                {headerToggle()}
-            </div>
+                    {headerToggle()}
+                </div>
         </div>
     );
 };

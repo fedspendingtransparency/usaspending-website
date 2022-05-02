@@ -31,13 +31,13 @@ const PaginatedTooltip = ({
             <FontAwesomeIcon icon="caret-left" />
         </button>
         <div className="pagination-text">
-            {currentPage} of {totalPages} modifications made on this day
-        </div>
+                {currentPage} of {totalPages} modifications made on this day
+            </div>
         <button
-            onClick={nextPage}
-            className={nextPageButtonClassnames}>
+                    onClick={nextPage}
+                    className={nextPageButtonClassnames}>
             <FontAwesomeIcon icon="caret-right" />
-        </button>
+                </button>
     </div>
 );
 

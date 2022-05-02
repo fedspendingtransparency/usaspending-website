@@ -12,7 +12,7 @@ const ChartLoadingMessage = () => (
             <LoadingSpinner />
             <div className="message">
                 Gathering your data...
-            </div>
+                </div>
         </div>
     </div>
 );

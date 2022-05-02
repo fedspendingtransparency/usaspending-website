@@ -83,7 +83,7 @@ export default class Award extends React.Component {
             body: `View the spending details of this federal award on USAspending.gov: ${getBaseUrl(slug)}`
         };
         handleShareOptionClick(name, slug, emailArgs);
-    }
+    };
 
     jumpToSection(section = '') {
         // we've been provided a section to jump to
@@ -178,10 +178,10 @@ export default class Award extends React.Component {
                         onClick={this.props.downloadData} />
                 ]}>
                 <LoadingWrapper isLoading={isLoading}>
-                    <main className={!this.props.noAward ? 'award-content' : ''}>
+                        <main className={!this.props.noAward ? 'award-content' : ''}>
                         {content}
                     </main>
-                </LoadingWrapper>
+                    </LoadingWrapper>
             </PageWrapper>
         );
     }

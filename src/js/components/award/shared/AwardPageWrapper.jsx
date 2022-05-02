@@ -30,18 +30,18 @@ const AwardPageWrapper = ({
                 <div className="award__info">
                     <h2 className="award__heading-text">{title}</h2>
                     <div className="award__heading-icon">
-                        <Link to={glossaryLink}>
+                            <Link to={glossaryLink}>
                             <Glossary alt={glossaryTitleText} />
                         </Link>
-                    </div>
+                        </div>
                     <div className="award__heading-id">
-                        <h3>{idLabel}</h3>
+                                <h3>{idLabel}</h3>
                         <p>{identifier}</p>
-                    </div>
+                            </div>
                 </div>
                 <AwardStatus
-                    awardType={awardType}
-                    dates={dates} />
+                        awardType={awardType}
+                        dates={dates} />
             </div>
             {defCodes.length > 0 &&
                 <TooltipWrapper className="award-summary__covid-19-flag" tooltipComponent={<CovidFlagTooltip codes={defCodes} />}>

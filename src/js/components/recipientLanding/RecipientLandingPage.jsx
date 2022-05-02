@@ -38,8 +38,8 @@ export default class RecipientLandingPage extends React.Component {
                         url={getBaseUrl(slug)} />
                 ]}>
                 <main id="main-content" className="main-content">
-                    <RecipientLandingContainer />
-                </main>
+                        <RecipientLandingContainer />
+                    </main>
             </PageWrapper>
         );
     }

@@ -27,8 +27,8 @@ export default class NoResultsMessage extends Component {
                     </h4>
                 </div>
                 <div className="no-results-message">
-                    <p>{message}</p>
-                </div>
+                        <p>{message}</p>
+                    </div>
             </div>
         );
     }

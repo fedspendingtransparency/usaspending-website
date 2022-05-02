@@ -38,12 +38,12 @@ export default class ItemDefinition extends React.Component {
                 </h2>
 
                 <div className="definition-content">
-                    <ReactMarkdown
+                        <ReactMarkdown
                         source={this.props[this.props.type]}
                         renderers={Object.assign({}, ReactMarkdown.renderers, {
                             Link: SmartLink
                         })} />
-                </div>
+                    </div>
 
                 {resources}
             </div>

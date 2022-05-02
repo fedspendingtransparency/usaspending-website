@@ -550,24 +550,24 @@ export class DetailContentContainer extends React.Component {
                     setExplorerPeriod={this.props.setExplorerPeriod}
                     rewindToFilter={this.rewindToFilter} />
                 <DetailContent
-                    isRoot={this.props.explorer.active.within === 'root'}
-                    isLoading={this.state.inFlight || this.props.error}
-                    isTruncated={this.state.isTruncated}
-                    root={this.props.explorer.root}
-                    fy={this.props.explorer.fy}
-                    active={this.props.explorer.active}
-                    trail={this.props.explorer.trail.toJS()}
-                    total={this.props.explorer.active.total}
-                    data={this.state.data}
-                    lastUpdate={this.state.lastUpdate}
-                    transitionSteps={this.state.transitionSteps}
-                    transition={this.state.transition}
-                    goDeeper={this.goDeeper}
-                    changeSubdivisionType={this.changeSubdivisionType}
-                    showTooltip={this.props.showTooltip}
-                    hideTooltip={this.props.hideTooltip}
-                    rewindToFilter={this.rewindToFilter}
-                    goToUnreported={this.goToUnreported} />
+                            isRoot={this.props.explorer.active.within === 'root'}
+                            isLoading={this.state.inFlight || this.props.error}
+                            isTruncated={this.state.isTruncated}
+                            root={this.props.explorer.root}
+                            fy={this.props.explorer.fy}
+                            active={this.props.explorer.active}
+                            trail={this.props.explorer.trail.toJS()}
+                            total={this.props.explorer.active.total}
+                            data={this.state.data}
+                            lastUpdate={this.state.lastUpdate}
+                            transitionSteps={this.state.transitionSteps}
+                            transition={this.state.transition}
+                            goDeeper={this.goDeeper}
+                            changeSubdivisionType={this.changeSubdivisionType}
+                            showTooltip={this.props.showTooltip}
+                            hideTooltip={this.props.hideTooltip}
+                            rewindToFilter={this.rewindToFilter}
+                            goToUnreported={this.goToUnreported} />
             </div>
         );
     }

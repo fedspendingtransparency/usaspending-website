@@ -32,16 +32,16 @@ export default class BarChartYAxis extends React.Component {
                 <title>{this.props.title}</title>
                 <desc>{this.props.description}</desc>
                 <g>
-                    <line
+                        <line
                         className="y-axis"
                         x1={this.props.line.x1}
                         x2={this.props.line.x2}
                         y1={this.props.line.y1}
                         y2={this.props.line.y2} />
-                </g>
+                    </g>
                 <g className="axis-labels">
-                    {labels}
-                </g>
+                            {labels}
+                        </g>
             </g>
         );
     }

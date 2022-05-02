@@ -96,16 +96,16 @@ const PublicationDatesContainer = ({
         else {
             setSubmissionDeadlines(getSubmissionDeadlines(agencyData.fiscalYear, agencyData.fiscalPeriod, submissionPeriods.toJS()));
         }
-    }, [submissionPeriods]);
+    }, [agencyData.fiscalPeriod, agencyData.fiscalYear, submissionPeriods, submissionPeriodsRequest]);
     // on mount fetch all data, unmount cleanup pubDatesRequest
     useEffect(() => {
         publicationDatesRequest();
         return () => {
             if (pubDatesRequest.current) pubDatesRequest.current.cancel();
         };
-    }, []);
+    }, [publicationDatesRequest]);
     // when we have raw data from the api format table data
-    useEffect(() => setRows(formatPublicationDates(pageAndSort(rawData, null, page, limit, order, sort))), [rawData]);
+    useEffect(() => setRows(formatPublicationDates(pageAndSort(rawData, null, page, limit, order, sort))), [limit, order, page, rawData, sort]);
     // on sort, order, limit change fetch new data or reset page to 1
     useEffect(() => {
         if (page !== 1) {
@@ -114,11 +114,11 @@ const PublicationDatesContainer = ({
         else {
             setRows(formatPublicationDates(pageAndSort(rawData, null, page, limit, order, sort)));
         }
-    }, [sort, order, limit]);
+    }, [sort, order, limit, page, rawData]);
     // on page change fetch new data
     useEffect(() => {
         setRows(formatPublicationDates(pageAndSort(rawData, null, page, limit, order, sort)));
-    }, [page]);
+    }, [limit, order, page, rawData, sort]);
 
     // do not show deadlines in column headers if we do not have the data
     const columns = publicationDatesColumns.map((column) => ({
@@ -128,10 +128,10 @@ const PublicationDatesContainer = ({
                     {column.displayName}
                 </div>
                 <div className="publication-dates__column-header-sub-title">
-                    <i>
+                        <i>
                         Deadline: {renderDeadline(column.title, submissionDeadlines)}
                     </i>
-                </div>
+                    </div>
             </div>
         ),
         title: column.title
@@ -148,13 +148,13 @@ const PublicationDatesContainer = ({
                 currentSort={{ field: sort, direction: order }}
                 updateSort={updateSort} />
             <Pagination
-                currentPage={page}
-                changePage={setPage}
-                changeLimit={setLimit}
-                limitSelector
-                resultsText
-                pageSize={limit}
-                totalItems={total} />
+                        currentPage={page}
+                        changePage={setPage}
+                        changeLimit={setLimit}
+                        limitSelector
+                        resultsText
+                        pageSize={limit}
+                        totalItems={total} />
         </>
     );
 };

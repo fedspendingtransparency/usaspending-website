@@ -48,18 +48,18 @@ export default class ReferencedAwardsSection extends React.Component {
                         </div>
                         <h3 className="award-viz__title">Orders Made Under this IDV</h3>
                         <TooltipWrapper
-                            className="award-section-tt"
-                            icon="info"
-                            tooltipPosition="left"
-                            wide
-                            tooltipComponent={relatedAwardsInfo} />
+                                className="award-section-tt"
+                                icon="info"
+                                tooltipPosition="left"
+                                wide
+                                tooltipComponent={relatedAwardsInfo} />
                     </div>
                     <hr />
                     <div className="referenced-awards__content">
-                        {tabs}
+                            {tabs}
                         <ReferencedAwardsTable
-                            {...this.props} />
-                    </div>
+                                    {...this.props} />
+                        </div>
                 </div>
             </div>
         );

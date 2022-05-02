@@ -186,18 +186,14 @@ const AgenciesContainer = ({
             totalsReq.current.cancel();
         }
         dispatch(setSearchTerm(''));
-    }, []);
+    }, [dispatch]);
 
     useEffect(() => {
         // Active tab or page number changes
         if (selectedFy && selectedPeriod) {
             fetchTableData();
         }
-    }, [
-        activeTab,
-        submissionsPage,
-        publicationsPage
-    ]);
+    }, [activeTab, submissionsPage, publicationsPage, selectedFy, selectedPeriod, fetchTableData]);
 
     useEffect(() => {
         const shouldResetPg = (
@@ -223,16 +219,7 @@ const AgenciesContainer = ({
             // reset to pg 1, triggering a refetch
             changePublicationsPg(1);
         }
-    }, [
-        federalTotals,
-        selectedFy,
-        selectedPeriod,
-        submissionsSort,
-        submissionsLimit,
-        publicationsSort,
-        publicationsLimit,
-        searchTerm
-    ]);
+    }, [federalTotals, selectedFy, selectedPeriod, submissionsSort, submissionsLimit, publicationsSort, publicationsLimit, searchTerm, prevSubmissionsPg, prevPublicationsPg, activeTab, submissionsPage, publicationsPage, fetchTotals, fetchTableData, changeSubmissionsPg, changePublicationsPg]);
 
     const renderDates = (results = []) => results
         .map(({
@@ -381,13 +368,13 @@ const AgenciesContainer = ({
                 )}
             </div>
             <Pagination
-                resultsText
-                limitSelector
-                changeLimit={handleLimitChange}
-                changePage={handlePageChange}
-                currentPage={activeTab === 'submissions' ? submissionsPage : publicationsPage}
-                pageSize={activeTab === 'submissions' ? submissionsLimit : publicationsLimit}
-                totalItems={activeTab === 'submissions' ? totalSubmissionItems : totalPublicationItems} />
+                    resultsText
+                    limitSelector
+                    changeLimit={handleLimitChange}
+                    changePage={handlePageChange}
+                    currentPage={activeTab === 'submissions' ? submissionsPage : publicationsPage}
+                    pageSize={activeTab === 'submissions' ? submissionsLimit : publicationsLimit}
+                    totalItems={activeTab === 'submissions' ? totalSubmissionItems : totalPublicationItems} />
         </>
     );
 };

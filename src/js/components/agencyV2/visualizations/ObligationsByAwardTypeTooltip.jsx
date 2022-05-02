@@ -77,11 +77,11 @@ const ObligationsByAwardTypeTooltip = ({
                 FY{fiscalYear} - {titles[categoryType]}: {formatMoneyWithUnitsShortLabel(totalByCategory)}
             </div>
             <div className="tooltip__text">
-                <Table
+                    <Table
                     classNames="award-type-tooltip__table"
                     columns={columns}
                     rows={rows} />
-            </div>
+                </div>
         </div>
     );
 };

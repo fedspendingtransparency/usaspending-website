@@ -302,7 +302,7 @@ export default class TimePeriod extends React.Component {
                         className="toggle-buttons"
                         role="menu">
                         <li>
-                            <button
+                                <button
                                 className={`tab-toggle ${activeClassFY}`}
                                 value="fy"
                                 role="menuitemradio"
@@ -312,9 +312,9 @@ export default class TimePeriod extends React.Component {
                                 onClick={this.toggleFilters}>
                                 Fiscal Year
                             </button>
-                        </li>
+                            </li>
                         <li>
-                            <button
+                                    <button
                                 className={`tab-toggle ${activeClassDR}`}
                                 id="filter-date-range-tab"
                                 value="dr"
@@ -326,7 +326,7 @@ export default class TimePeriod extends React.Component {
                                 disabled={this.props.disableDateRange}>
                                 Date Range
                             </button>
-                        </li>
+                                </li>
                     </ul>
                     { showFilter }
                     { errorDetails }

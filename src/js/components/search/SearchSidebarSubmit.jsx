@@ -32,20 +32,20 @@ const SearchSidebarSubmit = (props) => {
             role="region"
             aria-label="Submit search">
             <button
-                className="submit-button"
-                title={title}
-                aria-label={title}
-                disabled={disabled}
-                onClick={props.applyStagedFilters}>
+                    className="submit-button"
+                    title={title}
+                    aria-label={title}
+                    disabled={disabled}
+                    onClick={props.applyStagedFilters}>
                 Submit Search
-            </button>
+                </button>
             <button
-                className="reset-button"
-                aria-label="Reset search"
-                disabled={!props.requestsComplete}
-                onClick={props.resetFilters}>
+                        className="reset-button"
+                        aria-label="Reset search"
+                        disabled={!props.requestsComplete}
+                        onClick={props.resetFilters}>
                 Reset search
-            </button>
+                    </button>
         </div>
     );
 };

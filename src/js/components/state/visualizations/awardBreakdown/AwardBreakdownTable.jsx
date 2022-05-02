@@ -52,8 +52,8 @@ export default class AwardBreakdownTable extends React.Component {
                         </tr>
                     </thead>
                     <tbody className="award-breakdown-table__body">
-                        {this.generateRows()}
-                    </tbody>
+                            {this.generateRows()}
+                        </tbody>
                 </table>
                 {greatThanOneHundredDescription}
             </>

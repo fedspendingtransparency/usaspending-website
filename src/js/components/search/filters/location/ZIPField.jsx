@@ -80,13 +80,13 @@ export default class ZIPField extends React.Component {
                 onMouseLeave={this.hideWarning}
                 onChange={this.changedText}>
                 <div className="zip-field">
-                    <label
+                        <label
                         className={`location-label ${disabledClass}`}
                         htmlFor="location-picker-zip">
                         ZIP Code
                     </label>
                     <div className={`zip-content ${disabledClass}`}>
-                        <input
+                            <input
                             id="location-picker-zip"
                             className="zip-input"
                             type="text"
@@ -95,18 +95,18 @@ export default class ZIPField extends React.Component {
                             disabled={!this.props.isUSA}
                             value={this.state.zip} />
                         <IndividualSubmit
-                            className="zip-submit"
-                            disabled={(!this.state.enabled || !this.props.isUSA)}
-                            onClick={this.pressedButton}
-                            label="Filter by ZIP code" />
+                                    className="zip-submit"
+                                    disabled={(!this.state.enabled || !this.props.isUSA)}
+                                    onClick={this.pressedButton}
+                                    label="Filter by ZIP code" />
+                        </div>
+                        {error}
                     </div>
-                    {error}
-                </div>
                 <div
-                    className={`geo-warning ${this.state.showNonUsWarning ? '' : 'hide'}`}
-                    aria-hidden={!this.state.showNonUsWarning}>
+                            className={`geo-warning ${this.state.showNonUsWarning ? '' : 'hide'}`}
+                            aria-hidden={!this.state.showNonUsWarning}>
                     <EntityWarning message={this.props.generateDisclaimer('ZIP CODE')} />
-                </div>
+                        </div>
             </form>
         );
     }

@@ -237,26 +237,26 @@ export default class DatePicker extends React.Component {
                     <label htmlFor={inputId}>
                         {this.props.title}
                         <input
-                            id={inputId}
-                            type="text"
-                            placeholder="MM/DD/YYYY"
-                            aria-label={this.props.title}
-                            value={this.state.inputValue}
-                            ref={(input) => {
+                                id={inputId}
+                                type="text"
+                                placeholder="MM/DD/YYYY"
+                                aria-label={this.props.title}
+                                value={this.state.inputValue}
+                                ref={(input) => {
                                 this.text = input;
                             }}
-                            onChange={this.handleTypedDate}
-                            onBlur={this.handleInputBlur} />
+                                onChange={this.handleTypedDate}
+                                onBlur={this.handleInputBlur} />
                     </label>
                     <a
-                        href="#null"
-                        onClick={this.toggleDatePicker}
-                        className="usa-da-icon picker-icon date">
+                            href="#null"
+                            onClick={this.toggleDatePicker}
+                            className="usa-da-icon picker-icon date">
                         <Icons.Calendar alt="Date picker" />
-                    </a>
+                        </a>
                 </div>
                 <div className={`floating-datepicker ${showDatePicker}`} role="dialog">
-                    <DayPicker
+                        <DayPicker
                         ref={(daypicker) => {
                             this.datepicker = daypicker;
                         }}
@@ -266,7 +266,7 @@ export default class DatePicker extends React.Component {
                         onDayClick={this.handleDatePick}
                         onFocus={this.handleDateFocus}
                         onBlur={this.handleDateBlur} />
-                </div>
+                    </div>
             </div>
         );
     }

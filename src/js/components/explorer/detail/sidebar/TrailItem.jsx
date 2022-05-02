@@ -62,29 +62,29 @@ const TrailItem = (props) => {
                 title={`Return to ${filterName}`}
                 onClick={clickedItem}>
                 <div className={`item-decorator ${specialClass}`}>
-                    <div className="main-dot" />
+                        <div className="main-dot" />
                     <TransitionGroup>
-                        {!props.isLast && (
+                                {!props.isLast && (
                             <CSSTransition
-                                classNames="explorer-dots-animation"
-                                timeout={{ exit: 550, enter: 330 }}
-                                exit>
+                                    classNames="explorer-dots-animation"
+                                    timeout={{ exit: 550, enter: 330 }}
+                                    exit>
                                 <TrailDecorator />
-                            </CSSTransition>
+                                </CSSTransition>
                         )}
-                    </TransitionGroup>
-                </div>
+                            </TransitionGroup>
+                    </div>
                 <div className="item-content">
-                    <div className="type">
+                            <div className="type">
                         {filterName}
                     </div>
                     <div className={`title ${titleIsAmount}`}>
-                        {title}
-                    </div>
+                            {title}
+                        </div>
                     <div className={`amount ${showAmountClass}`}>
-                        {formattedAmount}
-                    </div>
-                </div>
+                                {formattedAmount}
+                            </div>
+                        </div>
             </button>
         </li>
     );

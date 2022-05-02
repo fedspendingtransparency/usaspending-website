@@ -27,8 +27,8 @@ const AwardingAgency = ({ awardingAgency }) => {
         <AwardSection className="award-overview__left-section__awarding award-overview-column first award-overview-column__spacing">
             <h6 className="award-overview-title">Awarding Agency</h6>
             <h5 className="award-overview__left-section__agency-name">
-                {innerComponent}
-            </h5>
+                    {innerComponent}
+                </h5>
         </AwardSection>
     );
 };

@@ -22,14 +22,14 @@ const Card = ({
             {icon}
         </FlexGridCol>
         <FlexGridCol width={12} desktop={10} className="card__heading-wrapper">
-            {heading}
-        </FlexGridCol>
+                {heading}
+            </FlexGridCol>
         <FlexGridCol width={12} desktop={12} className="card__content-wrapper">
-            {content}
-        </FlexGridCol>
+                    {content}
+                </FlexGridCol>
         <FlexGridCol width={12} desktop={12} className="card__link-wrapper">
-            {link}
-        </FlexGridCol>
+                        {link}
+                    </FlexGridCol>
     </FlexGridRow>
 );
 

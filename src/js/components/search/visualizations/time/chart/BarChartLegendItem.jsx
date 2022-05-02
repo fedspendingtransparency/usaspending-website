@@ -19,17 +19,17 @@ export default class BarChartLegendItem extends React.Component {
                 className="chart-legend-item"
                 transform={`translate(${this.props.offset}, 0)`}>
                 <circle
-                    className="key-color"
-                    fill={this.props.color}
-                    cx="6"
-                    cy="6"
-                    r="6" />
+                        className="key-color"
+                        fill={this.props.color}
+                        cx="6"
+                        cy="6"
+                        r="6" />
                 <text
-                    className="key-label"
-                    x="20"
-                    y="10">
-                    {this.props.label}
-                </text>
+                                className="key-label"
+                                x="20"
+                                y="10">
+                                {this.props.label}
+                            </text>
             </g>
         );
     }

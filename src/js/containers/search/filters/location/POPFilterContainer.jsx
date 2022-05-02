@@ -48,8 +48,8 @@ export class POPFilterContainer extends React.Component {
                     selectedLocations={this.props.selectedLocations}
                     addLocation={this.addLocation} />
                 <SelectedLocations
-                    selectedLocations={this.props.selectedLocations}
-                    removeLocation={this.removeLocation} />
+                            selectedLocations={this.props.selectedLocations}
+                            removeLocation={this.removeLocation} />
             </div>
         );
     }

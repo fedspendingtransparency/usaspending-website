@@ -47,7 +47,7 @@ const MetaTags = ({
 
     const [tags, setTags] = useState([]);
 
-    const generateTags = () => {
+    const generateTags = useCallback(() => {
         const newTags = [];
 
         if (url !== '') {
@@ -102,7 +102,7 @@ const MetaTags = ({
                     <link key="canonical-url" rel="canonical" href={getCanonicalUrl(pathname)} />
                 ])
         );
-    };
+    });
 
     useEffect(() => {
         generateTags();
@@ -112,17 +112,11 @@ const MetaTags = ({
             const sendDAPPageviewEvent = isInitialApplicationLoadForDAPGoogleAnalytics ? 'isInitialApplicationLoadForDAPGoogleAnalytics' : undefined;
             Analytics.pageview(pathname, title, sendDAPPageviewEvent);
         }
-    }, [title]);
+    }, [dispatch, generateTags, isInitialApplicationLoadForDAPGoogleAnalytics, pathname, title]);
 
     useEffect(() => {
         generateTags();
-    }, [
-        url,
-        title,
-        description,
-        siteName,
-        image
-    ]);
+    }, [url, title, description, siteName, image, generateTags]);
 
     return (
         <Helmet>

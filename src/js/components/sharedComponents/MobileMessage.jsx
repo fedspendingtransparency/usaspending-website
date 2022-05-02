@@ -44,7 +44,7 @@ const MobileMessage = () => {
                 </div>
                 <div className="mobile-message__text">
                     Rotate your device for the optimal mobile experience
-                </div>
+                    </div>
             </div>
             <button className="mobile-message__button" onClick={onClick}>DISMISS</button>
         </div>

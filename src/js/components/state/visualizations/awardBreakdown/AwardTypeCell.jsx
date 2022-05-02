@@ -116,10 +116,10 @@ export default class AwardTypeCell extends React.Component {
                 onMouseEnter={this.toggleTooltipIn}
                 onMouseLeave={this.toggleTooltipOut}>
                 <rect
-                    className="tile"
-                    width={this.props.width}
-                    height={this.props.height}
-                    style={{
+                        className="tile"
+                        width={this.props.width}
+                        height={this.props.height}
+                        style={{
                         fill: this.props.color,
                         stroke: this.props.strokeColor,
                         strokeOpacity: this.props.strokeOpacity,
@@ -127,21 +127,21 @@ export default class AwardTypeCell extends React.Component {
                         padding: "10px"
                     }} />
                 <text
-                    className={`category ${this.props.textClass}`}
-                    x={(this.props.width / 2)}
-                    y={this.props.height / 2}
-                    width={this.props.width}
-                    textAnchor="middle"
-                    ref={(text) => {
+                            className={`category ${this.props.textClass}`}
+                            x={(this.props.width / 2)}
+                            y={this.props.height / 2}
+                            width={this.props.width}
+                            textAnchor="middle"
+                            ref={(text) => {
                         this.svgText = text;
                     }}
-                    style={{
+                            style={{
                         display: this.props.labelView,
                         fill: this.props.textColor,
                         opacity: this.props.opacity
                     }}>
-                    {this.state.label}
-                </text>
+                            {this.state.label}
+                        </text>
             </g>
         );
     }

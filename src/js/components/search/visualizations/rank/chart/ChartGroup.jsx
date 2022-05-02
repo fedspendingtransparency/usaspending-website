@@ -140,15 +140,15 @@ export default class ChartGroup extends React.Component {
                 <title>{this.props.label}</title>
 
                 <rect
-                    className={`group-background ${backgroundClass}`}
-                    x={0}
-                    y={0}
-                    width={this.props.width}
-                    height={this.props.height} />
+                        className={`group-background ${backgroundClass}`}
+                        x={0}
+                        y={0}
+                        width={this.props.width}
+                        height={this.props.height} />
 
                 <g transform="translate(12,20)">
-                    {this.state.label}
-                </g>
+                                {this.state.label}
+                            </g>
             </g>
         );
     }

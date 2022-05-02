@@ -17,12 +17,12 @@ export default class StateFooter extends React.Component {
                     <p>
                         Check out the <strong>Advanced Search</strong> page <br />
                         for more in-depth analysis on this state and more
-                    </p>
+                        </p>
                     <Link
-                        className="state-search-button"
-                        to="/search">
+                                className="state-search-button"
+                                to="/search">
                         Let&#39;s go!
-                    </Link>
+                            </Link>
                 </div>
             </div>
         );

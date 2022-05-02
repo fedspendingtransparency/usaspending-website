@@ -47,18 +47,18 @@ export default class FileFormatFilter extends React.Component {
                 className="radio"
                 key={fileFormat.name}>
                 <input
-                    type="radio"
-                    aria-label={fileFormat.name}
-                    value={fileFormat.name}
-                    name="fileFormat"
-                    checked={this.props.currentFileFormat === fileFormat.name}
-                    onChange={this.onChange}
-                    disabled={fileFormat.disabled} />
+                        type="radio"
+                        aria-label={fileFormat.name}
+                        value={fileFormat.name}
+                        name="fileFormat"
+                        checked={this.props.currentFileFormat === fileFormat.name}
+                        onChange={this.onChange}
+                        disabled={fileFormat.disabled} />
                 <label
-                    className={`radio-label ${fileFormat.disabled ? 'disabled' : ''}`}
-                    htmlFor="fileFormat">
-                    {fileFormat.label}
-                </label>
+                                className={`radio-label ${fileFormat.disabled ? 'disabled' : ''}`}
+                                htmlFor="fileFormat">
+                                {fileFormat.label}
+                            </label>
             </div>
         ));
 
@@ -68,8 +68,8 @@ export default class FileFormatFilter extends React.Component {
                     {icon} Select a <span className="download-filter__title_em">file format</span>.
                 </h3>
                 <div className="download-filter__content">
-                    {fileFormats}
-                </div>
+                        {fileFormats}
+                    </div>
             </div>
         );
     }

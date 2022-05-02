@@ -73,13 +73,13 @@ const BreadcrumbItem = (props) => {
                 aria-label={`Step ${props.step}: ${props.title}`}>
                 <div className="breadcrumb-step">
                     Step {props.step}
-                </div>
+                    </div>
                 <div className="breadcrumb-title">
-                    {props.title}
-                </div>
+                            {props.title}
+                        </div>
                 <div className={`breadcrumb-arrow ${nextStep}`}>
-                    <div className={`arrow ${arrowColor}`} />
-                </div>
+                                <div className={`arrow ${arrowColor}`} />
+                            </div>
             </button>
         </div>
     );

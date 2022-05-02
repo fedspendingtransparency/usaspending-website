@@ -81,7 +81,7 @@ export default class LocationSection extends React.Component {
                     className="toggle-buttons"
                     role="menu">
                     <li>
-                        <button
+                            <button
                             className={`tab-toggle ${activePop}`}
                             value="pop"
                             role="menuitemradio"
@@ -91,9 +91,9 @@ export default class LocationSection extends React.Component {
                             onClick={this.toggleTab}>
                             Place of Performance
                         </button>
-                    </li>
+                        </li>
                     <li>
-                        <button
+                                <button
                             className={`tab-toggle ${activeRecipient}`}
                             value="recipient"
                             role="menuitemradio"
@@ -103,12 +103,12 @@ export default class LocationSection extends React.Component {
                             onClick={this.toggleTab}>
                             Recipient Location
                         </button>
-                    </li>
+                            </li>
                 </ul>
                 <div className="toggle-border" />
                 {filter}
                 <SubmitHint
-                    ref={(component) => {
+                        ref={(component) => {
                         this.hint = component;
                     }} />
             </div>

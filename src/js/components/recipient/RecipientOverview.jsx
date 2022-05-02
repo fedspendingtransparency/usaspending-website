@@ -63,7 +63,7 @@ const RecipientOverview = (props) => {
         )
         : null;
 
-        // Format the location data
+    // Format the location data
     let address = (
         <td>Address not provided in source system</td>
     );
@@ -97,57 +97,57 @@ const RecipientOverview = (props) => {
             id="recipient-overview"
             className="recipient-section recipient-overview">
             <h2 className="recipient-overview__title">
-                {recipient.name}
-                {viewAlternateNames}
-            </h2>
+                    {recipient.name}
+                    {viewAlternateNames}
+                </h2>
             <hr className="results-divider" />
             <div className="recipient-overview__content">
-                {parent}
+                    {parent}
                 <div className="recipient-overview__children">
-                    {label}
-                    {viewChildren}
-                </div>
+                            {label}
+                            {viewChildren}
+                        </div>
                 <div className="recipient-section__row">
-                    <div className="recipient-section__viz totals-container">
+                                <div className="recipient-section__viz totals-container">
                         <div className="recipient-section__viz totals">
-                            <h3 className="recipient-overview__heading">
+                                        <h3 className="recipient-overview__heading">
                                 Total Awarded Amount
                             </h3>
                             <div className="totals__amount">
-                                {recipient.totalAmount}
-                            </div>
+                                    {recipient.totalAmount}
+                                </div>
                             <div className="totals__awards">
                             from <span className="state-overview__total">{recipient.totalTransactions}</span> transactions
-                            </div>
-                        </div>
+                                    </div>
+                                    </div>
                         <div className="recipient-section__viz loan">
-                            <FaceValueOfLoans amount={recipient.totalLoanFaceValueAmount} transactions={recipient.totalLoanTransactions} heading="Face Value of Loans" headingClass="recipient-overview__heading" tooltipIcon="info" tooltipClasses="recipient-section__viz-loan__tt" tooltipComponent={recipientOverviewLoanInfo} tooltipPosition="right" />
-                        </div>
+                                            <FaceValueOfLoans amount={recipient.totalLoanFaceValueAmount} transactions={recipient.totalLoanTransactions} heading="Face Value of Loans" headingClass="recipient-overview__heading" tooltipIcon="info" tooltipClasses="recipient-section__viz-loan__tt" tooltipComponent={recipientOverviewLoanInfo} tooltipPosition="right" />
+                                        </div>
                     </div>
 
                     <div className="recipient-section__viz details">
-                        <h3 className="recipient-overview__heading">
+                            <h3 className="recipient-overview__heading">
                             Details
                         </h3>
                         <table className="details__table">
-                            <tbody>
+                                <tbody>
                                 <tr>
-                                    <th>Recipient Identifier</th>
+                                        <th>Recipient Identifier</th>
                                     <td>{idList(recipient.duns, recipient.uei).map((i) => <>{i}<br /></>)}</td>
-                                </tr>
+                                    </tr>
                                 <tr>
-                                    <th>Address</th>
-                                    {address}
-                                </tr>
+                                            <th>Address</th>
+                                            {address}
+                                        </tr>
                                 <tr>
-                                    <th>Business Types</th>
-                                    {businessTypes}
-                                </tr>
+                                                <th>Business Types</th>
+                                                {businessTypes}
+                                            </tr>
                             </tbody>
-                        </table>
-                    </div>
+                            </table>
+                        </div>
+                            </div>
                 </div>
-            </div>
         </div>
     );
 };

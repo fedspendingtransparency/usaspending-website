@@ -33,21 +33,21 @@ export default class DownloadScope extends React.Component {
                 </div>
 
                 <div className="level-options-container">
-                    <div className="level-option">
+                        <div className="level-option">
                         <button
-                            className="level-button"
-                            aria-label="Everything"
-                            title="Everything"
-                            onClick={this.clickedEverything}>
+                                className="level-button"
+                                aria-label="Everything"
+                                title="Everything"
+                                onClick={this.clickedEverything}>
                             Everything
-                        </button>
+                            </button>
                         <div className="level-description">
                             Includes all available data columns in your download.
-                        </div>
+                                </div>
                     </div>
 
                     <div className="level-option">
-                        <button
+                            <button
                             className="level-button"
                             aria-label="Let me choose"
                             title="Let me choose"
@@ -56,9 +56,9 @@ export default class DownloadScope extends React.Component {
                         </button>
                         <div className="level-description">
                             Select the specific columns to include in your download.
+                            </div>
                         </div>
                     </div>
-                </div>
             </div>
         );
     }

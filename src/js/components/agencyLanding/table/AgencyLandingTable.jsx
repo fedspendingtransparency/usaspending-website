@@ -41,8 +41,8 @@ export default class AgencyLandingTable extends React.PureComponent {
                             columns={this.props.columns} />
                     </thead>
                     <tbody>
-                        {rows}
-                    </tbody>
+                            {rows}
+                        </tbody>
                 </table>
             </div>
         );

@@ -48,13 +48,13 @@ const EntityDropdownList = (props) => {
             <li
                 key={uniqueId(item.code)}>
                 <button
-                    className={`list-item ${active} letter-${letterClass} ${noResultsFound}`}
-                    title={item.name}
-                    aria-label={item.name}
-                    data-listindex={i}
-                    onMouseDown={handleSelection}>
-                    {item.name}
-                </button>
+                        className={`list-item ${active} letter-${letterClass} ${noResultsFound}`}
+                        title={item.name}
+                        aria-label={item.name}
+                        data-listindex={i}
+                        onMouseDown={handleSelection}>
+                        {item.name}
+                    </button>
             </li>
         );
     });

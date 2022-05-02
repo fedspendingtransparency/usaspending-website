@@ -22,12 +22,12 @@ const totalSpendingText = (
         <span>
             <strong> Total Spending</strong>
             <div style={{ float: 'right' }}>
-                <TooltipWrapper
+                    <TooltipWrapper
                     className="homepage__covid-19-tt"
                     icon="info"
                     tooltipPosition="left"
                     tooltipComponent={<TotalSpendingTT />} />
-            </div>
+                </div>
         </span>
     </div>
 );
@@ -38,12 +38,12 @@ const awardSpendingText = (
         <span>
             <strong> Award Spending</strong>
             <div style={{ float: 'right' }}>
-                <TooltipWrapper
+                    <TooltipWrapper
                     className="homepage__covid-19-tt"
                     icon="info"
                     tooltipPosition="left"
                     tooltipComponent={<AwardSpendingTT />} />
-            </div>
+                </div>
         </span>
     </div>
 );

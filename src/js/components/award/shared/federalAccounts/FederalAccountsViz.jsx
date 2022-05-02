@@ -91,37 +91,37 @@ export default class FederalAccountsViz extends React.Component {
             <div className="federal-accounts__section">
                 {this.state.showTooltip && <FederalAccountsTreeTooltip {...this.state.tooltip} />}
                 <div className="federal-accounts-results">
-                    <div className="view-buttons">
+                        <div className="view-buttons">
                         <ViewTypeButton
-                            value="table"
-                            label="Table"
-                            icon="table"
-                            changeView={this.props.changeView}
-                            active={!isTreeView} />
+                                value="table"
+                                label="Table"
+                                icon="table"
+                                changeView={this.props.changeView}
+                                active={!isTreeView} />
                         <ViewTypeButton
-                            value="tree"
-                            label="Treemap"
-                            icon="th-large"
-                            changeView={this.props.changeView}
-                            active={isTreeView} />
+                                        value="tree"
+                                        label="Treemap"
+                                        icon="th-large"
+                                        changeView={this.props.changeView}
+                                        active={isTreeView} />
                     </div>
-                    {!isTreeView && <FederalAccountsTable {...this.props} />}
+                        {!isTreeView && <FederalAccountsTable {...this.props} />}
                     <div
-                        className="federal-accounts-vis__width-reference"
-                        ref={(div) => {
+                                className="federal-accounts-vis__width-reference"
+                                ref={(div) => {
                             this.widthRef = div;
                         }} />
-                    {isTreeView && <FederalAccountsTree
+                        {isTreeView && <FederalAccountsTree
                         error={this.props.error}
                         inFlight={this.props.inFlight}
                         width={this.state.width}
                         data={this.props.federalAccounts}
                         showTooltip={this.showTooltip}
                         hideTooltip={this.hideTooltip} />}
-                </div>
+                    </div>
             </div>
         );
     }
-};
+}
 
 FederalAccountsViz.propTypes = propTypes;

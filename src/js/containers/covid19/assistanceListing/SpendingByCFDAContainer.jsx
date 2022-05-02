@@ -200,7 +200,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
         });
     };
 
-    const addUnlinkedData = (rows, cfdaTotals = resultTotal, overallAsstAwardTotals = assistanceTotals) => {
+    const addUnlinkedData = useCallback((rows, cfdaTotals = resultTotal, overallAsstAwardTotals = assistanceTotals) => {
         if (!rows.length) return [];
         if (Object.keys(overallAsstAwardTotals).length === 0 || activeTab !== 'all') {
             setUnlinkedDataClass(false);
@@ -217,7 +217,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
                     </div>),
                 ...calculateUnlinkedTotals(overallAsstAwardTotals, cfdaTotals)
             }]);
-    };
+    });
 
     const parseRows = () => (
         results.map((row) => {
@@ -319,7 +319,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
         if (Object.keys(assistanceTotals).length) {
             setResults(addUnlinkedData(results, resultTotal, assistanceTotals));
         }
-    }, [assistanceTotals, resultTotal]);
+    }, [addUnlinkedData, assistanceTotals, resultTotal, results]);
 
     useEffect(() => {
         // Reset to the first page
@@ -329,19 +329,19 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
         else {
             changeCurrentPage(1);
         }
-    }, [pageSize, defcParams, sort, order, activeTab, query]);
+    }, [pageSize, defcParams, sort, order, activeTab, query, currentPage, fetchSpendingByCfdaCallback]);
 
     useEffect(() => {
         fetchSpendingByCfdaCallback();
-    }, [currentPage]);
+    }, [currentPage, fetchSpendingByCfdaCallback]);
 
     useEffect(() => {
         scrollIntoView(loading, error, errorOrLoadingWrapperRef, tableWrapperRef, 100, true);
-    }, [loading, error]);
+    }, [loading, error, scrollIntoView]);
 
     useEffect(() => {
         window.scrollTo(0, 0);
-    }, [document]);
+    }, []);
 
     if (loading) {
         if (tableRef.current) {
@@ -358,13 +358,13 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
         <div ref={tableWrapperRef}>
             <SearchBar onSearch={setQuery} />
             <Pagination
-                currentPage={currentPage}
-                changePage={changeCurrentPage}
-                changeLimit={changePageSize}
-                limitSelector
-                resultsText
-                pageSize={pageSize}
-                totalItems={totalItems} />
+                    currentPage={currentPage}
+                    changePage={changeCurrentPage}
+                    changeLimit={changePageSize}
+                    limitSelector
+                    resultsText
+                    pageSize={pageSize}
+                    totalItems={totalItems} />
             {(loading || error || results.length === 0) &&
                 <TransitionGroup>
                     <CSSTransition
@@ -372,10 +372,10 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
                         timeout={{ exit: 225, enter: 195 }}
                         exit>
                         <div className="results-table-message-container" style={{ height: tableHeight }}>
-                            {error && <ResultsTableErrorMessage />}
-                            {loading && <ResultsTableLoadingMessage />}
-                            {!error && !loading && results.length === 0 && <ResultsTableNoResults />}
-                        </div>
+                                {error && <ResultsTableErrorMessage />}
+                                {loading && <ResultsTableLoadingMessage />}
+                                {!error && !loading && results.length === 0 && <ResultsTableNoResults />}
+                            </div>
                     </CSSTransition>
                 </TransitionGroup>
             }
@@ -388,19 +388,19 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
                     currentSort={{ field: sort, direction: order }} />
             </div>}
             <Pagination
-                currentPage={currentPage}
-                changePage={changeCurrentPage}
-                changeLimit={changePageSize}
-                limitSelector
-                resultsText
-                pageSize={pageSize}
-                totalItems={totalItems} />
+                    currentPage={currentPage}
+                    changePage={changeCurrentPage}
+                    changeLimit={changePageSize}
+                    limitSelector
+                    resultsText
+                    pageSize={pageSize}
+                    totalItems={totalItems} />
             <CFDADetailModal
-                mounted={currentModalData.modal !== 'redirect' && cfdaModal}
-                closeModal={closeModal}
-                data={modalData}
-                updateAdvancedSearchFilters={updateAdvancedSearchFilters}
-                displayRedirectModal={displayRedirectModal} />
+                            mounted={currentModalData.modal !== 'redirect' && cfdaModal}
+                            closeModal={closeModal}
+                            data={modalData}
+                            updateAdvancedSearchFilters={updateAdvancedSearchFilters}
+                            displayRedirectModal={displayRedirectModal} />
         </div>
     );
 };

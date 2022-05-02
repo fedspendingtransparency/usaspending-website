@@ -26,8 +26,8 @@ const VisualizationSection = ({
         <div className="visualization-section__data">{data}</div>
         <div className="visualization-section__secondary-data">{secondaryData}</div>
         <div className="visualization-section__viz-wrapper">
-            {children}
-        </div>
+                {children}
+            </div>
         <div className="visualization-section__label">{label}</div>
     </div>
 );

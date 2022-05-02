@@ -76,10 +76,10 @@ const StatePage = ({
                     url={getBaseUrl(slug)} />
             ]}>
             <main id="main-content" className="main-content">
-                <LoadingWrapper isLoading={loading}>
+                    <LoadingWrapper isLoading={loading}>
                     {content}
                 </LoadingWrapper>
-            </main>
+                </main>
         </PageWrapper>
     );
 };

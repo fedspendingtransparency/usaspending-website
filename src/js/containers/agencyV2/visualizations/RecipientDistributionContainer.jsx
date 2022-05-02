@@ -31,7 +31,7 @@ const RecipientDistributionContainer = ({ fiscalYear, data }) => {
             request.current.cancel();
         }
         dispatch(resetAgencyRecipients());
-    }, []);
+    }, [dispatch]);
 
     const getRecipientDistribution = () => {
         if (request.current) {
@@ -69,7 +69,7 @@ const RecipientDistributionContainer = ({ fiscalYear, data }) => {
         if (toptierCode) {
             getRecipientDistribution();
         }
-    }, [fiscalYear, toptierCode]);
+    }, [fiscalYear, getRecipientDistribution, toptierCode]);
 
     return (
         <div className="recipient-distribution-visualization-container">

@@ -35,7 +35,7 @@ const ReportingDifferencesContainer = ({ agencyData }) => {
         setOrder(direction);
     };
 
-    const reportingDifferenceRequest = async () => {
+    const reportingDifferenceRequest = useCallback(async () => {
         if (error.error) setError({ error: false, message: '' });
         if (!loading) setLoading(true);
         if (reportingDiffRequest.current) reportingDiffRequest.current.cancel();
@@ -62,7 +62,7 @@ const ReportingDifferencesContainer = ({ agencyData }) => {
             }
             reportingDiffRequest.current = null;
         }
-    };
+    });
 
     // on unmount cleanup pubDatesRequest
     useEffect(() => () => {
@@ -76,11 +76,11 @@ const ReportingDifferencesContainer = ({ agencyData }) => {
         else {
             setPage(1);
         }
-    }, [sort, order, limit]);
+    }, [sort, order, limit, page, reportingDifferenceRequest]);
     // on page change fetch new data
     useEffect(() => {
         reportingDifferenceRequest();
-    }, [page]);
+    }, [page, reportingDifferenceRequest]);
     const columns = reportingDifferencesColumns.map((column, i) => ({
         displayName: column.displayName,
         title: column.title,
@@ -97,13 +97,13 @@ const ReportingDifferencesContainer = ({ agencyData }) => {
                 currentSort={{ field: sort, direction: order }}
                 updateSort={updateSort} />
             <Pagination
-                currentPage={page}
-                changePage={setPage}
-                changeLimit={setLimit}
-                limitSelector
-                resultsText
-                pageSize={limit}
-                totalItems={total} />
+                        currentPage={page}
+                        changePage={setPage}
+                        changeLimit={setLimit}
+                        limitSelector
+                        resultsText
+                        pageSize={limit}
+                        totalItems={total} />
         </>
     );
 };

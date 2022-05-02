@@ -48,13 +48,13 @@ export default class RankVisualizationTitle extends React.Component {
                 className="field-item"
                 key={`field-${field}`}>
                 <button
-                    className="item-button"
-                    title={categoryNames[field]}
-                    aria-label={categoryNames[field]}
-                    value={field}
-                    onClick={this.clickedItem}>
-                    {categoryNames[field]}
-                </button>
+                        className="item-button"
+                        title={categoryNames[field]}
+                        aria-label={categoryNames[field]}
+                        value={field}
+                        onClick={this.clickedItem}>
+                        {categoryNames[field]}
+                    </button>
             </li>
         ));
 
@@ -73,29 +73,29 @@ export default class RankVisualizationTitle extends React.Component {
                 </h2>
 
                 <div className="field-picker">
-                    <button
+                        <button
                         className="selected-button"
                         title={categoryNames[currentField]}
                         aria-label={categoryNames[currentField]}
                         onClick={this.togglePicker}>
                         <span className="label">
-                            {categoryNames[currentField]}
-                        </span>
+                                {categoryNames[currentField]}
+                            </span>
                         <span className="arrow-icon">
-                            {icon}
-                        </span>
+                                    {icon}
+                                </span>
                     </button>
 
                     <div
-                        className={`field-list ${showPicker}`}
-                        style={{
+                            className={`field-list ${showPicker}`}
+                            style={{
                             height: (this.props.fieldTypes.length * 55) + 1
                         }}>
                         <ul>
-                            {fields}
-                        </ul>
+                                {fields}
+                            </ul>
+                        </div>
                     </div>
-                </div>
             </div>
         );
     }

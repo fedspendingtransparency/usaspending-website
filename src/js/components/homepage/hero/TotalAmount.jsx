@@ -37,7 +37,7 @@ const TotalAmount = ({
                 window.clearTimeout(amountUpdate);
             }
         };
-    }, []);
+    }, [completeIncrement]);
 
     useEffect(() => {
         if (!isLoading && !skipAnimation) {

@@ -292,74 +292,74 @@ export default class ActivityChartTooltip extends React.Component {
                     this.containerDiv = div;
                 }}>
                 <div
-                    className="tooltip"
-                    onMouseEnter={this.mouseEnter}
-                    onMouseLeave={this.props.mouseOutOfTooltipDiv}
-                    style={this.state.tooltipStyle}
-                    ref={(div) => {
+                        className="tooltip"
+                        onMouseEnter={this.mouseEnter}
+                        onMouseLeave={this.props.mouseOutOfTooltipDiv}
+                        style={this.state.tooltipStyle}
+                        ref={(div) => {
                         this.div = div;
                     }}>
                     <h5 className="tooltip-title">
-                        { data.grandchild ? 'GRANDCHILD' : 'CHILD'} AWARD
-                    </h5>
+                            { data.grandchild ? 'GRANDCHILD' : 'CHILD'} AWARD
+                        </h5>
                     <div
-                        className="tooltip-body"
-                        ref={(div) => {
+                                className="tooltip-body"
+                                ref={(div) => {
                             this.tooltipBody = div;
                         }}>
                         <div className="tooltip-body__row">
-                            <div className="tooltip-body__row-info">
+                                <div className="tooltip-body__row-info">
                                 <h6 className="tooltip-body__row-info-title first-titles">
                                     PIID
-                                </h6>
+                                    </h6>
                                 <div
-                                    className="tooltip-body__row-info-data"
-                                    ref={(div) => {
+                                            className="tooltip-body__row-info-data"
+                                            ref={(div) => {
                                         this.piidDiv = div;
                                     }}>
-                                    {this.getLinks('award', data.generatedId, this.state.piid, data.piid)}
-                                </div>
+                                            {this.getLinks('award', data.generatedId, this.state.piid, data.piid)}
+                                        </div>
                             </div>
-                            {
+                                {
                                 data.grandchild &&
                                 <div className="tooltip-body__row-info" id="grandparentLabel">
                                     <h6 className="tooltip-body__row-info-title first-titles">
                                         Grandparent IDV
                                     </h6>
                                     <div
-                                        className="tooltip-body__row-info-data"
-                                        ref={(div) => {
+                                            className="tooltip-body__row-info-data"
+                                            ref={(div) => {
                                             this.grandparentDiv = div;
                                         }}>
                                         This IDV
-                                    </div>
+                                        </div>
                                 </div>
                             }
                             <div className="tooltip-body__row-info">
-                                <h6 className="tooltip-body__row-info-title first-titles">
+                                    <h6 className="tooltip-body__row-info-title first-titles">
                                     Parent IDV
                                 </h6>
                                 <div
-                                    className="tooltip-body__row-info-data"
-                                    ref={(div) => {
+                                        className="tooltip-body__row-info-data"
+                                        ref={(div) => {
                                         this.parentDiv = div;
                                     }}>
-                                    {data.parentGeneratedId ? parentIDVData : <div>--</div>}
+                                        {data.parentGeneratedId ? parentIDVData : <div>--</div>}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                         <div className="tooltip-body__row">
-                            <div className="tooltip-body__row-info">
+                                    <div className="tooltip-body__row-info">
                                 <h6 className="tooltip-body__row-info-title">
                                     Awarding Agency
-                                </h6>
+                                        </h6>
                                 <div
-                                    className="tooltip-body__row-info-data
+                                                className="tooltip-body__row-info-data
                                     tooltip-body__row-info-data__awarding-agency-name"
-                                    ref={(div) => {
+                                                ref={(div) => {
                                         this.awardAgencyDiv = div;
                                     }}>
-                                    {
+                                                {
                                         this.getLinks(
                                             'agency',
                                             data.awardingAgencySlug,
@@ -367,19 +367,19 @@ export default class ActivityChartTooltip extends React.Component {
                                             data.awardingAgencyName
                                         )
                                     }
-                                </div>
+                                            </div>
                             </div>
                             <div className="tooltip-body__row-info">
-                                <h6 className="tooltip-body__row-info-title">
+                                    <h6 className="tooltip-body__row-info-title">
                                     Recipient
                                 </h6>
                                 <div
-                                    className="tooltip-body__row-info-data
+                                        className="tooltip-body__row-info-data
                                     tooltip-body__row-info-data__recipient-name"
-                                    ref={(div) => {
+                                        ref={(div) => {
                                         this.recipientDiv = div;
                                     }}>
-                                    {
+                                        {
                                         this.getLinks(
                                             'recipient',
                                             data.recipientId,
@@ -387,50 +387,50 @@ export default class ActivityChartTooltip extends React.Component {
                                             data.recipientName
                                         )
                                     }
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
+                                </div>
                         <div className="tooltip-body__row">
-                            <div className="tooltip-body__row-info">
+                                        <div className="tooltip-body__row-info">
                                 <h6 className="tooltip-body__row-info-title">Start</h6>
                                 <div
-                                    className="tooltip-body__row-info-data"
-                                    ref={(d) => {
+                                        className="tooltip-body__row-info-data"
+                                        ref={(d) => {
                                         this.startDateDiv = d;
                                     }}>
-                                    {data.startDate}
-                                </div>
+                                        {data.startDate}
+                                    </div>
                             </div>
                             <div className="tooltip-body__row-info second-child">
-                                <h6 className="tooltip-body__row-info-title">End</h6>
+                                    <h6 className="tooltip-body__row-info-title">End</h6>
                                 <div
-                                    className="tooltip-body__row-info-data"
-                                    ref={(d) => {
+                                            className="tooltip-body__row-info-data"
+                                            ref={(d) => {
                                         this.endDateDiv = d;
                                     }}>
-                                    {data.endDate}
+                                            {data.endDate}
+                                        </div>
                                 </div>
-                            </div>
                             <div className="tooltip-body__row-info">
-                                <h6 className="tooltip-body__row-info-title">
+                                        <h6 className="tooltip-body__row-info-title">
                                     Obligated Amount
                                 </h6>
                                 <div
-                                    className="tooltip-body__row-info-data"
-                                    ref={(d) => {
+                                        className="tooltip-body__row-info-data"
+                                        ref={(d) => {
                                         this.amountsDiv = d;
                                     }}
-                                    title={amountTitle}>
+                                        title={amountTitle}>
                                     <strong>
-                                        {data._obligatedAmount !== 0 ?
+                                                {data._obligatedAmount !== 0 ?
                                             `${data.obligatedAmount} ` : '-- '}
-                                    </strong>
+                                            </strong>
                                     of {data._awardedAmount !== 0 ? data.awardedAmount : '--'}
-                                </div>
+                                    </div>
+                                    </div>
+                                    </div>
                             </div>
-                        </div>
                     </div>
-                </div>
             </div>
         );
     }

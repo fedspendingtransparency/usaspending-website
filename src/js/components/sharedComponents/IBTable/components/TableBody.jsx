@@ -408,13 +408,13 @@ export default class TableBody extends React.PureComponent {
                 role="presentation"
                 style={style}>
                 <div
-                    className="ibt-table-body"
-                    role="presentation"
-                    ref={(div) => {
+                        className="ibt-table-body"
+                        role="presentation"
+                        ref={(div) => {
                         this._tableDiv = div;
                     }}>
-                    {this._visibleCells}
-                </div>
+                        {this._visibleCells}
+                    </div>
             </div>
         );
     }

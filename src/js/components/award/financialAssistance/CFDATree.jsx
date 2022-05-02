@@ -192,7 +192,7 @@ export default class CFDATree extends React.Component {
                 message="No available data to display." />);
         }
         return null;
-    }
+    };
 
     render() {
         if (this.props.width <= 0) {
@@ -217,14 +217,14 @@ export default class CFDATree extends React.Component {
                     {this.messaging()}
                 </div>
                 <div className="cfda-section-treemap">
-                    {chartLength !== 0 &&
+                        {chartLength !== 0 &&
                         <svg
                             className="treemap"
                             width="100%"
                             height={this.props.height}>
                             {cells}
                         </svg>}
-                </div>
+                    </div>
                 {chartLength !== 0 &&
                     <div className="cfda-section-treemap-count">
                         {`${this.state.virtualChart.length} ${naming}`}

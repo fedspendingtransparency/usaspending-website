@@ -76,13 +76,13 @@ export default class DataDictionarySearchBar extends React.Component {
                         onChange={this.onChange}
                         placeholder="Search by Term" />
                     <button
-                        aria-label="Search"
-                        className="dictionary-search__button"
-                        onClick={this.handleClick} >
+                                aria-label="Search"
+                                className="dictionary-search__button"
+                                onClick={this.handleClick} >
                         <div className="dictionary-search__button-icon">
-                            {icon}
-                        </div>
-                    </button>
+                                        {icon}
+                                    </div>
+                            </button>
                 </form>
             </div>
         );

@@ -36,17 +36,17 @@ const GlossaryHeader = (props) => {
                 </button>
             </div>
             <h1
-                id="glossary-title"
-                className="glossary-title"
-                tabIndex={-1}>
+                    id="glossary-title"
+                    className="glossary-title"
+                    tabIndex={-1}>
                 Glossary
-            </h1>
+                </h1>
 
             <GlossarySearchBar {...props} />
 
             <div className="glossary-example">
                 Example: &quot;Obligation&quot;
-            </div>
+                </div>
         </div>
     );
 };

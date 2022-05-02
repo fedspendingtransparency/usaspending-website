@@ -197,12 +197,12 @@ will no longer download to your computer. Are you sure you want to do this?`;
                         timeout={500}
                         exit>
                         <DownloadBottomBar
-                            {...this.props}
-                            download={this.props.bulkDownload.download}
-                            showError={this.state.showError}
-                            showSuccess={this.state.showSuccess}
-                            title={this.state.title}
-                            description={this.state.description} />
+                                {...this.props}
+                                download={this.props.bulkDownload.download}
+                                showError={this.state.showError}
+                                showSuccess={this.state.showSuccess}
+                                title={this.state.title}
+                                description={this.state.description} />
                     </CSSTransition>
                 )}
             </TransitionGroup>

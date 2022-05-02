@@ -42,15 +42,15 @@ export default class FiscalYear extends React.Component {
                         className="fy-option-wrapper"
                         htmlFor={`fy${this.props.year}`}>
                         <input
-                            type="checkbox"
-                            className="fy-option-checkbox"
-                            id={`fy${this.props.year}`}
-                            value="All Fiscal Years"
-                            checked={this.props.checked}
-                            onChange={this.allYears} />
+                                type="checkbox"
+                                className="fy-option-checkbox"
+                                id={`fy${this.props.year}`}
+                                value="All Fiscal Years"
+                                checked={this.props.checked}
+                                onChange={this.allYears} />
                         <span className="fy-option-label">
                             All Fiscal Years
-                        </span>
+                                    </span>
                     </label>
                 </li>
             );
@@ -62,15 +62,15 @@ export default class FiscalYear extends React.Component {
                         className="fy-option-wrapper"
                         htmlFor={`fy${this.props.year}`}>
                         <input
-                            type="checkbox"
-                            className="fy-option-checkbox"
-                            id={`fy${this.props.year}`}
-                            value={`FY ${this.props.year}`}
-                            checked={this.props.checked}
-                            onChange={this.saveYear} />
+                                type="checkbox"
+                                className="fy-option-checkbox"
+                                id={`fy${this.props.year}`}
+                                value={`FY ${this.props.year}`}
+                                checked={this.props.checked}
+                                onChange={this.saveYear} />
                         <span className="fy-option-label">
-                            {`FY ${this.props.year}`}
-                        </span>
+                                        {`FY ${this.props.year}`}
+                                    </span>
                     </label>
                 </li>
             );

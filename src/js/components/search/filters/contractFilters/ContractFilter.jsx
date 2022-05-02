@@ -136,15 +136,15 @@ export default class ContractFilter extends React.Component {
                 className={`contract-filter search-filter checkbox-type-filter
                     ${this.props.contractFilterType}`}>
                 <div className="filter-item-wrap">
-                    <ul className="contract-types checkbox-types">
+                            <ul className="contract-types checkbox-types">
                         {contractFilterItems}
                     </ul>
-                    {toggleButton}
+                            {toggleButton}
                     <SubmitHint
-                        ref={(component) => {
+                                    ref={(component) => {
                             this.hint = component;
                         }} />
-                </div>
+                        </div>
             </div>
         );
     }

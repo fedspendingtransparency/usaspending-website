@@ -93,18 +93,18 @@ const FYPicker = ({
                     <FontAwesomeIcon icon={icon} alt={altText} color={iconColor} size={iconSize} />
                 </div>
                 <div className="fy-picker__dropdown-container">
-                    <button className="fy-picker__button" onClick={toggleMenu}>
+                        <button className="fy-picker__button" onClick={toggleMenu}>
                         <span className="fy-picker__button-text">
                             FY {isLoading ? <FontAwesomeIcon icon="spinner" size="sm" alt="Toggle menu" spin /> : fy}
-                        </span>
+                            </span>
                         <div className="fy-picker__button-icon">
-                            <FontAwesomeIcon icon="chevron-down" alt="Toggle menu" />
-                        </div>
+                                    <FontAwesomeIcon icon="chevron-down" alt="Toggle menu" />
+                                </div>
                     </button>
                     <ul className={`fy-picker__list ${expanded ? '' : 'hide'}`}>
-                        {getActiveYears()}
-                    </ul>
-                </div>
+                            {getActiveYears()}
+                        </ul>
+                    </div>
             </div>
         </div>
     );

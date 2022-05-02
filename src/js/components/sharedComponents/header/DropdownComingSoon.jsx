@@ -14,7 +14,7 @@ const DropdownComingSoon = () => (
         </div>
         <div className="nav-coming-soon__label">
             Coming Soon
-        </div>
+            </div>
     </div>
 );
 

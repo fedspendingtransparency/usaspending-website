@@ -90,16 +90,16 @@ export default class AwardTypeTooltip extends React.Component {
                     </div>
                     <div className="tooltip-label">
                         Total Amount
-                    </div>
+                        </div>
                 </div>
                 <div className="tooltip-right">
-                    <div className="tooltip-value">
+                        <div className="tooltip-value">
                         {this.props.percentage}
                     </div>
                     <div className="tooltip-label">
                         Percent
+                        </div>
                     </div>
-                </div>
             </div>
         );
         let smallValue = '';
@@ -116,22 +116,22 @@ export default class AwardTypeTooltip extends React.Component {
                     this.containerDiv = div;
                 }}>
                 <div
-                    className={`tooltip${smallValue}`}
-                    ref={(div) => {
+                        className={`tooltip${smallValue}`}
+                        ref={(div) => {
                         this.div = div;
                     }}>
                     <div
-                        className="tooltip-pointer"
-                        ref={(div) => {
+                            className="tooltip-pointer"
+                            ref={(div) => {
                             this.pointerDiv = div;
                         }} />
                     <div className="tooltip-title">
-                        {this.props.description}
-                    </div>
+                                {this.props.description}
+                            </div>
                     <div className="tooltip-body center">
-                        {desc}
+                                    {desc}
+                                </div>
                     </div>
-                </div>
             </div>
         );
     }

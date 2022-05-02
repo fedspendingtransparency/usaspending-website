@@ -99,24 +99,24 @@ export default class KeywordPage extends React.Component {
                         (i === 1 && !this.props.keyword) || this.props.keyword)
                     )}>
                 <main id="main-content">
-                    <div className="keyword-content">
+                            <div className="keyword-content">
                         <div className="keyword-search-bar">
-                            <KeywordSearchBar
+                                    <KeywordSearchBar
                                 keyword={this.props.keyword}
                                 updateKeyword={this.props.updateKeyword} />
                             <div className="keyword-search-bar__info">
                                 Use the Keyword Search to get a broad picture of award data on a given theme. To learn more about the fields the Keyword search matches to, read our <a href="https://usaspending-help.zendesk.com/hc/en-us/articles/360001255774-Keyword-Search-Question-How-does-the-Keyword-Search-work-" target="_blank" rel="noopener noreferrer">FAQ entry</a> on the topic. For a more targeted search, try our <Link to="/search">Advanced Search tool</Link>,
                                 whose extensive filters let you find more precise data sets.
-                            </div>
-                        </div>
+                                    </div>
+                                </div>
                         <ResultsTableContainer
-                            keyword={this.props.keyword}
-                            fetchSummary={this.props.fetchSummary} />
+                                        keyword={this.props.keyword}
+                                        fetchSummary={this.props.fetchSummary} />
                     </div>
                     <BulkDownloadModalContainer
-                        mounted={this.state.showModal}
-                        hideModal={this.hideModal} />
-                </main>
+                            mounted={this.state.showModal}
+                            hideModal={this.hideModal} />
+                        </main>
             </PageWrapper>
         );
     }

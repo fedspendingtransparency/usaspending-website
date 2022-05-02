@@ -27,12 +27,12 @@ const CFDASection = ({
             left={false}
             tooltipWide />
         <div className="award__col__content">
-            <CFDAVizContainer
+                    <CFDAVizContainer
                 cfdas={cfdas}
                 CFDAOverviewLinkClicked={CFDAOverviewLinkClicked}
                 updateCFDAOverviewLinkClicked={updateCFDAOverviewLinkClicked}
                 awardTotalObligation={awardTotalObligation} />
-        </div>
+                </div>
     </AwardSection>
 );
 

@@ -134,16 +134,16 @@ const DetailHeader = (props) => {
                     {dataType(type, props.parent)}
                 </div>
                 <div className="right-side">
-                    <div className="amount-header">
+                        <div className="amount-header">
                         FY {props.fy} obligated amount
                     </div>
                     <div className="amount-value">
-                        {props.isLoading ? '--' : formatTreemapValues(props.total)}
-                    </div>
+                            {props.isLoading ? '--' : formatTreemapValues(props.total)}
+                        </div>
                     <div className="update-date">
                         Data as of {moment(props.lastUpdate, 'YYYY-MM-DD').format('MMMM D, YYYY')}
+                            </div>
                     </div>
-                </div>
             </div>
             {truncationWarning}
         </div>

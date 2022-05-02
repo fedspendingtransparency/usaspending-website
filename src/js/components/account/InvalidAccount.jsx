@@ -21,15 +21,15 @@ export default class InvalidAccount extends React.Component {
             <div className="usa-da-account-page">
                 <Header />
                 <main
-                    id="main-content"
-                    className="main-content">
+                        id="main-content"
+                        className="main-content">
                     <div className="wrapper">
-                        <Error
+                                <Error
                             title="Invalid Federal Account"
                             message="The federal account ID provided is invalid.
                             Please check the ID and try again." />
-                    </div>
-                </main>
+                            </div>
+                    </main>
                 <Footer pageName="Invalid Account" />
             </div>
         );

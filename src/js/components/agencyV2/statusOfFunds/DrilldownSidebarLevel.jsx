@@ -25,20 +25,20 @@ const DrilldownSidebar = ({
                 <FontAwesomeIcon icon="chevron-left" />
             </button>) : ''}
         <div className="drilldown-level__wrapper">
-            <div className="drilldown-level__label">{label}</div>
+                    <div className="drilldown-level__label">{label}</div>
             <div className="drilldown-level__content">
-                <div className="drilldown-level__trail">
+                            <div className="drilldown-level__trail">
                     <div className="drilldown-level__indicator" />
                     {active ? null : <div className="drilldown-level__line" data-testid="trailLine" />}
                 </div>
                 <div>
-                    <div className="drilldown-level__name">{name}</div>
+                        <div className="drilldown-level__name">{name}</div>
                     <div className="drilldown-level__description">
-                        <strong>{obligated}</strong> spent of <strong>{budgetaryResources}</strong>  Total Budgetary Resources
+                                <strong>{obligated}</strong> spent of <strong>{budgetaryResources}</strong>  Total Budgetary Resources
+                            </div>
                     </div>
+                        </div>
                 </div>
-            </div>
-        </div>
     </div>
 );
 

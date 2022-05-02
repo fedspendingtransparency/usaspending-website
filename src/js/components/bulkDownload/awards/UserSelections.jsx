@@ -185,41 +185,41 @@ export default class UserSelections extends React.Component {
             <div className="download-user-selections">
                 <h3 className="download-user-selections__title">Your selected options are...</h3>
                 <div className="download-user-selections__left_col">
-                    <div className="selection">
+                        <div className="selection">
                         <div className="selection__heading">Award Types</div>
                         {this.generateAwardTypeString()}
                     </div>
-                </div>
+                    </div>
                 <div className="download-user-selections__left-col">
-                    <div className="selection">
+                            <div className="selection">
                         <div className="selection__heading">Agency</div>
                         {this.generateAgencyTypeString()}
                         {this.generateAgencyString()}
                     </div>
                     <div className="selection">
-                        <div className="selection__heading">Location</div>
-                        {this.generateLocationTypeString()}
-                        {this.generateLocationString()}
-                    </div>
+                            <div className="selection__heading">Location</div>
+                            {this.generateLocationTypeString()}
+                            {this.generateLocationString()}
+                        </div>
                     <div className="selection">
-                        <div className="selection__heading">Date Type</div>
-                        {this.generateDateTypeString()}
-                    </div>
+                                <div className="selection__heading">Date Type</div>
+                                {this.generateDateTypeString()}
+                            </div>
                     <div className="selection">
-                        <div className="selection__heading">File Format</div>
-                        {this.generateFileFormatString()}
-                    </div>
-                </div>
+                                    <div className="selection__heading">File Format</div>
+                                    {this.generateFileFormatString()}
+                                </div>
+                        </div>
                 <div className="download-user-selections__right-col">
-                    <div className="selection">
+                                <div className="selection">
                         <div className="selection__heading">Sub Agency</div>
                         {this.generateSubAgencyString()}
                     </div>
                     <div className="selection">
-                        <div className="selection__heading">Date Range</div>
-                        {this.generateDateRangeString()}
-                    </div>
-                </div>
+                            <div className="selection__heading">Date Range</div>
+                            {this.generateDateRangeString()}
+                        </div>
+                            </div>
             </div>
         );
     }

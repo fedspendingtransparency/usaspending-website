@@ -69,8 +69,8 @@ export default class AwardTypeFilter extends React.Component {
                     {icon} Select the <span className="download-filter__title_em">award types</span> to include.
                 </h3>
                 <div className="download-filter__content">
-                    {awardTypes}
-                </div>
+                        {awardTypes}
+                    </div>
             </div>
         );
     }

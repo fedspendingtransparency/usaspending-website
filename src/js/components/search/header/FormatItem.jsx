@@ -48,11 +48,11 @@ export default class FormatItem extends React.Component {
                 aria-label={this.props.accessibleLabel}
                 onClick={this.clickedButton}>
                 <div className="item-icon">
-                    {this.props.icon}
-                </div>
+                        {this.props.icon}
+                    </div>
                 <div className="item-label">
-                    {this.props.label}
-                </div>
+                            {this.props.label}
+                        </div>
             </button>
         );
     }

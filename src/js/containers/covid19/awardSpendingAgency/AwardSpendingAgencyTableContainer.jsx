@@ -137,7 +137,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
         });
     };
 
-    const addUnlinkedData = (parsedData, totals = resultsTotal, totalAgencySpending = spendingByAgencyTotals) => {
+    const addUnlinkedData = useCallback((parsedData, totals = resultsTotal, totalAgencySpending = spendingByAgencyTotals) => {
         if (!parsedData.length) return setResults([]);
         const unlinkedData = calculateUnlinkedTotals(totalAgencySpending, totals);
 
@@ -158,7 +158,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
             .filter(({ isUnlinkedRow }) => !isUnlinkedRow)
             .concat([Object.assign(unlinkedRow, { isUnlinkedRow: true })]);
         return setResults(parsedDataWithUnlinked);
-    };
+    });
 
     const parseAwardSpendingByAgency = (data, totals) => {
         const parsedData = data.map((item) => {
@@ -280,7 +280,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
         if (Object.keys(spendingByAgencyTotals).length && resultsTotal) {
             addUnlinkedData(results, resultsTotal, spendingByAgencyTotals);
         }
-    }, [spendingByAgencyTotals, resultsTotal]);
+    }, [spendingByAgencyTotals, resultsTotal, addUnlinkedData, results]);
 
     useEffect(() => {
         // when award type changes, sort is on faceValueOfLoan for loans; otherwise, obligation
@@ -298,7 +298,7 @@ const AwardSpendingAgencyTableContainer = (props) => {
         else {
             updateSort('obligation', 'desc');
         }
-    }, [props.type]);
+    }, [fetchSpendingByAgencyCallback, order, props.type, sort]);
 
     useEffect(() => {
         // Reset to the first page
@@ -308,15 +308,15 @@ const AwardSpendingAgencyTableContainer = (props) => {
         else {
             changeCurrentPage(1);
         }
-    }, [pageSize, sort, order, defcParams, query]);
+    }, [pageSize, sort, order, defcParams, query, currentPage, fetchSpendingByAgencyCallback]);
 
     useEffect(() => {
         fetchSpendingByAgencyCallback();
-    }, [currentPage]);
+    }, [currentPage, fetchSpendingByAgencyCallback]);
 
     useEffect(() => {
         props.scrollIntoView(loading, error, errorOrLoadingWrapperRef, tableWrapperRef, 100, true);
-    }, [loading, error]);
+    }, [loading, error, props]);
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -332,15 +332,15 @@ const AwardSpendingAgencyTableContainer = (props) => {
         <div ref={tableWrapperRef}>
             <SearchBar onSearch={setQuery} />
             <Pagination
-                currentPage={currentPage}
-                changePage={changeCurrentPage}
-                changeLimit={changePageSize}
-                limitSelector
-                resultsText
-                pageSize={pageSize}
-                totalItems={totalItems} />
+                    currentPage={currentPage}
+                    changePage={changeCurrentPage}
+                    changeLimit={changePageSize}
+                    limitSelector
+                    resultsText
+                    pageSize={pageSize}
+                    totalItems={totalItems} />
             <div ref={tableRef} className={unlinkedDataClass ? 'table-wrapper unlinked-data' : 'table-wrapper'}>
-                <Table
+                            <Table
                     expandable
                     rows={results}
                     columns={awardSpendingAgencyTableColumns(props.type)}
@@ -349,15 +349,15 @@ const AwardSpendingAgencyTableContainer = (props) => {
                     divider={props.subHeading}
                     error={error}
                     loading={loading} />
-            </div>
+                        </div>
             <Pagination
-                currentPage={currentPage}
-                changePage={changeCurrentPage}
-                changeLimit={changePageSize}
-                limitSelector
-                resultsText
-                pageSize={pageSize}
-                totalItems={totalItems} />
+                                currentPage={currentPage}
+                                changePage={changeCurrentPage}
+                                changeLimit={changePageSize}
+                                limitSelector
+                                resultsText
+                                pageSize={pageSize}
+                                totalItems={totalItems} />
         </div>
     );
 };

@@ -83,27 +83,27 @@ export default class ExplorerTable extends React.Component {
             <div className={`explorer-table${noResultsClass}`}>
                 {loadingMessage}
                 <Pagination
-                    resultsText
-                    changePage={this.props.onChangePage}
-                    currentPage={this.props.pageNumber}
-                    totalItems={this.props.totalItems}
-                    pageSize={this.props.pageSize} />
+                        resultsText
+                        changePage={this.props.onChangePage}
+                        currentPage={this.props.pageNumber}
+                        totalItems={this.props.totalItems}
+                        pageSize={this.props.pageSize} />
                 <table>
-                    <thead>
+                                <thead>
                         <tr>
-                            {headers}
-                        </tr>
+                                        {headers}
+                                    </tr>
                     </thead>
                     <tbody>
-                        {rows}
-                    </tbody>
-                </table>
+                            {rows}
+                        </tbody>
+                            </table>
                 <Pagination
-                    resultsText
-                    changePage={this.props.onChangePage}
-                    currentPage={this.props.pageNumber}
-                    totalItems={this.props.totalItems}
-                    pageSize={this.props.pageSize} />
+                                    resultsText
+                                    changePage={this.props.onChangePage}
+                                    currentPage={this.props.pageNumber}
+                                    totalItems={this.props.totalItems}
+                                    pageSize={this.props.pageSize} />
             </div>
         );
     }

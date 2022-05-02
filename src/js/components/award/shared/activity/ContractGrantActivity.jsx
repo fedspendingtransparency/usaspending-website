@@ -66,7 +66,7 @@ const ContractGrantActivity = ({
         return () => {
             window.removeEventListener('resize', handleWindowResize);
         };
-    }, []);
+    }, [handleWindowResize]);
     /**
      * X Translation
      * We are positioning the potential award amount line tooltip centered.
@@ -226,18 +226,18 @@ const ContractGrantActivity = ({
                     isVisible: showTooltipLine || showTooltipTransaction || isHoveringOverTransactionTooltip
                 }} />}
             <ContractGrantActivityChart
-                visualizationWidth={visualizationWidth}
-                transactions={transactions}
-                height={height}
-                padding={defaultPadding}
-                dates={dates}
-                awardType={awardType}
-                totalObligation={totalObligation}
-                showHideTooltipLine={showHideTooltipLine}
-                showTooltipTransaction={showTransactionTooltip}
-                hideTooltipTransaction={hideTooltipTransaction}
-                hideTransactionTooltipOnBlur={hideTransactionTooltipOnBlur}
-                thisLineOrTextIsHovered={thisLineOrTextIsHovered} />
+                        visualizationWidth={visualizationWidth}
+                        transactions={transactions}
+                        height={height}
+                        padding={defaultPadding}
+                        dates={dates}
+                        awardType={awardType}
+                        totalObligation={totalObligation}
+                        showHideTooltipLine={showHideTooltipLine}
+                        showTooltipTransaction={showTransactionTooltip}
+                        hideTooltipTransaction={hideTooltipTransaction}
+                        hideTransactionTooltipOnBlur={hideTransactionTooltipOnBlur}
+                        thisLineOrTextIsHovered={thisLineOrTextIsHovered} />
         </div>
     );
 };

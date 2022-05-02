@@ -79,7 +79,7 @@ export default class AwardType extends React.Component {
                         {awardTypes}
                     </ul>
                     <SubmitHint
-                        ref={(component) => {
+                            ref={(component) => {
                             this.hint = component;
                         }} />
                 </div>

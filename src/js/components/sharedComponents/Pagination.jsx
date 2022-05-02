@@ -132,10 +132,10 @@ export default class Pagination extends React.Component {
                     key={index}
                     className="pager__item">
                     <button
-                        className={`pager__button ${this.props.pageNumber === page ? 'pager__button_active' : ''}`}
-                        onClick={() => this.setPage(page, totalPages)}>
-                        {formatNumberWithPrecision(page, 0)}
-                    </button>
+                            className={`pager__button ${this.props.pageNumber === page ? 'pager__button_active' : ''}`}
+                            onClick={() => this.setPage(page, totalPages)}>
+                            {formatNumberWithPrecision(page, 0)}
+                        </button>
                 </li>
             )
         ));
@@ -162,26 +162,26 @@ export default class Pagination extends React.Component {
             <div className="pagination">
                 {resultsText}
                 <ul className="pager">
-                    <li className="pager__item">
+                        <li className="pager__item">
                         <button
-                            className={`pager__button ${pager.currentPage === 1 ? 'pager__button_disabled' : ''}`}
-                            disabled={pager.currentPage === 1}
-                            onClick={() => this.setPage(pager.currentPage - 1)}>{`<`}
-                        </button>
+                                className={`pager__button ${pager.currentPage === 1 ? 'pager__button_disabled' : ''}`}
+                                disabled={pager.currentPage === 1}
+                                onClick={() => this.setPage(pager.currentPage - 1)}>{`<`}
+                            </button>
                     </li>
-                    {pager.firstButton}
-                    {pager.prevEllipses}
-                    {pageButtons}
-                    {pager.nextEllipses}
-                    {pager.lastButton}
+                        {pager.firstButton}
+                        {pager.prevEllipses}
+                        {pageButtons}
+                        {pager.nextEllipses}
+                        {pager.lastButton}
                     <li className="pager__item">
-                        <button
+                                <button
                             className={`pager__button ${pager.currentPage === pager.totalPages ? 'pager__button_disabled' : ''}`}
                             disabled={pager.currentPage === pager.totalPages}
                             onClick={() => this.setPage(pager.currentPage + 1)}>{`>`}
                         </button>
-                    </li>
-                </ul>
+                            </li>
+                    </ul>
             </div>
         );
     }

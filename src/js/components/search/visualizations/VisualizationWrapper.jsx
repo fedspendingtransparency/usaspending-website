@@ -117,33 +117,33 @@ export default class VisualizationWrapper extends React.Component {
                     this.visualizationWrapper = div;
                 }}>
                 <div className="visualization-tabs__toggle-mobile">
-                    <SubawardToggle
+                        <SubawardToggle
                         subaward={this.props.subaward}
                         setSearchViewSubaward={this.props.setSearchViewSubaward} />
-                </div>
+                    </div>
                 <div
-                    className="visualization-tabs"
-                    role="navigation"
-                    aria-label="Visualization types">
+                            className="visualization-tabs"
+                            role="navigation"
+                            aria-label="Visualization types">
                     <ul
-                        className="visualization-tabs__list"
-                        role="menu">
-                        {tabs}
-                    </ul>
+                                    className="visualization-tabs__list"
+                                    role="menu">
+                                    {tabs}
+                                </ul>
                     <div className="visualization-tabs__toggle">
-                        <SubawardToggle
+                                        <SubawardToggle
                             subaward={this.props.subaward}
                             setSearchViewSubaward={this.props.setSearchViewSubaward} />
-                    </div>
-                </div>
+                                    </div>
+                        </div>
                 <div className="visualization-content-wrapper">
-                    <div
+                                <div
                         className="visualization-content"
                         role="main"
                         aria-label="Search results">
                         {content}
                     </div>
-                </div>
+                            </div>
             </div>
         );
     }

@@ -70,22 +70,22 @@ export default class KeywordSearchBar extends React.Component {
                 className="keyword-search-bar__form"
                 onSubmit={this.searchKeyword}>
                 <input
-                    id="search"
-                    type="text"
-                    aria-label="Search Input"
-                    className="keyword-search-bar__input"
-                    value={this.state.searchString}
-                    onChange={this.changedInput}
-                    placeholder="Type keywords..." />
+                        id="search"
+                        type="text"
+                        aria-label="Search Input"
+                        className="keyword-search-bar__input"
+                        value={this.state.searchString}
+                        onChange={this.changedInput}
+                        placeholder="Type keywords..." />
                 <button
-                    className={`keyword-search-bar__button ${disabledClass}`}
-                    onClick={this.searchKeyword}
-                    title={submitButtonText}
-                    aria-label={submitButtonText}>
+                                className={`keyword-search-bar__button ${disabledClass}`}
+                                onClick={this.searchKeyword}
+                                title={submitButtonText}
+                                aria-label={submitButtonText}>
                     <div className="keyword-search-bar__button-icon">
-                        <Search alt="Search by Keyword" />
-                    </div>
-                </button>
+                                        <Search alt="Search by Keyword" />
+                                    </div>
+                            </button>
             </form>
         );
     }

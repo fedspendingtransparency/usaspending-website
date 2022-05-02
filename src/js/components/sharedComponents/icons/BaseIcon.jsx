@@ -92,7 +92,7 @@ export default class BaseIcon extends React.Component {
                 {/* eslint-disable react/no-danger */}
                 {/* we need to write the SVG data onto the DOM */}
                 <g
-                    dangerouslySetInnerHTML={{ __html: this.state.icon.data }} />
+                        dangerouslySetInnerHTML={{ __html: this.state.icon.data }} />
                 {/* eslint-enable react/no-danger */}
             </svg>
         );

@@ -70,10 +70,10 @@ const TableHeaderCell = (props) => {
                 role="presentation"
                 tabIndex={0}>
                 <div className="header-sort">
-                    <div className="header-label">
+                        <div className="header-label">
                         {props.title}
                     </div>
-                    {
+                        {
                         props.defaultDirection &&
                         <div className="header-icons">
                             <button
@@ -83,20 +83,20 @@ const TableHeaderCell = (props) => {
                                 title={`Sort table by ascending ${props.title}`}
                                 aria-label={`Sort table by ascending ${props.title}`}>
                                 <ArrowUp
-                                    alt={`Sort table by ascending ${props.title}`} />
+                                        alt={`Sort table by ascending ${props.title}`} />
                             </button>
                             <button
-                                onClick={clickedSort}
-                                className={`sort-icon${activeDesc}`}
-                                value="desc"
-                                title={`Sort table by descending ${props.title}`}
-                                aria-label={`Sort table by descending ${props.title}`}>
+                                    onClick={clickedSort}
+                                    className={`sort-icon${activeDesc}`}
+                                    value="desc"
+                                    title={`Sort table by descending ${props.title}`}
+                                    aria-label={`Sort table by descending ${props.title}`}>
                                 <ArrowDown
-                                    alt={`Sort table by descending ${props.title}`} />
-                            </button>
+                                            alt={`Sort table by descending ${props.title}`} />
+                                </button>
                         </div>
                     }
-                </div>
+                    </div>
             </div>
         </div>
     );

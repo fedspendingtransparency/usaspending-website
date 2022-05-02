@@ -13,11 +13,11 @@ const JumpToSectionButton = ({ onClick, linkText, icon }) => (
         onClick={onClick}
         className="award-viz__button">
         <div className="award-viz__link-icon">
-            <FontAwesomeIcon icon={icon} />
-        </div>
+                <FontAwesomeIcon icon={icon} />
+            </div>
         <div className="award-viz__link-text">
-            {linkText}
-        </div>
+                    {linkText}
+                </div>
     </button>
 );
 

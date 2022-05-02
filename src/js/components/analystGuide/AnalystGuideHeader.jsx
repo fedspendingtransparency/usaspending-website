@@ -10,16 +10,16 @@ const AnalystGuideHeader = ({ title, subtitle }) => (
             </div>
         </div>
         <div className="hero__right-item">
-            <div className="hero__right-image-wrapper">
+                <div className="hero__right-image-wrapper">
                 <picture>
-                    <img
+                        <img
                         className="hero__right-image"
                         role="presentation"
                         src="../../../../img/analyst-guide-hero-graphic-2x.png"
                         alt="Treasury Department building in the background overlaid with a floating bar chart with a trend line." />
-                </picture>
+                    </picture>
             </div>
-        </div>
+            </div>
     </div>
 );
 

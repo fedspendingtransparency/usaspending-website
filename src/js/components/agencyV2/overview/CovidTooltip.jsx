@@ -28,14 +28,14 @@ const CovidTooltip = ({
         <TooltipComponent title="Disaster and Emergency Funding Codes (DEFC)">
             <p>{`In FY ${fy}, this agency received supplemental funding in response to the following:`}</p>
             <ul>
-                {getText()}
-            </ul>
+                    {getText()}
+                </ul>
             <Link to={{
                 pathname: "/disaster/covid-19/",
                 search: "?section=award_spending_by_agency"
             }}>
-                {`View this agency's DEFC spending.`}
-            </Link>
+                        {`View this agency's DEFC spending.`}
+                    </Link>
         </TooltipComponent>
     );
 };

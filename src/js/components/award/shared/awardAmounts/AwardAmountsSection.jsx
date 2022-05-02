@@ -29,21 +29,21 @@ const AwardAmountsSection = ({
             <div className="award__col__content">
                 <AwardSectionHeader title="$ Award Amounts" tooltip={tooltip} />
                 <div className="award-amounts__content">
-                    <AwardAmountsChart
+                        <AwardAmountsChart
                         awardOverview={awardOverview}
                         awardType={awardType}
                         spendingScenario={spendingScenario} />
                     <AwardAmountsTable
-                        showFileC={(
+                                showFileC={(
                             (
                                 awardOverview._fileCObligated !== 0 ||
                                 awardOverview._fileCOutlay !== 0
                             )
                         )}
-                        awardData={awardOverview}
-                        awardAmountType={awardType}
-                        spendingScenario={spendingScenario} />
-                </div>
+                                awardData={awardOverview}
+                                awardAmountType={awardType}
+                                spendingScenario={spendingScenario} />
+                    </div>
             </div>
             <JumpToSectionButton icon="table" linkText="View Transaction History" onClick={jumpToTransactionHistoryTable} />
         </AwardSection>

@@ -30,11 +30,11 @@ export default class TableRow extends React.PureComponent {
                         className={`results-table__data ${rowClass}`}
                         key={`${column.columnName}-${this.props.account.accountId}`}>
                         <AccountLinkCell
-                            rowIndex={this.props.rowIndex}
-                            name={this.props.account.accountName}
-                            accountNumber={this.props.account.accountNumber}
-                            accountSearchString={this.props.accountSearchString}
-                            column={column.columnName} />
+                                rowIndex={this.props.rowIndex}
+                                name={this.props.account.accountName}
+                                accountNumber={this.props.account.accountNumber}
+                                accountSearchString={this.props.accountSearchString}
+                                column={column.columnName} />
                     </td>
                 );
             }
@@ -44,9 +44,9 @@ export default class TableRow extends React.PureComponent {
                         className={`results-table__data ${rowClass}`}
                         key={`${column.columnName}-${this.props.account.accountId}`}>
                         <GenericCell
-                            rowIndex={this.props.rowIndex}
-                            data={this.props.account[column.columnName]}
-                            column={column.columnName} />
+                                rowIndex={this.props.rowIndex}
+                                data={this.props.account[column.columnName]}
+                                column={column.columnName} />
                     </td>
                 );
             }
@@ -55,10 +55,10 @@ export default class TableRow extends React.PureComponent {
                     className={`results-table__data ${rowClass}`}
                     key={`${column.columnName}-${this.props.account.accountId}`}>
                     <HighlightedCell
-                        rowIndex={this.props.rowIndex}
-                        data={this.props.account[column.columnName]}
-                        column={column.columnName}
-                        searchString={this.props.accountSearchString} />
+                            rowIndex={this.props.rowIndex}
+                            data={this.props.account[column.columnName]}
+                            column={column.columnName}
+                            searchString={this.props.accountSearchString} />
                 </td>
             );
         });

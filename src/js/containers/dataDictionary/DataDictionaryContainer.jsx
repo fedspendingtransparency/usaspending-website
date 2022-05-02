@@ -25,7 +25,7 @@ export default class DataDictionaryContainer extends React.Component {
             },
             searchTerm: ''
         };
-    };
+    }
 
     componentDidMount() {
         this.loadContent();

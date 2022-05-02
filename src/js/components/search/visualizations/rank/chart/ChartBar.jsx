@@ -100,26 +100,26 @@ export default class ChartBar extends React.Component {
                 transform={`translate(${this.props.labelWidth},${this.props.index * this.props.height})`}
                 aria-label={this.props.description}>
                 <desc>
-                    {this.props.description}
-                </desc>
+                        {this.props.description}
+                    </desc>
                 <rect
-                    className={`chart-bar ${hoverClass}`}
-                    x={this.props.start}
-                    y={12}
-                    width={this.props.width}
-                    height={12} />
+                            className={`chart-bar ${hoverClass}`}
+                            x={this.props.start}
+                            y={12}
+                            width={this.props.width}
+                            height={12} />
                 <rect
-                    className="chart-bar-hitzone"
-                    x={0}
-                    y={0}
-                    width={this.props.maxWidth}
-                    height={this.props.height}
-                    tabIndex={-1}
-                    onMouseOver={this.mouseEntered}
-                    onMouseOut={this.mouseExited}
-                    onFocus={this.mouseEntered}
-                    onBlur={this.mouseExited}
-                    onTouchStart={this.touchedBar} />
+                                    className="chart-bar-hitzone"
+                                    x={0}
+                                    y={0}
+                                    width={this.props.maxWidth}
+                                    height={this.props.height}
+                                    tabIndex={-1}
+                                    onMouseOver={this.mouseEntered}
+                                    onMouseOut={this.mouseExited}
+                                    onFocus={this.mouseEntered}
+                                    onBlur={this.mouseExited}
+                                    onTouchStart={this.touchedBar} />
             </g>
         );
     }

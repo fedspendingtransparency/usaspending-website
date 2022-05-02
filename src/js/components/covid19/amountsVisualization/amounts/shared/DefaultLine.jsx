@@ -62,7 +62,7 @@ const DefaultLine = ({
             };
             if (!isNaN(scale(amount))) setLineData(properties);
         }
-    }, [scale, overviewData, publicLaw]);
+    }, [scale, overviewData, publicLaw, dataId]);
     return (
         <g
             tabIndex="0"
@@ -73,17 +73,17 @@ const DefaultLine = ({
             onBlur={hideTooltip}>
             <desc>{description}</desc>
             <line
-                className={className}
-                data-id={dataId}
-                data-tooltip={tooltipId}
-                x1={lineData.x1}
-                x2={lineData.x2}
-                y1={lineData.y1}
-                y2={lineData.y2}
-                stroke={lineData.color}
-                strokeWidth={lineStrokeWidth}
-                onMouseMove={displayTooltip}
-                onMouseLeave={hideTooltip} />
+                    className={className}
+                    data-id={dataId}
+                    data-tooltip={tooltipId}
+                    x1={lineData.x1}
+                    x2={lineData.x2}
+                    y1={lineData.y1}
+                    y2={lineData.y2}
+                    stroke={lineData.color}
+                    strokeWidth={lineStrokeWidth}
+                    onMouseMove={displayTooltip}
+                    onMouseLeave={hideTooltip} />
         </g>
     );
 };

@@ -190,20 +190,20 @@ const SearchSidebar = ({
             role="search"
             aria-label="Filters">
             <div className="sidebar-header">
-                <span className="filter-icon">
+                    <span className="filter-icon">
                     <FilterIcon />
                 </span>
                 <h2 className="sidebar-title">Filters</h2>
-            </div>
+                </div>
             <div className="sidebar-top-submit">
-                <SearchSidebarSubmitContainer />
-            </div>
+                        <SearchSidebarSubmitContainer />
+                    </div>
             <FilterSidebar
-                {...releasedFilters}
-                expanded={expanded} />
+                            {...releasedFilters}
+                            expanded={expanded} />
             <div className="sidebar-bottom-submit">
-                <SearchSidebarSubmitContainer />
-            </div>
+                                    <SearchSidebarSubmitContainer />
+                                </div>
         </div>
     );
 };

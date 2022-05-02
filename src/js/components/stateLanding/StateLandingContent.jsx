@@ -23,10 +23,10 @@ export default class StateLandingContent extends React.Component {
                     placeholder="Search by State / Territory Name or Abbreviation"
                     buttonAltText="Search States" />
                 <div className="results-count">
-                    {this.props.resultsText}
-                </div>
+                            {this.props.resultsText}
+                        </div>
                 <StateLandingTable
-                    {...this.props} />
+                                {...this.props} />
             </div>
         );
     }

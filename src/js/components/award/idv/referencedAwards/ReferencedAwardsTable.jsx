@@ -37,17 +37,17 @@ export default class ReferencedAwardsTable extends React.Component {
                 className="referenced-awards-table__head-cell"
                 key={col.field}>
                 <div className={col.name === 'obligatedAmount' ? 'header-cell header-cell_right' : 'header-cell'}>
-                    <div className="header-cell__text">
+                        <div className="header-cell__text">
                         <div className="header-cell__title">
-                            {col.label}
-                        </div>
+                                {col.label}
+                            </div>
                     </div>
                     <StateLandingTableSorter
-                        field={col.field}
-                        label={col.label}
-                        active={{ field: sort[tableType], direction: order[tableType] }}
-                        setSort={this.props.updateSort} />
-                </div>
+                            field={col.field}
+                            label={col.label}
+                            active={{ field: sort[tableType], direction: order[tableType] }}
+                            setSort={this.props.updateSort} />
+                    </div>
             </th>
         ));
     }
@@ -101,8 +101,8 @@ export default class ReferencedAwardsTable extends React.Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {this.generateRows()}
-                    </tbody>
+                            {this.generateRows()}
+                        </tbody>
                 </table>
             );
         }
@@ -124,14 +124,14 @@ export default class ReferencedAwardsTable extends React.Component {
                     changePage={this.props.changePage} />
                 {content}
                 <div className="results-table-message-container">
-                    {message}
-                </div>
+                        {message}
+                    </div>
                 <Pagination
-                    resultsText
-                    totalItems={totalItems}
-                    pageSize={this.props.limit}
-                    currentPage={page[tableType]}
-                    changePage={this.props.changePage} />
+                            resultsText
+                            totalItems={totalItems}
+                            pageSize={this.props.limit}
+                            currentPage={page[tableType]}
+                            changePage={this.props.changePage} />
             </div>
         );
     }

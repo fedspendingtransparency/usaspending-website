@@ -32,13 +32,13 @@ const YAxis = ({
         <title>The Y-Axis</title>
         <description>The Y-Axis consisting of a vertical line and labels</description>
         <line
-            tabIndex="0"
-            x1={x1}
-            x2={x2}
-            y1={y1}
-            y2={y2} />
+                tabIndex="0"
+                x1={x1}
+                x2={x2}
+                y1={y1}
+                y2={y2} />
         <g className="y-axis-labels">
-            {
+                        {
                 ticks.map((tick, i) => (
                     <AxisLabel
                         axis="y"
@@ -48,7 +48,7 @@ const YAxis = ({
                         label={tick.label} />
                 ))
             }
-        </g>
+                    </g>
     </g>
 );
 

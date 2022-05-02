@@ -116,17 +116,17 @@ export default class BarYAxis extends React.Component {
             <g className="bar-axis">
                 <title>Y-Axis</title>
                 <desc>
-                    {this.state.description}
-                </desc>
+                        {this.state.description}
+                    </desc>
                 <line
-                    className="y-axis"
-                    x1={this.props.padding.left}
-                    y1={0}
-                    x2={this.props.padding.left}
-                    y2={this.props.height} />
+                            className="y-axis"
+                            x1={this.props.padding.left}
+                            y1={0}
+                            x2={this.props.padding.left}
+                            y2={this.props.height} />
                 <g className="axis-labels">
-                    {this.state.labels}
-                </g>
+                                    {this.state.labels}
+                                </g>
             </g>
         );
     }

@@ -35,10 +35,10 @@ export default class AccountLandingPage extends React.Component {
                         url={getBaseUrl(slug)} />
                 ]}>
                 <main
-                    id="main-content"
-                    className="main-content">
+                        id="main-content"
+                        className="main-content">
                     <AccountLandingContainer />
-                </main>
+                    </main>
             </PageWrapper>
         );
     }

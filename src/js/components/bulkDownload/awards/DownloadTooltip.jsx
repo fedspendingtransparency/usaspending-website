@@ -72,19 +72,19 @@ export default class DownloadTooltip extends React.Component {
                 id="download-disabled-tooltip"
                 role="tooltip">
                 <div className="download-tooltip__interior">
-                    <div className="tooltip-pointer" />
+                        <div className="tooltip-pointer" />
                     <div className="download-tooltip__content">
-                        <div className="download-tooltip__icon">
+                                <div className="download-tooltip__icon">
                             <InfoCircle />
                         </div>
                         <div className="download-tooltip__message">
                             The following fields are required:
-                            <ul className="download-tooltip__list">
+                                <ul className="download-tooltip__list">
                                 {missingFields}
                             </ul>
-                        </div>
+                            </div>
+                            </div>
                     </div>
-                </div>
             </div>
         );
     }

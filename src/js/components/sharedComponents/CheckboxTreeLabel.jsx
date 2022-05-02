@@ -38,19 +38,19 @@ const CheckboxTreeLabel = ({
                         {value}
                     </div>
                     <div className="checkbox-tree-label__value-container-count">
-                        {count ? `${count} ${countDisplay}` : ''}
-                    </div>
+                            {count ? `${count} ${countDisplay}` : ''}
+                        </div>
                 </div>
             )}
             <div className="checkbox-tree-label__label">
-                {label}
-                {subLabel && (
+                    {label}
+                    {subLabel && (
                     <>
                         <br />
                         <span>{subLabel}</span>
                     </>
                 )}
-            </div>
+                </div>
         </div>
     );
 };

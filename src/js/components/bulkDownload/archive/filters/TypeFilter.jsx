@@ -65,14 +65,14 @@ export default class ArchiveTypeFilter extends React.Component {
                 className="field-item"
                 key={`field-${type.name}`}>
                 <button
-                    className="item-button"
-                    title={type.display}
-                    aria-label={type.display}
-                    name={type.display}
-                    value={type.name}
-                    onClick={this.handleTypeSelect}>
-                    {type.display}
-                </button>
+                        className="item-button"
+                        title={type.display}
+                        aria-label={type.display}
+                        name={type.display}
+                        value={type.name}
+                        onClick={this.handleTypeSelect}>
+                        {type.display}
+                    </button>
             </li>
         ));
         let showTypePicker = 'hide';
@@ -93,26 +93,26 @@ export default class ArchiveTypeFilter extends React.Component {
                     Award Type
                 </label>
                 <div className="field-picker type-select">
-                    <button
+                        <button
                         className="selected-button"
                         title={this.props.currentType}
                         aria-label={this.props.currentType}
                         onClick={this.toggleTypePicker}>
                         <div className="label">
-                            {this.props.currentType}
+                                {this.props.currentType}
                             <span className="arrow-icon">
-                                {typeIcon}
-                            </span>
-                        </div>
+                                        {typeIcon}
+                                    </span>
+                            </div>
                     </button>
                     <div
-                        className={`field-list ${showTypePicker}`}
-                        style={{ width: dropDownWidth }}>
+                            className={`field-list ${showTypePicker}`}
+                            style={{ width: dropDownWidth }}>
                         <ul>
-                            {types}
-                        </ul>
+                                    {types}
+                                </ul>
+                        </div>
                     </div>
-                </div>
             </div>
         );
     }

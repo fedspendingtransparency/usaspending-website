@@ -64,14 +64,14 @@ export default class TimeVisualizationSection extends React.Component {
             })
                 .join('\n')
         );
-    }
+    };
 
     downloadTooltip = () => (
         <>
             <div className="tooltip__title">Download data by {capitalize(this.props.data.visualizationPeriod === 'fiscal_year' ? 'year' : this.props.data.visualizationPeriod)}</div>
             <div className="tooltip__text">
                 Download a CSV of award spending data that matches your search criteria, broken down by {this.props.data.visualizationPeriod === 'fiscal_year' ? 'year' : this.props.data.visualizationPeriod}. For complete download results, click on the &quot;Download&quot; button on the top right of this page.
-            </div>
+                </div>
         </>
     );
 
@@ -98,7 +98,7 @@ export default class TimeVisualizationSection extends React.Component {
                 <FontAwesomeIcon icon="download" size="lg" />
                 <span className="text">
                     Download data by {capitalize(this.props.data.visualizationPeriod === 'fiscal_year' ? 'year' : this.props.data.visualizationPeriod)}
-                </span>
+                    </span>
             </button>
         ) : (
             <a
@@ -107,7 +107,7 @@ export default class TimeVisualizationSection extends React.Component {
                 <FontAwesomeIcon icon="download" size="lg" />
                 <span className="text">
                 Download data by {capitalize(this.props.data.visualizationPeriod === 'fiscal_year' ? 'year' : this.props.data.visualizationPeriod)}
-                </span>
+                    </span>
             </a>
         )
     );
@@ -120,54 +120,54 @@ export default class TimeVisualizationSection extends React.Component {
                 aria-label="Spending Over Time">
                 <h2 className="visualization-title">
                     Spending Over Time
-                </h2>
+                    </h2>
                 <hr
-                    className="results-divider"
-                    ref={(hr) => {
+                            className="results-divider"
+                            ref={(hr) => {
                         this.sectionHr = hr;
                     }} />
 
                 <div className="visualization-top">
-                    <div className="visualization-description">
+                            <div className="visualization-description">
                         <div className="content">
                             Spot trends in spending over your chosen time period. Break down your results by years, quarters, or months, and hover over the bars for more detailed information.
-                        </div>
+                                </div>
                     </div>
                     <div className="visualization-period">
-                        <div className="content">
+                            <div className="content">
                             <ul>
-                                <li>
+                                    <li>
                                     <TimeVisualizationPeriodButton
-                                        value="fiscal_year"
-                                        label="Years"
-                                        active={this.props.data.visualizationPeriod === 'fiscal_year'}
-                                        changePeriod={this.props.updateVisualizationPeriod} />
+                                            value="fiscal_year"
+                                            label="Years"
+                                            active={this.props.data.visualizationPeriod === 'fiscal_year'}
+                                            changePeriod={this.props.updateVisualizationPeriod} />
                                 </li>
                                 <li>
-                                    <TimeVisualizationPeriodButton
+                                        <TimeVisualizationPeriodButton
                                         value="quarter"
                                         label="Quarters"
                                         active={this.props.data.visualizationPeriod === 'quarter'}
                                         changePeriod={this.props.updateVisualizationPeriod} />
-                                </li>
+                                    </li>
                                 <li>
-                                    <TimeVisualizationPeriodButton
+                                            <TimeVisualizationPeriodButton
                                         value="month"
                                         label="Months"
                                         active={this.props.data.visualizationPeriod === 'month'}
                                         changePeriod={this.props.updateVisualizationPeriod} />
-                                </li>
-                            </ul>
+                                        </li>
+                                </ul>
                         </div>
                         <div className="download">
-                            {!this.props.data.loading && this.renderDownloadLink()}
-                            {!this.props.data.loading && <TooltipWrapper className="tooltip-wrapper" icon="info" tooltipPosition="left" tooltipComponent={this.downloadTooltip()} />}
+                                {!this.props.data.loading && this.renderDownloadLink()}
+                                {!this.props.data.loading && <TooltipWrapper className="tooltip-wrapper" icon="info" tooltipPosition="left" tooltipComponent={this.downloadTooltip()} />}
+                            </div>
                         </div>
-                    </div>
-                </div>
+                        </div>
                 <TimeVisualization
-                    {...this.props.data}
-                    width={this.state.visualizationWidth} />
+                                {...this.props.data}
+                                width={this.state.visualizationWidth} />
             </section>
         );
     }

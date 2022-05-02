@@ -56,31 +56,31 @@ const CFDAOpportunityTotals = ({ code }) => {
                     <div className="cfda-opportunities__total">
                         <div className="cfda-opportunities__total__title">Open</div>
                         <div className="cfda-opportunities__total__count">
-                            {loading && <div className="dot-pulse" />}
-                            {!loading && totals.posted}
-                        </div>
+                                {loading && <div className="dot-pulse" />}
+                                {!loading && totals.posted}
+                            </div>
                     </div>
                     <div className="cfda-opportunities__total">
-                        <div className="cfda-opportunities__total__title">Closed</div>
+                            <div className="cfda-opportunities__total__title">Closed</div>
                         <div className="cfda-opportunities__total__count">
-                            {loading && <div className="dot-pulse" />}
-                            {!loading && totals.closed}
+                                    {loading && <div className="dot-pulse" />}
+                                    {!loading && totals.closed}
+                                </div>
                         </div>
-                    </div>
                     <div className="cfda-opportunities__total">
-                        <div className="cfda-opportunities__total__title">Archived</div>
+                                <div className="cfda-opportunities__total__title">Archived</div>
                         <div className="cfda-opportunities__total__count">
-                            {loading && <div className="dot-pulse" />}
-                            {!loading && totals.archived}
-                        </div>
-                    </div>
+                                        {loading && <div className="dot-pulse" />}
+                                        {!loading && totals.archived}
+                                    </div>
+                            </div>
                     <div className="cfda-opportunities__total">
-                        <div className="cfda-opportunities__total__title">Forecasted</div>
+                                    <div className="cfda-opportunities__total__title">Forecasted</div>
                         <div className="cfda-opportunities__total__count">
-                            {loading && <div className="dot-pulse" />}
-                            {!loading && totals.forecasted}
-                        </div>
-                    </div>
+                                            {loading && <div className="dot-pulse" />}
+                                            {!loading && totals.forecasted}
+                                        </div>
+                                </div>
                 </div>
             }
             {error.error && <div>{error.message}</div>}

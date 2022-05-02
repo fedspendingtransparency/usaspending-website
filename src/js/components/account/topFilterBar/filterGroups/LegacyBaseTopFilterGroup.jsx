@@ -61,22 +61,22 @@ export default class LegacyBaseTopFilterGroup extends React.Component {
                             {this.props.filter.name}:
                         </div>
                         <div className={`filter-group-close${showClose}`}>
-                            <button
+                                <button
                                 title={`Clear all ${this.props.filter.name} filters`}
                                 aria-label={`Clear all ${this.props.filter.name} filters`}
                                 onClick={this.clearFilterGroup}>
                                 <span className="close-icon">
-                                    <Icons.Close
+                                        <Icons.Close
                                         alt={`Clear all ${this.props.filter.name} filters`} />
-                                </span>
+                                    </span>
                             </button>
-                        </div>
+                            </div>
                     </div>
                     <div className="filter-group-bottom">
-                        <div className="filter-values">
+                            <div className="filter-values">
                             {tags}
                         </div>
-                    </div>
+                        </div>
                 </div>
             </div>
         );

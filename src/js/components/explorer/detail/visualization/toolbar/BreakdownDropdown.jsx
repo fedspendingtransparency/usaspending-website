@@ -168,37 +168,37 @@ export class BreakdownDropdown extends React.Component {
                         See the breakdown by:
                     </div>
                     <div className="breakdown__dropdown">
-                        <button
+                            <button
                             className="dropdown__selection"
                             onClick={this.toggleMenu}>
                             <div className="dropdown__icon">
-                                {icon}
-                            </div>
+                                    {icon}
+                                </div>
                             <div className="dropdown__label">
-                                {sidebarTypes[this.state.active]}
-                            </div>
+                                        {sidebarTypes[this.state.active]}
+                                    </div>
                             <div className="dropdown__arrow">
-                                <FontAwesomeIcon icon="angle-down" />
-                            </div>
+                                            <FontAwesomeIcon icon="angle-down" />
+                                        </div>
                         </button>
 
-                        {dropdown}
-                    </div>
+                            {dropdown}
+                        </div>
                 </div>
                 <div className="view-buttons">
-                    <ViewTypeButton
+                        <ViewTypeButton
                         value="treemap"
                         label="Treemap"
                         icon="th-large"
                         active={this.props.viewType === 'treemap'}
                         changeView={this.props.changeView} />
                     <ViewTypeButton
-                        value="table"
-                        label="Table"
-                        icon="table"
-                        active={this.props.viewType === 'table'}
-                        changeView={this.props.changeView} />
-                </div>
+                                value="table"
+                                label="Table"
+                                icon="table"
+                                active={this.props.viewType === 'table'}
+                                changeView={this.props.changeView} />
+                    </div>
             </div>
         );
     }

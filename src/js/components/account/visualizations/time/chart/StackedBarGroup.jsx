@@ -59,15 +59,15 @@ export default class StackedBarGroup extends React.Component {
                 transform={`translate(${this.props.xPos},0)`}>
                 {items}
                 <rect
-                    className="hit-zone"
-                    fill="rgba(0,0,0,0)"
-                    x={0}
-                    y={0}
-                    width={this.props.hitzone.width}
-                    height={this.props.hitzone.height}
-                    onMouseEnter={this.mouseEntered}
-                    onMouseLeave={this.mouseExited}
-                    onTouchStart={this.barTouched} />
+                        className="hit-zone"
+                        fill="rgba(0,0,0,0)"
+                        x={0}
+                        y={0}
+                        width={this.props.hitzone.width}
+                        height={this.props.hitzone.height}
+                        onMouseEnter={this.mouseEntered}
+                        onMouseLeave={this.mouseExited}
+                        onTouchStart={this.barTouched} />
             </g>
         );
     }

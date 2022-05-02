@@ -28,7 +28,7 @@ export default class AdditionalInfo extends React.Component {
 
     handleClick = () => {
         this.setState({ globalToggle: !this.state.globalToggle });
-    }
+    };
 
     data() {
         const { overview } = this.props;
@@ -215,18 +215,18 @@ export default class AdditionalInfo extends React.Component {
                         <h3 className="award-viz__title">Additional Information</h3>
                     </div>
                     <button
-                        className="award-viz__button"
-                        onClick={this.handleClick}>
-                        {this.state.globalToggle ? 'Collapse All' : 'Expand All'}
-                    </button>
+                            className="award-viz__button"
+                            onClick={this.handleClick}>
+                            {this.state.globalToggle ? 'Collapse All' : 'Expand All'}
+                        </button>
                     <div className="award__row">
-                        <div className="award__col">
+                                <div className="award__col">
                             {firstColumn}
                         </div>
                         <div className="award__col">
-                            {secondColumn}
-                        </div>
-                    </div>
+                                {secondColumn}
+                            </div>
+                            </div>
                 </div>
             </div>
         );

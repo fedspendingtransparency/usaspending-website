@@ -92,29 +92,29 @@ export default class SpecificAwardAmountItem extends React.Component {
                     </div>
                 }
                 <div className="specific-award-amount-wrapper">
-                    <span>$</span>
+                        <span>$</span>
                     <input
-                        type="number"
-                        placeholder="Min"
-                        step="none"
-                        className="specific-award-min"
-                        value={min}
-                        onChange={this.minChange} />
+                                type="number"
+                                placeholder="Min"
+                                step="none"
+                                className="specific-award-min"
+                                value={min}
+                                onChange={this.minChange} />
                     <span>to</span>
                     <input
-                        type="number"
-                        placeholder="Max"
-                        step="none"
-                        className="specific-award-max"
-                        value={max}
-                        onChange={this.maxChange} />
+                            type="number"
+                            placeholder="Max"
+                            step="none"
+                            className="specific-award-max"
+                            value={max}
+                            onChange={this.maxChange} />
                     <IndividualSubmit
-                        disabled={disabled}
-                        className="award-amount-submit"
-                        onClick={this.searchSpecificRange}
-                        label="Filter by custom award amount range"
-                        onKeyDown={onKeyDownHandler} />
-                </div>
+                                    disabled={disabled}
+                                    className="award-amount-submit"
+                                    onClick={this.searchSpecificRange}
+                                    label="Filter by custom award amount range"
+                                    onKeyDown={onKeyDownHandler} />
+                    </div>
             </div>
         );
     }

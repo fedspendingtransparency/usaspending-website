@@ -79,13 +79,13 @@ export default class RecipientLandingSearchBar extends React.Component {
                         onChange={this.onChange}
                         placeholder={`Recipient Name, UEI, or ${GlobalConstants.DUNS_LABEL}DUNS`} />
                     <button
-                        aria-label="Search"
-                        className="search-section__button"
-                        onClick={this.handleClick} >
+                                aria-label="Search"
+                                className="search-section__button"
+                                onClick={this.handleClick} >
                         <div className="search-section__button-icon">
-                            {icon}
-                        </div>
-                    </button>
+                                        {icon}
+                                    </div>
+                            </button>
                 </form>
             </div>
         );

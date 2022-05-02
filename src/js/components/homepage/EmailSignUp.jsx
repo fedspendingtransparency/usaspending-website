@@ -39,12 +39,12 @@ const EmailSignUp = ({
                 <form>
                     <label className="email-label" htmlFor="email">Email Address</label>
                     <input
-                        style={{ margin: (isValid || !emailInput) ? '0 0 6.5rem 0' : '0 0 1rem 0' }}
-                        className="email-input"
-                        type="email"
-                        name="email"
-                        value={emailInput}
-                        onChange={handleEmailInput} />
+                            style={{ margin: (isValid || !emailInput) ? '0 0 6.5rem 0' : '0 0 1rem 0' }}
+                            className="email-input"
+                            type="email"
+                            name="email"
+                            value={emailInput}
+                            onChange={handleEmailInput} />
                     {!isValid && emailInput.length > 0 && (
                         <div className="email-sign-up__validation">
                             <FontAwesomeIcon icon="exclamation-circle" color="#CD2026" />
@@ -52,14 +52,14 @@ const EmailSignUp = ({
                         </div>
                     )}
                     <input
-                        className="submit"
-                        type="submit"
-                        value="SUBMIT"
-                        title="subscribe"
-                        alt="subscribe"
-                        name="subscribe"
-                        disabled={!isValid}
-                        onClick={handleSubmit} />
+                            className="submit"
+                            type="submit"
+                            value="SUBMIT"
+                            title="subscribe"
+                            alt="subscribe"
+                            name="subscribe"
+                            disabled={!isValid}
+                            onClick={handleSubmit} />
                     <input type="hidden" name="list" value="usaspending" />
                     <input type="hidden" name="lists" value="usaspending" />
                     <input type="hidden" name="demographics" value="" />

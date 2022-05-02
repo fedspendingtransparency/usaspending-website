@@ -114,10 +114,10 @@ const FySummary = ({
                 secondaryData={`${percentOfFederalBudget} of the FY ${fy} U.S. federal budget`}
                 label="Total Budgetary Resources Over Time">
                 <BarChart
-                    isLoading={isLoading}
-                    isError={isError}
-                    selectedFy={fy}
-                    agencyBudgetByYear={Object
+                        isLoading={isLoading}
+                        isError={isError}
+                        selectedFy={fy}
+                        agencyBudgetByYear={Object
                         .entries(budgetaryResources)
                         .map(([key, value]) => ({ year: key, budget: value._agencyBudget }))} />
             </VisualizationSection>
@@ -129,10 +129,10 @@ const FySummary = ({
                 secondaryData={`${percentOfBudgetaryResources} of total budgetary resources`}
                 label="Total Obligations Over Time" >
                 <TotalObligationsOverTimeContainer
-                    isLoading={isLoading}
-                    isError={isError}
-                    agencyBudget={budgetaryResources[fy]?._agencyBudget}
-                    obligationsByPeriod={budgetaryResources[fy]?.obligationsByPeriod || []} />
+                        isLoading={isLoading}
+                        isError={isError}
+                        agencyBudget={budgetaryResources[fy]?._agencyBudget}
+                        obligationsByPeriod={budgetaryResources[fy]?.obligationsByPeriod || []} />
             </VisualizationSection>
         ),
         (

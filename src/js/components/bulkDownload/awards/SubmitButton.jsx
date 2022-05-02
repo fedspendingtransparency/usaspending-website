@@ -86,9 +86,9 @@ export default class SubmitButton extends React.Component {
                     className="download-tooltip-spacer"
                     style={style}>
                     <DownloadTooltip
-                        filters={this.props.filters}
-                        validDates={this.props.validDates}
-                        dataType={this.props.dataType} />
+                            filters={this.props.filters}
+                            validDates={this.props.validDates}
+                            dataType={this.props.dataType} />
                 </div>
             );
         }

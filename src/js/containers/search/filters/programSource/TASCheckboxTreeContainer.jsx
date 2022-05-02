@@ -67,12 +67,12 @@ const SearchNote = () => (
         <p>
             The following nested hierarchy shows Agency, Federal Accounts owned by that Agency, and Treasury Account Symbols (TAS) within each Federal Account.
         </p>
-        <br />
-        <p>Filter the options below by typing any of the following:</p>
-        <ul>
+            <br />
+            <p>Filter the options below by typing any of the following:</p>
+            <ul>
             <li>Any part of an Agency name</li>
-            <li>Any part of a Federal Account symbol or title</li>
-            <li>Any part of a Treasury Account Symbol or title.</li>
+                    <li>Any part of a Federal Account symbol or title</li>
+                <li>Any part of a Treasury Account Symbol or title.</li>
         </ul>
     </div>
 );
@@ -181,7 +181,7 @@ export class TASCheckboxTree extends React.Component {
             errorMessage: '',
             showNoResults: false
         });
-    }
+    };
 
     onUncheck = (newChecked, uncheckedNode) => {
         const [newCounts, newUnchecked] = decrementTasCountAndUpdateUnchecked(
@@ -200,7 +200,7 @@ export class TASCheckboxTree extends React.Component {
             getTasAncestryPathForChecked(newUnchecked, this.props.nodes),
             newCounts
         );
-    }
+    };
 
     onCheck = (newChecked) => {
         const [newCounts, newUnchecked] = incrementTasCountAndUpdateUnchecked(
@@ -224,7 +224,7 @@ export class TASCheckboxTree extends React.Component {
         if (this.hint) {
             this.hint.showHint();
         }
-    }
+    };
 
     onCollapse = (newExpandedArray) => {
         if (this.state.isSearch) {
@@ -233,7 +233,7 @@ export class TASCheckboxTree extends React.Component {
         else {
             this.props.setExpandedTas(newExpandedArray);
         }
-    }
+    };
 
     setCheckedStateFromUrlHash = (newChecked) => {
         if (this.props.nodes.length > 0) {
@@ -245,13 +245,13 @@ export class TASCheckboxTree extends React.Component {
             this.props.setCheckedTas(realCheckedWithPlaceholders);
             this.setState({ isLoading: false, isError: false });
         }
-    }
+    };
 
     removeSelectedFilter = (e, node) => {
         e.preventDefault();
         const newChecked = removeStagedTasFilter(this.props.nodes, this.props.checked, node.value);
         this.onUncheck(newChecked, { ...node, checked: false });
-    }
+    };
 
     autoCheckSearchResultDescendants = (checked, expanded, nodes) => {
         const newChecked = expanded
@@ -272,7 +272,7 @@ export class TASCheckboxTree extends React.Component {
             }, []);
 
         return new Set([...checked, ...newChecked]);
-    }
+    };
 
     fetchTas = (id = '', searchStr = '', resolveLoadingIndicator = true) => {
         if (this.request) this.request.cancel();
@@ -346,7 +346,7 @@ export class TASCheckboxTree extends React.Component {
                 }
                 this.request = null;
             });
-    }
+    };
 
     handleTextInputChange = (e) => {
         e.persist();
@@ -365,7 +365,7 @@ export class TASCheckboxTree extends React.Component {
         return this.setState({
             searchString: text
         });
-    }
+    };
 
     render() {
         const {
@@ -391,7 +391,7 @@ export class TASCheckboxTree extends React.Component {
                         definition={<SearchNote />}
                         heading="Find a Treasury Account" />
                 </span>
-                <EntityDropdownAutocomplete
+                    <EntityDropdownAutocomplete
                     placeholder="Type to filter results"
                     searchString={searchString}
                     enabled
@@ -400,7 +400,7 @@ export class TASCheckboxTree extends React.Component {
                     isClearable
                     loading={false}
                     onClear={this.onClear} />
-                <CheckboxTree
+                            <CheckboxTree
                     isError={isError}
                     errorMessage={errorMessage}
                     isLoading={isLoading}
@@ -429,7 +429,7 @@ export class TASCheckboxTree extends React.Component {
                                     title="Click to remove."
                                     aria-label={`Applied filter: ${label}`}>
                                     {label}
-                                    <span className="close">
+                                        <span className="close">
                                         <FontAwesomeIcon icon="times" />
                                     </span>
                                 </button>
@@ -437,7 +437,7 @@ export class TASCheckboxTree extends React.Component {
                         })}
                     </div>
                 )}
-                <SubmitHint ref={(component) => {
+                    <SubmitHint ref={(component) => {
                     this.hint = component;
                 }} />
             </div>

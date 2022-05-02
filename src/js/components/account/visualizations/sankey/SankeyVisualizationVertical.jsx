@@ -399,221 +399,221 @@ ${MoneyFormatter.formatMoney(props.amounts.budgetAuthority)}`
                     height={this.state.graphHeight}>
 
                     <g
-                        className="top-flows"
-                        transform={`translate(0,${this.state.top.flow.y})`}>
+                            className="top-flows"
+                            transform={`translate(0,${this.state.top.flow.y})`}>
                         <SankeyFlowVertical
-                            startX={this.state.top.appropriations.x + this.state.top.flow.x}
-                            endX={this.state.center.x}
-                            width={this.state.top.appropriations.width}
-                            length={this.state.top.flow.length}
-                            description={`Flow of money into total budgetary resources from new \
+                                    startX={this.state.top.appropriations.x + this.state.top.flow.x}
+                                    endX={this.state.center.x}
+                                    width={this.state.top.appropriations.width}
+                                    length={this.state.top.flow.length}
+                                    description={`Flow of money into total budgetary resources from new \
 appropriations`}
-                            style={{
+                                    style={{
                                 fill: '#bfcfd4'
                             }} />
                         <SankeyFlowVertical
-                            startX={this.state.top.other.x + this.state.top.flow.x}
-                            endX={this.state.center.x + this.state.top.appropriations.width}
-                            width={this.state.top.other.width}
-                            length={this.state.top.flow.length}
-                            description={`Flow of money into total budgetary resources from other \
+                                    startX={this.state.top.other.x + this.state.top.flow.x}
+                                    endX={this.state.center.x + this.state.top.appropriations.width}
+                                    width={this.state.top.other.width}
+                                    length={this.state.top.flow.length}
+                                    description={`Flow of money into total budgetary resources from other \
 budgetary resouces`}
-                            style={{
+                                    style={{
                                 fill: '#bfcfd4'
                             }} />
                         <SankeyFlowVertical
-                            startX={this.state.top.bbf.x + this.state.top.flow.x}
-                            endX={(this.state.center.x + this.state.center.width)
+                                    startX={this.state.top.bbf.x + this.state.top.flow.x}
+                                    endX={(this.state.center.x + this.state.center.width)
                                 - this.state.top.bbf.width}
-                            width={this.state.top.bbf.width}
-                            length={this.state.top.flow.length}
-                            description={`Flow of money into total budgetary resources from balance \
+                                    width={this.state.top.bbf.width}
+                                    length={this.state.top.flow.length}
+                                    description={`Flow of money into total budgetary resources from balance \
 brought forward`}
-                            style={{
+                                    style={{
                                 fill: '#bfcfd4'
                             }} />
-                    </g>
+                        </g>
 
                     <g
-                        className="bottom-flow"
-                        transform={`translate(0,\
+                                className="bottom-flow"
+                                transform={`translate(0,\
 ${this.state.center.y + this.state.center.height})`}>
                         <SankeyFlowVertical
-                            startX={this.state.center.x}
-                            endX={this.state.bottom.obligated.x + this.state.bottom.flow.x}
-                            width={this.state.bottom.obligated.width}
-                            length={this.state.bottom.flow.length}
-                            description={`Flow of money out of total budgetary resources to \
+        startX={this.state.center.x}
+        endX={this.state.bottom.obligated.x + this.state.bottom.flow.x}
+        width={this.state.bottom.obligated.width}
+        length={this.state.bottom.flow.length}
+        description={`Flow of money out of total budgetary resources to \
 obligations incurred`}
-                            style={{
+        style={{
                                 fill: '#bfcfd4'
                             }} />
                         <SankeyFlowVertical
-                            startX={this.state.center.x + this.state.bottom.obligated.width}
-                            endX={this.state.bottom.unobligated.x + this.state.bottom.flow.x}
-                            width={this.state.bottom.unobligated.width}
-                            length={this.state.bottom.flow.length}
-                            description={`Flow of money out of total budgetary resources to \
+                                    startX={this.state.center.x + this.state.bottom.obligated.width}
+                                    endX={this.state.bottom.unobligated.x + this.state.bottom.flow.x}
+                                    width={this.state.bottom.unobligated.width}
+                                    length={this.state.bottom.flow.length}
+                                    description={`Flow of money out of total budgetary resources to \
 unobligated balance`}
-                            style={{
+                                    style={{
                                 fill: '#E1E7E9',
                                 stroke: '#597785',
                                 strokeWidth: '1',
                                 strokeDasharray: '5'
                             }} />
-                    </g>
+                            </g>
 
                     <g
-                        className="legend"
-                        transform={`translate(${this.state.legend.x},${this.state.legend.y})`}>
+                                    className="legend"
+                                    transform={`translate(${this.state.legend.x},${this.state.legend.y})`}>
                         <g
-                            transform={`translate(${this.state.legend.appropriations.x},\
+                                            transform={`translate(${this.state.legend.appropriations.x},\
 ${this.state.legend.appropriations.y})`}>
                             <ItemLegend
-                                color="#135259"
-                                y={this.state.labelHeight}
-                                title="New Appropriations"
-                                value={this.state.top.appropriations.label}
-                                hide={this.props.amounts.in.appropriations < 0} />
-                        </g>
+        color="#135259"
+        y={this.state.labelHeight}
+        title="New Appropriations"
+        value={this.state.top.appropriations.label}
+        hide={this.props.amounts.in.appropriations < 0} />
+                                        </g>
                         <g
-                            transform={`translate(${this.state.legend.other.x},\
+                                                transform={`translate(${this.state.legend.other.x},\
 ${this.state.legend.other.y})`}>
                             <ItemLegend
-                                color="#136f69"
-                                y={this.state.labelHeight}
-                                title="Other Budgetary Resources"
-                                value={this.state.top.other.label}
-                                hide={this.props.amounts.in.other < 0} />
-                        </g>
+        color="#136f69"
+        y={this.state.labelHeight}
+        title="Other Budgetary Resources"
+        value={this.state.top.other.label}
+        hide={this.props.amounts.in.other < 0} />
+                                            </g>
                         <g
-                            transform={`translate(${this.state.legend.bbf.x},\
+                                                    transform={`translate(${this.state.legend.bbf.x},\
 ${this.state.legend.bbf.y})`}>
                             <ItemLegend
-                                color="#218e74"
-                                y={this.state.labelHeight}
-                                title="Balance Brought Forward"
-                                value={this.state.top.bbf.label}
-                                hide={this.props.amounts.in.bbf < 0} />
-                        </g>
+        color="#218e74"
+        y={this.state.labelHeight}
+        title="Balance Brought Forward"
+        value={this.state.top.bbf.label}
+        hide={this.props.amounts.in.bbf < 0} />
+                                                </g>
                         <g
-                            transform={`translate(${this.state.legend.budgetAuthority.x},\
+                                                        transform={`translate(${this.state.legend.budgetAuthority.x},\
 ${this.state.legend.budgetAuthority.y})`}>
                             <ItemLegend
-                                color="#3d9851"
-                                y={this.state.labelHeight}
-                                title="Total Budgetary Resources"
-                                value={`\
+        color="#3d9851"
+        y={this.state.labelHeight}
+        title="Total Budgetary Resources"
+        value={`\
 ${MoneyFormatter.formatMoney(this.props.amounts.budgetAuthority)} (100%)`} />
-                        </g>
+                                                    </g>
                         <g
-                            transform={`translate(${this.state.legend.obligated.x},\
+                                                            transform={`translate(${this.state.legend.obligated.x},\
 ${this.state.legend.obligated.y})`}>
                             <ItemLegend
-                                color="#6d8996"
-                                y={this.state.labelHeight}
-                                title="Obligations Incurred"
-                                value={this.state.bottom.obligated.label}
-                                hide={this.props.amounts.out.obligated < 0} />
-                        </g>
+        color="#6d8996"
+        y={this.state.labelHeight}
+        title="Obligations Incurred"
+        value={this.state.bottom.obligated.label}
+        hide={this.props.amounts.out.obligated < 0} />
+                                                        </g>
                         <g
-                            transform={`translate(${this.state.legend.unobligated.x},\
+                                                                transform={`translate(${this.state.legend.unobligated.x},\
 ${this.state.legend.unobligated.y})`}>
                             <ItemLegend
-                                color="#97b5be"
-                                y={this.state.labelHeight}
-                                title="Unobligated Balance"
-                                value={this.state.bottom.unobligated.label}
-                                hide={this.props.amounts.out.unobligated < 0} />
-                        </g>
-                    </g>
+        color="#97b5be"
+        y={this.state.labelHeight}
+        title="Unobligated Balance"
+        value={this.state.bottom.unobligated.label}
+        hide={this.props.amounts.out.unobligated < 0} />
+                                                            </g>
+                                </g>
 
                     <g
-                        className="top-row"
-                        transform={`translate(${this.state.top.x},${this.state.top.y})`}>
+                                        className="top-row"
+                                        transform={`translate(${this.state.top.x},${this.state.top.y})`}>
                         <SankeyBar
-                            color="#135259"
-                            x={this.state.top.appropriations.x}
-                            y={0}
-                            width={this.state.top.appropriations.width}
-                            height={this.state.top.height}
-                            description={this.state.top.appropriations.description} />
+                                                color="#135259"
+                                                x={this.state.top.appropriations.x}
+                                                y={0}
+                                                width={this.state.top.appropriations.width}
+                                                height={this.state.top.height}
+                                                description={this.state.top.appropriations.description} />
 
                         <SankeyBar
-                            color="#136f69"
-                            x={this.state.top.other.x}
-                            y={0}
-                            width={this.state.top.other.width}
-                            height={this.state.top.height}
-                            description={this.state.top.other.description} />
+                                                        color="#136f69"
+                                                        x={this.state.top.other.x}
+                                                        y={0}
+                                                        width={this.state.top.other.width}
+                                                        height={this.state.top.height}
+                                                        description={this.state.top.other.description} />
 
                         <SankeyBar
-                            color="#218e74"
-                            x={this.state.top.bbf.x}
-                            y={0}
-                            width={this.state.top.bbf.width}
-                            height={this.state.top.height}
-                            description={this.state.top.bbf.description} />
-                    </g>
+                                                                color="#218e74"
+                                                                x={this.state.top.bbf.x}
+                                                                y={0}
+                                                                width={this.state.top.bbf.width}
+                                                                height={this.state.top.height}
+                                                                description={this.state.top.bbf.description} />
+                                    </g>
 
                     <g
-                        className="middle-row"
-                        transform={`translate(${this.state.center.x},${this.state.center.y})`}>
+                                            className="middle-row"
+                                            transform={`translate(${this.state.center.x},${this.state.center.y})`}>
                         <SankeyBar
-                            color="#3d9851"
-                            x={0}
-                            y={0}
-                            width={this.state.center.width}
-                            height={this.state.center.height}
-                            description={this.state.center.description} />
-                    </g>
+                                                    color="#3d9851"
+                                                    x={0}
+                                                    y={0}
+                                                    width={this.state.center.width}
+                                                    height={this.state.center.height}
+                                                    description={this.state.center.description} />
+                                        </g>
                     <g
-                        transform={`translate(${this.props.width - 75},\
+                                                transform={`translate(${this.props.width - 75},\
 ${this.state.top.height + (this.state.top.flow.length / 2)}) scale(0.7,0.7)`}>
                         <DirectionLabel
-                            x={0}
-                            y={0}
-                            paddingX={85}
-                            title="Money In">
+        x={0}
+        y={0}
+        paddingX={85}
+        title="Money In">
                             <path
-                                d={`M77.2 143L255 303.7l179.7-160.2 71.3-.4-250.5 \
+                d={`M77.2 143L255 303.7l179.7-160.2 71.3-.4-250.5 \
 225.4L6 143.7`} />
-                        </DirectionLabel>
-                    </g>
+    </DirectionLabel>
+                                            </g>
                     <g
-                        transform={`translate(${this.props.width - 75},\
+                                                    transform={`translate(${this.props.width - 75},\
 ${this.state.center.y + this.state.center.height + (this.state.bottom.flow.length / 2)}) \
 scale(0.7,0.7)`}>
                         <DirectionLabel
-                            x={0}
-                            y={0}
-                            paddingX={100}
-                            title="Money Out">
+        x={0}
+        y={0}
+        paddingX={100}
+        title="Money Out">
                             <path
-                                d={`M77.2 143L255 303.7l179.7-160.2 71.3-.4-250.5 225.4L6 \
+                d={`M77.2 143L255 303.7l179.7-160.2 71.3-.4-250.5 225.4L6 \
 143.7`} />
-                        </DirectionLabel>
-                    </g>
+    </DirectionLabel>
+                                                </g>
 
 
                     <g
-                        className="bottom-row"
-                        transform={`translate(${this.state.bottom.x},${this.state.bottom.y})`}>
+                                                        className="bottom-row"
+                                                        transform={`translate(${this.state.bottom.x},${this.state.bottom.y})`}>
                         <SankeyBar
-                            color="#6d8996"
-                            x={this.state.bottom.obligated.x}
-                            y={0}
-                            width={this.state.bottom.obligated.width}
-                            height={this.state.bottom.height}
-                            description={this.state.bottom.obligated.description} />
+                                                                color="#6d8996"
+                                                                x={this.state.bottom.obligated.x}
+                                                                y={0}
+                                                                width={this.state.bottom.obligated.width}
+                                                                height={this.state.bottom.height}
+                                                                description={this.state.bottom.obligated.description} />
                         <SankeyBar
-                            color="#97b5be"
-                            x={this.state.bottom.unobligated.x}
-                            y={0}
-                            width={this.state.bottom.unobligated.width}
-                            height={this.state.bottom.height}
-                            description={this.state.bottom.unobligated.description} />
-                    </g>
+                                                                        color="#97b5be"
+                                                                        x={this.state.bottom.unobligated.x}
+                                                                        y={0}
+                                                                        width={this.state.bottom.unobligated.width}
+                                                                        height={this.state.bottom.height}
+                                                                        description={this.state.bottom.unobligated.description} />
+                                                    </g>
                 </svg>
                 {disclosures}
             </div>

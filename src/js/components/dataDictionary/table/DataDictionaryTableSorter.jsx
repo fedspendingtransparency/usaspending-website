@@ -33,14 +33,14 @@ const DataDictionaryTableSorter = (props) => {
                 className={`header-sorter__button ${activeAsc}`}
                 onClick={sortAsc}>
                 <ArrowUp
-                    alt={`Sort table by ascending ${props.label}`} />
+                        alt={`Sort table by ascending ${props.label}`} />
             </button>
             <button
-                className={`header-sorter__button ${activeDesc}`}
-                onClick={sortDesc}>
+                    className={`header-sorter__button ${activeDesc}`}
+                    onClick={sortDesc}>
                 <ArrowDown
-                    alt={`Sort table by descending ${props.label}`} />
-            </button>
+                            alt={`Sort table by descending ${props.label}`} />
+                </button>
         </div>
     );
 };

@@ -279,9 +279,9 @@ export default class Autocomplete extends React.Component {
                 aria-expanded={this.state.shown}
                 aria-haspopup="true">
                 <div className="usa-da-typeahead">
-                    <p>{this.props.label}</p>
+                        <p>{this.props.label}</p>
                     <div className="usa-da-typeahead__input">
-                        <input
+                                <input
                             className="autocomplete"
                             ref={(t) => {
                                 this.autocompleteInput = t;
@@ -294,21 +294,21 @@ export default class Autocomplete extends React.Component {
                             aria-activedescendant={activeDescendant}
                             aria-autocomplete="list"
                             maxLength={this.props.characterLimit} />
-                        {loadingIndicator}
-                    </div>
+                                {loadingIndicator}
+                            </div>
                     <div
-                        className="screen-reader-description"
-                        role="alert">
-                        {status}
-                    </div>
+                                    className="screen-reader-description"
+                                    role="alert">
+                                    {status}
+                                </div>
                     <SuggestionHolder
-                        suggestions={this.props.values}
-                        shown={this.state.shown}
-                        selectedIndex={this.state.selectedIndex}
-                        select={this.select.bind(this)}
-                        maxSuggestions={this.props.maxSuggestions}
-                        autocompleteId={this.state.autocompleteId} />
-                </div>
+                                        suggestions={this.props.values}
+                                        shown={this.state.shown}
+                                        selectedIndex={this.state.selectedIndex}
+                                        select={this.select.bind(this)}
+                                        maxSuggestions={this.props.maxSuggestions}
+                                        autocompleteId={this.state.autocompleteId} />
+                    </div>
                 {this.generateWarning()}
             </div>
         );

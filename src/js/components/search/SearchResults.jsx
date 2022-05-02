@@ -49,34 +49,34 @@ export default class SearchResults extends React.Component {
                         className="mobile-filter-button"
                         onClick={this.props.toggleMobileFilters}>
                         <div className="mobile-filter-button-content">
-                            <div className={`mobile-filter-button-count ${showCountBadge}`}>
+                                <div className={`mobile-filter-button-count ${showCountBadge}`}>
                                 {this.props.filterCount}
                             </div>
                             <div className="mobile-filter-button-icon">
-                                <AddFilter alt="Toggle filters" />
-                            </div>
+                                    <AddFilter alt="Toggle filters" />
+                                </div>
                             <div className="mobile-filter-button-label">
-                                {this.pluralizeFilterLabel(this.props.filterCount)}
+                                        {this.pluralizeFilterLabel(this.props.filterCount)}
+                                    </div>
                             </div>
-                        </div>
                     </button>
                 </div>
                 <div className="mobile-search-sidebar">
-                    <MobileFilters
+                        <MobileFilters
                         filters={this.props.filters}
                         filterCount={this.props.filterCount}
                         showMobileFilters={this.props.showMobileFilters}
                         toggleMobileFilters={this.props.toggleMobileFilters} />
-                </div>
+                    </div>
                 <div className="full-search-results-wrapper">
-                    <TopFilterBarContainer {...this.props} />
+                            <TopFilterBarContainer {...this.props} />
                     <div className={`search-results ${mobileFilters}`}>
-                        <VisualizationWrapperContainer
+                                    <VisualizationWrapperContainer
                             isMobile={this.props.isMobile}
                             requestsComplete={this.props.requestsComplete}
                             noFiltersApplied={this.props.noFiltersApplied} />
-                    </div>
-                </div>
+                                </div>
+                        </div>
             </div>
         );
     }

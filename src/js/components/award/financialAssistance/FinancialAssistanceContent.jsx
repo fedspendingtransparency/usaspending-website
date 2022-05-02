@@ -90,46 +90,46 @@ const FinancialAssistanceContent = ({
             className="award-financial-assistance"
             dates={overview.periodOfPerformance}>
             <AwardSection type="row" className="award-overview" id="award-overview">
-                <AwardOverviewLeftSection
+                    <AwardOverviewLeftSection
                     awardingAgency={overview.awardingAgency}
                     recipient={overview.recipient}
                     recordType={overview.recordType}
                     awardType={overview.category}
                     awardId={awardId} />
                 <AwardOverviewRightSection
-                    updateCFDAOverviewLinkClicked={updateCFDAOverviewLinkClicked}
-                    jumpToSection={jumpToSection}
-                    overview={overview} />
-            </AwardSection>
+                            updateCFDAOverviewLinkClicked={updateCFDAOverviewLinkClicked}
+                            jumpToSection={jumpToSection}
+                            overview={overview} />
+                </AwardSection>
             <AwardSection type="row">
-                <AwardAmountsSection
+                        <AwardAmountsSection
                     awardType={overview.category}
                     awardOverview={awardAmountData}
                     jumpToTransactionHistoryTable={jumpToTransactionHistoryTable} />
                 <AwardDescription
-                    description={overview.description}
-                    awardType={overview.category}
-                    awardId={awardId} />
-            </AwardSection>
+                            description={overview.description}
+                            awardType={overview.category}
+                            awardId={awardId} />
+                    </AwardSection>
             <AwardSection type="row">
-                {
+                            {
                     isGrant && <ContractGrantActivityContainer
                         awardId={awardId}
                         awardType={overview.category}
                         dates={overview.periodOfPerformance}
                         jumpToTransactionHistoryTable={jumpToTransactionHistoryTable} />
                 }
-                {!isGrant && (
+                            {!isGrant && (
                     <CFDASection
-                        cfdas={overview.cfdas}
-                        CFDAOverviewLinkClicked={CFDAOverviewLinkClicked}
-                        updateCFDAOverviewLinkClicked={updateCFDAOverviewLinkClicked}
-                        awardTotalObligation={overview._totalObligation} />
+                                cfdas={overview.cfdas}
+                                CFDAOverviewLinkClicked={CFDAOverviewLinkClicked}
+                                updateCFDAOverviewLinkClicked={updateCFDAOverviewLinkClicked}
+                                awardTotalObligation={overview._totalObligation} />
                 )}
                 <FederalAccountsSection
-                    awardType={overview.category}
-                    jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
-            </AwardSection>
+                        awardType={overview.category}
+                        jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
+                        </AwardSection>
             {isGrant && (
                 <AwardSection type="row">
                     <CFDASection
@@ -140,10 +140,10 @@ const FinancialAssistanceContent = ({
                 </AwardSection>
             )}
             <AwardHistory
-                awardId={awardId}
-                overview={overview}
-                setActiveTab={setActiveTab}
-                activeTab={activeTab} />
+                    awardId={awardId}
+                    overview={overview}
+                    setActiveTab={setActiveTab}
+                    activeTab={activeTab} />
             <AdditionalInfo overview={overview} />
         </AwardPageWrapper>
     );

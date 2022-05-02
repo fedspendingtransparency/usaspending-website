@@ -97,10 +97,10 @@ export default class HeaderRow extends React.Component {
                     this._headerDiv = div;
                 }}>
                 <div
-                    className="ibt-header-row"
-                    role="row">
-                    {cells}
-                </div>
+                        className="ibt-header-row"
+                        role="row">
+                        {cells}
+                    </div>
             </div>
         );
     }

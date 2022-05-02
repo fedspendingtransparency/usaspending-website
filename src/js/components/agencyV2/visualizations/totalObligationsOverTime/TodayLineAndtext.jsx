@@ -27,18 +27,18 @@ const TodayLineAndtext = ({
         if (xScale && showTodayLineAndText) {
             setLineXValue(xScale(todaysDate) + padding.left);
         }
-    }, [xScale, showTodayLineAndText]);
+    }, [xScale, showTodayLineAndText, todaysDate, padding.left]);
 
     return (
         <g>
             <desc>A line representing todays date</desc>
             <line
-                tabIndex="0"
-                className="today-line"
-                x1={lineXValue}
-                x2={lineXValue}
-                y1={0}
-                y2={height - padding.bottom} />
+                    tabIndex="0"
+                    className="today-line"
+                    x1={lineXValue}
+                    x2={lineXValue}
+                    y1={0}
+                    y2={height - padding.bottom} />
             <text tabIndex="0" className="today-text" x={lineXValue - 35} y={10}>Today</text>
         </g>
     );

@@ -75,13 +75,13 @@ const ShareIcon = ({
                 value={getBaseUrl(slug)}
                 readOnly />
             <Picker
-                dropdownDirection="left"
-                options={socialSharePickerOptions}
-                selectedOption="copy"
-                backgroundColor="#4A4A4A"
-                sortFn={() => 1}>
+                        dropdownDirection="left"
+                        options={socialSharePickerOptions}
+                        selectedOption="copy"
+                        backgroundColor="#4A4A4A"
+                        sortFn={() => 1}>
                 <FontAwesomeIcon icon="share-alt" size="lg" />
-            </Picker>
+                    </Picker>
             <span>Share</span>
             {showConfirmationText && (
                 <span className="copy-confirmation">

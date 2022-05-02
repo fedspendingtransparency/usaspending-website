@@ -125,16 +125,16 @@ export default class Accordion extends React.Component {
                     onKeyDown={onKeyDownHandler}
                     onClick={this.handleClick}>
                     <span>
-                        <FontAwesomeIcon className={iconClassName} size="lg" icon={accordionIcon} />
-                        {accordionName}
-                    </span>
+                            <FontAwesomeIcon className={iconClassName} size="lg" icon={accordionIcon} />
+                            {accordionName}
+                        </span>
                     <span>
-                        {open}
-                    </span>
+                                {open}
+                            </span>
                 </div>
                 <div className="accordion__content">
-                    {accordionBody}
-                </div>
+                        {accordionBody}
+                    </div>
             </div>
         );
     }

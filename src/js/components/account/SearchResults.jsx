@@ -26,11 +26,11 @@ export default class SearchResults extends React.Component {
             <div className="search-results-wrapper">
                 <AccountTopFilterBarContainer {...this.props} />
                 <div className="search-results">
-                    <AccountTimeVisualizationContainer />
+                        <AccountTimeVisualizationContainer />
                     <AccountRankVisualizationContainer />
                     <AccountAwardsContainer />
-                    {this.props.showNote && <Note message={dodNote} />}
-                </div>
+                        {this.props.showNote && <Note message={dodNote} />}
+                    </div>
             </div>
         );
     }

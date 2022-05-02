@@ -96,8 +96,8 @@ export default class FederalAccountsTable extends React.Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {this.getRows()}
-                        </tbody>
+                                {this.getRows()}
+                            </tbody>
                     </table>
                 </div>
             );

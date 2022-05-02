@@ -71,7 +71,7 @@ const Rectangle = ({
             };
             if (!isNaN(scale(amount))) setData(properties);
         }
-    }, [scale, overviewData, publicLaw === 'american-rescue-plan']);
+    }, [scale, overviewData, dataId, publicLaw]);
     return (
         <g
             tabIndex="0"
@@ -82,20 +82,21 @@ const Rectangle = ({
             onBlur={hideTooltip}>
             <desc>{data.description}</desc>
             <rect
-                className={`${className || ''} ${showTooltip === tooltipId ? 'highlight' : ''}`}
-                data-id={dataId}
-                data-tooltip={tooltipId}
-                x={data.x}
-                y={data.y}
-                width={data.width}
-                height={data.height}
-                fill={data.fill}
-                stroke={data.stroke}
-                strokeWidth={lineStrokeWidth}
-                onMouseMove={displayTooltip}
-                onMouseLeave={hideTooltip} />
+                    className={`${className || ''} ${showTooltip === tooltipId ? 'highlight' : ''}`}
+                    data-id={dataId}
+                    data-tooltip={tooltipId}
+                    x={data.x}
+                    y={data.y}
+                    width={data.width}
+                    height={data.height}
+                    fill={data.fill}
+                    stroke={data.stroke}
+                    strokeWidth={lineStrokeWidth}
+                    onMouseMove={displayTooltip}
+                    onMouseLeave={hideTooltip} />
         </g>
-    ); };
+    );
+};
 
 Rectangle.propTypes = propTypes;
 export default Rectangle;

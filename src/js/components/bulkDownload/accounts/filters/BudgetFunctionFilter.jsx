@@ -108,14 +108,14 @@ export default class BudgetFunctionFilter extends React.Component {
                 className="field-item indent"
                 key={`field-${budgetFunction.budget_function_code}`}>
                 <button
-                    className="item-button"
-                    title={budgetFunction.budget_function_title}
-                    aria-label={budgetFunction.budget_function_title}
-                    value={budgetFunction.budget_function_code}
-                    name={budgetFunction.budget_function_title}
-                    onClick={(e) => this.handleBudgetFunctionSelect(e, budgetFunction.budget_function_code)}>
-                    {budgetFunction.budget_function_title}
-                </button>
+                        className="item-button"
+                        title={budgetFunction.budget_function_title}
+                        aria-label={budgetFunction.budget_function_title}
+                        value={budgetFunction.budget_function_code}
+                        name={budgetFunction.budget_function_title}
+                        onClick={(e) => this.handleBudgetFunctionSelect(e, budgetFunction.budget_function_code)}>
+                        {budgetFunction.budget_function_title}
+                    </button>
             </li>
         ));
 
@@ -124,14 +124,14 @@ export default class BudgetFunctionFilter extends React.Component {
                 className="field-item indent"
                 key={`field-${budgetSubfunction.budget_subfunction_code}`}>
                 <button
-                    className="item-button"
-                    title={budgetSubfunction.budget_subfunction_title}
-                    aria-label={budgetSubfunction.budget_subfunction_title}
-                    value={budgetSubfunction.budget_subfunction_code}
-                    onClick={this.handleBudgetSubfunctionSelect}
-                    name={budgetSubfunction.budget_subfunction_title} >
-                    {budgetSubfunction.budget_subfunction_title} - {budgetSubfunction.budget_subfunction_code}
-                </button>
+                        className="item-button"
+                        title={budgetSubfunction.budget_subfunction_title}
+                        aria-label={budgetSubfunction.budget_subfunction_title}
+                        value={budgetSubfunction.budget_subfunction_code}
+                        onClick={this.handleBudgetSubfunctionSelect}
+                        name={budgetSubfunction.budget_subfunction_title} >
+                        {budgetSubfunction.budget_subfunction_title} - {budgetSubfunction.budget_subfunction_code}
+                    </button>
             </li>
         ));
 
@@ -158,30 +158,30 @@ export default class BudgetFunctionFilter extends React.Component {
                 </h4>
                 <p className="download-filter__info">This is spending divided by a high level categorization based on purpose.</p>
                 <div className="download-filter__container">
-                    <div className="download-filter__content">
+                        <div className="download-filter__content">
                         <div className="filter-picker">
-                            <label className="select-label" htmlFor="agency-select">
+                                <label className="select-label" htmlFor="agency-select">
                             Budget Function
                             </label>
 
                             <div className="field-picker">
-                                <button
+                                    <button
                                     className="selected-button"
                                     title={currentBudgetFunctionTitle}
                                     aria-label={currentBudgetFunctionTitle}
                                     onClick={this.toggleBudgetFunctionPicker}>
                                     <div className="label">
-                                        {currentBudgetFunctionTitle}
-                                    </div>
+                                            {currentBudgetFunctionTitle}
+                                        </div>
                                     <div className="arrow-icon">
-                                        {budgetFunctionIcon}
-                                    </div>
+                                                {budgetFunctionIcon}
+                                            </div>
                                 </button>
 
                                 <div className={`field-list ${showBudgetFunctionPicker}`}>
-                                    <ul>
+                                        <ul>
                                         <li className="field-item">
-                                            <button
+                                                <button
                                                 className="item-button"
                                                 title="All"
                                                 aria-label="all"
@@ -190,38 +190,38 @@ export default class BudgetFunctionFilter extends React.Component {
                                                 onClick={this.handleBudgetFunctionSelect}>
                                             All
                                             </button>
-                                        </li>
+                                            </li>
                                         {budgetFunctions}
                                     </ul>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
                     </div>
 
                     <div className="download-filter__content">
-                        <div className="federal-picker">
+                            <div className="federal-picker">
                             <label className={`select-label ${budgetSubfunctionDisabled}`} htmlFor="federal-select">
                             Budget Sub-function
-                            </label>
+                                </label>
                             <div className="field-picker">
-                                <button
+                                        <button
                                     className={`selected-button ${budgetSubfunctionDisabled}`}
                                     title={currentBudgetSubfunctionTitle}
                                     aria-label={currentBudgetSubfunctionTitle}
                                     disabled={disabled}
                                     onClick={this.toggleBudgetSubfunctionPicker} >
                                     <div className="label">
-                                        {currentBudgetSubfunctionTitle}
-                                    </div>
+                                            {currentBudgetSubfunctionTitle}
+                                        </div>
                                     <div className="arrow-icon">
-                                        {budgetSubfunctionIcon}
-                                    </div>
+                                                {budgetSubfunctionIcon}
+                                            </div>
                                 </button>
 
                                 <div className={`field-list ${showBudgetSubfunctionPicker}`}>
-                                    <ul>
+                                        <ul>
                                         <li className="field-item indent">
-                                            <button
+                                                <button
                                                 className="item-button"
                                                 title="All"
                                                 aria-label="all"
@@ -230,14 +230,14 @@ export default class BudgetFunctionFilter extends React.Component {
                                                 onClick={this.handleBudgetSubfunctionSelect}>
                                             All
                                             </button>
-                                        </li>
+                                            </li>
                                         {budgetSubfunctions}
                                     </ul>
-                                </div>
-                            </div>
+                                    </div>
+                                    </div>
+                        </div>
                         </div>
                     </div>
-                </div>
             </div>
         );
     }

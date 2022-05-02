@@ -37,27 +37,27 @@ export default class DataDictionary extends React.Component {
                     The data dictionary below shows detailed information about the data available in our download
                     files, including the definition of each element and its element name on the legacy USAspending.gov
                     website.
-                </p>
+                    </p>
                 <div className="data-dictionary__search-download">
-                    <SearchBar
+                            <SearchBar
                         onSearch={this.props.setSearchString}
                         placeholder="Search by Term" />
                     <div className="data-dictionary__download">
-                        <a
+                                <a
                             className="data-dictionary__download-link"
                             onClick={handleDownloadClick}
                             href={this.props.downloadLocation}>
                             <div className="data-dictionary__download-icon">
-                                <FontAwesomeIcon icon="file-excel" />
-                            </div>
+                                    <FontAwesomeIcon icon="file-excel" />
+                                </div>
                         Download
                         </a>
-                    </div>
-                </div>
+                            </div>
+                        </div>
                 <div className="data-dictionary__table-wrapper">
-                    <DataDictionaryTable
+                                <DataDictionaryTable
                         {...this.props} />
-                </div>
+                            </div>
             </div>
         );
     }

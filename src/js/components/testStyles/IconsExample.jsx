@@ -20,8 +20,8 @@ export default class IconsExample extends React.Component {
                     <Icon />
                 </div>
                 <div className="icon-label">
-                    {this.props.label}
-                </div>
+                        {this.props.label}
+                    </div>
             </li>
         );
     }

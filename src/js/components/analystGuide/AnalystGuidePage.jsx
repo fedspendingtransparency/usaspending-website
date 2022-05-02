@@ -53,23 +53,23 @@ const AnalystGuidePage = () => {
             noHeader
             metaTagProps={{ ...analystGuideMetaTags }}>
             <main id="main-content" className="main-content">
-                <section>
+                    <section>
                     <AnalystGuideHeader title="Analyst&apos;s Guide to Federal Spending Data" subtitle="Guidance on effectively using USAspending.gov data." />
                 </section>
                 <FlexGridRow style={{ justifyContent: 'center' }}>
-                    <FlexGridCol desktop={6} tablet={12} className="analyst-guide-body">
+                        <FlexGridCol desktop={6} tablet={12} className="analyst-guide-body">
                         <div className="analyst-guide__share-wrapper">
-                            <ShareIcon
+                                <ShareIcon
                                 url={getBaseUrl(slug)}
                                 onShareOptionClick={onShareClick}
                                 colors={{ backgroundColor: "white", color: "#0071bc" }}
                                 classNames="" />
-                        </div>
+                            </div>
                         <AnalystGuideIntro onExternalLinkClick={onExternalLinkClick} />
                         <AnalystGuideQuestions onExternalLinkClick={onExternalLinkClick} />
                     </FlexGridCol>
-                </FlexGridRow>
-            </main>
+                    </FlexGridRow>
+                </main>
         </PageWrapper>}
     </>);
 };

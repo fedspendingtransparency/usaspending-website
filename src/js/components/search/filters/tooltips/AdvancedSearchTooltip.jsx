@@ -14,12 +14,12 @@ export const KeyWordTooltip = () => (
            Keyword
         </h3>
         <div className="advanced-search-tt__body">
-            <p>
+                <p>
                 The <strong>Keyword</strong> field currently matches against
                 the following attributes:
             </p>
             <ul className="advanced-search-tt__list">
-                <li>Recipient Name</li>
+                    <li>Recipient Name</li>
                 <li>Recipient UEI</li>
                 <li>Recipient Parent UEI</li>
                 <li>Recipient {DUNS_LABEL}DUNS</li>
@@ -30,8 +30,8 @@ export const KeyWordTooltip = () => (
                 <li>FAIN (prime award only)</li>
                 <li>URI</li>
                 <li>Award Description</li>
-            </ul>
-        </div>
+                </ul>
+            </div>
     </div>
 );
 
@@ -41,10 +41,10 @@ export const DEFTooltip = () => (
            Disaster Emergency Fund Code (DEFC)
         </h3>
         <div className="advanced-search-tt__body">
-            <p>Disaster Emergency Fund Code (DEFC) is an accounting attribute used to track the spending of supplemental funding for disasters and emergencies such as COVID-19. Each code corresponds to one or more legislative bills that authorized the funding.</p>
+                <p>Disaster Emergency Fund Code (DEFC) is an accounting attribute used to track the spending of supplemental funding for disasters and emergencies such as COVID-19. Each code corresponds to one or more legislative bills that authorized the funding.</p>
 
             <p>By selecting DEFC in this filter and clicking the &quot;Submit Search&quot; button, awards that received funding categorized by DEFC will be displayed in the &quot;Spending by Prime Award&quot; table to the right. The &quot;COVID-19 Obligations&quot; and &quot;COVID-19 Outlays&quot; columns in this table show specific spending amounts for each award.</p>
-        </div>
+            </div>
     </div>
 );
 
@@ -63,16 +63,16 @@ export const CSSOnlyTooltip = (props) => (
         {<span className="tooltip-popover-container__description">{props.description}</span> || ''}
         <FontAwesomeIcon icon="info-circle" />
         <span className="advanced-search-css-tooltip tooltip-popover">
-            <div className="advanced-search-css-tooltip__heading">
+                <div className="advanced-search-css-tooltip__heading">
                 {props.heading}
             </div>
             <div className="advanced-search-css-tooltip__definition">
-                {props.definition}
-            </div>
+                    {props.definition}
+                </div>
             <div className="advanced-search-css-tooltip__example">
-                {props.example ? `Example value: ${props.example}` : ''}
-            </div>
-        </span>
+                        {props.example ? `Example value: ${props.example}` : ''}
+                    </div>
+            </span>
     </div>
 );
 

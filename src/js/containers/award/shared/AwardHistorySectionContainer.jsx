@@ -61,7 +61,7 @@ export class AwardHistory extends React.Component {
         if (!this.tableWidthController) return;
         const tableWidth = this.tableWidthController.clientWidth - 2;
         this.setState({ tableWidth });
-    }
+    };
 
     setTableTabsAndGetCounts(award = this.props.overview) {
         if (this.countRequest) {
@@ -128,7 +128,7 @@ export class AwardHistory extends React.Component {
             default:
                 return null;
         }
-    }
+    };
 
     render() {
         const {
@@ -151,26 +151,26 @@ export class AwardHistory extends React.Component {
                     tooltip={tooltip}
                     tooltipWide={(overview.category === 'contract')} />
                 <div className="tables-section">
-                    <DetailsTabBar
+                            <DetailsTabBar
                         awardId={awardId}
                         tabOptions={tabOptions}
                         activeTab={activeTab}
                         clickTab={setActiveTab} />
                     <ResultsTablePicker
-                        types={tabOptions}
-                        active={activeTab}
-                        switchTab={setActiveTab} />
+                                types={tabOptions}
+                                active={activeTab}
+                                switchTab={setActiveTab} />
                     <div
-                        className="tables-width-master"
-                        ref={(div) => {
+                                        className="tables-width-master"
+                                        ref={(div) => {
                             // this is an empty div that scales via CSS
                             // the results table width will follow this div's width
                             this.tableWidthController = div;
                         }} />
                     <div className="tables-content">
-                        {this.currentSection()}
-                    </div>
-                </div>
+                                {this.currentSection()}
+                            </div>
+                        </div>
             </div>
         );
     }

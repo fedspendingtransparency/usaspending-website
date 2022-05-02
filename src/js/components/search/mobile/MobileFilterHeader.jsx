@@ -28,19 +28,19 @@ export default class MobileFilterHeader extends React.Component {
                     {this.pluralizeFilters(this.props.filterCount)}
                 </div>
                 <div className="filter-header-collapse">
-                    <button
+                        <button
                         className="filter-collapse"
                         onClick={this.props.toggleMobileFilters}>
                         <div className="filter-collapse-content">
-                            <div className="icon">
+                                <div className="icon">
                                 <ArrowUp alt="Hide Filters" />
                             </div>
                             <div className="label">
                                 Hide Filters
+                                </div>
                             </div>
-                        </div>
                     </button>
-                </div>
+                    </div>
             </div>
         );
     }

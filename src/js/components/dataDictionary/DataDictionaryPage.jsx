@@ -21,8 +21,8 @@ export default class DataDictionaryPage extends React.Component {
             overLine="resources"
             title="Data Dictionary">
             <div id="main-content">
-                <DataDictionaryContainer />
-            </div>
+                    <DataDictionaryContainer />
+                </div>
         </PageWrapper>
     );
 }

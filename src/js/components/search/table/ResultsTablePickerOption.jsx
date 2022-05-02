@@ -53,13 +53,13 @@ export default class ResultsTablePickerOption extends React.Component {
                 className="field-item"
                 key={`field-${this.props.label}`}>
                 <button
-                    className={`item-button table-type-toggle${activeClass}${status}`}
-                    onClick={this.clickedTab}
-                    title={`Show ${this.props.label}`}
-                    disabled={disabledStatus}>
-                    {this.props.label}
-                    {comingSoon}
-                </button>
+                        className={`item-button table-type-toggle${activeClass}${status}`}
+                        onClick={this.clickedTab}
+                        title={`Show ${this.props.label}`}
+                        disabled={disabledStatus}>
+                        {this.props.label}
+                        {comingSoon}
+                    </button>
             </li>
         );
     }

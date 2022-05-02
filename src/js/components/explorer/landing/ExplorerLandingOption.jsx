@@ -27,20 +27,20 @@ const ExplorerLandingOption = (props) => {
                 {icon}
             </div>
             <h2 className="landing-option__title">
-                {props.title}
+                    {props.title}
                 <Link to={`/explorer?glossary=${props.term}`}>
-                    <Icons.Glossary />
-                </Link>
-            </h2>
+                            <Icons.Glossary />
+                        </Link>
+                </h2>
             <div className="landing-option__description">
-                {props.description}
-            </div>
+                        {props.description}
+                    </div>
 
             <Link
-                className="landing-option__button"
-                to={props.url}>
+                            className="landing-option__button"
+                            to={props.url}>
                 Start
-            </Link>
+                        </Link>
         </div>
     );
 };

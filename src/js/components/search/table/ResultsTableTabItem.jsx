@@ -46,7 +46,8 @@ export default class ResultsTableTabItem extends React.Component {
         else if (!this.props.hideCounts && (!this.props.count || this.props.count === 0)) {
             disabledStatus = true;
             disabledClass = ' disabled';
-        } else {
+        }
+        else {
             disabledStatus = false;
             disabledClass = '';
         }
@@ -79,12 +80,12 @@ export default class ResultsTableTabItem extends React.Component {
                     tabIndex={0}
                     disabled={disabledStatus}>
                     <div className="tab-content">
-                        <div className="tab-label">
+                            <div className="tab-label">
                             {this.props.label}
                         </div>
-                        {count}
-                        {this.props.tooltip}
-                    </div>
+                            {count}
+                            {this.props.tooltip}
+                        </div>
                 </div>
             </div>
         );

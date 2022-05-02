@@ -71,7 +71,7 @@ const TableHeaderCell = (props) => {
                 className="cell-content"
                 style={customStyle}>
                 <div className="header-sort">
-                    <div
+                        <div
                         onClick={clickedDefault}
                         onKeyDown={pressedKey}
                         className="header-label"
@@ -81,26 +81,26 @@ const TableHeaderCell = (props) => {
                         {props.displayName}{props.subtitle ? (<div>{props.subtitle}</div>) : ''}
                     </div>
                     <div className="header-icons">
-                        <button
+                            <button
                             onClick={clickedSort}
                             className={`sort-icon${sortClass('asc')}`}
                             value="asc"
                             title={`Sort table by ascending ${props.title}`}
                             aria-label={`Sort table by ascending ${props.title}`}>
                             <ArrowUp
-                                alt={`Sort table by ascending ${props.title}`} />
+                                    alt={`Sort table by ascending ${props.title}`} />
                         </button>
                         <button
-                            onClick={clickedSort}
-                            className={`sort-icon${sortClass('desc')}`}
-                            value="desc"
-                            title={`Sort table by descending ${props.title}`}
-                            aria-label={`Sort table by descending ${props.title}`}>
+                                onClick={clickedSort}
+                                className={`sort-icon${sortClass('desc')}`}
+                                value="desc"
+                                title={`Sort table by descending ${props.title}`}
+                                aria-label={`Sort table by descending ${props.title}`}>
                             <ArrowDown
-                                alt={`Sort table by descending ${props.title}`} />
-                        </button>
+                                        alt={`Sort table by descending ${props.title}`} />
+                            </button>
+                        </div>
                     </div>
-                </div>
             </div>
         </div>
     );

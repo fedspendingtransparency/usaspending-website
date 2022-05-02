@@ -25,12 +25,12 @@ const InfoBanner = (props) => {
                         {props.content}
                     </div>
                     <button
-                        className="info-banner__close-button"
-                        title="Dismiss message"
-                        aria-label="Dismiss message"
-                        onClick={bannerClosed}>
+                            className="info-banner__close-button"
+                            title="Dismiss message"
+                            aria-label="Dismiss message"
+                            onClick={bannerClosed}>
                         <FontAwesomeIcon size="lg" alt="Dismiss message" icon="times" />
-                    </button>
+                        </button>
                 </>
             </div>
         </div>

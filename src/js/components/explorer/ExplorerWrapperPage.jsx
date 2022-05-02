@@ -46,10 +46,10 @@ const ExplorerWrapperPage = (props) => {
             ]
                 .filter(() => props.showShareIcon)}>
             <main
-                id="main-content"
-                className="main-content">
-                {props.children}
-            </main>
+                        id="main-content"
+                        className="main-content">
+                        {props.children}
+                    </main>
         </PageWrapper>
     );
 };

@@ -35,30 +35,30 @@ export default class AccountLandingContent extends React.Component {
                     </h2>
                     <div className="landing-page__description">
                         The government has more than 2,000 unique Federal Accounts, which are similar to bank accounts. Use our Federal Account Profiles to get a better understanding of how agencies receive and spend congressional funding to carry out their programs, projects, and activities.
-                    </div>
+                        </div>
                 </div>
                 <AccountLandingSearchBar
-                    setAccountSearchString={this.props.setAccountSearchString} />
+                        setAccountSearchString={this.props.setAccountSearchString} />
                 <p className="landing-page__tagline">Curious to see how these accounts are organized? <span className="landing-page__tagline_light">Check out the Data Lab&#8217;s <a href="https://datalab.usaspending.gov/federal-account-explorer.html" target="_blank" rel="noopener noreferrer"><img className="landing-page__tagline-icon" src="img/sitemap.png" alt="sitemap icon" />Federal Account Explorer</a></span></p>
                 <Pagination
-                    resultsText
-                    changePage={this.props.onChangePage}
-                    currentPage={this.props.pageNumber}
-                    totalItems={this.props.totalItems}
-                    pageSize={this.props.pageSize} />
+                        resultsText
+                        changePage={this.props.onChangePage}
+                        currentPage={this.props.pageNumber}
+                        totalItems={this.props.totalItems}
+                        pageSize={this.props.pageSize} />
                 <AccountLandingResultsSection
-                    columns={this.props.columns}
-                    results={this.props.results}
-                    inFlight={this.props.inFlight}
-                    error={this.props.error}
-                    searchString={this.props.searchString}
-                    order={this.props.order}
-                    updateSort={this.props.updateSort} />
+                                columns={this.props.columns}
+                                results={this.props.results}
+                                inFlight={this.props.inFlight}
+                                error={this.props.error}
+                                searchString={this.props.searchString}
+                                order={this.props.order}
+                                updateSort={this.props.updateSort} />
                 <Pagination
-                    changePage={this.props.onChangePage}
-                    currentPage={this.props.pageNumber}
-                    totalItems={this.props.totalItems}
-                    pageSize={this.props.pageSize} />
+                                        changePage={this.props.onChangePage}
+                                        currentPage={this.props.pageNumber}
+                                        totalItems={this.props.totalItems}
+                                        pageSize={this.props.pageSize} />
             </div>
         );
     }

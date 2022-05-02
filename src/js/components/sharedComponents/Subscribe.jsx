@@ -12,7 +12,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export default class Subscribe extends React.Component {
     static propTypes = {
         pageName: PropTypes.string.isRequired
-    }
+    };
 
     trackLink = () => Analytics.event({
         category: this.props.pageName,
@@ -28,17 +28,17 @@ export default class Subscribe extends React.Component {
                 </div>
                 <div className="subscribe__callout">
                     Stay in touch with us!&nbsp;
-                </div>
+                    </div>
                 <div className="subscribe__message">
                     Receive updates on USAspending.gov
-                </div>
+                        </div>
                 <a
-                    className="subscribe__link"
-                    href="mailto:join-usaspending@lists.fiscal.treasury.gov?subject=Yes!%20I'd%20like%20to%20receive%20updates."
-                    onClick={this.trackLink}>
+                                className="subscribe__link"
+                                href="mailto:join-usaspending@lists.fiscal.treasury.gov?subject=Yes!%20I'd%20like%20to%20receive%20updates."
+                                onClick={this.trackLink}>
                     Sign Up
                     <FontAwesomeIcon icon={faCaretRight} />
-                </a>
+                            </a>
             </div>
         );
     }

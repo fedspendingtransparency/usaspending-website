@@ -15,7 +15,7 @@ const NoFiltersScreen = () => (
             </div>
             <div className="message">
                 Choose your filters and submit your search to begin.
-            </div>
+                </div>
         </div>
     </div>
 );

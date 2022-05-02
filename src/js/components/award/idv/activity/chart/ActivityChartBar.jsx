@@ -47,14 +47,14 @@ export default class ActivityChartBar extends React.Component {
                 }}>
                 <defs>{this.props.pattern}</defs>
                 <desc>
-                    {this.props.description}
-                </desc>
+                        {this.props.description}
+                    </desc>
                 <rect
-                    style={this.props.style}
-                    x={this.props.start}
-                    y={this.props.yPosition}
-                    width={this.props.width}
-                    height={this.props.height} />
+                            style={this.props.style}
+                            x={this.props.start}
+                            y={this.props.yPosition}
+                            width={this.props.width}
+                            height={this.props.height} />
             </g>
         );
     }

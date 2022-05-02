@@ -96,7 +96,7 @@ export default class RecipientType extends React.Component {
                         {checkboxTypes}
                     </ul>
                     <SubmitHint
-                        ref={(component) => {
+                            ref={(component) => {
                             this.hint = component;
                         }} />
                 </div>

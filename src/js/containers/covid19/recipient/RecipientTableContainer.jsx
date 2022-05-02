@@ -125,10 +125,10 @@ export const parseRows = (rows, activeTab, query) => (
                     {description}&nbsp;(
                     <Link onClick={handleClick} to={`/recipient/${rowData._childId}/latest`}>
                         as Child
-                    </Link>,&nbsp;
+                        </Link>,&nbsp;
                     <Link onClick={handleClick} to={`/recipient/${rowData._recipientId}/latest`}>
                         as Recipient
-                    </Link>
+                            </Link>
                     )
                 </>
             );
@@ -217,7 +217,7 @@ const RecipientTableContainer = ({ activeTab, prevActiveTab, scrollIntoView }) =
         }
     };
 
-    const fetchSpendingByRecipientCallback = () => {
+    const fetchSpendingByRecipientCallback = useCallback(() => {
         if (request.current) {
             request.current.cancel();
         }
@@ -260,13 +260,13 @@ const RecipientTableContainer = ({ activeTab, prevActiveTab, scrollIntoView }) =
                     }
                 });
         }
-    };
+    });
 
     useEffect(() => {
         if (Object.keys(recipientTotals).length && results.length) {
             addUnlinkedData();
         }
-    }, [recipientTotals, resultTotal, results]);
+    }, [addUnlinkedData, recipientTotals, resultTotal, results]);
 
     useEffect(() => {
         // Reset to the first page
@@ -291,15 +291,15 @@ const RecipientTableContainer = ({ activeTab, prevActiveTab, scrollIntoView }) =
                 fetchSpendingByRecipientCallback();
             }
         }
-    }, [pageSize, defcParams, sort, order, activeTab, query]);
+    }, [pageSize, defcParams, sort, order, activeTab, query, currentPage, prevOrder, prevSort, prevPageSize, prevQuery, prevActiveTab, prevDefcParams, fetchSpendingByRecipientCallback, setSort, setOrder]);
 
     useEffect(() => {
         fetchSpendingByRecipientCallback();
-    }, [currentPage]);
+    }, [currentPage, fetchSpendingByRecipientCallback]);
 
     useEffect(() => {
         scrollIntoView(loading, error, errorOrLoadingWrapperRef, tableWrapperRef, 130, true);
-    }, [loading, error]);
+    }, [loading, error, scrollIntoView]);
 
     return (
         <div ref={tableWrapperRef}>
@@ -324,14 +324,14 @@ const RecipientTableContainer = ({ activeTab, prevActiveTab, scrollIntoView }) =
                 pageSize={pageSize}
                 totalItems={totalItems} />}
             <div ref={tableRef} className={`table-wrapper ${unlinkedDataClass ? 'unlinked-data' : ''}`} >
-                <Table
+                        <Table
                     columns={activeTab === 'loans' ? loanColumns : columns}
                     rows={parsedRows}
                     updateSort={updateSort}
                     currentSort={{ field: sort, direction: order }}
                     error={error}
                     loading={loading} />
-            </div>
+                    </div>
             {(results.length > 0 || error) && <Pagination
                 currentPage={currentPage}
                 changePage={changeCurrentPage}

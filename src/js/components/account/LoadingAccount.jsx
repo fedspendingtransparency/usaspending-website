@@ -21,14 +21,14 @@ export default class LoadingAccount extends React.Component {
             <div className="usa-da-account-page">
                 <Header />
                 <main
-                    id="main-content"
-                    className="main-content">
+                        id="main-content"
+                        className="main-content">
                     <div className="wrapper">
-                        <Error
+                                <Error
                             title="Loading..."
                             message="" />
-                    </div>
-                </main>
+                            </div>
+                    </main>
                 <Footer pageName="Loading Account" />
             </div>
         );

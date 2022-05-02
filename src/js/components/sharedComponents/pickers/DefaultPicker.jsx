@@ -89,11 +89,11 @@ export default class DefaultPicker extends Component {
                     key={`${key}`}
                     className="default-picker__list-item">
                     <button
-                        className="default-picker__item"
-                        value={value}
-                        onClick={this.clickedYear}>
-                        {prepend} {label} {append}
-                    </button>
+                            className="default-picker__item"
+                            value={value}
+                            onClick={this.clickedYear}>
+                            {prepend} {label} {append}
+                        </button>
                 </li>
             );
         });
@@ -120,28 +120,28 @@ export default class DefaultPicker extends Component {
                     this.pickerRef = div;
                 }}>
                 <div className="default-picker__header">
-                    <div className="default-picker__icon">
+                        <div className="default-picker__icon">
                         {prepend}
                     </div>
                     <div className="default-picker__dropdown-container">
-                        <button
+                            <button
                             className="default-picker__button"
                             onClick={this.toggleList}>
                             <div className="default-picker__button-text">
-                                {prependSelection} {defaultSelection.toString()}
-                            </div>
+                                    {prependSelection} {defaultSelection.toString()}
+                                </div>
                             <div className="default-picker__button-icon">
-                                <FontAwesomeIcon size="lg" icon="chevron-down" />
-                            </div>
+                                        <FontAwesomeIcon size="lg" icon="chevron-down" />
+                                    </div>
                         </button>
                         <ul className={`default-picker__list ${visibleClass}`}>
-                            {menu}
-                        </ul>
-                    </div>
+                                {menu}
+                            </ul>
+                        </div>
                     <div className="default-picker__icon">
-                        {append}
+                                {append}
+                            </div>
                     </div>
-                </div>
             </div>
         );
     }

@@ -18,9 +18,9 @@ const Licensing = () => {
             id="about-licensing">
             <h2 className="about-section-title">
                 Licensing
-            </h2>
+                </h2>
             <div className="about-section-content">
-                <p>
+                        <p>
                     The U.S. Department of the Treasury, Bureau of the Fiscal
                     Service is committed to providing open data to enable effective
                     tracking of federal spending.  The data on this site is available
@@ -29,11 +29,11 @@ const Licensing = () => {
                     Use of Dun &amp; Bradstreet, Inc. Data&nbsp;
                     <Link to="/db_info">
                         noted on the homepage
-                    </Link>.
+                            </Link>.
                 </p>
                 <p>
                     The code in our&nbsp;
-                    <button
+                        <button
                         className="usa-button-link"
                         role="link"
                         onClick={onClick}>
@@ -42,8 +42,8 @@ const Licensing = () => {
                     </button>
                     &nbsp;is available for public use under the Creative
                     Commons CC0 Public Domain Dedication license.
-                </p>
-            </div>
+                    </p>
+                    </div>
         </div>
     );
 };

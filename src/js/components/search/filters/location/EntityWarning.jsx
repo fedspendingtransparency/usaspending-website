@@ -18,11 +18,11 @@ const EntityWarning = (props) => (
         <div className="warning-content">
             <div className="tooltip-pointer left" />
             <div className="icon">
-                <ExclamationTriangle alt="Warning" />
-            </div>
+                    <ExclamationTriangle alt="Warning" />
+                </div>
             <div className="message">
-                {props.message}
-            </div>
+                        {props.message}
+                    </div>
         </div>
     </div>
 );

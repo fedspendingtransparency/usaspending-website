@@ -46,17 +46,17 @@ export default class SubmissionTypeFilter extends React.Component {
                 className="checkbox"
                 key={type.name}>
                 <input
-                    type="checkbox"
-                    aria-label={type.name}
-                    value={type.name}
-                    name="submission-type"
-                    checked={this.props.currentSubmissionTypes.includes(type.name)}
-                    onChange={this.onChange} />
+                        type="checkbox"
+                        aria-label={type.name}
+                        value={type.name}
+                        name="submission-type"
+                        checked={this.props.currentSubmissionTypes.includes(type.name)}
+                        onChange={this.onChange} />
                 <label
-                    className="checkbox-label"
-                    htmlFor="submission-type">
-                    {type.label}
-                </label>
+                                className="checkbox-label"
+                                htmlFor="submission-type">
+                                {type.label}
+                            </label>
             </div>
         ));
 
@@ -66,9 +66,9 @@ export default class SubmissionTypeFilter extends React.Component {
                     {icon} Select a <span className="download-filter__title_em">file type</span>.
                 </h3>
                 <div className="download-filter__content">
-                    {submissionTypes}
+                        {submissionTypes}
                     <p className="download-filter__content-note"><span className="download-filter__content-note_bold">*Note:</span> This file links agency financial data to award data. Columns related to award data will be blank when this linkage cannot be made.</p>
-                </div>
+                    </div>
             </div>
         );
     }

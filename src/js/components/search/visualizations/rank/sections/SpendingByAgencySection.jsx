@@ -32,26 +32,26 @@ export default class SpendingByAgencySection extends React.Component {
                         for more detailed information.
                     </div>
                     <div className={`visualization-scope ${this.props.hideSuboptionBar}`}>
-                        <RankVisualizationScopeButton
+                            <RankVisualizationScopeButton
                             value="awarding_agency"
                             label="Agencies"
                             active={this.props.scope === 'awarding_agency'}
                             changeScope={this.props.changeScope} />
                         <RankVisualizationScopeButton
-                            value="awarding_subagency"
-                            label="Sub-Agencies"
-                            active={this.props.scope === 'awarding_subagency'}
-                            changeScope={this.props.changeScope} />
+                                    value="awarding_subagency"
+                                    label="Sub-Agencies"
+                                    active={this.props.scope === 'awarding_subagency'}
+                                    changeScope={this.props.changeScope} />
                         <div className="coming-soon">
-                            <RankVisualizationScopeButton
+                                            <RankVisualizationScopeButton
                                 value="office"
                                 label="Offices"
                                 active={this.props.scope === 'office'}
                                 changeScope={this.props.changeScope}
                                 disabled />
                             <ComingSoonLabel />
+                                        </div>
                         </div>
-                    </div>
                 </div>
             </RankVisualizationSection>
         );

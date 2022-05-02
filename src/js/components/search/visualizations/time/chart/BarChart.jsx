@@ -389,14 +389,14 @@ export default class BarChart extends React.Component {
                     this.divRef = div;
                 }}>
                 <svg
-                    className="bar-graph"
-                    width={this.props.width}
-                    height={this.props.height + 20}
-                    ref={(svg) => {
+                        className="bar-graph"
+                        width={this.props.width}
+                        height={this.props.height + 20}
+                        ref={(svg) => {
                         this.svgRef = svg;
                     }}>
                     <g className="bar-graph-body" transform="translate(0,20)">
-                        <BarYAxis
+                            <BarYAxis
                             height={this.props.height - this.props.padding.bottom}
                             width={this.props.width - this.props.padding.left}
                             padding={this.props.padding}
@@ -407,31 +407,31 @@ export default class BarChart extends React.Component {
                             generatedYAxis={this.generatedYAxis} />
 
                         <BarXAxis
-                            top={this.props.height - this.props.padding.bottom}
-                            width={this.props.width - this.props.padding.left}
-                            padding={this.props.padding}
-                            data={this.state.xValues}
-                            rawLabels={this.state.rawLabels}
-                            scale={this.state.xScale}
-                            axisPos={this.state.xAxisPos}
-                            activeLabel={this.props.activeLabel}
-                            visualizationPeriod={this.props.visualizationPeriod} />
+                                    top={this.props.height - this.props.padding.bottom}
+                                    width={this.props.width - this.props.padding.left}
+                                    padding={this.props.padding}
+                                    data={this.state.xValues}
+                                    rawLabels={this.state.rawLabels}
+                                    scale={this.state.xScale}
+                                    axisPos={this.state.xAxisPos}
+                                    activeLabel={this.props.activeLabel}
+                                    visualizationPeriod={this.props.visualizationPeriod} />
 
                         <g
-                            className="bar-data"
-                            transform={`translate(${this.props.padding.left},0)`}>
-                            {bars}
-                        </g>
+                                            className="bar-data"
+                                            transform={`translate(${this.props.padding.left},0)`}>
+                                            {bars}
+                                        </g>
 
                         <g
-                            className="legend-container"
-                            transform={`translate(
+                                                className="legend-container"
+                                                transform={`translate(
                                 ${this.props.padding.left},
                                 ${this.props.height - 20})`}>
                             <BarChartLegend legend={this.props.legend} />
+                                            </g>
                         </g>
-                    </g>
-                </svg>
+                    </svg>
             </div>
         );
     }

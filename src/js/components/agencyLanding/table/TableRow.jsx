@@ -30,11 +30,11 @@ export default class TableRow extends React.PureComponent {
                         className={rowClass}
                         key={`${column.columnName}-${this.props.agency.agency_id}`}>
                         <AgencyLinkCell
-                            rowIndex={this.props.rowIndex}
-                            name={this.props.agency.agency_name}
-                            id={this.props.agency.agency_id}
-                            agencySearchString={this.props.agencySearchString}
-                            column={column.columnName} />
+                                rowIndex={this.props.rowIndex}
+                                name={this.props.agency.agency_name}
+                                id={this.props.agency.agency_id}
+                                agencySearchString={this.props.agencySearchString}
+                                column={column.columnName} />
                     </td>
                 );
             }
@@ -45,15 +45,15 @@ export default class TableRow extends React.PureComponent {
                             className={rowClass}
                             key={`${column.columnName}-${this.props.agency.agency_id}`}>
                             <div className={`column-${column.columnName}`}>
-                                <div className="cell-content">
+                                    <div className="cell-content">
                                     <a
-                                        href={`${this.props.agency.display[column.columnName]}`}
-                                        target="_blank">
-                                        {`${this.props.agency.display[column.columnName]} `}
+                                            href={`${this.props.agency.display[column.columnName]}`}
+                                            target="_blank">
+                                            {`${this.props.agency.display[column.columnName]} `}
                                         <FontAwesomeIcon icon="external-link-alt" />
-                                    </a>
+                                        </a>
                                 </div>
-                            </div>
+                                </div>
                         </td>
                     );
                 }
@@ -70,9 +70,9 @@ export default class TableRow extends React.PureComponent {
                     className={rowClass}
                     key={`${column.columnName}-${this.props.agency.agency_id}`}>
                     <GenericCell
-                        rowIndex={this.props.rowIndex}
-                        data={this.props.agency.display[column.columnName]}
-                        column={column.columnName} />
+                            rowIndex={this.props.rowIndex}
+                            data={this.props.agency.display[column.columnName]}
+                            column={column.columnName} />
                 </td>
             );
         });

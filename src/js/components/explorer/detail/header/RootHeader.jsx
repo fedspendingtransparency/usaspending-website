@@ -66,16 +66,16 @@ export default class RootHeader extends React.Component {
                 <div className="detail-header__instructions">
                     Choose {generateSingular(type, false)} {type.toLowerCase()} below to start
                     your exploration.
-                </div>
+                    </div>
             </div>);
         return (
             <div className="detail-header" id="detail-header">
                 {header}
                 <div className="detail-header__amounts">
-                    <div className="detail-header__fy">
+                        <div className="detail-header__fy">
                             FY {this.props.fy} obligated amount
                         <span>
-                            <button
+                                    <button
                                 id="detail-header__icon"
                                 onMouseLeave={this.closeTooltip}
                                 onBlur={this.closeTooltip}
@@ -85,16 +85,16 @@ export default class RootHeader extends React.Component {
                                 onClick={this.showTooltip}>
                                 <InfoCircle alt="Information" />
                             </button>
-                        </span>
+                                </span>
                     </div>
-                    {tooltip}
+                        {tooltip}
                     <div className="detail-header__value">
-                        {this.props.isLoading ? '--' : formatTreemapValues(this.props.total)}
-                    </div>
+                                {this.props.isLoading ? '--' : formatTreemapValues(this.props.total)}
+                            </div>
                     <div className="detail-header__update">
                         Data as of {moment(this.props.lastUpdate, 'YYYY-MM-DD').format('MMMM D, YYYY')}
+                                </div>
                     </div>
-                </div>
             </div>
         );
     }

@@ -13,7 +13,7 @@ const RecipientInfoBanner = () => {
             setShowInfoBanner(true);
             Cookies.set(cookie, 'show', { expires: 7 });
         }
-    });
+    }, []);
 
     const title = 'NOTICE';
     const content = (

@@ -57,10 +57,10 @@ export default class AgencyPage extends React.Component {
                         url={getBaseUrl(`agency/${id}`)} />
                 ]}>
                 <main
-                    id="main-content"
-                    className="main-content">
-                    {content}
-                </main>
+                        id="main-content"
+                        className="main-content">
+                        {content}
+                    </main>
             </PageWrapper>
         );
     }

@@ -102,36 +102,36 @@ const AgencyContent = ({
                     fixedStickyBreakpoint={getStickyBreakPointForSidebar()} />
             </div>
             <div className="agency-content">
-                <div className="agency-padded-content overview">
+                    <div className="agency-padded-content overview">
                     <GlossaryButtonWrapperContainer
-                        child={AgencyOverview}
-                        activeFy={parsedLatestFy}
-                        asOfDate={parsedAsOfDate}
-                        agency={agency.overview} />
+                            child={AgencyOverview}
+                            activeFy={parsedLatestFy}
+                            asOfDate={parsedAsOfDate}
+                            agency={agency.overview} />
                 </div>
                 <div className="agency-padded-content data">
-                    <ObligatedContainer
+                        <ObligatedContainer
                         agencyName={agency.overview.name}
                         activeFY={parsedLatestFy}
                         activeQuarter={latestQuarter}
                         id={agency.id}
                         asOfDate={parsedAsOfDate} />
                     <ObjectClassContainer
-                        id={agency.id}
-                        activeFY={parsedLatestFy}
-                        displayedTotalObligation={agency.overview.obligatedAmount}
-                        asOfDate={parsedAsOfDate} />
+                                id={agency.id}
+                                activeFY={parsedLatestFy}
+                                displayedTotalObligation={agency.overview.obligatedAmount}
+                                asOfDate={parsedAsOfDate} />
                     <FederalAccountContainer
-                        id={agency.id}
-                        activeFY={parsedLatestFy}
-                        obligatedAmount={agency.overview.obligatedAmount}
-                        asOfDate={parsedAsOfDate} />
-                    {disclaimer}
-                </div>
+                                        id={agency.id}
+                                        activeFY={parsedLatestFy}
+                                        obligatedAmount={agency.overview.obligatedAmount}
+                                        asOfDate={parsedAsOfDate} />
+                        {disclaimer}
+                    </div>
                 <FooterLinkToAdvancedSearchContainer
-                    title="Looking for more insight?"
-                    description="for more in-depth analysis on this agency and more" />
-            </div>
+                            title="Looking for more insight?"
+                            description="for more in-depth analysis on this agency and more" />
+                </div>
         </div>
     );
 };

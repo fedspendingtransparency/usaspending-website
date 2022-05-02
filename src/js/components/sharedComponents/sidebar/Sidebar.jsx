@@ -251,18 +251,18 @@ const Sidebar = ({
               &nbsp;
             </div>
             <div ref={div} className={`${pageName}-sidebar-content ${floatSidebar}`} style={{ width: sidebarWidth }}>
-                <div className={`${pageName}-sidebar-content-background`}>
+                    <div className={`${pageName}-sidebar-content-background`}>
                     {fyPicker && (
                         <FYPicker
                             selectedFy={selectedFy}
                             pickedYear={pickedYear} />
                     )}
                     <ul>
-                        {sections.map(buildItems)}
-                    </ul>
+                            {sections.map(buildItems)}
+                        </ul>
                 </div>
-                {children}
-            </div>
+                    {children}
+                </div>
         </div>
     );
 };

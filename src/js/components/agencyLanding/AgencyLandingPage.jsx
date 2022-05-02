@@ -38,10 +38,10 @@ export default class AgencyLandingPage extends React.Component {
                         url={getBaseUrl('agency')} />
                 ]}>
                 <main
-                    id="main-content"
-                    className="main-content">
+                        id="main-content"
+                        className="main-content">
                     <AgencyLandingContainer />
-                </main>
+                    </main>
             </PageWrapper>
         );
     }

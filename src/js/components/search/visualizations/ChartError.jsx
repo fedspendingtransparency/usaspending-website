@@ -15,10 +15,10 @@ const ChartError = () => (
             </div>
             <div className="title">
                 An error occurred.
-            </div>
+                </div>
             <div className="description">
                 Something went wrong while gathering your data.
-            </div>
+                    </div>
         </div>
     </div>
 );

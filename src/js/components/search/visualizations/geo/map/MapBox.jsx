@@ -217,31 +217,31 @@ export default class MapBox extends React.Component {
                     this.mapDiv = div;
                 }}>
                 <div className={`map-buttons ${hideClass}`}>
-                    <div className="first-row">
+                        <div className="first-row">
                         <button
-                            onMouseDown={this.moveUp}
-                            onTouchStart={this.moveUp}>
+                                onMouseDown={this.moveUp}
+                                onTouchStart={this.moveUp}>
                             <Icons.AngleUp />
-                        </button>
+                            </button>
                     </div>
                     <div className="second-row">
-                        <button
+                            <button
                             onMouseDown={this.moveLeft}
                             onTouchStart={this.moveLeft}>
                             <Icons.AngleLeft />
                         </button>
                         <button
-                            onMouseDown={this.moveDown}
-                            onTouchStart={this.moveDown}>
+                                onMouseDown={this.moveDown}
+                                onTouchStart={this.moveDown}>
                             <Icons.AngleDown />
-                        </button>
+                            </button>
                         <button
-                            onMouseDown={this.moveRight}
-                            onTouchStart={this.moveRight}>
+                                    onMouseDown={this.moveRight}
+                                    onTouchStart={this.moveRight}>
                             <Icons.AngleRight />
-                        </button>
+                                </button>
+                        </div>
                     </div>
-                </div>
             </div>
         );
     }

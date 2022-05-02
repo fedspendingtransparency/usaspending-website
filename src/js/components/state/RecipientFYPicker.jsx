@@ -95,38 +95,38 @@ export default class FYPicker extends React.Component {
                     this.pickerRef = div;
                 }}>
                 <div className="fy-picker__header">
-                    <div className="fy-picker__icon">
+                        <div className="fy-picker__icon">
                         <Calendar alt="Fiscal Year" />
                     </div>
                     <div className="fy-picker__dropdown-container">
-                        <button
+                            <button
                             className="fy-picker__button"
                             onClick={this.toggleList}>
                             <div className="fy-picker__button-text">
-                                {dropdownValuesByApiValue[selectedApiValue]}
-                            </div>
+                                    {dropdownValuesByApiValue[selectedApiValue]}
+                                </div>
                             <div className="fy-picker__button-icon">
-                                <AngleDown alt="Toggle menu" />
-                            </div>
+                                        <AngleDown alt="Toggle menu" />
+                                    </div>
                         </button>
                         <ul className={`fy-picker__list ${visibleClass}`}>
-                            {Object.keys(dropdownValuesByApiValue)
+                                {Object.keys(dropdownValuesByApiValue)
                                 .sort(this.sortDropdownOptions)
                                 .map((apiValue) => (
                                     <li
                                         key={apiValue}
                                         className="fy-picker__list-item">
                                         <button
-                                            className="fy-picker__item"
-                                            value={apiValue}
-                                            onClick={this.clickedYear}>
-                                            {dropdownValuesByApiValue[apiValue]}
-                                        </button>
+                                                className="fy-picker__item"
+                                                value={apiValue}
+                                                onClick={this.clickedYear}>
+                                                {dropdownValuesByApiValue[apiValue]}
+                                            </button>
                                     </li>
                                 ))}
-                        </ul>
+                            </ul>
+                        </div>
                     </div>
-                </div>
             </div>
         );
     }

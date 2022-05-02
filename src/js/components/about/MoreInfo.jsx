@@ -13,34 +13,34 @@ const MoreInfo = () => (
         id="about-more-info">
         <h2 className="about-section-title">
             More Information
-        </h2>
+            </h2>
         <div className="about-section-content">
-            <p>
+                    <p>
                 For more information about the data, see the{' '}
                 <a
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href="https://fiscalservice.force.com/usaspending/s/">
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href="https://fiscalservice.force.com/usaspending/s/">
                     FAQs
-                </a>
+                    </a>
                 &nbsp;and the{' '}
                 <Link to="/data-dictionary">
                     Data Dictionary
-                </Link>
+                    </Link>
                 .
             </p>
             <p>
                 You can also see an interactive report on how frequently federal agencies use
                 competitive practices when issuing contracts for goods and services in our&nbsp;
-                <a
+                    <a
                     target="_blank"
                     rel="noopener noreferrer"
                     href="https://datalab.usaspending.gov/competition-in-contracting.html">
                     Data Lab
                 </a>
                 .
-            </p>
-        </div>
+                </p>
+                </div>
     </div>
 );
 

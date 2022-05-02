@@ -65,8 +65,8 @@ const ComingSoonSection = ({
                     </div>
                     <hr />
                     <div className={comingSoonClass}>
-                        {renderChildren()}
-                    </div>
+                            {renderChildren()}
+                        </div>
                 </div>
             </AwardSection>
         );

@@ -334,7 +334,7 @@ const BudgetCategoriesTableContainer = (props) => {
         // Reset to default sort when the active tab or spending category changes
         setSort(defaultSort[props.type][spendingCategory].sort);
         setOrder(defaultSort[props.type][spendingCategory].order);
-    }, [props.type, spendingCategory]);
+    }, [fetchBudgetSpendingCallback, order, props.type, sort, spendingCategory]);
 
     useEffect(() => {
         // Reset to the first page
@@ -342,15 +342,15 @@ const BudgetCategoriesTableContainer = (props) => {
             fetchBudgetSpendingCallback();
         }
         changeCurrentPage(1);
-    }, [pageSize, sort, order, defcParams]);
+    }, [pageSize, sort, order, defcParams, currentPage, fetchBudgetSpendingCallback]);
 
     useEffect(() => {
         fetchBudgetSpendingCallback();
-    }, [currentPage]);
+    }, [currentPage, fetchBudgetSpendingCallback]);
 
     useEffect(() => {
         props.scrollIntoView(loading, error, errorOrLoadingWrapperRef, tableWrapperRef, 100, true);
-    }, [loading, error]);
+    }, [loading, error, props]);
 
     const renderColumns = () => {
         if (props.type && spendingCategory) {
@@ -378,22 +378,22 @@ const BudgetCategoriesTableContainer = (props) => {
         <div className="budget-categories-table__header">
             <label htmlFor="usa-dt-picker">Show amounts based on: </label>
             <Picker
-                backgroundColor="#ffffff"
-                sortFn={handleSort}
-                icon=""
-                selectedOption={budgetDropdownFieldValues[spendingCategory].label}
-                options={Object.keys(budgetDropdownFieldValues).map((key) => ({
+                    backgroundColor="#ffffff"
+                    sortFn={handleSort}
+                    icon=""
+                    selectedOption={budgetDropdownFieldValues[spendingCategory].label}
+                    options={Object.keys(budgetDropdownFieldValues).map((key) => ({
                     name: budgetDropdownFieldValues[key].label,
                     sortOrder: budgetDropdownFieldValues[key].sortOrder,
                     value: key,
                     onClick: spendingCategoryOnChange
                 }))} />
             <TooltipWrapper
-                className="covid-profile-tt"
-                icon="info"
-                wide
-                tooltipPosition="right"
-                tooltipComponent={<SpendingTypesTT />} />
+                        className="covid-profile-tt"
+                        icon="info"
+                        wide
+                        tooltipPosition="right"
+                        tooltipComponent={<SpendingTypesTT />} />
         </div>
     );
 
@@ -401,15 +401,15 @@ const BudgetCategoriesTableContainer = (props) => {
         <div ref={tableWrapperRef}>
             {spendingViewPicker()}
             <Pagination
-                currentPage={currentPage}
-                changePage={changeCurrentPage}
-                changeLimit={changePageSize}
-                limitSelector
-                resultsText
-                pageSize={pageSize}
-                totalItems={totalItems} />
+                    currentPage={currentPage}
+                    changePage={changeCurrentPage}
+                    changeLimit={changePageSize}
+                    limitSelector
+                    resultsText
+                    pageSize={pageSize}
+                    totalItems={totalItems} />
             <div ref={tableRef} className={unlinkedDataClass ? 'table-wrapper unlinked-data' : 'table-wrapper'}>
-                <Table
+                            <Table
                     expandable
                     rows={results}
                     columns={renderColumns()}
@@ -418,15 +418,15 @@ const BudgetCategoriesTableContainer = (props) => {
                     divider={props.subHeading}
                     loading={loading}
                     error={error} />
-            </div>
+                        </div>
             <Pagination
-                currentPage={currentPage}
-                changePage={changeCurrentPage}
-                changeLimit={changePageSize}
-                limitSelector
-                resultsText
-                pageSize={pageSize}
-                totalItems={totalItems} />
+                                currentPage={currentPage}
+                                changePage={changeCurrentPage}
+                                changeLimit={changePageSize}
+                                limitSelector
+                                resultsText
+                                pageSize={pageSize}
+                                totalItems={totalItems} />
         </div>
     );
 };

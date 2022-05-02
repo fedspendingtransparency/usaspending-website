@@ -66,9 +66,9 @@ export default class RecipientName extends React.Component {
                             value={this.props.value}
                             onChange={this.props.changedInput} />
                         <IndividualSubmit
-                            className="recipient-submit"
-                            onClick={this.searchRecipient}
-                            label="Filter by recipient name" />
+                                    className="recipient-submit"
+                                    onClick={this.searchRecipient}
+                                    label="Filter by recipient name" />
                     </div>
                 </form>
                 {this.generateWarning()}

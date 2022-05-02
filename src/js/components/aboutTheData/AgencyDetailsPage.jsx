@@ -82,7 +82,7 @@ const AgencyDetailsPage = () => {
 
     useEffect(() => {
         getOverviewData();
-    }, [agencyCode]);
+    }, [agencyCode, getOverviewData]);
 
     const message = agencyNotes[agencyCode] || '';
 
@@ -103,9 +103,9 @@ const AgencyDetailsPage = () => {
                     onShareOptionClick={handleShare} />
             ]}>
             <main id="main-content" className="main-content">
-                {loading && <LoadingMessage />}
-                {error && <ErrorMessage description={errorMessage} />}
-                {(!loading && !error) && (
+                    {loading && <LoadingMessage />}
+                    {error && <ErrorMessage description={errorMessage} />}
+                    {(!loading && !error) && (
                     <>
                         <div className="heading-container">
                             <div className="back-link">
@@ -118,43 +118,43 @@ const AgencyDetailsPage = () => {
                             </div>
                             <h2 className="header">{agencyOverview?.name}</h2>
                             <div className="agency-info">
-                                {agencyOverview?.website && (
+                                    {agencyOverview?.website && (
                                     <div className="agency-info__group">
                                         <h5>Agency Contact Information</h5>
                                         <div className="more-info-note">Contact this Agency with questions about their submissions</div>
                                         <div className="agency-info__website">
-                                            <ExternalLink url={agencyOverview.website} />
-                                        </div>
+                                                <ExternalLink url={agencyOverview.website} />
+                                            </div>
                                     </div>
                                 )}
-                                {agencyOverview?.id && (
+                                    {agencyOverview?.id && (
                                     <div className="agency-info__group">
                                         <h5>Agency Profile Page</h5>
                                         <div className="more-info-note">Learn more about this Agency&#39;s spending</div>
                                         <div className="agency-info__website">
-                                            <Link to={`/${agencyString}/${slug}`}>
+                                                <Link to={`/${agencyString}/${slug}`}>
                                                 {agencyOverview.name}
                                             </Link>
-                                        </div>
+                                            </div>
                                     </div>
                                 )}
-                            </div>
+                                </div>
                         </div>
                         <AgencyDetailsContainer
-                            agencyName={agencyOverview?.name}
-                            modalClick={modalClick}
-                            agencyCode={agencyCode} />
+                                agencyName={agencyOverview?.name}
+                                modalClick={modalClick}
+                                agencyCode={agencyCode} />
                         {message && <Note message={message} />}
                     </>
                 )}
                 <AboutTheDataModal
-                    mounted={!!showModal.length}
-                    type={showModal}
-                    className={modalClassNames[showModal]}
-                    title={modalTitles(modalData?.type)[showModal]}
-                    agencyData={modalData}
-                    closeModal={closeModal} />
-            </main>
+                        mounted={!!showModal.length}
+                        type={showModal}
+                        className={modalClassNames[showModal]}
+                        title={modalTitles(modalData?.type)[showModal]}
+                        agencyData={modalData}
+                        closeModal={closeModal} />
+                </main>
         </PageWrapper>
     );
 };

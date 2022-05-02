@@ -23,11 +23,11 @@ const ResultsTableErrorMessage = ({ title, description }) => (
             <ExclamationTriangle alt="An error occurred" />
         </div>
         <div className="title">
-            {title}
-        </div>
+                {title}
+            </div>
         <div className="description">
-            {description}
-        </div>
+                    {description}
+                </div>
     </div>
 );
 

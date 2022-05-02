@@ -121,7 +121,8 @@ export class BulkDownloadPageContainer extends React.Component {
             // Since "FOREIGN" is not a country the scope filter is used instead
             if (formState.location.country.code === 'FOREIGN') {
                 params.filters[locationType.apiScopeName] = "foreign";
-            } else {
+            }
+            else {
                 params.filters[locationType.apiName] = [locations];
             }
         }

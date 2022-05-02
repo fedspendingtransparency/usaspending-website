@@ -95,27 +95,27 @@ export default class RecipientVisualization extends React.Component {
                 className="agency-section-wrapper"
                 id="agency-recipients">
                 <div className="agency-section-title">
-                    <h4>Recipients</h4>
+                        <h4>Recipients</h4>
                     <hr
-                        className="results-divider"
-                        ref={(hr) => {
+                                className="results-divider"
+                                ref={(hr) => {
                             this.sectionHr = hr;
                         }} />
                     <em>FY {this.props.activeFY} data reported through {this.props.lastUpdate}</em>
-                </div>
+                    </div>
                 <div className="agency-callout-description">
-                    {`A primary way agencies implement their programs is by awarding money to \
+                            {`A primary way agencies implement their programs is by awarding money to \
 companies, organizations, individuals, or government entities (i.e. state, local, tribal, federal, \
 or foreign). Here is a look at who these recipients are and how they rank by award type.`}
-                </div>
+                        </div>
                 <div className="agency-section-content">
-                    <ScopeList
+                                <ScopeList
                         scope={this.props.scope}
                         changeScope={this.props.changeScope} />
                     <div className="chart-wrapper">
-                        {chart}
-                    </div>
-                </div>
+                                {chart}
+                            </div>
+                            </div>
             </div>
         );
     }

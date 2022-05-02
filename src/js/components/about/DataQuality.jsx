@@ -30,13 +30,13 @@ const DataQuality = () => (
         <div className="about-section-content">
                                 <p><strong>Agency Quarterly Data Certification</strong></p>
             <ul>
-                                    <li>
+                                        <li>
                     Every agency has a Senior Accountable Official who must officially
                     certify that the quarterly financial data submitted by their agency
                     is accurate and complete. The agency&apos;s data is published on
                     USAspending.gov only after it has been certified.
                 </li>
-                                </ul>
+                                    </ul>
             <p><strong>Data Validation</strong></p>
             <ul>
                     <li>
@@ -82,7 +82,7 @@ const DataQuality = () => (
                     <li>
                     GSA’s FPDS delays publishing procurement (i.e., contract and IDV) data for the Department of Defense
                     (DOD) and U.S. Army Corps of Engineers (USACE) in order to&nbsp;
-                                        <ExternalLink url="https://www.acq.osd.mil/dpap/policy/policyvault/2006-2086-DPAP.pdf">address potential DOD operational tempo issues</ExternalLink>
+                                            <ExternalLink url="https://www.acq.osd.mil/dpap/policy/policyvault/2006-2086-DPAP.pdf">address potential DOD operational tempo issues</ExternalLink>
                     , delaying the availability of procurement, account breakdown by award (File C),
                     and subcontract data on USAspending.gov that pertain to DOD and USACE by 90 days as well. This
                     delay is acknowledged in a&nbsp;
@@ -90,12 +90,12 @@ const DataQuality = () => (
                     . Account Balances (File A), Account
                     Breakdown by Program Activity &amp; Object Class (File B) data and assistance award data are unaffected
                     by this delay.
-                                    </li>
+                                        </li>
                     <li>
                     The Department of Health and Human Services (HHS) Centers for Medicare &amp; Medicaid Services (CMS)
                     reports financial assistance awards from Medicare programs (CFDA 93.773, 93.774, and 93.770) as
                     lump sum payments, with each record corresponding to the amount of money sent to a specific&nbsp;
-                                        <ExternalLink url="https://www.cms.gov/Medicare/Medicare-Contracting/Medicare-Administrative-Contractors/What-is-a-MAC">Medicare Administrative Contractor (MAC)</ExternalLink>
+                                                <ExternalLink url="https://www.cms.gov/Medicare/Medicare-Contracting/Medicare-Administrative-Contractors/What-is-a-MAC">Medicare Administrative Contractor (MAC)</ExternalLink>
                         &nbsp;in a given month. The recipient location and primary place of
                     performance location fields in these records correspond to the county where the MAC is located. As
                     such, the location fields for these records do not reflect the places where Medicare beneficiaries
@@ -103,7 +103,7 @@ const DataQuality = () => (
                     MAC’s location). Note that, per policy, the aggregate record format is solely intended to shield
                     personally-identifiable-information (PII) of individual citizens, rather than to anonymize the names
                     of companies like MACs.
-                                    </li>
+                                            </li>
                 </ul>
                                 </div>
                             </div>

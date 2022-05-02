@@ -100,38 +100,38 @@ export default class StateOverview extends React.PureComponent {
                 id="state-overview"
                 className="state-section state-overview">
                 <div className="state-overview__title-wrapper">
-                    <div className={`state-overview__flag ${this.state.hideFlag}`}>
+                        <div className={`state-overview__flag ${this.state.hideFlag}`}>
                         {this.state.flag}
                     </div>
                     <h2 className="state-overview__title">{this.props.stateProfile.name}</h2>
-                </div>
+                    </div>
                 <hr className="results-divider" />
                 <div className="state-overview__content">
-                    <div className="state-overview__note">
+                        <div className="state-overview__note">
                         <strong>Note:</strong> All data on this page is based on Primary Place of Performance.
                     </div>
                     <div className="state-section__row">
-                        <div className="state-section__viz totals-container">
+                            <div className="state-section__viz totals-container">
                             <div className="state-section__viz totals">
-                                <h3 className="state-overview__heading">
+                                    <h3 className="state-overview__heading">
                                 Total Awarded Amount
                                 </h3>
                                 <div className="totals__amount">
-                                    {this.props.stateProfile.totalAmount}
-                                </div>
+                                        {this.props.stateProfile.totalAmount}
+                                    </div>
                                 <div className="totals__awards">
                                 from <span className="state-overview__total">{this.props.stateProfile.totalAwards}</span> prime awards
+                                        </div>
                                 </div>
-                            </div>
                             <div className="state-section__viz loan">
-                                <FaceValueOfLoans amount={this.props.stateProfile.totalFaceValueLoanAmount} transactions={this.props.stateProfile.totalFaceValueLoanPrimeAwards} primeAwards heading="Face Value of Loans" headingClass="state-overview__heading" tooltipIcon="info" tooltipClasses="state-section__viz-loan__tt" tooltipComponent={stateOverviewLoanInfo} tooltipPosition="right" />
-                            </div>
+                                        <FaceValueOfLoans amount={this.props.stateProfile.totalFaceValueLoanAmount} transactions={this.props.stateProfile.totalFaceValueLoanPrimeAwards} primeAwards heading="Face Value of Loans" headingClass="state-overview__heading" tooltipIcon="info" tooltipClasses="state-section__viz-loan__tt" tooltipComponent={stateOverviewLoanInfo} tooltipPosition="right" />
+                                    </div>
                         </div>
                         <div className="state-section__viz details">
-                            <h3 className="state-overview__heading">
+                                <h3 className="state-overview__heading">
                                 Details
                                 <span className="details__info_icon_holder">
-                                    <button
+                                        <button
                                         id="details__info_icon"
                                         className="details__info_icon"
                                         onFocus={this.showTooltip}
@@ -140,42 +140,42 @@ export default class StateOverview extends React.PureComponent {
                                         onClick={this.showTooltip}>
                                         <InfoCircle />
                                     </button>
-                                </span>
+                                    </span>
                             </h3>
-                            {tooltip}
+                                {tooltip}
                             <table className="details__table">
-                                <tbody>
+                                        <tbody>
                                     <tr>
-                                        <th>Population</th>
+                                                <th>Population</th>
                                         <td>{this.props.stateProfile.population} {populationSourceYear}</td>
-                                    </tr>
+                                            </tr>
                                     <tr>
-                                        <th>Awarded Amount Per Capita</th>
+                                                    <th>Awarded Amount Per Capita</th>
                                         <td>{this.props.stateProfile.awardAmountPerCapita}</td>
-                                    </tr>
+                                                </tr>
                                     <tr>
-                                        <th>Median Household Income</th>
+                                                        <th>Median Household Income</th>
                                         <td>{this.props.stateProfile.medianHouseholdIncome} {incomeSourceYear}</td>
-                                    </tr>
+                                                    </tr>
                                 </tbody>
-                            </table>
+                                    </table>
+                            </div>
                         </div>
-                    </div>
                     <div className="state-section__row">
-                        <div className="state-section__viz award-breakdown">
+                                <div className="state-section__viz award-breakdown">
                             <h3 className="state-overview__heading">
                                 Award Breakdown
-                            </h3>
+                                    </h3>
                             <AwardBreakdownContainer />
                         </div>
                         <div className="state-section__viz geo">
-                            <h3 className="state-overview__heading">
+                                <h3 className="state-overview__heading">
                                 Primary Place of Performance
                             </h3>
                             <GeoVisualizationSectionContainer />
-                        </div>
+                            </div>
+                            </div>
                     </div>
-                </div>
             </div>
         );
     }

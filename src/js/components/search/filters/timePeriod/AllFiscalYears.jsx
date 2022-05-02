@@ -98,11 +98,11 @@ export default class AllFiscalYears extends React.Component {
                     key="filter-fy-all"
                     saveAllYears={this.saveAllYears} />
                 <div className="left-fy">
-                    {leftFY}
-                </div>
+                            {leftFY}
+                        </div>
                 <div className="right-fy">
-                    {rightFY}
-                </div>
+                                {rightFY}
+                            </div>
             </ul>
         );
     }

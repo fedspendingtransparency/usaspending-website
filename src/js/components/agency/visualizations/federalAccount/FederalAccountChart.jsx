@@ -127,52 +127,52 @@ export default class FederalAccountChart extends React.Component {
                     deselectItem={this.hideTooltip}
                     urlRoot="federal_account/" />
                 <svg className="horizontal-bar">
-                    <g className="legend-container">
+                            <g className="legend-container">
                         <BarChartLegend legend={legend} />
                     </g>
-                </svg>
+                        </svg>
 
                 <div className="visualization-pager-container">
-                    <div className="prev-page">
+                                <div className="prev-page">
                         <button
-                            className={`visualization-pager ${hidePrevious}`}
-                            title="Show previous ten"
-                            aria-label="Show previous ten"
-                            onClick={this.clickedPrev}
-                            disabled={this.props.loading || this.props.page === 1}>
+                                        className={`visualization-pager ${hidePrevious}`}
+                                        title="Show previous ten"
+                                        aria-label="Show previous ten"
+                                        onClick={this.clickedPrev}
+                                        disabled={this.props.loading || this.props.page === 1}>
                             <div className="pager-content">
-                                <div className="icon">
+                                                <div className="icon">
                                     <AngleLeft alt="Show previous ten" />
                                 </div>
                                 <div className="pager-label">
                                     Show previous ten
-                                </div>
-                            </div>
-                        </button>
+                                    </div>
+                                            </div>
+                                    </button>
                     </div>
                     <div className="next-page">
-                        <button
+                            <button
                             className={`visualization-pager ${hideNext}`}
                             title="Show next ten"
                             aria-label="Show next ten"
                             onClick={this.clickedNext}
                             disabled={this.props.loading || this.props.isLastPage}>
                             <div className="pager-content">
-                                <div className="pager-label next">
+                                    <div className="pager-label next">
                                     Show next ten
                                 </div>
                                 <div className="icon">
-                                    <AngleRight alt="Show next ten" />
+                                        <AngleRight alt="Show next ten" />
+                                    </div>
                                 </div>
-                            </div>
                         </button>
-                    </div>
-                </div>
+                        </div>
+                            </div>
 
                 <div className={`tooltip-wrapper ${hideTooltip}`}>
-                    <FederalAccountTooltip
+                                    <FederalAccountTooltip
                         {...this.state.tooltip} />
-                </div>
+                                </div>
             </div>
         );
     }

@@ -112,21 +112,21 @@ const DEFCheckboxTreeDownload = ({
                 onCollapse={onCollapse}
                 onExpand={onExpand} />
             <CheckboxTree
-                className="def-checkbox-tree"
-                checked={defCodes}
-                expanded={expanded}
-                isDisabled={isDisabled}
-                data={[extractInfraCodes(validDefCodes)]}
-                isError={(errorMsg !== '')}
-                errorMessage={errorMsg}
-                isLoading={isLoading}
-                searchText=""
-                noResults={false}
-                labelComponent={<DEFCheckboxTreeLabel />}
-                onUncheck={stageFilter}
-                onCheck={stageFilter}
-                onCollapse={onCollapse}
-                onExpand={onExpand} />
+                        className="def-checkbox-tree"
+                        checked={defCodes}
+                        expanded={expanded}
+                        isDisabled={isDisabled}
+                        data={[extractInfraCodes(validDefCodes)]}
+                        isError={(errorMsg !== '')}
+                        errorMessage={errorMsg}
+                        isLoading={isLoading}
+                        searchText=""
+                        noResults={false}
+                        labelComponent={<DEFCheckboxTreeLabel />}
+                        onUncheck={stageFilter}
+                        onCheck={stageFilter}
+                        onCollapse={onCollapse}
+                        onExpand={onExpand} />
         </div>
     );
 };

@@ -151,8 +151,8 @@ export class DEFCheckboxTree extends React.Component {
                                     aria-label={`Applied filter: ${label}`}>
                                     {label}
                                     <span className="close">
-                                        <FontAwesomeIcon icon="times" />
-                                    </span>
+                                            <FontAwesomeIcon icon="times" />
+                                        </span>
                                 </button>
                             );
                         })}
@@ -164,7 +164,7 @@ export class DEFCheckboxTree extends React.Component {
             </div>
         );
     }
-};
+}
 
 DEFCheckboxTree.propTypes = {
     counts: PropTypes.arrayOf(PropTypes.shape({})),

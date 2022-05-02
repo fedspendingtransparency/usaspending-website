@@ -59,40 +59,40 @@ const IdvContent = ({
             identifier={overview.piid}
             dates={overview.dates}>
             <AwardSection type="row" className="award-overview" id="award-overview">
-                <AwardOverviewLeftSection
+                    <AwardOverviewLeftSection
                     awardingAgency={overview.awardingAgency}
                     recipient={overview.recipient} />
                 <AwardOverviewRightSection
-                    jumpToSection={jumpToSection}
-                    counts={details}
-                    overview={overview}
-                    setRelatedAwardsTab={setRelatedAwardsTab} />
-            </AwardSection>
+                            jumpToSection={jumpToSection}
+                            counts={details}
+                            overview={overview}
+                            setRelatedAwardsTab={setRelatedAwardsTab} />
+                </AwardSection>
             <AwardSection type="row">
-                <IdvAwardAmountsSectionContainer
+                        <IdvAwardAmountsSectionContainer
                     jumpToSection={jumpToSection}
                     awardId={awardId}
                     overview={overview} />
                 <AwardDescription
-                    awardType={overview.category}
-                    awardId={awardId}
-                    description={overview.description}
-                    naics={overview.naics}
-                    psc={overview.psc} />
-            </AwardSection>
+                            awardType={overview.category}
+                            awardId={awardId}
+                            description={overview.description}
+                            naics={overview.naics}
+                            psc={overview.psc} />
+                    </AwardSection>
             <AwardSection type="row">
-                <IdvActivityContainer />
+                            <IdvActivityContainer />
                 <FederalAccountsSection
-                    awardType={overview.category}
-                    jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
-            </AwardSection>
+                                    awardType={overview.category}
+                                    jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
+                        </AwardSection>
             <ReferencedAwardsContainer
-                tableType={relatedAwardsActiveTab}
-                switchTab={setRelatedAwardsTab} />
+                                tableType={relatedAwardsActiveTab}
+                                switchTab={setRelatedAwardsTab} />
             <AwardHistory
-                activeTab={awardHistoryActiveTab}
-                setActiveTab={setAwardHistoryTab}
-                overview={overview} />
+                                        activeTab={awardHistoryActiveTab}
+                                        setActiveTab={setAwardHistoryTab}
+                                        overview={overview} />
             <AdditionalInfo overview={overview} />
         </AwardPageWrapper>
     );

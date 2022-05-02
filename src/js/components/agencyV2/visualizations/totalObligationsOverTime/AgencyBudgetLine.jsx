@@ -54,7 +54,7 @@ const AgencyBudgetLine = ({
                 }
             );
         }
-    }, [xScale, yScale, showTodayLineAndText]);
+    }, [xScale, yScale, showTodayLineAndText, agencyBudget, height, padding.bottom, padding.left, todaysDate, width]);
 
     useEffect(() => {
         if (xScale && yScale && data.length) {
@@ -67,7 +67,7 @@ const AgencyBudgetLine = ({
                 }
             );
         }
-    }, [xScale, yScale, showTodayLineAndText]);
+    }, [xScale, yScale, showTodayLineAndText, data, padding.left, padding.bottom, padding.right, padding.top, height, agencyBudget, todaysDate, width]);
 
     const rectangle = (
         <rect
@@ -80,18 +80,26 @@ const AgencyBudgetLine = ({
     );
     return (
         <g
-            onMouseEnter={() => { setHoveredRectangle(true); toggleTooltipVisibility(true); }}
-            onMouseLeave={() => { setHoveredRectangle(false); toggleTooltipVisibility(false); }}
-            onFocus={() => { setHoveredRectangle(true); toggleTooltipVisibility(true); }}
-            onBlur={() => { setHoveredRectangle(false); toggleTooltipVisibility(false); }}
+            onMouseEnter={() => {
+                setHoveredRectangle(true); toggleTooltipVisibility(true);
+            }}
+            onMouseLeave={() => {
+                setHoveredRectangle(false); toggleTooltipVisibility(false);
+            }}
+            onFocus={() => {
+                setHoveredRectangle(true); toggleTooltipVisibility(true);
+            }}
+            onBlur={() => {
+                setHoveredRectangle(false); toggleTooltipVisibility(false);
+            }}
             className="bar-chart__item">
             <line
-                tabIndex="0"
-                className="total-budget-line"
-                x1={lineData.x1}
-                x2={lineData.x2}
-                y1={lineData.y1}
-                y2={lineData.y1} />
+                    tabIndex="0"
+                    className="total-budget-line"
+                    x1={lineData.x1}
+                    x2={lineData.x2}
+                    y1={lineData.y1}
+                    y2={lineData.y1} />
             {!(scenario === 'exceedsMax' || scenario === 'exceedsMaxAndMin') && rectangle}
         </g>
     );

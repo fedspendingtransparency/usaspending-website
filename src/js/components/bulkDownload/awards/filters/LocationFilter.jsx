@@ -101,12 +101,12 @@ export default class LocationFilter extends React.Component {
                 className="radio"
                 key={locationType.name}>
                 <input
-                    type="radio"
-                    aria-label={locationType.name}
-                    value={locationType.name}
-                    name="locationType"
-                    checked={this.props.currentLocationType === locationType.name}
-                    onChange={this.onChange} />
+                        type="radio"
+                        aria-label={locationType.name}
+                        value={locationType.name}
+                        name="locationType"
+                        checked={this.props.currentLocationType === locationType.name}
+                        onChange={this.onChange} />
                 <label className="radio-label" htmlFor="locationType">{locationType.label}</label>
             </div>
         ));
@@ -117,27 +117,27 @@ export default class LocationFilter extends React.Component {
                     {icon} Select a <span className="download-filter__title_em">location</span>.
                 </h3>
                 <div className="download-filter__content">
-                    {locationTypes}
+                        {locationTypes}
                     <EntityDropdown
-                        scope="country"
-                        placeholder="Select a Country"
-                        title="Country"
-                        value={this.props.currentLocation.country}
-                        selectEntity={this.updateLocationFilter}
-                        options={countryOptions}
-                        field="country"
-                        generateDisclaimer={this.generateDisclaimer} />
+                                scope="country"
+                                placeholder="Select a Country"
+                                title="Country"
+                                value={this.props.currentLocation.country}
+                                selectEntity={this.updateLocationFilter}
+                                options={countryOptions}
+                                field="country"
+                                generateDisclaimer={this.generateDisclaimer} />
                     <EntityDropdown
-                        scope="state"
-                        placeholder="Select a State"
-                        title="State"
-                        value={this.props.currentLocation.state}
-                        selectEntity={this.updateLocationFilter}
-                        options={states}
-                        field="state"
-                        enabled={this.props.currentLocation.country.code === 'USA'}
-                        generateDisclaimer={this.generateDisclaimer} />
-                </div>
+                                        scope="state"
+                                        placeholder="Select a State"
+                                        title="State"
+                                        value={this.props.currentLocation.state}
+                                        selectEntity={this.updateLocationFilter}
+                                        options={states}
+                                        field="state"
+                                        enabled={this.props.currentLocation.country.code === 'USA'}
+                                        generateDisclaimer={this.generateDisclaimer} />
+                    </div>
             </div>
         );
     }

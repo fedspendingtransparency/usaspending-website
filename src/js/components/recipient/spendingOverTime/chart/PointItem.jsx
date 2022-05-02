@@ -69,19 +69,19 @@ export default class PointItem extends React.Component {
             <g aria-label={this.props.description}>
                 <desc>{this.props.description}</desc>
                 <circle
-                    className={`point-item${hoverClass}`}
-                    cx={this.props.x}
-                    cy={this.props.y}
-                    r={this.props.radius}
-                    stroke={this.props.stroke}
-                    strokeWidth={this.props.strokeWidth}
-                    fill={this.props.color}
-                    tabIndex={-1}
-                    onFocus={this.mouseEntered}
-                    onBlur={this.mouseExited}
-                    onMouseEnter={this.mouseEntered}
-                    onMouseOut={this.mouseExited}
-                    onTouchStart={this.touchedPoint} />
+                        className={`point-item${hoverClass}`}
+                        cx={this.props.x}
+                        cy={this.props.y}
+                        r={this.props.radius}
+                        stroke={this.props.stroke}
+                        strokeWidth={this.props.strokeWidth}
+                        fill={this.props.color}
+                        tabIndex={-1}
+                        onFocus={this.mouseEntered}
+                        onBlur={this.mouseExited}
+                        onMouseEnter={this.mouseEntered}
+                        onMouseOut={this.mouseExited}
+                        onTouchStart={this.touchedPoint} />
             </g>
         );
     }

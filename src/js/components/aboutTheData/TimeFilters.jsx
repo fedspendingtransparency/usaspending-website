@@ -117,19 +117,19 @@ const TimePeriodFilters = ({
             <div className="filter-container fy-picker">
                 <span className="filter__title fy-picker__title">FISCAL YEAR</span>
                 <Picker
-                    backgroundColor="#ffffff"
-                    icon=""
-                    isFixedWidth
-                    className="fy-picker"
-                    sortFn={sortPeriods}
-                    selectedOption={selectedFy
+                        backgroundColor="#ffffff"
+                        icon=""
+                        isFixedWidth
+                        className="fy-picker"
+                        sortFn={sortPeriods}
+                        selectedOption={selectedFy
                         ? <span>FY {selectedFy}</span>
                         : (
                             <div data-testid="fy-loading" className="fy-loading">
                                 FY <FontAwesomeIcon icon="spinner" size="sm" alt="FY Loading ..." spin />
                             </div>
                         )}
-                    options={latestFy
+                        options={latestFy
                         ? allFiscalYears(2017, latestFy).map((year) => ({ name: `FY ${year}`, value: `${year}`, onClick: handleTimeChange }))
                         : [{ name: 'Loading fiscal years...', value: null, onClick: () => { } }]
                     } />
@@ -138,24 +138,24 @@ const TimePeriodFilters = ({
                 <div className="filter-container period-picker">
                     <span className="filter__title period-picker__title">PERIOD</span>
                     <Picker
-                        backgroundColor="#ffffff"
-                        icon=""
-                        className="period-picker"
-                        sortFn={sortPeriods}
-                        selectedOption={selectedPeriod
+                            backgroundColor="#ffffff"
+                            icon=""
+                            className="period-picker"
+                            sortFn={sortPeriods}
+                            selectedOption={selectedPeriod
                             ? <span>{selectedPeriod.title}</span>
                             : (
                                 <div className="period-loading">
                                     P <FontAwesomeIcon icon="spinner" size="sm" alt="Toggle menu" spin />
                                 </div>
                             )}
-                        options={generatePeriodDropdown(selectedFy, submissionPeriods)} />
+                            options={generatePeriodDropdown(selectedFy, submissionPeriods)} />
                 </div>
             )}
             <div className="filter-container">
-                <span className="filter__title search-bar">AGENCY NAME</span>
+                    <span className="filter__title search-bar">AGENCY NAME</span>
                 <SearchBar onSearch={handleSearch} />
-            </div>
+                </div>
         </div>
     );
 };

@@ -29,7 +29,7 @@ const PathAndAreaPathLinearGradients = ({
         <g>
             {/* path linear gradient */}
             <linearGradient id="pathLinearGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                {
+                    {
                     gradientStops.map((stop, i) => (
                         <stop
                             key={`${stop.offset}-${i}`}
@@ -38,10 +38,10 @@ const PathAndAreaPathLinearGradients = ({
                             stopOpacity="1" />
                     ))
                 }
-            </linearGradient>
+                </linearGradient>
             {/* area path linear gradient */}
             <linearGradient id="areaPathLinearGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                {
+                    {
                     gradientStops.map((stop, i) => (
                         <stop
                             key={`${stop.offset}-${i}`}
@@ -50,7 +50,7 @@ const PathAndAreaPathLinearGradients = ({
                             stopOpacity="1" />
                     ))
                 }
-            </linearGradient>
+                </linearGradient>
         </g>
     );
 };

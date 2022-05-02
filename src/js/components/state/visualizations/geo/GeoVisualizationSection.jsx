@@ -75,14 +75,15 @@ export default class GeoVisualizationSection extends React.Component {
                     <ResultsTableErrorMessage title="WebGL Required for this map." description="Please enable WebGL in your browser settings to view this map visualization." />
                 </div>
             );
-        } else if (this.props.loading) {
+        }
+        else if (this.props.loading) {
             message = (
                 <MapMessage>
                     <div className="map-loading">
                         <LoadingSpinner />
                         <div className="loading-message">
                             Gathering your data...
-                        </div>
+                            </div>
                     </div>
                 </MapMessage>
             );
@@ -96,10 +97,10 @@ export default class GeoVisualizationSection extends React.Component {
                         </div>
                         <div className="title">
                             An error occurred.
-                        </div>
+                            </div>
                         <div className="description">
                             Something went wrong while gathering your data.
-                        </div>
+                                </div>
                     </div>
                 </MapMessage>
             );
@@ -111,7 +112,7 @@ export default class GeoVisualizationSection extends React.Component {
                         <div className="no-results-icon" />
                         <div className="title">
                             No results found in the current map area.
-                        </div>
+                            </div>
                     </div>
                 </MapMessage>
             );

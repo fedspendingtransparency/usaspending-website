@@ -26,22 +26,22 @@ const Heading = ({ publicLaw }) => {
                 </h2>
             }
             <div className="aligned-heading">
-                {publicLaw === 'american-rescue-plan' ?
+                    {publicLaw === 'american-rescue-plan' ?
                     <div className="heading__description">
-                        <p>In March 2021, the U.S. Congress appropriated additional funds in response to the COVID-19 pandemic through the American Rescue Plan Act of 2021. See how much has been spent, how spending is categorized, who received funding, and more.</p>
+                            <p>In March 2021, the U.S. Congress appropriated additional funds in response to the COVID-19 pandemic through the American Rescue Plan Act of 2021. See how much has been spent, how spending is categorized, who received funding, and more.</p>
                         <p>
-                            <button className="usa-button-link" onClick={jumpToDataSources}>Visit our Data Sources & Methodology</button> section to learn more about the underlying data and find resources about COVID-19 from other agencies.
-                        </p>
-                    </div>
+                                    <button className="usa-button-link" onClick={jumpToDataSources}>Visit our Data Sources & Methodology</button> section to learn more about the underlying data and find resources about COVID-19 from other agencies.
+                                </p>
+                        </div>
                     :
-                    <div className="heading__description">
+                        <div className="heading__description">
                         <p>In early 2020, the U.S. Congress appropriated funds in response to the COVID-19 pandemic. These funds were made possible through the Coronavirus Aid, Relief, and Economic Security (CARES) Act and other supplemental legislation. In March of 2021, additional funds were appropriated through the American Rescue Plan Act.</p>
                         <p>
-                            <button className="usa-button-link" onClick={jumpToDataSources}>Visit our Data Sources & Methodology</button> section to learn more about the underlying data and find resources about COVID-19 from other&nbsp;agencies.
-                        </p>
+                                <button className="usa-button-link" onClick={jumpToDataSources}>Visit our Data Sources & Methodology</button> section to learn more about the underlying data and find resources about COVID-19 from other&nbsp;agencies.
+                            </p>
                     </div>
                 }
-                {publicLaw === 'american-rescue-plan' ?
+                    {publicLaw === 'american-rescue-plan' ?
                     <>
                         <picture className="heading__img-arp">
                             <source srcSet="img/ARPA-illustration.webp 1x, img/ARPA-illustration.webp 2x" type="image/webp" />
@@ -55,7 +55,7 @@ const Heading = ({ publicLaw }) => {
                         </picture>
                     </>
                 }
-            </div>
+                </div>
         </div>
     );
 };

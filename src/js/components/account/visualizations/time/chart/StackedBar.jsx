@@ -25,12 +25,12 @@ const StackedBar = (props) => (
             {`${props.description} in ${props.xValue}: ${MoneyFormatter.formatMoney(props.value)}`}
         </desc>
         <rect
-            className="stacked-bar-item"
-            x={props.x}
-            y={props.y}
-            width={props.width}
-            height={props.height}
-            fill={props.color} />
+                className="stacked-bar-item"
+                x={props.x}
+                y={props.y}
+                width={props.width}
+                height={props.height}
+                fill={props.color} />
     </g>
 );
 

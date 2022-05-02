@@ -184,7 +184,7 @@ export class CovidHighlights extends React.Component {
                     console.log('error', e);
                 }
             });
-    }
+    };
 
     handleResizeWindow = () => {
         if (this.scrollBar) {
@@ -195,7 +195,7 @@ export class CovidHighlights extends React.Component {
                 }
             });
         }
-    }
+    };
 
     fetchHighlights = () => {
         if (this.fetchTotalsByCfdaRequest) {
@@ -227,7 +227,7 @@ export class CovidHighlights extends React.Component {
                     });
                 }
             });
-    }
+    };
 
     parseSpendingTotals = ({ data }) => {
         const overview = Object.create(CovidOverviewModel);
@@ -264,7 +264,7 @@ export class CovidHighlights extends React.Component {
 
     completeIncrementAndTriggerScroll = () => {
         this.setState({ isIncrementComplete: true });
-    }
+    };
 
     trackLink = () => Analytics.event({
         category: 'Homepage',
@@ -291,50 +291,50 @@ export class CovidHighlights extends React.Component {
                         <h1 className="covid-hero__headline" tabIndex={-1}>
                             <span>The federal government has spent </span>
                             <span>
-                                {isAmountLoading && <div className="dot-pulse" />}
+                                    {isAmountLoading && <div className="dot-pulse" />}
                                 <TotalAmount
-                                    completeIncrement={this.completeIncrementAndTriggerScroll}
-                                    className={`covid-hero__headline--amount${isAmountLoading ? '' : ' show-amount'}`}
-                                    total={totalSpendingAmount}
-                                    isLoading={isAmountLoading} />
-                            </span>&nbsp;
+                                            completeIncrement={this.completeIncrementAndTriggerScroll}
+                                            className={`covid-hero__headline--amount${isAmountLoading ? '' : ' show-amount'}`}
+                                            total={totalSpendingAmount}
+                                            isLoading={isAmountLoading} />
+                                </span>&nbsp;
                             <strong>in response to&nbsp;</strong>
                             <span>
-                                <div className="covid-homepage-tooltip">
+                                    <div className="covid-homepage-tooltip">
                                     COVID-19.
                                     <TooltipWrapper
-                                        icon="info"
-                                        offsetAdjustments={{
+                                            icon="info"
+                                            offsetAdjustments={{
                                             top: 0
                                         }}
-                                        tooltipComponent={<HomePageTooltip />} />
+                                            tooltipComponent={<HomePageTooltip />} />
                                 </div>
-                            </span>
+                                </span>
                         </h1>
                         <div className="covid-profile-link__button-wrap">
-                            <Link
+                                <Link
                                 className="covid-profile-link__button"
                                 to="/disaster/covid-19"
                                 onClick={this.trackLink}>
                                 View all COVID-19 spending
                             </Link>
                             <hr />
-                        </div>
+                            </div>
                         <p><strong>USAspending is the official open data source of federal spending information.</strong></p>
                         <p>We track how federal money is spent in communities across America and beyond. Learn more about government spending through interactive tools that explore elements of the federal budget, such as federal loan, grant, and contract data.</p>
                     </div>
                     <div
-                        className="covid-hero__content"
-                        ref={(scroll) => {
+                            className="covid-hero__content"
+                            ref={(scroll) => {
                             this.scrollBar = scroll;
                         }}>
                         <ul
-                            className="covid-highlights"
-                            onFocus={this.handleHover}
-                            onMouseLeave={this.handleBlur}
-                            onMouseEnter={this.handleHover}
-                            onBlur={this.handleBlur}>
-                            {highlights
+                                className="covid-highlights"
+                                onFocus={this.handleHover}
+                                onMouseLeave={this.handleBlur}
+                                onMouseEnter={this.handleHover}
+                                onBlur={this.handleBlur}>
+                                {highlights
                                 .filter((highlight) => highlight.outlay > 0 || highlight.showLoading)
                                 .map((highlight) => {
                                     if (highlight.showLoading) {
@@ -355,11 +355,11 @@ export class CovidHighlights extends React.Component {
                                     );
                                 })
                             }
-                        </ul>
-                    </div>
+                            </ul>
+                        </div>
                     <div
-                        className="covid-background"
-                        style={{
+                                className="covid-background"
+                                style={{
                             width: `${this.state.imgDimensions.width}px`,
                             height: `${this.state.imgDimensions.height}px`,
                             zIndex: 9

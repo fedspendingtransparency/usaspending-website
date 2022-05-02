@@ -85,15 +85,15 @@ export default class SecondaryCheckboxType extends React.Component {
                     className="checkbox-item-wrapper"
                     htmlFor={elementId}>
                     <input
-                        type="checkbox"
-                        id={elementId}
-                        value={this.props.code}
-                        checked={checked}
-                        onChange={this.toggleFilter}
-                        disabled={this.props.restrictChildren} />
+                            type="checkbox"
+                            id={elementId}
+                            value={this.props.code}
+                            checked={checked}
+                            onChange={this.toggleFilter}
+                            disabled={this.props.restrictChildren} />
                     <span className="checkbox-item-label">
-                        {this.props.name}
-                    </span>
+                                    {this.props.name}
+                                </span>
                 </label>
             </li>
         );

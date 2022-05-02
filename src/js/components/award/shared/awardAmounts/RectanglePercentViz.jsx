@@ -196,16 +196,16 @@ const RectanglePercentViz = ({
                                     number={child.value}
                                     title={child.text} />
                                 <BarValue
-                                    spendingCategory={child.improper.className}
-                                    className={`award-amounts-viz__desc ${position}`}
-                                    onLeave={closeTooltip}
-                                    onEnter={() => showTooltip(
+                                            spendingCategory={child.improper.className}
+                                            className={`award-amounts-viz__desc ${position}`}
+                                            onLeave={closeTooltip}
+                                            onEnter={() => showTooltip(
                                         child.improper.tooltipData,
                                         generatePercentage(child.improper.rawValue / denominator.rawValue),
                                         verticalTooltipOffset
                                     )}
-                                    number={child.improper.value}
-                                    title={child.improper.text} />
+                                            number={child.improper.value}
+                                            title={child.improper.text} />
                             </div>
                         }
                         {!child.improper &&
@@ -260,15 +260,15 @@ const RectanglePercentViz = ({
                                     : `calc(${generatePercentage(child.rawValue / denominator.rawValue)} - ${child.lineOffset}px)`
                             }}>
                             <BarValue
-                                spendingCategory={child.className}
-                                style={{
+                                    spendingCategory={child.className}
+                                    style={{
                                     width: child.labelSortOrder === 0
                                         ? '100%'
                                         : `calc(${generatePercentage(child.rawValue / denominator.rawValue)})`
                                 }}
-                                className={`award-amounts-viz__desc ${position}`}
-                                onLeave={closeTooltip}
-                                onEnter={(e) => {
+                                    className={`award-amounts-viz__desc ${position}`}
+                                    onLeave={closeTooltip}
+                                    onEnter={(e) => {
                                     e.stopPropagation();
                                     showTooltip(
                                         child.tooltipData,
@@ -276,8 +276,8 @@ const RectanglePercentViz = ({
                                         generatePercentage(child.rawValue / denominator.rawValue)
                                     );
                                 }}
-                                number={child.value}
-                                title={child.text} />
+                                    number={child.value}
+                                    title={child.text} />
                         </BarLabelAndLine>
                     }
                     {isBarAbsent &&
@@ -331,7 +331,7 @@ const RectanglePercentViz = ({
                 {...activeTooltipProps} />}
             {renderLinesAndLabelsForPosition([denominator, numerator, numerator2], 'top')}
             <div className={`award-amounts-viz__bar-container ${denominator.className}`}>
-                <Bar
+                    <Bar
                     spendingCategory={denominator.className}
                     barWrapperStyles={{ backgroundColor: denominator.color }}
                     onLeave={closeTooltip}
@@ -355,7 +355,7 @@ const RectanglePercentViz = ({
                         </>
                     )}
                 </Bar>
-            </div>
+                </div>
             {renderLinesAndLabelsForPosition([denominator, { ...numerator, numeratorValue }, numerator2], 'bottom')}
         </div>
     );

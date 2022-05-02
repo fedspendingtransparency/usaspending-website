@@ -103,31 +103,31 @@ export default class FullDownloadModal extends React.Component {
                 verticallyCenter
                 escapeExits>
                 <div className="full-download-modal">
-                    <div className="download-header">
+                        <div className="download-header">
                         <div className="header-content">
-                            <h1>Download Data</h1>
+                                <h1>Download Data</h1>
                             <div className="close-wrapper">
-                                <button
+                                        <button
                                     className="close-button"
                                     onClick={this.props.hideModal}
                                     title="Close"
                                     aria-label="Close">
                                     <Close alt="Close modal" />
                                 </button>
+                                    </div>
                             </div>
-                        </div>
                     </div>
 
                     <div className="download-body">
-                        <div className="download-filter-bar">
+                            <div className="download-filter-bar">
                             <TopFilterBarContainer compressed />
                         </div>
                         <DownloadBreadcrumb
-                            step={this.state.downloadStep}
-                            goToStep={this.goToStep} />
-                        {content}
+                                step={this.state.downloadStep}
+                                goToStep={this.goToStep} />
+                            {content}
+                        </div>
                     </div>
-                </div>
             </Modal>
         );
     }

@@ -125,15 +125,15 @@ const SpendingByRecipientContainer = () => {
             </div>
             <SummaryInsightsContainer
                 // pass Recipient count to the summary section so we don't have to make the same API request again
-                resultsCount={tabCounts[activeTab]}
-                activeTab={activeTab}
-                areCountsLoading={inFlight}
-                overviewData={overviewData}
-                recipientOnly />
+                    resultsCount={tabCounts[activeTab]}
+                    activeTab={activeTab}
+                    areCountsLoading={inFlight}
+                    overviewData={overviewData}
+                    recipientOnly />
             <RecipientTableContainer
-                activeTab={activeTab}
-                prevActiveTab={prevActiveTab}
-                scrollIntoView={scrollIntoViewTable} />
+                            activeTab={activeTab}
+                            prevActiveTab={prevActiveTab}
+                            scrollIntoView={scrollIntoViewTable} />
         </div>
     );
 };

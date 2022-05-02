@@ -136,7 +136,7 @@ const SubAgencySummaryContainer = ({
             getNewAwardsCount();
             getSubagencySummary();
         }
-    }, [fy, toptierCode, activeTab]);
+    }, [fy, toptierCode, activeTab, data, getNewAwardsCount, getSubagencySummary]);
 
     const amounts = {
         awardObligations,

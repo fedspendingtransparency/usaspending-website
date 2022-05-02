@@ -246,8 +246,8 @@ export default class FederalAccountsTree extends React.Component {
                     {noResultsMessage}
                 </div>
                 <div className="federal-accounts-treemap">
-                    {treeMap}
-                </div>
+                        {treeMap}
+                    </div>
                 {resultsCount}
             </div>
         );

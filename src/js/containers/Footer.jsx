@@ -50,63 +50,63 @@ const Footer = ({
         <div className="footer-container">
             <GlossaryButtonWrapperContainer child={FloatingGlossaryButton} />
             <DownloadBottomBarContainer
-                filters={filters} />
+                    filters={filters} />
             <BulkDownloadBottomBarContainer />
             <Subscribe pageName={pageName} />
             <Training pageName={pageName} />
             <footer
-                className="footer-outer-wrap"
-                role="contentinfo"
-                aria-label="Footer">
+                    className="footer-outer-wrap"
+                    role="contentinfo"
+                    aria-label="Footer">
                 <div className="footer-container">
-                    <div className="footer-logo">
+                            <div className="footer-logo">
                         <Link
-                            to="/"
-                            title="USAspending.gov Home"
-                            aria-label="USAspending.gov Home"
-                            onClick={clickedFooterLink.bind(null, '/')}>
+                                    to="/"
+                                    title="USAspending.gov Home"
+                                    aria-label="USAspending.gov Home"
+                                    onClick={clickedFooterLink.bind(null, '/')}>
                             <img src="img/footer_logo.png" alt="USAspending.gov" />
-                        </Link>
+                                </Link>
                     </div>
                     <div className="footer-links">
-                        <div className="link-group">
+                            <div className="link-group">
                             <div className="group-title">
                                 About
-                            </div>
+                                </div>
                             <ul className="links">
-                                <li>
+                                        <li>
                                     <Link
-                                        to="/about"
-                                        onClick={clickedFooterLink.bind(null, '/about')}>
+                                                to="/about"
+                                                onClick={clickedFooterLink.bind(null, '/about')}>
                                         About USAspending
-                                    </Link>
+                                            </Link>
                                 </li>
                                 <li>
-                                    <Link
+                                        <Link
                                         to="/about?section=careers"
                                         onClick={clickedFooterLink.bind(null, '/about')}>
                                         Careers
                                     </Link>
-                                </li>
-                            </ul>
+                                    </li>
+                                    </ul>
                         </div>
                         <div className="link-group">
-                            <div className="group-title">
+                                <div className="group-title">
                                 Help
                             </div>
                             <ul className="links">
-                                <li>
+                                    <li>
                                     <FooterExternalLink
-                                        link="https://fiscalservice.force.com/usaspending/s/"
-                                        title="FAQs" />
+                                            link="https://fiscalservice.force.com/usaspending/s/"
+                                            title="FAQs" />
                                 </li>
                                 <li>
-                                    <FooterExternalLink
+                                        <FooterExternalLink
                                         link="https://fiscalservice.force.com/usaspending/s/"
                                         title="Community" />
-                                </li>
+                                    </li>
                                 <li>
-                                    <a
+                                            <a
                                         href="mailto:usaspending.help@fiscal.treasury.gov?subject=Contact%20Us"
                                         onClick={clickedFooterLink.bind(
                                             null,
@@ -114,107 +114,107 @@ const Footer = ({
                                         )}>
                                         Contact Us
                                     </a>
-                                </li>
-                            </ul>
-                        </div>
+                                        </li>
+                                </ul>
+                            </div>
                         <div className="link-group">
-                            <div className="group-title">
+                                    <div className="group-title">
                                 Developers
                             </div>
                             <ul className="links">
-                                <li>
+                                    <li>
                                     <FooterExternalLink
-                                        link="https://api.usaspending.gov"
-                                        title="API" />
+                                            link="https://api.usaspending.gov"
+                                            title="API" />
                                 </li>
                                 <li>
-                                    <FooterExternalLink
+                                        <FooterExternalLink
                                         link="https://github.com/fedspendingtransparency/usaspending-website/tree/master"
                                         title="Explore the Code" />
-                                </li>
+                                    </li>
                                 <li>
-                                    <FooterExternalLink
+                                            <FooterExternalLink
                                         link="https://github.com/fedspendingtransparency/usaspending-website/wiki"
                                         title="Release Notes" />
-                                </li>
-                            </ul>
-                        </div>
+                                        </li>
+                                </ul>
+                                </div>
                         <div className="link-group">
-                            <div className="group-title">
+                                        <div className="group-title">
                                     Our Sites
                             </div>
                             <ul className="links">
-                                <li>
+                                    <li>
                                     <a target="_blank" rel="noopener noreferrer" href="https://datalab.usaspending.gov/">Data Lab</a>
                                 </li>
                                 <li>
-                                    <a target="_blank" rel="noopener noreferrer" href="https://fiscaldata.treasury.gov/">Fiscal Data</a>
-                                </li>
-                            </ul>
+                                        <a target="_blank" rel="noopener noreferrer" href="https://fiscaldata.treasury.gov/">Fiscal Data</a>
+                                    </li>
+                                </ul>
+                                    </div>
                         </div>
-                    </div>
                     <div className="legal-and-social-links">
-                        <ul className="legal-links">
+                                <ul className="legal-links">
                             <li className="copyright__legal-item">
-                                <Link
+                                        <Link
                                     className="copyright__link"
                                     to="/about/accessibility"
                                     onClick={clickedFooterLink.bind(null, '/about/accessibility')}>
                                     Accessibility
                                 </Link>
-                            </li>
+                                    </li>
                             <li className="copyright__legal-item">
-                                <Link
+                                            <Link
                                     className="copyright__link"
                                     to="/about/privacy"
                                     onClick={clickedFooterLink.bind(null, '/about/privacy')}>
                                     Privacy Policy
                                 </Link>
-                            </li>
+                                        </li>
                             <li className="copyright__legal-item">
-                                <Link
+                                                <Link
                                     className="copyright__link"
                                     to="/about/foia"
                                     onClick={clickedFooterLink.bind(null, '/about/foia')}>
                                     Freedom of Information Act
                                 </Link>
-                            </li>
+                                            </li>
                         </ul>
                         <ul className="social-links">
-                            <li className="social-link">
+                                <li className="social-link">
                                 <button onClick={generateOnClick("https://twitter.com/usaspending/")} title="Twitter">
-                                    <FontAwesomeIcon icon={faTwitter} size="1x" color="#D4D4D4" />
-                                </button>
+                                        <FontAwesomeIcon icon={faTwitter} size="1x" color="#D4D4D4" />
+                                    </button>
                             </li>
                             <li className="social-link">
-                                <button onClick={generateOnClick("https://www.facebook.com/fiscalservice/")} title="Facebook">
+                                    <button onClick={generateOnClick("https://www.facebook.com/fiscalservice/")} title="Facebook">
                                     <FontAwesomeIcon icon={faFacebookSquare} size="1x" color="#D4D4D4" />
                                 </button>
-                            </li>
+                                </li>
                             <li className="social-link">
-                                <button onClick={generateOnClick("https://github.com/fedspendingtransparency/usaspending-website")} title="Github">
+                                        <button onClick={generateOnClick("https://github.com/fedspendingtransparency/usaspending-website")} title="Github">
                                     <FontAwesomeIcon icon={faGithub} size="1x" color="#D4D4D4" />
                                 </button>
-                            </li>
+                                    </li>
                             <li className="social-link">
-                                <button onClick={generateOnClick("https://www.linkedin.com/company/united-states-department-of-the-treasury-bureau-of-public-debt/")} title="LinkedIn">
+                                            <button onClick={generateOnClick("https://www.linkedin.com/company/united-states-department-of-the-treasury-bureau-of-public-debt/")} title="LinkedIn">
                                     <FontAwesomeIcon icon={faLinkedin} size="1x" color="#D4D4D4" />
                                 </button>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+                                        </li>
+                            </ul>
+                            </div>
+                        </div>
                 <div className="copyright">
-                    <div className="copyright__container">
+                                <div className="copyright__container">
                         <p className="copyright__notice">
                             &copy; {year} USAspending.gov
-                        </p>
+                                    </p>
                         <p className="copyright__db">
-                            <strong>NOTE:</strong>&nbsp;<Link to="/db_info" target="_blank" rel="noopener noreferrer" title="Limitation on Permissible Use of Dun & Bradstreet, Inc. (D&B) Data" aria-label="Limitation on Permissible Use of Dun & Bradstreet, Inc. (D&B) Data" onClick={clickedFooterLink.bind(null, '/db_info')}>You must click here for very important D&amp;B information.</Link>
-                        </p>
+                                            <strong>NOTE:</strong>&nbsp;<Link to="/db_info" target="_blank" rel="noopener noreferrer" title="Limitation on Permissible Use of Dun & Bradstreet, Inc. (D&B) Data" aria-label="Limitation on Permissible Use of Dun & Bradstreet, Inc. (D&B) Data" onClick={clickedFooterLink.bind(null, '/db_info')}>You must click here for very important D&amp;B information.</Link>
+                                        </p>
                     </div>
-                </div>
-            </footer>
+                            </div>
+                </footer>
         </div>
     );
 };

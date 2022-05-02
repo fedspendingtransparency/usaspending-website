@@ -27,28 +27,28 @@ const FakeScreen = () => {
                 total={Math.random() * 10000000} />
 
             <div className="explorer-visualization-wrapper">
-                <div className="toolbar">
+                        <div className="toolbar">
                     <div className="breakdown-menu">
-                        <div className="breakdown-label">
+                                <div className="breakdown-label">
                             See the breakdown by:
                         </div>
-                    </div>
+                            </div>
                 </div>
 
                 <div className="explorer-treemap">
-                    <div className="fake-treemap">
+                        <div className="fake-treemap">
                         <div
-                            style={leftStyle}
-                            className="left-block" />
+                                style={leftStyle}
+                                className="left-block" />
                         <div
-                            style={middleStyle}
-                            className="middle-block" />
+                                        style={middleStyle}
+                                        className="middle-block" />
                         <div
-                            style={rightStyle}
-                            className="right-block" />
+                                                style={rightStyle}
+                                                className="right-block" />
                     </div>
-                </div>
-            </div>
+                    </div>
+                    </div>
         </div>
     );
 };

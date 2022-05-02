@@ -44,8 +44,8 @@ const AwardOverviewRightSection = ({
         <AwardSection type="column" className="award-overview__right-section award-overview-column">
             {firstSection}
             <AwardDates
-                awardType={overview.category}
-                dates={dates} />
+                    awardType={overview.category}
+                    dates={dates} />
         </AwardSection>
     );
 };

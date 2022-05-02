@@ -32,11 +32,11 @@ const dataNote = (
         </Link>
         &nbsp;in full) submitted by agencies to Treasury under the requirements of the DATA Act of 2014, which went into effect in FY17Q2. As such, this data (and thus this filter) only covers award transactions from January 2017 onward. Awards that began prior to that point will only surface via this filter if they have financial modifications post-January 2017. Note that a subset of agency-submitted Account Breakdown by Award data is not definitively linkable to a single Federal Award; unlinked data cannot be and is not used by this filter, but is available along with the rest of the Account Breakdown by Award Data in the&nbsp;
         <Link
-            to="/download_center/custom_account_data"
-            target="_blank"
-            rel="noopener noreferrer">
+                to="/download_center/custom_account_data"
+                target="_blank"
+                rel="noopener noreferrer">
             Custom Account Data
-        </Link>
+            </Link>
         &nbsp;section.
     </React.Fragment>
 );
@@ -189,7 +189,7 @@ export default class ProgramSourceSection extends React.Component {
                     className="toggle-buttons"
                     role="menu">
                     <li>
-                        <div
+                            <div
                             role="menuitemradio"
                             onKeyDown={this.toggleTab}
                             tabIndex="-1"
@@ -202,9 +202,9 @@ export default class ProgramSourceSection extends React.Component {
                             <span>Treasury Account</span>
                             <CSSOnlyTooltip definition={treasuryAccountTab} heading="Treasury Account" />
                         </div>
-                    </li>
+                        </li>
                     <li>
-                        <div
+                                <div
                             role="menuitemradio"
                             onKeyDown={this.toggleTab}
                             tabIndex="-1"
@@ -217,17 +217,17 @@ export default class ProgramSourceSection extends React.Component {
                             <span>TAS Components</span>
                             <CSSOnlyTooltip definition={tasComponentsTab} heading="TAS Components" />
                         </div>
-                    </li>
+                            </li>
                 </ul>
                 <div className="toggle-border" />
                 {filter}
                 {selectedSources}
                 <CSSOnlyTooltip
-                    definition={dataNote}
-                    heading="A note about our TAS data sources"
-                    description="A note about our TAS data sources." />
+                        definition={dataNote}
+                        heading="A note about our TAS data sources"
+                        description="A note about our TAS data sources." />
                 <SubmitHint
-                    ref={(component) => {
+                                ref={(component) => {
                         this.hint = component;
                     }} />
             </div>

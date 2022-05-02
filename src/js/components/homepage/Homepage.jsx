@@ -24,11 +24,11 @@ const Homepage = () => (
         <MetaTags {...MetaTagHelper.homePageMetaTags} />
         <Header />
         <main id="main-content" className="homepage-content">
-            <CovidHighlights />
+                <CovidHighlights />
             <Features />
             <Download />
             <Community />
-        </main>
+            </main>
         <GlobalModalContainer />
         <Footer pageName="Homepage" />
     </div>

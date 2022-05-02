@@ -17,19 +17,19 @@ const BulkDownloadSidebar = ({ active, dataTypes }) => (
     <div
         className="download-sidebar-content">
         <ul>
-            {dataTypes.map((type) => (
+                {dataTypes.map((type) => (
                 <SidebarButton
-                    key={type.code}
-                    type={type.type}
-                    label={type.label}
-                    active={active}
-                    disabled={!type.enabled}
-                    url={type.url}
-                    shouldOpenNewTab={type.shouldOpenNewTab}
-                    externalLink={type.externalLink}
-                    internalDomain={type.internalDomain} />
+                        key={type.code}
+                        type={type.type}
+                        label={type.label}
+                        active={active}
+                        disabled={!type.enabled}
+                        url={type.url}
+                        shouldOpenNewTab={type.shouldOpenNewTab}
+                        externalLink={type.externalLink}
+                        internalDomain={type.internalDomain} />
             ))}
-        </ul>
+            </ul>
     </div>
 );
 

@@ -124,7 +124,8 @@ export default class ExplorerVisualization extends React.Component {
                     <UnreportedErrorScreen />
                 </div>
             );
-        } else {
+        }
+        else {
             dropDown = (
                 <div className="explorer-vis__toolbar">
                     <BreakdownDropdown
@@ -141,8 +142,8 @@ export default class ExplorerVisualization extends React.Component {
                 <div className="explorer-vis__disclaimer">
                     <p>All dollar amounts shown here represent agency reported obligated amounts</p>
                     <Note
-                        title="Unreported Data*:"
-                        message={(
+                            title="Unreported Data*:"
+                            message={(
                             <>
                                 Unreported amounts are calculated using the difference in the total obligated amount from the&nbsp;
                                 <ExternalLink url="https://portal.max.gov/portal/document/SF133/Budget/FACTS%20II%20-%20SF%20133%20Report%20on%20Budget%20Execution%20and%20Budgetary%20Resources.html">
@@ -161,8 +162,8 @@ export default class ExplorerVisualization extends React.Component {
                 {dropDown}
 
                 <div
-                    className="explorer-vis__width-reference"
-                    ref={(div) => {
+                        className="explorer-vis__width-reference"
+                        ref={(div) => {
                         this.widthRef = div;
                     }} />
 

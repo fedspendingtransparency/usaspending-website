@@ -26,12 +26,12 @@ export default class MobileFilters extends React.Component {
                         timeout={195}
                         exit>
                         <div className="mobile-filter-content">
-                            <SearchSidebar
+                                <SearchSidebar
                                 filters={this.props.filters}
                                 toggleMobileFilters={this.props.toggleMobileFilters}
                                 filterCount={this.props.filterCount}
                                 mobile />
-                        </div>
+                            </div>
                     </CSSTransition>
                 )}
             </TransitionGroup>

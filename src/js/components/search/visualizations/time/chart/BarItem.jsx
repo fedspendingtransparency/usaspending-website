@@ -74,24 +74,24 @@ export default class BarItem extends React.Component {
             <g aria-label={this.props.description}>
                 <desc>{this.props.description}</desc>
                 <rect
-                    className={`bar-item${hoverClass}`}
-                    x={this.props.x}
-                    y={this.props.y}
-                    width={this.props.width}
-                    height={this.props.height}
-                    fill={this.props.color} />
+                        className={`bar-item${hoverClass}`}
+                        x={this.props.x}
+                        y={this.props.y}
+                        width={this.props.width}
+                        height={this.props.height}
+                        fill={this.props.color} />
                 <rect
-                    className="hover-hitbox"
-                    x={this.props.x}
-                    y={0}
-                    width={this.props.width}
-                    height={this.props.graphHeight}
-                    tabIndex={-1}
-                    onFocus={this.mouseEntered}
-                    onBlur={this.mouseExited}
-                    onMouseEnter={this.mouseEntered}
-                    onMouseOut={this.mouseExited}
-                    onTouchStart={this.touchedBar} />
+                                className="hover-hitbox"
+                                x={this.props.x}
+                                y={0}
+                                width={this.props.width}
+                                height={this.props.graphHeight}
+                                tabIndex={-1}
+                                onFocus={this.mouseEntered}
+                                onBlur={this.mouseExited}
+                                onMouseEnter={this.mouseEntered}
+                                onMouseOut={this.mouseExited}
+                                onTouchStart={this.touchedBar} />
             </g>
         );
     }

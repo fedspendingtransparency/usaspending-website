@@ -17,12 +17,12 @@ const Features = () => (
         className="homepage-features"
         aria-label="Web site features">
         <div className="homepage-features__content">
-            <CovidFeatureContainer />
+                <CovidFeatureContainer />
             <PaneFeature />
             <SpendingExplorerFeature />
             <SearchFeature />
             <ProfileFeature />
-        </div>
+            </div>
     </section>
 );
 

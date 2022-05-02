@@ -36,8 +36,8 @@ export default class SelectedAwardAmountBound extends React.Component {
                 aria-label={`Applied filter: ${label}`}>
                 {label}
                 <span className="close">
-                    <FontAwesomeIcon icon="times" />
-                </span>
+                        <FontAwesomeIcon icon="times" />
+                    </span>
             </button>
         );
     }

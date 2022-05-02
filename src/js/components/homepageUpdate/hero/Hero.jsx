@@ -36,37 +36,37 @@ const Hero = () => {
             <div className="homepage-hero-content">
                 <AnimatedHeading paused={isPaused} />
                 <div className="hero__lower-wrapper">
-                    <div className="hero__left-image-wrapper">
+                        <div className="hero__left-image-wrapper">
                         <picture>
-                            <img
+                                <img
                                 role="presentation"
                                 src="../../../../img/homepage-hero-graphic-left.svg"
                                 alt="" />
-                        </picture>
+                            </picture>
                     </div>
                     <div className="hero__center-content-wrapper">
-                        <div className="hero__center-content">
+                            <div className="hero__center-content">
                             <div className="hero__button-container">
-                                <Link
+                                    <Link
                                     className="hero__button hero__button--action"
                                     to="/search"
                                     onClick={trackSearchLink}>
                                     Start Searching Awards
                                 </Link>
                                 <Link
-                                    className="hero__button"
-                                    to="/about"
-                                    onClick={trackAboutLink}>
+                                        className="hero__button"
+                                        to="/about"
+                                        onClick={trackAboutLink}>
                                     Learn about USAspending
-                                </Link>
-                            </div>
+                                    </Link>
+                                </div>
                             <div className="hero__text-container">
-                                <p>
+                                        <p>
                                     USAspending is the official open data source of federal spending information.
                                 </p>
-                            </div>
+                                    </div>
                             <div className="hero__pause-button-container">
-                                <a
+                                            <a
                                     className="hero__pause-button"
                                     role="button"
                                     tabIndex="0"
@@ -82,18 +82,18 @@ const Hero = () => {
                                         <><FontAwesomeIcon icon="pause" width={10} />&nbsp;&nbsp;Pause text animation</>
                                     }
                                 </a>
-                            </div>
+                                        </div>
                         </div>
-                    </div>
+                        </div>
                     <div className="hero__right-image-wrapper">
-                        <picture>
+                                <picture>
                             <img
-                                role="presentation"
-                                src="../../../../img/homepage-hero-graphic-right.svg"
-                                alt="" />
+                                        role="presentation"
+                                        src="../../../../img/homepage-hero-graphic-right.svg"
+                                        alt="" />
                         </picture>
+                            </div>
                     </div>
-                </div>
             </div>
         </section>
     );

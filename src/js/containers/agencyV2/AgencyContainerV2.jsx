@@ -70,7 +70,7 @@ export const AgencyProfileV2 = () => {
                     }
                 });
         }
-    }, [toptierCode, selectedFy]);
+    }, [toptierCode, selectedFy, dispatch]);
 
     useEffect(() => {
         if (!slugsLoading && !slugsError) {
@@ -78,20 +78,22 @@ export const AgencyProfileV2 = () => {
             const code = agencySlugs[agencySlug];
             if (code) {
                 setToptierCode(code);
-            } else {
+            }
+            else {
                 setRedirect(true);
             }
-        } else if (slugsError) {
+        }
+        else if (slugsError) {
             setError(true);
         }
-    }, [agencySlugs, slugsLoading, slugsError]);
+    }, [agencySlugs, slugsLoading, slugsError, agencySlug]);
 
     useEffect(
         () => () => {
             // cleanup
             dispatch(resetAgency());
         },
-        [agencySlug]
+        [agencySlug, dispatch]
     );
 
     if (redirect) {

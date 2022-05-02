@@ -51,30 +51,30 @@ const TopFive = (props) => {
                     src={`img/state-categories/${props.category}.png`}
                     alt="" />
                 <div className="category-table__title-name">
-                    {categoryTitles[props.category]}
-                </div>
+                            {categoryTitles[props.category]}
+                        </div>
             </div>
             <table className="category-table__table">
-                <thead
+                    <thead
                     className="category-table__table-head">
                     <tr
-                        className="category-table__table-head-row">
+                            className="category-table__table-head-row">
                         <th className="category-table__table-head-cell">
                             Name
-                        </th>
+                                </th>
                         <th className="category-table__table-head-cell category-table__table-head-cell_centered">
                             Awarded Amount
-                        </th>
+                                    </th>
                         <th className="category-table__table-head-cell category-table__table-head-cell_centered">
                             % of Total
-                        </th>
-                    </tr>
+                                        </th>
+                        </tr>
                 </thead>
                 <tbody
-                    className={`category-table__table-body ${hideBody}`}>
-                    {rows}
-                </tbody>
-            </table>
+                        className={`category-table__table-body ${hideBody}`}>
+                        {rows}
+                    </tbody>
+                </table>
             {message}
         </div>
     );

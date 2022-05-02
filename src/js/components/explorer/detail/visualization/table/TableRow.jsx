@@ -30,13 +30,13 @@ export default class TableRow extends React.PureComponent {
                         className={rowClass}
                         key={`${column.columnName}-${this.props.item.id}`}>
                         <LinkCell
-                            rowIndex={this.props.rowIndex}
-                            name={this.props.item.name}
-                            data={this.props.item}
-                            id={`${this.props.item.id}`}
-                            column={column.columnName}
-                            selectedRow={this.props.selectedRow}
-                            goToUnreported={this.props.goToUnreported} />
+                                rowIndex={this.props.rowIndex}
+                                name={this.props.item.name}
+                                data={this.props.item}
+                                id={`${this.props.item.id}`}
+                                column={column.columnName}
+                                selectedRow={this.props.selectedRow}
+                                goToUnreported={this.props.goToUnreported} />
                     </td>
                 );
             }
@@ -45,9 +45,9 @@ export default class TableRow extends React.PureComponent {
                     className={rowClass}
                     key={`${column.columnName}-${this.props.item.name}`}>
                     <GenericCell
-                        rowIndex={this.props.rowIndex}
-                        data={this.props.item.display[column.columnName]}
-                        column={column.columnName} />
+                            rowIndex={this.props.rowIndex}
+                            data={this.props.item.display[column.columnName]}
+                            column={column.columnName} />
                 </td>
             );
         });
