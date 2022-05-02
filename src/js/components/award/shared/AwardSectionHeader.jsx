@@ -4,11 +4,11 @@ import { TooltipWrapper } from 'data-transparency-ui';
 import { AWARD_SECTION_HEADER_PROPS } from "../../../propTypes/index";
 
 const AwardSectionHeader = ({
-    icon,
-    title,
-    tooltip,
-    tooltipWide = false,
-    left = true
+  icon,
+  title,
+  tooltip,
+  tooltipWide = false,
+  left = true
 }) => (
   <React.Fragment>
     <div className="award-viz__heading">

@@ -4,20 +4,20 @@
  */
 
 export const setRecipientOverview = (state) => ({
-    type: 'SET_RECIPIENT_OVERVIEW',
-    overview: state
+  type: 'SET_RECIPIENT_OVERVIEW',
+  overview: state
 });
 
 export const setRecipientFiscalYear = (state) => ({
-    type: 'SET_RECIPIENT_FY',
-    fy: state
+  type: 'SET_RECIPIENT_FY',
+  fy: state
 });
 
 export const setRecipientChildren = (state) => ({
-    type: 'SET_RECIPIENT_CHILDREN',
-    children: state
+  type: 'SET_RECIPIENT_CHILDREN',
+  children: state
 });
 
 export const resetRecipient = () => ({
-    type: 'RESET_RECIPIENT'
+  type: 'RESET_RECIPIENT'
 });

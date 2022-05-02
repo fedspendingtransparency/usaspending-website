@@ -7,17 +7,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
-    header: PropTypes.node
+  header: PropTypes.node
 };
 
 export default class HeaderCell extends React.Component {
-    render() {
-        return (
-          <td>
-            {this.props.header}
-          </td>
-        );
-    }
+  render() {
+    return (
+      <td>
+        {this.props.header}
+      </td>
+    );
+  }
 }
 
 HeaderCell.propTypes = propTypes;

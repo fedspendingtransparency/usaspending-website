@@ -4,24 +4,24 @@
  */
 
 export const budgetFields = [
-    {
-        label: 'Budget Function',
-        field: 'budgetFunction'
-    },
-    {
-        label: 'Budget Sub-Function',
-        field: 'budgetSubFunction'
-    },
-    {
-        label: 'Appropriation Account',
-        field: 'tas'
-    },
-    {
-        label: 'Program Activity',
-        field: 'programActivity'
-    },
-    {
-        label: 'Object Class',
-        field: 'objectClass'
-    }
+  {
+    label: 'Budget Function',
+    field: 'budgetFunction'
+  },
+  {
+    label: 'Budget Sub-Function',
+    field: 'budgetSubFunction'
+  },
+  {
+    label: 'Appropriation Account',
+    field: 'tas'
+  },
+  {
+    label: 'Program Activity',
+    field: 'programActivity'
+  },
+  {
+    label: 'Object Class',
+    field: 'objectClass'
+  }
 ];

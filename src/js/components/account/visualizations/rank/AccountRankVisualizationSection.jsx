@@ -11,81 +11,81 @@ import * as Icons from 'components/sharedComponents/icons/Icons';
 
 import RankVisualization from 'components/search/visualizations/rank/RankVisualization';
 import RankVisualizationScopeButton from
-    'components/search/visualizations/rank/RankVisualizationScopeButton';
+  'components/search/visualizations/rank/RankVisualizationScopeButton';
 
 const propTypes = {
-    categoryScope: PropTypes.string,
-    changeScope: PropTypes.func,
-    nextPage: PropTypes.func,
-    previousPage: PropTypes.func,
-    hasNextPage: PropTypes.bool,
-    hasPreviousPage: PropTypes.bool,
-    page: PropTypes.number,
-    loading: PropTypes.bool
+  categoryScope: PropTypes.string,
+  changeScope: PropTypes.func,
+  nextPage: PropTypes.func,
+  previousPage: PropTypes.func,
+  hasNextPage: PropTypes.bool,
+  hasPreviousPage: PropTypes.bool,
+  page: PropTypes.number,
+  loading: PropTypes.bool
 };
 
 export default class AccountRankVisualizationSection extends React.Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            windowWidth: 0,
-            visualizationWidth: 0,
-            labelWidth: 0
-        };
+    this.state = {
+      windowWidth: 0,
+      visualizationWidth: 0,
+      labelWidth: 0
+    };
 
-        this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
-        this.clickPrevious = this.clickPrevious.bind(this);
-        this.clickNext = this.clickNext.bind(this);
+    this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
+    this.clickPrevious = this.clickPrevious.bind(this);
+    this.clickNext = this.clickNext.bind(this);
+  }
+
+  componentDidMount() {
+    this.handleWindowResize();
+    window.addEventListener('resize', this.handleWindowResize);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleWindowResize);
+  }
+
+  handleWindowResize() {
+    // determine if the width changed
+    const windowWidth = window.innerWidth;
+    if (this.state.windowWidth !== windowWidth) {
+      // width changed, update the visualization width
+      this.setState({
+        windowWidth,
+        visualizationWidth: this.sectionHr.offsetWidth,
+        labelWidth: min([this.sectionHr.offsetWidth / 3, 270])
+      });
+    }
+  }
+
+  clickPrevious() {
+    this.props.previousPage();
+  }
+
+  clickNext() {
+    this.props.nextPage();
+  }
+
+  render() {
+    const disableNext = !this.props.hasNextPage;
+    const disablePrev = !this.props.hasPreviousPage;
+    let hidePager = '';
+
+    if ((disableNext && disablePrev) || this.props.loading) {
+      hidePager = 'hide';
     }
 
-    componentDidMount() {
-        this.handleWindowResize();
-        window.addEventListener('resize', this.handleWindowResize);
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.handleWindowResize);
-    }
-
-    handleWindowResize() {
-        // determine if the width changed
-        const windowWidth = window.innerWidth;
-        if (this.state.windowWidth !== windowWidth) {
-            // width changed, update the visualization width
-            this.setState({
-                windowWidth,
-                visualizationWidth: this.sectionHr.offsetWidth,
-                labelWidth: min([this.sectionHr.offsetWidth / 3, 270])
-            });
-        }
-    }
-
-    clickPrevious() {
-        this.props.previousPage();
-    }
-
-    clickNext() {
-        this.props.nextPage();
-    }
-
-    render() {
-        const disableNext = !this.props.hasNextPage;
-        const disablePrev = !this.props.hasPreviousPage;
-        let hidePager = '';
-
-        if ((disableNext && disablePrev) || this.props.loading) {
-            hidePager = 'hide';
-        }
-
-        return (
-          <div
-            className="results-visualization-rank-section"
-            id="results-section-rank">
-              <h3>Spending by Category</h3>
-                <hr
-                  className="results-divider"
-                  ref={(hr) => {
+    return (
+      <div
+        className="results-visualization-rank-section"
+        id="results-section-rank">
+          <h3>Spending by Category</h3>
+            <hr
+              className="results-divider"
+              ref={(hr) => {
                         this.sectionHr = hr;
                     }} />
 
@@ -163,9 +163,9 @@ export default class AccountRankVisualizationSection extends React.Component {
                                     </div>
                                 </button>
                             </div>
-          </div>
-        );
-    }
+      </div>
+    );
+  }
 }
 
 AccountRankVisualizationSection.propTypes = propTypes;

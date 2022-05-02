@@ -7,8 +7,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
-    value: PropTypes.string,
-    label: PropTypes.string
+  value: PropTypes.string,
+  label: PropTypes.string
 };
 
 const TooltipItem = (props) => (

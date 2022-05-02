@@ -6,17 +6,17 @@
 const vowels = ['a', 'e', 'i', 'o', 'u'];
 // eslint-disable-next-line import/prefer-default-export
 export const generateSingular = (word, capitalization) => {
-    const firstLetter = word.substring(0, 1).toLowerCase();
+  const firstLetter = word.substring(0, 1).toLowerCase();
 
-    let singular = 'An';
+  let singular = 'An';
 
-    if (vowels.indexOf(firstLetter) === -1) {
-        singular = 'A';
-    }
+  if (vowels.indexOf(firstLetter) === -1) {
+    singular = 'A';
+  }
 
-    if (capitalization) {
-        return singular;
-    }
+  if (capitalization) {
+    return singular;
+  }
 
-    return singular.toLowerCase();
+  return singular.toLowerCase();
 };

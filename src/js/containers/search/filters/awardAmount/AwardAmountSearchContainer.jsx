@@ -14,59 +14,59 @@ import AwardAmountSearch from 'components/search/filters/awardAmount/AwardAmount
 
 
 const propTypes = {
-    updateAwardAmounts: PropTypes.func,
-    awardAmounts: PropTypes.object,
-    appliedAmounts: PropTypes.object,
-    updateGenericFilter: PropTypes.func
+  updateAwardAmounts: PropTypes.func,
+  awardAmounts: PropTypes.object,
+  appliedAmounts: PropTypes.object,
+  updateGenericFilter: PropTypes.func
 };
 
 export class AwardAmountSearchContainer extends React.Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        // Bind functions
-        this.selectAwardRange = this.selectAwardRange.bind(this);
-        this.removeFilter = this.removeFilter.bind(this);
-    }
+    // Bind functions
+    this.selectAwardRange = this.selectAwardRange.bind(this);
+    this.removeFilter = this.removeFilter.bind(this);
+  }
 
-    selectAwardRange(awardAmountRange) {
-        this.props.updateAwardAmounts(awardAmountRange);
-    }
+  selectAwardRange(awardAmountRange) {
+    this.props.updateAwardAmounts(awardAmountRange);
+  }
 
-    dirtyFilters() {
-        if (is(this.props.awardAmounts, this.props.appliedAmounts)) {
-            return null;
-        }
-        return Symbol('dirty amount');
+  dirtyFilters() {
+    if (is(this.props.awardAmounts, this.props.appliedAmounts)) {
+      return null;
     }
+    return Symbol('dirty amount');
+  }
 
-    removeFilter(key) {
-        const newValue = this.props.awardAmounts.delete(key);
-        this.props.updateGenericFilter({
-            type: 'awardAmounts',
-            value: newValue
-        });
-    }
+  removeFilter(key) {
+    const newValue = this.props.awardAmounts.delete(key);
+    this.props.updateGenericFilter({
+      type: 'awardAmounts',
+      value: newValue
+    });
+  }
 
-    render() {
-        return (
-          <div className="award-amount-filter">
-            <AwardAmountSearch
-              removeFilter={this.removeFilter}
-              dirtyFilters={this.dirtyFilters()}
-              awardAmounts={this.props.awardAmounts}
-              selectAwardRange={this.selectAwardRange} />
-          </div>
-        );
-    }
+  render() {
+    return (
+      <div className="award-amount-filter">
+        <AwardAmountSearch
+          removeFilter={this.removeFilter}
+          dirtyFilters={this.dirtyFilters()}
+          awardAmounts={this.props.awardAmounts}
+          selectAwardRange={this.selectAwardRange} />
+      </div>
+    );
+  }
 }
 
 AwardAmountSearchContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({
-        awardAmounts: state.filters.awardAmounts,
-        appliedAmounts: state.appliedFilters.filters.awardAmounts
-    }),
-    (dispatch) => bindActionCreators(searchFilterActions, dispatch)
+  (state) => ({
+    awardAmounts: state.filters.awardAmounts,
+    appliedAmounts: state.appliedFilters.filters.awardAmounts
+  }),
+  (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(AwardAmountSearchContainer);

@@ -9,28 +9,28 @@ import { downloadOptions } from 'dataMapping/navigation/menuOptions';
 import MobileLinkItem from './MobileLinkItem';
 
 const MobileLinks = () => {
-    const leftItems = downloadOptions.slice(0, 3).map((item) => (
-      <MobileLinkItem
-        {...item}
-        key={item.code} />
-    ));
+  const leftItems = downloadOptions.slice(0, 3).map((item) => (
+    <MobileLinkItem
+      {...item}
+      key={item.code} />
+  ));
 
-    const rightItems = downloadOptions.slice(3).map((item) => (
-      <MobileLinkItem
-        {...item}
-        key={item.code} />
-    ));
+  const rightItems = downloadOptions.slice(3).map((item) => (
+    <MobileLinkItem
+      {...item}
+      key={item.code} />
+  ));
 
-    return (
-      <div className="mobile-download">
-        <ul className="mobile-download__list mobile-download__list_align_left">
-          {leftItems}
+  return (
+    <div className="mobile-download">
+      <ul className="mobile-download__list mobile-download__list_align_left">
+        {leftItems}
+      </ul>
+        <ul className="mobile-download__list mobile-download__list_align_right">
+          {rightItems}
         </ul>
-          <ul className="mobile-download__list mobile-download__list_align_right">
-            {rightItems}
-          </ul>
-      </div>
-    );
+    </div>
+  );
 };
 
 export default MobileLinks;

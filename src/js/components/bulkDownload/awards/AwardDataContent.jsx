@@ -21,102 +21,102 @@ import UserSelections from './UserSelections';
 import SubmitButton from './SubmitButton';
 
 const propTypes = {
-    awards: PropTypes.object,
-    updateCheckbox: PropTypes.func,
-    updateFilter: PropTypes.func,
-    updateStartDate: PropTypes.func,
-    updateEndDate: PropTypes.func,
-    clearAwardFilters: PropTypes.func,
-    agencies: PropTypes.object,
-    subAgencies: PropTypes.array,
-    setSubAgencyList: PropTypes.func,
-    states: PropTypes.array,
-    clickedDownload: PropTypes.func,
-    bulkAwardTypeChange: PropTypes.func,
-    toggleAwardTypeChange: PropTypes.func
+  awards: PropTypes.object,
+  updateCheckbox: PropTypes.func,
+  updateFilter: PropTypes.func,
+  updateStartDate: PropTypes.func,
+  updateEndDate: PropTypes.func,
+  clearAwardFilters: PropTypes.func,
+  agencies: PropTypes.object,
+  subAgencies: PropTypes.array,
+  setSubAgencyList: PropTypes.func,
+  states: PropTypes.array,
+  clickedDownload: PropTypes.func,
+  bulkAwardTypeChange: PropTypes.func,
+  toggleAwardTypeChange: PropTypes.func
 };
 
 export default class AwardDataContent extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            validDates: false,
-            validForm: false
-        };
+  constructor(props) {
+    super(props);
+    this.state = {
+      validDates: false,
+      validForm: false
+    };
 
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.setValidDates = this.setValidDates.bind(this);
-        this.resetForm = this.resetForm.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.setValidDates = this.setValidDates.bind(this);
+    this.resetForm = this.resetForm.bind(this);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.awards !== this.props.awards) {
+      this.validateForm(this.props.awards);
     }
+  }
 
-    componentDidUpdate(prevProps) {
-        if (prevProps.awards !== this.props.awards) {
-            this.validateForm(this.props.awards);
-        }
-    }
+  componentWillUnmount() {
+    this.props.clearAwardFilters();
+  }
 
-    componentWillUnmount() {
-        this.props.clearAwardFilters();
-    }
+  setValidDates(validDates) {
+    this.setState({
+      validDates
+    }, () => {
+      this.validateForm(this.props.awards);
+    });
+  }
 
-    setValidDates(validDates) {
-        this.setState({
-            validDates
-        }, () => {
-            this.validateForm(this.props.awards);
-        });
-    }
+  handleSubmit(e) {
+    e.preventDefault();
 
-    handleSubmit(e) {
-        e.preventDefault();
+    this.props.clickedDownload();
+  }
 
-        this.props.clickedDownload();
-    }
+  resetForm() {
+    this.props.clearAwardFilters();
+    this.setValidDates(false);
+  }
 
-    resetForm() {
-        this.props.clearAwardFilters();
-        this.setValidDates(false);
-    }
-
-    validateForm(awards) {
-        const primeAwards = awards.awardTypes.primeAwards.size > 0;
-        const subAwards = awards.awardTypes.subAwards.size > 0;
-        const validForm = (
-            (primeAwards || subAwards)
+  validateForm(awards) {
+    const primeAwards = awards.awardTypes.primeAwards.size > 0;
+    const subAwards = awards.awardTypes.subAwards.size > 0;
+    const validForm = (
+      (primeAwards || subAwards)
             && this.state.validDates && (awards.dateType !== '')
             && (awards.agency.id !== '')
             && (awards.location !== '')
             && (awards.fileFormat !== '')
-        );
+    );
 
-        this.setState({
-            validForm
-        });
-    }
+    this.setState({
+      validForm
+    });
+  }
 
-    render() {
-        const awards = this.props.awards;
-        const currentAgencies = {
-            agency: awards.agency,
-            subAgency: awards.subAgency
-        };
-        const awardTypeLabels = Object.assign(
-            {},
-            ...Object.entries(awardDownloadOptions.awardTypeLookups).map(([key, value]) => ({ [key]: value.label }))
-        );
+  render() {
+    const awards = this.props.awards;
+    const currentAgencies = {
+      agency: awards.agency,
+      subAgency: awards.subAgency
+    };
+    const awardTypeLabels = Object.assign(
+      {},
+      ...Object.entries(awardDownloadOptions.awardTypeLookups).map(([key, value]) => ({ [key]: value.label }))
+    );
 
-        return (
-          <div className="download-center">
-            <div className="download-center__filters">
-              <h2 className="download-center__title">Custom Award Data</h2>
-                <div className="archive-info">
-                  <div className="archive-info__icon">
-                    <InfoCircle />
-                  </div>
-                    <div className="archive-info__content">
-                      <div className="archive-info__heading">
+    return (
+      <div className="download-center">
+        <div className="download-center__filters">
+          <h2 className="download-center__title">Custom Award Data</h2>
+            <div className="archive-info">
+              <div className="archive-info__icon">
+                <InfoCircle />
+              </div>
+                <div className="archive-info__content">
+                  <div className="archive-info__heading">
                                 A faster way to download yearly award data by agency.
-                      </div>
+                  </div>
                         <div>
                                 Award downloads for entire fiscal years are available for each major agency on our&nbsp;
                           <Link to="/download_center/award_data_archive">
@@ -124,17 +124,17 @@ export default class AwardDataContent extends React.Component {
                           </Link>
                                 &nbsp;page.
                         </div>
-                    </div>
                 </div>
-                  <form
-                    className="download-center-form"
-                    onSubmit={this.handleSubmit}>
-                      <AwardLevelAndTypeFilter
-                        awardLevels={awardDownloadOptions.awardLevels}
-                        awardTypeLabels={awardTypeLabels}
-                        currentAwardTypes={awards.awardTypes}
-                        bulkAwardTypeChange={this.props.bulkAwardTypeChange}
-                        toggleAwardTypeChange={this.props.toggleAwardTypeChange} />
+            </div>
+              <form
+                className="download-center-form"
+                onSubmit={this.handleSubmit}>
+                  <AwardLevelAndTypeFilter
+                    awardLevels={awardDownloadOptions.awardLevels}
+                    awardTypeLabels={awardTypeLabels}
+                    currentAwardTypes={awards.awardTypes}
+                    bulkAwardTypeChange={this.props.bulkAwardTypeChange}
+                    toggleAwardTypeChange={this.props.toggleAwardTypeChange} />
                           <AgencyFilter
                             currentAgencyType={awards.agencyType}
                             agencyTypes={awardDownloadOptions.agencyTypes}
@@ -168,36 +168,36 @@ export default class AwardDataContent extends React.Component {
                                             updateFilter={this.props.updateFilter}
                                             valid={awards.fileFormat !== ''} />
                                               <UserSelections
-                                                  awards={awards}
-                                                  agencies={this.props.agencies}
-                                                  subAgencies={this.props.subAgencies}
-                                                  updateFilter={this.props.updateFilter}
-                                                  currentAgencyType={awards.agencyType} />
-                                                      <SubmitButton
-                                                          filters={awards}
-                                                          validForm={this.state.validForm}
-                                                          validDates={this.state.validDates}
-                                                          dataType="awards" />
-                  </form>
-                    <button className="download-center__reset" onClick={this.resetForm}>
+                                                awards={awards}
+                                                agencies={this.props.agencies}
+                                                subAgencies={this.props.subAgencies}
+                                                updateFilter={this.props.updateFilter}
+                                                currentAgencyType={awards.agencyType} />
+                                                  <SubmitButton
+                                                    filters={awards}
+                                                    validForm={this.state.validForm}
+                                                    validDates={this.state.validDates}
+                                                    dataType="awards" />
+              </form>
+                <button className="download-center__reset" onClick={this.resetForm}>
                         Reset form and start over
-                    </button>
-            </div>
-              <div className="download-info">
-                <h3 className="download-info__title">About Award Data</h3>
-                  <div className="download-info__section">
-                    <h4 className="download-info__section-heading">What is award data?</h4>
-                      <p>
+                </button>
+        </div>
+          <div className="download-info">
+            <h3 className="download-info__title">About Award Data</h3>
+              <div className="download-info__section">
+                <h4 className="download-info__section-heading">What is award data?</h4>
+                  <p>
                             Award data contains all the details of our prime award and sub-award records.
-                      </p>
-                  </div>
-                    <div className="download-info__section">
-                      <h4 className="download-info__section-heading">Why would I be interested in this data?</h4>
+                  </p>
+              </div>
+                <div className="download-info__section">
+                  <h4 className="download-info__section-heading">Why would I be interested in this data?</h4>
                         <p>
                             Downloading this data gives you access to every attribute of any particular award, including
                             data that may not be surfaced on this site.
                         </p>
-                    </div>
+                </div>
                       <div className="download-info__section">
                         <h4 className="download-info__section-heading">How do I use this form?</h4>
                           <p>
@@ -210,10 +210,10 @@ export default class AwardDataContent extends React.Component {
                         <div className="download-info__section">
                           <Note message={dodNote} />
                         </div>
-              </div>
           </div>
-        );
-    }
+      </div>
+    );
+  }
 }
 
 AwardDataContent.propTypes = propTypes;

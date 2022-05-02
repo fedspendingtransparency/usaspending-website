@@ -13,142 +13,142 @@ import * as SearchHelper from 'helpers/searchHelper';
 import Autocomplete from 'components/sharedComponents/autocomplete/Autocomplete';
 
 const propTypes = {
-    selectCFDA: PropTypes.func,
-    selectedCFDA: PropTypes.object
+  selectCFDA: PropTypes.func,
+  selectedCFDA: PropTypes.object
 };
 
 export default class CFDAListContainer extends React.Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            cfdaSearchString: '',
-            autocompleteCFDA: [],
-            noResults: false
-        };
+    this.state = {
+      cfdaSearchString: '',
+      autocompleteCFDA: [],
+      noResults: false
+    };
 
-        this.handleTextInput = this.handleTextInput.bind(this);
-        this.clearAutocompleteSuggestions = this.clearAutocompleteSuggestions.bind(this);
-        this.timeout = null;
+    this.handleTextInput = this.handleTextInput.bind(this);
+    this.clearAutocompleteSuggestions = this.clearAutocompleteSuggestions.bind(this);
+    this.timeout = null;
+  }
+
+  parseAutocompleteCFDA(cfda) {
+    const values = [];
+    if (cfda && cfda.length > 0) {
+      cfda.forEach((item) => {
+        const title = `${item.program_number} - ${item.program_title}`;
+        const subtitle = '';
+
+        values.push({
+          title,
+          subtitle,
+          data: item
+        });
+      });
     }
 
-    parseAutocompleteCFDA(cfda) {
-        const values = [];
-        if (cfda && cfda.length > 0) {
-            cfda.forEach((item) => {
-                const title = `${item.program_number} - ${item.program_title}`;
-                const subtitle = '';
+    this.setState({
+      autocompleteCFDA: values
+    });
+  }
 
-                values.push({
-                    title,
-                    subtitle,
-                    data: item
-                });
-            });
-        }
+  queryAutocompleteCFDA(input) {
+    this.setState({
+      noResults: false
+    });
 
-        this.setState({
-            autocompleteCFDA: values
-        });
-    }
+    // Only search if input is 2 or more characters
+    if (input.length >= 2) {
+      this.setState({
+        cfdaSearchString: input
+      });
 
-    queryAutocompleteCFDA(input) {
-        this.setState({
-            noResults: false
-        });
+      if (this.cfdaSearchRequest) {
+        // A request is currently in-flight, cancel it
+        this.cfdaSearchRequest.cancel();
+      }
 
-        // Only search if input is 2 or more characters
-        if (input.length >= 2) {
-            this.setState({
-                cfdaSearchString: input
-            });
+      const cfdaSearchParams = {
+        search_text: this.state.cfdaSearchString,
+        limit: 1000
+      };
 
-            if (this.cfdaSearchRequest) {
-                // A request is currently in-flight, cancel it
-                this.cfdaSearchRequest.cancel();
-            }
+      this.cfdaSearchRequest = SearchHelper.fetchCFDA(cfdaSearchParams);
 
-            const cfdaSearchParams = {
-                search_text: this.state.cfdaSearchString,
-                limit: 1000
-            };
+      this.cfdaSearchRequest.promise
+        .then((res) => {
+          const results = res.data.results;
+          let autocompleteData = [];
 
-            this.cfdaSearchRequest = SearchHelper.fetchCFDA(cfdaSearchParams);
-
-            this.cfdaSearchRequest.promise
-                .then((res) => {
-                    const results = res.data.results;
-                    let autocompleteData = [];
-
-                    // Filter out any selected CFDA that may be in the result set
-                    const selectedCFDA =
+          // Filter out any selected CFDA that may be in the result set
+          const selectedCFDA =
                     this.props.selectedCFDA.toArray().map((cfda) => omit(cfda, 'identifier'));
-                    if (results && results.length > 0) {
-                        autocompleteData = differenceWith(results, selectedCFDA, isEqual);
-                    }
-                    else {
-                        autocompleteData = results;
-                    }
-                    this.setState({
-                        noResults: autocompleteData.length === 0
-                    });
+          if (results && results.length > 0) {
+            autocompleteData = differenceWith(results, selectedCFDA, isEqual);
+          }
+          else {
+            autocompleteData = results;
+          }
+          this.setState({
+            noResults: autocompleteData.length === 0
+          });
 
-                    // Add search results to Redux
-                    this.parseAutocompleteCFDA(autocompleteData);
-                })
-                .catch((err) => {
-                    if (!isCancel(err)) {
-                        this.setState({
-                            noResults: true
-                        });
-                    }
-                });
-        }
-        else if (this.cfdaSearchRequest) {
-            // A request is currently in-flight, cancel it
-            this.cfdaSearchRequest.cancel();
-        }
-    }
-
-    clearAutocompleteSuggestions() {
-        this.setState({
-            autocompleteCFDA: []
+          // Add search results to Redux
+          this.parseAutocompleteCFDA(autocompleteData);
+        })
+        .catch((err) => {
+          if (!isCancel(err)) {
+            this.setState({
+              noResults: true
+            });
+          }
         });
     }
-
-    handleTextInput(cfdaInput) {
-        // Clear existing cfdas to ensure user can't select an old or existing one
-        this.setState({
-            autocompleteCFDA: []
-        });
-
-        // Grab input, clear any exiting timeout
-        const input = cfdaInput.target.value;
-        window.clearTimeout(this.timeout);
-
-        // Perform search if user doesn't type again for 300ms
-        this.timeout = window.setTimeout(() => {
-            this.queryAutocompleteCFDA(input);
-        }, 300);
+    else if (this.cfdaSearchRequest) {
+      // A request is currently in-flight, cancel it
+      this.cfdaSearchRequest.cancel();
     }
+  }
 
-    render() {
-        return (
-          <Autocomplete
-            {...this.props}
-            values={this.state.autocompleteCFDA}
-            handleTextInput={this.handleTextInput}
-            onSelect={this.props.selectCFDA}
-            placeholder="e.g., 93.778 - Medical Assistance Program"
-            errorHeader="Unknown CFDA"
-            errorMessage="We were unable to find that CFDA."
-            ref={(input) => {
+  clearAutocompleteSuggestions() {
+    this.setState({
+      autocompleteCFDA: []
+    });
+  }
+
+  handleTextInput(cfdaInput) {
+    // Clear existing cfdas to ensure user can't select an old or existing one
+    this.setState({
+      autocompleteCFDA: []
+    });
+
+    // Grab input, clear any exiting timeout
+    const input = cfdaInput.target.value;
+    window.clearTimeout(this.timeout);
+
+    // Perform search if user doesn't type again for 300ms
+    this.timeout = window.setTimeout(() => {
+      this.queryAutocompleteCFDA(input);
+    }, 300);
+  }
+
+  render() {
+    return (
+      <Autocomplete
+        {...this.props}
+        values={this.state.autocompleteCFDA}
+        handleTextInput={this.handleTextInput}
+        onSelect={this.props.selectCFDA}
+        placeholder="e.g., 93.778 - Medical Assistance Program"
+        errorHeader="Unknown CFDA"
+        errorMessage="We were unable to find that CFDA."
+        ref={(input) => {
                     this.cfdaList = input;
                 }}
-            clearAutocompleteSuggestions={this.clearAutocompleteSuggestions}
-            noResults={this.state.noResults} />
-        );
-    }
+        clearAutocompleteSuggestions={this.clearAutocompleteSuggestions}
+        noResults={this.state.noResults} />
+    );
+  }
 }
 
 CFDAListContainer.propTypes = propTypes;

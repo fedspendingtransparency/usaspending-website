@@ -11,12 +11,12 @@ import AwardDataArchiveForm from './AwardDataArchiveForm';
 import AwardDataArchiveTable from './table/AwardDataArchiveTable';
 
 const propTypes = {
-    filters: PropTypes.object,
-    updateFilter: PropTypes.func,
-    agencies: PropTypes.object,
-    results: PropTypes.array,
-    columns: PropTypes.array,
-    requestResults: PropTypes.func
+  filters: PropTypes.object,
+  updateFilter: PropTypes.func,
+  agencies: PropTypes.object,
+  results: PropTypes.array,
+  columns: PropTypes.array,
+  requestResults: PropTypes.func
 };
 
 const AwardDataArchiveContent = (props) => (

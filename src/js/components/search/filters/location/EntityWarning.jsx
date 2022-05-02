@@ -10,7 +10,7 @@ import { ExclamationTriangle } from 'components/sharedComponents/icons/Icons';
 
 
 const propTypes = {
-    message: PropTypes.node
+  message: PropTypes.node
 };
 
 const EntityWarning = (props) => (

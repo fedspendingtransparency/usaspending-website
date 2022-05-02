@@ -6,13 +6,13 @@
 import { apiRequest } from './apiRequest';
 
 export const fetchTasCategoryTotals = (data) => apiRequest({
-    url: 'v1/tas/categories/quarters/total/',
-    method: 'post',
-    data
+  url: 'v1/tas/categories/quarters/total/',
+  method: 'post',
+  data
 });
 
 export const fetchTasBalanceTotals = (data) => apiRequest({
-    url: 'v1/tas/balances/quarters/total/',
-    method: 'post',
-    data
+  url: 'v1/tas/balances/quarters/total/',
+  method: 'post',
+  data
 });

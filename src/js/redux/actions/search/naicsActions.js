@@ -5,14 +5,14 @@
 
 import { cleanNaicsData } from "helpers/naicsHelper";
 import {
-    setNodes,
-    showTree,
-    setExpanded,
-    addChecked,
-    setChecked,
-    setUnchecked,
-    setSearchedNodes,
-    setCounts
+  setNodes,
+  showTree,
+  setExpanded,
+  addChecked,
+  setChecked,
+  setUnchecked,
+  setSearchedNodes,
+  setCounts
 } from "helpers/checkboxTreeHelper";
 
 const treeName = 'NAICS';

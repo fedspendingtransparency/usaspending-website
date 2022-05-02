@@ -18,29 +18,29 @@ import { SHOW_HOMEPAGE_UPDATE } from '../../GlobalConstants';
 require('pages/homepageUpdate/homepageUpdate.scss');
 
 const HomepageUpdate = () => {
-    const [hideContent, setHideContent] = useState();
+  const [hideContent, setHideContent] = useState();
 
-    useEffect(() => {
-        setHideContent(!SHOW_HOMEPAGE_UPDATE);
-    }, []);
+  useEffect(() => {
+    setHideContent(!SHOW_HOMEPAGE_UPDATE);
+  }, []);
 
-    return (<>{hideContent ?
-      <Redirect to="/404" />
-        :
-      <PageWrapper
-        pageName="Homepage"
-        classNames="usa-da-home-page"
-        noHeader
-        metaTagProps={{ ...homePageMetaTags }}>
-          <main id="main-content" className="main-content homepage-content">
-            <Hero />
-              <HomepageCovidContainer />
-                <GettingStarted />
-                  <Download />
-                    <Community />
-          </main>
-      </PageWrapper>}
-    </>);
+  return (<>{hideContent ?
+    <Redirect to="/404" />
+    :
+    <PageWrapper
+      pageName="Homepage"
+      classNames="usa-da-home-page"
+      noHeader
+      metaTagProps={{ ...homePageMetaTags }}>
+        <main id="main-content" className="main-content homepage-content">
+          <Hero />
+            <HomepageCovidContainer />
+              <GettingStarted />
+                <Download />
+                  <Community />
+        </main>
+    </PageWrapper>}
+  </>);
 };
 
 export default HomepageUpdate;

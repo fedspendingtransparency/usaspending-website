@@ -30,33 +30,33 @@ import aboutTheDataReducer from './aboutTheData';
 import googleAnalyticsReducer from './googleAnalytics/googleAnalyticsReducer';
 
 const appReducer = combineReducers({
-    filters: filtersReducer,
-    appliedFilters: appliedFiltersReducer,
-    searchView: searchViewReducer,
-    download: downloadReducer,
-    award: awardReducer,
-    account: accountReducer,
-    agency: agencyReducer,
-    glossary: glossaryReducer,
-    agencyLanding: agencyLandingReducer,
-    recipient: recipientReducer,
-    explorer: explorerReducer,
-    bulkDownload: bulkDownloadReducer,
-    modal: modalReducer,
-    stateProfile: stateReducer,
-    searchSubAwardTable: searchSubAwardTableReducer,
-    // tas/naics/psc filters are outside of redux.filter keyspace b/c
-    // the expand/collapse of this filter is required to load
-    // the tree & it cannot populated the correct user selections without the data.
-    // Nesting it inside filters would be a bad idea.
-    naics: naicsReducer,
-    tas: tasReducer,
-    psc: pscReducer,
-    searchMapLegendToggle: mapLegendToggleReducer,
-    agencyV2: agencyV2Reducer,
-    covid19: covid19Reducer,
-    aboutTheData: aboutTheDataReducer,
-    googleAnalytics: googleAnalyticsReducer
+  filters: filtersReducer,
+  appliedFilters: appliedFiltersReducer,
+  searchView: searchViewReducer,
+  download: downloadReducer,
+  award: awardReducer,
+  account: accountReducer,
+  agency: agencyReducer,
+  glossary: glossaryReducer,
+  agencyLanding: agencyLandingReducer,
+  recipient: recipientReducer,
+  explorer: explorerReducer,
+  bulkDownload: bulkDownloadReducer,
+  modal: modalReducer,
+  stateProfile: stateReducer,
+  searchSubAwardTable: searchSubAwardTableReducer,
+  // tas/naics/psc filters are outside of redux.filter keyspace b/c
+  // the expand/collapse of this filter is required to load
+  // the tree & it cannot populated the correct user selections without the data.
+  // Nesting it inside filters would be a bad idea.
+  naics: naicsReducer,
+  tas: tasReducer,
+  psc: pscReducer,
+  searchMapLegendToggle: mapLegendToggleReducer,
+  agencyV2: agencyV2Reducer,
+  covid19: covid19Reducer,
+  aboutTheData: aboutTheDataReducer,
+  googleAnalytics: googleAnalyticsReducer
 });
 
 export default appReducer;

@@ -9,12 +9,12 @@ import PropTypes from 'prop-types';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 const propTypes = {
-    description: PropTypes.string,
-    value: PropTypes.number,
-    x: PropTypes.number,
-    y: PropTypes.number,
-    height: PropTypes.number,
-    color: PropTypes.string
+  description: PropTypes.string,
+  value: PropTypes.number,
+  x: PropTypes.number,
+  y: PropTypes.number,
+  height: PropTypes.number,
+  color: PropTypes.string
 };
 
 // calculate the length of an equilateral triangle of with length 10px on each side

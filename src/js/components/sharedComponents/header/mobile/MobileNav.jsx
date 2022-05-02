@@ -15,69 +15,69 @@ import MobileTop from './MobileTop';
 import MobileDropdown from './MobileDropdown';
 
 const clickedHeaderLink = (route) => {
-    Analytics.event({
-        category: 'Header - Link',
-        action: route
-    });
+  Analytics.event({
+    category: 'Header - Link',
+    action: route
+  });
 };
 
 const propTypes = {
-    hideMobileNav: PropTypes.func,
-    location: PropTypes.object
+  hideMobileNav: PropTypes.func,
+  location: PropTypes.object
 };
 
 export class MobileNav extends React.Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            url: ''
-        };
+    this.state = {
+      url: ''
+    };
 
-        this.clickedLink = this.clickedLink.bind(this);
+    this.clickedLink = this.clickedLink.bind(this);
+  }
+
+  componentDidMount() {
+    this.checkCurrentProfile();
+  }
+
+  clickedLink(e) {
+    const route = e.target.name;
+    clickedHeaderLink(route);
+    this.props.hideMobileNav();
+  }
+
+  checkCurrentProfile() {
+    // determine if we need to highlight a dropdown menu option
+    const currentUrl = this.props.location.pathname;
+    if (this.state.url !== currentUrl) {
+      this.setState({
+        url: currentUrl
+      });
     }
+  }
 
-    componentDidMount() {
-        this.checkCurrentProfile();
-    }
-
-    clickedLink(e) {
-        const route = e.target.name;
-        clickedHeaderLink(route);
-        this.props.hideMobileNav();
-    }
-
-    checkCurrentProfile() {
-        // determine if we need to highlight a dropdown menu option
-        const currentUrl = this.props.location.pathname;
-        if (this.state.url !== currentUrl) {
-            this.setState({
-                url: currentUrl
-            });
-        }
-    }
-
-    render() {
-        return (
-          <div className="mobile-nav">
-            <div className="mobile-nav__top">
-              <MobileTop {...this.props} />
-            </div>
-              <div className="mobile-nav-content">
-                <ul
-                  className="mobile-nav-content__list">
-                    <li className="mobile-nav-content__list-item">
-                      <Link
-                        className="mobile-nav-content__link"
-                        to="/explorer"
-                        title="Spending Explorer"
-                        name="explorer"
-                        onClick={this.clickedLink}>
+  render() {
+    return (
+      <div className="mobile-nav">
+        <div className="mobile-nav__top">
+          <MobileTop {...this.props} />
+        </div>
+          <div className="mobile-nav-content">
+            <ul
+              className="mobile-nav-content__list">
+                <li className="mobile-nav-content__list-item">
+                  <Link
+                    className="mobile-nav-content__link"
+                    to="/explorer"
+                    title="Spending Explorer"
+                    name="explorer"
+                    onClick={this.clickedLink}>
                                 Spending Explorer
-                      </Link>
+                  </Link>
                         <hr className="mobile-nav-content__divider" />
-                    </li>
-                      <li className="mobile-nav-content__list-item">
+                </li>
+                  <li className="mobile-nav-content__list-item">
                         <MobileDropdown
                           {...this.props}
                           label="Award Search"
@@ -109,11 +109,11 @@ export class MobileNav extends React.Component {
                                 active={this.state.url} />
                                   <hr className="mobile-nav-content__divider" />
                             </li>
-                </ul>
-              </div>
+            </ul>
           </div>
-        );
-    }
+      </div>
+    );
+  }
 }
 
 MobileNav.propTypes = propTypes;

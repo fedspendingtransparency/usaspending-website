@@ -18,35 +18,35 @@ import AwardSectionHeader from '../AwardSectionHeader';
 import { AWARD_TYPE_PROPS } from '../../../../propTypes/index';
 
 const propTypes = {
-    jumpToFederalAccountsHistory: PropTypes.func,
-    awardType: AWARD_TYPE_PROPS
+  jumpToFederalAccountsHistory: PropTypes.func,
+  awardType: AWARD_TYPE_PROPS
 };
 
 // eslint-disable-next-line max-len
 const message = 'Result count may differ between treemap view and table view. Treemap view only displays accounts with a positive combined obligated amount, while table view displays all accounts.';
 
 const FederalAccountsSection = ({
-    jumpToFederalAccountsHistory,
-    awardType
+  jumpToFederalAccountsHistory,
+  awardType
 }) => {
-    const infoTooltip = getToolTipBySectionAndAwardType('federalAccounts', awardType);
-    return (
-      <AwardSection type="column" className="award-viz federal-accounts">
-        <AwardSectionHeader
-          icon={<FontAwesomeIcon size="lg" icon="chart-pie" />}
-          title="Federal Accounts"
-          tooltipWide
-          tooltip={infoTooltip} />
-            <div className="award__col__content">
-              <FederalAccountsVizContainer />
-                <span className="federal-accounts__section--note">
-                  <Note message={message} />
-                </span>
-                  <FederalAccountsSummaryContainer
-                    jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
-            </div>
-      </AwardSection>
-    );
+  const infoTooltip = getToolTipBySectionAndAwardType('federalAccounts', awardType);
+  return (
+    <AwardSection type="column" className="award-viz federal-accounts">
+      <AwardSectionHeader
+        icon={<FontAwesomeIcon size="lg" icon="chart-pie" />}
+        title="Federal Accounts"
+        tooltipWide
+        tooltip={infoTooltip} />
+          <div className="award__col__content">
+            <FederalAccountsVizContainer />
+              <span className="federal-accounts__section--note">
+                <Note message={message} />
+              </span>
+                <FederalAccountsSummaryContainer
+                  jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
+          </div>
+    </AwardSection>
+  );
 };
 
 FederalAccountsSection.propTypes = propTypes;

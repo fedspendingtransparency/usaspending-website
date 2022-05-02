@@ -9,13 +9,13 @@ import PropTypes from 'prop-types';
 import { ExclamationTriangle } from 'components/sharedComponents/icons/Icons';
 
 const defaultProps = {
-    title: 'An error occurred.',
-    description: 'Something went wrong while gathering your data.'
+  title: 'An error occurred.',
+  description: 'Something went wrong while gathering your data.'
 };
 
 const propTypes = {
-    title: PropTypes.string,
-    description: PropTypes.string
+  title: PropTypes.string,
+  description: PropTypes.string
 };
 const ResultsTableErrorMessage = ({ title, description }) => (
   <div className="results-table-error">

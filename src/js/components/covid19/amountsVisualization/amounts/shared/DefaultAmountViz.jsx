@@ -11,29 +11,29 @@ import DefaultLineAndText from './DefaultLineAndText';
 
 
 const propTypes = {
-    dataId: PropTypes.string,
-    tooltipId: PropTypes.string,
-    displayTooltip: PropTypes.func,
-    hideTooltip: PropTypes.func,
-    showTooltip: PropTypes.string,
-    overviewData: PropTypes.object,
-    scale: PropTypes.func,
-    width: PropTypes.number,
-    className: PropTypes.string,
-    publicLaw: PropTypes.string
+  dataId: PropTypes.string,
+  tooltipId: PropTypes.string,
+  displayTooltip: PropTypes.func,
+  hideTooltip: PropTypes.func,
+  showTooltip: PropTypes.string,
+  overviewData: PropTypes.object,
+  scale: PropTypes.func,
+  width: PropTypes.number,
+  className: PropTypes.string,
+  publicLaw: PropTypes.string
 };
 
 const DefaultAmountViz = ({
-    dataId,
-    tooltipId,
-    displayTooltip,
-    hideTooltip,
-    showTooltip,
-    overviewData,
-    scale,
-    width,
-    className,
-    publicLaw
+  dataId,
+  tooltipId,
+  displayTooltip,
+  hideTooltip,
+  showTooltip,
+  overviewData,
+  scale,
+  width,
+  className,
+  publicLaw
 }) => (
   <g>
     <DefaultLineAndText

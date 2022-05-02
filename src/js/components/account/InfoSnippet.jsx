@@ -7,23 +7,23 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
-    label: PropTypes.string,
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  label: PropTypes.string,
+  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 };
 
 export default class InfoSnippet extends React.Component {
-    render() {
-        return (
-          <li>
-            <div className="format-item">
-              <div className="item-label">
-                {this.props.label}
-              </div>
-                <div className="item-value">
-                  {this.props.value}
-                </div>
+  render() {
+    return (
+      <li>
+        <div className="format-item">
+          <div className="item-label">
+            {this.props.label}
+          </div>
+            <div className="item-value">
+              {this.props.value}
             </div>
-          </li>);
-    }
+        </div>
+      </li>);
+  }
 }
 InfoSnippet.propTypes = propTypes;

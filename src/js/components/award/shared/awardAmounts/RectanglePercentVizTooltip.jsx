@@ -2,9 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const prop = {
-    amount: PropTypes.string,
-    title: PropTypes.string,
-    description: PropTypes.string
+  amount: PropTypes.string,
+  title: PropTypes.string,
+  description: PropTypes.string
 };
 // eslint-disable-next-line import/prefer-default-export
 export const RectanglePercentVizTooltip = ({ amount, title, description }) => (

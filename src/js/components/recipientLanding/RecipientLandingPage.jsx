@@ -18,30 +18,30 @@ const slug = 'recipient';
 const emailSubject = 'USAspending.gov Recipient Profiles';
 
 export default class RecipientLandingPage extends React.Component {
-    handleShare = (name) => {
-        handleShareOptionClick(name, slug, {
-            subject: emailSubject,
-            body: `View all of the Recipient Profiles on USAspending.gov: ${getBaseUrl(slug)}`
-        });
-    };
+  handleShare = (name) => {
+    handleShareOptionClick(name, slug, {
+      subject: emailSubject,
+      body: `View all of the Recipient Profiles on USAspending.gov: ${getBaseUrl(slug)}`
+    });
+  };
 
-    render() {
-        return (
-          <PageWrapper
-            pageName="Recipient Profiles"
-            classNames="usa-da-recipient-landing"
-            title="Recipient Profiles"
-            metaTagProps={recipientLandingPageMetaTags}
-            toolBarComponents={[
-              <ShareIcon
-                onShareOptionClick={this.handleShare}
-                url={getBaseUrl(slug)} />
+  render() {
+    return (
+      <PageWrapper
+        pageName="Recipient Profiles"
+        classNames="usa-da-recipient-landing"
+        title="Recipient Profiles"
+        metaTagProps={recipientLandingPageMetaTags}
+        toolBarComponents={[
+          <ShareIcon
+            onShareOptionClick={this.handleShare}
+            url={getBaseUrl(slug)} />
                 ]}>
                   <main id="main-content" className="main-content">
                     <RecipientLandingContainer />
                   </main>
-          </PageWrapper>
-        );
-    }
+      </PageWrapper>
+    );
+  }
 }
 

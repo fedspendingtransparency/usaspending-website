@@ -11,15 +11,15 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import replaceString from 'helpers/replaceString';
 
 const propTypes = {
-    id: PropTypes.string,
-    data: oneOfType([PropTypes.string, PropTypes.object]),
-    searchTerm: PropTypes.string
+  id: PropTypes.string,
+  data: oneOfType([PropTypes.string, PropTypes.object]),
+  searchTerm: PropTypes.string
 };
 
 const DrilldownCell = ({
-    data,
-    id,
-    searchTerm
+  data,
+  id,
+  searchTerm
 }) => (
   <div className="action-cell">
     <span className="action-cell__text">

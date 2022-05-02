@@ -9,55 +9,55 @@ import UEIInfoBanner from './UEIInfoBanner';
 import NavBar from './NavBar';
 
 const clickedHeaderLink = (route) => {
-    Analytics.event({
-        category: 'Header - Link',
-        action: route
-    });
+  Analytics.event({
+    category: 'Header - Link',
+    action: route
+  });
 };
 
 export default class Header extends React.Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        // bind functions
-        this.skippedNav = this.skippedNav.bind(this);
+    // bind functions
+    this.skippedNav = this.skippedNav.bind(this);
+  }
+
+  skippedNav(e) {
+    // don't update the URL due to potential React Router conflicts
+    e.preventDefault();
+    // scroll to the main-content id
+    const mainContent = document.getElementById('main-content');
+    const mainFocus = document.querySelector('#main-content h1');
+    const yPos = mainContent.getBoundingClientRect().top;
+    window.scrollTo(0, yPos);
+    // focus on the element
+    if (mainFocus) {
+      mainFocus.focus();
     }
+  }
 
-    skippedNav(e) {
-        // don't update the URL due to potential React Router conflicts
-        e.preventDefault();
-        // scroll to the main-content id
-        const mainContent = document.getElementById('main-content');
-        const mainFocus = document.querySelector('#main-content h1');
-        const yPos = mainContent.getBoundingClientRect().top;
-        window.scrollTo(0, yPos);
-        // focus on the element
-        if (mainFocus) {
-            mainFocus.focus();
-        }
-    }
+  render() {
+    const infoBanner = (
+      <UEIInfoBanner showModal={this.props.showModal} />
+    );
 
-    render() {
-        const infoBanner = (
-          <UEIInfoBanner showModal={this.props.showModal} />
-        );
-
-        return (
-          <div className="site-header">
-            <a
-              href="#main-content"
-              className="skip-nav"
-              onClick={this.skippedNav}>
+    return (
+      <div className="site-header">
+        <a
+          href="#main-content"
+          className="skip-nav"
+          onClick={this.skippedNav}>
                         Skip to main content
-            </a>
-              <header
-                className="site-header__wrapper"
-                aria-label="Site header">
-                  <div
-                    className="official-banner"
-                    role="note">
-                      <div className="official-banner__wrapper">
-                        <ul
+        </a>
+          <header
+            className="site-header__wrapper"
+            aria-label="Site header">
+              <div
+                className="official-banner"
+                role="note">
+                  <div className="official-banner__wrapper">
+                    <ul
                           className="official-banner__site-list">
                             <li>
                               <Link
@@ -87,11 +87,11 @@ export default class Header extends React.Component {
                                   </li>
                                     <li>
                                       <a
-                                          className="official-banner__site-link"
-                                          href="http://fiscaldata.treasury.gov/"
-                                          onClick={clickedHeaderLink.bind(null, 'http://fiscaldata.treasury.gov')}>
+                                        className="official-banner__site-link"
+                                        href="http://fiscaldata.treasury.gov/"
+                                        onClick={clickedHeaderLink.bind(null, 'http://fiscaldata.treasury.gov')}>
                                         Fiscal Data
-                                        </a>
+                                      </a>
                                     </li>
                         </ul>
                           <div className="official-banner__message">
@@ -103,18 +103,18 @@ export default class Header extends React.Component {
                                 src="img/us_flag_small.png"
                                 alt="U.S. flag" />
                           </div>
-                      </div>
                   </div>
-                {infoBanner}
-                  <NavBar />
-              </header>
-                <GlossaryContainer />
-                  <GlobalModalContainer />
-          </div>
-        );
-    }
+              </div>
+            {infoBanner}
+              <NavBar />
+          </header>
+            <GlossaryContainer />
+              <GlobalModalContainer />
+      </div>
+    );
+  }
 }
 
 Header.propTypes = {
-    showModal: PropTypes.func
+  showModal: PropTypes.func
 };

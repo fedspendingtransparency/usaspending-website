@@ -16,177 +16,177 @@ import { Glossary } from 'components/sharedComponents/icons/Icons';
 import HorizontalBarItem from '../visualizations/obligated/HorizontalBarItem';
 
 const propTypes = {
-    agency: PropTypes.object,
-    activeFy: PropTypes.string,
-    asOfDate: PropTypes.string
+  agency: PropTypes.object,
+  activeFy: PropTypes.string,
+  asOfDate: PropTypes.string
 };
 
 export default class AgencyOverview extends React.PureComponent {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            hideLogo: true,
-            logo: '',
-            mission: '',
-            website: '',
-            congressionalJustificationUrl: '',
-            formattedBudgetAuthority: '',
-            percentageElement: '',
-            visualizationWidth: 0,
-            obligatedWidth: 0,
-            remainingWidth: 0
-        };
+    this.state = {
+      hideLogo: true,
+      logo: '',
+      mission: '',
+      website: '',
+      congressionalJustificationUrl: '',
+      formattedBudgetAuthority: '',
+      percentageElement: '',
+      visualizationWidth: 0,
+      obligatedWidth: 0,
+      remainingWidth: 0
+    };
 
-        this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
+    this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
+  }
+
+  componentDidMount() {
+    this.handleWindowResize();
+    window.addEventListener('resize', this.handleWindowResize);
+    this.prepareOverview(this.props);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.agency.id !== this.props.agency.id) {
+      this.prepareOverview(this.props);
+    }
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleWindowResize);
+  }
+
+  prepareOverview(props) {
+    const { agency } = props;
+    let logo = null;
+    let hideLogo = 'hide';
+    if (agency.logo) {
+      hideLogo = '';
+      logo = (<img
+        src={`graphics/agency/${agency.logo}`}
+        alt={agency.name} />);
     }
 
-    componentDidMount() {
-        this.handleWindowResize();
-        window.addEventListener('resize', this.handleWindowResize);
-        this.prepareOverview(this.props);
+    let mission = 'Not available';
+    if (agency.mission) {
+      mission = agency.mission;
     }
 
-    componentDidUpdate(prevProps) {
-        if (prevProps.agency.id !== this.props.agency.id) {
-            this.prepareOverview(this.props);
-        }
+    let website = 'Not available';
+    if (agency.website) {
+      website = (
+        <a
+          className="agency-website"
+          href={agency.website}
+          target="_blank"
+          rel="noopener noreferrer">
+          {`${agency.website} `}
+            <FontAwesomeIcon icon="external-link-alt" />
+        </a>
+      );
     }
-
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.handleWindowResize);
-    }
-
-    prepareOverview(props) {
-        const { agency } = props;
-        let logo = null;
-        let hideLogo = 'hide';
-        if (agency.logo) {
-            hideLogo = '';
-            logo = (<img
-              src={`graphics/agency/${agency.logo}`}
-              alt={agency.name} />);
-        }
-
-        let mission = 'Not available';
-        if (agency.mission) {
-            mission = agency.mission;
-        }
-
-        let website = 'Not available';
-        if (agency.website) {
-            website = (
-              <a
-                className="agency-website"
-                href={agency.website}
-                target="_blank"
-                rel="noopener noreferrer">
-                {`${agency.website} `}
-                  <FontAwesomeIcon icon="external-link-alt" />
-              </a>
-            );
-        }
-        const cjUrl = agency.congressionalJustificationUrl
+    const cjUrl = agency.congressionalJustificationUrl
             !== 'not available' ?
-            (
-              <a
-                className="agency-website"
-                href={agency.congressionalJustificationUrl}
-                target="_blank"
-                rel="noopener noreferrer">
-                {`${agency.congressionalJustificationUrl} `}
-                  <FontAwesomeIcon icon="external-link-alt" />
-              </a>
-            ) : agency.congressionalJustificationUrl;
+      (
+        <a
+          className="agency-website"
+          href={agency.congressionalJustificationUrl}
+          target="_blank"
+          rel="noopener noreferrer">
+          {`${agency.congressionalJustificationUrl} `}
+            <FontAwesomeIcon icon="external-link-alt" />
+        </a>
+      ) : agency.congressionalJustificationUrl;
 
 
-        // Move props to variables for readability
-        const budgetAuthority = agency.budgetAuthority;
+    // Move props to variables for readability
+    const budgetAuthority = agency.budgetAuthority;
 
-        const federalBudget = agency.federalBudget;
+    const federalBudget = agency.federalBudget;
 
-        // Generate Budget Authority string
-        const budgetAuthorityAmount = MoneyFormatter
-            .calculateUnitForSingleValue(budgetAuthority);
-        const formattedBudgetAuthority = `${MoneyFormatter
-            .formatMoneyWithPrecision(budgetAuthority / budgetAuthorityAmount.unit, 1)}
+    // Generate Budget Authority string
+    const budgetAuthorityAmount = MoneyFormatter
+      .calculateUnitForSingleValue(budgetAuthority);
+    const formattedBudgetAuthority = `${MoneyFormatter
+      .formatMoneyWithPrecision(budgetAuthority / budgetAuthorityAmount.unit, 1)}
         ${capitalize(budgetAuthorityAmount.longLabel)}`;
 
-        // Generate Percentage string
-        const percentage = MoneyFormatter.calculatePercentage(
-            budgetAuthority, federalBudget);
-        const percentageElement = (
-          <span className="authority-statement-percentage">{percentage}</span>
-        );
+    // Generate Percentage string
+    const percentage = MoneyFormatter.calculatePercentage(
+      budgetAuthority, federalBudget);
+    const percentageElement = (
+      <span className="authority-statement-percentage">{percentage}</span>
+    );
 
-        // Generate initial visualization size
-        let visualizationWidth = 0;
-        if (this.containerDiv) {
-            visualizationWidth = this.containerDiv.getBoundingClientRect().width;
-        }
-
-        this.setState({
-            hideLogo,
-            logo,
-            mission,
-            website,
-            cjUrl,
-            formattedBudgetAuthority,
-            percentageElement,
-            visualizationWidth
-        }, () => {
-            this.updateVisualizationState(props, visualizationWidth);
-        });
+    // Generate initial visualization size
+    let visualizationWidth = 0;
+    if (this.containerDiv) {
+      visualizationWidth = this.containerDiv.getBoundingClientRect().width;
     }
 
-    updateVisualizationState(props, visualizationWidth) {
-        // Generate visualization parameters
-        let obligatedWidth = 0;
+    this.setState({
+      hideLogo,
+      logo,
+      mission,
+      website,
+      cjUrl,
+      formattedBudgetAuthority,
+      percentageElement,
+      visualizationWidth
+    }, () => {
+      this.updateVisualizationState(props, visualizationWidth);
+    });
+  }
 
-        // Only check the percentage width if the data is available
-        if (props.agency.budgetAuthority !== 0 && props.agency.federalBudget !== 0) {
-            const percentageNumber = props.agency.budgetAuthority / props.agency.federalBudget;
-            obligatedWidth = visualizationWidth * percentageNumber;
-        }
+  updateVisualizationState(props, visualizationWidth) {
+    // Generate visualization parameters
+    let obligatedWidth = 0;
 
-        // Account for 10 pixels of left padding
-        const padding = 10;
-        const remainingWidth = visualizationWidth - obligatedWidth - padding;
-
-        this.setState({
-            visualizationWidth,
-            obligatedWidth,
-            remainingWidth
-        });
+    // Only check the percentage width if the data is available
+    if (props.agency.budgetAuthority !== 0 && props.agency.federalBudget !== 0) {
+      const percentageNumber = props.agency.budgetAuthority / props.agency.federalBudget;
+      obligatedWidth = visualizationWidth * percentageNumber;
     }
 
-    handleWindowResize() {
-        // determine if the width changed
-        const visualizationWidth = this.containerDiv.getBoundingClientRect().width;
-        if (this.state.visualizationWidth !== visualizationWidth) {
-            // width changed, update the visualization width
-            this.updateVisualizationState(this.props, visualizationWidth);
-        }
-    }
+    // Account for 10 pixels of left padding
+    const padding = 10;
+    const remainingWidth = visualizationWidth - obligatedWidth - padding;
 
-    render() {
-        return (
-          <div
-            className="agency-overview"
-            id="agency-overview">
-              <div className="title-wrapper">
-                <div className={`logo ${this.state.hideLogo}`}>
-                  {this.state.logo}
-                </div>
-                  <div className="title">
-                    <h3>{this.props.agency.name}</h3>
-                  </div>
+    this.setState({
+      visualizationWidth,
+      obligatedWidth,
+      remainingWidth
+    });
+  }
+
+  handleWindowResize() {
+    // determine if the width changed
+    const visualizationWidth = this.containerDiv.getBoundingClientRect().width;
+    if (this.state.visualizationWidth !== visualizationWidth) {
+      // width changed, update the visualization width
+      this.updateVisualizationState(this.props, visualizationWidth);
+    }
+  }
+
+  render() {
+    return (
+      <div
+        className="agency-overview"
+        id="agency-overview">
+          <div className="title-wrapper">
+            <div className={`logo ${this.state.hideLogo}`}>
+              {this.state.logo}
+            </div>
+              <div className="title">
+                <h3>{this.props.agency.name}</h3>
               </div>
-                <hr className="results-divider" />
-                  <div className="overview-content">
-                    <div className="agency-details">
-                      <h4>Agency Mission</h4>
-                        <p>{this.state.mission}</p>
+          </div>
+            <hr className="results-divider" />
+              <div className="overview-content">
+                <div className="agency-details">
+                  <h4>Agency Mission</h4>
+                    <p>{this.state.mission}</p>
 
                           <div className="lower-details">
                             <div className="group">
@@ -202,8 +202,8 @@ export default class AgencyOverview extends React.PureComponent {
                                   </div>
                               </div>
                           </div>
-                    </div>
-                      <div
+                </div>
+                  <div
                         className="budget-authority"
                         ref={(div) => {
                             this.containerDiv = div;
@@ -245,10 +245,10 @@ export default class AgencyOverview extends React.PureComponent {
                                     </g>
                                   </svg>
                       </div>
-                  </div>
-          </div>
-        );
-    }
+              </div>
+      </div>
+    );
+  }
 }
 
 AgencyOverview.propTypes = propTypes;

@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
-    file: PropTypes.string
+  file: PropTypes.string
 };
 
 const AgencyDownloadLinkCell = ({ file }) => (file ? (

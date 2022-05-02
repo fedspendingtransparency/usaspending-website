@@ -12,12 +12,12 @@ import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
 
 const propTypes = {
-    children: PropTypes.element,
-    showShareIcon: PropTypes.bool
+  children: PropTypes.element,
+  showShareIcon: PropTypes.bool
 };
 
 const defaultProps = {
-    showShareIcon: false
+  showShareIcon: false
 };
 
 require('pages/explorer/explorerPage.scss');
@@ -26,23 +26,23 @@ const slug = 'explorer';
 const emailSubject = 'USAspending.gov Federal Spending Explorer';
 
 const ExplorerWrapperPage = (props) => {
-    const handleShare = (name) => {
-        handleShareOptionClick(name, slug, {
-            subject: emailSubject,
-            body: `View the Spending Explorer on USAspending.gov: ${getBaseUrl(slug)}`
-        });
-    };
+  const handleShare = (name) => {
+    handleShareOptionClick(name, slug, {
+      subject: emailSubject,
+      body: `View the Spending Explorer on USAspending.gov: ${getBaseUrl(slug)}`
+    });
+  };
 
-    return (
-      <PageWrapper
-        pageName="Spending Explorer"
-        classNames="usa-da-explorer-page"
-        title="Spending Explorer"
-        metaTagProps={explorerPageMetaTags}
-        toolBarComponents={[
-          <ShareIcon
-            onShareOptionClick={handleShare}
-            url={getBaseUrl(slug)} />
+  return (
+    <PageWrapper
+      pageName="Spending Explorer"
+      classNames="usa-da-explorer-page"
+      title="Spending Explorer"
+      metaTagProps={explorerPageMetaTags}
+      toolBarComponents={[
+        <ShareIcon
+          onShareOptionClick={handleShare}
+          url={getBaseUrl(slug)} />
             ]
                 .filter(() => props.showShareIcon)}>
                   <main
@@ -50,8 +50,8 @@ const ExplorerWrapperPage = (props) => {
                     className="main-content">
                     {props.children}
                   </main>
-      </PageWrapper>
-    );
+    </PageWrapper>
+  );
 };
 
 ExplorerWrapperPage.propTypes = propTypes;

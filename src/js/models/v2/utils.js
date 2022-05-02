@@ -6,13 +6,13 @@
 import moment from 'moment';
 
 export const parseDate = (dateString, format = 'YYYY-MM-DD') => {
-    if (dateString) {
-        const date = moment(dateString, format);
+  if (dateString) {
+    const date = moment(dateString, format);
 
-        if (date.isValid()) {
-            return date;
-        }
+    if (date.isValid()) {
+      return date;
     }
+  }
 
-    return null;
+  return null;
 };

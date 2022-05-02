@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const propTypes = {
-    onClick: PropTypes.func,
-    linkText: PropTypes.string,
-    icon: PropTypes.string
+  onClick: PropTypes.func,
+  linkText: PropTypes.string,
+  icon: PropTypes.string
 };
 
 const JumpToSectionButton = ({ onClick, linkText, icon }) => (

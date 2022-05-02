@@ -10,36 +10,36 @@ import { levels } from './StatusOfFunds';
 import StatusOfFundsChart from '../visualizations/StatusOfFundsChart';
 
 const propTypes = {
-    level: PropTypes.number.isRequired,
-    setLevel: PropTypes.func,
-    loading: PropTypes.bool,
-    setLoading: PropTypes.func,
-    totalItems: PropTypes.number,
-    setTotalItems: PropTypes.func,
-    agencyName: PropTypes.string,
-    fy: PropTypes.string,
-    results: PropTypes.array,
-    fetchFederalAccounts: PropTypes.func,
-    selectedSubcomponent: PropTypes.shape({
-        name: PropTypes.string,
-        id: PropTypes.string,
-        budgetaryResources: PropTypes.string,
-        obligations: PropTypes.string
-    })
+  level: PropTypes.number.isRequired,
+  setLevel: PropTypes.func,
+  loading: PropTypes.bool,
+  setLoading: PropTypes.func,
+  totalItems: PropTypes.number,
+  setTotalItems: PropTypes.func,
+  agencyName: PropTypes.string,
+  fy: PropTypes.string,
+  results: PropTypes.array,
+  fetchFederalAccounts: PropTypes.func,
+  selectedSubcomponent: PropTypes.shape({
+    name: PropTypes.string,
+    id: PropTypes.string,
+    budgetaryResources: PropTypes.string,
+    obligations: PropTypes.string
+  })
 };
 
 const VisualizationSection = ({
-    loading,
-    setLoading,
-    level,
-    setLevel,
-    totalItems,
-    setTotalItems,
-    agencyName,
-    fy,
-    results,
-    selectedSubcomponent,
-    fetchFederalAccounts
+  loading,
+  setLoading,
+  level,
+  setLevel,
+  totalItems,
+  setTotalItems,
+  agencyName,
+  fy,
+  results,
+  selectedSubcomponent,
+  fetchFederalAccounts
 }) => (
   <div className="status-of-funds__visualization">
     <h6>{level === 1 ? selectedSubcomponent?.name : agencyName} by <strong>{levels[level]}</strong> for FY {fy}</h6>

@@ -7,35 +7,35 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import RankVisualizationScopeButton from
-    'components/search/visualizations/rank/RankVisualizationScopeButton';
+  'components/search/visualizations/rank/RankVisualizationScopeButton';
 
 const propTypes = {
-    scope: PropTypes.string,
-    changeScope: PropTypes.func
+  scope: PropTypes.string,
+  changeScope: PropTypes.func
 };
 
 export default class ScopeList extends React.Component {
-    render() {
-        return (
-          <div className="recipient-scope">
-            <div className="visualization-period">
-              <div className="content">
-                <ul>
+  render() {
+    return (
+      <div className="recipient-scope">
+        <div className="visualization-period">
+          <div className="content">
+            <ul>
+              <li>
+                <RankVisualizationScopeButton
+                  value="all"
+                  label="All"
+                  active={this.props.scope === 'all'}
+                  changeScope={this.props.changeScope} />
+              </li>
+                <li>
+                  <RankVisualizationScopeButton
+                    value="contract"
+                    label="Contracts"
+                    active={this.props.scope === 'contract'}
+                    changeScope={this.props.changeScope} />
+                </li>
                   <li>
-                    <RankVisualizationScopeButton
-                      value="all"
-                      label="All"
-                      active={this.props.scope === 'all'}
-                      changeScope={this.props.changeScope} />
-                  </li>
-                    <li>
-                      <RankVisualizationScopeButton
-                        value="contract"
-                        label="Contracts"
-                        active={this.props.scope === 'contract'}
-                        changeScope={this.props.changeScope} />
-                    </li>
-                      <li>
                         <RankVisualizationScopeButton
                           value="grant"
                           label="Grants"
@@ -63,12 +63,12 @@ export default class ScopeList extends React.Component {
                                 active={this.props.scope === 'other'}
                                 changeScope={this.props.changeScope} />
                             </li>
-                </ul>
-              </div>
-            </div>
+            </ul>
           </div>
-        );
-    }
+        </div>
+      </div>
+    );
+  }
 }
 
 ScopeList.propTypes = propTypes;

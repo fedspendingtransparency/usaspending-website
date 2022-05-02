@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { ExclamationTriangle, Close } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
-    closeDisclaimer: PropTypes.func
+  closeDisclaimer: PropTypes.func
 };
 
 const MapDisclaimer = (props) => (

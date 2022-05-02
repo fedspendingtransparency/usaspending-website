@@ -23,70 +23,70 @@ import AwardPageWrapper from '../shared/AwardPageWrapper';
 import AwardSection from '../shared/AwardSection';
 
 const propTypes = {
-    awardId: PropTypes.string,
-    details: AWARD_COUNTS_PROPS,
-    overview: AWARD_OVERVIEW_PROPS,
-    jumpToSection: PropTypes.func
+  awardId: PropTypes.string,
+  details: AWARD_COUNTS_PROPS,
+  overview: AWARD_OVERVIEW_PROPS,
+  jumpToSection: PropTypes.func
 };
 
 const IdvContent = ({
-    awardId,
-    details,
-    overview,
-    jumpToSection
+  awardId,
+  details,
+  overview,
+  jumpToSection
 }) => {
-    const [awardHistoryActiveTab, setAwardHistoryTab] = useState('transaction');
-    const [relatedAwardsActiveTab, setRelatedAwardsTab] = useState('child_awards');
+  const [awardHistoryActiveTab, setAwardHistoryTab] = useState('transaction');
+  const [relatedAwardsActiveTab, setRelatedAwardsTab] = useState('child_awards');
 
-    const jumpToFederalAccountsHistory = () => {
-        setAwardHistoryTab('federal_account');
-        jumpToSection('award-history');
-    };
+  const jumpToFederalAccountsHistory = () => {
+    setAwardHistoryTab('federal_account');
+    jumpToSection('award-history');
+  };
 
-    const glossarySlug = glossaryLinks[overview.type];
-    const glossaryLink = glossarySlug
-        ? `/award/${awardId}?glossary=${glossarySlug}`
-        : null;
+  const glossarySlug = glossaryLinks[overview.type];
+  const glossaryLink = glossarySlug
+    ? `/award/${awardId}?glossary=${glossarySlug}`
+    : null;
 
-    return (
-      <AwardPageWrapper
-        awardType="idv"
-        defCodes={getAllNetPositiveIdvFileCDefCodes(overview, details)}
-        title={overview.title}
-        lastModifiedDateLong={overview.dates.lastModifiedDateLong}
-        glossaryLink={glossaryLink}
-        overviewType={overview.type}
-        identifier={overview.piid}
-        dates={overview.dates}>
-          <AwardSection type="row" className="award-overview" id="award-overview">
-            <AwardOverviewLeftSection
-              awardingAgency={overview.awardingAgency}
-              recipient={overview.recipient} />
-                <AwardOverviewRightSection
-                  jumpToSection={jumpToSection}
-                  counts={details}
-                  overview={overview}
-                  setRelatedAwardsTab={setRelatedAwardsTab} />
+  return (
+    <AwardPageWrapper
+      awardType="idv"
+      defCodes={getAllNetPositiveIdvFileCDefCodes(overview, details)}
+      title={overview.title}
+      lastModifiedDateLong={overview.dates.lastModifiedDateLong}
+      glossaryLink={glossaryLink}
+      overviewType={overview.type}
+      identifier={overview.piid}
+      dates={overview.dates}>
+        <AwardSection type="row" className="award-overview" id="award-overview">
+          <AwardOverviewLeftSection
+            awardingAgency={overview.awardingAgency}
+            recipient={overview.recipient} />
+              <AwardOverviewRightSection
+                jumpToSection={jumpToSection}
+                counts={details}
+                overview={overview}
+                setRelatedAwardsTab={setRelatedAwardsTab} />
+        </AwardSection>
+          <AwardSection type="row">
+            <IdvAwardAmountsSectionContainer
+              jumpToSection={jumpToSection}
+              awardId={awardId}
+              overview={overview} />
+                <AwardDescription
+                  awardType={overview.category}
+                  awardId={awardId}
+                  description={overview.description}
+                  naics={overview.naics}
+                  psc={overview.psc} />
           </AwardSection>
             <AwardSection type="row">
-              <IdvAwardAmountsSectionContainer
-                jumpToSection={jumpToSection}
-                awardId={awardId}
-                overview={overview} />
-                  <AwardDescription
-                    awardType={overview.category}
-                    awardId={awardId}
-                    description={overview.description}
-                    naics={overview.naics}
-                    psc={overview.psc} />
-            </AwardSection>
-              <AwardSection type="row">
-                <IdvActivityContainer />
-                  <FederalAccountsSection
+              <IdvActivityContainer />
+                <FederalAccountsSection
                     awardType={overview.category}
                     jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
-              </AwardSection>
-                <ReferencedAwardsContainer
+            </AwardSection>
+              <ReferencedAwardsContainer
                   tableType={relatedAwardsActiveTab}
                   switchTab={setRelatedAwardsTab} />
                     <AwardHistory
@@ -94,8 +94,8 @@ const IdvContent = ({
                       setActiveTab={setAwardHistoryTab}
                       overview={overview} />
                         <AdditionalInfo overview={overview} />
-      </AwardPageWrapper>
-    );
+    </AwardPageWrapper>
+  );
 };
 
 IdvContent.propTypes = propTypes;

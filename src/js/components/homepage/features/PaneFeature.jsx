@@ -8,23 +8,23 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Analytics from 'helpers/analytics/Analytics';
 
 const PaneFeature = () => {
-    const trackLink = (label) => Analytics.event({
-        category: 'Homepage',
-        action: 'Link',
-        label
-    });
+  const trackLink = (label) => Analytics.event({
+    category: 'Homepage',
+    action: 'Link',
+    label
+  });
 
-    return (
-      <div className="feature-pane">
-        <div className="feature-pane__wrapper">
-          <h2 className="feature-pane__title">OTHER DATA ACT CONTENT</h2>
-            <div className="feature-pane__content-wrapper">
-              <div className="feature-pane__content feature-pane__content-fiscal-data">
-                <h3 className="feature-pane__content-title">FiscalData.Treasury.gov</h3>
-                  <p className="feature-pane_content-text">
+  return (
+    <div className="feature-pane">
+      <div className="feature-pane__wrapper">
+        <h2 className="feature-pane__title">OTHER DATA ACT CONTENT</h2>
+          <div className="feature-pane__content-wrapper">
+            <div className="feature-pane__content feature-pane__content-fiscal-data">
+              <h3 className="feature-pane__content-title">FiscalData.Treasury.gov</h3>
+                <p className="feature-pane_content-text">
                         Fiscal Data is a new site featuring federal financial data in machine-readable formats with comprehensive metadata. Explore and download the data today!
-                  </p>
-                    <div className="feature-pane__button-wrapper">
+                </p>
+                  <div className="feature-pane__button-wrapper">
                       <a
                         href="https://FiscalData.Treasury.gov"
                         target="_blank"
@@ -35,10 +35,10 @@ const PaneFeature = () => {
                             Explore Fiscal Data <span className="feature-pane__button-icon"><FontAwesomeIcon icon="external-link-alt" /></span>
                       </a>
                     </div>
-              </div>
-                <div className="feature-pane__content-divider" />
-                  <div className="feature-pane__content feature-pane__content-covid">
-                    <h3 className="feature-pane__content-title feature-pane__content-title-transparent-bg">
+            </div>
+              <div className="feature-pane__content-divider" />
+                <div className="feature-pane__content feature-pane__content-covid">
+                  <h3 className="feature-pane__content-title feature-pane__content-title-transparent-bg">
                         The Federal Response to COVID-19
                     </h3>
                       <div className="feature-pane__button-wrapper">
@@ -53,7 +53,7 @@ const PaneFeature = () => {
                             Explore Data Lab <span className="feature-pane__button-icon"><FontAwesomeIcon icon="external-link-alt" /></span>
                         </a>
                       </div>
-                  </div>
+                </div>
                     <div className="feature-pane__content-divider" />
                       <div className="feature-pane__content feature-pane__content-finances-guide">
                         <p className="feature-pane__content-overline">
@@ -79,11 +79,11 @@ const PaneFeature = () => {
                                 </a>
                               </div>
                       </div>
-            </div>
-              <hr className="feature-pane__bottom-divider" />
-        </div>
+          </div>
+            <hr className="feature-pane__bottom-divider" />
       </div>
-    );
+    </div>
+  );
 };
 
 export default PaneFeature;

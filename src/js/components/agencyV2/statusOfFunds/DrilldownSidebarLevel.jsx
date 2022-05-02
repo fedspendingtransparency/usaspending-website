@@ -8,16 +8,16 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const propTypes = {
-    label: PropTypes.string,
-    name: PropTypes.string,
-    obligated: PropTypes.string,
-    budgetaryResources: PropTypes.string,
-    active: PropTypes.bool,
-    goBack: PropTypes.func
+  label: PropTypes.string,
+  name: PropTypes.string,
+  obligated: PropTypes.string,
+  budgetaryResources: PropTypes.string,
+  active: PropTypes.bool,
+  goBack: PropTypes.func
 };
 
 const DrilldownSidebar = ({
-    label, name, obligated, budgetaryResources, active, goBack
+  label, name, obligated, budgetaryResources, active, goBack
 }) => (
   <div className={`drilldown-level${active ? ' drilldown-level_active' : ''}`}>
     {goBack ? (

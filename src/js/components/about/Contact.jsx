@@ -6,22 +6,22 @@
 import React from 'react';
 
 export default class Contact extends React.Component {
-    render() {
-        return (
-          <div
-            className="about-section-wrapper"
-            id="about-contact">
-              <h2 className="about-section-title">
+  render() {
+    return (
+      <div
+        className="about-section-wrapper"
+        id="about-contact">
+          <h2 className="about-section-title">
                     Contact Us
-              </h2>
-                <h3 className="about-subtitle">
+          </h2>
+            <h3 className="about-subtitle">
                     How to reach us.
-                </h3>
-                  <div className="about-section-content">
-                    <p>
+            </h3>
+              <div className="about-section-content">
+                <p>
                         We look forward to hearing from you and having the opportunity to answer
                         your questions and comments.
-                    </p>
+                </p>
                       <div className="about-section-content-inline-buttons">
                         <div className="button-holder">
                           <a
@@ -47,8 +47,8 @@ export default class Contact extends React.Component {
                             </a>
                           </div>
                       </div>
-                  </div>
-          </div>
-        );
-    }
+              </div>
+      </div>
+    );
+  }
 }

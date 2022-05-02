@@ -11,42 +11,42 @@ import Analytics from 'helpers/analytics/Analytics';
 import AnimatedHeading from './AnimatedHeading';
 
 const Hero = () => {
-    const [isPaused, setIsPaused] = useState(false);
+  const [isPaused, setIsPaused] = useState(false);
 
-    const trackSearchLink = () => Analytics.event({
-        category: 'Homepage',
-        action: 'Link',
-        label: 'search'
-    });
-    const trackAboutLink = () => Analytics.event({
-        category: 'Homepage',
-        action: 'Link',
-        label: 'about'
-    });
+  const trackSearchLink = () => Analytics.event({
+    category: 'Homepage',
+    action: 'Link',
+    label: 'search'
+  });
+  const trackAboutLink = () => Analytics.event({
+    category: 'Homepage',
+    action: 'Link',
+    label: 'about'
+  });
 
-    const keyPressHandler = (e) => {
-        if (e.key === 'Enter') {
-            e.preventDefault();
-            setIsPaused((previousIsPaused) => !previousIsPaused);
-        }
-    };
+  const keyPressHandler = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      setIsPaused((previousIsPaused) => !previousIsPaused);
+    }
+  };
 
-    return (
-      <section className="homepage-hero-container" aria-label="Hero sections">
-        <div className="homepage-hero-content">
-          <AnimatedHeading paused={isPaused} />
-            <div className="hero__lower-wrapper">
-              <div className="hero__left-image-wrapper">
-                <picture>
-                  <img
-                    role="presentation"
-                    src="../../../../img/homepage-hero-graphic-left.svg"
-                    alt="" />
-                </picture>
-              </div>
-                <div className="hero__center-content-wrapper">
-                  <div className="hero__center-content">
-                    <div className="hero__button-container">
+  return (
+    <section className="homepage-hero-container" aria-label="Hero sections">
+      <div className="homepage-hero-content">
+        <AnimatedHeading paused={isPaused} />
+          <div className="hero__lower-wrapper">
+            <div className="hero__left-image-wrapper">
+              <picture>
+                <img
+                  role="presentation"
+                  src="../../../../img/homepage-hero-graphic-left.svg"
+                  alt="" />
+              </picture>
+            </div>
+              <div className="hero__center-content-wrapper">
+                <div className="hero__center-content">
+                  <div className="hero__button-container">
                       <Link
                         className="hero__button hero__button--action"
                         to="/search"
@@ -83,9 +83,9 @@ const Hero = () => {
                                     }
                           </a>
                         </div>
-                  </div>
                 </div>
-                  <div className="hero__right-image-wrapper">
+              </div>
+                <div className="hero__right-image-wrapper">
                     <picture>
                       <img
                         role="presentation"
@@ -93,10 +93,10 @@ const Hero = () => {
                         alt="" />
                     </picture>
                   </div>
-            </div>
-        </div>
-      </section>
-    );
+          </div>
+      </div>
+    </section>
+  );
 };
 
 export default Hero;

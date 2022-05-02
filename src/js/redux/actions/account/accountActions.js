@@ -4,15 +4,15 @@
  */
 
 export const setSelectedAccount = (state) => ({
-    type: 'SET_SELECTED_ACCOUNT',
-    account: state
+  type: 'SET_SELECTED_ACCOUNT',
+  account: state
 });
 
 export const resetAccount = () => ({
-    type: 'RESET_ACCOUNT'
+  type: 'RESET_ACCOUNT'
 });
 
 export const setSubmissionPeriods = (submissionPeriods) => ({
-    type: 'SET_SUBMISSION_PERIODS',
-    submissionPeriods
+  type: 'SET_SUBMISSION_PERIODS',
+  submissionPeriods
 });

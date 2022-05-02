@@ -10,102 +10,102 @@ import { Set } from 'immutable';
 import FiscalYear from './FiscalYear';
 
 const propTypes = {
-    timePeriods: PropTypes.array,
-    selectedFY: PropTypes.object,
-    updateFilter: PropTypes.func
+  timePeriods: PropTypes.array,
+  selectedFY: PropTypes.object,
+  updateFilter: PropTypes.func
 };
 
 export default class AllFiscalYears extends React.Component {
-    constructor(props) {
-        super(props);
-        // bind functions
-        this.saveAllYears = this.saveAllYears.bind(this);
-        this.saveSelectedYear = this.saveSelectedYear.bind(this);
+  constructor(props) {
+    super(props);
+    // bind functions
+    this.saveAllYears = this.saveAllYears.bind(this);
+    this.saveSelectedYear = this.saveSelectedYear.bind(this);
+  }
+  saveSelectedYear(year) {
+    let newYears;
+
+    // check if we are adding or removing
+    if (this.props.selectedFY.has(year)) {
+      // the year already exists in the set so we are removing
+      newYears = this.props.selectedFY.delete(year);
     }
-    saveSelectedYear(year) {
-        let newYears;
-
-        // check if we are adding or removing
-        if (this.props.selectedFY.has(year)) {
-            // the year already exists in the set so we are removing
-            newYears = this.props.selectedFY.delete(year);
-        }
-        else {
-            // the year does not yet exist in the set so we are adding
-            newYears = this.props.selectedFY.add(year);
-        }
-
-        this.props.updateFilter({
-            fy: newYears
-        });
+    else {
+      // the year does not yet exist in the set so we are adding
+      newYears = this.props.selectedFY.add(year);
     }
 
-    saveAllYears() {
-        let newYears;
+    this.props.updateFilter({
+      fy: newYears
+    });
+  }
 
-        // check if the all the years are already provided
-        const allFY = this.props.timePeriods.length === this.props.selectedFY.count();
-        if (allFY) {
-            // all the years are already selected, so this is an operation to unselect everything
-            newYears = new Set([]);
-        }
-        else {
-            // we need to select all the years
-            newYears = new Set(this.props.timePeriods);
-        }
+  saveAllYears() {
+    let newYears;
 
-        this.props.updateFilter({
-            fy: newYears
-        });
+    // check if the all the years are already provided
+    const allFY = this.props.timePeriods.length === this.props.selectedFY.count();
+    if (allFY) {
+      // all the years are already selected, so this is an operation to unselect everything
+      newYears = new Set([]);
+    }
+    else {
+      // we need to select all the years
+      newYears = new Set(this.props.timePeriods);
     }
 
-    render() {
-        let allFY = true;
+    this.props.updateFilter({
+      fy: newYears
+    });
+  }
 
-        const leftCount = Math.ceil(this.props.timePeriods.length / 2);
+  render() {
+    let allFY = true;
 
-        const leftFY = [];
-        const rightFY = [];
+    const leftCount = Math.ceil(this.props.timePeriods.length / 2);
 
-        this.props.timePeriods.forEach((year, i) => {
-            // determine if the checkbox should be selected based on whether the filter is already
-            // applied
-            const checked = this.props.selectedFY.has(year);
+    const leftFY = [];
+    const rightFY = [];
 
-            if (!checked) {
-                allFY = false;
-            }
+    this.props.timePeriods.forEach((year, i) => {
+      // determine if the checkbox should be selected based on whether the filter is already
+      // applied
+      const checked = this.props.selectedFY.has(year);
 
-            const fy = (<FiscalYear
-              checked={checked}
-              year={year}
-              key={`filter-fy-${year}`}
-              saveSelectedYear={this.saveSelectedYear} />);
+      if (!checked) {
+        allFY = false;
+      }
 
-            if (i + 1 <= leftCount) {
-                leftFY.push(fy);
-            }
-            else {
-                rightFY.push(fy);
-            }
-        });
+      const fy = (<FiscalYear
+        checked={checked}
+        year={year}
+        key={`filter-fy-${year}`}
+        saveSelectedYear={this.saveSelectedYear} />);
 
-        return (
-          <ul className="fiscal-years">
-            <FiscalYear
-              checked={allFY}
-              year="all"
-              key="filter-fy-all"
-              saveAllYears={this.saveAllYears} />
-                <div className="left-fy">
-                  {leftFY}
-                </div>
-                  <div className="right-fy">
-                    {rightFY}
-                  </div>
-          </ul>
-        );
-    }
+      if (i + 1 <= leftCount) {
+        leftFY.push(fy);
+      }
+      else {
+        rightFY.push(fy);
+      }
+    });
+
+    return (
+      <ul className="fiscal-years">
+        <FiscalYear
+          checked={allFY}
+          year="all"
+          key="filter-fy-all"
+          saveAllYears={this.saveAllYears} />
+            <div className="left-fy">
+              {leftFY}
+            </div>
+              <div className="right-fy">
+                {rightFY}
+              </div>
+      </ul>
+    );
+  }
 }
 
 AllFiscalYears.propTypes = propTypes;

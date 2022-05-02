@@ -15,51 +15,51 @@ import LegacyTableHeaderCell from 'components/account/awards/LegacyTableHeaderCe
 
 // combine the action functions into an object for the react-redux bindings
 const actions = {
-    setAgenciesOrder
+  setAgenciesOrder
 };
 
 const propTypes = {
-    setAgenciesOrder: PropTypes.func,
-    order: PropTypes.object,
-    displayName: PropTypes.string,
-    defaultDirection: PropTypes.string,
-    columnName: PropTypes.string,
-    isLast: PropTypes.bool
+  setAgenciesOrder: PropTypes.func,
+  order: PropTypes.object,
+  displayName: PropTypes.string,
+  defaultDirection: PropTypes.string,
+  columnName: PropTypes.string,
+  isLast: PropTypes.bool
 };
 
 export class AgencyLandingHeaderCellContainer extends React.Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.setAgenciesOrder = this.setAgenciesOrder.bind(this);
-    }
+    this.setAgenciesOrder = this.setAgenciesOrder.bind(this);
+  }
 
-    setAgenciesOrder(field, direction) {
-        this.props.setAgenciesOrder({
-            field,
-            direction
-        });
-    }
+  setAgenciesOrder(field, direction) {
+    this.props.setAgenciesOrder({
+      field,
+      direction
+    });
+  }
 
-    render() {
-        return (
-          <LegacyTableHeaderCell
-            title={this.props.displayName}
-            defaultDirection={this.props.defaultDirection}
-            column={this.props.columnName}
-            field={this.props.columnName}
-            isLast={this.props.isLast}
-            currentSort={this.props.order}
-            updateSort={this.setAgenciesOrder} />
-        );
-    }
+  render() {
+    return (
+      <LegacyTableHeaderCell
+        title={this.props.displayName}
+        defaultDirection={this.props.defaultDirection}
+        column={this.props.columnName}
+        field={this.props.columnName}
+        isLast={this.props.isLast}
+        currentSort={this.props.order}
+        updateSort={this.setAgenciesOrder} />
+    );
+  }
 }
 
 AgencyLandingHeaderCellContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({
-        order: state.agencyLanding.agenciesOrder
-    }),
-    (dispatch) => bindActionCreators(actions, dispatch)
+  (state) => ({
+    order: state.agencyLanding.agenciesOrder
+  }),
+  (dispatch) => bindActionCreators(actions, dispatch)
 )(AgencyLandingHeaderCellContainer);

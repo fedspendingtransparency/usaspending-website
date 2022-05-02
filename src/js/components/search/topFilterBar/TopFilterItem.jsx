@@ -7,11 +7,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
-    title: PropTypes.string.isRequired
+  title: PropTypes.string.isRequired
 };
 
 const defaultProps = {
-    title: 'Filter'
+  title: 'Filter'
 };
 
 const TopFilterItem = (props) => (

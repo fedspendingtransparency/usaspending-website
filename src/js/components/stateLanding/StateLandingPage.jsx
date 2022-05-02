@@ -18,24 +18,24 @@ const slug = 'state';
 const emailSubject = 'USAspending.gov State Profiles';
 
 export default class StateLandingPage extends React.Component {
-    handleShare = (name) => {
-        handleShareOptionClick(name, slug, {
-            subject: emailSubject,
-            body: `View all of the State Profiles on USAspending.gov: ${getBaseUrl(slug)}`
-        });
-    };
+  handleShare = (name) => {
+    handleShareOptionClick(name, slug, {
+      subject: emailSubject,
+      body: `View all of the State Profiles on USAspending.gov: ${getBaseUrl(slug)}`
+    });
+  };
 
-    render() {
-        return (
-          <PageWrapper
-            pageName="State Profiles"
-            classNames="usa-da-state-landing"
-            title="State Profiles"
-            metaTagProps={stateLandingPageMetaTags}
-            toolBarComponents={[
-              <ShareIcon
-                onShareOptionClick={this.handleShare}
-                url={getBaseUrl(slug)} />
+  render() {
+    return (
+      <PageWrapper
+        pageName="State Profiles"
+        classNames="usa-da-state-landing"
+        title="State Profiles"
+        metaTagProps={stateLandingPageMetaTags}
+        toolBarComponents={[
+          <ShareIcon
+            onShareOptionClick={this.handleShare}
+            url={getBaseUrl(slug)} />
                 ]}>
                   <main
                     id="main-content"
@@ -53,7 +53,7 @@ export default class StateLandingPage extends React.Component {
                           <StateLandingContainer />
                       </div>
                   </main>
-          </PageWrapper>
-        );
-    }
+      </PageWrapper>
+    );
+  }
 }

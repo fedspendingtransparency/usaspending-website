@@ -8,44 +8,44 @@ import { pathDefinition } from 'helpers/agencyV2/visualizations/TotalObligations
 import PropTypes from 'prop-types';
 
 const propTypes = {
-    data: PropTypes.array,
-    description: PropTypes.string,
-    xScale: PropTypes.func,
-    yScale: PropTypes.func,
-    xProperty: PropTypes.string,
-    yProperty: PropTypes.string,
-    height: PropTypes.number,
-    padding: PropTypes.shape({
-        left: PropTypes.number,
-        right: PropTypes.number,
-        bottom: PropTypes.number,
-        top: PropTypes.number
-    })
+  data: PropTypes.array,
+  description: PropTypes.string,
+  xScale: PropTypes.func,
+  yScale: PropTypes.func,
+  xProperty: PropTypes.string,
+  yProperty: PropTypes.string,
+  height: PropTypes.number,
+  padding: PropTypes.shape({
+    left: PropTypes.number,
+    right: PropTypes.number,
+    bottom: PropTypes.number,
+    top: PropTypes.number
+  })
 };
 
 const Path = ({
-    data = [],
-    description,
-    xScale = () => {},
-    yScale = () => {},
-    xProperty = 'endDate',
-    yProperty = 'obligated',
-    height,
-    padding
+  data = [],
+  description,
+  xScale = () => {},
+  yScale = () => {},
+  xProperty = 'endDate',
+  yProperty = 'obligated',
+  height,
+  padding
 }) => {
-    const [d, setD] = useState('');
+  const [d, setD] = useState('');
 
-    useEffect(() => {
-        if (xScale && yScale) {
-            setD(pathDefinition(data, xScale, xProperty, padding, yScale, yProperty, height, null, false));
-        }
-    }, [data, height, padding, xProperty, xScale, yProperty, yScale]);
-    return (
-      <g tabIndex="0">
-        <desc>{`The linear line representative of the following periods, dates, and obligations: ${description}`}</desc>
-          <path className="path" d={d} stroke="url(#pathLinearGradient)" />
-      </g>
-    );
+  useEffect(() => {
+    if (xScale && yScale) {
+      setD(pathDefinition(data, xScale, xProperty, padding, yScale, yProperty, height, null, false));
+    }
+  }, [data, height, padding, xProperty, xScale, yProperty, yScale]);
+  return (
+    <g tabIndex="0">
+      <desc>{`The linear line representative of the following periods, dates, and obligations: ${description}`}</desc>
+        <path className="path" d={d} stroke="url(#pathLinearGradient)" />
+    </g>
+  );
 };
 
 Path.propTypes = propTypes;

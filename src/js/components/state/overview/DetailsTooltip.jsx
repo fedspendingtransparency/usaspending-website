@@ -10,8 +10,8 @@ import { throttle } from 'lodash';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
-    closeTooltip: PropTypes.func,
-    showInfoTooltip: PropTypes.bool
+  closeTooltip: PropTypes.func,
+  showInfoTooltip: PropTypes.bool
 };
 
 const tooltipWidth = 300;
@@ -19,91 +19,91 @@ const margin = 15;
 const tooltipPadding = 6;
 
 export default class DetailsTooltip extends React.Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            windowWidth: 0,
-            iconTop: 0,
-            iconLeft: 0
-        };
+    this.state = {
+      windowWidth: 0,
+      iconTop: 0,
+      iconLeft: 0
+    };
 
-        this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
-        this.handleWindowScroll = throttle(this.handleWindowScroll.bind(this), 50);
-        this.setWrapperRef = this.setWrapperRef.bind(this);
-        this.handleClickOutside = this.handleClickOutside.bind(this);
+    this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
+    this.handleWindowScroll = throttle(this.handleWindowScroll.bind(this), 50);
+    this.setWrapperRef = this.setWrapperRef.bind(this);
+    this.handleClickOutside = this.handleClickOutside.bind(this);
+  }
+
+  componentDidMount() {
+    this.handleWindowResize();
+    window.addEventListener('resize', this.handleWindowResize);
+    window.addEventListener('scroll', this.handleWindowScroll);
+    document.addEventListener('mousedown', this.handleClickOutside);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleWindowResize);
+    window.removeEventListener('scroll', this.handleWindowScroll);
+    document.removeEventListener('mousedown', this.handleClickOutside);
+  }
+
+  getPosition() {
+    const icon = document.getElementById('details__info_icon');
+    const iconTop = (icon.getBoundingClientRect().top - tooltipPadding) + window.scrollY;
+
+    let iconLeft = icon.getBoundingClientRect().left - tooltipPadding;
+
+    const windowWidth = window.innerWidth;
+    if ((iconLeft + tooltipWidth) > windowWidth) {
+      iconLeft = windowWidth - tooltipWidth - margin;
     }
 
-    componentDidMount() {
-        this.handleWindowResize();
-        window.addEventListener('resize', this.handleWindowResize);
-        window.addEventListener('scroll', this.handleWindowScroll);
-        document.addEventListener('mousedown', this.handleClickOutside);
+    return { iconTop, iconLeft };
+  }
+
+  setWrapperRef(node) {
+    this.wrapperRef = node;
+  }
+
+  handleClickOutside(event) {
+    if (this.props.showInfoTooltip && this.wrapperRef && !this.wrapperRef.contains(event.target)) {
+      this.props.closeTooltip();
     }
+  }
 
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.handleWindowResize);
-        window.removeEventListener('scroll', this.handleWindowScroll);
-        document.removeEventListener('mousedown', this.handleClickOutside);
+  handleWindowResize() {
+    // determine if the width changed
+    const windowWidth = window.innerWidth;
+    if (this.state.windowWidth !== windowWidth) {
+      // width changed, update the position
+      const position = this.getPosition();
+
+      this.setState({
+        windowWidth,
+        iconTop: position.iconTop,
+        iconLeft: position.iconLeft
+      });
     }
+  }
 
-    getPosition() {
-        const icon = document.getElementById('details__info_icon');
-        const iconTop = (icon.getBoundingClientRect().top - tooltipPadding) + window.scrollY;
+  handleWindowScroll() {
+    const position = this.getPosition();
 
-        let iconLeft = icon.getBoundingClientRect().left - tooltipPadding;
+    this.setState({
+      iconTop: position.iconTop,
+      iconLeft: position.iconLeft
+    });
+  }
 
-        const windowWidth = window.innerWidth;
-        if ((iconLeft + tooltipWidth) > windowWidth) {
-            iconLeft = windowWidth - tooltipWidth - margin;
-        }
+  render() {
+    return (
 
-        return { iconTop, iconLeft };
-    }
-
-    setWrapperRef(node) {
-        this.wrapperRef = node;
-    }
-
-    handleClickOutside(event) {
-        if (this.props.showInfoTooltip && this.wrapperRef && !this.wrapperRef.contains(event.target)) {
-            this.props.closeTooltip();
-        }
-    }
-
-    handleWindowResize() {
-        // determine if the width changed
-        const windowWidth = window.innerWidth;
-        if (this.state.windowWidth !== windowWidth) {
-            // width changed, update the position
-            const position = this.getPosition();
-
-            this.setState({
-                windowWidth,
-                iconTop: position.iconTop,
-                iconLeft: position.iconLeft
-            });
-        }
-    }
-
-    handleWindowScroll() {
-        const position = this.getPosition();
-
-        this.setState({
-            iconTop: position.iconTop,
-            iconLeft: position.iconLeft
-        });
-    }
-
-    render() {
-        return (
-
-          <div
-            ref={this.setWrapperRef}
-            onBlur={this.props.closeTooltip}
-            onMouseLeave={this.props.closeTooltip}
-            className="state-overview-tooltip"
-            style={{
+      <div
+        ref={this.setWrapperRef}
+        onBlur={this.props.closeTooltip}
+        onMouseLeave={this.props.closeTooltip}
+        className="state-overview-tooltip"
+        style={{
                     top: this.state.iconTop,
                     left: this.state.iconLeft
                 }}>
@@ -124,9 +124,9 @@ export default class DetailsTooltip extends React.Component {
                             </p>
                         </div>
                     </div>
-          </div>
-        );
-    }
+      </div>
+    );
+  }
 }
 
 DetailsTooltip.propTypes = propTypes;

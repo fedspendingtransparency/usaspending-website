@@ -23,8 +23,8 @@ const DefCodeFilter = ({ type, isDisabled = false }) => (
 );
 
 DefCodeFilter.propTypes = {
-    isDisabled: PropTypes.bool,
-    type: PropTypes.string.isRequired // either "accounts" or "awards"
+  isDisabled: PropTypes.bool,
+  type: PropTypes.string.isRequired // either "accounts" or "awards"
 };
 
 export default DefCodeFilter;

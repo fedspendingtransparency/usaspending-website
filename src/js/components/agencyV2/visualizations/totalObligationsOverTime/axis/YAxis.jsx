@@ -8,25 +8,25 @@ import PropTypes from 'prop-types';
 import AxisLabel from './AxisLabel';
 
 const propTypes = {
-    className: PropTypes.string,
-    ticks: PropTypes.arrayOf(PropTypes.shape({
-        label: PropTypes.string,
-        x: PropTypes.number,
-        y: PropTypes.number
-    })),
-    x1: PropTypes.number,
-    x2: PropTypes.number,
-    y1: PropTypes.number,
-    y2: PropTypes.number
+  className: PropTypes.string,
+  ticks: PropTypes.arrayOf(PropTypes.shape({
+    label: PropTypes.string,
+    x: PropTypes.number,
+    y: PropTypes.number
+  })),
+  x1: PropTypes.number,
+  x2: PropTypes.number,
+  y1: PropTypes.number,
+  y2: PropTypes.number
 };
 
 const YAxis = ({
-    className,
-    ticks,
-    x1,
-    x2,
-    y1,
-    y2
+  className,
+  ticks,
+  x1,
+  x2,
+  y1,
+  y2
 }) => (
   <g tabIndex="0" className={`y-axis${className ? ` ${className}` : ''}`}>
     <title>The Y-Axis</title>

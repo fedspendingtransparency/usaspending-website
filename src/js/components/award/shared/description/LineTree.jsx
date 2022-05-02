@@ -3,41 +3,41 @@ import PropTypes from 'prop-types';
 import { isEmpty } from 'lodash';
 
 const propTypes = {
-    type: PropTypes.oneOf(["naics", "psc"]),
-    data: PropTypes.shape({})
+  type: PropTypes.oneOf(["naics", "psc"]),
+  data: PropTypes.shape({})
 };
 
 const LineTree = ({
-    type,
-    data
+  type,
+  data
 }) => {
-    const parsedData = Object.keys(data)
-        .filter((tierType) => !isEmpty(data[tierType]))
-        .sort((tierType1, tierType2) => {
-            const first = data[tierType1].code;
-            const second = data[tierType2].code;
-            if (first === "--") return -1;
-            if (second === "--") return 1;
-            if (first.length < second.length) return -1;
-            if (second.length < first.length) return 1;
-            return 0;
-        })
-        .reduce((acc, tierType) => ({ ...acc, [tierType]: data[tierType] }), {});
+  const parsedData = Object.keys(data)
+    .filter((tierType) => !isEmpty(data[tierType]))
+    .sort((tierType1, tierType2) => {
+      const first = data[tierType1].code;
+      const second = data[tierType2].code;
+      if (first === "--") return -1;
+      if (second === "--") return 1;
+      if (first.length < second.length) return -1;
+      if (second.length < first.length) return 1;
+      return 0;
+    })
+    .reduce((acc, tierType) => ({ ...acc, [tierType]: data[tierType] }), {});
 
-    const tiersInHierarchialOrder = Object.keys(parsedData);
-    const numberOfSections = tiersInHierarchialOrder.length;
+  const tiersInHierarchialOrder = Object.keys(parsedData);
+  const numberOfSections = tiersInHierarchialOrder.length;
 
-    const getTierData = (index) => {
-        if (tiersInHierarchialOrder.length - 1 >= index) {
-            return parsedData[tiersInHierarchialOrder[index]];
-        }
-        // no more available data
-        return false;
-    };
+  const getTierData = (index) => {
+    if (tiersInHierarchialOrder.length - 1 >= index) {
+      return parsedData[tiersInHierarchialOrder[index]];
+    }
+    // no more available data
+    return false;
+  };
 
-    return (
-      <div className={`line-tree-${type}`}>
-        {getTierData(0) && (
+  return (
+    <div className={`line-tree-${type}`}>
+      {getTierData(0) && (
         <div className="tier--1">
           <span>{type === 'psc'
                         ? getTierData(0).description
@@ -60,8 +60,8 @@ const LineTree = ({
                     )}
         </div>
             )}
-      </div>
-    );
+    </div>
+  );
 };
 
 LineTree.propTypes = propTypes;

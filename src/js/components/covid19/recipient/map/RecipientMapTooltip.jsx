@@ -9,55 +9,55 @@ import { truncate } from 'lodash';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 const propTypes = {
-    y: PropTypes.number,
-    x: PropTypes.number,
-    name: PropTypes.string,
-    amount: PropTypes.object,
-    awards: PropTypes.object
+  y: PropTypes.number,
+  x: PropTypes.number,
+  name: PropTypes.string,
+  amount: PropTypes.object,
+  awards: PropTypes.object
 };
 
 export default class RecipientMapTooltip extends React.Component {
-    componentDidMount() {
-        this.positionTooltip();
-    }
-    componentDidUpdate() {
-        this.positionTooltip();
-    }
+  componentDidMount() {
+    this.positionTooltip();
+  }
+  componentDidUpdate() {
+    this.positionTooltip();
+  }
 
-    positionTooltip() {
-        // we need to wait for the tooltip to render before we can full position it due to its
-        // dynamic width
-        const tooltipWidth = this.div.offsetWidth;
-        const containerX = this.containerDiv.getBoundingClientRect().left;
-        const windowWidth = window.innerWidth;
+  positionTooltip() {
+    // we need to wait for the tooltip to render before we can full position it due to its
+    // dynamic width
+    const tooltipWidth = this.div.offsetWidth;
+    const containerX = this.containerDiv.getBoundingClientRect().left;
+    const windowWidth = window.innerWidth;
 
-        // determine the tooltip direction
-        let direction = 'left';
-        // // allow 20px padding
-        if (tooltipWidth + containerX + this.props.x >= windowWidth - 20) {
-            direction = 'right';
-        }
-
-        // offset the tooltip position to account for its arrow/pointer
-        let offset = -9;
-        if (direction === 'right') {
-            offset = 9 + tooltipWidth;
-        }
-
-        this.div.style.top = `${this.props.y - 15}px`;
-        this.div.style.left = `${this.props.x - offset}px`;
-        this.div.className = `tooltip ${direction}`;
-        this.pointerDiv.className = `tooltip-pointer ${direction}`;
+    // determine the tooltip direction
+    let direction = 'left';
+    // // allow 20px padding
+    if (tooltipWidth + containerX + this.props.x >= windowWidth - 20) {
+      direction = 'right';
     }
 
-    render() {
-        const truncatedName = truncate(this.props.name, { length: 90 });
-        const dollarValue = MoneyFormatter.formatTreemapValues(this.props.amount.value);
+    // offset the tooltip position to account for its arrow/pointer
+    let offset = -9;
+    if (direction === 'right') {
+      offset = 9 + tooltipWidth;
+    }
 
-        return (
-          <div
-            className="visualization-tooltip"
-            ref={(div) => {
+    this.div.style.top = `${this.props.y - 15}px`;
+    this.div.style.left = `${this.props.x - offset}px`;
+    this.div.className = `tooltip ${direction}`;
+    this.pointerDiv.className = `tooltip-pointer ${direction}`;
+  }
+
+  render() {
+    const truncatedName = truncate(this.props.name, { length: 90 });
+    const dollarValue = MoneyFormatter.formatTreemapValues(this.props.amount.value);
+
+    return (
+      <div
+        className="visualization-tooltip"
+        ref={(div) => {
                     this.containerDiv = div;
                 }}>
                   <div
@@ -92,9 +92,9 @@ export default class RecipientMapTooltip extends React.Component {
                                 </div>
                             </div>
                   </div>
-          </div>
-        );
-    }
+      </div>
+    );
+  }
 }
 
 RecipientMapTooltip.propTypes = propTypes;

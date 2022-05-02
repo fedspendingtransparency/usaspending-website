@@ -9,15 +9,15 @@ import PropTypes from 'prop-types';
 import Analytics from 'helpers/analytics/Analytics';
 
 const propTypes = {
-    link: PropTypes.string,
-    title: PropTypes.string
+  link: PropTypes.string,
+  title: PropTypes.string
 };
 
 const clickedFooterLink = (route) => {
-    Analytics.event({
-        category: 'Footer - Link',
-        action: route
-    });
+  Analytics.event({
+    category: 'Footer - Link',
+    action: route
+  });
 };
 
 const FooterExternalLink = (props) => (

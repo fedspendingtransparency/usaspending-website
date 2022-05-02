@@ -9,8 +9,8 @@ import PropTypes from 'prop-types';
 import SidebarButton from './SidebarButton';
 
 const propTypes = {
-    active: PropTypes.string,
-    dataTypes: PropTypes.array
+  active: PropTypes.string,
+  dataTypes: PropTypes.array
 };
 
 const BulkDownloadSidebar = ({ active, dataTypes }) => (

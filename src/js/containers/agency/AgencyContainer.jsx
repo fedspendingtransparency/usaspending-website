@@ -19,135 +19,135 @@ import AgencyPage from 'components/agency/AgencyPage';
 require('pages/agency/agencyPage.scss');
 
 const propTypes = {
-    agency: PropTypes.object,
-    setAgencyOverview: PropTypes.func,
-    resetAgency: PropTypes.func,
-    match: PropTypes.object
+  agency: PropTypes.object,
+  setAgencyOverview: PropTypes.func,
+  resetAgency: PropTypes.func,
+  match: PropTypes.object
 };
 
 export class AgencyContainer extends React.Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            loading: true,
-            error: false,
-            lastUpdate: '',
-            isTreasury: false
-        };
+    this.state = {
+      loading: true,
+      error: false,
+      lastUpdate: '',
+      isTreasury: false
+    };
 
-        this.request = null;
-        this.updateRequest = null;
+    this.request = null;
+    this.updateRequest = null;
+  }
+  componentDidMount() {
+    this.loadAgencyOverview(this.props.match.params.agencyId);
+    this.loadUpdateDate();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.match.params.agencyId !== prevProps.match.params.agencyId) {
+      this.loadAgencyOverview(this.props.match.params.agencyId);
     }
-    componentDidMount() {
-        this.loadAgencyOverview(this.props.match.params.agencyId);
-        this.loadUpdateDate();
-    }
+  }
 
-    componentDidUpdate(prevProps) {
-        if (this.props.match.params.agencyId !== prevProps.match.params.agencyId) {
-            this.loadAgencyOverview(this.props.match.params.agencyId);
-        }
-    }
+  componentWillUnmount() {
+    this.props.resetAgency();
+  }
 
-    componentWillUnmount() {
-        this.props.resetAgency();
-    }
-
-    loadAgencyOverview(id) {
-        if (this.request) {
-            this.request.cancel();
-        }
-
-        this.request = AgencyHelper.fetchAgencyOverview(id);
-
-        this.request.promise
-            .then((res) => {
-                const noAgency = Object.keys(res.data.results).length === 0;
-
-                this.setState({
-                    loading: false,
-                    error: noAgency
-                }, () => {
-                    if (!noAgency) {
-                        this.parseOverview(res.data.results, id);
-                    }
-                });
-            })
-            .catch((err) => {
-                if (!isCancel(err)) {
-                    console.log(err);
-
-                    this.setState({
-                        loading: false,
-                        error: true
-                    });
-                }
-            });
+  loadAgencyOverview(id) {
+    if (this.request) {
+      this.request.cancel();
     }
 
-    parseOverview(data, id) {
-        const agency = new AgencyOverviewModel(Object.assign({}, data, {
-            agency_id: id
-        }), true);
-        this.props.setAgencyOverview(agency);
+    this.request = AgencyHelper.fetchAgencyOverview(id);
 
-        let isTreasury = false;
-        if (data.icon_filename === 'DOT.jpg') {
-            isTreasury = true;
-        }
+    this.request.promise
+      .then((res) => {
+        const noAgency = Object.keys(res.data.results).length === 0;
 
-        if (isTreasury !== this.state.isTreasury) {
-            this.setState({
-                isTreasury
-            });
-        }
-    }
-
-    loadUpdateDate() {
-        if (this.updateRequest) {
-            this.updateRequest.cancel();
-        }
-
-        this.updateRequest = SearchHelper.fetchLastUpdate();
-        this.updateRequest.promise
-            .then((res) => {
-                this.parseUpdateDate(res.data.last_updated);
-            })
-            .catch((err) => {
-                if (!isCancel(err)) {
-                    console.log(err);
-                    this.updateRequest = null;
-                }
-            });
-    }
-
-    parseUpdateDate(value) {
-        const date = moment(value, 'MM/DD/YYYY');
         this.setState({
-            lastUpdate: date.format('MMMM D, YYYY')
+          loading: false,
+          error: noAgency
+        }, () => {
+          if (!noAgency) {
+            this.parseOverview(res.data.results, id);
+          }
         });
+      })
+      .catch((err) => {
+        if (!isCancel(err)) {
+          console.log(err);
+
+          this.setState({
+            loading: false,
+            error: true
+          });
+        }
+      });
+  }
+
+  parseOverview(data, id) {
+    const agency = new AgencyOverviewModel(Object.assign({}, data, {
+      agency_id: id
+    }), true);
+    this.props.setAgencyOverview(agency);
+
+    let isTreasury = false;
+    if (data.icon_filename === 'DOT.jpg') {
+      isTreasury = true;
     }
 
-    render() {
-        return (
-          <AgencyPage
-            loading={this.state.loading}
-            error={this.state.error}
-            id={this.props.agency.id}
-            agency={this.props.agency}
-            lastUpdate={this.state.lastUpdate}
-            isTreasury={this.state.isTreasury} />
-        );
+    if (isTreasury !== this.state.isTreasury) {
+      this.setState({
+        isTreasury
+      });
     }
+  }
+
+  loadUpdateDate() {
+    if (this.updateRequest) {
+      this.updateRequest.cancel();
+    }
+
+    this.updateRequest = SearchHelper.fetchLastUpdate();
+    this.updateRequest.promise
+      .then((res) => {
+        this.parseUpdateDate(res.data.last_updated);
+      })
+      .catch((err) => {
+        if (!isCancel(err)) {
+          console.log(err);
+          this.updateRequest = null;
+        }
+      });
+  }
+
+  parseUpdateDate(value) {
+    const date = moment(value, 'MM/DD/YYYY');
+    this.setState({
+      lastUpdate: date.format('MMMM D, YYYY')
+    });
+  }
+
+  render() {
+    return (
+      <AgencyPage
+        loading={this.state.loading}
+        error={this.state.error}
+        id={this.props.agency.id}
+        agency={this.props.agency}
+        lastUpdate={this.state.lastUpdate}
+        isTreasury={this.state.isTreasury} />
+    );
+  }
 }
 
 AgencyContainer.propTypes = propTypes;
 const AgencyContainerWithRouter = withRouter(AgencyContainer);
 export default connect(
-    (state) => ({
-        agency: state.agency
-    }),
-    (dispatch) => bindActionCreators(agencyActions, dispatch)
+  (state) => ({
+    agency: state.agency
+  }),
+  (dispatch) => bindActionCreators(agencyActions, dispatch)
 )(AgencyContainerWithRouter);
 

@@ -11,23 +11,23 @@ import ObjectClassFilterGroup from './ObjectClassFilterGroup';
 import ProgramActivityFilterGroup from './ProgramActivityFilterGroup';
 
 export const topFilterGroupGenerator = (config = {
-    filter: {
-        code: ''
-    },
-    data: null
+  filter: {
+    code: ''
+  },
+  data: null
 }) => {
-    const groupKey = `top-filter-group-${config.filter.code}`;
+  const groupKey = `top-filter-group-${config.filter.code}`;
 
-    switch (config.filter.code) {
-        case 'timePeriodFY':
-            return <TimePeriodFYFilterGroup key={groupKey} {...config} />;
-        case 'timePeriodDR':
-            return <TimePeriodDRFilterGroup key={groupKey} {...config} />;
-        case 'objectClass':
-            return <ObjectClassFilterGroup key={groupKey} {...config} />;
-        case 'programActivity':
-            return <ProgramActivityFilterGroup key={groupKey} {...config} />;
-        default:
-            return null;
-    }
+  switch (config.filter.code) {
+    case 'timePeriodFY':
+      return <TimePeriodFYFilterGroup key={groupKey} {...config} />;
+    case 'timePeriodDR':
+      return <TimePeriodDRFilterGroup key={groupKey} {...config} />;
+    case 'objectClass':
+      return <ObjectClassFilterGroup key={groupKey} {...config} />;
+    case 'programActivity':
+      return <ProgramActivityFilterGroup key={groupKey} {...config} />;
+    default:
+      return null;
+  }
 };

@@ -12,27 +12,27 @@ import Header from 'containers/shared/HeaderContainer';
 import Error from '../sharedComponents/Error';
 
 const propTypes = {
-    account: PropTypes.object
+  account: PropTypes.object
 };
 
 export default class LoadingAccount extends React.Component {
-    render() {
-        return (
-          <div className="usa-da-account-page">
-            <Header />
-              <main
-                id="main-content"
-                className="main-content">
-                  <div className="wrapper">
-                    <Error
-                      title="Loading..."
-                      message="" />
-                  </div>
-              </main>
-                <Footer pageName="Loading Account" />
-          </div>
-        );
-    }
+  render() {
+    return (
+      <div className="usa-da-account-page">
+        <Header />
+          <main
+            id="main-content"
+            className="main-content">
+              <div className="wrapper">
+                <Error
+                  title="Loading..."
+                  message="" />
+              </div>
+          </main>
+            <Footer pageName="Loading Account" />
+      </div>
+    );
+  }
 }
 
 LoadingAccount.propTypes = propTypes;

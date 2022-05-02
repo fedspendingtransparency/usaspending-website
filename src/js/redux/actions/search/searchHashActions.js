@@ -4,11 +4,11 @@
  */
 
 export const setSearchFilterIsUnfiltered = (state) => ({
-    type: 'SET_SEARCH_FILTER_UNFILTERED_BOOL',
-    value: state
+  type: 'SET_SEARCH_FILTER_UNFILTERED_BOOL',
+  value: state
 });
 
 export const restoreHashedFilters = (filters) => ({
-    filters,
-    type: 'RESTORE_HASHED_FILTERS'
+  filters,
+  type: 'RESTORE_HASHED_FILTERS'
 });

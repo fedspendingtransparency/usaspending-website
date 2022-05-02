@@ -7,10 +7,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import {
-    downloadArchivePageMetaTags,
-    downloadAwardPageMetaTags,
-    downloadAccountPageMetaTags,
-    metadataDownloadPageMetaTags
+  downloadArchivePageMetaTags,
+  downloadAwardPageMetaTags,
+  downloadAccountPageMetaTags,
+  metadataDownloadPageMetaTags
 } from 'helpers/metaTagHelper';
 
 import PageWrapper from 'components/sharedComponents/PageWrapper';
@@ -22,109 +22,109 @@ import BulkDownloadModalContainer from 'containers/bulkDownload/modal/BulkDownlo
 import BulkDownloadSidebar from './sidebar/BulkDownloadSidebar';
 
 const propTypes = {
-    dataType: PropTypes.string,
-    bulkDownload: PropTypes.object,
-    startAwardDownload: PropTypes.func,
-    startAccountDownload: PropTypes.func,
-    dataTypes: PropTypes.array
+  dataType: PropTypes.string,
+  bulkDownload: PropTypes.object,
+  startAwardDownload: PropTypes.func,
+  startAccountDownload: PropTypes.func,
+  dataTypes: PropTypes.array
 };
 
 const metaTagsByDataType = {
-    awards: downloadAwardPageMetaTags,
-    accounts: downloadAccountPageMetaTags,
-    award_data_archive: downloadArchivePageMetaTags,
-    dataset_metadata: metadataDownloadPageMetaTags
+  awards: downloadAwardPageMetaTags,
+  accounts: downloadAccountPageMetaTags,
+  award_data_archive: downloadArchivePageMetaTags,
+  dataset_metadata: metadataDownloadPageMetaTags
 };
 
 export default class BulkDownloadPage extends React.Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            showModal: false
-        };
+    this.state = {
+      showModal: false
+    };
 
-        this.hideModal = this.hideModal.bind(this);
-        this.showModal = this.showModal.bind(this);
-        this.clickedDownload = this.clickedDownload.bind(this);
-    }
+    this.hideModal = this.hideModal.bind(this);
+    this.showModal = this.showModal.bind(this);
+    this.clickedDownload = this.clickedDownload.bind(this);
+  }
 
-    componentDidUpdate() {
-        // Need to close the modal once the download is completed
-        if (this.state.showModal && this.props.bulkDownload.download.expectedUrl === ""
+  componentDidUpdate() {
+    // Need to close the modal once the download is completed
+    if (this.state.showModal && this.props.bulkDownload.download.expectedUrl === ""
             && !this.props.bulkDownload.download.showCollapsedProgress) {
-            this.hideModal();
-        }
+      this.hideModal();
+    }
+  }
+
+  hideModal() {
+    this.setState({
+      showModal: false
+    });
+  }
+
+  showModal() {
+    this.setState({
+      showModal: true
+    });
+  }
+
+  clickedDownload() {
+    if (this.props.dataType === 'awards') {
+      this.props.startAwardDownload();
+    }
+    else if (this.props.dataType === 'accounts') {
+      this.props.startAccountDownload();
     }
 
-    hideModal() {
-        this.setState({
-            showModal: false
-        });
+    this.showModal();
+  }
+
+  render() {
+    let downloadDataContent = (
+      <AwardDataContainer
+        clickedDownload={this.clickedDownload} />
+    );
+    if (this.props.dataType === 'award_data_archive') {
+      downloadDataContent = (
+        <AwardDataArchiveContainer />
+      );
     }
-
-    showModal() {
-        this.setState({
-            showModal: true
-        });
+    if (this.props.dataType === 'accounts') {
+      downloadDataContent = (
+        <AccountDataContainer
+          clickedDownload={this.clickedDownload} />
+      );
     }
-
-    clickedDownload() {
-        if (this.props.dataType === 'awards') {
-            this.props.startAwardDownload();
-        }
-        else if (this.props.dataType === 'accounts') {
-            this.props.startAccountDownload();
-        }
-
-        this.showModal();
+    if (this.props.dataType === 'dataset_metadata') {
+      downloadDataContent = (
+        <MetadataDownload />
+      );
     }
-
-    render() {
-        let downloadDataContent = (
-          <AwardDataContainer
-            clickedDownload={this.clickedDownload} />
-        );
-        if (this.props.dataType === 'award_data_archive') {
-            downloadDataContent = (
-              <AwardDataArchiveContainer />
-            );
-        }
-        if (this.props.dataType === 'accounts') {
-            downloadDataContent = (
-              <AccountDataContainer
-                clickedDownload={this.clickedDownload} />
-            );
-        }
-        if (this.props.dataType === 'dataset_metadata') {
-            downloadDataContent = (
-              <MetadataDownload />
-            );
-        }
-        return (
-          <PageWrapper
-            pageName="Download Center"
-            classNames="usa-da-bulk-download-page"
-            title="Download Center"
-            metaTagProps={this.props.dataType in metaTagsByDataType ? metaTagsByDataType[this.props.dataType] : {}}>
-              <main id="main-content">
-                <div className="bulk-download">
-                  <div className="bulk-download__sidebar">
-                    <BulkDownloadSidebar
-                      dataTypes={this.props.dataTypes}
-                      active={this.props.dataType} />
-                  </div>
-                    <div className="bulk-download__data">
-                      {downloadDataContent}
-                    </div>
-                      <BulkDownloadModalContainer
+    return (
+      <PageWrapper
+        pageName="Download Center"
+        classNames="usa-da-bulk-download-page"
+        title="Download Center"
+        metaTagProps={this.props.dataType in metaTagsByDataType ? metaTagsByDataType[this.props.dataType] : {}}>
+          <main id="main-content">
+            <div className="bulk-download">
+              <div className="bulk-download__sidebar">
+                <BulkDownloadSidebar
+                  dataTypes={this.props.dataTypes}
+                  active={this.props.dataType} />
+              </div>
+                <div className="bulk-download__data">
+                  {downloadDataContent}
+                </div>
+                  <BulkDownloadModalContainer
                         mounted={this.state.showModal}
                         hideModal={this.hideModal} />
-                </div>
-              </main>
-          </PageWrapper>
-        );
-    }
+            </div>
+          </main>
+      </PageWrapper>
+    );
+  }
 }
 
 BulkDownloadPage.propTypes = propTypes;

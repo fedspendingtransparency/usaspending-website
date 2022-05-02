@@ -14,59 +14,59 @@ import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import CFDASearch from 'components/search/filters/cfda/CFDASearch';
 
 const propTypes = {
-    selectedCFDA: PropTypes.object,
-    appliedCFDA: PropTypes.object,
-    updateSelectedCFDA: PropTypes.func
+  selectedCFDA: PropTypes.object,
+  appliedCFDA: PropTypes.object,
+  updateSelectedCFDA: PropTypes.func
 };
 
 export class CFDASearchContainer extends React.Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        // Bind functions
-        this.selectCFDA = this.selectCFDA.bind(this);
-        this.removeCFDA = this.removeCFDA.bind(this);
-    }
+    // Bind functions
+    this.selectCFDA = this.selectCFDA.bind(this);
+    this.removeCFDA = this.removeCFDA.bind(this);
+  }
 
-    selectCFDA(cfda, isValid) {
-        // If cfda exists and is valid
-        if (cfda !== null && isValid) {
-            const updateParams = {};
-            updateParams.cfda = cfda;
-            this.props.updateSelectedCFDA(updateParams);
-        }
+  selectCFDA(cfda, isValid) {
+    // If cfda exists and is valid
+    if (cfda !== null && isValid) {
+      const updateParams = {};
+      updateParams.cfda = cfda;
+      this.props.updateSelectedCFDA(updateParams);
     }
+  }
 
-    removeCFDA(cfda) {
-        const updateParams = {};
-        updateParams.cfda = cfda;
-        this.props.updateSelectedCFDA(updateParams);
-    }
+  removeCFDA(cfda) {
+    const updateParams = {};
+    updateParams.cfda = cfda;
+    this.props.updateSelectedCFDA(updateParams);
+  }
 
-    dirtyFilters() {
-        if (is(this.props.selectedCFDA, this.props.appliedCFDA)) {
-            return null;
-        }
-        return Symbol('dirty CFDA');
+  dirtyFilters() {
+    if (is(this.props.selectedCFDA, this.props.appliedCFDA)) {
+      return null;
     }
+    return Symbol('dirty CFDA');
+  }
 
-    render() {
-        return (
-          <CFDASearch
-            selectedCFDA={this.props.selectedCFDA}
-            dirtyFilters={this.dirtyFilters()}
-            selectCFDA={this.selectCFDA}
-            removeCFDA={this.removeCFDA} />
-        );
-    }
+  render() {
+    return (
+      <CFDASearch
+        selectedCFDA={this.props.selectedCFDA}
+        dirtyFilters={this.dirtyFilters()}
+        selectCFDA={this.selectCFDA}
+        removeCFDA={this.removeCFDA} />
+    );
+  }
 }
 
 CFDASearchContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({
-        selectedCFDA: state.filters.selectedCFDA,
-        appliedCFDA: state.appliedFilters.filters.selectedCFDA
-    }),
-    (dispatch) => bindActionCreators(searchFilterActions, dispatch)
+  (state) => ({
+    selectedCFDA: state.filters.selectedCFDA,
+    appliedCFDA: state.appliedFilters.filters.selectedCFDA
+  }),
+  (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(CFDASearchContainer);

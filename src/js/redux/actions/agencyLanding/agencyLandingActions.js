@@ -4,6 +4,6 @@
  */
 
 export const setAgenciesOrder = (state) => ({
-    type: 'SET_AGENCIES_ORDER',
-    order: state
+  type: 'SET_AGENCIES_ORDER',
+  order: state
 });

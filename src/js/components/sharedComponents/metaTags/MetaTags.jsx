@@ -12,117 +12,117 @@ import { setInitialAppLoadForDAP } from 'redux/actions/googleAnalytics/googleAna
 import Analytics from 'helpers/analytics/Analytics';
 import { Helmet } from 'react-helmet';
 import {
-    isCustomPageTitleDefined,
-    getCanonicalUrl
+  isCustomPageTitleDefined,
+  getCanonicalUrl
 } from 'helpers/metaTagHelper';
 
 const propTypes = {
-    og_url: PropTypes.string,
-    og_title: PropTypes.string,
-    og_description: PropTypes.string,
-    og_site_name: PropTypes.string,
-    og_image: PropTypes.string
+  og_url: PropTypes.string,
+  og_title: PropTypes.string,
+  og_description: PropTypes.string,
+  og_site_name: PropTypes.string,
+  og_image: PropTypes.string
 };
 
 const defaultProps = {
-    og_url: 'https://usaspending.gov',
-    og_title: 'USAspending.gov',
-    og_description: 'USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.',
-    og_site_name: 'USAspending.gov',
-    og_image: 'https://usaspending.gov/img/FacebookOG.png'
+  og_url: 'https://usaspending.gov',
+  og_title: 'USAspending.gov',
+  og_description: 'USAspending.gov is the new official source of accessible, searchable and reliable spending data for the U.S. Government.',
+  og_site_name: 'USAspending.gov',
+  og_image: 'https://usaspending.gov/img/FacebookOG.png'
 };
 
 const MetaTags = ({
-    og_url: url,
-    og_title: title,
-    og_description: description,
-    og_site_name: siteName,
-    og_image: image
+  og_url: url,
+  og_title: title,
+  og_description: description,
+  og_site_name: siteName,
+  og_image: image
 }) => {
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
-    const { pathname } = useLocation();
+  const { pathname } = useLocation();
 
-    const { isInitialApplicationLoadForDAPGoogleAnalytics } = useSelector((state) => state.googleAnalytics);
+  const { isInitialApplicationLoadForDAPGoogleAnalytics } = useSelector((state) => state.googleAnalytics);
 
-    const [tags, setTags] = useState([]);
+  const [tags, setTags] = useState([]);
 
-    const generateTags = useCallback(() => {
-        const newTags = [];
+  const generateTags = useCallback(() => {
+    const newTags = [];
 
-        if (url !== '') {
-            newTags.push(<meta
-              property="og:url"
-              content={url}
-              key="og_url" />
-            );
-        }
-        if (title !== '') {
-            newTags.push(<meta
-              property="og:title"
-              content={title}
-              key="og_title" />
-            );
-            newTags.push(<meta
-              content={title}
-              key="twitter-title"
-              name="twitter:title" />
-            );
-            newTags.push(<title key="title">{title}</title>);
-        }
-        if (description !== '') {
-            newTags.push(<meta
-              name="description"
-              property="og:description"
-              content={description}
-              key="og_description" />
-            );
-            newTags.push(<meta
-              content={description}
-              key="twitter-description"
-              name="twitter:description" />
-            );
-        }
-        if (image !== '') {
-            newTags.push(<meta
-              property="og:image"
-              content={image}
-              key="og_image" />
-            );
-            newTags.push(<meta
-              name="twitter:image"
-              key="twitter:image"
-              content={image} />
-            );
-        }
+    if (url !== '') {
+      newTags.push(<meta
+        property="og:url"
+        content={url}
+        key="og_url" />
+      );
+    }
+    if (title !== '') {
+      newTags.push(<meta
+        property="og:title"
+        content={title}
+        key="og_title" />
+      );
+      newTags.push(<meta
+        content={title}
+        key="twitter-title"
+        name="twitter:title" />
+      );
+      newTags.push(<title key="title">{title}</title>);
+    }
+    if (description !== '') {
+      newTags.push(<meta
+        name="description"
+        property="og:description"
+        content={description}
+        key="og_description" />
+      );
+      newTags.push(<meta
+        content={description}
+        key="twitter-description"
+        name="twitter:description" />
+      );
+    }
+    if (image !== '') {
+      newTags.push(<meta
+        property="og:image"
+        content={image}
+        key="og_image" />
+      );
+      newTags.push(<meta
+        name="twitter:image"
+        key="twitter:image"
+        content={image} />
+      );
+    }
 
-        setTags(
-            newTags
-                .concat([
-                  <link key="canonical-url" rel="canonical" href={getCanonicalUrl(pathname)} />
-                ])
-        );
-    });
-
-    useEffect(() => {
-        generateTags();
-        if (isCustomPageTitleDefined(title)) {
-            if (isInitialApplicationLoadForDAPGoogleAnalytics) dispatch(setInitialAppLoadForDAP());
-            // sendDAPPageviewEvent will be valid only once, and only the first time we hit this code
-            const sendDAPPageviewEvent = isInitialApplicationLoadForDAPGoogleAnalytics ? 'isInitialApplicationLoadForDAPGoogleAnalytics' : undefined;
-            Analytics.pageview(pathname, title, sendDAPPageviewEvent);
-        }
-    }, [dispatch, generateTags, isInitialApplicationLoadForDAPGoogleAnalytics, pathname, title]);
-
-    useEffect(() => {
-        generateTags();
-    }, [url, title, description, siteName, image, generateTags]);
-
-    return (
-      <Helmet>
-        {tags}
-      </Helmet>
+    setTags(
+      newTags
+        .concat([
+          <link key="canonical-url" rel="canonical" href={getCanonicalUrl(pathname)} />
+        ])
     );
+  });
+
+  useEffect(() => {
+    generateTags();
+    if (isCustomPageTitleDefined(title)) {
+      if (isInitialApplicationLoadForDAPGoogleAnalytics) dispatch(setInitialAppLoadForDAP());
+      // sendDAPPageviewEvent will be valid only once, and only the first time we hit this code
+      const sendDAPPageviewEvent = isInitialApplicationLoadForDAPGoogleAnalytics ? 'isInitialApplicationLoadForDAPGoogleAnalytics' : undefined;
+      Analytics.pageview(pathname, title, sendDAPPageviewEvent);
+    }
+  }, [dispatch, generateTags, isInitialApplicationLoadForDAPGoogleAnalytics, pathname, title]);
+
+  useEffect(() => {
+    generateTags();
+  }, [url, title, description, siteName, image, generateTags]);
+
+  return (
+    <Helmet>
+      {tags}
+    </Helmet>
+  );
 };
 
 MetaTags.propTypes = propTypes;

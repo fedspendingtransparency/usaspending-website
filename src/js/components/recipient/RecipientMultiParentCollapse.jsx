@@ -10,52 +10,52 @@ import { Link } from 'react-router-dom';
 import { InfoCircle, AngleDown } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
-    parents: PropTypes.array
+  parents: PropTypes.array
 };
 
 export default class RecipientMultiParentCollapse extends React.Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            open: false
-        };
+    this.state = {
+      open: false
+    };
 
-        this.collapse = this.collapse.bind(this);
-        this.renderMultipleParents = this.renderMultipleParents.bind(this);
+    this.collapse = this.collapse.bind(this);
+    this.renderMultipleParents = this.renderMultipleParents.bind(this);
+  }
+  collapse() {
+    this.setState({
+      open: !this.state.open
+    });
+  }
+  renderMultipleParents() {
+    const drawnArray = [];
+    for (let i = 1; i < this.props.parents.length; i++) {
+      const currentValue = this.props.parents[i];
+      drawnArray.push(
+        <Link
+          className="recipient-overview__multiparents"
+          key={currentValue.parent_duns}
+          to={`/recipient/${currentValue.parent_id}/latest`}>
+          {currentValue.parent_name}
+          {currentValue.parent_duns ? `(${currentValue.parent_duns})` : ''}
+        </Link>
+      );
     }
-    collapse() {
-        this.setState({
-            open: !this.state.open
-        });
-    }
-    renderMultipleParents() {
-        const drawnArray = [];
-        for (let i = 1; i < this.props.parents.length; i++) {
-            const currentValue = this.props.parents[i];
-            drawnArray.push(
-              <Link
-                className="recipient-overview__multiparents"
-                key={currentValue.parent_duns}
-                to={`/recipient/${currentValue.parent_id}/latest`}>
-                {currentValue.parent_name}
-                {currentValue.parent_duns ? `(${currentValue.parent_duns})` : ''}
-              </Link>
-            );
-        }
-        return drawnArray;
-    }
+    return drawnArray;
+  }
 
-    render() {
-        const isSingleParent = this.props.parents.length < 2;
-        const initialParent = this.props.parents[0];
-        let initialDuns = '';
-        if (initialParent.parent_duns) {
-            initialDuns = `(${initialParent.parent_duns})`;
-        }
-        return (
-          <div className="recipient-overview__parent">
-            {
+  render() {
+    const isSingleParent = this.props.parents.length < 2;
+    const initialParent = this.props.parents[0];
+    let initialDuns = '';
+    if (initialParent.parent_duns) {
+      initialDuns = `(${initialParent.parent_duns})`;
+    }
+    return (
+      <div className="recipient-overview__parent">
+        {
                     isSingleParent ?
                         // Render only top level parent if there's only 1 parent
                       <div className="recipient-overview__parent">
@@ -119,8 +119,8 @@ export default class RecipientMultiParentCollapse extends React.Component {
                               </button>
                       </div>
                 }
-          </div>
-        );
-    }
+      </div>
+    );
+  }
 }
 RecipientMultiParentCollapse.propTypes = propTypes;

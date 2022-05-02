@@ -10,39 +10,39 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { ExclamationTriangle } from 'components/sharedComponents/icons/Icons';
 
 const propTypes = {
-    searchString: PropTypes.string,
-    placeholder: PropTypes.string,
-    openDropdown: PropTypes.func,
-    handleTextInputChange: PropTypes.func,
-    handleOnKeyDown: PropTypes.func,
-    toggleDropdown: PropTypes.func,
-    context: PropTypes.shape({}), // the $this variable of the parent, used to create a ref
-    expanded: PropTypes.bool,
-    enabled: PropTypes.bool,
-    loading: PropTypes.bool,
-    showDisclaimer: PropTypes.bool,
-    onClear: PropTypes.func,
-    isClearable: PropTypes.bool
+  searchString: PropTypes.string,
+  placeholder: PropTypes.string,
+  openDropdown: PropTypes.func,
+  handleTextInputChange: PropTypes.func,
+  handleOnKeyDown: PropTypes.func,
+  toggleDropdown: PropTypes.func,
+  context: PropTypes.shape({}), // the $this variable of the parent, used to create a ref
+  expanded: PropTypes.bool,
+  enabled: PropTypes.bool,
+  loading: PropTypes.bool,
+  showDisclaimer: PropTypes.bool,
+  onClear: PropTypes.func,
+  isClearable: PropTypes.bool
 };
 
 const defaultProps = {
-    enabled: true
+  enabled: true
 };
 
 // eslint-disable-next-line import/prefer-default-export
 export const EntityDropdownAutocomplete = ({
-    searchString,
-    enabled,
-    openDropdown,
-    handleTextInputChange,
-    toggleDropdown,
-    placeholder,
-    context, // the $this variable
-    loading,
-    handleOnKeyDown,
-    showDisclaimer,
-    onClear,
-    isClearable
+  searchString,
+  enabled,
+  openDropdown,
+  handleTextInputChange,
+  toggleDropdown,
+  placeholder,
+  context, // the $this variable
+  loading,
+  handleOnKeyDown,
+  showDisclaimer,
+  onClear,
+  isClearable
 }) => (
   <div className="autocomplete__input">
     <input

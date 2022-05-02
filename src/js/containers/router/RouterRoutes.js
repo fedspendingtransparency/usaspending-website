@@ -40,178 +40,178 @@ const AnalystGuidePage = React.lazy(() => import('components/analystGuide/Analys
 // Please add any new routes to the scripts/pages.js routes file.
 // eslint-disable-next-line import/prefer-default-export
 export const routes = [
-    {
-        path: `/`,
-        component: HomepageUpdate,
-        exact: true
-    },
-    {
-        path: '/search',
-        component: SearchContainer,
-        exact: true
-    },
-    {
-        path: '/search/:urlHash',
-        component: SearchContainerRedirect,
-        exact: true
-    },
-    {
-        path: '/explorer',
-        component: ExplorerLanding,
-        exact: true
-    },
-    {
-        path: '/explorer/:root',
-        component: ExplorerDetailPageContainer,
-        exact: true
-    },
-    {
-        path: '/award/:awardId',
-        component: AwardContainer,
-        exact: true
-    },
-    {
-        path: '/federal_account/:accountNumber',
-        component: AccountContainer,
-        exact: true
-    },
-    {
-        path: '/about/accessibility',
-        component: AccessibilityPage,
-        exact: true
-    },
-    {
-        path: '/about/privacy',
-        component: PrivacyPage,
-        exact: true
-    },
-    {
-        path: '/about/foia',
-        component: FOIAPage,
-        exact: true
-    },
-    {
-        path: '/about',
-        component: About,
-        exact: true
-    },
-    {
-        path: '/db_info',
-        component: DBInfo,
-        exact: true
-    },
-    {
-        path: '/agency',
-        parent: '/agency',
-        component: AgencyLandingPage,
-        exact: true
-    },
-    {
-        path: '/download_center/:type',
-        component: BulkDownloadPageContainer,
-        exact: true
-    },
-    {
-        path: '/download_center',
-        component: BulkDownloadPageContainer,
-        exact: true
-    },
-    {
-        path: '/keyword_search/:keyword',
-        component: KeywordContainer,
-        exact: true
-    },
-    {
-        path: '/keyword_search',
-        component: KeywordContainer,
-        exact: true
-    },
-    {
-        path: '/federal_account',
-        component: AccountLandingPage,
-        exact: true
-    },
-    {
-        // could be state name or fips code
-        path: '/state/:state/:fy',
-        component: StateContainer,
-        exact: true
-    },
-    {
-        // could be state name or fips code
-        path: '/state/:state',
-        component: StateContainer,
-        exact: true
-    },
-    {
-        path: '/state',
-        component: StateLandingPage,
-        exact: true
-    },
-    {
-        path: '/recipient/:recipientId/:fy',
-        component: RecipientContainer,
-        exact: true
-    },
-    {
-        path: '/recipient/:recipientId',
-        component: RecipientContainer,
-        exact: true
-    },
-    {
-        path: '/recipient',
-        component: RecipientLandingPage,
-        exact: true
-    },
-    {
-        path: '/agency/:agencySlug',
-        component: AgencyProfileV2,
-        exact: true
-    },
-    {
-        path: '/submission-statistics',
-        component: AboutTheDataPage,
-        exact: true
-    },
-    {
-        path: '/submission-statistics/agency/:agencyCode',
-        component: AgencyDetailsPage,
-        exact: true
-    },
-    {
-        path: '/submission-statistics/data-sources',
-        component: SubmissionStatisticsDataSources,
-        exact: true
-    },
-    {
-        path: '/disaster/covid-19/data-sources',
-        component: DataSourcesAndMethodologiesPage,
-        exact: true
-    },
-    {
-        path: '/disaster/covid-19/the-opportunity-project',
-        component: OpportunityProjectPage,
-        exact: true
-    },
-    {
-        path: '/disaster/covid-19',
-        component: Covid19Container,
-        exact: true
-    },
-    {
-        path: '/data-dictionary',
-        component: DataDictionaryPage,
-        exact: true
-    },
-    {
-        path: '/analyst-guide',
-        component: AnalystGuidePage,
-        exact: true
-    },
-    {
-        path: '*',
-        component: ErrorPage
-    }
+  {
+    path: `/`,
+    component: HomepageUpdate,
+    exact: true
+  },
+  {
+    path: '/search',
+    component: SearchContainer,
+    exact: true
+  },
+  {
+    path: '/search/:urlHash',
+    component: SearchContainerRedirect,
+    exact: true
+  },
+  {
+    path: '/explorer',
+    component: ExplorerLanding,
+    exact: true
+  },
+  {
+    path: '/explorer/:root',
+    component: ExplorerDetailPageContainer,
+    exact: true
+  },
+  {
+    path: '/award/:awardId',
+    component: AwardContainer,
+    exact: true
+  },
+  {
+    path: '/federal_account/:accountNumber',
+    component: AccountContainer,
+    exact: true
+  },
+  {
+    path: '/about/accessibility',
+    component: AccessibilityPage,
+    exact: true
+  },
+  {
+    path: '/about/privacy',
+    component: PrivacyPage,
+    exact: true
+  },
+  {
+    path: '/about/foia',
+    component: FOIAPage,
+    exact: true
+  },
+  {
+    path: '/about',
+    component: About,
+    exact: true
+  },
+  {
+    path: '/db_info',
+    component: DBInfo,
+    exact: true
+  },
+  {
+    path: '/agency',
+    parent: '/agency',
+    component: AgencyLandingPage,
+    exact: true
+  },
+  {
+    path: '/download_center/:type',
+    component: BulkDownloadPageContainer,
+    exact: true
+  },
+  {
+    path: '/download_center',
+    component: BulkDownloadPageContainer,
+    exact: true
+  },
+  {
+    path: '/keyword_search/:keyword',
+    component: KeywordContainer,
+    exact: true
+  },
+  {
+    path: '/keyword_search',
+    component: KeywordContainer,
+    exact: true
+  },
+  {
+    path: '/federal_account',
+    component: AccountLandingPage,
+    exact: true
+  },
+  {
+    // could be state name or fips code
+    path: '/state/:state/:fy',
+    component: StateContainer,
+    exact: true
+  },
+  {
+    // could be state name or fips code
+    path: '/state/:state',
+    component: StateContainer,
+    exact: true
+  },
+  {
+    path: '/state',
+    component: StateLandingPage,
+    exact: true
+  },
+  {
+    path: '/recipient/:recipientId/:fy',
+    component: RecipientContainer,
+    exact: true
+  },
+  {
+    path: '/recipient/:recipientId',
+    component: RecipientContainer,
+    exact: true
+  },
+  {
+    path: '/recipient',
+    component: RecipientLandingPage,
+    exact: true
+  },
+  {
+    path: '/agency/:agencySlug',
+    component: AgencyProfileV2,
+    exact: true
+  },
+  {
+    path: '/submission-statistics',
+    component: AboutTheDataPage,
+    exact: true
+  },
+  {
+    path: '/submission-statistics/agency/:agencyCode',
+    component: AgencyDetailsPage,
+    exact: true
+  },
+  {
+    path: '/submission-statistics/data-sources',
+    component: SubmissionStatisticsDataSources,
+    exact: true
+  },
+  {
+    path: '/disaster/covid-19/data-sources',
+    component: DataSourcesAndMethodologiesPage,
+    exact: true
+  },
+  {
+    path: '/disaster/covid-19/the-opportunity-project',
+    component: OpportunityProjectPage,
+    exact: true
+  },
+  {
+    path: '/disaster/covid-19',
+    component: Covid19Container,
+    exact: true
+  },
+  {
+    path: '/data-dictionary',
+    component: DataDictionaryPage,
+    exact: true
+  },
+  {
+    path: '/analyst-guide',
+    component: AnalystGuidePage,
+    exact: true
+  },
+  {
+    path: '*',
+    component: ErrorPage
+  }
 ];
 /* eslint-enable import/prefer-default-export */
 

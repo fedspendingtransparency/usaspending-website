@@ -11,35 +11,35 @@ import FilterSidebar from 'components/sharedComponents/filterSidebar/FilterSideb
 import AccountTimePeriodContainer from 'containers/account/filters/AccountTimePeriodContainer';
 import AccountObjectClassContainer from 'containers/account/filters/AccountObjectClassContainer';
 import AccountProgramActivityContainer
-    from 'containers/account/filters/AccountProgramActivityContainer';
+  from 'containers/account/filters/AccountProgramActivityContainer';
 
 const filters = {
-    options: [
-        { title: 'Time Period' },
-        { title: 'Object Class' },
-        { title: 'Program Activity' },
-        { title: 'Treasury Account Symbol (TAS)' }
-    ],
-    components: [
-        AccountTimePeriodContainer,
-        AccountObjectClassContainer,
-        AccountProgramActivityContainer,
-        null
-    ]
+  options: [
+    { title: 'Time Period' },
+    { title: 'Object Class' },
+    { title: 'Program Activity' },
+    { title: 'Treasury Account Symbol (TAS)' }
+  ],
+  components: [
+    AccountTimePeriodContainer,
+    AccountObjectClassContainer,
+    AccountProgramActivityContainer,
+    null
+  ]
 };
 
 export default class SearchSidebar extends React.Component {
-    render() {
-        return (
-          <div className="search-sidebar">
-            <div className="sidebar-header">
-              <span className="filter-icon">
-                <FilterIcon />
-              </span>
-                <h6>Filter by:</h6>
-            </div>
-              <FilterSidebar {...filters} />
-          </div>
-        );
-    }
+  render() {
+    return (
+      <div className="search-sidebar">
+        <div className="sidebar-header">
+          <span className="filter-icon">
+            <FilterIcon />
+          </span>
+            <h6>Filter by:</h6>
+        </div>
+          <FilterSidebar {...filters} />
+      </div>
+    );
+  }
 }

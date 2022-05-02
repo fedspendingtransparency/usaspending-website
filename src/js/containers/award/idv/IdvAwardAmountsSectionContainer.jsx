@@ -23,178 +23,178 @@ import ResultsTablePicker from 'components/search/table/ResultsTablePicker';
 import { awardAmountsInfo } from 'components/award/shared/InfoTooltipContent';
 
 const propTypes = {
-    award: PropTypes.object,
-    setIdvDetails: PropTypes.func,
-    jumpToSection: PropTypes.func,
-    defCodes: PropTypes.array
+  award: PropTypes.object,
+  setIdvDetails: PropTypes.func,
+  jumpToSection: PropTypes.func,
+  defCodes: PropTypes.array
 };
 
 const tabTypes = [
-    {
-        enabled: true,
-        internal: 'awards',
-        label: 'Awards Under this IDV'
-    },
-    {
-        enabled: true,
-        internal: 'idv',
-        label: 'This IDV'
-    }
+  {
+    enabled: true,
+    internal: 'awards',
+    label: 'Awards Under this IDV'
+  },
+  {
+    enabled: true,
+    internal: 'idv',
+    label: 'This IDV'
+  }
 ];
 
 export class IdvAmountsContainer extends React.Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
+    this.awardRequest = null;
+
+    this.state = {
+      error: false,
+      inFlight: true,
+      awardAmounts: null,
+      active: 'awards'
+    };
+    this.switchTab = this.switchTab.bind(this);
+  }
+
+  componentDidMount() {
+    return this.getIdvChildAwardAmounts(this.props.award.id);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.award.id !== prevProps.award.id) {
+      this.getIdvChildAwardAmounts(this.props.award.id);
+    }
+  }
+
+  componentWillUnmount() {
+    if (this.awardRequest) {
+      this.awardRequest.cancel();
+    }
+  }
+
+  getIdvChildAwardAmounts(id) {
+    if (this.awardRequest) {
+      // A request is currently in-flight, cancel it
+      this.awardRequest.cancel();
+    }
+
+    this.awardRequest = IdvHelper.fetchAwardAmounts(id);
+
+    return this.awardRequest.promise
+      .then((res) => {
+        this.parseChildAwardAmounts(res.data);
+
+        // operation has resolved
         this.awardRequest = null;
-
-        this.state = {
-            error: false,
-            inFlight: true,
-            awardAmounts: null,
-            active: 'awards'
-        };
-        this.switchTab = this.switchTab.bind(this);
-    }
-
-    componentDidMount() {
-        return this.getIdvChildAwardAmounts(this.props.award.id);
-    }
-
-    componentDidUpdate(prevProps) {
-        if (this.props.award.id !== prevProps.award.id) {
-            this.getIdvChildAwardAmounts(this.props.award.id);
+      })
+      .catch((error) => {
+        console.log(error);
+        if (isCancel(error)) {
+          // Got cancelled
         }
-    }
-
-    componentWillUnmount() {
-        if (this.awardRequest) {
-            this.awardRequest.cancel();
-        }
-    }
-
-    getIdvChildAwardAmounts(id) {
-        if (this.awardRequest) {
-            // A request is currently in-flight, cancel it
-            this.awardRequest.cancel();
-        }
-
-        this.awardRequest = IdvHelper.fetchAwardAmounts(id);
-
-        return this.awardRequest.promise
-            .then((res) => {
-                this.parseChildAwardAmounts(res.data);
-
-                // operation has resolved
-                this.awardRequest = null;
-            })
-            .catch((error) => {
-                console.log(error);
-                if (isCancel(error)) {
-                    // Got cancelled
-                }
-                else if (error.response) {
-                    this.awardRequest = null;
-                    this.setState({
-                        error: true,
-                        inFlight: false
-                    });
-                }
-                else {
-                    // Request failed
-                    this.awardRequest = null;
-                    console.log(error);
-                }
-            });
-    }
-
-    parseChildAwardAmounts(data) {
-        const awardAmounts = Object.create(BaseAwardAmounts);
-        awardAmounts.populate(data, 'idv_aggregated', this.props.defCodes);
-        this.setState({
-            awardAmounts,
-            error: false,
+        else if (error.response) {
+          this.awardRequest = null;
+          this.setState({
+            error: true,
             inFlight: false
-        });
+          });
+        }
+        else {
+          // Request failed
+          this.awardRequest = null;
+          console.log(error);
+        }
+      });
+  }
 
-        // Store the counts in Redux for use in the referenced awards table
-        // and related awards section
-        this.props.setIdvDetails({
-            // api currently returns only defc associated with covid19
-            child_file_c: IdvHelper.getChildAwardFileCDetails(data),
-            child_awards: data.child_award_count,
-            child_idvs: data.child_idv_count,
-            grandchild_awards: data.grandchild_award_count,
-            total: data.child_idv_count + data.child_award_count + data.grandchild_award_count
-        });
-    }
+  parseChildAwardAmounts(data) {
+    const awardAmounts = Object.create(BaseAwardAmounts);
+    awardAmounts.populate(data, 'idv_aggregated', this.props.defCodes);
+    this.setState({
+      awardAmounts,
+      error: false,
+      inFlight: false
+    });
 
-    switchTab(tab) {
-        this.setState({
-            active: tab
-        });
-    }
+    // Store the counts in Redux for use in the referenced awards table
+    // and related awards section
+    this.props.setIdvDetails({
+      // api currently returns only defc associated with covid19
+      child_file_c: IdvHelper.getChildAwardFileCDetails(data),
+      child_awards: data.child_award_count,
+      child_idvs: data.child_idv_count,
+      grandchild_awards: data.grandchild_award_count,
+      total: data.child_idv_count + data.child_award_count + data.grandchild_award_count
+    });
+  }
 
-    render() {
-        const thisIdv = Object.create(BaseAwardAmounts);
-        thisIdv.populate(this.props.award.overview, 'idv', this.props.defCodes);
-        const tabsClassName = 'idv-award-amounts-tabs';
-        const thisIdvHasFileC = (
-            thisIdv._fileCObligated !== 0 ||
+  switchTab(tab) {
+    this.setState({
+      active: tab
+    });
+  }
+
+  render() {
+    const thisIdv = Object.create(BaseAwardAmounts);
+    thisIdv.populate(this.props.award.overview, 'idv', this.props.defCodes);
+    const tabsClassName = 'idv-award-amounts-tabs';
+    const thisIdvHasFileC = (
+      thisIdv._fileCObligated !== 0 ||
             thisIdv._fileCOutlay !== 0
-        );
+    );
 
-        const childAwardsHaveFileC = (
-            this.state.awardAmounts?._fileCObligated !== 0 ||
+    const childAwardsHaveFileC = (
+      this.state.awardAmounts?._fileCObligated !== 0 ||
             this.state.awardAmounts?._fileCOutlay !== 0
-        );
+    );
 
-        const showFileC = (thisIdvHasFileC || childAwardsHaveFileC);
+    const showFileC = (thisIdvHasFileC || childAwardsHaveFileC);
 
-        return (
-          <div className="award__col award-viz award-amounts">
-            <div className="award-viz__heading">
-              <h3 className="award-viz__title">$ Award Amounts</h3>
-                <TooltipWrapper
-                  className="award-section-tt"
-                  icon="info"
-                  wide
-                  tooltipComponent={awardAmountsInfo} />
-            </div>
-              <hr />
-                <div className="award-viz__tabs">
-                  <ResultsTableTabs
+    return (
+      <div className="award__col award-viz award-amounts">
+        <div className="award-viz__heading">
+          <h3 className="award-viz__title">$ Award Amounts</h3>
+            <TooltipWrapper
+              className="award-section-tt"
+              icon="info"
+              wide
+              tooltipComponent={awardAmountsInfo} />
+        </div>
+          <hr />
+            <div className="award-viz__tabs">
+              <ResultsTableTabs
+                types={tabTypes}
+                active={this.state.active}
+                switchTab={this.switchTab}
+                tabsClassName={tabsClassName}
+                hideCounts />
+                  <ResultsTablePicker
                     types={tabTypes}
                     active={this.state.active}
-                    switchTab={this.switchTab}
-                    tabsClassName={tabsClassName}
-                    hideCounts />
-                      <ResultsTablePicker
-                        types={tabTypes}
-                        active={this.state.active}
-                        switchTab={this.switchTab} />
-                </div>
-            {this.state.active === 'awards' && (
-            <AggregatedAwardAmounts
-              {...this.state}
-              jumpToSection={this.props.jumpToSection}
-              showFileC={showFileC} />
+                    switchTab={this.switchTab} />
+            </div>
+        {this.state.active === 'awards' && (
+        <AggregatedAwardAmounts
+          {...this.state}
+          jumpToSection={this.props.jumpToSection}
+          showFileC={showFileC} />
                 )}
-            {this.state.active !== 'awards' && (
-            <AwardAmountsTable
-              showFileC={showFileC}
-              awardData={thisIdv}
-              awardAmountType="idv"
-              spendingScenario={determineSpendingScenarioByAwardType("idv", thisIdv)} />
+        {this.state.active !== 'awards' && (
+        <AwardAmountsTable
+          showFileC={showFileC}
+          awardData={thisIdv}
+          awardAmountType="idv"
+          spendingScenario={determineSpendingScenarioByAwardType("idv", thisIdv)} />
                 )}
-          </div>
-        );
-    }
+      </div>
+    );
+  }
 }
 
 IdvAmountsContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ award: state.award }),
-    (dispatch) => bindActionCreators(awardActions, dispatch)
+  (state) => ({ award: state.award }),
+  (dispatch) => bindActionCreators(awardActions, dispatch)
 )(IdvAmountsContainer);

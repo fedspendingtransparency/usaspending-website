@@ -8,22 +8,22 @@ import PropTypes from 'prop-types';
 import { jumpToSection } from 'helpers/covid19Helper';
 
 const propTypes = {
-    publicLaw: PropTypes.string
+  publicLaw: PropTypes.string
 };
 
 const Heading = ({ publicLaw }) => {
-    const jumpToDataSources = () => {
-        jumpToSection('data_sources_and_methodology');
-    };
-    return (
-      <div className={`heading__container ${publicLaw === 'american-rescue-plan' ? 'information-body-arp' : 'information-body'}`}>
-        {publicLaw === 'american-rescue-plan' ?
-          <h2 className="heading__title">
+  const jumpToDataSources = () => {
+    jumpToSection('data_sources_and_methodology');
+  };
+  return (
+    <div className={`heading__container ${publicLaw === 'american-rescue-plan' ? 'information-body-arp' : 'information-body'}`}>
+      {publicLaw === 'american-rescue-plan' ?
+        <h2 className="heading__title">
                     The Federal Response to COVID-19: <span className="color-blue-arp">The American Rescue Plan</span>
-          </h2> :
-          <h2 className="heading__title">
+        </h2> :
+        <h2 className="heading__title">
                     The Federal Response to <span className="color-purple">COVID-19</span>
-          </h2>
+        </h2>
             }
               <div className="aligned-heading">
                 {publicLaw === 'american-rescue-plan' ?
@@ -56,8 +56,8 @@ const Heading = ({ publicLaw }) => {
                     </>
                 }
               </div>
-      </div>
-    );
+    </div>
+  );
 };
 
 Heading.propTypes = propTypes;

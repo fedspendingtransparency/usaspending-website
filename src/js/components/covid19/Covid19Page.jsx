@@ -36,67 +36,67 @@ import PublicLawPicker from './PublicLawPicker';
 require('pages/covid19/index.scss');
 
 const propTypes = {
-    loading: PropTypes.bool
+  loading: PropTypes.bool
 };
 
 const Covid19Page = ({ loading }) => {
-    const query = useQueryParams();
-    const history = useHistory();
-    const [activeSection, setActiveSection] = useState('overview');
-    const dispatch = useDispatch();
-    const { isRecipientMapLoaded } = useSelector((state) => state.covid19);
+  const query = useQueryParams();
+  const history = useHistory();
+  const [activeSection, setActiveSection] = useState('overview');
+  const dispatch = useDispatch();
+  const { isRecipientMapLoaded } = useSelector((state) => state.covid19);
 
-    const handleJumpToSection = (section) => {
-        jumpToSection(section);
-        setActiveSection(section);
-        Analytics.event({ category: 'COVID-19 - Profile', action: `${section} - click` });
-    };
+  const handleJumpToSection = (section) => {
+    jumpToSection(section);
+    setActiveSection(section);
+    Analytics.event({ category: 'COVID-19 - Profile', action: `${section} - click` });
+  };
 
-    useEffect(() => {
-        if (isRecipientMapLoaded && query.section) {
-            handleJumpToSection(query.section);
-            const newParams = getQueryParamString(omit(query, ['section']));
-            history.replace({
-                pathname: window.location.pathname,
-                search: newParams
-            });
-        }
-    }, [history, isRecipientMapLoaded, query]);
+  useEffect(() => {
+    if (isRecipientMapLoaded && query.section) {
+      handleJumpToSection(query.section);
+      const newParams = getQueryParamString(omit(query, ['section']));
+      history.replace({
+        pathname: window.location.pathname,
+        search: newParams
+      });
+    }
+  }, [history, isRecipientMapLoaded, query]);
 
-    const handleExternalLinkClick = (url) => {
-        dispatch(showModal(url));
-    };
+  const handleExternalLinkClick = (url) => {
+    dispatch(showModal(url));
+  };
 
-    const handleShare = (name) => {
-        handleShareOptionClick(name, slug, getEmailSocialShareData);
-    };
+  const handleShare = (name) => {
+    handleShareOptionClick(name, slug, getEmailSocialShareData);
+  };
 
-    const handlePublicLawFilterClick = (law) => {
-        if (law === 'dsm') {
-            history.push({
-                pathname: `${window.location.pathname}/data-sources`
-            });
-        }
-        else {
-            history.push({
-                pathname: window.location.pathname,
-                search: `publicLaw=${law}`
-            });
-        }
-    };
+  const handlePublicLawFilterClick = (law) => {
+    if (law === 'dsm') {
+      history.push({
+        pathname: `${window.location.pathname}/data-sources`
+      });
+    }
+    else {
+      history.push({
+        pathname: window.location.pathname,
+        search: `publicLaw=${law}`
+      });
+    }
+  };
 
-    return (
-      <PageWrapper
-        pageName="COVID-19 Spending"
-        classNames="usa-da-covid19-page"
-        metaTagProps={covidPageMetaTags}
-        title="COVID-19 Spending"
-        toolBarComponents={[
+  return (
+    <PageWrapper
+      pageName="COVID-19 Spending"
+      classNames="usa-da-covid19-page"
+      metaTagProps={covidPageMetaTags}
+      title="COVID-19 Spending"
+      toolBarComponents={[
                 GlobalConstants.ARP_RELEASED ? <PublicLawPicker selectedOption={query?.publicLaw} onClick={handlePublicLawFilterClick} /> : <></>,
-          <ShareIcon
-            url={getBaseUrl(slug)}
-            onShareOptionClick={handleShare} />,
-          <DownloadButtonContainer />
+        <ShareIcon
+          url={getBaseUrl(slug)}
+          onShareOptionClick={handleShare} />,
+        <DownloadButtonContainer />
             ]}>
               <LoadingWrapper isLoading={loading}>
                 <main id="main-content" className="main-content usda__flex-row">
@@ -152,8 +152,8 @@ const Covid19Page = ({ loading }) => {
                       <GlobalModalContainer />
                 </main>
               </LoadingWrapper>
-      </PageWrapper>
-    );
+    </PageWrapper>
+  );
 };
 
 Covid19Page.propTypes = propTypes;

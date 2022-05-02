@@ -21,111 +21,111 @@ import Card from "../../components/sharedComponents/Card";
 import TotalAmount from "../../components/homepage/hero/TotalAmount";
 
 const HomepageCovidContainer = () => {
-    const [, setIsIncrementComplete] = useState(false);
-    const [isAmountLoading, setIsAmountLoading] = useState(true);
-    const [, , validDefCodes] = useDefCodes();
-    const request = useRef(null);
-    const dispatch = useDispatch();
-    const totalSpendingAmount = useSelector((state) => state.covid19.overview._totalOutlays);
-    const history = useHistory();
+  const [, setIsIncrementComplete] = useState(false);
+  const [isAmountLoading, setIsAmountLoading] = useState(true);
+  const [, , validDefCodes] = useDefCodes();
+  const request = useRef(null);
+  const dispatch = useDispatch();
+  const totalSpendingAmount = useSelector((state) => state.covid19.overview._totalOutlays);
+  const history = useHistory();
 
-    const clickedHomepageLink = (route) => {
-        Analytics.event({
-            category: 'Homepage - Link',
-            action: route
-        });
-    };
+  const clickedHomepageLink = (route) => {
+    Analytics.event({
+      category: 'Homepage - Link',
+      action: route
+    });
+  };
 
-    const onlyCovidDefCodes = validDefCodes.filter((code) => code.disaster === 'covid_19');
+  const onlyCovidDefCodes = validDefCodes.filter((code) => code.disaster === 'covid_19');
 
-    const handleGoToAdvancedSearch = (e) => {
-        e.preventDefault();
-        clickedHomepageLink("search");
-        dispatch(clearAllFilters());
-        dispatch(resetAppliedFilters());
-        dispatch(setAppliedFilterCompletion(false));
-        dispatch(applyStagedFilters({
-            ...defaultFilters,
-            defCodes: new CheckboxTreeSelections({
-                require: onlyCovidDefCodes.map((code) => code.code),
-                exclude: [],
-                counts: [{ value: "COVID-19", count: onlyCovidDefCodes.length || 0, label: "COVID-19 Spending" }]
-            })
-        }));
-        history.push('/search');
-    };
+  const handleGoToAdvancedSearch = (e) => {
+    e.preventDefault();
+    clickedHomepageLink("search");
+    dispatch(clearAllFilters());
+    dispatch(resetAppliedFilters());
+    dispatch(setAppliedFilterCompletion(false));
+    dispatch(applyStagedFilters({
+      ...defaultFilters,
+      defCodes: new CheckboxTreeSelections({
+        require: onlyCovidDefCodes.map((code) => code.code),
+        exclude: [],
+        counts: [{ value: "COVID-19", count: onlyCovidDefCodes.length || 0, label: "COVID-19 Spending" }]
+      })
+    }));
+    history.push('/search');
+  };
 
-    const searchCardIcon = (
-      <span
-        className="fa-layers fa-fw"><FontAwesomeIcon icon="search" inverse size="xl" style={{ height: '20px', width: '20px' }} />
-      </span>);
-    const searchCardHeading = <p>Search <span>COVID-19</span> Spending Data</p>;
-    const searchCardContent = (
-      <p>
+  const searchCardIcon = (
+    <span
+      className="fa-layers fa-fw"><FontAwesomeIcon icon="search" inverse size="xl" style={{ height: '20px', width: '20px' }} />
+    </span>);
+  const searchCardHeading = <p>Search <span>COVID-19</span> Spending Data</p>;
+  const searchCardContent = (
+    <p>
         Use the <strong>Disaster Emergency Fund Code (DEFC)</strong> filter in Advanced Search to find awards related to <span>COVID-19</span> spending. Narrow your search with additional filters to help you find the data you need.
-      </p>);
-    const searchCardLink = (
-      <Link
-        to="/search"
-        onClick={handleGoToAdvancedSearch}>
+    </p>);
+  const searchCardLink = (
+    <Link
+      to="/search"
+      onClick={handleGoToAdvancedSearch}>
             Search the Data
-      </Link>);
+    </Link>);
 
-    const trackCardIcon = (
-      <span
-        className="fa-layers fa-fw"><FontAwesomeIcon icon="chart-bar" inverse size="xl" style={{ height: '20px', width: '20px' }} />
-      </span>);
-    const trackCardHeading = <p>Track <span>COVID-19</span> Spending</p>;
-    const trackCardContent = (
-      <div>
-        <p>
+  const trackCardIcon = (
+    <span
+      className="fa-layers fa-fw"><FontAwesomeIcon icon="chart-bar" inverse size="xl" style={{ height: '20px', width: '20px' }} />
+    </span>);
+  const trackCardHeading = <p>Track <span>COVID-19</span> Spending</p>;
+  const trackCardContent = (
+    <div>
+      <p>
             Our <span>COVID-19</span> profile page helps you track <span>COVID-19</span> spending by who is receiving funding, which agencies have paid out funds, which programs were funded, and more.
-        </p>
-          <p>
+      </p>
+        <p>
             All <span>COVID-19</span> spending data is available for download on the profile page with one click. You can also read about our datasets and calculations on the <Link to="/disaster/covid-19/data-sources">Data Sources & Methodology page</Link>.
-          </p>
-      </div>);
-    const trackCardLink = (
-      <Link
-        to="/disaster/covid-19">
+        </p>
+    </div>);
+  const trackCardLink = (
+    <Link
+      to="/disaster/covid-19">
             Explore the Data
-      </Link>);
+    </Link>);
 
-    const completeIncrementAndTriggerScroll = () => {
-        setIsIncrementComplete(true);
-    };
+  const completeIncrementAndTriggerScroll = () => {
+    setIsIncrementComplete(true);
+  };
 
-    useEffect(() => {
-        if (request.current) {
-            request.current.cancel();
+  useEffect(() => {
+    if (request.current) {
+      request.current.cancel();
+    }
+    setIsIncrementComplete(false);
+    setIsAmountLoading(true);
+    request.current = fetchOverview(validDefCodes.map((c) => c.code));
+    request.current.promise
+      .then((res) => {
+        if (totalSpendingAmount && totalSpendingAmount > 0) {
+          setIsAmountLoading(false);
+          setIsIncrementComplete(true);
         }
-        setIsIncrementComplete(false);
-        setIsAmountLoading(true);
-        request.current = fetchOverview(validDefCodes.map((c) => c.code));
-        request.current.promise
-            .then((res) => {
-                if (totalSpendingAmount && totalSpendingAmount > 0) {
-                    setIsAmountLoading(false);
-                    setIsIncrementComplete(true);
-                }
-                const overview = Object.create(CovidOverviewModel);
-                overview.populate(res.data);
-                dispatch(setOverview(overview));
-            });
-    }, [dispatch, totalSpendingAmount, validDefCodes]);
+        const overview = Object.create(CovidOverviewModel);
+        overview.populate(res.data);
+        dispatch(setOverview(overview));
+      });
+  }, [dispatch, totalSpendingAmount, validDefCodes]);
 
-    return (
-      <section
-        className="homepage-covid"
-        aria-label="HomepageCovidContainer sections">
-          <FlexGridRow
-            className="grid-content">
-              <FlexGridCol width={12} desktop={6} className="homepage-covid__column-one">
-                <div className="homepage-covid__column-one-content-wrapper">
-                  <div className="homepage-covid__heading">
+  return (
+    <section
+      className="homepage-covid"
+      aria-label="HomepageCovidContainer sections">
+        <FlexGridRow
+          className="grid-content">
+            <FlexGridCol width={12} desktop={6} className="homepage-covid__column-one">
+              <div className="homepage-covid__column-one-content-wrapper">
+                <div className="homepage-covid__heading">
                             The Federal Response to <span>COVID-19</span>
-                  </div>
-                    <div className="homepage-covid__content">
+                </div>
+                  <div className="homepage-covid__content">
                             The federal government has spent{' '}
                       {isAmountLoading && <div className="dot-pulse" />}
                         <TotalAmount
@@ -143,11 +143,11 @@ const HomepageCovidContainer = () => {
                             alt="" />
                         </picture>
                       </div>
-                </div>
-              </FlexGridCol>
-                <FlexGridCol width={12} desktop={6} className="homepage-covid__column-two">
-                  <div className="homepage-covid__column-two-content-wrapper">
-                    <Card
+              </div>
+            </FlexGridCol>
+              <FlexGridCol width={12} desktop={6} className="homepage-covid__column-two">
+                <div className="homepage-covid__column-two-content-wrapper">
+                  <Card
                       icon={searchCardIcon}
                       heading={searchCardHeading}
                       content={searchCardContent}
@@ -157,11 +157,11 @@ const HomepageCovidContainer = () => {
                           heading={trackCardHeading}
                           content={trackCardContent}
                           link={trackCardLink} />
-                  </div>
-                </FlexGridCol>
-          </FlexGridRow>
-      </section>
-    );
+                </div>
+              </FlexGridCol>
+        </FlexGridRow>
+    </section>
+  );
 };
 
 export default HomepageCovidContainer;

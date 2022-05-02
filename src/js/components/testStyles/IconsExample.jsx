@@ -7,24 +7,24 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
-    icon: PropTypes.func,
-    label: PropTypes.string
+  icon: PropTypes.func,
+  label: PropTypes.string
 };
 
 export default class IconsExample extends React.Component {
-    render() {
-        const Icon = this.props.icon;
-        return (
-          <li>
-            <div className="icon-svg">
-              <Icon />
-            </div>
-              <div className="icon-label">
-                {this.props.label}
-              </div>
-          </li>
-        );
-    }
+  render() {
+    const Icon = this.props.icon;
+    return (
+      <li>
+        <div className="icon-svg">
+          <Icon />
+        </div>
+          <div className="icon-label">
+            {this.props.label}
+          </div>
+      </li>
+    );
+  }
 }
 
 IconsExample.propTypes = propTypes;

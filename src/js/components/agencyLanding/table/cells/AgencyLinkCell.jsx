@@ -10,28 +10,28 @@ import { Link } from 'react-router-dom';
 import GlobalConstants from 'GlobalConstants';
 
 export default class AgencyLinkCell extends React.Component {
-    static propTypes = {
-        name: PropTypes.string,
-        column: PropTypes.string,
-        id: PropTypes.number,
-        agencySearchString: PropTypes.string
-    };
+  static propTypes = {
+    name: PropTypes.string,
+    column: PropTypes.string,
+    id: PropTypes.number,
+    agencySearchString: PropTypes.string
+  };
 
-    render() {
-        let name = this.props.name;
-        // highlight the matched string if applicable
-        if (this.props.agencySearchString !== '') {
-            name = replaceString(this.props.name, this.props.agencySearchString, "matched");
-        }
-
-        return (
-          <div className={`agency-link-cell column-${this.props.column}`}>
-            <div className="cell-content">
-              <Link to={`/${GlobalConstants.AGENCY_LINK}/${this.props.id}`}>
-                {name}
-              </Link>
-            </div>
-          </div>
-        );
+  render() {
+    let name = this.props.name;
+    // highlight the matched string if applicable
+    if (this.props.agencySearchString !== '') {
+      name = replaceString(this.props.name, this.props.agencySearchString, "matched");
     }
+
+    return (
+      <div className={`agency-link-cell column-${this.props.column}`}>
+        <div className="cell-content">
+          <Link to={`/${GlobalConstants.AGENCY_LINK}/${this.props.id}`}>
+            {name}
+          </Link>
+        </div>
+      </div>
+    );
+  }
 }

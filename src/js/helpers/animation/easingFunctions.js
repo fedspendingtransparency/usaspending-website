@@ -5,12 +5,12 @@
  */
 
 export const easeInOutQuad = (time, start, end, duration) => {
-    const change = end - start;
+  const change = end - start;
 
-    const progress = (time / (duration / 2));
-    if (progress < 1) {
-        return ((change / 2) * progress * progress) + start;
-    }
+  const progress = (time / (duration / 2));
+  if (progress < 1) {
+    return ((change / 2) * progress * progress) + start;
+  }
 
-    return ((-change / 2) * (((progress - 1) * (progress - 3)) - 1)) + start;
+  return ((-change / 2) * (((progress - 1) * (progress - 3)) - 1)) + start;
 };

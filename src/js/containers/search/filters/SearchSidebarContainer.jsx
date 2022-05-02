@@ -13,22 +13,22 @@ import SearchSidebar from 'components/search/SearchSidebar';
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 const propTypes = {
-    filters: PropTypes.object
+  filters: PropTypes.object
 };
 
 export class SearchSidebarContainer extends React.Component {
-    render() {
-        return (
-          <SearchSidebar />
-        );
-    }
+  render() {
+    return (
+      <SearchSidebar />
+    );
+  }
 }
 
 SearchSidebarContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({
-        filters: state.filters
-    }),
-    (dispatch) => bindActionCreators(searchFilterActions, dispatch)
+  (state) => ({
+    filters: state.filters
+  }),
+  (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(SearchSidebarContainer);

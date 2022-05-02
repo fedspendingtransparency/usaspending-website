@@ -15,138 +15,138 @@ import BaseStateLandingItem from 'models/v2/state/BaseStateLandingItem';
 import StateLandingContent from 'components/stateLanding/StateLandingContent';
 
 export default class StateLandingContainer extends React.Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            loading: false,
-            error: false,
-            total: 0,
-            searchString: '',
-            sortField: 'name',
-            sortDirection: 'asc',
-            fullData: [],
-            results: []
-        };
-
-        this.request = null;
-    }
-
-    componentDidMount() {
-        this.loadData();
-    }
-
-    setSearchString = (input) => {
-        this.setState({
-            searchString: input
-        }, () => {
-            this.performSearch();
-        });
+    this.state = {
+      loading: false,
+      error: false,
+      total: 0,
+      searchString: '',
+      sortField: 'name',
+      sortDirection: 'asc',
+      fullData: [],
+      results: []
     };
 
-    setSort = (field, direction) => {
-        this.setState({
-            sortField: field,
-            sortDirection: direction
-        }, () => {
-            this.performSearch();
-        });
-    };
+    this.request = null;
+  }
 
-    loadData() {
-        if (this.request) {
-            // a request is in-flight, cancel it
-            this.request.cancel();
-        }
+  componentDidMount() {
+    this.loadData();
+  }
 
-        this.setState({
-            loading: true,
-            error: false
-        });
+  setSearchString = (input) => {
+    this.setState({
+      searchString: input
+    }, () => {
+      this.performSearch();
+    });
+  };
 
-        this.request = StateHelper.fetchStateList();
-        this.request.promise
-            .then((res) => {
-                this.parseData(res.data);
-            })
-            .catch((err) => {
-                if (!isCancel(err)) {
-                    this.setState({
-                        loading: false,
-                        error: true
-                    });
-                    console.error(err);
-                }
-            });
+  setSort = (field, direction) => {
+    this.setState({
+      sortField: field,
+      sortDirection: direction
+    }, () => {
+      this.performSearch();
+    });
+  };
+
+  loadData() {
+    if (this.request) {
+      // a request is in-flight, cancel it
+      this.request.cancel();
     }
 
-    parseData(data) {
-        let total = 0;
-        const parsed = data.map((state) => {
-            const item = Object.create(BaseStateLandingItem);
-            item.populate(state);
-            total += state.amount;
-            return item;
-        });
+    this.setState({
+      loading: true,
+      error: false
+    });
 
-        this.setState({
-            total,
+    this.request = StateHelper.fetchStateList();
+    this.request.promise
+      .then((res) => {
+        this.parseData(res.data);
+      })
+      .catch((err) => {
+        if (!isCancel(err)) {
+          this.setState({
             loading: false,
-            error: false,
-            fullData: parsed
-        }, () => {
-            this.performSearch();
-        });
+            error: true
+          });
+          console.error(err);
+        }
+      });
+  }
+
+  parseData(data) {
+    let total = 0;
+    const parsed = data.map((state) => {
+      const item = Object.create(BaseStateLandingItem);
+      item.populate(state);
+      total += state.amount;
+      return item;
+    });
+
+    this.setState({
+      total,
+      loading: false,
+      error: false,
+      fullData: parsed
+    }, () => {
+      this.performSearch();
+    });
+  }
+
+  performSearch() {
+    // perform a local search
+    const search = new Search('fips');
+    search.addIndex('name');
+    search.addIndex('code');
+    search.addDocuments(this.state.fullData);
+
+    // return the full data set if no search string is provided
+    let results = this.state.fullData;
+    if (this.state.searchString) {
+      results = search.search(this.state.searchString);
     }
 
-    performSearch() {
-        // perform a local search
-        const search = new Search('fips');
-        search.addIndex('name');
-        search.addIndex('code');
-        search.addDocuments(this.state.fullData);
+    // now sort the results by the appropriate table column and direction
+    const sortedResults = orderBy(results,
+      [this.state.sortField], [this.state.sortDirection]);
 
-        // return the full data set if no search string is provided
-        let results = this.state.fullData;
-        if (this.state.searchString) {
-            results = search.search(this.state.searchString);
-        }
+    let orderedResults = sortedResults;
 
-        // now sort the results by the appropriate table column and direction
-        const sortedResults = orderBy(results,
-            [this.state.sortField], [this.state.sortDirection]);
-
-        let orderedResults = sortedResults;
-
-        if (this.state.sortField === 'name') {
-            // Separate states and territories
-            const states = sortedResults.filter((result) => result.type === 'state' || result.type === 'district');
-            const territories = sortedResults.filter((result) => result.type === 'territory');
-            orderedResults = states.concat(territories);
-            if (this.state.sortDirection === 'desc') {
-                orderedResults = territories.concat(states);
-            }
-        }
-
-        this.setState({
-            results: orderedResults
-        });
+    if (this.state.sortField === 'name') {
+      // Separate states and territories
+      const states = sortedResults.filter((result) => result.type === 'state' || result.type === 'district');
+      const territories = sortedResults.filter((result) => result.type === 'territory');
+      orderedResults = states.concat(territories);
+      if (this.state.sortDirection === 'desc') {
+        orderedResults = territories.concat(states);
+      }
     }
 
-    render() {
-        const resultsCount = this.state.results.length;
-        let resultsText = `${resultsCount} results`;
-        if (resultsCount === 1) {
-            resultsText = `${resultsCount} result`;
-        }
+    this.setState({
+      results: orderedResults
+    });
+  }
 
-        return (
-          <StateLandingContent
-            setSearchString={this.setSearchString}
-            setSort={this.setSort}
-            resultsText={resultsText}
-            {...this.state} />
-        );
+  render() {
+    const resultsCount = this.state.results.length;
+    let resultsText = `${resultsCount} results`;
+    if (resultsCount === 1) {
+      resultsText = `${resultsCount} result`;
     }
+
+    return (
+      <StateLandingContent
+        setSearchString={this.setSearchString}
+        setSort={this.setSort}
+        resultsText={resultsText}
+        {...this.state} />
+    );
+  }
 }
 

@@ -15,59 +15,59 @@ import { initialState as defaultFilters, CheckboxTreeSelections } from 'redux/re
 import Analytics from 'helpers/analytics/Analytics';
 
 const clickedHomepageLink = (route) => {
-    Analytics.event({
-        category: 'Homepage - Link',
-        action: route
-    });
+  Analytics.event({
+    category: 'Homepage - Link',
+    action: route
+  });
 };
 
 const CovidFeatureContainer = ({
-    stageDefCodesForAdvancedSearch,
-    clearFilters,
-    resetFilters,
-    showCovidModal,
-    setAppliedFilters
+  stageDefCodesForAdvancedSearch,
+  clearFilters,
+  resetFilters,
+  showCovidModal,
+  setAppliedFilters
 }) => {
-    const history = useHistory();
-    const reduxDefCodes = useSelector((state) => state.covid19.defCodes);
+  const history = useHistory();
+  const reduxDefCodes = useSelector((state) => state.covid19.defCodes);
 
-    const handleGoToAdvancedSearch = (e) => {
-        e.preventDefault();
-        clickedHomepageLink("search");
-        clearFilters();
-        resetFilters();
-        setAppliedFilters(false);
-        stageDefCodesForAdvancedSearch({
-            ...defaultFilters,
-            defCodes: new CheckboxTreeSelections({
-                require: reduxDefCodes.map((code) => code.code),
-                exclude: [],
-                counts: [{ value: "COVID-19", count: reduxDefCodes.length || 0, label: "COVID-19 Spending" }]
-            })
-        });
-        history.push('/search');
-    };
+  const handleGoToAdvancedSearch = (e) => {
+    e.preventDefault();
+    clickedHomepageLink("search");
+    clearFilters();
+    resetFilters();
+    setAppliedFilters(false);
+    stageDefCodesForAdvancedSearch({
+      ...defaultFilters,
+      defCodes: new CheckboxTreeSelections({
+        require: reduxDefCodes.map((code) => code.code),
+        exclude: [],
+        counts: [{ value: "COVID-19", count: reduxDefCodes.length || 0, label: "COVID-19 Spending" }]
+      })
+    });
+    history.push('/search');
+  };
 
-    const triggerModal = (e) => {
-        e.preventDefault();
-        showCovidModal(null, 'covid');
-    };
+  const triggerModal = (e) => {
+    e.preventDefault();
+    showCovidModal(null, 'covid');
+  };
 
-    return (
-      <div className="feature-pane feature-covid">
-        <h2 className="feature-pane__title">THE FEDERAL RESPONSE TO COVID-19</h2>
-          <div className="official-spending-data__content-wrapper">
-            <div className="official-spending-data__text">
-              <h2 className="homepage-feature-title">COVID-19 Spending Data</h2>
-                <div className="feature-covid-official-spending-data__image-wrapper">
-                  <picture className="feature-covid-official-spending-data__image-mobile">
-                    <source srcSet="img/homepage-covid-official-spending-data.webp 790w" type="image/webp" />
-                      <source srcSet="img/homepage-covid-official-spending-data.png" type="image/png" />
+  return (
+    <div className="feature-pane feature-covid">
+      <h2 className="feature-pane__title">THE FEDERAL RESPONSE TO COVID-19</h2>
+        <div className="official-spending-data__content-wrapper">
+          <div className="official-spending-data__text">
+            <h2 className="homepage-feature-title">COVID-19 Spending Data</h2>
+              <div className="feature-covid-official-spending-data__image-wrapper">
+                <picture className="feature-covid-official-spending-data__image-mobile">
+                  <source srcSet="img/homepage-covid-official-spending-data.webp 790w" type="image/webp" />
+                    <source srcSet="img/homepage-covid-official-spending-data.png" type="image/png" />
                         <img src="img/homepage-covid-official-spending-data.png" alt="Illustration of people interacting with data" />
-                  </picture>
-                </div>
-                  <div className="homepage-feature-description">
-                    <p>Spending data from the federal government’s response to COVID-19 is now available to view and download on USAspending. Additional data and features will be released in the coming months. <button className="homepage-feature-description__button" onClick={triggerModal}>Learn more</button>about the updates made across the site related to COVID-19 spending.</p>
+                </picture>
+              </div>
+                <div className="homepage-feature-description">
+                  <p>Spending data from the federal government’s response to COVID-19 is now available to view and download on USAspending. Additional data and features will be released in the coming months. <button className="homepage-feature-description__button" onClick={triggerModal}>Learn more</button>about the updates made across the site related to COVID-19 spending.</p>
                       <p>The new data includes:</p>
                         <ul>
                           <li><strong className="homepage-feature-description_weight_bold">Disaster Emergency Fund Code (DEFC)</strong> tags that highlight funding from the CARES Act and other COVID-19 supplemental appropriations.</li>
@@ -77,24 +77,24 @@ const CovidFeatureContainer = ({
                           <p>Interested in <strong className="homepage-feature-description_weight_bold">downloading all the COVID-19 spending data?</strong> Visit the
                             <Link to="/disaster/covid-19" onClick={clickedHomepageLink.bind(null, '/disaster/covid-19')}> COVID-19 Spending profile page </Link> and click the download button!
                           </p>
-                  </div>
-            </div>
-              <div className="feature-covid-official-spending-data__image-wrapper">
-                <picture className="feature-covid-official-spending-data__image">
-                  <source srcSet="img/homepage-covid-official-spending-data.webp 790w" type="image/webp" />
-                    <source srcSet="img/homepage-covid-official-spending-data.png" type="image/png" />
-                      <img src="img/homepage-covid-official-spending-data.png" alt="Illustration of people interacting with data" />
-                </picture>
-              </div>
+                </div>
           </div>
-            <div className="advanced-search-and-spending-profile__wrapper">
-              <div className="advanced-search__content-wrapper">
-                <picture className="feature-covid-item__image-wrapper" >
-                  <source srcSet="img/homepage-covid-ss-adv-search.webp 790w" type="image/webp" />
-                    <source srcSet="img/homepage-covid-ss-adv-search.png" type="image/png" />
+            <div className="feature-covid-official-spending-data__image-wrapper">
+              <picture className="feature-covid-official-spending-data__image">
+                <source srcSet="img/homepage-covid-official-spending-data.webp 790w" type="image/webp" />
+                  <source srcSet="img/homepage-covid-official-spending-data.png" type="image/png" />
+                      <img src="img/homepage-covid-official-spending-data.png" alt="Illustration of people interacting with data" />
+              </picture>
+            </div>
+        </div>
+          <div className="advanced-search-and-spending-profile__wrapper">
+            <div className="advanced-search__content-wrapper">
+              <picture className="feature-covid-item__image-wrapper" >
+                <source srcSet="img/homepage-covid-ss-adv-search.webp 790w" type="image/webp" />
+                  <source srcSet="img/homepage-covid-ss-adv-search.png" type="image/png" />
                       <img className="feature-covid-item__image" src="img/homepage-covid-ss-adv-search.png" alt="Screenshot of Advanced Search page with COVID-19 Spending updates" />
-                </picture>
-                  <h2 className="homepage-feature-title">COVID-19 Advanced Search Filter</h2>
+              </picture>
+                <h2 className="homepage-feature-title">COVID-19 Advanced Search Filter</h2>
                     <picture className="feature-covid-item__image-wrapper">
                       <source srcSet="img/homepage-covid-ss-adv-search.webp 790w" type="image/webp" />
                         <source srcSet="img/homepage-covid-ss-adv-search.png" type="image/png" />
@@ -113,10 +113,10 @@ const CovidFeatureContainer = ({
                             Search the Data
                           </Link>
                         </div>
-              </div>
+            </div>
 
-                <div className="advanced-search__content-wrapper-right">
-                  <picture className="feature-covid-item__image-wrapper" >
+              <div className="advanced-search__content-wrapper-right">
+                <picture className="feature-covid-item__image-wrapper" >
                     <source srcSet="img/homepage-covid-ss-profile.webp 790w" type="image/webp" />
                       <source srcSet="img/homepage-covid-ss-profile.png" type="image/png" />
                         <img className="feature-covid-item__image" src="img/homepage-covid-ss-profile.png" alt="Screenshot of COVID-19 Spending profile page" />
@@ -140,11 +140,11 @@ const CovidFeatureContainer = ({
                             </Link>
                           </div>
 
-                </div>
-            </div>
-              <div className="award-summary__wrapper feature-award-search">
-                <div className="feature-award-search__wrapper">
-                  <div className="feature-covid__background-flair" />
+              </div>
+          </div>
+            <div className="award-summary__wrapper feature-award-search">
+              <div className="feature-award-search__wrapper">
+                <div className="feature-covid__background-flair" />
                     <picture className="feature-covid-award-summary__image-wrapper">
                       <source srcSet="img/homepage-covid-ss-award-summary.webp 790w" type="image/webp" />
                         <source srcSet="img/homepage-covid-ss-award-summary.png" type="image/png" />
@@ -165,26 +165,26 @@ const CovidFeatureContainer = ({
                               </div>
                         </div>
                       </div>
-                </div>
               </div>
-      </div>
-    );
+            </div>
+    </div>
+  );
 };
 
 CovidFeatureContainer.propTypes = {
-    stageDefCodesForAdvancedSearch: PropTypes.func,
-    clearFilters: PropTypes.func,
-    resetFilters: PropTypes.func,
-    showCovidModal: PropTypes.func,
-    setAppliedFilters: PropTypes.func
+  stageDefCodesForAdvancedSearch: PropTypes.func,
+  clearFilters: PropTypes.func,
+  resetFilters: PropTypes.func,
+  showCovidModal: PropTypes.func,
+  setAppliedFilters: PropTypes.func
 };
 
 const mapDispatchToProps = (dispatch) => ({
-    resetFilters: () => dispatch(resetAppliedFilters()),
-    clearFilters: () => dispatch(clearAllFilters()),
-    stageDefCodesForAdvancedSearch: (filters) => dispatch(applyStagedFilters(filters)),
-    showCovidModal: (url, modalType) => dispatch(showModal(url, modalType)),
-    setAppliedFilters: (areApplied) => dispatch(setAppliedFilterCompletion(areApplied))
+  resetFilters: () => dispatch(resetAppliedFilters()),
+  clearFilters: () => dispatch(clearAllFilters()),
+  stageDefCodesForAdvancedSearch: (filters) => dispatch(applyStagedFilters(filters)),
+  showCovidModal: (url, modalType) => dispatch(showModal(url, modalType)),
+  setAppliedFilters: (areApplied) => dispatch(setAppliedFilterCompletion(areApplied))
 });
 
 export default connect(null, mapDispatchToProps)(CovidFeatureContainer);

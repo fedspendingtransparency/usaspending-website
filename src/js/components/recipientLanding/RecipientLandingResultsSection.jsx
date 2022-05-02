@@ -13,25 +13,25 @@ import ResultsTableErrorMessage from 'components/search/table/ResultsTableErrorM
 import RecipientLandingTable from './table/RecipientLandingTable';
 
 const propTypes = {
-    inFlight: PropTypes.bool,
-    error: PropTypes.bool,
-    results: PropTypes.array,
-    columns: PropTypes.array,
-    searchString: PropTypes.string,
-    order: PropTypes.object,
-    updateSort: PropTypes.func
+  inFlight: PropTypes.bool,
+  error: PropTypes.bool,
+  results: PropTypes.array,
+  columns: PropTypes.array,
+  searchString: PropTypes.string,
+  order: PropTypes.object,
+  updateSort: PropTypes.func
 };
 
 export default class RecipientLandingResultsSection extends React.Component {
-    render() {
-        return (
-          <div className="results-table-section">
-            <TransitionGroup>
-              {(this.props.inFlight || this.props.error) && (
-                <CSSTransition
-                  classNames="table-message-fade"
-                  timeout={{ exit: 225, enter: 195 }}
-                  exit>
+  render() {
+    return (
+      <div className="results-table-section">
+        <TransitionGroup>
+          {(this.props.inFlight || this.props.error) && (
+          <CSSTransition
+            classNames="table-message-fade"
+            timeout={{ exit: 225, enter: 195 }}
+            exit>
                             <>
                               {this.props.inFlight && (
                                 <div className="results-table-message-container">
@@ -44,13 +44,13 @@ export default class RecipientLandingResultsSection extends React.Component {
                                 </div>
                                 )}
                             </>
-                </CSSTransition>
+          </CSSTransition>
                     )}
-            </TransitionGroup>
-              <RecipientLandingTable {...this.props} />
-          </div>
-        );
-    }
+        </TransitionGroup>
+          <RecipientLandingTable {...this.props} />
+      </div>
+    );
+  }
 }
 
 RecipientLandingResultsSection.propTypes = propTypes;

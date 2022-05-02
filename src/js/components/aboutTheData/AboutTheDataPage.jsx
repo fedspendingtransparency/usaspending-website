@@ -24,57 +24,57 @@ import TimeFilters from './TimeFilters';
 require('pages/aboutTheData/aboutTheData.scss');
 
 const AboutTheDataPage = ({ history }) => {
-    const { search } = useLocation();
-    const params = useQueryParams();
-    const {
-        fy: urlFy,
-        period: urlPeriod,
-        tab: activeTab
-    } = params;
-    const [, submissionPeriods, { year: latestFy, period: latestPeriod }] = useLatestAccountData();
-    const [selectedFy, selectedPeriod, setTime] = useValidTimeBasedQueryParams(urlFy, urlPeriod);
-    const [showModal, setShowModal] = useState('');
-    const [modalData, setModalData] = useState(null);
+  const { search } = useLocation();
+  const params = useQueryParams();
+  const {
+    fy: urlFy,
+    period: urlPeriod,
+    tab: activeTab
+  } = params;
+  const [, submissionPeriods, { year: latestFy, period: latestPeriod }] = useLatestAccountData();
+  const [selectedFy, selectedPeriod, setTime] = useValidTimeBasedQueryParams(urlFy, urlPeriod);
+  const [showModal, setShowModal] = useState('');
+  const [modalData, setModalData] = useState(null);
 
-    useEffect(() => {
-        if (!activeTab) {
-            const paramsWithTab = combineQueryParams(params, { tab: 'submissions' });
-            history.replace({
-                pathname: '',
-                search: getQueryParamString(paramsWithTab)
-            });
-        }
-    }, [activeTab, history, params]);
+  useEffect(() => {
+    if (!activeTab) {
+      const paramsWithTab = combineQueryParams(params, { tab: 'submissions' });
+      history.replace({
+        pathname: '',
+        search: getQueryParamString(paramsWithTab)
+      });
+    }
+  }, [activeTab, history, params]);
 
-    // Modal Logic
-    const modalClick = (modalType, agencyData) => {
-        setModalData(agencyData);
-        setShowModal(modalType);
-    };
-    const closeModal = () => {
-        setShowModal('');
-        setModalData(null);
-    };
+  // Modal Logic
+  const modalClick = (modalType, agencyData) => {
+    setModalData(agencyData);
+    setShowModal(modalType);
+  };
+  const closeModal = () => {
+    setShowModal('');
+    setModalData(null);
+  };
 
-    const handleSwitchTab = (tab) => {
-        history.push({
-            search: `?${new URLSearchParams({ fy: urlFy, period: urlPeriod, tab }).toString()}`
-        });
-    };
+  const handleSwitchTab = (tab) => {
+    history.push({
+      search: `?${new URLSearchParams({ fy: urlFy, period: urlPeriod, tab }).toString()}`
+    });
+  };
 
-    const slug = `submission-statistics/${search}`;
+  const slug = `submission-statistics/${search}`;
 
-    const handleShare = (name) => {
-        handleShareOptionClick(name, slug, getAllAgenciesEmail(urlFy, urlPeriod, activeTab));
-    };
+  const handleShare = (name) => {
+    handleShareOptionClick(name, slug, getAllAgenciesEmail(urlFy, urlPeriod, activeTab));
+  };
 
-    return (
-      <PageWrapper
-        pageName="Agency Submission Statistics"
-        classNames="about-the-data about-the-data_agencies-page"
-        title="Agency Submission Statistics"
-        toolBarComponents={[
-          <ShareIcon url={getBaseUrl(slug)} onShareOptionClick={handleShare} />
+  return (
+    <PageWrapper
+      pageName="Agency Submission Statistics"
+      classNames="about-the-data about-the-data_agencies-page"
+      title="Agency Submission Statistics"
+      toolBarComponents={[
+        <ShareIcon url={getBaseUrl(slug)} onShareOptionClick={handleShare} />
             ]}>
               <main id="main-content" className="main-content">
                 <div className="heading-container">
@@ -138,13 +138,13 @@ const AboutTheDataPage = ({ history }) => {
                     </>
                   </LoadingWrapper>
               </main>
-      </PageWrapper>
+    </PageWrapper>
 
-    );
+  );
 };
 
 AboutTheDataPage.propTypes = {
-    history: PropTypes.object
+  history: PropTypes.object
 };
 
 export default AboutTheDataPage;

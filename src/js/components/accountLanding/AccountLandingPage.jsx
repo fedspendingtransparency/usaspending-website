@@ -16,30 +16,30 @@ const slug = 'federal_account';
 const emailSubject = 'USAspending.gov Federal Account Profiles';
 
 export default class AccountLandingPage extends React.Component {
-    handleShare = (name) => {
-        handleShareOptionClick(name, slug, {
-            subject: emailSubject,
-            body: `View all of the Federal Account Profiles on USAspending.gov: ${getBaseUrl(slug)}`
-        });
-    };
-    render() {
-        return (
-          <PageWrapper
-            pageName="Federal Account Profiles"
-            classNames="usa-da-account-landing"
-            title="Federal Account Profiles"
-            metaTagProps={accountLandingPageMetaTags}
-            toolBarComponents={[
-              <ShareIcon
-                onShareOptionClick={this.handleShare}
-                url={getBaseUrl(slug)} />
+  handleShare = (name) => {
+    handleShareOptionClick(name, slug, {
+      subject: emailSubject,
+      body: `View all of the Federal Account Profiles on USAspending.gov: ${getBaseUrl(slug)}`
+    });
+  };
+  render() {
+    return (
+      <PageWrapper
+        pageName="Federal Account Profiles"
+        classNames="usa-da-account-landing"
+        title="Federal Account Profiles"
+        metaTagProps={accountLandingPageMetaTags}
+        toolBarComponents={[
+          <ShareIcon
+            onShareOptionClick={this.handleShare}
+            url={getBaseUrl(slug)} />
                 ]}>
                   <main
                     id="main-content"
                     className="main-content">
                       <AccountLandingContainer />
                   </main>
-          </PageWrapper>
-        );
-    }
+      </PageWrapper>
+    );
+  }
 }

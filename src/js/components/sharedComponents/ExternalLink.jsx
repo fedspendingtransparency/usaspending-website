@@ -10,20 +10,20 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { showModal } from 'redux/actions/modal/modalActions';
 
 const propTypes = {
-    url: PropTypes.string.isRequired,
-    children: PropTypes.oneOfType([PropTypes.element, PropTypes.string])
+  url: PropTypes.string.isRequired,
+  children: PropTypes.oneOfType([PropTypes.element, PropTypes.string])
 };
 
 const ExternalLink = ({ url, children }) => {
-    const dispatch = useDispatch();
-    const redirect = () => {
-        dispatch(showModal(url));
-    };
-    return (
-      <button className="usda-external-link" onClick={redirect}>
-        {children || url} <FontAwesomeIcon icon="external-link-alt" />
-      </button>
-    );
+  const dispatch = useDispatch();
+  const redirect = () => {
+    dispatch(showModal(url));
+  };
+  return (
+    <button className="usda-external-link" onClick={redirect}>
+      {children || url} <FontAwesomeIcon icon="external-link-alt" />
+    </button>
+  );
 };
 
 ExternalLink.propTypes = propTypes;

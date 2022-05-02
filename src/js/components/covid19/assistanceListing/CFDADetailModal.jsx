@@ -11,52 +11,52 @@ import ReadMore from 'components/sharedComponents/ReadMore';
 import CFDAOpportunityTotals from 'containers/covid19/assistanceListing/CFDAOpportunityTotals';
 
 const propTypes = {
-    mounted: PropTypes.bool,
-    closeModal: PropTypes.func,
-    data: PropTypes.object,
-    updateAdvancedSearchFilters: PropTypes.func,
-    displayRedirectModal: PropTypes.func
+  mounted: PropTypes.bool,
+  closeModal: PropTypes.func,
+  data: PropTypes.object,
+  updateAdvancedSearchFilters: PropTypes.func,
+  displayRedirectModal: PropTypes.func
 };
 
 const CFDADetailModal = ({
-    mounted,
-    closeModal,
-    data,
-    updateAdvancedSearchFilters,
-    displayRedirectModal
+  mounted,
+  closeModal,
+  data,
+  updateAdvancedSearchFilters,
+  displayRedirectModal
 }) => {
-    if (!data) return null;
-    return (
-      <Modal
-        mounted={mounted}
-        onExit={closeModal}
-        titleText="cfdamodal"
-        dialogClass="usa-dt-modal"
-        verticallyCenter
-        escapeExits>
-          <div className="usa-dt-modal">
-            <div className="usa-dt-modal__header">
-              <h1 className="usa-dt-modal__title">
-                {data.code && data.description ? `${data.code}: ${data.description}` : `${data.code}${data.description}`}
-              </h1>
-                <button
-                  className="usa-dt-modal__close-button"
-                  onClick={closeModal}
-                  title="Close"
-                  aria-label="Close">
-                    <FontAwesomeIcon icon="times" size="lg" />
-                </button>
-            </div>
-              <div className="usa-dt-modal__body-covid19-cfda">
-                <div className="usa-dt-modal__column">
-                  <div className="usa-dt-modal__section">
-                    <div className="usa-dt-modal__section__title">
+  if (!data) return null;
+  return (
+    <Modal
+      mounted={mounted}
+      onExit={closeModal}
+      titleText="cfdamodal"
+      dialogClass="usa-dt-modal"
+      verticallyCenter
+      escapeExits>
+        <div className="usa-dt-modal">
+          <div className="usa-dt-modal__header">
+            <h1 className="usa-dt-modal__title">
+              {data.code && data.description ? `${data.code}: ${data.description}` : `${data.code}${data.description}`}
+            </h1>
+              <button
+                className="usa-dt-modal__close-button"
+                onClick={closeModal}
+                title="Close"
+                aria-label="Close">
+                  <FontAwesomeIcon icon="times" size="lg" />
+              </button>
+          </div>
+            <div className="usa-dt-modal__body-covid19-cfda">
+              <div className="usa-dt-modal__column">
+                <div className="usa-dt-modal__section">
+                  <div className="usa-dt-modal__section__title">
                       <h6>Administrative Agency</h6>
                     </div>
                       <div className="usa-dt-modal__section__description">
                         <p className="administrative-agency">{data.cfda_federal_agency || '--'}</p>
                       </div>
-                  </div>
+                </div>
                     <div className="usa-dt-modal__section">
                       <div className="usa-dt-modal__section__title">
                         <h6>Objectives</h6>
@@ -95,8 +95,8 @@ const CFDADetailModal = ({
                                 }
                             </div>
                         </div>
-                </div>
-                  <div className="usa-dt-modal__column">
+              </div>
+                <div className="usa-dt-modal__column">
                     <div className="usa-dt-modal__section">
                       <div className="usa-dt-modal__section__title">
                         <h6>Opportunities on Grants.gov From This Program</h6>
@@ -127,9 +127,9 @@ const CFDADetailModal = ({
                             </div>
                         </div>
                   </div>
-              </div>
-                <div className="usa-dt-modal__footer">
-                  <div className="usa-dt-modal__footer__body">
+            </div>
+              <div className="usa-dt-modal__footer">
+                <div className="usa-dt-modal__footer__body">
                     <div className="usa-dt-modal__footer__title">
                       <h5>View this CFDA Program in Advanced Search</h5>
                     </div>
@@ -144,10 +144,10 @@ const CFDADetailModal = ({
                           </button>
                         </div>
                   </div>
-                </div>
-          </div>
-      </Modal>
-    );
+              </div>
+        </div>
+    </Modal>
+  );
 };
 
 CFDADetailModal.propTypes = propTypes;

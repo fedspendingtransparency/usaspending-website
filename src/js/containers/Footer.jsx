@@ -15,49 +15,49 @@ import { showModal } from 'redux/actions/modal/modalActions';
 import Analytics from 'helpers/analytics/Analytics';
 import GlossaryButtonWrapperContainer from 'containers/glossary/GlossaryButtonWrapperContainer';
 import DownloadBottomBarContainer from
-    'containers/search/modals/fullDownload/DownloadBottomBarContainer';
+  'containers/search/modals/fullDownload/DownloadBottomBarContainer';
 import BulkDownloadBottomBarContainer from
-    'containers/bulkDownload/modal/BulkDownloadBottomBarContainer';
+  'containers/bulkDownload/modal/BulkDownloadBottomBarContainer';
 import FloatingGlossaryButton from 'components/sharedComponents/FloatingGlossaryButton';
 import FooterExternalLink from 'components/sharedComponents/FooterExternalLink';
 import Subscribe from '../components/sharedComponents/Subscribe';
 import Training from '../components/sharedComponents/Training';
 
 const propTypes = {
-    pageName: PropTypes.string.isRequired,
-    filters: PropTypes.object,
-    redirectUser: PropTypes.func
+  pageName: PropTypes.string.isRequired,
+  filters: PropTypes.object,
+  redirectUser: PropTypes.func
 };
 
 const clickedFooterLink = (route) => {
-    Analytics.event({
-        category: 'Footer - Link',
-        action: route
-    });
+  Analytics.event({
+    category: 'Footer - Link',
+    action: route
+  });
 };
 
 const Footer = ({
-    pageName,
-    filters,
-    redirectUser
+  pageName,
+  filters,
+  redirectUser
 }) => {
-    const generateOnClick = (url) => () => {
-        clickedFooterLink(url);
-        redirectUser(url);
-    };
-    const year = new Date().getFullYear();
-    return (
-      <div className="footer-container">
-        <GlossaryButtonWrapperContainer child={FloatingGlossaryButton} />
-          <DownloadBottomBarContainer
-            filters={filters} />
-              <BulkDownloadBottomBarContainer />
-                <Subscribe pageName={pageName} />
-                  <Training pageName={pageName} />
-                    <footer
-                      className="footer-outer-wrap"
-                      role="contentinfo"
-                      aria-label="Footer">
+  const generateOnClick = (url) => () => {
+    clickedFooterLink(url);
+    redirectUser(url);
+  };
+  const year = new Date().getFullYear();
+  return (
+    <div className="footer-container">
+      <GlossaryButtonWrapperContainer child={FloatingGlossaryButton} />
+        <DownloadBottomBarContainer
+          filters={filters} />
+            <BulkDownloadBottomBarContainer />
+              <Subscribe pageName={pageName} />
+                <Training pageName={pageName} />
+                  <footer
+                    className="footer-outer-wrap"
+                    role="contentinfo"
+                    aria-label="Footer">
                         <div className="footer-container">
                           <div className="footer-logo">
                             <Link
@@ -82,12 +82,12 @@ const Footer = ({
                                       </Link>
                                     </li>
                                       <li>
-                                          <Link
-                                              to="/about?section=careers"
-                                              onClick={clickedFooterLink.bind(null, '/about')}>
+                                        <Link
+                                          to="/about?section=careers"
+                                          onClick={clickedFooterLink.bind(null, '/about')}>
                                         Careers
-                                            </Link>
-                                        </li>
+                                        </Link>
+                                      </li>
                                   </ul>
                               </div>
                                 <div className="link-group">
@@ -96,62 +96,62 @@ const Footer = ({
                                   </div>
                                     <ul className="links">
                                       <li>
+                                        <FooterExternalLink
+                                          link="https://fiscalservice.force.com/usaspending/s/"
+                                          title="FAQs" />
+                                      </li>
+                                        <li>
                                           <FooterExternalLink
-                                              link="https://fiscalservice.force.com/usaspending/s/"
-                                              title="FAQs" />
+                                            link="https://fiscalservice.force.com/usaspending/s/"
+                                            title="Community" />
                                         </li>
-                                            <li>
-                                            <FooterExternalLink
-                                                link="https://fiscalservice.force.com/usaspending/s/"
-                                                title="Community" />
-                                          </li>
-                                              <li>
-                                          <a
-                                          href="mailto:usaspending.help@fiscal.treasury.gov?subject=Contact%20Us"
-                                          onClick={clickedFooterLink.bind(
+                                          <li>
+                                            <a
+                                              href="mailto:usaspending.help@fiscal.treasury.gov?subject=Contact%20Us"
+                                              onClick={clickedFooterLink.bind(
                                             null,
                                             'mailto:usaspending.help@fiscal.treasury.gov?subject=Contact%20Us'
                                         )}>
                                         Contact Us
-                                        </a>
-                                        </li>
+                                            </a>
+                                          </li>
                                     </ul>
                                 </div>
                                   <div className="link-group">
                                     <div className="group-title">
                                 Developers
                                     </div>
-                                        <ul className="links">
-                                            <li>
-                                            <FooterExternalLink
-                                                link="https://api.usaspending.gov"
-                                                title="API" />
-                                          </li>
-                                              <li>
-                                          <FooterExternalLink
-                                          link="https://github.com/fedspendingtransparency/usaspending-website/tree/master"
-                                          title="Explore the Code" />
-                                        </li>
+                                      <ul className="links">
                                         <li>
-                                        <FooterExternalLink
-                                        link="https://github.com/fedspendingtransparency/usaspending-website/wiki"
-                                        title="Release Notes" />
-                                      </li>
-                                          </ul>
+                                          <FooterExternalLink
+                                            link="https://api.usaspending.gov"
+                                            title="API" />
+                                        </li>
+                                          <li>
+                                            <FooterExternalLink
+                                              link="https://github.com/fedspendingtransparency/usaspending-website/tree/master"
+                                              title="Explore the Code" />
+                                          </li>
+                                            <li>
+                                              <FooterExternalLink
+                                                link="https://github.com/fedspendingtransparency/usaspending-website/wiki"
+                                                title="Release Notes" />
+                                            </li>
+                                      </ul>
                                   </div>
                                     <div className="link-group">
-                                        <div className="group-title">
+                                      <div className="group-title">
                                     Our Sites
-                                          </div>
-                                          <ul className="links">
-                                              <li>
-                                          <a target="_blank" rel="noopener noreferrer" href="https://datalab.usaspending.gov/">Data Lab</a>
-                                        </li>
-                                        <li>
-                                        <a target="_blank" rel="noopener noreferrer" href="https://fiscaldata.treasury.gov/">Fiscal Data</a>
-                                      </li>
-                                            </ul>
                                       </div>
+                                        <ul className="links">
+                                          <li>
+                                            <a target="_blank" rel="noopener noreferrer" href="https://datalab.usaspending.gov/">Data Lab</a>
+                                          </li>
+                                            <li>
+                                              <a target="_blank" rel="noopener noreferrer" href="https://fiscaldata.treasury.gov/">Fiscal Data</a>
+                                            </li>
+                                        </ul>
+                                    </div>
                             </div>
                               <div className="legal-and-social-links">
                                 <ul className="legal-links">
@@ -165,42 +165,42 @@ const Footer = ({
                                   </li>
                                     <li className="copyright__legal-item">
                                       <Link
-                                          className="copyright__link"
-                                          to="/about/privacy"
-                                          onClick={clickedFooterLink.bind(null, '/about/privacy')}>
+                                        className="copyright__link"
+                                        to="/about/privacy"
+                                        onClick={clickedFooterLink.bind(null, '/about/privacy')}>
                                     Privacy Policy
-                                        </Link>
+                                      </Link>
                                     </li>
-                                        <li className="copyright__legal-item">
-                                            <Link
-                                            className="copyright__link"
-                                            to="/about/foia"
-                                            onClick={clickedFooterLink.bind(null, '/about/foia')}>
+                                      <li className="copyright__legal-item">
+                                        <Link
+                                          className="copyright__link"
+                                          to="/about/foia"
+                                          onClick={clickedFooterLink.bind(null, '/about/foia')}>
                                     Freedom of Information Act
-                                          </Link>
-                                          </li>
+                                        </Link>
+                                      </li>
                                 </ul>
                                   <ul className="social-links">
                                     <li className="social-link">
                                       <button onClick={generateOnClick("https://twitter.com/usaspending/")} title="Twitter">
-                                          <FontAwesomeIcon icon={faTwitter} size="1x" color="#D4D4D4" />
-                                        </button>
-                                    </li>
-                                        <li className="social-link">
-                                            <button onClick={generateOnClick("https://www.facebook.com/fiscalservice/")} title="Facebook">
-                                            <FontAwesomeIcon icon={faFacebookSquare} size="1x" color="#D4D4D4" />
-                                          </button>
-                                          </li>
-                                          <li className="social-link">
-                                              <button onClick={generateOnClick("https://github.com/fedspendingtransparency/usaspending-website")} title="Github">
-                                          <FontAwesomeIcon icon={faGithub} size="1x" color="#D4D4D4" />
-                                        </button>
-                                            </li>
-                                        <li className="social-link">
-                                        <button onClick={generateOnClick("https://www.linkedin.com/company/united-states-department-of-the-treasury-bureau-of-public-debt/")} title="LinkedIn">
-                                        <FontAwesomeIcon icon={faLinkedin} size="1x" color="#D4D4D4" />
+                                        <FontAwesomeIcon icon={faTwitter} size="1x" color="#D4D4D4" />
                                       </button>
+                                    </li>
+                                      <li className="social-link">
+                                        <button onClick={generateOnClick("https://www.facebook.com/fiscalservice/")} title="Facebook">
+                                          <FontAwesomeIcon icon={faFacebookSquare} size="1x" color="#D4D4D4" />
+                                        </button>
                                       </li>
+                                        <li className="social-link">
+                                          <button onClick={generateOnClick("https://github.com/fedspendingtransparency/usaspending-website")} title="Github">
+                                            <FontAwesomeIcon icon={faGithub} size="1x" color="#D4D4D4" />
+                                          </button>
+                                        </li>
+                                          <li className="social-link">
+                                            <button onClick={generateOnClick("https://www.linkedin.com/company/united-states-department-of-the-treasury-bureau-of-public-debt/")} title="LinkedIn">
+                                              <FontAwesomeIcon icon={faLinkedin} size="1x" color="#D4D4D4" />
+                                            </button>
+                                          </li>
                                   </ul>
                               </div>
                         </div>
@@ -214,15 +214,15 @@ const Footer = ({
                                 </p>
                             </div>
                           </div>
-                    </footer>
-      </div>
-    );
+                  </footer>
+    </div>
+  );
 };
 
 Footer.propTypes = propTypes;
 
 const mapDispatchToProps = (dispatch) => ({
-    redirectUser: (url) => dispatch(showModal(url))
+  redirectUser: (url) => dispatch(showModal(url))
 });
 
 export default connect(null, mapDispatchToProps)(Footer);

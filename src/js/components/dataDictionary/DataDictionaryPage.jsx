@@ -13,16 +13,16 @@ import DataDictionaryContainer from 'containers/dataDictionary/DataDictionaryCon
 require('pages/dataDictionary/dataDictionaryPage.scss');
 
 export default class DataDictionaryPage extends React.Component {
-    render = () => (
-      <PageWrapper
-        pageName="Data Dictionary"
-        classNames="usa-da-data-dictionary-page"
-        metaTagProps={dataDictionaryPageMetaTags}
-        overLine="resources"
-        title="Data Dictionary">
-          <div id="main-content">
-            <DataDictionaryContainer />
-          </div>
-      </PageWrapper>
-    );
+  render = () => (
+    <PageWrapper
+      pageName="Data Dictionary"
+      classNames="usa-da-data-dictionary-page"
+      metaTagProps={dataDictionaryPageMetaTags}
+      overLine="resources"
+      title="Data Dictionary">
+        <div id="main-content">
+          <DataDictionaryContainer />
+        </div>
+    </PageWrapper>
+  );
 }

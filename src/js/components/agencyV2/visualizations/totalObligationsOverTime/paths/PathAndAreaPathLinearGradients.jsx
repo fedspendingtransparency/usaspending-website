@@ -3,33 +3,33 @@ import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { stoppingPoints } from 'helpers/agencyV2/visualizations/TotalObligationsOverTimeVisualizationHelper';
 import {
-    pathStopColorRed,
-    pathStopColorBlue,
-    areaPathStopColorRed,
-    areaPathStopColorBlue,
-    normalStoppingPoints
+  pathStopColorRed,
+  pathStopColorBlue,
+  areaPathStopColorRed,
+  areaPathStopColorBlue,
+  normalStoppingPoints
 } from 'dataMapping/agencyV2/visualizations/totalObligationsOverTime';
 
 const propTypes = {
-    agencyBudget: PropTypes.number.isRequired,
-    data: PropTypes.array.isRequired,
-    width: PropTypes.number
+  agencyBudget: PropTypes.number.isRequired,
+  data: PropTypes.array.isRequired,
+  width: PropTypes.number
 };
 
 const PathAndAreaPathLinearGradients = ({
-    agencyBudget,
-    data,
-    width
+  agencyBudget,
+  data,
+  width
 }) => {
-    const [gradientStops, setGradientStops] = useState(normalStoppingPoints);
+  const [gradientStops, setGradientStops] = useState(normalStoppingPoints);
 
-    useEffect(() => setGradientStops(stoppingPoints(agencyBudget, data)), [agencyBudget, data, width]);
+  useEffect(() => setGradientStops(stoppingPoints(agencyBudget, data)), [agencyBudget, data, width]);
 
-    return (
-      <g>
-        {/* path linear gradient */}
-          <linearGradient id="pathLinearGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-            {
+  return (
+    <g>
+      {/* path linear gradient */}
+        <linearGradient id="pathLinearGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+          {
                     gradientStops.map((stop, i) => (
                       <stop
                         key={`${stop.offset}-${i}`}
@@ -38,10 +38,10 @@ const PathAndAreaPathLinearGradients = ({
                         stopOpacity="1" />
                     ))
                 }
-          </linearGradient>
-        {/* area path linear gradient */}
-          <linearGradient id="areaPathLinearGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-            {
+        </linearGradient>
+      {/* area path linear gradient */}
+        <linearGradient id="areaPathLinearGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+          {
                     gradientStops.map((stop, i) => (
                       <stop
                         key={`${stop.offset}-${i}`}
@@ -50,9 +50,9 @@ const PathAndAreaPathLinearGradients = ({
                         stopOpacity="1" />
                     ))
                 }
-          </linearGradient>
-      </g>
-    );
+        </linearGradient>
+    </g>
+  );
 };
 
 PathAndAreaPathLinearGradients.propTypes = propTypes;

@@ -10,16 +10,16 @@ import { ExclamationCircle, CheckCircle } from 'components/sharedComponents/icon
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 const propTypes = {
-    showError: PropTypes.bool,
-    showSuccess: PropTypes.bool,
-    title: PropTypes.string,
-    description: PropTypes.string,
-    download: PropTypes.object
+  showError: PropTypes.bool,
+  showSuccess: PropTypes.bool,
+  title: PropTypes.string,
+  description: PropTypes.string,
+  download: PropTypes.object
 };
 
 const defaultProps = {
-    showError: false,
-    showSuccess: false
+  showError: false,
+  showSuccess: false
 };
 
 const Spinner = () => (
@@ -30,61 +30,61 @@ const Spinner = () => (
 );
 
 export default class DownloadBottomBar extends React.Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.onCopy = this.onCopy.bind(this);
+    this.onCopy = this.onCopy.bind(this);
 
-        this.state = {
-            copied: false
-        };
+    this.state = {
+      copied: false
+    };
+  }
+
+  onCopy() {
+    this.setState({
+      copied: true
+    });
+  }
+
+  render() {
+    let leftIcon = <Spinner />;
+    if (this.props.showError) {
+      leftIcon = <ExclamationCircle alt="Error" />;
+    }
+    else if (this.props.showSuccess) {
+      leftIcon = <CheckCircle alt="Ready for Download" />;
     }
 
-    onCopy() {
-        this.setState({
-            copied: true
-        });
-    }
+    const icon = (
+      <div className="icon valid">
+        <CheckCircle />
+      </div>
+    );
 
-    render() {
-        let leftIcon = <Spinner />;
-        if (this.props.showError) {
-            leftIcon = <ExclamationCircle alt="Error" />;
-        }
-        else if (this.props.showSuccess) {
-            leftIcon = <CheckCircle alt="Ready for Download" />;
-        }
-
-        const icon = (
-          <div className="icon valid">
-            <CheckCircle />
+    return (
+      <div className="floating-download-bottom-bar">
+        <div className="bottom-bar-content">
+          <div className="left-icon">
+            {leftIcon}
           </div>
-        );
-
-        return (
-          <div className="floating-download-bottom-bar">
-            <div className="bottom-bar-content">
-              <div className="left-icon">
-                {leftIcon}
+            <div className="text-content">
+              <div className="title">
+                {this.props.title}
               </div>
-                <div className="text-content">
-                  <div className="title">
-                    {this.props.title}
-                  </div>
-                    <p>
-                      {this.props.description}
-                    </p>
-                  {this.state.copied ? <span>{icon}</span> : null}
-                    <CopyToClipboard
-                      text={this.props.download.expectedUrl}
-                      onCopy={this.onCopy}>
-                        <button>{this.state.copied ? 'Copied' : 'Your Download Link'}</button>
-                    </CopyToClipboard>
-                </div>
+                <p>
+                  {this.props.description}
+                </p>
+              {this.state.copied ? <span>{icon}</span> : null}
+                <CopyToClipboard
+                  text={this.props.download.expectedUrl}
+                  onCopy={this.onCopy}>
+                    <button>{this.state.copied ? 'Copied' : 'Your Download Link'}</button>
+                </CopyToClipboard>
             </div>
-          </div>
-        );
-    }
+        </div>
+      </div>
+    );
+  }
 }
 
 DownloadBottomBar.propTypes = propTypes;

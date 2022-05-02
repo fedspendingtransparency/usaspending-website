@@ -10,19 +10,19 @@ import AwardingAgency from './AwardingAgency';
 import Recipient from './Recipient';
 
 const propTypes = {
-    awardingAgency: PropTypes.object,
-    recipient: PropTypes.object,
-    recordType: PropTypes.number,
-    awardType: PropTypes.string,
-    awardId: PropTypes.string
+  awardingAgency: PropTypes.object,
+  recipient: PropTypes.object,
+  recordType: PropTypes.number,
+  awardType: PropTypes.string,
+  awardId: PropTypes.string
 };
 
 const AwardOverviewLeftSection = ({
-    awardingAgency,
-    recipient,
-    recordType,
-    awardType,
-    awardId
+  awardingAgency,
+  recipient,
+  recordType,
+  awardType,
+  awardId
 }) => (
   <AwardSection type="column" className="award-overview__left-section award-overview-column">
     <AwardingAgency awardingAgency={awardingAgency} />

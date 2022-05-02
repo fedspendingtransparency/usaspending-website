@@ -7,11 +7,11 @@ import { startCase, toLower } from 'lodash';
 
 // eslint-disable-next-line import/prefer-default-export
 export const formatValue = (value, description) => {
-    let displayValue = `${value}`;
+  let displayValue = `${value}`;
 
-    if (description !== null) {
-        displayValue += ` | ${startCase(toLower(description))}`;
-    }
+  if (description !== null) {
+    displayValue += ` | ${startCase(toLower(description))}`;
+  }
 
-    return displayValue;
+  return displayValue;
 };

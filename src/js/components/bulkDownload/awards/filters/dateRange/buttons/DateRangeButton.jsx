@@ -7,37 +7,37 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
-    handleDateChange: PropTypes.func,
-    startDate: PropTypes.string,
-    endDate: PropTypes.string,
-    label: PropTypes.string,
-    active: PropTypes.bool
+  handleDateChange: PropTypes.func,
+  startDate: PropTypes.string,
+  endDate: PropTypes.string,
+  label: PropTypes.string,
+  active: PropTypes.bool
 };
 
 export default class DateRangeButton extends React.Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.onClick = this.onClick.bind(this);
-    }
+    this.onClick = this.onClick.bind(this);
+  }
 
-    onClick(e) {
-        e.preventDefault();
+  onClick(e) {
+    e.preventDefault();
 
-        this.props.handleDateChange(this.props.startDate, 'startDateBulk');
-        this.props.handleDateChange(this.props.endDate, 'endDateBulk');
-    }
+    this.props.handleDateChange(this.props.startDate, 'startDateBulk');
+    this.props.handleDateChange(this.props.endDate, 'endDateBulk');
+  }
 
-    render() {
-        const activeClass = this.props.active ? 'active' : '';
-        return (
-          <button
-            className={`time-period-button ${activeClass}`}
-            onClick={this.onClick}>
-            {this.props.label}
-          </button>
-        );
-    }
+  render() {
+    const activeClass = this.props.active ? 'active' : '';
+    return (
+      <button
+        className={`time-period-button ${activeClass}`}
+        onClick={this.onClick}>
+        {this.props.label}
+      </button>
+    );
+  }
 }
 
 DateRangeButton.propTypes = propTypes;

@@ -13,28 +13,28 @@ import * as bulkDownloadActions from 'redux/actions/bulkDownload/bulkDownloadAct
 import BulkDownloadModal from 'components/bulkDownload/modal/BulkDownloadModal';
 
 const propTypes = {
-    mounted: PropTypes.bool,
-    hideModal: PropTypes.func,
-    setDownloadCollapsed: PropTypes.func,
-    bulkDownload: PropTypes.object
+  mounted: PropTypes.bool,
+  hideModal: PropTypes.func,
+  setDownloadCollapsed: PropTypes.func,
+  bulkDownload: PropTypes.object
 };
 
 export class BulkDownloadModalContainer extends React.Component {
-    render() {
-        return (
-          <BulkDownloadModal
-            setDownloadCollapsed={this.props.setDownloadCollapsed}
-            pendingDownload={this.props.bulkDownload.download.pendingDownload}
-            expectedFile={this.props.bulkDownload.download.expectedUrl}
-            mounted={this.props.mounted}
-            hideModal={this.props.hideModal} />
-        );
-    }
+  render() {
+    return (
+      <BulkDownloadModal
+        setDownloadCollapsed={this.props.setDownloadCollapsed}
+        pendingDownload={this.props.bulkDownload.download.pendingDownload}
+        expectedFile={this.props.bulkDownload.download.expectedUrl}
+        mounted={this.props.mounted}
+        hideModal={this.props.hideModal} />
+    );
+  }
 }
 
 BulkDownloadModalContainer.propTypes = propTypes;
 
 export default connect(
-    (state) => ({ bulkDownload: state.bulkDownload }),
-    (dispatch) => bindActionCreators(bulkDownloadActions, dispatch)
+  (state) => ({ bulkDownload: state.bulkDownload }),
+  (dispatch) => bindActionCreators(bulkDownloadActions, dispatch)
 )(BulkDownloadModalContainer);

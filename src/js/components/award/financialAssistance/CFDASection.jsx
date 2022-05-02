@@ -7,17 +7,17 @@ import AwardSectionHeader from '../shared/AwardSectionHeader';
 import { CFDASectionInfo } from "../shared/InfoTooltipContent";
 
 const propTypes = {
-    cfdas: PropTypes.array,
-    CFDAOverviewLinkClicked: PropTypes.bool,
-    updateCFDAOverviewLinkClicked: PropTypes.func,
-    awardTotalObligation: PropTypes.number
+  cfdas: PropTypes.array,
+  CFDAOverviewLinkClicked: PropTypes.bool,
+  updateCFDAOverviewLinkClicked: PropTypes.func,
+  awardTotalObligation: PropTypes.number
 };
 
 const CFDASection = ({
-    cfdas,
-    CFDAOverviewLinkClicked,
-    updateCFDAOverviewLinkClicked,
-    awardTotalObligation
+  cfdas,
+  CFDAOverviewLinkClicked,
+  updateCFDAOverviewLinkClicked,
+  awardTotalObligation
 }) => (
   <AwardSection id="award-cfda" type="column" className="cfda-section award-viz">
     <AwardSectionHeader

@@ -7,15 +7,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
-    clickedSearch: PropTypes.func,
-    title: PropTypes.string,
-    description: PropTypes.string
+  clickedSearch: PropTypes.func,
+  title: PropTypes.string,
+  description: PropTypes.string
 };
 
 const FooterLinkToAdvancedSearch = ({
-    clickedSearch,
-    title,
-    description
+  clickedSearch,
+  title,
+  description
 }) => (
   <div className="footerLinkToAdvancedSearch">
     <div className="footerLinkToAdvancedSearch__content">

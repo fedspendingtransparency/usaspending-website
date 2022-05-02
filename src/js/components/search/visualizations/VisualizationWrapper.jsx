@@ -10,11 +10,11 @@ import Analytics from 'helpers/analytics/Analytics';
 
 import ResultsTableContainer from 'containers/search/table/ResultsTableContainer';
 import TimeVisualizationSectionContainer from
-    'containers/search/visualizations/time/TimeVisualizationSectionContainer';
+  'containers/search/visualizations/time/TimeVisualizationSectionContainer';
 import GeoVisualizationSectionContainer from
-    'containers/search/visualizations/geo/GeoVisualizationSectionContainer';
+  'containers/search/visualizations/geo/GeoVisualizationSectionContainer';
 import RankVisualizationWrapperContainer from
-    'containers/search/visualizations/rank/RankVisualizationWrapperContainer';
+  'containers/search/visualizations/rank/RankVisualizationWrapperContainer';
 
 import { tabOptions } from 'dataMapping/search/searchViewTabs';
 
@@ -24,96 +24,96 @@ import VisualizationTabItem from './VisualizationTabItem';
 import SubawardToggle from './SubawardToggle';
 
 const propTypes = {
-    isMobile: PropTypes.bool,
-    requestsComplete: PropTypes.bool,
-    noFiltersApplied: PropTypes.bool,
-    type: PropTypes.string,
-    subaward: PropTypes.bool,
-    setSearchViewType: PropTypes.func,
-    setSearchViewSubaward: PropTypes.func
+  isMobile: PropTypes.bool,
+  requestsComplete: PropTypes.bool,
+  noFiltersApplied: PropTypes.bool,
+  type: PropTypes.string,
+  subaward: PropTypes.bool,
+  setSearchViewType: PropTypes.func,
+  setSearchViewSubaward: PropTypes.func
 };
 
 export default class VisualizationWrapper extends React.Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this._queuedAnalyticEvent = null;
+    this._queuedAnalyticEvent = null;
 
-        this.clickedTab = this.clickedTab.bind(this);
-        this.logVisualizationTab = this.logVisualizationTab.bind(this);
+    this.clickedTab = this.clickedTab.bind(this);
+    this.logVisualizationTab = this.logVisualizationTab.bind(this);
+  }
+
+  componentDidMount() {
+    this._mounted = true;
+    this.logVisualizationTab(this.props.type);
+  }
+
+  componentWillUnmount() {
+    this._mounted = false;
+  }
+
+  logVisualizationTab(tab) {
+    if (this.props.noFiltersApplied) {
+      // no filters are applied yet, don't log an analytic event
+      return;
     }
 
-    componentDidMount() {
-        this._mounted = true;
-        this.logVisualizationTab(this.props.type);
+    // discard any previously scheduled tab analytic events that haven't run yet
+    if (this._queuedAnalyticEvent) {
+      window.clearTimeout(this._queuedAnalyticEvent);
     }
 
-    componentWillUnmount() {
-        this._mounted = false;
+    // only log analytic event after 15 seconds
+    this._queuedAnalyticEvent = window.setTimeout(() => {
+      if (this._mounted) {
+        const activeLabel = tabOptions.find((el) => el.code === tab).label;
+        Analytics.event({
+          category: 'Advanced Search - Visualization Type',
+          action: activeLabel
+        });
+      }
+    }, 15 * 1000);
+  }
+
+  clickedTab(tab) {
+    this.props.setSearchViewType(tab);
+    this.logVisualizationTab(tab);
+  }
+
+  render() {
+    const tabs = tabOptions.map((tab) => (
+      <VisualizationTabItem
+        {...tab}
+        key={tab.code}
+        active={this.props.type === tab.code}
+        clickedTab={this.clickedTab}
+        disabled={!this.props.requestsComplete} />
+    ));
+
+    let content = <NoFiltersScreen />;
+    if (!this.props.noFiltersApplied) {
+      switch (this.props.type) {
+        case 'table':
+          content = <ResultsTableContainer />;
+          break;
+        case 'time':
+          content = <TimeVisualizationSectionContainer />;
+          break;
+        case 'map':
+          content = <GeoVisualizationSectionContainer />;
+          break;
+        case 'rank':
+          content = <RankVisualizationWrapperContainer />;
+          break;
+        default:
+          content = null;
+      }
     }
 
-    logVisualizationTab(tab) {
-        if (this.props.noFiltersApplied) {
-            // no filters are applied yet, don't log an analytic event
-            return;
-        }
-
-        // discard any previously scheduled tab analytic events that haven't run yet
-        if (this._queuedAnalyticEvent) {
-            window.clearTimeout(this._queuedAnalyticEvent);
-        }
-
-        // only log analytic event after 15 seconds
-        this._queuedAnalyticEvent = window.setTimeout(() => {
-            if (this._mounted) {
-                const activeLabel = tabOptions.find((el) => el.code === tab).label;
-                Analytics.event({
-                    category: 'Advanced Search - Visualization Type',
-                    action: activeLabel
-                });
-            }
-        }, 15 * 1000);
-    }
-
-    clickedTab(tab) {
-        this.props.setSearchViewType(tab);
-        this.logVisualizationTab(tab);
-    }
-
-    render() {
-        const tabs = tabOptions.map((tab) => (
-          <VisualizationTabItem
-            {...tab}
-            key={tab.code}
-            active={this.props.type === tab.code}
-            clickedTab={this.clickedTab}
-            disabled={!this.props.requestsComplete} />
-        ));
-
-        let content = <NoFiltersScreen />;
-        if (!this.props.noFiltersApplied) {
-            switch (this.props.type) {
-                case 'table':
-                    content = <ResultsTableContainer />;
-                    break;
-                case 'time':
-                    content = <TimeVisualizationSectionContainer />;
-                    break;
-                case 'map':
-                    content = <GeoVisualizationSectionContainer />;
-                    break;
-                case 'rank':
-                    content = <RankVisualizationWrapperContainer />;
-                    break;
-                default:
-                    content = null;
-            }
-        }
-
-        return (
-          <div
-            className="search-visualizations"
-            ref={(div) => {
+    return (
+      <div
+        className="search-visualizations"
+        ref={(div) => {
                     this.visualizationWrapper = div;
                 }}>
                   <div className="visualization-tabs__toggle-mobile">
@@ -144,9 +144,9 @@ export default class VisualizationWrapper extends React.Component {
                           {content}
                         </div>
                       </div>
-          </div>
-        );
-    }
+      </div>
+    );
+  }
 }
 
 VisualizationWrapper.propTypes = propTypes;

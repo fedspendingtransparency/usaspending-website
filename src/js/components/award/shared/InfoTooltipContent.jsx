@@ -51,32 +51,32 @@ export const transactionHistoryInfoGeneric = (
                         <li>
                           <strong>D</strong> – Change Order
                         </li>
-                            <li>
-                                <strong>E</strong> – Terminate for Default (complete or
+                          <li>
+                            <strong>E</strong> – Terminate for Default (complete or
                  partial)
-                              </li>
-                              <li>
-                                  <strong>F</strong> – Terminate for Convenience (complete
+                          </li>
+                            <li>
+                              <strong>F</strong> – Terminate for Convenience (complete
                  or partial)
-                                </li>
+                            </li>
+                              <li>
+                                <strong>G</strong> – Exercise an Option
+                              </li>
                                 <li>
-                                    <strong>G</strong> – Exercise an Option
-                                  </li>
-                                  <li>
                                   <strong>H</strong> – Definitize Letter Contract
                                 </li>
+                                  <li>
+                                    <strong>J</strong> – Novation Agreement
+                                  </li>
                                     <li>
-                                  <strong>J</strong> – Novation Agreement
-                                </li>
-                                      <li>
-                                  <strong>K</strong> – Close Out
-                                </li>
-                                          <li>
-                                      <strong>L</strong> – Definitize Change Order
+                                      <strong>K</strong> – Close Out
                                     </li>
-                                    <li>
-                                        <strong>M</strong> – Other Administrative Action
+                                      <li>
+                                        <strong>L</strong> – Definitize Change Order
                                       </li>
+                                        <li>
+                                          <strong>M</strong> – Other Administrative Action
+                                        </li>
                 </ul>
                   <p className="tooltip__text-section">
                     <strong>Description</strong> – This is additional
@@ -137,32 +137,32 @@ export const transactionHistoryInfoContract = (
                         <li>
                           <strong>D</strong> – Change Order
                         </li>
-                            <li>
-                                <strong>E</strong> – Terminate for Default (complete or
+                          <li>
+                            <strong>E</strong> – Terminate for Default (complete or
                 partial)
-                              </li>
-                              <li>
-                                  <strong>F</strong> – Terminate for Convenience (complete
+                          </li>
+                            <li>
+                              <strong>F</strong> – Terminate for Convenience (complete
                 or partial)
-                                </li>
+                            </li>
+                              <li>
+                                <strong>G</strong> – Exercise an Option
+                              </li>
                                 <li>
-                                    <strong>G</strong> – Exercise an Option
-                                  </li>
-                                  <li>
                                   <strong>H</strong> – Definitize Letter Contract
                                 </li>
+                                  <li>
+                                    <strong>J</strong> – Novation Agreement
+                                  </li>
                                     <li>
-                                  <strong>J</strong> – Novation Agreement
-                                </li>
-                                      <li>
-                                  <strong>K</strong> – Close Out
-                                </li>
-                                          <li>
-                                      <strong>L</strong> – Definitize Change Order
+                                      <strong>K</strong> – Close Out
                                     </li>
-                                    <li>
-                                        <strong>M</strong> – Other Administrative Action
+                                      <li>
+                                        <strong>L</strong> – Definitize Change Order
                                       </li>
+                                        <li>
+                                          <strong>M</strong> – Other Administrative Action
+                                        </li>
                 </ul>
                   <p>
                     <strong>Description</strong> – Describes the modification,
@@ -331,19 +331,19 @@ export const relatedAwardsInfo = (
                         </em>
                       </li>
                         <li>
-                            <em>
-                                <strong>*Grandchild award order</strong> refers to award orders
+                          <em>
+                            <strong>*Grandchild award order</strong> refers to award orders
                         made within a child IDV order (IDV &gt; IDV &gt;
                           Award).
-                              </em>
-                          </li>
-                              <li>
-                              <em>
-                                  <strong>*IDV itself</strong> refers to the top-level IDV this
+                          </em>
+                        </li>
+                          <li>
+                            <em>
+                              <strong>*IDV itself</strong> refers to the top-level IDV this
                         page is summarizing, not including any of its child award orders
                         or child IDV orders.
-                                </em>
-                            </li>
+                            </em>
+                          </li>
                   </ul>
       </div>
   </div>
@@ -912,18 +912,18 @@ export const idvActivityInfo = (
                         </em>
                       </li>
                         <li>
-                            <em>
-                                <strong>*Grandchild award order</strong> refers to award orders
+                          <em>
+                            <strong>*Grandchild award order</strong> refers to award orders
                         made within a child IDV order (IDV =&gt; IDV =&gt; <strong>Award</strong>).
-                              </em>
-                          </li>
-                              <li>
-                              <em>
-                                  <strong>*IDV itself</strong> refers to the top-level IDV this
+                          </em>
+                        </li>
+                          <li>
+                            <em>
+                              <strong>*IDV itself</strong> refers to the top-level IDV this
                         page is summarizing, not including any of its child award orders
                         or child IDV orders.
-                                </em>
-                            </li>
+                            </em>
+                          </li>
                   </ul>
       </div>
   </div>
@@ -1010,24 +1010,24 @@ export const federalAccountsInfoIdv = (
                         </em>
                       </li>
                         <li>
-                            <em>
-                                <strong>*Child IDV order</strong> refers to IDVs made directly
+                          <em>
+                            <strong>*Child IDV order</strong> refers to IDVs made directly
                         under this IDV (IDV &gt; IDV).
-                              </em>
-                          </li>
-                              <li>
-                              <em>
-                                  <strong>*Grandchild award order</strong> refers to award orders
+                          </em>
+                        </li>
+                          <li>
+                            <em>
+                              <strong>*Grandchild award order</strong> refers to award orders
                         made within a child IDV order (IDV &gt; IDV &gt; Award).
-                                </em>
-                            </li>
-                                <li>
-                                <em>
-                                    <strong>*IDV itself</strong> refers to the top-level IDV this
+                            </em>
+                          </li>
+                            <li>
+                              <em>
+                                <strong>*IDV itself</strong> refers to the top-level IDV this
                         page is summarizing, not including any of its child award orders
                         or child IDV orders.
-                                  </em>
-                              </li>
+                              </em>
+                            </li>
                   </ul>
       </div>
   </div>
@@ -1207,9 +1207,9 @@ export const CFDASectionInfo = (
                     The types of recipients that are eligible to apply for assistance funds from this CFDA program.
                         </li>
                           <li>
-                              <strong>Beneficiary Eligibility </strong>
+                            <strong>Beneficiary Eligibility </strong>
                     The types of organizations that are eligible beneficiaries under this CFDA Program.
-                            </li>
+                          </li>
             </ul>
       </div>
   </div>
@@ -1237,5 +1237,5 @@ export const CovidFlagTooltip = ({ codes }) => (
 
 
 CovidFlagTooltip.propTypes = {
-    codes: PropTypes.arrayOf(PropTypes.string)
+  codes: PropTypes.arrayOf(PropTypes.string)
 };

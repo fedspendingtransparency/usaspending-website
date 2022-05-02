@@ -15,97 +15,97 @@ import Note from 'components/sharedComponents/Note';
 import AwardSpendingIntro from "./AwardSpendingIntro";
 
 const propTypes = {
-    fy: PropTypes.string
+  fy: PropTypes.string
 };
 
 export const awardTabs = [
-    {
-        internal: 'all',
-        label: 'All Awards'
-    },
-    {
-        internal: 'contracts',
-        label: 'Contracts'
-    },
-    {
-        internal: 'idvs',
-        label: 'Contract IDVs'
-    },
-    {
-        internal: 'grants',
-        label: 'Grants'
-    },
-    {
-        internal: 'loans',
-        label: 'Loans'
-    },
-    {
-        internal: 'direct_payments',
-        label: 'Direct Payments'
-    },
-    {
-        internal: 'other',
-        label: 'Other Financial Assistance'
-    }
+  {
+    internal: 'all',
+    label: 'All Awards'
+  },
+  {
+    internal: 'contracts',
+    label: 'Contracts'
+  },
+  {
+    internal: 'idvs',
+    label: 'Contract IDVs'
+  },
+  {
+    internal: 'grants',
+    label: 'Grants'
+  },
+  {
+    internal: 'loans',
+    label: 'Loans'
+  },
+  {
+    internal: 'direct_payments',
+    label: 'Direct Payments'
+  },
+  {
+    internal: 'other',
+    label: 'Other Financial Assistance'
+  }
 ];
 
 const summaryData = [
-    {
-        type: 'awardObligations',
-        title: 'Award Obligations',
-        isMonetary: true
-    },
-    {
-        type: 'numberOfTransactions',
-        title: 'Number of Transactions'
-    },
-    {
-        type: 'numberOfAwards',
-        title: 'Number of New Awards'
-    }
+  {
+    type: 'awardObligations',
+    title: 'Award Obligations',
+    isMonetary: true
+  },
+  {
+    type: 'numberOfTransactions',
+    title: 'Number of Transactions'
+  },
+  {
+    type: 'numberOfAwards',
+    title: 'Number of New Awards'
+  }
 ];
 
 const initialActiveTabState = {
-    internal: awardTabs[0].internal,
-    subtitle: awardTabs[0].label
+  internal: awardTabs[0].internal,
+  subtitle: awardTabs[0].label
 };
 
 const AwardSpendingSubagency = ({ fy }) => {
-    const { overview, subagencyCount } = useSelector((state) => state.agencyV2);
-    const [prevActiveTab, activeTab, setActiveTab] = useStateWithPrevious(initialActiveTabState);
+  const { overview, subagencyCount } = useSelector((state) => state.agencyV2);
+  const [prevActiveTab, activeTab, setActiveTab] = useStateWithPrevious(initialActiveTabState);
 
 
-    const moreOptionsTabsRef = useRef(null);
+  const moreOptionsTabsRef = useRef(null);
 
-    const subagencyData = subagencyCount;
+  const subagencyData = subagencyCount;
 
-    const changeActiveTab = (tab) => {
-        const tabSubtitle = awardTabs.find((item) => item.internal === tab).label;
-        const tabInternal = awardTabs.find((item) => item.internal === tab).internal;
+  const changeActiveTab = (tab) => {
+    const tabSubtitle = awardTabs.find((item) => item.internal === tab).label;
+    const tabInternal = awardTabs.find((item) => item.internal === tab).internal;
 
-        setActiveTab({
-            internal: tabInternal,
-            subtitle: tabSubtitle
-        });
-    };
+    setActiveTab({
+      internal: tabInternal,
+      subtitle: tabSubtitle
+    });
+  };
 
-    return (
-      <div className="body__content">
-        <AwardSpendingIntro name={overview.name} />
-          <div ref={moreOptionsTabsRef}>
-            <Tabs active={activeTab.internal} types={awardTabs} switchTab={changeActiveTab} />
-          </div>
-            <SubAgencySummaryContainer
-              fy={fy}
-              summaryData={summaryData}
-              data={subagencyData}
-              activeTab={activeTab.internal} />
-                <SubagencyTableContainer
-                  fy={fy}
-                  type={activeTab.internal}
-                  prevType={prevActiveTab.internal}
-                  subHeading="Offices" />
-                    <Note message={(
+  return (
+    <div className="body__content">
+      <AwardSpendingIntro name={overview.name} />
+        <div ref={moreOptionsTabsRef}>
+          <Tabs active={activeTab.internal} types={awardTabs} switchTab={changeActiveTab} />
+        </div>
+          <SubAgencySummaryContainer
+            fy={fy}
+            summaryData={summaryData}
+            data={subagencyData}
+            activeTab={activeTab.internal} />
+              <SubagencyTableContainer
+                fy={fy}
+                type={activeTab.internal}
+                prevType={prevActiveTab.internal}
+                subHeading="Offices" />
+                  <Note message={(
                 <>
                 The sub-agencies presented in this section represent
                 awarding organizations and were sourced from the General Services
@@ -121,8 +121,8 @@ const AwardSpendingSubagency = ({ fy }) => {
                 by federal agencies as the authoritative source for managing federal
                 funding and awarding organizations.
                 </>)} />
-      </div>
-    );
+    </div>
+  );
 };
 
 AwardSpendingSubagency.propTypes = propTypes;

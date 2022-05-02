@@ -12,55 +12,55 @@ import AccountTimeVisualizationPeriodButton from './AccountTimeVisualizationPeri
 import TimeVisualization from './TimeVisualization';
 
 const propTypes = {
-    data: PropTypes.object,
-    loading: PropTypes.bool,
-    visualizationPeriod: PropTypes.string,
-    changePeriod: PropTypes.func,
-    hasFilteredObligated: PropTypes.bool
+  data: PropTypes.object,
+  loading: PropTypes.bool,
+  visualizationPeriod: PropTypes.string,
+  changePeriod: PropTypes.func,
+  hasFilteredObligated: PropTypes.bool
 };
 
 export default class AccountTimeVisualizationSection extends React.Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            windowWidth: 0,
-            visualizationWidth: 0
-        };
+    this.state = {
+      windowWidth: 0,
+      visualizationWidth: 0
+    };
 
-        this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
+    this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
+  }
+
+  componentDidMount() {
+    this.handleWindowResize();
+    window.addEventListener('resize', this.handleWindowResize);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('resize', this.handleWindowResize);
+  }
+
+  handleWindowResize() {
+    // determine if the width changed
+    const windowWidth = window.innerWidth;
+    if (this.state.windowWidth !== windowWidth) {
+      // width changed, update the visualization width
+      this.setState({
+        windowWidth,
+        visualizationWidth: this.sectionHr.offsetWidth
+      });
     }
+  }
 
-    componentDidMount() {
-        this.handleWindowResize();
-        window.addEventListener('resize', this.handleWindowResize);
-    }
-
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.handleWindowResize);
-    }
-
-    handleWindowResize() {
-        // determine if the width changed
-        const windowWidth = window.innerWidth;
-        if (this.state.windowWidth !== windowWidth) {
-            // width changed, update the visualization width
-            this.setState({
-                windowWidth,
-                visualizationWidth: this.sectionHr.offsetWidth
-            });
-        }
-    }
-
-    render() {
-        return (
-          <div
-            className="results-visualization-time-section"
-            id="results-section-time">
-              <h3>Spending Over Time</h3>
-                <hr
-                  className="results-divider"
-                  ref={(hr) => {
+  render() {
+    return (
+      <div
+        className="results-visualization-time-section"
+        id="results-section-time">
+          <h3>Spending Over Time</h3>
+            <hr
+              className="results-divider"
+              ref={(hr) => {
                         this.sectionHr = hr;
                     }} />
 
@@ -98,9 +98,9 @@ export default class AccountTimeVisualizationSection extends React.Component {
                           data={this.props.data}
                           width={this.state.visualizationWidth}
                           hasFilteredObligated={this.props.hasFilteredObligated} />
-          </div>
-        );
-    }
+      </div>
+    );
+  }
 }
 
 AccountTimeVisualizationSection.propTypes = propTypes;

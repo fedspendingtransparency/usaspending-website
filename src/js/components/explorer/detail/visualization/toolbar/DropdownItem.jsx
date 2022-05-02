@@ -10,41 +10,41 @@ import { icons } from 'dataMapping/explorer/dropdownScopes';
 import { sidebarTypes } from 'dataMapping/explorer/sidebarStrings';
 
 const propTypes = {
-    value: PropTypes.string,
-    pickItem: PropTypes.func
+  value: PropTypes.string,
+  pickItem: PropTypes.func
 };
 
 export default class DropdownItem extends React.Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.clickedButton = this.clickedButton.bind(this);
-    }
+    this.clickedButton = this.clickedButton.bind(this);
+  }
 
-    clickedButton() {
-        this.props.pickItem(this.props.value);
-    }
+  clickedButton() {
+    this.props.pickItem(this.props.value);
+  }
 
-    render() {
-        const IconType = icons[this.props.value];
-        const icon = <IconType />;
-        const label = sidebarTypes[this.props.value];
-        return (
-          <li>
-            <button
-              className="dropdown-option"
-              title={label}
-              onClick={this.clickedButton}>
-                <div className="dropdown-option__icon">
-                  {icon}
-                </div>
-                  <div className="dropdown-option__label">
-                    {label}
-                  </div>
-            </button>
-          </li>
-        );
-    }
+  render() {
+    const IconType = icons[this.props.value];
+    const icon = <IconType />;
+    const label = sidebarTypes[this.props.value];
+    return (
+      <li>
+        <button
+          className="dropdown-option"
+          title={label}
+          onClick={this.clickedButton}>
+            <div className="dropdown-option__icon">
+              {icon}
+            </div>
+              <div className="dropdown-option__label">
+                {label}
+              </div>
+        </button>
+      </li>
+    );
+  }
 }
 
 DropdownItem.propTypes = propTypes;

@@ -23,77 +23,77 @@ import SearchSummary from './SearchSummary';
 import NoDownloadHover from '../search/header/NoDownloadHover';
 
 const propTypes = {
-    updateKeyword: PropTypes.func,
-    keyword: PropTypes.string,
-    summary: PropTypes.object,
-    summaryInFlight: PropTypes.bool,
-    fetchSummary: PropTypes.func,
-    download: PropTypes.object,
-    startDownload: PropTypes.func,
-    downloadAvailable: PropTypes.bool
+  updateKeyword: PropTypes.func,
+  keyword: PropTypes.string,
+  summary: PropTypes.object,
+  summaryInFlight: PropTypes.bool,
+  fetchSummary: PropTypes.func,
+  download: PropTypes.object,
+  startDownload: PropTypes.func,
+  downloadAvailable: PropTypes.bool
 };
 
 export default class KeywordPage extends React.Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.state = {
-            showModal: false
-        };
+    this.state = {
+      showModal: false
+    };
 
-        this.hideModal = this.hideModal.bind(this);
-        this.showModal = this.showModal.bind(this);
-        this.clickedDownload = this.clickedDownload.bind(this);
-    }
+    this.hideModal = this.hideModal.bind(this);
+    this.showModal = this.showModal.bind(this);
+    this.clickedDownload = this.clickedDownload.bind(this);
+  }
 
-    componentDidUpdate() {
-        // Need to close the modal once the download is completed
-        if (this.state.showModal && this.props.download.expectedUrl === ""
+  componentDidUpdate() {
+    // Need to close the modal once the download is completed
+    if (this.state.showModal && this.props.download.expectedUrl === ""
             && !this.props.download.showCollapsedProgress) {
-            this.hideModal();
-        }
+      this.hideModal();
     }
+  }
 
-    hideModal() {
-        this.setState({
-            showModal: false
-        });
-    }
+  hideModal() {
+    this.setState({
+      showModal: false
+    });
+  }
 
-    showModal() {
-        this.setState({
-            showModal: true
-        });
-    }
+  showModal() {
+    this.setState({
+      showModal: true
+    });
+  }
 
-    clickedDownload() {
-        this.props.startDownload();
-        this.showModal();
-        Analytics.event({
-            category: 'Keyword Search - Download',
-            action: this.props.keyword
-        });
-    }
+  clickedDownload() {
+    this.props.startDownload();
+    this.showModal();
+    Analytics.event({
+      category: 'Keyword Search - Download',
+      action: this.props.keyword
+    });
+  }
 
-    render() {
-        return (
-          <PageWrapper
-            pageName="Keyword Search"
-            classNames="usa-da-keyword-page"
-            title="Keyword Search"
-            metaTagProps={MetaTagHelper.keywordPageMetaTags}
-            toolBarComponents={[
-              <SearchSummary
-                primeAwardTotal={this.props.summary?.primeAmount}
-                primeTransactionCount={this.props.summary?.primeCount}
-                inFlight={this.props.summaryInFlight} />,
-              <DownloadIconButton
-                tooltipComponent={(!this.props.downloadAvailable && this.props.keyword)
+  render() {
+    return (
+      <PageWrapper
+        pageName="Keyword Search"
+        classNames="usa-da-keyword-page"
+        title="Keyword Search"
+        metaTagProps={MetaTagHelper.keywordPageMetaTags}
+        toolBarComponents={[
+          <SearchSummary
+            primeAwardTotal={this.props.summary?.primeAmount}
+            primeTransactionCount={this.props.summary?.primeCount}
+            inFlight={this.props.summaryInFlight} />,
+          <DownloadIconButton
+            tooltipComponent={(!this.props.downloadAvailable && this.props.keyword)
                             ? <NoDownloadHover />
                             : null
                         }
-                isEnabled={this.props.downloadAvailable}
-                onClick={this.clickedDownload} />
+            isEnabled={this.props.downloadAvailable}
+            onClick={this.clickedDownload} />
                 ]
                     .filter((c, i) => (
                         (i === 1 && !this.props.keyword) || this.props.keyword)
@@ -117,9 +117,9 @@ export default class KeywordPage extends React.Component {
                             mounted={this.state.showModal}
                             hideModal={this.hideModal} />
                       </main>
-          </PageWrapper>
-        );
-    }
+      </PageWrapper>
+    );
+  }
 }
 
 

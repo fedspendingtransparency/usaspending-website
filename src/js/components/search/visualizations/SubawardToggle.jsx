@@ -9,49 +9,49 @@ import PropTypes from 'prop-types';
 import Analytics from 'helpers/analytics/Analytics';
 
 const propTypes = {
-    subaward: PropTypes.bool,
-    setSearchViewSubaward: PropTypes.func
+  subaward: PropTypes.bool,
+  setSearchViewSubaward: PropTypes.func
 };
 
 export default class SubawardToggle extends React.Component {
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.toggledSwitch = this.toggledSwitch.bind(this);
+    this.toggledSwitch = this.toggledSwitch.bind(this);
+  }
+  toggledSwitch() {
+    const newValue = !this.props.subaward;
+    if (newValue) {
+      Analytics.event({
+        category: 'Advanced Search - Search Fields',
+        action: 'Subawards Search'
+      });
     }
-    toggledSwitch() {
-        const newValue = !this.props.subaward;
-        if (newValue) {
-            Analytics.event({
-                category: 'Advanced Search - Search Fields',
-                action: 'Subawards Search'
-            });
-        }
-        this.props.setSearchViewSubaward(newValue);
-    }
+    this.props.setSearchViewSubaward(newValue);
+  }
 
-    render() {
-        const primeActive = this.props.subaward ? '' : 'subaward-toggle__label_active';
-        const subActive = this.props.subaward ? 'subaward-toggle__label_active' : '';
-        const switchPosition = this.props.subaward ? 'translate(30 0)' : 'translate(9 0)';
-        const currentSelection = this.props.subaward ? 'Sub-Awards' : 'Prime Awards';
-        return (
-          <button
-            className="subaward-toggle"
-            onClick={this.toggledSwitch}
-            aria-pressed={!this.props.subaward}
-            aria-label={`Toggle between Prime Awards and Sub-Award. Currently selected: ${currentSelection}`}>
-              <div className={`subaward-toggle__label ${primeActive}`}>
+  render() {
+    const primeActive = this.props.subaward ? '' : 'subaward-toggle__label_active';
+    const subActive = this.props.subaward ? 'subaward-toggle__label_active' : '';
+    const switchPosition = this.props.subaward ? 'translate(30 0)' : 'translate(9 0)';
+    const currentSelection = this.props.subaward ? 'Sub-Awards' : 'Prime Awards';
+    return (
+      <button
+        className="subaward-toggle"
+        onClick={this.toggledSwitch}
+        aria-pressed={!this.props.subaward}
+        aria-label={`Toggle between Prime Awards and Sub-Award. Currently selected: ${currentSelection}`}>
+          <div className={`subaward-toggle__label ${primeActive}`}>
                     Prime Awards
-              </div>
-                <svg
-                  className="subaward-toggle__switch subaward-switch"
-                  width="45"
-                  height="24">
-                    <g
-                      className="subaward-switch__graphic"
-                      transform="translate(4 2)">
-                        <rect
+          </div>
+            <svg
+              className="subaward-toggle__switch subaward-switch"
+              width="45"
+              height="24">
+                <g
+                  className="subaward-switch__graphic"
+                  transform="translate(4 2)">
+                    <rect
                           className="subaward-switch__track"
                           width="40"
                           height="20"
@@ -65,14 +65,14 @@ export default class SubawardToggle extends React.Component {
                                   cy="10"
                                   r="10" />
                             </g>
-                    </g>
-                </svg>
-                  <div className={`subaward-toggle__label ${subActive}`}>
+                </g>
+            </svg>
+              <div className={`subaward-toggle__label ${subActive}`}>
                     Sub-Awards
-                  </div>
-          </button>
-        );
-    }
+              </div>
+      </button>
+    );
+  }
 }
 
 SubawardToggle.propTypes = propTypes;
