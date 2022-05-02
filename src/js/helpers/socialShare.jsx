@@ -82,7 +82,7 @@ export const handleShareOptionClick = (name, url, emailArgs) => {
 
 const GlossaryDropdownOption = ({ icon, title }) => (
     <>
-        <FontAwesomeIcon icon={icon} color="#555" size="sm" />
+      <FontAwesomeIcon icon={icon} color="#555" size="sm" />
         <span>{title}</span>
     </>
 );

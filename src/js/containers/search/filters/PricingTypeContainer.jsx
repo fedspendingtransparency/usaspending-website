@@ -40,13 +40,13 @@ export class PricingTypeContainer extends React.Component {
 
     render() {
         return (
-            <ContractFilter
-                pricingType={this.props.pricingType}
-                dirtyFilters={this.dirtyFilters()}
-                contractFilterType="pricing_type"
-                contractFilterOptions="pricingTypeDefinitions"
-                contractFilterState="pricingType"
-                toggleFilter={this.selectPricingType} />
+          <ContractFilter
+            pricingType={this.props.pricingType}
+            dirtyFilters={this.dirtyFilters()}
+            contractFilterType="pricing_type"
+            contractFilterOptions="pricingTypeDefinitions"
+            contractFilterState="pricingType"
+            toggleFilter={this.selectPricingType} />
         );
     }
 }

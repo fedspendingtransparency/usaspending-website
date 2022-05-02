@@ -109,10 +109,10 @@ export class AccountObjectClassContainer extends React.Component {
 
     render() {
         return (
-            <ObjectClassFilter
-                {...this.props}
-                updateMajorFilter={this.updateMajorFilter}
-                updateFilter={this.updateFilter} />
+          <ObjectClassFilter
+            {...this.props}
+            updateMajorFilter={this.updateMajorFilter}
+            updateFilter={this.updateFilter} />
         );
     }
 }

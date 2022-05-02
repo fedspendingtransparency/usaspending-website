@@ -36,29 +36,29 @@ const propTypes = {
 export default class LegalContent extends React.Component {
     render() {
         return (
-            <div className="about-content-wrapper">
-                <div className="about-sidebar">
-                    <Sidebar
-                        active={this.props.activePage}
-                        pageName="about"
-                        sections={legalSections}
-                        isGoingToBeSticky
-                        fixedStickyBreakpoint={getStickyBreakPointForSidebar()} />
-                </div>
-                <div className="about-content">
-                        <div className="about-padded-content">
-                        <div className="about-section-wrapper">
-                                <h2 className="about-section-title">
-                                {this.props.title}
-                            </h2>
-
-                            <div className="about-section-content">
-                                    {this.props.children}
-                                </div>
-                            </div>
-                    </div>
-                    </div>
+          <div className="about-content-wrapper">
+            <div className="about-sidebar">
+              <Sidebar
+                active={this.props.activePage}
+                pageName="about"
+                sections={legalSections}
+                isGoingToBeSticky
+                fixedStickyBreakpoint={getStickyBreakPointForSidebar()} />
             </div>
+              <div className="about-content">
+                <div className="about-padded-content">
+                  <div className="about-section-wrapper">
+                    <h2 className="about-section-title">
+                      {this.props.title}
+                    </h2>
+
+                      <div className="about-section-content">
+                        {this.props.children}
+                      </div>
+                  </div>
+                </div>
+              </div>
+          </div>
         );
     }
 }

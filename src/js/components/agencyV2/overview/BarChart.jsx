@@ -42,45 +42,45 @@ const BarChart = ({
             .map(({ year: fy, budget }) => {
                 const fyStr = String(fy);
                 const tooltip = (
-                    <div className="bar-chart-tooltip">
-                        <div className="tooltip__title">
+                  <div className="bar-chart-tooltip">
+                    <div className="tooltip__title">
                             FY {fy}
-                        </div>
-                        <div className="tooltip__text">
-                                <div className="bar-chart-tooltip__desc">Total Budgetary Resources</div>
-                            <div className="bar-chart-tooltip__amount">{formatMoney(budget)}</div>
-                            </div>
                     </div>
+                      <div className="tooltip__text">
+                        <div className="bar-chart-tooltip__desc">Total Budgetary Resources</div>
+                          <div className="bar-chart-tooltip__amount">{formatMoney(budget)}</div>
+                      </div>
+                  </div>
                 );
                 return (
-                    <div
-                        className="bar-chart__item"
-                        key={fy}
-                        onMouseEnter={() => setHoveredFy(true)}
-                        onMouseLeave={() => setHoveredFy(false)}>
-                        <TooltipWrapper
-                                className={`bar-chart__tooltip-wrapper${!hoveredFy && fyStr === selectedFy ? ' bar-chart__tooltip-wrapper_active' : ''}`}
-                                tooltipComponent={tooltip}
-                                offsetAdjustments={{
+                  <div
+                    className="bar-chart__item"
+                    key={fy}
+                    onMouseEnter={() => setHoveredFy(true)}
+                    onMouseLeave={() => setHoveredFy(false)}>
+                      <TooltipWrapper
+                        className={`bar-chart__tooltip-wrapper${!hoveredFy && fyStr === selectedFy ? ' bar-chart__tooltip-wrapper_active' : ''}`}
+                        tooltipComponent={tooltip}
+                        offsetAdjustments={{
                                 top: calculateOffsetTop(budget / greatestAgencyBudget),
                                 left: 0,
                                 right: 0
                             }}>
-                            <div
-                                    role="img"
-                                    className={`bar-chart__bar${fyStr === selectedFy ? ' bar-chart__bar_selected' : ''}`}
-                                    style={{
+                              <div
+                                role="img"
+                                className={`bar-chart__bar${fyStr === selectedFy ? ' bar-chart__bar_selected' : ''}`}
+                                style={{
                                     height: `${(budget / greatestAgencyBudget) * 100}%`,
                                     minHeight: '0.5%'
                                 }}
-                                    alt={`FY ${fyStr[2]}${fyStr[3]} total budgetary resources are ${formatMoney(budget)};
+                                alt={`FY ${fyStr[2]}${fyStr[3]} total budgetary resources are ${formatMoney(budget)};
                                     a ${(budget / greatestAgencyBudget).toFixed(2)} to 1 ratio compared to the largest total budgetary resources
                                     in 5 consecutive years (${formatMoney(greatestAgencyBudget)}).`} />
-                            </TooltipWrapper>
+                      </TooltipWrapper>
                         <div className={`bar-chart__label${fyStr === selectedFy ? ' bar-chart__label_selected' : ''}`}>
-                                    {`FY ${fyStr[2]}${fyStr[3]}`}
-                                </div>
-                    </div>
+                          {`FY ${fyStr[2]}${fyStr[3]}`}
+                        </div>
+                  </div>
                 );
             });
     };
@@ -91,9 +91,9 @@ const BarChart = ({
         return <LoadingMessage />;
     }
     return (
-        <div className="viz-container bar-chart" alt="Bar chart of total budgetary resources over five consecutive years">
-            {renderBars()}
-        </div>
+      <div className="viz-container bar-chart" alt="Bar chart of total budgetary resources over five consecutive years">
+        {renderBars()}
+      </div>
     );
 };
 

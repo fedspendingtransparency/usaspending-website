@@ -43,10 +43,10 @@ export default class KeywordFilterGroup extends React.Component {
         const tags = this.generateTags();
 
         return (<BaseTopFilterGroup
-            tags={tags}
-            filter={this.props.filter}
-            clearFilterGroup={this.removeFilter}
-            compressed={this.props.compressed} />);
+          tags={tags}
+          filter={this.props.filter}
+          clearFilterGroup={this.removeFilter}
+          compressed={this.props.compressed} />);
     }
 }
 

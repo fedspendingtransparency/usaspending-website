@@ -72,8 +72,8 @@ const ContractGrantActivityChartCircles = ({
     };
 
     return (
-        <g className="contract-grant-activity-chart__circles">
-            {
+      <g className="contract-grant-activity-chart__circles">
+        {
                 circleData.map((circle, i) => {
                     const {
                         key,
@@ -84,26 +84,26 @@ const ContractGrantActivityChartCircles = ({
                         r
                     } = circle;
                     return (
-                        <g
-                            data-index={i}
-                            onFocus={onFocus}
-                            onBlur={onBlur}
-                            key={key}
-                            tabIndex="0">
-                            <desc>{description}</desc>
+                      <g
+                        data-index={i}
+                        onFocus={onFocus}
+                        onBlur={onBlur}
+                        key={key}
+                        tabIndex="0">
+                          <desc>{description}</desc>
                             <circle
-                                    data-index={i}
-                                    className={className}
-                                    cx={cx}
-                                    cy={cy}
-                                    r={r}
-                                    onMouseMove={onMouseMove}
-                                    onMouseLeave={onMouseLeave} />
-                        </g>
+                              data-index={i}
+                              className={className}
+                              cx={cx}
+                              cy={cy}
+                              r={r}
+                              onMouseMove={onMouseMove}
+                              onMouseLeave={onMouseLeave} />
+                      </g>
                     );
                 })
             }
-        </g>
+      </g>
     );
 };
 

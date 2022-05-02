@@ -466,7 +466,7 @@ export default class MapWrapper extends React.Component {
         const { tooltip: TooltipComponent, selectedItem, showHover } = this.props;
         if (showHover) {
             return (
-                <TooltipComponent {...selectedItem} />
+              <TooltipComponent {...selectedItem} />
             );
         }
         return null;
@@ -481,43 +481,43 @@ export default class MapWrapper extends React.Component {
             filters.spendingType.options.pop();
         }
         return (
-            <MapFilters
-                filters={filters}
-                activeFilters={this.props.activeFilters}
-                isOpen={this.state.isFiltersOpen} />
+          <MapFilters
+            filters={filters}
+            activeFilters={this.props.activeFilters}
+            isOpen={this.state.isFiltersOpen} />
         );
     };
 
     legend = () => {
         const { spendingScale } = this.state;
         return (
-            <MapLegend
-                units={spendingScale.units}
-                min={Math.min(...this.props.data.values)}
-                max={Math.max(...this.props.data.values)} />
+          <MapLegend
+            units={spendingScale.units}
+            min={Math.min(...this.props.data.values)}
+            max={Math.max(...this.props.data.values)} />
         );
     };
 
     render() {
         return (
-            <div
-                className="map-container"
-                ref={(div) => {
+          <div
+            className="map-container"
+            ref={(div) => {
                     this.wrapperDiv = div;
                 }}>
-                <MapBox
-                        loadedMap={this.mapReady}
-                        unloadedMap={this.mapRemoved}
-                        center={this.props.center}
-                        ref={(component) => {
+                  <MapBox
+                    loadedMap={this.mapReady}
+                    unloadedMap={this.mapRemoved}
+                    center={this.props.center}
+                    ref={(component) => {
                         this.mapRef = component;
                     }} />
-                <MapFiltersToggle onClick={this.toggleFilters} isOpen={this.state.isFiltersOpen} />
-                {this.filters()}
-                {this.legend()}
-                {this.tooltip()}
-                {this.props.children}
-            </div>
+                      <MapFiltersToggle onClick={this.toggleFilters} isOpen={this.state.isFiltersOpen} />
+            {this.filters()}
+            {this.legend()}
+            {this.tooltip()}
+            {this.props.children}
+          </div>
         );
     }
 }

@@ -91,9 +91,9 @@ export default class MapLegend extends React.Component {
             }
 
             return (<MapLegendItem
-                key={`item-${i}`}
-                label={label}
-                color={color} />);
+              key={`item-${i}`}
+              label={label}
+              color={color} />);
         });
 
         this.setState({
@@ -107,15 +107,15 @@ export default class MapLegend extends React.Component {
 
     render() {
         return (
-            <div className="map-legend">
-                <MapLegendHeader
-                    mapLegendToggleData={this.props.mapLegendToggleData}
-                    mapLegendToggle={this.props.mapLegendToggle}
-                    updateToggle={this.updateToggle} />
+          <div className="map-legend">
+            <MapLegendHeader
+              mapLegendToggleData={this.props.mapLegendToggleData}
+              mapLegendToggle={this.props.mapLegendToggle}
+              updateToggle={this.updateToggle} />
                 <ul className="map-legend-body">
-                            {this.state.items}
-                        </ul>
-            </div>
+                  {this.state.items}
+                </ul>
+          </div>
         );
     }
 }

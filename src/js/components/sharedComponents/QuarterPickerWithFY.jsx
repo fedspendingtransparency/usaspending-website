@@ -63,21 +63,21 @@ const QuarterPickerWithFY = ({
     }, [handlePickedYear, latestFy, latestPeriod]);
 
     return (
-        <div className="quarter-picker">
-            <div className="quarter-picker__fy">
-                <FYPicker
-                    isLoading={!latestFy}
-                    latestFy={latestFy}
-                    fy={selectedFy}
-                    onClick={pickedYear} />
-            </div>
-            <QuarterPicker
-                    showPeriods
-                    periodsPerQuarter={periodsPerQuarter}
-                    selectedPeriods={[latestSelectedTimeInterval]}
-                    disabledPeriods={disabledPeriodsInFy}
-                    handleSelection={handleQuarterPickerSelection} />
+      <div className="quarter-picker">
+        <div className="quarter-picker__fy">
+          <FYPicker
+            isLoading={!latestFy}
+            latestFy={latestFy}
+            fy={selectedFy}
+            onClick={pickedYear} />
         </div>
+          <QuarterPicker
+            showPeriods
+            periodsPerQuarter={periodsPerQuarter}
+            selectedPeriods={[latestSelectedTimeInterval]}
+            disabledPeriods={disabledPeriodsInFy}
+            handleSelection={handleQuarterPickerSelection} />
+      </div>
     );
 };
 

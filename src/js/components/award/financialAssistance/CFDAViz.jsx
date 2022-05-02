@@ -99,13 +99,13 @@ export default class CFDAViz extends React.Component {
     tree = () => {
         if (this.props.view === 'tree') {
             return (<CFDATree
-                error={this.props.error}
-                inFlight={this.props.inFlight}
-                width={this.state.width}
-                data={this.props.allCFDAs}
-                showTooltip={this.showTooltip}
-                hideTooltip={this.hideTooltip}
-                onTreeClick={this.props.onTreeClick} />);
+              error={this.props.error}
+              inFlight={this.props.inFlight}
+              width={this.state.width}
+              data={this.props.allCFDAs}
+              showTooltip={this.showTooltip}
+              hideTooltip={this.hideTooltip}
+              onTreeClick={this.props.onTreeClick} />);
         }
         return null;
     };
@@ -133,11 +133,11 @@ export default class CFDAViz extends React.Component {
                         onClick: onDropdownClick
                     }));
                 return (<Picker
-                    options={options}
-                    dropdownDirection="right"
-                    backgroundColor="#215493"
-                    selectedOption={`${cfda.cfdaNumber} ${cfda.cfdaTitle}`}
-                    sortFn={sortFunction} />);
+                  options={options}
+                  dropdownDirection="right"
+                  backgroundColor="#215493"
+                  selectedOption={`${cfda.cfdaNumber} ${cfda.cfdaTitle}`}
+                  sortFn={sortFunction} />);
             }
             return (<h4 className="cfda-section-single-title">{`${cfda.cfdaNumber}: ${cfda.cfdaTitle.toUpperCase()}`}</h4>);
         }
@@ -166,8 +166,8 @@ export default class CFDAViz extends React.Component {
                 className: "award-amounts-tt__wrapper",
                 offsetAdjustments: { top: 0 },
                 tooltipComponent: <RectanglePercentVizTooltip
-                    amount={cfda.federalActionOblicationAmount}
-                    title={numeratorTitle} />
+                  amount={cfda.federalActionOblicationAmount}
+                  title={numeratorTitle} />
             }
         };
         const denominator = {
@@ -183,8 +183,8 @@ export default class CFDAViz extends React.Component {
                     top: -7
                 },
                 tooltipComponent: <RectanglePercentVizTooltip
-                    amount={formatMoney(awardTotalObligation)}
-                    title={denominatorTitle} />
+                  amount={formatMoney(awardTotalObligation)}
+                  title={denominatorTitle} />
             }
         };
         if (showSingleCFDAVis) {
@@ -195,14 +195,14 @@ export default class CFDAViz extends React.Component {
                 awardTotalObligation.toString().startsWith('-')
             ) {
                 return (
-                    <div className="results-table-message-container">
-                        <NoResultsMessage title="Chart Not Available" message="Data in this instance is not suitable for charting" />
-                    </div>);
+                  <div className="results-table-message-container">
+                    <NoResultsMessage title="Chart Not Available" message="Data in this instance is not suitable for charting" />
+                  </div>);
             }
             return (<RectanglePercentViz
-                numerator={numerator}
-                denominator={denominator}
-                percentage={cfda.percentOfTotal} />
+              numerator={numerator}
+              denominator={denominator}
+              percentage={cfda.percentOfTotal} />
             );
         }
         return null;
@@ -213,35 +213,35 @@ export default class CFDAViz extends React.Component {
         const isTreeView = this.props.view === 'tree';
         if (view === 'tree' || view === 'table') {
             return (
-                <div className="view-buttons-section">
-                    <div className="view-buttons-section__text">{`Click on a program ${isTreeView ? 'tile' : 'title'} to see its details.`}</div>
-                    <div className="view-buttons-section__buttons">
-                            <ViewTypeButton
-                            value="table"
-                            label="Table"
-                            icon="table"
-                            changeView={this.props.changeView}
-                            active={!isTreeView} />
+              <div className="view-buttons-section">
+                <div className="view-buttons-section__text">{`Click on a program ${isTreeView ? 'tile' : 'title'} to see its details.`}</div>
+                  <div className="view-buttons-section__buttons">
+                    <ViewTypeButton
+                      value="table"
+                      label="Table"
+                      icon="table"
+                      changeView={this.props.changeView}
+                      active={!isTreeView} />
                         <ViewTypeButton
-                                    value="tree"
-                                    label="Treemap"
-                                    icon="th-large"
-                                    changeView={this.props.changeView}
-                                    active={isTreeView} />
-                        </div>
-                </div>
+                          value="tree"
+                          label="Treemap"
+                          icon="th-large"
+                          changeView={this.props.changeView}
+                          active={isTreeView} />
+                  </div>
+              </div>
             );
         }
         if (view === 'single' && allCFDAs.length) {
             return (
-                <div className="view-buttons-section">
-                    <button onClick={this.props.onBackClick} className="view-buttons-section__back award-viz__button">
-                        <div className="view-buttons-section__back-icon">
-                            <FontAwesomeIcon icon="arrow-circle-left" />
-                        </div>
-                        <div className="view-buttons-section__back-text">Back to all CFDA programs</div>
-                    </button>
-                </div>
+              <div className="view-buttons-section">
+                <button onClick={this.props.onBackClick} className="view-buttons-section__back award-viz__button">
+                  <div className="view-buttons-section__back-icon">
+                    <FontAwesomeIcon icon="arrow-circle-left" />
+                  </div>
+                    <div className="view-buttons-section__back-text">Back to all CFDA programs</div>
+                </button>
+              </div>
             );
         }
         return null;
@@ -249,21 +249,21 @@ export default class CFDAViz extends React.Component {
 
     render() {
         return (
-            <div className="cfda-section__viz">
-                {this.state.showTooltip && <CFDATreeTooltip {...this.state.tooltip} />}
-                <div className="cfda-section-results">
-                        {this.buttons()}
-                        {this.title()}
-                        {this.chart()}
-                        {this.content()}
-                    <div
-                                className="cfda-section-vis__width-reference"
-                                ref={(div) => {
+          <div className="cfda-section__viz">
+            {this.state.showTooltip && <CFDATreeTooltip {...this.state.tooltip} />}
+              <div className="cfda-section-results">
+                {this.buttons()}
+                {this.title()}
+                {this.chart()}
+                {this.content()}
+                  <div
+                    className="cfda-section-vis__width-reference"
+                    ref={(div) => {
                             this.widthRef = div;
                         }} />
-                        {this.tree()}
-                    </div>
-            </div>
+                {this.tree()}
+              </div>
+          </div>
         );
     }
 }

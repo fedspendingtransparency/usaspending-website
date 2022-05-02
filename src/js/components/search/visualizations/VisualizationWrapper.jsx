@@ -82,12 +82,12 @@ export default class VisualizationWrapper extends React.Component {
 
     render() {
         const tabs = tabOptions.map((tab) => (
-            <VisualizationTabItem
-                {...tab}
-                key={tab.code}
-                active={this.props.type === tab.code}
-                clickedTab={this.clickedTab}
-                disabled={!this.props.requestsComplete} />
+          <VisualizationTabItem
+            {...tab}
+            key={tab.code}
+            active={this.props.type === tab.code}
+            clickedTab={this.clickedTab}
+            disabled={!this.props.requestsComplete} />
         ));
 
         let content = <NoFiltersScreen />;
@@ -111,40 +111,40 @@ export default class VisualizationWrapper extends React.Component {
         }
 
         return (
-            <div
-                className="search-visualizations"
-                ref={(div) => {
+          <div
+            className="search-visualizations"
+            ref={(div) => {
                     this.visualizationWrapper = div;
                 }}>
-                <div className="visualization-tabs__toggle-mobile">
-                        <SubawardToggle
-                        subaward={this.props.subaward}
-                        setSearchViewSubaward={this.props.setSearchViewSubaward} />
+                  <div className="visualization-tabs__toggle-mobile">
+                    <SubawardToggle
+                      subaward={this.props.subaward}
+                      setSearchViewSubaward={this.props.setSearchViewSubaward} />
+                  </div>
+                    <div
+                      className="visualization-tabs"
+                      role="navigation"
+                      aria-label="Visualization types">
+                        <ul
+                          className="visualization-tabs__list"
+                          role="menu">
+                          {tabs}
+                        </ul>
+                          <div className="visualization-tabs__toggle">
+                            <SubawardToggle
+                              subaward={this.props.subaward}
+                              setSearchViewSubaward={this.props.setSearchViewSubaward} />
+                          </div>
                     </div>
-                <div
-                            className="visualization-tabs"
-                            role="navigation"
-                            aria-label="Visualization types">
-                    <ul
-                                    className="visualization-tabs__list"
-                                    role="menu">
-                                    {tabs}
-                                </ul>
-                    <div className="visualization-tabs__toggle">
-                                        <SubawardToggle
-                            subaward={this.props.subaward}
-                            setSearchViewSubaward={this.props.setSearchViewSubaward} />
-                                    </div>
+                      <div className="visualization-content-wrapper">
+                        <div
+                          className="visualization-content"
+                          role="main"
+                          aria-label="Search results">
+                          {content}
                         </div>
-                <div className="visualization-content-wrapper">
-                                <div
-                        className="visualization-content"
-                        role="main"
-                        aria-label="Search results">
-                        {content}
-                    </div>
-                            </div>
-            </div>
+                      </div>
+          </div>
         );
     }
 }

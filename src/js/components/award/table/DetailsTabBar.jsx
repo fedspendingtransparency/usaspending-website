@@ -30,18 +30,18 @@ export default class DetailsTabBar extends React.Component {
                 }
                 : this.props.clickTab;
             return (
-                <DetailsTabItem
-                    {...tab}
-                    active={tab.internal === this.props.activeTab}
-                    clickTab={onClick}
-                    key={tab.internal} />
+              <DetailsTabItem
+                {...tab}
+                active={tab.internal === this.props.activeTab}
+                clickTab={onClick}
+                key={tab.internal} />
             );
         });
 
         return (
-            <div className="table-types">
-                {tabs}
-            </div>
+          <div className="table-types">
+            {tabs}
+          </div>
         );
     }
 }

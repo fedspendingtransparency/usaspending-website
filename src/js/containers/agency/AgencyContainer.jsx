@@ -131,13 +131,13 @@ export class AgencyContainer extends React.Component {
 
     render() {
         return (
-            <AgencyPage
-                loading={this.state.loading}
-                error={this.state.error}
-                id={this.props.agency.id}
-                agency={this.props.agency}
-                lastUpdate={this.state.lastUpdate}
-                isTreasury={this.state.isTreasury} />
+          <AgencyPage
+            loading={this.state.loading}
+            error={this.state.error}
+            id={this.props.agency.id}
+            agency={this.props.agency}
+            lastUpdate={this.state.lastUpdate}
+            isTreasury={this.state.isTreasury} />
         );
     }
 }

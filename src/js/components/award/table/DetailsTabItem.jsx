@@ -54,40 +54,40 @@ export default class DetailsTabItem extends React.Component {
         let infoTooltip = null;
         if (this.props.tooltipContent) {
             infoTooltip = (
-                <TooltipWrapper
-                    className="award-section-tt"
-                    icon="info"
-                    tooltipComponent={this.props.tooltipContent}
-                    {...this.props.tooltipProps} />);
+              <TooltipWrapper
+                className="award-section-tt"
+                icon="info"
+                tooltipComponent={this.props.tooltipContent}
+                {...this.props.tooltipProps} />);
         }
 
         let count = null;
 
         if (this.props.count || this.props.count === 0) {
             count = (
-                <div className={`count-badge ${activeClass}`}>
-                    {formatNumber(this.props.count)}
-                </div>
+              <div className={`count-badge ${activeClass}`}>
+                {formatNumber(this.props.count)}
+              </div>
             );
         }
 
         return (
-            <div className="table-type-toggle__wrapper">
-                <div
-                    role="button"
-                    onKeyDown={this.clickedButton}
-                    className={`table-type-toggle ${activeClass}${status}`}
-                    onClick={this.clickedButton}
-                    title={`Show ${this.props.label}`}
-                    disabled={disabledStatus}>
-                    <div className="tab-content">
-                            <span>{this.props.label}</span>
-                            {comingSoon}
-                            {count}
-                        </div>
-                    {infoTooltip}
+          <div className="table-type-toggle__wrapper">
+            <div
+              role="button"
+              onKeyDown={this.clickedButton}
+              className={`table-type-toggle ${activeClass}${status}`}
+              onClick={this.clickedButton}
+              title={`Show ${this.props.label}`}
+              disabled={disabledStatus}>
+                <div className="tab-content">
+                  <span>{this.props.label}</span>
+                  {comingSoon}
+                  {count}
                 </div>
+              {infoTooltip}
             </div>
+          </div>
         );
     }
 }

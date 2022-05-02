@@ -752,10 +752,10 @@ export class TopFilterBarContainer extends React.Component {
         let output = null;
         if (this.state.filters.length > 0) {
             output = (<TopFilterBar
-                {...this.props}
-                filters={this.state.filters}
-                filterCount={this.state.filterCount}
-                groupGenerator={topFilterGroupGenerator} />);
+              {...this.props}
+              filters={this.state.filters}
+              filterCount={this.state.filterCount}
+              groupGenerator={topFilterGroupGenerator} />);
         }
 
         return output;

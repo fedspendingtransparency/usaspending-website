@@ -136,12 +136,12 @@ export class StateContainer extends React.Component {
 
     render() {
         return (
-            <StatePage
-                loading={this.state.loading}
-                error={this.state.error}
-                id={this.props.stateProfile.id}
-                stateProfile={this.props.stateProfile}
-                pickedFy={this.onClickFy} />
+          <StatePage
+            loading={this.state.loading}
+            error={this.state.error}
+            id={this.props.stateProfile.id}
+            stateProfile={this.props.stateProfile}
+            pickedFy={this.onClickFy} />
         );
     }
 }

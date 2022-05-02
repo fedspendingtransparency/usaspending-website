@@ -38,13 +38,13 @@ export default class AggregatedAwardAmounts extends React.Component {
         if (this.props.inFlight) {
             // API request is still pending
             return (
-                <div className="visualization-message-container">
-                    <div className="visualization-loading">
-                        <div className="message">
+              <div className="visualization-message-container">
+                <div className="visualization-loading">
+                  <div className="message">
                             Gathering your data...
-                        </div>
-                    </div>
-                </div>);
+                  </div>
+                </div>
+              </div>);
         }
         else if (this.props.error) {
             return (<ChartError />);
@@ -53,44 +53,44 @@ export default class AggregatedAwardAmounts extends React.Component {
         const { awardAmounts } = this.props;
         const spendingScenario = determineSpendingScenarioByAwardType("idv", awardAmounts);
         return (
-            <div className="award-amounts__content">
-                <AwardsBanner
-                    jumpToReferencedAwardsTable={this.jumpToReferencedAwardsTable} />
+          <div className="award-amounts__content">
+            <AwardsBanner
+              jumpToReferencedAwardsTable={this.jumpToReferencedAwardsTable} />
                 <AwardAmountsChart
-                            showCaresActViz={this.props.showFileC}
-                            awardOverview={awardAmounts}
-                            awardType="idv"
-                            spendingScenario={spendingScenario} />
-                <AwardAmountsTable
-                                    awardAmountType="idv_aggregated"
-                                    showFileC={this.props.showFileC}
-                                    awardData={awardAmounts}
-                                    spendingScenario={spendingScenario} />
-                <div className="award-amounts-children__data-wrapper">
-                                            <span className="title-and-link-span">
-                        <p className="count-of-awards-title-text"><strong>Count of Awards Under this IDV</strong></p>
-                        <JumpToSectionButton
-                                linkText="View table of awards under this IDV"
-                                onClick={this.jumpToReferencedAwardsTable}
-                                icon="table" />
-                    </span>
-                    <div className="award-amounts-children__data-content">
-                            <div>Count of Child Contracts</div>
-                        <span>{formatNumber(awardAmounts.childAwardCount)}</span>
-                        </div>
-                    <div className="award-amounts-children__data-content">
-                                <div>Count of Child IDVs</div>
-                        <span>
-                                        {formatNumber(awardAmounts.childIDVCount)}
-                                    </span>
-                            </div>
-                    <div className="award-amounts-children__data-content">
-                                    <div>Count of Grandchild Contracts</div>
-                        <span>{formatNumber(awardAmounts.grandchildAwardCount)}</span>
+                  showCaresActViz={this.props.showFileC}
+                  awardOverview={awardAmounts}
+                  awardType="idv"
+                  spendingScenario={spendingScenario} />
+                    <AwardAmountsTable
+                      awardAmountType="idv_aggregated"
+                      showFileC={this.props.showFileC}
+                      awardData={awardAmounts}
+                      spendingScenario={spendingScenario} />
+                        <div className="award-amounts-children__data-wrapper">
+                          <span className="title-and-link-span">
+                            <p className="count-of-awards-title-text"><strong>Count of Awards Under this IDV</strong></p>
+                                <JumpToSectionButton
+                                    linkText="View table of awards under this IDV"
+                                    onClick={this.jumpToReferencedAwardsTable}
+                                    icon="table" />
+                          </span>
+                              <div className="award-amounts-children__data-content">
+                                  <div>Count of Child Contracts</div>
+                                      <span>{formatNumber(awardAmounts.childAwardCount)}</span>
                                 </div>
-                    <p className="total-title-text"><strong>Total: </strong>{`${formatNumber(awardAmounts.grandchildAwardCount + awardAmounts.childAwardCount + awardAmounts.childIDVCount)}`}</p>
-                                        </div>
-            </div>
+                                    <div className="award-amounts-children__data-content">
+                                <div>Count of Child IDVs</div>
+                                        <span>
+                                {formatNumber(awardAmounts.childIDVCount)}
+                              </span>
+                              </div>
+                                      <div className="award-amounts-children__data-content">
+                              <div>Count of Grandchild Contracts</div>
+                                          <span>{formatNumber(awardAmounts.grandchildAwardCount)}</span>
+                            </div>
+                                        <p className="total-title-text"><strong>Total: </strong>{`${formatNumber(awardAmounts.grandchildAwardCount + awardAmounts.childAwardCount + awardAmounts.childIDVCount)}`}</p>
+                        </div>
+          </div>
         );
     }
 }

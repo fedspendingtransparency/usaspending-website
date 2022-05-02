@@ -52,11 +52,11 @@ export class CFDASearchContainer extends React.Component {
 
     render() {
         return (
-            <CFDASearch
-                selectedCFDA={this.props.selectedCFDA}
-                dirtyFilters={this.dirtyFilters()}
-                selectCFDA={this.selectCFDA}
-                removeCFDA={this.removeCFDA} />
+          <CFDASearch
+            selectedCFDA={this.props.selectedCFDA}
+            dirtyFilters={this.dirtyFilters()}
+            selectCFDA={this.selectCFDA}
+            removeCFDA={this.removeCFDA} />
         );
     }
 }

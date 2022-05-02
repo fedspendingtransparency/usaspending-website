@@ -35,28 +35,28 @@ const DefaultAmountViz = ({
     className,
     publicLaw
 }) => (
-    <g>
-        <DefaultLineAndText
-            overviewData={overviewData}
-            className={className}
-            scale={scale}
-            displayTooltip={displayTooltip}
-            hideTooltip={hideTooltip}
-            tooltipId={tooltipId}
-            dataId={dataId}
-            width={width}
-            publicLaw={publicLaw} />
+  <g>
+    <DefaultLineAndText
+      overviewData={overviewData}
+      className={className}
+      scale={scale}
+      displayTooltip={displayTooltip}
+      hideTooltip={hideTooltip}
+      tooltipId={tooltipId}
+      dataId={dataId}
+      width={width}
+      publicLaw={publicLaw} />
         <Rectangle
-                    overviewData={overviewData}
-                    className={className}
-                    scale={scale}
-                    displayTooltip={displayTooltip}
-                    hideTooltip={hideTooltip}
-                    showTooltip={showTooltip}
-                    tooltipId={tooltipId}
-                    dataId={dataId}
-                    publicLaw={publicLaw} />
-    </g>
+          overviewData={overviewData}
+          className={className}
+          scale={scale}
+          displayTooltip={displayTooltip}
+          hideTooltip={hideTooltip}
+          showTooltip={showTooltip}
+          tooltipId={tooltipId}
+          dataId={dataId}
+          publicLaw={publicLaw} />
+  </g>
 );
 
 DefaultAmountViz.propTypes = propTypes;

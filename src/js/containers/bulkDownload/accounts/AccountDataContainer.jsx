@@ -196,18 +196,18 @@ export class AccountDataContainer extends React.Component {
 
     render() {
         return (
-            <AccountDataContent
-                setDefCodes={this.props.setDefCodes}
-                accounts={this.props.bulkDownload.accounts}
-                federalAccounts={this.state.federalAccounts}
-                setFederalAccountList={this.setFederalAccountList}
-                updateFilter={this.updateFilter}
-                clearAccountFilters={this.clearAccountFilters}
-                agencies={this.state.agencies}
-                budgetFunctions={this.state.budgetFunctions}
-                budgetSubfunctions={this.state.budgetSubfunctions}
-                setBudgetSubfunctionList={this.setBudgetSubfunctionList}
-                clickedDownload={this.props.clickedDownload} />
+          <AccountDataContent
+            setDefCodes={this.props.setDefCodes}
+            accounts={this.props.bulkDownload.accounts}
+            federalAccounts={this.state.federalAccounts}
+            setFederalAccountList={this.setFederalAccountList}
+            updateFilter={this.updateFilter}
+            clearAccountFilters={this.clearAccountFilters}
+            agencies={this.state.agencies}
+            budgetFunctions={this.state.budgetFunctions}
+            budgetSubfunctions={this.state.budgetSubfunctions}
+            setBudgetSubfunctionList={this.setBudgetSubfunctionList}
+            clickedDownload={this.props.clickedDownload} />
         );
     }
 }

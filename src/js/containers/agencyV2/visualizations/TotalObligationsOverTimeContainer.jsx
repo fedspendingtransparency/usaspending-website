@@ -73,18 +73,18 @@ const TotalObligationsOverTimeContainer = ({
     }, [handleWindowResize]);
 
     return (
-        <div ref={containerReference} className="total-obligations-over-time-visualization-container">
-            {isError && <ErrorMessage />}
-            {!isError && loading && <LoadingMessage />}
-            {!isError && !loading && !data.length && <GenericMessage title="Chart Not Available" description="No available data to display." className="usda-message" />}
-            {!isError && !loading && data.length > 0 &&
-                <TotalObligationsOverTimeVisualization
-                    width={visualizationWidth}
-                    agencyBudget={agencyBudget}
-                    data={data}
-                    fy={fy} />
+      <div ref={containerReference} className="total-obligations-over-time-visualization-container">
+        {isError && <ErrorMessage />}
+        {!isError && loading && <LoadingMessage />}
+        {!isError && !loading && !data.length && <GenericMessage title="Chart Not Available" description="No available data to display." className="usda-message" />}
+        {!isError && !loading && data.length > 0 &&
+        <TotalObligationsOverTimeVisualization
+          width={visualizationWidth}
+          agencyBudget={agencyBudget}
+          data={data}
+          fy={fy} />
             }
-        </div>
+      </div>
     );
 };
 TotalObligationsOverTimeContainer.propTypes = propTypes;

@@ -33,11 +33,11 @@ export default class ResultsTableGenericCell extends React.Component {
         }
 
         return (
-            <div className={`award-result-generic-cell ${rowClass}`}>
-                <div className="cell-content">
-                    {content}
-                </div>
+          <div className={`award-result-generic-cell ${rowClass}`}>
+            <div className="cell-content">
+              {content}
             </div>
+          </div>
         );
     }
 }

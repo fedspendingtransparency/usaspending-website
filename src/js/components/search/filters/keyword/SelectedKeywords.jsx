@@ -19,19 +19,19 @@ export default class SelectedKeywords extends React.Component {
             hideTags = '';
         }
         const shownKeywords = this.props.selectedKeywords.map((keyword) => (
-            <ShownValue
-                label={keyword}
-                key={keyword}
-                removeValue={this.props.toggleKeyword.bind(null, keyword)} />
+          <ShownValue
+            label={keyword}
+            key={keyword}
+            removeValue={this.props.toggleKeyword.bind(null, keyword)} />
         ));
 
         return (
-            <div
-                className={`selected-filters ${hideTags}`}
-                id="selected-keyword-tags"
-                role="status">
-                {shownKeywords}
-            </div>
+          <div
+            className={`selected-filters ${hideTags}`}
+            id="selected-keyword-tags"
+            role="status">
+            {shownKeywords}
+          </div>
         );
     }
 }

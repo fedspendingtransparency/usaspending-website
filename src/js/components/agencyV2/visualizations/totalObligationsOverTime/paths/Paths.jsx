@@ -40,24 +40,24 @@ const Paths = ({
     padding,
     scenario
 }) => (
-    <g className="paths">
-        <AreaPath
-            data={data}
-            description={description}
-            xScale={xScale}
-            yScale={yScale}
-            height={height}
-            width={width}
-            padding={padding}
-            scenario={scenario} />
+  <g className="paths">
+    <AreaPath
+      data={data}
+      description={description}
+      xScale={xScale}
+      yScale={yScale}
+      height={height}
+      width={width}
+      padding={padding}
+      scenario={scenario} />
         <Path
-                    data={data.sort((a, b) => a.endDate - b.endDate)}
-                    description={description}
-                    xScale={xScaleForPath}
-                    yScale={yScaleForPath}
-                    height={height}
-                    padding={padding} />
-    </g>
+          data={data.sort((a, b) => a.endDate - b.endDate)}
+          description={description}
+          xScale={xScaleForPath}
+          yScale={yScaleForPath}
+          height={height}
+          padding={padding} />
+  </g>
 );
 
 Paths.propTypes = propTypes;

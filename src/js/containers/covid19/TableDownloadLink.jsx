@@ -65,10 +65,10 @@ const TableDownloadLink = ({ defCodes, awardTypeCodes, query }) => {
     };
 
     return (
-        <TableDownloadIconButton
-            downloadInFlight={downloadInFlight}
-            onClick={downloadData}
-            alternativeStyle />
+      <TableDownloadIconButton
+        downloadInFlight={downloadInFlight}
+        onClick={downloadData}
+        alternativeStyle />
     );
 };
 

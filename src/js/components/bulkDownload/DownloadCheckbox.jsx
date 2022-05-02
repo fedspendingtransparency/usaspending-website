@@ -32,15 +32,15 @@ export default class DownloadCheckbox extends React.Component {
         const name = this.props.name;
         const label = this.props.label;
         return (
-            <div className="download-checkbox">
-                <input
-                    id={name}
-                    name={name}
-                    type="checkbox"
-                    checked={this.props.checked}
-                    onChange={this.handleInputChange} />
+          <div className="download-checkbox">
+            <input
+              id={name}
+              name={name}
+              type="checkbox"
+              checked={this.props.checked}
+              onChange={this.handleInputChange} />
                 <label htmlFor={name}>{label}</label>
-            </div>
+          </div>
         );
     }
 }

@@ -18,14 +18,14 @@ export default class MapLegendItem extends React.Component {
         };
 
         return (
-            <li className="map-legend-item-container">
-                <div className="map-legend-item">
-                    <div className="color-swatch" style={swatchStyle} />
-                    <div className="label">
-                            {this.props.label}
-                        </div>
+          <li className="map-legend-item-container">
+            <div className="map-legend-item">
+              <div className="color-swatch" style={swatchStyle} />
+                <div className="label">
+                  {this.props.label}
                 </div>
-            </li>
+            </div>
+          </li>
         );
     }
 }

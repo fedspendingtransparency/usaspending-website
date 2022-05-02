@@ -96,125 +96,125 @@ export default class GeoVisualizationSection extends React.Component {
     render() {
         if (!MapboxGL.supported()) {
             return (
-                <div className="results-table-message-container">
-                    <ResultsTableErrorMessage title="WebGL Required for this map." description="Please enable WebGL in your browser settings to view this map visualization." />
-                </div>
+              <div className="results-table-message-container">
+                <ResultsTableErrorMessage title="WebGL Required for this map." description="Please enable WebGL in your browser settings to view this map visualization." />
+              </div>
             );
         }
 
         let disclaimer = null;
         if (this.state.showDisclaimer) {
             disclaimer = (<MapDisclaimer
-                closeDisclaimer={this.closeDisclaimer} />);
+              closeDisclaimer={this.closeDisclaimer} />);
         }
 
         let message = null;
 
         if (this.props.loading) {
             message = (
-                <MapMessage>
-                    <div className="map-loading">
-                        <LoadingSpinner />
-                        <div className="loading-message">
+              <MapMessage>
+                <div className="map-loading">
+                  <LoadingSpinner />
+                    <div className="loading-message">
                             Gathering your data...
-                            </div>
                     </div>
-                </MapMessage>
+                </div>
+              </MapMessage>
             );
         }
         else if (this.props.error) {
             message = (
-                <MapMessage>
-                    <div className="map-no-results">
-                        <div className="error-icon">
-                            <ExclamationTriangle alt="An error occurred" />
-                        </div>
-                        <div className="title">
+              <MapMessage>
+                <div className="map-no-results">
+                  <div className="error-icon">
+                    <ExclamationTriangle alt="An error occurred" />
+                  </div>
+                    <div className="title">
                             An error occurred.
-                            </div>
-                        <div className="description">
-                            Something went wrong while gathering your data.
-                                </div>
                     </div>
-                </MapMessage>
+                      <div className="description">
+                            Something went wrong while gathering your data.
+                      </div>
+                </div>
+              </MapMessage>
             );
         }
         else if (this.props.noResults) {
             message = (
-                <MapMessage>
-                    <div className="map-no-results">
-                        <div className="no-results-icon" />
-                        <div className="title">
+              <MapMessage>
+                <div className="map-no-results">
+                  <div className="no-results-icon" />
+                    <div className="title">
                             No results found in the current map area.
-                            </div>
                     </div>
-                </MapMessage>
+                </div>
+              </MapMessage>
             );
         }
 
         return (
-            <section
-                className="results-visualization-geo-section"
-                id="results-section-geo"
-                aria-label="Spending by Geography">
-                <h2 className="visualization-title">
+          <section
+            className="results-visualization-geo-section"
+            id="results-section-geo"
+            aria-label="Spending by Geography">
+              <h2 className="visualization-title">
                     Spending by Geography
-                    </h2>
+              </h2>
                 <hr
-                            className="results-divider"
-                            ref={(hr) => {
+                  className="results-divider"
+                  ref={(hr) => {
                         this.sectionHr = hr;
                     }} />
 
-                <div className="visualization-top">
-                            <div className="visualization-description">
-                        <div className="content">
+                      <div className="visualization-top">
+                        <div className="visualization-description">
+                          <div className="content">
                             Explore the map to see a breakdown of spending by state, county, or congressional district. View your results by place of performance or recipient location, and hover over your chosen location for more detailed information.
-                                </div>
-                    </div>
+                          </div>
+                        </div>
 
-                    <div className="visualization-period">
+                          <div className="visualization-period">
                             <div className="content">
-                            <ul>
-                                    <li>
-                                    <GeoVisualizationScopeButton
-                                            value="place_of_performance"
-                                            label="Place of Performance"
-                                            active={this.props.scope === 'place_of_performance'}
-                                            changeScope={this.props.changeScope} />
-                                </li>
+                              <ul>
                                 <li>
-                                        <GeoVisualizationScopeButton
-                                        value="recipient_location"
-                                        label="Recipient Location"
-                                        active={this.props.scope === 'recipient_location'}
-                                        changeScope={this.props.changeScope} />
-                                    </li>
-                                </ul>
-                        </div>
-                        </div>
-                        </div>
+                                  <GeoVisualizationScopeButton
+                                    value="place_of_performance"
+                                    label="Place of Performance"
+                                    active={this.props.scope === 'place_of_performance'}
+                                    changeScope={this.props.changeScope} />
+                                </li>
+                                  <li>
+                                    <GeoVisualizationScopeButton
+                                value="recipient_location"
+                                label="Recipient Location"
+                                active={this.props.scope === 'recipient_location'}
+                                changeScope={this.props.changeScope} />
+                                  </li>
+                              </ul>
+                            </div>
+                          </div>
+                      </div>
 
-                <MapWrapper
-                                data={this.props.data}
-                                renderHash={this.props.renderHash}
-                                scope={this.props.mapLayer}
-                                changeMapLayer={this.props.changeMapLayer}
-                                showHover={this.state.showHover}
-                                selectedItem={this.state.selectedItem}
-                                showTooltip={this.showTooltip}
-                                hideTooltip={this.hideTooltip}
-                                tooltip={GeoVisualizationTooltip}
-                                availableLayers={availableLayers}
-                                showLayerToggle
-                                center={[-95.569430, 38.852892]}
-                                mapLegendToggle={this.props.mapLegendToggle}
-                                updateMapLegendToggle={this.props.updateMapLegendToggle}>
-                                {disclaimer}
-                                {message}
-                            </MapWrapper>
-                <Note message={noteMessage} />
-            </section>
+                        <MapWrapper
+                          data={this.props.data}
+                          renderHash={this.props.renderHash}
+                          scope={this.props.mapLayer}
+                          changeMapLayer={this.props.changeMapLayer}
+                          showHover={this.state.showHover}
+                          selectedItem={this.state.selectedItem}
+                          showTooltip={this.showTooltip}
+                          hideTooltip={this.hideTooltip}
+                          tooltip={GeoVisualizationTooltip}
+                          availableLayers={availableLayers}
+                          showLayerToggle
+                          center={[-95.569430, 38.852892]}
+                          mapLegendToggle={this.props.mapLegendToggle}
+                          updateMapLegendToggle={this.props.updateMapLegendToggle}>
+                          {disclaimer}
+                          {message}
+                        </MapWrapper>
+                          <Note message={noteMessage} />
+          </section>
         );
     }
 }

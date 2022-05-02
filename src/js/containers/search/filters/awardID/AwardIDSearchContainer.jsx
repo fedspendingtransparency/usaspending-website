@@ -61,10 +61,10 @@ export class AwardIDSearchContainer extends React.Component {
 
     render() {
         return (
-            <AwardIDSearch
-                dirtyFilters={this.dirtyFilters()}
-                selectedAwardIDs={this.props.selectedAwardIDs}
-                toggleAwardID={this.toggleAwardID} />
+          <AwardIDSearch
+            dirtyFilters={this.dirtyFilters()}
+            selectedAwardIDs={this.props.selectedAwardIDs}
+            toggleAwardID={this.toggleAwardID} />
         );
     }
 }

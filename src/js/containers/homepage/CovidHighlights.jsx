@@ -285,88 +285,88 @@ export class CovidHighlights extends React.Component {
             : this.state.highlights;
 
         return (
-            <section className="covid-hero" aria-label="Introduction">
-                <div id="covid-hero__wrapper" className="covid-hero__wrapper">
-                    <div className="covid-hero__content">
-                        <h1 className="covid-hero__headline" tabIndex={-1}>
-                            <span>The federal government has spent </span>
-                            <span>
-                                    {isAmountLoading && <div className="dot-pulse" />}
-                                <TotalAmount
-                                            completeIncrement={this.completeIncrementAndTriggerScroll}
-                                            className={`covid-hero__headline--amount${isAmountLoading ? '' : ' show-amount'}`}
-                                            total={totalSpendingAmount}
-                                            isLoading={isAmountLoading} />
-                                </span>&nbsp;
-                            <strong>in response to&nbsp;</strong>
-                            <span>
-                                    <div className="covid-homepage-tooltip">
+          <section className="covid-hero" aria-label="Introduction">
+            <div id="covid-hero__wrapper" className="covid-hero__wrapper">
+              <div className="covid-hero__content">
+                <h1 className="covid-hero__headline" tabIndex={-1}>
+                  <span>The federal government has spent </span>
+                    <span>
+                      {isAmountLoading && <div className="dot-pulse" />}
+                        <TotalAmount
+                          completeIncrement={this.completeIncrementAndTriggerScroll}
+                          className={`covid-hero__headline--amount${isAmountLoading ? '' : ' show-amount'}`}
+                          total={totalSpendingAmount}
+                          isLoading={isAmountLoading} />
+                    </span>&nbsp;
+                      <strong>in response to&nbsp;</strong>
+                        <span>
+                          <div className="covid-homepage-tooltip">
                                     COVID-19.
-                                    <TooltipWrapper
-                                            icon="info"
-                                            offsetAdjustments={{
+                              <TooltipWrapper
+                                  icon="info"
+                                  offsetAdjustments={{
                                             top: 0
                                         }}
-                                            tooltipComponent={<HomePageTooltip />} />
-                                </div>
-                                </span>
-                        </h1>
-                        <div className="covid-profile-link__button-wrap">
-                                <Link
-                                className="covid-profile-link__button"
-                                to="/disaster/covid-19"
-                                onClick={this.trackLink}>
-                                View all COVID-19 spending
-                            </Link>
-                            <hr />
+                                  tooltipComponent={<HomePageTooltip />} />
                             </div>
-                        <p><strong>USAspending is the official open data source of federal spending information.</strong></p>
-                        <p>We track how federal money is spent in communities across America and beyond. Learn more about government spending through interactive tools that explore elements of the federal budget, such as federal loan, grant, and contract data.</p>
-                    </div>
-                    <div
-                            className="covid-hero__content"
-                            ref={(scroll) => {
+                        </span>
+                </h1>
+                  <div className="covid-profile-link__button-wrap">
+                    <Link
+                      className="covid-profile-link__button"
+                      to="/disaster/covid-19"
+                      onClick={this.trackLink}>
+                                View all COVID-19 spending
+                    </Link>
+                      <hr />
+                  </div>
+                    <p><strong>USAspending is the official open data source of federal spending information.</strong></p>
+                      <p>We track how federal money is spent in communities across America and beyond. Learn more about government spending through interactive tools that explore elements of the federal budget, such as federal loan, grant, and contract data.</p>
+              </div>
+                <div
+                  className="covid-hero__content"
+                  ref={(scroll) => {
                             this.scrollBar = scroll;
                         }}>
-                        <ul
-                                className="covid-highlights"
-                                onFocus={this.handleHover}
-                                onMouseLeave={this.handleBlur}
-                                onMouseEnter={this.handleHover}
-                                onBlur={this.handleBlur}>
-                                {highlights
+                          <ul
+                            className="covid-highlights"
+                            onFocus={this.handleHover}
+                            onMouseLeave={this.handleBlur}
+                            onMouseEnter={this.handleHover}
+                            onBlur={this.handleBlur}>
+                            {highlights
                                 .filter((highlight) => highlight.outlay > 0 || highlight.showLoading)
                                 .map((highlight) => {
                                     if (highlight.showLoading) {
                                         return (
-                                            <li key={uniqueId('loading')}className="covid-highlights__highlight loading">
-                                                <FontAwesomeIcon icon="spinner" spin color="white" />
-                                            </li>
+                                          <li key={uniqueId('loading')}className="covid-highlights__highlight loading">
+                                            <FontAwesomeIcon icon="spinner" spin color="white" />
+                                          </li>
                                         );
                                     }
                                     return (
-                                        <li
-                                            key={uniqueId(highlight.description)}
-                                            className="covid-highlights__highlight">
-                                            <span className="covid-highlight__description">{highlight.description}</span>
+                                      <li
+                                        key={uniqueId(highlight.description)}
+                                        className="covid-highlights__highlight">
+                                          <span className="covid-highlight__description">{highlight.description}</span>
                                             <span className="covid-highlight__amount">{formatMoneyWithPrecision(highlight.outlay, 0)}</span>
-                                            <span>OUTLAYED AMOUNT</span>
-                                        </li>
+                                              <span>OUTLAYED AMOUNT</span>
+                                      </li>
                                     );
                                 })
                             }
-                            </ul>
-                        </div>
-                    <div
-                                className="covid-background"
-                                style={{
+                          </ul>
+                </div>
+                  <div
+                    className="covid-background"
+                    style={{
                             width: `${this.state.imgDimensions.width}px`,
                             height: `${this.state.imgDimensions.height}px`,
                             zIndex: 9
                         }} />
-                    <HeroButton />
-                </div>
-            </section>
+                          <HeroButton />
+            </div>
+          </section>
         );
     }
 }

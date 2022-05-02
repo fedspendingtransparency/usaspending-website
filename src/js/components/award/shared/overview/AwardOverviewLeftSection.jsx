@@ -24,14 +24,14 @@ const AwardOverviewLeftSection = ({
     awardType,
     awardId
 }) => (
-    <AwardSection type="column" className="award-overview__left-section award-overview-column">
-        <AwardingAgency awardingAgency={awardingAgency} />
-        <Recipient
-                recipient={recipient}
-                recordType={recordType}
-                awardType={awardType}
-                awardId={awardId} />
-    </AwardSection>
+  <AwardSection type="column" className="award-overview__left-section award-overview-column">
+    <AwardingAgency awardingAgency={awardingAgency} />
+      <Recipient
+        recipient={recipient}
+        recordType={recordType}
+        awardType={awardType}
+        awardId={awardId} />
+  </AwardSection>
 );
 
 AwardOverviewLeftSection.propTypes = propTypes;

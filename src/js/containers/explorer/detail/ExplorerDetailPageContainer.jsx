@@ -44,7 +44,7 @@ export class ExplorerDetailPageContainer extends React.Component {
 
     render() {
         return (
-            <ExplorerDetailPage />
+          <ExplorerDetailPage />
         );
     }
 }

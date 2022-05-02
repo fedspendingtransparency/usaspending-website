@@ -40,13 +40,13 @@ export class ExtentCompetedContainer extends React.Component {
 
     render() {
         return (
-            <ContractFilter
-                extentCompeted={this.props.extentCompeted}
-                dirtyFilters={this.dirtyFilters()}
-                contractFilterType="extent_competed"
-                contractFilterOptions="extentCompetedDefinitions"
-                contractFilterState="extentCompeted"
-                toggleFilter={this.selectExtentCompeted} />
+          <ContractFilter
+            extentCompeted={this.props.extentCompeted}
+            dirtyFilters={this.dirtyFilters()}
+            contractFilterType="extent_competed"
+            contractFilterOptions="extentCompetedDefinitions"
+            contractFilterState="extentCompeted"
+            toggleFilter={this.selectExtentCompeted} />
         );
     }
 }

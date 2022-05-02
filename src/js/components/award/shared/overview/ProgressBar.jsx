@@ -429,16 +429,16 @@ export default class ProgressBar extends Component {
         const { progressTextData, badDomainData } = this.state;
         if (!progressTextData.display || badDomainData) return null;
         return (
-            <g tabIndex="0">
-                <desc>{this.props.descriptions.progressTextDescription}</desc>
-                <text
-                        className={progressTextData.className}
-                        x={progressTextData.x}
-                        y={progressTextData.y}
-                        ref={this.setTextDiv}>
-                        {progressTextData.text}
-                    </text>
-            </g>
+          <g tabIndex="0">
+            <desc>{this.props.descriptions.progressTextDescription}</desc>
+              <text
+                className={progressTextData.className}
+                x={progressTextData.x}
+                y={progressTextData.y}
+                ref={this.setTextDiv}>
+                {progressTextData.text}
+              </text>
+          </g>
         );
     };
     // progress bar
@@ -452,18 +452,18 @@ export default class ProgressBar extends Component {
         const description = descriptions.progressDescription;
 
         return (
-            <g tabIndex="0">
-                <desc>{description}</desc>
-                <rect
-                        className="progress-bar-shapes__base-rectangle"
-                        style={style}
-                        x={startPosition}
-                        y={0}
-                        rx={rectHeight}
-                        ry={rectHeight}
-                        width={endPosition - startPosition}
-                        height={heightOfProgressBar} />
-            </g>
+          <g tabIndex="0">
+            <desc>{description}</desc>
+              <rect
+                className="progress-bar-shapes__base-rectangle"
+                style={style}
+                x={startPosition}
+                y={0}
+                rx={rectHeight}
+                ry={rectHeight}
+                width={endPosition - startPosition}
+                height={heightOfProgressBar} />
+          </g>
         );
     };
     // create circle
@@ -478,14 +478,14 @@ export default class ProgressBar extends Component {
             r
         } = circleData;
         return (
-            <g key={key} tabIndex="0">
-                <desc>{description}</desc>
-                <circle
-                        className={className}
-                        cx={cx}
-                        cy={cy}
-                        r={r} />
-            </g>
+          <g key={key} tabIndex="0">
+            <desc>{description}</desc>
+              <circle
+                className={className}
+                cx={cx}
+                cy={cy}
+                r={r} />
+          </g>
         );
     };
     // create line
@@ -502,24 +502,24 @@ export default class ProgressBar extends Component {
             y2
         } = lineData;
         return (
-            <g key={key} tabIndex="0">
-                <desc>{description}</desc>
-                <line
-                        className={className}
-                        x1={x1}
-                        x2={x2}
-                        y1={y1}
-                        y2={y2} />
-            </g>
+          <g key={key} tabIndex="0">
+            <desc>{description}</desc>
+              <line
+                className={className}
+                x1={x1}
+                x2={x2}
+                y1={y1}
+                y2={y2} />
+          </g>
         );
     };
     progressTriangle = () => (
-        <g tabIndex="0">
-            <desc>{this.props.descriptions.progressTriangleDescription}</desc>
-            <polygon
-                    points={this.state.progressTriangleData}
-                    className="progress-bar-shapes__polygon" />
-        </g>
+      <g tabIndex="0">
+        <desc>{this.props.descriptions.progressTriangleDescription}</desc>
+          <polygon
+            points={this.state.progressTriangleData}
+            className="progress-bar-shapes__polygon" />
+      </g>
     );
     // progression milestones ( removes milestones that have display false )
     milestones = () => compact(
@@ -539,9 +539,9 @@ export default class ProgressBar extends Component {
         const { progressBarPatternData } = this.state;
         if (isEmpty(progressBarPatternData)) return null;
         return (
-            <RectanglePattern
-                patternProps={progressBarPatternData.patternProps}
-                rectangles={progressBarPatternData.rectangles} />
+          <RectanglePattern
+            patternProps={progressBarPatternData.patternProps}
+            rectangles={progressBarPatternData.rectangles} />
         );
     };
 
@@ -550,21 +550,21 @@ export default class ProgressBar extends Component {
         const { heightOfSVG, width } = this.props;
         if (!xScaleProgressBar || !xScaleWithinCircles || badDomainData) return null;
         return (
-            <svg
-                className="progress-bar"
-                width={width}
-                height={heightOfSVG}>
-                <g className="progress-bar-shapes">
-                        <g>
-                        <defs>{this.progressBarPattern()}</defs>
-                        {this.progressBar()}
-                    </g>
-                        {this.milestones()}
-                        {this.progressVerticalLine()}
-                        {this.progressText()}
-                        {this.progressTriangle()}
-                    </g>
-            </svg>
+          <svg
+            className="progress-bar"
+            width={width}
+            height={heightOfSVG}>
+              <g className="progress-bar-shapes">
+                <g>
+                  <defs>{this.progressBarPattern()}</defs>
+                  {this.progressBar()}
+                </g>
+                {this.milestones()}
+                {this.progressVerticalLine()}
+                {this.progressText()}
+                {this.progressTriangle()}
+              </g>
+          </svg>
         );
     }
 }

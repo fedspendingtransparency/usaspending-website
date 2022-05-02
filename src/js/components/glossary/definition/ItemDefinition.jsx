@@ -22,8 +22,8 @@ export default class ItemDefinition extends React.Component {
         let resources = null;
         if (this.props.resources && this.props.resources !== '') {
             resources = (<MoreResources
-                resources={this.props.resources}
-                transformLink={this.transformLink} />);
+              resources={this.props.resources}
+              transformLink={this.transformLink} />);
         }
 
         let term = this.props.term;
@@ -32,21 +32,21 @@ export default class ItemDefinition extends React.Component {
         }
 
         return (
-            <div className="definition-wrapper">
-                <h2 className="term">
-                    {term}
-                </h2>
+          <div className="definition-wrapper">
+            <h2 className="term">
+              {term}
+            </h2>
 
-                <div className="definition-content">
-                        <ReactMarkdown
-                        source={this.props[this.props.type]}
-                        renderers={Object.assign({}, ReactMarkdown.renderers, {
+              <div className="definition-content">
+                <ReactMarkdown
+                  source={this.props[this.props.type]}
+                  renderers={Object.assign({}, ReactMarkdown.renderers, {
                             Link: SmartLink
                         })} />
-                    </div>
+              </div>
 
-                {resources}
-            </div>
+            {resources}
+          </div>
         );
     }
 }

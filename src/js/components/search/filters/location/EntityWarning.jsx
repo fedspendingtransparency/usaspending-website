@@ -14,17 +14,17 @@ const propTypes = {
 };
 
 const EntityWarning = (props) => (
-    <div className="warning-tooltip">
-        <div className="warning-content">
-            <div className="tooltip-pointer left" />
-            <div className="icon">
-                    <ExclamationTriangle alt="Warning" />
-                </div>
-            <div className="message">
-                        {props.message}
-                    </div>
+  <div className="warning-tooltip">
+    <div className="warning-content">
+      <div className="tooltip-pointer left" />
+        <div className="icon">
+          <ExclamationTriangle alt="Warning" />
         </div>
+          <div className="message">
+            {props.message}
+          </div>
     </div>
+  </div>
 );
 
 EntityWarning.propTypes = propTypes;

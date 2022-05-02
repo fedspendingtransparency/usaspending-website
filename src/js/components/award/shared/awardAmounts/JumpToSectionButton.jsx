@@ -9,16 +9,16 @@ const propTypes = {
 };
 
 const JumpToSectionButton = ({ onClick, linkText, icon }) => (
-    <button
-        onClick={onClick}
-        className="award-viz__button">
-        <div className="award-viz__link-icon">
-                <FontAwesomeIcon icon={icon} />
-            </div>
+  <button
+    onClick={onClick}
+    className="award-viz__button">
+      <div className="award-viz__link-icon">
+        <FontAwesomeIcon icon={icon} />
+      </div>
         <div className="award-viz__link-text">
-                    {linkText}
-                </div>
-    </button>
+          {linkText}
+        </div>
+  </button>
 );
 
 JumpToSectionButton.propTypes = propTypes;

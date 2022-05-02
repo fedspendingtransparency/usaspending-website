@@ -12,18 +12,18 @@ import PaneFeature from './PaneFeature';
 import ProfileFeature from './ProfileFeature';
 
 const Features = () => (
-    <section
-        id="homepage-features"
-        className="homepage-features"
-        aria-label="Web site features">
-        <div className="homepage-features__content">
-                <CovidFeatureContainer />
-            <PaneFeature />
+  <section
+    id="homepage-features"
+    className="homepage-features"
+    aria-label="Web site features">
+      <div className="homepage-features__content">
+        <CovidFeatureContainer />
+          <PaneFeature />
             <SpendingExplorerFeature />
-            <SearchFeature />
-            <ProfileFeature />
-            </div>
-    </section>
+              <SearchFeature />
+                <ProfileFeature />
+      </div>
+  </section>
 );
 
 export default Features;

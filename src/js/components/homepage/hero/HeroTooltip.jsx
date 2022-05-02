@@ -91,33 +91,33 @@ export default class HeroTooltip extends React.Component {
 
     render() {
         return (
-            <div
-                ref={this.setWrapperRef}
-                className="homepage-hero-tooltip"
-                onMouseLeave={this.props.closeTooltip}
-                onBlur={this.props.closeTooltip}
-                style={{
+          <div
+            ref={this.setWrapperRef}
+            className="homepage-hero-tooltip"
+            onMouseLeave={this.props.closeTooltip}
+            onBlur={this.props.closeTooltip}
+            style={{
                     top: this.state.iconTop,
                     left: this.state.iconLeft
                 }}>
-                <div className="homepage-hero-tooltip__info_icon">
-                        <Icons.InfoCircle />
-                    </div>
-                <div className="homepage-hero-tooltip__text_holder">
-                            <div className="homepage-hero-tooltip__tooltip_title">
+                  <div className="homepage-hero-tooltip__info_icon">
+                    <Icons.InfoCircle />
+                  </div>
+                    <div className="homepage-hero-tooltip__text_holder">
+                      <div className="homepage-hero-tooltip__tooltip_title">
                         Data Source:
-                    </div>
-                    <div className="homepage-hero-tooltip__tooltip_text">
+                      </div>
+                        <div className="homepage-hero-tooltip__tooltip_text">
                         Fiscal Year {this.props.fiscalYear} net outlays as reported on the&nbsp;
-                        <a
-                                href="https://www.fiscal.treasury.gov/reports-statements/mts/current.html"
-                                target="_blank"
-                                rel="noopener noreferrer">
+                          <a
+                            href="https://www.fiscal.treasury.gov/reports-statements/mts/current.html"
+                            target="_blank"
+                            rel="noopener noreferrer">
                             Monthly Treasury Statement
-                            </a>
+                          </a>
                         </div>
-                        </div>
-            </div>
+                    </div>
+          </div>
         );
     }
 }

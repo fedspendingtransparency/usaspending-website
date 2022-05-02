@@ -157,20 +157,20 @@ ${account}`;
 
     render() {
         return (
-            <FederalAccountVisualization
-                activeFY={this.props.activeFY}
-                obligatedAmount={this.props.obligatedAmount}
-                linkSeries={this.state.linkSeries}
-                dataSeries={this.state.dataSeries}
-                labelSeries={this.state.labelSeries}
-                descriptions={this.state.descriptions}
-                loading={this.state.loading}
-                error={this.state.error}
-                isInitialLoad={this.state.isInitialLoad}
-                asOfDate={this.props.asOfDate}
-                page={this.state.page}
-                isLastPage={this.state.isLastPage}
-                changePage={this.changePage} />
+          <FederalAccountVisualization
+            activeFY={this.props.activeFY}
+            obligatedAmount={this.props.obligatedAmount}
+            linkSeries={this.state.linkSeries}
+            dataSeries={this.state.dataSeries}
+            labelSeries={this.state.labelSeries}
+            descriptions={this.state.descriptions}
+            loading={this.state.loading}
+            error={this.state.error}
+            isInitialLoad={this.state.isInitialLoad}
+            asOfDate={this.props.asOfDate}
+            page={this.state.page}
+            isLastPage={this.state.isLastPage}
+            changePage={this.changePage} />
         );
     }
 }

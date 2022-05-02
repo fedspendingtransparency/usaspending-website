@@ -62,43 +62,43 @@ const TableHeaderCell = (props) => {
     /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
     // allow the sort cell to be selectable
     return (
-        <div className={`award-result-header-cell ${lastClass}`}>
-            <div
-                className="cell-content"
-                onClick={clickedDefault}
-                onKeyDown={pressedKey}
-                role="presentation"
-                tabIndex={0}>
-                <div className="header-sort">
-                        <div className="header-label">
-                        {props.title}
-                    </div>
-                        {
+      <div className={`award-result-header-cell ${lastClass}`}>
+        <div
+          className="cell-content"
+          onClick={clickedDefault}
+          onKeyDown={pressedKey}
+          role="presentation"
+          tabIndex={0}>
+            <div className="header-sort">
+              <div className="header-label">
+                {props.title}
+              </div>
+              {
                         props.defaultDirection &&
                         <div className="header-icons">
+                          <button
+                            onClick={clickedSort}
+                            className={`sort-icon${activeAsc}`}
+                            value="asc"
+                            title={`Sort table by ascending ${props.title}`}
+                            aria-label={`Sort table by ascending ${props.title}`}>
+                              <ArrowUp
+                                alt={`Sort table by ascending ${props.title}`} />
+                          </button>
                             <button
-                                onClick={clickedSort}
-                                className={`sort-icon${activeAsc}`}
-                                value="asc"
-                                title={`Sort table by ascending ${props.title}`}
-                                aria-label={`Sort table by ascending ${props.title}`}>
-                                <ArrowUp
-                                        alt={`Sort table by ascending ${props.title}`} />
-                            </button>
-                            <button
-                                    onClick={clickedSort}
-                                    className={`sort-icon${activeDesc}`}
-                                    value="desc"
-                                    title={`Sort table by descending ${props.title}`}
-                                    aria-label={`Sort table by descending ${props.title}`}>
+                              onClick={clickedSort}
+                              className={`sort-icon${activeDesc}`}
+                              value="desc"
+                              title={`Sort table by descending ${props.title}`}
+                              aria-label={`Sort table by descending ${props.title}`}>
                                 <ArrowDown
-                                            alt={`Sort table by descending ${props.title}`} />
-                                </button>
+                                  alt={`Sort table by descending ${props.title}`} />
+                            </button>
                         </div>
                     }
-                    </div>
             </div>
         </div>
+      </div>
     );
     /* eslint-enable jsx-a11y/no-static-element-interactions */
 };

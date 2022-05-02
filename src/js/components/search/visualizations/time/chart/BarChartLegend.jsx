@@ -15,13 +15,13 @@ const propTypes = {
 export default class BarChartLegend extends React.Component {
     render() {
         const items = this.props.legend.map((item) => (<BarChartLegendItem
-            {...item}
-            key={item.label} />));
+          {...item}
+          key={item.label} />));
 
         return (
-            <g className="chart-legend">
-                {items}
-            </g>
+          <g className="chart-legend">
+            {items}
+          </g>
         );
     }
 }

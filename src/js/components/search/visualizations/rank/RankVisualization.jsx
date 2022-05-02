@@ -88,38 +88,38 @@ export default class RankVisualization extends React.Component {
             // Height is number of results * item height + 30px padding
             const height = (this.props.dataSeries.length * itemHeight) + 30;
             chart = (
-                <HorizontalChart
-                    {...this.props}
-                    itemHeight={itemHeight}
-                    height={height}
-                    selectItem={this.selectItem}
-                    deselectItem={this.deselectItem} />
+              <HorizontalChart
+                {...this.props}
+                itemHeight={itemHeight}
+                height={height}
+                selectItem={this.selectItem}
+                deselectItem={this.deselectItem} />
             );
             legend = (
-                <div className="visualization-legend">
-                    <div className="visualization-legend__circle" />
-                    <div className="visualization-legend__label">
+              <div className="visualization-legend">
+                <div className="visualization-legend__circle" />
+                  <div className="visualization-legend__label">
                         Amount Obligated
-                        </div>
-                </div>
+                  </div>
+              </div>
             );
         }
 
         let tooltip = null;
         if (this.state.showTooltip) {
             tooltip = (<RankVisualizationTooltip
-                {...this.state.selectedItem}
-                {...this.props.meta} />);
+              {...this.state.selectedItem}
+              {...this.props.meta} />);
         }
 
         return (
-            <section
-                className="results-visualization-rank-container"
-                aria-label="Spending by Category">
-                {chart}
-                {legend}
-                {tooltip}
-            </section>
+          <section
+            className="results-visualization-rank-container"
+            aria-label="Spending by Category">
+            {chart}
+            {legend}
+            {tooltip}
+          </section>
         );
     }
 }

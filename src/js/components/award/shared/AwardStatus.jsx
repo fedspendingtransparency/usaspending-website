@@ -51,12 +51,12 @@ const AwardStatus = ({ dates, awardType }) => {
 
     const time = timeRemaining();
     return (
-        <div className="award-status-container">
-            <h5 className={`award-status__text award-status-container__status ${time ? 'award-status__text-space' : ''}`}>
-                {awardStatus()}
-            </h5>
-            <h5 className="award-status__text award-status-container__time-remaining">{time}</h5>
-        </div>
+      <div className="award-status-container">
+        <h5 className={`award-status__text award-status-container__status ${time ? 'award-status__text-space' : ''}`}>
+          {awardStatus()}
+        </h5>
+          <h5 className="award-status__text award-status-container__time-remaining">{time}</h5>
+      </div>
     );
 };
 

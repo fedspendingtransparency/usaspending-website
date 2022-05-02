@@ -47,12 +47,12 @@ export default class DataDictionaryTable extends React.Component {
                 cellClass = 'dictionary-table__head-cell_last';
             }
             return (
-                <th
-                    key={section.section}
-                    className={`dictionary-table__head-cell section-${i} ${cellClass}`}
-                    colSpan={section.colspan}>
-                    {section.section}
-                </th>
+              <th
+                key={section.section}
+                className={`dictionary-table__head-cell section-${i} ${cellClass}`}
+                colSpan={section.colspan}>
+                {section.section}
+              </th>
             );
         });
     }
@@ -73,22 +73,22 @@ export default class DataDictionaryTable extends React.Component {
                     cellClass = 'dictionary-table__head-cell_last';
                 }
                 return (
-                    <th
-                        key={col.raw}
-                        className={`dictionary-table__head-cell section-${i}-col ${cellClass}`}>
-                        <div className="header-cell">
-                                <div className="header-cell__text">
-                                <div className="header-cell__title">
-                                        {col.display}
-                                    </div>
-                            </div>
-                            <DataDictionaryTableSorter
-                                    field={col.raw}
-                                    label={col.display}
-                                    active={this.props.sort}
-                                    changeSort={this.props.changeSort} />
-                            </div>
-                    </th>
+                  <th
+                    key={col.raw}
+                    className={`dictionary-table__head-cell section-${i}-col ${cellClass}`}>
+                      <div className="header-cell">
+                        <div className="header-cell__text">
+                          <div className="header-cell__title">
+                            {col.display}
+                          </div>
+                        </div>
+                          <DataDictionaryTableSorter
+                            field={col.raw}
+                            label={col.display}
+                            active={this.props.sort}
+                            changeSort={this.props.changeSort} />
+                      </div>
+                  </th>
                 );
             }));
             start += section.colspan;
@@ -103,34 +103,34 @@ export default class DataDictionaryTable extends React.Component {
                 const rowMatch = row.find((data) => data.toLowerCase().match(this.props.searchTerm.toLowerCase()));
                 if (rowMatch) {
                     rows.push(
-                        <tr
-                            className="dictionary-table__body-row"
-                            key={`row-${i}`}>
-                            {this.generateRow(row)}
-                        </tr>
+                      <tr
+                        className="dictionary-table__body-row"
+                        key={`row-${i}`}>
+                        {this.generateRow(row)}
+                      </tr>
                     );
                 }
             }
             else {
                 rows.push(
-                    <tr
-                        className="dictionary-table__body-row"
-                        key={`row-${i}`}>
-                        {this.generateRow(row)}
-                    </tr>
+                  <tr
+                    className="dictionary-table__body-row"
+                    key={`row-${i}`}>
+                    {this.generateRow(row)}
+                  </tr>
                 );
             }
         });
 
         if (rows.length === 0 && this.props.searchTerm) {
             rows = (
-                <tr className="dictionary-table__body-row">
-                    <td
-                        className="dictionary-table__body-cell dictionary-table__body-cell_message"
-                        colSpan={this.props.columns.length}>
+              <tr className="dictionary-table__body-row">
+                <td
+                  className="dictionary-table__body-cell dictionary-table__body-cell_message"
+                  colSpan={this.props.columns.length}>
                         No terms matched your search.
-                    </td>
-                </tr>
+                </td>
+              </tr>
             );
         }
 
@@ -157,14 +157,14 @@ export default class DataDictionaryTable extends React.Component {
                     cellClass = 'dictionary-table__body-cell_last';
                 }
                 return (
-                    <td
-                        key={uniqueId()}
-                        className={`dictionary-table__body-cell section-${i}-cell ${highlightClass} ${cellClass}`}>
-                        <ReadMore
-                                text={data}
-                                limit={205}
-                                initiallyExpanded={!!this.props.searchTerm} />
-                    </td>
+                  <td
+                    key={uniqueId()}
+                    className={`dictionary-table__body-cell section-${i}-cell ${highlightClass} ${cellClass}`}>
+                      <ReadMore
+                        text={data}
+                        limit={205}
+                        initiallyExpanded={!!this.props.searchTerm} />
+                  </td>
                 );
             }));
             start += section.colspan;
@@ -187,27 +187,27 @@ export default class DataDictionaryTable extends React.Component {
         else {
             scrollVisible = true;
             table = (
-                <div className="dictionary-table__container">
-                    <div className="dictionary-table__headers" id="headerDiv">
-                        <table className="dictionary-table__headers-table">
-                            <thead>
-                                <tr className="dictionary-table__headers-row">
-                                    {this.generateSectionHeadings()}
-                                </tr>
-                                <tr className="dictionary-table__headers-row">
-                                        {this.generateColumnHeadings()}
-                                    </tr>
-                            </thead>
-                        </table>
-                    </div>
-                    <div className="dictionary-table__content" id="bottomBar" onScroll={this.scrollRightBottom}>
-                            <table className="dictionary-table__content-table" id="dictionary-table__content-table">
-                            <tbody className="dictionary-table__content-body">
-                                    {this.generateRows()}
-                                </tbody>
-                        </table>
-                        </div>
+              <div className="dictionary-table__container">
+                <div className="dictionary-table__headers" id="headerDiv">
+                  <table className="dictionary-table__headers-table">
+                    <thead>
+                      <tr className="dictionary-table__headers-row">
+                        {this.generateSectionHeadings()}
+                      </tr>
+                        <tr className="dictionary-table__headers-row">
+                          {this.generateColumnHeadings()}
+                        </tr>
+                    </thead>
+                  </table>
                 </div>
+                  <div className="dictionary-table__content" id="bottomBar" onScroll={this.scrollRightBottom}>
+                    <table className="dictionary-table__content-table" id="dictionary-table__content-table">
+                      <tbody className="dictionary-table__content-body">
+                        {this.generateRows()}
+                      </tbody>
+                    </table>
+                  </div>
+              </div>
             );
         }
 
@@ -222,12 +222,12 @@ export default class DataDictionaryTable extends React.Component {
         };
 
         return (
-            <div className="dictionary-table">
-                <div className={`dictionary-table__above-scroller ${scrollVisible ? '' : 'dictionary-table__above-scroller-hidden'}`} id="topBar" onScroll={this.scrollRightTop}>
-                    <div className="dictionary-table__scroller" style={style} />
-                </div>
-                {message || table}
+          <div className="dictionary-table">
+            <div className={`dictionary-table__above-scroller ${scrollVisible ? '' : 'dictionary-table__above-scroller-hidden'}`} id="topBar" onScroll={this.scrollRightTop}>
+              <div className="dictionary-table__scroller" style={style} />
             </div>
+            {message || table}
+          </div>
         );
     }
 }

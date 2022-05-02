@@ -31,11 +31,11 @@ export default class DateRangeButton extends React.Component {
     render() {
         const activeClass = this.props.active ? 'active' : '';
         return (
-            <button
-                className={`time-period-button ${activeClass}`}
-                onClick={this.onClick}>
-                {this.props.label}
-            </button>
+          <button
+            className={`time-period-button ${activeClass}`}
+            onClick={this.onClick}>
+            {this.props.label}
+          </button>
         );
     }
 }

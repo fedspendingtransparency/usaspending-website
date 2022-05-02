@@ -37,36 +37,36 @@ export default class BulkDownloadModal extends React.Component {
 
     render() {
         return (
-            <Modal
-                mounted={this.props.mounted}
-                onExit={this.props.hideModal}
-                titleText="Download Center"
-                dialogClass="bulk-download-modal"
-                verticallyCenter
-                escapeExits>
-                <div className="bulk-download-modal">
-                        <div className="download-header">
-                        <div className="header-content">
-                                <h1>Download Data</h1>
-                            <div className="close-wrapper">
-                                        <button
-                                    className="close-button"
-                                    onClick={this.props.hideModal}
-                                    title="Close"
-                                    aria-label="Close">
-                                    <Close alt="Close modal" />
-                                </button>
-                                    </div>
-                            </div>
-                    </div>
-                    <div className="download-body">
-                            <ModalContent
-                            hideModal={this.props.hideModal}
-                            setDownloadCollapsed={this.props.setDownloadCollapsed}
-                            expectedFile={this.props.expectedFile} />
-                        </div>
-                    </div>
-            </Modal>
+          <Modal
+            mounted={this.props.mounted}
+            onExit={this.props.hideModal}
+            titleText="Download Center"
+            dialogClass="bulk-download-modal"
+            verticallyCenter
+            escapeExits>
+              <div className="bulk-download-modal">
+                <div className="download-header">
+                  <div className="header-content">
+                    <h1>Download Data</h1>
+                      <div className="close-wrapper">
+                        <button
+                          className="close-button"
+                          onClick={this.props.hideModal}
+                          title="Close"
+                          aria-label="Close">
+                            <Close alt="Close modal" />
+                        </button>
+                      </div>
+                  </div>
+                </div>
+                  <div className="download-body">
+                    <ModalContent
+                      hideModal={this.props.hideModal}
+                      setDownloadCollapsed={this.props.setDownloadCollapsed}
+                      expectedFile={this.props.expectedFile} />
+                  </div>
+              </div>
+          </Modal>
         );
     }
 }

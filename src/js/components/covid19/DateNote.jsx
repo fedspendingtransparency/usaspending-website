@@ -53,9 +53,9 @@ const DateNote = ({ styles, useCache = true }) => {
     if (error) return null;
 
     return (
-        <div style={{ ...styles }} className="section__date-note">
+      <div style={{ ...styles }} className="section__date-note">
             Data through {date?.format('M/D/YYYY') || '--'}
-        </div>
+      </div>
     );
 };
 

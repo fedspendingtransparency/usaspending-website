@@ -41,37 +41,37 @@ export default class AwardTypeFilter extends React.Component {
         );
 
         let icon = (
-            <div className="icon valid">
-                <CheckCircle />
-            </div>
+          <div className="icon valid">
+            <CheckCircle />
+          </div>
         );
 
         if (!isValid) {
             icon = (
-                <div className="icon invalid">
-                    <ExclamationCircle />
-                </div>
+              <div className="icon invalid">
+                <ExclamationCircle />
+              </div>
             );
         }
 
         const awardTypes = this.props.awardTypes.map((type) => (
-            <DownloadCheckbox
-                key={type.name}
-                name={type.name}
-                label={type.label}
-                checked={this.props.currentAwardTypes[type.name]}
-                onChange={this.onChange} />
+          <DownloadCheckbox
+            key={type.name}
+            name={type.name}
+            label={type.label}
+            checked={this.props.currentAwardTypes[type.name]}
+            onChange={this.onChange} />
         ));
 
         return (
-            <div className="download-filter">
-                <h3 className="download-filter__title">
-                    {icon} Select the <span className="download-filter__title_em">award types</span> to include.
-                </h3>
-                <div className="download-filter__content">
-                        {awardTypes}
-                    </div>
-            </div>
+          <div className="download-filter">
+            <h3 className="download-filter__title">
+              {icon} Select the <span className="download-filter__title_em">award types</span> to include.
+            </h3>
+              <div className="download-filter__content">
+                {awardTypes}
+              </div>
+          </div>
         );
     }
 }

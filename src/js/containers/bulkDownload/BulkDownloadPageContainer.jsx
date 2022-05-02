@@ -235,12 +235,12 @@ export class BulkDownloadPageContainer extends React.Component {
 
     render() {
         return (
-            <BulkDownloadPage
-                bulkDownload={this.props.bulkDownload}
-                dataType={this.props.bulkDownload.dataType}
-                startAwardDownload={this.startAwardDownload}
-                startAccountDownload={this.startAccountDownload}
-                dataTypes={downloadOptions} />
+          <BulkDownloadPage
+            bulkDownload={this.props.bulkDownload}
+            dataType={this.props.bulkDownload.dataType}
+            startAwardDownload={this.startAwardDownload}
+            startAccountDownload={this.startAccountDownload}
+            dataTypes={downloadOptions} />
         );
     }
 }

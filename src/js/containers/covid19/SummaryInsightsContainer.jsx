@@ -155,15 +155,15 @@ const SummaryInsightsContainer = ({
     }
 
     return (
-        <div className="overview-data-group">
-            <InformationBoxes
-                boxes={overviewData.map((data) => ({
+      <div className="overview-data-group">
+        <InformationBoxes
+          boxes={overviewData.map((data) => ({
                     ...data,
                     subtitle,
                     amount: amounts[data.type],
                     isLoading: data.type === 'resultsCount' ? areCountsLoading : inFlightList.includes(data.type)
                 }))} />
-        </div>
+      </div>
     );
 };
 

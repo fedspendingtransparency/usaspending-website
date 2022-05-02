@@ -47,17 +47,17 @@ export default class TreasuryAccountFilters extends React.Component {
     generateFilters() {
         if (this.props.activeTab === 1) {
             return (
-                <TASCheckboxTree />
+              <TASCheckboxTree />
             );
         }
         return treasuryAccountComponents.map((option) => (
-            <ProgramSourceAutocompleteContainer
-                dirtyFilters={this.props.dirtyFilters}
-                key={option.code}
-                component={option}
-                selectedSources={this.props.components}
-                updateComponent={this.props.updateComponent}
-                clearSelection={this.props.clearSelection} />
+          <ProgramSourceAutocompleteContainer
+            dirtyFilters={this.props.dirtyFilters}
+            key={option.code}
+            component={option}
+            selectedSources={this.props.components}
+            updateComponent={this.props.updateComponent}
+            clearSelection={this.props.clearSelection} />
         ));
     }
 
@@ -74,36 +74,36 @@ export default class TreasuryAccountFilters extends React.Component {
         }
 
         return (
-            <div className="program-source-tab">
-                <div className="program-source-components">
-                    {activeTab === 2 && (
-                        <div className="program-source-components__heading">
+          <div className="program-source-tab">
+            <div className="program-source-components">
+              {activeTab === 2 && (
+                <div className="program-source-components__heading">
                             Treasury Account Components
-                        </div>
+                </div>
                     )}
-                    {this.generateFilters()}
-                    <div
-                            className="program-source-components__button-wrapper"
-                            onFocus={this.showWarning}
-                            onMouseEnter={this.showWarning}
-                            onBlur={this.hideWarning}
-                            onMouseLeave={this.hideWarning}>
-                            {activeTab === 2 && (
-                            <button
-                                disabled={!enabled}
-                                onClick={this.props.applyFilter}
-                                className="program-source-components__button">
+              {this.generateFilters()}
+                <div
+                  className="program-source-components__button-wrapper"
+                  onFocus={this.showWarning}
+                  onMouseEnter={this.showWarning}
+                  onBlur={this.hideWarning}
+                  onMouseLeave={this.hideWarning}>
+                  {activeTab === 2 && (
+                    <button
+                      disabled={!enabled}
+                      onClick={this.props.applyFilter}
+                      className="program-source-components__button">
                                 Add Filter
-                            </button>
+                    </button>
                         )}
-                        <div
-                                className={`program-source-warning ${this.state.showWarning ? '' : 'hide'}`}
-                                aria-hidden={enabled}>
-                            <EntityWarning message={message} />
-                            </div>
-                        </div>
+                          <div
+                            className={`program-source-warning ${this.state.showWarning ? '' : 'hide'}`}
+                            aria-hidden={enabled}>
+                              <EntityWarning message={message} />
+                          </div>
                 </div>
             </div>
+          </div>
         );
     }
 }

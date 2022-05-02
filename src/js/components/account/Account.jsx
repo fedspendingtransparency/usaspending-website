@@ -32,27 +32,27 @@ export default class Account extends React.Component {
         const accountSymbol = `${this.props.account.agency_identifier}-${this.props.account.main_account_code}`;
         const slug = `federal_account/${accountSymbol}`;
         return (
-            <PageWrapper
-                pageName="Federal Account Profile"
-                classNames="usa-da-account-page"
-                overLine="Federal Account Profile"
-                title={`Federal Account Symbol: ${accountSymbol}`}
-                metaTagProps={this.props.account ? MetaTagHelper.federalAccountPageMetaTags(this.props.account) : {}}
-                toolBarComponents={[
-                    <ShareIcon
-                        url={getBaseUrl(slug)}
-                        onShareOptionClick={(name) => this.handleShare(name, slug)} />
+          <PageWrapper
+            pageName="Federal Account Profile"
+            classNames="usa-da-account-page"
+            overLine="Federal Account Profile"
+            title={`Federal Account Symbol: ${accountSymbol}`}
+            metaTagProps={this.props.account ? MetaTagHelper.federalAccountPageMetaTags(this.props.account) : {}}
+            toolBarComponents={[
+              <ShareIcon
+                url={getBaseUrl(slug)}
+                onShareOptionClick={(name) => this.handleShare(name, slug)} />
                 ]}>
-                    <main
+                  <main
                     id="main-content"
                     className="main-content">
-                            <AccountOverview account={this.props.account} currentFiscalYear={this.props.currentFiscalYear} />
+                      <AccountOverview account={this.props.account} currentFiscalYear={this.props.currentFiscalYear} />
                         <div className="filter-results">
-                        <SearchSidebar />
-                                <SearchResults showNote={this.props.account.parent_agency_toptier_code === '097'} />
-                    </div>
-                </main>
-            </PageWrapper>
+                          <SearchSidebar />
+                            <SearchResults showNote={this.props.account.parent_agency_toptier_code === '097'} />
+                        </div>
+                  </main>
+          </PageWrapper>
         );
     }
 }

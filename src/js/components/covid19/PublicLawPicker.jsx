@@ -23,16 +23,16 @@ const PublicLawPickerOption = ({
     term,
     className
 }) => (
-    <li className={className}>
-        <p>{title}</p>
-        {description && (
-            <p>
-                {description}
-                {term && (
-                    <GlossaryLink term={term} />
+  <li className={className}>
+    <p>{title}</p>
+    {description && (
+    <p>
+      {description}
+      {term && (
+      <GlossaryLink term={term} />
                 )}
-            </p>)}
-    </li>
+    </p>)}
+  </li>
 );
 
 PublicLawPickerOption.propTypes = {
@@ -55,19 +55,19 @@ const PublicLawPicker = ({
 }) => {
     const selected = options.find((obj) => obj.value === selectedOption);
     return (
-        <div className="public-law-picker__container">
-            <Picker
-                backgroundColor={backgroundColor}
-                className="public-law-picker"
-                icon={<FontAwesomeIcon icon="scroll" size="sm" />}
-                selectedOption={selected?.title || options[0].title}
-                options={options.map((obj) => ({
+      <div className="public-law-picker__container">
+        <Picker
+          backgroundColor={backgroundColor}
+          className="public-law-picker"
+          icon={<FontAwesomeIcon icon="scroll" size="sm" />}
+          selectedOption={selected?.title || options[0].title}
+          options={options.map((obj) => ({
                     name: <PublicLawPickerOption {...obj} />,
                     value: obj.value,
                     onClick
                 }))} />
-            <span>Public Law</span>
-        </div>);
+                  <span>Public Law</span>
+      </div>);
 };
 
 PublicLawPicker.propTypes = {

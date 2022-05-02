@@ -15,11 +15,11 @@ const propTypes = {
 export default class ResultsTableGenericCell extends React.Component {
     render() {
         return (
-            <div className={`generic-cell column-${this.props.column}`}>
-                <div className="cell-content">
-                    {this.props.data}
-                </div>
+          <div className={`generic-cell column-${this.props.column}`}>
+            <div className="cell-content">
+              {this.props.data}
             </div>
+          </div>
         );
     }
 }

@@ -51,38 +51,38 @@ const ObligationsByAwardTypeTooltip = ({
         const activeClass = `award-type-tooltip__table-data${!isCategoryHover && type.label === activeType ? ' award-type-tooltip__table-data_active' : ''}`;
         return [
             (
-                <div className={activeClass}>
-                    <svg height="12" width="18">
-                        <circle cx="6" cy="6" r="6" fill={type.color} />
-                    </svg>
-                    {type.label}
-                </div>
+              <div className={activeClass}>
+                <svg height="12" width="18">
+                  <circle cx="6" cy="6" r="6" fill={type.color} />
+                </svg>
+                {type.label}
+              </div>
             ),
             (
-                <div className={activeClass}>
-                    {formatMoney(type.value)}
-                </div>
+              <div className={activeClass}>
+                {formatMoney(type.value)}
+              </div>
             ),
             (
-                <div className={activeClass}>
-                    {type.value >= 0 ? calculatePercentage(type.value, _awardObligations, '--', 1) : '--'}
-                </div>
+              <div className={activeClass}>
+                {type.value >= 0 ? calculatePercentage(type.value, _awardObligations, '--', 1) : '--'}
+              </div>
             )
         ];
     });
 
     return (
-        <div className="award-type-tooltip">
-            <div className="tooltip__title">
+      <div className="award-type-tooltip">
+        <div className="tooltip__title">
                 FY{fiscalYear} - {titles[categoryType]}: {formatMoneyWithUnitsShortLabel(totalByCategory)}
-            </div>
-            <div className="tooltip__text">
-                    <Table
-                    classNames="award-type-tooltip__table"
-                    columns={columns}
-                    rows={rows} />
-                </div>
         </div>
+          <div className="tooltip__text">
+            <Table
+              classNames="award-type-tooltip__table"
+              columns={columns}
+              rows={rows} />
+          </div>
+      </div>
     );
 };
 

@@ -50,13 +50,13 @@ export class AwardAmountSearchContainer extends React.Component {
 
     render() {
         return (
-            <div className="award-amount-filter">
-                <AwardAmountSearch
-                    removeFilter={this.removeFilter}
-                    dirtyFilters={this.dirtyFilters()}
-                    awardAmounts={this.props.awardAmounts}
-                    selectAwardRange={this.selectAwardRange} />
-            </div>
+          <div className="award-amount-filter">
+            <AwardAmountSearch
+              removeFilter={this.removeFilter}
+              dirtyFilters={this.dirtyFilters()}
+              awardAmounts={this.props.awardAmounts}
+              selectAwardRange={this.selectAwardRange} />
+          </div>
         );
     }
 }

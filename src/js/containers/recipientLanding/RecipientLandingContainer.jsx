@@ -162,19 +162,19 @@ export default class RecipientLandingContainer extends React.Component {
 
     render() {
         return (
-            <RecipientLandingContent
-                results={this.state.results}
-                inFlight={this.state.inFlight}
-                error={this.state.error}
-                order={this.state.order}
-                setSort={this.setSort}
-                setTab={this.setTab}
-                searchString={this.state.searchString}
-                setRecipientSearchString={this.setRecipientSearchString}
-                onChangePage={this.onChangePage}
-                pageNumber={this.state.pageNumber}
-                totalItems={this.state.totalItems}
-                pageSize={this.state.pageSize} />
+          <RecipientLandingContent
+            results={this.state.results}
+            inFlight={this.state.inFlight}
+            error={this.state.error}
+            order={this.state.order}
+            setSort={this.setSort}
+            setTab={this.setTab}
+            searchString={this.state.searchString}
+            setRecipientSearchString={this.setRecipientSearchString}
+            onChangePage={this.onChangePage}
+            pageNumber={this.state.pageNumber}
+            totalItems={this.state.totalItems}
+            pageSize={this.state.pageSize} />
         );
     }
 }

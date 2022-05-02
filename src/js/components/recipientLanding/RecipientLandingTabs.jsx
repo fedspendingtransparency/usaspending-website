@@ -59,10 +59,10 @@ export default class RecipientLandingTabs extends React.Component {
 
     render() {
         return (
-            <Tabs
-                types={tabTypes}
-                active={this.state.active}
-                switchTab={this.switchTab} />
+          <Tabs
+            types={tabTypes}
+            active={this.state.active}
+            switchTab={this.switchTab} />
         );
     }
 }

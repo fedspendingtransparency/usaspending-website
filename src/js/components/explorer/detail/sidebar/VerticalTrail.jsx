@@ -17,30 +17,30 @@ const propTypes = {
 export default class VerticalTrail extends React.Component {
     render() {
         const trail = this.props.trail.map((item, index) => (
-            <TrailItem
-                {...item}
-                isFirst={index === 0}
-                isLast={index + 1 === this.props.trail.length}
-                rewindToFilter={this.props.rewindToFilter}
-                index={index}
-                key={item.within} />
+          <TrailItem
+            {...item}
+            isFirst={index === 0}
+            isLast={index + 1 === this.props.trail.length}
+            rewindToFilter={this.props.rewindToFilter}
+            index={index}
+            key={item.within} />
         ));
 
         return (
-            <div className="vertical-trail-wrapper">
-                <ul className="vertical-trail">
-                    <TransitionGroup>
-                        <CSSTransition
-                            classNames="explorer-item-animation"
-                            timeout={{ exit: 750, enter: 200 }}
-                            exit>
+          <div className="vertical-trail-wrapper">
+            <ul className="vertical-trail">
+              <TransitionGroup>
+                <CSSTransition
+                  classNames="explorer-item-animation"
+                  timeout={{ exit: 750, enter: 200 }}
+                  exit>
                             <>
-                                {trail}
+                              {trail}
                             </>
-                        </CSSTransition>
-                    </TransitionGroup>
-                </ul>
-            </div>
+                </CSSTransition>
+              </TransitionGroup>
+            </ul>
+          </div>
         );
     }
 }

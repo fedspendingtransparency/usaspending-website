@@ -60,16 +60,16 @@ export default class AwardAmountSearch extends React.Component {
                 value, 0);
             result.push(
                 (<PrimaryCheckboxType
-                    {...this.props}
-                    key={key}
-                    id={`award-${key}`}
-                    name={name}
-                    value={key}
-                    types={awardRanges}
-                    code={value}
-                    filterType="Award Amount"
-                    selectedCheckboxes={awardAmounts}
-                    toggleCheckboxType={this.toggleSelection} />)
+                  {...this.props}
+                  key={key}
+                  id={`award-${key}`}
+                  name={name}
+                  value={key}
+                  types={awardRanges}
+                  code={value}
+                  filterType="Award Amount"
+                  selectedCheckboxes={awardAmounts}
+                  toggleCheckboxType={this.toggleSelection} />)
             );
             return result;
         }, []);
@@ -86,10 +86,10 @@ export default class AwardAmountSearch extends React.Component {
         if (!stagedFilter) return null;
         const label = formatAwardAmountRange(stagedFilter);
         return (
-            <SelectedAwardAmountBound
-                removeFilter={this.removeFilter}
-                name={name}
-                label={label} />
+          <SelectedAwardAmountBound
+            removeFilter={this.removeFilter}
+            name={name}
+            label={label} />
         );
     }
 
@@ -102,25 +102,25 @@ export default class AwardAmountSearch extends React.Component {
         const awardAmountRangeItems = this.awardAmountCheckboxes();
         const stagedFilters = this.stagedFilters();
         return (
-            <div className="search-filter checkbox-type-filter">
-                <div className="filter-item-wrap">
-                    <ul className="award-amounts checkbox-types">
-                        {awardAmountRangeItems}
-                        <SpecificAwardAmountItem
-                                {...this.props}
-                                searchSpecificRange={this.searchSpecificRange} />
-                    </ul>
-                    <SubmitHint
-                            ref={(component) => {
+          <div className="search-filter checkbox-type-filter">
+            <div className="filter-item-wrap">
+              <ul className="award-amounts checkbox-types">
+                {awardAmountRangeItems}
+                  <SpecificAwardAmountItem
+                    {...this.props}
+                    searchSpecificRange={this.searchSpecificRange} />
+              </ul>
+                <SubmitHint
+                  ref={(component) => {
                             this.hint = component;
                         }} />
-                    <div
-                                className="selected-filters"
-                                role="status">
-                                {stagedFilters}
-                            </div>
-                </div>
+                          <div
+                            className="selected-filters"
+                            role="status">
+                            {stagedFilters}
+                          </div>
             </div>
+          </div>
         );
     }
 }

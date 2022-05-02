@@ -82,47 +82,47 @@ export default class BulkDownloadPage extends React.Component {
 
     render() {
         let downloadDataContent = (
-            <AwardDataContainer
-                clickedDownload={this.clickedDownload} />
+          <AwardDataContainer
+            clickedDownload={this.clickedDownload} />
         );
         if (this.props.dataType === 'award_data_archive') {
             downloadDataContent = (
-                <AwardDataArchiveContainer />
+              <AwardDataArchiveContainer />
             );
         }
         if (this.props.dataType === 'accounts') {
             downloadDataContent = (
-                <AccountDataContainer
-                    clickedDownload={this.clickedDownload} />
+              <AccountDataContainer
+                clickedDownload={this.clickedDownload} />
             );
         }
         if (this.props.dataType === 'dataset_metadata') {
             downloadDataContent = (
-                <MetadataDownload />
+              <MetadataDownload />
             );
         }
         return (
-            <PageWrapper
-                pageName="Download Center"
-                classNames="usa-da-bulk-download-page"
-                title="Download Center"
-                metaTagProps={this.props.dataType in metaTagsByDataType ? metaTagsByDataType[this.props.dataType] : {}}>
-                <main id="main-content">
-                        <div className="bulk-download">
-                        <div className="bulk-download__sidebar">
-                                <BulkDownloadSidebar
-                                dataTypes={this.props.dataTypes}
-                                active={this.props.dataType} />
-                            </div>
-                        <div className="bulk-download__data">
-                                    {downloadDataContent}
-                                </div>
-                        <BulkDownloadModalContainer
-                                        mounted={this.state.showModal}
-                                        hideModal={this.hideModal} />
+          <PageWrapper
+            pageName="Download Center"
+            classNames="usa-da-bulk-download-page"
+            title="Download Center"
+            metaTagProps={this.props.dataType in metaTagsByDataType ? metaTagsByDataType[this.props.dataType] : {}}>
+              <main id="main-content">
+                <div className="bulk-download">
+                  <div className="bulk-download__sidebar">
+                    <BulkDownloadSidebar
+                      dataTypes={this.props.dataTypes}
+                      active={this.props.dataType} />
+                  </div>
+                    <div className="bulk-download__data">
+                      {downloadDataContent}
                     </div>
-                    </main>
-            </PageWrapper>
+                      <BulkDownloadModalContainer
+                        mounted={this.state.showModal}
+                        hideModal={this.hideModal} />
+                </div>
+              </main>
+          </PageWrapper>
         );
     }
 }

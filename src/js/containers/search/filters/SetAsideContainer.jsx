@@ -40,13 +40,13 @@ export class SetAsideContainer extends React.Component {
 
     render() {
         return (
-            <ContractFilter
-                setAside={this.props.setAside}
-                dirtyFilters={this.dirtyFilters()}
-                contractFilterType="set_aside"
-                contractFilterOptions="setAsideDefinitions"
-                contractFilterState="setAside"
-                toggleFilter={this.selectSetAside} />
+          <ContractFilter
+            setAside={this.props.setAside}
+            dirtyFilters={this.dirtyFilters()}
+            contractFilterType="set_aside"
+            contractFilterOptions="setAsideDefinitions"
+            contractFilterState="setAside"
+            toggleFilter={this.selectSetAside} />
         );
     }
 }

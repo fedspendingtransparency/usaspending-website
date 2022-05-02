@@ -68,10 +68,10 @@ export default class TimeVisualizationSection extends React.Component {
 
     downloadTooltip = () => (
         <>
-            <div className="tooltip__title">Download data by {capitalize(this.props.data.visualizationPeriod === 'fiscal_year' ? 'year' : this.props.data.visualizationPeriod)}</div>
+          <div className="tooltip__title">Download data by {capitalize(this.props.data.visualizationPeriod === 'fiscal_year' ? 'year' : this.props.data.visualizationPeriod)}</div>
             <div className="tooltip__text">
                 Download a CSV of award spending data that matches your search criteria, broken down by {this.props.data.visualizationPeriod === 'fiscal_year' ? 'year' : this.props.data.visualizationPeriod}. For complete download results, click on the &quot;Download&quot; button on the top right of this page.
-                </div>
+            </div>
         </>
     );
 
@@ -92,83 +92,83 @@ export default class TimeVisualizationSection extends React.Component {
 
     renderDownloadLink = () => (isIe() ?
         (
-            <button onClick={() => {
+          <button onClick={() => {
                 window.navigator.msSaveOrOpenBlob(this.downloadBlob(), 'spending-over-time.csv');
             }}>
-                <FontAwesomeIcon icon="download" size="lg" />
+              <FontAwesomeIcon icon="download" size="lg" />
                 <span className="text">
                     Download data by {capitalize(this.props.data.visualizationPeriod === 'fiscal_year' ? 'year' : this.props.data.visualizationPeriod)}
-                    </span>
-            </button>
+                </span>
+          </button>
         ) : (
-            <a
-                href={URL.createObjectURL(this.downloadBlob())}
-                download="spending-over-time.csv" >
-                <FontAwesomeIcon icon="download" size="lg" />
+          <a
+            href={URL.createObjectURL(this.downloadBlob())}
+            download="spending-over-time.csv" >
+              <FontAwesomeIcon icon="download" size="lg" />
                 <span className="text">
                 Download data by {capitalize(this.props.data.visualizationPeriod === 'fiscal_year' ? 'year' : this.props.data.visualizationPeriod)}
-                    </span>
-            </a>
+                </span>
+          </a>
         )
     );
 
     render() {
         return (
-            <section
-                className="results-visualization-time-section"
-                id="results-section-time"
-                aria-label="Spending Over Time">
-                <h2 className="visualization-title">
+          <section
+            className="results-visualization-time-section"
+            id="results-section-time"
+            aria-label="Spending Over Time">
+              <h2 className="visualization-title">
                     Spending Over Time
-                    </h2>
+              </h2>
                 <hr
-                            className="results-divider"
-                            ref={(hr) => {
+                  className="results-divider"
+                  ref={(hr) => {
                         this.sectionHr = hr;
                     }} />
 
-                <div className="visualization-top">
-                            <div className="visualization-description">
-                        <div className="content">
+                      <div className="visualization-top">
+                        <div className="visualization-description">
+                          <div className="content">
                             Spot trends in spending over your chosen time period. Break down your results by years, quarters, or months, and hover over the bars for more detailed information.
-                                </div>
-                    </div>
-                    <div className="visualization-period">
-                            <div className="content">
-                            <ul>
-                                    <li>
-                                    <TimeVisualizationPeriodButton
-                                            value="fiscal_year"
-                                            label="Years"
-                                            active={this.props.data.visualizationPeriod === 'fiscal_year'}
-                                            changePeriod={this.props.updateVisualizationPeriod} />
-                                </li>
-                                <li>
-                                        <TimeVisualizationPeriodButton
-                                        value="quarter"
-                                        label="Quarters"
-                                        active={this.props.data.visualizationPeriod === 'quarter'}
-                                        changePeriod={this.props.updateVisualizationPeriod} />
-                                    </li>
-                                <li>
-                                            <TimeVisualizationPeriodButton
-                                        value="month"
-                                        label="Months"
-                                        active={this.props.data.visualizationPeriod === 'month'}
-                                        changePeriod={this.props.updateVisualizationPeriod} />
-                                        </li>
-                                </ul>
+                          </div>
                         </div>
-                        <div className="download">
+                          <div className="visualization-period">
+                            <div className="content">
+                              <ul>
+                                <li>
+                                  <TimeVisualizationPeriodButton
+                                    value="fiscal_year"
+                                    label="Years"
+                                    active={this.props.data.visualizationPeriod === 'fiscal_year'}
+                                    changePeriod={this.props.updateVisualizationPeriod} />
+                                </li>
+                                  <li>
+                                    <TimeVisualizationPeriodButton
+                                value="quarter"
+                                label="Quarters"
+                                active={this.props.data.visualizationPeriod === 'quarter'}
+                                changePeriod={this.props.updateVisualizationPeriod} />
+                                  </li>
+                              <li>
+                                      <TimeVisualizationPeriodButton
+                                    value="month"
+                                    label="Months"
+                                    active={this.props.data.visualizationPeriod === 'month'}
+                                    changePeriod={this.props.updateVisualizationPeriod} />
+                                    </li>
+                              </ul>
+                            </div>
+                              <div className="download">
                                 {!this.props.data.loading && this.renderDownloadLink()}
                                 {!this.props.data.loading && <TooltipWrapper className="tooltip-wrapper" icon="info" tooltipPosition="left" tooltipComponent={this.downloadTooltip()} />}
-                            </div>
-                        </div>
-                        </div>
-                <TimeVisualization
-                                {...this.props.data}
-                                width={this.state.visualizationWidth} />
-            </section>
+                              </div>
+                          </div>
+                      </div>
+                        <TimeVisualization
+                          {...this.props.data}
+                          width={this.state.visualizationWidth} />
+          </section>
         );
     }
 }

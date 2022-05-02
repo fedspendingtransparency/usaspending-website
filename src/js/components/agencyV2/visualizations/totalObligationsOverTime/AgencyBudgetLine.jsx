@@ -70,38 +70,38 @@ const AgencyBudgetLine = ({
     }, [xScale, yScale, showTodayLineAndText, data, padding.left, padding.bottom, padding.right, padding.top, height, agencyBudget, todaysDate, width]);
 
     const rectangle = (
-        <rect
-            className={`${hoveredRectangle ? 'total-budget-difference-hover' : 'total-budget-difference'}`}
-            x={rectangleData.x}
-            y={rectangleData.y}
-            width={rectangleData.width}
-            height={rectangleData.height}
-            tabIndex="0" />
+      <rect
+        className={`${hoveredRectangle ? 'total-budget-difference-hover' : 'total-budget-difference'}`}
+        x={rectangleData.x}
+        y={rectangleData.y}
+        width={rectangleData.width}
+        height={rectangleData.height}
+        tabIndex="0" />
     );
     return (
-        <g
-            onMouseEnter={() => {
+      <g
+        onMouseEnter={() => {
                 setHoveredRectangle(true); toggleTooltipVisibility(true);
             }}
-            onMouseLeave={() => {
+        onMouseLeave={() => {
                 setHoveredRectangle(false); toggleTooltipVisibility(false);
             }}
-            onFocus={() => {
+        onFocus={() => {
                 setHoveredRectangle(true); toggleTooltipVisibility(true);
             }}
-            onBlur={() => {
+        onBlur={() => {
                 setHoveredRectangle(false); toggleTooltipVisibility(false);
             }}
-            className="bar-chart__item">
-            <line
-                    tabIndex="0"
-                    className="total-budget-line"
-                    x1={lineData.x1}
-                    x2={lineData.x2}
-                    y1={lineData.y1}
-                    y2={lineData.y1} />
-            {!(scenario === 'exceedsMax' || scenario === 'exceedsMaxAndMin') && rectangle}
-        </g>
+        className="bar-chart__item">
+          <line
+            tabIndex="0"
+            className="total-budget-line"
+            x1={lineData.x1}
+            x2={lineData.x2}
+            y1={lineData.y1}
+            y2={lineData.y1} />
+        {!(scenario === 'exceedsMax' || scenario === 'exceedsMaxAndMin') && rectangle}
+      </g>
     );
 };
 

@@ -16,8 +16,8 @@ registerIcons();
 
 const appDiv = document.getElementById('app');
 const App = render(
-    <AppContainer />,
-    appDiv
+  <AppContainer />,
+  appDiv
 );
 
 export default hot(module)(App);

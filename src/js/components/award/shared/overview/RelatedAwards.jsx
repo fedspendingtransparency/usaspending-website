@@ -94,25 +94,25 @@ export default class RelatedAwards extends React.Component {
             ];
         }
         return (
-            <div className="related-awards__label related-awards__label_count">
-                <div className="related-awards__counts">
-                    {map(childData, (data) => (
-                        <button
-                            key={`${data.glossary}count`}
-                            className="award-viz__button"
-                            onClick={this[`${data.funcName}`]}>
-                            {data.count}
-                        </button>
+          <div className="related-awards__label related-awards__label_count">
+            <div className="related-awards__counts">
+              {map(childData, (data) => (
+                <button
+                  key={`${data.glossary}count`}
+                  className="award-viz__button"
+                  onClick={this[`${data.funcName}`]}>
+                  {data.count}
+                </button>
                     ))}
-                </div>
-                <div className="related-awards__description">
-                        {map(childData, (data) => (
-                        <div key={`${data.glossary}text`} className="related-awards__text">
-                                {data.name} {data.postText}
-                            </div>
-                    ))}
-                    </div>
             </div>
+              <div className="related-awards__description">
+                {map(childData, (data) => (
+                  <div key={`${data.glossary}text`} className="related-awards__text">
+                    {data.name} {data.postText}
+                  </div>
+                    ))}
+              </div>
+          </div>
         );
     }
 
@@ -137,34 +137,34 @@ export default class RelatedAwards extends React.Component {
         let parentLink = 'N/A';
         if (overview.parentAwardDetails.piid && overview.parentAwardDetails.awardId) {
             parentLink = (
-                <Link
-                    className="related-awards__link"
-                    to={`/award/${overview.parentAwardDetails.awardId}`}>
-                    {overview.parentAwardDetails.awardId}
-                </Link>
+              <Link
+                className="related-awards__link"
+                to={`/award/${overview.parentAwardDetails.awardId}`}>
+                {overview.parentAwardDetails.awardId}
+              </Link>
             );
         }
 
         return (
-            <div className="award-viz related-awards award-overview-column award-overview-column__spacing first">
-                <h6 className="award-overview-title related-awards__title">
+          <div className="award-viz related-awards award-overview-column award-overview-column__spacing first">
+            <h6 className="award-overview-title related-awards__title">
                     Related Awards
-                    <TooltipWrapper
-                        className="award-section-tt"
-                        icon="info"
-                        tooltipPosition="left"
-                        tooltipComponent={tooltipInfo} />
-                </h6>
-                <div className="related-awards__parent">
-                        <div className="related-awards__label">
-                        {awardTitle}
-                    </div>
-                        {parentLink}
-                    </div>
+              <TooltipWrapper
+                className="award-section-tt"
+                icon="info"
+                tooltipPosition="left"
+                tooltipComponent={tooltipInfo} />
+            </h6>
+              <div className="related-awards__parent">
+                <div className="related-awards__label">
+                  {awardTitle}
+                </div>
+                {parentLink}
+              </div>
                 <div className="related-awards__children">
-                            {this.referencedAwardCounts()}
-                        </div>
-            </div>
+                  {this.referencedAwardCounts()}
+                </div>
+          </div>
         );
     }
 }

@@ -52,17 +52,17 @@ const AwardAmountsTable = ({
                 return null;
             case ('exceedsBigger'):
                 return (
-                    <div className="award-amounts__data-content">
-                        <div><span className="award-amounts__data-icon award-amounts__data-icon_overspending" />{type === 'idv' ? 'Exceeds Combined Current Award Amounts' : 'Exceeds Current Award Amount'}</div>
-                        <span>{awardAmounts.overspendingFormatted}</span>
-                    </div>
+                  <div className="award-amounts__data-content">
+                    <div><span className="award-amounts__data-icon award-amounts__data-icon_overspending" />{type === 'idv' ? 'Exceeds Combined Current Award Amounts' : 'Exceeds Current Award Amount'}</div>
+                      <span>{awardAmounts.overspendingFormatted}</span>
+                  </div>
                 );
             case ('exceedsBiggest'):
                 return (
-                    <div className="award-amounts__data-content">
-                        <div><span className="award-amounts__data-icon award-amounts__data-icon_extreme-overspending" />{type === 'idv' ? 'Exceeds Combined Potential Award Amounts' : 'Exceeds Potential Award Amount'}</div>
-                        <span>{awardAmounts.extremeOverspendingFormatted}</span>
-                    </div>
+                  <div className="award-amounts__data-content">
+                    <div><span className="award-amounts__data-icon award-amounts__data-icon_extreme-overspending" />{type === 'idv' ? 'Exceeds Combined Potential Award Amounts' : 'Exceeds Potential Award Amount'}</div>
+                      <span>{awardAmounts.extremeOverspendingFormatted}</span>
+                  </div>
                 );
             default:
                 return null;
@@ -90,23 +90,23 @@ const AwardAmountsTable = ({
     const sortTableTitles = (a, b) => orderedTableTitles.indexOf(a) - orderedTableTitles.indexOf(b);
 
     return (
-        <div className={`award-amounts__data-wrapper ${awardAmountType}`}>
-            {Object.keys(amountMapByCategoryTitle).sort(sortTableTitles)
+      <div className={`award-amounts__data-wrapper ${awardAmountType}`}>
+        {Object.keys(amountMapByCategoryTitle).sort(sortTableTitles)
                 .map((title) => (
                     ((title === 'Outlayed Amount' || title === 'Combined Outlayed Amounts') && amountMapByCategoryTitle[title] === '$0.00')
                         ? null
                         :
                         <div key={uniqueId(title)} className="award-amounts__data-content">
-                            <div className="hanging">
-                                <span className={`award-amounts__data-icon ${awardTableClassMap[title]}`} />
-                                {title}
-                            </div>
+                          <div className="hanging">
+                            <span className={`award-amounts__data-icon ${awardTableClassMap[title]}`} />
+                            {title}
+                          </div>
                             <span>{amountMapByCategoryTitle[title]}</span>
                         </div>
                 ))
             }
-            {overspendingRow}
-        </div>
+        {overspendingRow}
+      </div>
     );
 };
 

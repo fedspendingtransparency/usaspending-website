@@ -51,36 +51,36 @@ export default class ArchiveAgencyFilter extends React.Component {
     render() {
         // Create the CFO agencies options
         const cfoAgencies = this.props.agencies.cfoAgencies.map((agency) => (
-            <li
-                className="field-item indent"
-                key={`field-${agency.toptier_agency_id}`}>
-                <button
-                        className="item-button"
-                        title={agency.name}
-                        aria-label={agency.name}
-                        value={agency.toptier_agency_id}
-                        name={agency.name}
-                        onClick={this.handleAgencySelect}>
-                        {agency.name}
-                    </button>
-            </li>
+          <li
+            className="field-item indent"
+            key={`field-${agency.toptier_agency_id}`}>
+              <button
+                className="item-button"
+                title={agency.name}
+                aria-label={agency.name}
+                value={agency.toptier_agency_id}
+                name={agency.name}
+                onClick={this.handleAgencySelect}>
+                {agency.name}
+              </button>
+          </li>
         ));
 
         // Create the other agencies options
         const otherAgencies = this.props.agencies.otherAgencies.map((agency) => (
-            <li
-                className="field-item indent"
-                key={`field-${agency.toptier_agency_id}`}>
-                <button
-                        className="item-button"
-                        title={agency.name}
-                        aria-label={agency.name}
-                        value={agency.toptier_agency_id}
-                        name={agency.name}
-                        onClick={this.handleAgencySelect}>
-                        {agency.name}
-                    </button>
-            </li>
+          <li
+            className="field-item indent"
+            key={`field-${agency.toptier_agency_id}`}>
+              <button
+                className="item-button"
+                title={agency.name}
+                aria-label={agency.name}
+                value={agency.toptier_agency_id}
+                name={agency.name}
+                onClick={this.handleAgencySelect}>
+                {agency.name}
+              </button>
+          </li>
         ));
 
 
@@ -99,64 +99,64 @@ export default class ArchiveAgencyFilter extends React.Component {
         }
 
         return (
-            <div className="filter-picker agency-picker">
-                <label className="select-label" htmlFor="agency-select">
+          <div className="filter-picker agency-picker">
+            <label className="select-label" htmlFor="agency-select">
                     Agency
-                </label>
+            </label>
 
-                <div className="field-picker agency-select">
-                        <button
-                        className="selected-button"
-                        title={currentAgencyName}
-                        aria-label={currentAgencyName}
-                        onClick={this.toggleAgencyPicker}>
-                        <div className="label">
-                                {currentAgencyName}
-                            <span className="arrow-icon">
-                                        {agencyIcon}
-                                    </span>
-                            </div>
-                    </button>
+              <div className="field-picker agency-select">
+                <button
+                  className="selected-button"
+                  title={currentAgencyName}
+                  aria-label={currentAgencyName}
+                  onClick={this.toggleAgencyPicker}>
+                    <div className="label">
+                      {currentAgencyName}
+                        <span className="arrow-icon">
+                          {agencyIcon}
+                        </span>
+                    </div>
+                </button>
 
-                    <div
-                            className={`field-list ${showAgencyPicker}`}
-                            style={{ width: dropDownWidth }}>
-                        <ul>
-                                    <li className="field-item">
-                                <button
-                                            className="item-button"
-                                            title="All"
-                                            aria-label="all"
-                                            name="All"
-                                            value="all"
-                                            onClick={this.handleAgencySelect}>
+                  <div
+                    className={`field-list ${showAgencyPicker}`}
+                    style={{ width: dropDownWidth }}>
+                      <ul>
+                        <li className="field-item">
+                            <button
+                                className="item-button"
+                                title="All"
+                                aria-label="all"
+                                name="All"
+                                value="all"
+                                onClick={this.handleAgencySelect}>
                                     All
-                                        </button>
-                            </li>
-                            <li className="field-item">
-                                    <button
-                                    className="item-button group-label"
-                                    title="CFO Agencies"
-                                    aria-label="CFO Agencies"
-                                    disabled >
+                              </button>
+                          </li>
+                              <li className="field-item">
+                              <button
+                                  className="item-button group-label"
+                                  title="CFO Agencies"
+                                  aria-label="CFO Agencies"
+                                  disabled >
                                     CFO Agencies
                                 </button>
-                                </li>
-                                    {cfoAgencies}
+                            </li>
+                        {cfoAgencies}
                             <li className="field-item">
-                                            <button
-                                    className="item-button group-label"
-                                    title="Other Agencies"
-                                    aria-label="Other Agencies"
-                                    disabled >
+                                <button
+                                className="item-button group-label"
+                                title="Other Agencies"
+                                aria-label="Other Agencies"
+                                disabled >
                                     Other Agencies
-                                </button>
-                                        </li>
-                                    {otherAgencies}
-                                </ul>
-                        </div>
-                    </div>
-            </div>
+                              </button>
+                              </li>
+                        {otherAgencies}
+                      </ul>
+                  </div>
+              </div>
+          </div>
         );
     }
 }

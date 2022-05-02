@@ -79,10 +79,10 @@ export default class CheckboxTree extends Component {
      * @returns {Array.<object>} - new array of nodes
      */
     setChildrenToLoading = () => (
-        <div className="children-are-loading">
-            <FontAwesomeIcon icon="spinner" spin />
-            <div className="children-are-loading__text">Loading your data...</div>
-        </div>
+      <div className="children-are-loading">
+        <FontAwesomeIcon icon="spinner" spin />
+          <div className="children-are-loading__text">Loading your data...</div>
+      </div>
     );
     /**
      * checkedNode
@@ -186,18 +186,18 @@ export default class CheckboxTree extends Component {
                     { ...node }
                 )
                 : (
-                    <CheckboxTreeLabel
-                        className={node?.labelClassName}
-                        count={node.count}
-                        displayId={displayId}
-                        subLabel={node.subLabel}
-                        value={node?.isSearchable === false
+                  <CheckboxTreeLabel
+                    className={node?.labelClassName}
+                    count={node.count}
+                    displayId={displayId}
+                    subLabel={node.subLabel}
+                    value={node?.isSearchable === false
                             ? node.value
                             : this.highlightText(node.value)}
-                        label={node?.isSearchable === false
+                    label={node?.isSearchable === false
                             ? node.label
                             : this.highlightText(node.label)}
-                        countLabel={this.props.countLabel} />
+                    countLabel={this.props.countLabel} />
                 ),
             children: node.children
                 ? this.createLabels(node.children)
@@ -220,44 +220,44 @@ export default class CheckboxTree extends Component {
         const labeledNodes = this.createLabels(data);
         if (isLoading) {
             return (
-                <div className="checkbox-tree-filter-message-container">
-                    <FontAwesomeIcon icon="spinner" spin />
-                    <div className="checkbox-tree-filter-message-container__text">Loading your data...</div>
-                </div>
+              <div className="checkbox-tree-filter-message-container">
+                <FontAwesomeIcon icon="spinner" spin />
+                  <div className="checkbox-tree-filter-message-container__text">Loading your data...</div>
+              </div>
             );
         }
         else if (isError && errorMessage) {
             return (
-                <div className="checkbox-tree-filter-message-container">
-                    <div className="checkbox-tree-filter-message-container__text">
-                        {errorMessage}
-                    </div>
+              <div className="checkbox-tree-filter-message-container">
+                <div className="checkbox-tree-filter-message-container__text">
+                  {errorMessage}
                 </div>
+              </div>
             );
         }
         else if (noResults) {
             return (
-                <div className="checkbox-tree-filter-message-container">
-                    <FontAwesomeIcon icon="ban" />
-                    <div className="checkbox-tree-filter-message-container__text">
+              <div className="checkbox-tree-filter-message-container">
+                <FontAwesomeIcon icon="ban" />
+                  <div className="checkbox-tree-filter-message-container__text">
                         No Results
-                        </div>
-                </div>
+                  </div>
+              </div>
             );
         }
         else if (!data.length) return null;
         const checkboxTreeClass = className ? ` ${className}` : '';
         return (
-            <div className={`checkbox-tree${checkboxTreeClass}`}>
-                <CheckBoxTree
-                    nodes={labeledNodes}
-                    disabled={isDisabled}
-                    checked={checked}
-                    expanded={expanded}
-                    onCheck={this.onCheck}
-                    onExpand={this.onExpand}
-                    icons={treeIcons} />
-            </div>
+          <div className={`checkbox-tree${checkboxTreeClass}`}>
+            <CheckBoxTree
+              nodes={labeledNodes}
+              disabled={isDisabled}
+              checked={checked}
+              expanded={expanded}
+              onCheck={this.onCheck}
+              onExpand={this.onExpand}
+              icons={treeIcons} />
+          </div>
         );
     }
 }

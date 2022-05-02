@@ -6,16 +6,16 @@
 import React from 'react';
 
 const TrailDecorator = () => (
-    <div className="dot-trail">
+  <div className="dot-trail">
+    <div className="small-dot" />
+      <div className="small-dot" />
         <div className="small-dot" />
-        <div className="small-dot" />
-        <div className="small-dot" />
-        <div className="small-dot" />
-        <div className="small-dot" />
-        <div className="small-dot" />
-        <div className="small-dot" />
-        <div className="small-dot" />
-    </div>
+          <div className="small-dot" />
+            <div className="small-dot" />
+              <div className="small-dot" />
+                <div className="small-dot" />
+                  <div className="small-dot" />
+  </div>
 );
 
 export default TrailDecorator;

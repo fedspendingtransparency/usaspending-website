@@ -88,9 +88,9 @@ export class FederalAccountsSummaryContainer extends React.Component {
 
     render() {
         return (
-            <FederalAccountsSummary
-                {...this.state}
-                jumpToFederalAccountsHistory={this.props.jumpToFederalAccountsHistory} />
+          <FederalAccountsSummary
+            {...this.state}
+            jumpToFederalAccountsHistory={this.props.jumpToFederalAccountsHistory} />
         );
     }
 }

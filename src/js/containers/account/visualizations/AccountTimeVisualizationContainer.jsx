@@ -400,12 +400,12 @@ export class AccountTimeVisualizationSectionContainer extends React.PureComponen
 
     render() {
         return (
-            <AccountTimeVisualizationSection
-                data={this.state.data}
-                loading={this.state.loading}
-                visualizationPeriod={this.state.visualizationPeriod}
-                changePeriod={this.changePeriod}
-                hasFilteredObligated={this.state.hasFilteredObligated} />
+          <AccountTimeVisualizationSection
+            data={this.state.data}
+            loading={this.state.loading}
+            visualizationPeriod={this.state.visualizationPeriod}
+            changePeriod={this.changePeriod}
+            hasFilteredObligated={this.state.hasFilteredObligated} />
         );
     }
 }

@@ -83,7 +83,7 @@ export default class Glossary extends React.Component {
         // render a component to represent the current scroll position
         // (on Macs, only visible when scroll bar settings are on "Always")
         return (
-            <div className="glossary-scrollbar-thumb" />
+          <div className="glossary-scrollbar-thumb" />
         );
     }
 
@@ -91,19 +91,19 @@ export default class Glossary extends React.Component {
         // render a component within which the thumb moves as the scrollbar scrolls
         // (on Macs, only visible when scroll bar settings are on "Always")
         return (
-            <div className="glossary-scrollbar-track" />
+          <div className="glossary-scrollbar-track" />
         );
     }
 
     render() {
         let content = (<GlossarySearchResults
-            {...this.props}
-            updateContentHeight={this.updateContentHeight} />);
+          {...this.props}
+          updateContentHeight={this.updateContentHeight} />);
 
         if (this.props.glossary.term.slug && this.props.glossary.term.slug !== '') {
             content = (<GlossaryDefinition
-                {...this.props}
-                updateContentHeight={this.updateContentHeight} />);
+              {...this.props}
+              updateContentHeight={this.updateContentHeight} />);
         }
         else if (this.props.glossary.search.results.length === 0) {
             content = <NoResults {...this.props} />;
@@ -112,51 +112,51 @@ export default class Glossary extends React.Component {
         let loading = null;
         if (this.props.loading) {
             loading = (
-                <div className="glossary-loading-content">
+              <div className="glossary-loading-content">
                     Loading Glossary...
-                </div>
+              </div>
             );
             content = null;
         }
         else if (this.props.error) {
             loading = (
-                <div className="glossary-loading-content">
+              <div className="glossary-loading-content">
                     Error: Could not load Glossary.
-                </div>
+              </div>
             );
             content = null;
         }
 
         return (
-            <div className="usa-da-glossary-wrapper">
-                <aside
-                    role="dialog"
-                    aria-labelledby="glossary-title"
-                    className="glossary-sidebar"
-                    ref={(div) => {
+          <div className="usa-da-glossary-wrapper">
+            <aside
+              role="dialog"
+              aria-labelledby="glossary-title"
+              className="glossary-sidebar"
+              ref={(div) => {
                         this.sidebar = div;
                     }}>
-                    <div
-                            className="glossary-header-wrapper"
-                            ref={(div) => {
+                      <div
+                        className="glossary-header-wrapper"
+                        ref={(div) => {
                             this.sidebarHeader = div;
                         }}>
-                        <GlossaryHeader
-                                {...this.props}
-                                closeGlossary={this.closeGlossary} />
-                        </div>
-                    {loading}
-                    <Scrollbars
-                            style={{ height: this.state.contentHeight }}
-                            renderTrackVertical={this.renderTrack}
-                            renderThumbVertical={this.renderThumb}
-                            ref={(scrollbar) => {
+                          <GlossaryHeader
+                            {...this.props}
+                            closeGlossary={this.closeGlossary} />
+                      </div>
+              {loading}
+                <Scrollbars
+                  style={{ height: this.state.contentHeight }}
+                  renderTrackVertical={this.renderTrack}
+                  renderThumbVertical={this.renderThumb}
+                  ref={(scrollbar) => {
                             this.scrollbar = scrollbar;
                         }}>
-                            {content}
-                        </Scrollbars>
-                </aside>
-            </div>
+                  {content}
+                </Scrollbars>
+            </aside>
+          </div>
         );
     }
 }

@@ -245,15 +245,15 @@ const SearchContainer = ({ history }) => {
     }, [appliedFilters, dispatch, prevAppliedFilters, stagedFilters]);
 
     return (
-        <SearchPage
-            hash={urlHash}
-            filters={stagedFilters}
-            appliedFilters={appliedFilters}
-            noFiltersApplied={areAppliedFiltersEmpty}
-            downloadAvailable={downloadAvailable}
-            downloadInFlight={downloadInFlight}
-            download={download}
-            requestsComplete={areFiltersApplied} />
+      <SearchPage
+        hash={urlHash}
+        filters={stagedFilters}
+        appliedFilters={appliedFilters}
+        noFiltersApplied={areAppliedFiltersEmpty}
+        downloadAvailable={downloadAvailable}
+        downloadInFlight={downloadInFlight}
+        download={download}
+        requestsComplete={areFiltersApplied} />
     );
 };
 
@@ -263,8 +263,8 @@ export default SearchContainer;
 export const SearchContainerRedirect = () => {
     const { urlHash: pathHash } = useParams();
     return (
-        <Redirect
-            to={{
+      <Redirect
+        to={{
                 pathname: '/search/',
                 search: `?${new URLSearchParams({ hash: pathHash }).toString()}`
             }} />

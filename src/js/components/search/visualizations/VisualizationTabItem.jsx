@@ -29,23 +29,23 @@ const VisualizationTabItem = (props) => {
     }
 
     return (
-        <li>
-            <button
-                className={`visualization-type-tab ${active}`}
-                aria-label={props.label}
-                role="menuitemradio"
-                aria-checked={props.active}
-                title={props.label}
-                onClick={clickedTab}
-                disabled={props.disabled}>
-                <div className="icon">
-                        <Icon alt={props.label} />
-                    </div>
-                <div className="label">
-                            {props.label}
-                        </div>
-            </button>
-        </li>
+      <li>
+        <button
+          className={`visualization-type-tab ${active}`}
+          aria-label={props.label}
+          role="menuitemradio"
+          aria-checked={props.active}
+          title={props.label}
+          onClick={clickedTab}
+          disabled={props.disabled}>
+            <div className="icon">
+              <Icon alt={props.label} />
+            </div>
+              <div className="label">
+                {props.label}
+              </div>
+        </button>
+      </li>
     );
 };
 

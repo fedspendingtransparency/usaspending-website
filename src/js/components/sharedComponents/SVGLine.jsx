@@ -219,14 +219,14 @@ export default class SVGLine extends Component {
         if ((linePosition > maximum) || (linePosition < minimum)) return null;
         const classname = lineClassname ? `svg-line ${lineClassname}` : 'svg-line';
         return (
-            <line
-                className={classname}
-                x1={isHorizontal ? x1 : linePosition}
-                x2={isHorizontal ? x2 : linePosition}
-                y1={isHorizontal ? linePosition : y1}
-                y2={isHorizontal ? linePosition : y2}
-                onMouseMove={this.onMouseMoveLine}
-                onMouseLeave={this.onMouseLeaveLine} />
+          <line
+            className={classname}
+            x1={isHorizontal ? x1 : linePosition}
+            x2={isHorizontal ? x2 : linePosition}
+            y1={isHorizontal ? linePosition : y1}
+            y2={isHorizontal ? linePosition : y2}
+            onMouseMove={this.onMouseMoveLine}
+            onMouseLeave={this.onMouseLeaveLine} />
         );
     };
 
@@ -241,26 +241,26 @@ export default class SVGLine extends Component {
         return textArray.map((data, i) => {
             const stateName = data.replace(/\s/g, '').toLowerCase();
             return (
-                <g
-                    key={`containerForText${i}`}>
-                    <rect
-                            className="rectangle-background"
-                            width={this.state[`${stateName}Width`]}
-                            height={15.5}
-                            x={this.state[`${stateName}TextX`]}
-                            y={this.props.textY - 11} />
-                    <text
-                                    tabIndex="0"
-                                    className={classname}
-                                    x={this.state[`${stateName}TextX`]}
-                                    y={this.state[`${stateName}TextY`]}
-                                    ref={this[`setTextDiv${stateName}`]}
-                                    data-wordindex={i}
-                                    onMouseMove={this.onMouseMoveText}
-                                    onMouseLeave={this.onMouseLeaveText}>
-                                    {data}
-                                </text>
-                </g>
+              <g
+                key={`containerForText${i}`}>
+                  <rect
+                    className="rectangle-background"
+                    width={this.state[`${stateName}Width`]}
+                    height={15.5}
+                    x={this.state[`${stateName}TextX`]}
+                    y={this.props.textY - 11} />
+                      <text
+                        tabIndex="0"
+                        className={classname}
+                        x={this.state[`${stateName}TextX`]}
+                        y={this.state[`${stateName}TextY`]}
+                        ref={this[`setTextDiv${stateName}`]}
+                        data-wordindex={i}
+                        onMouseMove={this.onMouseMoveText}
+                        onMouseLeave={this.onMouseLeaveText}>
+                        {data}
+                      </text>
+              </g>
             );
         });
     };
@@ -271,11 +271,11 @@ export default class SVGLine extends Component {
         const line = this.line();
         const text = this.text(line);
         return (
-            <g className="svg-line__container" tabIndex="0">
-                <desc>{this.description()}</desc>
-                {text}
-                {line}
-            </g>
+          <g className="svg-line__container" tabIndex="0">
+            <desc>{this.description()}</desc>
+            {text}
+            {line}
+          </g>
         );
     }
 }

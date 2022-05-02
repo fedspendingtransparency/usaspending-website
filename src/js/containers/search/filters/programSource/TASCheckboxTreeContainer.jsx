@@ -63,18 +63,18 @@ const propTypes = {
 };
 
 const SearchNote = () => (
-    <div className="tas-checkbox-tt">
-        <p>
+  <div className="tas-checkbox-tt">
+    <p>
             The following nested hierarchy shows Agency, Federal Accounts owned by that Agency, and Treasury Account Symbols (TAS) within each Federal Account.
-        </p>
-            <br />
-            <p>Filter the options below by typing any of the following:</p>
-            <ul>
+    </p>
+      <br />
+        <p>Filter the options below by typing any of the following:</p>
+          <ul>
             <li>Any part of an Agency name</li>
-                    <li>Any part of a Federal Account symbol or title</li>
+              <li>Any part of a Federal Account symbol or title</li>
                 <li>Any part of a Treasury Account Symbol or title.</li>
-        </ul>
-    </div>
+          </ul>
+  </div>
 );
 
 export class TASCheckboxTree extends React.Component {
@@ -384,23 +384,23 @@ export class TASCheckboxTree extends React.Component {
             showNoResults
         } = this.state;
         return (
-            <div className="tas-checkbox">
-                <span className="checkbox-header">
+          <div className="tas-checkbox">
+            <span className="checkbox-header">
                     Search by Agency, Federal Account, or Treasury Account
-                    <CSSOnlyTooltip
-                        definition={<SearchNote />}
-                        heading="Find a Treasury Account" />
-                </span>
-                    <EntityDropdownAutocomplete
-                    placeholder="Type to filter results"
-                    searchString={searchString}
-                    enabled
-                    handleTextInputChange={this.handleTextInputChange}
-                    context={{}}
-                    isClearable
-                    loading={false}
-                    onClear={this.onClear} />
-                            <CheckboxTree
+              <CSSOnlyTooltip
+                definition={<SearchNote />}
+                heading="Find a Treasury Account" />
+            </span>
+              <EntityDropdownAutocomplete
+                placeholder="Type to filter results"
+                searchString={searchString}
+                enabled
+                handleTextInputChange={this.handleTextInputChange}
+                context={{}}
+                isClearable
+                loading={false}
+                onClear={this.onClear} />
+                  <CheckboxTree
                     isError={isError}
                     errorMessage={errorMessage}
                     isLoading={isLoading}
@@ -414,33 +414,33 @@ export class TASCheckboxTree extends React.Component {
                     onCheck={this.onCheck}
                     onExpand={this.onExpand}
                     onCollapse={this.onCollapse} />
-                {counts.length > 0 && (
-                    <div
-                        className="selected-filters"
-                        role="status">
-                        {counts.map((node) => {
+            {counts.length > 0 && (
+            <div
+              className="selected-filters"
+              role="status">
+              {counts.map((node) => {
                             const label = `${node.value} - ${node.label} (${node.count})`;
                             return (
-                                <button
-                                    key={uniqueId()}
-                                    className="shown-filter-button"
-                                    value={label}
-                                    onClick={(e) => this.removeSelectedFilter(e, node)}
-                                    title="Click to remove."
-                                    aria-label={`Applied filter: ${label}`}>
-                                    {label}
-                                        <span className="close">
-                                        <FontAwesomeIcon icon="times" />
-                                    </span>
-                                </button>
+                              <button
+                                key={uniqueId()}
+                                className="shown-filter-button"
+                                value={label}
+                                onClick={(e) => this.removeSelectedFilter(e, node)}
+                                title="Click to remove."
+                                aria-label={`Applied filter: ${label}`}>
+                                {label}
+                                  <span className="close">
+                                    <FontAwesomeIcon icon="times" />
+                                  </span>
+                              </button>
                             );
                         })}
-                    </div>
+            </div>
                 )}
-                    <SubmitHint ref={(component) => {
+                  <SubmitHint ref={(component) => {
                     this.hint = component;
                 }} />
-            </div>
+          </div>
         );
     }
 }

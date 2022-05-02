@@ -32,27 +32,27 @@ const MapLayerToggle = (props) => {
         }
 
         return (
-            <li
-                key={layer}>
-                <button
-                        className={`map-layer-option ${active}`}
-                        onClick={clickedLayer}
-                        title={`Display by ${title}`}
-                        aria-label={`Display by ${title}`}
-                        data-content={title}
-                        value={layer}>
-                        {title}
-                    </button>
-            </li>
+          <li
+            key={layer}>
+              <button
+                className={`map-layer-option ${active}`}
+                onClick={clickedLayer}
+                title={`Display by ${title}`}
+                aria-label={`Display by ${title}`}
+                data-content={title}
+                value={layer}>
+                {title}
+              </button>
+          </li>
         );
     });
 
     return (
-        <div className="map-layer-toggle">
-            <ul className="map-layer-list">
-                {items}
-            </ul>
-        </div>
+      <div className="map-layer-toggle">
+        <ul className="map-layer-list">
+          {items}
+        </ul>
+      </div>
     );
 };
 

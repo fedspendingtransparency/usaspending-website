@@ -71,50 +71,50 @@ export default class GeoVisualizationSection extends React.Component {
 
         if (!MapboxGL.supported()) {
             return (
-                <div className="results-table-message-container">
-                    <ResultsTableErrorMessage title="WebGL Required for this map." description="Please enable WebGL in your browser settings to view this map visualization." />
-                </div>
+              <div className="results-table-message-container">
+                <ResultsTableErrorMessage title="WebGL Required for this map." description="Please enable WebGL in your browser settings to view this map visualization." />
+              </div>
             );
         }
         else if (this.props.loading) {
             message = (
-                <MapMessage>
-                    <div className="map-loading">
-                        <LoadingSpinner />
-                        <div className="loading-message">
+              <MapMessage>
+                <div className="map-loading">
+                  <LoadingSpinner />
+                    <div className="loading-message">
                             Gathering your data...
-                            </div>
                     </div>
-                </MapMessage>
+                </div>
+              </MapMessage>
             );
         }
         else if (this.props.error || this.props.stateCenter.length === 0) {
             message = (
-                <MapMessage>
-                    <div className="map-no-results">
-                        <div className="error-icon">
-                            <ExclamationTriangle alt="An error occurred" />
-                        </div>
-                        <div className="title">
+              <MapMessage>
+                <div className="map-no-results">
+                  <div className="error-icon">
+                    <ExclamationTriangle alt="An error occurred" />
+                  </div>
+                    <div className="title">
                             An error occurred.
-                            </div>
-                        <div className="description">
-                            Something went wrong while gathering your data.
-                                </div>
                     </div>
-                </MapMessage>
+                      <div className="description">
+                            Something went wrong while gathering your data.
+                      </div>
+                </div>
+              </MapMessage>
             );
         }
         else if (this.props.noResults) {
             message = (
-                <MapMessage>
-                    <div className="map-no-results">
-                        <div className="no-results-icon" />
-                        <div className="title">
+              <MapMessage>
+                <div className="map-no-results">
+                  <div className="no-results-icon" />
+                    <div className="title">
                             No results found in the current map area.
-                            </div>
                     </div>
-                </MapMessage>
+                </div>
+              </MapMessage>
             );
         }
 
@@ -126,24 +126,24 @@ export default class GeoVisualizationSection extends React.Component {
         }
 
         return (
-            <div className="geo__map-section">
-                <MapWrapper
-                    data={this.props.data}
-                    renderHash={this.props.renderHash}
-                    scope={this.props.mapLayer}
-                    changeMapLayer={this.props.changeMapLayer}
-                    showHover={this.state.showHover}
-                    selectedItem={this.state.selectedItem}
-                    showTooltip={this.showTooltip}
-                    hideTooltip={this.hideTooltip}
-                    tooltip={GeoVisualizationTooltip}
-                    availableLayers={availableLayers}
-                    showLayerToggle
-                    center={center}
-                    stateProfile>
-                    {message}
-                </MapWrapper>
-            </div>
+          <div className="geo__map-section">
+            <MapWrapper
+              data={this.props.data}
+              renderHash={this.props.renderHash}
+              scope={this.props.mapLayer}
+              changeMapLayer={this.props.changeMapLayer}
+              showHover={this.state.showHover}
+              selectedItem={this.state.selectedItem}
+              showTooltip={this.showTooltip}
+              hideTooltip={this.hideTooltip}
+              tooltip={GeoVisualizationTooltip}
+              availableLayers={availableLayers}
+              showLayerToggle
+              center={center}
+              stateProfile>
+              {message}
+            </MapWrapper>
+          </div>
         );
     }
 }

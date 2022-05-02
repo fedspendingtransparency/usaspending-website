@@ -146,30 +146,30 @@ export default class MinorObjectClasses extends React.Component {
             // Finally, create the cell
             if (n.value !== 0) {
                 cell = (<ObjectClassCell
-                    {...treeProps}
-                    label={n.data.object_class_name}
-                    value={n.value}
-                    x0={n.x0}
-                    x1={n.x1}
-                    y0={n.y0}
-                    y1={n.y1}
-                    total={treeProps.totalMinorObligation}
-                    key={n.data.object_class_code}
-                    objectClassID={n.data.object_class_code}
-                    color={cellColor}
-                    strokeColor="white"
-                    strokeOpacity={0.5}
-                    tooltipStyles={TreemapHelper.tooltipStyles}
-                    toggleTooltipIn={this.toggleTooltipIn}
-                    toggleTooltipOut={this.toggleTooltipOut}
-                    opacity={1}
-                    textColor={textColor}
-                    textClass={textClass}
-                    labelView={labelView}
-                    width={width}
-                    height={height}
-                    percentView={percentView}
-                    clickable={false} />);
+                  {...treeProps}
+                  label={n.data.object_class_name}
+                  value={n.value}
+                  x0={n.x0}
+                  x1={n.x1}
+                  y0={n.y0}
+                  y1={n.y1}
+                  total={treeProps.totalMinorObligation}
+                  key={n.data.object_class_code}
+                  objectClassID={n.data.object_class_code}
+                  color={cellColor}
+                  strokeColor="white"
+                  strokeOpacity={0.5}
+                  tooltipStyles={TreemapHelper.tooltipStyles}
+                  toggleTooltipIn={this.toggleTooltipIn}
+                  toggleTooltipOut={this.toggleTooltipOut}
+                  opacity={1}
+                  textColor={textColor}
+                  textClass={textClass}
+                  labelView={labelView}
+                  width={width}
+                  height={height}
+                  percentView={percentView}
+                  clickable={false} />);
             }
 
             return cell;
@@ -217,18 +217,18 @@ export default class MinorObjectClasses extends React.Component {
             const obligatedAmount = parseFloat(objectClass.obligated_amount);
 
             tooltip = (<ObjectClassTooltip
-                name={objectClass.object_class_name}
-                value={MoneyFormatter.formatTreemapValues(obligatedAmount)}
-                percentage={MoneyFormatter.calculatePercentage(
+              name={objectClass.object_class_name}
+              value={MoneyFormatter.formatTreemapValues(obligatedAmount)}
+              percentage={MoneyFormatter.calculatePercentage(
                     obligatedAmount, this.props.totalMinorObligation)
                 }
-                description={objectClassDefinition.description}
-                x={node.props.x0}
-                y={node.props.y0}
-                width={node.props.width}
-                height={node.props.height}
-                showMinorObjectClass
-                sectionHeight={sectionHeight} />);
+              description={objectClassDefinition.description}
+              x={node.props.x0}
+              y={node.props.y0}
+              width={node.props.width}
+              height={node.props.height}
+              showMinorObjectClass
+              sectionHeight={sectionHeight} />);
         }
 
         return tooltip;
@@ -246,36 +246,36 @@ export default class MinorObjectClasses extends React.Component {
         let greatThanOneHundredDescription = null;
         if (this.props.hasNegatives) {
             greatThanOneHundredDescription = (
-                <p>
-                    <em><strong>Note:</strong> The object classes below add up to more
+              <p>
+                <em><strong>Note:</strong> The object classes below add up to more
                     than 100% due to negative values not shown here.
-                    </em>
-                </p>
+                </em>
+              </p>
             );
         }
 
         return (
-            <div className="treemap-inner-wrap">
-                {greatThanOneHundredDescription}
-                <div className="function-desc">
-                        <h1>{this.props.majorObjectClass.major_object_class_name}</h1>
-                    <h6>{totalSpend} | {percentage}</h6>
+          <div className="treemap-inner-wrap">
+            {greatThanOneHundredDescription}
+              <div className="function-desc">
+                <h1>{this.props.majorObjectClass.major_object_class_name}</h1>
+                  <h6>{totalSpend} | {percentage}</h6>
                     <p>{objectClassDefinition.description}</p>
-                    </div>
-                { this.createTooltip() }
-                <div
-                        className="tree-wrapper"
-                        ref={(sr) => {
+              </div>
+            { this.createTooltip() }
+              <div
+                className="tree-wrapper"
+                ref={(sr) => {
                         this.sectionWrapper = sr;
                     }}>
-                    <svg
-                            width={this.state.visualizationWidth}
-                            height={this.state.visualizationHeight}
-                            className="treemap-svg overlay">
-                            {this.state.finalNodes}
-                        </svg>
-                    </div>
-            </div>
+                      <svg
+                        width={this.state.visualizationWidth}
+                        height={this.state.visualizationHeight}
+                        className="treemap-svg overlay">
+                        {this.state.finalNodes}
+                      </svg>
+              </div>
+          </div>
         );
     }
 }

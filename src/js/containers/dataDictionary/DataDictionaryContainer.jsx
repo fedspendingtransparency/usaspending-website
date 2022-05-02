@@ -108,10 +108,10 @@ export default class DataDictionaryContainer extends React.Component {
     };
 
     render = () => (
-        <DataDictionary
-            {...this.state}
-            changeSort={this.changeSort}
-            setSearchString={this.setSearchString}
-            searchTerm={this.state.searchTerm} />
+      <DataDictionary
+        {...this.state}
+        changeSort={this.changeSort}
+        setSearchString={this.setSearchString}
+        searchTerm={this.state.searchTerm} />
     );
 }

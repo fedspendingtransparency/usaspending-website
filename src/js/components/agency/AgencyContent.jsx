@@ -90,49 +90,49 @@ const AgencyContent = ({
     }
 
     return (
-        <div className="agency-content-wrapper">
-            <div className="agency-sidebar">
-                <Sidebar
-                    isGoingToBeSticky
-                    active={activeSection}
-                    pageName="agency"
-                    sections={agencySections}
-                    detectActiveSection={setActiveSection}
-                    jumpToSection={jumpToSection}
-                    fixedStickyBreakpoint={getStickyBreakPointForSidebar()} />
-            </div>
-            <div className="agency-content">
-                    <div className="agency-padded-content overview">
-                    <GlossaryButtonWrapperContainer
-                            child={AgencyOverview}
-                            activeFy={parsedLatestFy}
-                            asOfDate={parsedAsOfDate}
-                            agency={agency.overview} />
-                </div>
-                <div className="agency-padded-content data">
-                        <ObligatedContainer
-                        agencyName={agency.overview.name}
-                        activeFY={parsedLatestFy}
-                        activeQuarter={latestQuarter}
-                        id={agency.id}
-                        asOfDate={parsedAsOfDate} />
-                    <ObjectClassContainer
-                                id={agency.id}
-                                activeFY={parsedLatestFy}
-                                displayedTotalObligation={agency.overview.obligatedAmount}
-                                asOfDate={parsedAsOfDate} />
-                    <FederalAccountContainer
-                                        id={agency.id}
-                                        activeFY={parsedLatestFy}
-                                        obligatedAmount={agency.overview.obligatedAmount}
-                                        asOfDate={parsedAsOfDate} />
-                        {disclaimer}
-                    </div>
-                <FooterLinkToAdvancedSearchContainer
-                            title="Looking for more insight?"
-                            description="for more in-depth analysis on this agency and more" />
-                </div>
+      <div className="agency-content-wrapper">
+        <div className="agency-sidebar">
+          <Sidebar
+            isGoingToBeSticky
+            active={activeSection}
+            pageName="agency"
+            sections={agencySections}
+            detectActiveSection={setActiveSection}
+            jumpToSection={jumpToSection}
+            fixedStickyBreakpoint={getStickyBreakPointForSidebar()} />
         </div>
+          <div className="agency-content">
+            <div className="agency-padded-content overview">
+              <GlossaryButtonWrapperContainer
+                child={AgencyOverview}
+                activeFy={parsedLatestFy}
+                asOfDate={parsedAsOfDate}
+                agency={agency.overview} />
+            </div>
+              <div className="agency-padded-content data">
+                <ObligatedContainer
+                  agencyName={agency.overview.name}
+                  activeFY={parsedLatestFy}
+                  activeQuarter={latestQuarter}
+                  id={agency.id}
+                  asOfDate={parsedAsOfDate} />
+                    <ObjectClassContainer
+                        id={agency.id}
+                        activeFY={parsedLatestFy}
+                        displayedTotalObligation={agency.overview.obligatedAmount}
+                        asOfDate={parsedAsOfDate} />
+                            <FederalAccountContainer
+                            id={agency.id}
+                            activeFY={parsedLatestFy}
+                            obligatedAmount={agency.overview.obligatedAmount}
+                            asOfDate={parsedAsOfDate} />
+                {disclaimer}
+              </div>
+                <FooterLinkToAdvancedSearchContainer
+                  title="Looking for more insight?"
+                  description="for more in-depth analysis on this agency and more" />
+          </div>
+      </div>
     );
 };
 

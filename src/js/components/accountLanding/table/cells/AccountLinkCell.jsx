@@ -25,13 +25,13 @@ export default class AccountLinkCell extends React.Component {
         }
 
         return (
-            <div className={`results-table-cell results-table-cell_column_${this.props.column}`}>
-                <div className="results-table-cell__content">
-                    <Link to={`/federal_account/${this.props.accountNumber}`}>
-                        {name}
-                    </Link>
-                </div>
+          <div className={`results-table-cell results-table-cell_column_${this.props.column}`}>
+            <div className="results-table-cell__content">
+              <Link to={`/federal_account/${this.props.accountNumber}`}>
+                {name}
+              </Link>
             </div>
+          </div>
         );
     }
 }

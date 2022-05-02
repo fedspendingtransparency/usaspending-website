@@ -42,18 +42,18 @@ export default class FormatItem extends React.Component {
         }
 
         return (
-            <button
-                className={`format-item${activeClass}`}
-                title={this.props.accessibleLabel}
-                aria-label={this.props.accessibleLabel}
-                onClick={this.clickedButton}>
-                <div className="item-icon">
-                        {this.props.icon}
-                    </div>
+          <button
+            className={`format-item${activeClass}`}
+            title={this.props.accessibleLabel}
+            aria-label={this.props.accessibleLabel}
+            onClick={this.clickedButton}>
+              <div className="item-icon">
+                {this.props.icon}
+              </div>
                 <div className="item-label">
-                            {this.props.label}
-                        </div>
-            </button>
+                  {this.props.label}
+                </div>
+          </button>
         );
     }
 }

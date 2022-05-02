@@ -32,33 +32,33 @@ export default class MobileTop extends React.Component {
 
     render() {
         return (
-            <div className="mobile-nav-header">
-                <div className="mobile-nav-header__logo site-logo">
-                    <div className="site-logo__wrapper" id="logo-nav">
-                        <Link
-                            className="site-logo__link"
-                            to="/"
-                            title="USAspending.gov Home"
-                            aria-label="USAspending.gov Home"
-                            onClick={this.clickedLink}>
-                            <img
-                                    className="site-logo__image"
-                                    src="img/logo.png"
-                                    srcSet="img/logo.png 1x, img/logo@2x.png 2x"
-                                    alt="USAspending.gov" />
-                        </Link>
-                    </div>
-                </div>
-                <div className="mobile-nav-header__close">
-                        <button
-                        className="mobile-nav-header__close-button"
-                        title="Close menu"
-                        aria-label="Close menu"
-                        onClick={this.props.hideMobileNav}>
-                        <Close alt="Close menu" />
-                    </button>
-                    </div>
+          <div className="mobile-nav-header">
+            <div className="mobile-nav-header__logo site-logo">
+              <div className="site-logo__wrapper" id="logo-nav">
+                <Link
+                  className="site-logo__link"
+                  to="/"
+                  title="USAspending.gov Home"
+                  aria-label="USAspending.gov Home"
+                  onClick={this.clickedLink}>
+                    <img
+                      className="site-logo__image"
+                      src="img/logo.png"
+                      srcSet="img/logo.png 1x, img/logo@2x.png 2x"
+                      alt="USAspending.gov" />
+                </Link>
+              </div>
             </div>
+              <div className="mobile-nav-header__close">
+                <button
+                  className="mobile-nav-header__close-button"
+                  title="Close menu"
+                  aria-label="Close menu"
+                  onClick={this.props.hideMobileNav}>
+                    <Close alt="Close menu" />
+                </button>
+              </div>
+          </div>
         );
     }
 }

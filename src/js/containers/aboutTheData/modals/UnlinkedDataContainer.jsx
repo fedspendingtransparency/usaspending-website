@@ -60,12 +60,12 @@ const UnlinkedDataContainer = ({ agencyData }) => {
     }, [unlinkedDataRequest]);
 
     return (
-        <Table
-            loading={loading}
-            error={error.error}
-            message={error.message}
-            rows={rows}
-            columns={unlinkedDataColumns(agencyData.type).map((column, i) => ({
+      <Table
+        loading={loading}
+        error={error.error}
+        message={error.message}
+        rows={rows}
+        columns={unlinkedDataColumns(agencyData.type).map((column, i) => ({
                 displayName: column.displayName,
                 title: '',
                 right: true,

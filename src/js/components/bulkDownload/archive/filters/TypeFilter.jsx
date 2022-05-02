@@ -61,19 +61,19 @@ export default class ArchiveTypeFilter extends React.Component {
     render() {
         // Create the type options
         const types = awardTypes.map((type) => (
-            <li
-                className="field-item"
-                key={`field-${type.name}`}>
-                <button
-                        className="item-button"
-                        title={type.display}
-                        aria-label={type.display}
-                        name={type.display}
-                        value={type.name}
-                        onClick={this.handleTypeSelect}>
-                        {type.display}
-                    </button>
-            </li>
+          <li
+            className="field-item"
+            key={`field-${type.name}`}>
+              <button
+                className="item-button"
+                title={type.display}
+                aria-label={type.display}
+                name={type.display}
+                value={type.name}
+                onClick={this.handleTypeSelect}>
+                {type.display}
+              </button>
+          </li>
         ));
         let showTypePicker = 'hide';
         let typeIcon = <Icons.AngleDown alt="Pick an award type" />;
@@ -88,32 +88,32 @@ export default class ArchiveTypeFilter extends React.Component {
         }
 
         return (
-            <div className="filter-picker type-picker">
-                <label className="select-label" htmlFor="type-select">
+          <div className="filter-picker type-picker">
+            <label className="select-label" htmlFor="type-select">
                     Award Type
-                </label>
-                <div className="field-picker type-select">
-                        <button
-                        className="selected-button"
-                        title={this.props.currentType}
-                        aria-label={this.props.currentType}
-                        onClick={this.toggleTypePicker}>
-                        <div className="label">
-                                {this.props.currentType}
-                            <span className="arrow-icon">
-                                        {typeIcon}
-                                    </span>
-                            </div>
-                    </button>
-                    <div
-                            className={`field-list ${showTypePicker}`}
-                            style={{ width: dropDownWidth }}>
-                        <ul>
-                                    {types}
-                                </ul>
-                        </div>
+            </label>
+              <div className="field-picker type-select">
+                <button
+                  className="selected-button"
+                  title={this.props.currentType}
+                  aria-label={this.props.currentType}
+                  onClick={this.toggleTypePicker}>
+                    <div className="label">
+                      {this.props.currentType}
+                        <span className="arrow-icon">
+                          {typeIcon}
+                        </span>
                     </div>
-            </div>
+                </button>
+                  <div
+                    className={`field-list ${showTypePicker}`}
+                    style={{ width: dropDownWidth }}>
+                      <ul>
+                        {types}
+                      </ul>
+                  </div>
+              </div>
+          </div>
         );
     }
 }

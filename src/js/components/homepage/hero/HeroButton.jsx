@@ -25,16 +25,16 @@ const HeroButton = () => {
     };
 
     return (
-        <div className="hero-button">
-            <div className="hero-button__wrapper">
-                <button
-                    className="hero-button__button"
-                    onClick={pressedButton}
-                    aria-label="Go to content">
-                    <AngleDown alt="Arrow pointing down" />
-                </button>
-            </div>
+      <div className="hero-button">
+        <div className="hero-button__wrapper">
+          <button
+            className="hero-button__button"
+            onClick={pressedButton}
+            aria-label="Go to content">
+              <AngleDown alt="Arrow pointing down" />
+          </button>
         </div>
+      </div>
     );
 };
 

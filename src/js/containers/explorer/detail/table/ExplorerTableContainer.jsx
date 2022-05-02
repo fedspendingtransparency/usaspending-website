@@ -171,19 +171,19 @@ export class ExplorerTableContainer extends React.Component {
 
     render() {
         return (
-            <ExplorerTable
-                isLoading={this.props.isLoading}
-                results={this.state.pageOfItems}
-                columns={this.state.columns}
-                order={this.props.order}
-                updateSort={this.updateSort}
-                total={this.props.total}
-                goDeeper={this.props.goDeeper}
-                onChangePage={this.onChangePage}
-                pageNumber={this.props.pageNumber}
-                totalItems={this.state.totalItems}
-                pageSize={this.state.pageSize}
-                goToUnreported={this.props.goToUnreported} />
+          <ExplorerTable
+            isLoading={this.props.isLoading}
+            results={this.state.pageOfItems}
+            columns={this.state.columns}
+            order={this.props.order}
+            updateSort={this.updateSort}
+            total={this.props.total}
+            goDeeper={this.props.goDeeper}
+            onChangePage={this.onChangePage}
+            pageNumber={this.props.pageNumber}
+            totalItems={this.state.totalItems}
+            pageSize={this.state.pageSize}
+            goToUnreported={this.props.goToUnreported} />
         );
     }
 }

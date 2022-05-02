@@ -72,14 +72,14 @@ const FYPicker = ({
             return FiscalYearHelper.allFiscalYears(earliestFY, latestFy)
                 .sort(sortFn)
                 .map((year) => (
-                    <li key={year} className="fy-picker__list-item">
-                        <button
-                            className={`fy-picker__item ${year === fy ? 'active' : ''}`}
-                            value={`${year}`}
-                            onClick={handleClick}>
+                  <li key={year} className="fy-picker__list-item">
+                    <button
+                      className={`fy-picker__item ${year === fy ? 'active' : ''}`}
+                      value={`${year}`}
+                      onClick={handleClick}>
                             FY {year}
-                        </button>
-                    </li>
+                    </button>
+                  </li>
                 ));
         }
 
@@ -87,26 +87,26 @@ const FYPicker = ({
     };
 
     return (
-        <div className="fy-picker" ref={pickerRef}>
-            <div className="fy-picker__header">
-                <div className="fy-picker__icon">
-                    <FontAwesomeIcon icon={icon} alt={altText} color={iconColor} size={iconSize} />
-                </div>
-                <div className="fy-picker__dropdown-container">
-                        <button className="fy-picker__button" onClick={toggleMenu}>
-                        <span className="fy-picker__button-text">
+      <div className="fy-picker" ref={pickerRef}>
+        <div className="fy-picker__header">
+          <div className="fy-picker__icon">
+            <FontAwesomeIcon icon={icon} alt={altText} color={iconColor} size={iconSize} />
+          </div>
+            <div className="fy-picker__dropdown-container">
+              <button className="fy-picker__button" onClick={toggleMenu}>
+                <span className="fy-picker__button-text">
                             FY {isLoading ? <FontAwesomeIcon icon="spinner" size="sm" alt="Toggle menu" spin /> : fy}
-                            </span>
-                        <div className="fy-picker__button-icon">
-                                    <FontAwesomeIcon icon="chevron-down" alt="Toggle menu" />
-                                </div>
-                    </button>
-                    <ul className={`fy-picker__list ${expanded ? '' : 'hide'}`}>
-                            {getActiveYears()}
-                        </ul>
-                    </div>
+                </span>
+                  <div className="fy-picker__button-icon">
+                    <FontAwesomeIcon icon="chevron-down" alt="Toggle menu" />
+                  </div>
+              </button>
+                <ul className={`fy-picker__list ${expanded ? '' : 'hide'}`}>
+                  {getActiveYears()}
+                </ul>
             </div>
         </div>
+      </div>
     );
 };
 

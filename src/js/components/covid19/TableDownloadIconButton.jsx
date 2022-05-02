@@ -25,17 +25,17 @@ const TableDownloadIconButton = ({ onClick, downloadInFlight }) => {
     const icon = downloadInFlight ? 'spinner' : 'download';
 
     return (
-        <div className="download__button-wrapper">
-            <button
-                className={`download__button${disabledClass}`}
-                title={buttonText}
-                aria-label={buttonText}
-                disabled={downloadInFlight}
-                onClick={startDownload}>
-                <FontAwesomeIcon icon={icon} spin={!!downloadInFlight} />
-                <span>Download Data</span>
-            </button>
-        </div>
+      <div className="download__button-wrapper">
+        <button
+          className={`download__button${disabledClass}`}
+          title={buttonText}
+          aria-label={buttonText}
+          disabled={downloadInFlight}
+          onClick={startDownload}>
+            <FontAwesomeIcon icon={icon} spin={!!downloadInFlight} />
+              <span>Download Data</span>
+        </button>
+      </div>
     );
 };
 

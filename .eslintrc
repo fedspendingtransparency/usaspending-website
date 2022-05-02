@@ -6,7 +6,8 @@
     "extends": "airbnb",
     "parser": "@babel/eslint-parser",
     "parserOptions": {
-      "ecmaVersion": 2018
+      "ecmaVersion": 2022,
+      "presets": ["@babel/preset-react"]
     },
     "globals": {
         "window": true,
@@ -24,13 +25,13 @@
     "rules": {
         // indentation should be 4 spaces (use soft tabs) and switch cases should be indented
         "indent": [2, 4, {
-            "SwitchCase": 1
+            "SwitchCase": 1,
+            "ignoredNodes": ["JSXElement *", "JSXElement"]
         }],
-        // require 4 spaces in JSX as well
-        "react/jsx-indent": [2, 4],
-        "react/jsx-indent-props": [2, 4],
+        "react/jsx-indent": [2],
+        "react/jsx-indent-props": [2],
         // closing brackets should be aligned with the final prop (props.. />)
-        "react/jsx-closing-bracket-location": [2, "after-props"],
+        "react/jsx-closing-bracket-location": [2, {"location": "after-props"}],
         // downgrading to warning when using props purely within componentWillReceiveProps
         "react/no-unused-prop-types": [1],
         // also set the tab width for the max line width with a max length of 100

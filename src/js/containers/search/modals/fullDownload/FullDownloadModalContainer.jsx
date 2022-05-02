@@ -23,12 +23,12 @@ const propTypes = {
 export class FullDownloadModalContainer extends React.Component {
     render() {
         return (
-            <FullDownloadModal
-                setDownloadCollapsed={this.props.setDownloadCollapsed}
-                pendingDownload={this.props.pendingDownload}
-                download={this.props.download}
-                mounted={this.props.mounted}
-                hideModal={this.props.hideModal} />
+          <FullDownloadModal
+            setDownloadCollapsed={this.props.setDownloadCollapsed}
+            pendingDownload={this.props.pendingDownload}
+            download={this.props.download}
+            mounted={this.props.mounted}
+            hideModal={this.props.hideModal} />
         );
     }
 }

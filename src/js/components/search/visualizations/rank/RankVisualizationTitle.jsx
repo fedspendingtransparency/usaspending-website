@@ -44,18 +44,18 @@ export default class RankVisualizationTitle extends React.Component {
 
     render() {
         const fields = this.props.fieldTypes.map((field) => (
-            <li
-                className="field-item"
-                key={`field-${field}`}>
-                <button
-                        className="item-button"
-                        title={categoryNames[field]}
-                        aria-label={categoryNames[field]}
-                        value={field}
-                        onClick={this.clickedItem}>
-                        {categoryNames[field]}
-                    </button>
-            </li>
+          <li
+            className="field-item"
+            key={`field-${field}`}>
+              <button
+                className="item-button"
+                title={categoryNames[field]}
+                aria-label={categoryNames[field]}
+                value={field}
+                onClick={this.clickedItem}>
+                {categoryNames[field]}
+              </button>
+          </li>
         ));
 
         const currentField = this.props.currentSpendingBy;
@@ -67,36 +67,36 @@ export default class RankVisualizationTitle extends React.Component {
         }
 
         return (
-            <div className="rank-visualization-title">
-                <h2 className="static-title">
+          <div className="rank-visualization-title">
+            <h2 className="static-title">
                     Spending by:&nbsp;
-                </h2>
+            </h2>
 
-                <div className="field-picker">
-                        <button
-                        className="selected-button"
-                        title={categoryNames[currentField]}
-                        aria-label={categoryNames[currentField]}
-                        onClick={this.togglePicker}>
-                        <span className="label">
-                                {categoryNames[currentField]}
-                            </span>
-                        <span className="arrow-icon">
-                                    {icon}
-                                </span>
-                    </button>
+              <div className="field-picker">
+                <button
+                  className="selected-button"
+                  title={categoryNames[currentField]}
+                  aria-label={categoryNames[currentField]}
+                  onClick={this.togglePicker}>
+                    <span className="label">
+                      {categoryNames[currentField]}
+                    </span>
+                      <span className="arrow-icon">
+                        {icon}
+                      </span>
+                </button>
 
-                    <div
-                            className={`field-list ${showPicker}`}
-                            style={{
+                  <div
+                    className={`field-list ${showPicker}`}
+                    style={{
                             height: (this.props.fieldTypes.length * 55) + 1
                         }}>
-                        <ul>
-                                {fields}
-                            </ul>
-                        </div>
-                    </div>
-            </div>
+                          <ul>
+                            {fields}
+                          </ul>
+                  </div>
+              </div>
+          </div>
         );
     }
 }

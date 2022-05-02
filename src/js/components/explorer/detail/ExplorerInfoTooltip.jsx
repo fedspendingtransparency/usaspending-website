@@ -79,25 +79,25 @@ export default class ExplorerInfoTooltip extends React.Component {
 
     render() {
         return (
-            <div
-                ref={this.setWrapperRef}
-                className="homepage-hero-tooltip"
-                style={{
+          <div
+            ref={this.setWrapperRef}
+            className="homepage-hero-tooltip"
+            style={{
                     top: this.state.iconTop,
                     right: this.state.iconRight
                 }}>
-                <div className="homepage-hero-tooltip__info_icon">
-                        <Icons.InfoCircle />
-                    </div>
-                <div className="homepage-hero-tooltip__text_holder">
-                            <div className="homepage-hero-tooltip__tooltip_title">
+                  <div className="homepage-hero-tooltip__info_icon">
+                    <Icons.InfoCircle />
+                  </div>
+                    <div className="homepage-hero-tooltip__text_holder">
+                      <div className="homepage-hero-tooltip__tooltip_title">
                         Data Source:
-                    </div>
-                    <div className="homepage-hero-tooltip__tooltip_text">
+                      </div>
+                        <div className="homepage-hero-tooltip__tooltip_text">
                         USAspending.gov uses the Report on Budget Execution and Budgetary Resources
                         </div>
-                        </div>
-            </div>
+                    </div>
+          </div>
         );
     }
 }

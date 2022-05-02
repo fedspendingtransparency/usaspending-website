@@ -35,42 +35,42 @@ const AwardDescription = ({
     const tooltip = getToolTipBySectionAndAwardType('description', awardType);
     const isTooltipWide = (awardType === 'contract' || awardType === 'idv');
     return (
-        <AwardSection type="column" className="award-viz award-description">
-            <AwardSectionHeader icon={<SpeechBubble />} tooltip={tooltip} title="Description" tooltipWide={isTooltipWide} />
-            <div className="award-description__content">
-                    <ExpandableAwardSection contentClassName="award-description__description" type="secondary" content={description} />
-                    {naics && psc && (
-                    <FlexGridRow hasGutter className="award-description__naics-psc">
-                        <FlexGridCol tablet={6} className="naics-psc__section">
-                            <div className="naics-psc__heading">
+      <AwardSection type="column" className="award-viz award-description">
+        <AwardSectionHeader icon={<SpeechBubble />} tooltip={tooltip} title="Description" tooltipWide={isTooltipWide} />
+          <div className="award-description__content">
+            <ExpandableAwardSection contentClassName="award-description__description" type="secondary" content={description} />
+            {naics && psc && (
+            <FlexGridRow hasGutter className="award-description__naics-psc">
+              <FlexGridCol tablet={6} className="naics-psc__section">
+                <div className="naics-psc__heading">
                                 North American Industry Classification System (NAICS)
-                                <span>
-                                    {/* last word of heading inside the span to prevent the glossary icon from wrapping to its own line by itself */}
+                  <span>
+                    {/* last word of heading inside the span to prevent the glossary icon from wrapping to its own line by itself */}
                                     Code
-                                    <Link to={`/award/${awardId}?glossary=naics`}>
-                                            <Glossary alt="View glossary definition of NAICS" />
-                                        </Link>
-                                </span>
-                            </div>
-                            <LineTree type="naics" data={naics} />
-                        </FlexGridCol>
-                        <FlexGridCol tablet={6} className="naics-psc__section">
-                                <div className="naics-psc__heading">
-                                Product or Service Code
-                                <span>
-                                        {/* last word of heading inside the span to prevent the glossary icon from going to its own line by itself */}
-                                    (PSC)
-                                    <Link to={`/award/${awardId}?glossary=product-or-service-code-psc`}>
-                                                <Glossary alt="View glossary definition of Product or Service Code (PSC)" />
-                                            </Link>
-                                    </span>
-                            </div>
-                            <LineTree type="psc" data={psc} />
-                            </FlexGridCol>
-                    </FlexGridRow>
-                )}
+                      <Link to={`/award/${awardId}?glossary=naics`}>
+                            <Glossary alt="View glossary definition of NAICS" />
+                          </Link>
+                  </span>
                 </div>
-        </AwardSection>
+                  <LineTree type="naics" data={naics} />
+              </FlexGridCol>
+                <FlexGridCol tablet={6} className="naics-psc__section">
+                  <div className="naics-psc__heading">
+                                Product or Service Code
+                    <span>
+                          {/* last word of heading inside the span to prevent the glossary icon from going to its own line by itself */}
+                                    (PSC)
+                            <Link to={`/award/${awardId}?glossary=product-or-service-code-psc`}>
+                              <Glossary alt="View glossary definition of Product or Service Code (PSC)" />
+                            </Link>
+                        </span>
+                  </div>
+                        <LineTree type="psc" data={psc} />
+                </FlexGridCol>
+            </FlexGridRow>
+                )}
+          </div>
+      </AwardSection>
     );
 };
 

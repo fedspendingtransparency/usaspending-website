@@ -141,11 +141,11 @@ export default class StateLandingContainer extends React.Component {
         }
 
         return (
-            <StateLandingContent
-                setSearchString={this.setSearchString}
-                setSort={this.setSort}
-                resultsText={resultsText}
-                {...this.state} />
+          <StateLandingContent
+            setSearchString={this.setSearchString}
+            setSort={this.setSort}
+            resultsText={resultsText}
+            {...this.state} />
         );
     }
 }

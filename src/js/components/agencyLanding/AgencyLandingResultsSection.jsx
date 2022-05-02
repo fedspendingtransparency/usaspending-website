@@ -28,9 +28,9 @@ export default class AgencyLandingResultsSection extends React.Component {
             // no results
             if (this.props.agencySearchString) {
                 message = (
-                    <div className="results-table-message">
+                  <div className="results-table-message">
                         No results found for &ldquo; <span>{this.props.agencySearchString}</span> &rdquo;.
-                    </div>
+                  </div>
                 );
             }
             else {
@@ -39,13 +39,13 @@ export default class AgencyLandingResultsSection extends React.Component {
         }
 
         return (
-            <div className="agency-landing-results" id="agency-landing-results">
-                <div className={loadingWrapper}>
-                    <AgencyLandingTable
-                        {...this.props} />
-                </div>
-                {message}
+          <div className="agency-landing-results" id="agency-landing-results">
+            <div className={loadingWrapper}>
+              <AgencyLandingTable
+                {...this.props} />
             </div>
+            {message}
+          </div>
         );
     }
 }

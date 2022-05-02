@@ -16,10 +16,10 @@ export default class Note extends Component {
     render() {
         const { title, message } = this.props;
         return (
-            <p className="default-note">
-                <strong>{title || 'NOTE:'}</strong>&nbsp;
-                {message}
-            </p>
+          <p className="default-note">
+            <strong>{title || 'NOTE:'}</strong>&nbsp;
+            {message}
+          </p>
         );
     }
 }

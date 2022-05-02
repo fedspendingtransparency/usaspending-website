@@ -18,27 +18,27 @@ const propTypes = {
 export default class SpendingByIndustryCodeSection extends React.Component {
     render() {
         return (
-            <RankVisualizationSection {...this.props}>
-                <div className="visualization-top">
-                    <div className="visualization-top__description">
+          <RankVisualizationSection {...this.props}>
+            <div className="visualization-top">
+              <div className="visualization-top__description">
                             View a list of the top Industry Codes from highest to lowest.
                             View your results by NAICS Code or PSC Code, and hover over
                             the bars for more detailed information.
-                    </div>
-                    <div className="visualization-scope">
-                            <RankVisualizationScopeButton
-                            value="psc"
-                            label="PSC"
-                            active={this.props.scope === 'psc'}
-                            changeScope={this.props.changeScope} />
-                        <RankVisualizationScopeButton
-                                    value="naics"
-                                    label="NAICS"
-                                    active={this.props.scope === 'naics'}
-                                    changeScope={this.props.changeScope} />
-                        </div>
+              </div>
+                <div className="visualization-scope">
+                  <RankVisualizationScopeButton
+                    value="psc"
+                    label="PSC"
+                    active={this.props.scope === 'psc'}
+                    changeScope={this.props.changeScope} />
+                      <RankVisualizationScopeButton
+                        value="naics"
+                        label="NAICS"
+                        active={this.props.scope === 'naics'}
+                        changeScope={this.props.changeScope} />
                 </div>
-            </RankVisualizationSection>
+            </div>
+          </RankVisualizationSection>
         );
     }
 }

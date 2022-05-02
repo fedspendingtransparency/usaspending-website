@@ -13,9 +13,9 @@ const propTypes = {
 export default class HeaderCell extends React.Component {
     render() {
         return (
-            <td>
-                {this.props.header}
-            </td>
+          <td>
+            {this.props.header}
+          </td>
         );
     }
 }

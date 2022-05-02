@@ -203,13 +203,13 @@ export default class FederalAccountsTree extends React.Component {
         let treeMap = null;
 
         const cells = this.state.virtualChart.map((cell) => (
-            <TreemapCell
-                {...cell}
-                highlightColor="#f49c20"
-                key={`${cell.data.federalAccount}${cell.data.fundingAgencyId}`}
-                selectedCell={this.selectedCell}
-                showTooltip={this.props.showTooltip}
-                hideTooltip={this.props.hideTooltip} />
+          <TreemapCell
+            {...cell}
+            highlightColor="#f49c20"
+            key={`${cell.data.federalAccount}${cell.data.fundingAgencyId}`}
+            selectedCell={this.selectedCell}
+            showTooltip={this.props.showTooltip}
+            hideTooltip={this.props.hideTooltip} />
         ));
 
         if (inFlight) {
@@ -220,36 +220,36 @@ export default class FederalAccountsTree extends React.Component {
         }
         else if (noResults) {
             noResultsMessage = (<NoResultsMessage
-                title="Chart Not Available"
-                message="No available data to display." />);
+              title="Chart Not Available"
+              message="No available data to display." />);
         }
         else {
             treeMap = (
-                <svg
-                    className="treemap"
-                    width="100%"
-                    height={this.props.height}>
-                    {cells}
-                </svg>
+              <svg
+                className="treemap"
+                width="100%"
+                height={this.props.height}>
+                {cells}
+              </svg>
             );
             resultsCount = (
-                <div className="federal-accounts-treemap-count">
-                    {`${this.state.virtualChart.length} ${naming}`}
-                </div>
+              <div className="federal-accounts-treemap-count">
+                {`${this.state.virtualChart.length} ${naming}`}
+              </div>
             );
         }
         return (
-            <div>
-                <div className="results-table-message-container">
-                    {loadingMessage}
-                    {errorMessage}
-                    {noResultsMessage}
-                </div>
-                <div className="federal-accounts-treemap">
-                        {treeMap}
-                    </div>
-                {resultsCount}
+          <div>
+            <div className="results-table-message-container">
+              {loadingMessage}
+              {errorMessage}
+              {noResultsMessage}
             </div>
+              <div className="federal-accounts-treemap">
+                {treeMap}
+              </div>
+            {resultsCount}
+          </div>
         );
     }
 }

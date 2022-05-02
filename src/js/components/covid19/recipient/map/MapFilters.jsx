@@ -20,22 +20,22 @@ const propTypes = {
 };
 
 const MapFilters = ({ filters, activeFilters, isOpen }) => (
-    <div className={isOpen ? 'map__filters-container open' : 'map__filters-container closed'}>
-        <div className="map__filters-header">
-            <MapFiltersHeader />
-        </div>
-        <div className="map__filters-body">
-                {
+  <div className={isOpen ? 'map__filters-container open' : 'map__filters-container closed'}>
+    <div className="map__filters-header">
+      <MapFiltersHeader />
+    </div>
+      <div className="map__filters-body">
+        {
                 Object.keys(filters).map((filter) => (
-                    <div key={uniqueId()} className="map__filters-filter__container">
-                        <div className="map__filters-label">
-                            {filters[filter].label}
-                        </div>
-                        <Picker
-                                backgroundColor="#ffffff"
-                                sortFn={handleSort}
-                                selectedOption={filters[filter].options.find((option) => option.value === activeFilters[filter]).label}
-                                options={
+                  <div key={uniqueId()} className="map__filters-filter__container">
+                    <div className="map__filters-label">
+                      {filters[filter].label}
+                    </div>
+                      <Picker
+                        backgroundColor="#ffffff"
+                        sortFn={handleSort}
+                        selectedOption={filters[filter].options.find((option) => option.value === activeFilters[filter]).label}
+                        options={
                                 filters[filter].options.map((option) => ({
                                     name: option.label,
                                     value: option.value,
@@ -43,11 +43,11 @@ const MapFilters = ({ filters, activeFilters, isOpen }) => (
                                     sortOrder: mapFilterSortOrderByValue[option.value]
                                 }))
                             } />
-                    </div>
+                  </div>
                 ))
             }
-            </div>
-    </div>
+      </div>
+  </div>
 );
 
 MapFilters.propTypes = propTypes;

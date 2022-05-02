@@ -168,20 +168,20 @@ ${recipient}`;
 
     render() {
         return (
-            <RecipientVisualization
-                activeFY={this.props.activeFY}
-                page={this.state.page}
-                isLastPage={this.state.isLastPage}
-                dataSeries={this.state.dataSeries}
-                labelSeries={this.state.labelSeries}
-                descriptions={this.state.descriptions}
-                loading={this.state.loading}
-                isInitialLoad={this.state.isInitialLoad}
-                error={this.state.error}
-                scope={this.state.scope}
-                changeScope={this.changeScope}
-                changePage={this.changePage}
-                lastUpdate={this.props.lastUpdate} />
+          <RecipientVisualization
+            activeFY={this.props.activeFY}
+            page={this.state.page}
+            isLastPage={this.state.isLastPage}
+            dataSeries={this.state.dataSeries}
+            labelSeries={this.state.labelSeries}
+            descriptions={this.state.descriptions}
+            loading={this.state.loading}
+            isInitialLoad={this.state.isInitialLoad}
+            error={this.state.error}
+            scope={this.state.scope}
+            changeScope={this.changeScope}
+            changePage={this.changePage}
+            lastUpdate={this.props.lastUpdate} />
         );
     }
 }

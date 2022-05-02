@@ -5,30 +5,30 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // eslint-disable-next-line import/prefer-default-export
 export const treeIcons = {
     check: (<FontAwesomeIcon
-        tabIndex={0}
-        className="rct-icon rct-icon-check"
-        size="lg"
-        icon="check-square" />),
+      tabIndex={0}
+      className="rct-icon rct-icon-check"
+      size="lg"
+      icon="check-square" />),
     uncheck: (<FontAwesomeIcon
-        tabIndex={0}
-        className="rct-icon rct-icon-uncheck"
-        size="lg"
-        icon="square" />),
+      tabIndex={0}
+      className="rct-icon rct-icon-uncheck"
+      size="lg"
+      icon="square" />),
     halfCheck: (<FontAwesomeIcon
-        tabIndex={0}
-        className="rct-icon rct-icon-half-check"
-        size="lg"
-        icon="minus-square" />),
+      tabIndex={0}
+      className="rct-icon rct-icon-half-check"
+      size="lg"
+      icon="minus-square" />),
     expandClose: (<FontAwesomeIcon
-        tabIndex={0}
-        className="rct-icon rct-icon-expand-close"
-        size="lg"
-        icon="angle-right" />),
+      tabIndex={0}
+      className="rct-icon rct-icon-expand-close"
+      size="lg"
+      icon="angle-right" />),
     expandOpen: (<FontAwesomeIcon
-        tabIndex={0}
-        className="rct-icon rct-icon-expand-open"
-        size="lg"
-        icon="angle-down" />),
+      tabIndex={0}
+      className="rct-icon rct-icon-expand-open"
+      size="lg"
+      icon="angle-down" />),
     expandAll: null,
     collapseAll: null,
     parentClose: null,

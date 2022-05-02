@@ -110,65 +110,65 @@ export default class RecipientChart extends React.Component {
         ];
 
         return (
-            <div className={`${isLoading}`}>
-                <HorizontalChart
-                    labelSeries={this.props.labelSeries}
-                    dataSeries={this.props.dataSeries}
-                    descriptions={this.props.descriptions}
-                    height={(maxRows * rowHeight) + axisHeight}
-                    minRows={maxRows}
-                    width={this.props.width}
-                    labelWidth={this.props.labelWidth}
-                    selectItem={this.showTooltip}
-                    deselectItem={this.hideTooltip} />
+          <div className={`${isLoading}`}>
+            <HorizontalChart
+              labelSeries={this.props.labelSeries}
+              dataSeries={this.props.dataSeries}
+              descriptions={this.props.descriptions}
+              height={(maxRows * rowHeight) + axisHeight}
+              minRows={maxRows}
+              width={this.props.width}
+              labelWidth={this.props.labelWidth}
+              selectItem={this.showTooltip}
+              deselectItem={this.hideTooltip} />
                 <svg className="horizontal-bar">
-                            <g className="legend-container">
-                        <BarChartLegend legend={legend} />
-                    </g>
-                        </svg>
+                  <g className="legend-container">
+                    <BarChartLegend legend={legend} />
+                  </g>
+                </svg>
 
-                <div className="visualization-pager-container">
-                                <div className="prev-page">
-                        <button
-                                        className={`visualization-pager ${hidePrevious}`}
-                                        title="Show previous ten"
-                                        aria-label="Show previous ten"
-                                        onClick={this.clickedPrev}
-                                        disabled={this.props.loading || this.props.page === 1}>
-                            <div className="pager-content">
-                                                <div className="icon">
-                                    <AngleLeft alt="Show previous ten" />
+                  <div className="visualization-pager-container">
+                    <div className="prev-page">
+                      <button
+                        className={`visualization-pager ${hidePrevious}`}
+                        title="Show previous ten"
+                        aria-label="Show previous ten"
+                        onClick={this.clickedPrev}
+                        disabled={this.props.loading || this.props.page === 1}>
+                          <div className="pager-content">
+                              <div className="icon">
+                                  <AngleLeft alt="Show previous ten" />
                                 </div>
-                                <div className="pager-label">
+                                    <div className="pager-label">
                                     Show previous ten
-                                    </div>
-                                            </div>
-                                    </button>
+                              </div>
+                            </div>
+                      </button>
                     </div>
-                    <div className="next-page">
-                            <button
+                      <div className="next-page">
+                        <button
                             className={`visualization-pager ${hideNext}`}
                             title="Show next ten"
                             aria-label="Show next ten"
                             onClick={this.clickedNext}
                             disabled={this.props.loading || this.props.isLastPage}>
-                            <div className="pager-content">
+                                <div className="pager-content">
                                     <div className="pager-label next">
                                     Show next ten
-                                </div>
-                                <div className="icon">
-                                        <AngleRight alt="Show next ten" />
-                                    </div>
-                                </div>
-                        </button>
-                        </div>
-                            </div>
+                              </div>
+                                      <div className="icon">
+                                <AngleRight alt="Show next ten" />
+                              </div>
+                                  </div>
+                          </button>
+                      </div>
+                  </div>
 
-                <div className={`tooltip-wrapper ${hideTooltip}`}>
-                                    <RecipientTooltip
+                    <div className={`tooltip-wrapper ${hideTooltip}`}>
+                      <RecipientTooltip
                         {...this.state.tooltip} />
-                                </div>
-            </div>
+                    </div>
+          </div>
         );
     }
 }

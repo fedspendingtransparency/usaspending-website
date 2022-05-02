@@ -116,17 +116,17 @@ export default class CFDAVizContainer extends React.Component {
 
     render() {
         return (
-            <CFDAViz
-                {...this.state}
-                changePage={this.changePage}
-                updateSort={this.updateSort}
-                changeView={this.changeView}
-                onTableClick={this.onTableClick}
-                onBackClick={this.onBackClick}
-                allCFDAs={this.props.cfdas}
-                awardTotalObligation={this.props.awardTotalObligation}
-                onTreeClick={this.onTreeClick}
-                onDropdownClick={this.onDropdownClick} />
+          <CFDAViz
+            {...this.state}
+            changePage={this.changePage}
+            updateSort={this.updateSort}
+            changeView={this.changeView}
+            onTableClick={this.onTableClick}
+            onBackClick={this.onBackClick}
+            allCFDAs={this.props.cfdas}
+            awardTotalObligation={this.props.awardTotalObligation}
+            onTreeClick={this.onTreeClick}
+            onDropdownClick={this.onDropdownClick} />
         );
     }
 }

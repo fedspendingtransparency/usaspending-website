@@ -60,34 +60,34 @@ export default class RecipientLandingSearchBar extends React.Component {
 
     render() {
         let icon = (
-            <Search alt={`Search Recipients or ${GlobalConstants.DUNS_LABEL} DUNS`} />
+          <Search alt={`Search Recipients or ${GlobalConstants.DUNS_LABEL} DUNS`} />
         );
         if (this.state.hasSubmit) {
             icon = (
-                <Close alt="Reset recipient search" />
+              <Close alt="Reset recipient search" />
             );
         }
         return (
-            <div className="search-section">
-                <form className="search-section__form">
-                    <input
-                        className="search-section__input"
-                        aria-label="Search Input"
-                        type="text"
-                        name="recipient"
-                        value={this.state.recipient}
-                        onChange={this.onChange}
-                        placeholder={`Recipient Name, UEI, or ${GlobalConstants.DUNS_LABEL}DUNS`} />
-                    <button
-                                aria-label="Search"
-                                className="search-section__button"
-                                onClick={this.handleClick} >
-                        <div className="search-section__button-icon">
-                                        {icon}
-                                    </div>
-                            </button>
-                </form>
-            </div>
+          <div className="search-section">
+            <form className="search-section__form">
+              <input
+                className="search-section__input"
+                aria-label="Search Input"
+                type="text"
+                name="recipient"
+                value={this.state.recipient}
+                onChange={this.onChange}
+                placeholder={`Recipient Name, UEI, or ${GlobalConstants.DUNS_LABEL}DUNS`} />
+                  <button
+                    aria-label="Search"
+                    className="search-section__button"
+                    onClick={this.handleClick} >
+                      <div className="search-section__button-icon">
+                        {icon}
+                      </div>
+                  </button>
+            </form>
+          </div>
         );
     }
 }

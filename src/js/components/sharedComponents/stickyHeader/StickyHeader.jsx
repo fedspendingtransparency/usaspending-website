@@ -38,13 +38,13 @@ const StickyHeader = ({
     const stickyClass = isSticky ? 'sticky-header__container_sticky' : '';
 
     return (
-        <div className="sticky-header" ref={stickyHeader}>
-            <div className={`sticky-header__container ${stickyClass}`}>
-                <div className="sticky-header__header" id="main-focus">
-                    {children}
-                </div>
-            </div>
+      <div className="sticky-header" ref={stickyHeader}>
+        <div className={`sticky-header__container ${stickyClass}`}>
+          <div className="sticky-header__header" id="main-focus">
+            {children}
+          </div>
         </div>
+      </div>
     );
 };
 

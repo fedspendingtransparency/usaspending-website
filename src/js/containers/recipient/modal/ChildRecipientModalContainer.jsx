@@ -111,14 +111,14 @@ export class ChildRecipientModalContainer extends React.Component {
 
     render() {
         return (
-            <ChildRecipientModal
-                {...this.props}
-                error={this.state.error}
-                loading={this.state.inFlight}
-                sortField={this.state.sortField}
-                sortDirection={this.state.sortDirection}
-                updateSort={this.updateSort}
-                childRecipients={this.state.childRecipients} />
+          <ChildRecipientModal
+            {...this.props}
+            error={this.state.error}
+            loading={this.state.inFlight}
+            sortField={this.state.sortField}
+            sortDirection={this.state.sortDirection}
+            updateSort={this.updateSort}
+            childRecipients={this.state.childRecipients} />
         );
     }
 }

@@ -41,13 +41,13 @@ export default class AwardExpandButton extends React.Component {
         }
 
         return (
-            <button
-                className={`toggle ${hiddenClass}`}
-                onClick={this.clickedButton}
-                title="child filters"
-                disabled={this.props.hidden}>
-                {icon}
-            </button>
+          <button
+            className={`toggle ${hiddenClass}`}
+            onClick={this.clickedButton}
+            title="child filters"
+            disabled={this.props.hidden}>
+            {icon}
+          </button>
         );
     }
 }

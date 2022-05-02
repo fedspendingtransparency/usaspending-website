@@ -45,27 +45,27 @@ const EntityDropdownList = (props) => {
         const handleSelection = clickedItem.bind(null, item);
 
         return (
-            <li
-                key={uniqueId(item.code)}>
-                <button
-                        className={`list-item ${active} letter-${letterClass} ${noResultsFound}`}
-                        title={item.name}
-                        aria-label={item.name}
-                        data-listindex={i}
-                        onMouseDown={handleSelection}>
-                        {item.name}
-                    </button>
-            </li>
+          <li
+            key={uniqueId(item.code)}>
+              <button
+                className={`list-item ${active} letter-${letterClass} ${noResultsFound}`}
+                title={item.name}
+                aria-label={item.name}
+                data-listindex={i}
+                onMouseDown={handleSelection}>
+                {item.name}
+              </button>
+          </li>
         );
     });
 
     return (
-        <ul
-            id={`geo-dropdown-${scope}`}
-            className="geo-entity-list"
-            role="listbox">
-            {list}
-        </ul>
+      <ul
+        id={`geo-dropdown-${scope}`}
+        className="geo-entity-list"
+        role="listbox">
+        {list}
+      </ul>
     );
 };
 

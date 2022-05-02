@@ -39,20 +39,20 @@ export default class FilterSidebar extends React.Component {
                 const accessory = this.props.accessories[i];
                 const glossarySlug = this.props.glossaryEntries[i];
                 return (<FilterOption
-                    name={title}
-                    tooltip={tooltip}
-                    key={title}
-                    component={component}
-                    accessory={accessory}
-                    defaultExpand={this.props.expanded[i]}
-                    disabled={component === null}
-                    glossarySlug={glossarySlug} />);
+                  name={title}
+                  tooltip={tooltip}
+                  key={title}
+                  component={component}
+                  accessory={accessory}
+                  defaultExpand={this.props.expanded[i]}
+                  disabled={component === null}
+                  glossarySlug={glossarySlug} />);
             });
 
         return (
-            <div className="search-filters-wrapper">
-                {optionsList}
-            </div>
+          <div className="search-filters-wrapper">
+            {optionsList}
+          </div>
         );
     }
 }

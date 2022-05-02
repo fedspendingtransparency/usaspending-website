@@ -120,52 +120,52 @@ export default class SearchPage extends React.Component {
 
     render() {
         let fullSidebar = (
-            <SearchSidebar
-                filters={this.props.filters}
-                hash={this.props.hash} />
+          <SearchSidebar
+            filters={this.props.filters}
+            hash={this.props.hash} />
         );
         if (this.state.isMobile) {
             fullSidebar = null;
         }
 
         return (
-            <PageWrapper
-                pageName="Advanced Search"
-                classNames="usa-da-search-page"
-                title="Advanced Search"
-                metaTagProps={MetaTagHelper.searchPageMetaTags}
-                toolBarComponents={[
-                    <DownloadIconButton
-                        tooltipComponent={(!this.props.downloadAvailable && this.props.hash)
+          <PageWrapper
+            pageName="Advanced Search"
+            classNames="usa-da-search-page"
+            title="Advanced Search"
+            metaTagProps={MetaTagHelper.searchPageMetaTags}
+            toolBarComponents={[
+              <DownloadIconButton
+                tooltipComponent={(!this.props.downloadAvailable && this.props.hash)
                             ? <NoDownloadHover />
                             : null
                         }
-                        isEnabled={this.props.downloadAvailable}
-                        downloadInFlight={this.props.downloadInFlight}
-                        onClick={this.showModal} />
+                isEnabled={this.props.downloadAvailable}
+                downloadInFlight={this.props.downloadInFlight}
+                onClick={this.showModal} />
                 ]}
-                filters={this.props.appliedFilters}>
-                <div id="main-content">
-                        <div className="search-contents">
-                        <div className="full-search-sidebar">
-                                { fullSidebar }
-                            </div>
-                        <SearchResults
-                                    filters={this.props.filters}
-                                    isMobile={this.state.isMobile}
-                                    filterCount={this.state.filterCount}
-                                    showMobileFilters={this.state.showMobileFilters}
-                                    updateFilterCount={this.updateFilterCount}
-                                    toggleMobileFilters={this.toggleMobileFilters}
-                                    requestsComplete={this.props.requestsComplete}
-                                    noFiltersApplied={this.props.noFiltersApplied} />
-                    </div>
-                    <FullDownloadModalContainer
-                            download={this.props.download}
-                            mounted={this.state.showFullDownload}
-                            hideModal={this.hideModal} />
-                    </div>
-            </PageWrapper>
+            filters={this.props.appliedFilters}>
+              <div id="main-content">
+                <div className="search-contents">
+                  <div className="full-search-sidebar">
+                    { fullSidebar }
+                  </div>
+                    <SearchResults
+                      filters={this.props.filters}
+                      isMobile={this.state.isMobile}
+                      filterCount={this.state.filterCount}
+                      showMobileFilters={this.state.showMobileFilters}
+                      updateFilterCount={this.updateFilterCount}
+                      toggleMobileFilters={this.toggleMobileFilters}
+                      requestsComplete={this.props.requestsComplete}
+                      noFiltersApplied={this.props.noFiltersApplied} />
+                </div>
+                  <FullDownloadModalContainer
+                    download={this.props.download}
+                    mounted={this.state.showFullDownload}
+                    hideModal={this.hideModal} />
+              </div>
+          </PageWrapper>
         );
     }
 }

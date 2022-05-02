@@ -174,15 +174,15 @@ export class KeywordContainer extends React.Component {
 
     render() {
         return (
-            <KeywordPage
-                updateKeyword={this.updateKeyword}
-                keyword={this.state.keyword}
-                summary={this.state.summary}
-                summaryInFlight={this.state.summaryInFlight}
-                fetchSummary={this.fetchSummary}
-                download={this.props.bulkDownload.download}
-                downloadAvailable={this.state.downloadAvailable}
-                startDownload={this.startDownload} />
+          <KeywordPage
+            updateKeyword={this.updateKeyword}
+            keyword={this.state.keyword}
+            summary={this.state.summary}
+            summaryInFlight={this.state.summaryInFlight}
+            fetchSummary={this.fetchSummary}
+            download={this.props.bulkDownload.download}
+            downloadAvailable={this.state.downloadAvailable}
+            startDownload={this.startDownload} />
         );
     }
 }

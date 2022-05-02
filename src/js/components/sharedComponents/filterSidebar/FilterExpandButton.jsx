@@ -23,33 +23,33 @@ const ariaDescription = 'accessory-view';
 
 const FilterExpandButton = (props) => {
     const icon = props.arrowState === 'expanded' ?
-        <FontAwesomeIcon icon="angle-down" /> : <FontAwesomeIcon icon="angle-right" />;
+      <FontAwesomeIcon icon="angle-down" /> : <FontAwesomeIcon icon="angle-right" />;
 
     return (
-        <div className="filter-toggle">
-            <button
-                className="filter-toggle__button"
-                onClick={props.toggleFilter}
-                disabled={props.disabled}
-                title={props.name}
-                aria-label={props.name}
-                aria-expanded={props.arrowState === 'expanded'}
-                aria-describedby={props.accessory ? ariaDescription : ''}>
-                {icon}
-                {props.name}
-                {props.tooltip && <TooltipWrapper icon="info" tooltipComponent={props.tooltip} /> }
-            </button>
-            {props.glossarySlug && <div className="filter-toggle__glossary"><GlossaryLink term={props.glossarySlug} /></div>}
-            {props.accessory && (
-                <div
-                    className="filter-toggle__accessory"
-                    tabIndex="0"
-                    id="accessory-view"
-                    role="toolbar">
-                    <props.accessory />
-                </div>
-            )}
+      <div className="filter-toggle">
+        <button
+          className="filter-toggle__button"
+          onClick={props.toggleFilter}
+          disabled={props.disabled}
+          title={props.name}
+          aria-label={props.name}
+          aria-expanded={props.arrowState === 'expanded'}
+          aria-describedby={props.accessory ? ariaDescription : ''}>
+          {icon}
+          {props.name}
+          {props.tooltip && <TooltipWrapper icon="info" tooltipComponent={props.tooltip} /> }
+        </button>
+        {props.glossarySlug && <div className="filter-toggle__glossary"><GlossaryLink term={props.glossarySlug} /></div>}
+        {props.accessory && (
+        <div
+          className="filter-toggle__accessory"
+          tabIndex="0"
+          id="accessory-view"
+          role="toolbar">
+            <props.accessory />
         </div>
+            )}
+      </div>
     );
 };
 

@@ -20,7 +20,7 @@ export default class SankeyVisualization extends React.Component {
         if (!this.props.fyAvailable) {
             // data is not available, don't show the Sankey
             return (<SankeyMessage
-                message="No data available for the current fiscal year." />);
+              message="No data available for the current fiscal year." />);
         }
 
         if (this.props.width < 720) {

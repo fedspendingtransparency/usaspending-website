@@ -33,21 +33,21 @@ export default class LegalPage extends React.Component {
             metaTags = foiaPageMetaTags;
         }
         return (
-            <PageWrapper
-                pageName="Legal"
-                classNames="usa-da-legal-page"
-                title="Legal"
-                metaTagProps={metaTags}>
-                <main
-                        id="main-content"
-                        className="main-content">
-                    <LegalContent
-                                activePage={this.props.activePage}
-                                title={this.props.title}>
-                                {this.props.children}
-                            </LegalContent>
-                    </main>
-            </PageWrapper>
+          <PageWrapper
+            pageName="Legal"
+            classNames="usa-da-legal-page"
+            title="Legal"
+            metaTagProps={metaTags}>
+              <main
+                id="main-content"
+                className="main-content">
+                  <LegalContent
+                    activePage={this.props.activePage}
+                    title={this.props.title}>
+                    {this.props.children}
+                  </LegalContent>
+              </main>
+          </PageWrapper>
         );
     }
 }

@@ -176,13 +176,13 @@ export default class AwardDataArchiveContainer extends React.Component {
 
     render() {
         return (
-            <AwardDataArchiveContent
-                filters={this.state.filters}
-                updateFilter={this.updateFilter}
-                agencies={this.state.agencies}
-                columns={columns}
-                results={this.state.results}
-                requestResults={this.requestResults} />
+          <AwardDataArchiveContent
+            filters={this.state.filters}
+            updateFilter={this.updateFilter}
+            agencies={this.state.agencies}
+            columns={columns}
+            results={this.state.results}
+            requestResults={this.requestResults} />
         );
     }
 }

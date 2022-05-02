@@ -17,21 +17,21 @@ export default class SelectedRecipients extends React.Component {
         const shownRecipients = [];
         this.props.selectedRecipients.forEach((recipient) => {
             const value = (
-                <ShownRecipient
-                    recipient={recipient}
-                    label={`RECIPIENT | ${recipient}`}
-                    key={recipient}
-                    toggleRecipient={this.props.toggleRecipient.bind(null, recipient)} />
+              <ShownRecipient
+                recipient={recipient}
+                label={`RECIPIENT | ${recipient}`}
+                key={recipient}
+                toggleRecipient={this.props.toggleRecipient.bind(null, recipient)} />
             );
             shownRecipients.push(value);
         });
 
         return (
-            <div
-                className="selected-filters"
-                role="status">
-                {shownRecipients}
-            </div>
+          <div
+            className="selected-filters"
+            role="status">
+            {shownRecipients}
+          </div>
         );
     }
 }

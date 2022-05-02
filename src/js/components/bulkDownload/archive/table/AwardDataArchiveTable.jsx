@@ -22,32 +22,32 @@ export default class AwardDataArchiveTable extends React.Component {
         }
 
         const headers = this.props.columns.map((column) => (
-            <th key={column.columnName}>
-                {column.displayName}
-            </th>
+          <th key={column.columnName}>
+            {column.displayName}
+          </th>
         ));
 
         const rows = this.props.results.map((file, index) => (
-            <TableRow
-                key={file.url}
-                file={file}
-                rowIndex={index}
-                columns={this.props.columns} />
+          <TableRow
+            key={file.url}
+            file={file}
+            rowIndex={index}
+            columns={this.props.columns} />
         ));
 
         return (
-            <div className={`award-data-archive-table${noResultsClass}`}>
-                <table>
-                    <thead>
-                        <tr>
-                            {headers}
-                        </tr>
-                    </thead>
-                    <tbody>
-                            {rows}
-                        </tbody>
-                </table>
-            </div>
+          <div className={`award-data-archive-table${noResultsClass}`}>
+            <table>
+              <thead>
+                <tr>
+                  {headers}
+                </tr>
+              </thead>
+                <tbody>
+                  {rows}
+                </tbody>
+            </table>
+          </div>
         );
     }
 }

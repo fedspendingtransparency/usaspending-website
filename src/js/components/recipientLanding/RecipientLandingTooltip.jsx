@@ -80,23 +80,23 @@ export default class RecipientLandingTooltip extends React.Component {
 
     render() {
         return (
-            <div
-                ref={this.setWrapperRef}
-                className="homepage-hero-tooltip"
-                onMouseLeave={this.props.closeTooltip}
-                style={{
+          <div
+            ref={this.setWrapperRef}
+            className="homepage-hero-tooltip"
+            onMouseLeave={this.props.closeTooltip}
+            style={{
                     top: this.state.iconTop,
                     left: this.state.iconLeft
                 }}>
-                <div className="homepage-hero-tooltip__info_icon">
-                        <Icons.InfoCircle />
-                    </div>
-                <div className="homepage-hero-tooltip__text_holder">
-                            <div className="homepage-hero-tooltip__tooltip_text">
+                  <div className="homepage-hero-tooltip__info_icon">
+                    <Icons.InfoCircle />
+                  </div>
+                    <div className="homepage-hero-tooltip__text_holder">
+                      <div className="homepage-hero-tooltip__tooltip_text">
                         {this.props.message}
+                      </div>
                     </div>
-                        </div>
-            </div>
+          </div>
         );
     }
 }

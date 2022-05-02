@@ -538,22 +538,22 @@ export default class BarChartTrendline extends React.Component {
         // wrap the chart contents in a group and transform it down 20px to avoid impacting
         // positioning calculations
         const bars = this.state.items.map((item) => (
-            <BarTrendlineItem
-                key={item.key}
-                identifier={item.identifier}
-                dataY={item.dataY}
-                dataX={item.dataX}
-                graphHeight={item.graphHeight}
-                height={item.height}
-                width={item.width}
-                x={item.x}
-                y={item.y}
-                color={item.color}
-                description={item.description}
-                selectBar={item.selectBar}
-                deselectBar={item.deselectBar}
-                deregisterBar={item.deregisterBar}
-                ref={(component) => {
+          <BarTrendlineItem
+            key={item.key}
+            identifier={item.identifier}
+            dataY={item.dataY}
+            dataX={item.dataX}
+            graphHeight={item.graphHeight}
+            height={item.height}
+            width={item.width}
+            x={item.x}
+            y={item.y}
+            color={item.color}
+            description={item.description}
+            selectBar={item.selectBar}
+            deselectBar={item.deselectBar}
+            deregisterBar={item.deregisterBar}
+            ref={(component) => {
                     this.dataPoints[item.identifier] = component;
                 }} />
         ));
@@ -570,20 +570,20 @@ export default class BarChartTrendline extends React.Component {
             strokeWidth = 2;
         }
         const points = this.state.trendItems.map((point) => (
-            <PointItem
-                key={point.key}
-                identifier={point.identifier}
-                description={point.description}
-                x={point.x}
-                y={point.y}
-                stroke={point.stroke}
-                color={point.color}
-                radius={radius}
-                strokeWidth={strokeWidth}
-                selectPoint={point.selectPoint}
-                deselectPoint={point.deselectPoint}
-                deregisterPoint={point.deregisterPoint}
-                ref={(component) => {
+          <PointItem
+            key={point.key}
+            identifier={point.identifier}
+            description={point.description}
+            x={point.x}
+            y={point.y}
+            stroke={point.stroke}
+            color={point.color}
+            radius={radius}
+            strokeWidth={strokeWidth}
+            selectPoint={point.selectPoint}
+            deselectPoint={point.deselectPoint}
+            deregisterPoint={point.deregisterPoint}
+            ref={(component) => {
                     this.trendlineData[point.identifier] = component;
                 }} />
         ));
@@ -606,12 +606,12 @@ export default class BarChartTrendline extends React.Component {
                     const slope = -(nextPoint.y - point.y) / (nextPoint.x - point.x);
                     const description = `Line with slope ${MoneyFormatter.formatNumberWithPrecision(slope, 2)}`;
                     return (
-                        <g
-                            aria-label={description}
-                            key={`line-${point.key}`}>
-                            <desc>{description}</desc>
+                      <g
+                        aria-label={description}
+                        key={`line-${point.key}`}>
+                          <desc>{description}</desc>
                             <line x1={point.x} y1={point.y} x2={nextPoint.x} y2={nextPoint.y} style={style} />
-                        </g>
+                      </g>
                     );
                 }
                 return null;
@@ -619,69 +619,69 @@ export default class BarChartTrendline extends React.Component {
         }
 
         return (
-            <div
-                ref={(div) => {
+          <div
+            ref={(div) => {
                     this.divRef = div;
                 }}>
-                <svg
-                        className="bar-graph"
-                        width={this.props.width}
-                        height={this.props.height + 20}
-                        ref={(svg) => {
+                  <svg
+                    className="bar-graph"
+                    width={this.props.width}
+                    height={this.props.height + 20}
+                    ref={(svg) => {
                         this.svgRef = svg;
                     }}>
-                    <g className="bar-graph-body" transform="translate(0,20)">
-                            <BarYAxis
-                            height={this.props.height - this.props.padding.bottom}
-                            width={this.props.width - this.props.padding.left - this.props.padding.right}
-                            padding={this.props.padding}
-                            data={this.state.yValues}
-                            scale={this.state.yScale}
-                            ticks={this.state.yTicks}
-                            average={this.state.yAverage} />
+                      <g className="bar-graph-body" transform="translate(0,20)">
+                        <BarYAxis
+                          height={this.props.height - this.props.padding.bottom}
+                          width={this.props.width - this.props.padding.left - this.props.padding.right}
+                          padding={this.props.padding}
+                          data={this.state.yValues}
+                          scale={this.state.yScale}
+                          ticks={this.state.yTicks}
+                          average={this.state.yAverage} />
 
-                        <BarXAxis
-                                    top={this.props.height - this.props.padding.bottom}
-                                    width={this.props.width - this.props.padding.left - this.props.padding.right}
-                                    padding={this.props.padding}
-                                    data={this.state.xValues}
-                                    rawLabels={this.state.rawLabels}
-                                    scale={this.state.xScale}
-                                    axisPos={this.state.xAxisPos}
-                                    visualizationPeriod={this.props.visualizationPeriod} />
+                            <BarXAxis
+                              top={this.props.height - this.props.padding.bottom}
+                              width={this.props.width - this.props.padding.left - this.props.padding.right}
+                              padding={this.props.padding}
+                              data={this.state.xValues}
+                              rawLabels={this.state.rawLabels}
+                              scale={this.state.xScale}
+                              axisPos={this.state.xAxisPos}
+                              visualizationPeriod={this.props.visualizationPeriod} />
 
-                        <BarTrendlineAxis
-                                            height={this.props.height - this.props.padding.bottom}
-                                            width={this.props.width - this.props.padding.left - this.props.padding.right}
-                                            padding={this.props.padding}
-                                            data={this.state.zValues}
-                                            scale={this.state.zScale}
-                                            ticks={this.state.zTicks}
-                                            average={this.state.zAverage} />
+                                <BarTrendlineAxis
+                                  height={this.props.height - this.props.padding.bottom}
+                                  width={this.props.width - this.props.padding.left - this.props.padding.right}
+                                  padding={this.props.padding}
+                                  data={this.state.zValues}
+                                  scale={this.state.zScale}
+                                  ticks={this.state.zTicks}
+                                  average={this.state.zAverage} />
 
-                        <g
-                                                    className="bar-data"
-                                                    transform={`translate(${this.props.padding.left},0)`}>
-                                                    {bars}
-                                                </g>
+                                    <g
+                                      className="bar-data"
+                                      transform={`translate(${this.props.padding.left},0)`}>
+                                      {bars}
+                                    </g>
 
-                        <g
-                                                        className="trendline-data"
-                                                        transform={`translate(${this.props.padding.left},0)`}>
-                                                        {lines}
-                                                        {points}
-                                                    </g>
+                                      <g
+                                      className="trendline-data"
+                                      transform={`translate(${this.props.padding.left},0)`}>
+                                      {lines}
+                                      {points}
+                                    </g>
 
-                        <g
-                                                            className="legend-container"
-                                                            transform={`translate(
+                                        <g
+                                            className="legend-container"
+                                            transform={`translate(
                                 ${this.props.padding.left},
                                 ${this.props.height - 20})`}>
-                            <BarChartTrendlineLegend legend={this.props.legend} />
-                                                        </g>
-                        </g>
-                    </svg>
-            </div>
+                                  <BarChartTrendlineLegend legend={this.props.legend} />
+                                          </g>
+                      </g>
+                  </svg>
+          </div>
         );
     }
 }

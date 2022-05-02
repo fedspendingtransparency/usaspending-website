@@ -27,24 +27,24 @@ export default class AwardsBanner extends React.Component {
     render() {
         return (
 
-            <div className={`award-amounts__banner ${!this.state.toggle ? "award-amounts__banner_hidden" : ""}`}>
-                <span className="award-amounts__banner-info-icon"><InfoCircle /></span>
-                <p>The information in this tab is pulled from the combined data of awards that reference this IDV, not the IDV itself. To see those awards, scroll to the&nbsp;
-                        <button
-                        onClick={this.props.jumpToReferencedAwardsTable}
-                        className="award-viz__button">
-                        table of awards under this IDV
-                    </button>
-                    &nbsp;on this page.
-                    </p>
+          <div className={`award-amounts__banner ${!this.state.toggle ? "award-amounts__banner_hidden" : ""}`}>
+            <span className="award-amounts__banner-info-icon"><InfoCircle /></span>
+              <p>The information in this tab is pulled from the combined data of awards that reference this IDV, not the IDV itself. To see those awards, scroll to the&nbsp;
                 <button
-                            className="award-amounts__banner-close-icon"
-                            title="Dismiss message"
-                            aria-label="Dismiss message"
-                            onClick={this.toggleBanner}>
+                  onClick={this.props.jumpToReferencedAwardsTable}
+                  className="award-viz__button">
+                        table of awards under this IDV
+                </button>
+                    &nbsp;on this page.
+              </p>
+                <button
+                  className="award-amounts__banner-close-icon"
+                  title="Dismiss message"
+                  aria-label="Dismiss message"
+                  onClick={this.toggleBanner}>
                     <Close alt="Dismiss message" />
-                        </button>
-            </div>
+                </button>
+          </div>
         );
     }
 }

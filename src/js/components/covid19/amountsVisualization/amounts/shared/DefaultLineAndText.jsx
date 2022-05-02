@@ -80,17 +80,17 @@ const DefaultLineAndText = ({
     }, [width, scale, valueData, dataId, overviewData, className]);
 
     return (
-        <g>
-            <DefaultLine
-                scale={scale}
-                className={className}
-                overviewData={overviewData}
-                dataId={dataId}
-                tooltipId={tooltipId}
-                displayTooltip={displayTooltip}
-                hideTooltip={hideTooltip}
-                width={width}
-                publicLaw={publicLaw} />
+      <g>
+        <DefaultLine
+          scale={scale}
+          className={className}
+          overviewData={overviewData}
+          dataId={dataId}
+          tooltipId={tooltipId}
+          displayTooltip={displayTooltip}
+          hideTooltip={hideTooltip}
+          width={width}
+          publicLaw={publicLaw} />
             <TextGroup data={[
                 { ...valueData, ref: valueTextRef },
                 { ...labelData, ref: labelTextRef }
@@ -101,7 +101,7 @@ const DefaultLineAndText = ({
                 displayTooltip,
                 hideTooltip
             }))} />
-        </g>
+      </g>
     );
 };
 

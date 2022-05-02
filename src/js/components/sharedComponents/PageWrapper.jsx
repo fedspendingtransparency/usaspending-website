@@ -24,19 +24,19 @@ const PageWrapper = ({
     toolBarComponents = [],
     filters = {}
 }) => (
-    <div className={classNames} ref={ref}>
-        <MetaTags {...metaTagProps} />
-        <Header />
-        {noHeader ? null : <PageHeader
-            title={title}
-            stickyBreakPoint={getStickyBreakPointForSidebar()}
-            overLine={overLine}
-            toolBar={toolBarComponents} />}
-        {React.cloneElement(children, {
+  <div className={classNames} ref={ref}>
+    <MetaTags {...metaTagProps} />
+      <Header />
+    {noHeader ? null : <PageHeader
+      title={title}
+      stickyBreakPoint={getStickyBreakPointForSidebar()}
+      overLine={overLine}
+      toolBar={toolBarComponents} />}
+    {React.cloneElement(children, {
             className: `usda-page__container${children.props.className ? ` ${children.props.className}` : ''}`
         })}
-        <Footer pageName={pageName} filters={filters} />
-    </div>
+          <Footer pageName={pageName} filters={filters} />
+  </div>
 );
 
 PageWrapper.propTypes = {

@@ -9,11 +9,11 @@ import reactStringReplace from 'react-string-replace';
 
 const replaceString = (data, query, className) => (
     reactStringReplace(data, query, (match) => (
-        <span
-            className={className}
-            key={uniqueId()}>
-            {match}
-        </span>
+      <span
+        className={className}
+        key={uniqueId()}>
+        {match}
+      </span>
     ))
 );
 

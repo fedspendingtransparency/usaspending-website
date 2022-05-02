@@ -17,14 +17,14 @@ const RecipientInfoBanner = () => {
 
     const title = 'NOTICE';
     const content = (
-        <p>
+      <p>
             URLs to Recipient Profile pages are being updated as part of a site-wide change based on the new Unique Entity Identifier (UEI) data element. <strong>Please update any saved links to avoid service disruption</strong>.
-        </p>
+      </p>
     );
     const icon = (
-        <span className="info-banner__exclamation-triangle">
-            <FontAwesomeIcon size="lg" icon="exclamation-triangle" />
-        </span>
+      <span className="info-banner__exclamation-triangle">
+        <FontAwesomeIcon size="lg" icon="exclamation-triangle" />
+      </span>
     );
 
     const closeBanner = () => {

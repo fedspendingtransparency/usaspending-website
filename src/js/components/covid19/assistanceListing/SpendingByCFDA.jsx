@@ -129,50 +129,50 @@ const SpendingByCFDA = ({ publicLaw, handleExternalLinkClick }) => {
     }, [tabCounts, tabs]);
 
     return (
-        <div className="body__content assistance-listing">
-            <DateNote />
-            {publicLaw === 'american-rescue-plan' ?
-                <h4 className="body__narrative">
-                    <strong>Which CFDA Programs (Assistance Listings)</strong> supported the American Rescue Plan?
-                </h4> :
-                <h4 className="body__narrative">
-                    <strong>Which CFDA Programs (Assistance Listings)</strong> supported the response to COVID-19?
-                </h4>
+      <div className="body__content assistance-listing">
+        <DateNote />
+        {publicLaw === 'american-rescue-plan' ?
+          <h4 className="body__narrative">
+            <strong>Which CFDA Programs (Assistance Listings)</strong> supported the American Rescue Plan?
+          </h4> :
+          <h4 className="body__narrative">
+            <strong>Which CFDA Programs (Assistance Listings)</strong> supported the response to COVID-19?
+          </h4>
             }
-            <div className="body__narrative-description">
-                    <p>
+              <div className="body__narrative-description">
+                <p>
                     Overall financial assistance awards represent the vast majority of COVID-19 appropriated spending. The <span className="glossary-term">Catalog of Federal Domestic Assistance (CFDA) Programs</span> <GlossaryLink term="cfda-program" />, also known as Assistance Listings, are programs, like
-                    <a
-                            href="https://beta.sam.gov/fal/ccb612a4c4bb4ba98dbd427638a63029/view?keywords=snap&sort=-relevance&index=cfda&is_active=true&page=1"
-                            onClick={handleClick}>
+                      <a
+                        href="https://beta.sam.gov/fal/ccb612a4c4bb4ba98dbd427638a63029/view?keywords=snap&sort=-relevance&index=cfda&is_active=true&page=1"
+                        onClick={handleClick}>
                         &nbsp;Supplemental Nutrition Assistance Program (SNAP)&nbsp;
-                        </a>
+                      </a>
                     that provide financial assistance to individuals, organizations, businesses, or state, local, or tribal governments. All financial assistance awards must be associated with a CFDA Program and be explicitly authorized by law. In this section, you will see awards that CFDA Programs have funded in response to COVID-19.
                 </p>
+              </div>
+                <div ref={moreOptionsTabsRef}>
+                  <Tabs active={activeTab} types={tabs} switchTab={changeActiveTab} />
                 </div>
-            <div ref={moreOptionsTabsRef}>
-                        <Tabs active={activeTab} types={tabs} switchTab={changeActiveTab} />
-                    </div>
-            <SummaryInsightsContainer
+                  <SummaryInsightsContainer
                 // pass CFDA count to the summary section so we don't have to make the same API request again
-                            resultsCount={tabCounts[activeTab]}
-                            activeTab={activeTab}
-                            prevTab={prevTab}
-                            areCountsLoading={inFlight}
-                            overviewData={overviewData}
-                            assistanceOnly />
-            <SpendingByCFDAContainer
-                                    activeTab={activeTab}
-                                    scrollIntoView={scrollIntoViewTable} />
-            <Note message={dodNote} />
-            {publicLaw === 'american-rescue-plan' ?
-                <Note message={(
+                    resultsCount={tabCounts[activeTab]}
+                    activeTab={activeTab}
+                    prevTab={prevTab}
+                    areCountsLoading={inFlight}
+                    overviewData={overviewData}
+                    assistanceOnly />
+                      <SpendingByCFDAContainer
+                        activeTab={activeTab}
+                        scrollIntoView={scrollIntoViewTable} />
+                          <Note message={dodNote} />
+        {publicLaw === 'american-rescue-plan' ?
+          <Note message={(
                     <>
                         This table uses data tagged with Disaster Emergency Fund Code (DEFC) V, which was designated for Non-emergency P.L. 117-2, American Rescue Plan Act of 2021.
                     </>
                 )} /> : <div />
             }
-        </div>
+      </div>
     );
 };
 

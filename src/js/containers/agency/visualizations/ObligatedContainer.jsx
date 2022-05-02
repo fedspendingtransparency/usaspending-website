@@ -88,13 +88,13 @@ export class ObligatedContainer extends React.PureComponent {
 
     render() {
         return (
-            <ObligatedVisualization
-                activeFY={this.props.activeFY}
-                agencyName={this.props.agencyName}
-                obligatedAmount={this.state.obligatedAmount}
-                budgetAuthority={this.state.budgetAuthority}
-                outlay={this.state.outlay}
-                asOfDate={this.props.asOfDate} />
+          <ObligatedVisualization
+            activeFY={this.props.activeFY}
+            agencyName={this.props.agencyName}
+            obligatedAmount={this.state.obligatedAmount}
+            budgetAuthority={this.state.budgetAuthority}
+            outlay={this.state.outlay}
+            asOfDate={this.props.asOfDate} />
         );
     }
 }

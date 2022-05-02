@@ -60,32 +60,32 @@ export default class TableRow extends React.PureComponent {
             if (column.columnName === 'fileName') {
                 // link to the file
                 return (
-                    <td
-                        className={rowClass}
-                        key={`${column.columnName}-${this.props.file.url}`}>
-                        <a
-                                href={this.props.file.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                onClick={this.logArchiveDownload}>
-                                {this.props.file.fileName}
-                            </a>
-                    </td>
+                  <td
+                    className={rowClass}
+                    key={`${column.columnName}-${this.props.file.url}`}>
+                      <a
+                        href={this.props.file.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={this.logArchiveDownload}>
+                        {this.props.file.fileName}
+                      </a>
+                  </td>
                 );
             }
             return (
-                <td
-                    className={rowClass}
-                    key={`${column.columnName}-${this.props.file.url}`}>
-                    {this.props.file[column.columnName]}
-                </td>
+              <td
+                className={rowClass}
+                key={`${column.columnName}-${this.props.file.url}`}>
+                {this.props.file[column.columnName]}
+              </td>
             );
         });
 
         return (
-            <tr>
-                {cells}
-            </tr>
+          <tr>
+            {cells}
+          </tr>
         );
     }
 }

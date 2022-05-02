@@ -57,23 +57,23 @@ export default class ExplorerDetailPage extends React.Component {
 
         if (this.state.showTooltip) {
             tooltip = (<ExplorerTooltip
-                {...this.state.tooltip} />);
+              {...this.state.tooltip} />);
 
             if (this.state.tooltip.isAward) {
                 tooltip = (<ExplorerAwardTooltip
-                    {...this.state.tooltip} />);
+                  {...this.state.tooltip} />);
             }
         }
 
         return (
-            <ExplorerWrapperPage>
-                <div className="explorer-detail-wrap">
-                    <DetailContentContainer
-                        showTooltip={this.showTooltip}
-                        hideTooltip={this.hideTooltip} />
-                    {tooltip}
-                </div>
-            </ExplorerWrapperPage>
+          <ExplorerWrapperPage>
+            <div className="explorer-detail-wrap">
+              <DetailContentContainer
+                showTooltip={this.showTooltip}
+                hideTooltip={this.hideTooltip} />
+              {tooltip}
+            </div>
+          </ExplorerWrapperPage>
         );
     }
 }

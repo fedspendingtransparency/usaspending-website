@@ -26,36 +26,36 @@ export default class TableRow extends React.PureComponent {
             if (column.columnName === 'name' && (this.props.item.id || this.props.item.name === "Unreported Data") && this.props.item.id !== 'undefined') {
                 // show the link cell
                 return (
-                    <td
-                        className={rowClass}
-                        key={`${column.columnName}-${this.props.item.id}`}>
-                        <LinkCell
-                                rowIndex={this.props.rowIndex}
-                                name={this.props.item.name}
-                                data={this.props.item}
-                                id={`${this.props.item.id}`}
-                                column={column.columnName}
-                                selectedRow={this.props.selectedRow}
-                                goToUnreported={this.props.goToUnreported} />
-                    </td>
+                  <td
+                    className={rowClass}
+                    key={`${column.columnName}-${this.props.item.id}`}>
+                      <LinkCell
+                        rowIndex={this.props.rowIndex}
+                        name={this.props.item.name}
+                        data={this.props.item}
+                        id={`${this.props.item.id}`}
+                        column={column.columnName}
+                        selectedRow={this.props.selectedRow}
+                        goToUnreported={this.props.goToUnreported} />
+                  </td>
                 );
             }
             return (
-                <td
-                    className={rowClass}
-                    key={`${column.columnName}-${this.props.item.name}`}>
-                    <GenericCell
-                            rowIndex={this.props.rowIndex}
-                            data={this.props.item.display[column.columnName]}
-                            column={column.columnName} />
-                </td>
+              <td
+                className={rowClass}
+                key={`${column.columnName}-${this.props.item.name}`}>
+                  <GenericCell
+                    rowIndex={this.props.rowIndex}
+                    data={this.props.item.display[column.columnName]}
+                    column={column.columnName} />
+              </td>
             );
         });
 
         return (
-            <tr>
-                {cells}
-            </tr>
+          <tr>
+            {cells}
+          </tr>
         );
     }
 }

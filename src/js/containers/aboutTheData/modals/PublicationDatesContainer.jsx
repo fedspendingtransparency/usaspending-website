@@ -123,38 +123,38 @@ const PublicationDatesContainer = ({
     // do not show deadlines in column headers if we do not have the data
     const columns = publicationDatesColumns.map((column) => ({
         displayName: (
-            <div className="publication-dates__column-header-container">
-                <div className="publication-dates__column-header-title">
-                    {column.displayName}
-                </div>
-                <div className="publication-dates__column-header-sub-title">
-                        <i>
-                        Deadline: {renderDeadline(column.title, submissionDeadlines)}
-                    </i>
-                    </div>
+          <div className="publication-dates__column-header-container">
+            <div className="publication-dates__column-header-title">
+              {column.displayName}
             </div>
+              <div className="publication-dates__column-header-sub-title">
+                <i>
+                        Deadline: {renderDeadline(column.title, submissionDeadlines)}
+                </i>
+              </div>
+          </div>
         ),
         title: column.title
     }));
 
     return (
         <>
-            <Table
-                loading={loading}
-                error={error.error}
-                message={error.message}
-                rows={rows}
-                columns={columns}
-                currentSort={{ field: sort, direction: order }}
-                updateSort={updateSort} />
-            <Pagination
-                        currentPage={page}
-                        changePage={setPage}
-                        changeLimit={setLimit}
-                        limitSelector
-                        resultsText
-                        pageSize={limit}
-                        totalItems={total} />
+          <Table
+            loading={loading}
+            error={error.error}
+            message={error.message}
+            rows={rows}
+            columns={columns}
+            currentSort={{ field: sort, direction: order }}
+            updateSort={updateSort} />
+              <Pagination
+                currentPage={page}
+                changePage={setPage}
+                changeLimit={setLimit}
+                limitSelector
+                resultsText
+                pageSize={limit}
+                totalItems={total} />
         </>
     );
 };

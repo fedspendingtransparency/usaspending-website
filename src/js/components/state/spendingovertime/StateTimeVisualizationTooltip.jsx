@@ -43,32 +43,32 @@ export default class StateTimeVisualizationTooltip extends React.Component {
         const dollarValue = MoneyFormatter.formatMoney(this.props.data.yValue);
 
         return (
-            <div className="visualization-tooltip">
-                <div
-                    className="tooltip"
-                    ref={(div) => {
+          <div className="visualization-tooltip">
+            <div
+              className="tooltip"
+              ref={(div) => {
                         this.div = div;
                     }}>
-                    <div
-                            className="tooltip-pointer"
-                            ref={(div) => {
+                      <div
+                        className="tooltip-pointer"
+                        ref={(div) => {
                             this.pointerDiv = div;
                         }} />
-                    <div className="tooltip-title">
-                                {this.props.data.xValue}
-                            </div>
-                    <div className="tooltip-body">
-                                    <div className="tooltip-full">
-                            <div className="tooltip-value">
-                                            {dollarValue}
-                                        </div>
-                            <div className="tooltip-label">
-                                Amount Obligated
-                                            </div>
-                        </div>
+                          <div className="tooltip-title">
+                            {this.props.data.xValue}
+                          </div>
+                            <div className="tooltip-body">
+                              <div className="tooltip-full">
+                                <div className="tooltip-value">
+                                  {dollarValue}
                                 </div>
-                </div>
+                                  <div className="tooltip-label">
+                                Amount Obligated
+                                  </div>
+                              </div>
+                            </div>
             </div>
+          </div>
         );
     }
 }

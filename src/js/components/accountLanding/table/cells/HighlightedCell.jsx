@@ -22,11 +22,11 @@ export default class HighlightedCell extends React.Component {
             data = replaceString(this.props.data, this.props.searchString, "results-table-cell__matched results-table-cell__matched_highlight");
         }
         return (
-            <div className={`results-table-cell results-table-cell_column_${this.props.column}`}>
-                <div className="results-table-cell__content">
-                    {data}
-                </div>
+          <div className={`results-table-cell results-table-cell_column_${this.props.column}`}>
+            <div className="results-table-cell__content">
+              {data}
             </div>
+          </div>
         );
     }
 }

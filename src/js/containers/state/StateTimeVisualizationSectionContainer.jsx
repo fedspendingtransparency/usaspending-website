@@ -159,11 +159,11 @@ export class StateTimeVisualizationSectionContainer extends React.Component {
 
     render() {
         return (
-            <StateTimeVisualizationSection
-                data={this.state}
-                loading={this.state.loading}
-                updateVisualizationPeriod={this.updateVisualizationPeriod}
-                visualizationPeriod={this.state.visualizationPeriod} />
+          <StateTimeVisualizationSection
+            data={this.state}
+            loading={this.state.loading}
+            updateVisualizationPeriod={this.updateVisualizationPeriod}
+            visualizationPeriod={this.state.visualizationPeriod} />
         );
     }
 }

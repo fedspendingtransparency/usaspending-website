@@ -16,17 +16,17 @@ const propTypes = {
 export default class MoreResources extends React.Component {
     render() {
         return (
-            <div className="glossary-resources">
-                <h3 className="title">
+          <div className="glossary-resources">
+            <h3 className="title">
                     More Resources
-                </h3>
-                <hr />
+            </h3>
+              <hr />
                 <ReactMarkdown
-                        source={this.props.resources}
-                        renderers={Object.assign({}, ReactMarkdown.renderers, {
+                  source={this.props.resources}
+                  renderers={Object.assign({}, ReactMarkdown.renderers, {
                         Link: SmartLink
                     })} />
-            </div>
+          </div>
         );
     }
 }

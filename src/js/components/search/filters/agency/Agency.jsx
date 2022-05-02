@@ -53,27 +53,27 @@ export default class Agency extends React.Component {
             }
 
             return (
-                <div className="filter-item-wrap" key={`holder-${type}`}>
-                    <AgencyListContainer
-                        agencyType={type}
-                        toggleAgency={this.props.toggleAgency}
-                        selectedAgencies={selectedAgencies} />
+              <div className="filter-item-wrap" key={`holder-${type}`}>
+                <AgencyListContainer
+                  agencyType={type}
+                  toggleAgency={this.props.toggleAgency}
+                  selectedAgencies={selectedAgencies} />
                     <SelectedAgencies
-                                agencyType={type}
-                                selectedAgencies={selectedAgencies}
-                                toggleAgency={this.props.toggleAgency} />
-                    <SubmitHint
-                                        ref={(component) => {
+                      agencyType={type}
+                      selectedAgencies={selectedAgencies}
+                      toggleAgency={this.props.toggleAgency} />
+                        <SubmitHint
+                          ref={(component) => {
                             this.hint = component;
                         }} />
-                </div>
+              </div>
             );
         });
 
         return (
-            <div className="agency-filter">
-                {agencies}
-            </div>
+          <div className="agency-filter">
+            {agencies}
+          </div>
         );
     }
 }

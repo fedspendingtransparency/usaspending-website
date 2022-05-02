@@ -70,23 +70,23 @@ export default class SingleCheckboxType extends React.Component {
         const checked = this.props.selectedCheckboxes.has(this.props.code);
         const elementId = `checkbox-${uniqueId()}`;
         return (
-            <div className="primary-checkbox-type single-item">
-                <div className="primary-checkbox-wrapper">
-                    <label
-                        className="checkbox-item-wrapper"
-                        htmlFor={elementId}>
-                        <input
-                                type="checkbox"
-                                id={elementId}
-                                value={this.props.code}
-                                checked={checked}
-                                onChange={this.toggleFilter} />
-                        <span className="checkbox-item-label">
-                                        {this.props.name}
-                                    </span>
-                    </label>
-                </div>
+          <div className="primary-checkbox-type single-item">
+            <div className="primary-checkbox-wrapper">
+              <label
+                className="checkbox-item-wrapper"
+                htmlFor={elementId}>
+                  <input
+                    type="checkbox"
+                    id={elementId}
+                    value={this.props.code}
+                    checked={checked}
+                    onChange={this.toggleFilter} />
+                      <span className="checkbox-item-label">
+                        {this.props.name}
+                      </span>
+              </label>
             </div>
+          </div>
         );
     }
 }

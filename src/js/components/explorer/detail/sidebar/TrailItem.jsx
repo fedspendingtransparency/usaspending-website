@@ -56,37 +56,37 @@ const TrailItem = (props) => {
     }
 
     return (
-        <li className="trail-item">
-            <button
-                className="item"
-                title={`Return to ${filterName}`}
-                onClick={clickedItem}>
-                <div className={`item-decorator ${specialClass}`}>
-                        <div className="main-dot" />
-                    <TransitionGroup>
-                                {!props.isLast && (
-                            <CSSTransition
-                                    classNames="explorer-dots-animation"
-                                    timeout={{ exit: 550, enter: 330 }}
-                                    exit>
-                                <TrailDecorator />
-                                </CSSTransition>
+      <li className="trail-item">
+        <button
+          className="item"
+          title={`Return to ${filterName}`}
+          onClick={clickedItem}>
+            <div className={`item-decorator ${specialClass}`}>
+              <div className="main-dot" />
+                <TransitionGroup>
+                  {!props.isLast && (
+                    <CSSTransition
+                      classNames="explorer-dots-animation"
+                      timeout={{ exit: 550, enter: 330 }}
+                      exit>
+                        <TrailDecorator />
+                    </CSSTransition>
                         )}
-                            </TransitionGroup>
-                    </div>
-                <div className="item-content">
-                            <div className="type">
-                        {filterName}
-                    </div>
-                    <div className={`title ${titleIsAmount}`}>
-                            {title}
+                </TransitionGroup>
+            </div>
+              <div className="item-content">
+                <div className="type">
+                  {filterName}
+                </div>
+                  <div className={`title ${titleIsAmount}`}>
+                    {title}
+                  </div>
+                      <div className={`amount ${showAmountClass}`}>
+                          {formattedAmount}
                         </div>
-                    <div className={`amount ${showAmountClass}`}>
-                                {formattedAmount}
-                            </div>
-                        </div>
-            </button>
-        </li>
+              </div>
+        </button>
+      </li>
     );
 };
 

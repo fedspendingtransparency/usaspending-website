@@ -37,23 +37,23 @@ const DownloadIconButton = ({ onClick, downloadInFlight }) => {
     const icon = downloadInFlight ? 'spinner' : 'download';
 
     return (
-        <div
-            className="download-wrap"
-            onMouseEnter={onMouseEnter}
-            onMouseLeave={onMouseLeave}
-            onFocus={onMouseEnter}
-            onBlur={onMouseLeave}>
-            {hover}
-            <button
-                    className={`sticky-header__button${disabledClass}`}
-                    title={buttonText}
-                    aria-label={buttonText}
-                    disabled={downloadInFlight}
-                    onClick={startDownload}>
-                <FontAwesomeIcon icon={icon} spin={!!downloadInFlight} />
-                </button>
+      <div
+        className="download-wrap"
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+        onFocus={onMouseEnter}
+        onBlur={onMouseLeave}>
+        {hover}
+          <button
+            className={`sticky-header__button${disabledClass}`}
+            title={buttonText}
+            aria-label={buttonText}
+            disabled={downloadInFlight}
+            onClick={startDownload}>
+              <FontAwesomeIcon icon={icon} spin={!!downloadInFlight} />
+          </button>
             <span>Download</span>
-        </div>
+      </div>
     );
 };
 

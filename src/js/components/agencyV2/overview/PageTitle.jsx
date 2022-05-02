@@ -23,27 +23,27 @@ const PageTitle = ({
     } = useSelector((state) => state.agencyV2.overview);
 
     const image = logo ? (
-        <img
-            className="page-title__image"
-            src={`graphics/agency/${logo}`}
-            alt={`${name} logo`} />
+      <img
+        className="page-title__image"
+        src={`graphics/agency/${logo}`}
+        alt={`${name} logo`} />
     ) : '';
     return (
-        <div className="page-title">
-            <div className="page-title__wrapper">
-                <h2 className="page-title__name">
-                    {name}&nbsp;&nbsp;
-                    {name && covidDefCodes.length > 0 &&
-                    <TooltipWrapper tooltipPosition="bottom" offsetAdjustments={{ top: 0 }} className="page-title__tooltip" tooltipComponent={<CovidTooltip fy={fy} codes={covidDefCodes} />}>
-                        <span className="covid-spending-flag">
+      <div className="page-title">
+        <div className="page-title__wrapper">
+          <h2 className="page-title__name">
+            {name}&nbsp;&nbsp;
+            {name && covidDefCodes.length > 0 &&
+            <TooltipWrapper tooltipPosition="bottom" offsetAdjustments={{ top: 0 }} className="page-title__tooltip" tooltipComponent={<CovidTooltip fy={fy} codes={covidDefCodes} />}>
+              <span className="covid-spending-flag">
                             Includes COVID-19 Spending
-                        </span>
-                    </TooltipWrapper>
+              </span>
+            </TooltipWrapper>
                     }
-                </h2>
-            </div>
-            {image}
+          </h2>
         </div>
+        {image}
+      </div>
     );
 };
 

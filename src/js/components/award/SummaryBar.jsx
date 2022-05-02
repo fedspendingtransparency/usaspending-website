@@ -34,11 +34,11 @@ const SummaryBar = ({
 }) => {
     if (isInvalidId) {
         return (
-            <div className="sticky-header__title">
-                <h1 tabIndex={-1} id="main-focus">
+          <div className="sticky-header__title">
+            <h1 tabIndex={-1} id="main-focus">
                     Invalid Award ID
-                </h1>
-            </div>
+            </h1>
+          </div>
         );
     }
     const title = (category === 'idv')
@@ -47,25 +47,25 @@ const SummaryBar = ({
 
     return (
         <>
-            <div className="sticky-header__title">
-                <h1 tabIndex={-1} id="main-focus">
-                    {isLoading ? `--` : `${title} Summary`}
-                </h1>
-            </div>
+          <div className="sticky-header__title">
+            <h1 tabIndex={-1} id="main-focus">
+              {isLoading ? `--` : `${title} Summary`}
+            </h1>
+          </div>
             <div className="sticky-header__toolbar">
-                    <ShareIcon
-                    slug={slug}
-                    email={{
+              <ShareIcon
+                slug={slug}
+                email={{
                         subject: `USAspending.gov Award Summary: ${emailSubject}`,
                         body: `View the spending details of this federal award on USAspending.gov: ${getBaseUrl(slug)}`
                     }} />
-                <div className="sticky-header__toolbar-item">
-                            <DownloadButton
-                        downloadAvailable
-                        downloadInFlight={isDownloadPending}
-                        onClick={downloadData} />
-                        </div>
-                </div>
+                      <div className="sticky-header__toolbar-item">
+                        <DownloadButton
+                          downloadAvailable
+                          downloadInFlight={isDownloadPending}
+                          onClick={downloadData} />
+                      </div>
+            </div>
         </>
     );
 };

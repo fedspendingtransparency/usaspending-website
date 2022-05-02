@@ -322,19 +322,19 @@ export class AccountAwardsContainer extends React.Component {
             disabled: this.state.inFlight || this.state.counts[type.internal] === 0
         }));
         return (
-            <ResultsTableSection
-                error={this.state.error}
-                inFlight={this.state.inFlight}
-                results={this.state.results}
-                columns={this.state.columns[this.state.tableType]}
-                sort={this.state.sort}
-                tableTypes={tabsWithCounts}
-                currentType={this.state.tableType}
-                tableInstance={this.state.tableInstance}
-                switchTab={this.switchTab}
-                updateSort={this.updateSort}
-                loadNextPage={this.loadNextPage}
-                subaward={false} />
+          <ResultsTableSection
+            error={this.state.error}
+            inFlight={this.state.inFlight}
+            results={this.state.results}
+            columns={this.state.columns[this.state.tableType]}
+            sort={this.state.sort}
+            tableTypes={tabsWithCounts}
+            currentType={this.state.tableType}
+            tableInstance={this.state.tableInstance}
+            switchTab={this.switchTab}
+            updateSort={this.updateSort}
+            loadNextPage={this.loadNextPage}
+            subaward={false} />
         );
     }
 }

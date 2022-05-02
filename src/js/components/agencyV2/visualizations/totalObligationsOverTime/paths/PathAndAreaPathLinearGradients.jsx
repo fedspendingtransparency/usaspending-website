@@ -26,32 +26,32 @@ const PathAndAreaPathLinearGradients = ({
     useEffect(() => setGradientStops(stoppingPoints(agencyBudget, data)), [agencyBudget, data, width]);
 
     return (
-        <g>
-            {/* path linear gradient */}
-            <linearGradient id="pathLinearGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                    {
+      <g>
+        {/* path linear gradient */}
+          <linearGradient id="pathLinearGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            {
                     gradientStops.map((stop, i) => (
-                        <stop
-                            key={`${stop.offset}-${i}`}
-                            offset={stop.offset}
-                            stopColor={stop.stopColor === 'blue' ? pathStopColorBlue : pathStopColorRed}
-                            stopOpacity="1" />
+                      <stop
+                        key={`${stop.offset}-${i}`}
+                        offset={stop.offset}
+                        stopColor={stop.stopColor === 'blue' ? pathStopColorBlue : pathStopColorRed}
+                        stopOpacity="1" />
                     ))
                 }
-                </linearGradient>
-            {/* area path linear gradient */}
-            <linearGradient id="areaPathLinearGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-                    {
+          </linearGradient>
+        {/* area path linear gradient */}
+          <linearGradient id="areaPathLinearGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            {
                     gradientStops.map((stop, i) => (
-                        <stop
-                            key={`${stop.offset}-${i}`}
-                            offset={stop.offset}
-                            stopColor={stop.stopColor === 'blue' ? areaPathStopColorBlue : areaPathStopColorRed}
-                            stopOpacity="1" />
+                      <stop
+                        key={`${stop.offset}-${i}`}
+                        offset={stop.offset}
+                        stopColor={stop.stopColor === 'blue' ? areaPathStopColorBlue : areaPathStopColorRed}
+                        stopOpacity="1" />
                     ))
                 }
-                </linearGradient>
-        </g>
+          </linearGradient>
+      </g>
     );
 };
 

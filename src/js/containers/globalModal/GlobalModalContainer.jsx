@@ -24,31 +24,31 @@ export class GlobalModalContainer extends React.Component {
     render() {
         if (this.props.globalModal.modal === "redirect") {
             return (
-                <RedirectModal
-                    mounted={this.props.globalModal.display}
-                    hideModal={this.props.hideModal}
-                    url={this.props.globalModal.url} />
+              <RedirectModal
+                mounted={this.props.globalModal.display}
+                hideModal={this.props.hideModal}
+                url={this.props.globalModal.url} />
             );
         }
         if (this.props.globalModal.modal === "covid") {
             return (
-                <CovidModalContainer
-                    mounted={this.props.globalModal.display}
-                    hideModal={this.props.hideModal} />
+              <CovidModalContainer
+                mounted={this.props.globalModal.display}
+                hideModal={this.props.hideModal} />
             );
         }
         if (this.props.globalModal.modal === "covid-data-disclaimer") {
             return (
-                <InterimDataDisclaimerModal
-                    mounted={this.props.globalModal.display}
-                    hideModal={this.props.hideModal} />
+              <InterimDataDisclaimerModal
+                mounted={this.props.globalModal.display}
+                hideModal={this.props.hideModal} />
             );
         }
         if (this.props.globalModal.modal === "uei") {
             return (
-                <UEIModalContainer
-                    mounted={this.props.globalModal.display}
-                    hideModal={this.props.hideModal} />
+              <UEIModalContainer
+                mounted={this.props.globalModal.display}
+                hideModal={this.props.hideModal} />
             );
         }
         return null;

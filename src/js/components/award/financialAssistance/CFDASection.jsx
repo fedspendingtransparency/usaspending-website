@@ -19,21 +19,21 @@ const CFDASection = ({
     updateCFDAOverviewLinkClicked,
     awardTotalObligation
 }) => (
-    <AwardSection id="award-cfda" type="column" className="cfda-section award-viz">
-        <AwardSectionHeader
-            title="CFDA Program / Assistance Listing Information"
-            icon={<FontAwesomeIcon icon="hands-helping" />}
-            tooltip={CFDASectionInfo}
-            left={false}
-            tooltipWide />
+  <AwardSection id="award-cfda" type="column" className="cfda-section award-viz">
+    <AwardSectionHeader
+      title="CFDA Program / Assistance Listing Information"
+      icon={<FontAwesomeIcon icon="hands-helping" />}
+      tooltip={CFDASectionInfo}
+      left={false}
+      tooltipWide />
         <div className="award__col__content">
-                    <CFDAVizContainer
-                cfdas={cfdas}
-                CFDAOverviewLinkClicked={CFDAOverviewLinkClicked}
-                updateCFDAOverviewLinkClicked={updateCFDAOverviewLinkClicked}
-                awardTotalObligation={awardTotalObligation} />
-                </div>
-    </AwardSection>
+          <CFDAVizContainer
+            cfdas={cfdas}
+            CFDAOverviewLinkClicked={CFDAOverviewLinkClicked}
+            updateCFDAOverviewLinkClicked={updateCFDAOverviewLinkClicked}
+            awardTotalObligation={awardTotalObligation} />
+        </div>
+  </AwardSection>
 );
 
 CFDASection.propTypes = propTypes;

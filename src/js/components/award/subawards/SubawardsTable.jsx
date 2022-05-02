@@ -65,13 +65,13 @@ export default class SubawardsTable extends React.Component {
         const defaultSort = subawardFields.defaultSortDirection[column];
 
         return (
-            <SubawardsHeaderCell
-                label={displayName}
-                column={column}
-                order={this.props.sort}
-                defaultDirection={defaultSort}
-                isLastColumn={isLast}
-                setSubawardSort={this.props.changeSort} />
+          <SubawardsHeaderCell
+            label={displayName}
+            column={column}
+            order={this.props.sort}
+            defaultDirection={defaultSort}
+            isLastColumn={isLast}
+            setSubawardSort={this.props.changeSort} />
         );
     }
 
@@ -82,11 +82,11 @@ export default class SubawardsTable extends React.Component {
         const item = this.props.subawards[rowIndex];
 
         return (
-            <TransactionTableGenericCell
-                rowIndex={rowIndex}
-                data={`${item[column]}`}
-                column={column}
-                isLastColumn={isLast} />
+          <TransactionTableGenericCell
+            rowIndex={rowIndex}
+            data={`${item[column]}`}
+            column={column}
+            isLastColumn={isLast} />
         );
     }
 
@@ -150,55 +150,55 @@ export default class SubawardsTable extends React.Component {
         const totalSubAwardLabel = 'Total Count of Sub-Award Transactions: ';
         const totalSubAwardAmountLabel = 'Total Amount of Sub-Awards: ';
         return (
-            <div>
-                <div className="subaward-totals">
-                    <div className="total-item">
-                        <span className="total-label">
-                            {totalSubAwardLabel}
-                        </span>
-                        <span className="total-value">
-                                {award.subawardCount}
-                            </span>
-                    </div>
-                    <div className="total-item">
-                            <span className="total-label">
-                            {totalSubAwardAmountLabel}
-                        </span>
-                        <span className="total-value">
-                                {totalValue}
-                            </span>
-                        </div>
-                    <div className="total-item">
-                                <span className="total-label">
-                            Percent of Prime Award Obligated Amount:&nbsp;
-                        </span>
-                        <span className="total-value">
-                                {award.subAwardedPercent}
-                            </span>
-                            </div>
+          <div>
+            <div className="subaward-totals">
+              <div className="total-item">
+                <span className="total-label">
+                  {totalSubAwardLabel}
+                </span>
+                  <span className="total-value">
+                    {award.subawardCount}
+                  </span>
+              </div>
+                <div className="total-item">
+                  <span className="total-label">
+                    {totalSubAwardAmountLabel}
+                  </span>
+                    <span className="total-value">
+                      {totalValue}
+                    </span>
                 </div>
-                <div
-                        className={`subawards-table ${loadingClass}`}
-                        ref={(div) => {
+                  <div className="total-item">
+                    <span className="total-label">
+                            Percent of Prime Award Obligated Amount:&nbsp;
+                    </span>
+                      <span className="total-value">
+                          {award.subAwardedPercent}
+                        </span>
+                  </div>
+            </div>
+              <div
+                className={`subawards-table ${loadingClass}`}
+                ref={(div) => {
                         this.wrapperDiv = div;
                     }}>
-                    <IBTable
-                            rowHeight={rowHeight}
-                            rowCount={subawards.length}
-                            headerHeight={50}
-                            contentWidth={tableValues.width}
-                            bodyWidth={tableWidth}
-                            bodyHeight={tableHeight}
-                            columns={tableValues.columns}
-                            onReachedBottom={loadNextPage}
-                            headerCellRender={this.headerCellRender}
-                            bodyCellRender={this.bodyCellRender}
-                            ref={(table) => {
+                      <IBTable
+                        rowHeight={rowHeight}
+                        rowCount={subawards.length}
+                        headerHeight={50}
+                        contentWidth={tableValues.width}
+                        bodyWidth={tableWidth}
+                        bodyHeight={tableHeight}
+                        columns={tableValues.columns}
+                        onReachedBottom={loadNextPage}
+                        headerCellRender={this.headerCellRender}
+                        bodyCellRender={this.bodyCellRender}
+                        ref={(table) => {
                             this.tableComponent = table;
                         }} />
-                    </div>
+              </div>
                 <div className="results-table-message-container">{message}</div>
-            </div>
+          </div>
         );
     }
 }

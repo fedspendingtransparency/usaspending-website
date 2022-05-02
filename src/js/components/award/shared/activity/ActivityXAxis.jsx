@@ -99,14 +99,14 @@ export default class ActivityXAxis extends React.Component {
             const transform = `translate(${translateX},${translateY}) rotate(${rotateLabel})`;
 
             return (<ActivityXAxisItem
-                x={xPos}
-                y={yPos}
-                label={`${tickLabels[i]}`}
-                key={`label-y-${tick}-${i}`}
-                lineStart={lineStart}
-                lineEnd={lineEnd}
-                transform={transform}
-                line={line || false} />);
+              x={xPos}
+              y={yPos}
+              label={`${tickLabels[i]}`}
+              key={`label-y-${tick}-${i}`}
+              lineStart={lineStart}
+              lineEnd={lineEnd}
+              transform={transform}
+              line={line || false} />);
         });
 
         this.setState({
@@ -117,23 +117,23 @@ export default class ActivityXAxis extends React.Component {
 
     render() {
         return (
-            <g
-                className="bar-axis"
-                transform={`translate(${this.props.padding.left},0)`}>
-                <title>X-Axis</title>
+          <g
+            className="bar-axis"
+            transform={`translate(${this.props.padding.left},0)`}>
+              <title>X-Axis</title>
                 <desc>
-                        {this.state.description}
-                    </desc>
-                <line
-                            className="axis x-axis"
-                            x1={0}
-                            y1={this.props.height}
-                            x2={this.props.width}
-                            y2={this.props.height} />
-                <g className="axis-labels">
-                                    {this.state.labels}
-                                </g>
-            </g>
+                  {this.state.description}
+                </desc>
+                  <line
+                    className="axis x-axis"
+                    x1={0}
+                    y1={this.props.height}
+                    x2={this.props.width}
+                    y2={this.props.height} />
+                      <g className="axis-labels">
+                        {this.state.labels}
+                      </g>
+          </g>
         );
     }
 }

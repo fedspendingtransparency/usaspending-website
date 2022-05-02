@@ -57,11 +57,11 @@ export class AgencyContainer extends React.Component {
 
     render() {
         return (
-            <Agency
-                {...this.props}
-                dirtyFunding={this.dirtyFilters('Funding')}
-                dirtyAwarding={this.dirtyFilters('Awarding')}
-                toggleAgency={this.toggleAgency} />
+          <Agency
+            {...this.props}
+            dirtyFunding={this.dirtyFilters('Funding')}
+            dirtyAwarding={this.dirtyFilters('Awarding')}
+            toggleAgency={this.toggleAgency} />
         );
     }
 }

@@ -7,14 +7,14 @@ import React from 'react';
 import LoadingSpinner from 'components/sharedComponents/LoadingSpinner';
 
 const ChartLoadingMessage = () => (
-    <div className="visualization-message-container">
-        <div className="visualization-loading">
-            <LoadingSpinner />
-            <div className="message">
+  <div className="visualization-message-container">
+    <div className="visualization-loading">
+      <LoadingSpinner />
+        <div className="message">
                 Gathering your data...
-                </div>
         </div>
     </div>
+  </div>
 );
 
 export default ChartLoadingMessage;

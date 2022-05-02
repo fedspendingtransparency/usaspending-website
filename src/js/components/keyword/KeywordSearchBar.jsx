@@ -66,27 +66,27 @@ export default class KeywordSearchBar extends React.Component {
             submitButtonText = 'Search by Keyword';
         }
         return (
-            <form
-                className="keyword-search-bar__form"
-                onSubmit={this.searchKeyword}>
-                <input
-                        id="search"
-                        type="text"
-                        aria-label="Search Input"
-                        className="keyword-search-bar__input"
-                        value={this.state.searchString}
-                        onChange={this.changedInput}
-                        placeholder="Type keywords..." />
-                <button
-                                className={`keyword-search-bar__button ${disabledClass}`}
-                                onClick={this.searchKeyword}
-                                title={submitButtonText}
-                                aria-label={submitButtonText}>
-                    <div className="keyword-search-bar__button-icon">
-                                        <Search alt="Search by Keyword" />
-                                    </div>
-                            </button>
-            </form>
+          <form
+            className="keyword-search-bar__form"
+            onSubmit={this.searchKeyword}>
+              <input
+                id="search"
+                type="text"
+                aria-label="Search Input"
+                className="keyword-search-bar__input"
+                value={this.state.searchString}
+                onChange={this.changedInput}
+                placeholder="Type keywords..." />
+                  <button
+                    className={`keyword-search-bar__button ${disabledClass}`}
+                    onClick={this.searchKeyword}
+                    title={submitButtonText}
+                    aria-label={submitButtonText}>
+                      <div className="keyword-search-bar__button-icon">
+                        <Search alt="Search by Keyword" />
+                      </div>
+                  </button>
+          </form>
         );
     }
 }

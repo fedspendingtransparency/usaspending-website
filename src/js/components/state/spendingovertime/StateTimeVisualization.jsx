@@ -79,32 +79,32 @@ export default class StateTimeVisualization extends React.Component {
         else if (this.props.data.groups.length > 0) {
             // only mount the chart component if there is data to display
             chart = (<BarChart
-                height={this.props.height}
-                width={this.props.width}
-                ySeries={this.props.data.ySeries}
-                xSeries={this.props.data.xSeries}
-                groups={this.props.data.groups}
-                rawLabels={this.props.data.rawLabels}
-                legend={legend}
-                showTooltip={this.showTooltip}
-                visualizationPeriod={this.props.visualizationPeriod} />);
+              height={this.props.height}
+              width={this.props.width}
+              ySeries={this.props.data.ySeries}
+              xSeries={this.props.data.xSeries}
+              groups={this.props.data.groups}
+              rawLabels={this.props.data.rawLabels}
+              legend={legend}
+              showTooltip={this.showTooltip}
+              visualizationPeriod={this.props.visualizationPeriod} />);
         }
 
         let tooltip = null;
         if (this.state.tooltipData && window.innerWidth > 720) {
             tooltip = (<TimeTooltip
-                barWidth={this.state.barWidth}
-                data={this.state.tooltipData}
-                x={this.state.tooltipX}
-                y={this.state.tooltipY}
-                chartWidth={this.props.width} />);
+              barWidth={this.state.barWidth}
+              data={this.state.tooltipData}
+              x={this.state.tooltipX}
+              y={this.state.tooltipY}
+              chartWidth={this.props.width} />);
         }
 
         return (
-            <div className="state-visualization__time-wrapper">
-                {tooltip}
-                {chart}
-            </div>
+          <div className="state-visualization__time-wrapper">
+            {tooltip}
+            {chart}
+          </div>
         );
     }
 }

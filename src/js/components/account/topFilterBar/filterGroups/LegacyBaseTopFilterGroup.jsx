@@ -34,13 +34,13 @@ export default class LegacyBaseTopFilterGroup extends React.Component {
 
     render() {
         const tags = this.props.tags.map((tag) => (
-            <LegacyTopFilterItem
-                key={`top-tag-${this.props.filter.code}-${tag.value}`}
-                title={tag.title}
-                value={tag.value}
-                code={this.props.filter.code}
-                removeFilter={tag.removeFilter}
-                compressed={this.props.compressed} />
+          <LegacyTopFilterItem
+            key={`top-tag-${this.props.filter.code}-${tag.value}`}
+            title={tag.title}
+            value={tag.value}
+            code={this.props.filter.code}
+            removeFilter={tag.removeFilter}
+            compressed={this.props.compressed} />
         ));
 
         let showClose = '';
@@ -54,31 +54,31 @@ export default class LegacyBaseTopFilterGroup extends React.Component {
         }
 
         return (
-            <div className="filter-group-container">
-                <div className="filter-group">
-                    <div className={`filter-group-top ${hideCompressed}`}>
-                        <div className="filter-name">
-                            {this.props.filter.name}:
-                        </div>
-                        <div className={`filter-group-close${showClose}`}>
-                                <button
-                                title={`Clear all ${this.props.filter.name} filters`}
-                                aria-label={`Clear all ${this.props.filter.name} filters`}
-                                onClick={this.clearFilterGroup}>
-                                <span className="close-icon">
-                                        <Icons.Close
-                                        alt={`Clear all ${this.props.filter.name} filters`} />
-                                    </span>
-                            </button>
-                            </div>
-                    </div>
-                    <div className="filter-group-bottom">
-                            <div className="filter-values">
-                            {tags}
-                        </div>
-                        </div>
+          <div className="filter-group-container">
+            <div className="filter-group">
+              <div className={`filter-group-top ${hideCompressed}`}>
+                <div className="filter-name">
+                  {this.props.filter.name}:
+                </div>
+                  <div className={`filter-group-close${showClose}`}>
+                    <button
+                      title={`Clear all ${this.props.filter.name} filters`}
+                      aria-label={`Clear all ${this.props.filter.name} filters`}
+                      onClick={this.clearFilterGroup}>
+                        <span className="close-icon">
+                          <Icons.Close
+                              alt={`Clear all ${this.props.filter.name} filters`} />
+                        </span>
+                    </button>
+                  </div>
+              </div>
+                <div className="filter-group-bottom">
+                  <div className="filter-values">
+                    {tags}
+                  </div>
                 </div>
             </div>
+          </div>
         );
     }
 }

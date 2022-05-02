@@ -226,20 +226,20 @@ export default class AgencyListContainer extends React.Component {
 
     render() {
         return (
-            <Autocomplete
-                {...this.props}
-                values={this.state.autocompleteAgencies}
-                handleTextInput={this.handleTextInput}
-                onSelect={this.toggleAgency.bind(this)}
-                placeholder={`${this.props.agencyType} Agency`}
-                errorHeader="Unknown Agency"
-                errorMessage="We were unable to find that agency."
-                ref={(input) => {
+          <Autocomplete
+            {...this.props}
+            values={this.state.autocompleteAgencies}
+            handleTextInput={this.handleTextInput}
+            onSelect={this.toggleAgency.bind(this)}
+            placeholder={`${this.props.agencyType} Agency`}
+            errorHeader="Unknown Agency"
+            errorMessage="We were unable to find that agency."
+            ref={(input) => {
                     this.agencyList = input;
                 }}
-                label={`${this.props.agencyType} Agency`}
-                clearAutocompleteSuggestions={this.clearAutocompleteSuggestions}
-                noResults={this.state.noResults} />
+            label={`${this.props.agencyType} Agency`}
+            clearAutocompleteSuggestions={this.clearAutocompleteSuggestions}
+            noResults={this.state.noResults} />
         );
     }
 }

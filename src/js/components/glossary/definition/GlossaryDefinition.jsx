@@ -126,36 +126,36 @@ export default class GlossaryDefinition extends React.Component {
             };
         });
         return (
-            <div className="glossary-definition">
-                <input readOnly id="slug" type="text" className="text" style={{ opacity: 0 }} value={url} />
-                <DefinitionTabs
-                        hasPlain={this.state.hasPlain}
-                        hasOfficial={this.state.hasOfficial}
-                        activeTab={this.state.tab}
-                        clickedTab={this.clickedTab} />
-                <Picker
-                                options={options}
-                                dropdownDirection="left"
-                                backgroundColor="#215493"
-                                selectedOption="copy"
-                                sortFn={() => 1}>
-                    <FontAwesomeIcon className="glossary-share-icon" icon="share-alt" color="#e2e2e2" size="lg" />
-                            </Picker>
-                <span className={`copy-confirmation ${this.state.showCopiedConfirmation ? '' : 'hide'}`}><FontAwesomeIcon icon="check-circle" color="#3A8250" /> Copied</span>
-                <ItemDefinition
+          <div className="glossary-definition">
+            <input readOnly id="slug" type="text" className="text" style={{ opacity: 0 }} value={url} />
+              <DefinitionTabs
+                hasPlain={this.state.hasPlain}
+                hasOfficial={this.state.hasOfficial}
+                activeTab={this.state.tab}
+                clickedTab={this.clickedTab} />
+                  <Picker
+                    options={options}
+                    dropdownDirection="left"
+                    backgroundColor="#215493"
+                    selectedOption="copy"
+                    sortFn={() => 1}>
+                      <FontAwesomeIcon className="glossary-share-icon" icon="share-alt" color="#e2e2e2" size="lg" />
+                  </Picker>
+                    <span className={`copy-confirmation ${this.state.showCopiedConfirmation ? '' : 'hide'}`}><FontAwesomeIcon icon="check-circle" color="#3A8250" /> Copied</span>
+                      <ItemDefinition
                         {...this.props.glossary.term.toJS()}
                         type={this.state.tab} />
-                <button
-                                className="glossary-back"
-                                onClick={this.clickedBack}>
-                    <div className="back-content">
-                                        <AngleLeft alt="Back" />
-                        <div className="label">
+                          <button
+                              className="glossary-back"
+                              onClick={this.clickedBack}>
+                                  <div className="back-content">
+                                  <AngleLeft alt="Back" />
+                                      <div className="label">
                             Back
-                                            </div>
-                                    </div>
+                                </div>
+                                </div>
                             </button>
-            </div>
+          </div>
         );
     }
 }

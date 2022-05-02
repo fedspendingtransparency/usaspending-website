@@ -59,43 +59,43 @@ export default class AwardDataArchiveForm extends React.Component {
 
     render() {
         return (
-            <div className="award-data-archive-form">
-                <div className="form-title__wrapper">
-                    <div className="form-title">
+          <div className="award-data-archive-form">
+            <div className="form-title__wrapper">
+              <div className="form-title">
                         Filter by
-                    </div>
-                </div>
-                <div
-                        className="form-width-master"
-                        ref={(div) => {
+              </div>
+            </div>
+              <div
+                className="form-width-master"
+                ref={(div) => {
                         // this is an empty div that scales via CSS
                         // the dropdown widths will be based on this width
                         this.formWidthController = div;
                     }} />
-                <form
-                            className="archive-form"
-                            onSubmit={this.handleSubmit}>
-                    <ArchiveAgencyFilter
+                      <form
+                        className="archive-form"
+                        onSubmit={this.handleSubmit}>
+                          <ArchiveAgencyFilter
+                            formWidth={this.state.formWidth}
+                            windowWidth={this.state.windowWidth}
+                            agency={this.props.filters.agency}
+                            updateFilter={this.props.updateFilter}
+                            agencies={this.props.agencies} />
+                              <ArchiveTypeFilter
+                                formWidth={this.state.formWidth}
+                                windowWidth={this.state.windowWidth}
+                                currentType={this.props.filters.type.display}
+                                updateFilter={this.props.updateFilter} />
+                                  <ArchiveFiscalYearFilter
                                     formWidth={this.state.formWidth}
                                     windowWidth={this.state.windowWidth}
-                                    agency={this.props.filters.agency}
-                                    updateFilter={this.props.updateFilter}
-                                    agencies={this.props.agencies} />
-                    <ArchiveTypeFilter
-                                            formWidth={this.state.formWidth}
-                                            windowWidth={this.state.windowWidth}
-                                            currentType={this.props.filters.type.display}
-                                            updateFilter={this.props.updateFilter} />
-                    <ArchiveFiscalYearFilter
-                                                    formWidth={this.state.formWidth}
-                                                    windowWidth={this.state.windowWidth}
-                                                    currentFY={this.props.filters.fy}
-                                                    updateFilter={this.props.updateFilter} />
-                    <div className="form__button">
-                                                            <input type="submit" value="Apply" />
-                                                        </div>
-                        </form>
-            </div>
+                                    currentFY={this.props.filters.fy}
+                                    updateFilter={this.props.updateFilter} />
+                                      <div className="form__button">
+                                        <input type="submit" value="Apply" />
+                                      </div>
+                      </form>
+          </div>
         );
     }
 }

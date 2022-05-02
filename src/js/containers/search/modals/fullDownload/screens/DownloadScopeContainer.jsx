@@ -19,7 +19,7 @@ const propTypes = {
 export class DownloadScopeContainer extends React.Component {
     render() {
         return (
-            <DownloadScope {...this.props} />
+          <DownloadScope {...this.props} />
         );
     }
 }

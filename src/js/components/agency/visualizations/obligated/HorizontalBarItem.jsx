@@ -17,16 +17,16 @@ const propTypes = {
 export default class HorizontalBarItem extends React.Component {
     render() {
         return (
-            <g aria-label={this.props.description}>
-                <desc>{this.props.description}</desc>
-                <rect
-                        className="horizontal-bar-item"
-                        x={this.props.x}
-                        y={this.props.y}
-                        width={this.props.width}
-                        height={20}
-                        fill={this.props.color} />
-            </g>
+          <g aria-label={this.props.description}>
+            <desc>{this.props.description}</desc>
+              <rect
+                className="horizontal-bar-item"
+                x={this.props.x}
+                y={this.props.y}
+                width={this.props.width}
+                height={20}
+                fill={this.props.color} />
+          </g>
         );
     }
 }

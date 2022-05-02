@@ -72,13 +72,13 @@ const RecipientDistributionContainer = ({ fiscalYear, data }) => {
     }, [fiscalYear, getRecipientDistribution, toptierCode]);
 
     return (
-        <div className="recipient-distribution-visualization-container">
-            {loading && <LoadingMessage />}
-            {error && <ErrorMessage />}
-            {!loading && !error && (
-                <RecipientDistribution data={data} />
+      <div className="recipient-distribution-visualization-container">
+        {loading && <LoadingMessage />}
+        {error && <ErrorMessage />}
+        {!loading && !error && (
+        <RecipientDistribution data={data} />
             )}
-        </div>
+      </div>
     );
 };
 

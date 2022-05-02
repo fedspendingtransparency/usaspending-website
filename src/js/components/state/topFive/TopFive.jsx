@@ -19,10 +19,10 @@ const propTypes = {
 
 const TopFive = (props) => {
     const rows = props.results.map((result, index) => (
-        <TopFiveRow
-            key={index}
-            data={result}
-            total={props.total} />
+      <TopFiveRow
+        key={index}
+        data={result}
+        total={props.total} />
     ));
 
     const hideBody = props.loading || props.error ? `category-table__table-body_hide` : '';
@@ -30,53 +30,53 @@ const TopFive = (props) => {
     let message = null;
     if (props.error) {
         message = (
-            <div className="category-table__message">
+          <div className="category-table__message">
                 An error occurred while loading this table.
-            </div>
+          </div>
         );
     }
     else if (props.loading) {
         message = (
-            <div className="category-table__message">
+          <div className="category-table__message">
                 Loading...
-            </div>
+          </div>
         );
     }
 
     return (
-        <div className="category-table">
-            <div className="category-table__title">
-                <img
-                    className="category-table__title-icon"
-                    src={`img/state-categories/${props.category}.png`}
-                    alt="" />
-                <div className="category-table__title-name">
-                            {categoryTitles[props.category]}
-                        </div>
-            </div>
-            <table className="category-table__table">
-                    <thead
-                    className="category-table__table-head">
-                    <tr
-                            className="category-table__table-head-row">
-                        <th className="category-table__table-head-cell">
+      <div className="category-table">
+        <div className="category-table__title">
+          <img
+            className="category-table__title-icon"
+            src={`img/state-categories/${props.category}.png`}
+            alt="" />
+              <div className="category-table__title-name">
+                {categoryTitles[props.category]}
+              </div>
+        </div>
+          <table className="category-table__table">
+            <thead
+              className="category-table__table-head">
+                <tr
+                  className="category-table__table-head-row">
+                    <th className="category-table__table-head-cell">
                             Name
-                                </th>
+                    </th>
                         <th className="category-table__table-head-cell category-table__table-head-cell_centered">
                             Awarded Amount
-                                    </th>
-                        <th className="category-table__table-head-cell category-table__table-head-cell_centered">
+                          </th>
+                          <th className="category-table__table-head-cell category-table__table-head-cell_centered">
                             % of Total
-                                        </th>
-                        </tr>
-                </thead>
-                <tbody
-                        className={`category-table__table-body ${hideBody}`}>
-                        {rows}
-                    </tbody>
-                </table>
-            {message}
-        </div>
+                            </th>
+                </tr>
+            </thead>
+              <tbody
+                className={`category-table__table-body ${hideBody}`}>
+                {rows}
+              </tbody>
+          </table>
+        {message}
+      </div>
     );
 };
 

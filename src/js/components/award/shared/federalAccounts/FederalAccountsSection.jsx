@@ -31,21 +31,21 @@ const FederalAccountsSection = ({
 }) => {
     const infoTooltip = getToolTipBySectionAndAwardType('federalAccounts', awardType);
     return (
-        <AwardSection type="column" className="award-viz federal-accounts">
-            <AwardSectionHeader
-                icon={<FontAwesomeIcon size="lg" icon="chart-pie" />}
-                title="Federal Accounts"
-                tooltipWide
-                tooltip={infoTooltip} />
+      <AwardSection type="column" className="award-viz federal-accounts">
+        <AwardSectionHeader
+          icon={<FontAwesomeIcon size="lg" icon="chart-pie" />}
+          title="Federal Accounts"
+          tooltipWide
+          tooltip={infoTooltip} />
             <div className="award__col__content">
-                        <FederalAccountsVizContainer />
+              <FederalAccountsVizContainer />
                 <span className="federal-accounts__section--note">
-                                <Note message={message} />
-                            </span>
-                <FederalAccountsSummaryContainer
-                                    jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
-                    </div>
-        </AwardSection>
+                  <Note message={message} />
+                </span>
+                  <FederalAccountsSummaryContainer
+                    jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
+            </div>
+      </AwardSection>
     );
 };
 

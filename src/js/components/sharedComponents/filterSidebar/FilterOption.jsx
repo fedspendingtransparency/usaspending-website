@@ -112,22 +112,22 @@ export default class FilterOption extends React.Component {
         }
 
         return (
-            <div
-                className={`search-option${statusClass}`}
-                role="group"
-                aria-label={this.props.name}>
-                <FilterExpandButton
-                        accessory={this.props.accessory}
-                        hidden={this.state.showFilter}
-                        toggleFilter={this.toggleFilter}
-                        arrowState={this.state.arrowState}
-                        name={this.props.name}
-                        tooltip={this.props.tooltip}
-                        disabled={disabledStatus}
-                        glossarySlug={this.props.glossarySlug} />
-                {searchOption}
-                {comingSoon}
-            </div>
+          <div
+            className={`search-option${statusClass}`}
+            role="group"
+            aria-label={this.props.name}>
+              <FilterExpandButton
+                accessory={this.props.accessory}
+                hidden={this.state.showFilter}
+                toggleFilter={this.toggleFilter}
+                arrowState={this.state.arrowState}
+                name={this.props.name}
+                tooltip={this.props.tooltip}
+                disabled={disabledStatus}
+                glossarySlug={this.props.glossarySlug} />
+            {searchOption}
+            {comingSoon}
+          </div>
         );
     }
 }

@@ -53,25 +53,25 @@ export default class DesktopButton extends React.Component {
         let comingSoon = null;
         if (disabled) {
             comingSoon = (
-                <div className="homepage-download__coming-soon">
-                    <Icons.InfoCircle />&nbsp;Coming Soon
-                </div>
+              <div className="homepage-download__coming-soon">
+                <Icons.InfoCircle />&nbsp;Coming Soon
+              </div>
             );
         }
 
         return (
-            <button
-                className={`homepage-download__button desktop-download ${buttonActive}`}
-                disabled={disabled}
-                onMouseOver={this.onHover}
-                onFocus={this.onHover}
-                onKeyDown={this.pressedEsc}>
-                <div className={`homepage-download__icon homepage-download__icon_type_${this.props.code}${iconActive}`} />
+          <button
+            className={`homepage-download__button desktop-download ${buttonActive}`}
+            disabled={disabled}
+            onMouseOver={this.onHover}
+            onFocus={this.onHover}
+            onKeyDown={this.pressedEsc}>
+              <div className={`homepage-download__icon homepage-download__icon_type_${this.props.code}${iconActive}`} />
                 <div className="homepage-download__button-label">
-                        {this.props.label}
-                        {comingSoon}
-                    </div>
-            </button>
+                  {this.props.label}
+                  {comingSoon}
+                </div>
+          </button>
         );
     }
 }

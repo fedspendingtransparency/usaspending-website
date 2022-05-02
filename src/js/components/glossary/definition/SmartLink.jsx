@@ -59,21 +59,21 @@ export class SmartLink extends React.Component {
     render() {
         if (this.state.isLocal) {
             return (
-                <Link
-                    to={this.state.href}>
-                    {this.props.children}
-                </Link>
+              <Link
+                to={this.state.href}>
+                {this.props.children}
+              </Link>
             );
         }
 
         // external links should open in a new window
         return (
-            <a
-                href={this.state.href}
-                target="_blank"
-                rel="noopener noreferrer">
-                {this.props.children}
-            </a>
+          <a
+            href={this.state.href}
+            target="_blank"
+            rel="noopener noreferrer">
+            {this.props.children}
+          </a>
         );
     }
 }

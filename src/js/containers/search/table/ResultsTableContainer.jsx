@@ -484,21 +484,21 @@ export class ResultsTableContainer extends React.Component {
         }));
 
         return (
-            <ResultsTableSection
-                error={this.state.error}
-                inFlight={this.state.inFlight}
-                results={this.state.results}
-                columns={this.state.columns[tableType]}
-                sort={this.state.sort}
-                tableTypes={tabsWithCounts}
-                currentType={tableType}
-                tableInstance={this.state.tableInstance}
-                switchTab={this.switchTab}
-                updateSort={this.updateSort}
-                loadNextPage={this.loadNextPage}
-                subaward={this.props.subaward}
-                awardIdClick={this.awardIdClick}
-                subAwardIdClick={this.subAwardIdClick} />
+          <ResultsTableSection
+            error={this.state.error}
+            inFlight={this.state.inFlight}
+            results={this.state.results}
+            columns={this.state.columns[tableType]}
+            sort={this.state.sort}
+            tableTypes={tabsWithCounts}
+            currentType={tableType}
+            tableInstance={this.state.tableInstance}
+            switchTab={this.switchTab}
+            updateSort={this.updateSort}
+            loadNextPage={this.loadNextPage}
+            subaward={this.props.subaward}
+            awardIdClick={this.awardIdClick}
+            subAwardIdClick={this.subAwardIdClick} />
         );
     }
 }

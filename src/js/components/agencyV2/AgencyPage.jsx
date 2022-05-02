@@ -125,42 +125,42 @@ export const AgencyProfileV2 = ({
         }
     };
     return (
-        <PageWrapper
-            pageName="Agency Profile"
-            classNames="usa-da-agency-page-v2"
-            overLine="Agency Profile"
-            title={name}
-            metaTagProps={isLoading ? {} : agencyPageMetaTags({ id: agencySlug, name })}
-            toolBarComponents={[
-                <FiscalYearPicker backgroundColor={backgroundColor} selectedFy={selectedFy} latestFy={latestFy} handleFyChange={(fy) => setSelectedFy({ fy })} />,
-                <ShareIcon url={getBaseUrl(path)} onShareOptionClick={handleShare} />
+      <PageWrapper
+        pageName="Agency Profile"
+        classNames="usa-da-agency-page-v2"
+        overLine="Agency Profile"
+        title={name}
+        metaTagProps={isLoading ? {} : agencyPageMetaTags({ id: agencySlug, name })}
+        toolBarComponents={[
+          <FiscalYearPicker backgroundColor={backgroundColor} selectedFy={selectedFy} latestFy={latestFy} handleFyChange={(fy) => setSelectedFy({ fy })} />,
+          <ShareIcon url={getBaseUrl(path)} onShareOptionClick={handleShare} />
             ]}>
-            <main id="main-content" className="main-content usda__flex-row">
-                    <div className="sidebar usda__flex-col">
-                    <Sidebar
-                            pageName="agency-v2"
-                            fixedStickyBreakpoint={scrollPositionOfSiteHeader}
-                            isGoingToBeSticky
-                            active={activeSection}
-                            jumpToSection={jumpToSection}
-                            detectActiveSection={setActiveSection}
-                            sections={sections.map((section) => ({
+              <main id="main-content" className="main-content usda__flex-row">
+                <div className="sidebar usda__flex-col">
+                  <Sidebar
+                    pageName="agency-v2"
+                    fixedStickyBreakpoint={scrollPositionOfSiteHeader}
+                    isGoingToBeSticky
+                    active={activeSection}
+                    jumpToSection={jumpToSection}
+                    detectActiveSection={setActiveSection}
+                    sections={sections.map((section) => ({
                             section: section.name,
                             label: section.display
                         }))} />
                 </div>
-                <div className="body usda__flex-col">
-                        <PageTitle fy={selectedFy} />
-                        {isError
+                  <div className="body usda__flex-col">
+                    <PageTitle fy={selectedFy} />
+                    {isError
                         ? <ErrorMessage description={errorMessage} />
                         : sections.map((section) => (
-                            <AgencySection key={section.name} section={section} isLoading={isLoading} icon={section.icon} dataThroughDate={section.dataThroughDate}>
-                                {section.component || <ComingSoon />}
-                            </AgencySection>
+                          <AgencySection key={section.name} section={section} isLoading={isLoading} icon={section.icon} dataThroughDate={section.dataThroughDate}>
+                            {section.component || <ComingSoon />}
+                          </AgencySection>
                         ))}
-                    </div>
-                </main>
-        </PageWrapper>
+                  </div>
+              </main>
+      </PageWrapper>
     );
 };
 

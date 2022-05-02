@@ -181,15 +181,15 @@ export const useValidTimeBasedQueryParams = (currentUrlFy, currentUrlPeriod = nu
 const withLatestFy = (WrappedComponent, format = null) => (props) => {
     const [latestPeriodAsMoment, submissionPeriods, latestPeriod, isLoading, errorMsg] = useLatestAccountData();
     return (
-        <WrappedComponent
-            {...props}
-            isFetchLatestFyLoading={isLoading}
-            fetchLatestFyError={errorMsg}
-            latestSubmissionDate={(latestPeriodAsMoment && format)
+      <WrappedComponent
+        {...props}
+        isFetchLatestFyLoading={isLoading}
+        fetchLatestFyError={errorMsg}
+        latestSubmissionDate={(latestPeriodAsMoment && format)
                 ? latestPeriodAsMoment.format(format)
                 : latestPeriodAsMoment}
-            submissionPeriods={submissionPeriods.toJS()}
-            latestPeriod={latestPeriod} />
+        submissionPeriods={submissionPeriods.toJS()}
+        latestPeriod={latestPeriod} />
     );
 };
 

@@ -35,10 +35,10 @@ const ComingSoonSection = ({
 }) => {
     const renderChildren = () => (
         children || (
-            <div>
-                <h4>Coming Soon</h4>
-                <p>This feature is currently under development.</p>
-            </div>
+        <div>
+          <h4>Coming Soon</h4>
+            <p>This feature is currently under development.</p>
+        </div>
         )
     );
 
@@ -46,35 +46,35 @@ const ComingSoonSection = ({
 
     if (includeHeader) {
         return (
-            <AwardSection type="column" className="award-viz">
-                <div className="award__col__content">
-                    <div className="award-viz__heading">
-                        {icon &&
-                            <div className="award-viz__icon">
-                                <FontAwesomeIcon size="lg" icon={icon} />
-                            </div>}
-                        <h3 className="award-viz__title">{title}</h3>
-                        {toolTipContent && (
-                            <TooltipWrapper
-                                className="award-section-tt"
-                                icon="info"
-                                tooltipPosition={toolTipAlignLeft ? 'left' : 'right'}
-                                wide={toolTipWide}
-                                tooltipComponent={toolTipContent} />
+          <AwardSection type="column" className="award-viz">
+            <div className="award__col__content">
+              <div className="award-viz__heading">
+                {icon &&
+                <div className="award-viz__icon">
+                  <FontAwesomeIcon size="lg" icon={icon} />
+                </div>}
+                  <h3 className="award-viz__title">{title}</h3>
+                {toolTipContent && (
+                <TooltipWrapper
+                  className="award-section-tt"
+                  icon="info"
+                  tooltipPosition={toolTipAlignLeft ? 'left' : 'right'}
+                  wide={toolTipWide}
+                  tooltipComponent={toolTipContent} />
                         )}
-                    </div>
-                    <hr />
-                    <div className={comingSoonClass}>
-                            {renderChildren()}
-                        </div>
-                </div>
-            </AwardSection>
+              </div>
+                <hr />
+                  <div className={comingSoonClass}>
+                    {renderChildren()}
+                  </div>
+            </div>
+          </AwardSection>
         );
     }
     return (
-        <div className={comingSoonClass}>
-            {renderChildren()}
-        </div>
+      <div className={comingSoonClass}>
+        {renderChildren()}
+      </div>
     );
 };
 

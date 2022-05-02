@@ -158,15 +158,15 @@ export default class PrimaryCheckboxType extends React.Component {
 
     render() {
         let primaryTypes = (<CollapsedCheckboxType
-            id={this.props.id}
-            name={this.props.name}
-            code={this.props.value}
-            selected={this.state.allChildren}
-            arrowState={this.state.arrowState}
-            toggleExpand={this.toggleSubItems}
-            toggleChildren={this.toggleChildren}
-            hideArrow={this.state.selectedChildren || this.props.restrictChildren}
-            isCollapsable={this.props.isCollapsable} />);
+          id={this.props.id}
+          name={this.props.name}
+          code={this.props.value}
+          selected={this.state.allChildren}
+          arrowState={this.state.arrowState}
+          toggleExpand={this.toggleSubItems}
+          toggleChildren={this.toggleChildren}
+          hideArrow={this.state.selectedChildren || this.props.restrictChildren}
+          isCollapsable={this.props.isCollapsable} />);
 
         let secondaryTypes = null;
 
@@ -174,33 +174,33 @@ export default class PrimaryCheckboxType extends React.Component {
             secondaryTypes = this.props.filters
                 .filter((subFilter) => !excludedSubFilters.includes(subFilter))
                 .map((code) => (
-                    <SecondaryCheckboxType
-                        {...this.props}
-                        code={code}
-                        name={this.props.types[code]}
-                        key={`${this.props.id} - ${code}`}
-                        id={`secondary-checkbox-${uniqueId()}`} />
+                  <SecondaryCheckboxType
+                    {...this.props}
+                    code={code}
+                    name={this.props.types[code]}
+                    key={`${this.props.id} - ${code}`}
+                    id={`secondary-checkbox-${uniqueId()}`} />
                 ));
         }
 
         if (this.props.filters.length === 0) {
             primaryTypes = (<SingleCheckboxType
-                {...this.props}
-                code={this.props.value}
-                name={this.props.name}
-                key={`${this.props.id} - ${this.props.value}`}
-                id={`primary-checkbox-${uniqueId()}`} />);
+              {...this.props}
+              code={this.props.value}
+              name={this.props.name}
+              key={`${this.props.id} - ${this.props.value}`}
+              id={`primary-checkbox-${uniqueId()}`} />);
         }
 
         return (
-            <li className="checkbox-set">
-                <div className="primary-checkbox">
-                    {primaryTypes}
-                </div>
-                <ul className="secondary-checkbox-set">
-                        {secondaryTypes}
-                    </ul>
-            </li>
+          <li className="checkbox-set">
+            <div className="primary-checkbox">
+              {primaryTypes}
+            </div>
+              <ul className="secondary-checkbox-set">
+                {secondaryTypes}
+              </ul>
+          </li>
         );
     }
 }

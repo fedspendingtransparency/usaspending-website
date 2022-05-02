@@ -58,34 +58,34 @@ export default class AccountLandingSearchBar extends React.Component {
 
     render() {
         let icon = (
-            <Search alt="Search Federal Accounts" />
+          <Search alt="Search Federal Accounts" />
         );
         if (this.state.hasSubmit) {
             icon = (
-                <Close alt="Reset federal accounts search" />
+              <Close alt="Reset federal accounts search" />
             );
         }
         return (
-            <div className="search-section">
-                <form className="search-section__form">
-                    <input
-                        className="search-section__input"
-                        aria-label="Search Input"
-                        name="keyword"
-                        value={this.state.keyword}
-                        type="text"
-                        onChange={this.onChange}
-                        placeholder="Search by Account Number, Account Name, or Agency..." />
-                    <button
-                                aria-label="Search"
-                                onClick={this.handleClick}
-                                className="search-section__button">
-                        <div className="search-section__button-icon">
-                                        {icon}
-                                    </div>
-                            </button>
-                </form>
-            </div>
+          <div className="search-section">
+            <form className="search-section__form">
+              <input
+                className="search-section__input"
+                aria-label="Search Input"
+                name="keyword"
+                value={this.state.keyword}
+                type="text"
+                onChange={this.onChange}
+                placeholder="Search by Account Number, Account Name, or Agency..." />
+                  <button
+                    aria-label="Search"
+                    onClick={this.handleClick}
+                    className="search-section__button">
+                      <div className="search-section__button-icon">
+                        {icon}
+                      </div>
+                  </button>
+            </form>
+          </div>
         );
     }
 }

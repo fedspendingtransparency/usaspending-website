@@ -14,16 +14,16 @@ const propTypes = {
 export default class InfoSnippet extends React.Component {
     render() {
         return (
-            <li>
-                <div className="format-item">
-                    <div className="item-label">
-                        {this.props.label}
-                    </div>
-                    <div className="item-value">
-                            {this.props.value}
-                        </div>
+          <li>
+            <div className="format-item">
+              <div className="item-label">
+                {this.props.label}
+              </div>
+                <div className="item-value">
+                  {this.props.value}
                 </div>
-            </li>);
+            </div>
+          </li>);
     }
 }
 InfoSnippet.propTypes = propTypes;

@@ -93,13 +93,13 @@ export default class ActivityYAxis extends React.Component {
             const yPos = height - scale(tick);
 
             return (<ActivityYAxisItem
-                x={xPos}
-                y={yPos}
-                label={`${tickLabels[i]}`}
-                key={`label-y-${tick}-${i}`}
-                lineStart={lineStart}
-                lineEnd={lineEnd}
-                textAnchor={textAnchor || 'middle'} />);
+              x={xPos}
+              y={yPos}
+              label={`${tickLabels[i]}`}
+              key={`label-y-${tick}-${i}`}
+              lineStart={lineStart}
+              lineEnd={lineEnd}
+              textAnchor={textAnchor || 'middle'} />);
         });
 
         this.setState({
@@ -113,21 +113,21 @@ export default class ActivityYAxis extends React.Component {
      */
     render() {
         return (
-            <g className="bar-axis">
-                <title>Y-Axis</title>
-                <desc>
-                        {this.state.description}
-                    </desc>
+          <g className="bar-axis">
+            <title>Y-Axis</title>
+              <desc>
+                {this.state.description}
+              </desc>
                 <line
-                            className="axis y-axis"
-                            x1={this.props.padding.left}
-                            y1={-this.props.extendLine}
-                            x2={this.props.padding.left}
-                            y2={this.props.height} />
-                <g className="axis-labels">
-                                    {this.state.labels}
-                                </g>
-            </g>
+                  className="axis y-axis"
+                  x1={this.props.padding.left}
+                  y1={-this.props.extendLine}
+                  x2={this.props.padding.left}
+                  y2={this.props.height} />
+                    <g className="axis-labels">
+                      {this.state.labels}
+                    </g>
+          </g>
         );
     }
 }

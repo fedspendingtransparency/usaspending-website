@@ -39,15 +39,15 @@ export default class LinkCell extends React.Component {
         }
 
         return (
-            <div className={`explorer-link-cell column-${this.props.column}`}>
-                <div className="cell-content">
-                    <button
-                        className="go-deeper-link"
-                        onClick={this.clickedLink} >
-                        {name}
-                    </button>
-                </div>
+          <div className={`explorer-link-cell column-${this.props.column}`}>
+            <div className="cell-content">
+              <button
+                className="go-deeper-link"
+                onClick={this.clickedLink} >
+                {name}
+              </button>
             </div>
+          </div>
         );
     }
 }

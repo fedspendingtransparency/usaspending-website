@@ -102,38 +102,38 @@ export default class TransactionTableHeaderCell extends React.Component {
         // convenience, screen-reader users are expected to use the button elements instead as
         // they are presented as interactive clickable targets
         return (
-            <div className={`transaction-header-cell column-${this.props.column}${lastClass}`}>
-                <div
-                    className="cell-content"
-                    onClick={this.clickedHeader}
-                    onKeyDown={this.pressedKey}>
-                    <div className="header-sort">
-                            <div className="header-label">
-                            {this.props.label}
-                        </div>
-                        <div className="header-icons">
-                                <button
-                                className={`sort-icon${activeAsc}`}
-                                value="asc"
-                                title={`Sort table by ascending ${this.props.label}`}
-                                aria-label={`Sort table by ascending ${this.props.label}`}
-                                onClick={this.forceDirection}>
-                                <Icons.ArrowUp
-                                        alt={`Sort table by ascending ${this.props.label}`} />
-                            </button>
-                            <button
-                                    className={`sort-icon${activeDesc}`}
-                                    value="desc"
-                                    title={`Sort table by descending ${this.props.label}`}
-                                    aria-label={`Sort table by descending ${this.props.label}`}
-                                    onClick={this.forceDirection}>
+          <div className={`transaction-header-cell column-${this.props.column}${lastClass}`}>
+            <div
+              className="cell-content"
+              onClick={this.clickedHeader}
+              onKeyDown={this.pressedKey}>
+                <div className="header-sort">
+                  <div className="header-label">
+                    {this.props.label}
+                  </div>
+                    <div className="header-icons">
+                      <button
+                        className={`sort-icon${activeAsc}`}
+                        value="asc"
+                        title={`Sort table by ascending ${this.props.label}`}
+                        aria-label={`Sort table by ascending ${this.props.label}`}
+                        onClick={this.forceDirection}>
+                          <Icons.ArrowUp
+                              alt={`Sort table by ascending ${this.props.label}`} />
+                      </button>
+                        <button
+                            className={`sort-icon${activeDesc}`}
+                            value="desc"
+                            title={`Sort table by descending ${this.props.label}`}
+                            aria-label={`Sort table by descending ${this.props.label}`}
+                            onClick={this.forceDirection}>
                                 <Icons.ArrowDown
-                                            alt={`Sort table by descending ${this.props.label}`} />
-                                </button>
-                            </div>
-                        </div>
+                                    alt={`Sort table by descending ${this.props.label}`} />
+                          </button>
+                    </div>
                 </div>
             </div>
+          </div>
         );
         /* eslint-enable jsx-a11y/no-static-element-interactions */
     }

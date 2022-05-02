@@ -26,22 +26,22 @@ const RectanglePattern = ({
     } = patternProps;
 
     return (
-        <pattern
-            id={id}
-            width={width}
-            height={height}
-            patternTransform={patternTransform}
-            patternUnits={patternUnits}>
-            {
+      <pattern
+        id={id}
+        width={width}
+        height={height}
+        patternTransform={patternTransform}
+        patternUnits={patternUnits}>
+        {
                 rectangles.map((rectangle) => (
-                    <rect
-                        key={rectangle.key}
-                        width={rectangle.width}
-                        height={rectangle.height}
-                        fill={rectangle.fill} />
+                  <rect
+                    key={rectangle.key}
+                    width={rectangle.width}
+                    height={rectangle.height}
+                    fill={rectangle.fill} />
                 ))
             }
-        </pattern>
+      </pattern>
     );
 };
 

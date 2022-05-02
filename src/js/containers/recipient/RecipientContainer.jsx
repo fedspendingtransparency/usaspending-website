@@ -122,12 +122,12 @@ export class RecipientContainer extends React.Component {
 
     render() {
         return (
-            <RecipientPage
-                loading={this.state.loading}
-                error={this.state.error}
-                id={this.props.recipient.id}
-                recipient={this.props.recipient}
-                pickedFy={this.updateSelectedFy} />
+          <RecipientPage
+            loading={this.state.loading}
+            error={this.state.error}
+            id={this.props.recipient.id}
+            recipient={this.props.recipient}
+            pickedFy={this.updateSelectedFy} />
         );
     }
 }

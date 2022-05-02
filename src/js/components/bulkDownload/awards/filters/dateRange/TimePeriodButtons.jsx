@@ -38,23 +38,23 @@ export default class TimePeriodButtons extends React.Component {
         if (col === 1) {
             const column1Years = fiscalYears.splice(0, Math.floor(fiscalYears.length / 2));
             fyButtons = column1Years.map((year) => (
-                <FiscalYearButton
-                    key={year}
-                    year={year}
-                    currentStartDate={this.props.currentStartDate}
-                    currentEndDate={this.props.currentEndDate}
-                    handleDateChange={this.props.handleDateChange} />
+              <FiscalYearButton
+                key={year}
+                year={year}
+                currentStartDate={this.props.currentStartDate}
+                currentEndDate={this.props.currentEndDate}
+                handleDateChange={this.props.handleDateChange} />
             ));
         }
         else if (col === 2) {
             const column2Years = fiscalYears.splice(Math.floor(fiscalYears.length / 2), fiscalYears.length);
             fyButtons = column2Years.map((year) => (
-                <FiscalYearButton
-                    key={year}
-                    year={year}
-                    currentStartDate={this.props.currentStartDate}
-                    currentEndDate={this.props.currentEndDate}
-                    handleDateChange={this.props.handleDateChange} />
+              <FiscalYearButton
+                key={year}
+                year={year}
+                currentStartDate={this.props.currentStartDate}
+                currentEndDate={this.props.currentEndDate}
+                handleDateChange={this.props.handleDateChange} />
             ));
         }
         return fyButtons;
@@ -62,14 +62,14 @@ export default class TimePeriodButtons extends React.Component {
 
     generateDateRangeButtons(col) {
         return awardDownloadOptions.dateRangeButtons[col].map((dateRange) => (
-            <DateRangeButton
-                key={dateRange.label}
-                startDate={dateRange.startDate}
-                endDate={dateRange.endDate}
-                active={(this.props.currentStartDate === dateRange.startDate)
+          <DateRangeButton
+            key={dateRange.label}
+            startDate={dateRange.startDate}
+            endDate={dateRange.endDate}
+            active={(this.props.currentStartDate === dateRange.startDate)
                     && (this.props.currentEndDate === dateRange.endDate)}
-                label={dateRange.label}
-                handleDateChange={this.props.handleDateChange} />
+            label={dateRange.label}
+            handleDateChange={this.props.handleDateChange} />
         ));
     }
 
@@ -79,20 +79,20 @@ export default class TimePeriodButtons extends React.Component {
         const column3 = this.generateDateRangeButtons('column3');
         const column4 = this.generateDateRangeButtons('column4');
         return (
-            <div className="time-period-buttons">
-                <div className="column">
-                    {column1}
-                </div>
-                <div className="column">
-                        {column2}
-                    </div>
-                <div className="column">
-                            {column3}
-                        </div>
-                <div className="column">
-                                {column4}
-                            </div>
+          <div className="time-period-buttons">
+            <div className="column">
+              {column1}
             </div>
+              <div className="column">
+                {column2}
+              </div>
+                <div className="column">
+                  {column3}
+                </div>
+                  <div className="column">
+                    {column4}
+                  </div>
+          </div>
         );
     }
 }

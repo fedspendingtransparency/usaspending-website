@@ -78,19 +78,19 @@ export default class FloatingGlossaryButton extends React.Component {
         }
 
         return (
-            <div className={`floating-glossary-button-wrapper ${hide}`}>
-                <button
-                    aria-label="Show Glossary"
-                    className="floating-glossary-button"
-                    onClick={this.clickedButton}>
-                    <div className="button-content">
-                            <span className="floating-glossary-icon">
-                            <Glossary alt="Glossary" />
-                        </span>
+          <div className={`floating-glossary-button-wrapper ${hide}`}>
+            <button
+              aria-label="Show Glossary"
+              className="floating-glossary-button"
+              onClick={this.clickedButton}>
+                <div className="button-content">
+                  <span className="floating-glossary-icon">
+                    <Glossary alt="Glossary" />
+                  </span>
                         Glossary
-                        </div>
-                </button>
-            </div>
+                </div>
+            </button>
+          </div>
         );
     }
 }

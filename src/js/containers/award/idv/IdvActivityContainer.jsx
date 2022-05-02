@@ -125,11 +125,11 @@ export class IdvActivityContainer extends React.Component {
 
     render() {
         return (
-            <IdvActivity
-                {...this.state}
-                {...this.props}
-                changePage={this.changePage}
-                selectedItemFunc={this.selectedItemFunc} />
+          <IdvActivity
+            {...this.state}
+            {...this.props}
+            changePage={this.changePage}
+            selectedItemFunc={this.selectedItemFunc} />
         );
     }
 }

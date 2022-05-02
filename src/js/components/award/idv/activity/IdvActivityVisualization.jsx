@@ -133,25 +133,25 @@ export default class IdvActivityVisualization extends React.Component {
         const message = `if an award has a zero or negative obligated amount,
         or is missing a start and/or end date, it is not displayed in this chart.`;
         const chart = (
-            <ActivityChart
-                awards={this.state.awards}
-                showTooltipStroke={this.state.showTooltipStroke}
-                awardIndexForTooltip={this.state.awardIndexForTooltip}
-                xSeries={this.props.xSeries}
-                ySeries={this.props.ySeries}
-                height={height}
-                width={this.state.visualizationWidth}
-                showTooltip={this.showTooltip}
-                hideTooltip={this.hideTooltip}
-                setOverspent={this.setOverspent} />
+          <ActivityChart
+            awards={this.state.awards}
+            showTooltipStroke={this.state.showTooltipStroke}
+            awardIndexForTooltip={this.state.awardIndexForTooltip}
+            xSeries={this.props.xSeries}
+            ySeries={this.props.ySeries}
+            height={height}
+            width={this.state.visualizationWidth}
+            showTooltip={this.showTooltip}
+            hideTooltip={this.hideTooltip}
+            setOverspent={this.setOverspent} />
         );
         let tt = null;
         if (this.state.isShowingTooltip) {
             tt = (
-                <ActivityChartTooltip
-                    data={this.state.toolTipData}
-                    mouseIsInTooltipDiv={this.mouseIsInTooltipDiv}
-                    mouseOutOfTooltipDiv={this.mouseOutOfTooltipDiv} />
+              <ActivityChartTooltip
+                data={this.state.toolTipData}
+                mouseIsInTooltipDiv={this.mouseIsInTooltipDiv}
+                mouseOutOfTooltipDiv={this.mouseOutOfTooltipDiv} />
             );
         }
         const pageRange = calculatePageRange(this.props.page, this.props.limit, this.props.total);
@@ -159,60 +159,60 @@ export default class IdvActivityVisualization extends React.Component {
         const end = formatNumberWithPrecision(pageRange.end, 0);
         const menuData = this.createMenuData();
         const resultsText = (
-            <div className="pagination__totals">
+          <div className="pagination__totals">
                 Displaying award orders{" "}
-                <span className="current-page-numbers">
-                        {start}-{end}
-                    </span>{" "}
+                  <span className="current-page-numbers">
+                    {start}-{end}
+                  </span>{" "}
                 of {formatNumberWithPrecision(this.props.total, 0)}
-            </div>
+          </div>
         );
         return (
-            <div
-                ref={(widthRef) => {
+          <div
+            ref={(widthRef) => {
                     this.sectionRef = widthRef;
                 }}
-                className="activity-visualization">
-                <div className="activity-visualization-title">Award Amounts and Periods of Performance of Award Orders</div>
-                {chart}
-                {tt}
-                <div className="activity-x-label">Period of Performance</div>
+            className="activity-visualization">
+              <div className="activity-visualization-title">Award Amounts and Periods of Performance of Award Orders</div>
+            {chart}
+            {tt}
+              <div className="activity-x-label">Period of Performance</div>
                 <div className="visualization-legend">
-                        <div className="visualization-legend__item">
-                        <div
-                                className="visualization-legend__circle
+                  <div className="visualization-legend__item">
+                    <div
+                      className="visualization-legend__circle
                             visualization-legend__circle_obligated" />
-                        <div className="visualization-legend__label">% Obligated of Potential Award Amount</div>
-                    </div>
+                              <div className="visualization-legend__label">% Obligated of Potential Award Amount</div>
+                  </div>
                     <div className="visualization-legend__item">
-                            <div className="visualization-legend__circle visualization-legend__circle" />
+                      <div className="visualization-legend__circle visualization-legend__circle" />
                         <div className="visualization-legend__label">% of Potential Funding Remaining</div>
-                        </div>
-                        {this.state.isOverspent && (
-                        <div className="visualization-legend__item">
-                            <div
-                                className="visualization-legend__circle
-                                visualization-legend__circle_overspent" />
-                            <div className="visualization-legend__label">Over Obligated</div>
-                        </div>
-                    )}
                     </div>
-                <Pagination
-                            changePage={this.props.changePage}
-                            currentPage={this.props.page}
-                            totalItems={this.props.total}
-                            pageSize={this.props.limit}
-                            resultsText={resultsText} />
-                <DefaultPicker
-                                    prepend="Show"
-                                    append="per page"
-                                    menuData={menuData}
-                                    defaultSelection={this.props.limit}
-                                    selectedItemFunc={this.props.selectedItemFunc} />
-                <div className="activity-visualization-note">
-                                            <Note message={message} />
-                                        </div>
-            </div>
+                  {this.state.isOverspent && (
+                  <div className="visualization-legend__item">
+                    <div
+                      className="visualization-legend__circle
+                                visualization-legend__circle_overspent" />
+                                  <div className="visualization-legend__label">Over Obligated</div>
+                  </div>
+                    )}
+                </div>
+                  <Pagination
+                    changePage={this.props.changePage}
+                    currentPage={this.props.page}
+                    totalItems={this.props.total}
+                    pageSize={this.props.limit}
+                    resultsText={resultsText} />
+                      <DefaultPicker
+                        prepend="Show"
+                        append="per page"
+                        menuData={menuData}
+                        defaultSelection={this.props.limit}
+                        selectedItemFunc={this.props.selectedItemFunc} />
+                          <div className="activity-visualization-note">
+                              <Note message={message} />
+                            </div>
+          </div>
         );
     }
 }

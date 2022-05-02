@@ -30,21 +30,21 @@ export default class CFDASearch extends React.Component {
         let selectedCFDA = null;
         if (this.props.selectedCFDA.size > 0) {
             selectedCFDA = (<SelectedCFDA
-                selectedCFDA={this.props.selectedCFDA}
-                removeCFDA={this.props.removeCFDA} />);
+              selectedCFDA={this.props.selectedCFDA}
+              removeCFDA={this.props.removeCFDA} />);
         }
 
         return (
-            <div className="cfda-filter">
-                <div className="filter-item-wrap">
-                    <CFDAListContainer {...this.props} selectCFDA={this.props.selectCFDA} />
-                    {selectedCFDA}
-                    <SubmitHint
-                            ref={(component) => {
+          <div className="cfda-filter">
+            <div className="filter-item-wrap">
+              <CFDAListContainer {...this.props} selectCFDA={this.props.selectCFDA} />
+              {selectedCFDA}
+                <SubmitHint
+                  ref={(component) => {
                             this.hint = component;
                         }} />
-                </div>
             </div>
+          </div>
         );
     }
 }

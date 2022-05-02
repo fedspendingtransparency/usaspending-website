@@ -134,19 +134,19 @@ export default class CFDAListContainer extends React.Component {
 
     render() {
         return (
-            <Autocomplete
-                {...this.props}
-                values={this.state.autocompleteCFDA}
-                handleTextInput={this.handleTextInput}
-                onSelect={this.props.selectCFDA}
-                placeholder="e.g., 93.778 - Medical Assistance Program"
-                errorHeader="Unknown CFDA"
-                errorMessage="We were unable to find that CFDA."
-                ref={(input) => {
+          <Autocomplete
+            {...this.props}
+            values={this.state.autocompleteCFDA}
+            handleTextInput={this.handleTextInput}
+            onSelect={this.props.selectCFDA}
+            placeholder="e.g., 93.778 - Medical Assistance Program"
+            errorHeader="Unknown CFDA"
+            errorMessage="We were unable to find that CFDA."
+            ref={(input) => {
                     this.cfdaList = input;
                 }}
-                clearAutocompleteSuggestions={this.clearAutocompleteSuggestions}
-                noResults={this.state.noResults} />
+            clearAutocompleteSuggestions={this.clearAutocompleteSuggestions}
+            noResults={this.state.noResults} />
         );
     }
 }

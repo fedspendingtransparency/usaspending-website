@@ -36,14 +36,14 @@ export default class AccountTimeVisualizationPeriodButton extends React.Componen
         }
 
         return (
-            <button
-                className={`period-button${activeClass}`}
-                value={this.props.value}
-                title={description}
-                aria-label={description}
-                onClick={this.clickedButton}>
-                {this.props.label}
-            </button>
+          <button
+            className={`period-button${activeClass}`}
+            value={this.props.value}
+            title={description}
+            aria-label={description}
+            onClick={this.clickedButton}>
+            {this.props.label}
+          </button>
         );
     }
 }

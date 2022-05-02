@@ -15,14 +15,14 @@ export default class TestStyleIconItem extends React.Component {
     render() {
         const Icon = this.props.icon;
         return (
-            <li>
-                <div className="icon-svg">
-                    <Icon />
-                </div>
-                <div className="icon-label">
-                        {this.props.label}
-                    </div>
-            </li>
+          <li>
+            <div className="icon-svg">
+              <Icon />
+            </div>
+              <div className="icon-label">
+                {this.props.label}
+              </div>
+          </li>
         );
     }
 }

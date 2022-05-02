@@ -93,17 +93,17 @@ export default class AwardDates extends Component {
                 circleClassName = 'award-dates__circle-bottom';
             }
             return (
-                <div key={title} className="award-dates__row">
-                    <div className="award-dates__label-container">
-                        <div className={`award-dates__circle ${circleClassName}`} />
-                        <div className="award-dates__label">
-                                {datesTitles[index]}
-                            </div>
+              <div key={title} className="award-dates__row">
+                <div className="award-dates__label-container">
+                  <div className={`award-dates__circle ${circleClassName}`} />
+                    <div className="award-dates__label">
+                      {datesTitles[index]}
                     </div>
-                    <div className="award-dates__date">
-                            {readableDates[index] || 'not provided'}
-                        </div>
                 </div>
+                  <div className="award-dates__date">
+                    {readableDates[index] || 'not provided'}
+                  </div>
+              </div>
             );
         });
     };
@@ -137,35 +137,35 @@ export default class AwardDates extends Component {
             [];
 
         return (
-            <div
-                className="award-dates award-overview-column award-overview-column__spacing"
-                ref={(widthRef) => {
+          <div
+            className="award-dates award-overview-column award-overview-column__spacing"
+            ref={(widthRef) => {
                     this.datesDivWidth = widthRef;
                 }}>
-                <div className="award-dates__heading">
-                        <h6 className="award-overview-title award-dates__title">
+                  <div className="award-dates__heading">
+                    <h6 className="award-overview-title award-dates__title">
                         Dates
-                        <TooltipWrapper
-                                className="award-section-tt"
-                                icon="info"
-                                pointerPostion="left"
-                                tooltipComponent={tooltipInfo} />
+                      <TooltipWrapper
+                        className="award-section-tt"
+                        icon="info"
+                        pointerPostion="left"
+                        tooltipComponent={tooltipInfo} />
                     </h6>
-                    </div>
-                <ProgressBar
-                            domain={[start, endDate]}
-                            heightOfSVG={40}
-                            heightOfProgressBar={10}
-                            width={this.state.visualizationWidth}
-                            currentProgress={moment().valueOf()}
-                            milestones={milestones}
-                            progressText="Today"
-                            badDomainData={badDomainData}
-                            textAdjustment={{ x: 0, y: 20 }}
-                            awardType={this.props.awardType}
-                            descriptions={progressDescriptions()} />
-                {this.datesSection()}
-            </div>
+                  </div>
+                    <ProgressBar
+                      domain={[start, endDate]}
+                      heightOfSVG={40}
+                      heightOfProgressBar={10}
+                      width={this.state.visualizationWidth}
+                      currentProgress={moment().valueOf()}
+                      milestones={milestones}
+                      progressText="Today"
+                      badDomainData={badDomainData}
+                      textAdjustment={{ x: 0, y: 20 }}
+                      awardType={this.props.awardType}
+                      descriptions={progressDescriptions()} />
+            {this.datesSection()}
+          </div>
         );
     }
 }

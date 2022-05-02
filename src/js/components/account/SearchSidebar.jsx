@@ -31,15 +31,15 @@ const filters = {
 export default class SearchSidebar extends React.Component {
     render() {
         return (
-            <div className="search-sidebar">
-                <div className="sidebar-header">
-                    <span className="filter-icon">
-                        <FilterIcon />
-                    </span>
-                    <h6>Filter by:</h6>
-                </div>
-                <FilterSidebar {...filters} />
+          <div className="search-sidebar">
+            <div className="sidebar-header">
+              <span className="filter-icon">
+                <FilterIcon />
+              </span>
+                <h6>Filter by:</h6>
             </div>
+              <FilterSidebar {...filters} />
+          </div>
         );
     }
 }

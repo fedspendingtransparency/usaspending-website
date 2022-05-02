@@ -22,23 +22,23 @@ export default class LandingSearchBar extends React.Component {
 
     render() {
         return (
-            <div className="search-section">
-                <form className="search-section__form" onSubmit={this.onSubmit}>
-                    <input
-                        className="search-section__input"
-                        aria-label="Search Input"
-                        type="text"
-                        placeholder={this.props.placeholder} />
-                    <button
-                                type="submit"
-                                aria-label="Search"
-                                className="search-section__button">
-                        <div className="search-section__button-icon">
-                                        <Search alt={this.props.buttonAltText} />
-                                    </div>
-                            </button>
-                </form>
-            </div>
+          <div className="search-section">
+            <form className="search-section__form" onSubmit={this.onSubmit}>
+              <input
+                className="search-section__input"
+                aria-label="Search Input"
+                type="text"
+                placeholder={this.props.placeholder} />
+                  <button
+                    type="submit"
+                    aria-label="Search"
+                    className="search-section__button">
+                      <div className="search-section__button-icon">
+                        <Search alt={this.props.buttonAltText} />
+                      </div>
+                  </button>
+            </form>
+          </div>
         );
     }
 }

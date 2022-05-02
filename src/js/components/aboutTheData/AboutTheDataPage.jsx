@@ -69,31 +69,31 @@ const AboutTheDataPage = ({ history }) => {
     };
 
     return (
-        <PageWrapper
-            pageName="Agency Submission Statistics"
-            classNames="about-the-data about-the-data_agencies-page"
-            title="Agency Submission Statistics"
-            toolBarComponents={[
-                <ShareIcon url={getBaseUrl(slug)} onShareOptionClick={handleShare} />
+      <PageWrapper
+        pageName="Agency Submission Statistics"
+        classNames="about-the-data about-the-data_agencies-page"
+        title="Agency Submission Statistics"
+        toolBarComponents={[
+          <ShareIcon url={getBaseUrl(slug)} onShareOptionClick={handleShare} />
             ]}>
-            <main id="main-content" className="main-content">
-                    <div className="heading-container">
-                    <h2 className="header">About These Statistics</h2>
+              <main id="main-content" className="main-content">
+                <div className="heading-container">
+                  <h2 className="header">About These Statistics</h2>
                     <p className="sub-header">
                             In accordance with the 2014 DATA Act, federal agencies submit financial data
                             on a quarterly and/or monthly basis to USAspending.gov. The table below
                             shows information about the status and content of these submissions. It will
                             be updated as agencies publish/certify new submissions or
                             republish/recertify existing submissions. For more information about the data in this table, visit <Link to="/submission-statistics/data-sources">the Data Sources and Methodology page.</Link>
-                        </p>
+                    </p>
                 </div>
-                <LoadingWrapper isLoading={!activeTab}>
+                  <LoadingWrapper isLoading={!activeTab}>
                     <>
-                        <div className="table-controls">
-                            <Tabs
-                                active={activeTab}
-                                switchTab={handleSwitchTab}
-                                types={[
+                      <div className="table-controls">
+                        <Tabs
+                          active={activeTab}
+                          switchTab={handleSwitchTab}
+                          types={[
                                     {
                                         internal: 'submissions',
                                         label: "Statistics by Submission Period",
@@ -105,40 +105,40 @@ const AboutTheDataPage = ({ history }) => {
                                         tooltip: tabTooltips["Updates by Fiscal Year"]
                                     }
                                 ]} />
-                            <TimeFilters
-                                        submissionPeriods={submissionPeriods}
-                                        latestFy={latestFy}
-                                        latestPeriod={latestPeriod}
-                                        activeTab={activeTab}
-                                        onTimeFilterSelection={setTime}
-                                        selectedPeriod={selectedPeriod}
-                                        selectedFy={selectedFy}
-                                        urlPeriod={urlPeriod}
-                                        urlFy={urlFy} />
-                        </div>
+                                  <TimeFilters
+                                    submissionPeriods={submissionPeriods}
+                                    latestFy={latestFy}
+                                    latestPeriod={latestPeriod}
+                                    activeTab={activeTab}
+                                    onTimeFilterSelection={setTime}
+                                    selectedPeriod={selectedPeriod}
+                                    selectedFy={selectedFy}
+                                    urlPeriod={urlPeriod}
+                                    urlFy={urlFy} />
+                      </div>
                         <AgenciesContainer
-                                openModal={modalClick}
-                                activeTab={activeTab}
-                                selectedFy={selectedFy}
-                                selectedPeriod={selectedPeriod
+                          openModal={modalClick}
+                          activeTab={activeTab}
+                          selectedFy={selectedFy}
+                          selectedPeriod={selectedPeriod
                                 ? selectedPeriod.id
                                 : ''
                             } />
-                        <AboutTheDataModal
-                                    mounted={!!showModal.length}
-                                    type={showModal}
-                                    className={modalClassNames[showModal]}
-                                    title={modalTitles(modalData?.type)[showModal]}
-                                    agencyData={{
+                              <AboutTheDataModal
+                                mounted={!!showModal.length}
+                                type={showModal}
+                                className={modalClassNames[showModal]}
+                                title={modalTitles(modalData?.type)[showModal]}
+                                agencyData={{
                                 ...modalData,
                                 fiscalYear: parseInt(selectedFy, 10),
                                 fiscalPeriod: parseInt(selectedPeriod?.id, 10) || 0
                             }}
-                                    closeModal={closeModal} />
+                                closeModal={closeModal} />
                     </>
-                    </LoadingWrapper>
-                </main>
-        </PageWrapper>
+                  </LoadingWrapper>
+              </main>
+      </PageWrapper>
 
     );
 };

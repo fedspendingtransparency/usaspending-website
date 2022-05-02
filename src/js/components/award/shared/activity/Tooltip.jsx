@@ -21,27 +21,27 @@ const Tooltip = ({ data }) => {
     const createSections = () => {
         if (data.sections) {
             return data.sections.map((section) => (
-                <div key={uniqueId('section-')} className="tooltip__text">
-                    {section.title && <strong>{section.title}</strong>}
-                    {section.paragraphs && section.paragraphs.map((body) => (
-                        <p key={uniqueId('paragraph-')} className="tooltip__text-section">{body}</p>
+              <div key={uniqueId('section-')} className="tooltip__text">
+                {section.title && <strong>{section.title}</strong>}
+                {section.paragraphs && section.paragraphs.map((body) => (
+                  <p key={uniqueId('paragraph-')} className="tooltip__text-section">{body}</p>
                     ))}
-                </div>
+              </div>
             ));
         }
         return null;
     };
 
     return (
-        <div className="tooltip">
-            {data.title &&
-                <div className="tooltip__title">
-                    {data.title}
-                </div>}
-            <div className="tooltip-body">
-                        {createSections()}
-                    </div>
-        </div>
+      <div className="tooltip">
+        {data.title &&
+        <div className="tooltip__title">
+          {data.title}
+        </div>}
+          <div className="tooltip-body">
+            {createSections()}
+          </div>
+      </div>
     );
 };
 

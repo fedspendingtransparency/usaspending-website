@@ -223,9 +223,9 @@ const ContractGrantActivityContainer = ({
         if (loading) return <ResultsTableLoadingMessage />;
         if (badDates || !transactions.length) {
             return (
-                <NoResultsMessage
-                    title="Chart Not Available"
-                    message="Data in this instance is not suitable for charting" />
+              <NoResultsMessage
+                title="Chart Not Available"
+                message="Data in this instance is not suitable for charting" />
             );
         }
         return null;
@@ -243,11 +243,11 @@ const ContractGrantActivityContainer = ({
             && !badDates
         ) {
             return (
-                <ContractGrantActivity
-                    transactions={transactions}
-                    dates={dates}
-                    awardType={awardType}
-                    totalObligation={totalObligation} />
+              <ContractGrantActivity
+                transactions={transactions}
+                dates={dates}
+                awardType={awardType}
+                totalObligation={totalObligation} />
             );
         }
         return null;
@@ -263,31 +263,31 @@ const ContractGrantActivityContainer = ({
     };
 
     return (
-        <div className="award__col award-viz contract-grant-activity">
-            <div className="award__col__content">
-                <div className="award-viz__heading">
-                    <div className="award-viz__icon">
-                        <FontAwesomeIcon size="lg" icon="chart-area" />
-                    </div>
-                    <h3 className="award-viz__title">{title()}</h3>
-                    <TooltipWrapper
-                            className="award-section-tt"
-                            icon="info"
-                            wide
-                            tooltipComponent={tooltipInfo()}
-                            tooltipPosition="right" />
-                </div>
-                <hr />
-                <div className="results-table-message-container">
-                        {message()}
-                    </div>
-                {content()}
-                <JumpToSectionButton
-                        linkText="View transactions table"
-                        icon="table"
-                        onClick={jumpToTransactionHistoryTable} />
+      <div className="award__col award-viz contract-grant-activity">
+        <div className="award__col__content">
+          <div className="award-viz__heading">
+            <div className="award-viz__icon">
+              <FontAwesomeIcon size="lg" icon="chart-area" />
             </div>
+              <h3 className="award-viz__title">{title()}</h3>
+                <TooltipWrapper
+                  className="award-section-tt"
+                  icon="info"
+                  wide
+                  tooltipComponent={tooltipInfo()}
+                  tooltipPosition="right" />
+          </div>
+            <hr />
+              <div className="results-table-message-container">
+                {message()}
+              </div>
+          {content()}
+            <JumpToSectionButton
+              linkText="View transactions table"
+              icon="table"
+              onClick={jumpToTransactionHistoryTable} />
         </div>
+      </div>
     );
 };
 

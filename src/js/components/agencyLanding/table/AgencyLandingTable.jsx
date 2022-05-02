@@ -25,26 +25,26 @@ export default class AgencyLandingTable extends React.PureComponent {
 
 
         const rows = this.props.results.map((agency, index) => (
-            <TableRow
-                agency={agency}
-                key={agency.agency_id}
-                rowIndex={index}
-                columns={this.props.columns}
-                agencySearchString={this.props.agencySearchString} />
+          <TableRow
+            agency={agency}
+            key={agency.agency_id}
+            rowIndex={index}
+            columns={this.props.columns}
+            agencySearchString={this.props.agencySearchString} />
         ));
 
         return (
-            <div className={`agency-landing-results-table${noResultsClass}`}>
-                <table>
-                    <thead>
-                        <HeaderRow
-                            columns={this.props.columns} />
-                    </thead>
-                    <tbody>
-                            {rows}
-                        </tbody>
-                </table>
-            </div>
+          <div className={`agency-landing-results-table${noResultsClass}`}>
+            <table>
+              <thead>
+                <HeaderRow
+                  columns={this.props.columns} />
+              </thead>
+                <tbody>
+                  {rows}
+                </tbody>
+            </table>
+          </div>
         );
     }
 }

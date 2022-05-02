@@ -36,14 +36,14 @@ export default class GeoVisualizationScopeButton extends React.Component {
         }
 
         return (
-            <button
-                className={`scope-button${activeClass}`}
-                value={this.props.value}
-                title={description}
-                aria-label={description}
-                onClick={this.clickedButton}>
-                {this.props.label}
-            </button>
+          <button
+            className={`scope-button${activeClass}`}
+            value={this.props.value}
+            title={description}
+            aria-label={description}
+            onClick={this.clickedButton}>
+            {this.props.label}
+          </button>
         );
     }
 }

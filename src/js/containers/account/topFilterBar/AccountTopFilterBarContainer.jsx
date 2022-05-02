@@ -162,11 +162,11 @@ export class AccountTopFilterBarContainer extends React.Component {
             });
 
             output = (<LegacyTopFilterBar
-                {...this.props}
-                filterCount={count}
-                clearAllFilters={this.clearAllFilters}
-                filters={this.state.filters}
-                groupGenerator={topFilterGroupGenerator} />);
+              {...this.props}
+              filterCount={count}
+              clearAllFilters={this.clearAllFilters}
+              filters={this.state.filters}
+              groupGenerator={topFilterGroupGenerator} />);
         }
 
         return output;

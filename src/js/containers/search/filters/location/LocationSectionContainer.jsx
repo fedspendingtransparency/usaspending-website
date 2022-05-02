@@ -28,10 +28,10 @@ export class LocationSectionContainer extends React.Component {
 
     render() {
         return (
-            <LocationSection
-                selectedLocations={this.props.selectedLocations}
-                selectedRecipientLocations={this.props.selectedRecipientLocations}
-                dirtyFilters={this.dirtyFilters()} />
+          <LocationSection
+            selectedLocations={this.props.selectedLocations}
+            selectedRecipientLocations={this.props.selectedRecipientLocations}
+            dirtyFilters={this.dirtyFilters()} />
         );
     }
 }

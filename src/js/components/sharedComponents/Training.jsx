@@ -32,27 +32,27 @@ const Training = (pageName) => {
     });
 
     return (
-        <div className="training">
-            <div className="training__icon">
-                <FontAwesomeIcon icon={faLaptop} />
-            </div>
-            <div className="training__callout">
+      <div className="training">
+        <div className="training__icon">
+          <FontAwesomeIcon icon={faLaptop} />
+        </div>
+          <div className="training__callout">
                      Request training from us!&nbsp;
-                </div>
+          </div>
             <div className="training__message">
                 Receive customized training&nbsp;
-                    </div>
-            <div className="training__message">
+            </div>
+              <div className="training__message">
                 on how to use USAspending.gov
-                        </div>
-            <a
-                                className="training__link"
-                                href={`mailto:usaspending.help@fiscal.treasury.gov?subject=Request%20for%20Training%20on%20USAspending.gov&body=${encodeURIComponent(body)}`}
-                                onClick={trackLink}>
+              </div>
+                <a
+                    className="training__link"
+                    href={`mailto:usaspending.help@fiscal.treasury.gov?subject=Request%20for%20Training%20on%20USAspending.gov&body=${encodeURIComponent(body)}`}
+                    onClick={trackLink}>
                      Sign Up
-                <FontAwesomeIcon icon={faCaretRight} />
-                            </a>
-        </div>
+                        <FontAwesomeIcon icon={faCaretRight} />
+                  </a>
+      </div>
     );
 };
 

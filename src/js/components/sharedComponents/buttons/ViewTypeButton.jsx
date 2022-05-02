@@ -43,15 +43,15 @@ export default class ViewTypeButton extends React.Component {
         }
 
         return (
-            <button
-                className={`view-button${activeClass}`}
-                value={this.props.value}
-                title={description}
-                aria-label={description}
-                onClick={this.clickedButton}
-                disabled={this.props.disabled}>
-                <FontAwesomeIcon icon={this.props.icon} />
-            </button>
+          <button
+            className={`view-button${activeClass}`}
+            value={this.props.value}
+            title={description}
+            aria-label={description}
+            onClick={this.clickedButton}
+            disabled={this.props.disabled}>
+              <FontAwesomeIcon icon={this.props.icon} />
+          </button>
         );
     }
 }

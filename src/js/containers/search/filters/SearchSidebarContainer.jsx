@@ -19,7 +19,7 @@ const propTypes = {
 export class SearchSidebarContainer extends React.Component {
     render() {
         return (
-            <SearchSidebar />
+          <SearchSidebar />
         );
     }
 }

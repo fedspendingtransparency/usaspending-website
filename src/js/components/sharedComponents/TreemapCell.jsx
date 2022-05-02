@@ -100,25 +100,25 @@ export default class TreemapCell extends React.Component {
 
     render() {
         let cellTitle = (
-            <text
-                className={`explorer-cell-title ${this.state.active}`}
-                textAnchor="middle"
-                fill={this.state.textColor}
-                x={this.props.title.x}
-                y={this.props.title.y}>
-                {this.props.title.text}
-            </text>
+          <text
+            className={`explorer-cell-title ${this.state.active}`}
+            textAnchor="middle"
+            fill={this.state.textColor}
+            x={this.props.title.x}
+            y={this.props.title.y}>
+            {this.props.title.text}
+          </text>
         );
 
         let cellValue = (
-            <text
-                className={`explorer-cell-value ${this.state.active}`}
-                textAnchor="middle"
-                fill={this.state.textColor}
-                x={this.props.subtitle.x}
-                y={this.props.subtitle.y}>
-                {this.props.subtitle.text}
-            </text>
+          <text
+            className={`explorer-cell-value ${this.state.active}`}
+            textAnchor="middle"
+            fill={this.state.textColor}
+            x={this.props.subtitle.x}
+            y={this.props.subtitle.y}>
+            {this.props.subtitle.text}
+          </text>
         );
 
         if (this.props.width < 75 || this.props.height < 38) {
@@ -128,30 +128,30 @@ export default class TreemapCell extends React.Component {
         const position = `translate(${this.props.x}, ${this.props.y})`;
 
         return (
-            <g
-                className="explorer-cell"
-                transform={position}
-                onClick={this.clickedCell}
-                onMouseMove={this.enteredCell}
-                onMouseLeave={this.exitedCell}
-                ref={(g) => {
+          <g
+            className="explorer-cell"
+            transform={position}
+            onClick={this.clickedCell}
+            onMouseMove={this.enteredCell}
+            onMouseLeave={this.exitedCell}
+            ref={(g) => {
                     this.element = g;
                 }}>
-                <title>
-                        {this.props.title.text}
-                    </title>
-                <rect
-                            className="explorer-cell-box"
-                            x={0}
-                            y={0}
-                            width={this.props.width}
-                            height={this.props.height}
-                            style={{
+                  <title>
+                    {this.props.title.text}
+                  </title>
+                    <rect
+                      className="explorer-cell-box"
+                      x={0}
+                      y={0}
+                      width={this.props.width}
+                      height={this.props.height}
+                      style={{
                         fill: this.state.backgroundColor
                     }} />
-                {cellTitle}
-                {cellValue}
-            </g>
+            {cellTitle}
+            {cellValue}
+          </g>
         );
     }
 }

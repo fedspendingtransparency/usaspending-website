@@ -318,13 +318,13 @@ export class GeoVisualizationSectionContainer extends React.Component {
 
     render() {
         return (
-            <GeoVisualizationSection
-                {...this.state}
-                noResults={this.state.data.values.length === 0}
-                changeScope={this.changeScope}
-                changeMapLayer={this.changeMapLayer}
-                updateMapLegendToggle={this.updateMapLegendToggle}
-                mapLegendToggle={this.props.mapLegendToggle} />
+          <GeoVisualizationSection
+            {...this.state}
+            noResults={this.state.data.values.length === 0}
+            changeScope={this.changeScope}
+            changeMapLayer={this.changeMapLayer}
+            updateMapLegendToggle={this.updateMapLegendToggle}
+            mapLegendToggle={this.props.mapLegendToggle} />
         );
     }
 }

@@ -261,32 +261,32 @@ export default class TimePeriod extends React.Component {
 
         if (this.state.showError && this.props.activeTab === 'dr') {
             errorDetails = (<DateRangeError
-                header={this.state.header}
-                message={this.state.errorMessage} />);
+              header={this.state.header}
+              message={this.state.errorMessage} />);
         }
 
         if (this.props.activeTab === 'fy') {
             showFilter = (<AllFiscalYears
-                updateFilter={this.props.updateFilter}
-                timePeriods={this.props.timePeriods}
-                selectedFY={this.props.filterTimePeriodFY} />);
+              updateFilter={this.props.updateFilter}
+              timePeriods={this.props.timePeriods}
+              selectedFY={this.props.filterTimePeriodFY} />);
             activeClassFY = '';
             activeClassDR = 'inactive';
         }
         else {
             showFilter = (<DateRange
-                label={this.props.label}
-                datePlaceholder=""
-                startingTab={1}
-                startDate={this.state.startDateUI}
-                endDate={this.state.endDateUI}
-                selectedStart={this.props.filterTimePeriodStart}
-                selectedEnd={this.props.filterTimePeriodEnd}
-                onDateChange={this.handleDateChange}
-                showError={this.showError}
-                hideError={this.hideError}
-                applyDateRange={this.validateDates}
-                removeDateRange={this.removeDateRange} />);
+              label={this.props.label}
+              datePlaceholder=""
+              startingTab={1}
+              startDate={this.state.startDateUI}
+              endDate={this.state.endDateUI}
+              selectedStart={this.props.filterTimePeriodStart}
+              selectedEnd={this.props.filterTimePeriodEnd}
+              onDateChange={this.handleDateChange}
+              showError={this.showError}
+              hideError={this.hideError}
+              applyDateRange={this.validateDates}
+              removeDateRange={this.removeDateRange} />);
             activeClassFY = 'inactive';
             activeClassDR = '';
         }
@@ -296,48 +296,48 @@ export default class TimePeriod extends React.Component {
         }
 
         return (
-            <div className="tab-filter-wrap">
-                <div className="filter-item-wrap">
-                    <ul
-                        className="toggle-buttons"
-                        role="menu">
-                        <li>
-                                <button
-                                className={`tab-toggle ${activeClassFY}`}
-                                value="fy"
-                                role="menuitemradio"
-                                aria-checked={this.props.activeTab === 'fy'}
-                                aria-label="Fiscal Year"
-                                title="Fiscal Year"
-                                onClick={this.toggleFilters}>
+          <div className="tab-filter-wrap">
+            <div className="filter-item-wrap">
+              <ul
+                className="toggle-buttons"
+                role="menu">
+                  <li>
+                    <button
+                      className={`tab-toggle ${activeClassFY}`}
+                      value="fy"
+                      role="menuitemradio"
+                      aria-checked={this.props.activeTab === 'fy'}
+                      aria-label="Fiscal Year"
+                      title="Fiscal Year"
+                      onClick={this.toggleFilters}>
                                 Fiscal Year
-                            </button>
-                            </li>
-                        <li>
-                                    <button
-                                className={`tab-toggle ${activeClassDR}`}
-                                id="filter-date-range-tab"
-                                value="dr"
-                                role="menuitemradio"
-                                aria-checked={this.props.activeTab === 'dr'}
-                                aria-label="Date Range"
-                                title="Date Range"
-                                onClick={this.toggleFilters}
-                                disabled={this.props.disableDateRange}>
+                    </button>
+                  </li>
+                    <li>
+                      <button
+                        className={`tab-toggle ${activeClassDR}`}
+                        id="filter-date-range-tab"
+                        value="dr"
+                        role="menuitemradio"
+                        aria-checked={this.props.activeTab === 'dr'}
+                        aria-label="Date Range"
+                        title="Date Range"
+                        onClick={this.toggleFilters}
+                        disabled={this.props.disableDateRange}>
                                 Date Range
-                            </button>
-                                </li>
-                    </ul>
-                    { showFilter }
-                    { errorDetails }
-                    {!this.state.clearHint &&
-                        <SubmitHint
-                            ref={(component) => {
-                                this.hint = component;
-                            }} />
+                      </button>
+                    </li>
+              </ul>
+              { showFilter }
+              { errorDetails }
+              {!this.state.clearHint &&
+                <SubmitHint
+                  ref={(component) => {
+                            this.hint = component;
+                        }} />
                     }
-                </div>
             </div>
+          </div>
         );
     }
 }

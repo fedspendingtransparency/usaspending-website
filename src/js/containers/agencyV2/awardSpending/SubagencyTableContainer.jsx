@@ -107,25 +107,25 @@ const SubagencyTableContainer = ({
     }, [currentPage, fetchSpendingBySubagencyCallback, fy, toptierCode]);
 
     return (
-        <div className="table-wrapper">
-            <Table
-                expandable
-                rows={results}
-                columns={subagencyColumns}
-                currentSort={{ field: sort, direction: order }}
-                updateSort={updateSort}
-                divider={subHeading}
-                loading={loading}
-                error={error} />
+      <div className="table-wrapper">
+        <Table
+          expandable
+          rows={results}
+          columns={subagencyColumns}
+          currentSort={{ field: sort, direction: order }}
+          updateSort={updateSort}
+          divider={subHeading}
+          loading={loading}
+          error={error} />
             <Pagination
-                        currentPage={currentPage}
-                        changePage={changeCurrentPage}
-                        changeLimit={changePageSize}
-                        limitSelector
-                        resultsText
-                        pageSize={pageSize}
-                        totalItems={totalItems} />
-        </div>
+              currentPage={currentPage}
+              changePage={changeCurrentPage}
+              changeLimit={changePageSize}
+              limitSelector
+              resultsText
+              pageSize={pageSize}
+              totalItems={totalItems} />
+      </div>
     );
 };
 

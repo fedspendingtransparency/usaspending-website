@@ -19,27 +19,27 @@ const Accordion = ({ title, children }) => {
     };
 
     return (
-        <div className="accordion-container">
-            <section data-testid="accordion" className={!closed ? `open accordion--open accordion` : `accordion`}>
-                {/* eslint-disable-next-line jsx-a11y/interactive-supports-focus,jsx-a11y/no-static-element-interactions */}
-                <div onClick={toggleOpen} onKeyDown={keyClickToggle} className="heading">
-                        {title}
-                    <button
-                                onClick={toggleOpen}
-                                onKeyDown={keyClickToggle}
-                                className="toggle"
-                                aria-label={closed ? 'Open toggle' : 'Close toggle'}>
+      <div className="accordion-container">
+        <section data-testid="accordion" className={!closed ? `open accordion--open accordion` : `accordion`}>
+          {/* eslint-disable-next-line jsx-a11y/interactive-supports-focus,jsx-a11y/no-static-element-interactions */}
+            <div onClick={toggleOpen} onKeyDown={keyClickToggle} className="heading">
+              {title}
+                <button
+                  onClick={toggleOpen}
+                  onKeyDown={keyClickToggle}
+                  className="toggle"
+                  aria-label={closed ? 'Open toggle' : 'Close toggle'}>
+                    <FontAwesomeIcon
+                      icon="plus"
+                      className="plus" />
                         <FontAwesomeIcon
-                                        icon="plus"
-                                        className="plus" />
-                        <FontAwesomeIcon
-                                                icon="minus"
-                                                className="minus" />
-                            </button>
-                    </div>
-                <div className="content">{children}</div>
-            </section>
-        </div>
+                            icon="minus"
+                            className="minus" />
+                </button>
+            </div>
+              <div className="content">{children}</div>
+        </section>
+      </div>
     );
 };
 

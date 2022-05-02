@@ -58,14 +58,14 @@ export default class ResultsTable extends React.Component {
         const isLast = (columnIndex + 1) === columns.visibleOrder.length;
         const isActive = this.props.sort.field === column.columnName;
         return (
-            <ResultsTableHeaderCell
-                isLast={isLast}
-                isActive={isActive}
-                title={column.columnName}
-                displayName={column.displayName}
-                defaultDirection={column.defaultDirection}
-                currentSort={this.props.sort}
-                updateSort={this.props.updateSort} />
+          <ResultsTableHeaderCell
+            isLast={isLast}
+            isActive={isActive}
+            title={column.columnName}
+            displayName={column.displayName}
+            defaultDirection={column.defaultDirection}
+            currentSort={this.props.sort}
+            updateSort={this.props.updateSort} />
         );
     }
 
@@ -126,22 +126,22 @@ export default class ResultsTable extends React.Component {
         const variableBodyHeight = Math.min(tableHeight, rowHeight * this.props.results.length);
 
         return (
-            <div className={`award-results-table${noResultsClass}`}>
-                <IBTable
-                    rowHeight={rowHeight}
-                    rowCount={this.props.results.length}
-                    headerHeight={50}
-                    contentWidth={calculatedValues.width}
-                    bodyWidth={this.props.visibleWidth}
-                    bodyHeight={variableBodyHeight}
-                    columns={calculatedValues.columns}
-                    headerCellRender={this.headerCellRender}
-                    bodyCellRender={this.bodyCellRender}
-                    onReachedBottom={this.props.loadNextPage}
-                    ref={(table) => {
+          <div className={`award-results-table${noResultsClass}`}>
+            <IBTable
+              rowHeight={rowHeight}
+              rowCount={this.props.results.length}
+              headerHeight={50}
+              contentWidth={calculatedValues.width}
+              bodyWidth={this.props.visibleWidth}
+              bodyHeight={variableBodyHeight}
+              columns={calculatedValues.columns}
+              headerCellRender={this.headerCellRender}
+              bodyCellRender={this.bodyCellRender}
+              onReachedBottom={this.props.loadNextPage}
+              ref={(table) => {
                         this.tableComponent = table;
                     }} />
-            </div>
+          </div>
         );
     }
 }

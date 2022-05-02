@@ -19,14 +19,14 @@ const CellWithModal = ({
 }) => {
     const modalClick = () => openModal(modalType, agencyData);
     return (
-        <div className="action-cell">
-            <span className="action-cell__text">
-                {data}
-            </span>
-            <button className="action-cell__button" onClick={modalClick} title="View details">
-                    <FontAwesomeIcon icon="expand-alt" />
-                </button>
-        </div>
+      <div className="action-cell">
+        <span className="action-cell__text">
+          {data}
+        </span>
+          <button className="action-cell__button" onClick={modalClick} title="View details">
+            <FontAwesomeIcon icon="expand-alt" />
+          </button>
+      </div>
     );
 };
 

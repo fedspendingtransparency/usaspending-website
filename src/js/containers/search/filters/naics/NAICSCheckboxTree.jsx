@@ -75,11 +75,11 @@ const propTypes = {
 
 const SearchTooltip = () => (
     <>
-        <p>Filter the options below by typing any of the following:</p>
+      <p>Filter the options below by typing any of the following:</p>
         <ul>
-                <li>Any NAICS numeric code (or part thereof)</li>
+          <li>Any NAICS numeric code (or part thereof)</li>
             <li>Any NAICS label name (or part thereof)</li>
-            </ul>
+        </ul>
     </>
 );
 
@@ -420,20 +420,20 @@ export class NAICSCheckboxTree extends React.Component {
             searchExpanded
         } = this.props;
         return (
-            <CheckboxTree
-                limit={3}
-                data={nodes}
-                isError={isError}
-                errorMessage={errorMessage}
-                isLoading={isLoading}
-                noResults={showNoResults}
-                checked={checked}
-                expanded={isSearch ? searchExpanded : expanded}
-                searchText={searchString}
-                onExpand={this.onExpand}
-                onCollapse={this.onCollapse}
-                onUncheck={this.onUncheck}
-                onCheck={this.onCheck} />
+          <CheckboxTree
+            limit={3}
+            data={nodes}
+            isError={isError}
+            errorMessage={errorMessage}
+            isLoading={isLoading}
+            noResults={showNoResults}
+            checked={checked}
+            expanded={isSearch ? searchExpanded : expanded}
+            searchText={searchString}
+            onExpand={this.onExpand}
+            onCollapse={this.onCollapse}
+            onUncheck={this.onUncheck}
+            onCheck={this.onCheck} />
         );
     }
 
@@ -442,50 +442,50 @@ export class NAICSCheckboxTree extends React.Component {
         const { searchString } = this.state;
         const { counts } = this.props;
         return (
-            <div>
-                <div className="naics-search-container">
-                    <span className="checkbox-header">Search by Code or Name
-                        <CSSOnlyTooltip definition={<SearchTooltip />} heading="NAICS Search" />
-                    </span>
-                    <EntityDropdownAutocomplete
-                            placeholder="Type to find codes"
-                            searchString={searchString}
-                            enabled
-                            handleTextInputChange={this.handleTextInputChange}
-                            context={{}}
-                            loading={false}
-                            isClearable
-                            onClear={this.onClear} />
-                    {this.checkboxDiv(showNoResults)}
-                    {counts.length !== 0 && (
-                        <div
-                            id="award-search-selected-locations"
-                            className="selected-filters"
-                            role="status">
-                            {counts.map((node) => {
+          <div>
+            <div className="naics-search-container">
+              <span className="checkbox-header">Search by Code or Name
+                <CSSOnlyTooltip definition={<SearchTooltip />} heading="NAICS Search" />
+              </span>
+                <EntityDropdownAutocomplete
+                  placeholder="Type to find codes"
+                  searchString={searchString}
+                  enabled
+                  handleTextInputChange={this.handleTextInputChange}
+                  context={{}}
+                  loading={false}
+                  isClearable
+                  onClear={this.onClear} />
+              {this.checkboxDiv(showNoResults)}
+              {counts.length !== 0 && (
+                <div
+                  id="award-search-selected-locations"
+                  className="selected-filters"
+                  role="status">
+                  {counts.map((node) => {
                                 const label = `${node.value} - ${node.label} (${node.count})`;
                                 return (
-                                    <button
-                                        key={uniqueId()}
-                                        className="shown-filter-button"
-                                        value={label}
-                                        onClick={() => this.removeStagedNaics(node)}
-                                        title="Click to remove."
-                                        aria-label={`Applied filter: ${label}`}>
-                                        {label}
-                                        <span className="close">
-                                                <FontAwesomeIcon icon="times" />
-                                            </span>
-                                    </button>
+                                  <button
+                                    key={uniqueId()}
+                                    className="shown-filter-button"
+                                    value={label}
+                                    onClick={() => this.removeStagedNaics(node)}
+                                    title="Click to remove."
+                                    aria-label={`Applied filter: ${label}`}>
+                                    {label}
+                                      <span className="close">
+                                        <FontAwesomeIcon icon="times" />
+                                      </span>
+                                  </button>
                                 );
                             })}
-                        </div>
+                </div>
                     )}
-                    <SubmitHint ref={(component) => {
+                      <SubmitHint ref={(component) => {
                         this.hint = component;
                     }} />
-                </div>
             </div>
+          </div>
         );
     }
 }

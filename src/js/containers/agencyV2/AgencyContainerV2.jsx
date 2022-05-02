@@ -100,14 +100,14 @@ export const AgencyProfileV2 = () => {
         return <Redirect to="/404" />;
     }
     return (
-        <AgencyPage
-            setSelectedFy={setSelectedFy}
-            latestFy={latestFy}
-            selectedFy={selectedFy}
-            agencySlug={agencySlug}
-            isLoading={isLoading}
-            isError={isError}
-            errorMessage={errorMessage} />
+      <AgencyPage
+        setSelectedFy={setSelectedFy}
+        latestFy={latestFy}
+        selectedFy={selectedFy}
+        agencySlug={agencySlug}
+        isLoading={isLoading}
+        isError={isError}
+        errorMessage={errorMessage} />
     );
 };
 

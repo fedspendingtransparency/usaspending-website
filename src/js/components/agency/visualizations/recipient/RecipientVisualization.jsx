@@ -79,44 +79,44 @@ export default class RecipientVisualization extends React.Component {
         }
         else {
             chart = (<RecipientChart
-                loading={this.props.loading}
-                labelSeries={this.props.labelSeries}
-                dataSeries={this.props.dataSeries}
-                descriptions={this.props.descriptions}
-                width={this.state.visualizationWidth}
-                labelWidth={this.state.labelWidth}
-                page={this.props.page}
-                isLastPage={this.props.isLastPage}
-                changePage={this.props.changePage} />);
+              loading={this.props.loading}
+              labelSeries={this.props.labelSeries}
+              dataSeries={this.props.dataSeries}
+              descriptions={this.props.descriptions}
+              width={this.state.visualizationWidth}
+              labelWidth={this.state.labelWidth}
+              page={this.props.page}
+              isLastPage={this.props.isLastPage}
+              changePage={this.props.changePage} />);
         }
 
         return (
-            <div
-                className="agency-section-wrapper"
-                id="agency-recipients">
-                <div className="agency-section-title">
-                        <h4>Recipients</h4>
-                    <hr
-                                className="results-divider"
-                                ref={(hr) => {
+          <div
+            className="agency-section-wrapper"
+            id="agency-recipients">
+              <div className="agency-section-title">
+                <h4>Recipients</h4>
+                  <hr
+                    className="results-divider"
+                    ref={(hr) => {
                             this.sectionHr = hr;
                         }} />
-                    <em>FY {this.props.activeFY} data reported through {this.props.lastUpdate}</em>
-                    </div>
+                          <em>FY {this.props.activeFY} data reported through {this.props.lastUpdate}</em>
+              </div>
                 <div className="agency-callout-description">
-                            {`A primary way agencies implement their programs is by awarding money to \
+                  {`A primary way agencies implement their programs is by awarding money to \
 companies, organizations, individuals, or government entities (i.e. state, local, tribal, federal, \
 or foreign). Here is a look at who these recipients are and how they rank by award type.`}
-                        </div>
-                <div className="agency-section-content">
-                                <ScopeList
-                        scope={this.props.scope}
-                        changeScope={this.props.changeScope} />
-                    <div className="chart-wrapper">
-                                {chart}
-                            </div>
-                            </div>
-            </div>
+                </div>
+                  <div className="agency-section-content">
+                    <ScopeList
+                      scope={this.props.scope}
+                      changeScope={this.props.changeScope} />
+                        <div className="chart-wrapper">
+                            {chart}
+                          </div>
+                  </div>
+          </div>
         );
     }
 }

@@ -165,11 +165,11 @@ export class TransactionsTableContainer extends React.Component {
 
     render() {
         return (
-            <TransactionsTable
-                {...this.props}
-                {...this.state}
-                changeSort={this.changeSort}
-                nextTransactionPage={this.nextTransactionPage} />
+          <TransactionsTable
+            {...this.props}
+            {...this.state}
+            changeSort={this.changeSort}
+            nextTransactionPage={this.nextTransactionPage} />
         );
     }
 }

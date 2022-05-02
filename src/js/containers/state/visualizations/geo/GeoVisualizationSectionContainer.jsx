@@ -207,12 +207,12 @@ export class GeoVisualizationSectionContainer extends React.Component {
 
     render() {
         return (
-            <GeoVisualizationSection
-                {...this.state}
-                stateCenter={this.props.stateProfile.center}
-                noResults={this.state.data.values.length === 0}
-                changeScope={this.changeScope}
-                changeMapLayer={this.changeMapLayer} />
+          <GeoVisualizationSection
+            {...this.state}
+            stateCenter={this.props.stateProfile.center}
+            noResults={this.state.data.values.length === 0}
+            changeScope={this.changeScope}
+            changeMapLayer={this.changeMapLayer} />
         );
     }
 }

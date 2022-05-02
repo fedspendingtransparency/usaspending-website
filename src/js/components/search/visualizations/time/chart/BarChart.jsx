@@ -363,76 +363,76 @@ export default class BarChart extends React.Component {
         // wrap the chart contents in a group and transform it down 20px to avoid impacting
         // positioning calculations
         const bars = this.state.items.map((item) => (
-            <BarItem
-                key={item.key}
-                identifier={item.identifier}
-                dataY={item.dataY}
-                dataX={item.dataX}
-                graphHeight={item.graphHeight}
-                height={item.height}
-                width={item.width}
-                x={item.x}
-                y={item.y}
-                color={item.color}
-                description={item.description}
-                selectBar={item.selectBar}
-                deselectBar={item.deselectBar}
-                deregisterBar={item.deregisterBar}
-                ref={(component) => {
+          <BarItem
+            key={item.key}
+            identifier={item.identifier}
+            dataY={item.dataY}
+            dataX={item.dataX}
+            graphHeight={item.graphHeight}
+            height={item.height}
+            width={item.width}
+            x={item.x}
+            y={item.y}
+            color={item.color}
+            description={item.description}
+            selectBar={item.selectBar}
+            deselectBar={item.deselectBar}
+            deregisterBar={item.deregisterBar}
+            ref={(component) => {
                     this.dataPoints[item.identifier] = component;
                 }} />
         ));
 
         return (
-            <div
-                ref={(div) => {
+          <div
+            ref={(div) => {
                     this.divRef = div;
                 }}>
-                <svg
-                        className="bar-graph"
-                        width={this.props.width}
-                        height={this.props.height + 20}
-                        ref={(svg) => {
+                  <svg
+                    className="bar-graph"
+                    width={this.props.width}
+                    height={this.props.height + 20}
+                    ref={(svg) => {
                         this.svgRef = svg;
                     }}>
-                    <g className="bar-graph-body" transform="translate(0,20)">
-                            <BarYAxis
-                            height={this.props.height - this.props.padding.bottom}
-                            width={this.props.width - this.props.padding.left}
-                            padding={this.props.padding}
-                            data={this.state.yValues}
-                            scale={this.state.yScale}
-                            ticks={this.state.yTicks}
-                            average={this.state.yAverage}
-                            generatedYAxis={this.generatedYAxis} />
+                      <g className="bar-graph-body" transform="translate(0,20)">
+                        <BarYAxis
+                          height={this.props.height - this.props.padding.bottom}
+                          width={this.props.width - this.props.padding.left}
+                          padding={this.props.padding}
+                          data={this.state.yValues}
+                          scale={this.state.yScale}
+                          ticks={this.state.yTicks}
+                          average={this.state.yAverage}
+                          generatedYAxis={this.generatedYAxis} />
 
-                        <BarXAxis
-                                    top={this.props.height - this.props.padding.bottom}
-                                    width={this.props.width - this.props.padding.left}
-                                    padding={this.props.padding}
-                                    data={this.state.xValues}
-                                    rawLabels={this.state.rawLabels}
-                                    scale={this.state.xScale}
-                                    axisPos={this.state.xAxisPos}
-                                    activeLabel={this.props.activeLabel}
-                                    visualizationPeriod={this.props.visualizationPeriod} />
+                            <BarXAxis
+                              top={this.props.height - this.props.padding.bottom}
+                              width={this.props.width - this.props.padding.left}
+                              padding={this.props.padding}
+                              data={this.state.xValues}
+                              rawLabels={this.state.rawLabels}
+                              scale={this.state.xScale}
+                              axisPos={this.state.xAxisPos}
+                              activeLabel={this.props.activeLabel}
+                              visualizationPeriod={this.props.visualizationPeriod} />
 
-                        <g
-                                            className="bar-data"
-                                            transform={`translate(${this.props.padding.left},0)`}>
-                                            {bars}
-                                        </g>
+                                <g
+                                  className="bar-data"
+                                  transform={`translate(${this.props.padding.left},0)`}>
+                                  {bars}
+                                </g>
 
-                        <g
-                                                className="legend-container"
-                                                transform={`translate(
+                                  <g
+                                    className="legend-container"
+                                    transform={`translate(
                                 ${this.props.padding.left},
                                 ${this.props.height - 20})`}>
-                            <BarChartLegend legend={this.props.legend} />
-                                            </g>
-                        </g>
-                    </svg>
-            </div>
+                                  <BarChartLegend legend={this.props.legend} />
+                                  </g>
+                      </g>
+                  </svg>
+          </div>
         );
     }
 }

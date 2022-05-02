@@ -10,9 +10,9 @@ import Error from 'components/sharedComponents/Error';
 export default class AgencyLoading extends React.Component {
     render() {
         return (
-            <Error
-                title="Loading..."
-                message="" />
+          <Error
+            title="Loading..."
+            message="" />
         );
     }
 }

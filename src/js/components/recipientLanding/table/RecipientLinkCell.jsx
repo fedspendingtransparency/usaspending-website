@@ -27,12 +27,12 @@ export default class RecipientLinkCell extends React.Component {
             labelType = "recipient-landing__icon recipient-landing__icon_child";
         }
         return (
-            <td className="recipient-list__body-cell">
-                <span className={labelType}>{this.props.type}</span>
-                <Link to={`/recipient/${this.props.id}/latest`}>
-                        {this.props.name}
-                    </Link>
-            </td>
+          <td className="recipient-list__body-cell">
+            <span className={labelType}>{this.props.type}</span>
+              <Link to={`/recipient/${this.props.id}/latest`}>
+                {this.props.name}
+              </Link>
+          </td>
         );
     }
 }

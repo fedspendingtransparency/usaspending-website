@@ -20,30 +20,30 @@ export default class ToggleButton extends React.Component {
             activeClass = 'active';
         }
         return (
-            <div className="toggle-wrapper">
-                <button
-                    id={this.props.prefix}
-                    className={`toggle-button ${activeClass}`}
-                    aria-labelledby={`${this.props.prefix}-label`}
-                    aria-pressed={this.props.active}
-                    onClick={this.props.pressedToggle}>
-                    <div className="toggle-outline">
-                            <div className="toggle-slider">
-                            <div className="slider-surface">
-                                    <div className="friction-grabber" />
-                                <div className="friction-grabber" />
-                                <div className="friction-grabber" />
-                                </div>
-                        </div>
-                        </div>
-                </button>
-                <label
-                        id={`${this.props.prefix}-label`}
-                        className="toggle-text"
-                        htmlFor={this.props.prefix}>
-                        {this.props.label}
-                    </label>
-            </div>
+          <div className="toggle-wrapper">
+            <button
+              id={this.props.prefix}
+              className={`toggle-button ${activeClass}`}
+              aria-labelledby={`${this.props.prefix}-label`}
+              aria-pressed={this.props.active}
+              onClick={this.props.pressedToggle}>
+                <div className="toggle-outline">
+                  <div className="toggle-slider">
+                    <div className="slider-surface">
+                      <div className="friction-grabber" />
+                        <div className="friction-grabber" />
+                          <div className="friction-grabber" />
+                    </div>
+                  </div>
+                </div>
+            </button>
+              <label
+                id={`${this.props.prefix}-label`}
+                className="toggle-text"
+                htmlFor={this.props.prefix}>
+                {this.props.label}
+              </label>
+          </div>
         );
     }
 }

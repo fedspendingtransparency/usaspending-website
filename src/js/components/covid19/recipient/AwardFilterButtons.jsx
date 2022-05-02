@@ -23,21 +23,21 @@ const AwardFilterButtons = ({
     activeFilter,
     tabCounts
 }) => (
-    <div className="award-filter__buttons">
-        {
+  <div className="award-filter__buttons">
+    {
             filters.map((button) => (
-                <AwardFilterButton
-                    key={button.internal}
-                    onClick={onClick}
-                    label={button.label}
-                    value={button.internal}
-                    active={activeFilter === button.internal}
-                    showCount={!!tabCounts}
-                    count={tabCounts && tabCounts[button.internal]}
-                    disabled={button.isDisabled} />
+              <AwardFilterButton
+                key={button.internal}
+                onClick={onClick}
+                label={button.label}
+                value={button.internal}
+                active={activeFilter === button.internal}
+                showCount={!!tabCounts}
+                count={tabCounts && tabCounts[button.internal]}
+                disabled={button.isDisabled} />
             ))
         }
-    </div>
+  </div>
 );
 
 AwardFilterButtons.propTypes = propTypes;

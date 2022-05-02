@@ -204,14 +204,14 @@ export class AgencyLandingContainer extends React.Component {
         }
 
         return (
-            <AgencyLandingContent
-                resultsText={resultsText}
-                results={this.state.results}
-                agencySearchString={this.state.agencySearchString}
-                inFlight={this.state.inFlight}
-                columns={this.state.columns}
-                sort={this.props.agenciesOrder}
-                setAgencySearchString={this.setAgencySearchString} />
+          <AgencyLandingContent
+            resultsText={resultsText}
+            results={this.state.results}
+            agencySearchString={this.state.agencySearchString}
+            inFlight={this.state.inFlight}
+            columns={this.state.columns}
+            sort={this.props.agenciesOrder}
+            setAgencySearchString={this.setAgencySearchString} />
         );
     }
 }

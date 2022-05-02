@@ -31,9 +31,9 @@ export class ProgramSourceContainer extends React.Component {
 
     render() {
         return (
-            <ProgramSourceSection
-                {...this.props}
-                dirtyFilters={this.dirtyFilters()} />
+          <ProgramSourceSection
+            {...this.props}
+            dirtyFilters={this.dirtyFilters()} />
         );
     }
 }

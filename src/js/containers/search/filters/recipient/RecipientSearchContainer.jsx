@@ -40,10 +40,10 @@ export class RecipientSearchContainer extends React.Component {
 
     render() {
         return (
-            <RecipientSearch
-                {...this.props}
-                dirtyFilters={this.dirtyFilters()}
-                toggleRecipient={this.toggleRecipient} />
+          <RecipientSearch
+            {...this.props}
+            dirtyFilters={this.dirtyFilters()}
+            toggleRecipient={this.toggleRecipient} />
         );
     }
 }

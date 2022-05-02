@@ -10,24 +10,24 @@ const BarValue = ({
     title,
     number
 }) => (
-    <div
+  <div
         // minWidth here ensures that the container of the desc-text is not too scrunched up.
-        style={{ ...style, minWidth: '100px' }}
-        className={`${className} ${spendingCategory}`}
-        role="button"
-        tabIndex="0"
-        onBlur={onLeave}
-        onFocus={onEnter}
-        onKeyPress={onEnter}
-        onMouseMove={onEnter}
-        onMouseEnter={onEnter}
-        onMouseDown={onEnter}
-        onMouseLeave={onLeave}
-        onClick={onEnter}>
-        <div className="award-amounts-viz__desc-text">
-                <strong>{number}</strong><br />{title}
-            </div>
-    </div>
+    style={{ ...style, minWidth: '100px' }}
+    className={`${className} ${spendingCategory}`}
+    role="button"
+    tabIndex="0"
+    onBlur={onLeave}
+    onFocus={onEnter}
+    onKeyPress={onEnter}
+    onMouseMove={onEnter}
+    onMouseEnter={onEnter}
+    onMouseDown={onEnter}
+    onMouseLeave={onLeave}
+    onClick={onEnter}>
+      <div className="award-amounts-viz__desc-text">
+        <strong>{number}</strong><br />{title}
+      </div>
+  </div>
 );
 
 const BarLabelAndLine = ({
@@ -38,10 +38,10 @@ const BarLabelAndLine = ({
     lineClassName = 'award-amounts-viz__line',
     labelClassName = 'award-amounts-viz__label'
 }) => (
-    <div className={`${labelClassName} ${spendingCategory}`} style={labelStyles}>
-        <div className={`${lineClassName} ${spendingCategory}`} style={{ ...lineStyles, minWidth: '4px' }} />
-        {children}
-    </div>
+  <div className={`${labelClassName} ${spendingCategory}`} style={labelStyles}>
+    <div className={`${lineClassName} ${spendingCategory}`} style={{ ...lineStyles, minWidth: '4px' }} />
+    {children}
+  </div>
 );
 
 const Bar = ({
@@ -53,21 +53,21 @@ const Bar = ({
     barWrapperStyles = {},
     barStyles
 }) => (
-    <div
-        role="button"
-        tabIndex="0"
-        style={barWrapperStyles}
-        className={`award-amounts-viz__bar-wrapper ${spendingCategory}`}
-        onBlur={onLeave}
-        onFocus={onEnter}
-        onKeyPress={onEnter}
-        onMouseEnter={onEnter}
-        onMouseLeave={onLeave}
-        onClick={onEnter}>
-        <div className={`${className} ${spendingCategory}`} style={barStyles}>
-                {children}
-            </div>
-    </div>
+  <div
+    role="button"
+    tabIndex="0"
+    style={barWrapperStyles}
+    className={`award-amounts-viz__bar-wrapper ${spendingCategory}`}
+    onBlur={onLeave}
+    onFocus={onEnter}
+    onKeyPress={onEnter}
+    onMouseEnter={onEnter}
+    onMouseLeave={onLeave}
+    onClick={onEnter}>
+      <div className={`${className} ${spendingCategory}`} style={barStyles}>
+        {children}
+      </div>
+  </div>
 );
 
 Bar.propTypes = {

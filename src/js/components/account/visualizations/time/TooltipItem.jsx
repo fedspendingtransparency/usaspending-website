@@ -12,16 +12,16 @@ const propTypes = {
 };
 
 const TooltipItem = (props) => (
-    <li>
-        <div className="tooltip-item">
-            <div className="item-value">
-                {props.value}
-            </div>
-            <div className="item-label">
-                    {props.label}
-                </div>
+  <li>
+    <div className="tooltip-item">
+      <div className="item-value">
+        {props.value}
+      </div>
+        <div className="item-label">
+          {props.label}
         </div>
-    </li>
+    </div>
+  </li>
 );
 
 TooltipItem.propTypes = propTypes;

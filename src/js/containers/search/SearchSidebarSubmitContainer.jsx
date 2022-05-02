@@ -112,12 +112,12 @@ export class SearchSidebarSubmitContainer extends React.Component {
 
     render() {
         return (
-            <SearchSidebarSubmit
-                stagedFiltersAreEmpty={this.areStagedFiltersEmpty()}
-                filtersChanged={this.state.filtersChanged}
-                requestsComplete={this.props.requestsComplete}
-                applyStagedFilters={this.applyStagedFilters}
-                resetFilters={this.resetFilters} />
+          <SearchSidebarSubmit
+            stagedFiltersAreEmpty={this.areStagedFiltersEmpty()}
+            filtersChanged={this.state.filtersChanged}
+            requestsComplete={this.props.requestsComplete}
+            applyStagedFilters={this.applyStagedFilters}
+            resetFilters={this.resetFilters} />
         );
     }
 }

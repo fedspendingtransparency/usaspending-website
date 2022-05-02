@@ -146,28 +146,28 @@ export default class DetailContent extends React.Component {
     render() {
         if (this.props.isLoading && this.props.data.count() < 1) {
             return (
-                <div
-                    className="explorer-detail-content"
-                    ref={(div) => {
+              <div
+                className="explorer-detail-content"
+                ref={(div) => {
                         this.wrapperDiv = div;
                     }}>
-                    <div className="explorer-detail-content__loading">
-                            <div className="explorer-detail-content__loading-message">
-                            <LoadingSpinner />
+                      <div className="explorer-detail-content__loading">
+                        <div className="explorer-detail-content__loading-message">
+                          <LoadingSpinner />
                             <div className="explorer-detail-content__loading-title">Gathering your data...</div>
-                            <div className="explorer-detail-content__loading-subtitle">Updating Spending Explorer.</div>
-                            <div>This should only take a few moments...</div>
+                              <div className="explorer-detail-content__loading-subtitle">Updating Spending Explorer.</div>
+                                <div>This should only take a few moments...</div>
                         </div>
-                        </div>
-                </div>
+                      </div>
+              </div>
             );
         }
         let header = (<RootHeader
-            isLoading={this.props.isLoading}
-            root={this.props.root}
-            fy={this.props.fy}
-            lastUpdate={this.props.lastUpdate}
-            total={this.props.active.total} />);
+          isLoading={this.props.isLoading}
+          root={this.props.root}
+          fy={this.props.fy}
+          lastUpdate={this.props.lastUpdate}
+          total={this.props.active.total} />);
 
         let lastFilter = null;
 
@@ -190,75 +190,75 @@ export default class DetailContent extends React.Component {
             }
 
             header = (<DetailHeader
-                activeSubdivision={this.props.active.subdivision}
-                isLoading={this.props.isLoading}
-                within={lastFilter.within}
-                title={lastFilter.title}
-                link={lastFilter.link}
-                id={id}
-                fy={this.props.fy}
-                lastUpdate={this.props.lastUpdate}
-                total={this.props.active.total}
-                parent={parentFilter}
-                isTruncated={this.props.isTruncated} />);
+              activeSubdivision={this.props.active.subdivision}
+              isLoading={this.props.isLoading}
+              within={lastFilter.within}
+              title={lastFilter.title}
+              link={lastFilter.link}
+              id={id}
+              fy={this.props.fy}
+              lastUpdate={this.props.lastUpdate}
+              total={this.props.active.total}
+              parent={parentFilter}
+              isTruncated={this.props.isTruncated} />);
         }
 
         let fakeScreenAbove = null;
         let fakeScreenBelow = null;
         if (this.state.showFakes && this.state.fakeDirection === 'below') {
             fakeScreenBelow = (<FakeScreens
-                position="below"
-                transitionSteps={this.props.transitionSteps} />);
+              position="below"
+              transitionSteps={this.props.transitionSteps} />);
         }
         else if (this.state.showFakes && this.state.fakeDirection === 'above') {
             fakeScreenAbove = (<FakeScreens
-                position="above"
-                transitionSteps={this.props.transitionSteps} />);
+              position="above"
+              transitionSteps={this.props.transitionSteps} />);
         }
         const currentIndex = this.props.trail.length - 1;
         let visualizationSection = (
-            <NoAwardsScreen
-                rewindToFilter={this.props.rewindToFilter}
-                currentIndex={currentIndex} />);
+          <NoAwardsScreen
+            rewindToFilter={this.props.rewindToFilter}
+            currentIndex={currentIndex} />);
 
         if (this.props.data.count() > 0) {
             visualizationSection = (
-                <ExplorerVisualization
-                    isRoot={this.props.isRoot}
-                    isLoading={this.props.isLoading}
-                    lastFilter={lastFilter}
-                    root={this.props.root}
-                    fy={this.props.fy}
-                    active={this.props.active}
-                    trail={this.props.trail}
-                    total={this.props.total}
-                    data={this.props.data}
-                    goDeeper={this.props.goDeeper}
-                    changeSubdivisionType={this.props.changeSubdivisionType}
-                    goToUnreported={this.props.goToUnreported}
-                    showTooltip={this.props.showTooltip}
-                    hideTooltip={this.props.hideTooltip}
-                    currentIndex={currentIndex}
-                    rewindToFilter={this.props.rewindToFilter} />
+              <ExplorerVisualization
+                isRoot={this.props.isRoot}
+                isLoading={this.props.isLoading}
+                lastFilter={lastFilter}
+                root={this.props.root}
+                fy={this.props.fy}
+                active={this.props.active}
+                trail={this.props.trail}
+                total={this.props.total}
+                data={this.props.data}
+                goDeeper={this.props.goDeeper}
+                changeSubdivisionType={this.props.changeSubdivisionType}
+                goToUnreported={this.props.goToUnreported}
+                showTooltip={this.props.showTooltip}
+                hideTooltip={this.props.hideTooltip}
+                currentIndex={currentIndex}
+                rewindToFilter={this.props.rewindToFilter} />
             );
         }
 
 
         return (
-            <div
-                className="explorer-detail-content"
-                ref={(div) => {
+          <div
+            className="explorer-detail-content"
+            ref={(div) => {
                     this.wrapperDiv = div;
                 }}>
 
-                {fakeScreenAbove}
+            {fakeScreenAbove}
 
-                {header}
+            {header}
 
-                {visualizationSection}
+            {visualizationSection}
 
-                {fakeScreenBelow}
-            </div>
+            {fakeScreenBelow}
+          </div>
         );
     }
 }

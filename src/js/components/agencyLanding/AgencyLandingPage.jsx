@@ -27,22 +27,22 @@ export default class AgencyLandingPage extends React.Component {
 
     render() {
         return (
-            <PageWrapper
-                pageName="Agency Profiles"
-                classNames="usa-da-agency-landing"
-                title="Agency Profiles"
-                metaTagProps={agencyLandingPageMetaTags}
-                toolBarComponents={[
-                    <ShareIcon
-                        onShareOptionClick={this.handleShare}
-                        url={getBaseUrl('agency')} />
+          <PageWrapper
+            pageName="Agency Profiles"
+            classNames="usa-da-agency-landing"
+            title="Agency Profiles"
+            metaTagProps={agencyLandingPageMetaTags}
+            toolBarComponents={[
+              <ShareIcon
+                onShareOptionClick={this.handleShare}
+                url={getBaseUrl('agency')} />
                 ]}>
-                <main
-                        id="main-content"
-                        className="main-content">
-                    <AgencyLandingContainer />
-                    </main>
-            </PageWrapper>
+                  <main
+                    id="main-content"
+                    className="main-content">
+                      <AgencyLandingContainer />
+                  </main>
+          </PageWrapper>
         );
     }
 }

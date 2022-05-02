@@ -60,34 +60,34 @@ export default class ResultsTableTabItem extends React.Component {
         let count = null;
         if (!this.props.hideCounts) {
             count = (
-                <div className={`count-badge ${activeClass}`}>
-                    {formatNumber(this.props.count)}
-                </div>
+              <div className={`count-badge ${activeClass}`}>
+                {formatNumber(this.props.count)}
+              </div>
             );
         }
         const className = `table-type-toggle${activeClass} ${this.props.className}${disabledClass}`;
         const onKeyDownHandler = createOnKeyDownHandler(this.clickedTab);
         return (
-            <div className={`table-type-toggle__wrapper${disabledClass}`}>
-                <div
-                    className={className}
-                    onClick={this.clickedTab}
-                    onKeyDown={onKeyDownHandler}
-                    role="menuitemradio"
-                    aria-checked={this.props.active}
-                    title={`Show ${this.props.label}`}
-                    aria-label={`Show ${this.props.label} - ${this.props.count} ${resultString}`}
-                    tabIndex={0}
-                    disabled={disabledStatus}>
-                    <div className="tab-content">
-                            <div className="tab-label">
-                            {this.props.label}
-                        </div>
-                            {count}
-                            {this.props.tooltip}
-                        </div>
+          <div className={`table-type-toggle__wrapper${disabledClass}`}>
+            <div
+              className={className}
+              onClick={this.clickedTab}
+              onKeyDown={onKeyDownHandler}
+              role="menuitemradio"
+              aria-checked={this.props.active}
+              title={`Show ${this.props.label}`}
+              aria-label={`Show ${this.props.label} - ${this.props.count} ${resultString}`}
+              tabIndex={0}
+              disabled={disabledStatus}>
+                <div className="tab-content">
+                  <div className="tab-label">
+                    {this.props.label}
+                  </div>
+                  {count}
+                  {this.props.tooltip}
                 </div>
             </div>
+          </div>
         );
     }
 }

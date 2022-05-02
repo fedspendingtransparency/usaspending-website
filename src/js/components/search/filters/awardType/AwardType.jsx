@@ -62,28 +62,28 @@ export default class AwardType extends React.Component {
     render() {
         const awardTypes = awardTypesData
             .map((type, index) => (
-                <PrimaryCheckboxType
-                    {...type}
-                    {...this.props}
-                    key={index}
-                    types={awardTypeCodes}
-                    filterType="Award"
-                    selectedCheckboxes={this.props.awardType}
-                    bulkTypeChange={this.props.bulkTypeChange} />
+              <PrimaryCheckboxType
+                {...type}
+                {...this.props}
+                key={index}
+                types={awardTypeCodes}
+                filterType="Award"
+                selectedCheckboxes={this.props.awardType}
+                bulkTypeChange={this.props.bulkTypeChange} />
             ));
 
         return (
-            <div className="award-type-filter search-filter checkbox-type-filter">
-                <div className="filter-item-wrap">
-                    <ul className="checkbox-types">
-                        {awardTypes}
-                    </ul>
-                    <SubmitHint
-                            ref={(component) => {
+          <div className="award-type-filter search-filter checkbox-type-filter">
+            <div className="filter-item-wrap">
+              <ul className="checkbox-types">
+                {awardTypes}
+              </ul>
+                <SubmitHint
+                  ref={(component) => {
                             this.hint = component;
                         }} />
-                </div>
             </div>
+          </div>
         );
     }
 }

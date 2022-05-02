@@ -88,7 +88,7 @@ const AmountsVisualization = ({
             transform: `translate(${mouseValue.x - (defaultTooltipWidth / 2)}px,${mouseValue.y + 10}px)`
         },
         tooltipComponent: <PaginatedTooltipContainer
-            data={[{
+          data={[{
                 title: tooltipMapping[showTooltip.substring(0, showTooltip.length - 1)].title,
                 sections: [
                     {
@@ -101,7 +101,7 @@ const AmountsVisualization = ({
                 ]
             }]
             }
-            tooltipElement={<Tooltip />} />
+          tooltipElement={<Tooltip />} />
     });
 
     const displayTooltip = (e) => {
@@ -113,170 +113,170 @@ const AmountsVisualization = ({
     };
 
     return (
-        <div className="amounts-viz award-amounts-viz" id="amounts-viz_id">
-            {
+      <div className="amounts-viz award-amounts-viz" id="amounts-viz_id">
+        {
                 loading &&
                 <LoadingMessage />
             }
-            {
+        {
                 showTooltip &&
                 <TooltipWrapper
-                    className="award-section-tt"
-                    {...tooltipData()}
-                    wide={false}
-                    width={defaultTooltipWidth}
-                    controlledProps={{
+                  className="award-section-tt"
+                  {...tooltipData()}
+                  wide={false}
+                  width={defaultTooltipWidth}
+                  controlledProps={{
                         isControlled: true,
                         isVisible: !!showTooltip,
                         showTooltip: () => {},
                         closeTooltip: () => {}
                     }} />
             }
-            {
+        {
                 !loading &&
                 <Carousel
-                    items={[
-                        <div>
-                            {publicLaw === 'american-rescue-plan' ?
-                                <h4 className="body__narrative amounts-viz__title">
+                  items={[
+                    <div>
+                      {publicLaw === 'american-rescue-plan' ?
+                        <h4 className="body__narrative amounts-viz__title">
                                     This is how much was <strong>spent</strong> so far through the American Rescue Plan
-                                </h4>
+                        </h4>
                                 :
-                                <h4 className="body__narrative amounts-viz__title">
+                        <h4 className="body__narrative amounts-viz__title">
                                     This is how much was <strong>spent</strong> so far in response to COVID-19
-                                </h4>
+                        </h4>
                             }
-                            <svg height={amountsHeight} width={width} className="amounts-viz__svg">
+                              <svg height={amountsHeight} width={width} className="amounts-viz__svg">
+                                <DefaultAmountViz
+                                  displayTooltip={displayTooltip}
+                                  hideTooltip={hideTooltip}
+                                  showTooltip={showTooltip}
+                                  overviewData={overviewData}
+                                  scale={scale}
+                                  width={width}
+                                  tooltipId="_totalBudgetAuthorityForBar1"
+                                  dataId="_totalBudgetAuthorityForBar"
+                                  publicLaw={publicLaw} />
                                     <DefaultAmountViz
-                                    displayTooltip={displayTooltip}
-                                    hideTooltip={hideTooltip}
-                                    showTooltip={showTooltip}
-                                    overviewData={overviewData}
-                                    scale={scale}
-                                    width={width}
-                                    tooltipId="_totalBudgetAuthorityForBar1"
-                                    dataId="_totalBudgetAuthorityForBar"
-                                    publicLaw={publicLaw} />
-                                <DefaultAmountViz
-                                            displayTooltip={displayTooltip}
-                                            hideTooltip={hideTooltip}
-                                            showTooltip={showTooltip}
-                                            overviewData={overviewData}
-                                            scale={scale}
-                                            width={width}
-                                            tooltipId="_totalObligationsForBar1"
-                                            dataId="_totalObligationsForBar"
-                                            publicLaw={publicLaw} />
-                                <DefaultAmountViz
-                                                    displayTooltip={displayTooltip}
-                                                    hideTooltip={hideTooltip}
-                                                    showTooltip={showTooltip}
-                                                    overviewData={overviewData}
-                                                    scale={scale}
-                                                    width={width}
-                                                    tooltipId="_totalOutlaysForBar1"
-                                                    dataId="_totalOutlaysForBar"
-                                                    publicLaw={publicLaw} />
-                                </svg>
-                            {publicLaw === 'american-rescue-plan' ?
-                                <Note message="Amounts reported in this section were derived using: 1) GTAS data tagged as Disaster Emergency Fund Code (DEFC) V spending which was designated for Non-emergency P.L. 117-2, American Rescue Plan; and 2) Department of Labor (DOL) data manually reported as American Rescue Plan spending that is not represented in DOL GTAS or USAspending DAIMS submissions. This portion of DOL data will not appear on the tables and other visualizations displayed below or when downloading this page." />
+                                      displayTooltip={displayTooltip}
+                                      hideTooltip={hideTooltip}
+                                      showTooltip={showTooltip}
+                                      overviewData={overviewData}
+                                      scale={scale}
+                                      width={width}
+                                      tooltipId="_totalObligationsForBar1"
+                                      dataId="_totalObligationsForBar"
+                                      publicLaw={publicLaw} />
+                                        <DefaultAmountViz
+                                          displayTooltip={displayTooltip}
+                                          hideTooltip={hideTooltip}
+                                          showTooltip={showTooltip}
+                                          overviewData={overviewData}
+                                          scale={scale}
+                                          width={width}
+                                          tooltipId="_totalOutlaysForBar1"
+                                          dataId="_totalOutlaysForBar"
+                                          publicLaw={publicLaw} />
+                              </svg>
+                      {publicLaw === 'american-rescue-plan' ?
+                        <Note message="Amounts reported in this section were derived using: 1) GTAS data tagged as Disaster Emergency Fund Code (DEFC) V spending which was designated for Non-emergency P.L. 117-2, American Rescue Plan; and 2) Department of Labor (DOL) data manually reported as American Rescue Plan spending that is not represented in DOL GTAS or USAspending DAIMS submissions. This portion of DOL data will not appear on the tables and other visualizations displayed below or when downloading this page." />
                                 : ''
                             }
-                        </div>,
-                        <div>
-                            <h4 className="body__narrative amounts-viz__title">
+                    </div>,
+                    <div>
+                      <h4 className="body__narrative amounts-viz__title">
                                     Total Budgetary Resources
-                            </h4>
-                            <svg height={amountsHeight} width={width} className="amounts-viz__svg">
-                                    <DefaultAmountViz
-                                    displayTooltip={displayTooltip}
-                                    hideTooltip={hideTooltip}
-                                    showTooltip={showTooltip}
-                                    overviewData={overviewData}
-                                    scale={scale}
-                                    width={width}
-                                    tooltipId="_totalBudgetAuthorityForBar2"
-                                    dataId="_totalBudgetAuthorityForBar"
-                                    publicLaw={publicLaw} />
-                                </svg>
-                            <div className="amounts-viz__sub-title">
+                      </h4>
+                        <svg height={amountsHeight} width={width} className="amounts-viz__svg">
+                          <DefaultAmountViz
+                            displayTooltip={displayTooltip}
+                            hideTooltip={hideTooltip}
+                            showTooltip={showTooltip}
+                            overviewData={overviewData}
+                            scale={scale}
+                            width={width}
+                            tooltipId="_totalBudgetAuthorityForBar2"
+                            dataId="_totalBudgetAuthorityForBar"
+                            publicLaw={publicLaw} />
+                        </svg>
+                          <div className="amounts-viz__sub-title">
                                     This is the total amount of funding that agencies have to
                                     spend based on legislation passed by Congress.
-                                    </div>
-                        </div>,
-                        <div>
-                            <h4 className="body__narrative amounts-viz__title">
+                          </div>
+                    </div>,
+                    <div>
+                      <h4 className="body__narrative amounts-viz__title">
                                     Total Obligations
-                            </h4>
-                            <svg height={amountsHeight} width={width} className="amounts-viz__svg">
-                                    <DefaultAmountViz
-                                    displayTooltip={displayTooltip}
-                                    hideTooltip={hideTooltip}
-                                    showTooltip={showTooltip}
-                                    overviewData={overviewData}
-                                    scale={scale}
-                                    width={width}
-                                    dataId="_totalBudgetAuthorityForBar"
-                                    className="opaque"
-                                    publicLaw={publicLaw} />
-                                <DefaultAmountViz
-                                            displayTooltip={displayTooltip}
-                                            hideTooltip={hideTooltip}
-                                            showTooltip={showTooltip}
-                                            overviewData={overviewData}
-                                            scale={scale}
-                                            width={width}
-                                            tooltipId="_totalObligationsForBar3"
-                                            dataId="_totalObligationsForBar"
-                                            publicLaw={publicLaw} />
-                                </svg>
-                            <div className="amounts-viz__sub-title">
+                      </h4>
+                        <svg height={amountsHeight} width={width} className="amounts-viz__svg">
+                          <DefaultAmountViz
+                            displayTooltip={displayTooltip}
+                            hideTooltip={hideTooltip}
+                            showTooltip={showTooltip}
+                            overviewData={overviewData}
+                            scale={scale}
+                            width={width}
+                            dataId="_totalBudgetAuthorityForBar"
+                            className="opaque"
+                            publicLaw={publicLaw} />
+                              <DefaultAmountViz
+                                displayTooltip={displayTooltip}
+                                hideTooltip={hideTooltip}
+                                showTooltip={showTooltip}
+                                overviewData={overviewData}
+                                scale={scale}
+                                width={width}
+                                tooltipId="_totalObligationsForBar3"
+                                dataId="_totalObligationsForBar"
+                                publicLaw={publicLaw} />
+                        </svg>
+                          <div className="amounts-viz__sub-title">
                                     This is how much agencies have committed to spend.
-                                    </div>
-                        </div>,
-                        <div>
-                            <h4 className="body__narrative amounts-viz__title">
+                          </div>
+                    </div>,
+                    <div>
+                      <h4 className="body__narrative amounts-viz__title">
                                     Total Outlays
-                            </h4>
-                            <svg height={amountsHeight} width={width} className="amounts-viz__svg">
-                                    <DefaultAmountViz
-                                    displayTooltip={displayTooltip}
-                                    hideTooltip={hideTooltip}
-                                    showTooltip={showTooltip}
-                                    overviewData={overviewData}
-                                    scale={scale}
-                                    width={width}
-                                    dataId="_totalBudgetAuthorityForBar"
-                                    className="opaque"
-                                    publicLaw={publicLaw} />
-                                <DefaultAmountViz
-                                            displayTooltip={displayTooltip}
-                                            hideTooltip={hideTooltip}
-                                            showTooltip={showTooltip}
-                                            overviewData={overviewData}
-                                            scale={scale}
-                                            width={width}
-                                            dataId="_totalObligationsForBar"
-                                            className="opaque"
-                                            publicLaw={publicLaw} />
-                                <DefaultAmountViz
-                                                    displayTooltip={displayTooltip}
-                                                    hideTooltip={hideTooltip}
-                                                    showTooltip={showTooltip}
-                                                    overviewData={overviewData}
-                                                    scale={scale}
-                                                    width={width}
-                                                    tooltipId="_totalOutlaysForBar4"
-                                                    dataId="_totalOutlaysForBar"
-                                                    publicLaw={publicLaw} />
-                                </svg>
-                            <div className="amounts-viz__sub-title">
+                      </h4>
+                        <svg height={amountsHeight} width={width} className="amounts-viz__svg">
+                          <DefaultAmountViz
+                            displayTooltip={displayTooltip}
+                            hideTooltip={hideTooltip}
+                            showTooltip={showTooltip}
+                            overviewData={overviewData}
+                            scale={scale}
+                            width={width}
+                            dataId="_totalBudgetAuthorityForBar"
+                            className="opaque"
+                            publicLaw={publicLaw} />
+                              <DefaultAmountViz
+                                displayTooltip={displayTooltip}
+                                hideTooltip={hideTooltip}
+                                showTooltip={showTooltip}
+                                overviewData={overviewData}
+                                scale={scale}
+                                width={width}
+                                dataId="_totalObligationsForBar"
+                                className="opaque"
+                                publicLaw={publicLaw} />
+                                  <DefaultAmountViz
+                                      displayTooltip={displayTooltip}
+                                      hideTooltip={hideTooltip}
+                                      showTooltip={showTooltip}
+                                      overviewData={overviewData}
+                                      scale={scale}
+                                      width={width}
+                                      tooltipId="_totalOutlaysForBar4"
+                                      dataId="_totalOutlaysForBar"
+                                      publicLaw={publicLaw} />
+                        </svg>
+                          <div className="amounts-viz__sub-title">
                                     This is how much agencies have paid out.
-                                    </div>
-                        </div>
+                          </div>
+                    </div>
                     ]} />
             }
-        </div>
+      </div>
     );
 };
 

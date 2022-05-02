@@ -28,12 +28,12 @@ export default class MobileGlossaryButton extends React.Component {
 
     render() {
         return (
-            <button
-                className="mobile-nav-content__glossary"
-                title="Glossary"
-                onClick={this.openGlossary}>
+          <button
+            className="mobile-nav-content__glossary"
+            title="Glossary"
+            onClick={this.openGlossary}>
                 Glossary
-            </button>
+          </button>
         );
     }
 }

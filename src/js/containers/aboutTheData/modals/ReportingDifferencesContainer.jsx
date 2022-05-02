@@ -88,22 +88,22 @@ const ReportingDifferencesContainer = ({ agencyData }) => {
     }));
     return (
         <>
-            <Table
-                loading={loading}
-                error={error.error}
-                message={error.message}
-                rows={rows}
-                columns={columns}
-                currentSort={{ field: sort, direction: order }}
-                updateSort={updateSort} />
-            <Pagination
-                        currentPage={page}
-                        changePage={setPage}
-                        changeLimit={setLimit}
-                        limitSelector
-                        resultsText
-                        pageSize={limit}
-                        totalItems={total} />
+          <Table
+            loading={loading}
+            error={error.error}
+            message={error.message}
+            rows={rows}
+            columns={columns}
+            currentSort={{ field: sort, direction: order }}
+            updateSort={updateSort} />
+              <Pagination
+                currentPage={page}
+                changePage={setPage}
+                changeLimit={setLimit}
+                limitSelector
+                resultsText
+                pageSize={limit}
+                totalItems={total} />
         </>
     );
 };

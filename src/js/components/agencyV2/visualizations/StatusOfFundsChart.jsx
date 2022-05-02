@@ -160,28 +160,28 @@ const StatusOfFundsChart = ({
     const tooltip = (data) => {
         if (hoverData) {
             return (
-                <div className="sof-chart-tooltip">
-                    <div className="tooltip__title">
-                        {data.name}
-                    </div>
-                    <div className="tooltip__text">
-                            <div className="tooltip__item">
-                            <div
-                                    className="tooltip__circle"
-                                    style={{ 'background-color': '#2B71B8' }} />
-                            <div className="tooltip__text-label">FY{fy[2]}{fy[3]} Obligations</div>
-                            <div className="tooltip__text-amount">{data.obligations}</div>
-                        </div>
-                        <div className="tooltip__item">
-                                <div
-                                className="tooltip__circle"
-                                style={{ 'background-color': '#BBDFC7' }} />
-                            <div className="tooltip__text-label">FY{fy[2]}{fy[3]} Total Budgetary<br />Resources</div>
-                            <div className="tooltip__text-amount">{data.budgetaryResources}</div>
-                            </div>
-                            {level === 0 && (<><hr /><div className="tooltip__text-note">Click bar to view Federal Accounts</div></>)}
-                        </div>
+              <div className="sof-chart-tooltip">
+                <div className="tooltip__title">
+                  {data.name}
                 </div>
+                  <div className="tooltip__text">
+                    <div className="tooltip__item">
+                      <div
+                        className="tooltip__circle"
+                        style={{ 'background-color': '#2B71B8' }} />
+                          <div className="tooltip__text-label">FY{fy[2]}{fy[3]} Obligations</div>
+                            <div className="tooltip__text-amount">{data.obligations}</div>
+                    </div>
+                      <div className="tooltip__item">
+                        <div
+                          className="tooltip__circle"
+                          style={{ 'background-color': '#BBDFC7' }} />
+                            <div className="tooltip__text-label">FY{fy[2]}{fy[3]} Total Budgetary<br />Resources</div>
+                                <div className="tooltip__text-amount">{data.budgetaryResources}</div>
+                      </div>
+                    {level === 0 && (<><hr /><div className="tooltip__text-note">Click bar to view Federal Accounts</div></>)}
+                  </div>
+              </div>
             );
         }
         return '';
@@ -432,34 +432,34 @@ const StatusOfFundsChart = ({
             {
                 isHovered &&
                 <TooltipWrapper
-                    className="sof_chart-tt"
-                    width={288}
-                    styles={{
+                  className="sof_chart-tt"
+                  width={288}
+                  styles={{
                         position: 'absolute',
                         transform: `translate(${mouseValue.x - 144}px,${mouseValue.y - 230}px)`
                     }}
-                    tooltipPosition="bottom"
-                    tooltipComponent={tooltip(hoverData)}
-                    controlledProps={{
+                  tooltipPosition="bottom"
+                  tooltipComponent={tooltip(hoverData)}
+                  controlledProps={{
                         isControlled: true,
                         isVisible: isHovered,
                         showTooltip: () => {},
                         closeTooltip: () => {}
                     }} />
             }
-            <div id="sof_chart" className="status-of-funds__visualization" ref={chartRef} />
-            <FlexGridRow className="legend" style={{ flexDirection: isLargeScreen ? 'column' : 'row' }}>
-                    <div className="legend__item">
+              <div id="sof_chart" className="status-of-funds__visualization" ref={chartRef} />
+                <FlexGridRow className="legend" style={{ flexDirection: isLargeScreen ? 'column' : 'row' }}>
+                  <div className="legend__item">
                     <div
-                            className="legend__circle"
-                            style={{ backgroundColor: '#2B71B8' }} />
-                    <div className="legend__text">FY{fy[2]}{fy[3]} Obligations</div>&nbsp;&nbsp;&nbsp;&nbsp;
-                </div>
-                <div className="legend__item">
-                        <div
+                      className="legend__circle"
+                      style={{ backgroundColor: '#2B71B8' }} />
+                        <div className="legend__text">FY{fy[2]}{fy[3]} Obligations</div>&nbsp;&nbsp;&nbsp;&nbsp;
+                  </div>
+                    <div className="legend__item">
+                      <div
                         className="legend__circle"
                         style={{ backgroundColor: '#BBDFC7' }} />
-                    <div className="legend__text">FY{fy[2]}{fy[3]} Total Budgetary Resources</div>
+                          <div className="legend__text">FY{fy[2]}{fy[3]} Total Budgetary Resources</div>
                     </div>
                 </FlexGridRow>
         </>
