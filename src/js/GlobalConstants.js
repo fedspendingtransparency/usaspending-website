@@ -21,8 +21,7 @@ const globalConstants = {
     FILES_SERVER_BASE_URL: filesServerUrlByEnv[process.env.ENV],
     ARP_RELEASED: process.env.ENV !== 'prod',
     DUNS_LABEL: 'Legacy ', // 'Legacy ' later...
-    SHOW_HOMEPAGE_UPDATE: true,
-    SHOW_ANALYSTGUIDE: true
+    SHOW_HOMEPAGE_UPDATE: true
 
 
 };
