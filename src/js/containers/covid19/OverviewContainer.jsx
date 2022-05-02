@@ -42,7 +42,7 @@ const OverviewContainer = ({ publicLaw }) => {
         return () => {
             window.removeEventListener('resize', handleWindowResize);
         };
-    }, [handleWindowResize]);
+    }, []);
     return (
       <div ref={divReference} className="body__content overview">
         <DateNote />

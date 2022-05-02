@@ -50,7 +50,7 @@ const SubagencyTableContainer = ({
             request.current.cancel();
         }
         dispatch(resetSubagencyTotals());
-    }, [dispatch]);
+    }, []);
 
     const fetchSpendingBySubagencyCallback = useCallback(() => {
         if (request.current) {
@@ -98,13 +98,13 @@ const SubagencyTableContainer = ({
                 fetchSpendingBySubagencyCallback();
             }
         }
-    }, [type, fy, pageSize, sort, order, currentPage, changeCurrentPage, prevSort, prevOrder, prevPage, prevPageSize, prevType, fetchSpendingBySubagencyCallback]);
+    }, [type, fy, pageSize, sort, order]);
 
     useEffect(() => {
         if (fy && toptierCode) {
             fetchSpendingBySubagencyCallback();
         }
-    }, [currentPage, fetchSpendingBySubagencyCallback, fy, toptierCode]);
+    }, [currentPage, fy, toptierCode]);
 
     return (
       <div className="table-wrapper">

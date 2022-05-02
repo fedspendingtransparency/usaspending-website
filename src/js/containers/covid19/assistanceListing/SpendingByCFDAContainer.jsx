@@ -319,7 +319,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
         if (Object.keys(assistanceTotals).length) {
             setResults(addUnlinkedData(results, resultTotal, assistanceTotals));
         }
-    }, [addUnlinkedData, assistanceTotals, resultTotal, results]);
+    }, [assistanceTotals, resultTotal]);
 
     useEffect(() => {
     // Reset to the first page
@@ -329,19 +329,19 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
         else {
             changeCurrentPage(1);
         }
-    }, [pageSize, defcParams, sort, order, activeTab, query, currentPage, fetchSpendingByCfdaCallback]);
+    }, [pageSize, defcParams, sort, order, activeTab, query]);
 
     useEffect(() => {
         fetchSpendingByCfdaCallback();
-    }, [currentPage, fetchSpendingByCfdaCallback]);
+    }, [currentPage]);
 
     useEffect(() => {
         scrollIntoView(loading, error, errorOrLoadingWrapperRef, tableWrapperRef, 100, true);
-    }, [loading, error, scrollIntoView]);
+    }, [loading, error]);
 
     useEffect(() => {
         window.scrollTo(0, 0);
-    }, []);
+    }, [document]);
 
     if (loading) {
         if (tableRef.current) {

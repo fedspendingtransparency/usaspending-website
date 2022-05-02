@@ -68,7 +68,7 @@ export const useAgencySlugs = () => {
                 request.current.cancel();
             }
         };
-    }, [agencySlugs, topTierCodes, agencyIds, loading, dispatch]);
+    }, [agencySlugs, topTierCodes, agencyIds]);
 
     return [agencySlugs, topTierCodes, agencyIds, loading, error];
 };
