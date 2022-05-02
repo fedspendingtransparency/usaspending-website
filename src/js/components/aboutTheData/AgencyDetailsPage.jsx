@@ -123,8 +123,8 @@ const AgencyDetailsPage = () => {
                                 <h5>Agency Contact Information</h5>
                                   <div className="more-info-note">Contact this Agency with questions about their submissions</div>
                                     <div className="agency-info__website">
-                                          <ExternalLink url={agencyOverview.website} />
-                                        </div>
+                                      <ExternalLink url={agencyOverview.website} />
+                                    </div>
                               </div>
                                 )}
                               {agencyOverview?.id && (
@@ -132,10 +132,10 @@ const AgencyDetailsPage = () => {
                                 <h5>Agency Profile Page</h5>
                                   <div className="more-info-note">Learn more about this Agency&#39;s spending</div>
                                     <div className="agency-info__website">
-                                          <Link to={`/${agencyString}/${slug}`}>
-                                            {agencyOverview.name}
-                                          </Link>
-                                        </div>
+                                      <Link to={`/${agencyString}/${slug}`}>
+                                        {agencyOverview.name}
+                                      </Link>
+                                    </div>
                               </div>
                                 )}
                             </div>

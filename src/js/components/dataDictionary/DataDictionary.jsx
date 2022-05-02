@@ -47,9 +47,9 @@ export default class DataDictionary extends React.Component {
                           className="data-dictionary__download-link"
                           onClick={handleDownloadClick}
                           href={this.props.downloadLocation}>
-                              <div className="data-dictionary__download-icon">
-                                  <FontAwesomeIcon icon="file-excel" />
-                                </div>
+                            <div className="data-dictionary__download-icon">
+                              <FontAwesomeIcon icon="file-excel" />
+                            </div>
                         Download
                         </a>
                       </div>

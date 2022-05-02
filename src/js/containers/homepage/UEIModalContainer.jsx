@@ -58,38 +58,38 @@ const CovidModalContainer = ({
                   <p className="covid-modal-bold">
                         What does this transition mean for users of USAspending?
                   </p>
-                      <ul>
-                          <li>
+                    <ul>
+                      <li>
                             UEIs have been added to recipient endpoints
-                        </li>
-                            <li>
+                      </li>
+                        <li>
                             Download files that currently list DUNS numbers now also include UEIs
-                          </li>
-                              <li>
+                        </li>
+                          <li>
                             You will start seeing UEIs alongside DUNS numbers on the following pages:
-                              <ul>
-                                  <li>Recipient Profiles</li>
-                                  <li>Award Profiles</li>
-                                    <li>Advanced Search</li>
-                                    <li>Keyword Search</li>
-                                </ul>
-                            </li>
-                                <li>
+                            <ul>
+                              <li>Recipient Profiles</li>
+                                <li>Award Profiles</li>
+                                  <li>Advanced Search</li>
+                                      <li>Keyword Search</li>
+                            </ul>
+                          </li>
+                            <li>
                             You will be able to find federal awards using UEI or DUNS numbers via <Link onClick={handleGoToKeywordSearch} to="/keyword_search">Keyword Search</Link> or by using the &apos;Keyword&apos; or &apos;Recipient&apos; filters on <Link onClick={handleGoToAdvancedSearch} to="/search">Advanced Search</Link>
-                              </li>
-                                <li>
+                            </li>
+                              <li>
                             URLs to recipient profile pages will become associated with UEIs rather than DUNS — <span className="covid-modal-bold">please update any saved links to these pages to avoid service disruption</span>
-                              </li>
-                        </ul>
-                        <p className="covid-modal-bold">
+                                </li>
+                    </ul>
+                      <p className="covid-modal-bold">
                         What is a UEI?
-                          </p>
-                          <p>
+                      </p>
+                        <p>
                         The UEI for an awardee or recipient is an alphanumeric code created in the System for Award Management (SAM) that is used to uniquely identify specific commercial, nonprofit, or business entities registered to do business with the federal government.
-                            </p>
-                            <p>
-                                <a href="mailto:join-usaspending@lists.fiscal.treasury.gov?subject=Yes!%20I'd%20like%20to%20receive%20updates.">Sign up</a> to receive email notifications of future updates, new features, and more!
-                              </p>
+                        </p>
+                          <p>
+                            <a href="mailto:join-usaspending@lists.fiscal.treasury.gov?subject=Yes!%20I'd%20like%20to%20receive%20updates.">Sign up</a> to receive email notifications of future updates, new features, and more!
+                          </p>
               </div>
           </div>
       </Modal>

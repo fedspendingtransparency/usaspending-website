@@ -54,11 +54,11 @@ export default class AccountLandingContent extends React.Component {
                           searchString={this.props.searchString}
                           order={this.props.order}
                           updateSort={this.props.updateSort} />
-                              <Pagination
-                                  changePage={this.props.onChangePage}
-                                  currentPage={this.props.pageNumber}
-                                  totalItems={this.props.totalItems}
-                                  pageSize={this.props.pageSize} />
+                            <Pagination
+                              changePage={this.props.onChangePage}
+                              currentPage={this.props.pageNumber}
+                              totalItems={this.props.totalItems}
+                              pageSize={this.props.pageSize} />
           </div>
         );
     }

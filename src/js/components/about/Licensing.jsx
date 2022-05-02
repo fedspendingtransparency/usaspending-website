@@ -38,7 +38,7 @@ const Licensing = () => {
                     role="link"
                     onClick={onClick}>
                         public github repository
-                        <span className="usa-button-link__icon"><FontAwesomeIcon icon="external-link-alt" /></span>
+                      <span className="usa-button-link__icon"><FontAwesomeIcon icon="external-link-alt" /></span>
                   </button>
                     &nbsp;is available for public use under the Creative
                     Commons CC0 Public Domain Dedication license.

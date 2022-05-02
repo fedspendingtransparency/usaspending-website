@@ -88,17 +88,17 @@ const TableHeaderCell = (props) => {
                     title={`Sort table by ascending ${props.title}`}
                     aria-label={`Sort table by ascending ${props.title}`}>
                       <ArrowUp
-                          alt={`Sort table by ascending ${props.title}`} />
+                        alt={`Sort table by ascending ${props.title}`} />
                   </button>
                     <button
-                        onClick={clickedSort}
-                        className={`sort-icon${sortClass('desc')}`}
-                        value="desc"
-                        title={`Sort table by descending ${props.title}`}
-                        aria-label={`Sort table by descending ${props.title}`}>
-                            <ArrowDown
-                                alt={`Sort table by descending ${props.title}`} />
-                      </button>
+                      onClick={clickedSort}
+                      className={`sort-icon${sortClass('desc')}`}
+                      value="desc"
+                      title={`Sort table by descending ${props.title}`}
+                      aria-label={`Sort table by descending ${props.title}`}>
+                        <ArrowDown
+                          alt={`Sort table by descending ${props.title}`} />
+                    </button>
                 </div>
             </div>
         </div>

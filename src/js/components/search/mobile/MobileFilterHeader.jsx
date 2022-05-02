@@ -37,7 +37,7 @@ export default class MobileFilterHeader extends React.Component {
                       </div>
                         <div className="label">
                                 Hide Filters
-                          </div>
+                        </div>
                     </div>
                 </button>
               </div>

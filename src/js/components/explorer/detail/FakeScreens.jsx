@@ -40,10 +40,10 @@ const FakeScreen = () => {
                     <div
                       style={leftStyle}
                       className="left-block" />
-                          <div
-                              style={middleStyle}
-                              className="middle-block" />
-                                  <div
+                        <div
+                          style={middleStyle}
+                          className="middle-block" />
+                            <div
                               style={rightStyle}
                               className="right-block" />
                   </div>

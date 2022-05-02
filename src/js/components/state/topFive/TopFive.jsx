@@ -62,12 +62,12 @@ const TopFive = (props) => {
                     <th className="category-table__table-head-cell">
                             Name
                     </th>
-                        <th className="category-table__table-head-cell category-table__table-head-cell_centered">
+                      <th className="category-table__table-head-cell category-table__table-head-cell_centered">
                             Awarded Amount
-                          </th>
-                          <th className="category-table__table-head-cell category-table__table-head-cell_centered">
+                      </th>
+                        <th className="category-table__table-head-cell category-table__table-head-cell_centered">
                             % of Total
-                            </th>
+                        </th>
                 </tr>
             </thead>
               <tbody

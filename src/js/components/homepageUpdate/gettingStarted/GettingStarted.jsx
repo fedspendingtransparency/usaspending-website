@@ -89,9 +89,9 @@ const GettingStarted = () => {
                   </p>
                     <div className="homepage-feature__dropdown">
                       <FeatureDropdown
-                          items={searchOptions}>
+                        items={searchOptions}>
                             Select <strong>Search Type</strong>
-                        </FeatureDropdown>
+                      </FeatureDropdown>
                     </div>
               </div>
             </FlexGridCol>
@@ -110,9 +110,9 @@ const GettingStarted = () => {
                     </p>
                       <div className="homepage-feature__dropdown">
                         <FeatureDropdown
-                            items={searchOptions}>
+                          items={searchOptions}>
                             Select <strong>Search Type</strong>
-                          </FeatureDropdown>
+                        </FeatureDropdown>
                       </div>
               </div>
           </FlexGridCol>
@@ -229,11 +229,11 @@ const GettingStarted = () => {
                       href="/explorer"
                       tabIndex={-1}>
                         <button
-                            className="homepage-spending-explorer__button"
-                            aria-label="Try Spending Explorer"
-                            title="Try Spending Explorer">
+                          className="homepage-spending-explorer__button"
+                          aria-label="Try Spending Explorer"
+                          title="Try Spending Explorer">
                         Try Spending Explorer
-                          </button>
+                        </button>
                     </a>
               </div>
             </FlexGridCol>

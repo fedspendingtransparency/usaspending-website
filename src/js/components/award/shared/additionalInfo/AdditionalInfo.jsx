@@ -224,8 +224,8 @@ export default class AdditionalInfo extends React.Component {
                       {firstColumn}
                     </div>
                       <div className="award__col">
-                          {secondColumn}
-                        </div>
+                        {secondColumn}
+                      </div>
                   </div>
             </div>
           </div>

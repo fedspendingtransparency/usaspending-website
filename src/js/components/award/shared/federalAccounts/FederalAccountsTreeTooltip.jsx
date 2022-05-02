@@ -114,18 +114,18 @@ export default class FederalAccountsTreeTooltip extends React.Component {
                                   <div className="tooltip-value">
                                     {obligatedAmount}
                                   </div>
-                                  <div className="tooltip-label">
+                                    <div className="tooltip-label">
                                 Funded Amount
                                     </div>
                                 </div>
                                   <div className="tooltip-right">
-                                  <div className="tooltip-value">
+                                    <div className="tooltip-value">
                                       {percent}
                                     </div>
-                                <div className="tooltip-label">
+                                      <div className="tooltip-label">
                                 Percent of Total
                                       </div>
-                                </div>
+                                  </div>
                               </div>
             </div>
           </div>

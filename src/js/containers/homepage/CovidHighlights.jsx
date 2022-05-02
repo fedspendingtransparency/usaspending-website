@@ -302,13 +302,13 @@ export class CovidHighlights extends React.Component {
                         <span>
                           <div className="covid-homepage-tooltip">
                                     COVID-19.
-                              <TooltipWrapper
-                                  icon="info"
-                                  offsetAdjustments={{
+                            <TooltipWrapper
+                              icon="info"
+                              offsetAdjustments={{
                                             top: 0
                                         }}
-                                  tooltipComponent={<HomePageTooltip />} />
-                            </div>
+                              tooltipComponent={<HomePageTooltip />} />
+                          </div>
                         </span>
                 </h1>
                   <div className="covid-profile-link__button-wrap">

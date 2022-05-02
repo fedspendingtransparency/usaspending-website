@@ -89,11 +89,11 @@ const IdvContent = ({
                 <ReferencedAwardsContainer
                   tableType={relatedAwardsActiveTab}
                   switchTab={setRelatedAwardsTab} />
-                      <AwardHistory
-                          activeTab={awardHistoryActiveTab}
-                          setActiveTab={setAwardHistoryTab}
-                          overview={overview} />
-                          <AdditionalInfo overview={overview} />
+                    <AwardHistory
+                      activeTab={awardHistoryActiveTab}
+                      setActiveTab={setAwardHistoryTab}
+                      overview={overview} />
+                        <AdditionalInfo overview={overview} />
       </AwardPageWrapper>
     );
 };

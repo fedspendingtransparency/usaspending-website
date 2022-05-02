@@ -85,9 +85,9 @@ export default class ResultsTableSection extends React.Component {
                       <TransitionGroup>
                         {showTableMessage && (
                         <CSSTransition
-                              classNames="table-message-fade"
-                              timeout={{ exit: 225, enter: 195 }}
-                              exit>
+                          classNames="table-message-fade"
+                          timeout={{ exit: 225, enter: 195 }}
+                          exit>
                                 <>
                                   {this.props.inFlight && (
                                     <div className="results-table-message-container">
@@ -105,13 +105,13 @@ export default class ResultsTableSection extends React.Component {
                                     </div>
                                     )}
                                 </>
-                            </CSSTransition>
+                        </CSSTransition>
 
                         )}
                       </TransitionGroup>
                         <div
-                            className="results-table-width-master"
-                            ref={(div) => {
+                          className="results-table-width-master"
+                          ref={(div) => {
                             // this is an empty div that scales via CSS
                             // the results table width will follow this div's width
                             this.tableWidthController = div;

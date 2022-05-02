@@ -175,11 +175,11 @@ export class BreakdownDropdown extends React.Component {
                         {icon}
                       </div>
                         <div className="dropdown__label">
-                            {sidebarTypes[this.state.active]}
+                          {sidebarTypes[this.state.active]}
+                        </div>
+                          <div className="dropdown__arrow">
+                            <FontAwesomeIcon icon="angle-down" />
                           </div>
-                              <div className="dropdown__arrow">
-                                  <FontAwesomeIcon icon="angle-down" />
-                                </div>
                   </button>
 
                   {dropdown}

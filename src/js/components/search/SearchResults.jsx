@@ -56,8 +56,8 @@ export default class SearchResults extends React.Component {
                         <AddFilter alt="Toggle filters" />
                       </div>
                         <div className="mobile-filter-button-label">
-                            {this.pluralizeFilterLabel(this.props.filterCount)}
-                          </div>
+                          {this.pluralizeFilterLabel(this.props.filterCount)}
+                        </div>
                   </div>
               </button>
             </div>

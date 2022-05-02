@@ -57,14 +57,14 @@ export default class SubawardToggle extends React.Component {
                           height="20"
                           rx="10"
                           ry="10" />
-                              <g
-                                  className="subaward-switch__switch"
-                                  transform={switchPosition}>
-                                  <circle
-                                      className="subaward-switch__switch-fill"
-                                      cy="10"
-                                      r="10" />
-                                </g>
+                            <g
+                              className="subaward-switch__switch"
+                              transform={switchPosition}>
+                                <circle
+                                  className="subaward-switch__switch-fill"
+                                  cy="10"
+                                  r="10" />
+                            </g>
                     </g>
                 </svg>
                   <div className={`subaward-toggle__label ${subActive}`}>

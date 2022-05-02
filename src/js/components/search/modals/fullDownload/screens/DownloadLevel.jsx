@@ -60,7 +60,7 @@ export default class DownloadLevel extends React.Component {
                     </button>
                       <div className="level-description">
                             Includes all details of each award (known as modifications or amendments).
-                        </div>
+                      </div>
                   </div>
               </div>
           </div>

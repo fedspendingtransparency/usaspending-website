@@ -117,15 +117,15 @@ const AgencyContent = ({
                   id={agency.id}
                   asOfDate={parsedAsOfDate} />
                     <ObjectClassContainer
-                        id={agency.id}
-                        activeFY={parsedLatestFy}
-                        displayedTotalObligation={agency.overview.obligatedAmount}
-                        asOfDate={parsedAsOfDate} />
-                            <FederalAccountContainer
-                            id={agency.id}
-                            activeFY={parsedLatestFy}
-                            obligatedAmount={agency.overview.obligatedAmount}
-                            asOfDate={parsedAsOfDate} />
+                      id={agency.id}
+                      activeFY={parsedLatestFy}
+                      displayedTotalObligation={agency.overview.obligatedAmount}
+                      asOfDate={parsedAsOfDate} />
+                        <FederalAccountContainer
+                          id={agency.id}
+                          activeFY={parsedLatestFy}
+                          obligatedAmount={agency.overview.obligatedAmount}
+                          asOfDate={parsedAsOfDate} />
                 {disclaimer}
               </div>
                 <FooterLinkToAdvancedSearchContainer

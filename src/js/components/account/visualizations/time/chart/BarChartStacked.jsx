@@ -380,11 +380,11 @@ ${this.state.virtualChart.body.group.y})`}>
                         </g>
 
                           <g
-                              className="legend-container"
-                              transform={`translate(${this.props.padding.left},
+                            className="legend-container"
+                            transform={`translate(${this.props.padding.left},
                         ${this.props.height - 20})`}>
                           <BarChartLegend legend={this.props.legend} />
-                            </g>
+                          </g>
 
             </svg>
           </div>

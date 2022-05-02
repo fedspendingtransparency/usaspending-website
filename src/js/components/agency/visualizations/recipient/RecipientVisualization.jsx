@@ -113,8 +113,8 @@ or foreign). Here is a look at who these recipients are and how they rank by awa
                       scope={this.props.scope}
                       changeScope={this.props.changeScope} />
                         <div className="chart-wrapper">
-                            {chart}
-                          </div>
+                          {chart}
+                        </div>
                   </div>
           </div>
         );

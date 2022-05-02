@@ -109,17 +109,17 @@ const ContractContent = ({
                   totalObligation={overview._baseAndAllOptions}
                   jumpToTransactionHistoryTable={jumpToTransactionHistoryTable} />
                     <FederalAccountsSection
-                        jumpToFederalAccountsHistory={jumpToFederalAccountsHistory}
-                        awardType={overview.category} />
+                      jumpToFederalAccountsHistory={jumpToFederalAccountsHistory}
+                      awardType={overview.category} />
               </AwardSection>
                 <AwardSection className="award-history-section" type="row">
                   <AwardHistory
-                      awardId={awardId}
-                      overview={overview}
-                      setActiveTab={setActiveTab}
-                      activeTab={activeTab} />
+                    awardId={awardId}
+                    overview={overview}
+                    setActiveTab={setActiveTab}
+                    activeTab={activeTab} />
                 </AwardSection>
-                    <AdditionalInfo overview={overview} />
+                  <AdditionalInfo overview={overview} />
       </AwardPageWrapper>
     );
 };

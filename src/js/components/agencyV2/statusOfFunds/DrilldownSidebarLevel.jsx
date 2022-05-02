@@ -32,11 +32,11 @@ const DrilldownSidebar = ({
                 {active ? null : <div className="drilldown-level__line" data-testid="trailLine" />}
               </div>
                 <div>
-                    <div className="drilldown-level__name">{name}</div>
-                        <div className="drilldown-level__description">
-                            <strong>{obligated}</strong> spent of <strong>{budgetaryResources}</strong>  Total Budgetary Resources
-                          </div>
-                  </div>
+                  <div className="drilldown-level__name">{name}</div>
+                    <div className="drilldown-level__description">
+                      <strong>{obligated}</strong> spent of <strong>{budgetaryResources}</strong>  Total Budgetary Resources
+                    </div>
+                </div>
             </div>
         </div>
   </div>

@@ -58,8 +58,8 @@ export default class LegacyTopFilterItem extends React.Component {
                         {accessibleLabel}
                       </span>
                         <span className="close-icon">
-                            <Icons.Close alt={accessibleLabel} />
-                          </span>
+                          <Icons.Close alt={accessibleLabel} />
+                        </span>
                     </div>
                   </div>
             </button>

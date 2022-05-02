@@ -81,9 +81,9 @@ const TrailItem = (props) => {
                   <div className={`title ${titleIsAmount}`}>
                     {title}
                   </div>
-                      <div className={`amount ${showAmountClass}`}>
-                          {formattedAmount}
-                        </div>
+                    <div className={`amount ${showAmountClass}`}>
+                      {formattedAmount}
+                    </div>
               </div>
         </button>
       </li>

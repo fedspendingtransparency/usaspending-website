@@ -260,15 +260,15 @@ const AmountsVisualization = ({
                                 className="opaque"
                                 publicLaw={publicLaw} />
                                   <DefaultAmountViz
-                                      displayTooltip={displayTooltip}
-                                      hideTooltip={hideTooltip}
-                                      showTooltip={showTooltip}
-                                      overviewData={overviewData}
-                                      scale={scale}
-                                      width={width}
-                                      tooltipId="_totalOutlaysForBar4"
-                                      dataId="_totalOutlaysForBar"
-                                      publicLaw={publicLaw} />
+                                    displayTooltip={displayTooltip}
+                                    hideTooltip={hideTooltip}
+                                    showTooltip={showTooltip}
+                                    overviewData={overviewData}
+                                    scale={scale}
+                                    width={width}
+                                    tooltipId="_totalOutlaysForBar4"
+                                    dataId="_totalOutlaysForBar"
+                                    publicLaw={publicLaw} />
                         </svg>
                           <div className="amounts-viz__sub-title">
                                     This is how much agencies have paid out.

@@ -27,17 +27,17 @@ export default class UnreportedErrorScreen extends React.Component {
                         <li>An agency is late with their submission for this
                                 period
                         </li>
-                            <li>For FY20 [P07, P08, P10, and P11] and FY21 [P01/P02,
+                          <li>For FY20 [P07, P08, P10, and P11] and FY21 [P01/P02,
                                 P04, P05, P07, P08, P10, and P11], agencies that did
                                 not receive COVID-19 supplemental appropriations
                                 were not required to submit data on a monthly basis,
                                 but only at the end of the quarter. This does not
                                 apply in FY22 or later years; starting in FY22, all
                                 agencies must submit monthly.
-                              </li>
-                                  <li>New agency submission data updates may still be in
+                          </li>
+                            <li>New agency submission data updates may still be in
                                 progress
-                                </li>
+                            </li>
                     </ul>
                 </div>
             </div>

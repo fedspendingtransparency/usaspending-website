@@ -33,8 +33,8 @@ const Accordion = ({ title, children }) => {
                       icon="plus"
                       className="plus" />
                         <FontAwesomeIcon
-                            icon="minus"
-                            className="minus" />
+                          icon="minus"
+                          className="minus" />
                 </button>
             </div>
               <div className="content">{children}</div>

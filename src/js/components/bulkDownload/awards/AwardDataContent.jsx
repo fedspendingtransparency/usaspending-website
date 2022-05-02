@@ -119,11 +119,11 @@ export default class AwardDataContent extends React.Component {
                       </div>
                         <div>
                                 Award downloads for entire fiscal years are available for each major agency on our&nbsp;
-                            <Link to="/download_center/award_data_archive">
+                          <Link to="/download_center/award_data_archive">
                                     Award Data Archive
-                              </Link>
+                          </Link>
                                 &nbsp;page.
-                          </div>
+                        </div>
                     </div>
                 </div>
                   <form
@@ -136,44 +136,44 @@ export default class AwardDataContent extends React.Component {
                         bulkAwardTypeChange={this.props.bulkAwardTypeChange}
                         toggleAwardTypeChange={this.props.toggleAwardTypeChange} />
                           <AgencyFilter
-                              currentAgencyType={awards.agencyType}
-                              agencyTypes={awardDownloadOptions.agencyTypes}
-                              agencies={this.props.agencies}
-                              subAgencies={this.props.subAgencies}
-                              currentAgencies={currentAgencies}
-                              updateFilter={this.props.updateFilter}
-                              setSubAgencyList={this.props.setSubAgencyList}
-                              valid={awards.agency.id !== ''} />
-                                  <LocationFilter
-                                      locationTypes={awardDownloadOptions.locationTypes}
-                                      states={this.props.states}
-                                      currentLocation={awards.location}
-                                      updateFilter={this.props.updateFilter}
-                                      currentLocationType={awards.locationType} />
-                                      <DateTypeFilter
-                                          dateTypes={awardDownloadOptions.dateTypes}
-                                          currentDateType={awards.dateType}
-                                          updateFilter={this.props.updateFilter}
-                                          valid={awards.dateType !== ''} />
-                                        <TimePeriodFilter
-                                              updateStartDate={this.props.updateStartDate}
-                                              updateEndDate={this.props.updateEndDate}
-                                              valid={awards.dateRange.startDate !== '' || awards.dateRange.endDate !== ''}
-                                              setValidDates={this.setValidDates}
-                                              filterTimePeriodStart={awards.dateRange.startDate}
-                                              filterTimePeriodEnd={awards.dateRange.endDate} />
-                                            <FileFormatFilter
-                                                  fileFormats={awardDownloadOptions.fileFormats}
-                                                  currentFileFormat={awards.fileFormat}
+                            currentAgencyType={awards.agencyType}
+                            agencyTypes={awardDownloadOptions.agencyTypes}
+                            agencies={this.props.agencies}
+                            subAgencies={this.props.subAgencies}
+                            currentAgencies={currentAgencies}
+                            updateFilter={this.props.updateFilter}
+                            setSubAgencyList={this.props.setSubAgencyList}
+                            valid={awards.agency.id !== ''} />
+                              <LocationFilter
+                                locationTypes={awardDownloadOptions.locationTypes}
+                                states={this.props.states}
+                                currentLocation={awards.location}
+                                updateFilter={this.props.updateFilter}
+                                currentLocationType={awards.locationType} />
+                                  <DateTypeFilter
+                                    dateTypes={awardDownloadOptions.dateTypes}
+                                    currentDateType={awards.dateType}
+                                    updateFilter={this.props.updateFilter}
+                                    valid={awards.dateType !== ''} />
+                                      <TimePeriodFilter
+                                        updateStartDate={this.props.updateStartDate}
+                                        updateEndDate={this.props.updateEndDate}
+                                        valid={awards.dateRange.startDate !== '' || awards.dateRange.endDate !== ''}
+                                        setValidDates={this.setValidDates}
+                                        filterTimePeriodStart={awards.dateRange.startDate}
+                                        filterTimePeriodEnd={awards.dateRange.endDate} />
+                                          <FileFormatFilter
+                                            fileFormats={awardDownloadOptions.fileFormats}
+                                            currentFileFormat={awards.fileFormat}
+                                            updateFilter={this.props.updateFilter}
+                                            valid={awards.fileFormat !== ''} />
+                                              <UserSelections
+                                                  awards={awards}
+                                                  agencies={this.props.agencies}
+                                                  subAgencies={this.props.subAgencies}
                                                   updateFilter={this.props.updateFilter}
-                                                  valid={awards.fileFormat !== ''} />
-                                            <UserSelections
-                                                      awards={awards}
-                                                      agencies={this.props.agencies}
-                                                      subAgencies={this.props.subAgencies}
-                                                      updateFilter={this.props.updateFilter}
-                                                      currentAgencyType={awards.agencyType} />
-                                            <SubmitButton
+                                                  currentAgencyType={awards.agencyType} />
+                                                      <SubmitButton
                                                           filters={awards}
                                                           validForm={this.state.validForm}
                                                           validDates={this.state.validDates}
@@ -196,20 +196,20 @@ export default class AwardDataContent extends React.Component {
                         <p>
                             Downloading this data gives you access to every attribute of any particular award, including
                             data that may not be surfaced on this site.
-                          </p>
+                        </p>
                     </div>
                       <div className="download-info__section">
-                          <h4 className="download-info__section-heading">How do I use this form?</h4>
-                              <p>
+                        <h4 className="download-info__section-heading">How do I use this form?</h4>
+                          <p>
                             This form allows you to select specific awards by type; agency and sub-agency; location; and date range.
                             Select an option in each section and click the &ldquo;Download&rdquo; button at the bottom.
-                              <b> Please note that most fields are required.</b> You&#39;ll only be able to start the download when all required
+                            <b> Please note that most fields are required.</b> You&#39;ll only be able to start the download when all required
                             sections are properly filled in.
-                            </p>
+                          </p>
+                      </div>
+                        <div className="download-info__section">
+                          <Note message={dodNote} />
                         </div>
-                            <div className="download-info__section">
-                            <Note message={dodNote} />
-                          </div>
               </div>
           </div>
         );

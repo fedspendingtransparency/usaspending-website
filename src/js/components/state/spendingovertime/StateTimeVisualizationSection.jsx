@@ -79,17 +79,17 @@ export default class StateTimeVisualizationSection extends React.Component {
                                 </li>
                                   <li>
                                     <TimeVisualizationPeriodButton
-                                value="quarter"
-                                label="Quarter"
-                                active={this.props.data.visualizationPeriod === 'quarter'}
-                                changePeriod={this.props.updateVisualizationPeriod} />
+                                      value="quarter"
+                                      label="Quarter"
+                                      active={this.props.data.visualizationPeriod === 'quarter'}
+                                      changePeriod={this.props.updateVisualizationPeriod} />
                                   </li>
-                              <li>
+                                    <li>
                                       <TimeVisualizationPeriodButton
-                                value="month"
-                                label="Month"
-                                active={this.props.data.visualizationPeriod === 'month'}
-                                changePeriod={this.props.updateVisualizationPeriod} />
+                                        value="month"
+                                        label="Month"
+                                        active={this.props.data.visualizationPeriod === 'month'}
+                                        changePeriod={this.props.updateVisualizationPeriod} />
                                     </li>
                               </ul>
                             </div>

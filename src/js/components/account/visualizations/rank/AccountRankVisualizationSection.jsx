@@ -109,17 +109,17 @@ export default class AccountRankVisualizationSection extends React.Component {
                                 </li>
                                   <li>
                                     <RankVisualizationScopeButton
-                                value="objectClass"
-                                label="Object Class"
-                                active={this.props.categoryScope === 'objectClass'}
-                                changeScope={this.props.changeScope} />
+                                      value="objectClass"
+                                      label="Object Class"
+                                      active={this.props.categoryScope === 'objectClass'}
+                                      changeScope={this.props.changeScope} />
                                   </li>
-                              <li>
+                                    <li>
                                       <RankVisualizationScopeButton
-                                    value="tas"
-                                    label="Treasury Account Symbol (TAS)"
-                                    active={this.props.categoryScope === 'tas'}
-                                    changeScope={this.props.changeScope} />
+                                        value="tas"
+                                        label="Treasury Account Symbol (TAS)"
+                                        active={this.props.categoryScope === 'tas'}
+                                        changeScope={this.props.changeScope} />
                                     </li>
                               </ul>
                             </div>
@@ -142,7 +142,7 @@ export default class AccountRankVisualizationSection extends React.Component {
                                     <div className="icon">
                                       <Icons.AngleLeft alt="Show previous five" />
                                     </div>
-                                <div className="pager-label">
+                                      <div className="pager-label">
                                 Show previous five
                                       </div>
                                   </div>
@@ -154,13 +154,13 @@ export default class AccountRankVisualizationSection extends React.Component {
                                   disabled={disableNext}
                                   onClick={this.clickNext}>
                                     <div className="pager-content">
-                                <div className="pager-label next">
+                                      <div className="pager-label next">
                                 Show next five
                                       </div>
-                                <div className="icon">
+                                        <div className="icon">
                                           <Icons.AngleRight alt="Show next five" />
                                         </div>
-                              </div>
+                                    </div>
                                 </button>
                             </div>
           </div>

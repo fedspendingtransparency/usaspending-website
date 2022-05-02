@@ -111,18 +111,18 @@ export default class CFDATreeTooltip extends React.Component {
                                   <div className="tooltip-value">
                                     {federalActionOblicationAmount}
                                   </div>
-                                  <div className="tooltip-label">
+                                    <div className="tooltip-label">
                                 Funded Amount
                                     </div>
                                 </div>
                                   <div className="tooltip-right">
-                                  <div className="tooltip-value">
+                                    <div className="tooltip-value">
                                       {percentOfTotal}
                                     </div>
-                                <div className="tooltip-label">
+                                      <div className="tooltip-label">
                                 Percent of Total
                                       </div>
-                                </div>
+                                  </div>
                               </div>
             </div>
           </div>

@@ -67,7 +67,7 @@ export default class LegacyBaseTopFilterGroup extends React.Component {
                       onClick={this.clearFilterGroup}>
                         <span className="close-icon">
                           <Icons.Close
-                              alt={`Clear all ${this.props.filter.name} filters`} />
+                            alt={`Clear all ${this.props.filter.name} filters`} />
                         </span>
                     </button>
                   </div>

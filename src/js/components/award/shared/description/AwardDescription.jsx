@@ -48,8 +48,8 @@ const AwardDescription = ({
                     {/* last word of heading inside the span to prevent the glossary icon from wrapping to its own line by itself */}
                                     Code
                       <Link to={`/award/${awardId}?glossary=naics`}>
-                            <Glossary alt="View glossary definition of NAICS" />
-                          </Link>
+                        <Glossary alt="View glossary definition of NAICS" />
+                      </Link>
                   </span>
                 </div>
                   <LineTree type="naics" data={naics} />
@@ -58,14 +58,14 @@ const AwardDescription = ({
                   <div className="naics-psc__heading">
                                 Product or Service Code
                     <span>
-                          {/* last word of heading inside the span to prevent the glossary icon from going to its own line by itself */}
+                      {/* last word of heading inside the span to prevent the glossary icon from going to its own line by itself */}
                                     (PSC)
-                            <Link to={`/award/${awardId}?glossary=product-or-service-code-psc`}>
-                              <Glossary alt="View glossary definition of Product or Service Code (PSC)" />
-                            </Link>
-                        </span>
+                        <Link to={`/award/${awardId}?glossary=product-or-service-code-psc`}>
+                          <Glossary alt="View glossary definition of Product or Service Code (PSC)" />
+                        </Link>
+                    </span>
                   </div>
-                        <LineTree type="psc" data={psc} />
+                    <LineTree type="psc" data={psc} />
                 </FlexGridCol>
             </FlexGridRow>
                 )}

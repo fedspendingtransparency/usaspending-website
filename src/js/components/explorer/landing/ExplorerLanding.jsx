@@ -64,22 +64,22 @@ export default class ExplorerLanding extends React.Component {
                                     The Spending Explorer makes it easy to understand the big picture of federal spending.
                       </h3>
                         <div className="explorer-description__animations">
-                            <TransitionGroup>
-                                {this.state.expanded && (
-                                    <CSSTransition
-                                      classNames="explorer-description-slide"
-                                      timeout={195}
-                                      exit>
-                                        <ExplorerDescription />
-                                    </CSSTransition>
+                          <TransitionGroup>
+                            {this.state.expanded && (
+                            <CSSTransition
+                              classNames="explorer-description-slide"
+                              timeout={195}
+                              exit>
+                                <ExplorerDescription />
+                            </CSSTransition>
                                         )}
-                              </TransitionGroup>
-                          </div>
-                              <button
-                                  className="explorer-description__expand"
-                                  onClick={this.toggleDetail}>
-                                  {expandLabel}
-                                </button>
+                          </TransitionGroup>
+                        </div>
+                          <button
+                            className="explorer-description__expand"
+                            onClick={this.toggleDetail}>
+                            {expandLabel}
+                          </button>
                     </div>
                   </div>
               </div>
@@ -97,11 +97,11 @@ export default class ExplorerLanding extends React.Component {
                         url="explorer/agency"
                         term="agency" />
                           <ExplorerLandingOption
-                              icon="object_class"
-                              title="Object Class"
-                              description="See spending grouped by the types of items and services purchased by the federal government."
-                              url="explorer/object_class"
-                              term="object-class" />
+                            icon="object_class"
+                            title="Object Class"
+                            description="See spending grouped by the types of items and services purchased by the federal government."
+                            url="explorer/object_class"
+                            term="object-class" />
                 </div>
             </div>
           </ExplorerWrapperPage>

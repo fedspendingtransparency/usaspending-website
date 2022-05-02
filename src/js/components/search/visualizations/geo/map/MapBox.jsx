@@ -238,7 +238,7 @@ export default class MapBox extends React.Component {
                             <button
                               onMouseDown={this.moveRight}
                               onTouchStart={this.moveRight}>
-                              <Icons.AngleRight />
+                                <Icons.AngleRight />
                             </button>
                       </div>
                   </div>

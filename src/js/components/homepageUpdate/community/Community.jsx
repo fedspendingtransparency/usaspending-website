@@ -30,24 +30,24 @@ const Community = () => (
             </p>
               <div className="homepage-community-button__container">
                 <a
+                  rel="noopener noreferrer"
+                  target="_blank"
+                  tabIndex={-1}
+                  href="https://fiscalservice.force.com/usaspending/s/"
+                  onClick={clickedHomepageLink.bind(null, 'https://fiscalservice.force.com/usaspending/s/')}>
+                    <button
+                      className="homepage-community-button__visit"
+                      aria-label="Visit Our Community Page"
+                      title="Visit Our Community Page">
+                            Visit Our Community Page
+                    </button>
+                </a>
+                  <a
                     rel="noopener noreferrer"
                     target="_blank"
                     tabIndex={-1}
-                    href="https://fiscalservice.force.com/usaspending/s/"
-                    onClick={clickedHomepageLink.bind(null, 'https://fiscalservice.force.com/usaspending/s/')}>
-                        <button
-                        className="homepage-community-button__visit"
-                        aria-label="Visit Our Community Page"
-                        title="Visit Our Community Page">
-                            Visit Our Community Page
-                      </button>
-                  </a>
-                      <a
-                      rel="noopener noreferrer"
-                      target="_blank"
-                      tabIndex={-1}
-                      href="mailto:usaspending.help@fiscal.treasury.gov?subject=Contact%20Us"
-                      onClick={clickedHomepageLink.bind(
+                    href="mailto:usaspending.help@fiscal.treasury.gov?subject=Contact%20Us"
+                    onClick={clickedHomepageLink.bind(
                             null,
                             'mailto:usaspending.help@fiscal.treasury.gov?subject=Contact%20Us'
                         )}>
@@ -57,7 +57,7 @@ const Community = () => (
                             title="Send Us A Message">
                             Send Us A Message
                           </button>
-                    </a>
+                  </a>
               </div>
         </div>
           <div className="homepage-community__image-wrapper homepage-community__image-wrapper_desktop">

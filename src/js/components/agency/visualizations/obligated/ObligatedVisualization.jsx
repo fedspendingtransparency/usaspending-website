@@ -124,19 +124,19 @@ export default class AgencyObligatedAmount extends React.Component {
                       <p className="fy-text">
                             As of {this.props.asOfDate}, the {this.props.agencyName} has...
                       </p>
-                          <p className="against-auth-text">
+                        <p className="against-auth-text">
                             obligated <span className="number number-bolder">{formattedObligatedAmount}</span> against its <span className="number">{formattedBudgetAuthority}</span> in budgetary resources
-                            </p>
-                            <AgencyObligatedGraph
-                                obligatedAmount={this.props.obligatedAmount}
-                                budgetAuthority={this.props.budgetAuthority}
-                                outlay={this.props.outlay}
-                                width={this.state.visualizationWidth}
-                                obligatedText={formattedObligatedAmount}
-                                legend={legend} />
-                                <p className="outlay-text">
+                        </p>
+                          <AgencyObligatedGraph
+                            obligatedAmount={this.props.obligatedAmount}
+                            budgetAuthority={this.props.budgetAuthority}
+                            outlay={this.props.outlay}
+                            width={this.state.visualizationWidth}
+                            obligatedText={formattedObligatedAmount}
+                            legend={legend} />
+                              <p className="outlay-text">
                             ...and outlayed <span className="number number-bolder outlay">{formattedOutlayAmount}</span> in FY {this.props.activeFY}.
-                                  </p>
+                              </p>
                     </div>
               </div>
           </div>

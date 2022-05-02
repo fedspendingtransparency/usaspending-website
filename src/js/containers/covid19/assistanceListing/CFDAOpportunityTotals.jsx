@@ -70,17 +70,17 @@ const CFDAOpportunityTotals = ({ code }) => {
               <div className="cfda-opportunities__total">
                 <div className="cfda-opportunities__total__title">Archived</div>
                   <div className="cfda-opportunities__total__count">
-                        {loading && <div className="dot-pulse" />}
-                        {!loading && totals.archived}
-                      </div>
+                    {loading && <div className="dot-pulse" />}
+                    {!loading && totals.archived}
+                  </div>
               </div>
                 <div className="cfda-opportunities__total">
-                      <div className="cfda-opportunities__total__title">Forecasted</div>
-                        <div className="cfda-opportunities__total__count">
-                          {loading && <div className="dot-pulse" />}
-                          {!loading && totals.forecasted}
-                        </div>
+                  <div className="cfda-opportunities__total__title">Forecasted</div>
+                    <div className="cfda-opportunities__total__count">
+                      {loading && <div className="dot-pulse" />}
+                      {!loading && totals.forecasted}
                     </div>
+                </div>
         </div>
             }
         {error.error && <div>{error.message}</div>}

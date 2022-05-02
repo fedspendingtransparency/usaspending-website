@@ -56,10 +56,10 @@ export default class ModalContent extends React.Component {
                         <CopyToClipboard
                           text={this.props.expectedFile}
                           onCopy={this.onCopy}>
-                              <button>
-                                  {this.state.copied ? <span>{icon}</span> : null}
-                                  {this.state.copied ? 'Copied' : 'Copy Link'}
-                                </button>
+                            <button>
+                              {this.state.copied ? <span>{icon}</span> : null}
+                              {this.state.copied ? 'Copied' : 'Copy Link'}
+                            </button>
                         </CopyToClipboard>
                   </div>
                     <div className="sub-details">

@@ -87,46 +87,46 @@ const StateLandingTable = (props) => {
                       </div>
                     </div>
                       <StateLandingTableSorter
-                          field="name"
-                          label="state"
-                          active={{ field: props.sortField, direction: props.sortDirection }}
-                          setSort={props.setSort} />
+                        field="name"
+                        label="state"
+                        active={{ field: props.sortField, direction: props.sortDirection }}
+                        setSort={props.setSort} />
                   </div>
                 </th>
                   <th className="state-list__head-cell">
                     <div className="header-cell header-cell_right">
                       <div className="header-cell__text">
-                          <div className="header-cell__title header-cell__title_right">
+                        <div className="header-cell__title header-cell__title_right">
                                         Awarded Amount
-                              <div className="header-cell__subtitle">
+                          <div className="header-cell__subtitle">
                                             from trailing 12 months
-                                </div>
-                            </div>
+                          </div>
                         </div>
-                            <StateLandingTableSorter
-                                field="_amount"
-                                label="awarded amount"
-                                active={{ field: props.sortField, direction: props.sortDirection }}
-                                setSort={props.setSort} />
+                      </div>
+                        <StateLandingTableSorter
+                          field="_amount"
+                          label="awarded amount"
+                          active={{ field: props.sortField, direction: props.sortDirection }}
+                          setSort={props.setSort} />
                     </div>
                   </th>
                     <th className="state-list__head-cell">
-                        <div className="header-cell  header-cell_right">
-                            <div className="header-cell__text">
-                                <div className="header-cell__title header-cell__title_right">
+                      <div className="header-cell  header-cell_right">
+                        <div className="header-cell__text">
+                          <div className="header-cell__title header-cell__title_right">
                                         Percent of Total
-                                <div className="header-cell__subtitle">
+                            <div className="header-cell__subtitle">
                                             based on all state profiles
-                                  </div>
-                              </div>
-                              </div>
-                              <StateLandingTableSorter
-                                  field="_amount"
-                                  label="percent of total"
-                                  active={{ field: props.sortField, direction: props.sortDirection }}
-                                  setSort={props.setSort} />
+                            </div>
                           </div>
-                      </th>
+                        </div>
+                          <StateLandingTableSorter
+                            field="_amount"
+                            label="percent of total"
+                            active={{ field: props.sortField, direction: props.sortDirection }}
+                            setSort={props.setSort} />
+                      </div>
+                    </th>
               </tr>
             </thead>
               <tbody className={`state-list__body ${hideBody}`}>

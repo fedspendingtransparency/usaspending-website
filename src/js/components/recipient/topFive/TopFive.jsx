@@ -87,9 +87,9 @@ export default class TopFive extends React.Component {
                         <th className="category-table__table-head-cell category-table__table-head-cell_centered">
                          Awarded Amount
                         </th>
-                            <th className="category-table__table-head-cell category-table__table-head-cell_centered">
+                          <th className="category-table__table-head-cell category-table__table-head-cell_centered">
                          % of Total
-                              </th>
+                          </th>
                   </tr>
               </thead>
                 <tbody

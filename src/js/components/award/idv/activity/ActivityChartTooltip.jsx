@@ -404,30 +404,30 @@ export default class ActivityChartTooltip extends React.Component {
                                   <div className="tooltip-body__row-info second-child">
                                     <h6 className="tooltip-body__row-info-title">End</h6>
                                       <div
-                                      className="tooltip-body__row-info-data"
-                                      ref={(d) => {
+                                        className="tooltip-body__row-info-data"
+                                        ref={(d) => {
                                         this.endDateDiv = d;
                                     }}>
-                                      {data.endDate}
-                                    </div>
+                                        {data.endDate}
+                                      </div>
                                   </div>
                                     <div className="tooltip-body__row-info">
-                                    <h6 className="tooltip-body__row-info-title">
+                                      <h6 className="tooltip-body__row-info-title">
                                     Obligated Amount
                                       </h6>
-                                    <div
+                                        <div
                                           className="tooltip-body__row-info-data"
                                           ref={(d) => {
                                         this.amountsDiv = d;
                                     }}
                                           title={amountTitle}>
-                                      <strong>
+                                            <strong>
                                               {data._obligatedAmount !== 0 ?
                                             `${data.obligatedAmount} ` : '-- '}
                                             </strong>
                                     of {data._awardedAmount !== 0 ? data.awardedAmount : '--'}
                                         </div>
-                                  </div>
+                                    </div>
                               </div>
                         </div>
                   </div>

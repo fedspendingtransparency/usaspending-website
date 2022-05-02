@@ -56,7 +56,7 @@ export default class DownloadScope extends React.Component {
                     </button>
                       <div className="level-description">
                             Select the specific columns to include in your download.
-                        </div>
+                      </div>
                   </div>
               </div>
           </div>

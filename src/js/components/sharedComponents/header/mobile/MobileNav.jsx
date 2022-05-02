@@ -79,36 +79,36 @@ export class MobileNav extends React.Component {
                     </li>
                       <li className="mobile-nav-content__list-item">
                         <MobileDropdown
-                            {...this.props}
-                            label="Award Search"
-                            items={searchOptions}
-                            active={this.state.url} />
-                                <hr className="mobile-nav-content__divider" />
+                          {...this.props}
+                          label="Award Search"
+                          items={searchOptions}
+                          active={this.state.url} />
+                            <hr className="mobile-nav-content__divider" />
                       </li>
-                          <li className="mobile-nav-content__list-item">
-                              <MobileDropdown
+                        <li className="mobile-nav-content__list-item">
+                          <MobileDropdown
+                            {...this.props}
+                            label="Profiles"
+                            items={profileOptions}
+                            active={this.state.url} />
+                              <hr className="mobile-nav-content__divider" />
+                        </li>
+                          <li className="mobile-nav-content__list-item mobile-nav-content__list-item_no-phone">
+                            <MobileDropdown
                               {...this.props}
-                              label="Profiles"
-                              items={profileOptions}
+                              label="Download Center"
+                              items={downloadOptions}
                               active={this.state.url} />
+                                <hr className="mobile-nav-content__divider" />
+                          </li>
+                            <li className="mobile-nav-content__list-item">
+                              <MobileDropdown
+                                {...this.props}
+                                label="Resources"
+                                items={resourceOptions}
+                                active={this.state.url} />
                                   <hr className="mobile-nav-content__divider" />
                             </li>
-                            <li className="mobile-nav-content__list-item mobile-nav-content__list-item_no-phone">
-                                <MobileDropdown
-                                {...this.props}
-                                label="Download Center"
-                                items={downloadOptions}
-                                active={this.state.url} />
-                                      <hr className="mobile-nav-content__divider" />
-                              </li>
-                              <li className="mobile-nav-content__list-item">
-                                    <MobileDropdown
-                                    {...this.props}
-                                    label="Resources"
-                                    items={resourceOptions}
-                                    active={this.state.url} />
-                                        <hr className="mobile-nav-content__divider" />
-                                  </li>
                 </ul>
               </div>
           </div>

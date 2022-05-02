@@ -42,8 +42,8 @@ const CFDAOverview = ({
                   className="award-viz__button"
                   onClick={jumpToCFDASection}>
                     <div className="award-viz__link-text">
-                        {cfdaCount === 1 ? "VIEW MORE INFO ABOUT THIS PROGRAM" : `VIEW ALL ${cfdaCount} CFDA PROGRAMS`}
-                      </div>
+                      {cfdaCount === 1 ? "VIEW MORE INFO ABOUT THIS PROGRAM" : `VIEW ALL ${cfdaCount} CFDA PROGRAMS`}
+                    </div>
                 </button>
               </div>
           </div>

@@ -197,29 +197,29 @@ const TotalObligationsOverTimeVisualization = ({
                       padding={padding}
                       agencyBudget={agencyBudget}
                       scenario={scenario} />
-                          <Axis
-                              padding={padding}
-                              width={width}
-                              height={height}
-                              xTicks={xTicks} />
+                        <Axis
+                          padding={padding}
+                          width={width}
+                          height={height}
+                          xTicks={xTicks} />
                     {showTodayLineAndText && <TodayLineAndtext
                       xScale={xScale}
                       height={height}
                       todaysDate={todaysDate}
                       padding={padding}
                       showTodayLineAndText={showTodayLineAndText} />}
-                          <AgencyBudgetLine
-                              data={dataWithFirstAndLastCoordinate}
-                              xScale={xScale}
-                              yScale={yScale}
-                              agencyBudget={agencyBudget}
-                              height={height}
-                              width={width}
-                              todaysDate={todaysDate}
-                              padding={padding}
-                              scenario={scenario}
-                              showTodayLineAndText={showTodayLineAndText}
-                              toggleTooltipVisibility={toggleTooltipVisibility} />
+                        <AgencyBudgetLine
+                          data={dataWithFirstAndLastCoordinate}
+                          xScale={xScale}
+                          yScale={yScale}
+                          agencyBudget={agencyBudget}
+                          height={height}
+                          width={width}
+                          todaysDate={todaysDate}
+                          padding={padding}
+                          scenario={scenario}
+                          showTodayLineAndText={showTodayLineAndText}
+                          toggleTooltipVisibility={toggleTooltipVisibility} />
                     {(scenario === 'exceedsMin' || scenario === 'exceedsMaxAndMin') && <ZeroLineAndTick
                       xScale={xScale}
                       yScale={yScale}

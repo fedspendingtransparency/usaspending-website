@@ -39,9 +39,9 @@ const AwardDataArchiveContent = (props) => (
               updateFilter={props.updateFilter}
               agencies={props.agencies}
               requestResults={props.requestResults} />
-                  <AwardDataArchiveTable
-                      columns={props.columns}
-                      results={props.results} />
+                <AwardDataArchiveTable
+                  columns={props.columns}
+                  results={props.results} />
   </div>
 );
 

@@ -146,15 +146,15 @@ export default class GlossaryDefinition extends React.Component {
                         {...this.props.glossary.term.toJS()}
                         type={this.state.tab} />
                           <button
-                              className="glossary-back"
-                              onClick={this.clickedBack}>
-                                  <div className="back-content">
-                                  <AngleLeft alt="Back" />
-                                      <div className="label">
+                            className="glossary-back"
+                            onClick={this.clickedBack}>
+                              <div className="back-content">
+                                <AngleLeft alt="Back" />
+                                  <div className="label">
                             Back
-                                </div>
-                                </div>
-                            </button>
+                                  </div>
+                              </div>
+                          </button>
           </div>
         );
     }

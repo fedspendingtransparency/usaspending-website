@@ -155,24 +155,24 @@ export default class UserSelections extends React.Component {
                       {this.generateAgencyString()}
                     </div>
                       <div className="selection">
-                          <div className="selection__heading">Federal Account</div>
-                              <div className="selection__content">
-                              {this.generateFederalAccountString()}
+                        <div className="selection__heading">Federal Account</div>
+                          <div className="selection__content">
+                            {this.generateFederalAccountString()}
+                          </div>
+                      </div>
+
+                        <div className="selection">
+                          <div className="selection__heading">Account Level</div>
+                            <div className="selection__content">
+                              {this.generateAccountLevelString()}
                             </div>
                         </div>
-
-                            <div className="selection">
-                            <div className="selection__heading">Account Level</div>
-                                <div className="selection__content">
-                                {this.generateAccountLevelString()}
+                          <div className="selection">
+                            <div className="selection__heading">Disaster Emergency Fund Codes</div>
+                              <div className="selection__content">
+                                {this.generateDefCodesString()}
                               </div>
                           </div>
-                              <div className="selection">
-                              <div className="selection__heading">Disaster Emergency Fund Codes</div>
-                                  <div className="selection__content">
-                                  {this.generateDefCodesString()}
-                                </div>
-                            </div>
               </div>
                 <div className="download-user-selections__right-col">
                   <div className="selection">

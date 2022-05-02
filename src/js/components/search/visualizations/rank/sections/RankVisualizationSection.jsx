@@ -105,9 +105,9 @@ export default class RankVisualizationSection extends React.Component {
                           <div className="icon">
                             <Icons.AngleLeft alt="Show previous ten" />
                           </div>
-                              <div className="pager-label">
+                            <div className="pager-label">
                                 Show previous ten
-                                </div>
+                            </div>
                         </div>
                     </button>
                       <button
@@ -117,13 +117,13 @@ export default class RankVisualizationSection extends React.Component {
                         disabled={disableNext}
                         onClick={this.clickNext}>
                           <div className="pager-content">
-                              <div className="pager-label next">
+                            <div className="pager-label next">
                                 Show next ten
-                                </div>
-                                <div className="icon">
-                                    <Icons.AngleRight alt="Show next ten" />
-                                  </div>
                             </div>
+                              <div className="icon">
+                                <Icons.AngleRight alt="Show next ten" />
+                              </div>
+                          </div>
                       </button>
                   </div>
           </div>
