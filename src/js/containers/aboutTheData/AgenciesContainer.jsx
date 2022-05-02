@@ -186,14 +186,18 @@ const AgenciesContainer = ({
             totalsReq.current.cancel();
         }
         dispatch(setSearchTerm(''));
-    }, [dispatch]);
+    }, []);
 
     useEffect(() => {
     // Active tab or page number changes
         if (selectedFy && selectedPeriod) {
             fetchTableData();
         }
-    }, [activeTab, submissionsPage, publicationsPage, selectedFy, selectedPeriod, fetchTableData]);
+    }, [
+        activeTab,
+        submissionsPage,
+        publicationsPage
+    ]);
 
     useEffect(() => {
         const shouldResetPg = (
@@ -219,7 +223,16 @@ const AgenciesContainer = ({
             // reset to pg 1, triggering a refetch
             changePublicationsPg(1);
         }
-    }, [federalTotals, selectedFy, selectedPeriod, submissionsSort, submissionsLimit, publicationsSort, publicationsLimit, searchTerm, prevSubmissionsPg, prevPublicationsPg, activeTab, submissionsPage, publicationsPage, fetchTotals, fetchTableData, changeSubmissionsPg, changePublicationsPg]);
+    }, [
+        federalTotals,
+        selectedFy,
+        selectedPeriod,
+        submissionsSort,
+        submissionsLimit,
+        publicationsSort,
+        publicationsLimit,
+        searchTerm
+    ]);
 
     const renderDates = (results = []) => results
         .map(({

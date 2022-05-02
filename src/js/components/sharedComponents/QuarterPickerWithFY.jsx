@@ -60,7 +60,7 @@ const QuarterPickerWithFY = ({
         if (latestFy && latestPeriod) {
             handlePickedYear(`${latestFy}`, `${latestPeriod}`);
         }
-    }, [handlePickedYear, latestFy, latestPeriod]);
+    }, [latestFy, latestPeriod]);
 
     return (
       <div className="quarter-picker">

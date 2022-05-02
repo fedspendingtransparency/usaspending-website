@@ -118,7 +118,7 @@ export default class ContractFilter extends React.Component {
                 aria-label={`See ${shownStatement}`}
                 aria-expanded={this.state.shownType !== 'more'}>
                     See {shownStatement}
-                {arrow}
+                    &nbsp; {arrow}
               </button>
             );
         }
