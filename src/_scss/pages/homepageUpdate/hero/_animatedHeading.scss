@@ -1,0 +1,261 @@
+$hold-increment: 3000ms;
+$scroll-increment: 500ms;
+$iteration-increment: $hold-increment + $scroll-increment;
+$green-text: #2d6878;
+
+@mixin rotation ($animation, $increment, $delay, $opacity: 0, $position: absolute) {
+    animation: $animation $increment linear;
+    -webkit-animation: $animation $increment linear;
+    animation-delay: $delay;
+    -webkit-animation-delay: $delay;
+    opacity: $opacity;
+    overflow: hidden;
+    position: $position;
+}
+
+@mixin rotation-delay ($delay) {
+    animation-delay: $delay;
+    -webkit-animation-delay: $delay;
+}
+
+@mixin phrase-transition ($animation, $increment, $opacity: 0) {
+    animation: $animation $increment linear;
+    -webkit-animation: $animation $increment linear;
+    opacity: $opacity;
+}
+
+.hero__headline {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    @media (max-width: $medium-screen) {
+        margin: 0;
+    }
+
+    // left aligns content in flex box justify-content: center container
+    @media (max-width: 710px) {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(262px, max-content));
+    }
+
+    .landing-phrase {
+        font-weight: bold;
+        color: $color-grayblack;
+        text-align: center;
+        margin: 0 0 rem(10) 0;
+        line-height: rem(70);
+        @media (max-width: $medium-screen) {
+            line-height: rem(50);
+            text-align: left;
+            font-size: rem(40);
+            max-width: rem(640);
+            justify-content: normal;
+        }
+        @media (min-width: $medium-screen - 1) and (max-width: 1279px) {
+            max-width: 1143px;
+        }
+    }
+
+    .landing-phrase--entrance-animation {
+        @include rotation('fade-out', $iteration-increment + $scroll-increment * 2, 0, 1);
+    }
+
+    .landing-phrase--exit-animation {
+        @include rotation('main-rotation', $iteration-increment + $scroll-increment * 2, 0);
+    }
+
+    .phrase {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        font-size: rem(56);
+        font-weight: bold;
+        text-align: center;
+        color: $green-text;
+        span {
+            display: block;
+            line-height: rem(70);
+            @media (max-width: $medium-screen) {
+                line-height: rem(50);
+                text-align: left;
+            }
+        }
+        @media (max-width: $medium-screen) {
+            max-width: rem(641);
+            justify-content: normal;
+            font-size: rem(40);
+        }
+        @media (max-width: 308px) {
+            margin-left: rem(16);
+        }
+
+        .phrase__intro {
+            width: rem(262); // hardcoded to the longest intro word which is currently 'Download'
+            height: rem(50);
+            flex-shrink: 0;
+            white-space: nowrap;
+            @media (max-width: $medium-screen) {
+                text-align: left;
+                left: 0;
+            }
+
+            .phrase__intro__item {
+                position: relative;
+
+                span {
+                    position: absolute;
+                    color: $green-text;
+                    right: 0;
+                    @media (max-width: $medium-screen) {
+                        left: 0;
+                    }
+                }
+
+                @media (max-width: $medium-screen) {
+                    left: 0;
+                }
+            }
+
+            .phrase__intro__item--entrance span {
+                @include rotation('fade-out', $iteration-increment, 0);
+            }
+
+            .phrase__intro__item--rotation span {
+                @include rotation('main-rotation', $iteration-increment * 2, $iteration-increment);
+            }
+
+            .phrase__intro__item--rotation span:nth-child(2) {
+                @include rotation-delay($iteration-increment * 3);
+            }
+
+            .phrase__intro__item--rotation span:nth-child(3) {
+                @include rotation-delay($iteration-increment * 5);
+            }
+
+            .phrase__intro__item--rotation span:nth-child(4) {
+                @include rotation-delay($iteration-increment * 7);
+            }
+        }
+
+        .phrase__static__item {
+            span {
+                color: $color-grayblack;
+            }
+        }
+
+        .phrase__end {
+            width: rem(385);  // hardcoded to the longest ending which is currently 'to communities'
+            flex-shrink: 0;
+            white-space: nowrap;
+            flex-wrap: wrap;
+            padding-bottom: rem(80);
+        }
+
+        .phrase__end__item {
+            position: relative;
+            color: $green-text;
+            white-space: nowrap;
+            span {
+                position: absolute;
+                @media (max-width: $medium-screen) {
+                    left: 0 !important;
+                }
+                @media (min-width: $medium-screen + 1) and (max-width: 1279px){
+                    left: unset;
+                }
+                @media (min-width: 1280px) {
+                    left: 0 !important;
+                }
+            }
+        }
+
+        .phrase__end__item--entrance span {
+            @include rotation('entrance-fade-out', $iteration-increment * 2,  0);
+        }
+
+        .phrase__end__item--rotation span {
+
+            @include rotation('main-rotation', $iteration-increment * 2, $iteration-increment * 2);
+
+        }
+
+        .phrase__end__item--rotation span:nth-child(2) {
+            @include rotation-delay($iteration-increment * 4);
+        }
+
+        .phrase__end__item--rotation span:nth-child(3) {
+            @include rotation-delay($iteration-increment * 6);
+        }
+
+        .phrase__end__item--rotation span:nth-child(4) {
+            @include rotation-delay($iteration-increment * 8);
+        }
+
+        .phrase--entrance-animation {
+            @include phrase-transition('scroll-in', $scroll-increment/2, 1);
+        }
+
+        .phrase--exit-animation {
+            @include phrase-transition('long-fade-out', $scroll-increment * 2, 0);
+        }
+
+        @-moz-keyframes fade-in-landing-phrase {
+            0% { opacity: 0; vibility: hidden; -moz-transform: translateY(25px);}
+            40% { opacity: 0; vibility: hidden; -moz-transform: translateY(25px);}
+            90% { opacity: 1; vibility: visible; -moz-transform: translateY(0px);}
+            100% { opacity: 1; vibility: visible; }
+        }
+
+        @-webkit-keyframes fade-in-landing-phrase {
+            0% { opacity: 0; vibility: hidden; -webkit-transform: translateY(25px);}
+            40% { opacity: 0; vibility: hidden; -webkit-transform: translateY(25px);}
+            90% { opacity: 1; vibility: visible; -webkit-transform: translateY(0px);}
+            100% { opacity: 1; vibility: visible; }
+        }
+
+        @keyframes long-fade-out {
+            0% { opacity: 1 }
+            50% { opacity: 1 }
+            100% { opacity: 0 }
+
+        }
+
+        @keyframes fade-out {
+            0% { opacity: 1 }
+            80% { opacity: 1 }
+            100% { opacity: 0 }
+
+        }
+
+        @keyframes entrance-fade-out {
+            0% { opacity: 1 }
+            90% { opacity: 1 }
+            100% { opacity: 0 }
+
+        }
+
+        @-moz-keyframes main-rotation {
+            0% { opacity: 1; -moz-transform: translateY(25px); }
+            5% { opacity: 1; -moz-transform: translateY(0px); }
+            85% { opacity: 1; }
+            100% { opacity: 0;  }
+        }
+
+        @-webkit-keyframes main-rotation {
+            0% { opacity: 1; -webkit-transform: translateY(25px); }
+            5% { opacity: 1; -webkit-transform: translateY(0px); }
+            85% { opacity: 1; }
+            100% { opacity: 0; }
+        }
+
+        @-moz-keyframes scroll-in {
+            0% { -moz-transform: translateY(25px); }
+            100% { -moz-transform: translateY(0px); }
+        }
+
+        @-webkit-keyframes scroll-in {
+            0% { -webkit-transform: translateY(25px); }
+            100% { -webkit-transform: translateY(0px); }
+        }
+    }
+}

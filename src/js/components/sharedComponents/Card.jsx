@@ -1,33 +1,36 @@
 /**
- * Covid.jsx
+ * HomepageCovidContainer.jsx
  * Created by Brian Petway 03/30/2022
  */
 
 import React from 'react';
 import PropTypes from "prop-types";
+import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 
 const propTypes = {
     icon: PropTypes.object,
-    heading: PropTypes.string,
+    heading: PropTypes.object,
     content: PropTypes.object,
     link: PropTypes.object
 };
 
-const Card = () => (
-    <div className="card-content">
-        <div className="card__icon-wrapper">
-            placeholder for icon
-        </div>
-        <div className="card__heading-wrapper">
-            placeholder for heading
-        </div>
-        <div className="card__content-wrapper">
-            placeholder for content
-        </div>
-        <div className="card__link-wrapper">
-            placeholder for link
-        </div>
-    </div>
+const Card = ({
+    icon, heading, content, link
+}) => (
+    <FlexGridRow className="card-content">
+        <FlexGridCol width={12} desktop={1} className="card__icon-wrapper">
+            {icon}
+        </FlexGridCol>
+        <FlexGridCol width={12} desktop={10} className="card__heading-wrapper">
+            {heading}
+        </FlexGridCol>
+        <FlexGridCol width={12} desktop={12} className="card__content-wrapper">
+            {content}
+        </FlexGridCol>
+        <FlexGridCol width={12} desktop={12} className="card__link-wrapper">
+            {link}
+        </FlexGridCol>
+    </FlexGridRow>
 );
 
 Card.propTypes = propTypes;

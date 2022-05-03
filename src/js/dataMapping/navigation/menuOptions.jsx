@@ -44,8 +44,7 @@ export const profileOptions = [
     {
         label: "COVID-19 Spending",
         url: '/disaster/covid-19',
-        enabled: true,
-        isNewTab: true
+        enabled: true
     }
 ];
 

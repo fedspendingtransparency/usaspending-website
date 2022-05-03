@@ -53,7 +53,8 @@
     }
     h6 {
         font-size: rem(20);
-        font-weight: 400;
+        font-weight: $font-normal;
+        color: $color-grayblack;
         @media(min-width: $medium-screen) {
             margin-top: 0;
         }

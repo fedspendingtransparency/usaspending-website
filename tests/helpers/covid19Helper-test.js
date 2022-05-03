@@ -17,7 +17,7 @@ describe('Covid 19 Helper', () => {
         });
         it('should return true when last count is 0', () => {
             expect(areCountsDefined({ test: 1, test2: 7, test3: 0 })).toEqual(true);
-        })
+        });
     });
 
     describe('calculateUnlinkedTotals', () => {

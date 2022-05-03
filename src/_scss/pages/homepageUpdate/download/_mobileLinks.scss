@@ -1,0 +1,62 @@
+.mobile-download {
+    display: none;
+    @include media($tablet-screen) {
+        @include display(flex);
+        @include justify-content(center);
+        @include align-items(center);
+        width: 100%;
+    }
+    @include media($medium-screen) {
+        display: none;
+    }
+
+    ul.mobile-download__list {
+        @include unstyled-list;
+        @include flex(0 0 auto);
+        width: 50%;
+
+        &.mobile-download__list_align_left {
+            padding-right: rem(5);
+        }
+
+        &.mobile-download__list_align_right {
+            padding-left: rem(5);
+        }
+    }
+
+    .mobile-download__list-item {
+        margin: rem(10) 0;
+    }
+
+    button.mobile-download__link {
+        @include button-unstyled;
+        width: 100%;
+    }
+
+    a.mobile-download__link, button.mobile-download__link {
+        @include display(flex);
+        @include justify-content(flex-start);
+        @include align-items(center);
+
+        font-size: rem(22);
+        line-height: rem(33);
+        padding: rem(20);
+        color: $color-base;
+        background-color: $color-white;
+
+        &:visited, &:hover, &:active {
+            color: $color-base;
+            text-decoration: none;
+        }
+    }
+
+    .mobile-download__link-icon {
+        @include flex(0 0 auto);
+        width: rem(40);
+    }
+
+    .mobile-download__link-label {
+        @include flex(1 1 auto);
+        margin-left: rem(10);
+    }
+}
