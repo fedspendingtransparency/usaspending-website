@@ -1,6 +1,6 @@
 /**
  * GettingStarted.jsx
- * Created by Andrea Blackwell 03/07/22
+ * Created by Afna Saifudeen 03/22
  */
 
 import React, { useState, useEffect } from 'react';

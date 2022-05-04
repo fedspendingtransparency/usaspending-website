@@ -1,3 +1,8 @@
+/**
+ * Hero.jsx
+ * Created by Andrea Blackwell 03/22
+ */
+
 import React, { useEffect, useState } from "react";
 
 const AnimatedHeading = ({ paused }) => {
@@ -193,7 +198,7 @@ const AnimatedHeading = ({ paused }) => {
     const rotatingText = () => (
         <div className="hero__headline">
             <h1 className="landing-phrase landing-phrase--entrance-animation">
-                <div>The official source of government <span style={{ whiteSpace: 'nowrap' }}>spending data</span></div>
+                <div>The official source <span style={{ whiteSpace: 'nowrap' }}>of government</span> <span style={{ whiteSpace: 'nowrap' }}>spending data</span></div>
             </h1>
             <div className="phrase">
                 <div className="phrase__intro">

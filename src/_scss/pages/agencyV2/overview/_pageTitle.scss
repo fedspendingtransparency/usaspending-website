@@ -16,29 +16,29 @@
             padding-bottom: 0.3rem;
             .tooltip-wrapper {
                 position: relative;
-                top: -0.8rem;
+                //top: -0.8rem;
                 z-index: 20; // prevent bar chart overlap
                 @media (max-width: $medium-screen) {
                     top: 0.8rem;
+                    z-index: 0;
                 }
             }
             .tooltip-spacer {
-                    right: -19rem !important;
-                    top: 4rem !important;
-                    .tooltip-pointer {
-                        &.bottom {
-                            left: 2rem !important;
-                            top: -1.6rem !important;
-                        }
+                right: -19rem !important;
+                top: 4rem !important;
+                .tooltip-pointer {
+                    &.bottom {
+                        left: 2rem !important;
+                        top: -1.6rem !important;
                     }
-                    
-                
+                }
             }
         }
         .page-title__tooltip {
             @include display(inline-flex);
-            @media (max-width: $medium-screen) {
-                @include display(flex);
+            @include display(flex);
+            @media (min-width: $medium-screen) {
+                margin-top: rem(8);
             }
             @include justify-content(center);
             @include align-items(center);
@@ -55,7 +55,6 @@
                 display: none;
             }
         }
-        
     }
     .page-title__image {
         max-width: rem(90);

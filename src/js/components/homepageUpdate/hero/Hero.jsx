@@ -1,6 +1,6 @@
 /**
  * Hero.jsx
- * Created by Andrea Blackwell 03/07/22
+ * Created by Brian Petway 03/22
  */
 
 import React, { useState } from 'react';
