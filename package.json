@@ -17,6 +17,7 @@
         "lhci:wizard": "lhci wizard",
         "lhci:server": "lhci server --storage.storageMethod=sql --storage.sqlDialect=sqlite --storage.sqlDatabasePath=./db.sql",
         "lhci:audit": "npx webpack --progress --config ./webpack/webpack.prod.config.js ; npx lhci autorun",
+        "lhci:desktop": "npx webpack --progress --config ./webpack/webpack.prod.config.js ; npx lhci --config=./lighthousercdesktop.js autorun",
         "build-redirect-config": "npx babel-node scripts/buildRedirectConfig.js"
     },
     "author": "",
