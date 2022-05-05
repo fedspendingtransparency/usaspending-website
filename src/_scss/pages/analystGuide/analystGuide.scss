@@ -18,46 +18,77 @@
     }
   }
 
-  .analyst-guide__share-wrapper {
-    color: $color-primary;
-    background-color: white;
-    margin-top: $global-margin * 4;
-    margin-left: -24px;
-    @media (min-width: $medium-screen) {
-      margin-left: -40px;
+  .analyst-guide__share-dl-wrapper {
+    display: flex;
+    vertical-align: center;
+    .analyst-guide__share-wrapper {
+      color: $color-primary;
+      background-color: white;
+      margin-top: $global-margin * 4;
+      margin-left: -24px;
+      @media (min-width: $medium-screen) {
+        margin-left: -40px;
+      }
+  
+      .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__button {
+        margin: 0 0.625rem;
+      }
+  
+      // these affect the share dropdown position
+      // overriding the styles in data-transparency-ui Picker, sent by ShareIcon
+      .usa-dt-picker .usa-dt-picker__dropdown-container ul {
+        @media (min-width: $small-screen) and (max-width: 374px) {
+          right: 110px !important;
+        }
+        @media (min-width: 375px) and (max-width: 474px) {
+          right: 132px !important;
+        }
+        @media (min-width: 475px) and (max-width: 574px) {
+          right: 232px !important;
+        }
+        @media (min-width: 575px) and (max-width: 674px) {
+          right: 332px !important;
+        }
+        @media (min-width: 675px) and (max-width: 767px) {
+          right: 444px !important;
+        }
+        @media (min-width: 768px) and (max-width: 868px) {
+          right: 525px !important;
+        }
+        @media (min-width: 869px) and (max-width: $medium-screen) {
+          right: 625px !important;
+        }
+      }
     }
-
-    .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__button {
-      margin: 0 0.625rem;
-    }
-
-    // these affect the share dropdown position
-    // overriding the styles in data-transparency-ui Picker, sent by ShareIcon
-    .usa-dt-picker .usa-dt-picker__dropdown-container ul {
-      @media (min-width: $small-screen) and (max-width: 374px) {
-        right: 110px !important;
+  
+    .analyst-guide__download-wrapper {
+      color: $color-primary;
+      background-color: white;
+      margin-top: $global-margin * 4;
+      @media (min-width: $medium-screen) {
+        margin-left: 0px;
       }
-      @media (min-width: 375px) and (max-width: 474px) {
-        right: 132px !important;
+  
+      .analyst-guide__download-button {
+        background-color: white;
+        padding: 0px 20px 5px 20px;
+        @media (min-width: $medium-screen) {
+          padding: 0px 20px 7px 20px;
+          margin-top: 10px;
+          margin-bottom: 0px;
+        }
+        margin-top: 10px;
+        margin-bottom:2px;
       }
-      @media (min-width: 475px) and (max-width: 574px) {
-        right: 232px !important;
-      }
-      @media (min-width: 575px) and (max-width: 674px) {
-        right: 332px !important;
-      }
-      @media (min-width: 675px) and (max-width: 767px) {
-        right: 444px !important;
-      }
-      @media (min-width: 768px) and (max-width: 868px) {
-        right: 525px !important;
-      }
-      @media (min-width: 869px) and (max-width: $medium-screen) {
-        right: 625px !important;
+  
+      .analyst-guide__download-icon {
+        width: 25px;
+        height:25px;
+        color: $color-primary;
       }
     }
   }
-
+  
   .analyst-guide__topTitle {
     font-weight: $font-semibold;
     font-stretch: normal;
