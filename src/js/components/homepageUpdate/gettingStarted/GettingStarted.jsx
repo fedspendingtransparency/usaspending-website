@@ -71,7 +71,7 @@ const GettingStarted = () => {
             <FlexGridCol className="homepage-search-feature" width={12}>
                 <div className="homepage-background-flair" />
                 <div className="homepage-search-feature-desc">
-                    <h1 className="homepage-search-feature-desc__title">A targeted approach to finding federal award&nbsp;data</h1>
+                    <h2 className="homepage-search-feature-desc__title">A targeted approach to finding federal award&nbsp;data</h2>
                 </div>
                 <div className="homepage-search-feature__img-carousel">
                     <ImageCarousel
