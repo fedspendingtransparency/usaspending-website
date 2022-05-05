@@ -109,7 +109,7 @@ const FySummary = ({
     const sections = [
         (
             <VisualizationSection
-                subtitle={isMobile ? 'How much funding is available to this agency?' : (<>How much funding is available to<br />this agency?</>)}
+                subtitle={isMobile ? 'How much funding is available to this agency?' : (<>How much funding is available to this agency?</>)}
                 data={(<>{totalBudgetaryResources}<br />in budgetary resources</>)}
                 secondaryData={`${percentOfFederalBudget} of the FY ${fy} U.S. federal budget`}
                 label="Total Budgetary Resources Over Time">
@@ -124,7 +124,7 @@ const FySummary = ({
         ),
         (
             <VisualizationSection
-                subtitle={isMobile ? 'How much has this agency planned to spend?' : (<>How much has this agency<br />planned to spend?</>)}
+                subtitle={isMobile ? 'How much has this agency planned to spend?' : (<>How much has this agency planned to spend?</>)}
                 data={(<>{totalObligations}<br />in total obligations</>)}
                 secondaryData={`${percentOfBudgetaryResources} of total budgetary resources`}
                 label="Total Obligations Over Time" >
