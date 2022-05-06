@@ -7,8 +7,8 @@ import PropTypes from 'prop-types';
 import '../../../_scss/components/_roundedtoggle.scss';
 
 const propTypes = {
-    label: PropTypes.string,
-}
+    label: PropTypes.string
+};
 
 const RoundedToggle = ({
     label
@@ -17,7 +17,7 @@ const RoundedToggle = ({
         <p className="rounded-toggle__label">{label}</p>
         <label className="rounded-toggle__switch">
             <input type="checkbox" />
-            <span className="rounded-toggle__slider rounded-toggle__round"></span>
+            <span className="rounded-toggle__slider rounded-toggle__round" />
         </label>
     </div>
 );
