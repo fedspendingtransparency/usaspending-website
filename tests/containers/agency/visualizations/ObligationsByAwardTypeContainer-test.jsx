@@ -6,7 +6,7 @@
 import React from 'react';
 import { render, waitFor } from 'test-utils';
 import ObligationsByAwardTypeContainer from 'containers/agency/visualizations/ObligationsByAwardTypeContainer';
-import * as agencyV2 from 'apis/agency';
+import * as agency from 'apis/agency';
 import * as actions from 'redux/actions/agency/agencyActions';
 import { defaultState } from '../../../testResources/defaultReduxFilters';
 
@@ -29,11 +29,11 @@ test('an API request is made for obligations by award type', () => {
             data: mockData
         })
     };
-    const spy = jest.spyOn(agencyV2, 'fetchObligationsByAwardType').mockReturnValueOnce(mockResponse);
+    const spy = jest.spyOn(agency, 'fetchObligationsByAwardType').mockReturnValueOnce(mockResponse);
 
     render(
         <ObligationsByAwardTypeContainer fiscalYear={2020} windowWidth={1000} />,
-        { initialState: { ...defaultState, agencyV2: { overview: { toptierCode: '123' } } } }
+        { initialState: { ...defaultState, agency: { overview: { toptierCode: '123' } } } }
     );
 
     return waitFor(() => {
@@ -48,12 +48,12 @@ test('The award obligations action creator is called with the returned aggregate
             data: mockData
         })
     };
-    jest.spyOn(agencyV2, 'fetchObligationsByAwardType').mockReturnValueOnce(mockResponse);
+    jest.spyOn(agency, 'fetchObligationsByAwardType').mockReturnValueOnce(mockResponse);
     const spy = jest.spyOn(actions, 'setAwardObligations');
 
     render(
         <ObligationsByAwardTypeContainer fiscalYear={2020} windowWidth={1000} />,
-        { initialState: { ...defaultState, agencyV2: { overview: { toptierCode: '123' } } } }
+        { initialState: { ...defaultState, agency: { overview: { toptierCode: '123' } } } }
     );
 
     return waitFor(() => {

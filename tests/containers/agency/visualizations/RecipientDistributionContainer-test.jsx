@@ -35,7 +35,7 @@ test('makes a new API call when the selected FY changes', () => {
     });
     const { rerender } = render(
         <RecipientDistributionContainer fiscalYear="2000" />,
-        { initialState: { ...defaultState, agencyV2: { overview: { toptierCode: '123' } } } }
+        { initialState: { ...defaultState, agency: { overview: { toptierCode: '123' } } } }
     );
     rerender(<RecipientDistributionContainer {...mockProps} />);
     return waitFor(() => {
@@ -52,7 +52,7 @@ test('The agency recipients action creator is called with the parsed data', () =
 
     render(
         <RecipientDistributionContainer {...mockProps} />,
-        { initialState: { ...defaultState, agencyV2: { overview: { toptierCode: '123' } } } }
+        { initialState: { ...defaultState, agency: { overview: { toptierCode: '123' } } } }
     );
     const expected = Object.create(BaseAgencyRecipients);
     expected.populate(mockAgencyRecipientDistribution);
