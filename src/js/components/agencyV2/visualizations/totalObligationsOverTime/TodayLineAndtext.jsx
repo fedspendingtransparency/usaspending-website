@@ -30,17 +30,17 @@ const TodayLineAndtext = ({
     }, [xScale, showTodayLineAndText]);
 
     return (
-      <g>
-        <desc>A line representing todays date</desc>
-          <line
-            tabIndex="0"
-            className="today-line"
-            x1={lineXValue}
-            x2={lineXValue}
-            y1={0}
-            y2={height - padding.bottom} />
-              <text tabIndex="0" className="today-text" x={lineXValue - 35} y={10}>Today</text>
-      </g>
+        <g>
+            <desc>A line representing todays date</desc>
+                <line
+                    tabIndex="0"
+                    className="today-line"
+                    x1={lineXValue}
+                    x2={lineXValue}
+                    y1={0}
+                    y2={height - padding.bottom} />
+                        <text tabIndex="0" className="today-text" x={lineXValue - 35} y={10}>Today</text>
+        </g>
     );
 };
 

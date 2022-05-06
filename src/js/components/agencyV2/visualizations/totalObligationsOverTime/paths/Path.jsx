@@ -41,10 +41,10 @@ const Path = ({
         }
     }, [data, xScale, yScale]);
     return (
-      <g tabIndex="0">
-        <desc>{`The linear line representative of the following periods, dates, and obligations: ${description}`}</desc>
-          <path className="path" d={d} stroke="url(#pathLinearGradient)" />
-      </g>
+        <g tabIndex="0">
+            <desc>{`The linear line representative of the following periods, dates, and obligations: ${description}`}</desc>
+                <path className="path" d={d} stroke="url(#pathLinearGradient)" />
+        </g>
     );
 };
 

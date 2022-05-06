@@ -417,9 +417,9 @@ const HorizontalSingleStackedBarViz = ({
     }, []);
 
     return (
-      <div className="award-amounts-viz">
-        <div id="aa_chart" className="award-amounts-viz-outlays" ref={chartRef} />
-      </div>
+        <div className="award-amounts-viz">
+            <div id="aa_chart" className="award-amounts-viz-outlays" ref={chartRef} />
+        </div>
     );
 };
 
