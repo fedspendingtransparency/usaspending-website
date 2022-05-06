@@ -178,11 +178,11 @@ export default function ObligationsByAwardTypeContainer({ fiscalYear, windowWidt
         {noData && <GenericMessage title="Chart Not Available" description="No available data to display." className="usda-message" />}
         {!loading && !error && !noData &&
         <ObligationsByAwardType
-          outer={categoriesForGraph}
-          inner={detailsForGraph}
-          windowWidth={windowWidth}
-          fiscalYear={fiscalYear}
-          isMobile={isMobile} />
+            outer={categoriesForGraph}
+            inner={detailsForGraph}
+            windowWidth={windowWidth}
+            fiscalYear={fiscalYear}
+            isMobile={isMobile} />
         }
     </>);
 }

@@ -64,7 +64,7 @@ export const useLatestAccountData = () => {
                 request.current.cancel();
             }
         };
-    }, [dispatch, submissionPeriods]);
+    }, [dispatch, isLoading, latestMoment, latestPeriod, submissionPeriods]);
 
     return [
         latestMoment,
@@ -139,7 +139,7 @@ export const useValidTimeBasedQueryParams = (currentUrlFy, currentUrlPeriod = nu
                 handleTimeChange(null, latestPeriod);
             }
         }
-    }, [history, latestFy, latestPeriod, submissionPeriods.size, currentUrlFy, currentUrlPeriod]);
+    }, [history, latestFy, latestPeriod, submissionPeriods.size, currentUrlFy, currentUrlPeriod, requiredParams, existingParams, handleTimeChange]);
 
 
     useEffect(() => {
@@ -167,7 +167,7 @@ export const useValidTimeBasedQueryParams = (currentUrlFy, currentUrlPeriod = nu
                 handleTimeChange(latestFy);
             }
         }
-    }, [submissionPeriods, currentUrlFy, currentUrlPeriod, latestPeriod, latestFy]);
+    }, [submissionPeriods, currentUrlFy, currentUrlPeriod, latestPeriod, latestFy, requiredParams, existingParams, handleTimeChange]);
 
     if (requiredParams.length === 1 && requiredParams[0] === 'fy') return [fy, updateUrl];
 
@@ -181,15 +181,15 @@ export const useValidTimeBasedQueryParams = (currentUrlFy, currentUrlPeriod = nu
 const withLatestFy = (WrappedComponent, format = null) => (props) => {
     const [latestPeriodAsMoment, submissionPeriods, latestPeriod, isLoading, errorMsg] = useLatestAccountData();
     return (
-      <WrappedComponent
-        {...props}
-        isFetchLatestFyLoading={isLoading}
-        fetchLatestFyError={errorMsg}
-        latestSubmissionDate={(latestPeriodAsMoment && format)
+        <WrappedComponent
+            {...props}
+            isFetchLatestFyLoading={isLoading}
+            fetchLatestFyError={errorMsg}
+            latestSubmissionDate={(latestPeriodAsMoment && format)
                 ? latestPeriodAsMoment.format(format)
                 : latestPeriodAsMoment}
-        submissionPeriods={submissionPeriods.toJS()}
-        latestPeriod={latestPeriod} />
+            submissionPeriods={submissionPeriods.toJS()}
+            latestPeriod={latestPeriod} />
     );
 };
 

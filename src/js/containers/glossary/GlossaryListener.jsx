@@ -67,7 +67,7 @@ const GlossaryListenerContainer = connect(
 
 
 const withGlossaryListener = (component, props) => (
-  <GlossaryListenerContainer {...props} Child={component} />
+    <GlossaryListenerContainer {...props} Child={component} />
 );
 
 export default withGlossaryListener;

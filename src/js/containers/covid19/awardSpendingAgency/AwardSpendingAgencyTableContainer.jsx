@@ -37,40 +37,40 @@ const awardSpendingAgencyTableColumns = (type) => {
                 {
                     title: 'obligation',
                     displayName: (
-                      <div className="table-header-label__title">
-                        <div>Award Obligations</div>
-                          <div>(Loan Subsidy Cost)</div>
-                      </div>
+                        <div className="table-header-label__title">
+                            <div>Award Obligations</div>
+                                <div>(Loan Subsidy Cost)</div>
+                        </div>
                     ),
                     right: true
                 },
                 {
                     title: 'outlay',
                     displayName: (
-                      <div className="table-header-label__title">
-                        <div>Award Outlays</div>
-                          <div>(Loan Subsidy Cost)</div>
-                      </div>
+                        <div className="table-header-label__title">
+                            <div>Award Outlays</div>
+                                <div>(Loan Subsidy Cost)</div>
+                        </div>
                     ),
                     right: true
                 },
                 {
                     title: 'faceValueOfLoan',
                     displayName: (
-                      <div className="table-header-label__title">
-                        <div>Face Value</div>
-                          <div>of Loans</div>
-                      </div>
+                        <div className="table-header-label__title">
+                            <div>Face Value</div>
+                                <div>of Loans</div>
+                        </div>
                     ),
                     right: true
                 },
                 {
                     title: 'awardCount',
                     displayName: (
-                      <div className="table-header-label__title">
-                        <div>Number</div>
-                          <div>of Awards</div>
-                      </div>
+                        <div className="table-header-label__title">
+                            <div>Number</div>
+                                <div>of Awards</div>
+                        </div>
                     ),
                     right: true
                 }
@@ -95,10 +95,10 @@ const awardSpendingAgencyTableColumns = (type) => {
             {
                 title: 'awardCount',
                 displayName: (
-                  <div className="table-header-label__title">
-                    <div>Number</div>
-                      <div>of Awards</div>
-                  </div>
+                    <div className="table-header-label__title">
+                        <div>Number</div>
+                            <div>of Awards</div>
+                    </div>
                 ),
                 right: true
             }
@@ -147,9 +147,9 @@ const AwardSpendingAgencyTableContainer = (props) => {
 
         setUnlinkedDataClass(true);
         const unlinkedColumn = (
-          <div>
-            {unlinkedName}
-          </div>
+            <div>
+                {unlinkedName}
+            </div>
         );
         unlinkedData.name = unlinkedColumn;
         const unlinkedRow = Object.create(CoreSpendingTableRow);
@@ -194,22 +194,22 @@ const AwardSpendingAgencyTableContainer = (props) => {
             const code = awardSpendingByAgencyRow.code;
             if (AGENCYV2_RELEASED && !slugsError && code && toptierCodes[code] && link) {
                 link = (
-                  <Link
-                    className="agency-profile__link"
-                    onClick={clickedAgencyProfile.bind(null, `${awardSpendingByAgencyRow.description}`)}
-                    to={`/${AGENCY_LINK}/${toptierCodes[code]}`}>
-                    {link}
-                  </Link>
+                    <Link
+                        className="agency-profile__link"
+                        onClick={clickedAgencyProfile.bind(null, `${awardSpendingByAgencyRow.description}`)}
+                        to={`/${AGENCY_LINK}/${toptierCodes[code]}`}>
+                        {link}
+                    </Link>
                 );
             }
             else if (!AGENCYV2_RELEASED && link && id) {
                 link = (
-                  <Link
-                    className="agency-profile__link"
-                    onClick={clickedAgencyProfile.bind(null, `${awardSpendingByAgencyRow.description}`)}
-                    to={`/agency/${id}`}>
-                    {link}
-                  </Link>
+                    <Link
+                        className="agency-profile__link"
+                        onClick={clickedAgencyProfile.bind(null, `${awardSpendingByAgencyRow.description}`)}
+                        to={`/agency/${id}`}>
+                        {link}
+                    </Link>
                 );
             }
             return {
@@ -329,36 +329,36 @@ const AwardSpendingAgencyTableContainer = (props) => {
     }, []);
 
     return (
-      <div ref={tableWrapperRef}>
-        <SearchBar onSearch={setQuery} />
-          <Pagination
-            currentPage={currentPage}
-            changePage={changeCurrentPage}
-            changeLimit={changePageSize}
-            limitSelector
-            resultsText
-            pageSize={pageSize}
-            totalItems={totalItems} />
-              <div ref={tableRef} className={unlinkedDataClass ? 'table-wrapper unlinked-data' : 'table-wrapper'}>
-                <Table
-                  expandable
-                  rows={results}
-                  columns={awardSpendingAgencyTableColumns(props.type)}
-                  currentSort={{ field: sort, direction: order }}
-                  updateSort={updateSort}
-                  divider={props.subHeading}
-                  error={error}
-                  loading={loading} />
-              </div>
+        <div ref={tableWrapperRef}>
+            <SearchBar onSearch={setQuery} />
                 <Pagination
-                  currentPage={currentPage}
-                  changePage={changeCurrentPage}
-                  changeLimit={changePageSize}
-                  limitSelector
-                  resultsText
-                  pageSize={pageSize}
-                  totalItems={totalItems} />
-      </div>
+                    currentPage={currentPage}
+                    changePage={changeCurrentPage}
+                    changeLimit={changePageSize}
+                    limitSelector
+                    resultsText
+                    pageSize={pageSize}
+                    totalItems={totalItems} />
+                        <div ref={tableRef} className={unlinkedDataClass ? 'table-wrapper unlinked-data' : 'table-wrapper'}>
+                            <Table
+                                expandable
+                                rows={results}
+                                columns={awardSpendingAgencyTableColumns(props.type)}
+                                currentSort={{ field: sort, direction: order }}
+                                updateSort={updateSort}
+                                divider={props.subHeading}
+                                error={error}
+                                loading={loading} />
+                        </div>
+                            <Pagination
+                                currentPage={currentPage}
+                                changePage={changeCurrentPage}
+                                changeLimit={changePageSize}
+                                limitSelector
+                                resultsText
+                                pageSize={pageSize}
+                                totalItems={totalItems} />
+        </div>
     );
 };
 

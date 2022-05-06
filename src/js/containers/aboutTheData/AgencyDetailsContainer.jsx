@@ -58,74 +58,74 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
             const rowData = Object.create(BaseReportingPeriodRow);
             rowData.populate(row);
             return [
-              <div className="generic-cell-content">{rowData.reportingPeriod}</div>,
-              <div className="generic-cell-content">{rowData.percentOfBudget}</div>,
-              !rowData._mostRecentPublicationDate ?
-                <div className="generic-cell-content">{rowData.mostRecentPublicationDate}</div> :
-                <CellWithModal
-                  data={rowData.mostRecentPublicationDate}
-                  openModal={modalClick}
-                  modalType="publicationDates"
-                  agencyData={{
+                <div className="generic-cell-content">{rowData.reportingPeriod}</div>,
+                <div className="generic-cell-content">{rowData.percentOfBudget}</div>,
+                !rowData._mostRecentPublicationDate ?
+                    <div className="generic-cell-content">{rowData.mostRecentPublicationDate}</div> :
+                    <CellWithModal
+                        data={rowData.mostRecentPublicationDate}
+                        openModal={modalClick}
+                        modalType="publicationDates"
+                        agencyData={{
                             fiscalYear: rowData.fiscalYear,
                             fiscalPeriod: rowData.fiscalPeriod,
                             agencyName,
                             agencyCode
                         }} />,
-              isNull(rowData._discrepancyCount) ?
-                <div className="generic-cell-content">{rowData.discrepancyCount}</div> :
-                <CellWithModal
-                  data={rowData.discrepancyCount}
-                  openModal={modalClick}
-                  modalType="missingAccountBalance"
-                  agencyData={{
+                isNull(rowData._discrepancyCount) ?
+                    <div className="generic-cell-content">{rowData.discrepancyCount}</div> :
+                    <CellWithModal
+                        data={rowData.discrepancyCount}
+                        openModal={modalClick}
+                        modalType="missingAccountBalance"
+                        agencyData={{
                             fiscalYear: rowData.fiscalYear,
                             fiscalPeriod: rowData.fiscalPeriod,
                             agencyName,
                             agencyCode,
                             gtasObligationTotal: rowData._gtasObligationTotal
                         }} />,
-              isNull(rowData._obligationDifference) ?
-                <div className="generic-cell-content">{rowData.obligationDifference}</div> :
-                <CellWithModal
-                  data={rowData.obligationDifference}
-                  openModal={modalClick}
-                  modalType="reportingDifferences"
-                  agencyData={{
+                isNull(rowData._obligationDifference) ?
+                    <div className="generic-cell-content">{rowData.obligationDifference}</div> :
+                    <CellWithModal
+                        data={rowData.obligationDifference}
+                        openModal={modalClick}
+                        modalType="reportingDifferences"
+                        agencyData={{
                             fiscalYear: rowData.fiscalYear,
                             fiscalPeriod: rowData.fiscalPeriod,
                             agencyName,
                             agencyCode
                         }} />,
-              isNull(rowData._unlinkedContracts) ?
-                <div className="generic-cell-content">{rowData.unlinkedContracts}</div> :
-                <CellWithModal
-                  data={rowData.unlinkedContracts}
-                  openModal={modalClick}
-                  modalType="unlinkedData"
-                  agencyData={{
+                isNull(rowData._unlinkedContracts) ?
+                    <div className="generic-cell-content">{rowData.unlinkedContracts}</div> :
+                    <CellWithModal
+                        data={rowData.unlinkedContracts}
+                        openModal={modalClick}
+                        modalType="unlinkedData"
+                        agencyData={{
                             agencyName,
                             agencyCode,
                             fiscalYear: rowData.fiscalYear,
                             fiscalPeriod: rowData.fiscalPeriod,
                             type: 'Contract'
                         }} />,
-              isNull(rowData._unlinkedAssistance) ?
-                <div className="generic-cell-content">{rowData.unlinkedAssistance}</div> :
-                <CellWithModal
-                  data={rowData.unlinkedAssistance}
-                  openModal={modalClick}
-                  modalType="unlinkedData"
-                  agencyData={{
+                isNull(rowData._unlinkedAssistance) ?
+                    <div className="generic-cell-content">{rowData.unlinkedAssistance}</div> :
+                    <CellWithModal
+                        data={rowData.unlinkedAssistance}
+                        openModal={modalClick}
+                        modalType="unlinkedData"
+                        agencyData={{
                             agencyName,
                             agencyCode,
                             fiscalYear: rowData.fiscalYear,
                             fiscalPeriod: rowData.fiscalPeriod,
                             type: 'Assistance'
                         }} />,
-              <div className="generic-cell-content">
-                <AgencyDownloadLinkCell file={rowData.assuranceStatement} />
-              </div>
+                <div className="generic-cell-content">
+                    <AgencyDownloadLinkCell file={rowData.assuranceStatement} />
+                </div>
             ];
         });
 
@@ -191,25 +191,25 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
 
     return (
         <>
-          <div className="table-container" ref={tableRef} onScroll={handleScroll}>
-            <Table
-              rows={rows}
-              classNames={`${verticalStickyClass} ${horizontalStickyClass}`}
-              columns={agencyDetailsColumns}
-              updateSort={handleUpdateSort}
-              currentSort={sortStatus}
-              loading={loading}
-              error={error}
-              errorMessage={errorMessage} />
-          </div>
-            <Pagination
-              currentPage={currentPage}
-              changePage={changeCurrentPage}
-              changeLimit={changePageSize}
-              limitSelector
-              resultsText
-              pageSize={pageSize}
-              totalItems={totalItems} />
+            <div className="table-container" ref={tableRef} onScroll={handleScroll}>
+                <Table
+                    rows={rows}
+                    classNames={`${verticalStickyClass} ${horizontalStickyClass}`}
+                    columns={agencyDetailsColumns}
+                    updateSort={handleUpdateSort}
+                    currentSort={sortStatus}
+                    loading={loading}
+                    error={error}
+                    errorMessage={errorMessage} />
+            </div>
+                <Pagination
+                    currentPage={currentPage}
+                    changePage={changeCurrentPage}
+                    changeLimit={changePageSize}
+                    limitSelector
+                    resultsText
+                    pageSize={pageSize}
+                    totalItems={totalItems} />
         </>
     );
 };

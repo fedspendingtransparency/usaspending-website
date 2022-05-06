@@ -50,11 +50,11 @@ const withDefCodes = (WrappedComponent) => (props) => {
     const [errorMsg, isLoading, defCodes] = useDefCodes();
 
     return (
-      <WrappedComponent
-        defCodeFetchError={errorMsg}
-        areDefCodesLoading={isLoading}
-        defCodes={defCodes}
-        {...props} />
+        <WrappedComponent
+            defCodeFetchError={errorMsg}
+            areDefCodesLoading={isLoading}
+            defCodes={defCodes}
+            {...props} />
     );
 };
 

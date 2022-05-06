@@ -193,11 +193,7 @@ const AgenciesContainer = ({
         if (selectedFy && selectedPeriod) {
             fetchTableData();
         }
-    }, [
-        activeTab,
-        submissionsPage,
-        publicationsPage
-    ]);
+    }, [activeTab, submissionsPage, publicationsPage]);
 
     useEffect(() => {
         const shouldResetPg = (
@@ -223,8 +219,7 @@ const AgenciesContainer = ({
             // reset to pg 1, triggering a refetch
             changePublicationsPg(1);
         }
-    }, [
-        federalTotals,
+    }, [federalTotals,
         selectedFy,
         selectedPeriod,
         submissionsSort,
@@ -267,24 +262,24 @@ const AgenciesContainer = ({
             (<DrilldownCell data={agencyName} id={code} searchTerm={searchTerm} />),
             (<div className="generic-cell-content">{percentageOfTotalFederalBudget}</div>),
             (!_mostRecentPublicationDate ?
-              <div className="generic-cell-content">{mostRecentPublicationDate}</div> :
-              <CellWithModal
-                data={mostRecentPublicationDate}
-                openModal={openModal}
-                modalType="publicationDates"
-                agencyData={{
+                <div className="generic-cell-content">{mostRecentPublicationDate}</div> :
+                <CellWithModal
+                    data={mostRecentPublicationDate}
+                    openModal={openModal}
+                    modalType="publicationDates"
+                    agencyData={{
                         agencyName,
                         agencyCode: code,
                         fiscalYear: selectedFy,
                         fiscalPeriod: selectedPeriod?.id
                     }} />),
             (isNull(_discrepancyCount) ?
-              <div className="generic-cell-content">{GtasNotInFileA}</div> :
-              <CellWithModal
-                data={GtasNotInFileA}
-                openModal={openModal}
-                modalType="missingAccountBalance"
-                agencyData={{
+                <div className="generic-cell-content">{GtasNotInFileA}</div> :
+                <CellWithModal
+                    data={GtasNotInFileA}
+                    openModal={openModal}
+                    modalType="missingAccountBalance"
+                    agencyData={{
                         agencyName,
                         gtasObligationTotal: _gtasObligationTotal,
                         agencyCode: code,
@@ -292,24 +287,24 @@ const AgenciesContainer = ({
                         fiscalPeriod: selectedPeriod?.id
                     }} />),
             (isNull(_obligationDifference) ?
-              <div className="generic-cell-content">{obligationDifference}</div> :
-              <CellWithModal
-                data={obligationDifference}
-                openModal={openModal}
-                modalType="reportingDifferences"
-                agencyData={{
+                <div className="generic-cell-content">{obligationDifference}</div> :
+                <CellWithModal
+                    data={obligationDifference}
+                    openModal={openModal}
+                    modalType="reportingDifferences"
+                    agencyData={{
                         agencyName,
                         agencyCode: code,
                         fiscalYear: selectedFy,
                         fiscalPeriod: selectedPeriod?.id
                     }} />),
             (isNull(_unlinkedContracts) ?
-              <div className="generic-cell-content">{unlinkedContracts}</div> :
-              <CellWithModal
-                data={unlinkedContracts}
-                openModal={openModal}
-                modalType="unlinkedData"
-                agencyData={{
+                <div className="generic-cell-content">{unlinkedContracts}</div> :
+                <CellWithModal
+                    data={unlinkedContracts}
+                    openModal={openModal}
+                    modalType="unlinkedData"
+                    agencyData={{
                         agencyName,
                         agencyCode: code,
                         fiscalYear: selectedFy,
@@ -317,12 +312,12 @@ const AgenciesContainer = ({
                         type: 'Contract'
                     }} />),
             (isNull(_unlinkedAssistance) ?
-              <div className="generic-cell-content">{unlinkedAssistance}</div> :
-              <CellWithModal
-                data={unlinkedAssistance}
-                openModal={openModal}
-                modalType="unlinkedData"
-                agencyData={{
+                <div className="generic-cell-content">{unlinkedAssistance}</div> :
+                <CellWithModal
+                    data={unlinkedAssistance}
+                    openModal={openModal}
+                    modalType="unlinkedData"
+                    agencyData={{
                         agencyName,
                         agencyCode: code,
                         fiscalYear: selectedFy,
@@ -352,42 +347,42 @@ const AgenciesContainer = ({
 
     return (
         <>
-          <div className={`table-container table-container_${activeTab}`} ref={tableRef} onScroll={handleScroll}>
-            {activeTab === 'submissions' && (
-            <Table
-              rows={searchTerm ? renderDetails(submissionsSearchResults) : renderDetails(allSubmissions)}
-              classNames={`${verticalStickyClass} ${horizontalStickyClass} ${areSubmissionsLoading ? 'table-loading' : ''}`}
-              columns={agenciesTableColumns[activeTab]}
-              updateSort={handleUpdateSort}
-              currentSort={{
+            <div className={`table-container table-container_${activeTab}`} ref={tableRef} onScroll={handleScroll}>
+                {activeTab === 'submissions' && (
+                <Table
+                    rows={searchTerm ? renderDetails(submissionsSearchResults) : renderDetails(allSubmissions)}
+                    classNames={`${verticalStickyClass} ${horizontalStickyClass} ${areSubmissionsLoading ? 'table-loading' : ''}`}
+                    columns={agenciesTableColumns[activeTab]}
+                    updateSort={handleUpdateSort}
+                    currentSort={{
                             field: submissionsSort[0],
                             direction: submissionsSort[1]
                         }}
-              error={error}
-              loading={areSubmissionsLoading} />
+                    error={error}
+                    loading={areSubmissionsLoading} />
                 )}
-            {activeTab === 'publications' && (
-            <Table
-              rows={searchTerm ? renderDates(publicationsSearchResults, selectedFy) : renderDates(allPublications, selectedFy)}
-              classNames={`${verticalStickyClass} ${horizontalStickyClass} ${arePublicationsLoading ? 'table-loading' : ''}`}
-              columns={agenciesTableColumns[activeTab](selectedFy)}
-              updateSort={handleUpdateSort}
-              currentSort={{
+                {activeTab === 'publications' && (
+                <Table
+                    rows={searchTerm ? renderDates(publicationsSearchResults, selectedFy) : renderDates(allPublications, selectedFy)}
+                    classNames={`${verticalStickyClass} ${horizontalStickyClass} ${arePublicationsLoading ? 'table-loading' : ''}`}
+                    columns={agenciesTableColumns[activeTab](selectedFy)}
+                    updateSort={handleUpdateSort}
+                    currentSort={{
                             field: publicationsSort[0],
                             direction: publicationsSort[1]
                         }}
-              error={error}
-              loading={arePublicationsLoading} />
+                    error={error}
+                    loading={arePublicationsLoading} />
                 )}
-          </div>
-            <Pagination
-              resultsText
-              limitSelector
-              changeLimit={handleLimitChange}
-              changePage={handlePageChange}
-              currentPage={activeTab === 'submissions' ? submissionsPage : publicationsPage}
-              pageSize={activeTab === 'submissions' ? submissionsLimit : publicationsLimit}
-              totalItems={activeTab === 'submissions' ? totalSubmissionItems : totalPublicationItems} />
+            </div>
+                <Pagination
+                    resultsText
+                    limitSelector
+                    changeLimit={handleLimitChange}
+                    changePage={handlePageChange}
+                    currentPage={activeTab === 'submissions' ? submissionsPage : publicationsPage}
+                    pageSize={activeTab === 'submissions' ? submissionsLimit : publicationsLimit}
+                    totalItems={activeTab === 'submissions' ? totalSubmissionItems : totalPublicationItems} />
         </>
     );
 };

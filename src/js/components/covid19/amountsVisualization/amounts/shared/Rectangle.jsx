@@ -73,28 +73,28 @@ const Rectangle = ({
         }
     }, [scale, overviewData, publicLaw === 'american-rescue-plan']);
     return (
-      <g
-        tabIndex="0"
-        aria-label={data.description}
-        data-id={dataId}
-        data-tooltip={tooltipId}
-        onFocus={displayTooltip}
-        onBlur={hideTooltip}>
-          <desc>{data.description}</desc>
-            <rect
-              className={`${className || ''} ${showTooltip === tooltipId ? 'highlight' : ''}`}
-              data-id={dataId}
-              data-tooltip={tooltipId}
-              x={data.x}
-              y={data.y}
-              width={data.width}
-              height={data.height}
-              fill={data.fill}
-              stroke={data.stroke}
-              strokeWidth={lineStrokeWidth}
-              onMouseMove={displayTooltip}
-              onMouseLeave={hideTooltip} />
-      </g>
+        <g
+            tabIndex="0"
+            aria-label={data.description}
+            data-id={dataId}
+            data-tooltip={tooltipId}
+            onFocus={displayTooltip}
+            onBlur={hideTooltip}>
+                <desc>{data.description}</desc>
+                    <rect
+                        className={`${className || ''} ${showTooltip === tooltipId ? 'highlight' : ''}`}
+                        data-id={dataId}
+                        data-tooltip={tooltipId}
+                        x={data.x}
+                        y={data.y}
+                        width={data.width}
+                        height={data.height}
+                        fill={data.fill}
+                        stroke={data.stroke}
+                        strokeWidth={lineStrokeWidth}
+                        onMouseMove={displayTooltip}
+                        onMouseLeave={hideTooltip} />
+        </g>
     );
 };
 
