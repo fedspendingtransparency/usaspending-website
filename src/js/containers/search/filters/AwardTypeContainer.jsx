@@ -46,11 +46,11 @@ export class AwardTypeContainer extends React.Component {
 
     render() {
         return (
-          <AwardType
-            {...this.props}
-            dirtyFilters={this.dirtyFilters()}
-            toggleCheckboxType={this.toggleAwardType}
-            bulkTypeChange={this.bulkAwardTypeChange} />
+            <AwardType
+                {...this.props}
+                dirtyFilters={this.dirtyFilters()}
+                toggleCheckboxType={this.toggleAwardType}
+                bulkTypeChange={this.bulkAwardTypeChange} />
         );
     }
 }

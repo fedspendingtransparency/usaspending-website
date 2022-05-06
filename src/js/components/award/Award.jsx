@@ -112,44 +112,44 @@ export default class Award extends React.Component {
         if (!overview) return null;
         if (overview.category === 'contract') {
             return (
-              <ContractContent
-                awardId={awardId}
-                overview={overview}
-                counts={{ subawardCount: overview.subawardCount }}
-                jumpToSection={this.jumpToSection}
-                isSubAwardIdClicked={this.props.isSubAwardIdClicked}
-                subAwardIdClicked={this.props.subAwardIdClicked}
-                defCodes={this.props.defCodes} />
+                <ContractContent
+                    awardId={awardId}
+                    overview={overview}
+                    counts={{ subawardCount: overview.subawardCount }}
+                    jumpToSection={this.jumpToSection}
+                    isSubAwardIdClicked={this.props.isSubAwardIdClicked}
+                    subAwardIdClicked={this.props.subAwardIdClicked}
+                    defCodes={this.props.defCodes} />
             );
         }
         else if (overview.category === 'idv') {
             return (
-              <IdvContent
-                awardId={awardId}
-                overview={overview}
-                details={this.props.award.idvDetails}
-                jumpToSection={this.jumpToSection}
-                defCodes={this.props.defCodes} />
+                <IdvContent
+                    awardId={awardId}
+                    overview={overview}
+                    details={this.props.award.idvDetails}
+                    jumpToSection={this.jumpToSection}
+                    defCodes={this.props.defCodes} />
             );
         }
         else if (this.props.noAward) {
             return (
-              <div className="wrapper">
-                <Error
-                  title="Invalid Award ID"
-                  message="The award ID provided is invalid.
+                <div className="wrapper">
+                    <Error
+                        title="Invalid Award ID"
+                        message="The award ID provided is invalid.
                         Please check the ID and try again." />
-              </div>
+                </div>
             );
         }
         return (
-          <FinancialAssistanceContent
-            awardId={awardId}
-            overview={overview}
-            jumpToSection={this.jumpToSection}
-            isSubAwardIdClicked={this.props.isSubAwardIdClicked}
-            subAwardIdClicked={this.props.subAwardIdClicked}
-            defCodes={this.props.defCodes} />
+            <FinancialAssistanceContent
+                awardId={awardId}
+                overview={overview}
+                jumpToSection={this.jumpToSection}
+                isSubAwardIdClicked={this.props.isSubAwardIdClicked}
+                subAwardIdClicked={this.props.subAwardIdClicked}
+                defCodes={this.props.defCodes} />
         );
     }
 
@@ -162,27 +162,27 @@ export default class Award extends React.Component {
             ? 'Indefinite Delivery Vehicle'
             : `${startCase(overview?.category)} Summary`;
         return (
-          <PageWrapper
-            pageName="Award Profile"
-            classNames="usa-da-award-v2-page"
-            overLine="Award Profile"
-            metaTagProps={overview ? MetaTagHelper.awardPageMetaTags(overview) : {}}
-            title={isLoading ? '--' : title}
-            toolBarComponents={[
-              <ShareIcon
-                url={getBaseUrl(slug)}
-                onShareOptionClick={this.onShareClick} />,
-              <DownloadIconButton
-                isEnabled={!this.props.noAward}
-                downloadInFlight={this.props.isDownloadPending}
-                onClick={this.props.downloadData} />
+            <PageWrapper
+                pageName="Award Profile"
+                classNames="usa-da-award-v2-page"
+                overLine="Award Profile"
+                metaTagProps={overview ? MetaTagHelper.awardPageMetaTags(overview) : {}}
+                title={isLoading ? '--' : title}
+                toolBarComponents={[
+                    <ShareIcon
+                        url={getBaseUrl(slug)}
+                        onShareOptionClick={this.onShareClick} />,
+                    <DownloadIconButton
+                        isEnabled={!this.props.noAward}
+                        downloadInFlight={this.props.isDownloadPending}
+                        onClick={this.props.downloadData} />
                 ]}>
-                  <LoadingWrapper isLoading={isLoading}>
-                    <main className={!this.props.noAward ? 'award-content' : ''}>
-                      {content}
-                    </main>
-                  </LoadingWrapper>
-          </PageWrapper>
+                    <LoadingWrapper isLoading={isLoading}>
+                        <main className={!this.props.noAward ? 'award-content' : ''}>
+                            {content}
+                        </main>
+                    </LoadingWrapper>
+            </PageWrapper>
         );
     }
 }

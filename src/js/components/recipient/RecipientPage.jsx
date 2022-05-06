@@ -55,18 +55,18 @@ export const RecipientPage = ({
     };
 
     let content = (
-      <RecipientContent
-        id={id}
-        showChildRecipientModal={showChildRecipientModal}
-        showAlternateNamesRecipientModal={showAlternateModal}
-        recipient={recipient}
-        loading={loading}
-        error={error} />
+        <RecipientContent
+            id={id}
+            showChildRecipientModal={showChildRecipientModal}
+            showAlternateNamesRecipientModal={showAlternateModal}
+            recipient={recipient}
+            loading={loading}
+            error={error} />
     );
     if (error) {
         content = (<Error
-          title="Invalid Recipient"
-          message="The recipient ID provided is invalid. Please check the ID and try again." />);
+            title="Invalid Recipient"
+            message="The recipient ID provided is invalid. Please check the ID and try again." />);
     }
 
     const backgroundColor = {
@@ -77,41 +77,41 @@ export const RecipientPage = ({
     };
 
     return (
-      <PageWrapper
-        pageName="Recipient Profile"
-        classNames="usa-da-recipient-page"
-        overLine="Recipient Profile"
-        title={recipient.overview.name}
-        metaTagProps={recipient.overview.id && !loading ? recipientPageMetaTags(recipient.overview) : {}}
-        toolBarComponents={[
-          <FiscalYearPicker
-            backgroundColor={backgroundColor}
-            selectedFy={recipient?.fy}
-            handleFyChange={pickedFy}
-            options={getFiscalYearsWithLatestAndAll(earliestFiscalYear, currentFiscalYear())} />,
-          <ShareIcon
-            onShareOptionClick={handleShare}
-            url={getBaseUrl(slug)} />
+        <PageWrapper
+            pageName="Recipient Profile"
+            classNames="usa-da-recipient-page"
+            overLine="Recipient Profile"
+            title={recipient.overview.name}
+            metaTagProps={recipient.overview.id && !loading ? recipientPageMetaTags(recipient.overview) : {}}
+            toolBarComponents={[
+                <FiscalYearPicker
+                    backgroundColor={backgroundColor}
+                    selectedFy={recipient?.fy}
+                    handleFyChange={pickedFy}
+                    options={getFiscalYearsWithLatestAndAll(earliestFiscalYear, currentFiscalYear())} />,
+                <ShareIcon
+                    onShareOptionClick={handleShare}
+                    url={getBaseUrl(slug)} />
             ]}>
             <>
-              <div className="info-banner-container">
-                <RecipientInfoBanner />
-              </div>
-                <main id="main-content" className="main-content">
-                  <LoadingWrapper isLoading={loading}>
-                    {content}
-                      <ChildRecipientModalContainer
-                        mounted={isChildModalVisible}
-                        hideModal={hideChildRecipientModal}
-                        recipient={recipient} />
-                          <AlternateNamesRecipientModalContainer
-                            mounted={isAlternateModalVisible}
-                            hideModal={hideAlternateModal}
-                            recipient={recipient} />
-                  </LoadingWrapper>
-                </main>
+                <div className="info-banner-container">
+                    <RecipientInfoBanner />
+                </div>
+                    <main id="main-content" className="main-content">
+                        <LoadingWrapper isLoading={loading}>
+                            {content}
+                                <ChildRecipientModalContainer
+                                    mounted={isChildModalVisible}
+                                    hideModal={hideChildRecipientModal}
+                                    recipient={recipient} />
+                                        <AlternateNamesRecipientModalContainer
+                                            mounted={isAlternateModalVisible}
+                                            hideModal={hideAlternateModal}
+                                            recipient={recipient} />
+                        </LoadingWrapper>
+                    </main>
             </>
-      </PageWrapper>
+        </PageWrapper>
     );
 };
 

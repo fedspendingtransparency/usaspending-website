@@ -49,52 +49,52 @@ const IdvContent = ({
         : null;
 
     return (
-      <AwardPageWrapper
-        awardType="idv"
-        defCodes={getAllNetPositiveIdvFileCDefCodes(overview, details)}
-        title={overview.title}
-        lastModifiedDateLong={overview.dates.lastModifiedDateLong}
-        glossaryLink={glossaryLink}
-        overviewType={overview.type}
-        identifier={overview.piid}
-        dates={overview.dates}>
-          <AwardSection type="row" className="award-overview" id="award-overview">
-            <AwardOverviewLeftSection
-              awardingAgency={overview.awardingAgency}
-              recipient={overview.recipient} />
-                <AwardOverviewRightSection
-                  jumpToSection={jumpToSection}
-                  counts={details}
-                  overview={overview}
-                  setRelatedAwardsTab={setRelatedAwardsTab} />
-          </AwardSection>
-            <AwardSection type="row">
-              <IdvAwardAmountsSectionContainer
-                jumpToSection={jumpToSection}
-                awardId={awardId}
-                overview={overview} />
-                  <AwardDescription
-                    awardType={overview.category}
-                    awardId={awardId}
-                    description={overview.description}
-                    naics={overview.naics}
-                    psc={overview.psc} />
-            </AwardSection>
-              <AwardSection type="row">
-                <IdvActivityContainer />
-                  <FederalAccountsSection
-                    awardType={overview.category}
-                    jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
-              </AwardSection>
-                <ReferencedAwardsContainer
-                  tableType={relatedAwardsActiveTab}
-                  switchTab={setRelatedAwardsTab} />
-                    <AwardHistory
-                      activeTab={awardHistoryActiveTab}
-                      setActiveTab={setAwardHistoryTab}
-                      overview={overview} />
-                        <AdditionalInfo overview={overview} />
-      </AwardPageWrapper>
+        <AwardPageWrapper
+            awardType="idv"
+            defCodes={getAllNetPositiveIdvFileCDefCodes(overview, details)}
+            title={overview.title}
+            lastModifiedDateLong={overview.dates.lastModifiedDateLong}
+            glossaryLink={glossaryLink}
+            overviewType={overview.type}
+            identifier={overview.piid}
+            dates={overview.dates}>
+                <AwardSection type="row" className="award-overview" id="award-overview">
+                    <AwardOverviewLeftSection
+                        awardingAgency={overview.awardingAgency}
+                        recipient={overview.recipient} />
+                            <AwardOverviewRightSection
+                                jumpToSection={jumpToSection}
+                                counts={details}
+                                overview={overview}
+                                setRelatedAwardsTab={setRelatedAwardsTab} />
+                </AwardSection>
+                    <AwardSection type="row">
+                        <IdvAwardAmountsSectionContainer
+                            jumpToSection={jumpToSection}
+                            awardId={awardId}
+                            overview={overview} />
+                                <AwardDescription
+                                    awardType={overview.category}
+                                    awardId={awardId}
+                                    description={overview.description}
+                                    naics={overview.naics}
+                                    psc={overview.psc} />
+                    </AwardSection>
+                        <AwardSection type="row">
+                            <IdvActivityContainer />
+                                <FederalAccountsSection
+                                  awardType={overview.category}
+                                  jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
+                        </AwardSection>
+                            <ReferencedAwardsContainer
+                              tableType={relatedAwardsActiveTab}
+                              switchTab={setRelatedAwardsTab} />
+                                <AwardHistory
+                                  activeTab={awardHistoryActiveTab}
+                                  setActiveTab={setAwardHistoryTab}
+                                  overview={overview} />
+                                      <AdditionalInfo overview={overview} />
+        </AwardPageWrapper>
     );
 };
 

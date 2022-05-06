@@ -73,85 +73,85 @@ const ContractGrantActivityChartVerticalLines = ({
     const descriptions = [startLineValue, todayLineValue, endLineValue, potentialEndLineValue]
         .map((line, i) => `A vertical line representing the ${lineData[i].text}, ${moment(lineData[i].date).format("dddd, MMMM Do YYYY") || ''}`);
     return (
-      <g className="contract-grant-activity-chart__vertical-lines">
-        {/* {createAllTheLines()} */}
-        {/* start line */}
-        {xScale && <SVGLine
-          scale={xScale}
-          y1={startLineHeight - 10}
-          y2={height}
-          textY={startLineHeight}
-          text="Start"
-          description={descriptions[0]}
-          max={xDomain[1]}
-          min={xDomain[0]}
-          position={startLineValue}
-          showTextPosition="right"
-          adjustmentX={padding.left}
-          textClassname="start"
-          lineClassname={lineData[0].classname}
-          onMouseMoveLine={showHideTooltip}
-          onMouseLeaveLine={showHideTooltip}
-          onMouseMoveText={showHideTooltip}
-          onMouseLeaveText={showHideTooltip}
-          verticalLineTextData={verticalLineTextData} />}
-        {/* today line */}
-        {xScale && <SVGLine
-          scale={xScale}
-          y1={todayLineHeight - 10}
-          y2={height}
-          textY={todayLineHeight}
-          text="Today"
-          description={descriptions[1]}
-          max={xDomain[1]}
-          min={xDomain[0]}
-          position={todayLineValue}
-          showTextPosition="left"
-          adjustmentX={padding.left}
-          textClassname="today"
-          lineClassname="today"
-          verticalLineTextData={verticalLineTextData} />}
-        {/* end line */}
-        {xScale && <SVGLine
-          scale={xScale}
-          y1={endLineHeight - 10}
-          y2={height}
-          textY={endLineHeight}
-          text={endLineText}
-          description={descriptions[2]}
-          max={xDomain[1]}
-          min={xDomain[0]}
-          position={endLineValue}
-          showTextPosition="left"
-          adjustmentX={padding.left}
-          textClassname={`${endLineClassName}`}
-          lineClassname={lineData[2].classname}
-          onMouseMoveLine={showHideTooltip}
-          onMouseLeaveLine={showHideTooltip}
-          onMouseMoveText={showHideTooltip}
-          onMouseLeaveText={showHideTooltip}
-          verticalLineTextData={verticalLineTextData} />}
-        {/* potential end line */}
-        {xScale && <SVGLine
-          scale={xScale}
-          y1={potentialEndLineHeight - 10}
-          y2={height}
-          textY={potentialEndLineHeight}
-          text="Potential End"
-          description={descriptions[3]}
-          max={xDomain[1]}
-          min={xDomain[0]}
-          position={potentialEndLineValue}
-          showTextPosition="left"
-          adjustmentX={padding.left}
-          textClassname="potential-end"
-          lineClassname={lineData[3].classname}
-          onMouseMoveLine={showHideTooltip}
-          onMouseLeaveLine={showHideTooltip}
-          onMouseMoveText={showHideTooltip}
-          onMouseLeaveText={showHideTooltip}
-          verticalLineTextData={verticalLineTextData} />}
-      </g>
+        <g className="contract-grant-activity-chart__vertical-lines">
+            {/* {createAllTheLines()} */}
+            {/* start line */}
+            {xScale && <SVGLine
+                scale={xScale}
+                y1={startLineHeight - 10}
+                y2={height}
+                textY={startLineHeight}
+                text="Start"
+                description={descriptions[0]}
+                max={xDomain[1]}
+                min={xDomain[0]}
+                position={startLineValue}
+                showTextPosition="right"
+                adjustmentX={padding.left}
+                textClassname="start"
+                lineClassname={lineData[0].classname}
+                onMouseMoveLine={showHideTooltip}
+                onMouseLeaveLine={showHideTooltip}
+                onMouseMoveText={showHideTooltip}
+                onMouseLeaveText={showHideTooltip}
+                verticalLineTextData={verticalLineTextData} />}
+            {/* today line */}
+            {xScale && <SVGLine
+                scale={xScale}
+                y1={todayLineHeight - 10}
+                y2={height}
+                textY={todayLineHeight}
+                text="Today"
+                description={descriptions[1]}
+                max={xDomain[1]}
+                min={xDomain[0]}
+                position={todayLineValue}
+                showTextPosition="left"
+                adjustmentX={padding.left}
+                textClassname="today"
+                lineClassname="today"
+                verticalLineTextData={verticalLineTextData} />}
+            {/* end line */}
+            {xScale && <SVGLine
+                scale={xScale}
+                y1={endLineHeight - 10}
+                y2={height}
+                textY={endLineHeight}
+                text={endLineText}
+                description={descriptions[2]}
+                max={xDomain[1]}
+                min={xDomain[0]}
+                position={endLineValue}
+                showTextPosition="left"
+                adjustmentX={padding.left}
+                textClassname={`${endLineClassName}`}
+                lineClassname={lineData[2].classname}
+                onMouseMoveLine={showHideTooltip}
+                onMouseLeaveLine={showHideTooltip}
+                onMouseMoveText={showHideTooltip}
+                onMouseLeaveText={showHideTooltip}
+                verticalLineTextData={verticalLineTextData} />}
+            {/* potential end line */}
+            {xScale && <SVGLine
+                scale={xScale}
+                y1={potentialEndLineHeight - 10}
+                y2={height}
+                textY={potentialEndLineHeight}
+                text="Potential End"
+                description={descriptions[3]}
+                max={xDomain[1]}
+                min={xDomain[0]}
+                position={potentialEndLineValue}
+                showTextPosition="left"
+                adjustmentX={padding.left}
+                textClassname="potential-end"
+                lineClassname={lineData[3].classname}
+                onMouseMoveLine={showHideTooltip}
+                onMouseLeaveLine={showHideTooltip}
+                onMouseMoveText={showHideTooltip}
+                onMouseLeaveText={showHideTooltip}
+                verticalLineTextData={verticalLineTextData} />}
+        </g>
     );
 };
 

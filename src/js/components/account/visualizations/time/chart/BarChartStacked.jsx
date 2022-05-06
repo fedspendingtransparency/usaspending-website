@@ -347,47 +347,47 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
         }
 
         const body = this.state.virtualChart.body.items.map((item) => (
-          <StackedBarGroup
-            {...item}
-            key={item.xValue}
-            showTooltip={this.props.showTooltip}
-            hideTooltip={this.props.hideTooltip}
-            toggleTooltip={this.props.toggleTooltip} />
+            <StackedBarGroup
+                {...item}
+                key={item.xValue}
+                showTooltip={this.props.showTooltip}
+                hideTooltip={this.props.hideTooltip}
+                toggleTooltip={this.props.toggleTooltip} />
         ));
 
         // add 20px to the top of the chart to avoid cutting off label text
         // wrap the chart contents in a group and transform it down 20px to avoid impacting
         // positioning calculations
         return (
-          <div>
-            <svg
-              className="bar-graph"
-              width={this.props.width}
-              height={this.props.height + 20}>
+            <div>
+                <svg
+                    className="bar-graph"
+                    width={this.props.width}
+                    height={this.props.height + 20}>
 
-                <BarChartYAxis
-                  {...this.state.virtualChart.yAxis}
-                  x={this.state.virtualChart.yAxis.group.x}
-                  y={this.state.virtualChart.yAxis.group.y} />
-                    <BarChartXAxis
-                      {...this.state.virtualChart.xAxis} />
+                        <BarChartYAxis
+                            {...this.state.virtualChart.yAxis}
+                            x={this.state.virtualChart.yAxis.group.x}
+                            y={this.state.virtualChart.yAxis.group.y} />
+                                <BarChartXAxis
+                                    {...this.state.virtualChart.xAxis} />
 
-                        <g
-                          className="bar-data"
-                          transform={`translate(${this.state.virtualChart.body.group.x},\
+                                        <g
+                                            className="bar-data"
+                                            transform={`translate(${this.state.virtualChart.body.group.x},\
 ${this.state.virtualChart.body.group.y})`}>
-                          {body}
-                        </g>
+                                            {body}
+                                        </g>
 
-                          <g
-                            className="legend-container"
-                            transform={`translate(${this.props.padding.left},
+                                          <g
+                                            className="legend-container"
+                                            transform={`translate(${this.props.padding.left},
                         ${this.props.height - 20})`}>
-                          <BarChartLegend legend={this.props.legend} />
-                          </g>
+                            <BarChartLegend legend={this.props.legend} />
+                                        </g>
 
-            </svg>
-          </div>
+                </svg>
+            </div>
         );
     }
 }

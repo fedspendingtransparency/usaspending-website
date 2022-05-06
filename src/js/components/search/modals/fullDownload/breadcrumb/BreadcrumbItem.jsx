@@ -64,24 +64,24 @@ const BreadcrumbItem = (props) => {
     }
 
     return (
-      <div className={`breadcrumb-item ${type}`}>
-        <button
-          className={`breadcrumb-content ${type}`}
-          onClick={props.goToStep.bind(null, props.step)}
-          disabled={isFuture || isActive || props.currentStep === props.totalSteps}
-          title={`Step ${props.step}: ${props.title}`}
-          aria-label={`Step ${props.step}: ${props.title}`}>
-            <div className="breadcrumb-step">
+        <div className={`breadcrumb-item ${type}`}>
+            <button
+                className={`breadcrumb-content ${type}`}
+                onClick={props.goToStep.bind(null, props.step)}
+                disabled={isFuture || isActive || props.currentStep === props.totalSteps}
+                title={`Step ${props.step}: ${props.title}`}
+                aria-label={`Step ${props.step}: ${props.title}`}>
+                    <div className="breadcrumb-step">
                     Step {props.step}
-            </div>
-              <div className="breadcrumb-title">
-                {props.title}
-              </div>
-                <div className={`breadcrumb-arrow ${nextStep}`}>
-                  <div className={`arrow ${arrowColor}`} />
-                </div>
-        </button>
-      </div>
+                    </div>
+                        <div className="breadcrumb-title">
+                            {props.title}
+                        </div>
+                            <div className={`breadcrumb-arrow ${nextStep}`}>
+                                <div className={`arrow ${arrowColor}`} />
+                            </div>
+            </button>
+        </div>
     );
 };
 

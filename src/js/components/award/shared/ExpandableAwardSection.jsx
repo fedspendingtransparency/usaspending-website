@@ -43,30 +43,30 @@ const ExpandableAwardSection = ({
     };
 
     const button = (
-      <button onClick={toggleButton} className={`${buttonClass} ${type}-btn`}>
-        {buttonValue}
-      </button>
+        <button onClick={toggleButton} className={`${buttonClass} ${type}-btn`}>
+            {buttonValue}
+        </button>
     );
 
     if (type === 'secondary') {
         const isContentTruncated = content.length > maxChars;
         const truncatedContent = `${content.substring(0, maxChars)}...`;
         return (
-          <p className={secondaryContainerClass}>
-            {isContentTruncated && !isExpanded
+            <p className={secondaryContainerClass}>
+                {isContentTruncated && !isExpanded
                     ? truncatedContent
                     : content
                 }
-            {isContentTruncated && button}
-          </p>
+                {isContentTruncated && button}
+            </p>
         );
     }
     return (
-      <div className={primaryContainerClass}>
-        {children}
-        {isExpanded && content}
-        {button}
-      </div>
+        <div className={primaryContainerClass}>
+            {children}
+            {isExpanded && content}
+            {button}
+        </div>
     );
 };
 

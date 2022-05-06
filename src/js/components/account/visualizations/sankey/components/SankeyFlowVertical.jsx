@@ -73,15 +73,15 @@ export default class SankeyFlowVertical extends React.Component {
         }
 
         return (
-          <g
-            transform="translate(0,0)"
-            aria-label={this.props.description}>
-              <desc>{this.props.description}</desc>
-                <path
-                  className="flow-path"
-                  d={this.state.path}
-                  style={this.props.style} />
-          </g>
+            <g
+                transform="translate(0,0)"
+                aria-label={this.props.description}>
+                    <desc>{this.props.description}</desc>
+                        <path
+                            className="flow-path"
+                            d={this.state.path}
+                            style={this.props.style} />
+            </g>
         );
     }
 }

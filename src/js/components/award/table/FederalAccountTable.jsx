@@ -64,14 +64,14 @@ export default class FedAccountTable extends React.Component {
         const isLast = columnIndex === this.tableMapping.table._order.length - 1;
 
         return (
-          <FederalAccountTableHeaderCell
-            tableMapping={this.tableMapping}
-            column={column}
-            label={displayName}
-            order={this.props.sort}
-            defaultDirection={this.tableMapping.defaultSortDirection[column]}
-            setTransactionSort={this.props.changeSort}
-            isLastColumn={isLast} />
+            <FederalAccountTableHeaderCell
+                tableMapping={this.tableMapping}
+                column={column}
+                label={displayName}
+                order={this.props.sort}
+                defaultDirection={this.tableMapping.defaultSortDirection[column]}
+                setTransactionSort={this.props.changeSort}
+                isLastColumn={isLast} />
         );
     }
 
@@ -99,11 +99,11 @@ export default class FedAccountTable extends React.Component {
             link = item.awardingAgencySlug ? `${AGENCY_LINK}/${item.awardingAgencySlug}` : null;
         }
         return (
-          <FederalAccountTableGenericCell
-            rowIndex={rowIndex}
-            data={item[column]}
-            link={link}
-            isLastColumn={isLast} />
+            <FederalAccountTableGenericCell
+                rowIndex={rowIndex}
+                data={item[column]}
+                link={link}
+                isLastColumn={isLast} />
         );
     }
 
@@ -156,29 +156,29 @@ export default class FedAccountTable extends React.Component {
         }
 
         return (
-          <div
-            className={`transactions-table ${loadingClass}`}
-            ref={(div) => {
+            <div
+                className={`transactions-table ${loadingClass}`}
+                ref={(div) => {
                     this.wrapperDiv = div;
                 }}>
-                  <IBTable
-                    rowHeight={rowHeight}
-                    rowCount={this.props.fundingResults.length}
-                    headerHeight={50}
-                    contentWidth={tableValues.width}
-                    bodyWidth={this.props.tableWidth}
-                    bodyHeight={tableHeight}
-                    columns={tableValues.columns}
-                    onReachedBottom={this.props.nextPage}
-                    headerCellRender={this.headerCellRender}
-                    bodyCellRender={this.bodyCellRender}
-                    ref={(table) => {
+                    <IBTable
+                        rowHeight={rowHeight}
+                        rowCount={this.props.fundingResults.length}
+                        headerHeight={50}
+                        contentWidth={tableValues.width}
+                        bodyWidth={this.props.tableWidth}
+                        bodyHeight={tableHeight}
+                        columns={tableValues.columns}
+                        onReachedBottom={this.props.nextPage}
+                        headerCellRender={this.headerCellRender}
+                        bodyCellRender={this.bodyCellRender}
+                        ref={(table) => {
                         this.tableComponent = table;
                     }} />
-                      <div className="results-table-message-container">
-                        {message}
-                      </div>
-          </div>
+                        <div className="results-table-message-container">
+                            {message}
+                        </div>
+            </div>
         );
     }
 }

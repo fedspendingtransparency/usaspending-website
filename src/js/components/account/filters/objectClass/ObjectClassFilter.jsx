@@ -40,25 +40,25 @@ export default class ObjectClassFilter extends React.Component {
             });
 
             return (<PrimaryCheckboxType
-              name={label}
-              value={id}
-              key={id}
-              types={childValues}
-              filters={childFilters}
-              filterType="Major Object Class"
-              selectedCheckboxes={this.props.selectedCodes}
-              toggleCheckboxType={this.toggleValue}
-              bulkTypeChange={this.props.updateMajorFilter} />);
+                name={label}
+                value={id}
+                key={id}
+                types={childValues}
+                filters={childFilters}
+                filterType="Major Object Class"
+                selectedCheckboxes={this.props.selectedCodes}
+                toggleCheckboxType={this.toggleValue}
+                bulkTypeChange={this.props.updateMajorFilter} />);
         });
 
         return (
-          <div className="account-object-class-filter search-filter">
-            <div className="checkbox-type-filter search-filter">
-              <ul className="object-classes checkbox-types">
-                { items }
-              </ul>
+            <div className="account-object-class-filter search-filter">
+                <div className="checkbox-type-filter search-filter">
+                    <ul className="object-classes checkbox-types">
+                        { items }
+                    </ul>
+                </div>
             </div>
-          </div>
         );
     }
 }

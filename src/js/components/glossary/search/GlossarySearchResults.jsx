@@ -78,12 +78,12 @@ export default class GlossarySearchResults extends React.Component {
         const orderedGroups = sortBy(groups, ['letter']);
 
         const results = orderedGroups.map((group) => (
-          <ResultGroup
-            key={group.letter}
-            title={group.letter}
-            items={group.terms}
-            search={this.props.glossary.search.input}
-            selectTerm={this.selectTerm} />
+            <ResultGroup
+                key={group.letter}
+                title={group.letter}
+                items={group.terms}
+                search={this.props.glossary.search.input}
+                selectTerm={this.selectTerm} />
         ));
 
         this.setState({
@@ -98,9 +98,9 @@ export default class GlossarySearchResults extends React.Component {
         }
 
         return (
-          <div className={`glossary-search-results ${searchLoading}`}>
-            {this.state.results}
-          </div>
+            <div className={`glossary-search-results ${searchLoading}`}>
+                {this.state.results}
+            </div>
         );
     }
 }

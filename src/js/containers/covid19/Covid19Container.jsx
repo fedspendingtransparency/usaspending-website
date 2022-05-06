@@ -118,7 +118,7 @@ const Covid19Container = () => {
     }, [defCodes, defcParams, dispatch]);
 
     return (
-      <Covid19Page loading={areDefCodesLoading || slugsLoading || overviewLoading || amountsLoading} />
+        <Covid19Page loading={areDefCodesLoading || slugsLoading || overviewLoading || amountsLoading} />
     );
 };
 

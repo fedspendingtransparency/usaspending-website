@@ -31,10 +31,10 @@ const FooterLinkToAdvancedSearchContainer = ({
     };
 
     return (
-      <FooterLinkToAdvancedSearch
-        clickedSearch={clickedSearch}
-        title={title}
-        description={description} />
+        <FooterLinkToAdvancedSearch
+            clickedSearch={clickedSearch}
+            title={title}
+            description={description} />
     );
 };
 

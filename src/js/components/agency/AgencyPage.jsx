@@ -45,23 +45,23 @@ export default class AgencyPage extends React.Component {
         }
 
         return (
-          <PageWrapper
-            pageName="Agency Profile"
-            classNames="usa-da-agency-page"
-            overLine="Agency Profile"
-            title={overview?.name}
-            metaTagProps={agencyPageMetaTags(overview)}
-            toolBarComponents={[
-              <ShareIcon
-                onShareOptionClick={this.handleShare}
-                url={getBaseUrl(`agency/${id}`)} />
+            <PageWrapper
+                pageName="Agency Profile"
+                classNames="usa-da-agency-page"
+                overLine="Agency Profile"
+                title={overview?.name}
+                metaTagProps={agencyPageMetaTags(overview)}
+                toolBarComponents={[
+                    <ShareIcon
+                        onShareOptionClick={this.handleShare}
+                        url={getBaseUrl(`agency/${id}`)} />
                 ]}>
-                  <main
-                    id="main-content"
-                    className="main-content">
-                    {content}
-                  </main>
-          </PageWrapper>
+                    <main
+                        id="main-content"
+                        className="main-content">
+                        {content}
+                    </main>
+            </PageWrapper>
         );
     }
 }

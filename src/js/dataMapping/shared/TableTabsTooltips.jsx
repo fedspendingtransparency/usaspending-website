@@ -22,11 +22,11 @@ const TableTabsTooltips = (type) => {
     const tooltipProps = tooltipContent()[type];
     if (!tooltipProps) return null;
     return (
-      <TooltipWrapper
-        className="award-section-tt"
-        icon="info"
-        tooltipPosition="left"
-        tooltipComponent={<TooltipComponent data={tooltipProps} />} />
+        <TooltipWrapper
+            className="award-section-tt"
+            icon="info"
+            tooltipPosition="left"
+            tooltipComponent={<TooltipComponent data={tooltipProps} />} />
     );
 };
 

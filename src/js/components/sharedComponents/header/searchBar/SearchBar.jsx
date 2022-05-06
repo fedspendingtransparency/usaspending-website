@@ -52,14 +52,14 @@ export default class SearchBar extends React.Component {
         }
 
         return (
-          <div className={`header-search-bar ${homepage}`}>
-            <button
-              aria-label="Search"
-              className="header-search-button"
-              onClick={this.toggleSearch}>
-                <Search alt="Search" />
-            </button>
-          </div>
+            <div className={`header-search-bar ${homepage}`}>
+                <button
+                    aria-label="Search"
+                    className="header-search-button"
+                    onClick={this.toggleSearch}>
+                        <Search alt="Search" />
+                </button>
+            </div>
         );
     }
 }

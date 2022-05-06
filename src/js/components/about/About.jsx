@@ -15,15 +15,15 @@ require('pages/about/aboutPage.scss');
 export default class About extends React.Component {
     render() {
         return (
-          <PageWrapper
-            pageName="About"
-            classNames="usa-da-about-page"
-            metaTagProps={aboutPageMetaTags}
-            title="About">
-              <main id="main-content" className="main-content">
-                <AboutContent />
-              </main>
-          </PageWrapper>
+            <PageWrapper
+                pageName="About"
+                classNames="usa-da-about-page"
+                metaTagProps={aboutPageMetaTags}
+                title="About">
+                    <main id="main-content" className="main-content">
+                        <AboutContent />
+                    </main>
+            </PageWrapper>
         );
     }
 }

@@ -237,46 +237,46 @@ export class RankVisualizationWrapperContainer extends React.Component {
         switch (this.state.spendingBy) {
             case 'awardingAgency':
                 return (
-                  <SpendingByAgencySection
-                    {...this.state}
-                    changeScope={this.changeScope}
-                    nextPage={this.nextPage}
-                    previousPage={this.previousPage} />
+                    <SpendingByAgencySection
+                        {...this.state}
+                        changeScope={this.changeScope}
+                        nextPage={this.nextPage}
+                        previousPage={this.previousPage} />
                 );
             case 'recipient':
                 return (
-                  <SpendingByRecipientSection
-                    {...this.state}
-                    changeScope={this.changeScope}
-                    nextPage={this.nextPage}
-                    previousPage={this.previousPage}
-                    recipientError={this.state.recipientError} />
+                    <SpendingByRecipientSection
+                        {...this.state}
+                        changeScope={this.changeScope}
+                        nextPage={this.nextPage}
+                        previousPage={this.previousPage}
+                        recipientError={this.state.recipientError} />
                 );
             case 'cfda':
                 return (
-                  <SpendingByCFDASection
-                    {...this.state}
-                    changeScope={this.changeScope}
-                    nextPage={this.nextPage}
-                    previousPage={this.previousPage} />
+                    <SpendingByCFDASection
+                        {...this.state}
+                        changeScope={this.changeScope}
+                        nextPage={this.nextPage}
+                        previousPage={this.previousPage} />
                 );
             case 'industryCode':
                 return (
-                  <SpendingByIndustryCodeSection
-                    {...this.state}
-                    changeScope={this.changeScope}
-                    nextPage={this.nextPage}
-                    previousPage={this.previousPage}
-                    industryCodeError={this.props.subaward} />
+                    <SpendingByIndustryCodeSection
+                        {...this.state}
+                        changeScope={this.changeScope}
+                        nextPage={this.nextPage}
+                        previousPage={this.previousPage}
+                        industryCodeError={this.props.subaward} />
                 );
             default:
                 return (
-                  <SpendingByAgencySection
-                    {...this.state}
-                    changeScope={this.changeScope}
-                    nextPage={this.nextPage}
-                    previousPage={this.previousPage}
-                    agencyType="awarding" />
+                    <SpendingByAgencySection
+                        {...this.state}
+                        changeScope={this.changeScope}
+                        nextPage={this.nextPage}
+                        previousPage={this.previousPage}
+                        agencyType="awarding" />
                 );
         }
     }
@@ -301,15 +301,15 @@ export class RankVisualizationWrapperContainer extends React.Component {
         }
 
         return (
-          <div
-            className="results-visualization-rank-section"
-            id="results-section-rank">
-              <RankVisualizationTitle
-                fieldTypes={fieldTypes}
-                changeSpendingBy={this.changeSpendingBy}
-                currentSpendingBy={this.state.spendingBy} />
-            { visualization }
-          </div>
+            <div
+                className="results-visualization-rank-section"
+                id="results-section-rank">
+                    <RankVisualizationTitle
+                        fieldTypes={fieldTypes}
+                        changeSpendingBy={this.changeSpendingBy}
+                        currentSpendingBy={this.state.spendingBy} />
+                { visualization }
+            </div>
         );
     }
 }

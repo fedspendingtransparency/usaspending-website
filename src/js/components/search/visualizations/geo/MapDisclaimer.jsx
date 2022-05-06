@@ -13,28 +13,28 @@ const propTypes = {
 };
 
 const MapDisclaimer = (props) => (
-  <div className="map-disclaimer">
-    <div className="icon">
-      <ExclamationTriangle alt="Disclaimer" />
-    </div>
-      <div className="content">
-        <div className="header">
-          <div className="title">
-                    Not seeing international data?
-          </div>
-            <button
-              className="close"
-              title="Dismiss message"
-              aria-label="Dismiss message"
-              onClick={props.closeDisclaimer}>
-                <Close alt="Dismiss message" />
-            </button>
+    <div className="map-disclaimer">
+        <div className="icon">
+            <ExclamationTriangle alt="Disclaimer" />
         </div>
-          <div className="description">
+            <div className="content">
+                <div className="header">
+                    <div className="title">
+                    Not seeing international data?
+                    </div>
+                        <button
+                            className="close"
+                            title="Dismiss message"
+                            aria-label="Dismiss message"
+                            onClick={props.closeDisclaimer}>
+                              <Close alt="Dismiss message" />
+                        </button>
+                </div>
+                    <div className="description">
                 We&apos;re currently geocoding all of our international data and will be implementing it soon.
-          </div>
-      </div>
-  </div>
+                    </div>
+            </div>
+    </div>
 );
 
 MapDisclaimer.propTypes = propTypes;

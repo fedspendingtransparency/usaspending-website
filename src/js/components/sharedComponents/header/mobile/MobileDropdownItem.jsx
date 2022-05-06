@@ -61,38 +61,38 @@ const MobileDropdownItem = ({
     if (comingSoon) {
         comingSoonClass = 'mobile-dropdown__item_coming-soon';
         comingSoonDecorator = (
-          <div className="mobile-dropdown__coming-soon">
-            <DropdownComingSoon />
-          </div>
+            <div className="mobile-dropdown__coming-soon">
+                <DropdownComingSoon />
+            </div>
         );
     }
 
     return externalLink ? (
-      <li className={`mobile-dropdown__item ${comingSoonClass}`}>
-        <a
-          href={newUrl}
-          target="_blank"
-          rel="noreferrer noopener"
-          className={`mobile-dropdown__link ${activeClass}`}
-          onClick={clickedLink}>
-          {title}
-          {isNewTab && <span className="new-badge dropdown-item"> NEW</span>}
-        </a>
-        {comingSoonDecorator}
-      </li>
+        <li className={`mobile-dropdown__item ${comingSoonClass}`}>
+            <a
+                href={newUrl}
+                target="_blank"
+                rel="noreferrer noopener"
+                className={`mobile-dropdown__link ${activeClass}`}
+                onClick={clickedLink}>
+                {title}
+                {isNewTab && <span className="new-badge dropdown-item"> NEW</span>}
+            </a>
+            {comingSoonDecorator}
+        </li>
 
     )
         : (
-          <li className={`mobile-dropdown__item ${comingSoonClass}`}>
-            <Link
-              to={newUrl}
-              className={`mobile-dropdown__link ${activeClass}`}
-              onClick={clickedLink}>
-              {title}
-              {isNewTab && <span className="new-badge dropdown-item"> NEW</span>}
-            </Link>
-            {comingSoonDecorator}
-          </li>
+            <li className={`mobile-dropdown__item ${comingSoonClass}`}>
+                <Link
+                    to={newUrl}
+                    className={`mobile-dropdown__link ${activeClass}`}
+                    onClick={clickedLink}>
+                    {title}
+                    {isNewTab && <span className="new-badge dropdown-item"> NEW</span>}
+                </Link>
+                {comingSoonDecorator}
+            </li>
         );
 };
 

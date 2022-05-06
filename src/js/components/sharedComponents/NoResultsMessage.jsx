@@ -20,16 +20,16 @@ export default class NoResultsMessage extends Component {
     render() {
         const { title, message } = this.props;
         return (
-          <div className="no-results-container">
-            <div className="no-results-title">
-              <h4>
-                {title}
-              </h4>
+            <div className="no-results-container">
+                <div className="no-results-title">
+                    <h4>
+                        {title}
+                    </h4>
+                </div>
+                    <div className="no-results-message">
+                        <p>{message}</p>
+                    </div>
             </div>
-              <div className="no-results-message">
-                <p>{message}</p>
-              </div>
-          </div>
         );
     }
 }

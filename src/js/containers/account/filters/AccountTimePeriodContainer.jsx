@@ -88,14 +88,14 @@ export class AccountTimePeriodContainer extends React.Component {
 
     render() {
         return (
-          <TimePeriod
-            {...this.props}
-            latestFy={this.props.latestPeriod.year}
-            activeTab={this.props.filterTimePeriodType}
-            timePeriods={this.state.timePeriods}
-            updateFilter={this.updateFilter}
-            changeTab={this.changeTab}
-            disableDateRange />
+            <TimePeriod
+                {...this.props}
+                latestFy={this.props.latestPeriod.year}
+                activeTab={this.props.filterTimePeriodType}
+                timePeriods={this.state.timePeriods}
+                updateFilter={this.updateFilter}
+                changeTab={this.changeTab}
+                disableDateRange />
         );
     }
 }

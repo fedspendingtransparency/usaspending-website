@@ -57,12 +57,12 @@ export class RecipientNameDUNSContainer extends React.Component {
 
     render() {
         return (
-          <RecipientName
-            changedInput={this.handleTextInput}
-            searchRecipient={this.searchRecipient}
-            value={this.state.recipientSearchString}
-            showWarning={this.state.showWarning}
-            selectedRecipients={this.props.selectedRecipients} />
+            <RecipientName
+                changedInput={this.handleTextInput}
+                searchRecipient={this.searchRecipient}
+                value={this.state.recipientSearchString}
+                showWarning={this.state.showWarning}
+                selectedRecipients={this.props.selectedRecipients} />
         );
     }
 }

@@ -125,11 +125,11 @@ export class RecipientTypeContainer extends React.Component {
 
     render() {
         return (
-          <RecipientType
-            dirtyFilters={this.dirtyFilters()}
-            selectedTypes={this.state.selectedTypes}
-            toggleCheckboxType={this.toggleRecipientType}
-            bulkTypeChange={this.bulkRecipientTypeChange} />
+            <RecipientType
+                dirtyFilters={this.dirtyFilters()}
+                selectedTypes={this.state.selectedTypes}
+                toggleCheckboxType={this.toggleRecipientType}
+                bulkTypeChange={this.bulkRecipientTypeChange} />
         );
     }
 }

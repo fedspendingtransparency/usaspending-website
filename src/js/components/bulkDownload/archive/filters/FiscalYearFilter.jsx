@@ -56,18 +56,18 @@ export default class ArchiveFiscalYearFilter extends React.Component {
     // Create the fiscal year options
 
         const FYs = fiscalYears.map((year) => (
-          <li
-            className="field-item"
-            key={`field-${year}`}>
-              <button
-                className="item-button"
-                title={year}
-                aria-label={year}
-                value={year}
-                onClick={this.handleFySelect}>
-                {year}
-              </button>
-          </li>
+            <li
+                className="field-item"
+                key={`field-${year}`}>
+                    <button
+                        className="item-button"
+                        title={year}
+                        aria-label={year}
+                        value={year}
+                        onClick={this.handleFySelect}>
+                        {year}
+                    </button>
+            </li>
         ));
 
         let showFyPicker = 'hide';
@@ -83,32 +83,32 @@ export default class ArchiveFiscalYearFilter extends React.Component {
         }
 
         return (
-          <div className="filter-picker fy-picker">
-            <label className="select-label" htmlFor="fy-select">
+            <div className="filter-picker fy-picker">
+                <label className="select-label" htmlFor="fy-select">
                     Fiscal Year
-            </label>
-              <div className="field-picker fy-select">
-                <button
-                  className="selected-button"
-                  title={this.props.currentFY}
-                  aria-label={this.props.currentFY}
-                  onClick={this.toggleFyPicker}>
-                    <div className="label">
-                      {this.props.currentFY}
-                        <span className="arrow-icon">
-                          {fyIcon}
-                        </span>
+                </label>
+                    <div className="field-picker fy-select">
+                        <button
+                            className="selected-button"
+                            title={this.props.currentFY}
+                            aria-label={this.props.currentFY}
+                            onClick={this.toggleFyPicker}>
+                                <div className="label">
+                                    {this.props.currentFY}
+                                        <span className="arrow-icon">
+                                          {fyIcon}
+                                      </span>
+                                </div>
+                        </button>
+                            <div
+                                className={`field-list ${showFyPicker}`}
+                                style={{ width: dropDownWidth }}>
+                                    <ul>
+                                      {FYs}
+                                  </ul>
+                            </div>
                     </div>
-                </button>
-                  <div
-                    className={`field-list ${showFyPicker}`}
-                    style={{ width: dropDownWidth }}>
-                      <ul>
-                        {FYs}
-                      </ul>
-                  </div>
-              </div>
-          </div>
+            </div>
         );
     }
 }

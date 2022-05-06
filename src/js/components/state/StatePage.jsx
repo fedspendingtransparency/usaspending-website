@@ -41,9 +41,9 @@ const StatePage = ({
     let content = <StateContent id={id} stateProfile={stateProfile} />;
     if (error) {
         content = (
-          <Error
-            title="Invalid State"
-            message="The state ID provided is invalid. Please check the ID and try again." />
+            <Error
+                title="Invalid State"
+                message="The state ID provided is invalid. Please check the ID and try again." />
         );
     }
 
@@ -59,28 +59,28 @@ const StatePage = ({
     };
 
     return (
-      <PageWrapper
-        pageName="State Profile"
-        classNames="usa-da-state-page"
-        overLine="state profile"
-        title={stateProfile.overview.name}
-        metaTagProps={stateProfile.overview ? statePageMetaTags(stateProfile.overview) : {}}
-        toolBarComponents={[
-          <FiscalYearPicker
-            backgroundColor={backgroundColor}
-            selectedFy={stateProfile?.fy}
-            handleFyChange={pickedFy}
-            options={getFiscalYearsWithLatestAndAll(earliestFiscalYear, currentFiscalYear())} />,
-          <ShareIcon
-            onShareOptionClick={handleShare}
-            url={getBaseUrl(slug)} />
+        <PageWrapper
+            pageName="State Profile"
+            classNames="usa-da-state-page"
+            overLine="state profile"
+            title={stateProfile.overview.name}
+            metaTagProps={stateProfile.overview ? statePageMetaTags(stateProfile.overview) : {}}
+            toolBarComponents={[
+                <FiscalYearPicker
+                    backgroundColor={backgroundColor}
+                    selectedFy={stateProfile?.fy}
+                    handleFyChange={pickedFy}
+                    options={getFiscalYearsWithLatestAndAll(earliestFiscalYear, currentFiscalYear())} />,
+                <ShareIcon
+                    onShareOptionClick={handleShare}
+                    url={getBaseUrl(slug)} />
             ]}>
-              <main id="main-content" className="main-content">
-                <LoadingWrapper isLoading={loading}>
-                  {content}
-                </LoadingWrapper>
-              </main>
-      </PageWrapper>
+                <main id="main-content" className="main-content">
+                    <LoadingWrapper isLoading={loading}>
+                        {content}
+                    </LoadingWrapper>
+                </main>
+        </PageWrapper>
     );
 };
 

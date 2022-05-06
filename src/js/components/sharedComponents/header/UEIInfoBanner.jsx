@@ -39,15 +39,15 @@ const UEIInfoBanner = (props) => {
 
     const title = 'New on USAspending: Unique Entity Identifiers';
     const content = (
-      <p>
+        <p>
             Beginning in March, UEIs will be added to USAspending displays alongside DUNS numbers.
-        <a onClick={openBannerModal} onKeyDown={openKeyedBannerModal} role="button" tabIndex={0}> Learn more and find out what changes you’ll see on the site.</a>
-      </p>
+            <a onClick={openBannerModal} onKeyDown={openKeyedBannerModal} role="button" tabIndex={0}> Learn more and find out what changes you’ll see on the site.</a>
+        </p>
     );
     const icon = (
-      <span className="info-banner__info-circle">
-        <FontAwesomeIcon size="lg" icon="info-circle" />
-      </span>
+        <span className="info-banner__info-circle">
+            <FontAwesomeIcon size="lg" icon="info-circle" />
+        </span>
     );
 
     return (

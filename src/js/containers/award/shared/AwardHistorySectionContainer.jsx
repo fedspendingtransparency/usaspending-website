@@ -109,21 +109,21 @@ export class AwardHistory extends React.Component {
         switch (activeTab) {
             case 'transaction':
                 return (
-                  <TransactionsTableContainer
-                    category={overview.category}
-                    tableWidth={tableWidth} />
+                    <TransactionsTableContainer
+                        category={overview.category}
+                        tableWidth={tableWidth} />
                 );
             case 'federal_account':
                 return (
-                  <FederalAccountTableContainer
-                    category={overview.category}
-                    tableWidth={tableWidth} />
+                    <FederalAccountTableContainer
+                        category={overview.category}
+                        tableWidth={tableWidth} />
                 );
             case 'subaward':
                 return (
-                  <SubawardsContainer
-                    tableWidth={tableWidth}
-                    awardId={awardId} />
+                    <SubawardsContainer
+                        tableWidth={tableWidth}
+                        awardId={awardId} />
                 );
             default:
                 return null;
@@ -144,34 +144,34 @@ export class AwardHistory extends React.Component {
         const tooltip = getToolTipBySectionAndAwardType('awardHistory', overview.category);
 
         return (
-          <div id="award-award-history" className="award-viz award-history">
-            <AwardSectionHeader
-              title={sectionTitle}
-              icon={<AwardLoop alt="Award History" />}
-              tooltip={tooltip}
-              tooltipWide={(overview.category === 'contract')} />
-                <div className="tables-section">
-                  <DetailsTabBar
-                    awardId={awardId}
-                    tabOptions={tabOptions}
-                    activeTab={activeTab}
-                    clickTab={setActiveTab} />
-                      <ResultsTablePicker
-                        types={tabOptions}
-                        active={activeTab}
-                        switchTab={setActiveTab} />
-                          <div
-                            className="tables-width-master"
-                            ref={(div) => {
+            <div id="award-award-history" className="award-viz award-history">
+                <AwardSectionHeader
+                    title={sectionTitle}
+                    icon={<AwardLoop alt="Award History" />}
+                    tooltip={tooltip}
+                    tooltipWide={(overview.category === 'contract')} />
+                        <div className="tables-section">
+                            <DetailsTabBar
+                                awardId={awardId}
+                                tabOptions={tabOptions}
+                                activeTab={activeTab}
+                                clickTab={setActiveTab} />
+                                    <ResultsTablePicker
+                                        types={tabOptions}
+                                        active={activeTab}
+                                        switchTab={setActiveTab} />
+                                            <div
+                                              className="tables-width-master"
+                                              ref={(div) => {
                             // this is an empty div that scales via CSS
                             // the results table width will follow this div's width
                             this.tableWidthController = div;
                         }} />
-                          <div className="tables-content">
-                            {this.currentSection()}
-                          </div>
-                </div>
-          </div>
+                            <div className="tables-content">
+                                {this.currentSection()}
+                            </div>
+                        </div>
+            </div>
         );
     }
 }

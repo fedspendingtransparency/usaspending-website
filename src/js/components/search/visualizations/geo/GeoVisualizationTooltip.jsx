@@ -54,37 +54,37 @@ export default class GeoVisualizationTooltip extends React.Component {
 
     render() {
         return (
-          <div
-            className="visualization-tooltip"
-            ref={(div) => {
+            <div
+                className="visualization-tooltip"
+                ref={(div) => {
                     this.containerDiv = div;
                 }}>
-                  <div
-                    className="tooltip"
-                    ref={(div) => {
+                    <div
+                        className="tooltip"
+                        ref={(div) => {
                         this.div = div;
                     }}>
-                      <div
-                        className="tooltip-pointer"
-                        ref={(div) => {
+                        <div
+                            className="tooltip-pointer"
+                            ref={(div) => {
                             this.pointerDiv = div;
                         }} />
-                          <div className="tooltip-title">
-                            {this.props.label}
-                          </div>
-                            <div className="tooltip-body">
-                              <div className="tooltip-left">
-                                <div className="tooltip-value">
-                                  {MoneyFormatter.formatMoney(this.props.value)}
-                                </div>
-                                {this.props.description &&
-                                <div className="tooltip-label">
-                                  {this.props.description}
-                                </div>}
-                              </div>
+                            <div className="tooltip-title">
+                                {this.props.label}
                             </div>
-                  </div>
-          </div>
+                                <div className="tooltip-body">
+                                    <div className="tooltip-left">
+                                        <div className="tooltip-value">
+                                            {MoneyFormatter.formatMoney(this.props.value)}
+                                        </div>
+                                        {this.props.description &&
+                                        <div className="tooltip-label">
+                                            {this.props.description}
+                                        </div>}
+                                    </div>
+                                </div>
+                    </div>
+            </div>
         );
     }
 }

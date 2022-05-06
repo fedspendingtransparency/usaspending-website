@@ -24,21 +24,21 @@ const PaginatedTooltip = ({
     previousPageButtonClassnames,
     nextPageButtonClassnames
 }) => (
-  <div className="tooltip-pagination-container">
-    <button
-      onClick={previousPage}
-      className={previousPageButtonClassnames}>
-        <FontAwesomeIcon icon="caret-left" />
-    </button>
-      <div className="pagination-text">
-        {currentPage} of {totalPages} modifications made on this day
-      </div>
+    <div className="tooltip-pagination-container">
         <button
-          onClick={nextPage}
-          className={nextPageButtonClassnames}>
-            <FontAwesomeIcon icon="caret-right" />
+            onClick={previousPage}
+            className={previousPageButtonClassnames}>
+                <FontAwesomeIcon icon="caret-left" />
         </button>
-  </div>
+            <div className="pagination-text">
+                {currentPage} of {totalPages} modifications made on this day
+            </div>
+                <button
+                    onClick={nextPage}
+                    className={nextPageButtonClassnames}>
+                        <FontAwesomeIcon icon="caret-right" />
+                </button>
+    </div>
 );
 
 PaginatedTooltip.propTypes = propTypes;

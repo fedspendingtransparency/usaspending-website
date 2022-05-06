@@ -18,23 +18,23 @@ const propTypes = {
 export default class ResultGroup extends React.Component {
     render() {
         const items = this.props.items.map((item) => (
-          <ResultItem
-            item={item}
-            search={this.props.search}
-            selectTerm={this.props.selectTerm}
-            key={item.term} />
+            <ResultItem
+                item={item}
+                search={this.props.search}
+                selectTerm={this.props.selectTerm}
+                key={item.term} />
         ));
 
         return (
-          <div className="glossary-result-group">
-            <h2 className="group-title">
-              {this.props.title}
-            </h2>
-              <hr className="group-divider" />
-                <ul className="group-items">
-                  {items}
-                </ul>
-          </div>
+            <div className="glossary-result-group">
+                <h2 className="group-title">
+                    {this.props.title}
+                </h2>
+                    <hr className="group-divider" />
+                        <ul className="group-items">
+                            {items}
+                        </ul>
+            </div>
         );
     }
 }

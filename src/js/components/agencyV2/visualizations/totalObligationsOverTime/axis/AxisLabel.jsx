@@ -20,13 +20,13 @@ const AxisLabel = ({
     y = 0,
     label = ''
 }) => (
-  <text
-    className={`${axis}-axis-label`}
-    tabIndex="0"
-    x={x}
-    y={y}>
-    {label}
-  </text>
+    <text
+        className={`${axis}-axis-label`}
+        tabIndex="0"
+        x={x}
+        y={y}>
+        {label}
+    </text>
 );
 
 AxisLabel.propTypes = propTypes;

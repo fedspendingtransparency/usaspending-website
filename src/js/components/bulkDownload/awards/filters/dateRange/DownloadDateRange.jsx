@@ -82,36 +82,36 @@ export default class DownloadDateRange extends React.Component {
         const endDateDisabledDays = this.generateEndDateDisabledDays();
 
         return (
-          <div className="date-pickers">
-            <DatePicker
-              type="startDateBulk"
-              title="Start Date"
-              tabIndex={this.props.startingTab}
-              onDateChange={this.props.onDateChange}
-              value={this.props.startDate}
-              opposite={this.props.endDate}
-              showError={this.props.showError}
-              hideError={this.props.hideError}
-              disabledDays={startDateDisabledDays}
-              ref={(component) => {
+            <div className="date-pickers">
+                <DatePicker
+                    type="startDateBulk"
+                    title="Start Date"
+                    tabIndex={this.props.startingTab}
+                    onDateChange={this.props.onDateChange}
+                    value={this.props.startDate}
+                    opposite={this.props.endDate}
+                    showError={this.props.showError}
+                    hideError={this.props.hideError}
+                    disabledDays={startDateDisabledDays}
+                    ref={(component) => {
                         this.startPicker = component;
                     }}
-              allowClearing />
-                <DatePicker
-                  type="endDateBulk"
-                  title="End Date"
-                  tabIndex={this.props.startingTab + 4}
-                  onDateChange={this.props.onDateChange}
-                  value={this.props.endDate}
-                  opposite={this.props.startDate}
-                  showError={this.props.showError}
-                  hideError={this.props.hideError}
-                  disabledDays={endDateDisabledDays}
-                  ref={(component) => {
+                    allowClearing />
+                        <DatePicker
+                            type="endDateBulk"
+                            title="End Date"
+                            tabIndex={this.props.startingTab + 4}
+                            onDateChange={this.props.onDateChange}
+                            value={this.props.endDate}
+                            opposite={this.props.startDate}
+                            showError={this.props.showError}
+                            hideError={this.props.hideError}
+                            disabledDays={endDateDisabledDays}
+                            ref={(component) => {
                         this.endPicker = component;
                     }}
-                  allowClearing />
-          </div>
+                            allowClearing />
+            </div>
         );
     }
 }

@@ -37,20 +37,20 @@ export default class SelectedAgencies extends React.Component {
             }
 
             const value = (<ShownAgency
-              agency={agency}
-              label={label}
-              key={key}
-              agencyType={this.props.agencyType}
-              toggleAgency={this.props.toggleAgency.bind(this)} />);
+                agency={agency}
+                label={label}
+                key={key}
+                agencyType={this.props.agencyType}
+                toggleAgency={this.props.toggleAgency.bind(this)} />);
             shownAgencies.push(value);
         });
 
         return (
-          <div
-            className={`selected-filters ${toLower(this.props.agencyType)}`}
-            role="status">
-            {shownAgencies}
-          </div>
+            <div
+                className={`selected-filters ${toLower(this.props.agencyType)}`}
+                role="status">
+                {shownAgencies}
+            </div>
         );
     }
 }

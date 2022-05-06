@@ -69,15 +69,15 @@ export default class BarTrendlineAxis extends React.Component {
             const yPos = props.height - props.scale(tick);
 
             return (
-              <g
-                key={`label-trendline-${tick}`}
-                className="axis-item y-axis">
-                  <text
-                    textAnchor="end"
-                    transform={`translate(${xPos},${yPos + 6})`}>
-                    {tickLabels[i]}
-                  </text>
-              </g>
+                <g
+                    key={`label-trendline-${tick}`}
+                    className="axis-item y-axis">
+                        <text
+                            textAnchor="end"
+                            transform={`translate(${xPos},${yPos + 6})`}>
+                            {tickLabels[i]}
+                        </text>
+                </g>
             );
         });
 
@@ -89,21 +89,21 @@ export default class BarTrendlineAxis extends React.Component {
 
     render() {
         return (
-          <g className="bar-axis">
-            <title>Trendline-Axis</title>
-              <desc>
-                {this.state.description}
-              </desc>
-                <line
-                  className="y-axis"
-                  x1={this.props.width + this.props.padding.left}
-                  y1={0}
-                  x2={this.props.width + this.props.padding.left}
-                  y2={this.props.height} />
-                    <g className="axis-labels">
-                      {this.state.labels}
-                    </g>
-          </g>
+            <g className="bar-axis">
+                <title>Trendline-Axis</title>
+                    <desc>
+                        {this.state.description}
+                    </desc>
+                        <line
+                            className="y-axis"
+                            x1={this.props.width + this.props.padding.left}
+                            y1={0}
+                            x2={this.props.width + this.props.padding.left}
+                            y2={this.props.height} />
+                                <g className="axis-labels">
+                                    {this.state.labels}
+                                </g>
+            </g>
         );
     }
 }

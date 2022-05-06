@@ -55,9 +55,9 @@ export default class TimePeriodDRFilterGroup extends React.Component {
         const tags = this.generateTags();
 
         return (<LegacyBaseTopFilterGroup
-          tags={tags}
-          filter={this.props.filter}
-          clearFilterGroup={this.clearGroup} />);
+            tags={tags}
+            filter={this.props.filter}
+            clearFilterGroup={this.clearGroup} />);
     }
 }
 

@@ -220,17 +220,17 @@ export default class ObjectClassContainer extends React.PureComponent {
 
     render() {
         return (
-          <ObjectClassTreeMap
-            activeFY={this.props.activeFY}
-            displayedTotalObligation={this.props.displayedTotalObligation}
-            majorObjectClasses={this.state.majorObjectClasses}
-            minorObjectClasses={this.state.minorObjectClasses}
-            totalObligation={this.state.totalObligation}
-            totalMinorObligation={this.state.totalMinorObligation}
-            showMinorObjectClasses={this.showMinorObjectClasses}
-            asOfDate={this.props.asOfDate}
-            hasNegatives={this.state.hasNegatives}
-            minorHasNegatives={this.state.minorHasNegatives} />
+            <ObjectClassTreeMap
+                activeFY={this.props.activeFY}
+                displayedTotalObligation={this.props.displayedTotalObligation}
+                majorObjectClasses={this.state.majorObjectClasses}
+                minorObjectClasses={this.state.minorObjectClasses}
+                totalObligation={this.state.totalObligation}
+                totalMinorObligation={this.state.totalMinorObligation}
+                showMinorObjectClasses={this.showMinorObjectClasses}
+                asOfDate={this.props.asOfDate}
+                hasNegatives={this.state.hasNegatives}
+                minorHasNegatives={this.state.minorHasNegatives} />
         );
     }
 }

@@ -28,20 +28,20 @@ const DataDictionaryTableSorter = (props) => {
         ? 'header-sorter__button_active' : '';
 
     return (
-      <div className="state-list__head-sorter header-sorter">
-        <button
-          className={`header-sorter__button ${activeAsc}`}
-          onClick={sortAsc}>
-            <ArrowUp
-              alt={`Sort table by ascending ${props.label}`} />
-        </button>
-          <button
-            className={`header-sorter__button ${activeDesc}`}
-            onClick={sortDesc}>
-              <ArrowDown
-                alt={`Sort table by descending ${props.label}`} />
-          </button>
-      </div>
+        <div className="state-list__head-sorter header-sorter">
+            <button
+                className={`header-sorter__button ${activeAsc}`}
+                onClick={sortAsc}>
+                    <ArrowUp
+                        alt={`Sort table by ascending ${props.label}`} />
+            </button>
+                <button
+                    className={`header-sorter__button ${activeDesc}`}
+                    onClick={sortDesc}>
+                        <ArrowDown
+                            alt={`Sort table by descending ${props.label}`} />
+                </button>
+        </div>
     );
 };
 

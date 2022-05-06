@@ -189,19 +189,19 @@ export class AccountLandingContainer extends React.Component {
 
     render() {
         return (
-          <AccountLandingContent
-            results={this.state.results}
-            inFlight={this.state.inFlight}
-            error={this.state.error}
-            columns={this.state.columns}
-            order={this.state.order}
-            updateSort={this.updateSort}
-            searchString={this.state.searchString}
-            setAccountSearchString={this.setAccountSearchString}
-            onChangePage={this.onChangePage}
-            pageNumber={this.state.pageNumber}
-            totalItems={this.state.totalItems}
-            pageSize={this.state.pageSize} />
+            <AccountLandingContent
+                results={this.state.results}
+                inFlight={this.state.inFlight}
+                error={this.state.error}
+                columns={this.state.columns}
+                order={this.state.order}
+                updateSort={this.updateSort}
+                searchString={this.state.searchString}
+                setAccountSearchString={this.setAccountSearchString}
+                onChangePage={this.onChangePage}
+                pageNumber={this.state.pageNumber}
+                totalItems={this.state.totalItems}
+                pageSize={this.state.pageSize} />
         );
     }
 }

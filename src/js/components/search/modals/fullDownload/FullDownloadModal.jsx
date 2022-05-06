@@ -88,47 +88,47 @@ export default class FullDownloadModal extends React.Component {
         }
         else if (this.state.downloadStep === 3) {
             content = (<DownloadProgress
-              hideModal={this.hideModal}
-              download={this.props.download}
-              setDownloadCollapsed={this.props.setDownloadCollapsed}
-              expectedUrl={this.props.download.expectedUrl} />);
+                hideModal={this.hideModal}
+                download={this.props.download}
+                setDownloadCollapsed={this.props.setDownloadCollapsed}
+                expectedUrl={this.props.download.expectedUrl} />);
         }
 
         return (
-          <Modal
-            mounted={this.props.mounted}
-            onExit={this.hideModal}
-            titleText="Additional Options"
-            dialogClass="search-section-extra-modal"
-            verticallyCenter
-            escapeExits>
-              <div className="full-download-modal">
-                <div className="download-header">
-                  <div className="header-content">
-                    <h1>Download Data</h1>
-                      <div className="close-wrapper">
-                        <button
-                          className="close-button"
-                          onClick={this.props.hideModal}
-                          title="Close"
-                          aria-label="Close">
-                            <Close alt="Close modal" />
-                        </button>
-                      </div>
-                  </div>
-                </div>
+            <Modal
+                mounted={this.props.mounted}
+                onExit={this.hideModal}
+                titleText="Additional Options"
+                dialogClass="search-section-extra-modal"
+                verticallyCenter
+                escapeExits>
+                    <div className="full-download-modal">
+                        <div className="download-header">
+                            <div className="header-content">
+                                <h1>Download Data</h1>
+                                    <div className="close-wrapper">
+                                        <button
+                                            className="close-button"
+                                            onClick={this.props.hideModal}
+                                            title="Close"
+                                            aria-label="Close">
+                                              <Close alt="Close modal" />
+                                        </button>
+                                    </div>
+                            </div>
+                        </div>
 
-                  <div className="download-body">
-                    <div className="download-filter-bar">
-                      <TopFilterBarContainer compressed />
+                            <div className="download-body">
+                                <div className="download-filter-bar">
+                                    <TopFilterBarContainer compressed />
+                                </div>
+                                    <DownloadBreadcrumb
+                                      step={this.state.downloadStep}
+                                      goToStep={this.goToStep} />
+                                {content}
+                            </div>
                     </div>
-                      <DownloadBreadcrumb
-                        step={this.state.downloadStep}
-                        goToStep={this.goToStep} />
-                    {content}
-                  </div>
-              </div>
-          </Modal>
+            </Modal>
         );
     }
 }

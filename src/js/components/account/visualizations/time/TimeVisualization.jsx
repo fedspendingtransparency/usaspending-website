@@ -128,26 +128,26 @@ export default class TimeVisualization extends React.Component {
         else if (this.props.data.xSeries.length > 0) {
             // only mount the chart component if there is data to display
             chart = (<BarChartStacked
-              width={this.props.width}
-              height={this.props.height}
-              data={this.props.data}
-              legend={legend}
-              showTooltip={this.showTooltip}
-              hideTooltip={this.hideTooltip}
-              toggleTooltip={this.toggleTooltip} />);
+                width={this.props.width}
+                height={this.props.height}
+                data={this.props.data}
+                legend={legend}
+                showTooltip={this.showTooltip}
+                hideTooltip={this.hideTooltip}
+                toggleTooltip={this.toggleTooltip} />);
         }
 
         let tooltip = null;
         if (this.state.showTooltip) {
             tooltip = (<TimeTooltip
-              {...this.state.tooltipData} />);
+                {...this.state.tooltipData} />);
         }
 
         return (
-          <div className="results-visualization-time-container">
-            {tooltip}
-            {chart}
-          </div>
+            <div className="results-visualization-time-container">
+                {tooltip}
+                {chart}
+            </div>
         );
     }
 }

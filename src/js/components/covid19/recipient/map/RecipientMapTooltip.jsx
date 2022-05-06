@@ -55,44 +55,44 @@ export default class RecipientMapTooltip extends React.Component {
         const dollarValue = MoneyFormatter.formatTreemapValues(this.props.amount.value);
 
         return (
-          <div
-            className="visualization-tooltip"
-            ref={(div) => {
+            <div
+                className="visualization-tooltip"
+                ref={(div) => {
                     this.containerDiv = div;
                 }}>
-                  <div
-                    className="tooltip"
-                    ref={(div) => {
+                    <div
+                        className="tooltip"
+                        ref={(div) => {
                         this.div = div;
                     }}>
-                      <div
-                        className="tooltip-pointer"
-                        ref={(div) => {
+                        <div
+                            className="tooltip-pointer"
+                            ref={(div) => {
                             this.pointerDiv = div;
                         }} />
-                          <div className="tooltip-title">
-                            {truncatedName}
-                          </div>
-                            <div className="tooltip-body">
-                              <div className="tooltip-left">
-                                <div className="tooltip-value">
-                                  {dollarValue}
-                                </div>
-                                  <div className="tooltip-label">
-                                    {this.props.amount.label}
-                                  </div>
-                              </div>
-                                <div className="tooltip-right">
-                                  <div className="tooltip-value">
-                                    {this.props.awards.value}
-                                  </div>
-                                    <div className="tooltip-label">
-                                      {this.props.awards.label}
-                                    </div>
-                                </div>
+                            <div className="tooltip-title">
+                                {truncatedName}
                             </div>
-                  </div>
-          </div>
+                                <div className="tooltip-body">
+                                    <div className="tooltip-left">
+                                        <div className="tooltip-value">
+                                            {dollarValue}
+                                        </div>
+                                            <div className="tooltip-label">
+                                                {this.props.amount.label}
+                                            </div>
+                                    </div>
+                                        <div className="tooltip-right">
+                                            <div className="tooltip-value">
+                                                {this.props.awards.value}
+                                            </div>
+                                                <div className="tooltip-label">
+                                                  {this.props.awards.label}
+                                              </div>
+                                        </div>
+                                </div>
+                    </div>
+            </div>
         );
     }
 }

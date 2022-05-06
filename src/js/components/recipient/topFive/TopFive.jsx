@@ -29,30 +29,30 @@ export default class TopFive extends React.Component {
         let message = null;
         if (this.props.category === 'federal_account') {
             message = (
-              <div className="category-table__message">
-                <span> Coming Soon </span>
-              </div>
+                <div className="category-table__message">
+                    <span> Coming Soon </span>
+                </div>
             );
         }
         else if (this.props.error) {
             message = (
-              <div className="category-table__message">
-                <span> An error occurred while loading this table. </span>
-              </div>
+                <div className="category-table__message">
+                    <span> An error occurred while loading this table. </span>
+                </div>
             );
         }
         else if (this.props.loading) {
             message = (
-              <div className="category-table__message">
-                <span> Loading... </span>
-              </div>
+                <div className="category-table__message">
+                    <span> Loading... </span>
+                </div>
             );
         }
         else if (this.props.results.length === 0) {
             message = (
-              <div className="category-table__message">
-                <span> No Data Available </span>
-              </div>
+                <div className="category-table__message">
+                    <span> No Data Available </span>
+                </div>
             );
         }
         return message;
@@ -62,61 +62,61 @@ export default class TopFive extends React.Component {
         let disclaimer;
         if (this.props.category === 'country' || this.props.category === 'state_territory') {
             disclaimer = (
-              <span className="category-table__disclaimer"> <strong>Note: </strong> <em> This data is based on Primary Place of Performance.</em> </span>
+                <span className="category-table__disclaimer"> <strong>Note: </strong> <em> This data is based on Primary Place of Performance.</em> </span>
             );
         }
         const rows = this.props.results.map((result, index) => (
-          <TopFiveRow
-            key={index}
-            data={result}
-            category={this.props.category}
-            total={this.props.total} />
+            <TopFiveRow
+                key={index}
+                data={result}
+                category={this.props.category}
+                total={this.props.total} />
         ));
         const hideBody = this.props.loading || this.props.error ? `category-table__table-body_hide` : '';
 
         return (
-          <div>
-            <table className="category-table__table">
-              <thead
-                className="category-table__table-head">
-                  <tr
-                    className="category-table__table-head-row">
-                      <th className="category-table__table-head-cell">
+            <div>
+                <table className="category-table__table">
+                    <thead
+                        className="category-table__table-head">
+                            <tr
+                                className="category-table__table-head-row">
+                                    <th className="category-table__table-head-cell">
                          Name
-                      </th>
-                        <th className="category-table__table-head-cell category-table__table-head-cell_centered">
+                                    </th>
+                                        <th className="category-table__table-head-cell category-table__table-head-cell_centered">
                          Awarded Amount
-                        </th>
-                          <th className="category-table__table-head-cell category-table__table-head-cell_centered">
+                                      </th>
+                                        <th className="category-table__table-head-cell category-table__table-head-cell_centered">
                          % of Total
-                          </th>
-                  </tr>
-              </thead>
-                <tbody
-                  className={`category-table__table-body ${hideBody}`}>
-                  {rows}
-                </tbody>
-            </table>
-            {disclaimer}
-          </div>);
+                                      </th>
+                            </tr>
+                    </thead>
+                        <tbody
+                            className={`category-table__table-body ${hideBody}`}>
+                            {rows}
+                        </tbody>
+                </table>
+                {disclaimer}
+            </div>);
     }
 
     render() {
         return (
-          <div className="category-table">
-            <div>
-              <div className="category-table__title">
-                <img
-                  className="category-table__title-icon"
-                  src={`img/state-categories/${this.props.category}.png`}
-                  alt="" />
-                    <div className="category-table__title-name">
-                      {recipientCategoryTitles[this.props.category]}
+            <div className="category-table">
+                <div>
+                    <div className="category-table__title">
+                        <img
+                            className="category-table__title-icon"
+                            src={`img/state-categories/${this.props.category}.png`}
+                            alt="" />
+                                <div className="category-table__title-name">
+                                    {recipientCategoryTitles[this.props.category]}
+                                </div>
                     </div>
-              </div>
-              {this.validate() ? <div className="category-message">{this.validate()}</div> : this.deliverHTMLpayload()}
+                    {this.validate() ? <div className="category-message">{this.validate()}</div> : this.deliverHTMLpayload()}
+                </div>
             </div>
-          </div>
         );
     }
 }

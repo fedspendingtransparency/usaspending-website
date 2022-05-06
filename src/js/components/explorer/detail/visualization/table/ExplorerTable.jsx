@@ -44,67 +44,67 @@ export default class ExplorerTable extends React.Component {
         }
 
         const rows = this.props.results.map((item, index) => (
-          <TableRow
-            item={item}
-            key={`${uniqueId(item.name)}`}
-            rowIndex={index}
-            columns={this.props.columns}
-            selectedRow={this.selectedRow}
-            goToUnreported={this.props.goToUnreported} />
+            <TableRow
+                item={item}
+                key={`${uniqueId(item.name)}`}
+                rowIndex={index}
+                columns={this.props.columns}
+                selectedRow={this.selectedRow}
+                goToUnreported={this.props.goToUnreported} />
         ));
 
         const headers = this.props.columns.map((column, index) => (
-          <td key={index}>
-            <LegacyTableHeaderCell
-              isLast={index === this.props.columns.length - 1}
-              field={column.columnName}
-              title={column.displayName}
-              defaultDirection={column.defaultDirection}
-              currentSort={this.props.order}
-              updateSort={this.props.updateSort} />
-          </td>
+            <td key={index}>
+                <LegacyTableHeaderCell
+                    isLast={index === this.props.columns.length - 1}
+                    field={column.columnName}
+                    title={column.displayName}
+                    defaultDirection={column.defaultDirection}
+                    currentSort={this.props.order}
+                    updateSort={this.props.updateSort} />
+            </td>
         ));
 
         let loadingMessage = null;
         if (this.props.isLoading) {
             loadingMessage = (
-              <div className="explorer-detail-content__loading">
-                <div className="explorer-detail-content__loading-message">
-                  <LoadingSpinner />
-                    <div className="explorer-detail-content__loading-title">Gathering your data...</div>
-                      <div className="explorer-detail-content__loading-subtitle">Updating Spending Explorer.</div>
-                        <div>This should only take a few moments...</div>
+                <div className="explorer-detail-content__loading">
+                    <div className="explorer-detail-content__loading-message">
+                        <LoadingSpinner />
+                            <div className="explorer-detail-content__loading-title">Gathering your data...</div>
+                                <div className="explorer-detail-content__loading-subtitle">Updating Spending Explorer.</div>
+                                    <div>This should only take a few moments...</div>
+                    </div>
                 </div>
-              </div>
             );
         }
 
         return (
-          <div className={`explorer-table${noResultsClass}`}>
-            {loadingMessage}
-              <Pagination
-                resultsText
-                changePage={this.props.onChangePage}
-                currentPage={this.props.pageNumber}
-                totalItems={this.props.totalItems}
-                pageSize={this.props.pageSize} />
-                  <table>
-                    <thead>
-                      <tr>
-                        {headers}
-                      </tr>
-                    </thead>
-                      <tbody>
-                        {rows}
-                      </tbody>
-                  </table>
+            <div className={`explorer-table${noResultsClass}`}>
+                {loadingMessage}
                     <Pagination
-                      resultsText
-                      changePage={this.props.onChangePage}
-                      currentPage={this.props.pageNumber}
-                      totalItems={this.props.totalItems}
-                      pageSize={this.props.pageSize} />
-          </div>
+                        resultsText
+                        changePage={this.props.onChangePage}
+                        currentPage={this.props.pageNumber}
+                        totalItems={this.props.totalItems}
+                        pageSize={this.props.pageSize} />
+                            <table>
+                                <thead>
+                                    <tr>
+                                        {headers}
+                                    </tr>
+                                </thead>
+                                    <tbody>
+                                        {rows}
+                                    </tbody>
+                            </table>
+                                <Pagination
+                                    resultsText
+                                    changePage={this.props.onChangePage}
+                                    currentPage={this.props.pageNumber}
+                                    totalItems={this.props.totalItems}
+                                    pageSize={this.props.pageSize} />
+            </div>
         );
     }
 }

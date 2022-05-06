@@ -80,35 +80,35 @@ export default class TimeVisualization extends React.Component {
         let tooltip = null;
         if (this.state.tooltipData && window.innerWidth > 720) {
             tooltip = (<Tooltip
-              chartWidth={this.props.width}
-              data={this.state.tooltipData}
-              x={this.state.tooltipX}
-              y={this.state.tooltipY}
-              barWidth={this.state.barWidth} />);
+                chartWidth={this.props.width}
+                data={this.state.tooltipData}
+                x={this.state.tooltipX}
+                y={this.state.tooltipY}
+                barWidth={this.state.barWidth} />);
         }
 
         return (
-          <div className="results-visualization-time-container">
-            <TransitionGroup>
-              <CSSTransition
-                classNames="visualization-content-fade"
-                timeout={{ exit: 225, enter: 195 }}
-                exit>
+            <div className="results-visualization-time-container">
+                <TransitionGroup>
+                    <CSSTransition
+                        classNames="visualization-content-fade"
+                        timeout={{ exit: 225, enter: 195 }}
+                        exit>
                         <>
-                          {!this.props.loading && !this.props.error && this.props.groups.length === 0 && <ChartNoResults />}
-                          {this.props.loading && <ChartLoadingMessage />}
-                          {this.props.error && <ChartError />}
-                          {!this.props.loading && !this.props.error && this.props.groups.length > 0 && (
+                            {!this.props.loading && !this.props.error && this.props.groups.length === 0 && <ChartNoResults />}
+                            {this.props.loading && <ChartLoadingMessage />}
+                            {this.props.error && <ChartError />}
+                            {!this.props.loading && !this.props.error && this.props.groups.length > 0 && (
                             <BarChart
-                              {...this.props}
-                              showTooltip={this.showTooltip}
-                              activeLabel={this.state.tooltipData} />
+                                {...this.props}
+                                showTooltip={this.showTooltip}
+                                activeLabel={this.state.tooltipData} />
                             )}
                         </>
-              </CSSTransition>
-            </TransitionGroup>
-            {tooltip}
-          </div>
+                    </CSSTransition>
+                </TransitionGroup>
+                {tooltip}
+            </div>
         );
     }
 }

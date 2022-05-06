@@ -185,26 +185,26 @@ const SearchSidebar = ({
     });
 
     return (
-      <div
-        className="search-sidebar"
-        role="search"
-        aria-label="Filters">
-          <div className="sidebar-header">
-            <span className="filter-icon">
-              <FilterIcon />
-            </span>
-              <h2 className="sidebar-title">Filters</h2>
-          </div>
-            <div className="sidebar-top-submit">
-              <SearchSidebarSubmitContainer />
-            </div>
-              <FilterSidebar
-                {...releasedFilters}
-                expanded={expanded} />
-                  <div className="sidebar-bottom-submit">
-                    <SearchSidebarSubmitContainer />
-                  </div>
-      </div>
+        <div
+            className="search-sidebar"
+            role="search"
+            aria-label="Filters">
+                <div className="sidebar-header">
+                    <span className="filter-icon">
+                        <FilterIcon />
+                    </span>
+                        <h2 className="sidebar-title">Filters</h2>
+                </div>
+                    <div className="sidebar-top-submit">
+                        <SearchSidebarSubmitContainer />
+                    </div>
+                        <FilterSidebar
+                            {...releasedFilters}
+                            expanded={expanded} />
+                                <div className="sidebar-bottom-submit">
+                                  <SearchSidebarSubmitContainer />
+                              </div>
+        </div>
     );
 };
 

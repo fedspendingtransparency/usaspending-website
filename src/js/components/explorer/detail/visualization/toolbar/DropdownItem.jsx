@@ -30,19 +30,19 @@ export default class DropdownItem extends React.Component {
         const icon = <IconType />;
         const label = sidebarTypes[this.props.value];
         return (
-          <li>
-            <button
-              className="dropdown-option"
-              title={label}
-              onClick={this.clickedButton}>
-                <div className="dropdown-option__icon">
-                  {icon}
-                </div>
-                  <div className="dropdown-option__label">
-                    {label}
-                  </div>
-            </button>
-          </li>
+            <li>
+                <button
+                    className="dropdown-option"
+                    title={label}
+                    onClick={this.clickedButton}>
+                        <div className="dropdown-option__icon">
+                            {icon}
+                        </div>
+                            <div className="dropdown-option__label">
+                                {label}
+                            </div>
+                </button>
+            </li>
         );
     }
 }

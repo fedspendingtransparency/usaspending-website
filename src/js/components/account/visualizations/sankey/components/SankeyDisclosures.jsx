@@ -13,20 +13,20 @@ const propTypes = {
 export default class SankeyDisclosures extends React.Component {
     render() {
         const items = this.props.items.map((item, index) => (
-          <li key={index}>
-            <b>{item.label}:</b> {item.value}
-          </li>
+            <li key={index}>
+                <b>{item.label}:</b> {item.value}
+            </li>
         ));
 
         return (
-          <div className="sankey-disclosures">
-            <div className="disclosure-title">
+            <div className="sankey-disclosures">
+                <div className="disclosure-title">
                     Not Shown:
+                </div>
+                    <ul className="disclosure-list">
+                        {items}
+                    </ul>
             </div>
-              <ul className="disclosure-list">
-                {items}
-              </ul>
-          </div>
         );
     }
 }

@@ -15,15 +15,15 @@ const defaultProps = {
 };
 
 const TopFilterItem = (props) => (
-  <div className="filter-item-container">
-    <div
-      className="filter-item"
-      role="listitem">
-        <div className="filter-item-title">
-          {props.title}
+    <div className="filter-item-container">
+        <div
+            className="filter-item"
+            role="listitem">
+                <div className="filter-item-title">
+                    {props.title}
+                </div>
         </div>
     </div>
-  </div>
 );
 
 TopFilterItem.propTypes = propTypes;

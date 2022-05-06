@@ -37,25 +37,25 @@ export default class ActivityChartBar extends React.Component {
 
     render() {
         return (
-          <g
-            className="activity-chart-bar"
-            aria-label={this.props.description}
-            onMouseMove={this.enteredCell}
-            onMouseLeave={this.exitedCell}
-            ref={(g) => {
+            <g
+                className="activity-chart-bar"
+                aria-label={this.props.description}
+                onMouseMove={this.enteredCell}
+                onMouseLeave={this.exitedCell}
+                ref={(g) => {
                     this.element = g;
                 }}>
-                  <defs>{this.props.pattern}</defs>
-                    <desc>
-                      {this.props.description}
-                    </desc>
-                      <rect
-                        style={this.props.style}
-                        x={this.props.start}
-                        y={this.props.yPosition}
-                        width={this.props.width}
-                        height={this.props.height} />
-          </g>
+                    <defs>{this.props.pattern}</defs>
+                        <desc>
+                            {this.props.description}
+                        </desc>
+                            <rect
+                                style={this.props.style}
+                                x={this.props.start}
+                                y={this.props.yPosition}
+                                width={this.props.width}
+                                height={this.props.height} />
+            </g>
         );
     }
 }

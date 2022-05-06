@@ -64,38 +64,38 @@ export default class Keyword extends React.Component {
         };
 
         const selectedKeywords = (<SelectedKeywords
-          toggleKeyword={this.props.toggleKeyword}
-          selectedKeywords={this.props.selectedKeywords} />);
+            toggleKeyword={this.props.toggleKeyword}
+            selectedKeywords={this.props.selectedKeywords} />);
 
         return (
-          <div className="keyword-filter search-filter">
-            <form onSubmit={this.searchKeyword}>
-              <div className="filter-item-wrap">
-                <div className="keyword-input-wrapper">
-                  <input
-                    id="search"
-                    type="text"
-                    className="keyword-input"
-                    placeholder="Search by Keyword"
-                    value={this.state.value}
-                    onChange={this.changedInput}
-                    ref={(input) => {
+            <div className="keyword-filter search-filter">
+                <form onSubmit={this.searchKeyword}>
+                    <div className="filter-item-wrap">
+                        <div className="keyword-input-wrapper">
+                            <input
+                                id="search"
+                                type="text"
+                                className="keyword-input"
+                                placeholder="Search by Keyword"
+                                value={this.state.value}
+                                onChange={this.changedInput}
+                                ref={(input) => {
                                     this.searchInput = input;
                                 }} />
-                                  <IndividualSubmit
-                                    className="keyword-submit"
-                                    onClick={this.searchKeyword}
-                                    label="Filter by keyword"
-                                    accessibility={accessibility} />
-                </div>
-                {selectedKeywords}
-                  <SubmitHint
-                    ref={(component) => {
+                                    <IndividualSubmit
+                                        className="keyword-submit"
+                                        onClick={this.searchKeyword}
+                                        label="Filter by keyword"
+                                        accessibility={accessibility} />
+                        </div>
+                        {selectedKeywords}
+                            <SubmitHint
+                                ref={(component) => {
                                 this.hint = component;
                             }} />
-              </div>
-            </form>
-          </div>
+                    </div>
+                </form>
+            </div>
         );
     }
 }

@@ -19,17 +19,17 @@ export default class SelectedSources extends React.Component {
         const shownSources = this.props.selectedSources.entrySeq().map((entry) => {
             const identifier = entry[0];
             return (<ShownValue
-              label={`${this.props.label} | ${identifier}`}
-              key={identifier}
-              removeValue={this.props.removeSource.bind(null, identifier)} />);
+                label={`${this.props.label} | ${identifier}`}
+                key={identifier}
+                removeValue={this.props.removeSource.bind(null, identifier)} />);
         });
 
         return (
-          <div
-            className="selected-filters"
-            role="status">
-            {shownSources}
-          </div>
+            <div
+                className="selected-filters"
+                role="status">
+                {shownSources}
+            </div>
         );
     }
 }

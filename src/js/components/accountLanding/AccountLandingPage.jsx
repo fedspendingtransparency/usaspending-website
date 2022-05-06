@@ -24,22 +24,22 @@ export default class AccountLandingPage extends React.Component {
     };
     render() {
         return (
-          <PageWrapper
-            pageName="Federal Account Profiles"
-            classNames="usa-da-account-landing"
-            title="Federal Account Profiles"
-            metaTagProps={accountLandingPageMetaTags}
-            toolBarComponents={[
-              <ShareIcon
-                onShareOptionClick={this.handleShare}
-                url={getBaseUrl(slug)} />
+            <PageWrapper
+                pageName="Federal Account Profiles"
+                classNames="usa-da-account-landing"
+                title="Federal Account Profiles"
+                metaTagProps={accountLandingPageMetaTags}
+                toolBarComponents={[
+                    <ShareIcon
+                        onShareOptionClick={this.handleShare}
+                        url={getBaseUrl(slug)} />
                 ]}>
-                  <main
-                    id="main-content"
-                    className="main-content">
-                      <AccountLandingContainer />
-                  </main>
-          </PageWrapper>
+                    <main
+                        id="main-content"
+                        className="main-content">
+                            <AccountLandingContainer />
+                    </main>
+            </PageWrapper>
         );
     }
 }

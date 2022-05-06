@@ -20,9 +20,9 @@ const ExternalLink = ({ url, children }) => {
         dispatch(showModal(url));
     };
     return (
-      <button className="usda-external-link" onClick={redirect}>
-        {children || url} <FontAwesomeIcon icon="external-link-alt" />
-      </button>
+        <button className="usda-external-link" onClick={redirect}>
+            {children || url} <FontAwesomeIcon icon="external-link-alt" />
+        </button>
     );
 };
 

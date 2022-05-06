@@ -373,79 +373,79 @@ export class MapContainer extends React.Component {
 
         if (!MapboxGL.supported()) {
             return (
-              <div className="results-table-message-container">
-                <ResultsTableErrorMessage title="WebGL Required for this map." description="Please enable WebGL in your browser settings to view this map visualization." />
-              </div>
+                <div className="results-table-message-container">
+                    <ResultsTableErrorMessage title="WebGL Required for this map." description="Please enable WebGL in your browser settings to view this map visualization." />
+                </div>
             );
         }
         else if (this.state.loading) {
             message = (
-              <MapMessage>
-                <div className="map-loading">
-                  <LoadingMessage />
-                </div>
-              </MapMessage>
+                <MapMessage>
+                    <div className="map-loading">
+                        <LoadingMessage />
+                    </div>
+                </MapMessage>
             );
         }
         else if (this.state.error.error) {
             message = (
-              <MapMessage>
-                <div className="map-no-results">
-                  <div className="error-icon">
-                    <FontAwesomeIcon icon="exclamation-triangle" />
-                  </div>
-                    <div className="title">
+                <MapMessage>
+                    <div className="map-no-results">
+                        <div className="error-icon">
+                            <FontAwesomeIcon icon="exclamation-triangle" />
+                        </div>
+                            <div className="title">
                             An error occurred.
+                            </div>
+                                <div className="description">
+                                    {this.state.error.message}
+                                </div>
                     </div>
-                      <div className="description">
-                        {this.state.error.message}
-                      </div>
-                </div>
-              </MapMessage>
+                </MapMessage>
             );
         }
         else if (this.state.data.values.length === 0) {
             message = (
-              <MapMessage>
-                <div className="map-no-results">
-                  <div className="no-results-icon" />
-                    <div className="title">
+                <MapMessage>
+                    <div className="map-no-results">
+                        <div className="no-results-icon" />
+                            <div className="title">
                             No results found in the current map area.
+                            </div>
                     </div>
-                </div>
-              </MapMessage>
+                </MapMessage>
             );
         }
 
         return (
-          <div
-            className="results-visualization-geo-section"
-            id="results-section-geo"
-            aria-label="Spending by Geography">
-              <Tabs
-                active={this.state.activeFilters.awardType}
-                types={this.getAwardTypeFilterTabs()}
-                switchTab={this.updateAwardTypeFilter}
-                tablessStyle />
-                  <SummaryInsightsContainer activeFilter={this.state.activeFilters.awardType} />
-                    <MapWrapper
-                      isMapLoaded={this.props.isMapLoaded}
-                      onMapLoaded={this.props.onMapLoaded}
-                      data={this.state.data}
-                      scope={this.state.scope}
-                      renderHash={this.state.renderHash}
-                      awardTypeFilters={awardTypeTabs}
-                      showHover={this.state.showHover}
-                      activeFilters={this.state.activeFilters}
-                      filters={this.addOnClickToFilters()}
-                      selectedItem={this.state.selectedItem}
-                      showTooltip={this.showTooltip}
-                      hideTooltip={this.hideTooltip}
-                      tooltip={RecipientMapTooltip}
-                      center={centerOfMap}>
-                      {message}
-                    </MapWrapper>
-          </div>
+            <div
+                className="results-visualization-geo-section"
+                id="results-section-geo"
+                aria-label="Spending by Geography">
+                    <Tabs
+                        active={this.state.activeFilters.awardType}
+                        types={this.getAwardTypeFilterTabs()}
+                        switchTab={this.updateAwardTypeFilter}
+                        tablessStyle />
+                            <SummaryInsightsContainer activeFilter={this.state.activeFilters.awardType} />
+                                <MapWrapper
+                                    isMapLoaded={this.props.isMapLoaded}
+                                    onMapLoaded={this.props.onMapLoaded}
+                                    data={this.state.data}
+                                    scope={this.state.scope}
+                                    renderHash={this.state.renderHash}
+                                    awardTypeFilters={awardTypeTabs}
+                                    showHover={this.state.showHover}
+                                    activeFilters={this.state.activeFilters}
+                                    filters={this.addOnClickToFilters()}
+                                    selectedItem={this.state.selectedItem}
+                                    showTooltip={this.showTooltip}
+                                    hideTooltip={this.hideTooltip}
+                                    tooltip={RecipientMapTooltip}
+                                    center={centerOfMap}>
+                                    {message}
+                                </MapWrapper>
+            </div>
         );
     }
 }

@@ -54,15 +54,15 @@ export class SidebarLink extends React.Component {
         }
 
         return (
-          <Link
-            className={`sidebar-link ${active}`}
-            to={this.state.url}
-            onClick={this.clickedLink}>
-            {this.props.overLine ? (
-              <div className="sidebar-link__overline">{this.props.overLine}</div>
+            <Link
+                className={`sidebar-link ${active}`}
+                to={this.state.url}
+                onClick={this.clickedLink}>
+                {this.props.overLine ? (
+                    <div className="sidebar-link__overline">{this.props.overLine}</div>
                 ) : ''}
-            {this.props.label}
-          </Link>
+                {this.props.label}
+            </Link>
         );
     }
 }

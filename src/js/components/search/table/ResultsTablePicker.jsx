@@ -33,12 +33,12 @@ export default class ResultsTablePicker extends React.Component {
 
     render() {
         const options = this.props.types.map((type) => (
-          <ResultsTablePickerOption
-            {...type}
-            active={this.props.active === type.internal}
-            switchTab={this.props.switchTab}
-            key={`table-type-item-${type.internal}`}
-            togglePicker={this.togglePicker} />
+            <ResultsTablePickerOption
+                {...type}
+                active={this.props.active === type.internal}
+                switchTab={this.props.switchTab}
+                key={`table-type-item-${type.internal}`}
+                togglePicker={this.togglePicker} />
         ));
 
         const currentField = this.props.active;
@@ -56,26 +56,26 @@ export default class ResultsTablePicker extends React.Component {
         }
 
         return (
-          <div className="field-picker">
-            <button
-              className="selected-button"
-              title={currentField}
-              aria-label={label}
-              onClick={this.togglePicker}>
-                <span className="label">
-                  {label}
-                </span>
-                  <span className="arrow-icon">
-                    {icon}
-                  </span>
-            </button>
+            <div className="field-picker">
+                <button
+                    className="selected-button"
+                    title={currentField}
+                    aria-label={label}
+                    onClick={this.togglePicker}>
+                        <span className="label">
+                            {label}
+                        </span>
+                            <span className="arrow-icon">
+                                {icon}
+                            </span>
+                </button>
 
-              <div className={`field-list ${showPicker}`}>
-                <ul>
-                  {options}
-                </ul>
-              </div>
-          </div>
+                    <div className={`field-list ${showPicker}`}>
+                        <ul>
+                            {options}
+                        </ul>
+                    </div>
+            </div>
         );
     }
 }

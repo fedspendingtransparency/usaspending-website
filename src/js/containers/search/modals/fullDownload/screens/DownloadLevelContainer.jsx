@@ -19,7 +19,7 @@ const propTypes = {
 export class DownloadLevelContainer extends React.Component {
     render() {
         return (
-          <DownloadLevel {...this.props} />
+            <DownloadLevel {...this.props} />
         );
     }
 }

@@ -14,12 +14,12 @@ const Tooltip = ({
     position = 'right',
     className = ''
 }) => (
-  <TooltipWrapper
-    icon="info"
-    className={className}
-    tooltipPosition={position}
-    tooltipComponent={
-      <TooltipComponent className={title} title={title}>{columnTooltips[id || title]}</TooltipComponent>
+    <TooltipWrapper
+        icon="info"
+        className={className}
+        tooltipPosition={position}
+        tooltipComponent={
+            <TooltipComponent className={title} title={title}>{columnTooltips[id || title]}</TooltipComponent>
         } />
 );
 
@@ -52,10 +52,10 @@ const publicationsSubColumnFilterFunction = (fy) => (column) => {
 };
 
 export const parsePeriods = (periods) => periods.map(({ publicationDate }) => (
-  <div className="generic-cell-content">
-    {(publicationDate) && publicationDate}
-    {!publicationDate && "--"}
-  </div>
+    <div className="generic-cell-content">
+        {(publicationDate) && publicationDate}
+        {!publicationDate && "--"}
+    </div>
 ));
 
 export const agenciesTableColumns = {

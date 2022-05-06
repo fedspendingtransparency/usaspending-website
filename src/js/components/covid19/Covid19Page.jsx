@@ -86,73 +86,73 @@ const Covid19Page = ({ loading }) => {
     };
 
     return (
-      <PageWrapper
-        pageName="COVID-19 Spending"
-        classNames="usa-da-covid19-page"
-        metaTagProps={covidPageMetaTags}
-        title="COVID-19 Spending"
-        toolBarComponents={[
+        <PageWrapper
+            pageName="COVID-19 Spending"
+            classNames="usa-da-covid19-page"
+            metaTagProps={covidPageMetaTags}
+            title="COVID-19 Spending"
+            toolBarComponents={[
                 GlobalConstants.ARP_RELEASED ? <PublicLawPicker selectedOption={query?.publicLaw} onClick={handlePublicLawFilterClick} /> : <></>,
-          <ShareIcon
-            url={getBaseUrl(slug)}
-            onShareOptionClick={handleShare} />,
-          <DownloadButtonContainer />
+                <ShareIcon
+                    url={getBaseUrl(slug)}
+                    onShareOptionClick={handleShare} />,
+                <DownloadButtonContainer />
             ]}>
-              <LoadingWrapper isLoading={loading}>
-                <main id="main-content" className="main-content usda__flex-row">
-                  <div className="sidebar">
-                    <div className="sidebar__content">
-                      <Sidebar
-                        pageName="covid19"
-                        isGoingToBeSticky
-                        active={activeSection}
-                        fixedStickyBreakpoint={getStickyBreakPointForSidebar()}
-                        jumpToSection={handleJumpToSection}
-                        detectActiveSection
-                        verticalSectionOffset={stickyHeaderHeight}
-                        sections={Object.keys(componentByCovid19Section())
+                <LoadingWrapper isLoading={loading}>
+                    <main id="main-content" className="main-content usda__flex-row">
+                        <div className="sidebar">
+                            <div className="sidebar__content">
+                                <Sidebar
+                                    pageName="covid19"
+                                    isGoingToBeSticky
+                                    active={activeSection}
+                                    fixedStickyBreakpoint={getStickyBreakPointForSidebar()}
+                                    jumpToSection={handleJumpToSection}
+                                    detectActiveSection
+                                    verticalSectionOffset={stickyHeaderHeight}
+                                    sections={Object.keys(componentByCovid19Section())
                                     .filter((section) => componentByCovid19Section()[section].showInMenu)
                                     .map((section) => ({
                                         section: snakeCase(section),
                                         label: componentByCovid19Section()[section].title
                                     }))} />
-                    </div>
-                  </div>
-                    <div className="body usda__flex-col">
-                      <section className="body__section">
-                        <Heading publicLaw={query.publicLaw} />
-                      </section>
-                      {Object.keys(componentByCovid19Section())
+                            </div>
+                        </div>
+                            <div className="body usda__flex-col">
+                                <section className="body__section">
+                                    <Heading publicLaw={query.publicLaw} />
+                                </section>
+                                {Object.keys(componentByCovid19Section())
                             .filter((section) => componentByCovid19Section()[section].showInMainSection)
                             .map((section) => (
-                              <Covid19Section
-                                key={section}
-                                section={section}
-                                publicLaw={query.publicLaw}
-                                icon={componentByCovid19Section()[section].icon}
-                                headerText={componentByCovid19Section()[section].headerText}
-                                title={componentByCovid19Section()[section].title}
-                                tooltipProps={componentByCovid19Section()[section].tooltipProps}
-                                tooltip={componentByCovid19Section()[section].tooltip}>
-                                {componentByCovid19Section(query.publicLaw, handleExternalLinkClick)[section].component}
-                              </Covid19Section>
+                                <Covid19Section
+                                    key={section}
+                                    section={section}
+                                    publicLaw={query.publicLaw}
+                                    icon={componentByCovid19Section()[section].icon}
+                                    headerText={componentByCovid19Section()[section].headerText}
+                                    title={componentByCovid19Section()[section].title}
+                                    tooltipProps={componentByCovid19Section()[section].tooltipProps}
+                                    tooltip={componentByCovid19Section()[section].tooltip}>
+                                    {componentByCovid19Section(query.publicLaw, handleExternalLinkClick)[section].component}
+                                </Covid19Section>
                             ))}
-                              <section className="body__section" id="covid19-data_sources_and_methodology">
-                                <DataSourcesAndMethodology
-                                  handleExternalLinkClick={handleExternalLinkClick}
-                                  publicLaw={query.publicLaw} />
-                              </section>
-                                <section className="body__section" id="covid19-other_resources">
-                                  <OtherResources
-                                    handleExternalLinkClick={handleExternalLinkClick}
-                                    publicLaw={query.publicLaw} />
-                                      <LinkToAdvancedSearchContainer />
+                                <section className="body__section" id="covid19-data_sources_and_methodology">
+                                    <DataSourcesAndMethodology
+                                        handleExternalLinkClick={handleExternalLinkClick}
+                                        publicLaw={query.publicLaw} />
                                 </section>
-                    </div>
-                      <GlobalModalContainer />
-                </main>
-              </LoadingWrapper>
-      </PageWrapper>
+                                    <section className="body__section" id="covid19-other_resources">
+                                        <OtherResources
+                                            handleExternalLinkClick={handleExternalLinkClick}
+                                            publicLaw={query.publicLaw} />
+                                                <LinkToAdvancedSearchContainer />
+                                    </section>
+                            </div>
+                                <GlobalModalContainer />
+                    </main>
+                </LoadingWrapper>
+        </PageWrapper>
     );
 };
 

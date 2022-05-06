@@ -16,17 +16,17 @@ const propTypes = {
 export default class HeaderRow extends React.Component {
     render() {
         const headers = this.props.columns.map((column, i) => (
-          <td key={column.columnName}>
-            <AgencyLandingHeaderCellContainer
-              {...column}
-              isLast={i === this.props.columns.length - 1} />
-          </td>
+            <td key={column.columnName}>
+                <AgencyLandingHeaderCellContainer
+                    {...column}
+                    isLast={i === this.props.columns.length - 1} />
+            </td>
         ));
 
         return (
-          <tr>
-            {headers}
-          </tr>
+            <tr>
+                {headers}
+            </tr>
         );
     }
 }

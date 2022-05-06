@@ -25,21 +25,21 @@ const HomepageUpdate = () => {
     }, []);
 
     return (<>{hideContent ?
-      <Redirect to="/404" />
+        <Redirect to="/404" />
         :
-      <PageWrapper
-        pageName="Homepage"
-        classNames="usa-da-home-page"
-        noHeader
-        metaTagProps={{ ...homePageMetaTags }}>
-          <main id="main-content" className="main-content homepage-content">
-            <Hero />
-              <HomepageCovidContainer />
-                <GettingStarted />
-                  <Download />
-                    <Community />
-          </main>
-      </PageWrapper>}
+        <PageWrapper
+            pageName="Homepage"
+            classNames="usa-da-home-page"
+            noHeader
+            metaTagProps={{ ...homePageMetaTags }}>
+                <main id="main-content" className="main-content homepage-content">
+                    <Hero />
+                        <HomepageCovidContainer />
+                            <GettingStarted />
+                                <Download />
+                                    <Community />
+                </main>
+        </PageWrapper>}
     </>);
 };
 

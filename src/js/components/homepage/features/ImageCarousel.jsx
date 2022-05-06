@@ -192,36 +192,36 @@ export default class ImageCarousel extends React.Component {
             }
             // create the bottom pagination dots while we're iterating through the image array
             const dot = (
-              <li
-                className="feature-carousel-pager__list-item"
-                key={image.key || image.src}>
-                  <button
-                    className={`feature-carousel-pager__dot-button ${activeClass}`}
-                    value={index + 1}
-                    onClick={this.clickedDot}
-                    aria-label={`Skip to carousel item ${index + 1}`}
-                    aria-checked={index + 1 === this.state.page}
-                    role="menuitemradio">
-                      <div className="feature-carousel-pager__dot-decorator" />
-                  </button>
-              </li>
+                <li
+                    className="feature-carousel-pager__list-item"
+                    key={image.key || image.src}>
+                        <button
+                            className={`feature-carousel-pager__dot-button ${activeClass}`}
+                            value={index + 1}
+                            onClick={this.clickedDot}
+                            aria-label={`Skip to carousel item ${index + 1}`}
+                            aria-checked={index + 1 === this.state.page}
+                            role="menuitemradio">
+                                <div className="feature-carousel-pager__dot-decorator" />
+                        </button>
+                </li>
             );
 
             dots.push(dot);
 
             // now also create the image items
             return (
-              <li
-                className="feature-carousel-image__list-item"
-                key={image.key || image.src}
-                aria-hidden={this.state.page !== index + 1}
-                tabIndex={-1}>
-                  <picture className="feature-carousel-image__image">
-                    <source srcSet={image.srcSet} type="image/webp" />
-                      <source srcSet={image.src} type="image/png" />
-                        <img src={image.src} alt={image.alt} />
-                  </picture>
-              </li>
+                <li
+                    className="feature-carousel-image__list-item"
+                    key={image.key || image.src}
+                    aria-hidden={this.state.page !== index + 1}
+                    tabIndex={-1}>
+                        <picture className="feature-carousel-image__image">
+                            <source srcSet={image.srcSet} type="image/webp" />
+                                <source srcSet={image.src} type="image/png" />
+                                    <img src={image.src} alt={image.alt} />
+                        </picture>
+                </li>
             );
         });
 
@@ -246,65 +246,65 @@ export default class ImageCarousel extends React.Component {
         }
 
         return (
-          <div
-            className="feature-carousel"
-            aria-describedby={`${this._instanceId}-instructions`}>
-              <div
-                id={`${this._instanceId}-instructions`}
-                className="feature-carousel__instructions"
-                aria-live="polite">
-                    An image carousel containing {screenreaderDescription}, with item {this.state.page} shown.
-              </div>
-                <div className="feature-carousel-content">
-                  <button
-                    aria-label="Previous carousel item"
-                    className={`feature-carousel-content__arrow ${hiddenLeft}`}
-                    aria-hidden={this.state.page === 1}
-                    disabled={this.state.page === 1}
-                    onClick={this.previousItem}>
-                      <FontAwesomeIcon size="lg" icon="chevron-left" />
-                  </button>
+            <div
+                className="feature-carousel"
+                aria-describedby={`${this._instanceId}-instructions`}>
                     <div
-                      className="feature-carousel-image"
-                      onTouchStart={this.touchedCarousel}
-                      onTouchMove={this.touchDraggedCarousel}
-                      onTouchEnd={this.untouchedCarousel}
-                      onTouchCancel={this.untouchedCarousel}
-                      onMouseDown={this.startedMouseDrag}
-                      onMouseUp={this.stoppedMouseDrag}
-                      onMouseLeave={this.stoppedMouseDrag}
-                      onMouseMove={this.performedMouseDrag}
-                      role="presentation"
-                      ref={(div) => {
+                        id={`${this._instanceId}-instructions`}
+                        className="feature-carousel__instructions"
+                        aria-live="polite">
+                    An image carousel containing {screenreaderDescription}, with item {this.state.page} shown.
+                    </div>
+                        <div className="feature-carousel-content">
+                            <button
+                                aria-label="Previous carousel item"
+                                className={`feature-carousel-content__arrow ${hiddenLeft}`}
+                                aria-hidden={this.state.page === 1}
+                                disabled={this.state.page === 1}
+                                onClick={this.previousItem}>
+                                    <FontAwesomeIcon size="lg" icon="chevron-left" />
+                            </button>
+                                <div
+                                    className="feature-carousel-image"
+                                    onTouchStart={this.touchedCarousel}
+                                    onTouchMove={this.touchDraggedCarousel}
+                                    onTouchEnd={this.untouchedCarousel}
+                                    onTouchCancel={this.untouchedCarousel}
+                                    onMouseDown={this.startedMouseDrag}
+                                    onMouseUp={this.stoppedMouseDrag}
+                                    onMouseLeave={this.stoppedMouseDrag}
+                                    onMouseMove={this.performedMouseDrag}
+                                    role="presentation"
+                                    ref={(div) => {
                             this.carouselContainer = div;
                         }}>
-                          <ul
-                            className={`feature-carousel-image__list ${activeDrag}`}
-                            aria-live="polite"
-                            ref={(ul) => {
+                            <ul
+                                className={`feature-carousel-image__list ${activeDrag}`}
+                                aria-live="polite"
+                                ref={(ul) => {
                                 this.carouselList = ul;
                             }}>
-                            {images}
-                          </ul>
-                    </div>
-                      <button
-                        aria-label="Next carousel item"
-                        className={`feature-carousel-content__arrow ${hiddenRight}`}
-                        aria-hidden={this.state.page === this.props.images.length}
-                        disabled={this.state.page === this.props.images.length}
-                        onClick={this.nextItem}>
-                          <FontAwesomeIcon size="lg" icon="chevron-right" />
-                      </button>
-                </div>
-                  <div className="feature-carousel-pager">
-                    <ul
-                      className="feature-carousel-pager__list"
-                      role="menu"
-                      aria-label="Pagination controls for carousel items">
-                      {dots}
-                    </ul>
-                  </div>
-          </div>
+                                {images}
+                            </ul>
+                                </div>
+                                  <button
+                                    aria-label="Next carousel item"
+                                    className={`feature-carousel-content__arrow ${hiddenRight}`}
+                                    aria-hidden={this.state.page === this.props.images.length}
+                                    disabled={this.state.page === this.props.images.length}
+                                    onClick={this.nextItem}>
+                                      <FontAwesomeIcon size="lg" icon="chevron-right" />
+                                </button>
+                        </div>
+                            <div className="feature-carousel-pager">
+                                <ul
+                                    className="feature-carousel-pager__list"
+                                    role="menu"
+                                    aria-label="Pagination controls for carousel items">
+                                    {dots}
+                                </ul>
+                            </div>
+            </div>
         );
     }
 }

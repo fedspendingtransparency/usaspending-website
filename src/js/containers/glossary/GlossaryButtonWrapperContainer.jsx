@@ -25,7 +25,7 @@ export class GlossaryButtonWrapperContainer extends React.Component {
     // auto-generating the props in the `connect` HOC.
         const actions = bindActionCreators(glossaryActions, this.props.dispatch);
         return (
-          <this.props.child {...this.props} {...actions} />
+            <this.props.child {...this.props} {...actions} />
         );
     }
 }

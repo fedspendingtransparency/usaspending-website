@@ -44,26 +44,26 @@ export const EntityDropdownAutocomplete = ({
     onClear,
     isClearable
 }) => (
-  <div className="autocomplete__input">
-    <input
-      className="geo-entity-dropdown__input"
-      disabled={!enabled}
-      type="text"
-      value={searchString}
-      onClick={openDropdown}
-      onKeyDown={handleOnKeyDown}
-      onChange={handleTextInputChange}
-      placeholder={placeholder}
-      ref={(dropdown) => {
+    <div className="autocomplete__input">
+        <input
+            className="geo-entity-dropdown__input"
+            disabled={!enabled}
+            type="text"
+            value={searchString}
+            onClick={openDropdown}
+            onKeyDown={handleOnKeyDown}
+            onChange={handleTextInputChange}
+            placeholder={placeholder}
+            ref={(dropdown) => {
                 const self = context;
                 self.dropdown = dropdown;
             }} />
-              <div className="icon">
-                {loading && <FontAwesomeIcon onClick={toggleDropdown} icon="spinner" spin />}
-                {!loading && showDisclaimer && <ExclamationTriangle alt="warning" />}
-                {isClearable && searchString && <FontAwesomeIcon tabIndex="0" onClick={onClear} icon="times" />}
-              </div>
-  </div>
+                <div className="icon">
+                    {loading && <FontAwesomeIcon onClick={toggleDropdown} icon="spinner" spin />}
+                    {!loading && showDisclaimer && <ExclamationTriangle alt="warning" />}
+                    {isClearable && searchString && <FontAwesomeIcon tabIndex="0" onClick={onClear} icon="times" />}
+                </div>
+    </div>
 );
 
 EntityDropdownAutocomplete.propTypes = propTypes;

@@ -41,15 +41,15 @@ export default class RankVisualizationScopeButton extends React.Component {
         }
 
         return (
-          <button
-            className={`visualization-scope__button ${activeClass}`}
-            value={this.props.value}
-            title={description}
-            aria-label={description}
-            onClick={this.clickedButton}
-            disabled={this.props.disabled}>
-            {this.props.label}
-          </button>
+            <button
+                className={`visualization-scope__button ${activeClass}`}
+                value={this.props.value}
+                title={description}
+                aria-label={description}
+                onClick={this.clickedButton}
+                disabled={this.props.disabled}>
+                {this.props.label}
+            </button>
         );
     }
 }

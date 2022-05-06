@@ -266,51 +266,51 @@ export default class Autocomplete extends React.Component {
         }
         const loadingIndicator = this.props.inFlight ?
             (
-              <div className="usa-da-typeahead__loading-icon">
-                <FontAwesomeIcon icon="spinner" spin />
-              </div>
+                <div className="usa-da-typeahead__loading-icon">
+                    <FontAwesomeIcon icon="spinner" spin />
+                </div>
             ) : null;
 
         return (
-          <div
-            className="usa-da-typeahead-wrapper"
-            role="combobox"
-            aria-controls={this.state.autocompleteId}
-            aria-expanded={this.state.shown}
-            aria-haspopup="true">
-              <div className="usa-da-typeahead">
-                <p>{this.props.label}</p>
-                  <div className="usa-da-typeahead__input">
-                    <input
-                      className="autocomplete"
-                      ref={(t) => {
+            <div
+                className="usa-da-typeahead-wrapper"
+                role="combobox"
+                aria-controls={this.state.autocompleteId}
+                aria-expanded={this.state.shown}
+                aria-haspopup="true">
+                    <div className="usa-da-typeahead">
+                        <p>{this.props.label}</p>
+                            <div className="usa-da-typeahead__input">
+                                <input
+                                    className="autocomplete"
+                                    ref={(t) => {
                                 this.autocompleteInput = t;
                             }}
-                      type="text"
-                      placeholder={this.props.placeholder}
-                      onChange={this.onChange.bind(this)}
-                      tabIndex={0}
-                      aria-controls={this.state.autocompleteId}
-                      aria-activedescendant={activeDescendant}
-                      aria-autocomplete="list"
-                      maxLength={this.props.characterLimit} />
-                    {loadingIndicator}
-                  </div>
-                    <div
-                      className="screen-reader-description"
-                      role="alert">
-                      {status}
+                                    type="text"
+                                    placeholder={this.props.placeholder}
+                                    onChange={this.onChange.bind(this)}
+                                    tabIndex={0}
+                                    aria-controls={this.state.autocompleteId}
+                                    aria-activedescendant={activeDescendant}
+                                    aria-autocomplete="list"
+                                    maxLength={this.props.characterLimit} />
+                                {loadingIndicator}
+                            </div>
+                                <div
+                                    className="screen-reader-description"
+                                    role="alert">
+                                    {status}
+                                </div>
+                                    <SuggestionHolder
+                                      suggestions={this.props.values}
+                                      shown={this.state.shown}
+                                      selectedIndex={this.state.selectedIndex}
+                                      select={this.select.bind(this)}
+                                      maxSuggestions={this.props.maxSuggestions}
+                                      autocompleteId={this.state.autocompleteId} />
                     </div>
-                      <SuggestionHolder
-                        suggestions={this.props.values}
-                        shown={this.state.shown}
-                        selectedIndex={this.state.selectedIndex}
-                        select={this.select.bind(this)}
-                        maxSuggestions={this.props.maxSuggestions}
-                        autocompleteId={this.state.autocompleteId} />
-              </div>
-            {this.generateWarning()}
-          </div>
+                {this.generateWarning()}
+            </div>
         );
     }
 }

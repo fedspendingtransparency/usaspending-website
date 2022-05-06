@@ -129,15 +129,15 @@ export class AwardBreakdownContainer extends React.Component {
 
     render() {
         return (
-          <div className="award-breakdown__content">
-            <AwardBreakdownTreeMap
-              activeFY={this.props.stateProfile.fy}
-              awardBreakdown={this.state.awardBreakdown}
-              totalAmount={this.state.totalAmount} />
-                <AwardBreakdownTable
-                  awardBreakdown={this.state.rows}
-                  hasNegatives={this.state.hasNegatives} />
-          </div>
+            <div className="award-breakdown__content">
+                <AwardBreakdownTreeMap
+                    activeFY={this.props.stateProfile.fy}
+                    awardBreakdown={this.state.awardBreakdown}
+                    totalAmount={this.state.totalAmount} />
+                        <AwardBreakdownTable
+                            awardBreakdown={this.state.rows}
+                            hasNegatives={this.state.hasNegatives} />
+            </div>
         );
     }
 }

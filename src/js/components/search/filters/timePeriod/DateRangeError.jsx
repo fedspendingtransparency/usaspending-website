@@ -20,13 +20,13 @@ const propTypes = {
 export default class DateRangeError extends React.Component {
     render() {
         return (
-          <div className="error-message">
-            <div className="error-title">
-              <Icons.ExclamationCircle />
-                <div className="heading">{this.props.header}</div>
+            <div className="error-message">
+                <div className="error-title">
+                    <Icons.ExclamationCircle />
+                        <div className="heading">{this.props.header}</div>
+                </div>
+                    <p className="message">{this.props.message}</p>
             </div>
-              <p className="message">{this.props.message}</p>
-          </div>
         );
     }
 }

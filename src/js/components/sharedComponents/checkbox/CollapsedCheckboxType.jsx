@@ -32,30 +32,30 @@ export default class CollapsedCheckboxType extends React.Component {
     render() {
         const elementId = `checkbox-${uniqueId()}`;
         return (
-          <div className="primary-checkbox-type">
-            <div className="checkbox-type-item-wrapper">
-              {
+            <div className="primary-checkbox-type">
+                <div className="checkbox-type-item-wrapper">
+                    {
                         this.props.isCollapsable &&
                         <CheckboxExpandButton
-                          hidden={this.props.hideArrow}
-                          toggleExpand={this.props.toggleExpand}
-                          arrowState={this.props.arrowState} />
+                            hidden={this.props.hideArrow}
+                            toggleExpand={this.props.toggleExpand}
+                            arrowState={this.props.arrowState} />
                     }
-                      <label
-                        className="checkbox-item-wrapper"
-                        htmlFor={elementId}>
-                          <input
-                            type="checkbox"
-                            id={elementId}
-                            value={this.props.name}
-                            checked={this.props.selected}
-                            onChange={this.props.toggleChildren} />
-                              <span className="checkbox-item-label">
-                                {this.props.name}
-                              </span>
-                      </label>
+                        <label
+                            className="checkbox-item-wrapper"
+                            htmlFor={elementId}>
+                                <input
+                                    type="checkbox"
+                                    id={elementId}
+                                    value={this.props.name}
+                                    checked={this.props.selected}
+                                    onChange={this.props.toggleChildren} />
+                                        <span className="checkbox-item-label">
+                                            {this.props.name}
+                                        </span>
+                        </label>
+                </div>
             </div>
-          </div>
         );
     }
 }

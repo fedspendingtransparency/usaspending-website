@@ -38,18 +38,18 @@ export default class NavBarGlossaryLink extends React.Component {
 
     render() {
         return (
-          <button
-            aria-label="Show Glossary"
-            className="full-menu__glossary glossary-nav"
-            id="header-glossary-button"
-            onClick={this.clickedButton}>
-              <div className="glossary-nav__icon">
-                <Glossary alt="Glossary" />
-              </div>
-                <div className="glossary-nav__label">
+            <button
+                aria-label="Show Glossary"
+                className="full-menu__glossary glossary-nav"
+                id="header-glossary-button"
+                onClick={this.clickedButton}>
+                    <div className="glossary-nav__icon">
+                        <Glossary alt="Glossary" />
+                    </div>
+                        <div className="glossary-nav__label">
                     Glossary
-                </div>
-          </button>
+                        </div>
+            </button>
         );
     }
 }

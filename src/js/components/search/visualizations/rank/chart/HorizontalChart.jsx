@@ -122,16 +122,16 @@ export default class HorizontalChart extends React.Component {
 
             // generate the left-side label group and striped background
             const group = (<ChartGroup
-              key={`group-${dataValue}-${dataLabel}-${index}`}
-              label={dataLabel}
-              linkID={linkID}
-              urlRoot={this.props.urlRoot}
-              index={index}
-              height={props.itemHeight}
-              width={props.width}
-              labelWidth={props.labelWidth}
-              padding={props.padding}
-              clickedGroup={props.clickedGroup} />);
+                key={`group-${dataValue}-${dataLabel}-${index}`}
+                label={dataLabel}
+                linkID={linkID}
+                urlRoot={this.props.urlRoot}
+                index={index}
+                height={props.itemHeight}
+                width={props.width}
+                labelWidth={props.labelWidth}
+                padding={props.padding}
+                clickedGroup={props.clickedGroup} />);
             groups.push(group);
 
             // generate the right-side graph bar
@@ -148,19 +148,19 @@ export default class HorizontalChart extends React.Component {
             }
 
             const bar = (<ChartBar
-              key={`bar-${dataValue}-${dataLabel}-${index}`}
-              index={index}
-              labelWidth={props.labelWidth}
-              height={props.itemHeight}
-              start={start}
-              width={barWidth}
-              maxWidth={props.width - props.labelWidth}
-              label={dataLabel}
-              value={dataValue}
-              description={props.descriptions[index]}
-              selectItem={props.selectItem}
-              deselectItem={props.deselectItem}
-              disableTooltip={props.disableTooltip} />);
+                key={`bar-${dataValue}-${dataLabel}-${index}`}
+                index={index}
+                labelWidth={props.labelWidth}
+                height={props.itemHeight}
+                start={start}
+                width={barWidth}
+                maxWidth={props.width - props.labelWidth}
+                label={dataLabel}
+                value={dataValue}
+                description={props.descriptions[index]}
+                selectItem={props.selectItem}
+                deselectItem={props.deselectItem}
+                disableTooltip={props.disableTooltip} />);
             bars.push(bar);
         });
 
@@ -169,13 +169,13 @@ export default class HorizontalChart extends React.Component {
             const remainingSlots = this.props.minRows - props.labelSeries.length;
             for (let i = 0; i < remainingSlots; i++) {
                 const emptyGroup = (<ChartGroup
-                  key={`group-empty-${i}`}
-                  label=""
-                  index={i + props.labelSeries.length}
-                  height={props.itemHeight}
-                  width={props.width}
-                  labelWidth={props.labelWidth}
-                  padding={props.padding} />);
+                    key={`group-empty-${i}`}
+                    label=""
+                    index={i + props.labelSeries.length}
+                    height={props.itemHeight}
+                    width={props.width}
+                    labelWidth={props.labelWidth}
+                    padding={props.padding} />);
                 groups.push(emptyGroup);
             }
         }
@@ -190,43 +190,43 @@ export default class HorizontalChart extends React.Component {
 
     render() {
         return (
-          <div
-            ref={(div) => {
+            <div
+                ref={(div) => {
                     this.divRef = div;
                 }}>
-                  <svg
-                    className="rank-graph"
-                    width={this.props.width}
-                    height={this.props.height}
-                    ref={(svg) => {
+                    <svg
+                        className="rank-graph"
+                        width={this.props.width}
+                        height={this.props.height}
+                        ref={(svg) => {
                         this.svgRef = svg;
                     }}>
 
-                      <g className="chart-groups">
-                        {this.state.groups}
-                      </g>
+                        <g className="chart-groups">
+                            {this.state.groups}
+                        </g>
 
-                        <HorizontalXAxis
-                          width={this.props.width - this.props.labelWidth}
-                          height={this.props.height - this.props.padding.bottom}
-                          x={this.props.labelWidth}
-                          y={this.props.height - this.props.padding.bottom}
-                          range={this.state.xRange}
-                          xScale={this.state.xScale}
-                          data={this.props.dataSeries} />
-
-                            <g className="chart-bars">
-                              {this.state.bars}
-                            </g>
-
-                              <HorizontalYAxis
+                            <HorizontalXAxis
+                                width={this.props.width - this.props.labelWidth}
                                 height={this.props.height - this.props.padding.bottom}
                                 x={this.props.labelWidth}
                                 y={this.props.height - this.props.padding.bottom}
-                                xScale={this.state.xScale} />
+                                range={this.state.xRange}
+                                xScale={this.state.xScale}
+                                data={this.props.dataSeries} />
 
-                  </svg>
-          </div>
+                                    <g className="chart-bars">
+                                        {this.state.bars}
+                                    </g>
+
+                                        <HorizontalYAxis
+                                            height={this.props.height - this.props.padding.bottom}
+                                            x={this.props.labelWidth}
+                                            y={this.props.height - this.props.padding.bottom}
+                                            xScale={this.state.xScale} />
+
+                    </svg>
+            </div>
         );
     }
 }

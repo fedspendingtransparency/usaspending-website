@@ -22,14 +22,14 @@ export default class ActivityYAxisItem extends React.Component {
             textAnchor
         } = this.props;
         return (
-          <g className="axis-item y-axis">
-            <text
-              className="y-axis__text"
-              textAnchor={textAnchor}
-              transform={`translate(${x},${y})`}>
-              {label}
-            </text>
-          </g>
+            <g className="axis-item y-axis">
+                <text
+                    className="y-axis__text"
+                    textAnchor={textAnchor}
+                    transform={`translate(${x},${y})`}>
+                    {label}
+                </text>
+            </g>
         );
     }
 }

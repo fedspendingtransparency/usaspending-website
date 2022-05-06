@@ -28,17 +28,17 @@ export default class SelectedAwardAmountBound extends React.Component {
     render() {
         const { label } = this.props;
         return (
-          <button
-            className="shown-filter-button"
-            value={label}
-            onClick={this.removeFilter}
-            title="Click to remove."
-            aria-label={`Applied filter: ${label}`}>
-            {label}
-              <span className="close">
-                <FontAwesomeIcon icon="times" />
-              </span>
-          </button>
+            <button
+                className="shown-filter-button"
+                value={label}
+                onClick={this.removeFilter}
+                title="Click to remove."
+                aria-label={`Applied filter: ${label}`}>
+                {label}
+                    <span className="close">
+                        <FontAwesomeIcon icon="times" />
+                    </span>
+            </button>
         );
     }
 }

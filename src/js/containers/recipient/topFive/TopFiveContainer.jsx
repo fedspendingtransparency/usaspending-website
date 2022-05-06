@@ -147,10 +147,10 @@ export class TopFiveContainer extends React.Component {
 
     render() {
         return (
-          <TopFive
-            category={this.props.category}
-            total={this.props.total}
-            {...this.state} />
+            <TopFive
+                category={this.props.category}
+                total={this.props.total}
+                {...this.state} />
         );
     }
 }

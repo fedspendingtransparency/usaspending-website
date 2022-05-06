@@ -53,57 +53,57 @@ export default class RecipientTimeVisualizationSection extends React.Component {
 
     render() {
         return (
-          <section
-            id="recipient-transactions-over-time"
-            className="recipient-section transactions-over-time">
-              <h3 className="recipient-section__title">Transactions Over Time</h3>
-                <hr
-                  className="results-divider"
-                  ref={(hr) => {
+            <section
+                id="recipient-transactions-over-time"
+                className="recipient-section transactions-over-time">
+                    <h3 className="recipient-section__title">Transactions Over Time</h3>
+                        <hr
+                            className="results-divider"
+                            ref={(hr) => {
                         this.sectionHr = hr;
                     }} />
-                      <div className="recipient-section__description">
+                        <div className="recipient-section__description">
                     This graph shows trends over time for all transactions to this recipient.
                     Hover over the bars for more detailed information.
-                      </div>
-                        <div className="recipient-visualization-period">
-                          <div className="visualization-period">
-                            <div className="content">
-                              <ul>
-                                <li>
-                                  <TimeVisualizationPeriodButton
-                                    value="fiscal_year"
-                                    label="Years"
-                                    active={this.props.visualizationPeriod === 'fiscal_year'}
-                                    changePeriod={this.props.updateVisualizationPeriod} />
-                                </li>
-                                  <li>
-                                    <TimeVisualizationPeriodButton
-                                      value="quarter"
-                                      label="Quarter"
-                                      active={this.props.visualizationPeriod === 'quarter'}
-                                      changePeriod={this.props.updateVisualizationPeriod} />
-                                  </li>
-                                    <li>
-                                      <TimeVisualizationPeriodButton
-                                        value="month"
-                                        label="Month"
-                                        active={this.props.visualizationPeriod === 'month'}
-                                        changePeriod={this.props.updateVisualizationPeriod} />
-                                    </li>
-                              </ul>
-                            </div>
-                          </div>
                         </div>
+                            <div className="recipient-visualization-period">
+                                <div className="visualization-period">
+                                    <div className="content">
+                                        <ul>
+                                            <li>
+                                                <TimeVisualizationPeriodButton
+                                                    value="fiscal_year"
+                                                    label="Years"
+                                                    active={this.props.visualizationPeriod === 'fiscal_year'}
+                                                    changePeriod={this.props.updateVisualizationPeriod} />
+                                            </li>
+                                                <li>
+                                                  <TimeVisualizationPeriodButton
+                                                      value="quarter"
+                                                      label="Quarter"
+                                                      active={this.props.visualizationPeriod === 'quarter'}
+                                                      changePeriod={this.props.updateVisualizationPeriod} />
+                                              </li>
+                                                  <li>
+                                                    <TimeVisualizationPeriodButton
+                                                      value="month"
+                                                      label="Month"
+                                                      active={this.props.visualizationPeriod === 'month'}
+                                                      changePeriod={this.props.updateVisualizationPeriod} />
+                                                </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
 
-                          <RecipientTimeVisualization
-                            visualizationPeriod={this.props.visualizationPeriod}
-                            loading={this.props.loading}
-                            error={this.props.error}
-                            data={this.props.data}
-                            width={this.state.visualizationWidth}
-                            color="#141D3B" />
-          </section>
+                                <RecipientTimeVisualization
+                                    visualizationPeriod={this.props.visualizationPeriod}
+                                    loading={this.props.loading}
+                                    error={this.props.error}
+                                    data={this.props.data}
+                                    width={this.state.visualizationWidth}
+                                    color="#141D3B" />
+            </section>
         );
     }
 }

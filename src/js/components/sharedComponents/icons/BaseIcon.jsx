@@ -82,19 +82,19 @@ export default class BaseIcon extends React.Component {
 
     render() {
         return (
-          <svg
-            className={this.props.iconClass}
-            viewBox={this.state.icon.viewBox}
-            key={this.state.icon.data}
-            aria-label={this.props.alt}>
+            <svg
+                className={this.props.iconClass}
+                viewBox={this.state.icon.viewBox}
+                key={this.state.icon.data}
+                aria-label={this.props.alt}>
 
-              <title>{this.props.alt}</title>
-            {/* eslint-disable react/no-danger */}
-            {/* we need to write the SVG data onto the DOM */}
-              <g
-                dangerouslySetInnerHTML={{ __html: this.state.icon.data }} />
-            {/* eslint-enable react/no-danger */}
-          </svg>
+                    <title>{this.props.alt}</title>
+                {/* eslint-disable react/no-danger */}
+                {/* we need to write the SVG data onto the DOM */}
+                    <g
+                        dangerouslySetInnerHTML={{ __html: this.state.icon.data }} />
+                {/* eslint-enable react/no-danger */}
+            </svg>
         );
     }
 }

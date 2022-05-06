@@ -229,13 +229,13 @@ export default class TableBody extends React.PureComponent {
             this._visibleCells = visibleCoords.rows.reduce((cells, rowCoords, index) => {
                 const rowCells = rowCoords.map((coord) => this._cellCache[coord]);
                 const row = (
-                  <div
-                    className="ibt-table-row"
-                    key={visibleCoords.firstRow + index}
-                    aria-rowindex={visibleCoords.firstRow + index + 1}
-                    role="row">
-                    {rowCells}
-                  </div>
+                    <div
+                        className="ibt-table-row"
+                        key={visibleCoords.firstRow + index}
+                        aria-rowindex={visibleCoords.firstRow + index + 1}
+                        role="row">
+                        {rowCells}
+                    </div>
                 );
                 cells.push(row);
                 return cells;
@@ -360,26 +360,26 @@ export default class TableBody extends React.PureComponent {
 
                 const coord = `${columnIndex},${rowIndex}`;
                 const realCell = (
-                  <div
-                    key={coord}
-                    id={`${this.props.tableId}-cell-${columnIndex}-${rowIndex}`}
-                    className="ibt-table-cell"
-                    role="gridcell"
-                    aria-colindex={columnIndex + 1}
-                    aria-rowindex={rowIndex + 1}
-                    data-ibt-table-element="cell"
-                    data-ibt-table-owner={this.props.tableId}
-                    data-ibt-col-index={columnIndex}
-                    data-ibt-row-index={rowIndex}
-                    tabIndex={0}
-                    style={{
+                    <div
+                        key={coord}
+                        id={`${this.props.tableId}-cell-${columnIndex}-${rowIndex}`}
+                        className="ibt-table-cell"
+                        role="gridcell"
+                        aria-colindex={columnIndex + 1}
+                        aria-rowindex={rowIndex + 1}
+                        data-ibt-table-element="cell"
+                        data-ibt-table-owner={this.props.tableId}
+                        data-ibt-col-index={columnIndex}
+                        data-ibt-row-index={rowIndex}
+                        tabIndex={0}
+                        style={{
                             top: cellPositioning.y,
                             left: cellPositioning.x,
                             height: cellPositioning.height,
                             width: cellPositioning.width
                         }}>
-                    {cellContent}
-                  </div>
+                        {cellContent}
+                    </div>
                 );
                 cellCache[coord] = realCell;
             });
@@ -403,19 +403,19 @@ export default class TableBody extends React.PureComponent {
         };
 
         return (
-          <div
-            className="ibt-table-body-container"
-            role="presentation"
-            style={style}>
-              <div
-                className="ibt-table-body"
+            <div
+                className="ibt-table-body-container"
                 role="presentation"
-                ref={(div) => {
+                style={style}>
+                    <div
+                        className="ibt-table-body"
+                        role="presentation"
+                        ref={(div) => {
                         this._tableDiv = div;
                     }}>
-                {this._visibleCells}
-              </div>
-          </div>
+                        {this._visibleCells}
+                    </div>
+            </div>
         );
     }
 }

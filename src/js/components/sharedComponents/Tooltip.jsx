@@ -88,24 +88,24 @@ export default class Tooltip extends React.Component {
 
     render() {
         return (
-          <div
-            ref={this.setWrapperRef}
-            className="tooltip"
-            onMouseLeave={this.props.closeTooltip}
-            onBlur={this.props.closeTooltip}
-            style={{
+            <div
+                ref={this.setWrapperRef}
+                className="tooltip"
+                onMouseLeave={this.props.closeTooltip}
+                onBlur={this.props.closeTooltip}
+                style={{
                     top: this.state.iconTop,
                     left: this.state.iconLeft
                 }}>
-                  <div className="tooltip__icon">
-                    <Icons.InfoCircle />
-                  </div>
-                    <div className="homepage-hero-tooltip__text_holder">
-                      <div className="tooltip__content">
-                        {this.props.content}
-                      </div>
+                    <div className="tooltip__icon">
+                        <Icons.InfoCircle />
                     </div>
-          </div>
+                        <div className="homepage-hero-tooltip__text_holder">
+                            <div className="tooltip__content">
+                                {this.props.content}
+                            </div>
+                        </div>
+            </div>
         );
     }
 }

@@ -104,31 +104,31 @@ const AboutContent = () => {
     }, [history, location.search, query.section]);
 
     return (
-      <div className="about-content-wrapper">
-        <div className="about-sidebar">
-          <Sidebar
-            isGoingToBeSticky
-            active={activeSection}
-            pageName="about"
-            sections={aboutSections}
-            detectActiveSection={setActiveSection}
-            jumpToSection={jumpToSection}
-            fixedStickyBreakpoint={getStickyBreakPointForSidebar()} />
-        </div>
-          <div className="about-content">
-            <div className="about-padded-content">
-              <Mission />
-                <Background />
-                  <DataSources onExternalLinkClick={onExternalLinkClick} />
-                    <DataQuality onExternalLinkClick={onExternalLinkClick} />
-                      <Development />
-                        <Careers />
-                          <Licensing />
-                            <MoreInfo />
-                              <Contact />
+        <div className="about-content-wrapper">
+            <div className="about-sidebar">
+                <Sidebar
+                    isGoingToBeSticky
+                    active={activeSection}
+                    pageName="about"
+                    sections={aboutSections}
+                    detectActiveSection={setActiveSection}
+                    jumpToSection={jumpToSection}
+                    fixedStickyBreakpoint={getStickyBreakPointForSidebar()} />
             </div>
-          </div>
-      </div>
+                <div className="about-content">
+                    <div className="about-padded-content">
+                        <Mission />
+                            <Background />
+                                <DataSources onExternalLinkClick={onExternalLinkClick} />
+                                    <DataQuality onExternalLinkClick={onExternalLinkClick} />
+                                      <Development />
+                                        <Careers />
+                                            <Licensing />
+                                              <MoreInfo />
+                                                <Contact />
+                    </div>
+                </div>
+        </div>
     );
 };
 

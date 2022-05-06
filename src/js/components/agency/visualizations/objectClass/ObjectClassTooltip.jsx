@@ -85,14 +85,14 @@ export default class ObjectClassTooltip extends React.Component {
 
     render() {
         let desc = (
-          <div className="tooltip-full">
-            <div className="tooltip-value">
-              {this.props.value} | {this.props.percentage}
-            </div>
-              <div className="tooltip-description">
-                {this.props.description}
-              </div>
-          </div>);
+            <div className="tooltip-full">
+                <div className="tooltip-value">
+                    {this.props.value} | {this.props.percentage}
+                </div>
+                    <div className="tooltip-description">
+                        {this.props.description}
+                    </div>
+            </div>);
         let smallValue = '';
 
         if (this.props.arrow) {
@@ -103,37 +103,37 @@ export default class ObjectClassTooltip extends React.Component {
         let footer = null;
         if (!this.props.showMinorObjectClass) {
             footer = (
-              <div className="tooltip-footer">
+                <div className="tooltip-footer">
                     Click on the block to see minor Object Classes for {this.props.name}.
-              </div>
+                </div>
             );
         }
 
         return (
-          <div
-            className="visualization-tooltip"
-            ref={(div) => {
+            <div
+                className="visualization-tooltip"
+                ref={(div) => {
                     this.containerDiv = div;
                 }}>
-                  <div
-                    className={`tooltip${smallValue}`}
-                    ref={(div) => {
+                    <div
+                        className={`tooltip${smallValue}`}
+                        ref={(div) => {
                         this.div = div;
                     }}>
-                      <div
-                        className="tooltip-pointer"
-                        ref={(div) => {
+                        <div
+                            className="tooltip-pointer"
+                            ref={(div) => {
                             this.pointerDiv = div;
                         }} />
-                          <div className="tooltip-title">
-                            {this.props.name}
-                          </div>
-                            <div className="tooltip-body center">
-                              {desc}
+                            <div className="tooltip-title">
+                                {this.props.name}
                             </div>
-                    { footer }
-                  </div>
-          </div>
+                                <div className="tooltip-body center">
+                                    {desc}
+                                </div>
+                        { footer }
+                    </div>
+            </div>
         );
     }
 }

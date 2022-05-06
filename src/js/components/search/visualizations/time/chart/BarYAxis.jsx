@@ -97,12 +97,12 @@ export default class BarYAxis extends React.Component {
             const yPos = props.height - props.scale(tick);
 
             return (<BarYAxisItem
-              x={xPos}
-              y={yPos}
-              label={`${tickLabels[i]}`}
-              key={`label-y-${tick}-${i}`}
-              lineStart={lineStart}
-              lineEnd={lineEnd} />);
+                x={xPos}
+                y={yPos}
+                label={`${tickLabels[i]}`}
+                key={`label-y-${tick}-${i}`}
+                lineStart={lineStart}
+                lineEnd={lineEnd} />);
         });
 
         this.setState({
@@ -113,21 +113,21 @@ export default class BarYAxis extends React.Component {
 
     render() {
         return (
-          <g className="bar-axis">
-            <title>Y-Axis</title>
-              <desc>
-                {this.state.description}
-              </desc>
-                <line
-                  className="y-axis"
-                  x1={this.props.padding.left}
-                  y1={0}
-                  x2={this.props.padding.left}
-                  y2={this.props.height} />
-                    <g className="axis-labels">
-                      {this.state.labels}
-                    </g>
-          </g>
+            <g className="bar-axis">
+                <title>Y-Axis</title>
+                    <desc>
+                        {this.state.description}
+                    </desc>
+                        <line
+                            className="y-axis"
+                            x1={this.props.padding.left}
+                            y1={0}
+                            x2={this.props.padding.left}
+                            y2={this.props.height} />
+                                <g className="axis-labels">
+                                    {this.state.labels}
+                                </g>
+            </g>
         );
     }
 }

@@ -37,37 +37,37 @@ export default class IdvActivity extends React.Component {
         }
         else {
             content = (<IdvActivityVisualization
-              page={this.props.page}
-              total={this.props.total}
-              limit={this.props.limit}
-              awards={this.props.awards}
-              changePage={this.props.changePage}
-              xSeries={this.props.xSeries}
-              ySeries={this.props.ySeries}
-              selectedItemFunc={this.props.selectedItemFunc} />);
+                page={this.props.page}
+                total={this.props.total}
+                limit={this.props.limit}
+                awards={this.props.awards}
+                changePage={this.props.changePage}
+                xSeries={this.props.xSeries}
+                ySeries={this.props.ySeries}
+                selectedItemFunc={this.props.selectedItemFunc} />);
         }
 
         return (
-          <div className="award__col award-viz idv-activity">
-            <div className="award__col__content">
-              <div className="award-viz__heading">
-                <div className="award-viz__icon">
-                  <FontAwesomeIcon size="lg" icon="chart-area" />
+            <div className="award__col award-viz idv-activity">
+                <div className="award__col__content">
+                    <div className="award-viz__heading">
+                        <div className="award-viz__icon">
+                            <FontAwesomeIcon size="lg" icon="chart-area" />
+                        </div>
+                            <h3 className="award-viz__title">IDV Activity</h3>
+                                <TooltipWrapper
+                                    className="award-section-tt"
+                                    icon="info"
+                                    wide
+                                    tooltipComponent={idvActivityInfo} />
+                    </div>
+                        <hr />
+                            <div className="results-table-message-container">
+                                {message}
+                            </div>
+                    {content}
                 </div>
-                  <h3 className="award-viz__title">IDV Activity</h3>
-                    <TooltipWrapper
-                      className="award-section-tt"
-                      icon="info"
-                      wide
-                      tooltipComponent={idvActivityInfo} />
-              </div>
-                <hr />
-                  <div className="results-table-message-container">
-                    {message}
-                  </div>
-              {content}
             </div>
-          </div>
         );
     }
 }

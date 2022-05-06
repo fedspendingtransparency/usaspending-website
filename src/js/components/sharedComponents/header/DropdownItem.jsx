@@ -45,16 +45,16 @@ const DropdownItem = ({
 
     let className = 'nav-children__link_disabled';
     let comingSoon = (
-      <div className="nav-children__coming-soon">
-        <DropdownComingSoon />
-      </div>
+        <div className="nav-children__coming-soon">
+            <DropdownComingSoon />
+        </div>
     );
 
     const newLabel = isNewTab && enabled
         ? (
             <>
                 {label}
-                  <span className="new-badge dropdown-item"> NEW</span>
+                    <span className="new-badge dropdown-item"> NEW</span>
             </>
         )
         : null;
@@ -71,28 +71,28 @@ const DropdownItem = ({
     }
 
     let link = (
-      <Link
-        className={`nav-children__link ${className}`}
-        to={newUrl}
-        onClick={clickedHeaderLink.bind(null, `${newUrl}`)}
-        {...newTabProps}>
-        {!newLabel && label}
-        {newLabel}
-        {comingSoon}
-      </Link>
-    );
-
-    if (typeof url === 'string' && url.includes('http')) {
-        link = (
-          <a
+        <Link
             className={`nav-children__link ${className}`}
-            href={newUrl}
+            to={newUrl}
             onClick={clickedHeaderLink.bind(null, `${newUrl}`)}
             {...newTabProps}>
             {!newLabel && label}
             {newLabel}
             {comingSoon}
-          </a>
+        </Link>
+    );
+
+    if (typeof url === 'string' && url.includes('http')) {
+        link = (
+            <a
+                className={`nav-children__link ${className}`}
+                href={newUrl}
+                onClick={clickedHeaderLink.bind(null, `${newUrl}`)}
+                {...newTabProps}>
+                {!newLabel && label}
+                {newLabel}
+                {comingSoon}
+            </a>
         );
     }
 
@@ -102,10 +102,10 @@ const DropdownItem = ({
     }
 
     return (
-      <li className="nav-children__list-item">
-        <hr className={`nav-children__list-separator ${firstClass}`} />
-        {link}
-      </li>
+        <li className="nav-children__list-item">
+            <hr className={`nav-children__list-separator ${firstClass}`} />
+            {link}
+        </li>
     );
 };
 

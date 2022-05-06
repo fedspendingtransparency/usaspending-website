@@ -39,11 +39,11 @@ export default class FiscalYearButton extends React.Component {
         }
         const label = `FY ${this.props.year}`;
         return (
-          <button
-            className={`time-period-button ${activeClass}`}
-            onClick={this.onClick}>
-            {label}
-          </button>
+            <button
+                className={`time-period-button ${activeClass}`}
+                onClick={this.onClick}>
+                {label}
+            </button>
         );
     }
 }

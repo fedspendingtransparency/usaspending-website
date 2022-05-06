@@ -55,24 +55,24 @@ export default class RecipientName extends React.Component {
 
     render() {
         return (
-          <div className="recipient-filter search-filter">
-            <form onSubmit={this.searchRecipient}>
-              <div className="recipient-filter-item-wrap">
-                <input
-                  id="search"
-                  type="text"
-                  className="recipient-input"
-                  placeholder={`Recipient Name, UEI, or ${DUNS_LABEL}DUNS`}
-                  value={this.props.value}
-                  onChange={this.props.changedInput} />
-                    <IndividualSubmit
-                      className="recipient-submit"
-                      onClick={this.searchRecipient}
-                      label="Filter by recipient name" />
-              </div>
-            </form>
-            {this.generateWarning()}
-          </div>
+            <div className="recipient-filter search-filter">
+                <form onSubmit={this.searchRecipient}>
+                    <div className="recipient-filter-item-wrap">
+                        <input
+                            id="search"
+                            type="text"
+                            className="recipient-input"
+                            placeholder={`Recipient Name, UEI, or ${DUNS_LABEL}DUNS`}
+                            value={this.props.value}
+                            onChange={this.props.changedInput} />
+                                <IndividualSubmit
+                                    className="recipient-submit"
+                                    onClick={this.searchRecipient}
+                                    label="Filter by recipient name" />
+                    </div>
+                </form>
+                {this.generateWarning()}
+            </div>
         );
     }
 }

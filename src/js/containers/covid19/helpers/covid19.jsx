@@ -17,35 +17,35 @@ import {
 } from 'components/covid19/Covid19Tooltips';
 
 const totalSpendingText = (
-  <div className="body__header-text">
+    <div className="body__header-text">
       This section covers
-    <span>
-      <strong> Total Spending</strong>
-        <div style={{ float: 'right' }}>
-          <TooltipWrapper
-            className="homepage__covid-19-tt"
-            icon="info"
-            tooltipPosition="left"
-            tooltipComponent={<TotalSpendingTT />} />
-        </div>
-    </span>
-  </div>
+        <span>
+            <strong> Total Spending</strong>
+                <div style={{ float: 'right' }}>
+                    <TooltipWrapper
+                        className="homepage__covid-19-tt"
+                        icon="info"
+                        tooltipPosition="left"
+                        tooltipComponent={<TotalSpendingTT />} />
+                </div>
+        </span>
+    </div>
 );
 
 const awardSpendingText = (
-  <div className="body__header-text">
+    <div className="body__header-text">
       This section covers
-    <span>
-      <strong> Award Spending</strong>
-        <div style={{ float: 'right' }}>
-          <TooltipWrapper
-            className="homepage__covid-19-tt"
-            icon="info"
-            tooltipPosition="left"
-            tooltipComponent={<AwardSpendingTT />} />
-        </div>
-    </span>
-  </div>
+        <span>
+            <strong> Award Spending</strong>
+                <div style={{ float: 'right' }}>
+                    <TooltipWrapper
+                        className="homepage__covid-19-tt"
+                        icon="info"
+                        tooltipPosition="left"
+                        tooltipComponent={<AwardSpendingTT />} />
+                </div>
+        </span>
+    </div>
 );
 
 // eslint-disable-next-line import/prefer-default-export

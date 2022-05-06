@@ -35,19 +35,19 @@ export default class DownloadBreadcrumb extends React.Component {
             }
 
             return (<BreadcrumbItem
-              key={index}
-              type={type}
-              title={step}
-              step={index + 1}
-              currentStep={this.props.step}
-              totalSteps={steps.length}
-              goToStep={this.props.goToStep} />);
+                key={index}
+                type={type}
+                title={step}
+                step={index + 1}
+                currentStep={this.props.step}
+                totalSteps={steps.length}
+                goToStep={this.props.goToStep} />);
         });
 
         return (
-          <div className="download-breadcrumb">
-            {items}
-          </div>
+            <div className="download-breadcrumb">
+                {items}
+            </div>
         );
     }
 }

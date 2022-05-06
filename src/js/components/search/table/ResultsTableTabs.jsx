@@ -23,24 +23,24 @@ export default class ResultsTableTabs extends React.Component {
         const tabs = this.props.types.map((type) => {
             const count = this.props.hideCounts ? null : this.props.counts[type.internal];
             return (
-              <ResultsTableTabItem
-                {...type}
-                count={count}
-                active={this.props.active === type.internal}
-                switchTab={this.props.switchTab}
-                key={`table-type-item-${type.internal}`}
-                enabled={!this.props.disabled}
-                hideCounts={this.props.hideCounts}
-                className={this.props.tabsClassName} />
+                <ResultsTableTabItem
+                    {...type}
+                    count={count}
+                    active={this.props.active === type.internal}
+                    switchTab={this.props.switchTab}
+                    key={`table-type-item-${type.internal}`}
+                    enabled={!this.props.disabled}
+                    hideCounts={this.props.hideCounts}
+                    className={this.props.tabsClassName} />
             );
         });
 
         return (
-          <div
-            className="table-types"
-            role="menu">
-            {tabs}
-          </div>
+            <div
+                className="table-types"
+                role="menu">
+                {tabs}
+            </div>
         );
     }
 }

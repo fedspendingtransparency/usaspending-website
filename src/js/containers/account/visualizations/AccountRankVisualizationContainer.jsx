@@ -172,11 +172,11 @@ ${MoneyFormatter.formatMoney(adjustedValue)}`;
 
     render() {
         return (
-          <AccountRankVisualizationSection
-            {...this.state}
-            changeScope={this.changeScope}
-            nextPage={this.nextPage}
-            previousPage={this.previousPage} />
+            <AccountRankVisualizationSection
+                {...this.state}
+                changeScope={this.changeScope}
+                nextPage={this.nextPage}
+                previousPage={this.previousPage} />
         );
     }
 }

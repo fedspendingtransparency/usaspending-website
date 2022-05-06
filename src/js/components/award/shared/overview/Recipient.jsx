@@ -58,22 +58,22 @@ const Recipient = ({
             if (recordType === 1) recipientTitle = 'MULTIPLE RECIPIENTS';
             if (recordType === 3) recipientTitle = 'REDACTED DUE TO PII';
             return (
-              <h5
-                className="award-overview__left-section__agency-name award-overview__left-section__agency-name__recipient">
-                {recipientTitle}
-                  <div className="award__heading-icon">
-                    <Link to={glossaryLink}>
-                      <Glossary alt={glossaryLinkText} />
-                    </Link>
-                  </div>
-              </h5>
+                <h5
+                    className="award-overview__left-section__agency-name award-overview__left-section__agency-name__recipient">
+                    {recipientTitle}
+                        <div className="award__heading-icon">
+                            <Link to={glossaryLink}>
+                                <Glossary alt={glossaryLinkText} />
+                            </Link>
+                        </div>
+                </h5>
             );
         }
         return (
-          <h5
-            className="award-overview__left-section__agency-name award-overview__left-section__agency-name__recipient">
-            {formatRecipientLink(recipient.internalId, recipient.name)}
-          </h5>
+            <h5
+                className="award-overview__left-section__agency-name award-overview__left-section__agency-name__recipient">
+                {formatRecipientLink(recipient.internalId, recipient.name)}
+            </h5>
         );
     };
 
@@ -85,16 +85,16 @@ const Recipient = ({
     };
 
     return (
-      <AwardSection className="award-overview__left-section__recipient award-overview-column award-overview-column__spacing">
-        <h6 className="award-overview-title">Recipient</h6>
-        {recipientComponent()}
-          <RecipientAddress
-            recipientLocation={recipient.location}
-            aggregateRecordType={aggregateRecordType()} />
-              <div className="award-overview__left-section__aggregated-text">
-                {isFinancialAssistance && aggregateRecordText()}
-              </div>
-      </AwardSection>
+        <AwardSection className="award-overview__left-section__recipient award-overview-column award-overview-column__spacing">
+            <h6 className="award-overview-title">Recipient</h6>
+            {recipientComponent()}
+                <RecipientAddress
+                    recipientLocation={recipient.location}
+                    aggregateRecordType={aggregateRecordType()} />
+                        <div className="award-overview__left-section__aggregated-text">
+                            {isFinancialAssistance && aggregateRecordText()}
+                        </div>
+        </AwardSection>
     );
 };
 

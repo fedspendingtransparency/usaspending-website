@@ -197,14 +197,14 @@ export class ReferencedAwardsContainer extends React.Component {
 
     render() {
         return (
-          <ReferencedAwardsSection
-            {...this.state}
-            counts={this.props.award.idvDetails}
-            switchTab={this.switchTab}
-            changePage={this.changePage}
-            updateSort={this.updateSort}
-            tableType={this.props.tableType}
-            tableTypes={tableTypes} />
+            <ReferencedAwardsSection
+                {...this.state}
+                counts={this.props.award.idvDetails}
+                switchTab={this.switchTab}
+                changePage={this.changePage}
+                updateSort={this.updateSort}
+                tableType={this.props.tableType}
+                tableTypes={tableTypes} />
         );
     }
 }
