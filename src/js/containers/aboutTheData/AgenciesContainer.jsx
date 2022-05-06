@@ -186,7 +186,7 @@ const AgenciesContainer = ({
             totalsReq.current.cancel();
         }
         dispatch(setSearchTerm(''));
-    }, [dispatch]);
+    }, []);
 
     useEffect(() => {
     // Active tab or page number changes
