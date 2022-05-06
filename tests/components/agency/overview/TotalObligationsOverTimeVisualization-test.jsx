@@ -1,8 +1,8 @@
 import React from 'react';
 
 import { render, screen } from 'test-utils';
-import TotalObligationsOverTimeVisualization from 'components/agencyV2/visualizations/totalObligationsOverTime/TotalObligationsOverTimeVisualization';
-import { defaultPadding } from 'dataMapping/agencyV2/visualizations/totalObligationsOverTime';
+import TotalObligationsOverTimeVisualization from 'components/agency/visualizations/totalObligationsOverTime/TotalObligationsOverTimeVisualization';
+import { defaultPadding } from 'dataMapping/agency/visualizations/totalObligationsOverTime';
 import { mock2020Data, mock2021Data } from './mockData';
 
 describe('Today Line', () => {

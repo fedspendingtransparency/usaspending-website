@@ -14,7 +14,7 @@ import { sidebarTypes } from 'dataMapping/explorer/sidebarStrings';
 import { formatTreemapValues } from 'helpers/moneyFormatter';
 import { generateSingular } from 'helpers/singularityHelper';
 
-import { useAgencySlugs } from "containers/agencyV2/WithAgencySlugs";
+import { useAgencySlugs } from "containers/agency/WithAgencySlugs";
 
 import TruncationWarning from './TruncationWarning';
 

@@ -20,7 +20,7 @@ import * as ExplorerHelper from 'helpers/explorerHelper';
 
 import DetailContent from 'components/explorer/detail/DetailContent';
 import ExplorerSidebar from 'components/explorer/detail/sidebar/ExplorerSidebar';
-import withAgencySlugs from "containers/agencyV2/WithAgencySlugs";
+import withAgencySlugs from "containers/agency/WithAgencySlugs";
 
 const propTypes = {
     explorer: PropTypes.object,

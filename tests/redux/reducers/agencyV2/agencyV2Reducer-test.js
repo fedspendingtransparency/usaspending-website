@@ -8,7 +8,7 @@ import BaseAgencyBudgetaryResources from 'models/v2/agency/BaseAgencyBudgetaryRe
 import BaseAgencyRecipients from 'models/v2/agency/BaseAgencyRecipients';
 import BaseAgencySubagencyCount from 'models/v2/agency/BaseAgencySubagencyCount';
 import BaseStatusOfFundsLevel from 'models/v2/agency/BaseStatusOfFundsLevel';
-import agencyReducer, { initialState } from 'redux/reducers/agencyV2/agencyV2Reducer';
+import agencyReducer, { initialState } from 'redux/reducers/agency/agencyV2Reducer';
 import { mockAgency } from '../../../models/agency/BaseAgencyOverview-test';
 import { mockBudgetaryResources } from '../../../models/agency/BaseAgencyBudgetaryResources-test';
 import { mockSubcomponent } from '../../../models/agency/BaseStatusOfFundsLevel-test';

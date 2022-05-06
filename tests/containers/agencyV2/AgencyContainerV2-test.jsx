@@ -7,18 +7,18 @@ import React from 'react';
 import { render, waitFor } from 'test-utils';
 import { Route } from 'react-router-dom';
 import * as reactRedux from 'react-redux';
-import * as agencyV2 from 'apis/agencyV2';
+import * as agencyV2 from 'apis/agency';
 import * as accountHooks from 'containers/account/WithLatestFy';
 import * as queryParamHelpers from 'helpers/queryParams';
-import * as agencyHooks from 'containers/agencyV2/WithAgencySlugs';
+import * as agencyHooks from 'containers/agency/WithAgencySlugs';
 
-import AgencyContainerV2 from 'containers/agencyV2/AgencyContainerV2';
+import AgencyContainerV2 from 'containers/agency/AgencyContainerV2';
 import { mockAgency } from '../../models/agency/BaseAgencyOverview-test';
 import { mockApiCall } from '../../testResources/mockApiHelper';
 
 mockApiCall(agencyV2, 'fetchBudgetaryResources', {});
 
-jest.mock('components/agencyV2/AgencyPage', () => jest.fn(() => null));
+jest.mock('components/agency/AgencyPage', () => jest.fn(() => null));
 
 let spy;
 const mockDispatch = jest.fn();

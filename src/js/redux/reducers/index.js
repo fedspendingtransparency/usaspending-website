@@ -23,7 +23,7 @@ import naicsReducer from './search/naicsReducer';
 import tasReducer from './search/tasReducer';
 import pscReducer from './search/pscReducer';
 import mapLegendToggleReducer from './search/mapLegendToggleReducer';
-import agencyV2Reducer from './agencyV2/agencyV2Reducer';
+import agencyReducer from './agency/agencyReducer';
 import covid19Reducer from './covid19/covid19Reducer';
 import aboutTheDataReducer from './aboutTheData';
 import googleAnalyticsReducer from './googleAnalytics/googleAnalyticsReducer';
@@ -51,7 +51,7 @@ const appReducer = combineReducers({
     tas: tasReducer,
     psc: pscReducer,
     searchMapLegendToggle: mapLegendToggleReducer,
-    agencyV2: agencyV2Reducer,
+    agency: agencyReducer,
     covid19: covid19Reducer,
     aboutTheData: aboutTheDataReducer,
     googleAnalytics: googleAnalyticsReducer

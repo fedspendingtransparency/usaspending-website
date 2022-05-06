@@ -17,7 +17,7 @@ import { fetchAwardSpendingByAgency, fetchLoansByAgency } from 'apis/disaster';
 import CoreSpendingTableRow from 'models/v2/covid19/CoreSpendingTableRow';
 import Analytics from 'helpers/analytics/Analytics';
 import { calculateUnlinkedTotals } from 'helpers/covid19Helper';
-import { useAgencySlugs } from 'containers/agencyV2/WithAgencySlugs';
+import { useAgencySlugs } from 'containers/agency/WithAgencySlugs';
 
 const propTypes = {
     type: PropTypes.string.isRequired,

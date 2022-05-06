@@ -5,10 +5,10 @@
 
 import React from 'react';
 import { render, waitFor } from 'test-utils';
-import * as actions from 'redux/actions/agencyV2/agencyV2Actions';
-import * as apis from 'apis/agencyV2';
+import * as actions from 'redux/actions/agency/agencyV2Actions';
+import * as apis from 'apis/agency';
 import BaseAgencyRecipients from 'models/v2/agency/BaseAgencyRecipients';
-import RecipientDistributionContainer from 'containers/agencyV2/visualizations/RecipientDistributionContainer';
+import RecipientDistributionContainer from 'containers/agency/visualizations/RecipientDistributionContainer';
 import { defaultState } from '../../../testResources/defaultReduxFilters';
 
 const mockProps = { fiscalYear: '1995' };

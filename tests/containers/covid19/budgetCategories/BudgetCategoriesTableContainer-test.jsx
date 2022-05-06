@@ -8,7 +8,7 @@ import { render, waitFor, screen } from "test-utils";
 import "@testing-library/jest-dom/extend-expect";
 import BudgetCategoriesTableContainer from "containers/covid19/budgetCategories/BudgetCategoriesTableContainer";
 import * as api from "apis/disaster";
-import * as hooks from "containers/agencyV2/WithAgencySlugs";
+import * as hooks from "containers/agency/WithAgencySlugs";
 import { defaultState } from "../../../testResources/defaultReduxFilters";
 
 const mockResults = [{

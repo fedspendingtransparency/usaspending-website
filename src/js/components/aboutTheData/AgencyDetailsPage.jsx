@@ -7,7 +7,7 @@ import { useParams, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { LoadingMessage, ErrorMessage, ShareIcon } from 'data-transparency-ui';
 
-import { fetchAgencyOverview } from 'apis/agencyV2';
+import { fetchAgencyOverview } from 'apis/agency';
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
 import { getAgencyDetailEmail } from 'helpers/aboutTheDataHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
@@ -20,7 +20,7 @@ import BaseAgencyOverview from 'models/v2/agency/BaseAgencyOverview';
 import ExternalLink from 'components/sharedComponents/ExternalLink';
 import { agencyNotes } from './componentMapping/agencyNotes';
 import AboutTheDataModal from './AboutTheDataModal';
-import { useAgencySlugs } from "../../containers/agencyV2/WithAgencySlugs";
+import { useAgencySlugs } from "../../containers/agency/WithAgencySlugs";
 
 require('pages/aboutTheData/aboutTheData.scss');
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, waitFor } from 'test-utils';
-import * as apis from 'apis/agencyV2';
-import SubAgencySummaryContainer from 'containers/agencyV2/awardSpending/SubAgencySummaryContainer';
+import * as apis from 'apis/agency';
+import SubAgencySummaryContainer from 'containers/agency/awardSpending/SubAgencySummaryContainer';
 import { defaultState } from '../../../testResources/defaultReduxFilters';
 
 const mockProps = {

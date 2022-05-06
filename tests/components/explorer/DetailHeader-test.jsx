@@ -7,7 +7,7 @@ import React from "react";
 import { render, screen } from "test-utils";
 import "@testing-library/jest-dom/extend-expect";
 import DetailHeader from "components/explorer/detail/header/DetailHeader";
-import * as hooks from "containers/agencyV2/WithAgencySlugs";
+import * as hooks from "containers/agency/WithAgencySlugs";
 import { BrowserRouter } from "react-router-dom";
 
 const mockAPIResponse = {

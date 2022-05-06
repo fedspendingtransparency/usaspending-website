@@ -5,7 +5,7 @@
 
 import React from 'react';
 import IntroSection
-    from "components/agencyV2/statusOfFunds/IntroSection";
+    from "components/agency/statusOfFunds/IntroSection";
 import { render, screen } from '../../../testResources/test-utils';
 
 describe('Agency V2 Status of Funds IntroSection', () => {

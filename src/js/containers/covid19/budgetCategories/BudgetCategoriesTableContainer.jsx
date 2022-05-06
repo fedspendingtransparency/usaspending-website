@@ -24,7 +24,7 @@ import { fetchDisasterSpending, fetchLoanSpending } from 'apis/disaster';
 import { handleSort, calculateUnlinkedTotals } from 'helpers/covid19Helper';
 
 import BaseBudgetCategoryRow from 'models/v2/covid19/BaseBudgetCategoryRow';
-import { useAgencySlugs } from 'containers/agencyV2/WithAgencySlugs';
+import { useAgencySlugs } from 'containers/agency/WithAgencySlugs';
 import { SpendingTypesTT } from 'components/covid19/Covid19Tooltips';
 
 const propTypes = {

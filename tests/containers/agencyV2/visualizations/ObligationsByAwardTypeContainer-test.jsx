@@ -5,9 +5,9 @@
 
 import React from 'react';
 import { render, waitFor } from 'test-utils';
-import ObligationsByAwardTypeContainer from 'containers/agencyV2/visualizations/ObligationsByAwardTypeContainer';
-import * as agencyV2 from 'apis/agencyV2';
-import * as actions from 'redux/actions/agencyV2/agencyV2Actions';
+import ObligationsByAwardTypeContainer from 'containers/agency/visualizations/ObligationsByAwardTypeContainer';
+import * as agencyV2 from 'apis/agency';
+import * as actions from 'redux/actions/agency/agencyV2Actions';
 import { defaultState } from '../../../testResources/defaultReduxFilters';
 
 
