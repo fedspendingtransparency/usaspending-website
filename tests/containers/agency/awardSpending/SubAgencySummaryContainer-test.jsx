@@ -49,7 +49,7 @@ test('makes a new API call when the selected FY changes', () => {
     });
     const { rerender } = render(
         <SubAgencySummaryContainer fy="2000" summaryData={summaryData} data={mockProps.data} />,
-        { initialState: { ...defaultState, agencyV2: { overview: { toptierCode: '123' } } } }
+        { initialState: { ...defaultState, agency: { overview: { toptierCode: '123' } } } }
     );
     rerender(<SubAgencySummaryContainer summaryData={summaryData} {...mockProps} />);
     return waitFor(() => {

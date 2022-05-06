@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { render, waitFor } from 'test-utils';
-import * as actions from 'redux/actions/agency/agencyV2Actions';
+import * as actions from 'redux/actions/agency/agencyActions';
 import * as apis from 'apis/agency';
 import BaseAgencyRecipients from 'models/v2/agency/BaseAgencyRecipients';
 import RecipientDistributionContainer from 'containers/agency/visualizations/RecipientDistributionContainer';

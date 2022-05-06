@@ -23,7 +23,7 @@ recipientDistribution.populate({
 });
 
 const mockStoreDod = {
-    agencyV2: {
+    agency: {
         overview: overviewDod,
         budgetaryResources,
         recipientDistribution
@@ -40,7 +40,7 @@ const overview = Object.create(BaseAgencyOverview);
 overview.populate(mockAgency);
 
 const mockStore = {
-    agencyV2: {
+    agency: {
         overview,
         budgetaryResources,
         recipientDistribution

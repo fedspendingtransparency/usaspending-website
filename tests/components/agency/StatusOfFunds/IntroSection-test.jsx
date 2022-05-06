@@ -15,7 +15,7 @@ describe('Agency V2 Status of Funds IntroSection', () => {
         totalItems: 15
     };
     const mockStore = {
-        agencyV2: {
+        agency: {
             budgetaryResources: {
                 2021: {
                     agencyBudget: '1 Million Dollars'
@@ -25,7 +25,7 @@ describe('Agency V2 Status of Funds IntroSection', () => {
     };
 
     const introSentence = `How were funds distributed in FY ${mockProps.fy} for the ${mockProps.name}?`;
-    const copy = `In FY ${mockProps.fy}, the ${mockProps.name} had ${mockStore.agencyV2.budgetaryResources["2021"].agencyBudget} in available budgetary resources  distributed among its ${mockProps.totalItems} agency sub-components. Agencies spend available budgetary resources by making financial promises called obligations . In this section, we show the total budgetary resources broken out by agency sub-component and how much of that funding has been obligated.`;
+    const copy = `In FY ${mockProps.fy}, the ${mockProps.name} had ${mockStore.agency.budgetaryResources["2021"].agencyBudget} in available budgetary resources  distributed among its ${mockProps.totalItems} agency sub-components. Agencies spend available budgetary resources by making financial promises called obligations . In this section, we show the total budgetary resources broken out by agency sub-component and how much of that funding has been obligated.`;
     const directions = 'Select a segment in the chart below to dive deeper into' +
         ' the data.';
 

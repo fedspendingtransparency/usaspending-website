@@ -47,7 +47,7 @@ const mockAwardTypes = [
 ];
 
 const mockStore = {
-    agencyV2: {
+    agency: {
         _awardObligations: 100
     }
 };

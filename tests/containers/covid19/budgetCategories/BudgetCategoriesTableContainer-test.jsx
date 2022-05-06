@@ -126,7 +126,7 @@ describe("BudgetCategoriesTableContainer", () => {
         );
         waitFor(() => {
             expect(screen.getByText(mockResults[0].description))
-                .toHaveAttribute('href', '/agency_v2/department-of-sandwiches');
+                .toHaveAttribute('href', '/agency/department-of-sandwiches');
         });
     });
     it('should just display the agency name (with no link) if no slug mapping is available', () => {

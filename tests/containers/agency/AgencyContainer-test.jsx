@@ -1,5 +1,5 @@
 /**
- * AgencyContainerV2-test.jsx
+ * AgencyContainer-test.jsx
  * Created by Lizzie Salita 3/1/21
  */
 
@@ -7,16 +7,16 @@ import React from 'react';
 import { render, waitFor } from 'test-utils';
 import { Route } from 'react-router-dom';
 import * as reactRedux from 'react-redux';
-import * as agencyV2 from 'apis/agency';
+import * as agency from 'apis/agency';
 import * as accountHooks from 'containers/account/WithLatestFy';
 import * as queryParamHelpers from 'helpers/queryParams';
 import * as agencyHooks from 'containers/agency/WithAgencySlugs';
 
-import AgencyContainerV2 from 'containers/agency/AgencyContainerV2';
+import AgencyContainerV2 from 'containers/agency/AgencyContainer';
 import { mockAgency } from '../../models/agency/BaseAgencyOverview-test';
 import { mockApiCall } from '../../testResources/mockApiHelper';
 
-mockApiCall(agencyV2, 'fetchBudgetaryResources', {});
+mockApiCall(agency, 'fetchBudgetaryResources', {});
 
 jest.mock('components/agency/AgencyPage', () => jest.fn(() => null));
 
@@ -58,7 +58,7 @@ test('an API request is made for the agency code mapped to the slug in the URL',
             ));
         })
     };
-    spy = jest.spyOn(agencyV2, 'fetchAgencyOverview').mockReturnValueOnce(mockResponse);
+    spy = jest.spyOn(agency, 'fetchAgencyOverview').mockReturnValueOnce(mockResponse);
     render((
         <Route path="/agency_v2/:agencySlug" location={{ pathname: '/agency_v2/department-of-sandwiches' }}>
             <AgencyContainerV2 />

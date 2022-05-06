@@ -8,10 +8,9 @@ import { renderHook } from '@testing-library/react-hooks';
 import { waitFor } from 'test-utils';
 import * as redux from 'react-redux';
 import * as api from 'apis/agency';
-import * as actions from 'redux/actions/agency/agencyV2Actions';
+import * as actions from 'redux/actions/agency/agencyActions';
 
-import { mapSlugToTopTierCode, mapTopTierCodeToSlug, useAgencySlugs } from 'containers/agency/WithAgencySlugs';
-import { mapIdToSlug } from "../../../src/js/containers/agency/WithAgencySlugs";
+import { mapSlugToTopTierCode, mapTopTierCodeToSlug, useAgencySlugs, mapIdToSlug } from 'containers/agency/WithAgencySlugs';
 
 let mockFetch;
 let mockUseSelector;
