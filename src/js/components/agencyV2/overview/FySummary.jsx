@@ -109,8 +109,8 @@ const FySummary = ({
     const sections = [
         (
             <VisualizationSection
-                subtitle={isMobile ? 'How much can this agency spend?' : (<>How much can<br />this agency spend?</>)}
-                data={totalBudgetaryResources}
+                subtitle={isMobile ? 'How much funding is available to this agency?' : (<>How much funding is available to this agency?</>)}
+                data={(<>{totalBudgetaryResources}<br />in budgetary resources</>)}
                 secondaryData={`${percentOfFederalBudget} of the FY ${fy} U.S. federal budget`}
                 label="Total Budgetary Resources Over Time">
                 <BarChart
@@ -124,8 +124,8 @@ const FySummary = ({
         ),
         (
             <VisualizationSection
-                subtitle={isMobile ? 'How much has this agency spent in total?' : (<>How much has this agency<br />spent in total?</>)}
-                data={totalObligations}
+                subtitle={isMobile ? 'How much has this agency planned to spend?' : (<>How much has this agency planned to spend?</>)}
+                data={(<>{totalObligations}<br />in total obligations</>)}
                 secondaryData={`${percentOfBudgetaryResources} of total budgetary resources`}
                 label="Total Obligations Over Time" >
                 <TotalObligationsOverTimeContainer
@@ -137,8 +137,8 @@ const FySummary = ({
         ),
         (
             <VisualizationSection
-                subtitle={isMobile ? 'How much has this agency spent on awards?' : (<>How much has this agency<br />spent on awards?</>)}
-                data={awardObligations}
+                subtitle={isMobile ? 'How much has this agency planned to spend on awards?' : (<>How much has this agency<br />planned to spend on awards?</>)}
+                data={(<>{awardObligations}<br /> in award obligations</>)}
                 secondaryData={`${percentOfTotalObligations} of total obligations`}
                 label="Award Obligations by Type" >
                 <ObligationsByAwardTypeContainer fiscalYear={+fy} windowWidth={windowWidth} isMobile={isMobile} />
