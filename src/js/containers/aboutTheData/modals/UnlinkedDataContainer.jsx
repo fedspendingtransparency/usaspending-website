@@ -57,7 +57,7 @@ const UnlinkedDataContainer = ({ agencyData }) => {
         return () => {
             if (unlinkedDataReq.current) unlinkedDataReq.current.cancel();
         };
-    }, [unlinkedDataRequest]);
+    }, []);
 
     return (
         <Table

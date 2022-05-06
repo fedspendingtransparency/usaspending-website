@@ -64,7 +64,7 @@ export const useLatestAccountData = () => {
                 request.current.cancel();
             }
         };
-    }, [dispatch, isLoading, latestMoment, latestPeriod, submissionPeriods]);
+    }, [dispatch, submissionPeriods]);
 
     return [
         latestMoment,
@@ -139,7 +139,7 @@ export const useValidTimeBasedQueryParams = (currentUrlFy, currentUrlPeriod = nu
                 handleTimeChange(null, latestPeriod);
             }
         }
-    }, [history, latestFy, latestPeriod, submissionPeriods.size, currentUrlFy, currentUrlPeriod, requiredParams, existingParams, handleTimeChange]);
+    }, [history, latestFy, latestPeriod, submissionPeriods.size, currentUrlFy, currentUrlPeriod]);
 
 
     useEffect(() => {
@@ -167,7 +167,7 @@ export const useValidTimeBasedQueryParams = (currentUrlFy, currentUrlPeriod = nu
                 handleTimeChange(latestFy);
             }
         }
-    }, [submissionPeriods, currentUrlFy, currentUrlPeriod, latestPeriod, latestFy, requiredParams, existingParams, handleTimeChange]);
+    }, [submissionPeriods, currentUrlFy, currentUrlPeriod, latestPeriod, latestFy]);
 
     if (requiredParams.length === 1 && requiredParams[0] === 'fy') return [fy, updateUrl];
 
