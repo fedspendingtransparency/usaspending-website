@@ -96,16 +96,16 @@ const PublicationDatesContainer = ({
         else {
             setSubmissionDeadlines(getSubmissionDeadlines(agencyData.fiscalYear, agencyData.fiscalPeriod, submissionPeriods.toJS()));
         }
-    }, [agencyData.fiscalPeriod, agencyData.fiscalYear, submissionPeriods, submissionPeriodsRequest]);
+    }, [submissionPeriods]);
     // on mount fetch all data, unmount cleanup pubDatesRequest
     useEffect(() => {
         publicationDatesRequest();
         return () => {
             if (pubDatesRequest.current) pubDatesRequest.current.cancel();
         };
-    }, [publicationDatesRequest]);
+    }, []);
     // when we have raw data from the api format table data
-    useEffect(() => setRows(formatPublicationDates(pageAndSort(rawData, null, page, limit, order, sort))), [limit, order, page, rawData, sort]);
+    useEffect(() => setRows(formatPublicationDates(pageAndSort(rawData, null, page, limit, order, sort))), [rawData]);
     // on sort, order, limit change fetch new data or reset page to 1
     useEffect(() => {
         if (page !== 1) {
@@ -114,7 +114,7 @@ const PublicationDatesContainer = ({
         else {
             setRows(formatPublicationDates(pageAndSort(rawData, null, page, limit, order, sort)));
         }
-    }, [limit, order, page, rawData, sort]);
+    }, [sort, order, limit]);
     // on page change fetch new data
     useEffect(() => {
         setRows(formatPublicationDates(pageAndSort(rawData, null, page, limit, order, sort)));
