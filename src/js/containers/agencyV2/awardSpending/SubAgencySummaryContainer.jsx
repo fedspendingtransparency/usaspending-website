@@ -136,7 +136,7 @@ const SubAgencySummaryContainer = ({
             getNewAwardsCount();
             getSubagencySummary();
         }
-    }, [fy, toptierCode, activeTab]);
+    }, [fy, toptierCode, activeTab, data, getNewAwardsCount, getSubagencySummary]);
 
     const amounts = {
         awardObligations,
@@ -145,14 +145,14 @@ const SubAgencySummaryContainer = ({
     };
 
     return (
-      <div className="overview-data-group">
-        <InformationBoxes
-          boxes={summaryData.map((sdata) => ({
+        <div className="overview-data-group">
+            <InformationBoxes
+                boxes={summaryData.map((sdata) => ({
                     ...sdata,
                     amount: amounts[sdata.type],
                     isLoading: loading
                 }))} />
-      </div>
+        </div>
     );
 };
 

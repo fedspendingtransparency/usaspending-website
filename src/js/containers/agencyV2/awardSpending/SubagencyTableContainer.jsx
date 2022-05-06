@@ -50,7 +50,7 @@ const SubagencyTableContainer = ({
             request.current.cancel();
         }
         dispatch(resetSubagencyTotals());
-    }, []);
+    }, [dispatch]);
 
     const fetchSpendingBySubagencyCallback = useCallback(() => {
         if (request.current) {
@@ -98,34 +98,34 @@ const SubagencyTableContainer = ({
                 fetchSpendingBySubagencyCallback();
             }
         }
-    }, [type, fy, pageSize, sort, order]);
+    }, [type, fy, pageSize, sort, order, currentPage, changeCurrentPage, prevSort, prevOrder, prevPage, prevPageSize, prevType, fetchSpendingBySubagencyCallback]);
 
     useEffect(() => {
         if (fy && toptierCode) {
             fetchSpendingBySubagencyCallback();
         }
-    }, [currentPage, fy, toptierCode]);
+    }, [currentPage, fetchSpendingBySubagencyCallback, fy, toptierCode]);
 
     return (
-      <div className="table-wrapper">
-        <Table
-          expandable
-          rows={results}
-          columns={subagencyColumns}
-          currentSort={{ field: sort, direction: order }}
-          updateSort={updateSort}
-          divider={subHeading}
-          loading={loading}
-          error={error} />
-            <Pagination
-              currentPage={currentPage}
-              changePage={changeCurrentPage}
-              changeLimit={changePageSize}
-              limitSelector
-              resultsText
-              pageSize={pageSize}
-              totalItems={totalItems} />
-      </div>
+        <div className="table-wrapper">
+            <Table
+                expandable
+                rows={results}
+                columns={subagencyColumns}
+                currentSort={{ field: sort, direction: order }}
+                updateSort={updateSort}
+                divider={subHeading}
+                loading={loading}
+                error={error} />
+                    <Pagination
+                        currentPage={currentPage}
+                        changePage={changeCurrentPage}
+                        changeLimit={changePageSize}
+                        limitSelector
+                        resultsText
+                        pageSize={pageSize}
+                        totalItems={totalItems} />
+        </div>
     );
 };
 

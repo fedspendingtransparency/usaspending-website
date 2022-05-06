@@ -77,31 +77,31 @@ export default class HeaderRow extends React.Component {
             const headerCell = this.props.headerCellRender(index);
 
             return (
-              <div
-                key={index}
-                className="ibt-header-cell"
-                role="columnheader"
-                id={`${this.props.tableId}-header-${index}`}
-                style={cellStyle}>
-                {headerCell}
-              </div>
+                <div
+                    key={index}
+                    className="ibt-header-cell"
+                    role="columnheader"
+                    id={`${this.props.tableId}-header-${index}`}
+                    style={cellStyle}>
+                    {headerCell}
+                </div>
             );
         });
 
         return (
-          <div
-            className="ibt-header"
-            role="presentation"
-            style={style}
-            ref={(div) => {
+            <div
+                className="ibt-header"
+                role="presentation"
+                style={style}
+                ref={(div) => {
                     this._headerDiv = div;
                 }}>
-                  <div
-                    className="ibt-header-row"
-                    role="row">
-                    {cells}
-                  </div>
-          </div>
+                    <div
+                        className="ibt-header-row"
+                        role="row">
+                        {cells}
+                    </div>
+            </div>
         );
     }
 }

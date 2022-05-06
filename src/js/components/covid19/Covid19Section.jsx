@@ -31,24 +31,24 @@ const Covid19Section = ({
 }) => {
     if (section === 'award_question') {
         return (
-          <section
-            id={`covid19-${snakeCase(section)}`}
-            className={`body__section ${snakeCase(section)}`}>
-            {children}
-          </section>
+            <section
+                id={`covid19-${snakeCase(section)}`}
+                className={`body__section ${snakeCase(section)}`}>
+                {children}
+            </section>
         );
     }
     return (
-      <SectionTitle
-        id={`covid19-${snakeCase(section)}`}
-        classNames={`body__section ${snakeCase(section)}`}
-        icon={icon ? <FontAwesomeIcon size="2x" icon={icon} /> : null}
-        title={title}
-        titleTooltip={{ component: tooltip, props: tooltipProps } || null}
-        overLine={section?.overLine}
-        description={headerText}>
-        {children}
-      </SectionTitle>
+        <SectionTitle
+            id={`covid19-${snakeCase(section)}`}
+            classNames={`body__section ${snakeCase(section)}`}
+            icon={icon ? <FontAwesomeIcon size="2x" icon={icon} /> : null}
+            title={title}
+            titleTooltip={{ component: tooltip, props: tooltipProps } || null}
+            overLine={section?.overLine}
+            description={headerText}>
+            {children}
+        </SectionTitle>
     );
 };
 

@@ -110,32 +110,32 @@ export default class ExplorerSidebar extends React.Component {
 
     render() {
         return (
-          <div className="explorer-sidebar">
-            <div className="start-over">
-              <Link
-                className="start-over-button"
-                to="/explorer">
-                  <div className="content">
-                    <div className="icon">
-                      <Home alt="Home" />
-                    </div>
-                      <div className="label">
+            <div className="explorer-sidebar">
+                <div className="start-over">
+                    <Link
+                        className="start-over-button"
+                        to="/explorer">
+                            <div className="content">
+                                <div className="icon">
+                                    <Home alt="Home" />
+                                </div>
+                                    <div className="label">
                                 Start Over
-                      </div>
-                  </div>
-              </Link>
+                                    </div>
+                            </div>
+                    </Link>
+                </div>
+
+                    <QuarterPickerWithFY
+                        selectedFy={this.props.fy}
+                        handleQuarterPickerSelection={this.pickedQuarter}
+                        handlePickedYear={this.pickedYear}
+                        latestSelectedTimeInterval={this.props.period == null ? this.props.quarter : this.props.period} />
+                            <VerticalTrail
+                                trail={this.props.trail.toArray()}
+                                rewindToFilter={this.props.rewindToFilter} />
+
             </div>
-
-              <QuarterPickerWithFY
-                selectedFy={this.props.fy}
-                handleQuarterPickerSelection={this.pickedQuarter}
-                handlePickedYear={this.pickedYear}
-                latestSelectedTimeInterval={this.props.period == null ? this.props.quarter : this.props.period} />
-                  <VerticalTrail
-                    trail={this.props.trail.toArray()}
-                    rewindToFilter={this.props.rewindToFilter} />
-
-          </div>
         );
     }
 }

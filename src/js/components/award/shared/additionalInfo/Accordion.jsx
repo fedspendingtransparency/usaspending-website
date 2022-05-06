@@ -54,15 +54,15 @@ export default class Accordion extends React.Component {
         const array = compact(arrayOfRows);
         if (array.length === 0) return '--';
         return (
-          <div>
-            {
+            <div>
+                {
                     arrayOfRows.map((addressLine, index) => (
-                      <div key={`addressline-${addressLine}-${index}`}>
-                        {addressLine || '--'}
-                      </div>
+                        <div key={`addressline-${addressLine}-${index}`}>
+                            {addressLine || '--'}
+                        </div>
                     ))
                 }
-          </div>
+            </div>
         );
     }
 
@@ -72,9 +72,9 @@ export default class Accordion extends React.Component {
         const array = compact(arrayOfData);
         if (array.length === 0) return '--';
         return (
-          <ul className="accordion-table__list">
-            {arrayOfData.map((type, index) => <li key={`list-${type}-${index}`}>{type}</li>)}
-          </ul>
+            <ul className="accordion-table__list">
+                {arrayOfData.map((type, index) => <li key={`list-${type}-${index}`}>{type}</li>)}
+            </ul>
         );
     }
 
@@ -98,12 +98,12 @@ export default class Accordion extends React.Component {
                 }
             }
             return (
-              <div
-                key={key}
-                className="accordion-row">
-                  <div className="accordion-row__title">{key}</div>
-                    <div className={`accordion-row__data${key === awardIdField ? ' generated-id' : ''}`}>{data}</div>
-              </div>
+                <div
+                    key={key}
+                    className="accordion-row">
+                        <div className="accordion-row__title">{key}</div>
+                            <div className={`accordion-row__data${key === awardIdField ? ' generated-id' : ''}`}>{data}</div>
+                </div>
             );
         });
     }
@@ -117,25 +117,25 @@ export default class Accordion extends React.Component {
             (<FontAwesomeIcon className="accordion-caret" size="lg" icon="angle-right" />);
         const openClassName = this.state.open ? 'accordion accordion_open' : 'accordion';
         return (
-          <div className={openClassName}>
-            <div
-              className="accordion__bar"
-              tabIndex={0}
-              role="button"
-              onKeyDown={onKeyDownHandler}
-              onClick={this.handleClick}>
-                <span>
-                  <FontAwesomeIcon className={iconClassName} size="lg" icon={accordionIcon} />
-                  {accordionName}
-                </span>
-                  <span>
-                    {open}
-                  </span>
+            <div className={openClassName}>
+                <div
+                    className="accordion__bar"
+                    tabIndex={0}
+                    role="button"
+                    onKeyDown={onKeyDownHandler}
+                    onClick={this.handleClick}>
+                        <span>
+                            <FontAwesomeIcon className={iconClassName} size="lg" icon={accordionIcon} />
+                            {accordionName}
+                        </span>
+                            <span>
+                                {open}
+                            </span>
+                </div>
+                    <div className="accordion__content">
+                        {accordionBody}
+                    </div>
             </div>
-              <div className="accordion__content">
-                {accordionBody}
-              </div>
-          </div>
         );
     }
 }

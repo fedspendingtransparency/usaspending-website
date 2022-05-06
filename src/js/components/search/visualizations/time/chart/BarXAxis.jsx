@@ -51,10 +51,10 @@ export default class BarXAxis extends React.Component {
         if (props.activeLabel) {
             const xPos = props.scale(props.activeLabel.xValue) + (props.scale.bandwidth() / 2);
             return ([<BarXAxisItem
-              x={xPos}
-              y={15}
-              label={props.activeLabel.xValue}
-              key={`label-x-${props.activeLabel.xValue}`} />]);
+                x={xPos}
+                y={15}
+                label={props.activeLabel.xValue}
+                key={`label-x-${props.activeLabel.xValue}`} />]);
         }
 
         // Figure out which labels to show depending on type
@@ -87,10 +87,10 @@ export default class BarXAxis extends React.Component {
                 const xPos = this.calculateXPos(item, index, labelOffset, props);
 
                 return (<BarXAxisItem
-                  x={xPos}
-                  y={15}
-                  label={label}
-                  key={`label-x-${item}-${index}`} />);
+                    x={xPos}
+                    y={15}
+                    label={label}
+                    key={`label-x-${item}-${index}`} />);
             })
         );
     }
@@ -195,23 +195,23 @@ export default class BarXAxis extends React.Component {
     // draw the X axis at the zero Y-axis position (multiply by negative to account for the
     // fact that the bar axis group is shifted downward)
         return (
-          <g
-            className="bar-axis"
-            transform={`translate(${this.props.padding.left},${this.props.top})`}>
-              <title>X-Axis</title>
-                <desc>
-                  {this.state.description}
-                </desc>
-                  <line
-                    className="x-axis"
-                    x1={0}
-                    y1={-1 * this.props.axisPos}
-                    x2={this.props.width}
-                    y2={-1 * this.props.axisPos} />
-                      <g className="axis-labels">
-                        {this.state.labels}
-                      </g>
-          </g>
+            <g
+                className="bar-axis"
+                transform={`translate(${this.props.padding.left},${this.props.top})`}>
+                    <title>X-Axis</title>
+                        <desc>
+                            {this.state.description}
+                        </desc>
+                            <line
+                                className="x-axis"
+                                x1={0}
+                                y1={-1 * this.props.axisPos}
+                                x2={this.props.width}
+                                y2={-1 * this.props.axisPos} />
+                                    <g className="axis-labels">
+                                        {this.state.labels}
+                                    </g>
+            </g>
         );
     }
 }

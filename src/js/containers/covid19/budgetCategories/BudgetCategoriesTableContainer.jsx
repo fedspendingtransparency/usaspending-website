@@ -61,10 +61,10 @@ const budgetDropdownColumns = {
         {
             title: 'awardCount',
             displayName: (
-              <div className="table-header-label__title">
-                <div>Number</div>
-                  <div>of Awards</div>
-              </div>
+                <div className="table-header-label__title">
+                    <div>Number</div>
+                        <div>of Awards</div>
+                </div>
             ),
             right: true
         }
@@ -73,40 +73,40 @@ const budgetDropdownColumns = {
         {
             title: 'obligation',
             displayName: (
-              <div className="table-header-label__title">
-                <div>Award Obligations</div>
-                  <div>(Loan Subsidy Cost)</div>
-              </div>
+                <div className="table-header-label__title">
+                    <div>Award Obligations</div>
+                        <div>(Loan Subsidy Cost)</div>
+                </div>
             ),
             right: true
         },
         {
             title: 'outlay',
             displayName: (
-              <div className="table-header-label__title">
-                <div>Award Outlays</div>
-                  <div>(Loan Subsidy Cost)</div>
-              </div>
+                <div className="table-header-label__title">
+                    <div>Award Outlays</div>
+                        <div>(Loan Subsidy Cost)</div>
+                </div>
             ),
             right: true
         },
         {
             title: 'faceValueOfLoan',
             displayName: (
-              <div className="table-header-label__title">
-                <div>Face Value</div>
-                  <div>of Loans</div>
-              </div>
+                <div className="table-header-label__title">
+                    <div>Face Value</div>
+                        <div>of Loans</div>
+                </div>
             ),
             right: true
         },
         {
             title: 'awardCount',
             displayName: (
-              <div className="table-header-label__title">
-                <div>Number</div>
-                  <div>of Awards</div>
-              </div>
+                <div className="table-header-label__title">
+                    <div>Number</div>
+                        <div>of Awards</div>
+                </div>
             ),
             right: true
         }
@@ -116,10 +116,10 @@ const budgetDropdownColumns = {
 const totalBudgetaryResourcesColumn = {
     title: 'totalBudgetaryResources',
     displayName: (
-      <div className="table-header-label__title">
-        <div>Total Budgetary</div>
-          <div>Resources</div>
-      </div>
+        <div className="table-header-label__title">
+            <div>Total Budgetary</div>
+                <div>Resources</div>
+        </div>
     ),
     right: true
 };
@@ -186,9 +186,9 @@ const BudgetCategoriesTableContainer = (props) => {
         if (unlinkedName && unlinkedData && overview) {
             setUnlinkedDataClass(true);
             const unlinkedColumn = (
-              <div>
-                {unlinkedName}
-              </div>
+                <div>
+                    {unlinkedName}
+                </div>
             );
             unlinkedData.name = unlinkedColumn;
 
@@ -234,33 +234,33 @@ const BudgetCategoriesTableContainer = (props) => {
             const code = budgetCategoryRow.code;
             if (link && code && props.type === 'federal_account') {
                 link = (
-                  <Link
-                    className="federal-account-profile__link"
-                    onClick={clickedFedAcctProfile.bind(null, `${budgetCategoryRow.name}`)}
-                    to={`/federal_account/${code}`}>
-                    {budgetCategoryRow.name}
-                  </Link>
+                    <Link
+                        className="federal-account-profile__link"
+                        onClick={clickedFedAcctProfile.bind(null, `${budgetCategoryRow.name}`)}
+                        to={`/federal_account/${code}`}>
+                        {budgetCategoryRow.name}
+                    </Link>
                 );
             }
             else if (link && props.type === 'agency') {
                 if (AGENCYV2_RELEASED && !slugsError && code && toptierCodes[code]) {
                     link = (
-                      <Link
-                        className="agency-profile__link"
-                        onClick={clickedAgencyProfile.bind(null, `${budgetCategoryRow.name}`)}
-                        to={`/${AGENCY_LINK}/${toptierCodes[code]}`}>
-                        {budgetCategoryRow.name}
-                      </Link>
+                        <Link
+                            className="agency-profile__link"
+                            onClick={clickedAgencyProfile.bind(null, `${budgetCategoryRow.name}`)}
+                            to={`/${AGENCY_LINK}/${toptierCodes[code]}`}>
+                            {budgetCategoryRow.name}
+                        </Link>
                     );
                 }
                 else if (!AGENCYV2_RELEASED && id) {
                     link = (
-                      <Link
-                        className="agency-profile__link"
-                        onClick={clickedAgencyProfile.bind(null, `${budgetCategoryRow.name}`)}
-                        to={`/${AGENCY_LINK}/${id}`}>
-                        {budgetCategoryRow.name}
-                      </Link>
+                        <Link
+                            className="agency-profile__link"
+                            onClick={clickedAgencyProfile.bind(null, `${budgetCategoryRow.name}`)}
+                            to={`/${AGENCY_LINK}/${id}`}>
+                            {budgetCategoryRow.name}
+                        </Link>
                     );
                 }
             }
@@ -334,7 +334,7 @@ const BudgetCategoriesTableContainer = (props) => {
         // Reset to default sort when the active tab or spending category changes
         setSort(defaultSort[props.type][spendingCategory].sort);
         setOrder(defaultSort[props.type][spendingCategory].order);
-    }, [props.type, spendingCategory]);
+    }, [fetchBudgetSpendingCallback, order, props.type, sort, spendingCategory]);
 
     useEffect(() => {
     // Reset to the first page
@@ -342,15 +342,15 @@ const BudgetCategoriesTableContainer = (props) => {
             fetchBudgetSpendingCallback();
         }
         changeCurrentPage(1);
-    }, [pageSize, sort, order, defcParams]);
+    }, [pageSize, sort, order, defcParams, currentPage, fetchBudgetSpendingCallback]);
 
     useEffect(() => {
         fetchBudgetSpendingCallback();
-    }, [currentPage]);
+    }, [currentPage, fetchBudgetSpendingCallback]);
 
     useEffect(() => {
         props.scrollIntoView(loading, error, errorOrLoadingWrapperRef, tableWrapperRef, 100, true);
-    }, [loading, error]);
+    }, [loading, error, props]);
 
     const renderColumns = () => {
         if (props.type && spendingCategory) {
@@ -375,59 +375,59 @@ const BudgetCategoriesTableContainer = (props) => {
     };
 
     const spendingViewPicker = () => (
-      <div className="budget-categories-table__header">
-        <label htmlFor="usa-dt-picker">Show amounts based on: </label>
-          <Picker
-            backgroundColor="#ffffff"
-            sortFn={handleSort}
-            icon=""
-            selectedOption={budgetDropdownFieldValues[spendingCategory].label}
-            options={Object.keys(budgetDropdownFieldValues).map((key) => ({
+        <div className="budget-categories-table__header">
+            <label htmlFor="usa-dt-picker">Show amounts based on: </label>
+                <Picker
+                    backgroundColor="#ffffff"
+                    sortFn={handleSort}
+                    icon=""
+                    selectedOption={budgetDropdownFieldValues[spendingCategory].label}
+                    options={Object.keys(budgetDropdownFieldValues).map((key) => ({
                     name: budgetDropdownFieldValues[key].label,
                     sortOrder: budgetDropdownFieldValues[key].sortOrder,
                     value: key,
                     onClick: spendingCategoryOnChange
                 }))} />
-                  <TooltipWrapper
-                    className="covid-profile-tt"
-                    icon="info"
-                    wide
-                    tooltipPosition="right"
-                    tooltipComponent={<SpendingTypesTT />} />
-      </div>
+                    <TooltipWrapper
+                        className="covid-profile-tt"
+                        icon="info"
+                        wide
+                        tooltipPosition="right"
+                        tooltipComponent={<SpendingTypesTT />} />
+        </div>
     );
 
     return (
-      <div ref={tableWrapperRef}>
-        {spendingViewPicker()}
-          <Pagination
-            currentPage={currentPage}
-            changePage={changeCurrentPage}
-            changeLimit={changePageSize}
-            limitSelector
-            resultsText
-            pageSize={pageSize}
-            totalItems={totalItems} />
-              <div ref={tableRef} className={unlinkedDataClass ? 'table-wrapper unlinked-data' : 'table-wrapper'}>
-                <Table
-                  expandable
-                  rows={results}
-                  columns={renderColumns()}
-                  currentSort={{ field: sort, direction: order }}
-                  updateSort={updateSort}
-                  divider={props.subHeading}
-                  loading={loading}
-                  error={error} />
-              </div>
+        <div ref={tableWrapperRef}>
+            {spendingViewPicker()}
                 <Pagination
-                  currentPage={currentPage}
-                  changePage={changeCurrentPage}
-                  changeLimit={changePageSize}
-                  limitSelector
-                  resultsText
-                  pageSize={pageSize}
-                  totalItems={totalItems} />
-      </div>
+                    currentPage={currentPage}
+                    changePage={changeCurrentPage}
+                    changeLimit={changePageSize}
+                    limitSelector
+                    resultsText
+                    pageSize={pageSize}
+                    totalItems={totalItems} />
+                        <div ref={tableRef} className={unlinkedDataClass ? 'table-wrapper unlinked-data' : 'table-wrapper'}>
+                            <Table
+                                expandable
+                                rows={results}
+                                columns={renderColumns()}
+                                currentSort={{ field: sort, direction: order }}
+                                updateSort={updateSort}
+                                divider={props.subHeading}
+                                loading={loading}
+                                error={error} />
+                        </div>
+                            <Pagination
+                                currentPage={currentPage}
+                                changePage={changeCurrentPage}
+                                changeLimit={changePageSize}
+                                limitSelector
+                                resultsText
+                                pageSize={pageSize}
+                                totalItems={totalItems} />
+        </div>
     );
 };
 

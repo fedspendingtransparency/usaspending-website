@@ -552,23 +552,23 @@ export default class LocationPickerContainer extends React.Component {
 
     render() {
         return (
-          <LocationPicker
-            {...this.state}
-            scope={this.props.scope}
-            enableCitySearch={this.props.enableCitySearch}
-            selectedLocations={this.props.selectedLocations}
-            loadStates={this.loadStates}
-            loadCounties={this.loadCounties}
-            loadDistricts={this.loadDistricts}
-            clearStates={this.clearStates}
-            clearCitiesAndSelectedCity={this.clearCitiesAndSelectedCity}
-            clearCounties={this.clearCounties}
-            clearDistricts={this.clearDistricts}
-            selectEntity={this.selectEntity}
-            createLocationObject={this.createLocationObject}
-            addLocation={this.addLocation}
-            validateZip={this.validateZip}
-            setCitySearchString={this.setCitySearchString} />
+            <LocationPicker
+                {...this.state}
+                scope={this.props.scope}
+                enableCitySearch={this.props.enableCitySearch}
+                selectedLocations={this.props.selectedLocations}
+                loadStates={this.loadStates}
+                loadCounties={this.loadCounties}
+                loadDistricts={this.loadDistricts}
+                clearStates={this.clearStates}
+                clearCitiesAndSelectedCity={this.clearCitiesAndSelectedCity}
+                clearCounties={this.clearCounties}
+                clearDistricts={this.clearDistricts}
+                selectEntity={this.selectEntity}
+                createLocationObject={this.createLocationObject}
+                addLocation={this.addLocation}
+                validateZip={this.validateZip}
+                setCitySearchString={this.setCitySearchString} />
         );
     }
 }

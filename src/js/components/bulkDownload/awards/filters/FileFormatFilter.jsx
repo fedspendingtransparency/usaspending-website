@@ -29,48 +29,48 @@ export default class FileFormatFilter extends React.Component {
 
     render() {
         let icon = (
-          <div className="icon valid">
-            <CheckCircle />
-          </div>
+            <div className="icon valid">
+                <CheckCircle />
+            </div>
         );
 
         if (!this.props.valid) {
             icon = (
-              <div className="icon invalid">
-                <ExclamationCircle />
-              </div>
+                <div className="icon invalid">
+                    <ExclamationCircle />
+                </div>
             );
         }
 
         const fileFormats = this.props.fileFormats.map((fileFormat) => (
-          <div
-            className="radio"
-            key={fileFormat.name}>
-              <input
-                type="radio"
-                aria-label={fileFormat.name}
-                value={fileFormat.name}
-                name="fileFormat"
-                checked={this.props.currentFileFormat === fileFormat.name}
-                onChange={this.onChange}
-                disabled={fileFormat.disabled} />
-                  <label
-                    className={`radio-label ${fileFormat.disabled ? 'disabled' : ''}`}
-                    htmlFor="fileFormat">
-                    {fileFormat.label}
-                  </label>
-          </div>
+            <div
+                className="radio"
+                key={fileFormat.name}>
+                    <input
+                        type="radio"
+                        aria-label={fileFormat.name}
+                        value={fileFormat.name}
+                        name="fileFormat"
+                        checked={this.props.currentFileFormat === fileFormat.name}
+                        onChange={this.onChange}
+                        disabled={fileFormat.disabled} />
+                            <label
+                                className={`radio-label ${fileFormat.disabled ? 'disabled' : ''}`}
+                                htmlFor="fileFormat">
+                                {fileFormat.label}
+                            </label>
+            </div>
         ));
 
         return (
-          <div className="download-filter">
-            <h3 className="download-filter__title">
-              {icon} Select a <span className="download-filter__title_em">file format</span>.
-            </h3>
-              <div className="download-filter__content">
-                {fileFormats}
-              </div>
-          </div>
+            <div className="download-filter">
+                <h3 className="download-filter__title">
+                    {icon} Select a <span className="download-filter__title_em">file format</span>.
+                </h3>
+                    <div className="download-filter__content">
+                        {fileFormats}
+                    </div>
+            </div>
         );
     }
 }

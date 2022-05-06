@@ -460,28 +460,28 @@ const AwardAmountsChart = ({
         switch (scenario) {
             case "exceedsBigger": {
                 return (
-                  <RectanglePercentViz {...buildExceedsCurrentProps(type, awardAmounts, hasFileC)} />
+                    <RectanglePercentViz {...buildExceedsCurrentProps(type, awardAmounts, hasFileC)} />
                 );
             }
             case "exceedsBiggest": {
                 return (
-                  <RectanglePercentViz {...buildExceedsPotentialProps(type, awardAmounts, hasFileC)} />
+                    <RectanglePercentViz {...buildExceedsPotentialProps(type, awardAmounts, hasFileC)} />
                 );
             }
             case "normal":
                 if (hasOutlays) {
                     return (
-                      <HorizontalSingleStackedBarViz {...buildNormalProps(type, awardAmounts, hasFileC, hasOutlays)} />
+                        <HorizontalSingleStackedBarViz {...buildNormalProps(type, awardAmounts, hasFileC, hasOutlays)} />
                     );
                 }
                 return (
-                  <RectanglePercentViz {...buildNormalProps(type, awardAmounts, hasFileC)} />
+                    <RectanglePercentViz {...buildNormalProps(type, awardAmounts, hasFileC)} />
                 );
             default:
                 return (
-                  <div className="results-table-message-container">
-                    <NoResultsMessage title="Chart Not Available" message="Data in this instance is not suitable for charting" />
-                  </div>
+                    <div className="results-table-message-container">
+                        <NoResultsMessage title="Chart Not Available" message="Data in this instance is not suitable for charting" />
+                    </div>
                 );
         }
     };
@@ -621,11 +621,11 @@ const AwardAmountsChart = ({
             }
             if (hasOutlays) {
                 return (
-                  <HorizontalSingleStackedBarViz {...chartPropsOutlays} />
+                    <HorizontalSingleStackedBarViz {...chartPropsOutlays} />
                 );
             }
             return (
-              <RectanglePercentViz {...chartProps} />
+                <RectanglePercentViz {...chartProps} />
             );
         }
         else if (type === 'loan' && isNormal) {
@@ -742,18 +742,18 @@ const AwardAmountsChart = ({
             return renderChartBySpendingScenario(scenario);
         }
         return (
-          <div className="results-table-message-container">
-            <NoResultsMessage title="Chart Not Available" message="Data in this instance is not suitable for charting" />
-          </div>
+            <div className="results-table-message-container">
+                <NoResultsMessage title="Chart Not Available" message="Data in this instance is not suitable for charting" />
+            </div>
         );
     };
 
     const visualization = renderChartByAwardType(awardOverview, awardType, spendingScenario);
 
     return (
-      <React.Fragment>
-        {visualization}
-      </React.Fragment>
+        <React.Fragment>
+            {visualization}
+        </React.Fragment>
     );
 };
 

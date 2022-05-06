@@ -46,49 +46,49 @@ export default class DownloadDetail extends React.Component {
             linkProps.rel = 'noopener noreferrer';
         }
         let link = (
-          <Link
-            className="download-detail__link"
-            to={this.props.url}
-            {...linkProps}
-            onClick={clickedHomepageLink.bind(null, this.props.url.replace('#', ''))}>
-            {this.props.callToAction}
-          </Link>
+            <Link
+                className="download-detail__link"
+                to={this.props.url}
+                {...linkProps}
+                onClick={clickedHomepageLink.bind(null, this.props.url.replace('#', ''))}>
+                {this.props.callToAction}
+            </Link>
         );
         if (this.props.internalDomain) {
             link = (
-              <a
-                className="download-detail__link"
-                href={this.props.url}
-                {...linkProps}
-                onClick={clickedHomepageLink.bind(null, this.props.url)}>
-                {this.props.callToAction}
-              </a>
+                <a
+                    className="download-detail__link"
+                    href={this.props.url}
+                    {...linkProps}
+                    onClick={clickedHomepageLink.bind(null, this.props.url)}>
+                    {this.props.callToAction}
+                </a>
             );
         }
         else if (this.props.externalLink) {
             link = (
-              <button
-                className="download-detail__link"
-                onClick={this.redirect}>
-                {this.props.callToAction}
-              </button>
+                <button
+                    className="download-detail__link"
+                    onClick={this.redirect}>
+                    {this.props.callToAction}
+                </button>
             );
         }
 
         return (
-          <div className="download-detail">
-            <div className="download-detail__wrapper">
-              <h2
-                className="download-detail__title"
-                tabIndex={-1}>
-                {this.props.label}
-              </h2>
-                <p className="download-detail__description">
-                  {this.props.description}
-                </p>
-              {link}
+            <div className="download-detail">
+                <div className="download-detail__wrapper">
+                    <h2
+                        className="download-detail__title"
+                        tabIndex={-1}>
+                        {this.props.label}
+                    </h2>
+                        <p className="download-detail__description">
+                            {this.props.description}
+                        </p>
+                    {link}
+                </div>
             </div>
-          </div>
         );
     }
 }

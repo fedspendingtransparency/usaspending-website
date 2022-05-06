@@ -20,32 +20,32 @@ const propTypes = {
 };
 
 const FaceValueOfLoans = (props) => (
-  <div className="totals">
-    <div className="totals__header">
-      <h3 className={props.headingClass}>
-        {props.heading}
-      </h3>
+    <div className="totals">
+        <div className="totals__header">
+            <h3 className={props.headingClass}>
+                {props.heading}
+            </h3>
 
-        <TooltipWrapper
-          className={props.tooltipClasses}
-          tooltipPosition={props.tooltipPosition}
-          icon={props.tooltipIcon}
-          wide
-          tooltipComponent={props.tooltipComponent} />
-    </div>
+                <TooltipWrapper
+                    className={props.tooltipClasses}
+                    tooltipPosition={props.tooltipPosition}
+                    icon={props.tooltipIcon}
+                    wide
+                    tooltipComponent={props.tooltipComponent} />
+        </div>
 
-      <div className="totals__amount">
-        {props.amount}
-      </div>
+            <div className="totals__amount">
+                {props.amount}
+            </div>
 
-        <div className="totals__awards">
+                <div className="totals__awards">
             from {props.primeAwards ?
                 <><span className="state-overview__total">{props.transactions}</span> {props.transactions === "1" ? "prime award" : "prime awards"}</>
                 :
                 <><span className="state-overview__total">{props.transactions}</span> {props.transactions === "1" ? "transaction" : "transactions"}</>
             }
-        </div>
-  </div>
+                </div>
+    </div>
 );
 
 FaceValueOfLoans.propTypes = propTypes;

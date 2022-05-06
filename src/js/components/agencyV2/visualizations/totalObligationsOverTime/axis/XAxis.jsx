@@ -28,28 +28,28 @@ const XAxis = ({
     y1,
     y2
 }) => (
-  <g tabIndex="0" className={`x-axis${className ? ` ${className}` : ''}`}>
-    <title>The X-Axis</title>
-      <description>The X-Axis consisting of a horizontal line and labels</description>
-        <line
-          tabIndex="0"
-          x1={x1}
-          x2={x2}
-          y1={y1}
-          y2={y2} />
-            <g tabIndex="0" className="x-axis-labels">
-              <title>The X-Axis Labels</title>
-              {
+    <g tabIndex="0" className={`x-axis${className ? ` ${className}` : ''}`}>
+        <title>The X-Axis</title>
+            <description>The X-Axis consisting of a horizontal line and labels</description>
+                <line
+                    tabIndex="0"
+                    x1={x1}
+                    x2={x2}
+                    y1={y1}
+                    y2={y2} />
+                        <g tabIndex="0" className="x-axis-labels">
+                            <title>The X-Axis Labels</title>
+                            {
                 ticks.map((tick, i) => (
-                  <AxisLabel
-                    key={`Tick-${i}-${tick.label}`}
-                    x={tick.x}
-                    y={tick.y}
-                    label={tick.label} />
+                    <AxisLabel
+                        key={`Tick-${i}-${tick.label}`}
+                        x={tick.x}
+                        y={tick.y}
+                        label={tick.label} />
                 ))
             }
-            </g>
-  </g>
+                        </g>
+    </g>
 );
 
 XAxis.propTypes = propTypes;

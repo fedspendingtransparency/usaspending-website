@@ -13,9 +13,9 @@ const propTypes = {
 export default class SankeyMessage extends React.Component {
     render() {
         return (
-          <div className="sankey-message">
-            {this.props.message}
-          </div>
+            <div className="sankey-message">
+                {this.props.message}
+            </div>
         );
     }
 }

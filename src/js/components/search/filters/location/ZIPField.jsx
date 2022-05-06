@@ -66,48 +66,48 @@ export default class ZIPField extends React.Component {
         let error = null;
         if (this.props.zip.invalid !== '') {
             error = (<Warning
-              header="Invalid ZIP Code"
-              description={`${this.props.zip.invalid} is not a valid ZIP code.`} />);
+                header="Invalid ZIP Code"
+                description={`${this.props.zip.invalid} is not a valid ZIP code.`} />);
         }
 
         return (
-          <form
-            className="location-filter-form geo-entity-item"
-            onSubmit={this.submitForm}
-            onFocus={this.showWarning}
-            onMouseEnter={this.showWarning}
-            onBlur={this.hideWarning}
-            onMouseLeave={this.hideWarning}
-            onChange={this.changedText}>
-              <div className="zip-field">
-                <label
-                  className={`location-label ${disabledClass}`}
-                  htmlFor="location-picker-zip">
+            <form
+                className="location-filter-form geo-entity-item"
+                onSubmit={this.submitForm}
+                onFocus={this.showWarning}
+                onMouseEnter={this.showWarning}
+                onBlur={this.hideWarning}
+                onMouseLeave={this.hideWarning}
+                onChange={this.changedText}>
+                    <div className="zip-field">
+                        <label
+                            className={`location-label ${disabledClass}`}
+                            htmlFor="location-picker-zip">
                         ZIP Code
-                </label>
-                  <div className={`zip-content ${disabledClass}`}>
-                    <input
-                      id="location-picker-zip"
-                      className="zip-input"
-                      type="text"
-                      placeholder="Enter a ZIP code"
-                      maxLength={5}
-                      disabled={!this.props.isUSA}
-                      value={this.state.zip} />
-                        <IndividualSubmit
-                          className="zip-submit"
-                          disabled={(!this.state.enabled || !this.props.isUSA)}
-                          onClick={this.pressedButton}
-                          label="Filter by ZIP code" />
-                  </div>
-                {error}
-              </div>
-                <div
-                  className={`geo-warning ${this.state.showNonUsWarning ? '' : 'hide'}`}
-                  aria-hidden={!this.state.showNonUsWarning}>
-                    <EntityWarning message={this.props.generateDisclaimer('ZIP CODE')} />
-                </div>
-          </form>
+                        </label>
+                            <div className={`zip-content ${disabledClass}`}>
+                                <input
+                                    id="location-picker-zip"
+                                    className="zip-input"
+                                    type="text"
+                                    placeholder="Enter a ZIP code"
+                                    maxLength={5}
+                                    disabled={!this.props.isUSA}
+                                    value={this.state.zip} />
+                                        <IndividualSubmit
+                                          className="zip-submit"
+                                          disabled={(!this.state.enabled || !this.props.isUSA)}
+                                          onClick={this.pressedButton}
+                                          label="Filter by ZIP code" />
+                            </div>
+                        {error}
+                    </div>
+                        <div
+                            className={`geo-warning ${this.state.showNonUsWarning ? '' : 'hide'}`}
+                            aria-hidden={!this.state.showNonUsWarning}>
+                                <EntityWarning message={this.props.generateDisclaimer('ZIP CODE')} />
+                        </div>
+            </form>
         );
     }
 }

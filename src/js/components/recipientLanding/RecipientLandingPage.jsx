@@ -27,20 +27,20 @@ export default class RecipientLandingPage extends React.Component {
 
     render() {
         return (
-          <PageWrapper
-            pageName="Recipient Profiles"
-            classNames="usa-da-recipient-landing"
-            title="Recipient Profiles"
-            metaTagProps={recipientLandingPageMetaTags}
-            toolBarComponents={[
-              <ShareIcon
-                onShareOptionClick={this.handleShare}
-                url={getBaseUrl(slug)} />
+            <PageWrapper
+                pageName="Recipient Profiles"
+                classNames="usa-da-recipient-landing"
+                title="Recipient Profiles"
+                metaTagProps={recipientLandingPageMetaTags}
+                toolBarComponents={[
+                    <ShareIcon
+                        onShareOptionClick={this.handleShare}
+                        url={getBaseUrl(slug)} />
                 ]}>
-                  <main id="main-content" className="main-content">
-                    <RecipientLandingContainer />
-                  </main>
-          </PageWrapper>
+                    <main id="main-content" className="main-content">
+                        <RecipientLandingContainer />
+                    </main>
+            </PageWrapper>
         );
     }
 }

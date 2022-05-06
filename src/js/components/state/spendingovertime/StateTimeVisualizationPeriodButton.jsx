@@ -31,14 +31,14 @@ export default class StateTimeVisualizationPeriodButton extends React.Component 
         }
 
         return (
-          <button
-            className={`period-button${activeClass}`}
-            value={this.props.value}
-            title={description}
-            aria-label={description}
-            onClick={this.clickedButton}>
-            {this.props.label}
-          </button>
+            <button
+                className={`period-button${activeClass}`}
+                value={this.props.value}
+                title={description}
+                aria-label={description}
+                onClick={this.clickedButton}>
+                {this.props.label}
+            </button>
         );
     }
 }

@@ -65,22 +65,22 @@ export default class DownloadButton extends React.Component {
         }
 
         return (
-          <div
-            className="download-wrap"
-            onMouseEnter={this.onMouseEnter}
-            onMouseLeave={this.onMouseLeave}
-            onFocus={this.onMouseEnter}
-            onBlur={this.onMouseLeave}>
-            {hover}
-              <button
-                className={`download-button ${disabled}`}
-                title="Download your data"
-                aria-label="Download your data"
-                aria-disabled={!this.props.downloadAvailable}
-                onClick={this.onClick}>
-                  <div className="label">{buttonText}</div>
-              </button>
-          </div>
+            <div
+                className="download-wrap"
+                onMouseEnter={this.onMouseEnter}
+                onMouseLeave={this.onMouseLeave}
+                onFocus={this.onMouseEnter}
+                onBlur={this.onMouseLeave}>
+                {hover}
+                    <button
+                        className={`download-button ${disabled}`}
+                        title="Download your data"
+                        aria-label="Download your data"
+                        aria-disabled={!this.props.downloadAvailable}
+                        onClick={this.onClick}>
+                            <div className="label">{buttonText}</div>
+                    </button>
+            </div>
         );
     }
 }

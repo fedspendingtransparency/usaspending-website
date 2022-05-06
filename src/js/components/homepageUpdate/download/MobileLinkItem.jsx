@@ -50,40 +50,40 @@ export default class MobileLinkItem extends React.Component {
         }
 
         let link = (
-          <Link
-            className={`mobile-download__link ${disabledLink}`}
-            to={this.props.url}
-            {...linkParams}
-            onClick={clickedHomepageLink.bind(null, this.props.url.replace('#', ''))}>
-              <div className="mobile-download__link-icon">
-                <div className={`homepage-download__icon homepage-download__icon_type_${this.props.code}`} />
-              </div>
-                <div className="mobile-download__link-label">
-                  {this.props.label}
-                </div>
-          </Link>
+            <Link
+                className={`mobile-download__link ${disabledLink}`}
+                to={this.props.url}
+                {...linkParams}
+                onClick={clickedHomepageLink.bind(null, this.props.url.replace('#', ''))}>
+                    <div className="mobile-download__link-icon">
+                        <div className={`homepage-download__icon homepage-download__icon_type_${this.props.code}`} />
+                    </div>
+                        <div className="mobile-download__link-label">
+                            {this.props.label}
+                        </div>
+            </Link>
         );
 
         if (this.props.externalLink) {
             link = (
-              <button
-                className={`mobile-download__link ${disabledLink}`}
-                onClick={this.redirect}>
-                  <div className="mobile-download__link-icon">
-                    <div className={`homepage-download__icon homepage-download__icon_type_${this.props.code}`} />
-                  </div>
-                    <div className="mobile-download__link-label">
-                      {this.props.label}
-                    </div>
-              </button>
+                <button
+                    className={`mobile-download__link ${disabledLink}`}
+                    onClick={this.redirect}>
+                        <div className="mobile-download__link-icon">
+                            <div className={`homepage-download__icon homepage-download__icon_type_${this.props.code}`} />
+                        </div>
+                            <div className="mobile-download__link-label">
+                                {this.props.label}
+                            </div>
+                </button>
             );
         }
 
         return (
-          <li
-            className="mobile-download__list-item">
-            {link}
-          </li>
+            <li
+                className="mobile-download__list-item">
+                {link}
+            </li>
         );
     }
 }

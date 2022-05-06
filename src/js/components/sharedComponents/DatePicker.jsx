@@ -232,42 +232,42 @@ export default class DatePicker extends React.Component {
         const inputId = `picker-${uniqueId()}`;
 
         return (
-          <div className="generate-datepicker-wrap">
-            <div className="generate-datepicker">
-              <label htmlFor={inputId}>
-                {this.props.title}
-                  <input
-                    id={inputId}
-                    type="text"
-                    placeholder="MM/DD/YYYY"
-                    aria-label={this.props.title}
-                    value={this.state.inputValue}
-                    ref={(input) => {
+            <div className="generate-datepicker-wrap">
+                <div className="generate-datepicker">
+                    <label htmlFor={inputId}>
+                        {this.props.title}
+                            <input
+                                id={inputId}
+                                type="text"
+                                placeholder="MM/DD/YYYY"
+                                aria-label={this.props.title}
+                                value={this.state.inputValue}
+                                ref={(input) => {
                                 this.text = input;
                             }}
-                    onChange={this.handleTypedDate}
-                    onBlur={this.handleInputBlur} />
-              </label>
-                <a
-                  href="#null"
-                  onClick={this.toggleDatePicker}
-                  className="usa-da-icon picker-icon date">
-                    <Icons.Calendar alt="Date picker" />
-                </a>
-            </div>
-              <div className={`floating-datepicker ${showDatePicker}`} role="dialog">
-                <DayPicker
-                  ref={(daypicker) => {
+                                onChange={this.handleTypedDate}
+                                onBlur={this.handleInputBlur} />
+                    </label>
+                        <a
+                            href="#null"
+                            onClick={this.toggleDatePicker}
+                            className="usa-da-icon picker-icon date">
+                                <Icons.Calendar alt="Date picker" />
+                        </a>
+                </div>
+                    <div className={`floating-datepicker ${showDatePicker}`} role="dialog">
+                        <DayPicker
+                            ref={(daypicker) => {
                             this.datepicker = daypicker;
                         }}
-                  month={pickedDay}
-                  disabledDays={this.props.disabledDays}
-                  selectedDays={(day) => DateUtils.isSameDay(pickedDay, day)}
-                  onDayClick={this.handleDatePick}
-                  onFocus={this.handleDateFocus}
-                  onBlur={this.handleDateBlur} />
-              </div>
-          </div>
+                            month={pickedDay}
+                            disabledDays={this.props.disabledDays}
+                            selectedDays={(day) => DateUtils.isSameDay(pickedDay, day)}
+                            onDayClick={this.handleDatePick}
+                            onFocus={this.handleDateFocus}
+                            onBlur={this.handleDateBlur} />
+                    </div>
+            </div>
         );
     }
 }

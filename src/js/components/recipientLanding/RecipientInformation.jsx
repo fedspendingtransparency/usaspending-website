@@ -41,25 +41,25 @@ export default class RecipientInformation extends React.Component {
         let tooltip = null;
         if (this.state.showInfoTooltip) {
             tooltip = (
-              <RecipientLandingTooltip
-                showInfoTooltip={this.state.showInfoTooltip}
-                placement={this.props.placement}
-                closeTooltip={this.closeTooltip}
-                message={this.props.message} />
+                <RecipientLandingTooltip
+                    showInfoTooltip={this.state.showInfoTooltip}
+                    placement={this.props.placement}
+                    closeTooltip={this.closeTooltip}
+                    message={this.props.message} />
             );
         }
         return (
-          <div>
-            <button
-              onBlur={this.closeTooltip}
-              className="recipient-labels__icon-info"
-              onFocus={this.showTooltip}
-              onMouseEnter={this.showTooltip}
-              onClick={this.showTooltip}>
-                <InfoCircle alt="Information" />
-            </button>
-            {tooltip}
-          </div>
+            <div>
+                <button
+                    onBlur={this.closeTooltip}
+                    className="recipient-labels__icon-info"
+                    onFocus={this.showTooltip}
+                    onMouseEnter={this.showTooltip}
+                    onClick={this.showTooltip}>
+                        <InfoCircle alt="Information" />
+                </button>
+                {tooltip}
+            </div>
         );
     }
 }

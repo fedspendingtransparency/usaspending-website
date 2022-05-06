@@ -254,11 +254,11 @@ export default class EntityDropdown extends React.Component {
         if (this.state.expanded && !loading) {
             const selectedItem = this.getSelectedItemIdentifier();
             dropdown = (<EntityDropdownList
-              matchKey={this.props.matchKey}
-              scope={this.props.field}
-              selectedItem={selectedItem}
-              options={this.props.options}
-              clickedItem={this.clickedItem} />);
+                matchKey={this.props.matchKey}
+                scope={this.props.field}
+                selectedItem={selectedItem}
+                options={this.props.options}
+                clickedItem={this.clickedItem} />);
         }
 
         if (value.code === '') {
@@ -275,72 +275,72 @@ export default class EntityDropdown extends React.Component {
         }
         const uniqueIdentifier = uniqueId();
         return (
-          <div
-            className="geo-entity-item">
-              <label
-                className={`location-label ${disabled}`}
-                htmlFor={`${field}-${type}-${uniqueIdentifier}`}>
-                {this.props.title}
-              </label>
-                <div
-                  id={`${field}-${type}-${uniqueIdentifier}`}
-                  className={`geo-entity-dropdown ${disabled} ${autocompleteClass}`}
-                  onMouseOver={this.mouseEnter}
-                  onFocus={this.mouseEnter}
-                  onMouseOut={this.mouseLeave}
-                  onBlur={this.mouseLeave}
-                  tabIndex={-1}
-                  ref={(div) => {
+            <div
+                className="geo-entity-item">
+                    <label
+                        className={`location-label ${disabled}`}
+                        htmlFor={`${field}-${type}-${uniqueIdentifier}`}>
+                        {this.props.title}
+                    </label>
+                        <div
+                            id={`${field}-${type}-${uniqueIdentifier}`}
+                            className={`geo-entity-dropdown ${disabled} ${autocompleteClass}`}
+                            onMouseOver={this.mouseEnter}
+                            onFocus={this.mouseEnter}
+                            onMouseOut={this.mouseLeave}
+                            onBlur={this.mouseLeave}
+                            tabIndex={-1}
+                            ref={(div) => {
                         this.wrapperDiv = div;
                     }}>
-                  {!isAutocomplete &&
-                  <button
-                    id={`${field}-button`}
-                    className={`active-selection ${placeholder}`}
-                    onClick={this.toggleDropdown}
-                    title={label}
-                    aria-label={label}
-                    aria-haspopup="true"
-                    aria-expanded={this.state.expanded}
-                    aria-owns={`geo-dropdown-${field}`}
-                    aria-describedby={this.state.warningId}
-                    disabled={!enabled || options.length === 0}
-                    ref={(dd) => {
+                            {!isAutocomplete &&
+                            <button
+                                id={`${field}-button`}
+                                className={`active-selection ${placeholder}`}
+                                onClick={this.toggleDropdown}
+                                title={label}
+                                aria-label={label}
+                                aria-haspopup="true"
+                                aria-expanded={this.state.expanded}
+                                aria-owns={`geo-dropdown-${field}`}
+                                aria-describedby={this.state.warningId}
+                                disabled={!enabled || options.length === 0}
+                                ref={(dd) => {
                               this.dropdown = dd;
                           }}>
-                            <div className="label">
-                              {label}
-                            </div>
-                              <div className="icon">
-                                {this.state.expanded && <FontAwesomeIcon onClick={this.toggleDropdown} icon="chevron-up" />}
-                                {!this.state.expanded && <FontAwesomeIcon onClick={this.toggleDropdown} icon="chevron-down" />}
+                              <div className="label">
+                                  {label}
                               </div>
-                  </button>
+                                  <div className="icon">
+                                      {this.state.expanded && <FontAwesomeIcon onClick={this.toggleDropdown} icon="chevron-up" />}
+                                      {!this.state.expanded && <FontAwesomeIcon onClick={this.toggleDropdown} icon="chevron-down" />}
+                                  </div>
+                            </button>
                     }
-                  {isAutocomplete &&
-                  <EntityDropdownAutocomplete
-                    searchString={searchString}
-                    enabled={enabled}
-                    openDropdown={this.openDropdown}
-                    handleOnKeyDown={this.handleOnKeyDown}
-                    handleTextInputChange={this.handleTextInputChange}
-                    toggleDropdown={this.toggleDropdown}
-                    placeholder={this.props.placeholder}
-                    showDisclaimer={showDisclaimer}
-                    context={this} // used to create dropdown ref
-                    loading={loading} />
+                            {isAutocomplete &&
+                            <EntityDropdownAutocomplete
+                                searchString={searchString}
+                                enabled={enabled}
+                                openDropdown={this.openDropdown}
+                                handleOnKeyDown={this.handleOnKeyDown}
+                                handleTextInputChange={this.handleTextInputChange}
+                                toggleDropdown={this.toggleDropdown}
+                                placeholder={this.props.placeholder}
+                                showDisclaimer={showDisclaimer}
+                                context={this} // used to create dropdown ref
+                                loading={loading} />
                     }
-                  {dropdown}
-                </div>
-            {generateDisclaimer &&
-            <div
-              className={`geo-warning ${hideWarning}`}
-              id={this.state.warningId}
-              aria-hidden={hideWarning === 'hide'}>
-                <EntityWarning
-                  message={generateDisclaimer(warningField)} />
-            </div>}
-          </div>
+                            {dropdown}
+                        </div>
+                {generateDisclaimer &&
+                <div
+                    className={`geo-warning ${hideWarning}`}
+                    id={this.state.warningId}
+                    aria-hidden={hideWarning === 'hide'}>
+                        <EntityWarning
+                            message={generateDisclaimer(warningField)} />
+                </div>}
+            </div>
         );
     }
 }

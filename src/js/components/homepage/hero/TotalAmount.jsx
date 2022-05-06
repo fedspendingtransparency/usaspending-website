@@ -37,7 +37,7 @@ const TotalAmount = ({
                 window.clearTimeout(amountUpdate);
             }
         };
-    }, []);
+    }, [completeIncrement]);
 
     useEffect(() => {
         if (!isLoading && !skipAnimation) {
@@ -61,9 +61,9 @@ const TotalAmount = ({
     }, [isLoading, total, completeIncrement]);
 
     return (
-      <strong className={className} ref={ref}>
-        {skipAnimation ? getTotalSpendingAbbreviated(total) : '$0.00'}
-      </strong>
+        <strong className={className} ref={ref}>
+            {skipAnimation ? getTotalSpendingAbbreviated(total) : '$0.00'}
+        </strong>
     );
 };
 

@@ -129,11 +129,11 @@ export class FederalAccountsVizContainer extends React.Component {
 
     render() {
         return (
-          <FederalAccountsViz
-            {...this.state}
-            changePage={this.changePage}
-            updateSort={this.updateSort}
-            changeView={this.changeView} />
+            <FederalAccountsViz
+                {...this.state}
+                changePage={this.changePage}
+                updateSort={this.updateSort}
+                changeView={this.changeView} />
         );
     }
 }

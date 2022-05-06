@@ -20,18 +20,18 @@ import Community from './community/Community';
 require('pages/homepage/homePage.scss');
 
 const Homepage = () => (
-  <div className="usa-da-home-page">
-    <MetaTags {...MetaTagHelper.homePageMetaTags} />
-      <Header />
-        <main id="main-content" className="homepage-content">
-          <CovidHighlights />
-            <Features />
-              <Download />
-                <Community />
-        </main>
-          <GlobalModalContainer />
-            <Footer pageName="Homepage" />
-  </div>
+    <div className="usa-da-home-page">
+        <MetaTags {...MetaTagHelper.homePageMetaTags} />
+            <Header />
+                <main id="main-content" className="homepage-content">
+                    <CovidHighlights />
+                        <Features />
+                            <Download />
+                                <Community />
+                </main>
+                    <GlobalModalContainer />
+                        <Footer pageName="Homepage" />
+    </div>
 );
 
 export default Homepage;

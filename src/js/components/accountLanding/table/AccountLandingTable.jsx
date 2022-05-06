@@ -29,54 +29,54 @@ export default class AccountLandingTable extends React.PureComponent {
             // no results
             if (this.props.searchString) {
                 message = (
-                  <div className="results-table__message">
+                    <div className="results-table__message">
                         No results found for &ldquo;<span className="results-table__message_highlight">{this.props.searchString}</span>&rdquo;.
-                  </div>
+                    </div>
                 );
             }
             else {
                 message = (
-                  <div className="results-table__message">
+                    <div className="results-table__message">
                         No results found.
-                  </div>
+                    </div>
                 );
             }
         }
         const rows = this.props.results.map((account, index) => (
-          <TableRow
-            account={account}
-            key={account.accountId}
-            rowIndex={index}
-            columns={this.props.columns}
-            accountSearchString={this.props.searchString} />
+            <TableRow
+                account={account}
+                key={account.accountId}
+                rowIndex={index}
+                columns={this.props.columns}
+                accountSearchString={this.props.searchString} />
         ));
 
         const headers = this.props.columns.map((column, index) => (
-          <td key={index} className="results-table__data">
-            <LegacyTableHeaderCell
-              isLast={index === this.props.columns.length - 1}
-              field={AccountsTableFields.modelMapping[column.columnName]}
-              title={column.displayName}
-              defaultDirection={column.defaultDirection}
-              currentSort={this.props.order}
-              updateSort={this.props.updateSort} />
-          </td>
+            <td key={index} className="results-table__data">
+                <LegacyTableHeaderCell
+                    isLast={index === this.props.columns.length - 1}
+                    field={AccountsTableFields.modelMapping[column.columnName]}
+                    title={column.displayName}
+                    defaultDirection={column.defaultDirection}
+                    currentSort={this.props.order}
+                    updateSort={this.props.updateSort} />
+            </td>
         ));
 
         return (
-          <div className="results-table">
-            <table>
-              <thead className="results-table__head">
-                <tr className="results-table__row">
-                  {headers}
-                </tr>
-              </thead>
-                <tbody className={`results-table__body ${hideBody}`}>
-                  {rows}
-                </tbody>
-            </table>
-            {message}
-          </div>
+            <div className="results-table">
+                <table>
+                    <thead className="results-table__head">
+                        <tr className="results-table__row">
+                            {headers}
+                        </tr>
+                    </thead>
+                        <tbody className={`results-table__body ${hideBody}`}>
+                            {rows}
+                        </tbody>
+                </table>
+                {message}
+            </div>
         );
     }
 }

@@ -62,26 +62,26 @@ const StateContent = ({ stateProfile }) => {
     };
 
     return (
-      <div className="state-content-wrapper">
-        <div className="state-sidebar">
-          <Sidebar
-            isGoingToBeSticky
-            active={activeSection}
-            pageName="state"
-            sections={stateSections}
-            jumpToSection={jumpToSection}
-            detectActiveSection={setActiveSection}
-            fixedStickyBreakpoint={getStickyBreakPointForSidebar()} />
+        <div className="state-content-wrapper">
+            <div className="state-sidebar">
+                <Sidebar
+                    isGoingToBeSticky
+                    active={activeSection}
+                    pageName="state"
+                    sections={stateSections}
+                    jumpToSection={jumpToSection}
+                    detectActiveSection={setActiveSection}
+                    fixedStickyBreakpoint={getStickyBreakPointForSidebar()} />
+            </div>
+                <div className="state-content">
+                    <StateOverview
+                        stateProfile={stateProfile.overview} />
+                            <StateTimeVisualizationSectionContainer
+                                stateProfile={stateProfile.overview} />
+                                    <TopFiveSection />
+                                      <StateFooter />
+                </div>
         </div>
-          <div className="state-content">
-            <StateOverview
-              stateProfile={stateProfile.overview} />
-                <StateTimeVisualizationSectionContainer
-                  stateProfile={stateProfile.overview} />
-                    <TopFiveSection />
-                      <StateFooter />
-          </div>
-      </div>
     );
 };
 

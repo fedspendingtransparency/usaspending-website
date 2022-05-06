@@ -44,31 +44,31 @@ export default class StackedBarGroup extends React.Component {
         const items = this.props.stack.map((item) => {
             if (item.type === 'bar') {
                 return (<StackedBar
-                  {...item}
-                  key={`${item.name}-${item.xValue}`} />);
+                    {...item}
+                    key={`${item.name}-${item.xValue}`} />);
             }
             return (
-              <OutlayLine
-                {...item}
-                key={`${item.name}-${item.xValue}`} />);
+                <OutlayLine
+                    {...item}
+                    key={`${item.name}-${item.xValue}`} />);
         });
 
         return (
-          <g
-            className="bar-group"
-            transform={`translate(${this.props.xPos},0)`}>
-            {items}
-              <rect
-                className="hit-zone"
-                fill="rgba(0,0,0,0)"
-                x={0}
-                y={0}
-                width={this.props.hitzone.width}
-                height={this.props.hitzone.height}
-                onMouseEnter={this.mouseEntered}
-                onMouseLeave={this.mouseExited}
-                onTouchStart={this.barTouched} />
-          </g>
+            <g
+                className="bar-group"
+                transform={`translate(${this.props.xPos},0)`}>
+                {items}
+                    <rect
+                        className="hit-zone"
+                        fill="rgba(0,0,0,0)"
+                        x={0}
+                        y={0}
+                        width={this.props.hitzone.width}
+                        height={this.props.hitzone.height}
+                        onMouseEnter={this.mouseEntered}
+                        onMouseLeave={this.mouseExited}
+                        onTouchStart={this.barTouched} />
+            </g>
         );
     }
 }

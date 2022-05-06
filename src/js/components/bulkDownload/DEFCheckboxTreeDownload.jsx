@@ -9,7 +9,7 @@ import { setDefCodes } from 'redux/actions/bulkDownload/bulkDownloadActions';
 import DEFCheckboxTreeLabel from 'components/search/filters/defc/DEFCheckboxTreeLabel';
 
 export const NewBadge = () => (
-  <div className="new-badge">NEW</div>
+    <div className="new-badge">NEW</div>
 );
 
 const covidParentNode = {
@@ -94,40 +94,40 @@ const DEFCheckboxTreeDownload = ({
     };
 
     return (
-      <div className="def-code-filter-download">
-        <CheckboxTree
-          className="def-checkbox-tree"
-          checked={defCodes}
-          expanded={expanded}
-          isDisabled={isDisabled}
-          data={[parseCovidCodes(validDefCodes)]}
-          isError={(errorMsg !== '')}
-          errorMessage={errorMsg}
-          isLoading={isLoading}
-          searchText=""
-          noResults={false}
-          labelComponent={<DEFCheckboxTreeLabel />}
-          onUncheck={stageFilter}
-          onCheck={stageFilter}
-          onCollapse={onCollapse}
-          onExpand={onExpand} />
+        <div className="def-code-filter-download">
             <CheckboxTree
-              className="def-checkbox-tree"
-              checked={defCodes}
-              expanded={expanded}
-              isDisabled={isDisabled}
-              data={[extractInfraCodes(validDefCodes)]}
-              isError={(errorMsg !== '')}
-              errorMessage={errorMsg}
-              isLoading={isLoading}
-              searchText=""
-              noResults={false}
-              labelComponent={<DEFCheckboxTreeLabel />}
-              onUncheck={stageFilter}
-              onCheck={stageFilter}
-              onCollapse={onCollapse}
-              onExpand={onExpand} />
-      </div>
+                className="def-checkbox-tree"
+                checked={defCodes}
+                expanded={expanded}
+                isDisabled={isDisabled}
+                data={[parseCovidCodes(validDefCodes)]}
+                isError={(errorMsg !== '')}
+                errorMessage={errorMsg}
+                isLoading={isLoading}
+                searchText=""
+                noResults={false}
+                labelComponent={<DEFCheckboxTreeLabel />}
+                onUncheck={stageFilter}
+                onCheck={stageFilter}
+                onCollapse={onCollapse}
+                onExpand={onExpand} />
+                    <CheckboxTree
+                        className="def-checkbox-tree"
+                        checked={defCodes}
+                        expanded={expanded}
+                        isDisabled={isDisabled}
+                        data={[extractInfraCodes(validDefCodes)]}
+                        isError={(errorMsg !== '')}
+                        errorMessage={errorMsg}
+                        isLoading={isLoading}
+                        searchText=""
+                        noResults={false}
+                        labelComponent={<DEFCheckboxTreeLabel />}
+                        onUncheck={stageFilter}
+                        onCheck={stageFilter}
+                        onCollapse={onCollapse}
+                        onExpand={onExpand} />
+        </div>
     );
 };
 

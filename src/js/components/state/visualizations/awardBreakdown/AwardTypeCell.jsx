@@ -111,38 +111,38 @@ export default class AwardTypeCell extends React.Component {
 
     render() {
         return (
-          <g
-            transform={`translate(${this.props.x0},${this.props.y0})`}
-            onMouseEnter={this.toggleTooltipIn}
-            onMouseLeave={this.toggleTooltipOut}>
-              <rect
-                className="tile"
-                width={this.props.width}
-                height={this.props.height}
-                style={{
+            <g
+                transform={`translate(${this.props.x0},${this.props.y0})`}
+                onMouseEnter={this.toggleTooltipIn}
+                onMouseLeave={this.toggleTooltipOut}>
+                    <rect
+                        className="tile"
+                        width={this.props.width}
+                        height={this.props.height}
+                        style={{
                         fill: this.props.color,
                         stroke: this.props.strokeColor,
                         strokeOpacity: this.props.strokeOpacity,
                         strokeWidth: "2px",
                         padding: "10px"
                     }} />
-                      <text
-                        className={`category ${this.props.textClass}`}
-                        x={(this.props.width / 2)}
-                        y={this.props.height / 2}
-                        width={this.props.width}
-                        textAnchor="middle"
-                        ref={(text) => {
+                        <text
+                            className={`category ${this.props.textClass}`}
+                            x={(this.props.width / 2)}
+                            y={this.props.height / 2}
+                            width={this.props.width}
+                            textAnchor="middle"
+                            ref={(text) => {
                         this.svgText = text;
                     }}
-                        style={{
+                            style={{
                         display: this.props.labelView,
                         fill: this.props.textColor,
                         opacity: this.props.opacity
                     }}>
-                        {this.state.label}
-                      </text>
-          </g>
+                            {this.state.label}
+                        </text>
+            </g>
         );
     }
 }

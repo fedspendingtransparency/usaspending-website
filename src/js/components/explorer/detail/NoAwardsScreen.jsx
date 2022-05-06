@@ -26,17 +26,17 @@ export default class NoAwardsScreen extends React.Component {
 
     render() {
         return (
-          <div className="explorer-no-awards">
-            <div className="no-awards-message">
-              <span className="info-icon-circle">
-                <Icons.InfoCircle />
-              </span>
+            <div className="explorer-no-awards">
+                <div className="no-awards-message">
+                    <span className="info-icon-circle">
+                        <Icons.InfoCircle />
+                    </span>
                     You&#8217;ve reached a point with no associated awards.
-            </div>
-              <button className="go-back" onClick={this.clickedLink}>
+                </div>
+                    <button className="go-back" onClick={this.clickedLink}>
                     Click here to go back.
-              </button>
-          </div>
+                    </button>
+            </div>
         );
     }
 }

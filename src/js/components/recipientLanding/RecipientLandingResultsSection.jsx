@@ -25,30 +25,30 @@ const propTypes = {
 export default class RecipientLandingResultsSection extends React.Component {
     render() {
         return (
-          <div className="results-table-section">
-            <TransitionGroup>
-              {(this.props.inFlight || this.props.error) && (
-              <CSSTransition
-                classNames="table-message-fade"
-                timeout={{ exit: 225, enter: 195 }}
-                exit>
+            <div className="results-table-section">
+                <TransitionGroup>
+                    {(this.props.inFlight || this.props.error) && (
+                    <CSSTransition
+                        classNames="table-message-fade"
+                        timeout={{ exit: 225, enter: 195 }}
+                        exit>
                             <>
-                              {this.props.inFlight && (
+                                {this.props.inFlight && (
                                 <div className="results-table-message-container">
-                                  <ResultsTableLoadingMessage />
+                                    <ResultsTableLoadingMessage />
                                 </div>
                                 )}
-                              {this.props.error && (
+                                {this.props.error && (
                                 <div className="results-table-message-container full">
-                                  <ResultsTableErrorMessage />
+                                    <ResultsTableErrorMessage />
                                 </div>
                                 )}
                             </>
-              </CSSTransition>
+                    </CSSTransition>
                     )}
-            </TransitionGroup>
-              <RecipientLandingTable {...this.props} />
-          </div>
+                </TransitionGroup>
+                    <RecipientLandingTable {...this.props} />
+            </div>
         );
     }
 }

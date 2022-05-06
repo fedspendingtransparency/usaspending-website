@@ -39,10 +39,10 @@ export class KeywordContainer extends React.Component {
 
     render() {
         return (
-          <Keyword
-            dirtyFilter={this.dirtyFilter()}
-            selectedKeywords={this.props.keyword.toArray()}
-            toggleKeyword={this.toggleKeyword} />
+            <Keyword
+                dirtyFilter={this.dirtyFilter()}
+                selectedKeywords={this.props.keyword.toArray()}
+                toggleKeyword={this.toggleKeyword} />
         );
     }
 }

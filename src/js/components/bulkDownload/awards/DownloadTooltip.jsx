@@ -67,25 +67,25 @@ export default class DownloadTooltip extends React.Component {
             missingFields = this.generateAccountsRequiredFields();
         }
         return (
-          <div
-            className="download-tooltip"
-            id="download-disabled-tooltip"
-            role="tooltip">
-              <div className="download-tooltip__interior">
-                <div className="tooltip-pointer" />
-                  <div className="download-tooltip__content">
-                    <div className="download-tooltip__icon">
-                      <InfoCircle />
-                    </div>
-                      <div className="download-tooltip__message">
+            <div
+                className="download-tooltip"
+                id="download-disabled-tooltip"
+                role="tooltip">
+                    <div className="download-tooltip__interior">
+                        <div className="tooltip-pointer" />
+                            <div className="download-tooltip__content">
+                                <div className="download-tooltip__icon">
+                                    <InfoCircle />
+                                </div>
+                                    <div className="download-tooltip__message">
                             The following fields are required:
-                        <ul className="download-tooltip__list">
-                          {missingFields}
-                        </ul>
-                      </div>
-                  </div>
-              </div>
-          </div>
+                                        <ul className="download-tooltip__list">
+                                          {missingFields}
+                                      </ul>
+                                    </div>
+                            </div>
+                    </div>
+            </div>
         );
     }
 }

@@ -168,11 +168,11 @@ export class FederalAccountTableContainer extends React.Component {
 
     render() {
         return (
-          <FederalAccountTable
-            {...this.props}
-            {...this.state}
-            changeSort={this.changeSort}
-            nextPage={this.nextPage} />
+            <FederalAccountTable
+                {...this.props}
+                {...this.state}
+                changeSort={this.changeSort}
+                nextPage={this.nextPage} />
         );
     }
 }

@@ -120,18 +120,18 @@ export default class LocationPicker extends React.Component {
         if (!this.props.country.code) {
             // no country provided
             return (
-              <span>
+                <span>
                     Please select a&nbsp;
-                <span className="field">country</span> before selecting a&nbsp;
-                  <span className="field">{field}</span>.
-              </span>
+                    <span className="field">country</span> before selecting a&nbsp;
+                        <span className="field">{field}</span>.
+                </span>
             );
         }
         else if (this.props.country.code !== 'USA' && field === 'CITY' && this.props.scope === "primary_place_of_performance") {
             return (
-              <span>
+                <span>
                     Place of Performance data for foreign cities is limited and may return fewer results.
-              </span>
+                </span>
             );
         }
         else if (this.props.country.code === 'USA') {
@@ -145,27 +145,27 @@ export default class LocationPicker extends React.Component {
             if (!state.code) {
                 // no state
                 return (
-                  <span>
+                    <span>
                         Please select a&nbsp;
-                    <span className="field">state</span> before selecting a&nbsp;
-                      <span className="field">{field}</span>.
-                  </span>
+                        <span className="field">state</span> before selecting a&nbsp;
+                            <span className="field">{field}</span>.
+                    </span>
                 );
             }
             else if (countyOrDistrictSelected || (city.code && (!district.district || !county.code))) {
                 const selectedField = (district.district) ? "congressional district" : "county"; // if evaluates to county, double check it's not actually city
                 return (
-                  <span>
+                    <span>
                         You cannot select both a <span className="field">{(selectedField === "county" && !county.code) ? "city" : selectedField}</span> and a <span className="field"> {field}</span>.
-                  </span>
+                    </span>
                 );
             }
             return null;
         }
         return (
-          <span>
+            <span>
                 Filtering by <span className="field">{field}</span> is only available for locations within the United States.
-          </span>
+            </span>
         );
     }
 
@@ -214,91 +214,91 @@ export default class LocationPicker extends React.Component {
         );
 
         return (
-          <div>
-            <form
-              className="location-filter-form"
-              onSubmit={this.submitForm}>
-                <div className="location-item">
-                  <EntityDropdown
-                    field="country"
-                    placeholder="Select a country"
-                    title="COUNTRY"
-                    value={this.props.country}
-                    selectEntity={this.props.selectEntity}
-                    options={this.props.availableCountries}
-                    generateDisclaimer={this.generateDisclaimer} />
-                </div>
-                  <div className="location-item">
-                    <EntityDropdown
-                      field="state"
-                      placeholder="Select a state"
-                      title="STATE (US ONLY)"
-                      value={this.props.state}
-                      selectEntity={this.props.selectEntity}
-                      options={this.props.availableStates}
-                      enabled={isUSA}
-                      generateDisclaimer={this.generateDisclaimer} />
-                  </div>
+            <div>
+                <form
+                    className="location-filter-form"
+                    onSubmit={this.submitForm}>
+                        <div className="location-item">
+                            <EntityDropdown
+                                field="country"
+                                placeholder="Select a country"
+                                title="COUNTRY"
+                                value={this.props.country}
+                                selectEntity={this.props.selectEntity}
+                                options={this.props.availableCountries}
+                                generateDisclaimer={this.generateDisclaimer} />
+                        </div>
+                            <div className="location-item">
+                                <EntityDropdown
+                                    field="state"
+                                    placeholder="Select a state"
+                                    title="STATE (US ONLY)"
+                                    value={this.props.state}
+                                    selectEntity={this.props.selectEntity}
+                                    options={this.props.availableStates}
+                                    enabled={isUSA}
+                                    generateDisclaimer={this.generateDisclaimer} />
+                            </div>
+                                <div className="location-item">
+                                    <EntityDropdown
+                                      field="county"
+                                      placeholder="Select a county"
+                                      title="COUNTY (US ONLY)"
+                                      value={this.props.county}
+                                      selectEntity={this.props.selectEntity}
+                                      options={this.props.availableCounties}
+                                      enabled={isCountyEnabled}
+                                      generateDisclaimer={this.generateDisclaimer} />
+                                </div>
+                    {this.props.enableCitySearch &&
                     <div className="location-item">
-                      <EntityDropdown
-                        field="county"
-                        placeholder="Select a county"
-                        title="COUNTY (US ONLY)"
-                        value={this.props.county}
-                        selectEntity={this.props.selectEntity}
-                        options={this.props.availableCounties}
-                        enabled={isCountyEnabled}
-                        generateDisclaimer={this.generateDisclaimer} />
-                    </div>
-              {this.props.enableCitySearch &&
-              <div className="location-item">
-                <EntityDropdown
-                  type="autocomplete"
-                  loading={this.props.loading}
-                  field="city"
-                  scope={this.props.scope}
-                  placeholder="Enter a City"
-                  title="CITY"
-                  value={this.props.city}
-                  options={this.props.availableCities}
-                  selectEntity={this.props.selectEntity}
-                  enabled={isCityEnabled}
-                  generateDisclaimer={this.generateDisclaimer}
-                  setSearchString={this.props.setCitySearchString}
-                  searchString={this.props.citySearchString}
-                  showDisclaimer={showDisclaimer} />
-              </div>}
-                <div className="location-item">
-                  <EntityDropdown
-                    field="district"
-                    matchKey="district"
-                    placeholder={districtPlaceholder}
-                    title="CONGRESSIONAL DISTRICT (US ONLY)"
-                    value={this.props.district}
-                    selectEntity={this.props.selectEntity}
-                    options={this.props.availableDistricts}
-                    enabled={isDistrictEnabled}
-                    generateDisclaimer={this.generateDisclaimer} />
-                </div>
-                  <button
-                    className="add-location"
-                    onClick={this.props.addLocation}
-                    aria-controls="award-search-selected-locations"
-                    disabled={isAddFilterDisabled}>
+                        <EntityDropdown
+                            type="autocomplete"
+                            loading={this.props.loading}
+                            field="city"
+                            scope={this.props.scope}
+                            placeholder="Enter a City"
+                            title="CITY"
+                            value={this.props.city}
+                            options={this.props.availableCities}
+                            selectEntity={this.props.selectEntity}
+                            enabled={isCityEnabled}
+                            generateDisclaimer={this.generateDisclaimer}
+                            setSearchString={this.props.setCitySearchString}
+                            searchString={this.props.citySearchString}
+                            showDisclaimer={showDisclaimer} />
+                    </div>}
+                        <div className="location-item">
+                            <EntityDropdown
+                                field="district"
+                                matchKey="district"
+                                placeholder={districtPlaceholder}
+                                title="CONGRESSIONAL DISTRICT (US ONLY)"
+                                value={this.props.district}
+                                selectEntity={this.props.selectEntity}
+                                options={this.props.availableDistricts}
+                                enabled={isDistrictEnabled}
+                                generateDisclaimer={this.generateDisclaimer} />
+                        </div>
+                            <button
+                                className="add-location"
+                                onClick={this.props.addLocation}
+                                aria-controls="award-search-selected-locations"
+                                disabled={isAddFilterDisabled}>
                         Add Filter
-                  </button>
-            </form>
-              <hr className="location-picker-divider" />
-                <div className="location-item">
-                  <div className="geo-entity-item">
-                    <ZIPField
-                      generateDisclaimer={this.generateDisclaimer}
-                      isUSA={isUSA}
-                      zip={this.props.zip}
-                      validateZip={this.props.validateZip} />
-                  </div>
-                </div>
-          </div>
+                            </button>
+                </form>
+                    <hr className="location-picker-divider" />
+                        <div className="location-item">
+                            <div className="geo-entity-item">
+                                <ZIPField
+                                    generateDisclaimer={this.generateDisclaimer}
+                                    isUSA={isUSA}
+                                    zip={this.props.zip}
+                                    validateZip={this.props.validateZip} />
+                            </div>
+                        </div>
+            </div>
         );
     }
 }

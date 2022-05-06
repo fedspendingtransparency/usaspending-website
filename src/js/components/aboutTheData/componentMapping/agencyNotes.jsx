@@ -9,9 +9,9 @@ import ExternalLink from 'components/sharedComponents/ExternalLink';
 const opicNote = (
     <>
         On January 2nd, 2020, OPIC was replaced by DFC (source:&nbsp;
-      <ExternalLink url="https://www.dfc.gov/media/press-releases/us-international-development-finance-corporation-begins-operations" />
+        <ExternalLink url="https://www.dfc.gov/media/press-releases/us-international-development-finance-corporation-begins-operations" />
         ). In addition to absorbing OPIC, DFC also combined aspects of USAID,  including chiefly its Development Credit Authority (DCA) (source:&nbsp;
-        <ExternalLink url="https://www.congress.gov/115/plaws/publ254/PLAW-115publ254.pdf" />
+            <ExternalLink url="https://www.congress.gov/115/plaws/publ254/PLAW-115publ254.pdf" />
         &nbsp;pg 29). For DATA Act reporting purposes, DFC continued to report as OPIC until its last submission in FY20Q4, and began to include the full set of DFC TAS in FY20Q3. DFC's first submission as DFC was in FY21Q1.
     </>
 );

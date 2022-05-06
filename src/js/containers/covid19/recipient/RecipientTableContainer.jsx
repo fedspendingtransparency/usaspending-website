@@ -46,10 +46,10 @@ const columns = [
     {
         title: 'awardCount',
         displayName: (
-          <div className="table-header-label__title">
-            <div>Number</div>
-              <div>of Awards</div>
-          </div>
+            <div className="table-header-label__title">
+                <div>Number</div>
+                    <div>of Awards</div>
+            </div>
         ),
         right: true
     }
@@ -63,40 +63,40 @@ const loanColumns = [
     {
         title: 'obligation',
         displayName: (
-          <div className="table-header-label__title">
-            <div>Award Obligations</div>
-              <div>(Loan Subsidy Cost)</div>
-          </div>
+            <div className="table-header-label__title">
+                <div>Award Obligations</div>
+                    <div>(Loan Subsidy Cost)</div>
+            </div>
         ),
         right: true
     },
     {
         title: 'outlay',
         displayName: (
-          <div className="table-header-label__title">
-            <div>Award Outlays</div>
-              <div>(Loan Subsidy Cost)</div>
-          </div>
+            <div className="table-header-label__title">
+                <div>Award Outlays</div>
+                    <div>(Loan Subsidy Cost)</div>
+            </div>
         ),
         right: true
     },
     {
         title: 'faceValueOfLoan',
         displayName: (
-          <div className="table-header-label__title">
-            <div>Face Value</div>
-              <div>of Loans</div>
-          </div>
+            <div className="table-header-label__title">
+                <div>Face Value</div>
+                    <div>of Loans</div>
+            </div>
         ),
         right: true
     },
     {
         title: 'awardCount',
         displayName: (
-          <div className="table-header-label__title">
-            <div>Number</div>
-              <div>of Awards</div>
-          </div>
+            <div className="table-header-label__title">
+                <div>Number</div>
+                    <div>of Awards</div>
+            </div>
         ),
         right: true
     }
@@ -123,12 +123,12 @@ export const parseRows = (rows, activeTab, query) => (
             link = (
                 <>
                     {description}&nbsp;(
-                      <Link onClick={handleClick} to={`/recipient/${rowData._childId}/latest`}>
+                        <Link onClick={handleClick} to={`/recipient/${rowData._childId}/latest`}>
                         as Child
-                      </Link>,&nbsp;
-                        <Link onClick={handleClick} to={`/recipient/${rowData._recipientId}/latest`}>
+                        </Link>,&nbsp;
+                            <Link onClick={handleClick} to={`/recipient/${rowData._recipientId}/latest`}>
                         as Recipient
-                        </Link>
+                            </Link>
                     )
                 </>
             );
@@ -137,9 +137,9 @@ export const parseRows = (rows, activeTab, query) => (
             const handleClick = clickedRecipientProfile(`${description}`);
             // there is a single profile page for this recipient
             link = (
-              <Link onClick={handleClick} to={`/recipient/${rowData._childId || rowData._recipientId}/latest`}>
-                {description}
-              </Link>
+                <Link onClick={handleClick} to={`/recipient/${rowData._childId || rowData._recipientId}/latest`}>
+                    {description}
+                </Link>
             );
         }
         if (activeTab === 'loans') {
@@ -191,9 +191,9 @@ const RecipientTableContainer = ({ activeTab, prevActiveTab, scrollIntoView }) =
             const unlinkedData = calculateUnlinkedTotals(totalRecipient, totals);
             setUnlinkedDataClass(true);
             const unlinkedName = (
-              <div className="unlinked-data">
+                <div className="unlinked-data">
                     Unknown Recipient (Unlinked Data)
-              </div>
+                </div>
             );
             const rowData = Object.create(BaseSpendingByRecipientRow);
 
@@ -266,7 +266,7 @@ const RecipientTableContainer = ({ activeTab, prevActiveTab, scrollIntoView }) =
         if (Object.keys(recipientTotals).length && results.length) {
             addUnlinkedData();
         }
-    }, [recipientTotals, resultTotal, results]);
+    }, [addUnlinkedData, recipientTotals, resultTotal, results]);
 
     useEffect(() => {
     // Reset to the first page
@@ -291,57 +291,57 @@ const RecipientTableContainer = ({ activeTab, prevActiveTab, scrollIntoView }) =
                 fetchSpendingByRecipientCallback();
             }
         }
-    }, [pageSize, defcParams, sort, order, activeTab, query]);
+    }, [pageSize, defcParams, sort, order, activeTab, query, currentPage, prevOrder, prevSort, prevPageSize, prevQuery, prevActiveTab, prevDefcParams, fetchSpendingByRecipientCallback, setSort, setOrder]);
 
     useEffect(() => {
         fetchSpendingByRecipientCallback();
-    }, [currentPage]);
+    }, [currentPage, fetchSpendingByRecipientCallback]);
 
     useEffect(() => {
         scrollIntoView(loading, error, errorOrLoadingWrapperRef, tableWrapperRef, 130, true);
-    }, [loading, error]);
+    }, [loading, error, scrollIntoView]);
 
     return (
-      <div ref={tableWrapperRef}>
-        <div className="table-utility">
-          <div className="table-utility__left">
-            <SearchBar onSearch={setQuery} />
-          </div>
-          {(!error && !loading && results.length > 0) &&
-          <div className="table-utility__right">
-            <TableDownloadLink
-              defCodes={defcParams && defcParams.length > 0 && defcParams}
-              awardTypeCodes={awardTypeGroups[activeTab] ? awardTypeGroups[activeTab] : null}
-              query={query} />
-          </div>}
-        </div>
-        {(results.length > 0 || error) && <Pagination
-          currentPage={currentPage}
-          changePage={changeCurrentPage}
-          changeLimit={changePageSize}
-          limitSelector
-          resultsText
-          pageSize={pageSize}
-          totalItems={totalItems} />}
-            <div ref={tableRef} className={`table-wrapper ${unlinkedDataClass ? 'unlinked-data' : ''}`} >
-              <Table
-                columns={activeTab === 'loans' ? loanColumns : columns}
-                rows={parsedRows}
-                updateSort={updateSort}
-                currentSort={{ field: sort, direction: order }}
-                error={error}
-                loading={loading} />
+        <div ref={tableWrapperRef}>
+            <div className="table-utility">
+                <div className="table-utility__left">
+                    <SearchBar onSearch={setQuery} />
+                </div>
+                {(!error && !loading && results.length > 0) &&
+                <div className="table-utility__right">
+                    <TableDownloadLink
+                        defCodes={defcParams && defcParams.length > 0 && defcParams}
+                        awardTypeCodes={awardTypeGroups[activeTab] ? awardTypeGroups[activeTab] : null}
+                        query={query} />
+                </div>}
             </div>
-        {(results.length > 0 || error) && <Pagination
-          currentPage={currentPage}
-          changePage={changeCurrentPage}
-          changeLimit={changePageSize}
-          limitSelector
-          resultsText
-          pageSize={pageSize}
-          totalItems={totalItems} />}
-        {!loading && !error && results.length > 0 && <Note message={noteText} />}
-      </div>
+            {(results.length > 0 || error) && <Pagination
+                currentPage={currentPage}
+                changePage={changeCurrentPage}
+                changeLimit={changePageSize}
+                limitSelector
+                resultsText
+                pageSize={pageSize}
+                totalItems={totalItems} />}
+                    <div ref={tableRef} className={`table-wrapper ${unlinkedDataClass ? 'unlinked-data' : ''}`} >
+                        <Table
+                            columns={activeTab === 'loans' ? loanColumns : columns}
+                            rows={parsedRows}
+                            updateSort={updateSort}
+                            currentSort={{ field: sort, direction: order }}
+                            error={error}
+                            loading={loading} />
+                    </div>
+            {(results.length > 0 || error) && <Pagination
+                currentPage={currentPage}
+                changePage={changeCurrentPage}
+                changeLimit={changePageSize}
+                limitSelector
+                resultsText
+                pageSize={pageSize}
+                totalItems={totalItems} />}
+            {!loading && !error && results.length > 0 && <Note message={noteText} />}
+        </div>
     );
 };
 

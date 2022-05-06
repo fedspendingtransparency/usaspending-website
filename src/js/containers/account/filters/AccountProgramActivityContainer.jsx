@@ -149,10 +149,10 @@ export class AccountProgramActivityContainer extends React.Component {
 
     render() {
         return (
-          <ProgramActivityFilter
-            {...this.props}
-            {...this.state}
-            updateFilter={this.updateFilter} />
+            <ProgramActivityFilter
+                {...this.props}
+                {...this.state}
+                updateFilter={this.updateFilter} />
         );
     }
 }

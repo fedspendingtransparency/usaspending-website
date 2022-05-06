@@ -54,7 +54,7 @@ const StatusOfFunds = ({ fy }) => {
         }
         dispatch(resetAgencySubcomponents());
         dispatch(resetFederalAccountsList());
-    }, []);
+    }, [dispatch]);
 
     // eslint-disable-next-line eqeqeq
     let statusDataThroughDate = useLatestAccountData()[1].toArray().filter((i) => i.submission_fiscal_year == fy)[0].period_end_date;
@@ -137,7 +137,7 @@ const StatusOfFunds = ({ fy }) => {
         if (Object.keys(subcomponent).length !== 0) {
             fetchFederalAccounts(subcomponent);
         }
-    }, [subcomponent]);
+    }, [fetchFederalAccounts, subcomponent]);
 
     useEffect(() => {
         if (resetPageChange) {
@@ -151,7 +151,7 @@ const StatusOfFunds = ({ fy }) => {
                 fetchFederalAccounts(subcomponent);
             }
         }
-    }, [currentPage]);
+    }, [currentPage, fetchAgencySubcomponents, fetchFederalAccounts, level, prevPage, resetPageChange, subcomponent]);
 
     useEffect(() => {
         if (resetPageChange) {
@@ -163,13 +163,13 @@ const StatusOfFunds = ({ fy }) => {
                 changeCurrentPage(1);
             }
         }
-    }, [resetPageChange]);
+    }, [changeCurrentPage, currentPage, resetPageChange]);
 
     useEffect(() => {
         if (fy && overview.toptierCode) {
             fetchAgencySubcomponents();
         }
-    }, [fy, overview.toptierCode]);
+    }, [fetchAgencySubcomponents, fy, overview.toptierCode]);
 
     const onClick = (selectedLevel, data) => {
     // reset to page 1 on drilldown
@@ -192,34 +192,34 @@ const StatusOfFunds = ({ fy }) => {
         }
     };
     return (
-      <div className="body__content status-of-funds">
-        <IntroSection name={overview.name} fy={fy} totalItems={totalItems} />
-          <FlexGridRow hasGutter>
-            <FlexGridCol className="status-of-funds__drilldown-sidebar" desktop={3}>
-              <DrilldownSidebar
-                level={level}
-                setLevel={onClick}
-                agencyName={overview.name}
-                fy={fy}
-                selectedSubcomponent={selectedSubcomponent} />
-            </FlexGridCol>
-              <FlexGridCol className="status-of-funds__visualization" desktop={9}>
-                {level === 1 ?
-                  <button title="Go up a level" className="drilldown-back-button" onClick={goBack}>
-                    <FontAwesomeIcon icon="arrow-left" />
+        <div className="body__content status-of-funds">
+            <IntroSection name={overview.name} fy={fy} totalItems={totalItems} />
+                <FlexGridRow hasGutter>
+                    <FlexGridCol className="status-of-funds__drilldown-sidebar" desktop={3}>
+                        <DrilldownSidebar
+                            level={level}
+                            setLevel={onClick}
+                            agencyName={overview.name}
+                            fy={fy}
+                            selectedSubcomponent={selectedSubcomponent} />
+                    </FlexGridCol>
+                        <FlexGridCol className="status-of-funds__visualization" desktop={9}>
+                            {level === 1 ?
+                                <button title="Go up a level" className="drilldown-back-button" onClick={goBack}>
+                                    <FontAwesomeIcon icon="arrow-left" />
                             &nbsp;&nbsp;Back
-                  </button> : <></>}
-                { !loading ? <VisualizationSection fetchFederalAccounts={fetchFederalAccounts} totalItems={totalItems} setTotalItems={setTotalItems} loading={loading} setLoading={setLoading} level={level} setLevel={onClick} selectedSubcomponent={selectedSubcomponent} agencyId={overview.toptierCode} agencyName={overview.name} fy={fy} results={results} /> : <LoadingMessage /> }
-                  <Pagination
-                    currentPage={currentPage}
-                    changePage={changeCurrentPage}
-                    changeLimit={changePageSize}
-                    resultsText
-                    pageSize={10}
-                    totalItems={totalItems} />
-              </FlexGridCol>
-          </FlexGridRow>
-            <Note message={
+                                </button> : <></>}
+                            { !loading ? <VisualizationSection fetchFederalAccounts={fetchFederalAccounts} totalItems={totalItems} setTotalItems={setTotalItems} loading={loading} setLoading={setLoading} level={level} setLevel={onClick} selectedSubcomponent={selectedSubcomponent} agencyId={overview.toptierCode} agencyName={overview.name} fy={fy} results={results} /> : <LoadingMessage /> }
+                                <Pagination
+                                    currentPage={currentPage}
+                                    changePage={changeCurrentPage}
+                                    changeLimit={changePageSize}
+                                    resultsText
+                                    pageSize={10}
+                                    totalItems={totalItems} />
+                        </FlexGridCol>
+                </FlexGridRow>
+                    <Note message={
                 (<>The agency sub-components displayed in this section were
                  added to provide greater transparency into the organization of agencies’ account data.
                  These sub-components are based on the Bureau associated with a federal account in OMB’s
@@ -227,13 +227,13 @@ const StatusOfFunds = ({ fy }) => {
                  and MAIN Account codes. Where possible, Department of Defense (DoD) sub-components
                  correspond to the branches of the Armed Forces and accounts for the agency are attributed
                  to the appropriate branch/sub-component based on the Agency Codes found at the bottom of{ ' ' }
-                   <a
-                     href="https://www.whitehouse.gov/wp-content/uploads/2018/06/app_c.pdf"
-                     target="_blank"
-                     rel="noopener noreferrer">
+                     <a
+                         href="https://www.whitehouse.gov/wp-content/uploads/2018/06/app_c.pdf"
+                         target="_blank"
+                         rel="noopener noreferrer">
                         OMB Circular A-11 Appendix C
-                   </a>.</>)} />
-      </div>
+                     </a>.</>)} />
+        </div>
     );
 };
 

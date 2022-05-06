@@ -27,37 +27,37 @@ const ReadMore = ({
         return (
             <>
                 {children}
-                  <div>{readLess}</div>
+                    <div>{readLess}</div>
             </>
         );
     }
     if (expanded && (text && text.length > limit)) {
         return (
             <>
-              <p>{text}</p>
-                <div>{readLess}</div>
+                <p>{text}</p>
+                    <div>{readLess}</div>
             </>
         );
     }
     if (!expanded && text && text.length > limit) {
         return (
-          <div>
-            <p>{`${text.substring(0, limit)}...`}</p>
-            {readMore}
-          </div>
+            <div>
+                <p>{`${text.substring(0, limit)}...`}</p>
+                {readMore}
+            </div>
         );
     }
     if (text && text.length <= limit) {
         return (
-          <div>
-            <p>{text}</p>
-          </div>
+            <div>
+                <p>{text}</p>
+            </div>
         );
     }
     return (
-      <div>
-        {readMore}
-      </div>
+        <div>
+            {readMore}
+        </div>
     );
 };
 

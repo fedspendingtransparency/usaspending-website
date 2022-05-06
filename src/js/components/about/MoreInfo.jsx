@@ -8,40 +8,40 @@ import { Link } from 'react-router-dom';
 
 
 const MoreInfo = () => (
-  <div
-    className="about-section-wrapper"
-    id="about-more-info">
-      <h2 className="about-section-title">
+    <div
+        className="about-section-wrapper"
+        id="about-more-info">
+            <h2 className="about-section-title">
             More Information
-      </h2>
-        <div className="about-section-content">
-          <p>
+            </h2>
+                <div className="about-section-content">
+                    <p>
                 For more information about the data, see the{' '}
-                  <a
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    href="https://fiscalservice.force.com/usaspending/s/">
+                    <a
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        href="https://fiscalservice.force.com/usaspending/s/">
                     FAQs
-                  </a>
+                    </a>
                 &nbsp;and the{' '}
-                  <Link to="/data-dictionary">
+                    <Link to="/data-dictionary">
                     Data Dictionary
-                  </Link>
+                    </Link>
                 .
-          </p>
-            <p>
+                    </p>
+                        <p>
                 You can also see an interactive report on how frequently federal agencies use
                 competitive practices when issuing contracts for goods and services in our&nbsp;
-              <a
-                target="_blank"
-                rel="noopener noreferrer"
-                href="https://datalab.usaspending.gov/competition-in-contracting.html">
+                            <a
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              href="https://datalab.usaspending.gov/competition-in-contracting.html">
                     Data Lab
-              </a>
+                          </a>
                 .
-            </p>
-        </div>
-  </div>
+                        </p>
+                </div>
+    </div>
 );
 
 export default MoreInfo;

@@ -21,17 +21,17 @@ const DrilldownCell = ({
     id,
     searchTerm
 }) => (
-  <div className="action-cell">
-    <span className="action-cell__text">
-      {searchTerm ? replaceString(data, searchTerm, 'matched-str') : data}
-    </span>
-      <Link
-        to={`/submission-statistics/agency/${id}`}
-        className="action-cell__button"
-        title="View all submissions for this agency">
-          <FontAwesomeIcon icon="angle-double-down" />
-      </Link>
-  </div>
+    <div className="action-cell">
+        <span className="action-cell__text">
+            {searchTerm ? replaceString(data, searchTerm, 'matched-str') : data}
+        </span>
+            <Link
+                to={`/submission-statistics/agency/${id}`}
+                className="action-cell__button"
+                title="View all submissions for this agency">
+                    <FontAwesomeIcon icon="angle-double-down" />
+            </Link>
+    </div>
 );
 
 DrilldownCell.propTypes = propTypes;

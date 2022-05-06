@@ -80,22 +80,22 @@ export default class SecondaryCheckboxType extends React.Component {
         const checked = this.props.selectedCheckboxes.includes(this.props.code);
         const elementId = `checkbox-${uniqueId()}`;
         return (
-          <li key={this.props.id} className="secondary-checkbox-type">
-            <label
-              className="checkbox-item-wrapper"
-              htmlFor={elementId}>
-                <input
-                  type="checkbox"
-                  id={elementId}
-                  value={this.props.code}
-                  checked={checked}
-                  onChange={this.toggleFilter}
-                  disabled={this.props.restrictChildren} />
-                    <span className="checkbox-item-label">
-                      {this.props.name}
-                    </span>
-            </label>
-          </li>
+            <li key={this.props.id} className="secondary-checkbox-type">
+                <label
+                    className="checkbox-item-wrapper"
+                    htmlFor={elementId}>
+                        <input
+                            type="checkbox"
+                            id={elementId}
+                            value={this.props.code}
+                            checked={checked}
+                            onChange={this.toggleFilter}
+                            disabled={this.props.restrictChildren} />
+                                <span className="checkbox-item-label">
+                                    {this.props.name}
+                                </span>
+                </label>
+            </li>
         );
     }
 }

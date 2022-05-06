@@ -54,35 +54,35 @@ export default class AwardIDSearch extends React.Component {
         let selectedAwardIDs = null;
         if (this.props.selectedAwardIDs.size > 0) {
             selectedAwardIDs = (<SelectedAwardIDs
-              selectedAwardIDs={this.props.selectedAwardIDs}
-              toggleAwardID={this.props.toggleAwardID} />);
+                selectedAwardIDs={this.props.selectedAwardIDs}
+                toggleAwardID={this.props.toggleAwardID} />);
         }
 
         return (
-          <div className="award-id-filter">
-            <div className="filter-item-wrap">
-              <form
-                className="award-id-filter-item-wrap"
-                onSubmit={this.applyAwardID}>
-                  <input
-                    id="search"
-                    type="text"
-                    className="award-id-input"
-                    placeholder="PIID, FAIN, or URI"
-                    value={this.state.awardID}
-                    onChange={this.changedInput} />
-                      <IndividualSubmit
-                        className="award-id-submit"
-                        onClick={this.applyAwardID}
-                        label="Filter by award ID" />
-              </form>
-              {selectedAwardIDs}
-                <SubmitHint
-                  ref={(component) => {
+            <div className="award-id-filter">
+                <div className="filter-item-wrap">
+                    <form
+                        className="award-id-filter-item-wrap"
+                        onSubmit={this.applyAwardID}>
+                            <input
+                                id="search"
+                                type="text"
+                                className="award-id-input"
+                                placeholder="PIID, FAIN, or URI"
+                                value={this.state.awardID}
+                                onChange={this.changedInput} />
+                                    <IndividualSubmit
+                                        className="award-id-submit"
+                                        onClick={this.applyAwardID}
+                                        label="Filter by award ID" />
+                    </form>
+                    {selectedAwardIDs}
+                        <SubmitHint
+                            ref={(component) => {
                             this.hint = component;
                         }} />
+                </div>
             </div>
-          </div>
         );
     }
 }

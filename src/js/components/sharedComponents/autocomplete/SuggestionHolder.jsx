@@ -30,13 +30,13 @@ export default class SuggestionHolder extends React.Component {
         for (let i = 0; i < Math.min(this.props.suggestions.length,
             this.props.maxSuggestions); i++) {
             suggestions.push(<Suggestion
-              title={this.props.suggestions[i].title}
-              subtitle={this.props.suggestions[i].subtitle}
-              data={this.props.suggestions[i]}
-              selected={i === this.props.selectedIndex}
-              select={this.props.select}
-              id={`${this.props.autocompleteId}__option_${i}`}
-              key={i} />);
+                title={this.props.suggestions[i].title}
+                subtitle={this.props.suggestions[i].subtitle}
+                data={this.props.suggestions[i]}
+                selected={i === this.props.selectedIndex}
+                select={this.props.select}
+                id={`${this.props.autocompleteId}__option_${i}`}
+                key={i} />);
         }
 
         let hiddenClass = 'hide';
@@ -45,12 +45,12 @@ export default class SuggestionHolder extends React.Component {
         }
 
         return (
-          <ul
-            id={this.props.autocompleteId}
-            className={`autocomplete ${hiddenClass}`}
-            role="listbox">
-            {suggestions}
-          </ul>
+            <ul
+                id={this.props.autocompleteId}
+                className={`autocomplete ${hiddenClass}`}
+                role="listbox">
+                {suggestions}
+            </ul>
         );
     }
 }

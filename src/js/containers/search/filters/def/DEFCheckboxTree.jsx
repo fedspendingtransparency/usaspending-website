@@ -12,7 +12,7 @@ import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import DEFCheckboxTreeLabel from 'components/search/filters/defc/DEFCheckboxTreeLabel';
 
 export const NewBadge = () => (
-  <div className="new-badge">NEW</div>
+    <div className="new-badge">NEW</div>
 );
 
 const covidParentNode = {
@@ -121,47 +121,47 @@ export class DEFCheckboxTree extends React.Component {
 
     render() {
         return (
-          <div className="def-code-filter">
-            <CheckboxTree
-              className="def-checkbox-tree"
-              checked={this.props.checked}
-              expanded={defaultExpanded}
-              data={parseTreeCodes(this.props.defCodes)}
-              isError={this.state.isError}
-              errorMessage={this.props.defCodeFetchError}
-              isLoading={this.props.areDefCodesLoading}
-              searchText=""
-              noResults={false}
-              labelComponent={<DEFCheckboxTreeLabel />}
-              onUncheck={this.stageFilter}
-              onCheck={this.stageFilter} />
-            {this.props.counts.length > 0 && (
-            <div
-              className="selected-filters"
-              role="status">
-              {this.props.counts.map((node) => {
+            <div className="def-code-filter">
+                <CheckboxTree
+                    className="def-checkbox-tree"
+                    checked={this.props.checked}
+                    expanded={defaultExpanded}
+                    data={parseTreeCodes(this.props.defCodes)}
+                    isError={this.state.isError}
+                    errorMessage={this.props.defCodeFetchError}
+                    isLoading={this.props.areDefCodesLoading}
+                    searchText=""
+                    noResults={false}
+                    labelComponent={<DEFCheckboxTreeLabel />}
+                    onUncheck={this.stageFilter}
+                    onCheck={this.stageFilter} />
+                {this.props.counts.length > 0 && (
+                <div
+                    className="selected-filters"
+                    role="status">
+                    {this.props.counts.map((node) => {
                             const label = `${node.label} (${node.count})`;
                             return (
-                              <button
-                                key={uniqueId()}
-                                className="shown-filter-button"
-                                value={label}
-                                onClick={(e) => this.removeSelectedFilter(e, node)}
-                                title="Click to remove."
-                                aria-label={`Applied filter: ${label}`}>
-                                {label}
-                                  <span className="close">
-                                    <FontAwesomeIcon icon="times" />
-                                  </span>
-                              </button>
+                                <button
+                                    key={uniqueId()}
+                                    className="shown-filter-button"
+                                    value={label}
+                                    onClick={(e) => this.removeSelectedFilter(e, node)}
+                                    title="Click to remove."
+                                    aria-label={`Applied filter: ${label}`}>
+                                    {label}
+                                        <span className="close">
+                                            <FontAwesomeIcon icon="times" />
+                                        </span>
+                                </button>
                             );
                         })}
-            </div>
+                </div>
                 )}
-                  <SubmitHint ref={(component) => {
+                    <SubmitHint ref={(component) => {
                     this.hint = component;
                 }} />
-          </div>
+            </div>
         );
     }
 }

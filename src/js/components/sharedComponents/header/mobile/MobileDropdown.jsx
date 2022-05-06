@@ -56,45 +56,45 @@ export default class MobileDropdown extends React.Component {
 
 
         const items = this.props.items.map((item) => (
-          <MobileDropdownItem
-            {...item}
-            key={item.url}
-            comingSoon={!item.enabled}
-            title={item.label}
-            isNewTab={item.isNewTab}
-            url={item.url}
-            active={item.url === this.props.active}
-            externalLink={item.externalLink}
-            hideMobileNav={this.props.hideMobileNav} />
+            <MobileDropdownItem
+                {...item}
+                key={item.url}
+                comingSoon={!item.enabled}
+                title={item.label}
+                isNewTab={item.isNewTab}
+                url={item.url}
+                active={item.url === this.props.active}
+                externalLink={item.externalLink}
+                hideMobileNav={this.props.hideMobileNav} />
         ));
 
         const containsNewNavItem = this.props.items.some(({ isNewTab }) => isNewTab);
 
         return (
-          <div className="mobile-dropdown">
-            <button
-              className="mobile-dropdown__parent"
-              title={this.props.title || this.props.label}
-              onClick={this.toggleDropdown}>
-                <span className="mobile-dropdown__parent-label">
-                  {containsNewNavItem &&
-                  <div className="new-badge-outer">
-                    <div className="new-badge-middle">
-                      <div className="new-badge-inner" />
-                    </div>
-                  </div>
+            <div className="mobile-dropdown">
+                <button
+                    className="mobile-dropdown__parent"
+                    title={this.props.title || this.props.label}
+                    onClick={this.toggleDropdown}>
+                        <span className="mobile-dropdown__parent-label">
+                            {containsNewNavItem &&
+                            <div className="new-badge-outer">
+                                <div className="new-badge-middle">
+                                    <div className="new-badge-inner" />
+                                </div>
+                            </div>
                         }
-                  {this.props.label}
-                </span>
-                  <span className="mobile-dropdown__parent-icon">
-                    {icon}
-                  </span>
-            </button>
+                            {this.props.label}
+                        </span>
+                            <span className="mobile-dropdown__parent-icon">
+                                {icon}
+                            </span>
+                </button>
 
-              <ul className={`mobile-dropdown__list ${hideList}`}>
-                {items}
-              </ul>
-          </div>
+                    <ul className={`mobile-dropdown__list ${hideList}`}>
+                        {items}
+                    </ul>
+            </div>
         );
     }
 }

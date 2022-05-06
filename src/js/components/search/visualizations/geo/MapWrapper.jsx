@@ -476,9 +476,9 @@ export default class MapWrapper extends React.Component {
         const { tooltip: TooltipComponent, selectedItem, showHover } = this.props;
         if (showHover) {
             return (
-              <TooltipComponent
-                description={this.tooltipDescription()}
-                {...selectedItem} />
+                <TooltipComponent
+                    description={this.tooltipDescription()}
+                    {...selectedItem} />
             );
         }
         return null;
@@ -493,10 +493,10 @@ export default class MapWrapper extends React.Component {
         } = this.props;
         if (showLayerToggle && availableLayers.length > 1) {
             return (<MapLayerToggle
-              active={scope}
-              available={availableLayers}
-              sources={mapboxSources}
-              changeMapLayer={changeMapLayer} />);
+                active={scope}
+                available={availableLayers}
+                sources={mapboxSources}
+                changeMapLayer={changeMapLayer} />);
         }
         return null;
     };
@@ -506,34 +506,34 @@ export default class MapWrapper extends React.Component {
         const { spendingScale } = this.state;
         if (stateProfile) return null; // no legend for state profile pages
         return (
-          <MapLegend
-            segments={spendingScale.segments}
-            units={spendingScale.units}
-            mapLegendToggleData={mapLegendToggleData}
-            updateMapLegendToggle={updateMapLegendToggle}
-            mapLegendToggle={mapLegendToggle} />
+            <MapLegend
+                segments={spendingScale.segments}
+                units={spendingScale.units}
+                mapLegendToggleData={mapLegendToggleData}
+                updateMapLegendToggle={updateMapLegendToggle}
+                mapLegendToggle={mapLegendToggle} />
         );
     };
 
     render() {
         return (
-          <div
-            className="map-container"
-            ref={(div) => {
+            <div
+                className="map-container"
+                ref={(div) => {
                     this.wrapperDiv = div;
                 }}>
-                  <MapBox
-                    loadedMap={this.mapReady}
-                    unloadedMap={this.mapRemoved}
-                    center={this.props.center}
-                    ref={(component) => {
+                    <MapBox
+                        loadedMap={this.mapReady}
+                        unloadedMap={this.mapRemoved}
+                        center={this.props.center}
+                        ref={(component) => {
                         this.mapRef = component;
                     }} />
-            {this.toggle()}
-            {this.legend()}
-            {this.tooltip()}
-            {this.props.children}
-          </div>
+                {this.toggle()}
+                {this.legend()}
+                {this.tooltip()}
+                {this.props.children}
+            </div>
         );
     }
 }

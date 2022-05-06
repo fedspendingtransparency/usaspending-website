@@ -78,17 +78,17 @@ export default class ContractFilter extends React.Component {
                 if (contractFilters.length < this.state.shown
                     && (key.name !== null && key.name !== '')) {
                     contractFilters.push(
-                      <PrimaryCheckboxType
-                        {...this.props}
-                        key={key}
-                        id={`${this.props.contractFilterOptions}-${key}`}
-                        name={key}
-                        value={invertedFilters[key]}
-                        types={ContractFieldDefinitions[this.props.contractFilterOptions]}
-                        code={invertedFilters[key]}
-                        filterType={this.props.contractFilterType}
-                        selectedCheckboxes={this.props[this.props.contractFilterState]}
-                        toggleCheckboxType={this.toggleValue} />);
+                        <PrimaryCheckboxType
+                            {...this.props}
+                            key={key}
+                            id={`${this.props.contractFilterOptions}-${key}`}
+                            name={key}
+                            value={invertedFilters[key]}
+                            types={ContractFieldDefinitions[this.props.contractFilterOptions]}
+                            code={invertedFilters[key]}
+                            filterType={this.props.contractFilterType}
+                            selectedCheckboxes={this.props[this.props.contractFilterState]}
+                            toggleCheckboxType={this.toggleValue} />);
                 }
             });
         }
@@ -111,15 +111,15 @@ export default class ContractFilter extends React.Component {
             }
 
             toggleButton = (
-              <button
-                className="see-more contract-filter-toggle-button"
-                onClick={this.toggleShownAmount}
-                title={`See ${shownStatement}`}
-                aria-label={`See ${shownStatement}`}
-                aria-expanded={this.state.shownType !== 'more'}>
+                <button
+                    className="see-more contract-filter-toggle-button"
+                    onClick={this.toggleShownAmount}
+                    title={`See ${shownStatement}`}
+                    aria-label={`See ${shownStatement}`}
+                    aria-expanded={this.state.shownType !== 'more'}>
                     See {shownStatement}
-                    &nbsp; {arrow}
-              </button>
+                    {arrow}
+                </button>
             );
         }
 
@@ -132,20 +132,20 @@ export default class ContractFilter extends React.Component {
         const toggleButton = this.generateToggleButton();
 
         return (
-          <div
-            className={`contract-filter search-filter checkbox-type-filter
+            <div
+                className={`contract-filter search-filter checkbox-type-filter
                     ${this.props.contractFilterType}`}>
-                      <div className="filter-item-wrap">
-                        <ul className="contract-types checkbox-types">
-                          {contractFilterItems}
-                        </ul>
-                        {toggleButton}
-                          <SubmitHint
-                            ref={(component) => {
+                        <div className="filter-item-wrap">
+                            <ul className="contract-types checkbox-types">
+                                {contractFilterItems}
+                            </ul>
+                            {toggleButton}
+                                <SubmitHint
+                                    ref={(component) => {
                             this.hint = component;
                         }} />
-                      </div>
-          </div>
+                        </div>
+            </div>
         );
     }
 }

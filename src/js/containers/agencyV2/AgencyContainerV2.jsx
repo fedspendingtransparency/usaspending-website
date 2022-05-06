@@ -86,28 +86,28 @@ export const AgencyProfileV2 = () => {
         else if (slugsError) {
             setError(true);
         }
-    }, [agencySlugs, slugsLoading, slugsError]);
+    }, [agencySlugs, slugsLoading, slugsError, agencySlug]);
 
     useEffect(
         () => () => {
             // cleanup
             dispatch(resetAgency());
         },
-        [agencySlug]
+        [agencySlug, dispatch]
     );
 
     if (redirect) {
         return <Redirect to="/404" />;
     }
     return (
-      <AgencyPage
-        setSelectedFy={setSelectedFy}
-        latestFy={latestFy}
-        selectedFy={selectedFy}
-        agencySlug={agencySlug}
-        isLoading={isLoading}
-        isError={isError}
-        errorMessage={errorMessage} />
+        <AgencyPage
+            setSelectedFy={setSelectedFy}
+            latestFy={latestFy}
+            selectedFy={selectedFy}
+            agencySlug={agencySlug}
+            isLoading={isLoading}
+            isError={isError}
+            errorMessage={errorMessage} />
     );
 };
 

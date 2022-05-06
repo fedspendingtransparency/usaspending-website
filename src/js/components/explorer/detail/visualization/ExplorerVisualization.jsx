@@ -90,87 +90,87 @@ export default class ExplorerVisualization extends React.Component {
         }
 
         let visualization = (
-          <div className={`treemap-loading-transition ${loadingTreemapClass}`}>
-            <ExplorerTreemap
-              activeSubdivision={this.props.active.subdivision}
-              isLoading={this.props.isLoading}
-              width={this.state.width}
-              data={this.props.data}
-              total={this.props.total}
-              goDeeper={this.props.goDeeper}
-              showTooltip={this.props.showTooltip}
-              hideTooltip={this.props.hideTooltip}
-              goToUnreported={this.props.goToUnreported}
-              changeView={this.changeView} />
-          </div>
+            <div className={`treemap-loading-transition ${loadingTreemapClass}`}>
+                <ExplorerTreemap
+                    activeSubdivision={this.props.active.subdivision}
+                    isLoading={this.props.isLoading}
+                    width={this.state.width}
+                    data={this.props.data}
+                    total={this.props.total}
+                    goDeeper={this.props.goDeeper}
+                    showTooltip={this.props.showTooltip}
+                    hideTooltip={this.props.hideTooltip}
+                    goToUnreported={this.props.goToUnreported}
+                    changeView={this.changeView} />
+            </div>
         );
         if (this.state.viewType === 'table') {
             visualization = (
-              <div className={`explorer-vis__table-transition ${loadingTableClass}`}>
-                <ExplorerTableContainer
-                  isLoading={this.props.isLoading}
-                  results={this.props.data}
-                  total={this.props.total}
-                  goDeeper={this.props.goDeeper}
-                  goToUnreported={this.props.goToUnreported} />
-              </div>
+                <div className={`explorer-vis__table-transition ${loadingTableClass}`}>
+                    <ExplorerTableContainer
+                        isLoading={this.props.isLoading}
+                        results={this.props.data}
+                        total={this.props.total}
+                        goDeeper={this.props.goDeeper}
+                        goToUnreported={this.props.goToUnreported} />
+                </div>
             );
         }
         let dropDown;
         let disclaimer;
         if (this.props.data.get(0).name === 'Unreported Data' && this.props.data.count() === 1) {
             visualization = (
-              <div>
-                <UnreportedErrorScreen />
-              </div>
+                <div>
+                    <UnreportedErrorScreen />
+                </div>
             );
         }
         else {
             dropDown = (
-              <div className="explorer-vis__toolbar">
-                <BreakdownDropdown
-                  root={this.props.root}
-                  active={this.props.active}
-                  trail={this.props.trail}
-                  isRoot={this.props.isRoot}
-                  changeSubdivisionType={this.props.changeSubdivisionType}
-                  viewType={this.state.viewType}
-                  changeView={this.changeView} />
-              </div>);
+                <div className="explorer-vis__toolbar">
+                    <BreakdownDropdown
+                        root={this.props.root}
+                        active={this.props.active}
+                        trail={this.props.trail}
+                        isRoot={this.props.isRoot}
+                        changeSubdivisionType={this.props.changeSubdivisionType}
+                        viewType={this.state.viewType}
+                        changeView={this.changeView} />
+                </div>);
 
             disclaimer = (
-              <div className="explorer-vis__disclaimer">
-                <p>All dollar amounts shown here represent agency reported obligated amounts</p>
-                  <Note
-                    title="Unreported Data*:"
-                    message={(
+                <div className="explorer-vis__disclaimer">
+                    <p>All dollar amounts shown here represent agency reported obligated amounts</p>
+                        <Note
+                            title="Unreported Data*:"
+                            message={(
                             <>
                                 Unreported amounts are calculated using the difference in the total obligated amount from the&nbsp;
-                              <ExternalLink url="https://portal.max.gov/portal/document/SF133/Budget/FACTS%20II%20-%20SF%20133%20Report%20on%20Budget%20Execution%20and%20Budgetary%20Resources.html">
+                                <ExternalLink url="https://portal.max.gov/portal/document/SF133/Budget/FACTS%20II%20-%20SF%20133%20Report%20on%20Budget%20Execution%20and%20Budgetary%20Resources.html">
                                     Report on Budget Execution and Budgetary Resources
-                              </ExternalLink>
+                                </ExternalLink>
                                 &nbsp;(excluding financing accounts) and the total obligated amount reported by agencies to USAspending.gov in 'Account Breakdown by Program Activity &amp; Object Class' data (also called 'File B' data).
                             </>
                         )} />
-                          <Note message={dodNote} />
-              </div>
+                            <Note message={dodNote} />
+                </div>
             );
         }
 
         return (
-          <div className="explorer-vis">
-            {dropDown}
+            <div className="explorer-vis">
+                {dropDown}
 
-              <div
-                className="explorer-vis__width-reference"
-                ref={(div) => {
+                    <div
+                        className="explorer-vis__width-reference"
+                        ref={(div) => {
                         this.widthRef = div;
                     }} />
 
-            {visualization}
+                {visualization}
 
-            {disclaimer}
-          </div>
+                {disclaimer}
+            </div>
         );
     }
 }

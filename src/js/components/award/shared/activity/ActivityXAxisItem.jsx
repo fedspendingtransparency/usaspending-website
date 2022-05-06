@@ -24,20 +24,20 @@ export default class ActivityXAxisItem extends React.Component {
             line
         } = this.props;
         return (
-          <g className="axis-item x-axis">
-            {line && <line
-              className="axis y-axis"
-              x1={x}
-              y1={y - 12}
-              x2={x}
-              y2={y - 20} />}
-                <text
-                  className="x-axis__text"
-                  textAnchor="middle"
-                  transform={transform || `translate(${x},${y})`}>
-                  {label}
-                </text>
-          </g>
+            <g className="axis-item x-axis">
+                {line && <line
+                    className="axis y-axis"
+                    x1={x}
+                    y1={y - 12}
+                    x2={x}
+                    y2={y - 20} />}
+                        <text
+                            className="x-axis__text"
+                            textAnchor="middle"
+                            transform={transform || `translate(${x},${y})`}>
+                            {label}
+                        </text>
+            </g>
         );
     }
 }

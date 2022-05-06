@@ -31,39 +31,39 @@ export default class DownloadLevel extends React.Component {
 
     render() {
         return (
-          <div className="download-level-screen">
-            <div className="main-title">
-              <h2>Which level of data do you need?</h2>
-            </div>
-
-              <div className="level-options-container">
-                <div className="level-option">
-                  <button
-                    className="level-button"
-                    aria-label="Award"
-                    title="Award"
-                    onClick={this.clickedAward}>
-                            Award
-                  </button>
-                    <div className="level-description">
-                            Collects and combines all transactions into high-level summaries of each award.
-                    </div>
+            <div className="download-level-screen">
+                <div className="main-title">
+                    <h2>Which level of data do you need?</h2>
                 </div>
 
-                  <div className="level-option">
-                    <button
-                      className="level-button"
-                      aria-label="Transaction"
-                      title="Transaction"
-                      onClick={this.clickedTransaction}>
+                    <div className="level-options-container">
+                        <div className="level-option">
+                            <button
+                                className="level-button"
+                                aria-label="Award"
+                                title="Award"
+                                onClick={this.clickedAward}>
+                            Award
+                            </button>
+                                <div className="level-description">
+                            Collects and combines all transactions into high-level summaries of each award.
+                                </div>
+                        </div>
+
+                            <div className="level-option">
+                                <button
+                                    className="level-button"
+                                    aria-label="Transaction"
+                                    title="Transaction"
+                                    onClick={this.clickedTransaction}>
                             Transaction
-                    </button>
-                      <div className="level-description">
+                                </button>
+                                  <div className="level-description">
                             Includes all details of each award (known as modifications or amendments).
-                      </div>
-                  </div>
-              </div>
-          </div>
+                                </div>
+                            </div>
+                    </div>
+            </div>
         );
     }
 }

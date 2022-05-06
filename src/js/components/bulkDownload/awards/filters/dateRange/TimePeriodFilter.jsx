@@ -208,20 +208,20 @@ export default class TimePeriodFilter extends React.Component {
 
         if (this.state.showError) {
             errorDetails = (<DateRangeError
-              header={this.state.header}
-              message={this.state.errorMessage} />);
+                header={this.state.header}
+                message={this.state.errorMessage} />);
         }
 
         let icon = (
-          <div className="icon valid">
-            <CheckCircle />
-          </div>
+            <div className="icon valid">
+                <CheckCircle />
+            </div>
         );
         if (!this.props.valid || this.state.showError) {
             icon = (
-              <div className="icon invalid">
-                <ExclamationCircle />
-              </div>
+                <div className="icon invalid">
+                    <ExclamationCircle />
+                </div>
             );
         }
 
@@ -236,29 +236,29 @@ export default class TimePeriodFilter extends React.Component {
         const earliestFY = fiscalYearHelper.currentFiscalYear() - 9;
 
         return (
-          <div className="download-filter">
-            <h3 className="download-filter__title">
-              {icon} Select a <span className="download-filter__title_em">date range</span>.
-            </h3>
-              <div className="download-filter__content date-range-wrapper">
-                <DownloadDateRange
-                  datePlaceholder=""
-                  startDate={this.state.startDateBulkUI}
-                  endDate={this.state.endDateBulkUI}
-                  onDateChange={this.handleDateChange}
-                  showError={this.showError}
-                  hideError={this.hideError} />
-                { errorDetails }
-                  <p className="data-note">
+            <div className="download-filter">
+                <h3 className="download-filter__title">
+                    {icon} Select a <span className="download-filter__title_em">date range</span>.
+                </h3>
+                    <div className="download-filter__content date-range-wrapper">
+                        <DownloadDateRange
+                            datePlaceholder=""
+                            startDate={this.state.startDateBulkUI}
+                            endDate={this.state.endDateBulkUI}
+                            onDateChange={this.handleDateChange}
+                            showError={this.showError}
+                            hideError={this.hideError} />
+                        { errorDetails }
+                            <p className="data-note">
                         Note: data is available for download from FY 2001 - present.
                         To select data prior to FY {earliestFY}, enter an appropriate date range. Date ranges may span up to one year.
-                  </p>
-                    <TimePeriodButtons
-                      currentStartDate={start}
-                      currentEndDate={end}
-                      handleDateChange={this.handleDateChange} />
-              </div>
-          </div>
+                            </p>
+                                <TimePeriodButtons
+                                    currentStartDate={start}
+                                    currentEndDate={end}
+                                    handleDateChange={this.handleDateChange} />
+                    </div>
+            </div>
         );
     }
 }

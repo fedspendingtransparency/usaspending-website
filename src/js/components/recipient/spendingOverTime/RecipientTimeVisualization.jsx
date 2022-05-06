@@ -89,56 +89,56 @@ export default class RecipientTimeVisualization extends React.Component {
         if (this.state.tooltipData && window.innerWidth > 720) {
             if (this.state.tooltipData.type === 'bar') {
                 tooltip = (
-                  <TimeTooltip
-                    barWidth={this.state.barWidth}
-                    data={this.state.tooltipData}
-                    x={this.state.tooltipX}
-                    y={this.state.tooltipY}
-                    chartWidth={this.props.width} />
+                    <TimeTooltip
+                        barWidth={this.state.barWidth}
+                        data={this.state.tooltipData}
+                        x={this.state.tooltipX}
+                        y={this.state.tooltipY}
+                        chartWidth={this.props.width} />
                 );
             }
             else if (this.state.tooltipData.type === 'point') {
                 tooltip = (
-                  <PointTooltip
-                    barWidth={this.state.barWidth}
-                    data={this.state.tooltipData}
-                    x={this.state.tooltipX}
-                    y={this.state.tooltipY}
-                    chartWidth={this.props.width} />
+                    <PointTooltip
+                        barWidth={this.state.barWidth}
+                        data={this.state.tooltipData}
+                        x={this.state.tooltipX}
+                        y={this.state.tooltipY}
+                        chartWidth={this.props.width} />
                 );
             }
         }
 
         return (
-          <div className="recipient-visualization__time-wrapper">
-            <TransitionGroup>
-              <CSSTransition
-                classNames="visualization-content-fade"
-                timeout={{ exit: 225, enter: 195 }}
-                exit>
+            <div className="recipient-visualization__time-wrapper">
+                <TransitionGroup>
+                    <CSSTransition
+                        classNames="visualization-content-fade"
+                        timeout={{ exit: 225, enter: 195 }}
+                        exit>
                         <>
-                          {this.props.data.groups.length > 0 && !this.props.loading && !this.props.error && (
+                            {this.props.data.groups.length > 0 && !this.props.loading && !this.props.error && (
                             <BarChartTrendline
-                              height={this.props.height}
-                              width={this.props.width}
-                              ySeries={this.props.data.ySeries}
-                              xSeries={this.props.data.xSeries}
-                              zSeries={this.props.data.zSeries}
-                              groups={this.props.data.groups}
-                              rawLabels={this.props.data.rawLabels}
-                              legend={legend}
-                              showTooltip={this.showTooltip}
-                              visualizationPeriod={this.props.visualizationPeriod}
-                              activeLabel={this.state.tooltipData} />
+                                height={this.props.height}
+                                width={this.props.width}
+                                ySeries={this.props.data.ySeries}
+                                xSeries={this.props.data.xSeries}
+                                zSeries={this.props.data.zSeries}
+                                groups={this.props.data.groups}
+                                rawLabels={this.props.data.rawLabels}
+                                legend={legend}
+                                showTooltip={this.showTooltip}
+                                visualizationPeriod={this.props.visualizationPeriod}
+                                activeLabel={this.state.tooltipData} />
                             )}
-                          {this.props.data.groups.length === 0 && !this.props.loading && !this.props.error && <ChartNoResults />}
-                          {this.props.error && <ChartError />}
-                          {this.props.loading && <ChartLoadingMessage />}
+                            {this.props.data.groups.length === 0 && !this.props.loading && !this.props.error && <ChartNoResults />}
+                            {this.props.error && <ChartError />}
+                            {this.props.loading && <ChartLoadingMessage />}
                         </>
-              </CSSTransition>
-            </TransitionGroup>
-            {tooltip}
-          </div>
+                    </CSSTransition>
+                </TransitionGroup>
+                {tooltip}
+            </div>
         );
     }
 }

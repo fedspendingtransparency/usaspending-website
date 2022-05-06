@@ -39,12 +39,12 @@ const Path = ({
         if (xScale && yScale) {
             setD(pathDefinition(data, xScale, xProperty, padding, yScale, yProperty, height, null, false));
         }
-    }, [data, xScale, yScale]);
+    }, [data, height, padding, xProperty, xScale, yProperty, yScale]);
     return (
-      <g tabIndex="0">
-        <desc>{`The linear line representative of the following periods, dates, and obligations: ${description}`}</desc>
-          <path className="path" d={d} stroke="url(#pathLinearGradient)" />
-      </g>
+        <g tabIndex="0">
+            <desc>{`The linear line representative of the following periods, dates, and obligations: ${description}`}</desc>
+                <path className="path" d={d} stroke="url(#pathLinearGradient)" />
+        </g>
     );
 };
 

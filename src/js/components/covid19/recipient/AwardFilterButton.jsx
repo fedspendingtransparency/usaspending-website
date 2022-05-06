@@ -30,20 +30,20 @@ const AwardFilterButton = ({
         if (onClick) onClick(value);
     };
     const countBadge = showCount ? (
-      <div className="count-badge">
-        {((count || count === 0) && formatNumber(count)) || '--'}
-      </div>
+        <div className="count-badge">
+            {((count || count === 0) && formatNumber(count)) || '--'}
+        </div>
     ) : null;
     return (
-      <div className={`award-filter__button ${active ? ' award-filter__button_active' : ''}`}>
-        <button
-          disabled={disabled}
-          onClick={click}
-          title={disabled ? `No results for ${label}` : `Results for ${label}`}>
-          {label}
-          {countBadge}
-        </button>
-      </div>
+        <div className={`award-filter__button ${active ? ' award-filter__button_active' : ''}`}>
+            <button
+                disabled={disabled}
+                onClick={click}
+                title={disabled ? `No results for ${label}` : `Results for ${label}`}>
+                {label}
+                {countBadge}
+            </button>
+        </div>
     );
 };
 

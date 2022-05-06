@@ -20,19 +20,19 @@ export default class SelectedAwardIDs extends React.Component {
             const key = entry[0];
             const awardID = entry[1];
             const value = (<ShownAwardID
-              awardID={awardID}
-              label={`${awardID} | Award ID `}
-              key={key}
-              toggleAwardID={this.props.toggleAwardID.bind(null, awardID)} />);
+                awardID={awardID}
+                label={`${awardID} | Award ID `}
+                key={key}
+                toggleAwardID={this.props.toggleAwardID.bind(null, awardID)} />);
             shownAwardIDs.push(value);
         });
 
         return (
-          <div
-            className="selected-filters"
-            role="status">
-            {shownAwardIDs}
-          </div>
+            <div
+                className="selected-filters"
+                role="status">
+                {shownAwardIDs}
+            </div>
         );
     }
 }

@@ -43,14 +43,14 @@ export class AgencyLandingHeaderCellContainer extends React.Component {
 
     render() {
         return (
-          <LegacyTableHeaderCell
-            title={this.props.displayName}
-            defaultDirection={this.props.defaultDirection}
-            column={this.props.columnName}
-            field={this.props.columnName}
-            isLast={this.props.isLast}
-            currentSort={this.props.order}
-            updateSort={this.setAgenciesOrder} />
+            <LegacyTableHeaderCell
+                title={this.props.displayName}
+                defaultDirection={this.props.defaultDirection}
+                column={this.props.columnName}
+                field={this.props.columnName}
+                isLast={this.props.isLast}
+                currentSort={this.props.order}
+                updateSort={this.setAgenciesOrder} />
         );
     }
 }

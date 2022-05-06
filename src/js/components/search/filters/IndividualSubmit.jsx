@@ -22,18 +22,18 @@ const defaultProps = {
 };
 
 const IndividualSubmit = (props) => (
-  <button
-    className={props.className}
-    disabled={props.disabled}
-    onClick={props.onClick}
-    title={props.label}
-    aria-label={props.label}
-    onKeyDown={props.onKeyDown}
-    {...props.accessibility}>
-      <div className="icon">
-        <Search alt={props.label} />
-      </div>
-  </button>
+    <button
+        className={props.className}
+        disabled={props.disabled}
+        onClick={props.onClick}
+        title={props.label}
+        aria-label={props.label}
+        onKeyDown={props.onKeyDown}
+        {...props.accessibility}>
+            <div className="icon">
+                <Search alt={props.label} />
+            </div>
+    </button>
 );
 
 IndividualSubmit.propTypes = propTypes;

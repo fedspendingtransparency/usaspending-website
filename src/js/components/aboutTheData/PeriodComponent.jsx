@@ -13,16 +13,16 @@ const PeriodComponent = ({
     if (isLastPeriod) {
         const quarterAndTitle = title.split(' ');
         return (
-          <div className={classNamesWithState}>
-            <span>{quarterAndTitle[0]}</span>
-              <span>{quarterAndTitle[1]}</span>
-          </div>
+            <div className={classNamesWithState}>
+                <span>{quarterAndTitle[0]}</span>
+                    <span>{quarterAndTitle[1]}</span>
+            </div>
         );
     }
     return (
-      <div className={classNamesWithState}>
-        <span>{title}</span>
-      </div>
+        <div className={classNamesWithState}>
+            <span>{title}</span>
+        </div>
     );
 };
 

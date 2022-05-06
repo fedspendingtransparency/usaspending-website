@@ -112,49 +112,49 @@ const BudgetCategories = ({ publicLaw }) => {
     };
 
     return (
-      <div className="body__content budget-categories">
-        <DateNote />
-        {publicLaw === 'american-rescue-plan' ?
-          <h4 className="body__narrative">How is <strong>total spending</strong> from the American Rescue Plan categorized?</h4>
+        <div className="body__content budget-categories">
+            <DateNote />
+            {publicLaw === 'american-rescue-plan' ?
+                <h4 className="body__narrative">How is <strong>total spending</strong> from the American Rescue Plan categorized?</h4>
                 :
-          <h4 className="body__narrative">How is <strong>total COVID-19 spending</strong> categorized?</h4>
+                <h4 className="body__narrative">How is <strong>total COVID-19 spending</strong> categorized?</h4>
             }
-              <div className="body__narrative-description">
-                {publicLaw === 'american-rescue-plan' ?
-                  <p>
+                <div className="body__narrative-description">
+                    {publicLaw === 'american-rescue-plan' ?
+                        <p>
                         In this section, we provide the total amount of American Rescue Plan funding broken down into three categories: the <span className="glossary-term">Agencies</span> <GlossaryLink term="agency" /> who are authorizing the funds to be spent; the <span className="glossary-term">Federal Accounts</span> <GlossaryLink term="federal-account" /> from which agencies authorize spending; and the <span className="glossary-term">Object Classes</span> <GlossaryLink term="object-class" /> of the goods and services purchased with this funding.
-                  </p>
+                        </p>
                     :
-                  <p>
+                        <p>
                         In this section, we present the total amount of COVID-19 funding broken down by three categories: the <span className="glossary-term">Agencies</span> <GlossaryLink term="agency" /> who are authorizing the funds to be spent; the <span className="glossary-term">Federal Accounts</span> <GlossaryLink term="federal-account" /> from which agencies authorize spending; and the <span className="glossary-term">Object Classes</span> <GlossaryLink term="object-class" /> of the goods and services purchased with this funding.
-                  </p>
+                        </p>
                 }
-              </div>
-                <div ref={moreOptionsTabsRef}>
-                  <Tabs active={activeTab} types={tabs} switchTab={changeActiveTab} />
                 </div>
-                  <div className="overview-data-group">
-                    <InformationBoxes
-                      boxes={overviewData.map((data) => ({
+                    <div ref={moreOptionsTabsRef}>
+                        <Tabs active={activeTab} types={tabs} switchTab={changeActiveTab} />
+                    </div>
+                        <div className="overview-data-group">
+                            <InformationBoxes
+                                boxes={overviewData.map((data) => ({
                         ...data,
                         isLoading: (data.type === 'count' && inFlight) || !amounts[data.type],
                         amount: amounts[data.type]
                     }))} />
-                  </div>
-                    <div className="budget-categories__content">
-                      <BudgetCategoriesTableContainer
-                        type={activeTab}
-                        subHeading={tabs.filter((tab) => tab.internal === activeTab)[0].subHeading}
-                        scrollIntoView={scrollIntoViewTable} />
-                    </div>
-        {publicLaw === 'american-rescue-plan' ?
-          <Note message={(
+                        </div>
+                            <div className="budget-categories__content">
+                                <BudgetCategoriesTableContainer
+                                    type={activeTab}
+                                    subHeading={tabs.filter((tab) => tab.internal === activeTab)[0].subHeading}
+                                    scrollIntoView={scrollIntoViewTable} />
+                            </div>
+            {publicLaw === 'american-rescue-plan' ?
+                <Note message={(
                     <>
                         This table uses data tagged with Disaster Emergency Fund Code (DEFC) V, which was designated for Non-emergency P.L. 117-2, American Rescue Plan Act of 2021.
                     </>
                 )} /> : <div />
             }
-      </div>
+        </div>
     );
 };
 

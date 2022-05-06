@@ -33,32 +33,32 @@ export default class ReferencedAwardsTable extends React.Component {
     generateHeaderCells() {
         const { tableType, sort, order } = this.props;
         return referencedAwardsColumns[this.props.tableType].map((col) => (
-          <th
-            className="referenced-awards-table__head-cell"
-            key={col.field}>
-              <div className={col.name === 'obligatedAmount' ? 'header-cell header-cell_right' : 'header-cell'}>
-                <div className="header-cell__text">
-                  <div className="header-cell__title">
-                    {col.label}
-                  </div>
-                </div>
-                  <StateLandingTableSorter
-                    field={col.field}
-                    label={col.label}
-                    active={{ field: sort[tableType], direction: order[tableType] }}
-                    setSort={this.props.updateSort} />
-              </div>
-          </th>
+            <th
+                className="referenced-awards-table__head-cell"
+                key={col.field}>
+                    <div className={col.name === 'obligatedAmount' ? 'header-cell header-cell_right' : 'header-cell'}>
+                        <div className="header-cell__text">
+                            <div className="header-cell__title">
+                                {col.label}
+                            </div>
+                        </div>
+                            <StateLandingTableSorter
+                                field={col.field}
+                                label={col.label}
+                                active={{ field: sort[tableType], direction: order[tableType] }}
+                                setSort={this.props.updateSort} />
+                    </div>
+            </th>
         ));
     }
     generateRows() {
         return this.props.results.map((row) => {
             const columns = referencedAwardsColumns[this.props.tableType];
             return (
-              <tr
-                className="referenced-awards-table__body-row"
-                key={`row-${row.internalId}`}>
-                {columns.map((col) => {
+                <tr
+                    className="referenced-awards-table__body-row"
+                    key={`row-${row.internalId}`}>
+                    {columns.map((col) => {
                         let data = row[col.name];
                         if (col.name === 'piid') {
                             data = (<Link to={`/award/${row.internalId}`}>{row[col.name]}</Link>);
@@ -67,14 +67,14 @@ export default class ReferencedAwardsTable extends React.Component {
                             data = (<Link to={`/agency/${row.awardingAgencySlug}`}>{row[col.name]}</Link>);
                         }
                         return (
-                          <td
-                            className={`referenced-awards-table__body-cell ${col.name === 'obligatedAmount' ? 'recipient-list__body-cell_right' : ''}`}
-                            key={`${row.internalId}-${col.name}`}>
-                            {data || '--'}
-                          </td>
+                            <td
+                                className={`referenced-awards-table__body-cell ${col.name === 'obligatedAmount' ? 'recipient-list__body-cell_right' : ''}`}
+                                key={`${row.internalId}-${col.name}`}>
+                                {data || '--'}
+                            </td>
                         );
                     })}
-              </tr>
+                </tr>
             );
         });
     }
@@ -94,16 +94,16 @@ export default class ReferencedAwardsTable extends React.Component {
         else if (this.props.results.length > 0) {
             message = null;
             content = (
-              <table className="referenced-awards-table">
-                <thead className="referenced-awards-table__head">
-                  <tr className="referenced-awards-table__head-row">
-                    {this.generateHeaderCells()}
-                  </tr>
-                </thead>
-                  <tbody>
-                    {this.generateRows()}
-                  </tbody>
-              </table>
+                <table className="referenced-awards-table">
+                    <thead className="referenced-awards-table__head">
+                        <tr className="referenced-awards-table__head-row">
+                            {this.generateHeaderCells()}
+                        </tr>
+                    </thead>
+                        <tbody>
+                            {this.generateRows()}
+                        </tbody>
+                </table>
             );
         }
         else {
@@ -115,24 +115,24 @@ export default class ReferencedAwardsTable extends React.Component {
         const totalItems = (this.props.counts && this.props.counts[this.props.tableType]) || 0;
         const { page, tableType } = this.props;
         return (
-          <div className="referenced-awards-results">
-            <Pagination
-              resultsText
-              totalItems={totalItems}
-              pageSize={this.props.limit}
-              currentPage={page[tableType]}
-              changePage={this.props.changePage} />
-            {content}
-              <div className="results-table-message-container">
-                {message}
-              </div>
+            <div className="referenced-awards-results">
                 <Pagination
-                  resultsText
-                  totalItems={totalItems}
-                  pageSize={this.props.limit}
-                  currentPage={page[tableType]}
-                  changePage={this.props.changePage} />
-          </div>
+                    resultsText
+                    totalItems={totalItems}
+                    pageSize={this.props.limit}
+                    currentPage={page[tableType]}
+                    changePage={this.props.changePage} />
+                {content}
+                    <div className="results-table-message-container">
+                        {message}
+                    </div>
+                        <Pagination
+                            resultsText
+                            totalItems={totalItems}
+                            pageSize={this.props.limit}
+                            currentPage={page[tableType]}
+                            changePage={this.props.changePage} />
+            </div>
         );
     }
 }

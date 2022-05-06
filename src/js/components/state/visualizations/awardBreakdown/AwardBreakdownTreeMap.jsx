@@ -203,17 +203,17 @@ export default class AwardBreakdownTreeMap extends React.Component {
                 { awardType: `${this.state.hoveredAwardType}` });
 
             tooltip = (
-              <AwardTypeTooltip
-                value={MoneyFormatter.formatTreemapValues(awardType.amount)}
-                percentage={MoneyFormatter.calculatePercentage(
+                <AwardTypeTooltip
+                    value={MoneyFormatter.formatTreemapValues(awardType.amount)}
+                    percentage={MoneyFormatter.calculatePercentage(
                         awardType.amount, this.props.totalAmount)
                     }
-                description={awardTypeDefinition}
-                x={node.x0}
-                y={node.y0}
-                width={node.width}
-                height={node.height}
-                sectionHeight={sectionHeight} />
+                    description={awardTypeDefinition}
+                    x={node.x0}
+                    y={node.y0}
+                    width={node.width}
+                    height={node.height}
+                    sectionHeight={sectionHeight} />
             );
         }
 
@@ -222,36 +222,36 @@ export default class AwardBreakdownTreeMap extends React.Component {
 
     render() {
         const cells = this.state.virtualChart.map((cell) => (
-          <AwardTypeCell
-            {...cell}
-            key={cell.awardType}
-            strokeColor="white"
-            strokeOpacity={0.5}
-            tooltipStyles={TreemapHelper.stateTooltipStyles}
-            toggleTooltipIn={this.toggleTooltipIn}
-            toggleTooltipOut={this.toggleTooltipOut}
-            opacity={1} />
+            <AwardTypeCell
+                {...cell}
+                key={cell.awardType}
+                strokeColor="white"
+                strokeOpacity={0.5}
+                tooltipStyles={TreemapHelper.stateTooltipStyles}
+                toggleTooltipIn={this.toggleTooltipIn}
+                toggleTooltipOut={this.toggleTooltipOut}
+                opacity={1} />
         ));
         return (
-          <div className="award-breakdown__treemap">
-            <div className="usa-da-treemap-section">
-              <div className="treemap-inner-wrap">
-                { this.createTooltip() }
-                  <div
-                    className="tree-wrapper"
-                    ref={(sr) => {
+            <div className="award-breakdown__treemap">
+                <div className="usa-da-treemap-section">
+                    <div className="treemap-inner-wrap">
+                        { this.createTooltip() }
+                            <div
+                                className="tree-wrapper"
+                                ref={(sr) => {
                                 this.sectionWrapper = sr;
                             }}>
-                              <svg
-                                width={this.state.visualizationWidth}
-                                height={this.state.visualizationHeight}
-                                className="treemap-svg overlay">
-                                {cells}
-                              </svg>
-                  </div>
-              </div>
+                                <svg
+                                    width={this.state.visualizationWidth}
+                                    height={this.state.visualizationHeight}
+                                    className="treemap-svg overlay">
+                                    {cells}
+                                </svg>
+                            </div>
+                    </div>
+                </div>
             </div>
-          </div>
         );
     }
 }

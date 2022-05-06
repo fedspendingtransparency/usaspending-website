@@ -83,39 +83,39 @@ export default class SpecificAwardAmountItem extends React.Component {
         (!max && max !== 0);
         if (showWarning) disabled = true;
         return (
-          <div className="specific-award-amount">
-            <hr className="specific-award-amount-divider" />
-            {
+            <div className="specific-award-amount">
+                <hr className="specific-award-amount-divider" />
+                {
                     showWarning &&
                     <div className="award-amount-warning">
-                      <EntityWarning message={warningMessage} />
+                        <EntityWarning message={warningMessage} />
                     </div>
                 }
-                  <div className="specific-award-amount-wrapper">
-                    <span>$</span>
-                      <input
-                        type="number"
-                        placeholder="Min"
-                        step="none"
-                        className="specific-award-min"
-                        value={min}
-                        onChange={this.minChange} />
-                          <span>to</span>
+                    <div className="specific-award-amount-wrapper">
+                        <span>$</span>
                             <input
-                              type="number"
-                              placeholder="Max"
-                              step="none"
-                              className="specific-award-max"
-                              value={max}
-                              onChange={this.maxChange} />
-                                <IndividualSubmit
-                                  disabled={disabled}
-                                  className="award-amount-submit"
-                                  onClick={this.searchSpecificRange}
-                                  label="Filter by custom award amount range"
-                                  onKeyDown={onKeyDownHandler} />
-                  </div>
-          </div>
+                                type="number"
+                                placeholder="Min"
+                                step="none"
+                                className="specific-award-min"
+                                value={min}
+                                onChange={this.minChange} />
+                                    <span>to</span>
+                                        <input
+                                            type="number"
+                                            placeholder="Max"
+                                            step="none"
+                                            className="specific-award-max"
+                                            value={max}
+                                            onChange={this.maxChange} />
+                                                <IndividualSubmit
+                                                    disabled={disabled}
+                                                    className="award-amount-submit"
+                                                    onClick={this.searchSpecificRange}
+                                                    label="Filter by custom award amount range"
+                                                    onKeyDown={onKeyDownHandler} />
+                    </div>
+            </div>
         );
     }
 }

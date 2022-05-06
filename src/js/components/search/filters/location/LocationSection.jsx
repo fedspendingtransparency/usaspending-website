@@ -76,42 +76,42 @@ export default class LocationSection extends React.Component {
         }
 
         return (
-          <div className="location-filter search-filter">
-            <ul
-              className="toggle-buttons"
-              role="menu">
-                <li>
-                  <button
-                    className={`tab-toggle ${activePop}`}
-                    value="pop"
-                    role="menuitemradio"
-                    aria-checked={this.state.activeTab === 'pop'}
-                    title="Place of Performance"
-                    aria-label="Place of Performance"
-                    onClick={this.toggleTab}>
+            <div className="location-filter search-filter">
+                <ul
+                    className="toggle-buttons"
+                    role="menu">
+                        <li>
+                            <button
+                                className={`tab-toggle ${activePop}`}
+                                value="pop"
+                                role="menuitemradio"
+                                aria-checked={this.state.activeTab === 'pop'}
+                                title="Place of Performance"
+                                aria-label="Place of Performance"
+                                onClick={this.toggleTab}>
                             Place of Performance
-                  </button>
-                </li>
-                  <li>
-                    <button
-                      className={`tab-toggle ${activeRecipient}`}
-                      value="recipient"
-                      role="menuitemradio"
-                      aria-checked={this.state.activeTab === 'recipient'}
-                      title="Recipient Location"
-                      aria-label="Recipient Location"
-                      onClick={this.toggleTab}>
+                            </button>
+                        </li>
+                            <li>
+                                <button
+                                    className={`tab-toggle ${activeRecipient}`}
+                                    value="recipient"
+                                    role="menuitemradio"
+                                    aria-checked={this.state.activeTab === 'recipient'}
+                                    title="Recipient Location"
+                                    aria-label="Recipient Location"
+                                    onClick={this.toggleTab}>
                             Recipient Location
-                    </button>
-                  </li>
-            </ul>
-              <div className="toggle-border" />
-            {filter}
-              <SubmitHint
-                ref={(component) => {
+                                </button>
+                            </li>
+                </ul>
+                    <div className="toggle-border" />
+                {filter}
+                    <SubmitHint
+                        ref={(component) => {
                         this.hint = component;
                     }} />
-          </div>
+            </div>
         );
     }
 }

@@ -211,38 +211,38 @@ export default class MapBox extends React.Component {
         }
 
         return (
-          <div
-            className="mapbox-item"
-            ref={(div) => {
+            <div
+                className="mapbox-item"
+                ref={(div) => {
                     this.mapDiv = div;
                 }}>
-                  <div className={`map-buttons ${hideClass}`}>
-                    <div className="first-row">
-                      <button
-                        onMouseDown={this.moveUp}
-                        onTouchStart={this.moveUp}>
-                          <Icons.AngleUp />
-                      </button>
-                    </div>
-                      <div className="second-row">
-                        <button
-                          onMouseDown={this.moveLeft}
-                          onTouchStart={this.moveLeft}>
-                            <Icons.AngleLeft />
-                        </button>
-                          <button
-                            onMouseDown={this.moveDown}
-                            onTouchStart={this.moveDown}>
-                              <Icons.AngleDown />
-                          </button>
+                    <div className={`map-buttons ${hideClass}`}>
+                        <div className="first-row">
                             <button
-                              onMouseDown={this.moveRight}
-                              onTouchStart={this.moveRight}>
-                                <Icons.AngleRight />
+                                onMouseDown={this.moveUp}
+                                onTouchStart={this.moveUp}>
+                                    <Icons.AngleUp />
                             </button>
-                      </div>
-                  </div>
-          </div>
+                        </div>
+                            <div className="second-row">
+                                <button
+                                    onMouseDown={this.moveLeft}
+                                    onTouchStart={this.moveLeft}>
+                                        <Icons.AngleLeft />
+                                </button>
+                                    <button
+                                        onMouseDown={this.moveDown}
+                                        onTouchStart={this.moveDown}>
+                                            <Icons.AngleDown />
+                                    </button>
+                                        <button
+                                          onMouseDown={this.moveRight}
+                                          onTouchStart={this.moveRight}>
+                                            <Icons.AngleRight />
+                                      </button>
+                            </div>
+                    </div>
+            </div>
         );
     }
 }

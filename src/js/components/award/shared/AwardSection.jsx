@@ -13,9 +13,9 @@ const AwardSection = ({
     className = "",
     children
 }) => (
-  <div id={id} className={`${classMap[type]} ${className}`}>
-    {children}
-  </div>
+    <div id={id} className={`${classMap[type]} ${className}`}>
+        {children}
+    </div>
 );
 
 AwardSection.propTypes = AWARD_SECTION_PROPS;

@@ -60,24 +60,24 @@ const QuarterPickerWithFY = ({
         if (latestFy && latestPeriod) {
             handlePickedYear(`${latestFy}`, `${latestPeriod}`);
         }
-    }, [latestFy, latestPeriod]);
+    }, [handlePickedYear, latestFy, latestPeriod]);
 
     return (
-      <div className="quarter-picker">
-        <div className="quarter-picker__fy">
-          <FYPicker
-            isLoading={!latestFy}
-            latestFy={latestFy}
-            fy={selectedFy}
-            onClick={pickedYear} />
+        <div className="quarter-picker">
+            <div className="quarter-picker__fy">
+                <FYPicker
+                    isLoading={!latestFy}
+                    latestFy={latestFy}
+                    fy={selectedFy}
+                    onClick={pickedYear} />
+            </div>
+                <QuarterPicker
+                    showPeriods
+                    periodsPerQuarter={periodsPerQuarter}
+                    selectedPeriods={[latestSelectedTimeInterval]}
+                    disabledPeriods={disabledPeriodsInFy}
+                    handleSelection={handleQuarterPickerSelection} />
         </div>
-          <QuarterPicker
-            showPeriods
-            periodsPerQuarter={periodsPerQuarter}
-            selectedPeriods={[latestSelectedTimeInterval]}
-            disabledPeriods={disabledPeriodsInFy}
-            handleSelection={handleQuarterPickerSelection} />
-      </div>
     );
 };
 

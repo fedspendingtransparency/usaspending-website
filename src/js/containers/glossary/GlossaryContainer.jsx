@@ -224,12 +224,12 @@ export class GlossaryContainer extends React.Component {
 
     render() {
         return (
-          <AnimatedGlossaryWrapper
-            {...this.props}
-            loading={this.state.loading}
-            error={this.state.error}
-            searchLoading={this.state.searchLoading}
-            performSearch={this.performSearch} />
+            <AnimatedGlossaryWrapper
+                {...this.props}
+                loading={this.state.loading}
+                error={this.state.error}
+                searchLoading={this.state.searchLoading}
+                performSearch={this.performSearch} />
         );
     }
 }

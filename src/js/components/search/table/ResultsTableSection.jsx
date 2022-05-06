@@ -70,61 +70,61 @@ export default class ResultsTableSection extends React.Component {
             this.props.inFlight
         );
         return (
-          <div className="search-results-table-section" id="results-section-table">
-            <div className="table-section-header">
-              <h2 className="visualization-title">
+            <div className="search-results-table-section" id="results-section-table">
+                <div className="table-section-header">
+                    <h2 className="visualization-title">
                         Spending by {type}
-              </h2>
-            </div>
-              <hr className="results-divider" />
-                <Tabs
-                  types={this.props.tableTypes}
-                  active={this.props.currentType}
-                  switchTab={this.props.switchTab} />
-                    <div className="results-table-content">
-                      <TransitionGroup>
-                        {showTableMessage && (
-                        <CSSTransition
-                          classNames="table-message-fade"
-                          timeout={{ exit: 225, enter: 195 }}
-                          exit>
+                    </h2>
+                </div>
+                    <hr className="results-divider" />
+                        <Tabs
+                            types={this.props.tableTypes}
+                            active={this.props.currentType}
+                            switchTab={this.props.switchTab} />
+                                <div className="results-table-content">
+                                    <TransitionGroup>
+                                        {showTableMessage && (
+                                      <CSSTransition
+                                        classNames="table-message-fade"
+                                        timeout={{ exit: 225, enter: 195 }}
+                                        exit>
                                 <>
-                                  {this.props.inFlight && (
+                                    {this.props.inFlight && (
                                     <div className="results-table-message-container">
-                                      <ResultsTableLoadingMessage />
+                                        <ResultsTableLoadingMessage />
                                     </div>
                                     )}
-                                  {this.props.error && (
+                                    {this.props.error && (
                                     <div className="results-table-message-container full">
-                                      <ResultsTableErrorMessage />
+                                        <ResultsTableErrorMessage />
                                     </div>
                                     )}
-                                  {!this.props.error && !this.props.inFlight && this.props.results.length === 0 && (
+                                    {!this.props.error && !this.props.inFlight && this.props.results.length === 0 && (
                                     <div className="results-table-message-container full">
-                                      <ResultsTableNoResults />
+                                        <ResultsTableNoResults />
                                     </div>
                                     )}
                                 </>
-                        </CSSTransition>
+                                    </CSSTransition>
 
                         )}
-                      </TransitionGroup>
-                        <div
-                          className="results-table-width-master"
-                          ref={(div) => {
+                                    </TransitionGroup>
+                                      <div
+                                        className="results-table-width-master"
+                                        ref={(div) => {
                             // this is an empty div that scales via CSS
                             // the results table width will follow this div's width
                             this.tableWidthController = div;
                         }} />
-                      {showDataTable && (
-                      <ResultsTable
-                        {...this.props}
-                        visibleWidth={this.state.tableWidth}
-                        awardIdClick={this.props.awardIdClick}
-                        subAwardIdClick={this.props.subAwardIdClick} />
+                                    {showDataTable && (
+                                    <ResultsTable
+                                      {...this.props}
+                                      visibleWidth={this.state.tableWidth}
+                                      awardIdClick={this.props.awardIdClick}
+                                      subAwardIdClick={this.props.subAwardIdClick} />
                     )}
-                    </div>
-          </div>
+                                </div>
+            </div>
         );
     }
 }

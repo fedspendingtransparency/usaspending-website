@@ -77,10 +77,10 @@ export default class AllFiscalYears extends React.Component {
             }
 
             const fy = (<FiscalYear
-              checked={checked}
-              year={year}
-              key={`filter-fy-${year}`}
-              saveSelectedYear={this.saveSelectedYear} />);
+                checked={checked}
+                year={year}
+                key={`filter-fy-${year}`}
+                saveSelectedYear={this.saveSelectedYear} />);
 
             if (i + 1 <= leftCount) {
                 leftFY.push(fy);
@@ -91,19 +91,19 @@ export default class AllFiscalYears extends React.Component {
         });
 
         return (
-          <ul className="fiscal-years">
-            <FiscalYear
-              checked={allFY}
-              year="all"
-              key="filter-fy-all"
-              saveAllYears={this.saveAllYears} />
-                <div className="left-fy">
-                  {leftFY}
-                </div>
-                  <div className="right-fy">
-                    {rightFY}
-                  </div>
-          </ul>
+            <ul className="fiscal-years">
+                <FiscalYear
+                    checked={allFY}
+                    year="all"
+                    key="filter-fy-all"
+                    saveAllYears={this.saveAllYears} />
+                        <div className="left-fy">
+                            {leftFY}
+                        </div>
+                            <div className="right-fy">
+                                {rightFY}
+                            </div>
+            </ul>
         );
     }
 }

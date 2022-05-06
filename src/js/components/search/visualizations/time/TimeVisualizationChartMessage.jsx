@@ -13,9 +13,9 @@ const propTypes = {
 export default class TimeVisualizationChartMessage extends React.Component {
     render() {
         return (
-          <div className="results-visualization-message">
-            {this.props.message}
-          </div>
+            <div className="results-visualization-message">
+                {this.props.message}
+            </div>
         );
     }
 }

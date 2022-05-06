@@ -41,7 +41,7 @@ export const useDefCodes = () => {
                 request.current.cancel();
             }
         };
-    }, [dispatch, defCodes]);
+    }, [dispatch, defCodes, loading]);
 
     return [error, loading, defCodes];
 };
@@ -50,11 +50,11 @@ const withDefCodes = (WrappedComponent) => (props) => {
     const [errorMsg, isLoading, defCodes] = useDefCodes();
 
     return (
-      <WrappedComponent
-        defCodeFetchError={errorMsg}
-        areDefCodesLoading={isLoading}
-        defCodes={defCodes}
-        {...props} />
+        <WrappedComponent
+            defCodeFetchError={errorMsg}
+            areDefCodesLoading={isLoading}
+            defCodes={defCodes}
+            {...props} />
     );
 };
 

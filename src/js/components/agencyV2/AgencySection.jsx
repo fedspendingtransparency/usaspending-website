@@ -33,14 +33,14 @@ const AgencySection = ({
     }
 
     return (
-      <SectionTitle
-        id={`agency-v2-${section.name}`}
-        icon={<FontAwesomeIcon size="2x" icon={icon} />}
-        title={section.display}
-        isCollapsible >
-        {dataThroughNote ? <div className="section__date-note">{dataThroughNote}</div> : null}
-        {isLoading ? <LoadingMessage /> : children}
-      </SectionTitle>);
+        <SectionTitle
+            id={`agency-v2-${section.name}`}
+            icon={<FontAwesomeIcon size="2x" icon={icon} />}
+            title={section.display}
+            isCollapsible >
+            {dataThroughNote ? <div className="section__date-note">{dataThroughNote}</div> : null}
+            {isLoading ? <LoadingMessage /> : children}
+        </SectionTitle>);
 };
 
 AgencySection.propTypes = propTypes;

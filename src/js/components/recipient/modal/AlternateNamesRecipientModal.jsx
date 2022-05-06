@@ -22,11 +22,11 @@ const propTypes = {
 
 const AlternateNamesRecipientModal = (props) => {
     let table = (<AlternateNamesRecipientModalTable
-      sortField={props.sortField}
-      hideModal={props.hideModal}
-      sortDirection={props.sortDirection}
-      updateSort={props.updateSort}
-      alternateNames={props.alternateNames} />);
+        sortField={props.sortField}
+        hideModal={props.hideModal}
+        sortDirection={props.sortDirection}
+        updateSort={props.updateSort}
+        alternateNames={props.alternateNames} />);
     let message = null;
     if (props.alternateNames.length === 0) {
         message = "No results found.";
@@ -36,34 +36,34 @@ const AlternateNamesRecipientModal = (props) => {
     const resultPluralize = resultCount > 1 ? "results" : "result";
     const resultCountDisplay = table ? `${resultCount} ${resultPluralize}` : null;
     return (
-      <Modal
-        mounted={props.mounted}
-        onExit={props.hideModal}
-        titleText={`Other Names for ${props.recipient.overview.name}`}
-        dialogClass="recipients-modal"
-        verticallyCenter
-        escapeExits>
-          <div className="recipients-modal__wrapper">
-            <div className="recipients-modal__header">
-              <h1 className="recipients-modal__title">{`Other Names for ${props.recipient.overview.name}`}</h1>
-                <button
-                  className="recipients-modal__close-button"
-                  onClick={props.hideModal}
-                  title="Close"
-                  aria-label="Close">
-                    <Close alt="Close modal" />
-                </button>
-            </div>
-              <div className="recipients-modal__body">
-                {resultCountDisplay}
-                {table}
-                {resultCountDisplay}
-                  <div className="recipients-modal__message">
-                    {message}
-                  </div>
-              </div>
-          </div>
-      </Modal>
+        <Modal
+            mounted={props.mounted}
+            onExit={props.hideModal}
+            titleText={`Other Names for ${props.recipient.overview.name}`}
+            dialogClass="recipients-modal"
+            verticallyCenter
+            escapeExits>
+                <div className="recipients-modal__wrapper">
+                    <div className="recipients-modal__header">
+                        <h1 className="recipients-modal__title">{`Other Names for ${props.recipient.overview.name}`}</h1>
+                            <button
+                                className="recipients-modal__close-button"
+                                onClick={props.hideModal}
+                                title="Close"
+                                aria-label="Close">
+                                    <Close alt="Close modal" />
+                            </button>
+                    </div>
+                        <div className="recipients-modal__body">
+                            {resultCountDisplay}
+                            {table}
+                            {resultCountDisplay}
+                                <div className="recipients-modal__message">
+                                    {message}
+                                </div>
+                        </div>
+                </div>
+        </Modal>
     );
 };
 

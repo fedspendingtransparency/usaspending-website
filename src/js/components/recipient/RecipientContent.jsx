@@ -68,27 +68,27 @@ const RecipientContent = ({
     };
 
     return (
-      <div className="recipient-content-wrapper">
-        <div className="recipient-sidebar">
-          <Sidebar
-            isGoingToBeSticky
-            pageName="recipient"
-            active={activeSection}
-            sections={recipientSections}
-            jumpToSection={jumpToSection}
-            fixedStickyBreakpoint={getStickyBreakPointForSidebar()}
-            detectActiveSection={setActiveSection} />
+        <div className="recipient-content-wrapper">
+            <div className="recipient-sidebar">
+                <Sidebar
+                    isGoingToBeSticky
+                    pageName="recipient"
+                    active={activeSection}
+                    sections={recipientSections}
+                    jumpToSection={jumpToSection}
+                    fixedStickyBreakpoint={getStickyBreakPointForSidebar()}
+                    detectActiveSection={setActiveSection} />
+            </div>
+                <div className="recipient-content">
+                    <RecipientOverview
+                        showChildRecipientModal={showChildRecipientModal}
+                        showAlternateNamesRecipientModal={showAlternateNamesRecipientModal}
+                        recipient={recipient} />
+                            <RecipientTimeVisualizationSectionContainer
+                                recipient={recipient} />
+                                    <TopFiveSection />
+                </div>
         </div>
-          <div className="recipient-content">
-            <RecipientOverview
-              showChildRecipientModal={showChildRecipientModal}
-              showAlternateNamesRecipientModal={showAlternateNamesRecipientModal}
-              recipient={recipient} />
-                <RecipientTimeVisualizationSectionContainer
-                  recipient={recipient} />
-                    <TopFiveSection />
-          </div>
-      </div>
     );
 };
 

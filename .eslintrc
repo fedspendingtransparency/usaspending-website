@@ -28,8 +28,8 @@
             "SwitchCase": 1,
             "ignoredNodes": ["JSXElement *", "JSXElement"]
         }],
-        "react/jsx-indent": [0],
-        "react/jsx-indent-props": [0],
+        "react/jsx-indent": [2,4],
+        "react/jsx-indent-props": [2,4],
         // closing brackets should be aligned with the final prop (props.. />)
         "react/jsx-closing-bracket-location": [2, {"location": "after-props"}],
         "react/prop-types":[1],

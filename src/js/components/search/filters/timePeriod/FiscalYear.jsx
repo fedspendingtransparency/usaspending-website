@@ -37,46 +37,46 @@ export default class FiscalYear extends React.Component {
 
         if (this.props.year === "all") {
             yearOption = (
-              <li className="fiscal-year-option-all">
-                <label
-                  className="fy-option-wrapper"
-                  htmlFor={`fy${this.props.year}`}>
-                    <input
-                      type="checkbox"
-                      className="fy-option-checkbox"
-                      id={`fy${this.props.year}`}
-                      value="All Fiscal Years"
-                      checked={this.props.checked}
-                      onChange={this.allYears} />
-                        <span className="fy-option-label">
+                <li className="fiscal-year-option-all">
+                    <label
+                        className="fy-option-wrapper"
+                        htmlFor={`fy${this.props.year}`}>
+                            <input
+                                type="checkbox"
+                                className="fy-option-checkbox"
+                                id={`fy${this.props.year}`}
+                                value="All Fiscal Years"
+                                checked={this.props.checked}
+                                onChange={this.allYears} />
+                                    <span className="fy-option-label">
                             All Fiscal Years
-                        </span>
-                </label>
-              </li>
+                                    </span>
+                    </label>
+                </li>
             );
         }
         else {
             yearOption = (
-              <li className="fiscal-year-option">
-                <label
-                  className="fy-option-wrapper"
-                  htmlFor={`fy${this.props.year}`}>
-                    <input
-                      type="checkbox"
-                      className="fy-option-checkbox"
-                      id={`fy${this.props.year}`}
-                      value={`FY ${this.props.year}`}
-                      checked={this.props.checked}
-                      onChange={this.saveYear} />
-                        <span className="fy-option-label">
-                          {`FY ${this.props.year}`}
-                        </span>
-                </label>
-              </li>
+                <li className="fiscal-year-option">
+                    <label
+                        className="fy-option-wrapper"
+                        htmlFor={`fy${this.props.year}`}>
+                            <input
+                                type="checkbox"
+                                className="fy-option-checkbox"
+                                id={`fy${this.props.year}`}
+                                value={`FY ${this.props.year}`}
+                                checked={this.props.checked}
+                                onChange={this.saveYear} />
+                                    <span className="fy-option-label">
+                                        {`FY ${this.props.year}`}
+                                    </span>
+                    </label>
+                </li>
             );
         }
         return (
-          <div>{ yearOption }</div>
+            <div>{ yearOption }</div>
         );
     }
 }

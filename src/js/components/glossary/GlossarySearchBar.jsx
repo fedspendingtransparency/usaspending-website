@@ -54,22 +54,22 @@ export default class GlossarySearchBar extends React.Component {
 
     render() {
         return (
-          <div className="glossary-search-bar">
-            <form onSubmit={this.submitSearch}>
-              <input
-                className="search-field"
-                type="text"
-                value={this.props.glossary.search.input}
-                placeholder="Search for a term..."
-                onChange={this.changedSearchValue} />
-                  <button
-                    aria-label="Search"
-                    className="search-button"
-                    type="submit">
-                      <Search alt="Search" />
-                  </button>
-            </form>
-          </div>
+            <div className="glossary-search-bar">
+                <form onSubmit={this.submitSearch}>
+                    <input
+                        className="search-field"
+                        type="text"
+                        value={this.props.glossary.search.input}
+                        placeholder="Search for a term..."
+                        onChange={this.changedSearchValue} />
+                            <button
+                                aria-label="Search"
+                                className="search-button"
+                                type="submit">
+                                    <Search alt="Search" />
+                            </button>
+                </form>
+            </div>
         );
     }
 }

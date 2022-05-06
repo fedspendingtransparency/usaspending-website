@@ -58,15 +58,15 @@ const AreaPath = ({
                 true
             ));
         }
-    }, [data, xScale, yScale, scenario]);
+    }, [data, xScale, yScale, scenario, xProperty, padding, yProperty, height]);
     return (
-      <g tabIndex="0">
-        <desc>{`The area under the curve representative of the following periods, dates, and obligations: ${description}`}</desc>
-          <path
-            className={`area-path ${classname}`}
-            d={d}
-            fill="url(#areaPathLinearGradient)" />
-      </g>
+        <g tabIndex="0">
+            <desc>{`The area under the curve representative of the following periods, dates, and obligations: ${description}`}</desc>
+                <path
+                    className={`area-path ${classname}`}
+                    d={d}
+                    fill="url(#areaPathLinearGradient)" />
+        </g>
     );
 };
 

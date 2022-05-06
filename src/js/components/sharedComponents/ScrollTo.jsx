@@ -33,15 +33,15 @@ export default class ScrollTo extends React.Component {
 
     render() {
         return (
-          <button
-            title={this.props.accessibleLabel}
-            aria-label={this.props.accessibleLabel}
-            role={this.props.role}
-            className={this.props.className}
-            onClick={this.clickedButton}>
-            {this.props.label}
-            {this.props.icon}
-          </button>
+            <button
+                title={this.props.accessibleLabel}
+                aria-label={this.props.accessibleLabel}
+                role={this.props.role}
+                className={this.props.className}
+                onClick={this.clickedButton}>
+                {this.props.label}
+                {this.props.icon}
+            </button>
         );
     }
 }

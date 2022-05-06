@@ -40,16 +40,16 @@ const QuarterButton = (props) => {
     }
 
     return (
-      <button
-        className={`quarter-picker__quarter ${additionalClasses}`}
-        disabled={props.disabled}
-        onMouseOver={hoveredQuarter}
-        onFocus={hoveredQuarter}
-        onMouseLeave={props.endHover}
-        onBlur={props.endHover}
-        onClick={clickedQuarter}>
+        <button
+            className={`quarter-picker__quarter ${additionalClasses}`}
+            disabled={props.disabled}
+            onMouseOver={hoveredQuarter}
+            onFocus={hoveredQuarter}
+            onMouseLeave={props.endHover}
+            onBlur={props.endHover}
+            onClick={clickedQuarter}>
             Q{props.quarter}
-      </button>
+        </button>
     );
 };
 

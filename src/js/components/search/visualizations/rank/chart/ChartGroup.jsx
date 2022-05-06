@@ -48,13 +48,13 @@ export default class ChartGroup extends React.Component {
             linkClass = ' group-label-link';
         }
         let title = (
-          <text
-            className={`group-label ${linkClass}`}
-            ref={(text) => {
+            <text
+                className={`group-label ${linkClass}`}
+                ref={(text) => {
                     this.svgText = text;
                 }}>
-            {label}
-          </text>
+                {label}
+            </text>
         );
 
         /* eslint-disable jsx-a11y/anchor-is-valid */
@@ -64,15 +64,15 @@ export default class ChartGroup extends React.Component {
         so we need to make sure that isn't the case before making the link*/
         if (this.props.linkID !== '' && this.props.linkID !== 'agency_v2/') {
             title = (
-              <a xlinkHref={`${this.props.urlRoot}${this.props.linkID}`}>
-                <text
-                  className={`group-label ${linkClass}`}
-                  ref={(text) => {
+                <a xlinkHref={`${this.props.urlRoot}${this.props.linkID}`}>
+                    <text
+                        className={`group-label ${linkClass}`}
+                        ref={(text) => {
                             this.svgText = text;
                         }}>
-                  {label}
-                </text>
-              </a>
+                        {label}
+                    </text>
+                </a>
             );
         }
         /* eslint-enable jsx-a11y/anchor-is-valid */
@@ -133,23 +133,23 @@ export default class ChartGroup extends React.Component {
         }
 
         return (
-          <g
-            className="chart-group"
-            transform={`translate(0,${this.props.index * this.props.height})`}>
+            <g
+                className="chart-group"
+                transform={`translate(0,${this.props.index * this.props.height})`}>
 
-              <title>{this.props.label}</title>
+                    <title>{this.props.label}</title>
 
-                <rect
-                  className={`group-background ${backgroundClass}`}
-                  x={0}
-                  y={0}
-                  width={this.props.width}
-                  height={this.props.height} />
+                        <rect
+                            className={`group-background ${backgroundClass}`}
+                            x={0}
+                            y={0}
+                            width={this.props.width}
+                            height={this.props.height} />
 
-                    <g transform="translate(12,20)">
-                      {this.state.label}
-                    </g>
-          </g>
+                                <g transform="translate(12,20)">
+                                    {this.state.label}
+                                </g>
+            </g>
         );
     }
 }

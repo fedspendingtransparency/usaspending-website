@@ -206,20 +206,20 @@ export class AwardDataContainer extends React.Component {
 
     render() {
         return (
-          <AwardDataContent
-            awards={this.props.bulkDownload.awards}
-            updateCheckbox={this.props.updateCheckbox}
-            updateFilter={this.updateFilter}
-            updateStartDate={this.updateStartDate}
-            updateEndDate={this.updateEndDate}
-            clearAwardFilters={this.clearAwardFilters}
-            agencies={this.state.agencies}
-            subAgencies={this.state.subAgencies}
-            setSubAgencyList={this.setSubAgencyList}
-            states={this.state.states}
-            clickedDownload={this.props.clickedDownload}
-            bulkAwardTypeChange={this.bulkAwardTypeChange}
-            toggleAwardTypeChange={this.toggleAwardTypeChange} />
+            <AwardDataContent
+                awards={this.props.bulkDownload.awards}
+                updateCheckbox={this.props.updateCheckbox}
+                updateFilter={this.updateFilter}
+                updateStartDate={this.updateStartDate}
+                updateEndDate={this.updateEndDate}
+                clearAwardFilters={this.clearAwardFilters}
+                agencies={this.state.agencies}
+                subAgencies={this.state.subAgencies}
+                setSubAgencyList={this.setSubAgencyList}
+                states={this.state.states}
+                clickedDownload={this.props.clickedDownload}
+                bulkAwardTypeChange={this.bulkAwardTypeChange}
+                toggleAwardTypeChange={this.toggleAwardTypeChange} />
         );
     }
 }

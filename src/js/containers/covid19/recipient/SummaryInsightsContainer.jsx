@@ -26,18 +26,18 @@ const overviewData = [
     {
         type: 'awardObligations',
         title: (
-          <div>
-            <span className="glossary-term">Award Obligations</span> <GlossaryLink term="obligation" />
-          </div>
+            <div>
+                <span className="glossary-term">Award Obligations</span> <GlossaryLink term="obligation" />
+            </div>
         ),
         isMonetary: true
     },
     {
         type: 'awardOutlays',
         title: (
-          <div>
-            <span className="glossary-term">Award Outlays</span> <GlossaryLink term="outlay" />
-          </div>
+            <div>
+                <span className="glossary-term">Award Outlays</span> <GlossaryLink term="outlay" />
+            </div>
         ),
         isMonetary: true
     },
@@ -143,15 +143,15 @@ const SummaryInsightsContainer = ({ activeFilter }) => {
     }
 
     return (
-      <div className="overview-data-group">
-        <InformationBoxes
-          boxes={overviewData.map((data) => ({
+        <div className="overview-data-group">
+            <InformationBoxes
+                boxes={overviewData.map((data) => ({
                     ...data,
                     subtitle,
                     amount: amounts[data.type],
                     isLoading: inFlightList.includes(data.type)
                 }))} />
-      </div>
+        </div>
     );
 };
 

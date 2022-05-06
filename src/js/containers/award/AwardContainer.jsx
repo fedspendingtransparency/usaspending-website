@@ -190,16 +190,16 @@ export class AwardContainer extends React.Component {
 
     render() {
         return (
-          <Award
-            subAwardIdClicked={this.props.subAwardIdClicked}
-            isSubAwardIdClicked={this.props.isSubAwardIdClicked}
-            isDownloadPending={this.props.isDownloadPending}
-            downloadData={this.downloadData}
-            awardId={this.props.match.params.awardId}
-            award={this.props.award}
-            isLoading={this.state.inFlight}
-            noAward={this.state.noAward}
-            defCodes={this.props.defCodes?.map((defc) => defc.code)} />
+            <Award
+                subAwardIdClicked={this.props.subAwardIdClicked}
+                isSubAwardIdClicked={this.props.isSubAwardIdClicked}
+                isDownloadPending={this.props.isDownloadPending}
+                downloadData={this.downloadData}
+                awardId={this.props.match.params.awardId}
+                award={this.props.award}
+                isLoading={this.state.inFlight}
+                noAward={this.state.noAward}
+                defCodes={this.props.defCodes?.map((defc) => defc.code)} />
         );
     }
 }

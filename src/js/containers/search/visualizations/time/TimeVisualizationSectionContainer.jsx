@@ -200,10 +200,10 @@ export class TimeVisualizationSectionContainer extends React.Component {
 
     render() {
         return (
-          <TimeVisualizationSection
-            data={this.state}
-            updateVisualizationPeriod={this.updateVisualizationPeriod}
-            visualizationPeriod={this.state.visualizationPeriod} />
+            <TimeVisualizationSection
+                data={this.state}
+                updateVisualizationPeriod={this.updateVisualizationPeriod}
+                visualizationPeriod={this.state.visualizationPeriod} />
         );
     }
 }

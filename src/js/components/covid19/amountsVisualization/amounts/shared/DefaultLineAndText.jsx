@@ -64,7 +64,7 @@ const DefaultLineAndText = ({
                 className: `amounts-text__value ${className || ''}`
             });
         }
-    }, [width, scale, valueTextRef.current]);
+    }, [width, scale, overviewData, dataId, labelData.height, className]);
     // label
     useEffect(() => {
         if (scale) {
@@ -77,21 +77,21 @@ const DefaultLineAndText = ({
                 className: `amounts-text__label ${className || ''}`
             });
         }
-    }, [width, scale, valueData]);
+    }, [width, scale, valueData, dataId, overviewData, className]);
 
     return (
-      <g>
-        <DefaultLine
-          scale={scale}
-          className={className}
-          overviewData={overviewData}
-          dataId={dataId}
-          tooltipId={tooltipId}
-          displayTooltip={displayTooltip}
-          hideTooltip={hideTooltip}
-          width={width}
-          publicLaw={publicLaw} />
-            <TextGroup data={[
+        <g>
+            <DefaultLine
+                scale={scale}
+                className={className}
+                overviewData={overviewData}
+                dataId={dataId}
+                tooltipId={tooltipId}
+                displayTooltip={displayTooltip}
+                hideTooltip={hideTooltip}
+                width={width}
+                publicLaw={publicLaw} />
+                    <TextGroup data={[
                 { ...valueData, ref: valueTextRef },
                 { ...labelData, ref: labelTextRef }
             ].map((textItem) => ({
@@ -101,7 +101,7 @@ const DefaultLineAndText = ({
                 displayTooltip,
                 hideTooltip
             }))} />
-      </g>
+        </g>
     );
 };
 

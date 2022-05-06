@@ -52,54 +52,54 @@ const MetaTags = ({
 
         if (url !== '') {
             newTags.push(<meta
-              property="og:url"
-              content={url}
-              key="og_url" />
+                property="og:url"
+                content={url}
+                key="og_url" />
             );
         }
         if (title !== '') {
             newTags.push(<meta
-              property="og:title"
-              content={title}
-              key="og_title" />
+                property="og:title"
+                content={title}
+                key="og_title" />
             );
             newTags.push(<meta
-              content={title}
-              key="twitter-title"
-              name="twitter:title" />
+                content={title}
+                key="twitter-title"
+                name="twitter:title" />
             );
             newTags.push(<title key="title">{title}</title>);
         }
         if (description !== '') {
             newTags.push(<meta
-              name="description"
-              property="og:description"
-              content={description}
-              key="og_description" />
+                name="description"
+                property="og:description"
+                content={description}
+                key="og_description" />
             );
             newTags.push(<meta
-              content={description}
-              key="twitter-description"
-              name="twitter:description" />
+                content={description}
+                key="twitter-description"
+                name="twitter:description" />
             );
         }
         if (image !== '') {
             newTags.push(<meta
-              property="og:image"
-              content={image}
-              key="og_image" />
+                property="og:image"
+                content={image}
+                key="og_image" />
             );
             newTags.push(<meta
-              name="twitter:image"
-              key="twitter:image"
-              content={image} />
+                name="twitter:image"
+                key="twitter:image"
+                content={image} />
             );
         }
 
         setTags(
             newTags
                 .concat([
-                  <link key="canonical-url" rel="canonical" href={getCanonicalUrl(pathname)} />
+                    <link key="canonical-url" rel="canonical" href={getCanonicalUrl(pathname)} />
                 ])
         );
     });
@@ -112,22 +112,16 @@ const MetaTags = ({
             const sendDAPPageviewEvent = isInitialApplicationLoadForDAPGoogleAnalytics ? 'isInitialApplicationLoadForDAPGoogleAnalytics' : undefined;
             Analytics.pageview(pathname, title, sendDAPPageviewEvent);
         }
-    }, [title]);
+    }, [dispatch, generateTags, isInitialApplicationLoadForDAPGoogleAnalytics, pathname, title]);
 
     useEffect(() => {
         generateTags();
-    }, [
-        url,
-        title,
-        description,
-        siteName,
-        image
-    ]);
+    }, [url, title, description, siteName, image, generateTags]);
 
     return (
-      <Helmet>
-        {tags}
-      </Helmet>
+        <Helmet>
+            {tags}
+        </Helmet>
     );
 };
 

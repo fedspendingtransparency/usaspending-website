@@ -23,15 +23,15 @@ const propTypes = {
 export default class SearchResults extends React.Component {
     render() {
         return (
-          <div className="search-results-wrapper">
-            <AccountTopFilterBarContainer {...this.props} />
-              <div className="search-results">
-                <AccountTimeVisualizationContainer />
-                  <AccountRankVisualizationContainer />
-                    <AccountAwardsContainer />
-                {this.props.showNote && <Note message={dodNote} />}
-              </div>
-          </div>
+            <div className="search-results-wrapper">
+                <AccountTopFilterBarContainer {...this.props} />
+                    <div className="search-results">
+                        <AccountTimeVisualizationContainer />
+                            <AccountRankVisualizationContainer />
+                                <AccountAwardsContainer />
+                        {this.props.showNote && <Note message={dodNote} />}
+                    </div>
+            </div>
         );
     }
 }

@@ -26,47 +26,47 @@ export default class TableRow extends React.PureComponent {
             if (column.columnName === 'accountName') {
                 // show the account link cell
                 return (
-                  <td
-                    className={`results-table__data ${rowClass}`}
-                    key={`${column.columnName}-${this.props.account.accountId}`}>
-                      <AccountLinkCell
-                        rowIndex={this.props.rowIndex}
-                        name={this.props.account.accountName}
-                        accountNumber={this.props.account.accountNumber}
-                        accountSearchString={this.props.accountSearchString}
-                        column={column.columnName} />
-                  </td>
+                    <td
+                        className={`results-table__data ${rowClass}`}
+                        key={`${column.columnName}-${this.props.account.accountId}`}>
+                            <AccountLinkCell
+                                rowIndex={this.props.rowIndex}
+                                name={this.props.account.accountName}
+                                accountNumber={this.props.account.accountNumber}
+                                accountSearchString={this.props.accountSearchString}
+                                column={column.columnName} />
+                    </td>
                 );
             }
             else if (column.columnName === 'budgetaryResources') {
                 return (
-                  <td
-                    className={`results-table__data ${rowClass}`}
-                    key={`${column.columnName}-${this.props.account.accountId}`}>
-                      <GenericCell
-                        rowIndex={this.props.rowIndex}
-                        data={this.props.account[column.columnName]}
-                        column={column.columnName} />
-                  </td>
+                    <td
+                        className={`results-table__data ${rowClass}`}
+                        key={`${column.columnName}-${this.props.account.accountId}`}>
+                            <GenericCell
+                                rowIndex={this.props.rowIndex}
+                                data={this.props.account[column.columnName]}
+                                column={column.columnName} />
+                    </td>
                 );
             }
             return (
-              <td
-                className={`results-table__data ${rowClass}`}
-                key={`${column.columnName}-${this.props.account.accountId}`}>
-                  <HighlightedCell
-                    rowIndex={this.props.rowIndex}
-                    data={this.props.account[column.columnName]}
-                    column={column.columnName}
-                    searchString={this.props.accountSearchString} />
-              </td>
+                <td
+                    className={`results-table__data ${rowClass}`}
+                    key={`${column.columnName}-${this.props.account.accountId}`}>
+                        <HighlightedCell
+                            rowIndex={this.props.rowIndex}
+                            data={this.props.account[column.columnName]}
+                            column={column.columnName}
+                            searchString={this.props.accountSearchString} />
+                </td>
             );
         });
 
         return (
-          <tr className="results-table__row">
-            {cells}
-          </tr>
+            <tr className="results-table__row">
+                {cells}
+            </tr>
         );
     }
 }

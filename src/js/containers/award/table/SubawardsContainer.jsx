@@ -157,13 +157,13 @@ export class SubawardsContainer extends React.Component {
     render() {
         const award = this.props.award.overview;
         return (
-          <SubawardsTable
-            {...this.props}
-            {...this.state}
-            award={award}
-            inFlight={this.state.inFlight}
-            changeSort={this.changeSort}
-            loadNextPage={this.loadNextPage} />
+            <SubawardsTable
+                {...this.props}
+                {...this.state}
+                award={award}
+                inFlight={this.state.inFlight}
+                changeSort={this.changeSort}
+                loadNextPage={this.loadNextPage} />
         );
     }
 }

@@ -32,12 +32,12 @@ export class AlternateNamesRecipientModalContainer extends React.Component {
             : this.props.recipient.overview.alternateNames.sort((a, b) => (b.localeCompare(a)));
 
         return (
-          <AlternateNamesRecipientModal
-            {...this.props}
-            sortField={this.state.sortField}
-            sortDirection={this.state.sortDirection}
-            updateSort={this.updateSort}
-            alternateNames={sortedAlternateNames} />
+            <AlternateNamesRecipientModal
+                {...this.props}
+                sortField={this.state.sortField}
+                sortDirection={this.state.sortDirection}
+                updateSort={this.updateSort}
+                alternateNames={sortedAlternateNames} />
         );
     }
 }

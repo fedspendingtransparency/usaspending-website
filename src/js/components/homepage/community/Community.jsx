@@ -14,37 +14,37 @@ const clickedHomepageLink = (route) => {
 };
 
 const Community = () => (
-  <section
-    className="homepage-community"
-    aria-label="Community">
-      <div className="homepage-community__wrapper">
-        <div className="homepage-community__content">
-          <h2
-            className="homepage-community__title"
-            tabIndex={-1}>
+    <section
+        className="homepage-community"
+        aria-label="Community">
+            <div className="homepage-community__wrapper">
+                <div className="homepage-community__content">
+                    <h2
+                        className="homepage-community__title"
+                        tabIndex={-1}>
                     Join the conversation
-          </h2>
-            <p
-              className="homepage-community__description">
+                    </h2>
+                        <p
+                            className="homepage-community__description">
                     We want to know how we can serve you better. Drop by our community page to ask questions, propose new features, sign up for testing, and join the conversation about federal spending data.
-            </p>
-              <a
-                className="homepage-community__link"
-                href="https://fiscalservice.force.com/usaspending/s/"
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={clickedHomepageLink.bind(null, 'https://fiscalservice.force.com/usaspending/s/')}>
+                        </p>
+                            <a
+                              className="homepage-community__link"
+                              href="https://fiscalservice.force.com/usaspending/s/"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              onClick={clickedHomepageLink.bind(null, 'https://fiscalservice.force.com/usaspending/s/')}>
                     Visit our community page
-              </a>
-        </div>
-          <div className="homepage-community__image-wrapper homepage-community__image-wrapper_desktop">
-            <img
-              src="img/homepage-community.png"
-              srcSet="img/homepage-community.png 1x, img/homepage-community@2x.png 2x"
-              alt="Speech bubbles" />
-          </div>
-      </div>
-  </section>
+                          </a>
+                </div>
+                    <div className="homepage-community__image-wrapper homepage-community__image-wrapper_desktop">
+                        <img
+                            src="img/homepage-community.png"
+                            srcSet="img/homepage-community.png 1x, img/homepage-community@2x.png 2x"
+                            alt="Speech bubbles" />
+                    </div>
+            </div>
+    </section>
 );
 
 export default Community;

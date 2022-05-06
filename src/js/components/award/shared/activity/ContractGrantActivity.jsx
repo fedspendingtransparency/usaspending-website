@@ -66,7 +66,7 @@ const ContractGrantActivity = ({
         return () => {
             window.removeEventListener('resize', handleWindowResize);
         };
-    }, []);
+    }, [handleWindowResize]);
     /**
      * X Translation
      * We are positioning the potential award amount line tooltip centered.
@@ -83,8 +83,8 @@ const ContractGrantActivity = ({
             position: 'absolute'
         },
         tooltipComponent: <RectanglePercentVizTooltip
-          title="Current Potential Award Amount"
-          amount={formatMoney(totalObligation)} />
+            title="Current Potential Award Amount"
+            amount={formatMoney(totalObligation)} />
     });
 
     const formatDateData = (date) => {
@@ -104,8 +104,8 @@ const ContractGrantActivity = ({
                 transform: `translate(${((data.position + 16))}px,${(height / 2) - defaultPadding.bottom}px)`
             },
             tooltipComponent: <RectanglePercentVizTooltip
-              title={`${text} Date`}
-              amount={formatDateData(date)} />
+                title={`${text} Date`}
+                amount={formatDateData(date)} />
         };
     };
 
@@ -168,8 +168,8 @@ const ContractGrantActivity = ({
             transform: `translate(${data.cx + 11}px,${data.cy - 13}px)`
         },
         tooltipComponent: <PaginatedTooltipContainer
-          data={transactionTooltipInfo(data.data, 'Modification')}
-          tooltipElement={<Tooltip />} />
+            data={transactionTooltipInfo(data.data, 'Modification')}
+            tooltipElement={<Tooltip />} />
     });
 
     const handleTooltipDataLine = (data, text) => {
@@ -213,32 +213,32 @@ const ContractGrantActivity = ({
     };
 
     return (
-      <div ref={divReference} className="award-amounts-viz contract-grant-activity-visualization">
-        {(showTooltipLine || showTooltipTransaction || isHoveringOverTransactionTooltip) && <TooltipWrapper
-          className="award-section-tt"
-          {...tooltipData}
-          wide={false}
-          width={defaultTooltipWidth}
-          onMouseMoveTooltip={onMouseMoveTooltip}
-          onMouseLeaveTooltip={onMouseLeaveTooltip}
-          controlledProps={{
+        <div ref={divReference} className="award-amounts-viz contract-grant-activity-visualization">
+            {(showTooltipLine || showTooltipTransaction || isHoveringOverTransactionTooltip) && <TooltipWrapper
+                className="award-section-tt"
+                {...tooltipData}
+                wide={false}
+                width={defaultTooltipWidth}
+                onMouseMoveTooltip={onMouseMoveTooltip}
+                onMouseLeaveTooltip={onMouseLeaveTooltip}
+                controlledProps={{
                     isControlled: true,
                     isVisible: showTooltipLine || showTooltipTransaction || isHoveringOverTransactionTooltip
                 }} />}
-                  <ContractGrantActivityChart
-                    visualizationWidth={visualizationWidth}
-                    transactions={transactions}
-                    height={height}
-                    padding={defaultPadding}
-                    dates={dates}
-                    awardType={awardType}
-                    totalObligation={totalObligation}
-                    showHideTooltipLine={showHideTooltipLine}
-                    showTooltipTransaction={showTransactionTooltip}
-                    hideTooltipTransaction={hideTooltipTransaction}
-                    hideTransactionTooltipOnBlur={hideTransactionTooltipOnBlur}
-                    thisLineOrTextIsHovered={thisLineOrTextIsHovered} />
-      </div>
+                    <ContractGrantActivityChart
+                        visualizationWidth={visualizationWidth}
+                        transactions={transactions}
+                        height={height}
+                        padding={defaultPadding}
+                        dates={dates}
+                        awardType={awardType}
+                        totalObligation={totalObligation}
+                        showHideTooltipLine={showHideTooltipLine}
+                        showTooltipTransaction={showTransactionTooltip}
+                        hideTooltipTransaction={hideTooltipTransaction}
+                        hideTransactionTooltipOnBlur={hideTransactionTooltipOnBlur}
+                        thisLineOrTextIsHovered={thisLineOrTextIsHovered} />
+        </div>
     );
 };
 

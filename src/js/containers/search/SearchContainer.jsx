@@ -114,7 +114,7 @@ const SearchContainer = ({ history }) => {
                 setDownloadInFlight(false);
                 request.current = null;
             });
-    }, [stagedFilters, appliedFilters]);
+    }, [stagedFilters]);
 
     useEffect(() => {
         areAppliedFiltersEmptyRef.current = areAppliedFiltersEmpty;
@@ -176,7 +176,7 @@ const SearchContainer = ({ history }) => {
             dispatch(resetAppliedFilters());
             dispatch(clearAllFilters());
         };
-    }, []);
+    }, [appliedFilters, dispatch, history, setDownloadAvailability, stagedFilters, urlHash]);
 
     useEffect(() => {
         if (areAppliedFiltersEmpty && prevAreAppliedFiltersEmpty === false) {
@@ -187,7 +187,7 @@ const SearchContainer = ({ history }) => {
             });
             setDownloadAvailable(false);
         }
-    }, [areAppliedFiltersEmpty, urlHash]);
+    }, [areAppliedFiltersEmpty, history, prevAreAppliedFiltersEmpty, urlHash]);
 
     const generateHash = useCallback(() => {
     // POST an API request to retrieve the Redux state
@@ -218,7 +218,7 @@ const SearchContainer = ({ history }) => {
                     request.current = null;
                 }
             });
-    }, [appliedFilters, generateHashInFlight]);
+    }, [appliedFilters, dispatch, generateHashInFlight, history]);
 
     useEffect(() => {
     /**
@@ -236,24 +236,24 @@ const SearchContainer = ({ history }) => {
             generateHash();
             setDownloadAvailability();
         }
-    }, [appliedFilters, urlHash]);
+    }, [appliedFilters, generateHash, prevAppliedFilters, setDownloadAvailability, urlHash]);
 
     useEffect(() => {
         if (SearchHelper.areFiltersDifferent(appliedFilters, stagedFilters) && SearchHelper.areFiltersDifferent(prevAppliedFilters, appliedFilters)) {
             dispatch(restoreHashedFilters(appliedFilters));
         }
-    }, [appliedFilters, stagedFilters]);
+    }, [appliedFilters, dispatch, prevAppliedFilters, stagedFilters]);
 
     return (
-      <SearchPage
-        hash={urlHash}
-        filters={stagedFilters}
-        appliedFilters={appliedFilters}
-        noFiltersApplied={areAppliedFiltersEmpty}
-        downloadAvailable={downloadAvailable}
-        downloadInFlight={downloadInFlight}
-        download={download}
-        requestsComplete={areFiltersApplied} />
+        <SearchPage
+            hash={urlHash}
+            filters={stagedFilters}
+            appliedFilters={appliedFilters}
+            noFiltersApplied={areAppliedFiltersEmpty}
+            downloadAvailable={downloadAvailable}
+            downloadInFlight={downloadInFlight}
+            download={download}
+            requestsComplete={areFiltersApplied} />
     );
 };
 
@@ -263,8 +263,8 @@ export default SearchContainer;
 export const SearchContainerRedirect = () => {
     const { urlHash: pathHash } = useParams();
     return (
-      <Redirect
-        to={{
+        <Redirect
+            to={{
                 pathname: '/search/',
                 search: `?${new URLSearchParams({ hash: pathHash }).toString()}`
             }} />

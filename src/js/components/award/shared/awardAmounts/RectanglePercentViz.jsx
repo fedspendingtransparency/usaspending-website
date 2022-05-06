@@ -163,9 +163,9 @@ const RectanglePercentViz = ({
         };
         if (Object.keys(data).includes('children')) {
             return (
-              <Bar {...barProps}>
-                {data.children ? data.children.map((child) => renderBarVisualization(child, true)) : null}
-              </Bar>
+                <Bar {...barProps}>
+                    {data.children ? data.children.map((child) => renderBarVisualization(child, true)) : null}
+                </Bar>
             );
         }
         return <Bar {...barProps} />;
@@ -181,57 +181,57 @@ const RectanglePercentViz = ({
         .map((child) => {
             if (position === 'top') {
                 return (
-                  <div className={`award-amounts-viz__desc-container ${position}`}>
-                    {child?.improper &&
-                    <div className="improper">
-                      <BarValue
-                        spendingCategory={child.className}
-                        className={`award-amounts-viz__desc ${position}`}
-                        onLeave={closeTooltip}
-                        onEnter={() => showTooltip(
+                    <div className={`award-amounts-viz__desc-container ${position}`}>
+                        {child?.improper &&
+                        <div className="improper">
+                            <BarValue
+                                spendingCategory={child.className}
+                                className={`award-amounts-viz__desc ${position}`}
+                                onLeave={closeTooltip}
+                                onEnter={() => showTooltip(
                                     child.tooltipData,
                                     generatePercentage(child.rawValue / denominator.rawValue),
                                     verticalTooltipOffset
                                 )}
-                        number={child.value}
-                        title={child.text} />
-                          <BarValue
-                            spendingCategory={child.improper.className}
-                            className={`award-amounts-viz__desc ${position}`}
-                            onLeave={closeTooltip}
-                            onEnter={() => showTooltip(
+                                number={child.value}
+                                title={child.text} />
+                                    <BarValue
+                                        spendingCategory={child.improper.className}
+                                        className={`award-amounts-viz__desc ${position}`}
+                                        onLeave={closeTooltip}
+                                        onEnter={() => showTooltip(
                                     child.improper.tooltipData,
                                     generatePercentage(child.improper.rawValue / denominator.rawValue),
                                     verticalTooltipOffset
                                 )}
-                            number={child.improper.value}
-                            title={child.improper.text} />
-                    </div>
+                                        number={child.improper.value}
+                                        title={child.improper.text} />
+                        </div>
                         }
-                    {!child.improper &&
-                    <BarValue
-                      spendingCategory={child.className}
-                      className={`award-amounts-viz__desc ${position}`}
-                      onLeave={closeTooltip}
-                      onEnter={() => showTooltip(
+                        {!child.improper &&
+                        <BarValue
+                            spendingCategory={child.className}
+                            className={`award-amounts-viz__desc ${position}`}
+                            onLeave={closeTooltip}
+                            onEnter={() => showTooltip(
                                 child.tooltipData,
                                 generatePercentage(child.rawValue / denominator.rawValue),
                                 verticalTooltipOffset
                             )}
-                      number={child.value}
-                      title={child.text} />}
-                    {child.rawValue > 0 &&
-                    <BarLabelAndLine
-                      spendingCategory={child.className}
-                      labelClassName="award-amounts-viz__label"
-                      lineClassName={`award-amounts-viz__line ${position}`}
-                      lineStyles={{
+                            number={child.value}
+                            title={child.text} />}
+                        {child.rawValue > 0 &&
+                        <BarLabelAndLine
+                            spendingCategory={child.className}
+                            labelClassName="award-amounts-viz__label"
+                            lineClassName={`award-amounts-viz__line ${position}`}
+                            lineStyles={{
                                 backgroundColor: child.color,
                                 width: `calc(${generatePercentage(child.rawValue / denominator.rawValue)} - ${child.lineOffset}px)`
                             }} />
                         }
-                    {Object.keys(child).includes('children') && renderLinesAndLabelsForPosition(child.children, position)}
-                  </div>
+                        {Object.keys(child).includes('children') && renderLinesAndLabelsForPosition(child.children, position)}
+                    </div>
                 );
             }
             const isBarAbsent = (
@@ -247,28 +247,28 @@ const RectanglePercentViz = ({
             );
 
             return (
-              <div className={`award-amounts-viz__desc-container ${position}`}>
-                {!isBarAbsent &&
-                <BarLabelAndLine
-                  spendingCategory={child.className}
-                  labelClassName="award-amounts-viz__label"
-                  lineClassName={`award-amounts-viz__line ${position}`}
-                  lineStyles={{
+                <div className={`award-amounts-viz__desc-container ${position}`}>
+                    {!isBarAbsent &&
+                    <BarLabelAndLine
+                        spendingCategory={child.className}
+                        labelClassName="award-amounts-viz__label"
+                        lineClassName={`award-amounts-viz__line ${position}`}
+                        lineStyles={{
                             backgroundColor: child.color,
                             width: child?.barWidthOverrides?.applyToLine
                                 ? `calc(${generatePercentage(child.barWidthOverrides.rawValue / child.barWidthOverrides.denominatorValue)} - ${child.lineOffset}px)`
                                 : `calc(${generatePercentage(child.rawValue / denominator.rawValue)} - ${child.lineOffset}px)`
                         }}>
-                          <BarValue
-                            spendingCategory={child.className}
-                            style={{
+                            <BarValue
+                                spendingCategory={child.className}
+                                style={{
                                 width: child.labelSortOrder === 0
                                     ? '100%'
                                     : `calc(${generatePercentage(child.rawValue / denominator.rawValue)})`
                             }}
-                            className={`award-amounts-viz__desc ${position}`}
-                            onLeave={closeTooltip}
-                            onEnter={(e) => {
+                                className={`award-amounts-viz__desc ${position}`}
+                                onLeave={closeTooltip}
+                                onEnter={(e) => {
                                 e.stopPropagation();
                                 showTooltip(
                                     child.tooltipData,
@@ -276,16 +276,16 @@ const RectanglePercentViz = ({
                                     generatePercentage(child.rawValue / denominator.rawValue)
                                 );
                             }}
-                            number={child.value}
-                            title={child.text} />
-                </BarLabelAndLine>
+                                number={child.value}
+                                title={child.text} />
+                    </BarLabelAndLine>
                     }
-                {isBarAbsent &&
-                <BarValue
-                  spendingCategory={child.className}
-                  className={`award-amounts-viz__desc ${position}`}
-                  onLeave={closeTooltip}
-                  onEnter={(e) => {
+                    {isBarAbsent &&
+                    <BarValue
+                        spendingCategory={child.className}
+                        className={`award-amounts-viz__desc ${position}`}
+                        onLeave={closeTooltip}
+                        onEnter={(e) => {
                             e.stopPropagation();
                             if (isLabelNested) {
                                 showTooltip(
@@ -310,54 +310,54 @@ const RectanglePercentViz = ({
                                 );
                             }
                         }}
-                  number={child.value}
-                  title={child.text} />
+                        number={child.value}
+                        title={child.text} />
                     }
-                {Object.keys(child).includes('children') && renderLinesAndLabelsForPosition(child.children, position)}
-              </div>
+                    {Object.keys(child).includes('children') && renderLinesAndLabelsForPosition(child.children, position)}
+                </div>
             );
         });
 
     return (
-      <div className="award-amounts-viz">
-        {isTooltipVisible && <TooltipWrapper
-          className="award-section-tt"
-          onMouseMoveTooltip={setIsTooltipVisible.bind(null, true)}
-          onMouseLeaveTooltip={setIsTooltipVisible.bind(null, false)}
-          controlledProps={{
+        <div className="award-amounts-viz">
+            {isTooltipVisible && <TooltipWrapper
+                className="award-section-tt"
+                onMouseMoveTooltip={setIsTooltipVisible.bind(null, true)}
+                onMouseLeaveTooltip={setIsTooltipVisible.bind(null, false)}
+                controlledProps={{
                     isControlled: true,
                     isVisible: true
                 }}
-          {...activeTooltipProps} />}
-        {renderLinesAndLabelsForPosition([denominator, numerator, numerator2], 'top')}
-          <div className={`award-amounts-viz__bar-container ${denominator.className}`}>
-            <Bar
-              spendingCategory={denominator.className}
-              barWrapperStyles={{ backgroundColor: denominator.color }}
-              onLeave={closeTooltip}
-              onEnter={showDenominatorTooltip}
-              barStyles={{ backgroundColor: denominator.color, width: '100%' }}>
-              {!numeratorIsZero && (
+                {...activeTooltipProps} />}
+            {renderLinesAndLabelsForPosition([denominator, numerator, numerator2], 'top')}
+                <div className={`award-amounts-viz__bar-container ${denominator.className}`}>
+                    <Bar
+                        spendingCategory={denominator.className}
+                        barWrapperStyles={{ backgroundColor: denominator.color }}
+                        onLeave={closeTooltip}
+                        onEnter={showDenominatorTooltip}
+                        barStyles={{ backgroundColor: denominator.color, width: '100%' }}>
+                        {!numeratorIsZero && (
                         <>
-                          <Bar
-                            spendingCategory={`${numerator.improper ? numerator.improper.className : numerator.className}`}
-                            barWrapperStyles={{ width: generatePercentage(numerator.rawValue / denominator.rawValue) }}
-                            onMouseMove={showNumeratorTooltip}
-                            onEnter={showNumeratorTooltip}
-                            barStyles={{ width: '100%', backgroundColor: numerator.color }}>
-                            {numeratorHasChildren &&
-                            <div className="nested-obligations">
-                              {numerator.children.map((child) => renderBarVisualization(child, true))}
-                            </div>
+                            <Bar
+                                spendingCategory={`${numerator.improper ? numerator.improper.className : numerator.className}`}
+                                barWrapperStyles={{ width: generatePercentage(numerator.rawValue / denominator.rawValue) }}
+                                onMouseMove={showNumeratorTooltip}
+                                onEnter={showNumeratorTooltip}
+                                barStyles={{ width: '100%', backgroundColor: numerator.color }}>
+                                {numeratorHasChildren &&
+                                <div className="nested-obligations">
+                                    {numerator.children.map((child) => renderBarVisualization(child, true))}
+                                </div>
                                 }
-                          </Bar>
+                            </Bar>
                             {isNumerator2Defined && renderBarVisualization(numerator2)}
                         </>
                     )}
-            </Bar>
-          </div>
-        {renderLinesAndLabelsForPosition([denominator, { ...numerator, numeratorValue }, numerator2], 'bottom')}
-      </div>
+                    </Bar>
+                </div>
+            {renderLinesAndLabelsForPosition([denominator, { ...numerator, numeratorValue }, numerator2], 'bottom')}
+        </div>
     );
 };
 

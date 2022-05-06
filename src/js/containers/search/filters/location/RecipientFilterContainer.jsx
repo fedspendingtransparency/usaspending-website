@@ -41,16 +41,16 @@ export class RecipientFilterContainer extends React.Component {
 
     render() {
         return (
-          <div>
-            <LocationPickerContainer
-              enableCitySearch
-              scope="recipient_location"
-              selectedLocations={this.props.selectedLocations}
-              addLocation={this.addLocation} />
-                <SelectedLocations
-                  selectedLocations={this.props.selectedLocations}
-                  removeLocation={this.removeLocation} />
-          </div>
+            <div>
+                <LocationPickerContainer
+                    enableCitySearch
+                    scope="recipient_location"
+                    selectedLocations={this.props.selectedLocations}
+                    addLocation={this.addLocation} />
+                        <SelectedLocations
+                            selectedLocations={this.props.selectedLocations}
+                            removeLocation={this.removeLocation} />
+            </div>
         );
     }
 }

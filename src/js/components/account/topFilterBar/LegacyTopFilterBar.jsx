@@ -53,34 +53,34 @@ export default class LegacyTopFilterBar extends React.Component {
         }
 
         return (
-          <div>
-            <div className="search-top-filter-bar">
-              <div className="search-top-filter-header">
-                <div className="header-title">
-                  {filterBarHeader}
-                </div>
-                  <div className={`search-clear-wrapper ${hideCompressed}`}>
-                    <button
-                      className="search-clear-button"
-                      aria-label="Clear all filters"
-                      title="Clear all filters"
-                      onClick={this.pressedClearAll}>
-                        <span className="button-label">
+            <div>
+                <div className="search-top-filter-bar">
+                    <div className="search-top-filter-header">
+                        <div className="header-title">
+                            {filterBarHeader}
+                        </div>
+                            <div className={`search-clear-wrapper ${hideCompressed}`}>
+                                <button
+                                    className="search-clear-button"
+                                    aria-label="Clear all filters"
+                                    title="Clear all filters"
+                                    onClick={this.pressedClearAll}>
+                                        <span className="button-label">
                                     Clear all filters
-                        </span>
-                          <span className="close-icon">
-                            <Icons.Close alt="Clear all filters" />
-                          </span>
-                    </button>
-                  </div>
-              </div>
-                <div className="search-top-filters">
-                  <div className="search-top-filters-content">
-                    {filters}
-                  </div>
+                                      </span>
+                                        <span className="close-icon">
+                                          <Icons.Close alt="Clear all filters" />
+                                      </span>
+                                </button>
+                            </div>
+                    </div>
+                        <div className="search-top-filters">
+                            <div className="search-top-filters-content">
+                                {filters}
+                            </div>
+                        </div>
                 </div>
             </div>
-          </div>
         );
     }
 }

@@ -55,30 +55,30 @@ const dataType = (type, parent) => {
         }
 
         parentRelation = (
-          <span>
-            {descriptor} <span className="detail-header__type detail-header__type_bold">{parent}</span>
-          </span>
+            <span>
+                {descriptor} <span className="detail-header__type detail-header__type_bold">{parent}</span>
+            </span>
         );
     }
 
     return (
-      <div className="detail-header__type">
-        {singular} <span className="detail-header__type detail-header__type_bold">{type}</span> {parentRelation}
-      </div>
+        <div className="detail-header__type">
+            {singular} <span className="detail-header__type detail-header__type_bold">{type}</span> {parentRelation}
+        </div>
     );
 };
 
 const heading = (type, title, id, link, agencyIds, slugError) => {
     if (type === 'Federal Account') {
         return (
-          <h2 className="detail-header__title">
-            <Link
-              to={`/federal_account/${id}`}
-              className="detail-header__title-link"
-              onClick={exitExplorer.bind(null, `/federal_account/${id}`)}>
-              {title}
-            </Link>
-          </h2>
+            <h2 className="detail-header__title">
+                <Link
+                    to={`/federal_account/${id}`}
+                    className="detail-header__title-link"
+                    onClick={exitExplorer.bind(null, `/federal_account/${id}`)}>
+                    {title}
+                </Link>
+            </h2>
         );
     }
     else if (type === 'Agency') {
@@ -86,28 +86,28 @@ const heading = (type, title, id, link, agencyIds, slugError) => {
         const agencyLink = slugError ? 'agency' : AGENCY_LINK;
 
         let header = (
-          <Link
-            to={`/${agencyLink}/${agencyIdentifier}`}
-            className="detail-header__title-link"
-            onClick={exitExplorer.bind(null, `/${agencyLink}/${agencyIdentifier}`)}>
-            {title}
-          </Link>);
+            <Link
+                to={`/${agencyLink}/${agencyIdentifier}`}
+                className="detail-header__title-link"
+                onClick={exitExplorer.bind(null, `/${agencyLink}/${agencyIdentifier}`)}>
+                {title}
+            </Link>);
         if (title === "Unreported Data" || link === false) {
             header = (
-              <span className="detail-header__title">
-                {title}
-              </span>);
+                <span className="detail-header__title">
+                    {title}
+                </span>);
         }
         return (
-          <h2 className="detail-header__title">
-            {header}
-          </h2>
+            <h2 className="detail-header__title">
+                {header}
+            </h2>
         );
     }
     return (
-      <h2 className="detail-header__title">
-        {title}
-      </h2>
+        <h2 className="detail-header__title">
+            {title}
+        </h2>
     );
 };
 
@@ -119,34 +119,34 @@ const DetailHeader = (props) => {
     let truncationWarning = null;
     if (props.isTruncated) {
         truncationWarning = (
-          <TruncationWarning activeSubdivision={props.activeSubdivision} />
+            <TruncationWarning activeSubdivision={props.activeSubdivision} />
         );
     }
 
     return (
-      <div>
-        <div className="detail-header">
-          <div className="detail-header__labels">
-            <div className="detail-header__subtitle">
+        <div>
+            <div className="detail-header">
+                <div className="detail-header__labels">
+                    <div className="detail-header__subtitle">
                         You&apos;ve chosen
-            </div>
-            {heading(type, props.title, props.id, props.link, agencyIds, slugsError)}
-            {dataType(type, props.parent)}
-          </div>
-            <div className="right-side">
-              <div className="amount-header">
-                        FY {props.fy} obligated amount
-              </div>
-                <div className="amount-value">
-                  {props.isLoading ? '--' : formatTreemapValues(props.total)}
+                    </div>
+                    {heading(type, props.title, props.id, props.link, agencyIds, slugsError)}
+                    {dataType(type, props.parent)}
                 </div>
-                  <div className="update-date">
+                    <div className="right-side">
+                        <div className="amount-header">
+                        FY {props.fy} obligated amount
+                        </div>
+                            <div className="amount-value">
+                                {props.isLoading ? '--' : formatTreemapValues(props.total)}
+                            </div>
+                              <div className="update-date">
                         Data as of {moment(props.lastUpdate, 'YYYY-MM-DD').format('MMMM D, YYYY')}
-                  </div>
+                            </div>
+                    </div>
             </div>
+            {truncationWarning}
         </div>
-        {truncationWarning}
-      </div>
     );
 };
 

@@ -17,9 +17,9 @@ const propTypes = {
 export default class ResultsTableMessage extends React.Component {
     render() {
         return (
-          <div className="results-table-message">
-            {this.props.message}
-          </div>
+            <div className="results-table-message">
+                {this.props.message}
+            </div>
         );
     }
 }

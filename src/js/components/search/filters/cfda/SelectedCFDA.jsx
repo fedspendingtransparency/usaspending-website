@@ -21,18 +21,18 @@ export default class SelectedCFDA extends React.Component {
             const key = entry[1].program_number;
             const cfda = entry[1].program_title;
             const value = (<ShownValue
-              label={OtherFiltersFormatter.formatValue(key, cfda)}
-              key={key}
-              removeValue={this.props.removeCFDA.bind(null, entry[1])} />);
+                label={OtherFiltersFormatter.formatValue(key, cfda)}
+                key={key}
+                removeValue={this.props.removeCFDA.bind(null, entry[1])} />);
             shownCFDA.push(value);
         });
 
         return (
-          <div
-            className="selected-filters"
-            role="status">
-            {shownCFDA}
-          </div>
+            <div
+                className="selected-filters"
+                role="status">
+                {shownCFDA}
+            </div>
         );
     }
 }

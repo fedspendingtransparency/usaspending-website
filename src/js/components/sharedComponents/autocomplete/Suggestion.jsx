@@ -36,17 +36,17 @@ export default class Suggestion extends React.Component {
         return (
         // We need to set aria-selected to use the arrow keys to select elements
         /* eslint-disable jsx-a11y/role-supports-aria-props */
-          <li
-            id={this.props.id}
-            tabIndex={-1}
-            aria-selected={this.props.selected}
-            role="option"
-            ref={(s) => {
+            <li
+                id={this.props.id}
+                tabIndex={-1}
+                aria-selected={this.props.selected}
+                role="option"
+                ref={(s) => {
                     this.suggestion = s;
                 }}>
-                  <strong>{this.props.title}</strong><br />
-            {this.props.subtitle}
-          </li>
+                    <strong>{this.props.title}</strong><br />
+                {this.props.subtitle}
+            </li>
         /* eslint-enable jsx-a11y/role-supports-aria-props */
         );
     }

@@ -68,22 +68,22 @@ export default class BarTrendlineItem extends React.Component {
             hoverClass = ' hover';
         }
         return (
-          <g aria-label={this.props.description}>
-            <desc>{this.props.description}</desc>
-              <rect
-                className={`bar-item${hoverClass}`}
-                x={this.props.x}
-                y={this.props.y}
-                width={this.props.width}
-                height={this.props.height}
-                fill={this.props.color}
-                tabIndex={-1}
-                onFocus={this.mouseEntered}
-                onBlur={this.mouseExited}
-                onMouseEnter={this.mouseEntered}
-                onMouseOut={this.mouseExited}
-                onTouchStart={this.touchedBar} />
-          </g>
+            <g aria-label={this.props.description}>
+                <desc>{this.props.description}</desc>
+                    <rect
+                        className={`bar-item${hoverClass}`}
+                        x={this.props.x}
+                        y={this.props.y}
+                        width={this.props.width}
+                        height={this.props.height}
+                        fill={this.props.color}
+                        tabIndex={-1}
+                        onFocus={this.mouseEntered}
+                        onBlur={this.mouseExited}
+                        onMouseEnter={this.mouseEntered}
+                        onMouseOut={this.mouseExited}
+                        onTouchStart={this.touchedBar} />
+            </g>
         );
     }
 }

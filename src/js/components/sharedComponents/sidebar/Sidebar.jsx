@@ -217,27 +217,27 @@ const Sidebar = ({
 
     const buildItems = (section) => {
         let link = (
-          <SidebarLink
-            section={section.section}
-            label={section.label}
-            overLine={section.overLine}
-            active={activeSection}
-            onClick={jumpToSectionWrapper} />
+            <SidebarLink
+                section={section.section}
+                label={section.label}
+                overLine={section.overLine}
+                active={activeSection}
+                onClick={jumpToSectionWrapper} />
         );
         if (section.url) {
             const activeClass = activeSection === section.section ? 'active' : '';
             link = (
-              <Link
-                className={`sidebar-link ${activeClass}`}
-                to={section.url}>
-                {section.label}
-              </Link>
+                <Link
+                    className={`sidebar-link ${activeClass}`}
+                    to={section.url}>
+                    {section.label}
+                </Link>
             );
         }
         return (
-          <li key={section.section}>
-            {link}
-          </li>
+            <li key={section.section}>
+                {link}
+            </li>
         );
     };
 
@@ -246,24 +246,24 @@ const Sidebar = ({
         : '';
 
     return (
-      <div ref={outerReferenceDiv}>
-        <div className={`${pageName}-sidebar-reference ${floatSidebar}`} ref={referenceDiv}>
+        <div ref={outerReferenceDiv}>
+            <div className={`${pageName}-sidebar-reference ${floatSidebar}`} ref={referenceDiv}>
               &nbsp;
-        </div>
-          <div ref={div} className={`${pageName}-sidebar-content ${floatSidebar}`} style={{ width: sidebarWidth }}>
-            <div className={`${pageName}-sidebar-content-background`}>
-              {fyPicker && (
-              <FYPicker
-                selectedFy={selectedFy}
-                pickedYear={pickedYear} />
-                    )}
-                      <ul>
-                        {sections.map(buildItems)}
-                      </ul>
             </div>
-            {children}
-          </div>
-      </div>
+                <div ref={div} className={`${pageName}-sidebar-content ${floatSidebar}`} style={{ width: sidebarWidth }}>
+                    <div className={`${pageName}-sidebar-content-background`}>
+                        {fyPicker && (
+                        <FYPicker
+                            selectedFy={selectedFy}
+                            pickedYear={pickedYear} />
+                    )}
+                        <ul>
+                            {sections.map(buildItems)}
+                        </ul>
+                    </div>
+                    {children}
+                </div>
+        </div>
     );
 };
 

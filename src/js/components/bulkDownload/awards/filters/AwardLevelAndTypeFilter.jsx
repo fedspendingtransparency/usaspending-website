@@ -23,16 +23,16 @@ const AwardLevelAndTypeFilter = (props) => {
     );
 
     let icon = (
-      <div className="icon valid">
-        <CheckCircle />
-      </div>
+        <div className="icon valid">
+            <CheckCircle />
+        </div>
     );
 
     if (!isValid) {
         icon = (
-          <div className="icon invalid">
-            <ExclamationCircle />
-          </div>
+            <div className="icon invalid">
+                <ExclamationCircle />
+            </div>
         );
     }
 
@@ -41,30 +41,30 @@ const AwardLevelAndTypeFilter = (props) => {
             const selectedAwardTypes = props.currentAwardTypes[type.lookupName];
 
             return (<PrimaryCheckboxType
-              {...type}
-              {...props}
-              key={index}
-              types={props.awardTypeLabels}
-              filterType="BulkDownload"
-              isCollapsable={false}
-              arrowState="expanded"
-              selectedCheckboxes={selectedAwardTypes}
-              bulkTypeChange={props.bulkAwardTypeChange}
-              toggleCheckboxType={props.toggleAwardTypeChange} />);
+                {...type}
+                {...props}
+                key={index}
+                types={props.awardTypeLabels}
+                filterType="BulkDownload"
+                isCollapsable={false}
+                arrowState="expanded"
+                selectedCheckboxes={selectedAwardTypes}
+                bulkTypeChange={props.bulkAwardTypeChange}
+                toggleCheckboxType={props.toggleAwardTypeChange} />);
         });
     return (
-      <div className="download-filter">
-        <h3 className="download-filter__title">
-          {icon} Select the <span className="download-filter__title_em">award types</span> to include.
-        </h3>
-          <div className="checkbox-type-filter">
-            <div className="filter-item-wrap">
-              <ul className="download-filter__unordered-list">
-                {awardLevelCheckboxes}
-              </ul>
-            </div>
-          </div>
-      </div>
+        <div className="download-filter">
+            <h3 className="download-filter__title">
+                {icon} Select the <span className="download-filter__title_em">award types</span> to include.
+            </h3>
+                <div className="checkbox-type-filter">
+                    <div className="filter-item-wrap">
+                        <ul className="download-filter__unordered-list">
+                            {awardLevelCheckboxes}
+                        </ul>
+                    </div>
+                </div>
+        </div>
     );
 };
 

@@ -29,23 +29,23 @@ const DrilldownSidebar = ({
     const goBack = () => setLevel(level - 1);
     return (
         <>
-          <DrilldownSidebarLevel
-            active={level === 0}
-            name={agencyName}
-            label="Parent Agency"
-            obligated={agencyObligatedShort}
-            budgetaryResources={agencyBudgetShort} />
-          {levels.map((dataType, i) => ((i < level) ? (
             <DrilldownSidebarLevel
-              key={dataType}
-              active={level === i + 1}
-              name={selectedSubcomponent?.name}
-              label={dataType}
-              obligated={selectedSubcomponent?._obligations}
-              budgetaryResources={selectedSubcomponent?._budgetaryResources}
-              goBack={goBack} />
-          ) : '')
-          )}
+                active={level === 0}
+                name={agencyName}
+                label="Parent Agency"
+                obligated={agencyObligatedShort}
+                budgetaryResources={agencyBudgetShort} />
+            {levels.map((dataType, i) => ((i < level) ? (
+                <DrilldownSidebarLevel
+                    key={dataType}
+                    active={level === i + 1}
+                    name={selectedSubcomponent?.name}
+                    label={dataType}
+                    obligated={selectedSubcomponent?._obligations}
+                    budgetaryResources={selectedSubcomponent?._budgetaryResources}
+                    goBack={goBack} />
+            ) : '')
+            )}
         </>
     );
 };

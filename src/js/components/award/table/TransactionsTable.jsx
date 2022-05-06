@@ -74,13 +74,13 @@ export default class TransactionsTable extends React.Component {
         const isLast = columnIndex === tableMapping.table._order.length - 1;
 
         return (
-          <TransactionTableHeaderCell
-            column={column}
-            label={displayName}
-            order={this.props.sort}
-            defaultDirection={tableMapping.defaultSortDirection[column]}
-            setTransactionSort={this.props.changeSort}
-            isLastColumn={isLast} />
+            <TransactionTableHeaderCell
+                column={column}
+                label={displayName}
+                order={this.props.sort}
+                defaultDirection={tableMapping.defaultSortDirection[column]}
+                setTransactionSort={this.props.changeSort}
+                isLastColumn={isLast} />
         );
     }
 
@@ -92,10 +92,10 @@ export default class TransactionsTable extends React.Component {
         const isLast = columnIndex === tableMapping.table._order.length - 1;
 
         return (
-          <TransactionTableGenericCell
-            rowIndex={rowIndex}
-            data={item[column]}
-            isLastColumn={isLast} />
+            <TransactionTableGenericCell
+                rowIndex={rowIndex}
+                data={item[column]}
+                isLastColumn={isLast} />
         );
     }
 
@@ -150,27 +150,27 @@ export default class TransactionsTable extends React.Component {
         }
 
         return (
-          <div
-            className={`transactions-table ${loadingClass}`}
-            ref={(div) => {
+            <div
+                className={`transactions-table ${loadingClass}`}
+                ref={(div) => {
                     this.wrapperDiv = div;
                 }}>
-                  <IBTable
-                    rowHeight={rowHeight}
-                    rowCount={this.props.transactions.length}
-                    headerHeight={50}
-                    contentWidth={tableValues.width}
-                    bodyWidth={this.props.tableWidth}
-                    bodyHeight={tableHeight}
-                    columns={tableValues.columns}
-                    onReachedBottom={this.props.nextTransactionPage}
-                    headerCellRender={this.headerCellRender}
-                    bodyCellRender={this.bodyCellRender}
-                    ref={(table) => {
+                    <IBTable
+                        rowHeight={rowHeight}
+                        rowCount={this.props.transactions.length}
+                        headerHeight={50}
+                        contentWidth={tableValues.width}
+                        bodyWidth={this.props.tableWidth}
+                        bodyHeight={tableHeight}
+                        columns={tableValues.columns}
+                        onReachedBottom={this.props.nextTransactionPage}
+                        headerCellRender={this.headerCellRender}
+                        bodyCellRender={this.bodyCellRender}
+                        ref={(table) => {
                         this.tableComponent = table;
                     }} />
-                      <div className="results-table-message-container">{message}</div>
-          </div>
+                        <div className="results-table-message-container">{message}</div>
+            </div>
         );
     }
 }

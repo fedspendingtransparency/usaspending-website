@@ -327,20 +327,20 @@ export default class ResultsTableContainer extends React.Component {
     render() {
         const tableType = this.state.tableType;
         return (
-          <ResultsTableSection
-            error={this.state.error}
-            keyword={this.props.keyword}
-            inFlight={this.state.inFlight}
-            results={this.state.results}
-            columns={this.state.columns[tableType]}
-            counts={this.state.counts}
-            sort={this.state.sort}
-            tableTypes={tableTypes}
-            currentType={tableType}
-            tableInstance={this.state.tableInstance}
-            switchTab={this.switchTab}
-            updateSort={this.updateSort}
-            loadNextPage={this.loadNextPage} />
+            <ResultsTableSection
+                error={this.state.error}
+                keyword={this.props.keyword}
+                inFlight={this.state.inFlight}
+                results={this.state.results}
+                columns={this.state.columns[tableType]}
+                counts={this.state.counts}
+                sort={this.state.sort}
+                tableTypes={tableTypes}
+                currentType={tableType}
+                tableInstance={this.state.tableInstance}
+                switchTab={this.switchTab}
+                updateSort={this.updateSort}
+                loadNextPage={this.loadNextPage} />
         );
     }
 }

@@ -34,23 +34,23 @@ const ExplorerWrapperPage = (props) => {
     };
 
     return (
-      <PageWrapper
-        pageName="Spending Explorer"
-        classNames="usa-da-explorer-page"
-        title="Spending Explorer"
-        metaTagProps={explorerPageMetaTags}
-        toolBarComponents={[
-          <ShareIcon
-            onShareOptionClick={handleShare}
-            url={getBaseUrl(slug)} />
+        <PageWrapper
+            pageName="Spending Explorer"
+            classNames="usa-da-explorer-page"
+            title="Spending Explorer"
+            metaTagProps={explorerPageMetaTags}
+            toolBarComponents={[
+                <ShareIcon
+                    onShareOptionClick={handleShare}
+                    url={getBaseUrl(slug)} />
             ]
                 .filter(() => props.showShareIcon)}>
-                  <main
-                    id="main-content"
-                    className="main-content">
-                    {props.children}
-                  </main>
-      </PageWrapper>
+                    <main
+                        id="main-content"
+                        className="main-content">
+                        {props.children}
+                    </main>
+        </PageWrapper>
     );
 };
 

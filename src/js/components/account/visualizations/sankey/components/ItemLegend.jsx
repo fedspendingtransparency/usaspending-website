@@ -29,23 +29,23 @@ export default class ItemLegend extends React.Component {
         }
 
         return (
-          <g
-            className="item-label"
-            transform={`translate(${this.props.x},${this.props.y})`}>
-              <circle r="5" fill={this.props.color} />
-                <text
-                  className="title"
-                  x={20}
-                  y={0}>
-                  {this.props.title}
-                </text>
-                  <text
-                    className="value"
-                    x={20}
-                    y={16}>
-                    {this.props.value}
-                  </text>
-          </g>
+            <g
+                className="item-label"
+                transform={`translate(${this.props.x},${this.props.y})`}>
+                    <circle r="5" fill={this.props.color} />
+                        <text
+                            className="title"
+                            x={20}
+                            y={0}>
+                            {this.props.title}
+                        </text>
+                            <text
+                                className="value"
+                                x={20}
+                                y={16}>
+                                {this.props.value}
+                            </text>
+            </g>
         );
     }
 }

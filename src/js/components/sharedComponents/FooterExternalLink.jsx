@@ -21,15 +21,15 @@ const clickedFooterLink = (route) => {
 };
 
 const FooterExternalLink = (props) => (
-  <a
-    href={props.link}
-    target="_blank"
-    rel="noopener noreferrer"
-    title={props.title}
-    aria-label={props.title}
-    onClick={clickedFooterLink.bind(null, props.link)}>
-    {props.title}
-  </a>
+    <a
+        href={props.link}
+        target="_blank"
+        rel="noopener noreferrer"
+        title={props.title}
+        aria-label={props.title}
+        onClick={clickedFooterLink.bind(null, props.link)}>
+        {props.title}
+    </a>
 );
 
 FooterExternalLink.propTypes = propTypes;

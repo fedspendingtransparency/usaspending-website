@@ -26,18 +26,18 @@ const overviewData = [
     {
         type: 'awardObligations',
         title: (
-          <div>
-            <span className="glossary-term">Award Obligations</span> <GlossaryLink term="obligation" />
-          </div>
+            <div>
+                <span className="glossary-term">Award Obligations</span> <GlossaryLink term="obligation" />
+            </div>
         ),
         isMonetary: true
     },
     {
         type: 'awardOutlays',
         title: (
-          <div>
-            <span className="glossary-term">Award Outlays</span> <GlossaryLink term="outlay" />
-          </div>
+            <div>
+                <span className="glossary-term">Award Outlays</span> <GlossaryLink term="outlay" />
+            </div>
         ),
         isMonetary: true
     },
@@ -115,26 +115,26 @@ const SpendingByRecipientContainer = () => {
     }, [tabCounts, setInFlight]);
 
     return (
-      <div className="spending-by-recipient">
-        <div ref={awardFilterButtonsRef}>
-          <Tabs
-            active={activeTab}
-            types={awardTypeTabs.map((tab) => ({ ...tab, disabled: tabCounts && tab.internal !== 'all' && !tabCounts[tab.internal], count: tabCounts[tab.internal] }))}
-            switchTab={changeActiveTab}
-            tablessStyle />
-        </div>
-          <SummaryInsightsContainer
+        <div className="spending-by-recipient">
+            <div ref={awardFilterButtonsRef}>
+                <Tabs
+                    active={activeTab}
+                    types={awardTypeTabs.map((tab) => ({ ...tab, disabled: tabCounts && tab.internal !== 'all' && !tabCounts[tab.internal], count: tabCounts[tab.internal] }))}
+                    switchTab={changeActiveTab}
+                    tablessStyle />
+            </div>
+                <SummaryInsightsContainer
                 // pass Recipient count to the summary section so we don't have to make the same API request again
-            resultsCount={tabCounts[activeTab]}
-            activeTab={activeTab}
-            areCountsLoading={inFlight}
-            overviewData={overviewData}
-            recipientOnly />
-              <RecipientTableContainer
-                activeTab={activeTab}
-                prevActiveTab={prevActiveTab}
-                scrollIntoView={scrollIntoViewTable} />
-      </div>
+                    resultsCount={tabCounts[activeTab]}
+                    activeTab={activeTab}
+                    areCountsLoading={inFlight}
+                    overviewData={overviewData}
+                    recipientOnly />
+                        <RecipientTableContainer
+                            activeTab={activeTab}
+                            prevActiveTab={prevActiveTab}
+                            scrollIntoView={scrollIntoViewTable} />
+        </div>
     );
 };
 

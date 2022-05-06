@@ -123,10 +123,10 @@ export default class AwardTypeFilterGroup extends React.Component {
         const tags = this.generateTags();
 
         return (<BaseTopFilterGroup
-          tags={tags}
-          filter={this.props.filter}
-          clearFilterGroup={this.clearGroup}
-          compressed={this.props.compressed} />);
+            tags={tags}
+            filter={this.props.filter}
+            clearFilterGroup={this.clearGroup}
+            compressed={this.props.compressed} />);
     }
 }
 

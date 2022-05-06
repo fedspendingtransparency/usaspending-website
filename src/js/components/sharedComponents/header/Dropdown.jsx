@@ -46,39 +46,39 @@ const Dropdown = ({
     const containsNewNavItem = items.some(({ isNewTab }) => isNewTab);
 
     return (
-      <div
-        className="nav-dropdown"
-        onMouseEnter={expandMenu}
-        onMouseLeave={collapseMenu}>
-          <button
-            className={`nav-dropdown__parent ${activeParent}`}
-            title={title}
-            onClick={clickedButton}
-            aria-expanded={expanded}>
-              <div className="nav-dropdown__parent-label">
-                {containsNewNavItem &&
-                <div className="new-badge-outer">
-                  <div className="new-badge-middle">
-                    <div className="new-badge-inner" />
-                  </div>
-                </div>}
-                {label}
-              </div>
-                <div className="nav-dropdown__parent-icon">
-                  <AngleDown alt={iconAlt} />
-                </div>
-          </button>
-            <div className={`nav-children ${activeChildren}`}>
-              <ul className={`nav-children__list ${label.toLowerCase()}`}>
-                {items.map((item, index) => (
-                  <DropdownItem
-                    {...item}
-                    key={item.url}
-                    isFirst={index === 0} />
+        <div
+            className="nav-dropdown"
+            onMouseEnter={expandMenu}
+            onMouseLeave={collapseMenu}>
+                <button
+                    className={`nav-dropdown__parent ${activeParent}`}
+                    title={title}
+                    onClick={clickedButton}
+                    aria-expanded={expanded}>
+                        <div className="nav-dropdown__parent-label">
+                            {containsNewNavItem &&
+                            <div className="new-badge-outer">
+                                <div className="new-badge-middle">
+                                    <div className="new-badge-inner" />
+                                </div>
+                            </div>}
+                            {label}
+                        </div>
+                            <div className="nav-dropdown__parent-icon">
+                                <AngleDown alt={iconAlt} />
+                            </div>
+                </button>
+                    <div className={`nav-children ${activeChildren}`}>
+                        <ul className={`nav-children__list ${label.toLowerCase()}`}>
+                            {items.map((item, index) => (
+                                <DropdownItem
+                                    {...item}
+                                    key={item.url}
+                                    isFirst={index === 0} />
                     ))}
-              </ul>
-            </div>
-      </div>
+                        </ul>
+                    </div>
+        </div>
     );
 };
 

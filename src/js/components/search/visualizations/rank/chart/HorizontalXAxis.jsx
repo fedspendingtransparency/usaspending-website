@@ -74,12 +74,12 @@ export default class HorizontalXAxis extends React.Component {
             }
 
             const label = (<HorizontalXLabel
-              key={`x-label-${tick}`}
-              x={props.xScale(tick)}
-              y={0}
-              height={props.height}
-              alignment={alignment}
-              label={formattedValue} />);
+                key={`x-label-${tick}`}
+                x={props.xScale(tick)}
+                y={0}
+                height={props.height}
+                alignment={alignment}
+                label={formattedValue} />);
 
             labels.push(label);
         });
@@ -91,23 +91,23 @@ export default class HorizontalXAxis extends React.Component {
 
     render() {
         return (
-          <g
-            className="bar-axis"
-            transform={`translate(${this.props.x},${this.props.y})`}>
-              <title>X-Axis</title>
-                <desc>
-                  {`A horizontal axis depicting a range of monetary values from ${MoneyFormatter.formatMoney(this.props.range[0])} to ${MoneyFormatter.formatMoney(this.props.range[1])}.`}
-                </desc>
-                  <line
-                    className="x-axis"
-                    x1={0}
-                    x2={this.props.width}
-                    y1={0}
-                    y2={0} />
-                      <g className="axis-labels">
-                        {this.state.labels}
-                      </g>
-          </g>
+            <g
+                className="bar-axis"
+                transform={`translate(${this.props.x},${this.props.y})`}>
+                    <title>X-Axis</title>
+                        <desc>
+                            {`A horizontal axis depicting a range of monetary values from ${MoneyFormatter.formatMoney(this.props.range[0])} to ${MoneyFormatter.formatMoney(this.props.range[1])}.`}
+                        </desc>
+                            <line
+                                className="x-axis"
+                                x1={0}
+                                x2={this.props.width}
+                                y1={0}
+                                y2={0} />
+                                    <g className="axis-labels">
+                                        {this.state.labels}
+                                    </g>
+            </g>
         );
     }
 }

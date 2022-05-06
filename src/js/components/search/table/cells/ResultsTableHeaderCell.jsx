@@ -66,43 +66,43 @@ const TableHeaderCell = (props) => {
     /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
     // allow keyboard selection of the header cell
     return (
-      <div className={`award-result-header-cell ${lastClass}`}>
-        <div
-          className="cell-content"
-          style={customStyle}>
-            <div className="header-sort">
-              <div
-                onClick={clickedDefault}
-                onKeyDown={pressedKey}
-                className="header-label"
-                role="presentation"
-                aria-label={props.title}
-                tabIndex={0}>
-                {props.displayName}{props.subtitle ? (<div>{props.subtitle}</div>) : ''}
-              </div>
-                <div className="header-icons">
-                  <button
-                    onClick={clickedSort}
-                    className={`sort-icon${sortClass('asc')}`}
-                    value="asc"
-                    title={`Sort table by ascending ${props.title}`}
-                    aria-label={`Sort table by ascending ${props.title}`}>
-                      <ArrowUp
-                        alt={`Sort table by ascending ${props.title}`} />
-                  </button>
-                    <button
-                      onClick={clickedSort}
-                      className={`sort-icon${sortClass('desc')}`}
-                      value="desc"
-                      title={`Sort table by descending ${props.title}`}
-                      aria-label={`Sort table by descending ${props.title}`}>
-                        <ArrowDown
-                          alt={`Sort table by descending ${props.title}`} />
-                    </button>
-                </div>
+        <div className={`award-result-header-cell ${lastClass}`}>
+            <div
+                className="cell-content"
+                style={customStyle}>
+                    <div className="header-sort">
+                        <div
+                            onClick={clickedDefault}
+                            onKeyDown={pressedKey}
+                            className="header-label"
+                            role="presentation"
+                            aria-label={props.title}
+                            tabIndex={0}>
+                            {props.displayName}{props.subtitle ? (<div>{props.subtitle}</div>) : ''}
+                        </div>
+                            <div className="header-icons">
+                                <button
+                                    onClick={clickedSort}
+                                    className={`sort-icon${sortClass('asc')}`}
+                                    value="asc"
+                                    title={`Sort table by ascending ${props.title}`}
+                                    aria-label={`Sort table by ascending ${props.title}`}>
+                                      <ArrowUp
+                                        alt={`Sort table by ascending ${props.title}`} />
+                                </button>
+                                  <button
+                                    onClick={clickedSort}
+                                    className={`sort-icon${sortClass('desc')}`}
+                                    value="desc"
+                                    title={`Sort table by descending ${props.title}`}
+                                    aria-label={`Sort table by descending ${props.title}`}>
+                                      <ArrowDown
+                                        alt={`Sort table by descending ${props.title}`} />
+                                </button>
+                            </div>
+                    </div>
             </div>
         </div>
-      </div>
     );
     /* eslint-enable jsx-a11y/no-noninteractive-tabindex */
 };

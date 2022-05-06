@@ -39,17 +39,17 @@ const SearchSummary = ({
     }
 
     return (
-      <div className="keyword-header__summary">
-        <p className="keyword-header__summary-title">
+        <div className="keyword-header__summary">
+            <p className="keyword-header__summary-title">
                 Search Summary
-        </p>
-          <p className="keyword-header__summary-amount">
-                Total Prime Award Amount: <span className="keyword-header__summary-amount keyword-header__summary-amount_bold">{formattedPrimeAmount}</span>
-          </p>
-            <p className="keyword-header__summary-amount">
-                Prime Award Transaction Count: <span className="keyword-header__summary-amount keyword-header__summary-amount_bold">{formattedPrimeCount}</span>
             </p>
-      </div>
+                <p className="keyword-header__summary-amount">
+                Total Prime Award Amount: <span className="keyword-header__summary-amount keyword-header__summary-amount_bold">{formattedPrimeAmount}</span>
+                </p>
+                    <p className="keyword-header__summary-amount">
+                Prime Award Transaction Count: <span className="keyword-header__summary-amount keyword-header__summary-amount_bold">{formattedPrimeCount}</span>
+                    </p>
+        </div>
     );
 };
 

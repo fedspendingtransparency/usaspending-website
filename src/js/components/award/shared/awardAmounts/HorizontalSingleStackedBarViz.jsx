@@ -405,7 +405,7 @@ const HorizontalSingleStackedBarViz = ({
         else {
             renderBarChart();
         }
-    }, [windowWidth, propsArr]);
+    }, [windowWidth, propsArr, numerator.className, potentialAmountValue, potentialAmountLabel, outlayedAmountValue, outlayedAmountLabel, isNffZero, obligatedAmountValue, obligatedAmountLabel, currentAmountValue, currentAmountLabel]);
 
     useEffect(() => {
         const handleResize = throttle(() => {
@@ -417,9 +417,9 @@ const HorizontalSingleStackedBarViz = ({
     }, []);
 
     return (
-      <div className="award-amounts-viz">
-        <div id="aa_chart" className="award-amounts-viz-outlays" ref={chartRef} />
-      </div>
+        <div className="award-amounts-viz">
+            <div id="aa_chart" className="award-amounts-viz-outlays" ref={chartRef} />
+        </div>
     );
 };
 

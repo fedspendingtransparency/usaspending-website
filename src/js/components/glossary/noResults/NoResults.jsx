@@ -21,15 +21,15 @@ export default class NoResults extends React.Component {
         }
 
         return (
-          <div className={`glossary-no-results ${loading}`}>
-            <h2 className="title">
+            <div className={`glossary-no-results ${loading}`}>
+                <h2 className="title">
                     No Results Found
-            </h2>
+                </h2>
 
-              <div className="no-results-content">
-                <p>No results found for &quot;{this.props.glossary.search.input}.&quot;</p>
-              </div>
-          </div>
+                    <div className="no-results-content">
+                        <p>No results found for &quot;{this.props.glossary.search.input}.&quot;</p>
+                    </div>
+            </div>
         );
     }
 }

@@ -108,60 +108,60 @@ const FySummary = ({
 
     const sections = [
         (
-          <VisualizationSection
-            subtitle={isMobile ? 'How much can this agency spend?' : (<>How much can<br />this agency spend?</>)}
-            data={totalBudgetaryResources}
-            secondaryData={`${percentOfFederalBudget} of the FY ${fy} U.S. federal budget`}
-            label="Total Budgetary Resources Over Time">
-              <BarChart
-                isLoading={isLoading}
-                isError={isError}
-                selectedFy={fy}
-                agencyBudgetByYear={Object
+            <VisualizationSection
+                subtitle={isMobile ? 'How much can this agency spend?' : (<>How much can<br />this agency spend?</>)}
+                data={totalBudgetaryResources}
+                secondaryData={`${percentOfFederalBudget} of the FY ${fy} U.S. federal budget`}
+                label="Total Budgetary Resources Over Time">
+                    <BarChart
+                        isLoading={isLoading}
+                        isError={isError}
+                        selectedFy={fy}
+                        agencyBudgetByYear={Object
                         .entries(budgetaryResources)
                         .map(([key, value]) => ({ year: key, budget: value._agencyBudget }))} />
-          </VisualizationSection>
+            </VisualizationSection>
         ),
         (
-          <VisualizationSection
-            subtitle={isMobile ? 'How much has this agency spent in total?' : (<>How much has this agency<br />spent in total?</>)}
-            data={totalObligations}
-            secondaryData={`${percentOfBudgetaryResources} of total budgetary resources`}
-            label="Total Obligations Over Time" >
-              <TotalObligationsOverTimeContainer
-                isLoading={isLoading}
-                isError={isError}
-                agencyBudget={budgetaryResources[fy]?._agencyBudget}
-                obligationsByPeriod={budgetaryResources[fy]?.obligationsByPeriod || []} />
-          </VisualizationSection>
+            <VisualizationSection
+                subtitle={isMobile ? 'How much has this agency spent in total?' : (<>How much has this agency<br />spent in total?</>)}
+                data={totalObligations}
+                secondaryData={`${percentOfBudgetaryResources} of total budgetary resources`}
+                label="Total Obligations Over Time" >
+                    <TotalObligationsOverTimeContainer
+                        isLoading={isLoading}
+                        isError={isError}
+                        agencyBudget={budgetaryResources[fy]?._agencyBudget}
+                        obligationsByPeriod={budgetaryResources[fy]?.obligationsByPeriod || []} />
+            </VisualizationSection>
         ),
         (
-          <VisualizationSection
-            subtitle={isMobile ? 'How much has this agency spent on awards?' : (<>How much has this agency<br />spent on awards?</>)}
-            data={awardObligations}
-            secondaryData={`${percentOfTotalObligations} of total obligations`}
-            label="Award Obligations by Type" >
-              <ObligationsByAwardTypeContainer fiscalYear={+fy} windowWidth={windowWidth} isMobile={isMobile} />
-          </VisualizationSection>
+            <VisualizationSection
+                subtitle={isMobile ? 'How much has this agency spent on awards?' : (<>How much has this agency<br />spent on awards?</>)}
+                data={awardObligations}
+                secondaryData={`${percentOfTotalObligations} of total obligations`}
+                label="Award Obligations by Type" >
+                    <ObligationsByAwardTypeContainer fiscalYear={+fy} windowWidth={windowWidth} isMobile={isMobile} />
+            </VisualizationSection>
         )
     ];
 
     return (
-      <div className="fy-summary">
-        <h4 className="fy-summary__heading">FY {fy} Summary</h4>
-          <hr />
-        {dataThroughNote ? <div className="section__date-note">{dataThroughNote}</div> : null}
-        {isMobile ? <Carousel items={sections} />
+        <div className="fy-summary">
+            <h4 className="fy-summary__heading">FY {fy} Summary</h4>
+                <hr />
+            {dataThroughNote ? <div className="section__date-note">{dataThroughNote}</div> : null}
+            {isMobile ? <Carousel items={sections} />
                 : (
-                  <FlexGridRow hasGutter className="fy-summary__row">
-                    {sections.map((viz, i) => (
-                      <FlexGridCol tablet={6} className="fy-summary__col" key={`FY-Summary-${i}`}>
-                        {viz}
-                      </FlexGridCol>
+                    <FlexGridRow hasGutter className="fy-summary__row">
+                        {sections.map((viz, i) => (
+                            <FlexGridCol tablet={6} className="fy-summary__col" key={`FY-Summary-${i}`}>
+                                {viz}
+                            </FlexGridCol>
                         ))}
-                  </FlexGridRow>
+                    </FlexGridRow>
                 )}
-      </div>
+        </div>
     );
 };
 

@@ -76,11 +76,11 @@ const ReportingDifferencesContainer = ({ agencyData }) => {
         else {
             setPage(1);
         }
-    }, [sort, order, limit]);
+    }, [sort, order, limit, page, reportingDifferenceRequest]);
     // on page change fetch new data
     useEffect(() => {
         reportingDifferenceRequest();
-    }, [page]);
+    }, [page, reportingDifferenceRequest]);
     const columns = reportingDifferencesColumns.map((column, i) => ({
         displayName: column.displayName,
         title: column.title,
@@ -88,22 +88,22 @@ const ReportingDifferencesContainer = ({ agencyData }) => {
     }));
     return (
         <>
-          <Table
-            loading={loading}
-            error={error.error}
-            message={error.message}
-            rows={rows}
-            columns={columns}
-            currentSort={{ field: sort, direction: order }}
-            updateSort={updateSort} />
-              <Pagination
-                currentPage={page}
-                changePage={setPage}
-                changeLimit={setLimit}
-                limitSelector
-                resultsText
-                pageSize={limit}
-                totalItems={total} />
+            <Table
+                loading={loading}
+                error={error.error}
+                message={error.message}
+                rows={rows}
+                columns={columns}
+                currentSort={{ field: sort, direction: order }}
+                updateSort={updateSort} />
+                    <Pagination
+                        currentPage={page}
+                        changePage={setPage}
+                        changeLimit={setLimit}
+                        limitSelector
+                        resultsText
+                        pageSize={limit}
+                        totalItems={total} />
         </>
     );
 };

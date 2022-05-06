@@ -55,53 +55,53 @@ export default class SidebarButton extends React.Component {
         }
 
         let button = (
-          <Link
-            to={this.props.url}>
-            {this.props.label}
-          </Link>
+            <Link
+                to={this.props.url}>
+                {this.props.label}
+            </Link>
         );
         if (this.props.disabled) {
             button = (
-              <div>
-                <div className="sidebar-link-disabled">
-                  {this.props.label}
-                </div>
-                  <div className="coming-soon">
-                    <div className="coming-soon__icon">
-                      <ExclamationCircle alt="Coming soon" />
+                <div>
+                    <div className="sidebar-link-disabled">
+                        {this.props.label}
                     </div>
-                      <div className="coming-soon__label">
+                        <div className="coming-soon">
+                            <div className="coming-soon__icon">
+                                <ExclamationCircle alt="Coming soon" />
+                            </div>
+                                <div className="coming-soon__label">
                             Coming Soon
-                      </div>
-                  </div>
-              </div>
+                                </div>
+                        </div>
+                </div>
             );
         }
         else if (this.props.url && this.props.shouldOpenNewTab && (!this.props.externalLink || this.props.internalDomain)) {
             button = (
-              <a
-                href={this.props.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={this.logExternalLink}>
-                {this.props.label}
-              </a>
+                <a
+                    href={this.props.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    onClick={this.logExternalLink}>
+                    {this.props.label}
+                </a>
             );
         }
         else if (this.props.url && this.props.externalLink) {
             button = (
-              <button
-                onClick={this.redirect}>
-                {this.props.label}
-              </button>
+                <button
+                    onClick={this.redirect}>
+                    {this.props.label}
+                </button>
             );
         }
 
         return (
-          <div
-            className={`sidebar-link ${active} ${disabled}`}>
-            {button}
-          </div>
+            <div
+                className={`sidebar-link ${active} ${disabled}`}>
+                {button}
+            </div>
         );
     }
 }

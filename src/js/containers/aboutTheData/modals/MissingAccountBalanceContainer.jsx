@@ -79,11 +79,11 @@ const MissingAccountBalanceContainer = ({
         else {
             setPage(1);
         }
-    }, [sort, order, limit]);
+    }, [sort, order, limit, page, missingAccountBalancesRequest]);
     // on page change fetch new data
     useEffect(() => {
         missingAccountBalancesRequest();
-    }, [page]);
+    }, [missingAccountBalancesRequest, page]);
     // do not show deadlines in column headers if we do not have the data
     const columns = missingAccountBalanceColumns.map((column, i) => ({
         displayName: column.displayName,
@@ -93,22 +93,22 @@ const MissingAccountBalanceContainer = ({
 
     return (
         <>
-          <Table
-            loading={loading}
-            error={error.error}
-            message={error.message}
-            rows={rows}
-            columns={columns}
-            currentSort={{ field: sort, direction: order }}
-            updateSort={updateSort} />
-              <Pagination
-                currentPage={page}
-                changePage={setPage}
-                changeLimit={setLimit}
-                limitSelector
-                resultsText
-                pageSize={limit}
-                totalItems={total} />
+            <Table
+                loading={loading}
+                error={error.error}
+                message={error.message}
+                rows={rows}
+                columns={columns}
+                currentSort={{ field: sort, direction: order }}
+                updateSort={updateSort} />
+                    <Pagination
+                        currentPage={page}
+                        changePage={setPage}
+                        changeLimit={setLimit}
+                        limitSelector
+                        resultsText
+                        pageSize={limit}
+                        totalItems={total} />
         </>
     );
 };

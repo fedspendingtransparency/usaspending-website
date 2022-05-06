@@ -25,11 +25,11 @@ export default class StateLinkCell extends React.Component {
         }
 
         return (
-          <td className="state-list__body-cell">
-            <Link to={`/state/${URLifyStateName(stateNameByFipsId[this.props.fips])}`}>
-              {name}
-            </Link>
-          </td>
+            <td className="state-list__body-cell">
+                <Link to={`/state/${URLifyStateName(stateNameByFipsId[this.props.fips])}`}>
+                    {name}
+                </Link>
+            </td>
         );
     }
 }

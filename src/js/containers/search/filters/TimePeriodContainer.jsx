@@ -147,13 +147,13 @@ export class TimePeriodContainer extends React.Component {
 
     render() {
         return (
-          <TimePeriod
-            {...this.props}
-            dirtyFilters={this.dirtyFilters()}
-            activeTab={this.state.activeTab}
-            timePeriods={this.state.timePeriods}
-            updateFilter={this.updateFilter}
-            changeTab={this.changeTab} />
+            <TimePeriod
+                {...this.props}
+                dirtyFilters={this.dirtyFilters()}
+                activeTab={this.state.activeTab}
+                timePeriods={this.state.timePeriods}
+                updateFilter={this.updateFilter}
+                changeTab={this.changeTab} />
         );
     }
 }

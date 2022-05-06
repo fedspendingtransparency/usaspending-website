@@ -20,11 +20,11 @@ const RecipientAddress = ({ recipientLocation, aggregateRecordType }) => {
     const arrayOfAddressKeysByAwardType = AddresskeysByAwardType[aggregateRecordType];
     const recipientAddress = arrayOfAddressKeysByAwardType.map(
         (addressKey) => (
-          <div
-            className="award-overview__left-section__recipient__recipient-address__address-line award-overview__left-section__aggregated-text"
-            key={addressKey}>
-            {recipientLocation[addressKey] || null}
-          </div>
+            <div
+                className="award-overview__left-section__recipient__recipient-address__address-line award-overview__left-section__aggregated-text"
+                key={addressKey}>
+                {recipientLocation[addressKey] || null}
+            </div>
         )
     );
     // if any address field contains letters or numbers this will return true
@@ -32,9 +32,9 @@ const RecipientAddress = ({ recipientLocation, aggregateRecordType }) => {
         .map((addressKey) => recipientLocation[addressKey] || '')
         .some(regExTest);
     return (
-      <div className="award-overview__left-section__recipient__recipient-address">
-        { !addressContainsLetters ? '--' : recipientAddress }
-      </div>
+        <div className="award-overview__left-section__recipient__recipient-address">
+            { !addressContainsLetters ? '--' : recipientAddress }
+        </div>
     );
 };
 
