@@ -39,7 +39,7 @@ const Path = ({
         if (xScale && yScale) {
             setD(pathDefinition(data, xScale, xProperty, padding, yScale, yProperty, height, null, false));
         }
-    }, [data, height, padding, xProperty, xScale, yProperty, yScale]);
+    }, [data, xScale, yScale]);
     return (
         <g tabIndex="0">
             <desc>{`The linear line representative of the following periods, dates, and obligations: ${description}`}</desc>
