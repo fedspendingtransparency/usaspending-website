@@ -241,7 +241,7 @@ export default function ObligationsByAwardType({
         if (chartWidth && chartHeight) {
             renderChart();
         }
-    }, [chartWidth, chartHeight, renderChart]);
+    }, [chartWidth, chartHeight]);
 
     useEffect(() => {
         const rect = chartRef.current.parentElement.getBoundingClientRect();
@@ -249,7 +249,7 @@ export default function ObligationsByAwardType({
             setChartHeight(rect.height);
             setChartWidth(rect.width);
         }
-    }, [chartHeight, chartWidth, windowWidth]);
+    }, [windowWidth]);
 
     return (
         <TooltipWrapper

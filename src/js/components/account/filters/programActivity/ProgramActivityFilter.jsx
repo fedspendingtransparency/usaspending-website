@@ -111,7 +111,7 @@ export default class ProgramActivityFilter extends React.Component {
                     onClick={this.toggleShownAmount}
                     title={`See ${shownStatement}`}>
                     See {shownStatement}
-                    {arrow}
+                    &nbsp; {arrow}
                 </button>
             );
         }
