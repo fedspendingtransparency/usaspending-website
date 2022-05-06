@@ -431,25 +431,25 @@ ${MoneyFormatter.formatMoney(this.props.amounts.budgetAuthority)} (100%)`} />
                                                             title="Obligations Incurred"
                                                             value={this.state.right.obligated.label}
                                                             hide={this.state.right.obligated.height <= 0} />
-                                                              <SankeyBar
-                                                                color="#083546"
-                                                                x={0}
-                                                                y={0}
-                                                                width={this.state.right.width}
-                                                                height={this.state.right.obligated.height}
-                                                                description={this.state.right.obligated.description} />
-                                                                  <ItemLabel
-                                                                      y={this.state.right.unobligated.y - 25}
-                                                                      title="Unobligated Balance"
-                                                                      value={this.state.right.unobligated.label}
-                                                                      hide={this.state.right.unobligated.height <= 0} />
-                                                                        <SankeyBar
-                                                                            color="#083546"
-                                                                            x={0}
-                                                                            y={this.state.right.unobligated.y}
-                                                                            width={this.state.right.width}
-                                                                            height={this.state.right.unobligated.height}
-                                                                            description={this.state.right.unobligated.description} />
+                                                                <SankeyBar
+                                                                    color="#083546"
+                                                                    x={0}
+                                                                    y={0}
+                                                                    width={this.state.right.width}
+                                                                    height={this.state.right.obligated.height}
+                                                                    description={this.state.right.obligated.description} />
+                                                                        <ItemLabel
+                                                                            y={this.state.right.unobligated.y - 25}
+                                                                            title="Unobligated Balance"
+                                                                            value={this.state.right.unobligated.label}
+                                                                            hide={this.state.right.unobligated.height <= 0} />
+                                                                                <SankeyBar
+                                                                                    color="#083546"
+                                                                                    x={0}
+                                                                                    y={this.state.right.unobligated.y}
+                                                                                    width={this.state.right.width}
+                                                                                    height={this.state.right.unobligated.height}
+                                                                                    description={this.state.right.unobligated.description} />
                                                 </g>
                 </svg>
                 {disclosures}

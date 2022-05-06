@@ -76,18 +76,18 @@ const Footer = ({
                                                                 <ul className="links">
                                                                     <li>
                                                                         <Link
-                                                                          to="/about"
-                                                                          onClick={clickedFooterLink.bind(null, '/about')}>
+                                                                            to="/about"
+                                                                            onClick={clickedFooterLink.bind(null, '/about')}>
                                         About USAspending
-                                                                      </Link>
+                                                                        </Link>
                                                                     </li>
-                                                                      <li>
-                                                                        <Link
-                                                                          to="/about?section=careers"
-                                                                          onClick={clickedFooterLink.bind(null, '/about')}>
+                                                                        <li>
+                                                                            <Link
+                                                                                to="/about?section=careers"
+                                                                                onClick={clickedFooterLink.bind(null, '/about')}>
                                         Careers
-                                                                      </Link>
-                                                                    </li>
+                                                                            </Link>
+                                                                        </li>
                                                                 </ul>
                                                         </div>
                                                             <div className="link-group">
@@ -95,63 +95,63 @@ const Footer = ({
                                 Help
                                                                 </div>
                                                                     <ul className="links">
-                                                                      <li>
-                                                                        <FooterExternalLink
-                                                                          link="https://fiscalservice.force.com/usaspending/s/"
-                                                                          title="FAQs" />
-                                                                    </li>
-                                                                      <li>
-                                                                        <FooterExternalLink
-                                                                          link="https://fiscalservice.force.com/usaspending/s/"
-                                                                          title="Community" />
-                                                                    </li>
-                                                                      <li>
-                                                                        <a
-                                                                          href="mailto:usaspending.help@fiscal.treasury.gov?subject=Contact%20Us"
-                                                                          onClick={clickedFooterLink.bind(
+                                                                        <li>
+                                                                            <FooterExternalLink
+                                                                                link="https://fiscalservice.force.com/usaspending/s/"
+                                                                                title="FAQs" />
+                                                                        </li>
+                                                                            <li>
+                                                                                <FooterExternalLink
+                                                                                    link="https://fiscalservice.force.com/usaspending/s/"
+                                                                                    title="Community" />
+                                                                            </li>
+                                                                                <li>
+                                                                                    <a
+                                                                                        href="mailto:usaspending.help@fiscal.treasury.gov?subject=Contact%20Us"
+                                                                                        onClick={clickedFooterLink.bind(
                                             null,
                                             'mailto:usaspending.help@fiscal.treasury.gov?subject=Contact%20Us'
                                         )}>
                                         Contact Us
-                                                                      </a>
-                                                                    </li>
-                                                                  </ul>
+                                                                                    </a>
+                                                                                </li>
+                                                                    </ul>
                                                             </div>
                                                                 <div className="link-group">
                                                                     <div className="group-title">
                                 Developers
-                                                                  </div>
-                                                                    <ul className="links">
-                                                                      <li>
-                                                                        <FooterExternalLink
-                                                                          link="https://api.usaspending.gov"
-                                                                          title="API" />
-                                                                    </li>
-                                                                      <li>
-                                                                        <FooterExternalLink
-                                                                          link="https://github.com/fedspendingtransparency/usaspending-website/tree/master"
-                                                                          title="Explore the Code" />
-                                                                    </li>
-                                                                      <li>
-                                                                        <FooterExternalLink
-                                                                          link="https://github.com/fedspendingtransparency/usaspending-website/wiki"
-                                                                          title="Release Notes" />
-                                                                    </li>
-                                                                  </ul>
+                                                                    </div>
+                                                                        <ul className="links">
+                                                                            <li>
+                                                                                <FooterExternalLink
+                                                                                    link="https://api.usaspending.gov"
+                                                                                    title="API" />
+                                                                            </li>
+                                                                                <li>
+                                                                                    <FooterExternalLink
+                                                                                        link="https://github.com/fedspendingtransparency/usaspending-website/tree/master"
+                                                                                        title="Explore the Code" />
+                                                                                </li>
+                                                                                    <li>
+                                                                                        <FooterExternalLink
+                                                                                            link="https://github.com/fedspendingtransparency/usaspending-website/wiki"
+                                                                                            title="Release Notes" />
+                                                                                    </li>
+                                                                        </ul>
                                                                 </div>
-                                                                  <div className="link-group">
-                                                                    <div className="group-title">
+                                                                    <div className="link-group">
+                                                                        <div className="group-title">
                                     Our Sites
-                                                                  </div>
-                                                                    <ul className="links">
-                                                                      <li>
-                                                                        <a target="_blank" rel="noopener noreferrer" href="https://datalab.usaspending.gov/">Data Lab</a>
-                                                                    </li>
-                                                                      <li>
-                                                                        <a target="_blank" rel="noopener noreferrer" href="https://fiscaldata.treasury.gov/">Fiscal Data</a>
-                                                                    </li>
-                                                                  </ul>
-                                                                </div>
+                                                                        </div>
+                                                                            <ul className="links">
+                                                                                <li>
+                                                                                    <a target="_blank" rel="noopener noreferrer" href="https://datalab.usaspending.gov/">Data Lab</a>
+                                                                                </li>
+                                                                                    <li>
+                                                                                        <a target="_blank" rel="noopener noreferrer" href="https://fiscaldata.treasury.gov/">Fiscal Data</a>
+                                                                                    </li>
+                                                                            </ul>
+                                                                    </div>
                                                     </div>
                                                         <div className="legal-and-social-links">
                                                             <ul className="legal-links">
@@ -164,43 +164,43 @@ const Footer = ({
                                                                     </Link>
                                                                 </li>
                                                                     <li className="copyright__legal-item">
-                                                                      <Link
-                                                                        className="copyright__link"
-                                                                        to="/about/privacy"
-                                                                        onClick={clickedFooterLink.bind(null, '/about/privacy')}>
+                                                                        <Link
+                                                                            className="copyright__link"
+                                                                            to="/about/privacy"
+                                                                            onClick={clickedFooterLink.bind(null, '/about/privacy')}>
                                     Privacy Policy
-                                                                    </Link>
-                                                                  </li>
-                                                                    <li className="copyright__legal-item">
-                                                                      <Link
-                                                                        className="copyright__link"
-                                                                        to="/about/foia"
-                                                                        onClick={clickedFooterLink.bind(null, '/about/foia')}>
+                                                                        </Link>
+                                                                    </li>
+                                                                        <li className="copyright__legal-item">
+                                                                            <Link
+                                                                                className="copyright__link"
+                                                                                to="/about/foia"
+                                                                                onClick={clickedFooterLink.bind(null, '/about/foia')}>
                                     Freedom of Information Act
-                                                                    </Link>
-                                                                  </li>
+                                                                            </Link>
+                                                                        </li>
                                                             </ul>
                                                                 <ul className="social-links">
                                                                     <li className="social-link">
-                                                                      <button onClick={generateOnClick("https://twitter.com/usaspending/")} title="Twitter">
-                                                                        <FontAwesomeIcon icon={faTwitter} size="1x" color="#D4D4D4" />
-                                                                    </button>
-                                                                  </li>
-                                                                    <li className="social-link">
-                                                                      <button onClick={generateOnClick("https://www.facebook.com/fiscalservice/")} title="Facebook">
-                                                                        <FontAwesomeIcon icon={faFacebookSquare} size="1x" color="#D4D4D4" />
-                                                                    </button>
-                                                                  </li>
-                                                                    <li className="social-link">
-                                                                      <button onClick={generateOnClick("https://github.com/fedspendingtransparency/usaspending-website")} title="Github">
-                                                                        <FontAwesomeIcon icon={faGithub} size="1x" color="#D4D4D4" />
-                                                                    </button>
-                                                                  </li>
-                                                                    <li className="social-link">
-                                                                      <button onClick={generateOnClick("https://www.linkedin.com/company/united-states-department-of-the-treasury-bureau-of-public-debt/")} title="LinkedIn">
-                                                                        <FontAwesomeIcon icon={faLinkedin} size="1x" color="#D4D4D4" />
-                                                                    </button>
-                                                                  </li>
+                                                                        <button onClick={generateOnClick("https://twitter.com/usaspending/")} title="Twitter">
+                                                                            <FontAwesomeIcon icon={faTwitter} size="1x" color="#D4D4D4" />
+                                                                        </button>
+                                                                    </li>
+                                                                        <li className="social-link">
+                                                                            <button onClick={generateOnClick("https://www.facebook.com/fiscalservice/")} title="Facebook">
+                                                                                <FontAwesomeIcon icon={faFacebookSquare} size="1x" color="#D4D4D4" />
+                                                                            </button>
+                                                                        </li>
+                                                                            <li className="social-link">
+                                                                                <button onClick={generateOnClick("https://github.com/fedspendingtransparency/usaspending-website")} title="Github">
+                                                                                    <FontAwesomeIcon icon={faGithub} size="1x" color="#D4D4D4" />
+                                                                                </button>
+                                                                            </li>
+                                                                                <li className="social-link">
+                                                                                    <button onClick={generateOnClick("https://www.linkedin.com/company/united-states-department-of-the-treasury-bureau-of-public-debt/")} title="LinkedIn">
+                                                                                        <FontAwesomeIcon icon={faLinkedin} size="1x" color="#D4D4D4" />
+                                                                                    </button>
+                                                                                </li>
                                                                 </ul>
                                                         </div>
                                             </div>

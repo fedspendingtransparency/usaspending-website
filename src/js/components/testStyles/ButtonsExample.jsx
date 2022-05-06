@@ -76,19 +76,19 @@ export default class ButtonsExample extends React.Component {
                                                 </div>
                                                     <div className="component-code">
                                                         <pre>
-                                                          <code>code will go here</code>
-                                                      </pre>
+                                                            <code>code will go here</code>
+                                                        </pre>
                                                     </div>
                                             </div>
                                                 <div className="component-wrap">
                                                     <div className="component-item">
                                                         <input className="usa-button-disabled" type="submit" value="Disabled Button" />
                                                     </div>
-                                                      <div className="component-code">
-                                                        <pre>
-                                                          <code>code will go here</code>
-                                                      </pre>
-                                                    </div>
+                                                        <div className="component-code">
+                                                            <pre>
+                                                                <code>code will go here</code>
+                                                            </pre>
+                                                        </div>
                                                 </div>
             </div>
         );

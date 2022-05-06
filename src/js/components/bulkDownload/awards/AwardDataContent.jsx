@@ -167,17 +167,17 @@ export default class AwardDataContent extends React.Component {
                                                                                 currentFileFormat={awards.fileFormat}
                                                                                 updateFilter={this.props.updateFilter}
                                                                                 valid={awards.fileFormat !== ''} />
-                                                                                  <UserSelections
-                                                                                    awards={awards}
-                                                                                    agencies={this.props.agencies}
-                                                                                    subAgencies={this.props.subAgencies}
-                                                                                    updateFilter={this.props.updateFilter}
-                                                                                    currentAgencyType={awards.agencyType} />
-                                                                                      <SubmitButton
-                                                                                        filters={awards}
-                                                                                        validForm={this.state.validForm}
-                                                                                        validDates={this.state.validDates}
-                                                                                        dataType="awards" />
+                                                                                    <UserSelections
+                                                                                        awards={awards}
+                                                                                        agencies={this.props.agencies}
+                                                                                        subAgencies={this.props.subAgencies}
+                                                                                        updateFilter={this.props.updateFilter}
+                                                                                        currentAgencyType={awards.agencyType} />
+                                                                                            <SubmitButton
+                                                                                                filters={awards}
+                                                                                                validForm={this.state.validForm}
+                                                                                                validDates={this.state.validDates}
+                                                                                                dataType="awards" />
                             </form>
                                 <button className="download-center__reset" onClick={this.resetForm}>
                         Reset form and start over

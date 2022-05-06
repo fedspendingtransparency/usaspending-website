@@ -151,12 +151,12 @@ export default class StateOverview extends React.PureComponent {
                                                             </tr>
                                                                 <tr>
                                                                     <th>Awarded Amount Per Capita</th>
-                                                                      <td>{this.props.stateProfile.awardAmountPerCapita}</td>
+                                                                        <td>{this.props.stateProfile.awardAmountPerCapita}</td>
                                                                 </tr>
-                                                                  <tr>
-                                                                    <th>Median Household Income</th>
-                                                                      <td>{this.props.stateProfile.medianHouseholdIncome} {incomeSourceYear}</td>
-                                                                </tr>
+                                                                    <tr>
+                                                                        <th>Median Household Income</th>
+                                                                            <td>{this.props.stateProfile.medianHouseholdIncome} {incomeSourceYear}</td>
+                                                                    </tr>
                                                         </tbody>
                                                     </table>
                                             </div>

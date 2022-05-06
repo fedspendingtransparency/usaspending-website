@@ -70,16 +70,16 @@ const CovidModalContainer = ({
                                                     <ul>
                                                         <li>Recipient Profiles</li>
                                                             <li>Award Profiles</li>
-                                                              <li>Advanced Search</li>
-                                                                <li>Keyword Search</li>
+                                                                <li>Advanced Search</li>
+                                                                    <li>Keyword Search</li>
                                                     </ul>
                                                 </li>
                                                     <li>
                             You will be able to find federal awards using UEI or DUNS numbers via <Link onClick={handleGoToKeywordSearch} to="/keyword_search">Keyword Search</Link> or by using the &apos;Keyword&apos; or &apos;Recipient&apos; filters on <Link onClick={handleGoToAdvancedSearch} to="/search">Advanced Search</Link>
                                                     </li>
-                                                      <li>
+                                                        <li>
                             URLs to recipient profile pages will become associated with UEIs rather than DUNS — <span className="covid-modal-bold">please update any saved links to these pages to avoid service disruption</span>
-                                                    </li>
+                                                        </li>
                                     </ul>
                                         <p className="covid-modal-bold">
                         What is a UEI?

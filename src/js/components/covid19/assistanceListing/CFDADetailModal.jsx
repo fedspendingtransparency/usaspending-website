@@ -87,10 +87,10 @@ const CFDADetailModal = ({
                                                     <div className="usa-dt-modal__section__description">
                                                         {data.resource_link ?
                                                             <button
-                                                              onClick={displayRedirectModal}
-                                                              value={data.resource_link}>
-                                                              {data.resource_link} <FontAwesomeIcon icon="external-link-alt" />
-                                                          </button>
+                                                                onClick={displayRedirectModal}
+                                                                value={data.resource_link}>
+                                                                {data.resource_link} <FontAwesomeIcon icon="external-link-alt" />
+                                                            </button>
                                     : '--'
                                 }
                                                     </div>

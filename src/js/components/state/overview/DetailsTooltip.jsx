@@ -98,33 +98,33 @@ export default class DetailsTooltip extends React.Component {
     render() {
         return (
 
-            <div
-                ref={this.setWrapperRef}
-                onBlur={this.props.closeTooltip}
-                onMouseLeave={this.props.closeTooltip}
-                className="state-overview-tooltip"
-                style={{
+          <div
+            ref={this.setWrapperRef}
+            onBlur={this.props.closeTooltip}
+            onMouseLeave={this.props.closeTooltip}
+            className="state-overview-tooltip"
+            style={{
                     top: this.state.iconTop,
                     left: this.state.iconLeft
                 }}>
-                    <div className="state-overview-tooltip__info_icon">
-                        <Icons.InfoCircle />
-                    </div>
-                        <div className="state-overview-tooltip__text_holder">
-                            <div className="state-overview-tooltip__tooltip_title">
+                  <div className="state-overview-tooltip__info_icon">
+                    <Icons.InfoCircle />
+                  </div>
+                    <div className="state-overview-tooltip__text_holder">
+                      <div className="state-overview-tooltip__tooltip_title">
                         Data Sources
-                            </div>
-                                <div className="state-overview-tooltip__tooltip_text">
-                                    <p>
+                      </div>
+                        <div className="state-overview-tooltip__tooltip_text">
+                          <p>
                             The amounts used are based on U.S. Census data of specific years noted in parentheses.
-                                    </p>
-                                        <p>
-                                            <strong>Awarded Amount Per Capita</strong> is calculated using the Total Award Amount of the
+                          </p>
+                            <p>
+                              <strong>Awarded Amount Per Capita</strong> is calculated using the Total Award Amount of the
                             selected time period, divided by the population amount shown in the table.
-                                        </p>
-                                </div>
+                            </p>
                         </div>
-            </div>
+                    </div>
+          </div>
         );
     }
 }

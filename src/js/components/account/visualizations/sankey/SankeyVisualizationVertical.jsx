@@ -516,8 +516,8 @@ ${this.state.legend.obligated.y})`}>
         value={this.state.bottom.obligated.label}
         hide={this.props.amounts.out.obligated < 0} />
                                                         </g>
-                                                          <g
-                                                            transform={`translate(${this.state.legend.unobligated.x},\
+                                                            <g
+                                                                transform={`translate(${this.state.legend.unobligated.x},\
 ${this.state.legend.unobligated.y})`}>
     <ItemLegend
         color="#97b5be"
@@ -525,7 +525,7 @@ ${this.state.legend.unobligated.y})`}>
         title="Unobligated Balance"
         value={this.state.bottom.unobligated.label}
         hide={this.props.amounts.out.unobligated < 0} />
-                                                        </g>
+                                                            </g>
                                 </g>
 
                                     <g
@@ -599,20 +599,20 @@ scale(0.7,0.7)`}>
                                                     <g
                                                         className="bottom-row"
                                                         transform={`translate(${this.state.bottom.x},${this.state.bottom.y})`}>
-                                                          <SankeyBar
-                                                            color="#6d8996"
-                                                            x={this.state.bottom.obligated.x}
-                                                            y={0}
-                                                            width={this.state.bottom.obligated.width}
-                                                            height={this.state.bottom.height}
-                                                            description={this.state.bottom.obligated.description} />
-                                                              <SankeyBar
-                                                                  color="#97b5be"
-                                                                  x={this.state.bottom.unobligated.x}
-                                                                  y={0}
-                                                                  width={this.state.bottom.unobligated.width}
-                                                                  height={this.state.bottom.height}
-                                                                  description={this.state.bottom.unobligated.description} />
+                                                            <SankeyBar
+                                                                color="#6d8996"
+                                                                x={this.state.bottom.obligated.x}
+                                                                y={0}
+                                                                width={this.state.bottom.obligated.width}
+                                                                height={this.state.bottom.height}
+                                                                description={this.state.bottom.obligated.description} />
+                                                                    <SankeyBar
+                                                                        color="#97b5be"
+                                                                        x={this.state.bottom.unobligated.x}
+                                                                        y={0}
+                                                                        width={this.state.bottom.unobligated.width}
+                                                                        height={this.state.bottom.height}
+                                                                        description={this.state.bottom.unobligated.description} />
                                                     </g>
                 </svg>
                 {disclosures}

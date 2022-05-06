@@ -86,13 +86,13 @@ export default class Header extends React.Component {
                                     |
                                                             </li>
                                                                 <li>
-                                                                  <a
-                                                                    className="official-banner__site-link"
-                                                                    href="http://fiscaldata.treasury.gov/"
-                                                                    onClick={clickedHeaderLink.bind(null, 'http://fiscaldata.treasury.gov')}>
+                                                                    <a
+                                                                        className="official-banner__site-link"
+                                                                        href="http://fiscaldata.treasury.gov/"
+                                                                        onClick={clickedHeaderLink.bind(null, 'http://fiscaldata.treasury.gov')}>
                                         Fiscal Data
-                                                                </a>
-                                                              </li>
+                                                                    </a>
+                                                                </li>
                                         </ul>
                                             <div className="official-banner__message">
                                                 <p className="official-banner__text">

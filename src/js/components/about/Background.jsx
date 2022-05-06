@@ -53,11 +53,11 @@ export default class Background extends React.Component {
                                                         <li>
                             Simplify reporting, streamline reporting requirements, and reduce
                             compliance costs, while improving transparency
-                                                      </li>
-                                                        <li>
+                                                        </li>
+                                                            <li>
                             Improve the quality of data submitted to USAspending.gov by holding
                             agencies accountable.
-                                                      </li>
+                                                            </li>
                                             </ul>
                             </div>
             </div>

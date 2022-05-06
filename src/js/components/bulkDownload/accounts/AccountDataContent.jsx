@@ -127,11 +127,11 @@ export default class AccountDataContent extends React.Component {
                                                                             <UserSelections
                                                                                 accounts={accounts} />
                                                                                     <SubmitButton
-                                                                                      handleSubmit={this.handleSubmit}
-                                                                                      validForm={this.state.validForm}
-                                                                                      filters={accounts}
-                                                                                      validDates
-                                                                                      dataType="accounts" />
+                                                                                        handleSubmit={this.handleSubmit}
+                                                                                        validForm={this.state.validForm}
+                                                                                        filters={accounts}
+                                                                                        validDates
+                                                                                        dataType="accounts" />
                             </div>
                                 <button className="download-center__reset" onClick={this.resetForm}>
                         Reset form and start over
