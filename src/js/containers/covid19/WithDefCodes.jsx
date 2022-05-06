@@ -41,7 +41,7 @@ export const useDefCodes = () => {
                 request.current.cancel();
             }
         };
-    }, [dispatch, defCodes, loading]);
+    }, [dispatch, defCodes]);
 
     return [error, loading, defCodes];
 };
