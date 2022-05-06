@@ -405,7 +405,7 @@ const HorizontalSingleStackedBarViz = ({
         else {
             renderBarChart();
         }
-    }, [windowWidth, propsArr, numerator.className, potentialAmountValue, potentialAmountLabel, outlayedAmountValue, outlayedAmountLabel, isNffZero, obligatedAmountValue, obligatedAmountLabel, currentAmountValue, currentAmountLabel]);
+    }, [windowWidth, propsArr]);
 
     useEffect(() => {
         const handleResize = throttle(() => {

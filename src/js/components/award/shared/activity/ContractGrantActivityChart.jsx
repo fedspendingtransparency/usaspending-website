@@ -288,7 +288,7 @@ const ContractGrantsActivityChart = ({
             .nice();
         setYTicks(updatedTicksWithSpacing);
         setYScale(() => updatedScale);
-    }, [yDomain, height, addTicksForSpacing]);
+    }, [yDomain, height, totalVerticalLineTextHeight]);
     // hook - runs only on mount unless transactions change
     useEffect(() => {
         if (xDomain.length && yDomain.length) {
@@ -311,7 +311,7 @@ const ContractGrantsActivityChart = ({
             setEndLineData(Object.assign({}, endLineData, { value: getLineValue(dates._endDate, xDomain) }));
             setPotentialEndLineData(Object.assign({}, potentialEndLineData, { value: getLineValue(dates._potentialEndDate, xDomain) }));
         }
-    }, [dates, endLineData, potentialEndLineData, startLineData, todayLineData, xDomain]);
+    }, [dates, xDomain]);
     const setVerticalLineHeight = (i, lineHeight) => {
         if (i === 0) return setStartLineData(Object.assign({}, startLineData, { height: lineHeight }));
         if (i === 1) return setEndLineData(Object.assign({}, endLineData, { height: lineHeight }));
@@ -344,7 +344,13 @@ const ContractGrantsActivityChart = ({
                 }
                 return null;
             });
-    }, [allVerticalLines, setVerticalLineHeight, verticalLineTextHeight]);
+    }, [
+        verticalLineTextHeight,
+        startLineData,
+        endLineData,
+        todayLineData,
+        potentialEndLineData
+    ]);
 
     const updateTotalTextHeightAndVerticalLineHeights = useCallback(() => {
         if (!totalVerticalLineTextHeight) {
