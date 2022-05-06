@@ -66,7 +66,8 @@ export const LoadingWrapper = ({
                     </div>
                 // eslint-disable-next-line indent
                 {includeFooter && (
-                    <Footer pageName="Loading" />)}
+                    <Footer pageName="Loading" />
+                )}
             </>
         );
     }

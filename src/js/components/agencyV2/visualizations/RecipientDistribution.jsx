@@ -75,7 +75,7 @@ const RecipientDistribution = ({
                 }
             );
         }
-    }, []);
+    }, [data, height]);
 
     return (
         <svg
@@ -133,27 +133,27 @@ const RecipientDistribution = ({
                                                                     y2={lineData.y2} />
                                                                         <text tabIndex="0" x={60} y={lineData.y2 - 48}>
                                                                             <tspan className="top-count-text" x="60">Bottom {recipientCounts.bottomCount}</tspan>
-                                                                              <tspan className="top-count-text" x="60" dy="1.1em">Recipients</tspan>
-                                                                                <tspan className="top-count-text-desc" x="60" dy="1.2em">Awarded between</tspan>
-                                                                                  <tspan className="top-count-text-desc" x="60" dy="1.2em">{formattedValues.val25pct} and</tspan>
-                                                                                    <tspan className="top-count-text-desc" x="60" dy="1.2em">{formattedValues.valMin}</tspan>
+                                                                                <tspan className="top-count-text" x="60" dy="1.1em">Recipients</tspan>
+                                                                                    <tspan className="top-count-text-desc" x="60" dy="1.2em">Awarded between</tspan>
+                                                                                        <tspan className="top-count-text-desc" x="60" dy="1.2em">{formattedValues.val25pct} and</tspan>
+                                                                                            <tspan className="top-count-text-desc" x="60" dy="1.2em">{formattedValues.valMin}</tspan>
                                                                         </text>
-                                                                          <line // middle count label
-                                                                            tabIndex="0"
-                                                                            className="i-beam-line"
-                                                                            x1={14}
-                                                                            x2={18}
-                                                                            y1={lineData.y2}
-                                                                            y2={lineData.y2} />
-                                                                              <text tabIndex="0" textAnchor="end" x={12} y={lineData.y2 - 73}>
-                                                                                <tspan className="top-count-text" x="12">Middle</tspan>
-                                                                                  <tspan className="top-count-text" x="12" dy="1.1em">{recipientCounts.midCount}</tspan>
-                                                                                    <tspan className="top-count-text" x="12" dy="1.1em">Recipients</tspan>
-                                                                                      <tspan className="top-count-text-desc" x="12" dy="1.2em">Awarded</tspan>
-                                                                                        <tspan className="top-count-text-desc" x="12" dy="1.2em">between</tspan>
-                                                                                          <tspan className="top-count-text-desc" x="12" dy="1.2em">{formattedValues.val75pct} and</tspan>
-                                                                                            <tspan className="top-count-text-desc" x="12" dy="1.2em">{formattedValues.val25pct}</tspan>
-                                                                            </text>
+                                                                            <line // middle count label
+                                                                                tabIndex="0"
+                                                                                className="i-beam-line"
+                                                                                x1={14}
+                                                                                x2={18}
+                                                                                y1={lineData.y2}
+                                                                                y2={lineData.y2} />
+                                                                                    <text tabIndex="0" textAnchor="end" x={12} y={lineData.y2 - 73}>
+                                                                                        <tspan className="top-count-text" x="12">Middle</tspan>
+                                                                                            <tspan className="top-count-text" x="12" dy="1.1em">{recipientCounts.midCount}</tspan>
+                                                                                                <tspan className="top-count-text" x="12" dy="1.1em">Recipients</tspan>
+                                                                                                    <tspan className="top-count-text-desc" x="12" dy="1.2em">Awarded</tspan>
+                                                                                                        <tspan className="top-count-text-desc" x="12" dy="1.2em">between</tspan>
+                                                                                                            <tspan className="top-count-text-desc" x="12" dy="1.2em">{formattedValues.val75pct} and</tspan>
+                                                                                                                <tspan className="top-count-text-desc" x="12" dy="1.2em">{formattedValues.val25pct}</tspan>
+                                                                                    </text>
                 </g>
         </svg>
     );

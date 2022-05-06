@@ -133,16 +133,16 @@ const RecipientOverview = (props) => {
                                                         <tbody>
                                                             <tr>
                                                                 <th>Recipient Identifier</th>
-                                                                  <td>{idList(recipient.duns, recipient.uei).map((i) => <>{i}<br /></>)}</td>
+                                                                    <td>{idList(recipient.duns, recipient.uei).map((i) => <>{i}<br /></>)}</td>
                                                             </tr>
-                                                              <tr>
-                                                                <th>Address</th>
-                                                                {address}
-                                                            </tr>
-                                                              <tr>
-                                                                  <th>Business Types</th>
-                                                                  {businessTypes}
-                                                              </tr>
+                                                                <tr>
+                                                                    <th>Address</th>
+                                                                    {address}
+                                                                </tr>
+                                                                    <tr>
+                                                                        <th>Business Types</th>
+                                                                        {businessTypes}
+                                                                    </tr>
                                                         </tbody>
                                                     </table>
                                             </div>

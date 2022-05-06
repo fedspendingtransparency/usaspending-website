@@ -69,14 +69,14 @@ const PaneFeature = () => {
                                                     </p>
                                                         <div className="feature-pane__button-wrapper">
                                                             <a
-                                                              href="https://datalab.usaspending.gov/americas-finance-guide/"
-                                                              target="_blank"
-                                                              role="button"
-                                                              rel="noopener noreferrer"
-                                                              className="feature-pane__button white"
-                                                              onClick={() => trackLink('feature 3')}>
+                                                                href="https://datalab.usaspending.gov/americas-finance-guide/"
+                                                                target="_blank"
+                                                                role="button"
+                                                                rel="noopener noreferrer"
+                                                                className="feature-pane__button white"
+                                                                onClick={() => trackLink('feature 3')}>
                             Explore the Guide <span className="feature-pane__button-icon"><FontAwesomeIcon icon="external-link-alt" /></span>
-                                                          </a>
+                                                            </a>
                                                         </div>
                                         </div>
                     </div>
