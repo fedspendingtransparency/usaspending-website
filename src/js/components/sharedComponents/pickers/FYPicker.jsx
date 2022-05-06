@@ -98,8 +98,8 @@ const FYPicker = ({
                             FY {isLoading ? <FontAwesomeIcon icon="spinner" size="sm" alt="Toggle menu" spin /> : fy}
                             </span>
                                 <div className="fy-picker__button-icon">
-                                  <FontAwesomeIcon icon="chevron-down" alt="Toggle menu" />
-                              </div>
+                                    <FontAwesomeIcon icon="chevron-down" alt="Toggle menu" />
+                                </div>
                         </button>
                             <ul className={`fy-picker__list ${expanded ? '' : 'hide'}`}>
                                 {getActiveYears()}

@@ -27,7 +27,7 @@ const MapDisclaimer = (props) => (
                             title="Dismiss message"
                             aria-label="Dismiss message"
                             onClick={props.closeDisclaimer}>
-                              <Close alt="Dismiss message" />
+                                <Close alt="Dismiss message" />
                         </button>
                 </div>
                     <div className="description">

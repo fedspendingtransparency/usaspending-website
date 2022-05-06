@@ -131,8 +131,8 @@ export default class DefaultPicker extends Component {
                                             {prependSelection} {defaultSelection.toString()}
                                         </div>
                                             <div className="default-picker__button-icon">
-                                              <FontAwesomeIcon size="lg" icon="chevron-down" />
-                                          </div>
+                                                <FontAwesomeIcon size="lg" icon="chevron-down" />
+                                            </div>
                                 </button>
                                     <ul className={`default-picker__list ${visibleClass}`}>
                                         {menu}

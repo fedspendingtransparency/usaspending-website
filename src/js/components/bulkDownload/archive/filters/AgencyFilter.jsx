@@ -113,8 +113,8 @@ export default class ArchiveAgencyFilter extends React.Component {
                                 <div className="label">
                                     {currentAgencyName}
                                         <span className="arrow-icon">
-                                          {agencyIcon}
-                                      </span>
+                                            {agencyIcon}
+                                        </span>
                                 </div>
                         </button>
 
@@ -122,38 +122,38 @@ export default class ArchiveAgencyFilter extends React.Component {
                                 className={`field-list ${showAgencyPicker}`}
                                 style={{ width: dropDownWidth }}>
                                     <ul>
-                                      <li className="field-item">
-                                        <button
-                                            className="item-button"
-                                            title="All"
-                                            aria-label="all"
-                                            name="All"
-                                            value="all"
-                                            onClick={this.handleAgencySelect}>
+                                        <li className="field-item">
+                                            <button
+                                                className="item-button"
+                                                title="All"
+                                                aria-label="all"
+                                                name="All"
+                                                value="all"
+                                                onClick={this.handleAgencySelect}>
                                     All
-                                        </button>
-                                    </li>
-                                        <li className="field-item">
-                                            <button
-                                            className="item-button group-label"
-                                            title="CFO Agencies"
-                                            aria-label="CFO Agencies"
-                                            disabled >
-                                    CFO Agencies
-                                        </button>
-                                        </li>
-                                      {cfoAgencies}
-                                        <li className="field-item">
-                                            <button
-                                                className="item-button group-label"
-                                                title="Other Agencies"
-                                                aria-label="Other Agencies"
-                                                disabled >
-                                    Other Agencies
                                             </button>
                                         </li>
-                                      {otherAgencies}
-                                  </ul>
+                                            <li className="field-item">
+                                                <button
+                                                    className="item-button group-label"
+                                                    title="CFO Agencies"
+                                                    aria-label="CFO Agencies"
+                                                    disabled >
+                                    CFO Agencies
+                                                </button>
+                                            </li>
+                                        {cfoAgencies}
+                                            <li className="field-item">
+                                                <button
+                                                    className="item-button group-label"
+                                                    title="Other Agencies"
+                                                    aria-label="Other Agencies"
+                                                    disabled >
+                                    Other Agencies
+                                                </button>
+                                            </li>
+                                        {otherAgencies}
+                                    </ul>
                             </div>
                     </div>
             </div>

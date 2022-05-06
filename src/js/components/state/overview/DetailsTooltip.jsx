@@ -119,9 +119,9 @@ export default class DetailsTooltip extends React.Component {
                             The amounts used are based on U.S. Census data of specific years noted in parentheses.
                                     </p>
                                         <p>
-                                          <strong>Awarded Amount Per Capita</strong> is calculated using the Total Award Amount of the
+                                            <strong>Awarded Amount Per Capita</strong> is calculated using the Total Award Amount of the
                             selected time period, divided by the population amount shown in the table.
-                                      </p>
+                                        </p>
                                 </div>
                         </div>
             </div>

@@ -38,14 +38,14 @@ const FakeScreen = () => {
                             <div className="explorer-treemap">
                                 <div className="fake-treemap">
                                     <div
-                                      style={leftStyle}
-                                      className="left-block" />
-                                        <div
-                                          style={middleStyle}
-                                          className="middle-block" />
-                                              <div
-                                              style={rightStyle}
-                                              className="right-block" />
+                                        style={leftStyle}
+                                        className="left-block" />
+                                            <div
+                                                style={middleStyle}
+                                                className="middle-block" />
+                                                    <div
+                                                        style={rightStyle}
+                                                        className="right-block" />
                                 </div>
                             </div>
                     </div>

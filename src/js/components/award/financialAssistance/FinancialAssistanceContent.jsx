@@ -121,10 +121,10 @@ const FinancialAssistanceContent = ({
                 }
                             {!isGrant && (
                             <CFDASection
-                              cfdas={overview.cfdas}
-                              CFDAOverviewLinkClicked={CFDAOverviewLinkClicked}
-                              updateCFDAOverviewLinkClicked={updateCFDAOverviewLinkClicked}
-                              awardTotalObligation={overview._totalObligation} />
+                                cfdas={overview.cfdas}
+                                CFDAOverviewLinkClicked={CFDAOverviewLinkClicked}
+                                updateCFDAOverviewLinkClicked={updateCFDAOverviewLinkClicked}
+                                awardTotalObligation={overview._totalObligation} />
                 )}
                     <FederalAccountsSection
                         awardType={overview.category}

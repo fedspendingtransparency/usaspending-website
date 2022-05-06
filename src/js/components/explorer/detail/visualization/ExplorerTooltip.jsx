@@ -106,15 +106,15 @@ export default class ExplorerTooltip extends React.Component {
                                             </div>
                                                 <div className="tooltip-label">
                                 Total Amount
-                                              </div>
+                                                </div>
                                         </div>
                                             <div className="tooltip-right">
                                                 <div className="tooltip-value">
-                                                  {percentString}
-                                              </div>
-                                                <div className="tooltip-label">
+                                                    {percentString}
+                                                </div>
+                                                    <div className="tooltip-label">
                                 Percent
-                                              </div>
+                                                    </div>
                                             </div>
                                     </div>
                 </div>

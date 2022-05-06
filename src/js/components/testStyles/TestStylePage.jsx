@@ -41,8 +41,8 @@ export default class TestStylePage extends React.Component {
                                     <ButtonsExample />
                                         <h3>Icons</h3>
                                             <ul className="icon-list">
-                                              {icons}
-                                          </ul>
+                                                {icons}
+                                            </ul>
                                 </div>
                             </div>
                         </main>

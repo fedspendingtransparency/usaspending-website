@@ -87,8 +87,8 @@ export default class RecipientMapTooltip extends React.Component {
                                                 {this.props.awards.value}
                                             </div>
                                                 <div className="tooltip-label">
-                                                  {this.props.awards.label}
-                                              </div>
+                                                    {this.props.awards.label}
+                                                </div>
                                         </div>
                                 </div>
                     </div>

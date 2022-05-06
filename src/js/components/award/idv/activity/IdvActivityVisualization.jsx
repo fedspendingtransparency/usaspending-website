@@ -209,9 +209,9 @@ export default class IdvActivityVisualization extends React.Component {
                                         menuData={menuData}
                                         defaultSelection={this.props.limit}
                                         selectedItemFunc={this.props.selectedItemFunc} />
-                                          <div className="activity-visualization-note">
-                                            <Note message={message} />
-                                        </div>
+                                            <div className="activity-visualization-note">
+                                                <Note message={message} />
+                                            </div>
             </div>
         );
     }

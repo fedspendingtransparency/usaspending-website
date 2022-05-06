@@ -665,20 +665,20 @@ export default class BarChartTrendline extends React.Component {
                                                         {bars}
                                                     </g>
 
-                                                      <g
-                                                        className="trendline-data"
-                                                        transform={`translate(${this.props.padding.left},0)`}>
-                                                        {lines}
-                                                        {points}
-                                                    </g>
+                                                        <g
+                                                            className="trendline-data"
+                                                            transform={`translate(${this.props.padding.left},0)`}>
+                                                            {lines}
+                                                            {points}
+                                                        </g>
 
-                                                      <g
-                                                          className="legend-container"
-                                                          transform={`translate(
+                                                            <g
+                                                                className="legend-container"
+                                                                transform={`translate(
                                 ${this.props.padding.left},
                                 ${this.props.height - 20})`}>
                                     <BarChartTrendlineLegend legend={this.props.legend} />
-                                                      </g>
+                                                            </g>
                         </g>
                     </svg>
             </div>

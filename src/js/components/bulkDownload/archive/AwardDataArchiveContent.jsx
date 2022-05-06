@@ -35,13 +35,13 @@ const AwardDataArchiveContent = (props) => (
             Ready to grab your data? Complete the form below.
                     </p>
                         <AwardDataArchiveForm
-                          filters={props.filters}
-                          updateFilter={props.updateFilter}
-                          agencies={props.agencies}
-                          requestResults={props.requestResults} />
-                            <AwardDataArchiveTable
-                              columns={props.columns}
-                              results={props.results} />
+                            filters={props.filters}
+                            updateFilter={props.updateFilter}
+                            agencies={props.agencies}
+                            requestResults={props.requestResults} />
+                                <AwardDataArchiveTable
+                                    columns={props.columns}
+                                    results={props.results} />
     </div>
 );
 

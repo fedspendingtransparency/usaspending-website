@@ -51,8 +51,8 @@ const LineTree = ({
                         <span>{`${getTierData(2).code}: ${getTierData(2).description}`}</span>
                         {getTierData(3) && (
                         <div className={`tier--4 ${numberOfSections <= 4 ? 'tier--last' : ''}`}>
-                          <span>{`${getTierData(3).code}: ${getTierData(3).description}`}</span>
-                      </div>
+                            <span>{`${getTierData(3).code}: ${getTierData(3).description}`}</span>
+                        </div>
                                     )}
                     </div>
                             )}

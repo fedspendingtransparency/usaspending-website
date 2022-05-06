@@ -21,15 +21,15 @@ export const KeyWordTooltip = () => (
                     <ul className="advanced-search-tt__list">
                         <li>Recipient Name</li>
                             <li>Recipient UEI</li>
-                              <li>Recipient Parent UEI</li>
-                                <li>Recipient {DUNS_LABEL}DUNS</li>
-                                    <li>Recipient Parent {DUNS_LABEL}DUNS</li>
-                                      <li>NAICS code and description</li>
-                                        <li>PSC code and description</li>
-                                            <li>PIID (prime award only)</li>
-                                              <li>FAIN (prime award only)</li>
-                                                <li>URI</li>
-                                                  <li>Award Description</li>
+                                <li>Recipient Parent UEI</li>
+                                    <li>Recipient {DUNS_LABEL}DUNS</li>
+                                        <li>Recipient Parent {DUNS_LABEL}DUNS</li>
+                                            <li>NAICS code and description</li>
+                                                <li>PSC code and description</li>
+                                                    <li>PIID (prime award only)</li>
+                                                        <li>FAIN (prime award only)</li>
+                                                            <li>URI</li>
+                                                                <li>Award Description</li>
                     </ul>
             </div>
     </div>
@@ -70,8 +70,8 @@ export const CSSOnlyTooltip = (props) => (
                             {props.definition}
                         </div>
                             <div className="advanced-search-css-tooltip__example">
-                              {props.example ? `Example value: ${props.example}` : ''}
-                          </div>
+                                {props.example ? `Example value: ${props.example}` : ''}
+                            </div>
                 </span>
     </div>
 );

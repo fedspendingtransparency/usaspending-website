@@ -66,9 +66,9 @@ export default class LegacyBaseTopFilterGroup extends React.Component {
                                     aria-label={`Clear all ${this.props.filter.name} filters`}
                                     onClick={this.clearFilterGroup}>
                                         <span className="close-icon">
-                                          <Icons.Close
-                                            alt={`Clear all ${this.props.filter.name} filters`} />
-                                      </span>
+                                            <Icons.Close
+                                                alt={`Clear all ${this.props.filter.name} filters`} />
+                                        </span>
                                 </button>
                             </div>
                     </div>

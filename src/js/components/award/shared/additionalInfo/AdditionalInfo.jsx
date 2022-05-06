@@ -223,9 +223,9 @@ export default class AdditionalInfo extends React.Component {
                                 <div className="award__col">
                                     {firstColumn}
                                 </div>
-                                  <div className="award__col">
-                                    {secondColumn}
-                                </div>
+                                    <div className="award__col">
+                                        {secondColumn}
+                                    </div>
                             </div>
                 </div>
             </div>

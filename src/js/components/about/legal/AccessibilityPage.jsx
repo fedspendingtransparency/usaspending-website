@@ -39,20 +39,20 @@ const AccessibilityPage = () => (
             In addition, we&#39;ve incorporated the following throughout the site:
                     </p>
                         <ul>
-                          <li>Text equivalents provided for non-text elements</li>
-                            <li>Colored information made available without color</li>
-                              <li>Documents can be read without a style sheet</li>
-                                  <li>Text-only versions of data appear to comply with Section 508 standards,
+                            <li>Text equivalents provided for non-text elements</li>
+                                <li>Colored information made available without color</li>
+                                    <li>Documents can be read without a style sheet</li>
+                                        <li>Text-only versions of data appear to comply with Section 508 standards,
                 with the exception of maps
-                                </li>
-                                    <li>Forms are formatted to work with assistive technology to access the information,
+                                        </li>
+                                            <li>Forms are formatted to work with assistive technology to access the information,
                 field elements, and functionality required to complete and submit forms
-                                  </li>
-                      </ul>
-                        <p>
-                          <a href="mailto:usaspending.help@fiscal.treasury.gov?subject=Contact%20Us">Contact us</a>
+                                            </li>
+                        </ul>
+                            <p>
+                                <a href="mailto:usaspending.help@fiscal.treasury.gov?subject=Contact%20Us">Contact us</a>
             &nbsp;if you have any difficulty accessing information on USASpending.gov.
-                      </p>
+                            </p>
     </LegalPage>
 );
 

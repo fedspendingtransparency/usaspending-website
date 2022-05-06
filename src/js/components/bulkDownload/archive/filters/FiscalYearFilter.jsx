@@ -96,16 +96,16 @@ export default class ArchiveFiscalYearFilter extends React.Component {
                                 <div className="label">
                                     {this.props.currentFY}
                                         <span className="arrow-icon">
-                                          {fyIcon}
-                                      </span>
+                                            {fyIcon}
+                                        </span>
                                 </div>
                         </button>
                             <div
                                 className={`field-list ${showFyPicker}`}
                                 style={{ width: dropDownWidth }}>
                                     <ul>
-                                      {FYs}
-                                  </ul>
+                                        {FYs}
+                                    </ul>
                             </div>
                     </div>
             </div>

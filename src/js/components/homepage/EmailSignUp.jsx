@@ -67,9 +67,9 @@ const EmailSignUp = ({
                                                 <input type="hidden" name="pw_required" value="" />
                                                     <input type="hidden" name="confirm" value="one" />
                                                         <input type="hidden" name="showconfirm" value="T" />
-                                                          <input type="hidden" name="url" value="" />
-                                                            <input type="hidden" name="appendsubinfotourl" value="" />
-                                                              <input type="hidden" name="secx" value="03b19f94" />
+                                                            <input type="hidden" name="url" value="" />
+                                                                <input type="hidden" name="appendsubinfotourl" value="" />
+                                                                    <input type="hidden" name="secx" value="03b19f94" />
             </form>
             )}
         </div>

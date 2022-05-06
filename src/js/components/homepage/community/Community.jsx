@@ -29,13 +29,13 @@ const Community = () => (
                     We want to know how we can serve you better. Drop by our community page to ask questions, propose new features, sign up for testing, and join the conversation about federal spending data.
                         </p>
                             <a
-                              className="homepage-community__link"
-                              href="https://fiscalservice.force.com/usaspending/s/"
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              onClick={clickedHomepageLink.bind(null, 'https://fiscalservice.force.com/usaspending/s/')}>
+                                className="homepage-community__link"
+                                href="https://fiscalservice.force.com/usaspending/s/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                onClick={clickedHomepageLink.bind(null, 'https://fiscalservice.force.com/usaspending/s/')}>
                     Visit our community page
-                          </a>
+                            </a>
                 </div>
                     <div className="homepage-community__image-wrapper homepage-community__image-wrapper_desktop">
                         <img

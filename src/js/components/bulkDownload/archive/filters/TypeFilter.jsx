@@ -101,16 +101,16 @@ export default class ArchiveTypeFilter extends React.Component {
                                 <div className="label">
                                     {this.props.currentType}
                                         <span className="arrow-icon">
-                                          {typeIcon}
-                                      </span>
+                                            {typeIcon}
+                                        </span>
                                 </div>
                         </button>
                             <div
                                 className={`field-list ${showTypePicker}`}
                                 style={{ width: dropDownWidth }}>
                                     <ul>
-                                      {types}
-                                  </ul>
+                                        {types}
+                                    </ul>
                             </div>
                     </div>
             </div>

@@ -121,11 +121,11 @@ const AboutContent = () => {
                             <Background />
                                 <DataSources onExternalLinkClick={onExternalLinkClick} />
                                     <DataQuality onExternalLinkClick={onExternalLinkClick} />
-                                      <Development />
-                                        <Careers />
-                                            <Licensing />
-                                              <MoreInfo />
-                                                <Contact />
+                                        <Development />
+                                            <Careers />
+                                                <Licensing />
+                                                    <MoreInfo />
+                                                        <Contact />
                     </div>
                 </div>
         </div>

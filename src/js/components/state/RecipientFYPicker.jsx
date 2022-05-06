@@ -106,8 +106,8 @@ export default class FYPicker extends React.Component {
                                             {dropdownValuesByApiValue[selectedApiValue]}
                                         </div>
                                             <div className="fy-picker__button-icon">
-                                              <AngleDown alt="Toggle menu" />
-                                          </div>
+                                                <AngleDown alt="Toggle menu" />
+                                            </div>
                                 </button>
                                     <ul className={`fy-picker__list ${visibleClass}`}>
                                         {Object.keys(dropdownValuesByApiValue)

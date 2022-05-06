@@ -36,33 +36,33 @@ export default class ScopeList extends React.Component {
                                         changeScope={this.props.changeScope} />
                                 </li>
                                     <li>
-                                      <RankVisualizationScopeButton
-                                        value="grant"
-                                        label="Grants"
-                                        active={this.props.scope === 'grant'}
-                                        changeScope={this.props.changeScope} />
-                                  </li>
-                                    <li>
-                                      <RankVisualizationScopeButton
-                                        value="direct payments"
-                                        label="Direct Payments"
-                                        active={this.props.scope === 'direct payments'}
-                                        changeScope={this.props.changeScope} />
-                                  </li>
-                                    <li>
-                                      <RankVisualizationScopeButton
-                                          value="loans"
-                                          label="Loans"
-                                          active={this.props.scope === 'loans'}
-                                          changeScope={this.props.changeScope} />
-                                  </li>
-                                      <li>
                                         <RankVisualizationScopeButton
-                                            value="other"
-                                            label="Other"
-                                            active={this.props.scope === 'other'}
+                                            value="grant"
+                                            label="Grants"
+                                            active={this.props.scope === 'grant'}
                                             changeScope={this.props.changeScope} />
                                     </li>
+                                        <li>
+                                            <RankVisualizationScopeButton
+                                                value="direct payments"
+                                                label="Direct Payments"
+                                                active={this.props.scope === 'direct payments'}
+                                                changeScope={this.props.changeScope} />
+                                        </li>
+                                            <li>
+                                                <RankVisualizationScopeButton
+                                                    value="loans"
+                                                    label="Loans"
+                                                    active={this.props.scope === 'loans'}
+                                                    changeScope={this.props.changeScope} />
+                                            </li>
+                                                <li>
+                                                    <RankVisualizationScopeButton
+                                                        value="other"
+                                                        label="Other"
+                                                        active={this.props.scope === 'other'}
+                                                        changeScope={this.props.changeScope} />
+                                                </li>
                         </ul>
                     </div>
                 </div>

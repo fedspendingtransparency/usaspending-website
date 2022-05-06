@@ -84,10 +84,10 @@ export default class ResultsTableSection extends React.Component {
                                 <div className="results-table-content">
                                     <TransitionGroup>
                                         {showTableMessage && (
-                                      <CSSTransition
-                                        classNames="table-message-fade"
-                                        timeout={{ exit: 225, enter: 195 }}
-                                        exit>
+                                        <CSSTransition
+                                            classNames="table-message-fade"
+                                            timeout={{ exit: 225, enter: 195 }}
+                                            exit>
                                 <>
                                     {this.props.inFlight && (
                                     <div className="results-table-message-container">
@@ -105,23 +105,23 @@ export default class ResultsTableSection extends React.Component {
                                     </div>
                                     )}
                                 </>
-                                    </CSSTransition>
+                                        </CSSTransition>
 
                         )}
                                     </TransitionGroup>
-                                      <div
-                                        className="results-table-width-master"
-                                        ref={(div) => {
+                                        <div
+                                            className="results-table-width-master"
+                                            ref={(div) => {
                             // this is an empty div that scales via CSS
                             // the results table width will follow this div's width
                             this.tableWidthController = div;
                         }} />
                                     {showDataTable && (
                                     <ResultsTable
-                                      {...this.props}
-                                      visibleWidth={this.state.tableWidth}
-                                      awardIdClick={this.props.awardIdClick}
-                                      subAwardIdClick={this.props.subAwardIdClick} />
+                                        {...this.props}
+                                        visibleWidth={this.state.tableWidth}
+                                        awardIdClick={this.props.awardIdClick}
+                                        subAwardIdClick={this.props.subAwardIdClick} />
                     )}
                                 </div>
             </div>

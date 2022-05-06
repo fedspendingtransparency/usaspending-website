@@ -202,8 +202,8 @@ const SearchSidebar = ({
                             {...releasedFilters}
                             expanded={expanded} />
                                 <div className="sidebar-bottom-submit">
-                                  <SearchSidebarSubmitContainer />
-                              </div>
+                                    <SearchSidebarSubmitContainer />
+                                </div>
         </div>
     );
 };

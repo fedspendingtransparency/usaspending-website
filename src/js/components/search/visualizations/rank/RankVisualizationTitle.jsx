@@ -82,8 +82,8 @@ export default class RankVisualizationTitle extends React.Component {
                                     {categoryNames[currentField]}
                                 </span>
                                     <span className="arrow-icon">
-                                      {icon}
-                                  </span>
+                                        {icon}
+                                    </span>
                         </button>
 
                             <div

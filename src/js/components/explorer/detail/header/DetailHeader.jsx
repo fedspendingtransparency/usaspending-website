@@ -140,9 +140,9 @@ const DetailHeader = (props) => {
                             <div className="amount-value">
                                 {props.isLoading ? '--' : formatTreemapValues(props.total)}
                             </div>
-                              <div className="update-date">
+                                <div className="update-date">
                         Data as of {moment(props.lastUpdate, 'YYYY-MM-DD').format('MMMM D, YYYY')}
-                            </div>
+                                </div>
                     </div>
             </div>
             {truncationWarning}

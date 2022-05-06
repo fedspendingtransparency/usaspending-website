@@ -302,12 +302,12 @@ export default class Autocomplete extends React.Component {
                                     {status}
                                 </div>
                                     <SuggestionHolder
-                                      suggestions={this.props.values}
-                                      shown={this.state.shown}
-                                      selectedIndex={this.state.selectedIndex}
-                                      select={this.select.bind(this)}
-                                      maxSuggestions={this.props.maxSuggestions}
-                                      autocompleteId={this.state.autocompleteId} />
+                                        suggestions={this.props.values}
+                                        shown={this.state.shown}
+                                        selectedIndex={this.state.selectedIndex}
+                                        select={this.select.bind(this)}
+                                        maxSuggestions={this.props.maxSuggestions}
+                                        autocompleteId={this.state.autocompleteId} />
                     </div>
                 {this.generateWarning()}
             </div>

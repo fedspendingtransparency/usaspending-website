@@ -18,71 +18,71 @@ export const transactionHistoryInfoGeneric = (
                     </p>
                         <ul>
                             <li>
-                              <strong>Modification Number</strong> – This number
+                                <strong>Modification Number</strong> – This number
                  identifies the modification with the lowest number
                  representing the beginning of the award.
-                          </li>
-                            <li>
-                              <strong>Action Date</strong> – This is when the
+                            </li>
+                                <li>
+                                    <strong>Action Date</strong> – This is when the
                  modification was obligated.
-                          </li>
-                            <li>
-                                <strong>Amount</strong> – This refers to the amount of
+                                </li>
+                                    <li>
+                                        <strong>Amount</strong> – This refers to the amount of
                  money added, or subtracted, from the initial awarded
                  amount.
-                            </li>
+                                    </li>
                         </ul>
-                          <p>
-                            <strong>Action Type</strong> – This column describes the
+                            <p>
+                                <strong>Action Type</strong> – This column describes the
                reason behind a modification. It uses a letter code system
                that maps to the following descriptions:
-                        </p>
-                          <ul className="info-tooltip__list">
-                            <li>
-                                <strong>A</strong> – Additional Work
-                            </li>
-                              <li>
-                                  <strong>B</strong> – Supplemental Agreement for work
-                 within scope
-                              </li>
-                                <li>
-                                    <strong>C</strong> – Funding Only Action
-                                </li>
-                                  <li>
-                                      <strong>D</strong> – Change Order
-                                  </li>
+                            </p>
+                                <ul className="info-tooltip__list">
                                     <li>
-                                      <strong>E</strong> – Terminate for Default (complete or
-                 partial)
-                                  </li>
-                                      <li>
-                                        <strong>F</strong> – Terminate for Convenience (complete
-                 or partial)
+                                        <strong>A</strong> – Additional Work
                                     </li>
                                         <li>
-                                          <strong>G</strong> – Exercise an Option
-                                      </li>
-                                          <li>
-                                            <strong>H</strong> – Definitize Letter Contract
+                                            <strong>B</strong> – Supplemental Agreement for work
+                 within scope
                                         </li>
                                             <li>
-                                              <strong>J</strong> – Novation Agreement
-                                          </li>
-                                              <li>
-                                                <strong>K</strong> – Close Out
+                                                <strong>C</strong> – Funding Only Action
                                             </li>
                                                 <li>
-                                                  <strong>L</strong> – Definitize Change Order
+                                                  <strong>D</strong> – Change Order
                                               </li>
-                                                  <li>
-                                                    <strong>M</strong> – Other Administrative Action
+                                                <li>
+                                                  <strong>E</strong> – Terminate for Default (complete or
+                 partial)
+                                              </li>
+                                                <li>
+                                                    <strong>F</strong> – Terminate for Convenience (complete
+                 or partial)
                                                 </li>
-                        </ul>
-                            <p className="tooltip__text-section">
-                              <strong>Description</strong> – This is additional
+                                                  <li>
+                                                      <strong>G</strong> – Exercise an Option
+                                                  </li>
+                                                    <li>
+                                                        <strong>H</strong> – Definitize Letter Contract
+                                                    </li>
+                                                      <li>
+                                                          <strong>J</strong> – Novation Agreement
+                                                      </li>
+                                                        <li>
+                                                          <strong>K</strong> – Close Out
+                                                      </li>
+                                                          <li>
+                                                            <strong>L</strong> – Definitize Change Order
+                                                        </li>
+                                                            <li>
+                                                              <strong>M</strong> – Other Administrative Action
+                                                          </li>
+                                </ul>
+                                    <p className="tooltip__text-section">
+                                        <strong>Description</strong> – This is additional
                information typically about the effects of the
                modifications on the contract.
-                          </p>
+                                    </p>
             </div>
     </div>
 );
@@ -103,71 +103,71 @@ export const transactionHistoryInfoContract = (
                     </p>
                         <ul>
                             <li>
-                              <strong>Modification Number</strong> – This number
+                                <strong>Modification Number</strong> – This number
                     identifies the modification. Modification numbers increment
                     from lower to higher as more mods are made.
-                          </li>
-                            <li>
-                              <strong>Action Date</strong> – This is when the
+                            </li>
+                                <li>
+                                    <strong>Action Date</strong> – This is when the
                     modification was issued.
-                          </li>
-                            <li>
-                                <strong>Amount</strong> – This refers to the amount of
+                                </li>
+                                    <li>
+                                        <strong>Amount</strong> – This refers to the amount of
                 money added or subtracted from the initial awarded
                 amount by the modification, if any.
-                            </li>
+                                    </li>
                         </ul>
-                          <p>
-                            <strong>Action Type</strong> – This column describes the
+                            <p>
+                                <strong>Action Type</strong> – This column describes the
               type of modification. It uses a letter code system
               that maps to the following descriptions. For more on the
               meaning of these descriptions, refer to Acquisition.gov:
-                        </p>
-                          <ul className="info-tooltip__list">
-                            <li>
-                                <strong>A</strong> – Additional Work
-                            </li>
-                              <li>
-                                  <strong>B</strong> – Supplemental Agreement for work
-                within scope
-                              </li>
-                                <li>
-                                    <strong>C</strong> – Funding Only Action
-                                </li>
-                                  <li>
-                                      <strong>D</strong> – Change Order
-                                  </li>
+                            </p>
+                                <ul className="info-tooltip__list">
                                     <li>
-                                      <strong>E</strong> – Terminate for Default (complete or
-                partial)
-                                  </li>
-                                      <li>
-                                        <strong>F</strong> – Terminate for Convenience (complete
-                or partial)
+                                        <strong>A</strong> – Additional Work
                                     </li>
                                         <li>
-                                          <strong>G</strong> – Exercise an Option
-                                      </li>
-                                          <li>
-                                            <strong>H</strong> – Definitize Letter Contract
+                                            <strong>B</strong> – Supplemental Agreement for work
+                within scope
                                         </li>
                                             <li>
-                                              <strong>J</strong> – Novation Agreement
-                                          </li>
-                                              <li>
-                                                <strong>K</strong> – Close Out
+                                                <strong>C</strong> – Funding Only Action
                                             </li>
                                                 <li>
-                                                  <strong>L</strong> – Definitize Change Order
+                                                  <strong>D</strong> – Change Order
                                               </li>
-                                                  <li>
-                                                    <strong>M</strong> – Other Administrative Action
+                                                <li>
+                                                  <strong>E</strong> – Terminate for Default (complete or
+                partial)
+                                              </li>
+                                                <li>
+                                                    <strong>F</strong> – Terminate for Convenience (complete
+                or partial)
                                                 </li>
-                        </ul>
-                            <p>
-                              <strong>Description</strong> – Describes the modification,
+                                                  <li>
+                                                      <strong>G</strong> – Exercise an Option
+                                                  </li>
+                                                    <li>
+                                                        <strong>H</strong> – Definitize Letter Contract
+                                                    </li>
+                                                      <li>
+                                                          <strong>J</strong> – Novation Agreement
+                                                      </li>
+                                                        <li>
+                                                          <strong>K</strong> – Close Out
+                                                      </li>
+                                                          <li>
+                                                            <strong>L</strong> – Definitize Change Order
+                                                        </li>
+                                                            <li>
+                                                              <strong>M</strong> – Other Administrative Action
+                                                          </li>
+                                </ul>
+                                    <p>
+                                        <strong>Description</strong> – Describes the modification,
                 typically covering its effect on the contract.
-                          </p>
+                                    </p>
             </div>
     </div>
 );
@@ -188,45 +188,45 @@ export const transactionHistoryInfoFinancialAssistance = (
                     </p>
                         <ul>
                             <li>
-                              <strong>Modification Number</strong> – This number
+                                <strong>Modification Number</strong> – This number
                     identifies the modification. Modification numbers increment
                     from lower to higher as more mods are made.
-                          </li>
-                            <li>
-                              <strong>Action Date</strong> – This is when the
+                            </li>
+                                <li>
+                                    <strong>Action Date</strong> – This is when the
                     modification was issued.
-                          </li>
-                            <li>
-                                <strong>Amount</strong> – This refers to the amount of
+                                </li>
+                                    <li>
+                                        <strong>Amount</strong> – This refers to the amount of
                 money added or subtracted from the initial awarded
                 amount by the modification, if any.
-                            </li>
-                        </ul>
-                          <p>
-                            <strong>Action Type</strong> – This column describes the
-              type of modification. It uses a letter code system
-              that maps to the following descriptions:
-                        </p>
-                          <ul className="info-tooltip__list">
-                            <li>
-                                <strong>A</strong> – New assistance award
-                            </li>
-                              <li>
-                                  <strong>B</strong> – Continuation
-                              </li>
-                                <li>
-                                    <strong>C</strong> – Revision
-                                </li>
-                                  <li>
-                                      <strong>D</strong> – Funding adjustment to a completed project
-                                  </li>
+                                    </li>
                         </ul>
                             <p>
-                              <strong>Description</strong> – Describes the modification,
+                                <strong>Action Type</strong> – This column describes the
+              type of modification. It uses a letter code system
+              that maps to the following descriptions:
+                            </p>
+                                <ul className="info-tooltip__list">
+                                    <li>
+                                        <strong>A</strong> – New assistance award
+                                    </li>
+                                        <li>
+                                            <strong>B</strong> – Continuation
+                                        </li>
+                                            <li>
+                                                <strong>C</strong> – Revision
+                                            </li>
+                                                <li>
+                                                  <strong>D</strong> – Funding adjustment to a completed project
+                                              </li>
+                                </ul>
+                                    <p>
+                                        <strong>Description</strong> – Describes the modification,
                 typically covering its effect on the award.
-                          </p>
-                              <p>
-                                <strong>Loan Face Value</strong> - The Face Value of a loan represents how much has actually been lent out to
+                                    </p>
+                                        <p>
+                                            <strong>Loan Face Value</strong> - The Face Value of a loan represents how much has actually been lent out to
                 the entity that received the loan dollars. Sometimes loans are financed by a
                 financial institution (with the Federal government merely providing a &#39;loan
                 guarantee&#39; to the financial institution and reimbursement in cases where the
@@ -236,9 +236,9 @@ export const transactionHistoryInfoFinancialAssistance = (
                 it does not, in itself, represent a long-term cost to the government. The
                 estimated long-term cost to the government of a loan is captured
                 in the subsidy cost field.
-                            </p>
-                                <p>
-                                  <strong>Loan Subsidy Cost (Total Obligations To Date)</strong> - The implications of a loan or loan guarantee for the Federal Budget (and thus the
+                                        </p>
+                                            <p>
+                                                <strong>Loan Subsidy Cost (Total Obligations To Date)</strong> - The implications of a loan or loan guarantee for the Federal Budget (and thus the
             loan version of spending/obligations) are known as the loan&#39;s subsidy
             cost. Subsidy cost is the calculated net present value of the loan to the
             government, taking into account the interest rate and the modeled risk of the
@@ -250,7 +250,7 @@ export const transactionHistoryInfoFinancialAssistance = (
             guarantee program itself are excluded from subsidy cost calculations. Note
             that a loan&#39;s face value is not considered Federal spending, since it
             does not in itself represent a long-term cost to the government.
-                              </p>
+                                            </p>
             </div>
     </div>
 );
@@ -304,47 +304,47 @@ export const relatedAwardsInfo = (
                         <p>
                 The award orders made under an IDV are sometimes known or referred
                 to as:
-                      </p>
-                        <ul className="info-tooltip__list">
-                            <li>&bull; Task Order</li>
-                              <li>&bull; Delivery Order</li>
-                                <li>&bull; Purchase Order</li>
-                                    <li>&bull; Blanket Purchase Agreement (BPA) Calls</li>
-                        </ul>
-                          <p>
+                        </p>
+                            <ul className="info-tooltip__list">
+                                <li>&bull; Task Order</li>
+                                    <li>&bull; Delivery Order</li>
+                                        <li>&bull; Purchase Order</li>
+                                            <li>&bull; Blanket Purchase Agreement (BPA) Calls</li>
+                            </ul>
+                                <p>
                 Another thing to note is that sometimes an IDV order can be made
                 under an IDV (and in turn, have award orders made under it). We
                 show child award orders*, child IDV orders*, and grandchild award
                 orders* made under this IDV in the three tabs below, respectively.
-                        </p>
-                            <ul>
-                              <li>
-                                  <em>
-                                    <strong>*Child award order</strong> refers to award orders made
+                                </p>
+                                    <ul>
+                                        <li>
+                                            <em>
+                                                <strong>*Child award order</strong> refers to award orders made
                         directly under this IDV (IDV &gt; Award).
-                                </em>
-                              </li>
-                                <li>
-                                    <em>
-                                      <strong>*Child IDV order</strong> refers to IDVs made directly
+                                            </em>
+                                        </li>
+                                            <li>
+                                                <em>
+                                                  <strong>*Child IDV order</strong> refers to IDVs made directly
                         under this IDV (IDV &gt; IDV).
-                                  </em>
-                                </li>
-                                  <li>
-                                      <em>
-                                        <strong>*Grandchild award order</strong> refers to award orders
+                                              </em>
+                                            </li>
+                                              <li>
+                                                <em>
+                                                    <strong>*Grandchild award order</strong> refers to award orders
                         made within a child IDV order (IDV &gt; IDV &gt;
                           Award).
-                                    </em>
-                                  </li>
-                                    <li>
-                                        <em>
-                                          <strong>*IDV itself</strong> refers to the top-level IDV this
+                                                </em>
+                                            </li>
+                                                <li>
+                                                  <em>
+                                                    <strong>*IDV itself</strong> refers to the top-level IDV this
                         page is summarizing, not including any of its child award orders
                         or child IDV orders.
-                                      </em>
-                                    </li>
-                          </ul>
+                                                </em>
+                                              </li>
+                                    </ul>
             </div>
     </div>
 );
@@ -360,11 +360,11 @@ export const summaryRelatedAwardsInfo = (
                         <p className="tooltip__text-section">The contract summarized on this page is a “child” prime award of the parent IDV indicated here.</p>
                             <p className="tooltip__text-section">Click on the parent award ID to view the summary page of this award&apos;s parent award, which details all of that parent award&apos;s “child” and “grandchild” awards.</p>
                                 <strong>Sub-Awards</strong>
-                                  <p className="tooltip__text-section">
+                                    <p className="tooltip__text-section">
                 This is the count of sub-awards (in this case, sub-contracts to furnish supplies or services to advance the prime contract) issued and reported directly
                 by the prime recipient. For more details, click on the count to scroll to the Sub-Awards tab within the Award History section of this page.
                 Sub-awards are always referred to as such and are independent of the ‘child&apos; and ‘grandchild&apos; prime award structure discussed above.
-                                </p>
+                                    </p>
             </div>
     </div>
 );
@@ -385,22 +385,22 @@ export const summaryRelatedAwardsInfoIdv = (
                     award that this IDV was made under.  Click on the link to view
                     more information on this IDV&rsquo;s parent award.
                         </li>
-                          <li>
-                            <strong>Child Award Order</strong> – This refers to the count
+                            <li>
+                                <strong>Child Award Order</strong> – This refers to the count
                     of award orders made directly under this IDV (IDV &gt; Award).
                      Click on the count to view the child award orders of this IDV.
-                        </li>
-                            <li>
-                              <strong>Child IDV Order</strong> – This refers to the count
+                            </li>
+                                <li>
+                                    <strong>Child IDV Order</strong> – This refers to the count
                     of IDVs made directly under this IDV (IDV &gt; IDV). Click
                      on this count to view the child IDV orders of this IDV.
-                          </li>
-                            <li>
-                                <strong>Grandchild Award Order</strong> – This refers to the
+                                </li>
+                                    <li>
+                                        <strong>Grandchild Award Order</strong> – This refers to the
                     count of award orders made within child IDV Orders under this
                     IDV (IDV &gt; IDV &gt; Award). Click on this count to view
                      the grandchild award orders of this IDV.
-                            </li>
+                                    </li>
                     </ul>
             </div>
     </div>
@@ -437,29 +437,29 @@ export const descriptionInfoContract = (
                 Also shown below the description are groups of codes from two systems of classification:
                     </p>
                         <ul className="info-tooltip__list award-desciption-section">
-                          <li>
-                            <strong>North American Industry Classification System (NAICS) Code</strong>
-                                <p>This code describes the primary industrial activity of the recipient of this award. It is six digits and has three levels of embedded granularity:</p>
-                                  <ul className="info-tooltip__list">
-                                    <li>&bull; The first two-digits indicate the sector (general).</li>
-                                        <li>&bull; The first four-digits indicate the industry group.</li>
-                                          <li>&bull; The full six-digits indicate the sub-industry group (specific).</li>
-                                </ul>
-                                    <p style={{ marginBottom: 0 }} >These three levels are displayed hierarchically below for this recipient.</p>
-                        </li>
                             <li>
-                              <strong>Product and Service Codes (PSC)</strong>
-                                <p>These codes are used to categorize awards by the type of product, service, or research and development (R&D) procured. The code is 4 characters and has up to four levels of embedded granularity:</p>
-                                    <ul className="info-tooltip__list">
-                                      <li>&bull; The first level classifies what was procured as a product, service or R&D .</li>
-                                          <li>&bull; The second level indicates the top level category of what was procured.</li>
-                                            <li>&bull; The third level indicates the detailed level category subdivision of what was procured.</li>
-                                              <li>&bull; The fourth level exists for R&D and services only. For R&D, it specifies the stage of the R&D process involved. For services, it specifies a further subdivision of the third level code.</li>
-                                  </ul>
-                                      <p>Each of these levels is displayed hierarchically below for this recipient.</p>
-                                        <p>Click on the glossary icons for more information on NAICS and PSC.</p>
-                          </li>
-                      </ul>
+                                <strong>North American Industry Classification System (NAICS) Code</strong>
+                                    <p>This code describes the primary industrial activity of the recipient of this award. It is six digits and has three levels of embedded granularity:</p>
+                                        <ul className="info-tooltip__list">
+                                            <li>&bull; The first two-digits indicate the sector (general).</li>
+                                                <li>&bull; The first four-digits indicate the industry group.</li>
+                                                    <li>&bull; The full six-digits indicate the sub-industry group (specific).</li>
+                                        </ul>
+                                            <p style={{ marginBottom: 0 }} >These three levels are displayed hierarchically below for this recipient.</p>
+                            </li>
+                                <li>
+                                    <strong>Product and Service Codes (PSC)</strong>
+                                        <p>These codes are used to categorize awards by the type of product, service, or research and development (R&D) procured. The code is 4 characters and has up to four levels of embedded granularity:</p>
+                                            <ul className="info-tooltip__list">
+                                                <li>&bull; The first level classifies what was procured as a product, service or R&D .</li>
+                                                    <li>&bull; The second level indicates the top level category of what was procured.</li>
+                                                        <li>&bull; The third level indicates the detailed level category subdivision of what was procured.</li>
+                                                            <li>&bull; The fourth level exists for R&D and services only. For R&D, it specifies the stage of the R&D process involved. For services, it specifies a further subdivision of the third level code.</li>
+                                            </ul>
+                                                <p>Each of these levels is displayed hierarchically below for this recipient.</p>
+                                                    <p>Click on the glossary icons for more information on NAICS and PSC.</p>
+                                </li>
+                        </ul>
             </div>
     </div>
 );
@@ -483,7 +483,7 @@ export const descriptionInfo = (
                     </p>
                         <p>
                 Click on the glossary icons for more information on those systems.
-                      </p>
+                        </p>
             </div>
     </div>
 );
@@ -502,7 +502,7 @@ export const awardAmountsInfo = (
                     <ul>
                         <li>
                             <p>
-                              <strong>Award Orders Made Under this IDV</strong> – The
+                                <strong>Award Orders Made Under this IDV</strong> – The
                         information within this tab is derived from the spending
                         data of every award order made under this IDV, including
                         child award orders* and grandchild award orders*.  It does
@@ -512,46 +512,46 @@ export const awardAmountsInfo = (
                         a better idea of the actual value of the IDV as a whole,
                         award amounts are taken from its award orders and then aggregated
                         (or summed together) and then presented here.
-                          </p>
-                            <p>
+                            </p>
+                                <p>
                         Counts of the total amount of orders as well as the child
                         award orders and grandchild award orders are also displayed
                         in a table below the bar chart.
-                            </p>
+                                </p>
                         </li>
-                          <li>
-                            <strong>This IDV</strong> – This tab contains spending data
+                            <li>
+                                <strong>This IDV</strong> – This tab contains spending data
                     that is directly attributed to the IDV record summarized on
                     this page. This data does not include the spending data attributed
                     to any awards or IDVs made under it.  In many cases, the data
                     directly attributed to an IDV record does not show actual award
                     amounts, which is why the amounts in this tab are often $0.
-                        </li>
-                            <li>
-                              <em>
-                                <strong>*Child award order</strong> refers to award orders made
-                        directly under this IDV (IDV &gt; Award).
-                            </em>
-                          </li>
-                            <li>
-                                <em>
-                                  <strong>*Child IDV order</strong> refers to IDVs made directly
-                        under this IDV (IDV &gt; IDV).
-                              </em>
-                            </li>
-                              <li>
-                                <em>
-                                    <strong>*Grandchild award order</strong> refers to award orders
-                        made within a child IDV order (IDV &gt; IDV &gt; Award).
-                                </em>
                             </li>
                                 <li>
-                                  <em>
-                                      <strong>*IDV itself</strong> refers to the top-level IDV this
+                                    <em>
+                                        <strong>*Child award order</strong> refers to award orders made
+                        directly under this IDV (IDV &gt; Award).
+                                    </em>
+                                </li>
+                                    <li>
+                                        <em>
+                                            <strong>*Child IDV order</strong> refers to IDVs made directly
+                        under this IDV (IDV &gt; IDV).
+                                        </em>
+                                    </li>
+                                        <li>
+                                            <em>
+                                                <strong>*Grandchild award order</strong> refers to award orders
+                        made within a child IDV order (IDV &gt; IDV &gt; Award).
+                                            </em>
+                                        </li>
+                                            <li>
+                                                <em>
+                                                  <strong>*IDV itself</strong> refers to the top-level IDV this
                         page is summarizing, not including any of its child award orders
                         or child IDV orders.
-                                  </em>
-                              </li>
+                                              </em>
+                                            </li>
                     </ul>
             </div>
     </div>
@@ -601,17 +601,17 @@ export const awardHistoryContract = (
                     This table contains historical changes made to this award,
                     shown as individual modification records. This information
                     is reported by the awarding agency&apos;s contracting or grants officer.
-                          </p>
+                            </p>
                     </div>
                         <div>
-                          <strong>Sub-Awards</strong>
-                            <p className="tooltip__text-section">
+                            <strong>Sub-Awards</strong>
+                                <p className="tooltip__text-section">
                     This table contains any sub-awards reported by this recipient.
-                            </p>
-                      </div>
-                        <div>
-                            <strong>Federal Account Funding</strong>
-                              <p className="tooltip__text-section">
+                                </p>
+                        </div>
+                            <div>
+                                <strong>Federal Account Funding</strong>
+                                    <p className="tooltip__text-section">
                     This table contains funding data directly submitted from agency financial
                     accounting systems, also known as “Award Financial” or “Account
                     Breakdown by Award” data. This data, which links each Treasury account to
@@ -619,8 +619,8 @@ export const awardHistoryContract = (
                     appropriation, budgeting, and allocation processes, which channel
                     Congressional and Administration intent and determine how much money
                     is assigned to each federal account.
-                            </p>
-                        </div>
+                                    </p>
+                            </div>
             </div>
     </div>
 );
@@ -644,11 +644,11 @@ export const awardHistoryFinancialAssistanceGeneric = (
                     This table contains historical changes made to this award,
                     shown as individual modification records. This information is
                     reported by the awarding agency&apos;s officer.
-                          </p>
+                            </p>
                     </div>
                         <div>
-                          <strong>Federal Account Funding</strong>
-                            <p className="tooltip__text-section">
+                            <strong>Federal Account Funding</strong>
+                                <p className="tooltip__text-section">
                     This table contains funding data directly submitted from agency financial
                     accounting systems, also known as “Award Financial” or “Account
                     Breakdown by Award” data. This data, which links each Treasury account to
@@ -656,8 +656,8 @@ export const awardHistoryFinancialAssistanceGeneric = (
                     appropriation, budgeting, and allocation processes, which channel
                     Congressional and Administration intent and determine how much money
                     is assigned to each federal account.
-                            </p>
-                      </div>
+                                </p>
+                        </div>
             </div>
     </div>
 );
@@ -681,11 +681,11 @@ export const awardHistoryFinancialAssistanceLoan = (
                     This table contains historical changes made to this loan award,
                     shown as individual modification records. This information is
                     reported by the awarding agency&apos;s loan officer.
-                          </p>
+                            </p>
                     </div>
                         <div>
-                          <strong>Federal Account Funding</strong>
-                            <p className="tooltip__text-section">
+                            <strong>Federal Account Funding</strong>
+                                <p className="tooltip__text-section">
                     This table contains funding data directly submitted from agency financial
                     accounting systems, also known as “Award Financial” or “Account
                     Breakdown by Award” data. This data, which links each Treasury account to
@@ -693,8 +693,8 @@ export const awardHistoryFinancialAssistanceLoan = (
                     appropriation, budgeting, and allocation processes, which channel
                     Congressional and Administration intent and determine how much money
                     is assigned to each federal account.
-                            </p>
-                      </div>
+                                </p>
+                        </div>
             </div>
     </div>
 );
@@ -712,13 +712,13 @@ export const datesInfoAsst = (
                         <strong>End Date</strong>
                             <p className="tooltip__text-section">
                 The end date marks the end of the award&apos;s period of performance, when the recipient will finish its work or the award will otherwise end.
-                          </p>
-                            <p className="tooltip__text-section">
+                            </p>
+                                <p className="tooltip__text-section">
                 Note that administrative actions related to this award may continue to occur after this date.
-                            </p>
-                              <p className="tooltip__text-section">
+                                </p>
+                                    <p className="tooltip__text-section">
                 Assistance awards are sometimes subject to extensions, noncompetitive continuations, or early termination; if any of these occur, they will be indicated by a modification that alters the end date.
-                            </p>
+                                    </p>
             </div>
     </div>
 );
@@ -738,13 +738,13 @@ export const datesInfo = (
                             <p className="tooltip__text-section">
                 The current end date marks the end of the contract&apos;s current period of performance or when the recipient will finish its work.
                 This date factors in only currently-exercised contract extension options.
-                          </p>
-                            <p className="tooltip__text-section">Note that administrative actions related to this contract may continue to occur after this date.</p>
-                                <strong>Potential End Date</strong>
-                                  <p className="tooltip__text-section">
+                            </p>
+                                <p className="tooltip__text-section">Note that administrative actions related to this contract may continue to occur after this date.</p>
+                                    <strong>Potential End Date</strong>
+                                        <p className="tooltip__text-section">
                 The potential end date marks the end of the contract&apos;s potential period of performance or when the recipient will finish its work if all remaining contract extension options are exercised.
-                                </p>
-                                  <p className="tooltip__text-section">Note that administrative actions related to this contract may continue to occur after this date.</p>
+                                        </p>
+                                            <p className="tooltip__text-section">Note that administrative actions related to this contract may continue to occur after this date.</p>
             </div>
     </div>
 );
@@ -762,9 +762,9 @@ export const datesInfoIdv = (
                     when the IDV was made available for use by agencies.
                         </li>
                             <li>
-                              <strong>Ordering Period End Date</strong> – This is the last date for agencies
+                                <strong>Ordering Period End Date</strong> – This is the last date for agencies
                     to make purchases under this IDV.
-                          </li>
+                            </li>
                     </ul>
             </div>
     </div>
@@ -782,20 +782,20 @@ export const contractActivityGrants = (
                             <p className="tooltip__text-section">
                     Each transaction is marked by a dot.  You can hover your cursor over each dot to get more information for that particular transaction.
                             </p>
-                              <p className="tooltip__text-section">
+                                <p className="tooltip__text-section">
                     The vertical placement of each dot (transaction) represents the total amount obligated at that time (up to and including that transaction) and the horizontal placement represents the transaction&apos;s action date.
-                            </p>
+                                </p>
                     </div>
                         <div>
                             <strong>Start Date</strong>
-                              <p className="tooltip__text-section">The start date marks when the awarded recipient&apos;s work begins or when the award is otherwise effective.  This is also called the period of performance start date. </p>
+                                <p className="tooltip__text-section">The start date marks when the awarded recipient&apos;s work begins or when the award is otherwise effective.  This is also called the period of performance start date. </p>
 
                         </div>
-                          <div>
-                            <strong>End Date</strong>
-                                <p className="tooltip__text-section">The end date marks the end of the grant&apos;s period of performance or when the recipient will finish its work.</p>
-                                  <p className="tooltip__text-section">Administrative actions related to this grant may continue to occur after this date.</p>
-                        </div>
+                            <div>
+                                <strong>End Date</strong>
+                                    <p className="tooltip__text-section">The end date marks the end of the grant&apos;s period of performance or when the recipient will finish its work.</p>
+                                        <p className="tooltip__text-section">Administrative actions related to this grant may continue to occur after this date.</p>
+                            </div>
             </div>
     </div>
 );
@@ -814,41 +814,41 @@ export const contractActivityInfoContracts = (
                         <strong>Contract Transactions</strong>
                             <p className="tooltip__text-section">
                     Each transaction is marked by a dot.  You can hover your cursor over each dot to get more information for that particular transaction.
-                          </p>
-                            <p className="tooltip__text-section">
-                    The vertical placement of each dot (transaction) represents the total amount obligated at that time (up to and including that transaction) and the horizontal placement represents the transaction&apos;s action date.
                             </p>
+                                <p className="tooltip__text-section">
+                    The vertical placement of each dot (transaction) represents the total amount obligated at that time (up to and including that transaction) and the horizontal placement represents the transaction&apos;s action date.
+                                </p>
                     </div>
                         <div>
-                          <strong>Potential Award Amount</strong>
-                            <p className="tooltip__text-section">
-                    The horizontal line at the top of the chart represents the potential award amount, or contract ceiling, of this contract.
-                            </p>
-                      </div>
-                        <div>
-                            <strong>Start Date</strong>
-                              <p className="tooltip__text-section">
-                    The start date marks when the awarded recipient&apos;s work begins or when this contract is otherwise effective.  This is also called the period of performance start date or effective date.
-                            </p>
-                        </div>
-                          <div>
-                            <strong>Current End Date</strong>
+                            <strong>Potential Award Amount</strong>
                                 <p className="tooltip__text-section">
-                    The current end date marks the end of this contract&apos;s current period of performance or when the recipient will finish its work.  This date factors in only currently-exercised contract extension options.
-                              </p>
-                                  <p className="tooltip__text-section">
-                    Note that administrative actions related to this contract may continue to occur after this date.
+                    The horizontal line at the top of the chart represents the potential award amount, or contract ceiling, of this contract.
                                 </p>
                         </div>
                             <div>
-                              <strong>Potential End Date</strong>
-                                  <p className="tooltip__text-section">
-                    The potential end date marks the end of this contract&apos;s potential period of performance or when the recipient will finish its work if all remaining contract extension options are exercised.
-                                </p>
+                                <strong>Start Date</strong>
                                     <p className="tooltip__text-section">
+                    The start date marks when the awarded recipient&apos;s work begins or when this contract is otherwise effective.  This is also called the period of performance start date or effective date.
+                                    </p>
+                            </div>
+                                <div>
+                                    <strong>Current End Date</strong>
+                                        <p className="tooltip__text-section">
+                    The current end date marks the end of this contract&apos;s current period of performance or when the recipient will finish its work.  This date factors in only currently-exercised contract extension options.
+                                        </p>
+                                            <p className="tooltip__text-section">
                     Note that administrative actions related to this contract may continue to occur after this date.
-                                  </p>
-                          </div>
+                                            </p>
+                                </div>
+                                    <div>
+                                        <strong>Potential End Date</strong>
+                                            <p className="tooltip__text-section">
+                    The potential end date marks the end of this contract&apos;s potential period of performance or when the recipient will finish its work if all remaining contract extension options are exercised.
+                                            </p>
+                                                <p className="tooltip__text-section">
+                    Note that administrative actions related to this contract may continue to occur after this date.
+                                              </p>
+                                    </div>
             </div>
     </div>
 );
@@ -881,50 +881,50 @@ export const idvActivityInfo = (
                 made under <strong>child IDV orders*</strong>.
                     </p>
                         <p>
-                          <strong>Data not shown in this visual:</strong><br />
+                            <strong>Data not shown in this visual:</strong><br />
                 This visual does not show the <strong>IDV itself*</strong> nor does it show the
                     <strong> child IDV orders*</strong> made under this IDV.
                 If an award has a zero or negative obligated amount,
                 or is missing an end date, it is not displayed.
-                      </p>
-                        <p>
-                            <strong>Options when viewing the awards:</strong><br />
+                        </p>
+                            <p>
+                                <strong>Options when viewing the awards:</strong><br />
                 Awards orders are shown 10, 50, or 100 at a time (user choice)
                 and in descending order according to their respective
-                              <strong> obligated amounts</strong>. Use the page number links at the top-right
+                                    <strong> obligated amounts</strong>. Use the page number links at the top-right
                 of this section to view more.
-                        </p>
-                          <p>
+                            </p>
+                                <p>
                 You can get more details on each award order by hovering your cursor
                 over the award order&rsquo;s bar.
-                        </p>
-                            <ul>
-                              <li>
-                                  <em>
-                                    <strong>*Child award order</strong> refers to award orders made
+                                </p>
+                                    <ul>
+                                        <li>
+                                            <em>
+                                                <strong>*Child award order</strong> refers to award orders made
                         directly under this IDV (IDV =&gt; <strong>Award</strong>).
-                                </em>
-                              </li>
-                                <li>
-                                    <em>
-                                      <strong>*Child IDV order</strong> refers to IDVs made directly
+                                            </em>
+                                        </li>
+                                            <li>
+                                                <em>
+                                                  <strong>*Child IDV order</strong> refers to IDVs made directly
                         under this IDV (IDV =&gt; <strong>IDV</strong>).
-                                  </em>
-                                </li>
-                                  <li>
-                                      <em>
-                                        <strong>*Grandchild award order</strong> refers to award orders
+                                              </em>
+                                            </li>
+                                              <li>
+                                                <em>
+                                                    <strong>*Grandchild award order</strong> refers to award orders
                         made within a child IDV order (IDV =&gt; IDV =&gt; <strong>Award</strong>).
-                                    </em>
-                                  </li>
-                                    <li>
-                                        <em>
-                                          <strong>*IDV itself</strong> refers to the top-level IDV this
+                                                </em>
+                                            </li>
+                                                <li>
+                                                  <em>
+                                                    <strong>*IDV itself</strong> refers to the top-level IDV this
                         page is summarizing, not including any of its child award orders
                         or child IDV orders.
-                                      </em>
-                                    </li>
-                          </ul>
+                                                </em>
+                                              </li>
+                                    </ul>
             </div>
     </div>
 );
@@ -941,16 +941,16 @@ export const federalAccountsInfoContract = (
                         <p className="tooltip__text-section">
                 You can view federal account data as a list or as a treemap by clicking on the buttons at the top right corner of this section. The chart below this data provides a Summary of All Federal Accounts Used by this Award.
                         </p>
-                          <p className="tooltip__text-section">
-                In the list view, a summary table displays the total reported funding committed to this award from each contributing federal account, as well as associated funding agencies and awarding agencies.
-                        </p>
                             <p className="tooltip__text-section">
-                In the treemap view, each proportionately-sized rectangle represents a different federal account&apos;s portion of the total funding for this award.
-                          </p>
-                            <strong>Data Shown in this Visual</strong>
+                In the list view, a summary table displays the total reported funding committed to this award from each contributing federal account, as well as associated funding agencies and awarding agencies.
+                            </p>
                                 <p className="tooltip__text-section">
+                In the treemap view, each proportionately-sized rectangle represents a different federal account&apos;s portion of the total funding for this award.
+                                </p>
+                                    <strong>Data Shown in this Visual</strong>
+                                        <p className="tooltip__text-section">
                 This visual leverages funding data directly submitted from agency financial accounting systems, also known as “Award Financial” or “Account Breakdown by Award” data. This data, which links each Treasury account to each Award transaction it funds, connects award spending to the appropriation, budgeting, and allocation processes, which channel Congressional and Administration intent and determine how much money is assigned to each federal account.
-                              </p>
+                                        </p>
             </div>
     </div>
 );
@@ -975,60 +975,60 @@ export const federalAccountsInfoIdv = (
                 are summed and categorized by the federal account it came from.
                     </p>
                         <p>
-                          <strong>Data not shown in this visual:</strong><br />
+                            <strong>Data not shown in this visual:</strong><br />
                 This section does not show any federal account funding directly attached
                 to the IDV itself* (if any) nor funding directly attached to its child
                 IDV orders* (if any).
-                      </p>
-                        <p>
-                            <strong>Viewing options for this visual:</strong><br />
+                        </p>
+                            <p>
+                                <strong>Viewing options for this visual:</strong><br />
                 You can view this data as a treemap or as a list by clicking on the
                 buttons at the top right corner of this section.
-                        </p>
-                          <p>
-                            <strong>Summary table:</strong><br />
+                            </p>
+                                <p>
+                                    <strong>Summary table:</strong><br />
                 Also included is a summary table showing the total federal account
                 funding committed across all award orders made underneath this IDV,
                 as well as the counts of federal funding accounts and awarding agencies
                 involved with these award orders.
-                        </p>
-                            <ul>
-                              <li>
-                                  <em>
-                                    <strong>*Funding data</strong> refers to award-level accounting/financial
+                                </p>
+                                    <ul>
+                                        <li>
+                                            <em>
+                                                <strong>*Funding data</strong> refers to award-level accounting/financial
                         data submitted by government agencies which is linked to complementary
                         data they previously submitted from their award systems. . This
                         is the same data available for download in the Download Center,
                         under Custom Account Download by selecting “Account Breakdown by
                         Award” within the “File Type” section.
-                                </em>
-                              </li>
-                                <li>
-                                    <em>
-                                      <strong>*Child award order</strong> refers to award orders made
+                                            </em>
+                                        </li>
+                                            <li>
+                                                <em>
+                                                  <strong>*Child award order</strong> refers to award orders made
                         directly under this IDV (IDV &gt; Award).
-                                  </em>
-                                </li>
-                                  <li>
-                                      <em>
-                                        <strong>*Child IDV order</strong> refers to IDVs made directly
+                                              </em>
+                                            </li>
+                                              <li>
+                                                <em>
+                                                    <strong>*Child IDV order</strong> refers to IDVs made directly
                         under this IDV (IDV &gt; IDV).
-                                    </em>
-                                  </li>
-                                    <li>
-                                        <em>
-                                          <strong>*Grandchild award order</strong> refers to award orders
+                                                </em>
+                                            </li>
+                                                <li>
+                                                  <em>
+                                                    <strong>*Grandchild award order</strong> refers to award orders
                         made within a child IDV order (IDV &gt; IDV &gt; Award).
-                                      </em>
-                                    </li>
-                                      <li>
-                                        <em>
-                                            <strong>*IDV itself</strong> refers to the top-level IDV this
+                                                </em>
+                                              </li>
+                                                <li>
+                                                    <em>
+                                                      <strong>*IDV itself</strong> refers to the top-level IDV this
                         page is summarizing, not including any of its child award orders
                         or child IDV orders.
-                                        </em>
-                                    </li>
-                          </ul>
+                                                  </em>
+                                                </li>
+                                    </ul>
             </div>
     </div>
 );
@@ -1050,27 +1050,27 @@ export const subAwardsTabContract = (
                         <p>
                 Here&apos;s what the columns for each sub-contract action tell you:
                         </p>
-                          <ul>
-                            <li>
-                              <strong>Sub-Award ID</strong> – The sub-award ID number chosen
-                    by the prime recipient for this transaction.
-                          </li>
-                            <li>
-                                <strong>Sub-Recipient Name</strong> – The name of the sub-recipient.
-                            </li>
-                              <li>
-                                  <strong>Action Date</strong> - The date when the sub-contract was issued.
-                              </li>
+                            <ul>
                                 <li>
-                                    <strong>Amount</strong> – The amount of money involved
-                    in the sub-contract action.
+                                    <strong>Sub-Award ID</strong> – The sub-award ID number chosen
+                    by the prime recipient for this transaction.
                                 </li>
-                                  <li>
-                                    <strong>Description</strong> – The description of the sub-contract
+                                    <li>
+                                        <strong>Sub-Recipient Name</strong> – The name of the sub-recipient.
+                                    </li>
+                                        <li>
+                                            <strong>Action Date</strong> - The date when the sub-contract was issued.
+                                        </li>
+                                            <li>
+                                                <strong>Amount</strong> – The amount of money involved
+                    in the sub-contract action.
+                                            </li>
+                                                <li>
+                                                  <strong>Description</strong> – The description of the sub-contract
                     provided by the prime recipient.
                     The level of detail in descriptions varies and is dependent on the author.
-                                </li>
-                        </ul>
+                                              </li>
+                            </ul>
             </div>
     </div>
 );
@@ -1092,27 +1092,27 @@ export const subAwardsTabGrant = (
                         <p>
                 Here&apos;s what the columns for each sub-grant action tell you:
                         </p>
-                          <ul>
-                            <li>
-                              <strong>Sub-Award ID</strong> – The sub-award ID number chosen
-                    by the prime recipient for this transaction.
-                          </li>
-                            <li>
-                                <strong>Sub-Recipient Name</strong> – The name of the sub-recipient.
-                            </li>
-                              <li>
-                                  <strong>Action Date</strong> - The date when the sub-grant was issued.
-                              </li>
+                            <ul>
                                 <li>
-                                    <strong>Amount</strong> – The amount of money involved
-                    in the sub-grant action.
+                                    <strong>Sub-Award ID</strong> – The sub-award ID number chosen
+                    by the prime recipient for this transaction.
                                 </li>
-                                  <li>
-                                    <strong>Description</strong> – The description of the sub-grant
+                                    <li>
+                                        <strong>Sub-Recipient Name</strong> – The name of the sub-recipient.
+                                    </li>
+                                        <li>
+                                            <strong>Action Date</strong> - The date when the sub-grant was issued.
+                                        </li>
+                                            <li>
+                                                <strong>Amount</strong> – The amount of money involved
+                    in the sub-grant action.
+                                            </li>
+                                                <li>
+                                                  <strong>Description</strong> – The description of the sub-grant
                     provided by the prime recipient.
                     The level of detail in descriptions varies and is dependent on the author.
-                                </li>
-                        </ul>
+                                              </li>
+                            </ul>
             </div>
     </div>
 );
@@ -1128,8 +1128,8 @@ export const ContractAwardAmountsInfo = (
                         <p>The current value of a contract (Current Award Amount) represents the value of the base contract and any exercised options. </p>
                             <p>The potential value of a contract (Potential Award Amount) represents the value of the base contract and all options, if they happen to be exercised in the future. This is sometimes called the contract ceiling or capacity.</p>
                                 <p>If a recipient fails to deliver on the terms of the contract, the contract can end or be modified, reducing the current and potential value through a deobligation.</p>
-                                  <p>This visual depicts the Obligated Amount, Current Award Amount, and Potential Award Amount of the contract.</p>
-                                    <p>Hover over the chart for more information about the specific amounts displayed.</p>
+                                    <p>This visual depicts the Obligated Amount, Current Award Amount, and Potential Award Amount of the contract.</p>
+                                        <p>Hover over the chart for more information about the specific amounts displayed.</p>
             </div>
     </div>
 );
@@ -1186,30 +1186,30 @@ export const CFDASectionInfo = (
                                 <strong>Objectives </strong>
                     The purpose, goals, and details of this CFDA program and its implementation.
                             </li>
-                              <li>
-                                <strong>Administrative Agency </strong>
+                                <li>
+                                    <strong>Administrative Agency </strong>
                     The federal agency that operates this CFDA program.
-                            </li>
-                                <li>
-                                  <strong>Website </strong>
-                    The official website of this CFDA program.
-                              </li>
-                                <li>
-                                  <strong>SAM.gov Page </strong>
-                    The CFDA program’s page on SAM.gov, which is the source of data in this section.  Additional information on this CFDA program, including contact information, projected future spending and information on how to apply (if appropriate) can be found here.
-                              </li>
-                                <li>
-                                  <strong>Use of Assistance </strong>
-                    The broad functional category this CFDA program falls under (e.g., Agriculture)
-                              </li>
-                                  <li>
-                                    <strong>Applicant Eligibility </strong>
-                    The types of recipients that are eligible to apply for assistance funds from this CFDA program.
                                 </li>
                                     <li>
-                                      <strong>Beneficiary Eligibility </strong>
+                                        <strong>Website </strong>
+                    The official website of this CFDA program.
+                                    </li>
+                                        <li>
+                                            <strong>SAM.gov Page </strong>
+                    The CFDA program’s page on SAM.gov, which is the source of data in this section.  Additional information on this CFDA program, including contact information, projected future spending and information on how to apply (if appropriate) can be found here.
+                                        </li>
+                                            <li>
+                                                <strong>Use of Assistance </strong>
+                    The broad functional category this CFDA program falls under (e.g., Agriculture)
+                                            </li>
+                                                <li>
+                                                    <strong>Applicant Eligibility </strong>
+                    The types of recipients that are eligible to apply for assistance funds from this CFDA program.
+                                                </li>
+                                                  <li>
+                                                    <strong>Beneficiary Eligibility </strong>
                     The types of organizations that are eligible beneficiaries under this CFDA Program.
-                                  </li>
+                                                </li>
                         </ul>
             </div>
     </div>

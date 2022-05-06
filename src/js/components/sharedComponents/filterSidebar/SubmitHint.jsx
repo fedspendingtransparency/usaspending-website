@@ -67,10 +67,10 @@ export default class SubmitHint extends React.Component {
                                 <div className="hint-text">
                                     <div className="hint-title">
                                     Filter Updated.
-                                  </div>
-                                    <div className="hint-description">
-                                    Submit your search to see results.
                                     </div>
+                                        <div className="hint-description">
+                                    Submit your search to see results.
+                                        </div>
                                 </div>
                         </div>
                 </CSSTransition>

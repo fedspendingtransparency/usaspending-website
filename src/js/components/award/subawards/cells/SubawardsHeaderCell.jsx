@@ -113,18 +113,18 @@ export default class SubawardsHeaderCell extends React.Component {
                                         title={`Sort table by ascending ${this.props.label}`}
                                         aria-label={`Sort table by ascending ${this.props.label}`}
                                         onClick={this.forceDirection}>
-                                          <Icons.ArrowUp
-                                            alt={`Sort table by ascending ${this.props.label}`} />
+                                            <Icons.ArrowUp
+                                                alt={`Sort table by ascending ${this.props.label}`} />
                                     </button>
-                                      <button
-                                        className={`sort-icon${activeDesc}`}
-                                        value="desc"
-                                        title={`Sort table by descending ${this.props.label}`}
-                                        aria-label={`Sort table by descending ${this.props.label}`}
-                                        onClick={this.forceDirection}>
-                                          <Icons.ArrowDown
-                                            alt={`Sort table by descending ${this.props.label}`} />
-                                    </button>
+                                        <button
+                                            className={`sort-icon${activeDesc}`}
+                                            value="desc"
+                                            title={`Sort table by descending ${this.props.label}`}
+                                            aria-label={`Sort table by descending ${this.props.label}`}
+                                            onClick={this.forceDirection}>
+                                                <Icons.ArrowDown
+                                                    alt={`Sort table by descending ${this.props.label}`} />
+                                        </button>
                                 </div>
                         </div>
                 </div>

@@ -27,22 +27,22 @@ const ErrorPage = () => (
                 previous page or try these helpful links instead:
                         </p>
                             <ul>
-                              <li>
-                                <Link to="/">Back to Home</Link>
-                            </li>
-                              <li>
-                                <a href="mailto:usaspending.help@fiscal.treasury.gov?subject=Report%20an%20Error">Report Problem</a>
-                            </li>
-                              <li>
-                                  <Link to="/search">Search Award Data</Link>
-                              </li>
                                 <li>
-                                    <a href="https://api.usaspending.gov/">Learn about our APIs</a>
+                                    <Link to="/">Back to Home</Link>
                                 </li>
-                                  <li>
-                                    <a href="https://fiscalservice.force.com/usaspending/s/">Visit our Community Page</a>
-                                </li>
-                          </ul>
+                                    <li>
+                                        <a href="mailto:usaspending.help@fiscal.treasury.gov?subject=Report%20an%20Error">Report Problem</a>
+                                    </li>
+                                        <li>
+                                            <Link to="/search">Search Award Data</Link>
+                                        </li>
+                                            <li>
+                                                <a href="https://api.usaspending.gov/">Learn about our APIs</a>
+                                            </li>
+                                                <li>
+                                                    <a href="https://fiscalservice.force.com/usaspending/s/">Visit our Community Page</a>
+                                                </li>
+                            </ul>
             </main>
     </PageWrapper>
 );

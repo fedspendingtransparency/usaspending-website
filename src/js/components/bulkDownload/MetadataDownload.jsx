@@ -24,7 +24,7 @@ const MetadataDownload = () => (
                         aria-label="Dataset Metadata">
                             <button
                                 className="full-menu__item--button">
-                                  <FontAwesomeIcon icon="file-code" />
+                                    <FontAwesomeIcon icon="file-code" />
                     Download the Metadata JSON File
                             </button>
                     </a>

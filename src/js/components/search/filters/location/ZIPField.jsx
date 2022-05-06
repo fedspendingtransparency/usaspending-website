@@ -95,10 +95,10 @@ export default class ZIPField extends React.Component {
                                     disabled={!this.props.isUSA}
                                     value={this.state.zip} />
                                         <IndividualSubmit
-                                          className="zip-submit"
-                                          disabled={(!this.state.enabled || !this.props.isUSA)}
-                                          onClick={this.pressedButton}
-                                          label="Filter by ZIP code" />
+                                            className="zip-submit"
+                                            disabled={(!this.state.enabled || !this.props.isUSA)}
+                                            onClick={this.pressedButton}
+                                            label="Filter by ZIP code" />
                             </div>
                         {error}
                     </div>

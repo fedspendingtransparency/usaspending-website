@@ -140,7 +140,7 @@ export default class ObjectClassTreeMap extends React.Component {
                             </div>
                                     {this.generateObjectClasses()}
                                 </div>
-                                  <div className="agency-viz-description">This visualization represents obligated amount.</div>
+                                    <div className="agency-viz-description">This visualization represents obligated amount.</div>
                             </div>
             </div>
         );

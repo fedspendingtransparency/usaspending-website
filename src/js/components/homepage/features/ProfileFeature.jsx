@@ -49,24 +49,24 @@ const ProfileFeature = () => (
 
                         <div className="feature-profile__mobile-carousel">
                             <ImageCarousel
-                              images={images} />
+                                images={images} />
                         </div>
 
-                          <div className="homepage-feature-description">
-                            <p>
+                            <div className="homepage-feature-description">
+                                <p>
                         Federal spending is complex, and learning its nuances takes time; <strong className="homepage-feature-description_weight_bold">Profiles</strong> make the process easier. Our profiles use plain language and engaging graphics to contextualize each entity within the larger federal spending landscape.
-                          </p>
-                              <p>
+                                </p>
+                                    <p>
                         Each profile offers a snapshot of the entity in question. Interactive visualizations let you explore entities&apos; spending in an intuitive, accessible way.
-                            </p>
-                        </div>
+                                    </p>
+                            </div>
 
-                          <div className="feature-profile__dropdown">
-                              <FeatureDropdown
-                                items={profileOptions}>
+                                <div className="feature-profile__dropdown">
+                                    <FeatureDropdown
+                                        items={profileOptions}>
                         Browse <strong>Profiles</strong>
-                            </FeatureDropdown>
-                          </div>
+                                    </FeatureDropdown>
+                                </div>
                 </div>
         </div>
     </div>

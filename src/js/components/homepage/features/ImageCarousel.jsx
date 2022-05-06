@@ -287,14 +287,14 @@ export default class ImageCarousel extends React.Component {
                                 {images}
                             </ul>
                                 </div>
-                                  <button
-                                    aria-label="Next carousel item"
-                                    className={`feature-carousel-content__arrow ${hiddenRight}`}
-                                    aria-hidden={this.state.page === this.props.images.length}
-                                    disabled={this.state.page === this.props.images.length}
-                                    onClick={this.nextItem}>
-                                      <FontAwesomeIcon size="lg" icon="chevron-right" />
-                                </button>
+                                    <button
+                                        aria-label="Next carousel item"
+                                        className={`feature-carousel-content__arrow ${hiddenRight}`}
+                                        aria-hidden={this.state.page === this.props.images.length}
+                                        disabled={this.state.page === this.props.images.length}
+                                        onClick={this.nextItem}>
+                                            <FontAwesomeIcon size="lg" icon="chevron-right" />
+                                    </button>
                         </div>
                             <div className="feature-carousel-pager">
                                 <ul

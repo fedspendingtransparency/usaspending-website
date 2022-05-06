@@ -188,24 +188,24 @@ export default class AgencyOverview extends React.PureComponent {
                                     <h4>Agency Mission</h4>
                                         <p>{this.state.mission}</p>
 
-                                          <div className="lower-details">
-                                            <div className="group">
-                                              <h5>Website</h5>
-                                                  <div className="agency-website">
-                                                    {this.state.website}
+                                            <div className="lower-details">
+                                                <div className="group">
+                                                    <h5>Website</h5>
+                                                        <div className="agency-website">
+                                                            {this.state.website}
+                                                        </div>
                                                 </div>
-                                          </div>
-                                              <div className="group">
-                                                <h5>Congressional Justification of Budget (CJ)</h5>
-                                                  <div className="agency-website">
-                                                    {this.state.cjUrl}
-                                                </div>
+                                                    <div className="group">
+                                                        <h5>Congressional Justification of Budget (CJ)</h5>
+                                                            <div className="agency-website">
+                                                                {this.state.cjUrl}
+                                                            </div>
+                                                    </div>
                                             </div>
-                                        </div>
                                 </div>
                                     <div
-                                      className="budget-authority"
-                                      ref={(div) => {
+                                        className="budget-authority"
+                                        ref={(div) => {
                             this.containerDiv = div;
                         }}>
                             <h4>
@@ -229,22 +229,22 @@ export default class AgencyOverview extends React.PureComponent {
                             federal budgetary resources for FY {this.props.activeFy}.
                                         </div>
                                             <svg className="horizontal-bar">
-                                              <g>
-                                                  <HorizontalBarItem
-                                                    description="Budgetary Resources"
-                                                    x={0}
-                                                    y={0}
-                                                    width={this.state.obligatedWidth}
-                                                    color="#597785" />
-                                                        <HorizontalBarItem
-                                                          description="Remaining United States federal budget"
-                                                          x={this.state.obligatedWidth}
-                                                          y={0}
-                                                          width={this.state.remainingWidth}
-                                                          color="#D8D8D8" />
-                                              </g>
-                                          </svg>
-                                  </div>
+                                                <g>
+                                                    <HorizontalBarItem
+                                                        description="Budgetary Resources"
+                                                        x={0}
+                                                        y={0}
+                                                        width={this.state.obligatedWidth}
+                                                        color="#597785" />
+                                                            <HorizontalBarItem
+                                                                description="Remaining United States federal budget"
+                                                                x={this.state.obligatedWidth}
+                                                                y={0}
+                                                                width={this.state.remainingWidth}
+                                                                color="#D8D8D8" />
+                                                </g>
+                                            </svg>
+                                    </div>
                             </div>
             </div>
         );

@@ -37,8 +37,8 @@ export default class RecipientLabels extends React.Component {
                             <span className="recipient-landing__icon recipient-landing__icon_recipient">R</span>
                                 <span className="recipient-labels__text">Recipient</span>
                                     <RecipientInformation
-                                      message={recipientMessage}
-                                      placement={recipientIconPlacement} />
+                                        message={recipientMessage}
+                                        placement={recipientIconPlacement} />
                         </div>
             </div>
         );

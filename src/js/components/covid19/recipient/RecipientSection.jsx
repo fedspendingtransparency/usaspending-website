@@ -47,8 +47,8 @@ const RecipientSection = ({ publicLaw }) => {
                         In the case of recipients who are individual persons and not organizations, data is aggregated by county or state to protect personally identifiable information (PII). Data about the location where the award money is used, known as the &apos;Primary Place of Performance&apos;, is available through the download button at the top of the table.
                                 </p>
                                     <p className="footnotes">
-                                      <sup>1</sup> To learn more about eligibility criteria for receiving a financial assistance award or contract, visit <ExternalLink url="https://beta.sam.gov/" />
-                                  </p>
+                                        <sup>1</sup> To learn more about eligibility criteria for receiving a financial assistance award or contract, visit <ExternalLink url="https://beta.sam.gov/" />
+                                    </p>
                         </ReadMore>
                 </div>
                     <div className="recipient__tabs-container count-tabs">

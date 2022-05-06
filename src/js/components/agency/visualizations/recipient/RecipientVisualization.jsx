@@ -112,9 +112,9 @@ or foreign). Here is a look at who these recipients are and how they rank by awa
                                 <ScopeList
                                     scope={this.props.scope}
                                     changeScope={this.props.changeScope} />
-                                      <div className="chart-wrapper">
-                                        {chart}
-                                    </div>
+                                        <div className="chart-wrapper">
+                                            {chart}
+                                        </div>
                             </div>
             </div>
         );

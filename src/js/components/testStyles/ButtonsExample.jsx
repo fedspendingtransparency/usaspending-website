@@ -26,70 +26,70 @@ export default class ButtonsExample extends React.Component {
                             </div>
                                 <div className="component-code">
                                     <pre>
-                                      <code>code will go here</code>
-                                  </pre>
+                                        <code>code will go here</code>
+                                    </pre>
                                 </div>
                         </div>
                             <div className="component-wrap">
                                 <div className="component-item">
                                     <input className="usa-button-secondary" type="submit" value="Secondary Button" />
                                 </div>
-                                  <div className="component-code">
-                                    <pre>
-                                      <code>code will go here</code>
-                                  </pre>
-                                </div>
-                            </div>
-                                <div className="component-wrap">
-                                  <div className="component-item">
-                                    <input className="usa-button-secondary-danger" type="submit" value="Secondary-danger Button" />
-                                </div>
-                                  <div className="component-code">
-                                      <pre>
-                                        <code>code will go here</code>
-                                    </pre>
-                                  </div>
-                              </div>
-                                <div className="component-wrap">
-                                  <div className="component-item">
-                                      <input className="usa-button-gray" type="submit" value="Gray Button" />
-                                  </div>
                                     <div className="component-code">
                                         <pre>
-                                          <code>code will go here</code>
-                                      </pre>
-                                    </div>
-                              </div>
-                                  <div className="component-wrap">
-                                    <div className="component-item">
-                                        <input className="usa-button-outline" type="submit" value="Outline Button" />
-                                    </div>
-                                      <div className="component-code">
-                                          <pre>
                                             <code>code will go here</code>
                                         </pre>
-                                      </div>
-                                </div>
-                                    <div className="component-wrap">
-                                      <div className="component-item">
-                                          <input className="usa-button-outline-inverse" type="submit" value="Outline-inverse Button" />
-                                      </div>
+                                    </div>
+                            </div>
+                                <div className="component-wrap">
+                                    <div className="component-item">
+                                        <input className="usa-button-secondary-danger" type="submit" value="Secondary-danger Button" />
+                                    </div>
                                         <div className="component-code">
                                             <pre>
-                                              <code>code will go here</code>
-                                          </pre>
-                                        </div>
-                                  </div>
-                                      <div className="component-wrap">
-                                        <div className="component-item">
-                                            <input className="usa-button-disabled" type="submit" value="Disabled Button" />
-                                        </div>
-                                          <div className="component-code">
-                                              <pre>
                                                 <code>code will go here</code>
                                             </pre>
-                                          </div>
+                                        </div>
+                                </div>
+                                    <div className="component-wrap">
+                                        <div className="component-item">
+                                            <input className="usa-button-gray" type="submit" value="Gray Button" />
+                                        </div>
+                                            <div className="component-code">
+                                                <pre>
+                                                    <code>code will go here</code>
+                                                </pre>
+                                            </div>
                                     </div>
+                                        <div className="component-wrap">
+                                            <div className="component-item">
+                                                <input className="usa-button-outline" type="submit" value="Outline Button" />
+                                            </div>
+                                                <div className="component-code">
+                                                    <pre>
+                                                        <code>code will go here</code>
+                                                    </pre>
+                                                </div>
+                                        </div>
+                                            <div className="component-wrap">
+                                                <div className="component-item">
+                                                    <input className="usa-button-outline-inverse" type="submit" value="Outline-inverse Button" />
+                                                </div>
+                                                    <div className="component-code">
+                                                        <pre>
+                                                          <code>code will go here</code>
+                                                      </pre>
+                                                    </div>
+                                            </div>
+                                                <div className="component-wrap">
+                                                    <div className="component-item">
+                                                        <input className="usa-button-disabled" type="submit" value="Disabled Button" />
+                                                    </div>
+                                                      <div className="component-code">
+                                                        <pre>
+                                                          <code>code will go here</code>
+                                                      </pre>
+                                                    </div>
+                                                </div>
             </div>
         );
     }

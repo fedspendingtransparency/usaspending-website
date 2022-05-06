@@ -109,20 +109,20 @@ export default class CFDATreeTooltip extends React.Component {
                                         <div className="tooltip-body">
                                             <div className="tooltip-left">
                                                 <div className="tooltip-value">
-                                                  {federalActionOblicationAmount}
-                                              </div>
-                                                <div className="tooltip-label">
-                                Funded Amount
-                                              </div>
-                                            </div>
-                                              <div className="tooltip-right">
-                                                <div className="tooltip-value">
-                                                  {percentOfTotal}
-                                              </div>
-                                                  <div className="tooltip-label">
-                                Percent of Total
+                                                    {federalActionOblicationAmount}
                                                 </div>
+                                                    <div className="tooltip-label">
+                                Funded Amount
+                                                    </div>
                                             </div>
+                                                <div className="tooltip-right">
+                                                    <div className="tooltip-value">
+                                                        {percentOfTotal}
+                                                    </div>
+                                                        <div className="tooltip-label">
+                                Percent of Total
+                                                        </div>
+                                                </div>
                                         </div>
                 </div>
             </div>

@@ -32,252 +32,252 @@ const OtherResources = ({
                                     <span className="other-resources__link__text">
                                     American Rescue Plan -
                                     </span>
-                                      <a
-                                        href="https://www.whitehouse.gov/american-rescue-plan/"
-                                        onClick={handleClick}>
+                                        <a
+                                            href="https://www.whitehouse.gov/american-rescue-plan/"
+                                            onClick={handleClick}>
                                     https://www.whitehouse.gov/american-rescue-plan/&nbsp;
-                                          <span className="other-resources__link__icon">
-                                            <FontAwesomeIcon size="sm" icon="external-link-alt" />
-                                        </span>
-                                    </a>
+                                                <span className="other-resources__link__icon">
+                                                    <FontAwesomeIcon size="sm" icon="external-link-alt" />
+                                                </span>
+                                        </a>
                                 </div>
                             </li>
                                 <li>
                                     <div className="other-resources__link__container">
-                                      <span className="other-resources__link__text">
-                                    Pandemic Response Accountability Committee (PRAC) -
-                                    </span>
-                                      <a
-                                        href="https://www.pandemicoversight.gov/"
-                                        onClick={handleClick}>
-                                    https://www.pandemicoversight.gov/&nbsp;
-                                          <span className="other-resources__link__icon">
-                                            <FontAwesomeIcon size="sm" icon="external-link-alt" />
-                                        </span>
-                                    </a>
-                                  </div>
-                                </li>
-                                  <li>
-                                    <div className="other-resources__link__container">
-                                      <span className="other-resources__link__text">
-                                    American Rescue Plan Act Infographic (PRAC) -
-                                    </span>
-                                      <a
-                                        href="https://www.pandemicoversight.gov/media/file/american-rescue-plan-act-infographicpdf"
-                                        onClick={handleClick}>
-                                    https://www.pandemicoversight.gov/media/file/american-rescue-plan-act-infographicpdf&nbsp;
-                                            <span className="other-resources__link__icon">
-                                              <FontAwesomeIcon size="sm" icon="external-link-alt" />
-                                          </span>
-                                    </a>
-                                  </div>
-                                </li>
-                                  <li>
-                                    <div className="other-resources__link__container">
-                                      <span className="other-resources__link__text">
-                                    Federal Reserve Board -
-                                    </span>
-                                        <a
-                                          href="https://www.federalreserve.gov/covid-19.htm"
-                                          onClick={handleClick}>
-                                    https://www.federalreserve.gov/covid-19.htm&nbsp;
-                                              <span className="other-resources__link__icon">
-                                                <FontAwesomeIcon size="sm" icon="external-link-alt" />
-                                            </span>
-                                      </a>
-                                  </div>
-                                </li>
-                                  <li>
-                                    <div className="other-resources__link__container">
                                         <span className="other-resources__link__text">
-                                    Department of Agriculture -
-                                      </span>
-                                          <a
-                                            href="https://www.usda.gov/coronavirus"
-                                            onClick={handleClick}>
-                                    https://www.usda.gov/coronavirus&nbsp;
-                                                <span className="other-resources__link__icon">
-                                                  <FontAwesomeIcon size="sm" icon="external-link-alt" />
-                                              </span>
-                                        </a>
+                                    Pandemic Response Accountability Committee (PRAC) -
+                                        </span>
+                                            <a
+                                                href="https://www.pandemicoversight.gov/"
+                                                onClick={handleClick}>
+                                    https://www.pandemicoversight.gov/&nbsp;
+                                                    <span className="other-resources__link__icon">
+                                                        <FontAwesomeIcon size="sm" icon="external-link-alt" />
+                                                    </span>
+                                            </a>
                                     </div>
                                 </li>
                                     <li>
-                                      <div className="other-resources__link__container">
-                                          <span className="other-resources__link__text">
-                                    Department of Defense -
-                                        </span>
-                                            <a
-                                              href="https://www.defense.gov/Explore/Spotlight/Coronavirus/"
-                                              onClick={handleClick}>
-                                    https://www.defense.gov/Explore/Spotlight/Coronavirus/&nbsp;
-                                                  <span className="other-resources__link__icon">
-                                                    <FontAwesomeIcon size="sm" icon="external-link-alt" />
-                                                </span>
-                                          </a>
-                                      </div>
-                                  </li>
-                                      <li>
                                         <div className="other-resources__link__container">
                                             <span className="other-resources__link__text">
-                                    Department of Education -
-                                          </span>
-                                              <a
-                                                href="https://www.ed.gov/coronavirus"
-                                                onClick={handleClick}>
-                                    https://www.ed.gov/coronavirus&nbsp;
-                                                    <span className="other-resources__link__icon">
-                                                      <FontAwesomeIcon size="sm" icon="external-link-alt" />
-                                                  </span>
-                                            </a>
+                                    American Rescue Plan Act Infographic (PRAC) -
+                                            </span>
+                                                <a
+                                                    href="https://www.pandemicoversight.gov/media/file/american-rescue-plan-act-infographicpdf"
+                                                    onClick={handleClick}>
+                                    https://www.pandemicoversight.gov/media/file/american-rescue-plan-act-infographicpdf&nbsp;
+                                                        <span className="other-resources__link__icon">
+                                                            <FontAwesomeIcon size="sm" icon="external-link-alt" />
+                                                        </span>
+                                                </a>
                                         </div>
                                     </li>
                                         <li>
-                                          <div className="other-resources__link__container">
-                                              <span className="other-resources__link__text">
-                                Department of Homeland Security -
-                                            </span>
-                                                <a
-                                                  href="https://www.dhs.gov/coronavirus/overview-dhs-response"
-                                                  onClick={handleClick}>
-                                    https://www.dhs.gov/coronavirus/overview-dhs-response&nbsp;
-                                                      <span className="other-resources__link__icon">
-                                                        <FontAwesomeIcon size="sm" icon="external-link-alt" />
-                                                    </span>
-                                              </a>
-                                          </div>
-                                      </li>
-                                          <li>
                                             <div className="other-resources__link__container">
                                                 <span className="other-resources__link__text">
-                                    Department of Labor -
-                                              </span>
-                                                  <a
-                                                    href="https://oui.doleta.gov/unemploy/docs/cares_act_funding_state.html"
-                                                    onClick={handleClick}>
-                                    https://oui.doleta.gov/unemploy/docs/cares_act_funding_state.html&nbsp;
-                                                        <span className="other-resources__link__icon">
-                                                        <FontAwesomeIcon size="sm" icon="external-link-alt" />
-                                                    </span>
-                                                </a>
+                                    Federal Reserve Board -
+                                                </span>
+                                                    <a
+                                                        href="https://www.federalreserve.gov/covid-19.htm"
+                                                        onClick={handleClick}>
+                                    https://www.federalreserve.gov/covid-19.htm&nbsp;
+                                                            <span className="other-resources__link__icon">
+                                                                <FontAwesomeIcon size="sm" icon="external-link-alt" />
+                                                            </span>
+                                                    </a>
                                             </div>
                                         </li>
                                             <li>
-                                              <div className="other-resources__link__container">
-                                                  <span className="other-resources__link__text">
-                                    Department of Transportation -
-                                                </span>
-                                                    <a
-                                                    href="https://www.transportation.gov/coronavirus"
-                                                    onClick={handleClick}>
-                                    https://www.transportation.gov/coronavirus&nbsp;
-                                                        <span className="other-resources__link__icon">
-                                                          <FontAwesomeIcon size="sm" icon="external-link-alt" />
-                                                      </span>
-                                                </a>
-                                              </div>
-                                          </li>
-                                              <li>
                                                 <div className="other-resources__link__container">
                                                     <span className="other-resources__link__text">
-                                    Department of the Treasury -
-                                                </span>
-                                                    <a
-                                                      href="https://home.treasury.gov/policy-issues/cares"
-                                                      onClick={handleClick}>
-                                    https://home.treasury.gov/policy-issues/cares&nbsp;
-                                                          <span className="other-resources__link__icon">
-                                                            <FontAwesomeIcon size="sm" icon="external-link-alt" />,&nbsp;
-                                                        </span>
-                                                  </a>
-                                                      <a
-                                                        href="https://www.irs.gov/statistics/soi-tax-stats-coronavirus-aid-relief-and-economic-security-act-cares-act-statistics"
-                                                        onClick={handleClick}>
-                                    https://www.irs.gov/statistics/soi-tax-stats-coronavirus-aid-relief-and-economic-security-act-cares-act-statistics&nbsp;
-                                                            <span className="other-resources__link__icon">
-                                                              <FontAwesomeIcon size="sm" icon="external-link-alt" />,&nbsp;
-                                                          </span>
-                                                    </a>
-                                                        <a
-                                                          href="https://home.treasury.gov/policy-issues/coronavirus"
-                                                          onClick={handleClick}>
-                                    https://home.treasury.gov/policy-issues/coronavirus&nbsp;
-                                                            <span className="other-resources__link__icon">
-                                                              <FontAwesomeIcon size="sm" icon="external-link-alt" />
-                                                          </span>
-                                                      </a>
-                                                </div>
-                                            </li>
-                                                <li>
-                                                <div className="other-resources__link__container">
-                                                    <span className="other-resources__link__text">
-                                    Department of Veterans Affairs -
-                                                  </span>
-                                                      <a
-                                                        href="https://www.publichealth.va.gov/n-coronavirus/"
-                                                        onClick={handleClick}>
-                                    https://www.publichealth.va.gov/n-coronavirus/&nbsp;
-                                                            <span className="other-resources__link__icon">
-                                                              <FontAwesomeIcon size="sm" icon="external-link-alt" />
-                                                          </span>
-                                                    </a>
-                                                </div>
-                                            </li>
-                                                <li>
-                                                  <div className="other-resources__link__container">
-                                                      <span className="other-resources__link__text">
-                                    Department of Health &amp; Human Services -
+                                    Department of Agriculture -
                                                     </span>
                                                         <a
-                                                          href="https://www.hhs.gov/coronavirus"
-                                                          onClick={handleClick}>
-                                    https://www.hhs.gov/coronavirus&nbsp;
+                                                            href="https://www.usda.gov/coronavirus"
+                                                            onClick={handleClick}>
+                                    https://www.usda.gov/coronavirus&nbsp;
                                                               <span className="other-resources__link__icon">
                                                                 <FontAwesomeIcon size="sm" icon="external-link-alt" />
                                                             </span>
-                                                      </a>
-                                                  </div>
-                                              </li>
-                                                  <li>
+                                                        </a>
+                                                </div>
+                                            </li>
+                                                <li>
                                                     <div className="other-resources__link__container">
                                                         <span className="other-resources__link__text">
-                                    Housing &amp; Urban Development -
-                                                      </span>
+                                    Department of Defense -
+                                                        </span>
                                                           <a
-                                                            href="https://www.hud.gov/coronavirus"
+                                                            href="https://www.defense.gov/Explore/Spotlight/Coronavirus/"
                                                             onClick={handleClick}>
-                                    https://www.hud.gov/coronavirus&nbsp;
-                                                                <span className="other-resources__link__icon">
-                                                                    <FontAwesomeIcon size="sm" icon="external-link-alt" />
-                                                                </span>
+                                    https://www.defense.gov/Explore/Spotlight/Coronavirus/&nbsp;
+                                                              <span className="other-resources__link__icon">
+                                                                <FontAwesomeIcon size="sm" icon="external-link-alt" />
+                                                            </span>
                                                         </a>
                                                     </div>
                                                 </li>
                                                     <li>
-                                                      <div className="other-resources__link__container">
+                                                        <div className="other-resources__link__container">
                                                           <span className="other-resources__link__text">
-                                    Small Business Administration -
+                                    Department of Education -
+                                                        </span>
+                                                          <a
+                                                            href="https://www.ed.gov/coronavirus"
+                                                            onClick={handleClick}>
+                                    https://www.ed.gov/coronavirus&nbsp;
+                                                              <span className="other-resources__link__icon">
+                                                                <FontAwesomeIcon size="sm" icon="external-link-alt" />
+                                                            </span>
+                                                        </a>
+                                                      </div>
+                                                    </li>
+                                                      <li>
+                                                        <div className="other-resources__link__container">
+                                                          <span className="other-resources__link__text">
+                                Department of Homeland Security -
+                                                        </span>
+                                                          <a
+                                                            href="https://www.dhs.gov/coronavirus/overview-dhs-response"
+                                                            onClick={handleClick}>
+                                    https://www.dhs.gov/coronavirus/overview-dhs-response&nbsp;
+                                                                <span className="other-resources__link__icon">
+                                                                  <FontAwesomeIcon size="sm" icon="external-link-alt" />
+                                                              </span>
+                                                        </a>
+                                                      </div>
+                                                    </li>
+                                                      <li>
+                                                        <div className="other-resources__link__container">
+                                                          <span className="other-resources__link__text">
+                                    Department of Labor -
                                                         </span>
                                                             <a
-                                                                href="https://www.sba.gov/page/coronavirus-covid-19-small-business-guidance-loan-resources"
+                                                              href="https://oui.doleta.gov/unemploy/docs/cares_act_funding_state.html"
+                                                              onClick={handleClick}>
+                                    https://oui.doleta.gov/unemploy/docs/cares_act_funding_state.html&nbsp;
+                                                                  <span className="other-resources__link__icon">
+                                                                    <FontAwesomeIcon size="sm" icon="external-link-alt" />
+                                                                </span>
+                                                          </a>
+                                                      </div>
+                                                    </li>
+                                                      <li>
+                                                        <div className="other-resources__link__container">
+                                                            <span className="other-resources__link__text">
+                                    Department of Transportation -
+                                                          </span>
+                                                              <a
+                                                                href="https://www.transportation.gov/coronavirus"
                                                                 onClick={handleClick}>
-                                    https://www.sba.gov/page/coronavirus-covid-19-small-business-guidance-loan-resources&nbsp;
+                                    https://www.transportation.gov/coronavirus&nbsp;
                                                                     <span className="other-resources__link__icon">
                                                                       <FontAwesomeIcon size="sm" icon="external-link-alt" />
                                                                   </span>
                                                             </a>
-                                                      </div>
-                                                  </li>
-                                                      <li>
-                                                        <div className="other-resources__link__container">
-                                                            <span className="other-resources__link__text">
-                                    The Opportunity Project -
-                                                            </span>
-                                                                <Link to="/disaster/covid-19/the-opportunity-project">
-                                    https://www.usaspending.gov/disaster/covid-19/the-opportunity-project
-                                                              </Link>
                                                         </div>
                                                     </li>
+                                                        <li>
+                                                          <div className="other-resources__link__container">
+                                                              <span className="other-resources__link__text">
+                                    Department of the Treasury -
+                                                            </span>
+                                                                <a
+                                                                  href="https://home.treasury.gov/policy-issues/cares"
+                                                                  onClick={handleClick}>
+                                    https://home.treasury.gov/policy-issues/cares&nbsp;
+                                                                      <span className="other-resources__link__icon">
+                                                                        <FontAwesomeIcon size="sm" icon="external-link-alt" />,&nbsp;
+                                                                    </span>
+                                                              </a>
+                                                                  <a
+                                                                    href="https://www.irs.gov/statistics/soi-tax-stats-coronavirus-aid-relief-and-economic-security-act-cares-act-statistics"
+                                                                    onClick={handleClick}>
+                                    https://www.irs.gov/statistics/soi-tax-stats-coronavirus-aid-relief-and-economic-security-act-cares-act-statistics&nbsp;
+                                                                        <span className="other-resources__link__icon">
+                                                                          <FontAwesomeIcon size="sm" icon="external-link-alt" />,&nbsp;
+                                                                      </span>
+                                                                </a>
+                                                                    <a
+                                                                      href="https://home.treasury.gov/policy-issues/coronavirus"
+                                                                      onClick={handleClick}>
+                                    https://home.treasury.gov/policy-issues/coronavirus&nbsp;
+                                                                          <span className="other-resources__link__icon">
+                                                                            <FontAwesomeIcon size="sm" icon="external-link-alt" />
+                                                                        </span>
+                                                                  </a>
+                                                          </div>
+                                                      </li>
+                                                          <li>
+                                                            <div className="other-resources__link__container">
+                                                                <span className="other-resources__link__text">
+                                    Department of Veterans Affairs -
+                                                              </span>
+                                                                  <a
+                                                                    href="https://www.publichealth.va.gov/n-coronavirus/"
+                                                                    onClick={handleClick}>
+                                    https://www.publichealth.va.gov/n-coronavirus/&nbsp;
+                                                                        <span className="other-resources__link__icon">
+                                                                          <FontAwesomeIcon size="sm" icon="external-link-alt" />
+                                                                      </span>
+                                                                </a>
+                                                            </div>
+                                                        </li>
+                                                            <li>
+                                                              <div className="other-resources__link__container">
+                                                                  <span className="other-resources__link__text">
+                                    Department of Health &amp; Human Services -
+                                                                </span>
+                                                                    <a
+                                                                      href="https://www.hhs.gov/coronavirus"
+                                                                      onClick={handleClick}>
+                                    https://www.hhs.gov/coronavirus&nbsp;
+                                                                          <span className="other-resources__link__icon">
+                                                                            <FontAwesomeIcon size="sm" icon="external-link-alt" />
+                                                                        </span>
+                                                                  </a>
+                                                              </div>
+                                                          </li>
+                                                              <li>
+                                                                <div className="other-resources__link__container">
+                                                                    <span className="other-resources__link__text">
+                                    Housing &amp; Urban Development -
+                                                                  </span>
+                                                                      <a
+                                                                        href="https://www.hud.gov/coronavirus"
+                                                                        onClick={handleClick}>
+                                    https://www.hud.gov/coronavirus&nbsp;
+                                                                            <span className="other-resources__link__icon">
+                                                                            <FontAwesomeIcon size="sm" icon="external-link-alt" />
+                                                                        </span>
+                                                                    </a>
+                                                                </div>
+                                                            </li>
+                                                                <li>
+                                                                  <div className="other-resources__link__container">
+                                                                      <span className="other-resources__link__text">
+                                    Small Business Administration -
+                                                                    </span>
+                                                                        <a
+                                                                        href="https://www.sba.gov/page/coronavirus-covid-19-small-business-guidance-loan-resources"
+                                                                        onClick={handleClick}>
+                                    https://www.sba.gov/page/coronavirus-covid-19-small-business-guidance-loan-resources&nbsp;
+                                                                            <span className="other-resources__link__icon">
+                                                                              <FontAwesomeIcon size="sm" icon="external-link-alt" />
+                                                                          </span>
+                                                                    </a>
+                                                                  </div>
+                                                              </li>
+                                                                  <li>
+                                                                    <div className="other-resources__link__container">
+                                                                        <span className="other-resources__link__text">
+                                    The Opportunity Project -
+                                                                    </span>
+                                                                        <Link to="/disaster/covid-19/the-opportunity-project">
+                                    https://www.usaspending.gov/disaster/covid-19/the-opportunity-project
+                                                                      </Link>
+                                                                    </div>
+                                                                </li>
                         </ul>
                 </div>
             </div>

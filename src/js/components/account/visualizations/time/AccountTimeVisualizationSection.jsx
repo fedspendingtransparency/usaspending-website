@@ -84,10 +84,10 @@ export default class AccountTimeVisualizationSection extends React.Component {
                                             </li>
                                                 <li>
                                                     <AccountTimeVisualizationPeriodButton
-                                                    value="quarter"
-                                                    label="Quarters"
-                                                    active={this.props.visualizationPeriod === 'quarter'}
-                                                    changePeriod={this.props.changePeriod} />
+                                                        value="quarter"
+                                                        label="Quarters"
+                                                        active={this.props.visualizationPeriod === 'quarter'}
+                                                        changePeriod={this.props.changePeriod} />
                                                 </li>
                                         </ul>
                                     </div>

@@ -92,8 +92,8 @@ export default class AwardDataArchiveForm extends React.Component {
                                                     currentFY={this.props.filters.fy}
                                                     updateFilter={this.props.updateFilter} />
                                                         <div className="form__button">
-                                                          <input type="submit" value="Apply" />
-                                                      </div>
+                                                            <input type="submit" value="Apply" />
+                                                        </div>
                         </form>
             </div>
         );

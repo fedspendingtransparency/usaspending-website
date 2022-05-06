@@ -108,30 +108,30 @@ export default class AccountDataContent extends React.Component {
                                             updateFilter={this.props.updateFilter}
                                             validBudgetFunctionCode={accounts.budgetFunction.code !== ''}
                                             valid={accounts.agency.id !== ''} />
-                                              <AccountLevelFilter
-                                                accountLevels={accountDownloadOptions.accountLevels}
-                                                currentAccountLevel={accounts.accountLevel}
-                                                updateFilter={this.props.updateFilter}
-                                                valid={accounts.accountLevel !== ''} />
-                                                  <SubmissionTypeFilter
-                                                    submissionTypes={accountDownloadOptions.submissionTypes}
-                                                    currentSubmissionTypes={accounts.submissionTypes}
+                                                <AccountLevelFilter
+                                                    accountLevels={accountDownloadOptions.accountLevels}
+                                                    currentAccountLevel={accounts.accountLevel}
                                                     updateFilter={this.props.updateFilter}
-                                                    valid={accounts.submissionTypes.length !== 0} />
-                                                      <DefCodeFilter type="accounts" isDisabled={areDefCodesDisabled(accounts.submissionTypes)} />
-                                                        <FiscalYearFilter
-                                                          currentFy={accounts.fy}
-                                                          latestSelectedTimePeriod={accounts.period ? accounts.period : accounts.quarter}
-                                                          updateFilter={this.props.updateFilter}
-                                                          valid={(accounts.fy && (accounts.quarter || accounts.period))} />
-                                                            <UserSelections
-                                                              accounts={accounts} />
-                                                                <SubmitButton
-                                                                  handleSubmit={this.handleSubmit}
-                                                                  validForm={this.state.validForm}
-                                                                  filters={accounts}
-                                                                  validDates
-                                                                  dataType="accounts" />
+                                                    valid={accounts.accountLevel !== ''} />
+                                                        <SubmissionTypeFilter
+                                                            submissionTypes={accountDownloadOptions.submissionTypes}
+                                                            currentSubmissionTypes={accounts.submissionTypes}
+                                                            updateFilter={this.props.updateFilter}
+                                                            valid={accounts.submissionTypes.length !== 0} />
+                                                                <DefCodeFilter type="accounts" isDisabled={areDefCodesDisabled(accounts.submissionTypes)} />
+                                                                    <FiscalYearFilter
+                                                                        currentFy={accounts.fy}
+                                                                        latestSelectedTimePeriod={accounts.period ? accounts.period : accounts.quarter}
+                                                                        updateFilter={this.props.updateFilter}
+                                                                        valid={(accounts.fy && (accounts.quarter || accounts.period))} />
+                                                                            <UserSelections
+                                                                                accounts={accounts} />
+                                                                                    <SubmitButton
+                                                                                      handleSubmit={this.handleSubmit}
+                                                                                      validForm={this.state.validForm}
+                                                                                      filters={accounts}
+                                                                                      validDates
+                                                                                      dataType="accounts" />
                             </div>
                                 <button className="download-center__reset" onClick={this.resetForm}>
                         Reset form and start over
@@ -144,35 +144,35 @@ export default class AccountDataContent extends React.Component {
                                     <p>
                             Account data covers all spending data, including non-award spending.
                                     </p>
-                                      <p>
+                                        <p>
                             The data is available on two different levels, <strong>federal account</strong>&nbsp;
                                 <Link to="/download_center/custom_account_data?glossary=federal-account"><Glossary /></Link>
                             and <strong>treasury account</strong>&nbsp;
                                 <Link to="/download_center/custom_account_data?glossary=treasury-account-symbol-tas"><Glossary /></Link>
                             . Federal account data is essentially a &ldquo;roll-up&rdquo; of multiple treasury account data.
-                                    </p>
-                                        <p>
+                                        </p>
+                                            <p>
                             The files available are categorized by type, according to the scope of spending they cover. More information on the different file types can be found in our <a href={`${kGlobalConstants.FILES_SERVER_BASE_URL}/docs/Custom+Account+Data+Dictionary.xlsx`}>Custom Account Data Dictionary</a>.
-                                      </p>
+                                            </p>
                             </div>
                                 <div className="download-info__section">
                                     <h4 className="download-info__section-heading">Why is this data useful?</h4>
-                                      <p>
+                                        <p>
                             Account data contains the most encompassing amounts of spending throughout U.S. government agencies.  Unlike award data, account data include spending that is not tied to awards, such as operational costs and employee salaries.
-                                    </p>
-                                </div>
-                                  <div className="download-info__section">
-                                    <h4 className="download-info__section-heading">How do I use this form?</h4>
-                                        <p>
-                            This form allows you to download account data in a range of quarters within a specific fiscal year.
-                                      </p>
-                                        <p>
-                            Select an option in each section and click the &ldquo;Download&rdquo; button at the bottom.
-                                      </p>
-                                          <p>
-                            Heads up: all fields are required. You&rsquo;ll only be able to start the download when all sections are properly filled.
                                         </p>
                                 </div>
+                                    <div className="download-info__section">
+                                        <h4 className="download-info__section-heading">How do I use this form?</h4>
+                                            <p>
+                            This form allows you to download account data in a range of quarters within a specific fiscal year.
+                                            </p>
+                                                <p>
+                            Select an option in each section and click the &ldquo;Download&rdquo; button at the bottom.
+                                                </p>
+                                                    <p>
+                            Heads up: all fields are required. You&rsquo;ll only be able to start the download when all sections are properly filled.
+                                                    </p>
+                                    </div>
                     </div>
             </div>
         );

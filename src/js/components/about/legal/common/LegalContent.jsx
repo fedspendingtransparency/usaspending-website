@@ -53,8 +53,8 @@ export default class LegalContent extends React.Component {
                                 </h2>
 
                                     <div className="about-section-content">
-                                      {this.props.children}
-                                  </div>
+                                        {this.props.children}
+                                    </div>
                             </div>
                         </div>
                     </div>

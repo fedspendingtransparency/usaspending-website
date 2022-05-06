@@ -215,7 +215,7 @@ export default class ProgramSourceSection extends React.Component {
                                     aria-label="Treasury Account Symbol Components"
                                     onClick={this.toggleTab}>
                                         <span>TAS Components</span>
-                                          <CSSOnlyTooltip definition={tasComponentsTab} heading="TAS Components" />
+                                            <CSSOnlyTooltip definition={tasComponentsTab} heading="TAS Components" />
                                 </div>
                             </li>
                 </ul>

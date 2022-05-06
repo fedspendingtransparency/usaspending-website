@@ -78,26 +78,26 @@ export default class RecipientMultiParentCollapse extends React.Component {
                                         </div>
                                             <div>
                                                 <p className="title">Explanation of Multiple Parents</p>
-                                                  <p className="title">
+                                                    <p className="title">
                                             This recipient is associated with multiple parents in the dataset.
                                             Among other cases, this could result from:
-                                                  </p>
+                                                    </p>
 
-                                                    <p>
+                                                        <p>
                                             1) A legal entity was bought or sold to another legal entity
-                                                  </p>
-                                                    <p>
+                                                        </p>
+                                                            <p>
                                             2) An internal restructuring of a large company caused a legal entity
                                             to list another parent
-                                                  </p>
-                                                      <p>
+                                                            </p>
+                                                                <p>
                                             3) A new entity was created to be used solely as the parent legal
                                             entity for a large organization
-                                                    </p>
-                                                      <p>
+                                                                </p>
+                                                                    <p>
                                             4) Data entry errors of parent information in SAM.gov or Dun and
                                             Bradstreet that were not immediately corrected
-                                                    </p>
+                                                                    </p>
                                             </div>
                                     </span>
                             </span> &nbsp;
@@ -111,12 +111,12 @@ export default class RecipientMultiParentCollapse extends React.Component {
                                         {this.renderMultipleParents()}
                                     </div>
                                         <button className="usa-button-link" onClick={this.collapse}>
-                                          {
+                                            {
                                     this.state.open ?
                                         <span>Hide <AngleDown /></span> :
                                         <span>Show {this.props.parents.length - 1} more</span>
                                 }
-                                      </button>
+                                        </button>
                         </div>
                 }
             </div>

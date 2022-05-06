@@ -172,9 +172,9 @@ export default class SubawardsTable extends React.Component {
                                 <span className="total-label">
                             Percent of Prime Award Obligated Amount:&nbsp;
                                 </span>
-                                  <span className="total-value">
-                                    {award.subAwardedPercent}
-                                </span>
+                                    <span className="total-value">
+                                        {award.subAwardedPercent}
+                                    </span>
                             </div>
                 </div>
                     <div

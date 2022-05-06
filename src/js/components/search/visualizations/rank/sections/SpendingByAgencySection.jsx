@@ -42,15 +42,15 @@ export default class SpendingByAgencySection extends React.Component {
                                         label="Sub-Agencies"
                                         active={this.props.scope === 'awarding_subagency'}
                                         changeScope={this.props.changeScope} />
-                                          <div className="coming-soon">
-                                            <RankVisualizationScopeButton
-                                              value="office"
-                                              label="Offices"
-                                              active={this.props.scope === 'office'}
-                                              changeScope={this.props.changeScope}
-                                              disabled />
-                                                  <ComingSoonLabel />
-                                        </div>
+                                            <div className="coming-soon">
+                                                <RankVisualizationScopeButton
+                                                    value="office"
+                                                    label="Offices"
+                                                    active={this.props.scope === 'office'}
+                                                    changeScope={this.props.changeScope}
+                                                    disabled />
+                                                        <ComingSoonLabel />
+                                            </div>
                         </div>
                 </div>
             </RankVisualizationSection>

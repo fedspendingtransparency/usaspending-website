@@ -37,9 +37,9 @@ const OutlayLine = (props) => (
                         <g
                             transform="translate(0, -5)">
                                 <polygon
-                                  className="outlay-triangle"
-                                  fill={props.color}
-                                  points={`0,0 -5,-${triangleX} 5,-${triangleX}`} />
+                                    className="outlay-triangle"
+                                    fill={props.color}
+                                    points={`0,0 -5,-${triangleX} 5,-${triangleX}`} />
                         </g>
 
     </g>

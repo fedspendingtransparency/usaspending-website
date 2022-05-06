@@ -22,31 +22,31 @@ export default class Contact extends React.Component {
                         We look forward to hearing from you and having the opportunity to answer
                         your questions and comments.
                                 </p>
-                                  <div className="about-section-content-inline-buttons">
-                                    <div className="button-holder">
-                                      <a
-                                          target="_blank"
-                                          rel="noopener noreferrer"
-                                          href="https://fiscalservice.force.com/usaspending/s/">
-                                            <button
-                                                className="usa-button-outline"
-                                                aria-label="Visit Our Community Page"
-                                                title="Visit Our Community Page">
+                                    <div className="about-section-content-inline-buttons">
+                                        <div className="button-holder">
+                                            <a
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                href="https://fiscalservice.force.com/usaspending/s/">
+                                                    <button
+                                                        className="usa-button-outline"
+                                                        aria-label="Visit Our Community Page"
+                                                        title="Visit Our Community Page">
                                     Visit Our Community Page
-                                            </button>
-                                      </a>
-                                  </div>
-                                      <div className="button-holder">
-                                        <a href="mailto:usaspending.help@fiscal.treasury.gov?subject=Contact%20Us">
-                                            <button
-                                              className="usa-button-outline"
-                                              aria-label="Send Us A Message"
-                                              title="Send Us A Message">
+                                                    </button>
+                                            </a>
+                                        </div>
+                                            <div className="button-holder">
+                                                <a href="mailto:usaspending.help@fiscal.treasury.gov?subject=Contact%20Us">
+                                                    <button
+                                                        className="usa-button-outline"
+                                                        aria-label="Send Us A Message"
+                                                        title="Send Us A Message">
                                     Send Us A Message
-                                          </button>
-                                        </a>
+                                                    </button>
+                                                </a>
+                                            </div>
                                     </div>
-                                </div>
                             </div>
             </div>
         );

@@ -374,12 +374,12 @@ export default class ActivityChartTooltip extends React.Component {
                                     Recipient
                                             </h6>
                                                 <div
-                                                  className="tooltip-body__row-info-data
+                                                    className="tooltip-body__row-info-data
                                     tooltip-body__row-info-data__recipient-name"
-                                                  ref={(div) => {
+                                                    ref={(div) => {
                                         this.recipientDiv = div;
                                     }}>
-                                                  {
+                                                    {
                                         this.getLinks(
                                             'recipient',
                                             data.recipientId,
@@ -387,7 +387,7 @@ export default class ActivityChartTooltip extends React.Component {
                                             data.recipientName
                                         )
                                     }
-                                              </div>
+                                                </div>
                                         </div>
                                 </div>
                                     <div className="tooltip-body__row">
@@ -403,31 +403,31 @@ export default class ActivityChartTooltip extends React.Component {
                                         </div>
                                             <div className="tooltip-body__row-info second-child">
                                                 <h6 className="tooltip-body__row-info-title">End</h6>
-                                                  <div
-                                                      className="tooltip-body__row-info-data"
-                                                      ref={(d) => {
+                                                    <div
+                                                        className="tooltip-body__row-info-data"
+                                                        ref={(d) => {
                                         this.endDateDiv = d;
                                     }}>
-                                                      {data.endDate}
-                                                  </div>
+                                                        {data.endDate}
+                                                    </div>
                                             </div>
-                                              <div className="tooltip-body__row-info">
-                                                  <h6 className="tooltip-body__row-info-title">
+                                                <div className="tooltip-body__row-info">
+                                                    <h6 className="tooltip-body__row-info-title">
                                     Obligated Amount
-                                                </h6>
-                                                    <div
-                                                      className="tooltip-body__row-info-data"
-                                                      ref={(d) => {
+                                                    </h6>
+                                                        <div
+                                                            className="tooltip-body__row-info-data"
+                                                            ref={(d) => {
                                         this.amountsDiv = d;
                                     }}
-                                                      title={amountTitle}>
-                                                        <strong>
-                                                            {data._obligatedAmount !== 0 ?
+                                                            title={amountTitle}>
+                                                                <strong>
+                                                                    {data._obligatedAmount !== 0 ?
                                             `${data.obligatedAmount} ` : '-- '}
-                                                        </strong>
+                                                                </strong>
                                     of {data._awardedAmount !== 0 ? data.awardedAmount : '--'}
-                                                  </div>
-                                              </div>
+                                                        </div>
+                                                </div>
                                     </div>
                             </div>
                     </div>

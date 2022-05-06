@@ -78,19 +78,19 @@ export default class RecipientTimeVisualizationSection extends React.Component {
                                                     changePeriod={this.props.updateVisualizationPeriod} />
                                             </li>
                                                 <li>
-                                                  <TimeVisualizationPeriodButton
-                                                      value="quarter"
-                                                      label="Quarter"
-                                                      active={this.props.visualizationPeriod === 'quarter'}
-                                                      changePeriod={this.props.updateVisualizationPeriod} />
-                                              </li>
-                                                  <li>
                                                     <TimeVisualizationPeriodButton
-                                                      value="month"
-                                                      label="Month"
-                                                      active={this.props.visualizationPeriod === 'month'}
-                                                      changePeriod={this.props.updateVisualizationPeriod} />
+                                                        value="quarter"
+                                                        label="Quarter"
+                                                        active={this.props.visualizationPeriod === 'quarter'}
+                                                        changePeriod={this.props.updateVisualizationPeriod} />
                                                 </li>
+                                                    <li>
+                                                        <TimeVisualizationPeriodButton
+                                                            value="month"
+                                                            label="Month"
+                                                            active={this.props.visualizationPeriod === 'month'}
+                                                            changePeriod={this.props.updateVisualizationPeriod} />
+                                                    </li>
                                         </ul>
                                     </div>
                                 </div>

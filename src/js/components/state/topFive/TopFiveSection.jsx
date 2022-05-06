@@ -77,9 +77,9 @@ export default class TopFiveSection extends React.Component {
                                     types={tabTypes}
                                     active={this.state.active}
                                     switchTab={this.switchTab} />
-                                      <div className="topfive__content">
-                                        {content}
-                                    </div>
+                                        <div className="topfive__content">
+                                            {content}
+                                        </div>
             </div>
         );
     }

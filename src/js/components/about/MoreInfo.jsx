@@ -33,11 +33,11 @@ const MoreInfo = () => (
                 You can also see an interactive report on how frequently federal agencies use
                 competitive practices when issuing contracts for goods and services in our&nbsp;
                             <a
-                              target="_blank"
-                              rel="noopener noreferrer"
-                              href="https://datalab.usaspending.gov/competition-in-contracting.html">
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                href="https://datalab.usaspending.gov/competition-in-contracting.html">
                     Data Lab
-                          </a>
+                            </a>
                 .
                         </p>
                 </div>

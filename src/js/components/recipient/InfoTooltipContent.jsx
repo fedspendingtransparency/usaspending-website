@@ -14,7 +14,7 @@ export const recipientOverviewLoanInfo = (
                     </p>
                         <p>
                 As stated above, all subsidy costs associated with loans this recipient has received during the filtered time period are captured within the &quot;Total Awarded Amount&quot; number above and anywhere else on this page dollar amounts are mentioned.
-                      </p>
+                        </p>
             </div>
     </div>
 );
