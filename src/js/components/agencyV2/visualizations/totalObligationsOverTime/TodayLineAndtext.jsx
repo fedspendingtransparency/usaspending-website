@@ -27,7 +27,7 @@ const TodayLineAndtext = ({
         if (xScale && showTodayLineAndText) {
             setLineXValue(xScale(todaysDate) + padding.left);
         }
-    }, [xScale, showTodayLineAndText]);
+    }, [xScale, showTodayLineAndText, todaysDate, padding.left]);
 
     return (
         <g>

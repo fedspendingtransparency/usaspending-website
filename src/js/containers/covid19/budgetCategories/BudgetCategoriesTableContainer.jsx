@@ -334,7 +334,7 @@ const BudgetCategoriesTableContainer = (props) => {
         // Reset to default sort when the active tab or spending category changes
         setSort(defaultSort[props.type][spendingCategory].sort);
         setOrder(defaultSort[props.type][spendingCategory].order);
-    }, [props.type, spendingCategory]);
+    }, [fetchBudgetSpendingCallback, order, props.type, sort, spendingCategory]);
 
     useEffect(() => {
     // Reset to the first page
@@ -342,15 +342,15 @@ const BudgetCategoriesTableContainer = (props) => {
             fetchBudgetSpendingCallback();
         }
         changeCurrentPage(1);
-    }, [pageSize, sort, order, defcParams]);
+    }, [pageSize, sort, order, defcParams, currentPage, fetchBudgetSpendingCallback]);
 
     useEffect(() => {
         fetchBudgetSpendingCallback();
-    }, [currentPage]);
+    }, [currentPage, fetchBudgetSpendingCallback]);
 
     useEffect(() => {
         props.scrollIntoView(loading, error, errorOrLoadingWrapperRef, tableWrapperRef, 100, true);
-    }, [loading, error]);
+    }, [loading, error, props]);
 
     const renderColumns = () => {
         if (props.type && spendingCategory) {

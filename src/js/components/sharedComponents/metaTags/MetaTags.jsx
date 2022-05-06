@@ -112,7 +112,7 @@ const MetaTags = ({
             const sendDAPPageviewEvent = isInitialApplicationLoadForDAPGoogleAnalytics ? 'isInitialApplicationLoadForDAPGoogleAnalytics' : undefined;
             Analytics.pageview(pathname, title, sendDAPPageviewEvent);
         }
-    }, [title]);
+    }, [dispatch, generateTags, isInitialApplicationLoadForDAPGoogleAnalytics, pathname, title]);
 
     useEffect(() => {
         generateTags();

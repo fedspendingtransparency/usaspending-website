@@ -241,7 +241,7 @@ export default function ObligationsByAwardType({
         if (chartWidth && chartHeight) {
             renderChart();
         }
-    }, [chartWidth, chartHeight]);
+    }, [chartWidth, chartHeight, renderChart]);
 
     useEffect(() => {
         const rect = chartRef.current.parentElement.getBoundingClientRect();
@@ -249,27 +249,27 @@ export default function ObligationsByAwardType({
             setChartHeight(rect.height);
             setChartWidth(rect.width);
         }
-    }, [windowWidth]);
+    }, [chartHeight, chartWidth, windowWidth]);
 
     return (
-      <TooltipWrapper
-        className="obligations-by-award-type"
-        tooltipPosition="bottom"
-        tooltipComponent={(
-          <ObligationsByAwardTypeTooltip
-            awardTypes={inner}
-            fiscalYear={fiscalYear}
-            activeType={activeType}
-            categoryType={getActiveCategoryType(activeType, categoryMapping)}
-            isCategoryHover={categoryHover?.length > 0} />)}
-        controlledProps={{
+        <TooltipWrapper
+            className="obligations-by-award-type"
+            tooltipPosition="bottom"
+            tooltipComponent={(
+                <ObligationsByAwardTypeTooltip
+                    awardTypes={inner}
+                    fiscalYear={fiscalYear}
+                    activeType={activeType}
+                    categoryType={getActiveCategoryType(activeType, categoryMapping)}
+                    isCategoryHover={categoryHover?.length > 0} />)}
+            controlledProps={{
                 isControlled: true,
                 isVisible: activeType && !isMobile,
                 showTooltip: () => {},
                 closeTooltip: () => {}
             }}>
-              <div id="obl_chart" className="obligations-by-award-type__chart" ref={chartRef} />
-      </TooltipWrapper>
+                <div id="obl_chart" className="obligations-by-award-type__chart" ref={chartRef} />
+        </TooltipWrapper>
     );
 }
 

@@ -117,7 +117,7 @@ const AwardSpendingAgency = ({ publicLaw }) => {
 
     useEffect(() => {
         setTabs(tabs.map((tab) => ({ ...tab, count: tabCounts[tab.internal] })));
-    }, [tabCounts]);
+    }, [tabCounts, tabs]);
 
     const changeActiveTab = (tab) => {
         const tabSubtitle = awardTypeTabs.find((item) => item.internal === tab).label;

@@ -71,15 +71,15 @@ export default class ProgramActivityFilter extends React.Component {
                     && (programActivity.name !== null && programActivity.name !== '')) {
                     // return new checkbox here
                     activities.push(
-                      <PrimaryCheckboxType
-                        {...this.props}
-                        name={label}
-                        value={programActivity.id}
-                        key={programActivity.id}
-                        types={keyBy(this.props.availableProgramActivities, 'id')}
-                        filterType="Object Class"
-                        selectedCheckboxes={this.props.selectedProgramActivities}
-                        toggleCheckboxType={this.toggleValue} />);
+                        <PrimaryCheckboxType
+                            {...this.props}
+                            name={label}
+                            value={programActivity.id}
+                            key={programActivity.id}
+                            types={keyBy(this.props.availableProgramActivities, 'id')}
+                            filterType="Object Class"
+                            selectedCheckboxes={this.props.selectedProgramActivities}
+                            toggleCheckboxType={this.toggleValue} />);
                 }
             }
         });
@@ -106,13 +106,13 @@ export default class ProgramActivityFilter extends React.Component {
             }
 
             toggleButton = (
-              <button
-                className="see-more account-program-activity-toggle-button"
-                onClick={this.toggleShownAmount}
-                title={`See ${shownStatement}`}>
+                <button
+                    className="see-more account-program-activity-toggle-button"
+                    onClick={this.toggleShownAmount}
+                    title={`See ${shownStatement}`}>
                     See {shownStatement}
-                &nbsp;{arrow}
-              </button>
+                    {arrow}
+                </button>
             );
         }
 
@@ -125,21 +125,21 @@ export default class ProgramActivityFilter extends React.Component {
 
         if (this.props.inFlight) {
             items = (
-              <div className="account-program-activity-loading">
+                <div className="account-program-activity-loading">
                     Loading data...
-              </div>
+                </div>
             );
         }
 
         return (
-          <div className="account-program-activity-filter search-filter">
-            <div className="checkbox-type-filter search-filter">
-              <ul className="program-activities checkbox-types">
-                { items }
-              </ul>
-              {toggleButton}
+            <div className="account-program-activity-filter search-filter">
+                <div className="checkbox-type-filter search-filter">
+                    <ul className="program-activities checkbox-types">
+                        { items }
+                    </ul>
+                    {toggleButton}
+                </div>
             </div>
-          </div>
         );
     }
 }

@@ -54,7 +54,7 @@ const AgencyBudgetLine = ({
                 }
             );
         }
-    }, [xScale, yScale, showTodayLineAndText]);
+    }, [xScale, yScale, showTodayLineAndText, agencyBudget, height, padding.bottom, padding.left, todaysDate, width]);
 
     useEffect(() => {
         if (xScale && yScale && data.length) {
@@ -67,7 +67,7 @@ const AgencyBudgetLine = ({
                 }
             );
         }
-    }, [xScale, yScale, showTodayLineAndText]);
+    }, [xScale, yScale, showTodayLineAndText, data, padding.left, padding.bottom, padding.right, padding.top, height, agencyBudget, todaysDate, width]);
 
     const rectangle = (
         <rect

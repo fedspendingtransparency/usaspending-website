@@ -71,7 +71,7 @@ const Rectangle = ({
             };
             if (!isNaN(scale(amount))) setData(properties);
         }
-    }, [scale, overviewData, publicLaw === 'american-rescue-plan']);
+    }, [scale, overviewData, dataId, publicLaw]);
     return (
         <g
             tabIndex="0"

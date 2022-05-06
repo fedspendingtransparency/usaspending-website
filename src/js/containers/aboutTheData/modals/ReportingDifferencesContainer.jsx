@@ -76,11 +76,11 @@ const ReportingDifferencesContainer = ({ agencyData }) => {
         else {
             setPage(1);
         }
-    }, [sort, order, limit]);
+    }, [sort, order, limit, page, reportingDifferenceRequest]);
     // on page change fetch new data
     useEffect(() => {
         reportingDifferenceRequest();
-    }, [page]);
+    }, [page, reportingDifferenceRequest]);
     const columns = reportingDifferencesColumns.map((column, i) => ({
         displayName: column.displayName,
         title: column.title,

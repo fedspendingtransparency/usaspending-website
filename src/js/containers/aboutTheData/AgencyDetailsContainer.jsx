@@ -175,19 +175,14 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
             // only true when sort, agency-code, or page-size changed
             changeCurrentPage(1);
         }
-    }, [
-        currentPage,
-        agencyCode,
-        sortStatus,
-        pageSize
-    ]);
+    }, [currentPage, agencyCode, sortStatus, pageSize, prevPage, fetchTableData]);
 
     useEffect(() => {
         if (prevPage !== currentPage && prevPage) {
             // only true when page changes.
             fetchTableData();
         }
-    }, [currentPage]);
+    }, [currentPage, fetchTableData, prevPage]);
 
     return (
         <>

@@ -86,14 +86,14 @@ export const AgencyProfileV2 = () => {
         else if (slugsError) {
             setError(true);
         }
-    }, [agencySlugs, slugsLoading, slugsError]);
+    }, [agencySlugs, slugsLoading, slugsError, agencySlug]);
 
     useEffect(
         () => () => {
             // cleanup
             dispatch(resetAgency());
         },
-        [agencySlug]
+        [agencySlug, dispatch]
     );
 
     if (redirect) {

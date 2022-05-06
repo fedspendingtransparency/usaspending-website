@@ -79,11 +79,11 @@ const MissingAccountBalanceContainer = ({
         else {
             setPage(1);
         }
-    }, [sort, order, limit]);
+    }, [sort, order, limit, page, missingAccountBalancesRequest]);
     // on page change fetch new data
     useEffect(() => {
         missingAccountBalancesRequest();
-    }, [page]);
+    }, [missingAccountBalancesRequest, page]);
     // do not show deadlines in column headers if we do not have the data
     const columns = missingAccountBalanceColumns.map((column, i) => ({
         displayName: column.displayName,

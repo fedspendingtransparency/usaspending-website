@@ -35,7 +35,7 @@ const ZeroLineAndTick = ({
             */
             setTextData({ x: padding.left - 12 - 3, y: y + 4 });
         }
-    }, [xScale, yScale, height, padding, width, showTodayLineAndText]);
+    }, [xScale, yScale, height, padding, width, showTodayLineAndText, todaysDate]);
 
     return (
         <g>

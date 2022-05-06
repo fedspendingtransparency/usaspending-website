@@ -62,7 +62,7 @@ const DefaultLine = ({
             };
             if (!isNaN(scale(amount))) setLineData(properties);
         }
-    }, [scale, overviewData, publicLaw]);
+    }, [scale, overviewData, publicLaw, dataId]);
     return (
         <g
             tabIndex="0"

@@ -64,7 +64,7 @@ const DefaultLineAndText = ({
                 className: `amounts-text__value ${className || ''}`
             });
         }
-    }, [width, scale, valueTextRef.current]);
+    }, [width, scale, overviewData, dataId, labelData.height, className]);
     // label
     useEffect(() => {
         if (scale) {
@@ -77,7 +77,7 @@ const DefaultLineAndText = ({
                 className: `amounts-text__label ${className || ''}`
             });
         }
-    }, [width, scale, valueData]);
+    }, [width, scale, valueData, dataId, overviewData, className]);
 
     return (
         <g>

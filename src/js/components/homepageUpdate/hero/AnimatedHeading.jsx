@@ -126,7 +126,7 @@ const AnimatedHeading = ({ paused }) => {
         return () => {
             document.removeEventListener(visibilityChange, handleVisibilityChange);
         };
-    }, []);
+    }, [handleVisibilityChange]);
 
     useEffect(() => {
         pauseAll(paused);

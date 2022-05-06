@@ -189,7 +189,7 @@ const ContractGrantActivityContainer = ({
             setLoading(false);
         };
         asyncFunc();
-    }, [awardId]);
+    }, [awardId, formatTransactions]);
     // hook - runs on mount and anytime awardId and getTransactions change
     useEffect(() => {
         getTransactions();

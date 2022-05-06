@@ -66,7 +66,7 @@ const ContractGrantActivity = ({
         return () => {
             window.removeEventListener('resize', handleWindowResize);
         };
-    }, []);
+    }, [handleWindowResize]);
     /**
      * X Translation
      * We are positioning the potential award amount line tooltip centered.
