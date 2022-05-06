@@ -101,7 +101,7 @@ const TotalObligationsOverTimeVisualization = ({
     useEffect(() => {
         setYScale(() => scaleLinear().domain(yDomain).range([0, height - padding.top - padding.bottom]));
         setYScaleForPath(() => scaleLinear().domain(yDomain).range([1, height - padding.top - padding.bottom - yOffsetForPathStrokeWidth]));
-    }, [yDomain, data, height]);
+    }, [yDomain, data]);
 
     // set x ticks
     useEffect(() => {

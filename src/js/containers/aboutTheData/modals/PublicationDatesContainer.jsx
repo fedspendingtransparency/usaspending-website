@@ -118,7 +118,7 @@ const PublicationDatesContainer = ({
     // on page change fetch new data
     useEffect(() => {
         setRows(formatPublicationDates(pageAndSort(rawData, null, page, limit, order, sort)));
-    }, [limit, order, page, rawData, sort]);
+    }, [page]);
 
     // do not show deadlines in column headers if we do not have the data
     const columns = publicationDatesColumns.map((column) => ({
