@@ -126,7 +126,7 @@ const SpendingByCFDA = ({ publicLaw, handleExternalLinkClick }) => {
 
     useEffect(() => {
         setTabs(tabs.map((tab) => ({ ...tab, count: tabCounts[tab.internal] })));
-    }, [tabCounts, tabs]);
+    }, [tabCounts]);
 
     return (
         <div className="body__content assistance-listing">
