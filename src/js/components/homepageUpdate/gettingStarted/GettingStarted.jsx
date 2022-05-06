@@ -129,7 +129,7 @@ const GettingStarted = () => {
     <>
         <FlexGridCol className="homepage-profile-feature" width={12}>
             <div className="homepage-profile-feature-desc">
-                <h5 className="homepage-profile-feature-desc__title">A snapshot of federal spending</h5>
+                <h2 className="homepage-profile-feature-desc__title">A snapshot of federal spending</h2>
             </div>
             <div className="homepage-profile-feature__img-carousel">
                 <ImageCarousel
@@ -160,7 +160,7 @@ const GettingStarted = () => {
         </FlexGridCol>
         <FlexGridCol className="homepage-profile-feature" width={5}>
             <div className="homepage-profile-feature-desc">
-                <h5 className="homepage-profile-feature-desc__title">A snapshot of federal spending</h5>
+                <h2 className="homepage-profile-feature-desc__title">A snapshot of federal spending</h2>
                 <p>
                     Interested in how specific agencies spend their funding? Or how federal funding is being spent in your state? Our <strong>Profiles</strong> make it easier to understand questions like these and more with interactive charts and tables that offer a snapshot of spending by agency, state, recipient, and the federal accounts that agencies use to spend their funding. Use our COVID-19 Spending profile to learn how federal funding is being spent in response to the pandemic.
                 </p>
@@ -178,7 +178,7 @@ const GettingStarted = () => {
     <>
         <FlexGridCol className="homepage-spending-explorer" width={12}>
             <div className="homepage-spending-explorer-desc">
-                <h5 className="homepage-spending-explorer-desc__title">A big-picture view of government spending</h5>
+                <h2 className="homepage-spending-explorer-desc__title">A big-picture view of government spending</h2>
             </div>
             <div className="homepage-spending-explorer__img-wrapper">
                 <picture className="homepage-spending-explorer__img">
@@ -220,7 +220,7 @@ const GettingStarted = () => {
         </FlexGridCol>
         <FlexGridCol className="homepage-spending-explorer" width={5}>
             <div className="homepage-spending-explorer-desc">
-                <h5 className="homepage-spending-explorer-desc__title">A big-picture view of government spending</h5>
+                <h2 className="homepage-spending-explorer-desc__title">A big-picture view of government spending</h2>
                 <p>
                     The <strong>Spending Explorer</strong> lets you explore the entire federal budget in increasing detail, making it easier to understand how funding flows from Congress to federal agencies and how those agencies spend that funding. Interactive charts and tables help break down the budget in multiple ways to clarify the relationships between federal spending components.
                 </p>
