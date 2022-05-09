@@ -64,10 +64,7 @@ export const LoadingWrapper = ({
                         <FontAwesomeIcon icon="spinner" spin size="lg" />
                             <h4>{`${msg}${dots}`}</h4>
                     </div>
-                // eslint-disable-next-line indent,react/jsx-indent
-                {includeFooter && (
-                    <Footer pageName="Loading" />
-                )}
+                {includeFooter && (<Footer pageName="Loading" />)}
             </>
         );
     }
