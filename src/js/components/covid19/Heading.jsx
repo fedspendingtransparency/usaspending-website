@@ -33,7 +33,7 @@ const Heading = ({ publicLaw }) => {
                                     <button className="usa-button-link" onClick={jumpToDataSources}>Visit our Data Sources & Methodology</button> section to learn more about the underlying data and find resources about COVID-19 from other agencies.
                                 </p>
                         </div>
-                    :
+                        :
                         <div className="heading__description">
                             <p>In early 2020, the U.S. Congress appropriated funds in response to the COVID-19 pandemic. These funds were made possible through the Coronavirus Aid, Relief, and Economic Security (CARES) Act and other supplemental legislation. In March of 2021, additional funds were appropriated through the American Rescue Plan Act.</p>
                                 <p>
@@ -42,18 +42,18 @@ const Heading = ({ publicLaw }) => {
                         </div>
                 }
                     {publicLaw === 'american-rescue-plan' ?
-                    <>
-                        <picture className="heading__img-arp">
-                            <source srcSet="img/ARPA-illustration.webp 1x, img/ARPA-illustration.webp 2x" type="image/webp" />
-                                <img src="img/ARPA-illustration.svg" alt="" />
-                        </picture>
-                    </> :
-                    <>
-                        <picture className="heading__img-all">
-                            <source srcSet="img/All-Public-Laws-Illustration.webp 1x" type="image/webp" />
-                                <img src="img/All-Public-Laws-Illustration.svg" alt="" />
-                        </picture>
-                    </>
+                        <>
+                            <picture className="heading__img-arp">
+                                <source srcSet="img/ARPA-illustration.webp 1x, img/ARPA-illustration.webp 2x" type="image/webp" />
+                                    <img src="img/ARPA-illustration.svg" alt="" />
+                            </picture>
+                        </> :
+                        <>
+                            <picture className="heading__img-all">
+                                <source srcSet="img/All-Public-Laws-Illustration.webp 1x" type="image/webp" />
+                                    <img src="img/All-Public-Laws-Illustration.svg" alt="" />
+                            </picture>
+                        </>
                 }
                 </div>
         </div>

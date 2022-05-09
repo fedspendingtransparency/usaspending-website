@@ -164,8 +164,8 @@ export default class ExplorerVisualization extends React.Component {
                     <div
                         className="explorer-vis__width-reference"
                         ref={(div) => {
-                        this.widthRef = div;
-                    }} />
+                            this.widthRef = div;
+                        }} />
 
                 {visualization}
 

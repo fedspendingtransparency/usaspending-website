@@ -40,8 +40,8 @@ const LineTree = ({
             {getTierData(0) && (
             <div className="tier--1">
                 <span>{type === 'psc'
-                        ? getTierData(0).description
-                        : `${getTierData(0).code} : ${getTierData(0).description}`}
+                    ? getTierData(0).description
+                    : `${getTierData(0).code} : ${getTierData(0).description}`}
                 </span>
                 {getTierData(1) && (
                 <div className={`tier--2 ${numberOfSections <= 2 ? 'tier--last' : ''}`}>
@@ -53,11 +53,11 @@ const LineTree = ({
                         <div className={`tier--4 ${numberOfSections <= 4 ? 'tier--last' : ''}`}>
                             <span>{`${getTierData(3).code}: ${getTierData(3).description}`}</span>
                         </div>
-                                    )}
+                        )}
                     </div>
-                            )}
-                </div>
                     )}
+                </div>
+                )}
             </div>
             )}
         </div>

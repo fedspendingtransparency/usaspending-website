@@ -72,7 +72,7 @@ export default class ExplorerLanding extends React.Component {
                                                     exit>
                                                         <ExplorerDescription />
                                                 </CSSTransition>
-                                        )}
+                                                )}
                                             </TransitionGroup>
                                         </div>
                                             <button

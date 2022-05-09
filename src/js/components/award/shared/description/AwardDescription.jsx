@@ -68,7 +68,7 @@ const AwardDescription = ({
                                     <LineTree type="psc" data={psc} />
                             </FlexGridCol>
                     </FlexGridRow>
-                )}
+                    )}
                 </div>
         </AwardSection>
     );

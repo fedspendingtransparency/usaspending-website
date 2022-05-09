@@ -76,7 +76,7 @@ const CFDADetailModal = ({
                                                             value={data.cfda_website}>
                                                             {data.cfda_website} <FontAwesomeIcon icon="external-link-alt" />
                                                         </button>
-                                    : '--'
+                                                        : '--'
                                 }
                                                 </div>
                                         </div>
@@ -91,7 +91,7 @@ const CFDADetailModal = ({
                                                                 value={data.resource_link}>
                                                                 {data.resource_link} <FontAwesomeIcon icon="external-link-alt" />
                                                             </button>
-                                    : '--'
+                                                            : '--'
                                 }
                                                     </div>
                                             </div>

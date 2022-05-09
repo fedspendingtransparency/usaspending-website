@@ -108,8 +108,8 @@ export default class DownloadDateRange extends React.Component {
                             hideError={this.props.hideError}
                             disabledDays={endDateDisabledDays}
                             ref={(component) => {
-                        this.endPicker = component;
-                    }}
+                                this.endPicker = component;
+                            }}
                             allowClearing />
             </div>
         );

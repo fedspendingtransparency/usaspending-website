@@ -109,8 +109,8 @@ export default class FederalAccountsViz extends React.Component {
                             <div
                                 className="federal-accounts-vis__width-reference"
                                 ref={(div) => {
-                            this.widthRef = div;
-                        }} />
+                                    this.widthRef = div;
+                                }} />
                         {isTreeView && <FederalAccountsTree
                             error={this.props.error}
                             inFlight={this.props.inFlight}

@@ -81,7 +81,7 @@ const RecipientSection = ({ publicLaw }) => {
                             This section uses data tagged with Disaster Emergency Fund Code (DEFC) V, which was designated for Non-emergency P.L. 117-2, American Rescue Plan Act of 2021.
                         </>
                     )} /> :
-                    <></>
+                            <></>
                 }
                     <Note message={(
                     <>

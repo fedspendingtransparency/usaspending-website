@@ -63,34 +63,34 @@ export default class RecipientMapTooltip extends React.Component {
                     <div
                         className="tooltip"
                         ref={(div) => {
-                        this.div = div;
-                    }}>
-                        <div
-                            className="tooltip-pointer"
-                            ref={(div) => {
-                            this.pointerDiv = div;
-                        }} />
-                            <div className="tooltip-title">
-                                {truncatedName}
-                            </div>
-                                <div className="tooltip-body">
-                                    <div className="tooltip-left">
-                                        <div className="tooltip-value">
-                                            {dollarValue}
-                                        </div>
-                                            <div className="tooltip-label">
-                                                {this.props.amount.label}
-                                            </div>
+                            this.div = div;
+                        }}>
+                            <div
+                                className="tooltip-pointer"
+                                ref={(div) => {
+                                    this.pointerDiv = div;
+                                }} />
+                                    <div className="tooltip-title">
+                                        {truncatedName}
                                     </div>
-                                        <div className="tooltip-right">
-                                            <div className="tooltip-value">
-                                                {this.props.awards.value}
+                                        <div className="tooltip-body">
+                                            <div className="tooltip-left">
+                                                <div className="tooltip-value">
+                                                    {dollarValue}
+                                                </div>
+                                                    <div className="tooltip-label">
+                                                        {this.props.amount.label}
+                                                    </div>
                                             </div>
-                                                <div className="tooltip-label">
-                                                    {this.props.awards.label}
+                                                <div className="tooltip-right">
+                                                    <div className="tooltip-value">
+                                                        {this.props.awards.value}
+                                                    </div>
+                                                        <div className="tooltip-label">
+                                                            {this.props.awards.label}
+                                                        </div>
                                                 </div>
                                         </div>
-                                </div>
                     </div>
             </div>
         );

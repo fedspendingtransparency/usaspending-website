@@ -28,7 +28,7 @@ const BulkDownloadSidebar = ({ active, dataTypes }) => (
                         shouldOpenNewTab={type.shouldOpenNewTab}
                         externalLink={type.externalLink}
                         internalDomain={type.internalDomain} />
-            ))}
+                ))}
             </ul>
     </div>
 );

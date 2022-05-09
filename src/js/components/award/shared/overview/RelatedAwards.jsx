@@ -110,7 +110,7 @@ export default class RelatedAwards extends React.Component {
                             <div key={`${data.glossary}text`} className="related-awards__text">
                                 {data.name} {data.postText}
                             </div>
-                    ))}
+                        ))}
                     </div>
             </div>
         );

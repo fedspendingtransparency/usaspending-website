@@ -173,11 +173,11 @@ export default class FedAccountTable extends React.Component {
                         headerCellRender={this.headerCellRender}
                         bodyCellRender={this.bodyCellRender}
                         ref={(table) => {
-                        this.tableComponent = table;
-                    }} />
-                        <div className="results-table-message-container">
-                            {message}
-                        </div>
+                            this.tableComponent = table;
+                        }} />
+                            <div className="results-table-message-container">
+                                {message}
+                            </div>
             </div>
         );
     }

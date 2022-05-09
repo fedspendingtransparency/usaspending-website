@@ -124,7 +124,7 @@ const BudgetCategories = ({ publicLaw }) => {
                         <p>
                         In this section, we provide the total amount of American Rescue Plan funding broken down into three categories: the <span className="glossary-term">Agencies</span> <GlossaryLink term="agency" /> who are authorizing the funds to be spent; the <span className="glossary-term">Federal Accounts</span> <GlossaryLink term="federal-account" /> from which agencies authorize spending; and the <span className="glossary-term">Object Classes</span> <GlossaryLink term="object-class" /> of the goods and services purchased with this funding.
                         </p>
-                    :
+                        :
                         <p>
                         In this section, we present the total amount of COVID-19 funding broken down by three categories: the <span className="glossary-term">Agencies</span> <GlossaryLink term="agency" /> who are authorizing the funds to be spent; the <span className="glossary-term">Federal Accounts</span> <GlossaryLink term="federal-account" /> from which agencies authorize spending; and the <span className="glossary-term">Object Classes</span> <GlossaryLink term="object-class" /> of the goods and services purchased with this funding.
                         </p>
@@ -136,10 +136,10 @@ const BudgetCategories = ({ publicLaw }) => {
                         <div className="overview-data-group">
                             <InformationBoxes
                                 boxes={overviewData.map((data) => ({
-                        ...data,
-                        isLoading: (data.type === 'count' && inFlight) || !amounts[data.type],
-                        amount: amounts[data.type]
-                    }))} />
+                                    ...data,
+                                    isLoading: (data.type === 'count' && inFlight) || !amounts[data.type],
+                                    amount: amounts[data.type]
+                                }))} />
                         </div>
                             <div className="budget-categories__content">
                                 <BudgetCategoriesTableContainer

@@ -71,7 +71,7 @@ const TrailItem = (props) => {
                                     exit>
                                         <TrailDecorator />
                                 </CSSTransition>
-                        )}
+                                )}
                             </TransitionGroup>
                     </div>
                         <div className="item-content">

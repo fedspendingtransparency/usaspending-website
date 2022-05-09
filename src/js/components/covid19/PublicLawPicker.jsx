@@ -30,7 +30,7 @@ const PublicLawPickerOption = ({
             {description}
             {term && (
             <GlossaryLink term={term} />
-                )}
+            )}
         </p>)}
     </li>
 );

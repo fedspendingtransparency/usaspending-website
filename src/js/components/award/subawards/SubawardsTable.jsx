@@ -180,22 +180,22 @@ export default class SubawardsTable extends React.Component {
                     <div
                         className={`subawards-table ${loadingClass}`}
                         ref={(div) => {
-                        this.wrapperDiv = div;
-                    }}>
-                        <IBTable
-                            rowHeight={rowHeight}
-                            rowCount={subawards.length}
-                            headerHeight={50}
-                            contentWidth={tableValues.width}
-                            bodyWidth={tableWidth}
-                            bodyHeight={tableHeight}
-                            columns={tableValues.columns}
-                            onReachedBottom={loadNextPage}
-                            headerCellRender={this.headerCellRender}
-                            bodyCellRender={this.bodyCellRender}
-                            ref={(table) => {
-                            this.tableComponent = table;
-                        }} />
+                            this.wrapperDiv = div;
+                        }}>
+                            <IBTable
+                                rowHeight={rowHeight}
+                                rowCount={subawards.length}
+                                headerHeight={50}
+                                contentWidth={tableValues.width}
+                                bodyWidth={tableWidth}
+                                bodyHeight={tableHeight}
+                                columns={tableValues.columns}
+                                onReachedBottom={loadNextPage}
+                                headerCellRender={this.headerCellRender}
+                                bodyCellRender={this.bodyCellRender}
+                                ref={(table) => {
+                                    this.tableComponent = table;
+                                }} />
                     </div>
                         <div className="results-table-message-container">{message}</div>
             </div>

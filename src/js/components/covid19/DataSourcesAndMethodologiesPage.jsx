@@ -105,10 +105,10 @@ const renderDefCodes = (errorMsg, isLoading, codes) => {
                             {pl.includes('Non-emergency') ? "Not designated as emergency" : "Designated as emergency"}
                         </li>
                         {pl
-                        .split("|")
-                        .map((str, i) => (
-                            <li key={uniqueId()}>{str}, {title.split("|")[i]}</li>
-                        ))
+                            .split("|")
+                            .map((str, i) => (
+                                <li key={uniqueId()}>{str}, {title.split("|")[i]}</li>
+                            ))
                     }
                     </ul>
             </li>
@@ -192,8 +192,8 @@ export default () => {
                                 pageName="data-sources"
                                 fixedStickyBreakpoint={getStickyBreakPointForSidebar()}
                                 verticalSectionOffset={dataDisclaimerBanner === 'hide'
-                                ? stickyHeaderHeight
-                                : stickyHeaderHeight + dataDisclaimerHeight}
+                                    ? stickyHeaderHeight
+                                    : stickyHeaderHeight + dataDisclaimerHeight}
                                 active={activeSection}
                                 jumpToSection={jumpToDataSourcesSection}
                                 detectActiveSection={setActiveSection}
