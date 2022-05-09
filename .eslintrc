@@ -95,8 +95,8 @@
         "react/no-array-index-key": [1],
         // allow await in for-await-in loops
         "no-await-in-loop": [0],
-        "react-hooks/rules-of-hooks": [0],
-        "react-hooks/exhaustive-deps": [0],
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn",
         "jsx-a11y/anchor-is-valid": "warn"
     }
 }
