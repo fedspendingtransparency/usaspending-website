@@ -162,8 +162,8 @@ export default class ProgramSourceAutocompleteContainer extends React.Component 
                         errorHeader={`Unknown ${this.props.component.code.toUpperCase()}`}
                         errorMessage={`We were unable to find that ${this.props.component.label}`}
                         ref={(input) => {
-                        this.programSourceList = input;
-                    }}
+                            this.programSourceList = input;
+                        }}
                         clearAutocompleteSuggestions={this.clearAutocompleteSuggestions}
                         noResults={this.state.noResults}
                         inFlight={this.state.inFlight}

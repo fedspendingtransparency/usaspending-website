@@ -305,8 +305,8 @@ export class CovidHighlights extends React.Component {
                                                 <TooltipWrapper
                                                     icon="info"
                                                     offsetAdjustments={{
-                                            top: 0
-                                        }}
+                                                        top: 0
+                                                    }}
                                                     tooltipComponent={<HomePageTooltip />} />
                                             </div>
                                         </span>
@@ -326,45 +326,45 @@ export class CovidHighlights extends React.Component {
                         <div
                             className="covid-hero__content"
                             ref={(scroll) => {
-                            this.scrollBar = scroll;
-                        }}>
-                            <ul
-                                className="covid-highlights"
-                                onFocus={this.handleHover}
-                                onMouseLeave={this.handleBlur}
-                                onMouseEnter={this.handleHover}
-                                onBlur={this.handleBlur}>
-                                {highlights
-                                .filter((highlight) => highlight.outlay > 0 || highlight.showLoading)
-                                .map((highlight) => {
-                                    if (highlight.showLoading) {
-                                        return (
-                                            <li key={uniqueId('loading')}className="covid-highlights__highlight loading">
-                                                <FontAwesomeIcon icon="spinner" spin color="white" />
-                                            </li>
-                                        );
-                                    }
-                                    return (
-                                        <li
-                                            key={uniqueId(highlight.description)}
-                                            className="covid-highlights__highlight">
-                                                <span className="covid-highlight__description">{highlight.description}</span>
-                                                    <span className="covid-highlight__amount">{formatMoneyWithPrecision(highlight.outlay, 0)}</span>
-                                                        <span>OUTLAYED AMOUNT</span>
-                                        </li>
-                                    );
-                                })
+                                this.scrollBar = scroll;
+                            }}>
+                                <ul
+                                    className="covid-highlights"
+                                    onFocus={this.handleHover}
+                                    onMouseLeave={this.handleBlur}
+                                    onMouseEnter={this.handleHover}
+                                    onBlur={this.handleBlur}>
+                                    {highlights
+                                        .filter((highlight) => highlight.outlay > 0 || highlight.showLoading)
+                                        .map((highlight) => {
+                                            if (highlight.showLoading) {
+                                                return (
+                                                    <li key={uniqueId('loading')}className="covid-highlights__highlight loading">
+                                                        <FontAwesomeIcon icon="spinner" spin color="white" />
+                                                    </li>
+                                                );
+                                            }
+                                            return (
+                                                <li
+                                                    key={uniqueId(highlight.description)}
+                                                    className="covid-highlights__highlight">
+                                                        <span className="covid-highlight__description">{highlight.description}</span>
+                                                            <span className="covid-highlight__amount">{formatMoneyWithPrecision(highlight.outlay, 0)}</span>
+                                                                <span>OUTLAYED AMOUNT</span>
+                                                </li>
+                                            );
+                                        })
                             }
-                            </ul>
+                                </ul>
                         </div>
                             <div
                                 className="covid-background"
                                 style={{
-                            width: `${this.state.imgDimensions.width}px`,
-                            height: `${this.state.imgDimensions.height}px`,
-                            zIndex: 9
-                        }} />
-                            <HeroButton />
+                                    width: `${this.state.imgDimensions.width}px`,
+                                    height: `${this.state.imgDimensions.height}px`,
+                                    zIndex: 9
+                                }} />
+                                    <HeroButton />
                 </div>
             </section>
         );

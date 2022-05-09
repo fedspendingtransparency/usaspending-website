@@ -140,27 +140,27 @@ export class DEFCheckboxTree extends React.Component {
                     className="selected-filters"
                     role="status">
                     {this.props.counts.map((node) => {
-                            const label = `${node.label} (${node.count})`;
-                            return (
-                                <button
-                                    key={uniqueId()}
-                                    className="shown-filter-button"
-                                    value={label}
-                                    onClick={(e) => this.removeSelectedFilter(e, node)}
-                                    title="Click to remove."
-                                    aria-label={`Applied filter: ${label}`}>
-                                    {label}
-                                        <span className="close">
-                                            <FontAwesomeIcon icon="times" />
-                                        </span>
-                                </button>
-                            );
-                        })}
+                        const label = `${node.label} (${node.count})`;
+                        return (
+                            <button
+                                key={uniqueId()}
+                                className="shown-filter-button"
+                                value={label}
+                                onClick={(e) => this.removeSelectedFilter(e, node)}
+                                title="Click to remove."
+                                aria-label={`Applied filter: ${label}`}>
+                                {label}
+                                    <span className="close">
+                                        <FontAwesomeIcon icon="times" />
+                                    </span>
+                            </button>
+                        );
+                    })}
                 </div>
                 )}
                     <SubmitHint ref={(component) => {
-                    this.hint = component;
-                }} />
+                        this.hint = component;
+                    }} />
             </div>
         );
     }
