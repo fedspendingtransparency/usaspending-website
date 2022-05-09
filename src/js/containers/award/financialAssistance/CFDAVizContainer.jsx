@@ -53,27 +53,27 @@ export default class CFDAVizContainer extends React.Component {
         e.preventDefault();
         const cfda = this.props.cfdas.find((data) => data.cfdaNumber === e.target.value);
         this.setState({ previousView: 'table', view: 'single', cfda });
-    }
+    };
 
     onBackClick = (e) => {
         e.preventDefault();
         const { previousView } = this.state;
         this.setState({ view: previousView, previousView });
-    }
+    };
 
     onTreeClick = (id, cfda) => {
         this.setState({ previousView: 'tree', view: 'single', cfda });
-    }
+    };
 
     onDropdownClick = (title) => {
         const cfda = this.props.cfdas.find((x) => x.cfdaNumber.toString() === title.split(' ')[0].trim());
         this.setState({ view: 'single', cfda });
-    }
+    };
 
     updateViewFromCFDAOverviewClick = (view) => {
         this.setState({ view });
         this.props.updateCFDAOverviewLinkClicked();
-    }
+    };
 
     updateCFDAs = () => {
         const {
@@ -100,19 +100,19 @@ export default class CFDAVizContainer extends React.Component {
         const endIndex = ((page - 1) * limit) + limit;
         const currentPageCFDAs = sortedCFDAs.slice(startIndex, endIndex);
         return this.setState({ currentPageCFDAs });
-    }
+    };
 
     updateSort = (sort, order) => {
         this.setState({ sort, order, page: 1 }, () => this.updateCFDAs());
-    }
+    };
 
     changePage = (page) => {
         this.setState({ page }, () => this.updateCFDAs());
-    }
+    };
 
     changeView = (view) => {
         if (view !== this.state.view) this.setState({ view, previousView: view });
-    }
+    };
 
     render() {
         return (

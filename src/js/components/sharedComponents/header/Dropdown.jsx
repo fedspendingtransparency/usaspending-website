@@ -57,11 +57,11 @@ const Dropdown = ({
                 aria-expanded={expanded}>
                 <div className="nav-dropdown__parent-label">
                     {containsNewNavItem &&
-                        <div className="new-badge-outer">
-                            <div className="new-badge-middle">
-                                <div className="new-badge-inner" />
-                            </div>
-                        </div>}
+                            <div className="new-badge-outer">
+                                <div className="new-badge-middle">
+                                    <div className="new-badge-inner" />
+                                </div>
+                            </div>}
                     {label}
                 </div>
                 <div className="nav-dropdown__parent-icon">

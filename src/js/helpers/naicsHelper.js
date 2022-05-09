@@ -97,7 +97,7 @@ export const incrementNaicsCountAndUpdateUnchecked = (
 export const removeStagedNaicsFilter = (
     nodes,
     checkedNodes,
-    removedNode,
+    removedNode
 ) => removeStagedFilter(
     nodes,
     checkedNodes,

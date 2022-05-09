@@ -57,15 +57,15 @@ export const getVerticalOffset = () => {
 
     // ...header is NOT yet sticky...
     if (isGlobalBannerHidden && isCovidBannerHidden) {
-        // both banners are hidden --> minimal offsets!
+    // both banners are hidden --> minimal offsets!
         return siteHeaderHeight;
     }
     else if (isGlobalBannerHidden) {
-        // only global banner is hidden --> some offsets!
+    // only global banner is hidden --> some offsets!
         return siteHeaderHeight + dataDisclaimerHeight + defaultVerticalOffset;
     }
     else if (isCovidBannerHidden) {
-        // only covid banner only is hidden --> some offsets!
+    // only covid banner only is hidden --> some offsets!
         return siteHeaderHeight + globalBannerHeight;
     }
 
@@ -84,7 +84,7 @@ export const jumpToSection = (
     const matchedSection = Object.keys(sections).find((key) => key === section);
 
     if (!matchedSection) {
-        // no matching section
+    // no matching section
         return;
     }
     const selector = `#${idPrefix}-${snakeCase(section)}`;

@@ -33,7 +33,7 @@ export default class DefaultPicker extends Component {
     }
 
     componentWillUnmount() {
-        // remove the event listener
+    // remove the event listener
         document.removeEventListener('click', this.closeMenu);
     }
 

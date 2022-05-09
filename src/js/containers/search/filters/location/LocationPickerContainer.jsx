@@ -129,7 +129,7 @@ export default class LocationPickerContainer extends React.Component {
     }
 
     setCitySearchString(citySearchString, performFetch = true) {
-        // we don't perform fetch when the user is clicking on a city search dropdown option
+    // we don't perform fetch when the user is clicking on a city search dropdown option
         this.setState({ citySearchString, availableCities: [] }, () => {
             if (citySearchString.length > 2 && performFetch) {
                 this.debouncedCitySearch();
@@ -159,7 +159,7 @@ export default class LocationPickerContainer extends React.Component {
     }
 
     parseCountries(data) {
-        // put USA and an "all foreign countries" option at the start of the list
+    // put USA and an "all foreign countries" option at the start of the list
         const countries = [
             { code: "USA", name: "UNITED STATES" },
             { code: "FOREIGN", name: "ALL FOREIGN COUNTRIES" },
@@ -190,7 +190,7 @@ export default class LocationPickerContainer extends React.Component {
     }
 
     parseStates(data) {
-        // prepend a blank state to act as a de-select option
+    // prepend a blank state to act as a de-select option
         if (data.states.length > 0) {
             const states = [
                 { ...defaultLocationValues.state, name: "All states" },
@@ -239,7 +239,7 @@ export default class LocationPickerContainer extends React.Component {
     }
 
     parseCounties(data) {
-        // prepend a blank county to act as a de-select option
+    // prepend a blank county to act as a de-select option
         let counties = [];
         if (data.counties.length > 0) {
             counties = concat(
@@ -283,7 +283,7 @@ export default class LocationPickerContainer extends React.Component {
     }
 
     parseDistricts(data) {
-        // prepend a blank district to act as a de-select option
+    // prepend a blank district to act as a de-select option
         let districts = [];
         if (data.districts.length > 0) {
             districts = concat(

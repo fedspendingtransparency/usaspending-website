@@ -133,9 +133,9 @@ export default class ObjectClassContainer extends React.PureComponent {
     }
 
     showMinorObjectClasses(selected) {
-        // We want to clear out the existing Minor Object Class treemap
-        // so that subsequent loads don't show the previous treemap
-        // in the time it takes for the API call to return
+    // We want to clear out the existing Minor Object Class treemap
+    // so that subsequent loads don't show the previous treemap
+    // in the time it takes for the API call to return
         this.setState({
             minorObjectClasses: {
                 children: []

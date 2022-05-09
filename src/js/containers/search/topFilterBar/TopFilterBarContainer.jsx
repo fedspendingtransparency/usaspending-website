@@ -41,8 +41,8 @@ export class TopFilterBarContainer extends React.Component {
     }
 
     componentDidMount() {
-        // prepare filters on initial mount to handle pre-populated filters (such as a back
-        // button event or a provided URL param)
+    // prepare filters on initial mount to handle pre-populated filters (such as a back
+    // button event or a provided URL param)
         this.prepareFilters(this.props.reduxFilters);
     }
 

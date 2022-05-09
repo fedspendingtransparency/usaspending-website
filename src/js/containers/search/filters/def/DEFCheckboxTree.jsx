@@ -164,7 +164,7 @@ export class DEFCheckboxTree extends React.Component {
             </div>
         );
     }
-};
+}
 
 DEFCheckboxTree.propTypes = {
     counts: PropTypes.arrayOf(PropTypes.shape({})),

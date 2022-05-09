@@ -93,7 +93,7 @@ class AccountSearchOperation {
     }
 
     toParams() {
-        // converts the search operation into a JS object that can be POSTed to the endpoint
+    // converts the search operation into a JS object that can be POSTed to the endpoint
 
         // get the common filters that are shared with all models
         const commonFilters = this.commonParams();

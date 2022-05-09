@@ -103,7 +103,7 @@ export default class MapLegend extends React.Component {
 
     updateToggle = (e) => {
         this.props.updateMapLegendToggle(e.target.value);
-    }
+    };
 
     render() {
         return (

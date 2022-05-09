@@ -78,7 +78,8 @@ export default class RankVisualization extends React.Component {
             chart = (<ChartMessage message="An error has occurred." />);
             if (this.props.industryCodeError) {
                 chart = (<ChartMessage message="Industry codes are unavailable for Sub-Awards." />);
-            } else if (this.props.recipientError) {
+            }
+            else if (this.props.recipientError) {
                 chart = (<ChartMessage message="Paging to 10,000 records and above is not available for Spending by Recipient." />);
             }
         }

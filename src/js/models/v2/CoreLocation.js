@@ -23,7 +23,7 @@ const CoreLocation = {
         this._congressionalDistrict = data.congressionalDistrict || '';
     },
     get streetAddress() {
-        // format the street address
+    // format the street address
         let address = '';
         for (let i = 1; i < 4; i++) {
             const addressLine = this[`_address${i}`];

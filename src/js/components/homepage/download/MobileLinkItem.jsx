@@ -86,6 +86,6 @@ export default class MobileLinkItem extends React.Component {
             </li>
         );
     }
-};
+}
 
 MobileLinkItem.propTypes = propTypes;

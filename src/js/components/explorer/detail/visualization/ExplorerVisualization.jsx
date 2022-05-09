@@ -124,7 +124,8 @@ export default class ExplorerVisualization extends React.Component {
                     <UnreportedErrorScreen />
                 </div>
             );
-        } else {
+        }
+        else {
             dropDown = (
                 <div className="explorer-vis__toolbar">
                     <BreakdownDropdown

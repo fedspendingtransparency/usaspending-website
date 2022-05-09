@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import { isCancel } from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
@@ -104,7 +104,7 @@ export const useValidTimeBasedQueryParams = (currentUrlFy, currentUrlPeriod = nu
         });
     };
 
-    const handleTimeChange = (y, p = null) => {
+    const handleTimeChange = useCallback((y, p = null) => {
         if (y && p) {
             updateUrl({ fy: `${y}`, period: `${p}` });
         }
@@ -114,10 +114,10 @@ export const useValidTimeBasedQueryParams = (currentUrlFy, currentUrlPeriod = nu
         else if (p) {
             updateUrl({ period: `${p}` });
         }
-    };
+    });
 
     useEffect(() => {
-        // Handles defining undefined params
+    // Handles defining undefined params
         const isDataReadyForLatest = (submissionPeriods.size && latestFy && latestPeriod);
         const periodAndFyRequired = (requiredParams.includes('fy') && requiredParams.includes('period'));
         if (isDataReadyForLatest && requiredParams.some((p) => !existingParams[p])) {
@@ -143,7 +143,7 @@ export const useValidTimeBasedQueryParams = (currentUrlFy, currentUrlPeriod = nu
 
 
     useEffect(() => {
-        // Handles validating defined params
+    // Handles validating defined params
         if (submissionPeriods.size && latestFy && latestPeriod && requiredParams.every((p) => existingParams[p])) {
             const availablePeriodsInFy = submissionPeriods.toJS().filter(({ submission_fiscal_year: y }) => parseInt(currentUrlFy, 10) === y);
             if (availablePeriodsInFy.length && currentUrlPeriod) {

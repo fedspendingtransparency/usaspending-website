@@ -73,7 +73,7 @@ export const exceedsMaxAndMinStoppingPoints = (agencyBudget, data) => {
     const maxPercentDifference = exceedsMaxPercentDifference(agencyBudget, data, true);
     const minPercentDifference = exceedsMinPercentDifference(agencyBudget, data);
     return [
-        // start red for exceeding max
+    // start red for exceeding max
         { offset: '0%', stopColor: 'red' },
         { offset: maxPercentDifference, stopColor: 'red' },
         // go to blue for normal

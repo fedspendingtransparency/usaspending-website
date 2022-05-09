@@ -54,8 +54,8 @@ export default class MapBox extends React.Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        // this component should only re-render when it is unmounted first, if we should
-        // show/hide the navigation buttons, or the center changed
+    // this component should only re-render when it is unmounted first, if we should
+    // show/hide the navigation buttons, or the center changed
         if (nextState.showNavigationButtons !== this.state.showNavigationButtons) {
             return true;
         }
@@ -178,7 +178,7 @@ export default class MapBox extends React.Component {
     }
 
     handleWindowResize() {
-        // determine if the width changed
+    // determine if the width changed
         const windowWidth = window.innerWidth;
         if (this.state.windowWidth !== windowWidth) {
             // width changed, update the visualization width

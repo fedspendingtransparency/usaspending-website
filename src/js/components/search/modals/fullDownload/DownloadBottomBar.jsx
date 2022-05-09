@@ -85,7 +85,7 @@ export default class DownloadBottomBar extends React.Component {
             </div>
         );
     }
-};
+}
 
 DownloadBottomBar.propTypes = propTypes;
 DownloadBottomBar.defaultProps = defaultProps;

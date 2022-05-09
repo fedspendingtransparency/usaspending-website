@@ -12,7 +12,7 @@ export const updateTextSearchInput = (state, keyword) => {
         updatedMap = updatedMap.delete(text);
     }
     else {
-        // allows for multiple text
+    // allows for multiple text
         updatedMap = updatedMap.set(text, text);
     }
 

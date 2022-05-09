@@ -19,9 +19,11 @@ export default class RecipientLinkCell extends React.Component {
         let labelType = '';
         if (this.props.type === 'P') {
             labelType = "recipient-landing__icon recipient-landing__icon_parent";
-        } else if (this.props.type === "R") {
+        }
+        else if (this.props.type === "R") {
             labelType = "recipient-landing__icon recipient-landing__icon_recipient";
-        } else {
+        }
+        else {
             labelType = "recipient-landing__icon recipient-landing__icon_child";
         }
         return (

@@ -138,6 +138,6 @@ export default function registerIcons() {
         faUserTie,
         faWindowRestore,
         faAngleDoubleDown,
-        faScroll,
+        faScroll
     );
 }

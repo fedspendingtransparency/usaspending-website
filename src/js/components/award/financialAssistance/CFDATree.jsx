@@ -66,7 +66,7 @@ export default class CFDATree extends React.Component {
         const treemapData = hierarchy({
             children: data
         })
-            // tell D3 how to extract the monetary value out of the object
+        // tell D3 how to extract the monetary value out of the object
             .sum((d) => d._federalActionOblicationAmount)
             .sort((a, b) => b.value - a.value); // sort the objects
 
@@ -154,7 +154,7 @@ export default class CFDATree extends React.Component {
     }
 
     truncateText(text, type, maxWidth) {
-        // calculate the text width of the full label
+    // calculate the text width of the full label
         let label = text;
         let labelWidth = 0;
         if (type === 'title') {
@@ -192,7 +192,7 @@ export default class CFDATree extends React.Component {
                 message="No available data to display." />);
         }
         return null;
-    }
+    };
 
     render() {
         if (this.props.width <= 0) {
@@ -226,13 +226,13 @@ export default class CFDATree extends React.Component {
                         </svg>}
                 </div>
                 {chartLength !== 0 &&
-                    <div className="cfda-section-treemap-count">
-                        {`${this.state.virtualChart.length} ${naming}`}
-                    </div>}
+                <div className="cfda-section-treemap-count">
+                    {`${this.state.virtualChart.length} ${naming}`}
+                </div>}
                 {this.state.isPartialTree &&
-                    <span className="cfda-section__note">
-                        <Note message={message} />
-                    </span>}
+                <span className="cfda-section__note">
+                    <Note message={message} />
+                </span>}
             </div>
         );
     }

@@ -41,7 +41,7 @@ const StateContent = ({ stateProfile }) => {
     const [activeSection, setActiveSection] = useState('overview');
 
     const jumpToSection = (section = '') => {
-        // we've been provided a section to jump to
+    // we've been provided a section to jump to
         const matchedSection = find(stateSections, {
             section
         });

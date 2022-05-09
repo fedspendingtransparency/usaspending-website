@@ -56,7 +56,7 @@ const StateLandingTable = (props) => {
         );
     }
     else if (props.results.length === 0) {
-        // no results
+    // no results
         if (props.searchString) {
             message = (
                 <div className="state-list__message">

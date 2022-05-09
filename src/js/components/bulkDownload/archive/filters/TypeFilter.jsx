@@ -59,7 +59,7 @@ export default class ArchiveTypeFilter extends React.Component {
     }
 
     render() {
-        // Create the type options
+    // Create the type options
         const types = awardTypes.map((type) => (
             <li
                 className="field-item"

@@ -140,7 +140,7 @@ export default class AgencyOverview extends React.PureComponent {
     }
 
     updateVisualizationState(props, visualizationWidth) {
-        // Generate visualization parameters
+    // Generate visualization parameters
         let obligatedWidth = 0;
 
         // Only check the percentage width if the data is available
@@ -161,7 +161,7 @@ export default class AgencyOverview extends React.PureComponent {
     }
 
     handleWindowResize() {
-        // determine if the width changed
+    // determine if the width changed
         const visualizationWidth = this.containerDiv.getBoundingClientRect().width;
         if (this.state.visualizationWidth !== visualizationWidth) {
             // width changed, update the visualization width

@@ -23,7 +23,7 @@ export const measureText = (font, text) => {
     }
 
     if (!canvas) {
-        // something went wrong and the canvas isn't on the DOM
+    // something went wrong and the canvas isn't on the DOM
         return 0;
     }
 

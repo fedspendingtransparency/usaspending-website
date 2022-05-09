@@ -29,7 +29,7 @@ const QuarterPickerWithFY = ({
     const [, allPeriods, { year: latestFy, period: latestPeriod }] = useLatestAccountData();
 
     const pickedYear = (year) => {
-        // 2020 is when we started receiving federal submissions on a per-period basis.
+    // 2020 is when we started receiving federal submissions on a per-period basis.
         if (parseInt(year, 10) >= 2020) {
             const { period: latestSubmission } = getLatestSubmissionPeriodInFy(year, allPeriods);
             handlePickedYear(year, latestSubmission);
@@ -44,7 +44,7 @@ const QuarterPickerWithFY = ({
     }, [selectedFy]);
 
     useEffect(() => {
-        //  when the selectedFY changes or the periods change, update the disabled periods/quarters
+    //  when the selectedFY changes or the periods change, update the disabled periods/quarters
         if (parseInt(selectedFy, 10) === earliestExplorerYear) {
             setDisabledPeriodsInFy(['1']);
         }
@@ -56,7 +56,7 @@ const QuarterPickerWithFY = ({
     }, [selectedFy, allPeriods]);
 
     useEffect(() => {
-        // fetch periods on first render
+    // fetch periods on first render
         if (latestFy && latestPeriod) {
             handlePickedYear(`${latestFy}`, `${latestPeriod}`);
         }

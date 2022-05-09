@@ -35,7 +35,7 @@ export const labelColorFromBackground = (backgroundColor) => {
     // calculate the relative luminance of the background color
     const backLume = background.getLuminance();
     if (backLume <= backgroundLumeMax) {
-        // background is dark enough to support white text
+    // background is dark enough to support white text
         return '#ffffff';
     }
 

@@ -23,8 +23,8 @@ export const _convertToFrontendFilter = (filter) => {
     // get the frontend-generated ID from the exchange
     const frontendId = _frontendAPIExchange.labelsToFrontend[label];
     if (frontendId) {
-        // the filter already exists in the exchange, so append the API ID to the existing record
-        // don't return anything because the container already has a copy of the adapted filter object
+    // the filter already exists in the exchange, so append the API ID to the existing record
+    // don't return anything because the container already has a copy of the adapted filter object
         _frontendAPIExchange.frontendToAPI[frontendId].push(filter.id);
         return null;
     }

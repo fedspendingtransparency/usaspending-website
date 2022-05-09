@@ -78,11 +78,11 @@ const TotalObligationsOverTimeContainer = ({
             {!isError && loading && <LoadingMessage />}
             {!isError && !loading && !data.length && <GenericMessage title="Chart Not Available" description="No available data to display." className="usda-message" />}
             {!isError && !loading && data.length > 0 &&
-                <TotalObligationsOverTimeVisualization
-                    width={visualizationWidth}
-                    agencyBudget={agencyBudget}
-                    data={data}
-                    fy={fy} />
+            <TotalObligationsOverTimeVisualization
+                width={visualizationWidth}
+                agencyBudget={agencyBudget}
+                data={data}
+                fy={fy} />
             }
         </div>
     );

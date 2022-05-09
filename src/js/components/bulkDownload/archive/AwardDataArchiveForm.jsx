@@ -31,14 +31,14 @@ export default class AwardDataArchiveForm extends React.Component {
     }
 
     componentDidMount() {
-        // set the initial form width
+    // set the initial form width
         this.setFormWidth();
         // watch the window for size changes
         window.addEventListener('resize', this.setFormWidth);
     }
 
     componentWillUnmount() {
-        // stop watching for size changes
+    // stop watching for size changes
         window.removeEventListener('resize', this.setFormWidth);
     }
 

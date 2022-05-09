@@ -123,7 +123,7 @@ export default class FederalAccountContainer extends React.PureComponent {
     }
 
     parseData(data) {
-        // keep only the top 10 in descending order
+    // keep only the top 10 in descending order
         const results = slice(data, 0, 10);
         const linkSeries = [];
         const dataSeries = [];

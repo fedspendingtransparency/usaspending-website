@@ -23,7 +23,7 @@ export default class PSCFilterGroup extends React.Component {
     }
 
     removeFilter(value) {
-        // remove a single filter item
+    // remove a single filter item
         const newValue = this.props.redux.reduxFilters.selectedPSC.delete(value);
         this.props.redux.updateGenericFilter({
             type: 'selectedPSC',
@@ -36,7 +36,7 @@ export default class PSCFilterGroup extends React.Component {
     }
 
     generateTags() {
-        // check to see if a PSC code is provided
+    // check to see if a PSC code is provided
         return this.props.filter.values.map((value) => ({
             value: `${value.value}`,
             title: `${value.psc_description}`,

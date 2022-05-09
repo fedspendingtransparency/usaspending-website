@@ -24,7 +24,7 @@ export default class ExtentCompetedFilterGroup extends React.Component {
     }
 
     removeFilter(value) {
-        // remove a single filter item
+    // remove a single filter item
         const newValue = this.props.redux.reduxFilters.extentCompeted.delete(value);
         this.props.redux.updateGenericFilter({
             type: 'extentCompeted',

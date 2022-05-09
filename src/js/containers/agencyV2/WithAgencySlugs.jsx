@@ -6,28 +6,28 @@ import { setAgencySlugs } from 'redux/actions/agencyV2/agencyV2Actions';
 
 export const mapSlugToTopTierCode = (results) => (
     results.reduce((acc, agency) => {
-        /* eslint-disable camelcase */
+    /* eslint-disable camelcase */
         const { agency_slug, toptier_code } = agency;
         return { ...acc, [agency_slug]: toptier_code };
-        /* eslint-enable camelcase */
+    /* eslint-enable camelcase */
     }, {})
 );
 
 export const mapTopTierCodeToSlug = (results) => (
     results.reduce((acc, agency) => {
-        /* eslint-disable camelcase */
+    /* eslint-disable camelcase */
         const { agency_slug, toptier_code } = agency;
         return { ...acc, [toptier_code]: agency_slug };
-        /* eslint-enable camelcase */
+    /* eslint-enable camelcase */
     }, {})
 );
 
 export const mapIdToSlug = (results) => (
     results.reduce((acc, agency) => {
-        /* eslint-disable camelcase */
+    /* eslint-disable camelcase */
         const { agency_slug, agency_id } = agency;
         return { ...acc, [`${agency_id}`]: agency_slug };
-        /* eslint-enable camelcase */
+    /* eslint-enable camelcase */
     }, {})
 );
 

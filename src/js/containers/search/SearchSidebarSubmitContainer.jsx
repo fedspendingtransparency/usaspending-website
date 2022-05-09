@@ -64,7 +64,7 @@ export class SearchSidebarSubmitContainer extends React.Component {
     areStagedFiltersEmpty = () => areFiltersEqual(this.props.stagedFilters, initialState);
 
     compareStores() {
-        // we need to do a deep equality check by comparing every store key
+    // we need to do a deep equality check by comparing every store key
         const storeKeys = Object.keys(this.props.stagedFilters);
         if (storeKeys.length !== Object.keys(this.props.appliedFilters).length) {
             // key lengths do not match, there's a difference so fail immediately
@@ -74,7 +74,7 @@ export class SearchSidebarSubmitContainer extends React.Component {
     }
 
     stagingChanged() {
-        // do a deep equality check between the staged filters and applied filters
+    // do a deep equality check between the staged filters and applied filters
         if (!this.compareStores()) {
             this.setState({
                 filtersChanged: true

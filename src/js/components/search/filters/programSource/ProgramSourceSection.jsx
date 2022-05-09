@@ -86,7 +86,7 @@ export default class ProgramSourceSection extends React.Component {
     }
 
     updateComponent(field, value) {
-        // Updates the component state
+    // Updates the component state
         const updatedComponents = Object.assign({}, this.state.components, {
             [field]: value
         });
@@ -105,7 +105,7 @@ export default class ProgramSourceSection extends React.Component {
     }
 
     openDefaultTab() {
-        // switch to the autocomplete tab if it has a filter selected/applied and the checkbox tree does not
+    // switch to the autocomplete tab if it has a filter selected/applied and the checkbox tree does not
         if ((this.props.checkboxTreeSelections.length === 0 && this.props.selectedTreasuryComponents.size > 0) ||
             (this.props.appliedCheckboxTreeSelections.length === 0 && this.props.appliedTreasuryComponents.size > 0)) {
             this.setState({

@@ -64,7 +64,7 @@ export const getImmediateTasAncestorCode = (node) => {
 export const removeStagedTasFilter = (
     nodes,
     checkedNodes,
-    removedNode,
+    removedNode
 ) => removeStagedFilter(
     nodes,
     checkedNodes,
@@ -120,7 +120,7 @@ export const autoCheckTasAfterExpand = (
 );
 
 export const expandTasNodeAndAllDescendantParents = (
-    nodes,
+    nodes
 ) => expandNodeAndAllDescendantParents(
     nodes,
     'value',

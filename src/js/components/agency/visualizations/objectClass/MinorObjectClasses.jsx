@@ -66,7 +66,7 @@ export default class MinorObjectClasses extends React.Component {
     }
 
     handleWindowResize() {
-        // determine if the width changed
+    // determine if the width changed
         const windowWidth = window.innerWidth;
         if (this.state.windowWidth !== windowWidth) {
             // width changed, update the visualization width
@@ -81,7 +81,7 @@ export default class MinorObjectClasses extends React.Component {
     }
 
     buildTree(treeProps) {
-        // grab the minor object class data
+    // grab the minor object class data
         const objectClasses = treeProps.minorObjectClasses;
 
         // remove negative values from the children, as we can't display those in the treemap

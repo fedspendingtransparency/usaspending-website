@@ -42,14 +42,14 @@ export default class ResultsTableSection extends React.Component {
         this.setTableWidth = this.setTableWidth.bind(this);
     }
     componentDidMount() {
-        // set the initial table width
+    // set the initial table width
         this.setTableWidth();
         // watch the window for size changes
         window.addEventListener('resize', this.setTableWidth);
     }
 
     componentWillUnmount() {
-        // stop watching for size changes
+    // stop watching for size changes
         window.removeEventListener('resize', this.setTableWidth);
     }
 
@@ -93,27 +93,27 @@ export default class ResultsTableSection extends React.Component {
                                 classNames="table-message-fade"
                                 timeout={{ exit: 225, enter: 195 }}
                                 exit>
-                                    <>
-                                        {!this.props.keyword && (
-                                            <div className="results-table-message-container full">
-                                                <ResultsTableBeginMessage />
-                                            </div>
-                                        )}
-                                        {this.props.keyword && this.props.results.length === 0 && !this.props.inFlight && !this.props.error && (
-                                            <div className="results-table-message-container full">
-                                                <ResultsTableNoResults />
-                                            </div>
-                                        )}
-                                        {this.props.inFlight && (
-                                            <div className="results-table-message-container">
-                                                <ResultsTableLoadingMessage />
-                                            </div>
-                                        )}
-                                        {this.props.error && (
-                                            <div className="results-table-message-container full">
-                                                <ResultsTableErrorMessage />
-                                            </div>
-                                        )}
+                                <>
+                                    {!this.props.keyword && (
+                                        <div className="results-table-message-container full">
+                                            <ResultsTableBeginMessage />
+                                        </div>
+                                    )}
+                                    {this.props.keyword && this.props.results.length === 0 && !this.props.inFlight && !this.props.error && (
+                                        <div className="results-table-message-container full">
+                                            <ResultsTableNoResults />
+                                        </div>
+                                    )}
+                                    {this.props.inFlight && (
+                                        <div className="results-table-message-container">
+                                            <ResultsTableLoadingMessage />
+                                        </div>
+                                    )}
+                                    {this.props.error && (
+                                        <div className="results-table-message-container full">
+                                            <ResultsTableErrorMessage />
+                                        </div>
+                                    )}
                                 </>
                             </CSSTransition>
                         )}

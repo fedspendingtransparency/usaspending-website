@@ -138,7 +138,7 @@ export class RecipientTimeVisualizationSectionContainer extends React.Component 
     }
 
     fetchTrendlineData() {
-        // Cancel API request if it exists
+    // Cancel API request if it exists
         if (this.trendlineRequest) {
             this.trendlineRequest.cancel();
         }

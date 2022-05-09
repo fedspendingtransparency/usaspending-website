@@ -14,7 +14,7 @@ export const updateSelectedRecipients = (state, searchText) => {
         updatedSet = updatedSet.delete(recipientIdentifier);
     }
     else {
-        // adds the recipient to the set if it does not already exist in the set
+    // adds the recipient to the set if it does not already exist in the set
         updatedSet = updatedSet.add(recipientIdentifier);
     }
 
@@ -46,11 +46,11 @@ export const immutableSetToggle = (set, value) => {
     let updatedSet;
     // check to see if the value currently exists within the set
     if (set.includes(value)) {
-        // it exists, so remove it from the set
+    // it exists, so remove it from the set
         updatedSet = set.delete(value);
     }
     else {
-        // it doesn't exist, so add it to the set
+    // it doesn't exist, so add it to the set
         updatedSet = set.add(value);
     }
     // return the new instance with updated values

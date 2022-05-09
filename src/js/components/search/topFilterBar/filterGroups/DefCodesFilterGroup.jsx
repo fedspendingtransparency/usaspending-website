@@ -23,7 +23,7 @@ export default class DefCodesFilterGroup extends React.Component {
     }
 
     removeFilter(value) {
-        // remove a single filter item
+    // remove a single filter item
         const newValue = this.props.redux.reduxFilters.defCodes.delete(value);
         this.props.redux.updateGenericFilter({
             type: 'defCodes',
@@ -36,7 +36,7 @@ export default class DefCodesFilterGroup extends React.Component {
     }
 
     generateTags() {
-        // check to see if a DEF code is provided
+    // check to see if a DEF code is provided
         return this.props.filter.values.map((value) => ({
             value: `${value.value}`,
             title: `${value.def_description}`,

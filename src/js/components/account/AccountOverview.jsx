@@ -62,7 +62,7 @@ export default class AccountOverview extends React.Component {
     }
 
     handleWindowResize() {
-        // determine if the width changed
+    // determine if the width changed
         const windowWidth = window.innerWidth;
         if (this.state.windowWidth !== windowWidth) {
             // width changed, update the visualization width
@@ -74,7 +74,7 @@ export default class AccountOverview extends React.Component {
     }
 
     generateSummary(account) {
-        // determine the current fiscal year and get the associated values
+    // determine the current fiscal year and get the associated values
         const { currentFiscalYear: fy } = this.props;
         const fiscalYearAvailable = account.totals.available;
         const summary = {

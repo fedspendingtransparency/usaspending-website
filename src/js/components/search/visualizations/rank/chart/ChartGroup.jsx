@@ -81,11 +81,11 @@ export default class ChartGroup extends React.Component {
     }
 
     initialRender(label) {
-        // We can only access the label width after we have rendered the full text due to the
-        // variable widths of characters in non-monospaced fonts.
-        // In this function, we trigger an initial render of the full text, then we perform the
-        // calculations to test if truncation is necessary; if so, we'll re-render (this is
-        // automatically triggered when we change the label state value).
+    // We can only access the label width after we have rendered the full text due to the
+    // variable widths of characters in non-monospaced fonts.
+    // In this function, we trigger an initial render of the full text, then we perform the
+    // calculations to test if truncation is necessary; if so, we'll re-render (this is
+    // automatically triggered when we change the label state value).
         this.setState({
             label: this.processLink(label),
             didProcess: false
@@ -93,8 +93,8 @@ export default class ChartGroup extends React.Component {
     }
 
     truncateText() {
-        // determine if the text needs to be truncated
-        // get the current label width
+    // determine if the text needs to be truncated
+    // get the current label width
         const fullWidth = this.svgText.getBBox().width;
 
         // there's a 12px margin on both sides of the label space

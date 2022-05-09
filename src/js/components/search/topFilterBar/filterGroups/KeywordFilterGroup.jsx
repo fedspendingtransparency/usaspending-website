@@ -22,12 +22,12 @@ export default class KeywordFilterGroup extends React.Component {
     }
 
     removeFilter() {
-        // remove a single filter item
+    // remove a single filter item
         this.props.redux.clearFilterType('keyword');
     }
 
     generateTags() {
-        // check to see if a keyword is provided
+    // check to see if a keyword is provided
         const tags = this.props.filter.values.map((value) => (
             {
                 value: `${value}`,
