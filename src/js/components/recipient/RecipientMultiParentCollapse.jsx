@@ -57,7 +57,7 @@ export default class RecipientMultiParentCollapse extends React.Component {
             <div className="recipient-overview__parent">
                 {
                     isSingleParent ?
-                        // Render only top level parent if there's only 1 parent
+                    // Render only top level parent if there's only 1 parent
                         <div className="recipient-overview__parent">
                             This recipient is a child of &nbsp;
                             <Link

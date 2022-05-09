@@ -240,14 +240,14 @@ export default class AwardBreakdownTreeMap extends React.Component {
                             <div
                                 className="tree-wrapper"
                                 ref={(sr) => {
-                                this.sectionWrapper = sr;
-                            }}>
-                                <svg
-                                    width={this.state.visualizationWidth}
-                                    height={this.state.visualizationHeight}
-                                    className="treemap-svg overlay">
-                                    {cells}
-                                </svg>
+                                    this.sectionWrapper = sr;
+                                }}>
+                                    <svg
+                                        width={this.state.visualizationWidth}
+                                        height={this.state.visualizationHeight}
+                                        className="treemap-svg overlay">
+                                        {cells}
+                                    </svg>
                             </div>
                     </div>
                 </div>

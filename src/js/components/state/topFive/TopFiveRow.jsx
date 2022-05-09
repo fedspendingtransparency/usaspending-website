@@ -24,8 +24,8 @@ const TopFiveRow = (props) => {
                     className="category-table__table-cell"
                     title={props.data.name}>
                     {GlobalConstants.AGENCYV2_RELEASED && props.data._slug ?
-                    props.data.linkedName
-                    : props.data.name}
+                        props.data.linkedName
+                        : props.data.name}
                 </td>
                     <td
                         className="category-table__table-cell category-table__table-cell_centered"

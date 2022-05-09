@@ -69,7 +69,7 @@ const AppContainer = () => (
                                 path={path}
                                 component={(routerProps) => withGlossaryListener(component, routerProps)}
                                 key={path} />
-                    ))}
+                        ))}
                     </Switch>
                 {window.outerWidth < 768 && <MobileMessage />}
             </Suspense>

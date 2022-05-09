@@ -109,9 +109,9 @@ const Footer = ({
                                                                                     <a
                                                                                         href="mailto:usaspending.help@fiscal.treasury.gov?subject=Contact%20Us"
                                                                                         onClick={clickedFooterLink.bind(
-                                            null,
-                                            'mailto:usaspending.help@fiscal.treasury.gov?subject=Contact%20Us'
-                                        )}>
+                                                                                            null,
+                                                                                            'mailto:usaspending.help@fiscal.treasury.gov?subject=Contact%20Us'
+                                                                                        )}>
                                         Contact Us
                                                                                     </a>
                                                                                 </li>

@@ -111,19 +111,19 @@ export default class FYPicker extends React.Component {
                                 </button>
                                     <ul className={`fy-picker__list ${visibleClass}`}>
                                         {Object.keys(dropdownValuesByApiValue)
-                                .sort(this.sortDropdownOptions)
-                                .map((apiValue) => (
-                                    <li
-                                        key={apiValue}
-                                        className="fy-picker__list-item">
-                                            <button
-                                                className="fy-picker__item"
-                                                value={apiValue}
-                                                onClick={this.clickedYear}>
-                                                {dropdownValuesByApiValue[apiValue]}
-                                            </button>
-                                    </li>
-                                ))}
+                                            .sort(this.sortDropdownOptions)
+                                            .map((apiValue) => (
+                                                <li
+                                                    key={apiValue}
+                                                    className="fy-picker__list-item">
+                                                        <button
+                                                            className="fy-picker__item"
+                                                            value={apiValue}
+                                                            onClick={this.clickedYear}>
+                                                            {dropdownValuesByApiValue[apiValue]}
+                                                        </button>
+                                                </li>
+                                            ))}
                                     </ul>
                             </div>
                     </div>

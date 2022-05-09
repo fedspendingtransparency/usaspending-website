@@ -256,10 +256,10 @@ const Sidebar = ({
                         <FYPicker
                             selectedFy={selectedFy}
                             pickedYear={pickedYear} />
-                    )}
-                        <ul>
-                            {sections.map(buildItems)}
-                        </ul>
+                        )}
+                            <ul>
+                                {sections.map(buildItems)}
+                            </ul>
                     </div>
                     {children}
                 </div>
