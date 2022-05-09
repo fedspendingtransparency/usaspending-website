@@ -54,7 +54,7 @@ export default class LocationPicker extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        // a state that was autoPopulated and then removed via city de-selection will have prevProps.state.autoPopulated === true
+    // a state that was autoPopulated and then removed via city de-selection will have prevProps.state.autoPopulated === true
         const manuallyPopulatedStateChanged = (!prevProps.state.autoPopulated && (prevProps.state.code !== this.props.state.code));
         const manuallyPopulatedCountryChanged = (!this.props.country.autoPopulated && (prevProps.country.code !== this.props.country.code));
         const stateChanged = (prevProps.state.code !== this.props.state.code);
@@ -112,7 +112,7 @@ export default class LocationPicker extends React.Component {
     }
 
     submitForm(e) {
-        // don't reload the page on submit
+    // don't reload the page on submit
         e.preventDefault();
     }
 
@@ -251,23 +251,23 @@ export default class LocationPicker extends React.Component {
                             generateDisclaimer={this.generateDisclaimer} />
                     </div>
                     {this.props.enableCitySearch &&
-                        <div className="location-item">
-                            <EntityDropdown
-                                type="autocomplete"
-                                loading={this.props.loading}
-                                field="city"
-                                scope={this.props.scope}
-                                placeholder="Enter a City"
-                                title="CITY"
-                                value={this.props.city}
-                                options={this.props.availableCities}
-                                selectEntity={this.props.selectEntity}
-                                enabled={isCityEnabled}
-                                generateDisclaimer={this.generateDisclaimer}
-                                setSearchString={this.props.setCitySearchString}
-                                searchString={this.props.citySearchString}
-                                showDisclaimer={showDisclaimer} />
-                        </div>}
+                    <div className="location-item">
+                        <EntityDropdown
+                            type="autocomplete"
+                            loading={this.props.loading}
+                            field="city"
+                            scope={this.props.scope}
+                            placeholder="Enter a City"
+                            title="CITY"
+                            value={this.props.city}
+                            options={this.props.availableCities}
+                            selectEntity={this.props.selectEntity}
+                            enabled={isCityEnabled}
+                            generateDisclaimer={this.generateDisclaimer}
+                            setSearchString={this.props.setCitySearchString}
+                            searchString={this.props.citySearchString}
+                            showDisclaimer={showDisclaimer} />
+                    </div>}
                     <div className="location-item">
                         <EntityDropdown
                             field="district"

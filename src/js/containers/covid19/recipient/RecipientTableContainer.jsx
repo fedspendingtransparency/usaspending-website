@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 7/8/20
  */
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useCallback, useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector } from 'react-redux';
 import { isCancel } from 'axios';
@@ -186,7 +186,7 @@ const RecipientTableContainer = ({ activeTab, prevActiveTab, scrollIntoView }) =
     };
 
     const addUnlinkedData = (rows = results, totals = resultTotal, totalRecipient = recipientTotals) => {
-        // add unlinked data if activeTab is all
+    // add unlinked data if activeTab is all
         if (activeTab === 'all' && !query && Object.keys(totalRecipient).length > 0) {
             const unlinkedData = calculateUnlinkedTotals(totalRecipient, totals);
             setUnlinkedDataClass(true);
@@ -217,7 +217,7 @@ const RecipientTableContainer = ({ activeTab, prevActiveTab, scrollIntoView }) =
         }
     };
 
-    const fetchSpendingByRecipientCallback = () => {
+    const fetchSpendingByRecipientCallback = useCallback(() => {
         if (request.current) {
             request.current.cancel();
         }
@@ -260,7 +260,7 @@ const RecipientTableContainer = ({ activeTab, prevActiveTab, scrollIntoView }) =
                     }
                 });
         }
-    };
+    });
 
     useEffect(() => {
         if (Object.keys(recipientTotals).length && results.length) {
@@ -269,7 +269,7 @@ const RecipientTableContainer = ({ activeTab, prevActiveTab, scrollIntoView }) =
     }, [recipientTotals, resultTotal, results]);
 
     useEffect(() => {
-        // Reset to the first page
+    // Reset to the first page
         if (currentPage !== 1) {
             changeCurrentPage(1);
         }

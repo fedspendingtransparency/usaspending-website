@@ -83,7 +83,7 @@ export default class DetailContent extends React.Component {
     }
 
     startTransition(steps) {
-        // measure how tall the wrapper div is; we'll use this as the height of each screen
+    // measure how tall the wrapper div is; we'll use this as the height of each screen
         const wrapperHeight = this.wrapperDiv.offsetHeight;
 
         const absoluteSteps = Math.abs(steps);
@@ -130,7 +130,7 @@ export default class DetailContent extends React.Component {
     }
 
     finishTransition() {
-        // re-render the screen with the updated data and without the fake screens
+    // re-render the screen with the updated data and without the fake screens
         this.setState({
             showFakes: false
         }, () => {

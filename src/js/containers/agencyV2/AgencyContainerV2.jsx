@@ -78,10 +78,12 @@ export const AgencyProfileV2 = () => {
             const code = agencySlugs[agencySlug];
             if (code) {
                 setToptierCode(code);
-            } else {
+            }
+            else {
                 setRedirect(true);
             }
-        } else if (slugsError) {
+        }
+        else if (slugsError) {
             setError(true);
         }
     }, [agencySlugs, slugsLoading, slugsError]);

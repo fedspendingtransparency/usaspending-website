@@ -48,7 +48,7 @@ export class MobileNav extends React.Component {
     }
 
     checkCurrentProfile() {
-        // determine if we need to highlight a dropdown menu option
+    // determine if we need to highlight a dropdown menu option
         const currentUrl = this.props.location.pathname;
         if (this.state.url !== currentUrl) {
             this.setState({

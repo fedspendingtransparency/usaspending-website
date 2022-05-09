@@ -50,7 +50,7 @@ export default class PointItem extends React.Component {
     }
 
     touchedPoint() {
-        // fallback for touch interfaces, which don't have hover capability
+    // fallback for touch interfaces, which don't have hover capability
         this.props.selectPoint(this.props.identifier, true);
     }
 

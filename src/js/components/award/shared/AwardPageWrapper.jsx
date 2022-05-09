@@ -44,11 +44,11 @@ const AwardPageWrapper = ({
                     dates={dates} />
             </div>
             {defCodes.length > 0 &&
-                <TooltipWrapper className="award-summary__covid-19-flag" tooltipComponent={<CovidFlagTooltip codes={defCodes} />}>
-                    <span className="covid-spending-flag">
+            <TooltipWrapper className="award-summary__covid-19-flag" tooltipComponent={<CovidFlagTooltip codes={defCodes} />}>
+                <span className="covid-spending-flag">
                                 Includes COVID-19 Spending
-                    </span>
-                </TooltipWrapper>
+                </span>
+            </TooltipWrapper>
             }
             <hr />
             {children}

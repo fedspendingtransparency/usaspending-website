@@ -48,7 +48,7 @@ export default class CheckboxTree extends Component {
      * Decides whether we are expanding or collapsing the node.
      */
     onExpand = (newExpandedArray, node) => {
-        // collapsing node
+    // collapsing node
         if (newExpandedArray.length < this.props.expanded.length) {
             return this.collapseNode(newExpandedArray);
         }
@@ -71,7 +71,7 @@ export default class CheckboxTree extends Component {
                 this.unCheckedNode(checked, node);
             }
         }
-    }
+    };
     /**
      * setChildrenToLoading
      * update a node's children property to a loading div.
@@ -93,7 +93,7 @@ export default class CheckboxTree extends Component {
      */
     checkedNode = (checked, node) => {
         this.props.onCheck(checked, node);
-    }
+    };
     /**
      * unCheckedNode
      * - updates state and calls prop onCheck
@@ -102,9 +102,9 @@ export default class CheckboxTree extends Component {
      * @returns {null}
      */
     unCheckedNode = (checked, node) => {
-        // update checked nodes to remove the previously checked nodes
+    // update checked nodes to remove the previously checked nodes
         this.props.onUncheck(checked, node);
-    }
+    };
 
     /**
      * expandNodeAndFetchChildren
@@ -113,7 +113,7 @@ export default class CheckboxTree extends Component {
      * @param {array} newExpandedArray - array with the newly expanded value
      */
     expandNodeAndFetchChildren = async (newExpandedArray, selectedNode) => {
-        // newly expanded node.code
+    // newly expanded node.code
         const { expanded, isSearch } = this.props;
         const expandedValue = difference(newExpandedArray, expanded)[0];
         /**
@@ -137,7 +137,7 @@ export default class CheckboxTree extends Component {
      */
     collapseNode = (newExpandedArray) => {
         this.props.onCollapse(newExpandedArray);
-    }
+    };
 
     // TODO - implement this
     // sets specific icons to custom icons passed in props
@@ -149,7 +149,7 @@ export default class CheckboxTree extends Component {
             });
         }
         return treeIcons;
-    }
+    };
     /**
      * highlightText
      * adds a <span> tag with a highlight class around matching text
@@ -165,7 +165,7 @@ export default class CheckboxTree extends Component {
       * @returns {Array.<object>} An array of objects
     **/
     createLabels = (nodes) => nodes.map((node) => {
-        // if label is a string, do nothing
+    // if label is a string, do nothing
         if (typeof node.label !== 'string') return node;
         if (node.isPlaceHolder && node.className !== 'hide') {
             return {

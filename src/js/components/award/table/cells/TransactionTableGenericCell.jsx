@@ -15,8 +15,8 @@ const propTypes = {
 
 export default class TransactionTableGenericCell extends React.Component {
     render() {
-        // cell needs to have some content or it will collapse
-        // replace with a &nbsp; if there's no data
+    // cell needs to have some content or it will collapse
+    // replace with a &nbsp; if there's no data
         let content = this.props.data;
         if (!content) {
             content = "\u00A0";

@@ -50,7 +50,7 @@ export default class AwardDates extends Component {
     componentDidMount = () => {
         this.handleWindowResize();
         window.addEventListener('resize', this.handleWindowResize);
-    }
+    };
 
     componentWillUnmount() {
         window.removeEventListener('resize', this.handleWindowResize);
@@ -64,7 +64,7 @@ export default class AwardDates extends Component {
                 visualizationWidth: this.datesDivWidth.offsetWidth
             });
         }
-    }, 50)
+    }, 50);
 
     datesData = () => {
         const { dates, awardType } = this.props;
@@ -74,7 +74,7 @@ export default class AwardDates extends Component {
             end: endDate.valueOf(),
             currentEndDate: currentEndDate ? currentEndDate.valueOf() : null
         };
-    }
+    };
 
     datesSection = () => {
         const { startDateLong, endDateLong, potentialEndDateLong } = this.props.dates;
@@ -106,7 +106,7 @@ export default class AwardDates extends Component {
                 </div>
             );
         });
-    }
+    };
 
     titles() {
         const { awardType } = this.props;

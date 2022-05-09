@@ -28,7 +28,7 @@ export default class SubawardsHeaderCell extends React.Component {
     }
 
     clickedHeader() {
-        // check if this is the field that is currently being used to sort
+    // check if this is the field that is currently being used to sort
         const apiFieldName = tableMapping.table._sortFields[this.props.column];
         if (apiFieldName === this.props.order.field) {
             // it's the same field, just toggle the direction
@@ -52,7 +52,7 @@ export default class SubawardsHeaderCell extends React.Component {
     }
 
     forceDirection(e) {
-        // don't bubble down to the wrapper click event (which performs similar action)
+    // don't bubble down to the wrapper click event (which performs similar action)
         e.stopPropagation();
 
         const direction = e.currentTarget.value;
@@ -71,7 +71,7 @@ export default class SubawardsHeaderCell extends React.Component {
     }
 
     render() {
-        // highlight the active arrows
+    // highlight the active arrows
         const apiFieldName = tableMapping.table._sortFields[this.props.column];
         let activeAsc = '';
         let activeDesc = '';
@@ -130,7 +130,7 @@ export default class SubawardsHeaderCell extends React.Component {
                 </div>
             </div>
         );
-        /* eslint-enable jsx-a11y/no-static-element-interactions */
+    /* eslint-enable jsx-a11y/no-static-element-interactions */
     }
 }
 

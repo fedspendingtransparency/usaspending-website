@@ -95,7 +95,8 @@ const Rectangle = ({
                 onMouseMove={displayTooltip}
                 onMouseLeave={hideTooltip} />
         </g>
-    ); };
+    );
+};
 
 Rectangle.propTypes = propTypes;
 export default Rectangle;

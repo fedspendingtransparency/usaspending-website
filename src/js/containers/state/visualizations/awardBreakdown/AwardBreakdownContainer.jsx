@@ -87,7 +87,7 @@ export class AwardBreakdownContainer extends React.Component {
     }
 
     parseData(results) {
-        // Sum all amounts in the returned award types
+    // Sum all amounts in the returned award types
         const totalAmount = reduce(
             results,
             (sum, awardType) => sum + parseFloat(awardType.amount),

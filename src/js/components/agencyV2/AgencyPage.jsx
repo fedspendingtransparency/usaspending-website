@@ -83,8 +83,8 @@ export const AgencyProfileV2 = ({
     ];
 
     const jumpToSection = (section = '') => {
-        // we've been provided a section to jump to
-        // check if it's a valid section
+    // we've been provided a section to jump to
+    // check if it's a valid section
         const matchedSection = sections.find((obj) => obj.name === section);
         if (!matchedSection) {
             // no matching section

@@ -37,7 +37,7 @@ export default class TimeTooltip extends React.Component {
     }
 
     measureDOM() {
-        // measure the window width
+    // measure the window width
         const windowWidth = window.innerWidth;
         const tooltipWidth = this.div.offsetWidth;
         // measure where on the screen the tooltip's 0 x position is
@@ -52,8 +52,8 @@ export default class TimeTooltip extends React.Component {
     }
 
     positionTooltip() {
-        // we need to wait for the tooltip to render before we can full position it due to its
-        // dynamic width
+    // we need to wait for the tooltip to render before we can full position it due to its
+    // dynamic width
         const tooltipWidth = this.state.tooltipWidth;
         // determine how far from the right edge of the window we are
         const distanceFromRight = this.state.windowWidth -

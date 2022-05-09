@@ -23,7 +23,7 @@ export default class ProgramActivityFilterGroup extends React.Component {
     }
 
     removeFilter(value) {
-        // remove a single filter item
+    // remove a single filter item
         this.props.redux.toggleProgramActivity(value);
     }
 

@@ -25,7 +25,7 @@ export default class DataDictionaryContainer extends React.Component {
             },
             searchTerm: ''
         };
-    };
+    }
 
     componentDidMount() {
         this.loadContent();
@@ -69,7 +69,7 @@ export default class DataDictionaryContainer extends React.Component {
     };
 
     parseRows(rows) {
-        // replace nulls with 'N/A'
+    // replace nulls with 'N/A'
         const parsedRows = rows.map((row) => row.map((data) => data || 'N/A'));
 
         this.setState({
@@ -86,7 +86,7 @@ export default class DataDictionaryContainer extends React.Component {
     }
 
     changeSort = (field, direction) => {
-        // Get the index of the column we are sorting by
+    // Get the index of the column we are sorting by
         const index = this.state.columns.findIndex((col) => col.raw === field);
 
         let rows;

@@ -55,8 +55,8 @@ const AgencyContent = ({
     const [activeSection, setActiveSection] = useState('overview');
 
     const jumpToSection = (section = '') => {
-        // we've been provided a section to jump to
-        // check if it's a valid section
+    // we've been provided a section to jump to
+    // check if it's a valid section
         const matchedSection = find(agencySections, {
             section
         });

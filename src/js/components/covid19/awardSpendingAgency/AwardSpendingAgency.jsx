@@ -83,7 +83,8 @@ const AwardSpendingAgency = ({ publicLaw }) => {
                 };
                 if (awardType.internal === 'all') {
                     params.filter.award_type_codes = [].concat(...Object.values(awardTypeGroups));
-                } else {
+                }
+                else {
                     params.filter.award_type_codes = awardTypeGroups[awardType.internal];
                 }
                 return fetchAgencyCount(params).promise;

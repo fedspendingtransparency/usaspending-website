@@ -41,8 +41,8 @@ export default class LocationSection extends React.Component {
     }
 
     openDefaultTab() {
-        // check if the recipient or place of performance (default) tab should be enabled based
-        // on the currently selected filters
+    // check if the recipient or place of performance (default) tab should be enabled based
+    // on the currently selected filters
         if (this.props.selectedRecipientLocations.count() > 0 && this.props.selectedLocations.count() === 0) {
             // there are recipient locations and no place of performance locations
             this.setState({

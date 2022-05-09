@@ -21,8 +21,8 @@ export default class TimeVisualizationTooltip extends React.Component {
     }
 
     positionTooltip() {
-        // we need to wait for the tooltip to render before we can full position it due to its
-        // dynamic width
+    // we need to wait for the tooltip to render before we can full position it due to its
+    // dynamic width
         const tooltipWidth = this.div.offsetWidth;
 
         // determine the tooltip direction

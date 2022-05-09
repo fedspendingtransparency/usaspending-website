@@ -45,7 +45,7 @@ export default class GeoVisualizationSection extends React.Component {
     }
 
     showTooltip(geoId, position) {
-        // convert state code to full string name
+    // convert state code to full string name
         const label = this.props.data.labels[geoId];
         this.setState({
             showHover: true,
@@ -75,7 +75,8 @@ export default class GeoVisualizationSection extends React.Component {
                     <ResultsTableErrorMessage title="WebGL Required for this map." description="Please enable WebGL in your browser settings to view this map visualization." />
                 </div>
             );
-        } else if (this.props.loading) {
+        }
+        else if (this.props.loading) {
             message = (
                 <MapMessage>
                     <div className="map-loading">

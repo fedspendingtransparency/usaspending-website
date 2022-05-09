@@ -23,7 +23,7 @@ export default class TimePeriodDRFilterGroup extends React.Component {
     }
 
     removeTimePeriod() {
-        // prepopulate the Redux action argument with the current filter values
+    // prepopulate the Redux action argument with the current filter values
         const timePeriodFilter = {
             dateType: this.props.redux.reduxFilters.timePeriodType,
             fy: this.props.redux.reduxFilters.timePeriodFY,

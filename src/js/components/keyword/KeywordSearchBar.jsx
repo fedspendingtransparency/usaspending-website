@@ -33,7 +33,7 @@ export default class KeywordSearchBar extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        // Show the keyword derived from a new url
+    // Show the keyword derived from a new url
         if (prevProps.keyword !== this.props.keyword) {
             this.updateSearchString(this.props.keyword);
         }

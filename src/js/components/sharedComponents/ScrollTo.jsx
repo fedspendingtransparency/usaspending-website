@@ -23,7 +23,7 @@ export default class ScrollTo extends React.Component {
     }
 
     clickedButton() {
-        // find the DOM element of the section, if it exists
+    // find the DOM element of the section, if it exists
         const sectionDom = document.querySelector(`#scroll-to-${this.props.code}`);
         if (sectionDom) {
             const sectionTop = sectionDom.offsetTop - 10;

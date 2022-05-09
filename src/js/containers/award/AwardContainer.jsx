@@ -165,7 +165,7 @@ export class AwardContainer extends React.Component {
     }
 
     async downloadData(awardCategory = this.props.award.category, awardId = this.props.match.params.awardId) {
-        // don't show a modal about the download
+    // don't show a modal about the download
         this.props.setDownloadCollapsed(true);
 
         if (this.downloadRequest) {

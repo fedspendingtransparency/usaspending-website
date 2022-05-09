@@ -97,12 +97,12 @@ export default class ProgressBar extends Component {
         // validation of current progress
         if (!currentProgress) return true;
         return false;
-    }
+    };
 
     validateDomainAndMilestones = () => {
         const badDomainData = this.badDomainData();
         this.setState({ badDomainData }, this.createXScales);
-    }
+    };
     // create xScales
     createXScales = () => {
         const { domain } = this.props;
@@ -123,7 +123,7 @@ export default class ProgressBar extends Component {
             .range([progressWithinCirclesStartPX, progressWithinCirclesEndPX]);
 
         this.setState({ xScaleProgressBar, xScaleWithinCircles }, this.milestoneData);
-    }
+    };
     // create milestone data
     milestoneData = () => {
         const {
@@ -176,7 +176,7 @@ export default class ProgressBar extends Component {
             };
         });
         this.setState({ milestoneData }, this.showMilestones);
-    }
+    };
     // show milestones
     showMilestones = () => {
         const { milestoneData } = this.state;
@@ -203,7 +203,7 @@ export default class ProgressBar extends Component {
         return this.setState({
             milestoneData: displayMilestoneData
         }, this.progressVerticalLineData);
-    }
+    };
     // progress circle data
     progressVerticalLineData = () => {
         const { milestoneData, xScaleWithinCircles } = this.state;
@@ -250,7 +250,7 @@ export default class ProgressBar extends Component {
             progressVerticalLineData.display = false;
         }
         this.setState({ progressVerticalLineData }, this.progressTriangleData);
-    }
+    };
     // progress triangle
     // the points are three coordinate pairs in the form of x,y
     // they are in order from left to right as a string separated by a space
@@ -336,7 +336,7 @@ export default class ProgressBar extends Component {
         );
         const progressBarPatternData = { patternProps, rectangles: compact(rectangles) };
         this.setState({ progressBarPatternData }, this.progressTextData);
-    }
+    };
     // progress text data
     progressTextData = () => {
         const {
@@ -368,7 +368,7 @@ export default class ProgressBar extends Component {
             progressTextData.display = false;
         }
         this.setState({ progressTextData });
-    }
+    };
     positionText = () => {
         const {
             progressTextData,
@@ -423,7 +423,7 @@ export default class ProgressBar extends Component {
             }
         }
         return null;
-    }
+    };
     // progress text
     progressText = () => {
         const { progressTextData, badDomainData } = this.state;
@@ -440,7 +440,7 @@ export default class ProgressBar extends Component {
                 </text>
             </g>
         );
-    }
+    };
     // progress bar
     progressBar = () => {
         const { width, heightOfProgressBar, descriptions } = this.props;
@@ -465,7 +465,7 @@ export default class ProgressBar extends Component {
                     height={heightOfProgressBar} />
             </g>
         );
-    }
+    };
     // create circle
     createCircle = (circleData) => {
         if (!circleData) return null;
@@ -487,7 +487,7 @@ export default class ProgressBar extends Component {
                     r={r} />
             </g>
         );
-    }
+    };
     // create line
     createLine = (lineData) => {
         if (!lineData) return null;
@@ -512,7 +512,7 @@ export default class ProgressBar extends Component {
                     y2={y2} />
             </g>
         );
-    }
+    };
     progressTriangle = () => (
         <g tabIndex="0">
             <desc>{this.props.descriptions.progressTriangleDescription}</desc>
@@ -543,7 +543,7 @@ export default class ProgressBar extends Component {
                 patternProps={progressBarPatternData.patternProps}
                 rectangles={progressBarPatternData.rectangles} />
         );
-    }
+    };
 
     render() {
         const { xScaleProgressBar, xScaleWithinCircles, badDomainData } = this.state;

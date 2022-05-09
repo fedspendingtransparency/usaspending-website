@@ -13,8 +13,8 @@ const propTypes = {
 
 export default class NoResults extends React.Component {
     render() {
-        // TODO: Kevin Li - temporary text until we implement the feedback form (since people
-        // complain when we mention features that aren't there yet)
+    // TODO: Kevin Li - temporary text until we implement the feedback form (since people
+    // complain when we mention features that aren't there yet)
         let loading = '';
         if (this.props.searchLoading) {
             loading = 'loading';

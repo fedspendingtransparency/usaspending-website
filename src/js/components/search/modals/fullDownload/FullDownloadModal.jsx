@@ -56,7 +56,7 @@ export default class FullDownloadModal extends React.Component {
     }
 
     hideModal() {
-        // reset the state before closing, but only if we're not on the download screen
+    // reset the state before closing, but only if we're not on the download screen
         if (this.state.downloadStep === 3 || this.props.pendingDownload) {
             this.props.setDownloadCollapsed(true);
             this.props.hideModal();
@@ -71,7 +71,7 @@ export default class FullDownloadModal extends React.Component {
     }
 
     goToStep(step, override = false) {
-        // we can only go backwards
+    // we can only go backwards
         if (step >= this.state.downloadStep && !override) {
             return;
         }

@@ -48,7 +48,7 @@ export class RecipientNameDUNSContainer extends React.Component {
     }
 
     handleTextInput(recipientInput) {
-        // Save input and clear any errors
+    // Save input and clear any errors
         this.setState({
             recipientSearchString: recipientInput.target.value,
             showWarning: false

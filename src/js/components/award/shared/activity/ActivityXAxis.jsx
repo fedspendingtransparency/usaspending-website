@@ -113,7 +113,7 @@ export default class ActivityXAxis extends React.Component {
             labels,
             description
         });
-    }
+    };
 
     render() {
         return (

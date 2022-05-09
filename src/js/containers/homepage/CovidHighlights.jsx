@@ -184,7 +184,7 @@ export class CovidHighlights extends React.Component {
                     console.log('error', e);
                 }
             });
-    }
+    };
 
     handleResizeWindow = () => {
         if (this.scrollBar) {
@@ -195,7 +195,7 @@ export class CovidHighlights extends React.Component {
                 }
             });
         }
-    }
+    };
 
     fetchHighlights = () => {
         if (this.fetchTotalsByCfdaRequest) {
@@ -227,7 +227,7 @@ export class CovidHighlights extends React.Component {
                     });
                 }
             });
-    }
+    };
 
     parseSpendingTotals = ({ data }) => {
         const overview = Object.create(CovidOverviewModel);
@@ -264,7 +264,7 @@ export class CovidHighlights extends React.Component {
 
     completeIncrementAndTriggerScroll = () => {
         this.setState({ isIncrementComplete: true });
-    }
+    };
 
     trackLink = () => Analytics.event({
         category: 'Homepage',

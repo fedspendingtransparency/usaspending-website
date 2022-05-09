@@ -341,7 +341,7 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
     }
 
     render() {
-        // the chart hasn't been created yet, so don't render anything
+    // the chart hasn't been created yet, so don't render anything
         if (!this.state.chartReady) {
             return null;
         }

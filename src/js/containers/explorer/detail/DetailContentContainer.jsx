@@ -86,9 +86,9 @@ export class DetailContentContainer extends React.Component {
     }
 
     prepareRootRequest(rootType, fy, quarter, period) {
-        // we need to make a root request
-        // at the root level, ignore all filters except for the root
-        // in fact, just to be safe, let's overwrite the filter props
+    // we need to make a root request
+    // at the root level, ignore all filters except for the root
+    // in fact, just to be safe, let's overwrite the filter props
         const resetFilters = {
             fy,
             quarter,
@@ -393,14 +393,14 @@ export class DetailContentContainer extends React.Component {
     }
 
     changeSubdivisionType(type) {
-        // if we're skipping levels, then we are not adding filters, we're simply revisualizating
-        // the data that is already filtered.
-        // This means we don't need to modify the trail or the redux filter set.
-        // This also means we shouldn't show an animation.
-        // To do this, clone the current active screen object and change only the subdivision to
-        // the selected type. We'll pass this on as the request object to loadData.
-        // loadData has internal logic that will just change the redux Active Screen and not add
-        // anything to the sidebar trail
+    // if we're skipping levels, then we are not adding filters, we're simply revisualizating
+    // the data that is already filtered.
+    // This means we don't need to modify the trail or the redux filter set.
+    // This also means we shouldn't show an animation.
+    // To do this, clone the current active screen object and change only the subdivision to
+    // the selected type. We'll pass this on as the request object to loadData.
+    // loadData has internal logic that will just change the redux Active Screen and not add
+    // anything to the sidebar trail
         const request = Object.assign({}, this.props.explorer.active.toJS(), {
             subdivision: type
         });

@@ -18,8 +18,8 @@ export const currentFiscalYear = () => {
     const currentMonth = moment().month();
     let currentFY = moment().year();
     if (currentMonth >= 9) {
-        // months are zero-indexed, so 9 is October
-        // starting in October we are in the next fiscal year
+    // months are zero-indexed, so 9 is October
+    // starting in October we are in the next fiscal year
         currentFY = moment().year() + 1;
     }
 

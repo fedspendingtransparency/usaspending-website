@@ -47,7 +47,7 @@ export default class KeywordPage extends React.Component {
     }
 
     componentDidUpdate() {
-        // Need to close the modal once the download is completed
+    // Need to close the modal once the download is completed
         if (this.state.showModal && this.props.download.expectedUrl === ""
             && !this.props.download.showCollapsedProgress) {
             this.hideModal();

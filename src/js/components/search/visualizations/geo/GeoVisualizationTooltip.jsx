@@ -27,8 +27,8 @@ export default class GeoVisualizationTooltip extends React.Component {
     }
 
     positionTooltip() {
-        // we need to wait for the tooltip to render before we can full position it due to its
-        // dynamic width
+    // we need to wait for the tooltip to render before we can full position it due to its
+    // dynamic width
         const tooltipWidth = this.div.offsetWidth;
         const containerX = this.containerDiv.getBoundingClientRect().left;
         const windowWidth = window.innerWidth;
@@ -78,9 +78,9 @@ export default class GeoVisualizationTooltip extends React.Component {
                                 {MoneyFormatter.formatMoney(this.props.value)}
                             </div>
                             {this.props.description &&
-                            <div className="tooltip-label">
-                                {this.props.description}
-                            </div>}
+                                                <div className="tooltip-label">
+                                                    {this.props.description}
+                                                </div>}
                         </div>
                     </div>
                 </div>

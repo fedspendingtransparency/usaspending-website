@@ -78,4 +78,4 @@ export default class Hero extends React.Component {
             </section>
         );
     }
-};
+}

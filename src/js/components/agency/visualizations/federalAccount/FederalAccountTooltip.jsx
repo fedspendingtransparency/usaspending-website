@@ -28,8 +28,8 @@ export default class FederalAccountTooltip extends React.Component {
     }
 
     positionTooltip() {
-        // we need to wait for the tooltip to render before we can full position it due to its
-        // dynamic width
+    // we need to wait for the tooltip to render before we can full position it due to its
+    // dynamic width
         const tooltipWidth = this.div.offsetWidth;
         const containerX = this.containerDiv.getBoundingClientRect().left;
         const windowWidth = window.innerWidth;

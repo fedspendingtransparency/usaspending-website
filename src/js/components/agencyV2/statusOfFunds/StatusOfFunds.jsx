@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 10/27/21
  */
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useCallback, useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -58,7 +58,7 @@ const StatusOfFunds = ({ fy }) => {
 
     // eslint-disable-next-line eqeqeq
     let statusDataThroughDate = useLatestAccountData()[1].toArray().filter((i) => i.submission_fiscal_year == fy)[0].period_end_date;
-    const fetchAgencySubcomponents = () => {
+    const fetchAgencySubcomponents = useCallback(() => {
         if (request.current) {
             request.current.cancel();
         }
@@ -94,9 +94,9 @@ const StatusOfFunds = ({ fy }) => {
                 setLoading(false);
                 console.error(err);
             });
-    };
+    });
 
-    const fetchFederalAccounts = (agencyData) => {
+    const fetchFederalAccounts = useCallback((agencyData) => {
         if (request.current) {
             request.current.cancel();
         }
@@ -131,7 +131,7 @@ const StatusOfFunds = ({ fy }) => {
                 setLoading(false);
                 console.error(err);
             });
-    };
+    });
 
     useEffect(() => {
         if (Object.keys(subcomponent).length !== 0) {
@@ -142,7 +142,8 @@ const StatusOfFunds = ({ fy }) => {
     useEffect(() => {
         if (resetPageChange) {
             setResetPageChange(false);
-        } else {
+        }
+        else {
             if (prevPage !== currentPage && level === 0) {
                 fetchAgencySubcomponents();
             }
@@ -157,7 +158,8 @@ const StatusOfFunds = ({ fy }) => {
             setLoading(true);
             if (currentPage === 1) {
                 setResetPageChange(false);
-            } else {
+            }
+            else {
                 changeCurrentPage(1);
             }
         }
@@ -170,7 +172,7 @@ const StatusOfFunds = ({ fy }) => {
     }, [fy, overview.toptierCode]);
 
     const onClick = (selectedLevel, data) => {
-        // reset to page 1 on drilldown
+    // reset to page 1 on drilldown
         setResetPageChange(true);
         const subcomponentTotalData = Object.create(BaseStatusOfFundsLevel);
         subcomponentTotalData.populate(data);
@@ -183,7 +185,8 @@ const StatusOfFunds = ({ fy }) => {
             fetchAgencySubcomponents();
             if (currentPage === 1) {
                 setResetPageChange(false);
-            } else {
+            }
+            else {
                 changeCurrentPage(1);
             }
         }
@@ -224,12 +227,12 @@ const StatusOfFunds = ({ fy }) => {
                  and MAIN Account codes. Where possible, Department of Defense (DoD) sub-components
                  correspond to the branches of the Armed Forces and accounts for the agency are attributed
                  to the appropriate branch/sub-component based on the Agency Codes found at the bottom of{ ' ' }
-                    <a
-                        href="https://www.whitehouse.gov/wp-content/uploads/2018/06/app_c.pdf"
-                        target="_blank"
-                        rel="noopener noreferrer">
+                <a
+                    href="https://www.whitehouse.gov/wp-content/uploads/2018/06/app_c.pdf"
+                    target="_blank"
+                    rel="noopener noreferrer">
                         OMB Circular A-11 Appendix C
-                    </a>.</>)} />
+                </a>.</>)} />
         </div>
     );
 };

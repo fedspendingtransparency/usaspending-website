@@ -325,8 +325,8 @@ const BudgetCategoriesTableContainer = (props) => {
     });
 
     useEffect(() => {
-        // If the sort and order is the same as the default sort and default order, then we are just changing tabs or just changing the spending category.
-        // In this particular case, we want to fetch from api.
+    // If the sort and order is the same as the default sort and default order, then we are just changing tabs or just changing the spending category.
+    // In this particular case, we want to fetch from api.
         if (sort === defaultSort[props.type][spendingCategory].sort && order === defaultSort[props.type][spendingCategory].order) {
             changeCurrentPage(1);
             fetchBudgetSpendingCallback();
@@ -337,7 +337,7 @@ const BudgetCategoriesTableContainer = (props) => {
     }, [props.type, spendingCategory]);
 
     useEffect(() => {
-        // Reset to the first page
+    // Reset to the first page
         if (currentPage === 1) {
             fetchBudgetSpendingCallback();
         }

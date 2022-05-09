@@ -27,7 +27,7 @@ const ResultsTableLinkCell = (props) => {
     // calculate even-odd class names
     let rowClass = 'row-even';
     if (props.rowIndex % 2 === 0) {
-        // row index is zero-based
+    // row index is zero-based
         rowClass = 'row-odd';
     }
 

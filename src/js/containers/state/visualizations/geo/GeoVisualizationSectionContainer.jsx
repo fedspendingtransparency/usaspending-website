@@ -70,7 +70,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
     }
 
     componentWillUnmount() {
-        // remove any broadcast listeners
+    // remove any broadcast listeners
         this.mapListeners.forEach((listenerRef) => {
             MapBroadcaster.off(listenerRef.event, listenerRef.id);
         });
@@ -99,7 +99,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
     }
 
     fetchData() {
-        // Create the time period filter
+    // Create the time period filter
         let timePeriod = null;
         const fy = this.props.stateProfile.fy;
         if (fy !== 'all') {
