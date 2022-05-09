@@ -125,10 +125,10 @@ const FinancialAssistanceContent = ({
                                 CFDAOverviewLinkClicked={CFDAOverviewLinkClicked}
                                 updateCFDAOverviewLinkClicked={updateCFDAOverviewLinkClicked}
                                 awardTotalObligation={overview._totalObligation} />
-                )}
-                    <FederalAccountsSection
-                        awardType={overview.category}
-                        jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
+                            )}
+                                <FederalAccountsSection
+                                    awardType={overview.category}
+                                    jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
                         </AwardSection>
             {isGrant && (
             <AwardSection type="row">

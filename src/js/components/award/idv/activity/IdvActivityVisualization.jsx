@@ -195,7 +195,7 @@ export default class IdvActivityVisualization extends React.Component {
                                 visualization-legend__circle_overspent" />
                                     <div className="visualization-legend__label">Over Obligated</div>
                             </div>
-                    )}
+                            )}
                         </div>
                             <Pagination
                                 changePage={this.props.changePage}

@@ -95,17 +95,17 @@ export default class TimeTooltip extends React.Component {
                     <div
                         className="tooltip-pointer"
                         ref={(div) => {
-                        this.pointerDiv = div;
-                    }} />
-                        <div className="tooltip-title">
-                            {this.props.xValue}
-                        </div>
-                            <div className="tooltip-body">
-                                <ul
-                                    className="tooltip-items">
-                                    {items}
-                                </ul>
+                            this.pointerDiv = div;
+                        }} />
+                            <div className="tooltip-title">
+                                {this.props.xValue}
                             </div>
+                                <div className="tooltip-body">
+                                    <ul
+                                        className="tooltip-items">
+                                        {items}
+                                    </ul>
+                                </div>
             </div>
         );
     }

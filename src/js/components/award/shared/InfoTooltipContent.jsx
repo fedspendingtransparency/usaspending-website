@@ -1224,12 +1224,12 @@ export const CovidFlagTooltip = ({ codes }) => (
                 <p>This award is part of the COVID-19 Spending because part of its spending was derived from funds associated with the following <strong>Disaster Emergency Fund Codes</strong> (DEFC): </p>
                     <p style={{ textAlign: 'center' }}>
                         {codes.sort().map((code, i, arr) => {
-                    if (i === arr.length - 1) {
-                        return <strong key={uniqueId(i)}>{code.toUpperCase()}</strong>;
-                    }
-                    return <strong key={uniqueId(i)}>{`${code.toUpperCase()}, `}</strong>;
-                }
-                )}
+                            if (i === arr.length - 1) {
+                                return <strong key={uniqueId(i)}>{code.toUpperCase()}</strong>;
+                            }
+                            return <strong key={uniqueId(i)}>{`${code.toUpperCase()}, `}</strong>;
+                        }
+                        )}
                     </p>
             </div>
     </div>

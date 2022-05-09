@@ -121,8 +121,8 @@ const AboutTheDataPage = ({ history }) => {
                                 activeTab={activeTab}
                                 selectedFy={selectedFy}
                                 selectedPeriod={selectedPeriod
-                                ? selectedPeriod.id
-                                : ''
+                                    ? selectedPeriod.id
+                                    : ''
                             } />
                                 <AboutTheDataModal
                                     mounted={!!showModal.length}
@@ -130,10 +130,10 @@ const AboutTheDataPage = ({ history }) => {
                                     className={modalClassNames[showModal]}
                                     title={modalTitles(modalData?.type)[showModal]}
                                     agencyData={{
-                                ...modalData,
-                                fiscalYear: parseInt(selectedFy, 10),
-                                fiscalPeriod: parseInt(selectedPeriod?.id, 10) || 0
-                            }}
+                                        ...modalData,
+                                        fiscalYear: parseInt(selectedFy, 10),
+                                        fiscalPeriod: parseInt(selectedPeriod?.id, 10) || 0
+                                    }}
                                     closeModal={closeModal} />
                     </>
                         </LoadingWrapper>

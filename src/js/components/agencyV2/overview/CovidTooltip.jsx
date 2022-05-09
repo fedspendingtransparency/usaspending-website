@@ -31,9 +31,9 @@ const CovidTooltip = ({
                     {getText()}
                 </ul>
                     <Link to={{
-                pathname: "/disaster/covid-19/",
-                search: "?section=award_spending_by_agency"
-            }}>
+                        pathname: "/disaster/covid-19/",
+                        search: "?section=award_spending_by_agency"
+                    }}>
                         {`View this agency's DEFC spending.`}
                     </Link>
         </TooltipComponent>

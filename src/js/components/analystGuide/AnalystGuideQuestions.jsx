@@ -769,7 +769,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
                                     title={item.question}>{item.answer}
                                 </Accordion>
                             </div>
-                ))}
+                        ))}
                     </div>
 
                         <div>
@@ -785,7 +785,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
                                                 title={item.question}>{item.answer}
                                             </Accordion>
                                         </div>
-                ))}
+                                    ))}
                                 </div>
 
                                     <div>
@@ -801,7 +801,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
                                                             title={item.question}>{item.answer}
                                                         </Accordion>
                                                     </div>
-                ))}
+                                                ))}
                                             </div>
 
                                                 <div>
@@ -817,7 +817,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
                                                                         title={item.question}>{item.answer}
                                                                     </Accordion>
                                                                 </div>
-                ))}
+                                                            ))}
                                                         </div>
 
                                                             <div>
@@ -833,7 +833,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
                                                                                     title={item.question}>{item.answer}
                                                                                 </Accordion>
                                                                             </div>
-                ))}
+                                                                        ))}
                                                                     </div>
 
                                                                         <div>
@@ -849,7 +849,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
                                                                                                 title={item.question}>{item.answer}
                                                                                             </Accordion>
                                                                                         </div>
-                ))}
+                                                                                    ))}
                                                                                 </div>
 
                                                                                     <div>
@@ -865,7 +865,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
                                                                                                             title={item.question}>{item.answer}
                                                                                                         </Accordion>
                                                                                                     </div>
-                ))}
+                                                                                                ))}
                                                                                             </div>
 
                                                                                                 <div>
@@ -881,7 +881,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
                                                                                                                         title={item.question}>{item.answer}
                                                                                                                     </Accordion>
                                                                                                                 </div>
-                ))}
+                                                                                                            ))}
                                                                                                         </div>
 
                                                                                                             <div>
@@ -897,7 +897,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
                                                                                                                                     title={item.question}>{item.answer}
                                                                                                                                 </Accordion>
                                                                                                                             </div>
-                ))}
+                                                                                                                        ))}
                                                                                                                     </div>
 
                                                                                                                         <div>
@@ -913,7 +913,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
                                                                                                                                                 title={item.question}>{item.answer}
                                                                                                                                             </Accordion>
                                                                                                                                         </div>
-                ))}
+                                                                                                                                    ))}
                                                                                                                                 </div>
 
                                                                                                                                     <div>
@@ -929,7 +929,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
                                                                                                                                                             title={item.question}>{item.answer}
                                                                                                                                                         </Accordion>
                                                                                                                                                     </div>
-                ))}
+                                                                                                                                                ))}
                                                                                                                                             </div>
 
                                                                                                                                                 <div>
@@ -945,7 +945,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
                                                                                                                                                                         title={item.question}>{item.answer}
                                                                                                                                                                     </Accordion>
                                                                                                                                                                 </div>
-                ))}
+                                                                                                                                                            ))}
                                                                                                                                                         </div>
 
                                                                                                                                                             <div>
@@ -961,7 +961,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
                                                                                                                                                                                     title={item.question}>{item.answer}
                                                                                                                                                                                 </Accordion>
                                                                                                                                                                             </div>
-                ))}
+                                                                                                                                                                        ))}
                                                                                                                                                                     </div>
         </>
     );

@@ -409,29 +409,29 @@ ${MoneyFormatter.formatMoney(props.amounts.budgetAuthority)}`
                                     description={`Flow of money into total budgetary resources from new \
 appropriations`}
                                     style={{
-                                fill: '#bfcfd4'
-                            }} />
-                                <SankeyFlowVertical
-                                    startX={this.state.top.other.x + this.state.top.flow.x}
-                                    endX={this.state.center.x + this.state.top.appropriations.width}
-                                    width={this.state.top.other.width}
-                                    length={this.state.top.flow.length}
-                                    description={`Flow of money into total budgetary resources from other \
+                                        fill: '#bfcfd4'
+                                    }} />
+                                        <SankeyFlowVertical
+                                            startX={this.state.top.other.x + this.state.top.flow.x}
+                                            endX={this.state.center.x + this.state.top.appropriations.width}
+                                            width={this.state.top.other.width}
+                                            length={this.state.top.flow.length}
+                                            description={`Flow of money into total budgetary resources from other \
 budgetary resouces`}
-                                    style={{
-                                fill: '#bfcfd4'
-                            }} />
-                                <SankeyFlowVertical
-                                    startX={this.state.top.bbf.x + this.state.top.flow.x}
-                                    endX={(this.state.center.x + this.state.center.width)
+                                            style={{
+                                                fill: '#bfcfd4'
+                                            }} />
+                                                <SankeyFlowVertical
+                                                    startX={this.state.top.bbf.x + this.state.top.flow.x}
+                                                    endX={(this.state.center.x + this.state.center.width)
                                 - this.state.top.bbf.width}
-                                    width={this.state.top.bbf.width}
-                                    length={this.state.top.flow.length}
-                                    description={`Flow of money into total budgetary resources from balance \
+                                                    width={this.state.top.bbf.width}
+                                                    length={this.state.top.flow.length}
+                                                    description={`Flow of money into total budgetary resources from balance \
 brought forward`}
-                                    style={{
-                                fill: '#bfcfd4'
-                            }} />
+                                                    style={{
+                                                        fill: '#bfcfd4'
+                                                    }} />
                         </g>
 
                             <g
@@ -446,21 +446,21 @@ ${this.state.center.y + this.state.center.height})`}>
         description={`Flow of money out of total budgetary resources to \
 obligations incurred`}
         style={{
-                                fill: '#bfcfd4'
-                            }} />
-                                <SankeyFlowVertical
-                                    startX={this.state.center.x + this.state.bottom.obligated.width}
-                                    endX={this.state.bottom.unobligated.x + this.state.bottom.flow.x}
-                                    width={this.state.bottom.unobligated.width}
-                                    length={this.state.bottom.flow.length}
-                                    description={`Flow of money out of total budgetary resources to \
+            fill: '#bfcfd4'
+        }} />
+            <SankeyFlowVertical
+                startX={this.state.center.x + this.state.bottom.obligated.width}
+                endX={this.state.bottom.unobligated.x + this.state.bottom.flow.x}
+                width={this.state.bottom.unobligated.width}
+                length={this.state.bottom.flow.length}
+                description={`Flow of money out of total budgetary resources to \
 unobligated balance`}
-                                    style={{
-                                fill: '#E1E7E9',
-                                stroke: '#597785',
-                                strokeWidth: '1',
-                                strokeDasharray: '5'
-                            }} />
+                style={{
+                    fill: '#E1E7E9',
+                    stroke: '#597785',
+                    strokeWidth: '1',
+                    strokeDasharray: '5'
+                }} />
                             </g>
 
                                 <g

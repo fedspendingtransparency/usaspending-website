@@ -259,8 +259,8 @@ export default class CFDAViz extends React.Component {
                             <div
                                 className="cfda-section-vis__width-reference"
                                 ref={(div) => {
-                            this.widthRef = div;
-                        }} />
+                                    this.widthRef = div;
+                                }} />
                         {this.tree()}
                     </div>
             </div>

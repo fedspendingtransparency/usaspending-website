@@ -99,9 +99,9 @@ export default class RecipientVisualization extends React.Component {
                             <hr
                                 className="results-divider"
                                 ref={(hr) => {
-                            this.sectionHr = hr;
-                        }} />
-                            <em>FY {this.props.activeFY} data reported through {this.props.lastUpdate}</em>
+                                    this.sectionHr = hr;
+                                }} />
+                                    <em>FY {this.props.activeFY} data reported through {this.props.lastUpdate}</em>
                     </div>
                         <div className="agency-callout-description">
                             {`A primary way agencies implement their programs is by awarding money to \

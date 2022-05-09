@@ -118,8 +118,8 @@ const FySummary = ({
                         isError={isError}
                         selectedFy={fy}
                         agencyBudgetByYear={Object
-                        .entries(budgetaryResources)
-                        .map(([key, value]) => ({ year: key, budget: value._agencyBudget }))} />
+                            .entries(budgetaryResources)
+                            .map(([key, value]) => ({ year: key, budget: value._agencyBudget }))} />
             </VisualizationSection>
         ),
         (

@@ -62,18 +62,18 @@ const BarChart = ({
                                 className={`bar-chart__tooltip-wrapper${!hoveredFy && fyStr === selectedFy ? ' bar-chart__tooltip-wrapper_active' : ''}`}
                                 tooltipComponent={tooltip}
                                 offsetAdjustments={{
-                                top: calculateOffsetTop(budget / greatestAgencyBudget),
-                                left: 0,
-                                right: 0
-                            }}>
-                                <div
-                                    role="img"
-                                    className={`bar-chart__bar${fyStr === selectedFy ? ' bar-chart__bar_selected' : ''}`}
-                                    style={{
-                                    height: `${(budget / greatestAgencyBudget) * 100}%`,
-                                    minHeight: '0.5%'
-                                }}
-                                    alt={`FY ${fyStr[2]}${fyStr[3]} total budgetary resources are ${formatMoney(budget)};
+                                    top: calculateOffsetTop(budget / greatestAgencyBudget),
+                                    left: 0,
+                                    right: 0
+                                }}>
+                                    <div
+                                        role="img"
+                                        className={`bar-chart__bar${fyStr === selectedFy ? ' bar-chart__bar_selected' : ''}`}
+                                        style={{
+                                            height: `${(budget / greatestAgencyBudget) * 100}%`,
+                                            minHeight: '0.5%'
+                                        }}
+                                        alt={`FY ${fyStr[2]}${fyStr[3]} total budgetary resources are ${formatMoney(budget)};
                                     a ${(budget / greatestAgencyBudget).toFixed(2)} to 1 ratio compared to the largest total budgetary resources
                                     in 5 consecutive years (${formatMoney(greatestAgencyBudget)}).`} />
                             </TooltipWrapper>

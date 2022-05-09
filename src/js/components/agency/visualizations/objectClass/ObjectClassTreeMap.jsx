@@ -133,11 +133,11 @@ export default class ObjectClassTreeMap extends React.Component {
                                 <div
                                     className="usa-da-treemap-section"
                                     ref={(sr) => {
-                            this.sectionWrapper = sr;
-                        }}>
-                            <div className="usa-da-treemap-header">
-                                {this.generateHeader()}
-                            </div>
+                                        this.sectionWrapper = sr;
+                                    }}>
+                                        <div className="usa-da-treemap-header">
+                                            {this.generateHeader()}
+                                        </div>
                                     {this.generateObjectClasses()}
                                 </div>
                                     <div className="agency-viz-description">This visualization represents obligated amount.</div>

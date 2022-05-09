@@ -135,41 +135,41 @@ export default class ObjectClassCell extends React.Component {
                         width={this.props.width}
                         height={this.props.height}
                         style={{
-                        fill: this.props.color,
-                        stroke: this.props.strokeColor,
-                        strokeOpacity: this.props.strokeOpacity,
-                        strokeWidth: "2px",
-                        padding: "10px"
-                    }} />
-                        <text
-                            className={`category ${this.props.textClass}`}
-                            x={(this.props.width / 2)}
-                            y={this.props.height / 2}
-                            width={this.props.width}
-                            textAnchor="middle"
-                            ref={(text) => {
-                        this.svgText = text;
-                    }}
-                            style={{
-                        display: this.props.labelView,
-                        fill: this.props.textColor,
-                        opacity: this.props.opacity
-                    }}>
-                            {this.state.label}
-                        </text>
+                            fill: this.props.color,
+                            stroke: this.props.strokeColor,
+                            strokeOpacity: this.props.strokeOpacity,
+                            strokeWidth: "2px",
+                            padding: "10px"
+                        }} />
                             <text
-                                className={`value ${this.props.textClass}`}
-                                x={(this.props.width / 2) - 2}
-                                y={(this.props.height / 2) + 20}
+                                className={`category ${this.props.textClass}`}
+                                x={(this.props.width / 2)}
+                                y={this.props.height / 2}
                                 width={this.props.width}
                                 textAnchor="middle"
+                                ref={(text) => {
+                                    this.svgText = text;
+                                }}
                                 style={{
-                        display: this.props.percentView,
-                        fill: this.props.textColor,
-                        opacity: this.props.opacity
-                    }}>
-                                {MoneyFormatter.calculatePercentage(this.props.value, this.props.total)}
+                                    display: this.props.labelView,
+                                    fill: this.props.textColor,
+                                    opacity: this.props.opacity
+                                }}>
+                                {this.state.label}
                             </text>
+                                <text
+                                    className={`value ${this.props.textClass}`}
+                                    x={(this.props.width / 2) - 2}
+                                    y={(this.props.height / 2) + 20}
+                                    width={this.props.width}
+                                    textAnchor="middle"
+                                    style={{
+                                        display: this.props.percentView,
+                                        fill: this.props.textColor,
+                                        opacity: this.props.opacity
+                                    }}>
+                                    {MoneyFormatter.calculatePercentage(this.props.value, this.props.total)}
+                                </text>
             </g>
         );
     }

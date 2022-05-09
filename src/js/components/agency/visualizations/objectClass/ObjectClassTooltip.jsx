@@ -118,19 +118,19 @@ export default class ObjectClassTooltip extends React.Component {
                     <div
                         className={`tooltip${smallValue}`}
                         ref={(div) => {
-                        this.div = div;
-                    }}>
-                        <div
-                            className="tooltip-pointer"
-                            ref={(div) => {
-                            this.pointerDiv = div;
-                        }} />
-                            <div className="tooltip-title">
-                                {this.props.name}
-                            </div>
-                                <div className="tooltip-body center">
-                                    {desc}
-                                </div>
+                            this.div = div;
+                        }}>
+                            <div
+                                className="tooltip-pointer"
+                                ref={(div) => {
+                                    this.pointerDiv = div;
+                                }} />
+                                    <div className="tooltip-title">
+                                        {this.props.name}
+                                    </div>
+                                        <div className="tooltip-body center">
+                                            {desc}
+                                        </div>
                         { footer }
                     </div>
             </div>

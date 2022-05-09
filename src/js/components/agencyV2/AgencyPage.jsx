@@ -145,19 +145,19 @@ export const AgencyProfileV2 = ({
                             jumpToSection={jumpToSection}
                             detectActiveSection={setActiveSection}
                             sections={sections.map((section) => ({
-                            section: section.name,
-                            label: section.display
-                        }))} />
+                                section: section.name,
+                                label: section.display
+                            }))} />
                     </div>
                         <div className="body usda__flex-col">
                             <PageTitle fy={selectedFy} />
                             {isError
-                        ? <ErrorMessage description={errorMessage} />
-                        : sections.map((section) => (
-                            <AgencySection key={section.name} section={section} isLoading={isLoading} icon={section.icon} dataThroughDate={section.dataThroughDate}>
-                                {section.component || <ComingSoon />}
-                            </AgencySection>
-                        ))}
+                                ? <ErrorMessage description={errorMessage} />
+                                : sections.map((section) => (
+                                    <AgencySection key={section.name} section={section} isLoading={isLoading} icon={section.icon} dataThroughDate={section.dataThroughDate}>
+                                        {section.component || <ComingSoon />}
+                                    </AgencySection>
+                                ))}
                         </div>
                 </main>
         </PageWrapper>

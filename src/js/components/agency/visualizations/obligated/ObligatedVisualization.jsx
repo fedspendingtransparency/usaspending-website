@@ -108,9 +108,9 @@ export default class AgencyObligatedAmount extends React.Component {
                                 <hr
                                     className="results-divider"
                                     ref={(hr) => {
-                                this.sectionHr = hr;
-                            }} />
-                                <em>FY {this.props.activeFY} data reported through {this.props.asOfDate}</em>
+                                        this.sectionHr = hr;
+                                    }} />
+                                        <em>FY {this.props.activeFY} data reported through {this.props.asOfDate}</em>
                         </div>
                             <div className="agency-callout-description">
                                 <p>

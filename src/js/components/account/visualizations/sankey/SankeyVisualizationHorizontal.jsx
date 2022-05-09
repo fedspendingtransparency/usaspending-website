@@ -295,29 +295,29 @@ ${MoneyFormatter.formatMoney(props.amounts.budgetAuthority)}`
                                     description={`Flow of money into total budgetary resources from balance \
 brought forward`}
                                     style={{
-                                fill: '#bfcfd4'
-                            }} />
-                                <SankeyFlow
-                                    startY={this.state.left.other.y}
-                                    endY={this.state.center.y + this.state.left.bbf.height}
-                                    height={this.state.left.other.height}
-                                    length={this.state.left.flow.length}
-                                    description={`Flow of money into total budgetary resources from other \
+                                        fill: '#bfcfd4'
+                                    }} />
+                                        <SankeyFlow
+                                            startY={this.state.left.other.y}
+                                            endY={this.state.center.y + this.state.left.bbf.height}
+                                            height={this.state.left.other.height}
+                                            length={this.state.left.flow.length}
+                                            description={`Flow of money into total budgetary resources from other \
 budgetary resources`}
-                                    style={{
-                                fill: '#bfcfd4'
-                            }} />
-                                <SankeyFlow
-                                    startY={this.state.left.appropriations.y}
-                                    endY={(this.state.center.y + this.state.center.height)
+                                            style={{
+                                                fill: '#bfcfd4'
+                                            }} />
+                                                <SankeyFlow
+                                                    startY={this.state.left.appropriations.y}
+                                                    endY={(this.state.center.y + this.state.center.height)
                                 - this.state.left.appropriations.height}
-                                    height={this.state.left.appropriations.height}
-                                    length={this.state.left.flow.length}
-                                    description={`Flow of money into total budgetary resources from new \
+                                                    height={this.state.left.appropriations.height}
+                                                    length={this.state.left.flow.length}
+                                                    description={`Flow of money into total budgetary resources from new \
 appropriations`}
-                                    style={{
-                                fill: '#bfcfd4'
-                            }} />
+                                                    style={{
+                                                        fill: '#bfcfd4'
+                                                    }} />
                         </g>
 
                             <g
@@ -372,21 +372,21 @@ appropriations`}
                                             description={`Flow of money out of total budgetary resources to \
 obligations incurred`}
                                             style={{
-                                fill: '#bfcfd4'
-                            }} />
-                                <SankeyFlow
-                                    startY={this.state.center.y + this.state.right.obligated.height}
-                                    endY={this.state.right.unobligated.y}
-                                    height={this.state.right.unobligated.height}
-                                    length={this.state.right.flow.length}
-                                    description={`Flow of money out of total budgetary resources to \
+                                                fill: '#bfcfd4'
+                                            }} />
+                                                <SankeyFlow
+                                                    startY={this.state.center.y + this.state.right.obligated.height}
+                                                    endY={this.state.right.unobligated.y}
+                                                    height={this.state.right.unobligated.height}
+                                                    length={this.state.right.flow.length}
+                                                    description={`Flow of money out of total budgetary resources to \
 unobligated balance`}
-                                    style={{
-                                fill: '#E1E7E9',
-                                stroke: '#597785',
-                                strokeWidth: '1',
-                                strokeDasharray: '5'
-                            }} />
+                                                    style={{
+                                                        fill: '#E1E7E9',
+                                                        stroke: '#597785',
+                                                        strokeWidth: '1',
+                                                        strokeDasharray: '5'
+                                                    }} />
                                 </g>
 
                                     <DirectionLabel

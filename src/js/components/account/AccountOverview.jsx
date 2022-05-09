@@ -171,15 +171,15 @@ ${authority} has been obligated.`;
                                 <hr
                                     className="results-divider"
                                     ref={(div) => {
-                        this.sankeyHr = div;
-                    }} />
-                        <div className="sankey-wrapper">
-                            <SankeyVisualization
-                                fyAvailable={this.state.fyAvailable}
-                                amounts={this.state.amounts}
-                                width={this.state.visualizationWidth}
-                                height={this.state.visualizationHeight + 40} />
-                        </div>
+                                        this.sankeyHr = div;
+                                    }} />
+                                        <div className="sankey-wrapper">
+                                            <SankeyVisualization
+                                                fyAvailable={this.state.fyAvailable}
+                                                amounts={this.state.amounts}
+                                                width={this.state.visualizationWidth}
+                                                height={this.state.visualizationHeight + 40} />
+                                        </div>
             </div>
         );
     }

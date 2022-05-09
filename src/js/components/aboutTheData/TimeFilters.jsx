@@ -123,15 +123,15 @@ const TimePeriodFilters = ({
                         className="fy-picker"
                         sortFn={sortPeriods}
                         selectedOption={selectedFy
-                        ? <span>FY {selectedFy}</span>
-                        : (
-                            <div data-testid="fy-loading" className="fy-loading">
+                            ? <span>FY {selectedFy}</span>
+                            : (
+                                <div data-testid="fy-loading" className="fy-loading">
                                 FY <FontAwesomeIcon icon="spinner" size="sm" alt="FY Loading ..." spin />
-                            </div>
-                        )}
+                                </div>
+                            )}
                         options={latestFy
-                        ? allFiscalYears(2017, latestFy).map((year) => ({ name: `FY ${year}`, value: `${year}`, onClick: handleTimeChange }))
-                        : [{ name: 'Loading fiscal years...', value: null, onClick: () => { } }]
+                            ? allFiscalYears(2017, latestFy).map((year) => ({ name: `FY ${year}`, value: `${year}`, onClick: handleTimeChange }))
+                            : [{ name: 'Loading fiscal years...', value: null, onClick: () => { } }]
                     } />
             </div>
             {activeTab === 'submissions' && (
