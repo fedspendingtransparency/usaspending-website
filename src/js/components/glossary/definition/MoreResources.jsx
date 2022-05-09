@@ -24,8 +24,8 @@ export default class MoreResources extends React.Component {
                         <ReactMarkdown
                             source={this.props.resources}
                             renderers={Object.assign({}, ReactMarkdown.renderers, {
-                        Link: SmartLink
-                    })} />
+                                Link: SmartLink
+                            })} />
             </div>
         );
     }

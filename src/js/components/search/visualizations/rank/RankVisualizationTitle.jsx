@@ -89,11 +89,11 @@ export default class RankVisualizationTitle extends React.Component {
                             <div
                                 className={`field-list ${showPicker}`}
                                 style={{
-                            height: (this.props.fieldTypes.length * 55) + 1
-                        }}>
-                            <ul>
-                                {fields}
-                            </ul>
+                                    height: (this.props.fieldTypes.length * 55) + 1
+                                }}>
+                                    <ul>
+                                        {fields}
+                                    </ul>
                             </div>
                     </div>
             </div>

@@ -134,7 +134,7 @@ export default class NavBar extends React.Component {
                                                 exit>
                                                     <MobileNav hideMobileNav={this.hideMobileNav} />
                                             </CSSTransition>
-                            )}
+                                            )}
                                         </TransitionGroup>
                                     </div>
                                         <div className="site-navigation__menu full-menu">
@@ -150,50 +150,50 @@ export default class NavBar extends React.Component {
                                         Stay In Touch
                                                         </button>
                                                 </li>
-                            )}
-                                <li
-                                    className="full-menu__item"
-                                    role="menuitem">
-                                        <Link
-                                            className="full-menu__link"
-                                            to="/explorer"
-                                            title="Spending Explorer: Navigate the levels of government spending from top to bottom"
-                                            onClick={clickedHeaderLink.bind(null, '/explorer')}>
+                                                )}
+                                                    <li
+                                                        className="full-menu__item"
+                                                        role="menuitem">
+                                                            <Link
+                                                                className="full-menu__link"
+                                                                to="/explorer"
+                                                                title="Spending Explorer: Navigate the levels of government spending from top to bottom"
+                                                                onClick={clickedHeaderLink.bind(null, '/explorer')}>
                                     Spending Explorer
-                                        </Link>
-                                </li>
-                                    <li
-                                        className="full-menu__item"
-                                        role="menuitem">
-                                            <Dropdown
-                                                title="Award Search: Search through awards and discover trends and connections"
-                                                label="Award Search"
-                                                items={searchOptions} />
-                                    </li>
-                                        <li
-                                            className="full-menu__item"
-                                            role="menuitem">
-                                                <Dropdown
-                                                    title="Profiles: Learn more about organizations and accounts"
-                                                    label="Profiles"
-                                                    items={profileOptions} />
-                                        </li>
-                                            <li
-                                                className="full-menu__item"
-                                                role="menuitem">
-                                                    <Dropdown
-                                                        title="Download"
-                                                        label="Download"
-                                                        items={downloadOptions} />
-                                            </li>
-                                                <li
-                                                    className="full-menu__item"
-                                                    role="menuitem">
-                                                        <Dropdown
-                                                            title="Resources"
-                                                            label="Resources"
-                                                            items={resourceOptions} />
-                                                </li>
+                                                            </Link>
+                                                    </li>
+                                                        <li
+                                                            className="full-menu__item"
+                                                            role="menuitem">
+                                                                <Dropdown
+                                                                    title="Award Search: Search through awards and discover trends and connections"
+                                                                    label="Award Search"
+                                                                    items={searchOptions} />
+                                                        </li>
+                                                            <li
+                                                                className="full-menu__item"
+                                                                role="menuitem">
+                                                                    <Dropdown
+                                                                        title="Profiles: Learn more about organizations and accounts"
+                                                                        label="Profiles"
+                                                                        items={profileOptions} />
+                                                            </li>
+                                                                <li
+                                                                    className="full-menu__item"
+                                                                    role="menuitem">
+                                                                        <Dropdown
+                                                                            title="Download"
+                                                                            label="Download"
+                                                                            items={downloadOptions} />
+                                                                </li>
+                                                                    <li
+                                                                        className="full-menu__item"
+                                                                        role="menuitem">
+                                                                            <Dropdown
+                                                                                title="Resources"
+                                                                                label="Resources"
+                                                                                items={resourceOptions} />
+                                                                    </li>
                                             </ul>
                                         </div>
                         </div>

@@ -291,8 +291,8 @@ export default class EntityDropdown extends React.Component {
                             onBlur={this.mouseLeave}
                             tabIndex={-1}
                             ref={(div) => {
-                        this.wrapperDiv = div;
-                    }}>
+                                this.wrapperDiv = div;
+                            }}>
                             {!isAutocomplete &&
                             <button
                                 id={`${field}-button`}
@@ -306,15 +306,15 @@ export default class EntityDropdown extends React.Component {
                                 aria-describedby={this.state.warningId}
                                 disabled={!enabled || options.length === 0}
                                 ref={(dd) => {
-                              this.dropdown = dd;
-                          }}>
-                              <div className="label">
-                                  {label}
-                              </div>
-                                  <div className="icon">
-                                      {this.state.expanded && <FontAwesomeIcon onClick={this.toggleDropdown} icon="chevron-up" />}
-                                      {!this.state.expanded && <FontAwesomeIcon onClick={this.toggleDropdown} icon="chevron-down" />}
-                                  </div>
+                                    this.dropdown = dd;
+                                }}>
+                                    <div className="label">
+                                        {label}
+                                    </div>
+                                        <div className="icon">
+                                            {this.state.expanded && <FontAwesomeIcon onClick={this.toggleDropdown} icon="chevron-up" />}
+                                            {!this.state.expanded && <FontAwesomeIcon onClick={this.toggleDropdown} icon="chevron-down" />}
+                                        </div>
                             </button>
                     }
                             {isAutocomplete &&

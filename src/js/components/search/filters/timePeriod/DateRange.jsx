@@ -151,8 +151,8 @@ export default class DateRange extends React.Component {
                             hideError={this.props.hideError}
                             disabledDays={startDateDisabledDays}
                             ref={(component) => {
-                            this.startPicker = component;
-                        }}
+                                this.startPicker = component;
+                            }}
                             allowClearing />
                                 <DatePicker
                                     type="endDate"
@@ -164,8 +164,8 @@ export default class DateRange extends React.Component {
                                     hideError={this.props.hideError}
                                     disabledDays={endDateDisabledDays}
                                     ref={(component) => {
-                            this.endPicker = component;
-                        }}
+                                        this.endPicker = component;
+                                    }}
                                     allowClearing />
                                         <IndividualSubmit
                                             className="set-date-submit"

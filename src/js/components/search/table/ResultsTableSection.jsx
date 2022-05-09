@@ -107,22 +107,22 @@ export default class ResultsTableSection extends React.Component {
                                 </>
                                         </CSSTransition>
 
-                        )}
+                                        )}
                                     </TransitionGroup>
                                         <div
                                             className="results-table-width-master"
                                             ref={(div) => {
-                            // this is an empty div that scales via CSS
-                            // the results table width will follow this div's width
-                            this.tableWidthController = div;
-                        }} />
+                                                // this is an empty div that scales via CSS
+                                                // the results table width will follow this div's width
+                                                this.tableWidthController = div;
+                                            }} />
                                     {showDataTable && (
                                     <ResultsTable
                                         {...this.props}
                                         visibleWidth={this.state.tableWidth}
                                         awardIdClick={this.props.awardIdClick}
                                         subAwardIdClick={this.props.subAwardIdClick} />
-                    )}
+                                    )}
                                 </div>
             </div>
         );

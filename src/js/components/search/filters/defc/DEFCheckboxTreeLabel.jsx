@@ -47,11 +47,11 @@ const DEFCheckboxTreeLabel = ({
                 <div className={`checkbox-tree-label__label def-checkbox-tree-label__${cssLabel}`}>
                     {label}
                     {subLabel && (
-                    <>
-                        <br />
-                            <span>{parseAcronym(subLabel)}</span>
-                    </>
-                )}
+                        <>
+                            <br />
+                                <span>{parseAcronym(subLabel)}</span>
+                        </>
+                    )}
                 </div>
         </div>
     );

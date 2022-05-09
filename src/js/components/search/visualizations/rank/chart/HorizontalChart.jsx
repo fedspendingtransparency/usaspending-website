@@ -199,31 +199,31 @@ export default class HorizontalChart extends React.Component {
                         width={this.props.width}
                         height={this.props.height}
                         ref={(svg) => {
-                        this.svgRef = svg;
-                    }}>
+                            this.svgRef = svg;
+                        }}>
 
-                        <g className="chart-groups">
-                            {this.state.groups}
-                        </g>
+                            <g className="chart-groups">
+                                {this.state.groups}
+                            </g>
 
-                            <HorizontalXAxis
-                                width={this.props.width - this.props.labelWidth}
-                                height={this.props.height - this.props.padding.bottom}
-                                x={this.props.labelWidth}
-                                y={this.props.height - this.props.padding.bottom}
-                                range={this.state.xRange}
-                                xScale={this.state.xScale}
-                                data={this.props.dataSeries} />
+                                <HorizontalXAxis
+                                    width={this.props.width - this.props.labelWidth}
+                                    height={this.props.height - this.props.padding.bottom}
+                                    x={this.props.labelWidth}
+                                    y={this.props.height - this.props.padding.bottom}
+                                    range={this.state.xRange}
+                                    xScale={this.state.xScale}
+                                    data={this.props.dataSeries} />
 
-                                    <g className="chart-bars">
-                                        {this.state.bars}
-                                    </g>
+                                        <g className="chart-bars">
+                                            {this.state.bars}
+                                        </g>
 
-                                        <HorizontalYAxis
-                                            height={this.props.height - this.props.padding.bottom}
-                                            x={this.props.labelWidth}
-                                            y={this.props.height - this.props.padding.bottom}
-                                            xScale={this.state.xScale} />
+                                            <HorizontalYAxis
+                                                height={this.props.height - this.props.padding.bottom}
+                                                x={this.props.labelWidth}
+                                                y={this.props.height - this.props.padding.bottom}
+                                                xScale={this.state.xScale} />
 
                     </svg>
             </div>

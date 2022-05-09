@@ -92,15 +92,15 @@ const DefaultLineAndText = ({
                 width={width}
                 publicLaw={publicLaw} />
                     <TextGroup data={[
-                { ...valueData, ref: valueTextRef },
-                { ...labelData, ref: labelTextRef }
-            ].map((textItem) => ({
-                ...textItem,
-                dataId,
-                tooltipId,
-                displayTooltip,
-                hideTooltip
-            }))} />
+                        { ...valueData, ref: valueTextRef },
+                        { ...labelData, ref: labelTextRef }
+                    ].map((textItem) => ({
+                        ...textItem,
+                        dataId,
+                        tooltipId,
+                        displayTooltip,
+                        hideTooltip
+                    }))} />
         </g>
     );
 };

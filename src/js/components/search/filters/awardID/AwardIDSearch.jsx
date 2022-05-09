@@ -79,8 +79,8 @@ export default class AwardIDSearch extends React.Component {
                     {selectedAwardIDs}
                         <SubmitHint
                             ref={(component) => {
-                            this.hint = component;
-                        }} />
+                                this.hint = component;
+                            }} />
                 </div>
             </div>
         );

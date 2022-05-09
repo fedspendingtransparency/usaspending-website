@@ -48,15 +48,15 @@ const Community = () => (
                                         tabIndex={-1}
                                         href="mailto:usaspending.help@fiscal.treasury.gov?subject=Contact%20Us"
                                         onClick={clickedHomepageLink.bind(
-                            null,
-                            'mailto:usaspending.help@fiscal.treasury.gov?subject=Contact%20Us'
-                        )}>
-                            <button
-                                className="homepage-community-button__email"
-                                aria-label="Send Us A Message"
-                                title="Send Us A Message">
+                                            null,
+                                            'mailto:usaspending.help@fiscal.treasury.gov?subject=Contact%20Us'
+                                        )}>
+                                            <button
+                                                className="homepage-community-button__email"
+                                                aria-label="Send Us A Message"
+                                                title="Send Us A Message">
                             Send Us A Message
-                            </button>
+                                            </button>
                                     </a>
                             </div>
                 </div>

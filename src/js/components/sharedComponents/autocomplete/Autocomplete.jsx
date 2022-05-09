@@ -284,8 +284,8 @@ export default class Autocomplete extends React.Component {
                                 <input
                                     className="autocomplete"
                                     ref={(t) => {
-                                this.autocompleteInput = t;
-                            }}
+                                        this.autocompleteInput = t;
+                                    }}
                                     type="text"
                                     placeholder={this.props.placeholder}
                                     onChange={this.onChange.bind(this)}

@@ -71,15 +71,15 @@ const Hero = () => {
                                                     role="button"
                                                     tabIndex="0"
                                                     onClick={() => {
-                                        setIsPaused((previousIsPaused) => !previousIsPaused);
-                                    }}
+                                                        setIsPaused((previousIsPaused) => !previousIsPaused);
+                                                    }}
                                                     onKeyPress={(e) => {
-                                        keyPressHandler(e);
-                                    }}>
+                                                        keyPressHandler(e);
+                                                    }}>
                                                     { isPaused ?
-                                        <><FontAwesomeIcon icon="play" width={10} />&nbsp;&nbsp;Play text animation</>
-                                        :
-                                        <><FontAwesomeIcon icon="pause" width={10} />&nbsp;&nbsp;Pause text animation</>
+                                                        <><FontAwesomeIcon icon="play" width={10} />&nbsp;&nbsp;Play text animation</>
+                                                        :
+                                                        <><FontAwesomeIcon icon="pause" width={10} />&nbsp;&nbsp;Pause text animation</>
                                     }
                                                 </a>
                                             </div>

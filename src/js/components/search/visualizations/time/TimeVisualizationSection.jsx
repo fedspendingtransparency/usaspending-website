@@ -124,50 +124,50 @@ export default class TimeVisualizationSection extends React.Component {
                         <hr
                             className="results-divider"
                             ref={(hr) => {
-                        this.sectionHr = hr;
-                    }} />
+                                this.sectionHr = hr;
+                            }} />
 
-                        <div className="visualization-top">
-                            <div className="visualization-description">
-                                <div className="content">
+                                <div className="visualization-top">
+                                    <div className="visualization-description">
+                                        <div className="content">
                             Spot trends in spending over your chosen time period. Break down your results by years, quarters, or months, and hover over the bars for more detailed information.
-                                </div>
-                            </div>
-                                <div className="visualization-period">
-                                    <div className="content">
-                                        <ul>
-                                            <li>
-                                                <TimeVisualizationPeriodButton
-                                                    value="fiscal_year"
-                                                    label="Years"
-                                                    active={this.props.data.visualizationPeriod === 'fiscal_year'}
-                                                    changePeriod={this.props.updateVisualizationPeriod} />
-                                            </li>
-                                                <li>
-                                                    <TimeVisualizationPeriodButton
-                                                        value="quarter"
-                                                        label="Quarters"
-                                                        active={this.props.data.visualizationPeriod === 'quarter'}
-                                                        changePeriod={this.props.updateVisualizationPeriod} />
-                                                </li>
+                                        </div>
+                                    </div>
+                                        <div className="visualization-period">
+                                            <div className="content">
+                                                <ul>
                                                     <li>
                                                         <TimeVisualizationPeriodButton
-                                                            value="month"
-                                                            label="Months"
-                                                            active={this.props.data.visualizationPeriod === 'month'}
+                                                            value="fiscal_year"
+                                                            label="Years"
+                                                            active={this.props.data.visualizationPeriod === 'fiscal_year'}
                                                             changePeriod={this.props.updateVisualizationPeriod} />
                                                     </li>
-                                        </ul>
-                                    </div>
-                                        <div className="download">
-                                            {!this.props.data.loading && this.renderDownloadLink()}
-                                            {!this.props.data.loading && <TooltipWrapper className="tooltip-wrapper" icon="info" tooltipPosition="left" tooltipComponent={this.downloadTooltip()} />}
+                                                        <li>
+                                                            <TimeVisualizationPeriodButton
+                                                                value="quarter"
+                                                                label="Quarters"
+                                                                active={this.props.data.visualizationPeriod === 'quarter'}
+                                                                changePeriod={this.props.updateVisualizationPeriod} />
+                                                        </li>
+                                                            <li>
+                                                                <TimeVisualizationPeriodButton
+                                                                    value="month"
+                                                                    label="Months"
+                                                                    active={this.props.data.visualizationPeriod === 'month'}
+                                                                    changePeriod={this.props.updateVisualizationPeriod} />
+                                                            </li>
+                                                </ul>
+                                            </div>
+                                                <div className="download">
+                                                    {!this.props.data.loading && this.renderDownloadLink()}
+                                                    {!this.props.data.loading && <TooltipWrapper className="tooltip-wrapper" icon="info" tooltipPosition="left" tooltipComponent={this.downloadTooltip()} />}
+                                                </div>
                                         </div>
                                 </div>
-                        </div>
-                            <TimeVisualization
-                                {...this.props.data}
-                                width={this.state.visualizationWidth} />
+                                    <TimeVisualization
+                                        {...this.props.data}
+                                        width={this.state.visualizationWidth} />
             </section>
         );
     }

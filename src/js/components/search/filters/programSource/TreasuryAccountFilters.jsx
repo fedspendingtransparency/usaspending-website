@@ -95,12 +95,12 @@ export default class TreasuryAccountFilters extends React.Component {
                                 className="program-source-components__button">
                                 Add Filter
                             </button>
-                        )}
-                            <div
-                                className={`program-source-warning ${this.state.showWarning ? '' : 'hide'}`}
-                                aria-hidden={enabled}>
-                                    <EntityWarning message={message} />
-                            </div>
+                            )}
+                                <div
+                                    className={`program-source-warning ${this.state.showWarning ? '' : 'hide'}`}
+                                    aria-hidden={enabled}>
+                                        <EntityWarning message={message} />
+                                </div>
                         </div>
                 </div>
             </div>

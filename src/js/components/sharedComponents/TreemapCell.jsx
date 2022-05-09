@@ -147,8 +147,8 @@ export default class TreemapCell extends React.Component {
                             width={this.props.width}
                             height={this.props.height}
                             style={{
-                        fill: this.state.backgroundColor
-                    }} />
+                                fill: this.state.backgroundColor
+                            }} />
                 {cellTitle}
                 {cellValue}
             </g>

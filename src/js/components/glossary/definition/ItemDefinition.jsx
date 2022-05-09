@@ -41,8 +41,8 @@ export default class ItemDefinition extends React.Component {
                         <ReactMarkdown
                             source={this.props[this.props.type]}
                             renderers={Object.assign({}, ReactMarkdown.renderers, {
-                            Link: SmartLink
-                        })} />
+                                Link: SmartLink
+                            })} />
                     </div>
 
                 {resources}

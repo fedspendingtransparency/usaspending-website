@@ -43,8 +43,8 @@ export default class RecipientSearch extends React.Component {
                     {selectedRecipients}
                         <SubmitHint
                             ref={(component) => {
-                            this.hint = component;
-                        }} />
+                                this.hint = component;
+                            }} />
                 </div>
             </div>
         );

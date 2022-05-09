@@ -112,13 +112,13 @@ export default class AwardAmountSearch extends React.Component {
                     </ul>
                         <SubmitHint
                             ref={(component) => {
-                            this.hint = component;
-                        }} />
-                            <div
-                                className="selected-filters"
-                                role="status">
-                                {stagedFilters}
-                            </div>
+                                this.hint = component;
+                            }} />
+                                <div
+                                    className="selected-filters"
+                                    role="status">
+                                    {stagedFilters}
+                                </div>
                 </div>
             </div>
         );

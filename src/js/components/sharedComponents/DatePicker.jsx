@@ -243,8 +243,8 @@ export default class DatePicker extends React.Component {
                                 aria-label={this.props.title}
                                 value={this.state.inputValue}
                                 ref={(input) => {
-                                this.text = input;
-                            }}
+                                    this.text = input;
+                                }}
                                 onChange={this.handleTypedDate}
                                 onBlur={this.handleInputBlur} />
                     </label>
@@ -258,8 +258,8 @@ export default class DatePicker extends React.Component {
                     <div className={`floating-datepicker ${showDatePicker}`} role="dialog">
                         <DayPicker
                             ref={(daypicker) => {
-                            this.datepicker = daypicker;
-                        }}
+                                this.datepicker = daypicker;
+                            }}
                             month={pickedDay}
                             disabledDays={this.props.disabledDays}
                             selectedDays={(day) => DateUtils.isSameDay(pickedDay, day)}

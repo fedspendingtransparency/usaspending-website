@@ -109,8 +109,8 @@ export default class LocationSection extends React.Component {
                 {filter}
                     <SubmitHint
                         ref={(component) => {
-                        this.hint = component;
-                    }} />
+                            this.hint = component;
+                        }} />
             </div>
         );
     }

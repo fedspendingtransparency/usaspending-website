@@ -91,8 +91,8 @@ export default class Keyword extends React.Component {
                         {selectedKeywords}
                             <SubmitHint
                                 ref={(component) => {
-                                this.hint = component;
-                            }} />
+                                    this.hint = component;
+                                }} />
                     </div>
                 </form>
             </div>

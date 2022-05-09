@@ -58,26 +58,26 @@ export default class RankVisualizationTooltip extends React.Component {
                     <div
                         className="tooltip"
                         ref={(div) => {
-                        this.div = div;
-                    }}>
-                        <div
-                            className="tooltip-pointer"
-                            ref={(div) => {
-                            this.pointerDiv = div;
-                        }} />
-                            <div className="tooltip-title">
-                                {this.props.label}
-                            </div>
-                                <div className="tooltip-body">
-                                    <div className="tooltip-full">
-                                        <div className="tooltip-value">
-                                            {MoneyFormatter.formatMoney(this.props.value)}
-                                        </div>
-                                            <div className="tooltip-label">
-                                Amount Obligated
-                                            </div>
+                            this.div = div;
+                        }}>
+                            <div
+                                className="tooltip-pointer"
+                                ref={(div) => {
+                                    this.pointerDiv = div;
+                                }} />
+                                    <div className="tooltip-title">
+                                        {this.props.label}
                                     </div>
-                                </div>
+                                        <div className="tooltip-body">
+                                            <div className="tooltip-full">
+                                                <div className="tooltip-value">
+                                                    {MoneyFormatter.formatMoney(this.props.value)}
+                                                </div>
+                                                    <div className="tooltip-label">
+                                Amount Obligated
+                                                    </div>
+                                            </div>
+                                        </div>
                     </div>
             </div>
         );

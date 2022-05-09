@@ -45,11 +45,11 @@ const CheckboxTreeLabel = ({
                 <div className="checkbox-tree-label__label">
                     {label}
                     {subLabel && (
-                    <>
-                        <br />
-                            <span>{subLabel}</span>
-                    </>
-                )}
+                        <>
+                            <br />
+                                <span>{subLabel}</span>
+                        </>
+                    )}
                 </div>
         </div>
     );

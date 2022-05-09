@@ -276,16 +276,16 @@ export default class ImageCarousel extends React.Component {
                                     onMouseMove={this.performedMouseDrag}
                                     role="presentation"
                                     ref={(div) => {
-                            this.carouselContainer = div;
-                        }}>
-                            <ul
-                                className={`feature-carousel-image__list ${activeDrag}`}
-                                aria-live="polite"
-                                ref={(ul) => {
-                                this.carouselList = ul;
-                            }}>
-                                {images}
-                            </ul>
+                                        this.carouselContainer = div;
+                                    }}>
+                                        <ul
+                                            className={`feature-carousel-image__list ${activeDrag}`}
+                                            aria-live="polite"
+                                            ref={(ul) => {
+                                                this.carouselList = ul;
+                                            }}>
+                                            {images}
+                                        </ul>
                                 </div>
                                     <button
                                         aria-label="Next carousel item"

@@ -139,11 +139,11 @@ export default class Glossary extends React.Component {
                         <div
                             className="glossary-header-wrapper"
                             ref={(div) => {
-                            this.sidebarHeader = div;
-                        }}>
-                            <GlossaryHeader
-                                {...this.props}
-                                closeGlossary={this.closeGlossary} />
+                                this.sidebarHeader = div;
+                            }}>
+                                <GlossaryHeader
+                                    {...this.props}
+                                    closeGlossary={this.closeGlossary} />
                         </div>
                     {loading}
                         <Scrollbars
@@ -151,8 +151,8 @@ export default class Glossary extends React.Component {
                             renderTrackVertical={this.renderTrack}
                             renderThumbVertical={this.renderThumb}
                             ref={(scrollbar) => {
-                            this.scrollbar = scrollbar;
-                        }}>
+                                this.scrollbar = scrollbar;
+                            }}>
                             {content}
                         </Scrollbars>
                 </aside>

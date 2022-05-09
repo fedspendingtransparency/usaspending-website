@@ -97,8 +97,8 @@ export default class RecipientType extends React.Component {
                     </ul>
                         <SubmitHint
                             ref={(component) => {
-                            this.hint = component;
-                        }} />
+                                this.hint = component;
+                            }} />
                 </div>
             </div>
         );

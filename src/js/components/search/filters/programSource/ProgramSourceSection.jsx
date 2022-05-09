@@ -228,8 +228,8 @@ export default class ProgramSourceSection extends React.Component {
                         description="A note about our TAS data sources." />
                             <SubmitHint
                                 ref={(component) => {
-                        this.hint = component;
-                    }} />
+                                    this.hint = component;
+                                }} />
             </div>
         );
     }

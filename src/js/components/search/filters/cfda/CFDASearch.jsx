@@ -41,8 +41,8 @@ export default class CFDASearch extends React.Component {
                     {selectedCFDA}
                         <SubmitHint
                             ref={(component) => {
-                            this.hint = component;
-                        }} />
+                                this.hint = component;
+                            }} />
                 </div>
             </div>
         );
