@@ -12,9 +12,9 @@ const DropdownComingSoon = () => (
         <div className="nav-coming-soon__icon">
             <ExclamationCircle alt="Coming soon" />
         </div>
-            <div className="nav-coming-soon__label">
+        <div className="nav-coming-soon__label">
             Coming Soon
-            </div>
+        </div>
     </div>
 );
 

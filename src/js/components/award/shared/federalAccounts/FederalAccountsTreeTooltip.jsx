@@ -101,32 +101,32 @@ export default class FederalAccountsTreeTooltip extends React.Component {
                     ref={(div) => {
                         this.div = div;
                     }}>
-                        <div
-                            className={`tooltip-pointer ${this.state.direction}`} />
-                                <div className="tooltip-title">
-                                    {_federalAccountName}
-                                </div>
-                                    <div className="tooltip-subtitle">
+                    <div
+                        className={`tooltip-pointer ${this.state.direction}`} />
+                    <div className="tooltip-title">
+                        {_federalAccountName}
+                    </div>
+                    <div className="tooltip-subtitle">
                         FUNDING AGENCY: {subtitle}
-                                    </div>
-                                        <div className="tooltip-body">
-                                            <div className="tooltip-left">
-                                                <div className="tooltip-value">
-                                                    {obligatedAmount}
-                                                </div>
-                                                    <div className="tooltip-label">
+                    </div>
+                    <div className="tooltip-body">
+                        <div className="tooltip-left">
+                            <div className="tooltip-value">
+                                {obligatedAmount}
+                            </div>
+                            <div className="tooltip-label">
                                 Funded Amount
-                                                    </div>
-                                            </div>
-                                                <div className="tooltip-right">
-                                                    <div className="tooltip-value">
-                                                        {percent}
-                                                    </div>
-                                                        <div className="tooltip-label">
+                            </div>
+                        </div>
+                        <div className="tooltip-right">
+                            <div className="tooltip-value">
+                                {percent}
+                            </div>
+                            <div className="tooltip-label">
                                 Percent of Total
-                                                        </div>
-                                                </div>
-                                        </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         );

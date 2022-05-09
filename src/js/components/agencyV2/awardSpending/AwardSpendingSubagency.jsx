@@ -92,20 +92,20 @@ const AwardSpendingSubagency = ({ fy }) => {
     return (
         <div className="body__content">
             <AwardSpendingIntro name={overview.name} />
-                <div ref={moreOptionsTabsRef}>
-                    <Tabs active={activeTab.internal} types={awardTabs} switchTab={changeActiveTab} />
-                </div>
-                    <SubAgencySummaryContainer
-                        fy={fy}
-                        summaryData={summaryData}
-                        data={subagencyData}
-                        activeTab={activeTab.internal} />
-                            <SubagencyTableContainer
-                                fy={fy}
-                                type={activeTab.internal}
-                                prevType={prevActiveTab.internal}
-                                subHeading="Offices" />
-                                    <Note message={(
+            <div ref={moreOptionsTabsRef}>
+                <Tabs active={activeTab.internal} types={awardTabs} switchTab={changeActiveTab} />
+            </div>
+            <SubAgencySummaryContainer
+                fy={fy}
+                summaryData={summaryData}
+                data={subagencyData}
+                activeTab={activeTab.internal} />
+            <SubagencyTableContainer
+                fy={fy}
+                type={activeTab.internal}
+                prevType={prevActiveTab.internal}
+                subHeading="Offices" />
+            <Note message={(
                 <>
                 The sub-agencies presented in this section represent
                 awarding organizations and were sourced from the General Services

@@ -39,7 +39,7 @@ const awardSpendingAgencyTableColumns = (type) => {
                     displayName: (
                         <div className="table-header-label__title">
                             <div>Award Obligations</div>
-                                <div>(Loan Subsidy Cost)</div>
+                            <div>(Loan Subsidy Cost)</div>
                         </div>
                     ),
                     right: true
@@ -49,7 +49,7 @@ const awardSpendingAgencyTableColumns = (type) => {
                     displayName: (
                         <div className="table-header-label__title">
                             <div>Award Outlays</div>
-                                <div>(Loan Subsidy Cost)</div>
+                            <div>(Loan Subsidy Cost)</div>
                         </div>
                     ),
                     right: true
@@ -59,7 +59,7 @@ const awardSpendingAgencyTableColumns = (type) => {
                     displayName: (
                         <div className="table-header-label__title">
                             <div>Face Value</div>
-                                <div>of Loans</div>
+                            <div>of Loans</div>
                         </div>
                     ),
                     right: true
@@ -69,7 +69,7 @@ const awardSpendingAgencyTableColumns = (type) => {
                     displayName: (
                         <div className="table-header-label__title">
                             <div>Number</div>
-                                <div>of Awards</div>
+                            <div>of Awards</div>
                         </div>
                     ),
                     right: true
@@ -97,7 +97,7 @@ const awardSpendingAgencyTableColumns = (type) => {
                 displayName: (
                     <div className="table-header-label__title">
                         <div>Number</div>
-                            <div>of Awards</div>
+                        <div>of Awards</div>
                     </div>
                 ),
                 right: true
@@ -331,33 +331,33 @@ const AwardSpendingAgencyTableContainer = (props) => {
     return (
         <div ref={tableWrapperRef}>
             <SearchBar onSearch={setQuery} />
-                <Pagination
-                    currentPage={currentPage}
-                    changePage={changeCurrentPage}
-                    changeLimit={changePageSize}
-                    limitSelector
-                    resultsText
-                    pageSize={pageSize}
-                    totalItems={totalItems} />
-                        <div ref={tableRef} className={unlinkedDataClass ? 'table-wrapper unlinked-data' : 'table-wrapper'}>
-                            <Table
-                                expandable
-                                rows={results}
-                                columns={awardSpendingAgencyTableColumns(props.type)}
-                                currentSort={{ field: sort, direction: order }}
-                                updateSort={updateSort}
-                                divider={props.subHeading}
-                                error={error}
-                                loading={loading} />
-                        </div>
-                            <Pagination
-                                currentPage={currentPage}
-                                changePage={changeCurrentPage}
-                                changeLimit={changePageSize}
-                                limitSelector
-                                resultsText
-                                pageSize={pageSize}
-                                totalItems={totalItems} />
+            <Pagination
+                currentPage={currentPage}
+                changePage={changeCurrentPage}
+                changeLimit={changePageSize}
+                limitSelector
+                resultsText
+                pageSize={pageSize}
+                totalItems={totalItems} />
+            <div ref={tableRef} className={unlinkedDataClass ? 'table-wrapper unlinked-data' : 'table-wrapper'}>
+                <Table
+                    expandable
+                    rows={results}
+                    columns={awardSpendingAgencyTableColumns(props.type)}
+                    currentSort={{ field: sort, direction: order }}
+                    updateSort={updateSort}
+                    divider={props.subHeading}
+                    error={error}
+                    loading={loading} />
+            </div>
+            <Pagination
+                currentPage={currentPage}
+                changePage={changeCurrentPage}
+                changeLimit={changePageSize}
+                limitSelector
+                resultsText
+                pageSize={pageSize}
+                totalItems={totalItems} />
         </div>
     );
 };

@@ -94,19 +94,19 @@ export default class HorizontalXAxis extends React.Component {
             <g
                 className="bar-axis"
                 transform={`translate(${this.props.x},${this.props.y})`}>
-                    <title>X-Axis</title>
-                        <desc>
-                            {`A horizontal axis depicting a range of monetary values from ${MoneyFormatter.formatMoney(this.props.range[0])} to ${MoneyFormatter.formatMoney(this.props.range[1])}.`}
-                        </desc>
-                            <line
-                                className="x-axis"
-                                x1={0}
-                                x2={this.props.width}
-                                y1={0}
-                                y2={0} />
-                                    <g className="axis-labels">
-                                        {this.state.labels}
-                                    </g>
+                <title>X-Axis</title>
+                <desc>
+                    {`A horizontal axis depicting a range of monetary values from ${MoneyFormatter.formatMoney(this.props.range[0])} to ${MoneyFormatter.formatMoney(this.props.range[1])}.`}
+                </desc>
+                <line
+                    className="x-axis"
+                    x1={0}
+                    x2={this.props.width}
+                    y1={0}
+                    y2={0} />
+                <g className="axis-labels">
+                    {this.state.labels}
+                </g>
             </g>
         );
     }

@@ -123,7 +123,7 @@ export default class LocationPicker extends React.Component {
                 <span>
                     Please select a&nbsp;
                     <span className="field">country</span> before selecting a&nbsp;
-                        <span className="field">{field}</span>.
+                    <span className="field">{field}</span>.
                 </span>
             );
         }
@@ -148,7 +148,7 @@ export default class LocationPicker extends React.Component {
                     <span>
                         Please select a&nbsp;
                         <span className="field">state</span> before selecting a&nbsp;
-                            <span className="field">{field}</span>.
+                        <span className="field">{field}</span>.
                     </span>
                 );
             }
@@ -218,38 +218,38 @@ export default class LocationPicker extends React.Component {
                 <form
                     className="location-filter-form"
                     onSubmit={this.submitForm}>
-                        <div className="location-item">
-                            <EntityDropdown
-                                field="country"
-                                placeholder="Select a country"
-                                title="COUNTRY"
-                                value={this.props.country}
-                                selectEntity={this.props.selectEntity}
-                                options={this.props.availableCountries}
-                                generateDisclaimer={this.generateDisclaimer} />
-                        </div>
-                            <div className="location-item">
-                                <EntityDropdown
-                                    field="state"
-                                    placeholder="Select a state"
-                                    title="STATE (US ONLY)"
-                                    value={this.props.state}
-                                    selectEntity={this.props.selectEntity}
-                                    options={this.props.availableStates}
-                                    enabled={isUSA}
-                                    generateDisclaimer={this.generateDisclaimer} />
-                            </div>
-                                <div className="location-item">
-                                    <EntityDropdown
-                                        field="county"
-                                        placeholder="Select a county"
-                                        title="COUNTY (US ONLY)"
-                                        value={this.props.county}
-                                        selectEntity={this.props.selectEntity}
-                                        options={this.props.availableCounties}
-                                        enabled={isCountyEnabled}
-                                        generateDisclaimer={this.generateDisclaimer} />
-                                </div>
+                    <div className="location-item">
+                        <EntityDropdown
+                            field="country"
+                            placeholder="Select a country"
+                            title="COUNTRY"
+                            value={this.props.country}
+                            selectEntity={this.props.selectEntity}
+                            options={this.props.availableCountries}
+                            generateDisclaimer={this.generateDisclaimer} />
+                    </div>
+                    <div className="location-item">
+                        <EntityDropdown
+                            field="state"
+                            placeholder="Select a state"
+                            title="STATE (US ONLY)"
+                            value={this.props.state}
+                            selectEntity={this.props.selectEntity}
+                            options={this.props.availableStates}
+                            enabled={isUSA}
+                            generateDisclaimer={this.generateDisclaimer} />
+                    </div>
+                    <div className="location-item">
+                        <EntityDropdown
+                            field="county"
+                            placeholder="Select a county"
+                            title="COUNTY (US ONLY)"
+                            value={this.props.county}
+                            selectEntity={this.props.selectEntity}
+                            options={this.props.availableCounties}
+                            enabled={isCountyEnabled}
+                            generateDisclaimer={this.generateDisclaimer} />
+                    </div>
                     {this.props.enableCitySearch &&
                     <div className="location-item">
                         <EntityDropdown
@@ -268,36 +268,36 @@ export default class LocationPicker extends React.Component {
                             searchString={this.props.citySearchString}
                             showDisclaimer={showDisclaimer} />
                     </div>}
-                        <div className="location-item">
-                            <EntityDropdown
-                                field="district"
-                                matchKey="district"
-                                placeholder={districtPlaceholder}
-                                title="CONGRESSIONAL DISTRICT (US ONLY)"
-                                value={this.props.district}
-                                selectEntity={this.props.selectEntity}
-                                options={this.props.availableDistricts}
-                                enabled={isDistrictEnabled}
-                                generateDisclaimer={this.generateDisclaimer} />
-                        </div>
-                            <button
-                                className="add-location"
-                                onClick={this.props.addLocation}
-                                aria-controls="award-search-selected-locations"
-                                disabled={isAddFilterDisabled}>
+                    <div className="location-item">
+                        <EntityDropdown
+                            field="district"
+                            matchKey="district"
+                            placeholder={districtPlaceholder}
+                            title="CONGRESSIONAL DISTRICT (US ONLY)"
+                            value={this.props.district}
+                            selectEntity={this.props.selectEntity}
+                            options={this.props.availableDistricts}
+                            enabled={isDistrictEnabled}
+                            generateDisclaimer={this.generateDisclaimer} />
+                    </div>
+                    <button
+                        className="add-location"
+                        onClick={this.props.addLocation}
+                        aria-controls="award-search-selected-locations"
+                        disabled={isAddFilterDisabled}>
                         Add Filter
-                            </button>
+                    </button>
                 </form>
-                    <hr className="location-picker-divider" />
-                        <div className="location-item">
-                            <div className="geo-entity-item">
-                                <ZIPField
-                                    generateDisclaimer={this.generateDisclaimer}
-                                    isUSA={isUSA}
-                                    zip={this.props.zip}
-                                    validateZip={this.props.validateZip} />
-                            </div>
-                        </div>
+                <hr className="location-picker-divider" />
+                <div className="location-item">
+                    <div className="geo-entity-item">
+                        <ZIPField
+                            generateDisclaimer={this.generateDisclaimer}
+                            isUSA={isUSA}
+                            zip={this.props.zip}
+                            validateZip={this.props.validateZip} />
+                    </div>
+                </div>
             </div>
         );
     }

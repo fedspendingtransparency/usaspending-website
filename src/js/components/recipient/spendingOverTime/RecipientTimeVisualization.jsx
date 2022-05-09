@@ -118,18 +118,18 @@ export default class RecipientTimeVisualization extends React.Component {
                         exit>
                         <>
                             {this.props.data.groups.length > 0 && !this.props.loading && !this.props.error && (
-                            <BarChartTrendline
-                                height={this.props.height}
-                                width={this.props.width}
-                                ySeries={this.props.data.ySeries}
-                                xSeries={this.props.data.xSeries}
-                                zSeries={this.props.data.zSeries}
-                                groups={this.props.data.groups}
-                                rawLabels={this.props.data.rawLabels}
-                                legend={legend}
-                                showTooltip={this.showTooltip}
-                                visualizationPeriod={this.props.visualizationPeriod}
-                                activeLabel={this.state.tooltipData} />
+                                <BarChartTrendline
+                                    height={this.props.height}
+                                    width={this.props.width}
+                                    ySeries={this.props.data.ySeries}
+                                    xSeries={this.props.data.xSeries}
+                                    zSeries={this.props.data.zSeries}
+                                    groups={this.props.data.groups}
+                                    rawLabels={this.props.data.rawLabels}
+                                    legend={legend}
+                                    showTooltip={this.showTooltip}
+                                    visualizationPeriod={this.props.visualizationPeriod}
+                                    activeLabel={this.state.tooltipData} />
                             )}
                             {this.props.data.groups.length === 0 && !this.props.loading && !this.props.error && <ChartNoResults />}
                             {this.props.error && <ChartError />}

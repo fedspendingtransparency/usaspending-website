@@ -77,11 +77,11 @@ export default class SankeyFlow extends React.Component {
             <g
                 transform="translate(-2,0)"
                 aria-label={this.props.description}>
-                    <desc>{this.props.description}</desc>
-                        <path
-                            className="flow-path"
-                            d={this.state.path}
-                            style={this.props.style} />
+                <desc>{this.props.description}</desc>
+                <path
+                    className="flow-path"
+                    d={this.state.path}
+                    style={this.props.style} />
             </g>
         );
     }

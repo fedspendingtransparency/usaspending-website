@@ -141,55 +141,55 @@ export default class DateRange extends React.Component {
                 <form
                     className="date-range-wrapper"
                     onSubmit={this.submitRange}>
-                        <DatePicker
-                            type="startDate"
-                            title="Start Date"
-                            onDateChange={this.props.onDateChange}
-                            value={this.props.startDate}
-                            opposite={this.props.endDate}
-                            showError={this.props.showError}
-                            hideError={this.props.hideError}
-                            disabledDays={startDateDisabledDays}
-                            ref={(component) => {
-                                this.startPicker = component;
-                            }}
-                            allowClearing />
-                                <DatePicker
-                                    type="endDate"
-                                    title="End Date"
-                                    onDateChange={this.props.onDateChange}
-                                    value={this.props.endDate}
-                                    opposite={this.props.startDate}
-                                    showError={this.props.showError}
-                                    hideError={this.props.hideError}
-                                    disabledDays={endDateDisabledDays}
-                                    ref={(component) => {
-                                        this.endPicker = component;
-                                    }}
-                                    allowClearing />
-                                        <IndividualSubmit
-                                            className="set-date-submit"
-                                            onClick={this.submitRange}
-                                            label="Filter by date range"
-                                            disabled={noDates}
-                                            accessibility={accessibility} />
+                    <DatePicker
+                        type="startDate"
+                        title="Start Date"
+                        onDateChange={this.props.onDateChange}
+                        value={this.props.startDate}
+                        opposite={this.props.endDate}
+                        showError={this.props.showError}
+                        hideError={this.props.hideError}
+                        disabledDays={startDateDisabledDays}
+                        ref={(component) => {
+                            this.startPicker = component;
+                        }}
+                        allowClearing />
+                    <DatePicker
+                        type="endDate"
+                        title="End Date"
+                        onDateChange={this.props.onDateChange}
+                        value={this.props.endDate}
+                        opposite={this.props.startDate}
+                        showError={this.props.showError}
+                        hideError={this.props.hideError}
+                        disabledDays={endDateDisabledDays}
+                        ref={(component) => {
+                            this.endPicker = component;
+                        }}
+                        allowClearing />
+                    <IndividualSubmit
+                        className="set-date-submit"
+                        onClick={this.submitRange}
+                        label="Filter by date range"
+                        disabled={noDates}
+                        accessibility={accessibility} />
                 </form>
-                    <div
-                        className={`selected-filters ${hideTags}`}
-                        id="selected-date-range"
-                        aria-hidden={noDates}
-                        role="status">
-                            <button
-                                className="shown-filter-button"
-                                title="Click to remove filter."
-                                aria-label={`Applied date range: ${dateLabel}`}
-                                onClick={this.removeRange}>
-                                {dateLabel}
-                                    <span className="close">
-                                        <FontAwesomeIcon icon="times" />
-                                    </span>
-                            </button>
-                    </div>
+                <div
+                    className={`selected-filters ${hideTags}`}
+                    id="selected-date-range"
+                    aria-hidden={noDates}
+                    role="status">
+                    <button
+                        className="shown-filter-button"
+                        title="Click to remove filter."
+                        aria-label={`Applied date range: ${dateLabel}`}
+                        onClick={this.removeRange}>
+                        {dateLabel}
+                        <span className="close">
+                            <FontAwesomeIcon icon="times" />
+                        </span>
+                    </button>
+                </div>
             </div>
         );
     }

@@ -177,11 +177,11 @@ export default class Award extends React.Component {
                         downloadInFlight={this.props.isDownloadPending}
                         onClick={this.props.downloadData} />
                 ]}>
-                    <LoadingWrapper isLoading={isLoading}>
-                        <main className={!this.props.noAward ? 'award-content' : ''}>
-                            {content}
-                        </main>
-                    </LoadingWrapper>
+                <LoadingWrapper isLoading={isLoading}>
+                    <main className={!this.props.noAward ? 'award-content' : ''}>
+                        {content}
+                    </main>
+                </LoadingWrapper>
             </PageWrapper>
         );
     }

@@ -57,47 +57,47 @@ export default class AccountTimeVisualizationSection extends React.Component {
             <div
                 className="results-visualization-time-section"
                 id="results-section-time">
-                    <h3>Spending Over Time</h3>
-                        <hr
-                            className="results-divider"
-                            ref={(hr) => {
-                                this.sectionHr = hr;
-                            }} />
+                <h3>Spending Over Time</h3>
+                <hr
+                    className="results-divider"
+                    ref={(hr) => {
+                        this.sectionHr = hr;
+                    }} />
 
-                                <div className="visualization-top">
-                                    <div className="visualization-description">
-                                        <div className="content">
+                <div className="visualization-top">
+                    <div className="visualization-description">
+                        <div className="content">
                             Spot trends in spending over your chosen time period. Filter your
                             results more (at left) and watch this graph update automatically. Break
                             down your results by years or quarters.
-                                        </div>
-                                    </div>
-                                        <div className="visualization-period">
-                                            <div className="content">
-                                                <ul>
-                                                    <li>
-                                                        <AccountTimeVisualizationPeriodButton
-                                                            value="year"
-                                                            label="Years"
-                                                            active={this.props.visualizationPeriod === 'year'}
-                                                            changePeriod={this.props.changePeriod} />
-                                                    </li>
-                                                        <li>
-                                                            <AccountTimeVisualizationPeriodButton
-                                                                value="quarter"
-                                                                label="Quarters"
-                                                                active={this.props.visualizationPeriod === 'quarter'}
-                                                                changePeriod={this.props.changePeriod} />
-                                                        </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                </div>
-                                    <TimeVisualization
-                                        loading={this.props.loading}
-                                        data={this.props.data}
-                                        width={this.state.visualizationWidth}
-                                        hasFilteredObligated={this.props.hasFilteredObligated} />
+                        </div>
+                    </div>
+                    <div className="visualization-period">
+                        <div className="content">
+                            <ul>
+                                <li>
+                                    <AccountTimeVisualizationPeriodButton
+                                        value="year"
+                                        label="Years"
+                                        active={this.props.visualizationPeriod === 'year'}
+                                        changePeriod={this.props.changePeriod} />
+                                </li>
+                                <li>
+                                    <AccountTimeVisualizationPeriodButton
+                                        value="quarter"
+                                        label="Quarters"
+                                        active={this.props.visualizationPeriod === 'quarter'}
+                                        changePeriod={this.props.changePeriod} />
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <TimeVisualization
+                    loading={this.props.loading}
+                    data={this.props.data}
+                    width={this.state.visualizationWidth}
+                    hasFilteredObligated={this.props.hasFilteredObligated} />
             </div>
         );
     }

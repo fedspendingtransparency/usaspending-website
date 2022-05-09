@@ -98,9 +98,9 @@ export default class RankVisualization extends React.Component {
             legend = (
                 <div className="visualization-legend">
                     <div className="visualization-legend__circle" />
-                        <div className="visualization-legend__label">
+                    <div className="visualization-legend__label">
                         Amount Obligated
-                        </div>
+                    </div>
                 </div>
             );
         }

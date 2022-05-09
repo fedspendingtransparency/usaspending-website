@@ -32,21 +32,21 @@ const GlossaryHeader = (props) => {
                     title="Close Glossary"
                     onClick={props.closeGlossary}
                     ref={closeButtonRef}>
-                        <Icons.Close alt="Close Glossary" />
+                    <Icons.Close alt="Close Glossary" />
                 </button>
             </div>
-                <h1
-                    id="glossary-title"
-                    className="glossary-title"
-                    tabIndex={-1}>
+            <h1
+                id="glossary-title"
+                className="glossary-title"
+                tabIndex={-1}>
                 Glossary
-                </h1>
+            </h1>
 
-                    <GlossarySearchBar {...props} />
+            <GlossarySearchBar {...props} />
 
-                        <div className="glossary-example">
+            <div className="glossary-example">
                 Example: &quot;Obligation&quot;
-                        </div>
+            </div>
         </div>
     );
 };

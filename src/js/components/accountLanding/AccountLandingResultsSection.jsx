@@ -28,27 +28,27 @@ export default class AccountLandingResultsSection extends React.Component {
             <div className="results-table-section" id="account-landing-results">
                 <TransitionGroup>
                     {(this.props.error || this.props.inFlight) && (
-                    <CSSTransition
-                        classNames="table-message-fade"
-                        timeout={{ exit: 225, enter: 195 }}
-                        exit>
+                        <CSSTransition
+                            classNames="table-message-fade"
+                            timeout={{ exit: 225, enter: 195 }}
+                            exit>
                             <>
                                 {this.props.error && (
-                                <div className="results-table-message-container full">
-                                    <ResultsTableErrorMessage />
-                                </div>
+                                    <div className="results-table-message-container full">
+                                        <ResultsTableErrorMessage />
+                                    </div>
                                 )}
                                 {this.props.inFlight && (
-                                <div className="results-table-message-container">
-                                    <ResultsTableLoadingMessage />
-                                </div>
+                                    <div className="results-table-message-container">
+                                        <ResultsTableLoadingMessage />
+                                    </div>
                                 )}
                             </>
-                    </CSSTransition>
+                        </CSSTransition>
                     )}
                 </TransitionGroup>
                 {!this.props.inFlight && !this.props.error && (
-                <AccountLandingTable {...this.props} />
+                    <AccountLandingTable {...this.props} />
                 )}
             </div>
         );

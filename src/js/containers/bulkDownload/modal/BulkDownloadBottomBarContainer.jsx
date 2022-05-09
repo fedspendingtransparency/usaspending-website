@@ -192,10 +192,10 @@ will no longer download to your computer. Are you sure you want to do this?`;
         return (
             <TransitionGroup>
                 {this.state.visible && (
-                <CSSTransition
-                    classNames="download-slide"
-                    timeout={500}
-                    exit>
+                    <CSSTransition
+                        classNames="download-slide"
+                        timeout={500}
+                        exit>
                         <DownloadBottomBar
                             {...this.props}
                             download={this.props.bulkDownload.download}
@@ -203,7 +203,7 @@ will no longer download to your computer. Are you sure you want to do this?`;
                             showSuccess={this.state.showSuccess}
                             title={this.state.title}
                             description={this.state.description} />
-                </CSSTransition>
+                    </CSSTransition>
                 )}
             </TransitionGroup>
         );

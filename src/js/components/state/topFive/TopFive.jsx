@@ -50,31 +50,31 @@ const TopFive = (props) => {
                     className="category-table__title-icon"
                     src={`img/state-categories/${props.category}.png`}
                     alt="" />
-                        <div className="category-table__title-name">
-                            {categoryTitles[props.category]}
-                        </div>
+                <div className="category-table__title-name">
+                    {categoryTitles[props.category]}
+                </div>
             </div>
-                <table className="category-table__table">
-                    <thead
-                        className="category-table__table-head">
-                            <tr
-                                className="category-table__table-head-row">
-                                    <th className="category-table__table-head-cell">
+            <table className="category-table__table">
+                <thead
+                    className="category-table__table-head">
+                    <tr
+                        className="category-table__table-head-row">
+                        <th className="category-table__table-head-cell">
                             Name
-                                    </th>
-                                        <th className="category-table__table-head-cell category-table__table-head-cell_centered">
+                        </th>
+                        <th className="category-table__table-head-cell category-table__table-head-cell_centered">
                             Awarded Amount
-                                        </th>
-                                            <th className="category-table__table-head-cell category-table__table-head-cell_centered">
+                        </th>
+                        <th className="category-table__table-head-cell category-table__table-head-cell_centered">
                             % of Total
-                                            </th>
-                            </tr>
-                    </thead>
-                        <tbody
-                            className={`category-table__table-body ${hideBody}`}>
-                            {rows}
-                        </tbody>
-                </table>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody
+                    className={`category-table__table-body ${hideBody}`}>
+                    {rows}
+                </tbody>
+            </table>
             {message}
         </div>
     );

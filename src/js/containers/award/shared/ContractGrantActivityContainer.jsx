@@ -269,23 +269,23 @@ const ContractGrantActivityContainer = ({
                     <div className="award-viz__icon">
                         <FontAwesomeIcon size="lg" icon="chart-area" />
                     </div>
-                        <h3 className="award-viz__title">{title()}</h3>
-                            <TooltipWrapper
-                                className="award-section-tt"
-                                icon="info"
-                                wide
-                                tooltipComponent={tooltipInfo()}
-                                tooltipPosition="right" />
+                    <h3 className="award-viz__title">{title()}</h3>
+                    <TooltipWrapper
+                        className="award-section-tt"
+                        icon="info"
+                        wide
+                        tooltipComponent={tooltipInfo()}
+                        tooltipPosition="right" />
                 </div>
-                    <hr />
-                        <div className="results-table-message-container">
-                            {message()}
-                        </div>
+                <hr />
+                <div className="results-table-message-container">
+                    {message()}
+                </div>
                 {content()}
-                    <JumpToSectionButton
-                        linkText="View transactions table"
-                        icon="table"
-                        onClick={jumpToTransactionHistoryTable} />
+                <JumpToSectionButton
+                    linkText="View transactions table"
+                    icon="table"
+                    onClick={jumpToTransactionHistoryTable} />
             </div>
         </div>
     );

@@ -54,24 +54,24 @@ export default class TimeVisualizationTooltip extends React.Component {
                     ref={(div) => {
                         this.div = div;
                     }}>
-                        <div
-                            className="tooltip-pointer"
-                            ref={(div) => {
-                                this.pointerDiv = div;
-                            }} />
-                                <div className="tooltip-title">
-                                    {this.props.data.xValue}
-                                </div>
-                                    <div className="tooltip-body">
-                                        <div className="tooltip-full">
-                                            <div className="tooltip-value">
-                                                {dollarValue}
-                                            </div>
-                                                <div className="tooltip-label">
+                    <div
+                        className="tooltip-pointer"
+                        ref={(div) => {
+                            this.pointerDiv = div;
+                        }} />
+                    <div className="tooltip-title">
+                        {this.props.data.xValue}
+                    </div>
+                    <div className="tooltip-body">
+                        <div className="tooltip-full">
+                            <div className="tooltip-value">
+                                {dollarValue}
+                            </div>
+                            <div className="tooltip-label">
                                 Total Obligations in {this.props.data.xValue}
-                                                </div>
-                                        </div>
-                                    </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         );

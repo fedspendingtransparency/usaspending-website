@@ -79,13 +79,13 @@ export default class ResultsTableTabItem extends React.Component {
                     aria-label={`Show ${this.props.label} - ${this.props.count} ${resultString}`}
                     tabIndex={0}
                     disabled={disabledStatus}>
-                        <div className="tab-content">
-                            <div className="tab-label">
-                                {this.props.label}
-                            </div>
-                            {count}
-                            {this.props.tooltip}
+                    <div className="tab-content">
+                        <div className="tab-label">
+                            {this.props.label}
                         </div>
+                        {count}
+                        {this.props.tooltip}
+                    </div>
                 </div>
             </div>
         );

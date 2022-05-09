@@ -38,12 +38,12 @@ const VisualizationTabItem = (props) => {
                 title={props.label}
                 onClick={clickedTab}
                 disabled={props.disabled}>
-                    <div className="icon">
-                        <Icon alt={props.label} />
-                    </div>
-                        <div className="label">
-                            {props.label}
-                        </div>
+                <div className="icon">
+                    <Icon alt={props.label} />
+                </div>
+                <div className="label">
+                    {props.label}
+                </div>
             </button>
         </li>
     );

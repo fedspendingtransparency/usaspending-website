@@ -24,24 +24,24 @@ const triangleX = Math.sqrt(100 - 25);
 const OutlayLine = (props) => (
     <g
         transform={`translate(${props.x},${props.y})`}>
-            <desc>
-                {`${props.description} in ${props.xValue}: ${MoneyFormatter.formatMoney(props.value)}`}
-            </desc>
-                <line
-                    className="outlay-line"
-                    x1={0}
-                    x2={props.width}
-                    y1={0}
-                    y2={0}
-                    strokeWidth={2}
-                    stroke={props.color} />
-                        <g
-                            transform={`translate(${props.width + 5},0)`}>
-                                <polygon
-                                    className="outlay-triangle"
-                                    fill={props.color}
-                                    points={`0,0 ${triangleX},-5 ${triangleX},5`} />
-                        </g>
+        <desc>
+            {`${props.description} in ${props.xValue}: ${MoneyFormatter.formatMoney(props.value)}`}
+        </desc>
+        <line
+            className="outlay-line"
+            x1={0}
+            x2={props.width}
+            y1={0}
+            y2={0}
+            strokeWidth={2}
+            stroke={props.color} />
+        <g
+            transform={`translate(${props.width + 5},0)`}>
+            <polygon
+                className="outlay-triangle"
+                fill={props.color}
+                points={`0,0 ${triangleX},-5 ${triangleX},5`} />
+        </g>
 
     </g>
 );

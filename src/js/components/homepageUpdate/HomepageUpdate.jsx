@@ -32,13 +32,13 @@ const HomepageUpdate = () => {
             classNames="usa-da-home-page"
             noHeader
             metaTagProps={{ ...homePageMetaTags }}>
-                <main id="main-content" className="main-content homepage-content">
-                    <Hero />
-                        <HomepageCovidContainer />
-                            <GettingStarted />
-                                <Download />
-                                    <Community />
-                </main>
+            <main id="main-content" className="main-content homepage-content">
+                <Hero />
+                <HomepageCovidContainer />
+                <GettingStarted />
+                <Download />
+                <Community />
+            </main>
         </PageWrapper>}
     </>);
 };

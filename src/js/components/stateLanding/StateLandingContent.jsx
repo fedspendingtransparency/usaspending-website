@@ -22,11 +22,11 @@ export default class StateLandingContent extends React.Component {
                     onSubmit={this.props.setSearchString}
                     placeholder="Search by State / Territory Name or Abbreviation"
                     buttonAltText="Search States" />
-                        <div className="results-count">
-                            {this.props.resultsText}
-                        </div>
-                            <StateLandingTable
-                                {...this.props} />
+                <div className="results-count">
+                    {this.props.resultsText}
+                </div>
+                <StateLandingTable
+                    {...this.props} />
             </div>
         );
     }

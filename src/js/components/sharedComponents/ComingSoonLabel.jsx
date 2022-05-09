@@ -14,7 +14,7 @@ export default class comingSoonLabel extends React.Component {
                 <div className="coming-soon-icon">
                     <Icons.ExclamationCircle />
                 </div>
-                    <span className="coming-soon-label">Coming Soon</span>
+                <span className="coming-soon-label">Coming Soon</span>
             </div>
         );
     }

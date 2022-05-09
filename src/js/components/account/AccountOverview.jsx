@@ -161,25 +161,25 @@ ${authority} has been obligated.`;
         return (
             <div className="account-overview">
                 <h2 className="account-overview__title">{this.props.account.title}</h2>
-                    <hr className="results-divider" />
-                        <div className="account-overview__content">
-                            <div className="account-overview__heading">Fiscal Year Summary</div>
-                                <p>{this.state.summary.flow}</p>
-                                    <p>{this.state.summary.toDate}</p>
-                        </div>
-                            <h3>FY {this.props.currentFiscalYear ? `${this.props.currentFiscalYear} Snapshot` : ''}</h3>
-                                <hr
-                                    className="results-divider"
-                                    ref={(div) => {
-                                        this.sankeyHr = div;
-                                    }} />
-                                        <div className="sankey-wrapper">
-                                            <SankeyVisualization
-                                                fyAvailable={this.state.fyAvailable}
-                                                amounts={this.state.amounts}
-                                                width={this.state.visualizationWidth}
-                                                height={this.state.visualizationHeight + 40} />
-                                        </div>
+                <hr className="results-divider" />
+                <div className="account-overview__content">
+                    <div className="account-overview__heading">Fiscal Year Summary</div>
+                    <p>{this.state.summary.flow}</p>
+                    <p>{this.state.summary.toDate}</p>
+                </div>
+                <h3>FY {this.props.currentFiscalYear ? `${this.props.currentFiscalYear} Snapshot` : ''}</h3>
+                <hr
+                    className="results-divider"
+                    ref={(div) => {
+                        this.sankeyHr = div;
+                    }} />
+                <div className="sankey-wrapper">
+                    <SankeyVisualization
+                        fyAvailable={this.state.fyAvailable}
+                        amounts={this.state.amounts}
+                        width={this.state.visualizationWidth}
+                        height={this.state.visualizationHeight + 40} />
+                </div>
             </div>
         );
     }

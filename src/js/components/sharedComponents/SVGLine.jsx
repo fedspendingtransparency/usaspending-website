@@ -243,23 +243,23 @@ export default class SVGLine extends Component {
             return (
                 <g
                     key={`containerForText${i}`}>
-                        <rect
-                            className="rectangle-background"
-                            width={this.state[`${stateName}Width`]}
-                            height={15.5}
-                            x={this.state[`${stateName}TextX`]}
-                            y={this.props.textY - 11} />
-                                <text
-                                    tabIndex="0"
-                                    className={classname}
-                                    x={this.state[`${stateName}TextX`]}
-                                    y={this.state[`${stateName}TextY`]}
-                                    ref={this[`setTextDiv${stateName}`]}
-                                    data-wordindex={i}
-                                    onMouseMove={this.onMouseMoveText}
-                                    onMouseLeave={this.onMouseLeaveText}>
-                                    {data}
-                                </text>
+                    <rect
+                        className="rectangle-background"
+                        width={this.state[`${stateName}Width`]}
+                        height={15.5}
+                        x={this.state[`${stateName}TextX`]}
+                        y={this.props.textY - 11} />
+                    <text
+                        tabIndex="0"
+                        className={classname}
+                        x={this.state[`${stateName}TextX`]}
+                        y={this.state[`${stateName}TextY`]}
+                        ref={this[`setTextDiv${stateName}`]}
+                        data-wordindex={i}
+                        onMouseMove={this.onMouseMoveText}
+                        onMouseLeave={this.onMouseLeaveText}>
+                        {data}
+                    </text>
                 </g>
             );
         });

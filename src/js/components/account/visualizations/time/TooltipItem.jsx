@@ -17,9 +17,9 @@ const TooltipItem = (props) => (
             <div className="item-value">
                 {props.value}
             </div>
-                <div className="item-label">
-                    {props.label}
-                </div>
+            <div className="item-label">
+                {props.label}
+            </div>
         </div>
     </li>
 );

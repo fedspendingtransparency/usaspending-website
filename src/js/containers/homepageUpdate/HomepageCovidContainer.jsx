@@ -81,9 +81,9 @@ const HomepageCovidContainer = () => {
             <p>
             Our <span>COVID-19</span> profile page helps you track <span>COVID-19</span> spending by who is receiving funding, which agencies have paid out funds, which programs were funded, and more.
             </p>
-                <p>
+            <p>
             All <span>COVID-19</span> spending data is available for download on the profile page with one click. You can also read about our datasets and calculations on the <Link to="/disaster/covid-19/data-sources">Data Sources & Methodology page</Link>.
-                </p>
+            </p>
         </div>);
     const trackCardLink = (
         <Link
@@ -118,48 +118,48 @@ const HomepageCovidContainer = () => {
         <section
             className="homepage-covid"
             aria-label="HomepageCovidContainer sections">
-                <FlexGridRow
-                    className="grid-content">
-                        <FlexGridCol width={12} desktop={6} className="homepage-covid__column-one">
-                            <div className="homepage-covid__column-one-content-wrapper">
-                                <div className="homepage-covid__heading">
+            <FlexGridRow
+                className="grid-content">
+                <FlexGridCol width={12} desktop={6} className="homepage-covid__column-one">
+                    <div className="homepage-covid__column-one-content-wrapper">
+                        <div className="homepage-covid__heading">
                             The Federal Response to <span>COVID-19</span>
-                                </div>
-                                    <div className="homepage-covid__content">
+                        </div>
+                        <div className="homepage-covid__content">
                             The federal government has spent{' '}
-                                        {isAmountLoading && <div className="dot-pulse" />}
-                                            <TotalAmount
-                                                completeIncrement={completeIncrementAndTriggerScroll}
-                                                className={`covid-hero__headline--amount${isAmountLoading ? '' : ' show-amount'}`}
-                                                total={totalSpendingAmount}
-                                                isLoading={isAmountLoading} />
-                                        {' '}in response to <span>COVID-19</span>.
-                                    </div>
-                                        <div className="homepage-covid__image-wrapper">
-                                            <picture>
-                                                <img
-                                                    role="presentation"
-                                                    src="../../../img/homepage-covid-official-spending-data.svg"
-                                                    alt="" />
-                                            </picture>
-                                        </div>
-                            </div>
-                        </FlexGridCol>
-                            <FlexGridCol width={12} desktop={6} className="homepage-covid__column-two">
-                                <div className="homepage-covid__column-two-content-wrapper">
-                                    <Card
-                                        icon={searchCardIcon}
-                                        heading={searchCardHeading}
-                                        content={searchCardContent}
-                                        link={searchCardLink} />
-                                            <Card
-                                                icon={trackCardIcon}
-                                                heading={trackCardHeading}
-                                                content={trackCardContent}
-                                                link={trackCardLink} />
-                                </div>
-                            </FlexGridCol>
-                </FlexGridRow>
+                            {isAmountLoading && <div className="dot-pulse" />}
+                            <TotalAmount
+                                completeIncrement={completeIncrementAndTriggerScroll}
+                                className={`covid-hero__headline--amount${isAmountLoading ? '' : ' show-amount'}`}
+                                total={totalSpendingAmount}
+                                isLoading={isAmountLoading} />
+                            {' '}in response to <span>COVID-19</span>.
+                        </div>
+                        <div className="homepage-covid__image-wrapper">
+                            <picture>
+                                <img
+                                    role="presentation"
+                                    src="../../../img/homepage-covid-official-spending-data.svg"
+                                    alt="" />
+                            </picture>
+                        </div>
+                    </div>
+                </FlexGridCol>
+                <FlexGridCol width={12} desktop={6} className="homepage-covid__column-two">
+                    <div className="homepage-covid__column-two-content-wrapper">
+                        <Card
+                            icon={searchCardIcon}
+                            heading={searchCardHeading}
+                            content={searchCardContent}
+                            link={searchCardLink} />
+                        <Card
+                            icon={trackCardIcon}
+                            heading={trackCardHeading}
+                            content={trackCardContent}
+                            link={trackCardLink} />
+                    </div>
+                </FlexGridCol>
+            </FlexGridRow>
         </section>
     );
 };

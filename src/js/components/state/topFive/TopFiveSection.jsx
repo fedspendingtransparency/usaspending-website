@@ -65,21 +65,21 @@ export default class TopFiveSection extends React.Component {
             <div
                 className="state-section topfive"
                 id="state-top-five">
-                    <h3
-                        className="state-section__title">
+                <h3
+                    className="state-section__title">
                     Top 5
-                    </h3>
-                        <hr className="results-divider" />
-                            <div className="state-section__description">
+                </h3>
+                <hr className="results-divider" />
+                <div className="state-section__description">
                     The set of tables below provide a summary of federal spending in this state through multiple angles. The initial view includes all awards types, but you can also view individual award type amounts. To see more than the top 5, you can launch directly to our Advanced Search page.
-                            </div>
-                                <Tabs
-                                    types={tabTypes}
-                                    active={this.state.active}
-                                    switchTab={this.switchTab} />
-                                        <div className="topfive__content">
-                                            {content}
-                                        </div>
+                </div>
+                <Tabs
+                    types={tabTypes}
+                    active={this.state.active}
+                    switchTab={this.switchTab} />
+                <div className="topfive__content">
+                    {content}
+                </div>
             </div>
         );
     }

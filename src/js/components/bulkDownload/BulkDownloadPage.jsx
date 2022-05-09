@@ -107,21 +107,21 @@ export default class BulkDownloadPage extends React.Component {
                 classNames="usa-da-bulk-download-page"
                 title="Download Center"
                 metaTagProps={this.props.dataType in metaTagsByDataType ? metaTagsByDataType[this.props.dataType] : {}}>
-                    <main id="main-content">
-                        <div className="bulk-download">
-                            <div className="bulk-download__sidebar">
-                                <BulkDownloadSidebar
-                                    dataTypes={this.props.dataTypes}
-                                    active={this.props.dataType} />
-                            </div>
-                                <div className="bulk-download__data">
-                                    {downloadDataContent}
-                                </div>
-                                    <BulkDownloadModalContainer
-                                        mounted={this.state.showModal}
-                                        hideModal={this.hideModal} />
+                <main id="main-content">
+                    <div className="bulk-download">
+                        <div className="bulk-download__sidebar">
+                            <BulkDownloadSidebar
+                                dataTypes={this.props.dataTypes}
+                                active={this.props.dataType} />
                         </div>
-                    </main>
+                        <div className="bulk-download__data">
+                            {downloadDataContent}
+                        </div>
+                        <BulkDownloadModalContainer
+                            mounted={this.state.showModal}
+                            hideModal={this.hideModal} />
+                    </div>
+                </main>
             </PageWrapper>
         );
     }

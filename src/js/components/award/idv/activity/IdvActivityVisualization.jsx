@@ -161,9 +161,9 @@ export default class IdvActivityVisualization extends React.Component {
         const resultsText = (
             <div className="pagination__totals">
                 Displaying award orders{" "}
-                    <span className="current-page-numbers">
-                        {start}-{end}
-                    </span>{" "}
+                <span className="current-page-numbers">
+                    {start}-{end}
+                </span>{" "}
                 of {formatNumberWithPrecision(this.props.total, 0)}
             </div>
         );
@@ -173,45 +173,45 @@ export default class IdvActivityVisualization extends React.Component {
                     this.sectionRef = widthRef;
                 }}
                 className="activity-visualization">
-                    <div className="activity-visualization-title">Award Amounts and Periods of Performance of Award Orders</div>
+                <div className="activity-visualization-title">Award Amounts and Periods of Performance of Award Orders</div>
                 {chart}
                 {tt}
-                    <div className="activity-x-label">Period of Performance</div>
-                        <div className="visualization-legend">
-                            <div className="visualization-legend__item">
-                                <div
-                                    className="visualization-legend__circle
+                <div className="activity-x-label">Period of Performance</div>
+                <div className="visualization-legend">
+                    <div className="visualization-legend__item">
+                        <div
+                            className="visualization-legend__circle
                             visualization-legend__circle_obligated" />
-                                <div className="visualization-legend__label">% Obligated of Potential Award Amount</div>
-                            </div>
-                                <div className="visualization-legend__item">
-                                    <div className="visualization-legend__circle visualization-legend__circle" />
-                                        <div className="visualization-legend__label">% of Potential Funding Remaining</div>
-                                </div>
-                            {this.state.isOverspent && (
-                            <div className="visualization-legend__item">
-                                <div
-                                    className="visualization-legend__circle
+                        <div className="visualization-legend__label">% Obligated of Potential Award Amount</div>
+                    </div>
+                    <div className="visualization-legend__item">
+                        <div className="visualization-legend__circle visualization-legend__circle" />
+                        <div className="visualization-legend__label">% of Potential Funding Remaining</div>
+                    </div>
+                    {this.state.isOverspent && (
+                        <div className="visualization-legend__item">
+                            <div
+                                className="visualization-legend__circle
                                 visualization-legend__circle_overspent" />
-                                    <div className="visualization-legend__label">Over Obligated</div>
-                            </div>
-                            )}
+                            <div className="visualization-legend__label">Over Obligated</div>
                         </div>
-                            <Pagination
-                                changePage={this.props.changePage}
-                                currentPage={this.props.page}
-                                totalItems={this.props.total}
-                                pageSize={this.props.limit}
-                                resultsText={resultsText} />
-                                    <DefaultPicker
-                                        prepend="Show"
-                                        append="per page"
-                                        menuData={menuData}
-                                        defaultSelection={this.props.limit}
-                                        selectedItemFunc={this.props.selectedItemFunc} />
-                                            <div className="activity-visualization-note">
-                                                <Note message={message} />
-                                            </div>
+                    )}
+                </div>
+                <Pagination
+                    changePage={this.props.changePage}
+                    currentPage={this.props.page}
+                    totalItems={this.props.total}
+                    pageSize={this.props.limit}
+                    resultsText={resultsText} />
+                <DefaultPicker
+                    prepend="Show"
+                    append="per page"
+                    menuData={menuData}
+                    defaultSelection={this.props.limit}
+                    selectedItemFunc={this.props.selectedItemFunc} />
+                <div className="activity-visualization-note">
+                    <Note message={message} />
+                </div>
             </div>
         );
     }

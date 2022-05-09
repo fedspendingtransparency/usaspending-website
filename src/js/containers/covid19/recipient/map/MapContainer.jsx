@@ -394,12 +394,12 @@ export class MapContainer extends React.Component {
                         <div className="error-icon">
                             <FontAwesomeIcon icon="exclamation-triangle" />
                         </div>
-                            <div className="title">
+                        <div className="title">
                             An error occurred.
-                            </div>
-                                <div className="description">
-                                    {this.state.error.message}
-                                </div>
+                        </div>
+                        <div className="description">
+                            {this.state.error.message}
+                        </div>
                     </div>
                 </MapMessage>
             );
@@ -409,9 +409,9 @@ export class MapContainer extends React.Component {
                 <MapMessage>
                     <div className="map-no-results">
                         <div className="no-results-icon" />
-                            <div className="title">
+                        <div className="title">
                             No results found in the current map area.
-                            </div>
+                        </div>
                     </div>
                 </MapMessage>
             );
@@ -422,29 +422,29 @@ export class MapContainer extends React.Component {
                 className="results-visualization-geo-section"
                 id="results-section-geo"
                 aria-label="Spending by Geography">
-                    <Tabs
-                        active={this.state.activeFilters.awardType}
-                        types={this.getAwardTypeFilterTabs()}
-                        switchTab={this.updateAwardTypeFilter}
-                        tablessStyle />
-                            <SummaryInsightsContainer activeFilter={this.state.activeFilters.awardType} />
-                                <MapWrapper
-                                    isMapLoaded={this.props.isMapLoaded}
-                                    onMapLoaded={this.props.onMapLoaded}
-                                    data={this.state.data}
-                                    scope={this.state.scope}
-                                    renderHash={this.state.renderHash}
-                                    awardTypeFilters={awardTypeTabs}
-                                    showHover={this.state.showHover}
-                                    activeFilters={this.state.activeFilters}
-                                    filters={this.addOnClickToFilters()}
-                                    selectedItem={this.state.selectedItem}
-                                    showTooltip={this.showTooltip}
-                                    hideTooltip={this.hideTooltip}
-                                    tooltip={RecipientMapTooltip}
-                                    center={centerOfMap}>
-                                    {message}
-                                </MapWrapper>
+                <Tabs
+                    active={this.state.activeFilters.awardType}
+                    types={this.getAwardTypeFilterTabs()}
+                    switchTab={this.updateAwardTypeFilter}
+                    tablessStyle />
+                <SummaryInsightsContainer activeFilter={this.state.activeFilters.awardType} />
+                <MapWrapper
+                    isMapLoaded={this.props.isMapLoaded}
+                    onMapLoaded={this.props.onMapLoaded}
+                    data={this.state.data}
+                    scope={this.state.scope}
+                    renderHash={this.state.renderHash}
+                    awardTypeFilters={awardTypeTabs}
+                    showHover={this.state.showHover}
+                    activeFilters={this.state.activeFilters}
+                    filters={this.addOnClickToFilters()}
+                    selectedItem={this.state.selectedItem}
+                    showTooltip={this.showTooltip}
+                    hideTooltip={this.hideTooltip}
+                    tooltip={RecipientMapTooltip}
+                    center={centerOfMap}>
+                    {message}
+                </MapWrapper>
             </div>
         );
     }

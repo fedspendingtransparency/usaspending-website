@@ -43,20 +43,20 @@ const AgencyOverview = ({ fy, dataThroughDate }) => {
     const missionBlock = (
         <div className="agency-overview__data">
             <h4>Agency Mission</h4>
-                <p>{mission || '--'}</p>
+            <p>{mission || '--'}</p>
         </div>
     );
 
     const aboutBlock = (
         <div className="agency-overview__data">
             <h4>About this Agency&apos;s Data</h4>
-                <p>
+            <p>
                 There is a 90 day delay in displaying contract award data, subcontract data,
                 and Account Breakdown by Award (File C) data for the Department of Defense (DOD).
                 For more information, visit our <Link to="/about?section=data-quality">About Page</Link>.
                 To see a complete list of this agency&apos;s submissions, visit our&nbsp;
-                    <Link to="/submission-statistics/agency/097">Submission Statistics page</Link>.
-                </p>
+                <Link to="/submission-statistics/agency/097">Submission Statistics page</Link>.
+            </p>
         </div>
     );
 
@@ -82,11 +82,11 @@ const AgencyOverview = ({ fy, dataThroughDate }) => {
     const content = isMobile ?
         <>
             {showAboutData ? aboutBlock : missionBlock}
-                <ReadMore>
-                    {showAboutData && missionBlock}
-                    {websiteBlock}
-                    {cjBlock}
-                </ReadMore>
+            <ReadMore>
+                {showAboutData && missionBlock}
+                {websiteBlock}
+                {cjBlock}
+            </ReadMore>
         </>
         :
         <>
@@ -95,17 +95,17 @@ const AgencyOverview = ({ fy, dataThroughDate }) => {
                     {showAboutData && aboutBlock}
                     {missionBlock}
                 </FlexGridCol>
-                    <FlexGridCol width={4}>
-                        {websiteBlock}
-                        {cjBlock}
-                    </FlexGridCol>
+                <FlexGridCol width={4}>
+                    {websiteBlock}
+                    {cjBlock}
+                </FlexGridCol>
             </FlexGridRow>
         </>;
 
     return (
         <div className="body__content agency-overview">
             {content}
-                <FySummary fy={fy} dataThroughDate={dataThroughDate} windowWidth={windowWidth} isMobile={isMobile} />
+            <FySummary fy={fy} dataThroughDate={dataThroughDate} windowWidth={windowWidth} isMobile={isMobile} />
         </div>
     );
 };

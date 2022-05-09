@@ -22,7 +22,7 @@ export default class Error extends React.Component {
             <main className="main-content" id="main-content">
                 <div className="error-container">
                     <h4>{this.props.title}</h4>
-                        <p>{this.props.message}</p>
+                    <p>{this.props.message}</p>
                 </div>
             </main>
         );

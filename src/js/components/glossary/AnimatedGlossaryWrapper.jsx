@@ -19,12 +19,12 @@ export default class AnimatedGlossaryWrapper extends React.Component {
             <div className="usa-da-glossary-animations">
                 <TransitionGroup>
                     {this.props.glossary.display && (
-                    <CSSTransition
-                        classNames="glossary-slide"
-                        timeout={500}
-                        exit>
+                        <CSSTransition
+                            classNames="glossary-slide"
+                            timeout={500}
+                            exit>
                             <Glossary {...this.props} />
-                    </CSSTransition>
+                        </CSSTransition>
                     )}
                 </TransitionGroup>
             </div>

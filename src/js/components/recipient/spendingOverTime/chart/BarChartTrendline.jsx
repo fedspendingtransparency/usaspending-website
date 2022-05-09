@@ -609,8 +609,8 @@ export default class BarChartTrendline extends React.Component {
                         <g
                             aria-label={description}
                             key={`line-${point.key}`}>
-                                <desc>{description}</desc>
-                                    <line x1={point.x} y1={point.y} x2={nextPoint.x} y2={nextPoint.y} style={style} />
+                            <desc>{description}</desc>
+                            <line x1={point.x} y1={point.y} x2={nextPoint.x} y2={nextPoint.y} style={style} />
                         </g>
                     );
                 }
@@ -623,64 +623,64 @@ export default class BarChartTrendline extends React.Component {
                 ref={(div) => {
                     this.divRef = div;
                 }}>
-                    <svg
-                        className="bar-graph"
-                        width={this.props.width}
-                        height={this.props.height + 20}
-                        ref={(svg) => {
-                            this.svgRef = svg;
-                        }}>
-                            <g className="bar-graph-body" transform="translate(0,20)">
-                                <BarYAxis
-                                    height={this.props.height - this.props.padding.bottom}
-                                    width={this.props.width - this.props.padding.left - this.props.padding.right}
-                                    padding={this.props.padding}
-                                    data={this.state.yValues}
-                                    scale={this.state.yScale}
-                                    ticks={this.state.yTicks}
-                                    average={this.state.yAverage} />
+                <svg
+                    className="bar-graph"
+                    width={this.props.width}
+                    height={this.props.height + 20}
+                    ref={(svg) => {
+                        this.svgRef = svg;
+                    }}>
+                    <g className="bar-graph-body" transform="translate(0,20)">
+                        <BarYAxis
+                            height={this.props.height - this.props.padding.bottom}
+                            width={this.props.width - this.props.padding.left - this.props.padding.right}
+                            padding={this.props.padding}
+                            data={this.state.yValues}
+                            scale={this.state.yScale}
+                            ticks={this.state.yTicks}
+                            average={this.state.yAverage} />
 
-                                        <BarXAxis
-                                            top={this.props.height - this.props.padding.bottom}
-                                            width={this.props.width - this.props.padding.left - this.props.padding.right}
-                                            padding={this.props.padding}
-                                            data={this.state.xValues}
-                                            rawLabels={this.state.rawLabels}
-                                            scale={this.state.xScale}
-                                            axisPos={this.state.xAxisPos}
-                                            visualizationPeriod={this.props.visualizationPeriod} />
+                        <BarXAxis
+                            top={this.props.height - this.props.padding.bottom}
+                            width={this.props.width - this.props.padding.left - this.props.padding.right}
+                            padding={this.props.padding}
+                            data={this.state.xValues}
+                            rawLabels={this.state.rawLabels}
+                            scale={this.state.xScale}
+                            axisPos={this.state.xAxisPos}
+                            visualizationPeriod={this.props.visualizationPeriod} />
 
-                                                <BarTrendlineAxis
-                                                    height={this.props.height - this.props.padding.bottom}
-                                                    width={this.props.width - this.props.padding.left - this.props.padding.right}
-                                                    padding={this.props.padding}
-                                                    data={this.state.zValues}
-                                                    scale={this.state.zScale}
-                                                    ticks={this.state.zTicks}
-                                                    average={this.state.zAverage} />
+                        <BarTrendlineAxis
+                            height={this.props.height - this.props.padding.bottom}
+                            width={this.props.width - this.props.padding.left - this.props.padding.right}
+                            padding={this.props.padding}
+                            data={this.state.zValues}
+                            scale={this.state.zScale}
+                            ticks={this.state.zTicks}
+                            average={this.state.zAverage} />
 
-                                                        <g
-                                                            className="bar-data"
-                                                            transform={`translate(${this.props.padding.left},0)`}>
-                                                            {bars}
-                                                        </g>
+                        <g
+                            className="bar-data"
+                            transform={`translate(${this.props.padding.left},0)`}>
+                            {bars}
+                        </g>
 
-                                                            <g
-                                                                className="trendline-data"
-                                                                transform={`translate(${this.props.padding.left},0)`}>
-                                                                {lines}
-                                                                {points}
-                                                            </g>
+                        <g
+                            className="trendline-data"
+                            transform={`translate(${this.props.padding.left},0)`}>
+                            {lines}
+                            {points}
+                        </g>
 
-                                                                <g
-                                                                    className="legend-container"
-                                                                    transform={`translate(
+                        <g
+                            className="legend-container"
+                            transform={`translate(
                                 ${this.props.padding.left},
                                 ${this.props.height - 20})`}>
-                                    <BarChartTrendlineLegend legend={this.props.legend} />
-                                                                </g>
-                            </g>
-                    </svg>
+                            <BarChartTrendlineLegend legend={this.props.legend} />
+                        </g>
+                    </g>
+                </svg>
             </div>
         );
     }

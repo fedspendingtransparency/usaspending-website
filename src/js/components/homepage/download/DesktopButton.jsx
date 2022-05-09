@@ -66,11 +66,11 @@ export default class DesktopButton extends React.Component {
                 onMouseOver={this.onHover}
                 onFocus={this.onHover}
                 onKeyDown={this.pressedEsc}>
-                    <div className={`homepage-download__icon homepage-download__icon_type_${this.props.code}${iconActive}`} />
-                        <div className="homepage-download__button-label">
-                            {this.props.label}
-                            {comingSoon}
-                        </div>
+                <div className={`homepage-download__icon homepage-download__icon_type_${this.props.code}${iconActive}`} />
+                <div className="homepage-download__button-label">
+                    {this.props.label}
+                    {comingSoon}
+                </div>
             </button>
         );
     }

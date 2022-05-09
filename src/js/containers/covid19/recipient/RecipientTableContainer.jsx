@@ -48,7 +48,7 @@ const columns = [
         displayName: (
             <div className="table-header-label__title">
                 <div>Number</div>
-                    <div>of Awards</div>
+                <div>of Awards</div>
             </div>
         ),
         right: true
@@ -65,7 +65,7 @@ const loanColumns = [
         displayName: (
             <div className="table-header-label__title">
                 <div>Award Obligations</div>
-                    <div>(Loan Subsidy Cost)</div>
+                <div>(Loan Subsidy Cost)</div>
             </div>
         ),
         right: true
@@ -75,7 +75,7 @@ const loanColumns = [
         displayName: (
             <div className="table-header-label__title">
                 <div>Award Outlays</div>
-                    <div>(Loan Subsidy Cost)</div>
+                <div>(Loan Subsidy Cost)</div>
             </div>
         ),
         right: true
@@ -85,7 +85,7 @@ const loanColumns = [
         displayName: (
             <div className="table-header-label__title">
                 <div>Face Value</div>
-                    <div>of Loans</div>
+                <div>of Loans</div>
             </div>
         ),
         right: true
@@ -95,7 +95,7 @@ const loanColumns = [
         displayName: (
             <div className="table-header-label__title">
                 <div>Number</div>
-                    <div>of Awards</div>
+                <div>of Awards</div>
             </div>
         ),
         right: true
@@ -123,12 +123,12 @@ export const parseRows = (rows, activeTab, query) => (
             link = (
                 <>
                     {description}&nbsp;(
-                        <Link onClick={handleClick} to={`/recipient/${rowData._childId}/latest`}>
+                    <Link onClick={handleClick} to={`/recipient/${rowData._childId}/latest`}>
                         as Child
-                        </Link>,&nbsp;
-                            <Link onClick={handleClick} to={`/recipient/${rowData._recipientId}/latest`}>
+                    </Link>,&nbsp;
+                    <Link onClick={handleClick} to={`/recipient/${rowData._recipientId}/latest`}>
                         as Recipient
-                            </Link>
+                    </Link>
                     )
                 </>
             );
@@ -323,15 +323,15 @@ const RecipientTableContainer = ({ activeTab, prevActiveTab, scrollIntoView }) =
                 resultsText
                 pageSize={pageSize}
                 totalItems={totalItems} />}
-                    <div ref={tableRef} className={`table-wrapper ${unlinkedDataClass ? 'unlinked-data' : ''}`} >
-                        <Table
-                            columns={activeTab === 'loans' ? loanColumns : columns}
-                            rows={parsedRows}
-                            updateSort={updateSort}
-                            currentSort={{ field: sort, direction: order }}
-                            error={error}
-                            loading={loading} />
-                    </div>
+            <div ref={tableRef} className={`table-wrapper ${unlinkedDataClass ? 'unlinked-data' : ''}`} >
+                <Table
+                    columns={activeTab === 'loans' ? loanColumns : columns}
+                    rows={parsedRows}
+                    updateSort={updateSort}
+                    currentSort={{ field: sort, direction: order }}
+                    error={error}
+                    loading={loading} />
+            </div>
             {(results.length > 0 || error) && <Pagination
                 currentPage={currentPage}
                 changePage={changeCurrentPage}

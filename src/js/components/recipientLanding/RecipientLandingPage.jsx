@@ -37,9 +37,9 @@ export default class RecipientLandingPage extends React.Component {
                         onShareOptionClick={this.handleShare}
                         url={getBaseUrl(slug)} />
                 ]}>
-                    <main id="main-content" className="main-content">
-                        <RecipientLandingContainer />
-                    </main>
+                <main id="main-content" className="main-content">
+                    <RecipientLandingContainer />
+                </main>
             </PageWrapper>
         );
     }

@@ -61,11 +61,11 @@ const Recipient = ({
                 <h5
                     className="award-overview__left-section__agency-name award-overview__left-section__agency-name__recipient">
                     {recipientTitle}
-                        <div className="award__heading-icon">
-                            <Link to={glossaryLink}>
-                                <Glossary alt={glossaryLinkText} />
-                            </Link>
-                        </div>
+                    <div className="award__heading-icon">
+                        <Link to={glossaryLink}>
+                            <Glossary alt={glossaryLinkText} />
+                        </Link>
+                    </div>
                 </h5>
             );
         }
@@ -88,12 +88,12 @@ const Recipient = ({
         <AwardSection className="award-overview__left-section__recipient award-overview-column award-overview-column__spacing">
             <h6 className="award-overview-title">Recipient</h6>
             {recipientComponent()}
-                <RecipientAddress
-                    recipientLocation={recipient.location}
-                    aggregateRecordType={aggregateRecordType()} />
-                        <div className="award-overview__left-section__aggregated-text">
-                            {isFinancialAssistance && aggregateRecordText()}
-                        </div>
+            <RecipientAddress
+                recipientLocation={recipient.location}
+                aggregateRecordType={aggregateRecordType()} />
+            <div className="award-overview__left-section__aggregated-text">
+                {isFinancialAssistance && aggregateRecordText()}
+            </div>
         </AwardSection>
     );
 };

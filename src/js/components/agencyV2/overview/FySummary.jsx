@@ -113,13 +113,13 @@ const FySummary = ({
                 data={totalBudgetaryResources}
                 secondaryData={`${percentOfFederalBudget} of the FY ${fy} U.S. federal budget`}
                 label="Total Budgetary Resources Over Time">
-                    <BarChart
-                        isLoading={isLoading}
-                        isError={isError}
-                        selectedFy={fy}
-                        agencyBudgetByYear={Object
-                            .entries(budgetaryResources)
-                            .map(([key, value]) => ({ year: key, budget: value._agencyBudget }))} />
+                <BarChart
+                    isLoading={isLoading}
+                    isError={isError}
+                    selectedFy={fy}
+                    agencyBudgetByYear={Object
+                        .entries(budgetaryResources)
+                        .map(([key, value]) => ({ year: key, budget: value._agencyBudget }))} />
             </VisualizationSection>
         ),
         (
@@ -128,11 +128,11 @@ const FySummary = ({
                 data={totalObligations}
                 secondaryData={`${percentOfBudgetaryResources} of total budgetary resources`}
                 label="Total Obligations Over Time" >
-                    <TotalObligationsOverTimeContainer
-                        isLoading={isLoading}
-                        isError={isError}
-                        agencyBudget={budgetaryResources[fy]?._agencyBudget}
-                        obligationsByPeriod={budgetaryResources[fy]?.obligationsByPeriod || []} />
+                <TotalObligationsOverTimeContainer
+                    isLoading={isLoading}
+                    isError={isError}
+                    agencyBudget={budgetaryResources[fy]?._agencyBudget}
+                    obligationsByPeriod={budgetaryResources[fy]?.obligationsByPeriod || []} />
             </VisualizationSection>
         ),
         (
@@ -141,7 +141,7 @@ const FySummary = ({
                 data={awardObligations}
                 secondaryData={`${percentOfTotalObligations} of total obligations`}
                 label="Award Obligations by Type" >
-                    <ObligationsByAwardTypeContainer fiscalYear={+fy} windowWidth={windowWidth} isMobile={isMobile} />
+                <ObligationsByAwardTypeContainer fiscalYear={+fy} windowWidth={windowWidth} isMobile={isMobile} />
             </VisualizationSection>
         )
     ];
@@ -149,7 +149,7 @@ const FySummary = ({
     return (
         <div className="fy-summary">
             <h4 className="fy-summary__heading">FY {fy} Summary</h4>
-                <hr />
+            <hr />
             {dataThroughNote ? <div className="section__date-note">{dataThroughNote}</div> : null}
             {isMobile ? <Carousel items={sections} />
                 : (

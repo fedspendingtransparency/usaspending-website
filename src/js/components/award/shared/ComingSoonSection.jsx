@@ -35,10 +35,10 @@ const ComingSoonSection = ({
 }) => {
     const renderChildren = () => (
         children || (
-        <div>
-            <h4>Coming Soon</h4>
+            <div>
+                <h4>Coming Soon</h4>
                 <p>This feature is currently under development.</p>
-        </div>
+            </div>
         )
     );
 
@@ -53,20 +53,20 @@ const ComingSoonSection = ({
                         <div className="award-viz__icon">
                             <FontAwesomeIcon size="lg" icon={icon} />
                         </div>}
-                            <h3 className="award-viz__title">{title}</h3>
+                        <h3 className="award-viz__title">{title}</h3>
                         {toolTipContent && (
-                        <TooltipWrapper
-                            className="award-section-tt"
-                            icon="info"
-                            tooltipPosition={toolTipAlignLeft ? 'left' : 'right'}
-                            wide={toolTipWide}
-                            tooltipComponent={toolTipContent} />
+                            <TooltipWrapper
+                                className="award-section-tt"
+                                icon="info"
+                                tooltipPosition={toolTipAlignLeft ? 'left' : 'right'}
+                                wide={toolTipWide}
+                                tooltipComponent={toolTipContent} />
                         )}
                     </div>
-                        <hr />
-                            <div className={comingSoonClass}>
-                                {renderChildren()}
-                            </div>
+                    <hr />
+                    <div className={comingSoonClass}>
+                        {renderChildren()}
+                    </div>
                 </div>
             </AwardSection>
         );

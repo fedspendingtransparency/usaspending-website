@@ -145,29 +145,29 @@ export default class ProgramSourceAutocompleteContainer extends React.Component 
             <div className="program-source-select-filter">
                 <label className="program-source-select-filter__label">
                     {`${this.props.component.label} (${this.props.component.code.toUpperCase()})`}
-                        <CSSOnlyTooltip
-                            heading={programSourceInfo[this.props.component.code].heading}
-                            definition={programSourceInfo[this.props.component.code].definition}
-                            example={programSourceInfo[this.props.component.code].example} />
+                    <CSSOnlyTooltip
+                        heading={programSourceInfo[this.props.component.code].heading}
+                        definition={programSourceInfo[this.props.component.code].definition}
+                        example={programSourceInfo[this.props.component.code].example} />
                     {requiredIndicator}
                 </label>
-                    <Autocomplete
-                        values={this.state.autocompleteOptions}
-                        handleTextInput={this.handleTextInput}
-                        onSelect={this.selectSourceComponent}
-                        retainValue
-                        dirtyFilters={this.props.dirtyFilters}
-                        minCharsToSearch={1}
-                        placeholder={`Enter ${this.props.component.code.toUpperCase()} value (${this.props.component.characterLimit} characters)`}
-                        errorHeader={`Unknown ${this.props.component.code.toUpperCase()}`}
-                        errorMessage={`We were unable to find that ${this.props.component.label}`}
-                        ref={(input) => {
-                            this.programSourceList = input;
-                        }}
-                        clearAutocompleteSuggestions={this.clearAutocompleteSuggestions}
-                        noResults={this.state.noResults}
-                        inFlight={this.state.inFlight}
-                        characterLimit={this.props.component.characterLimit} />
+                <Autocomplete
+                    values={this.state.autocompleteOptions}
+                    handleTextInput={this.handleTextInput}
+                    onSelect={this.selectSourceComponent}
+                    retainValue
+                    dirtyFilters={this.props.dirtyFilters}
+                    minCharsToSearch={1}
+                    placeholder={`Enter ${this.props.component.code.toUpperCase()} value (${this.props.component.characterLimit} characters)`}
+                    errorHeader={`Unknown ${this.props.component.code.toUpperCase()}`}
+                    errorMessage={`We were unable to find that ${this.props.component.label}`}
+                    ref={(input) => {
+                        this.programSourceList = input;
+                    }}
+                    clearAutocompleteSuggestions={this.clearAutocompleteSuggestions}
+                    noResults={this.state.noResults}
+                    inFlight={this.state.inFlight}
+                    characterLimit={this.props.component.characterLimit} />
             </div>
         );
     }

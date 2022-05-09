@@ -23,9 +23,9 @@ export default class SankeyDisclosures extends React.Component {
                 <div className="disclosure-title">
                     Not Shown:
                 </div>
-                    <ul className="disclosure-list">
-                        {items}
-                    </ul>
+                <ul className="disclosure-list">
+                    {items}
+                </ul>
             </div>
         );
     }

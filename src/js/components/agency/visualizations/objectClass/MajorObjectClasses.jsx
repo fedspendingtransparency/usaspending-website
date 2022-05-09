@@ -248,18 +248,18 @@ export default class MajorObjectClasses extends React.Component {
             <div className="treemap-inner-wrap">
                 {greatThanOneHundredDescription}
                 { this.createTooltip() }
-                    <div
-                        className="tree-wrapper"
-                        ref={(sr) => {
-                            this.sectionWrapper = sr;
-                        }}>
-                            <svg
-                                width={this.state.visualizationWidth}
-                                height={this.state.visualizationHeight}
-                                className="treemap-svg overlay">
-                                {this.state.finalNodes}
-                            </svg>
-                    </div>
+                <div
+                    className="tree-wrapper"
+                    ref={(sr) => {
+                        this.sectionWrapper = sr;
+                    }}>
+                    <svg
+                        width={this.state.visualizationWidth}
+                        height={this.state.visualizationHeight}
+                        className="treemap-svg overlay">
+                        {this.state.finalNodes}
+                    </svg>
+                </div>
             </div>
         );
     }

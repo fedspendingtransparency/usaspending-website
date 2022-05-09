@@ -37,11 +37,11 @@ export default class AgencyLandingPage extends React.Component {
                         onShareOptionClick={this.handleShare}
                         url={getBaseUrl('agency')} />
                 ]}>
-                    <main
-                        id="main-content"
-                        className="main-content">
-                            <AgencyLandingContainer />
-                    </main>
+                <main
+                    id="main-content"
+                    className="main-content">
+                    <AgencyLandingContainer />
+                </main>
             </PageWrapper>
         );
     }

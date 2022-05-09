@@ -137,53 +137,53 @@ export default class UserSelections extends React.Component {
         return (
             <div className="download-user-selections">
                 <h3 className="download-user-selections__title">Your selected options are...</h3>
-                    <div className="download-user-selections__left-col">
-                        <div className="selection">
-                            <div className="selection__heading">Budget Function</div>
-                                <div className="selection__content">
-                                    {this.generateBudgetFunctionString()}
-                                </div>
+                <div className="download-user-selections__left-col">
+                    <div className="selection">
+                        <div className="selection__heading">Budget Function</div>
+                        <div className="selection__content">
+                            {this.generateBudgetFunctionString()}
                         </div>
-                            <div className="selection">
-                                <div className="selection__heading">Budget Sub-Function</div>
-                                    <div className="selection__content">
-                                        {this.generateBudgetSubfunctionString()}
-                                    </div>
-                            </div>
-                                <div className="selection">
-                                    <div className="selection__heading">Agency</div>
-                                    {this.generateAgencyString()}
-                                </div>
-                                    <div className="selection">
-                                        <div className="selection__heading">Federal Account</div>
-                                            <div className="selection__content">
-                                                {this.generateFederalAccountString()}
-                                            </div>
-                                    </div>
-
-                                        <div className="selection">
-                                            <div className="selection__heading">Account Level</div>
-                                                <div className="selection__content">
-                                                    {this.generateAccountLevelString()}
-                                                </div>
-                                        </div>
-                                            <div className="selection">
-                                                <div className="selection__heading">Disaster Emergency Fund Codes</div>
-                                                    <div className="selection__content">
-                                                        {this.generateDefCodesString()}
-                                                    </div>
-                                            </div>
                     </div>
-                        <div className="download-user-selections__right-col">
-                            <div className="selection">
-                                <div className="selection__heading">File Submission Type</div>
-                                {this.generateSubmissionTypeString()}
-                            </div>
-                                <div className="selection">
-                                    <div className="selection__heading">Fiscal Year</div>
-                                    {this.generateFyString()}
-                                </div>
+                    <div className="selection">
+                        <div className="selection__heading">Budget Sub-Function</div>
+                        <div className="selection__content">
+                            {this.generateBudgetSubfunctionString()}
                         </div>
+                    </div>
+                    <div className="selection">
+                        <div className="selection__heading">Agency</div>
+                        {this.generateAgencyString()}
+                    </div>
+                    <div className="selection">
+                        <div className="selection__heading">Federal Account</div>
+                        <div className="selection__content">
+                            {this.generateFederalAccountString()}
+                        </div>
+                    </div>
+
+                    <div className="selection">
+                        <div className="selection__heading">Account Level</div>
+                        <div className="selection__content">
+                            {this.generateAccountLevelString()}
+                        </div>
+                    </div>
+                    <div className="selection">
+                        <div className="selection__heading">Disaster Emergency Fund Codes</div>
+                        <div className="selection__content">
+                            {this.generateDefCodesString()}
+                        </div>
+                    </div>
+                </div>
+                <div className="download-user-selections__right-col">
+                    <div className="selection">
+                        <div className="selection__heading">File Submission Type</div>
+                        {this.generateSubmissionTypeString()}
+                    </div>
+                    <div className="selection">
+                        <div className="selection__heading">Fiscal Year</div>
+                        {this.generateFyString()}
+                    </div>
+                </div>
             </div>
         );
     }

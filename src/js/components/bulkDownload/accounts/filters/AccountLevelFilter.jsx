@@ -45,18 +45,18 @@ export default class AccountLevelFilter extends React.Component {
             <div
                 className="radio"
                 key={level.name}>
-                    <input
-                        type="radio"
-                        aria-label={level.name}
-                        value={level.name}
-                        name="account-level"
-                        checked={this.props.currentAccountLevel === level.name}
-                        onChange={this.onChange} />
-                            <label
-                                className="radio-label"
-                                htmlFor="account-level">
-                                {level.label} <span className="radio-label__subtext"> {level.description}</span>
-                            </label>
+                <input
+                    type="radio"
+                    aria-label={level.name}
+                    value={level.name}
+                    name="account-level"
+                    checked={this.props.currentAccountLevel === level.name}
+                    onChange={this.onChange} />
+                <label
+                    className="radio-label"
+                    htmlFor="account-level">
+                    {level.label} <span className="radio-label__subtext"> {level.description}</span>
+                </label>
             </div>
         ));
 
@@ -65,9 +65,9 @@ export default class AccountLevelFilter extends React.Component {
                 <h3 className="download-filter__title">
                     {icon} Select the <span className="download-filter__title_em">account level</span> to include.
                 </h3>
-                    <div className="download-filter__content">
-                        {accountLevels}
-                    </div>
+                <div className="download-filter__content">
+                    {accountLevels}
+                </div>
             </div>
         );
     }

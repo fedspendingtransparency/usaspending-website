@@ -28,26 +28,26 @@ export default class RecipientLandingResultsSection extends React.Component {
             <div className="results-table-section">
                 <TransitionGroup>
                     {(this.props.inFlight || this.props.error) && (
-                    <CSSTransition
-                        classNames="table-message-fade"
-                        timeout={{ exit: 225, enter: 195 }}
-                        exit>
+                        <CSSTransition
+                            classNames="table-message-fade"
+                            timeout={{ exit: 225, enter: 195 }}
+                            exit>
                             <>
                                 {this.props.inFlight && (
-                                <div className="results-table-message-container">
-                                    <ResultsTableLoadingMessage />
-                                </div>
+                                    <div className="results-table-message-container">
+                                        <ResultsTableLoadingMessage />
+                                    </div>
                                 )}
                                 {this.props.error && (
-                                <div className="results-table-message-container full">
-                                    <ResultsTableErrorMessage />
-                                </div>
+                                    <div className="results-table-message-container full">
+                                        <ResultsTableErrorMessage />
+                                    </div>
                                 )}
                             </>
-                    </CSSTransition>
+                        </CSSTransition>
                     )}
                 </TransitionGroup>
-                    <RecipientLandingTable {...this.props} />
+                <RecipientLandingTable {...this.props} />
             </div>
         );
     }

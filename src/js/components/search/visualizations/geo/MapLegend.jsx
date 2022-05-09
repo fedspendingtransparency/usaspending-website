@@ -112,9 +112,9 @@ export default class MapLegend extends React.Component {
                     mapLegendToggleData={this.props.mapLegendToggleData}
                     mapLegendToggle={this.props.mapLegendToggle}
                     updateToggle={this.updateToggle} />
-                        <ul className="map-legend-body">
-                            {this.state.items}
-                        </ul>
+                <ul className="map-legend-body">
+                    {this.state.items}
+                </ul>
             </div>
         );
     }

@@ -38,9 +38,9 @@ const Tooltip = ({ data }) => {
             <div className="tooltip__title">
                 {data.title}
             </div>}
-                <div className="tooltip-body">
-                    {createSections()}
-                </div>
+            <div className="tooltip-body">
+                {createSections()}
+            </div>
         </div>
     );
 };

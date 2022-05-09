@@ -81,7 +81,7 @@ export default class CheckboxTree extends Component {
     setChildrenToLoading = () => (
         <div className="children-are-loading">
             <FontAwesomeIcon icon="spinner" spin />
-                <div className="children-are-loading__text">Loading your data...</div>
+            <div className="children-are-loading__text">Loading your data...</div>
         </div>
     );
     /**
@@ -222,7 +222,7 @@ export default class CheckboxTree extends Component {
             return (
                 <div className="checkbox-tree-filter-message-container">
                     <FontAwesomeIcon icon="spinner" spin />
-                        <div className="checkbox-tree-filter-message-container__text">Loading your data...</div>
+                    <div className="checkbox-tree-filter-message-container__text">Loading your data...</div>
                 </div>
             );
         }
@@ -239,9 +239,9 @@ export default class CheckboxTree extends Component {
             return (
                 <div className="checkbox-tree-filter-message-container">
                     <FontAwesomeIcon icon="ban" />
-                        <div className="checkbox-tree-filter-message-container__text">
+                    <div className="checkbox-tree-filter-message-container__text">
                         No Results
-                        </div>
+                    </div>
                 </div>
             );
         }

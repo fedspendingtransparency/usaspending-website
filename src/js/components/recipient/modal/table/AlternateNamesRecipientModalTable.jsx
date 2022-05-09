@@ -22,9 +22,9 @@ const AlternateNamesRecipientModalTable = (props) => {
         <tr
             className="recipients-list__body-row"
             key={uniqueId(altName)}>
-                <td className="recipients-list__body-cell">
-                    {altName}
-                </td>
+            <td className="recipients-list__body-cell">
+                {altName}
+            </td>
         </tr>
     ));
 
@@ -39,18 +39,18 @@ const AlternateNamesRecipientModalTable = (props) => {
                                 Name
                                 </div>
                             </div>
-                                <Sorter
-                                    field="alternateName"
-                                    label="name"
-                                    active={{ field: props.sortField, direction: props.sortDirection }}
-                                    setSort={props.updateSort} />
+                            <Sorter
+                                field="alternateName"
+                                label="name"
+                                active={{ field: props.sortField, direction: props.sortDirection }}
+                                setSort={props.updateSort} />
                         </div>
                     </th>
                 </tr>
             </thead>
-                <tbody className="recipients-list__body">
-                    {body}
-                </tbody>
+            <tbody className="recipients-list__body">
+                {body}
+            </tbody>
         </table>
     );
 };

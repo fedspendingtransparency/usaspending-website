@@ -62,15 +62,15 @@ const AppContainer = () => (
         <BrowserRouter>
             <Suspense fallback={<Loading isLoading includeHeader includeFooter />}>
                 <ScrollToTop />
-                    <Switch>
-                        {routes.filter((route) => !route.hide).map(({ path, component }) => (
-                            <Route
-                                exact
-                                path={path}
-                                component={(routerProps) => withGlossaryListener(component, routerProps)}
-                                key={path} />
-                        ))}
-                    </Switch>
+                <Switch>
+                    {routes.filter((route) => !route.hide).map(({ path, component }) => (
+                        <Route
+                            exact
+                            path={path}
+                            component={(routerProps) => withGlossaryListener(component, routerProps)}
+                            key={path} />
+                    ))}
+                </Switch>
                 {window.outerWidth < 768 && <MobileMessage />}
             </Suspense>
         </BrowserRouter>

@@ -83,9 +83,9 @@ export default class DownloadDetail extends React.Component {
                         tabIndex={-1}>
                         {this.props.label}
                     </h2>
-                        <p className="download-detail__description">
-                            {this.props.description}
-                        </p>
+                    <p className="download-detail__description">
+                        {this.props.description}
+                    </p>
                     {link}
                 </div>
             </div>

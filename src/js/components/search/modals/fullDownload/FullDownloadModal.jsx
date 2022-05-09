@@ -102,32 +102,32 @@ export default class FullDownloadModal extends React.Component {
                 dialogClass="search-section-extra-modal"
                 verticallyCenter
                 escapeExits>
-                    <div className="full-download-modal">
-                        <div className="download-header">
-                            <div className="header-content">
-                                <h1>Download Data</h1>
-                                    <div className="close-wrapper">
-                                        <button
-                                            className="close-button"
-                                            onClick={this.props.hideModal}
-                                            title="Close"
-                                            aria-label="Close">
-                                                <Close alt="Close modal" />
-                                        </button>
-                                    </div>
+                <div className="full-download-modal">
+                    <div className="download-header">
+                        <div className="header-content">
+                            <h1>Download Data</h1>
+                            <div className="close-wrapper">
+                                <button
+                                    className="close-button"
+                                    onClick={this.props.hideModal}
+                                    title="Close"
+                                    aria-label="Close">
+                                    <Close alt="Close modal" />
+                                </button>
                             </div>
                         </div>
-
-                            <div className="download-body">
-                                <div className="download-filter-bar">
-                                    <TopFilterBarContainer compressed />
-                                </div>
-                                    <DownloadBreadcrumb
-                                        step={this.state.downloadStep}
-                                        goToStep={this.goToStep} />
-                                {content}
-                            </div>
                     </div>
+
+                    <div className="download-body">
+                        <div className="download-filter-bar">
+                            <TopFilterBarContainer compressed />
+                        </div>
+                        <DownloadBreadcrumb
+                            step={this.state.downloadStep}
+                            goToStep={this.goToStep} />
+                        {content}
+                    </div>
+                </div>
             </Modal>
         );
     }

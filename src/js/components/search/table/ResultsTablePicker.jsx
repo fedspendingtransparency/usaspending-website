@@ -62,19 +62,19 @@ export default class ResultsTablePicker extends React.Component {
                     title={currentField}
                     aria-label={label}
                     onClick={this.togglePicker}>
-                        <span className="label">
-                            {label}
-                        </span>
-                            <span className="arrow-icon">
-                                {icon}
-                            </span>
+                    <span className="label">
+                        {label}
+                    </span>
+                    <span className="arrow-icon">
+                        {icon}
+                    </span>
                 </button>
 
-                    <div className={`field-list ${showPicker}`}>
-                        <ul>
-                            {options}
-                        </ul>
-                    </div>
+                <div className={`field-list ${showPicker}`}>
+                    <ul>
+                        {options}
+                    </ul>
+                </div>
             </div>
         );
     }

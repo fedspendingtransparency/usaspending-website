@@ -55,25 +55,25 @@ export default class SubmitHint extends React.Component {
         return (
             <TransitionGroup>
                 {!this.state.hideHint && (
-                <CSSTransition
-                    classNames="hint-fade"
-                    timeout={200}
-                    appear
-                    exit>
+                    <CSSTransition
+                        classNames="hint-fade"
+                        timeout={200}
+                        appear
+                        exit>
                         <div className="filter-submit-hint" aria-hidden="true">
                             <div className="hint-icon">
                                 <CheckCircle alt="Filter selected" />
                             </div>
-                                <div className="hint-text">
-                                    <div className="hint-title">
+                            <div className="hint-text">
+                                <div className="hint-title">
                                     Filter Updated.
-                                    </div>
-                                        <div className="hint-description">
-                                    Submit your search to see results.
-                                        </div>
                                 </div>
+                                <div className="hint-description">
+                                    Submit your search to see results.
+                                </div>
+                            </div>
                         </div>
-                </CSSTransition>
+                    </CSSTransition>
                 )}
             </TransitionGroup>
         );

@@ -156,48 +156,48 @@ export default class SubawardsTable extends React.Component {
                         <span className="total-label">
                             {totalSubAwardLabel}
                         </span>
-                            <span className="total-value">
-                                {award.subawardCount}
-                            </span>
+                        <span className="total-value">
+                            {award.subawardCount}
+                        </span>
                     </div>
-                        <div className="total-item">
-                            <span className="total-label">
-                                {totalSubAwardAmountLabel}
-                            </span>
-                                <span className="total-value">
-                                    {totalValue}
-                                </span>
-                        </div>
-                            <div className="total-item">
-                                <span className="total-label">
+                    <div className="total-item">
+                        <span className="total-label">
+                            {totalSubAwardAmountLabel}
+                        </span>
+                        <span className="total-value">
+                            {totalValue}
+                        </span>
+                    </div>
+                    <div className="total-item">
+                        <span className="total-label">
                             Percent of Prime Award Obligated Amount:&nbsp;
-                                </span>
-                                    <span className="total-value">
-                                        {award.subAwardedPercent}
-                                    </span>
-                            </div>
-                </div>
-                    <div
-                        className={`subawards-table ${loadingClass}`}
-                        ref={(div) => {
-                            this.wrapperDiv = div;
-                        }}>
-                            <IBTable
-                                rowHeight={rowHeight}
-                                rowCount={subawards.length}
-                                headerHeight={50}
-                                contentWidth={tableValues.width}
-                                bodyWidth={tableWidth}
-                                bodyHeight={tableHeight}
-                                columns={tableValues.columns}
-                                onReachedBottom={loadNextPage}
-                                headerCellRender={this.headerCellRender}
-                                bodyCellRender={this.bodyCellRender}
-                                ref={(table) => {
-                                    this.tableComponent = table;
-                                }} />
+                        </span>
+                        <span className="total-value">
+                            {award.subAwardedPercent}
+                        </span>
                     </div>
-                        <div className="results-table-message-container">{message}</div>
+                </div>
+                <div
+                    className={`subawards-table ${loadingClass}`}
+                    ref={(div) => {
+                        this.wrapperDiv = div;
+                    }}>
+                    <IBTable
+                        rowHeight={rowHeight}
+                        rowCount={subawards.length}
+                        headerHeight={50}
+                        contentWidth={tableValues.width}
+                        bodyWidth={tableWidth}
+                        bodyHeight={tableHeight}
+                        columns={tableValues.columns}
+                        onReachedBottom={loadNextPage}
+                        headerCellRender={this.headerCellRender}
+                        bodyCellRender={this.bodyCellRender}
+                        ref={(table) => {
+                            this.tableComponent = table;
+                        }} />
+                </div>
+                <div className="results-table-message-container">{message}</div>
             </div>
         );
     }

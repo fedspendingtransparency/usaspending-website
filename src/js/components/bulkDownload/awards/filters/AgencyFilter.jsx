@@ -109,15 +109,15 @@ export default class AgencyFilter extends React.Component {
             <li
                 className="field-item indent"
                 key={`field-${agency.toptier_agency_id}`}>
-                    <button
-                        className="item-button"
-                        title={agency.name}
-                        aria-label={agency.name}
-                        value={agency.toptier_agency_id}
-                        name={agency.name}
-                        onClick={this.handleAgencySelect}>
-                        {agency.name}
-                    </button>
+                <button
+                    className="item-button"
+                    title={agency.name}
+                    aria-label={agency.name}
+                    value={agency.toptier_agency_id}
+                    name={agency.name}
+                    onClick={this.handleAgencySelect}>
+                    {agency.name}
+                </button>
             </li>
         ));
 
@@ -126,15 +126,15 @@ export default class AgencyFilter extends React.Component {
             <li
                 className="field-item indent"
                 key={`field-${agency.toptier_agency_id}`}>
-                    <button
-                        className="item-button"
-                        title={agency.name}
-                        aria-label={agency.name}
-                        value={agency.toptier_agency_id}
-                        name={agency.name}
-                        onClick={this.handleAgencySelect}>
-                        {agency.name}
-                    </button>
+                <button
+                    className="item-button"
+                    title={agency.name}
+                    aria-label={agency.name}
+                    value={agency.toptier_agency_id}
+                    name={agency.name}
+                    onClick={this.handleAgencySelect}>
+                    {agency.name}
+                </button>
             </li>
         ));
 
@@ -143,14 +143,14 @@ export default class AgencyFilter extends React.Component {
             <li
                 className="field-item"
                 key={`field-${subAgency.subtier_agency_name}-${i}`}>
-                    <button
-                        className="item-button"
-                        title={subAgency.subtier_agency_name}
-                        aria-label={subAgency.subtier_agency_name}
-                        value={subAgency.subtier_agency_name}
-                        onClick={this.handleSubAgencySelect}>
-                        {subAgency.subtier_agency_name}
-                    </button>
+                <button
+                    className="item-button"
+                    title={subAgency.subtier_agency_name}
+                    aria-label={subAgency.subtier_agency_name}
+                    value={subAgency.subtier_agency_name}
+                    onClick={this.handleSubAgencySelect}>
+                    {subAgency.subtier_agency_name}
+                </button>
             </li>
         ));
 
@@ -180,14 +180,14 @@ export default class AgencyFilter extends React.Component {
             <div
                 className="radio"
                 key={agencyType.name}>
-                    <input
-                        type="radio"
-                        aria-label={agencyType.name}
-                        value={agencyType.name}
-                        name="agencyType"
-                        checked={this.props.currentAgencyType === agencyType.name}
-                        onChange={this.onChange} />
-                            <label className="radio-label" htmlFor="locationType">{agencyType.label}</label>
+                <input
+                    type="radio"
+                    aria-label={agencyType.name}
+                    value={agencyType.name}
+                    name="agencyType"
+                    checked={this.props.currentAgencyType === agencyType.name}
+                    onChange={this.onChange} />
+                <label className="radio-label" htmlFor="locationType">{agencyType.label}</label>
             </div>
         ));
 
@@ -196,92 +196,92 @@ export default class AgencyFilter extends React.Component {
                 <h3 className="download-filter__title">
                     {icon} Select an awarding or funding <span className="download-filter__title_em">agency</span> and <span>sub-agency</span>.
                 </h3>
-                    <div className="download-filter__content">
-                        {agencyTypes}
-                            <div className="filter-picker">
-                                <label className="select-label" htmlFor="agency-select">
+                <div className="download-filter__content">
+                    {agencyTypes}
+                    <div className="filter-picker">
+                        <label className="select-label" htmlFor="agency-select">
                             Agency
-                                </label>
+                        </label>
 
-                                    <div className="field-picker">
-                                        <button
-                                            className="selected-button"
-                                            title={currentAgencyName}
-                                            aria-label={currentAgencyName}
-                                            onClick={this.toggleAgencyPicker}>
-                                                <div className="label">
-                                                    {currentAgencyName}
-                                                </div>
-                                                    <div className="arrow-icon">
-                                                        {agencyIcon}
-                                                    </div>
-                                        </button>
-
-                                            <div className={`field-list ${showAgencyPicker}`}>
-                                                <ul>
-                                                    <li className="field-item">
-                                                        <button
-                                                            className="item-button"
-                                                            title="All"
-                                                            aria-label="all"
-                                                            name="All"
-                                                            value="all"
-                                                            onClick={this.handleAgencySelect}>
-                                            All
-                                                        </button>
-                                                    </li>
-                                                        <li className="field-item">
-                                                            <button
-                                                                className="item-button group-label"
-                                                                title="CFO Agencies"
-                                                                aria-label="CFO Agencies"
-                                                                disabled >
-                                            CFO Agencies
-                                                            </button>
-                                                        </li>
-                                                    {cfoAgencies}
-                                                        <li className="field-item">
-                                                            <button
-                                                                className="item-button group-label"
-                                                                title="Other Agencies"
-                                                                aria-label="Other Agencies"
-                                                                disabled >
-                                            Other Agencies
-                                                            </button>
-                                                        </li>
-                                                    {otherAgencies}
-                                                </ul>
-                                            </div>
-                                    </div>
-                            </div>
-                                <div className="filter-picker">
-                                    <label className="select-label" htmlFor="sub-agency-select">
-                            Sub-Agency
-                                    </label>
-                                        <div className="field-picker">
-                                            <button
-                                                className={`selected-button ${subAgencyDisabledClass}`}
-                                                title={currentSubAgencyName}
-                                                aria-label={currentSubAgencyName}
-                                                onClick={this.toggleSubAgencyPicker}>
-                                                    <div className="label">
-                                                        {currentSubAgencyName}
-                                                    </div>
-                                                        <div className="arrow-icon">
-                                                            {subAgencyIcon}
-                                                        </div>
-                                            </button>
-
-                                                <div
-                                                    className={`field-list ${showSubAgencyPicker}`}>
-                                                        <ul>
-                                                            {subAgencies}
-                                                        </ul>
-                                                </div>
-                                        </div>
+                        <div className="field-picker">
+                            <button
+                                className="selected-button"
+                                title={currentAgencyName}
+                                aria-label={currentAgencyName}
+                                onClick={this.toggleAgencyPicker}>
+                                <div className="label">
+                                    {currentAgencyName}
                                 </div>
-                                    <p className="download-filter__content-note"><span className="download-filter__content-note_bold">Note:</span> Prior to FY19, Financial Assistance awards (grants, direct payments, loans, insurance, and other financial assistance) only sporadically include Funding Agency data.</p>
+                                <div className="arrow-icon">
+                                    {agencyIcon}
+                                </div>
+                            </button>
+
+                            <div className={`field-list ${showAgencyPicker}`}>
+                                <ul>
+                                    <li className="field-item">
+                                        <button
+                                            className="item-button"
+                                            title="All"
+                                            aria-label="all"
+                                            name="All"
+                                            value="all"
+                                            onClick={this.handleAgencySelect}>
+                                            All
+                                        </button>
+                                    </li>
+                                    <li className="field-item">
+                                        <button
+                                            className="item-button group-label"
+                                            title="CFO Agencies"
+                                            aria-label="CFO Agencies"
+                                            disabled >
+                                            CFO Agencies
+                                        </button>
+                                    </li>
+                                    {cfoAgencies}
+                                    <li className="field-item">
+                                        <button
+                                            className="item-button group-label"
+                                            title="Other Agencies"
+                                            aria-label="Other Agencies"
+                                            disabled >
+                                            Other Agencies
+                                        </button>
+                                    </li>
+                                    {otherAgencies}
+                                </ul>
+                            </div>
+                        </div>
                     </div>
+                    <div className="filter-picker">
+                        <label className="select-label" htmlFor="sub-agency-select">
+                            Sub-Agency
+                        </label>
+                        <div className="field-picker">
+                            <button
+                                className={`selected-button ${subAgencyDisabledClass}`}
+                                title={currentSubAgencyName}
+                                aria-label={currentSubAgencyName}
+                                onClick={this.toggleSubAgencyPicker}>
+                                <div className="label">
+                                    {currentSubAgencyName}
+                                </div>
+                                <div className="arrow-icon">
+                                    {subAgencyIcon}
+                                </div>
+                            </button>
+
+                            <div
+                                className={`field-list ${showSubAgencyPicker}`}>
+                                <ul>
+                                    {subAgencies}
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <p className="download-filter__content-note"><span className="download-filter__content-note_bold">Note:</span> Prior to FY19, Financial Assistance awards (grants, direct payments, loans, insurance, and other financial assistance) only sporadically include Funding Agency data.</p>
+                </div>
             </div>
         );
     }

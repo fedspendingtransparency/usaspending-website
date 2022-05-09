@@ -89,9 +89,9 @@ export default class ObjectClassTooltip extends React.Component {
                 <div className="tooltip-value">
                     {this.props.value} | {this.props.percentage}
                 </div>
-                    <div className="tooltip-description">
-                        {this.props.description}
-                    </div>
+                <div className="tooltip-description">
+                    {this.props.description}
+                </div>
             </div>);
         let smallValue = '';
 
@@ -115,24 +115,24 @@ export default class ObjectClassTooltip extends React.Component {
                 ref={(div) => {
                     this.containerDiv = div;
                 }}>
+                <div
+                    className={`tooltip${smallValue}`}
+                    ref={(div) => {
+                        this.div = div;
+                    }}>
                     <div
-                        className={`tooltip${smallValue}`}
+                        className="tooltip-pointer"
                         ref={(div) => {
-                            this.div = div;
-                        }}>
-                            <div
-                                className="tooltip-pointer"
-                                ref={(div) => {
-                                    this.pointerDiv = div;
-                                }} />
-                                    <div className="tooltip-title">
-                                        {this.props.name}
-                                    </div>
-                                        <div className="tooltip-body center">
-                                            {desc}
-                                        </div>
-                        { footer }
+                            this.pointerDiv = div;
+                        }} />
+                    <div className="tooltip-title">
+                        {this.props.name}
                     </div>
+                    <div className="tooltip-body center">
+                        {desc}
+                    </div>
+                    { footer }
+                </div>
             </div>
         );
     }

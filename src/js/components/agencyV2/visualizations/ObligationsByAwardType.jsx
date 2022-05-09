@@ -268,7 +268,7 @@ export default function ObligationsByAwardType({
                 showTooltip: () => {},
                 closeTooltip: () => {}
             }}>
-                <div id="obl_chart" className="obligations-by-award-type__chart" ref={chartRef} />
+            <div id="obl_chart" className="obligations-by-award-type__chart" ref={chartRef} />
         </TooltipWrapper>
     );
 }

@@ -41,13 +41,13 @@ const FilterExpandButton = (props) => {
             </button>
             {props.glossarySlug && <div className="filter-toggle__glossary"><GlossaryLink term={props.glossarySlug} /></div>}
             {props.accessory && (
-            <div
-                className="filter-toggle__accessory"
-                tabIndex="0"
-                id="accessory-view"
-                role="toolbar">
+                <div
+                    className="filter-toggle__accessory"
+                    tabIndex="0"
+                    id="accessory-view"
+                    role="toolbar">
                     <props.accessory />
-            </div>
+                </div>
             )}
         </div>
     );

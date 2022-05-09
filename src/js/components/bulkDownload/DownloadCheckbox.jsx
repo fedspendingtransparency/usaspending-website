@@ -39,7 +39,7 @@ export default class DownloadCheckbox extends React.Component {
                     type="checkbox"
                     checked={this.props.checked}
                     onChange={this.handleInputChange} />
-                        <label htmlFor={name}>{label}</label>
+                <label htmlFor={name}>{label}</label>
             </div>
         );
     }

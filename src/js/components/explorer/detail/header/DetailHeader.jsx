@@ -133,17 +133,17 @@ const DetailHeader = (props) => {
                     {heading(type, props.title, props.id, props.link, agencyIds, slugsError)}
                     {dataType(type, props.parent)}
                 </div>
-                    <div className="right-side">
-                        <div className="amount-header">
+                <div className="right-side">
+                    <div className="amount-header">
                         FY {props.fy} obligated amount
-                        </div>
-                            <div className="amount-value">
-                                {props.isLoading ? '--' : formatTreemapValues(props.total)}
-                            </div>
-                                <div className="update-date">
-                        Data as of {moment(props.lastUpdate, 'YYYY-MM-DD').format('MMMM D, YYYY')}
-                                </div>
                     </div>
+                    <div className="amount-value">
+                        {props.isLoading ? '--' : formatTreemapValues(props.total)}
+                    </div>
+                    <div className="update-date">
+                        Data as of {moment(props.lastUpdate, 'YYYY-MM-DD').format('MMMM D, YYYY')}
+                    </div>
+                </div>
             </div>
             {truncationWarning}
         </div>

@@ -106,19 +106,19 @@ export default class AwardAmountSearch extends React.Component {
                 <div className="filter-item-wrap">
                     <ul className="award-amounts checkbox-types">
                         {awardAmountRangeItems}
-                            <SpecificAwardAmountItem
-                                {...this.props}
-                                searchSpecificRange={this.searchSpecificRange} />
+                        <SpecificAwardAmountItem
+                            {...this.props}
+                            searchSpecificRange={this.searchSpecificRange} />
                     </ul>
-                        <SubmitHint
-                            ref={(component) => {
-                                this.hint = component;
-                            }} />
-                                <div
-                                    className="selected-filters"
-                                    role="status">
-                                    {stagedFilters}
-                                </div>
+                    <SubmitHint
+                        ref={(component) => {
+                            this.hint = component;
+                        }} />
+                    <div
+                        className="selected-filters"
+                        role="status">
+                        {stagedFilters}
+                    </div>
                 </div>
             </div>
         );

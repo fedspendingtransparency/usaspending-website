@@ -99,32 +99,32 @@ export default class ExplorerTooltip extends React.Component {
                     ref={(div) => {
                         this.div = div;
                     }}>
-                        <div
-                            className={`tooltip-pointer ${this.state.direction}`} />
-                                <div className="tooltip-title">
+                    <div
+                        className={`tooltip-pointer ${this.state.direction}`} />
+                    <div className="tooltip-title">
                         Award ID: {this.props.name}
-                                </div>
-                                    <div className="tooltip-body">
-                                        <div className="tooltip-left">
-                                            <div className="tooltip-value">
-                                                {dollarValue}
-                                            </div>
-                                                <div className="tooltip-label">
+                    </div>
+                    <div className="tooltip-body">
+                        <div className="tooltip-left">
+                            <div className="tooltip-value">
+                                {dollarValue}
+                            </div>
+                            <div className="tooltip-label">
                                 Total Amount
-                                                </div>
-                                        </div>
-                                            <div className="tooltip-right">
-                                                <div className="tooltip-value">
-                                                    {percentString}
-                                                </div>
-                                                    <div className="tooltip-label">
+                            </div>
+                        </div>
+                        <div className="tooltip-right">
+                            <div className="tooltip-value">
+                                {percentString}
+                            </div>
+                            <div className="tooltip-label">
                                 Percent
-                                                    </div>
-                                            </div>
-                                    </div>
-                                        <div className={`disclaimer-total ${hideDisclaimer}`}>
+                            </div>
+                        </div>
+                    </div>
+                    <div className={`disclaimer-total ${hideDisclaimer}`}>
                         The amount shown above is a portion of a larger award that is {totalDollar}.
-                                        </div>
+                    </div>
                 </div>
             </div>
         );

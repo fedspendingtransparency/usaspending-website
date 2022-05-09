@@ -240,24 +240,24 @@ export default class TimePeriodFilter extends React.Component {
                 <h3 className="download-filter__title">
                     {icon} Select a <span className="download-filter__title_em">date range</span>.
                 </h3>
-                    <div className="download-filter__content date-range-wrapper">
-                        <DownloadDateRange
-                            datePlaceholder=""
-                            startDate={this.state.startDateBulkUI}
-                            endDate={this.state.endDateBulkUI}
-                            onDateChange={this.handleDateChange}
-                            showError={this.showError}
-                            hideError={this.hideError} />
-                        { errorDetails }
-                            <p className="data-note">
+                <div className="download-filter__content date-range-wrapper">
+                    <DownloadDateRange
+                        datePlaceholder=""
+                        startDate={this.state.startDateBulkUI}
+                        endDate={this.state.endDateBulkUI}
+                        onDateChange={this.handleDateChange}
+                        showError={this.showError}
+                        hideError={this.hideError} />
+                    { errorDetails }
+                    <p className="data-note">
                         Note: data is available for download from FY 2001 - present.
                         To select data prior to FY {earliestFY}, enter an appropriate date range. Date ranges may span up to one year.
-                            </p>
-                                <TimePeriodButtons
-                                    currentStartDate={start}
-                                    currentEndDate={end}
-                                    handleDateChange={this.handleDateChange} />
-                    </div>
+                    </p>
+                    <TimePeriodButtons
+                        currentStartDate={start}
+                        currentEndDate={end}
+                        handleDateChange={this.handleDateChange} />
+                </div>
             </div>
         );
     }

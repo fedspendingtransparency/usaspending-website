@@ -26,7 +26,7 @@ const PageWrapper = ({
 }) => (
     <div className={classNames} ref={ref}>
         <MetaTags {...metaTagProps} />
-            <Header />
+        <Header />
         {noHeader ? null : <PageHeader
             title={title}
             stickyBreakPoint={getStickyBreakPointForSidebar()}
@@ -35,7 +35,7 @@ const PageWrapper = ({
         {React.cloneElement(children, {
             className: `usda-page__container${children.props.className ? ` ${children.props.className}` : ''}`
         })}
-            <Footer pageName={pageName} filters={filters} />
+        <Footer pageName={pageName} filters={filters} />
     </div>
 );
 

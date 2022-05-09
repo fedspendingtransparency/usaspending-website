@@ -137,18 +137,18 @@ export default class ChartGroup extends React.Component {
                 className="chart-group"
                 transform={`translate(0,${this.props.index * this.props.height})`}>
 
-                    <title>{this.props.label}</title>
+                <title>{this.props.label}</title>
 
-                        <rect
-                            className={`group-background ${backgroundClass}`}
-                            x={0}
-                            y={0}
-                            width={this.props.width}
-                            height={this.props.height} />
+                <rect
+                    className={`group-background ${backgroundClass}`}
+                    x={0}
+                    y={0}
+                    width={this.props.width}
+                    height={this.props.height} />
 
-                                <g transform="translate(12,20)">
-                                    {this.state.label}
-                                </g>
+                <g transform="translate(12,20)">
+                    {this.state.label}
+                </g>
             </g>
         );
     }

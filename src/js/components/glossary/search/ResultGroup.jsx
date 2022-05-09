@@ -30,10 +30,10 @@ export default class ResultGroup extends React.Component {
                 <h2 className="group-title">
                     {this.props.title}
                 </h2>
-                    <hr className="group-divider" />
-                        <ul className="group-items">
-                            {items}
-                        </ul>
+                <hr className="group-divider" />
+                <ul className="group-items">
+                    {items}
+                </ul>
             </div>
         );
     }

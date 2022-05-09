@@ -43,9 +43,9 @@ export default class AwardDataArchiveTable extends React.Component {
                             {headers}
                         </tr>
                     </thead>
-                        <tbody>
-                            {rows}
-                        </tbody>
+                    <tbody>
+                        {rows}
+                    </tbody>
                 </table>
             </div>
         );

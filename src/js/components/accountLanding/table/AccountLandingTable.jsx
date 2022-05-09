@@ -71,9 +71,9 @@ export default class AccountLandingTable extends React.PureComponent {
                             {headers}
                         </tr>
                     </thead>
-                        <tbody className={`results-table__body ${hideBody}`}>
-                            {rows}
-                        </tbody>
+                    <tbody className={`results-table__body ${hideBody}`}>
+                        {rows}
+                    </tbody>
                 </table>
                 {message}
             </div>

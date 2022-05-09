@@ -304,10 +304,10 @@ export class RankVisualizationWrapperContainer extends React.Component {
             <div
                 className="results-visualization-rank-section"
                 id="results-section-rank">
-                    <RankVisualizationTitle
-                        fieldTypes={fieldTypes}
-                        changeSpendingBy={this.changeSpendingBy}
-                        currentSpendingBy={this.state.spendingBy} />
+                <RankVisualizationTitle
+                    fieldTypes={fieldTypes}
+                    changeSpendingBy={this.changeSpendingBy}
+                    currentSpendingBy={this.state.spendingBy} />
                 { visualization }
             </div>
         );

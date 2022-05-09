@@ -45,19 +45,19 @@ export default class LegalContent extends React.Component {
                         isGoingToBeSticky
                         fixedStickyBreakpoint={getStickyBreakPointForSidebar()} />
                 </div>
-                    <div className="about-content">
-                        <div className="about-padded-content">
-                            <div className="about-section-wrapper">
-                                <h2 className="about-section-title">
-                                    {this.props.title}
-                                </h2>
+                <div className="about-content">
+                    <div className="about-padded-content">
+                        <div className="about-section-wrapper">
+                            <h2 className="about-section-title">
+                                {this.props.title}
+                            </h2>
 
-                                    <div className="about-section-content">
-                                        {this.props.children}
-                                    </div>
+                            <div className="about-section-content">
+                                {this.props.children}
                             </div>
                         </div>
                     </div>
+                </div>
             </div>
         );
     }

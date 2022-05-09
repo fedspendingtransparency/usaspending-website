@@ -25,22 +25,22 @@ export default class SpendingByRecipientSection extends React.Component {
                         View your results by Parent Recipient or Recipient,
                         and hover over the bars for more detailed information.
                     </div>
-                        <div className="visualization-scope">
-                            <div className="coming-soon">
-                                <RankVisualizationScopeButton
-                                    value="recipient_parent_duns"
-                                    label="Parent Recipient"
-                                    active={this.props.scope === 'recipient_parent_duns'}
-                                    changeScope={this.props.changeScope}
-                                    disabled />
-                                        <ComingSoonLabel />
-                            </div>
-                                <RankVisualizationScopeButton
-                                    value="recipient"
-                                    label="Recipient"
-                                    active={this.props.scope === 'recipient'}
-                                    changeScope={this.props.changeScope} />
+                    <div className="visualization-scope">
+                        <div className="coming-soon">
+                            <RankVisualizationScopeButton
+                                value="recipient_parent_duns"
+                                label="Parent Recipient"
+                                active={this.props.scope === 'recipient_parent_duns'}
+                                changeScope={this.props.changeScope}
+                                disabled />
+                            <ComingSoonLabel />
                         </div>
+                        <RankVisualizationScopeButton
+                            value="recipient"
+                            label="Recipient"
+                            active={this.props.scope === 'recipient'}
+                            changeScope={this.props.changeScope} />
+                    </div>
                 </div>
             </RankVisualizationSection>
         );

@@ -90,15 +90,15 @@ const ContractGrantActivityChartCircles = ({
                             onBlur={onBlur}
                             key={key}
                             tabIndex="0">
-                                <desc>{description}</desc>
-                                    <circle
-                                        data-index={i}
-                                        className={className}
-                                        cx={cx}
-                                        cy={cy}
-                                        r={r}
-                                        onMouseMove={onMouseMove}
-                                        onMouseLeave={onMouseLeave} />
+                            <desc>{description}</desc>
+                            <circle
+                                data-index={i}
+                                className={className}
+                                cx={cx}
+                                cy={cy}
+                                r={r}
+                                onMouseMove={onMouseMove}
+                                onMouseLeave={onMouseLeave} />
                         </g>
                     );
                 })

@@ -52,20 +52,20 @@ const SummaryBar = ({
                     {isLoading ? `--` : `${title} Summary`}
                 </h1>
             </div>
-                <div className="sticky-header__toolbar">
-                    <ShareIcon
-                        slug={slug}
-                        email={{
-                            subject: `USAspending.gov Award Summary: ${emailSubject}`,
-                            body: `View the spending details of this federal award on USAspending.gov: ${getBaseUrl(slug)}`
-                        }} />
-                            <div className="sticky-header__toolbar-item">
-                                <DownloadButton
-                                    downloadAvailable
-                                    downloadInFlight={isDownloadPending}
-                                    onClick={downloadData} />
-                            </div>
+            <div className="sticky-header__toolbar">
+                <ShareIcon
+                    slug={slug}
+                    email={{
+                        subject: `USAspending.gov Award Summary: ${emailSubject}`,
+                        body: `View the spending details of this federal award on USAspending.gov: ${getBaseUrl(slug)}`
+                    }} />
+                <div className="sticky-header__toolbar-item">
+                    <DownloadButton
+                        downloadAvailable
+                        downloadInFlight={isDownloadPending}
+                        onClick={downloadData} />
                 </div>
+            </div>
         </>
     );
 };

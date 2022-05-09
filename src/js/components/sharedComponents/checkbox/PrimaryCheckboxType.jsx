@@ -197,9 +197,9 @@ export default class PrimaryCheckboxType extends React.Component {
                 <div className="primary-checkbox">
                     {primaryTypes}
                 </div>
-                    <ul className="secondary-checkbox-set">
-                        {secondaryTypes}
-                    </ul>
+                <ul className="secondary-checkbox-set">
+                    {secondaryTypes}
+                </ul>
             </li>
         );
     }

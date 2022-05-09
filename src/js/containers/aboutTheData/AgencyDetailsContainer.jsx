@@ -197,14 +197,14 @@ const AgencyDetailsContainer = ({ modalClick, agencyName, agencyCode }) => {
                     error={error}
                     errorMessage={errorMessage} />
             </div>
-                <Pagination
-                    currentPage={currentPage}
-                    changePage={changeCurrentPage}
-                    changeLimit={changePageSize}
-                    limitSelector
-                    resultsText
-                    pageSize={pageSize}
-                    totalItems={totalItems} />
+            <Pagination
+                currentPage={currentPage}
+                changePage={changeCurrentPage}
+                changeLimit={changePageSize}
+                limitSelector
+                resultsText
+                pageSize={pageSize}
+                totalItems={totalItems} />
         </>
     );
 };

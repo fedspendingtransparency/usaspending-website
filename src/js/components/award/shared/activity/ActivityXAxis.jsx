@@ -120,19 +120,19 @@ export default class ActivityXAxis extends React.Component {
             <g
                 className="bar-axis"
                 transform={`translate(${this.props.padding.left},0)`}>
-                    <title>X-Axis</title>
-                        <desc>
-                            {this.state.description}
-                        </desc>
-                            <line
-                                className="axis x-axis"
-                                x1={0}
-                                y1={this.props.height}
-                                x2={this.props.width}
-                                y2={this.props.height} />
-                                    <g className="axis-labels">
-                                        {this.state.labels}
-                                    </g>
+                <title>X-Axis</title>
+                <desc>
+                    {this.state.description}
+                </desc>
+                <line
+                    className="axis x-axis"
+                    x1={0}
+                    y1={this.props.height}
+                    x2={this.props.width}
+                    y2={this.props.height} />
+                <g className="axis-labels">
+                    {this.state.labels}
+                </g>
             </g>
         );
     }

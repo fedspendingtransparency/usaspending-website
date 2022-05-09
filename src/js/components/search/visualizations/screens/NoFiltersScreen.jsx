@@ -13,9 +13,9 @@ const NoFiltersScreen = () => (
             <div className="icon">
                 <CircleArrowLeft alt="Choose a filter" />
             </div>
-                <div className="message">
+            <div className="message">
                 Choose your filters and submit your search to begin.
-                </div>
+            </div>
         </div>
     </div>
 );

@@ -145,26 +145,26 @@ export default class SearchPage extends React.Component {
                         onClick={this.showModal} />
                 ]}
                 filters={this.props.appliedFilters}>
-                    <div id="main-content">
-                        <div className="search-contents">
-                            <div className="full-search-sidebar">
-                                { fullSidebar }
-                            </div>
-                                <SearchResults
-                                    filters={this.props.filters}
-                                    isMobile={this.state.isMobile}
-                                    filterCount={this.state.filterCount}
-                                    showMobileFilters={this.state.showMobileFilters}
-                                    updateFilterCount={this.updateFilterCount}
-                                    toggleMobileFilters={this.toggleMobileFilters}
-                                    requestsComplete={this.props.requestsComplete}
-                                    noFiltersApplied={this.props.noFiltersApplied} />
+                <div id="main-content">
+                    <div className="search-contents">
+                        <div className="full-search-sidebar">
+                            { fullSidebar }
                         </div>
-                            <FullDownloadModalContainer
-                                download={this.props.download}
-                                mounted={this.state.showFullDownload}
-                                hideModal={this.hideModal} />
+                        <SearchResults
+                            filters={this.props.filters}
+                            isMobile={this.state.isMobile}
+                            filterCount={this.state.filterCount}
+                            showMobileFilters={this.state.showMobileFilters}
+                            updateFilterCount={this.updateFilterCount}
+                            toggleMobileFilters={this.toggleMobileFilters}
+                            requestsComplete={this.props.requestsComplete}
+                            noFiltersApplied={this.props.noFiltersApplied} />
                     </div>
+                    <FullDownloadModalContainer
+                        download={this.props.download}
+                        mounted={this.state.showFullDownload}
+                        hideModal={this.hideModal} />
+                </div>
             </PageWrapper>
         );
     }

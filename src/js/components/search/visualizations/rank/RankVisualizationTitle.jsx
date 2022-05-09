@@ -47,14 +47,14 @@ export default class RankVisualizationTitle extends React.Component {
             <li
                 className="field-item"
                 key={`field-${field}`}>
-                    <button
-                        className="item-button"
-                        title={categoryNames[field]}
-                        aria-label={categoryNames[field]}
-                        value={field}
-                        onClick={this.clickedItem}>
-                        {categoryNames[field]}
-                    </button>
+                <button
+                    className="item-button"
+                    title={categoryNames[field]}
+                    aria-label={categoryNames[field]}
+                    value={field}
+                    onClick={this.clickedItem}>
+                    {categoryNames[field]}
+                </button>
             </li>
         ));
 
@@ -72,30 +72,30 @@ export default class RankVisualizationTitle extends React.Component {
                     Spending by:&nbsp;
                 </h2>
 
-                    <div className="field-picker">
-                        <button
-                            className="selected-button"
-                            title={categoryNames[currentField]}
-                            aria-label={categoryNames[currentField]}
-                            onClick={this.togglePicker}>
-                                <span className="label">
-                                    {categoryNames[currentField]}
-                                </span>
-                                    <span className="arrow-icon">
-                                        {icon}
-                                    </span>
-                        </button>
+                <div className="field-picker">
+                    <button
+                        className="selected-button"
+                        title={categoryNames[currentField]}
+                        aria-label={categoryNames[currentField]}
+                        onClick={this.togglePicker}>
+                        <span className="label">
+                            {categoryNames[currentField]}
+                        </span>
+                        <span className="arrow-icon">
+                            {icon}
+                        </span>
+                    </button>
 
-                            <div
-                                className={`field-list ${showPicker}`}
-                                style={{
-                                    height: (this.props.fieldTypes.length * 55) + 1
-                                }}>
-                                    <ul>
-                                        {fields}
-                                    </ul>
-                            </div>
+                    <div
+                        className={`field-list ${showPicker}`}
+                        style={{
+                            height: (this.props.fieldTypes.length * 55) + 1
+                        }}>
+                        <ul>
+                            {fields}
+                        </ul>
                     </div>
+                </div>
             </div>
         );
     }

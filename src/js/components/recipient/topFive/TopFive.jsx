@@ -79,23 +79,23 @@ export default class TopFive extends React.Component {
                 <table className="category-table__table">
                     <thead
                         className="category-table__table-head">
-                            <tr
-                                className="category-table__table-head-row">
-                                    <th className="category-table__table-head-cell">
+                        <tr
+                            className="category-table__table-head-row">
+                            <th className="category-table__table-head-cell">
                          Name
-                                    </th>
-                                        <th className="category-table__table-head-cell category-table__table-head-cell_centered">
+                            </th>
+                            <th className="category-table__table-head-cell category-table__table-head-cell_centered">
                          Awarded Amount
-                                        </th>
-                                            <th className="category-table__table-head-cell category-table__table-head-cell_centered">
+                            </th>
+                            <th className="category-table__table-head-cell category-table__table-head-cell_centered">
                          % of Total
-                                            </th>
-                            </tr>
+                            </th>
+                        </tr>
                     </thead>
-                        <tbody
-                            className={`category-table__table-body ${hideBody}`}>
-                            {rows}
-                        </tbody>
+                    <tbody
+                        className={`category-table__table-body ${hideBody}`}>
+                        {rows}
+                    </tbody>
                 </table>
                 {disclaimer}
             </div>);
@@ -110,9 +110,9 @@ export default class TopFive extends React.Component {
                             className="category-table__title-icon"
                             src={`img/state-categories/${this.props.category}.png`}
                             alt="" />
-                                <div className="category-table__title-name">
-                                    {recipientCategoryTitles[this.props.category]}
-                                </div>
+                        <div className="category-table__title-name">
+                            {recipientCategoryTitles[this.props.category]}
+                        </div>
                     </div>
                     {this.validate() ? <div className="category-message">{this.validate()}</div> : this.deliverHTMLpayload()}
                 </div>

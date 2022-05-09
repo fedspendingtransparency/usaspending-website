@@ -14,15 +14,15 @@ export default class StateFooter extends React.Component {
                     <h4>
                         Looking for more insight?
                     </h4>
-                        <p>
+                    <p>
                         Check out the <strong>Advanced Search</strong> page <br />
                         for more in-depth analysis on this state and more
-                        </p>
-                            <Link
-                                className="state-search-button"
-                                to="/search">
+                    </p>
+                    <Link
+                        className="state-search-button"
+                        to="/search">
                         Let&#39;s go!
-                            </Link>
+                    </Link>
                 </div>
             </div>
         );

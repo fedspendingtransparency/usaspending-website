@@ -115,9 +115,9 @@ export default class GeoVisualizationSection extends React.Component {
                 <MapMessage>
                     <div className="map-loading">
                         <LoadingSpinner />
-                            <div className="loading-message">
+                        <div className="loading-message">
                             Gathering your data...
-                            </div>
+                        </div>
                     </div>
                 </MapMessage>
             );
@@ -129,12 +129,12 @@ export default class GeoVisualizationSection extends React.Component {
                         <div className="error-icon">
                             <ExclamationTriangle alt="An error occurred" />
                         </div>
-                            <div className="title">
+                        <div className="title">
                             An error occurred.
-                            </div>
-                                <div className="description">
+                        </div>
+                        <div className="description">
                             Something went wrong while gathering your data.
-                                </div>
+                        </div>
                     </div>
                 </MapMessage>
             );
@@ -144,9 +144,9 @@ export default class GeoVisualizationSection extends React.Component {
                 <MapMessage>
                     <div className="map-no-results">
                         <div className="no-results-icon" />
-                            <div className="title">
+                        <div className="title">
                             No results found in the current map area.
-                            </div>
+                        </div>
                     </div>
                 </MapMessage>
             );
@@ -157,63 +157,63 @@ export default class GeoVisualizationSection extends React.Component {
                 className="results-visualization-geo-section"
                 id="results-section-geo"
                 aria-label="Spending by Geography">
-                    <h2 className="visualization-title">
+                <h2 className="visualization-title">
                     Spending by Geography
-                    </h2>
-                        <hr
-                            className="results-divider"
-                            ref={(hr) => {
-                                this.sectionHr = hr;
-                            }} />
+                </h2>
+                <hr
+                    className="results-divider"
+                    ref={(hr) => {
+                        this.sectionHr = hr;
+                    }} />
 
-                                <div className="visualization-top">
-                                    <div className="visualization-description">
-                                        <div className="content">
+                <div className="visualization-top">
+                    <div className="visualization-description">
+                        <div className="content">
                             Explore the map to see a breakdown of spending by state, county, or congressional district. View your results by place of performance or recipient location, and hover over your chosen location for more detailed information.
-                                        </div>
-                                    </div>
+                        </div>
+                    </div>
 
-                                        <div className="visualization-period">
-                                            <div className="content">
-                                                <ul>
-                                                    <li>
-                                                        <GeoVisualizationScopeButton
-                                                            value="place_of_performance"
-                                                            label="Place of Performance"
-                                                            active={this.props.scope === 'place_of_performance'}
-                                                            changeScope={this.props.changeScope} />
-                                                    </li>
-                                                        <li>
-                                                            <GeoVisualizationScopeButton
-                                                                value="recipient_location"
-                                                                label="Recipient Location"
-                                                                active={this.props.scope === 'recipient_location'}
-                                                                changeScope={this.props.changeScope} />
-                                                        </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                </div>
+                    <div className="visualization-period">
+                        <div className="content">
+                            <ul>
+                                <li>
+                                    <GeoVisualizationScopeButton
+                                        value="place_of_performance"
+                                        label="Place of Performance"
+                                        active={this.props.scope === 'place_of_performance'}
+                                        changeScope={this.props.changeScope} />
+                                </li>
+                                <li>
+                                    <GeoVisualizationScopeButton
+                                        value="recipient_location"
+                                        label="Recipient Location"
+                                        active={this.props.scope === 'recipient_location'}
+                                        changeScope={this.props.changeScope} />
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
 
-                                    <MapWrapper
-                                        data={this.props.data}
-                                        renderHash={this.props.renderHash}
-                                        scope={this.props.mapLayer}
-                                        changeMapLayer={this.props.changeMapLayer}
-                                        showHover={this.state.showHover}
-                                        selectedItem={this.state.selectedItem}
-                                        showTooltip={this.showTooltip}
-                                        hideTooltip={this.hideTooltip}
-                                        tooltip={GeoVisualizationTooltip}
-                                        availableLayers={availableLayers}
-                                        showLayerToggle
-                                        center={[-95.569430, 38.852892]}
-                                        mapLegendToggle={this.props.mapLegendToggle}
-                                        updateMapLegendToggle={this.props.updateMapLegendToggle}>
-                                        {disclaimer}
-                                        {message}
-                                    </MapWrapper>
-                                        <Note message={noteMessage} />
+                <MapWrapper
+                    data={this.props.data}
+                    renderHash={this.props.renderHash}
+                    scope={this.props.mapLayer}
+                    changeMapLayer={this.props.changeMapLayer}
+                    showHover={this.state.showHover}
+                    selectedItem={this.state.selectedItem}
+                    showTooltip={this.showTooltip}
+                    hideTooltip={this.hideTooltip}
+                    tooltip={GeoVisualizationTooltip}
+                    availableLayers={availableLayers}
+                    showLayerToggle
+                    center={[-95.569430, 38.852892]}
+                    mapLegendToggle={this.props.mapLegendToggle}
+                    updateMapLegendToggle={this.props.updateMapLegendToggle}>
+                    {disclaimer}
+                    {message}
+                </MapWrapper>
+                <Note message={noteMessage} />
             </section>
         );
     }

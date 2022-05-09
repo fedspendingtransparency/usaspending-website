@@ -73,14 +73,14 @@ const StateContent = ({ stateProfile }) => {
                     detectActiveSection={setActiveSection}
                     fixedStickyBreakpoint={getStickyBreakPointForSidebar()} />
             </div>
-                <div className="state-content">
-                    <StateOverview
-                        stateProfile={stateProfile.overview} />
-                            <StateTimeVisualizationSectionContainer
-                                stateProfile={stateProfile.overview} />
-                                    <TopFiveSection />
-                                        <StateFooter />
-                </div>
+            <div className="state-content">
+                <StateOverview
+                    stateProfile={stateProfile.overview} />
+                <StateTimeVisualizationSectionContainer
+                    stateProfile={stateProfile.overview} />
+                <TopFiveSection />
+                <StateFooter />
+            </div>
         </div>
     );
 };

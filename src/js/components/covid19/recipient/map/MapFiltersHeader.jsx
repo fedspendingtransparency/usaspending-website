@@ -7,11 +7,11 @@ const MapLegendHeader = () => (
         <div className="map-filters-header__title-text">
             Show on Map
         </div>
-            <TooltipWrapper
-                className="spending_types-tt"
-                icon="info"
-                tooltipPosition="right"
-                tooltipComponent={<SpendingByRecipientMapTT />} />
+        <TooltipWrapper
+            className="spending_types-tt"
+            icon="info"
+            tooltipPosition="right"
+            tooltipComponent={<SpendingByRecipientMapTT />} />
     </div>
 );
 

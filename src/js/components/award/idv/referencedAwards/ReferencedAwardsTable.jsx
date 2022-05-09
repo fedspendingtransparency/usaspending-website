@@ -36,18 +36,18 @@ export default class ReferencedAwardsTable extends React.Component {
             <th
                 className="referenced-awards-table__head-cell"
                 key={col.field}>
-                    <div className={col.name === 'obligatedAmount' ? 'header-cell header-cell_right' : 'header-cell'}>
-                        <div className="header-cell__text">
-                            <div className="header-cell__title">
-                                {col.label}
-                            </div>
+                <div className={col.name === 'obligatedAmount' ? 'header-cell header-cell_right' : 'header-cell'}>
+                    <div className="header-cell__text">
+                        <div className="header-cell__title">
+                            {col.label}
                         </div>
-                            <StateLandingTableSorter
-                                field={col.field}
-                                label={col.label}
-                                active={{ field: sort[tableType], direction: order[tableType] }}
-                                setSort={this.props.updateSort} />
                     </div>
+                    <StateLandingTableSorter
+                        field={col.field}
+                        label={col.label}
+                        active={{ field: sort[tableType], direction: order[tableType] }}
+                        setSort={this.props.updateSort} />
+                </div>
             </th>
         ));
     }
@@ -100,9 +100,9 @@ export default class ReferencedAwardsTable extends React.Component {
                             {this.generateHeaderCells()}
                         </tr>
                     </thead>
-                        <tbody>
-                            {this.generateRows()}
-                        </tbody>
+                    <tbody>
+                        {this.generateRows()}
+                    </tbody>
                 </table>
             );
         }
@@ -123,15 +123,15 @@ export default class ReferencedAwardsTable extends React.Component {
                     currentPage={page[tableType]}
                     changePage={this.props.changePage} />
                 {content}
-                    <div className="results-table-message-container">
-                        {message}
-                    </div>
-                        <Pagination
-                            resultsText
-                            totalItems={totalItems}
-                            pageSize={this.props.limit}
-                            currentPage={page[tableType]}
-                            changePage={this.props.changePage} />
+                <div className="results-table-message-container">
+                    {message}
+                </div>
+                <Pagination
+                    resultsText
+                    totalItems={totalItems}
+                    pageSize={this.props.limit}
+                    currentPage={page[tableType]}
+                    changePage={this.props.changePage} />
             </div>
         );
     }

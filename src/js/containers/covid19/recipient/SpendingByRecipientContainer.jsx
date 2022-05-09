@@ -123,17 +123,17 @@ const SpendingByRecipientContainer = () => {
                     switchTab={changeActiveTab}
                     tablessStyle />
             </div>
-                <SummaryInsightsContainer
+            <SummaryInsightsContainer
                 // pass Recipient count to the summary section so we don't have to make the same API request again
-                    resultsCount={tabCounts[activeTab]}
-                    activeTab={activeTab}
-                    areCountsLoading={inFlight}
-                    overviewData={overviewData}
-                    recipientOnly />
-                        <RecipientTableContainer
-                            activeTab={activeTab}
-                            prevActiveTab={prevActiveTab}
-                            scrollIntoView={scrollIntoViewTable} />
+                resultsCount={tabCounts[activeTab]}
+                activeTab={activeTab}
+                areCountsLoading={inFlight}
+                overviewData={overviewData}
+                recipientOnly />
+            <RecipientTableContainer
+                activeTab={activeTab}
+                prevActiveTab={prevActiveTab}
+                scrollIntoView={scrollIntoViewTable} />
         </div>
     );
 };

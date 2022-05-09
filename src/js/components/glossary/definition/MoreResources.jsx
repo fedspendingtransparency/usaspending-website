@@ -20,12 +20,12 @@ export default class MoreResources extends React.Component {
                 <h3 className="title">
                     More Resources
                 </h3>
-                    <hr />
-                        <ReactMarkdown
-                            source={this.props.resources}
-                            renderers={Object.assign({}, ReactMarkdown.renderers, {
-                                Link: SmartLink
-                            })} />
+                <hr />
+                <ReactMarkdown
+                    source={this.props.resources}
+                    renderers={Object.assign({}, ReactMarkdown.renderers, {
+                        Link: SmartLink
+                    })} />
             </div>
         );
     }

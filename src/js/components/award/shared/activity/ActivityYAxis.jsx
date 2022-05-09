@@ -115,18 +115,18 @@ export default class ActivityYAxis extends React.Component {
         return (
             <g className="bar-axis">
                 <title>Y-Axis</title>
-                    <desc>
-                        {this.state.description}
-                    </desc>
-                        <line
-                            className="axis y-axis"
-                            x1={this.props.padding.left}
-                            y1={-this.props.extendLine}
-                            x2={this.props.padding.left}
-                            y2={this.props.height} />
-                                <g className="axis-labels">
-                                    {this.state.labels}
-                                </g>
+                <desc>
+                    {this.state.description}
+                </desc>
+                <line
+                    className="axis y-axis"
+                    x1={this.props.padding.left}
+                    y1={-this.props.extendLine}
+                    x2={this.props.padding.left}
+                    y2={this.props.height} />
+                <g className="axis-labels">
+                    {this.state.labels}
+                </g>
             </g>
         );
     }

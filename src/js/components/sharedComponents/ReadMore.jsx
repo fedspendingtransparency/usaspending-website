@@ -27,7 +27,7 @@ const ReadMore = ({
         return (
             <>
                 {children}
-                    <div>{readLess}</div>
+                <div>{readLess}</div>
             </>
         );
     }
@@ -35,7 +35,7 @@ const ReadMore = ({
         return (
             <>
                 <p>{text}</p>
-                    <div>{readLess}</div>
+                <div>{readLess}</div>
             </>
         );
     }

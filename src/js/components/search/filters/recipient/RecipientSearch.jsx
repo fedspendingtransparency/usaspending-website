@@ -41,10 +41,10 @@ export default class RecipientSearch extends React.Component {
                         {...this.props}
                         toggleRecipient={this.props.toggleRecipient} />
                     {selectedRecipients}
-                        <SubmitHint
-                            ref={(component) => {
-                                this.hint = component;
-                            }} />
+                    <SubmitHint
+                        ref={(component) => {
+                            this.hint = component;
+                        }} />
                 </div>
             </div>
         );

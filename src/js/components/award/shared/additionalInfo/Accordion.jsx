@@ -101,8 +101,8 @@ export default class Accordion extends React.Component {
                 <div
                     key={key}
                     className="accordion-row">
-                        <div className="accordion-row__title">{key}</div>
-                            <div className={`accordion-row__data${key === awardIdField ? ' generated-id' : ''}`}>{data}</div>
+                    <div className="accordion-row__title">{key}</div>
+                    <div className={`accordion-row__data${key === awardIdField ? ' generated-id' : ''}`}>{data}</div>
                 </div>
             );
         });
@@ -124,17 +124,17 @@ export default class Accordion extends React.Component {
                     role="button"
                     onKeyDown={onKeyDownHandler}
                     onClick={this.handleClick}>
-                        <span>
-                            <FontAwesomeIcon className={iconClassName} size="lg" icon={accordionIcon} />
-                            {accordionName}
-                        </span>
-                            <span>
-                                {open}
-                            </span>
+                    <span>
+                        <FontAwesomeIcon className={iconClassName} size="lg" icon={accordionIcon} />
+                        {accordionName}
+                    </span>
+                    <span>
+                        {open}
+                    </span>
                 </div>
-                    <div className="accordion__content">
-                        {accordionBody}
-                    </div>
+                <div className="accordion__content">
+                    {accordionBody}
+                </div>
             </div>
         );
     }

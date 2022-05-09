@@ -51,19 +51,19 @@ export const LoadingWrapper = ({
                 {includeHeader && (
                     <>
                         <Header />
-                            <PageHeader title="--" stickyBreakPoint={getStickyBreakPointForSidebar()}>
-                                <div className="page__loading">
-                                    <FontAwesomeIcon icon="spinner" spin size="lg" />
-                                        <h4>{`${msg}${dots}`}</h4>
-                                </div>
-                                {includeFooter && (<Footer pageName="Loading" />)}
-                            </PageHeader>
+                        <PageHeader title="--" stickyBreakPoint={getStickyBreakPointForSidebar()}>
+                            <div className="page__loading">
+                                <FontAwesomeIcon icon="spinner" spin size="lg" />
+                                <h4>{`${msg}${dots}`}</h4>
+                            </div>
+                            {includeFooter && (<Footer pageName="Loading" />)}
+                        </PageHeader>
                     </>
                 )}
-                    <div className="page__loading">
-                        <FontAwesomeIcon icon="spinner" spin size="lg" />
-                            <h4>{`${msg}${dots}`}</h4>
-                    </div>
+                <div className="page__loading">
+                    <FontAwesomeIcon icon="spinner" spin size="lg" />
+                    <h4>{`${msg}${dots}`}</h4>
+                </div>
                 {includeFooter && (<Footer pageName="Loading" />)}
             </>
         );

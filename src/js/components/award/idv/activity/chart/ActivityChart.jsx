@@ -163,17 +163,17 @@ export default class ActivityChart extends React.Component {
                     key={`bar-${bar._awardedAmount}-${index}`}
                     description={description}>
                     {/* awarded amount bar */}
-                        <ActivityChartBar
-                            style={style}
-                            pattern={pattern}
-                            index={index}
-                            height={barHeight}
-                            start={start}
-                            width={barWidth}
-                            yPosition={yPosition}
-                            data={bar}
-                            showTooltip={this.props.showTooltip}
-                            hideTooltip={this.props.hideTooltip} />
+                    <ActivityChartBar
+                        style={style}
+                        pattern={pattern}
+                        index={index}
+                        height={barHeight}
+                        start={start}
+                        width={barWidth}
+                        yPosition={yPosition}
+                        data={bar}
+                        showTooltip={this.props.showTooltip}
+                        hideTooltip={this.props.hideTooltip} />
                 </g>
             );
         });
@@ -333,40 +333,40 @@ export default class ActivityChart extends React.Component {
                 // adds back in the original bottom padding from graphWidthAndHeight()
                 // and adds the labels
                 height={height + 70}>
+                <g
+                    className="activity-chart-body"
+                    transform="translate(0,45)">
+                    <ActivityYAxis
+                        height={height - padding.bottom}
+                        width={width - padding.left}
+                        extendLine={this.props.barHeight}
+                        padding={padding}
+                        scale={this.state.yScale}
+                        ticks={this.state.yTicks} />
+                    <ActivityXAxis
+                        height={height - padding.bottom}
+                        width={graphWidth}
+                        padding={padding}
+                        ticks={this.state.xTicks}
+                        scale={xScale}
+                        line />
                     <g
-                        className="activity-chart-body"
-                        transform="translate(0,45)">
-                            <ActivityYAxis
-                                height={height - padding.bottom}
-                                width={width - padding.left}
-                                extendLine={this.props.barHeight}
-                                padding={padding}
-                                scale={this.state.yScale}
-                                ticks={this.state.yTicks} />
-                                    <ActivityXAxis
-                                        height={height - padding.bottom}
-                                        width={graphWidth}
-                                        padding={padding}
-                                        ticks={this.state.xTicks}
-                                        scale={xScale}
-                                        line />
-                                            <g
-                                                className="activity-chart-data">
-                                                {bars}
-                                                {/* Today Line */}
-                                                {xScale && <SVGLine
-                                                    scale={xScale}
-                                                    y1={-10}
-                                                    y2={height - padding.bottom}
-                                                    textY={0}
-                                                    text="Today"
-                                                    max={xRange[1]}
-                                                    min={xRange[0]}
-                                                    position={currentDate}
-                                                    showTextPosition="top"
-                                                    adjustmentX={padding.left} />}
-                                            </g>
+                        className="activity-chart-data">
+                        {bars}
+                        {/* Today Line */}
+                        {xScale && <SVGLine
+                            scale={xScale}
+                            y1={-10}
+                            y2={height - padding.bottom}
+                            textY={0}
+                            text="Today"
+                            max={xRange[1]}
+                            min={xRange[0]}
+                            position={currentDate}
+                            showTextPosition="top"
+                            adjustmentX={padding.left} />}
                     </g>
+                </g>
             </svg>
         );
     }

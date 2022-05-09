@@ -79,47 +79,47 @@ const ContractContent = ({
             lastModifiedDateLong={overview.periodOfPerformance.lastModifiedDateLong}
             awardType="contract"
             dates={overview.periodOfPerformance}>
-                <AwardSection type="row" className="award-overview" id="award-overview">
-                    <AwardOverviewLeftSection
-                        awardingAgency={overview.awardingAgency}
-                        recipient={overview.recipient} />
-                            <AwardOverviewRightSection
-                                jumpToSubAwardHistoryTable={jumpToSubAwardHistoryTable}
-                                jumpToSection={jumpToSection}
-                                counts={counts}
-                                overview={overview} />
-                </AwardSection>
-                    <AwardSection type="row">
-                        <AwardAmountsSection
-                            awardType={overview.category}
-                            jumpToTransactionHistoryTable={jumpToTransactionHistoryTable}
-                            awardOverview={awardAmountData} />
-                                <AwardDescription
-                                    awardId={awardId}
-                                    awardType={overview.category}
-                                    description={overview.description}
-                                    naics={overview.naics}
-                                    psc={overview.psc} />
-                    </AwardSection>
-                        <AwardSection className="award-contract-activity-section" type="row">
-                            <ContractGrantActivityContainer
-                                awardId={awardId}
-                                awardType={overview.category}
-                                dates={overview.periodOfPerformance}
-                                totalObligation={overview._baseAndAllOptions}
-                                jumpToTransactionHistoryTable={jumpToTransactionHistoryTable} />
-                                    <FederalAccountsSection
-                                        jumpToFederalAccountsHistory={jumpToFederalAccountsHistory}
-                                        awardType={overview.category} />
-                        </AwardSection>
-                            <AwardSection className="award-history-section" type="row">
-                                <AwardHistory
-                                    awardId={awardId}
-                                    overview={overview}
-                                    setActiveTab={setActiveTab}
-                                    activeTab={activeTab} />
-                            </AwardSection>
-                                <AdditionalInfo overview={overview} />
+            <AwardSection type="row" className="award-overview" id="award-overview">
+                <AwardOverviewLeftSection
+                    awardingAgency={overview.awardingAgency}
+                    recipient={overview.recipient} />
+                <AwardOverviewRightSection
+                    jumpToSubAwardHistoryTable={jumpToSubAwardHistoryTable}
+                    jumpToSection={jumpToSection}
+                    counts={counts}
+                    overview={overview} />
+            </AwardSection>
+            <AwardSection type="row">
+                <AwardAmountsSection
+                    awardType={overview.category}
+                    jumpToTransactionHistoryTable={jumpToTransactionHistoryTable}
+                    awardOverview={awardAmountData} />
+                <AwardDescription
+                    awardId={awardId}
+                    awardType={overview.category}
+                    description={overview.description}
+                    naics={overview.naics}
+                    psc={overview.psc} />
+            </AwardSection>
+            <AwardSection className="award-contract-activity-section" type="row">
+                <ContractGrantActivityContainer
+                    awardId={awardId}
+                    awardType={overview.category}
+                    dates={overview.periodOfPerformance}
+                    totalObligation={overview._baseAndAllOptions}
+                    jumpToTransactionHistoryTable={jumpToTransactionHistoryTable} />
+                <FederalAccountsSection
+                    jumpToFederalAccountsHistory={jumpToFederalAccountsHistory}
+                    awardType={overview.category} />
+            </AwardSection>
+            <AwardSection className="award-history-section" type="row">
+                <AwardHistory
+                    awardId={awardId}
+                    overview={overview}
+                    setActiveTab={setActiveTab}
+                    activeTab={activeTab} />
+            </AwardSection>
+            <AdditionalInfo overview={overview} />
         </AwardPageWrapper>
     );
 };

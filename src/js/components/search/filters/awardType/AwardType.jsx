@@ -78,10 +78,10 @@ export default class AwardType extends React.Component {
                     <ul className="checkbox-types">
                         {awardTypes}
                     </ul>
-                        <SubmitHint
-                            ref={(component) => {
-                                this.hint = component;
-                            }} />
+                    <SubmitHint
+                        ref={(component) => {
+                            this.hint = component;
+                        }} />
                 </div>
             </div>
         );

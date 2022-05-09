@@ -365,26 +365,26 @@ ${xAxis.items[0].label} to ${xAxis.items[xAxis.items.length - 1].label}.`;
                     width={this.props.width}
                     height={this.props.height + 20}>
 
-                        <BarChartYAxis
-                            {...this.state.virtualChart.yAxis}
-                            x={this.state.virtualChart.yAxis.group.x}
-                            y={this.state.virtualChart.yAxis.group.y} />
-                                <BarChartXAxis
-                                    {...this.state.virtualChart.xAxis} />
+                    <BarChartYAxis
+                        {...this.state.virtualChart.yAxis}
+                        x={this.state.virtualChart.yAxis.group.x}
+                        y={this.state.virtualChart.yAxis.group.y} />
+                    <BarChartXAxis
+                        {...this.state.virtualChart.xAxis} />
 
-                                        <g
-                                            className="bar-data"
-                                            transform={`translate(${this.state.virtualChart.body.group.x},\
+                    <g
+                        className="bar-data"
+                        transform={`translate(${this.state.virtualChart.body.group.x},\
 ${this.state.virtualChart.body.group.y})`}>
-                                            {body}
-                                        </g>
+                        {body}
+                    </g>
 
-                                            <g
-                                                className="legend-container"
-                                                transform={`translate(${this.props.padding.left},
+                    <g
+                        className="legend-container"
+                        transform={`translate(${this.props.padding.left},
                         ${this.props.height - 20})`}>
-                            <BarChartLegend legend={this.props.legend} />
-                                            </g>
+                        <BarChartLegend legend={this.props.legend} />
+                    </g>
 
                 </svg>
             </div>

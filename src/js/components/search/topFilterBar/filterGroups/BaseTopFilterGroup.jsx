@@ -38,16 +38,16 @@ export default class BaseTopFilterGroup extends React.Component {
                     className="filter-group"
                     role="group"
                     aria-label={this.props.filter.name}>
-                        <div className="filter-group-top">
-                            <div className="filter-name">
-                                {this.props.filter.name}
-                            </div>
+                    <div className="filter-group-top">
+                        <div className="filter-name">
+                            {this.props.filter.name}
                         </div>
-                            <div className="filter-group-bottom">
-                                <div className="filter-values">
-                                    {tags}
-                                </div>
-                            </div>
+                    </div>
+                    <div className="filter-group-bottom">
+                        <div className="filter-values">
+                            {tags}
+                        </div>
+                    </div>
                 </div>
             </div>
         );

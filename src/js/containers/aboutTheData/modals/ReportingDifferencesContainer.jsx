@@ -96,14 +96,14 @@ const ReportingDifferencesContainer = ({ agencyData }) => {
                 columns={columns}
                 currentSort={{ field: sort, direction: order }}
                 updateSort={updateSort} />
-                    <Pagination
-                        currentPage={page}
-                        changePage={setPage}
-                        changeLimit={setLimit}
-                        limitSelector
-                        resultsText
-                        pageSize={limit}
-                        totalItems={total} />
+            <Pagination
+                currentPage={page}
+                changePage={setPage}
+                changeLimit={setLimit}
+                limitSelector
+                resultsText
+                pageSize={limit}
+                totalItems={total} />
         </>
     );
 };

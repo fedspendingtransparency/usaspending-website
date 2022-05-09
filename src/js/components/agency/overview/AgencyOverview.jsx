@@ -82,7 +82,7 @@ export default class AgencyOverview extends React.PureComponent {
                     target="_blank"
                     rel="noopener noreferrer">
                     {`${agency.website} `}
-                        <FontAwesomeIcon icon="external-link-alt" />
+                    <FontAwesomeIcon icon="external-link-alt" />
                 </a>
             );
         }
@@ -95,7 +95,7 @@ export default class AgencyOverview extends React.PureComponent {
                     target="_blank"
                     rel="noopener noreferrer">
                     {`${agency.congressionalJustificationUrl} `}
-                        <FontAwesomeIcon icon="external-link-alt" />
+                    <FontAwesomeIcon icon="external-link-alt" />
                 </a>
             ) : agency.congressionalJustificationUrl;
 
@@ -174,78 +174,78 @@ export default class AgencyOverview extends React.PureComponent {
             <div
                 className="agency-overview"
                 id="agency-overview">
-                    <div className="title-wrapper">
-                        <div className={`logo ${this.state.hideLogo}`}>
-                            {this.state.logo}
-                        </div>
-                            <div className="title">
-                                <h3>{this.props.agency.name}</h3>
-                            </div>
+                <div className="title-wrapper">
+                    <div className={`logo ${this.state.hideLogo}`}>
+                        {this.state.logo}
                     </div>
-                        <hr className="results-divider" />
-                            <div className="overview-content">
-                                <div className="agency-details">
-                                    <h4>Agency Mission</h4>
-                                        <p>{this.state.mission}</p>
+                    <div className="title">
+                        <h3>{this.props.agency.name}</h3>
+                    </div>
+                </div>
+                <hr className="results-divider" />
+                <div className="overview-content">
+                    <div className="agency-details">
+                        <h4>Agency Mission</h4>
+                        <p>{this.state.mission}</p>
 
-                                            <div className="lower-details">
-                                                <div className="group">
-                                                    <h5>Website</h5>
-                                                        <div className="agency-website">
-                                                            {this.state.website}
-                                                        </div>
-                                                </div>
-                                                    <div className="group">
-                                                        <h5>Congressional Justification of Budget (CJ)</h5>
-                                                            <div className="agency-website">
-                                                                {this.state.cjUrl}
-                                                            </div>
-                                                    </div>
-                                            </div>
+                        <div className="lower-details">
+                            <div className="group">
+                                <h5>Website</h5>
+                                <div className="agency-website">
+                                    {this.state.website}
                                 </div>
-                                    <div
-                                        className="budget-authority"
-                                        ref={(div) => {
-                                            this.containerDiv = div;
-                                        }}>
-                                            <h4>
+                            </div>
+                            <div className="group">
+                                <h5>Congressional Justification of Budget (CJ)</h5>
+                                <div className="agency-website">
+                                    {this.state.cjUrl}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        className="budget-authority"
+                        ref={(div) => {
+                            this.containerDiv = div;
+                        }}>
+                        <h4>
                             Budgetary Resources
-                                                <a href={`agency/${this.props.agency.id}?glossary=budgetary-resources`}>
-                                                    <Glossary />
-                                                </a>
+                            <a href={`agency/${this.props.agency.id}?glossary=budgetary-resources`}>
+                                <Glossary />
+                            </a>
                             for FY {this.props.activeFy}
-                                            </h4>
-                                                <div className="budget-authority-date">
-                                                    <em>
+                        </h4>
+                        <div className="budget-authority-date">
+                            <em>
                                 FY {this.props.activeFy} data reported
                                 through {this.props.asOfDate}
-                                                    </em>
-                                                </div>
-                                                    <div className="authority-amount">
-                                                        {this.state.formattedBudgetAuthority}
-                                                    </div>
-                                                        <div className="authority-statement">
+                            </em>
+                        </div>
+                        <div className="authority-amount">
+                            {this.state.formattedBudgetAuthority}
+                        </div>
+                        <div className="authority-statement">
                             This is {this.state.percentageElement} of the total U.S.
                             federal budgetary resources for FY {this.props.activeFy}.
-                                                        </div>
-                                                            <svg className="horizontal-bar">
-                                                                <g>
-                                                                    <HorizontalBarItem
-                                                                        description="Budgetary Resources"
-                                                                        x={0}
-                                                                        y={0}
-                                                                        width={this.state.obligatedWidth}
-                                                                        color="#597785" />
-                                                                            <HorizontalBarItem
-                                                                                description="Remaining United States federal budget"
-                                                                                x={this.state.obligatedWidth}
-                                                                                y={0}
-                                                                                width={this.state.remainingWidth}
-                                                                                color="#D8D8D8" />
-                                                                </g>
-                                                            </svg>
-                                    </div>
-                            </div>
+                        </div>
+                        <svg className="horizontal-bar">
+                            <g>
+                                <HorizontalBarItem
+                                    description="Budgetary Resources"
+                                    x={0}
+                                    y={0}
+                                    width={this.state.obligatedWidth}
+                                    color="#597785" />
+                                <HorizontalBarItem
+                                    description="Remaining United States federal budget"
+                                    x={this.state.obligatedWidth}
+                                    y={0}
+                                    width={this.state.remainingWidth}
+                                    color="#D8D8D8" />
+                            </g>
+                        </svg>
+                    </div>
+                </div>
             </div>
         );
     }

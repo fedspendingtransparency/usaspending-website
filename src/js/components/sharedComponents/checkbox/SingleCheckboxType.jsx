@@ -75,15 +75,15 @@ export default class SingleCheckboxType extends React.Component {
                     <label
                         className="checkbox-item-wrapper"
                         htmlFor={elementId}>
-                            <input
-                                type="checkbox"
-                                id={elementId}
-                                value={this.props.code}
-                                checked={checked}
-                                onChange={this.toggleFilter} />
-                                    <span className="checkbox-item-label">
-                                        {this.props.name}
-                                    </span>
+                        <input
+                            type="checkbox"
+                            id={elementId}
+                            value={this.props.code}
+                            checked={checked}
+                            onChange={this.toggleFilter} />
+                        <span className="checkbox-item-label">
+                            {this.props.name}
+                        </span>
                     </label>
                 </div>
             </div>

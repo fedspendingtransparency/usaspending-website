@@ -13,12 +13,12 @@ const ChartError = () => (
             <div className="error-icon">
                 <ExclamationTriangle alt="An error occurred" />
             </div>
-                <div className="title">
+            <div className="title">
                 An error occurred.
-                </div>
-                    <div className="description">
+            </div>
+            <div className="description">
                 Something went wrong while gathering your data.
-                    </div>
+            </div>
         </div>
     </div>
 );

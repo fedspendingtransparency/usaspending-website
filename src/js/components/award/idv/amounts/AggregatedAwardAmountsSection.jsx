@@ -56,40 +56,40 @@ export default class AggregatedAwardAmounts extends React.Component {
             <div className="award-amounts__content">
                 <AwardsBanner
                     jumpToReferencedAwardsTable={this.jumpToReferencedAwardsTable} />
-                        <AwardAmountsChart
-                            showCaresActViz={this.props.showFileC}
-                            awardOverview={awardAmounts}
-                            awardType="idv"
-                            spendingScenario={spendingScenario} />
-                                <AwardAmountsTable
-                                    awardAmountType="idv_aggregated"
-                                    showFileC={this.props.showFileC}
-                                    awardData={awardAmounts}
-                                    spendingScenario={spendingScenario} />
-                                        <div className="award-amounts-children__data-wrapper">
-                                            <span className="title-and-link-span">
-                                                <p className="count-of-awards-title-text"><strong>Count of Awards Under this IDV</strong></p>
-                                                    <JumpToSectionButton
-                                                        linkText="View table of awards under this IDV"
-                                                        onClick={this.jumpToReferencedAwardsTable}
-                                                        icon="table" />
-                                            </span>
-                                                <div className="award-amounts-children__data-content">
-                                                    <div>Count of Child Contracts</div>
-                                                        <span>{formatNumber(awardAmounts.childAwardCount)}</span>
-                                                </div>
-                                                    <div className="award-amounts-children__data-content">
-                                                        <div>Count of Child IDVs</div>
-                                                            <span>
-                                                                {formatNumber(awardAmounts.childIDVCount)}
-                                                            </span>
-                                                    </div>
-                                                        <div className="award-amounts-children__data-content">
-                                                            <div>Count of Grandchild Contracts</div>
-                                                                <span>{formatNumber(awardAmounts.grandchildAwardCount)}</span>
-                                                        </div>
-                                                            <p className="total-title-text"><strong>Total: </strong>{`${formatNumber(awardAmounts.grandchildAwardCount + awardAmounts.childAwardCount + awardAmounts.childIDVCount)}`}</p>
-                                        </div>
+                <AwardAmountsChart
+                    showCaresActViz={this.props.showFileC}
+                    awardOverview={awardAmounts}
+                    awardType="idv"
+                    spendingScenario={spendingScenario} />
+                <AwardAmountsTable
+                    awardAmountType="idv_aggregated"
+                    showFileC={this.props.showFileC}
+                    awardData={awardAmounts}
+                    spendingScenario={spendingScenario} />
+                <div className="award-amounts-children__data-wrapper">
+                    <span className="title-and-link-span">
+                        <p className="count-of-awards-title-text"><strong>Count of Awards Under this IDV</strong></p>
+                        <JumpToSectionButton
+                            linkText="View table of awards under this IDV"
+                            onClick={this.jumpToReferencedAwardsTable}
+                            icon="table" />
+                    </span>
+                    <div className="award-amounts-children__data-content">
+                        <div>Count of Child Contracts</div>
+                        <span>{formatNumber(awardAmounts.childAwardCount)}</span>
+                    </div>
+                    <div className="award-amounts-children__data-content">
+                        <div>Count of Child IDVs</div>
+                        <span>
+                            {formatNumber(awardAmounts.childIDVCount)}
+                        </span>
+                    </div>
+                    <div className="award-amounts-children__data-content">
+                        <div>Count of Grandchild Contracts</div>
+                        <span>{formatNumber(awardAmounts.grandchildAwardCount)}</span>
+                    </div>
+                    <p className="total-title-text"><strong>Total: </strong>{`${formatNumber(awardAmounts.grandchildAwardCount + awardAmounts.childAwardCount + awardAmounts.childIDVCount)}`}</p>
+                </div>
             </div>
         );
     }

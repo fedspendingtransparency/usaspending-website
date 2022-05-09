@@ -9,12 +9,12 @@ const ChartNoResults = () => (
     <div className="visualization-message-container">
         <div className="visualization-no-results">
             <div className="no-results-icon" />
-                <div className="title">
+            <div className="title">
                 No results found.
-                </div>
-                    <div className="description">
+            </div>
+            <div className="description">
                 Try again using different filters.
-                    </div>
+            </div>
         </div>
     </div>
 );

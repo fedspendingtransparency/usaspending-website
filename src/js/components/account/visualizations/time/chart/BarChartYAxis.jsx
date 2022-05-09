@@ -29,19 +29,19 @@ export default class BarChartYAxis extends React.Component {
             <g
                 className="bar-axis"
                 transform={`translate(${this.props.x},${this.props.y})`}>
-                    <title>{this.props.title}</title>
-                        <desc>{this.props.description}</desc>
-                            <g>
-                                <line
-                                    className="y-axis"
-                                    x1={this.props.line.x1}
-                                    x2={this.props.line.x2}
-                                    y1={this.props.line.y1}
-                                    y2={this.props.line.y2} />
-                            </g>
-                                <g className="axis-labels">
-                                    {labels}
-                                </g>
+                <title>{this.props.title}</title>
+                <desc>{this.props.description}</desc>
+                <g>
+                    <line
+                        className="y-axis"
+                        x1={this.props.line.x1}
+                        x2={this.props.line.x2}
+                        y1={this.props.line.y1}
+                        y2={this.props.line.y2} />
+                </g>
+                <g className="axis-labels">
+                    {labels}
+                </g>
             </g>
         );
     }

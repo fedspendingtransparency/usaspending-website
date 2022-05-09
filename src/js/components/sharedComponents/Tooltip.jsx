@@ -97,14 +97,14 @@ export default class Tooltip extends React.Component {
                     top: this.state.iconTop,
                     left: this.state.iconLeft
                 }}>
-                    <div className="tooltip__icon">
-                        <Icons.InfoCircle />
+                <div className="tooltip__icon">
+                    <Icons.InfoCircle />
+                </div>
+                <div className="homepage-hero-tooltip__text_holder">
+                    <div className="tooltip__content">
+                        {this.props.content}
                     </div>
-                        <div className="homepage-hero-tooltip__text_holder">
-                            <div className="tooltip__content">
-                                {this.props.content}
-                            </div>
-                        </div>
+                </div>
             </div>
         );
     }

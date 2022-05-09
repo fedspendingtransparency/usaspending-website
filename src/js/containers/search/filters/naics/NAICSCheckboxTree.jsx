@@ -76,10 +76,10 @@ const propTypes = {
 const SearchTooltip = () => (
     <>
         <p>Filter the options below by typing any of the following:</p>
-            <ul>
-                <li>Any NAICS numeric code (or part thereof)</li>
-                    <li>Any NAICS label name (or part thereof)</li>
-            </ul>
+        <ul>
+            <li>Any NAICS numeric code (or part thereof)</li>
+            <li>Any NAICS label name (or part thereof)</li>
+        </ul>
     </>
 );
 
@@ -447,43 +447,43 @@ export class NAICSCheckboxTree extends React.Component {
                     <span className="checkbox-header">Search by Code or Name
                         <CSSOnlyTooltip definition={<SearchTooltip />} heading="NAICS Search" />
                     </span>
-                        <EntityDropdownAutocomplete
-                            placeholder="Type to find codes"
-                            searchString={searchString}
-                            enabled
-                            handleTextInputChange={this.handleTextInputChange}
-                            context={{}}
-                            loading={false}
-                            isClearable
-                            onClear={this.onClear} />
+                    <EntityDropdownAutocomplete
+                        placeholder="Type to find codes"
+                        searchString={searchString}
+                        enabled
+                        handleTextInputChange={this.handleTextInputChange}
+                        context={{}}
+                        loading={false}
+                        isClearable
+                        onClear={this.onClear} />
                     {this.checkboxDiv(showNoResults)}
                     {counts.length !== 0 && (
-                    <div
-                        id="award-search-selected-locations"
-                        className="selected-filters"
-                        role="status">
-                        {counts.map((node) => {
-                            const label = `${node.value} - ${node.label} (${node.count})`;
-                            return (
-                                <button
-                                    key={uniqueId()}
-                                    className="shown-filter-button"
-                                    value={label}
-                                    onClick={() => this.removeStagedNaics(node)}
-                                    title="Click to remove."
-                                    aria-label={`Applied filter: ${label}`}>
-                                    {label}
+                        <div
+                            id="award-search-selected-locations"
+                            className="selected-filters"
+                            role="status">
+                            {counts.map((node) => {
+                                const label = `${node.value} - ${node.label} (${node.count})`;
+                                return (
+                                    <button
+                                        key={uniqueId()}
+                                        className="shown-filter-button"
+                                        value={label}
+                                        onClick={() => this.removeStagedNaics(node)}
+                                        title="Click to remove."
+                                        aria-label={`Applied filter: ${label}`}>
+                                        {label}
                                         <span className="close">
                                             <FontAwesomeIcon icon="times" />
                                         </span>
-                                </button>
-                            );
-                        })}
-                    </div>
+                                    </button>
+                                );
+                            })}
+                        </div>
                     )}
-                        <SubmitHint ref={(component) => {
-                            this.hint = component;
-                        }} />
+                    <SubmitHint ref={(component) => {
+                        this.hint = component;
+                    }} />
                 </div>
             </div>
         );

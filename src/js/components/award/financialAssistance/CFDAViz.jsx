@@ -215,20 +215,20 @@ export default class CFDAViz extends React.Component {
             return (
                 <div className="view-buttons-section">
                     <div className="view-buttons-section__text">{`Click on a program ${isTreeView ? 'tile' : 'title'} to see its details.`}</div>
-                        <div className="view-buttons-section__buttons">
-                            <ViewTypeButton
-                                value="table"
-                                label="Table"
-                                icon="table"
-                                changeView={this.props.changeView}
-                                active={!isTreeView} />
-                                    <ViewTypeButton
-                                        value="tree"
-                                        label="Treemap"
-                                        icon="th-large"
-                                        changeView={this.props.changeView}
-                                        active={isTreeView} />
-                        </div>
+                    <div className="view-buttons-section__buttons">
+                        <ViewTypeButton
+                            value="table"
+                            label="Table"
+                            icon="table"
+                            changeView={this.props.changeView}
+                            active={!isTreeView} />
+                        <ViewTypeButton
+                            value="tree"
+                            label="Treemap"
+                            icon="th-large"
+                            changeView={this.props.changeView}
+                            active={isTreeView} />
+                    </div>
                 </div>
             );
         }
@@ -239,7 +239,7 @@ export default class CFDAViz extends React.Component {
                         <div className="view-buttons-section__back-icon">
                             <FontAwesomeIcon icon="arrow-circle-left" />
                         </div>
-                            <div className="view-buttons-section__back-text">Back to all CFDA programs</div>
+                        <div className="view-buttons-section__back-text">Back to all CFDA programs</div>
                     </button>
                 </div>
             );
@@ -251,18 +251,18 @@ export default class CFDAViz extends React.Component {
         return (
             <div className="cfda-section__viz">
                 {this.state.showTooltip && <CFDATreeTooltip {...this.state.tooltip} />}
-                    <div className="cfda-section-results">
-                        {this.buttons()}
-                        {this.title()}
-                        {this.chart()}
-                        {this.content()}
-                            <div
-                                className="cfda-section-vis__width-reference"
-                                ref={(div) => {
-                                    this.widthRef = div;
-                                }} />
-                        {this.tree()}
-                    </div>
+                <div className="cfda-section-results">
+                    {this.buttons()}
+                    {this.title()}
+                    {this.chart()}
+                    {this.content()}
+                    <div
+                        className="cfda-section-vis__width-reference"
+                        ref={(div) => {
+                            this.widthRef = div;
+                        }} />
+                    {this.tree()}
+                </div>
             </div>
         );
     }

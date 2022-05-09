@@ -164,23 +164,23 @@ const StatusOfFundsChart = ({
                     <div className="tooltip__title">
                         {data.name}
                     </div>
-                        <div className="tooltip__text">
-                            <div className="tooltip__item">
-                                <div
-                                    className="tooltip__circle"
-                                    style={{ 'background-color': '#2B71B8' }} />
-                                        <div className="tooltip__text-label">FY{fy[2]}{fy[3]} Obligations</div>
-                                            <div className="tooltip__text-amount">{data.obligations}</div>
-                            </div>
-                                <div className="tooltip__item">
-                                    <div
-                                        className="tooltip__circle"
-                                        style={{ 'background-color': '#BBDFC7' }} />
-                                            <div className="tooltip__text-label">FY{fy[2]}{fy[3]} Total Budgetary<br />Resources</div>
-                                                <div className="tooltip__text-amount">{data.budgetaryResources}</div>
-                                </div>
-                            {level === 0 && (<><hr /><div className="tooltip__text-note">Click bar to view Federal Accounts</div></>)}
+                    <div className="tooltip__text">
+                        <div className="tooltip__item">
+                            <div
+                                className="tooltip__circle"
+                                style={{ 'background-color': '#2B71B8' }} />
+                            <div className="tooltip__text-label">FY{fy[2]}{fy[3]} Obligations</div>
+                            <div className="tooltip__text-amount">{data.obligations}</div>
                         </div>
+                        <div className="tooltip__item">
+                            <div
+                                className="tooltip__circle"
+                                style={{ 'background-color': '#BBDFC7' }} />
+                            <div className="tooltip__text-label">FY{fy[2]}{fy[3]} Total Budgetary<br />Resources</div>
+                            <div className="tooltip__text-amount">{data.budgetaryResources}</div>
+                        </div>
+                        {level === 0 && (<><hr /><div className="tooltip__text-note">Click bar to view Federal Accounts</div></>)}
+                    </div>
                 </div>
             );
         }
@@ -447,21 +447,21 @@ const StatusOfFundsChart = ({
                         closeTooltip: () => {}
                     }} />
             }
-                <div id="sof_chart" className="status-of-funds__visualization" ref={chartRef} />
-                    <FlexGridRow className="legend" style={{ flexDirection: isLargeScreen ? 'column' : 'row' }}>
-                        <div className="legend__item">
-                            <div
-                                className="legend__circle"
-                                style={{ backgroundColor: '#2B71B8' }} />
-                                    <div className="legend__text">FY{fy[2]}{fy[3]} Obligations</div>&nbsp;&nbsp;&nbsp;&nbsp;
-                        </div>
-                            <div className="legend__item">
-                                <div
-                                    className="legend__circle"
-                                    style={{ backgroundColor: '#BBDFC7' }} />
-                                        <div className="legend__text">FY{fy[2]}{fy[3]} Total Budgetary Resources</div>
-                            </div>
-                    </FlexGridRow>
+            <div id="sof_chart" className="status-of-funds__visualization" ref={chartRef} />
+            <FlexGridRow className="legend" style={{ flexDirection: isLargeScreen ? 'column' : 'row' }}>
+                <div className="legend__item">
+                    <div
+                        className="legend__circle"
+                        style={{ backgroundColor: '#2B71B8' }} />
+                    <div className="legend__text">FY{fy[2]}{fy[3]} Obligations</div>&nbsp;&nbsp;&nbsp;&nbsp;
+                </div>
+                <div className="legend__item">
+                    <div
+                        className="legend__circle"
+                        style={{ backgroundColor: '#BBDFC7' }} />
+                    <div className="legend__text">FY{fy[2]}{fy[3]} Total Budgetary Resources</div>
+                </div>
+            </FlexGridRow>
         </>
     );
 };

@@ -32,9 +32,9 @@ export default class FilterSelection extends React.Component {
                 <h3 className="download-filter__title">
                     Select your Filter.
                 </h3>
-                    <div className="download-filter__info">
-                        {icon} <span>You may select one filter or both. </span>
-                    </div>
+                <div className="download-filter__info">
+                    {icon} <span>You may select one filter or both. </span>
+                </div>
             </div>
         );
     }

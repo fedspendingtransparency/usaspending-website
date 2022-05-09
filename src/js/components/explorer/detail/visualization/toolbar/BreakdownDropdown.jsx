@@ -167,38 +167,38 @@ export class BreakdownDropdown extends React.Component {
                     <div className="breakdown__label">
                         See the breakdown by:
                     </div>
-                        <div className="breakdown__dropdown">
-                            <button
-                                className="dropdown__selection"
-                                onClick={this.toggleMenu}>
-                                    <div className="dropdown__icon">
-                                        {icon}
-                                    </div>
-                                        <div className="dropdown__label">
-                                            {sidebarTypes[this.state.active]}
-                                        </div>
-                                            <div className="dropdown__arrow">
-                                                <FontAwesomeIcon icon="angle-down" />
-                                            </div>
-                            </button>
+                    <div className="breakdown__dropdown">
+                        <button
+                            className="dropdown__selection"
+                            onClick={this.toggleMenu}>
+                            <div className="dropdown__icon">
+                                {icon}
+                            </div>
+                            <div className="dropdown__label">
+                                {sidebarTypes[this.state.active]}
+                            </div>
+                            <div className="dropdown__arrow">
+                                <FontAwesomeIcon icon="angle-down" />
+                            </div>
+                        </button>
 
-                            {dropdown}
-                        </div>
-                </div>
-                    <div className="view-buttons">
-                        <ViewTypeButton
-                            value="treemap"
-                            label="Treemap"
-                            icon="th-large"
-                            active={this.props.viewType === 'treemap'}
-                            changeView={this.props.changeView} />
-                                <ViewTypeButton
-                                    value="table"
-                                    label="Table"
-                                    icon="table"
-                                    active={this.props.viewType === 'table'}
-                                    changeView={this.props.changeView} />
+                        {dropdown}
                     </div>
+                </div>
+                <div className="view-buttons">
+                    <ViewTypeButton
+                        value="treemap"
+                        label="Treemap"
+                        icon="th-large"
+                        active={this.props.viewType === 'treemap'}
+                        changeView={this.props.changeView} />
+                    <ViewTypeButton
+                        value="table"
+                        label="Table"
+                        icon="table"
+                        active={this.props.viewType === 'table'}
+                        changeView={this.props.changeView} />
+                </div>
             </div>
         );
     }

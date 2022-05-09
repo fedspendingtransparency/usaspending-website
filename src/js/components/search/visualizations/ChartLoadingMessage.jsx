@@ -10,9 +10,9 @@ const ChartLoadingMessage = () => (
     <div className="visualization-message-container">
         <div className="visualization-loading">
             <LoadingSpinner />
-                <div className="message">
+            <div className="message">
                 Gathering your data...
-                </div>
+            </div>
         </div>
     </div>
 );

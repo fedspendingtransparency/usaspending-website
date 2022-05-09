@@ -62,12 +62,12 @@ export default class GlossarySearchBar extends React.Component {
                         value={this.props.glossary.search.input}
                         placeholder="Search for a term..."
                         onChange={this.changedSearchValue} />
-                            <button
-                                aria-label="Search"
-                                className="search-button"
-                                type="submit">
-                                    <Search alt="Search" />
-                            </button>
+                    <button
+                        aria-label="Search"
+                        className="search-button"
+                        type="submit">
+                        <Search alt="Search" />
+                    </button>
                 </form>
             </div>
         );

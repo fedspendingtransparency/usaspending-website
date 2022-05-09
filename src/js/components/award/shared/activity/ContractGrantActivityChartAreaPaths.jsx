@@ -264,33 +264,33 @@ const ContractGrantActivityChartAreaPaths = ({
             {areaPath &&
             <g tabIndex="0">
                 <desc>{transactionPathDescription}</desc>
-                    <path
-                        className="area-path"
-                        d={areaPath} />
+                <path
+                    className="area-path"
+                    d={areaPath} />
             </g>}
             {/* extend area path to today */}
             {areaPathExtensionToTodayLine &&
             <g tabIndex="0">
                 <desc>{areaPathToTodayLineDescription}</desc>
-                    <path
-                        className="area-path"
-                        d={areaPathExtensionToTodayLine} />
+                <path
+                    className="area-path"
+                    d={areaPathExtensionToTodayLine} />
             </g>}
             {/* extend area path past end line */}
             {areaPathPastEndLine &&
             <g tabIndex="0">
                 <desc>{areaPathPastEndLineDescription}</desc>
-                    <path
-                        className="area-path__past-end-line"
-                        d={areaPathPastEndLine} />
+                <path
+                    className="area-path__past-end-line"
+                    d={areaPathPastEndLine} />
             </g>}
             {/* area Path Extension Last Data Point Y Value Change */}
             {areaPathExtensionLastDataPointYValueChange.path &&
             <g tabIndex="0">
                 <desc>{areaPathExtensionLastDataPointYValueChange.description}</desc>
-                    <path
-                        className={areaPathExtensionLastDataPointYValueChange.className}
-                        d={areaPathExtensionLastDataPointYValueChange.path} />
+                <path
+                    className={areaPathExtensionLastDataPointYValueChange.className}
+                    d={areaPathExtensionLastDataPointYValueChange.path} />
             </g>}
         </g>
     );

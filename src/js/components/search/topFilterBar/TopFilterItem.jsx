@@ -19,9 +19,9 @@ const TopFilterItem = (props) => (
         <div
             className="filter-item"
             role="listitem">
-                <div className="filter-item-title">
-                    {props.title}
-                </div>
+            <div className="filter-item-title">
+                {props.title}
+            </div>
         </div>
     </div>
 );

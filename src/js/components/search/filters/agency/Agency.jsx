@@ -58,14 +58,14 @@ export default class Agency extends React.Component {
                         agencyType={type}
                         toggleAgency={this.props.toggleAgency}
                         selectedAgencies={selectedAgencies} />
-                            <SelectedAgencies
-                                agencyType={type}
-                                selectedAgencies={selectedAgencies}
-                                toggleAgency={this.props.toggleAgency} />
-                                    <SubmitHint
-                                        ref={(component) => {
-                                            this.hint = component;
-                                        }} />
+                    <SelectedAgencies
+                        agencyType={type}
+                        selectedAgencies={selectedAgencies}
+                        toggleAgency={this.props.toggleAgency} />
+                    <SubmitHint
+                        ref={(component) => {
+                            this.hint = component;
+                        }} />
                 </div>
             );
         });

@@ -54,7 +54,7 @@ const DropdownItem = ({
         ? (
             <>
                 {label}
-                    <span className="new-badge dropdown-item"> NEW</span>
+                <span className="new-badge dropdown-item"> NEW</span>
             </>
         )
         : null;

@@ -80,11 +80,11 @@ export default class DetailsTabItem extends React.Component {
                     onClick={this.clickedButton}
                     title={`Show ${this.props.label}`}
                     disabled={disabledStatus}>
-                        <div className="tab-content">
-                            <span>{this.props.label}</span>
-                            {comingSoon}
-                            {count}
-                        </div>
+                    <div className="tab-content">
+                        <span>{this.props.label}</span>
+                        {comingSoon}
+                        {count}
+                    </div>
                     {infoTooltip}
                 </div>
             </div>

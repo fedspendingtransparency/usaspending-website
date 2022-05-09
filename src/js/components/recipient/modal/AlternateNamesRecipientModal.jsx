@@ -43,26 +43,26 @@ const AlternateNamesRecipientModal = (props) => {
             dialogClass="recipients-modal"
             verticallyCenter
             escapeExits>
-                <div className="recipients-modal__wrapper">
-                    <div className="recipients-modal__header">
-                        <h1 className="recipients-modal__title">{`Other Names for ${props.recipient.overview.name}`}</h1>
-                            <button
-                                className="recipients-modal__close-button"
-                                onClick={props.hideModal}
-                                title="Close"
-                                aria-label="Close">
-                                    <Close alt="Close modal" />
-                            </button>
-                    </div>
-                        <div className="recipients-modal__body">
-                            {resultCountDisplay}
-                            {table}
-                            {resultCountDisplay}
-                                <div className="recipients-modal__message">
-                                    {message}
-                                </div>
-                        </div>
+            <div className="recipients-modal__wrapper">
+                <div className="recipients-modal__header">
+                    <h1 className="recipients-modal__title">{`Other Names for ${props.recipient.overview.name}`}</h1>
+                    <button
+                        className="recipients-modal__close-button"
+                        onClick={props.hideModal}
+                        title="Close"
+                        aria-label="Close">
+                        <Close alt="Close modal" />
+                    </button>
                 </div>
+                <div className="recipients-modal__body">
+                    {resultCountDisplay}
+                    {table}
+                    {resultCountDisplay}
+                    <div className="recipients-modal__message">
+                        {message}
+                    </div>
+                </div>
+            </div>
         </Modal>
     );
 };

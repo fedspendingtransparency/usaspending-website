@@ -77,31 +77,31 @@ export default class TreasuryAccountFilters extends React.Component {
             <div className="program-source-tab">
                 <div className="program-source-components">
                     {activeTab === 2 && (
-                    <div className="program-source-components__heading">
+                        <div className="program-source-components__heading">
                             Treasury Account Components
-                    </div>
+                        </div>
                     )}
                     {this.generateFilters()}
-                        <div
-                            className="program-source-components__button-wrapper"
-                            onFocus={this.showWarning}
-                            onMouseEnter={this.showWarning}
-                            onBlur={this.hideWarning}
-                            onMouseLeave={this.hideWarning}>
-                            {activeTab === 2 && (
+                    <div
+                        className="program-source-components__button-wrapper"
+                        onFocus={this.showWarning}
+                        onMouseEnter={this.showWarning}
+                        onBlur={this.hideWarning}
+                        onMouseLeave={this.hideWarning}>
+                        {activeTab === 2 && (
                             <button
                                 disabled={!enabled}
                                 onClick={this.props.applyFilter}
                                 className="program-source-components__button">
                                 Add Filter
                             </button>
-                            )}
-                                <div
-                                    className={`program-source-warning ${this.state.showWarning ? '' : 'hide'}`}
-                                    aria-hidden={enabled}>
-                                        <EntityWarning message={message} />
-                                </div>
+                        )}
+                        <div
+                            className={`program-source-warning ${this.state.showWarning ? '' : 'hide'}`}
+                            aria-hidden={enabled}>
+                            <EntityWarning message={message} />
                         </div>
+                    </div>
                 </div>
             </div>
         );

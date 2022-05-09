@@ -115,19 +115,19 @@ const AboutContent = () => {
                     jumpToSection={jumpToSection}
                     fixedStickyBreakpoint={getStickyBreakPointForSidebar()} />
             </div>
-                <div className="about-content">
-                    <div className="about-padded-content">
-                        <Mission />
-                            <Background />
-                                <DataSources onExternalLinkClick={onExternalLinkClick} />
-                                    <DataQuality onExternalLinkClick={onExternalLinkClick} />
-                                        <Development />
-                                            <Careers />
-                                                <Licensing />
-                                                    <MoreInfo />
-                                                        <Contact />
-                    </div>
+            <div className="about-content">
+                <div className="about-padded-content">
+                    <Mission />
+                    <Background />
+                    <DataSources onExternalLinkClick={onExternalLinkClick} />
+                    <DataQuality onExternalLinkClick={onExternalLinkClick} />
+                    <Development />
+                    <Careers />
+                    <Licensing />
+                    <MoreInfo />
+                    <Contact />
                 </div>
+            </div>
         </div>
     );
 };

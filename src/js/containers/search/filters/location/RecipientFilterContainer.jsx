@@ -47,9 +47,9 @@ export class RecipientFilterContainer extends React.Component {
                     scope="recipient_location"
                     selectedLocations={this.props.selectedLocations}
                     addLocation={this.addLocation} />
-                        <SelectedLocations
-                            selectedLocations={this.props.selectedLocations}
-                            removeLocation={this.removeLocation} />
+                <SelectedLocations
+                    selectedLocations={this.props.selectedLocations}
+                    removeLocation={this.removeLocation} />
             </div>
         );
     }

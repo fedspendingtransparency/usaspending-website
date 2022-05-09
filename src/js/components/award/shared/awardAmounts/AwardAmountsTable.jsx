@@ -54,14 +54,14 @@ const AwardAmountsTable = ({
                 return (
                     <div className="award-amounts__data-content">
                         <div><span className="award-amounts__data-icon award-amounts__data-icon_overspending" />{type === 'idv' ? 'Exceeds Combined Current Award Amounts' : 'Exceeds Current Award Amount'}</div>
-                            <span>{awardAmounts.overspendingFormatted}</span>
+                        <span>{awardAmounts.overspendingFormatted}</span>
                     </div>
                 );
             case ('exceedsBiggest'):
                 return (
                     <div className="award-amounts__data-content">
                         <div><span className="award-amounts__data-icon award-amounts__data-icon_extreme-overspending" />{type === 'idv' ? 'Exceeds Combined Potential Award Amounts' : 'Exceeds Potential Award Amount'}</div>
-                            <span>{awardAmounts.extremeOverspendingFormatted}</span>
+                        <span>{awardAmounts.extremeOverspendingFormatted}</span>
                     </div>
                 );
             default:
@@ -101,7 +101,7 @@ const AwardAmountsTable = ({
                                 <span className={`award-amounts__data-icon ${awardTableClassMap[title]}`} />
                                 {title}
                             </div>
-                                <span>{amountMapByCategoryTitle[title]}</span>
+                            <span>{amountMapByCategoryTitle[title]}</span>
                         </div>
                 ))
             }

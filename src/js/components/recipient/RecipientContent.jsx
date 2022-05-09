@@ -79,15 +79,15 @@ const RecipientContent = ({
                     fixedStickyBreakpoint={getStickyBreakPointForSidebar()}
                     detectActiveSection={setActiveSection} />
             </div>
-                <div className="recipient-content">
-                    <RecipientOverview
-                        showChildRecipientModal={showChildRecipientModal}
-                        showAlternateNamesRecipientModal={showAlternateNamesRecipientModal}
-                        recipient={recipient} />
-                            <RecipientTimeVisualizationSectionContainer
-                                recipient={recipient} />
-                                    <TopFiveSection />
-                </div>
+            <div className="recipient-content">
+                <RecipientOverview
+                    showChildRecipientModal={showChildRecipientModal}
+                    showAlternateNamesRecipientModal={showAlternateNamesRecipientModal}
+                    recipient={recipient} />
+                <RecipientTimeVisualizationSectionContainer
+                    recipient={recipient} />
+                <TopFiveSection />
+            </div>
         </div>
     );
 };

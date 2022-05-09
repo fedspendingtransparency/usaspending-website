@@ -25,12 +25,11 @@
     "rules": {
         // indentation should be 4 spaces (use soft tabs) and switch cases should be indented
         "indent": [2, 4, {
-            "SwitchCase": 1,
-            "ignoredNodes": ["JSXElement", "JSXElement > *", "JSXAttribute", "JSXIdentifier", "JSXNamespacedName", "JSXMemberExpression", "JSXSpreadAttribute", "JSXExpressionContainer", "JSXOpeningElement", "JSXClosingElement", "JSXText", "JSXEmptyExpression", "JSXSpreadChild"]
+            "SwitchCase": 1
         }],
         // require 4 spaces in JSX as well
-        "react/jsx-indent": [2,4],
-        "react/jsx-indent-props": [2,4],
+        "react/jsx-indent": [0],
+        "react/jsx-indent-props": [0],
         // closing brackets should be aligned with the final prop (props.. />)
         "react/jsx-closing-bracket-location": [2, {"location": "after-props"}],
         "react/prop-types":[1],
@@ -96,8 +95,8 @@
         "react/no-array-index-key": [1],
         // allow await in for-await-in loops
         "no-await-in-loop": [0],
-        "react-hooks/rules-of-hooks": "error",
-        "react-hooks/exhaustive-deps": "warn",
+        "react-hooks/rules-of-hooks": [0],
+        "react-hooks/exhaustive-deps": [0],
         "jsx-a11y/anchor-is-valid": "warn"
     }
 }

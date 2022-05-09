@@ -136,31 +136,31 @@ export class DEFCheckboxTree extends React.Component {
                     onUncheck={this.stageFilter}
                     onCheck={this.stageFilter} />
                 {this.props.counts.length > 0 && (
-                <div
-                    className="selected-filters"
-                    role="status">
-                    {this.props.counts.map((node) => {
-                        const label = `${node.label} (${node.count})`;
-                        return (
-                            <button
-                                key={uniqueId()}
-                                className="shown-filter-button"
-                                value={label}
-                                onClick={(e) => this.removeSelectedFilter(e, node)}
-                                title="Click to remove."
-                                aria-label={`Applied filter: ${label}`}>
-                                {label}
+                    <div
+                        className="selected-filters"
+                        role="status">
+                        {this.props.counts.map((node) => {
+                            const label = `${node.label} (${node.count})`;
+                            return (
+                                <button
+                                    key={uniqueId()}
+                                    className="shown-filter-button"
+                                    value={label}
+                                    onClick={(e) => this.removeSelectedFilter(e, node)}
+                                    title="Click to remove."
+                                    aria-label={`Applied filter: ${label}`}>
+                                    {label}
                                     <span className="close">
                                         <FontAwesomeIcon icon="times" />
                                     </span>
-                            </button>
-                        );
-                    })}
-                </div>
+                                </button>
+                            );
+                        })}
+                    </div>
                 )}
-                    <SubmitHint ref={(component) => {
-                        this.hint = component;
-                    }} />
+                <SubmitHint ref={(component) => {
+                    this.hint = component;
+                }} />
             </div>
         );
     }

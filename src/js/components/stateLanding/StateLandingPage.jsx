@@ -37,22 +37,22 @@ export default class StateLandingPage extends React.Component {
                         onShareOptionClick={this.handleShare}
                         url={getBaseUrl(slug)} />
                 ]}>
-                    <main
-                        id="main-content"
-                        className="main-content">
-                            <div className="landing-page">
-                                <div className="landing-page__overview">
-                                    <h2
-                                        className="landing-page__title">
+                <main
+                    id="main-content"
+                    className="main-content">
+                    <div className="landing-page">
+                        <div className="landing-page__overview">
+                            <h2
+                                className="landing-page__title">
                                     Find a State Profile.
-                                    </h2>
-                                        <div className="landing-page__description">
+                            </h2>
+                            <div className="landing-page__description">
                                     Find insights into the awards that fall within a particular U.S. state or territory with the tools and data breakdowns found in our State Profile pages.
-                                        </div>
-                                </div>
-                                    <StateLandingContainer />
                             </div>
-                    </main>
+                        </div>
+                        <StateLandingContainer />
+                    </div>
+                </main>
             </PageWrapper>
         );
     }

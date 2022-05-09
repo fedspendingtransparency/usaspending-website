@@ -97,20 +97,20 @@ export default class DownloadDateRange extends React.Component {
                         this.startPicker = component;
                     }}
                     allowClearing />
-                        <DatePicker
-                            type="endDateBulk"
-                            title="End Date"
-                            tabIndex={this.props.startingTab + 4}
-                            onDateChange={this.props.onDateChange}
-                            value={this.props.endDate}
-                            opposite={this.props.startDate}
-                            showError={this.props.showError}
-                            hideError={this.props.hideError}
-                            disabledDays={endDateDisabledDays}
-                            ref={(component) => {
-                                this.endPicker = component;
-                            }}
-                            allowClearing />
+                <DatePicker
+                    type="endDateBulk"
+                    title="End Date"
+                    tabIndex={this.props.startingTab + 4}
+                    onDateChange={this.props.onDateChange}
+                    value={this.props.endDate}
+                    opposite={this.props.startDate}
+                    showError={this.props.showError}
+                    hideError={this.props.hideError}
+                    disabledDays={endDateDisabledDays}
+                    ref={(component) => {
+                        this.endPicker = component;
+                    }}
+                    allowClearing />
             </div>
         );
     }

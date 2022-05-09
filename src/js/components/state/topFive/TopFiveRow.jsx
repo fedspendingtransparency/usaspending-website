@@ -20,23 +20,23 @@ const TopFiveRow = (props) => {
     return (
         <tr
             className="category-table__table-row">
-                <td
-                    className="category-table__table-cell"
-                    title={props.data.name}>
-                    {GlobalConstants.AGENCYV2_RELEASED && props.data._slug ?
-                        props.data.linkedName
-                        : props.data.name}
-                </td>
-                    <td
-                        className="category-table__table-cell category-table__table-cell_centered"
-                        title={props.data.amount}>
-                        {props.data.amount}
-                    </td>
-                        <td
-                            className="category-table__table-cell category-table__table-cell_centered"
-                            title={percent}>
-                            {percent}
-                        </td>
+            <td
+                className="category-table__table-cell"
+                title={props.data.name}>
+                {GlobalConstants.AGENCYV2_RELEASED && props.data._slug ?
+                    props.data.linkedName
+                    : props.data.name}
+            </td>
+            <td
+                className="category-table__table-cell category-table__table-cell_centered"
+                title={props.data.amount}>
+                {props.data.amount}
+            </td>
+            <td
+                className="category-table__table-cell category-table__table-cell_centered"
+                title={percent}>
+                {percent}
+            </td>
         </tr>
     );
 };

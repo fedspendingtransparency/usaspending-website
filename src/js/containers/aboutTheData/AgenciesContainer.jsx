@@ -349,40 +349,40 @@ const AgenciesContainer = ({
         <>
             <div className={`table-container table-container_${activeTab}`} ref={tableRef} onScroll={handleScroll}>
                 {activeTab === 'submissions' && (
-                <Table
-                    rows={searchTerm ? renderDetails(submissionsSearchResults) : renderDetails(allSubmissions)}
-                    classNames={`${verticalStickyClass} ${horizontalStickyClass} ${areSubmissionsLoading ? 'table-loading' : ''}`}
-                    columns={agenciesTableColumns[activeTab]}
-                    updateSort={handleUpdateSort}
-                    currentSort={{
-                        field: submissionsSort[0],
-                        direction: submissionsSort[1]
-                    }}
-                    error={error}
-                    loading={areSubmissionsLoading} />
+                    <Table
+                        rows={searchTerm ? renderDetails(submissionsSearchResults) : renderDetails(allSubmissions)}
+                        classNames={`${verticalStickyClass} ${horizontalStickyClass} ${areSubmissionsLoading ? 'table-loading' : ''}`}
+                        columns={agenciesTableColumns[activeTab]}
+                        updateSort={handleUpdateSort}
+                        currentSort={{
+                            field: submissionsSort[0],
+                            direction: submissionsSort[1]
+                        }}
+                        error={error}
+                        loading={areSubmissionsLoading} />
                 )}
                 {activeTab === 'publications' && (
-                <Table
-                    rows={searchTerm ? renderDates(publicationsSearchResults, selectedFy) : renderDates(allPublications, selectedFy)}
-                    classNames={`${verticalStickyClass} ${horizontalStickyClass} ${arePublicationsLoading ? 'table-loading' : ''}`}
-                    columns={agenciesTableColumns[activeTab](selectedFy)}
-                    updateSort={handleUpdateSort}
-                    currentSort={{
-                        field: publicationsSort[0],
-                        direction: publicationsSort[1]
-                    }}
-                    error={error}
-                    loading={arePublicationsLoading} />
+                    <Table
+                        rows={searchTerm ? renderDates(publicationsSearchResults, selectedFy) : renderDates(allPublications, selectedFy)}
+                        classNames={`${verticalStickyClass} ${horizontalStickyClass} ${arePublicationsLoading ? 'table-loading' : ''}`}
+                        columns={agenciesTableColumns[activeTab](selectedFy)}
+                        updateSort={handleUpdateSort}
+                        currentSort={{
+                            field: publicationsSort[0],
+                            direction: publicationsSort[1]
+                        }}
+                        error={error}
+                        loading={arePublicationsLoading} />
                 )}
             </div>
-                <Pagination
-                    resultsText
-                    limitSelector
-                    changeLimit={handleLimitChange}
-                    changePage={handlePageChange}
-                    currentPage={activeTab === 'submissions' ? submissionsPage : publicationsPage}
-                    pageSize={activeTab === 'submissions' ? submissionsLimit : publicationsLimit}
-                    totalItems={activeTab === 'submissions' ? totalSubmissionItems : totalPublicationItems} />
+            <Pagination
+                resultsText
+                limitSelector
+                changeLimit={handleLimitChange}
+                changePage={handlePageChange}
+                currentPage={activeTab === 'submissions' ? submissionsPage : publicationsPage}
+                pageSize={activeTab === 'submissions' ? submissionsLimit : publicationsLimit}
+                totalItems={activeTab === 'submissions' ? totalSubmissionItems : totalPublicationItems} />
         </>
     );
 };

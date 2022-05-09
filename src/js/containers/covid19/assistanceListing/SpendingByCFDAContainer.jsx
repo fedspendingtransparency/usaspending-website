@@ -42,7 +42,7 @@ const columns = [
         displayName: (
             <div className="table-header-label__title">
                 <div>CFDA Program</div>
-                    <div>(Assistance Listing)</div>
+                <div>(Assistance Listing)</div>
             </div>
         )
     },
@@ -61,7 +61,7 @@ const columns = [
         displayName: (
             <div className="table-header-label__title">
                 <div>Number</div>
-                    <div>of Awards</div>
+                <div>of Awards</div>
             </div>
         ),
         right: true
@@ -74,7 +74,7 @@ const loanColumns = [
         displayName: (
             <div className="table-header-label__title">
                 <div>CFDA Program</div>
-                    <div>(Assistance Listing)</div>
+                <div>(Assistance Listing)</div>
             </div>
         )
     },
@@ -83,7 +83,7 @@ const loanColumns = [
         displayName: (
             <div className="table-header-label__title">
                 <div>Award Obligations</div>
-                    <div>(Loan Subsidy Cost)</div>
+                <div>(Loan Subsidy Cost)</div>
             </div>
         ),
         right: true
@@ -93,7 +93,7 @@ const loanColumns = [
         displayName: (
             <div className="table-header-label__title">
                 <div>Award Outlays</div>
-                    <div>(Loan Subsidy Cost)</div>
+                <div>(Loan Subsidy Cost)</div>
             </div>
         ),
         right: true
@@ -103,7 +103,7 @@ const loanColumns = [
         displayName: (
             <div className="table-header-label__title">
                 <div>Face Value</div>
-                    <div>of Loans</div>
+                <div>of Loans</div>
             </div>
         ),
         right: true
@@ -113,7 +113,7 @@ const loanColumns = [
         displayName: (
             <div className="table-header-label__title">
                 <div>Number</div>
-                    <div>of Awards</div>
+                <div>of Awards</div>
             </div>
         ),
         right: true
@@ -233,7 +233,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
                             data-code={rowData.code}
                             onClick={launchModal}>
                             {link}
-                                <span className="assistance-listing__button__icon"><FontAwesomeIcon data-code={rowData.code} icon="window-restore" /></span>
+                            <span className="assistance-listing__button__icon"><FontAwesomeIcon data-code={rowData.code} icon="window-restore" /></span>
                         </button>
                     </div>
                 );
@@ -357,25 +357,25 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
     return (
         <div ref={tableWrapperRef}>
             <SearchBar onSearch={setQuery} />
-                <Pagination
-                    currentPage={currentPage}
-                    changePage={changeCurrentPage}
-                    changeLimit={changePageSize}
-                    limitSelector
-                    resultsText
-                    pageSize={pageSize}
-                    totalItems={totalItems} />
+            <Pagination
+                currentPage={currentPage}
+                changePage={changeCurrentPage}
+                changeLimit={changePageSize}
+                limitSelector
+                resultsText
+                pageSize={pageSize}
+                totalItems={totalItems} />
             {(loading || error || results.length === 0) &&
             <TransitionGroup>
                 <CSSTransition
                     classNames="table-message-fade"
                     timeout={{ exit: 225, enter: 195 }}
                     exit>
-                        <div className="results-table-message-container" style={{ height: tableHeight }}>
-                            {error && <ResultsTableErrorMessage />}
-                            {loading && <ResultsTableLoadingMessage />}
-                            {!error && !loading && results.length === 0 && <ResultsTableNoResults />}
-                        </div>
+                    <div className="results-table-message-container" style={{ height: tableHeight }}>
+                        {error && <ResultsTableErrorMessage />}
+                        {loading && <ResultsTableLoadingMessage />}
+                        {!error && !loading && results.length === 0 && <ResultsTableNoResults />}
+                    </div>
                 </CSSTransition>
             </TransitionGroup>
             }
@@ -387,20 +387,20 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
                     updateSort={updateSort}
                     currentSort={{ field: sort, direction: order }} />
             </div>}
-                <Pagination
-                    currentPage={currentPage}
-                    changePage={changeCurrentPage}
-                    changeLimit={changePageSize}
-                    limitSelector
-                    resultsText
-                    pageSize={pageSize}
-                    totalItems={totalItems} />
-                        <CFDADetailModal
-                            mounted={currentModalData.modal !== 'redirect' && cfdaModal}
-                            closeModal={closeModal}
-                            data={modalData}
-                            updateAdvancedSearchFilters={updateAdvancedSearchFilters}
-                            displayRedirectModal={displayRedirectModal} />
+            <Pagination
+                currentPage={currentPage}
+                changePage={changeCurrentPage}
+                changeLimit={changePageSize}
+                limitSelector
+                resultsText
+                pageSize={pageSize}
+                totalItems={totalItems} />
+            <CFDADetailModal
+                mounted={currentModalData.modal !== 'redirect' && cfdaModal}
+                closeModal={closeModal}
+                data={modalData}
+                updateAdvancedSearchFilters={updateAdvancedSearchFilters}
+                displayRedirectModal={displayRedirectModal} />
         </div>
     );
 };

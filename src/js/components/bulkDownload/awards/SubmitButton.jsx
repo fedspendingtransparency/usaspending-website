@@ -85,10 +85,10 @@ export default class SubmitButton extends React.Component {
                 <div
                     className="download-tooltip-spacer"
                     style={style}>
-                        <DownloadTooltip
-                            filters={this.props.filters}
-                            validDates={this.props.validDates}
-                            dataType={this.props.dataType} />
+                    <DownloadTooltip
+                        filters={this.props.filters}
+                        validDates={this.props.validDates}
+                        dataType={this.props.dataType} />
                 </div>
             );
         }
@@ -100,7 +100,7 @@ export default class SubmitButton extends React.Component {
                 onMouseLeave={this.onMouseLeave}
                 onFocus={this.onMouseEnter}
                 onBlur={this.onMouseLeave}>
-                    <button disabled>Download</button>
+                <button disabled>Download</button>
             </div>
         );
 

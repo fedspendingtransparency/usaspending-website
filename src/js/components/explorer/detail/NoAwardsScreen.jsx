@@ -33,9 +33,9 @@ export default class NoAwardsScreen extends React.Component {
                     </span>
                     You&#8217;ve reached a point with no associated awards.
                 </div>
-                    <button className="go-back" onClick={this.clickedLink}>
+                <button className="go-back" onClick={this.clickedLink}>
                     Click here to go back.
-                    </button>
+                </button>
             </div>
         );
     }

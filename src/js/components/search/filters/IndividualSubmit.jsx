@@ -30,9 +30,9 @@ const IndividualSubmit = (props) => (
         aria-label={props.label}
         onKeyDown={props.onKeyDown}
         {...props.accessibility}>
-            <div className="icon">
-                <Search alt={props.label} />
-            </div>
+        <div className="icon">
+            <Search alt={props.label} />
+        </div>
     </button>
 );
 

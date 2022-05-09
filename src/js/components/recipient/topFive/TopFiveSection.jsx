@@ -17,9 +17,9 @@ export default class TopFiveSection extends React.Component {
                         <TopFiveContainer
                             key={category}
                             category={category} />
-                                <TopFiveContainer
-                                    key={topCategories[i + 1]}
-                                    category={topCategories[i + 1]} />
+                        <TopFiveContainer
+                            key={topCategories[i + 1]}
+                            category={topCategories[i + 1]} />
                     </div>
                 );
             }
@@ -30,16 +30,16 @@ export default class TopFiveSection extends React.Component {
             <div
                 className="recipient-section topfive"
                 id="recipient-top-five">
-                    <h3 className="state-section__title">
+                <h3 className="state-section__title">
                     Top 5
-                    </h3>
-                        <hr className="results-divider" />
-                            <div className="state-section__description">
+                </h3>
+                <hr className="results-divider" />
+                <div className="state-section__description">
                     The set of tables below provide a summary of awards to this recipient through multiple angles. To see more than the top 5, you can visit our Advanced Search page.
-                            </div>
-                                <div className="topfive__content">
-                                    {content}
-                                </div>
+                </div>
+                <div className="topfive__content">
+                    {content}
+                </div>
             </div>
         );
     }

@@ -26,9 +26,9 @@ const MobileLinks = () => {
             <ul className="mobile-download__list mobile-download__list_align_left">
                 {leftItems}
             </ul>
-                <ul className="mobile-download__list mobile-download__list_align_right">
-                    {rightItems}
-                </ul>
+            <ul className="mobile-download__list mobile-download__list_align_right">
+                {rightItems}
+            </ul>
         </div>
     );
 };

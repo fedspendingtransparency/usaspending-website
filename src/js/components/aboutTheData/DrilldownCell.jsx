@@ -25,12 +25,12 @@ const DrilldownCell = ({
         <span className="action-cell__text">
             {searchTerm ? replaceString(data, searchTerm, 'matched-str') : data}
         </span>
-            <Link
-                to={`/submission-statistics/agency/${id}`}
-                className="action-cell__button"
-                title="View all submissions for this agency">
-                    <FontAwesomeIcon icon="angle-double-down" />
-            </Link>
+        <Link
+            to={`/submission-statistics/agency/${id}`}
+            className="action-cell__button"
+            title="View all submissions for this agency">
+            <FontAwesomeIcon icon="angle-double-down" />
+        </Link>
     </div>
 );
 

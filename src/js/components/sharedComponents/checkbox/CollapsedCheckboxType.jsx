@@ -41,19 +41,19 @@ export default class CollapsedCheckboxType extends React.Component {
                             toggleExpand={this.props.toggleExpand}
                             arrowState={this.props.arrowState} />
                     }
-                        <label
-                            className="checkbox-item-wrapper"
-                            htmlFor={elementId}>
-                                <input
-                                    type="checkbox"
-                                    id={elementId}
-                                    value={this.props.name}
-                                    checked={this.props.selected}
-                                    onChange={this.props.toggleChildren} />
-                                        <span className="checkbox-item-label">
-                                            {this.props.name}
-                                        </span>
-                        </label>
+                    <label
+                        className="checkbox-item-wrapper"
+                        htmlFor={elementId}>
+                        <input
+                            type="checkbox"
+                            id={elementId}
+                            value={this.props.name}
+                            checked={this.props.selected}
+                            onChange={this.props.toggleChildren} />
+                        <span className="checkbox-item-label">
+                            {this.props.name}
+                        </span>
+                    </label>
                 </div>
             </div>
         );

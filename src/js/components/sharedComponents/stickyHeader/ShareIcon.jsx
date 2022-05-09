@@ -74,19 +74,19 @@ const ShareIcon = ({
                 style={{ position: 'absolute', right: '9999px', opacity: 0 }}
                 value={getBaseUrl(slug)}
                 readOnly />
-                    <Picker
-                        dropdownDirection="left"
-                        options={socialSharePickerOptions}
-                        selectedOption="copy"
-                        backgroundColor="#4A4A4A"
-                        sortFn={() => 1}>
-                            <FontAwesomeIcon icon="share-alt" size="lg" />
-                    </Picker>
-                        <span>Share</span>
+            <Picker
+                dropdownDirection="left"
+                options={socialSharePickerOptions}
+                selectedOption="copy"
+                backgroundColor="#4A4A4A"
+                sortFn={() => 1}>
+                <FontAwesomeIcon icon="share-alt" size="lg" />
+            </Picker>
+            <span>Share</span>
             {showConfirmationText && (
-            <span className="copy-confirmation">
-                <FontAwesomeIcon icon="check-circle" color="#3A8250" /> Copied!
-            </span>
+                <span className="copy-confirmation">
+                    <FontAwesomeIcon icon="check-circle" color="#3A8250" /> Copied!
+                </span>
             )}
         </div>
     );

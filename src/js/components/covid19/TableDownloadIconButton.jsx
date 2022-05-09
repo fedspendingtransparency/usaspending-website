@@ -32,8 +32,8 @@ const TableDownloadIconButton = ({ onClick, downloadInFlight }) => {
                 aria-label={buttonText}
                 disabled={downloadInFlight}
                 onClick={startDownload}>
-                    <FontAwesomeIcon icon={icon} spin={!!downloadInFlight} />
-                        <span>Download Data</span>
+                <FontAwesomeIcon icon={icon} spin={!!downloadInFlight} />
+                <span>Download Data</span>
             </button>
         </div>
     );

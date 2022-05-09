@@ -24,12 +24,12 @@ export default class HorizontalYAxis extends React.Component {
             <g
                 className="bar-axis"
                 transform={`translate(${this.props.x},${this.props.y})`}>
-                    <line
-                        className="y-axis"
-                        x1={zeroPos}
-                        x2={zeroPos}
-                        y1={-1 * this.props.height}
-                        y2={0} />
+                <line
+                    className="y-axis"
+                    x1={zeroPos}
+                    x2={zeroPos}
+                    y1={-1 * this.props.height}
+                    y2={0} />
             </g>
         );
     }

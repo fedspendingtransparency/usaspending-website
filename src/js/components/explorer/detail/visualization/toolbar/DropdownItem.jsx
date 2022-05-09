@@ -35,12 +35,12 @@ export default class DropdownItem extends React.Component {
                     className="dropdown-option"
                     title={label}
                     onClick={this.clickedButton}>
-                        <div className="dropdown-option__icon">
-                            {icon}
-                        </div>
-                            <div className="dropdown-option__label">
-                                {label}
-                            </div>
+                    <div className="dropdown-option__icon">
+                        {icon}
+                    </div>
+                    <div className="dropdown-option__label">
+                        {label}
+                    </div>
                 </button>
             </li>
         );

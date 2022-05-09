@@ -141,9 +141,9 @@ export default class ExplorerVisualization extends React.Component {
             disclaimer = (
                 <div className="explorer-vis__disclaimer">
                     <p>All dollar amounts shown here represent agency reported obligated amounts</p>
-                        <Note
-                            title="Unreported Data*:"
-                            message={(
+                    <Note
+                        title="Unreported Data*:"
+                        message={(
                             <>
                                 Unreported amounts are calculated using the difference in the total obligated amount from the&nbsp;
                                 <ExternalLink url="https://portal.max.gov/portal/document/SF133/Budget/FACTS%20II%20-%20SF%20133%20Report%20on%20Budget%20Execution%20and%20Budgetary%20Resources.html">
@@ -152,7 +152,7 @@ export default class ExplorerVisualization extends React.Component {
                                 &nbsp;(excluding financing accounts) and the total obligated amount reported by agencies to USAspending.gov in 'Account Breakdown by Program Activity &amp; Object Class' data (also called 'File B' data).
                             </>
                         )} />
-                            <Note message={dodNote} />
+                    <Note message={dodNote} />
                 </div>
             );
         }
@@ -161,11 +161,11 @@ export default class ExplorerVisualization extends React.Component {
             <div className="explorer-vis">
                 {dropDown}
 
-                    <div
-                        className="explorer-vis__width-reference"
-                        ref={(div) => {
-                            this.widthRef = div;
-                        }} />
+                <div
+                    className="explorer-vis__width-reference"
+                    ref={(div) => {
+                        this.widthRef = div;
+                    }} />
 
                 {visualization}
 

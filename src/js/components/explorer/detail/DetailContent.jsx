@@ -151,14 +151,14 @@ export default class DetailContent extends React.Component {
                     ref={(div) => {
                         this.wrapperDiv = div;
                     }}>
-                        <div className="explorer-detail-content__loading">
-                            <div className="explorer-detail-content__loading-message">
-                                <LoadingSpinner />
-                                    <div className="explorer-detail-content__loading-title">Gathering your data...</div>
-                                        <div className="explorer-detail-content__loading-subtitle">Updating Spending Explorer.</div>
-                                            <div>This should only take a few moments...</div>
-                            </div>
+                    <div className="explorer-detail-content__loading">
+                        <div className="explorer-detail-content__loading-message">
+                            <LoadingSpinner />
+                            <div className="explorer-detail-content__loading-title">Gathering your data...</div>
+                            <div className="explorer-detail-content__loading-subtitle">Updating Spending Explorer.</div>
+                            <div>This should only take a few moments...</div>
                         </div>
+                    </div>
                 </div>
             );
         }

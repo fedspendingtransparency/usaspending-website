@@ -20,9 +20,9 @@ export default class About extends React.Component {
                 classNames="usa-da-about-page"
                 metaTagProps={aboutPageMetaTags}
                 title="About">
-                    <main id="main-content" className="main-content">
-                        <AboutContent />
-                    </main>
+                <main id="main-content" className="main-content">
+                    <AboutContent />
+                </main>
             </PageWrapper>
         );
     }

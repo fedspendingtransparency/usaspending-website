@@ -56,7 +56,7 @@ export default class RecipientInformation extends React.Component {
                     onFocus={this.showTooltip}
                     onMouseEnter={this.showTooltip}
                     onClick={this.showTooltip}>
-                        <InfoCircle alt="Information" />
+                    <InfoCircle alt="Information" />
                 </button>
                 {tooltip}
             </div>

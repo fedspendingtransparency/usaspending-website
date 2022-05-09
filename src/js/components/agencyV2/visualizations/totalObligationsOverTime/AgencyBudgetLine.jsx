@@ -93,13 +93,13 @@ const AgencyBudgetLine = ({
                 setHoveredRectangle(false); toggleTooltipVisibility(false);
             }}
             className="bar-chart__item">
-                <line
-                    tabIndex="0"
-                    className="total-budget-line"
-                    x1={lineData.x1}
-                    x2={lineData.x2}
-                    y1={lineData.y1}
-                    y2={lineData.y1} />
+            <line
+                tabIndex="0"
+                className="total-budget-line"
+                x1={lineData.x1}
+                x2={lineData.x2}
+                y1={lineData.y1}
+                y2={lineData.y1} />
             {!(scenario === 'exceedsMax' || scenario === 'exceedsMaxAndMin') && rectangle}
         </g>
     );

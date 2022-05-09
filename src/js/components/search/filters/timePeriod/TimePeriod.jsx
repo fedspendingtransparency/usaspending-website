@@ -301,32 +301,32 @@ export default class TimePeriod extends React.Component {
                     <ul
                         className="toggle-buttons"
                         role="menu">
-                            <li>
-                                <button
-                                    className={`tab-toggle ${activeClassFY}`}
-                                    value="fy"
-                                    role="menuitemradio"
-                                    aria-checked={this.props.activeTab === 'fy'}
-                                    aria-label="Fiscal Year"
-                                    title="Fiscal Year"
-                                    onClick={this.toggleFilters}>
+                        <li>
+                            <button
+                                className={`tab-toggle ${activeClassFY}`}
+                                value="fy"
+                                role="menuitemradio"
+                                aria-checked={this.props.activeTab === 'fy'}
+                                aria-label="Fiscal Year"
+                                title="Fiscal Year"
+                                onClick={this.toggleFilters}>
                                 Fiscal Year
-                                </button>
-                            </li>
-                                <li>
-                                    <button
-                                        className={`tab-toggle ${activeClassDR}`}
-                                        id="filter-date-range-tab"
-                                        value="dr"
-                                        role="menuitemradio"
-                                        aria-checked={this.props.activeTab === 'dr'}
-                                        aria-label="Date Range"
-                                        title="Date Range"
-                                        onClick={this.toggleFilters}
-                                        disabled={this.props.disableDateRange}>
+                            </button>
+                        </li>
+                        <li>
+                            <button
+                                className={`tab-toggle ${activeClassDR}`}
+                                id="filter-date-range-tab"
+                                value="dr"
+                                role="menuitemradio"
+                                aria-checked={this.props.activeTab === 'dr'}
+                                aria-label="Date Range"
+                                title="Date Range"
+                                onClick={this.toggleFilters}
+                                disabled={this.props.disableDateRange}>
                                 Date Range
-                                    </button>
-                                </li>
+                            </button>
+                        </li>
                     </ul>
                     { showFilter }
                     { errorDetails }

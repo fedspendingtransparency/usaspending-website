@@ -39,10 +39,10 @@ export default class CFDASearch extends React.Component {
                 <div className="filter-item-wrap">
                     <CFDAListContainer {...this.props} selectCFDA={this.props.selectCFDA} />
                     {selectedCFDA}
-                        <SubmitHint
-                            ref={(component) => {
-                                this.hint = component;
-                            }} />
+                    <SubmitHint
+                        ref={(component) => {
+                            this.hint = component;
+                        }} />
                 </div>
             </div>
         );

@@ -46,16 +46,16 @@ const DefaultAmountViz = ({
             dataId={dataId}
             width={width}
             publicLaw={publicLaw} />
-                <Rectangle
-                    overviewData={overviewData}
-                    className={className}
-                    scale={scale}
-                    displayTooltip={displayTooltip}
-                    hideTooltip={hideTooltip}
-                    showTooltip={showTooltip}
-                    tooltipId={tooltipId}
-                    dataId={dataId}
-                    publicLaw={publicLaw} />
+        <Rectangle
+            overviewData={overviewData}
+            className={className}
+            scale={scale}
+            displayTooltip={displayTooltip}
+            hideTooltip={hideTooltip}
+            showTooltip={showTooltip}
+            tooltipId={tooltipId}
+            dataId={dataId}
+            publicLaw={publicLaw} />
     </g>
 );
 

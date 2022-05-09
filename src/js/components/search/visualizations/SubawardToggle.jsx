@@ -41,35 +41,35 @@ export default class SubawardToggle extends React.Component {
                 onClick={this.toggledSwitch}
                 aria-pressed={!this.props.subaward}
                 aria-label={`Toggle between Prime Awards and Sub-Award. Currently selected: ${currentSelection}`}>
-                    <div className={`subaward-toggle__label ${primeActive}`}>
+                <div className={`subaward-toggle__label ${primeActive}`}>
                     Prime Awards
-                    </div>
-                        <svg
-                            className="subaward-toggle__switch subaward-switch"
-                            width="45"
-                            height="24">
-                                <g
-                                    className="subaward-switch__graphic"
-                                    transform="translate(4 2)">
-                                        <rect
-                                            className="subaward-switch__track"
-                                            width="40"
-                                            height="20"
-                                            rx="10"
-                                            ry="10" />
-                                                <g
-                                                    className="subaward-switch__switch"
-                                                    transform={switchPosition}>
-                                                        <circle
-                                                            className="subaward-switch__switch-fill"
-                                                            cy="10"
-                                                            r="10" />
-                                                </g>
-                                </g>
-                        </svg>
-                            <div className={`subaward-toggle__label ${subActive}`}>
+                </div>
+                <svg
+                    className="subaward-toggle__switch subaward-switch"
+                    width="45"
+                    height="24">
+                    <g
+                        className="subaward-switch__graphic"
+                        transform="translate(4 2)">
+                        <rect
+                            className="subaward-switch__track"
+                            width="40"
+                            height="20"
+                            rx="10"
+                            ry="10" />
+                        <g
+                            className="subaward-switch__switch"
+                            transform={switchPosition}>
+                            <circle
+                                className="subaward-switch__switch-fill"
+                                cy="10"
+                                r="10" />
+                        </g>
+                    </g>
+                </svg>
+                <div className={`subaward-toggle__label ${subActive}`}>
                     Sub-Awards
-                            </div>
+                </div>
             </button>
         );
     }

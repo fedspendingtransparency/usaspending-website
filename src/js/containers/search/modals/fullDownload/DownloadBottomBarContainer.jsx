@@ -260,12 +260,12 @@ will no longer download to your computer. Are you sure you want to do this?`;
                         classNames="download-slide"
                         timeout={500}
                         exit>
-                            <DownloadBottomBar
-                                {...this.props}
-                                showError={this.state.showError}
-                                showSuccess={this.state.showSuccess}
-                                title={this.state.title}
-                                description={this.state.description} />
+                        <DownloadBottomBar
+                            {...this.props}
+                            showError={this.state.showError}
+                            showSuccess={this.state.showSuccess}
+                            title={this.state.title}
+                            description={this.state.description} />
                     </CSSTransition>
                 </TransitionGroup>
             );

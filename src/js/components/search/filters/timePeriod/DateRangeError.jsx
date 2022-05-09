@@ -23,9 +23,9 @@ export default class DateRangeError extends React.Component {
             <div className="error-message">
                 <div className="error-title">
                     <Icons.ExclamationCircle />
-                        <div className="heading">{this.props.header}</div>
+                    <div className="heading">{this.props.header}</div>
                 </div>
-                    <p className="message">{this.props.message}</p>
+                <p className="message">{this.props.message}</p>
             </div>
         );
     }

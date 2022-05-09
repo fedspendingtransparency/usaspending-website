@@ -161,23 +161,23 @@ export default class FedAccountTable extends React.Component {
                 ref={(div) => {
                     this.wrapperDiv = div;
                 }}>
-                    <IBTable
-                        rowHeight={rowHeight}
-                        rowCount={this.props.fundingResults.length}
-                        headerHeight={50}
-                        contentWidth={tableValues.width}
-                        bodyWidth={this.props.tableWidth}
-                        bodyHeight={tableHeight}
-                        columns={tableValues.columns}
-                        onReachedBottom={this.props.nextPage}
-                        headerCellRender={this.headerCellRender}
-                        bodyCellRender={this.bodyCellRender}
-                        ref={(table) => {
-                            this.tableComponent = table;
-                        }} />
-                            <div className="results-table-message-container">
-                                {message}
-                            </div>
+                <IBTable
+                    rowHeight={rowHeight}
+                    rowCount={this.props.fundingResults.length}
+                    headerHeight={50}
+                    contentWidth={tableValues.width}
+                    bodyWidth={this.props.tableWidth}
+                    bodyHeight={tableHeight}
+                    columns={tableValues.columns}
+                    onReachedBottom={this.props.nextPage}
+                    headerCellRender={this.headerCellRender}
+                    bodyCellRender={this.bodyCellRender}
+                    ref={(table) => {
+                        this.tableComponent = table;
+                    }} />
+                <div className="results-table-message-container">
+                    {message}
+                </div>
             </div>
         );
     }

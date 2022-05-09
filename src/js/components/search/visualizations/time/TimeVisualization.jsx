@@ -99,10 +99,10 @@ export default class TimeVisualization extends React.Component {
                             {this.props.loading && <ChartLoadingMessage />}
                             {this.props.error && <ChartError />}
                             {!this.props.loading && !this.props.error && this.props.groups.length > 0 && (
-                            <BarChart
-                                {...this.props}
-                                showTooltip={this.showTooltip}
-                                activeLabel={this.state.tooltipData} />
+                                <BarChart
+                                    {...this.props}
+                                    showTooltip={this.showTooltip}
+                                    activeLabel={this.state.tooltipData} />
                             )}
                         </>
                     </CSSTransition>

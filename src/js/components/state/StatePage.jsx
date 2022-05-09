@@ -75,11 +75,11 @@ const StatePage = ({
                     onShareOptionClick={handleShare}
                     url={getBaseUrl(slug)} />
             ]}>
-                <main id="main-content" className="main-content">
-                    <LoadingWrapper isLoading={loading}>
-                        {content}
-                    </LoadingWrapper>
-                </main>
+            <main id="main-content" className="main-content">
+                <LoadingWrapper isLoading={loading}>
+                    {content}
+                </LoadingWrapper>
+            </main>
         </PageWrapper>
     );
 };

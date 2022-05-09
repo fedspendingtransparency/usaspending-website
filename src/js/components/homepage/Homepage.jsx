@@ -22,15 +22,15 @@ require('pages/homepage/homePage.scss');
 const Homepage = () => (
     <div className="usa-da-home-page">
         <MetaTags {...MetaTagHelper.homePageMetaTags} />
-            <Header />
-                <main id="main-content" className="homepage-content">
-                    <CovidHighlights />
-                        <Features />
-                            <Download />
-                                <Community />
-                </main>
-                    <GlobalModalContainer />
-                        <Footer pageName="Homepage" />
+        <Header />
+        <main id="main-content" className="homepage-content">
+            <CovidHighlights />
+            <Features />
+            <Download />
+            <Community />
+        </main>
+        <GlobalModalContainer />
+        <Footer pageName="Homepage" />
     </div>
 );
 

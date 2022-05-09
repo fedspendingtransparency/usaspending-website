@@ -21,10 +21,10 @@ export default class MobileFilters extends React.Component {
         return (
             <TransitionGroup>
                 {this.props.showMobileFilters && (
-                <CSSTransition
-                    classNames="mobile-filter"
-                    timeout={195}
-                    exit>
+                    <CSSTransition
+                        classNames="mobile-filter"
+                        timeout={195}
+                        exit>
                         <div className="mobile-filter-content">
                             <SearchSidebar
                                 filters={this.props.filters}
@@ -32,7 +32,7 @@ export default class MobileFilters extends React.Component {
                                 filterCount={this.props.filterCount}
                                 mobile />
                         </div>
-                </CSSTransition>
+                    </CSSTransition>
                 )}
             </TransitionGroup>
         );

@@ -107,15 +107,15 @@ export default class AgencyFilter extends React.Component {
             <li
                 className="field-item indent"
                 key={`field-${agency.toptier_agency_id}`}>
-                    <button
-                        className="item-button"
-                        title={agency.name}
-                        aria-label={agency.name}
-                        value={agency.toptier_agency_id}
-                        name={agency.name}
-                        onClick={(e) => this.handleAgencySelect(e, agency.toptier_code)}>
-                        {agency.name}
-                    </button>
+                <button
+                    className="item-button"
+                    title={agency.name}
+                    aria-label={agency.name}
+                    value={agency.toptier_agency_id}
+                    name={agency.name}
+                    onClick={(e) => this.handleAgencySelect(e, agency.toptier_code)}>
+                    {agency.name}
+                </button>
             </li>
         ));
 
@@ -124,15 +124,15 @@ export default class AgencyFilter extends React.Component {
             <li
                 className="field-item indent"
                 key={`field-${agency.toptier_agency_id}`}>
-                    <button
-                        className="item-button"
-                        title={agency.name}
-                        aria-label={agency.name}
-                        value={agency.toptier_agency_id}
-                        name={agency.name}
-                        onClick={(e) => this.handleAgencySelect(e, agency.toptier_code)}>
-                        {agency.name}
-                    </button>
+                <button
+                    className="item-button"
+                    title={agency.name}
+                    aria-label={agency.name}
+                    value={agency.toptier_agency_id}
+                    name={agency.name}
+                    onClick={(e) => this.handleAgencySelect(e, agency.toptier_code)}>
+                    {agency.name}
+                </button>
             </li>
         ));
 
@@ -140,15 +140,15 @@ export default class AgencyFilter extends React.Component {
             <li
                 className="field-item indent"
                 key={`field-${account.account_id}`}>
-                    <button
-                        className="item-button"
-                        title={account.account_name}
-                        aria-label={account.account_name}
-                        value={account.account_id}
-                        onClick={this.handleFederalAccountSelect}
-                        name={account.account_name} >
-                        {account.account_number} - {account.account_name}
-                    </button>
+                <button
+                    className="item-button"
+                    title={account.account_name}
+                    aria-label={account.account_name}
+                    value={account.account_id}
+                    onClick={this.handleFederalAccountSelect}
+                    name={account.account_name} >
+                    {account.account_number} - {account.account_name}
+                </button>
             </li>
         ));
 
@@ -173,107 +173,107 @@ export default class AgencyFilter extends React.Component {
                 <h4 className="download-filter__title">
                     Agency
                 </h4>
-                    <p className="download-filter__info">This is spending divided by all U.S. government agencies.</p>
-                        <div className="download-filter__container">
-                            <div className="download-filter__content">
-                                <div className="filter-picker">
-                                    <label className="select-label" htmlFor="agency-select">
+                <p className="download-filter__info">This is spending divided by all U.S. government agencies.</p>
+                <div className="download-filter__container">
+                    <div className="download-filter__content">
+                        <div className="filter-picker">
+                            <label className="select-label" htmlFor="agency-select">
                             Agency
-                                    </label>
+                            </label>
 
-                                        <div className="field-picker">
+                            <div className="field-picker">
+                                <button
+                                    className="selected-button"
+                                    title={currentAgencyName}
+                                    aria-label={currentAgencyName}
+                                    onClick={this.toggleAgencyPicker}>
+                                    <div className="label">
+                                        {currentAgencyName}
+                                    </div>
+                                    <div className="arrow-icon">
+                                        {agencyIcon}
+                                    </div>
+                                </button>
+
+                                <div className={`field-list ${showAgencyPicker}`}>
+                                    <ul>
+                                        <li className="field-item">
                                             <button
-                                                className="selected-button"
-                                                title={currentAgencyName}
-                                                aria-label={currentAgencyName}
-                                                onClick={this.toggleAgencyPicker}>
-                                                    <div className="label">
-                                                        {currentAgencyName}
-                                                    </div>
-                                                        <div className="arrow-icon">
-                                                            {agencyIcon}
-                                                        </div>
-                                            </button>
-
-                                                <div className={`field-list ${showAgencyPicker}`}>
-                                                    <ul>
-                                                        <li className="field-item">
-                                                            <button
-                                                                className="item-button"
-                                                                title="All"
-                                                                aria-label="all"
-                                                                name="All"
-                                                                value="all"
-                                                                onClick={this.handleAgencySelect}>
+                                                className="item-button"
+                                                title="All"
+                                                aria-label="all"
+                                                name="All"
+                                                value="all"
+                                                onClick={this.handleAgencySelect}>
                                             All
-                                                            </button>
-                                                        </li>
-                                                            <li className="field-item">
-                                                                <button
-                                                                    className="item-button group-label"
-                                                                    title="CFO Agencies"
-                                                                    aria-label="CFO Agencies"
-                                                                    disabled >
+                                            </button>
+                                        </li>
+                                        <li className="field-item">
+                                            <button
+                                                className="item-button group-label"
+                                                title="CFO Agencies"
+                                                aria-label="CFO Agencies"
+                                                disabled >
                                             CFO Agencies
-                                                                </button>
-                                                            </li>
-                                                        {cfoAgencies}
-                                                            <li className="field-item">
-                                                                <button
-                                                                    className="item-button group-label"
-                                                                    title="Other Agencies"
-                                                                    aria-label="Other Agencies"
-                                                                    disabled >
+                                            </button>
+                                        </li>
+                                        {cfoAgencies}
+                                        <li className="field-item">
+                                            <button
+                                                className="item-button group-label"
+                                                title="Other Agencies"
+                                                aria-label="Other Agencies"
+                                                disabled >
                                             Other Agencies
-                                                                </button>
-                                                            </li>
-                                                        {otherAgencies}
-                                                    </ul>
-                                                </div>
-                                        </div>
+                                            </button>
+                                        </li>
+                                        {otherAgencies}
+                                    </ul>
                                 </div>
                             </div>
-
-                                <div className="download-filter__content">
-                                    <div className="federal-picker">
-                                        <label className={`select-label ${federalAccountDisabled}`} htmlFor="federal-select">
-                            Federal Account
-                                        </label>
-                                            <div className="field-picker">
-                                                <button
-                                                    className={`selected-button ${federalAccountDisabled}`}
-                                                    title={currentFederalAccountName}
-                                                    aria-label={currentFederalAccountName}
-                                                    disabled={disabled}
-                                                    onClick={this.toggleFederalAccountPicker} >
-                                                        <div className="label">
-                                                            {currentFederalAccountName}
-                                                        </div>
-                                                            <div className="arrow-icon">
-                                                                {federalAccountIcon}
-                                                            </div>
-                                                </button>
-
-                                                    <div className={`field-list ${showFederalAccountPicker}`}>
-                                                        <ul>
-                                                            <li className="field-item indent">
-                                                                <button
-                                                                    className="item-button"
-                                                                    title="All"
-                                                                    aria-label="all"
-                                                                    name="All"
-                                                                    value="all"
-                                                                    onClick={this.handleFederalAccountSelect}>
-                                            All
-                                                                </button>
-                                                            </li>
-                                                            {accounts}
-                                                        </ul>
-                                                    </div>
-                                            </div>
-                                    </div>
-                                </div>
                         </div>
+                    </div>
+
+                    <div className="download-filter__content">
+                        <div className="federal-picker">
+                            <label className={`select-label ${federalAccountDisabled}`} htmlFor="federal-select">
+                            Federal Account
+                            </label>
+                            <div className="field-picker">
+                                <button
+                                    className={`selected-button ${federalAccountDisabled}`}
+                                    title={currentFederalAccountName}
+                                    aria-label={currentFederalAccountName}
+                                    disabled={disabled}
+                                    onClick={this.toggleFederalAccountPicker} >
+                                    <div className="label">
+                                        {currentFederalAccountName}
+                                    </div>
+                                    <div className="arrow-icon">
+                                        {federalAccountIcon}
+                                    </div>
+                                </button>
+
+                                <div className={`field-list ${showFederalAccountPicker}`}>
+                                    <ul>
+                                        <li className="field-item indent">
+                                            <button
+                                                className="item-button"
+                                                title="All"
+                                                aria-label="all"
+                                                name="All"
+                                                value="all"
+                                                onClick={this.handleFederalAccountSelect}>
+                                            All
+                                            </button>
+                                        </li>
+                                        {accounts}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         );
     }

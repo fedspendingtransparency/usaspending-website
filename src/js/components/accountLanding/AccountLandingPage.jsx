@@ -34,11 +34,11 @@ export default class AccountLandingPage extends React.Component {
                         onShareOptionClick={this.handleShare}
                         url={getBaseUrl(slug)} />
                 ]}>
-                    <main
-                        id="main-content"
-                        className="main-content">
-                            <AccountLandingContainer />
-                    </main>
+                <main
+                    id="main-content"
+                    className="main-content">
+                    <AccountLandingContainer />
+                </main>
             </PageWrapper>
         );
     }

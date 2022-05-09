@@ -150,27 +150,27 @@ export class AwardHistory extends React.Component {
                     icon={<AwardLoop alt="Award History" />}
                     tooltip={tooltip}
                     tooltipWide={(overview.category === 'contract')} />
-                        <div className="tables-section">
-                            <DetailsTabBar
-                                awardId={awardId}
-                                tabOptions={tabOptions}
-                                activeTab={activeTab}
-                                clickTab={setActiveTab} />
-                                    <ResultsTablePicker
-                                        types={tabOptions}
-                                        active={activeTab}
-                                        switchTab={setActiveTab} />
-                                            <div
-                                                className="tables-width-master"
-                                                ref={(div) => {
-                                                    // this is an empty div that scales via CSS
-                                                    // the results table width will follow this div's width
-                                                    this.tableWidthController = div;
-                                                }} />
-                                                    <div className="tables-content">
-                                                        {this.currentSection()}
-                                                    </div>
-                        </div>
+                <div className="tables-section">
+                    <DetailsTabBar
+                        awardId={awardId}
+                        tabOptions={tabOptions}
+                        activeTab={activeTab}
+                        clickTab={setActiveTab} />
+                    <ResultsTablePicker
+                        types={tabOptions}
+                        active={activeTab}
+                        switchTab={setActiveTab} />
+                    <div
+                        className="tables-width-master"
+                        ref={(div) => {
+                            // this is an empty div that scales via CSS
+                            // the results table width will follow this div's width
+                            this.tableWidthController = div;
+                        }} />
+                    <div className="tables-content">
+                        {this.currentSection()}
+                    </div>
+                </div>
             </div>
         );
     }

@@ -76,7 +76,7 @@ const RecipientDistributionContainer = ({ fiscalYear, data }) => {
             {loading && <LoadingMessage />}
             {error && <ErrorMessage />}
             {!loading && !error && (
-            <RecipientDistribution data={data} />
+                <RecipientDistribution data={data} />
             )}
         </div>
     );

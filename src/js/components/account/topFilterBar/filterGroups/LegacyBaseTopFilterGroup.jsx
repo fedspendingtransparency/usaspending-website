@@ -60,23 +60,23 @@ export default class LegacyBaseTopFilterGroup extends React.Component {
                         <div className="filter-name">
                             {this.props.filter.name}:
                         </div>
-                            <div className={`filter-group-close${showClose}`}>
-                                <button
-                                    title={`Clear all ${this.props.filter.name} filters`}
-                                    aria-label={`Clear all ${this.props.filter.name} filters`}
-                                    onClick={this.clearFilterGroup}>
-                                        <span className="close-icon">
-                                            <Icons.Close
-                                                alt={`Clear all ${this.props.filter.name} filters`} />
-                                        </span>
-                                </button>
-                            </div>
-                    </div>
-                        <div className="filter-group-bottom">
-                            <div className="filter-values">
-                                {tags}
-                            </div>
+                        <div className={`filter-group-close${showClose}`}>
+                            <button
+                                title={`Clear all ${this.props.filter.name} filters`}
+                                aria-label={`Clear all ${this.props.filter.name} filters`}
+                                onClick={this.clearFilterGroup}>
+                                <span className="close-icon">
+                                    <Icons.Close
+                                        alt={`Clear all ${this.props.filter.name} filters`} />
+                                </span>
+                            </button>
                         </div>
+                    </div>
+                    <div className="filter-group-bottom">
+                        <div className="filter-values">
+                            {tags}
+                        </div>
+                    </div>
                 </div>
             </div>
         );

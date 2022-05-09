@@ -42,11 +42,11 @@ const MobileMessage = () => {
                 <div className="mobile-message__image">
                     <img src="img/icon--flipMobile.png" alt="Rotate to landscape view" />
                 </div>
-                    <div className="mobile-message__text">
+                <div className="mobile-message__text">
                     Rotate your device for the optimal mobile experience
-                    </div>
+                </div>
             </div>
-                <button className="mobile-message__button" onClick={onClick}>DISMISS</button>
+            <button className="mobile-message__button" onClick={onClick}>DISMISS</button>
         </div>
     );
 };

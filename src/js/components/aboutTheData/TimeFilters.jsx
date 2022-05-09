@@ -116,27 +116,27 @@ const TimePeriodFilters = ({
         <div className="table-controls__time-and-search">
             <div className="filter-container fy-picker">
                 <span className="filter__title fy-picker__title">FISCAL YEAR</span>
-                    <Picker
-                        backgroundColor="#ffffff"
-                        icon=""
-                        isFixedWidth
-                        className="fy-picker"
-                        sortFn={sortPeriods}
-                        selectedOption={selectedFy
-                            ? <span>FY {selectedFy}</span>
-                            : (
-                                <div data-testid="fy-loading" className="fy-loading">
+                <Picker
+                    backgroundColor="#ffffff"
+                    icon=""
+                    isFixedWidth
+                    className="fy-picker"
+                    sortFn={sortPeriods}
+                    selectedOption={selectedFy
+                        ? <span>FY {selectedFy}</span>
+                        : (
+                            <div data-testid="fy-loading" className="fy-loading">
                                 FY <FontAwesomeIcon icon="spinner" size="sm" alt="FY Loading ..." spin />
-                                </div>
-                            )}
-                        options={latestFy
-                            ? allFiscalYears(2017, latestFy).map((year) => ({ name: `FY ${year}`, value: `${year}`, onClick: handleTimeChange }))
-                            : [{ name: 'Loading fiscal years...', value: null, onClick: () => { } }]
+                            </div>
+                        )}
+                    options={latestFy
+                        ? allFiscalYears(2017, latestFy).map((year) => ({ name: `FY ${year}`, value: `${year}`, onClick: handleTimeChange }))
+                        : [{ name: 'Loading fiscal years...', value: null, onClick: () => { } }]
                     } />
             </div>
             {activeTab === 'submissions' && (
-            <div className="filter-container period-picker">
-                <span className="filter__title period-picker__title">PERIOD</span>
+                <div className="filter-container period-picker">
+                    <span className="filter__title period-picker__title">PERIOD</span>
                     <Picker
                         backgroundColor="#ffffff"
                         icon=""
@@ -150,12 +150,12 @@ const TimePeriodFilters = ({
                                 </div>
                             )}
                         options={generatePeriodDropdown(selectedFy, submissionPeriods)} />
-            </div>
-            )}
-                <div className="filter-container">
-                    <span className="filter__title search-bar">AGENCY NAME</span>
-                        <SearchBar onSearch={handleSearch} />
                 </div>
+            )}
+            <div className="filter-container">
+                <span className="filter__title search-bar">AGENCY NAME</span>
+                <SearchBar onSearch={handleSearch} />
+            </div>
         </div>
     );
 };

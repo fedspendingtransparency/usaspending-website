@@ -19,9 +19,9 @@ export default class IconsExample extends React.Component {
                 <div className="icon-svg">
                     <Icon />
                 </div>
-                    <div className="icon-label">
-                        {this.props.label}
-                    </div>
+                <div className="icon-label">
+                    {this.props.label}
+                </div>
             </li>
         );
     }

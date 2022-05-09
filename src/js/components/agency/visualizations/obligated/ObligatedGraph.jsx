@@ -60,21 +60,21 @@ export default class AgencyObligatedGraph extends React.Component {
                         y={0}
                         width={obligatedWidth}
                         color={this.props.legend[0].color} />
-                            <HorizontalBarItem
-                                description={remainderDescription}
-                                x={obligatedWidth}
-                                y={0}
-                                width={remainderWidth}
-                                color={this.props.legend[2].color} />
+                    <HorizontalBarItem
+                        description={remainderDescription}
+                        x={obligatedWidth}
+                        y={0}
+                        width={remainderWidth}
+                        color={this.props.legend[2].color} />
                 </g>
-                    <g>
-                        <HorizontalBarItem
-                            description="Outlay Amount"
-                            x={0}
-                            y={25}
-                            width={outlayWidth}
-                            color={this.props.legend[1].color} />
-                    </g>
+                <g>
+                    <HorizontalBarItem
+                        description="Outlay Amount"
+                        x={0}
+                        y={25}
+                        width={outlayWidth}
+                        color={this.props.legend[1].color} />
+                </g>
             </svg>
         );
     }

@@ -26,9 +26,9 @@ export default class NoResults extends React.Component {
                     No Results Found
                 </h2>
 
-                    <div className="no-results-content">
-                        <p>No results found for &quot;{this.props.glossary.search.input}.&quot;</p>
-                    </div>
+                <div className="no-results-content">
+                    <p>No results found for &quot;{this.props.glossary.search.input}.&quot;</p>
+                </div>
             </div>
         );
     }

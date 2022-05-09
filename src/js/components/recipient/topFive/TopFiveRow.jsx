@@ -41,16 +41,16 @@ export default class TopFiveRow extends React.Component {
             <tr
                 className="category-table__table-row">
                 {this.buildResultsByCategory()}
-                    <td
-                        className="category-table__table-cell category-table__table-cell_centered"
-                        title={this.props.data.amount}>
-                        {this.props.data.amount}
-                    </td>
-                        <td
-                            className="category-table__table-cell category-table__table-cell_centered"
-                            title={percent}>
-                            {percent}
-                        </td>
+                <td
+                    className="category-table__table-cell category-table__table-cell_centered"
+                    title={this.props.data.amount}>
+                    {this.props.data.amount}
+                </td>
+                <td
+                    className="category-table__table-cell category-table__table-cell_centered"
+                    title={percent}>
+                    {percent}
+                </td>
             </tr>
         );
     }

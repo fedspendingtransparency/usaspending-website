@@ -13,7 +13,7 @@ const AwardSectionHeader = ({
     <React.Fragment>
         <div className="award-viz__heading">
             {icon && <div className="award-viz__icon">{icon}</div>}
-                <h3 className="award-viz__title">{title}</h3>
+            <h3 className="award-viz__title">{title}</h3>
             {tooltip &&
             <TooltipWrapper
                 className="award-section-tt"
@@ -22,7 +22,7 @@ const AwardSectionHeader = ({
                 wide={tooltipWide}
                 tooltipComponent={tooltip} />}
         </div>
-            <hr />
+        <hr />
     </React.Fragment>
 );
 

@@ -63,13 +63,13 @@ export default class TableRow extends React.PureComponent {
                     <td
                         className={rowClass}
                         key={`${column.columnName}-${this.props.file.url}`}>
-                            <a
-                                href={this.props.file.url}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                onClick={this.logArchiveDownload}>
-                                {this.props.file.fileName}
-                            </a>
+                        <a
+                            href={this.props.file.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            onClick={this.logArchiveDownload}>
+                            {this.props.file.fileName}
+                        </a>
                     </td>
                 );
             }

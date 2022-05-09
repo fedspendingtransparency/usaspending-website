@@ -21,13 +21,13 @@ const totalSpendingText = (
       This section covers
         <span>
             <strong> Total Spending</strong>
-                <div style={{ float: 'right' }}>
-                    <TooltipWrapper
-                        className="homepage__covid-19-tt"
-                        icon="info"
-                        tooltipPosition="left"
-                        tooltipComponent={<TotalSpendingTT />} />
-                </div>
+            <div style={{ float: 'right' }}>
+                <TooltipWrapper
+                    className="homepage__covid-19-tt"
+                    icon="info"
+                    tooltipPosition="left"
+                    tooltipComponent={<TotalSpendingTT />} />
+            </div>
         </span>
     </div>
 );
@@ -37,13 +37,13 @@ const awardSpendingText = (
       This section covers
         <span>
             <strong> Award Spending</strong>
-                <div style={{ float: 'right' }}>
-                    <TooltipWrapper
-                        className="homepage__covid-19-tt"
-                        icon="info"
-                        tooltipPosition="left"
-                        tooltipComponent={<AwardSpendingTT />} />
-                </div>
+            <div style={{ float: 'right' }}>
+                <TooltipWrapper
+                    className="homepage__covid-19-tt"
+                    icon="info"
+                    tooltipPosition="left"
+                    tooltipComponent={<AwardSpendingTT />} />
+            </div>
         </span>
     </div>
 );

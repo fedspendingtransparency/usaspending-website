@@ -225,19 +225,19 @@ const ContractGrantActivity = ({
                     isControlled: true,
                     isVisible: showTooltipLine || showTooltipTransaction || isHoveringOverTransactionTooltip
                 }} />}
-                    <ContractGrantActivityChart
-                        visualizationWidth={visualizationWidth}
-                        transactions={transactions}
-                        height={height}
-                        padding={defaultPadding}
-                        dates={dates}
-                        awardType={awardType}
-                        totalObligation={totalObligation}
-                        showHideTooltipLine={showHideTooltipLine}
-                        showTooltipTransaction={showTransactionTooltip}
-                        hideTooltipTransaction={hideTooltipTransaction}
-                        hideTransactionTooltipOnBlur={hideTransactionTooltipOnBlur}
-                        thisLineOrTextIsHovered={thisLineOrTextIsHovered} />
+            <ContractGrantActivityChart
+                visualizationWidth={visualizationWidth}
+                transactions={transactions}
+                height={height}
+                padding={defaultPadding}
+                dates={dates}
+                awardType={awardType}
+                totalObligation={totalObligation}
+                showHideTooltipLine={showHideTooltipLine}
+                showTooltipTransaction={showTransactionTooltip}
+                hideTooltipTransaction={hideTooltipTransaction}
+                hideTransactionTooltipOnBlur={hideTransactionTooltipOnBlur}
+                thisLineOrTextIsHovered={thisLineOrTextIsHovered} />
         </div>
     );
 };

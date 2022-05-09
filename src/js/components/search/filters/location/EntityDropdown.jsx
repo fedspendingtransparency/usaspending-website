@@ -277,23 +277,23 @@ export default class EntityDropdown extends React.Component {
         return (
             <div
                 className="geo-entity-item">
-                    <label
-                        className={`location-label ${disabled}`}
-                        htmlFor={`${field}-${type}-${uniqueIdentifier}`}>
-                        {this.props.title}
-                    </label>
-                        <div
-                            id={`${field}-${type}-${uniqueIdentifier}`}
-                            className={`geo-entity-dropdown ${disabled} ${autocompleteClass}`}
-                            onMouseOver={this.mouseEnter}
-                            onFocus={this.mouseEnter}
-                            onMouseOut={this.mouseLeave}
-                            onBlur={this.mouseLeave}
-                            tabIndex={-1}
-                            ref={(div) => {
-                                this.wrapperDiv = div;
-                            }}>
-                            {!isAutocomplete &&
+                <label
+                    className={`location-label ${disabled}`}
+                    htmlFor={`${field}-${type}-${uniqueIdentifier}`}>
+                    {this.props.title}
+                </label>
+                <div
+                    id={`${field}-${type}-${uniqueIdentifier}`}
+                    className={`geo-entity-dropdown ${disabled} ${autocompleteClass}`}
+                    onMouseOver={this.mouseEnter}
+                    onFocus={this.mouseEnter}
+                    onMouseOut={this.mouseLeave}
+                    onBlur={this.mouseLeave}
+                    tabIndex={-1}
+                    ref={(div) => {
+                        this.wrapperDiv = div;
+                    }}>
+                    {!isAutocomplete &&
                             <button
                                 id={`${field}-button`}
                                 className={`active-selection ${placeholder}`}
@@ -308,16 +308,16 @@ export default class EntityDropdown extends React.Component {
                                 ref={(dd) => {
                                     this.dropdown = dd;
                                 }}>
-                                    <div className="label">
-                                        {label}
-                                    </div>
-                                        <div className="icon">
-                                            {this.state.expanded && <FontAwesomeIcon onClick={this.toggleDropdown} icon="chevron-up" />}
-                                            {!this.state.expanded && <FontAwesomeIcon onClick={this.toggleDropdown} icon="chevron-down" />}
-                                        </div>
+                                <div className="label">
+                                    {label}
+                                </div>
+                                <div className="icon">
+                                    {this.state.expanded && <FontAwesomeIcon onClick={this.toggleDropdown} icon="chevron-up" />}
+                                    {!this.state.expanded && <FontAwesomeIcon onClick={this.toggleDropdown} icon="chevron-down" />}
+                                </div>
                             </button>
                     }
-                            {isAutocomplete &&
+                    {isAutocomplete &&
                             <EntityDropdownAutocomplete
                                 searchString={searchString}
                                 enabled={enabled}
@@ -330,15 +330,15 @@ export default class EntityDropdown extends React.Component {
                                 context={this} // used to create dropdown ref
                                 loading={loading} />
                     }
-                            {dropdown}
-                        </div>
+                    {dropdown}
+                </div>
                 {generateDisclaimer &&
                 <div
                     className={`geo-warning ${hideWarning}`}
                     id={this.state.warningId}
                     aria-hidden={hideWarning === 'hide'}>
-                        <EntityWarning
-                            message={generateDisclaimer(warningField)} />
+                    <EntityWarning
+                        message={generateDisclaimer(warningField)} />
                 </div>}
             </div>
         );

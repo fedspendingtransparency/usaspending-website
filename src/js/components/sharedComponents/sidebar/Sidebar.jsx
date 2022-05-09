@@ -250,19 +250,19 @@ const Sidebar = ({
             <div className={`${pageName}-sidebar-reference ${floatSidebar}`} ref={referenceDiv}>
               &nbsp;
             </div>
-                <div ref={div} className={`${pageName}-sidebar-content ${floatSidebar}`} style={{ width: sidebarWidth }}>
-                    <div className={`${pageName}-sidebar-content-background`}>
-                        {fyPicker && (
+            <div ref={div} className={`${pageName}-sidebar-content ${floatSidebar}`} style={{ width: sidebarWidth }}>
+                <div className={`${pageName}-sidebar-content-background`}>
+                    {fyPicker && (
                         <FYPicker
                             selectedFy={selectedFy}
                             pickedYear={pickedYear} />
-                        )}
-                            <ul>
-                                {sections.map(buildItems)}
-                            </ul>
-                    </div>
-                    {children}
+                    )}
+                    <ul>
+                        {sections.map(buildItems)}
+                    </ul>
                 </div>
+                {children}
+            </div>
         </div>
     );
 };

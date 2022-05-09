@@ -237,18 +237,18 @@ export default class AwardBreakdownTreeMap extends React.Component {
                 <div className="usa-da-treemap-section">
                     <div className="treemap-inner-wrap">
                         { this.createTooltip() }
-                            <div
-                                className="tree-wrapper"
-                                ref={(sr) => {
-                                    this.sectionWrapper = sr;
-                                }}>
-                                    <svg
-                                        width={this.state.visualizationWidth}
-                                        height={this.state.visualizationHeight}
-                                        className="treemap-svg overlay">
-                                        {cells}
-                                    </svg>
-                            </div>
+                        <div
+                            className="tree-wrapper"
+                            ref={(sr) => {
+                                this.sectionWrapper = sr;
+                            }}>
+                            <svg
+                                width={this.state.visualizationWidth}
+                                height={this.state.visualizationHeight}
+                                className="treemap-svg overlay">
+                                {cells}
+                            </svg>
+                        </div>
                     </div>
                 </div>
             </div>

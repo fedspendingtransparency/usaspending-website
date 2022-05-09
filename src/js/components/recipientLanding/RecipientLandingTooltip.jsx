@@ -88,14 +88,14 @@ export default class RecipientLandingTooltip extends React.Component {
                     top: this.state.iconTop,
                     left: this.state.iconLeft
                 }}>
-                    <div className="homepage-hero-tooltip__info_icon">
-                        <Icons.InfoCircle />
+                <div className="homepage-hero-tooltip__info_icon">
+                    <Icons.InfoCircle />
+                </div>
+                <div className="homepage-hero-tooltip__text_holder">
+                    <div className="homepage-hero-tooltip__tooltip_text">
+                        {this.props.message}
                     </div>
-                        <div className="homepage-hero-tooltip__text_holder">
-                            <div className="homepage-hero-tooltip__tooltip_text">
-                                {this.props.message}
-                            </div>
-                        </div>
+                </div>
             </div>
         );
     }

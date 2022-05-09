@@ -34,9 +34,9 @@ export default class ShownAgency extends React.Component {
                 title="Click to remove."
                 aria-label={`Applied filter: ${this.props.label}`}>
                 {this.props.label}
-                    <span className="close">
-                        <FontAwesomeIcon icon="times" />
-                    </span>
+                <span className="close">
+                    <FontAwesomeIcon icon="times" />
+                </span>
             </button>
         );
     }

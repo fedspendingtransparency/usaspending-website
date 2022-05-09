@@ -105,13 +105,13 @@ export default class RelatedAwards extends React.Component {
                         </button>
                     ))}
                 </div>
-                    <div className="related-awards__description">
-                        {map(childData, (data) => (
-                            <div key={`${data.glossary}text`} className="related-awards__text">
-                                {data.name} {data.postText}
-                            </div>
-                        ))}
-                    </div>
+                <div className="related-awards__description">
+                    {map(childData, (data) => (
+                        <div key={`${data.glossary}text`} className="related-awards__text">
+                            {data.name} {data.postText}
+                        </div>
+                    ))}
+                </div>
             </div>
         );
     }
@@ -155,15 +155,15 @@ export default class RelatedAwards extends React.Component {
                         tooltipPosition="left"
                         tooltipComponent={tooltipInfo} />
                 </h6>
-                    <div className="related-awards__parent">
-                        <div className="related-awards__label">
-                            {awardTitle}
-                        </div>
-                        {parentLink}
+                <div className="related-awards__parent">
+                    <div className="related-awards__label">
+                        {awardTitle}
                     </div>
-                        <div className="related-awards__children">
-                            {this.referencedAwardCounts()}
-                        </div>
+                    {parentLink}
+                </div>
+                <div className="related-awards__children">
+                    {this.referencedAwardCounts()}
+                </div>
             </div>
         );
     }

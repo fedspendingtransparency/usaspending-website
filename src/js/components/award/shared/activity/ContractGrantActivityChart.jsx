@@ -386,81 +386,81 @@ const ContractGrantsActivityChart = ({
             className="contract-grant-activity-chart"
             width={visualizationWidth}
             height={svgHeight}>
-                <g className="contract-grant-activity-chart__body" transform="translate(0,10)">
-                    <ActivityYAxis
-                        height={height}
-                        width={visualizationWidth}
-                        padding={paddingForYAxis}
-                        scale={yScale}
-                        ticks={yTicks}
-                        textAnchor="left" />
-                            <ActivityXAxis
-                                height={height}
-                                width={visualizationWidth - padding.left}
-                                padding={padding}
-                                ticks={xTicks}
-                                scale={xScale}
-                                line />
-                    {/* area paths */}
-                    {xScale && <ContractGrantActivityChartAreaPaths
-                        xScale={xScale}
-                        yScale={yScale}
-                        transactions={transactions}
-                        height={height}
-                        padding={padding}
-                        todayLineValue={todayLineData.value}
-                        endLineValue={endLineData.value}
-                        potentialEndLineValue={potentialEndLineData.value}
-                        dates={dates}
-                        xDomain={xDomain}
-                        xAxisSpacing={xAxisSpacing} />}
-                    {/* circles */}
-                    {transactions.length && <ContractGrantActivityChartCircles
-                        transactions={transactions}
-                        padding={padding}
-                        xScale={xScale}
-                        yScale={yScale}
-                        xAxisSpacing={xAxisSpacing}
-                        height={height}
-                        showTooltip={showTooltipTransaction}
-                        hideTooltip={hideTooltipTransaction}
-                        hideTransactionTooltipOnBlur={hideTransactionTooltipOnBlur} />}
-                    {/* vertical lines */}
-                    {xScale && <ContractGrantActivityChartVerticalLines
-                        xScale={xScale}
-                        height={height}
-                        xDomain={xDomain}
-                        padding={padding}
-                        startLineValue={startLineData.value}
-                        todayLineValue={todayLineData.value}
-                        endLineValue={endLineData.value}
-                        potentialEndLineValue={potentialEndLineData.value}
-                        awardType={awardType}
-                        showHideTooltip={showHideTooltipLine}
-                        thisLineOrTextIsHovered={thisLineOrTextIsHovered}
-                        verticalLineTextData={updateVerticalLineTextData}
-                        startLineHeight={startLineData.height}
-                        endLineHeight={endLineData.height}
-                        potentialEndLineHeight={potentialEndLineData.height}
-                        todayLineHeight={todayLineData.height} />}
-                    {/* potential award amount line */}
-                    {xScale && <SVGLine
-                        lineClassname="potential-award-amount-line"
-                        description={potentialAwardAmountLineDescription}
-                        scale={yScale}
-                        x1={padding.left}
-                        x2={visualizationWidth}
-                        max={yDomain[1]}
-                        min={yDomain[0]}
-                        position={totalObligation}
-                        graphHeight={height}
-                        isHorizontal
-                        noText
-                        onMouseMoveLine={showHideTooltipLine}
-                        onMouseLeaveLine={showHideTooltipLine}
-                        onMouseMoveText={showHideTooltipLine}
-                        onMouseLeaveText={showHideTooltipLine} />}
-                </g>
+            <g className="contract-grant-activity-chart__body" transform="translate(0,10)">
+                <ActivityYAxis
+                    height={height}
+                    width={visualizationWidth}
+                    padding={paddingForYAxis}
+                    scale={yScale}
+                    ticks={yTicks}
+                    textAnchor="left" />
+                <ActivityXAxis
+                    height={height}
+                    width={visualizationWidth - padding.left}
+                    padding={padding}
+                    ticks={xTicks}
+                    scale={xScale}
+                    line />
+                {/* area paths */}
+                {xScale && <ContractGrantActivityChartAreaPaths
+                    xScale={xScale}
+                    yScale={yScale}
+                    transactions={transactions}
+                    height={height}
+                    padding={padding}
+                    todayLineValue={todayLineData.value}
+                    endLineValue={endLineData.value}
+                    potentialEndLineValue={potentialEndLineData.value}
+                    dates={dates}
+                    xDomain={xDomain}
+                    xAxisSpacing={xAxisSpacing} />}
+                {/* circles */}
+                {transactions.length && <ContractGrantActivityChartCircles
+                    transactions={transactions}
+                    padding={padding}
+                    xScale={xScale}
+                    yScale={yScale}
+                    xAxisSpacing={xAxisSpacing}
+                    height={height}
+                    showTooltip={showTooltipTransaction}
+                    hideTooltip={hideTooltipTransaction}
+                    hideTransactionTooltipOnBlur={hideTransactionTooltipOnBlur} />}
+                {/* vertical lines */}
+                {xScale && <ContractGrantActivityChartVerticalLines
+                    xScale={xScale}
+                    height={height}
+                    xDomain={xDomain}
+                    padding={padding}
+                    startLineValue={startLineData.value}
+                    todayLineValue={todayLineData.value}
+                    endLineValue={endLineData.value}
+                    potentialEndLineValue={potentialEndLineData.value}
+                    awardType={awardType}
+                    showHideTooltip={showHideTooltipLine}
+                    thisLineOrTextIsHovered={thisLineOrTextIsHovered}
+                    verticalLineTextData={updateVerticalLineTextData}
+                    startLineHeight={startLineData.height}
+                    endLineHeight={endLineData.height}
+                    potentialEndLineHeight={potentialEndLineData.height}
+                    todayLineHeight={todayLineData.height} />}
+                {/* potential award amount line */}
+                {xScale && <SVGLine
+                    lineClassname="potential-award-amount-line"
+                    description={potentialAwardAmountLineDescription}
+                    scale={yScale}
+                    x1={padding.left}
+                    x2={visualizationWidth}
+                    max={yDomain[1]}
+                    min={yDomain[0]}
+                    position={totalObligation}
+                    graphHeight={height}
+                    isHorizontal
+                    noText
+                    onMouseMoveLine={showHideTooltipLine}
+                    onMouseLeaveLine={showHideTooltipLine}
+                    onMouseMoveText={showHideTooltipLine}
+                    onMouseLeaveText={showHideTooltipLine} />}
+            </g>
         </svg>
     );
 };

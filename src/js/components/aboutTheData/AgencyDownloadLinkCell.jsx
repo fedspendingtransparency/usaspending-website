@@ -13,7 +13,7 @@ const AgencyDownloadLinkCell = ({ file }) => (file ? (
         href={file}
         rel="noopener noreferrer"
         aria-label="Download agency comments">
-            <FontAwesomeIcon icon="file-alt" />Download
+        <FontAwesomeIcon icon="file-alt" />Download
     </a>
 ) : '--');
 

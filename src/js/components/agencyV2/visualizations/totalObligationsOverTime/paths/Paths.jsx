@@ -50,13 +50,13 @@ const Paths = ({
             width={width}
             padding={padding}
             scenario={scenario} />
-                <Path
-                    data={data.sort((a, b) => a.endDate - b.endDate)}
-                    description={description}
-                    xScale={xScaleForPath}
-                    yScale={yScaleForPath}
-                    height={height}
-                    padding={padding} />
+        <Path
+            data={data.sort((a, b) => a.endDate - b.endDate)}
+            description={description}
+            xScale={xScaleForPath}
+            yScale={yScaleForPath}
+            height={height}
+            padding={padding} />
     </g>
 );
 

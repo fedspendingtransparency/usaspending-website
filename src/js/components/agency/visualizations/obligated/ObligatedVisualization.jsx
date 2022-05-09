@@ -102,43 +102,43 @@ export default class AgencyObligatedAmount extends React.Component {
             <div
                 className="agency-section-wrapper"
                 id="agency-obligated-amount">
-                    <div className="agency-section-wrapper">
-                        <div className="agency-section-title">
-                            <h4>Obligated Amount</h4>
-                                <hr
-                                    className="results-divider"
-                                    ref={(hr) => {
-                                        this.sectionHr = hr;
-                                    }} />
-                                        <em>FY {this.props.activeFY} data reported through {this.props.asOfDate}</em>
-                        </div>
-                            <div className="agency-callout-description">
-                                <p>
+                <div className="agency-section-wrapper">
+                    <div className="agency-section-title">
+                        <h4>Obligated Amount</h4>
+                        <hr
+                            className="results-divider"
+                            ref={(hr) => {
+                                this.sectionHr = hr;
+                            }} />
+                        <em>FY {this.props.activeFY} data reported through {this.props.asOfDate}</em>
+                    </div>
+                    <div className="agency-callout-description">
+                        <p>
                             Agencies spend their available budgetary resources by making binding
                             financial commitments called <strong>obligations</strong>. An agency incurs an obligation, for
                             example, when it places an order, signs a contract, awards a grant, purchases a service, or
                             takes other actions that require it to make a payment.
-                                </p>
-                            </div>
-                                <div className="agency-obligated-content">
-                                    <p className="fy-text">
-                            As of {this.props.asOfDate}, the {this.props.agencyName} has...
-                                    </p>
-                                        <p className="against-auth-text">
-                            obligated <span className="number number-bolder">{formattedObligatedAmount}</span> against its <span className="number">{formattedBudgetAuthority}</span> in budgetary resources
-                                        </p>
-                                            <AgencyObligatedGraph
-                                                obligatedAmount={this.props.obligatedAmount}
-                                                budgetAuthority={this.props.budgetAuthority}
-                                                outlay={this.props.outlay}
-                                                width={this.state.visualizationWidth}
-                                                obligatedText={formattedObligatedAmount}
-                                                legend={legend} />
-                                                    <p className="outlay-text">
-                            ...and outlayed <span className="number number-bolder outlay">{formattedOutlayAmount}</span> in FY {this.props.activeFY}.
-                                                    </p>
-                                </div>
+                        </p>
                     </div>
+                    <div className="agency-obligated-content">
+                        <p className="fy-text">
+                            As of {this.props.asOfDate}, the {this.props.agencyName} has...
+                        </p>
+                        <p className="against-auth-text">
+                            obligated <span className="number number-bolder">{formattedObligatedAmount}</span> against its <span className="number">{formattedBudgetAuthority}</span> in budgetary resources
+                        </p>
+                        <AgencyObligatedGraph
+                            obligatedAmount={this.props.obligatedAmount}
+                            budgetAuthority={this.props.budgetAuthority}
+                            outlay={this.props.outlay}
+                            width={this.state.visualizationWidth}
+                            obligatedText={formattedObligatedAmount}
+                            legend={legend} />
+                        <p className="outlay-text">
+                            ...and outlayed <span className="number number-bolder outlay">{formattedOutlayAmount}</span> in FY {this.props.activeFY}.
+                        </p>
+                    </div>
+                </div>
             </div>
         );
     }

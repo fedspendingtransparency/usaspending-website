@@ -17,20 +17,20 @@ export default class BarChartTrendlineLegend extends React.Component {
                 key={item.label}
                 className="chart-legend-item"
                 transform={`translate(${item.offset}, 0)`}>
-                    <circle
-                        className="key-color"
-                        stroke={item.stroke}
-                        fill={item.color}
-                        strokeWidth="3"
-                        cx="6"
-                        cy="6"
-                        r="6" />
-                            <text
-                                className="key-label"
-                                x="20"
-                                y="10">
-                                {item.label}
-                            </text>
+                <circle
+                    className="key-color"
+                    stroke={item.stroke}
+                    fill={item.color}
+                    strokeWidth="3"
+                    cx="6"
+                    cy="6"
+                    r="6" />
+                <text
+                    className="key-label"
+                    x="20"
+                    y="10">
+                    {item.label}
+                </text>
             </g>
         ));
 

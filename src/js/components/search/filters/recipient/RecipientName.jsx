@@ -65,10 +65,10 @@ export default class RecipientName extends React.Component {
                             placeholder={`Recipient Name, UEI, or ${DUNS_LABEL}DUNS`}
                             value={this.props.value}
                             onChange={this.props.changedInput} />
-                                <IndividualSubmit
-                                    className="recipient-submit"
-                                    onClick={this.searchRecipient}
-                                    label="Filter by recipient name" />
+                        <IndividualSubmit
+                            className="recipient-submit"
+                            onClick={this.searchRecipient}
+                            label="Filter by recipient name" />
                     </div>
                 </form>
                 {this.generateWarning()}

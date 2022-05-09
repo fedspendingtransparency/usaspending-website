@@ -67,13 +67,13 @@ const SearchNote = () => (
         <p>
             The following nested hierarchy shows Agency, Federal Accounts owned by that Agency, and Treasury Account Symbols (TAS) within each Federal Account.
         </p>
-            <br />
-                <p>Filter the options below by typing any of the following:</p>
-                    <ul>
-                        <li>Any part of an Agency name</li>
-                            <li>Any part of a Federal Account symbol or title</li>
-                                <li>Any part of a Treasury Account Symbol or title.</li>
-                    </ul>
+        <br />
+        <p>Filter the options below by typing any of the following:</p>
+        <ul>
+            <li>Any part of an Agency name</li>
+            <li>Any part of a Federal Account symbol or title</li>
+            <li>Any part of a Treasury Account Symbol or title.</li>
+        </ul>
     </div>
 );
 
@@ -391,55 +391,55 @@ export class TASCheckboxTree extends React.Component {
                         definition={<SearchNote />}
                         heading="Find a Treasury Account" />
                 </span>
-                    <EntityDropdownAutocomplete
-                        placeholder="Type to filter results"
-                        searchString={searchString}
-                        enabled
-                        handleTextInputChange={this.handleTextInputChange}
-                        context={{}}
-                        isClearable
-                        loading={false}
-                        onClear={this.onClear} />
-                            <CheckboxTree
-                                isError={isError}
-                                errorMessage={errorMessage}
-                                isLoading={isLoading}
-                                data={nodes.sort((a, b) => a.label.localeCompare(b.label))}
-                                checked={checked}
-                                searchText={searchString}
-                                countLabel="TAS"
-                                noResults={showNoResults}
-                                expanded={isSearch ? searchExpanded : expanded}
-                                onUncheck={this.onUncheck}
-                                onCheck={this.onCheck}
-                                onExpand={this.onExpand}
-                                onCollapse={this.onCollapse} />
+                <EntityDropdownAutocomplete
+                    placeholder="Type to filter results"
+                    searchString={searchString}
+                    enabled
+                    handleTextInputChange={this.handleTextInputChange}
+                    context={{}}
+                    isClearable
+                    loading={false}
+                    onClear={this.onClear} />
+                <CheckboxTree
+                    isError={isError}
+                    errorMessage={errorMessage}
+                    isLoading={isLoading}
+                    data={nodes.sort((a, b) => a.label.localeCompare(b.label))}
+                    checked={checked}
+                    searchText={searchString}
+                    countLabel="TAS"
+                    noResults={showNoResults}
+                    expanded={isSearch ? searchExpanded : expanded}
+                    onUncheck={this.onUncheck}
+                    onCheck={this.onCheck}
+                    onExpand={this.onExpand}
+                    onCollapse={this.onCollapse} />
                 {counts.length > 0 && (
-                <div
-                    className="selected-filters"
-                    role="status">
-                    {counts.map((node) => {
-                        const label = `${node.value} - ${node.label} (${node.count})`;
-                        return (
-                            <button
-                                key={uniqueId()}
-                                className="shown-filter-button"
-                                value={label}
-                                onClick={(e) => this.removeSelectedFilter(e, node)}
-                                title="Click to remove."
-                                aria-label={`Applied filter: ${label}`}>
-                                {label}
+                    <div
+                        className="selected-filters"
+                        role="status">
+                        {counts.map((node) => {
+                            const label = `${node.value} - ${node.label} (${node.count})`;
+                            return (
+                                <button
+                                    key={uniqueId()}
+                                    className="shown-filter-button"
+                                    value={label}
+                                    onClick={(e) => this.removeSelectedFilter(e, node)}
+                                    title="Click to remove."
+                                    aria-label={`Applied filter: ${label}`}>
+                                    {label}
                                     <span className="close">
                                         <FontAwesomeIcon icon="times" />
                                     </span>
-                            </button>
-                        );
-                    })}
-                </div>
+                                </button>
+                            );
+                        })}
+                    </div>
                 )}
-                    <SubmitHint ref={(component) => {
-                        this.hint = component;
-                    }} />
+                <SubmitHint ref={(component) => {
+                    this.hint = component;
+                }} />
             </div>
         );
     }

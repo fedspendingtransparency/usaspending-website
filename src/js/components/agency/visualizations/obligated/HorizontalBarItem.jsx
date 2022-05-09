@@ -19,13 +19,13 @@ export default class HorizontalBarItem extends React.Component {
         return (
             <g aria-label={this.props.description}>
                 <desc>{this.props.description}</desc>
-                    <rect
-                        className="horizontal-bar-item"
-                        x={this.props.x}
-                        y={this.props.y}
-                        width={this.props.width}
-                        height={20}
-                        fill={this.props.color} />
+                <rect
+                    className="horizontal-bar-item"
+                    x={this.props.x}
+                    y={this.props.y}
+                    width={this.props.width}
+                    height={20}
+                    fill={this.props.color} />
             </g>
         );
     }

@@ -81,9 +81,9 @@ export default class GeoVisualizationSection extends React.Component {
                 <MapMessage>
                     <div className="map-loading">
                         <LoadingSpinner />
-                            <div className="loading-message">
+                        <div className="loading-message">
                             Gathering your data...
-                            </div>
+                        </div>
                     </div>
                 </MapMessage>
             );
@@ -95,12 +95,12 @@ export default class GeoVisualizationSection extends React.Component {
                         <div className="error-icon">
                             <ExclamationTriangle alt="An error occurred" />
                         </div>
-                            <div className="title">
+                        <div className="title">
                             An error occurred.
-                            </div>
-                                <div className="description">
+                        </div>
+                        <div className="description">
                             Something went wrong while gathering your data.
-                                </div>
+                        </div>
                     </div>
                 </MapMessage>
             );
@@ -110,9 +110,9 @@ export default class GeoVisualizationSection extends React.Component {
                 <MapMessage>
                     <div className="map-no-results">
                         <div className="no-results-icon" />
-                            <div className="title">
+                        <div className="title">
                             No results found in the current map area.
-                            </div>
+                        </div>
                     </div>
                 </MapMessage>
             );

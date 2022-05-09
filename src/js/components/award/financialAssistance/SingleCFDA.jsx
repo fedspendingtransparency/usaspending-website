@@ -59,10 +59,10 @@ const SingleCFDA = ({ currentCfda }) => {
                 <h5>Opportunities on Grants.gov</h5>
                 {grantsGovOppotunities()}
             </ExpandableAwardSection>
-                <h5>Applicant Eligibility</h5>
-                    <ExpandableAwardSection type="secondary" content={applicantEligibility} />
-                        <h5>Beneficiary Eligibility</h5>
-                            <ExpandableAwardSection type="secondary" content={beneficiaryEligibility} />
+            <h5>Applicant Eligibility</h5>
+            <ExpandableAwardSection type="secondary" content={applicantEligibility} />
+            <h5>Beneficiary Eligibility</h5>
+            <ExpandableAwardSection type="secondary" content={beneficiaryEligibility} />
         </React.Fragment>
     );
     return (
@@ -70,13 +70,13 @@ const SingleCFDA = ({ currentCfda }) => {
             <div className="award__col__content">
                 <ExpandableAwardSection content={expandableContent}>
                     <h5>Objectives</h5>
-                        <ExpandableAwardSection type="secondary" content={cfdaObjectives} />
-                            <h5>Administrative Agency</h5>
-                                <p>{cfdaFederalAgency}</p>
-                                    <h5>Website</h5>
-                                        <a href={cfdaWebsite}>{cfdaWebsite}</a>
-                                            <h5>SAM.gov Page</h5>
-                                                <a href={samWebsite}>{samWebsite}</a>
+                    <ExpandableAwardSection type="secondary" content={cfdaObjectives} />
+                    <h5>Administrative Agency</h5>
+                    <p>{cfdaFederalAgency}</p>
+                    <h5>Website</h5>
+                    <a href={cfdaWebsite}>{cfdaWebsite}</a>
+                    <h5>SAM.gov Page</h5>
+                    <a href={samWebsite}>{samWebsite}</a>
                 </ExpandableAwardSection>
             </div>
         </AwardSection>

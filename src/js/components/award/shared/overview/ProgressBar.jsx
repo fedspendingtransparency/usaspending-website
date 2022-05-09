@@ -431,13 +431,13 @@ export default class ProgressBar extends Component {
         return (
             <g tabIndex="0">
                 <desc>{this.props.descriptions.progressTextDescription}</desc>
-                    <text
-                        className={progressTextData.className}
-                        x={progressTextData.x}
-                        y={progressTextData.y}
-                        ref={this.setTextDiv}>
-                        {progressTextData.text}
-                    </text>
+                <text
+                    className={progressTextData.className}
+                    x={progressTextData.x}
+                    y={progressTextData.y}
+                    ref={this.setTextDiv}>
+                    {progressTextData.text}
+                </text>
             </g>
         );
     };
@@ -454,15 +454,15 @@ export default class ProgressBar extends Component {
         return (
             <g tabIndex="0">
                 <desc>{description}</desc>
-                    <rect
-                        className="progress-bar-shapes__base-rectangle"
-                        style={style}
-                        x={startPosition}
-                        y={0}
-                        rx={rectHeight}
-                        ry={rectHeight}
-                        width={endPosition - startPosition}
-                        height={heightOfProgressBar} />
+                <rect
+                    className="progress-bar-shapes__base-rectangle"
+                    style={style}
+                    x={startPosition}
+                    y={0}
+                    rx={rectHeight}
+                    ry={rectHeight}
+                    width={endPosition - startPosition}
+                    height={heightOfProgressBar} />
             </g>
         );
     };
@@ -480,11 +480,11 @@ export default class ProgressBar extends Component {
         return (
             <g key={key} tabIndex="0">
                 <desc>{description}</desc>
-                    <circle
-                        className={className}
-                        cx={cx}
-                        cy={cy}
-                        r={r} />
+                <circle
+                    className={className}
+                    cx={cx}
+                    cy={cy}
+                    r={r} />
             </g>
         );
     };
@@ -504,21 +504,21 @@ export default class ProgressBar extends Component {
         return (
             <g key={key} tabIndex="0">
                 <desc>{description}</desc>
-                    <line
-                        className={className}
-                        x1={x1}
-                        x2={x2}
-                        y1={y1}
-                        y2={y2} />
+                <line
+                    className={className}
+                    x1={x1}
+                    x2={x2}
+                    y1={y1}
+                    y2={y2} />
             </g>
         );
     };
     progressTriangle = () => (
         <g tabIndex="0">
             <desc>{this.props.descriptions.progressTriangleDescription}</desc>
-                <polygon
-                    points={this.state.progressTriangleData}
-                    className="progress-bar-shapes__polygon" />
+            <polygon
+                points={this.state.progressTriangleData}
+                className="progress-bar-shapes__polygon" />
         </g>
     );
     // progression milestones ( removes milestones that have display false )
@@ -554,16 +554,16 @@ export default class ProgressBar extends Component {
                 className="progress-bar"
                 width={width}
                 height={heightOfSVG}>
-                    <g className="progress-bar-shapes">
-                        <g>
-                            <defs>{this.progressBarPattern()}</defs>
-                            {this.progressBar()}
-                        </g>
-                        {this.milestones()}
-                        {this.progressVerticalLine()}
-                        {this.progressText()}
-                        {this.progressTriangle()}
+                <g className="progress-bar-shapes">
+                    <g>
+                        <defs>{this.progressBarPattern()}</defs>
+                        {this.progressBar()}
                     </g>
+                    {this.milestones()}
+                    {this.progressVerticalLine()}
+                    {this.progressText()}
+                    {this.progressTriangle()}
+                </g>
             </svg>
         );
     }

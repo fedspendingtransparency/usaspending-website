@@ -31,12 +31,12 @@ export default class ActivityXAxisItem extends React.Component {
                     y1={y - 12}
                     x2={x}
                     y2={y - 20} />}
-                        <text
-                            className="x-axis__text"
-                            textAnchor="middle"
-                            transform={transform || `translate(${x},${y})`}>
-                            {label}
-                        </text>
+                <text
+                    className="x-axis__text"
+                    textAnchor="middle"
+                    transform={transform || `translate(${x},${y})`}>
+                    {label}
+                </text>
             </g>
         );
     }

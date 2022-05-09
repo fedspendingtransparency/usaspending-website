@@ -44,17 +44,17 @@ export default class DateTypeFilter extends React.Component {
             <div
                 className="radio"
                 key={dateType.name}>
-                    <input
-                        type="radio"
-                        aria-label={dateType.name}
-                        value={dateType.name}
-                        name="dateType"
-                        checked={this.props.currentDateType === dateType.name}
-                        onChange={this.onChange} />
-                            <label className="radio-label" htmlFor="dateType">{dateType.label}</label>
-                                <div className="radio-description">
-                                    {dateType.description}
-                                </div>
+                <input
+                    type="radio"
+                    aria-label={dateType.name}
+                    value={dateType.name}
+                    name="dateType"
+                    checked={this.props.currentDateType === dateType.name}
+                    onChange={this.onChange} />
+                <label className="radio-label" htmlFor="dateType">{dateType.label}</label>
+                <div className="radio-description">
+                    {dateType.description}
+                </div>
             </div>
         ));
         return (
@@ -62,9 +62,9 @@ export default class DateTypeFilter extends React.Component {
                 <h3 className="download-filter__title">
                     {icon} Select a <span className="download-filter__title_em">date type</span> for the date range below.
                 </h3>
-                    <div className="download-filter__content">
-                        {dateTypes}
-                    </div>
+                <div className="download-filter__content">
+                    {dateTypes}
+                </div>
             </div>
         );
     }

@@ -127,11 +127,11 @@ const PublicationDatesContainer = ({
                 <div className="publication-dates__column-header-title">
                     {column.displayName}
                 </div>
-                    <div className="publication-dates__column-header-sub-title">
-                        <i>
+                <div className="publication-dates__column-header-sub-title">
+                    <i>
                         Deadline: {renderDeadline(column.title, submissionDeadlines)}
-                        </i>
-                    </div>
+                    </i>
+                </div>
             </div>
         ),
         title: column.title
@@ -147,14 +147,14 @@ const PublicationDatesContainer = ({
                 columns={columns}
                 currentSort={{ field: sort, direction: order }}
                 updateSort={updateSort} />
-                    <Pagination
-                        currentPage={page}
-                        changePage={setPage}
-                        changeLimit={setLimit}
-                        limitSelector
-                        resultsText
-                        pageSize={limit}
-                        totalItems={total} />
+            <Pagination
+                currentPage={page}
+                changePage={setPage}
+                changeLimit={setLimit}
+                limitSelector
+                resultsText
+                pageSize={limit}
+                totalItems={total} />
         </>
     );
 };

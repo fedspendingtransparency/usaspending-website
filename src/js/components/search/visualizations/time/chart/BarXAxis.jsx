@@ -198,19 +198,19 @@ export default class BarXAxis extends React.Component {
             <g
                 className="bar-axis"
                 transform={`translate(${this.props.padding.left},${this.props.top})`}>
-                    <title>X-Axis</title>
-                        <desc>
-                            {this.state.description}
-                        </desc>
-                            <line
-                                className="x-axis"
-                                x1={0}
-                                y1={-1 * this.props.axisPos}
-                                x2={this.props.width}
-                                y2={-1 * this.props.axisPos} />
-                                    <g className="axis-labels">
-                                        {this.state.labels}
-                                    </g>
+                <title>X-Axis</title>
+                <desc>
+                    {this.state.description}
+                </desc>
+                <line
+                    className="x-axis"
+                    x1={0}
+                    y1={-1 * this.props.axisPos}
+                    x2={this.props.width}
+                    y2={-1 * this.props.axisPos} />
+                <g className="axis-labels">
+                    {this.state.labels}
+                </g>
             </g>
         );
     }

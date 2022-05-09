@@ -35,9 +35,9 @@ export default class SelectedAwardAmountBound extends React.Component {
                 title="Click to remove."
                 aria-label={`Applied filter: ${label}`}>
                 {label}
-                    <span className="close">
-                        <FontAwesomeIcon icon="times" />
-                    </span>
+                <span className="close">
+                    <FontAwesomeIcon icon="times" />
+                </span>
             </button>
         );
     }

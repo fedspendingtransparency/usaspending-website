@@ -50,7 +50,7 @@ export default class ViewTypeButton extends React.Component {
                 aria-label={description}
                 onClick={this.clickedButton}
                 disabled={this.props.disabled}>
-                    <FontAwesomeIcon icon={this.props.icon} />
+                <FontAwesomeIcon icon={this.props.icon} />
             </button>
         );
     }

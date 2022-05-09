@@ -12,9 +12,9 @@ const ResultsTableBeginMessage = () => (
         <div className="icon">
             <CircleArrowUp alt="Enter a keyword to begin your search." />
         </div>
-            <div className="description">
+        <div className="description">
             Enter a keyword to begin your search.
-            </div>
+        </div>
     </div>
 );
 

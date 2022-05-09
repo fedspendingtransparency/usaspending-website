@@ -29,8 +29,8 @@ const DEFCheckboxTreeLabel = ({
                         {lbl}
                         <>
                             <br />
-                                <span>{parseAcronym(subLabels[i])}</span>
-                                    <br />
+                            <span>{parseAcronym(subLabels[i])}</span>
+                            <br />
                         </>
                     </div>
                 ))}
@@ -44,15 +44,15 @@ const DEFCheckboxTreeLabel = ({
                     {value}
                 </div>
             </div>
-                <div className={`checkbox-tree-label__label def-checkbox-tree-label__${cssLabel}`}>
-                    {label}
-                    {subLabel && (
-                        <>
-                            <br />
-                                <span>{parseAcronym(subLabel)}</span>
-                        </>
-                    )}
-                </div>
+            <div className={`checkbox-tree-label__label def-checkbox-tree-label__${cssLabel}`}>
+                {label}
+                {subLabel && (
+                    <>
+                        <br />
+                        <span>{parseAcronym(subLabel)}</span>
+                    </>
+                )}
+            </div>
         </div>
     );
 };

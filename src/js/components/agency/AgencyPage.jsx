@@ -56,11 +56,11 @@ export default class AgencyPage extends React.Component {
                         onShareOptionClick={this.handleShare}
                         url={getBaseUrl(`agency/${id}`)} />
                 ]}>
-                    <main
-                        id="main-content"
-                        className="main-content">
-                        {content}
-                    </main>
+                <main
+                    id="main-content"
+                    className="main-content">
+                    {content}
+                </main>
             </PageWrapper>
         );
     }

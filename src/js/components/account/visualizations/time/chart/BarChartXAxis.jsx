@@ -28,22 +28,22 @@ export default class BarChartXAxis extends React.Component {
         return (
             <g
                 className="bar-axis">
-                    <title>{this.props.title}</title>
-                        <desc>{this.props.description}</desc>
-                            <g
-                                transform={`translate(${this.props.lineGroup.x}, ${this.props.lineGroup.y})`}>
-                                    <line
-                                        className="y-axis"
-                                        x1={this.props.line.x1}
-                                        x2={this.props.line.x2}
-                                        y1={this.props.line.y1}
-                                        y2={this.props.line.y2} />
-                            </g>
-                                <g
-                                    className="axis-labels"
-                                    transform={`translate(${this.props.labelGroup.x},${this.props.labelGroup.y})`}>
-                                    {labels}
-                                </g>
+                <title>{this.props.title}</title>
+                <desc>{this.props.description}</desc>
+                <g
+                    transform={`translate(${this.props.lineGroup.x}, ${this.props.lineGroup.y})`}>
+                    <line
+                        className="y-axis"
+                        x1={this.props.line.x1}
+                        x2={this.props.line.x2}
+                        y1={this.props.line.y1}
+                        y2={this.props.line.y2} />
+                </g>
+                <g
+                    className="axis-labels"
+                    transform={`translate(${this.props.labelGroup.x},${this.props.labelGroup.y})`}>
+                    {labels}
+                </g>
             </g>
         );
     }

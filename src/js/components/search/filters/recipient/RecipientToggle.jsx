@@ -32,7 +32,7 @@ export default class RecipientToggle extends React.Component {
                             value={name.value}
                             checked={this.props.recipientDomesticForeign === name.value}
                             onChange={this.props.toggleDomesticForeign} />
-                                <label htmlFor={`recipient-${name.value}`}>{name.label}</label>
+                        <label htmlFor={`recipient-${name.value}`}>{name.label}</label>
                     </span>
                 )
             ));

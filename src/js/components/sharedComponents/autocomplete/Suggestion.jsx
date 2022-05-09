@@ -44,7 +44,7 @@ export default class Suggestion extends React.Component {
                 ref={(s) => {
                     this.suggestion = s;
                 }}>
-                    <strong>{this.props.title}</strong><br />
+                <strong>{this.props.title}</strong><br />
                 {this.props.subtitle}
             </li>
         /* eslint-enable jsx-a11y/role-supports-aria-props */

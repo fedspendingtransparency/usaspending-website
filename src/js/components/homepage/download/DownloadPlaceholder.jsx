@@ -14,16 +14,16 @@ const DownloadPlaceholder = () => (
                 src="img/homepage-download-placeholder.png"
                 srcSet="img/homepage-download-placeholder.png 1x, img/homepage-download-placeholder@2x.png 2x"
                 alt="Download icon" />
-                    <h2
-                        className="download-placeholder__title"
-                        tabIndex={-1}>
+            <h2
+                className="download-placeholder__title"
+                tabIndex={-1}>
                 Downloading our data is easy.
-                    </h2>
-                        <p
-                            className="download-placeholder__detail">
+            </h2>
+            <p
+                className="download-placeholder__detail">
                 Need comprehensive federal spending data quickly? Our download tools offer a straightforward path to customizable, downloadable data sets.
-                        </p>
-                            <MobileLinks />
+            </p>
+            <MobileLinks />
         </div>
     </div>
 );

@@ -212,21 +212,21 @@ export default class AdditionalInfo extends React.Component {
                         <div className="award-viz__icon">
                             <FontAwesomeIcon size="lg" icon="info" />
                         </div>
-                            <h3 className="award-viz__title">Additional Information</h3>
+                        <h3 className="award-viz__title">Additional Information</h3>
                     </div>
-                        <button
-                            className="award-viz__button"
-                            onClick={this.handleClick}>
-                            {this.state.globalToggle ? 'Collapse All' : 'Expand All'}
-                        </button>
-                            <div className="award__row">
-                                <div className="award__col">
-                                    {firstColumn}
-                                </div>
-                                    <div className="award__col">
-                                        {secondColumn}
-                                    </div>
-                            </div>
+                    <button
+                        className="award-viz__button"
+                        onClick={this.handleClick}>
+                        {this.state.globalToggle ? 'Collapse All' : 'Expand All'}
+                    </button>
+                    <div className="award__row">
+                        <div className="award__col">
+                            {firstColumn}
+                        </div>
+                        <div className="award__col">
+                            {secondColumn}
+                        </div>
+                    </div>
                 </div>
             </div>
         );

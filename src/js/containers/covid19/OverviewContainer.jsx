@@ -46,10 +46,10 @@ const OverviewContainer = ({ publicLaw }) => {
     return (
         <div ref={divReference} className="body__content overview">
             <DateNote />
-                <AmountsVisualization
-                    overviewData={overviewData}
-                    width={visualizationsWidth}
-                    publicLaw={publicLaw} />
+            <AmountsVisualization
+                overviewData={overviewData}
+                width={visualizationsWidth}
+                publicLaw={publicLaw} />
         </div>
     );
 };

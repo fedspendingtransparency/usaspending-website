@@ -71,15 +71,15 @@ const BreadcrumbItem = (props) => {
                 disabled={isFuture || isActive || props.currentStep === props.totalSteps}
                 title={`Step ${props.step}: ${props.title}`}
                 aria-label={`Step ${props.step}: ${props.title}`}>
-                    <div className="breadcrumb-step">
+                <div className="breadcrumb-step">
                     Step {props.step}
-                    </div>
-                        <div className="breadcrumb-title">
-                            {props.title}
-                        </div>
-                            <div className={`breadcrumb-arrow ${nextStep}`}>
-                                <div className={`arrow ${arrowColor}`} />
-                            </div>
+                </div>
+                <div className="breadcrumb-title">
+                    {props.title}
+                </div>
+                <div className={`breadcrumb-arrow ${nextStep}`}>
+                    <div className={`arrow ${arrowColor}`} />
+                </div>
             </button>
         </div>
     );

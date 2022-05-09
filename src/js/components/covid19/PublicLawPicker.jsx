@@ -26,12 +26,12 @@ const PublicLawPickerOption = ({
     <li className={className}>
         <p>{title}</p>
         {description && (
-        <p>
-            {description}
-            {term && (
-            <GlossaryLink term={term} />
-            )}
-        </p>)}
+            <p>
+                {description}
+                {term && (
+                    <GlossaryLink term={term} />
+                )}
+            </p>)}
     </li>
 );
 
@@ -66,7 +66,7 @@ const PublicLawPicker = ({
                     value: obj.value,
                     onClick
                 }))} />
-                    <span>Public Law</span>
+            <span>Public Law</span>
         </div>);
 };
 

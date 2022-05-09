@@ -33,13 +33,13 @@ export default class SankeyBar extends React.Component {
             <g
                 transform={`translate(${this.props.x},${this.props.y})`}
                 aria-label={this.props.description}>
-                    <desc>{this.props.description}</desc>
-                        <rect
-                            fill={this.props.color}
-                            x="0"
-                            y="0"
-                            width={this.props.width}
-                            height={this.props.height} />
+                <desc>{this.props.description}</desc>
+                <rect
+                    fill={this.props.color}
+                    x="0"
+                    y="0"
+                    width={this.props.width}
+                    height={this.props.height} />
             </g>
         );
     }

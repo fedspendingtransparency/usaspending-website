@@ -134,9 +134,9 @@ export class AwardBreakdownContainer extends React.Component {
                     activeFY={this.props.stateProfile.fy}
                     awardBreakdown={this.state.awardBreakdown}
                     totalAmount={this.state.totalAmount} />
-                        <AwardBreakdownTable
-                            awardBreakdown={this.state.rows}
-                            hasNegatives={this.state.hasNegatives} />
+                <AwardBreakdownTable
+                    awardBreakdown={this.state.rows}
+                    hasNegatives={this.state.hasNegatives} />
             </div>
         );
     }

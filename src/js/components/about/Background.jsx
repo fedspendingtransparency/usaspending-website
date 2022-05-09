@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-indent */
 /**
  * Background.jsx
  * Created by Mike Bray 11/20/20178

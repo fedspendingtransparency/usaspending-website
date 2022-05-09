@@ -31,7 +31,7 @@ const HeroButton = () => {
                     className="hero-button__button"
                     onClick={pressedButton}
                     aria-label="Go to content">
-                        <AngleDown alt="Arrow pointing down" />
+                    <AngleDown alt="Arrow pointing down" />
                 </button>
             </div>
         </div>

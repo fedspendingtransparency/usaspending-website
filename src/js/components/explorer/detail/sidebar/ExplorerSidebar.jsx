@@ -115,25 +115,25 @@ export default class ExplorerSidebar extends React.Component {
                     <Link
                         className="start-over-button"
                         to="/explorer">
-                            <div className="content">
-                                <div className="icon">
-                                    <Home alt="Home" />
-                                </div>
-                                    <div className="label">
-                                Start Over
-                                    </div>
+                        <div className="content">
+                            <div className="icon">
+                                <Home alt="Home" />
                             </div>
+                            <div className="label">
+                                Start Over
+                            </div>
+                        </div>
                     </Link>
                 </div>
 
-                    <QuarterPickerWithFY
-                        selectedFy={this.props.fy}
-                        handleQuarterPickerSelection={this.pickedQuarter}
-                        handlePickedYear={this.pickedYear}
-                        latestSelectedTimeInterval={this.props.period == null ? this.props.quarter : this.props.period} />
-                            <VerticalTrail
-                                trail={this.props.trail.toArray()}
-                                rewindToFilter={this.props.rewindToFilter} />
+                <QuarterPickerWithFY
+                    selectedFy={this.props.fy}
+                    handleQuarterPickerSelection={this.pickedQuarter}
+                    handlePickedYear={this.pickedYear}
+                    latestSelectedTimeInterval={this.props.period == null ? this.props.quarter : this.props.period} />
+                <VerticalTrail
+                    trail={this.props.trail.toArray()}
+                    rewindToFilter={this.props.rewindToFilter} />
 
             </div>
         );

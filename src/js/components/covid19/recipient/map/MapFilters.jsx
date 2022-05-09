@@ -24,18 +24,18 @@ const MapFilters = ({ filters, activeFilters, isOpen }) => (
         <div className="map__filters-header">
             <MapFiltersHeader />
         </div>
-            <div className="map__filters-body">
-                {
+        <div className="map__filters-body">
+            {
                 Object.keys(filters).map((filter) => (
                     <div key={uniqueId()} className="map__filters-filter__container">
                         <div className="map__filters-label">
                             {filters[filter].label}
                         </div>
-                            <Picker
-                                backgroundColor="#ffffff"
-                                sortFn={handleSort}
-                                selectedOption={filters[filter].options.find((option) => option.value === activeFilters[filter]).label}
-                                options={
+                        <Picker
+                            backgroundColor="#ffffff"
+                            sortFn={handleSort}
+                            selectedOption={filters[filter].options.find((option) => option.value === activeFilters[filter]).label}
+                            options={
                                 filters[filter].options.map((option) => ({
                                     name: option.label,
                                     value: option.value,
@@ -46,7 +46,7 @@ const MapFilters = ({ filters, activeFilters, isOpen }) => (
                     </div>
                 ))
             }
-            </div>
+        </div>
     </div>
 );
 

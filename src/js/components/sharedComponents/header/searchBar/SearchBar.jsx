@@ -57,7 +57,7 @@ export default class SearchBar extends React.Component {
                     aria-label="Search"
                     className="header-search-button"
                     onClick={this.toggleSearch}>
-                        <Search alt="Search" />
+                    <Search alt="Search" />
                 </button>
             </div>
         );

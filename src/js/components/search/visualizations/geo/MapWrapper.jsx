@@ -522,13 +522,13 @@ export default class MapWrapper extends React.Component {
                 ref={(div) => {
                     this.wrapperDiv = div;
                 }}>
-                    <MapBox
-                        loadedMap={this.mapReady}
-                        unloadedMap={this.mapRemoved}
-                        center={this.props.center}
-                        ref={(component) => {
-                            this.mapRef = component;
-                        }} />
+                <MapBox
+                    loadedMap={this.mapReady}
+                    unloadedMap={this.mapRemoved}
+                    center={this.props.center}
+                    ref={(component) => {
+                        this.mapRef = component;
+                    }} />
                 {this.toggle()}
                 {this.legend()}
                 {this.tooltip()}

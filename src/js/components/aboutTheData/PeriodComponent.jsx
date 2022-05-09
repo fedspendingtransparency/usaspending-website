@@ -15,7 +15,7 @@ const PeriodComponent = ({
         return (
             <div className={classNamesWithState}>
                 <span>{quarterAndTitle[0]}</span>
-                    <span>{quarterAndTitle[1]}</span>
+                <span>{quarterAndTitle[1]}</span>
             </div>
         );
     }

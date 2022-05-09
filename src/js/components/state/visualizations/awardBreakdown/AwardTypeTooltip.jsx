@@ -88,18 +88,18 @@ export default class AwardTypeTooltip extends React.Component {
                     <div className="tooltip-value">
                         {this.props.value}
                     </div>
-                        <div className="tooltip-label">
+                    <div className="tooltip-label">
                         Total Amount
-                        </div>
-                </div>
-                    <div className="tooltip-right">
-                        <div className="tooltip-value">
-                            {this.props.percentage}
-                        </div>
-                            <div className="tooltip-label">
-                        Percent
-                            </div>
                     </div>
+                </div>
+                <div className="tooltip-right">
+                    <div className="tooltip-value">
+                        {this.props.percentage}
+                    </div>
+                    <div className="tooltip-label">
+                        Percent
+                    </div>
+                </div>
             </div>
         );
         let smallValue = '';
@@ -115,23 +115,23 @@ export default class AwardTypeTooltip extends React.Component {
                 ref={(div) => {
                     this.containerDiv = div;
                 }}>
+                <div
+                    className={`tooltip${smallValue}`}
+                    ref={(div) => {
+                        this.div = div;
+                    }}>
                     <div
-                        className={`tooltip${smallValue}`}
+                        className="tooltip-pointer"
                         ref={(div) => {
-                            this.div = div;
-                        }}>
-                            <div
-                                className="tooltip-pointer"
-                                ref={(div) => {
-                                    this.pointerDiv = div;
-                                }} />
-                                    <div className="tooltip-title">
-                                        {this.props.description}
-                                    </div>
-                                        <div className="tooltip-body center">
-                                            {desc}
-                                        </div>
+                            this.pointerDiv = div;
+                        }} />
+                    <div className="tooltip-title">
+                        {this.props.description}
                     </div>
+                    <div className="tooltip-body center">
+                        {desc}
+                    </div>
+                </div>
             </div>
         );
     }

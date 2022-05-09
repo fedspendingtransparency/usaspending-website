@@ -71,9 +71,9 @@ export default class ExplorerTable extends React.Component {
                 <div className="explorer-detail-content__loading">
                     <div className="explorer-detail-content__loading-message">
                         <LoadingSpinner />
-                            <div className="explorer-detail-content__loading-title">Gathering your data...</div>
-                                <div className="explorer-detail-content__loading-subtitle">Updating Spending Explorer.</div>
-                                    <div>This should only take a few moments...</div>
+                        <div className="explorer-detail-content__loading-title">Gathering your data...</div>
+                        <div className="explorer-detail-content__loading-subtitle">Updating Spending Explorer.</div>
+                        <div>This should only take a few moments...</div>
                     </div>
                 </div>
             );
@@ -82,28 +82,28 @@ export default class ExplorerTable extends React.Component {
         return (
             <div className={`explorer-table${noResultsClass}`}>
                 {loadingMessage}
-                    <Pagination
-                        resultsText
-                        changePage={this.props.onChangePage}
-                        currentPage={this.props.pageNumber}
-                        totalItems={this.props.totalItems}
-                        pageSize={this.props.pageSize} />
-                            <table>
-                                <thead>
-                                    <tr>
-                                        {headers}
-                                    </tr>
-                                </thead>
-                                    <tbody>
-                                        {rows}
-                                    </tbody>
-                            </table>
-                                <Pagination
-                                    resultsText
-                                    changePage={this.props.onChangePage}
-                                    currentPage={this.props.pageNumber}
-                                    totalItems={this.props.totalItems}
-                                    pageSize={this.props.pageSize} />
+                <Pagination
+                    resultsText
+                    changePage={this.props.onChangePage}
+                    currentPage={this.props.pageNumber}
+                    totalItems={this.props.totalItems}
+                    pageSize={this.props.pageSize} />
+                <table>
+                    <thead>
+                        <tr>
+                            {headers}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {rows}
+                    </tbody>
+                </table>
+                <Pagination
+                    resultsText
+                    changePage={this.props.onChangePage}
+                    currentPage={this.props.pageNumber}
+                    totalItems={this.props.totalItems}
+                    pageSize={this.props.pageSize} />
             </div>
         );
     }

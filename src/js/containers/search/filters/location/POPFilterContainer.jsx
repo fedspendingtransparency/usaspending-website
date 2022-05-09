@@ -47,9 +47,9 @@ export class POPFilterContainer extends React.Component {
                     scope="primary_place_of_performance"
                     selectedLocations={this.props.selectedLocations}
                     addLocation={this.addLocation} />
-                        <SelectedLocations
-                            selectedLocations={this.props.selectedLocations}
-                            removeLocation={this.removeLocation} />
+                <SelectedLocations
+                    selectedLocations={this.props.selectedLocations}
+                    removeLocation={this.removeLocation} />
             </div>
         );
     }

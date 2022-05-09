@@ -33,31 +33,31 @@ export default class DataDictionary extends React.Component {
         return (
             <div className="data-dictionary">
                 <h2 className="data-dictionary__title">Data Dictionary</h2>
-                    <p className="data-dictionary__intro">
+                <p className="data-dictionary__intro">
                     The data dictionary below shows detailed information about the data available in our download
                     files, including the definition of each element and its element name on the legacy USAspending.gov
                     website.
-                    </p>
-                        <div className="data-dictionary__search-download">
-                            <SearchBar
-                                onSearch={this.props.setSearchString}
-                                placeholder="Search by Term" />
-                                    <div className="data-dictionary__download">
-                                        <a
-                                            className="data-dictionary__download-link"
-                                            onClick={handleDownloadClick}
-                                            href={this.props.downloadLocation}>
-                                                <div className="data-dictionary__download-icon">
-                                                    <FontAwesomeIcon icon="file-excel" />
-                                                </div>
-                        Download
-                                        </a>
-                                    </div>
-                        </div>
-                            <div className="data-dictionary__table-wrapper">
-                                <DataDictionaryTable
-                                    {...this.props} />
+                </p>
+                <div className="data-dictionary__search-download">
+                    <SearchBar
+                        onSearch={this.props.setSearchString}
+                        placeholder="Search by Term" />
+                    <div className="data-dictionary__download">
+                        <a
+                            className="data-dictionary__download-link"
+                            onClick={handleDownloadClick}
+                            href={this.props.downloadLocation}>
+                            <div className="data-dictionary__download-icon">
+                                <FontAwesomeIcon icon="file-excel" />
                             </div>
+                        Download
+                        </a>
+                    </div>
+                </div>
+                <div className="data-dictionary__table-wrapper">
+                    <DataDictionaryTable
+                        {...this.props} />
+                </div>
             </div>
         );
     }

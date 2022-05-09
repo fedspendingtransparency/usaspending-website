@@ -12,23 +12,23 @@ const downloadLocation = `${kGlobalConstants.FILES_SERVER_BASE_URL}/docs/USAspen
 const MetadataDownload = () => (
     <div className="metadata-dl">
         <h2 className="metadata__title">Dataset Metadata</h2>
-            <p className="metadata__intro">
+        <p className="metadata__intro">
             This JSON file contains metadata for all datasets that are published on USAspending.gov,
             including information such as dataset description, file format, publishing agency, and keywords.
-            </p>
-                <div className="metadata-download-button">
-                    <a
-                        target="_blank"
-                        href={downloadLocation}
-                        rel="noopener noreferrer"
-                        aria-label="Dataset Metadata">
-                            <button
-                                className="full-menu__item--button">
-                                    <FontAwesomeIcon icon="file-code" />
+        </p>
+        <div className="metadata-download-button">
+            <a
+                target="_blank"
+                href={downloadLocation}
+                rel="noopener noreferrer"
+                aria-label="Dataset Metadata">
+                <button
+                    className="full-menu__item--button">
+                    <FontAwesomeIcon icon="file-code" />
                     Download the Metadata JSON File
-                            </button>
-                    </a>
-                </div>
+                </button>
+            </a>
+        </div>
     </div>
 );
 

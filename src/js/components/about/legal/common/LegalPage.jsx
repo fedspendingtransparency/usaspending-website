@@ -38,15 +38,15 @@ export default class LegalPage extends React.Component {
                 classNames="usa-da-legal-page"
                 title="Legal"
                 metaTagProps={metaTags}>
-                    <main
-                        id="main-content"
-                        className="main-content">
-                            <LegalContent
-                                activePage={this.props.activePage}
-                                title={this.props.title}>
-                                {this.props.children}
-                            </LegalContent>
-                    </main>
+                <main
+                    id="main-content"
+                    className="main-content">
+                    <LegalContent
+                        activePage={this.props.activePage}
+                        title={this.props.title}>
+                        {this.props.children}
+                    </LegalContent>
+                </main>
             </PageWrapper>
         );
     }

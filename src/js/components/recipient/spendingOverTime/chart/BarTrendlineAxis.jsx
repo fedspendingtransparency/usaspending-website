@@ -72,11 +72,11 @@ export default class BarTrendlineAxis extends React.Component {
                 <g
                     key={`label-trendline-${tick}`}
                     className="axis-item y-axis">
-                        <text
-                            textAnchor="end"
-                            transform={`translate(${xPos},${yPos + 6})`}>
-                            {tickLabels[i]}
-                        </text>
+                    <text
+                        textAnchor="end"
+                        transform={`translate(${xPos},${yPos + 6})`}>
+                        {tickLabels[i]}
+                    </text>
                 </g>
             );
         });
@@ -91,18 +91,18 @@ export default class BarTrendlineAxis extends React.Component {
         return (
             <g className="bar-axis">
                 <title>Trendline-Axis</title>
-                    <desc>
-                        {this.state.description}
-                    </desc>
-                        <line
-                            className="y-axis"
-                            x1={this.props.width + this.props.padding.left}
-                            y1={0}
-                            x2={this.props.width + this.props.padding.left}
-                            y2={this.props.height} />
-                                <g className="axis-labels">
-                                    {this.state.labels}
-                                </g>
+                <desc>
+                    {this.state.description}
+                </desc>
+                <line
+                    className="y-axis"
+                    x1={this.props.width + this.props.padding.left}
+                    y1={0}
+                    x2={this.props.width + this.props.padding.left}
+                    y2={this.props.height} />
+                <g className="axis-labels">
+                    {this.state.labels}
+                </g>
             </g>
         );
     }

@@ -24,9 +24,9 @@ const BarValue = ({
         onMouseDown={onEnter}
         onMouseLeave={onLeave}
         onClick={onEnter}>
-            <div className="award-amounts-viz__desc-text">
-                <strong>{number}</strong><br />{title}
-            </div>
+        <div className="award-amounts-viz__desc-text">
+            <strong>{number}</strong><br />{title}
+        </div>
     </div>
 );
 
@@ -64,9 +64,9 @@ const Bar = ({
         onMouseEnter={onEnter}
         onMouseLeave={onLeave}
         onClick={onEnter}>
-            <div className={`${className} ${spendingCategory}`} style={barStyles}>
-                {children}
-            </div>
+        <div className={`${className} ${spendingCategory}`} style={barStyles}>
+            {children}
+        </div>
     </div>
 );
 

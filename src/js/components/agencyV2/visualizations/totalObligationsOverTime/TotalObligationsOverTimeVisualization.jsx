@@ -152,12 +152,12 @@ const TotalObligationsOverTimeVisualization = ({
             <div className="tooltip__title">
                 Available Budgetary Resources
             </div>
-                <div className="tooltip__text">
-                    <div className="budgetary-resources-tooltip__desc">Unobligated Balance</div>
-                        <div className="budgetary-resources-tooltip__amount">{formatMoney(balance)}</div>
-                            <div className="budgetary-resources-tooltip__desc_percent">Percent of Total</div>
-                                <div className="budgetary-resources-tooltip__amount_percent">{percentOfTotal}</div>
-                </div>
+            <div className="tooltip__text">
+                <div className="budgetary-resources-tooltip__desc">Unobligated Balance</div>
+                <div className="budgetary-resources-tooltip__amount">{formatMoney(balance)}</div>
+                <div className="budgetary-resources-tooltip__desc_percent">Percent of Total</div>
+                <div className="budgetary-resources-tooltip__amount_percent">{percentOfTotal}</div>
+            </div>
         </div>
     );
 
@@ -173,63 +173,63 @@ const TotalObligationsOverTimeVisualization = ({
                 className="budgetary-resources__tooltip-wrapper"
                 offsetAdjustments={{ top: -5 }}
                 tooltipComponent={tooltip}>
-                    <svg
-                        className="total-obligations-over-time-svg"
-                        height={height}
-                        width={width}>
-                            <defs>
-                                <PathAndAreaPathLinearGradients
-                                    agencyBudget={agencyBudget}
-                                    data={dataWithFirstAndLastCoordinate}
-                                    padding={padding}
-                                    width={width} />
-                            </defs>
-                                <g className="total-obligations-over-time-svg-body">
-                                    <Paths
-                                        data={dataWithFirstAndLastCoordinate}
-                                        description={description}
-                                        xScale={xScale}
-                                        xScaleForPath={xScaleForPath}
-                                        yScale={yScale}
-                                        yScaleForPath={yScaleForPath}
-                                        height={height}
-                                        width={width}
-                                        padding={padding}
-                                        agencyBudget={agencyBudget}
-                                        scenario={scenario} />
-                                            <Axis
-                                                padding={padding}
-                                                width={width}
-                                                height={height}
-                                                xTicks={xTicks} />
-                                    {showTodayLineAndText && <TodayLineAndtext
-                                        xScale={xScale}
-                                        height={height}
-                                        todaysDate={todaysDate}
-                                        padding={padding}
-                                        showTodayLineAndText={showTodayLineAndText} />}
-                                            <AgencyBudgetLine
-                                                data={dataWithFirstAndLastCoordinate}
-                                                xScale={xScale}
-                                                yScale={yScale}
-                                                agencyBudget={agencyBudget}
-                                                height={height}
-                                                width={width}
-                                                todaysDate={todaysDate}
-                                                padding={padding}
-                                                scenario={scenario}
-                                                showTodayLineAndText={showTodayLineAndText}
-                                                toggleTooltipVisibility={toggleTooltipVisibility} />
-                                    {(scenario === 'exceedsMin' || scenario === 'exceedsMaxAndMin') && <ZeroLineAndTick
-                                        xScale={xScale}
-                                        yScale={yScale}
-                                        height={height}
-                                        padding={padding}
-                                        width={width}
-                                        showTodayLineAndText={showTodayLineAndText}
-                                        todaysDate={todaysDate} />}
-                                </g>
-                    </svg>
+                <svg
+                    className="total-obligations-over-time-svg"
+                    height={height}
+                    width={width}>
+                    <defs>
+                        <PathAndAreaPathLinearGradients
+                            agencyBudget={agencyBudget}
+                            data={dataWithFirstAndLastCoordinate}
+                            padding={padding}
+                            width={width} />
+                    </defs>
+                    <g className="total-obligations-over-time-svg-body">
+                        <Paths
+                            data={dataWithFirstAndLastCoordinate}
+                            description={description}
+                            xScale={xScale}
+                            xScaleForPath={xScaleForPath}
+                            yScale={yScale}
+                            yScaleForPath={yScaleForPath}
+                            height={height}
+                            width={width}
+                            padding={padding}
+                            agencyBudget={agencyBudget}
+                            scenario={scenario} />
+                        <Axis
+                            padding={padding}
+                            width={width}
+                            height={height}
+                            xTicks={xTicks} />
+                        {showTodayLineAndText && <TodayLineAndtext
+                            xScale={xScale}
+                            height={height}
+                            todaysDate={todaysDate}
+                            padding={padding}
+                            showTodayLineAndText={showTodayLineAndText} />}
+                        <AgencyBudgetLine
+                            data={dataWithFirstAndLastCoordinate}
+                            xScale={xScale}
+                            yScale={yScale}
+                            agencyBudget={agencyBudget}
+                            height={height}
+                            width={width}
+                            todaysDate={todaysDate}
+                            padding={padding}
+                            scenario={scenario}
+                            showTodayLineAndText={showTodayLineAndText}
+                            toggleTooltipVisibility={toggleTooltipVisibility} />
+                        {(scenario === 'exceedsMin' || scenario === 'exceedsMaxAndMin') && <ZeroLineAndTick
+                            xScale={xScale}
+                            yScale={yScale}
+                            height={height}
+                            padding={padding}
+                            width={width}
+                            showTodayLineAndText={showTodayLineAndText}
+                            todaysDate={todaysDate} />}
+                    </g>
+                </svg>
             </TooltipWrapper>
         </div>
     );

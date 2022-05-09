@@ -34,19 +34,19 @@ export default class TestStylePage extends React.Component {
         return (
             <div className="usa-da-test-page">
                 <MetaTags {...MetaTagHelper.stylePageMetaTags} />
-                    <Header />
-                        <main id="main-content">
-                            <div className="page-content">
-                                <div className="page-wrapper">
-                                    <ButtonsExample />
-                                        <h3>Icons</h3>
-                                            <ul className="icon-list">
-                                                {icons}
-                                            </ul>
-                                </div>
-                            </div>
-                        </main>
-                            <Footer pageName="Test Style Page" />
+                <Header />
+                <main id="main-content">
+                    <div className="page-content">
+                        <div className="page-wrapper">
+                            <ButtonsExample />
+                            <h3>Icons</h3>
+                            <ul className="icon-list">
+                                {icons}
+                            </ul>
+                        </div>
+                    </div>
+                </main>
+                <Footer pageName="Test Style Page" />
             </div>
         );
     }

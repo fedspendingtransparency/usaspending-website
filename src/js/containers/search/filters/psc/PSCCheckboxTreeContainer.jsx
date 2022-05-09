@@ -65,10 +65,10 @@ const propTypes = {
 const SearchTooltip = () => (
     <>
         <p>Filter the options below by typing any of the following:</p>
-            <ul>
-                <li>Any PSC numeric code (or part thereof)</li>
-                    <li>Any PSC label name (or part thereof)</li>
-            </ul>
+        <ul>
+            <li>Any PSC numeric code (or part thereof)</li>
+            <li>Any PSC label name (or part thereof)</li>
+        </ul>
     </>
 );
 
@@ -392,54 +392,54 @@ export class PSCCheckboxTreeContainer extends React.Component {
         return (
             <div className="psc-checkbox">
                 <span className="checkbox-header">Search by Code or Name <CSSOnlyTooltip definition={<SearchTooltip />} heading="PSC Search" /></span>
-                    <EntityDropdownAutocomplete
-                        placeholder="Type to filter results"
-                        searchString={searchString}
-                        enabled
-                        handleTextInputChange={this.handleTextInputChange}
-                        context={{}}
-                        isClearable
-                        loading={false}
-                        onClear={this.onClear} />
-                            <CheckboxTree
-                                isError={isError}
-                                errorMessage={errorMessage}
-                                isLoading={isLoading}
-                                data={nodes}
-                                checked={checked}
-                                searchText={searchString}
-                                noResults={this.state.showNoResults}
-                                expanded={isSearch ? searchExpanded : expanded}
-                                onUncheck={this.onUncheck}
-                                onCheck={this.onCheck}
-                                onExpand={this.onExpand}
-                                onCollapse={this.onCollapse} />
+                <EntityDropdownAutocomplete
+                    placeholder="Type to filter results"
+                    searchString={searchString}
+                    enabled
+                    handleTextInputChange={this.handleTextInputChange}
+                    context={{}}
+                    isClearable
+                    loading={false}
+                    onClear={this.onClear} />
+                <CheckboxTree
+                    isError={isError}
+                    errorMessage={errorMessage}
+                    isLoading={isLoading}
+                    data={nodes}
+                    checked={checked}
+                    searchText={searchString}
+                    noResults={this.state.showNoResults}
+                    expanded={isSearch ? searchExpanded : expanded}
+                    onUncheck={this.onUncheck}
+                    onCheck={this.onCheck}
+                    onExpand={this.onExpand}
+                    onCollapse={this.onCollapse} />
                 {counts.length > 0 && (
-                <div
-                    className="selected-filters"
-                    role="status">
-                    {counts.map((node) => {
-                        const label = `${node.value} - ${node.label} (${node.count})`;
-                        return (
-                            <button
-                                key={uniqueId()}
-                                className="shown-filter-button"
-                                value={label}
-                                onClick={(e) => this.removeSelectedFilter(e, node)}
-                                title="Click to remove."
-                                aria-label={`Applied filter: ${label}`}>
-                                {label}
+                    <div
+                        className="selected-filters"
+                        role="status">
+                        {counts.map((node) => {
+                            const label = `${node.value} - ${node.label} (${node.count})`;
+                            return (
+                                <button
+                                    key={uniqueId()}
+                                    className="shown-filter-button"
+                                    value={label}
+                                    onClick={(e) => this.removeSelectedFilter(e, node)}
+                                    title="Click to remove."
+                                    aria-label={`Applied filter: ${label}`}>
+                                    {label}
                                     <span className="close">
                                         <FontAwesomeIcon icon="times" />
                                     </span>
-                            </button>
-                        );
-                    })}
-                </div>
+                                </button>
+                            );
+                        })}
+                    </div>
                 )}
-                    <SubmitHint ref={(component) => {
-                        this.hint = component;
-                    }} />
+                <SubmitHint ref={(component) => {
+                    this.hint = component;
+                }} />
             </div>
         );
     }

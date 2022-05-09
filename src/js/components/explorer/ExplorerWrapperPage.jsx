@@ -45,11 +45,11 @@ const ExplorerWrapperPage = (props) => {
                     url={getBaseUrl(slug)} />
             ]
                 .filter(() => props.showShareIcon)}>
-                    <main
-                        id="main-content"
-                        className="main-content">
-                        {props.children}
-                    </main>
+            <main
+                id="main-content"
+                className="main-content">
+                {props.children}
+            </main>
         </PageWrapper>
     );
 };

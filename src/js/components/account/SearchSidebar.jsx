@@ -36,9 +36,9 @@ export default class SearchSidebar extends React.Component {
                     <span className="filter-icon">
                         <FilterIcon />
                     </span>
-                        <h6>Filter by:</h6>
+                    <h6>Filter by:</h6>
                 </div>
-                    <FilterSidebar {...filters} />
+                <FilterSidebar {...filters} />
             </div>
         );
     }

@@ -76,18 +76,18 @@ export default class DataDictionaryTable extends React.Component {
                     <th
                         key={col.raw}
                         className={`dictionary-table__head-cell section-${i}-col ${cellClass}`}>
-                            <div className="header-cell">
-                                <div className="header-cell__text">
-                                    <div className="header-cell__title">
-                                        {col.display}
-                                    </div>
+                        <div className="header-cell">
+                            <div className="header-cell__text">
+                                <div className="header-cell__title">
+                                    {col.display}
                                 </div>
-                                    <DataDictionaryTableSorter
-                                        field={col.raw}
-                                        label={col.display}
-                                        active={this.props.sort}
-                                        changeSort={this.props.changeSort} />
                             </div>
+                            <DataDictionaryTableSorter
+                                field={col.raw}
+                                label={col.display}
+                                active={this.props.sort}
+                                changeSort={this.props.changeSort} />
+                        </div>
                     </th>
                 );
             }));
@@ -160,10 +160,10 @@ export default class DataDictionaryTable extends React.Component {
                     <td
                         key={uniqueId()}
                         className={`dictionary-table__body-cell section-${i}-cell ${highlightClass} ${cellClass}`}>
-                            <ReadMore
-                                text={data}
-                                limit={205}
-                                initiallyExpanded={!!this.props.searchTerm} />
+                        <ReadMore
+                            text={data}
+                            limit={205}
+                            initiallyExpanded={!!this.props.searchTerm} />
                     </td>
                 );
             }));
@@ -194,19 +194,19 @@ export default class DataDictionaryTable extends React.Component {
                                 <tr className="dictionary-table__headers-row">
                                     {this.generateSectionHeadings()}
                                 </tr>
-                                    <tr className="dictionary-table__headers-row">
-                                        {this.generateColumnHeadings()}
-                                    </tr>
+                                <tr className="dictionary-table__headers-row">
+                                    {this.generateColumnHeadings()}
+                                </tr>
                             </thead>
                         </table>
                     </div>
-                        <div className="dictionary-table__content" id="bottomBar" onScroll={this.scrollRightBottom}>
-                            <table className="dictionary-table__content-table" id="dictionary-table__content-table">
-                                <tbody className="dictionary-table__content-body">
-                                    {this.generateRows()}
-                                </tbody>
-                            </table>
-                        </div>
+                    <div className="dictionary-table__content" id="bottomBar" onScroll={this.scrollRightBottom}>
+                        <table className="dictionary-table__content-table" id="dictionary-table__content-table">
+                            <tbody className="dictionary-table__content-body">
+                                {this.generateRows()}
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             );
         }

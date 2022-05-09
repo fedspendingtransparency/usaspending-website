@@ -46,26 +46,26 @@ export default class ModalContent extends React.Component {
             <div className="download-status-screen">
                 <div className="main-title">
                     <h3>We&#8217;re preparing your download.</h3>
-                        <div className="details">
+                    <div className="details">
                         This may take a little while &mdash; wait times vary based on site traffic and file size.
-                        </div>
-                            <div className="link-box">
-                                <p>Once your download is ready, you can use this link to access it anytime</p>
-                                    <div className="link">{this.props.expectedFile}</div>
+                    </div>
+                    <div className="link-box">
+                        <p>Once your download is ready, you can use this link to access it anytime</p>
+                        <div className="link">{this.props.expectedFile}</div>
 
-                                        <CopyToClipboard
-                                            text={this.props.expectedFile}
-                                            onCopy={this.onCopy}>
-                                                <button>
-                                                    {this.state.copied ? <span>{icon}</span> : null}
-                                                    {this.state.copied ? 'Copied' : 'Copy Link'}
-                                                </button>
-                                        </CopyToClipboard>
-                            </div>
-                                <div className="sub-details">
+                        <CopyToClipboard
+                            text={this.props.expectedFile}
+                            onCopy={this.onCopy}>
+                            <button>
+                                {this.state.copied ? <span>{icon}</span> : null}
+                                {this.state.copied ? 'Copied' : 'Copy Link'}
+                            </button>
+                        </CopyToClipboard>
+                    </div>
+                    <div className="sub-details">
                         To keep browsing, close this box; your download status will appear at the bottom of the screen.
-                                </div>
-                                    <button className="finish-button" onClick={this.props.hideModal}>Close</button>
+                    </div>
+                    <button className="finish-button" onClick={this.props.hideModal}>Close</button>
                 </div>
             </div>
         );

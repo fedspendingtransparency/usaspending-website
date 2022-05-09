@@ -27,22 +27,22 @@ export default class ToggleButton extends React.Component {
                     aria-labelledby={`${this.props.prefix}-label`}
                     aria-pressed={this.props.active}
                     onClick={this.props.pressedToggle}>
-                        <div className="toggle-outline">
-                            <div className="toggle-slider">
-                                <div className="slider-surface">
-                                    <div className="friction-grabber" />
-                                        <div className="friction-grabber" />
-                                            <div className="friction-grabber" />
-                                </div>
+                    <div className="toggle-outline">
+                        <div className="toggle-slider">
+                            <div className="slider-surface">
+                                <div className="friction-grabber" />
+                                <div className="friction-grabber" />
+                                <div className="friction-grabber" />
                             </div>
                         </div>
+                    </div>
                 </button>
-                    <label
-                        id={`${this.props.prefix}-label`}
-                        className="toggle-text"
-                        htmlFor={this.props.prefix}>
-                        {this.props.label}
-                    </label>
+                <label
+                    id={`${this.props.prefix}-label`}
+                    className="toggle-text"
+                    htmlFor={this.props.prefix}>
+                    {this.props.label}
+                </label>
             </div>
         );
     }

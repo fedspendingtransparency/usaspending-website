@@ -46,13 +46,13 @@ const ZeroLineAndTick = ({
                 y={textData.y}>
                 $0
             </text>
-                <line
-                    tabIndex="0"
-                    className="zero-line"
-                    x1={lineData.x1}
-                    x2={lineData.x2}
-                    y1={lineData.y}
-                    y2={lineData.y} />
+            <line
+                tabIndex="0"
+                className="zero-line"
+                x1={lineData.x1}
+                x2={lineData.x2}
+                y1={lineData.y}
+                y2={lineData.y} />
         </g>
     );
 };

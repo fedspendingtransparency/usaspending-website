@@ -28,20 +28,20 @@ const RecipientLandingTable = (props) => {
         <tr
             key={row.id}
             className="recipient-list__body-row">
-                <RecipientLinkCell
-                    id={row.id}
-                    type={row.recipientLevel}
-                    name={row.name}
-                    searchString={props.searchString} />
-                        <td className="recipient-list__body-cell recipient-list__body-cell_left">
-                            {row.uei}
-                        </td>
-                            <td className="recipient-list__body-cell recipient-list__body-cell_left">
-                                {row.duns}
-                            </td>
-                                <td className="recipient-list__body-cell recipient-list__body-cell_center">
-                                    {row.amount}
-                                </td>
+            <RecipientLinkCell
+                id={row.id}
+                type={row.recipientLevel}
+                name={row.name}
+                searchString={props.searchString} />
+            <td className="recipient-list__body-cell recipient-list__body-cell_left">
+                {row.uei}
+            </td>
+            <td className="recipient-list__body-cell recipient-list__body-cell_left">
+                {row.duns}
+            </td>
+            <td className="recipient-list__body-cell recipient-list__body-cell_center">
+                {row.amount}
+            </td>
         </tr>
     ));
 
@@ -68,72 +68,72 @@ const RecipientLandingTable = (props) => {
         <div className="recipient-landing__results">
             <table
                 className="recipient-list">
-                    <thead className="recipient-list__head">
-                        <tr className="recipient-list__head-row">
-                            <th className="recipient-list__head-cell">
-                                <div className="header-cell">
-                                    <div className="header-cell__text">
-                                        <div className="header-cell__title">
+                <thead className="recipient-list__head">
+                    <tr className="recipient-list__head-row">
+                        <th className="recipient-list__head-cell">
+                            <div className="header-cell">
+                                <div className="header-cell__text">
+                                    <div className="header-cell__title">
                                         Recipient Name
-                                        </div>
                                     </div>
-                                        <StateLandingTableSorter
-                                            field="name"
-                                            label="recipient"
-                                            active={{ field: props.order.field, direction: props.order.direction }}
-                                            setSort={props.setSort} />
                                 </div>
-                            </th>
-                                <th className="recipient-list__head-cell">
-                                    <div className="header-cell ">
-                                        <div className="header-cell__text">
-                                            <div className="header-cell__title header-cell__title_cap">
+                                <StateLandingTableSorter
+                                    field="name"
+                                    label="recipient"
+                                    active={{ field: props.order.field, direction: props.order.direction }}
+                                    setSort={props.setSort} />
+                            </div>
+                        </th>
+                        <th className="recipient-list__head-cell">
+                            <div className="header-cell ">
+                                <div className="header-cell__text">
+                                    <div className="header-cell__title header-cell__title_cap">
                                         UEI
-                                            </div>
-                                        </div>
-                                            <StateLandingTableSorter
-                                                field="uei"
-                                                label="uei"
-                                                active={{ field: props.order.field, direction: props.order.direction }}
-                                                setSort={props.setSort} />
                                     </div>
-                                </th>
-                                    <th className="recipient-list__head-cell">
-                                        <div className="header-cell ">
-                                            <div className="header-cell__text">
-                                                <div className="header-cell__title">
-                                                    {GlobalConstants.DUNS_LABEL}<span className="header-cell__title_cap">DUNS</span>
-                                                </div>
-                                            </div>
-                                                <StateLandingTableSorter
-                                                    field="duns"
-                                                    label="duns"
-                                                    active={{ field: props.order.field, direction: props.order.direction }}
-                                                    setSort={props.setSort} />
-                                        </div>
-                                    </th>
-                                        <th className="recipient-list__head-cell">
-                                            <div className="header-cell  header-cell_right">
-                                                <div className="header-cell__text">
-                                                    <div className="header-cell__title header-cell__title_center">
+                                </div>
+                                <StateLandingTableSorter
+                                    field="uei"
+                                    label="uei"
+                                    active={{ field: props.order.field, direction: props.order.direction }}
+                                    setSort={props.setSort} />
+                            </div>
+                        </th>
+                        <th className="recipient-list__head-cell">
+                            <div className="header-cell ">
+                                <div className="header-cell__text">
+                                    <div className="header-cell__title">
+                                        {GlobalConstants.DUNS_LABEL}<span className="header-cell__title_cap">DUNS</span>
+                                    </div>
+                                </div>
+                                <StateLandingTableSorter
+                                    field="duns"
+                                    label="duns"
+                                    active={{ field: props.order.field, direction: props.order.direction }}
+                                    setSort={props.setSort} />
+                            </div>
+                        </th>
+                        <th className="recipient-list__head-cell">
+                            <div className="header-cell  header-cell_right">
+                                <div className="header-cell__text">
+                                    <div className="header-cell__title header-cell__title_center">
                                         Awarded Amount
-                                                        <div className="header-cell__subtitle">
+                                        <div className="header-cell__subtitle">
                                             (from trailing 12 months of transactions)
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                    <StateLandingTableSorter
-                                                        field="amount"
-                                                        label="awarded amount"
-                                                        active={{ field: props.order.field, direction: props.order.direction }}
-                                                        setSort={props.setSort} />
-                                            </div>
-                                        </th>
-                        </tr>
-                    </thead>
-                        <tbody className={`recipient-list__body ${hideBody}`}>
-                            {body}
-                        </tbody>
+                                        </div>
+                                    </div>
+                                </div>
+                                <StateLandingTableSorter
+                                    field="amount"
+                                    label="awarded amount"
+                                    active={{ field: props.order.field, direction: props.order.direction }}
+                                    setSort={props.setSort} />
+                            </div>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody className={`recipient-list__body ${hideBody}`}>
+                    {body}
+                </tbody>
             </table>
             {message}
         </div>

@@ -20,16 +20,16 @@ export default class LoadingAccount extends React.Component {
         return (
             <div className="usa-da-account-page">
                 <Header />
-                    <main
-                        id="main-content"
-                        className="main-content">
-                            <div className="wrapper">
-                                <Error
-                                    title="Loading..."
-                                    message="" />
-                            </div>
-                    </main>
-                        <Footer pageName="Loading Account" />
+                <main
+                    id="main-content"
+                    className="main-content">
+                    <div className="wrapper">
+                        <Error
+                            title="Loading..."
+                            message="" />
+                    </div>
+                </main>
+                <Footer pageName="Loading Account" />
             </div>
         );
     }
