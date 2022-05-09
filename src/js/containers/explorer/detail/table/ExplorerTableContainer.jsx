@@ -65,7 +65,7 @@ export class ExplorerTableContainer extends React.Component {
     }
 
     onChangePage(pageNumber) {
-        // Change page number in Redux state
+    // Change page number in Redux state
         const totalPages = Math.ceil(this.state.totalItems / this.state.pageSize);
         const inRange = (pageNumber > 0) && (pageNumber <= totalPages);
         if (inRange) {
@@ -74,7 +74,7 @@ export class ExplorerTableContainer extends React.Component {
     }
 
     setPageOfItems(results) {
-        // calculate start and end item indexes
+    // calculate start and end item indexes
         const startIndex = (this.props.pageNumber - 1) * this.state.pageSize;
         const endIndex = Math.min(startIndex + (this.state.pageSize - 1), (results.length - 1));
 
@@ -151,7 +151,7 @@ export class ExplorerTableContainer extends React.Component {
     }
 
     orderResults() {
-        // sort the results by the appropriate table column and direction
+    // sort the results by the appropriate table column and direction
         const orderedResults = orderBy(this.state.results,
             [this.props.order.field], [this.props.order.direction]);
 

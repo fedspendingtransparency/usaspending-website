@@ -200,7 +200,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
         });
     };
 
-    const addUnlinkedData = (rows, cfdaTotals = resultTotal, overallAsstAwardTotals = assistanceTotals) => {
+    const addUnlinkedData = useCallback((rows, cfdaTotals = resultTotal, overallAsstAwardTotals = assistanceTotals) => {
         if (!rows.length) return [];
         if (Object.keys(overallAsstAwardTotals).length === 0 || activeTab !== 'all') {
             setUnlinkedDataClass(false);
@@ -217,7 +217,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
                     </div>),
                 ...calculateUnlinkedTotals(overallAsstAwardTotals, cfdaTotals)
             }]);
-    };
+    });
 
     const parseRows = () => (
         results.map((row) => {
@@ -322,7 +322,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
     }, [assistanceTotals, resultTotal]);
 
     useEffect(() => {
-        // Reset to the first page
+    // Reset to the first page
         if (currentPage === 1) {
             fetchSpendingByCfdaCallback();
         }
@@ -366,18 +366,18 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
                 pageSize={pageSize}
                 totalItems={totalItems} />
             {(loading || error || results.length === 0) &&
-                <TransitionGroup>
-                    <CSSTransition
-                        classNames="table-message-fade"
-                        timeout={{ exit: 225, enter: 195 }}
-                        exit>
-                        <div className="results-table-message-container" style={{ height: tableHeight }}>
-                            {error && <ResultsTableErrorMessage />}
-                            {loading && <ResultsTableLoadingMessage />}
-                            {!error && !loading && results.length === 0 && <ResultsTableNoResults />}
-                        </div>
-                    </CSSTransition>
-                </TransitionGroup>
+            <TransitionGroup>
+                <CSSTransition
+                    classNames="table-message-fade"
+                    timeout={{ exit: 225, enter: 195 }}
+                    exit>
+                    <div className="results-table-message-container" style={{ height: tableHeight }}>
+                        {error && <ResultsTableErrorMessage />}
+                        {loading && <ResultsTableLoadingMessage />}
+                        {!error && !loading && results.length === 0 && <ResultsTableNoResults />}
+                    </div>
+                </CSSTransition>
+            </TransitionGroup>
             }
             {!loading && !error && results.length > 0 &&
             <div ref={tableRef} className={`table-wrapper ${unlinkedDataClass ? 'unlinked-data' : ''}`} >

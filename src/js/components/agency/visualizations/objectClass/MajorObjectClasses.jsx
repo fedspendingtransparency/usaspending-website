@@ -59,7 +59,7 @@ export default class MajorObjectClasses extends React.Component {
     }
 
     handleWindowResize() {
-        // determine if the width changed
+    // determine if the width changed
         const windowWidth = window.innerWidth;
         if (this.state.windowWidth !== windowWidth) {
             // width changed, update the visualization width
@@ -74,7 +74,7 @@ export default class MajorObjectClasses extends React.Component {
     }
 
     buildTree(treeProps) {
-        // grab the major object class data
+    // grab the major object class data
         const objectClasses = treeProps.majorObjectClasses;
 
         // remove negative values from the children, as we can't display those in the treemap

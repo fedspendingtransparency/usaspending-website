@@ -76,7 +76,7 @@ export class RecipientContainer extends React.Component {
     }
 
     componentWillUnmount() {
-        // Reset the FY
+    // Reset the FY
         this.props.setRecipientFiscalYear(defaultFy);
         this.props.resetRecipient();
     }

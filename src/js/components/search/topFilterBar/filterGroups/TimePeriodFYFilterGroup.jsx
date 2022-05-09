@@ -25,7 +25,7 @@ export default class TimePeriodFYFilterGroup extends React.Component {
     }
 
     removeFilter(value) {
-        // remove a single filter item
+    // remove a single filter item
         const timePeriodFilter = {
             dateType: this.props.redux.reduxFilters.timePeriodType,
             fy: this.props.redux.reduxFilters.timePeriodFY,

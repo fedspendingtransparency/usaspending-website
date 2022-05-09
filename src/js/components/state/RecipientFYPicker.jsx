@@ -29,7 +29,7 @@ export default class FYPicker extends React.Component {
     }
 
     componentWillUnmount() {
-        // remove the event listener
+    // remove the event listener
         document.removeEventListener('click', this.closeMenu);
     }
 

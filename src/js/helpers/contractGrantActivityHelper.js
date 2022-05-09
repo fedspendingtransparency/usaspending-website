@@ -110,7 +110,7 @@ export const areTransactionDatesOrAwardAmountsInvalid = (dates, awardType, trans
     const noTransactionHasDates = transactions.every((t) => isNaN(t.action_date.valueOf()));
     const onlyOneTransaction = transactions.length === 1;
     if (isAwardFinancialAssistance(awardType)) { // grant
-        // 3
+    // 3
         if (noTransactionHasDates) return true;
         if (badStart && badCurrent && onlyOneTransaction) return true;
         // 4.b and 5.b
@@ -132,7 +132,7 @@ export const areTransactionDatesOrAwardAmountsInvalid = (dates, awardType, trans
     if (badStart && badCurrent && badEnd && onlyOneTransaction) return true;
     // 4.b and 5.b
     if (onlyOneTransaction) {
-        // 4.b
+    // 4.b
         if ((badStart && (!badCurrent || !badEnd))) {
             // since contracts could have current or potential we test both - potential first
             if (potentialEndDate.valueOf() && (transactions[0].action_date.valueOf() > potentialEndDate.valueOf())) return true;
@@ -213,7 +213,7 @@ export const getXDomain = (dates, awardType, transactions) => {
     }
 
     if (isAwardFinancialAssistance(awardType)) { // grant
-        // 6 no dates use transactions
+    // 6 no dates use transactions
         if (badStart && badEnd) return [transactionData.shift().action_date.valueOf(), transactionData.pop().action_date.valueOf()];
         // 7 no start and end use first transaction
         if (badStart && !badCurrent) return [transactionData.shift().action_date.valueOf(), afterDate(transactionData.pop().action_date, currentEndDate).valueOf()];

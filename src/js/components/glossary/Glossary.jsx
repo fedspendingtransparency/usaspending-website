@@ -57,8 +57,8 @@ export default class Glossary extends React.Component {
     }
 
     closeGlossary() {
-        // close the glossary when the escape key is pressed for accessibility and general
-        // non-annoyance
+    // close the glossary when the escape key is pressed for accessibility and general
+    // non-annoyance
         this.props.hideGlossary();
 
         // move focus back to the main content
@@ -80,16 +80,16 @@ export default class Glossary extends React.Component {
     }
 
     renderThumb() {
-        // render a component to represent the current scroll position
-        // (on Macs, only visible when scroll bar settings are on "Always")
+    // render a component to represent the current scroll position
+    // (on Macs, only visible when scroll bar settings are on "Always")
         return (
             <div className="glossary-scrollbar-thumb" />
         );
     }
 
     renderTrack() {
-        // render a component within which the thumb moves as the scrollbar scrolls
-        // (on Macs, only visible when scroll bar settings are on "Always")
+    // render a component within which the thumb moves as the scrollbar scrolls
+    // (on Macs, only visible when scroll bar settings are on "Always")
         return (
             <div className="glossary-scrollbar-track" />
         );

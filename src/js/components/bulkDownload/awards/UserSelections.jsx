@@ -28,7 +28,7 @@ export default class UserSelections extends React.Component {
     }
 
     generateAwardTypeString() {
-        // Build an array of labels for the current selections
+    // Build an array of labels for the current selections
         const options = Object.assign(
             {},
             ...Object.entries(awardDownloadOptions.awardTypeLookups).map(([key, value]) => ({ [key]: value.label }))

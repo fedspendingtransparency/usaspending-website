@@ -46,7 +46,7 @@ export default class ExplorerSidebar extends React.Component {
     }
 
     logTimePeriodEvent(quarter, fiscalYear) {
-        // discard any previously scheduled time period analytic events that haven't run yet
+    // discard any previously scheduled time period analytic events that haven't run yet
         if (this._queuedAnalyticEvent) {
             window.clearTimeout(this._queuedAnalyticEvent);
         }

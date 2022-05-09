@@ -50,7 +50,7 @@ export default class ObjectClassTreeMap extends React.Component {
     }
 
     handleWindowResize() {
-        // determine if the width changed
+    // determine if the width changed
         const windowWidth = window.innerWidth;
         if (this.state.windowWidth !== windowWidth) {
             this.setState({

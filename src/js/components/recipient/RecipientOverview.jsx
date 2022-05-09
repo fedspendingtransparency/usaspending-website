@@ -27,7 +27,7 @@ const RecipientOverview = (props) => {
     let viewChildren = null;
     let parent = null;
     if (recipient.level === 'C') {
-        // This is a child recipient
+    // This is a child recipient
         label = (
             <div className="recipient-overview__label recipient-overview__label_child">
                 Child Recipient
@@ -37,7 +37,7 @@ const RecipientOverview = (props) => {
             parents={recipient.parents} />);
     }
     else if (recipient.level === 'P') {
-        // This is a parent recipient
+    // This is a parent recipient
         label = (
             <span className="recipient-overview__label recipient-overview__label_parent">
                 Parent Recipient
@@ -63,7 +63,7 @@ const RecipientOverview = (props) => {
         )
         : null;
 
-        // Format the location data
+    // Format the location data
     let address = (
         <td>Address not provided in source system</td>
     );

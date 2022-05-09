@@ -32,7 +32,7 @@ export class SidebarLink extends React.Component {
     }
 
     prepareLink() {
-        // the URL base should be the current route
+    // the URL base should be the current route
         const currentRoute = this.props.location.pathname;
         // append the section as a query param
         const url = `${currentRoute}?section=${this.props.section}`;

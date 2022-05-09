@@ -71,7 +71,7 @@ export default class DatePicker extends React.Component {
     }
 
     parseValueForInput() {
-        // convert the date to something typeable
+    // convert the date to something typeable
         if (this.props.value != null) {
             const iV = this.props.value.format('MM/DD/YYYY');
             this.setState({
@@ -140,7 +140,7 @@ export default class DatePicker extends React.Component {
     }
 
     handleTypedDate(e) {
-        // update the string state of the input field
+    // update the string state of the input field
         this.setState({
             inputValue: e.target.value
         }, () => {
@@ -160,11 +160,11 @@ export default class DatePicker extends React.Component {
             const matchedSecond = secondaryFormat.test(this.state.inputValue);
 
             if (!matchedFirst && !matchedSecond) {
-            // doesn't match either format, user may still be typing or just entered invalid data
+                // doesn't match either format, user may still be typing or just entered invalid data
                 return;
             }
             else if (!matchedFirst && matchedSecond) {
-            // only matched the second format
+                // only matched the second format
                 format = 'M/D/YYYY';
             }
 
@@ -190,9 +190,9 @@ export default class DatePicker extends React.Component {
     }
 
     handleDateBlur() {
-        // blur event gets triggered apparently by any child element
-        // blur will trigger before focus per W3C, delay the blur logic
-        // so that it can be cancelled if focus shifts to a child element
+    // blur event gets triggered apparently by any child element
+    // blur will trigger before focus per W3C, delay the blur logic
+    // so that it can be cancelled if focus shifts to a child element
         this.delayedBlur = window.setTimeout(() => {
             this.setState({
                 showDatePicker: false
@@ -201,7 +201,7 @@ export default class DatePicker extends React.Component {
     }
 
     handleDateFocus() {
-        // check if we lost focus from the parent element, if so cancel that blur event
+    // check if we lost focus from the parent element, if so cancel that blur event
         if (this.delayedBlur) {
             window.clearTimeout(this.delayedBlur);
             this.delayedBlur = null;

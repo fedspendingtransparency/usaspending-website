@@ -42,7 +42,7 @@ export default class StateLandingContainer extends React.Component {
         }, () => {
             this.performSearch();
         });
-    }
+    };
 
     setSort = (field, direction) => {
         this.setState({
@@ -51,7 +51,7 @@ export default class StateLandingContainer extends React.Component {
         }, () => {
             this.performSearch();
         });
-    }
+    };
 
     loadData() {
         if (this.request) {
@@ -100,7 +100,7 @@ export default class StateLandingContainer extends React.Component {
     }
 
     performSearch() {
-        // perform a local search
+    // perform a local search
         const search = new Search('fips');
         search.addIndex('name');
         search.addIndex('code');

@@ -47,7 +47,7 @@ const RecipientLandingTable = (props) => {
 
     let message = null;
     if (!props.inFlight && !props.error && props.results.length === 0) {
-        // no results
+    // no results
         if (props.searchString) {
             message = (
                 <div className="recipient-list__message">

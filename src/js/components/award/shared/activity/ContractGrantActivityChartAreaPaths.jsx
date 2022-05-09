@@ -262,36 +262,36 @@ const ContractGrantActivityChartAreaPaths = ({
         <g className="contract-grant-activity-chart__area-paths">
             {/* area path */}
             {areaPath &&
-                <g tabIndex="0">
-                    <desc>{transactionPathDescription}</desc>
-                    <path
-                        className="area-path"
-                        d={areaPath} />
-                </g>}
+            <g tabIndex="0">
+                <desc>{transactionPathDescription}</desc>
+                <path
+                    className="area-path"
+                    d={areaPath} />
+            </g>}
             {/* extend area path to today */}
             {areaPathExtensionToTodayLine &&
-                <g tabIndex="0">
-                    <desc>{areaPathToTodayLineDescription}</desc>
-                    <path
-                        className="area-path"
-                        d={areaPathExtensionToTodayLine} />
-                </g>}
+            <g tabIndex="0">
+                <desc>{areaPathToTodayLineDescription}</desc>
+                <path
+                    className="area-path"
+                    d={areaPathExtensionToTodayLine} />
+            </g>}
             {/* extend area path past end line */}
             {areaPathPastEndLine &&
-                <g tabIndex="0">
-                    <desc>{areaPathPastEndLineDescription}</desc>
-                    <path
-                        className="area-path__past-end-line"
-                        d={areaPathPastEndLine} />
-                </g>}
+            <g tabIndex="0">
+                <desc>{areaPathPastEndLineDescription}</desc>
+                <path
+                    className="area-path__past-end-line"
+                    d={areaPathPastEndLine} />
+            </g>}
             {/* area Path Extension Last Data Point Y Value Change */}
             {areaPathExtensionLastDataPointYValueChange.path &&
-                <g tabIndex="0">
-                    <desc>{areaPathExtensionLastDataPointYValueChange.description}</desc>
-                    <path
-                        className={areaPathExtensionLastDataPointYValueChange.className}
-                        d={areaPathExtensionLastDataPointYValueChange.path} />
-                </g>}
+            <g tabIndex="0">
+                <desc>{areaPathExtensionLastDataPointYValueChange.description}</desc>
+                <path
+                    className={areaPathExtensionLastDataPointYValueChange.className}
+                    d={areaPathExtensionLastDataPointYValueChange.path} />
+            </g>}
         </g>
     );
 };

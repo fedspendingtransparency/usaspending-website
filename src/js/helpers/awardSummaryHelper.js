@@ -74,7 +74,7 @@ export const getAwardTypeByRecordtypeCountyAndState = (
     const countyCode = placeOfPerformance._countyCode;
     const isUSA = isUSAAward(placeOfPerformance);
     if (isAwardFinancialAssistance(awardType)) {
-        // redacted due to PII
+    // redacted due to PII
         if (recordType === 3) {
             if (!isUSA) {
                 return 'redactedDueToPIIForeign';

@@ -188,7 +188,7 @@ const StatusOfFundsChart = ({
     };
 
     const renderChart = () => {
-        // setup x and y scales
+    // setup x and y scales
         const y = scaleBand()
             .range([0, isMobile ? viewHeight * 2.3 : chartHeightYScale()])
             .padding(isMobile ? 0.5 : paddingResize());

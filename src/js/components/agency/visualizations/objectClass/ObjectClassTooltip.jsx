@@ -30,7 +30,7 @@ export default class ObjectClassTooltip extends React.Component {
     }
 
     positionTooltip() {
-        // Tooptip sizes
+    // Tooptip sizes
         const tooltipWidth = this.div.offsetWidth;
         const tooltipHeight = this.div.offsetHeight;
 

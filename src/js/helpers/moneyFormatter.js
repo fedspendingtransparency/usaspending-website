@@ -73,7 +73,7 @@ export const calculateUnits = (data, subdivisions = 6) => {
     let unitLabel = '';
     let longLabel = '';
     if (scaleMax >= unitValues.TRILLION) {
-        // the max is at least 1 trillion
+    // the max is at least 1 trillion
         unit = unitValues.TRILLION;
         unitLabel = unitLabels.TRILLION;
         longLabel = unitWords.TRILLION;
@@ -85,7 +85,7 @@ export const calculateUnits = (data, subdivisions = 6) => {
         }
     }
     else if (scaleMax >= unitValues.BILLION) {
-        // the max is at least 1 billion
+    // the max is at least 1 billion
         unit = unitValues.BILLION;
         unitLabel = unitLabels.BILLION;
         longLabel = unitWords.BILLION;
@@ -97,7 +97,7 @@ export const calculateUnits = (data, subdivisions = 6) => {
         }
     }
     else if (scaleMax >= unitValues.MILLION) {
-        // the max is at least 1 million
+    // the max is at least 1 million
         unit = unitValues.MILLION;
         unitLabel = unitLabels.MILLION;
         longLabel = unitWords.MILLION;
@@ -109,7 +109,7 @@ export const calculateUnits = (data, subdivisions = 6) => {
         }
     }
     else if (scaleMax >= unitValues.THOUSAND) {
-        // the max is at least 1 thousand
+    // the max is at least 1 thousand
         unit = unitValues.THOUSAND;
         unitLabel = unitLabels.THOUSAND;
         longLabel = unitWords.THOUSAND;
@@ -123,7 +123,7 @@ export const calculateUnits = (data, subdivisions = 6) => {
 
     let precision = 0;
     if ((scaleMax / unit) < subdivisions) {
-        // add decimal values if the spacing between each label is less than 1
+    // add decimal values if the spacing between each label is less than 1
         precision = 2;
     }
 
@@ -144,25 +144,25 @@ export const calculateUnitForSingleValue = (value) => {
     let unitLabel = '';
     let unitWord = '';
     if (adjustedValue >= unitValues.TRILLION) {
-        // the max is at least 1 trillion
+    // the max is at least 1 trillion
         unit = unitValues.TRILLION;
         unitLabel = unitLabels.TRILLION;
         unitWord = unitWords.TRILLION;
     }
     else if (adjustedValue >= unitValues.BILLION) {
-        // the max is at least 1 billion
+    // the max is at least 1 billion
         unit = unitValues.BILLION;
         unitLabel = unitLabels.BILLION;
         unitWord = unitWords.BILLION;
     }
     else if (adjustedValue >= unitValues.MILLION) {
-        // the max is at least 1 million
+    // the max is at least 1 million
         unit = unitValues.MILLION;
         unitLabel = unitLabels.MILLION;
         unitWord = unitWords.MILLION;
     }
     else if (adjustedValue >= unitValues.THOUSAND) {
-        // the max is at least 1 thousand
+    // the max is at least 1 thousand
         unit = unitValues.THOUSAND;
         unitLabel = unitLabels.THOUSAND;
         unitWord = unitWords.THOUSAND;
@@ -190,7 +190,7 @@ export const formatTreemapValues = (value) => {
 
     let precision = 1;
     if (formattedValue % 1 === 0) {
-        // Whole number
+    // Whole number
         precision = 0;
     }
     else if (useCents) {

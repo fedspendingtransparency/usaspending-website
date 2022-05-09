@@ -63,7 +63,7 @@ export default class TimePeriodFilter extends React.Component {
     }
 
     prepopulateDatePickers() {
-        // prepopulate the date pickers with the current filter values
+    // prepopulate the date pickers with the current filter values
         const startDate = moment(this.props.filterTimePeriodStart, 'YYYY-MM-DD');
         const endDate = moment(this.props.filterTimePeriodEnd, 'YYYY-MM-DD');
 
@@ -76,8 +76,8 @@ export default class TimePeriodFilter extends React.Component {
     }
 
     synchronizeDatePickers(nextProps) {
-        // synchronize the date picker state to Redux controlled props
-        // convert start/end date strings to moment objects
+    // synchronize the date picker state to Redux controlled props
+    // convert start/end date strings to moment objects
         let datesChanged = false;
         const newState = {};
 
@@ -117,10 +117,10 @@ export default class TimePeriodFilter extends React.Component {
     }
 
     handleDateChange(date, dateType) {
-        // the component will hold values of the start/end dates for use by the UI only
-        // this is because the start/end range will be incomplete during the time the user has only
-        // picked one date, or if they have picked an invalid range
-        // additional logic is required to keep these values in sync with Redux
+    // the component will hold values of the start/end dates for use by the UI only
+    // this is because the start/end range will be incomplete during the time the user has only
+    // picked one date, or if they have picked an invalid range
+    // additional logic is required to keep these values in sync with Redux
         let value = moment(date);
         if (!date) {
             value = null;
@@ -133,8 +133,8 @@ export default class TimePeriodFilter extends React.Component {
     }
 
     validateDates() {
-        // validate that dates are provided for both fields and the end dates
-        // don't come before the start dates, and that the range is less than one year
+    // validate that dates are provided for both fields and the end dates
+    // don't come before the start dates, and that the range is less than one year
 
         // validate the date ranges
         const start = this.state.startDateBulkUI;

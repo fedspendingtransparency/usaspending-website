@@ -41,7 +41,7 @@ export default class StateTimeVisualizationSection extends React.Component {
     }
 
     handleWindowResize() {
-        // determine if the width changed
+    // determine if the width changed
         const windowWidth = window.innerWidth;
         if (this.state.windowWidth !== windowWidth) {
             // width changed, update the visualization width

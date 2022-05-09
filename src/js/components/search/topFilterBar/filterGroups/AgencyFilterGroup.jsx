@@ -23,7 +23,7 @@ export default class AgencyFilterGroup extends React.Component {
     }
 
     removeFilter(value) {
-        // remove a single filter item
+    // remove a single filter item
         const type = this.props.filter.code;
         const newValue = this.props.redux.reduxFilters[type].delete(value);
         this.props.redux.updateGenericFilter({

@@ -33,7 +33,7 @@ export default class BarYAxis extends React.Component {
     }
 
     shouldComponentUpdate(nextProps, nextState) {
-        // reduce unnecessary renders
+    // reduce unnecessary renders
         if (!isEqual(nextProps, this.props)) {
             return true;
         }

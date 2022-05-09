@@ -54,7 +54,7 @@ export default class GeoVisualizationSection extends React.Component {
     }
 
     componentDidMount() {
-        // check if the disclaimer cookie exists
+    // check if the disclaimer cookie exists
         if (!Cookies.get('usaspending_search_map_disclaimer')) {
             // cookie does not exist, show the disclaimer
             this.showDisclaimer();
@@ -64,7 +64,7 @@ export default class GeoVisualizationSection extends React.Component {
     showDisclaimer = () => this.setState({ showDisclaimer: true });
 
     showTooltip(geoId, position) {
-        // convert state code to full string name
+    // convert state code to full string name
         const label = this.props.data.labels[geoId];
         this.setState({
             showHover: true,
@@ -86,7 +86,7 @@ export default class GeoVisualizationSection extends React.Component {
     }
 
     closeDisclaimer() {
-        // set a cookie to hide the disclaimer in the future
+    // set a cookie to hide the disclaimer in the future
         Cookies.set('usaspending_search_map_disclaimer', 'hide', { expires: 730 });
         this.setState({
             showDisclaimer: false

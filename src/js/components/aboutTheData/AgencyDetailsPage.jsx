@@ -106,46 +106,46 @@ const AgencyDetailsPage = () => {
                 {loading && <LoadingMessage />}
                 {error && <ErrorMessage description={errorMessage} />}
                 {(!loading && !error) && (
-                        <>
-                            <div className="heading-container">
-                                <div className="back-link">
-                                    <Link to={{
-                                        pathname: "/submission-statistics",
-                                        search: `?${new URLSearchParams({ tab: 'submissions' }).toString()}`
-                                    }}>
-                                        <FontAwesomeIcon icon="angle-left" />&nbsp;Back to All Agencies
-                                    </Link>
-                                </div>
-                                <h2 className="header">{agencyOverview?.name}</h2>
-                                <div className="agency-info">
-                                    {agencyOverview?.website && (
-                                        <div className="agency-info__group">
-                                            <h5>Agency Contact Information</h5>
-                                            <div className="more-info-note">Contact this Agency with questions about their submissions</div>
-                                            <div className="agency-info__website">
-                                                <ExternalLink url={agencyOverview.website} />
-                                            </div>
-                                        </div>
-                                    )}
-                                    {agencyOverview?.id && (
-                                        <div className="agency-info__group">
-                                            <h5>Agency Profile Page</h5>
-                                            <div className="more-info-note">Learn more about this Agency&#39;s spending</div>
-                                            <div className="agency-info__website">
-                                                <Link to={`/${agencyString}/${slug}`}>
-                                                    {agencyOverview.name}
-                                                </Link>
-                                            </div>
-                                        </div>
-                                    )}
-                                </div>
+                    <>
+                        <div className="heading-container">
+                            <div className="back-link">
+                                <Link to={{
+                                    pathname: "/submission-statistics",
+                                    search: `?${new URLSearchParams({ tab: 'submissions' }).toString()}`
+                                }}>
+                                    <FontAwesomeIcon icon="angle-left" />&nbsp;Back to All Agencies
+                                </Link>
                             </div>
-                            <AgencyDetailsContainer
-                                agencyName={agencyOverview?.name}
-                                modalClick={modalClick}
-                                agencyCode={agencyCode} />
-                            {message && <Note message={message} />}
-                        </>
+                            <h2 className="header">{agencyOverview?.name}</h2>
+                            <div className="agency-info">
+                                {agencyOverview?.website && (
+                                    <div className="agency-info__group">
+                                        <h5>Agency Contact Information</h5>
+                                        <div className="more-info-note">Contact this Agency with questions about their submissions</div>
+                                        <div className="agency-info__website">
+                                            <ExternalLink url={agencyOverview.website} />
+                                        </div>
+                                    </div>
+                                )}
+                                {agencyOverview?.id && (
+                                    <div className="agency-info__group">
+                                        <h5>Agency Profile Page</h5>
+                                        <div className="more-info-note">Learn more about this Agency&#39;s spending</div>
+                                        <div className="agency-info__website">
+                                            <Link to={`/${agencyString}/${slug}`}>
+                                                {agencyOverview.name}
+                                            </Link>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                        <AgencyDetailsContainer
+                            agencyName={agencyOverview?.name}
+                            modalClick={modalClick}
+                            agencyCode={agencyCode} />
+                        {message && <Note message={message} />}
+                    </>
                 )}
                 <AboutTheDataModal
                     mounted={!!showModal.length}

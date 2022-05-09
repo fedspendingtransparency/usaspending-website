@@ -13,12 +13,12 @@ const parseAwardAmount = (amount, searchContext = 'award') => {
 
     // This should be taken care of in the component, but check just in case
     if (min >= max) {
-        // If minimum is larger than maximum, take minimum value
+    // If minimum is larger than maximum, take minimum value
         max = 0;
     }
 
     if (min === 0 && max === 0) {
-        // No values provided
+    // No values provided
         filter = {
             field,
             operation: "greater_than_or_equal",
@@ -26,7 +26,7 @@ const parseAwardAmount = (amount, searchContext = 'award') => {
         };
     }
     else if (min === 0 && max !== 0) {
-        // Minimum value is null
+    // Minimum value is null
         filter = {
             field,
             operation: "less_than_or_equal",
@@ -34,7 +34,7 @@ const parseAwardAmount = (amount, searchContext = 'award') => {
         };
     }
     else if (min !== 0 && max === 0) {
-        // Maximum value is null
+    // Maximum value is null
         filter = {
             field,
             operation: "greater_than_or_equal",
@@ -42,7 +42,7 @@ const parseAwardAmount = (amount, searchContext = 'award') => {
         };
     }
     else if (min !== 0 && max !== 0) {
-        // Both minimum and maximum values are populated
+    // Both minimum and maximum values are populated
         filter = {
             field,
             operation: "range",

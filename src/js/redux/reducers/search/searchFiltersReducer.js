@@ -78,7 +78,7 @@ export const initialState = {
 
 const searchFiltersReducer = (state = initialState, action) => {
     switch (action.type) {
-        // Free Text Search
+    // Free Text Search
         case 'UPDATE_TEXT_SEARCH': {
             return Object.assign({}, state, {
                 keyword: KeywordFilterFunctions.updateTextSearchInput(

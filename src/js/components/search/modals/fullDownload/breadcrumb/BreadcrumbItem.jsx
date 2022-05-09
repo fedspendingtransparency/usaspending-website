@@ -39,7 +39,7 @@ const BreadcrumbItem = (props) => {
 
     let nextStep = '';
     if (isLast) {
-        // we're hiding the arrow, so fill the div with the current step color
+    // we're hiding the arrow, so fill the div with the current step color
         nextStep = type;
     }
     else if (nextStepIsFuture) {

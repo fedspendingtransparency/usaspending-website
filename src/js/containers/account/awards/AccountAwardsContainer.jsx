@@ -52,9 +52,9 @@ export class AccountAwardsContainer extends React.Component {
     }
 
     componentDidMount() {
-        // set some default columns to look at while the initial tab-picker API calls are in flight
-        // we can't hide the table entirely because the viewport is required to calculate the
-        // row rendering
+    // set some default columns to look at while the initial tab-picker API calls are in flight
+    // we can't hide the table entirely because the viewport is required to calculate the
+    // row rendering
         this.loadColumns();
     }
 
@@ -66,7 +66,7 @@ export class AccountAwardsContainer extends React.Component {
     }
 
     pickDefaultTab() {
-        // get the award counts for the current filter set
+    // get the award counts for the current filter set
         if (this.tabCountRequest) {
             this.tabCountRequest.cancel();
         }
@@ -137,9 +137,9 @@ export class AccountAwardsContainer extends React.Component {
     }
 
     loadColumns() {
-        // in the future, this will be an API call, but for now, read the local data file
-        // load every possible table column up front, so we don't need to deal with this when
-        // switching tabs
+    // in the future, this will be an API call, but for now, read the local data file
+    // load every possible table column up front, so we don't need to deal with this when
+    // switching tabs
         const columns = tableTypes.concat(subTypes).reduce((cols, type) => {
             const visibleColumns = defaultColumns(type.internal).map((data) => data.title);
             const parsedColumns = defaultColumns(type.internal).reduce((parsedCols, data) => Object.assign({}, parsedCols, {
@@ -284,7 +284,7 @@ export class AccountAwardsContainer extends React.Component {
     }
 
     loadNextPage() {
-        // check if request is already in-flight
+    // check if request is already in-flight
         if (this.state.inFlight) {
             // in-flight, ignore this request
             return;

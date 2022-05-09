@@ -30,7 +30,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
             <p className="analyst-guide__answerStyle">An outlay occurs when money is actually paid out. </p>
             <p className="analyst-guide__answerStyle">Loan subsidy cost is an estimation made by the government of what a loan will cost over time. </p>
             <p className="analyst-guide__answerStyle">More information about the data elements used to measure the value of award and account spending is available throughout this guide.</p>
-            </>)
+        </>)
     },
     {
         question: "How is award spending linked to account spending?",
@@ -49,7 +49,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
                     ACCOUNT DATA ELEMENTS
                 </button>{' '}section of this guide.
             </p>
-            </>)
+        </>)
     }];
 
     const awardSpendingQuestions = [{
@@ -67,7 +67,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
             <p className="analyst-guide__answerStyle">The federal government uses financial assistance spending to transfer money (or in-kind resources) to a non-federal entity to serve a public purpose as defined by Congress. The federal government uses contract spending to purchase the goods and services required to fulfill agencies’ public duties. </p>
             <p className="analyst-guide__answerStyle">For example, the Federal Highway Administration uses financial assistance spending to provide funds to states for public roads while the Air Force uses contract spending to acquire fighter jets to execute its mission.</p>
             <p className="analyst-guide__answerStyle">Some data elements across financial assistance and contract spending are different between the two categories. More information about these differences is available throughout this guide.</p>
-            </>)
+        </>)
     },
     {
         question: "Which fields in USAspending download files contain prime award summary identifier information?",
@@ -100,13 +100,13 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
                     HOW TO ACCESS THE DATA
                 </button>{' '}section of this guide.
             </p>
-            </>)
+        </>)
     },
     {
         question: "What are the different award type categories?",
         answer: (<>
             <p className="analyst-guide__answerStyle">Both financial assistance and contract spending may be further categorized into more granular award types, such as a purchase order or a direct loan. There are over 20 award type categories available in USAspending.</p>
-            </>)
+        </>)
     },
     {
         question: "Which fields in USAspending download files contain award type information?",
@@ -131,7 +131,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
                     CONTRACT TRANSACTIONS AND AWARD SUMMARIES
                 </button>{' '}section of this guide.
             </p>
-            </>)
+        </>)
     },
     {
         question: "Which fields in USAspending download files contain award spending amount information?",
@@ -148,7 +148,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
                     HOW TO ACCESS THE DATA
                 </button>{' '}section of this guide.
             </p>
-            </>)
+        </>)
     },
     {
         question: "How are data on financial assistance and contract spending different?",
@@ -178,7 +178,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
                     RECIPIENT DATA ELEMENTS
                 </button>{' '}section of this guide.
             </p>
-            </>)
+        </>)
     },
     {
         question: "How are data on financial assistance and contract spending similar?",
@@ -222,13 +222,13 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
                   DISASTER AND EMERGENCY DATA ELEMENTS
                 </button>{' '}section of this guide.
             </p>
-            </>)
+        </>)
     },
     {
         question: "Are outlays included in award spending data?",
         answer: (<>
             <p className="analyst-guide__answerStyle">Beginning in FY2022, all agencies were required to submit outlay data for award spending every month. Awards funded by a COVID-19 supplemental were required to submit outlays starting in April of 2020. Any outlay data before this period was optional for agencies to report, and thus may be incomplete.</p>
-            </>)
+        </>)
     }];
 
     const financialAssistanceQuestions = [{
@@ -244,13 +244,13 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
             <p className="analyst-guide__answerStyle">Positive loan subsidy costs are included in obligations and outlays. The face value of a loan is not included in obligations or outlays. Administrative costs of running the loan or loan guarantee program are excluded from loan subsidy cost calculations.</p>
             <p className="analyst-guide__answerStyle">Loan subsidy costs can be positive, negative, or zero depending on whether the government expects to lose money, gain money, or break even on a loan. The loan subsidy cost of a loan should never be larger in absolute value than the face value of the loan. </p>
             <p className="analyst-guide__answerStyle">When loan subsidy cost is updated to reflect the outcome or current state of loans, agency budgets more accurately reflect resources used for loans.</p>
-            </>)
+        </>)
     },
     {
         question: "Do agencies update loan data in USAspending through the life of a loan?",
         answer: (<>
             <p className="analyst-guide__answerStyle">Currently, it’s uncommon for agencies to update loans with corrections to the base record or by adding a modification record. As a result, the face value and subsidy cost data on USAspending generally only reflect the reality at the time of initial reporting. If the face value of the loan is modified during its life (such as if the loan principal is later expanded or the recipient returns part of the original loan), this will generally not be reflected in the data. If the risk profile of a recipient changes, up to and including if they completely default on the loan, this will generally not be reflected in the data. If the loan is forgiven, this will generally not be reflected in the data either. Consequently, loan spending data are generally less accurate than that of other award types.</p>
-            </>)
+        </>)
     },
     {
         question: "Which fields in USAspending download files contain loan value information?",
@@ -267,7 +267,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
                     HOW TO ACCESS THE DATA
                 </button>{' '}section of this guide.
             </p>
-            </>)
+        </>)
     }];
 
     const contractTransactionQuestions = [{
@@ -336,7 +336,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
             <p className="analyst-guide__answerStyle">The Assistance_PrimeTransactions and Contracts_PrimeTransactions files are generated on demand based on selected specifications. Use these files if you only need prime award transaction data which meet certain criteria and can wait for the USAspending server to process your request. Access these files through Advanced Search to download a smaller amount of prime award transaction data which meets very specific criteria. Access these files through Custom Award Download to download a larger amount of prime award transaction data.</p>
             <p className="analyst-guide__answerStyle">The Assistance_Delta, Assistance_Full, Contracts_Delta, and Contracts_Full files include major agencies’ prime award transaction data for full fiscal years. These files are pre-prepared and can be accessed instantaneously. Use these files to maintain a copy of or to quickly access agency prime award transaction data.</p>
             <p className="analyst-guide__answerStyle">More information about the columns in these files is available in the <Link to="/data-dictionary">Data Dictionary</Link> and throughout this guide.</p>
-            </>)
+        </>)
     },
     {
         question: "How can I download prime award summary data?",
@@ -347,19 +347,19 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
             <p className="analyst-guide__answerStyle">When accessed through Advanced Search, the Assistance_PrimeAwardSummaries and Contracts_PrimeAwardSummaries files are generated on demand based on selected specifications. Access these files through advanced search to download prime award summary data which meet very specific criteria.</p>
             <p className="analyst-guide__answerStyle">When accessed through the COVID-19 Spending profile page, the Assistance_PrimeAwardSummaries and Contracts_PrimeAwardSummaries files are pre-prepared with all COVID-19 prime award summary data. These files can be accessed instantaneously through this page. Access these files through the COVID-19 Spending Profile page if you need a broad range of prime award summary data related to COVID-19.</p>
             <p className="analyst-guide__answerStyle">More information about the columns in these files is available in the <Link to="/data-dictionary">Data Dictionary</Link> and throughout this guide.</p>
-            </>)
+        </>)
     },
     {
         question: "I’d like to use the API – where can I learn more about it?",
         answer: (<>
             <p className="analyst-guide__answerStyle">The <a href="https://api.usaspending.gov/">API page</a> on USAspending offers general API guidance, tutorials, request recipes, and more. A <a href="https://api.usaspending.gov/docs/endpoints">list of endpoints</a> is available online. The download files described above are available through the API.</p>
-            </>)
+        </>)
     },
     {
         question: "How can I download a copy of the full database?",
         answer: (<>
             <p className="analyst-guide__answerStyle">The USAspending <a href="https://files.usaspending.gov/database_download/">SQL Database Downloads page</a> includes instructions and links to help download snapshots of the USAspending database as a PostgreSQL archive. This resource is intended for advanced users. The full database is over 1.5 terabytes and will continue to increase in size. The process to complete a full database restore can take many hours to complete.</p>
-            </>)
+        </>)
     }];
 
     const agencyDataQuestions = [{
@@ -372,19 +372,19 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
         question: "What are sub-tier agencies?",
         answer: (<>
             <p className="analyst-guide__answerStyle">Sub-tier agencies are the divisions of top-tier federal agencies. For example, the IRS is a sub-tier agency of The U.S. Department of the Treasury, as the FBI is for The U.S. Department of Justice. </p>
-            </>)
+        </>)
     },
     {
         question: "Where is the full list of agency names and codes?",
         answer: (<>
             <p className="analyst-guide__answerStyle">The <a href="https://files.usaspending.gov/reference_data/agency_codes.csv">agency_codes.csv</a> file includes data on agency and sub-tier agency names and codes used throughout USAspending. The <a href="https://sam.gov/content/hierarchy">Federal Hierarchy page on sam.gov</a> includes a comprehensive and up-to-date list of agencies and sub-tier agencies. Federal agencies are responsible for using this tool to manage their agency structure. You can browse award spending by sub-tier agency the Award Spending section of <Link to="/agency">Agency profile pages</Link>.</p>
-            </>)
+        </>)
     },
     {
         question: "What is an agency subcomponent?",
         answer: (<>
             <p className="analyst-guide__answerStyle">Agency subcomponents, also known as bureaus, group together federal accounts within a top-tier agency. Bureaus allow users to see account spending data from related federal accounts. You can browse account spending by subcomponent in the Status of Funds section of <Link to="/agency">Agency profile pages</Link>.</p>
-            </>)
+        </>)
     }, {
         question: "Which fields in USAspending download files contain awarding agency identifier information?",
         answer: (<>
@@ -399,7 +399,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
                     HOW TO ACCESS THE DATA
                 </button>{' '}section of this guide.
             </p>
-            </>)
+        </>)
     }, {
         question: "Which fields in USAspending download files contain funding agency identifier information?",
         answer: (<>
@@ -415,7 +415,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
                     HOW TO ACCESS THE DATA
                 </button>{' '}section of this guide.
             </p>
-            </>)
+        </>)
     }, {
         question: "Which USAspending features are used to browse and download agency data?",
         answer: (<>
@@ -424,13 +424,13 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
             <p className="analyst-guide__answerStyle">The agency filter on <Link to="/download_center/custom_account_data">Custom Account Download</Link> can be used to download account spending data by agency.</p>
             <p className="analyst-guide__answerStyle">The agency filter on <Link to="/download_center/award_data_archive">Award Data Archive</Link> can be used to download account spending data by agency.</p>
             <p className="analyst-guide__answerStyle">The agency and sub-agency filters on <Link to="/download_center/custom_award_data">Custom Award Data</Link> can be used to download account spending data by agency.</p>
-            </>)
+        </>)
     }, {
         question: "How can I see all agencies which funded a prime award?",
         answer: (<>
             <p className="analyst-guide__answerStyle">To see all agencies which funded an award, review the Funding Agency column in the Federal Account Funding table on the award profile page. This information is also available in the funding agency columns of the FederalAccountFunding file of the award profile download.</p>
             <p className="analyst-guide__answerStyle">A single prime award transaction may be funded by multiple agencies. However, only the agency which funded the most amount of money will be listed as the funding agency on that prime award transaction. </p>
-            </>)
+        </>)
     }];
 
     const accountDataQuestions = [{
@@ -462,7 +462,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
         answer: (<>
             <p className="analyst-guide__answerStyle">Federal accounts are groupings of related Treasury accounts. Federal accounts are created by combining all Treasury accounts that share an AID and MAC. Together, these codes create a Federal Account Symbol that can be used to represent a federal account. Federal accounts are used to track how agencies receive and spend congressional funding. There are more than 2,000 federal accounts across the federal government. Federal accounts are found in the budget that the President submits to Congress for approval.</p>
             <p className="analyst-guide__answerStyle">Each AID should have at least one federal account associated with it, so the agency can conduct its function and carry out its mission. Despite the name, there are instances where an AID is shared among more than one agency. In these cases, each agency within the shared AID will have at least one federal account of its own.</p>
-            </>)
+        </>)
     },
     {
         question: "Which fields in USAspending download files contain TAS and federal account information?",
@@ -481,7 +481,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
                     HOW TO ACCESS THE DATA
                 </button>{' '}section of this guide.
             </p>
-            </>)
+        </>)
     },
     {
         question: "Which USAspending features are used to browse and download TAS and federal account data?",
@@ -489,25 +489,25 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
             <p className="analyst-guide__answerStyle">The <Link to="/federal_account">Federal Account Profile pages</Link> can be used to browse detailed information on federal accounts.</p>
             <p className="analyst-guide__answerStyle">The TAS filter on <Link to="/search">Advanced Search</Link> can be used to filter award spending by these data elements. </p>
             <p className="analyst-guide__answerStyle">The federal account filter on <Link to="/download_center/custom_account_data">Custom Account Download</Link> can be used to download account spending data by federal account.</p>
-            </>)
+        </>)
     },
     {
         question: "What is the difference between a Treasury account and a federal account?",
         answer: (<>
             <p className="analyst-guide__answerStyle">Federal accounts are comprised of a TAS or multiple TASs. You can understand their relationship using the analogy of a bank account. Say you have a bank account, and in that account, you have checking, growth, and savings accounts. In this scenario, your bank account is the federal account, and the checking, growth, and savings accounts are your TASs. Checking, growth, and savings accounts have different purposes and are at the level where transactions take place. These “TASs” would be grouped under your account based on your Social Security Number, in the same way that a federal account is based on a Federal Account Symbol. Just like checking, growth, and savings accounts, the Student Financial Assistance federal account has several related TASs that have different obligation amounts.</p>
-            </>)
+        </>)
     },
     {
         question: "What does it mean when one agency’s TAS is part of a second agency’s submissions?",
         answer: (<>
             <p className="analyst-guide__answerStyle">Sometimes the funding associated with a TAS is executed by a different agency than the one indicated by the Agency Identifier. When this occurs, quite often the executing agency will submit the financial and award information associated with the TAS. Since the funding was assigned by Congress to the agency indicated by the Agency Identifier, we group by Agency Identifier so that users can see both the budgetary resources assigned to the agency as well as the spending that flows from the related accounts.</p>
-            </>)
+        </>)
     },
     {
         question: "How can I see account spending for prior years?",
         answer: (<>
             <p className="analyst-guide__answerStyle">The fiscal year and quarter filter on the <Link to="/download_center/custom_account_data">Custom Account Data</Link> download feature can be used to download account spending from 2017 to present. For data before 2017, you can see similar information in the <a href="https://www.whitehouse.gov/omb/budget/appendix/">Office of Management and Budget (OMB) budget appendices</a>.</p>
-            </>)
+        </>)
     }];
 
     const industryProductQuestions = [{
@@ -520,7 +520,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
         question: "What is the North American Industrial Classification System (NAICS)?",
         answer: (<>
             <p className="analyst-guide__answerStyle">The North American Industry Classification System (NAICS) is the standard used by Federal statistical agencies to classify business establishments to collect, analyze, and publish statistical data related to the U.S. business economy. You can learn more about NAICS codes at <a href="https://www.census.gov/naics/">https://www.census.gov/naics/</a>. Only contract spending includes NAICS codes. NAICS data on USAspending make it possible to study how much money the government spends by industry.</p>
-            </>)
+        </>)
     },
     {
         question: "Which fields in USAspending download files contain PSC and NAICS information?",
@@ -537,7 +537,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
                     HOW TO ACCESS THE DATA
                 </button>{' '}section of this guide.
             </p>
-            </>)
+        </>)
     }];
 
     const disasterEmergencyQuestions = [{
@@ -551,7 +551,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
         question: "How can I view and download spending by DEFC?",
         answer: (<>
             <p className="analyst-guide__answerStyle">There are a few ways to access DEFC spending on USAspending. The DEFC filter on <Link to="/search">Advanced Search</Link> can be used to filter award spending by this data element. All COVID-19 spending is included in on our <Link to="/disaster/covid-19">COVID-19 Spending profile page</Link>. Finally, account spending can be downloaded by DEFC using <Link to="/download_center/custom_account_data">Custom Account Download</Link>.</p>
-            </>)
+        </>)
     },
     {
         question: "Which fields in USAspending download files contain DEFC information?",
@@ -569,7 +569,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
                     HOW TO ACCESS THE DATA
                 </button>{' '}section of this guide.
             </p>
-            </>)
+        </>)
     }];
 
     const assistanceListingQuestions = [{
@@ -592,7 +592,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
                     HOW TO ACCESS THE DATA
                 </button>{' '}section of this guide.
             </p>
-            </>)
+        </>)
     }];
 
     const recipientDataQuestions = [{
@@ -614,7 +614,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
         answer: (<>
             <p className="analyst-guide__answerStyle">With limited exceptions, virtually all award recipients have two unique identifies - a Unique Entity Identifier (UEI) and a DUNS number. Larger entities with multiple locations or departments may contain many entities with different UEI or DUNS numbers. These recipients may be grouped together using parent recipient data elements. Recipients of aggregate awards such as Social Security Retirement Insurance recipients do not have a UEI or DUNS to protect personal identifiable information.  </p>
             <p className="analyst-guide__answerStyle">By April of 2022, the federal government will have stopped using the DUNS number to uniquely identify entities. At that point, entities doing business with the federal government will use UEI. More information about the DUNS to UEI transition is available <a href="https://www.gsa.gov/about-us/organization/federal-acquisition-service/office-of-systems-management/integrated-award-environment-iae/iae-systems-information-kit/unique-entity-identifier-update">online</a>.</p>
-            </>)
+        </>)
     },
     {
         question: "Which fields in USAspending download files contain recipient identifier information?",
@@ -631,13 +631,13 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
                     HOW TO ACCESS THE DATA
                 </button>{' '}section of this guide.
             </p>
-            </>)
+        </>)
     },
     {
         question: "What are recipient types?",
         answer: (<>
             <p className="analyst-guide__answerStyle">Recipient types (aka business types) are socio-economic and other organizational/business characteristics that are used to categorize financial assistance and contract recipients.</p>
-            </>)
+        </>)
     },
     {
         question: "Which recipient type categories are available for contract vs financial assistance recipients?",
@@ -660,7 +660,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
                 <li className="analyst-guide__answerStyle">Individuals</li>
             </ul>
             <p className="analyst-guide__answerStyle">Each of these recipient type categories also apply to contract recipients, except for Regional Organization, U.S. Territory, or Possession and Individuals.</p>
-            </>)
+        </>)
     }];
 
     const locationDataQuestions = [{
@@ -683,7 +683,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
                     HOW TO ACCESS THE DATA
                 </button>{' '}section of this guide.
             </p>
-            </>)
+        </>)
     },
     {
         question: "Which fields in USAspending download files contain primary place of performance location information?",
@@ -707,7 +707,7 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
                     HOW TO ACCESS THE DATA
                 </button>{' '}section of this guide.
             </p>
-            </>)
+        </>)
     }];
 
     const additionalResources = [{
@@ -753,217 +753,217 @@ const AnalystGuideQuestions = ({ onExternalLinkClick }) => {
                 {' '}provides additional advice for getting the most out of the site.
             </p>
             <p className="analyst-guide__answerStyle">The <a href="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html">DATA Act Information Model Schema (DAIMS) page</a> provides more information on various systems related to the data in USAspending.</p>
-            </>)
+        </>)
     }];
     return (
-    <>
-        <div>
-            <h4 className="analyst-guide__questionSections" id="analyst-guide__AwardAccountSpending">Award And Account Spending Comparison</h4>
-        </div>
-        <div className="analyst-guide__questionLine" />
-        <div className="analyst-guide__answerSection">
-            {awardAccountSpendingComparisonQuestions.map((item, i) => (
-                <div className="analyst-guide__questionAnswers">
-                    <Accordion
-                        key={`item_${i}`}
-                        title={item.question}>{item.answer}
-                    </Accordion>
-                </div>
-            ))}
-        </div>
+        <>
+            <div>
+                <h4 className="analyst-guide__questionSections" id="analyst-guide__AwardAccountSpending">Award And Account Spending Comparison</h4>
+            </div>
+            <div className="analyst-guide__questionLine" />
+            <div className="analyst-guide__answerSection">
+                {awardAccountSpendingComparisonQuestions.map((item, i) => (
+                    <div className="analyst-guide__questionAnswers">
+                        <Accordion
+                            key={`item_${i}`}
+                            title={item.question}>{item.answer}
+                        </Accordion>
+                    </div>
+                ))}
+            </div>
 
-        <div>
-            <h4 className="analyst-guide__questionSections" id="analyst-guide__Award">Award Spending</h4>
-        </div>
-        <div className="analyst-guide__questionLine" />
+            <div>
+                <h4 className="analyst-guide__questionSections" id="analyst-guide__Award">Award Spending</h4>
+            </div>
+            <div className="analyst-guide__questionLine" />
 
-        <div className="analyst-guide__answerSection">
-            {awardSpendingQuestions.map((item, i) => (
-                <div className="analyst-guide__questionAnswers">
-                    <Accordion
-                        key={`item_${i}`}
-                        title={item.question}>{item.answer}
-                    </Accordion>
-                </div>
-            ))}
-        </div>
+            <div className="analyst-guide__answerSection">
+                {awardSpendingQuestions.map((item, i) => (
+                    <div className="analyst-guide__questionAnswers">
+                        <Accordion
+                            key={`item_${i}`}
+                            title={item.question}>{item.answer}
+                        </Accordion>
+                    </div>
+                ))}
+            </div>
 
-        <div>
-            <h4 className="analyst-guide__questionSections" id="analyst-guide__FinancialAssistance">Financial Assistance Transactions And Award Summaries</h4>
-        </div>
-        <div className="analyst-guide__questionLine" />
+            <div>
+                <h4 className="analyst-guide__questionSections" id="analyst-guide__FinancialAssistance">Financial Assistance Transactions And Award Summaries</h4>
+            </div>
+            <div className="analyst-guide__questionLine" />
 
-        <div className="analyst-guide__answerSection">
-            {financialAssistanceQuestions.map((item, i) => (
-                <div className="analyst-guide__questionAnswers">
-                    <Accordion
-                        key={`item_${i}`}
-                        title={item.question}>{item.answer}
-                    </Accordion>
-                </div>
-            ))}
-        </div>
+            <div className="analyst-guide__answerSection">
+                {financialAssistanceQuestions.map((item, i) => (
+                    <div className="analyst-guide__questionAnswers">
+                        <Accordion
+                            key={`item_${i}`}
+                            title={item.question}>{item.answer}
+                        </Accordion>
+                    </div>
+                ))}
+            </div>
 
-        <div>
-            <h4 className="analyst-guide__questionSections" id="analyst-guide__ContractTransactions">Contract Transactions And Award Summaries</h4>
-        </div>
-        <div className="analyst-guide__questionLine" />
+            <div>
+                <h4 className="analyst-guide__questionSections" id="analyst-guide__ContractTransactions">Contract Transactions And Award Summaries</h4>
+            </div>
+            <div className="analyst-guide__questionLine" />
 
-        <div className="analyst-guide__answerSection">
-            {contractTransactionQuestions.map((item, i) => (
-                <div className="analyst-guide__questionAnswers">
-                    <Accordion
-                        key={`item_${i}`}
-                        title={item.question}>{item.answer}
-                    </Accordion>
-                </div>
-            ))}
-        </div>
+            <div className="analyst-guide__answerSection">
+                {contractTransactionQuestions.map((item, i) => (
+                    <div className="analyst-guide__questionAnswers">
+                        <Accordion
+                            key={`item_${i}`}
+                            title={item.question}>{item.answer}
+                        </Accordion>
+                    </div>
+                ))}
+            </div>
 
-        <div>
-            <h4 className="analyst-guide__questionSections" id="analyst-guide__DataAccess">How To Access The Data</h4>
-        </div>
-        <div className="analyst-guide__questionLine" />
+            <div>
+                <h4 className="analyst-guide__questionSections" id="analyst-guide__DataAccess">How To Access The Data</h4>
+            </div>
+            <div className="analyst-guide__questionLine" />
 
-        <div className="analyst-guide__answerSection">
-            {dataAccessQuestions.map((item, i) => (
-                <div className="analyst-guide__questionAnswers">
-                    <Accordion
-                        key={`item_${i}`}
-                        title={item.question}>{item.answer}
-                    </Accordion>
-                </div>
-            ))}
-        </div>
+            <div className="analyst-guide__answerSection">
+                {dataAccessQuestions.map((item, i) => (
+                    <div className="analyst-guide__questionAnswers">
+                        <Accordion
+                            key={`item_${i}`}
+                            title={item.question}>{item.answer}
+                        </Accordion>
+                    </div>
+                ))}
+            </div>
 
-        <div>
-            <h4 className="analyst-guide__questionSections" id="analyst-guide__AgencyData">Agency Data Elements</h4>
-        </div>
-        <div className="analyst-guide__questionLine" />
+            <div>
+                <h4 className="analyst-guide__questionSections" id="analyst-guide__AgencyData">Agency Data Elements</h4>
+            </div>
+            <div className="analyst-guide__questionLine" />
 
-        <div className="analyst-guide__answerSection">
-            {agencyDataQuestions.map((item, i) => (
-                <div className="analyst-guide__questionAnswers">
-                    <Accordion
-                        key={`item_${i}`}
-                        title={item.question}>{item.answer}
-                    </Accordion>
-                </div>
-            ))}
-        </div>
+            <div className="analyst-guide__answerSection">
+                {agencyDataQuestions.map((item, i) => (
+                    <div className="analyst-guide__questionAnswers">
+                        <Accordion
+                            key={`item_${i}`}
+                            title={item.question}>{item.answer}
+                        </Accordion>
+                    </div>
+                ))}
+            </div>
 
-        <div>
-            <h4 className="analyst-guide__questionSections" id="analyst-guide__AccountData">Account Data Elements</h4>
-        </div>
-        <div className="analyst-guide__questionLine" />
+            <div>
+                <h4 className="analyst-guide__questionSections" id="analyst-guide__AccountData">Account Data Elements</h4>
+            </div>
+            <div className="analyst-guide__questionLine" />
 
-        <div className="analyst-guide__answerSection">
-            {accountDataQuestions.map((item, i) => (
-                <div className="analyst-guide__questionAnswers">
-                    <Accordion
-                        key={`item_${i}`}
-                        title={item.question}>{item.answer}
-                    </Accordion>
-                </div>
-            ))}
-        </div>
+            <div className="analyst-guide__answerSection">
+                {accountDataQuestions.map((item, i) => (
+                    <div className="analyst-guide__questionAnswers">
+                        <Accordion
+                            key={`item_${i}`}
+                            title={item.question}>{item.answer}
+                        </Accordion>
+                    </div>
+                ))}
+            </div>
 
-        <div>
-            <h4 className="analyst-guide__questionSections" id="analyst-guide__Industry">Industry And Product Data Elements</h4>
-        </div>
-        <div className="analyst-guide__questionLine" />
+            <div>
+                <h4 className="analyst-guide__questionSections" id="analyst-guide__Industry">Industry And Product Data Elements</h4>
+            </div>
+            <div className="analyst-guide__questionLine" />
 
-        <div className="analyst-guide__answerSection">
-            {industryProductQuestions.map((item, i) => (
-                <div className="analyst-guide__questionAnswers">
-                    <Accordion
-                        key={`item_${i}`}
-                        title={item.question}>{item.answer}
-                    </Accordion>
-                </div>
-            ))}
-        </div>
+            <div className="analyst-guide__answerSection">
+                {industryProductQuestions.map((item, i) => (
+                    <div className="analyst-guide__questionAnswers">
+                        <Accordion
+                            key={`item_${i}`}
+                            title={item.question}>{item.answer}
+                        </Accordion>
+                    </div>
+                ))}
+            </div>
 
-        <div>
-            <h4 className="analyst-guide__questionSections" id="analyst-guide__Disaster">Disaster And Emergency Data Elements</h4>
-        </div>
-        <div className="analyst-guide__questionLine" />
+            <div>
+                <h4 className="analyst-guide__questionSections" id="analyst-guide__Disaster">Disaster And Emergency Data Elements</h4>
+            </div>
+            <div className="analyst-guide__questionLine" />
 
-        <div className="analyst-guide__answerSection">
-            {disasterEmergencyQuestions.map((item, i) => (
-                <div className="analyst-guide__questionAnswers">
-                    <Accordion
-                        key={`item_${i}`}
-                        title={item.question}>{item.answer}
-                    </Accordion>
-                </div>
-            ))}
-        </div>
+            <div className="analyst-guide__answerSection">
+                {disasterEmergencyQuestions.map((item, i) => (
+                    <div className="analyst-guide__questionAnswers">
+                        <Accordion
+                            key={`item_${i}`}
+                            title={item.question}>{item.answer}
+                        </Accordion>
+                    </div>
+                ))}
+            </div>
 
-        <div>
-            <h4 className="analyst-guide__questionSections" id="analyst-guide__AssistanceListings">Assistance Listings Data Elements</h4>
-        </div>
-        <div className="analyst-guide__questionLine" />
+            <div>
+                <h4 className="analyst-guide__questionSections" id="analyst-guide__AssistanceListings">Assistance Listings Data Elements</h4>
+            </div>
+            <div className="analyst-guide__questionLine" />
 
-        <div className="analyst-guide__answerSection">
-            {assistanceListingQuestions.map((item, i) => (
-                <div className="analyst-guide__questionAnswers">
-                    <Accordion
-                        key={`item_${i}`}
-                        title={item.question}>{item.answer}
-                    </Accordion>
-                </div>
-            ))}
-        </div>
+            <div className="analyst-guide__answerSection">
+                {assistanceListingQuestions.map((item, i) => (
+                    <div className="analyst-guide__questionAnswers">
+                        <Accordion
+                            key={`item_${i}`}
+                            title={item.question}>{item.answer}
+                        </Accordion>
+                    </div>
+                ))}
+            </div>
 
-        <div>
-            <h4 className="analyst-guide__questionSections" id="analyst-guide__Recipient">Recipient Data Elements</h4>
-        </div>
-        <div className="analyst-guide__questionLine" />
+            <div>
+                <h4 className="analyst-guide__questionSections" id="analyst-guide__Recipient">Recipient Data Elements</h4>
+            </div>
+            <div className="analyst-guide__questionLine" />
 
-        <div className="analyst-guide__answerSection">
-            {recipientDataQuestions.map((item, i) => (
-                <div className="analyst-guide__questionAnswers">
-                    <Accordion
-                        key={`item_${i}`}
-                        title={item.question}>{item.answer}
-                    </Accordion>
-                </div>
-            ))}
-        </div>
+            <div className="analyst-guide__answerSection">
+                {recipientDataQuestions.map((item, i) => (
+                    <div className="analyst-guide__questionAnswers">
+                        <Accordion
+                            key={`item_${i}`}
+                            title={item.question}>{item.answer}
+                        </Accordion>
+                    </div>
+                ))}
+            </div>
 
-        <div>
-            <h4 className="analyst-guide__questionSections" id="analyst-guide__LocationData">Location Data Elements</h4>
-        </div>
-        <div className="analyst-guide__questionLine" />
+            <div>
+                <h4 className="analyst-guide__questionSections" id="analyst-guide__LocationData">Location Data Elements</h4>
+            </div>
+            <div className="analyst-guide__questionLine" />
 
-        <div className="analyst-guide__answerSection">
-            {locationDataQuestions.map((item, i) => (
-                <div className="analyst-guide__questionAnswers">
-                    <Accordion
-                        key={`item_${i}`}
-                        title={item.question}>{item.answer}
-                    </Accordion>
-                </div>
-            ))}
-        </div>
+            <div className="analyst-guide__answerSection">
+                {locationDataQuestions.map((item, i) => (
+                    <div className="analyst-guide__questionAnswers">
+                        <Accordion
+                            key={`item_${i}`}
+                            title={item.question}>{item.answer}
+                        </Accordion>
+                    </div>
+                ))}
+            </div>
 
-        <div>
-            <h4 className="analyst-guide__questionSections" id="analyst-guide__AdditionalResources">Additional Resources</h4>
-        </div>
-        <div className="analyst-guide__questionLine" />
+            <div>
+                <h4 className="analyst-guide__questionSections" id="analyst-guide__AdditionalResources">Additional Resources</h4>
+            </div>
+            <div className="analyst-guide__questionLine" />
 
-        <div className="analyst-guide__answerSection">
-            {additionalResources.map((item, i) => (
-                <div className="analyst-guide__questionAnswers">
-                    <Accordion
-                        key={`item_${i}`}
-                        title={item.question}>{item.answer}
-                    </Accordion>
-                </div>
-            ))}
-        </div>
-    </>
+            <div className="analyst-guide__answerSection">
+                {additionalResources.map((item, i) => (
+                    <div className="analyst-guide__questionAnswers">
+                        <Accordion
+                            key={`item_${i}`}
+                            title={item.question}>{item.answer}
+                        </Accordion>
+                    </div>
+                ))}
+            </div>
+        </>
     );
 };
 

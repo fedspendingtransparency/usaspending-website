@@ -174,7 +174,7 @@ const SearchSidebar = ({
         }), {});
     const expanded = [];
     releasedFilters.options.forEach((filter) => {
-        // Collapse all by default, unless the filter has a selection made
+    // Collapse all by default, unless the filter has a selection made
         if (filter.title === 'Time Period') {
             // time period is always expanded
             expanded.push(true);
