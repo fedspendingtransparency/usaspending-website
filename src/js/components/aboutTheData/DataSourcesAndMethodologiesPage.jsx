@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-indent */
 /**
  * Created by Max Kendall
  * 02/18/2021
