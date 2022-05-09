@@ -38,10 +38,9 @@
   .rounded-toggle__slider:before {
     position: absolute;
     content: "";
-    height: 18px;
-    width: 18px;
-    left: 1px;
-    top: 1px;
+    height: 20px;
+    width: 20px;
+    border: 1px solid gray;
     background-color: white;
     -webkit-transition: .4s;
     transition: .4s;
