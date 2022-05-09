@@ -26,7 +26,7 @@
         // indentation should be 4 spaces (use soft tabs) and switch cases should be indented
         "indent": [2, 4, {
             "SwitchCase": 1,
-            "ignoredNodes": ["JSXElement *", "JSXElement", "JSXExpressionContainer"]
+            "ignoredNodes": ["JSXElement", "JSXElement > *", "JSXAttribute", "JSXIdentifier", "JSXNamespacedName", "JSXMemberExpression", "JSXSpreadAttribute", "JSXExpressionContainer", "JSXOpeningElement", "JSXClosingElement", "JSXText", "JSXEmptyExpression", "JSXSpreadChild"]
         }],
         // require 4 spaces in JSX as well
         "react/jsx-indent": [2,4],
