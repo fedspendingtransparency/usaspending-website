@@ -142,8 +142,8 @@ export default class ContractFilter extends React.Component {
                             {toggleButton}
                                 <SubmitHint
                                     ref={(component) => {
-                            this.hint = component;
-                        }} />
+                                        this.hint = component;
+                                    }} />
                         </div>
             </div>
         );

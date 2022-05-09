@@ -383,17 +383,17 @@ const BudgetCategoriesTableContainer = (props) => {
                     icon=""
                     selectedOption={budgetDropdownFieldValues[spendingCategory].label}
                     options={Object.keys(budgetDropdownFieldValues).map((key) => ({
-                    name: budgetDropdownFieldValues[key].label,
-                    sortOrder: budgetDropdownFieldValues[key].sortOrder,
-                    value: key,
-                    onClick: spendingCategoryOnChange
-                }))} />
-                    <TooltipWrapper
-                        className="covid-profile-tt"
-                        icon="info"
-                        wide
-                        tooltipPosition="right"
-                        tooltipComponent={<SpendingTypesTT />} />
+                        name: budgetDropdownFieldValues[key].label,
+                        sortOrder: budgetDropdownFieldValues[key].sortOrder,
+                        value: key,
+                        onClick: spendingCategoryOnChange
+                    }))} />
+                        <TooltipWrapper
+                            className="covid-profile-tt"
+                            icon="info"
+                            wide
+                            tooltipPosition="right"
+                            tooltipComponent={<SpendingTypesTT />} />
         </div>
     );
 

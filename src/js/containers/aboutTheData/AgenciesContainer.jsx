@@ -355,9 +355,9 @@ const AgenciesContainer = ({
                     columns={agenciesTableColumns[activeTab]}
                     updateSort={handleUpdateSort}
                     currentSort={{
-                            field: submissionsSort[0],
-                            direction: submissionsSort[1]
-                        }}
+                        field: submissionsSort[0],
+                        direction: submissionsSort[1]
+                    }}
                     error={error}
                     loading={areSubmissionsLoading} />
                 )}
@@ -368,9 +368,9 @@ const AgenciesContainer = ({
                     columns={agenciesTableColumns[activeTab](selectedFy)}
                     updateSort={handleUpdateSort}
                     currentSort={{
-                            field: publicationsSort[0],
-                            direction: publicationsSort[1]
-                        }}
+                        field: publicationsSort[0],
+                        direction: publicationsSort[1]
+                    }}
                     error={error}
                     loading={arePublicationsLoading} />
                 )}
