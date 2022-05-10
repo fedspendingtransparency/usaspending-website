@@ -4,7 +4,6 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-import '../../../_scss/components/_roundedtoggle.scss';
 
 const propTypes = {
     label: PropTypes.string
