@@ -5,7 +5,7 @@
   .rounded-toggle__label {
       color: $color-base;
       font-weight: $font-semibold;
-      font-size: 14px;
+      font-size: rem(14);
       margin-right: 8px;
   }
   .rounded-toggle__switch {
