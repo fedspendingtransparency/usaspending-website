@@ -76,8 +76,8 @@ export default class ImageCarousel extends React.Component {
     }
 
     startedMouseDrag(e) {
-        // stop the browser from trying to drag the image for saving
-        // or whatever native drag behavior
+    // stop the browser from trying to drag the image for saving
+    // or whatever native drag behavior
         e.preventDefault();
         this.setState({
             isDragging: true
@@ -107,12 +107,12 @@ export default class ImageCarousel extends React.Component {
     }
 
     commonDragLogic(xPos) {
-        // determine how much we have moved the cursor
+    // determine how much we have moved the cursor
         const change = xPos - this._lastDragX;
         this._lastDragX = xPos;
 
         // change the carousel translation by the same amount
-        this._currentX = this._currentX + change;
+        this._currentX += change;
         this.carouselList.style.transform = `translate(${this._currentX}px, 0px)`;
     }
 

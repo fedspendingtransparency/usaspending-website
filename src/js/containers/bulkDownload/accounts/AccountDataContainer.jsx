@@ -93,7 +93,7 @@ export class AccountDataContainer extends React.Component {
                 const { data } = await this.federalAccountListRequest.promise;
                 this.setState({
                     federalAccounts: page > 1
-                        // we're requesting the second page, concat array
+                    // we're requesting the second page, concat array
                         ? [...this.state.federalAccounts, ...data.results]
                         : data.results
                 });

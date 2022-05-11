@@ -50,7 +50,7 @@ export default class SingleCheckboxType extends React.Component {
     }
 
     toggleFilter() {
-        // Analytics
+    // Analytics
         if (this.props.enableAnalytics) {
             if (this.props.selectedCheckboxes.has(this.props.code)) {
                 // already checked, log deselect event

@@ -108,9 +108,9 @@ export class ResultsTableContainer extends React.Component {
     }
 
     componentDidMount() {
-        // set some default columns to look at while the initial tab-picker API calls are in flight
-        // we can't hide the table entirely because the viewport is required to calculate the
-        // row rendering
+    // set some default columns to look at while the initial tab-picker API calls are in flight
+    // we can't hide the table entirely because the viewport is required to calculate the
+    // row rendering
         this.loadColumns();
         if (SearchHelper.isSearchHashReady(this.props.location)) {
             this.pickDefaultTab();
@@ -138,9 +138,9 @@ export class ResultsTableContainer extends React.Component {
     }
 
     loadColumns() {
-        // in the future, this will be an API call, but for now, read the local data file
-        // load every possible table column up front, so we don't need to deal with this when
-        // switching tabs
+    // in the future, this will be an API call, but for now, read the local data file
+    // load every possible table column up front, so we don't need to deal with this when
+    // switching tabs
         const columns = tableTypes.concat(subTypes).reduce((cols, type) => {
             const visibleColumns = defaultColumns(type.internal).map((data) => data.title);
             const parsedColumns = defaultColumns(type.internal).reduce((parsedCols, data) => Object.assign({}, parsedCols, {
@@ -160,13 +160,13 @@ export class ResultsTableContainer extends React.Component {
     }
 
     createColumn(col) {
-        // create an object that integrates with the expected column data structure used by
-        // the table component
-        // const dataType = awardTableColumnTypes[title];
-        // let direction = 'asc';
-        // if (dataType === 'number' || dataType === 'currency') {
-        //     direction = 'desc';
-        // }
+    // create an object that integrates with the expected column data structure used by
+    // the table component
+    // const dataType = awardTableColumnTypes[title];
+    // let direction = 'asc';
+    // if (dataType === 'number' || dataType === 'currency') {
+    //     direction = 'desc';
+    // }
 
         // BODGE: Temporarily only allow descending columns
         const direction = 'desc';
@@ -183,7 +183,7 @@ export class ResultsTableContainer extends React.Component {
     }
 
     pickDefaultTab() {
-        // get the award counts for the current filter set
+    // get the award counts for the current filter set
         if (this.tabCountRequest) {
             this.tabCountRequest.cancel();
         }
@@ -426,7 +426,7 @@ export class ResultsTableContainer extends React.Component {
     }
 
     loadNextPage() {
-        // check if request is already in-flight
+    // check if request is already in-flight
         if (this.state.inFlight) {
             // in-flight, ignore this request
             return;
@@ -460,7 +460,7 @@ export class ResultsTableContainer extends React.Component {
             action: `Clicked ${id}`,
             label: new URLSearchParams(this.props.location.search).get('hash')
         });
-    }
+    };
 
     subAwardIdClick = (id) => {
         Analytics.event({
@@ -469,7 +469,7 @@ export class ResultsTableContainer extends React.Component {
             label: id
         });
         this.props.subAwardIdClicked(true);
-    }
+    };
 
     render() {
         const tableType = this.state.tableType;

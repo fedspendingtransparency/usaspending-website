@@ -49,7 +49,7 @@ export default class ArchiveAgencyFilter extends React.Component {
     }
 
     render() {
-        // Create the CFO agencies options
+    // Create the CFO agencies options
         const cfoAgencies = this.props.agencies.cfoAgencies.map((agency) => (
             <li
                 className="field-item indent"

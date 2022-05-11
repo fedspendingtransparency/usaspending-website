@@ -25,7 +25,7 @@ export default class RecipientTypeFilterGroup extends React.Component {
     }
 
     removeFilter(value) {
-        // remove a single filter item
+    // remove a single filter item
         const newValue = this.props.redux.reduxFilters.recipientType.delete(value);
         this.props.redux.updateGenericFilter({
             type: 'recipientType',

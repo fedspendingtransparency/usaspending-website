@@ -89,7 +89,7 @@ export class MapContainer extends React.Component {
     }
 
     componentWillUnmount() {
-        // remove any broadcast listeners
+    // remove any broadcast listeners
         this.mapListeners.forEach((listenerRef) => {
             MapBroadcaster.off(listenerRef.event, listenerRef.id);
         });
@@ -117,7 +117,7 @@ export class MapContainer extends React.Component {
             category: 'covid-19 - award spending by recipient - recipient locations',
             action: `${this.state.activeFilters.awardType} - amount type - ${value}`
         });
-    }
+    };
 
     updateTerritoryFilter = (value) => {
         this.setState(
@@ -135,7 +135,7 @@ export class MapContainer extends React.Component {
             category: 'covid-19 - award spending by recipient - recipient locations',
             action: `${this.state.activeFilters.awardType} - area type - ${value}`
         });
-    }
+    };
     updateSpendingTypeFilter = (value) => {
         this.setState(
             (currentState) => ({
@@ -149,7 +149,7 @@ export class MapContainer extends React.Component {
             category: 'covid-19 - award spending by recipient - recipient locations',
             action: `${this.state.activeFilters.awardType} - spending type - ${value}`
         });
-    }
+    };
     updateRecipientTypeFilter = (value) => {
         this.setState(
             (currentState) => ({
@@ -163,7 +163,7 @@ export class MapContainer extends React.Component {
             category: 'covid-19 - award spending by recipient - recipient locations',
             action: `${this.state.activeFilters.awardType} - recipient type - ${value}`
         });
-    }
+    };
     updateAwardTypeFilter = (value) => {
         this.setState(
             (currentState) => ({
@@ -177,7 +177,7 @@ export class MapContainer extends React.Component {
             category: 'covid-19 - award spending by recipient - recipient locations',
             action: `award type - ${value}`
         });
-    }
+    };
 
     mapLoaded = () => {
         this.setState({
@@ -190,7 +190,7 @@ export class MapContainer extends React.Component {
                 this.prepareFetch();
             }, 300);
         });
-    }
+    };
 
     prepareFetch = (forced = false) => {
         if (this.state.loadingTiles) {
@@ -199,10 +199,10 @@ export class MapContainer extends React.Component {
         }
 
         MapBroadcaster.emit('measureMap', forced);
-    }
+    };
 
     compareEntities = (entities) => {
-        // check if the inbound list of entities is different from the existing visible entities
+    // check if the inbound list of entities is different from the existing visible entities
         const current = keyBy(this.state.visibleEntities);
         const inbound = keyBy(entities);
 
@@ -221,7 +221,7 @@ export class MapContainer extends React.Component {
         }
 
         return false;
-    }
+    };
 
     receivedEntities = (entities, forced) => {
         if (!forced) {
@@ -238,7 +238,7 @@ export class MapContainer extends React.Component {
         }, () => {
             this.fetchData();
         });
-    }
+    };
 
     fetchData = () => {
         const {
@@ -298,7 +298,7 @@ export class MapContainer extends React.Component {
                     });
                 }
             });
-    }
+    };
 
     amountTypeKey = () => (this.state.activeFilters.amountType === 'totalSpending' ? 'amount' : 'per_capita');
 
@@ -320,7 +320,7 @@ export class MapContainer extends React.Component {
             }
         });
         return { values, locations, labels };
-    }
+    };
 
     parseData = () => {
         this.setState({
@@ -329,10 +329,10 @@ export class MapContainer extends React.Component {
             loading: false,
             error: false
         });
-    }
+    };
 
     showTooltip = (geoId, position) => {
-        // convert state code to full string name
+    // convert state code to full string name
         const data = this.state.data.labels[geoId];
         this.setState({
             showHover: true,
@@ -350,14 +350,14 @@ export class MapContainer extends React.Component {
                 y: position.y
             }
         });
-    }
+    };
 
     hideTooltip = () => {
         this.setState({
             showHover: false,
             selectedItem: {}
         });
-    }
+    };
 
     addOnClickToFilters = () => Object.keys(filters).reduce((acc, filter) => {
         const filterWithOnClick = {

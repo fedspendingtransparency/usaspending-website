@@ -212,13 +212,13 @@ export const decrementCountAndUpdateUnchecked = (
     // only update the unchecked array if...
     const shouldUpdateUnchecked = (
         (
-            // (a): an ancestor of the unchecked node is checked
+        // (a): an ancestor of the unchecked node is checked
             checked.includes(parentKey) ||
             checked.includes(`children_of_${parentKey}`) ||
             checked.includes(ancestorKey) ||
             checked.includes(`children_of_${ancestorKey}`)
         ) && (
-            // and (b): the unchecked node is not one of the highest ancestors.
+        // and (b): the unchecked node is not one of the highest ancestors.
             parentKey !== value
         )
     );
@@ -658,7 +658,7 @@ export const autoCheckImmediateChildrenAfterDynamicExpand = (
 
     const newValues = parentNode
         .children
-        // does unchecked have placeholders...?
+    // does unchecked have placeholders...?
         .filter((child) => !unchecked.includes(child[keyForCode]))
         .map((child) => {
             // at child level, check all grand children w/ the placeholder
@@ -698,7 +698,7 @@ export const getUniqueAncestorPaths = (
     uncheckedAncestorPaths = []
 ) => checkedAncestorPaths.concat(uncheckedAncestorPaths)
     .reduce((listOfUniqueAncestors, ancestryPath) => {
-        // we don't need to fetch the last item of the array because we only need the *ancestors* of the ancestorPaths.
+    // we don't need to fetch the last item of the array because we only need the *ancestors* of the ancestorPaths.
         const numberOfAncestors = ancestryPath.length === 1
             ? 1
             : ancestryPath.length - 1;

@@ -189,15 +189,11 @@ const AgenciesContainer = ({
     }, []);
 
     useEffect(() => {
-        // Active tab or page number changes
+    // Active tab or page number changes
         if (selectedFy && selectedPeriod) {
             fetchTableData();
         }
-    }, [
-        activeTab,
-        submissionsPage,
-        publicationsPage
-    ]);
+    }, [activeTab, submissionsPage, publicationsPage]);
 
     useEffect(() => {
         const shouldResetPg = (
@@ -223,8 +219,7 @@ const AgenciesContainer = ({
             // reset to pg 1, triggering a refetch
             changePublicationsPg(1);
         }
-    }, [
-        federalTotals,
+    }, [federalTotals,
         selectedFy,
         selectedPeriod,
         submissionsSort,

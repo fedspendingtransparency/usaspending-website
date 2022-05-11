@@ -22,7 +22,8 @@ export const scrollIntoView = (loading, error, wrapperRef, wrapperReadyRef, marg
         moreOptionsTabsRef.current.scrollIntoView(scrollIntoViewOptions);
         const scrollToCurrentYPos = document.documentElement.scrollTop;
         window.scrollTo(0, scrollToCurrentYPos - margin);
-    } else if (wrapperReadyRef.current && moreOptionsTabsRef.current && isElementVisibleAndRoomExists(wrapperReadyRef)) {
+    }
+    else if (wrapperReadyRef.current && moreOptionsTabsRef.current && isElementVisibleAndRoomExists(wrapperReadyRef)) {
         moreOptionsTabsRef.current.scrollIntoView(scrollIntoViewOptions);
         const scrollToCurrentYPos = document.documentElement.scrollTop;
         window.scrollTo(0, scrollToCurrentYPos - margin);

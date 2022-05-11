@@ -54,6 +54,7 @@ module.exports = {
             {
                 include: /\.(eot|ttf|woff|woff2|png|svg|ico|gif|jpg|pdf|webp)$/,
                 loader: 'file-loader',
+                type: 'javascript/auto',
                 options: {
                     name: '[path][name].[ext]'
                 }

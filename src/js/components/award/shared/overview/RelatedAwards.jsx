@@ -51,7 +51,7 @@ export default class RelatedAwards extends React.Component {
     jumpToAwardHistoryTableSubAwardsTab = () => {
         this.props.jumpToSubAwardHistoryTable('subaward');
         this.props.jumpToSection('award-history');
-    }
+    };
 
     referencedAwardCounts() {
         const { details, overview } = this.props;

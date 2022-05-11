@@ -83,11 +83,11 @@ export default class Award extends React.Component {
             body: `View the spending details of this federal award on USAspending.gov: ${getBaseUrl(slug)}`
         };
         handleShareOptionClick(name, slug, emailArgs);
-    }
+    };
 
     jumpToSection(section = '') {
-        // we've been provided a section to jump to
-        // check if it's a valid section
+    // we've been provided a section to jump to
+    // check if it's a valid section
         const matchedSection = find(awardSections, {
             section
         });

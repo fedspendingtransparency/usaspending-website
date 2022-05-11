@@ -48,7 +48,7 @@ const SummaryInsightsContainer = ({
     const { defcParams, allAwardTypeTotals } = useSelector((state) => state.covid19, isEqual);
 
     useEffect(() => {
-        // Clear out old values
+    // Clear out old values
         setAwardOutlays(null);
         setAwardObligations(null);
         setNumberOfAwards(null);

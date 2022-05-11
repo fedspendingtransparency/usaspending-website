@@ -53,7 +53,7 @@ export default class ArchiveFiscalYearFilter extends React.Component {
     }
 
     render() {
-        // Create the fiscal year options
+    // Create the fiscal year options
 
         const FYs = fiscalYears.map((year) => (
             <li

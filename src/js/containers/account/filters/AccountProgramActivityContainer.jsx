@@ -39,7 +39,7 @@ export class AccountProgramActivityContainer extends React.Component {
     }
 
     componentDidMount() {
-        // clear out any previously selected program activities
+    // clear out any previously selected program activities
         this.props.resetProgramActivity();
         this.populateProgramActivities();
     }

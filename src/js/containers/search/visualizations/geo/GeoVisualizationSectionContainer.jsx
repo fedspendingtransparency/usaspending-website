@@ -110,7 +110,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
     }
 
     componentWillUnmount() {
-        // remove any broadcast listeners
+    // remove any broadcast listeners
         this.mapListeners.forEach((listenerRef) => {
             MapBroadcaster.off(listenerRef.event, listenerRef.id);
         });
@@ -118,7 +118,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
 
     updateMapLegendToggle = (value) => {
         this.props.updateMapLegendToggle(value);
-    }
+    };
 
     changeScope(scope) {
         if (scope === this.state.scope) {
@@ -157,7 +157,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
     }
 
     compareEntities(entities) {
-        // check if the inbound list of entities is different from the existing visible entities
+    // check if the inbound list of entities is different from the existing visible entities
         const current = keyBy(this.state.visibleEntities);
         const inbound = keyBy(entities);
 
@@ -196,8 +196,8 @@ export class GeoVisualizationSectionContainer extends React.Component {
     }
 
     fetchData() {
-        // build a new search operation from the Redux state, but create a transaction-based search
-        // operation instead of an award-based one
+    // build a new search operation from the Redux state, but create a transaction-based search
+    // operation instead of an award-based one
         const operation = new SearchAwardsOperation();
         operation.fromState(this.props.reduxFilters);
 
@@ -269,7 +269,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
             data: Object.assign({}, this.valuesLocationsLabelsFromAPIData()),
             renderHash: `geo-${uniqueId()}`
         });
-    }
+    };
 
     /**
      * valuesLocationsLabelsFromAPIData
@@ -292,7 +292,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
             }
         });
         return { values, locations, labels };
-    }
+    };
 
     parseData() {
         this.props.setAppliedFilterCompletion(true);

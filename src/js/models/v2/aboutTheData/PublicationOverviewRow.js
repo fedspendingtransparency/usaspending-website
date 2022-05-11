@@ -18,7 +18,7 @@ const PublicationOverviewRow = {
                     return {
                         isQuarterly, publicationDate: p, certificationDate: c, period
                     };
-                };
+                }
                 return {
                     publicationDate: p ? moment(p).format('MM/DD/YYYY') : null,
                     certificationDate: c ? moment(c).format('MM/DD/YYYY') : null,
@@ -46,7 +46,7 @@ const PublicationOverviewRow = {
         return formatMoney(this._total);
     },
     get percentageOfTotalFederalBudget() {
-        // eslint-disable-next-line camelcase
+    // eslint-disable-next-line camelcase
         return calculatePercentage(this._budgetAuthority, this._federalTotal, "--", 2, { absoluteMin: '< 0.01%' });
     }
 };

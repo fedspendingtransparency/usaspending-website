@@ -62,13 +62,13 @@ export class BulkDownloadBottomBarContainer extends React.Component {
     }
 
     componentWillUnmount() {
-        // this happens when page navigation occurs
+    // this happens when page navigation occurs
         window.removeEventListener('beforeunload', this.windowWillClose);
         window.clearTimeout(this.statusTimer);
     }
 
     displayBar() {
-        // monitor for window close events
+    // monitor for window close events
         window.addEventListener('beforeunload', this.windowWillClose);
         this.setState({
             visible: true,
@@ -122,8 +122,8 @@ export class BulkDownloadBottomBarContainer extends React.Component {
     }
 
     scheduleNextStatus() {
-        // determine when the next status check should be
-        // it should be 15 seconds for the first minute, then 30 seconds after that
+    // determine when the next status check should be
+    // it should be 15 seconds for the first minute, then 30 seconds after that
         let timeToWait = 15;
         if (this.statusCount >= 4) {
             timeToWait = 30;
@@ -138,7 +138,7 @@ export class BulkDownloadBottomBarContainer extends React.Component {
     }
 
     displayError(message) {
-        // update redux
+    // update redux
         this.props.setDownloadPending(false);
         this.props.setDownloadCollapsed(false);
 
@@ -152,7 +152,7 @@ export class BulkDownloadBottomBarContainer extends React.Component {
     }
 
     downloadFile(url) {
-        // stop monitoring for window close events
+    // stop monitoring for window close events
         window.removeEventListener('beforeunload', this.windowWillClose);
 
         // start the download
@@ -172,7 +172,7 @@ export class BulkDownloadBottomBarContainer extends React.Component {
     }
 
     closeBar() {
-        // stop monitoring for window close events
+    // stop monitoring for window close events
         window.removeEventListener('beforeunload', this.windowWillClose);
         this.props.resetDownload();
         this.setState({
@@ -181,11 +181,11 @@ export class BulkDownloadBottomBarContainer extends React.Component {
     }
 
     windowWillClose(e) {
-        /* eslint-disable no-param-reassign */
-        // we need to modify the browser event to trigger a warning message
+    /* eslint-disable no-param-reassign */
+    // we need to modify the browser event to trigger a warning message
         e.returnValue = `You have a file that is still being generated. If you leave, the file \
 will no longer download to your computer. Are you sure you want to do this?`;
-        /* eslint-ensable no-param-reassign */
+    /* eslint-ensable no-param-reassign */
     }
 
     render() {

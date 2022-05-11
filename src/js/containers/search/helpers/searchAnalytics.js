@@ -32,11 +32,11 @@ const getStringFromArray = (arrOfStr) => arrOfStr
 
 export const convertDateRange = (range) => {
     if (range.length !== 2) {
-        // this must be an array of length 2
+    // this must be an array of length 2
         return null;
     }
     else if (!range[0] && !range[1]) {
-        // no start or end dates are set
+    // no start or end dates are set
         return null;
     }
 

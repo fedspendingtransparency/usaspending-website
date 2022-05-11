@@ -66,7 +66,7 @@ export default class FederalAccountsTree extends React.Component {
         const treemapData = hierarchy({
             children: data
         })
-            // tell D3 how to extract the monetary value out of the object
+        // tell D3 how to extract the monetary value out of the object
             .sum((d) => d._obligatedAmount)
             .sort((a, b) => b.value - a.value); // sort the objects
 
@@ -151,7 +151,7 @@ export default class FederalAccountsTree extends React.Component {
     }
 
     truncateText(text, type, maxWidth) {
-        // calculate the text width of the full label
+    // calculate the text width of the full label
         let label = text;
         let labelWidth = 0;
         if (type === 'title') {

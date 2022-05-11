@@ -53,7 +53,7 @@ export default class GlossarySearchResults extends React.Component {
     }
 
     groupResults(props) {
-        // we need to group the results by their starting letter
+    // we need to group the results by their starting letter
         const groups = {};
 
         props.glossary.search.results.forEach((result) => {

@@ -91,7 +91,7 @@ export class AccountRankVisualizationContainer extends React.Component {
     }
 
     previousPage() {
-        // change the state by subtracting 2 (since the page number is already incremented)
+    // change the state by subtracting 2 (since the page number is already incremented)
         const prevPage = max([1, this.state.page - 1]);
         this.setState({
             page: prevPage

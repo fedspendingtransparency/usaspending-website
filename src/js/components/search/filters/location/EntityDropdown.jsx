@@ -206,7 +206,7 @@ export default class EntityDropdown extends React.Component {
     }
 
     pressedLetter(e) {
-        // check if the key press is a letter (only for non-autocomplete dropdowns)
+    // check if the key press is a letter (only for non-autocomplete dropdowns)
         if (this.props.type === "button" && (alphabetRegex.test(e.key))) {
             // it is a letter
             e.preventDefault();
@@ -294,41 +294,41 @@ export default class EntityDropdown extends React.Component {
                         this.wrapperDiv = div;
                     }}>
                     {!isAutocomplete &&
-                        <button
-                            id={`${field}-button`}
-                            className={`active-selection ${placeholder}`}
-                            onClick={this.toggleDropdown}
-                            title={label}
-                            aria-label={label}
-                            aria-haspopup="true"
-                            aria-expanded={this.state.expanded}
-                            aria-owns={`geo-dropdown-${field}`}
-                            aria-describedby={this.state.warningId}
-                            disabled={!enabled || options.length === 0}
-                            ref={(dd) => {
-                                this.dropdown = dd;
-                            }}>
-                            <div className="label">
-                                {label}
-                            </div>
-                            <div className="icon">
-                                {this.state.expanded && <FontAwesomeIcon onClick={this.toggleDropdown} icon="chevron-up" />}
-                                {!this.state.expanded && <FontAwesomeIcon onClick={this.toggleDropdown} icon="chevron-down" />}
-                            </div>
-                        </button>
+                            <button
+                                id={`${field}-button`}
+                                className={`active-selection ${placeholder}`}
+                                onClick={this.toggleDropdown}
+                                title={label}
+                                aria-label={label}
+                                aria-haspopup="true"
+                                aria-expanded={this.state.expanded}
+                                aria-owns={`geo-dropdown-${field}`}
+                                aria-describedby={this.state.warningId}
+                                disabled={!enabled || options.length === 0}
+                                ref={(dd) => {
+                                    this.dropdown = dd;
+                                }}>
+                                <div className="label">
+                                    {label}
+                                </div>
+                                <div className="icon">
+                                    {this.state.expanded && <FontAwesomeIcon onClick={this.toggleDropdown} icon="chevron-up" />}
+                                    {!this.state.expanded && <FontAwesomeIcon onClick={this.toggleDropdown} icon="chevron-down" />}
+                                </div>
+                            </button>
                     }
                     {isAutocomplete &&
-                        <EntityDropdownAutocomplete
-                            searchString={searchString}
-                            enabled={enabled}
-                            openDropdown={this.openDropdown}
-                            handleOnKeyDown={this.handleOnKeyDown}
-                            handleTextInputChange={this.handleTextInputChange}
-                            toggleDropdown={this.toggleDropdown}
-                            placeholder={this.props.placeholder}
-                            showDisclaimer={showDisclaimer}
-                            context={this} // used to create dropdown ref
-                            loading={loading} />
+                            <EntityDropdownAutocomplete
+                                searchString={searchString}
+                                enabled={enabled}
+                                openDropdown={this.openDropdown}
+                                handleOnKeyDown={this.handleOnKeyDown}
+                                handleTextInputChange={this.handleTextInputChange}
+                                toggleDropdown={this.toggleDropdown}
+                                placeholder={this.props.placeholder}
+                                showDisclaimer={showDisclaimer}
+                                context={this} // used to create dropdown ref
+                                loading={loading} />
                     }
                     {dropdown}
                 </div>

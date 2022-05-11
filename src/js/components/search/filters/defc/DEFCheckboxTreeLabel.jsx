@@ -27,11 +27,11 @@ const DEFCheckboxTreeLabel = ({
                 {labels.map((lbl, i) => (
                     <div key={uniqueId(i)} className="checkbox-tree-label__label multiple-label">
                         {lbl}
-                            <>
-                                <br />
-                                <span>{parseAcronym(subLabels[i])}</span>
-                                <br />
-                            </>
+                        <>
+                            <br />
+                            <span>{parseAcronym(subLabels[i])}</span>
+                            <br />
+                        </>
                     </div>
                 ))}
             </div>

@@ -91,6 +91,6 @@ export default class DownloadDetail extends React.Component {
             </div>
         );
     }
-};
+}
 
 DownloadDetail.propTypes = propTypes;

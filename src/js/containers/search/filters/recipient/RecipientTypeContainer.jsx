@@ -46,7 +46,7 @@ export class RecipientTypeContainer extends React.Component {
     }
 
     ungroupSelectedTypes(types) {
-        // break groups out into their constituent child elements
+    // break groups out into their constituent child elements
         let flatTypes = new Set();
 
         types.forEach((type) => {
@@ -65,9 +65,9 @@ export class RecipientTypeContainer extends React.Component {
     }
 
     determineParentType(types) {
-        // determine the parent type that was selected and submit that to Redux instead
-        // the previous ungroupSelectedTypes function will ungroup these filter values when Redux
-        // provides them back to the component for display and re-selection
+    // determine the parent type that was selected and submit that to Redux instead
+    // the previous ungroupSelectedTypes function will ungroup these filter values when Redux
+    // provides them back to the component for display and re-selection
         const selectedObject = keyBy(types);
         for (const groupName in recipientTypeGroups) {
             if (!recipientTypeGroups[groupName]) {
@@ -114,14 +114,14 @@ export class RecipientTypeContainer extends React.Component {
             types: [parentType],
             direction: selection.direction
         });
-    }
+    };
 
     dirtyFilters = () => {
         if (this.justMounted || is(this.props.recipientType, this.props.appliedType)) {
             return null;
         }
         return Symbol('dirty recipient type');
-    }
+    };
 
     render() {
         return (

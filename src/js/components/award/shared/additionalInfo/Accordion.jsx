@@ -50,7 +50,7 @@ export default class Accordion extends React.Component {
     // pass an array of address lines
     // e.g. ['1234 Sleepy Ghost Lane', 'Las Vegas, Nevada', 'Some Country']
     address(arrayOfRows) {
-        // if no data return --
+    // if no data return --
         const array = compact(arrayOfRows);
         if (array.length === 0) return '--';
         return (

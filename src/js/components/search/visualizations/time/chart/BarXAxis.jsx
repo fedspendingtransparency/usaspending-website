@@ -148,7 +148,7 @@ export default class BarXAxis extends React.Component {
     // Only matters for the first section and last since the date range can start
     // in the middle or not be finished yet. Every other date should be a full range
     calculateEndIndex(index, data, type, offset) {
-        // Blocks of 4 for quarters (0-3)
+    // Blocks of 4 for quarters (0-3)
         if (type === 'quarter') {
             let endIndex = index + 3;
             if (index < offset) {
@@ -192,8 +192,8 @@ export default class BarXAxis extends React.Component {
     }
 
     render() {
-        // draw the X axis at the zero Y-axis position (multiply by negative to account for the
-        // fact that the bar axis group is shifted downward)
+    // draw the X axis at the zero Y-axis position (multiply by negative to account for the
+    // fact that the bar axis group is shifted downward)
         return (
             <g
                 className="bar-axis"

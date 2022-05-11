@@ -30,7 +30,7 @@ const buildFYAwardQuery = (range) => {
     const fyFilters = [];
 
     range.forEach((fy) => {
-        // iterate through each FY and generate a range_intersect filter for the FY
+    // iterate through each FY and generate a range_intersect filter for the FY
         const fyQuery = {
             field: [startDateFieldAward, endDateFieldAward],
             operation: 'range_intersect',

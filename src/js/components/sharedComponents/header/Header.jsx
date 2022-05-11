@@ -24,7 +24,7 @@ export default class Header extends React.Component {
     }
 
     skippedNav(e) {
-        // don't update the URL due to potential React Router conflicts
+    // don't update the URL due to potential React Router conflicts
         e.preventDefault();
         // scroll to the main-content id
         const mainContent = document.getElementById('main-content');

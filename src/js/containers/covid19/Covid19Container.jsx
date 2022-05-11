@@ -32,7 +32,7 @@ const Covid19Container = () => {
     publicLaw = publicLaw && publicLaw.toLowerCase();
 
     useEffect(() => {
-        /** Default to all DEFC if:
+    /** Default to all DEFC if:
          * 1) no public law param is defined
          * 2) the public law param is invalid
          * 3) the public law param is for ARP, but the ARP filter is not yet released
@@ -57,7 +57,7 @@ const Covid19Container = () => {
                 dispatch(setDefcParams(defcByPublicLaw[publicLaw]));
             }
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [publicLaw, areDefCodesLoading]);
 
     useEffect(() => {

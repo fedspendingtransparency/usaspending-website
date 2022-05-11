@@ -36,7 +36,7 @@ export default class FloatingGlossaryButton extends React.Component {
     }
 
     componentDidMount() {
-        // listen for page scrolls
+    // listen for page scrolls
         window.addEventListener('scroll', this.pageScrolled);
         this.pageScrolled();
     }
@@ -46,7 +46,7 @@ export default class FloatingGlossaryButton extends React.Component {
     }
 
     pageScrolled() {
-        // find the header glossary button
+    // find the header glossary button
         const header = document.querySelector('.site-logo');
         const headerBottom = header.getBoundingClientRect().top + (header.offsetHeight * 0.5);
 

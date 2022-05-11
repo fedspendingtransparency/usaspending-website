@@ -7,7 +7,7 @@ import { isObject, uniqueId } from 'lodash';
 
 class GenericRecord {
     constructor(recordType, fieldNames, data, excludedFields = new Set()) {
-        // construct the object with either null values or provided data for each expected key
+    // construct the object with either null values or provided data for each expected key
         const providedData = isObject(data);
         fieldNames.forEach((field) => {
             this[field] = null;

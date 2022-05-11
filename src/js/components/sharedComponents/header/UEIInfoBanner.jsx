@@ -20,7 +20,7 @@ const UEIInfoBanner = (props) => {
     }, []);
 
     const closeBanner = () => {
-        // set a cookie to hide the banner in the future if banner is closed
+    // set a cookie to hide the banner in the future if banner is closed
         Cookies.set(cookie, 'hide', { expires: 7 });
         setShowInfoBanner(false);
     };

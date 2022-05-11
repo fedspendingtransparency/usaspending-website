@@ -162,7 +162,7 @@ export default class ExplorerTreemap extends React.Component {
     }
 
     truncateText(text, type, maxWidth) {
-        // calculate the text width of the full label
+    // calculate the text width of the full label
         let label = text;
         let labelWidth = 0;
         if (type === 'title') {

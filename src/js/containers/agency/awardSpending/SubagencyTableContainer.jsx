@@ -82,7 +82,7 @@ const SubagencyTableContainer = ({
     });
 
     useEffect(() => {
-        // Reset to the first page
+    // Reset to the first page
         if (currentPage !== 1) {
             changeCurrentPage(1);
         }

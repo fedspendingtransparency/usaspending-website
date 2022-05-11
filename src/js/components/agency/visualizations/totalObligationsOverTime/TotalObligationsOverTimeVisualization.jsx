@@ -60,7 +60,7 @@ const TotalObligationsOverTimeVisualization = ({
     const [tooltipIsVisible, setTooltipIsVisible] = useState(false);
     // x domain
     useEffect(() => {
-        // start of the domain is October 1st of the prior selected fiscal year midnight local time
+    // start of the domain is October 1st of the prior selected fiscal year midnight local time
         const start = new Date(parseInt(fy, 10) - 1, 9, 1);
         // end of the domain is September 30th midnight local time
         const end = new Date(`${fy}`, 8, 30);

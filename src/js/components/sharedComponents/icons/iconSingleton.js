@@ -34,7 +34,7 @@ export class IconSingleton {
     }
 
     parseSvg(rawSvg) {
-        // downloaded raw SVG data, send it through an XML parser
+    // downloaded raw SVG data, send it through an XML parser
         const data = new xmldoc.XmlDocument(rawSvg);
 
         // iterate through each symbol and extract the symbol's content XML as a string and
@@ -54,7 +54,7 @@ export class IconSingleton {
     }
 
     notifySubscribers(event) {
-        // iterate through subscribers to notify them that icons are ready
+    // iterate through subscribers to notify them that icons are ready
         for (const subscriptionId in this.subscribers) {
             if ({}.hasOwnProperty.call(this.subscribers, subscriptionId)) {
                 const subscriber = this.subscribers[subscriptionId];
@@ -64,14 +64,14 @@ export class IconSingleton {
     }
 
     subscribe(subscriber) {
-        // add a subscriber and return a UUID as a subscription ID so they can later unsubscribe
+    // add a subscriber and return a UUID as a subscription ID so they can later unsubscribe
         const subscriptionId = uniqueId();
         this.subscribers[subscriptionId] = subscriber;
         return subscriptionId;
     }
 
     unsubscribe(subscriptionId) {
-        // unsubscribe the observer
+    // unsubscribe the observer
         delete this.subscribers[subscriptionId];
     }
 }

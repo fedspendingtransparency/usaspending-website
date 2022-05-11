@@ -87,7 +87,7 @@ export default class PrimaryCheckboxType extends React.Component {
     }
 
     compareFiltersToChildren(props) {
-        // check to see if the children are all selected or not
+    // check to see if the children are all selected or not
         let allSelected = true;
         let someSelected = false;
 

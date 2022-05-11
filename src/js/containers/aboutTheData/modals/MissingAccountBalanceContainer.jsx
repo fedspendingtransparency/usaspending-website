@@ -3,7 +3,7 @@
  * Created by Jonathan Hill 11/21/20
  */
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useCallback, useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Table, Pagination } from 'data-transparency-ui';
 import { isCancel } from 'axios';
@@ -37,7 +37,7 @@ const MissingAccountBalanceContainer = ({
         setOrder(direction);
     };
 
-    const missingAccountBalancesRequest = async () => {
+    const missingAccountBalancesRequest = useCallback(async () => {
         if (error.error) setError({ error: false, message: '' });
         if (!loading) setLoading(true);
         if (missingAccBalancesRequest.current) missingAccBalancesRequest.current.cancel();
@@ -65,7 +65,7 @@ const MissingAccountBalanceContainer = ({
             }
             missingAccBalancesRequest.current = null;
         }
-    };
+    });
 
     // on unmount cleanup pubDatesRequest
     useEffect(() => () => {

@@ -132,13 +132,13 @@ export const routes = [
         exact: true
     },
     {
-        // could be state name or fips code
+    // could be state name or fips code
         path: '/state/:state/:fy',
         component: StateContainer,
         exact: true
     },
     {
-        // could be state name or fips code
+    // could be state name or fips code
         path: '/state/:state',
         component: StateContainer,
         exact: true
