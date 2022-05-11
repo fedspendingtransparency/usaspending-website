@@ -1,4 +1,10 @@
 .status-of-funds__visualization {
+    .status-of-funds__controls {
+        display: flex;
+        @media(min-width: $medium-screen) {
+            justify-content: end;
+        }
+    }
     .usa-dt-pagination__totals {
         @media(min-width: $large-screen) {
             margin-left: rem(32);
