@@ -68,16 +68,14 @@ const AnalystGuidePage = () => {
                                     classNames="" />
                             </div>
                             <div className="analyst-guide__download-wrapper">
-                                <button
-                                    value="/data/analyst-guide-download.pdf"
-                                    className="analyst-guide__download-button">
-                                    <a
-                                        href="/data/analyst-guide-download.pdf"
-                                        className="usa-button-link__icon"
-                                        download>
-                                        <FontAwesomeIcon data-href="/data/analyst-guide-download.pdf" icon={faFileDownload} className="analyst-guide__download-icon" />
-                                    </a>
-                                </button>
+                                <a
+                                    href="/data/analyst-guide-download.pdf"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="analyst-guide__download-button"
+                                    download>
+                                    <FontAwesomeIcon data-href="/data/analyst-guide-download.pdf" icon={faFileDownload} className="analyst-guide__download-icon" />
+                                </a>
                                 <div>
                                     <span>Download</span>
                                 </div>

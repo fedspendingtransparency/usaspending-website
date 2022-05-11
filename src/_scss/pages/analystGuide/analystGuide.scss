@@ -26,8 +26,10 @@
       background-color: white;
       margin-top: $global-margin * 4;
       margin-left: -24px;
+      margin-right: -10px;
       @media (min-width: $medium-screen) {
         margin-left: -40px;
+        margin-right: -10px;
       }
   
       .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__button {
@@ -62,29 +64,38 @@
     }
   
     .analyst-guide__download-wrapper {
+      display:inline-block;
       color: $color-primary;
       background-color: white;
       margin-top: $global-margin * 4;
+      left: 10px;
       @media (min-width: $medium-screen) {
         margin-left: 0px;
       }
   
       .analyst-guide__download-button {
-        background-color: white;
-        padding: 0px 20px 5px 20px;
+        @include button-link;
+        padding: 0px 20px 0px 20px;
+        margin-top: 10px;
         @media (min-width: $medium-screen) {
           padding: 0px 20px 7px 20px;
           margin-top: 10px;
           margin-bottom: 0px;
         }
-        margin-top: 10px;
-        margin-bottom:2px;
-      }
-  
-      .analyst-guide__download-icon {
-        width: 25px;
-        height:25px;
-        color: $color-primary;
+        &:hover {
+          color: $color-primary-darker;
+          text-decoration: underline;
+        }
+
+        .analyst-guide__download-icon {
+          width: 25px;
+          height:25px;
+          color: $color-primary;
+          &:hover {
+            color: $color-primary-darker;
+            text-decoration: underline;
+          }
+        }
       }
     }
   }
