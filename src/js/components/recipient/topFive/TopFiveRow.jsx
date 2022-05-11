@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import GlobalConstants from 'GlobalConstants';
 
 export default class TopFiveRow extends React.Component {
     static propTypes = {
@@ -28,9 +27,9 @@ export default class TopFiveRow extends React.Component {
             <td
                 className="category-table__table-cell"
                 title={this.props.data.name}>
-                {GlobalConstants.AGENCYV2_RELEASED && this.props.data._slug ?
+                {this.props.data._slug ?
                     this.props.data.linkedName
-                    : this.props.data.name}
+                    : ''}
             </td>
         );
     }

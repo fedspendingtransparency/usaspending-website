@@ -7,7 +7,7 @@ import {
     exceedsMaxPercentDifference,
     exceedsMinPercentDifference,
     pathDefinition
-} from 'helpers/agencyV2/visualizations/TotalObligationsOverTimeVisualizationHelper';
+} from 'helpers/agency/visualizations/TotalObligationsOverTimeVisualizationHelper';
 import { mockSubmissions } from '../../../mockData/helpers/aboutTheDataHelper';
 
 const mockBudgetaryResources = [

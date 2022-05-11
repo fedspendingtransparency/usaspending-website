@@ -3,9 +3,8 @@
  * Created by Andrea Blackwell 03/29/22
  */
 
-import React, { useState, useEffect } from 'react';
-import { Redirect } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import React from 'react';
 import { FlexGridRow, FlexGridCol, ShareIcon } from "data-transparency-ui";
 import { faFileDownload } from "@fortawesome/free-solid-svg-icons";
 import 'pages/analystGuide/analystGuide.scss';
@@ -15,18 +14,12 @@ import { showModal } from 'redux/actions/modal/modalActions';
 import AnalystGuideHeader from './AnalystGuideHeader';
 import PageWrapper from "../sharedComponents/PageWrapper";
 import { analystGuideMetaTags } from "../../helpers/metaTagHelper";
-import { SHOW_ANALYSTGUIDE } from '../../GlobalConstants';
 import AnalystGuideQuestions from "./AnalystGuideQuestions";
 import AnalystGuideIntro from "./AnalystGuideIntro";
 
 
 const AnalystGuidePage = () => {
-    const [hideContent, setHideContent] = useState();
     const slug = 'analyst-guide';
-
-    useEffect(() => {
-        setHideContent(!SHOW_ANALYSTGUIDE);
-    }, []);
 
     const onShareClick = (name) => {
         const emailSubject = `USAspending.gov Analyst's Guide`;
@@ -45,9 +38,7 @@ const AnalystGuidePage = () => {
         }
     };
 
-    return (<>{hideContent ?
-        <Redirect to="/404" />
-        :
+    return (
         <PageWrapper
             pageName="AnalystGuide"
             classNames="usa-da-analyst-guide-page"
@@ -86,8 +77,8 @@ const AnalystGuidePage = () => {
                     </FlexGridCol>
                 </FlexGridRow>
             </main>
-        </PageWrapper>}
-    </>);
+        </PageWrapper>
+    );
 };
 
 export default AnalystGuidePage;

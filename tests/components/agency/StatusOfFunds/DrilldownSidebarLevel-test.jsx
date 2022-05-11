@@ -5,7 +5,7 @@
 
 import React from 'react';
 import DrilldownSidebarLevel
-    from "components/agencyV2/statusOfFunds/DrilldownSidebarLevel";
+    from "components/agency/statusOfFunds/DrilldownSidebarLevel";
 import { render, screen } from '../../../testResources/test-utils';
 
 describe('Agency V2 Status of Funds DrilldownSidebarLevel', () => {

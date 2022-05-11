@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { render, screen } from 'test-utils';
-import AgencyOverview from 'components/agencyV2/overview/AgencyOverview';
+import AgencyOverview from 'components/agency/overview/AgencyOverview';
 import BaseAgencyOverview from 'models/v2/agency/BaseAgencyOverview';
 import BaseAgencyBudgetaryResources from 'models/v2/agency/BaseAgencyBudgetaryResources';
 import BaseAgencyRecipients from 'models/v2/agency/BaseAgencyRecipients';
@@ -23,7 +23,7 @@ recipientDistribution.populate({
 });
 
 const mockStoreDod = {
-    agencyV2: {
+    agency: {
         overview: overviewDod,
         budgetaryResources,
         recipientDistribution
@@ -40,7 +40,7 @@ const overview = Object.create(BaseAgencyOverview);
 overview.populate(mockAgency);
 
 const mockStore = {
-    agencyV2: {
+    agency: {
         overview,
         budgetaryResources,
         recipientDistribution

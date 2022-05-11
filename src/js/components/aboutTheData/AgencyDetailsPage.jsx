@@ -7,7 +7,7 @@ import { useParams, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { LoadingMessage, ErrorMessage, ShareIcon } from 'data-transparency-ui';
 
-import { fetchAgencyOverview } from 'apis/agencyV2';
+import { fetchAgencyOverview } from 'apis/agency';
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
 import { getAgencyDetailEmail } from 'helpers/aboutTheDataHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
@@ -20,8 +20,7 @@ import BaseAgencyOverview from 'models/v2/agency/BaseAgencyOverview';
 import ExternalLink from 'components/sharedComponents/ExternalLink';
 import { agencyNotes } from './componentMapping/agencyNotes';
 import AboutTheDataModal from './AboutTheDataModal';
-import { useAgencySlugs } from "../../containers/agencyV2/WithAgencySlugs";
-import GlobalConstants from '../../GlobalConstants';
+import { useAgencySlugs } from "../../containers/agency/WithAgencySlugs";
 
 require('pages/aboutTheData/aboutTheData.scss');
 
@@ -40,7 +39,6 @@ const AgencyDetailsPage = () => {
     if (agencyOverview && agencyOverview.toptierCode) {
         slug = topTierCodes[agencyOverview.toptierCode];
     }
-    const agencyString = GlobalConstants.AGENCY_LINK;
 
     const modalClick = (modalType, agencyData) => {
         setModalData(agencyData);
@@ -132,7 +130,7 @@ const AgencyDetailsPage = () => {
                                         <h5>Agency Profile Page</h5>
                                         <div className="more-info-note">Learn more about this Agency&#39;s spending</div>
                                         <div className="agency-info__website">
-                                            <Link to={`/${agencyString}/${slug}`}>
+                                            <Link to={`/agency/${slug}`}>
                                                 {agencyOverview.name}
                                             </Link>
                                         </div>

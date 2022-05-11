@@ -26,8 +26,6 @@ import BaseSpendingByCategoryResult from 'models/v2/search/visualizations/rank/B
 
 import { categoryNames, defaultScopes } from 'dataMapping/search/spendingByCategory';
 
-import GlobalConstants from "../../../../GlobalConstants";
-
 const combinedActions = Object.assign({}, searchFilterActions, {
     setAppliedFilterCompletion
 });
@@ -209,7 +207,7 @@ export class RankVisualizationWrapperContainer extends React.Component {
             }
 
             if (this.state.scope === 'awarding_agency') {
-                const awardingLink = `${GlobalConstants.AGENCY_LINK}/${result._agencySlug}`;
+                const awardingLink = `agency/${result._agencySlug}`;
                 linkSeries.push(awardingLink);
             }
 

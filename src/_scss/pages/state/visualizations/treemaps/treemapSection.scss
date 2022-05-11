@@ -1,0 +1,165 @@
+.usa-da-treemap-section {
+    @import "mixins/moreOptionsBtn";
+    @import "mixins/fullSectionWrap";
+    @import 'treemapSource';
+    padding: ($global-pad * 4) 0 ($global-pad * 6);
+    background-color: #ececec;
+    & .treemap-inner-wrap {
+        @include fullSectionWrap(0, 0);
+        @import 'treemapWrapper';
+        @import 'treemapDescription';
+        @import 'treemapNavButtons';
+        .treemap-navigation-holder {
+            min-height: rem(64);
+            .treemap-navigation-bar {
+                .treemap-inner-wrap {
+                    width: calc(100% - 8rem);
+                    max-width: calc(100% - 8rem);
+                    margin: 0 rem(40) 0;
+                    .tree-wrapper {
+                        width: 100%;
+                    }
+                }
+                .treemap-inner-wrap::after {
+                    clear: none;
+                }
+            }
+        }
+        .function-desc {
+            padding-left: 10%;
+            padding-right: 10%;
+            margin-top: ($global-mrg * 2);
+            .function-title {
+                @include h1;
+                text-align: center;
+                font-size: rem(47);
+                line-height: rem(59);
+                margin-bottom: 0;
+                margin-top: 0;
+            }
+            .function-detail{
+                @include h6;
+                text-align: center;
+                border-top: #D6D7D9 1px solid;
+                border-bottom: #D6D7D9 1px solid;
+                font-size: rem(19);
+                line-height: rem(24);
+                margin-top: 0;
+                padding: rem(11);
+            }
+            p {
+                text-align: center;
+                font-size: rem(14);
+                line-height: rem(26);
+                margin-bottom: rem(27);
+            }
+        }
+        .visualization-tooltip {
+            position: relative;
+            width: 100%;
+            @import "components/visualizations/tooltip/_tooltip";
+            .tooltip {
+                width: rem(570);
+                &.small {
+                    width: rem(230);
+                    min-height: rem(44);
+                    min-width: rem(200);
+                    max-width: rem(500);
+                    .tooltip-title {
+                        font-size: rem(14);
+                        line-height: rem(44);
+                        padding: 0;
+                    }
+                    .tooltip-body {
+                        justify-content: center;
+                        text-align: center;
+                    }
+                }
+                .tooltip-body {
+                    text-align: justify;
+                }
+                .tooltip-value {
+                    font-size: rem(30);
+                    line-height: rem(30);
+                    font-weight: $font-light;
+                    border-bottom: none;
+                }
+                .tooltip-pointer {
+                    &:after {
+                        background-color: $color-white;
+                    }
+                    &.right {
+                        &.top {
+                            right: calc(10% - 1px);
+                            left: auto;
+                        }
+                    }
+                    &.left {
+                        &.top {
+                            left: calc(5% - 1px);
+                            right: auto;
+                        }
+                    }
+                }
+            }
+        }
+        .treemap-hover-instructions {
+            float: right;
+            height: rem(82);
+            width: rem(469);
+            position: absolute;
+            top: 33%;
+            right: rem(-25);
+            background-color: #A3F383;
+            color: #1B4956;
+            font-size: rem(20);
+            line-height: rem(28);
+            padding: rem(13) rem(15);
+            z-index: 2;
+            &:after {
+                position: absolute;
+                right: 0;
+                bottom: rem(-21);
+                content: "";
+                width: 0;
+                height: 0;
+                border-style: solid;
+                border-width: rem(21) rem(26) 0 0;
+                border-color: #85C76B transparent transparent transparent;
+                z-index: 3;
+            }
+        }
+    }
+    .tree-desc {
+        color: $color-base;
+        font-size: rem(38);
+        font-weight: $font-light;
+        line-height: rem(47);
+        margin-bottom: rem(30);
+        padding: rem(10) 0 rem(10) rem(15);
+        text-align: center;
+        & b {
+            font-weight: $font-semibold;
+        }
+        .highlight {
+            padding-bottom: rem(5);
+            border-bottom: #FEB711 5px solid;
+        }
+    }
+
+    .line-wrap {
+        @include fullSectionWrap(0, 0);
+
+        .budget-line {
+            display: inline;
+            float: left;
+            width: rem(20);
+            height: rem(642);
+            &.large {
+                height: rem(20);
+                margin-bottom: $global-mrg;
+                width: 100%;
+            }
+        }
+    }
+}

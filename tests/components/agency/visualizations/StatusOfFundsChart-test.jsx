@@ -5,9 +5,9 @@
 
 import React from 'react';
 import { render, waitFor, screen } from 'test-utils';
-import * as api from "apis/agencyV2";
-import StatusOfFundsChart from "components/agencyV2/visualizations/StatusOfFundsChart";
-import VisualizationSection from 'components/agencyV2/statusOfFunds/VisualizationSection';
+import * as api from "apis/agency";
+import StatusOfFundsChart from "components/agency/visualizations/StatusOfFundsChart";
+import VisualizationSection from 'components/agency/statusOfFunds/VisualizationSection';
 import { defaultState } from "../../../testResources/defaultReduxFilters";
 
 const mockChartData = {

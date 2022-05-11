@@ -25,7 +25,7 @@ const StateLandingPage = React.lazy(() => import('components/stateLanding/StateL
 const StateContainer = React.lazy(() => import('containers/state/StateContainer').then((comp) => comp));
 const RecipientLandingPage = React.lazy(() => import('components/recipientLanding/RecipientLandingPage').then((comp) => comp));
 const RecipientContainer = React.lazy(() => import('containers/recipient/RecipientContainer').then((comp) => comp));
-const AgencyProfileV2 = React.lazy(() => import('containers/agencyV2/AgencyContainerV2').then((comp) => comp));
+const AgencyProfile = React.lazy(() => import('containers/agency/AgencyContainer').then((comp) => comp));
 const DataSourcesAndMethodologiesPage = React.lazy(() => import('components/covid19/DataSourcesAndMethodologiesPage').then((comp) => comp));
 const OpportunityProjectPage = React.lazy(() => import('components/covid19/OpportunityProjectPage').then((comp) => comp));
 const Covid19Container = React.lazy(() => import('containers/covid19/Covid19Container').then((comp) => comp));
@@ -165,7 +165,7 @@ export const routes = [
     },
     {
         path: '/agency/:agencySlug',
-        component: AgencyProfileV2,
+        component: AgencyProfile,
         exact: true
     },
     {

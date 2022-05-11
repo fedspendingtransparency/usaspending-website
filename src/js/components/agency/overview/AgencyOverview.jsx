@@ -1,254 +1,114 @@
 /**
  * AgencyOverview.jsx
- * Created by Kevin Li 6/8/17
+ * Created by Lizzie Salita 3/16/21
  */
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { capitalize, throttle } from 'lodash';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-
-import * as MoneyFormatter from 'helpers/moneyFormatter';
-
-import { Glossary } from 'components/sharedComponents/icons/Icons';
-
-import HorizontalBarItem from '../visualizations/obligated/HorizontalBarItem';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { throttle } from 'lodash';
+import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
+import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
+import ReadMore from 'components/sharedComponents/ReadMore';
+import FySummary from './FySummary';
 
 const propTypes = {
-    agency: PropTypes.object,
-    activeFy: PropTypes.string,
-    asOfDate: PropTypes.string
+    fy: PropTypes.string,
+    dataThroughDate: PropTypes.string
 };
 
-export default class AgencyOverview extends React.PureComponent {
-    constructor(props) {
-        super(props);
+const AgencyOverview = ({ fy, dataThroughDate }) => {
+    const {
+        website,
+        mission,
+        congressionalJustification,
+        showAboutData
+    } = useSelector((state) => state.agency.overview);
 
-        this.state = {
-            hideLogo: true,
-            logo: '',
-            mission: '',
-            website: '',
-            congressionalJustificationUrl: '',
-            formattedBudgetAuthority: '',
-            percentageElement: '',
-            visualizationWidth: 0,
-            obligatedWidth: 0,
-            remainingWidth: 0
-        };
+    const [windowWidth, setWindowWidth] = useState(0);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
+    useEffect(() => {
+        const handleResize = throttle(() => {
+            const newWidth = window.innerWidth;
+            if (windowWidth !== newWidth) {
+                setWindowWidth(newWidth);
+                setIsMobile(newWidth < mediumScreen);
+            }
+        }, 50);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
-        this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
-    }
+    const missionBlock = (
+        <div className="agency-overview__data">
+            <h4>Agency Mission</h4>
+            <p>{mission || '--'}</p>
+        </div>
+    );
 
-    componentDidMount() {
-        this.handleWindowResize();
-        window.addEventListener('resize', this.handleWindowResize);
-        this.prepareOverview(this.props);
-    }
+    const aboutBlock = (
+        <div className="agency-overview__data">
+            <h4>About this Agency&apos;s Data</h4>
+            <p>
+                There is a 90 day delay in displaying contract award data, subcontract data,
+                and Account Breakdown by Award (File C) data for the Department of Defense (DOD).
+                For more information, visit our <Link to="/about?section=data-quality">About Page</Link>.
+                To see a complete list of this agency&apos;s submissions, visit our&nbsp;
+                <Link to="/submission-statistics/agency/097">Submission Statistics page</Link>.
+            </p>
+        </div>
+    );
 
-    componentDidUpdate(prevProps) {
-        if (prevProps.agency.id !== this.props.agency.id) {
-            this.prepareOverview(this.props);
-        }
-    }
+    const websiteBlock = (
+        <div className="agency-overview__data">
+            <h4>Website</h4>
+            {website ? <a href={website} target="_blank">{website}</a> : '--'}
+        </div>
+    );
 
-    componentWillUnmount() {
-        window.removeEventListener('resize', this.handleWindowResize);
-    }
+    const cjBlock = (
+        <div className="agency-overview__data">
+            <h4>Congressional Justification of Budget (CJ)</h4>
+            {congressionalJustification ?
+                (
+                    <a href={congressionalJustification} target="_blank">
+                        {congressionalJustification}
+                    </a>
+                ) : '--'}
+        </div>
+    );
 
-    prepareOverview(props) {
-        const { agency } = props;
-        let logo = null;
-        let hideLogo = 'hide';
-        if (agency.logo) {
-            hideLogo = '';
-            logo = (<img
-                src={`graphics/agency/${agency.logo}`}
-                alt={agency.name} />);
-        }
+    const content = isMobile ?
+        <>
+            {showAboutData ? aboutBlock : missionBlock}
+            <ReadMore>
+                {showAboutData && missionBlock}
+                {websiteBlock}
+                {cjBlock}
+            </ReadMore>
+        </>
+        :
+        <>
+            <FlexGridRow className="agency-overview__row">
+                <FlexGridCol width={8}>
+                    {showAboutData && aboutBlock}
+                    {missionBlock}
+                </FlexGridCol>
+                <FlexGridCol width={4}>
+                    {websiteBlock}
+                    {cjBlock}
+                </FlexGridCol>
+            </FlexGridRow>
+        </>;
 
-        let mission = 'Not available';
-        if (agency.mission) {
-            mission = agency.mission;
-        }
-
-        let website = 'Not available';
-        if (agency.website) {
-            website = (
-                <a
-                    className="agency-website"
-                    href={agency.website}
-                    target="_blank"
-                    rel="noopener noreferrer">
-                    {`${agency.website} `}
-                    <FontAwesomeIcon icon="external-link-alt" />
-                </a>
-            );
-        }
-        const cjUrl = agency.congressionalJustificationUrl
-            !== 'not available' ?
-            (
-                <a
-                    className="agency-website"
-                    href={agency.congressionalJustificationUrl}
-                    target="_blank"
-                    rel="noopener noreferrer">
-                    {`${agency.congressionalJustificationUrl} `}
-                    <FontAwesomeIcon icon="external-link-alt" />
-                </a>
-            ) : agency.congressionalJustificationUrl;
-
-
-        // Move props to variables for readability
-        const budgetAuthority = agency.budgetAuthority;
-
-        const federalBudget = agency.federalBudget;
-
-        // Generate Budget Authority string
-        const budgetAuthorityAmount = MoneyFormatter
-            .calculateUnitForSingleValue(budgetAuthority);
-        const formattedBudgetAuthority = `${MoneyFormatter
-            .formatMoneyWithPrecision(budgetAuthority / budgetAuthorityAmount.unit, 1)}
-        ${capitalize(budgetAuthorityAmount.longLabel)}`;
-
-        // Generate Percentage string
-        const percentage = MoneyFormatter.calculatePercentage(
-            budgetAuthority, federalBudget);
-        const percentageElement = (
-            <span className="authority-statement-percentage">{percentage}</span>
-        );
-
-        // Generate initial visualization size
-        let visualizationWidth = 0;
-        if (this.containerDiv) {
-            visualizationWidth = this.containerDiv.getBoundingClientRect().width;
-        }
-
-        this.setState({
-            hideLogo,
-            logo,
-            mission,
-            website,
-            cjUrl,
-            formattedBudgetAuthority,
-            percentageElement,
-            visualizationWidth
-        }, () => {
-            this.updateVisualizationState(props, visualizationWidth);
-        });
-    }
-
-    updateVisualizationState(props, visualizationWidth) {
-    // Generate visualization parameters
-        let obligatedWidth = 0;
-
-        // Only check the percentage width if the data is available
-        if (props.agency.budgetAuthority !== 0 && props.agency.federalBudget !== 0) {
-            const percentageNumber = props.agency.budgetAuthority / props.agency.federalBudget;
-            obligatedWidth = visualizationWidth * percentageNumber;
-        }
-
-        // Account for 10 pixels of left padding
-        const padding = 10;
-        const remainingWidth = visualizationWidth - obligatedWidth - padding;
-
-        this.setState({
-            visualizationWidth,
-            obligatedWidth,
-            remainingWidth
-        });
-    }
-
-    handleWindowResize() {
-    // determine if the width changed
-        const visualizationWidth = this.containerDiv.getBoundingClientRect().width;
-        if (this.state.visualizationWidth !== visualizationWidth) {
-            // width changed, update the visualization width
-            this.updateVisualizationState(this.props, visualizationWidth);
-        }
-    }
-
-    render() {
-        return (
-            <div
-                className="agency-overview"
-                id="agency-overview">
-                <div className="title-wrapper">
-                    <div className={`logo ${this.state.hideLogo}`}>
-                        {this.state.logo}
-                    </div>
-                    <div className="title">
-                        <h3>{this.props.agency.name}</h3>
-                    </div>
-                </div>
-                <hr className="results-divider" />
-                <div className="overview-content">
-                    <div className="agency-details">
-                        <h4>Agency Mission</h4>
-                        <p>{this.state.mission}</p>
-
-                        <div className="lower-details">
-                            <div className="group">
-                                <h5>Website</h5>
-                                <div className="agency-website">
-                                    {this.state.website}
-                                </div>
-                            </div>
-                            <div className="group">
-                                <h5>Congressional Justification of Budget (CJ)</h5>
-                                <div className="agency-website">
-                                    {this.state.cjUrl}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div
-                        className="budget-authority"
-                        ref={(div) => {
-                            this.containerDiv = div;
-                        }}>
-                        <h4>
-                            Budgetary Resources
-                            <a href={`agency/${this.props.agency.id}?glossary=budgetary-resources`}>
-                                <Glossary />
-                            </a>
-                            for FY {this.props.activeFy}
-                        </h4>
-                        <div className="budget-authority-date">
-                            <em>
-                                FY {this.props.activeFy} data reported
-                                through {this.props.asOfDate}
-                            </em>
-                        </div>
-                        <div className="authority-amount">
-                            {this.state.formattedBudgetAuthority}
-                        </div>
-                        <div className="authority-statement">
-                            This is {this.state.percentageElement} of the total U.S.
-                            federal budgetary resources for FY {this.props.activeFy}.
-                        </div>
-                        <svg className="horizontal-bar">
-                            <g>
-                                <HorizontalBarItem
-                                    description="Budgetary Resources"
-                                    x={0}
-                                    y={0}
-                                    width={this.state.obligatedWidth}
-                                    color="#597785" />
-                                <HorizontalBarItem
-                                    description="Remaining United States federal budget"
-                                    x={this.state.obligatedWidth}
-                                    y={0}
-                                    width={this.state.remainingWidth}
-                                    color="#D8D8D8" />
-                            </g>
-                        </svg>
-                    </div>
-                </div>
-            </div>
-        );
-    }
-}
+    return (
+        <div className="body__content agency-overview">
+            {content}
+            <FySummary fy={fy} dataThroughDate={dataThroughDate} windowWidth={windowWidth} isMobile={isMobile} />
+        </div>
+    );
+};
 
 AgencyOverview.propTypes = propTypes;
+export default AgencyOverview;
