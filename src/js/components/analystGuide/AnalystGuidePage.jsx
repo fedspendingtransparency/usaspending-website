@@ -10,6 +10,7 @@ import { faFileDownload } from "@fortawesome/free-solid-svg-icons";
 import 'pages/analystGuide/analystGuide.scss';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import { useDispatch } from "react-redux";
+
 import { showModal } from 'redux/actions/modal/modalActions';
 import AnalystGuideHeader from './AnalystGuideHeader';
 import PageWrapper from "../sharedComponents/PageWrapper";

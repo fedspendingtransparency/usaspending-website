@@ -22,11 +22,10 @@
     display: flex;
     vertical-align: center;
     .analyst-guide__share-wrapper {
-      @include button-link;
       &:hover {
         color: $color-primary-darker;
-        text-decoration: underline;
       }
+      color: $color-primary;
       margin-top: $global-margin * 4;
       margin-left: -24px;
       margin-right: -12px;
@@ -74,7 +73,6 @@
       left: 10px;
       &:hover {
         color: $color-primary-darker;
-        text-decoration: underline;
       }
       @media (min-width: $medium-screen) {
         margin-left: 0px;
@@ -92,7 +90,6 @@
         }
         &:hover {
           color: $color-primary-darker;
-          text-decoration: underline;
         }
 
         .analyst-guide__download-icon {
