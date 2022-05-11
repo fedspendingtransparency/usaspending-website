@@ -11,7 +11,7 @@ import { useQueryParams } from 'helpers/queryParams';
 import BaseOverview from 'models/v2/covid19/BaseOverview';
 import { fetchOverview, fetchAwardAmounts } from 'apis/disaster';
 import { useDefCodes } from 'containers/covid19/WithDefCodes';
-import { useAgencySlugs } from 'containers/agencyV2/WithAgencySlugs';
+import { useAgencySlugs } from 'containers/agency/WithAgencySlugs';
 import { setOverview, setTotals, setDefcParams, resetOverview } from 'redux/actions/covid19/covid19Actions';
 import { defcByPublicLaw } from 'dataMapping/covid19/covid19';
 import Covid19Page from 'components/covid19/Covid19Page';

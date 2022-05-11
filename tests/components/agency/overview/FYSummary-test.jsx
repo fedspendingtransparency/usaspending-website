@@ -8,18 +8,18 @@ import { render, waitFor } from 'test-utils';
 import * as redux from 'react-redux';
 import { List } from "immutable";
 
-import * as helpers from 'apis/agencyV2';
+import * as helpers from 'apis/agency';
 import * as accountHooks from 'containers/account/WithLatestFy';
 
-import FYSummary from 'components/agencyV2/overview/FySummary';
+import FYSummary from 'components/agency/overview/FySummary';
 import BaseAgencyRecipients from 'models/v2/agency/BaseAgencyRecipients';
 
 import { mockTotalBudgetaryResources } from './mockData';
 
 // mock the child components
-jest.mock('containers/agencyV2/visualizations/TotalObligationsOverTimeContainer', () => jest.fn(() => null));
-jest.mock('containers/agencyV2/visualizations/ObligationsByAwardTypeContainer', () => jest.fn(() => null));
-jest.mock('containers/agencyV2/visualizations/RecipientDistributionContainer', () => jest.fn(() => null));
+jest.mock('containers/agency/visualizations/TotalObligationsOverTimeContainer', () => jest.fn(() => null));
+jest.mock('containers/agency/visualizations/ObligationsByAwardTypeContainer', () => jest.fn(() => null));
+jest.mock('containers/agency/visualizations/RecipientDistributionContainer', () => jest.fn(() => null));
 
 const recipientDistribution = Object.create(BaseAgencyRecipients);
 recipientDistribution.populate({
