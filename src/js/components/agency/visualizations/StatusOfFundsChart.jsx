@@ -375,7 +375,6 @@ const StatusOfFundsChart = ({
             setIsHovered(true);
             setHoverData(d);
             tooltip(hoverData);
-            console.log(hoverData);
         });
         svg.selectAll(".bar-group").on('mouseleave', () => {
             setIsHovered(false);
