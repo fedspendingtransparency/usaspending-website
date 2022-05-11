@@ -22,11 +22,14 @@
     display: flex;
     vertical-align: center;
     .analyst-guide__share-wrapper {
-      color: $color-primary;
-      background-color: white;
+      @include button-link;
+      &:hover {
+        color: $color-primary-darker;
+        text-decoration: underline;
+      }
       margin-top: $global-margin * 4;
       margin-left: -24px;
-      margin-right: -10px;
+      margin-right: -12px;
       @media (min-width: $medium-screen) {
         margin-left: -40px;
         margin-right: -10px;
@@ -69,6 +72,10 @@
       background-color: white;
       margin-top: $global-margin * 4;
       left: 10px;
+      &:hover {
+        color: $color-primary-darker;
+        text-decoration: underline;
+      }
       @media (min-width: $medium-screen) {
         margin-left: 0px;
       }
@@ -77,6 +84,7 @@
         @include button-link;
         padding: 0px 20px 0px 20px;
         margin-top: 10px;
+        margin-bottom: 6px;
         @media (min-width: $medium-screen) {
           padding: 0px 20px 7px 20px;
           margin-top: 10px;
