@@ -7,16 +7,18 @@ import PropTypes from 'prop-types';
 
 const propTypes = {
     label: PropTypes.string,
-    onToggle: PropTypes.func
+    onToggle: PropTypes.func,
+    toggle: PropTypes.bool
 };
 
 const RoundedToggle = ({
-    label, onToggle
+    label, onToggle, toggle
 }) => (
     <div className="rounded-toggle__wrapper">
         <p className="rounded-toggle__label">{label}</p>
         <label className="rounded-toggle__switch">
-            <input type="checkbox" onClick={onToggle} />
+            {toggle && <input type="checkbox" onClick={onToggle} checked />}
+            {!toggle && <input type="checkbox" onClick={onToggle} />}
             <span className="rounded-toggle__slider rounded-toggle__round" />
         </label>
     </div>

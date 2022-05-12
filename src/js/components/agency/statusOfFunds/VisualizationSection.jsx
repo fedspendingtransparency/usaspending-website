@@ -49,7 +49,7 @@ const VisualizationSection = ({
     <div className="status-of-funds__visualization">
         <h6>{level === 1 ? selectedSubcomponent?.name : agencyName} by <strong>{levels[level]}</strong> for FY {fy}</h6>
         <div className="status-of-funds__controls">
-            <RoundedToggle onToggle={onToggle} label="View Outlays" />
+            <RoundedToggle toggle={toggle} onToggle={onToggle} label="View Outlays" />
         </div>
         <div className="status-of-funds__visualization-chart">
             <StatusOfFundsChart toggle={toggle} fetchFederalAccounts={fetchFederalAccounts} totalItems={totalItems} setTotalItems={setTotalItems} loading={loading} setLoading={setLoading} fy={fy} results={results} level={level} setLevel={setLevel} />

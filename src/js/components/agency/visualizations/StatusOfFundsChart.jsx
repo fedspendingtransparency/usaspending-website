@@ -183,8 +183,8 @@ const StatusOfFundsChart = ({
                             <div
                                 className="tooltip__circle"
                                 style={!toggle ? { backgroundColor: '#BBDFC7' } : { backgroundColor: 'transparent' }} />
-                            <div className="tooltip__text-label">FY{fy[2]}{fy[3]} Total Budgetary<br />Resources</div>
-                            <div className="tooltip__text-amount">{data.budgetaryResources}</div>
+                            {!toggle && <div className="tooltip__text-label">FY{fy[2]}{fy[3]} Total Budgetary<br />Resources</div>}
+                            {!toggle && <div className="tooltip__text-amount">{data.budgetaryResources}</div>}
                         </div>
                         {level === 0 && (<><hr /><div className="tooltip__text-note">Click bar to view Federal Accounts</div></>)}
                     </div>
@@ -525,8 +525,8 @@ const StatusOfFundsChart = ({
                 <div className="legend__item">
                     <div
                         className="legend__circle"
-                        style={!toggle ? { backgroundColor: '#BBDFC7' } : { backgroundColor: 'transparent' }} />
-                    <div className="legend__text">FY{fy[2]}{fy[3]} Total Budgetary Resources</div>
+                        style={!toggle ? { backgroundColor: '#BBDFC7' } : { display: 'transparent' }} />
+                    {!toggle && <div className="legend__text">FY{fy[2]}{fy[3]} Total Budgetary Resources</div>}
                 </div>
             </FlexGridRow>
         </>
