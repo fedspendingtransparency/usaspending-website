@@ -426,11 +426,11 @@ const StatusOfFundsChart = ({
             const x = scaleLinear()
                 .range([0, isLargeScreen ? chartWidth + 289 : chartWidth + 80]);
 
-            const drawNegativeObligations = (data) => {
-                if (data._obligations < 0) {
-                    return (Math.abs(x(0) - x(data._obligations))) + 7;
+            const drawNegativeOutlays = (data) => {
+                if (data._outlays < 0) {
+                    return (Math.abs(x(0) - x(data._outlays))) + 7;
                 }
-                return (Math.abs(x(0) - x(data._obligations))) + 2;
+                return (Math.abs(x(0) - x(data._outlays))) + 2;
             };
 
             // append the svg object to the div
@@ -447,11 +447,11 @@ const StatusOfFundsChart = ({
             const tickMobileXAxis = isLargeScreen ? 'translate(-130,0)' : 'translate(90, 0)';
             const tickMobileYAxis = isLargeScreen ? 'translate(-150,16)' : 'translate(60, 0)';
             // scale to x and y data points
-            if (sortedNums[sortedNums.length - 1]._obligations < 0) {
-                x.domain(d3.extent(sortedNums, (d) => d._obligations)).nice(2);
+            if (sortedNums[sortedNums.length - 1]._outlays < 0) {
+                x.domain(d3.extent(sortedNums, (d) => d._outlays)).nice(2);
             }
             else {
-                x.domain([0, Math.max(sortedNums[0]._budgetaryResources, sortedNums[0]._obligations)]).nice(2);
+                x.domain([0, Math.max(sortedNums[0]._budgetaryResources, sortedNums[0]._outlays)]).nice(2);
             }
             // extract sorted agency names
             for (let i = 0; i < sortedNums.length; i++) {
@@ -501,7 +501,7 @@ const StatusOfFundsChart = ({
                 .attr("x1", -10)
                 .attr("y1", 0)
                 .attr("x2", () => {
-                    if (sortedNums[0]._obligations < 0) {
+                    if (sortedNums[0]._outlays < 0) {
                         return x(0);
                     }
                     return isLargeScreen ? chartWidth + 330 : chartWidth + 81;
@@ -518,8 +518,9 @@ const StatusOfFundsChart = ({
                 .attr('aria-describedby', (d) => `y axis label-${d}`)
                 .style('fill', '#555')
                 .style("font-family", 'Source Sans Pro')
-                .style('font-size', '1.45rem')
+                .style('font-size', '2rem')
                 .attr("transform", `scale(${textScale} ${textScale})`)
+                .attr("transform", "translate(0,20)")
                 .text((d) => truncateTextLabel(d))
                 .call(isLargeScreen ? wrapTextMobile : wrapText);
             const tickLabelsY = d3.selectAll(".y-axis-labels");
@@ -540,7 +541,8 @@ const StatusOfFundsChart = ({
                 .enter()
                 .append('g')
                 .attr('class', 'bar-group')
-                .attr('tabindex', 0);
+                .attr('tabindex', 0)
+                .attr('transform', "translate(0,15)");
             barGroups.append("rect")
                 .attr('transform', tickMobileXAxis)
                 .attr("x", -8)
@@ -587,31 +589,31 @@ const StatusOfFundsChart = ({
                 .attr('fill', 'url(#diagonalHatch)');
 
             // append total obligations bars
-            // barGroups.append("rect")
-            //     .attr('transform', tickMobileXAxis)
-            //     .attr("x", (d) => {
-            //         if (d._obligations < 0) {
-            //             return x(Math.min(0, d._obligations)) - 8;
-            //         }
-            //         if (!isNegative) {
-            //             return x(0) - 8;
-            //         }
-            //         return x(0);
-            //     })
-            //     .attr("y", (d) => (isLargeScreen ? y(d.name) + 80 : y(d.name) + 40))
-            //     .attr("width", (d) => {
-            //         if (isNegative) {
-            //             return drawNegativeObligations(d);
-            //         }
-            //         if (d._obligations === 0) {
-            //             return 0;
-            //         }
-            //         return x(d._obligations) + 11;
-            //     })
-            //     .attr("height", y.bandwidth() - 36)
-            //     .attr("fill", "#FFBE2E")
-            //     .attr('class', 'hbars')
-            //     .attr('id', 'obl-bar');
+            barGroups.append("rect")
+                .attr('transform', tickMobileXAxis)
+                .attr("x", (d) => {
+                    if (d._outlays < 0) {
+                        return x(Math.min(0, d._outlays)) - 8;
+                    }
+                    if (!isNegative) {
+                        return x(0) - 8;
+                    }
+                    return x(0);
+                })
+                .attr("y", (d) => (isLargeScreen ? y(d.name) + 80 : y(d.name) + 80))
+                .attr("width", (d) => {
+                    if (isNegative) {
+                        return drawNegativeOutlays(d);
+                    }
+                    if (d._outlays === 0) {
+                        return 0;
+                    }
+                    return x(d._outlays) + 11;
+                })
+                .attr("height", y.bandwidth() - 36)
+                .attr("fill", "#FFBE2E")
+                .attr('class', 'hbars')
+                .attr('id', 'out-bar');
 
             if (isNegative) {
                 svg.selectAll('#tbr-bar').remove();
@@ -674,10 +676,18 @@ const StatusOfFundsChart = ({
 
     useEffect(() => {
         if (results?.length > 0) {
-            setSortedNums(results.sort((a, b) => (a._budgetaryResources > b._obligations ? b._budgetaryResources - a._budgetaryResources : b._obligations - a._obligations)));
-            if (results[results.length - 1]._obligations < 0) {
-                setSortedNums(results.sort((a, b) => (a.obligations > b._obligations ? b._budgetaryResources - a._budgetaryResources : b._obligations - a._obligations)));
-                setIsNegative(true);
+            if (!toggle) {
+                setSortedNums(results.sort((a, b) => (a._budgetaryResources > b._obligations ? b._budgetaryResources - a._budgetaryResources : b._obligations - a._obligations)));
+                if (results[results.length - 1]._obligations < 0) {
+                    setSortedNums(results.sort((a, b) => (a.obligations > b._obligations ? b._budgetaryResources - a._budgetaryResources : b._obligations - a._obligations)));
+                    setIsNegative(true);
+                }
+            } else {
+                setSortedNums(results.sort((a, b) => (a._budgetaryResources > b._outlays ? b._budgetaryResources - a._budgetaryResources : b._outlays - a._outlays)));
+                if (results[results.length - 1]._obligations < 0) {
+                    setSortedNums(results.sort((a, b) => (a.obligations > b._outlays ? b._budgetaryResources - a._budgetaryResources : b._outlays - a._outlays)));
+                    setIsNegative(true);
+                }
             }
         }
     }, [results]);
