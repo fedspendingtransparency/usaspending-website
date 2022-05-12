@@ -176,8 +176,9 @@ const StatusOfFundsChart = ({
                             <div
                                 className="tooltip__circle"
                                 style={!toggle ? { backgroundColor: '#2B71B8' } : { backgroundColor: '#FFBE2E' }} />
-                            <div className="tooltip__text-label">FY{fy[2]}{fy[3]} Obligations</div>
-                            <div className="tooltip__text-amount">{data.obligations}</div>
+                            {!toggle && <div className="tooltip__text-label">FY{fy[2]}{fy[3]} Obligations</div> }
+                            {!toggle && <div className="tooltip__text-amount">{data.obligations}</div>}
+                            {toggle && <div className="tooltip__text-label">FY{fy[2]}{fy[3]} Outlays</div> }
                         </div>
                         <div className="tooltip__item">
                             <div
@@ -554,12 +555,37 @@ const StatusOfFundsChart = ({
             barGroups.append("rect")
                 .attr('transform', tickMobileXAxis)
                 .attr("x", -8)
-                .attr("y", (d) => (isLargeScreen ? y(d.name) + 80 : y(d.name) + 75))
+                .attr("y", (d) => (isLargeScreen ? y(d.name) + 80 : y(d.name) + 40))
                 .attr("width", (d) => x(d._budgetaryResources) + 11)
                 .attr("height", y.bandwidth() - 36)
-                .attr("fill", "#FFBE2E")
                 .attr('class', 'hbars')
                 .attr('id', 'tbr-bar');
+
+            const pattern = d3.select("tbr-bar");
+            pattern
+                .append('defs')
+                .append('pattern')
+                .attr('id', 'diagonalHatch')
+                .attr('patternUnits', 'userSpaceOnUse')
+                .attr('width', 2)
+                .attr('height', 2)
+                .append('path')
+                .attr('d', 'M-1,1 l2,-2 M0,4 l4,-4 M3,5 l2,-2')
+                .attr('stroke', '#d6d7d8')
+                .attr('stroke-width', 1);
+
+            pattern.append("rect")
+                .attr("x", 0)
+                .attr("width", 100)
+                .attr("height", 100)
+                .style("fill", 'yellow');
+
+            pattern.append("rect")
+                .attr("x", 0)
+                .attr("width", 100)
+                .attr("height", 100)
+                .attr('fill', 'url(#diagonalHatch)');
+
             // append total obligations bars
             // barGroups.append("rect")
             //     .attr('transform', tickMobileXAxis)
@@ -683,7 +709,9 @@ const StatusOfFundsChart = ({
                     <div
                         className="legend__circle"
                         style={!toggle ? { backgroundColor: '#2B71B8' } : { backgroundColor: '#FFBE2E' }} />
-                    <div className="legend__text">FY{fy[2]}{fy[3]} Obligations</div>&nbsp;&nbsp;&nbsp;&nbsp;
+                    {!toggle && <div className="legend__text">FY{fy[2]}{fy[3]} Obligations</div>}
+                    {toggle && <div className="legend__text">FY{fy[2]}{fy[3]} Outlays</div>}
+                    &nbsp;&nbsp;&nbsp;&nbsp;
                 </div>
                 <div className="legend__item">
                     <div
