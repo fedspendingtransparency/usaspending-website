@@ -17,7 +17,7 @@ const RoundedToggle = ({
     <div className="rounded-toggle__wrapper">
         <p className="rounded-toggle__label">{label}</p>
         <label className="rounded-toggle__switch">
-            {toggle && <input type="checkbox" onClick={onToggle} checked />}
+            {toggle && <input type="checkbox" onClick={onToggle} defaultChecked />}
             {!toggle && <input type="checkbox" onClick={onToggle} />}
             <span className="rounded-toggle__slider rounded-toggle__round" />
         </label>
