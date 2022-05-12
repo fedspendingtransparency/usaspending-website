@@ -33,9 +33,13 @@
         margin-left: -40px;
         margin-right: -12px;
       }
+
+      .usda-share-icon .usa-dt-picker__dropdown-container {
+        @include button-link;
+      }
   
       .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__button {
-        margin: 0 0.625rem;
+        margin: 0 0.5rem;
       }
 
       .usda-share-icon .usa-dt-picker__dropdown-container .usa-dt-picker__button svg {
