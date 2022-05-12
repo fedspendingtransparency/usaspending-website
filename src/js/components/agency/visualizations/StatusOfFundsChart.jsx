@@ -10,11 +10,12 @@ const propTypes = {
     fy: PropTypes.string,
     results: PropTypes.array,
     level: PropTypes.number.isRequired,
-    setLevel: PropTypes.func
+    setLevel: PropTypes.func,
+    toggle: PropTypes.bool
 };
 
 const StatusOfFundsChart = ({
-    results, fy, setLevel, level
+    results, fy, setLevel, level, toggle
 }) => {
     const chartRef = useRef();
 
@@ -67,7 +68,13 @@ const StatusOfFundsChart = ({
     useEffect(() => {
         document.getElementById('sof_chart').addEventListener('mousemove', setMouseData);
         return () => document.getElementById('sof_chart').removeEventListener('mousemove', setMouseData);
-    }, []);
+    }, [setMouseData]);
+
+    useEffect(() => {
+        if (toggle) {
+            console.debug("yeet");
+        }
+    }, [toggle]);
 
     useEffect(() => {
         setTextScale(viewWidth / chartRef.current.getBoundingClientRect().width);
@@ -83,7 +90,7 @@ const StatusOfFundsChart = ({
         }, 50);
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-    }, []);
+    }, [windowWidth]);
 
 
     // Wrap y axis labels - reference https://bl.ocks.org/mbostock/7555321
@@ -168,14 +175,14 @@ const StatusOfFundsChart = ({
                         <div className="tooltip__item">
                             <div
                                 className="tooltip__circle"
-                                style={{ 'background-color': '#2B71B8' }} />
+                                style={!toggle ? { backgroundColor: '#2B71B8' } : { backgroundColor: '#FFBE2E' }} />
                             <div className="tooltip__text-label">FY{fy[2]}{fy[3]} Obligations</div>
                             <div className="tooltip__text-amount">{data.obligations}</div>
                         </div>
                         <div className="tooltip__item">
                             <div
                                 className="tooltip__circle"
-                                style={{ 'background-color': '#BBDFC7' }} />
+                                style={!toggle ? { backgroundColor: '#BBDFC7' } : { backgroundColor: 'transparent' }} />
                             <div className="tooltip__text-label">FY{fy[2]}{fy[3]} Total Budgetary<br />Resources</div>
                             <div className="tooltip__text-amount">{data.budgetaryResources}</div>
                         </div>
@@ -188,7 +195,7 @@ const StatusOfFundsChart = ({
     };
 
     const renderChart = () => {
-    // setup x and y scales
+        // setup x and y scales
         const y = scaleBand()
             .range([0, isMobile ? viewHeight * 2.3 : chartHeightYScale()])
             .padding(isMobile ? 0.5 : paddingResize());
@@ -301,61 +308,122 @@ const StatusOfFundsChart = ({
                 d3.select(this).remove();
             }
         });
+
+
+        if (!toggle) {
         // create bar group <g>'s for each bar component
-        const barGroups = svg.append('g')
-            .attr('class', 'parent-g')
-            .selectAll('.bar-group')
-            .data(sortedNums)
-            .enter()
-            .append('g')
-            .attr('class', 'bar-group')
-            .attr('tabindex', 0);
-        barGroups.append("rect")
-            .attr('transform', tickMobileXAxis)
-            .attr("x", -8)
-            .attr("y", (d) => (isLargeScreen ? y(d.name) + 80 : y(d.name) + 40))
-            .attr("width", isLargeScreen ? chartWidth + 340 : chartWidth + 90)
-            .attr("height", y.bandwidth() - 36)
-            .attr("fill", "#fff")
-            .attr("stroke", "#f1f1f1")
-            .attr('class', 'hbars')
-            .attr('id', 'hlines');
-        // append total budgetary resources bars
-        barGroups.append("rect")
-            .attr('transform', tickMobileXAxis)
-            .attr("x", -8)
-            .attr("y", (d) => (isLargeScreen ? y(d.name) + 80 : y(d.name) + 40))
-            .attr("width", (d) => x(d._budgetaryResources) + 11)
-            .attr("height", y.bandwidth() - 36)
-            .attr("fill", "#BBDFC7")
-            .attr('class', 'hbars')
-            .attr('id', 'tbr-bar');
-        // append total obligations bars
-        barGroups.append("rect")
-            .attr('transform', tickMobileXAxis)
-            .attr("x", (d) => {
-                if (d._obligations < 0) {
-                    return x(Math.min(0, d._obligations)) - 8;
-                }
-                if (!isNegative) {
-                    return x(0) - 8;
-                }
-                return x(0);
-            })
-            .attr("y", (d) => (isLargeScreen ? y(d.name) + 80 : y(d.name) + 40))
-            .attr("width", (d) => {
-                if (isNegative) {
-                    return drawNegativeObligations(d);
-                }
-                if (d._obligations === 0) {
-                    return 0;
-                }
-                return x(d._obligations) + 11;
-            })
-            .attr("height", y.bandwidth() - 36)
-            .attr("fill", "#2B71B8")
-            .attr('class', 'hbars')
-            .attr('id', 'obl-bar');
+            const barGroups = svg.append('g')
+                .attr('class', 'parent-g')
+                .selectAll('.bar-group')
+                .data(sortedNums)
+                .enter()
+                .append('g')
+                .attr('class', 'bar-group')
+                .attr('tabindex', 0);
+            barGroups.append("rect")
+                .attr('transform', tickMobileXAxis)
+                .attr("x", -8)
+                .attr("y", (d) => (isLargeScreen ? y(d.name) + 80 : y(d.name) + 40))
+                .attr("width", isLargeScreen ? chartWidth + 340 : chartWidth + 90)
+                .attr("height", y.bandwidth() - 36)
+                .attr("fill", "#fff")
+                .attr("stroke", "#f1f1f1")
+                .attr('class', 'hbars')
+                .attr('id', 'hlines');
+            // append total budgetary resources bars
+            barGroups.append("rect")
+                .attr('transform', tickMobileXAxis)
+                .attr("x", -8)
+                .attr("y", (d) => (isLargeScreen ? y(d.name) + 80 : y(d.name) + 40))
+                .attr("width", (d) => x(d._budgetaryResources) + 11)
+                .attr("height", y.bandwidth() - 36)
+                .attr("fill", "#BBDFC7")
+                .attr('class', 'hbars')
+                .attr('id', 'tbr-bar');
+            // append total obligations bars
+            barGroups.append("rect")
+                .attr('transform', tickMobileXAxis)
+                .attr("x", (d) => {
+                    if (d._obligations < 0) {
+                        return x(Math.min(0, d._obligations)) - 8;
+                    }
+                    if (!isNegative) {
+                        return x(0) - 8;
+                    }
+                    return x(0);
+                })
+                .attr("y", (d) => (isLargeScreen ? y(d.name) + 80 : y(d.name) + 40))
+                .attr("width", (d) => {
+                    if (isNegative) {
+                        return drawNegativeObligations(d);
+                    }
+                    if (d._obligations === 0) {
+                        return 0;
+                    }
+                    return x(d._obligations) + 11;
+                })
+                .attr("height", y.bandwidth() - 36)
+                .attr("fill", "#2B71B8")
+                .attr('class', 'hbars')
+                .attr('id', 'obl-bar');
+        }
+        else {
+            // create bar group <g>'s for each bar component
+            const barGroups = svg.append('g')
+                .attr('class', 'parent-g')
+                .selectAll('.bar-group')
+                .data(sortedNums)
+                .enter()
+                .append('g')
+                .attr('class', 'bar-group')
+                .attr('tabindex', 0);
+            barGroups.append("rect")
+                .attr('transform', tickMobileXAxis)
+                .attr("x", -8)
+                .attr("y", (d) => (isLargeScreen ? y(d.name) + 80 : y(d.name) + 40))
+                .attr("width", isLargeScreen ? chartWidth + 340 : chartWidth + 90)
+                .attr("height", y.bandwidth() - 36)
+                .attr("fill", "#fff")
+                .attr("stroke", "#f1f1f1")
+                .attr('class', 'hbars')
+                .attr('id', 'hlines');
+            // append total budgetary resources bars
+            barGroups.append("rect")
+                .attr('transform', tickMobileXAxis)
+                .attr("x", -8)
+                .attr("y", (d) => (isLargeScreen ? y(d.name) + 80 : y(d.name) + 40))
+                .attr("width", (d) => x(d._budgetaryResources) + 11)
+                .attr("height", y.bandwidth() - 36)
+                .attr("fill", "transparent")
+                .attr('class', 'hbars')
+                .attr('id', 'tbr-bar');
+            // append total obligations bars
+            barGroups.append("rect")
+                .attr('transform', tickMobileXAxis)
+                .attr("x", (d) => {
+                    if (d._obligations < 0) {
+                        return x(Math.min(0, d._obligations)) - 8;
+                    }
+                    if (!isNegative) {
+                        return x(0) - 8;
+                    }
+                    return x(0);
+                })
+                .attr("y", (d) => (isLargeScreen ? y(d.name) + 80 : y(d.name) + 40))
+                .attr("width", (d) => {
+                    if (isNegative) {
+                        return drawNegativeObligations(d);
+                    }
+                    if (d._obligations === 0) {
+                        return 0;
+                    }
+                    return x(d._obligations) + 11;
+                })
+                .attr("height", y.bandwidth() - 36)
+                .attr("fill", "#FFBE2E")
+                .attr('class', 'hbars')
+                .attr('id', 'obl-bar');
+        }
 
         if (isNegative) {
             svg.selectAll('#tbr-bar').remove();
@@ -411,9 +479,9 @@ const StatusOfFundsChart = ({
 
     useEffect(() => {
         if (sortedNums?.length > 0) {
-            renderChart();
+            renderChart(toggle);
         }
-    }, [renderChart, sortedNums, textScale, hoverData]);
+    }, [renderChart, sortedNums, textScale, hoverData, toggle]);
 
     useEffect(() => {
         if (results?.length > 0) {
@@ -442,8 +510,8 @@ const StatusOfFundsChart = ({
                     controlledProps={{
                         isControlled: true,
                         isVisible: isHovered,
-                        showTooltip: () => {},
-                        closeTooltip: () => {}
+                        showTooltip: () => { },
+                        closeTooltip: () => { }
                     }} />
             }
             <div id="sof_chart" className="status-of-funds__visualization" ref={chartRef} />
@@ -451,13 +519,13 @@ const StatusOfFundsChart = ({
                 <div className="legend__item">
                     <div
                         className="legend__circle"
-                        style={{ backgroundColor: '#2B71B8' }} />
+                        style={!toggle ? { backgroundColor: '#2B71B8' } : { backgroundColor: '#FFBE2E' }} />
                     <div className="legend__text">FY{fy[2]}{fy[3]} Obligations</div>&nbsp;&nbsp;&nbsp;&nbsp;
                 </div>
                 <div className="legend__item">
                     <div
                         className="legend__circle"
-                        style={{ backgroundColor: '#BBDFC7' }} />
+                        style={!toggle ? { backgroundColor: '#BBDFC7' } : { backgroundColor: 'transparent' }} />
                     <div className="legend__text">FY{fy[2]}{fy[3]} Total Budgetary Resources</div>
                 </div>
             </FlexGridRow>

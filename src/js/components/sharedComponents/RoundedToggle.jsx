@@ -6,16 +6,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const propTypes = {
-    label: PropTypes.string
+    label: PropTypes.string,
+    onToggle: PropTypes.func
 };
 
 const RoundedToggle = ({
-    label
+    label, onToggle
 }) => (
     <div className="rounded-toggle__wrapper">
         <p className="rounded-toggle__label">{label}</p>
         <label className="rounded-toggle__switch">
-            <input type="checkbox" />
+            <input type="checkbox" onClick={onToggle} />
             <span className="rounded-toggle__slider rounded-toggle__round" />
         </label>
     </div>
