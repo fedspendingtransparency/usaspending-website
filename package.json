@@ -124,7 +124,7 @@
         "prop-types": "^15.7.2",
         "react": "^16.13.1",
         "react-aria-modal": "^2.7.0",
-        "react-checkbox-tree": "^1.7.2",
+        "react-checkbox-tree": "1.5.1",
         "react-copy-to-clipboard": "^5.0.1",
         "react-custom-scrollbars": "^4.1.2",
         "react-day-picker": "^7.0.2",

@@ -430,9 +430,10 @@ export const addChildrenAndPossiblyPlaceholder = (children, parent, hide = true)
             }));
     }
 
-    return hide
-        ? children.map((c) => ({ ...c, className: 'hide' }))
-        : children;
+    return children;
+    // return hide
+    //     ? children.map((c) => ({ ...c, className: 'hide' }))
+    //     : children;
 };
 
 /**

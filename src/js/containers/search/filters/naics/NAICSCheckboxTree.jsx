@@ -24,8 +24,7 @@ import {
 } from 'helpers/naicsHelper';
 
 import {
-    getAllDescendants,
-    doesMeetMinimumCharsRequiredForSearch
+    getAllDescendants
 } from 'helpers/checkboxTreeHelper';
 
 import { naicsRequest } from 'helpers/searchHelper';
@@ -205,6 +204,7 @@ export class NAICSCheckboxTree extends React.Component {
 
     onClear = () => {
         if (this.request) this.request.cancel();
+        this.props.setExpandedNaics([], 'SET_SEARCHED_EXPANDED');
         this.props.showNaicsTree();
         this.setState({
             isSearch: false,
@@ -274,13 +274,18 @@ export class NAICSCheckboxTree extends React.Component {
         }
     };
 
+    doesMeetMinimumCharsRequiredForNaicsSearch = (str = '', charMinimum = 2) => (
+        str &&
+        str.length >= charMinimum
+    );
+
     handleTextInputChange = (e) => {
         e.persist();
         const text = e.target.value;
         if (!text) {
             return this.onClear();
         }
-        const shouldTriggerSearch = doesMeetMinimumCharsRequiredForSearch(text);
+        const shouldTriggerSearch = this.doesMeetMinimumCharsRequiredForNaicsSearch(text);
         if (shouldTriggerSearch) {
             return this.setState({
                 searchString: text,

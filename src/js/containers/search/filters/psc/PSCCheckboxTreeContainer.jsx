@@ -220,6 +220,7 @@ export class PSCCheckboxTreeContainer extends React.Component {
 
     onClear = () => {
         if (this.request) this.request.cancel();
+        this.props.setExpandedPsc([], 'SET_SEARCHED_EXPANDED');
         this.props.showPscTree();
         this.setState({
             isSearch: false,
@@ -361,17 +362,11 @@ export class PSCCheckboxTreeContainer extends React.Component {
         if (!text) {
             return this.onClear();
         }
-        const shouldTriggerSearch = doesMeetMinimumCharsRequiredForSearch(text);
-        if (shouldTriggerSearch) {
-            return this.setState({
-                searchString: text,
-                isSearch: true,
-                isLoading: true
-            }, this.onSearchChange);
-        }
         return this.setState({
-            searchString: text
-        });
+            searchString: text,
+            isSearch: true,
+            isLoading: true
+        }, this.onSearchChange);
     };
 
     render() {
