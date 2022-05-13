@@ -20,8 +20,7 @@ import {
     getAllDescendants,
     removePlaceholderString,
     getUniqueAncestorPaths,
-    trimCheckedToCommonAncestors,
-    doesMeetMinimumCharsRequiredForSearch
+    trimCheckedToCommonAncestors
 } from 'helpers/checkboxTreeHelper';
 
 import {
