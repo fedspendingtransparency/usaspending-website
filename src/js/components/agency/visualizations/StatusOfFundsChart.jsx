@@ -28,7 +28,7 @@ const StatusOfFundsChart = ({
     const [sortedNums, setSortedNums] = useState(null);
     const [hoverData, setHoverData] = useState(null);
 
-    const viewHeight = 860;
+    const viewHeight = 1160;
     const viewWidth = 1000;
     const margins = {
         top: 40, right: 0, bottom: 10, left: isLargeScreen ? 180 : 245
@@ -542,11 +542,11 @@ const StatusOfFundsChart = ({
                 .append('g')
                 .attr('class', 'bar-group')
                 .attr('tabindex', 0)
-                .attr('transform', "translate(0,-15)");
+                .attr('transform', "translate(0,-10)");
             barGroups.append("rect")
                 .attr('transform', tickMobileXAxis)
                 .attr("x", -8)
-                .attr("y", (d) => (isLargeScreen ? y(d.name) + 70 : y(d.name) + 40))
+                .attr("y", (d) => (isLargeScreen ? y(d.name) + 90 : y(d.name) + 40))
                 .attr("width", isLargeScreen ? chartWidth + 340 : chartWidth + 90)
                 .attr("height", y.bandwidth() - 46)
                 .attr("fill", "#fff")
@@ -557,10 +557,10 @@ const StatusOfFundsChart = ({
             barGroups.append("rect")
                 .attr('transform', tickMobileXAxis)
                 .attr("x", -8)
-                .attr("y", (d) => (isLargeScreen ? y(d.name) + 70 : y(d.name) + 40))
+                .attr("y", (d) => (isLargeScreen ? y(d.name) + 90 : y(d.name) + 40))
                 .attr("width", (d) => x(d._budgetaryResources) + 11)
-                .attr("height", y.bandwidth() - 46)
-                .attr("fill", "#D6D7D8")
+                .attr("height", y.bandwidth() - 76)
+                .attr("fill", "#555")
                 .attr('class', 'hbars')
                 .attr('id', 'tbr-bar');
 
@@ -602,7 +602,7 @@ const StatusOfFundsChart = ({
                     }
                     return x(0);
                 })
-                .attr("y", (d) => (isLargeScreen ? y(d.name) + 70 : y(d.name) + 80))
+                .attr("y", (d) => (isLargeScreen ? y(d.name) + 130 : y(d.name) + 80))
                 .attr("width", (d) => {
                     if (isNegative) {
                         return drawNegativeOutlays(d);
@@ -612,7 +612,7 @@ const StatusOfFundsChart = ({
                     }
                     return x(d._outlays) + 11;
                 })
-                .attr("height", y.bandwidth() - 46)
+                .attr("height", y.bandwidth() - 76)
                 .attr("fill", "#FFBE2E")
                 .attr('class', 'hbars')
                 .attr('id', 'out-bar');
