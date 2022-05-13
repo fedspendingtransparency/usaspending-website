@@ -61,7 +61,7 @@ export default class ExplorerTooltip extends React.Component {
     }
 
     positionTooltip() {
-        // measure the tooltip width
+    // measure the tooltip width
         const tooltipWidth = this.div.offsetWidth;
 
         let direction = 'top';

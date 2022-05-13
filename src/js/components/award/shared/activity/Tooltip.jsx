@@ -35,9 +35,9 @@ const Tooltip = ({ data }) => {
     return (
         <div className="tooltip">
             {data.title &&
-                <div className="tooltip__title">
-                    {data.title}
-                </div>}
+            <div className="tooltip__title">
+                {data.title}
+            </div>}
             <div className="tooltip-body">
                 {createSections()}
             </div>

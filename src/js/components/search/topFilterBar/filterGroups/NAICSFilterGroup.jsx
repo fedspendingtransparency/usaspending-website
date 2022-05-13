@@ -23,7 +23,7 @@ export default class NAICSFilterGroup extends React.Component {
     }
 
     removeFilter(value) {
-        // remove a single filter item
+    // remove a single filter item
         const newValue = this.props.redux.reduxFilters.selectedNAICS.delete(value);
         this.props.redux.updateGenericFilter({
             type: 'selectedNAICS',

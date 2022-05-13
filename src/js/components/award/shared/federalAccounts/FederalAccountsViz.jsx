@@ -122,6 +122,6 @@ export default class FederalAccountsViz extends React.Component {
             </div>
         );
     }
-};
+}
 
 FederalAccountsViz.propTypes = propTypes;

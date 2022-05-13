@@ -80,7 +80,7 @@ export const cleanPscData = (nodes) => cleanTreeData(nodes, pscKeyMap);
 export const removeStagedPscFilter = (
     nodes,
     checkedNodes,
-    removedNode,
+    removedNode
 ) => removeStagedFilter(
     nodes,
     checkedNodes,

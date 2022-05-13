@@ -140,7 +140,7 @@ export default class Autocomplete extends React.Component {
     }
 
     close() {
-        // clear the input value if not a valid selection
+    // clear the input value if not a valid selection
         if (this.props.retainValue && !this.state.staged) {
             this.clearInternalState();
         }
@@ -178,7 +178,7 @@ export default class Autocomplete extends React.Component {
     }
 
     checkValidity(input) {
-        // Hide any old warnings
+    // Hide any old warnings
         this.setState({
             showWarning: false
         });
@@ -197,8 +197,8 @@ export default class Autocomplete extends React.Component {
     }
 
     bubbleUpChange(selection) {
-        // Force the change up into the parent components
-        // Validate the current value is on the autocomplete list
+    // Force the change up into the parent components
+    // Validate the current value is on the autocomplete list
         let selectedItem = null;
         const isValid = this.isValidSelection(selection);
 

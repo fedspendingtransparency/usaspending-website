@@ -2,7 +2,7 @@ import fs from 'fs';
 import path from 'path';
 import { stateNameByFipsId } from '../src/js/dataMapping/state/stateNames';
 import { URLifyStateName } from '../src/js/helpers/stateHelper';
-import agencyIdsToSlugs from '../src/js/dataMapping/agencyV2/agencyIdsToSlugs';
+import agencyIdsToSlugs from '../src/js/dataMapping/agency/agencyIdsToSlugs';
 
 const legacyRedirects = {
     "^/Pages/Default.aspx/": "/",

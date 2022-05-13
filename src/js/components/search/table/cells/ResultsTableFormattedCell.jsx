@@ -29,8 +29,8 @@ export default class ResultsTableFormattedCell extends React.Component {
     }
 
     render() {
-        // cell needs to have some content or it will collapse
-        // replace with a &nbsp; if there's no data
+    // cell needs to have some content or it will collapse
+    // replace with a &nbsp; if there's no data
         let content = this.props.value;
         if (!content && content !== 0) {
             content = "\u00A0";

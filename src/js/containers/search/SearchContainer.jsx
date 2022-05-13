@@ -42,9 +42,9 @@ export const parseRemoteFilters = (data) => {
     const version = data.version;
 
     if (version !== filterStoreVersion) {
-        // versions don't match, don't populate the filters
-        // TODO: Kevin Li - figure out how we want to deal with Redux structure changes when
-        // a URL hash contains data that no longer applies to the current site
+    // versions don't match, don't populate the filters
+    // TODO: Kevin Li - figure out how we want to deal with Redux structure changes when
+    // a URL hash contains data that no longer applies to the current site
         console.info("version mismatch");
         return null;
     }
@@ -125,7 +125,7 @@ const SearchContainer = ({ history }) => {
     const { current: prevAppliedFilters } = prevAppliedFiltersRef;
 
     useEffect(() => {
-        // receiving filters from previous search via hash.
+    // receiving filters from previous search via hash.
         const shouldFetchRemoteFilters = (
             urlHash &&
             SearchHelper.areFiltersEqual(stagedFilters, initialState)
@@ -190,7 +190,7 @@ const SearchContainer = ({ history }) => {
     }, [areAppliedFiltersEmpty, urlHash]);
 
     const generateHash = useCallback(() => {
-        // POST an API request to retrieve the Redux state
+    // POST an API request to retrieve the Redux state
         if (generateHashInFlight) {
             return;
         }
@@ -221,7 +221,7 @@ const SearchContainer = ({ history }) => {
     }, [appliedFilters, generateHashInFlight]);
 
     useEffect(() => {
-        /**
+    /**
          * Conditions where we generate a new hash:
          * (1) First Search: applied filters have changed & are no longer empty
          * (2) Subsequent Searches: same as above except: (a) urlHash is present and (b) previous search was not empty

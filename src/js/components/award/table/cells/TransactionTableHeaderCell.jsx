@@ -30,7 +30,7 @@ export default class TransactionTableHeaderCell extends React.Component {
     }
 
     clickedHeader() {
-        // check if this is the field that is currently being used to sort
+    // check if this is the field that is currently being used to sort
         const apiFieldName = tableMapping.table._mapping[this.props.column] == null ?
             assistanceTableMapping.table._mapping[this.props.column] : tableMapping.table._mapping[this.props.column];
         if (apiFieldName === this.props.order.field) {
@@ -55,7 +55,7 @@ export default class TransactionTableHeaderCell extends React.Component {
     }
 
     forceDirection(e) {
-        // don't bubble down to the wrapper click event (which performs similar action)
+    // don't bubble down to the wrapper click event (which performs similar action)
         e.stopPropagation();
 
         const direction = e.currentTarget.value;
@@ -75,7 +75,7 @@ export default class TransactionTableHeaderCell extends React.Component {
     }
 
     render() {
-        // highlight the active arrows
+    // highlight the active arrows
         const apiFieldName = tableMapping.table._mapping[this.props.column] == null ?
             assistanceTableMapping.table._mapping[this.props.column] : tableMapping.table._mapping[this.props.column];
         let activeAsc = '';
@@ -135,7 +135,7 @@ export default class TransactionTableHeaderCell extends React.Component {
                 </div>
             </div>
         );
-        /* eslint-enable jsx-a11y/no-static-element-interactions */
+    /* eslint-enable jsx-a11y/no-static-element-interactions */
     }
 }
 

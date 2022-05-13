@@ -39,7 +39,7 @@ export default class AwardTypeFilterGroup extends React.Component {
     }
 
     removeFilter(value) {
-        // remove a single filter item
+    // remove a single filter item
         const newValue = this.props.redux.reduxFilters.awardType.delete(value);
         this.props.redux.updateGenericFilter({
             type: 'awardType',
@@ -48,9 +48,9 @@ export default class AwardTypeFilterGroup extends React.Component {
     }
 
     removeGroup(value) {
-        // remove a group of filter items
-        // let's actually fake the removal by just overwriting the the filter value with everything
-        // except for the values in the specified group
+    // remove a group of filter items
+    // let's actually fake the removal by just overwriting the the filter value with everything
+    // except for the values in the specified group
         let updatedValues = new Set(this.props.filter.values);
 
         // remove the current group's values

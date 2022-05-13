@@ -52,36 +52,36 @@ const CFDAOpportunityTotals = ({ code }) => {
     return (
         <div className="cfda-opportunities__container">
             {!error.error &&
-                <div className="cfda-opportunities__totals">
-                    <div className="cfda-opportunities__total">
-                        <div className="cfda-opportunities__total__title">Open</div>
-                        <div className="cfda-opportunities__total__count">
-                            {loading && <div className="dot-pulse" />}
-                            {!loading && totals.posted}
-                        </div>
-                    </div>
-                    <div className="cfda-opportunities__total">
-                        <div className="cfda-opportunities__total__title">Closed</div>
-                        <div className="cfda-opportunities__total__count">
-                            {loading && <div className="dot-pulse" />}
-                            {!loading && totals.closed}
-                        </div>
-                    </div>
-                    <div className="cfda-opportunities__total">
-                        <div className="cfda-opportunities__total__title">Archived</div>
-                        <div className="cfda-opportunities__total__count">
-                            {loading && <div className="dot-pulse" />}
-                            {!loading && totals.archived}
-                        </div>
-                    </div>
-                    <div className="cfda-opportunities__total">
-                        <div className="cfda-opportunities__total__title">Forecasted</div>
-                        <div className="cfda-opportunities__total__count">
-                            {loading && <div className="dot-pulse" />}
-                            {!loading && totals.forecasted}
-                        </div>
+            <div className="cfda-opportunities__totals">
+                <div className="cfda-opportunities__total">
+                    <div className="cfda-opportunities__total__title">Open</div>
+                    <div className="cfda-opportunities__total__count">
+                        {loading && <div className="dot-pulse" />}
+                        {!loading && totals.posted}
                     </div>
                 </div>
+                <div className="cfda-opportunities__total">
+                    <div className="cfda-opportunities__total__title">Closed</div>
+                    <div className="cfda-opportunities__total__count">
+                        {loading && <div className="dot-pulse" />}
+                        {!loading && totals.closed}
+                    </div>
+                </div>
+                <div className="cfda-opportunities__total">
+                    <div className="cfda-opportunities__total__title">Archived</div>
+                    <div className="cfda-opportunities__total__count">
+                        {loading && <div className="dot-pulse" />}
+                        {!loading && totals.archived}
+                    </div>
+                </div>
+                <div className="cfda-opportunities__total">
+                    <div className="cfda-opportunities__total__title">Forecasted</div>
+                    <div className="cfda-opportunities__total__count">
+                        {loading && <div className="dot-pulse" />}
+                        {!loading && totals.forecasted}
+                    </div>
+                </div>
+            </div>
             }
             {error.error && <div>{error.message}</div>}
         </div>

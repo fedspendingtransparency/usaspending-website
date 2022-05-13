@@ -94,11 +94,11 @@ export default class SVGLine extends Component {
             y2
         };
         if (onMouseMoveLine) this.props.onMouseMoveLine(data, text);
-    })
+    });
     onMouseLeaveLine = throttle(() => {
         const { onMouseLeaveLine } = this.props;
         if (onMouseLeaveLine) this.props.onMouseLeaveLine();
-    })
+    });
     onMouseMoveText = throttle(() => {
         const { onMouseMoveText, text, position } = this.props;
         const stateName = text.replace(/\s/g, '').toLowerCase();
@@ -109,11 +109,11 @@ export default class SVGLine extends Component {
             data.value = position;
             if (onMouseMoveText) this.props.onMouseMoveText(data, text);
         }
-    })
+    });
     onMouseLeaveText = throttle(() => {
         const { onMouseLeaveText } = this.props;
         if (onMouseLeaveText) this.props.onMouseLeaveText();
-    })
+    });
 
     getLinePosition = () => {
         const {
@@ -125,7 +125,7 @@ export default class SVGLine extends Component {
         } = this.props;
         if (isHorizontal) return graphHeight - scale(position);
         return scale(position) + (adjustmentX || 0);
-    }
+    };
 
     getMaximum = () => {
         const {
@@ -137,7 +137,7 @@ export default class SVGLine extends Component {
         } = this.props;
         if (isHorizontal) return graphHeight;
         return scale(max) + (adjustmentX || 0);
-    }
+    };
     // since we set the position of the text we need to update it on window resize
     handleWindowResize = throttle(() => {
         const windowWidth = window.innerWidth;
@@ -147,7 +147,7 @@ export default class SVGLine extends Component {
             const textArray = Array.isArray(text) ? text : [text];
             textArray.forEach((data) => this.positionText(data));
         }
-    })
+    });
 
     positionText = (text) => {
         const {
@@ -198,7 +198,7 @@ export default class SVGLine extends Component {
             [`${stateName}TextY`]: modifiedTextY,
             [`${stateName}Width`]: width || 0
         });
-    }
+    };
 
     line = () => {
         const {
@@ -228,7 +228,7 @@ export default class SVGLine extends Component {
                 onMouseMove={this.onMouseMoveLine}
                 onMouseLeave={this.onMouseLeaveLine} />
         );
-    }
+    };
 
     text = (lineIsDisplayed) => {
         const { text, textClassname, noText } = this.props;
@@ -263,7 +263,7 @@ export default class SVGLine extends Component {
                 </g>
             );
         });
-    }
+    };
 
     description = () => (this.props.description ||
         `A ${this.props.isHorizontal ? 'horizontal' : 'vertical'} line representing today's date`);

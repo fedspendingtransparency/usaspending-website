@@ -81,20 +81,20 @@ export default class CFDAViz extends React.Component {
         this.setState({
             width
         });
-    }
+    };
 
     showTooltip = (position, data) => {
         this.setState({
             showTooltip: true,
             tooltip: { ...position, ...data }
         });
-    }
+    };
 
     hideTooltip = () => {
         this.setState({
             showTooltip: false
         });
-    }
+    };
 
     tree = () => {
         if (this.props.view === 'tree') {
@@ -108,14 +108,14 @@ export default class CFDAViz extends React.Component {
                 onTreeClick={this.props.onTreeClick} />);
         }
         return null;
-    }
+    };
 
     content = () => {
         const { view } = this.props;
         if (view === 'table') return (<CFDATable {...this.props} />);
         if (view === 'single' || !view) return (<SingleCFDA currentCfda={this.props.cfda} />);
         return null;
-    }
+    };
 
     title = () => {
         const {
@@ -142,7 +142,7 @@ export default class CFDAViz extends React.Component {
             return (<h4 className="cfda-section-single-title">{`${cfda.cfdaNumber}: ${cfda.cfdaTitle.toUpperCase()}`}</h4>);
         }
         return null;
-    }
+    };
 
     chart = () => {
         const {
@@ -206,7 +206,7 @@ export default class CFDAViz extends React.Component {
             );
         }
         return null;
-    }
+    };
 
     buttons = () => {
         const { view, allCFDAs } = this.props;
@@ -245,7 +245,7 @@ export default class CFDAViz extends React.Component {
             );
         }
         return null;
-    }
+    };
 
     render() {
         return (

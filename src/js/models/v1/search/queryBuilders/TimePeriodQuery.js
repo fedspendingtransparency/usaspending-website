@@ -13,7 +13,7 @@ const buildFYRangeQuery = (fyRange, endpoint) => {
     const endField = fields.endDate;
 
     fyRange.forEach((fy) => {
-        // iterate through each FY and generate a range_intersect filter for the FY
+    // iterate through each FY and generate a range_intersect filter for the FY
         const fyQuery = {
             field: [startField, endField],
             operation: 'range_intersect',

@@ -11,7 +11,6 @@ import PropTypes from 'prop-types';
 import { Table, Pagination, Picker, TooltipWrapper } from 'data-transparency-ui';
 import { Link } from 'react-router-dom';
 
-import { AGENCY_LINK, AGENCYV2_RELEASED } from 'GlobalConstants';
 import Analytics from 'helpers/analytics/Analytics';
 
 import {
@@ -25,7 +24,7 @@ import { fetchDisasterSpending, fetchLoanSpending } from 'apis/disaster';
 import { handleSort, calculateUnlinkedTotals } from 'helpers/covid19Helper';
 
 import BaseBudgetCategoryRow from 'models/v2/covid19/BaseBudgetCategoryRow';
-import { useAgencySlugs } from 'containers/agencyV2/WithAgencySlugs';
+import { useAgencySlugs } from 'containers/agency/WithAgencySlugs';
 import { SpendingTypesTT } from 'components/covid19/Covid19Tooltips';
 
 const propTypes = {
@@ -230,7 +229,6 @@ const BudgetCategoriesTableContainer = (props) => {
             }
 
             let link = budgetCategoryRow.name;
-            const id = budgetCategoryRow._id;
             const code = budgetCategoryRow.code;
             if (link && code && props.type === 'federal_account') {
                 link = (
@@ -243,22 +241,12 @@ const BudgetCategoriesTableContainer = (props) => {
                 );
             }
             else if (link && props.type === 'agency') {
-                if (AGENCYV2_RELEASED && !slugsError && code && toptierCodes[code]) {
+                if (!slugsError && code && toptierCodes[code]) {
                     link = (
                         <Link
                             className="agency-profile__link"
                             onClick={clickedAgencyProfile.bind(null, `${budgetCategoryRow.name}`)}
-                            to={`/${AGENCY_LINK}/${toptierCodes[code]}`}>
-                            {budgetCategoryRow.name}
-                        </Link>
-                    );
-                }
-                else if (!AGENCYV2_RELEASED && id) {
-                    link = (
-                        <Link
-                            className="agency-profile__link"
-                            onClick={clickedAgencyProfile.bind(null, `${budgetCategoryRow.name}`)}
-                            to={`/${AGENCY_LINK}/${id}`}>
+                            to={`/agency/${toptierCodes[code]}`}>
                             {budgetCategoryRow.name}
                         </Link>
                     );
@@ -325,8 +313,8 @@ const BudgetCategoriesTableContainer = (props) => {
     });
 
     useEffect(() => {
-        // If the sort and order is the same as the default sort and default order, then we are just changing tabs or just changing the spending category.
-        // In this particular case, we want to fetch from api.
+    // If the sort and order is the same as the default sort and default order, then we are just changing tabs or just changing the spending category.
+    // In this particular case, we want to fetch from api.
         if (sort === defaultSort[props.type][spendingCategory].sort && order === defaultSort[props.type][spendingCategory].order) {
             changeCurrentPage(1);
             fetchBudgetSpendingCallback();
@@ -337,7 +325,7 @@ const BudgetCategoriesTableContainer = (props) => {
     }, [props.type, spendingCategory]);
 
     useEffect(() => {
-        // Reset to the first page
+    // Reset to the first page
         if (currentPage === 1) {
             fetchBudgetSpendingCallback();
         }

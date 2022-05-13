@@ -20,7 +20,7 @@ const GlossaryListener = ({
     const queryParams = useQueryParams();
 
     useEffect(() => {
-        // The #fscommand=fstest is used to access the Foresee survey admin panel
+    // The #fscommand=fstest is used to access the Foresee survey admin panel
         if (!location.hash || location.hash.indexOf('#fscommand=fstest') > -1) {
             return;
         }

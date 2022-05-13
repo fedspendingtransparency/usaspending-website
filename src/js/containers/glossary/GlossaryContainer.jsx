@@ -44,7 +44,7 @@ export class GlossaryContainer extends React.Component {
     }
 
     componentDidMount() {
-        // on the first load, populate the cache
+    // on the first load, populate the cache
         if (this.props.glossary.cache.count() === 0) {
             // no cache set yet, populate it
             // we need to build a cache because when the glossary is searched, it may internally link
@@ -99,8 +99,8 @@ export class GlossaryContainer extends React.Component {
                     });
                 }
                 else {
-                // okay now perform the search (which will be the same data most of the time,
-                // but potentially not)
+                    // okay now perform the search (which will be the same data most of the time,
+                    // but potentially not)
                     this.performSearch();
                 }
             })
@@ -212,7 +212,7 @@ export class GlossaryContainer extends React.Component {
     }
 
     jumpToTerm(slug) {
-        // look for a matching slug
+    // look for a matching slug
         if (this.props.glossary.cache.has(slug)) {
             // we found the term, load the word
             const result = this.props.glossary.cache.get(slug);

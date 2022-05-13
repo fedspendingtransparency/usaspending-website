@@ -117,7 +117,7 @@ export default class CFDAListContainer extends React.Component {
     }
 
     handleTextInput(cfdaInput) {
-        // Clear existing cfdas to ensure user can't select an old or existing one
+    // Clear existing cfdas to ensure user can't select an old or existing one
         this.setState({
             autocompleteCFDA: []
         });

@@ -63,7 +63,7 @@ export default class HorizontalChart extends React.Component {
     }
 
     generateChart(props) {
-        // generate the X-axis ranges
+    // generate the X-axis ranges
         const dataRange = [];
         if (props.dataSeries.length > 1) {
             let minValue = min(props.dataSeries);

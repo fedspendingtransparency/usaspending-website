@@ -52,7 +52,7 @@ export default class BarTrendlineItem extends React.Component {
     }
 
     touchedBar() {
-        // fallback for touch interfaces, which don't have hover capability
+    // fallback for touch interfaces, which don't have hover capability
         this.props.selectBar(this.props.identifier, true);
     }
 

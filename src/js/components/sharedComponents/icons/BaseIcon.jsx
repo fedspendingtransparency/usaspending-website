@@ -34,19 +34,19 @@ export default class BaseIcon extends React.Component {
         this.svgEvent = this.svgEvent.bind(this);
     }
     componentDidMount() {
-        // download icons if necessary, otherwise populate the correct state
+    // download icons if necessary, otherwise populate the correct state
         this.prepareIcons();
     }
 
     componentWillUnmount() {
-        // unsubscribe to reduce memory overhead, if we have a subscription active
+    // unsubscribe to reduce memory overhead, if we have a subscription active
         if (this.subscription) {
             this.iconSingleton.unsubscribe(this.subscription);
         }
     }
 
     prepareIcons() {
-        // check to see if anyone has started the download process
+    // check to see if anyone has started the download process
         if (!this.iconSingleton.svgLoaded) {
             // no icons available, subscribe to the singleton to be notified when they are ready
             this.subscription = this.iconSingleton.subscribe(this.svgEvent);
@@ -63,7 +63,7 @@ export default class BaseIcon extends React.Component {
     }
 
     displayIcon() {
-        // set the state to the correct SVG data
+    // set the state to the correct SVG data
         if ({}.hasOwnProperty.call(this.iconSingleton.svgCache, this.props.iconName)) {
             this.setState({
                 icon: this.iconSingleton.svgCache[this.props.iconName]
@@ -72,7 +72,7 @@ export default class BaseIcon extends React.Component {
     }
 
     svgEvent() {
-        // icons have loaded, unsubscribe to reduce memory overhead
+    // icons have loaded, unsubscribe to reduce memory overhead
         this.iconSingleton.unsubscribe(this.subscription);
         this.subscription = null;
 

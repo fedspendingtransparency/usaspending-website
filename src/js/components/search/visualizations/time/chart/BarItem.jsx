@@ -52,7 +52,7 @@ export default class BarItem extends React.Component {
     }
 
     touchedBar() {
-        // fallback for touch interfaces, which don't have hover capability
+    // fallback for touch interfaces, which don't have hover capability
         this.props.selectBar(this.props.identifier, true);
     }
 
@@ -63,9 +63,9 @@ export default class BarItem extends React.Component {
     }
 
     render() {
-        // generate an invisible hitbox that spans the full height of the graph and matches the
-        // width of the data point bar to trigger hover events anywhere along the Y axis for the
-        // data point
+    // generate an invisible hitbox that spans the full height of the graph and matches the
+    // width of the data point bar to trigger hover events anywhere along the Y axis for the
+    // data point
         let hoverClass = '';
         if (this.state.active) {
             hoverClass = ' hover';

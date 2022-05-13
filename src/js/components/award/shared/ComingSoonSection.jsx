@@ -50,9 +50,9 @@ const ComingSoonSection = ({
                 <div className="award__col__content">
                     <div className="award-viz__heading">
                         {icon &&
-                            <div className="award-viz__icon">
-                                <FontAwesomeIcon size="lg" icon={icon} />
-                            </div>}
+                        <div className="award-viz__icon">
+                            <FontAwesomeIcon size="lg" icon={icon} />
+                        </div>}
                         <h3 className="award-viz__title">{title}</h3>
                         {toolTipContent && (
                             <TooltipWrapper

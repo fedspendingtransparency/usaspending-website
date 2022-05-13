@@ -75,7 +75,7 @@ export class AccountLandingContainer extends React.Component {
     }
 
     setAccountSearchString(searchString) {
-        // Change search string in the state and make a new request
+    // Change search string in the state and make a new request
         this.setState({
             searchString,
             pageNumber: 1
@@ -85,8 +85,8 @@ export class AccountLandingContainer extends React.Component {
     }
 
     updateSort(field, direction) {
-        // Change sort in the state and make a new request
-        // Reset the page number to 1
+    // Change sort in the state and make a new request
+    // Reset the page number to 1
         this.setState({
             order: {
                 field,

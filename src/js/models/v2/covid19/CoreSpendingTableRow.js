@@ -19,7 +19,8 @@ const CoreSpendingTableRow = {
     get obligation() {
         if (this._obligation === null) {
             return null;
-        } else if (this._obligation === '--') {
+        }
+        else if (this._obligation === '--') {
             return "--";
         }
         return formatMoney(this._obligation);
@@ -27,7 +28,8 @@ const CoreSpendingTableRow = {
     get outlay() {
         if (this._outlay === null) {
             return null;
-        } else if (this._outlay === '--') {
+        }
+        else if (this._outlay === '--') {
             return "--";
         }
         return formatMoney(this._outlay);

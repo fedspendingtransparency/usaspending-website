@@ -14,8 +14,7 @@ import { sidebarTypes } from 'dataMapping/explorer/sidebarStrings';
 import { formatTreemapValues } from 'helpers/moneyFormatter';
 import { generateSingular } from 'helpers/singularityHelper';
 
-import { useAgencySlugs } from "containers/agencyV2/WithAgencySlugs";
-import { AGENCYV2_RELEASED, AGENCY_LINK } from 'GlobalConstants';
+import { useAgencySlugs } from "containers/agency/WithAgencySlugs";
 
 import TruncationWarning from './TruncationWarning';
 
@@ -82,14 +81,13 @@ const heading = (type, title, id, link, agencyIds, slugError) => {
         );
     }
     else if (type === 'Agency') {
-        const agencyIdentifier = AGENCYV2_RELEASED && !slugError ? agencyIds[id] : id;
-        const agencyLink = slugError ? 'agency' : AGENCY_LINK;
+        const agencyIdentifier = !slugError ? agencyIds[id] : '';
 
         let header = (
             <Link
-                to={`/${agencyLink}/${agencyIdentifier}`}
+                to={`/agency/${agencyIdentifier}`}
                 className="detail-header__title-link"
-                onClick={exitExplorer.bind(null, `/${agencyLink}/${agencyIdentifier}`)}>
+                onClick={exitExplorer.bind(null, `/agency/${agencyIdentifier}`)}>
                 {title}
             </Link>);
         if (title === "Unreported Data" || link === false) {

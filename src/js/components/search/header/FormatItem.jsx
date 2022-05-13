@@ -27,7 +27,7 @@ export default class FormatItem extends React.Component {
     }
 
     clickedButton() {
-        // find the DOM element of the section, if it exists
+    // find the DOM element of the section, if it exists
         const sectionDom = document.querySelector(`#results-section-${this.props.code}`);
         if (sectionDom) {
             const sectionTop = sectionDom.offsetTop - 150;

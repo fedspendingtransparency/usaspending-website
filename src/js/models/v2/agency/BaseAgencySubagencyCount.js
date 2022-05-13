@@ -1,7 +1,7 @@
 
 const BaseAgencySubagencyCount = {
     populate(data) {
-        // eslint-disable-next-line camelcase
+    // eslint-disable-next-line camelcase
         this.subagencyCount = data?.sub_agency_count || '--';
         // eslint-disable-next-line camelcase
         this.officeCount = data?.office_count || '--';

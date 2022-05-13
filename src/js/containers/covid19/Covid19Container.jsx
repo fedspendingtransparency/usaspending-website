@@ -11,7 +11,7 @@ import { useQueryParams } from 'helpers/queryParams';
 import BaseOverview from 'models/v2/covid19/BaseOverview';
 import { fetchOverview, fetchAwardAmounts } from 'apis/disaster';
 import { useDefCodes } from 'containers/covid19/WithDefCodes';
-import { useAgencySlugs } from 'containers/agencyV2/WithAgencySlugs';
+import { useAgencySlugs } from 'containers/agency/WithAgencySlugs';
 import { setOverview, setTotals, setDefcParams, resetOverview } from 'redux/actions/covid19/covid19Actions';
 import { defcByPublicLaw } from 'dataMapping/covid19/covid19';
 import Covid19Page from 'components/covid19/Covid19Page';
@@ -32,7 +32,7 @@ const Covid19Container = () => {
     publicLaw = publicLaw && publicLaw.toLowerCase();
 
     useEffect(() => {
-        /** Default to all DEFC if:
+    /** Default to all DEFC if:
          * 1) no public law param is defined
          * 2) the public law param is invalid
          * 3) the public law param is for ARP, but the ARP filter is not yet released
@@ -57,7 +57,7 @@ const Covid19Container = () => {
                 dispatch(setDefcParams(defcByPublicLaw[publicLaw]));
             }
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [publicLaw, areDefCodesLoading]);
 
     useEffect(() => {

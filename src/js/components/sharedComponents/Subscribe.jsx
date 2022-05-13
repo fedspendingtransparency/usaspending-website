@@ -12,7 +12,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export default class Subscribe extends React.Component {
     static propTypes = {
         pageName: PropTypes.string.isRequired
-    }
+    };
 
     trackLink = () => Analytics.event({
         category: this.props.pageName,

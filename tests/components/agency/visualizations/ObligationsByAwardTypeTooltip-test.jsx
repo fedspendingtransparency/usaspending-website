@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { render, screen } from 'test-utils';
-import ObligationsByAwardTypeTooltip from 'components/agencyV2/visualizations/ObligationsByAwardTypeTooltip';
+import ObligationsByAwardTypeTooltip from 'components/agency/visualizations/ObligationsByAwardTypeTooltip';
 
 const mockAwardTypes = [
     {
@@ -47,7 +47,7 @@ const mockAwardTypes = [
 ];
 
 const mockStore = {
-    agencyV2: {
+    agency: {
         _awardObligations: 100
     }
 };

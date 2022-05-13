@@ -83,7 +83,7 @@ const Sidebar = ({
     }, [sidebarWidth, setSidebarWidth, isSidebarSticky, isGoingToBeSticky]);
 
     const cacheSectionPositions = throttle(() => {
-        // Measure section positions on windowResize and first render
+    // Measure section positions on windowResize and first render
         const newSectionPositions = sections
             .map((section) => {
                 const sectionCode = section.section;

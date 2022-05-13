@@ -88,54 +88,54 @@ const AboutTheDataPage = ({ history }) => {
                     </p>
                 </div>
                 <LoadingWrapper isLoading={!activeTab}>
-                        <>
-                            <div className="table-controls">
-                                <Tabs
-                                    active={activeTab}
-                                    switchTab={handleSwitchTab}
-                                    types={[
-                                        {
-                                            internal: 'submissions',
-                                            label: "Statistics by Submission Period",
-                                            tooltip: tabTooltips["Statistics by Submission Period"]
-                                        },
-                                        {
-                                            internal: 'publications',
-                                            label: "Updates by Fiscal Year",
-                                            tooltip: tabTooltips["Updates by Fiscal Year"]
-                                        }
-                                    ]} />
-                                <TimeFilters
-                                    submissionPeriods={submissionPeriods}
-                                    latestFy={latestFy}
-                                    latestPeriod={latestPeriod}
-                                    activeTab={activeTab}
-                                    onTimeFilterSelection={setTime}
-                                    selectedPeriod={selectedPeriod}
-                                    selectedFy={selectedFy}
-                                    urlPeriod={urlPeriod}
-                                    urlFy={urlFy} />
-                            </div>
-                            <AgenciesContainer
-                                openModal={modalClick}
+                    <>
+                        <div className="table-controls">
+                            <Tabs
+                                active={activeTab}
+                                switchTab={handleSwitchTab}
+                                types={[
+                                    {
+                                        internal: 'submissions',
+                                        label: "Statistics by Submission Period",
+                                        tooltip: tabTooltips["Statistics by Submission Period"]
+                                    },
+                                    {
+                                        internal: 'publications',
+                                        label: "Updates by Fiscal Year",
+                                        tooltip: tabTooltips["Updates by Fiscal Year"]
+                                    }
+                                ]} />
+                            <TimeFilters
+                                submissionPeriods={submissionPeriods}
+                                latestFy={latestFy}
+                                latestPeriod={latestPeriod}
                                 activeTab={activeTab}
+                                onTimeFilterSelection={setTime}
+                                selectedPeriod={selectedPeriod}
                                 selectedFy={selectedFy}
-                                selectedPeriod={selectedPeriod
-                                    ? selectedPeriod.id
-                                    : ''
-                                } />
-                            <AboutTheDataModal
-                                mounted={!!showModal.length}
-                                type={showModal}
-                                className={modalClassNames[showModal]}
-                                title={modalTitles(modalData?.type)[showModal]}
-                                agencyData={{
-                                    ...modalData,
-                                    fiscalYear: parseInt(selectedFy, 10),
-                                    fiscalPeriod: parseInt(selectedPeriod?.id, 10) || 0
-                                }}
-                                closeModal={closeModal} />
-                        </>
+                                urlPeriod={urlPeriod}
+                                urlFy={urlFy} />
+                        </div>
+                        <AgenciesContainer
+                            openModal={modalClick}
+                            activeTab={activeTab}
+                            selectedFy={selectedFy}
+                            selectedPeriod={selectedPeriod
+                                ? selectedPeriod.id
+                                : ''
+                            } />
+                        <AboutTheDataModal
+                            mounted={!!showModal.length}
+                            type={showModal}
+                            className={modalClassNames[showModal]}
+                            title={modalTitles(modalData?.type)[showModal]}
+                            agencyData={{
+                                ...modalData,
+                                fiscalYear: parseInt(selectedFy, 10),
+                                fiscalPeriod: parseInt(selectedPeriod?.id, 10) || 0
+                            }}
+                            closeModal={closeModal} />
+                    </>
                 </LoadingWrapper>
             </main>
         </PageWrapper>

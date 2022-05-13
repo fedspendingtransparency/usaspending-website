@@ -102,7 +102,8 @@ const DefaultLineAndText = ({
                 hideTooltip
             }))} />
         </g>
-    ); };
+    );
+};
 
 DefaultLineAndText.propTypes = propTypes;
 export default DefaultLineAndText;

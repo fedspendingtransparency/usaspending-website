@@ -29,7 +29,7 @@ export class CFDASearchContainer extends React.Component {
     }
 
     selectCFDA(cfda, isValid) {
-        // If cfda exists and is valid
+    // If cfda exists and is valid
         if (cfda !== null && isValid) {
             const updateParams = {};
             updateParams.cfda = cfda;

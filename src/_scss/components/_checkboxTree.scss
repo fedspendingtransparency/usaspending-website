@@ -134,6 +134,7 @@
               @include flex-basis(100%);
               font-weight: $font-semibold;
               line-height: rem(18);
+              padding-top: 2px;
               .highlight {
                 background-color: rgb(252, 227, 160);
               }
@@ -201,8 +202,8 @@
     .rct-collapse {
       color: $color-primary-darker;
       background-color: white;
-      margin-right: 0;
-      padding: 0;
+      padding: 2px 0 0 0;
+      align-self: flex-start;
       svg {
         opacity: 1;
         &:focus {

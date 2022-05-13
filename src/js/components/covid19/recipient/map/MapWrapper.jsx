@@ -96,7 +96,7 @@ export default class MapWrapper extends React.Component {
     }
 
     componentWillUnmount() {
-        // remove any broadcast listeners
+    // remove any broadcast listeners
         if (!this.props.stateProfile) {
             this.removeChangeListeners();
         }
@@ -113,19 +113,19 @@ export default class MapWrapper extends React.Component {
             colors.push(`rgba(1, 43, 58, ${i * (1 / numQuantiles)})`);
         }
         return colors;
-    }
+    };
 
     mapReady = () => {
-        // map has mounted, load the state shapes
+    // map has mounted, load the state shapes
         this.props.onMapLoaded(true);
-    }
+    };
 
-    countUnique = (iterable) => new Set(iterable).size
+    countUnique = (iterable) => new Set(iterable).size;
 
     mapRemoved = () => {
-        // map is about to be removed
+    // map is about to be removed
         this.props.onMapLoaded(false);
-    }
+    };
 
     prepareMap = () => {
         this.prepareLayers()
@@ -140,12 +140,12 @@ export default class MapWrapper extends React.Component {
                 // notify any listeners that the map is ready
                 MapBroadcaster.emit('mapReady');
             });
-    }
+    };
 
     prepareBroadcastReceivers = () => {
         const listenerRef = MapBroadcaster.on('measureMap', this.measureMap);
         this.broadcastReceivers.push(listenerRef);
-    }
+    };
 
     showSource = (type) => {
         const layers = this.loadedLayers[type];
@@ -161,7 +161,7 @@ export default class MapWrapper extends React.Component {
             // iterate through all the highlight layers and enable them
             this.mapRef.map.setLayoutProperty(highlight, 'visibility', 'visible');
         });
-    }
+    };
 
     hideSource = (type) => {
         const layers = this.loadedLayers[type];
@@ -176,7 +176,7 @@ export default class MapWrapper extends React.Component {
             // iterate through all the highlight layers and enable them
             this.mapRef.map.setLayoutProperty(highlight, 'visibility', 'none');
         });
-    }
+    };
     /**
      * firstSymbolId
      * - finds the first symbol ( text to mapbox ) layer.
@@ -228,10 +228,12 @@ export default class MapWrapper extends React.Component {
         if (this.props.data.values.length !== 0) {
             if (this.props.activeFilters.territory === 'state') {
                 colors = this.getColors(numStateQuantiles);
-            } else {
+            }
+            else {
                 colors = this.getColors(numCountyQuantiles);
             }
-        } else {
+        }
+        else {
             colors = this.getColors(numStateQuantiles); // in the case when the map has not recieved data yet
         }
         colors.forEach((color, index) => {
@@ -257,7 +259,7 @@ export default class MapWrapper extends React.Component {
         });
 
         this.loadedLayers[type] = sourceRef;
-    }
+    };
 
     prepareLayers = () => new Promise((resolve, reject) => {
         if (!this.props.isMapLoaded) {
@@ -313,8 +315,8 @@ export default class MapWrapper extends React.Component {
     });
 
     measureMap = (forced = false) => {
-        // determine which entities (state, counties, etc based on current activeFilter territory) are in view
-        // use Mapbox SDK to determine the currently rendered shapes in the base layer
+    // determine which entities (state, counties, etc based on current activeFilter territory) are in view
+    // use Mapbox SDK to determine the currently rendered shapes in the base layer
         const mapLoaded = this.mapRef.map.loaded();
         // wait for the map to load before continuing
         if (!mapLoaded) {
@@ -337,10 +339,10 @@ export default class MapWrapper extends React.Component {
         const uniqueEntities = uniq(visibleEntities);
 
         MapBroadcaster.emit('mapMeasureDone', uniqueEntities, forced);
-    }
+    };
 
     prepareChangeListeners = () => {
-        // detect visible entities whenever the map moves
+    // detect visible entities whenever the map moves
         const parentMap = this.mapRef.map;
         function renderCallback() {
             if (parentMap.loaded()) {
@@ -357,13 +359,13 @@ export default class MapWrapper extends React.Component {
         this.mapRef.map.on('moveend', this.renderCallback);
         // but also do it when the map resizes, since the view will be different
         this.mapRef.map.on('resize', this.renderCallback);
-    }
+    };
 
     removeChangeListeners = () => {
-        // remove the render callbacks
+    // remove the render callbacks
         this.mapRef.map.off('moveend', this.renderCallback);
         this.mapRef.map.off('resize', this.renderCallback);
-    }
+    };
 
     mouseOverLayer = (e) => {
         const source = mapboxSources[this.props.activeFilters.territory];
@@ -373,11 +375,11 @@ export default class MapWrapper extends React.Component {
             x: e.originalEvent.offsetX,
             y: e.originalEvent.offsetY
         });
-    }
+    };
 
     mouseExitLayer = () => {
         this.props.hideTooltip();
-    }
+    };
 
     runMapOperationQueue = () => {
         Object.keys(this.mapOperationQueue).forEach((key) => {
@@ -385,14 +387,14 @@ export default class MapWrapper extends React.Component {
             op.call(this);
         });
         this.mapOperationQueue = {};
-    }
+    };
 
     queueMapOperation = (name, operation) => {
         this.mapOperationQueue[name] = operation;
-    }
+    };
 
     displayData = () => {
-        // don't do anything if the map has not yet loaded
+    // don't do anything if the map has not yet loaded
         if (!this.props.isMapLoaded) {
             // add to the map operation queue
             this.queueMapOperation('displayData', this.displayData);
@@ -408,7 +410,8 @@ export default class MapWrapper extends React.Component {
         if (this.props.activeFilters.territory === 'state') {
             colors = this.getColors(numStateQuantiles);
             rangeArray = [...Array(numStateQuantiles).keys()];
-        } else {
+        }
+        else {
             colors = this.getColors(numCountyQuantiles);
             rangeArray = [...Array(numCountyQuantiles).keys()];
         }
@@ -455,7 +458,7 @@ export default class MapWrapper extends React.Component {
         this.setState({
             spendingScale: scale
         });
-    }
+    };
 
     toggleFilters = () => this.setState({ isFiltersOpen: !this.state.isFiltersOpen });
 
@@ -467,7 +470,7 @@ export default class MapWrapper extends React.Component {
             );
         }
         return null;
-    }
+    };
 
     filters = () => {
         const { activeFilters } = this.props;
@@ -483,7 +486,7 @@ export default class MapWrapper extends React.Component {
                 activeFilters={this.props.activeFilters}
                 isOpen={this.state.isFiltersOpen} />
         );
-    }
+    };
 
     legend = () => {
         const { spendingScale } = this.state;
@@ -493,7 +496,7 @@ export default class MapWrapper extends React.Component {
                 min={Math.min(...this.props.data.values)}
                 max={Math.max(...this.props.data.values)} />
         );
-    }
+    };
 
     render() {
         return (

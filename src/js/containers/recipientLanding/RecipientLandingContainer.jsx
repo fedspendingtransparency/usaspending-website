@@ -75,8 +75,8 @@ export default class RecipientLandingContainer extends React.Component {
     }
 
     setSort(field, direction) {
-        // Change sort in the state and make a new request
-        // Reset the page number to 1
+    // Change sort in the state and make a new request
+    // Reset the page number to 1
         this.setState({
             order: {
                 field,

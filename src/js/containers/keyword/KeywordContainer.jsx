@@ -158,7 +158,7 @@ export class KeywordContainer extends React.Component {
     }
 
     updateKeyword(keyword) {
-        // Convert the keyword to a url slug
+    // Convert the keyword to a url slug
         const slug = encodeURIComponent(keyword);
         this.setState({
             keyword
