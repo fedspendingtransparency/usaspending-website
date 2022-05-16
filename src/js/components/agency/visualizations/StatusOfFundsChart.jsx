@@ -562,7 +562,8 @@ const StatusOfFundsChart = ({
                 .attr("height", y.bandwidth() - 76)
                 .attr("fill", "#555")
                 .attr('class', 'hbars')
-                .attr('id', 'tbr-bar');
+                .attr('id', 'tbr-bar')
+                .attr('aria-disabled', "true");
 
             const pattern = d3.select("tbr-bar").append("svg");
             pattern
