@@ -323,7 +323,7 @@ const StatusOfFundsChart = ({
             barGroups.append("rect")
                 .attr('transform', tickMobileXAxis)
                 .attr("x", -8)
-                .attr("y", (d) => (isLargeScreen ? y(d.name) + 80 : y(d.name) + 60))
+                .attr("y", (d) => (isLargeScreen ? y(d.name) + 80 : y(d.name) + 40))
                 .attr("width", isLargeScreen ? chartWidth + 340 : chartWidth + 90)
                 .attr("height", y.bandwidth() - 66)
                 .attr("fill", "#fff")
@@ -453,7 +453,8 @@ const StatusOfFundsChart = ({
                 .append('path')
                 .attr('d', 'M-1,1 l2,-2 M0,4 l4,-4 M3,5 l2,-2')
                 .attr('stroke', '#000000')
-                .attr('stroke-width', 1);
+                .attr('stroke-width', 1)
+                .attr('transform', `translate(${isLargeScreen ? margins.left - 40 : margins.left}, ${margins.top})`);
 
             svg.append('g')
                 .attr('transform', `translate(${isLargeScreen ? margins.left - 40 : margins.left}, ${margins.top})`);
