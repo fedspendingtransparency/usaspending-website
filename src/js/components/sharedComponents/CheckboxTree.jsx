@@ -2,6 +2,10 @@
   * CheckboxTree.jsx
   * Created by Jonathan Hill 09/27/2019
   **/
+/**
+ * This component uses react-checkbox-tree and that version MUST be 1.5.1.
+ * Upgrading it causes bugs in the checkbox trees.
+ */
 
 import React, { Component, cloneElement } from 'react';
 import CheckBoxTree from 'react-checkbox-tree';
