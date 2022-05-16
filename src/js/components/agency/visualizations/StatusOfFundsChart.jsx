@@ -542,13 +542,13 @@ const StatusOfFundsChart = ({
                 .append('g')
                 .attr('class', 'bar-group')
                 .attr('tabindex', 0)
-                .attr('transform', "translate(0,-10)");
+                .attr('transform', !isMobile ? "translate(0,-10)" : "translate(0,0)");
             barGroups.append("rect")
                 .attr('transform', tickMobileXAxis)
                 .attr("x", -8)
-                .attr("y", (d) => (isLargeScreen ? y(d.name) + 90 : y(d.name) + 40))
+                .attr("y", (d) => (isLargeScreen ? y(d.name) + 90 : y(d.name) + 50))
                 .attr("width", isLargeScreen ? chartWidth + 340 : chartWidth + 90)
-                .attr("height", y.bandwidth() - 46)
+                .attr("height", !isMobile ? y.bandwidth() - 36 : y.bandwidth() + 95)
                 .attr("fill", "#fff")
                 .attr("stroke", "#f1f1f1")
                 .attr('class', 'hbars')
@@ -557,9 +557,9 @@ const StatusOfFundsChart = ({
             barGroups.append("rect")
                 .attr('transform', tickMobileXAxis)
                 .attr("x", -8)
-                .attr("y", (d) => (isLargeScreen ? y(d.name) + 90 : y(d.name) + 40))
+                .attr("y", (d) => (!isMobile ? y(d.name) + 90 : y(d.name) + 50))
                 .attr("width", (d) => x(d._budgetaryResources) + 11)
-                .attr("height", y.bandwidth() - 76)
+                .attr("height", !isMobile ? y.bandwidth() - 76 : y.bandwidth())
                 .attr("fill", "#555")
                 .attr('class', 'hbars')
                 .attr('id', 'tbr-bar')
@@ -603,7 +603,7 @@ const StatusOfFundsChart = ({
                     }
                     return x(0);
                 })
-                .attr("y", (d) => (isLargeScreen ? y(d.name) + 130 : y(d.name) + 80))
+                .attr("y", (d) => (!isMobile ? y(d.name) + 130 : y(d.name) + 145))
                 .attr("width", (d) => {
                     if (isNegative) {
                         return drawNegativeOutlays(d);
@@ -613,7 +613,7 @@ const StatusOfFundsChart = ({
                     }
                     return x(d._outlays) + 11;
                 })
-                .attr("height", y.bandwidth() - 76)
+                .attr("height", !isMobile ? y.bandwidth() - 76 : y.bandwidth())
                 .attr("fill", "#FFBE2E")
                 .attr('class', 'hbars')
                 .attr('id', 'out-bar');
