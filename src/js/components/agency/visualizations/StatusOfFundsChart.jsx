@@ -28,7 +28,7 @@ const StatusOfFundsChart = ({
     const [sortedNums, setSortedNums] = useState(null);
     const [hoverData, setHoverData] = useState(null);
 
-    const viewHeight = 1160;
+    const viewHeight = 1200;
     const viewWidth = 1000;
     const margins = {
         top: 40, right: 0, bottom: 10, left: isLargeScreen ? 180 : 245
@@ -135,7 +135,7 @@ const StatusOfFundsChart = ({
     };
     const chartHeightViewBox = () => {
         if (isMobile) {
-            return viewHeight * 2.4;
+            return viewHeight * 2.53;
         }
         if (isLargeScreen) {
             if (!toggle) {
@@ -405,9 +405,9 @@ const StatusOfFundsChart = ({
                 .style("stroke", "#aeb0b5")
                 .style("stroke-width", 1)
                 .attr("x1", -320)
-                .attr("y1", isMobile ? chartHeight + 1040 : horizontalBorderYPos())
+                .attr("y1", isMobile ? chartHeight + 1840 : horizontalBorderYPos())
                 .attr("x2", isLargeScreen ? chartWidth + 330 : chartWidth + 85)
-                .attr("y2", isMobile ? chartHeight + 1040 : horizontalBorderYPos());
+                .attr("y2", isMobile ? chartHeight + 1840 : horizontalBorderYPos());
             if (isNegative) {
                 svg.append('line')
                     .attr('transform', tickMobileXAxis)
@@ -441,22 +441,8 @@ const StatusOfFundsChart = ({
                 .attr('class', 'svg')
                 .attr('xmlns:xlink', 'http://www.w3.org/1999/xlink')
                 .attr('preserveAspectRatio', 'none')
-                .attr("viewBox", [0, 0, viewWidth + margins.left + margins.right, chartHeightViewBox()]);
-
-            svg.append('defs')
-                .append('pattern')
-                .attr('id', 'diagonalHatch')
-                .attr('patternUnits', 'userSpaceOnUse')
-                .attr('width', 2)
-                .attr('height', 2)
-                .attr("patternTransform", "rotate(-115, 8, 8)")
-                .append('path')
-                .attr('d', 'M-1,1 l2,-2 M0,4 l4,-4 M3,5 l2,-2')
-                .attr('stroke', '#000000')
-                .attr('stroke-width', 1)
-                .attr('transform', `translate(${isLargeScreen ? margins.left - 40 : margins.left}, ${margins.top})`);
-
-            svg.append('g')
+                .attr("viewBox", [0, 0, viewWidth + margins.left + margins.right, chartHeightViewBox()])
+                .append('g')
                 .attr('transform', `translate(${isLargeScreen ? margins.left - 40 : margins.left}, ${margins.top})`);
 
             const tickMobileXAxis = isLargeScreen ? 'translate(-130,0)' : 'translate(90, 0)';
@@ -574,9 +560,9 @@ const StatusOfFundsChart = ({
                 .attr("y", (d) => (!isMobile ? y(d.name) + 50 : y(d.name) + 50))
                 .attr("width", (d) => x(d._budgetaryResources) + 11)
                 .attr("height", !isMobile ? y.bandwidth() - 76 : y.bandwidth())
-                // .attr("fill", "#555")
                 .attr('class', 'hbars')
                 .attr('id', 'tbr-bar')
+                .attr("style", "outline: thin solid #D7D8D9;")
                 .attr('aria-disabled', "true")
                 .attr("stroke-width", 2)
                 .attr('fill', 'url(#diagonalHatch)');
@@ -593,7 +579,7 @@ const StatusOfFundsChart = ({
                     }
                     return x(0);
                 })
-                .attr("y", (d) => (!isMobile ? y(d.name) + 90 : y(d.name) + 145))
+                .attr("y", (d) => (!isMobile ? y(d.name) + 100 : y(d.name) + 145))
                 .attr("width", (d) => {
                     if (isNegative) {
                         return drawNegativeOutlays(d);
@@ -645,9 +631,9 @@ const StatusOfFundsChart = ({
                 .style("stroke", "#aeb0b5")
                 .style("stroke-width", 1)
                 .attr("x1", -320)
-                .attr("y1", isMobile ? chartHeight + 1040 : horizontalBorderYPos())
+                .attr("y1", isMobile ? chartHeight + 1840 : horizontalBorderYPos())
                 .attr("x2", isLargeScreen ? chartWidth + 330 : chartWidth + 85)
-                .attr("y2", isMobile ? chartHeight + 1040 : horizontalBorderYPos());
+                .attr("y2", isMobile ? chartHeight + 1840 : horizontalBorderYPos());
             if (isNegative) {
                 svg.append('line')
                     .attr('transform', tickMobileXAxis)
@@ -658,6 +644,19 @@ const StatusOfFundsChart = ({
                     .attr("x2", x(0))
                     .attr("y2", isLargeScreen ? chartHeight + 500 : chartHeight + 4);
             }
+            svg.append('defs')
+                .append('pattern')
+                .attr("x", "0")
+                .attr("y", "0")
+                .attr('id', 'diagonalHatch')
+                .attr('patternUnits', 'userSpaceOnUse')
+                .attr('width', 1)
+                .attr('height', 12)
+                .attr("patternTransform", "rotate(-130, 4, 4)")
+                .append('path')
+                .attr('d', 'M -1,2 l 6,0')
+                .attr('stroke', '#d7d8d9')
+                .attr('stroke-width', 3);
         }
     };
 
