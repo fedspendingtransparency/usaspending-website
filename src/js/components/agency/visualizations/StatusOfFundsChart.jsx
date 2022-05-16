@@ -441,8 +441,21 @@ const StatusOfFundsChart = ({
                 .attr('class', 'svg')
                 .attr('xmlns:xlink', 'http://www.w3.org/1999/xlink')
                 .attr('preserveAspectRatio', 'none')
-                .attr("viewBox", [0, 0, viewWidth + margins.left + margins.right, chartHeightViewBox()])
-                .append('g')
+                .attr("viewBox", [0, 0, viewWidth + margins.left + margins.right, chartHeightViewBox()]);
+
+            svg.append('defs')
+                .append('pattern')
+                .attr('id', 'diagonalHatch')
+                .attr('patternUnits', 'userSpaceOnUse')
+                .attr('width', 2)
+                .attr('height', 2)
+                .attr("patternTransform", "rotate(-115, 8, 8)")
+                .append('path')
+                .attr('d', 'M-1,1 l2,-2 M0,4 l4,-4 M3,5 l2,-2')
+                .attr('stroke', '#000000')
+                .attr('stroke-width', 1);
+
+            svg.append('g')
                 .attr('transform', `translate(${isLargeScreen ? margins.left - 40 : margins.left}, ${margins.top})`);
 
             const tickMobileXAxis = isLargeScreen ? 'translate(-130,0)' : 'translate(90, 0)';
@@ -560,35 +573,11 @@ const StatusOfFundsChart = ({
                 .attr("y", (d) => (!isMobile ? y(d.name) + 50 : y(d.name) + 50))
                 .attr("width", (d) => x(d._budgetaryResources) + 11)
                 .attr("height", !isMobile ? y.bandwidth() - 76 : y.bandwidth())
-                .attr("fill", "#555")
+                // .attr("fill", "#555")
                 .attr('class', 'hbars')
                 .attr('id', 'tbr-bar')
-                .attr('aria-disabled', "true");
-
-            const pattern = d3.select("tbr-bar").append("svg");
-            pattern
-                .attr("x", 0)
-                .attr("y", 0)
-                .attr("width", 50)
-                .attr("height", 50)
-                .append('defs')
-                .append('pattern')
-                .attr('id', 'diagonalHatch')
-                .attr('patternUnits', 'userSpaceOnUse')
-                .attr('width', 1)
-                .attr('height', 1)
-                .attr("patternTransform", "rotate(-115, 8, 8)")
-                .append('path')
-                .attr('d', 'M-1,1 l2,-2 M0,4 l4,-4 M3,5 l2,-2')
-                .attr('stroke', '#000000')
-                .attr('stroke-width', 1);
-
-            pattern.append("rect")
-                .attr("x", 1)
-                .attr("y", 1)
-                .attr("width", 50)
-                .attr("height", 50)
-                .attr("stroke-width", 1)
+                .attr('aria-disabled', "true")
+                .attr("stroke-width", 2)
                 .attr('fill', 'url(#diagonalHatch)');
 
             // append total obligations bars
