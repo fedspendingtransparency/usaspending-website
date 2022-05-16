@@ -323,9 +323,9 @@ const StatusOfFundsChart = ({
             barGroups.append("rect")
                 .attr('transform', tickMobileXAxis)
                 .attr("x", -8)
-                .attr("y", (d) => (isLargeScreen ? y(d.name) + 80 : y(d.name) + 40))
+                .attr("y", (d) => (isLargeScreen ? y(d.name) + 80 : y(d.name) + 60))
                 .attr("width", isLargeScreen ? chartWidth + 340 : chartWidth + 90)
-                .attr("height", y.bandwidth() - 36)
+                .attr("height", y.bandwidth() - 66)
                 .attr("fill", "#fff")
                 .attr("stroke", "#f1f1f1")
                 .attr('class', 'hbars')
@@ -334,9 +334,9 @@ const StatusOfFundsChart = ({
             barGroups.append("rect")
                 .attr('transform', tickMobileXAxis)
                 .attr("x", -8)
-                .attr("y", (d) => (isLargeScreen ? y(d.name) + 80 : y(d.name) + 40))
+                .attr("y", (d) => (isLargeScreen ? y(d.name) + 80 : y(d.name) + 60))
                 .attr("width", (d) => x(d._budgetaryResources) + 11)
-                .attr("height", y.bandwidth() - 36)
+                .attr("height", y.bandwidth() - 66)
                 .attr("fill", "#BBDFC7")
                 .attr('class', 'hbars')
                 .attr('id', 'tbr-bar');
@@ -352,7 +352,7 @@ const StatusOfFundsChart = ({
                     }
                     return x(0);
                 })
-                .attr("y", (d) => (isLargeScreen ? y(d.name) + 80 : y(d.name) + 40))
+                .attr("y", (d) => (isLargeScreen ? y(d.name) + 80 : y(d.name) + 60))
                 .attr("width", (d) => {
                     if (isNegative) {
                         return drawNegativeObligations(d);
@@ -362,7 +362,7 @@ const StatusOfFundsChart = ({
                     }
                     return x(d._obligations) + 11;
                 })
-                .attr("height", y.bandwidth() - 36)
+                .attr("height", y.bandwidth() - 66)
                 .attr("fill", "#2B71B8")
                 .attr('class', 'hbars')
                 .attr('id', 'obl-bar');
@@ -569,14 +569,14 @@ const StatusOfFundsChart = ({
             pattern
                 .attr("x", 0)
                 .attr("y", 0)
-                .attr("width", 204)
-                .attr("height", 204)
+                .attr("width", 50)
+                .attr("height", 50)
                 .append('defs')
                 .append('pattern')
                 .attr('id', 'diagonalHatch')
                 .attr('patternUnits', 'userSpaceOnUse')
-                .attr('width', 2)
-                .attr('height', 2)
+                .attr('width', 1)
+                .attr('height', 1)
                 .attr("patternTransform", "rotate(-115, 8, 8)")
                 .append('path')
                 .attr('d', 'M-1,1 l2,-2 M0,4 l4,-4 M3,5 l2,-2')
@@ -586,9 +586,9 @@ const StatusOfFundsChart = ({
             pattern.append("rect")
                 .attr("x", 1)
                 .attr("y", 1)
-                .attr("width", 100)
-                .attr("height", 100)
-                .attr("stroke-width", 2)
+                .attr("width", 50)
+                .attr("height", 50)
+                .attr("stroke-width", 1)
                 .attr('fill', 'url(#diagonalHatch)');
 
             // append total obligations bars
