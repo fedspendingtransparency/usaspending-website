@@ -557,7 +557,7 @@ const StatusOfFundsChart = ({
             barGroups.append("rect")
                 .attr('transform', tickMobileXAxis)
                 .attr("x", -8)
-                .attr("y", (d) => (!isMobile ? y(d.name) + 90 : y(d.name) + 50))
+                .attr("y", (d) => (!isMobile ? y(d.name) + 50 : y(d.name) + 50))
                 .attr("width", (d) => x(d._budgetaryResources) + 11)
                 .attr("height", !isMobile ? y.bandwidth() - 76 : y.bandwidth())
                 .attr("fill", "#555")
@@ -603,7 +603,7 @@ const StatusOfFundsChart = ({
                     }
                     return x(0);
                 })
-                .attr("y", (d) => (!isMobile ? y(d.name) + 130 : y(d.name) + 145))
+                .attr("y", (d) => (!isMobile ? y(d.name) + 90 : y(d.name) + 145))
                 .attr("width", (d) => {
                     if (isNegative) {
                         return drawNegativeOutlays(d);
