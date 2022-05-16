@@ -323,7 +323,7 @@ const StatusOfFundsChart = ({
             barGroups.append("rect")
                 .attr('transform', tickMobileXAxis)
                 .attr("x", -8)
-                .attr("y", (d) => (isLargeScreen ? y(d.name) + 80 : y(d.name) + 40))
+                .attr("y", (d) => (isLargeScreen ? y(d.name) + 80 : y(d.name) + 60))
                 .attr("width", isLargeScreen ? chartWidth + 340 : chartWidth + 90)
                 .attr("height", y.bandwidth() - 66)
                 .attr("fill", "#fff")
@@ -456,7 +456,6 @@ const StatusOfFundsChart = ({
             }
             // extract sorted agency names
             for (let i = 0; i < sortedNums.length; i++) {
-                // resultNames = resultNames.concat(sortedNums[i].name.split(',')[0]);
                 resultNames = resultNames.concat(sortedNums[i].name);
             }
             if (sortedNums.length < 10) {
@@ -548,7 +547,7 @@ const StatusOfFundsChart = ({
                 .attr("x", -8)
                 .attr("y", (d) => (isLargeScreen ? y(d.name) + 90 : y(d.name) + 50))
                 .attr("width", isLargeScreen ? chartWidth + 340 : chartWidth + 90)
-                .attr("height", !isMobile ? y.bandwidth() - 36 : y.bandwidth() + 95)
+                .attr("height", !isMobile ? y.bandwidth() - 26 : y.bandwidth() + 95)
                 .attr("fill", "#fff")
                 .attr("stroke", "#f1f1f1")
                 .attr('class', 'hbars')
