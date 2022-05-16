@@ -224,7 +224,7 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
             const grandPlaceHolderExists = childFromSearch
                 .children
                 .some((grand) => grand.isPlaceHolder);
-            
+
             const greatGrandNotOverwritten = childFromSearch
                 .children
                 .find((grand) => grand.value === '111120')
@@ -539,7 +539,7 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
                 .children[0]
                 .children
                 .map((grand) => grand.value);
-    
+
             const [newCounts, newUnchecked] = incrementCountAndUpdateUnchecked(
                 allGrandchildrenOf1111,
                 allGrandchildrenOf1111.filter((grand) => grand !== '111110'),
@@ -550,7 +550,7 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
                 getImmediateAncestorNaicsCode,
                 getHighestAncestorNaicsCode
             );
-    
+
             expect(newCounts[0].count).toEqual(8);
             expect(newUnchecked.length).toEqual(0);
         });
@@ -647,7 +647,7 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
                 children: getPscNodeFromTree(pscMockData.reallyBigTree, 'AC2').children
             };
             const nodeWithMixedChildren = getPscNodeFromTree(pscMockData.reallyBigTree, 'AC');
-            
+
             expect(areChildrenPartial(nodeWithMixedChildren.count, nodeWithMixedChildren.children)).toEqual(true);
             expect(areChildrenPartial(fullyPopulatedNode.count, fullyPopulatedNode.children)).toEqual(false);
         });
@@ -741,34 +741,28 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
                     ['Research and Development', 'AA', 'AA9', 'AA91']
                 ]
             );
-            expect(result).toEqual(
-                [
-                    'Products',
-                    'Service',
-                    'Research and Development',
-                    'Products/10',
-                    'Service/B',
-                    'Research and Development/AA',
-                    'Service/B/B5',
-                    'Research and Development/AA/AA9'
-                ]
-            );
+            expect(result).toEqual([
+                'Products',
+                'Service',
+                'Research and Development',
+                'Products/10',
+                'Service/B',
+                'Research and Development/AA',
+                'Service/B/B5',
+                'Research and Development/AA/AA9'
+            ]);
         });
         it('if the path has only one item, return it', () => {
-            const result = getUniqueAncestorPaths(
-                [
-                    ['Products'],
-                    ['Research and Development'],
-                    ['Service']
-                ]
-            );
-            expect(result).toEqual(
-                [
-                    'Products',
-                    'Research and Development',
-                    'Service'
-                ]
-            );
+            const result = getUniqueAncestorPaths([
+                ['Products'],
+                ['Research and Development'],
+                ['Service']
+            ]);
+            expect(result).toEqual([
+                'Products',
+                'Research and Development',
+                'Service'
+            ]);
         });
     });
     describe('getAncestryPathOfNodes', () => {
@@ -895,18 +889,4 @@ describe('checkboxTree Helpers (using NAICS data)', () => {
         expect(mockTrue).toEqual(true);
     });
 });
-
-const initialPscTreeOnExpand = cleanPscData(pscMockData.topTierResponse.results);
-const searchResultWithPartialData = cleanPscData(pscMockData.partialSearchResults.results);
-
-test.each([
-    [initialPscTreeOnExpand, searchResultWithPartialData, ['Service', 'G', 'G0'], 1]
-])(
-    'partial search results under a grand child only are given placeholders and hidden (mock tree before search: %p), (search result: %p)',
-    (initialTree, searchResult, pathToChildren, hiddenNodesLength) => {
-        const result = addSearchResultsToTree(initialTree, searchResult, getPscNodeFromTree);
-        const children = pathToChildren.reduce((acc, id) => acc.find((node) => node.value === id).children, result);
-        expect(children.filter((c) => c.className === 'hide').length).toEqual(hiddenNodesLength);
-    }
-);
 
