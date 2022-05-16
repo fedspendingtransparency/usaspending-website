@@ -6,7 +6,6 @@ import { formatMoneyWithUnitsShortLabel } from 'helpers/moneyFormatter';
 
 const BaseAgencySubcomponentsList = {
     populate(data) {
-        console.debug(data);
         this.id = data?.id || '';
         this.name = data?.name || '';
         /* eslint-disable camelcase */
