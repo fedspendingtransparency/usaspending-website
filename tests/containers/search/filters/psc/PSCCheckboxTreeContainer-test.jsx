@@ -61,7 +61,7 @@ describe('PscCheckboxTreeContainer', () => {
             await container.instance().fetchPsc('Service');
             const newNodes = mockFn.mock.calls[0][1];
             expect(newNodes.length).toEqual(23);
-            
+
             newNodes
                 .forEach((secondTier) => {
                     expect(secondTier.children.length).toEqual(1);
@@ -149,12 +149,11 @@ describe('PscCheckboxTreeContainer', () => {
     describe('onCollapse', () => {
         it('updates the props.expanded array', () => {
             const mockFn = jest.fn();
-            const container = shallow(
-                <PSCCheckboxTreeContainer
-                    {...defaultProps}
-                    nodes={treePopulatedToSecondTier}
-                    expanded={['Services', 'B']}
-                    setExpandedPsc={mockFn} />);
+            const container = shallow(<PSCCheckboxTreeContainer
+                {...defaultProps}
+                nodes={treePopulatedToSecondTier}
+                expanded={['Services', 'B']}
+                setExpandedPsc={mockFn} />);
             container.instance().onCollapse(['Services']);
             const newExpanded = mockFn.mock.calls[0][0];
             expect(newExpanded).toEqual(['Services']);
@@ -189,10 +188,9 @@ describe('PscCheckboxTreeContainer', () => {
     });
     describe('componentDidMount', () => {
         it('does not replace nodes if they are already there', async () => {
-            const container = shallow(
-                <PSCCheckboxTreeContainer
-                    {...defaultProps}
-                    nodes={[1, 2]} />);
+            const container = shallow(<PSCCheckboxTreeContainer
+                {...defaultProps}
+                nodes={[1, 2]} />);
             const mockFn = jest.fn();
             container.instance().fetchPsc = mockFn;
             await container.instance().componentDidMount();
@@ -207,25 +205,24 @@ describe('PscCheckboxTreeContainer', () => {
                 { label: 'Product', value: 'Product', count: 1 },
                 { label: 'Service', value: 'Service', count: 7 }
             ];
-            const container = shallow(
-                <PSCCheckboxTreeContainer
-                    {...defaultProps}
-                    setPscCounts={mockSetCounts}
-                    setExpandedPsc={mockExpandPsc}
-                    uncheckedFromHash={[
-                        ['Product', '10', '1000']
-                    ]}
-                    checkedFromHash={[
-                        ['Product', '10'],
-                        ['Service', 'B', 'B5', 'B516'],
-                        ['Service', 'B', 'B5', 'B513'],
-                        ['Service', 'B', 'B5', 'B502'],
-                        ['Service', 'B', 'B5', 'B502'],
-                        ['Service', 'B', 'B5', 'B503'],
-                        ['Service', 'B', 'B5', 'B504'],
-                        ['Service', 'B', 'B5', 'B505']
-                    ]}
-                    countsFromHash={countsFromHash} />);
+            const container = shallow(<PSCCheckboxTreeContainer
+                {...defaultProps}
+                setPscCounts={mockSetCounts}
+                setExpandedPsc={mockExpandPsc}
+                uncheckedFromHash={[
+                    ['Product', '10', '1000']
+                ]}
+                checkedFromHash={[
+                    ['Product', '10'],
+                    ['Service', 'B', 'B5', 'B516'],
+                    ['Service', 'B', 'B5', 'B513'],
+                    ['Service', 'B', 'B5', 'B502'],
+                    ['Service', 'B', 'B5', 'B502'],
+                    ['Service', 'B', 'B5', 'B503'],
+                    ['Service', 'B', 'B5', 'B504'],
+                    ['Service', 'B', 'B5', 'B505']
+                ]}
+                countsFromHash={countsFromHash} />);
             container.instance().fetchPsc = mockFetchPsc;
             container.instance().setCheckedStateFromUrlHash = mockCheckPsc;
             await container.instance().componentDidMount();
@@ -265,13 +262,12 @@ describe('PscCheckboxTreeContainer', () => {
             const checked = ['AC2']; // mock data here has seven children even though in reality it has 8.
             // const mockSetUncheckedPsc = jest.fn();
             const mockSetCheckedPsc = jest.fn();
-            const container = shallow(
-                <PSCCheckboxTreeContainer
-                    {...defaultProps}
-                    setCheckedPsc={mockSetCheckedPsc}
-                    nodes={reallyBigTree}
-                    uncheckedFromHash={unchecked}
-                    checkedFromHash={checked} />);
+            const container = shallow(<PSCCheckboxTreeContainer
+                {...defaultProps}
+                setCheckedPsc={mockSetCheckedPsc}
+                nodes={reallyBigTree}
+                uncheckedFromHash={unchecked}
+                checkedFromHash={checked} />);
             await container.instance().setCheckedStateFromUrlHash(checked);
             const nodeFromChecked = getPscNodeFromTree(reallyBigTree, 'AC2');
             const checkedNodes = getAllDescendants(nodeFromChecked)
@@ -280,15 +276,16 @@ describe('PscCheckboxTreeContainer', () => {
         });
     });
     describe('handleTextInputChange', () => {
-        it('only calls onSearchChange if search string is greater than or equal to 3 chars', () => {
+        it('calls onSearchChange if search string is one or more chars', () => {
             const mockFn = jest.fn();
             const container = shallow(<PSCCheckboxTreeContainer {...defaultProps} nodes={reallyBigTree} />);
             container.instance().onSearchChange = mockFn;
             container.instance().handleTextInputChange({ target: { value: 'a' }, persist: () => {} });
-            container.instance().handleTextInputChange({ target: { value: 'ab' }, persist: () => {} });
-            expect(mockFn).not.toHaveBeenCalled();
-            container.instance().handleTextInputChange({ target: { value: 'abc' }, persist: () => {} });
             expect(mockFn).toHaveBeenCalledTimes(1);
+            container.instance().handleTextInputChange({ target: { value: 'ab' }, persist: () => {} });
+            expect(mockFn).toHaveBeenCalledTimes(2);
+            container.instance().handleTextInputChange({ target: { value: 'abc' }, persist: () => {} });
+            expect(mockFn).toHaveBeenCalledTimes(3);
         });
     });
 });
