@@ -71,7 +71,7 @@ export const resourceOptions = [
         type: 'analyst-guide',
         url: '/analyst-guide',
         shouldOpenNewTab: false,
-        enabled: GlobalConstants.SHOW_ANALYSTGUIDE,
+        enabled: true,
         externalLink: false,
         isNewTab: true
 
