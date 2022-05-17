@@ -561,7 +561,7 @@ const StatusOfFundsChart = ({
                 .attr("x", -8)
                 .attr("y", (d) => (!isMobile ? y(d.name) + 50 : y(d.name) - 90))
                 .attr("width", (d) => x(d._budgetaryResources) + 11)
-                .attr("height", !isMobile ? y.bandwidth() - 76 : y.bandwidth())
+                .attr("height", !isMobile ? y.bandwidth() - 76 : y.bandwidth() - 18)
                 .attr('class', 'hbars')
                 .attr('id', 'tbr-bar')
                 .attr("style", "outline: thin solid #D7D8D9;")
@@ -581,7 +581,7 @@ const StatusOfFundsChart = ({
                     }
                     return x(0);
                 })
-                .attr("y", (d) => (!isMobile ? y(d.name) + 100 : y(d.name) + 20))
+                .attr("y", (d) => (!isMobile ? y(d.name) + 100 : y(d.name) + 10))
                 .attr("width", (d) => {
                     if (isNegative) {
                         return drawNegativeOutlays(d);
@@ -591,7 +591,7 @@ const StatusOfFundsChart = ({
                     }
                     return x(d._outlays) + 11;
                 })
-                .attr("height", !isMobile ? y.bandwidth() - 76 : y.bandwidth())
+                .attr("height", !isMobile ? y.bandwidth() - 76 : y.bandwidth() - 18)
                 .attr("fill", "#FFBE2E")
                 .attr('class', 'hbars')
                 .attr('id', 'out-bar');
