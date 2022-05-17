@@ -556,7 +556,7 @@ const StatusOfFundsChart = ({
             barGroups.append("rect")
                 .attr('transform', tickMobileXAxis)
                 .attr("x", -8)
-                .attr("y", (d) => (!isMobile ? y(d.name) + 50 : y(d.name) + 50))
+                .attr("y", (d) => (!isMobile ? y(d.name) + 50 : y(d.name) + 75))
                 .attr("width", (d) => x(d._budgetaryResources) + 11)
                 .attr("height", !isMobile ? y.bandwidth() - 76 : y.bandwidth())
                 .attr('class', 'hbars')
@@ -578,7 +578,7 @@ const StatusOfFundsChart = ({
                     }
                     return x(0);
                 })
-                .attr("y", (d) => (!isMobile ? y(d.name) + 100 : y(d.name) + 145))
+                .attr("y", (d) => (!isMobile ? y(d.name) + 100 : y(d.name) + 175))
                 .attr("width", (d) => {
                     if (isNegative) {
                         return drawNegativeOutlays(d);
@@ -705,7 +705,7 @@ const StatusOfFundsChart = ({
                         closeTooltip: () => { }
                     }} />
             }
-            <div id="sof_chart" className="status-of-funds__visualization" ref={chartRef} />
+            {isMobile &&
             <FlexGridRow className="legend" style={{ flexDirection: isLargeScreen ? 'column' : 'row' }}>
                 <div className="legend__item">
                     <div
@@ -713,7 +713,7 @@ const StatusOfFundsChart = ({
                         style={!toggle ? { backgroundColor: '#2B71B8' } : { backgroundColor: '#FFBE2E' }} />
                     {!toggle && <div className="legend__text">FY{fy[2]}{fy[3]} Obligations</div>}
                     {toggle && <div className="legend__text">FY{fy[2]}{fy[3]} Outlays</div>}
-                    &nbsp;&nbsp;&nbsp;&nbsp;
+                &nbsp;&nbsp;&nbsp;&nbsp;
                 </div>
                 <div className="legend__item">
                     <div
@@ -722,6 +722,26 @@ const StatusOfFundsChart = ({
                     {!toggle && <div className="legend__text">FY{fy[2]}{fy[3]} Total Budgetary Resources</div>}
                 </div>
             </FlexGridRow>
+            }
+            <div id="sof_chart" className="status-of-funds__visualization" ref={chartRef} />
+            {!isMobile &&
+                <FlexGridRow className="legend" style={{ flexDirection: isLargeScreen ? 'column' : 'row' }}>
+                    <div className="legend__item">
+                        <div
+                            className="legend__circle"
+                            style={!toggle ? { backgroundColor: '#2B71B8' } : { backgroundColor: '#FFBE2E' }} />
+                        {!toggle && <div className="legend__text">FY{fy[2]}{fy[3]} Obligations</div>}
+                        {toggle && <div className="legend__text">FY{fy[2]}{fy[3]} Outlays</div>}
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                    </div>
+                    <div className="legend__item">
+                        <div
+                            className="legend__circle"
+                            style={!toggle ? { backgroundColor: '#BBDFC7' } : { display: 'transparent' }} />
+                        {!toggle && <div className="legend__text">FY{fy[2]}{fy[3]} Total Budgetary Resources</div>}
+                    </div>
+                </FlexGridRow>
+            }
         </>
     );
 };
