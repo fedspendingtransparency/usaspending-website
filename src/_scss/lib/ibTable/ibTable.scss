@@ -1,3 +1,12 @@
+.ibt-table__top-scroller {
+    overflow-x: scroll;
+    height: rem(20);
+
+    .ibt-table__scroller {
+        height: rem(7);
+    }
+}
+
 .ibt-table-container {
     position: relative;
     overflow: hidden;
@@ -24,7 +33,7 @@
             overflow: hidden;
             white-space: nowrap;
             will-change: transform;
-            
+
             .ibt-header-row {
                 display: table;
                 position: absolute;
