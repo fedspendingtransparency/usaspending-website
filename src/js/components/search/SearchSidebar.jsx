@@ -125,7 +125,7 @@ const staticFilters = {
         null,
         null,
         null,
-        NewBadge,
+        null,
         null,
         null,
         null,
