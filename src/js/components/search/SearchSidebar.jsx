@@ -25,7 +25,7 @@ import PSCCheckboxTreeContainer from 'containers/search/filters/psc/PSCCheckboxT
 import PricingTypeContainer from 'containers/search/filters/PricingTypeContainer';
 import SetAsideContainer from 'containers/search/filters/SetAsideContainer';
 import ExtentCompetedContainer from 'containers/search/filters/ExtentCompetedContainer';
-import DEFCheckboxTree, { NewBadge } from 'containers/search/filters/def/DEFCheckboxTree';
+import DEFCheckboxTree from 'containers/search/filters/def/DEFCheckboxTree';
 
 import {
     KeyWordTooltip,
