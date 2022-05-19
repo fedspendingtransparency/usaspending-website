@@ -29,7 +29,7 @@ export default class TopFiveRow extends React.Component {
                 title={this.props.data.name}>
                 {this.props.data._slug ?
                     this.props.data.linkedName
-                    : ''}
+                    : this.props.data.name}
             </td>
         );
     }
