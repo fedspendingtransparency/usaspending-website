@@ -85,7 +85,7 @@ const StatusOfFundsChart = ({
         }, 50);
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-    }, [windowWidth]);
+    }, []);
 
 
     // Wrap y axis labels - reference https://bl.ocks.org/mbostock/7555321
@@ -237,7 +237,6 @@ const StatusOfFundsChart = ({
             }
             // extract sorted agency names
             for (let i = 0; i < sortedNums.length; i++) {
-                // resultNames = resultNames.concat(sortedNums[i].name.split(',')[0]);
                 resultNames = resultNames.concat(sortedNums[i].name);
             }
             if (sortedNums.length < 10) {
