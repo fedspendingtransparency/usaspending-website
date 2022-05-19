@@ -47,6 +47,7 @@ const StatusOfFunds = ({ fy }) => {
     const request = useRef(null);
     const [results, setResults] = useState([]);
     const { overview, selectedSubcomponent } = useSelector((state) => state.agency);
+    const [toggle, setOnToggle] = useState(false);
 
     useEffect(() => {
         if (request.current) {
@@ -191,6 +192,11 @@ const StatusOfFunds = ({ fy }) => {
             }
         }
     };
+
+    const onToggle = () => {
+        setOnToggle(!toggle);
+    };
+
     return (
         <div className="body__content status-of-funds">
             <IntroSection name={overview.name} fy={fy} totalItems={totalItems} />
@@ -209,7 +215,7 @@ const StatusOfFunds = ({ fy }) => {
                             <FontAwesomeIcon icon="arrow-left" />
                             &nbsp;&nbsp;Back
                         </button> : <></>}
-                    { !loading ? <VisualizationSection fetchFederalAccounts={fetchFederalAccounts} totalItems={totalItems} setTotalItems={setTotalItems} loading={loading} setLoading={setLoading} level={level} setLevel={onClick} selectedSubcomponent={selectedSubcomponent} agencyId={overview.toptierCode} agencyName={overview.name} fy={fy} results={results} /> : <LoadingMessage /> }
+                    { !loading ? <VisualizationSection toggle={toggle} onToggle={onToggle} fetchFederalAccounts={fetchFederalAccounts} totalItems={totalItems} setTotalItems={setTotalItems} loading={loading} setLoading={setLoading} level={level} setLevel={onClick} selectedSubcomponent={selectedSubcomponent} agencyId={overview.toptierCode} agencyName={overview.name} fy={fy} results={results} /> : <LoadingMessage /> }
                     <Pagination
                         currentPage={currentPage}
                         changePage={changeCurrentPage}

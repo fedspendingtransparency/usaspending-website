@@ -8,9 +8,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { levels } from './StatusOfFunds';
 import StatusOfFundsChart from '../visualizations/StatusOfFundsChart';
-// import RoundedToggle from "../../sharedComponents/RoundedToggle";
+import RoundedToggle from "../../sharedComponents/RoundedToggle";
 
 const propTypes = {
+    toggle: PropTypes.bool,
+    onToggle: PropTypes.func,
     level: PropTypes.number.isRequired,
     setLevel: PropTypes.func,
     loading: PropTypes.bool,
@@ -30,6 +32,8 @@ const propTypes = {
 };
 
 const VisualizationSection = ({
+    toggle,
+    onToggle,
     loading,
     setLoading,
     level,
@@ -44,11 +48,11 @@ const VisualizationSection = ({
 }) => (
     <div className="status-of-funds__visualization">
         <h6>{level === 1 ? selectedSubcomponent?.name : agencyName} by <strong>{levels[level]}</strong> for FY {fy}</h6>
-        {/* <div className="status-of-funds__controls">
-            <RoundedToggle label="View Outlays" />
-        </div> */}
+        <div className="status-of-funds__controls">
+            <RoundedToggle toggle={toggle} onToggle={onToggle} label="View Outlays" />
+        </div>
         <div className="status-of-funds__visualization-chart">
-            <StatusOfFundsChart fetchFederalAccounts={fetchFederalAccounts} totalItems={totalItems} setTotalItems={setTotalItems} loading={loading} setLoading={setLoading} fy={fy} results={results} level={level} setLevel={setLevel} />
+            <StatusOfFundsChart toggle={toggle} fetchFederalAccounts={fetchFederalAccounts} totalItems={totalItems} setTotalItems={setTotalItems} loading={loading} setLoading={setLoading} fy={fy} results={results} level={level} setLevel={setLevel} />
         </div>
     </div>
 );
