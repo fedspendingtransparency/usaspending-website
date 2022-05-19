@@ -40,7 +40,7 @@ const Covid19Container = () => {
 
         if (!publicLaw ||
             !(publicLaw === 'all' || (publicLaw in defcByPublicLaw)) ||
-            (publicLaw === 'american-rescue-plan' && !GlobalConstants.ARP_RELEASED)) {
+            (publicLaw === 'american-rescue-plan')) {
             history.replace({
                 pathname: '',
                 search: '?publicLaw=all'

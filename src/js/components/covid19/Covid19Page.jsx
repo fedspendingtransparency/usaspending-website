@@ -92,7 +92,7 @@ const Covid19Page = ({ loading }) => {
             metaTagProps={covidPageMetaTags}
             title="COVID-19 Spending"
             toolBarComponents={[
-                GlobalConstants.ARP_RELEASED ? <PublicLawPicker selectedOption={query?.publicLaw} onClick={handlePublicLawFilterClick} /> : <></>,
+                <PublicLawPicker selectedOption={query?.publicLaw} onClick={handlePublicLawFilterClick} />,
                 <ShareIcon
                     url={getBaseUrl(slug)}
                     onShareOptionClick={handleShare} />,
