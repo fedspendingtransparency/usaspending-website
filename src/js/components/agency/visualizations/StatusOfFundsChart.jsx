@@ -327,7 +327,7 @@ const StatusOfFundsChart = ({
                 .attr("x", -8)
                 .attr("y", (d) => (isLargeScreen ? y(d.name) - 10 : y(d.name) + 60))
                 .attr("width", isLargeScreen ? chartWidth + 340 : chartWidth + 90)
-                .attr("height", y.bandwidth() - 66)
+                .attr("height", "20px")
                 .attr("fill", "#fff")
                 .attr("stroke", "#f1f1f1")
                 .attr('class', 'hbars')
@@ -338,7 +338,7 @@ const StatusOfFundsChart = ({
                 .attr("x", -8)
                 .attr("y", (d) => (isLargeScreen ? y(d.name) - 10 : y(d.name) + 60))
                 .attr("width", (d) => x(d._budgetaryResources) + 11)
-                .attr("height", y.bandwidth() - 66)
+                .attr("height", "20px")
                 .attr("fill", "#BBDFC7")
                 .attr('class', 'hbars')
                 .attr('id', 'tbr-bar');
@@ -364,7 +364,7 @@ const StatusOfFundsChart = ({
                     }
                     return x(d._obligations) + 11;
                 })
-                .attr("height", y.bandwidth() - 66)
+                .attr("height", "20px")
                 .attr("fill", "#2B71B8")
                 .attr('class', 'hbars')
                 .attr('id', 'obl-bar');
@@ -547,9 +547,9 @@ const StatusOfFundsChart = ({
             barGroups.append("rect")
                 .attr('transform', tickMobileXAxis)
                 .attr("x", -8)
-                .attr("y", (d) => (isLargeScreen ? y(d.name) + 90 : y(d.name) + 50))
+                .attr("y", (d) => (!isMobile ? y(d.name) + 100 : y(d.name) + 10))
                 .attr("width", isLargeScreen ? chartWidth + 340 : chartWidth + 90)
-                .attr("height", !isMobile ? y.bandwidth() - 26 : y.bandwidth() + 95)
+                .attr("height", "20px")
                 .attr("fill", "#fff")
                 .attr("stroke", "#f1f1f1")
                 .attr('class', 'hbars')
@@ -560,7 +560,7 @@ const StatusOfFundsChart = ({
                 .attr("x", -8)
                 .attr("y", (d) => (!isMobile ? y(d.name) + 50 : y(d.name) - 90))
                 .attr("width", (d) => x(d._budgetaryResources) + 11)
-                .attr("height", !isMobile ? y.bandwidth() - 76 : y.bandwidth() - 18)
+                .attr("height", "20px")
                 .attr('class', 'hbars')
                 .attr('id', 'tbr-bar')
                 .attr("style", "outline: thin solid #D7D8D9;")
@@ -568,7 +568,7 @@ const StatusOfFundsChart = ({
                 .attr("stroke-width", 2)
                 .attr('fill', 'url(#diagonalHatch)');
 
-            // append total obligations bars
+            // append total outlay bars
             barGroups.append("rect")
                 .attr('transform', tickMobileXAxis)
                 .attr("x", (d) => {
@@ -590,7 +590,7 @@ const StatusOfFundsChart = ({
                     }
                     return x(d._outlays) + 11;
                 })
-                .attr("height", !isMobile ? y.bandwidth() - 76 : y.bandwidth() - 18)
+                .attr("height", "20px")
                 .attr("fill", "#FFBE2E")
                 .attr('class', 'hbars')
                 .attr('id', 'out-bar');
@@ -623,8 +623,8 @@ const StatusOfFundsChart = ({
             svg.selectAll(".y-axis-labels").append("svg:title")
                 .text((d) => d);
             if (level === 1) {
-                svg.selectAll(".bar-group").on('click', null);
-                svg.selectAll(".bar-group").on('keypress', null);
+                svg.selectAll(".out-bar").on('click', null);
+                svg.selectAll(".out-bar").on('keypress', null);
             }
             // horizontal border above legend
             svg.append('line')
