@@ -11,6 +11,10 @@
 			border-bottom: rem(1) solid $color-gray-lighter;
 		}
 	}
+    
+	.usda-page-header__toolbar .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item { 
+        padding-left: 25px;
+    }
 
     .main-content {
         @import "../../mixins/fullSectionWrap";
