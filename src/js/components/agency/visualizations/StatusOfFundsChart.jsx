@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import * as d3 from 'd3';
 import { scaleLinear, scaleBand } from 'd3-scale';
 import { throttle } from 'lodash';
-import { largeScreen } from 'dataMapping/shared/mobileBreakpoints';
+import { largeScreen, mediumScreen, smallScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { FlexGridRow, TooltipWrapper } from 'data-transparency-ui';
 
 const propTypes = {
@@ -21,6 +21,7 @@ const StatusOfFundsChart = ({
 
     const [windowWidth, setWindowWidth] = useState(0);
     const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth < largeScreen);
+    const [isMediumScreen, setIsMediumScreen] = useState(window.innerWidth < mediumScreen && window.innerWidth > smallScreen);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
     const [isNegative, setIsNegative] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
@@ -86,6 +87,7 @@ const StatusOfFundsChart = ({
                 setWindowWidth(newWidth);
                 setIsLargeScreen(newWidth < largeScreen);
                 setIsMobile(newWidth < 600);
+                setIsMediumScreen(newWidth < mediumScreen && newWidth > smallScreen);
             }
         }, 50);
         window.addEventListener('resize', handleResize);
@@ -132,6 +134,9 @@ const StatusOfFundsChart = ({
     const chartHeightYScale = () => {
         if (isLargeScreen) {
             if (!toggle) {
+                if (isMediumScreen) {
+                    return chartHeight + 200;
+                }
                 return chartHeight + 575;
             }
             return chartHeight + 550;
@@ -144,8 +149,12 @@ const StatusOfFundsChart = ({
                 return viewHeight * 2.54;
             }
             return (viewHeight + 10) * 2.4;
-        }
-        if (isLargeScreen) {
+        } else if (isMediumScreen) {
+            if (!toggle) {
+                return 800 + margins.top + margins.bottom;
+            }
+            return 1600 + margins.top + margins.bottom;
+        } else if (isLargeScreen) {
             if (!toggle) {
                 return 1300 + margins.top + margins.bottom;
             }
@@ -330,9 +339,25 @@ const StatusOfFundsChart = ({
             barGroups.append("rect")
                 .attr('transform', tickMobileXAxis)
                 .attr("x", -8)
-                .attr("y", (d) => (isLargeScreen ? y(d.name) : y(d.name) + 40))
+                .attr("y", (d) => {
+                    if (isLargeScreen) {
+                        if (isMediumScreen) {
+                            return y(d.name) + 10;
+                        }
+                        return y(d.name);
+                    }
+                    return y(d.name) + 40;
+                })
                 .attr("width", isLargeScreen ? chartWidth + 340 : chartWidth + 90)
-                .attr("height", !isMobile ? "42.37" : "63.63")
+                .attr("height", () => {
+                    if (!isMobile) {
+                        if (isMediumScreen) {
+                            return "31.12";
+                        }
+                        return "42.37";
+                    }
+                    return "63.63";
+                })
                 .attr("fill", "#fff")
                 .attr("stroke", "#f1f1f1")
                 .attr('class', 'hbars')
@@ -341,9 +366,25 @@ const StatusOfFundsChart = ({
             barGroups.append("rect")
                 .attr('transform', tickMobileXAxis)
                 .attr("x", -8)
-                .attr("y", (d) => (isLargeScreen ? y(d.name) : y(d.name) + 40))
+                .attr("y", (d) => {
+                    if (isLargeScreen) {
+                        if (isMediumScreen) {
+                            return y(d.name) + 10;
+                        }
+                        return y(d.name);
+                    }
+                    return y(d.name) + 40;
+                })
                 .attr("width", (d) => x(d._budgetaryResources) + 11)
-                .attr("height", !isMobile ? "42.37" : "63.63")
+                .attr("height", () => {
+                    if (!isMobile) {
+                        if (isMediumScreen) {
+                            return "31.12";
+                        }
+                        return "42.37";
+                    }
+                    return "63.63";
+                })
                 .attr("fill", "#BBDFC7")
                 .attr('class', 'hbars')
                 .attr('id', 'tbr-bar');
@@ -359,7 +400,15 @@ const StatusOfFundsChart = ({
                     }
                     return x(0);
                 })
-                .attr("y", (d) => (isLargeScreen ? y(d.name) : y(d.name) + 40))
+                .attr("y", (d) => {
+                    if (isLargeScreen) {
+                        if (isMediumScreen) {
+                            return y(d.name) + 10;
+                        }
+                        return y(d.name);
+                    }
+                    return y(d.name) + 40;
+                })
                 .attr("width", (d) => {
                     if (isNegative) {
                         return drawNegativeObligations(d);
@@ -369,7 +418,15 @@ const StatusOfFundsChart = ({
                     }
                     return x(d._obligations) + 11;
                 })
-                .attr("height", !isMobile ? "42.37" : "63.63")
+                .attr("height", () => {
+                    if (!isMobile) {
+                        if (isMediumScreen) {
+                            return "31.12";
+                        }
+                        return "42.37";
+                    }
+                    return "63.63";
+                })
                 .attr("fill", "#2B71B8")
                 .attr('class', 'hbars')
                 .attr('id', 'obl-bar');
@@ -453,7 +510,19 @@ const StatusOfFundsChart = ({
                 .attr('transform', `translate(${isLargeScreen ? margins.left - 40 : margins.left}, ${margins.top})`);
 
             const tickMobileXAxis = isLargeScreen ? 'translate(-130,0)' : 'translate(90, 0)';
-            const tickMobileYAxis = isLargeScreen ? 'translate(-150,-135)' : 'translate(60, 10)';
+            const tickMobileYAxis = () => {
+                if (isLargeScreen) {
+                    if (isMediumScreen) {
+                        if (isMobile) {
+                            return 'translate(-150, -130)';
+                        }
+                        return 'translate(-150, -90)';
+                    }
+                    return 'translate(-150,-135)';
+                }
+                return 'translate(60, 10)';
+            };
+
             // scale to x and y data points
             if (sortedNums[sortedNums.length - 1]._outlays < 0) {
                 x.domain(d3.extent(sortedNums, (d) => d._outlays)).nice(2);
@@ -552,9 +621,25 @@ const StatusOfFundsChart = ({
             barGroups.append("rect")
                 .attr('transform', tickMobileXAxis)
                 .attr("x", -8)
-                .attr("y", (d) => (!isMobile ? y(d.name) + 100 : y(d.name) + 10))
+                .attr("y", (d) => {
+                    if (!isMobile) {
+                        if (isMediumScreen) {
+                            return y(d.name) + 40;
+                        }
+                        return y(d.name) + 100;
+                    }
+                    return y(d.name) - 10;
+                })
                 .attr("width", isLargeScreen ? chartWidth + 340 : chartWidth + 90)
-                .attr("height", !isMobile ? "42.37" : "63.63")
+                .attr("height", () => {
+                    if (!isMobile) {
+                        if (isMediumScreen) {
+                            return "31.12";
+                        }
+                        return "42.37";
+                    }
+                    return "63.63";
+                })
                 .attr("fill", "#fff")
                 .attr("stroke", "#f1f1f1")
                 .attr('class', 'hbars')
@@ -563,9 +648,25 @@ const StatusOfFundsChart = ({
             barGroups.append("rect")
                 .attr('transform', tickMobileXAxis)
                 .attr("x", -8)
-                .attr("y", (d) => (!isMobile ? y(d.name) + 50 : y(d.name) - 90))
+                .attr("y", (d) => {
+                    if (!isMobile) {
+                        if (isMediumScreen) {
+                            return y(d.name);
+                        }
+                        return y(d.name) + 50;
+                    }
+                    return y(d.name) - 90;
+                })
                 .attr("width", (d) => x(d._budgetaryResources) + 11)
-                .attr("height", !isMobile ? "42.37" : "63.63")
+                .attr("height", () => {
+                    if (!isMobile) {
+                        if (isMediumScreen) {
+                            return "31.12";
+                        }
+                        return "42.37";
+                    }
+                    return "63.63";
+                })
                 .attr('class', 'hbars')
                 .attr('id', 'tbr-bar')
                 .attr("style", "outline: thin solid #D7D8D9;")
@@ -575,6 +676,7 @@ const StatusOfFundsChart = ({
 
             // append total outlay bars
             barGroups.append("rect")
+
                 .attr('transform', tickMobileXAxis)
                 .attr("x", (d) => {
                     if (d._outlays < 0) {
@@ -585,7 +687,15 @@ const StatusOfFundsChart = ({
                     }
                     return x(0);
                 })
-                .attr("y", (d) => (!isMobile ? y(d.name) + 100 : y(d.name) - 10))
+                .attr("y", (d) => {
+                    if (!isMobile) {
+                        if (isMediumScreen) {
+                            return y(d.name) + 40;
+                        }
+                        return y(d.name) + 100;
+                    }
+                    return y(d.name) - 10;
+                })
                 .attr("width", (d) => {
                     if (isNegative) {
                         return drawNegativeOutlays(d);
@@ -595,7 +705,15 @@ const StatusOfFundsChart = ({
                     }
                     return x(d._outlays) + 11;
                 })
-                .attr("height", !isMobile ? "42.37" : "63.63")
+                .attr("height", () => {
+                    if (!isMobile) {
+                        if (isMediumScreen) {
+                            return "31.12";
+                        }
+                        return "42.37";
+                    }
+                    return "63.63";
+                })
                 .attr("fill", "#FFBE2E")
                 .attr('class', 'hbars')
                 .attr('id', 'out-bar');
