@@ -28,7 +28,12 @@ const StatusOfFundsChart = ({
     const [sortedNums, setSortedNums] = useState(null);
     const [hoverData, setHoverData] = useState(null);
 
-    const viewHeight = 1200;
+    let viewHeight;
+    if (!toggle) {
+        viewHeight = 760;
+    } else {
+        viewHeight = 1200;
+    }
     const viewWidth = 1000;
     const margins = {
         top: 40, right: 0, bottom: 10, left: isLargeScreen ? 180 : 245
@@ -127,7 +132,7 @@ const StatusOfFundsChart = ({
     const chartHeightYScale = () => {
         if (isLargeScreen) {
             if (!toggle) {
-                return chartHeight + 500;
+                return chartHeight + 575;
             }
             return chartHeight + 550;
         }
@@ -136,15 +141,15 @@ const StatusOfFundsChart = ({
     const chartHeightViewBox = () => {
         if (isMobile) {
             if (toggle) {
-                return viewHeight * 2.48;
+                return viewHeight * 2.54;
             }
-            return viewHeight * 2.2;
+            return (viewHeight + 10) * 2.4;
         }
         if (isLargeScreen) {
             if (!toggle) {
-                return 1255 + margins.top + margins.bottom;
+                return 1300 + margins.top + margins.bottom;
             }
-            return 1275 + margins.top + margins.bottom;
+            return 1500 + margins.top + margins.bottom;
         }
 
         return viewHeight * 1.06;
@@ -227,7 +232,7 @@ const StatusOfFundsChart = ({
                 .attr('transform', `translate(${isLargeScreen ? margins.left - 40 : margins.left}, ${margins.top})`);
 
             const tickMobileXAxis = isLargeScreen ? 'translate(-130,0)' : 'translate(90, 0)';
-            const tickMobileYAxis = isLargeScreen ? 'translate(-150,-110)' : 'translate(60, 0)';
+            const tickMobileYAxis = isLargeScreen ? 'translate(-150,-35)' : 'translate(60, 0)';
             // scale to x and y data points
             if (sortedNums[sortedNums.length - 1]._obligations < 0) {
                 x.domain(d3.extent(sortedNums, (d) => d._obligations)).nice(2);
@@ -325,9 +330,9 @@ const StatusOfFundsChart = ({
             barGroups.append("rect")
                 .attr('transform', tickMobileXAxis)
                 .attr("x", -8)
-                .attr("y", (d) => (isLargeScreen ? y(d.name) - 10 : y(d.name) + 60))
+                .attr("y", (d) => (isLargeScreen ? y(d.name) : y(d.name) + 40))
                 .attr("width", isLargeScreen ? chartWidth + 340 : chartWidth + 90)
-                .attr("height", "20px")
+                .attr("height", !isMobile ? "42.37" : "63.63")
                 .attr("fill", "#fff")
                 .attr("stroke", "#f1f1f1")
                 .attr('class', 'hbars')
@@ -336,9 +341,9 @@ const StatusOfFundsChart = ({
             barGroups.append("rect")
                 .attr('transform', tickMobileXAxis)
                 .attr("x", -8)
-                .attr("y", (d) => (isLargeScreen ? y(d.name) - 10 : y(d.name) + 60))
+                .attr("y", (d) => (isLargeScreen ? y(d.name) : y(d.name) + 40))
                 .attr("width", (d) => x(d._budgetaryResources) + 11)
-                .attr("height", "20px")
+                .attr("height", !isMobile ? "42.37" : "63.63")
                 .attr("fill", "#BBDFC7")
                 .attr('class', 'hbars')
                 .attr('id', 'tbr-bar');
@@ -354,7 +359,7 @@ const StatusOfFundsChart = ({
                     }
                     return x(0);
                 })
-                .attr("y", (d) => (isLargeScreen ? y(d.name) - 10 : y(d.name) + 60))
+                .attr("y", (d) => (isLargeScreen ? y(d.name) : y(d.name) + 40))
                 .attr("width", (d) => {
                     if (isNegative) {
                         return drawNegativeObligations(d);
@@ -364,7 +369,7 @@ const StatusOfFundsChart = ({
                     }
                     return x(d._obligations) + 11;
                 })
-                .attr("height", "20px")
+                .attr("height", !isMobile ? "42.37" : "63.63")
                 .attr("fill", "#2B71B8")
                 .attr('class', 'hbars')
                 .attr('id', 'obl-bar');
@@ -407,9 +412,9 @@ const StatusOfFundsChart = ({
                 .style("stroke", "#aeb0b5")
                 .style("stroke-width", 1)
                 .attr("x1", -320)
-                .attr("y1", isMobile ? chartHeight + 1420 : horizontalBorderYPos())
+                .attr("y1", isMobile ? chartHeight + 1020 : horizontalBorderYPos())
                 .attr("x2", isLargeScreen ? chartWidth + 330 : chartWidth + 85)
-                .attr("y2", isMobile ? chartHeight + 1420 : horizontalBorderYPos());
+                .attr("y2", isMobile ? chartHeight + 1020 : horizontalBorderYPos());
             if (isNegative) {
                 svg.append('line')
                     .attr('transform', tickMobileXAxis)
@@ -448,7 +453,7 @@ const StatusOfFundsChart = ({
                 .attr('transform', `translate(${isLargeScreen ? margins.left - 40 : margins.left}, ${margins.top})`);
 
             const tickMobileXAxis = isLargeScreen ? 'translate(-130,0)' : 'translate(90, 0)';
-            const tickMobileYAxis = isLargeScreen ? 'translate(-150,-145)' : 'translate(60, 0)';
+            const tickMobileYAxis = isLargeScreen ? 'translate(-150,-135)' : 'translate(60, 10)';
             // scale to x and y data points
             if (sortedNums[sortedNums.length - 1]._outlays < 0) {
                 x.domain(d3.extent(sortedNums, (d) => d._outlays)).nice(2);
@@ -549,7 +554,7 @@ const StatusOfFundsChart = ({
                 .attr("x", -8)
                 .attr("y", (d) => (!isMobile ? y(d.name) + 100 : y(d.name) + 10))
                 .attr("width", isLargeScreen ? chartWidth + 340 : chartWidth + 90)
-                .attr("height", "20px")
+                .attr("height", !isMobile ? "42.37" : "63.63")
                 .attr("fill", "#fff")
                 .attr("stroke", "#f1f1f1")
                 .attr('class', 'hbars')
@@ -560,7 +565,7 @@ const StatusOfFundsChart = ({
                 .attr("x", -8)
                 .attr("y", (d) => (!isMobile ? y(d.name) + 50 : y(d.name) - 90))
                 .attr("width", (d) => x(d._budgetaryResources) + 11)
-                .attr("height", "20px")
+                .attr("height", !isMobile ? "42.37" : "63.63")
                 .attr('class', 'hbars')
                 .attr('id', 'tbr-bar')
                 .attr("style", "outline: thin solid #D7D8D9;")
@@ -580,7 +585,7 @@ const StatusOfFundsChart = ({
                     }
                     return x(0);
                 })
-                .attr("y", (d) => (!isMobile ? y(d.name) + 100 : y(d.name) + 10))
+                .attr("y", (d) => (!isMobile ? y(d.name) + 100 : y(d.name) - 10))
                 .attr("width", (d) => {
                     if (isNegative) {
                         return drawNegativeOutlays(d);
@@ -590,7 +595,7 @@ const StatusOfFundsChart = ({
                     }
                     return x(d._outlays) + 11;
                 })
-                .attr("height", "20px")
+                .attr("height", !isMobile ? "42.37" : "63.63")
                 .attr("fill", "#FFBE2E")
                 .attr('class', 'hbars')
                 .attr('id', 'out-bar');
@@ -614,7 +619,7 @@ const StatusOfFundsChart = ({
                 setHoverData(d);
                 tooltip(hoverData);
             });
-            svg.selectAll(".bar-group").on('mouseleave', () => {
+            svg.selectAll(".out-bar").on('mouseleave', () => {
                 setIsHovered(false);
                 setHoverData(null);
                 svg.selectAll('#bar-tooltip').remove();
