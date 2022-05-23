@@ -24,7 +24,7 @@ const TopFiveRow = (props) => {
                 title={props.data.name}>
                 {props.data._slug ?
                     props.data.linkedName
-                    : ''}
+                    : props.data.name}
             </td>
             <td
                 className="category-table__table-cell category-table__table-cell_centered"
