@@ -144,7 +144,9 @@ const StatusOfFundsChart = ({
         return chartHeight;
     };
     const chartHeightViewBox = () => {
-        if (isMobile) {
+        if (window.innerWidth >= 992 && window.innerWidth < 1200 && toggle) {
+            return viewHeight * 1.5;
+        } else if (isMobile) {
             if (toggle) {
                 return viewHeight * 2.54;
             }
@@ -241,7 +243,14 @@ const StatusOfFundsChart = ({
                 .attr('transform', `translate(${isLargeScreen ? margins.left - 40 : margins.left}, ${margins.top})`);
 
             const tickMobileXAxis = isLargeScreen ? 'translate(-130,0)' : 'translate(90, 0)';
-            const tickMobileYAxis = isLargeScreen ? 'translate(-150,-35)' : 'translate(60, 0)';
+            const tickMobileYAxis = () => {
+                if (window.innerWidth >= 992 && window.innerWidth < 1200) {
+                    return 'translate(-150,-60)';
+                } else if (isLargeScreen) {
+                    return 'translate(-150,-35)';
+                }
+                return 'translate(60,0)';
+            };
             // scale to x and y data points
             if (sortedNums[sortedNums.length - 1]._obligations < 0) {
                 x.domain(d3.extent(sortedNums, (d) => d._obligations)).nice(2);
@@ -511,16 +520,16 @@ const StatusOfFundsChart = ({
 
             const tickMobileXAxis = isLargeScreen ? 'translate(-130,0)' : 'translate(90, 0)';
             const tickMobileYAxis = () => {
-                if (isLargeScreen) {
-                    if (isMediumScreen) {
-                        if (isMobile) {
-                            return 'translate(-150, -130)';
-                        }
-                        return 'translate(-150, -90)';
-                    }
-                    return 'translate(-150,-135)';
+                if (window.innerWidth >= 992 && window.innerWidth < 1200) {
+                    console.debug("a");
+                    return 'translate(-150,-85)';
+                } else if (isMediumScreen && !isMobile) {
+                    console.debug("b");
+                    return 'translate(-150,-90)';
+                } else if (!isLargeScreen) {
+                    return 'translate(60,0)';
                 }
-                return 'translate(60, 10)';
+                return 'translate(-150,-135)';
             };
 
             // scale to x and y data points
@@ -650,7 +659,7 @@ const StatusOfFundsChart = ({
                 .attr("x", -8)
                 .attr("y", (d) => {
                     if (!isMobile) {
-                        if (isMediumScreen) {
+                        if (isMediumScreen || (window.innerWidth >= 992 && window.innerWidth < 1200)) {
                             return y(d.name);
                         }
                         return y(d.name) + 50;
@@ -689,7 +698,9 @@ const StatusOfFundsChart = ({
                 })
                 .attr("y", (d) => {
                     if (!isMobile) {
-                        if (isMediumScreen) {
+                        if (window.innerWidth >= 992 && window.innerWidth < 1200) {
+                            return y(d.name) + 50;
+                        } else if (isMediumScreen) {
                             return y(d.name) + 40;
                         }
                         return y(d.name) + 100;
