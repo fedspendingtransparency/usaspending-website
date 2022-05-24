@@ -65,7 +65,7 @@ export class AgencyLandingContainer extends React.Component {
         }, () => {
             this.performSearch();
         });
-    }
+    };
 
     showColumns() {
         const columns = [];
@@ -176,7 +176,7 @@ export class AgencyLandingContainer extends React.Component {
     }
 
     performSearch() {
-        // perform a local search
+    // perform a local search
         const search = new Search('agency_id');
         search.addIndex('agency_name');
         search.addDocuments(this.state.fullData);

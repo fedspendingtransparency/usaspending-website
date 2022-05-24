@@ -36,7 +36,7 @@ export class AwardHistory extends React.Component {
     }
 
     componentDidMount() {
-        // set the initial table width
+    // set the initial table width
         this.setTableWidth();
         // watch the window for size changes
         window.addEventListener('resize', this.setTableWidth);
@@ -53,7 +53,7 @@ export class AwardHistory extends React.Component {
     }
 
     componentWillUnmount() {
-        // stop watching for size changes
+    // stop watching for size changes
         window.removeEventListener('resize', this.setTableWidth);
     }
 
@@ -61,7 +61,7 @@ export class AwardHistory extends React.Component {
         if (!this.tableWidthController) return;
         const tableWidth = this.tableWidthController.clientWidth - 2;
         this.setState({ tableWidth });
-    }
+    };
 
     setTableTabsAndGetCounts(award = this.props.overview) {
         if (this.countRequest) {
@@ -128,7 +128,7 @@ export class AwardHistory extends React.Component {
             default:
                 return null;
         }
-    }
+    };
 
     render() {
         const {

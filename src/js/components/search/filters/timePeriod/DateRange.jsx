@@ -55,7 +55,7 @@ export default class DateRange extends React.Component {
     }
 
     submitRange(e) {
-        // allow the user to change date ranges by keyboard and pressing enter
+    // allow the user to change date ranges by keyboard and pressing enter
         e.preventDefault();
         this.props.applyDateRange();
     }
@@ -69,8 +69,8 @@ export default class DateRange extends React.Component {
     }
 
     generateStartDateDisabledDays(earliestDate) {
-        // handle the cutoff dates (preventing end dates from coming before
-        // start dates or vice versa)
+    // handle the cutoff dates (preventing end dates from coming before
+    // start dates or vice versa)
         const disabledDays = [earliestDate];
 
         if (this.props.endDate) {

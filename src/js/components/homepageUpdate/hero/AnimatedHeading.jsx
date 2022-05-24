@@ -16,7 +16,7 @@ const AnimatedHeading = ({ paused }) => {
     const [hidden, setHidden] = useState(false);
 
     const shuffle = (array) => {
-        // eslint-disable-next-line one-var
+    // eslint-disable-next-line one-var
         let currentIndex = array.length,
             randomIndex;
 
@@ -106,7 +106,7 @@ const AnimatedHeading = ({ paused }) => {
     };
 
     useEffect(() => {
-        // Set the name of the hidden property and the change event for visibility
+    // Set the name of the hidden property and the change event for visibility
         let visibilityChange;
 
         if (typeof document.hidden !== "undefined") { // Opera 12.10 and Firefox 18 and later support

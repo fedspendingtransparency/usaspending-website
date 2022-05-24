@@ -6,7 +6,7 @@
 import React from 'react';
 
 import { render, screen } from 'test-utils';
-import BarChart, { calculateOffsetTop, getLastFourYears } from 'components/agencyV2/overview/BarChart';
+import BarChart, { calculateOffsetTop, getLastFourYears } from 'components/agency/overview/BarChart';
 
 import { mockTotalBudgetaryResources } from './mockData';
 

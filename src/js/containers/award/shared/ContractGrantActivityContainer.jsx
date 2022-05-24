@@ -54,7 +54,7 @@ const ContractGrantActivityContainer = ({
             return t;
         });
     };
-        /**
+    /**
      * Since we have multiple transactions on the same day and we wont know the total for
      * a transaction until format transactions has run its course we run through all transactions
      * again to set every transaction on the same day to the total for the day
@@ -78,7 +78,7 @@ const ContractGrantActivityContainer = ({
      * @returns {Object[]} - an array of all transaction objects for this award.
      */
     const formatTransactions = (rawTransactions) => {
-        // Reduce into unique transaction objects
+    // Reduce into unique transaction objects
         let newData = rawTransactions
             .sort((a, b) => a.action_date.valueOf() - b.action_date.valueOf())
             .reduce((acc, data) => {

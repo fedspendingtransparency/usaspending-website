@@ -262,8 +262,8 @@ export default class ActivityChart extends React.Component {
     }
 
     graphWidthAndHeight() {
-        // calculate what the visible area of the chart itself will be (excluding the axes and their
-        // labels)
+    // calculate what the visible area of the chart itself will be (excluding the axes and their
+    // labels)
         const graphWidth = this.props.width - this.props.padding.left;
         const graphHeight = this.props.height - this.props.padding.bottom;
         return { graphWidth, graphHeight };

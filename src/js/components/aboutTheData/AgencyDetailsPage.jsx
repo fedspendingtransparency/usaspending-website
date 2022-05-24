@@ -7,7 +7,7 @@ import { useParams, Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { LoadingMessage, ErrorMessage, ShareIcon } from 'data-transparency-ui';
 
-import { fetchAgencyOverview } from 'apis/agencyV2';
+import { fetchAgencyOverview } from 'apis/agency';
 import { agencyPageMetaTags } from 'helpers/metaTagHelper';
 import { getAgencyDetailEmail } from 'helpers/aboutTheDataHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
@@ -20,8 +20,7 @@ import BaseAgencyOverview from 'models/v2/agency/BaseAgencyOverview';
 import ExternalLink from 'components/sharedComponents/ExternalLink';
 import { agencyNotes } from './componentMapping/agencyNotes';
 import AboutTheDataModal from './AboutTheDataModal';
-import { useAgencySlugs } from "../../containers/agencyV2/WithAgencySlugs";
-import GlobalConstants from '../../GlobalConstants';
+import { useAgencySlugs } from "../../containers/agency/WithAgencySlugs";
 
 require('pages/aboutTheData/aboutTheData.scss');
 
@@ -40,7 +39,6 @@ const AgencyDetailsPage = () => {
     if (agencyOverview && agencyOverview.toptierCode) {
         slug = topTierCodes[agencyOverview.toptierCode];
     }
-    const agencyString = GlobalConstants.AGENCY_LINK;
 
     const modalClick = (modalType, agencyData) => {
         setModalData(agencyData);
@@ -106,46 +104,46 @@ const AgencyDetailsPage = () => {
                 {loading && <LoadingMessage />}
                 {error && <ErrorMessage description={errorMessage} />}
                 {(!loading && !error) && (
-                        <>
-                            <div className="heading-container">
-                                <div className="back-link">
-                                    <Link to={{
-                                        pathname: "/submission-statistics",
-                                        search: `?${new URLSearchParams({ tab: 'submissions' }).toString()}`
-                                    }}>
-                                        <FontAwesomeIcon icon="angle-left" />&nbsp;Back to All Agencies
-                                    </Link>
-                                </div>
-                                <h2 className="header">{agencyOverview?.name}</h2>
-                                <div className="agency-info">
-                                    {agencyOverview?.website && (
-                                        <div className="agency-info__group">
-                                            <h5>Agency Contact Information</h5>
-                                            <div className="more-info-note">Contact this Agency with questions about their submissions</div>
-                                            <div className="agency-info__website">
-                                                <ExternalLink url={agencyOverview.website} />
-                                            </div>
-                                        </div>
-                                    )}
-                                    {agencyOverview?.id && (
-                                        <div className="agency-info__group">
-                                            <h5>Agency Profile Page</h5>
-                                            <div className="more-info-note">Learn more about this Agency&#39;s spending</div>
-                                            <div className="agency-info__website">
-                                                <Link to={`/${agencyString}/${slug}`}>
-                                                    {agencyOverview.name}
-                                                </Link>
-                                            </div>
-                                        </div>
-                                    )}
-                                </div>
+                    <>
+                        <div className="heading-container">
+                            <div className="back-link">
+                                <Link to={{
+                                    pathname: "/submission-statistics",
+                                    search: `?${new URLSearchParams({ tab: 'submissions' }).toString()}`
+                                }}>
+                                    <FontAwesomeIcon icon="angle-left" />&nbsp;Back to All Agencies
+                                </Link>
                             </div>
-                            <AgencyDetailsContainer
-                                agencyName={agencyOverview?.name}
-                                modalClick={modalClick}
-                                agencyCode={agencyCode} />
-                            {message && <Note message={message} />}
-                        </>
+                            <h2 className="header">{agencyOverview?.name}</h2>
+                            <div className="agency-info">
+                                {agencyOverview?.website && (
+                                    <div className="agency-info__group">
+                                        <h5>Agency Contact Information</h5>
+                                        <div className="more-info-note">Contact this Agency with questions about their submissions</div>
+                                        <div className="agency-info__website">
+                                            <ExternalLink url={agencyOverview.website} />
+                                        </div>
+                                    </div>
+                                )}
+                                {agencyOverview?.id && (
+                                    <div className="agency-info__group">
+                                        <h5>Agency Profile Page</h5>
+                                        <div className="more-info-note">Learn more about this Agency&#39;s spending</div>
+                                        <div className="agency-info__website">
+                                            <Link to={`/agency/${slug}`}>
+                                                {agencyOverview.name}
+                                            </Link>
+                                        </div>
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                        <AgencyDetailsContainer
+                            agencyName={agencyOverview?.name}
+                            modalClick={modalClick}
+                            agencyCode={agencyCode} />
+                        {message && <Note message={message} />}
+                    </>
                 )}
                 <AboutTheDataModal
                     mounted={!!showModal.length}

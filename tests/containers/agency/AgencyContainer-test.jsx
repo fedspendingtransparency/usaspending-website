@@ -1,115 +1,98 @@
 /**
  * AgencyContainer-test.jsx
- * Created by Kevin Li 6/15/17
+ * Created by Lizzie Salita 3/1/21
  */
 
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render, waitFor } from 'test-utils';
+import { Route } from 'react-router-dom';
+import * as reactRedux from 'react-redux';
+import * as agency from 'apis/agency';
+import * as accountHooks from 'containers/account/WithLatestFy';
+import * as queryParamHelpers from 'helpers/queryParams';
+import * as agencyHooks from 'containers/agency/WithAgencySlugs';
 
-import { AgencyContainer } from 'containers/agency/AgencyContainer';
-import * as AgencyHelper from 'helpers/agencyHelper';
+import AgencyContainerV2 from 'containers/agency/AgencyContainer';
+import { mockAgency } from '../../models/agency/BaseAgencyOverview-test';
+import { mockApiCall } from '../../testResources/mockApiHelper';
 
-import { mockApi, mockRedux } from './mockAgency';
+mockApiCall(agency, 'fetchBudgetaryResources', {});
 
-// mock the child component by replacing it with a function that returns a null element
-jest.mock('components/agency/AgencyPage', () =>
-    jest.fn(() => null));
+jest.mock('components/agency/AgencyPage', () => jest.fn(() => null));
 
-// mock the GlossaryButtonWrapper container because there's no Redux store to connect to
-jest.mock('containers/glossary/GlossaryButtonWrapperContainer', () =>
-    jest.fn(() => null));
+let spy;
+const mockDispatch = jest.fn();
 
-// also mock the Glossary container for the same reason
-jest.mock('containers/glossary/GlossaryContainer', () =>
-    jest.fn(() => null));
+beforeAll(() => {
+    reactRedux.useDispatch = jest.fn().mockImplementation(() => mockDispatch);
+});
 
-const mockAgencyHelper = (functionName, event, expectedResponse) => {
-    jest.useFakeTimers();
-    // override the specified function
-    AgencyHelper[functionName] = jest.fn(() => {
-        // Axios normally returns a promise, replicate this, but return the expected result
-        const networkCall = new Promise((resolve, reject) => {
-            process.nextTick(() => {
-                if (event === 'resolve') {
-                    resolve({
-                        data: expectedResponse
-                    });
-                }
-                else {
-                    reject({
-                        data: expectedResponse
-                    });
-                }
-            });
-        });
+beforeEach(() => {
+    jest.clearAllMocks();
+    jest.spyOn(accountHooks, "useLatestAccountData").mockImplementation(() => [
+        null,
+        [],
+        { year: 2020 }
+    ]);
+    jest.spyOn(accountHooks, "useValidTimeBasedQueryParams").mockImplementation(() => [
+        2020,
+        () => { }
+    ]);
+    jest.spyOn(queryParamHelpers, "useQueryParams").mockImplementation(() => [
+        { fy: 2020 }
+    ]);
+    jest.spyOn(agencyHooks, "useAgencySlugs").mockImplementation(() => [
+        {
+            'department-of-sandwiches': '123',
+            'ministry-of-magic': '456'
+        }
+    ]);
+    reactRedux.useDispatch.mockClear();
+});
 
-        return {
-            promise: networkCall,
-            cancel: jest.fn()
-        };
+test('an API request is made for the agency code mapped to the slug in the URL', () => {
+    const mockResponse = {
+        promise: new Promise((resolve) => {
+            process.nextTick(() => (
+                resolve({ data: mockAgency })
+            ));
+        })
+    };
+    spy = jest.spyOn(agency, 'fetchAgencyOverview').mockReturnValueOnce(mockResponse);
+    render((
+        <Route path="/agency_v2/:agencySlug" location={{ pathname: '/agency_v2/department-of-sandwiches' }}>
+            <AgencyContainerV2 />
+        </Route >
+    ));
+
+    return waitFor(() => {
+        expect(spy).toHaveBeenCalledTimes(1);
+        // TODO: update expected FY param when picker is fixed
+        expect(spy).toHaveBeenCalledWith('123', 2020);
     });
-};
+});
 
-describe('AgencyContainer', () => {
-    it('should make an API call for the selected agency on mount', () => {
-        mockAgencyHelper('fetchAgencyOverview', 'resolve', mockApi);
+test('reset agency is called when the agency slug in the URL changes', () => {
+    const { rerender } = render((
+        <Route path="/agency_v2/:agencySlug" location={{ pathname: '/agency_v2/department-of-sandwiches' }}>
+            <AgencyContainerV2 />
+        </Route >
+    ));
+    expect(mockDispatch).not.toHaveBeenCalled();
+    rerender((
+        <Route path="/agency_v2/:agencySlug" location={{ pathname: '/agency_v2/ministry-of-magic' }}>
+            <AgencyContainerV2 />
+        </Route >
+    ));
+    expect(mockDispatch).toHaveBeenCalledWith({ type: 'RESET_AGENCY' });
+});
 
-        const container = shallow(<AgencyContainer
-            {...mockRedux} />);
-        const mockLoad = jest.fn();
-        container.instance().loadAgencyOverview = mockLoad;
-
-        container.instance().componentDidMount();
-        jest.runAllTicks();
-
-        expect(mockLoad).toHaveBeenCalledTimes(1);
-        expect(mockLoad).toHaveBeenCalledWith('123');
-    });
-
-    it('should make a new API call when the URL award ID param changes', () => {
-        mockAgencyHelper('fetchAgencyOverview', 'resolve', mockApi);
-
-        const container = shallow(<AgencyContainer
-            {...mockRedux} />);
-        const mockLoad = jest.fn();
-        container.instance().loadAgencyOverview = mockLoad;
-
-        const prevProps = {
-            ...mockRedux,
-            match: {
-                params: {
-                    agencyId: '232'
-                }
-            }
-        };
-
-        container.instance().componentDidUpdate(prevProps);
-        jest.runAllTicks();
-
-        expect(mockLoad).toHaveBeenCalledTimes(1);
-        expect(mockLoad).toHaveBeenCalledWith('123');
-    });
-
-    describe('parseOverview', () => {
-        it('should create a new AgencyOverviewModel instance based on the API response', () => {
-            mockAgencyHelper('fetchAgencyOverview', 'resolve', mockApi);
-
-            const mockSetAgency = jest.fn();
-
-            const mockProps = Object.assign({}, mockRedux, {
-                setAgencyOverview: mockSetAgency
-            });
-
-            const container = shallow(<AgencyContainer
-                {...mockProps} />);
-            container.instance().parseOverview(mockApi.results, '123');
-
-            expect(mockSetAgency).toHaveBeenCalledTimes(1);
-
-            const args = mockSetAgency.mock.calls[0];
-            const expectedModel = mockRedux.agency.overview;
-
-            expect(args[0]).toEqual(expectedModel);
-        });
-    });
+test('reset agency is called on unmount', () => {
+    const { unmount } = render((
+        <Route path="/agency_v2/:agencySlug" location={{ pathname: '/agency_v2/department-of-sandwiches' }}>
+            <AgencyContainerV2 />
+        </Route >
+    ));
+    unmount();
+    expect(mockDispatch).toHaveBeenLastCalledWith({ type: 'RESET_AGENCY' });
 });

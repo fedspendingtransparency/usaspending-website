@@ -3,7 +3,7 @@
  * Created by michaelbray on 5/25/17.
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useLocation } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
@@ -47,7 +47,7 @@ const MetaTags = ({
 
     const [tags, setTags] = useState([]);
 
-    const generateTags = () => {
+    const generateTags = useCallback(() => {
         const newTags = [];
 
         if (url !== '') {
@@ -102,7 +102,7 @@ const MetaTags = ({
                     <link key="canonical-url" rel="canonical" href={getCanonicalUrl(pathname)} />
                 ])
         );
-    };
+    });
 
     useEffect(() => {
         generateTags();

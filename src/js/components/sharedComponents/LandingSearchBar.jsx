@@ -18,7 +18,7 @@ export default class LandingSearchBar extends React.Component {
     onSubmit = (e) => {
         e.preventDefault();
         this.props.onSubmit(e.target[0].value);
-    }
+    };
 
     render() {
         return (

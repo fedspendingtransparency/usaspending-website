@@ -51,7 +51,7 @@ export default class Table extends React.Component {
     }
 
     reloadTable() {
-        // force the scroll back to the top of the page
+    // force the scroll back to the top of the page
         this._tableWrapper.scrollLeft = 0;
         this._tableWrapper.scrollTop = 0;
 
@@ -84,9 +84,9 @@ export default class Table extends React.Component {
     }
 
     _scrolledHeader() {
-        // The header can only scroll through the use of accessibility hooks.
-        // Because there are two scrolling elements (the transform offset + the scroll offset), we
-        // need to combine them into a single scroll offset.
+    // The header can only scroll through the use of accessibility hooks.
+    // Because there are two scrolling elements (the transform offset + the scroll offset), we
+    // need to combine them into a single scroll offset.
         const scrollOperation = {
             operation: () => {
                 const realX = this._headerWrapper.scrollLeft + this._headerComponent.currentX;

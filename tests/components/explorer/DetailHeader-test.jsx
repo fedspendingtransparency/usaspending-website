@@ -7,8 +7,7 @@ import React from "react";
 import { render, screen } from "test-utils";
 import "@testing-library/jest-dom/extend-expect";
 import DetailHeader from "components/explorer/detail/header/DetailHeader";
-import * as hooks from "containers/agencyV2/WithAgencySlugs";
-import * as constants from "GlobalConstants";
+import * as hooks from "containers/agency/WithAgencySlugs";
 import { BrowserRouter } from "react-router-dom";
 
 const mockAPIResponse = {
@@ -49,10 +48,7 @@ describe('DetailHeader Component', () => {
         </BrowserRouter>);
     };
 
-    it('should display the link to the agency v2 page in the Spending Explorer header', () => {
-        // Mock the Global Constants
-        constants.AGENCYV2_RELEASED = true;
-        constants.AGENCY_LINK = "agency_v2";
+    it('should display the link to the agency page in the Spending Explorer header', () => {
 
         jest.spyOn(hooks, "useAgencySlugs").mockReturnValue([
             {},
@@ -67,48 +63,6 @@ describe('DetailHeader Component', () => {
 
         renderComponent(mockAPIResponse.results[0].agency_id);
 
-        expect(screen.getByText('Mock Title')).toHaveAttribute('href', '/agency_v2/department-of-dinosaurs');
-    });
-
-    it('should display the link to the agency v1 page in the Spending Explorer header', () => {
-        // Mock the Global Constants
-        constants.AGENCYV2_RELEASED = false;
-        constants.AGENCY_LINK = "agency";
-
-        jest.spyOn(hooks, "useAgencySlugs").mockReturnValue([
-            {},
-            {},
-            {
-                "123": 'department-of-dinosaurs',
-                "789": 'ice-cream-social'
-            },
-            false,
-            false
-        ]);
-
-        renderComponent(mockAPIResponse.results[0].agency_id);
-
-        expect(screen.getByText('Mock Title')).toHaveAttribute('href', '/agency/123');
-    });
-
-    it('when fail to load the slug should display the link to the agency v1 page in the Spending Explorer header', () => {
-        // Mock the Global Constants
-        constants.AGENCYV2_RELEASED = true;
-        constants.AGENCY_LINK = "agency_v2";
-
-        jest.spyOn(hooks, "useAgencySlugs").mockReturnValue([
-            {},
-            {},
-            {
-                "123": 'department-of-dinosaurs',
-                "789": 'ice-cream-social'
-            },
-            false,
-            true
-        ]);
-
-        renderComponent(mockAPIResponse.results[0].agency_id);
-
-        expect(screen.getByText('Mock Title')).toHaveAttribute('href', '/agency/123');
+        expect(screen.getByText('Mock Title')).toHaveAttribute('href', '/agency/department-of-dinosaurs');
     });
 });

@@ -40,7 +40,7 @@ export default class NavBar extends React.Component {
     }
 
     displayMobileNav() {
-        // disable body scrolling
+    // disable body scrolling
         this.siteBody.classList.add('show-mobile-nav');
         this.setState({
             showMobileNav: true
@@ -48,7 +48,7 @@ export default class NavBar extends React.Component {
     }
 
     hideMobileNav() {
-        // re-enable body scrolling
+    // re-enable body scrolling
         this.siteBody.classList.remove('show-mobile-nav');
         this.setState({
             showMobileNav: false
@@ -66,7 +66,7 @@ export default class NavBar extends React.Component {
 
     toggleModal = () => {
         this.setState({ showStayInTouchModal: !this.state.showStayInTouchModal });
-    }
+    };
 
     render() {
         return (

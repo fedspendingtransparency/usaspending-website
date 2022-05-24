@@ -56,7 +56,7 @@ export default class SecondaryCheckboxType extends React.Component {
     }
 
     toggleFilter() {
-        // indicate to Redux that this field needs to toggle
+    // indicate to Redux that this field needs to toggle
         this.props.toggleCheckboxType({
             value: this.props.code,
             lookupName: this.props.lookupName

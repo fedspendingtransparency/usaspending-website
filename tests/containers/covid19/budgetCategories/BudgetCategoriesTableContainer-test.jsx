@@ -8,7 +8,7 @@ import { render, waitFor, screen } from "test-utils";
 import "@testing-library/jest-dom/extend-expect";
 import BudgetCategoriesTableContainer from "containers/covid19/budgetCategories/BudgetCategoriesTableContainer";
 import * as api from "apis/disaster";
-import * as hooks from "containers/agencyV2/WithAgencySlugs";
+import * as hooks from "containers/agency/WithAgencySlugs";
 import { defaultState } from "../../../testResources/defaultReduxFilters";
 
 const mockResults = [{
@@ -88,52 +88,6 @@ describe("BudgetCategoriesTableContainer", () => {
             expect(spy).toHaveBeenCalledTimes(2);
         });
     });
-    it('should use agency id for agency URLs if Agency Profile v2 has not been released', () => {
-        // Mock the API response
-        jest.spyOn(api, "fetchDisasterSpending").mockReturnValue({
-            promise: Promise.resolve({
-                data: {
-                    results: mockResults,
-                    page_metadata: {
-                        total: 20
-                    }
-                }
-            }),
-            cancel: jest.fn()
-        });
-
-        // Mock the Global Constants
-        jest.mock('GlobalConstants', () => ({
-            AGENCY_LINK: 'agency',
-            AGENCYV2_RELEASED: false
-        }));
-
-        // Mock the custom hook, useAgencySlugs
-        jest.spyOn(hooks, "useAgencySlugs").mockReturnValue([
-            {},
-            {
-                "045": 'department-of-sandwiches',
-                "000": 'ministry-of-magic'
-            },
-            false,
-            false
-        ]);
-        render(
-            <BudgetCategoriesTableContainer
-                type="agency"
-                subHeading="sub heading"
-                scrollIntoView={jest.fn()} />,
-            {
-                initialState: {
-                    ...defaultState
-                }
-            }
-        );
-        waitFor(() => {
-            expect(screen.getByText(mockResults[0].description))
-                .toHaveAttribute('href', `/agency/${mockResults[0].id}`);
-        });
-    });
     it('should use agency slug for the agency URLs if Agency Profile v2 has been released', () => {
         // Mock the API response
         jest.spyOn(api, "fetchDisasterSpending").mockReturnValue({
@@ -148,12 +102,6 @@ describe("BudgetCategoriesTableContainer", () => {
             cancel: jest.fn()
         });
 
-        // Mock the Global Constants
-        jest.mock('GlobalConstants', () => ({
-            AGENCY_LINK: 'agency_v2',
-            AGENCYV2_RELEASED: true
-        }));
-
         // Mock the custom hook, useAgencySlugs
         jest.spyOn(hooks, "useAgencySlugs").mockReturnValue([
             {},
@@ -178,7 +126,7 @@ describe("BudgetCategoriesTableContainer", () => {
         );
         waitFor(() => {
             expect(screen.getByText(mockResults[0].description))
-                .toHaveAttribute('href', '/agency_v2/department-of-sandwiches');
+                .toHaveAttribute('href', '/agency/department-of-sandwiches');
         });
     });
     it('should just display the agency name (with no link) if no slug mapping is available', () => {
@@ -194,12 +142,6 @@ describe("BudgetCategoriesTableContainer", () => {
             }),
             cancel: jest.fn()
         });
-
-        // Mock the Global Constants
-        jest.mock('GlobalConstants', () => ({
-            AGENCY_LINK: 'agency_v2',
-            AGENCYV2_RELEASED: true
-        }));
 
         // Mock the custom hook, useAgencySlugs
         jest.spyOn(hooks, "useAgencySlugs").mockReturnValue([

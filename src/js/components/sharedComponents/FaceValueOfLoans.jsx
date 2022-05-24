@@ -40,9 +40,9 @@ const FaceValueOfLoans = (props) => (
 
         <div className="totals__awards">
             from {props.primeAwards ?
-            <><span className="state-overview__total">{props.transactions}</span> {props.transactions === "1" ? "prime award" : "prime awards"}</>
+                <><span className="state-overview__total">{props.transactions}</span> {props.transactions === "1" ? "prime award" : "prime awards"}</>
                 :
-            <><span className="state-overview__total">{props.transactions}</span> {props.transactions === "1" ? "transaction" : "transactions"}</>
+                <><span className="state-overview__total">{props.transactions}</span> {props.transactions === "1" ? "transaction" : "transactions"}</>
             }
         </div>
     </div>

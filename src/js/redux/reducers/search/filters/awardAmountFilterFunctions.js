@@ -29,7 +29,7 @@ export const updateAwardAmounts = (state, value) => {
     // set award amounts to be empty since the user is unchecking the same
     // checkbox
     if (currentRange.length !== 0) {
-        // find the correct range key and delete it
+    // find the correct range key and delete it
         each(awardRanges, (val) => {
             if (isEqual(val, currentRange)) {
                 awardAmounts = new OrderedMap({});
@@ -56,9 +56,9 @@ export const updateAwardAmounts = (state, value) => {
     // specific input logic
     // value is a specific amount which is an array [min,max]
     if (!valueIsAString) {
-        // since the inputs must be numbers or strings
-        // an empty string will represent no value.
-        // and we will convert those to null here
+    // since the inputs must be numbers or strings
+    // an empty string will represent no value.
+    // and we will convert those to null here
         let min = value[0];
         let max = value[1];
         if (!min && min !== 0) min = null;

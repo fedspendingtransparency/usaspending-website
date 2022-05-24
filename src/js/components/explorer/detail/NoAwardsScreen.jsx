@@ -22,7 +22,7 @@ export default class NoAwardsScreen extends React.Component {
     clickedLink() {
         const previousIndex = this.props.currentIndex - 1;
         this.props.rewindToFilter(previousIndex);
-    };
+    }
 
     render() {
         return (

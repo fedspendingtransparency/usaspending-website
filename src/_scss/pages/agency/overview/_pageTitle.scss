@@ -1,0 +1,104 @@
+.page-title {
+    // Wrapper including the logo
+    @include display(flex);
+    @include justify-content(space-between);
+    @include align-items(center);
+    padding-bottom: 1.5rem;
+    .page-title__wrapper {
+        // Wrapper including the Covid flag
+        @include align-items(flex-start);
+        h2.page-title__name {
+            margin: 0;
+            font-size: 2rem;
+            font-weight: $font-semibold;
+            letter-spacing: 0;
+            line-height: 2.5rem;
+            padding-bottom: 0.3rem;
+            .tooltip-wrapper {
+                position: relative;
+                //top: -0.8rem;
+                z-index: 20; // prevent bar chart overlap
+                @media (max-width: $medium-screen) {
+                    top: 0.8rem;
+                    z-index: 0;
+                }
+            }
+            .tooltip-spacer {
+                right: -19rem !important;
+                top: 4rem !important;
+                .tooltip-pointer {
+                    &.bottom {
+                        left: 2rem !important;
+                        top: -1.6rem !important;
+                    }
+                }
+            }
+        }
+        .page-title__tooltip {
+            @include display(inline-flex);
+            @include display(flex);
+            @media (min-width: $medium-screen) {
+                margin-top: rem(8);
+            }
+            @include justify-content(center);
+            @include align-items(center);
+            background: $color-disaster-covid-19;
+            color: $color-white;
+            font-size: rem(14);
+            font-weight: 600;
+            text-align: center;
+            height: rem(25);
+            border-radius: rem(4);
+            padding: 0 0.8rem;
+            width: fit-content;
+            .tooltip-spacer {
+                display: none;
+            }
+        }
+    }
+    .page-title__image {
+        max-width: rem(90);
+        max-height: rem(90);
+        height: 100%;
+        object-fit: contain;
+    }
+    @include media($medium-screen) {
+        // switch the position of the logo and title in desktop
+        @include flex-direction(row-reverse);
+        @include justify-content(flex-end);
+        .page-title__wrapper {
+            @include display(flex);
+            @include align-items(flex-start);
+            h2.page-title__name {
+                font-size: 3.6rem;
+                line-height: 4.5rem;
+                padding-bottom: 0.3rem;
+                padding-right: 1.5rem;
+            }
+            .page-title__tooltip {
+                @include flex(0 0 auto);
+                > div:first-of-type {
+                    width: 100%;
+                    .tooltip-spacer {
+                        margin-left: rem(10);
+                        @include display(flex);
+                        .tooltip-pointer {
+                            &.left {
+                                left: rem(-16);
+                            }
+                            &.smart-bottom-left {
+                                top: rem(-16);
+                            }
+                        }
+                    }
+                }
+                &:hover {
+                    cursor: pointer;
+                }
+            }
+        }
+        .page-title__image {
+            padding-right: 1rem;
+        }
+    }
+}

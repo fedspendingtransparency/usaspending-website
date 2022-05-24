@@ -38,6 +38,7 @@ import {
     faExpandAlt,
     faFileAlt,
     faFileExcel,
+    faFileDownload,
     faHandHoldingMedical,
     faHandsHelping,
     faHandHoldingUsd,
@@ -104,6 +105,7 @@ export default function registerIcons() {
         faExclamationTriangle,
         faExpandAlt,
         faFileAlt,
+        faFileDownload,
         faFileExcel,
         faFingerprint,
         faHandHoldingMedical,
@@ -136,6 +138,6 @@ export default function registerIcons() {
         faUserTie,
         faWindowRestore,
         faAngleDoubleDown,
-        faScroll,
+        faScroll
     );
 }

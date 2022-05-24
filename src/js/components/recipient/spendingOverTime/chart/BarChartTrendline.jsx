@@ -92,7 +92,7 @@ export default class BarChartTrendline extends React.Component {
     }
 
     generateChart(props) {
-        // flatten the Y values into a single array
+    // flatten the Y values into a single array
         const allY = flattenDeep(props.ySeries);
 
         // calculate the axes and ranges
@@ -437,7 +437,7 @@ export default class BarChartTrendline extends React.Component {
     }
 
     deregisterBar(barIdentifier) {
-        // the data point is about to be unmounted, remove it from the data point object
+    // the data point is about to be unmounted, remove it from the data point object
         delete this.dataPoints[barIdentifier];
     }
 
@@ -446,7 +446,7 @@ export default class BarChartTrendline extends React.Component {
     }
 
     prepareTooltip(barIdentifier) {
-        // fetch the original data
+    // fetch the original data
         const groupIndex = barIdentifier.split('-')[0];
         const groupLabel = this.props.groups[groupIndex];
         const subIndex = barIdentifier.split('-')[1];
@@ -508,7 +508,7 @@ export default class BarChartTrendline extends React.Component {
     }
 
     preparePointTooltip(pointIdentifier) {
-        // fetch the original data
+    // fetch the original data
         const groupIndex = pointIdentifier.split('-')[0];
         const groupLabel = this.props.groups[groupIndex];
         const zValue = this.props.zSeries[groupIndex];
@@ -534,9 +534,9 @@ export default class BarChartTrendline extends React.Component {
     }
 
     render() {
-        // add 20px to the top of the chart to avoid cutting off label text
-        // wrap the chart contents in a group and transform it down 20px to avoid impacting
-        // positioning calculations
+    // add 20px to the top of the chart to avoid cutting off label text
+    // wrap the chart contents in a group and transform it down 20px to avoid impacting
+    // positioning calculations
         const bars = this.state.items.map((item) => (
             <BarTrendlineItem
                 key={item.key}

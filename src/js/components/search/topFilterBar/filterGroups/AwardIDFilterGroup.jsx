@@ -23,7 +23,7 @@ export default class AwardIDFilterGroup extends React.Component {
     }
 
     removeFilter(value) {
-        // remove a single filter item
+    // remove a single filter item
         const newValue = this.props.redux.reduxFilters.selectedAwardIDs.delete(value);
         this.props.redux.updateGenericFilter({
             type: 'selectedAwardIDs',

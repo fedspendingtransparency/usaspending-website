@@ -73,7 +73,7 @@ export class AccountTimePeriodContainer extends React.Component {
     }
 
     updateFilter(params) {
-        // set the state to a clone of the filter subobject merged with the param object
+    // set the state to a clone of the filter subobject merged with the param object
         const currentFilters = {
             dateType: this.props.filterTimePeriodType,
             fy: this.props.filterTimePeriodFY,

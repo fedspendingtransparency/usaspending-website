@@ -105,7 +105,7 @@ export default class TableBody extends React.PureComponent {
     }
 
     _keyPressed(e) {
-        // check if a cell or a child of a cell is currently focused
+    // check if a cell or a child of a cell is currently focused
         const activeElement = document.activeElement;
         if (!activeElement) {
             return;
@@ -341,8 +341,8 @@ export default class TableBody extends React.PureComponent {
     }
 
     _generateAllCells() {
-        // pre-generate all the cells the table will have when the data is initially loaded in
-        // we'll pull these from the cache on-the-fly as they come into view
+    // pre-generate all the cells the table will have when the data is initially loaded in
+    // we'll pull these from the cache on-the-fly as they come into view
 
         /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
         // allow keyboard selection of the header cell

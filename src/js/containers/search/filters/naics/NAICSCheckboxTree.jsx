@@ -24,8 +24,7 @@ import {
 } from 'helpers/naicsHelper';
 
 import {
-    getAllDescendants,
-    doesMeetMinimumCharsRequiredForSearch
+    getAllDescendants
 } from 'helpers/checkboxTreeHelper';
 
 import { naicsRequest } from 'helpers/searchHelper';
@@ -157,7 +156,7 @@ export class NAICSCheckboxTree extends React.Component {
                     return allUniqueAncestors
                         .reduce((prevPromise, ancestor) => prevPromise
                             .then(() => this.fetchNAICS(ancestor, false)), Promise.resolve())
-                        // Then populate the checked array w/ the real checked-nodes descendants
+                    // Then populate the checked array w/ the real checked-nodes descendants
                         .then(() => {
                             this.setState({ isLoading: false });
                             const newChecked = checkedFromHash
@@ -205,6 +204,7 @@ export class NAICSCheckboxTree extends React.Component {
 
     onClear = () => {
         if (this.request) this.request.cancel();
+        this.props.setExpandedNaics([], 'SET_SEARCHED_EXPANDED');
         this.props.showNaicsTree();
         this.setState({
             isSearch: false,
@@ -212,7 +212,7 @@ export class NAICSCheckboxTree extends React.Component {
             isLoading: false,
             requestType: ''
         });
-    }
+    };
 
     onCheck = (newChecked) => {
         const [newCounts, newUnchecked] = incrementNaicsCountAndUpdateUnchecked(
@@ -231,7 +231,7 @@ export class NAICSCheckboxTree extends React.Component {
         if (this.hint) {
             this.hint.showHint();
         }
-    }
+    };
 
     onUncheck = (newChecked, uncheckedNode) => {
         if (uncheckedNode.checked) {
@@ -251,7 +251,7 @@ export class NAICSCheckboxTree extends React.Component {
             this.props.setCheckedNaics(newChecked);
             this.props.setNaicsCounts(newCounts);
         }
-    }
+    };
 
     onExpand = (value, expanded, fetch) => {
         if (fetch && !this.state.isSearch) {
@@ -274,13 +274,18 @@ export class NAICSCheckboxTree extends React.Component {
         }
     };
 
+    doesMeetMinimumCharsRequiredForNaicsSearch = (str = '', charMinimum = 2) => (
+        str &&
+        str.length >= charMinimum
+    );
+
     handleTextInputChange = (e) => {
         e.persist();
         const text = e.target.value;
         if (!text) {
             return this.onClear();
         }
-        const shouldTriggerSearch = doesMeetMinimumCharsRequiredForSearch(text);
+        const shouldTriggerSearch = this.doesMeetMinimumCharsRequiredForNaicsSearch(text);
         if (shouldTriggerSearch) {
             return this.setState({
                 searchString: text,
@@ -291,7 +296,7 @@ export class NAICSCheckboxTree extends React.Component {
         return this.setState({
             searchString: text
         });
-    }
+    };
 
     autoCheckSearchedResultDescendants = (checked, expanded) => {
         const { nodes } = this.props;
@@ -342,7 +347,7 @@ export class NAICSCheckboxTree extends React.Component {
     removeStagedNaics = (node) => {
         const newChecked = removeStagedNaicsFilter(this.props.nodes, this.props.checked, node.value);
         this.onUncheck(newChecked, { ...node, checked: false });
-    }
+    };
 
     fetchNAICS = (param = '', resolveLoading = true) => {
         if (this.request) this.request.cancel();
@@ -403,7 +408,7 @@ export class NAICSCheckboxTree extends React.Component {
     showNoResults = () => {
         if (this.state.isLoading) return false;
         return this.props.nodes.length === 0;
-    }
+    };
 
     checkboxDiv(showNoResults) {
         const {

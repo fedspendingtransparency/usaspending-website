@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import GlobalConstants from 'GlobalConstants';
 
 const propTypes = {
     data: PropTypes.object,
@@ -23,7 +22,7 @@ const TopFiveRow = (props) => {
             <td
                 className="category-table__table-cell"
                 title={props.data.name}>
-                {GlobalConstants.AGENCYV2_RELEASED && props.data._slug ?
+                {props.data._slug ?
                     props.data.linkedName
                     : props.data.name}
             </td>
