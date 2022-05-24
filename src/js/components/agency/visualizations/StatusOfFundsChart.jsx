@@ -521,10 +521,8 @@ const StatusOfFundsChart = ({
             const tickMobileXAxis = isLargeScreen ? 'translate(-130,0)' : 'translate(90, 0)';
             const tickMobileYAxis = () => {
                 if (window.innerWidth >= 992 && window.innerWidth < 1200) {
-                    console.debug("a");
                     return 'translate(-150,-85)';
                 } else if (isMediumScreen && !isMobile) {
-                    console.debug("b");
                     return 'translate(-150,-90)';
                 } else if (!isLargeScreen) {
                     return 'translate(60,0)';
