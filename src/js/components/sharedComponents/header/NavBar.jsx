@@ -194,14 +194,6 @@ export default class NavBar extends React.Component {
                                     label="Resources"
                                     items={resourceOptions} />
                             </li>
-                            <li
-                                className="full-menu__item"
-                                role="menuitem">
-                                <Dropdown
-                                    title="Resources"
-                                    label="Resources"
-                                    items={resourceOptions} />
-                            </li>
                         </ul>
                     </div>
                 </div>
