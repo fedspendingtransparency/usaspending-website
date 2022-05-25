@@ -684,7 +684,6 @@ const StatusOfFundsChart = ({
 
             // append total outlay bars
             barGroups.append("rect")
-
                 .attr('transform', tickMobileXAxis)
                 .attr("x", (d) => {
                     if (d._outlays < 0) {
@@ -827,9 +826,12 @@ const StatusOfFundsChart = ({
                 <TooltipWrapper
                     className="sof_chart-tt"
                     width={288}
-                    styles={{
+                    styles={!toggle ? {
                         position: 'absolute',
-                        transform: `translate(${mouseValue.x - 144}px,${mouseValue.y - 230}px)`
+                        transform: `translate(${mouseValue.x - 144}px,${mouseValue.y - 210}px)`
+                    } : {
+                        position: 'absolute',
+                        transform: `translate(${mouseValue.x - 144}px,${mouseValue.y - 190}px)`
                     }}
                     tooltipPosition="bottom"
                     tooltipComponent={tooltip(hoverData)}
