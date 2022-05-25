@@ -197,10 +197,7 @@ export default function ObligationsByAwardType({
         // Financial Assistance legend
         if (outer[0].value > 0) {
             // circle
-            svg.selectAll()
-                .data(pie)
-                .enter()
-                .append('circle')
+            svg.append('circle')
                 .attr('cx', labelRadius - 70)
                 .attr('cy', (chartHeight / 2) - 29)
                 .attr('r', 4)
@@ -218,10 +215,7 @@ export default function ObligationsByAwardType({
         // Contracts legend
         if (outer[1].value > 0) {
             // circle
-            svg.selectAll()
-                .data(pie)
-                .enter()
-                .append('circle')
+            svg.append('circle')
                 .attr('cx', -labelRadius + 10)
                 .attr('cy', -(chartHeight / 2) + 25)
                 .attr('r', 4)
