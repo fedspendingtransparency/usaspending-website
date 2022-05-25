@@ -199,6 +199,7 @@ const StatusOfFundsChart = ({
                             {!toggle && <div className="tooltip__text-label">FY{fy[2]}{fy[3]} Obligations</div> }
                             {!toggle && <div className="tooltip__text-amount">{data.obligations}</div>}
                             {toggle && <div className="tooltip__text-label">FY{fy[2]}{fy[3]} Outlays</div> }
+                            {toggle && <div className="tooltip__text-amount">{data.outlays}</div>}
                         </div>
                         <div className="tooltip__item">
                             <div
