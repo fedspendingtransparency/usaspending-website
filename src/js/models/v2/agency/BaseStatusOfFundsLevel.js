@@ -11,6 +11,7 @@ const BaseStatusOfFundsLevel = {
         this.name = data.name || '';
         this._budgetaryResources = formatMoneyWithUnitsShortLabel(data._budgetaryResources, 2) || '--';
         this._obligations = formatMoneyWithUnitsShortLabel(data._obligations, 2) || '--';
+        this._outlays = formatMoneyWithUnitsShortLabel(data._outlays, 2) || '--';
     }
 };
 
