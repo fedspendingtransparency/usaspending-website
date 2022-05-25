@@ -466,6 +466,12 @@ const StatusOfFundsChart = ({
                 setHoverData(null);
                 svg.selectAll('#bar-tooltip').remove();
             });
+
+            svg.select('#sof_chart').on('mouseleave', () => {
+                setIsHovered(false);
+                setHoverData(null);
+                svg.selectAll('#bar-tooltip').remove();
+            });
             // tooltip hover for label text
             svg.selectAll(".y-axis-labels").append("svg:title")
                 .text((d) => d);
@@ -751,6 +757,12 @@ const StatusOfFundsChart = ({
                 setHoverData(null);
                 svg.selectAll('#bar-tooltip').remove();
             });
+
+            svg.select('#sof_chart').on('mouseleave', () => {
+                setIsHovered(false);
+                setHoverData(null);
+                svg.selectAll('#bar-tooltip').remove();
+            });
             // tooltip hover for label text
             svg.selectAll(".y-axis-labels").append("svg:title")
                 .text((d) => d);
@@ -828,10 +840,10 @@ const StatusOfFundsChart = ({
                     width={288}
                     styles={!toggle ? {
                         position: 'absolute',
-                        transform: `translate(${mouseValue.x - 144}px,${mouseValue.y - 210}px)`
+                        transform: `translate(${mouseValue.x - 144}px,${mouseValue.y - 230}px)`
                     } : {
                         position: 'absolute',
-                        transform: `translate(${mouseValue.x - 144}px,${mouseValue.y - 190}px)`
+                        transform: `translate(${mouseValue.x - 144}px,${mouseValue.y - 200}px)`
                     }}
                     tooltipPosition="bottom"
                     tooltipComponent={tooltip(hoverData)}
