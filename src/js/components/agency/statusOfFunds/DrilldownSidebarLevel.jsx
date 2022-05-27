@@ -36,13 +36,13 @@ const DrilldownSidebar = ({
                 <div>
                     <div className="drilldown-level__name">{name}</div>
                     {!toggle &&
-                    <div className="drilldown-level__description">
-                        <strong>{obligated}</strong> spent of <strong>{budgetaryResources}</strong>  Total Budgetary Resources
-                    </div>}
+                        <div className="drilldown-level__description">
+                            <strong>{obligated}</strong> spent of <strong>{budgetaryResources}</strong>  Total Budgetary Resources
+                        </div>}
                     {toggle &&
-                    <div className="drilldown-level__description">
-                        <strong>{outlay}</strong> has been paid out.
-                    </div>
+                        <div className="drilldown-level__description">
+                            <strong>{outlay}</strong> has been paid out.
+                        </div>
                     }
                 </div>
             </div>

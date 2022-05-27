@@ -4,6 +4,8 @@
  */
 
 import React from 'react';
+import * as MoneyFormatter from 'helpers/moneyFormatter';
+
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { levels } from './StatusOfFunds';
@@ -27,6 +29,8 @@ const DrilldownSidebar = ({
     toggle, level, setLevel, fy, agencyName, selectedSubcomponent
 }) => {
     const { agencyBudgetShort, agencyObligatedShort } = useSelector((state) => state.agency.budgetaryResources?.[fy]) || '--';
+    const { toptierCode } = useSelector((state) => state.agency.overview) || '--';
+    const outlay = useSelector((state) => state.agency.agencyOutlays[toptierCode]) || '--';
     const goBack = () => setLevel(level - 1);
     return (
         <>
@@ -36,7 +40,8 @@ const DrilldownSidebar = ({
                 label="Parent Agency"
                 obligated={agencyObligatedShort}
                 budgetaryResources={agencyBudgetShort}
-                toggle={toggle} />
+                toggle={toggle}
+                outlay={MoneyFormatter.formatMoneyWithUnitsShortLabel(outlay, 2)} />
             {levels.map((dataType, i) => ((i < level) ? (
                 <DrilldownSidebarLevel
                     key={dataType}
