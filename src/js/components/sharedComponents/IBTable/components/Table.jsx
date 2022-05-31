@@ -122,13 +122,15 @@ export default class Table extends React.Component {
         const bottomBar = document.getElementById("bottomBar");
         bottomBar.scrollLeft = topBar.scrollLeft;
         this._tableWrapper = topBar.scrollLeft;
+        // this._scrolledTable();
     }
 
     _scrolledTableBottom() {
         const topBar = document.getElementById("topBar");
         const bottomBar = document.getElementById("bottomBar");
         topBar.scrollLeft = bottomBar.scrollLeft;
-        this._tableWrapper = topBar.scrollLeft;
+        this._tableWrapper = bottomBar.scrollLeft;
+        // this._scrolledTable();
     }
 
     _scrolledTable() {
@@ -225,10 +227,6 @@ export default class Table extends React.Component {
                         id="topBar"
                         onScroll={this._scrolledTableTop}>
                         <div className="ibt-table__scroller" style={contentStyle} />
-                    </div>
-                    <div>
-
-
                     </div>
                     <div
                         className="ibt-table-body-section"
