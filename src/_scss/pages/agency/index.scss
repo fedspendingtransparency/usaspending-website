@@ -29,6 +29,14 @@
 		}
 	}
 
+    .usda-page-header__toolbar .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item { 
+        padding-left: 25px;
+    }
+
+    .usda-page-header__toolbar .usda-fy-picker__container .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list {
+        width: 86%
+    }
+
 	.usda__flex-row {
 		@include display(flex);
 		@include flex-wrap(wrap);
