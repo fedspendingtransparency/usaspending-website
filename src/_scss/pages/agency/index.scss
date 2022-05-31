@@ -29,6 +29,24 @@
 		}
 	}
 
+    .accordion-container .heading {
+        height: 20px;
+        border: none;
+        color: $color-primary-darker;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    .accordion-container .toggle {
+        margin-right: 24px;
+        margin-left: 8px;
+        padding: 0;
+    }
+
+    .accordion-container .open .content {
+        display:none;
+    }
+
     .usda-page-header__toolbar .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item { 
         padding-left: 25px;
     }

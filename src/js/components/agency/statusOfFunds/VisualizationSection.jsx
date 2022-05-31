@@ -4,11 +4,13 @@
  */
 
 // eslint-disable-next-line no-unused-vars
-import React from 'react';
+import React, { useState } from 'react';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from 'prop-types';
 import { levels } from './StatusOfFunds';
 import StatusOfFundsChart from '../visualizations/StatusOfFundsChart';
 import RoundedToggle from "../../sharedComponents/RoundedToggle";
+import Accordion from "../../sharedComponents/accordion/Accordion";
 
 const propTypes = {
     toggle: PropTypes.bool,
@@ -45,17 +47,27 @@ const VisualizationSection = ({
     results,
     selectedSubcomponent,
     fetchFederalAccounts
-}) => (
-    <div className="status-of-funds__visualization">
-        <h6>{level === 1 ? selectedSubcomponent?.name : agencyName} by <strong>{levels[level]}</strong> for FY {fy}</h6>
-        <div className="status-of-funds__controls">
-            <RoundedToggle toggle={toggle} onToggle={onToggle} label="View Outlays" />
+}) => {
+    const [open, setOpen] = useState(false);
+    return (
+        <div className="status-of-funds__visualization">
+            <h6>{level === 1 ? selectedSubcomponent?.name : agencyName} by <strong>{levels[level]}</strong> for FY {fy}</h6>
+            <div className="status-of-funds__controls">
+                <RoundedToggle toggle={toggle} onToggle={onToggle} label="View Outlays" />
+                <div className="status-of-funds__line-div" />
+                <Accordion setOpen={setOpen} closedIcon="chevron-down" openIcon="chevron-up" title="What is this?">What is this?</Accordion>
+            </div>
+            {open &&
+            <div className="status-of-funds__what-content">
+                <FontAwesomeIcon icon="info-circle" className="status-of-funds__info-icon" />
+                waiting on mac
+            </div>}
+            <div className="status-of-funds__visualization-chart">
+                <StatusOfFundsChart toggle={toggle} fetchFederalAccounts={fetchFederalAccounts} totalItems={totalItems} setTotalItems={setTotalItems} loading={loading} setLoading={setLoading} fy={fy} results={results} level={level} setLevel={setLevel} />
+            </div>
         </div>
-        <div className="status-of-funds__visualization-chart">
-            <StatusOfFundsChart toggle={toggle} fetchFederalAccounts={fetchFederalAccounts} totalItems={totalItems} setTotalItems={setTotalItems} loading={loading} setLoading={setLoading} fy={fy} results={results} level={level} setLevel={setLevel} />
-        </div>
-    </div>
-);
+    );
+};
 
 VisualizationSection.propTypes = propTypes;
 export default VisualizationSection;
