@@ -66,7 +66,7 @@ test('useAgencySlugs: fetches agency slugs when they are not populated', async (
     renderHook(() => useAgencySlugs());
     expect(mockFetch).toHaveBeenCalledTimes(1);
     await waitFor(() => {
-        expect(mockAction).toHaveBeenCalledWith(mockSlugsMapping, mockTopTierMapping, mockIdMapping);
+        expect(mockAction).toHaveBeenCalledWith(mockSlugsMapping, mockTopTierMapping, mockIdMapping, mockOutlayMapping);
     });
 });
 
