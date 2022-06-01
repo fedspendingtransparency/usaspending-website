@@ -61,7 +61,7 @@ beforeEach(() => {
         }),
         cancel: jest.fn()
     }).mockClear();
-    // mockUseSelector = jest.spyOn(redux, 'useSelector').mockReturnValue({ agencySlugs: {} }).mockClear();
+    mockUseSelector = jest.spyOn(redux, 'useSelector').mockReturnValue({ agencySlugs: {} }).mockClear();
     mockAction = jest.spyOn(actions, 'setAgencySlugs').mockClear();
 });
 
@@ -69,7 +69,7 @@ test('useAgencySlugs: fetches agency slugs when they are not populated', async (
     renderHook(() => useAgencySlugs());
     expect(mockFetch).toHaveBeenCalledTimes(1);
     await waitFor(() => {
-        expect(mockAction).toHaveBeenCalledWith(mockSlugsMapping, mockTopTierMapping, mockIdMapping);
+        expect(mockAction).toHaveBeenCalledWith(mockSlugsMapping, mockTopTierMapping, mockIdMapping, mockOutlayMapping);
     });
 });
 
