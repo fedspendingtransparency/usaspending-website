@@ -62,9 +62,9 @@ test.each([
 
 test.each([
     ['', false],
-    ['/?', false]
-//    ['/?fy=2020&period=12&hash=', false],
-//    ['/?fy=2020&period=12&hash=t', true]
+    ['/?', false],
+    ['/?fy=2020&period=12&hash=', false],
+    ['/?fy=2020&period=12&hash=t', true]
 ])('when input (a query param) is %s return value is %s', (input, rtrn) => {
     expect(isSearchHashReady({ search: input })).toEqual(rtrn);
 });
