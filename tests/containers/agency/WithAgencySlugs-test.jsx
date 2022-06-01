@@ -54,12 +54,8 @@ const mockOutlayMapping = {
 beforeEach(() => {
     jest.spyOn(redux, 'useDispatch').mockReturnValue(() => (fn) => fn()).mockClear();
     mockFetch = jest.spyOn(api, 'fetchAgencySlugs').mockReturnValue({
-        promise: new Promise((resolve) => {
-            process.nextTick(() => {
-                resolve({ data: mockAPIResponse });
-            });
-        }),
-        cancel: jest.fn()
+        promise: Promise.resolve({ data: mockAPIResponse }),
+        cancel: () => jest.fn()
     }).mockClear();
     mockUseSelector = jest.spyOn(redux, 'useSelector').mockReturnValue({ agencySlugs: {} }).mockClear();
     mockAction = jest.spyOn(actions, 'setAgencySlugs').mockClear();
