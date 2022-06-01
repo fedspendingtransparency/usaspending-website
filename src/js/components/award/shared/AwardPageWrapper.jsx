@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { TooltipWrapper } from 'data-transparency-ui';
 import { Link } from 'react-router-dom';
 
@@ -8,10 +8,11 @@ import { Glossary } from '../../sharedComponents/icons/Icons';
 import { AWARD_PAGE_WRAPPER_PROPS } from '../../../propTypes/index';
 import AwardStatus from './AwardStatus';
 import { CovidFlagTooltip } from '../shared/InfoTooltipContent';
+import { useDefCodes } from 'containers/covid19/WithDefCodes';
 
 const AwardPageWrapper = ({
     // defCodes from api are already filtered down to covid codes only.
-    defCodes,
+    allDefCodes,
     awardType,
     title,
     glossaryLink,
@@ -24,6 +25,16 @@ const AwardPageWrapper = ({
     const glossaryTitleText = awardTypeCodes[overviewType] ?
         `View glossary definition of ${awardTypeCodes[overviewType]}` :
         'View glossary definition';
+
+    const [, areDefCodesLoading, defCodes] = useDefCodes();
+    const [covidDefCodes, setCovidDefCodes] = useState(null);
+
+    useEffect(() => {
+        if(!areDefCodesLoading) {
+            setCovidDefCodes(defCodes.filter((c) => c.disaster === 'covid_19' && allDefCodes.indexOf(c.code) > -1).map((code) => code.code));
+        }
+    }, [areDefCodesLoading]);
+
     return (
         <div className={`award award-${awardType}`}>
             <div className="award__heading">
@@ -43,8 +54,8 @@ const AwardPageWrapper = ({
                     awardType={awardType}
                     dates={dates} />
             </div>
-            {defCodes.length > 0 &&
-            <TooltipWrapper className="award-summary__covid-19-flag" tooltipComponent={<CovidFlagTooltip codes={defCodes} />}>
+            {covidDefCodes && covidDefCodes.length > 0 &&
+            <TooltipWrapper className="award-summary__covid-19-flag" tooltipComponent={<CovidFlagTooltip codes={covidDefCodes} />}>
                 <span className="covid-spending-flag">
                                 Includes COVID-19 Spending
                 </span>
