@@ -60,7 +60,9 @@ const VisualizationSection = ({
             {open &&
             <div className="status-of-funds__what-content">
                 <FontAwesomeIcon icon="info-circle" className="status-of-funds__info-icon" />
-                waiting on mac
+                <p className="status-of-funds__what-heading">What is an outlay?</p>
+                <p className="status-of-funds__what-text">An <strong>outlay</strong> [glossary icon: https://www.usaspending.gov/?glossary=outlay] is money that has been paid out from a federal account. This should not be confused with an <strong>obligation</strong> [glossary icon: https://www.usaspending.gov/?glossary=obligation], which is money the federal government has promised to pay (for example, when signing a contract or awarding a grant). <em>Outlays</em> are the transactions that pay off the federal government&apos;s <em>obligations</em>.</p>
+                <p className="status-of-funds__what-second-heading">Why are the <em>obligation</em> and <em>budgetary resource</em> amounts no longer visible on the chart?</p>
             </div>}
             <div className="status-of-funds__visualization-chart">
                 <StatusOfFundsChart toggle={toggle} fetchFederalAccounts={fetchFederalAccounts} totalItems={totalItems} setTotalItems={setTotalItems} loading={loading} setLoading={setLoading} fy={fy} results={results} level={level} setLevel={setLevel} />

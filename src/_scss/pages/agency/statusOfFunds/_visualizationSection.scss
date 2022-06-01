@@ -27,12 +27,32 @@
         border-right: 1px solid $color-primary-alt-light;
         border-bottom: 1px solid $color-primary-alt-light;
         background-color: #e0f3f8;
-        padding: 24px 16px;
+        padding: 24px 16px;        
 
         .status-of-funds__info-icon {
             height: 20px;
             width: 20px;
             color: #00bfe7;
+        }
+
+        .status-of-funds__what-heading {
+            font-size: rem(16);
+            font-weight: $font-semibold;
+            display: inline-block;
+            margin: 0;
+            margin-left: 18px;
+        }
+
+        .status-of-funds__what-second-heading {
+            font-size: rem(16);
+            font-weight: $font-semibold;
+            display: inline-block;
+            margin: 0;
+            margin-left: 40px;
+        }
+
+        .status-of-funds__what-text {
+            margin-left: 40px;
         }
     }
 
