@@ -11,7 +11,6 @@ import { CovidFlagTooltip } from '../shared/InfoTooltipContent';
 import { useDefCodes } from 'containers/covid19/WithDefCodes';
 
 const AwardPageWrapper = ({
-    // defCodes from api are already filtered down to covid codes only.
     allDefCodes,
     awardType,
     title,
