@@ -3,12 +3,12 @@ import { TooltipWrapper } from 'data-transparency-ui';
 import { Link } from 'react-router-dom';
 
 import { awardTypeCodes } from 'dataMapping/search/awardType';
+import { useDefCodes } from 'containers/covid19/WithDefCodes';
 
 import { Glossary } from '../../sharedComponents/icons/Icons';
 import { AWARD_PAGE_WRAPPER_PROPS } from '../../../propTypes/index';
 import AwardStatus from './AwardStatus';
 import { CovidFlagTooltip } from '../shared/InfoTooltipContent';
-import { useDefCodes } from 'containers/covid19/WithDefCodes';
 
 const AwardPageWrapper = ({
     allDefCodes,
@@ -29,7 +29,7 @@ const AwardPageWrapper = ({
     const [covidDefCodes, setCovidDefCodes] = useState(null);
 
     useEffect(() => {
-        if(!areDefCodesLoading) {
+        if (!areDefCodesLoading) {
             setCovidDefCodes(defCodes.filter((c) => c.disaster === 'covid_19' && allDefCodes.indexOf(c.code) > -1).map((code) => code.code));
         }
     }, [areDefCodesLoading]);
