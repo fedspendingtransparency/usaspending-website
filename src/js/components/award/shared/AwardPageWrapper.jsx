@@ -32,7 +32,7 @@ const AwardPageWrapper = ({
         if (!areDefCodesLoading) {
             setCovidDefCodes(defCodes.filter((c) => c.disaster === 'covid_19' && allDefCodes.indexOf(c.code) > -1).map((code) => code.code));
         }
-    }, [areDefCodesLoading]);
+    }, [areDefCodesLoading, allDefCodes]);
 
     return (
         <div className={`award award-${awardType}`}>
