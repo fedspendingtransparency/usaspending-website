@@ -1,22 +1,20 @@
 .status-of-funds__visualization {
     .status-of-funds__controls {
-        display: flex;
+        @media(min-width: $large-screen) { 
+            display: flex;
+        }
         margin-right: -16px;
         @media(min-width: $medium-screen) {
             justify-content: end;
         }
 
         .status-of-funds__line-div {
-            border-right: 1px solid $color-gray-lighter;
-            line-height: 24px;
-            height: 24px;
-            margin-left: 8px;
-            margin-right: 8px;
-        }
-
-        .status-of-funds__what {
-            .usa-da-agency-page-v2 .accordion-container .heading {
-                height: 20px;
+            @media(min-width: $large-screen) { 
+                border-right: 1px solid $color-gray-lighter;
+                line-height: 24px;
+                height: 24px;
+                margin-left: 8px;
+                margin-right: 8px;
             }
         }
     }
@@ -27,7 +25,13 @@
         border-right: 1px solid $color-primary-alt-light;
         border-bottom: 1px solid $color-primary-alt-light;
         background-color: #e0f3f8;
-        padding: 24px 16px;        
+        padding: 24px 16px;   
+        margin-left: 24px;
+        
+        @media(min-width: $small-screen) { 
+            margin-left: 16px;
+            margin-right: 16px;
+        }
 
         .status-of-funds__info-icon {
             height: 20px;
@@ -47,12 +51,15 @@
             font-size: rem(16);
             font-weight: $font-semibold;
             display: inline-block;
-            margin: 0;
-            margin-left: 40px;
+            margin: 24px 16px 0 40px;
         }
 
         .status-of-funds__what-text {
             margin-left: 40px;
+            font-size: rem(14);
+            color: $color-base;
+            margin-bottom: 0;
+            margin-right: 16px;
         }
     }
 

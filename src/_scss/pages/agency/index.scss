@@ -35,6 +35,9 @@
         color: $color-primary-darker;
         padding-left: 0;
         padding-right: 0;
+        @media(max-width: $tablet-screen) { 
+            width: 33%;
+        }
     }
 
     .accordion-container .toggle {
