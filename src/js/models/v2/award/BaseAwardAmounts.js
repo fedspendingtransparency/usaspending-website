@@ -5,11 +5,12 @@
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
-const getCovid19Totals = (arr, defCodes = []) => arr
-    .filter((obj) => defCodes.filter((d) => d?.disaster === "covid_19").includes(obj?.code))
-    .reduce((acc, obj) => acc + obj?.amount || 0, 0);
+const getCovid19Totals = (arr, defCodes = []) => {
+    console.log(arr.filter((obj) => defCodes.filter((d) => d?.disaster === "covid_19")?.map((defc) => defc.code).includes(obj?.code)).reduce((acc, obj) => acc + obj?.amount || 0, 0));
+    return arr.filter((obj) => defCodes.filter((d) => d?.disaster === "covid_19")?.map((defc) => defc.code).includes(obj?.code)).reduce((acc, obj) => acc + obj?.amount || 0, 0)
+}
 
-const getInfrastructureTotals = (arr, defCodes = []) => arr.filter((obj) => defCodes.filter((d) => d.disaster === null).includes(obj?.code)).reduce((acc, obj) => acc + obj?.amount || 0, 0);
+const getInfrastructureTotals = (arr, defCodes = []) => arr.filter((obj) => defCodes.filter((d) => d?.disaster === null)?.map((defc) => defc.code).includes(obj?.code)).reduce((acc, obj) => acc + obj?.amount || 0, 0);
 
 const BaseAwardAmounts = {
     populateBase(data) {

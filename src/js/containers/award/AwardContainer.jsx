@@ -132,6 +132,7 @@ export class AwardContainer extends React.Component {
     }
 
     parseAward(data) {
+        console.log(this.props.defCodes)
         this.setState({
             noAward: false
         });
@@ -199,7 +200,7 @@ export class AwardContainer extends React.Component {
                 award={this.props.award}
                 isLoading={this.state.inFlight}
                 noAward={this.state.noAward}
-                defCodes={this.props.defCodes?.map((defc) => defc.code)} />
+                defCodes={this.props.defCodes} />
         );
     }
 }
