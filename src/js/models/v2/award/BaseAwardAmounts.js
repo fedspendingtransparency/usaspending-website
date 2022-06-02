@@ -6,8 +6,10 @@
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 const getCovid19Totals = (arr, defCodes = []) => arr
-    .filter((obj) => defCodes.includes(obj?.code))
+    .filter((obj) => defCodes.filter((d) => d?.disaster === "covid_19").includes(obj?.code))
     .reduce((acc, obj) => acc + obj?.amount || 0, 0);
+
+const getInfrastructureTotals = (arr, defCodes = []) => arr.filter((obj) => defCodes.filter((d) => d.disaster === null).includes(obj?.code)).reduce((acc, obj) => acc + obj?.amount || 0, 0);
 
 const BaseAwardAmounts = {
     populateBase(data) {
@@ -45,6 +47,20 @@ const BaseAwardAmounts = {
                 .concat(data.grandchild_account_obligations_by_defc),
             defCodes
         );
+        this._fileCOutlayByType = {
+            infrastructure: getInfrastructureTotals(data.child_account_outlays_by_defc
+                .concat(data.grandchild_account_outlays_by_defc), defCodes),
+            covid: getCovid19Totals(
+                data.child_account_outlays_by_defc
+                .concat(data.grandchild_account_outlays_by_defc), defCodes)
+        }
+        this._fileCObligatedByType = {
+            infrastructure: getInfrastructureTotals(data.child_account_obligations_by_defc
+                .concat(data.grandchild_account_obligationss_by_defc), defCodes),
+            covid: getCovid19Totals(
+                data.child_account_outlays_by_defc
+                    .concat(data.grandchild_account_outlays_by_defc), defCodes)
+        }
     },
     populateIdv(data, defCodes) {
         this._totalObligation = data._totalObligation;
@@ -55,6 +71,16 @@ const BaseAwardAmounts = {
         this._baseAndAllOptions = data._baseAndAllOptions;
         this._fileCOutlay = getCovid19Totals(data.fileC.outlays, defCodes);
         this._fileCObligated = getCovid19Totals(data.fileC.obligations, defCodes);
+        this._fileCOutlayByType = {
+            infrastructure: getInfrastructureTotals(data.fileC.outlays, defCodes),
+            covid: getCovid19Totals(
+                data.fileC.outlays, defCodes)
+        };
+        this._fileCObligatedByType = {
+            infrastructure: getInfrastructureTotals(data.fileC.obligations, defCodes),
+            covid: getCovid19Totals(
+                data.fileC.obligations, defCodes)
+        };
     },
     populateLoan(data, defCodes) {
         this._subsidy = data._subsidy;
@@ -62,6 +88,16 @@ const BaseAwardAmounts = {
         this._totalOutlay = data._totalOutlay;
         this._fileCOutlay = getCovid19Totals(data.fileC.outlays, defCodes);
         this._fileCObligated = getCovid19Totals(data.fileC.obligations, defCodes);
+        this._fileCOutlayByType = {
+            infrastructure: getInfrastructureTotals(data.fileC.outlays, defCodes),
+            covid: getCovid19Totals(
+                data.fileC.outlays, defCodes)
+        };
+        this._fileCObligatedByType = {
+            infrastructure: getInfrastructureTotals(data.fileC.obligations, defCodes),
+            covid: getCovid19Totals(
+                data.fileC.obligations, defCodes)
+        };
     },
     populateAsst(data, defCodes) {
         this._totalObligation = data._totalObligation;
@@ -70,6 +106,16 @@ const BaseAwardAmounts = {
         this._nonFederalFunding = data._nonFederalFunding;
         this._fileCOutlay = getCovid19Totals(data.fileC.outlays, defCodes);
         this._fileCObligated = getCovid19Totals(data.fileC.obligations, defCodes);
+        this._fileCOutlayByType = {
+            infrastructure: getInfrastructureTotals(data.fileC.outlays, defCodes),
+            covid: getCovid19Totals(
+                data.fileC.outlays, defCodes)
+        };
+        this._fileCObligatedByType = {
+            infrastructure: getInfrastructureTotals(data.fileC.obligations, defCodes),
+            covid: getCovid19Totals(
+                data.fileC.obligations, defCodes)
+        };
     },
     populateContract(data, defCodes) {
         this._totalObligation = data._totalObligation;
@@ -78,6 +124,16 @@ const BaseAwardAmounts = {
         this._baseAndAllOptions = data._baseAndAllOptions;
         this._fileCOutlay = getCovid19Totals(data.fileC.outlays, defCodes);
         this._fileCObligated = getCovid19Totals(data.fileC.obligations, defCodes);
+        this._fileCOutlayByType = {
+            infrastructure: getInfrastructureTotals(data.fileC.outlays, defCodes),
+            covid: getCovid19Totals(
+                data.fileC.outlays, defCodes)
+        };
+        this._fileCObligatedByType = {
+            infrastructure: getInfrastructureTotals(data.fileC.obligations, defCodes),
+            covid: getCovid19Totals(
+                data.fileC.obligations, defCodes)
+        };
     },
     populate(data, awardAmountType, defCodes) {
         this.populateBase(data, awardAmountType);

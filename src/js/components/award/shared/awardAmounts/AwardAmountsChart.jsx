@@ -488,6 +488,7 @@ const AwardAmountsChart = ({
 
     const renderChartByAwardType = (awardAmounts = awardOverview, type = awardType, scenario = spendingScenario) => {
         const isNormal = scenario === 'normal';
+        console.log(awardAmounts)
         if (asstAwardTypesWithSimilarAwardAmountData.includes(type) && isNormal) {
             const isNffZero = awardAmounts._nonFederalFunding === 0;
             const showFileC = awardAmounts._fileCObligated > 0;
