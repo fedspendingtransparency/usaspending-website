@@ -3,14 +3,12 @@
  * Created by Lizzie Salita 11/8/21
 * */
 
-import React from 'react';
+import { mapSlugToTopTierCode, mapTopTierCodeToSlug, useAgencySlugs, mapIdToSlug, mapTopTierCodeToOutlay } from 'containers/agency/WithAgencySlugs';
 import { renderHook } from '@testing-library/react-hooks';
-import { waitFor } from 'test-utils';
 import * as redux from 'react-redux';
 import * as api from 'apis/agency';
 import * as actions from 'redux/actions/agency/agencyActions';
-
-import { mapSlugToTopTierCode, mapTopTierCodeToSlug, useAgencySlugs, mapIdToSlug } from 'containers/agency/WithAgencySlugs';
+import { waitFor } from '../../testResources/test-utils';
 
 let mockFetch;
 let mockUseSelector;
@@ -21,12 +19,14 @@ const mockAPIResponse = {
         {
             toptier_code: "123",
             agency_slug: "department-of-sandwiches",
-            agency_id: "12"
+            agency_id: "12",
+            outlay_amount: 123456789
         },
         {
             toptier_code: "456",
             agency_slug: "ministry-of-magic",
-            agency_id: "23"
+            agency_id: "23",
+            outlay_amount: 456789423
         }
     ]
 };
@@ -46,6 +46,11 @@ const mockIdMapping = {
     23: 'ministry-of-magic'
 };
 
+const mockOutlayMapping = {
+    123: 123456789,
+    456: 456789423
+};
+
 beforeEach(() => {
     jest.spyOn(redux, 'useDispatch').mockReturnValue(() => (fn) => fn()).mockClear();
     mockFetch = jest.spyOn(api, 'fetchAgencySlugs').mockReturnValue({
@@ -60,7 +65,7 @@ test('useAgencySlugs: fetches agency slugs when they are not populated', async (
     renderHook(() => useAgencySlugs());
     expect(mockFetch).toHaveBeenCalledTimes(1);
     await waitFor(() => {
-        expect(mockAction).toHaveBeenCalledWith(mockSlugsMapping, mockTopTierMapping, mockIdMapping);
+        expect(mockAction).toHaveBeenCalledWith(mockSlugsMapping, mockTopTierMapping, mockIdMapping, mockOutlayMapping);
     });
 });
 
@@ -84,4 +89,9 @@ test('mapTopTierCodeToSlug: returns a mapping of toptier_code: agency_slug', () 
 test('mapIdToSlug: returns a mapping of agency_id: agency_slug', () => {
     const result = mapIdToSlug(mockAPIResponse.results);
     expect(result).toEqual(mockIdMapping);
+});
+
+test('mapTopTierCodeToOutlay: returns a mapping of toptier_code: outlay', () => {
+    const result = mapTopTierCodeToOutlay(mockAPIResponse.results);
+    expect(result).toEqual(mockOutlayMapping);
 });

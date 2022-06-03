@@ -203,6 +203,7 @@ const StatusOfFunds = ({ fy }) => {
             <FlexGridRow hasGutter>
                 <FlexGridCol className="status-of-funds__drilldown-sidebar" desktop={3}>
                     <DrilldownSidebar
+                        toggle={toggle}
                         level={level}
                         setLevel={onClick}
                         agencyName={overview.name}
