@@ -18,7 +18,8 @@ const propTypes = {
     columns: PropTypes.array,
     onReachedBottom: PropTypes.func,
     headerCellRender: PropTypes.func,
-    bodyCellRender: PropTypes.func
+    bodyCellRender: PropTypes.func,
+    topScroller: PropTypes.bool
 };
 
 const defaultProps = {
@@ -28,7 +29,8 @@ const defaultProps = {
     headerHeight: 0,
     rowHeight: 0,
     rowCount: 0,
-    columns: []
+    columns: [],
+    topScroller: false
 };
 
 const scrollbarHeight = 10;
@@ -122,7 +124,6 @@ export default class Table extends React.Component {
         const bottomBar = document.getElementById("bottomBar");
         bottomBar.scrollLeft = topBar.scrollLeft;
         this._tableWrapper = topBar.scrollLeft;
-        // this._scrolledTable();
     }
 
     _scrolledTableBottom() {
@@ -130,7 +131,6 @@ export default class Table extends React.Component {
         const bottomBar = document.getElementById("bottomBar");
         topBar.scrollLeft = bottomBar.scrollLeft;
         this._tableWrapper = bottomBar.scrollLeft;
-        // this._scrolledTable();
     }
 
     _scrolledTable() {
@@ -184,6 +184,11 @@ export default class Table extends React.Component {
             maxWidth: visibleWidth,
             minHeight: visibleHeight + this.props.headerHeight
         };
+        const topScrollerStyle = {
+            minWidth: visibleWidth,
+            maxWidth: visibleWidth,
+            minHeight: this.props.headerHeight
+        };
         const bodyStyle = {
             minWidth: visibleWidth,
             maxWidth: visibleWidth,
@@ -200,10 +205,6 @@ export default class Table extends React.Component {
             height: (this.props.rowCount * this.props.rowHeight)
         };
 
-        // const scrollerStyle = {
-        //     width: this.props.contentWidth
-        // };
-
         let accessibleDescription = `${this.props.columns.length} column`;
         if (this.props.columns.length !== 1) {
             accessibleDescription += 's';
@@ -213,8 +214,8 @@ export default class Table extends React.Component {
             accessibleDescription += 's';
         }
 
-        return (
-            <div>
+        const body = (
+            <>
                 <div
                     className="ibt-table-container"
                     role="grid"
@@ -222,6 +223,68 @@ export default class Table extends React.Component {
                     aria-colcount={this.props.columns.length}
                     aria-label={`This is a table with ${accessibleDescription}. Use your arrow keys to navigate through cells.`}
                     style={style}>
+                    <div
+                        className="ibt-table-header-container"
+                        role="presentation"
+                        style={headerStyle}
+                        onScroll={this._scrolledHeader}
+                        ref={(div) => {
+                            this._headerWrapper = div;
+                        }}>
+                        <HeaderRow
+                            tableId={this._tableId}
+                            contentWidth={this.props.contentWidth}
+                            headerHeight={this.props.headerHeight}
+                            columns={this.props.columns}
+                            headerCellRender={this.props.headerCellRender}
+                            ref={(component) => {
+                                this._headerComponent = component;
+                            }} />
+                    </div>
+                    <div
+                        className="ibt-table-body-section"
+                        role="presentation"
+                        style={bodyStyle}
+                        id="bottomBar"
+                        onScroll={this._scrolledTable}
+                        ref={(div) => {
+                            this._tableWrapper = div;
+                        }}>
+                        <div
+                            className="ibt-table-content"
+                            role="presentation"
+                            style={contentStyle}
+                            ref={(div) => {
+                                this._internalDiv = div;
+                            }}>
+                            <TableBody
+                                tableId={this._tableId}
+                                columns={this.props.columns}
+                                contentWidth={this.props.contentWidth}
+                                bodyWidth={visibleWidth}
+                                bodyHeight={visibleHeight}
+                                rowHeight={this.props.rowHeight}
+                                rowCount={this.props.rowCount}
+                                bodyCellRender={this.props.bodyCellRender}
+                                onReachedBottom={this.props.onReachedBottom}
+                                ref={(component) => {
+                                    this._bodyComponent = component;
+                                }} />
+                        </div>
+                    </div>
+                </div>
+            </>
+        );
+
+        const bodyWithTopScroller = (
+            <>
+                <div
+                    className="ibt-table-container"
+                    role="grid"
+                    aria-rowcount={-1}
+                    aria-colcount={this.props.columns.length}
+                    aria-label={`This is a table with ${accessibleDescription}. Use your arrow keys to navigate through cells.`}
+                    style={topScrollerStyle}>
                     <div
                         className="ibt-table__top-scroller"
                         id="topBar"
@@ -278,6 +341,12 @@ export default class Table extends React.Component {
                         </div>
                     </div>
                 </div>
+            </>
+        );
+
+        return (
+            <div>
+                {this.props.topScroller ? bodyWithTopScroller : body}
             </div>
         );
     }
