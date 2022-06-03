@@ -29,6 +29,14 @@
 		}
 	}
 
+    section.accordion {
+        margin-left: -10px;
+    }
+
+    section.open.accordion--open.accordion {
+        margin-left: -2px;
+    }
+
     .accordion-container {
         @media(max-width: $tablet-screen) { 
             margin-bottom: 16px;
@@ -36,11 +44,13 @@
     }
 
     .accordion-container .heading {
-        height: 20px;
+        float: right;
+        height: 14px;
+        margin-top: -2px;
         border: none;
         color: $color-primary;
         padding-left: 8px;
-        width: 100%;
+        width: 100;
         padding-right: 0;
         font-size:rem(14);
         @media(max-width: $tablet-screen) {
@@ -48,7 +58,6 @@
             width: 34%;
         }
         margin-left: 0;
-
         &:hover, &:active, &:focus, &:visited {
             color: $color-primary-darker;
         }
@@ -57,11 +66,14 @@
     .accordion-container .plus {
         @media(min-width: $large-screen) {
             margin-right: 4px;
+            margin-left: 4px;
         }
 
         &:hover, &:active, &:focus, &:visited {
             color: $color-primary-darker;
         }
+        width: 10px;
+        height: 10px;
     }
 
     .accordion-container .minus {
@@ -69,6 +81,8 @@
             margin-left: 4px;
             margin-right: 4px;
         }
+        width: 10px;
+        height: 10px;
 
         &:hover, &:active, &:focus, &:visited {
             color: $color-primary-darker;
@@ -88,6 +102,7 @@
         padding-left: 0;
         font-size: rem(14);
         font-weight: $font-semibold;
+        margin-right: 4px;
     }
 
     .accordion-container .open .content {
