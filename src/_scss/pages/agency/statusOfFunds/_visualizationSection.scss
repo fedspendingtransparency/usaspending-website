@@ -14,7 +14,6 @@
                 line-height: 24px;
                 height: 24px;
                 margin-left: 8px;
-                margin-right: 8px;
             }
         }
     }
@@ -27,10 +26,11 @@
         background-color: #e0f3f8;
         padding: 24px 16px;   
         margin-left: 24px;
-        
-        @media(min-width: $small-screen) { 
-            margin-left: 16px;
-            margin-right: 16px;
+        margin-right: 8px;
+        margin-bottom: 16px;
+        @media(max-width: $tablet-screen) { 
+            margin-left: 0;
+            margin-right: 0;
         }
 
         .status-of-funds__info-icon {
@@ -39,18 +39,31 @@
             color: #00bfe7;
         }
 
+        .usda-glossary-link{
+            color: $color-gray-light;
+            &:hover, &:active, &:focus, &:visited {
+                color: $color-gray-medium;
+            }
+        }    
+
+        .status-of-funds__emphasis {
+            font-weight: $font-semibold;
+        }
+
         .status-of-funds__what-heading {
             font-size: rem(16);
             font-weight: $font-semibold;
             display: inline-block;
             margin: 0;
             margin-left: 18px;
+            color: $color-grayblack;
         }
 
         .status-of-funds__what-second-heading {
             font-size: rem(16);
             font-weight: $font-semibold;
             display: inline-block;
+            color: $color-grayblack;
             margin: 24px 16px 0 40px;
         }
 
