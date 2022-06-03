@@ -124,6 +124,7 @@ export default class Table extends React.Component {
         const bottomBar = document.getElementById("bottomBar");
         bottomBar.scrollLeft = topBar.scrollLeft;
         this._tableWrapper = topBar.scrollLeft;
+        this._scrolledTableWithTopScroller();
     }
 
     _scrolledTableBottom() {
@@ -131,6 +132,41 @@ export default class Table extends React.Component {
         const bottomBar = document.getElementById("bottomBar");
         topBar.scrollLeft = bottomBar.scrollLeft;
         this._tableWrapper = bottomBar.scrollLeft;
+        this._scrolledTableWithTopScroller();
+    }
+
+    _scrolledTableWithTopScroller() {
+        const scrollOperation = {
+            operation: () => {
+                // const x = this._tableWrapper.scrollLeft;
+                const y = this._tableWrapper.scrollTop;
+                ScrollManager.update({
+                    y
+                });
+            },
+            type: 'scroll',
+            isSingle: true,
+            args: []
+        };
+
+        const pointerOperation = {
+            operation: () => {
+                if (this._restorePointerTimer) {
+                    window.clearTimeout(this.restorePointer);
+                    this._restorePointerTimer = null;
+                }
+                this._internalDiv.style.pointerEvents = 'none';
+                this._restorePointerTimer = window.setTimeout(() => {
+                    this._internalDiv.style.pointerEvents = 'auto';
+                }, 150);
+            },
+            type: 'pointer',
+            isSingle: true,
+            args: []
+        };
+
+        RenderQueue.addRead(scrollOperation);
+        RenderQueue.addWrite(pointerOperation);
     }
 
     _scrolledTable() {
