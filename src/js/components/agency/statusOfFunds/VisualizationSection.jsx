@@ -56,7 +56,9 @@ const VisualizationSection = ({
             <div className="status-of-funds__controls">
                 <RoundedToggle toggle={toggle} onToggle={onToggle} label="View Outlays" />
                 <div className="status-of-funds__line-div" />
-                <Accordion setOpen={setOpen} closedIcon="chevron-down" openIcon="chevron-up" title="What is this?">What is this?</Accordion>
+                <div className="status-of-funds__accordion">
+                    <Accordion setOpen={setOpen} closedIcon="chevron-down" openIcon="chevron-up" title="What is this?">What is this?</Accordion>
+                </div>
             </div>
             {open &&
             <div className="status-of-funds__what-content">

@@ -30,17 +30,18 @@
 	}
 
     section.accordion {
-        margin-left: -10px;
+        @media(min-width: $tablet-screen) { 
+            margin-left: -10px;        
+        }
+       
     }
 
     section.open.accordion--open.accordion {
-        margin-left: -2px;
-    }
-
-    .accordion-container {
-        @media(max-width: $tablet-screen) { 
-            margin-bottom: 16px;
+        @media(min-width: $tablet-screen) { 
+            margin-left: -2px;
+            margin-bottom: 0px;
         }
+        
     }
 
     .accordion-container .heading {
@@ -53,9 +54,39 @@
         width: 100;
         padding-right: 0;
         font-size:rem(14);
-        @media(max-width: $tablet-screen) {
-            padding-left: 0;
-            width: 34%;
+        @media (min-width: 1000px) and (max-width: $large-screen) {
+            padding-left: 8px;
+            width: 25%;
+            float: none;
+        }
+        @media (min-width: 900px) and (max-width: 1000) {
+            padding-left: 8px;
+            width: 15%;
+            float: none;
+        }
+        @media (min-width: 800px) and (max-width: 900px) {
+            float:none;
+            width:19%;
+            padding-left: 8px;
+        }
+        @media (min-width: 700px) and (max-width: 800px) {
+            float:none;
+            width:19%;
+            padding-left: 0px;
+        }
+        @media (min-width: 550px) and (max-width: 700px) {
+            float:none;
+            padding-left: 0px;
+            width:22%;
+        }
+        @media (min-width: 400px) and (max-width: 550px) {
+            float:none;
+            width:31%;
+        }
+        @media (min-width: $small-screen) and (max-width: 400px) {
+            float:none;
+            width:34%;
+            margin-left: -8px;
         }
         margin-left: 0;
         &:hover, &:active, &:focus, &:visited {
