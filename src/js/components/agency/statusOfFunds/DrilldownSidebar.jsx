@@ -4,12 +4,15 @@
  */
 
 import React from 'react';
+import * as MoneyFormatter from 'helpers/moneyFormatter';
+
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { levels } from './StatusOfFunds';
 import DrilldownSidebarLevel from './DrilldownSidebarLevel';
 
 const propTypes = {
+    toggle: PropTypes.bool.isRequired,
     level: PropTypes.number.isRequired,
     setLevel: PropTypes.func,
     fy: PropTypes.string.isRequired,
@@ -23,9 +26,11 @@ const propTypes = {
 };
 
 const DrilldownSidebar = ({
-    level, setLevel, fy, agencyName, selectedSubcomponent
+    toggle, level, setLevel, fy, agencyName, selectedSubcomponent
 }) => {
     const { agencyBudgetShort, agencyObligatedShort } = useSelector((state) => state.agency.budgetaryResources?.[fy]) || '--';
+    const { toptierCode } = useSelector((state) => state.agency.overview) || '--';
+    const outlay = useSelector((state) => state.agency.agencyOutlays[toptierCode]) || '--';
     const goBack = () => setLevel(level - 1);
     return (
         <>
@@ -34,7 +39,9 @@ const DrilldownSidebar = ({
                 name={agencyName}
                 label="Parent Agency"
                 obligated={agencyObligatedShort}
-                budgetaryResources={agencyBudgetShort} />
+                budgetaryResources={agencyBudgetShort}
+                toggle={toggle}
+                outlay={MoneyFormatter.formatMoneyWithUnitsShortLabel(outlay, 2)} />
             {levels.map((dataType, i) => ((i < level) ? (
                 <DrilldownSidebarLevel
                     key={dataType}
@@ -43,7 +50,9 @@ const DrilldownSidebar = ({
                     label={dataType}
                     obligated={selectedSubcomponent?._obligations}
                     budgetaryResources={selectedSubcomponent?._budgetaryResources}
-                    goBack={goBack} />
+                    goBack={goBack}
+                    toggle={toggle}
+                    outlay={selectedSubcomponent?._outlays} />
             ) : '')
             )}
         </>

@@ -33,6 +33,7 @@ export const initialState = {
     spendingBySubagencyTotals,
     agencySlugs: {},
     topTierCodes: {},
+    agencyOutlays: {},
     agencyIds: {},
     selectedSubcomponent: null,
     agencySubcomponentsList,
@@ -96,7 +97,8 @@ const agencyReducer = (state = initialState, action) => {
                 ...state,
                 agencySlugs: action.agencySlugs,
                 topTierCodes: action.topTierCodes,
-                agencyIds: action.agencyIds
+                agencyIds: action.agencyIds,
+                agencyOutlays: action.agencyOutlays
             };
         case 'RESET_SUBAGENCY_TOTALS':
             return {
