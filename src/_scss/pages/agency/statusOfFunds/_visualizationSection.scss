@@ -16,6 +16,12 @@
                 margin-left: 8px;
             }
         }
+
+        .status-of-funds__accordion {
+            &:hover, &:active, &:focus, &:visited {
+                color: $color-gray-medium;
+            }
+        }
     }
 
     .status-of-funds__what-content {
@@ -73,6 +79,7 @@
             color: $color-base;
             margin-bottom: 0;
             margin-right: 16px;
+            margin-top: 8px;
         }
     }
 

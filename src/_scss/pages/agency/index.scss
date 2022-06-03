@@ -48,11 +48,19 @@
             width: 34%;
         }
         margin-left: 0;
+
+        &:hover, &:active, &:focus, &:visited {
+            color: $color-primary-darker;
+        }
     }
 
     .accordion-container .plus {
         @media(min-width: $large-screen) {
             margin-right: 4px;
+        }
+
+        &:hover, &:active, &:focus, &:visited {
+            color: $color-primary-darker;
         }
     }
 
@@ -60,6 +68,10 @@
         @media(min-width: $large-screen) {
             margin-left: 4px;
             margin-right: 4px;
+        }
+
+        &:hover, &:active, &:focus, &:visited {
+            color: $color-primary-darker;
         }
     }
 
@@ -69,7 +81,13 @@
             margin-left: 4px;
             padding: 0;
         }
+        color: $color-primary;
+        &:hover, &:active, &:focus, &:visited {
+            color: $color-primary-darker;
+        }
         padding-left: 0;
+        font-size: rem(14);
+        font-weight: $font-semibold;
     }
 
     .accordion-container .open .content {
