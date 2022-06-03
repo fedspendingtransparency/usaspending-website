@@ -124,7 +124,7 @@ export default class Table extends React.Component {
         const bottomBar = document.getElementById("bottomBar");
         bottomBar.scrollLeft = topBar.scrollLeft;
         this._tableWrapper = topBar.scrollLeft;
-        this._scrolledTableWithTopScroller();
+        // this._scrolledTableWithTopScroller();
     }
 
     _scrolledTableBottom() {
@@ -132,7 +132,7 @@ export default class Table extends React.Component {
         const bottomBar = document.getElementById("bottomBar");
         topBar.scrollLeft = bottomBar.scrollLeft;
         this._tableWrapper = bottomBar.scrollLeft;
-        this._scrolledTableWithTopScroller();
+        // this._scrolledTableWithTopScroller();
     }
 
     _scrolledTableWithTopScroller() {
