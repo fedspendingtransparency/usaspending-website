@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import { determineSpendingScenarioByAwardType } from 'helpers/awardAmountHelper';
 import { getToolTipBySectionAndAwardType } from 'dataMapping/award/tooltips';
+import ResultsTableTabs from 'components/search/table/ResultsTableTabs';
+
 import AwardSection from '../AwardSection';
 import AwardSectionHeader from '../AwardSectionHeader';
 import AwardAmountsChart from './AwardAmountsChart';
@@ -15,6 +17,19 @@ const propTypes = {
     awardOverview: AWARD_OVERVIEW_AWARD_AMOUNTS_SECTION_PROPS,
     jumpToTransactionHistoryTable: PropTypes.func
 };
+
+const tabTypes = [
+    {
+        enabled: true,
+        internal: 'overall',
+        label: 'Overall Spending'
+    },
+    {
+        enabled: true,
+        internal: 'infrastructure',
+        label: 'Infrastructure Spending'
+    }
+];
 
 const AwardAmountsSection = ({
     awardOverview,
@@ -29,6 +44,10 @@ const AwardAmountsSection = ({
             <div className="award__col__content">
                 <AwardSectionHeader title="$ Award Amounts" tooltip={tooltip} />
                 <div className="award-amounts__content">
+                    <ResultsTableTabs
+                        types={tabTypes}
+                        active={true}
+                        hideCounts />
                     <AwardAmountsChart
                         awardOverview={awardOverview}
                         awardType={awardType}

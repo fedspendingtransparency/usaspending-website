@@ -154,7 +154,7 @@ export class IdvAmountsContainer extends React.Component {
         return (
             <div className="award__col award-viz award-amounts">
                 <div className="award-viz__heading">
-                    <h3 className="award-viz__title">$ Award Amounts</h3>
+                    <h3 className="award-viz__title">***$ Award Amounts</h3>
                     <TooltipWrapper
                         className="award-section-tt"
                         icon="info"

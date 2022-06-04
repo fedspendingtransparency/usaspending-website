@@ -5,6 +5,8 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Tabs } from "data-transparency-ui";
+
 import { formatNumber } from 'helpers/moneyFormatter';
 
 import { determineSpendingScenarioByAwardType } from 'helpers/awardAmountHelper';
@@ -14,6 +16,7 @@ import { AWARD_AGGREGATED_AMOUNTS_PROPS } from '../../../../propTypes';
 import AwardAmountsTable from '../../shared/awardAmounts/AwardAmountsTable';
 import AwardAmountsChart from '../../shared/awardAmounts/AwardAmountsChart';
 import JumpToSectionButton from '../../shared/awardAmounts/JumpToSectionButton';
+import {tabTooltips} from "../../../aboutTheData/componentMapping/tooltipContentMapping";
 
 const propTypes = {
     awardAmounts: AWARD_AGGREGATED_AMOUNTS_PROPS,
@@ -56,6 +59,17 @@ export default class AggregatedAwardAmounts extends React.Component {
             <div className="award-amounts__content">
                 <AwardsBanner
                     jumpToReferencedAwardsTable={this.jumpToReferencedAwardsTable} />
+                <Tabs tablessStyle
+                    types={[
+                        {
+                            internal: 'overall',
+                            label: "Overall Spending"
+                        },
+                        {
+                            internal: 'infrastructure',
+                            label: "Infrastructure"
+                        }
+                    ]} />
                 <AwardAmountsChart
                     showCaresActViz={this.props.showFileC}
                     awardOverview={awardAmounts}
