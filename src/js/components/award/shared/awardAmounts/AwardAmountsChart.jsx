@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import {
@@ -10,6 +10,7 @@ import {
     nonFederalFundingColor,
     subsidyColor,
     faceValueColor,
+
     // Offsets per DEV-5242:
     lineOffsetsBySpendingCategory
 } from 'dataMapping/award/awardAmountsSection';
@@ -28,7 +29,23 @@ const propTypes = {
 };
 
 // Only for Contract and IDV Awards
-const buildNormalProps = (awardType, data, hasFileC, hasOutlays) => {
+
+const getAwardTypeText = (awardType, amountType, infrastructure) => {
+    const preText = infrastructure ? "Infrastructure" : "Combined";
+    return awardType === "idv" ? `${preText} ${amountType} Amounts` : `${amountType} Amount`;
+};
+
+const getAwardAmount = (awardType, amountType, infrastructure) => {
+    const preText = infrastructure ? "Infrastructure" : "Combined";
+    return awardType === "idv" ? `${preText} ${amountType} Amounts` : `${amountType} Amount`;
+};
+
+const getAwardColor = (awardType, amountType, infrastructure) => {
+    const preText = infrastructure ? "Infrastructure" : "Combined";
+    return awardType === "idv" ? `${preText} ${amountType} Amounts` : `${amountType} Amount`;
+};
+
+const buildNormalProps = (awardType, data, hasFileC, hasOutlays, infrastructure) => {
     const chartProps = {
         denominator: {
             labelSortOrder: 3,
@@ -95,14 +112,12 @@ const buildNormalProps = (awardType, data, hasFileC, hasOutlays) => {
             rawValue: awardType === 'idv'
                 ? data._combinedOutlay
                 : data._totalOutlay,
-            value: awardType === 'idv'
+            value: infrastructure ? '1111' : awardType === 'idv'
                 ? data.combinedOutlayAbbreviated
                 : data.totalOutlayAbbreviated,
             color: outlayColor,
             lineOffset: lineOffsetsBySpendingCategory.potential,
-            text: awardType === 'idv'
-                ? "Combined Outlayed Amounts"
-                : "Outlayed Amount"
+            text: getAwardTypeText(awardType, "Outlayed", infrastructure)
         },
         numerator: {
             labelSortOrder: 2,
@@ -124,9 +139,7 @@ const buildNormalProps = (awardType, data, hasFileC, hasOutlays) => {
                     rawValue: data._totalObligation,
                     denominatorValue: data._baseExercisedOptions,
                     value: data.totalObligationAbbreviated,
-                    text: awardType === 'idv'
-                        ? "Combined Obligated Amounts"
-                        : "Obligated Amount",
+                    text: getAwardTypeText(awardType, "Obligated", infrastructure),
                     color: obligatedColor,
                     lineOffset: lineOffsetsBySpendingCategory.obligationProcurement
                 }
@@ -450,6 +463,9 @@ const AwardAmountsChart = ({
     awardOverview,
     spendingScenario
 }) => {
+
+    const [infrastructure, setInfrastructure] = useState(true);
+
     const renderChartBySpendingScenario = (
         scenario = spendingScenario,
         type = awardType,
@@ -471,7 +487,7 @@ const AwardAmountsChart = ({
             case "normal":
                 if (hasOutlays) {
                     return (
-                        <HorizontalSingleStackedBarViz {...buildNormalProps(type, awardAmounts, hasFileC, hasOutlays)} />
+                        <HorizontalSingleStackedBarViz {...buildNormalProps(type, awardAmounts, hasFileC, hasOutlays, infrastructure)} />
                     );
                 }
                 return (

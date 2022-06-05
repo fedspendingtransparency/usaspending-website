@@ -145,6 +145,10 @@ export const potentialColor = '#dce4ee';
 export const subsidyColor = '#8c6e86';
 export const faceValueColor = '#ded5db';
 export const nonFederalFundingColor = '#47AAA7';
+export const infrastructureOutlayColor = "#2d6878";
+export const infrastructureObligatedColor = '#afcdd5';
+export const infrastructureCurrentColor = '#8ba6c9';
+export const infrastructurePotentialColor = '#dce4ee';
 
 // Offsets per DEV-5242:
 // 3px padding between outermost bar and first nested bar
