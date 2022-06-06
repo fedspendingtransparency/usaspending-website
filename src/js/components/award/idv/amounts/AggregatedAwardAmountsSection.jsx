@@ -25,17 +25,29 @@ const propTypes = {
     jumpToSection: PropTypes.func
 };
 
+const tabConfig = [
+    {
+        internal: 'overall',
+        label: "Overall Spending"
+    },
+    {
+        internal: 'infrastructure',
+        label: "Infrastructure"
+    }
+];
 
 export default class AggregatedAwardAmounts extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            active: "overall"
+            active: tabConfig[0].internal
         };
 
         this.jumpToReferencedAwardsTable = this.jumpToReferencedAwardsTable.bind(this);
         this.switchTab = this.switchTab.bind(this);
     }
+
+
 
     jumpToReferencedAwardsTable() {
         this.props.jumpToSection('referenced-awards');
@@ -73,16 +85,7 @@ export default class AggregatedAwardAmounts extends React.Component {
                 <Tabs tablessStyle
                     active={this.state.active}
                     switchTab={this.switchTab}
-                    types={[
-                        {
-                            internal: 'overall',
-                            label: "Overall Spending"
-                        },
-                        {
-                            internal: 'infrastructure',
-                            label: "Infrastructure"
-                        }
-                    ]} />
+                    types={tabConfig} />
                 <AwardAmountsChart
                     showCaresActViz={this.props.showFileC}
                     awardOverview={awardAmounts}
