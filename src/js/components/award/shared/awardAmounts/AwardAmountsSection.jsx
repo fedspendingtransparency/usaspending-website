@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { determineSpendingScenarioByAwardType } from 'helpers/awardAmountHelper';
@@ -42,8 +42,6 @@ const AwardAmountsSection = ({
     const switchTab = (tab) => {
         setActive(tab);
     }
-
-    console.log('awardAmount', awardOverview);
 
     return (
         <AwardSection type="column" className="award-viz award-amounts">
