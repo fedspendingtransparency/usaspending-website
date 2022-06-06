@@ -28,17 +28,13 @@ import HorizontalSingleStackedBarViz from './HorizontalSingleStackedBarViz';
 const propTypes = {
     awardType: PropTypes.string,
     awardOverview: AWARD_OVERVIEW_AWARD_AMOUNTS_SECTION_PROPS,
-    spendingScenario: PropTypes.string
+    spendingScenario: PropTypes.string,
+    infrastructureSpending: PropTypes.string
 };
 
 // Only for Contract and IDV Awards
 
 const getAwardTypeText = (awardType, amountType, infrastructure) => {
-    const preText = infrastructure ? "Infrastructure" : "Combined";
-    return awardType === "idv" ? `${preText} ${amountType} Amounts` : `${amountType} Amount`;
-};
-
-const getAwardAmount = (awardType, amountType, infrastructure) => {
     const preText = infrastructure ? "Infrastructure" : "Combined";
     return awardType === "idv" ? `${preText} ${amountType} Amounts` : `${amountType} Amount`;
 };

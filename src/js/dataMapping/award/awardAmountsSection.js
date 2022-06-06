@@ -57,7 +57,9 @@ export const formattedSpendingCategoriesByAwardType = {
         'totalObligationFormatted',
         'baseExercisedOptionsFormatted',
         'baseAndAllOptionsFormatted',
-        'combinedOutlayFormatted'
+        'combinedOutlayFormatted',
+        'infrastructureOutlayFormatted',
+        'infrastructureObligationFormatted'
     ],
     asst: [
         'fileCObligatedFormatted',
@@ -108,7 +110,9 @@ export const tableTitlesBySpendingCategoryAndAwardType = {
         totalObligationFormatted: 'Combined Obligated Amounts',
         combinedOutlayFormatted: 'Combined Outlayed Amounts',
         fileCOutlayFormatted: 'COVID-19 Outlayed Amount',
-        fileCObligatedFormatted: 'COVID-19 Obligated Amount'
+        fileCObligatedFormatted: 'COVID-19 Obligated Amount',
+        infrastructureOutlayFormatted: 'Combined Infrastructure Outlayed Amounts',
+        infrastructureObligationFormatted: 'Combined Infrastructure Obligated Amounts'
     },
     contract: {
         totalOutlayFormatted: 'Outlayed Amount',

@@ -180,6 +180,9 @@ const BaseAwardAmounts = {
         }
         return MoneyFormatter.formatMoney(this._totalObligation);
     },
+    get infrastructureOutlayFormatted() {
+        return MoneyFormatter.formatMoneyWithPrecision(this._fileCOutlayInfrastructure, 2);
+    },
     get infrastructureOutlayAbbreviated() {
         if (Math.abs(this._fileCOutlayInfrastructure) >= MoneyFormatter.unitValues.MILLION) {
             const units = MoneyFormatter.calculateUnitForSingleValue(this._fileCOutlayInfrastructure);
@@ -192,6 +195,9 @@ const BaseAwardAmounts = {
             return `(${Math.abs(MoneyFormatter.formatMoney(this._fileCOutlayInfrastructure))})`;
         }
         return MoneyFormatter.formatMoney(this._fileCOutlayInfrastructure);
+    },
+    get infrastructureObligationFormatted() {
+        return MoneyFormatter.formatMoneyWithPrecision(this._fileCObligatedInfrastructure, 2);
     },
     get infrastructureObligationAbbreviated() {
         if (Math.abs(this._fileCObligatedInfrastructure) >= MoneyFormatter.unitValues.MILLION) {
