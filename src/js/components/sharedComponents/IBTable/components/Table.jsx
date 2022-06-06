@@ -49,6 +49,7 @@ export default class Table extends React.Component {
         this._tableId = `${uniqueId()}`;
 
         this._scrolledTable = this._scrolledTable.bind(this);
+        this._scrolledTableWithTopScroller = this._scrolledTableWithTopScroller.bind(this);
         this._scrolledHeader = this._scrolledHeader.bind(this);
         this._scrolledTableTop = this._scrolledTableTop.bind(this);
         this._scrolledTableBottom = this._scrolledTableBottom.bind(this);
@@ -123,24 +124,24 @@ export default class Table extends React.Component {
         const topBar = document.getElementById("topBar");
         const bottomBar = document.getElementById("bottomBar");
         bottomBar.scrollLeft = topBar.scrollLeft;
-        this._tableWrapper = topBar.scrollLeft;
-        // this._scrolledTableWithTopScroller();
+        this._scrolledTableWithTopScroller(topBar.scrollLeft);
     }
 
     _scrolledTableBottom() {
         const topBar = document.getElementById("topBar");
         const bottomBar = document.getElementById("bottomBar");
         topBar.scrollLeft = bottomBar.scrollLeft;
-        this._tableWrapper = bottomBar.scrollLeft;
-        // this._scrolledTableWithTopScroller();
+        this._scrolledTableWithTopScroller(bottomBar.scrollLeft);
     }
 
-    _scrolledTableWithTopScroller() {
+    _scrolledTableWithTopScroller(xScroll) {
         const scrollOperation = {
             operation: () => {
-                // const x = this._tableWrapper.scrollLeft;
+                // this._tableWrapper = calledFromTop ? topBar.scrollLeft : bottomBar.scrollLeft;
+                const x = xScroll;
                 const y = this._tableWrapper.scrollTop;
                 ScrollManager.update({
+                    x,
                     y
                 });
             },
