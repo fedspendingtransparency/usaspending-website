@@ -52,7 +52,7 @@ const getAwardOutlayRawValue = (data, awardType, infrastructure) => {
     // combinedOutlayAbbreviated
     // totalOutlayAbbreviated
     if (infrastructure) {
-        return 11111;
+        return 990;
     }
 
     return awardType === "idv" ? data._combinedOutlay : data._totalOutlay;
@@ -60,7 +60,7 @@ const getAwardOutlayRawValue = (data, awardType, infrastructure) => {
 
 const getAwardOutlayValue = (data, awardType, infrastructure) => {
     if (infrastructure) {
-        return 11111;
+        return '$990';
     }
 
     return awardType === 'idv' ? data.combinedOutlayAbbreviated : data.totalOutlayAbbreviated;
@@ -70,7 +70,7 @@ const getAwardObligatedRawValue = (data, awardType, infrastructure) => {
     // _fileCObligatedByType[infrastructure]
     // totalObligationAbbreviated
     if (infrastructure) {
-        return 111110;
+        return 12047.3;
     }
 
     return data._totalObligation;
@@ -78,7 +78,7 @@ const getAwardObligatedRawValue = (data, awardType, infrastructure) => {
 
 const getAwardObligatedValue = (data, awardType, infrastructure) => {
     if (infrastructure) {
-        return 111110;
+        return '$1,205';
     }
 
     return data.totalObligationAbbreviated;
