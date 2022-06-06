@@ -94,7 +94,7 @@ export const awardTableClassMap = {
     "COVID-19 Outlayed Amount": "award-amounts__file-c-outlays",
     "Outlayed Amount": "award-amounts__data-icon-dark-blue",
     "Combined Infrastructure Obligated Amounts": "award-amounts__infrastructure-obligated",
-    "Combined Infrastructure Outlayed Amounts": "award-amounts__infrastructure-outlays",
+    "Combined Infrastructure Outlayed Amounts": "award-amounts__infrastructure-outlays"
 };
 
 export const tableTitlesBySpendingCategoryAndAwardType = {

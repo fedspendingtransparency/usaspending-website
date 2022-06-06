@@ -39,9 +39,7 @@ const getAwardTypeText = (awardType, amountType, infrastructure) => {
     return awardType === "idv" ? `${preText} ${amountType} Amounts` : `${amountType} Amount`;
 };
 
-const getAwardColor = (overallColor, infrastructureColor, infrastructure) => {
-    return infrastructure ? infrastructureColor : overallColor;
-};
+const getAwardColor = (overallColor, infrastructureColor, infrastructure) => (infrastructure ? infrastructureColor : overallColor);
 
 const getAwardOutlayRawValue = (data, awardType, infrastructure) => {
     if (infrastructure) {
@@ -49,7 +47,7 @@ const getAwardOutlayRawValue = (data, awardType, infrastructure) => {
     }
 
     return awardType === "idv" ? data._combinedOutlay : data._totalOutlay;
-}
+};
 
 const getAwardOutlayValue = (data, awardType, infrastructure) => {
     if (infrastructure) {
@@ -57,7 +55,7 @@ const getAwardOutlayValue = (data, awardType, infrastructure) => {
     }
 
     return awardType === 'idv' ? data.combinedOutlayAbbreviated : data.totalOutlayAbbreviated;
-}
+};
 
 const getAwardObligatedRawValue = (data, awardType, infrastructure) => {
     if (infrastructure) {
@@ -65,7 +63,7 @@ const getAwardObligatedRawValue = (data, awardType, infrastructure) => {
     }
 
     return data._totalObligation;
-}
+};
 
 const getAwardObligatedValue = (data, awardType, infrastructure) => {
     if (infrastructure) {
@@ -73,7 +71,7 @@ const getAwardObligatedValue = (data, awardType, infrastructure) => {
     }
 
     return data.totalObligationAbbreviated;
-}
+};
 
 
 const buildNormalProps = (awardType, data, hasFileC, hasOutlays, infrastructure) => {
@@ -489,9 +487,8 @@ const AwardAmountsChart = ({
     awardType,
     awardOverview,
     spendingScenario,
-   infrastructureSpending
+    infrastructureSpending
 }) => {
-
     const [infrastructure, setInfrastructure] = useState(infrastructureSpending === "infrastructure");
 
     useEffect(() => {

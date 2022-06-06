@@ -37,18 +37,18 @@ const AwardAmountsSection = ({
 }) => {
     const spendingScenario = determineSpendingScenarioByAwardType(awardType, awardOverview);
     const tooltip = getToolTipBySectionAndAwardType('awardAmounts', awardType);
-    const [active, setActive] = useState(tabTypes[0].internal)
+    const [active, setActive] = useState(tabTypes[0].internal);
 
     const switchTab = (tab) => {
         setActive(tab);
-    }
+    };
 
     return (
         <AwardSection type="column" className="award-viz award-amounts">
             <div className="award__col__content">
                 <AwardSectionHeader title="$ Award Amounts" tooltip={tooltip} />
                 <div className="award-amounts__content">
-                    <div style={{ display: awardOverview._fileCOutlayInfrastructure > 0 || awardOverview._fileCObligatedInfrastructure > 0  ? `block` : `none` }}>
+                    <div style={{ display: awardOverview._fileCOutlayInfrastructure > 0 || awardOverview._fileCObligatedInfrastructure > 0 ? `block` : `none` }}>
                         <ResultsTableTabs
                             types={tabTypes}
                             active={active}
@@ -59,8 +59,7 @@ const AwardAmountsSection = ({
                         awardOverview={awardOverview}
                         awardType={awardType}
                         spendingScenario={spendingScenario}
-                        infrastructureSpending={active}
-                    />
+                        infrastructureSpending={active} />
                     <AwardAmountsTable
                         showFileC={(
                             (

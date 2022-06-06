@@ -58,7 +58,6 @@ const HorizontalSingleStackedBarViz = ({
 
     const currentAmountValue = numerator.value;
     const currentAmountLabel = numerator.text;
-    const currentAmountColor = numerator.color;
     const outlayedAmountValue = numerator2.value;
     const outlayedAmountLabel = numerator2.text;
     const outlayedAmountColor = numerator2.color;

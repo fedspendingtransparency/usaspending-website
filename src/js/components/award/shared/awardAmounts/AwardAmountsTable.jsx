@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { uniqueId } from 'lodash';
 
@@ -22,7 +22,6 @@ const propTypes = {
 };
 
 const getSpendingCategoriesByAwardType = (awardAmountType) => {
-    console.log(awardAmountType)
     if (Object.keys(formattedSpendingCategoriesByAwardType).includes(awardAmountType)) {
         return formattedSpendingCategoriesByAwardType[awardAmountType];
     }
@@ -116,14 +115,13 @@ const AwardAmountsTable = ({
                     hide = true;
                 }
             });
-        } else {
-            if (title.includes('Infrastructure')) {
-                hide = true;
-            }
+        }
+        else if (title.includes('Infrastructure')) {
+            hide = true;
         }
 
         return hide;
-    }
+    };
 
     return (
         <div className={`award-amounts__data-wrapper ${awardAmountType}`}>

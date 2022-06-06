@@ -45,19 +45,17 @@ export default class AggregatedAwardAmounts extends React.Component {
 
         this.jumpToReferencedAwardsTable = this.jumpToReferencedAwardsTable.bind(this);
         this.switchTab = this.switchTab.bind(this);
-    }
-
-
+    };
 
     jumpToReferencedAwardsTable() {
         this.props.jumpToSection('referenced-awards');
-    }
+    };
 
     switchTab(tab) {
         this.setState({
             active: tab
         });
-    }
+    };
 
     render() {
         if (this.props.inFlight) {
@@ -82,8 +80,9 @@ export default class AggregatedAwardAmounts extends React.Component {
             <div className="award-amounts__content">
                 <AwardsBanner
                     jumpToReferencedAwardsTable={this.jumpToReferencedAwardsTable} />
-                <div style={{ display: awardAmounts._fileCOutlayInfrastructure > 0 || awardAmounts._fileCObligatedInfrastructure > 0  ? `block` : `none` }}>
-                    <Tabs tablessStyle
+                <div style={{ display: awardAmounts._fileCOutlayInfrastructure > 0 || awardAmounts._fileCObligatedInfrastructure > 0 ? `block` : `none` }}>
+                    <Tabs
+                        tablessStyle
                         active={this.state.active}
                         switchTab={this.switchTab}
                         types={tabConfig} />
@@ -93,14 +92,13 @@ export default class AggregatedAwardAmounts extends React.Component {
                     awardOverview={awardAmounts}
                     awardType="idv"
                     spendingScenario={spendingScenario}
-                    infrastructureSpending={this.state.active}
-                />
+                    infrastructureSpending={this.state.active} />
                 <AwardAmountsTable
                     awardAmountType="idv_aggregated"
                     showFileC={this.props.showFileC}
                     awardData={awardAmounts}
                     spendingScenario={spendingScenario}
-                    infrastructureSpending={this.state.active}  />
+                    infrastructureSpending={this.state.active} />
                 <div className="award-amounts-children__data-wrapper">
                     <span className="title-and-link-span">
                         <p className="count-of-awards-title-text"><strong>Count of Awards Under this IDV</strong></p>

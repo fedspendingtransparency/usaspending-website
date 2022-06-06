@@ -7,12 +7,10 @@ import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 const getCovid19Totals = (arr, defCodes = []) => {
     console.log('defc - in based award amounts needs to be fixed', defCodes);
-    return arr.filter((obj) => defCodes.filter((d) => d?.disaster === "covid_19")?.map((defc) => defc.code).includes(obj?.code)).reduce((acc, obj) => acc + obj?.amount || 0, 0)
-}
+    return arr.filter((obj) => defCodes.filter((d) => d?.disaster === "covid_19")?.map((defc) => defc.code).includes(obj?.code)).reduce((acc, obj) => acc + obj?.amount || 0, 0);
+};
 
-const getInfrastructureTotals = (arr) => {
-    return arr.filter((d) => d?.code === "Z" || d?.code === "Q")?.reduce((acc, obj) => acc + obj?.amount || 0, 0);
-}
+const getInfrastructureTotals = (arr) => arr.filter((d) => d?.code === "Z" || d?.code === "Q")?.reduce((acc, obj) => acc + obj?.amount || 0, 0);
 
 const BaseAwardAmounts = {
     populateBase(data) {
