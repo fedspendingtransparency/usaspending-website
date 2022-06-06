@@ -241,8 +241,12 @@ const StatusOfFundsChart = ({
                 .attr('preserveAspectRatio', 'none')
                 .attr("viewBox", [0, 0, viewWidth + margins.left + margins.right, chartHeightViewBox()])
                 .append('g')
-                .attr('transform', `translate(${isLargeScreen ? margins.left - 40 : margins.left}, ${margins.top})`);
-
+                .attr('transform', `translate(${isLargeScreen ? margins.left - 40 : margins.left}, ${margins.top})`)
+                .on('mouseleave', () => {
+                    setIsHovered(false);
+                    setHoverData(null);
+                    svg.selectAll('#bar-tooltip').remove();
+                });
             const tickMobileXAxis = isLargeScreen ? 'translate(-130,0)' : 'translate(90, 0)';
             const tickMobileYAxis = () => {
                 if (window.innerWidth >= 992 && window.innerWidth < 1200) {
@@ -467,11 +471,6 @@ const StatusOfFundsChart = ({
                 svg.selectAll('#bar-tooltip').remove();
             });
 
-            svg.select('#sof_chart').on('mouseleave', () => {
-                setIsHovered(false);
-                setHoverData(null);
-                svg.selectAll('#bar-tooltip').remove();
-            });
             // tooltip hover for label text
             svg.selectAll(".y-axis-labels").append("svg:title")
                 .text((d) => d);
@@ -523,8 +522,12 @@ const StatusOfFundsChart = ({
                 .attr('preserveAspectRatio', 'none')
                 .attr("viewBox", [0, 0, viewWidth + margins.left + margins.right, chartHeightViewBox()])
                 .append('g')
-                .attr('transform', `translate(${isLargeScreen ? margins.left - 40 : margins.left}, ${margins.top})`);
-
+                .attr('transform', `translate(${isLargeScreen ? margins.left - 40 : margins.left}, ${margins.top})`)
+                .on('mouseleave', () => {
+                    setIsHovered(false);
+                    setHoverData(null);
+                    svg.selectAll('#bar-tooltip').remove();
+                });
             const tickMobileXAxis = isLargeScreen ? 'translate(-130,0)' : 'translate(90, 0)';
             const tickMobileYAxis = () => {
                 if (window.innerWidth >= 992 && window.innerWidth < 1200) {
@@ -758,11 +761,6 @@ const StatusOfFundsChart = ({
                 svg.selectAll('#bar-tooltip').remove();
             });
 
-            svg.select('#sof_chart').on('mouseleave', () => {
-                setIsHovered(false);
-                setHoverData(null);
-                svg.selectAll('#bar-tooltip').remove();
-            });
             // tooltip hover for label text
             svg.selectAll(".y-axis-labels").append("svg:title")
                 .text((d) => d);
