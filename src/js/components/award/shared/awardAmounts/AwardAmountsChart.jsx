@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import {
@@ -10,7 +10,10 @@ import {
     nonFederalFundingColor,
     subsidyColor,
     faceValueColor,
-
+    infrastructureOutlayColor,
+    infrastructureObligatedColor,
+    infrastructureCurrentColor,
+    infrastructurePotentialColor,
     // Offsets per DEV-5242:
     lineOffsetsBySpendingCategory
 } from 'dataMapping/award/awardAmountsSection';
@@ -40,10 +43,47 @@ const getAwardAmount = (awardType, amountType, infrastructure) => {
     return awardType === "idv" ? `${preText} ${amountType} Amounts` : `${amountType} Amount`;
 };
 
-const getAwardColor = (awardType, amountType, infrastructure) => {
-    const preText = infrastructure ? "Infrastructure" : "Combined";
-    return awardType === "idv" ? `${preText} ${amountType} Amounts` : `${amountType} Amount`;
+const getAwardColor = (overallColor, infrastructureColor, infrastructure) => {
+    return infrastructure ? infrastructureColor : overallColor;
 };
+
+const getAwardOutlayRawValue = (data, awardType, infrastructure) => {
+    // _fileCOutlayByType[infrastructure]
+    // combinedOutlayAbbreviated
+    // totalOutlayAbbreviated
+    if (infrastructure) {
+        return 11111;
+    }
+
+    return awardType === "idv" ? data._combinedOutlay : data._totalOutlay;
+}
+
+const getAwardOutlayValue = (data, awardType, infrastructure) => {
+    if (infrastructure) {
+        return 11111;
+    }
+
+    return awardType === 'idv' ? data.combinedOutlayAbbreviated : data.totalOutlayAbbreviated;
+}
+
+const getAwardObligatedRawValue = (data, awardType, infrastructure) => {
+    // _fileCObligatedByType[infrastructure]
+    // totalObligationAbbreviated
+    if (infrastructure) {
+        return 111110;
+    }
+
+    return data._totalObligation;
+}
+
+const getAwardObligatedValue = (data, awardType, infrastructure) => {
+    if (infrastructure) {
+        return 111110;
+    }
+
+    return data.totalObligationAbbreviated;
+}
+
 
 const buildNormalProps = (awardType, data, hasFileC, hasOutlays, infrastructure) => {
     const chartProps = {
@@ -98,7 +138,7 @@ const buildNormalProps = (awardType, data, hasFileC, hasOutlays, infrastructure)
             className: `${awardType}-potential`,
             rawValue: data._baseAndAllOptions,
             value: data.baseAndAllOptionsAbbreviated,
-            color: potentialColor,
+            color: getAwardColor(potentialColor, infrastructurePotentialColor, infrastructure),
             lineOffset: lineOffsetsBySpendingCategory.potential,
             text: awardType === 'idv'
                 ? "Combined Potential Award Amounts"
@@ -109,13 +149,9 @@ const buildNormalProps = (awardType, data, hasFileC, hasOutlays, infrastructure)
             labelSortOrder: 0,
             labelPosition: 'top',
             className: `${awardType}-outlayed`,
-            rawValue: awardType === 'idv'
-                ? data._combinedOutlay
-                : data._totalOutlay,
-            value: infrastructure ? '1111' : awardType === 'idv'
-                ? data.combinedOutlayAbbreviated
-                : data.totalOutlayAbbreviated,
-            color: outlayColor,
+            rawValue: getAwardOutlayRawValue(data, awardType, infrastructure),
+            value: getAwardOutlayValue(data, awardType, infrastructure),
+            color: getAwardColor(outlayColor, infrastructureOutlayColor, infrastructure),
             lineOffset: lineOffsetsBySpendingCategory.potential,
             text: getAwardTypeText(awardType, "Outlayed", infrastructure)
         },
@@ -130,17 +166,17 @@ const buildNormalProps = (awardType, data, hasFileC, hasOutlays, infrastructure)
             text: awardType === 'idv'
                 ? "Combined Current Award Amounts"
                 : "Current Award Amount",
-            color: currentColor,
+            color: getAwardColor(currentColor, infrastructureCurrentColor, infrastructure),
             children: [
                 {
                     labelSortOrder: 1,
                     labelPosition: 'top',
                     className: `${awardType}-obligated`,
-                    rawValue: data._totalObligation,
+                    rawValue: getAwardObligatedRawValue(data, awardType, infrastructure),
                     denominatorValue: data._baseExercisedOptions,
-                    value: data.totalObligationAbbreviated,
+                    value: getAwardObligatedValue(data, awardType, infrastructure),
                     text: getAwardTypeText(awardType, "Obligated", infrastructure),
-                    color: obligatedColor,
+                    color: getAwardColor(obligatedColor, infrastructureObligatedColor, infrastructure),
                     lineOffset: lineOffsetsBySpendingCategory.obligationProcurement
                 }
             ]
@@ -461,10 +497,17 @@ const buildExceedsPotentialProps = (awardType, data, hasFileC) => {
 const AwardAmountsChart = ({
     awardType,
     awardOverview,
-    spendingScenario
+    spendingScenario,
+   infrastructureSpending
 }) => {
 
-    const [infrastructure, setInfrastructure] = useState(true);
+    console.log(infrastructureSpending);
+    const [infrastructure, setInfrastructure] = useState(infrastructureSpending === "infrastructure");
+
+    useEffect(() => {
+        setInfrastructure(infrastructureSpending === "infrastructure");
+        console.log(infrastructureSpending)
+    }, [infrastructureSpending]);
 
     const renderChartBySpendingScenario = (
         scenario = spendingScenario,

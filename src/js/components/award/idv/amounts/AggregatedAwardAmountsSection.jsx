@@ -16,7 +16,6 @@ import { AWARD_AGGREGATED_AMOUNTS_PROPS } from '../../../../propTypes';
 import AwardAmountsTable from '../../shared/awardAmounts/AwardAmountsTable';
 import AwardAmountsChart from '../../shared/awardAmounts/AwardAmountsChart';
 import JumpToSectionButton from '../../shared/awardAmounts/JumpToSectionButton';
-import {tabTooltips} from "../../../aboutTheData/componentMapping/tooltipContentMapping";
 
 const propTypes = {
     awardAmounts: AWARD_AGGREGATED_AMOUNTS_PROPS,
@@ -30,11 +29,22 @@ const propTypes = {
 export default class AggregatedAwardAmounts extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            active: "overall"
+        };
+
         this.jumpToReferencedAwardsTable = this.jumpToReferencedAwardsTable.bind(this);
+        this.switchTab = this.switchTab.bind(this);
     }
 
     jumpToReferencedAwardsTable() {
         this.props.jumpToSection('referenced-awards');
+    }
+
+    switchTab(tab) {
+        this.setState({
+            active: tab
+        });
     }
 
     render() {
@@ -55,11 +65,14 @@ export default class AggregatedAwardAmounts extends React.Component {
 
         const { awardAmounts } = this.props;
         const spendingScenario = determineSpendingScenarioByAwardType("idv", awardAmounts);
+
         return (
             <div className="award-amounts__content">
                 <AwardsBanner
                     jumpToReferencedAwardsTable={this.jumpToReferencedAwardsTable} />
                 <Tabs tablessStyle
+                    active={this.state.active}
+                    switchTab={this.switchTab}
                     types={[
                         {
                             internal: 'overall',
@@ -74,7 +87,9 @@ export default class AggregatedAwardAmounts extends React.Component {
                     showCaresActViz={this.props.showFileC}
                     awardOverview={awardAmounts}
                     awardType="idv"
-                    spendingScenario={spendingScenario} />
+                    spendingScenario={spendingScenario}
+                    infrastructureSpending={this.state.active}
+                />
                 <AwardAmountsTable
                     awardAmountType="idv_aggregated"
                     showFileC={this.props.showFileC}
