@@ -48,11 +48,8 @@ const getAwardColor = (overallColor, infrastructureColor, infrastructure) => {
 };
 
 const getAwardOutlayRawValue = (data, awardType, infrastructure) => {
-    // _fileCOutlayByType[infrastructure]
-    // combinedOutlayAbbreviated
-    // totalOutlayAbbreviated
     if (infrastructure) {
-        return 990;
+        return data._fileCOutlayInfrastructure;
     }
 
     return awardType === "idv" ? data._combinedOutlay : data._totalOutlay;
@@ -60,17 +57,15 @@ const getAwardOutlayRawValue = (data, awardType, infrastructure) => {
 
 const getAwardOutlayValue = (data, awardType, infrastructure) => {
     if (infrastructure) {
-        return '$990';
+        return data.infrastructureOutlayAbbreviated;
     }
 
     return awardType === 'idv' ? data.combinedOutlayAbbreviated : data.totalOutlayAbbreviated;
 }
 
 const getAwardObligatedRawValue = (data, awardType, infrastructure) => {
-    // _fileCObligatedByType[infrastructure]
-    // totalObligationAbbreviated
     if (infrastructure) {
-        return 12047.3;
+        return data._fileCOutlayInfrastructure;
     }
 
     return data._totalObligation;
@@ -78,7 +73,7 @@ const getAwardObligatedRawValue = (data, awardType, infrastructure) => {
 
 const getAwardObligatedValue = (data, awardType, infrastructure) => {
     if (infrastructure) {
-        return '$1,205';
+        return data.infrastructureObligationAbbreviated;
     }
 
     return data.totalObligationAbbreviated;
@@ -501,12 +496,10 @@ const AwardAmountsChart = ({
    infrastructureSpending
 }) => {
 
-    console.log(infrastructureSpending);
     const [infrastructure, setInfrastructure] = useState(infrastructureSpending === "infrastructure");
 
     useEffect(() => {
         setInfrastructure(infrastructureSpending === "infrastructure");
-        console.log(infrastructureSpending)
     }, [infrastructureSpending]);
 
     const renderChartBySpendingScenario = (
@@ -547,7 +540,6 @@ const AwardAmountsChart = ({
 
     const renderChartByAwardType = (awardAmounts = awardOverview, type = awardType, scenario = spendingScenario) => {
         const isNormal = scenario === 'normal';
-        console.log(awardAmounts)
         if (asstAwardTypesWithSimilarAwardAmountData.includes(type) && isNormal) {
             const isNffZero = awardAmounts._nonFederalFunding === 0;
             const showFileC = awardAmounts._fileCObligated > 0;

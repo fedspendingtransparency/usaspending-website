@@ -132,7 +132,6 @@ export class AwardContainer extends React.Component {
     }
 
     parseAward(data) {
-        console.log(this.props.defCodes)
         this.setState({
             noAward: false
         });
