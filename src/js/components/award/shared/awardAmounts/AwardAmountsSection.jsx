@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { determineSpendingScenarioByAwardType } from 'helpers/awardAmountHelper';
@@ -20,17 +20,16 @@ const propTypes = {
 
 const tabTypes = [
     {
-        enabled: true,
         internal: 'overall',
         label: 'Overall Spending'
     },
     {
-        enabled: true,
         internal: 'infrastructure',
         label: 'Infrastructure Spending'
     }
 ];
 
+// how do know if there's covid spending an
 const AwardAmountsSection = ({
     awardOverview,
     awardType,
@@ -38,20 +37,30 @@ const AwardAmountsSection = ({
 }) => {
     const spendingScenario = determineSpendingScenarioByAwardType(awardType, awardOverview);
     const tooltip = getToolTipBySectionAndAwardType('awardAmounts', awardType);
+    const [active, setActive] = useState(tabTypes[0].internal)
+
+    const switchTab = (tab) => {
+        setActive(tab);
+    }
 
     return (
         <AwardSection type="column" className="award-viz award-amounts">
             <div className="award__col__content">
                 <AwardSectionHeader title="$ Award Amounts" tooltip={tooltip} />
                 <div className="award-amounts__content">
-                    <ResultsTableTabs
-                        types={tabTypes}
-                        active={true}
-                        hideCounts />
+                    <div style={{ display: awardOverview._fileCObligatedByType?.infrastructure === 11111 ? `block` : `none` }}>
+                        <ResultsTableTabs
+                            types={tabTypes}
+                            active={active}
+                            switchTab={switchTab}
+                            hideCounts />
+                    </div>
                     <AwardAmountsChart
                         awardOverview={awardOverview}
                         awardType={awardType}
-                        spendingScenario={spendingScenario} />
+                        spendingScenario={spendingScenario}
+                        infrastructureSpending={active}
+                    />
                     <AwardAmountsTable
                         showFileC={(
                             (
