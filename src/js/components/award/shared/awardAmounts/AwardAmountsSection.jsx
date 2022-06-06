@@ -43,12 +43,14 @@ const AwardAmountsSection = ({
         setActive(tab);
     }
 
+    console.log('awardAmount', awardOverview);
+
     return (
         <AwardSection type="column" className="award-viz award-amounts">
             <div className="award__col__content">
                 <AwardSectionHeader title="$ Award Amounts" tooltip={tooltip} />
                 <div className="award-amounts__content">
-                    <div style={{ display: awardOverview._fileCObligatedByType?.infrastructure === 11111 ? `block` : `none` }}>
+                    <div style={{ display: awardOverview._fileCOutlayInfrastructure > 0 || awardOverview._fileCObligatedInfrastructure > 0  ? `block` : `none` }}>
                         <ResultsTableTabs
                             types={tabTypes}
                             active={active}
