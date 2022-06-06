@@ -77,7 +77,6 @@ export default class AggregatedAwardAmounts extends React.Component {
 
         const { awardAmounts } = this.props;
         const spendingScenario = determineSpendingScenarioByAwardType("idv", awardAmounts);
-        console.log('awardAmount', awardAmounts);
 
         return (
             <div className="award-amounts__content">
