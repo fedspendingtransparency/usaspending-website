@@ -58,11 +58,12 @@
             padding-left: 8px;
             width: 25%;
             float: none;
+            margin-top: 0px;
         }
-        @media (min-width: 900px) and (max-width: 1000) {
+        @media (min-width: 900px) and (max-width: 1000px) {
             padding-left: 8px;
-            width: 15%;
-            float: none;
+            width: 24%;
+            float: left;
         }
         @media (min-width: 800px) and (max-width: 900px) {
             float:none;
@@ -82,6 +83,7 @@
         @media (min-width: 400px) and (max-width: 550px) {
             float:none;
             width:31%;
+            margin-left: -8px;
         }
         @media (min-width: $small-screen) and (max-width: 400px) {
             float:none;
