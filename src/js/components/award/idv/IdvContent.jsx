@@ -51,7 +51,7 @@ const IdvContent = ({
     return (
         <AwardPageWrapper
             awardType="idv"
-            defCodes={getAllNetPositiveIdvFileCDefCodes(overview, details)}
+            allDefCodes={getAllNetPositiveIdvFileCDefCodes(overview, details)}
             title={overview.title}
             lastModifiedDateLong={overview.dates.lastModifiedDateLong}
             glossaryLink={glossaryLink}
