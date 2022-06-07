@@ -138,6 +138,7 @@ export default class ResultsTable extends React.Component {
                     headerCellRender={this.headerCellRender}
                     bodyCellRender={this.bodyCellRender}
                     onReachedBottom={this.props.loadNextPage}
+                    topScroller
                     ref={(table) => {
                         this.tableComponent = table;
                     }} />
