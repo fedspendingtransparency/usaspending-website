@@ -48,6 +48,8 @@ const IdvContent = ({
         ? `/award/${awardId}?glossary=${glossarySlug}`
         : null;
 
+    console.log("details", details)
+    console.log("overview", overview)
     return (
         <AwardPageWrapper
             awardType="idv"
@@ -72,7 +74,8 @@ const IdvContent = ({
                 <IdvAwardAmountsSectionContainer
                     jumpToSection={jumpToSection}
                     awardId={awardId}
-                    overview={overview} />
+                    overview={overview}
+                    defCodes={details?.child_file_c} />
                 <AwardDescription
                     awardType={overview.category}
                     awardId={awardId}
