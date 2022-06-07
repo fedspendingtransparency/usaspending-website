@@ -291,7 +291,12 @@ const StatusOfFundsChart = ({
                 .style("font-family", 'Source Sans Pro')
                 .style('fill', '#555')
                 .style('font-size', isMobile ? '1.3rem' : '1.45rem')
-                .attr("transform", `scale(${textScale} ${textScale})`);
+                .attr("transform", `scale(${textScale} ${textScale})`)
+                .on('mouseenter', () => {
+                    setIsHovered(false);
+                    setHoverData(null);
+                    svg.selectAll('#bar-tooltip').remove();
+                });
 
             // shift x axis labels to match mock
             const tickTexts = d3.selectAll(".tick text");
@@ -330,7 +335,12 @@ const StatusOfFundsChart = ({
                 .style('font-size', '1.45rem')
                 .attr("transform", `scale(${textScale} ${textScale})`)
                 .text((d) => truncateTextLabel(d))
-                .call(isLargeScreen ? wrapTextMobile : wrapText);
+                .call(isLargeScreen ? wrapTextMobile : wrapText)
+                .on('mouseenter', () => {
+                    setIsHovered(false);
+                    setHoverData(null);
+                    svg.selectAll('#bar-tooltip').remove();
+                });
             const tickLabelsY = d3.selectAll(".y-axis-labels");
             tickLabelsY.each(function removeTicks(d) {
                 if (isMobile) {
@@ -578,7 +588,12 @@ const StatusOfFundsChart = ({
                 .style("font-family", 'Source Sans Pro')
                 .style('fill', '#555')
                 .style('font-size', isMobile ? '1.3rem' : '1.45rem')
-                .attr("transform", `scale(${textScale} ${textScale})`);
+                .attr("transform", `scale(${textScale} ${textScale})`)
+                .on('mouseenter', () => {
+                    setIsHovered(false);
+                    setHoverData(null);
+                    svg.selectAll('#bar-tooltip').remove();
+                });
 
             // shift x axis labels to match mock
             const tickTexts = d3.selectAll(".tick text");
@@ -617,7 +632,12 @@ const StatusOfFundsChart = ({
                 .style('font-size', '1.45rem')
                 .attr("transform", `scale(${textScale} ${textScale})`)
                 .text((d) => truncateTextLabel(d))
-                .call(isLargeScreen ? wrapTextMobile : wrapText);
+                .call(isLargeScreen ? wrapTextMobile : wrapText)
+                .on('mouseenter', () => {
+                    setIsHovered(false);
+                    setHoverData(null);
+                    svg.selectAll('#bar-tooltip').remove();
+                });
             const tickLabelsY = d3.selectAll(".y-axis-labels");
             tickLabelsY.each(function removeTicks(d) {
                 if (isMobile) {
