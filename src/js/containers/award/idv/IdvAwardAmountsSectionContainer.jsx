@@ -112,7 +112,6 @@ export class IdvAmountsContainer extends React.Component {
     }
 
     parseChildAwardAmounts(data) {
-        console.log(this.props.defCodes);
         const awardAmounts = Object.create(BaseAwardAmounts);
         awardAmounts.populate(data, 'idv_aggregated', this.props.refDefCodes);
         this.setState({
