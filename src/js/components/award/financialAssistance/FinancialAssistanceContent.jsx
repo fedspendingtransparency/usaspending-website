@@ -79,7 +79,7 @@ const FinancialAssistanceContent = ({
 
     return (
         <AwardPageWrapper
-            defCodes={overview.defCodes}
+            allDefCodes={overview.defCodes}
             identifier={identifier}
             idLabel={idLabel}
             awardType={overview.category}
