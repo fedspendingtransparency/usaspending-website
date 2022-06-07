@@ -5,6 +5,8 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Tabs } from "data-transparency-ui";
+
 import { formatNumber } from 'helpers/moneyFormatter';
 
 import { determineSpendingScenarioByAwardType } from 'helpers/awardAmountHelper';
@@ -23,16 +25,37 @@ const propTypes = {
     jumpToSection: PropTypes.func
 };
 
+const tabConfig = [
+    {
+        internal: 'overall',
+        label: "Overall Spending"
+    },
+    {
+        internal: 'infrastructure',
+        label: "Infrastructure Spending"
+    }
+];
 
 export default class AggregatedAwardAmounts extends React.Component {
     constructor(props) {
         super(props);
+        this.state = {
+            active: tabConfig[0].internal
+        };
+
         this.jumpToReferencedAwardsTable = this.jumpToReferencedAwardsTable.bind(this);
-    }
+        this.switchTab = this.switchTab.bind(this);
+    };
 
     jumpToReferencedAwardsTable() {
         this.props.jumpToSection('referenced-awards');
-    }
+    };
+
+    switchTab(tab) {
+        this.setState({
+            active: tab
+        });
+    };
 
     render() {
         if (this.props.inFlight) {
@@ -52,20 +75,33 @@ export default class AggregatedAwardAmounts extends React.Component {
 
         const { awardAmounts } = this.props;
         const spendingScenario = determineSpendingScenarioByAwardType("idv", awardAmounts);
+
+        const showInfrastructureTabs = () => (awardAmounts._combinedOutlay > 0 || awardAmounts._totalOutlay > 0)
+                && (awardAmounts._fileCOutlayInfrastructure > 0 || awardAmounts._fileCObligatedInfrastructure > 0);
+
         return (
             <div className="award-amounts__content">
                 <AwardsBanner
                     jumpToReferencedAwardsTable={this.jumpToReferencedAwardsTable} />
+                <div style={{ display: showInfrastructureTabs() ? `block` : `none` }}>
+                    <Tabs
+                        tablessStyle
+                        active={this.state.active}
+                        switchTab={this.switchTab}
+                        types={tabConfig} />
+                </div>
                 <AwardAmountsChart
                     showCaresActViz={this.props.showFileC}
                     awardOverview={awardAmounts}
                     awardType="idv"
-                    spendingScenario={spendingScenario} />
+                    spendingScenario={spendingScenario}
+                    infrastructureSpending={this.state.active} />
                 <AwardAmountsTable
                     awardAmountType="idv_aggregated"
                     showFileC={this.props.showFileC}
                     awardData={awardAmounts}
-                    spendingScenario={spendingScenario} />
+                    spendingScenario={spendingScenario}
+                    infrastructureSpending={this.state.active} />
                 <div className="award-amounts-children__data-wrapper">
                     <span className="title-and-link-span">
                         <p className="count-of-awards-title-text"><strong>Count of Awards Under this IDV</strong></p>

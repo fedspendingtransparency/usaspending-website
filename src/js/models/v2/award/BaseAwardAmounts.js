@@ -5,9 +5,9 @@
 
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
-const getCovid19Totals = (arr, defCodes = []) => arr
-    .filter((obj) => defCodes.includes(obj?.code))
-    .reduce((acc, obj) => acc + obj?.amount || 0, 0);
+const getCovid19Totals = (arr, defCodes = []) => arr.filter((obj) => defCodes.filter((d) => d?.disaster === "covid_19")?.map((defc) => defc.code).includes(obj?.code)).reduce((acc, obj) => acc + obj?.amount || 0, 0);
+
+const getInfrastructureTotals = (arr) => arr.filter((d) => d?.code === "Z" || d?.code === "1")?.reduce((acc, obj) => acc + obj?.amount || 0, 0);
 
 const BaseAwardAmounts = {
     populateBase(data) {
@@ -45,6 +45,10 @@ const BaseAwardAmounts = {
                 .concat(data.grandchild_account_obligations_by_defc),
             defCodes
         );
+        this._fileCObligatedInfrastructure = getInfrastructureTotals(data.child_account_obligations_by_defc
+            .concat(data.grandchild_account_obligations_by_defc));
+        this._fileCOutlayInfrastructure = getInfrastructureTotals(data.child_account_obligations_by_defc
+            .concat(data.grandchild_account_obligations_by_defc));
     },
     populateIdv(data, defCodes) {
         this._totalObligation = data._totalObligation;
@@ -55,6 +59,8 @@ const BaseAwardAmounts = {
         this._baseAndAllOptions = data._baseAndAllOptions;
         this._fileCOutlay = getCovid19Totals(data.fileC.outlays, defCodes);
         this._fileCObligated = getCovid19Totals(data.fileC.obligations, defCodes);
+        this._fileCOutlayInfrastructure = getInfrastructureTotals(data.fileC.outlays);
+        this._fileCObligatedInfrastructure = getInfrastructureTotals(data.fileC.obligations);
     },
     populateLoan(data, defCodes) {
         this._subsidy = data._subsidy;
@@ -78,6 +84,8 @@ const BaseAwardAmounts = {
         this._baseAndAllOptions = data._baseAndAllOptions;
         this._fileCOutlay = getCovid19Totals(data.fileC.outlays, defCodes);
         this._fileCObligated = getCovid19Totals(data.fileC.obligations, defCodes);
+        this._fileCOutlayInfrastructure = getInfrastructureTotals(data.fileC.outlays);
+        this._fileCObligatedInfrastructure = getInfrastructureTotals(data.fileC.obligations);
     },
     populate(data, awardAmountType, defCodes) {
         this.populateBase(data, awardAmountType);
@@ -162,6 +170,38 @@ const BaseAwardAmounts = {
             return `(${Math.abs(MoneyFormatter.formatMoney(this._totalObligation))})`;
         }
         return MoneyFormatter.formatMoney(this._totalObligation);
+    },
+    get infrastructureOutlayFormatted() {
+        return MoneyFormatter.formatMoneyWithPrecision(this._fileCOutlayInfrastructure, 2);
+    },
+    get infrastructureOutlayAbbreviated() {
+        if (Math.abs(this._fileCOutlayInfrastructure) >= MoneyFormatter.unitValues.MILLION) {
+            const units = MoneyFormatter.calculateUnitForSingleValue(this._fileCOutlayInfrastructure);
+            if (this._fileCOutlayInfrastructure < 0) {
+                return `(${MoneyFormatter.formatMoneyWithPrecision(Math.abs(this._fileCOutlayInfrastructure) / units.unit, 1)} ${units.longLabel.charAt(0).toUpperCase() + units.longLabel.slice(1)})`;
+            }
+            return `${MoneyFormatter.formatMoneyWithPrecision(this._fileCOutlayInfrastructure / units.unit, 1)} ${units.longLabel.charAt(0).toUpperCase() + units.longLabel.slice(1)}`;
+        }
+        else if (this._fileCOutlayInfrastructure < 0) {
+            return `(${Math.abs(MoneyFormatter.formatMoney(this._fileCOutlayInfrastructure))})`;
+        }
+        return MoneyFormatter.formatMoney(this._fileCOutlayInfrastructure);
+    },
+    get infrastructureObligationFormatted() {
+        return MoneyFormatter.formatMoneyWithPrecision(this._fileCObligatedInfrastructure, 2);
+    },
+    get infrastructureObligationAbbreviated() {
+        if (Math.abs(this._fileCObligatedInfrastructure) >= MoneyFormatter.unitValues.MILLION) {
+            const units = MoneyFormatter.calculateUnitForSingleValue(this._fileCObligatedInfrastructure);
+            if (this._fileCObligatedInfrastructure < 0) {
+                return `(${MoneyFormatter.formatMoneyWithPrecision(Math.abs(this._fileCObligatedInfrastructure) / units.unit, 1)} ${units.longLabel.charAt(0).toUpperCase() + units.longLabel.slice(1)})`;
+            }
+            return `${MoneyFormatter.formatMoneyWithPrecision(this._fileCObligatedInfrastructure / units.unit, 1)} ${units.longLabel.charAt(0).toUpperCase() + units.longLabel.slice(1)}`;
+        }
+        else if (this._fileCObligatedInfrastructure < 0) {
+            return `(${Math.abs(MoneyFormatter.formatMoney(this._fileCObligatedInfrastructure))})`;
+        }
+        return MoneyFormatter.formatMoney(this._fileCObligatedInfrastructure);
     },
     get baseExercisedOptionsFormatted() {
         return MoneyFormatter.formatMoneyWithPrecision(this._baseExercisedOptions, 2);
