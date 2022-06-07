@@ -27,7 +27,7 @@ mockIdv.populate(mockApiData.mockIdv);
 const mockLoan = Object.create(BaseFinancialAssistance);
 mockLoan.populate(mockApiData.mockLoan);
 
-const mockDefc = ['L', 'M', 'N', 'O', 'P', 'R'];
+const mockDefc = [{code: 'L', disaster: 'covid_19'}, {code: 'M', disaster: 'covid_19'}, {code: 'N', disaster: 'covid_19'}, {code: 'O', disaster: 'covid_19'}, {code: 'P', disaster: 'covid_19'}, {code: 'R', disaster: 'covid_19'}];
 const awardAmounts = Object.create(BaseAwardAmounts);
 awardAmounts.populate(mockAwardAmounts, "idv_aggregated", mockDefc);
 

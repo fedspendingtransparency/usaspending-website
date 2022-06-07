@@ -93,6 +93,16 @@
         border: rem(2) solid $color-covid-19-obligations;
     }
 
+    .award-amounts__infrastructure-obligated {
+        background-color: $color-infrastructure-obligations;
+        border: rem(2) solid $color-infrastructure-obligations;
+    }
+
+    .award-amounts__infrastructure-outlays {
+        background-color: $color-infrastructure-outlays;
+        border: rem(2) solid $color-infrastructure-outlays;
+    }
+
     .award-amounts__data-icon_overspending {
         background: repeating-linear-gradient(
             45deg,
