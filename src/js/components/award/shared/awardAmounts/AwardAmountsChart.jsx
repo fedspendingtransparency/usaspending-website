@@ -35,8 +35,8 @@ const propTypes = {
 // Only for Contract and IDV Awards
 
 const getAwardTypeText = (awardType, amountType, infrastructure) => {
-    const preText = infrastructure ? "Infrastructure" : "Combined";
-    return awardType === "idv" ? `${preText} ${amountType} Amounts` : `${amountType} Amount`;
+    const infraText = infrastructure ? "Infrastructure" : "";
+    return awardType === "idv" ? `Combined ${infraText} ${amountType} Amounts` : `${amountType} Amount`;
 };
 
 const getAwardColor = (overallColor, infrastructureColor, infrastructure) => (infrastructure ? infrastructureColor : overallColor);

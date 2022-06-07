@@ -48,8 +48,6 @@ const IdvContent = ({
         ? `/award/${awardId}?glossary=${glossarySlug}`
         : null;
 
-    console.log("details", details)
-    console.log("overview", overview)
     return (
         <AwardPageWrapper
             awardType="idv"

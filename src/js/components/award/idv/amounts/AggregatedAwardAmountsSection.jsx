@@ -32,7 +32,7 @@ const tabConfig = [
     },
     {
         internal: 'infrastructure',
-        label: "Infrastructure"
+        label: "Infrastructure Spending"
     }
 ];
 

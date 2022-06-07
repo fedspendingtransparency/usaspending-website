@@ -141,7 +141,6 @@ export class IdvAmountsContainer extends React.Component {
 
     render() {
         const thisIdv = Object.create(BaseAwardAmounts);
-        console.log(this.props.defCodes);
         thisIdv.populate(this.props.award.overview, 'idv', this.props.refDefCodes);
         const tabsClassName = 'idv-award-amounts-tabs';
         const thisIdvHasFileC = (
