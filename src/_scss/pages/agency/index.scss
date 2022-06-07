@@ -45,19 +45,33 @@
     }
 
     .accordion-container .heading {
-        float: right;
         height: 14px;
-        margin-top: -2px;
-        border: none;
         color: $color-primary;
-        padding-left: 8px;
-        width: 100;
-        padding-right: 0;
+        border: none;
         font-size:rem(14);
-        @media (min-width: 1000px) and (max-width: $large-screen) {
+        padding-left: 8px;
+        padding-right: 0;
+        margin-top: -2px;
+        margin-left: 0;
+
+        @media (min-width: 1200px) {
+            float: right;
+        }
+        @media (min-width: 1000px) and (max-width: 1200px) {
             padding-left: 8px;
-            width: 25%;
             float: none;
+            width: 24%;
+            margin-top: 0px;
+        }
+        @media (width: 1200px) {
+            float: right;
+            padding-left: 16px;
+            width: 100%;
+        }
+        @media (width: 1199px) {
+            padding-left: 8px;
+            float: none;
+            width: 24%;
             margin-top: 0px;
         }
         @media (min-width: 900px) and (max-width: 1000px) {
@@ -65,12 +79,12 @@
             width: 24%;
             float: left;
         }
-        @media (min-width: 800px) and (max-width: 900px) {
+        @media (min-width: 767px) and (max-width: 900px) {
             float:none;
             width:19%;
             padding-left: 8px;
         }
-        @media (min-width: 700px) and (max-width: 800px) {
+        @media (min-width: 700px) and (max-width: 767px) {
             float:none;
             width:19%;
             padding-left: 0px;
@@ -78,19 +92,19 @@
         @media (min-width: 550px) and (max-width: 700px) {
             float:none;
             padding-left: 0px;
-            width:22%;
+            width:23%;
         }
         @media (min-width: 400px) and (max-width: 550px) {
             float:none;
-            width:31%;
+            width:33%;
             margin-left: -8px;
         }
-        @media (min-width: $small-screen) and (max-width: 400px) {
+        @media (min-width: 320px) and (max-width: 400px) {
             float:none;
-            width:34%;
+            width:35%;
             margin-left: -8px;
         }
-        margin-left: 0;
+
         &:hover, &:active, &:focus, &:visited {
             color: $color-primary-darker;
         }
