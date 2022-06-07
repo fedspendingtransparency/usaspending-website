@@ -205,6 +205,5 @@ export default flowRight(
             refDefCodes: state?.covid19?.defCodes
         }),
         (dispatch) => bindActionCreators(awardActions, dispatch)
-
-)
+    )
 )(IdvAmountsContainer);
