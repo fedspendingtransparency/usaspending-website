@@ -29,6 +29,119 @@
 		}
 	}
 
+    section.accordion {
+        @media(min-width: $tablet-screen) { 
+            margin-left: -10px;        
+        }
+       
+    }
+
+    section.open.accordion--open.accordion {
+        @media(min-width: $tablet-screen) { 
+            margin-left: -2px;
+            margin-bottom: 0px;
+        }
+        
+    }
+
+    .accordion-container .heading {
+        float: right;
+        height: 14px;
+        margin-top: -2px;
+        border: none;
+        color: $color-primary;
+        padding-left: 8px;
+        width: 100;
+        padding-right: 0;
+        font-size:rem(14);
+        @media (min-width: 1000px) and (max-width: $large-screen) {
+            padding-left: 8px;
+            width: 25%;
+            float: none;
+            margin-top: 0px;
+        }
+        @media (min-width: 900px) and (max-width: 1000px) {
+            padding-left: 8px;
+            width: 24%;
+            float: left;
+        }
+        @media (min-width: 800px) and (max-width: 900px) {
+            float:none;
+            width:19%;
+            padding-left: 8px;
+        }
+        @media (min-width: 700px) and (max-width: 800px) {
+            float:none;
+            width:19%;
+            padding-left: 0px;
+        }
+        @media (min-width: 550px) and (max-width: 700px) {
+            float:none;
+            padding-left: 0px;
+            width:22%;
+        }
+        @media (min-width: 400px) and (max-width: 550px) {
+            float:none;
+            width:31%;
+            margin-left: -8px;
+        }
+        @media (min-width: $small-screen) and (max-width: 400px) {
+            float:none;
+            width:34%;
+            margin-left: -8px;
+        }
+        margin-left: 0;
+        &:hover, &:active, &:focus, &:visited {
+            color: $color-primary-darker;
+        }
+    }
+
+    .accordion-container .plus {
+        @media(min-width: $large-screen) {
+            margin-right: 4px;
+            margin-left: 4px;
+        }
+
+        &:hover, &:active, &:focus, &:visited {
+            color: $color-primary-darker;
+        }
+        width: 10px;
+        height: 10px;
+    }
+
+    .accordion-container .minus {
+        @media(min-width: $large-screen) {
+            margin-left: 4px;
+            margin-right: 4px;
+        }
+        width: 10px;
+        height: 10px;
+
+        &:hover, &:active, &:focus, &:visited {
+            color: $color-primary-darker;
+        }
+    }
+
+    .accordion-container .toggle {
+        @media(max-width: $tablet-screen) {
+            margin-right: 32px;
+            margin-left: 4px;
+            padding: 0;
+        }
+        color: $color-primary;
+        &:hover, &:active, &:focus, &:visited {
+            color: $color-primary-darker;
+        }
+        padding-left: 0;
+        font-size: rem(14);
+        font-weight: $font-semibold;
+        margin-right: 4px;
+    }
+
+    .accordion-container .open .content {
+        display:none;
+    }
+
     .usda-page-header__toolbar .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item { 
         padding-left: 25px;
     }
