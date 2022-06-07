@@ -56,7 +56,7 @@ const VisualizationSection = ({
         <div className="status-of-funds__visualization">
             <h6>{level === 1 ? selectedSubcomponent?.name : agencyName} by <span className="status-of-funds__emphasis">{levels[level]}</span> for FY {fy}</h6>
             <div className="status-of-funds__controls">
-                <RoundedToggle toggle={toggle} onToggle={onToggle} label="View Outlays" />
+                <RoundedToggle toggle={toggle} onKeyToggle={onKeyToggle} onToggle={onToggle} label="View Outlays" />
                 <div className="status-of-funds__line-div" />
                 <div className="status-of-funds__accordion">
                     <Accordion setOpen={setOpen} closedIcon="chevron-down" openIcon="chevron-up" title="What is this?">What is this?</Accordion>
@@ -66,7 +66,7 @@ const VisualizationSection = ({
             <div className="status-of-funds__what-content">
                 <FontAwesomeIcon icon="info-circle" className="status-of-funds__info-icon" />
                 <p className="status-of-funds__what-heading">What is an <em>outlay</em>?</p>
-                <p className="status-of-funds__what-text">An <span className="status-of-funds__emphasis">outlay</span> <GlossaryLink term="outlay" /> is money that has been paid out from a federal account. This should not be confused with an <span className="status-of-funds__emphasis">obligation</span> <GlossaryLink term="obligation" />, which is money the federal government has promised to pay (for example, when signing a contract or awarding a grant). <em>Outlays</em> are the transactions that pay off the federal government&apos;s <em>obligations</em>.</p>
+                <p className="status-of-funds__what-text">An <span className="status-of-funds__emphasis">outlay</span> <GlossaryLink term="outlay" /> is money that has been paid out from a federal account. This should not be confused with an <span className="status-of-funds__emphasis">obligation</span> <GlossaryLink term="obligation" /> , which is money the federal government has promised to pay (for example, when signing a contract or awarding a grant). <em>Outlays</em> are the transactions that pay off the federal government&apos;s <em>obligations</em>.</p>
                 <p className="status-of-funds__what-second-heading">Why are the <em>obligation</em> and <em>budgetary resource</em> amounts no longer visible on the chart?</p>
                 <p className="status-of-funds__what-text">Remember, the <span className="status-of-funds__emphasis">budgetary resources</span> <GlossaryLink term="budgetary-resources" /> and obligations on this chart refer to available amounts and promised amounts for spending <em>in your selected fiscal year</em>. However, agencies may make outlays to pay off obligations made in your selected year <em>or in previous years</em>. This means outlays on this chart should <span className="status-of-funds__emphasis">not</span> be compared to the obligations or budgetary resources within any single fiscal year.</p>
             </div>}
