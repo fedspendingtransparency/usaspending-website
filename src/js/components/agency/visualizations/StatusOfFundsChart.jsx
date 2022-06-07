@@ -349,7 +349,10 @@ const StatusOfFundsChart = ({
                 .enter()
                 .append('g')
                 .attr('class', 'bar-group')
-                .attr('tabindex', 0);
+                .attr('tabindex', 0)
+                .on('click', (d) => {
+                    handleClick(d);
+                });
             barGroups.append("rect")
                 .attr('transform', tickMobileXAxis)
                 .attr("x", -8)
@@ -634,7 +637,10 @@ const StatusOfFundsChart = ({
                 .append('g')
                 .attr('class', 'bar-group')
                 .attr('tabindex', 0)
-                .attr('transform', !isMobile ? "translate(0,-10)" : "translate(0,0)");
+                .attr('transform', !isMobile ? "translate(0,-10)" : "translate(0,0)")
+                .on('click', (d) => {
+                    handleClick(d);
+                });
             barGroups.append("rect")
                 .attr('transform', tickMobileXAxis)
                 .attr("x", -8)
@@ -740,7 +746,7 @@ const StatusOfFundsChart = ({
                 svg.selectAll('#tbr-bar').remove();
             }
             // on click drilldown
-            svg.selectAll(".bar-group").on('click', (d) => {
+            svg.selectAll(".out-bar").on('click', (d) => {
                 handleClick(d);
             });
             // tab through and enter key functionality
@@ -765,8 +771,8 @@ const StatusOfFundsChart = ({
             svg.selectAll(".y-axis-labels").append("svg:title")
                 .text((d) => d);
             if (level === 1) {
-                svg.selectAll(".out-bar").on('click', null);
-                svg.selectAll(".out-bar").on('keypress', null);
+                svg.selectAll(".bar-group").on('click', null);
+                svg.selectAll(".bar-group").on('keypress', null);
             }
             // horizontal border above legend
             svg.append('line')
