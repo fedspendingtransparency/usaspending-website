@@ -222,15 +222,6 @@ const HorizontalSingleStackedBarViz = ({
                     .style("stroke-width", 4)
                     .style("stroke", numerator.className === "asst-non-federal-funding" ? "#47AAA7" : "#8aa6c9")
                     .style("fill", "none");
-                // outlay line
-                chartSvg.append("line")
-                    .attr("x1", x(propsArr[3]) - 2)
-                    .attr("y1", 20)
-                    .attr("x2", x(propsArr[3]) - 2)
-                    .attr("y2", (height / 2.5) + 35)
-                    .style("stroke-width", 4)
-                    .style("stroke", outlayedAmountColor)
-                    .style("fill", "none");
                 // obligated line
                 chartSvg.append("line")
                     .attr("x1", x(propsArr[2]) - 2)
@@ -239,6 +230,15 @@ const HorizontalSingleStackedBarViz = ({
                     .attr("y2", (height / 2.5) + 40)
                     .style("stroke-width", 4)
                     .style("stroke", obligatedAmountColor)
+                    .style("fill", "none");
+                // outlay line
+                chartSvg.append("line")
+                    .attr("x1", x(propsArr[3]) - 2)
+                    .attr("y1", 20)
+                    .attr("x2", x(propsArr[3]) - 2)
+                    .attr("y2", (height / 2.5) + 35)
+                    .style("stroke-width", 4)
+                    .style("stroke", outlayedAmountColor)
                     .style("fill", "none");
                 // current label
                 chartSvg.append("foreignObject")
