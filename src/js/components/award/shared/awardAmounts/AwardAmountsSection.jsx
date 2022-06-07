@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+// import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import { determineSpendingScenarioByAwardType } from 'helpers/awardAmountHelper';
 import { getToolTipBySectionAndAwardType } from 'dataMapping/award/tooltips';
-import ResultsTableTabs from 'components/search/table/ResultsTableTabs';
+// import ResultsTableTabs from 'components/search/table/ResultsTableTabs';
 
 import AwardSection from '../AwardSection';
 import AwardSectionHeader from '../AwardSectionHeader';
@@ -18,16 +19,16 @@ const propTypes = {
     jumpToTransactionHistoryTable: PropTypes.func
 };
 
-const tabTypes = [
-    {
-        internal: 'overall',
-        label: 'Overall Spending'
-    },
-    {
-        internal: 'infrastructure',
-        label: 'Infrastructure Spending'
-    }
-];
+// const tabTypes = [
+//     {
+//         internal: 'overall',
+//         label: 'Overall Spending'
+//     },
+//     {
+//         internal: 'infrastructure',
+//         label: 'Infrastructure Spending'
+//     }
+// ];
 
 // how do know if there's covid spending an
 const AwardAmountsSection = ({
@@ -37,29 +38,35 @@ const AwardAmountsSection = ({
 }) => {
     const spendingScenario = determineSpendingScenarioByAwardType(awardType, awardOverview);
     const tooltip = getToolTipBySectionAndAwardType('awardAmounts', awardType);
-    const [active, setActive] = useState(tabTypes[0].internal);
+    // const [active, setActive] = useState(tabTypes[0].internal);
 
-    const switchTab = (tab) => {
-        setActive(tab);
-    };
+    // commenting out code for dev-8670
+    // const switchTab = (tab) => {
+    //     setActive(tab);
+    // };
+    //
+    // const showInfrastructureTabs = () => {
+    //     return (awardOverview._combinedOutlay > 0 || awardOverview._totalOutlay > 0)
+    //         && (awardOverview._fileCOutlayInfrastructure > 0 || awardOverview._fileCObligatedInfrastructure > 0);
+    // };
 
     return (
         <AwardSection type="column" className="award-viz award-amounts">
             <div className="award__col__content">
                 <AwardSectionHeader title="$ Award Amounts" tooltip={tooltip} />
                 <div className="award-amounts__content">
-                    <div style={{ display: awardOverview._fileCOutlayInfrastructure > 0 || awardOverview._fileCObligatedInfrastructure > 0 ? `block` : `none` }}>
-                        <ResultsTableTabs
-                            types={tabTypes}
-                            active={active}
-                            switchTab={switchTab}
-                            hideCounts />
-                    </div>
+                    {/* <div style={{ display: showInfrastructureTabs() ? `block` : `none` }}>*/}
+                    {/*    <ResultsTableTabs*/}
+                    {/*        types={tabTypes}*/}
+                    {/*        active={active}*/}
+                    {/*        switchTab={switchTab}*/}
+                    {/*        hideCounts />*/}
+                    {/* </div>*/}
                     <AwardAmountsChart
                         awardOverview={awardOverview}
                         awardType={awardType}
                         spendingScenario={spendingScenario}
-                        infrastructureSpending={active} />
+                        infrastructureSpending="" />
                     <AwardAmountsTable
                         showFileC={(
                             (

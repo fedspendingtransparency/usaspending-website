@@ -76,11 +76,14 @@ export default class AggregatedAwardAmounts extends React.Component {
         const { awardAmounts } = this.props;
         const spendingScenario = determineSpendingScenarioByAwardType("idv", awardAmounts);
 
+        const showInfrastructureTabs = () => (awardAmounts._combinedOutlay > 0 || awardAmounts._totalOutlay > 0)
+                && (awardAmounts._fileCOutlayInfrastructure > 0 || awardAmounts._fileCObligatedInfrastructure > 0);
+
         return (
             <div className="award-amounts__content">
                 <AwardsBanner
                     jumpToReferencedAwardsTable={this.jumpToReferencedAwardsTable} />
-                <div style={{ display: awardAmounts._fileCOutlayInfrastructure > 0 || awardAmounts._fileCObligatedInfrastructure > 0 ? `block` : `none` }}>
+                <div style={{ display: showInfrastructureTabs() ? `block` : `none` }}>
                     <Tabs
                         tablessStyle
                         active={this.state.active}
