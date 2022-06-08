@@ -39,6 +39,11 @@
             margin-left: 0;
             margin-right: 0;
         }
+        @media(min-width: $tablet-screen) and (max-width:$medium-screen) { 
+            margin-left: 0;
+            margin-right: 0;
+            margin-top: 32px;
+        }
 
         .status-of-funds__info-icon {
             height: 20px;
