@@ -501,7 +501,11 @@ const AwardAmountsChart = ({
         awardAmounts = awardOverview
     ) => {
         const hasFileC = awardAmounts._fileCObligated > 0;
-        const hasOutlays = awardAmounts._combinedOutlay > 0 || awardAmounts._totalOutlay > 0 || awardAmounts._fileCOutlayInfrastructure > 0;
+        const hasInfrastructureOutlays = awardAmounts._fileCOutlayInfrastructure > 0;
+        const hasOutlays = awardAmounts._combinedOutlay > 0 || awardAmounts._totalOutlay > 0;
+
+        if (infrastructure && !hasInfrastructureOutlays) return <div><br /><br /></div>;
+
         switch (scenario) {
             case "exceedsBigger": {
                 return (
@@ -537,6 +541,7 @@ const AwardAmountsChart = ({
             const isNffZero = awardAmounts._nonFederalFunding === 0;
             const showFileC = awardAmounts._fileCObligated > 0;
             const hasOutlays = awardAmounts._combinedOutlay > 0 || awardAmounts._totalOutlay > 0;
+
             const chartProps = {
                 denominator: {
                     labelPosition: 'bottom',

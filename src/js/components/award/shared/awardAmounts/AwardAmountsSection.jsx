@@ -43,7 +43,7 @@ const AwardAmountsSection = ({
         setActive(tab);
     };
 
-    const showInfrastructureTabs = () => awardOverview._fileCOutlayInfrastructure > 0;
+    const showInfrastructureTabs = () => awardOverview._fileCObligatedInfrastructure > 0;
 
     return (
         <AwardSection type="column" className="award-viz award-amounts">

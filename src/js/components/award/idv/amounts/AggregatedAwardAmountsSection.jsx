@@ -76,7 +76,7 @@ export default class AggregatedAwardAmounts extends React.Component {
         const { awardAmounts } = this.props;
         const spendingScenario = determineSpendingScenarioByAwardType("idv", awardAmounts);
 
-        const showInfrastructureTabs = () => awardAmounts._fileCOutlayInfrastructure > 0;
+        const showInfrastructureTabs = () => awardAmounts._fileCObligatedInfrastructure > 0;
 
         return (
             <div className="award-amounts__content">
