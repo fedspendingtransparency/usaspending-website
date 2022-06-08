@@ -51,7 +51,7 @@ const AwardAmountsSection = ({
             <div className="award__col__content">
                 <AwardSectionHeader title="$ Award Amounts" tooltip={tooltip} />
                 <div className="award-amounts__content">
-                    <div style={{ display: showInfrastructureTabs() ? `block` : `none` }}>
+                    <div style={{ display: showInfrastructureTabs() ? `block` : `none`, paddingBottom: showInfrastructureTabs() ? '20px' : '' }}>
                         <ResultsTableTabs
                             types={tabTypes}
                             active={active}
@@ -72,7 +72,8 @@ const AwardAmountsSection = ({
                         )}
                         awardData={awardOverview}
                         awardAmountType={awardType}
-                        spendingScenario={spendingScenario} />
+                        spendingScenario={spendingScenario}
+                        infrastructureSpending={active} />
                 </div>
             </div>
             <JumpToSectionButton icon="table" linkText="View Transaction History" onClick={jumpToTransactionHistoryTable} />
