@@ -29,7 +29,6 @@ const tabTypes = [
     }
 ];
 
-// how do know if there's covid spending an
 const AwardAmountsSection = ({
     awardOverview,
     awardType,
