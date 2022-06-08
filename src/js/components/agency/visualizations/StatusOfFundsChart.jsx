@@ -76,7 +76,6 @@ const StatusOfFundsChart = ({
         return () => document.getElementById('sof_chart').removeEventListener('mousemove', setMouseData);
     }, []);
 
-
     useEffect(() => {
         setTextScale(viewWidth / chartRef.current.getBoundingClientRect().width);
 
@@ -364,10 +363,6 @@ const StatusOfFundsChart = ({
                 .enter()
                 .append('g')
                 .attr('class', 'bar-group')
-                .on('click', (d) => {
-                    console.debug("testing 1");
-                    handleClick(d);
-                })
                 .attr('tabindex', 0);
             barGroups.append("rect")
                 .attr('transform', tickMobileXAxis)
@@ -495,6 +490,7 @@ const StatusOfFundsChart = ({
             svg.selectAll(".y-axis-labels").append("svg:title")
                 .text((d) => d);
             if (level === 1) {
+                console.debug("this is wrong");
                 svg.selectAll(".bar-group").on('click', null);
                 svg.selectAll(".bar-group").on('keypress', null);
             }
@@ -668,13 +664,10 @@ const StatusOfFundsChart = ({
                 .enter()
                 .append('g')
                 .attr('class', 'bar-group')
-                .on('click', (d) => {
-                    console.debug("testing 3");
-                    handleClick(d);
-                })
                 .attr('tabindex', 0)
                 .attr('transform', !isMobile ? "translate(0,-10)" : "translate(0,0)")
                 .on('click', (d) => {
+                    console.debug("still not working lolz");
                     handleClick(d);
                 });
             barGroups.append("rect")
@@ -808,6 +801,7 @@ const StatusOfFundsChart = ({
             svg.selectAll(".y-axis-labels").append("svg:title")
                 .text((d) => d);
             if (level === 1) {
+                console.debug("this be breaking stuff");
                 svg.selectAll(".bar-group").on('click', null);
                 svg.selectAll(".bar-group").on('keypress', null);
             }
