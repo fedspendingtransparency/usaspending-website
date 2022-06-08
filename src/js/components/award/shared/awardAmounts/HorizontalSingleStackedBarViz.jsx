@@ -43,7 +43,6 @@ const HorizontalSingleStackedBarViz = ({
 }) => {
     const chartRef = useRef();
     const [windowWidth, setWindowWidth] = useState(0);
-    const width = 600;
     const height = 400;
     const propsArr = [];
 
@@ -77,8 +76,7 @@ const HorizontalSingleStackedBarViz = ({
             const chartSvg = d3.select('#aa_chart')
                 .append('svg')
                 .attr("height", height)
-                .attr("width", width)
-                .attr("viewBox", `0 0 ${width} ${height}`);
+                .attr("width", "100%");
             // set x scale (potential amount as max domain)
             const x = scaleLinear()
                 .range([0, windowWidth]);
@@ -411,7 +409,7 @@ const HorizontalSingleStackedBarViz = ({
         else {
             renderBarChart();
         }
-    }, [windowWidth, propsArr]);
+    }, [windowWidth, propsArr, numerator.className, potentialAmountColor, potentialAmountValue, potentialAmountLabel, outlayedAmountValue, outlayedAmountLabel, obligatedAmountColor, outlayedAmountColor, isNffZero, obligatedAmountValue, obligatedAmountLabel, currentAmountValue, currentAmountLabel]);
 
     useEffect(() => {
         const handleResize = throttle(() => {
