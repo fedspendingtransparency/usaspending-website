@@ -36,7 +36,7 @@ const propTypes = {
 
 const getAwardTypeText = (awardType, amountType, infrastructure) => {
     const infraText = infrastructure ? "Infrastructure" : "";
-    return awardType === "idv" ? `Combined ${infraText} ${amountType} Amounts` : `${amountType} Amount`;
+    return awardType === "idv" ? `Combined ${infraText} ${amountType} Amounts` : `${infraText} ${amountType} Amount`;
 };
 
 const getAwardColor = (overallColor, infrastructureColor, infrastructure) => (infrastructure ? infrastructureColor : overallColor);
