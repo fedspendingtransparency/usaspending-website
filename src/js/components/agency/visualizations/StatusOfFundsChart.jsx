@@ -291,7 +291,12 @@ const StatusOfFundsChart = ({
                 .style("font-family", 'Source Sans Pro')
                 .style('fill', '#555')
                 .style('font-size', isMobile ? '1.3rem' : '1.45rem')
-                .attr("transform", `scale(${textScale} ${textScale})`);
+                .attr("transform", `scale(${textScale} ${textScale})`)
+                .on('mouseenter', () => {
+                    setIsHovered(false);
+                    setHoverData(null);
+                    svg.selectAll('#bar-tooltip').remove();
+                });
 
             // shift x axis labels to match mock
             const tickTexts = d3.selectAll(".tick text");
@@ -330,7 +335,12 @@ const StatusOfFundsChart = ({
                 .style('font-size', '1.45rem')
                 .attr("transform", `scale(${textScale} ${textScale})`)
                 .text((d) => truncateTextLabel(d))
-                .call(isLargeScreen ? wrapTextMobile : wrapText);
+                .call(isLargeScreen ? wrapTextMobile : wrapText)
+                .on('mouseenter', () => {
+                    setIsHovered(false);
+                    setHoverData(null);
+                    svg.selectAll('#bar-tooltip').remove();
+                });
             const tickLabelsY = d3.selectAll(".y-axis-labels");
             tickLabelsY.each(function removeTicks(d) {
                 if (isMobile) {
@@ -349,7 +359,10 @@ const StatusOfFundsChart = ({
                 .enter()
                 .append('g')
                 .attr('class', 'bar-group')
-                .attr('tabindex', 0);
+                .attr('tabindex', 0)
+                .on('click', (d) => {
+                    handleClick(d);
+                });
             barGroups.append("rect")
                 .attr('transform', tickMobileXAxis)
                 .attr("x", -8)
@@ -575,7 +588,12 @@ const StatusOfFundsChart = ({
                 .style("font-family", 'Source Sans Pro')
                 .style('fill', '#555')
                 .style('font-size', isMobile ? '1.3rem' : '1.45rem')
-                .attr("transform", `scale(${textScale} ${textScale})`);
+                .attr("transform", `scale(${textScale} ${textScale})`)
+                .on('mouseenter', () => {
+                    setIsHovered(false);
+                    setHoverData(null);
+                    svg.selectAll('#bar-tooltip').remove();
+                });
 
             // shift x axis labels to match mock
             const tickTexts = d3.selectAll(".tick text");
@@ -614,7 +632,12 @@ const StatusOfFundsChart = ({
                 .style('font-size', '1.45rem')
                 .attr("transform", `scale(${textScale} ${textScale})`)
                 .text((d) => truncateTextLabel(d))
-                .call(isLargeScreen ? wrapTextMobile : wrapText);
+                .call(isLargeScreen ? wrapTextMobile : wrapText)
+                .on('mouseenter', () => {
+                    setIsHovered(false);
+                    setHoverData(null);
+                    svg.selectAll('#bar-tooltip').remove();
+                });
             const tickLabelsY = d3.selectAll(".y-axis-labels");
             tickLabelsY.each(function removeTicks(d) {
                 if (isMobile) {
@@ -634,7 +657,10 @@ const StatusOfFundsChart = ({
                 .append('g')
                 .attr('class', 'bar-group')
                 .attr('tabindex', 0)
-                .attr('transform', !isMobile ? "translate(0,-10)" : "translate(0,0)");
+                .attr('transform', !isMobile ? "translate(0,-10)" : "translate(0,0)")
+                .on('click', (d) => {
+                    handleClick(d);
+                });
             barGroups.append("rect")
                 .attr('transform', tickMobileXAxis)
                 .attr("x", -8)
@@ -740,7 +766,7 @@ const StatusOfFundsChart = ({
                 svg.selectAll('#tbr-bar').remove();
             }
             // on click drilldown
-            svg.selectAll(".bar-group").on('click', (d) => {
+            svg.selectAll(".out-bar").on('click', (d) => {
                 handleClick(d);
             });
             // tab through and enter key functionality
@@ -765,8 +791,8 @@ const StatusOfFundsChart = ({
             svg.selectAll(".y-axis-labels").append("svg:title")
                 .text((d) => d);
             if (level === 1) {
-                svg.selectAll(".out-bar").on('click', null);
-                svg.selectAll(".out-bar").on('keypress', null);
+                svg.selectAll(".bar-group").on('click', null);
+                svg.selectAll(".bar-group").on('keypress', null);
             }
             // horizontal border above legend
             svg.append('line')
