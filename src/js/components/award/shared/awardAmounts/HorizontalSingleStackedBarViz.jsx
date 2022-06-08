@@ -43,6 +43,7 @@ const HorizontalSingleStackedBarViz = ({
 }) => {
     const chartRef = useRef();
     const [windowWidth, setWindowWidth] = useState(0);
+    const width = 600;
     const height = 400;
     const propsArr = [];
 
@@ -76,12 +77,14 @@ const HorizontalSingleStackedBarViz = ({
             const chartSvg = d3.select('#aa_chart')
                 .append('svg')
                 .attr("height", height)
-                .attr("width", '100%');
+                .attr("width", width)
+                .attr("viewBox", `0 0 ${width} ${height}`);
             // set x scale (potential amount as max domain)
             const x = scaleLinear()
                 .range([0, windowWidth]);
             x.domain([0, propsArr[0]]);
             // parent g for nested bars (adjust y and height by constant factor to add more layers)
+            // This does nothing
             chartSvg.append('g')
                 .attr('class', 'parent-g')
                 .selectAll('.bar-group');
