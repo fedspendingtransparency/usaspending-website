@@ -501,7 +501,7 @@ const AwardAmountsChart = ({
         awardAmounts = awardOverview
     ) => {
         const hasFileC = awardAmounts._fileCObligated > 0;
-        const hasOutlays = awardAmounts._combinedOutlay > 0 || awardAmounts._totalOutlay > 0;
+        const hasOutlays = awardAmounts._combinedOutlay > 0 || awardAmounts._totalOutlay > 0 || awardAmounts._fileCOutlayInfrastructure > 0;
         switch (scenario) {
             case "exceedsBigger": {
                 return (
