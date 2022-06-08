@@ -354,15 +354,21 @@ const StatusOfFundsChart = ({
             // create bar group <g>'s for each bar component
             const barGroups = svg.append('g')
                 .attr('class', 'parent-g')
+                .on('mouseleave', () => {
+                    setIsHovered(false);
+                    setHoverData(null);
+                    svg.selectAll('#bar-tooltip').remove();
+                })
                 .selectAll('.bar-group')
                 .data(sortedNums)
                 .enter()
                 .append('g')
                 .attr('class', 'bar-group')
-                .attr('tabindex', 0)
                 .on('click', (d) => {
+                    console.debug("testing 1");
                     handleClick(d);
-                });
+                })
+                .attr('tabindex', 0);
             barGroups.append("rect")
                 .attr('transform', tickMobileXAxis)
                 .attr("x", -8)
@@ -464,6 +470,7 @@ const StatusOfFundsChart = ({
             }
             // on click drilldown
             svg.selectAll(".bar-group").on('click', (d) => {
+                console.debug("testing 2");
                 handleClick(d);
             });
             // tab through and enter key functionality
@@ -651,11 +658,20 @@ const StatusOfFundsChart = ({
             // create bar group <g>'s for each bar component
             const barGroups = svg.append('g')
                 .attr('class', 'parent-g')
+                .on('mouseleave', () => {
+                    setIsHovered(false);
+                    setHoverData(null);
+                    svg.selectAll('#bar-tooltip').remove();
+                })
                 .selectAll('.bar-group')
                 .data(sortedNums)
                 .enter()
                 .append('g')
                 .attr('class', 'bar-group')
+                .on('click', (d) => {
+                    console.debug("testing 3");
+                    handleClick(d);
+                })
                 .attr('tabindex', 0)
                 .attr('transform', !isMobile ? "translate(0,-10)" : "translate(0,0)")
                 .on('click', (d) => {
@@ -766,7 +782,8 @@ const StatusOfFundsChart = ({
                 svg.selectAll('#tbr-bar').remove();
             }
             // on click drilldown
-            svg.selectAll(".out-bar").on('click', (d) => {
+            svg.selectAll(".bar-group").on('click', (d) => {
+                console.debug("testing 4");
                 handleClick(d);
             });
             // tab through and enter key functionality
