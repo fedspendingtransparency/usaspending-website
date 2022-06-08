@@ -36,7 +36,7 @@ const propTypes = {
 
 const getAwardTypeText = (awardType, amountType, infrastructure) => {
     const infraText = infrastructure ? "Infrastructure" : "";
-    return awardType === "idv" ? `Combined ${infraText} ${amountType} Amounts` : `${amountType} Amount`;
+    return awardType === "idv" ? `Combined ${infraText} ${amountType} Amounts` : `${infraText} ${amountType} Amount`;
 };
 
 const getAwardColor = (overallColor, infrastructureColor, infrastructure) => (infrastructure ? infrastructureColor : overallColor);
@@ -59,7 +59,7 @@ const getAwardOutlayValue = (data, awardType, infrastructure) => {
 
 const getAwardObligatedRawValue = (data, awardType, infrastructure) => {
     if (infrastructure) {
-        return data._fileCOutlayInfrastructure;
+        return data._fileCObligatedInfrastructure;
     }
 
     return data._totalObligation;
@@ -502,6 +502,7 @@ const AwardAmountsChart = ({
     ) => {
         const hasFileC = awardAmounts._fileCObligated > 0;
         const hasOutlays = awardAmounts._combinedOutlay > 0 || awardAmounts._totalOutlay > 0;
+
         switch (scenario) {
             case "exceedsBigger": {
                 return (
@@ -537,6 +538,7 @@ const AwardAmountsChart = ({
             const isNffZero = awardAmounts._nonFederalFunding === 0;
             const showFileC = awardAmounts._fileCObligated > 0;
             const hasOutlays = awardAmounts._combinedOutlay > 0 || awardAmounts._totalOutlay > 0;
+
             const chartProps = {
                 denominator: {
                     labelPosition: 'bottom',

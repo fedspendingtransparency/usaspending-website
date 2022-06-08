@@ -41,7 +41,9 @@ export const formattedSpendingCategoriesByAwardType = {
         'totalObligationFormatted',
         'baseExercisedOptionsFormatted',
         'baseAndAllOptionsFormatted',
-        'totalOutlayFormatted'
+        'totalOutlayFormatted',
+        'infrastructureOutlayFormatted',
+        'infrastructureObligationFormatted'
     ],
     idv: [
         'fileCOutlayFormatted',
@@ -94,7 +96,9 @@ export const awardTableClassMap = {
     "COVID-19 Outlayed Amount": "award-amounts__file-c-outlays",
     "Outlayed Amount": "award-amounts__data-icon-dark-blue",
     "Combined Infrastructure Obligated Amounts": "award-amounts__infrastructure-obligated",
-    "Combined Infrastructure Outlayed Amounts": "award-amounts__infrastructure-outlays"
+    "Combined Infrastructure Outlayed Amounts": "award-amounts__infrastructure-outlays",
+    "Infrastructure Obligated Amount": "award-amounts__infrastructure-obligated",
+    "Infrastructure Outlayed Amount": "award-amounts__infrastructure-outlays"
 };
 
 export const tableTitlesBySpendingCategoryAndAwardType = {
@@ -122,7 +126,9 @@ export const tableTitlesBySpendingCategoryAndAwardType = {
         baseExercisedOptionsFormatted: 'Current Award Amount',
         baseAndAllOptionsFormatted: 'Potential Award Amount',
         fileCOutlayFormatted: 'COVID-19 Outlayed Amount',
-        fileCObligatedFormatted: 'COVID-19 Obligated Amount'
+        fileCObligatedFormatted: 'COVID-19 Obligated Amount',
+        infrastructureOutlayFormatted: 'Infrastructure Outlayed Amount',
+        infrastructureObligationFormatted: 'Infrastructure Obligated Amount'
     },
     idv: {
         baseExercisedOptionsFormatted: 'Current Award Amount',
