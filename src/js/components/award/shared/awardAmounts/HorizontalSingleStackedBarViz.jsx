@@ -145,18 +145,18 @@ const HorizontalSingleStackedBarViz = ({
                     .style("fill", "none");
                 // outlay line
                 chartSvg.append("line")
-                    .attr("x1", x(propsArr[3]) - 2)
+                    .attr("x1", x(propsArr[3]) + 2)
                     .attr("y1", 20)
-                    .attr("x2", x(propsArr[3]) - 2)
+                    .attr("x2", x(propsArr[3]) + 2)
                     .attr("y2", (height / 2.5) + 35)
                     .style("stroke-width", 4)
                     .style("stroke", outlayedAmountColor)
                     .style("fill", "none");
                 // obligated line
                 chartSvg.append("line")
-                    .attr("x1", x(propsArr[2]) - 2)
+                    .attr("x1", x(propsArr[2]) + 2)
                     .attr("y1", 90)
-                    .attr("x2", x(propsArr[2]) - 2)
+                    .attr("x2", x(propsArr[2]) + 2)
                     .attr("y2", (height / 2.5) + 45)
                     .style("stroke-width", 4)
                     .style("stroke", obligatedAmountColor)
@@ -227,18 +227,18 @@ const HorizontalSingleStackedBarViz = ({
                     .style("fill", "none");
                 // obligated line
                 chartSvg.append("line")
-                    .attr("x1", x(propsArr[2]) - 2)
+                    .attr("x1", x(propsArr[2]) + 2)
                     .attr("y1", 90)
-                    .attr("x2", x(propsArr[2]) - 2)
+                    .attr("x2", x(propsArr[2]) + 2)
                     .attr("y2", (height / 2.5) + 40)
                     .style("stroke-width", 4)
                     .style("stroke", obligatedAmountColor)
                     .style("fill", "none");
                 // outlay line
                 chartSvg.append("line")
-                    .attr("x1", x(propsArr[3]) - 2)
+                    .attr("x1", x(propsArr[3]) + 2)
                     .attr("y1", 20)
-                    .attr("x2", x(propsArr[3]) - 2)
+                    .attr("x2", x(propsArr[3]) + 2)
                     .attr("y2", (height / 2.5) + 35)
                     .style("stroke-width", 4)
                     .style("stroke", outlayedAmountColor)

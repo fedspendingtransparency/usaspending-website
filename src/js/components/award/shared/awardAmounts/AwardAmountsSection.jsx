@@ -43,23 +43,21 @@ const AwardAmountsSection = ({
         setActive(tab);
     };
 
-    const showInfrastructureTabs = () => {
-        return (awardOverview._combinedOutlay > 0 || awardOverview._totalOutlay > 0)
+    const showInfrastructureTabs = () => (awardOverview._combinedOutlay > 0 || awardOverview._totalOutlay > 0)
             && (awardOverview._fileCOutlayInfrastructure > 0 || awardOverview._fileCObligatedInfrastructure > 0);
-    };
 
     return (
         <AwardSection type="column" className="award-viz award-amounts">
             <div className="award__col__content">
                 <AwardSectionHeader title="$ Award Amounts" tooltip={tooltip} />
                 <div className="award-amounts__content">
-                     <div style={{ display: showInfrastructureTabs() ? `block` : `none` }}>
+                    <div style={{ display: showInfrastructureTabs() ? `block` : `none` }}>
                         <ResultsTableTabs
                             types={tabTypes}
                             active={active}
                             switchTab={switchTab}
                             hideCounts />
-                     </div>
+                    </div>
                     <AwardAmountsChart
                         awardOverview={awardOverview}
                         awardType={awardType}
