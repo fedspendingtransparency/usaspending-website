@@ -143,18 +143,18 @@ const HorizontalSingleStackedBarViz = ({
                     .style("fill", "none");
                 // outlay line
                 chartSvg.append("line")
-                    .attr("x1", x(propsArr[3]) + 2)
+                    .attr("x1", x(propsArr[3]) - 2)
                     .attr("y1", 20)
-                    .attr("x2", x(propsArr[3]) + 2)
+                    .attr("x2", x(propsArr[3]) - 2)
                     .attr("y2", (height / 2.5) + 35)
                     .style("stroke-width", 4)
                     .style("stroke", outlayedAmountColor)
                     .style("fill", "none");
                 // obligated line
                 chartSvg.append("line")
-                    .attr("x1", x(propsArr[2]) + 2)
+                    .attr("x1", x(propsArr[2]) - 2)
                     .attr("y1", 90)
-                    .attr("x2", x(propsArr[2]) + 2)
+                    .attr("x2", x(propsArr[2]) - 2)
                     .attr("y2", (height / 2.5) + 45)
                     .style("stroke-width", 4)
                     .style("stroke", obligatedAmountColor)
@@ -225,18 +225,18 @@ const HorizontalSingleStackedBarViz = ({
                     .style("fill", "none");
                 // obligated line
                 chartSvg.append("line")
-                    .attr("x1", x(propsArr[2]) + 2)
+                    .attr("x1", x(propsArr[2]) > 100 ? x(propsArr[2]) - 2 : x(propsArr[2]) + 2)
                     .attr("y1", 90)
-                    .attr("x2", x(propsArr[2]) + 2)
+                    .attr("x2", x(propsArr[2]) > 100 ? x(propsArr[2]) - 2 : x(propsArr[2]) + 2)
                     .attr("y2", (height / 2.5) + 40)
                     .style("stroke-width", 4)
                     .style("stroke", obligatedAmountColor)
                     .style("fill", "none");
                 // outlay line
                 chartSvg.append("line")
-                    .attr("x1", x(propsArr[3]) + 2)
+                    .attr("x1", x(propsArr[3]) > 100 ? x(propsArr[3]) - 2 : x(propsArr[3]) + 2)
                     .attr("y1", 20)
-                    .attr("x2", x(propsArr[3]) + 2)
+                    .attr("x2", x(propsArr[3]) > 100 ? x(propsArr[3]) - 2 : x(propsArr[3]) + 2)
                     .attr("y2", (height / 2.5) + 35)
                     .style("stroke-width", 4)
                     .style("stroke", outlayedAmountColor)
@@ -353,7 +353,7 @@ const HorizontalSingleStackedBarViz = ({
                 .attr("x2", (x(propsArr[2]) - 2) < 8 ? 8 + (x(propsArr[2]) - 2) : (x(propsArr[2]) - 2))
                 .attr("y2", (height / 2.5) + 40)
                 .style("stroke-width", 4)
-                .style("stroke", "red")
+                .style("stroke", "#0b2e5a")
                 .style("fill", "none");
             // subsidy label
             chartSvg.append("foreignObject")
@@ -409,7 +409,7 @@ const HorizontalSingleStackedBarViz = ({
         else {
             renderBarChart();
         }
-    }, [windowWidth, propsArr, numerator.className, potentialAmountColor, potentialAmountValue, potentialAmountLabel, outlayedAmountValue, outlayedAmountLabel, obligatedAmountColor, outlayedAmountColor, isNffZero, obligatedAmountValue, obligatedAmountLabel, currentAmountValue, currentAmountLabel]);
+    }, [windowWidth, propsArr]);
 
     useEffect(() => {
         const handleResize = throttle(() => {

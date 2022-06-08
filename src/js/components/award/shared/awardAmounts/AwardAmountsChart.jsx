@@ -59,7 +59,7 @@ const getAwardOutlayValue = (data, awardType, infrastructure) => {
 
 const getAwardObligatedRawValue = (data, awardType, infrastructure) => {
     if (infrastructure) {
-        return data._fileCOutlayInfrastructure;
+        return data._fileCObligatedInfrastructure;
     }
 
     return data._totalObligation;
