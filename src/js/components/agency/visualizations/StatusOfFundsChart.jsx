@@ -482,12 +482,6 @@ const StatusOfFundsChart = ({
                 setHoverData(d);
                 tooltip(hoverData);
             });
-            svg.select(".tooltip-wrapper").on('mouseenter', () => {
-                console.debug("even working?");
-                setIsHovered(false);
-                setHoverData(null);
-                svg.selectAll('.tooltip-wrapper').remove();
-            });
             svg.selectAll(".bar-group").on('mouseleave', () => {
                 setIsHovered(false);
                 setHoverData(null);
@@ -794,11 +788,6 @@ const StatusOfFundsChart = ({
                 setIsHovered(true);
                 setHoverData(d);
                 tooltip(hoverData);
-            });
-            svg.select(".tooltip-wrapper").on('mouseenter', () => {
-                setIsHovered(false);
-                setHoverData(null);
-                svg.selectAll('.tooltip-wrapper').remove();
             });
             svg.selectAll(".out-bar").on('mouseleave', () => {
                 setIsHovered(false);
