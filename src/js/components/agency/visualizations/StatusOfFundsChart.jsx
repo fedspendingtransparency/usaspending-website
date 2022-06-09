@@ -236,6 +236,10 @@ const StatusOfFundsChart = ({
             const svg = d3.select('#sof_chart')
                 .append('svg')
                 .attr('class', 'svg')
+                .on('mouseleave', () => {
+                    setIsHovered(false);
+                    setHoverData(null);
+                })
                 .attr('xmlns:xlink', 'http://www.w3.org/1999/xlink')
                 .attr('preserveAspectRatio', 'none')
                 .attr("viewBox", [0, 0, viewWidth + margins.left + margins.right, chartHeightViewBox()])
@@ -244,7 +248,6 @@ const StatusOfFundsChart = ({
                 .on('mouseleave', () => {
                     setIsHovered(false);
                     setHoverData(null);
-                    svg.selectAll('#bar-tooltip').remove();
                 });
             const tickMobileXAxis = isLargeScreen ? 'translate(-130,0)' : 'translate(90, 0)';
             const tickMobileYAxis = () => {
@@ -294,7 +297,6 @@ const StatusOfFundsChart = ({
                 .on('mouseenter', () => {
                     setIsHovered(false);
                     setHoverData(null);
-                    svg.selectAll('#bar-tooltip').remove();
                 });
 
             // shift x axis labels to match mock
@@ -338,7 +340,6 @@ const StatusOfFundsChart = ({
                 .on('mouseenter', () => {
                     setIsHovered(false);
                     setHoverData(null);
-                    svg.selectAll('#bar-tooltip').remove();
                 });
             const tickLabelsY = d3.selectAll(".y-axis-labels");
             tickLabelsY.each(function removeTicks(d) {
@@ -356,7 +357,6 @@ const StatusOfFundsChart = ({
                 .on('mouseleave', () => {
                     setIsHovered(false);
                     setHoverData(null);
-                    svg.selectAll('#bar-tooltip').remove();
                 })
                 .selectAll('.bar-group')
                 .data(sortedNums)
@@ -485,7 +485,6 @@ const StatusOfFundsChart = ({
             svg.selectAll(".bar-group").on('mouseleave', () => {
                 setIsHovered(false);
                 setHoverData(null);
-                svg.selectAll('#bar-tooltip').remove();
             });
 
             // tooltip hover for label text
@@ -535,6 +534,10 @@ const StatusOfFundsChart = ({
             const svg = d3.select('#sof_chart')
                 .append('svg')
                 .attr('class', 'svg')
+                .on('mouseleave', () => {
+                    setIsHovered(false);
+                    setHoverData(null);
+                })
                 .attr('xmlns:xlink', 'http://www.w3.org/1999/xlink')
                 .attr('preserveAspectRatio', 'none')
                 .attr("viewBox", [0, 0, viewWidth + margins.left + margins.right, chartHeightViewBox()])
@@ -543,7 +546,6 @@ const StatusOfFundsChart = ({
                 .on('mouseleave', () => {
                     setIsHovered(false);
                     setHoverData(null);
-                    svg.selectAll('#bar-tooltip').remove();
                 });
             const tickMobileXAxis = isLargeScreen ? 'translate(-130,0)' : 'translate(90, 0)';
             const tickMobileYAxis = () => {
@@ -596,7 +598,6 @@ const StatusOfFundsChart = ({
                 .on('mouseenter', () => {
                     setIsHovered(false);
                     setHoverData(null);
-                    svg.selectAll('#bar-tooltip').remove();
                 });
 
             // shift x axis labels to match mock
@@ -640,7 +641,6 @@ const StatusOfFundsChart = ({
                 .on('mouseenter', () => {
                     setIsHovered(false);
                     setHoverData(null);
-                    svg.selectAll('#bar-tooltip').remove();
                 });
             const tickLabelsY = d3.selectAll(".y-axis-labels");
             tickLabelsY.each(function removeTicks(d) {
@@ -658,7 +658,6 @@ const StatusOfFundsChart = ({
                 .on('mouseleave', () => {
                     setIsHovered(false);
                     setHoverData(null);
-                    svg.selectAll('#bar-tooltip').remove();
                 })
                 .selectAll('.bar-group')
                 .data(sortedNums)
@@ -793,7 +792,6 @@ const StatusOfFundsChart = ({
             svg.selectAll(".out-bar").on('mouseleave', () => {
                 setIsHovered(false);
                 setHoverData(null);
-                svg.selectAll('#bar-tooltip').remove();
             });
 
             // tooltip hover for label text
