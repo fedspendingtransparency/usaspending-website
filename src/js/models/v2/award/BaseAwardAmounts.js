@@ -12,14 +12,14 @@ const getInfrastructureTotals = (arr) => arr.filter((d) => d?.code === "Z" || d?
 const mockInfastructureOutlay = [
     {
         code: 'Z',
-        amount: '50000000'
+        amount: 50000000
     }
 ];
 
 const mockInfastructureObligated = [
     {
         code: 'Z',
-        amount: '50000000'
+        amount: 500000
     }
 ];
 
@@ -59,10 +59,8 @@ const BaseAwardAmounts = {
                 .concat(data.grandchild_account_obligations_by_defc),
             defCodes
         );
-        this._fileCObligatedInfrastructure = getInfrastructureTotals(data.child_account_obligations_by_defc
-            .concat(data.grandchild_account_obligations_by_defc));
-        this._fileCOutlayInfrastructure = getInfrastructureTotals(data.child_account_obligations_by_defc
-            .concat(data.grandchild_account_obligations_by_defc));
+        this._fileCOutlayInfrastructure = getInfrastructureTotals(mockInfastructureOutlay);
+        this._fileCObligatedInfrastructure = getInfrastructureTotals(mockInfastructureObligated);
     },
     populateIdv(data, defCodes) {
         this._totalObligation = data._totalObligation;
@@ -73,8 +71,8 @@ const BaseAwardAmounts = {
         this._baseAndAllOptions = data._baseAndAllOptions;
         this._fileCOutlay = getCovid19Totals(data.fileC.outlays, defCodes);
         this._fileCObligated = getCovid19Totals(data.fileC.obligations, defCodes);
-        this._fileCOutlayInfrastructure = getInfrastructureTotals(data.fileC.outlays);
-        this._fileCObligatedInfrastructure = getInfrastructureTotals(data.fileC.obligations);
+        this._fileCOutlayInfrastructure = getInfrastructureTotals(mockInfastructureOutlay);
+        this._fileCObligatedInfrastructure = getInfrastructureTotals(mockInfastructureObligated);
     },
     populateLoan(data, defCodes) {
         this._subsidy = data._subsidy;
@@ -98,8 +96,8 @@ const BaseAwardAmounts = {
         this._baseAndAllOptions = data._baseAndAllOptions;
         this._fileCOutlay = getCovid19Totals(data.fileC.outlays, defCodes);
         this._fileCObligated = getCovid19Totals(data.fileC.obligations, defCodes);
-        this._fileCOutlayInfrastructure = getInfrastructureTotals(data.fileC.outlays);
-        this._fileCObligatedInfrastructure = getInfrastructureTotals(data.fileC.obligations);
+        this._fileCOutlayInfrastructure = getInfrastructureTotals(mockInfastructureOutlay);
+        this._fileCObligatedInfrastructure = getInfrastructureTotals(mockInfastructureObligated);
     },
     populate(data, awardAmountType, defCodes) {
         this.populateBase(data, awardAmountType);

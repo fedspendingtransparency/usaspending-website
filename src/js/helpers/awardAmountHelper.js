@@ -4,7 +4,11 @@
  */
 
 import { formatMoneyWithPrecision } from 'helpers/moneyFormatter';
-import { spendingCategoriesByAwardType, asstAwardTypesWithSimilarAwardAmountData } from '../dataMapping/award/awardAmountsSection';
+import {
+    spendingCategoriesByAwardType,
+    asstAwardTypesWithSimilarAwardAmountData,
+    infrastructureSpendingCategoriesByAwardType
+} from '../dataMapping/award/awardAmountsSection';
 
 // formats the specific checkboxes
 // options are NPM accounting package options
@@ -33,6 +37,14 @@ export const formatAwardAmountRange = (range, options = 2) => {
 export const getAscendingSpendingCategoriesByAwardType = (awardType, awardAmountObj) => {
     if (Object.keys(spendingCategoriesByAwardType).includes(awardType)) {
         return spendingCategoriesByAwardType[awardType]
+            .map((category) => awardAmountObj[category]);
+    }
+    return [];
+};
+
+export const getInfrastructureAscendingSpendingCategoriesByAwardType = (awardType, awardAmountObj) => {
+    if (Object.keys(infrastructureSpendingCategoriesByAwardType).includes(awardType)) {
+        return infrastructureSpendingCategoriesByAwardType[awardType]
             .map((category) => awardAmountObj[category]);
     }
     return [];
@@ -104,11 +116,11 @@ export const determineFileCSpendingScenario = (awardType, awardAmountObj) => {
 export const determineInfrastructureSpendingScenario = (awardType, awardAmountObj) => {
     const { _fileCOutlayInfrastructure, _fileCObligatedInfrastructure } = awardAmountObj;
     if (_fileCObligatedInfrastructure === 0 && _fileCOutlayInfrastructure === 0) return 'normal';
-    const spendingCategoriesToConsider = getAscendingSpendingCategoriesByAwardType(awardType, awardAmountObj);
+    const spendingCategoriesToConsider = getInfrastructureAscendingSpendingCategoriesByAwardType(awardType, awardAmountObj);
     const fileCScenario = spendingCategoriesToConsider
         .reduce((scenario, spendingCategory) => {
             if (scenario !== 'normal') return scenario;
-            return determineSpendingScenario(_fileCObligatedInfrastructure, _fileCObligatedInfrastructure, spendingCategory);
+            return determineSpendingScenario(_fileCOutlayInfrastructure, _fileCObligatedInfrastructure, spendingCategory);
         }, 'normal');
     return (fileCScenario === 'normal') ? 'normal' : 'insufficientData';
 };

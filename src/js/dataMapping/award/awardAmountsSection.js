@@ -29,6 +29,12 @@ export const spendingCategoriesByAwardType = {
     idv_aggregated: ['_totalObligation', '_baseExercisedOptions', '_baseAndAllOptions', '_combinedOutlay', '_fileCOutlayInfrastructure', 'fileCObligatedInfrastructure']
 };
 
+export const infrastructureSpendingCategoriesByAwardType = {
+    contract: ['_fileCOutlayInfrastructure', '_fileCObligatedInfrastructure'],
+    idv: ['_fileCOutlayInfrastructure', '_fileCObligatedInfrastructure'],
+    idv_aggregated: ['_fileCOutlayInfrastructure', 'fileCObligatedInfrastructure']
+};
+
 export const caresActSpendingCategories = [
     'fileCObligatedFormatted',
     'fileCOutlayFormatted'
