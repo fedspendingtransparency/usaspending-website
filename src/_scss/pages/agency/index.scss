@@ -37,11 +37,21 @@
     }
 
     section.open.accordion--open.accordion {
-        @media(min-width: $tablet-screen) { 
-            margin-left: -2px;
+        margin-bottom: 0;
+        @media(min-width: $tablet-screen) and (max-width:1199px) { 
+            margin-left: -10px;
             margin-bottom: 0px;
         }
-        
+
+        @media(width: 1200px) { 
+            margin-left: -10px;
+            margin-bottom: 0px;
+        }
+
+        @media(width: 1201px) { 
+            margin-left: -10px;
+            margin-bottom: 0px;
+        }
     }
 
     .accordion-container .heading {
@@ -56,6 +66,7 @@
 
         @media (min-width: 1200px) {
             float: right;
+            padding-left: 16px;
         }
         @media (min-width: 1000px) and (max-width: 1200px) {
             padding-left: 8px;
@@ -67,6 +78,7 @@
             float: right;
             padding-left: 16px;
             width: 100%;
+            margin-top: -2px;
         }
         @media (width: 1199px) {
             padding-left: 8px;
@@ -101,7 +113,7 @@
         }
         @media (min-width: 320px) and (max-width: 400px) {
             float:none;
-            width:35%;
+            width:36.9%;
             margin-left: -8px;
         }
 

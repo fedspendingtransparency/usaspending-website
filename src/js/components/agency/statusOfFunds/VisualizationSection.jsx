@@ -59,7 +59,7 @@ const VisualizationSection = ({
                 <RoundedToggle toggle={toggle} onKeyToggle={onKeyToggle} onToggle={onToggle} label="View Outlays" />
                 <div className="status-of-funds__line-div" />
                 <div className="status-of-funds__accordion">
-                    <Accordion setOpen={setOpen} closedIcon="chevron-down" openIcon="chevron-up" title="What is this?">What is this?</Accordion>
+                    <Accordion setOpen={setOpen} closedIcon="chevron-down" openIcon="chevron-up" title="What is this?" />
                 </div>
             </div>
             {open &&

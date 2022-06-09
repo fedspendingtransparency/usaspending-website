@@ -57,5 +57,8 @@ Accordion.propTypes = {
     title: PropTypes.string.isRequired,
     children: PropTypes.element || PropTypes.string,
     icon: PropTypes.element || PropTypes.string,
-    iconClassName: PropTypes.string
+    iconClassName: PropTypes.string,
+    closedIcon: PropTypes.string,
+    openIcon: PropTypes.string,
+    setOpen: PropTypes.func
 };
