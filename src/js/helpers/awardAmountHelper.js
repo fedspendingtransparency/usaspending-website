@@ -101,7 +101,23 @@ export const determineFileCSpendingScenario = (awardType, awardAmountObj) => {
     return (fileCScenario === 'normal') ? 'normal' : 'insufficientData';
 };
 
-export const determineSpendingScenarioByAwardType = (awardType, awardAmountObj) => {
+export const determineInfrastructureSpendingScenario = (awardType, awardAmountObj) => {
+    const { _fileCOutlayInfrastructure, _fileCObligatedInfrastructure } = awardAmountObj;
+    if (_fileCObligatedInfrastructure === 0 && _fileCOutlayInfrastructure === 0) return 'normal';
+    const spendingCategoriesToConsider = getAscendingSpendingCategoriesByAwardType(awardType, awardAmountObj);
+    const fileCScenario = spendingCategoriesToConsider
+        .reduce((scenario, spendingCategory) => {
+            if (scenario !== 'normal') return scenario;
+            return determineSpendingScenario(_fileCObligatedInfrastructure, _fileCObligatedInfrastructure, spendingCategory);
+        }, 'normal');
+    return (fileCScenario === 'normal') ? 'normal' : 'insufficientData';
+};
+
+export const determineSpendingScenarioByAwardType = (awardType, awardAmountObj, infrastructure) => {
+    if (infrastructure && (awardType === 'contract' || awardType === 'idv')) {
+        if (determineInfrastructureSpendingScenario(awardType, awardAmountObj) !== 'normal') return 'insufficientData';
+    }
+
     if (determineFileCSpendingScenario(awardType, awardAmountObj) !== 'normal') return 'insufficientData';
     if (asstAwardTypesWithSimilarAwardAmountData.includes(awardType)) {
         return determineSpendingScenarioAsstAwards(awardAmountObj);

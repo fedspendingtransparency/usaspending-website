@@ -9,6 +9,20 @@ const getCovid19Totals = (arr, defCodes = []) => arr.filter((obj) => defCodes.fi
 
 const getInfrastructureTotals = (arr) => arr.filter((d) => d?.code === "Z" || d?.code === "1")?.reduce((acc, obj) => acc + obj?.amount || 0, 0);
 
+const mockInfastructureOutlay = [
+    {
+        code: 'Z',
+        amount: '50000000'
+    }
+];
+
+const mockInfastructureObligated = [
+    {
+        code: 'Z',
+        amount: '50000000'
+    }
+];
+
 const BaseAwardAmounts = {
     populateBase(data) {
         this.id = (data.award_id && `${data.award_id}`) || '';

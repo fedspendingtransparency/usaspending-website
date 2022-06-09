@@ -34,9 +34,9 @@ const AwardAmountsSection = ({
     awardType,
     jumpToTransactionHistoryTable
 }) => {
-    const spendingScenario = determineSpendingScenarioByAwardType(awardType, awardOverview);
-    const tooltip = getToolTipBySectionAndAwardType('awardAmounts', awardType);
     const [active, setActive] = useState(tabTypes[0].internal);
+    const spendingScenario = determineSpendingScenarioByAwardType(awardType, awardOverview, active === "Infrastructure");
+    const tooltip = getToolTipBySectionAndAwardType('awardAmounts', awardType);
 
     const switchTab = (tab) => {
         setActive(tab);
