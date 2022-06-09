@@ -236,6 +236,11 @@ const StatusOfFundsChart = ({
             const svg = d3.select('#sof_chart')
                 .append('svg')
                 .attr('class', 'svg')
+                .on('mouseleave', () => {
+                    setIsHovered(false);
+                    setHoverData(null);
+                    svg.selectAll('#bar-tooltip').remove();
+                })
                 .attr('xmlns:xlink', 'http://www.w3.org/1999/xlink')
                 .attr('preserveAspectRatio', 'none')
                 .attr("viewBox", [0, 0, viewWidth + margins.left + margins.right, chartHeightViewBox()])
@@ -540,6 +545,11 @@ const StatusOfFundsChart = ({
             const svg = d3.select('#sof_chart')
                 .append('svg')
                 .attr('class', 'svg')
+                .on('mouseleave', () => {
+                    setIsHovered(false);
+                    setHoverData(null);
+                    svg.selectAll('#bar-tooltip').remove();
+                })
                 .attr('xmlns:xlink', 'http://www.w3.org/1999/xlink')
                 .attr('preserveAspectRatio', 'none')
                 .attr("viewBox", [0, 0, viewWidth + margins.left + margins.right, chartHeightViewBox()])
