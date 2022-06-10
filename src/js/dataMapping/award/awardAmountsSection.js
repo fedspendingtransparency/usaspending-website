@@ -29,6 +29,12 @@ export const spendingCategoriesByAwardType = {
     idv_aggregated: ['_totalObligation', '_baseExercisedOptions', '_baseAndAllOptions', '_combinedOutlay']
 };
 
+export const infrastructureSpendingCategoriesByAwardType = {
+    contract: ['_fileCOutlayInfrastructure', '_fileCObligatedInfrastructure'],
+    idv: ['_fileCOutlayInfrastructure', '_fileCObligatedInfrastructure'],
+    idv_aggregated: ['_fileCOutlayInfrastructure', 'fileCObligatedInfrastructure']
+};
+
 export const caresActSpendingCategories = [
     'fileCObligatedFormatted',
     'fileCOutlayFormatted'
@@ -51,7 +57,9 @@ export const formattedSpendingCategoriesByAwardType = {
         'totalObligationFormatted',
         'baseExercisedOptionsFormatted',
         'baseAndAllOptionsFormatted',
-        'totalOutlayFormatted'
+        'totalOutlayFormatted',
+        'infrastructureOutlayFormatted',
+        'infrastructureObligationFormatted'
     ],
     idv_aggregated: [
         'fileCOutlayFormatted',
@@ -136,7 +144,9 @@ export const tableTitlesBySpendingCategoryAndAwardType = {
         totalObligationFormatted: 'Obligated Amount',
         fileCOutlayFormatted: 'COVID-19 Outlayed Amount',
         fileCObligatedFormatted: 'COVID-19 Obligated Amount',
-        totalOutlayFormatted: 'Outlayed Amount'
+        totalOutlayFormatted: 'Outlayed Amount',
+        infrastructureOutlayFormatted: 'Infrastructure Outlayed Amounts',
+        infrastructureObligationFormatted: 'Infrastructure Obligated Amounts'
     },
     loan: {
         subsidyFormatted: 'Original Subsidy Cost',
