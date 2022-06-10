@@ -53,7 +53,7 @@ const Footer = ({
                 filters={filters} />
             <BulkDownloadBottomBarContainer />
             <Subscribe pageName={pageName} />
-            <Training pageName={pageName} />
+            {/* <Training pageName={pageName} />*/}
             <footer
                 className="footer-outer-wrap"
                 role="contentinfo"
