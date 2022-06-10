@@ -118,9 +118,9 @@ export const determineInfrastructureSpendingScenario = (awardType, awardAmountOb
     if (_fileCObligatedInfrastructure === 0 && _fileCOutlayInfrastructure === 0) return 'normal';
     const spendingCategoriesToConsider = getInfrastructureAscendingSpendingCategoriesByAwardType(awardType, awardAmountObj);
     const fileCScenario = spendingCategoriesToConsider
-        .reduce((scenario, spendingCategory) => {
+        .reduce((scenario) => {
             if (scenario !== 'normal') return scenario;
-            return determineSpendingScenario(_fileCOutlayInfrastructure, _fileCObligatedInfrastructure, spendingCategory);
+            return determineSpendingScenario(_fileCOutlayInfrastructure, _fileCObligatedInfrastructure);
         }, 'normal');
     return (fileCScenario === 'normal') ? 'normal' : 'insufficientData';
 };

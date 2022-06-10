@@ -38,13 +38,12 @@ const AwardAmountsSection = ({
     const spendingScenario = determineSpendingScenarioByAwardType(awardType, awardOverview, active === "infrastructure");
     const tooltip = getToolTipBySectionAndAwardType('awardAmounts', awardType);
 
-    console.log(spendingScenario);
-
     const switchTab = (tab) => {
         setActive(tab);
     };
 
-    const showInfrastructureTabs = () => awardOverview._fileCObligatedInfrastructure > 0;
+    // Filter out cases where award has both covid and infrastructure spending (ie. only show covid chart for now)
+    const showInfrastructureTabs = () => awardOverview._fileCObligatedInfrastructure > 0 && awardOverview._fileCObligated === 0 && awardOverview._fileCOutlay === 0;
 
     return (
         <AwardSection type="column" className="award-viz award-amounts">

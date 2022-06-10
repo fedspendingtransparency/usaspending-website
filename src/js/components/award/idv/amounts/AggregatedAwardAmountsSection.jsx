@@ -74,9 +74,10 @@ export default class AggregatedAwardAmounts extends React.Component {
         }
 
         const { awardAmounts } = this.props;
-        const spendingScenario = determineSpendingScenarioByAwardType("idv", awardAmounts);
+        const spendingScenario = determineSpendingScenarioByAwardType("idv", awardAmounts, this.state.active === "infrastructure");
 
-        const showInfrastructureTabs = () => awardAmounts._fileCObligatedInfrastructure > 0;
+        // Filter out cases where award has both covid and infrastructure spending (ie. only show covid chart for now)
+        const showInfrastructureTabs = () => awardAmounts._fileCObligatedInfrastructure > 0 && awardAmounts._fileCObligated === 0 && awardAmounts._fileCOutlay === 0;
 
         return (
             <div className="award-amounts__content">
