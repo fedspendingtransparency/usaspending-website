@@ -9,7 +9,7 @@ import PropTypes, { oneOfType } from 'prop-types';
 const propTypes = {
     children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]),
     subtitle: oneOfType([PropTypes.string, PropTypes.element]),
-    data: PropTypes.string,
+    data: PropTypes.object || PropTypes.string,
     secondaryData: PropTypes.string,
     label: PropTypes.string
 };

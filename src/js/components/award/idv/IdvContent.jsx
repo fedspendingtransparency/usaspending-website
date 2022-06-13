@@ -72,7 +72,8 @@ const IdvContent = ({
                 <IdvAwardAmountsSectionContainer
                     jumpToSection={jumpToSection}
                     awardId={awardId}
-                    overview={overview} />
+                    overview={overview}
+                    defCodes={details?.child_file_c} />
                 <AwardDescription
                     awardType={overview.category}
                     awardId={awardId}

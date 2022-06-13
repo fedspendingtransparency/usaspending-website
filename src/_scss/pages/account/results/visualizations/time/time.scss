@@ -19,7 +19,11 @@
                 font-weight: $font-light;
                 line-height: rem(30);
                 padding: 0 0 rem(10) 0;
-            }
+                @media(max-width: $tablet-screen) {
+                    font-size: rem(16);
+                    line-height: rem(20);
+                    }
+                }
             .item-label {
                 font-size: $small-font-size;
                 font-weight: $font-normal;

@@ -47,6 +47,7 @@ const StatusOfFunds = ({ fy }) => {
     const request = useRef(null);
     const [results, setResults] = useState([]);
     const { overview, selectedSubcomponent } = useSelector((state) => state.agency);
+    const [toggle, setOnToggle] = useState(false);
 
     useEffect(() => {
         if (request.current) {
@@ -191,12 +192,24 @@ const StatusOfFunds = ({ fy }) => {
             }
         }
     };
+
+    const onToggle = () => {
+        setOnToggle(!toggle);
+    };
+
+    const onKeyToggle = (event) => {
+        if (event.keyCode === 13) {
+            setOnToggle(!toggle);
+        }
+    };
+
     return (
         <div className="body__content status-of-funds">
             <IntroSection name={overview.name} fy={fy} totalItems={totalItems} />
             <FlexGridRow hasGutter>
                 <FlexGridCol className="status-of-funds__drilldown-sidebar" desktop={3}>
                     <DrilldownSidebar
+                        toggle={toggle}
                         level={level}
                         setLevel={onClick}
                         agencyName={overview.name}
@@ -209,7 +222,7 @@ const StatusOfFunds = ({ fy }) => {
                             <FontAwesomeIcon icon="arrow-left" />
                             &nbsp;&nbsp;Back
                         </button> : <></>}
-                    { !loading ? <VisualizationSection fetchFederalAccounts={fetchFederalAccounts} totalItems={totalItems} setTotalItems={setTotalItems} loading={loading} setLoading={setLoading} level={level} setLevel={onClick} selectedSubcomponent={selectedSubcomponent} agencyId={overview.toptierCode} agencyName={overview.name} fy={fy} results={results} /> : <LoadingMessage /> }
+                    { !loading ? <VisualizationSection toggle={toggle} onToggle={onToggle} onKeyToggle={onKeyToggle} fetchFederalAccounts={fetchFederalAccounts} totalItems={totalItems} setTotalItems={setTotalItems} loading={loading} setLoading={setLoading} level={level} setLevel={onClick} selectedSubcomponent={selectedSubcomponent} agencyId={overview.toptierCode} agencyName={overview.name} fy={fy} results={results} /> : <LoadingMessage /> }
                     <Pagination
                         currentPage={currentPage}
                         changePage={changeCurrentPage}

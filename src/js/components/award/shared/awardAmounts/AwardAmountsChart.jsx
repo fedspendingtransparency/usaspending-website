@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import {
@@ -10,6 +10,10 @@ import {
     nonFederalFundingColor,
     subsidyColor,
     faceValueColor,
+    infrastructureOutlayColor,
+    infrastructureObligatedColor,
+    infrastructureCurrentColor,
+    infrastructurePotentialColor,
     // Offsets per DEV-5242:
     lineOffsetsBySpendingCategory
 } from 'dataMapping/award/awardAmountsSection';
@@ -24,11 +28,53 @@ import HorizontalSingleStackedBarViz from './HorizontalSingleStackedBarViz';
 const propTypes = {
     awardType: PropTypes.string,
     awardOverview: AWARD_OVERVIEW_AWARD_AMOUNTS_SECTION_PROPS,
-    spendingScenario: PropTypes.string
+    spendingScenario: PropTypes.string,
+    infrastructureSpending: PropTypes.string
 };
 
 // Only for Contract and IDV Awards
-const buildNormalProps = (awardType, data, hasFileC, hasOutlays) => {
+
+const getAwardTypeText = (awardType, amountType, infrastructure) => {
+    const infraText = infrastructure ? "Infrastructure" : "";
+    return awardType === "idv" ? `Combined ${infraText} ${amountType} Amounts` : `${infraText} ${amountType} Amount`;
+};
+
+const getAwardColor = (overallColor, infrastructureColor, infrastructure) => (infrastructure ? infrastructureColor : overallColor);
+
+const getAwardOutlayRawValue = (data, awardType, infrastructure) => {
+    if (infrastructure) {
+        return data._fileCOutlayInfrastructure;
+    }
+
+    return awardType === "idv" ? data._combinedOutlay : data._totalOutlay;
+};
+
+const getAwardOutlayValue = (data, awardType, infrastructure) => {
+    if (infrastructure) {
+        return data.infrastructureOutlayAbbreviated;
+    }
+
+    return awardType === 'idv' ? data.combinedOutlayAbbreviated : data.totalOutlayAbbreviated;
+};
+
+const getAwardObligatedRawValue = (data, awardType, infrastructure) => {
+    if (infrastructure) {
+        return data._fileCObligatedInfrastructure;
+    }
+
+    return data._totalObligation;
+};
+
+const getAwardObligatedValue = (data, awardType, infrastructure) => {
+    if (infrastructure) {
+        return data.infrastructureObligationAbbreviated;
+    }
+
+    return data.totalObligationAbbreviated;
+};
+
+
+const buildNormalProps = (awardType, data, hasFileC, hasOutlays, infrastructure) => {
     const chartProps = {
         denominator: {
             labelSortOrder: 3,
@@ -81,7 +127,7 @@ const buildNormalProps = (awardType, data, hasFileC, hasOutlays) => {
             className: `${awardType}-potential`,
             rawValue: data._baseAndAllOptions,
             value: data.baseAndAllOptionsAbbreviated,
-            color: potentialColor,
+            color: getAwardColor(potentialColor, infrastructurePotentialColor, infrastructure),
             lineOffset: lineOffsetsBySpendingCategory.potential,
             text: awardType === 'idv'
                 ? "Combined Potential Award Amounts"
@@ -92,17 +138,11 @@ const buildNormalProps = (awardType, data, hasFileC, hasOutlays) => {
             labelSortOrder: 0,
             labelPosition: 'top',
             className: `${awardType}-outlayed`,
-            rawValue: awardType === 'idv'
-                ? data._combinedOutlay
-                : data._totalOutlay,
-            value: awardType === 'idv'
-                ? data.combinedOutlayAbbreviated
-                : data.totalOutlayAbbreviated,
-            color: outlayColor,
+            rawValue: getAwardOutlayRawValue(data, awardType, infrastructure),
+            value: getAwardOutlayValue(data, awardType, infrastructure),
+            color: getAwardColor(outlayColor, infrastructureOutlayColor, infrastructure),
             lineOffset: lineOffsetsBySpendingCategory.potential,
-            text: awardType === 'idv'
-                ? "Combined Outlayed Amounts"
-                : "Outlayed Amount"
+            text: getAwardTypeText(awardType, "Outlayed", infrastructure)
         },
         numerator: {
             labelSortOrder: 2,
@@ -115,19 +155,17 @@ const buildNormalProps = (awardType, data, hasFileC, hasOutlays) => {
             text: awardType === 'idv'
                 ? "Combined Current Award Amounts"
                 : "Current Award Amount",
-            color: currentColor,
+            color: getAwardColor(currentColor, infrastructureCurrentColor, infrastructure),
             children: [
                 {
                     labelSortOrder: 1,
                     labelPosition: 'top',
                     className: `${awardType}-obligated`,
-                    rawValue: data._totalObligation,
+                    rawValue: getAwardObligatedRawValue(data, awardType, infrastructure),
                     denominatorValue: data._baseExercisedOptions,
-                    value: data.totalObligationAbbreviated,
-                    text: awardType === 'idv'
-                        ? "Combined Obligated Amounts"
-                        : "Obligated Amount",
-                    color: obligatedColor,
+                    value: getAwardObligatedValue(data, awardType, infrastructure),
+                    text: getAwardTypeText(awardType, "Obligated", infrastructure),
+                    color: getAwardColor(obligatedColor, infrastructureObligatedColor, infrastructure),
                     lineOffset: lineOffsetsBySpendingCategory.obligationProcurement
                 }
             ]
@@ -448,8 +486,15 @@ const buildExceedsPotentialProps = (awardType, data, hasFileC) => {
 const AwardAmountsChart = ({
     awardType,
     awardOverview,
-    spendingScenario
+    spendingScenario,
+    infrastructureSpending
 }) => {
+    const [infrastructure, setInfrastructure] = useState(infrastructureSpending === "infrastructure");
+
+    useEffect(() => {
+        setInfrastructure(infrastructureSpending === "infrastructure");
+    }, [infrastructureSpending]);
+
     const renderChartBySpendingScenario = (
         scenario = spendingScenario,
         type = awardType,
@@ -457,6 +502,7 @@ const AwardAmountsChart = ({
     ) => {
         const hasFileC = awardAmounts._fileCObligated > 0;
         const hasOutlays = awardAmounts._combinedOutlay > 0 || awardAmounts._totalOutlay > 0;
+
         switch (scenario) {
             case "exceedsBigger": {
                 return (
@@ -471,7 +517,7 @@ const AwardAmountsChart = ({
             case "normal":
                 if (hasOutlays) {
                     return (
-                        <HorizontalSingleStackedBarViz {...buildNormalProps(type, awardAmounts, hasFileC, hasOutlays)} />
+                        <HorizontalSingleStackedBarViz {...buildNormalProps(type, awardAmounts, hasFileC, hasOutlays, infrastructure)} />
                     );
                 }
                 return (
@@ -492,6 +538,7 @@ const AwardAmountsChart = ({
             const isNffZero = awardAmounts._nonFederalFunding === 0;
             const showFileC = awardAmounts._fileCObligated > 0;
             const hasOutlays = awardAmounts._combinedOutlay > 0 || awardAmounts._totalOutlay > 0;
+
             const chartProps = {
                 denominator: {
                     labelPosition: 'bottom',

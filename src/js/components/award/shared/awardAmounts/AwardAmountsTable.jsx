@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { uniqueId } from 'lodash';
 
@@ -17,7 +17,8 @@ const propTypes = {
     children: PropTypes.node,
     awardAmountType: AWARD_AMOUNT_TYPE_PROPS,
     awardData: PropTypes.shape({}),
-    spendingScenario: PropTypes.string
+    spendingScenario: PropTypes.string,
+    infrastructureSpending: PropTypes.string
 };
 
 const getSpendingCategoriesByAwardType = (awardAmountType) => {
@@ -38,7 +39,8 @@ const AwardAmountsTable = ({
     awardData,
     awardAmountType,
     spendingScenario,
-    showFileC
+    showFileC,
+    infrastructureSpending
 }) => {
     /*
      * we have to do this because right now whenever there's any kind of overspending
@@ -46,6 +48,13 @@ const AwardAmountsTable = ({
      * irrespective of whether the award exceedsPotential or exceedsCurrent
      * so we're relying on the parent in this case because we cant deduce the spending scenario
      **/
+
+    const [infrastructure, setInfrastructure] = useState(infrastructureSpending === "infrastructure");
+
+    useEffect(() => {
+        setInfrastructure(infrastructureSpending === "infrastructure");
+    }, [infrastructureSpending]);
+
     const getOverSpendingRow = (awardAmounts = awardData, scenario = spendingScenario, type = awardAmountType) => {
         switch (scenario) {
             case ('normal'):
@@ -89,11 +98,37 @@ const AwardAmountsTable = ({
 
     const sortTableTitles = (a, b) => orderedTableTitles.indexOf(a) - orderedTableTitles.indexOf(b);
 
+    const hideRow = (title) => {
+        const exclusions = ['Outlayed Amount', 'Combined Outlayed Amounts'];
+        const exclusionsFromInfrastructure = ['Combined Outlayed Amounts', 'Combined Obligated Amounts', 'Outlayed Amount', 'Obligated Amount'];
+        let hide = false;
+
+        if (infrastructure) {
+            exclusionsFromInfrastructure.forEach((item) => {
+                if (title === item) {
+                    hide = true;
+                }
+            });
+        } else {
+            exclusions.forEach((item) => {
+                if (title.indexOf(item) > -1 && amountMapByCategoryTitle[title] === '$0.00') {
+                    hide = true;
+                }
+            });
+
+            if (!infrastructure && title.includes('Infrastructure')) {
+                hide = true;
+            }
+        }
+
+        return hide;
+    };
+
     return (
         <div className={`award-amounts__data-wrapper ${awardAmountType}`}>
             {Object.keys(amountMapByCategoryTitle).sort(sortTableTitles)
                 .map((title) => (
-                    ((title === 'Outlayed Amount' || title === 'Combined Outlayed Amounts') && amountMapByCategoryTitle[title] === '$0.00')
+                    hideRow(title)
                         ? null
                         :
                         <div key={uniqueId(title)} className="award-amounts__data-content">

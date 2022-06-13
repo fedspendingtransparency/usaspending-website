@@ -13,6 +13,15 @@ export const mapSlugToTopTierCode = (results) => (
     }, {})
 );
 
+export const mapTopTierCodeToOutlay = (results) => (
+    results.reduce((acc, agency) => {
+        /* eslint-disable camelcase */
+        const { toptier_code, outlay_amount } = agency;
+        return { ...acc, [toptier_code]: outlay_amount };
+        /* eslint-enable camelcase */
+    }, {})
+);
+
 export const mapTopTierCodeToSlug = (results) => (
     results.reduce((acc, agency) => {
     /* eslint-disable camelcase */
@@ -49,9 +58,10 @@ export const useAgencySlugs = () => {
             request.current.promise
                 .then(({ data }) => {
                     const slugsMapping = mapSlugToTopTierCode(data.results);
+                    const outlayMapping = mapTopTierCodeToOutlay(data.results);
                     const topTierCodesMapping = mapTopTierCodeToSlug(data.results);
                     const idMapping = mapIdToSlug(data.results);
-                    dispatch(setAgencySlugs(slugsMapping, topTierCodesMapping, idMapping));
+                    dispatch(setAgencySlugs(slugsMapping, topTierCodesMapping, idMapping, outlayMapping));
                     setLoading(false);
                     setError(false);
                     request.current = null;

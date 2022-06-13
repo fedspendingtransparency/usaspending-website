@@ -1,5 +1,9 @@
 .award-amounts__data-wrapper {
-    margin-top: rem(30);
+    margin-top: 3rem;
+
+    &.contract {
+        margin-top: 1.5rem;
+    }
 
     .award-amounts__data-content {
         @extend %column-less-table__row;
@@ -91,6 +95,16 @@
     .award-amounts__file-c-obligations {
         background-color: $color-covid-19-obligations;
         border: rem(2) solid $color-covid-19-obligations;
+    }
+
+    .award-amounts__infrastructure-obligated {
+        background-color: $color-infrastructure-obligations;
+        border: rem(2) solid $color-infrastructure-obligations;
+    }
+
+    .award-amounts__infrastructure-outlays {
+        background-color: $color-infrastructure-outlays;
+        border: rem(2) solid $color-infrastructure-outlays;
     }
 
     .award-amounts__data-icon_overspending {

@@ -3,12 +3,15 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import '../../../../_scss/elements/_accordion.scss';
 
-const Accordion = ({ title, children }) => {
+const Accordion = ({
+    title, children, closedIcon, openIcon, iconClassName, setOpen
+}) => {
     const [closed, setClosed] = useState(true);
 
     const toggleOpen = (e) => {
         e.stopPropagation();
         setClosed((prevClosed) => !prevClosed);
+        setOpen((prevOpen) => !prevOpen);
     };
 
     const keyClickToggle = (e) => {
@@ -30,11 +33,11 @@ const Accordion = ({ title, children }) => {
                         className="toggle"
                         aria-label={closed ? 'Open toggle' : 'Close toggle'}>
                         <FontAwesomeIcon
-                            icon="plus"
-                            className="plus" />
+                            icon={closedIcon || "plus"}
+                            className={iconClassName || "plus"} />
                         <FontAwesomeIcon
-                            icon="minus"
-                            className="minus" />
+                            icon={openIcon || "minus"}
+                            className={iconClassName || "minus"} />
                     </button>
                 </div>
                 <div className="content">{children}</div>
@@ -52,6 +55,10 @@ backgroundColor: background of collapsed box
 */
 Accordion.propTypes = {
     title: PropTypes.string.isRequired,
-    children: PropTypes.element || PropTypes.string
-
+    children: PropTypes.element || PropTypes.string,
+    icon: PropTypes.element || PropTypes.string,
+    iconClassName: PropTypes.string,
+    closedIcon: PropTypes.string,
+    openIcon: PropTypes.string,
+    setOpen: PropTypes.func
 };
