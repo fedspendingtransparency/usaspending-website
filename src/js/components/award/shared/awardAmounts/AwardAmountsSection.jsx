@@ -45,7 +45,6 @@ const AwardAmountsSection = ({
     // Filter out cases where award has both covid and infrastructure spending (ie. only show covid chart for now)
     const showInfrastructureTabs = () => (awardOverview._fileCObligatedInfrastructure > 0 || awardOverview._fileCOutlayInfrastructure > 0) && awardOverview._fileCObligated === 0 && awardOverview._fileCOutlay === 0;
 
-    console.log(awardOverview)
     return (
         <AwardSection type="column" className="award-viz award-amounts">
             <div className="award__col__content">

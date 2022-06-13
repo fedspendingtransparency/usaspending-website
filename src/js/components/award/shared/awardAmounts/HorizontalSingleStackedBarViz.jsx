@@ -92,7 +92,7 @@ const HorizontalSingleStackedBarViz = ({
                 .attr("y", height / 2.5)
                 .attr("width", x(propsArr[0]))
                 .attr("height", '50')
-                .attr("fill", potentialAmountColor);
+                .attr("fill", "#dce4ee");
             // grants, direct payments, other
             if (numerator.className === "asst-non-federal-funding") {
                 // obligated rect
@@ -139,7 +139,7 @@ const HorizontalSingleStackedBarViz = ({
                     .attr("x2", x(propsArr[0]) - 2)
                     .attr("y2", height - 50)
                     .style("stroke-width", 4)
-                    .style("stroke", potentialAmountColor)
+                    .style("stroke", '#dce4ee')
                     .style("fill", "none");
                 // outlay line
                 chartSvg.append("line")
@@ -216,7 +216,7 @@ const HorizontalSingleStackedBarViz = ({
                     .attr("x2", x(propsArr[0]) - 2)
                     .attr("y2", height - 50)
                     .style("stroke-width", 4)
-                    .style("stroke", potentialAmountColor)
+                    .style("stroke", "#dce4ee")
                     .style("fill", "none");
                 // current line
                 chartSvg.append("line")
