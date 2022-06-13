@@ -66,7 +66,6 @@ const HorizontalSingleStackedBarViz = ({
     const obligatedAmountColor = numerator.children[0].color;
     const potentialAmountValue = denominator.value;
     const potentialAmountLabel = denominator.text;
-    const potentialAmountColor = denominator.color;
     const isNffZero = numerator.className === 'asst-non-federal-funding' && numerator.value === '$0';
 
     useEffect(() => {
