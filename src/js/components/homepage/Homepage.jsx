@@ -13,7 +13,7 @@ import GettingStarted from './gettingStarted/GettingStarted';
 import PageWrapper from "../sharedComponents/PageWrapper";
 import { homePageMetaTags } from "../../helpers/metaTagHelper";
 
-require('pages/homepageUpdate/homepageUpdate.scss');
+require('pages/homepage/homepage.scss');
 
 const Homepage = () => (
     <PageWrapper

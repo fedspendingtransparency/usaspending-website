@@ -49,10 +49,10 @@ export default class HeroTooltip extends React.Component {
     }
 
     getPosition() {
-        const container = document.getElementById('homepage-unused-hero__wrapper');
+        const container = document.getElementById('homepage-hero__wrapper');
         const conatinerOffsetY = container.getBoundingClientRect().top;
 
-        const icon = document.getElementById('homepage-unused-hero__info_icon');
+        const icon = document.getElementById('homepage-hero__info_icon');
         const iconTop = icon.getBoundingClientRect().top - conatinerOffsetY - tooltipPadding;
         let iconLeft = icon.getBoundingClientRect().left - tooltipPadding;
 

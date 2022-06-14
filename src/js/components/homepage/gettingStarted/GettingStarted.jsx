@@ -13,41 +13,41 @@ import FeatureDropdown from '../../homepage/features/FeatureDropdown';
 
 const searchImages = [
     {
-        srcSet: 'img/homepage-unused-features-search/homepage-unused-award-search.webp',
-        src: 'img/homepage-unused-features-search/homepage-unused-award-search.png',
+        srcSet: 'img/homepage-features-search/homepage-award-search.webp',
+        src: 'img/homepage-features-search/homepage-award-search.png',
         alt: 'Screenshot of the Award Search page, showing a map data visualization'
     },
     {
-        srcSet: 'img/homepage-unused-features-search/homepage-unused-keyword-search.webp',
-        src: 'img/homepage-unused-features-search/homepage-unused-keyword-search.png',
+        srcSet: 'img/homepage-features-search/homepage-keyword-search.webp',
+        src: 'img/homepage-features-search/homepage-keyword-search.png',
         alt: 'Screenshot of the Keyword Search page'
     }
 ];
 
 const profileImages = [
     {
-        srcSet: 'img/homepage-unused-profiles/homepage-unused-profile-agency@1-5x.webp 1x',
-        src: 'img/homepage-unused-profiles/homepage-unused-profile-agency@1-5x.png',
+        srcSet: 'img/homepage-profiles/homepage-profile-agency@1-5x.webp 1x',
+        src: 'img/homepage-profiles/homepage-profile-agency@1-5x.png',
         alt: 'Screenshot of the Agency Profile page'
     },
     {
-        srcSet: 'img/homepage-unused-profiles/homepage-unused-profile-fedaccount@1-5x.webp',
-        src: 'img/homepage-unused-profiles/homepage-unused-profile-fedaccount.png',
+        srcSet: 'img/homepage-profiles/homepage-profile-fedaccount@1-5x.webp',
+        src: 'img/homepage-profiles/homepage-profile-fedaccount.png',
         alt: 'Screenshot of Federal Account Profile page'
     },
     {
-        srcSet: 'img/homepage-unused-profiles/homepage-unused-profile-state.webp',
-        src: 'img/homepage-unused-profiles/homepage-unused-profile-state.png',
+        srcSet: 'img/homepage-profiles/homepage-profile-state.webp',
+        src: 'img/homepage-profiles/homepage-profile-state.png',
         alt: 'Screenshot of the State Spending Profile page'
     },
     {
-        srcSet: 'img/homepage-unused-profiles/homepage-unused-profile-recipient.webp',
-        src: 'img/homepage-unused-profiles/homepage-unused-profile-recipient.png',
+        srcSet: 'img/homepage-profiles/homepage-profile-recipient.webp',
+        src: 'img/homepage-profiles/homepage-profile-recipient.png',
         alt: 'Screenshot of the Recipient Profile page'
     },
     {
-        srcSet: 'img/homepage-unused-profiles/homepage-unused-profile-covid19.webp',
-        src: 'img/homepage-unused-profiles/homepage-unused-profile-covid19.png',
+        srcSet: 'img/homepage-profiles/homepage-profile-covid19.webp',
+        src: 'img/homepage-profiles/homepage-profile-covid19.png',
         alt: 'Screenshot of the COVID-19 Spending Profile page'
     }
 ];

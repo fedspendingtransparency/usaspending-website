@@ -230,7 +230,7 @@ export const errorPageMetaTags = {
     og_url: productionURL,
     og_title: '404 | USAspending',
     og_description:
-        'The requested page cannot be found. Please visit our homepage-unused to re-start your search or send us an inquiry.',
+        'The requested page cannot be found. Please visit our homepage to re-start your search or send us an inquiry.',
     og_site_name: siteName,
     og_image: `${productionURL}${imgDirectory}${facebookImage}`
 };
