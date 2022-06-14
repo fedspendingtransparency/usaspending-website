@@ -7,7 +7,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import moment from 'moment';
 
-import { CovidHighlights } from 'containers/homepage/CovidHighlights';
+import { CovidHighlights } from 'containers/homepage-unused/CovidHighlights';
 
 jest.mock('apis/disaster', () => ({
     fetchOverview: jest.fn(),

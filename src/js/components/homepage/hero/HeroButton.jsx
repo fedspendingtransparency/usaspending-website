@@ -10,7 +10,7 @@ import { scrollToY } from 'helpers/scrollToHelper';
 
 const HeroButton = () => {
     const pressedButton = () => {
-        const featureContent = document.getElementById('homepage-features');
+        const featureContent = document.getElementById('homepage-unused-features');
         if (!featureContent) {
             return;
         }
@@ -18,7 +18,7 @@ const HeroButton = () => {
         const sectionTop = featureContent.offsetTop - 10;
         scrollToY(sectionTop, 700);
 
-        const featureHeader = document.querySelector('#homepage-features h2');
+        const featureHeader = document.querySelector('#homepage-unused-features h2');
         if (featureHeader) {
             featureHeader.focus();
         }
