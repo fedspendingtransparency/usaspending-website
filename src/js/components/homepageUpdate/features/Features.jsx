@@ -5,7 +5,7 @@
 
 import React from 'react';
 
-import CovidFeatureContainer from 'containers/homepage/CovidFeatureContainer';
+import CovidFeatureContainer from 'containers/homepageUpdate/CovidFeatureContainer';
 import SpendingExplorerFeature from './SpendingExplorerFeature';
 import SearchFeature from './SearchFeature';
 import PaneFeature from './PaneFeature';
