@@ -105,7 +105,7 @@ export default class KeywordPage extends React.Component {
                                 keyword={this.props.keyword}
                                 updateKeyword={this.props.updateKeyword} />
                             <div className="keyword-search-bar__info">
-                                Use the Keyword Search to get a broad picture of award data on a given theme. To learn more about the fields the Keyword search matches to, read our <a href="https://fiscalservice.force.com/usaspending/s/" target="_blank" rel="noopener noreferrer">FAQ entry</a> on the topic. For a more targeted search, try our <Link to="/search">Advanced Search tool</Link>,
+                                Use the Keyword Search to get a broad picture of award data on a given theme. To learn more about the fields the Keyword search matches to, read our <a href="https://fiscalservice.force.com/usaspending/s/recordlist/Knowledge__kav/00B3d000000V4WDEA0" target="_blank" rel="noopener noreferrer">FAQ entry</a> on the topic. For a more targeted search, try our <Link to="/search">Advanced Search tool</Link>,
                                 whose extensive filters let you find more precise data sets.
                             </div>
                         </div>
