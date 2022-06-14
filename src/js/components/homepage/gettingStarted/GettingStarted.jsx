@@ -8,8 +8,8 @@ import { throttle } from 'lodash';
 import { FlexGridCol, FlexGridRow } from "data-transparency-ui";
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { searchOptions, profileOptions } from 'dataMapping/navigation/menuOptions';
-import ImageCarousel from '../../homepageUpdate/features/ImageCarousel';
-import FeatureDropdown from '../../homepageUpdate/features/FeatureDropdown';
+import ImageCarousel from '../../homepage/features/ImageCarousel';
+import FeatureDropdown from '../../homepage/features/FeatureDropdown';
 
 const searchImages = [
     {

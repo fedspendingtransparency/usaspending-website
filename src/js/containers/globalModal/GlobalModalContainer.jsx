@@ -13,7 +13,7 @@ import InterimDataDisclaimerModal from 'components/covid19/InterimDataDisclaimer
 import CovidModalContainer from 'containers/covid19/CovidModalContainer';
 
 import { globalModalProps } from '../../propTypes';
-import UEIModalContainer from "../homepageUpdate/UEIModalContainer";
+import UEIModalContainer from "../homepage/UEIModalContainer";
 
 const propTypes = {
     globalModal: globalModalProps,

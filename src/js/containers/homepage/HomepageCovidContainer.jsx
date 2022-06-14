@@ -18,7 +18,7 @@ import Analytics from 'helpers/analytics/Analytics';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Card from "../../components/sharedComponents/Card";
-import TotalAmount from "../../components/homepageUpdate/hero/TotalAmount";
+import TotalAmount from "../../components/homepage/hero/TotalAmount";
 
 const HomepageCovidContainer = () => {
     const [, setIsIncrementComplete] = useState(false);

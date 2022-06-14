@@ -28,9 +28,9 @@ import Analytics from 'helpers/analytics/Analytics';
 import { allDefCAwardTypeCodes } from 'dataMapping/covid19/covid19';
 
 // components
-import HeroButton from 'components/homepageUpdate/hero/HeroButton';
-import HomePageTooltip from 'components/homepageUpdate/hero/CovidTooltip';
-import TotalAmount from 'components/homepageUpdate/hero/TotalAmount';
+import HeroButton from 'components/homepage/hero/HeroButton';
+import HomePageTooltip from 'components/homepage/hero/CovidTooltip';
+import TotalAmount from 'components/homepage/hero/TotalAmount';
 
 const defaultParams = {
     pagination: {

@@ -7,7 +7,7 @@ import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 
 import Analytics from 'helpers/analytics/Analytics';
 import { searchOptions, profileOptions, downloadOptions, resourceOptions } from 'dataMapping/navigation/menuOptions';
-import EmailSignUp from 'components/homepageUpdate/EmailSignUp';
+import EmailSignUp from 'components/homepage/EmailSignUp';
 
 import { QAT } from '../../../GlobalConstants';
 import Dropdown from './Dropdown';
