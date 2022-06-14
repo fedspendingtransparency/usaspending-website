@@ -3,6 +3,12 @@
     @include display(flex);
     @include align-items(center);
 
+    .tooltip-spacer {
+        @media(max-width:424px) {
+            width: 375px !important;
+        }
+    }
+
     .filter-toggle__button {
         @include button-unstyled;
         @include display(flex);

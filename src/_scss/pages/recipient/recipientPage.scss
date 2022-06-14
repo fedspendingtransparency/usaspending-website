@@ -16,6 +16,14 @@
 		}
 	}
 
+	.usda-page-header__toolbar .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item { 
+        padding-left: 25px;
+    }
+
+    .usda-page-header__toolbar .usda-fy-picker__container .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list {
+        width: 91%
+    }
+	
 	.main-content {
 		@import "../../mixins/fullSectionWrap";
 		@include fullSectionWrap(($global-mrg * 2), ($global-mrg * 2));

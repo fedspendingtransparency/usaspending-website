@@ -1,11 +1,13 @@
 .rounded-toggle__wrapper {
-  justify-content: baseline;
   display:inline-flex;
-
+  height: 24px;
+  bottom: 0;
   .rounded-toggle__label {
       color: $color-base;
       font-weight: $font-semibold;
       font-size: rem(14);
+      margin: 0;
+      bottom: 0;
       margin-right: 8px;
   }
   .rounded-toggle__switch {
@@ -13,8 +15,7 @@
     display: inline-block;
     width: 40px;
     height: 20px;
-    margin-top: 14px;
-    margin-bottom: 14px;
+    bottom: 0;
   }
   
   .rounded-toggle__switch input {

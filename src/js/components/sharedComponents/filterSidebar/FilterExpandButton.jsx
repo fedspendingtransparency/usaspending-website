@@ -43,9 +43,8 @@ const FilterExpandButton = (props) => {
             {props.accessory && (
                 <div
                     className="filter-toggle__accessory"
-                    tabIndex="0"
-                    id="accessory-view"
-                    role="toolbar">
+                    tabIndex="-1"
+                    id="accessory-view">
                     <props.accessory />
                 </div>
             )}

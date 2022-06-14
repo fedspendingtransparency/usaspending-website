@@ -20,10 +20,13 @@ const IntroSection = ({ fy, name, totalItems }) => {
     return (
         <div className="status-of-funds__intro-wrapper">
             <div className="status-of-funds__intro-section-title">
-                How were funds distributed in FY {fy} for the {name}?
+                How was funding distributed in FY {fy} for {name}?
             </div>
             <div className="status-of-funds__intro-section-text" data-testid="introCopy" >
-                In FY {fy}, the {name} had {agencyBudget} in available <span className="status-of-funds__glossary-term">budgetary resources</span> <GlossaryLink term="budgetary-resources" /> distributed among its {totalItems} agency sub-components. Agencies spend available budgetary resources by making financial promises called <span className="status-of-funds__glossary-term">obligations</span> <GlossaryLink term="obligation" />. In this section, we show the total budgetary resources broken out by agency sub-component and how much of that funding has been obligated.
+                Each year federal agencies receive funding from Congress, known as <span className="status-of-funds__glossary-term">budgetary resources</span> <GlossaryLink term="budgetary-resources" />. In FY {fy}, the {name} had {agencyBudget} distributed among its {totalItems} sub-components. Agencies spend available budgetary resources by making financial promises called <span className="status-of-funds__glossary-term">obligations</span> <GlossaryLink term="obligation" />. In this section, we show the total budgetary resources broken out by agency sub-component and how much of that funding has been obligated for the fiscal year selected.
+            </div>
+            <div className="status-of-funds__intro-section-text" data-testid="introCopy" >
+                We also show <span className="status-of-funds__glossary-term">outlays</span> <GlossaryLink term="outlay" /> for each agency sub-component, or the amount of money that has actually been paid out and not just promised (“obligated”). Note that outlays for any given year are not a subset of the agency’s obligations for that year since agencies can pay out funds related to obligations from previous years.
             </div>
             <div className="status-of-funds__intro-section-italic-text">
                 Select a segment in the chart below to dive deeper into the data.

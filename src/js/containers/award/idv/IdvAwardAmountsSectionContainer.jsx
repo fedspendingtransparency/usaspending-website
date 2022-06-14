@@ -9,6 +9,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
 import { TooltipWrapper } from 'data-transparency-ui';
+import { flowRight } from 'lodash';
 
 import * as IdvHelper from 'helpers/idvHelper';
 import { determineSpendingScenarioByAwardType } from 'helpers/awardAmountHelper';
@@ -21,12 +22,14 @@ import AwardAmountsTable from 'components/award/shared/awardAmounts/AwardAmounts
 import ResultsTableTabs from 'components/search/table/ResultsTableTabs';
 import ResultsTablePicker from 'components/search/table/ResultsTablePicker';
 import { awardAmountsInfo } from 'components/award/shared/InfoTooltipContent';
+import withDefCodes from 'containers/covid19/WithDefCodes';
 
 const propTypes = {
     award: PropTypes.object,
     setIdvDetails: PropTypes.func,
     jumpToSection: PropTypes.func,
-    defCodes: PropTypes.array
+    defCodes: PropTypes.array,
+    refDefCodes: PropTypes.array
 };
 
 const tabTypes = [
@@ -110,7 +113,7 @@ export class IdvAmountsContainer extends React.Component {
 
     parseChildAwardAmounts(data) {
         const awardAmounts = Object.create(BaseAwardAmounts);
-        awardAmounts.populate(data, 'idv_aggregated', this.props.defCodes);
+        awardAmounts.populate(data, 'idv_aggregated', this.props.refDefCodes);
         this.setState({
             awardAmounts,
             error: false,
@@ -137,7 +140,7 @@ export class IdvAmountsContainer extends React.Component {
 
     render() {
         const thisIdv = Object.create(BaseAwardAmounts);
-        thisIdv.populate(this.props.award.overview, 'idv', this.props.defCodes);
+        thisIdv.populate(this.props.award.overview, 'idv', this.props.refDefCodes);
         const tabsClassName = 'idv-award-amounts-tabs';
         const thisIdvHasFileC = (
             thisIdv._fileCObligated !== 0 ||
@@ -194,7 +197,13 @@ export class IdvAmountsContainer extends React.Component {
 
 IdvAmountsContainer.propTypes = propTypes;
 
-export default connect(
-    (state) => ({ award: state.award }),
-    (dispatch) => bindActionCreators(awardActions, dispatch)
+export default flowRight(
+    withDefCodes,
+    connect(
+        (state) => ({
+            award: state.award,
+            refDefCodes: state?.covid19?.defCodes
+        }),
+        (dispatch) => bindActionCreators(awardActions, dispatch)
+    )
 )(IdvAmountsContainer);
