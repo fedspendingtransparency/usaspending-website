@@ -493,6 +493,7 @@ const StatusOfFundsChart = ({
             if (level === 1) {
                 svg.selectAll(".bar-group").on('click', null);
                 svg.selectAll(".bar-group").on('keypress', null);
+                svg.selectAll(".bar-group").on('touchend', null);
             }
             // horizontal border above legend
             svg.append('line')
@@ -800,8 +801,10 @@ const StatusOfFundsChart = ({
             if (level === 1) {
                 svg.selectAll(".bar-group").on('click', null);
                 svg.selectAll(".bar-group").on('keypress', null);
+                svg.selectAll(".bar-group").on('touchend', null);
                 svg.selectAll("#out-bar").on('click', null);
                 svg.selectAll("#out-bar").on('keypress', null);
+                svg.selectAll("#out-bar").on('touchend', null);
             }
             // horizontal border above legend
             svg.append('line')
