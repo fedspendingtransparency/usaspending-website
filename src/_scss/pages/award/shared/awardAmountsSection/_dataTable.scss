@@ -1,4 +1,9 @@
 .award-amounts__data-wrapper {
+    margin-top: 3rem;
+
+    &.contract {
+        margin-top: 1.5rem;
+    }
 
     .award-amounts__data-content {
         @extend %column-less-table__row;
