@@ -1,5 +1,5 @@
 import React from 'react';
-import TotalAmount from 'components/homepage-unused/hero/TotalAmount';
+import TotalAmount from 'components/homepage/hero/TotalAmount';
 
 import { render, screen } from '@test-utils';
 
