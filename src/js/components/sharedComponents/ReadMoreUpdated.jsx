@@ -22,7 +22,7 @@ const propTypes = {
 const ReadMoreUpdated = ({
     children, // pre-determined content to be hidden/ shown by the buttons
     text = '', // a string to be truncated based on the limit
-    limit = 300,
+    limit = 350,
     initiallyExpanded = false,
     openIcon = "angle-down",
     closeIcon = "angle-up",
