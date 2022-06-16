@@ -7,6 +7,8 @@ import React from 'react';
 import PageWrapper from "../sharedComponents/PageWrapper";
 import { equityPageMetaTags } from "../../helpers/metaTagHelper";
 
+require('pages/equityCovidSpendingPage/equityCovidSpendingPage.scss');
+
 const EquityCovidSpendingPage = () => {
     const contentObject = {
         heading: 'Equity in COVID-19 Spending',
