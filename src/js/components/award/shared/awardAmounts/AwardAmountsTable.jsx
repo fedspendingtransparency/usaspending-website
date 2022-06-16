@@ -62,14 +62,14 @@ const AwardAmountsTable = ({
             case ('exceedsBigger'):
                 return (
                     <div className="award-amounts__data-content">
-                        <div className="hanging"><span className="award-amounts__data-icon award-amounts__data-icon_overspending" />{type === 'idv' ? 'Exceeds Combined Current Award Amounts' : 'Exceeds Current Award Amount'}</div>
+                        <div className="remove-indent"><span className="award-amounts__data-icon award-amounts__data-icon_overspending" />{type === 'idv' ? 'Exceeds Combined Current Award Amounts' : 'Exceeds Current Award Amount'}</div>
                         <span>{awardAmounts.overspendingFormatted}</span>
                     </div>
                 );
             case ('exceedsBiggest'):
                 return (
                     <div className="award-amounts__data-content">
-                        <div className="hanging"><span className="award-amounts__data-icon award-amounts__data-icon_extreme-overspending" />{type === 'idv' ? 'Exceeds Combined Potential Award Amounts' : 'Exceeds Potential Award Amount'}</div>
+                        <div className="remove-indent"><span className="award-amounts__data-icon award-amounts__data-icon_extreme-overspending" />{type === 'idv' ? 'Exceeds Combined Potential Award Amounts' : 'Exceeds Potential Award Amount'}</div>
                         <span>{awardAmounts.extremeOverspendingFormatted}</span>
                     </div>
                 );
@@ -132,7 +132,7 @@ const AwardAmountsTable = ({
                         ? null
                         :
                         <div key={uniqueId(title)} className="award-amounts__data-content">
-                            <div className="hanging">
+                            <div className="remove-indent">
                                 <span className={`award-amounts__data-icon ${awardTableClassMap[title]}`} />
                                 {title}
                             </div>
