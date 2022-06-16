@@ -6,6 +6,7 @@
 import React from 'react';
 import PageWrapper from "../sharedComponents/PageWrapper";
 import { equityPageMetaTags } from "../../helpers/metaTagHelper";
+import EquityHeading from "./equity/EquityHeading";
 
 require('pages/equityCovidSpendingPage/equityCovidSpendingPage.scss');
 
@@ -37,9 +38,7 @@ const EquityCovidSpendingPage = () => {
             noHeader
             metaTagProps={{ ...equityPageMetaTags }}>
             <main id="main-content" className="main-content equity-content">
-                <div>HEADING
-                    <div>{contentObject.heading}</div>
-                </div>
+                <EquityHeading content={contentObject} />
                 <div>MAIN CARDS</div>
                 <div>SPOTLIGHT CARDS</div>
             </main>
