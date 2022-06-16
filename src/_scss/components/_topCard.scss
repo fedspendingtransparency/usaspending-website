@@ -9,7 +9,7 @@
     padding: $global-margin * 5;
   }
   min-height: 250px;
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.1);
+  box-shadow: $shadow-3;
 
   .topCard__image-wrapper {
     width: 35px;
