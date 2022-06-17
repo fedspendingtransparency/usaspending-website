@@ -8,6 +8,7 @@ import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import { ShareIcon } from 'data-transparency-ui';
 import PageWrapper from "../sharedComponents/PageWrapper";
 import { equityPageMetaTags } from "../../helpers/metaTagHelper";
+import MainCards from "./sections/MainCards";
 
 require('pages/equityCovidSpendingPage/equityCovidSpendingPage.scss');
 
@@ -54,7 +55,7 @@ const EquityCovidSpendingPage = () => {
             ]}>
             <main id="main-content" className="main-content equity-content">
                 <div>HEADING</div>
-                <div>MAIN CARDS</div>
+                <MainCards contentObject={contentObject} />
                 <div>SPOTLIGHT CARDS</div>
             </main>
         </PageWrapper>

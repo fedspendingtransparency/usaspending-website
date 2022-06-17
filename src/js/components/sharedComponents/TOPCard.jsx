@@ -19,8 +19,10 @@ const TOPCard = ({
     image, heading, text, button, imageColor
 }) => (
     <FlexGridRow className="topcard-content">
-        <FlexGridCol width={12} desktop={1} className={`topCard__image-wrapper ${imageColor}`}>
-            {image}
+        <FlexGridCol width={12} desktop={1} className="topCard__image-wrapper">
+            <div style={{ backgroundColor: imageColor }}>
+                {image}
+            </div>
         </FlexGridCol>
         <FlexGridCol width={12} desktop={10} className="topCard__heading-wrapper">
             {heading}
