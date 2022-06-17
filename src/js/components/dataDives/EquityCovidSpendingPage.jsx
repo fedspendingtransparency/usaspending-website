@@ -53,7 +53,9 @@ const EquityCovidSpendingPage = () => {
                 <ShareIcon url={getBaseUrl(slug)} onShareOptionClick={handleShare} />
             ]}>
             <main id="main-content" className="main-content equity-content">
-                <div>HEADING</div>
+                <div>
+                    <div>{contentObject.heading}</div>
+                </div>
                 <div>MAIN CARDS</div>
                 <div>SPOTLIGHT CARDS</div>
             </main>
