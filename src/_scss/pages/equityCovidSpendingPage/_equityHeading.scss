@@ -1,0 +1,16 @@
+.equity-heading {
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+  background-color: $color-white;
+
+  .grid-content {
+    padding-top: $global-padding * 7;
+
+    .equity-heading_heading {
+      font-size: rem(36);
+      font-weight: $font-semibold;
+      color: $color-grayblack;
+    }
+  }
+}

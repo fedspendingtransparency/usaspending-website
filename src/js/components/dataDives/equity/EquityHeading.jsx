@@ -4,12 +4,20 @@
  */
 
 import React from 'react';
+import { FlexGridRow } from 'data-transparency-ui';
 
-const EquityHeading = (props) => {
-    const content = props.content;
+
+const EquityHeading = ({ heading, intro, note }) => {
+    const blah = 'blah';
 
     return (
-        <div>HEADNG COMPONENT</div>
+        <section
+            className="equity-heading"
+            aria-label="EquityHeading sections">
+            <FlexGridRow className="grid-content">
+                <div className="equity-heading_heading">{heading}</div>
+            </FlexGridRow>
+        </section>
     );
 };
 
