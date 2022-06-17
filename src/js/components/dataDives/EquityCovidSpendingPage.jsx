@@ -4,6 +4,8 @@
  */
 
 import React from 'react';
+import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
+import { ShareIcon } from 'data-transparency-ui';
 import PageWrapper from "../sharedComponents/PageWrapper";
 import { equityPageMetaTags } from "../../helpers/metaTagHelper";
 import EquityHeading from "./equity/EquityHeading";
@@ -31,18 +33,31 @@ const EquityCovidSpendingPage = () => {
         trackCardLink: 'https://www.usaspending.gov/disaster/covid-19?publicLaw=all'
     };
 
+    const slug = 'data-dives/equity-COVID-19-spending';
+    const emailArgs = {
+        subject: 'Equity in COVID-19 Spending',
+        body: `View the Equity in COVID-19 Spending page on USAspending.gov: ${getBaseUrl(slug)}`
+    };
+
+    const handleShare = (optionName) => {
+        handleShareOptionClick(optionName, slug, emailArgs);
+    };
+
     return (
         <PageWrapper
             pageName="EquityCovidSpendingPage"
             classNames="equity-covid-spending-page"
-            noHeader
-            metaTagProps={{ ...equityPageMetaTags }}>
+            overLine="Data Dives"
+            title="Equity in COVID-19 Spending"
+            metaTagProps={{ ...equityPageMetaTags }}
+            toolBarComponents={[
+                <ShareIcon url={getBaseUrl(slug)} onShareOptionClick={handleShare} />
+            ]}>
             <main id="main-content" className="main-content equity-content">
                 <EquityHeading content={contentObject} />
                 <div>MAIN CARDS</div>
                 <div>SPOTLIGHT CARDS</div>
             </main>
-
         </PageWrapper>
     );
 };
