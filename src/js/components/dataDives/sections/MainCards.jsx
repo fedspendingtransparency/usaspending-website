@@ -10,31 +10,40 @@ import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 import TOPCard from '../../sharedComponents/TOPCard';
 
 const propTypes = {
-    contentObject: PropTypes.object
+    contentObject: PropTypes.object.isRequired
 };
 
-const MainCards = (contentObject) => {
+const MainCards = ({ contentObject }) => {
     const bowieImg = <img src="../../../../img/top-bowie-state-combined-image.svg" alt="" />;
     const kansasImg = <img src="../../../../img/top-university-kansas-combined-image.svg" alt="" />;
     const morehouseImg = <img src="../../../../img/top-morehouse-combined-image.svg" alt="" />;
     const momImg = <img src="../../../../img/top-mom-project-combined-image.svg" alt="" />;
 
+
+    const bowieHdg = <h2>Bowie State University</h2>;
+    const kansasHdg = <h2>Morehouse College</h2>;
+    const morehouseHdg = <h2>University of Kansas Center for Public Partnerships and Research</h2>;
+    const momHdg = <h2>The Mom Project</h2>;
+    const {
+        bowieText, kansasText, momText, morehouseText
+    } = contentObject;
+
     return (
         <section className="main-cards__wrapper">
             <FlexGridRow>
-                <FlexGridCol width={12} desktop={6}>
-                    <TOPCard image={bowieImg} imageColor="#ffbe60" heading="Bowie State University" text={contentObject.bowieText} />
+                <FlexGridCol width={6} desktop={6}>
+                    <TOPCard image={bowieImg} imageColor="#ffbe60" heading={bowieHdg} text={bowieText} />
                 </FlexGridCol>
-                <FlexGridCol width={12} desktop={6}>
-                    <TOPCard image={morehouseImg} imageColor="#339189" heading="Morehouse College" text={contentObject.morehouseText} />
+                <FlexGridCol width={6} desktop={6}>
+                    <TOPCard image={morehouseImg} imageColor="#339189" heading={morehouseHdg} text={morehouseText} />
                 </FlexGridCol>
             </FlexGridRow>
             <FlexGridRow>
-                <FlexGridCol width={12} desktop={6}>
-                    <TOPCard image={kansasImg} imageColor="#fa9441" heading="University of Kansas Center for Public Partnerships and Research" text={contentObject.kansasText} />
+                <FlexGridCol width={6} desktop={6}>
+                    <TOPCard image={kansasImg} imageColor="#fa9441" heading={kansasHdg} text={kansasText} />
                 </FlexGridCol>
-                <FlexGridCol width={12} desktop={6}>
-                    <TOPCard image={momImg} imageColor="#29abe2" heading="The Mom Project" text={contentObject.momText} />
+                <FlexGridCol width={6} desktop={6}>
+                    <TOPCard image={momImg} imageColor="#29abe2" heading={momHdg} text={momText} />
                 </FlexGridCol>
             </FlexGridRow>
         </section>
