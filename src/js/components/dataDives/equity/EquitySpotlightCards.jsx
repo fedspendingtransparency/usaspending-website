@@ -6,7 +6,6 @@
 import React from 'react';
 import PropTypes from "prop-types";
 import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
-import Card from "../../sharedComponents/Card";
 import SpotlightCard from "../../sharedComponents/SpotlightCard";
 
 const propTypes = {
@@ -29,7 +28,7 @@ const EquitySpotlightCards = (props) => {
             <FlexGridRow className="grid-content">
                 <FlexGridCol
                     width={12}
-                    tablet={6}
+                    desktop={6}
                     className="equity-spotlight__column-one">
                     <SpotlightCard
                         icon={spotlightCardIcon}
@@ -39,7 +38,7 @@ const EquitySpotlightCards = (props) => {
                 </FlexGridCol>
                 <FlexGridCol
                     width={12}
-                    tablet={6}
+                    desktop={6}
                     className="equity-spotlight__column-two">
                     <SpotlightCard
                         icon={trackCardIcon}

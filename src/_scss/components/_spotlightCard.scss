@@ -1,57 +1,46 @@
 .spotlightCard-content {
   width: 100%;
   background-color: $color-white;
-  //margin: 0;
-  //padding: 0;
-  min-height: 250px;
 
   .spotlightCard__icon-wrapper {
-    width: 32px;
-    height: 32px;
+    width: rem(40);
+    height: rem(40);
     background: $color-grayblack;
     text-align: center;
     border-radius: 4px;
-    padding: $global-padding;
+    padding: 10px;
+    margin-bottom: $global-margin * 2;
   }
   .spotlightCard__heading-wrapper {
-    font-size: $h4-font-size;
+    font-size: $lead-font-size;
     font-weight: $font-semibold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.25;
-    letter-spacing: normal;
     color: $color-grayblack;
-
     p {
       margin: 0;
     }
+    @media (min-width: $tablet-screen) {
+      margin-left: $global-margin * 2;
+      padding-top: 6px;
+    }
   }
-
   .spotlightCard__content-wrapper {
     font-size: $base-font-size;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.5;
-    letter-spacing: normal;
     color: $color-base;
     margin-bottom: $global-margin * 3;
-
     p {
       margin-bottom: 0;
     }
+    @media (min-width: $tablet-screen) {
+      p {
+        margin-top: 0;
+      }
+    }
   }
   .spotlightCard__link-wrapper {
-    font-size: $h5-font-size;
-    font-weight: $font-semibold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.25;
-    letter-spacing: normal;
-    color: $color-primary;
-
-    a:hover {
-      text-decoration: none;
+    button {
+      font-size: $base-font-size;
+      font-weight: $font-semibold;
+      color: $color-primary;
     }
   }
 }

@@ -18,10 +18,10 @@ const SpotlightCard = ({
     icon, heading, content, link
 }) => (
     <FlexGridRow className="spotlightCard-content">
-        <FlexGridCol width={12} desktop={1} className="spotlightCard__icon-wrapper">
+        <FlexGridCol mobile={12} tablet={1} desktop={1} className="spotlightCard__icon-wrapper">
             {icon}
         </FlexGridCol>
-        <FlexGridCol width={12} desktop={10} className="spotlightCard__heading-wrapper">
+        <FlexGridCol mobile={12} tablet={10} className="spotlightCard__heading-wrapper">
             {heading}
         </FlexGridCol>
         <FlexGridCol width={12} desktop={12} className="spotlightCard__content-wrapper">

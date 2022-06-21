@@ -8,10 +8,12 @@
     padding-top: $global-padding * 7;
 
     .equity-spotlight__column-one {
-
+      padding-bottom: $global-padding * 4;
+      border-bottom: solid 1px $color-gray-lighter;
     }
     .equity-spotlight__column-two {
-
+      margin-top: $global-margin * 4;
+      margin-bottom: $global-margin * 8;
     }
   }
   @import "../../components/spotlightCard";

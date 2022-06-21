@@ -4,27 +4,18 @@
  */
 
 import React from 'react';
-import { useDispatch } from "react-redux";
-import { showModal } from 'redux/actions/modal/modalActions';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import { ShareIcon } from 'data-transparency-ui';
+import { Link } from "react-router-dom";
 import PageWrapper from "../sharedComponents/PageWrapper";
 import { equityPageMetaTags } from "../../helpers/metaTagHelper";
 import EquityHeading from "./equity/EquityHeading";
 import EquitySpotlightCards from "./equity/EquitySpotlightCards";
-import ExternalLink from "../sharedComponents/ExternalLink";
 
 require('pages/equityCovidSpendingPage/equityCovidSpendingPage.scss');
 
 const EquityCovidSpendingPage = () => {
-    const dispatch = useDispatch();
-    const onExternalLinkClick = (e) => {
-        e.persist();
-        if (e?.target) {
-            dispatch(showModal(e.target.parentNode.getAttribute('data-href') || e.target.getAttribute('data-href') || e.target.value));
-        }
-    };
     const HeadingContentObject = {
         heading: 'Equity in COVID-19 Spending',
         intro: 'We worked with teams from various schools and advocacy groups across the country to create tools for analyzing USAspending data and other federal open datasets to understand how the $4.5 trillion in federal COVID-19 spending has been shared across communities most vulnerable to the impacts of the pandemic.',
@@ -42,8 +33,8 @@ const EquityCovidSpendingPage = () => {
     };
     const spotlightContentObject = {
         spotlightCardIcon: (
-            <span
-                className="fa-layers fa-fw"><FontAwesomeIcon icon="search" inverse size="xl" style={{ height: '20px', width: '20px' }} />
+            <span>
+                <FontAwesomeIcon icon="fa-l fa-star" inverse size="xl" style={{ height: '20px', width: '20px' }} />
             </span>),
         spotlightCardTitle: (
             <p>Spotlight on The Opportunity Project</p>
@@ -54,17 +45,14 @@ const EquityCovidSpendingPage = () => {
             </p>
         ),
         spotlightCardLink: (
-            <button
-                value="https://www.usaspending.gov/disaster/covid-19/the-opportunity-project"
-                role="link"
-                className="usa-button-link"
-                onClick={onExternalLinkClick}>
+            <Link
+                to="/disaster/covid-19/the-opportunity-project">
                 Learn More
-            </button>
+            </Link>
         ),
         trackCardIcon: (
-            <span
-                className="fa-layers fa-fw"><FontAwesomeIcon icon="search" inverse size="xl" style={{ height: '20px', width: '20px' }} />
+            <span>
+                <FontAwesomeIcon icon="chart-bar" inverse size="xl" style={{ height: '20px', width: '20px' }} />
             </span>),
         trackCardTitle: (
             <p>Track <span>COVID-19</span> Spending</p>
@@ -75,13 +63,10 @@ const EquityCovidSpendingPage = () => {
             </p>
         ),
         trackCardLink: (
-            <button
-                value="https://www.usaspending.gov/disaster/covid-19?publicLaw=all"
-                role="link"
-                className="usa-button-link"
-                onClick={onExternalLinkClick}>
+            <Link
+                to="/disaster/covid-19?publicLaw=all">
                 Explore Now
-            </button>
+            </Link>
         )
     };
 
