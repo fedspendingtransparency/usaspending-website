@@ -1,21 +1,21 @@
 /**
- * TOPCard.jsx
+ * EquityMainCard.jsx
  * Created by Nick Torres 06/15/2022
  */
 
 import React from 'react';
-import PropTypes from "prop-types";
+import PropTypes, { oneOfType } from 'prop-types';
 import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 
 const propTypes = {
     image: PropTypes.object,
     heading: PropTypes.object,
-    text: PropTypes.object,
+    text: oneOfType([PropTypes.element, PropTypes.string, PropTypes.object]),
     button: PropTypes.object,
     imageColor: PropTypes.string
 };
 
-const TOPCard = ({
+const EquityMainCard = ({
     image, heading, text, button, imageColor
 }) => (
     <FlexGridRow className="topcard-content">
@@ -29,7 +29,7 @@ const TOPCard = ({
                 {heading}
             </FlexGridCol>
             <FlexGridCol width={6} desktop={12} tablet={12} mobile={12} className="topCard__text-wrapper">
-                <p>{text}</p>
+                {text}
             </FlexGridCol>
             <FlexGridCol width={6} desktop={12} tablet={12} mobile={12} className="topCard__button-wrapper">
                 {button}
@@ -38,5 +38,5 @@ const TOPCard = ({
     </FlexGridRow>
 );
 
-TOPCard.propTypes = propTypes;
-export default TOPCard;
+EquityMainCard.propTypes = propTypes;
+export default EquityMainCard;

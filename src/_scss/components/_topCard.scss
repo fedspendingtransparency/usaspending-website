@@ -53,9 +53,41 @@
       letter-spacing: normal;
       color: $color-base;
       margin-bottom: $global-margin * 3;
-
+      margin-top: $global-margin * 2;
       p {
         margin-bottom: 0;
+      }
+      .readMoreUpdated__contract-button{
+        @include button-unstyled;
+        font-weight: $font-semibold;
+        color: $color-primary;
+        margin: 0 4px 0 0;
+        font-size: rem(14);
+        line-height: 1.5;
+
+        &:hover {
+          color: $color-primary-darker;
+        }
+
+        &:active {
+          color: $color-primary-darkest;
+        }
+      }
+      .readMoreUpdated__expand-button {
+        @include button-unstyled;
+        font-weight: $font-semibold;
+        color: $color-primary;
+        margin: 0 4px 0 0;
+        font-size: rem(14);
+        line-height: 1.5;
+
+        &:hover {
+          color: $color-primary-darker;
+        }
+
+        &:active {
+          color: $color-primary-darkest;
+        }
       }
     }
     .topCard__button-wrapper {
@@ -66,9 +98,13 @@
       line-height: 1.25;
       letter-spacing: normal;
       color: $color-primary;
-
+      margin: 0;
       a:hover {
         text-decoration: none;
+      }
+
+      button {
+        margin: 0;
       }
     }
   }

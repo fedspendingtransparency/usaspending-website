@@ -4,19 +4,20 @@
  */
 
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+import PropTypes, { oneOfType } from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
-    children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]),
-    text: PropTypes.string,
-    limit: PropTypes.number,
+    children: oneOfType([PropTypes.element, PropTypes.array]),
+    text: oneOfType([PropTypes.element, PropTypes.string, PropTypes.object]),
+    limit: oneOfType([PropTypes.string, PropTypes.number]),
     initiallyExpanded: PropTypes.bool,
     inline: PropTypes.bool,
     openIcon: PropTypes.string,
     closeIcon: PropTypes.string,
     openPrompt: PropTypes.string,
-    closePrompt: PropTypes.string
+    closePrompt: PropTypes.string,
+    iconColor: PropTypes.string
 };
 
 const ReadMoreUpdated = ({
@@ -28,18 +29,16 @@ const ReadMoreUpdated = ({
     closeIcon = "angle-up",
     openPrompt = "Read More",
     closePrompt = "Read Less"
-
 }) => {
     const [expanded, setExpanded] = useState(initiallyExpanded);
-    const readLess = (<button className="readMore__expand-button" onClick={() => setExpanded(false)}>{openPrompt}</button>);
-    const readMore = (<button className="readMore__contract-button" onClick={() => setExpanded(true)}>{closePrompt}</button>);
+    const readLess = (<button className="readMoreUpdated__expand-button" onClick={() => setExpanded(false)}>{closePrompt}{' '}<span className="usa-button-link__icon"><FontAwesomeIcon className="readMoreUpdated__link-icon" icon={closeIcon} /></span></button>);
+    const readMore = (<button className="readMoreUpdated__contract-button" onClick={() => setExpanded(true)}>{openPrompt}{' '}<span className="usa-button-link__icon"><FontAwesomeIcon className="readMoreUpdated__link-icon" icon={openIcon} /></span></button>);
     if (expanded && children) {
         return (
             <>
                 {children}
                 <div>
                     {readLess}
-                    <span className="usa-button-link__icon"><FontAwesomeIcon icon={closeIcon} /></span>
                 </div>
             </>
         );
@@ -50,7 +49,6 @@ const ReadMoreUpdated = ({
                 <p>{text}</p>
                 <div>
                     {readLess}
-                    <span className="usa-button-link__icon"><FontAwesomeIcon icon={closeIcon} /></span>
                 </div>
             </>
         );
@@ -60,7 +58,6 @@ const ReadMoreUpdated = ({
             <div>
                 <p>{`${text.substring(0, limit)}...`}</p>
                 {readMore}
-                <span className="usa-button-link__icon"><FontAwesomeIcon icon={openIcon} /></span>
             </div>
         );
     }
@@ -74,7 +71,6 @@ const ReadMoreUpdated = ({
     return (
         <div>
             {readMore}
-            <span className="usa-button-link__icon"><FontAwesomeIcon icon={openIcon} /></span>
         </div>
     );
 };

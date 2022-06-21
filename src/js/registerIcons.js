@@ -6,6 +6,7 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
     faAngleDown,
+    faAngleUp,
     faAngleRight,
     faAngleLeft,
     faArrowLeft,
@@ -75,6 +76,7 @@ import {
 export default function registerIcons() {
     library.add(
         faAngleDown,
+        faAngleUp,
         faAngleRight,
         faAngleLeft,
         faArrowLeft,

@@ -9,8 +9,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch } from "react-redux";
 import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 import { showModal } from 'redux/actions/modal/modalActions';
-// import ReadMoreUpdated from '../../sharedComponents/ReadMoreUpdated';
-import TOPCard from '../../sharedComponents/TOPCard';
+import ReadMoreUpdated from '../../sharedComponents/ReadMoreUpdated';
+import EquityMainCard from '../../sharedComponents/EquityMainCard';
 
 const propTypes = {
     contentObject: PropTypes.object.isRequired
@@ -89,22 +89,26 @@ const MainCards = ({ contentObject }) => {
         bowieText, kansasText, momText, morehouseText
     } = contentObject;
 
+    const momContent = (
+        <ReadMoreUpdated text={momText} limit="353" />
+    );
+
     return (
         <section className="main-cards__wrapper">
             <FlexGridRow>
                 <FlexGridCol width={6} desktop={6} tablet={12} mobile={12}>
-                    <TOPCard image={bowieImg} imageColor="#ffbe60" heading={bowieHdg} text={bowieText} button={bowieBtn} />
+                    <EquityMainCard image={bowieImg} imageColor="#ffbe60" heading={bowieHdg} text={bowieText} button={bowieBtn} />
                 </FlexGridCol>
                 <FlexGridCol width={6} desktop={6} tablet={12} mobile={12}>
-                    <TOPCard image={kansasImg} imageColor="#fa9441" heading={kansasHdg} text={kansasText} button={kansasBtn} />
+                    <EquityMainCard image={kansasImg} imageColor="#fa9441" heading={kansasHdg} text={kansasText} button={kansasBtn} />
                 </FlexGridCol>
             </FlexGridRow>
             <FlexGridRow>
                 <FlexGridCol width={6} desktop={6} tablet={12} mobile={12}>
-                    <TOPCard image={morehouseImg} imageColor="#339189" heading={morehouseHdg} text={morehouseText} button={morehouseBtn} />
+                    <EquityMainCard image={morehouseImg} imageColor="#339189" heading={morehouseHdg} text={morehouseText} button={morehouseBtn} />
                 </FlexGridCol>
                 <FlexGridCol width={6} desktop={6} tablet={12} mobile={12}>
-                    <TOPCard image={momImg} imageColor="#29abe2" heading={momHdg} text={momText} button={momBtn} />
+                    <EquityMainCard image={momImg} imageColor="#29abe2" heading={momHdg} text={momContent} button={momBtn} />
                 </FlexGridCol>
             </FlexGridRow>
         </section>
