@@ -5,6 +5,10 @@
     display: flex;
     align-items: center;
   }
+
+  @media (max-width: $small-screen) {
+    margin: 0;
+  }
   min-height: 250px;
   box-shadow: $shadow-3;
 
@@ -14,10 +18,12 @@
       margin-bottom: rem(16);
     }
 
-    .topCard__image {
+    .topCard__image-background {
       border-top-left-radius: 8px;
       border-top-right-radius: 8px;
       height: 240px;
+      display: flex;
+      justify-content: center;
     }
   }
 

@@ -18,18 +18,26 @@
       }
     }
     .main-cards__wrapper {
-      margin: $global-margin * 8;
+      margin: 0;
+      @media (min-width: $tablet-screen) {
+        margin: $global-margin * 4;
+      }
       h2 {
         font-size: rem(20);
         font-weight: $font-semibold;
         color: $color-grayblack;
         line-height: 1.25;
+        margin: 0;
       }
 
       p {
         font-size: rem(16);
         line-height: 1.5;
         color: $color-base;
+      }
+
+      img {
+        height: 240px;
       }
     }
   }

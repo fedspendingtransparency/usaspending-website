@@ -25,10 +25,10 @@ const MainCards = ({ contentObject }) => {
         }
     };
 
-    const bowieImg = <img src="../../../../img/top-bowie-state-combined-image.svg" alt="" />;
-    const kansasImg = <img src="../../../../img/top-university-kansas-combined-image.svg" alt="" />;
-    const morehouseImg = <img src="../../../../img/top-morehouse-combined-image.svg" alt="" />;
-    const momImg = <img src="../../../../img/top-mom-project-combined-image.svg" alt="" />;
+    const bowieImg = <img className="main-cards__svg" src="../../../../img/top-bowie-state-combined-image.svg" alt="" />;
+    const kansasImg = <img className="main-cards__svg" src="../../../../img/top-university-kansas-combined-image.svg" alt="" />;
+    const morehouseImg = <img className="main-cards__svg" src="../../../../img/top-morehouse-combined-image.svg" alt="" />;
+    const momImg = <img className="main-cards__svg" src="../../../../img/top-mom-project-combined-image.svg" alt="" />;
 
 
     const bowieHdg = <h2>Bowie State University</h2>;
@@ -96,12 +96,12 @@ const MainCards = ({ contentObject }) => {
                     <TOPCard image={bowieImg} imageColor="#ffbe60" heading={bowieHdg} text={bowieText} button={bowieBtn} />
                 </FlexGridCol>
                 <FlexGridCol width={6} desktop={6} tablet={12} mobile={12}>
-                    <TOPCard image={morehouseImg} imageColor="#339189" heading={morehouseHdg} text={morehouseText} button={morehouseBtn} />
+                    <TOPCard image={kansasImg} imageColor="#fa9441" heading={kansasHdg} text={kansasText} button={kansasBtn} />
                 </FlexGridCol>
             </FlexGridRow>
             <FlexGridRow>
                 <FlexGridCol width={6} desktop={6} tablet={12} mobile={12}>
-                    <TOPCard image={kansasImg} imageColor="#fa9441" heading={kansasHdg} text={kansasText} button={kansasBtn} />
+                    <TOPCard image={morehouseImg} imageColor="#339189" heading={morehouseHdg} text={morehouseText} button={morehouseBtn} />
                 </FlexGridCol>
                 <FlexGridCol width={6} desktop={6} tablet={12} mobile={12}>
                     <TOPCard image={momImg} imageColor="#29abe2" heading={momHdg} text={momText} button={momBtn} />
