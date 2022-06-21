@@ -15,9 +15,9 @@ const propTypes = {
 };
 
 const Card = ({
-    icon, heading, content, link
+    icon, heading, content, link, border
 }) => (
-    <FlexGridRow className="card-content">
+    <FlexGridRow className={`card-content ${border ? 'border' : ''}`}>
         <FlexGridCol width={12} desktop={1} className="card__icon-wrapper">
             {icon}
         </FlexGridCol>
