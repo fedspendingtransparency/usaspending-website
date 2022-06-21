@@ -6,7 +6,6 @@
 import React from 'react';
 import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 
-
 const EquityHeading = ({ heading, intro, note }) => (
     <section
         className="equity-heading"

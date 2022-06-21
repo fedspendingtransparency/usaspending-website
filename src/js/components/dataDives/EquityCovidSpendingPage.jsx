@@ -5,10 +5,12 @@
 
 import React from 'react';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
-import { ShareIcon } from 'data-transparency-ui';
+import { FlexGridCol, FlexGridRow, ShareIcon } from 'data-transparency-ui';
 import PageWrapper from "../sharedComponents/PageWrapper";
 import { equityPageMetaTags } from "../../helpers/metaTagHelper";
 import EquityHeading from "./equity/EquityHeading";
+import EquitySpotlightCards from "./equity/EquitySpotlightCards";
+import Card from "../sharedComponents/Card";
 
 require('pages/equityCovidSpendingPage/equityCovidSpendingPage.scss');
 
@@ -60,6 +62,30 @@ const EquityCovidSpendingPage = () => {
                     note={contentObject.note} />
                 <div>MAIN CARDS</div>
                 <div>SPOTLIGHT CARDS</div>
+                <section className="equity-spotlight-section">
+                    <div className="spotlight-wrapper">
+                        <FlexGridRow className="grid-content">
+                            <FlexGridCol
+                                width={6}
+                                className="equity-spotlight__column-one">
+                                <Card
+                                    icon={}
+                                    heading={}
+                                    content={}
+                                    link={} />
+                            </FlexGridCol>
+                            <FlexGridCol
+                                width={6}
+                                className="equity-spotlight__column-two">
+                                <Card
+                                    icon={}
+                                    heading={}
+                                    content={}
+                                    link={} />
+                            </FlexGridCol>
+                        </FlexGridRow>
+                    </div>
+                </section>
             </main>
         </PageWrapper>
     );
