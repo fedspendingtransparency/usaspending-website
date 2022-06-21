@@ -12,7 +12,7 @@ const EquityHeading = ({ heading, intro, note }) => (
         className="equity-heading"
         aria-label="EquityHeading sections">
         <FlexGridRow className="grid-content">
-            <FlexGridCol>
+            <FlexGridCol width={12}>
                 <div className="equity-heading__heading">{heading}</div>
                 <div className="equity-heading__stats-row">
                     <div className="equity-heading__pill">Partner Collaboration</div>
