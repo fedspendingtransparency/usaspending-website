@@ -32,8 +32,8 @@ const MainCards = ({ contentObject }) => {
 
 
     const bowieHdg = <h2>Bowie State University</h2>;
-    const kansasHdg = <h2>Morehouse College</h2>;
-    const morehouseHdg = <h2>University of Kansas Center for Public Partnerships and Research</h2>;
+    const morehouseHdg = <h2>Morehouse College</h2>;
+    const kansasHdg = <h2>University of Kansas Center for Public Partnerships and Research</h2>;
     const momHdg = <h2>The Mom Project</h2>;
 
     const bowieBtn = (
@@ -100,12 +100,12 @@ const MainCards = ({ contentObject }) => {
                     <EquityMainCard image={bowieImg} imageColor="#ffbe60" heading={bowieHdg} text={bowieText} button={bowieBtn} />
                 </FlexGridCol>
                 <FlexGridCol width={6} desktop={6} tablet={12} mobile={12}>
-                    <EquityMainCard image={kansasImg} imageColor="#fa9441" heading={kansasHdg} text={kansasText} button={kansasBtn} />
+                    <EquityMainCard image={morehouseImg} imageColor="#339189" heading={morehouseHdg} text={morehouseText} button={morehouseBtn} />
                 </FlexGridCol>
             </FlexGridRow>
             <FlexGridRow>
                 <FlexGridCol width={6} desktop={6} tablet={12} mobile={12}>
-                    <EquityMainCard image={morehouseImg} imageColor="#339189" heading={morehouseHdg} text={morehouseText} button={morehouseBtn} />
+                    <EquityMainCard image={kansasImg} imageColor="#fa9441" heading={kansasHdg} text={kansasText} button={kansasBtn} />
                 </FlexGridCol>
                 <FlexGridCol width={6} desktop={6} tablet={12} mobile={12}>
                     <EquityMainCard image={momImg} imageColor="#29abe2" heading={momHdg} text={momContent} button={momBtn} />

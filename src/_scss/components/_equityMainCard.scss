@@ -1,6 +1,7 @@
-.topcard-content {
+.equity-main-card-content {
   border-radius: 8px;
   margin: $global-padding * 3;
+  min-height: 300px;
   @media (min-width: $medium-screen) {
     display: flex;
     align-items: center;
@@ -12,13 +13,13 @@
   min-height: 250px;
   box-shadow: $shadow-3;
 
-  .topCard__image-wrapper {
+  .equityMainCard__image-wrapper {
     border-radius: 8px;
     @media (max-width: $medium-screen) {
       margin-bottom: rem(16);
     }
 
-    .topCard__image-background {
+    .equityMainCard__image-background {
       border-top-left-radius: 8px;
       border-top-right-radius: 8px;
       height: 240px;
@@ -27,9 +28,9 @@
     }
   }
 
-  .topCard__content-wrapper {
+  .equityMainCard__content-wrapper {
     padding: 32px 24px 24px;
-    .topCard__heading-wrapper {
+    .equityMainCard__heading-wrapper {
       margin-left: 0;
       font-size: $h4-font-size;
       font-weight: $font-semibold;
@@ -44,7 +45,7 @@
       }
     }
     
-    .topCard__text-wrapper {
+    .equityMainCard__text-wrapper {
       font-size: $base-font-size;
       font-weight: normal;
       font-stretch: normal;
@@ -90,7 +91,7 @@
         }
       }
     }
-    .topCard__button-wrapper {
+    .equityMainCard__button-wrapper {
       font-size: $h5-font-size;
       font-weight: $font-semibold;
       font-stretch: normal;
