@@ -1,16 +1,15 @@
-.usa-da-home-page {
+.equity-covid-spending-page {
   @import 'all';
   @import "layouts/default/default";
   @import "layouts/default/header/_warning";
+  @import "layouts/default/stickyHeader/header";
 
-  .homepage-content {
+  .equity-content {
     background-color: white;
 
-    @import "gettingStarted";
-
     .usa-dt-flex-grid__row.grid-content {
-        margin: 0 $grid-column;
-        height: 100%;
+      margin: 0 $grid-column;
+      height: 100%;
     }
 
     @media screen and (max-width: $medium-screen) {
@@ -19,12 +18,4 @@
       }
     }
   }
-
-  @import "download/download";
-  @import "./features/features";
-  @import "hero/hero";
-  @import "covidSection";
-  @import "community";
 }
-
-
