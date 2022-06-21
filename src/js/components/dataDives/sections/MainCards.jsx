@@ -31,18 +31,18 @@ const MainCards = ({ contentObject }) => {
     return (
         <section className="main-cards__wrapper">
             <FlexGridRow>
-                <FlexGridCol width={6} desktop={6}>
+                <FlexGridCol width={6} desktop={6} tablet={12} mobile={12}>
                     <TOPCard image={bowieImg} imageColor="#ffbe60" heading={bowieHdg} text={bowieText} />
                 </FlexGridCol>
-                <FlexGridCol width={6} desktop={6}>
+                <FlexGridCol width={6} desktop={6} tablet={12} mobile={12}>
                     <TOPCard image={morehouseImg} imageColor="#339189" heading={morehouseHdg} text={morehouseText} />
                 </FlexGridCol>
             </FlexGridRow>
             <FlexGridRow>
-                <FlexGridCol width={6} desktop={6}>
+                <FlexGridCol width={6} desktop={6} tablet={12} mobile={12}>
                     <TOPCard image={kansasImg} imageColor="#fa9441" heading={kansasHdg} text={kansasText} />
                 </FlexGridCol>
-                <FlexGridCol width={6} desktop={6}>
+                <FlexGridCol width={6} desktop={6} tablet={12} mobile={12}>
                     <TOPCard image={momImg} imageColor="#29abe2" heading={momHdg} text={momText} />
                 </FlexGridCol>
             </FlexGridRow>
