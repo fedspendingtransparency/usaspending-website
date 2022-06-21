@@ -5,12 +5,10 @@
 
 import React from 'react';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
-import { FlexGridCol, FlexGridRow, ShareIcon } from 'data-transparency-ui';
+import { ShareIcon } from 'data-transparency-ui';
 import PageWrapper from "../sharedComponents/PageWrapper";
 import { equityPageMetaTags } from "../../helpers/metaTagHelper";
 import EquityHeading from "./equity/EquityHeading";
-import EquitySpotlightCards from "./equity/EquitySpotlightCards";
-import Card from "../sharedComponents/Card";
 
 require('pages/equityCovidSpendingPage/equityCovidSpendingPage.scss');
 
