@@ -20,19 +20,21 @@ const TOPCard = ({
 }) => (
     <FlexGridRow className="topcard-content">
         <FlexGridCol width={6} desktop={12} className="topCard__image-wrapper">
-            <div style={{ backgroundColor: imageColor }}>
+            <div className="topCard__image" style={{ backgroundColor: imageColor }}>
                 {image}
             </div>
         </FlexGridCol>
-        <FlexGridCol width={6} desktop={12} className="topCard__heading-wrapper">
-            {heading}
-        </FlexGridCol>
-        <FlexGridCol width={6} desktop={12} className="topCard__text-wrapper">
-            <p>{text}</p>
-        </FlexGridCol>
-        <FlexGridCol width={6} desktop={12} className="topCard__button-wrapper">
-            {button}
-        </FlexGridCol>
+        <div className="topCard__content-wrapper">
+            <FlexGridCol width={6} desktop={12} className="topCard__heading-wrapper">
+                {heading}
+            </FlexGridCol>
+            <FlexGridCol width={6} desktop={12} className="topCard__text-wrapper">
+                <p>{text}</p>
+            </FlexGridCol>
+            <FlexGridCol width={6} desktop={12} className="topCard__button-wrapper">
+                {button}
+            </FlexGridCol>
+        </div>
     </FlexGridRow>
 );
 

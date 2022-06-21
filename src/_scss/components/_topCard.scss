@@ -1,69 +1,68 @@
 .topcard-content {
-  width: 100%;
-  border-radius: 6px;
-  margin: 0 0 $global-margin * 4;
-  padding: $global-padding * 3;
+  border-radius: 8px;
+  margin: $global-padding * 3;
   @media (min-width: $medium-screen) {
     display: flex;
     align-items: center;
-    padding: $global-margin * 5;
   }
   min-height: 250px;
   box-shadow: $shadow-3;
 
   .topCard__image-wrapper {
-    width: 35px;
-    height: 35px;
-    text-align: center;
-    border-radius: 4px;
-    padding: $global-padding;
+    border-radius: 8px;
     @media (max-width: $medium-screen) {
       margin-bottom: rem(16);
     }
-  }
-  .topCard__heading-wrapper {
-    font-size: $h4-font-size;
-    font-weight: $font-semibold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.25;
-    letter-spacing: normal;
-    color: $color-grayblack;
-    @media (min-width: $medium-screen) {
-      margin-left: $global-margin * 2;
-      padding-bottom: 2px;
-    }
 
-    p {
-      margin: 0;
+    .topCard__image {
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
     }
   }
-  
-  .topCard__text-wrapper {
-    font-size: $base-font-size;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.5;
-    letter-spacing: normal;
-    color: $color-base;
-    margin-bottom: $global-margin * 3;
 
-    p {
-      margin-bottom: 0;
+  .topCard__content-wrapper {
+    padding: 32px 24px 24px;
+    .topCard__heading-wrapper {
+      margin-left: 0;
+      font-size: $h4-font-size;
+      font-weight: $font-semibold;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.25;
+      letter-spacing: normal;
+      color: $color-grayblack;
+
+      p {
+        margin: 0;
+      }
     }
-  }
-  .topCard__button-wrapper {
-    font-size: $h5-font-size;
-    font-weight: $font-semibold;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.25;
-    letter-spacing: normal;
-    color: $color-primary;
+    
+    .topCard__text-wrapper {
+      font-size: $base-font-size;
+      font-weight: normal;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.5;
+      letter-spacing: normal;
+      color: $color-base;
+      margin-bottom: $global-margin * 3;
 
-    a:hover {
-      text-decoration: none;
+      p {
+        margin-bottom: 0;
+      }
+    }
+    .topCard__button-wrapper {
+      font-size: $h5-font-size;
+      font-weight: $font-semibold;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.25;
+      letter-spacing: normal;
+      color: $color-primary;
+
+      a:hover {
+        text-decoration: none;
+      }
     }
   }
 }
