@@ -1,21 +1,31 @@
 .equity-main-card-content {
   border-radius: 8px;
   margin: $global-padding * 3;
-  min-height: 300px;
+  min-height: 550px;
+
+  @media (min-width: 1200px) {
+    min-height: 575px;
+  }
+
+  @media (min-width: $tablet-screen) {
+    min-height: 475px;
+  }
+
   @media (min-width: $medium-screen) {
     display: flex;
     align-items: center;
+    width: auto;
   }
 
   @media (max-width: $small-screen) {
     margin: 0;
   }
-  min-height: 250px;
   box-shadow: $shadow-3;
 
   .equityMainCard__image-wrapper {
     border-radius: 8px;
-    @media (max-width: $medium-screen) {
+    height: 240px;
+    @media (max-width: $small-screen) {
       margin-bottom: rem(16);
     }
 
