@@ -35,8 +35,8 @@ const EquityCovidSpendingPage = () => {
 
     const slug = 'data-dives/equity-COVID-19-spending';
     const emailArgs = {
-        subject: 'Equity in COVID-19 Spending',
-        body: `View the Equity in COVID-19 Spending page on USAspending.gov: ${getBaseUrl(slug)}`
+        subject: 'Equity in COVID-19 spending | USAspending.gov',
+        body: `Dive into the data with the interactive tools on USAspending.gov to learn about equity in COVID-19 spending: ${getBaseUrl(slug)}`
     };
 
     const handleShare = (optionName) => {
