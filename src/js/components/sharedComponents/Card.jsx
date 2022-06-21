@@ -1,5 +1,5 @@
 /**
- * HomepageCovidContainer.jsx
+ * Card.jsx
  * Created by Brian Petway 03/30/2022
  */
 
@@ -15,9 +15,9 @@ const propTypes = {
 };
 
 const Card = ({
-    icon, heading, content, link, border
+    icon, heading, content, link
 }) => (
-    <FlexGridRow className={`card-content ${border ? 'border' : ''}`}>
+    <FlexGridRow className="card-content">
         <FlexGridCol width={12} desktop={1} className="card__icon-wrapper">
             {icon}
         </FlexGridCol>

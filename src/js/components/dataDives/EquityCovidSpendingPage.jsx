@@ -4,15 +4,27 @@
  */
 
 import React from 'react';
+import { useDispatch } from "react-redux";
+import { showModal } from 'redux/actions/modal/modalActions';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import { ShareIcon } from 'data-transparency-ui';
 import PageWrapper from "../sharedComponents/PageWrapper";
 import { equityPageMetaTags } from "../../helpers/metaTagHelper";
 import EquityHeading from "./equity/EquityHeading";
+import EquitySpotlightCards from "./equity/EquitySpotlightCards";
+import ExternalLink from "../sharedComponents/ExternalLink";
 
 require('pages/equityCovidSpendingPage/equityCovidSpendingPage.scss');
 
 const EquityCovidSpendingPage = () => {
+    const dispatch = useDispatch();
+    const onExternalLinkClick = (e) => {
+        e.persist();
+        if (e?.target) {
+            dispatch(showModal(e.target.parentNode.getAttribute('data-href') || e.target.getAttribute('data-href') || e.target.value));
+        }
+    };
     const HeadingContentObject = {
         heading: 'Equity in COVID-19 Spending',
         intro: 'We worked with teams from various schools and advocacy groups across the country to create tools for analyzing USAspending data and other federal open datasets to understand how the $4.5 trillion in federal COVID-19 spending has been shared across communities most vulnerable to the impacts of the pandemic.',
@@ -29,12 +41,48 @@ const EquityCovidSpendingPage = () => {
         momLink: 'https://work.themomproject.com/predictiveequity'
     };
     const spotlightContentObject = {
-        spotlightCardTitle: 'Spotlight on The Opportunity Project',
-        spotlightCardText: 'Learn more about the teams we worked with to help build these interactive tools as part of The Opportunity Project, a U.S. Census Bureau program bringing government, industry, and communities together to create digital products using federal open data to help the public understand real-world problems facing the country today.',
-        spotlightCardLink: 'https://www.usaspending.gov/disaster/covid-19/the-opportunity-project',
-        trackCardTitle: 'Track COVID-19 Spending',
-        trackCardText: 'See how much the federal government is spending in response to COVID-19. Use our COVID-19 profile page to track who is receiving relief funds, which agencies are paying out these funds, and more. Download the data from the page to create your own analysis!',
-        trackCardLink: 'https://www.usaspending.gov/disaster/covid-19?publicLaw=all'
+        spotlightCardIcon: (
+            <span
+                className="fa-layers fa-fw"><FontAwesomeIcon icon="search" inverse size="xl" style={{ height: '20px', width: '20px' }} />
+            </span>),
+        spotlightCardTitle: (
+            <p>Spotlight on The Opportunity Project</p>
+        ),
+        spotlightCardText: (
+            <p>
+                Learn more about the teams we worked with to help build these interactive tools as part of The Opportunity Project, a U.S. Census Bureau program bringing government, industry, and communities together to create digital products using federal open data to help the public understand real-world problems facing the country today.
+            </p>
+        ),
+        spotlightCardLink: (
+            <button
+                value="https://www.usaspending.gov/disaster/covid-19/the-opportunity-project"
+                role="link"
+                className="usa-button-link"
+                onClick={onExternalLinkClick}>
+                Learn More
+            </button>
+        ),
+        trackCardIcon: (
+            <span
+                className="fa-layers fa-fw"><FontAwesomeIcon icon="search" inverse size="xl" style={{ height: '20px', width: '20px' }} />
+            </span>),
+        trackCardTitle: (
+            <p>Track <span>COVID-19</span> Spending</p>
+        ),
+        trackCardText: (
+            <p>
+                See how much the federal government is spending in response to COVID-19. Use our COVID-19 profile page to track who is receiving relief funds, which agencies are paying out these funds, and more. Download the data from the page to create your own analysis!
+            </p>
+        ),
+        trackCardLink: (
+            <button
+                value="https://www.usaspending.gov/disaster/covid-19?publicLaw=all"
+                role="link"
+                className="usa-button-link"
+                onClick={onExternalLinkClick}>
+                Explore Now
+            </button>
+        )
     };
 
     const slug = 'data-dives/equity-COVID-19-spending';
@@ -60,7 +108,7 @@ const EquityCovidSpendingPage = () => {
             <main id="main-content" className="main-content equity-content">
                 <EquityHeading content={HeadingContentObject} />
                 <div content={cardsContentObject}>MAIN CARDS</div>
-                <div content={spotlightContentObject}>SPOTLIGHT CARDS</div>
+                <EquitySpotlightCards content={spotlightContentObject} />
             </main>
         </PageWrapper>
     );

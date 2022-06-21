@@ -1,47 +1,33 @@
-.card-content {
+.spotlightCard-content {
   width: 100%;
   background-color: $color-white;
-  margin: 0 0 $global-margin * 4;
-  padding: $global-padding * 3;
-  border-radius: 6px;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  //margin: 0;
+  //padding: 0;
   min-height: 250px;
-  @media (min-width: $medium-screen) {
-    display: flex;
-    align-items: center;
-    padding: $global-margin * 5;
-  }
 
-  .card__icon-wrapper {
-    width: 35px;
-    height: 35px;
+  .spotlightCard__icon-wrapper {
+    width: 32px;
+    height: 32px;
     background: $color-grayblack;
     text-align: center;
     border-radius: 4px;
     padding: $global-padding;
-    @media (max-width: $medium-screen) {
-      margin-bottom: rem(16);
-    }
   }
-  .card__heading-wrapper {
-    font-size: rem(20);
+  .spotlightCard__heading-wrapper {
+    font-size: $h4-font-size;
     font-weight: $font-semibold;
     font-stretch: normal;
     font-style: normal;
     line-height: 1.25;
     letter-spacing: normal;
     color: $color-grayblack;
-    @media (min-width: $medium-screen) {
-      margin-left: $global-margin * 2;
-      padding-bottom: 2px;
-    }
 
     p {
       margin: 0;
     }
   }
 
-  .card__content-wrapper {
+  .spotlightCard__content-wrapper {
     font-size: $base-font-size;
     font-weight: normal;
     font-stretch: normal;
@@ -55,7 +41,7 @@
       margin-bottom: 0;
     }
   }
-  .card__link-wrapper {
+  .spotlightCard__link-wrapper {
     font-size: $h5-font-size;
     font-weight: $font-semibold;
     font-stretch: normal;
