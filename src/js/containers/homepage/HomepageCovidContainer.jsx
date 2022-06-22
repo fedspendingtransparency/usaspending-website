@@ -151,14 +151,12 @@ const HomepageCovidContainer = () => {
                             icon={searchCardIcon}
                             heading={searchCardHeading}
                             content={searchCardContent}
-                            link={searchCardLink}
-                            border />
+                            link={searchCardLink} />
                         <Card
                             icon={trackCardIcon}
                             heading={trackCardHeading}
                             content={trackCardContent}
-                            link={trackCardLink}
-                            border />
+                            link={trackCardLink} />
                     </div>
                 </FlexGridCol>
             </FlexGridRow>
