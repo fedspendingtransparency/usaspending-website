@@ -1,5 +1,5 @@
 /**
- * HomepageCovidContainer.jsx
+ * Card.jsx
  * Created by Brian Petway 03/30/2022
  */
 

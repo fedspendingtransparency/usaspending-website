@@ -1,0 +1,49 @@
+.equity-heading {
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+  background-color: $color-white;
+
+  .grid-content {
+    padding-top: $global-padding * 7;
+
+    .equity-heading__heading {
+      font-size: rem(36);
+      font-weight: $font-semibold;
+      color: $color-grayblack;
+      margin-bottom: $global-margin * 2;
+    }
+    .equity-heading__stats-row {
+      display: flex;
+      font-size: rem(14);
+      font-weight: $font-normal;
+      color: $color-base;
+      .equity-heading__pill {
+        font-weight: $font-semibold;
+        background-color: $color-gray-lightest;
+        padding: 0 $global-padding;
+        border-radius: 4px;
+        margin-right: $global-margin * 2;
+      }
+      .equity-heading__date {
+        margin-right: $global-margin;
+      }
+      .equity-heading__dot {
+        color: $color-gray-light;
+        margin-right: $global-margin;
+      }
+    }
+    .equity-heading__intro {
+      font-size: rem(20);
+      font-weight: $font-normal;
+      color: $color-base;
+      margin: $global-margin * 3 0;
+    }
+    .equity-heading__note {
+      font-size: rem(16);
+      font-weight: $font-normal;
+      color: $color-base;
+      margin-bottom: $global-margin * 3;
+    }
+  }
+}
