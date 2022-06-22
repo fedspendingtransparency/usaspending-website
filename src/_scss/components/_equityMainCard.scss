@@ -3,23 +3,30 @@
   margin: $global-padding * 3;
   min-height: 550px;
   display: block;
-  @media (min-width: 1200px) {
-    min-height: 575px;
-  }
 
-  @media (min-width: $tablet-screen) {
-    min-height: 475px;
+  @media (max-width: $small-screen) {
+    margin: 0;
   }
 
   @media (min-width: $medium-screen) {
     display: flex;
     align-items: center;
     width: auto;
+    min-height: 500px;
   }
 
-  @media (max-width: $small-screen) {
-    margin: 0;
+  @media (min-width: 993px) and (max-width: 1100) {
+    min-height: 525px;
   }
+
+  @media (min-width: $tablet-screen) {
+    min-height: 500px;
+  }
+
+  @media (min-width: 1200px) {
+    min-height: 575px;
+  }
+
   box-shadow: $shadow-3;
 
   .equityMainCard__image-wrapper {
