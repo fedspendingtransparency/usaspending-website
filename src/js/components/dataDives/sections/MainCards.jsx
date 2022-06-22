@@ -37,10 +37,11 @@ const MainCards = ({ contentObject }) => {
     const kansasHdg = <h2>University of Kansas Center for Public Partnerships and Research</h2>;
     const momHdg = <h2>The Mom Project</h2>;
 
-    const bowieBtn = (<ExternalLink url={contentObject.bowieLink}>See Project</ExternalLink>);
-    const kansasBtn = (<ExternalLink url={contentObject.kansasLink}>See Project</ExternalLink>);
-    const morehouseBtn = (<ExternalLink url={contentObject.morehouseLink}>See Project</ExternalLink>);
-    const momBtn = (<ExternalLink url={contentObject.momLink}>See Project</ExternalLink>);
+
+    const bowieBtn = (<ExternalLink url={contentObject.bowieLink}>See Project&nbsp;&nbsp;</ExternalLink>);
+    const kansasBtn = (<ExternalLink url={contentObject.kansasLink}>See Project&nbsp;&nbsp;</ExternalLink>);
+    const morehouseBtn = (<ExternalLink url={contentObject.morehouseLink}>See Project&nbsp;&nbsp;</ExternalLink>);
+    const momBtn = (<ExternalLink url={contentObject.momLink}>See Project&nbsp;&nbsp;</ExternalLink>);
 
     const {
         bowieText, kansasText, momText, morehouseText
