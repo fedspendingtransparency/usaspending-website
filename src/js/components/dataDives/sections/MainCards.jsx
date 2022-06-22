@@ -5,10 +5,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useDispatch } from "react-redux";
+import { largeScreen } from 'dataMapping/shared/mobileBreakpoints';
+import ExternalLink from 'components/sharedComponents/ExternalLink';
 import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
-import { showModal } from 'redux/actions/modal/modalActions';
 import ReadMoreUpdated from '../../sharedComponents/ReadMoreUpdated';
 import EquityMainCard from '../../sharedComponents/EquityMainCard';
 
@@ -17,11 +16,14 @@ const propTypes = {
 };
 
 const MainCards = ({ contentObject }) => {
-    const dispatch = useDispatch();
-    const onExternalLinkClick = (e) => {
-        e.persist();
-        if (e?.target) {
-            dispatch(showModal(e.target.parentNode.getAttribute('data-href') || e.target.getAttribute('data-href') || e.target.value));
+    const additionalFunctionality = (expanded) => {
+        if (window.innerWidth >= largeScreen) {
+            const toExpand = document.querySelector(".card__toExpand");
+            if (!expanded) {
+                toExpand.style.paddingBottom = "116px";
+            } else {
+                toExpand.style.paddingBottom = "24px";
+            }
         }
     };
 
@@ -30,67 +32,22 @@ const MainCards = ({ contentObject }) => {
     const morehouseImg = <img className="main-cards__svg" src="../../../../img/top-morehouse-combined-image.svg" alt="" />;
     const momImg = <img className="main-cards__svg" src="../../../../img/top-mom-project-combined-image.svg" alt="" />;
 
-
     const bowieHdg = <h2>Bowie State University</h2>;
     const morehouseHdg = <h2>Morehouse College</h2>;
     const kansasHdg = <h2>University of Kansas Center for Public Partnerships and Research</h2>;
     const momHdg = <h2>The Mom Project</h2>;
 
-    const bowieBtn = (
-        <button
-            value={contentObject.bowieLink}
-            role="link"
-            onClick={onExternalLinkClick}>
-    See Project{' '}
-            <span
-                data-href={contentObject.bowieLink}
-                className="usa-button-link__icon">
-                <FontAwesomeIcon data-href={contentObject.bowieLink} icon="external-link-alt" />
-            </span>
-        </button>);
-    const kansasBtn = (
-        <button
-            value={contentObject.kansasLink}
-            role="link"
-            onClick={onExternalLinkClick}>
-    See Project{' '}
-            <span
-                data-href={contentObject.kansasLink}
-                className="usa-button-link__icon">
-                <FontAwesomeIcon data-href={contentObject.kansasLink} icon="external-link-alt" />
-            </span>
-        </button>);
-    const morehouseBtn = (
-        <button
-            value={contentObject.morehouseLink}
-            role="link"
-            onClick={onExternalLinkClick}>
-    See Project{' '}
-            <span
-                data-href={contentObject.morehouseLink}
-                className="usa-button-link__icon">
-                <FontAwesomeIcon data-href={contentObject.morehouseLink} icon="external-link-alt" />
-            </span>
-        </button>);
-    const momBtn = (
-        <button
-            value={contentObject.momLink}
-            role="link"
-            onClick={onExternalLinkClick}>
-    See Project{' '}
-            <span
-                data-href={contentObject.momLink}
-                className="usa-button-link__icon">
-                <FontAwesomeIcon data-href={contentObject.momLink} icon="external-link-alt" />
-            </span>
-        </button>);
+    const bowieBtn = (<ExternalLink url={contentObject.bowieLink}>See Project</ExternalLink>);
+    const kansasBtn = (<ExternalLink url={contentObject.kansasLink}>See Project</ExternalLink>);
+    const morehouseBtn = (<ExternalLink url={contentObject.morehouseLink}>See Project</ExternalLink>);
+    const momBtn = (<ExternalLink url={contentObject.momLink}>See Project</ExternalLink>);
 
     const {
         bowieText, kansasText, momText, morehouseText
     } = contentObject;
 
     const momContent = (
-        <ReadMoreUpdated text={momText} limit="353" />
+        <ReadMoreUpdated text={momText} limit="353" additionalFunctionality={additionalFunctionality} />
     );
 
     return (
@@ -105,7 +62,7 @@ const MainCards = ({ contentObject }) => {
             </FlexGridRow>
             <FlexGridRow>
                 <FlexGridCol width={6} desktop={6} tablet={12} mobile={12}>
-                    <EquityMainCard image={kansasImg} imageColor="#fa9441" heading={kansasHdg} text={kansasText} button={kansasBtn} />
+                    <EquityMainCard className="card__toExpand" image={kansasImg} imageColor="#fa9441" heading={kansasHdg} text={kansasText} button={kansasBtn} />
                 </FlexGridCol>
                 <FlexGridCol width={6} desktop={6} tablet={12} mobile={12}>
                     <EquityMainCard image={momImg} imageColor="#29abe2" heading={momHdg} text={momContent} button={momBtn} />

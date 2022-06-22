@@ -17,7 +17,8 @@ const propTypes = {
     closeIcon: PropTypes.string,
     openPrompt: PropTypes.string,
     closePrompt: PropTypes.string,
-    iconColor: PropTypes.string
+    iconColor: PropTypes.string,
+    additionalFunctionality: PropTypes.func
 };
 
 const ReadMoreUpdated = ({
@@ -28,11 +29,30 @@ const ReadMoreUpdated = ({
     openIcon = "angle-down",
     closeIcon = "angle-up",
     openPrompt = "Read More",
-    closePrompt = "Read Less"
+    closePrompt = "Read Less",
+    additionalFunctionality = null
 }) => {
     const [expanded, setExpanded] = useState(initiallyExpanded);
-    const readLess = (<button className="readMoreUpdated__expand-button" onClick={() => setExpanded(false)}>{closePrompt}{' '}<span className="usa-button-link__icon"><FontAwesomeIcon className="readMoreUpdated__link-icon" icon={closeIcon} /></span></button>);
-    const readMore = (<button className="readMoreUpdated__contract-button" onClick={() => setExpanded(true)}>{openPrompt}{' '}<span className="usa-button-link__icon"><FontAwesomeIcon className="readMoreUpdated__link-icon" icon={openIcon} /></span></button>);
+    const readLess = (
+        <button
+            className="readMoreUpdated__expand-button"
+            onClick={() => {
+                setExpanded(false);
+                if (additionalFunctionality !== null) {
+                    additionalFunctionality(expanded);
+                }
+            }}>{closePrompt}{' '}<span className="usa-button-link__icon"><FontAwesomeIcon className="readMoreUpdated__link-icon" icon={closeIcon} /></span>
+        </button>);
+    const readMore = (
+        <button
+            className="readMoreUpdated__contract-button"
+            onClick={() => {
+                setExpanded(true);
+                if (additionalFunctionality !== null) {
+                    additionalFunctionality();
+                }
+            }}>{openPrompt}{' '}<span className="usa-button-link__icon"><FontAwesomeIcon className="readMoreUpdated__link-icon" icon={openIcon} /></span>
+        </button>);
     if (expanded && children) {
         return (
             <>

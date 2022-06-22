@@ -2,7 +2,7 @@
   border-radius: 8px;
   margin: $global-padding * 3;
   min-height: 550px;
-
+  display: block;
   @media (min-width: 1200px) {
     min-height: 575px;
   }

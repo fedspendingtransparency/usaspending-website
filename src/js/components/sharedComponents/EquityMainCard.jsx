@@ -12,11 +12,12 @@ const propTypes = {
     heading: PropTypes.object,
     text: oneOfType([PropTypes.element, PropTypes.string, PropTypes.object]),
     button: PropTypes.object,
-    imageColor: PropTypes.string
+    imageColor: PropTypes.string,
+    className: PropTypes.string
 };
 
 const EquityMainCard = ({
-    image, heading, text, button, imageColor
+    image, heading, text, button, imageColor, className
 }) => (
     <FlexGridRow className="equity-main-card-content">
         <FlexGridCol width={6} desktop={12} tablet={12} mobile={12} className="equityMainCard__image-wrapper">
@@ -24,7 +25,7 @@ const EquityMainCard = ({
                 {image}
             </div>
         </FlexGridCol>
-        <div className="equityMainCard__content-wrapper">
+        <div className={`equityMainCard__content-wrapper ${className}`}>
             <FlexGridCol width={6} desktop={12} tablet={12} mobile={12} className="equityMainCard__heading-wrapper">
                 {heading}
             </FlexGridCol>
