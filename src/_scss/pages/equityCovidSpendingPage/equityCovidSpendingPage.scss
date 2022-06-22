@@ -26,7 +26,17 @@
     .main-cards__wrapper {
       margin: 0;
       @media (min-width: $tablet-screen) {
-        margin: 0 $global-margin * 8 80px;
+        margin-bottom: $global-margin * 12;
+      }
+      .equity-main-card__col-one {
+        @media (min-width: $medium-screen) {
+          padding-right: $global-margin * 2;
+        }
+      }
+      .equity-main-card__col-two {
+        @media (min-width: $medium-screen) {
+          padding-left: $global-margin * 2;
+        }
       }
       h2 {
         font-size: rem(20);

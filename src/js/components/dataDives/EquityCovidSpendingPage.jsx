@@ -92,7 +92,6 @@ const EquityCovidSpendingPage = () => {
                 <ShareIcon url={getBaseUrl(slug)} onShareOptionClick={handleShare} />
             ]}>
             <main id="main-content" className="main-content equity-content">
-
                 <EquityHeading content={HeadingContentObject} />
                 <MainCards contentObject={cardsContentObject} />
                 <EquitySpotlightCards content={spotlightContentObject} />

@@ -21,7 +21,8 @@ const MainCards = ({ contentObject }) => {
             const toExpand = document.querySelector(".card__toExpand");
             if (!expanded) {
                 toExpand.style.paddingBottom = "116px";
-            } else {
+            }
+            else {
                 toExpand.style.paddingBottom = "24px";
             }
         }
@@ -53,19 +54,19 @@ const MainCards = ({ contentObject }) => {
 
     return (
         <section className="main-cards__wrapper">
-            <FlexGridRow>
-                <FlexGridCol width={6} desktop={6} tablet={12} mobile={12}>
+            <FlexGridRow className="grid-content">
+                <FlexGridCol width={6} desktop={6} tablet={12} mobile={12} className="equity-main-card__col-one">
                     <EquityMainCard image={bowieImg} imageColor="#ffbe60" heading={bowieHdg} text={bowieText} button={bowieBtn} />
                 </FlexGridCol>
-                <FlexGridCol width={6} desktop={6} tablet={12} mobile={12}>
+                <FlexGridCol width={6} desktop={6} tablet={12} mobile={12} className="equity-main-card__col-two">
                     <EquityMainCard image={morehouseImg} imageColor="#339189" heading={morehouseHdg} text={morehouseText} button={morehouseBtn} />
                 </FlexGridCol>
             </FlexGridRow>
-            <FlexGridRow>
-                <FlexGridCol width={6} desktop={6} tablet={12} mobile={12}>
+            <FlexGridRow className="grid-content">
+                <FlexGridCol width={6} desktop={6} tablet={12} mobile={12} className="equity-main-card__col-one">
                     <EquityMainCard className="card__toExpand" image={kansasImg} imageColor="#fa9441" heading={kansasHdg} text={kansasText} button={kansasBtn} />
                 </FlexGridCol>
-                <FlexGridCol width={6} desktop={6} tablet={12} mobile={12}>
+                <FlexGridCol width={6} desktop={6} tablet={12} mobile={12} className="equity-main-card__col-two">
                     <EquityMainCard image={momImg} imageColor="#29abe2" heading={momHdg} text={momContent} button={momBtn} />
                 </FlexGridCol>
             </FlexGridRow>
