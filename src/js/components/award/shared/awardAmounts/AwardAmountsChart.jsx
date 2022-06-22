@@ -621,7 +621,7 @@ const AwardAmountsChart = ({
                             labelSortOrder: 1,
                             labelPosition: 'top',
                             tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'obligated', awardAmounts),
-                            rawValue: getAwardOutlayRawValue(awardAmounts, awardType, infrastructure),
+                            rawValue: getAwardObligatedRawValue(awardAmounts, awardType, infrastructure),
                             denominatorValue: awardAmounts._totalFunding,
                             value: getAwardObligatedValue(awardAmounts, awardType, infrastructure),
                             lineOffset: lineOffsetsBySpendingCategory.obligationAsst,
