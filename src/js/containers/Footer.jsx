@@ -21,7 +21,7 @@ import BulkDownloadBottomBarContainer from
 import FloatingGlossaryButton from 'components/sharedComponents/FloatingGlossaryButton';
 import FooterExternalLink from 'components/sharedComponents/FooterExternalLink';
 import Subscribe from '../components/sharedComponents/Subscribe';
-// import Training from '../components/sharedComponents/Training';
+import Training from '../components/sharedComponents/Training';
 
 const propTypes = {
     pageName: PropTypes.string.isRequired,
@@ -53,7 +53,7 @@ const Footer = ({
                 filters={filters} />
             <BulkDownloadBottomBarContainer />
             <Subscribe pageName={pageName} />
-            {/* <Training pageName={pageName} />*/}
+            <Training pageName={pageName} />
             <footer
                 className="footer-outer-wrap"
                 role="contentinfo"

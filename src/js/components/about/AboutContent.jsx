@@ -24,6 +24,7 @@ import Contact from './Contact';
 import Development from './Development';
 import Careers from './Careers';
 import Licensing from './Licensing';
+import TrainingContent from "./TrainingContent";
 
 const aboutSections = [
     {
@@ -45,6 +46,10 @@ const aboutSections = [
     {
         section: 'development',
         label: 'Development and Releases'
+    },
+    {
+        section: 'training',
+        label: 'Training'
     },
     {
         section: 'careers',
@@ -122,6 +127,7 @@ const AboutContent = () => {
                     <DataSources onExternalLinkClick={onExternalLinkClick} />
                     <DataQuality onExternalLinkClick={onExternalLinkClick} />
                     <Development />
+                    <TrainingContent />
                     <Careers />
                     <Licensing />
                     <MoreInfo />
