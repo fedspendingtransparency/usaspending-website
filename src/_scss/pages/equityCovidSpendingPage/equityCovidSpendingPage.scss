@@ -26,7 +26,7 @@
     .main-cards__wrapper {
       margin: 0;
       @media (min-width: $tablet-screen) {
-        margin: 16px $global-margin * 8 80px;
+        margin: 0 $global-margin * 8 80px;
       }
       h2 {
         font-size: rem(20);
