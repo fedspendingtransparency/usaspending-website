@@ -9,13 +9,12 @@
   }
 
   @media (min-width: $medium-screen) {
-    display: flex;
     align-items: center;
     width: auto;
     min-height: 500px;
   }
 
-  @media (min-width: 993px) and (max-width: 1100) {
+  @media (min-width: 993px) and (max-width: 1100px) {
     min-height: 525px;
   }
 
