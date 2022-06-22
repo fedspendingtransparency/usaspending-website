@@ -76,6 +76,8 @@ const BaseAwardAmounts = {
         this._nonFederalFunding = data._nonFederalFunding;
         this._fileCOutlay = getCovid19Totals(data.fileC.outlays, defCodes);
         this._fileCObligated = getCovid19Totals(data.fileC.obligations, defCodes);
+        this._fileCOutlayInfrastructure = getInfrastructureTotals(data.fileC.outlays);
+        this._fileCObligatedInfrastructure = getInfrastructureTotals(data.fileC.obligations);
     },
     populateContract(data, defCodes) {
         this._totalObligation = data._totalObligation;

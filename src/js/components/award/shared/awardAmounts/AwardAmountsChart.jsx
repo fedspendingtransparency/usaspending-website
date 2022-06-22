@@ -32,7 +32,6 @@ const propTypes = {
     infrastructureSpending: PropTypes.string
 };
 
-// Only for Contract and IDV Awards
 
 const getAwardTypeText = (awardType, amountType, infrastructure) => {
     const infraText = infrastructure ? "Infrastructure" : "";
@@ -42,6 +41,9 @@ const getAwardTypeText = (awardType, amountType, infrastructure) => {
 const getAwardColor = (overallColor, infrastructureColor, infrastructure) => (infrastructure ? infrastructureColor : overallColor);
 
 const getAwardOutlayRawValue = (data, awardType, infrastructure) => {
+    console.log('getAwardOutlayRawValue', data)
+    console.log(infrastructure)
+
     if (infrastructure) {
         return data._fileCOutlayInfrastructure;
     }
@@ -58,6 +60,8 @@ const getAwardOutlayValue = (data, awardType, infrastructure) => {
 };
 
 const getAwardObligatedRawValue = (data, awardType, infrastructure) => {
+    console.log('getAwardObligatedRawValue', data)
+    console.log(infrastructure)
     if (infrastructure) {
         return data._fileCObligatedInfrastructure;
     }
@@ -73,7 +77,7 @@ const getAwardObligatedValue = (data, awardType, infrastructure) => {
     return data.totalObligationAbbreviated;
 };
 
-
+// Only for Contract and IDV Awards
 const buildNormalProps = (awardType, data, hasFileC, hasOutlays, infrastructure) => {
     const chartProps = {
         denominator: {
@@ -515,7 +519,7 @@ const AwardAmountsChart = ({
                 );
             }
             case "normal":
-                if (hasOutlays) {
+                if (hasOutlays || infrastructure) {
                     return (
                         <HorizontalSingleStackedBarViz {...buildNormalProps(type, awardAmounts, hasFileC, hasOutlays, infrastructure)} />
                     );
@@ -532,7 +536,7 @@ const AwardAmountsChart = ({
         }
     };
 
-    const renderChartByAwardType = (awardAmounts = awardOverview, type = awardType, scenario = spendingScenario) => {
+    const renderChartByAwardType = (awardAmounts = awardOverview, type = awardType, scenario = spendingScenario, infrastructure) => {
         const isNormal = scenario === 'normal';
         if (asstAwardTypesWithSimilarAwardAmountData.includes(type) && isNormal) {
             const isNffZero = awardAmounts._nonFederalFunding === 0;
@@ -617,12 +621,12 @@ const AwardAmountsChart = ({
                             labelSortOrder: 1,
                             labelPosition: 'top',
                             tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'obligated', awardAmounts),
-                            rawValue: awardAmounts._totalObligation,
+                            rawValue: getAwardOutlayRawValue(awardAmounts, awardType, infrastructure),
                             denominatorValue: awardAmounts._totalFunding,
-                            value: awardAmounts.totalObligationAbbreviated,
+                            value: getAwardObligatedValue(awardAmounts, awardType, infrastructure),
                             lineOffset: lineOffsetsBySpendingCategory.obligationAsst,
-                            text: 'Obligated Amount',
-                            color: obligatedColor
+                            text: getAwardTypeText(awardType, "Obligated", infrastructure),
+                            color: getAwardColor(obligatedColor, infrastructureOutlayColor, infrastructure)
                         }
                     ]
                 },
@@ -630,11 +634,11 @@ const AwardAmountsChart = ({
                     labelSortOrder: 0,
                     labelPosition: 'top',
                     className: `${awardType}-outlayed`,
-                    rawValue: awardAmounts._totalOutlay,
-                    value: awardAmounts.totalOutlayAbbreviated,
-                    color: outlayColor,
+                    rawValue: getAwardOutlayRawValue(awardAmounts, awardType, infrastructure),
+                    value: getAwardOutlayValue(awardAmounts, awardType, infrastructure),
+                    color: getAwardColor(outlayColor, infrastructureOutlayColor, infrastructure),
                     lineOffset: lineOffsetsBySpendingCategory.potential,
-                    text: 'Outlayed Amount'
+                    text: getAwardTypeText(awardType, "Outlayed", infrastructure)
                 }
             };
             if (showFileC) {
@@ -666,7 +670,7 @@ const AwardAmountsChart = ({
                     }
                 ];
             }
-            if (hasOutlays) {
+            if (hasOutlays || infrastructure) {
                 return (
                     <HorizontalSingleStackedBarViz {...chartPropsOutlays} />
                 );
@@ -795,7 +799,7 @@ const AwardAmountsChart = ({
         );
     };
 
-    const visualization = renderChartByAwardType(awardOverview, awardType, spendingScenario);
+    const visualization = renderChartByAwardType(awardOverview, awardType, spendingScenario, infrastructure);
 
     return (
         <React.Fragment>
