@@ -103,23 +103,23 @@ const AwardAmountsTable = ({
         const exclusionsFromInfrastructure = ['Combined Outlayed Amounts', 'Combined Obligated Amounts', 'Outlayed Amount', 'Obligated Amount'];
         let hide = false;
 
-        // if (infrastructure) {
-        //     exclusionsFromInfrastructure.forEach((item) => {
-        //         if (title === item) {
-        //             hide = true;
-        //         }
-        //     });
-        // } else {
-        //     exclusions.forEach((item) => {
-        //         if (title.indexOf(item) > -1 && amountMapByCategoryTitle[title] === '$0.00') {
-        //             hide = true;
-        //         }
-        //     });
-        //
-        //     if (!infrastructure && title.includes('Infrastructure')) {
-        //         hide = true;
-        //     }
-        // }
+        if (infrastructure) {
+            exclusionsFromInfrastructure.forEach((item) => {
+                if (title === item) {
+                    hide = true;
+                }
+            });
+        } else {
+            exclusions.forEach((item) => {
+                if (title.indexOf(item) > -1 && amountMapByCategoryTitle[title] === '$0.00') {
+                    hide = true;
+                }
+            });
+
+            if (!infrastructure && title.includes('Infrastructure')) {
+                hide = true;
+            }
+        }
 
         return hide;
     };

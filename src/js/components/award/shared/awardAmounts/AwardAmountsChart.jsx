@@ -41,9 +41,6 @@ const getAwardTypeText = (awardType, amountType, infrastructure) => {
 const getAwardColor = (overallColor, infrastructureColor, infrastructure) => (infrastructure ? infrastructureColor : overallColor);
 
 const getAwardOutlayRawValue = (data, awardType, infrastructure) => {
-    console.log('getAwardOutlayRawValue', data)
-    console.log(infrastructure)
-
     if (infrastructure) {
         return data._fileCOutlayInfrastructure;
     }
@@ -60,8 +57,6 @@ const getAwardOutlayValue = (data, awardType, infrastructure) => {
 };
 
 const getAwardObligatedRawValue = (data, awardType, infrastructure) => {
-    console.log('getAwardObligatedRawValue', data)
-    console.log(infrastructure)
     if (infrastructure) {
         return data._fileCObligatedInfrastructure;
     }
@@ -626,7 +621,7 @@ const AwardAmountsChart = ({
                             value: getAwardObligatedValue(awardAmounts, awardType, infrastructure),
                             lineOffset: lineOffsetsBySpendingCategory.obligationAsst,
                             text: getAwardTypeText(awardType, "Obligated", infrastructure),
-                            color: getAwardColor(obligatedColor, infrastructureOutlayColor, infrastructure)
+                            color: getAwardColor(obligatedColor, infrastructureObligatedColor, infrastructure)
                         }
                     ]
                 },
@@ -671,10 +666,13 @@ const AwardAmountsChart = ({
                 ];
             }
             if (hasOutlays || infrastructure) {
+                console.log(chartPropsOutlays)
                 return (
                     <HorizontalSingleStackedBarViz {...chartPropsOutlays} />
                 );
             }
+            console.log("here12")
+
             return (
                 <RectanglePercentViz {...chartProps} />
             );
