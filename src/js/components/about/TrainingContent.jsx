@@ -5,18 +5,7 @@
 
 import React from 'react';
 
-import * as redirectHelper from 'helpers/redirectHelper';
-
 export default class TrainingContent extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.clickedLink = this.clickedLink.bind(this);
-    }
-
-    clickedLink() {
-        redirectHelper.showRedirectModal('https://github.com/fedspendingtransparency/usaspending-website/wiki');
-    }
     render() {
         const trainingEmailBody = (
             `Thank you for your request for training on how to use the USAspending.gov website!\n\n` +
