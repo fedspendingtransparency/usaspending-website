@@ -6,16 +6,26 @@
 
   .equity-content {
     background-color: white;
+    max-width: $site-max-width;
 
     .usa-dt-flex-grid__row.grid-content {
-      margin: 0 $grid-column;
+      margin: 0 $global-margin * 2;
       height: 100%;
     }
 
-    @media screen and (max-width: $medium-screen) {
-      .homepage-hero-content, .usa-dt-flex-grid__row.grid-content {
-        margin: 0 rem(16);
+    @media screen and (min-width: $tablet-screen) {
+      .usa-dt-flex-grid__row.grid-content {
+        margin: 0 $global-margin * 4;
+      }
+
+    }
+    @media screen and (min-width: $large-screen) {
+      .usa-dt-flex-grid__row.grid-content {
+        margin: 0 $grid-column;
       }
     }
   }
+
+  @import 'equityHeading';
+  @import 'equitySpotlightCards';
 }
