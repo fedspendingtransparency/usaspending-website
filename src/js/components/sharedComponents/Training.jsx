@@ -36,7 +36,7 @@ const Training = (pageName) => {
             <div className="training__message">
                 on how to use USAspending.gov
             </div>
-            <Link to="/about" onClick={trackLink}>
+            <Link className="training__link" to="/about" onClick={trackLink}>
                 Learn&nbsp;More
                 <FontAwesomeIcon icon={faCaretRight} />
             </Link>
