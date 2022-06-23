@@ -1,7 +1,6 @@
 .equity-main-card-content {
   border-radius: 8px;
   margin: $global-margin * 2 0;
-  min-height: 550px;
   display: block;
 
   @media (max-width: $small-screen) {
@@ -12,18 +11,15 @@
     align-items: center;
     width: auto;
     min-height: 500px;
+    height: 94%;
   }
 
-  @media (min-width: 993px) and (max-width: 1100px) {
-    min-height: 525px;
-  }
-
-  @media (min-width: $tablet-screen) {
-    min-height: 500px;
+  @media (min-width: 993px) and (max-width: 1200px) {
+    height: 94%;
   }
 
   @media (min-width: 1200px) {
-    min-height: 575px;
+    height: 94%;
   }
 
   box-shadow: $shadow-3;
@@ -78,10 +74,10 @@
         @include button-unstyled;
         font-weight: $font-semibold;
         color: $color-primary;
-        margin: 0 4px 0 0;
+        margin: 8px 4px 0 0;
         font-size: rem(14);
         line-height: 1.5;
-
+        vertical-align: middle;
         &:hover {
           color: $color-primary-darker;
         }
@@ -94,10 +90,10 @@
         @include button-unstyled;
         font-weight: $font-semibold;
         color: $color-primary;
-        margin: 0 4px 0 0;
+        margin: 8px 4px 0 0;
         font-size: rem(14);
         line-height: 1.5;
-
+        vertical-align: middle;
         &:hover {
           color: $color-primary-darker;
         }
