@@ -73,7 +73,7 @@ const getAwardObligatedValue = (data, awardType, infrastructure) => {
 };
 
 // Only for Contract and IDV Awards
-const buildNormalProps = (awardType, data, hasFileC, hasOutlays, infrastructure) => {
+const buildNormalProps = (awardType, data, hasfilecCovid, hasOutlays, infrastructure) => {
     const chartProps = {
         denominator: {
             labelSortOrder: 3,
@@ -171,7 +171,7 @@ const buildNormalProps = (awardType, data, hasFileC, hasOutlays, infrastructure)
         }
     };
     if (hasOutlays) return chartPropsOutlays; // show outlays for non-covid only first
-    if (!hasFileC) return chartProps;
+    if (!hasfilecCovid) return chartProps;
     return {
         ...chartProps,
         // eslint-disable-next-line no-multi-assign
@@ -211,7 +211,7 @@ const buildNormalProps = (awardType, data, hasFileC, hasOutlays, infrastructure)
 };
 
 // Only for Contract and IDV Awards
-const buildExceedsCurrentProps = (awardType, data, hasFileC) => {
+const buildExceedsCurrentProps = (awardType, data, hasfilecCovid) => {
     const chartProps = {
         denominator: {
             labelPosition: 'bottom',
@@ -285,7 +285,7 @@ const buildExceedsCurrentProps = (awardType, data, hasFileC) => {
             tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'exceedsCurrent', data)
         }
     };
-    if (!hasFileC) return chartProps;
+    if (!hasfilecCovid) return chartProps;
     return {
         ...chartProps,
         // eslint-disable-next-line no-multi-assign
@@ -337,7 +337,7 @@ const buildExceedsCurrentProps = (awardType, data, hasFileC) => {
 };
 
 // Only for Contract and IDV Awards
-const buildExceedsPotentialProps = (awardType, data, hasFileC) => {
+const buildExceedsPotentialProps = (awardType, data, hasfilecCovid) => {
     const chartProps = {
         denominator: {
             labelSortOrder: 0,
@@ -432,7 +432,7 @@ const buildExceedsPotentialProps = (awardType, data, hasFileC) => {
             tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'exceedsPotential', data)
         }
     };
-    if (!hasFileC) return chartProps;
+    if (!hasfilecCovid) return chartProps;
     return {
         ...chartProps,
         // eslint-disable-next-line no-multi-assign
@@ -499,28 +499,28 @@ const AwardAmountsChart = ({
         type = awardType,
         awardAmounts = awardOverview
     ) => {
-        const hasFileC = awardAmounts._fileCObligated > 0;
-        const hasOutlays = awardAmounts._combinedOutlay > 0 || awardAmounts._totalOutlay > 0;
+        const hasfilecCovid = awardAmounts._fileCObligated > 0;
+        const hasOutlays = awardAmounts._combinedOutlay > 0 || awardAmounts._totalOutlay > 0 || infrastructure;
 
         switch (scenario) {
             case "exceedsBigger": {
                 return (
-                    <RectanglePercentViz {...buildExceedsCurrentProps(type, awardAmounts, hasFileC)} />
+                    <RectanglePercentViz {...buildExceedsCurrentProps(type, awardAmounts, hasfilecCovid)} />
                 );
             }
             case "exceedsBiggest": {
                 return (
-                    <RectanglePercentViz {...buildExceedsPotentialProps(type, awardAmounts, hasFileC)} />
+                    <RectanglePercentViz {...buildExceedsPotentialProps(type, awardAmounts, hasfilecCovid)} />
                 );
             }
             case "normal":
                 if (hasOutlays || infrastructure) {
                     return (
-                        <HorizontalSingleStackedBarViz {...buildNormalProps(type, awardAmounts, hasFileC, hasOutlays, infrastructure)} />
+                        <HorizontalSingleStackedBarViz {...buildNormalProps(type, awardAmounts, hasfilecCovid, hasOutlays, infrastructure)} />
                     );
                 }
                 return (
-                    <RectanglePercentViz {...buildNormalProps(type, awardAmounts, hasFileC)} />
+                    <RectanglePercentViz {...buildNormalProps(type, awardAmounts, hasfilecCovid)} />
                 );
             default:
                 return (
@@ -536,7 +536,7 @@ const AwardAmountsChart = ({
         if (asstAwardTypesWithSimilarAwardAmountData.includes(type) && isNormal) {
             const isNffZero = awardAmounts._nonFederalFunding === 0;
             const showFileC = awardAmounts._fileCObligated > 0;
-            const hasOutlays = awardAmounts._combinedOutlay > 0 || awardAmounts._totalOutlay > 0;
+            const hasOutlays = awardAmounts._combinedOutlay > 0 || awardAmounts._totalOutlay > 0 || infrastructure;
 
             const chartProps = {
                 denominator: {
@@ -666,12 +666,10 @@ const AwardAmountsChart = ({
                 ];
             }
             if (hasOutlays || infrastructure) {
-                console.log(chartPropsOutlays)
                 return (
                     <HorizontalSingleStackedBarViz {...chartPropsOutlays} />
                 );
             }
-            console.log("here12")
 
             return (
                 <RectanglePercentViz {...chartProps} />
@@ -679,7 +677,7 @@ const AwardAmountsChart = ({
         }
         else if (type === 'loan' && isNormal) {
             const showFileC = awardAmounts._fileCObligated > 0;
-            const hasOutlays = awardAmounts._combinedOutlay > 0 || awardAmounts._totalOutlay > 0;
+            const hasOutlays = awardAmounts._combinedOutlay > 0 || awardAmounts._totalOutlay > 0 || infrastructure;
             const propsWithoutFileC = {
                 numerator: {
                     labelPosition: 'top',
