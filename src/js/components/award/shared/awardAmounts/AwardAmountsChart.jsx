@@ -531,7 +531,7 @@ const AwardAmountsChart = ({
         }
     };
 
-    const renderChartByAwardType = (awardAmounts = awardOverview, type = awardType, scenario = spendingScenario, infrastructure) => {
+    const renderChartByAwardType = (awardAmounts = awardOverview, type = awardType, scenario = spendingScenario) => {
         const isNormal = scenario === 'normal';
         if (asstAwardTypesWithSimilarAwardAmountData.includes(type) && isNormal) {
             const isNffZero = awardAmounts._nonFederalFunding === 0;
@@ -795,7 +795,7 @@ const AwardAmountsChart = ({
         );
     };
 
-    const visualization = renderChartByAwardType(awardOverview, awardType, spendingScenario, infrastructure);
+    const visualization = renderChartByAwardType(awardOverview, awardType, spendingScenario);
 
     return (
         <React.Fragment>
