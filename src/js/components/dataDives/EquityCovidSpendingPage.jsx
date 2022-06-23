@@ -4,11 +4,14 @@
  */
 
 import React from 'react';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import { ShareIcon } from 'data-transparency-ui';
+import { Link } from "react-router-dom";
 import PageWrapper from "../sharedComponents/PageWrapper";
 import { equityPageMetaTags } from "../../helpers/metaTagHelper";
 import EquityHeading from "./equity/EquityHeading";
+import EquitySpotlightCards from "./equity/EquitySpotlightCards";
 
 require('pages/equityCovidSpendingPage/equityCovidSpendingPage.scss');
 
@@ -29,12 +32,42 @@ const EquityCovidSpendingPage = () => {
         momLink: 'https://work.themomproject.com/predictiveequity'
     };
     const spotlightContentObject = {
-        spotlightCardTitle: 'Spotlight on The Opportunity Project',
-        spotlightCardText: 'Learn more about the teams we worked with to help build these interactive tools as part of The Opportunity Project, a U.S. Census Bureau program bringing government, industry, and communities together to create digital products using federal open data to help the public understand real-world problems facing the country today.',
-        spotlightCardLink: 'https://www.usaspending.gov/disaster/covid-19/the-opportunity-project',
-        trackCardTitle: 'Track COVID-19 Spending',
-        trackCardText: 'See how much the federal government is spending in response to COVID-19. Use our COVID-19 profile page to track who is receiving relief funds, which agencies are paying out these funds, and more. Download the data from the page to create your own analysis!',
-        trackCardLink: 'https://www.usaspending.gov/disaster/covid-19?publicLaw=all'
+        spotlightCardIcon: (
+            <span>
+                <FontAwesomeIcon icon="star" size="xl" inverse style={{ height: '20px', width: '20px' }} />
+            </span>),
+        spotlightCardTitle: (
+            <p>Spotlight on The Opportunity Project</p>
+        ),
+        spotlightCardText: (
+            <p>
+                Learn more about the teams we worked with to help build these interactive tools as part of The Opportunity Project, a U.S. Census Bureau program bringing government, industry, and communities together to create digital products using federal open data to help the public understand real-world problems facing the country today.
+            </p>
+        ),
+        spotlightCardLink: (
+            <Link
+                to="/disaster/covid-19/the-opportunity-project">
+                Learn More
+            </Link>
+        ),
+        trackCardIcon: (
+            <span>
+                <FontAwesomeIcon icon="chart-bar" inverse size="xl" style={{ height: '20px', width: '20px' }} />
+            </span>),
+        trackCardTitle: (
+            <p>Track <span>COVID-19</span> Spending</p>
+        ),
+        trackCardText: (
+            <p>
+                See how much the federal government is spending in response to COVID-19. Use our COVID-19 profile page to track who is receiving relief funds, which agencies are paying out these funds, and more. Download the data from the page to create your own analysis!
+            </p>
+        ),
+        trackCardLink: (
+            <Link
+                to="/disaster/covid-19?publicLaw=all">
+                Explore Now
+            </Link>
+        )
     };
 
     const slug = 'data-dives/equity-COVID-19-spending';
@@ -60,7 +93,7 @@ const EquityCovidSpendingPage = () => {
             <main id="main-content" className="main-content equity-content">
                 <EquityHeading content={HeadingContentObject} />
                 <div content={cardsContentObject}>MAIN CARDS</div>
-                <div content={spotlightContentObject}>SPOTLIGHT CARDS</div>
+                <EquitySpotlightCards content={spotlightContentObject} />
             </main>
         </PageWrapper>
     );
