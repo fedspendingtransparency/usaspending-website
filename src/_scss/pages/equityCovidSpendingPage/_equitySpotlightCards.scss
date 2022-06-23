@@ -8,11 +8,6 @@
   }
 
   .grid-content {
-    padding-top: $global-padding * 7;
-    @media (min-width: $medium-screen) {
-      padding-top: 0;
-    }
-
     .equity-spotlight__column-one {
       padding-bottom: $global-padding * 4;
       border-bottom: solid 1px $color-gray-lighter;
