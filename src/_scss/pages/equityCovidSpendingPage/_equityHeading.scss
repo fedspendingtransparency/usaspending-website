@@ -10,6 +10,7 @@
     .equity-heading__heading {
       font-size: rem(36);
       font-weight: $font-semibold;
+      line-height: 1.25;
       color: $color-grayblack;
       margin-bottom: $global-margin * 2;
     }
@@ -17,6 +18,7 @@
       display: flex;
       font-size: rem(14);
       font-weight: $font-normal;
+      line-height: 1.5;
       color: $color-base;
       .equity-heading__pill {
         font-weight: $font-semibold;
@@ -36,12 +38,14 @@
     .equity-heading__intro {
       font-size: rem(20);
       font-weight: $font-normal;
+      line-height: 1.5;
       color: $color-base;
       margin: $global-margin * 3 0;
     }
     .equity-heading__note {
       font-size: rem(16);
       font-weight: $font-normal;
+      line-height: 1.5;
       color: $color-base;
       margin-bottom: $global-margin * 3;
     }
