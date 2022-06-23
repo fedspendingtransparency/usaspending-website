@@ -6,11 +6,11 @@
 
   .equity-content {
     background-color: white;
-    max-width: $site-max-width;
 
     .usa-dt-flex-grid__row.grid-content {
       margin: 0 $global-margin * 2;
       height: 100%;
+      max-width: $site-max-width;
     }
 
     @media screen and (min-width: $tablet-screen) {

@@ -11,6 +11,12 @@
     border-radius: 4px;
     padding: 10px;
     margin-bottom: $global-margin * 2;
+    .equity-spotlight__star {
+      // this makes the star appear as a white outline on black bg
+      color: $color-grayblack;
+      stroke: white;
+      stroke-width: 50px;
+    }
   }
   .spotlightCard__heading-wrapper {
     font-size: $lead-font-size;
@@ -40,7 +46,7 @@
     }
   }
   .spotlightCard__link-wrapper {
-    button {
+    a {
       font-size: $base-font-size;
       font-weight: $font-semibold;
       line-height: 1.25;

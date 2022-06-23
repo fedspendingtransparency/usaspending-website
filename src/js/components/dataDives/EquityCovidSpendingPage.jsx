@@ -35,7 +35,7 @@ const EquityCovidSpendingPage = () => {
     const spotlightContentObject = {
         spotlightCardIcon: (
             <span>
-                <FontAwesomeIcon icon="star" size="xl" inverse style={{ height: '20px', width: '20px' }} />
+                <FontAwesomeIcon className="equity-spotlight__star" icon="star" size="xl" style={{ height: '20px', width: '20px' }} />
             </span>),
         spotlightCardTitle: (
             <p>Spotlight on The Opportunity Project</p>
