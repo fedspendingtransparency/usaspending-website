@@ -15,6 +15,7 @@
   .spotlightCard__heading-wrapper {
     font-size: $lead-font-size;
     font-weight: $font-semibold;
+    line-height: 1.25;
     color: $color-grayblack;
     p {
       margin: 0;
@@ -27,6 +28,7 @@
   .spotlightCard__content-wrapper {
     font-size: $base-font-size;
     color: $color-base;
+    line-height: 1.5;
     margin-bottom: $global-margin * 3;
     p {
       margin-bottom: 0;
@@ -41,7 +43,12 @@
     button {
       font-size: $base-font-size;
       font-weight: $font-semibold;
+      line-height: 1.25;
       color: $color-primary;
+    }
+    :hover, :active {
+      text-decoration: none;
+      color: darken($color-primary, 10%);
     }
   }
 }
