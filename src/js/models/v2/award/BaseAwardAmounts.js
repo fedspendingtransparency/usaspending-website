@@ -68,6 +68,8 @@ const BaseAwardAmounts = {
         this._totalOutlay = data._totalOutlay;
         this._fileCOutlay = getCovid19Totals(data.fileC.outlays, defCodes);
         this._fileCObligated = getCovid19Totals(data.fileC.obligations, defCodes);
+        this._fileCOutlayInfrastructure = getInfrastructureTotals(data.fileC.outlays);
+        this._fileCObligatedInfrastructure = getInfrastructureTotals(data.fileC.obligations);
     },
     populateAsst(data, defCodes) {
         this._totalObligation = data._totalObligation;
