@@ -36,7 +36,7 @@ const Training = (pageName) => {
             <div className="training__message">
                 on how to use USAspending.gov
             </div>
-            <Link className="training__link" to={{ pathname: "/about", search: "section=careers" }} onClick={trackLink}>
+            <Link className="training__link" to={{ pathname: "/about", search: "section=training" }} onClick={trackLink}>
                 Learn&nbsp;More
                 <FontAwesomeIcon icon={faCaretRight} />
             </Link>
@@ -44,5 +44,5 @@ const Training = (pageName) => {
     );
 };
 
-Training.PropTypes = propTypes;
+Training.propTypes = propTypes;
 export default Training;

@@ -100,12 +100,16 @@ const AboutContent = () => {
     };
 
     useEffect(() => {
-        const urlSection = query.section;
-        if (urlSection) {
-            jumpToSection(urlSection);
-            // remove the query param from the url after scrolling to the given section
-            history.replace(`/about`);
+        let isMounted = true;
+        if (isMounted) {
+            const urlSection = query.section;
+            if (urlSection) {
+                jumpToSection(urlSection);
+                // remove the query param from the url after scrolling to the given section
+                history.replace(`/about`);
+            }
         }
+        return () => { isMounted = false; };
     }, [history, location.search, query.section]);
 
     return (
