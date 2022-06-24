@@ -27,9 +27,10 @@ export const setAsideDefinitions = {
     '8AN': '8(a) Sole Source',
     'HS3': '8(a) with HUBZone Preference',
     '8A': '8A Competed',
-    'BICiv': 'Buy Indian',
+    'BI': 'Buy Indian',
     'HS2Civ': 'Combination HUBZone and 8(a)',
     'EDWOSB': 'Economically-Disadvantaged Women-Owned Small Business',
+    'EDWOSBSS': 'Economically Disadvantaged Women Owned Small Business Sole Source',
     'ESB': 'Emerging Small Business Set-Aside',
     'HMP': 'HBCU or MI Set-Aside - Partial',
     'HMT': 'HBCU or MI Set-Aside - Total',
@@ -47,7 +48,8 @@ export const setAsideDefinitions = {
     'VSBCiv': 'Very Small Business Set-Aside',
     'VSA': 'Veteran Set-Aside',
     'VSS': 'Veteran Sole Source',
-    'WOSB': 'Women-Owned Small Business'
+    'WOSB': 'Women-Owned Small Business',
+    'WOSBSS': 'Women Owned Small Business Sole Source'
 };
 
 export const extentCompetedDefinitions = {
