@@ -24,6 +24,7 @@ import Contact from './Contact';
 import Development from './Development';
 import Careers from './Careers';
 import Licensing from './Licensing';
+import TrainingContent from "./TrainingContent";
 
 const aboutSections = [
     {
@@ -45,6 +46,10 @@ const aboutSections = [
     {
         section: 'development',
         label: 'Development and Releases'
+    },
+    {
+        section: 'training',
+        label: 'Training'
     },
     {
         section: 'careers',
@@ -95,12 +100,16 @@ const AboutContent = () => {
     };
 
     useEffect(() => {
-        const urlSection = query.section;
-        if (urlSection) {
-            jumpToSection(urlSection);
-            // remove the query param from the url after scrolling to the given section
-            history.replace(`/about`);
+        let isMounted = true;
+        if (isMounted) {
+            const urlSection = query.section;
+            if (urlSection) {
+                jumpToSection(urlSection);
+                // remove the query param from the url after scrolling to the given section
+                history.replace(`/about`);
+            }
         }
+        return () => { isMounted = false; };
     }, [history, location.search, query.section]);
 
     return (
@@ -122,6 +131,7 @@ const AboutContent = () => {
                     <DataSources onExternalLinkClick={onExternalLinkClick} />
                     <DataQuality onExternalLinkClick={onExternalLinkClick} />
                     <Development />
+                    <TrainingContent />
                     <Careers />
                     <Licensing />
                     <MoreInfo />
