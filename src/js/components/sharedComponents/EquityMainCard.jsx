@@ -9,7 +9,7 @@ import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 
 const propTypes = {
     image: PropTypes.object,
-    heading: PropTypes.object,
+    heading: oneOfType([PropTypes.element, PropTypes.string]),
     text: oneOfType([PropTypes.element, PropTypes.string, PropTypes.object]),
     button: PropTypes.object,
     imageColor: PropTypes.string,
