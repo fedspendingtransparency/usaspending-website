@@ -100,11 +100,11 @@ const AboutContent = () => {
     };
 
     useEffect(() => {
+        history.scrollRestoration = 'manual';
         let isMounted = true;
         if (isMounted) {
             const urlSection = query.section;
             if (urlSection) {
-                history.scrollRestoration = 'manual';
                 jumpToSection(urlSection);
                 // remove the query param from the url after scrolling to the given section
                 history.replace(`/about`);
