@@ -28,10 +28,10 @@ const MainCards = ({ contentObject }) => {
         }
     };
 
-    const bowieImg = <img className="main-cards__svg" src="../../../../img/top-bowie-state-combined-image.svg" alt="" />;
-    const kansasImg = <img className="main-cards__svg" src="../../../../img/top-university-kansas-combined-image.svg" alt="" />;
-    const morehouseImg = <img className="main-cards__svg" src="../../../../img/top-morehouse-combined-image.svg" alt="" />;
-    const momImg = <img className="main-cards__svg" src="../../../../img/top-mom-project-combined-image.svg" alt="" />;
+    const bowieImg = <img className="main-cards__svg" role="presentation" src="../../../../img/top-bowie-state-combined-image.svg" alt="" />;
+    const kansasImg = <img className="main-cards__svg" role="presentation" src="../../../../img/top-university-kansas-combined-image.svg" alt="" />;
+    const morehouseImg = <img className="main-cards__svg" role="presentation" src="../../../../img/top-morehouse-combined-image.svg" alt="" />;
+    const momImg = <img className="main-cards__svg" role="presentation" src="../../../../img/top-mom-project-combined-image.svg" alt="" />;
 
     const bowieHdg = <h2>Bowie State University</h2>;
     const morehouseHdg = <h2>Morehouse College</h2>;
