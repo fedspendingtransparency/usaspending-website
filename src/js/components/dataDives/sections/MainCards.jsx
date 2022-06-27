@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { largeScreen } from 'dataMapping/shared/mobileBreakpoints';
 import ExternalLink from 'components/sharedComponents/ExternalLink';
 import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
-import ReadMoreUpdated from '../../sharedComponents/ReadMoreUpdated';
+import ReadMore from '../../sharedComponents/ReadMore';
 import EquityMainCard from '../../sharedComponents/EquityMainCard';
 
 const propTypes = {
@@ -49,7 +49,8 @@ const MainCards = ({ contentObject }) => {
     } = contentObject;
 
     const momContent = (
-        <ReadMoreUpdated text={momText} limit="353" additionalFunctionality={additionalFunctionality} />
+        <ReadMore openIcon="angle-down" closeIcon="angle-up" openPrompt="Read More" closePrompt="Read Less" text={momText} limit="353" additionalFunctionality={additionalFunctionality} />
+
     );
 
     return (
