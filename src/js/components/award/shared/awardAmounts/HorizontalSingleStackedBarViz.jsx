@@ -141,23 +141,27 @@ const HorizontalSingleStackedBarViz = ({
                     .style("stroke", '#dce4ee')
                     .style("fill", "none");
                 // outlay line
-                chartSvg.append("line")
-                    .attr("x1", x(propsArr[3]) - 2)
-                    .attr("y1", 20)
-                    .attr("x2", x(propsArr[3]) - 2)
-                    .attr("y2", (height / 2.5) + 35)
-                    .style("stroke-width", 4)
-                    .style("stroke", outlayedAmountColor)
-                    .style("fill", "none");
+                if (outlayedAmountValue.indexOf("$0") < 0) {
+                    chartSvg.append("line")
+                        .attr("x1", x(propsArr[3]) > 100 ? x(propsArr[3]) - 2 : x(propsArr[3]) + 2)
+                        .attr("y1", 20)
+                        .attr("x2", x(propsArr[3]) > 100 ? x(propsArr[3]) - 2 : x(propsArr[3]) + 2)
+                        .attr("y2", (height / 2.5) + 35)
+                        .style("stroke-width", 4)
+                        .style("stroke", outlayedAmountColor)
+                        .style("fill", "none");
+                }
                 // obligated line
-                chartSvg.append("line")
-                    .attr("x1", x(propsArr[2]) - 2)
-                    .attr("y1", 90)
-                    .attr("x2", x(propsArr[2]) - 2)
-                    .attr("y2", (height / 2.5) + 45)
-                    .style("stroke-width", 4)
-                    .style("stroke", obligatedAmountColor)
-                    .style("fill", "none");
+                if (obligatedAmountValue.indexOf("$0") < 0) {
+                    chartSvg.append("line")
+                        .attr("x1", x(propsArr[2]) > 100 ? x(propsArr[2]) - 2 : x(propsArr[2]) + 2)
+                        .attr("y1", 90)
+                        .attr("x2", x(propsArr[2]) > 100 ? x(propsArr[2]) - 2 : x(propsArr[2]) + 2)
+                        .attr("y2", (height / 2.5) + 45)
+                        .style("stroke-width", 4)
+                        .style("stroke", obligatedAmountColor)
+                        .style("fill", "none");
+                }
                 if (!isNffZero) {
                     // current line
                     chartSvg.append("line")
@@ -238,11 +242,13 @@ const HorizontalSingleStackedBarViz = ({
                         .style("fill", "none");
                 }
                 // outlay line
+                console.log(outlayedAmountValue)
+                console.log(x(propsArr[3]))
                 if (outlayedAmountValue.indexOf("$0") < 0) {
                     chartSvg.append("line")
-                        .attr("x1", x(propsArr[3]) > 100 ? x(propsArr[3]) - 2 : x(propsArr[3]) + 2)
+                        .attr("x1", x(propsArr[3]) > 100 ? x(propsArr[3]) - 2 : x(propsArr[3]) + 4)
                         .attr("y1", 20)
-                        .attr("x2", x(propsArr[3]) > 100 ? x(propsArr[3]) - 2 : x(propsArr[3]) + 2)
+                        .attr("x2", x(propsArr[3]) > 100 ? x(propsArr[3]) - 2 : x(propsArr[3]) + 4)
                         .attr("y2", (height / 2.5) + 35)
                         .style("stroke-width", 4)
                         .style("stroke", outlayedAmountColor)
