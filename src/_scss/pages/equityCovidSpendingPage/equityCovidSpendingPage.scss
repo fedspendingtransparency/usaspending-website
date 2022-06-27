@@ -24,6 +24,18 @@
         margin: 0 $grid-column;
       }
     }
+
+    @media screen and (min-width: $x-large-screen) {
+      .usa-dt-flex-grid__row.grid-content {
+        margin: 0 $grid-column * 2;
+      }
+    }
+
+    @media screen and (min-width: 2300px) {
+      .usa-dt-flex-grid__row.grid-content {
+        margin: 0 $grid-column * 3;
+      }
+    }
     .main-cards__wrapper {
       margin: 0;
       @media (min-width: $tablet-screen) {
