@@ -100,6 +100,7 @@ const AboutContent = () => {
     };
 
     useEffect(() => {
+        window.scrollTo(0, 0);
         history.scrollRestoration = 'manual';
         let isMounted = true;
         if (isMounted) {
