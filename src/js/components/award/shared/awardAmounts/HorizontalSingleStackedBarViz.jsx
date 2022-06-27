@@ -175,14 +175,14 @@ const HorizontalSingleStackedBarViz = ({
                 }
                 // obligated label
                 chartSvg.append("foreignObject")
-                    .attr('width', x(propsArr[0]) - x(propsArr[2]) <= 100 ? x(propsArr[2]) - x(propsArr[3]) - 10 : x(propsArr[0]) - x(propsArr[2]) - 10)
+                    .attr('width', x(propsArr[0]) - x(propsArr[2]) <= 200 ? x(propsArr[2]) - x(propsArr[3]) - 10 : x(propsArr[0]) - x(propsArr[2]) - 10)
                     .attr('height', 70)
-                    .attr('x', x(propsArr[0]) - x(propsArr[2]) <= 100 ? x(propsArr[3]) : x(propsArr[2]) + 10)
+                    .attr('x', x(propsArr[0]) - x(propsArr[2]) <= 200 ? x(propsArr[3]) : x(propsArr[2]) + 10)
                     .attr('y', 90)
                     .html(`<div className="award-amounts-viz-label__desc-text"><strong>${obligatedAmountValue}</strong><br />${obligatedAmountLabel}</div>`)
                     .select('div')
-                    .style('float', x(propsArr[0]) - x(propsArr[2]) <= 100 ? 'right' : 'left')
-                    .style('text-align', x(propsArr[0]) - x(propsArr[2]) <= 100 ? 'right' : 'left')
+                    .style('float', x(propsArr[0]) - x(propsArr[2]) <= 200 ? 'right' : 'left')
+                    .style('text-align', x(propsArr[0]) - x(propsArr[2]) <= 200 ? 'right' : 'left')
                     .select('strong')
                     .style('font-size', '20px');
             }
@@ -242,8 +242,6 @@ const HorizontalSingleStackedBarViz = ({
                         .style("fill", "none");
                 }
                 // outlay line
-                console.log(outlayedAmountValue)
-                console.log(x(propsArr[3]))
                 if (outlayedAmountValue.indexOf("$0") < 0) {
                     chartSvg.append("line")
                         .attr("x1", x(propsArr[3]) > 100 ? x(propsArr[3]) - 2 : x(propsArr[3]) + 4)
@@ -296,7 +294,7 @@ const HorizontalSingleStackedBarViz = ({
             // outlay label
             if (outlayedAmountValue.indexOf("$0") < 0) {
                 chartSvg.append("foreignObject")
-                    .attr('width', x(propsArr[0]) - x(propsArr[3]) <= 100 ? x(propsArr[3]) - 10 : x(propsArr[0]) - x(propsArr[3]) - 10)
+                    .attr('width', x(propsArr[0]) - x(propsArr[3]) <= 170 ? x(propsArr[3]) - 10 : x(propsArr[0]) - x(propsArr[3]) - 10)
                     .attr('height', 70)
                     .attr('x', x(propsArr[0]) - x(propsArr[3]) <= 100 ? 0 : x(propsArr[3]) + 10)
                     .attr('y', 20)
