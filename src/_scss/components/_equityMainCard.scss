@@ -14,11 +14,11 @@
     height: 94%;
   }
 
-  @media (min-width: 993px) and (max-width: 1200px) {
+  @media (min-width: $medium-screen) and (max-width: $large-screen) {
     height: 94%;
   }
 
-  @media (min-width: 1200px) {
+  @media (min-width: $large-screen) {
     height: 94%;
   }
 
