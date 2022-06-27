@@ -267,14 +267,14 @@ const HorizontalSingleStackedBarViz = ({
                 // obligated label
                 if (obligatedAmountValue.indexOf("$0") < 0) {
                     chartSvg.append("foreignObject")
-                        .attr('width', x(propsArr[0]) - x(propsArr[2]) <= 100 ? x(propsArr[2]) - 10 : x(propsArr[0]) - x(propsArr[2]) - 10)
+                        .attr('width', x(propsArr[0]) - x(propsArr[2]) <= 200 ? x(propsArr[2]) - 10 : x(propsArr[0]) - x(propsArr[2]) - 10)
                         .attr('height', 70)
-                        .attr('x', x(propsArr[0]) - x(propsArr[2]) <= 100 ? 0 : x(propsArr[2]) + 10)
+                        .attr('x', x(propsArr[0]) - x(propsArr[2]) <= 200 ? 0 : x(propsArr[2]) + 10)
                         .attr('y', 90)
                         .html(`<div className="award-amounts-viz-label__desc-text"><strong>${obligatedAmountValue}</strong><br />${obligatedAmountLabel}</div>`)
                         .select('div')
-                        .style('float', x(propsArr[0]) - x(propsArr[2]) <= 100 ? 'right' : 'left')
-                        .style('text-align', x(propsArr[0]) - x(propsArr[2]) <= 100 ? 'right' : 'left')
+                        .style('float', x(propsArr[0]) - x(propsArr[2]) <= 200 ? 'right' : 'left')
+                        .style('text-align', x(propsArr[0]) - x(propsArr[2]) <= 200 ? 'right' : 'left')
                         .select('strong')
                         .style('font-size', '20px');
                 }
@@ -294,14 +294,14 @@ const HorizontalSingleStackedBarViz = ({
             // outlay label
             if (outlayedAmountValue.indexOf("$0") < 0) {
                 chartSvg.append("foreignObject")
-                    .attr('width', x(propsArr[0]) - x(propsArr[3]) <= 170 ? x(propsArr[3]) - 10 : x(propsArr[0]) - x(propsArr[3]) - 10)
+                    .attr('width', x(propsArr[0]) - x(propsArr[3]) <= 200 ? x(propsArr[3]) - 10 : x(propsArr[0]) - x(propsArr[3]) - 10)
                     .attr('height', 70)
-                    .attr('x', x(propsArr[0]) - x(propsArr[3]) <= 100 ? 0 : x(propsArr[3]) + 10)
+                    .attr('x', x(propsArr[0]) - x(propsArr[3]) <= 200 ? 0 : x(propsArr[3]) + 10)
                     .attr('y', 20)
                     .html(`<div className="award-amounts-viz-label__desc-text"><strong>${outlayedAmountValue}</strong><br />${outlayedAmountLabel}</div>`)
                     .select('div')
-                    .style('float', x(propsArr[0]) - x(propsArr[3]) <= 100 ? 'right' : 'left')
-                    .style('text-align', x(propsArr[0]) - x(propsArr[3]) <= 100 ? 'right' : 'left')
+                    .style('float', x(propsArr[0]) - x(propsArr[3]) <= 200 ? 'right' : 'left')
+                    .style('text-align', x(propsArr[0]) - x(propsArr[3]) <= 200 ? 'right' : 'left')
                     .select('strong')
                     .style('font-size', '20px');
             }
@@ -372,14 +372,14 @@ const HorizontalSingleStackedBarViz = ({
                 .style("fill", "none");
             // subsidy label
             chartSvg.append("foreignObject")
-                .attr('width', x(propsArr[0]) - x(propsArr[1]) <= 100 ? x(propsArr[1]) - 10 : x(propsArr[0]) - x(propsArr[1]) - 10)
+                .attr('width', x(propsArr[0]) - x(propsArr[1]) <= 200 ? x(propsArr[1]) - 10 : x(propsArr[0]) - x(propsArr[1]) - 10)
                 .attr('height', 70)
-                .attr('x', x(propsArr[0]) - x(propsArr[1]) <= 100 ? 0 : x(propsArr[1]) + 10)
+                .attr('x', x(propsArr[0]) - x(propsArr[1]) <= 200 ? 0 : x(propsArr[1]) + 10)
                 .attr('y', 90)
                 .html(`<div className="award-amounts-viz-outlays__desc-text"><strong>${currentAmountValue}</strong><br />${currentAmountLabel}</div>`)
                 .select('div')
-                .style('float', x(propsArr[0]) - x(propsArr[1]) <= 100 ? 'right' : 'left')
-                .style('text-align', x(propsArr[0]) - x(propsArr[1]) <= 100 ? 'right' : 'left')
+                .style('float', x(propsArr[0]) - x(propsArr[1]) <= 200 ? 'right' : 'left')
+                .style('text-align', x(propsArr[0]) - x(propsArr[1]) <= 200 ? 'right' : 'left')
                 .select('strong')
                 .style('font-size', '20px');
             const outlayLabelMinXPos = (outlayScaled) => {
