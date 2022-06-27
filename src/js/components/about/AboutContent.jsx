@@ -88,7 +88,7 @@ const AboutContent = () => {
         }
         const conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight : 10;
         const sectionTop = sectionDom.offsetTop - stickyHeaderHeight - conditionalOffset;
-        scrollToY(sectionTop, 700);
+        scrollToY(sectionTop + 10, 750);
     };
 
     const dispatch = useDispatch();
@@ -104,6 +104,7 @@ const AboutContent = () => {
         if (isMounted) {
             const urlSection = query.section;
             if (urlSection) {
+                history.scrollRestoration = 'manual';
                 jumpToSection(urlSection);
                 // remove the query param from the url after scrolling to the given section
                 history.replace(`/about`);
