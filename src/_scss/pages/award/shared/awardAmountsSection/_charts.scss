@@ -559,4 +559,8 @@ $proc-current-offset: rem(5);
             }
         }
     }
+    .award-amounts-viz-label__desc-text {
+        padding-top: rem(8);
+        background-color: $color-white;
+    }
 }
