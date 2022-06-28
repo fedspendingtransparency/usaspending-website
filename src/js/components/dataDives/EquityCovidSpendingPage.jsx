@@ -10,6 +10,7 @@ import { ShareIcon } from 'data-transparency-ui';
 import { Link } from "react-router-dom";
 import PageWrapper from "../sharedComponents/PageWrapper";
 import { equityPageMetaTags } from "../../helpers/metaTagHelper";
+import MainCards from "./sections/MainCards";
 import EquityHeading from "./equity/EquityHeading";
 import EquitySpotlightCards from "./equity/EquitySpotlightCards";
 
@@ -92,7 +93,7 @@ const EquityCovidSpendingPage = () => {
             ]}>
             <main id="main-content" className="main-content equity-content">
                 <EquityHeading content={HeadingContentObject} />
-                <div content={cardsContentObject}>MAIN CARDS</div>
+                <MainCards contentObject={cardsContentObject} />
                 <EquitySpotlightCards content={spotlightContentObject} />
             </main>
         </PageWrapper>
