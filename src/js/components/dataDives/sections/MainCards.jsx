@@ -7,6 +7,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { largeScreen } from 'dataMapping/shared/mobileBreakpoints';
 import ExternalLink from 'components/sharedComponents/ExternalLink';
+import Analytics from 'helpers/analytics/Analytics';
+
 import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 import ReadMore from '../../sharedComponents/ReadMore';
 import EquityMainCard from '../../sharedComponents/EquityMainCard';
@@ -28,6 +30,13 @@ const MainCards = ({ contentObject }) => {
         }
     };
 
+    const analyticsEvent = (item) => {
+        Analytics.event({
+            category: 'Data Dives: Equity Covid Spending Page Main Card',
+            action: `Clicked ${item} See Project Button`
+        });
+    };
+
     const bowieImg = <img className="main-cards__svg" role="presentation" src="../../../../img/top-bowie-state-combined-image.svg" alt="" />;
     const kansasImg = <img className="main-cards__svg" role="presentation" src="../../../../img/top-university-kansas-combined-image.svg" alt="" />;
     const morehouseImg = <img className="main-cards__svg" role="presentation" src="../../../../img/top-morehouse-combined-image.svg" alt="" />;
@@ -39,10 +48,10 @@ const MainCards = ({ contentObject }) => {
     const momHdg = <h2>The Mom Project</h2>;
 
 
-    const bowieBtn = (<ExternalLink url={contentObject.bowieLink}>See Project&nbsp;&nbsp;</ExternalLink>);
-    const kansasBtn = (<ExternalLink url={contentObject.kansasLink}>See Project&nbsp;&nbsp;</ExternalLink>);
-    const morehouseBtn = (<ExternalLink url={contentObject.morehouseLink}>See Project&nbsp;&nbsp;</ExternalLink>);
-    const momBtn = (<ExternalLink url={contentObject.momLink}>See Project&nbsp;&nbsp;</ExternalLink>);
+    const bowieBtn = (<ExternalLink url={contentObject.bowieLink} onClick={() => analyticsEvent(bowieHdg)}>See Project&nbsp;&nbsp;</ExternalLink>);
+    const kansasBtn = (<ExternalLink url={contentObject.kansasLink} onClick={() => analyticsEvent(kansasHdg)}>See Project&nbsp;&nbsp;</ExternalLink>);
+    const morehouseBtn = (<ExternalLink url={contentObject.morehouseLink} onClick={() => analyticsEvent(morehouseHdg)}>See Project&nbsp;&nbsp;</ExternalLink>);
+    const momBtn = (<ExternalLink url={contentObject.momLink} onClick={() => analyticsEvent(momHdg)}>See Project&nbsp;&nbsp;</ExternalLink>);
 
     const {
         bowieText, kansasText, momText, morehouseText
