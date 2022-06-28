@@ -81,7 +81,6 @@ const AboutContent = () => {
             return;
         }
 
-        setActiveSection(section);
         const sectionDom = document.querySelector(`#about-${section}`);
         if (!sectionDom) {
             return;
@@ -89,6 +88,7 @@ const AboutContent = () => {
         const conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight : 10;
         const sectionTop = sectionDom.offsetTop - stickyHeaderHeight - conditionalOffset;
         scrollToY(sectionTop + 10, 750);
+        setActiveSection(section);
     };
 
     const dispatch = useDispatch();
