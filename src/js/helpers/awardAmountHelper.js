@@ -122,11 +122,12 @@ export const determineInfrastructureSpendingScenario = (awardType, awardAmountOb
             if (scenario !== 'normal') return scenario;
             return determineSpendingScenario(_fileCOutlayInfrastructure, _fileCObligatedInfrastructure);
         }, 'normal');
+
     return (fileCScenario === 'normal') ? 'normal' : 'insufficientData';
 };
 
 export const determineSpendingScenarioByAwardType = (awardType, awardAmountObj, infrastructure) => {
-    if (infrastructure && (awardType === 'contract' || awardType === 'idv')) {
+    if (infrastructure) {
         if (determineInfrastructureSpendingScenario(awardType, awardAmountObj) !== 'normal') return 'insufficientData';
     }
 
