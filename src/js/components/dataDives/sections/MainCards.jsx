@@ -33,8 +33,7 @@ const MainCards = ({ contentObject }) => {
     const analyticsEvent = (item) => {
         Analytics.event({
             category: 'Data Dives: Equity Covid Spending Page Main Card',
-            action: `Clicked ${item} See Project Button`,
-            label: 'item'
+            action: `Clicked ${item} See Project Button`
         });
     };
 

@@ -20,11 +20,10 @@ require('pages/equityCovidSpendingPage/equityCovidSpendingPage.scss');
 
 const EquityCovidSpendingPage = () => {
 
-    const analyticsEvent = (action, label) => {
+    const analyticsEvent = (action) => {
         Analytics.event({
             category: 'Data Dives: Equity Covid Spending Page',
-            action,
-            label
+            action
         });
     };
 
@@ -100,7 +99,7 @@ const EquityCovidSpendingPage = () => {
 
     const handleShare = (optionName) => {
         handleShareOptionClick(optionName, slug, emailArgs);
-        analyticsEvent('Share Page', slug);
+        analyticsEvent('Share Page');
     };
 
     return (
