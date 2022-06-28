@@ -87,7 +87,22 @@ const AboutContent = () => {
         }
         const conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight : 10;
         const sectionTop = sectionDom.offsetTop - stickyHeaderHeight - conditionalOffset;
-        scrollToY(sectionTop + 10, 750);
+        console.debug(window.innerWidth, window.innerHeight);
+        if (window.innerWidth >= 993 && window.innerWidth <= 1000) {
+            scrollToY(sectionTop + 10, 750);
+        } else if (window.innerWidth > 1000 && window.innerWidth <= 1100) {
+            scrollToY(sectionTop + 24, 750);
+        } else if (window.innerWidth > 1100 && window.innerWidth <= 1200) {
+            scrollToY(sectionTop - 275, 750);
+        } else if (window.innerWidth > 1200 && window.innerWidth <= 1300) {
+            scrollToY(sectionTop - 175, 750);
+        } else if (window.innerWidth > 1300 && window.innerWidth <= 1400) {
+            scrollToY(sectionTop - 160, 750);
+        } else if (window.innerWidth > 1400 && window.innerWidth <= 1500) {
+            scrollToY(sectionTop + 35, 750);
+        } else {
+            scrollToY(sectionTop + 175, 750);
+        }
         setActiveSection(section);
     };
 
