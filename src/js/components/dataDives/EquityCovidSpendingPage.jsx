@@ -19,7 +19,6 @@ import EquitySpotlightCards from "./equity/EquitySpotlightCards";
 require('pages/equityCovidSpendingPage/equityCovidSpendingPage.scss');
 
 const EquityCovidSpendingPage = () => {
-
     const analyticsEvent = (action) => {
         Analytics.event({
             category: 'Data Dives: Equity Covid Spending Page',
