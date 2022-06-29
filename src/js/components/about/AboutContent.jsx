@@ -80,7 +80,6 @@ const AboutContent = () => {
         if (!find(aboutSections, { section })) { // not a known page section
             return;
         }
-        console.debug("section: ", section);
         let sectionDom;
         if (section === "training") {
             sectionDom = document.querySelector(`#about__training-jump`);
