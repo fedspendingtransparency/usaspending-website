@@ -56,6 +56,7 @@ const Sidebar = ({
     const [sidebarWidth, setSidebarWidth] = useState("auto");
     const [isSidebarSticky, , , handleScroll] = useDynamicStickyClass(referenceDiv, fixedStickyBreakpoint);
     const [activeSection, setActiveSection] = useState(active || sections[0].section);
+
     useEffect(() => {
         const updateSidebarWidth = throttle(() => {
             if (isGoingToBeSticky && (sidebarWidth !== `${div.current.offsetWidth}px`)) { // set width so no flicker on load
@@ -72,7 +73,7 @@ const Sidebar = ({
                     setSidebarWidth(`auto`);
                 }
             }
-        }, 150);
+        }, 100);
         updateSidebarWidth();
         window.addEventListener('resize', updateSidebarWidth);
 
