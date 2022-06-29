@@ -73,23 +73,19 @@ const AboutContent = () => {
     const location = useLocation();
     const history = useHistory();
     const query = useQueryParams();
-
+    history.scrollRestoration = 'manual';
     const [activeSection, setActiveSection] = useState(query.section || 'mission');
 
     const jumpToSection = (section = '') => {
         if (!find(aboutSections, { section })) { // not a known page section
             return;
         }
-        let sectionDom;
-        if (section === "training") {
-            sectionDom = document.querySelector(`#about__training-jump`);
-        } else {
-            sectionDom = document.querySelector(`#about-${section}`);
-        }
+        const sectionDom = document.querySelector(`#about-${section}`);
+
         if (!sectionDom) {
             return;
         }
-        const sectionTop = sectionDom.offsetTop - 10 - stickyHeaderHeight;
+        const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight);
         scrollToY(sectionTop, 700);
         setActiveSection(section);
     };
@@ -103,8 +99,6 @@ const AboutContent = () => {
     };
 
     useEffect(() => {
-        window.scrollTo(0, 0);
-        history.scrollRestoration = 'manual';
         let isMounted = true;
         if (isMounted) {
             const urlSection = query.section;
@@ -114,8 +108,10 @@ const AboutContent = () => {
                 history.replace(`/about`);
             }
         }
-        return () => { isMounted = false; };
-    }, [history, location.search, query.section]);
+        return () => {
+            isMounted = false;
+        };
+    }, [history, location, query.section]);
 
     return (
         <div className="about-content-wrapper">
