@@ -6,6 +6,8 @@
 import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
+import Analytics from 'helpers/analytics/Analytics';
+
 import { ShareIcon } from 'data-transparency-ui';
 import { Link } from "react-router-dom";
 import PageWrapper from "../sharedComponents/PageWrapper";
@@ -17,6 +19,21 @@ import EquitySpotlightCards from "./equity/EquitySpotlightCards";
 require('pages/equityCovidSpendingPage/equityCovidSpendingPage.scss');
 
 const EquityCovidSpendingPage = () => {
+    const analyticsEvent = (action) => {
+        Analytics.event({
+            category: 'Data Dives: Equity Covid Spending Page',
+            action
+        });
+    };
+
+    const spotlightClickHandler = () => {
+        analyticsEvent('Spotlight on The Opportunity Project', 'Spotlight on The Opportunity Project');
+    };
+
+    const covidClickHandler = () => {
+        analyticsEvent('Spotlight on COVID Profile', 'Spotlight on COVID Profile');
+    };
+
     const HeadingContentObject = {
         heading: 'Equity in COVID-19 Spending',
         intro: 'We worked with teams from various schools and advocacy groups across the country to create tools for analyzing USAspending data and other federal open datasets to understand how the $4.5 trillion in federal COVID-19 spending has been shared across communities most vulnerable to the impacts of the pandemic.',
@@ -47,7 +64,8 @@ const EquityCovidSpendingPage = () => {
         ),
         spotlightCardLink: (
             <Link
-                to="/disaster/covid-19/the-opportunity-project">
+                to="/disaster/covid-19/the-opportunity-project"
+                onClick={spotlightClickHandler}>
                 Learn More
             </Link>
         ),
@@ -65,7 +83,8 @@ const EquityCovidSpendingPage = () => {
         ),
         trackCardLink: (
             <Link
-                to="/disaster/covid-19?publicLaw=all">
+                to="/disaster/covid-19?publicLaw=all"
+                onClick={covidClickHandler}>
                 Explore Now
             </Link>
         )
@@ -79,6 +98,7 @@ const EquityCovidSpendingPage = () => {
 
     const handleShare = (optionName) => {
         handleShareOptionClick(optionName, slug, emailArgs);
+        analyticsEvent('Share Page');
     };
 
     return (
