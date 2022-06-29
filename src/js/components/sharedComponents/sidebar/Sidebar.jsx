@@ -79,7 +79,7 @@ const Sidebar = ({
         return () => {
             window.removeEventListener('resize', updateSidebarWidth);
         };
-    }, []);
+    }, [sidebarWidth, setSidebarWidth, isSidebarSticky, isGoingToBeSticky]);
 
     const cacheSectionPositions = throttle(() => {
     // Measure section positions on windowResize and first render
