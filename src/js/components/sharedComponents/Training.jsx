@@ -36,7 +36,7 @@ const Training = (pageName) => {
             <div className="training__message">
                 on how to use USAspending.gov
             </div>
-            <Link className="training__link" to={{ pathname: "/about", search: "section=training" }} onClick={trackLink}>
+            <Link className="training__link" to={{ pathname: "/about", search: "section=training" }} onMouseUp={trackLink}>
                 Learn&nbsp;More
                 <FontAwesomeIcon icon={faCaretRight} />
             </Link>
