@@ -70,27 +70,16 @@ const aboutSections = [
 ];
 
 const AboutContent = () => {
-    // const location = useLocation();
     const history = useHistory();
     const query = useQueryParams();
-    // history.scrollRestoration = 'manual';
     const [activeSection, setActiveSection] = useState(query.section || 'mission');
 
     const jumpToSection = (section = '') => {
-        if (!find(aboutSections, { section })) { // not a known page section
-            return;
-        }
         const sectionDom = document.querySelector(`#about-${section}`);
-
-        if (!sectionDom) {
-            return;
-        }
-
         const conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight : 10;
         const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight - conditionalOffset);
 
-        scrollToY(sectionDom.offsetTop, 700);
-        setActiveSection(section);
+        window.scrollTo({ top: sectionTop, left: 0 });
     };
 
     const dispatch = useDispatch();
@@ -102,19 +91,24 @@ const AboutContent = () => {
     };
 
     useEffect(() => {
-        // let isMounted = true;
-        // if (isMounted) {
-            const urlSection = query.section;
-            if (urlSection) {
-                jumpToSection(urlSection);
-                // remove the query param from the url after scrolling to the given section
-                // history.replace(`/about`);
-            }
-        // }
-        // return () => {
-        //     isMounted = false;
-        // };
-    }, []);
+        const urlSection = query.section;
+
+        if (!find(aboutSections, { urlSection })) { // not a known page section
+            return;
+        }
+        const sectionDom = document.querySelector(`#about-${urlSection}`);
+
+        if (!sectionDom) {
+            return;
+        }
+
+        setActiveSection(urlSection);
+    }, [query.section]);
+
+    useEffect(() => {
+        jumpToSection(activeSection);
+        // history.replace(`/about`);
+    }, [activeSection]);
 
     return (
         <div className="about-content-wrapper">
