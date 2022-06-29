@@ -142,7 +142,7 @@ const HorizontalSingleStackedBarViz = ({
                     .style("stroke", '#dce4ee')
                     .style("fill", "none");
                 // outlay line
-                if (outlayedAmountValue.indexOf("$0") < 0) {
+                if (outlayedAmountValue?.indexOf("$0") < 0) {
                     chartSvg.append("line")
                         .attr("x1", x(propsArr[3]) > 100 ? x(propsArr[3]) - 2 : x(propsArr[3]) + 2)
                         .attr("y1", 20)
@@ -153,7 +153,7 @@ const HorizontalSingleStackedBarViz = ({
                         .style("fill", "none");
                 }
                 // obligated line
-                if (obligatedAmountValue.indexOf("$0") < 0) {
+                if (obligatedAmountValue?.indexOf("$0") < 0) {
                     chartSvg.append("line")
                         .attr("x1", x(propsArr[2]) > 100 ? x(propsArr[2]) - 2 : x(propsArr[2]) + 2)
                         .attr("y1", 90)
@@ -197,7 +197,7 @@ const HorizontalSingleStackedBarViz = ({
                     .attr("height", '40')
                     .attr("fill", "#8aa6c9");
                 // obligated rect
-                if (obligatedAmountValue.indexOf("$0") < 0) {
+                if (obligatedAmountValue?.indexOf("$0") < 0) {
                     chartSvg.append("rect")
                         .attr("x", 0)
                         .attr("y", (height / 2.5) + 10)
@@ -296,7 +296,7 @@ const HorizontalSingleStackedBarViz = ({
                 .select('strong')
                 .style('font-size', '20px');
             // outlay label
-            if (outlayedAmountValue.indexOf("$0") < 0) {
+            if (outlayedAmountValue?.indexOf("$0") < 0) {
                 chartSvg.append("foreignObject")
                     .attr('width', x(propsArr[0]) - x(propsArr[3]) <= 270 ? x(propsArr[3]) - 10 : x(propsArr[0]) - x(propsArr[3]) - 10)
                     .attr('height', 70)

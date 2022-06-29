@@ -24,8 +24,53 @@
         margin: 0 $grid-column;
       }
     }
-  }
 
+    @media screen and (min-width: $x-large-screen) {
+      .usa-dt-flex-grid__row.grid-content {
+        margin: 0 $grid-column * 2;
+      }
+    }
+
+    @media screen and (min-width: 2300px) {
+      .usa-dt-flex-grid__row.grid-content {
+        margin: 0 $grid-column * 3;
+      }
+    }
+    .main-cards__wrapper {
+      margin: 0;
+      @media (min-width: $tablet-screen) {
+        margin-bottom: $global-margin * 12;
+      }
+      .equity-main-card__col-one {
+        @media (min-width: $medium-screen) {
+          padding-right: $global-margin * 2;
+        }
+      }
+      .equity-main-card__col-two {
+        @media (min-width: $medium-screen) {
+          padding-left: $global-margin * 2;
+        }
+      }
+      h2 {
+        font-size: rem(20);
+        font-weight: $font-semibold;
+        color: $color-grayblack;
+        line-height: 1.25;
+        margin: 0;
+      }
+
+      p {
+        font-size: rem(16);
+        line-height: 1.5;
+        color: $color-base;
+      }
+
+      img {
+        height: 240px;
+      }
+    }
+  }
+  @import "../../components/equityMainCard";
   @import 'equityHeading';
   @import 'equitySpotlightCards';
 }

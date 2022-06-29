@@ -69,6 +69,7 @@ const ContractContent = ({
             subAwardIdClicked(false);
         }
     });
+
     return (
         <AwardPageWrapper
             allDefCodes={overview.defCodes}

@@ -36,7 +36,8 @@ export const infrastructureSpendingCategoriesByAwardType = {
     idv: ['_fileCOutlayInfrastructure', '_fileCObligatedInfrastructure'],
     idv_aggregated: ['_fileCOutlayInfrastructure', '_fileCObligatedInfrastructure'],
     asst: ['_fileCOutlayInfrastructure', '_fileCObligatedInfrastructure'],
-    loan: ['_fileCOutlayInfrastructure', '_fileCObligatedInfrastructure']
+    loan: ['_fileCOutlayInfrastructure', '_fileCObligatedInfrastructure'],
+    grant: ['_fileCOutlayInfrastructure', '_fileCObligatedInfrastructure']
 
 };
 
