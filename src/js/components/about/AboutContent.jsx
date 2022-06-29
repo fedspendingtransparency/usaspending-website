@@ -89,7 +89,7 @@ const AboutContent = () => {
         const conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight : 10;
         const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight - conditionalOffset);
 
-        window.scrollTo({ top: sectionTop, left: 0 });
+        scrollToY(sectionDom.offsetTop, 700);
         setActiveSection(section);
     };
 
@@ -105,11 +105,10 @@ const AboutContent = () => {
         // let isMounted = true;
         // if (isMounted) {
             const urlSection = query.section;
-            console.log(query.section)
             if (urlSection) {
                 jumpToSection(urlSection);
                 // remove the query param from the url after scrolling to the given section
-                history.replace(`/about`);
+                // history.replace(`/about`);
             }
         // }
         // return () => {
@@ -125,7 +124,7 @@ const AboutContent = () => {
                     active={activeSection}
                     pageName="about"
                     sections={aboutSections}
-                    detectActiveSection={setActiveSection}
+                    // detectActiveSection={setActiveSection}
                     jumpToSection={jumpToSection}
                     fixedStickyBreakpoint={getStickyBreakPointForSidebar()} />
             </div>
