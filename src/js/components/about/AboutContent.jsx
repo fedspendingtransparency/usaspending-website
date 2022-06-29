@@ -70,10 +70,10 @@ const aboutSections = [
 ];
 
 const AboutContent = () => {
-    const location = useLocation();
+    // const location = useLocation();
     const history = useHistory();
     const query = useQueryParams();
-    history.scrollRestoration = 'manual';
+    // history.scrollRestoration = 'manual';
     const [activeSection, setActiveSection] = useState(query.section || 'mission');
 
     const jumpToSection = (section = '') => {
@@ -85,8 +85,11 @@ const AboutContent = () => {
         if (!sectionDom) {
             return;
         }
-        const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight);
-        scrollToY(sectionTop, 700);
+
+        const conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight : 10;
+        const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight - conditionalOffset);
+
+        window.scrollTo({ top: sectionTop, left: 0 });
         setActiveSection(section);
     };
 
@@ -99,19 +102,20 @@ const AboutContent = () => {
     };
 
     useEffect(() => {
-        let isMounted = true;
-        if (isMounted) {
+        // let isMounted = true;
+        // if (isMounted) {
             const urlSection = query.section;
+            console.log(query.section)
             if (urlSection) {
                 jumpToSection(urlSection);
                 // remove the query param from the url after scrolling to the given section
                 history.replace(`/about`);
             }
-        }
-        return () => {
-            isMounted = false;
-        };
-    }, [history, location, query.section]);
+        // }
+        // return () => {
+        //     isMounted = false;
+        // };
+    }, []);
 
     return (
         <div className="about-content-wrapper">
