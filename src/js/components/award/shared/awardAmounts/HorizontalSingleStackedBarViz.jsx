@@ -128,6 +128,7 @@ const HorizontalSingleStackedBarViz = ({
                         .select('div')
                         .style('float', 'right')
                         .style('text-align', 'right')
+                        .style('background-color', 'white')
                         .select('strong')
                         .style('font-size', '20px');
                 }
@@ -183,6 +184,7 @@ const HorizontalSingleStackedBarViz = ({
                     .select('div')
                     .style('float', x(propsArr[0]) - x(propsArr[2]) <= 270 ? 'right' : 'left')
                     .style('text-align', x(propsArr[0]) - x(propsArr[2]) <= 270 ? 'right' : 'left')
+                    .style('background-color', 'white')
                     .select('strong')
                     .style('font-size', '20px');
             }
@@ -262,6 +264,7 @@ const HorizontalSingleStackedBarViz = ({
                     .select('div')
                     .style('float', 'right')
                     .style('text-align', 'right')
+                    .style('background-color', 'white')
                     .select('strong')
                     .style('font-size', '20px');
                 // obligated label
@@ -275,6 +278,7 @@ const HorizontalSingleStackedBarViz = ({
                         .select('div')
                         .style('float', x(propsArr[0]) - x(propsArr[2]) <= 270 ? 'right' : 'left')
                         .style('text-align', x(propsArr[0]) - x(propsArr[2]) <= 270 ? 'right' : 'left')
+                        .style('background-color', 'white')
                         .select('strong')
                         .style('font-size', '20px');
                 }
