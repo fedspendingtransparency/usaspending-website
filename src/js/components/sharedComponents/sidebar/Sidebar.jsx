@@ -155,7 +155,7 @@ const Sidebar = ({
         // select the first section we saw
         if (visibleSections.length > 0) {
             nextActiveSection = visibleSections[0].section;
-            if (visibleSections[0].amount < 0.25 && visibleSections.length > 1) {
+            if (visibleSections[0].amount < 0.15 && visibleSections.length > 1) {
                 // less than 15% of the first section is visible and we have more than 1 section,
                 // select the next section
                 nextActiveSection = visibleSections[1].section;
