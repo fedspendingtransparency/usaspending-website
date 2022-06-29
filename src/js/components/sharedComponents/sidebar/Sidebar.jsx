@@ -56,8 +56,6 @@ const Sidebar = ({
     const [sidebarWidth, setSidebarWidth] = useState("auto");
     const [isSidebarSticky, , , handleScroll] = useDynamicStickyClass(referenceDiv, fixedStickyBreakpoint);
     const [activeSection, setActiveSection] = useState(active || sections[0].section);
-
-    console.log(active)
     useEffect(() => {
         const updateSidebarWidth = throttle(() => {
             if (isGoingToBeSticky && (sidebarWidth !== `${div.current.offsetWidth}px`)) { // set width so no flicker on load
@@ -74,7 +72,7 @@ const Sidebar = ({
                     setSidebarWidth(`auto`);
                 }
             }
-        }, 100);
+        }, 150);
         updateSidebarWidth();
         window.addEventListener('resize', updateSidebarWidth);
 
@@ -211,10 +209,8 @@ const Sidebar = ({
     ]);
 
     const jumpToSectionWrapper = (section) => {
-        console.log(jumpToSection)
         if (!active) return jumpToSection(section);
-        jumpToSection(section, activeSection);
-        setActiveSection(section);
+        return jumpToSection(section, activeSection);
     };
 
     const buildItems = (section) => {

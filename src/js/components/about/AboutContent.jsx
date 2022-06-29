@@ -4,11 +4,10 @@
  **/
 
 import React, { useState, useEffect } from 'react';
-import { useLocation, useHistory } from 'react-router-dom';
-import { find } from 'lodash';
+import { useHistory } from 'react-router-dom';
+import { throttle } from 'lodash';
 import { useDispatch } from 'react-redux';
 import { showModal } from 'redux/actions/modal/modalActions';
-import { scrollToY } from 'helpers/scrollToHelper';
 import { useQueryParams } from 'helpers/queryParams';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
@@ -80,6 +79,7 @@ const AboutContent = () => {
         const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight - conditionalOffset);
 
         window.scrollTo({ top: sectionTop, left: 0 });
+        setActiveSection(section);
     };
 
     const dispatch = useDispatch();
@@ -90,25 +90,21 @@ const AboutContent = () => {
         }
     };
 
-    useEffect(() => {
-        const urlSection = query.section;
-
-        if (!find(aboutSections, { urlSection })) { // not a known page section
-            return;
+    useEffect(throttle(() => {
+        // prevents a console error about react unmounted component leak
+        let isMounted = true;
+        if (isMounted) {
+            const urlSection = query.section;
+            if (urlSection) {
+                jumpToSection(urlSection);
+                // remove the query param from the url after scrolling to the given section
+                history.replace(`/about`);
+            }
         }
-        const sectionDom = document.querySelector(`#about-${urlSection}`);
-
-        if (!sectionDom) {
-            return;
-        }
-
-        setActiveSection(urlSection);
-    }, [query.section]);
-
-    useEffect(() => {
-        jumpToSection(activeSection);
-        // history.replace(`/about`);
-    }, [activeSection]);
+        return () => {
+            isMounted = false;
+        };
+    }, 100), [history, query.section]);
 
     return (
         <div className="about-content-wrapper">
@@ -118,7 +114,7 @@ const AboutContent = () => {
                     active={activeSection}
                     pageName="about"
                     sections={aboutSections}
-                    // detectActiveSection={setActiveSection}
+                    detectActiveSection
                     jumpToSection={jumpToSection}
                     fixedStickyBreakpoint={getStickyBreakPointForSidebar()} />
             </div>
