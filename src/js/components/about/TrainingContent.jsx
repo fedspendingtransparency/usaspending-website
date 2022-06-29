@@ -23,7 +23,9 @@ export default class TrainingContent extends React.Component {
             <div
                 className="about-section-wrapper"
                 id="about-training">
-                <h2 className="about-section-title">
+                <h2
+                    className="about-section-title"
+                    id="about__training-jump">
                      Training
                 </h2>
                 <div className="about-section-content">

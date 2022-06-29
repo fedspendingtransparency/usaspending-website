@@ -80,14 +80,18 @@ const AboutContent = () => {
         if (!find(aboutSections, { section })) { // not a known page section
             return;
         }
-
-        const sectionDom = document.querySelector(`#about-${section}`);
+        console.debug("section: ", section);
+        let sectionDom;
+        if (section === "training") {
+            sectionDom = document.querySelector(`#about__training-jump`);
+        } else {
+            sectionDom = document.querySelector(`#about-${section}`);
+        }
         if (!sectionDom) {
             return;
         }
-        const conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight : 10;
-        const sectionTop = sectionDom.offsetTop - stickyHeaderHeight - conditionalOffset;
-        scrollToY(sectionTop, 750);
+        const sectionTop = sectionDom.offsetTop - 10 - stickyHeaderHeight;
+        scrollToY(sectionTop, 700);
         setActiveSection(section);
     };
 
