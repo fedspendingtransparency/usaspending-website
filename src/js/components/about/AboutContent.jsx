@@ -47,10 +47,6 @@ const aboutSections = [
         label: 'Development and Releases'
     },
     {
-        section: 'training',
-        label: 'Training'
-    },
-    {
         section: 'careers',
         label: 'Careers'
     },
@@ -65,6 +61,10 @@ const aboutSections = [
     {
         section: 'contact',
         label: 'Contact'
+    },
+    {
+        section: 'training',
+        label: 'Training'
     }
 ];
 
@@ -125,11 +125,11 @@ const AboutContent = () => {
                     <DataSources onExternalLinkClick={onExternalLinkClick} />
                     <DataQuality onExternalLinkClick={onExternalLinkClick} />
                     <Development />
-                    <TrainingContent />
                     <Careers />
                     <Licensing />
                     <MoreInfo />
                     <Contact />
+                    <TrainingContent />
                 </div>
             </div>
         </div>
