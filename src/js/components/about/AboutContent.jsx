@@ -71,6 +71,7 @@ const aboutSections = [
 const AboutContent = () => {
     const history = useHistory();
     const query = useQueryParams();
+
     const [activeSection, setActiveSection] = useState(query.section || 'mission');
 
     const jumpToSection = (section = '') => {
