@@ -114,7 +114,7 @@ const AboutContent = () => {
                     active={activeSection}
                     pageName="about"
                     sections={aboutSections}
-                    detectActiveSection
+                    detectActiveSection={setActiveSection}
                     jumpToSection={jumpToSection}
                     fixedStickyBreakpoint={getStickyBreakPointForSidebar()} />
             </div>

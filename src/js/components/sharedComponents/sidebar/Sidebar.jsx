@@ -179,7 +179,6 @@ const Sidebar = ({
             // no change
             return;
         }
-        if (typeof detectActiveSection === 'function') detectActiveSection(nextActiveSection);
         setActiveSection(nextActiveSection);
     }, 100);
 
