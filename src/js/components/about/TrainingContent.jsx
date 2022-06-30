@@ -4,6 +4,7 @@
  */
 
 import React from 'react';
+import ExternalLink from 'components/sharedComponents/ExternalLink';
 
 export default class TrainingContent extends React.Component {
     render() {
@@ -21,12 +22,8 @@ export default class TrainingContent extends React.Component {
                         The USAspending.gov team is committed to helping audiences of all types learn more about our website&apos;s tools and data. If your organization would like to request training from us, please use the link below to submit a request. <span className="trainingContent__strong">A minimum of three participants is required.</span> Due to the number of requests we receive, we cannot guarantee that your organization will receive training.
                     </p>
                     <p>
-                        Please fill out all the required information on the training request form. Otherwise, we will not be able to process your request. Also, please note that we are only able to provide training on the website and its data. <span className="trainingContent__strong">We are unable to provide any information on specific government programs or funding opportunities.</span>
-                        <a
-                            className="trainingContent__email-anchor"
-                            href="https://www.surveymonkey.com/r/YK963LJ">
-                            {' '}Click here to request training for your organization.
-                        </a>
+                        Please fill out all the required information on the training request form. Otherwise, we will not be able to process your request. Also, please note that we are only able to provide training on the website and its data. <span className="trainingContent__strong">We are unable to provide any information on specific government programs or funding opportunities. </span>
+                        <ExternalLink url="https://www.surveymonkey.com/r/YK963LJ">Click here to request training for your organization.</ExternalLink>
                     </p>
                 </div>
             </div>
