@@ -5,7 +5,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import { throttle } from 'lodash';
+import { find, throttle } from 'lodash';
 import { useDispatch } from 'react-redux';
 import { showModal } from 'redux/actions/modal/modalActions';
 import { useQueryParams } from 'helpers/queryParams';
@@ -74,6 +74,9 @@ const AboutContent = () => {
     const [activeSection, setActiveSection] = useState(query.section || 'mission');
 
     const jumpToSection = (section = '') => {
+        if (!find(aboutSections, { section })) { // not a known page section
+            return;
+        }
         const sectionDom = document.querySelector(`#about-${section}`);
         const conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight : 10;
         const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight - conditionalOffset);
