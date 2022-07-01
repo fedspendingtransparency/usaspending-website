@@ -1,0 +1,123 @@
+.equity-main-card-content {
+  border-radius: 8px;
+  margin: $global-margin * 2 0;
+  display: block;
+
+  @media (max-width: $small-screen) {
+    margin: 0;
+  }
+
+  @media (min-width: $medium-screen) {
+    align-items: center;
+    width: auto;
+    height: 94%;
+  }
+
+  @media (min-width: $medium-screen) and (max-width: $large-screen) {
+    height: 94%;
+  }
+
+  @media (min-width: $large-screen) {
+    height: 94%;
+  }
+
+  box-shadow: $shadow-3;
+
+  .equityMainCard__image-wrapper {
+    border-radius: 8px;
+    height: 240px;
+    @media (max-width: $small-screen) {
+      margin-bottom: rem(16);
+    }
+
+    .equityMainCard__image-background {
+      border-top-left-radius: 8px;
+      border-top-right-radius: 8px;
+      height: 240px;
+      display: flex;
+      justify-content: center;
+    }
+  }
+
+  .equityMainCard__content-wrapper {
+    padding: 32px 24px 24px;
+    .equityMainCard__heading-wrapper {
+      margin-left: 0;
+      font-size: $h4-font-size;
+      font-weight: $font-semibold;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.25;
+      letter-spacing: normal;
+      color: $color-grayblack;
+
+      p {
+        margin: 0;
+      }
+    }
+
+    .equityMainCard__text-wrapper {
+      font-size: $base-font-size;
+      font-weight: normal;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.5;
+      letter-spacing: normal;
+      color: $color-base;
+      margin-bottom: $global-margin * 3;
+      margin-top: $global-margin * 2;
+      p {
+        margin-bottom: 0;
+      }
+      .readMoreUpdated__contract-button{
+        @include button-unstyled;
+        font-weight: $font-semibold;
+        color: $color-primary;
+        margin: 8px 4px 0 0;
+        font-size: rem(14);
+        line-height: 1.5;
+        vertical-align: middle;
+        &:hover {
+          color: $color-primary-darker;
+        }
+
+        &:active {
+          color: $color-primary-darkest;
+        }
+      }
+      .readMoreUpdated__button {
+        @include button-unstyled;
+        font-weight: $font-semibold;
+        color: $color-primary;
+        margin: 8px 4px 0 0;
+        font-size: rem(14);
+        line-height: 1.5;
+        vertical-align: middle;
+        &:hover {
+          color: $color-primary-darker;
+        }
+
+        &:active {
+          color: $color-primary-darkest;
+        }
+      }
+    }
+    .equityMainCard__button-wrapper {
+      font-size: $h5-font-size;
+      font-weight: $font-semibold;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.25;
+      letter-spacing: normal;
+      color: $color-primary;
+      margin: 0;
+      a:hover {
+        text-decoration: none;
+      }
+
+      button {
+        margin: 0;
+      }
+    }
+  }
+}

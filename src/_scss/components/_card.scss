@@ -1,16 +1,16 @@
 .card-content {
   width: 100%;
   background-color: $color-white;
-  border-radius: 6px;
   margin: 0 0 $global-margin * 4;
   padding: $global-padding * 3;
+  border-radius: 6px;
+  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  min-height: 250px;
   @media (min-width: $medium-screen) {
     display: flex;
     align-items: center;
     padding: $global-margin * 5;
   }
-  min-height: 250px;
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 
   .card__icon-wrapper {
     width: 35px;
@@ -40,7 +40,7 @@
       margin: 0;
     }
   }
-  
+
   .card__content-wrapper {
     font-size: $base-font-size;
     font-weight: normal;

@@ -5,7 +5,7 @@
 
 import React from 'react';
 
-const HomepageUpdate = React.lazy(() => import('components/homepageUpdate/HomepageUpdate').then((comp) => comp));
+const Homepage = React.lazy(() => import('components/homepage/Homepage').then((comp) => comp));
 const SearchContainer = React.lazy(() => import('containers/search/SearchContainer').then((comp) => comp));
 const SearchContainerRedirect = React.lazy(() => import('containers/search/SearchContainer').then((module) => ({ default: module.SearchContainerRedirect })));
 const ExplorerLanding = React.lazy(() => import('components/explorer/landing/ExplorerLanding').then((comp) => comp));
@@ -35,6 +35,7 @@ const ErrorPage = React.lazy(() => import('components/errorPage/ErrorPage').then
 const SubmissionStatisticsDataSources = React.lazy(() => import('components/aboutTheData/DataSourcesAndMethodologiesPage').then((comp) => comp));
 const DataDictionaryPage = React.lazy(() => import('components/dataDictionary/DataDictionaryPage').then((comp) => comp));
 const AnalystGuidePage = React.lazy(() => import('components/analystGuide/AnalystGuidePage').then((comp) => comp));
+const EquityCovidSpendingPage = React.lazy(() => import('components/dataDives/EquityCovidSpendingPage').then((comp) => comp));
 
 // /* eslint-disable import/prefer-default-export */
 // Please add any new routes to the scripts/pages.js routes file.
@@ -42,7 +43,7 @@ const AnalystGuidePage = React.lazy(() => import('components/analystGuide/Analys
 export const routes = [
     {
         path: `/`,
-        component: HomepageUpdate,
+        component: Homepage,
         exact: true
     },
     {
@@ -206,6 +207,11 @@ export const routes = [
     {
         path: '/analyst-guide',
         component: AnalystGuidePage,
+        exact: true
+    },
+    {
+        path: '/data-dives/equity-COVID-19-spending',
+        component: EquityCovidSpendingPage,
         exact: true
     },
     {

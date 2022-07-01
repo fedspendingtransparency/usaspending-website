@@ -4,11 +4,10 @@
  **/
 
 import React, { useState, useEffect } from 'react';
-import { useLocation, useHistory } from 'react-router-dom';
-import { find } from 'lodash';
+import { useHistory } from 'react-router-dom';
+import { find, throttle } from 'lodash';
 import { useDispatch } from 'react-redux';
 import { showModal } from 'redux/actions/modal/modalActions';
-import { scrollToY } from 'helpers/scrollToHelper';
 import { useQueryParams } from 'helpers/queryParams';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
@@ -24,6 +23,7 @@ import Contact from './Contact';
 import Development from './Development';
 import Careers from './Careers';
 import Licensing from './Licensing';
+import TrainingContent from "./TrainingContent";
 
 const aboutSections = [
     {
@@ -61,11 +61,14 @@ const aboutSections = [
     {
         section: 'contact',
         label: 'Contact'
+    },
+    {
+        section: 'training',
+        label: 'Training'
     }
 ];
 
 const AboutContent = () => {
-    const location = useLocation();
     const history = useHistory();
     const query = useQueryParams();
 
@@ -75,15 +78,12 @@ const AboutContent = () => {
         if (!find(aboutSections, { section })) { // not a known page section
             return;
         }
-
-        setActiveSection(section);
         const sectionDom = document.querySelector(`#about-${section}`);
-        if (!sectionDom) {
-            return;
-        }
         const conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight : 10;
-        const sectionTop = sectionDom.offsetTop - stickyHeaderHeight - conditionalOffset;
-        scrollToY(sectionTop, 700);
+        const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight - conditionalOffset);
+
+        window.scrollTo({ top: sectionTop, left: 0 });
+        setActiveSection(section);
     };
 
     const dispatch = useDispatch();
@@ -94,14 +94,21 @@ const AboutContent = () => {
         }
     };
 
-    useEffect(() => {
-        const urlSection = query.section;
-        if (urlSection) {
-            jumpToSection(urlSection);
-            // remove the query param from the url after scrolling to the given section
-            history.replace(`/about`);
+    useEffect(throttle(() => {
+        // prevents a console error about react unmounted component leak
+        let isMounted = true;
+        if (isMounted) {
+            const urlSection = query.section;
+            if (urlSection) {
+                jumpToSection(urlSection);
+                // remove the query param from the url after scrolling to the given section
+                history.replace(`/about`);
+            }
         }
-    }, [history, location.search, query.section]);
+        return () => {
+            isMounted = false;
+        };
+    }, 100), [history, query.section]);
 
     return (
         <div className="about-content-wrapper">
@@ -126,6 +133,7 @@ const AboutContent = () => {
                     <Licensing />
                     <MoreInfo />
                     <Contact />
+                    <TrainingContent />
                 </div>
             </div>
         </div>
