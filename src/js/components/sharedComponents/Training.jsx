@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Analytics from 'helpers/analytics/Analytics';
+import { Link } from "react-router-dom";
 import { faCaretRight, faLaptop } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -35,10 +36,10 @@ const Training = (pageName) => {
             <div className="training__message">
                 on how to use USAspending.gov
             </div>
-            <a className="training__link" href="/about?section=careers" onClick={trackLink}>
+            <Link className="training__link" to={{ pathname: "/about", search: "section=training" }} onMouseUp={trackLink}>
                 Learn&nbsp;More
                 <FontAwesomeIcon icon={faCaretRight} />
-            </a>
+            </Link>
         </div>
     );
 };

@@ -4,11 +4,10 @@
  **/
 
 import React, { useState, useEffect } from 'react';
-import { useLocation, useHistory } from 'react-router-dom';
-import { find } from 'lodash';
+import { useHistory } from 'react-router-dom';
+import { find, throttle } from 'lodash';
 import { useDispatch } from 'react-redux';
 import { showModal } from 'redux/actions/modal/modalActions';
-import { scrollToY } from 'helpers/scrollToHelper';
 import { useQueryParams } from 'helpers/queryParams';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
@@ -48,10 +47,6 @@ const aboutSections = [
         label: 'Development and Releases'
     },
     {
-        section: 'training',
-        label: 'Training'
-    },
-    {
         section: 'careers',
         label: 'Careers'
     },
@@ -66,11 +61,14 @@ const aboutSections = [
     {
         section: 'contact',
         label: 'Contact'
+    },
+    {
+        section: 'training',
+        label: 'Training'
     }
 ];
 
 const AboutContent = () => {
-    const location = useLocation();
     const history = useHistory();
     const query = useQueryParams();
 
@@ -80,15 +78,12 @@ const AboutContent = () => {
         if (!find(aboutSections, { section })) { // not a known page section
             return;
         }
-
-        setActiveSection(section);
         const sectionDom = document.querySelector(`#about-${section}`);
-        if (!sectionDom) {
-            return;
-        }
         const conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight : 10;
-        const sectionTop = sectionDom.offsetTop - stickyHeaderHeight - conditionalOffset;
-        scrollToY(sectionTop, 700);
+        const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight - conditionalOffset);
+
+        window.scrollTo({ top: sectionTop, left: 0 });
+        setActiveSection(section);
     };
 
     const dispatch = useDispatch();
@@ -99,7 +94,8 @@ const AboutContent = () => {
         }
     };
 
-    useEffect(() => {
+    useEffect(throttle(() => {
+        // prevents a console error about react unmounted component leak
         let isMounted = true;
         if (isMounted) {
             const urlSection = query.section;
@@ -109,8 +105,10 @@ const AboutContent = () => {
                 history.replace(`/about`);
             }
         }
-        return () => { isMounted = false; };
-    }, [history, location.search, query.section]);
+        return () => {
+            isMounted = false;
+        };
+    }, 100), [history, query.section]);
 
     return (
         <div className="about-content-wrapper">
@@ -131,11 +129,11 @@ const AboutContent = () => {
                     <DataSources onExternalLinkClick={onExternalLinkClick} />
                     <DataQuality onExternalLinkClick={onExternalLinkClick} />
                     <Development />
-                    <TrainingContent />
                     <Careers />
                     <Licensing />
                     <MoreInfo />
                     <Contact />
+                    <TrainingContent />
                 </div>
             </div>
         </div>
