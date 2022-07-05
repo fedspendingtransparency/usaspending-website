@@ -9,15 +9,12 @@
 
     .homepage-download__wrapper {
         @import "mixins/fullSectionWrap";
-        @include fullSectionWrap(0, 0);
-
+        @include fullSectionWrap(0, 9.6rem, $grid-column);
         display: block;
         @include media($medium-screen) {
             @include display(flex);
             @include justify-content(center);
             @include align-items(center);
-
-            padding: 0 rem(40);
         }
     }
 

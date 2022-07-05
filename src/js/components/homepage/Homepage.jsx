@@ -1,37 +1,33 @@
 /**
  * Homepage.jsx
- * Created by Kevin Li 1/18/18
+ * Created by Andrea Blackwell 03/07/22
  */
 
 import React from 'react';
 
-import * as MetaTagHelper from 'helpers/metaTagHelper';
-import Footer from 'containers/Footer';
-
-import CovidHighlights from 'containers/homepage/CovidHighlights';
-import Header from 'containers/shared/HeaderContainer';
-import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
-import MetaTags from '../sharedComponents/metaTags/MetaTags';
-
-import Features from './features/Features';
 import Download from './download/Download';
 import Community from './community/Community';
+import Hero from './hero/Hero';
+import HomepageCovidContainer from '../../containers/homepage/HomepageCovidContainer';
+import GettingStarted from './gettingStarted/GettingStarted';
+import PageWrapper from "../sharedComponents/PageWrapper";
+import { homePageMetaTags } from "../../helpers/metaTagHelper";
 
-require('pages/homepage/homePage.scss');
+require('pages/homepage/homepage.scss');
 
 const Homepage = () => (
-    <div className="usa-da-home-page">
-        <MetaTags {...MetaTagHelper.homePageMetaTags} />
-        <Header />
-        <main id="main-content" className="homepage-content">
-            <CovidHighlights />
-            <Features />
+    <PageWrapper
+        pageName="Homepage"
+        classNames="usa-da-home-page"
+        noHeader
+        metaTagProps={{ ...homePageMetaTags }}>
+        <main id="main-content" className="main-content homepage-content">
+            <Hero />
+            <HomepageCovidContainer />
+            <GettingStarted />
             <Download />
             <Community />
         </main>
-        <GlobalModalContainer />
-        <Footer pageName="Homepage" />
-    </div>
-);
+    </PageWrapper>);
 
 export default Homepage;

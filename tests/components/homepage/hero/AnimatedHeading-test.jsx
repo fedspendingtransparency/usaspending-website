@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from '@test-utils';
 
-import AnimatedHeading from 'components/homepageUpdate/hero/AnimatedHeading';
+import AnimatedHeading from 'components/homepage/hero/AnimatedHeading';
 
 describe('AnimatedHeading', () => {
     it('animated text is initially hidden', () => {

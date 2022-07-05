@@ -2,12 +2,16 @@
     .feature-dropdown__wrapper {
         position: relative;
         display: inline-block;
+        @media (max-width: $medium-screen) {
+            display: block;
+        }
 
         .feature-dropdown__button {
             margin: 0;
-            font-size: rem(21);
-            padding: rem(15) rem(20);
-            font-weight: $font-normal;
+            font-size: rem(16);
+            height: rem(40);
+            border-radius: rem(4);
+            padding: 0 rem(20);
 
             &:hover, &:active, &.feature-dropdown__button_active {
                 background-color: $color-primary-darker;
@@ -41,8 +45,8 @@
             a.feature-dropdown-item__link {
                 display: block;
                 color: $color-base;
-                font-size: rem(21);
-                line-height: rem(27);
+                font-size: rem(16);
+                line-height: rem(20);
                 padding: rem(7) rem(24);
 
                 &:hover, &:active {
@@ -53,8 +57,8 @@
 
             &.feature-dropdown-item_coming-soon {
                 color: $color-gray-light;
-                font-size: rem(21);
-                line-height: rem(27);
+                font-size: rem(16);
+                line-height: rem(20);
                 padding: rem(7) rem(24);
 
                 cursor: not-allowed;

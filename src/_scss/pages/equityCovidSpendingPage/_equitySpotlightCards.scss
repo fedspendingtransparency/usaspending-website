@@ -1,0 +1,31 @@
+.equity-spotlight {
+  height: 100%;
+  width: 100%;
+  margin: 0 auto;
+  background-color: $color-white;
+  @media (min-width: $medium-screen) {
+    padding-bottom: $global-padding * 9;
+  }
+
+  .grid-content {
+    .equity-spotlight__column-one {
+      padding-bottom: $global-padding * 4;
+      border-bottom: solid 1px $color-gray-lighter;
+      @media (min-width: $medium-screen) {
+        padding-bottom: 0;
+        border-bottom: none;
+        padding-right: $global-padding * 6;
+        border-right: solid 1px $color-gray-lighter;
+      }
+    }
+    .equity-spotlight__column-two {
+      margin-top: $global-margin * 4;
+      margin-bottom: $global-margin * 8;
+      @media (min-width: $medium-screen) {
+        margin: 0;
+        padding-left: $global-padding * 6;
+      }
+    }
+  }
+  @import "../../components/spotlightCard";
+}
