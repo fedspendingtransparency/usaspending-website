@@ -11,6 +11,15 @@ const imgDirectory = 'img/';
 const siteName = 'USAspending.gov';
 const facebookImage = 'FacebookOG.png';
 
+export const equityPageMetaTags = {
+    og_url: `${productionURL}data-dives/equity-COVID-19-spending`,
+    og_title: 'Equity in COVID-19 Spending | USAspending',
+    og_description:
+        'The Department of the Treasury worked with the U.S. Census Bureau and external tech teams from across the country to develop interactive tools for understanding how the federal government distributed COVID-19 relief funds across some of the communities most vulnerable to the impacts of the pandemic.',
+    og_site_name: siteName,
+    og_image: `${productionURL}${imgDirectory}${facebookImage}`
+};
+
 export const homePageMetaTags = {
     og_url: productionURL,
     og_title: 'Government Spending Open Data | USAspending',

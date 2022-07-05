@@ -1,81 +1,102 @@
 /**
  * Hero.jsx
- * Created by Kevin Li 1/19/18
+ * Created by Brian Petway 03/22
  */
 
-import React from 'react';
+import React, { useState } from 'react';
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import { InfoCircle } from 'components/sharedComponents/icons/Icons';
-import HeroButton from './HeroButton';
-import HeroTooltip from './HeroTooltip';
+import Analytics from 'helpers/analytics/Analytics';
+import AnimatedHeading from './AnimatedHeading';
 
-// Fiscal year, spending amount constants, to be updated yearly
-// last updated: 10/28/2019
-const fiscalYear = 2019;
-const fiscalSpendingAmount = `$4.45 trillion`;
+const Hero = () => {
+    const [isPaused, setIsPaused] = useState(false);
 
-export default class Hero extends React.Component {
-    constructor(props) {
-        super(props);
+    const trackSearchLink = () => Analytics.event({
+        category: 'Homepage',
+        action: 'Link',
+        label: 'search'
+    });
+    const trackAboutLink = () => Analytics.event({
+        category: 'Homepage',
+        action: 'Link',
+        label: 'about'
+    });
 
-        this.state = {
-            showInfoTooltip: false
-        };
-
-        this.showTooltip = this.showTooltip.bind(this);
-        this.closeTooltip = this.closeTooltip.bind(this);
-    }
-
-    showTooltip() {
-        this.setState({
-            showInfoTooltip: true
-        });
-    }
-
-    closeTooltip() {
-        this.setState({
-            showInfoTooltip: false
-        });
-    }
-
-    render() {
-        let tooltip = null;
-        if (this.state.showInfoTooltip) {
-            tooltip = (
-                <HeroTooltip
-                    fiscalYear={fiscalYear}
-                    showInfoTooltip={this.state.showInfoTooltip}
-                    closeTooltip={this.closeTooltip} />
-            );
+    const keyPressHandler = (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            setIsPaused((previousIsPaused) => !previousIsPaused);
         }
-        return (
-            <section className="homepage-hero" aria-label="Introduction">
-                <div
-                    id="homepage-hero__wrapper"
-                    className="homepage-hero__wrapper">
-                    <div className="homepage-hero__content">
-                        <h1 className="homepage-hero__headline" tabIndex={-1}>
-                            In {fiscalYear}, the government spent <strong className="homepage-hero__headline homepage-hero__headline_weight_bold">{fiscalSpendingAmount}.</strong>
-                            <span className="homepage-hero__info_icon_holder">
-                                <button
-                                    id="homepage-hero__info_icon"
-                                    className="homepage-hero__info_icon"
-                                    onFocus={this.showTooltip}
-                                    onMouseEnter={this.showTooltip}
-                                    onClick={this.showTooltip}>
-                                    <InfoCircle />
-                                </button>
-                            </span>
-                        </h1>
-                        {tooltip}
-                        <hr className="homepage-hero__divider" />
-                        <div className="homepage-hero__description">
-                            <strong className="homepage-hero__description homepage-hero__description_weight_bold">USA Spending tracks federal spending to ensure taxpayers can see how their money is being used</strong> in communities across America. Learn more on how this money was spent with tools to help you navigate spending from top to bottom.
+    };
+
+    return (
+        <section className="homepage-hero-container" aria-label="Hero sections">
+            <div className="homepage-hero-content">
+                <AnimatedHeading paused={isPaused} />
+                <div className="hero__lower-wrapper">
+                    <div className="hero__left-image-wrapper">
+                        <picture>
+                            <img
+                                role="presentation"
+                                src="../../../../img/homepage-hero-graphic-left.svg"
+                                alt="" />
+                        </picture>
+                    </div>
+                    <div className="hero__center-content-wrapper">
+                        <div className="hero__center-content">
+                            <div className="hero__button-container">
+                                <Link
+                                    className="hero__button hero__button--action"
+                                    to="/search"
+                                    onClick={trackSearchLink}>
+                                    Start Searching Awards
+                                </Link>
+                                <Link
+                                    className="hero__button"
+                                    to="/about"
+                                    onClick={trackAboutLink}>
+                                    Learn about USAspending
+                                </Link>
+                            </div>
+                            <div className="hero__text-container">
+                                <p>
+                                    USAspending is the official open data source of federal spending information.
+                                </p>
+                            </div>
+                            <div className="hero__pause-button-container">
+                                <a
+                                    className="hero__pause-button"
+                                    role="button"
+                                    tabIndex="0"
+                                    onClick={() => {
+                                        setIsPaused((previousIsPaused) => !previousIsPaused);
+                                    }}
+                                    onKeyPress={(e) => {
+                                        keyPressHandler(e);
+                                    }}>
+                                    { isPaused ?
+                                        <><FontAwesomeIcon icon="play" width={10} />&nbsp;&nbsp;Play text animation</>
+                                        :
+                                        <><FontAwesomeIcon icon="pause" width={10} />&nbsp;&nbsp;Pause text animation</>
+                                    }
+                                </a>
+                            </div>
                         </div>
                     </div>
-                    <HeroButton />
+                    <div className="hero__right-image-wrapper">
+                        <picture>
+                            <img
+                                role="presentation"
+                                src="../../../../img/homepage-hero-graphic-right.svg"
+                                alt="" />
+                        </picture>
+                    </div>
                 </div>
-            </section>
-        );
-    }
-}
+            </div>
+        </section>
+    );
+};
+
+export default Hero;
