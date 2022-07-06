@@ -49,8 +49,7 @@ const EquityCovidSpendingPage = () => {
             link: 'https://a.flow.gl/flow/kx4yer85/display',
             img: '../../../../img/top-bowie-state-combined-image.svg',
             heading: 'Bowie State University',
-            color: '#ffbe60',
-            readMore: false
+            color: '#ffbe60'
 
         },
         morehouse: {
@@ -58,24 +57,21 @@ const EquityCovidSpendingPage = () => {
             link: 'https://a.flow.gl/flow/kuo62d54/display',
             img: '../../../../img/top-morehouse-combined-image.svg',
             heading: 'Morehouse College',
-            color: '#339189',
-            readMore: false
+            color: '#339189'
         },
         kansas: {
             text: 'The Child Care Planning Assessment Tool will help community leaders better assess and understand the connection between childcare and equitable labor participation including a county level snapshot of child care supply and demand and interactive calculators to begin addressing child care needs in their community.',
             link: 'https://top.kucppr.org/',
             img: '../../../../img/top-university-kansas-combined-image.svg',
             heading: 'University of Kansas Center for Public Partnerships and Research',
-            color: '#fa9441',
-            readMore: false
+            color: '#fa9441'
         },
         momproject: {
-            momText: 'The PEI (Predictive Equity Index) model employs machine learning and predictive analytics to understand key drivers of equity in the distribution of PPP loans. This methodology allows for creation of a cohesive dataset, allowing for an in-depth assessment of county-level performance of equity, as well as an understanding of how future actions serve to impact anticipated levels of equity in future funding efforts. Taken together, this product allows for policy makers at the county, state, and national-level to take county-level action maximizing the impact of federal dollars on the communities the investments aim to serve.',
+            text: 'The PEI (Predictive Equity Index) model employs machine learning and predictive analytics to understand key drivers of equity in the distribution of PPP loans. This methodology allows for creation of a cohesive dataset, allowing for an in-depth assessment of county-level performance of equity, as well as an understanding of how future actions serve to impact anticipated levels of equity in future funding efforts. Taken together, this product allows for policy makers at the county, state, and national-level to take county-level action maximizing the impact of federal dollars on the communities the investments aim to serve.',
             link: 'https://work.themomproject.com/predictiveequity',
             img: '../../../../img/top-mom-project-combined-image.svg',
             heading: 'The Mom Project',
-            color: '#29abe2',
-            readMore: true
+            color: '#29abe2'
         }
     };
 
