@@ -31,7 +31,8 @@ const WOSBPage = () => {
                 <ShareIcon url={getBaseUrl(slug)} onShareOptionClick={handleShare} />
             ]}>
             <main id="main-content" className="main-content wosb-content">
-                <div>PLACEHOLDER</div>
+                <div>HEADING PLACEHOLDER</div>
+                <div>CONTENT PLACEHOLDER</div>
             </main>
         </PageWrapper>
     );
