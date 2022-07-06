@@ -11,6 +11,15 @@ const imgDirectory = 'img/';
 const siteName = 'USAspending.gov';
 const facebookImage = 'FacebookOG.png';
 
+export const wosbPageMetaTags = {
+    og_url: `${productionURL}data-dives/women-owned-small-businesses-federal-contracting`,
+    og_title: 'Women-Owned Small Businesses and Federal Contracting | USAspending',
+    og_description:
+        'Learn about the federal government’s progress toward helping women-owned small businesses win federal contracts.',
+    og_site_name: siteName,
+    og_image: `${productionURL}${imgDirectory}${facebookImage}`
+};
+
 export const equityPageMetaTags = {
     og_url: `${productionURL}data-dives/equity-COVID-19-spending`,
     og_title: 'Equity in COVID-19 Spending | USAspending',
