@@ -1,6 +1,6 @@
 {
     "name": "usaspending-website",
-    "version": "2.5.0",
+    "version": "3.0.0",
     "description": "USAspending Website",
     "repository": "fedspendingtransparency/usaspending-website",
     "main": "src/index.js",
