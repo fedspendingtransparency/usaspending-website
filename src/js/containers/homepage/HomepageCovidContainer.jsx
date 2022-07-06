@@ -17,7 +17,7 @@ import { initialState as defaultFilters, CheckboxTreeSelections } from 'redux/re
 import Analytics from 'helpers/analytics/Analytics';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import Card from "../../components/sharedComponents/Card";
+import Card from "../../components/sharedComponents/cards/Card";
 import TotalAmount from "../../components/homepage/hero/TotalAmount";
 
 const HomepageCovidContainer = () => {

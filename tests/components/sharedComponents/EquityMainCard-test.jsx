@@ -1,10 +1,10 @@
 /**
- * EquityMainCard-test.jsx
+ * MainCard-test.jsx
  * Created by Nick Torres 06/27/22
  */
 
 import React from 'react';
-import EquityMainCard from 'components/sharedComponents/EquityMainCard';
+import EquityMainCard from 'components/sharedComponents/MainCard';
 import { render, screen } from '../../testResources/test-utils';
 
 const testHdg = "This is a test heading";

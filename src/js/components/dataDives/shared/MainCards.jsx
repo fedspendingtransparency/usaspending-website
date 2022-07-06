@@ -11,7 +11,7 @@ import Analytics from 'helpers/analytics/Analytics';
 
 import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 import ReadMore from '../../sharedComponents/ReadMore';
-import EquityMainCard from '../../sharedComponents/EquityMainCard';
+import MainCard from './MainCard';
 
 const propTypes = {
     contentObject: PropTypes.object.isRequired
@@ -36,7 +36,7 @@ const MainCards = ({ contentObject }) => {
             action: `Clicked ${item} See Project Button`
         });
     };
-    
+
     return (
         <section className="main-cards__wrapper">
             <FlexGridRow className="grid-content">
@@ -50,7 +50,7 @@ const MainCards = ({ contentObject }) => {
                             tablet={12}
                             mobile={12}
                             className={index % 2 === 0 ? `equity-main-card__col-one` : `equity-main-card__col-two`}>
-                            <EquityMainCard
+                            <MainCard
                                 image={<img className="main-cards__svg" role="presentation" src={card.img} alt="" />}
                                 imageColor={card.color}
                                 heading={<h2>{card.heading}</h2>}

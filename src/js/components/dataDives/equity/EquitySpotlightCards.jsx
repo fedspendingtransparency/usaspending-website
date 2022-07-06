@@ -6,7 +6,7 @@
 import React from 'react';
 import PropTypes from "prop-types";
 import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
-import SpotlightCard from "../../sharedComponents/SpotlightCard";
+import SpotlightCard from "../../sharedComponents/cards/SpotlightCard";
 
 const propTypes = {
     content: PropTypes.object

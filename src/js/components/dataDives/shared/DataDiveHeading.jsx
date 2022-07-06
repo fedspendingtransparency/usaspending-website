@@ -1,5 +1,5 @@
 /**
- * EquityHeading.jsx
+ * DataDiveHeading.jsx
  * Created by Brian Petway 06/16/22
  */
 
@@ -8,11 +8,11 @@ import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 import PropTypes from 'prop-types';
 
 const propTypes = {
-    content: PropTypes.object,
-    postCount: PropTypes.number
+    content: PropTypes.object.isRequired,
+    postCount: PropTypes.number.isRequired
 };
 
-const EquityHeading = ({ content, postCount }) => {
+const DataDiveHeading = ({ content, postCount }) => {
     const {
         heading, intro, note, collab, date
     } = content;
@@ -37,5 +37,5 @@ const EquityHeading = ({ content, postCount }) => {
     );
 };
 
-EquityHeading.propTypes = propTypes;
-export default EquityHeading;
+DataDiveHeading.propTypes = propTypes;
+export default DataDiveHeading;
