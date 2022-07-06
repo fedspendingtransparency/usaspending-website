@@ -8,11 +8,14 @@ import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 import PropTypes from 'prop-types';
 
 const propTypes = {
-    content: PropTypes.object
+    content: PropTypes.object,
+    postCount: PropTypes.number
 };
 
-const EquityHeading = (props) => {
-    const { heading, intro, note } = props.content;
+const EquityHeading = ({ content, postCount }) => {
+    const {
+        heading, intro, note, collab, date
+    } = content;
     return (
         <section
             className="equity-heading"
@@ -21,10 +24,10 @@ const EquityHeading = (props) => {
                 <FlexGridCol width={12}>
                     <div className="equity-heading__heading">{heading}</div>
                     <div className="equity-heading__stats-row">
-                        <div className="equity-heading__pill">Partner Collaboration</div>
-                        <div className="equity-heading__date">Jan 18, 2022</div>
+                        <div className="equity-heading__pill" style={!collab ? { display: 'none' } : {}}>Partner Collaboration</div>
+                        <div className="equity-heading__date">{date}</div>
                         <div className="equity-heading__dot">&#8226;</div>
-                        <div>4 posts</div>
+                        <div>{postCount}&nbsp;posts</div>
                     </div>
                     <div className="equity-heading__intro">{intro}</div>
                     <div className="equity-heading__note">{note}</div>
