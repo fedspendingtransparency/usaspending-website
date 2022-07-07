@@ -27,7 +27,8 @@ const propTypes = {
     jumpToSection: PropTypes.func,
     isSubAwardIdClicked: PropTypes.bool,
     subAwardIdClicked: PropTypes.func,
-    defCodes: PropTypes.array
+    defCodes: PropTypes.array,
+    unlinked: PropTypes.bool
 };
 
 const FinancialAssistanceContent = ({

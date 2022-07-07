@@ -19,7 +19,7 @@ const AwardPageWrapper = ({
     idLabel = "PIID",
     children,
     dates,
-    parentId
+    unlinked
 }) => {
     const glossaryTitleText = awardTypeCodes[overviewType] ?
         `View glossary definition of ${awardTypeCodes[overviewType]}` :
@@ -27,26 +27,12 @@ const AwardPageWrapper = ({
 
     const [, areDefCodesLoading, defCodes] = useDefCodes();
     const [covidDefCodes, setCovidDefCodes] = useState(null);
-    const [unlinkedValue, setUnlinkedValue] = useState(null);
-    const unlinked = (async () => {
-        const countRequest = await getAwardHistoryCounts("federal_account", parentId, false);
-        try {
-            const { data } = await countRequest.promise;
-            return setUnlinkedValue(data.federal_accounts);
-        }
-        catch (error) {
-            console.log(`Error fetching counts: ${error}`);
-            return setUnlinkedValue(null);
-        }
-    });
-    useEffect(() => {
-        unlinked();
-    });
+
     useEffect(() => {
         if (!areDefCodesLoading) {
             setCovidDefCodes(defCodes.filter((c) => c.disaster === 'covid_19' && allDefCodes.indexOf(c.code) > -1).map((code) => code.code));
         }
-    }, [areDefCodesLoading, allDefCodes]);
+    }, [areDefCodesLoading, allDefCodes, defCodes]);
 
     return (
         <div className={`award award-${awardType}`}>
@@ -74,7 +60,7 @@ const AwardPageWrapper = ({
                 </span>
             </TooltipWrapper>
             }
-            {unlinkedValue === 0 &&
+            {unlinked &&
             <TooltipWrapper className="award-summary__unlinked-flag" tooltipComponent={<UnlinkedTooltip />}>
                 <span className="unlinked-flag">
                                 Unlinked Award
