@@ -3,7 +3,6 @@ import { TooltipWrapper } from 'data-transparency-ui';
 import { Link } from 'react-router-dom';
 import { awardTypeCodes } from 'dataMapping/search/awardType';
 import { useDefCodes } from 'containers/covid19/WithDefCodes';
-import { getAwardHistoryCounts } from "../../../helpers/awardHistoryHelper";
 import { Glossary } from '../../sharedComponents/icons/Icons';
 import { AWARD_PAGE_WRAPPER_PROPS } from '../../../propTypes/index';
 import AwardStatus from './AwardStatus';

@@ -1243,15 +1243,14 @@ CovidFlagTooltip.propTypes = {
 
 export const UnlinkedTooltip = () => {
     const handleClick = () => {
-        const selector = `.federal_accounts`;
+        const selector = `.federal-accounts`;
         // scroll to the correct section
         const sectionDom = document.querySelector(selector);
-        console.debug("section:", sectionDom);
         if (!sectionDom) {
             return;
         }
 
-        scrollToY(sectionDom.offsetTop, 700);
+        scrollToY(sectionDom.offsetTop - 150, 700);
     };
     return (
         <div className="award-summary-tooltip unlinked">

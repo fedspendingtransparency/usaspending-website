@@ -72,8 +72,6 @@ const ContractContent = ({
         }
     });
 
-    console.log('contract, unlinked', unlinked);
-
     return (
         <AwardPageWrapper
             allDefCodes={overview.defCodes}
