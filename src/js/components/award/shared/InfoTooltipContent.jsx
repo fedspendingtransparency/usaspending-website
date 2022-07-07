@@ -1239,3 +1239,17 @@ export const CovidFlagTooltip = ({ codes }) => (
 CovidFlagTooltip.propTypes = {
     codes: PropTypes.arrayOf(PropTypes.string)
 };
+
+export const UnlinkedTooltip = () => (
+    <div className="award-summary-tooltip unlinked">
+        <div className="tooltip__title">
+            This award has not been linked to any federal account
+        </div>
+        <div className="tooltip__text">
+            <p>This means all financial system data elements (File C) are unavailable on this page and in downloads for this award</p>
+            <p>
+            For more information, view the Federal Accounts section below
+            </p>
+        </div>
+    </div>
+);

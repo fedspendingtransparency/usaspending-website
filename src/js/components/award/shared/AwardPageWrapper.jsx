@@ -7,7 +7,7 @@ import { getAwardHistoryCounts } from "../../../helpers/awardHistoryHelper";
 import { Glossary } from '../../sharedComponents/icons/Icons';
 import { AWARD_PAGE_WRAPPER_PROPS } from '../../../propTypes/index';
 import AwardStatus from './AwardStatus';
-import { CovidFlagTooltip } from '../shared/InfoTooltipContent';
+import { CovidFlagTooltip, UnlinkedTooltip } from '../shared/InfoTooltipContent';
 
 const AwardPageWrapper = ({
     allDefCodes,
@@ -75,7 +75,7 @@ const AwardPageWrapper = ({
             </TooltipWrapper>
             }
             {unlinkedValue === 0 &&
-            <TooltipWrapper className="award-summary__unlinked-flag" tooltipComponent={<CovidFlagTooltip codes={covidDefCodes} />}>
+            <TooltipWrapper className="award-summary__unlinked-flag" tooltipComponent={<UnlinkedTooltip />}>
                 <span className="unlinked-flag">
                                 Unlinked Award
                 </span>

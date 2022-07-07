@@ -130,6 +130,27 @@
           width: rem(200);
           margin: rem(8) 0 rem(12);
         }
+
+        .award-summary__unlinked-flag {
+          padding: rem(3) rem(7);
+          @include display(flex);
+          @include flex-wrap(wrap);
+          @include justify-content(center);
+          @include align-items(center);
+          background: $color-gray-lightest;
+          color: $color-primary;
+          font-size: rem(14);
+          font-weight: 600;
+          text-align: center;
+          height: rem(24);
+          border-radius: rem(4);
+          width: rem(112);
+          margin: rem(8) 0 rem(12);
+
+          &:hover {
+            color: $color-cool-blue;
+          }
+        }
           .award__row {
               @include display(flex);
               @include flex-wrap(wrap);
