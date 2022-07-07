@@ -72,8 +72,6 @@ const ContractContent = ({
         }
     });
 
-    console.log('contract, unlinked', unlinked);
-
     return (
         <AwardPageWrapper
             allDefCodes={overview.defCodes}
@@ -117,7 +115,8 @@ const ContractContent = ({
                     jumpToTransactionHistoryTable={jumpToTransactionHistoryTable} />
                 <FederalAccountsSection
                     jumpToFederalAccountsHistory={jumpToFederalAccountsHistory}
-                    awardType={overview.category} />
+                    awardType={overview.category}
+                    unlinked={unlinked} />
             </AwardSection>
             <AwardSection className="award-history-section" type="row">
                 <AwardHistory
