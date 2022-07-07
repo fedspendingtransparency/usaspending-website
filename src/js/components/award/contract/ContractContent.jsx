@@ -27,7 +27,8 @@ const propTypes = {
     counts: PropTypes.object,
     isSubAwardIdClicked: PropTypes.bool,
     subAwardIdClicked: PropTypes.func,
-    defCodes: PropTypes.array
+    defCodes: PropTypes.array,
+    unlinked: PropTypes.bool
 };
 
 const ContractContent = ({
@@ -37,7 +38,8 @@ const ContractContent = ({
     counts,
     isSubAwardIdClicked,
     subAwardIdClicked,
-    defCodes
+    defCodes,
+    unlinked
 }) => {
     const [activeTab, setActiveTab] = useState('transaction');
 
@@ -70,6 +72,8 @@ const ContractContent = ({
         }
     });
 
+    console.log('contract, unlinked', unlinked);
+
     return (
         <AwardPageWrapper
             allDefCodes={overview.defCodes}
@@ -80,7 +84,8 @@ const ContractContent = ({
             lastModifiedDateLong={overview.periodOfPerformance.lastModifiedDateLong}
             awardType="contract"
             dates={overview.periodOfPerformance}
-            parentId={overview.parentAwardDetails.awardId}>
+            parentId={overview.parentAwardDetails.awardId}
+            unlinked={unlinked}>
             <AwardSection type="row" className="award-overview" id="award-overview">
                 <AwardOverviewLeftSection
                     awardingAgency={overview.awardingAgency}

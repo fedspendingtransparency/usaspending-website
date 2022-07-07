@@ -26,7 +26,8 @@ const propTypes = {
     awardId: PropTypes.string,
     details: AWARD_COUNTS_PROPS,
     overview: AWARD_OVERVIEW_PROPS,
-    jumpToSection: PropTypes.func
+    jumpToSection: PropTypes.func,
+    unlinked: PropTypes.bool
 };
 
 const IdvContent = ({

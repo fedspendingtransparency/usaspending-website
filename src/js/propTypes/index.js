@@ -58,7 +58,8 @@ export const AWARD_PAGE_WRAPPER_PROPS = {
     children: PropTypes.node,
     subAwardIdClicked: PropTypes.bool,
     jumpToSubAwardHistoryTable: PropTypes.func,
-    dates: PropTypes.object
+    dates: PropTypes.object,
+    unlinked: PropTypes.bool
 };
 
 export const AWARD_SECTION_HEADER_PROPS = {
