@@ -1243,10 +1243,10 @@ CovidFlagTooltip.propTypes = {
 
 export const UnlinkedTooltip = () => {
     const handleClick = () => {
-        const selector = `.`;
+        const selector = `.federal_accounts`;
         // scroll to the correct section
         const sectionDom = document.querySelector(selector);
-
+        console.debug("section:", sectionDom);
         if (!sectionDom) {
             return;
         }
@@ -1261,7 +1261,7 @@ export const UnlinkedTooltip = () => {
             <div className="tooltip__text">
                 <p>This means all financial system data elements (File C) are unavailable on this page and in downloads for this award</p>
                 <p>
-            For more information, view the <a role="link" tabIndex={0} target="_blank" rel="noopener noreferrer" onMouseUp={handleClick}>Federal Accounts</a> section below
+            For more information, view the <a role="link" tabIndex={0} onMouseUp={handleClick}>Federal Accounts</a> section below
                 </p>
             </div>
         </div>);
