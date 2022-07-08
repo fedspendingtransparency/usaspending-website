@@ -23,6 +23,8 @@ import ResultsTableTabs from 'components/search/table/ResultsTableTabs';
 import ResultsTablePicker from 'components/search/table/ResultsTablePicker';
 import { awardAmountsInfo } from 'components/award/shared/InfoTooltipContent';
 import withDefCodes from 'containers/covid19/WithDefCodes';
+import AggregatedAwardAmountsTableWrapper
+    from "../../../components/award/idv/amounts/AggregatedAwardAmountsTableWrapper";
 
 const propTypes = {
     award: PropTypes.object,
@@ -184,7 +186,7 @@ export class IdvAmountsContainer extends React.Component {
                         showFileC={showFileC} />
                 )}
                 {this.state.active !== 'awards' && (
-                    <AwardAmountsTable
+                    <AggregatedAwardAmountsTableWrapper
                         showFileC={showFileC}
                         awardData={thisIdv}
                         awardAmountType="idv"
