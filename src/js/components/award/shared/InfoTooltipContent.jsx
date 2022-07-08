@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { uniqueId } from 'lodash';
-import { scrollToY } from 'helpers/scrollToHelper';
 
 // Mapping of section identifier to tooltip content JSX
 export const transactionHistoryInfoGeneric = (
@@ -1241,28 +1240,3 @@ CovidFlagTooltip.propTypes = {
     codes: PropTypes.arrayOf(PropTypes.string)
 };
 
-export const UnlinkedTooltip = () => {
-    const handleClick = () => {
-        const selector = `.`;
-        // scroll to the correct section
-        const sectionDom = document.querySelector(selector);
-
-        if (!sectionDom) {
-            return;
-        }
-
-        scrollToY(sectionDom.offsetTop, 700);
-    };
-    return (
-        <div className="award-summary-tooltip unlinked">
-            <div className="tooltip__title">
-            This award has not been linked to any federal account
-            </div>
-            <div className="tooltip__text">
-                <p>This means all financial system data elements (File C) are unavailable on this page and in downloads for this award</p>
-                <p>
-            For more information, view the <a role="link" tabIndex={0} target="_blank" rel="noopener noreferrer" onMouseUp={handleClick}>Federal Accounts</a> section below
-                </p>
-            </div>
-        </div>);
-};

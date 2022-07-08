@@ -123,8 +123,6 @@ export class FederalAccountTableContainer extends React.Component {
     }
 
     parseFundingData(data, reset, category = this.props.category) {
-        console.log('parse data', data);
-        console.log('category', this.props.category);
         if (!data.results.length) {
             this.setState({
                 unlinked: true

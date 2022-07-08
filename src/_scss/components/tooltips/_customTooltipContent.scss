@@ -11,13 +11,6 @@
             @include justify-content(center);
         }
     }
-    &.unlinked {
-        @include display(flex);
-        @include flex-direction(column);
-        .tooltip__title {
-            @include justify-content(center);
-        }
-    }
 }
 
 .related-awards-tt {
@@ -96,7 +89,7 @@
     h2.tooltip__title {
         font-size: rem(16);
     }
-    
+
     .tooltip__text p {
         font-size: rem(14);
         a {

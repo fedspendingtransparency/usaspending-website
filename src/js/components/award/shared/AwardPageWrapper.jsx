@@ -3,11 +3,10 @@ import { TooltipWrapper } from 'data-transparency-ui';
 import { Link } from 'react-router-dom';
 import { awardTypeCodes } from 'dataMapping/search/awardType';
 import { useDefCodes } from 'containers/covid19/WithDefCodes';
-import { getAwardHistoryCounts } from "../../../helpers/awardHistoryHelper";
 import { Glossary } from '../../sharedComponents/icons/Icons';
 import { AWARD_PAGE_WRAPPER_PROPS } from '../../../propTypes/index';
 import AwardStatus from './AwardStatus';
-import { CovidFlagTooltip, UnlinkedTooltip } from '../shared/InfoTooltipContent';
+import { CovidFlagTooltip } from '../shared/InfoTooltipContent';
 
 const AwardPageWrapper = ({
     allDefCodes,
@@ -57,13 +56,6 @@ const AwardPageWrapper = ({
             <TooltipWrapper className="award-summary__covid-19-flag" tooltipComponent={<CovidFlagTooltip codes={covidDefCodes} />}>
                 <span className="covid-spending-flag">
                                 Includes COVID-19 Spending
-                </span>
-            </TooltipWrapper>
-            }
-            {unlinked &&
-            <TooltipWrapper className="award-summary__unlinked-flag" tooltipComponent={<UnlinkedTooltip />}>
-                <span className="unlinked-flag">
-                                Unlinked Award
                 </span>
             </TooltipWrapper>
             }
