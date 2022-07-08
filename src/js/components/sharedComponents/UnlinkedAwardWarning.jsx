@@ -7,9 +7,14 @@ import React from 'react';
 import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 import { ExclamationTriangle } from 'components/sharedComponents/icons/Icons';
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
-const UnlinkedAwardWarning = () => (
-    <section className="unlinked-award-warning__wrapper">
+const propTypes = {
+    topMargin: PropTypes.bool
+};
+
+const UnlinkedAwardWarning = ({ topMargin }) => (
+    <section className={`unlinked-award-warning__wrapper ${topMargin ? "top-margin" : ""}`}>
         <FlexGridRow className="unlinked-award-warning__content">
             <FlexGridCol className="unlinked-award-warning__column-one" width={1} tablet={0.5}>
                 <ExclamationTriangle />
@@ -42,4 +47,5 @@ const UnlinkedAwardWarning = () => (
     </section>
 );
 
+UnlinkedAwardWarning.propTypes = propTypes;
 export default UnlinkedAwardWarning;
