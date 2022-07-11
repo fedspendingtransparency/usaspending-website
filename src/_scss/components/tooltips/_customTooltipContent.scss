@@ -14,31 +14,32 @@
     &.unlinked {
         @include display(flex);
         @include flex-direction(column);
+
         .tooltip__header {
             display:inline-flex;
+            width: 100%;
             .tooltip__title {
                 @include justify-content(center);
-            }
-
+            }          
+            
             .tooltip__close-button {
-                background: $color-gray-lightest;
+                background-color: $color-gray-lightest;
                 .award-summary__close-button {
-                    @include flex(0 0 auto);
                     @include button-unstyled;
-                    padding: rem(5) rem(10);
+                    padding: rem(5) rem(5);
                     margin-top: 16px;
-                    margin-right: 12px;
+                    margin-right: 8px;
                     svg {
                         fill: $color-primary;
                         height: rem(16);
                         width: rem(16);
                     }
-                    &:hover {
+                    &:hover :focus {
                         color: $color-primary-darkest;
+                        box-shadow: 0 0 3px $color-focus, 0 0 7px $color-focus;
                     }
                 }
             }
-
         }
 
         .award-summary__unlinked-anchor {

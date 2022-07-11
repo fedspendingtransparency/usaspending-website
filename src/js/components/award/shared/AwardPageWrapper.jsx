@@ -60,7 +60,12 @@ const AwardPageWrapper = ({
             </TooltipWrapper>
             }
             {unlinked &&
-            <TooltipWrapper tabIndex={0} className="award-summary__unlinked-flag" tooltipComponent={<UnlinkedTooltip />}>
+            <TooltipWrapper
+                tabIndex={0}
+                isVisible
+                tooltipPosition="bottom"
+                className="award-summary__unlinked-flag"
+                tooltipComponent={<UnlinkedTooltip />}>
                 <span className="unlinked-flag">
                                 Unlinked Award
                 </span>

@@ -147,6 +147,15 @@
           width: rem(112);
           margin: rem(8) 0 rem(12);
 
+          .tooltip-spacer {
+            transform: translate(0, 20px);
+
+            .tooltip-pointer.bottom {
+              @media (min-width: $medium-screen) {
+                transform: rotate(90deg) translate(-8px, 140px);
+              }
+            }
+          }
           &:hover {
             color: $color-cool-blue;
           }

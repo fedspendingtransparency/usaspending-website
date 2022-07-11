@@ -1259,7 +1259,12 @@ export const UnlinkedTooltip = () => {
         tooltipDom.style.display = "none";
     };
     return (
-        <div className="award-summary-tooltip unlinked">
+        <div
+            className="award-summary-tooltip unlinked"
+            styles={{
+                position: 'absolute',
+                transform: `translate(0px,20px)`
+            }}>
             <div className="tooltip__header">
                 <div className="tooltip__title">
                     This award has not been linked to any federal account
