@@ -17,8 +17,7 @@ const AwardPageWrapper = ({
     identifier,
     idLabel = "PIID",
     children,
-    dates,
-    unlinked
+    dates
 }) => {
     const glossaryTitleText = awardTypeCodes[overviewType] ?
         `View glossary definition of ${awardTypeCodes[overviewType]}` :
