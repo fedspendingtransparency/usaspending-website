@@ -1281,10 +1281,8 @@ export const UnlinkedTooltip = () => {
                 </div>
             </div>
             <div className="tooltip__text">
-                <p>This means all financial system data elements (File C) are unavailable on this page and in downloads for this award</p>
-                <p>
-            For more information, view the <a className="award-summary__unlinked-anchor" role="link" tabIndex={0} onMouseUp={handleClick}>Federal Accounts</a> section below
-                </p>
+                <p>This means all financial system data elements (File C) are unavailable on this page and in downloads for this award.</p>
+                <p>For more information, view the <a className="award-summary__unlinked-anchor" role="link" tabIndex={0} onMouseUp={handleClick}>Federal Accounts</a> section below.</p>
             </div>
         </div>);
 };
