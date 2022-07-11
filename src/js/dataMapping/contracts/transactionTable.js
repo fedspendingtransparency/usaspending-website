@@ -37,7 +37,7 @@ const tableSearchFields = {
         actionDate: 'Action Date',
         federalActionObligation: 'Amount',
         actionTypeDescription: 'Action Type',
-        description: 'Description'
+        description: 'Transaction Description'
     }
 };
 
