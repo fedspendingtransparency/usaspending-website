@@ -6,7 +6,7 @@ import { useDefCodes } from 'containers/covid19/WithDefCodes';
 import { Glossary } from '../../sharedComponents/icons/Icons';
 import { AWARD_PAGE_WRAPPER_PROPS } from '../../../propTypes/index';
 import AwardStatus from './AwardStatus';
-import { CovidFlagTooltip } from '../shared/InfoTooltipContent';
+import { CovidFlagTooltip, UnlinkedTooltip } from '../shared/InfoTooltipContent';
 
 const AwardPageWrapper = ({
     allDefCodes,
@@ -17,7 +17,8 @@ const AwardPageWrapper = ({
     identifier,
     idLabel = "PIID",
     children,
-    dates
+    dates,
+    unlinked
 }) => {
     const glossaryTitleText = awardTypeCodes[overviewType] ?
         `View glossary definition of ${awardTypeCodes[overviewType]}` :
