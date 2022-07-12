@@ -1255,7 +1255,7 @@ export const UnlinkedTooltip = () => {
     };
 
     const closeTooltip = () => {
-        const tooltipDom = document.querySelector(".award-summary-tooltip.unlinked");
+        const tooltipDom = document.querySelector("div.tooltip-wrapper.award-summary__unlinked-flag > div > div.tooltip-spacer");
         tooltipDom.style.display = "none";
     };
     return (
