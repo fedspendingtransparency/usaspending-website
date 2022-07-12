@@ -47,7 +47,7 @@ const tableSearchFields = {
         faceValue: 'Loan Face Value',
         subsidy: 'Loan Subsidy Cost (Total Obligations To Date)',
         actionTypeDescription: 'Action Type',
-        description: 'Description'
+        description: 'Transaction Description'
     }
 };
 
