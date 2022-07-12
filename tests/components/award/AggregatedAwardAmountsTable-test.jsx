@@ -37,7 +37,7 @@ describe('Award Summary Chart Table', () => {
         expect(getByTestId('award-amounts__data-wrapper')).toHaveTextContent('Infrastructure Obligated Amount');
     });
 
-    it('- should NOT show infrastructure spending.', () => {
+    it('- should show overall spending.', () => {
         const renderComponent = () =>
             render(<AwardAmountsTable
                 {...awardObject}
