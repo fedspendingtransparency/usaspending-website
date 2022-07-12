@@ -148,8 +148,10 @@
           margin: rem(8) 0 rem(12);
 
           .tooltip-spacer {
-            transform: translate(0, 20px);
-
+            transform: translate(-35px, 0);
+            @media (min-width: $medium-screen) {
+              transform: translate(0, 20px);
+            }
             .tooltip-pointer.bottom {
               @media (min-width: $medium-screen) {
                 transform: rotate(90deg) translate(-8px, 140px);
