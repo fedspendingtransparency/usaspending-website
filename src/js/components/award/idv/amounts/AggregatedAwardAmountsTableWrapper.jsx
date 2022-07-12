@@ -39,7 +39,7 @@ const AggregatedAwardAmountsTableWrapper = (props) => {
     };
 
     return (
-        <div className="award-amounts__table-by-type">
+        <div className="award-amounts__table-by-type" data-testid="award-amounts__table-by-type">
             <div style={{ display: showInfrastructureTabs() ? `block` : `none` }}>
                 <Tabs
                     tablessStyle
