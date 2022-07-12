@@ -29,7 +29,7 @@ const InfoBanner = (props) => {
                         title="Dismiss message"
                         aria-label="Dismiss message"
                         onClick={bannerClosed}>
-                        <FontAwesomeIcon size="lg" alt="Dismiss message" icon="fal fa-times" />
+                        <FontAwesomeIcon size="lg" alt="Dismiss message" icon="times" />
                     </button>
                 </>
             </div>
