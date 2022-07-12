@@ -34,7 +34,8 @@ const IdvContent = ({
     awardId,
     details,
     overview,
-    jumpToSection
+    jumpToSection,
+    unlinked
 }) => {
     const [awardHistoryActiveTab, setAwardHistoryTab] = useState('transaction');
     const [relatedAwardsActiveTab, setRelatedAwardsTab] = useState('child_awards');
@@ -86,7 +87,8 @@ const IdvContent = ({
                 <IdvActivityContainer />
                 <FederalAccountsSection
                     awardType={overview.category}
-                    jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
+                    jumpToFederalAccountsHistory={jumpToFederalAccountsHistory}
+                    unlinked={unlinked} />
             </AwardSection>
             <ReferencedAwardsContainer
                 tableType={relatedAwardsActiveTab}

@@ -16,6 +16,7 @@ import * as awardActions from 'redux/actions/award/awardActions';
 import BaseFederalAccountFunding from 'models/v2/award/BaseFederalAccountFunding';
 import FederalAccountTable from 'components/award/table/FederalAccountTable';
 import { fetchFederalAccountFunding } from '../../../helpers/awardHistoryHelper';
+import UnlinkedAwardWarning from "../../../components/sharedComponents/UnlinkedAwardWarning";
 
 const propTypes = {
     award: PropTypes.object,
@@ -38,7 +39,8 @@ export class FederalAccountTableContainer extends React.Component {
                 direction: 'asc'
             },
             tableInstance: `${uniqueId()}`,
-            fundingResults: []
+            fundingResults: [],
+            unlinked: false
         };
 
         this.fedAccountRequest = null;
@@ -121,6 +123,11 @@ export class FederalAccountTableContainer extends React.Component {
     }
 
     parseFundingData(data, reset, category = this.props.category) {
+        if (!data.results.length) {
+            this.setState({
+                unlinked: true
+            });
+        }
         const fundingResults = data.results
             .map((item) => {
                 const fundingResult = Object.create(BaseFederalAccountFunding);
@@ -168,11 +175,18 @@ export class FederalAccountTableContainer extends React.Component {
 
     render() {
         return (
-            <FederalAccountTable
-                {...this.props}
-                {...this.state}
-                changeSort={this.changeSort}
-                nextPage={this.nextPage} />
+            <>
+                {this.state.unlinked ? (
+                    <UnlinkedAwardWarning topMargin />
+                )
+                    :
+                    <FederalAccountTable
+                        {...this.props}
+                        {...this.state}
+                        changeSort={this.changeSort}
+                        nextPage={this.nextPage} />
+                }
+            </>
         );
     }
 }

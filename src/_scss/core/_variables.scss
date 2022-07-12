@@ -119,7 +119,7 @@ $global-pad: $global-pad-mrg;
 $global-mrg: $global-pad-mrg;
 
 // Global Padding and Margins (new units for 2022 homepage redesign)
-// (example usage {padding: ($global-padding * 4);} = 40px of padding.)
+// (example usage {padding: ($global-padding * 4);} = 32px of padding.)
 $global-spacing-unit: rem(8);
 $global-padding: $global-spacing-unit;
 $global-margin: $global-spacing-unit;

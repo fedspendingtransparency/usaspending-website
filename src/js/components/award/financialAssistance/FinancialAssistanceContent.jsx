@@ -37,7 +37,8 @@ const FinancialAssistanceContent = ({
     jumpToSection,
     isSubAwardIdClicked,
     subAwardIdClicked,
-    defCodes
+    defCodes,
+    unlinked
 }) => {
     const [activeTab, setActiveTab] = useState("transaction");
     const [CFDAOverviewLinkClicked, setCFDAOverviewLinkClicked] = useState(false);
@@ -129,7 +130,8 @@ const FinancialAssistanceContent = ({
                 )}
                 <FederalAccountsSection
                     awardType={overview.category}
-                    jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
+                    jumpToFederalAccountsHistory={jumpToFederalAccountsHistory}
+                    unlinked={unlinked} />
             </AwardSection>
             {isGrant && (
                 <AwardSection type="row">
