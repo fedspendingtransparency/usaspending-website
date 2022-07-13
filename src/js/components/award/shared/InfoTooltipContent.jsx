@@ -1239,3 +1239,4 @@ export const CovidFlagTooltip = ({ codes }) => (
 CovidFlagTooltip.propTypes = {
     codes: PropTypes.arrayOf(PropTypes.string)
 };
+

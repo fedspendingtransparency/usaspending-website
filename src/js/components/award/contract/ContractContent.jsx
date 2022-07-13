@@ -27,7 +27,8 @@ const propTypes = {
     counts: PropTypes.object,
     isSubAwardIdClicked: PropTypes.bool,
     subAwardIdClicked: PropTypes.func,
-    defCodes: PropTypes.array
+    defCodes: PropTypes.array,
+    unlinked: PropTypes.bool
 };
 
 const ContractContent = ({
@@ -37,7 +38,8 @@ const ContractContent = ({
     counts,
     isSubAwardIdClicked,
     subAwardIdClicked,
-    defCodes
+    defCodes,
+    unlinked
 }) => {
     const [activeTab, setActiveTab] = useState('transaction');
 
@@ -79,7 +81,8 @@ const ContractContent = ({
             title={overview.title}
             lastModifiedDateLong={overview.periodOfPerformance.lastModifiedDateLong}
             awardType="contract"
-            dates={overview.periodOfPerformance}>
+            dates={overview.periodOfPerformance}
+            parentId={overview.parentAwardDetails.awardId}>
             <AwardSection type="row" className="award-overview" id="award-overview">
                 <AwardOverviewLeftSection
                     awardingAgency={overview.awardingAgency}
@@ -111,7 +114,8 @@ const ContractContent = ({
                     jumpToTransactionHistoryTable={jumpToTransactionHistoryTable} />
                 <FederalAccountsSection
                     jumpToFederalAccountsHistory={jumpToFederalAccountsHistory}
-                    awardType={overview.category} />
+                    awardType={overview.category}
+                    unlinked={unlinked} />
             </AwardSection>
             <AwardSection className="award-history-section" type="row">
                 <AwardHistory

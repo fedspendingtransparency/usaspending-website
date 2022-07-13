@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { TooltipWrapper } from 'data-transparency-ui';
 import { Link } from 'react-router-dom';
-
 import { awardTypeCodes } from 'dataMapping/search/awardType';
 import { useDefCodes } from 'containers/covid19/WithDefCodes';
-
 import { Glossary } from '../../sharedComponents/icons/Icons';
 import { AWARD_PAGE_WRAPPER_PROPS } from '../../../propTypes/index';
 import AwardStatus from './AwardStatus';
@@ -32,7 +30,7 @@ const AwardPageWrapper = ({
         if (!areDefCodesLoading) {
             setCovidDefCodes(defCodes.filter((c) => c.disaster === 'covid_19' && allDefCodes.indexOf(c.code) > -1).map((code) => code.code));
         }
-    }, [areDefCodesLoading, allDefCodes]);
+    }, [areDefCodesLoading, allDefCodes, defCodes]);
 
     return (
         <div className={`award award-${awardType}`}>
