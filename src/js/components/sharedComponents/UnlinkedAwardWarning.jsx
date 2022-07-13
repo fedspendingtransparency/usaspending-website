@@ -10,13 +10,14 @@ import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 
 const propTypes = {
-    topMargin: PropTypes.bool
+    topMargin: PropTypes.bool,
+    widerLayout: PropTypes.bool
 };
 
-const UnlinkedAwardWarning = ({ topMargin }) => (
+const UnlinkedAwardWarning = ({ topMargin, widerLayout }) => (
     <section className={`unlinked-award-warning__wrapper ${topMargin ? "top-margin" : ""}`}>
         <FlexGridRow className="unlinked-award-warning__content">
-            <FlexGridCol className="unlinked-award-warning__column-one" width={1} tablet={0.5}>
+            <FlexGridCol className={`unlinked-award-warning__column-one ${widerLayout ? "wider-layout" : ""}`} width={1} tablet={0.5}>
                 <ExclamationTriangle />
             </FlexGridCol>
             <FlexGridCol className="unlinked-award-warning__column-two" width={11}>
@@ -41,7 +42,6 @@ const UnlinkedAwardWarning = ({ topMargin }) => (
                         <li>The award is a loan with zero or negative subsidy cost.</li>
                     </ul>
                 </div>
-
             </FlexGridCol>
         </FlexGridRow>
     </section>

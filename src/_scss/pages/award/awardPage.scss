@@ -34,7 +34,10 @@
 
       // Shared award summary styles
       .award {
+          padding: $global-padding * 2;
+        @media (min-width: $tablet-screen) {
           padding: rem(24) rem(30);
+        }
           .award__heading {
               @include media($medium-screen) {
                 @include display(flex);

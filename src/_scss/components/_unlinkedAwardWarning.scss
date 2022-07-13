@@ -14,7 +14,7 @@
 
   .unlinked-award-warning__content {
     height: 100%;
-    padding: $global-padding * 2 $global-padding 0 $global-padding;
+    padding: $global-padding * 3 $global-padding * 2 0 14px;
     @media (min-width: $tablet-screen) {
       padding: $global-padding * 3 $global-padding 0 0;
     }
@@ -25,6 +25,11 @@
     .usa-dt-flex-grid__col-1 {
       @media (min-width: $tablet-screen) {
         width: 5%;
+      }
+      &.wider-layout {
+        @media (min-width: $tablet-screen) {
+          width: 3%;
+        }
       }
     }
 
@@ -39,14 +44,14 @@
       justify-content: center;
 
       .usa-da-icon-exclamation-triangle {
-        width: 20px;
-        height: 18px;
+        width: 24px;
+        height: 24px;
         fill: #fdb81e;
       }
     }
 
     .unlinked-award-warning__column-two {
-      padding-left: $global-padding;
+      padding-left: $global-padding * 2;
       @media (min-width: $tablet-screen) {
         padding-left: 0;
       }
@@ -60,6 +65,7 @@
         color: $color-grayblack;
         line-height: 1.25;
         margin-bottom: $global-margin * 1.5;
+        padding-top: 7px;
       }
 
       .unlinked-award-warning__text {
