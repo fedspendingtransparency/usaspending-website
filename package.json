@@ -90,8 +90,10 @@
         "node-forge": "1.3.1",
         "follow-redirects": "1.14.8",
         "async": "2.6.4",
-        "**/trim": "^1.0.0",
-        "**/glob-parent": "^5.1.2"
+        "trim": "1.0.1",
+        "trim-newlines": "3.0.1",
+        "got": "11.8.5",
+        "glob-parent": "5.1.2"
     },
     "dependencies": {
         "@babel/eslint-parser": "^7.17.0",
