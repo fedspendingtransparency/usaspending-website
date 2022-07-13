@@ -177,7 +177,7 @@ export class FederalAccountTableContainer extends React.Component {
         return (
             <>
                 {this.state.unlinked ? (
-                    <UnlinkedAwardWarning topMargin />
+                    <UnlinkedAwardWarning topMargin widerLayout />
                 )
                     :
                     <FederalAccountTable
