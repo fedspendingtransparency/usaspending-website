@@ -1,7 +1,7 @@
 .award-amounts {
     $border-gray: #555555;
     $border-light-gray: #d5d6d8;
-    .award-amounts__content {
+    .award-amounts__content, .award-amounts__table-by-type {
       @import '../../../search/results/table/tableMessages';
       .usa-dt-tab__wrapper.tabless-tab:not(.active), .usa-dt-tab-list__border-post-filler {
         border-bottom: unset;
@@ -85,6 +85,10 @@
         margin: rem(40) 0 rem(10) 0;
         border-radius: rem(5);
     }
+
+  .award-amounts__table-by-type {
+    padding-top: rem(16);
+  }
 
     @import "./charts";
     @import "./dataTable";
