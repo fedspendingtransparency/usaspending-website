@@ -32,7 +32,7 @@ const propTypes = {
     infrastructureSpending: PropTypes.string
 };
 
-
+// TO-DO: Move these functions to a helper file
 const getAwardTypeText = (awardType, amountType, infrastructure) => {
     const infraText = infrastructure ? "Infrastructure" : "";
     return awardType === "idv" ? `Combined ${infraText} ${amountType} Amounts` : `${infraText} ${amountType} Amount`;
@@ -170,7 +170,7 @@ const buildNormalProps = (awardType, data, hasfilecCovid, hasOutlays, infrastruc
             ]
         }
     };
-    if (hasOutlays) return chartPropsOutlays; // show outlays for non-covid only first
+    if (hasOutlays && !hasfilecCovid) return chartPropsOutlays; // show outlays for non-covid only first
     if (!hasfilecCovid) return chartProps;
     return {
         ...chartProps,
@@ -499,7 +499,7 @@ const AwardAmountsChart = ({
         type = awardType,
         awardAmounts = awardOverview
     ) => {
-        const hasfilecCovid = awardAmounts._fileCObligated > 0;
+        const hasfilecCovid = awardAmounts._fileCObligated > 0 || awardAmounts._fileCOutlay > 0;
         const hasOutlays = awardAmounts._combinedOutlay > 0 || awardAmounts._totalOutlay > 0 || infrastructure;
 
         switch (scenario) {
@@ -514,7 +514,7 @@ const AwardAmountsChart = ({
                 );
             }
             case "normal":
-                if (hasOutlays || infrastructure) {
+                if ((hasOutlays || infrastructure) && !hasfilecCovid) {
                     return (
                         <HorizontalSingleStackedBarViz {...buildNormalProps(type, awardAmounts, hasfilecCovid, hasOutlays, infrastructure)} />
                     );
@@ -535,7 +535,7 @@ const AwardAmountsChart = ({
         const isNormal = scenario === 'normal';
         if (asstAwardTypesWithSimilarAwardAmountData.includes(type) && isNormal) {
             const isNffZero = awardAmounts._nonFederalFunding === 0;
-            const showFileC = awardAmounts._fileCObligated > 0;
+            const showFilecCovid = awardAmounts._fileCObligated > 0;
             const hasOutlays = awardAmounts._combinedOutlay > 0 || awardAmounts._totalOutlay > 0 || infrastructure;
 
             const chartProps = {
@@ -636,7 +636,7 @@ const AwardAmountsChart = ({
                     text: getAwardTypeText(awardType, "Outlayed", infrastructure)
                 }
             };
-            if (showFileC) {
+            if (showFilecCovid) {
                 // eslint-disable-next-line no-multi-assign
                 chartProps.numerator.children = [
                     {
@@ -665,7 +665,7 @@ const AwardAmountsChart = ({
                     }
                 ];
             }
-            if (hasOutlays || infrastructure) {
+            if ((hasOutlays || infrastructure) && !showFilecCovid) {
                 return (
                     <HorizontalSingleStackedBarViz {...chartPropsOutlays} />
                 );
@@ -676,7 +676,7 @@ const AwardAmountsChart = ({
             );
         }
         else if (type === 'loan' && isNormal) {
-            const showFileC = awardAmounts._fileCObligated > 0;
+            const showFilecCovid = awardAmounts._fileCObligated > 0;
             const hasOutlays = awardAmounts._combinedOutlay > 0 || awardAmounts._totalOutlay > 0 || infrastructure;
             const propsWithoutFileC = {
                 numerator: {
@@ -748,7 +748,7 @@ const AwardAmountsChart = ({
                     text: 'Outlayed Amount'
                 }
             };
-            const props = showFileC
+            const props = showFilecCovid
                 ? {
                     ...propsWithoutFileC,
                     numerator: {
