@@ -125,7 +125,7 @@ const AwardAmountsTable = ({
     };
 
     return (
-        <div className={`award-amounts__data-wrapper ${awardAmountType}`}>
+        <div className={`award-amounts__data-wrapper ${awardAmountType}`} data-testid="award-amounts__data-wrapper">
             {Object.keys(amountMapByCategoryTitle).sort(sortTableTitles)
                 .map((title) => (
                     hideRow(title)
