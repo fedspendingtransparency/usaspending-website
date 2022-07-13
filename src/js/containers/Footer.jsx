@@ -97,7 +97,7 @@ const Footer = ({
                             <ul className="links">
                                 <li>
                                     <FooterExternalLink
-                                        link="https://fiscalservice.force.com/usaspending/s/"
+                                        link="https://fiscalservice.force.com/usaspending/s/recordlist/Knowledge__kav/00B3d000000V4WDEA0"
                                         title="FAQs" />
                                 </li>
                                 <li>

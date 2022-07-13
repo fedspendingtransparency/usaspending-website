@@ -327,7 +327,7 @@ const covidDefCCol = {
 
 const descriptionCol = {
     title: 'Description',
-    displayName: 'Description',
+    displayName: 'Base Transaction Description',
     customWidth: descWidth
 };
 
