@@ -151,9 +151,15 @@
           margin: rem(8) 0 rem(12);
 
           .tooltip-spacer {
-            transform: translate(-35px, 0);
+            transform: translate(-38px, 0);
             @media (min-width: $medium-screen) {
-              transform: translate(0, 20px);
+              transform: translate(-8px, 20px);
+            }
+
+            @media (max-width: $medium-screen) {
+              margin-left: $global-margin*2;
+              margin-right: $global-margin*2;
+              max-width: 335px;
             }
             .tooltip-pointer.bottom {
               @media (min-width: $medium-screen) {
