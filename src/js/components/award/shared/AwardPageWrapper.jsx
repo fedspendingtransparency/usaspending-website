@@ -26,7 +26,7 @@ const AwardPageWrapper = ({
 
     const [, areDefCodesLoading, defCodes] = useDefCodes();
     const [covidDefCodes, setCovidDefCodes] = useState(null);
-
+    const [showTooltip, setShowTooltip] = useState(false);
     useEffect(() => {
         if (!areDefCodesLoading) {
             setCovidDefCodes(defCodes.filter((c) => c.disaster === 'covid_19' && allDefCodes.indexOf(c.code) > -1).map((code) => code.code));
@@ -61,11 +61,16 @@ const AwardPageWrapper = ({
             }
             {unlinked &&
             <TooltipWrapper
-                tabIndex={0}
-                isVisible
                 tooltipPosition="bottom"
                 className="award-summary__unlinked-flag"
-                tooltipComponent={<UnlinkedTooltip />}>
+                controlledProps={{
+                    isControlled: true,
+                    isVisible: !!showTooltip,
+                    showTooltip: () => { setShowTooltip(true); },
+                    closeTooltip: () => { }
+                }}
+
+                tooltipComponent={<UnlinkedTooltip setShowTooltip={setShowTooltip} />}>
                 <span className="unlinked-flag">
                                 Unlinked Award
                 </span>

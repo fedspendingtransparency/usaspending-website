@@ -1242,7 +1242,8 @@ CovidFlagTooltip.propTypes = {
     codes: PropTypes.arrayOf(PropTypes.string)
 };
 
-export const UnlinkedTooltip = () => {
+
+export const UnlinkedTooltip = (props) => {
     const handleClick = () => {
         const selector = `.federal-accounts`;
         // scroll to the correct section
@@ -1250,13 +1251,12 @@ export const UnlinkedTooltip = () => {
         if (!sectionDom) {
             return;
         }
-
+        props.setShowTooltip(false);
         scrollToY(sectionDom.offsetTop - 150, 700);
     };
 
     const closeTooltip = () => {
-        const tooltipDom = document.querySelector("div.tooltip-wrapper.award-summary__unlinked-flag > div > div.tooltip-spacer");
-        tooltipDom.style.display = "none";
+        props.setShowTooltip(false);
     };
     return (
         <div
@@ -1286,3 +1286,8 @@ export const UnlinkedTooltip = () => {
             </div>
         </div>);
 };
+
+UnlinkedTooltip.propTypes = {
+    setShowTooltip: PropTypes.func
+};
+
