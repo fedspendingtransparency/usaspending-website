@@ -9,6 +9,7 @@ import * as d3 from 'd3';
 import { TooltipWrapper } from 'data-transparency-ui';
 import { mapToFullCategoryName, getCategoryNameByAwardType, getActiveCategoryType, getOuterCategoryId } from 'helpers/agency/visualizations/ObligationsByAwardTypeHelper';
 import ObligationsByAwardTypeTooltip from './ObligationsByAwardTypeTooltip';
+import ObligationsByAwardTypeLegend from "./ObligationsByAwardTypeLegend";
 
 const categoryMapping = {
     'All Contracts': ['Contracts', 'IDVs'],
@@ -48,6 +49,22 @@ export default function ObligationsByAwardType({
     const [activeType, setActiveType] = useState(null);
     const [categoryHover, setCategoryHover] = useState(null);
     const chartRef = useRef();
+    // const outerLabels = outer.map((d) => d.label);
+    // needs conditional for outer?
+    // const legend = [
+    //     {
+    //         color: outer[0].color,
+    //         stroke: outer[0].color,
+    //         label: outerLabels[0],
+    //         offset: 0
+    //     },
+    //     {
+    //         color: outer[1].color,
+    //         stroke: outer[1].color,
+    //         label: outerLabels[1],
+    //         offset: 0
+    //     }
+    // ];
 
     const renderChart = () => {
         const labelRadius = Math.min(chartHeight, chartWidth) / 2;
@@ -181,25 +198,30 @@ export default function ObligationsByAwardType({
             .attr('role', 'listitem')
             .attr('tabIndex', 0);
 
-
         // labels
         const labelPos = (i, yOffset = 0) => {
             if (i === 0) {
                 // Financial Assistance, bottom right
-                return [labelRadius - 62, ((chartHeight / 2) - 25) + yOffset];
+                // return [labelRadius - 62, ((chartHeight / 2) - 25) + yOffset];
+                return [labelRadius - 192, ((chartHeight / 2)) + yOffset];
             }
             // Contracts, top left
-            return [-(labelRadius) + 18, -(chartHeight / 2) + 29 + yOffset];
+            return [labelRadius - 282, -(chartHeight / 2) + 29 + yOffset];
         };
 
         const outerLabels = outer.map((d) => d.label);
+        console.log('outer', outer);
 
         // Financial Assistance legend
         if (outer[0].value > 0) {
             // circle
             svg.append('circle')
-                .attr('cx', labelRadius - 70)
-                .attr('cy', (chartHeight / 2) - 29)
+                // .attr('cx', labelRadius - 70)
+                // .attr('cy', (chartHeight / 2) - 29)
+                // .attr('r', 4)
+                // .style("fill", outer[0].color);
+                .attr('cx', labelRadius - 200)
+                .attr('cy', (chartHeight / 2) - 4)
                 .attr('r', 4)
                 .style("fill", outer[0].color);
             // text
@@ -216,7 +238,11 @@ export default function ObligationsByAwardType({
         if (outer[1].value > 0) {
             // circle
             svg.append('circle')
-                .attr('cx', -labelRadius + 10)
+                // .attr('cx', -labelRadius + 10)
+                // .attr('cy', -(chartHeight / 2) + 25)
+                // .attr('r', 4)
+                // .style("fill", outer[1].color);
+                .attr('cx', labelRadius - 180)
                 .attr('cy', -(chartHeight / 2) + 25)
                 .attr('r', 4)
                 .style("fill", outer[1].color);
@@ -235,7 +261,7 @@ export default function ObligationsByAwardType({
         if (chartWidth && chartHeight) {
             renderChart();
         }
-    }, [chartWidth, chartHeight]);
+    }, [chartWidth, chartHeight, renderChart]);
 
     useEffect(() => {
         const rect = chartRef.current.parentElement.getBoundingClientRect();
@@ -243,7 +269,7 @@ export default function ObligationsByAwardType({
             setChartHeight(rect.height);
             setChartWidth(rect.width);
         }
-    }, [windowWidth]);
+    }, [chartHeight, chartWidth, windowWidth]);
 
     return (
         <TooltipWrapper
@@ -263,6 +289,7 @@ export default function ObligationsByAwardType({
                 closeTooltip: () => {}
             }}>
             <div id="obl_chart" className="obligations-by-award-type__chart" ref={chartRef} />
+            {/* <ObligationsByAwardTypeLegend legend={legend} /> */}
         </TooltipWrapper>
     );
 }
