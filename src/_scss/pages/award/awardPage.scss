@@ -8,7 +8,7 @@
   @include display(flex);
   @include flex-direction(column);
   @include align-items(center);
-  
+
   min-height: 100vh;
   .sticky-header,
   .site-header,
@@ -16,8 +16,8 @@
   .footer-container {
     width: 100%;
   }
-  
-  // handling the invalid award id error message 
+
+  // handling the invalid award id error message
   .wrapper {
       min-height: 36vh;
   }
@@ -31,10 +31,13 @@
       @import "mixins/fullSectionWrap";
       @include fullSectionWrap(($global-mrg * 2), ($global-mrg * 2));
       background-color: $color-white;
-      
+
       // Shared award summary styles
       .award {
+          padding: $global-padding * 2;
+        @media (min-width: $tablet-screen) {
           padding: rem(24) rem(30);
+        }
           .award__heading {
               @include media($medium-screen) {
                 @include display(flex);
@@ -53,7 +56,7 @@
                     font-weight: $font-semibold;
                     padding-right: rem(10);
                     margin: 0;
-                    font-size: $h5-font-size; 
+                    font-size: $h5-font-size;
                     line-height: normal;
                   }
                   .award__heading-icon {
@@ -130,6 +133,7 @@
           width: rem(200);
           margin: rem(8) 0 rem(12);
         }
+
           .award__row {
               @include display(flex);
               @include flex-wrap(wrap);
@@ -173,7 +177,7 @@
                       }
                   }
                   @include media(700px) {
-                      // forces content to go to single column layout 
+                      // forces content to go to single column layout
                       min-width: 470px;
                   }
                   .award__col__content {
@@ -213,6 +217,7 @@
       @import "./awardFinancialAssistance";
       @import "./idv/awardIdv";
       @import "layouts/search/header/downloadButton";
+      @import "../../components/unlinkedAwardWarning";
   }
   .sticky-header {
     .sticky-header__toolbar {

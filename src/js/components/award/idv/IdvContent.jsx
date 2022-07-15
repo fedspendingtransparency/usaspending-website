@@ -26,14 +26,16 @@ const propTypes = {
     awardId: PropTypes.string,
     details: AWARD_COUNTS_PROPS,
     overview: AWARD_OVERVIEW_PROPS,
-    jumpToSection: PropTypes.func
+    jumpToSection: PropTypes.func,
+    unlinked: PropTypes.bool
 };
 
 const IdvContent = ({
     awardId,
     details,
     overview,
-    jumpToSection
+    jumpToSection,
+    unlinked
 }) => {
     const [awardHistoryActiveTab, setAwardHistoryTab] = useState('transaction');
     const [relatedAwardsActiveTab, setRelatedAwardsTab] = useState('child_awards');
@@ -85,7 +87,8 @@ const IdvContent = ({
                 <IdvActivityContainer />
                 <FederalAccountsSection
                     awardType={overview.category}
-                    jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
+                    jumpToFederalAccountsHistory={jumpToFederalAccountsHistory}
+                    unlinked={unlinked} />
             </AwardSection>
             <ReferencedAwardsContainer
                 tableType={relatedAwardsActiveTab}
