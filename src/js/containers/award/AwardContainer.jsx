@@ -139,7 +139,7 @@ export class AwardContainer extends React.Component {
 
         this.countRequest.promise
             .then((results) => {
-                const countDataBool = results.data.federal_accounts === 0;
+                const countDataBool = (results.data.federal_accounts === 0 || results.data.count === 0);
 
                 this.setState({
                     unlinked: countDataBool
