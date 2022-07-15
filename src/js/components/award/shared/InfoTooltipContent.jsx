@@ -1255,8 +1255,14 @@ export const UnlinkedTooltip = (props) => {
         scrollToY(sectionDom.offsetTop - 150, 700);
     };
 
-    const closeTooltip = () => {
+    const clickCloseTooltip = () => {
         props.setShowTooltip(false);
+    };
+
+    const closeTooltip = (e) => {
+        if (e.keyCode === 13 || e.keyCode === 27) {
+            clickCloseTooltip();
+        }
     };
     return (
         <div
@@ -1275,7 +1281,8 @@ export const UnlinkedTooltip = (props) => {
                         title="Dismiss tooltip"
                         aria-label="Dismiss tooltip"
                         tabIndex={0}
-                        onClick={closeTooltip}>
+                        onKeyUp={closeTooltip}
+                        onClick={clickCloseTooltip}>
                         <Icons.Close />
                     </button>
                 </div>
