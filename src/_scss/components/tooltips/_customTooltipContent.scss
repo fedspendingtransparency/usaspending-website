@@ -14,7 +14,6 @@
     &.unlinked {
         @include display(flex);
         @include flex-direction(column);
-
         .tooltip__header {
             display:inline-flex;
             width: 100%;

@@ -135,6 +135,7 @@
         }
 
         .award-summary__unlinked-flag {
+          cursor: pointer;
           padding: rem(3) rem(7);
           @include display(flex);
           @include flex-wrap(wrap);
