@@ -32,6 +32,22 @@ const AwardPageWrapper = ({
             setCovidDefCodes(defCodes.filter((c) => c.disaster === 'covid_19' && allDefCodes.indexOf(c.code) > -1).map((code) => code.code));
         }
     }, [areDefCodesLoading, allDefCodes, defCodes]);
+    const handleClick = (() => {
+        setShowTooltip(true);
+    });
+
+    const handleKeyUp = ((e) => {
+        if (e.keyCode === 13) {
+            setShowTooltip(true);
+        }
+    });
+
+    const handleFocus = (() => {
+        const spanFocus = document.getElementById("award-summary__unlinked-span");
+        if (spanFocus) {
+            spanFocus.focus();
+        }
+    });
 
     return (
         <div className={`award award-${awardType}`}>
@@ -66,13 +82,20 @@ const AwardPageWrapper = ({
                 controlledProps={{
                     isControlled: true,
                     isVisible: !!showTooltip,
-                    showTooltip: () => { setShowTooltip(true); },
-                    closeTooltip: () => { }
+                    showTooltip: () => { handleFocus(); },
+                    closeTooltip: () => {}
                 }}
 
                 tooltipComponent={<UnlinkedTooltip setShowTooltip={setShowTooltip} />}>
-                <span className="unlinked-flag">
-                                Unlinked Award
+                <span
+                    id="award-summary__unlinked-span"
+                    role="button"
+                    onClick={handleClick}
+                    onKeyUp={handleKeyUp}
+                    tabIndex={-1}
+                    onFocus={handleKeyUp}
+                    className="unlinked-flag">
+                    Unlinked Award
                 </span>
             </TooltipWrapper>
             }
