@@ -134,6 +134,48 @@
           margin: rem(8) 0 rem(12);
         }
 
+        .award-summary__unlinked-flag {
+          cursor: pointer;
+          padding: rem(3) rem(7);
+          @include display(flex);
+          @include flex-wrap(wrap);
+          @include justify-content(center);
+          @include align-items(center);
+          background: $color-gray-lightest;
+          color: $color-primary;
+          font-size: rem(14);
+          font-weight: 600;
+          text-align: center;
+          height: rem(24);
+          border-radius: rem(4);
+          width: rem(112);
+          margin: rem(8) 0 rem(12);
+
+          .tooltip-spacer {
+            transform: translate(-24px, 8px);
+            @media (min-width: $medium-screen) {
+              transform: translate(-8px, 20px);
+            }
+
+            @media (max-width: $medium-screen) {
+              margin-left: $global-margin*2;
+              margin-right: $global-margin*2;
+              max-width: 335px;
+            }
+            @media (max-width: 400px) {
+              transform: translate(-38px, 0);
+            }
+            
+            .tooltip-pointer.bottom {
+              @media (min-width: $medium-screen) {
+                transform: rotate(90deg) translate(-8px, 140px);
+              }
+            }
+          }
+          &:hover {
+            color: $color-cool-blue;
+          }
+        }
           .award__row {
               @include display(flex);
               @include flex-wrap(wrap);
