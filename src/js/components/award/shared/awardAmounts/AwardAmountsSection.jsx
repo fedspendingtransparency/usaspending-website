@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { Tabs } from "data-transparency-ui";
 
 import { determineSpendingScenarioByAwardType } from 'helpers/awardAmountHelper';
 import { getToolTipBySectionAndAwardType } from 'dataMapping/award/tooltips';
-import ResultsTableTabs from 'components/search/table/ResultsTableTabs';
 
 import AwardSection from '../AwardSection';
 import AwardSectionHeader from '../AwardSectionHeader';
@@ -51,11 +51,10 @@ const AwardAmountsSection = ({
                 <AwardSectionHeader title="$ Award Amounts" tooltip={tooltip} />
                 <div className="award-amounts__content">
                     <div style={{ display: showInfrastructureTabs() ? `block` : `none`, paddingBottom: showInfrastructureTabs() ? '20px' : '' }}>
-                        <ResultsTableTabs
-                            types={tabTypes}
+                        <Tabs
                             active={active}
                             switchTab={switchTab}
-                            hideCounts />
+                            types={tabTypes} />
                     </div>
                     <AwardAmountsChart
                         awardOverview={awardOverview}
