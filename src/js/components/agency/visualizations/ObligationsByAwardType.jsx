@@ -9,7 +9,6 @@ import * as d3 from 'd3';
 import { TooltipWrapper } from 'data-transparency-ui';
 import { mapToFullCategoryName, getCategoryNameByAwardType, getActiveCategoryType, getOuterCategoryId } from 'helpers/agency/visualizations/ObligationsByAwardTypeHelper';
 import ObligationsByAwardTypeTooltip from './ObligationsByAwardTypeTooltip';
-import ObligationsByAwardTypeLegend from "./ObligationsByAwardTypeLegend";
 
 const categoryMapping = {
     'All Contracts': ['Contracts', 'IDVs'],
@@ -49,22 +48,6 @@ export default function ObligationsByAwardType({
     const [activeType, setActiveType] = useState(null);
     const [categoryHover, setCategoryHover] = useState(null);
     const chartRef = useRef();
-    // const outerLabels = outer.map((d) => d.label);
-    // needs conditional for outer?
-    // const legend = [
-    //     {
-    //         color: outer[0].color,
-    //         stroke: outer[0].color,
-    //         label: outerLabels[0],
-    //         offset: 0
-    //     },
-    //     {
-    //         color: outer[1].color,
-    //         stroke: outer[1].color,
-    //         label: outerLabels[1],
-    //         offset: 0
-    //     }
-    // ];
 
     const renderChart = () => {
         const labelRadius = Math.min(chartHeight, chartWidth) / 2;
@@ -79,7 +62,8 @@ export default function ObligationsByAwardType({
             .attr('height', chartHeight)
             .attr('width', chartWidth)
             .append('g')
-            .attr('transform', `translate(${chartWidth / 2}, ${chartHeight / 2})`);
+            // y value moves everything toward top of container, to make room for labels at bottom
+            .attr('transform', `translate(${chartWidth / 2}, ${(chartHeight / 2) - 24})`);
 
         const pie = d3.pie()
             .value((d) => d.value)
@@ -201,16 +185,16 @@ export default function ObligationsByAwardType({
         // labels
         const labelPos = (i, yOffset = 0) => {
             if (i === 0) {
-                // Financial Assistance, bottom right
+                // Financial Assistance
+                // positions were changed with ticket 8429, now below chart
                 // return [labelRadius - 62, ((chartHeight / 2) - 25) + yOffset];
-                return [labelRadius - 192, ((chartHeight / 2)) + yOffset];
+                return [labelRadius - 192, ((chartHeight / 2)) + 4];
             }
-            // Contracts, top left
-            return [labelRadius - 282, -(chartHeight / 2) + 29 + yOffset];
+            // Contracts
+            return [labelRadius - 192, ((chartHeight / 2)) - yOffset - 12];
         };
 
-        const outerLabels = outer.map((d) => d.label);
-        console.log('outer', outer);
+        const outerLabels = outer.map((d) => d.label.join(""));
 
         // Financial Assistance legend
         if (outer[0].value > 0) {
@@ -221,17 +205,14 @@ export default function ObligationsByAwardType({
                 // .attr('r', 4)
                 // .style("fill", outer[0].color);
                 .attr('cx', labelRadius - 200)
-                .attr('cy', (chartHeight / 2) - 4)
+                .attr('cy', (chartHeight / 2))
                 .attr('r', 4)
                 .style("fill", outer[0].color);
             // text
-            svg.selectAll()
-                .data(outerLabels[0])
-                .enter()
-                .append('text')
+            svg.append('text')
                 .attr('transform', (d, i) => `translate(${labelPos(0, i * 12)})`)
                 .attr('class', 'obligations-by-award-type__label')
-                .text((d) => d);
+                .text(outerLabels[0]);
         }
 
         // Contracts legend
@@ -242,18 +223,15 @@ export default function ObligationsByAwardType({
                 // .attr('cy', -(chartHeight / 2) + 25)
                 // .attr('r', 4)
                 // .style("fill", outer[1].color);
-                .attr('cx', labelRadius - 180)
-                .attr('cy', -(chartHeight / 2) + 25)
+                .attr('cx', labelRadius - 200)
+                .attr('cy', (chartHeight / 2) - 15)
                 .attr('r', 4)
                 .style("fill", outer[1].color);
             // text
-            svg.selectAll()
-                .data(outerLabels[1])
-                .enter()
-                .append('text')
+            svg.append('text')
                 .attr('transform', (d, i) => `translate(${labelPos(1, i * 12)})`)
                 .attr('class', 'obligations-by-award-type__label')
-                .text((d) => d);
+                .text(outerLabels[1]);
         }
     };
 

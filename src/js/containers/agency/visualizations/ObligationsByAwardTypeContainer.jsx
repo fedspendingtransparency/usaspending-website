@@ -35,7 +35,7 @@ export default function ObligationsByAwardTypeContainer({ fiscalYear, windowWidt
             obligationsByAwardTypeRequest.current.cancel();
         }
         dispatch(resetAwardObligations());
-    }, []);
+    }, [dispatch]);
 
     const getObligationsByAwardType = () => {
         if (obligationsByAwardTypeRequest.current) {
@@ -169,6 +169,7 @@ export default function ObligationsByAwardTypeContainer({ fiscalYear, windowWidt
         if (toptierCode) {
             getObligationsByAwardType();
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [fiscalYear, toptierCode]);
 
 
