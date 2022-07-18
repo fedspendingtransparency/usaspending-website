@@ -26,7 +26,7 @@ describe('DownloadBottomBarContainer', () => {
 
         expect(mockDisplay).toHaveBeenCalledTimes(0);
     });
-    it('should display the bottom bar if a download is pending', () => {
+    it('should display the bottom bar if a download is pending', async () => {
         const startingDownload = Object.assign({}, mockRedux.download, {
             pendingDownload: true,
             showCollapsedProgress: true,
@@ -40,9 +40,9 @@ describe('DownloadBottomBarContainer', () => {
             {...mockActions} />);
         const mockDisplay = jest.fn();
         container.instance().displayBar = mockDisplay;
-        container.instance().componentDidMount();
+        await container.instance().componentDidMount();
 
-        expect(mockDisplay).toHaveBeenCalledTimes(1);
+        await expect(mockDisplay).toHaveBeenCalledTimes(1);
     });
 
     describe('displayBar', () => {
