@@ -19,9 +19,9 @@ import {
     hashUrlWithTasSelected
 } from '../programSource/mockTas';
 
-jest.mock("helpers/searchHelper", () => ({
-    fetchTas: jest.fn()
-}));
+// jest.mock("helpers/searchHelper", () => ({
+//     fetchTas: jest.fn()
+// }));
 
 // REACT UPGRADE FIX TEST
 xdescribe('TASCheckboxContainer', () => {
