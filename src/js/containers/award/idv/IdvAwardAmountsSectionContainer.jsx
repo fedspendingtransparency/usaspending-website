@@ -18,8 +18,6 @@ import * as awardActions from 'redux/actions/award/awardActions';
 import BaseAwardAmounts from 'models/v2/award/BaseAwardAmounts';
 
 import AggregatedAwardAmounts from 'components/award/idv/amounts/AggregatedAwardAmountsSection';
-import ResultsTableTabs from 'components/search/table/ResultsTableTabs';
-import ResultsTablePicker from 'components/search/table/ResultsTablePicker';
 import { awardAmountsInfo } from 'components/award/shared/InfoTooltipContent';
 import withDefCodes from 'containers/covid19/WithDefCodes';
 import AggregatedAwardAmountsTableWrapper
@@ -172,10 +170,6 @@ export class IdvAmountsContainer extends React.Component {
                         active={this.state.active}
                         switchTab={this.switchTab}
                         tabsClassName={tabsClassName} />
-                    {/*<ResultsTablePicker*/}
-                    {/*    types={tabTypes}*/}
-                    {/*    active={this.state.active}*/}
-                    {/*    switchTab={this.switchTab} />*/}
                 </div>
                 {this.state.active === 'awards' && (
                     <AggregatedAwardAmounts
