@@ -82,7 +82,8 @@ const ContractContent = ({
             lastModifiedDateLong={overview.periodOfPerformance.lastModifiedDateLong}
             awardType="contract"
             dates={overview.periodOfPerformance}
-            parentId={overview.parentAwardDetails.awardId}>
+            parentId={overview.parentAwardDetails.awardId}
+            unlinked={unlinked}>
             <AwardSection type="row" className="award-overview" id="award-overview">
                 <AwardOverviewLeftSection
                     awardingAgency={overview.awardingAgency}

@@ -11,6 +11,42 @@
             @include justify-content(center);
         }
     }
+    &.unlinked {
+        @include display(flex);
+        @include flex-direction(column);
+        .tooltip__header {
+            display:inline-flex;
+            width: 100%;
+            .tooltip__title {
+                @include justify-content(center);
+                font-size: rem(16);
+            }          
+            
+            .tooltip__close-button {
+                background-color: $color-gray-lightest;
+                .award-summary__close-button {
+                    @include button-unstyled;
+                    padding: rem(5);
+                    margin-top: $global-margin*2;
+                    margin-right: $global-margin*2;
+                    margin-left: $global-margin*2;
+                    svg {
+                        fill: $color-primary;
+                        height: rem(16);
+                        width: rem(16);
+                    }
+                    &:hover :focus {
+                        color: $color-primary-darkest;
+                        box-shadow: 0 0 3px $color-focus, 0 0 7px $color-focus;
+                    }
+                }
+            }
+        }
+
+        .award-summary__unlinked-anchor {
+            font-weight: $font-semibold;
+        }
+    }
 }
 
 .related-awards-tt {
