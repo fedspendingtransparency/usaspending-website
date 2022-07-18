@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { TooltipWrapper } from 'data-transparency-ui';
+import { TooltipWrapper, Tabs } from 'data-transparency-ui';
 import { flowRight } from 'lodash';
 
 import * as IdvHelper from 'helpers/idvHelper';
@@ -167,16 +167,15 @@ export class IdvAmountsContainer extends React.Component {
                 </div>
                 <hr />
                 <div className="award-viz__tabs">
-                    <ResultsTableTabs
+                    <Tabs
                         types={tabTypes}
                         active={this.state.active}
                         switchTab={this.switchTab}
-                        tabsClassName={tabsClassName}
-                        hideCounts />
-                    <ResultsTablePicker
-                        types={tabTypes}
-                        active={this.state.active}
-                        switchTab={this.switchTab} />
+                        tabsClassName={tabsClassName} />
+                    {/*<ResultsTablePicker*/}
+                    {/*    types={tabTypes}*/}
+                    {/*    active={this.state.active}*/}
+                    {/*    switchTab={this.switchTab} />*/}
                 </div>
                 {this.state.active === 'awards' && (
                     <AggregatedAwardAmounts
