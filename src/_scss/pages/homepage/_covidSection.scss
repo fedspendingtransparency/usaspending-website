@@ -10,6 +10,13 @@
     white-space: nowrap;
   }
   .grid-content {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    max-width: calc(1600px - 8.33% * 2);
+    @media (min-width: 1600px) {
+      max-width: 1334px;
+    }
     padding-top: $global-padding * 12;
     .homepage-covid__column-one {
       margin-bottom: $global-margin * 4;

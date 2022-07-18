@@ -26,6 +26,14 @@
     }
   }
   .grid-content {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    max-width: calc(1600px - 8.33% * 2);
+    @media (min-width: 1600px) {
+      max-width: 1334px;
+    }
+
     button {
       font-weight: $font-semibold;
       @media (max-width: $medium-screen) {

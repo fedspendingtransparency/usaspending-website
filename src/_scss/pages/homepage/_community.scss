@@ -6,7 +6,15 @@
 
     .homepage-community__wrapper {
         display: flex;
-        margin: 0 $grid-column;
+        justify-content: center;
+        margin: auto;
+        max-width: calc(1600px - 8.33% * 2);
+        @media (min-width: 1600px - 1) {
+            max-width: 1334px;
+        }
+        @media (max-width: 1600px) {
+            margin: 0 $grid-column;
+        }
         @media screen and (max-width: $medium-screen) {
               margin: 0 rem(16);
           }
