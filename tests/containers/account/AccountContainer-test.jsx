@@ -173,7 +173,7 @@ describe('AccountContainer', () => {
         //     const arg = reduxAction.mock.calls[0][0];
         //     expect(arg.totals).toEqual(mockReduxAccount.totals);
         // });
-        
+
         // REACT UPGRADE FIX TEST
         // it('should indicate the FY values are not available when no snapshot data is returned', () => {
         //     const initialModel = new FederalAccount(mockAccount);
