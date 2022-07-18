@@ -77,7 +77,7 @@ export class AccountTopFilterBarContainer extends React.Component {
     prepareTimeFilter(props) {
         let selected = false;
         const filter = {};
-        if (props.dateType === 'fy') {
+        if (props?.dateType === 'fy') {
             // check to see if any FYs are selected
             if (props.fy.count() > 0) {
                 // years are selected
@@ -89,7 +89,7 @@ export class AccountTopFilterBarContainer extends React.Component {
                 filter.values = orderBy(props.fy.toArray(), [], ['desc']);
             }
         }
-        else if (props.dateType === 'dr') {
+        else if (props?.dateType === 'dr') {
             // check to see if any date ranges are selected
             if (props.startDate && props.endDate) {
                 // start and end dates are provided
