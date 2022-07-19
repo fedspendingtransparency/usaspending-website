@@ -1,6 +1,8 @@
 .explorer-table {
-
     background-color: $color-white;
+    border-left: 1px solid $color-gray-border;
+    border-right: 1px solid $color-gray-border;
+    border-bottom: 1px solid $color-gray-border;
     position: relative;
     display: block;
     overflow: auto;
@@ -71,8 +73,8 @@
                         .go-deeper-link {
                             @include button-unstyled;
                             color: $color-primary;
-                            font-size: rem(16);
-                            line-height: rem(20);
+                            font-size: $font-size-16;
+                            line-height: $line-height-base;
                         }
                     }
                 }

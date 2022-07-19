@@ -29,16 +29,16 @@
     }
 
     .explorer-unreported__header {
-        font-size: rem(24);
+        font-size: $font-size-20;
         margin: 0;
-        font-weight: 600;
+        font-weight: $font-semibold;
         padding-left: rem(20);
-        line-height: 1.2;
+        line-height: $line-height-heading;
     }
 
     .explorer-unreported__info {
-        font-weight: 600;
-        font-size: rem(16);
+        font-weight: $font-semibold;
+        font-size: $font-size-16;
     }
 
     .explorer-unreported__body {
@@ -48,8 +48,7 @@
     .explorer-unreported__list {
         padding-left: rem(20);
         margin-top: rem(10);
-        font-size: rem(16);
-        line-height: 10px;
+        font-size: $font-size-16;
 
         li {
             margin-bottom: 0;

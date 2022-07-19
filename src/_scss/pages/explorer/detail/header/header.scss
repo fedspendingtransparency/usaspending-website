@@ -10,19 +10,17 @@
         // this is a truly horrific hack to make the h2 title text wrap on IE 11 in smaller screens
         // this works because flex grow will cause the content to push this flexbox's width out
         width: 0;
+        font-size: $font-size-16;
+        line-height: $line-height-base;
+        font-weight: $font-normal;
 
         h2.detail-header__title {
             max-width: 100%;
-            margin: 0;
-            font-weight: $font-light;
-            font-size: rem(30);
-            line-height: rem(32);
-            color: #5C626C;
-
-            @include media($large-screen) {
-                font-size: rem(36);
-                line-height: rem(40);
-            }
+            margin: 0 0 rem(8);
+            font-size: $font-size-28;
+            color: $color-ink;
+            font-weight: $font-semibold;
+            line-height: $line-height-heading;
 
             &.detail-header__title_title {
                 text-transform: capitalize;
@@ -36,15 +34,10 @@
 
         .detail-header__instructions {
             margin-top: rem(10);
-            font-weight: $font-light;
-            color: #5C626C;
-            font-size: rem(24);
-            line-height: rem(24);
-
-            @include media($large-screen) {
-                font-size: rem(28);
-                line-height: rem(28);
-            }
+            font-size: $font-size-20;
+            color: $color-base;
+            font-weight: $font-normal;
+            line-height: $line-height-base;
         }
     }
 
@@ -64,26 +57,23 @@
             text-align: right;
             text-transform: uppercase;
             font-weight: $font-semibold;
-
-            font-size: rem(14);
-            line-height: rem(21);
+            font-size: $font-size-16;
+            line-height: $line-height-base;
         }
 
         .detail-header__value {
             text-align: right;
             text-transform: capitalize;
             font-weight: $font-semibold;
-
-            font-size: rem(36);
-            line-height: rem(40);
-
+            font-size: $font-size-32;
+            line-height: $line-height-heading;
             color: #32788C;
         }
 
         .detail-header__update {
             text-align: right;
-            font-size: rem(14);
-            line-height: rem(18);
+            font-size: $font-size-14;
+            line-height: $line-height-base;
         }
 
 
@@ -102,56 +92,6 @@
          }
     }
 
-    .left-side {
-        @include flex(1 1 auto);
-        max-width: 75%;
-        
-        h2 {
-            margin: 0;
-            font-weight: $font-light;
-            font-size: rem(30);
-            line-height: rem(32);
-            color: #5C626C;
-
-            a:hover {
-                text-decoration: none;
-            }
-
-            @include media($large-screen) {
-                font-size: rem(36);
-                line-height: rem(40);
-            }
-        }
-
-        .instructions {
-            margin-top: rem(10);
-            font-weight: $font-light;
-            color: #5C626C;
-            font-size: rem(24);
-            line-height: rem(24);
-
-            @include media($large-screen) {
-                font-size: rem(28);
-                line-height: rem(28);
-            }
-        }
-
-        .capitalize {
-            text-transform: capitalize;
-        }
-
-        .data-type {
-            font-weight: $font-normal;
-            font-size: rem(16);
-            line-height: rem(28);
-        }
-
-        .bold {
-            font-weight: $font-semibold;
-        }
-
-    }
-
     .right-side {
         @include flex(0 1 auto);
         width: rem(150);
@@ -166,29 +106,26 @@
         }
 
         .amount-header {
-            text-align: center;
+            text-align: right;
             text-transform: uppercase;
             font-weight: $font-semibold;
-
-            font-size: rem(14);
-            line-height: rem(21);
+            font-size: $font-size-16;
+            line-height: $line-height-base;
         }
 
         .amount-value {
-            text-align: center;
+            text-align: right;
             text-transform: capitalize;
             font-weight: $font-semibold;
-
-            font-size: rem(36);
-            line-height: rem(40);
-
+            font-size: $font-size-32;
+            line-height: $line-height-heading;
             color: #32788C;
         }
 
         .update-date {
-            text-align: center;
-            font-size: rem(14);
-            line-height: rem(18);
+            text-align: right;
+            font-size: $font-size-14;
+            line-height: $line-height-base;
         }
     }
 }

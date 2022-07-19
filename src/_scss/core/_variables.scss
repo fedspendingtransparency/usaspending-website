@@ -1,5 +1,22 @@
 // Typography
+// $em-base must be declared before using the rem() function
 $em-base:             10px;
+
+$font-size-56: rem(56px);
+$font-size-48: rem(48px);
+$font-size-40: rem(40px);
+
+$font-size-32: rem(32px);
+$font-size-28: rem(28px);
+$font-size-24: rem(24px);
+$font-size-20: rem(20px);
+$font-size-16: rem(16px);
+$font-size-12: rem(12px);
+
+$font-size-14: rem(14px);
+
+$line-height-base: 1.5;
+$line-height-heading: 1.25;
 
 $base-font-size:      rem(16px);
 $small-font-size:     rem(14px);
@@ -19,11 +36,14 @@ $lead-line-height:    1.7;
 
 $font-sans:           'Source Sans Pro', $helvetica;
 $font-serif:          'Merriweather', $georgia;
+$font-path:           './fonts';
 
-$font-light:		  200;
-$font-normal:         400;
-$font-semibold:  	  600;
-$font-bold:           700;
+$font-light:       200;
+$font-normal:      400;
+$font-semibold:    600;
+$font-bold:        700;
+
+$image-path: './img';
 
 
 // Color
@@ -35,7 +55,7 @@ $color-primary-alt:          #02bfe7;
 $color-primary-alt-dark:     #00a6d2;
 $color-primary-alt-darkest:  #046b99;
 $color-primary-alt-light:    #9bdaf1; // lighten($color-primary-alt, 60%)
-$color-primary-alt-lightest: #e1f3f8; // lighten($color-primary-alt, 90%)
+$color-primary-alt-lightest: #e7f6f8;
 
 $color-secondary:            #e31c3d;
 $color-secondary-dark:       #cd2026;
@@ -48,6 +68,7 @@ $color-black:                #000;
 $color-grayblack:            #1b1b1b;
 $color-base:                 #555;
 $color-link:                 #0071bc;
+$color-ink: #1b1b1b;
 
 $color-gray-dark:            #323a45;
 $color-gray:                 #5b616b; // lighten($color-gray-dark, 20%)
@@ -74,6 +95,9 @@ $color-cool-blue:            #205493;
 $color-cool-blue-light:      #4773aa; // lighten($color-cool-blue, 20%)
 $color-cool-blue-lighter:    #8ba6ca; // lighten($color-cool-blue, 60%)
 $color-cool-blue-lightest:   #dce4ef; // lighten($color-cool-blue, 90%)
+
+$color-warning:              #FCF8E3;
+$color-warning-dark:         #F0AD4E;
 
 $color-vis-lightest:		 #d0e9ef;
 $color-vis-lighter:		 	 #a7c2ca;

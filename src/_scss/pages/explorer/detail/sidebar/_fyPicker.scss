@@ -38,8 +38,8 @@
             margin-right: rem(15);
             color: $color-white;
             font-weight: $font-semibold;
-            font-size: rem(20);
-            line-height: rem(25);
+            font-size: $font-size-20;
+            line-height: $line-height-heading;
             svg {
                 margin-left: $global-mrg;
             }
@@ -80,7 +80,7 @@
         .fy-picker__item {
             @include button-unstyled;
             color: $color-white;
-            font-size: rem(18);
+            font-size: $font-size-20;
             text-align: center;
 
             padding: rem(10) rem(15);

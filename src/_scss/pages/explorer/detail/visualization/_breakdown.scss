@@ -19,10 +19,11 @@
             @include media($medium-screen) {
                 @include flex(0 0 auto);
             }
-            font-size: rem(24);
-            line-height: rem(31);
-            font-weight: $font-light;
             margin-right: rem(30);
+            font-size: $font-size-20;
+            font-weight: $font-semibold;
+            line-height: $line-height-heading;
+            color: $color-ink;
         }
 
         .breakdown__dropdown {
@@ -49,6 +50,7 @@
                     @include flex(0 0 auto);
                     width: rem(20);
                     height: rem(20);
+                    color: $color-primary;
 
                     svg {
                         width: rem(20);
@@ -60,12 +62,11 @@
                 .dropdown__label {
                     @include flex(1 1 auto);
                     color: $color-base;
-                    font-size: rem(24);
-                    line-height: rem(31);
-                    font-weight: $font-light;
-
-                    margin-left: rem(15);
-                    margin-right: rem(20);
+                    font-size: $font-size-24;
+                    line-height: $line-height-heading;
+                    font-weight: $font-normal;
+                    margin-left: rem(12);
+                    margin-right: rem(8);
                 }
             }
 
@@ -93,5 +94,9 @@
 
     .view-buttons {
       @include viewTypeButton();
+
+      .view-button {
+        min-height: rem(32);
+      }
     }
 }
