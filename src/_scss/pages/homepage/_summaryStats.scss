@@ -1,14 +1,42 @@
 .summary-stats {
   color: white;
+  height: 98px;
+  background-color: #00687D;
 
-  .grid-content-max {
+  @media (min-width: 576px) and (max-width: 991px) {
+    height: 235px;
+  }
+
+  @media (max-width: 575px) {
+    height: 451px;
+  }
+
+  .grid-content {
     display: flex;
     justify-content: center;
-    margin: auto;
-    max-width: calc(1600px);
+    margin: 0 8.33%;
+    max-width: 1600px;
+    @media (min-width: 1600px) {
+      max-width: 1334px;
+      margin: 0 auto;
+    }
+    @media (min-width: 992px) and (max-width: 1599px) {
+      max-width: 1334px;
+      margin: 0 auto;
+      justify-content: unset;
+    }
+
+    @media (max-width: 991px) {
+      justify-content: center;
+      text-align: center;
+    }
 
     span {
       font-size: rem(20);
+    }
+
+    .usa-dt-flex-grid__col-12 {
+      justify-content: center;
     }
   }
 }
