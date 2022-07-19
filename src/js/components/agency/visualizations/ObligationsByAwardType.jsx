@@ -47,6 +47,7 @@ export default function ObligationsByAwardType({
     const [chartWidth, setChartWidth] = useState(0);
     const [activeType, setActiveType] = useState(null);
     const [categoryHover, setCategoryHover] = useState(null);
+    const [labelTooltip, setLabelTooltip] = useState(false);
     const chartRef = useRef();
 
     const renderChart = () => {
@@ -207,13 +208,21 @@ export default function ObligationsByAwardType({
                 .on('mouseover', () => {
                     // store the award type of the section the user is hovering over
                     setActiveType('Direct Payments');
+                    setLabelTooltip(true);
                 })
-                .on('mouseout', () => setActiveType(null))
+                .on('mouseout', () => {
+                    setActiveType(null);
+                    setLabelTooltip(false);
+                })
                 .on('focus', () => {
                     // store the award type of the section the user is hovering over
                     setActiveType('Direct Payments');
+                    setLabelTooltip(true);
                 })
-                .on('blur', () => setActiveType(null));
+                .on('blur', () => {
+                    setActiveType(null);
+                    setLabelTooltip(false);
+                });
             // text
             svg.append('text')
                 .attr('transform', (d, i) => `translate(${labelPos(0, i * 12)})`)
@@ -224,13 +233,21 @@ export default function ObligationsByAwardType({
                 .on('mouseover', () => {
                     // store the award type of the section the user is hovering over
                     setActiveType('Direct Payments');
+                    setLabelTooltip(true);
                 })
-                .on('mouseout', () => setActiveType(null))
+                .on('mouseout', () => {
+                    setActiveType(null);
+                    setLabelTooltip(false);
+                })
                 .on('focus', () => {
                     // store the award type of the section the user is hovering over
                     setActiveType('Direct Payments');
+                    setLabelTooltip(true);
                 })
-                .on('blur', () => setActiveType(null));
+                .on('blur', () => {
+                    setActiveType(null);
+                    setLabelTooltip(false);
+                });
         }
 
         // Contracts legend
@@ -246,13 +263,21 @@ export default function ObligationsByAwardType({
                 .on('mouseover', () => {
                     // store the award type of the section the user is hovering over
                     setActiveType('Contracts');
+                    setLabelTooltip(true);
                 })
-                .on('mouseout', () => setActiveType(null))
+                .on('mouseout', () => {
+                    setActiveType(null);
+                    setLabelTooltip(false);
+                })
                 .on('focus', () => {
                     // store the award type of the section the user is hovering over
                     setActiveType('Contracts');
+                    setLabelTooltip(true);
                 })
-                .on('blur', () => setActiveType(null));
+                .on('blur', () => {
+                    setActiveType(null);
+                    setLabelTooltip(false);
+                });
             // text
             svg.append('text')
                 .attr('transform', (d, i) => `translate(${labelPos(1, i * 12)})`)
@@ -263,13 +288,21 @@ export default function ObligationsByAwardType({
                 .on('mouseover', () => {
                     // store the award type of the section the user is hovering over
                     setActiveType('Contracts');
+                    setLabelTooltip(true);
                 })
-                .on('mouseout', () => setActiveType(null))
+                .on('mouseout', () => {
+                    setActiveType(null);
+                    setLabelTooltip(false);
+                })
                 .on('focus', () => {
                     // store the award type of the section the user is hovering over
                     setActiveType('Contracts');
+                    setLabelTooltip(true);
                 })
-                .on('blur', () => setActiveType(null));
+                .on('blur', () => {
+                    setActiveType(null);
+                    setLabelTooltip(false);
+                });
         }
     };
 
@@ -299,7 +332,8 @@ export default function ObligationsByAwardType({
                     fiscalYear={fiscalYear}
                     activeType={activeType}
                     categoryType={getActiveCategoryType(activeType, categoryMapping)}
-                    isCategoryHover={categoryHover?.length > 0} />)}
+                    isCategoryHover={categoryHover?.length > 0}
+                    labelTooltip={labelTooltip} />)}
             controlledProps={{
                 isControlled: true,
                 isVisible: activeType && !isMobile,
