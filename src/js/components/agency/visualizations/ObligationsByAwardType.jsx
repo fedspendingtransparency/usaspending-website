@@ -202,12 +202,36 @@ export default function ObligationsByAwardType({
                 .attr('cx', labelRadius - 200)
                 .attr('cy', (chartHeight / 2))
                 .attr('r', 4)
-                .style("fill", outer[0].color);
+                .style("fill", outer[0].color)
+                // adding hover with ticket 8429
+                .style('cursor', 'pointer')
+                .on('mouseover', () => {
+                    // store the award type of the section the user is hovering over
+                    setActiveType('Direct Payments');
+                })
+                .on('mouseout', () => setActiveType(null))
+                .on('focus', () => {
+                    // store the award type of the section the user is hovering over
+                    setActiveType('Direct Payments');
+                })
+                .on('blur', () => setActiveType(null));
             // text
             svg.append('text')
                 .attr('transform', (d, i) => `translate(${labelPos(0, i * 12)})`)
                 .attr('class', 'obligations-by-award-type__label')
-                .text(outerLabels[0]);
+                .text(outerLabels[0])
+                // adding hover with ticket 8429
+                .style('cursor', 'pointer')
+                .on('mouseover', () => {
+                    // store the award type of the section the user is hovering over
+                    setActiveType('Direct Payments');
+                })
+                .on('mouseout', () => setActiveType(null))
+                .on('focus', () => {
+                    // store the award type of the section the user is hovering over
+                    setActiveType('Direct Payments');
+                })
+                .on('blur', () => setActiveType(null));
         }
 
         // Contracts legend
@@ -217,12 +241,36 @@ export default function ObligationsByAwardType({
                 .attr('cx', labelRadius - 200)
                 .attr('cy', (chartHeight / 2) - 15)
                 .attr('r', 4)
-                .style("fill", outer[1].color);
+                .style("fill", outer[1].color)
+                // adding hover with ticket 8429
+                .style('cursor', 'pointer')
+                .on('mouseover', () => {
+                    // store the award type of the section the user is hovering over
+                    setActiveType('Contracts');
+                })
+                .on('mouseout', () => setActiveType(null))
+                .on('focus', () => {
+                    // store the award type of the section the user is hovering over
+                    setActiveType('Contracts');
+                })
+                .on('blur', () => setActiveType(null));
             // text
             svg.append('text')
                 .attr('transform', (d, i) => `translate(${labelPos(1, i * 12)})`)
                 .attr('class', 'obligations-by-award-type__label')
-                .text(outerLabels[1]);
+                .text(outerLabels[1])
+                // adding hover with ticket 8429
+                .style('cursor', 'pointer')
+                .on('mouseover', () => {
+                    // store the award type of the section the user is hovering over
+                    setActiveType('Contracts');
+                })
+                .on('mouseout', () => setActiveType(null))
+                .on('focus', () => {
+                    // store the award type of the section the user is hovering over
+                    setActiveType('Contracts');
+                })
+                .on('blur', () => setActiveType(null));
         }
     };
 
