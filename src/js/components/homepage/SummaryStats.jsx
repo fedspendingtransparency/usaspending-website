@@ -12,7 +12,6 @@ const SummaryStats = () => {
     const [isWide, setIsWide] = useState(0);
 
     const handleWindowResize = () => {
-        console.log(window.innerWidth);
         const wWidth = window.innerWidth;
         if (windowWidth !== wWidth) {
             setWindowWidth(wWidth);
@@ -27,6 +26,8 @@ const SummaryStats = () => {
             window.removeEventListener('resize', handleWindowResize);
         };
     }, [handleWindowResize]);
+
+    const budgetFunctionCategories = ["Medicare", "National Defense", "Education", "Social Security", "Transportation", "Agriculture", "Veterans Benefits & Services", "Energy", "Net Interest"];
 
     return (
         <section className="summary-stats">
@@ -92,7 +93,7 @@ const SummaryStats = () => {
                                     <span>of federal spending</span>
                                 </div>
                                 <div style={{ margin: "auto 0" }}>
-                                    <FontAwesomeIcon size="lg" fontSize="24" icon="arrow-alt-circle-right" />
+                                    <a href="/explorer/budget_function"><FontAwesomeIcon size="lg" fontSize="24" icon="arrow-alt-circle-right" /></a>
                                 </div>
                             </FlexGridRow>
                         </FlexGridCol>
