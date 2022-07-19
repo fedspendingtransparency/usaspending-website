@@ -22,7 +22,7 @@
             font-size: $font-size-40;
             color: $color-ink;
             font-weight: $font-semibold;
-            line-height: $line-height-heading;
+            line-height: $heading-line-height;
         }
 
         .explorer-landing__detail {
@@ -46,7 +46,7 @@
             font-size: $font-size-20;
             color: $color-base;
             font-weight: $font-normal;
-            line-height: $line-height-base;
+            line-height: $base-line-height;
         }
 
         button.explorer-description__expand {
@@ -54,7 +54,7 @@
             color: $color-primary;
             font-weight: $font-semibold;
             font-size: $font-size-20;
-            line-height: $line-height-base;
+            line-height: $base-line-height;
             margin-top: rem(25);
         }
 
@@ -65,7 +65,7 @@
 
             p {
                 font-size: $font-size-20;
-                line-height: $line-height-base;
+                line-height: $base-line-height;
                 .usa-da-icon-guide {
                     width: rem(15);
                     height: rem(15);

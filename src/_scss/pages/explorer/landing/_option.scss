@@ -47,7 +47,7 @@
         margin: 0;
         font-size: $font-size-32;
         font-weight: $font-semibold;
-        line-height: $line-height-heading;
+        line-height: $heading-line-height;
         .usa-da-icon-guide {
             width: rem(16);
             height: rem(16);
@@ -64,7 +64,7 @@
         margin-bottom: rem(30);
         font-weight: $font-normal;
         font-size: $font-size-16;
-        line-height: $line-height-base;
+        line-height: $base-line-height;
 
         @include media($large-screen) {
             min-height: rem(70);
@@ -76,7 +76,7 @@
         background-color: #0170BC;
         width: 100%;
         font-size: $font-size-16;
-        line-height: $line-height-base;
+        line-height: $base-line-height;
         
         &:hover {
             background-color: #215493 !important;

@@ -11,7 +11,7 @@
         // this works because flex grow will cause the content to push this flexbox's width out
         width: 0;
         font-size: $font-size-16;
-        line-height: $line-height-base;
+        line-height: $base-line-height;
         font-weight: $font-normal;
 
         h2.detail-header__title {
@@ -20,7 +20,7 @@
             font-size: $font-size-28;
             color: $color-ink;
             font-weight: $font-semibold;
-            line-height: $line-height-heading;
+            line-height: $heading-line-height;
 
             &.detail-header__title_title {
                 text-transform: capitalize;
@@ -37,7 +37,7 @@
             font-size: $font-size-20;
             color: $color-base;
             font-weight: $font-normal;
-            line-height: $line-height-base;
+            line-height: $base-line-height;
         }
     }
 
@@ -58,7 +58,7 @@
             text-transform: uppercase;
             font-weight: $font-semibold;
             font-size: $font-size-16;
-            line-height: $line-height-base;
+            line-height: $base-line-height;
         }
 
         .detail-header__value {
@@ -66,14 +66,14 @@
             text-transform: capitalize;
             font-weight: $font-semibold;
             font-size: $font-size-32;
-            line-height: $line-height-heading;
+            line-height: $heading-line-height;
             color: #32788C;
         }
 
         .detail-header__update {
             text-align: right;
             font-size: $font-size-14;
-            line-height: $line-height-base;
+            line-height: $base-line-height;
         }
 
 
@@ -110,7 +110,7 @@
             text-transform: uppercase;
             font-weight: $font-semibold;
             font-size: $font-size-16;
-            line-height: $line-height-base;
+            line-height: $base-line-height;
         }
 
         .amount-value {
@@ -118,14 +118,14 @@
             text-transform: capitalize;
             font-weight: $font-semibold;
             font-size: $font-size-32;
-            line-height: $line-height-heading;
+            line-height: $heading-line-height;
             color: #32788C;
         }
 
         .update-date {
             text-align: right;
             font-size: $font-size-14;
-            line-height: $line-height-base;
+            line-height: $base-line-height;
         }
     }
 }
