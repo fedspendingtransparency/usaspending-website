@@ -187,7 +187,6 @@ export default function ObligationsByAwardType({
             if (i === 0) {
                 // Financial Assistance
                 // positions were changed with ticket 8429, now below chart
-                // return [labelRadius - 62, ((chartHeight / 2) - 25) + yOffset];
                 return [labelRadius - 192, ((chartHeight / 2)) + 4];
             }
             // Contracts
@@ -200,10 +199,6 @@ export default function ObligationsByAwardType({
         if (outer[0].value > 0) {
             // circle
             svg.append('circle')
-                // .attr('cx', labelRadius - 70)
-                // .attr('cy', (chartHeight / 2) - 29)
-                // .attr('r', 4)
-                // .style("fill", outer[0].color);
                 .attr('cx', labelRadius - 200)
                 .attr('cy', (chartHeight / 2))
                 .attr('r', 4)
@@ -219,10 +214,6 @@ export default function ObligationsByAwardType({
         if (outer[1].value > 0) {
             // circle
             svg.append('circle')
-                // .attr('cx', -labelRadius + 10)
-                // .attr('cy', -(chartHeight / 2) + 25)
-                // .attr('r', 4)
-                // .style("fill", outer[1].color);
                 .attr('cx', labelRadius - 200)
                 .attr('cy', (chartHeight / 2) - 15)
                 .attr('r', 4)
