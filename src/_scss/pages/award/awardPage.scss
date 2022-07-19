@@ -167,8 +167,11 @@
             }
             
             .tooltip-pointer.bottom {
-              @media (min-width: $small-screen) {
+              @media (min-width: $medium-screen) {
                 transform: rotate(90deg) translate(-8px, 140px);
+              }
+              @media (min-width: $small-screen) {
+                transform: rotate(90deg) translate(-20px, 140px);
               }
             }
           }
