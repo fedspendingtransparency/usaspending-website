@@ -6,6 +6,7 @@
 import React, { useEffect, useState } from 'react';
 import { FlexGridRow, FlexGridCol } from "data-transparency-ui";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { fetchBreakdown } from 'helpers/explorerHelper';
 
 const SummaryStats = () => {
     const [windowWidth, setWindowWidth] = useState(0);
