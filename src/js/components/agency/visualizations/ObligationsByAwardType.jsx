@@ -149,7 +149,6 @@ export default function ObligationsByAwardType({
             })
             .attr('role', 'listitem');
 
-
         // inner ring
         chart.selectAll()
             .data(pie)
@@ -278,7 +277,8 @@ export default function ObligationsByAwardType({
         if (chartWidth && chartHeight) {
             renderChart();
         }
-    }, [chartWidth, chartHeight, renderChart]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [chartWidth, chartHeight]);
 
     useEffect(() => {
         const rect = chartRef.current.parentElement.getBoundingClientRect();
@@ -286,7 +286,8 @@ export default function ObligationsByAwardType({
             setChartHeight(rect.height);
             setChartWidth(rect.width);
         }
-    }, [chartHeight, chartWidth, windowWidth]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [windowWidth]);
 
     return (
         <TooltipWrapper
@@ -306,7 +307,6 @@ export default function ObligationsByAwardType({
                 closeTooltip: () => {}
             }}>
             <div id="obl_chart" className="obligations-by-award-type__chart" ref={chartRef} />
-            {/* <ObligationsByAwardTypeLegend legend={legend} /> */}
         </TooltipWrapper>
     );
 }
