@@ -1,0 +1,14 @@
+.summary-stats {
+  color: white;
+
+  .grid-content-max {
+    display: flex;
+    justify-content: center;
+    margin: auto;
+    max-width: calc(1600px);
+
+    span {
+      font-size: rem(20);
+    }
+  }
+}
