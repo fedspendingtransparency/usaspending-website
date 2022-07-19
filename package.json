@@ -93,7 +93,7 @@
         "trim": "1.0.1",
         "trim-newlines": "3.0.1",
         "got": "11.8.5",
-        "glob-parent": "5.1.2"
+        "glob-parent": "6.0.1"
     },
     "dependencies": {
         "@babel/eslint-parser": "^7.17.0",
