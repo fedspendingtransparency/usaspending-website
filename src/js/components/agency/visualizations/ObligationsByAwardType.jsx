@@ -62,7 +62,8 @@ export default function ObligationsByAwardType({
             .attr('height', chartHeight)
             .attr('width', chartWidth)
             .append('g')
-            .attr('transform', `translate(${chartWidth / 2}, ${chartHeight / 2})`);
+            // y value moves everything toward top of container, to make room for labels at bottom
+            .attr('transform', `translate(${chartWidth / 2}, ${(chartHeight / 2) - 24})`);
 
         const pie = d3.pie()
             .value((d) => d.value)
@@ -148,7 +149,6 @@ export default function ObligationsByAwardType({
             })
             .attr('role', 'listitem');
 
-
         // inner ring
         chart.selectAll()
             .data(pie)
@@ -181,53 +181,95 @@ export default function ObligationsByAwardType({
             .attr('role', 'listitem')
             .attr('tabIndex', 0);
 
-
         // labels
         const labelPos = (i, yOffset = 0) => {
             if (i === 0) {
-                // Financial Assistance, bottom right
-                return [labelRadius - 62, ((chartHeight / 2) - 25) + yOffset];
+                // Financial Assistance
+                // positions were changed with ticket 8429, now below chart
+                return [labelRadius - 192, ((chartHeight / 2)) + 4];
             }
-            // Contracts, top left
-            return [-(labelRadius) + 18, -(chartHeight / 2) + 29 + yOffset];
+            // Contracts
+            return [labelRadius - 192, ((chartHeight / 2)) - yOffset - 12];
         };
 
-        const outerLabels = outer.map((d) => d.label);
+        const outerLabels = outer.map((d) => d.label.join(""));
 
         // Financial Assistance legend
         if (outer[0].value > 0) {
             // circle
             svg.append('circle')
-                .attr('cx', labelRadius - 70)
-                .attr('cy', (chartHeight / 2) - 29)
+                .attr('cx', labelRadius - 200)
+                .attr('cy', (chartHeight / 2))
                 .attr('r', 4)
-                .style("fill", outer[0].color);
+                .style("fill", outer[0].color)
+                // adding hover with ticket 8429
+                .style('cursor', 'pointer')
+                .on('mouseover', () => {
+                    // store the award type of the section the user is hovering over
+                    setActiveType('Direct Payments');
+                })
+                .on('mouseout', () => setActiveType(null))
+                .on('focus', () => {
+                    // store the award type of the section the user is hovering over
+                    setActiveType('Direct Payments');
+                })
+                .on('blur', () => setActiveType(null));
             // text
-            svg.selectAll()
-                .data(outerLabels[0])
-                .enter()
-                .append('text')
+            svg.append('text')
                 .attr('transform', (d, i) => `translate(${labelPos(0, i * 12)})`)
                 .attr('class', 'obligations-by-award-type__label')
-                .text((d) => d);
+                .text(outerLabels[0])
+                // adding hover with ticket 8429
+                .style('cursor', 'pointer')
+                .on('mouseover', () => {
+                    // store the award type of the section the user is hovering over
+                    setActiveType('Direct Payments');
+                })
+                .on('mouseout', () => setActiveType(null))
+                .on('focus', () => {
+                    // store the award type of the section the user is hovering over
+                    setActiveType('Direct Payments');
+                })
+                .on('blur', () => setActiveType(null));
         }
 
         // Contracts legend
         if (outer[1].value > 0) {
             // circle
             svg.append('circle')
-                .attr('cx', -labelRadius + 10)
-                .attr('cy', -(chartHeight / 2) + 25)
+                .attr('cx', labelRadius - 200)
+                .attr('cy', (chartHeight / 2) - 15)
                 .attr('r', 4)
-                .style("fill", outer[1].color);
+                .style("fill", outer[1].color)
+                // adding hover with ticket 8429
+                .style('cursor', 'pointer')
+                .on('mouseover', () => {
+                    // store the award type of the section the user is hovering over
+                    setActiveType('Contracts');
+                })
+                .on('mouseout', () => setActiveType(null))
+                .on('focus', () => {
+                    // store the award type of the section the user is hovering over
+                    setActiveType('Contracts');
+                })
+                .on('blur', () => setActiveType(null));
             // text
-            svg.selectAll()
-                .data(outerLabels[1])
-                .enter()
-                .append('text')
+            svg.append('text')
                 .attr('transform', (d, i) => `translate(${labelPos(1, i * 12)})`)
                 .attr('class', 'obligations-by-award-type__label')
-                .text((d) => d);
+                .text(outerLabels[1])
+                // adding hover with ticket 8429
+                .style('cursor', 'pointer')
+                .on('mouseover', () => {
+                    // store the award type of the section the user is hovering over
+                    setActiveType('Contracts');
+                })
+                .on('mouseout', () => setActiveType(null))
+                .on('focus', () => {
+                    // store the award type of the section the user is hovering over
+                    setActiveType('Contracts');
+                })
+                .on('blur', () => setActiveType(null));
         }
     };
 
@@ -235,6 +277,7 @@ export default function ObligationsByAwardType({
         if (chartWidth && chartHeight) {
             renderChart();
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [chartWidth, chartHeight]);
 
     useEffect(() => {
@@ -243,6 +286,7 @@ export default function ObligationsByAwardType({
             setChartHeight(rect.height);
             setChartWidth(rect.width);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [windowWidth]);
 
     return (
