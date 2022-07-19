@@ -90,7 +90,8 @@ const FinancialAssistanceContent = ({
             title={overview.title}
             lastModifiedDateLong={overview.periodOfPerformance.lastModifiedDateLong}
             className="award-financial-assistance"
-            dates={overview.periodOfPerformance}>
+            dates={overview.periodOfPerformance}
+            unlinked={unlinked}>
             <AwardSection type="row" className="award-overview" id="award-overview">
                 <AwardOverviewLeftSection
                     awardingAgency={overview.awardingAgency}
