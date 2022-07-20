@@ -1,5 +1,3 @@
-
-
 .obligations-by-award-type {
     // Tooltip wrapper
     width: 100%;
@@ -42,9 +40,6 @@
             font-weight: $font-semibold;
         }
         .obligations-by-award-type__donut {
-
-
-
             @include media($medium-screen) {
                 &:hover {
                     cursor: pointer;

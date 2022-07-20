@@ -170,6 +170,11 @@
               @media (min-width: $medium-screen) {
                 transform: rotate(90deg) translate(-8px, 140px);
               }
+
+              @media (max-width: $medium-screen) {
+                transform: rotate(90deg) translate(-3px, 140px);
+              }
+
             }
           }
           &:hover {

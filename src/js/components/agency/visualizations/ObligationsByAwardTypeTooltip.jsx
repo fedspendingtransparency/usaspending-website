@@ -36,7 +36,7 @@ const columns = [
 
 
 const ObligationsByAwardTypeTooltip = ({
-    awardTypes, fiscalYear, activeType, categoryType, isCategoryHover
+    awardTypes, fiscalYear, activeType, categoryType, isCategoryHover, labelTooltip
 }) => {
     const { _awardObligations } = useSelector((state) => state.agency);
     const awardTypesByCategory = awardTypes.filter((item) => item.type === categoryType);
@@ -48,7 +48,10 @@ const ObligationsByAwardTypeTooltip = ({
     };
 
     const rows = awardTypesByCategory.map((type) => {
-        const activeClass = `award-type-tooltip__table-data${!isCategoryHover && type.label === activeType ? ' award-type-tooltip__table-data_active' : ''}`;
+        let activeClass = `award-type-tooltip__table-data${!isCategoryHover && type.label === activeType ? ' award-type-tooltip__table-data_active' : ''}`;
+        if (labelTooltip) {
+            activeClass = '';
+        }
         return [
             (
                 <div className={activeClass}>
