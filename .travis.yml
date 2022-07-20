@@ -15,7 +15,7 @@ cache:
   directories:
     - node_modules
 before_install:
-  - npm install -g @lhci/cli@0.4.x
+  - npm install -g @lhci/cli@0.9.x
 install:
   - npm install --legacy-peer-deps
 script:
