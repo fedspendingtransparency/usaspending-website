@@ -35,9 +35,8 @@
 
     .obligations-by-award-type__chart {
         text.obligations-by-award-type__label {
-            font-size: 1.2rem;
-            fill: $color-gray;
-            font-weight: $font-semibold;
+            font-size: rem(14);
+            color: $color-base;
         }
         .obligations-by-award-type__donut {
             @include media($medium-screen) {
