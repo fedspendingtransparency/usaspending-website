@@ -83,31 +83,37 @@ const SummaryStats = () => {
             {isWide ?
                 <>
                     <FlexGridRow className="grid-content">
-                        <FlexGridCol width={4} style={{ color: "white", margin: "24px 0", "min-width": "344px" }}>
+                        <FlexGridCol width={4} className="summary-stats__budget-total-container" style={{ margin: "24px 0", "min-width": "344px" }}>
                             <span>So far this year, the federal government</span><br />
-                            <span>plans to spend {loading ? <span className="dot-pulse" /> : <span>{formatMoneyWithUnits(budgetTotal)}</span>} including…</span>
+                            <span>plans to spend {loading ? <span className="dot-pulse" /> : <span className="summary-stats__budget-total">{formatMoneyWithUnits(budgetTotal)}</span>} including…</span>
                         </FlexGridCol>
-                        <FlexGridCol width={6} style={{ color: "white", display: "flex" }}>
-                            <div style={{ margin: "24px 7% 24px 3.5%" }}>
+                        <FlexGridCol className="summary-stats__budget-items">
+                            <div className="summary-stats__budget-item">
                                 {loading ? <span className="dot-pulse" /> :
-                                    <><span>{formatMoneyWithUnits(budgetData[0]?.amount)}</span><br />
-                                    <span>on {budgetData[0]?.name}</span></>
+                                    <>
+                                        <span className="budget-item__amount">{formatMoneyWithUnits(budgetData[0]?.amount)}</span><br />
+                                        <span className="budget-item__name">on <strong>{budgetData[0]?.name}</strong></span>
+                                    </>
                                 }
                             </div>
-                            <div style={{ margin: "24px 7% 24px 0" }}>
-                                {loading ? <span className="dot-pulse"/> :
-                                    <><span>{formatMoneyWithUnits(budgetData[1]?.amount)}</span><br />
-                                    <span>on {budgetData[1]?.name}</span></>
+                            <div className="summary-stats__budget-item">
+                                {loading ? <span className="dot-pulse" /> :
+                                    <>
+                                        <span className="budget-item__amount">{formatMoneyWithUnits(budgetData[1]?.amount)}</span><br />
+                                        <span className="budget-item__name">on <strong>{budgetData[1]?.name}</strong></span>
+                                    </>
                                 }
                             </div>
-                            <div style={{ margin: "24px 7% 24px 0" }}>
-                                {loading ? <span className="dot-pulse"/> :
-                                    <><span>{formatMoneyWithUnits(budgetData[2]?.amount)}</span><br />
-                                    <span>on {budgetData[2]?.name}</span></>
+                            <div className="summary-stats__budget-item">
+                                {loading ? <span className="dot-pulse" /> :
+                                    <>
+                                        <span className="budget-item__amount">{formatMoneyWithUnits(budgetData[2]?.amount)}</span><br />
+                                        <span className="budget-item__name">on <strong>{budgetData[2]?.name}</strong></span>
+                                    </>
                                 }
                             </div>
                         </FlexGridCol>
-                        <FlexGridCol width={2} style={{ color: "white", margin: "24px 0" }}>
+                        <FlexGridCol width={2} style={{ margin: "24px 0" }}>
                             <FlexGridRow>
                                 <div style={{ "margin-right": "8px" }}>
                                     <span>See more breakdowns</span><br />

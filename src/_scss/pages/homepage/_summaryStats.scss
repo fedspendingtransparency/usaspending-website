@@ -14,6 +14,7 @@
   .grid-content {
     display: flex;
     justify-content: center;
+    color: white;
     margin: 0 8.33%;
     max-width: 1600px;
     @media (min-width: 1600px) {
@@ -41,6 +42,42 @@
 
     .dot-pulse {
       top: rem(8);
+    }
+
+    .summary-stats__budget-total-container {
+      margin: 24px 0;
+      min-width: 344px;
+      
+      .summary-stats__budget-total {
+        font-weight: 600;
+        border-bottom: 1px solid white;
+      }
+    }
+
+    .summary-stats__budget-items {
+      display: flex;
+
+      .summary-stats__budget-item {
+        margin: 24px 7% 24px 0;
+        @media(min-width: 1600px) {
+          margin: 24px 104px 24px 0;
+        }
+        .budget-item__amount {
+          font-weight: 600;
+        }
+
+        .budget-item__name {
+          font-size: rem(16);
+          line-height: rem(25);
+        }
+      }
+
+      :first-of-type(.summary-stats__budget-item) {
+        margin: 24px 7% 24px 3.5%;
+        @media(min-width: 1600px) {
+          margin: 24px 104px 24px 52px;
+        }
+      }
     }
   }
 }
