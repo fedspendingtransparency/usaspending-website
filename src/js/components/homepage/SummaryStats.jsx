@@ -5,9 +5,10 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { FlexGridRow, FlexGridCol } from "data-transparency-ui";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { fetchBreakdown } from 'helpers/explorerHelper';
-import {formatMoneyWithUnits} from "../../helpers/moneyFormatter";
+import { formatMoneyWithUnits } from "helpers/moneyFormatter";
 
 
 const SummaryStats = () => {
@@ -113,18 +114,18 @@ const SummaryStats = () => {
                                 }
                             </div>
                         </FlexGridCol>
-                        <FlexGridCol width={2} className="summary-stats__spending-link" style={{ margin: "24px 0" }}>
-                            <a href="/explorer/budget_function">
-                                <FlexGridRow>
-                                    <div style={{ "margin-right": "8px" }}>
+                        <FlexGridCol width={2} className="summary-stats__spending-link">
+                            <FlexGridRow>
+                                <Link to="/explorer/budget_function">
+                                    <div className="summary-stats__spending-link-text" style={{ "margin-right": "8px" }}>
                                         <span>See more breakdowns</span><br />
                                         <span>of federal spending</span>
                                     </div>
                                     <div style={{ margin: "auto 0" }}>
                                         <FontAwesomeIcon size="lg" className="arrow-circle-right" icon="arrow-circle-right" />
                                     </div>
-                                </FlexGridRow>
-                            </a>
+                                </Link>
+                            </FlexGridRow>
                         </FlexGridCol>
                     </FlexGridRow>
                 </>

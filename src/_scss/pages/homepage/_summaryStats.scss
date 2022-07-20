@@ -1,8 +1,8 @@
-$ss-teal: #00687D;
+$summary-stats-teal: #00687D;
 .summary-stats {
   color: white;
   height: rem(98);
-  background-color: $ss-teal;
+  background-color: $summary-stats-teal;
 
   @media (min-width: 576px) and (max-width: 991px) {
     height: rem(235);
@@ -46,12 +46,12 @@ $ss-teal: #00687D;
     }
 
     .summary-stats__budget-total-container {
-      margin: 24px 0;
-      min-width: 344px;
+      margin: rem(24) 0;
+      min-width: rem(344);
 
       .summary-stats__budget-total {
         font-weight: 600;
-        border-bottom: 1px solid white;
+        border-bottom: rem(1) solid white;
       }
     }
 
@@ -59,9 +59,9 @@ $ss-teal: #00687D;
       display: flex;
 
       .summary-stats__budget-item {
-        margin: 24px 7% 24px 0;
+        margin: rem(24) 7% rem(24) 0;
         @media(min-width: 1600px) {
-          margin: 24px 104px 24px 0;
+          margin: rem(24) rem(104) rem(24) 0;
         }
         .budget-item__amount {
           font-weight: 600;
@@ -74,15 +74,21 @@ $ss-teal: #00687D;
       }
 
       :first-of-type(.summary-stats__budget-item) {
-        margin: 24px 7% 24px 3.5%;
+        margin: rem(24) 7% rem(24) 3.5%;
         @media(min-width: 1600px) {
-          margin: 24px 104px 24px 52px;
+          margin: rem(24) rem(104) rem(24) rem(52);
         }
       }
     }
 
     .summary-stats__spending-link {
       cursor: pointer;
+      margin: rem(24) 0;
+
+      a {
+        display: flex;
+        height: rem(40);
+      }
 
       span {
         color: #DFE1E2;
@@ -104,9 +110,13 @@ $ss-teal: #00687D;
       .arrow-circle-right {
         color: #DFE1E2;
         width: rem(24);
+        height: rem(24);
         opacity: 40%;
       }
 
+      .summary-stats__spending-link-text {
+        margin-right: rem(8);
+      }
     }
   }
 }
