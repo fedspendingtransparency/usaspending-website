@@ -116,7 +116,9 @@ export const awardTableClassMap = {
     "Combined Infrastructure Obligated Amounts": "award-amounts__infrastructure-obligated",
     "Combined Infrastructure Outlayed Amounts": "award-amounts__infrastructure-outlays",
     "Infrastructure Obligated Amount": "award-amounts__infrastructure-obligated",
-    "Infrastructure Outlayed Amount": "award-amounts__infrastructure-outlays"
+    "Infrastructure Outlayed Amount": "award-amounts__infrastructure-outlays",
+    "Infrastructure Obligated Amounts": "award-amounts__infrastructure-obligated",
+    "Infrastructure Outlayed Amounts": "award-amounts__infrastructure-outlays"
 };
 
 export const tableTitlesBySpendingCategoryAndAwardType = {

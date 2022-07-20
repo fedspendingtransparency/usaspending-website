@@ -77,7 +77,7 @@ export const referencedAwardsColumns = {
         },
         {
             name: 'description',
-            label: 'Description',
+            label: 'Base Transaction Description',
             field: 'description'
         }
     ],

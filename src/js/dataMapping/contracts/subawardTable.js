@@ -37,7 +37,7 @@ const subawardFields = {
         recipient: 'Recipient Name',
         actionDate: 'Action Date',
         amount: 'Amount',
-        description: 'Description'
+        description: 'Sub-Award Description'
     }
 };
 

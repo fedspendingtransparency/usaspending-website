@@ -29,8 +29,8 @@
         @include button-unstyled;
         color: $color-white;
         text-align: center;
-        line-height: rem(22);
-        font-size: rem(12);
+        line-height: $base-line-height;
+        font-size: $font-size-12;
         font-weight: $font-bold;
 
         background-color: #646A70;
