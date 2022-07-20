@@ -66,7 +66,6 @@ const SummaryStats = () => {
                         });
                     }
                 });
-                console.log(res?.data);
                 setRandomIndex(selectRandomIndex());
                 setBudgetData(budgetDataArr);
                 setLoading(false);
