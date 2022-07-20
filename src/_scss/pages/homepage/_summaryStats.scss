@@ -42,12 +42,15 @@ $maxWidth: 1600px;
     @media (min-width: $tabletBreakpoint) {
       justify-content: space-between;
       text-align: left;
-      max-width: rem(1600);
       margin: 0 8.33%;
     }
 
     @media (min-width: $tabletBreakpoint) and (max-width: 1400px) {
       margin: 0 rem(32) !important;
+    }
+
+    @media (min-width: $mobileBreakpoint) and (max-width: $tabletBreakpoint - 1) {
+      padding: rem(32) 0 !important;
     }
 
     span {
@@ -63,7 +66,7 @@ $maxWidth: 1600px;
     }
 
     .summary-stats__budget-total-container {
-      margin: rem(24) 0;
+      margin: 0 0 rem(24);
       max-width: rem(288);
 
       @media (min-width: $maxWidth) {
@@ -74,9 +77,9 @@ $maxWidth: 1600px;
         margin: rem(24) rem(24) rem(24) 0;
       }
 
-      @media(max-width: $tabletBreakpoint - 1) {
-        margin-bottom: rem(12);
-      }
+      //@media(max-width: $tabletBreakpoint - 1) {
+      //  margin-bottom: rem(12);
+      //}
 
       @media (min-width: $mobileBreakpoint) {
         min-width: rem(344);
@@ -102,6 +105,10 @@ $maxWidth: 1600px;
         flex-direction: row;
       }
 
+      @media(min-width: $mobileBreakpoint) and (max-width: $tabletBreakpoint - 1) {
+        margin-bottom: rem(24);
+      }
+
       .summary-stats__budget-item {
         margin: rem(16) rem(48);
         height: rem(48);
@@ -116,7 +123,7 @@ $maxWidth: 1600px;
         }
 
         @media(min-width: $mobileBreakpoint) and (max-width: $tabletBreakpoint - 1) {
-          margin: rem(24) rem(48);
+          margin: 0 rem(48) 0 0;
         }
 
         .budget-item__amount {
@@ -132,10 +139,10 @@ $maxWidth: 1600px;
 
     .summary-stats__spending-link {
       cursor: pointer;
-      margin: rem(16) 0;
+      margin: 0;
 
       @media(min-width: $tabletBreakpoint) {
-        margin: rem(24) 0;
+        margin: rem(24) rem(8);
       }
 
       .usa-dt-flex-grid__row {
@@ -186,6 +193,7 @@ $maxWidth: 1600px;
 
       .summary-stats__spending-link-text {
         text-align: center;
+        font-weight: 600;
         margin-right: rem(8);
 
         @media (min-width: $tabletBreakpoint) {
