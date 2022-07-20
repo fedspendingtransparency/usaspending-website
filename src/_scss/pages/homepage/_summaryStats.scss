@@ -61,7 +61,7 @@ $summary-stats-teal: #00687D;
       display: flex;
 
       .summary-stats__budget-item {
-        margin: rem(24) 7% rem(24) 0;
+        margin: rem(24) 0;
         min-width: rem(130);
 
         @media(min-width: 1600px) {
@@ -83,7 +83,7 @@ $summary-stats-teal: #00687D;
       }
 
       :first-of-type(.summary-stats__budget-item) {
-        margin: rem(24) 7% rem(24) 3.5%;
+        margin: rem(24) 0;
         @media(min-width: 1600px) {
           margin: rem(24) rem(104) rem(24) rem(52);
         }
