@@ -13,7 +13,6 @@ import { formatMoneyWithUnits } from "helpers/moneyFormatter";
 
 const SummaryStats = () => {
     const [windowWidth, setWindowWidth] = useState(0);
-    const [isWide, setIsWide] = useState(0);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const request = useRef(null);
@@ -26,7 +25,6 @@ const SummaryStats = () => {
         const wWidth = window.innerWidth;
         if (windowWidth !== wWidth) {
             setWindowWidth(wWidth);
-            setIsWide(wWidth >= 1100);
         }
     };
 
@@ -83,7 +81,7 @@ const SummaryStats = () => {
         return () => {
             window.removeEventListener('resize', handleWindowResize);
         };
-    }, []);
+    }, [fetchBudgetFunctions, handleWindowResize]);
 
     return (
         <section className="summary-stats">
@@ -126,7 +124,11 @@ const SummaryStats = () => {
                                     <span>See more breakdowns</span><br />
                                     <span>of federal spending</span>
                                 </div>
-                                <div className="icon-stack" style={{position: "relative", justifyContent: "center", alignItems: "center", marginTop: "8px" }}>
+                                <div
+                                    className="icon-stack"
+                                    style={{
+                                        position: "relative", justifyContent: "center", alignItems: "center", marginTop: "8px"
+                                    }}>
                                     <FontAwesomeIcon color="white" icon="circle" style={{ position: "absolute", width: "24", height: "24" }} />
                                     <FontAwesomeIcon className="arrow-circle-right" icon="arrow-circle-right" style={{ position: "absolute" }} />
                                 </div>
