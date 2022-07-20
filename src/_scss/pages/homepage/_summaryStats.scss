@@ -157,10 +157,6 @@ $largeMobile: 576px;
 
       .usa-dt-flex-grid__row {
         justify-content: center;
-
-        //@media (min-width: $stackedShort) {
-        //  justify-content: end;
-        //}
       }
 
       a {
@@ -168,21 +164,14 @@ $largeMobile: 576px;
         height: rem(40);
       }
 
+      :hover {
+        text-decoration: none;
+      }
+
       span {
         color: #DFE1E2;
         font-size: rem(16);
         line-height: rem(20);
-      }
-
-      :hover {
-        color: #EDEFF0;
-        font-weight: 600;
-        text-decoration: none;
-      }
-
-      :active {
-        color: white;
-        font-weight: 600;
       }
 
       .icon-stack {
@@ -211,6 +200,17 @@ $largeMobile: 576px;
         text-align: center;
         font-weight: 600;
         margin-right: rem(8);
+
+        :hover {
+          color: #EDEFF0;
+          font-weight: 600;
+          text-decoration: none;
+        }
+
+        :active {
+          color: white;
+          font-weight: 600;
+        }
 
         @media (min-width: $stackedShort) {
           text-align: left;
