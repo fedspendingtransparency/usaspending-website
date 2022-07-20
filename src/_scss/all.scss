@@ -5,9 +5,9 @@
 @import 'lib/normalize';
 
 // Core -------------- //
-@import 'core/defaults';
-@import 'core/fonts';
 @import 'core/variables';
+@import 'core/deprecated';
+@import 'core/fonts';
 @import 'core/base';
 @import 'core/utilities';
 

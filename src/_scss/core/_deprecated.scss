@@ -1,0 +1,23 @@
+/*  deprecated.scss
+    ---
+    Occasionally the design system will deprecate
+    old variables or functionality. If we replace
+    the old functionality with something new, this is a
+    place to connect the old functionality to the
+    new functionality, in the service of better
+    continuity and backwards compatibility within a
+    major release cycle.
+    Note the version where we deprecated the
+    old functionality in a comment.
+    This file should started fresh at each
+    major version.
+*/
+
+// Deprecated in Release 2021-05-04
+// Bourbon Neat Grid Variable Settings
+// Required for older pages that use the Bourbon Neat grid mixins
+// e.g., @include span-columns()
+$column: em(46.875);
+$gutter: em(30);
+$grid-columns: 16;
+$max-width: em(1400);

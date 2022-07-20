@@ -25,8 +25,7 @@
     .dropdown-option__label {
         @include flex(1 1 auto);
         color: $color-base;
-
-        font-size: rem(16);
-        line-height: rem(20);
+        font-size: $font-size-16;
+        line-height: $base-line-height;
     }
 }
