@@ -1,6 +1,7 @@
 $summary-stats-teal: #00687D;
 $tabletBreakpoint: 1200px;
 $mobileBreakpoint: 768px;
+$maxWidth: 1600px;
 
 .summary-stats {
   color: white;
@@ -38,22 +39,15 @@ $mobileBreakpoint: 768px;
     color: white;
     margin: 0 auto;
 
-    @media (min-width: 1600px) {
-      justify-content: normal;
+    @media (min-width: $tabletBreakpoint) {
+      justify-content: space-between;
       text-align: left;
       max-width: rem(1600);
       margin: 0 8.33%;
     }
 
-    @media (min-width: 1325px) and (max-width: 1599px) {
-      text-align: left;
-      margin: 0 8.33%;
-    }
-
-    @media (min-width: $tabletBreakpoint) and (max-width: 1324px) {
-      text-align: left;
-      justify-content: center;
-      margin: 0 rem(16) !important;
+    @media (min-width: $tabletBreakpoint) and (max-width: 1400px) {
+      margin: 0 rem(32) !important;
     }
 
     span {
@@ -72,12 +66,12 @@ $mobileBreakpoint: 768px;
       margin: rem(24) 0;
       max-width: rem(288);
 
-      @media (min-width: 1600px) {
-        margin: rem(24) rem(92) rem(24) rem(8);
+      @media (min-width: $maxWidth) {
+        margin: rem(24) rem(92) rem(24) 0;
       }
 
-      @media(min-width: $tabletBreakpoint) and (max-width: 1599px) {
-        margin: rem(24) rem(48) rem(24) 0;
+      @media(min-width: $tabletBreakpoint) and (max-width: $maxWidth - 1) {
+        margin: rem(24) rem(24) rem(24) 0;
       }
 
       @media(max-width: $tabletBreakpoint - 1) {
@@ -113,11 +107,11 @@ $mobileBreakpoint: 768px;
         height: rem(48);
         overflow: hidden;
 
-        @media(min-width: 1600px) {
-          margin: rem(24) rem(104) rem(24) 0;
+        @media(min-width: $maxWidth) {
+          margin: rem(24) rem(92) rem(24) 0;
         }
 
-        @media(min-width: $tabletBreakpoint) and (max-width: 1599px) {
+        @media(min-width: $tabletBreakpoint) and (max-width: $maxWidth - 1) {
           margin: rem(24) rem(48) rem(24) 0;
         }
 
@@ -134,17 +128,6 @@ $mobileBreakpoint: 768px;
           line-height: rem(25);
         }
       }
-
-      :first-of-type(.summary-stats__budget-item) {
-        margin: rem(24) rem(48);
-        @media(min-width: 1600px) {
-          margin: rem(24) rem(104) rem(24) rem(52);
-        }
-
-        @media(min-width: $tabletBreakpoint) and (max-width: 1599px) {
-          margin: rem(24) rem(48) rem(24) rem(32);
-        }
-      }
     }
 
     .summary-stats__spending-link {
@@ -157,6 +140,10 @@ $mobileBreakpoint: 768px;
 
       .usa-dt-flex-grid__row {
         justify-content: center;
+
+        @media (min-width: $tabletBreakpoint) {
+          justify-content: end;
+        }
       }
 
       a {
