@@ -143,8 +143,7 @@ const SummaryStats = () => {
                         </FlexGridCol>
                         <FlexGridCol
                             width={12}
-                            className="summary-stats__budget-items"
-                            style={{ flexDirection: windowWidth <= 576 ? 'column' : 'row' }}>
+                            className="summary-stats__budget-items">
                             <div className="summary-stats__budget-item">
                                 {loading ? <span className="dot-pulse" /> :
                                     <>

@@ -67,6 +67,7 @@ $summary-stats-teal: #00687D;
 
     .summary-stats__budget-items {
       display: flex;
+      flex-direction: column;
 
       @media(max-width: 991px) {
         min-width: rem(470);
@@ -74,9 +75,15 @@ $summary-stats-teal: #00687D;
         margin-bottom: 0;
       }
 
+      @media(min-width: 576px) {
+        flex-direction: row;
+      }
+
       .summary-stats__budget-item {
         margin: rem(16) rem(48);
         min-width: rem(130);
+        height: rem(48);
+        overflow: hidden;
 
         @media(min-width: 1600px) {
           margin: rem(24) rem(104) rem(24) 0;
@@ -149,14 +156,14 @@ $summary-stats-teal: #00687D;
       .arrow-circle-right {
         display: none;
 
-        @media (min-width: 577px) {
+        @media (min-width: 576px) {
           display: block;
           color: #DFE1E2;
           width: rem(24);
           height: rem(24);
           opacity: 40%;
 
-          @media (min-width: 993px) {
+          @media (min-width: 992px) {
             margin: auto 0;
           }
         }
