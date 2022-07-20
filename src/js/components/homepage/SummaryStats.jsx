@@ -26,7 +26,7 @@ const SummaryStats = () => {
         const wWidth = window.innerWidth;
         if (windowWidth !== wWidth) {
             setWindowWidth(wWidth);
-            setIsWide(wWidth >= 992);
+            setIsWide(wWidth >= 1100);
         }
     };
 
@@ -87,99 +87,97 @@ const SummaryStats = () => {
 
     return (
         <section className="summary-stats">
-            {isWide ?
-                <>
-                    <FlexGridRow className="grid-content">
-                        <FlexGridCol width={4} className="summary-stats__budget-total-container">
-                            <span>So far this year, the federal government</span><br />
-                            <span>plans to spend {loading ? <span className="dot-pulse" /> : <span className="summary-stats__budget-total">{formatMoneyWithUnits(budgetTotal)}</span>} including…</span>
-                        </FlexGridCol>
-                        <FlexGridCol className="summary-stats__budget-items">
-                            <div className="summary-stats__budget-item">
-                                {loading ? <span className="dot-pulse" /> :
-                                    <>
-                                        <span className="budget-item__amount">{formatMoneyWithUnits(budgetData[randomIndex % budgetData?.length]?.amount)}</span><br />
-                                        <span className="budget-item__name">on <strong>{budgetData[randomIndex % budgetData?.length]?.name}</strong></span>
-                                    </>
-                                }
-                            </div>
-                            <div className="summary-stats__budget-item">
-                                {loading ? <span className="dot-pulse" /> :
-                                    <>
-                                        <span className="budget-item__amount">{formatMoneyWithUnits(budgetData[(randomIndex + 1) % budgetData?.length]?.amount)}</span><br />
-                                        <span className="budget-item__name">on <strong>{budgetData[(randomIndex + 1) % budgetData?.length]?.name}</strong></span>
-                                    </>
-                                }
-                            </div>
-                            <div className="summary-stats__budget-item">
-                                {loading ? <span className="dot-pulse" /> :
-                                    <>
-                                        <span className="budget-item__amount">{formatMoneyWithUnits(budgetData[(randomIndex + 2) % budgetData?.length]?.amount)}</span><br />
-                                        <span className="budget-item__name">on <strong>{budgetData[(randomIndex + 2) % budgetData?.length]?.name}</strong></span>
-                                    </>
-                                }
-                            </div>
-                        </FlexGridCol>
-                        <FlexGridCol width={2} className="summary-stats__spending-link">
-                            <FlexGridRow>
-                                <Link to="/explorer/budget_function">
-                                    <div className="summary-stats__spending-link-text">
-                                        <span>See more breakdowns</span><br />
-                                        <span>of federal spending</span>
-                                    </div>
-                                    <FontAwesomeIcon size="lg" className="arrow-circle-right" icon="arrow-circle-right" />
-                                </Link>
-                            </FlexGridRow>
-                        </FlexGridCol>
-                    </FlexGridRow>
-                </>
-                :
-                <>
-                    <FlexGridRow className="grid-content">
-                        <FlexGridCol width={12} className="summary-stats__budget-total-container">
-                            <span>So far this year, <span style={{ "white-space": "nowrap" }}>the federal government</span></span><br />
-                            <span>plans to spend {loading ? <span className="dot-pulse" /> : <span className="summary-stats__budget-total">{formatMoneyWithUnits(budgetTotal)}</span>} including…</span>
-                        </FlexGridCol>
-                        <FlexGridCol
-                            width={12}
-                            className="summary-stats__budget-items">
-                            <div className="summary-stats__budget-item">
-                                {loading ? <span className="dot-pulse" /> :
-                                    <>
-                                        <span className="budget-item__amount">{formatMoneyWithUnits(budgetData[randomIndex % budgetData?.length]?.amount)}</span><br />
-                                        <span className="budget-item__name">on <strong>{budgetData[randomIndex % budgetData?.length]?.name}</strong></span>
-                                    </>
-                                }
-                            </div>
-                            <div className="summary-stats__budget-item">
-                                {loading ? <span className="dot-pulse" /> :
-                                    <>
-                                        <span className="budget-item__amount">{formatMoneyWithUnits(budgetData[(randomIndex + 1) % budgetData?.length]?.amount)}</span><br />
-                                        <span className="budget-item__name">on <strong>{budgetData[(randomIndex + 1) % budgetData?.length]?.name}</strong></span>
-                                    </>
-                                }
-                            </div>
-                            <div className="summary-stats__budget-item">
-                                {loading ? <span className="dot-pulse" /> :
-                                    <>
-                                        <span className="budget-item__amount">{formatMoneyWithUnits(budgetData[(randomIndex + 2) % budgetData?.length]?.amount)}</span><br />
-                                        <span className="budget-item__name">on <strong>{budgetData[(randomIndex + 2) % budgetData?.length]?.name}</strong></span>
-                                    </>
-                                }
-                            </div>
-                        </FlexGridCol>
-                        <FlexGridCol width={12} className="summary-stats__spending-link">
-                            <FlexGridRow>
-                                <Link to="/explorer/budget_function">
-                                    <div className="summary-stats__spending-link-text">
-                                        <span>See more breakdowns of federal spending</span>
-                                    </div>
-                                    <FontAwesomeIcon size="lg" className="arrow-circle-right" icon="arrow-circle-right" />
-                                </Link>
-                            </FlexGridRow>
-                        </FlexGridCol>
-                    </FlexGridRow>
-                </>}
+            <div className="summary-stats-desktop">
+                <FlexGridRow className="grid-content">
+                    <FlexGridCol width={4} className="summary-stats__budget-total-container">
+                        <span>So far this year, the federal government</span><br />
+                        <span>plans to spend {loading ? <span className="dot-pulse" /> : <span className="summary-stats__budget-total">{formatMoneyWithUnits(budgetTotal)}</span>} including…</span>
+                    </FlexGridCol>
+                    <FlexGridCol className="summary-stats__budget-items">
+                        <div className="summary-stats__budget-item">
+                            {loading ? <span className="dot-pulse" /> :
+                                <>
+                                    <span className="budget-item__amount">{formatMoneyWithUnits(budgetData[randomIndex % budgetData?.length]?.amount)}</span><br />
+                                    <span className="budget-item__name">on <strong>{budgetData[randomIndex % budgetData?.length]?.name}</strong></span>
+                                </>
+                            }
+                        </div>
+                        <div className="summary-stats__budget-item">
+                            {loading ? <span className="dot-pulse" /> :
+                                <>
+                                    <span className="budget-item__amount">{formatMoneyWithUnits(budgetData[(randomIndex + 1) % budgetData?.length]?.amount)}</span><br />
+                                    <span className="budget-item__name">on <strong>{budgetData[(randomIndex + 1) % budgetData?.length]?.name}</strong></span>
+                                </>
+                            }
+                        </div>
+                        <div className="summary-stats__budget-item">
+                            {loading ? <span className="dot-pulse" /> :
+                                <>
+                                    <span className="budget-item__amount">{formatMoneyWithUnits(budgetData[(randomIndex + 2) % budgetData?.length]?.amount)}</span><br />
+                                    <span className="budget-item__name">on <strong>{budgetData[(randomIndex + 2) % budgetData?.length]?.name}</strong></span>
+                                </>
+                            }
+                        </div>
+                    </FlexGridCol>
+                    <FlexGridCol width={2} className="summary-stats__spending-link">
+                        <FlexGridRow>
+                            <Link to="/explorer/budget_function">
+                                <div className="summary-stats__spending-link-text">
+                                    <span>See more breakdowns</span><br />
+                                    <span>of federal spending</span>
+                                </div>
+                                <FontAwesomeIcon size="lg" className="arrow-circle-right" icon="arrow-circle-right" />
+                            </Link>
+                        </FlexGridRow>
+                    </FlexGridCol>
+                </FlexGridRow>
+            </div>
+            <div className="summary-stats-mobile">
+                <FlexGridRow className="grid-content">
+                    <FlexGridCol width={12} className="summary-stats__budget-total-container">
+                        <span>So far this year, <span style={{ "white-space": "nowrap" }}>the federal government</span></span><br />
+                        <span>plans to spend {loading ? <span className="dot-pulse" /> : <span className="summary-stats__budget-total">{formatMoneyWithUnits(budgetTotal)}</span>} including…</span>
+                    </FlexGridCol>
+                    <FlexGridCol
+                        width={12}
+                        className="summary-stats__budget-items">
+                        <div className="summary-stats__budget-item">
+                            {loading ? <span className="dot-pulse" /> :
+                                <>
+                                    <span className="budget-item__amount">{formatMoneyWithUnits(budgetData[randomIndex % budgetData?.length]?.amount)}</span><br />
+                                    <span className="budget-item__name">on <strong>{budgetData[randomIndex % budgetData?.length]?.name}</strong></span>
+                                </>
+                            }
+                        </div>
+                        <div className="summary-stats__budget-item">
+                            {loading ? <span className="dot-pulse" /> :
+                                <>
+                                    <span className="budget-item__amount">{formatMoneyWithUnits(budgetData[(randomIndex + 1) % budgetData?.length]?.amount)}</span><br />
+                                    <span className="budget-item__name">on <strong>{budgetData[(randomIndex + 1) % budgetData?.length]?.name}</strong></span>
+                                </>
+                            }
+                        </div>
+                        <div className="summary-stats__budget-item">
+                            {loading ? <span className="dot-pulse" /> :
+                                <>
+                                    <span className="budget-item__amount">{formatMoneyWithUnits(budgetData[(randomIndex + 2) % budgetData?.length]?.amount)}</span><br />
+                                    <span className="budget-item__name">on <strong>{budgetData[(randomIndex + 2) % budgetData?.length]?.name}</strong></span>
+                                </>
+                            }
+                        </div>
+                    </FlexGridCol>
+                    <FlexGridCol width={12} className="summary-stats__spending-link">
+                        <FlexGridRow>
+                            <Link to="/explorer/budget_function">
+                                <div className="summary-stats__spending-link-text">
+                                    <span>See more breakdowns of federal spending</span>
+                                </div>
+                                <FontAwesomeIcon size="lg" className="arrow-circle-right" icon="arrow-circle-right" />
+                            </Link>
+                        </FlexGridRow>
+                    </FlexGridCol>
+                </FlexGridRow>
+            </div>}
         </section>);
 };
 
