@@ -20,7 +20,7 @@ const SummaryStats = () => {
     const [budgetData, setBudgetData] = useState([]);
     const [budgetTotal, setBudgetTotal] = useState([]);
     const [randomIndex, setRandomIndex] = useState(0);
-    const budgetCategories = [{ name: "Medicare" }, { name: "National Defense" }, { name: "Education, Training, Employment, and Social Services", label: "Education" } , { name: "Social Security" }, { name: "Transportation" }, { name: "Agriculture" }, { name:  "Veterans Benefits and Services", label: "Veterans Benefits" }, { name: "Energy" }, { name: "Net Interest" }];
+    const budgetCategories = [{ name: "Medicare" }, { name: "National Defense" }, { name: "Education, Training, Employment, and Social Services", label: "Education" }, { name: "Social Security" }, { name: "Transportation" }, { name: "Agriculture" }, { name: "Veterans Benefits and Services", label: "Veterans Benefits" }, { name: "Energy" }, { name: "Net Interest" }];
 
     const handleWindowResize = () => {
         const wWidth = window.innerWidth;
@@ -31,7 +31,7 @@ const SummaryStats = () => {
     };
 
     const selectRandomIndex = () => {
-        return Math.floor(Math.random() * 10);
+        Math.floor(Math.random() * 10);
     };
 
     const fetchBudgetFunctions = () => {
@@ -183,17 +183,6 @@ const SummaryStats = () => {
                                 </Link>
                             </FlexGridRow>
                         </FlexGridCol>
-                        {/*<FlexGridCol width={12} style={{ margin: "0 0 32px", "min-width": "344px" }}>*/}
-                        {/*    <FlexGridRow style={{ "justify-content": "center" }}>*/}
-                        {/*        <div style={{ "margin-right": "8px" }}>*/}
-                        {/*            <span>See more breakdowns</span><br />*/}
-                        {/*            <span>of federal spending</span>*/}
-                        {/*        </div>*/}
-                        {/*        <div style={{ margin: "auto 0" }}>*/}
-                        {/*            <a href="/explorer/budget_function"><FontAwesomeIcon size="lg" fontSize="24" icon="arrow-alt-circle-right" /></a>*/}
-                        {/*        </div>*/}
-                        {/*    </FlexGridRow>*/}
-                        {/*</FlexGridCol>*/}
                     </FlexGridRow>
                 </>}
         </section>);
