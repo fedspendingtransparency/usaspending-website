@@ -40,6 +40,7 @@ const SummaryStats = () => {
             setLoading(true);
         }
 
+        //TODO fix the filter here
         const params = {
             type: "budget_function",
             filters: {
@@ -84,7 +85,7 @@ const SummaryStats = () => {
             {isWide ?
                 <>
                     <FlexGridRow className="grid-content">
-                        <FlexGridCol width={4} className="summary-stats__budget-total-container" style={{ margin: "24px 0", "min-width": "344px" }}>
+                        <FlexGridCol width={4} className="summary-stats__budget-total-container">
                             <span>So far this year, the federal government</span><br />
                             <span>plans to spend {loading ? <span className="dot-pulse" /> : <span className="summary-stats__budget-total">{formatMoneyWithUnits(budgetTotal)}</span>} including…</span>
                         </FlexGridCol>
@@ -117,13 +118,11 @@ const SummaryStats = () => {
                         <FlexGridCol width={2} className="summary-stats__spending-link">
                             <FlexGridRow>
                                 <Link to="/explorer/budget_function">
-                                    <div className="summary-stats__spending-link-text" style={{ "margin-right": "8px" }}>
+                                    <div className="summary-stats__spending-link-text">
                                         <span>See more breakdowns</span><br />
                                         <span>of federal spending</span>
                                     </div>
-                                    <div style={{ margin: "auto 0" }}>
-                                        <FontAwesomeIcon size="lg" className="arrow-circle-right" icon="arrow-circle-right" />
-                                    </div>
+                                    <FontAwesomeIcon size="lg" className="arrow-circle-right" icon="arrow-circle-right" />
                                 </Link>
                             </FlexGridRow>
                         </FlexGridCol>

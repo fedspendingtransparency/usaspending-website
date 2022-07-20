@@ -1,36 +1,38 @@
 $summary-stats-teal: #00687D;
 .summary-stats {
   color: white;
-  height: rem(98);
+  height: rem(451);
   background-color: $summary-stats-teal;
 
   @media (min-width: 576px) and (max-width: 991px) {
     height: rem(235);
   }
 
-  @media (max-width: 575px) {
-    height: rem(451);
+  @media (min-width: 992px) {
+    height: rem(98);
   }
 
   .grid-content {
     display: flex;
     justify-content: center;
+    text-align: center;
     color: white;
-    margin: 0 8.33%;
-    max-width: rem(1600);
+    margin: 0 auto;
+
     @media (min-width: 1600px) {
+      text-align: left;
       width: rem(1600);
-      margin: 0 auto;
-    }
-    @media (min-width: 992px) and (max-width: 1599px) {
-      max-width: rem(1334);
-      margin: 0 auto;
-      justify-content: unset;
     }
 
-    @media (max-width: 991px) {
+    @media (min-width: 1350px) and (max-width: 1599px) {
+      text-align: left;
+      margin: 0 8.33%;
+    }
+
+    @media (min-width: 992px) and (max-width: 1349px) {
+      text-align: left;
       justify-content: center;
-      text-align: center;
+      margin: 0 rem(32) !important;
     }
 
     span {
@@ -60,9 +62,16 @@ $summary-stats-teal: #00687D;
 
       .summary-stats__budget-item {
         margin: rem(24) 7% rem(24) 0;
+        min-width: rem(130);
+
         @media(min-width: 1600px) {
           margin: rem(24) rem(104) rem(24) 0;
         }
+
+        @media(min-width: 992px) and (max-width: 1599px) {
+          margin: rem(24) rem(48) rem(24) 0;
+        }
+
         .budget-item__amount {
           font-weight: 600;
         }
@@ -77,6 +86,10 @@ $summary-stats-teal: #00687D;
         margin: rem(24) 7% rem(24) 3.5%;
         @media(min-width: 1600px) {
           margin: rem(24) rem(104) rem(24) rem(52);
+        }
+
+        @media(min-width: 992px) and (max-width: 1599px) {
+          margin: rem(24) rem(48) rem(24) rem(32);
         }
       }
     }
@@ -108,6 +121,7 @@ $summary-stats-teal: #00687D;
       }
 
       .arrow-circle-right {
+        margin: auto 0;
         color: #DFE1E2;
         width: rem(24);
         height: rem(24);
@@ -116,6 +130,7 @@ $summary-stats-teal: #00687D;
 
       .summary-stats__spending-link-text {
         margin-right: rem(8);
+        min-width: rem(156);
       }
     }
   }
