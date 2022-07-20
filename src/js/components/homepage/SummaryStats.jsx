@@ -20,7 +20,7 @@ const SummaryStats = () => {
     const [budgetData, setBudgetData] = useState([]);
     const [budgetTotal, setBudgetTotal] = useState([]);
     const [randomIndex, setRandomIndex] = useState(0);
-    const budgetCategories = ["Medicare", "National Defense", "Education, Training, Employment, and Social Services", "Social Security", "Transportation", "Agriculture", "Veterans Benefits and Services", "Energy", "Net Interest"];
+    const budgetCategories = [{ name: "Medicare" }, { name: "National Defense" }, { name: "Education, Training, Employment, and Social Services", label: "Education" } , { name: "Social Security" }, { name: "Transportation" }, { name: "Agriculture" }, { name:  "Veterans Benefits and Services", label: "Veterans Benefits" }, { name: "Energy" }, { name: "Net Interest" }];
 
     const handleWindowResize = () => {
         const wWidth = window.innerWidth;
@@ -31,11 +31,7 @@ const SummaryStats = () => {
     };
 
     const selectRandomIndex = () => {
-        const index = Math.floor(Math.random() * 10);
-        if (index + 2 > budgetData.length) {
-            return index - 2;
-        }
-        return index;
+        return Math.floor(Math.random() * 10);
     };
 
     const fetchBudgetFunctions = () => {
@@ -49,7 +45,6 @@ const SummaryStats = () => {
             setLoading(true);
         }
 
-        //TODO fix the filter here
         const params = {
             type: "budget_function",
             filters: {
@@ -64,13 +59,16 @@ const SummaryStats = () => {
                 const budgetDataArr = [];
                 setBudgetTotal(res?.data?.total);
                 res?.data?.results?.forEach((item) => {
-                    if (budgetCategories.indexOf(item.name) > -1) {
+                    const budgetCategoriesIndex = budgetCategories.map((e) => e.name).indexOf(item.name);
+                    if (budgetCategoriesIndex > -1) {
+                        const name = 'label' in budgetCategories[budgetCategoriesIndex] ? budgetCategories[budgetCategoriesIndex].label : budgetCategories[budgetCategoriesIndex].name;
                         budgetDataArr.push({
-                            name: item.name,
+                            name,
                             amount: item.amount
                         });
                     }
                 });
+                console.log(res?.data);
                 setRandomIndex(selectRandomIndex());
                 setBudgetData(budgetDataArr);
                 setLoading(false);
@@ -103,8 +101,8 @@ const SummaryStats = () => {
                             <div className="summary-stats__budget-item">
                                 {loading ? <span className="dot-pulse" /> :
                                     <>
-                                        <span className="budget-item__amount">{formatMoneyWithUnits(budgetData[randomIndex]?.amount)}</span><br />
-                                        <span className="budget-item__name">on <strong>{budgetData[randomIndex]?.name}</strong></span>
+                                        <span className="budget-item__amount">{formatMoneyWithUnits(budgetData[randomIndex % budgetData?.length]?.amount)}</span><br />
+                                        <span className="budget-item__name">on <strong>{budgetData[randomIndex % budgetData?.length]?.name}</strong></span>
                                     </>
                                 }
                             </div>
@@ -147,33 +145,55 @@ const SummaryStats = () => {
                         </FlexGridCol>
                         <FlexGridCol
                             width={12}
-                            style={{
-                                color: "white", display: "flex", "min-width": "470px", padding: "0", "margin-bottom": "24px", flexDirection: windowWidth <= 576 ? 'column' : 'row'
-                            }}>
-                            <div style={{ margin: "24px 7% 24px 3.5%" }}>
-                                <span>$710.11 Billion</span><br />
-                                <span>on Medicare</span>
+                            className="summary-stats__budget-items"
+                            style={{ flexDirection: windowWidth <= 576 ? 'column' : 'row' }}>
+                            <div className="summary-stats__budget-item">
+                                {loading ? <span className="dot-pulse" /> :
+                                    <>
+                                        <span className="budget-item__amount">{formatMoneyWithUnits(budgetData[randomIndex % budgetData?.length]?.amount)}</span><br />
+                                        <span className="budget-item__name">on <strong>{budgetData[randomIndex % budgetData?.length]?.name}</strong></span>
+                                    </>
+                                }
                             </div>
-                            <div style={{ margin: "24px 7% 24px 0" }}>
-                                <span>$617.04 Billion</span><br />
-                                <span>on National Defense</span>
+                            <div className="summary-stats__budget-item">
+                                {loading ? <span className="dot-pulse" /> :
+                                    <>
+                                        <span className="budget-item__amount">{formatMoneyWithUnits(budgetData[(randomIndex + 1) % budgetData?.length]?.amount)}</span><br />
+                                        <span className="budget-item__name">on <strong>{budgetData[(randomIndex + 1) % budgetData?.length]?.name}</strong></span>
+                                    </>
+                                }
                             </div>
-                            <div style={{ margin: "24px 7% 24px 0" }}>
-                                <span>$6.89 Billion</span><br />
-                                <span>on Energy</span>
+                            <div className="summary-stats__budget-item">
+                                {loading ? <span className="dot-pulse" /> :
+                                    <>
+                                        <span className="budget-item__amount">{formatMoneyWithUnits(budgetData[(randomIndex + 2) % budgetData?.length]?.amount)}</span><br />
+                                        <span className="budget-item__name">on <strong>{budgetData[(randomIndex + 2) % budgetData?.length]?.name}</strong></span>
+                                    </>
+                                }
                             </div>
                         </FlexGridCol>
-                        <FlexGridCol width={12} style={{ color: "white", margin: "0 0 32px", "min-width": "344px" }}>
-                            <FlexGridRow style={{ "justify-content": "center" }}>
-                                <div style={{ "margin-right": "8px" }}>
-                                    <span>See more breakdowns</span><br />
-                                    <span>of federal spending</span>
-                                </div>
-                                <div style={{ margin: "auto 0" }}>
-                                    <a href="/explorer/budget_function"><FontAwesomeIcon size="lg" fontSize="24" icon="arrow-alt-circle-right" /></a>
-                                </div>
+                        <FlexGridCol width={2} className="summary-stats__spending-link">
+                            <FlexGridRow>
+                                <Link to="/explorer/budget_function">
+                                    <div className="summary-stats__spending-link-text">
+                                        <span>See more breakdowns</span><br />
+                                        <span>of federal spending</span>
+                                    </div>
+                                    <FontAwesomeIcon size="lg" className="arrow-circle-right" icon="arrow-circle-right" />
+                                </Link>
                             </FlexGridRow>
                         </FlexGridCol>
+                        {/*<FlexGridCol width={12} style={{ margin: "0 0 32px", "min-width": "344px" }}>*/}
+                        {/*    <FlexGridRow style={{ "justify-content": "center" }}>*/}
+                        {/*        <div style={{ "margin-right": "8px" }}>*/}
+                        {/*            <span>See more breakdowns</span><br />*/}
+                        {/*            <span>of federal spending</span>*/}
+                        {/*        </div>*/}
+                        {/*        <div style={{ margin: "auto 0" }}>*/}
+                        {/*            <a href="/explorer/budget_function"><FontAwesomeIcon size="lg" fontSize="24" icon="arrow-alt-circle-right" /></a>*/}
+                        {/*        </div>*/}
+                        {/*    </FlexGridRow>*/}
+                        {/*</FlexGridCol>*/}
                     </FlexGridRow>
                 </>}
         </section>);

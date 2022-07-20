@@ -55,13 +55,23 @@ $summary-stats-teal: #00687D;
         font-weight: 600;
         border-bottom: rem(1) solid white;
       }
+
+      @media(max-width: 991px) {
+        margin-bottom: rem(12);
+      }
     }
 
     .summary-stats__budget-items {
       display: flex;
 
+      @media(max-width: 991px) {
+        min-width: rem(470);
+        padding: 0;
+        margin-bottom: 0;
+      }
+
       .summary-stats__budget-item {
-        margin: rem(24) 0;
+        margin: rem(24) rem(48);
         min-width: rem(130);
 
         @media(min-width: 1600px) {
@@ -83,7 +93,7 @@ $summary-stats-teal: #00687D;
       }
 
       :first-of-type(.summary-stats__budget-item) {
-        margin: rem(24) 0;
+        margin: rem(24) rem(48);
         @media(min-width: 1600px) {
           margin: rem(24) rem(104) rem(24) rem(52);
         }
@@ -97,6 +107,11 @@ $summary-stats-teal: #00687D;
     .summary-stats__spending-link {
       cursor: pointer;
       margin: rem(24) 0;
+
+      @media(max-width: 991px) {
+        padding: 0;
+        margin: 0;
+      }
 
       a {
         display: flex;
