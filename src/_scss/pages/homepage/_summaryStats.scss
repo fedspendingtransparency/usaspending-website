@@ -49,15 +49,19 @@ $summary-stats-teal: #00687D;
 
     .summary-stats__budget-total-container {
       margin: rem(24) 0;
-      min-width: rem(344);
+      max-width: rem(288);
 
-      .summary-stats__budget-total {
-        font-weight: 600;
-        border-bottom: rem(1) solid white;
+      @media (min-width: 576px) {
+        min-width: rem(344);
       }
 
       @media(max-width: 991px) {
         margin-bottom: rem(12);
+      }
+
+      .summary-stats__budget-total {
+        font-weight: 600;
+        border-bottom: rem(1) solid white;
       }
     }
 
@@ -71,7 +75,7 @@ $summary-stats-teal: #00687D;
       }
 
       .summary-stats__budget-item {
-        margin: rem(24) rem(48);
+        margin: rem(16) rem(48);
         min-width: rem(130);
 
         @media(min-width: 1600px) {
@@ -80,6 +84,10 @@ $summary-stats-teal: #00687D;
 
         @media(min-width: 992px) and (max-width: 1599px) {
           margin: rem(24) rem(48) rem(24) 0;
+        }
+
+        @media(min-width: 576px) and (max-width: 991px) {
+          margin: rem(24) rem(48);
         }
 
         .budget-item__amount {
@@ -106,11 +114,14 @@ $summary-stats-teal: #00687D;
 
     .summary-stats__spending-link {
       cursor: pointer;
-      margin: rem(24) 0;
+      margin: rem(16) 0;
 
-      @media(max-width: 991px) {
-        padding: 0;
-        margin: 0;
+      @media(min-width: 992px) {
+        margin: rem(24) 0;
+      }
+
+      .usa-dt-flex-grid__row {
+        justify-content: center;
       }
 
       a {
@@ -136,16 +147,29 @@ $summary-stats-teal: #00687D;
       }
 
       .arrow-circle-right {
-        margin: auto 0;
-        color: #DFE1E2;
-        width: rem(24);
-        height: rem(24);
-        opacity: 40%;
+        display: none;
+
+        @media (min-width: 577px) {
+          display: block;
+          color: #DFE1E2;
+          width: rem(24);
+          height: rem(24);
+          opacity: 40%;
+
+          @media (min-width: 993px) {
+            margin: auto 0;
+          }
+        }
       }
 
       .summary-stats__spending-link-text {
+        text-align: center;
         margin-right: rem(8);
-        min-width: rem(156);
+
+        @media (min-width: 993px) {
+          text-align: left;
+          min-width: rem(156);
+        }
       }
     }
   }

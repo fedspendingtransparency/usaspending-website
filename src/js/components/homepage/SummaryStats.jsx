@@ -138,7 +138,7 @@ const SummaryStats = () => {
                 <>
                     <FlexGridRow className="grid-content">
                         <FlexGridCol width={12} className="summary-stats__budget-total-container">
-                            <span>So far this year, the federal government</span><br />
+                            <span>So far this year, <span style={{ "white-space": "nowrap" }}>the federal government</span></span><br />
                             <span>plans to spend {loading ? <span className="dot-pulse" /> : <span className="summary-stats__budget-total">{formatMoneyWithUnits(budgetTotal)}</span>} including…</span>
                         </FlexGridCol>
                         <FlexGridCol
@@ -170,12 +170,11 @@ const SummaryStats = () => {
                                 }
                             </div>
                         </FlexGridCol>
-                        <FlexGridCol width={2} className="summary-stats__spending-link">
+                        <FlexGridCol width={12} className="summary-stats__spending-link">
                             <FlexGridRow>
                                 <Link to="/explorer/budget_function">
                                     <div className="summary-stats__spending-link-text">
-                                        <span>See more breakdowns</span><br />
-                                        <span>of federal spending</span>
+                                        <span>See more breakdowns of federal spending</span>
                                     </div>
                                     <FontAwesomeIcon size="lg" className="arrow-circle-right" icon="arrow-circle-right" />
                                 </Link>
