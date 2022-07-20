@@ -3,14 +3,22 @@
  * Created by Andrea Blackwell 07/18/22
  */
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { FlexGridRow, FlexGridCol } from "data-transparency-ui";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { fetchBreakdown } from 'helpers/explorerHelper';
+import {formatMoneyWithUnits} from "../../helpers/moneyFormatter";
+
 
 const SummaryStats = () => {
     const [windowWidth, setWindowWidth] = useState(0);
     const [isWide, setIsWide] = useState(0);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(false);
+    const request = useRef(null);
+    const [budgetData, setBudgetData] = useState([]);
+    const [budgetTotal, setBudgetTotal] = useState([]);
+    const budgetCategories = ["Medicare", "National Defense", "Education, Training, Employment, and Social Services", "Social Security", "Transportation", "Agriculture", "Veterans Benefits and Services", "Energy", "Net Interest"];
 
     const handleWindowResize = () => {
         const wWidth = window.innerWidth;
@@ -20,15 +28,55 @@ const SummaryStats = () => {
         }
     };
 
+    const fetchBudgetFunctions = () => {
+        if (request.current) {
+            request.current.cancel();
+        }
+        if (error) {
+            setError(false);
+        }
+        if (!loading) {
+            setLoading(true);
+        }
+
+        const params = {
+            type: "budget_function",
+            filters: {
+                fy: 2022,
+                quarter: 1
+            }
+        };
+
+        request.current = fetchBreakdown(params);
+        request.current.promise
+            .then((res) => {
+                const budgetDataArr = [];
+                setBudgetTotal(res?.data?.total);
+                res?.data?.results?.forEach((item) => {
+                    if (budgetCategories.indexOf(item.name) > -1) {
+                        budgetDataArr.push({
+                            name: item.name,
+                            amount: item.amount
+                        });
+                    }
+                });
+                setBudgetData(budgetDataArr);
+                setLoading(false);
+            }).catch((err) => {
+                setError(true);
+                setLoading(false);
+                console.error(err);
+            });
+    };
+
     useEffect(() => {
+        fetchBudgetFunctions();
         handleWindowResize();
         window.addEventListener('resize', handleWindowResize);
         return () => {
             window.removeEventListener('resize', handleWindowResize);
         };
-    }, [handleWindowResize]);
-
-    const budgetFunctionCategories = ["Medicare", "National Defense", "Education", "Social Security", "Transportation", "Agriculture", "Veterans Benefits & Services", "Energy", "Net Interest"];
+    }, []);
 
     return (
         <section className="summary-stats">
@@ -37,7 +85,7 @@ const SummaryStats = () => {
                     <FlexGridRow className="grid-content">
                         <FlexGridCol width={4} style={{ color: "white", margin: "24px 0", "min-width": "344px" }}>
                             <span>So far this year, the federal government</span><br />
-                            <span>plans to spend $4.30 Trillion including…</span>
+                            <span>plans to spend {formatMoneyWithUnits(budgetTotal)} including…</span>
                         </FlexGridCol>
                         <FlexGridCol width={6} style={{ color: "white", display: "flex" }}>
                             <div style={{ margin: "24px 7% 24px 3.5%" }}>
@@ -69,11 +117,19 @@ const SummaryStats = () => {
                 :
                 <>
                     <FlexGridRow className="grid-content">
-                        <FlexGridCol width={12} style={{ color: "white", margin: "32x 0 24px", "min-width": "344px", padding: "0" }}>
+                        <FlexGridCol
+                            width={12}
+                            style={{
+                                color: "white", margin: "32x 0 24px", "min-width": "344px", padding: "0"
+                            }}>
                             <span>So far this year, the federal government</span><br />
                             <span>plans to spend $4.30 Trillion including…</span>
                         </FlexGridCol>
-                        <FlexGridCol width={12} style={{ color: "white", display: "flex", "min-width": "470px", padding: "0", "margin-bottom": "24px", flexDirection: windowWidth <= 576 ? 'column' : 'row' }}>
+                        <FlexGridCol
+                            width={12}
+                            style={{
+                                color: "white", display: "flex", "min-width": "470px", padding: "0", "margin-bottom": "24px", flexDirection: windowWidth <= 576 ? 'column' : 'row'
+                            }}>
                             <div style={{ margin: "24px 7% 24px 3.5%" }}>
                                 <span>$710.11 Billion</span><br />
                                 <span>on Medicare</span>
