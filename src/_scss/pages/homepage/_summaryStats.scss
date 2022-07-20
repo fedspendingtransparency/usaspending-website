@@ -80,5 +80,33 @@ $ss-teal: #00687D;
         }
       }
     }
+
+    .summary-stats__spending-link {
+      cursor: pointer;
+
+      span {
+        color: #DFE1E2;
+        font-size: rem(16);
+        line-height: rem(20);
+      }
+
+      :hover {
+        color: #EDEFF0;
+        font-weight: 600;
+        text-decoration: none;
+      }
+
+      :active {
+        color: white;
+        font-weight: 600;
+      }
+
+      .arrow-circle-right {
+        color: #DFE1E2;
+        width: rem(24);
+        opacity: 40%;
+      }
+
+    }
   }
 }
