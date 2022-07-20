@@ -1,14 +1,15 @@
+$ss-teal: #00687D;
 .summary-stats {
   color: white;
-  height: 98px;
-  background-color: #00687D;
+  height: rem(98);
+  background-color: $ss-teal;
 
   @media (min-width: 576px) and (max-width: 991px) {
-    height: 235px;
+    height: rem(235);
   }
 
   @media (max-width: 575px) {
-    height: 451px;
+    height: rem(451);
   }
 
   .grid-content {
@@ -16,13 +17,13 @@
     justify-content: center;
     color: white;
     margin: 0 8.33%;
-    max-width: 1600px;
+    max-width: rem(1600);
     @media (min-width: 1600px) {
-      max-width: 1334px;
+      width: rem(1600);
       margin: 0 auto;
     }
     @media (min-width: 992px) and (max-width: 1599px) {
-      max-width: 1334px;
+      max-width: rem(1334);
       margin: 0 auto;
       justify-content: unset;
     }
@@ -47,7 +48,7 @@
     .summary-stats__budget-total-container {
       margin: 24px 0;
       min-width: 344px;
-      
+
       .summary-stats__budget-total {
         font-weight: 600;
         border-bottom: 1px solid white;
