@@ -141,7 +141,9 @@ $largeMobile: 576px;
       margin: 0;
 
       @media(min-width: $stackedShort) {
-        margin: rem(28) rem(8);
+        margin: rem(8) rem(8);
+        padding: rem(16) 0;
+        border-left: rem(1) solid rgba(255, 255, 255, .5);
       }
 
       .usa-dt-flex-grid__row {
