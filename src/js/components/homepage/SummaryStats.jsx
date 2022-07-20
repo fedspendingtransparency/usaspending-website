@@ -127,8 +127,8 @@ const SummaryStats = () => {
                                     <span>of federal spending</span>
                                 </div>
                                 <div className="icon-stack" style={{position: "relative", justifyContent: "center", alignItems: "center", marginTop: "8px" }}>
-                                    <FontAwesomeIcon color="white" icon="circle" style={{position: "absolute", top: "2", left: "2", width: "18", height: "18"}} />
-                                    <FontAwesomeIcon className="arrow-circle-right" icon="arrow-circle-right" style={{position: "absolute"}} />
+                                    <FontAwesomeIcon color="white" icon="circle" style={{ position: "absolute", width: "24", height: "24" }} />
+                                    <FontAwesomeIcon className="arrow-circle-right" icon="arrow-circle-right" style={{ position: "absolute" }} />
                                 </div>
                             </Link>
                         </FlexGridRow>
@@ -175,9 +175,9 @@ const SummaryStats = () => {
                                 <div className="summary-stats__spending-link-text">
                                     <span>See more breakdowns of federal spending</span>
                                 </div>
-                                <div className="icon-stack" style={{position: "relative", justifyContent: "center", alignItems: "center"}}>
-                                    <FontAwesomeIcon color="white" icon="circle" style={{position: "absolute", top: "2", left: "2", width: "18", height: "18"}} />
-                                    <FontAwesomeIcon className="arrow-circle-right" icon="arrow-circle-right" style={{position: "absolute"}} />
+                                <div className="icon-stack" style={{ position: "relative", justifyContent: "center", alignItems: "center" }}>
+                                    <FontAwesomeIcon color="white" icon="circle" style={{ position: "absolute", width: "24", height: "24" }} />
+                                    <FontAwesomeIcon className="arrow-circle-right" icon="arrow-circle-right" style={{ position: "absolute" }} />
                                 </div>
                             </Link>
                         </FlexGridRow>
