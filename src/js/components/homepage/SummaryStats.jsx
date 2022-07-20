@@ -85,20 +85,26 @@ const SummaryStats = () => {
                     <FlexGridRow className="grid-content">
                         <FlexGridCol width={4} style={{ color: "white", margin: "24px 0", "min-width": "344px" }}>
                             <span>So far this year, the federal government</span><br />
-                            <span>plans to spend {formatMoneyWithUnits(budgetTotal)} including…</span>
+                            <span>plans to spend {loading ? <span className="dot-pulse" /> : <span>{formatMoneyWithUnits(budgetTotal)}</span>} including…</span>
                         </FlexGridCol>
                         <FlexGridCol width={6} style={{ color: "white", display: "flex" }}>
                             <div style={{ margin: "24px 7% 24px 3.5%" }}>
-                                <span>$710.11 Billion</span><br />
-                                <span>on Medicare</span>
+                                {loading ? <span className="dot-pulse" /> :
+                                    <><span>{formatMoneyWithUnits(budgetData[0]?.amount)}</span><br />
+                                    <span>on {budgetData[0]?.name}</span></>
+                                }
                             </div>
                             <div style={{ margin: "24px 7% 24px 0" }}>
-                                <span>$617.04 Billion</span><br />
-                                <span>on National Defense</span>
+                                {loading ? <span className="dot-pulse"/> :
+                                    <><span>{formatMoneyWithUnits(budgetData[1]?.amount)}</span><br />
+                                    <span>on {budgetData[1]?.name}</span></>
+                                }
                             </div>
                             <div style={{ margin: "24px 7% 24px 0" }}>
-                                <span>$6.89 Billion</span><br />
-                                <span>on Energy</span>
+                                {loading ? <span className="dot-pulse"/> :
+                                    <><span>{formatMoneyWithUnits(budgetData[2]?.amount)}</span><br />
+                                    <span>on {budgetData[2]?.name}</span></>
+                                }
                             </div>
                         </FlexGridCol>
                         <FlexGridCol width={2} style={{ color: "white", margin: "24px 0" }}>
