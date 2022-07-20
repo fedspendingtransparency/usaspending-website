@@ -23,7 +23,7 @@
     "author": "",
     "engines": {
         "node": ">=16.14.2",
-        "npm": ">=8.14.0"
+        "npm": ">=8.5.0"
     },
     "license": "SEE LICENSE IN LICENSE.MD",
     "devDependencies": {
