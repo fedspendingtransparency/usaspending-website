@@ -177,7 +177,7 @@ const SummaryStats = () => {
                         </FlexGridRow>
                     </FlexGridCol>
                 </FlexGridRow>
-            </div>}
+            </div>
         </section>);
 };
 

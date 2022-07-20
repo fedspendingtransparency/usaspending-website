@@ -1,25 +1,30 @@
 $summary-stats-teal: #00687D;
-$tabletBreakpoint: 1200px;
-$mobileBreakpoint: 768px;
 $maxWidth: 1600px;
+$stackedShort: 1200px;
+$stackedTall: 768px;
+$largeMobile: 576px;
 
 .summary-stats {
   color: white;
-  height: rem(451);
+  height: rem(476);
   background-color: $summary-stats-teal;
 
-  @media (min-width: $mobileBreakpoint) and (max-width: $tabletBreakpoint - 1) {
+  @media (min-width: $stackedTall) and (max-width: $stackedShort - 1) {
     height: rem(235);
   }
 
-  @media (min-width: $tabletBreakpoint) {
+  @media (min-width: $largeMobile) and (max-width: $stackedTall - 1) {
+    height: rem(424);
+  }
+
+  @media (min-width: $stackedShort) {
     height: rem(98);
   }
 
   .summary-stats-desktop {
     display: none;
 
-    @media(min-width: $tabletBreakpoint) {
+    @media(min-width: $stackedShort) {
       display: block;
     }
   }
@@ -27,7 +32,7 @@ $maxWidth: 1600px;
   .summary-stats-mobile {
     display: block;
 
-    @media(min-width: $tabletBreakpoint) {
+    @media(min-width: $stackedShort) {
       display: none;
     }
   }
@@ -38,19 +43,17 @@ $maxWidth: 1600px;
     text-align: center;
     color: white;
     margin: 0 auto;
+    padding: rem(32) 0;
 
-    @media (min-width: $tabletBreakpoint) {
+    @media (min-width: $stackedShort) {
       justify-content: space-between;
       text-align: left;
       margin: 0 8.33%;
     }
 
-    @media (min-width: $tabletBreakpoint) and (max-width: 1400px) {
+    @media (min-width: $stackedShort) and (max-width: 1400px) {
+      padding: 0;
       margin: 0 rem(32) !important;
-    }
-
-    @media (min-width: $mobileBreakpoint) and (max-width: $tabletBreakpoint - 1) {
-      padding: rem(32) 0 !important;
     }
 
     span {
@@ -73,15 +76,11 @@ $maxWidth: 1600px;
         margin: rem(24) rem(92) rem(24) 0;
       }
 
-      @media(min-width: $tabletBreakpoint) and (max-width: $maxWidth - 1) {
+      @media(min-width: $stackedShort) and (max-width: $maxWidth - 1) {
         margin: rem(24) rem(24) rem(24) 0;
       }
 
-      //@media(max-width: $tabletBreakpoint - 1) {
-      //  margin-bottom: rem(12);
-      //}
-
-      @media (min-width: $mobileBreakpoint) {
+      @media (min-width: $largeMobile) {
         min-width: rem(344);
       }
 
@@ -95,17 +94,17 @@ $maxWidth: 1600px;
       display: flex;
       flex-direction: column;
 
-      @media(max-width: $tabletBreakpoint - 1) {
+      @media(max-width: $stackedShort - 1) {
         min-width: rem(470);
         padding: 0;
-        margin-bottom: 0;
+        margin-bottom: rem(16);
       }
 
-      @media(min-width: $mobileBreakpoint) {
+      @media(min-width: $stackedTall) {
         flex-direction: row;
       }
 
-      @media(min-width: $mobileBreakpoint) and (max-width: $tabletBreakpoint - 1) {
+      @media(min-width: $stackedTall) and (max-width: $stackedShort - 1) {
         margin-bottom: rem(24);
       }
 
@@ -118,11 +117,11 @@ $maxWidth: 1600px;
           margin: rem(24) rem(92) rem(24) 0;
         }
 
-        @media(min-width: $tabletBreakpoint) and (max-width: $maxWidth - 1) {
+        @media(min-width: $stackedShort) and (max-width: $maxWidth - 1) {
           margin: rem(24) rem(48) rem(24) 0;
         }
 
-        @media(min-width: $mobileBreakpoint) and (max-width: $tabletBreakpoint - 1) {
+        @media(min-width: $stackedTall) and (max-width: $stackedShort - 1) {
           margin: 0 rem(48) 0 0;
         }
 
@@ -141,14 +140,14 @@ $maxWidth: 1600px;
       cursor: pointer;
       margin: 0;
 
-      @media(min-width: $tabletBreakpoint) {
+      @media(min-width: $stackedShort) {
         margin: rem(24) rem(8);
       }
 
       .usa-dt-flex-grid__row {
         justify-content: center;
 
-        @media (min-width: $tabletBreakpoint) {
+        @media (min-width: $stackedShort) {
           justify-content: end;
         }
       }
@@ -178,14 +177,14 @@ $maxWidth: 1600px;
       .arrow-circle-right {
         display: none;
 
-        @media (min-width: $mobileBreakpoint) {
+        @media (min-width: $stackedTall) {
           display: block;
           color: #DFE1E2;
           width: rem(24);
           height: rem(24);
           opacity: 40%;
 
-          @media (min-width: $tabletBreakpoint) {
+          @media (min-width: $stackedShort) {
             margin: auto 0;
           }
         }
@@ -196,7 +195,7 @@ $maxWidth: 1600px;
         font-weight: 600;
         margin-right: rem(8);
 
-        @media (min-width: $tabletBreakpoint) {
+        @media (min-width: $stackedShort) {
           text-align: left;
           min-width: rem(156);
         }
