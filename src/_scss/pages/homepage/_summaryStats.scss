@@ -118,7 +118,7 @@ $largeMobile: 576px;
         }
 
         @media(min-width: $stackedShort) and (max-width: $maxWidth - 1) {
-          margin: rem(24) rem(48) rem(24) 0;
+          margin: rem(24) rem(56) rem(24) 0;
         }
 
         @media(min-width: $stackedTall) and (max-width: $stackedShort - 1) {
@@ -141,7 +141,7 @@ $largeMobile: 576px;
       margin: 0;
 
       @media(min-width: $stackedShort) {
-        margin: rem(24) rem(8);
+        margin: rem(28) rem(8);
       }
 
       .usa-dt-flex-grid__row {
@@ -174,15 +174,20 @@ $largeMobile: 576px;
         font-weight: 600;
       }
 
-      .arrow-circle-right {
+      .icon-stack {
         display: none;
 
         @media (min-width: $stackedTall) {
           display: block;
+        }
+
+      }
+
+      .arrow-circle-right {
+        @media (min-width: $stackedTall) {
           color: #DFE1E2;
           width: rem(24);
           height: rem(24);
-          opacity: 40%;
 
           @media (min-width: $stackedShort) {
             margin: auto 0;
