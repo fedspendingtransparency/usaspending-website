@@ -30,9 +30,7 @@ const SummaryStats = () => {
         }
     };
 
-    const selectRandomIndex = () => {
-        Math.floor(Math.random() * 10);
-    };
+    const selectRandomIndex = () => Math.floor(Math.random() * 10);
 
     const fetchBudgetFunctions = () => {
         if (request.current) {
