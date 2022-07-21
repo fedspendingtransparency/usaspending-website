@@ -13,7 +13,6 @@ import { formatMoneyWithUnits } from "helpers/moneyFormatter";
 
 const SummaryStats = () => {
     const [windowWidth, setWindowWidth] = useState(0);
-    const [isWide, setIsWide] = useState(0);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const request = useRef(null);
@@ -26,7 +25,6 @@ const SummaryStats = () => {
         const wWidth = window.innerWidth;
         if (windowWidth !== wWidth) {
             setWindowWidth(wWidth);
-            setIsWide(wWidth >= 1100);
         }
     };
 
@@ -98,7 +96,7 @@ const SummaryStats = () => {
                             {loading ? <span className="dot-pulse" /> :
                                 <>
                                     <span className="budget-item__amount">{formatMoneyWithUnits(budgetData[randomIndex % budgetData?.length]?.amount)}</span><br />
-                                    <span className="budget-item__name">on <strong>{budgetData[randomIndex % budgetData?.length]?.name}</strong></span>
+                                    <span className="budget-item__name">{!error ? 'on ' : ''}<strong>{budgetData[randomIndex % budgetData?.length]?.name}</strong></span>
                                 </>
                             }
                         </div>
@@ -106,7 +104,7 @@ const SummaryStats = () => {
                             {loading ? <span className="dot-pulse" /> :
                                 <>
                                     <span className="budget-item__amount">{formatMoneyWithUnits(budgetData[(randomIndex + 1) % budgetData?.length]?.amount)}</span><br />
-                                    <span className="budget-item__name">on <strong>{budgetData[(randomIndex + 1) % budgetData?.length]?.name}</strong></span>
+                                    <span className="budget-item__name">{!error ? 'on ' : ''}<strong>{budgetData[(randomIndex + 1) % budgetData?.length]?.name}</strong></span>
                                 </>
                             }
                         </div>
@@ -114,7 +112,7 @@ const SummaryStats = () => {
                             {loading ? <span className="dot-pulse" /> :
                                 <>
                                     <span className="budget-item__amount">{formatMoneyWithUnits(budgetData[(randomIndex + 2) % budgetData?.length]?.amount)}</span><br />
-                                    <span className="budget-item__name">on <strong>{budgetData[(randomIndex + 2) % budgetData?.length]?.name}</strong></span>
+                                    <span className="budget-item__name">{!error ? 'on ' : ''}<strong>{budgetData[(randomIndex + 2) % budgetData?.length]?.name}</strong></span>
                                 </>
                             }
                         </div>
@@ -148,7 +146,7 @@ const SummaryStats = () => {
                             {loading ? <span className="dot-pulse" /> :
                                 <>
                                     <span className="budget-item__amount">{formatMoneyWithUnits(budgetData[randomIndex % budgetData?.length]?.amount)}</span><br />
-                                    <span className="budget-item__name">on <strong>{budgetData[randomIndex % budgetData?.length]?.name}</strong></span>
+                                    <span className="budget-item__name">{!error ? 'on ' : ''}<strong>{budgetData[randomIndex % budgetData?.length]?.name}</strong></span>
                                 </>
                             }
                         </div>
@@ -156,7 +154,7 @@ const SummaryStats = () => {
                             {loading ? <span className="dot-pulse" /> :
                                 <>
                                     <span className="budget-item__amount">{formatMoneyWithUnits(budgetData[(randomIndex + 1) % budgetData?.length]?.amount)}</span><br />
-                                    <span className="budget-item__name">on <strong>{budgetData[(randomIndex + 1) % budgetData?.length]?.name}</strong></span>
+                                    <span className="budget-item__name">{!error ? 'on ' : ''}<strong>{budgetData[(randomIndex + 1) % budgetData?.length]?.name}</strong></span>
                                 </>
                             }
                         </div>
@@ -164,7 +162,7 @@ const SummaryStats = () => {
                             {loading ? <span className="dot-pulse" /> :
                                 <>
                                     <span className="budget-item__amount">{formatMoneyWithUnits(budgetData[(randomIndex + 2) % budgetData?.length]?.amount)}</span><br />
-                                    <span className="budget-item__name">on <strong>{budgetData[(randomIndex + 2) % budgetData?.length]?.name}</strong></span>
+                                    <span className="budget-item__name">{!error ? 'on ' : ''}<strong>{budgetData[(randomIndex + 2) % budgetData?.length]?.name}</strong></span>
                                 </>
                             }
                         </div>
