@@ -19,7 +19,7 @@ const SummaryStats = () => {
     const [budgetData, setBudgetData] = useState([]);
     const [budgetTotal, setBudgetTotal] = useState([]);
     const [randomIndex, setRandomIndex] = useState(0);
-    const budgetCategories = [{ name: "Medicare" }, { name: "National Defense" }, { name: "Education, Training, Employment, and Social Services", label: "Education" }, { name: "Social Security" }, { name: "Transportation" }, { name: "Agriculture" }, { name: "Veterans Benefits and Services", label: "Veterans Benefits" }, { name: "Energy" }, { name: "Net Interest" }];
+    const budgetCategories = [{ name: "Medicare" }, { name: "National Defense" }, { name: "Social Security" }, { name: "Transportation" }, { name: "Agriculture" }, { name: "Veterans Benefits and Services", label: "Veterans Benefits" }, { name: "Energy" }, { name: "Net Interest" }];
 
     const handleWindowResize = () => {
         const wWidth = window.innerWidth;
@@ -125,7 +125,8 @@ const SummaryStats = () => {
                             <Link to="/explorer/budget_function">
                                 <div className="summary-stats__spending-link-text">
                                     <div>See more breakdowns<br />
-                                    of federal spending</div>
+                                    of federal spending
+                                    </div>
                                 </div>
                                 <div
                                     className="icon-stack"
