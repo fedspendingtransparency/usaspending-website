@@ -11,7 +11,7 @@ const filesServerUrlByEnv = {
 };
 
 const globalConstants = {
-    API: 'blach',
+    API: process.env.USASPENDING_API,
     LOCAL: false,
     PERF_LOG: false,
     MAPBOX_TOKEN: process.env.MAPBOX_TOKEN,

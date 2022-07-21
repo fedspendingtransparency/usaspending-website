@@ -124,7 +124,11 @@ const SummaryStats = () => {
                                     <span>See more breakdowns</span><br />
                                     <span>of federal spending</span>
                                 </div>
-                                <div className="icon-stack" style={{position: "relative", justifyContent: "center", alignItems: "center", marginTop: "8px" }}>
+                                <div
+                                    className="icon-stack"
+                                    style={{
+                                        position: "relative", justifyContent: "center", alignItems: "center", marginTop: "8px"
+                                    }}>
                                     <FontAwesomeIcon color="white" icon="circle" style={{ position: "absolute", width: "24", height: "24" }} />
                                     <FontAwesomeIcon className="arrow-circle-right" icon="arrow-circle-right" style={{ position: "absolute" }} />
                                 </div>
