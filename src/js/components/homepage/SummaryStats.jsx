@@ -124,8 +124,8 @@ const SummaryStats = () => {
                         <FlexGridRow>
                             <Link to="/explorer/budget_function">
                                 <div className="summary-stats__spending-link-text">
-                                    <span>See more breakdowns</span><br />
-                                    <span>of federal spending</span>
+                                    <div>See more breakdowns<br />
+                                    of federal spending</div>
                                 </div>
                                 <div
                                     className="icon-stack"

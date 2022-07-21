@@ -193,13 +193,7 @@ $largeMobile: 576px;
       :hover {
         text-decoration: none;
       }
-
-      span {
-        color: #DFE1E2;
-        font-size: rem(16);
-        line-height: rem(20);
-      }
-
+      
       .icon-stack {
         display: none;
 
@@ -227,6 +221,9 @@ $largeMobile: 576px;
         text-align: center;
         font-weight: 600;
         margin-right: rem(8);
+        color: #DFE1E2;
+        font-size: rem(16);
+        line-height: rem(20);
 
         :hover {
           color: #EDEFF0;
