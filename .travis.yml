@@ -15,12 +15,9 @@ cache:
   directories:
     - node_modules
 before_install:
-  - npm cache clean --force
-  - npm cache verify
   - npm install -g @lhci/cli@0.9.x
 install:
-  - npm install
-  - npm audit fix --force
+  - npm install --legacy-peer-deps
 script:
   - npm run dev
   - npm run travis
