@@ -9,8 +9,9 @@
     @import "gettingStarted";
 
     .usa-dt-flex-grid__row.grid-content {
+      @media (max-width: 1600px) {
         margin: 0 $grid-column;
-        height: 100%;
+      }
     }
 
     @media screen and (max-width: $medium-screen) {
@@ -25,6 +26,7 @@
   @import "hero/hero";
   @import "covidSection";
   @import "community";
+  @import "summaryStats";
 }
 
 
