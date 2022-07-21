@@ -163,7 +163,7 @@ $largeMobile: 576px;
         margin-left: 35%;
       }
 
-      @media(min-width: $stackedShort) and (max-width: 1299px) {
+      @media(min-width: $stackedShort - 1) and (max-width: 1299px) {
         margin-left: 15%;
       }
     }
