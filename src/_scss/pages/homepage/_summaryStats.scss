@@ -181,7 +181,7 @@ $largeMobile: 576px;
         justify-content: center;
 
         @media(min-width: $stackedTall - 1) and (max-width: $stackedShort - 1) {
-          padding-right: rem(30);
+          padding-right: rem(16);
         }
       }
 
