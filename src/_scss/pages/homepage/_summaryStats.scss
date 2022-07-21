@@ -9,22 +9,22 @@ $largeMobile: 576px;
   height: rem(476);
   background-color: $summary-stats-teal;
 
-  @media (min-width: $stackedTall) and (max-width: $stackedShort - 1) {
+  @media (min-width: $stackedTall - 1) and (max-width: $stackedShort) {
     height: rem(235);
   }
 
-  @media (min-width: $largeMobile) and (max-width: $stackedTall - 1) {
+  @media (min-width: $largeMobile - 1) and (max-width: $stackedTall) {
     height: rem(424);
   }
 
-  @media (min-width: $stackedShort) {
+  @media (min-width: $stackedShort - 1) {
     height: rem(98);
   }
 
   .summary-stats-desktop {
     display: none;
 
-    @media(min-width: $stackedShort) {
+    @media(min-width: $stackedShort - 1) {
       display: block;
     }
   }
@@ -32,7 +32,7 @@ $largeMobile: 576px;
   .summary-stats-mobile {
     display: block;
 
-    @media(min-width: $stackedShort) {
+    @media(min-width: $stackedShort - 1) {
       display: none;
     }
   }
@@ -45,13 +45,13 @@ $largeMobile: 576px;
     margin: 0 auto;
     padding: rem(32) 0;
 
-    @media (min-width: $stackedShort) {
+    @media (min-width: $stackedShort - 1) {
       justify-content: space-between;
       text-align: left;
       margin: 0 auto;
     }
 
-    @media (min-width: $stackedShort) and (max-width: 1400px) {
+    @media (min-width: $stackedShort - 1) and (max-width: 1400px) {
       padding: 0;
       margin: 0 rem(32) !important;
     }
@@ -60,7 +60,7 @@ $largeMobile: 576px;
       padding: 0;
     }
 
-    @media (min-width: $maxWidth) {
+    @media (min-width: $maxWidth - 1) {
       width: 1340px;
       justify-content: space-between;
     }
@@ -81,15 +81,15 @@ $largeMobile: 576px;
       margin: 0 0 rem(24);
       max-width: rem(288);
 
-      @media (min-width: $maxWidth) {
+      @media (min-width: $maxWidth - 1) {
         margin: rem(24) rem(92) rem(24) 0;
       }
 
-      @media(min-width: $stackedShort) and (max-width: $maxWidth - 1) {
+      @media(min-width: $stackedShort - 1) and (max-width: $maxWidth) {
         margin: rem(24) rem(24) rem(24) 0;
       }
 
-      @media (min-width: $largeMobile) {
+      @media (min-width: $largeMobile - 1) {
         min-width: rem(344);
       }
 
@@ -103,17 +103,17 @@ $largeMobile: 576px;
       display: flex;
       flex-direction: column;
 
-      @media(max-width: $stackedShort - 1) {
+      @media(max-width: $stackedShort) {
         min-width: rem(470);
         padding: 0;
         margin-bottom: rem(16);
       }
 
-      @media(min-width: $stackedTall) {
+      @media(min-width: $stackedTall - 1) {
         flex-direction: row;
       }
 
-      @media(min-width: $stackedTall) and (max-width: $stackedShort - 1) {
+      @media(min-width: $stackedTall - 1) and (max-width: $stackedShort) {
         margin-bottom: rem(24);
       }
 
@@ -126,11 +126,11 @@ $largeMobile: 576px;
           margin: rem(24) rem(92) rem(24) 0;
         }
 
-        @media(min-width: $stackedShort) and (max-width: $maxWidth - 1) {
+        @media(min-width: $stackedShort - 1) and (max-width: $maxWidth) {
           margin: rem(24) rem(56) rem(24) 0;
         }
 
-        @media(min-width: $stackedTall) and (max-width: $stackedShort - 1) {
+        @media(min-width: $stackedTall - 1) and (max-width: $stackedShort) {
           margin: 0 rem(48) 0 0;
         }
 
@@ -144,19 +144,33 @@ $largeMobile: 576px;
         }
       }
     }
+    //
+    //.summary-stats__vertical-border {
+    //  margin: rem(16) rem(8);
+    //  padding: rem(8) 0;
+    //  border-left: rem(1) solid rgba(255, 255, 255, .5);
+    //
+    //  @media(min-width: $maxWidth) {
+    //    margin-left: rem(-24);
+    //    position: absolute;
+    //  }
+    //}
 
     .summary-stats__spending-link {
       cursor: pointer;
       margin: 0;
 
-      @media(min-width: $stackedShort) {
+      @media(min-width: $stackedShort - 1) {
         margin: rem(16) rem(8);
         padding: rem(8) 0;
-        border-left: rem(1) solid rgba(255, 255, 255, .5);
       }
 
       .usa-dt-flex-grid__row {
         justify-content: center;
+
+        @media(min-width: $stackedTall - 1) and (max-width: $stackedShort) {
+          padding-right: rem(30);
+        }
       }
 
       a {
@@ -177,20 +191,21 @@ $largeMobile: 576px;
       .icon-stack {
         display: none;
 
-        @media (min-width: $stackedTall) {
+        @media (min-width: $stackedTall - 1) {
           display: block;
         }
 
       }
 
       .arrow-circle-right {
-        @media (min-width: $stackedTall) {
+        width: rem(24);
+        @media (min-width: $stackedTall - 1) {
           color: #00687d;
           width: rem(24);
           height: rem(24);
           opacity: 0.4;
 
-          @media (min-width: $stackedShort) {
+          @media (min-width: $stackedShort - 1) {
             margin: auto 0;
           }
         }
@@ -212,7 +227,7 @@ $largeMobile: 576px;
           font-weight: 600;
         }
 
-        @media (min-width: $stackedShort) {
+        @media (min-width: $stackedShort - 1) {
           text-align: left;
           min-width: rem(156);
         }

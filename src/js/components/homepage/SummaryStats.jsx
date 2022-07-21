@@ -117,6 +117,9 @@ const SummaryStats = () => {
                             }
                         </div>
                     </FlexGridCol>
+                    <FlexGridCol>
+                        <div className="summary-stats__vertical-border">&nbsp;</div>
+                    </FlexGridCol>
                     <FlexGridCol width={2} className="summary-stats__spending-link">
                         <FlexGridRow>
                             <Link to="/explorer/budget_function">
