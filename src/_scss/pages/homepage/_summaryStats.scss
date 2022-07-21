@@ -89,12 +89,12 @@ $largeMobile: 576px;
         margin: rem(24) rem(24) rem(24) 0;
       }
 
-      @media (min-width: $largeMobile - 1) {
+      @media (min-width: $largeMobile) {
         min-width: rem(344);
       }
 
       .summary-stats__budget-total {
-        font-weight: 600;
+        font-weight: $font-semibold;
         border-bottom: rem(1) solid white;
       }
     }
@@ -130,12 +130,12 @@ $largeMobile: 576px;
           margin: rem(24) rem(56) rem(24) 0;
         }
 
-        @media(min-width: $stackedTall - 1) and (max-width: $stackedShort - 1) {
-          margin: 0 rem(48) 0 0;
+        @media(min-width: $stackedTall) and (max-width: $stackedShort - 1) {
+          margin: 0 rem(24);
         }
 
         .budget-item__amount {
-          font-weight: 600;
+          font-weight: $font-semibold;
         }
 
         .budget-item__name {
@@ -173,7 +173,7 @@ $largeMobile: 576px;
       margin: 0;
 
       @media(min-width: $stackedShort) {
-        margin: rem(16) rem(8);
+        margin: rem(16) rem(4);
         padding: rem(8) 0;
       }
 
@@ -193,11 +193,11 @@ $largeMobile: 576px;
       :hover {
         text-decoration: none;
       }
-      
+
       .icon-stack {
         display: none;
 
-        @media (min-width: $stackedTall - 1) {
+        @media (min-width: $stackedTall) {
           display: block;
         }
 
@@ -219,7 +219,7 @@ $largeMobile: 576px;
 
       .summary-stats__spending-link-text {
         text-align: center;
-        font-weight: 600;
+        font-weight: $font-semibold;
         margin-right: rem(8);
         color: #DFE1E2;
         font-size: rem(16);
@@ -227,13 +227,13 @@ $largeMobile: 576px;
 
         :hover {
           color: #EDEFF0;
-          font-weight: 600;
+          font-weight: $font-semibold;
           text-decoration: none;
         }
 
         :active {
           color: white;
-          font-weight: 600;
+          font-weight: $font-semibold;
         }
 
         @media (min-width: $stackedShort - 1) {
