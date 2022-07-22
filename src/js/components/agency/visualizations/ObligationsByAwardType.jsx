@@ -64,7 +64,7 @@ export default function ObligationsByAwardType({
             .attr('width', chartWidth)
             .append('g')
             // y value moves everything toward top of container, to make room for labels at bottom
-            .attr('transform', `translate(${chartWidth / 2}, ${(chartHeight / 2) - 24})`);
+            .attr('transform', `translate(${chartWidth / 2}, ${(chartHeight / 2) - 30})`);
 
         const pie = d3.pie()
             .value((d) => d.value)
@@ -183,14 +183,14 @@ export default function ObligationsByAwardType({
             .attr('tabIndex', 0);
 
         // labels
-        const labelPos = (i, yOffset = 0) => {
+        const labelPos = (i) => {
             if (i === 0) {
                 // Financial Assistance
                 // positions were changed with ticket 8429, now below chart
-                return [labelRadius - 192, ((chartHeight / 2)) + 4];
+                return [labelRadius - 188, ((chartHeight / 2)) + 28];
             }
             // Contracts
-            return [labelRadius - 192, ((chartHeight / 2)) - yOffset - 12];
+            return [labelRadius - 188, ((chartHeight / 2)) + 4];
         };
 
         const outerLabels = outer.map((d) => d.label.join(""));
@@ -200,7 +200,7 @@ export default function ObligationsByAwardType({
             // circle
             svg.append('circle')
                 .attr('cx', labelRadius - 200)
-                .attr('cy', (chartHeight / 2))
+                .attr('cy', (chartHeight / 2) + 24)
                 .attr('r', 4)
                 .style("fill", outer[0].color)
                 // adding hover with ticket 8429
@@ -255,7 +255,7 @@ export default function ObligationsByAwardType({
             // circle
             svg.append('circle')
                 .attr('cx', labelRadius - 200)
-                .attr('cy', (chartHeight / 2) - 15)
+                .attr('cy', (chartHeight / 2))
                 .attr('r', 4)
                 .style("fill", outer[1].color)
                 // adding hover with ticket 8429
