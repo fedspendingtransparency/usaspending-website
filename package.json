@@ -94,7 +94,8 @@
         "trim-newlines": "3.0.1",
         "got": "11.8.5",
         "glob-parent": "6.0.1",
-        "ajv-keywords": "5.1.0"
+        "ajv-keywords": "5.1.0",
+        "terser": "5.14.2"
     },
     "dependencies": {
         "@babel/eslint-parser": "^7.17.0",
