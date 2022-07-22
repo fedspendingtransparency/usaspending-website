@@ -15,12 +15,15 @@
     }
 
     .explorer-vis__disclaimer {
-        font-style: italic;
-        font-size: rem(14);
-        line-height: rem(18);
-
-        margin-top: rem(15);
+        font-size: $font-size-14;
+        font-weight: $font-normal;
+        line-height: $base-line-height;
+        margin-top: rem(16);
         @import 'components/externalLink';
+
+        strong, b {
+            font-weight: $font-semibold;
+        }
     }
 
     .explorer-vis__table-transition {
