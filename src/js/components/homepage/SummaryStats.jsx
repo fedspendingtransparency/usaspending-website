@@ -6,13 +6,13 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { FlexGridRow, FlexGridCol } from "data-transparency-ui";
 import { Link } from "react-router-dom";
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { fetchBreakdown } from 'helpers/explorerHelper';
 import { formatMoneyWithUnits } from "helpers/moneyFormatter";
-
+import { useLatestAccountData } from 'containers/account/WithLatestFy';
 
 const SummaryStats = () => {
-    const [windowWidth, setWindowWidth] = useState(0);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const request = useRef(null);
@@ -20,13 +20,7 @@ const SummaryStats = () => {
     const [budgetTotal, setBudgetTotal] = useState([]);
     const [randomIndex, setRandomIndex] = useState(0);
     const budgetCategories = [{ name: "Medicare" }, { name: "National Defense" }, { name: "Social Security" }, { name: "Transportation" }, { name: "Agriculture" }, { name: "Veterans Benefits and Services", label: "Veterans Benefits" }, { name: "Energy" }, { name: "Net Interest" }];
-
-    const handleWindowResize = () => {
-        const wWidth = window.innerWidth;
-        if (windowWidth !== wWidth) {
-            setWindowWidth(wWidth);
-        }
-    };
+    const [, , { year: latestFy, period: latestPeriod }] = useLatestAccountData();
 
     const selectRandomIndex = () => Math.floor(Math.random() * 10);
 
@@ -44,8 +38,8 @@ const SummaryStats = () => {
         const params = {
             type: "budget_function",
             filters: {
-                fy: 2022,
-                period: 8
+                fy: latestFy,
+                period: latestPeriod
             }
         };
 
@@ -75,13 +69,10 @@ const SummaryStats = () => {
     };
 
     useEffect(() => {
-        fetchBudgetFunctions();
-        handleWindowResize();
-        window.addEventListener('resize', handleWindowResize);
-        return () => {
-            window.removeEventListener('resize', handleWindowResize);
-        };
-    }, []);
+        if (latestFy && latestPeriod) {
+            fetchBudgetFunctions();
+        }
+    }, [latestFy, latestPeriod]);
 
     return (
         <section className="summary-stats">
