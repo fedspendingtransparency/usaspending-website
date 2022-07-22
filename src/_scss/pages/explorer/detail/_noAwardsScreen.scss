@@ -1,8 +1,8 @@
 .explorer-no-awards {
 	text-align: center;
 	.no-awards-message {
-		font-weight: 600;
-		font-size: rem(30);
+		font-weight: $font-semibold;
+		font-size: $font-size-32;
 		margin: 20vh 0 rem(30) 0;
 		.info-icon-circle {
 			@include align-self(center);
@@ -20,8 +20,8 @@
 	}
 	.go-back {
 		background-color: transparent;
-		font-size: rem(24);
-		font-weight: normal;
+		font-size: $font-size-24;
+		font-weight: $font-normal;
 		color: $color-primary-alt-darkest;
 		text-decoration: underline;
 		&:hover {
