@@ -43,12 +43,12 @@
 }
 
 .new-badge-inner {
-  height: rem(8);
-  width: rem(8);
+  height: rem(7);
+  width: rem(7);
   background-color: $color-secondary-dark;
   position: absolute;
-  top: rem(2);
-  left: rem(2);
+  top: rem(2.5);
+  left: rem(2.5);
   border-radius: 50%;
 
 }
