@@ -60,7 +60,7 @@ $largeMobile: 576px;
       padding: 0;
     }
 
-    @media (min-width: $maxWidth - 1) {
+    @media (min-width: $maxWidth) {
       width: rem(1355);
       justify-content: space-between;
     }
@@ -81,11 +81,11 @@ $largeMobile: 576px;
       margin: 0 0 rem(24);
       max-width: rem(288);
 
-      @media (min-width: $maxWidth - 1) {
+      @media (min-width: $maxWidth) {
         margin: rem(24) rem(92) rem(24) 0;
       }
 
-      @media(min-width: $stackedShort - 1) and (max-width: $maxWidth) {
+      @media(min-width: $stackedShort - 1) and (max-width: $maxWidth - 1) {
         margin: rem(24) rem(24) rem(24) 0;
       }
 
@@ -126,7 +126,7 @@ $largeMobile: 576px;
           margin: rem(24) rem(92) rem(24) 0;
         }
 
-        @media(min-width: $stackedShort - 1) and (max-width: $maxWidth) {
+        @media(min-width: $stackedShort - 1) and (max-width: $maxWidth - 1) {
           margin: rem(24) rem(56) rem(24) 0;
         }
 
@@ -151,11 +151,11 @@ $largeMobile: 576px;
       border-left: rem(1) solid rgba(255, 255, 255, .5);
       height: rem(60);
 
-      @media(min-width: $maxWidth - 1) {
+      @media(min-width: $maxWidth) {
         margin-left: rem(-16);
       }
 
-      @media(min-width: 1400px) and (max-width: $maxWidth) {
+      @media(min-width: 1400px) and (max-width: $maxWidth - 1) {
         margin-left: 50%;
       }
 
@@ -173,8 +173,7 @@ $largeMobile: 576px;
       margin: 0;
 
       @media(min-width: $stackedShort) {
-        margin: rem(16) rem(4);
-        padding: rem(8) 0;
+        margin: auto rem(4);
       }
 
       .usa-dt-flex-grid__row {
