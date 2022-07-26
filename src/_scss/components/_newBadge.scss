@@ -23,32 +23,15 @@
 }
 
 .new-badge-outer {
+  color: $color-secondary-dark;
   height: rem(14);
   width: rem(14);
-  background-color: $color-secondary-dark;
   position: relative;
   border-radius: 50%;
   margin-right: rem(7);
   margin-top: rem(4);
-}
 
-.new-badge-middle {
-  height: rem(12);
-  width: rem(12);
-  background-color: #fff;
-  position: absolute;
-  top: rem(1);
-  left: rem(1);
-  border-radius: 50%;
-}
-
-.new-badge-inner {
-  height: rem(7);
-  width: rem(7);
-  background-color: $color-secondary-dark;
-  position: absolute;
-  top: rem(2.5);
-  left: rem(2.5);
-  border-radius: 50%;
-
+  svg {
+    margin-bottom: rem(4);
+  }
 }
