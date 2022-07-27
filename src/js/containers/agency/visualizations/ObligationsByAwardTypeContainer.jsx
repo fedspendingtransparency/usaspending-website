@@ -35,7 +35,7 @@ export default function ObligationsByAwardTypeContainer({ fiscalYear, windowWidt
             obligationsByAwardTypeRequest.current.cancel();
         }
         dispatch(resetAwardObligations());
-    }, []);
+    }, [dispatch]);
 
     const getObligationsByAwardType = () => {
         if (obligationsByAwardTypeRequest.current) {
@@ -61,7 +61,7 @@ export default function ObligationsByAwardTypeContainer({ fiscalYear, windowWidt
                 dispatch(setAwardObligations(res.data.total_aggregated_amount));
                 const categories = [
                     {
-                        label: ['All Financial', 'Assistance'], // line break between words
+                        label: ['All Financial', ' Assistance'], // line break between words
                         value: 0,
                         color: 'rgb(192, 86, 0)',
                         fadedColor: 'rgb(192, 86, 0, 25%)'
@@ -169,6 +169,7 @@ export default function ObligationsByAwardTypeContainer({ fiscalYear, windowWidt
         if (toptierCode) {
             getObligationsByAwardType();
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [fiscalYear, toptierCode]);
 
 

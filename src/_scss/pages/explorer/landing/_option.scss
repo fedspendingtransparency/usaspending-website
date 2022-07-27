@@ -22,7 +22,8 @@
         width: rem(400);
     }
 
-    background-color: rgba(91,97,106, 0.8);
+    background-color: $color-gray;
+    border-radius: rem(8);
     color: $color-white;
     text-align: center;
 
@@ -44,14 +45,14 @@
 
     h2.landing-option__title {
         margin: 0;
-        font-weight: $font-light;
-        font-size: rem(35);
-        line-height: rem(44);
+        font-size: $font-size-32;
+        font-weight: $font-semibold;
+        line-height: $heading-line-height;
         .usa-da-icon-guide {
-            width: rem(15);
-            height: rem(15);
+            width: rem(16);
+            height: rem(16);
             fill: $color-white;
-            margin: 0 0 rem(12) rem(5);
+            margin: 0 0 rem(12) rem(8);
             &:hover {
                 cursor: pointer;
             }
@@ -62,6 +63,8 @@
         margin-top: rem(10);
         margin-bottom: rem(30);
         font-weight: $font-normal;
+        font-size: $font-size-16;
+        line-height: $base-line-height;
 
         @include media($large-screen) {
             min-height: rem(70);
@@ -71,9 +74,10 @@
     a.landing-option__button {
         @extend .usa-button;
         background-color: #0170BC;
-        font-size: $base-font-size;
-        padding: rem(10) rem(60);
-
+        width: 100%;
+        font-size: $font-size-16;
+        line-height: $base-line-height;
+        
         &:hover {
             background-color: #215493 !important;
         }

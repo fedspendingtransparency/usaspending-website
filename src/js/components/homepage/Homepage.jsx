@@ -12,6 +12,7 @@ import HomepageCovidContainer from '../../containers/homepage/HomepageCovidConta
 import GettingStarted from './gettingStarted/GettingStarted';
 import PageWrapper from "../sharedComponents/PageWrapper";
 import { homePageMetaTags } from "../../helpers/metaTagHelper";
+import SummaryStats from "./SummaryStats";
 
 require('pages/homepage/homepage.scss');
 
@@ -23,6 +24,7 @@ const Homepage = () => (
         metaTagProps={{ ...homePageMetaTags }}>
         <main id="main-content" className="main-content homepage-content">
             <Hero />
+            <SummaryStats />
             <HomepageCovidContainer />
             <GettingStarted />
             <Download />

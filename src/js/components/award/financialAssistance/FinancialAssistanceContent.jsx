@@ -27,7 +27,8 @@ const propTypes = {
     jumpToSection: PropTypes.func,
     isSubAwardIdClicked: PropTypes.bool,
     subAwardIdClicked: PropTypes.func,
-    defCodes: PropTypes.array
+    defCodes: PropTypes.array,
+    unlinked: PropTypes.bool
 };
 
 const FinancialAssistanceContent = ({
@@ -36,7 +37,8 @@ const FinancialAssistanceContent = ({
     jumpToSection,
     isSubAwardIdClicked,
     subAwardIdClicked,
-    defCodes
+    defCodes,
+    unlinked
 }) => {
     const [activeTab, setActiveTab] = useState("transaction");
     const [CFDAOverviewLinkClicked, setCFDAOverviewLinkClicked] = useState(false);
@@ -88,7 +90,8 @@ const FinancialAssistanceContent = ({
             title={overview.title}
             lastModifiedDateLong={overview.periodOfPerformance.lastModifiedDateLong}
             className="award-financial-assistance"
-            dates={overview.periodOfPerformance}>
+            dates={overview.periodOfPerformance}
+            unlinked={unlinked}>
             <AwardSection type="row" className="award-overview" id="award-overview">
                 <AwardOverviewLeftSection
                     awardingAgency={overview.awardingAgency}
@@ -128,7 +131,8 @@ const FinancialAssistanceContent = ({
                 )}
                 <FederalAccountsSection
                     awardType={overview.category}
-                    jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
+                    jumpToFederalAccountsHistory={jumpToFederalAccountsHistory}
+                    unlinked={unlinked} />
             </AwardSection>
             {isGrant && (
                 <AwardSection type="row">
