@@ -19,7 +19,6 @@ const Homepage = () => (
     <PageWrapper
         pageName="Homepage"
         classNames="usa-da-home-page"
-        title="Government Spending Open Data | USAspending"
         noHeader
         metaTagProps={{ ...homePageMetaTags }}>
         <main id="main-content" className="main-content homepage-content">
