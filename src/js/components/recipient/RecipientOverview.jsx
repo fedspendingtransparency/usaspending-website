@@ -6,8 +6,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link, useHistory } from 'react-router-dom';
 import { recipientOverviewLoanInfo } from 'components/recipient/InfoTooltipContent';
 import { idList } from 'dataMapping/shared/recipientIdentifiers';
+import { useDispatch } from 'react-redux';
+import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
+import { applyStagedFilters, resetAppliedFilters, setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
+import { initialState as defaultFilters } from 'redux/reducers/search/searchFiltersReducer';
+import { Set } from 'immutable';
 import FaceValueOfLoans from '../sharedComponents/FaceValueOfLoans';
 import RecipientMultiParentCollapse from './RecipientMultiParentCollapse';
 
@@ -18,6 +24,8 @@ const propTypes = {
 };
 
 const RecipientOverview = (props) => {
+    const dispatch = useDispatch();
+    const history = useHistory();
     const recipient = props.recipient.overview;
     let label = (
         <div className="recipient-overview__label">
@@ -92,6 +100,19 @@ const RecipientOverview = (props) => {
         );
     }
 
+    const handleGoToAdvancedSearch = (e) => {
+        e.preventDefault();
+        dispatch(clearAllFilters());
+        dispatch(resetAppliedFilters());
+        dispatch(setAppliedFilterCompletion(false));
+        const filter = new Set().add(recipient.uei);
+        dispatch(applyStagedFilters({
+            ...defaultFilters,
+            selectedRecipients: filter
+        }));
+        history.push('/search');
+    };
+
     return (
         <div
             id="recipient-overview"
@@ -119,6 +140,14 @@ const RecipientOverview = (props) => {
                             <div className="totals__awards">
                             from <span className="state-overview__total">{recipient.totalTransactions}</span> transactions
                             </div>
+                            <Link
+                                className="recipient-section__award-button"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                to="/search"
+                                onClick={handleGoToAdvancedSearch}>
+                                View awards to this recipient
+                            </Link>
                         </div>
                         <div className="recipient-section__viz loan">
                             <FaceValueOfLoans amount={recipient.totalLoanFaceValueAmount} transactions={recipient.totalLoanTransactions} heading="Face Value of Loans" headingClass="recipient-overview__heading" tooltipIcon="info" tooltipClasses="recipient-section__viz-loan__tt" tooltipComponent={recipientOverviewLoanInfo} tooltipPosition="right" />
