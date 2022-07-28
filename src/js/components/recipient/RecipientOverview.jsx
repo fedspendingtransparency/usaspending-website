@@ -140,14 +140,16 @@ const RecipientOverview = (props) => {
                             <div className="totals__awards">
                             from <span className="state-overview__total">{recipient.totalTransactions}</span> transactions
                             </div>
-                            <Link
-                                className="recipient-section__award-button"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                to="/search"
-                                onClick={handleGoToAdvancedSearch}>
+                            {(recipient.uei !== "" || recipient.uei !== null) &&
+                                <Link
+                                    className="recipient-section__award-button"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    to="/search"
+                                    onClick={handleGoToAdvancedSearch}>
                                 View awards to this recipient
-                            </Link>
+                                </Link>
+                            }
                         </div>
                         <div className="recipient-section__viz loan">
                             <FaceValueOfLoans amount={recipient.totalLoanFaceValueAmount} transactions={recipient.totalLoanTransactions} heading="Face Value of Loans" headingClass="recipient-overview__heading" tooltipIcon="info" tooltipClasses="recipient-section__viz-loan__tt" tooltipComponent={recipientOverviewLoanInfo} tooltipPosition="right" />
