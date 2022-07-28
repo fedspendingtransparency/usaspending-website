@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 import GlossaryContainer from 'containers/glossary/GlossaryContainer';
 import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
 import Analytics from 'helpers/analytics/Analytics';
-import UEIInfoBanner from './UEIInfoBanner';
 import NavBar from './NavBar';
 
 const clickedHeaderLink = (route) => {
@@ -38,10 +37,6 @@ export default class Header extends React.Component {
     }
 
     render() {
-        const infoBanner = (
-            <UEIInfoBanner showModal={this.props.showModal} />
-        );
-
         return (
             <div className="site-header">
                 <a
@@ -105,7 +100,6 @@ export default class Header extends React.Component {
                             </div>
                         </div>
                     </div>
-                    {infoBanner}
                     <NavBar />
                 </header>
                 <GlossaryContainer />
