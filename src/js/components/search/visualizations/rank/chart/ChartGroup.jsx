@@ -64,7 +64,7 @@ export default class ChartGroup extends React.Component {
         so we need to make sure that isn't the case before making the link*/
         if (this.props.linkID !== '' && this.props.linkID !== 'agency_v2/') {
             title = (
-                <a xlinkHref={`${this.props.urlRoot}${this.props.linkID}`}>
+                <a target="_blank" rel="noopener noreferrer" xlinkHref={`${this.props.urlRoot}${this.props.linkID}`} >
                     <text
                         className={`group-label ${linkClass}`}
                         ref={(text) => {
