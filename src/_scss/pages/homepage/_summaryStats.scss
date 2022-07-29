@@ -155,17 +155,17 @@ $largeMobile: 576px;
         margin-left: rem(-16);
       }
 
-      @media(min-width: 1400px) and (max-width: $maxWidth - 1) {
-        margin-left: 50%;
-      }
+      //@media(min-width: 1400px) and (max-width: $maxWidth - 1) {
+      //  margin-left: 50%;
+      //}
 
-      @media(min-width: 1300px) and (max-width: 1399px) {
-        margin-left: 35%;
-      }
+      //@media(min-width: 1300px) and (max-width: 1399px) {
+      //  margin-left: 35%;
+      //}
 
-      @media(min-width: $stackedShort - 1) and (max-width: 1299px) {
-        margin-left: 15%;
-      }
+      //@media(min-width: $stackedShort - 1) and (max-width: 1299px) {
+      //  margin-left: 15%;
+      //}
     }
 
     .summary-stats__spending-link {
