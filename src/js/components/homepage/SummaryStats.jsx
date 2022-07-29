@@ -108,9 +108,9 @@ const SummaryStats = () => {
                             }
                         </div>
                     </FlexGridCol>
-                    <FlexGridCol>
+                    <div style={{ display: "flex", "flex-direction": "row", "justify-content": "center" }}>
                         <div className="summary-stats__vertical-border">&nbsp;</div>
-                    </FlexGridCol>
+                    </div>
                     <FlexGridCol width={2} className="summary-stats__spending-link">
                         <FlexGridRow>
                             <Link to="/explorer/budget_function">
