@@ -51,7 +51,7 @@ $largeMobile: 576px;
       margin: 0 auto;
     }
 
-    @media (min-width: $stackedShort - 1) and (max-width: 1400px) {
+    @media (min-width: $stackedShort) and (max-width: 1400px) {
       padding: 0;
       margin: 0 rem(32) !important;
     }
@@ -85,7 +85,7 @@ $largeMobile: 576px;
         margin: rem(24) rem(92) rem(24) 0;
       }
 
-      @media(min-width: $stackedShort - 1) and (max-width: $maxWidth - 1) {
+      @media(min-width: $stackedShort) and (max-width: $maxWidth - 1) {
         margin: rem(24) 3% rem(24) 0;
       }
 
@@ -103,7 +103,7 @@ $largeMobile: 576px;
       display: flex;
       flex-direction: column;
 
-      @media(max-width: $stackedShort) {
+      @media(max-width: $stackedShort - 1) {
         min-width: rem(470);
         padding: 0;
         margin-bottom: rem(16);
@@ -113,7 +113,7 @@ $largeMobile: 576px;
         flex-direction: row;
       }
 
-      @media(min-width: $stackedTall - 1) and (max-width: $stackedShort) {
+      @media(min-width: $stackedTall - 1) and (max-width: $stackedShort - 1) {
         margin-bottom: rem(24);
       }
 
@@ -122,12 +122,24 @@ $largeMobile: 576px;
         height: rem(48);
         overflow: hidden;
 
+        &:last-child {
+          margin-right: rem(24);
+        }
+
         @media(min-width: $maxWidth) {
           margin: rem(24) rem(92) rem(24) 0;
+
+          &:last-child {
+            margin-right: rem(40);
+          }
         }
 
         @media(min-width: $stackedShort - 1) and (max-width: $maxWidth - 1) {
           margin: rem(24) rem(56) rem(24) 0;
+
+          &:last-child {
+            margin-right: rem(24);
+          }
         }
 
         @media(min-width: $stackedTall) and (max-width: $stackedShort - 1) {
@@ -151,9 +163,9 @@ $largeMobile: 576px;
       border-left: rem(1) solid rgba(255, 255, 255, .5);
       height: rem(60);
 
-      @media(min-width: $maxWidth) {
-        margin-left: rem(-16);
-      }
+      //@media(min-width: $maxWidth) {
+      //  margin-left: rem(-16);
+      //}
 
       //@media(min-width: 1400px) and (max-width: $maxWidth - 1) {
       //  margin-left: 50%;
