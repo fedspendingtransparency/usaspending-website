@@ -117,7 +117,7 @@ $largeMobile: 576px;
         flex-direction: row;
       }
 
-      @media(min-width: $stackedTall - 1) and (max-width: $stackedShort - 1) {
+      @media(min-width: $stackedTall) and (max-width: $stackedShort - 1) {
         margin-bottom: rem(24);
       }
 
@@ -126,9 +126,9 @@ $largeMobile: 576px;
         height: rem(48);
         overflow: hidden;
 
-        &:last-child {
-          margin-right: rem(24);
-        }
+        //&:last-child {
+        //  margin-right: rem(24);
+        //}
 
         @media(min-width: $maxWidth) {
           margin: rem(24) rem(92) rem(24) 0;
@@ -195,7 +195,7 @@ $largeMobile: 576px;
       .usa-dt-flex-grid__row {
         justify-content: center;
 
-        @media(min-width: $stackedTall - 1) and (max-width: $stackedShort - 1) {
+        @media(min-width: $stackedTall) and (max-width: $stackedShort - 1) {
           padding-right: rem(16);
         }
       }
@@ -235,7 +235,6 @@ $largeMobile: 576px;
       .summary-stats__spending-link-text {
         text-align: center;
         font-weight: $font-semibold;
-        margin-right: rem(8);
         color: #DFE1E2;
         font-size: rem(16);
         line-height: rem(20);
@@ -254,6 +253,10 @@ $largeMobile: 576px;
         @media (min-width: $stackedShort - 1) {
           text-align: left;
           min-width: rem(156);
+        }
+
+        @media (min-width: $stackedTall) {
+          margin-right: rem(8);
         }
       }
     }
