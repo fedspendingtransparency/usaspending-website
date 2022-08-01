@@ -6,7 +6,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCircle } from "@fortawesome/free-regular-svg-icons";
 import { AngleUp, AngleDown } from 'components/sharedComponents/icons/Icons';
 
 
@@ -80,7 +79,7 @@ export default class MobileDropdown extends React.Component {
                     <span className="mobile-dropdown__parent-label">
                         {containsNewNavItem &&
                             <div className="new-badge-outer">
-                                <FontAwesomeIcon icon={faCircle} />
+                                <FontAwesomeIcon icon="circle" />
                             </div>
                         }
                         {this.props.label}
