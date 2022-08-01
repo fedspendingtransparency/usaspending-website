@@ -2,8 +2,6 @@
     .agency-landing-results {
         transition: opacity 0.25s ease;
 
-        @import './table';
-
         .loading-table {
             opacity: 0.5;
             @include transition(opacity 0.25s ease-in);

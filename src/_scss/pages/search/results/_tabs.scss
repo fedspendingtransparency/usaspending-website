@@ -76,14 +76,14 @@
         }
 
         .icon {
-            @include flex(0 0 auto)
+            @include flex(0 0 auto);
             width: rem(20);
             height: rem(20);
 
             svg {
                 fill: $color-primary;
                 width: rem(20);
-                height: rem(20);                
+                height: rem(20);
             }
 
             @include media($tablet-screen) {
