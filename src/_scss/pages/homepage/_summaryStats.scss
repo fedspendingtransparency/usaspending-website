@@ -126,10 +126,6 @@ $largeMobile: 576px;
         height: rem(48);
         overflow: hidden;
 
-        //&:last-child {
-        //  margin-right: rem(24);
-        //}
-
         @media(min-width: $maxWidth) {
           margin: rem(24) rem(92) rem(24) 0;
 
