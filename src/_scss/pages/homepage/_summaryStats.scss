@@ -85,8 +85,12 @@ $largeMobile: 576px;
         margin: rem(24) rem(92) rem(24) 0;
       }
 
-      @media(min-width: $stackedShort) and (max-width: $maxWidth - 1) {
-        margin: rem(24) 3% rem(24) 0;
+      @media(min-width: 1229px) and (max-width: $maxWidth - 1) {
+        margin: rem(24) 6% rem(24) 0;
+      }
+
+      @media(min-width: $stackedShort) and (max-width: 1228px) {
+        margin: rem(24) 4% rem(24) 0;
       }
 
       @media (min-width: $largeMobile) {
@@ -134,7 +138,23 @@ $largeMobile: 576px;
           }
         }
 
-        @media(min-width: $stackedShort - 1) and (max-width: $maxWidth - 1) {
+        @media(min-width: 1425px) and (max-width: $maxWidth - 1) {
+          margin: rem(24) rem(56) rem(24) 0;
+
+          &:last-child {
+            margin-right: rem(48);
+          }
+        }
+
+        @media(min-width: 1229px) and (max-width: 1424px) {
+            margin: rem(24) rem(56) rem(24) 0;
+
+          &:last-child {
+            margin-right: rem(36);
+          }
+        }
+
+        @media(min-width: $stackedShort - 1) and (max-width: 1228px) {
           margin: rem(24) rem(56) rem(24) 0;
 
           &:last-child {
@@ -162,22 +182,6 @@ $largeMobile: 576px;
       padding: rem(8) 0;
       border-left: rem(1) solid rgba(255, 255, 255, .5);
       height: rem(60);
-
-      //@media(min-width: $maxWidth) {
-      //  margin-left: rem(-16);
-      //}
-
-      //@media(min-width: 1400px) and (max-width: $maxWidth - 1) {
-      //  margin-left: 50%;
-      //}
-
-      //@media(min-width: 1300px) and (max-width: 1399px) {
-      //  margin-left: 35%;
-      //}
-
-      //@media(min-width: $stackedShort - 1) and (max-width: 1299px) {
-      //  margin-left: 15%;
-      //}
     }
 
     .summary-stats__spending-link {
