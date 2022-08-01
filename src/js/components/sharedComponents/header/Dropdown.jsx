@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { AngleDown } from 'components/sharedComponents/icons/Icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faDotCircle } from "@fortawesome/free-regular-svg-icons";
+import { faCircle } from "@fortawesome/free-regular-svg-icons";
 
 import DropdownItem from './DropdownItem';
 
@@ -60,7 +60,7 @@ const Dropdown = ({
                 <div className="nav-dropdown__parent-label">
                     {containsNewNavItem &&
                             <div className="new-badge-outer">
-                                <FontAwesomeIcon icon={faDotCircle} />
+                                <FontAwesomeIcon icon={faCircle} />
                             </div>}
                     {label}
                 </div>
