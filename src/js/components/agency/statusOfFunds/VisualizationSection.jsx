@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from 'prop-types';
 import { Table } from 'data-transparency-ui';
 import { levels } from './StatusOfFunds';
-// import StatusOfFundsChart from '../visualizations/StatusOfFundsChart';
+import StatusOfFundsChart from '../visualizations/StatusOfFundsChart';
 import RoundedToggle from "../../sharedComponents/RoundedToggle";
 import Accordion from "../../sharedComponents/accordion/Accordion";
 import GlossaryLink from "../../sharedComponents/GlossaryLink";
@@ -40,53 +40,149 @@ const VisualizationSection = ({
     toggle,
     onKeyToggle,
     onToggle,
-    // loading,
-    // setLoading,
+    loading,
+    setLoading,
     level,
-    // setLevel,
-    // totalItems,
-    // setTotalItems,
+    setLevel,
+    totalItems,
+    setTotalItems,
     agencyName,
     fy,
     results,
-    selectedSubcomponent
-    // fetchFederalAccounts
+    selectedSubcomponent,
+    fetchFederalAccounts
 }) => {
     const [open, setOpen] = useState(false);
-    console.log('results', results);
+    const fyString = `FY${fy.slice(2)}`;
 
-    const columns = [
-        {
-            title: 'subComponent',
-            displayName: 'Sub-Component'
-        },
-        {
-            title: 'totalBudgetaryResources',
-            displayName: 'Total Budgetary Resources'
-        },
-        {
-            title: 'obligations',
-            displayName: 'Obligations'
-        }
-    ];
+    const columns = toggle ?
+        [
+            {
+                title: 'subComponent',
+                displayName: 'Sub-Component'
+            },
+            {
+                title: 'outlays',
+                displayName: [`${fyString} Outlays`]
+            }
+        ]
+        :
+        [
+            {
+                title: 'subComponent',
+                displayName: 'Sub-Component'
+            },
+            {
+                title: 'totalBudgetaryResources',
+                displayName: [`${fyString} Total Budgetary`, <br />, 'Resources']
+            },
+            {
+                title: 'obligations',
+                displayName: `${fyString} Obligations`
+            }
+        ];
 
-    const rows = [
-        (
-            <div>
+    const rows = toggle ?
+        [
+            [
+                <div>
+                    test1
+                </div>,
+                <div>
+                    test2
+                </div>
+            ],
+            [
+                <div>
+                    test1
+                </div>,
+                <div>
+                    test2
+                </div>
+            ],
+            [
+                <div>
+                    test1
+                </div>,
+                <div>
+                    test2
+                </div>
+            ],
+            [
+                <div>
+                    test1
+                </div>,
+                <div>
+                    test2
+                </div>
+            ],
+            [
+                <div>
+                    test1
+                </div>,
+                <div>
+                    test2
+                </div>
+            ]
+        ]
+        :
+        [
+            [
+                <div>
                 test1
-            </div>
-        ),
-        (
-            <div>
+                </div>,
+                <div>
                 test2
-            </div>
-        ),
-        (
-            <div>
+                </div>,
+                <div>
                 test3
-            </div>
-        )
-    ];
+                </div>
+            ],
+            [
+                <div>
+                test1
+                </div>,
+                <div>
+                test2
+                </div>,
+                <div>
+                test3
+                </div>
+            ],
+            [
+                <div>
+                test1
+                </div>,
+                <div>
+                test2
+                </div>,
+                <div>
+                test3
+                </div>
+            ],
+            [
+                <div>
+                test1
+                </div>,
+                <div>
+                test2
+                </div>,
+                <div>
+                test3
+                </div>
+            ],
+            [
+                <div>
+                test1
+                </div>,
+                <div>
+                test2
+                </div>,
+                <div>
+                test3
+                </div>
+            ]
+        ];
 
     return (
         <div
