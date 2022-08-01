@@ -7,8 +7,9 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from 'prop-types';
+import { Table } from 'data-transparency-ui';
 import { levels } from './StatusOfFunds';
-import StatusOfFundsChart from '../visualizations/StatusOfFundsChart';
+// import StatusOfFundsChart from '../visualizations/StatusOfFundsChart';
 import RoundedToggle from "../../sharedComponents/RoundedToggle";
 import Accordion from "../../sharedComponents/accordion/Accordion";
 import GlossaryLink from "../../sharedComponents/GlossaryLink";
@@ -39,19 +40,54 @@ const VisualizationSection = ({
     toggle,
     onKeyToggle,
     onToggle,
-    loading,
-    setLoading,
+    // loading,
+    // setLoading,
     level,
-    setLevel,
-    totalItems,
-    setTotalItems,
+    // setLevel,
+    // totalItems,
+    // setTotalItems,
     agencyName,
     fy,
     results,
-    selectedSubcomponent,
-    fetchFederalAccounts
+    selectedSubcomponent
+    // fetchFederalAccounts
 }) => {
     const [open, setOpen] = useState(false);
+    console.log('results', results);
+
+    const columns = [
+        {
+            title: 'subComponent',
+            displayName: 'Sub-Component'
+        },
+        {
+            title: 'totalBudgetaryResources',
+            displayName: 'Total Budgetary Resources'
+        },
+        {
+            title: 'obligations',
+            displayName: 'Obligations'
+        }
+    ];
+
+    const rows = [
+        (
+            <div>
+                test1
+            </div>
+        ),
+        (
+            <div>
+                test2
+            </div>
+        ),
+        (
+            <div>
+                test3
+            </div>
+        )
+    ];
+
     return (
         <div
             className="status-of-funds__visualization"
@@ -76,9 +112,16 @@ const VisualizationSection = ({
                 <p className="status-of-funds__what-second-heading">Why are the <em>obligation</em> and <em>budgetary resource</em> amounts no longer visible on the chart?</p>
                 <p className="status-of-funds__what-text">Remember, the <span className="status-of-funds__emphasis">budgetary resources</span> <GlossaryLink term="budgetary-resources" /> and obligations on this chart refer to available amounts and promised amounts for spending <em>in your selected fiscal year</em>. However, agencies may make outlays to pay off obligations made in your selected year <em>or in previous years</em>. This means outlays on this chart should <span className="status-of-funds__emphasis">not</span> be compared to the obligations or budgetary resources within any single fiscal year.</p>
             </div>}
-            <div
-                className="status-of-funds__visualization-chart">
-                <StatusOfFundsChart toggle={toggle} fetchFederalAccounts={fetchFederalAccounts} totalItems={totalItems} setTotalItems={setTotalItems} loading={loading} setLoading={setLoading} fy={fy} results={results} level={level} setLevel={setLevel} />
+            {/* <div */}
+            {/*     className="status-of-funds__visualization-chart"> */}
+            {/*     <StatusOfFundsChart toggle={toggle} fetchFederalAccounts={fetchFederalAccounts} totalItems={totalItems} setTotalItems={setTotalItems} loading={loading} setLoading={setLoading} fy={fy} results={results} level={level} setLevel={setLevel} /> */}
+            {/* </div> */}
+            <div>
+                <Table
+                    classNames="award-type-tooltip__table"
+                    columns={columns}
+                    rows={rows}
+                    isStacked />
             </div>
         </div>
     );
