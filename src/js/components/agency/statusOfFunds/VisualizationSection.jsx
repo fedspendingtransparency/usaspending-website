@@ -82,107 +82,37 @@ const VisualizationSection = ({
             }
         ];
 
-    const rows = toggle ?
+    const rows = results.map((data) => (toggle ?
         [
-            [
+            (
                 <div>
-                    test1
-                </div>,
-                <div>
-                    test2
+                    {data.name}
                 </div>
-            ],
-            [
+            ),
+            (
                 <div>
-                    test1
-                </div>,
-                <div>
-                    test2
+                    {data.outlays}
                 </div>
-            ],
-            [
-                <div>
-                    test1
-                </div>,
-                <div>
-                    test2
-                </div>
-            ],
-            [
-                <div>
-                    test1
-                </div>,
-                <div>
-                    test2
-                </div>
-            ],
-            [
-                <div>
-                    test1
-                </div>,
-                <div>
-                    test2
-                </div>
-            ]
+            )
         ]
         :
         [
-            [
+            (
                 <div>
-                test1
-                </div>,
-                <div>
-                test2
-                </div>,
-                <div>
-                test3
+                    {data.name}
                 </div>
-            ],
-            [
+            ),
+            (
                 <div>
-                test1
-                </div>,
-                <div>
-                test2
-                </div>,
-                <div>
-                test3
+                    {data.budgetaryResources}
                 </div>
-            ],
-            [
+            ),
+            (
                 <div>
-                test1
-                </div>,
-                <div>
-                test2
-                </div>,
-                <div>
-                test3
+                    {data.obligations}
                 </div>
-            ],
-            [
-                <div>
-                test1
-                </div>,
-                <div>
-                test2
-                </div>,
-                <div>
-                test3
-                </div>
-            ],
-            [
-                <div>
-                test1
-                </div>,
-                <div>
-                test2
-                </div>,
-                <div>
-                test3
-                </div>
-            ]
-        ];
+            )
+        ]));
 
     return (
         <div
