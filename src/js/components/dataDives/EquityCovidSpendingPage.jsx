@@ -13,7 +13,7 @@ import { Link } from "react-router-dom";
 import PageWrapper from "../sharedComponents/PageWrapper";
 import { equityPageMetaTags } from "../../helpers/metaTagHelper";
 import MainCards from "./shared/MainCards";
-import EquityHeading from "./shared/DataDiveHeading.jsx";
+import EquityHeading from "./shared/DataDiveHeading";
 import EquitySpotlightCards from "./equity/EquitySpotlightCards";
 
 require('pages/equityCovidSpendingPage/equityCovidSpendingPage.scss');
