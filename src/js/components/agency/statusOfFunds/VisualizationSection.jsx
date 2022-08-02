@@ -5,17 +5,17 @@
 
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from 'react';
+import { throttle } from "lodash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from 'prop-types';
 import { Table } from 'data-transparency-ui';
 import { tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
+import { formatMoneyWithPrecision } from 'helpers/moneyFormatter';
 import { levels } from './StatusOfFunds';
 import StatusOfFundsChart from '../visualizations/StatusOfFundsChart';
 import RoundedToggle from "../../sharedComponents/RoundedToggle";
 import Accordion from "../../sharedComponents/accordion/Accordion";
 import GlossaryLink from "../../sharedComponents/GlossaryLink";
-import { throttle } from "lodash";
-
 
 const propTypes = {
     toggle: PropTypes.bool,
@@ -108,7 +108,7 @@ const VisualizationSection = ({
             ),
             (
                 <div>
-                    {data.outlays}
+                    {formatMoneyWithPrecision(data._outlays)}
                 </div>
             )
         ]
@@ -121,12 +121,12 @@ const VisualizationSection = ({
             ),
             (
                 <div>
-                    {data.budgetaryResources}
+                    {formatMoneyWithPrecision(data._budgetaryResources)}
                 </div>
             ),
             (
                 <div>
-                    {data.obligations}
+                    {formatMoneyWithPrecision(data._obligations)}
                 </div>
             )
         ]));
