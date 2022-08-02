@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import EquityMainCard from 'components/sharedComponents/MainCard';
+import MainCard from 'components/dataDives/shared/MainCard';
 import { render, screen } from '../../testResources/test-utils';
 
 const testHdg = "This is a test heading";
@@ -12,7 +12,7 @@ const testText = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed d
 
 describe('EquityMainCard', () => {
     it('should render the card with test heading and text', () => {
-        render(<EquityMainCard heading={testHdg} text={testText} />);
+        render(<MainCard heading={testHdg} text={testText} />);
         expect(screen.queryByText('text not on the card')).toBeFalsy();
         expect(screen.queryByText(testHdg)).toBeTruthy();
         expect(screen.queryByText(testText)).toBeTruthy();
