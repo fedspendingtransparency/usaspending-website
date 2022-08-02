@@ -21,9 +21,9 @@ describe('Publication Dates Container', () => {
         render(<PublicationDatesContainer {...defaultProps} />);
         expect(screen.getAllByText('Deadline: --')).toHaveLength(2);
     });
-    it('should call the api one time on mount', () => {
+    it('should call the api one time on mount', async () => {
         const pubicationDatesRequest = jest.spyOn(agencyReportingAPI, 'fetchPublishDates');
         render(<PublicationDatesContainer {...defaultProps} />);
-        waitFor(() => expect(pubicationDatesRequest).toHaveBeenCalledTimes(1));
+        await waitFor(() => expect(pubicationDatesRequest).toHaveBeenCalledTimes(1));
     });
 });

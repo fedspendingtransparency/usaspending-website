@@ -32,6 +32,7 @@ import {
     fetchAssistanceDownloadFile
 } from 'helpers/downloadHelper';
 import withDefCodes from 'containers/covid19/WithDefCodes';
+import { getAwardHistoryCounts } from "../../helpers/awardHistoryHelper";
 
 require('pages/award/awardPage.scss');
 
@@ -58,10 +59,12 @@ export class AwardContainer extends React.Component {
 
         this.awardRequest = null;
         this.downloadRequest = null;
+        this.countRequest = null;
 
         this.state = {
             noAward: false,
-            inFlight: true
+            inFlight: true,
+            unlinked: false
         };
         this.downloadData = this.downloadData.bind(this);
         this.fetchAwardDownloadFile = this.fetchAwardDownloadFile.bind(this);
@@ -132,6 +135,17 @@ export class AwardContainer extends React.Component {
     }
 
     parseAward(data) {
+        this.countRequest = getAwardHistoryCounts("federal_account", data.id, data.category === 'idv');
+
+        this.countRequest.promise
+            .then((results) => {
+                const countDataBool = (results.data.federal_accounts === 0 || results.data.count === 0);
+
+                this.setState({
+                    unlinked: countDataBool
+                });
+            });
+
         this.setState({
             noAward: false
         });
@@ -199,7 +213,8 @@ export class AwardContainer extends React.Component {
                 award={this.props.award}
                 isLoading={this.state.inFlight}
                 noAward={this.state.noAward}
-                defCodes={this.props.defCodes} />
+                defCodes={this.props.defCodes}
+                unlinked={this.state.unlinked} />
         );
     }
 }

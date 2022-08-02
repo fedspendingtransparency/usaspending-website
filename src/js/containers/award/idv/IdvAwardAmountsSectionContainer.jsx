@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
-import { TooltipWrapper } from 'data-transparency-ui';
+import { TooltipWrapper, Tabs } from 'data-transparency-ui';
 import { flowRight } from 'lodash';
 
 import * as IdvHelper from 'helpers/idvHelper';
@@ -18,11 +18,10 @@ import * as awardActions from 'redux/actions/award/awardActions';
 import BaseAwardAmounts from 'models/v2/award/BaseAwardAmounts';
 
 import AggregatedAwardAmounts from 'components/award/idv/amounts/AggregatedAwardAmountsSection';
-import AwardAmountsTable from 'components/award/shared/awardAmounts/AwardAmountsTable';
-import ResultsTableTabs from 'components/search/table/ResultsTableTabs';
-import ResultsTablePicker from 'components/search/table/ResultsTablePicker';
 import { awardAmountsInfo } from 'components/award/shared/InfoTooltipContent';
 import withDefCodes from 'containers/covid19/WithDefCodes';
+import AggregatedAwardAmountsTableWrapper
+    from "../../../components/award/idv/amounts/AggregatedAwardAmountsTableWrapper";
 
 const propTypes = {
     award: PropTypes.object,
@@ -166,16 +165,11 @@ export class IdvAmountsContainer extends React.Component {
                 </div>
                 <hr />
                 <div className="award-viz__tabs">
-                    <ResultsTableTabs
+                    <Tabs
                         types={tabTypes}
                         active={this.state.active}
                         switchTab={this.switchTab}
-                        tabsClassName={tabsClassName}
-                        hideCounts />
-                    <ResultsTablePicker
-                        types={tabTypes}
-                        active={this.state.active}
-                        switchTab={this.switchTab} />
+                        tabsClassName={tabsClassName} />
                 </div>
                 {this.state.active === 'awards' && (
                     <AggregatedAwardAmounts
@@ -184,7 +178,7 @@ export class IdvAmountsContainer extends React.Component {
                         showFileC={showFileC} />
                 )}
                 {this.state.active !== 'awards' && (
-                    <AwardAmountsTable
+                    <AggregatedAwardAmountsTableWrapper
                         showFileC={showFileC}
                         awardData={thisIdv}
                         awardAmountType="idv"

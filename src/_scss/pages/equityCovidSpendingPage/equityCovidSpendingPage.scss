@@ -37,9 +37,9 @@
       }
     }
     .main-cards__wrapper {
-      margin: 0;
-      @media (min-width: $tablet-screen) {
-        margin-bottom: $global-margin * 12;
+      margin: 0 0 $global-margin * 12 0;
+      @media (min-width: $medium-screen) {
+        margin-bottom: $global-margin * 13;
       }
       .equity-main-card__col-one {
         @media (min-width: $medium-screen) {

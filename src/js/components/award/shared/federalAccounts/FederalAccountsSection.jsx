@@ -16,10 +16,12 @@ import Note from 'components/sharedComponents/Note';
 import AwardSection from '../AwardSection';
 import AwardSectionHeader from '../AwardSectionHeader';
 import { AWARD_TYPE_PROPS } from '../../../../propTypes/index';
+import UnlinkedAwardWarning from "../../../sharedComponents/UnlinkedAwardWarning";
 
 const propTypes = {
     jumpToFederalAccountsHistory: PropTypes.func,
-    awardType: AWARD_TYPE_PROPS
+    awardType: AWARD_TYPE_PROPS,
+    unlinked: PropTypes.bool
 };
 
 // eslint-disable-next-line max-len
@@ -27,7 +29,8 @@ const message = 'Result count may differ between treemap view and table view. Tr
 
 const FederalAccountsSection = ({
     jumpToFederalAccountsHistory,
-    awardType
+    awardType,
+    unlinked
 }) => {
     const infoTooltip = getToolTipBySectionAndAwardType('federalAccounts', awardType);
     return (
@@ -38,12 +41,19 @@ const FederalAccountsSection = ({
                 tooltipWide
                 tooltip={infoTooltip} />
             <div className="award__col__content">
-                <FederalAccountsVizContainer />
-                <span className="federal-accounts__section--note">
-                    <Note message={message} />
-                </span>
-                <FederalAccountsSummaryContainer
-                    jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
+                {unlinked ? (
+                    <UnlinkedAwardWarning />
+                )
+                    :
+                    <>
+                        <FederalAccountsVizContainer />
+                        <span className="federal-accounts__section--note">
+                            <Note message={message} />
+                        </span>
+                        <FederalAccountsSummaryContainer
+                            jumpToFederalAccountsHistory={jumpToFederalAccountsHistory} />
+                    </>
+                }
             </div>
         </AwardSection>
     );

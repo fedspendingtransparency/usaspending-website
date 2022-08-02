@@ -14,7 +14,7 @@
 
     .toggle {
         @include button-unstyled;
-        @include flex(0 0 auto)
+        @include flex(0 0 auto);
         width: rem(11);
         height: rem(28);
         margin-right: rem(8);
