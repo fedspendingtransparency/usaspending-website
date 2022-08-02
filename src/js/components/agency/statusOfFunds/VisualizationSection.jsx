@@ -4,15 +4,18 @@
  */
 
 // eslint-disable-next-line no-unused-vars
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from 'prop-types';
 import { Table } from 'data-transparency-ui';
+import { tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { levels } from './StatusOfFunds';
 import StatusOfFundsChart from '../visualizations/StatusOfFundsChart';
 import RoundedToggle from "../../sharedComponents/RoundedToggle";
 import Accordion from "../../sharedComponents/accordion/Accordion";
 import GlossaryLink from "../../sharedComponents/GlossaryLink";
+import { throttle } from "lodash";
+
 
 const propTypes = {
     toggle: PropTypes.bool,
@@ -53,7 +56,21 @@ const VisualizationSection = ({
     fetchFederalAccounts
 }) => {
     const [open, setOpen] = useState(false);
+    const [windowWidth, setWindowWidth] = useState(0);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < tabletScreen);
     const fyString = `FY${fy.slice(2)}`;
+
+    useEffect(() => {
+        const handleResize = throttle(() => {
+            const newWidth = window.innerWidth;
+            if (windowWidth !== newWidth) {
+                setWindowWidth(newWidth);
+                setIsMobile(newWidth < tabletScreen);
+            }
+        }, 50);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, [windowWidth]);
 
     const columns = toggle ?
         [
@@ -74,7 +91,7 @@ const VisualizationSection = ({
             },
             {
                 title: 'totalBudgetaryResources',
-                displayName: [`${fyString} Total Budgetary`, <br />, 'Resources']
+                displayName: isMobile ? 'Total Budgetary Resources' : [`${fyString} Total Budgetary`, <br />, 'Resources']
             },
             {
                 title: 'obligations',
