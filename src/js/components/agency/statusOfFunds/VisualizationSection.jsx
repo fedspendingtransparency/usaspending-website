@@ -16,6 +16,7 @@ import StatusOfFundsChart from '../visualizations/StatusOfFundsChart';
 import RoundedToggle from "../../sharedComponents/RoundedToggle";
 import Accordion from "../../sharedComponents/accordion/Accordion";
 import GlossaryLink from "../../sharedComponents/GlossaryLink";
+import ChartTableToggle from "../../sharedComponents/buttons/ChartTableToggle";
 
 const propTypes = {
     toggle: PropTypes.bool,
@@ -58,7 +59,9 @@ const VisualizationSection = ({
     const [open, setOpen] = useState(false);
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < tabletScreen);
+
     const fyString = `FY${fy.slice(2)}`;
+    const accordionTitle = (<span>What&nbsp;is&nbsp;this?</span>);
 
     useEffect(() => {
         const handleResize = throttle(() => {
@@ -138,15 +141,26 @@ const VisualizationSection = ({
                 const el = document.querySelector("div.tooltip-wrapper.sof_chart-tt");
                 el.style.display = "none";
             }}>
-            <h6>{level === 1 ? selectedSubcomponent?.name : agencyName} by <span className="status-of-funds__emphasis">{levels[level]}</span> for FY {fy}</h6>
-            <div
-                className="status-of-funds__controls">
-                <RoundedToggle toggle={toggle} onKeyToggle={onKeyToggle} onToggle={onToggle} label="View Outlays" />
-                <div className="status-of-funds__line-div" />
-                <div className="status-of-funds__accordion">
-                    <Accordion setOpen={setOpen} closedIcon="chevron-down" openIcon="chevron-up" title="What is this?" />
+            <h6>{level === 1 ? selectedSubcomponent?.name : agencyName} by <span className="status-of-funds__emphasis">{levels[level]}</span> for FY {fy}
+            </h6>
+            {isMobile ? (
+                <div className="status-of-funds__controls-mobile">
+                    <div className="status-of-funds__controls-mobile-row-one">
+                        <RoundedToggle toggle={toggle} onKeyToggle={onKeyToggle} onToggle={onToggle} label="View Outlays" />
+                        <ChartTableToggle />
+                    </div>
+                    <Accordion setOpen={setOpen} closedIcon="chevron-down" openIcon="chevron-up" title={accordionTitle} />
                 </div>
-            </div>
+            )
+                :
+                (
+                    <div className="status-of-funds__controls">
+                        <RoundedToggle toggle={toggle} onKeyToggle={onKeyToggle} onToggle={onToggle} label="View Outlays" />
+                        <ChartTableToggle />
+                        <div className="status-of-funds__line-div" />
+                        <Accordion setOpen={setOpen} closedIcon="chevron-down" openIcon="chevron-up" title="What is this?" />
+                    </div>
+                )}
             {open &&
             <div className="status-of-funds__what-content">
                 <FontAwesomeIcon icon="info-circle" className="status-of-funds__info-icon" />

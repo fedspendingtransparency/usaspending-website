@@ -1,4 +1,13 @@
 .status-of-funds__visualization {
+    // all css for the status of funds accordion is in the index.scss for the agency page
+    .status-of-funds__controls-mobile {
+        margin-bottom: 16px;
+
+        .status-of-funds__controls-mobile-row-one {
+            display: flex;
+            justify-content: space-between;
+        }
+    }
     .status-of-funds__controls {
         margin-bottom: 16px;
         @media(min-width: $large-screen) {
@@ -15,12 +24,6 @@
                 line-height: 24px;
                 height: 24px;
                 margin-left: 8px;
-            }
-        }
-
-        .status-of-funds__accordion {
-            &:hover, &:active, &:focus, &:visited {
-                color: $color-gray-medium;
             }
         }
     }
