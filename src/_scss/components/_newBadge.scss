@@ -23,32 +23,31 @@
 }
 
 .new-badge-outer {
+  color: $color-secondary-dark;
   height: rem(14);
   width: rem(14);
-  background-color: $color-secondary-dark;
   position: relative;
-  border-radius: 50%;
-  margin-right: rem(7);
+  margin-right: rem(4);
   margin-top: rem(4);
-}
 
-.new-badge-middle {
-  height: rem(12);
-  width: rem(12);
-  background-color: #fff;
-  position: absolute;
-  top: rem(1);
-  left: rem(1);
-  border-radius: 50%;
-}
+  @media(max-width: $medium-screen) {
+    margin-right: rem(8);
+    margin-bottom: rem(4);
+  }
 
-.new-badge-inner {
-  height: rem(8);
-  width: rem(8);
-  background-color: $color-secondary-dark;
-  position: absolute;
-  top: rem(2);
-  left: rem(2);
-  border-radius: 50%;
+  svg {
+    margin-bottom: rem(5);
+    height: rem(10);
+    width: rem(10);
 
+    @media(max-width: $medium-screen) {
+      position: absolute;
+      top: rem(1);
+      left: rem(1);
+      height: rem(16);
+      width: rem(16);
+      margin-right: 8px;
+    
+    }
+  }
 }
