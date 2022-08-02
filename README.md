@@ -32,7 +32,7 @@ _Get the code and install the runtime and dependencies_
     ```
 1. Perform an install to get an exact dependency tree:
     ```shell
-    $ npm install --legacy-peer-deps
+    $ npm ci --legacy-peer-deps
     ```
 1. Run the site in a local dev server:
     ```shell
