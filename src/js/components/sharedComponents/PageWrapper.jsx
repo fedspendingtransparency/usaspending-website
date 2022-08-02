@@ -44,7 +44,7 @@ PageWrapper.propTypes = {
     classNames: PropTypes.string,
     metaTagProps: PropTypes.object,
     toolBarComponents: PropTypes.arrayOf(PropTypes.element),
-    title: PropTypes.string.isRequired,
+    title: PropTypes.string,
     overLine: PropTypes.string,
     children: PropTypes.element,
     ref: PropTypes.object,
