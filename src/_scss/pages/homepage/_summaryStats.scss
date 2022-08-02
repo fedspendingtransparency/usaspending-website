@@ -86,11 +86,11 @@ $largeMobile: 576px;
       }
 
       @media(min-width: 1229px) and (max-width: $maxWidth - 1) {
-        margin: rem(24) 6% rem(24) 0;
+        margin: rem(24) 4.5% rem(24) 0;
       }
 
       @media(min-width: $stackedShort) and (max-width: 1228px) {
-        margin: rem(24) 4% rem(24) 0;
+        margin: rem(24) 3% rem(24) 0;
       }
 
       @media (min-width: $largeMobile) {
