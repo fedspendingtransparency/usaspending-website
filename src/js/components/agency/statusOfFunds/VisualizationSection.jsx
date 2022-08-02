@@ -142,7 +142,7 @@ const VisualizationSection = ({
             {/*     className="status-of-funds__visualization-chart"> */}
             {/*     <StatusOfFundsChart toggle={toggle} fetchFederalAccounts={fetchFederalAccounts} totalItems={totalItems} setTotalItems={setTotalItems} loading={loading} setLoading={setLoading} fy={fy} results={results} level={level} setLevel={setLevel} /> */}
             {/* </div> */}
-            <div>
+            <div className="status-of-funds__visualization-table-container">
                 <Table
                     classNames="award-type-tooltip__table"
                     columns={columns}
