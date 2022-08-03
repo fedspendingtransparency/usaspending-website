@@ -19,9 +19,6 @@ const defaultProps = {
 };
 
 const ChartTableToggle = () => {
-    // icons need to be here, not sent in?
-    // or needs to be an array bc two are needed
-    console.log('in ChartTableToggle');
     return (
         <div className="chart-table-toggle" >
             TEXT HERE

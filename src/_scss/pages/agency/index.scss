@@ -35,8 +35,10 @@
         border: none;
         font-size: rem(14);
         max-width: rem(120);
+        // overriding styles from _accordion.scss
         padding: 0 !important;
         margin: 0 !important;
+        justify-content: unset !important;
 
         &:hover, &:active, &:focus, &:visited {
             color: $color-primary-darker;
@@ -63,6 +65,7 @@
         color: $color-primary;
         font-size: rem(14);
         font-weight: $font-semibold;
+        padding-left: rem(6);
         &:hover, &:active, &:focus, &:visited {
             color: $color-primary-darker;
         }
