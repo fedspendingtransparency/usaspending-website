@@ -3,9 +3,13 @@
     .status-of-funds__controls-mobile {
         margin-bottom: 16px;
 
-        .status-of-funds__controls-mobile-row-one {
+            .status-of-funds__controls-mobile-row-one {
             display: flex;
             justify-content: space-between;
+
+            .rounded-toggle__wrapper {
+                align-self: center;
+            }
         }
     }
     .status-of-funds__controls {

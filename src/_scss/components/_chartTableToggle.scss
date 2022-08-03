@@ -1,4 +1,17 @@
 .chart-table-toggle {
   min-height: rem(32);
   border: solid 1px $color-primary;
+  border-radius: 4px;
+
+  .toggle-button {
+    margin: 0;
+    padding: rem(12);
+    background-color: $color-white;
+    color: $color-primary;
+    &.active {
+      background-color: $color-primary-alt-dark;
+      border-color: $color-primary-alt-dark;
+      color: $color-white;
+    }
+  }
 }

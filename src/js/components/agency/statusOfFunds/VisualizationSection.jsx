@@ -59,6 +59,7 @@ const VisualizationSection = ({
     const [open, setOpen] = useState(false);
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < tabletScreen);
+    const [viewType, setViewType] = useState('table');
 
     const fyString = `FY${fy.slice(2)}`;
     const accordionTitle = (<span>What&nbsp;is&nbsp;this?</span>);
@@ -134,6 +135,18 @@ const VisualizationSection = ({
             )
         ]));
 
+    const changeView = (label) => {
+        setViewType(label);
+    };
+
+    const chartTableToggle = (
+        <ChartTableToggle
+            leftIcon="chart-bar"
+            rightIcon="table"
+            active="table"
+            changeView={changeView} />
+    );
+
     return (
         <div
             className="status-of-funds__visualization"
@@ -148,7 +161,7 @@ const VisualizationSection = ({
                     <div className="status-of-funds__controls-mobile">
                         <div className="status-of-funds__controls-mobile-row-one">
                             <RoundedToggle toggle={toggle} onKeyToggle={onKeyToggle} onToggle={onToggle} label="View Outlays" />
-                            <ChartTableToggle />
+                            {chartTableToggle}
                         </div>
                         <Accordion setOpen={setOpen} closedIcon="chevron-down" openIcon="chevron-up" title={accordionTitle} />
                     </div>
@@ -161,7 +174,7 @@ const VisualizationSection = ({
                             <div className="status-of-funds__controls-desktop-row-one">
                                 <h6>{level === 1 ? selectedSubcomponent?.name : agencyName} by <span className="status-of-funds__emphasis">{levels[level]}</span> for FY {fy}
                                 </h6>
-                                <ChartTableToggle />
+                                {chartTableToggle}
                             </div>
                             <div className="status-of-funds__controls-desktop-row-two">
                                 <RoundedToggle toggle={toggle} onKeyToggle={onKeyToggle} onToggle={onToggle} label="View Outlays" />
