@@ -17,7 +17,7 @@ cache:
 before_install:
   - npm install -g @lhci/cli@0.9.x
 install:
-  - npm ci --legacy-peer-deps
+  - npm install --legacy-peer-deps
 script:
   - npm run dev
   - npm run travis
