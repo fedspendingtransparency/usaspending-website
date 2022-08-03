@@ -1,7 +1,17 @@
 .chart-table-toggle {
+  display: flex;
   min-height: rem(32);
   border: solid 1px $color-primary;
   border-radius: 4px;
+
+  @media(min-width: $tablet-screen) {
+    max-height: rem(46);
+    margin-top: rem(30);
+  }
+
+  @media(min-width: $medium-screen) {
+    margin-top: 0;
+  }
 
   .toggle-button {
     margin: 0;
