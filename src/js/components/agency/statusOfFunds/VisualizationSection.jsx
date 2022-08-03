@@ -59,7 +59,7 @@ const VisualizationSection = ({
     const [open, setOpen] = useState(false);
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < tabletScreen);
-    const [viewType, setViewType] = useState('table');
+    const [viewType, setViewType] = useState(isMobile ? 'table' : 'chart');
 
     const fyString = `FY${fy.slice(2)}`;
     const accordionTitle = (<span>What&nbsp;is&nbsp;this?</span>);
@@ -141,9 +141,7 @@ const VisualizationSection = ({
 
     const chartTableToggle = (
         <ChartTableToggle
-            leftIcon="chart-bar"
-            rightIcon="table"
-            active="table"
+            activeType={viewType}
             changeView={changeView} />
     );
 
@@ -192,17 +190,22 @@ const VisualizationSection = ({
                 <p className="status-of-funds__what-second-heading">Why are the <em>obligation</em> and <em>budgetary resource</em> amounts no longer visible on the chart?</p>
                 <p className="status-of-funds__what-text">Remember, the <span className="status-of-funds__emphasis">budgetary resources</span> <GlossaryLink term="budgetary-resources" /> and obligations on this chart refer to available amounts and promised amounts for spending <em>in your selected fiscal year</em>. However, agencies may make outlays to pay off obligations made in your selected year <em>or in previous years</em>. This means outlays on this chart should <span className="status-of-funds__emphasis">not</span> be compared to the obligations or budgetary resources within any single fiscal year.</p>
             </div>}
-            {/* <div */}
-            {/*     className="status-of-funds__visualization-chart"> */}
-            {/*     <StatusOfFundsChart toggle={toggle} fetchFederalAccounts={fetchFederalAccounts} totalItems={totalItems} setTotalItems={setTotalItems} loading={loading} setLoading={setLoading} fy={fy} results={results} level={level} setLevel={setLevel} /> */}
-            {/* </div> */}
-            <div className="status-of-funds__visualization-table-container">
-                <Table
-                    classNames="award-type-tooltip__table"
-                    columns={columns}
-                    rows={rows}
-                    isStacked />
-            </div>
+            {viewType === 'chart' ? (
+                <div
+                    className="status-of-funds__visualization-chart">
+                    <StatusOfFundsChart toggle={toggle} fetchFederalAccounts={fetchFederalAccounts} totalItems={totalItems} setTotalItems={setTotalItems} loading={loading} setLoading={setLoading} fy={fy} results={results} level={level} setLevel={setLevel} />
+                </div>
+            )
+                :
+                (
+                    <div className="status-of-funds__visualization-table-container">
+                        <Table
+                            classNames="award-type-tooltip__table"
+                            columns={columns}
+                            rows={rows}
+                            isStacked />
+                    </div>
+                )}
         </div>
     );
 };

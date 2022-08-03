@@ -13,7 +13,8 @@
     margin-top: 0;
   }
 
-  .toggle-button {
+  // overriding the css in _viewTypeButton
+  .view-button {
     margin: 0;
     padding: rem(12);
     background-color: $color-white;
