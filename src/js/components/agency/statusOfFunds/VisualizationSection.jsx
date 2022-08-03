@@ -141,25 +141,35 @@ const VisualizationSection = ({
                 const el = document.querySelector("div.tooltip-wrapper.sof_chart-tt");
                 el.style.display = "none";
             }}>
-            <h6>{level === 1 ? selectedSubcomponent?.name : agencyName} by <span className="status-of-funds__emphasis">{levels[level]}</span> for FY {fy}
-            </h6>
             {isMobile ? (
-                <div className="status-of-funds__controls-mobile">
-                    <div className="status-of-funds__controls-mobile-row-one">
-                        <RoundedToggle toggle={toggle} onKeyToggle={onKeyToggle} onToggle={onToggle} label="View Outlays" />
-                        <ChartTableToggle />
+                <>
+                    <h6>{level === 1 ? selectedSubcomponent?.name : agencyName} by <span className="status-of-funds__emphasis">{levels[level]}</span> for FY {fy}
+                    </h6>
+                    <div className="status-of-funds__controls-mobile">
+                        <div className="status-of-funds__controls-mobile-row-one">
+                            <RoundedToggle toggle={toggle} onKeyToggle={onKeyToggle} onToggle={onToggle} label="View Outlays" />
+                            <ChartTableToggle />
+                        </div>
+                        <Accordion setOpen={setOpen} closedIcon="chevron-down" openIcon="chevron-up" title={accordionTitle} />
                     </div>
-                    <Accordion setOpen={setOpen} closedIcon="chevron-down" openIcon="chevron-up" title={accordionTitle} />
-                </div>
+                </>
             )
                 :
                 (
-                    <div className="status-of-funds__controls">
-                        <RoundedToggle toggle={toggle} onKeyToggle={onKeyToggle} onToggle={onToggle} label="View Outlays" />
-                        <ChartTableToggle />
-                        <div className="status-of-funds__line-div" />
-                        <Accordion setOpen={setOpen} closedIcon="chevron-down" openIcon="chevron-up" title="What is this?" />
-                    </div>
+                    <>
+                        <div className="status-of-funds__controls">
+                            <div className="status-of-funds__controls-desktop-row-one">
+                                <h6>{level === 1 ? selectedSubcomponent?.name : agencyName} by <span className="status-of-funds__emphasis">{levels[level]}</span> for FY {fy}
+                                </h6>
+                                <ChartTableToggle />
+                            </div>
+                            <div className="status-of-funds__controls-desktop-row-two">
+                                <RoundedToggle toggle={toggle} onKeyToggle={onKeyToggle} onToggle={onToggle} label="View Outlays" />
+                                <div className="status-of-funds__line-div" />
+                                <Accordion setOpen={setOpen} closedIcon="chevron-down" openIcon="chevron-up" title="What is this?" />
+                            </div>
+                        </div>
+                    </>
                 )}
             {open &&
             <div className="status-of-funds__what-content">
