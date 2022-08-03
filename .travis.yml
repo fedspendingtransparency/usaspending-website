@@ -1,6 +1,6 @@
 language: node_js
 node_js:
-  - "14.17.0"
+  - "16.14.2"
 # Need a C++ compiler
 addons:
   apt:
@@ -15,7 +15,9 @@ cache:
   directories:
     - node_modules
 before_install:
-  - npm install -g @lhci/cli@0.4.x
+  - npm install -g @lhci/cli@0.9.x
+install:
+  - npm ci --legacy-peer-deps
 script:
   - npm run dev
   - npm run travis
