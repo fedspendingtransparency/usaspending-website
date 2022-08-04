@@ -1,5 +1,5 @@
 /**
- * EquityMainCard.jsx
+ * MainCard.jsx
  * Created by Nick Torres 06/15/2022
  */
 
@@ -16,7 +16,7 @@ const propTypes = {
     className: PropTypes.string
 };
 
-const EquityMainCard = ({
+const MainCard = ({
     image, heading, text, button, imageColor, className
 }) => (
     <FlexGridRow className="equity-main-card-content">
@@ -39,5 +39,5 @@ const EquityMainCard = ({
     </FlexGridRow>
 );
 
-EquityMainCard.propTypes = propTypes;
-export default EquityMainCard;
+MainCard.propTypes = propTypes;
+export default MainCard;
