@@ -5,15 +5,14 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Set } from 'immutable';
+import { isCancel } from 'axios';
+import { initialState as defaultFilters } from 'redux/reducers/search/searchFiltersReducer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { recipientOverviewLoanInfo } from 'components/recipient/InfoTooltipContent';
 import { idList } from 'dataMapping/shared/recipientIdentifiers';
-import { useDispatch } from 'react-redux';
-import { clearAllFilters } from 'redux/actions/search/searchFilterActions';
-import { applyStagedFilters, resetAppliedFilters, setAppliedFilterCompletion } from 'redux/actions/search/appliedFilterActions';
-import { initialState as defaultFilters } from 'redux/reducers/search/searchFiltersReducer';
-import { Set } from 'immutable';
+import { generateUrlHash } from "../../helpers/searchHelper";
 import FaceValueOfLoans from '../sharedComponents/FaceValueOfLoans';
 import RecipientMultiParentCollapse from './RecipientMultiParentCollapse';
 
@@ -24,8 +23,6 @@ const propTypes = {
 };
 
 const RecipientOverview = (props) => {
-    const dispatch = useDispatch();
-    const history = useHistory();
     const recipient = props.recipient.overview;
     let label = (
         <div className="recipient-overview__label">
@@ -100,17 +97,42 @@ const RecipientOverview = (props) => {
         );
     }
 
+    const getSelectedHash = (uei) => {
+        const filter = new Set().add(uei);
+        const filterValue = {
+            filters: {
+                ...defaultFilters,
+                selectedRecipients: filter
+            },
+            version: "2020-06-01"
+        };
+        let tempHash = generateUrlHash(filterValue);
+        tempHash.promise
+            .then((results) => {
+                const hashData = results.data;
+                window.open(`/search/?hash=${hashData.hash}`, '_blank');
+                // operation has resolved
+                tempHash = null;
+            })
+            .catch((error) => {
+                console.log(error);
+                if (isCancel(error)) {
+                    // Got cancelled
+                }
+                else if (error.response) {
+                    // Errored out but got response, toggle noAward flag
+                    this.hash = null;
+                }
+                else {
+                    // Request failed
+                    tempHash = null;
+                    console.log(error);
+                }
+            });
+    };
     const handleGoToAdvancedSearch = (e) => {
         e.preventDefault();
-        dispatch(clearAllFilters());
-        dispatch(resetAppliedFilters());
-        dispatch(setAppliedFilterCompletion(false));
-        const filter = new Set().add(recipient.uei);
-        dispatch(applyStagedFilters({
-            ...defaultFilters,
-            selectedRecipients: filter
-        }));
-        history.push('/search');
+        getSelectedHash(recipient.uei);
     };
 
     return (
