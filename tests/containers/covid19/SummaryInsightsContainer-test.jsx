@@ -31,7 +31,7 @@ describe('COVID-19 Summary Insights Container', () => {
         assistanceOnly: false,
         recipientOnly: true
     };
-    it(`should request assistance award types for the CFDA section "All Awards" tab`, () => {
+    it(`should request assistance award types for the CFDA section "All Awards" tab`, async () => {
         const spy = jest.spyOn(apis, 'fetchAwardAmounts');
         render(<SummaryInsightsContainer {...mockCFDAProps} />, { initialState: { covid19: { defcParams: mockDefcParams } } });
         expect(spy).toHaveBeenCalledWith({
@@ -41,9 +41,9 @@ describe('COVID-19 Summary Insights Container', () => {
             }
         });
     });
-    it(`should leave out the assistance award types param for other sections' "All Awards" tab`, () => {
+    it(`should leave out the assistance award types param for other sections' "All Awards" tab`, async () => {
         const spy = jest.spyOn(apis, 'fetchAwardAmounts');
-        
+
         render(<SummaryInsightsContainer {...mockRecipientProps} />, { initialState: { covid19: { defcParams: mockDefcParams } } });
         expect(spy).toHaveBeenCalledWith({
             filter: {
@@ -51,12 +51,12 @@ describe('COVID-19 Summary Insights Container', () => {
             }
         });
     });
-    it(`should make a new API request when the DEFC params change`, () => {
+    it(`should make a new API request when the DEFC params change`, async () => {
         const spy = jest.spyOn(apis, 'fetchAwardAmounts');
         jest.spyOn(redux, 'useSelector').mockReturnValue({
             defcParams: mockDefcParams
         });
-        const { rerender } = render(<SummaryInsightsContainer {...mockRecipientProps} />);
+        render(<SummaryInsightsContainer {...mockRecipientProps} />);
         expect(spy).toHaveBeenCalledTimes(1);
         expect(spy).toHaveBeenCalledWith({
             filter: {
@@ -67,7 +67,7 @@ describe('COVID-19 Summary Insights Container', () => {
         jest.spyOn(redux, 'useSelector').mockReturnValue({
             defcParams: differentDefcParams
         });
-        rerender(<SummaryInsightsContainer {...mockRecipientProps} />);
+        render(<SummaryInsightsContainer {...mockRecipientProps} />);
         expect(spy).toHaveBeenCalledTimes(2);
         expect(spy).toHaveBeenLastCalledWith({
             filter: {
