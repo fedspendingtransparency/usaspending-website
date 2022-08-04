@@ -1,7 +1,6 @@
 .chart-table-toggle {
   display: flex;
   min-height: rem(32);
-  border: solid 1px $color-primary;
   border-radius: 4px;
 
   @media(min-width: $tablet-screen) {
@@ -16,13 +15,24 @@
   // overriding the css in _viewTypeButton
   .view-button {
     margin: 0;
-    padding: rem(12);
+    padding: rem(12) rem(16);
     background-color: $color-white;
     color: $color-primary;
+    border: solid 1px $color-primary;
+    border-radius: 0;
     &.active {
-      background-color: $color-primary-alt-dark;
-      border-color: $color-primary-alt-dark;
+      background-color: $color-primary;
       color: $color-white;
     }
+  }
+
+  button:first-of-type {
+    border-radius: 4px 0 0 4px;
+  }
+  button:nth-of-type(2) {
+    border-radius: 0 4px 4px 0;
+  }
+  svg {
+    font-size: 22px;
   }
 }

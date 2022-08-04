@@ -8,12 +8,12 @@ import PropTypes from "prop-types";
 import ViewTypeButton from "./ViewTypeButton";
 
 const propTypes = {
-    active: PropTypes.bool,
+    activeType: PropTypes.string,
     changeView: PropTypes.func
 };
 
 const ChartTableToggle = ({
-    active,
+    activeType,
     changeView
 }) => (
     <div className="chart-table-toggle" >
@@ -21,13 +21,13 @@ const ChartTableToggle = ({
             value="chart"
             label="chart"
             changeView={changeView}
-            active={active === 'chart'}
+            active={activeType === 'chart'}
             icon="chart-bar">
         </ViewTypeButton>
         <ViewTypeButton
             value="table"
             label="table"
-            active={active === 'table'}
+            active={activeType === 'table'}
             changeView={changeView}
             icon="table">
         </ViewTypeButton>
