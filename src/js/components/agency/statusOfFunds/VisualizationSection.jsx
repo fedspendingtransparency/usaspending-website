@@ -70,11 +70,12 @@ const VisualizationSection = ({
             if (windowWidth !== newWidth) {
                 setWindowWidth(newWidth);
                 setIsMobile(newWidth < tabletScreen);
+                setViewType(isMobile ? 'table' : viewType);
             }
         }, 50);
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-    }, [windowWidth]);
+    }, [isMobile, viewType, windowWidth]);
 
     const columns = toggle ?
         [
