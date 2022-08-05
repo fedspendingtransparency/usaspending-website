@@ -16,6 +16,7 @@ WORKDIR /node-workspace
 
 # Clean Node module dependencies and install them fresh
 RUN npm install -g npm@8.5.0
+RUN npm install -g npx
 RUN npm ci --package-lock-only --legacy-peer-deps;npm audit fix --force
 
 # Now copy the remaining source files
