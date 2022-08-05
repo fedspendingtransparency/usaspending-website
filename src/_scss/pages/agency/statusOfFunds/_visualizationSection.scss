@@ -13,6 +13,9 @@
         }
     }
     .status-of-funds__controls {
+        @media(min-width: $large-screen) {
+            margin-right: rem(6);
+        }
         .status-of-funds__controls-desktop-row-one {
             display: flex;
             justify-content: space-between;
@@ -188,7 +191,7 @@
     }
     .status-of-funds__visualization-table-container {
         @media(min-width: $large-screen) {
-            margin-left: rem(32);
+            margin: 0 rem(6) 0 rem(32);
 
             .usda-table {
                 margin: rem(20) 0;

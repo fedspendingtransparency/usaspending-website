@@ -39,7 +39,7 @@
         height: 14px;
         color: $color-primary;
         border: none;
-        font-size: rem(14);
+        font-size: $font-size-14;
         max-width: rem(120);
         padding: 0;
         margin: 0;
@@ -72,7 +72,7 @@
 
     .accordion-container .toggle {
         color: $color-primary;
-        font-size: rem(14);
+        font-size: $font-size-14;
         font-weight: $font-semibold;
         padding-left: rem(6);
         &:hover, &:active, &:focus, &:visited {
