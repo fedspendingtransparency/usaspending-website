@@ -4,6 +4,7 @@
     @import "layouts/default/stickyHeader/header";
     @import "pages/accountLanding/searchSection";
     @import './table/resultsSection';
+    @import './table/table';
 
     @include resultsSection;
     .results-count {
