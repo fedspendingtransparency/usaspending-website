@@ -89,7 +89,7 @@
 					color: $color-primary;
 					margin-top: rem(16);
 					font-size: rem(14);
-
+					width: fit-content;
 					&:hover {
 						color: $color-primary-darker;
 						svg {
