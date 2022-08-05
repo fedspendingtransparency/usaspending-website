@@ -10,13 +10,13 @@ RUN mkdir /node-workspace && mkdir /test-results
 # have changed, and instead use the cached layer containing all those dependent packages.
 # Greatly speeds up repeated docker build calls on the same machine (like CI/CD boxes) 
 # by leveraging the docker image cache
-COPY package.json /node-workspace/
+COPY package.json package-lock.json /node-workspace/
 
 WORKDIR /node-workspace
 
 # Clean Node module dependencies and install them fresh
 RUN npm install -g npm@8.5.0
-RUN npm install --package-lock-only --legacy-peer-deps; npm audit fix --force
+RUN npm ci --package-lock-only --legacy-peer-deps; npm audit fix --force
 
 # Now copy the remaining source files
 # Files in .dockerignore will not be copied
