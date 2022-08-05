@@ -134,7 +134,6 @@ const RecipientOverview = (props) => {
         e.preventDefault();
         getSelectedHash(recipient.uei);
     };
-
     return (
         <div
             id="recipient-overview"
@@ -162,7 +161,7 @@ const RecipientOverview = (props) => {
                             <div className="totals__awards">
                             from <span className="state-overview__total">{recipient.totalTransactions}</span> transactions
                             </div>
-                            {(recipient.uei !== "" || recipient.uei !== null) &&
+                            {(recipient.uei !== "" && recipient.uei !== null && recipient.uei !== undefined) &&
                                 <Link
                                     className="recipient-section__award-button"
                                     target="_blank"
