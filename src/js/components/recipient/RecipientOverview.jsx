@@ -5,9 +5,14 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Set } from 'immutable';
+import { isCancel } from 'axios';
+import { initialState as defaultFilters } from 'redux/reducers/search/searchFiltersReducer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from 'react-router-dom';
 import { recipientOverviewLoanInfo } from 'components/recipient/InfoTooltipContent';
 import { idList } from 'dataMapping/shared/recipientIdentifiers';
+import { generateUrlHash } from "../../helpers/searchHelper";
 import FaceValueOfLoans from '../sharedComponents/FaceValueOfLoans';
 import RecipientMultiParentCollapse from './RecipientMultiParentCollapse';
 
@@ -92,6 +97,43 @@ const RecipientOverview = (props) => {
         );
     }
 
+    const getSelectedHash = (uei) => {
+        const filter = new Set().add(uei);
+        const filterValue = {
+            filters: {
+                ...defaultFilters,
+                selectedRecipients: filter
+            },
+            version: "2020-06-01"
+        };
+        let tempHash = generateUrlHash(filterValue);
+        tempHash.promise
+            .then((results) => {
+                const hashData = results.data;
+                window.open(`/search/?hash=${hashData.hash}`, '_blank');
+                // operation has resolved
+                tempHash = null;
+            })
+            .catch((error) => {
+                console.log(error);
+                if (isCancel(error)) {
+                    // Got cancelled
+                }
+                else if (error.response) {
+                    // Errored out but got response, toggle noAward flag
+                    this.hash = null;
+                }
+                else {
+                    // Request failed
+                    tempHash = null;
+                    console.log(error);
+                }
+            });
+    };
+    const handleGoToAdvancedSearch = (e) => {
+        e.preventDefault();
+        getSelectedHash(recipient.uei);
+    };
     return (
         <div
             id="recipient-overview"
@@ -119,6 +161,16 @@ const RecipientOverview = (props) => {
                             <div className="totals__awards">
                             from <span className="state-overview__total">{recipient.totalTransactions}</span> transactions
                             </div>
+                            {(recipient.uei !== "" && recipient.uei !== null && recipient.uei !== undefined) &&
+                                <Link
+                                    className="recipient-section__award-button"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    to="/search"
+                                    onClick={handleGoToAdvancedSearch}>
+                                View awards to this recipient
+                                </Link>
+                            }
                         </div>
                         <div className="recipient-section__viz loan">
                             <FaceValueOfLoans amount={recipient.totalLoanFaceValueAmount} transactions={recipient.totalLoanTransactions} heading="Face Value of Loans" headingClass="recipient-overview__heading" tooltipIcon="info" tooltipClasses="recipient-section__viz-loan__tt" tooltipComponent={recipientOverviewLoanInfo} tooltipPosition="right" />
