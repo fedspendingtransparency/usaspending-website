@@ -1,4 +1,4 @@
-FROM node:14.17.0
+FROM node:16.14.2
 
 # Default environment variables
 ENV ENV=prod USASPENDING_API=https://api.usaspending.gov/api/ MAPBOX_TOKEN='' GA_TRACKING_ID=''
@@ -15,7 +15,10 @@ COPY package.json package-lock.json /node-workspace/
 WORKDIR /node-workspace
 
 # Clean Node module dependencies and install them fresh
-RUN npm ci
+#RUN npm install -g npm@8.5.0
+RUN npx force-resolutions
+RUN npm ci --package-lock-only --legacy-peer-deps; npm audit fix --force
+#RUN npx npm-force-resolutions
 
 # Now copy the remaining source files
 # Files in .dockerignore will not be copied
