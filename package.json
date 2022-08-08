@@ -46,6 +46,7 @@
         "@testing-library/user-event": "^12.1.6",
         "@webpack-cli/serve": "^1.6.1",
         "@wojtekmaj/enzyme-adapter-react-17": "^0.6.7",
+        "ajv-keywords": "5.1.0",
         "babel-jest": "^27.0.1",
         "babel-loader": "^8.2.5",
         "babel-plugin-module-resolver": "^3.2.0",
@@ -94,7 +95,6 @@
         "trim-newlines": "3.0.1",
         "got": "11.8.5",
         "glob-parent": "6.0.1",
-        "ajv-keywords": "5.1.0",
         "terser": "5.14.2"
     },
     "dependencies": {

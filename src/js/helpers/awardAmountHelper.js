@@ -73,6 +73,10 @@ export const determineSpendingScenarioAsstAwards = (awardAmountObj) => {
 
 // includes logic for idvs, contracts, loan award types
 export const determineSpendingScenario = (small = 0, bigger = 0, biggest = null) => {
+    console.log("small", small)
+    console.log("bigger", bigger)
+    console.log("biggest", biggest)
+
     const allCategoriesAreInPlay = (small && bigger && biggest);
 
     if (small === 0 && bigger === 0 && biggest === 0) {
@@ -110,6 +114,8 @@ export const determineFileCSpendingScenario = (awardType, awardAmountObj) => {
             if (scenario !== 'normal') return scenario;
             return determineSpendingScenario(_fileCOutlay, _fileCObligated, spendingCategory);
         }, 'normal');
+    console.log('1', fileCScenario)
+
     return (fileCScenario === 'normal') ? 'normal' : 'insufficientData';
 };
 
@@ -123,6 +129,7 @@ export const determineInfrastructureSpendingScenario = (awardType, awardAmountOb
             return determineSpendingScenario(_fileCOutlayInfrastructure, _fileCObligatedInfrastructure);
         }, 'normal');
 
+    console.log("2", fileCScenario)
     return (fileCScenario === 'normal') ? 'normal' : 'insufficientData';
 };
 
@@ -137,6 +144,7 @@ export const determineSpendingScenarioByAwardType = (awardType, awardAmountObj, 
     }
     // Small, bigger, and biggest define the expected ratio between spending categories
     const [small, bigger, biggest] = getAscendingSpendingCategoriesByAwardType(awardType, awardAmountObj);
+    console.log("3", determineSpendingScenario(small, bigger, biggest))
     return determineSpendingScenario(small, bigger, biggest);
 };
 

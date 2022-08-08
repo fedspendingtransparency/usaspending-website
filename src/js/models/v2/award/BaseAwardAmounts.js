@@ -18,8 +18,8 @@ const tempData = {
     description: "2013-2014 DL BASE RECORD",
     _subawardTotal: 0,
     subawardCount: 0,
-    _totalObligation: 0,
-    _totalOutlay: 0,
+    _totalObligation: 615894680,
+    _totalOutlay: 3592577,
     _child_award_total_outlay: 0,
     _grandchild_award_total_outlay: 0,
     _baseExercisedOptions: 0,
@@ -27,11 +27,23 @@ const tempData = {
     _dateSigned: "2013-06-11T04:00:00.000Z",
     naics: {},
     psc: {},
+    defCodes: [
+        "Z"
+    ],
     fileC: {
-        obligations: [],
-        outlays: []
+        obligations: [
+            {
+                code: "Z",
+                amount: 615894680
+            }
+        ],
+        outlays: [
+            {
+                code: "Z",
+                amount: 3592577
+            }
+        ]
     },
-    defCodes: [],
     cfdas: [
         {
             samWebsite: "https://sam.gov/fal/0c0ddb04f212489e9aa977e162a4a86f/view",
@@ -142,7 +154,7 @@ const tempData = {
         }
     },
     _faceValue: 143212546824,
-    _subsidy: 0,
+    _subsidy: 14321254682,
     _baseAllOptions: 0,
     _federalObligation: 0,
     _nonFederalFunding: 0,
@@ -240,7 +252,6 @@ const BaseAwardAmounts = {
         this._fileCObligatedInfrastructure = getInfrastructureTotals(data.fileC.obligations);
     },
     populateLoan(data, defCodes) {
-        console.log(data);
         this._subsidy = data._subsidy;
         this._faceValue = data._faceValue;
         this._totalOutlay = data._totalOutlay;
@@ -260,6 +271,7 @@ const BaseAwardAmounts = {
         this._fileCObligatedInfrastructure = getInfrastructureTotals(data.fileC.obligations);
     },
     populateContract(data, defCodes) {
+        console.log(data);
         this._totalObligation = data._totalObligation;
         this._totalOutlay = data._totalOutlay;
         this._baseExercisedOptions = data._baseExercisedOptions;
@@ -282,8 +294,8 @@ const BaseAwardAmounts = {
             this.populateContract(data, defCodes);
         }
         else if (awardAmountType === 'loan') {
-            // this.populateLoan(tempData, defCodes);
-            this.populateLoan(data, defCodes);
+            this.populateLoan(tempData, defCodes);
+            // this.populateLoan(data, defCodes);
         }
         else {
             // grants, direct payment, insurance, other all use populateAsst
