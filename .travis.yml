@@ -16,9 +16,9 @@ cache:
     - node_modules
 before_install:
   - npm install -g @lhci/cli@0.9.x
-  - npx npm-force-resolutions
 install:
   - npm install --legacy-peer-deps
+  - npx npm-force-resolutions
 script:
   - npm run dev
   - npm run travis
