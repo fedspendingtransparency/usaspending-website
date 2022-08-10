@@ -302,8 +302,8 @@ const BaseAwardAmounts = {
             this.populateContract(data, defCodes);
         }
         else if (awardAmountType === 'loan') {
-            this.populateLoan(tempData, defCodes);
-            // this.populateLoan(data, defCodes);
+            // this.populateLoan(tempData, defCodes);
+            this.populateLoan(data, defCodes);
         }
         else {
             // grants, direct payment, insurance, other all use populateAsst
