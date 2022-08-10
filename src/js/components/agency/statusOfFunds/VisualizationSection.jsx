@@ -96,7 +96,7 @@ const VisualizationSection = ({
             },
             {
                 title: 'totalBudgetaryResources',
-                displayName: isMobile ? 'Total Budgetary Resources' : [`${fyString} Total Budgetary`, <br />, 'Resources']
+                displayName: isMobile ? `${fyString} Total Budgetary Resources` : [`${fyString} Total Budgetary`, <br />, 'Resources']
             },
             {
                 title: 'obligations',
