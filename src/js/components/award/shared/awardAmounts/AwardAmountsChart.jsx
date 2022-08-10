@@ -502,8 +502,6 @@ const AwardAmountsChart = ({
         const hasfilecCovid = awardAmounts._fileCObligated > 0 || awardAmounts._fileCOutlay > 0;
         const hasOutlays = awardAmounts._combinedOutlay > 0 || awardAmounts._totalOutlay > 0 || infrastructure;
 
-        console.log('outlay', hasOutlays)
-        console.log(scenario)
         switch (scenario) {
             case "exceedsBigger": {
                 return (
@@ -534,7 +532,6 @@ const AwardAmountsChart = ({
     };
 
     const renderChartByAwardType = (awardAmounts = awardOverview, type = awardType, scenario = spendingScenario) => {
-        console.log(scenario);
         const isNormal = scenario === 'normal';
         if (asstAwardTypesWithSimilarAwardAmountData.includes(type) && isNormal) {
             const isNffZero = awardAmounts._nonFederalFunding === 0;
@@ -681,9 +678,6 @@ const AwardAmountsChart = ({
         else if (type === 'loan' && isNormal) {
             const showFilecCovid = awardAmounts._fileCObligated > 0;
             const hasOutlays = awardAmounts._combinedOutlay > 0 || awardAmounts._totalOutlay > 0 || infrastructure;
-
-            console.log('outlay', hasOutlays)
-            console.log(scenario)
             const propsWithoutFileC = {
                 numerator: {
                     labelPosition: 'top',
@@ -787,9 +781,7 @@ const AwardAmountsChart = ({
                     }
                 }
                 : propsWithoutFileC;
-            if (hasOutlays) {
-                console.log('here 5')
-                console.log(infrastructure)
+            if (hasOutlays && !showFilecCovid) {
                 return <HorizontalSingleStackedBarViz {...propsWithoutFileCAndOutlays} />;
             }
             return <RectanglePercentViz {...props} />;

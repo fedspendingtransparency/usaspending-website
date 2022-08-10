@@ -189,7 +189,6 @@ const HorizontalSingleStackedBarViz = ({
                     .style('font-size', '20px');
             }
             else {
-                console.log(propsArr);
                 // current rect
                 chartSvg.append("rect")
                     .attr("x", 0)
@@ -257,7 +256,6 @@ const HorizontalSingleStackedBarViz = ({
                         .style("fill", "none");
                 }
                 // current label
-                console.log('calc',x(propsArr[1]))
                 chartSvg.append("foreignObject")
                     .attr('width', x(propsArr[1]) - 10)
                     .attr('height', 70)
@@ -315,7 +313,6 @@ const HorizontalSingleStackedBarViz = ({
         };
         // for Loans award type only
         const renderBarChartLoans = () => {
-            console.log(propsArr);
             // append the svg object to the div
             d3.select('#aa_chart').selectAll('*').remove();
             const chartSvg = d3.select('#aa_chart')
@@ -439,7 +436,7 @@ const HorizontalSingleStackedBarViz = ({
         else {
             renderBarChartLoans();
         }
-    }, [windowWidth, propsArr, numerator.className, potentialAmountValue, potentialAmountLabel, outlayedAmountValue, obligatedAmountColor, outlayedAmountColor, isNffZero, obligatedAmountValue, obligatedAmountLabel, currentAmountValue, currentAmountLabel, outlayedAmountLabel]);
+    }, [windowWidth, propsArr]);
 
     useEffect(() => {
         const handleResize = throttle(() => {
