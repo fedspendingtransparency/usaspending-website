@@ -255,6 +255,7 @@ const BaseAwardAmounts = {
         this._subsidy = data._subsidy;
         this._faceValue = data._faceValue;
         this._totalOutlay = data._totalOutlay;
+        this._totalObligation = data._totalObligation;
         this._fileCOutlay = getCovid19Totals(data.fileC.outlays, defCodes);
         this._fileCObligated = getCovid19Totals(data.fileC.obligations, defCodes);
         this._fileCOutlayInfrastructure = getInfrastructureTotals(data.fileC.outlays);
@@ -271,7 +272,6 @@ const BaseAwardAmounts = {
         this._fileCObligatedInfrastructure = getInfrastructureTotals(data.fileC.obligations);
     },
     populateContract(data, defCodes) {
-        console.log(data);
         this._totalObligation = data._totalObligation;
         this._totalOutlay = data._totalOutlay;
         this._baseExercisedOptions = data._baseExercisedOptions;
