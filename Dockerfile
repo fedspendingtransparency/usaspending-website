@@ -17,7 +17,7 @@ WORKDIR /node-workspace
 # Clean Node module dependencies and install them fresh
 RUN npm install -g npm@8.5.0
 RUN npm ci --legacy-peer-deps --ignore-scripts; npm audit fix --force
-
+RUN npm audit fix --force
 # Now copy the remaining source files
 # Files in .dockerignore will not be copied
 COPY . /node-workspace
