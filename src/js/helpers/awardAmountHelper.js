@@ -115,6 +115,7 @@ export const determineFileCSpendingScenario = (awardType, awardAmountObj) => {
 
 export const determineLoanSpendingScenario = (awardAmountObj) => {
     const { _totalOutlay, _totalObligation, _subsidy, _faceValue } = awardAmountObj;
+    if (_totalOutlay > _totalObligation || _totalObligation > _subsidy || _totalObligation > _faceValue || _subsidy > _faceValue) return 'insufficientData';
     if (_totalOutlay <= _totalObligation <= _subsidy <= _faceValue) return 'normal';
     return 'insufficientData';
 };

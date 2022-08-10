@@ -18,8 +18,8 @@ const tempData = {
     description: "2013-2014 DL BASE RECORD",
     _subawardTotal: 0,
     subawardCount: 0,
-    _totalObligation: 615894680,
-    _totalOutlay: 3592577,
+    _totalObligation: 0,
+    _totalOutlay: 0,
     _child_award_total_outlay: 0,
     _grandchild_award_total_outlay: 0,
     _baseExercisedOptions: 0,
@@ -28,28 +28,29 @@ const tempData = {
     naics: {},
     psc: {},
     defCodes: [
-        "Z", "N"
+        "Z",
+        // "N"
     ],
     fileC: {
         obligations: [
             {
                 code: "Z",
-                amount: 61589468
+                amount: 6158946800
             },
-            {
-                code: "N",
-                amount: 3592577
-            }
+            // {
+            //     code: "N",
+            //     amount: 3592577
+            // }
         ],
         outlays: [
             {
                 code: "Z",
-                amount: 3592577
+                amount: 0
             },
-            {
-                code: "N",
-                amount: 3592577
-            }
+            // {
+            //     code: "N",
+            //     amount: 3592577
+            // }
         ]
     },
     cfdas: [
@@ -302,8 +303,8 @@ const BaseAwardAmounts = {
             this.populateContract(data, defCodes);
         }
         else if (awardAmountType === 'loan') {
-            // this.populateLoan(tempData, defCodes);
-            this.populateLoan(data, defCodes);
+            this.populateLoan(tempData, defCodes);
+            // this.populateLoan(data, defCodes);
         }
         else {
             // grants, direct payment, insurance, other all use populateAsst
