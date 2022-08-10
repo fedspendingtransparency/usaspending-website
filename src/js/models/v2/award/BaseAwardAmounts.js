@@ -34,7 +34,7 @@ const tempData = {
         obligations: [
             {
                 code: "Z",
-                amount: 615894680
+                amount: 61589468
             }
         ],
         outlays: [
@@ -154,7 +154,7 @@ const tempData = {
         }
     },
     _faceValue: 143212546824,
-    _subsidy: 14321254682,
+    _subsidy: 113212546820,
     _baseAllOptions: 0,
     _federalObligation: 0,
     _nonFederalFunding: 0,
@@ -255,7 +255,7 @@ const BaseAwardAmounts = {
         this._subsidy = data._subsidy;
         this._faceValue = data._faceValue;
         this._totalOutlay = data._totalOutlay;
-        this._totalObligation = data._totalObligation;
+        // this._totalObligation = data._totalObligation;
         this._fileCOutlay = getCovid19Totals(data.fileC.outlays, defCodes);
         this._fileCObligated = getCovid19Totals(data.fileC.obligations, defCodes);
         this._fileCOutlayInfrastructure = getInfrastructureTotals(data.fileC.outlays);
@@ -294,8 +294,8 @@ const BaseAwardAmounts = {
             this.populateContract(data, defCodes);
         }
         else if (awardAmountType === 'loan') {
-            this.populateLoan(tempData, defCodes);
-            // this.populateLoan(data, defCodes);
+            // this.populateLoan(tempData, defCodes);
+            this.populateLoan(data, defCodes);
         }
         else {
             // grants, direct payment, insurance, other all use populateAsst
