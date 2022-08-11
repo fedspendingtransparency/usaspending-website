@@ -16,8 +16,6 @@ cache:
     - node_modules
 before_install:
   - npm install -g @lhci/cli@0.9.x
-  - npm cache clear --force
-  - npx npm-force-resolutions
 install:
   - npm install --legacy-peer-deps
 script:
