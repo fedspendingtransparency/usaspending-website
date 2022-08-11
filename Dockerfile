@@ -16,8 +16,9 @@ WORKDIR /node-workspace
 
 # Clean Node module dependencies and install them fresh
 # RUN npm install --verbose -g npm@latest
+RUN npm config set unsafe-perm true
 RUN npm cache clear --force
-RUN npx force-resolutions 
+# RUN npx force-resolutions 
 RUN npm install --verbose --legacy-peer-deps
 # RUN npm audit fix --verbose --force
 
