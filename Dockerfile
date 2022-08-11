@@ -15,7 +15,7 @@ COPY package.json /node-workspace/
 WORKDIR /node-workspace
 
 # Clean Node module dependencies and install them fresh
-# RUN npm install --verbose -g npm@latest
+RUN npm install --verbose -g npm@8.16.0
 RUN npm cache clear --force
 # RUN npx force-resolutions 
 RUN npm install --verbose --unsafe-perm --foreground-scripts --legacy-peer-deps
