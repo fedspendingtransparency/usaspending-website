@@ -18,7 +18,7 @@ WORKDIR /node-workspace
 RUN npm config set registry "https://registry.npmjs.org/"
 RUN npm install --verbose -g npm@latest
 RUN npm cache clear --force
-RUN npx npm-force-resolutions
+RUN npx npm-force-resolutions@0.0.9
 RUN npm install --verbose --legacy-peer-deps
 RUN npm audit fix --verbose --force
 # Now copy the remaining source files
