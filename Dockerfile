@@ -18,7 +18,7 @@ WORKDIR /node-workspace
 RUN npm install --verbose -g npm@8.16.0
 RUN npm cache clear --force
 # RUN npx force-resolutions 
-RUN npm install --verbose --unsafe-perm --foreground-scripts --legacy-peer-deps
+RUN npm install --unsafe-perm --legacy-peer-deps
 # RUN npm audit fix --verbose --force
 
 # Now copy the remaining source files
