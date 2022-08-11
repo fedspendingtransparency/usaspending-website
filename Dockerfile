@@ -15,11 +15,14 @@ COPY package.json package-lock.json /node-workspace/
 WORKDIR /node-workspace
 
 # Clean Node module dependencies and install them fresh
-#RUN npm install -g npm@8.5.0
-RUN npx force-resolutions
-RUN npm ci --package-lock-only --legacy-peer-deps; npm audit fix --force
-#RUN npx npm-force-resolutions
-
+RUN npm config set https-proxy "http://p1proxy.frb.org:8080/"
+RUN npm config set proxy "http://p1proxy.frb.org:8080/"
+RUN npm config set registry "https://registry.npmjs.org/"
+RUN npm install --verbose -g npm@latest
+RUN npm cache clear --force
+RUN npx npm-force-resolutions
+RUN npm install --verbose --legacy-peer-deps
+RUN npm audit fix --verbose --force
 # Now copy the remaining source files
 # Files in .dockerignore will not be copied
 COPY . /node-workspace
