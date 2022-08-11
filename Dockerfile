@@ -22,7 +22,7 @@ WORKDIR /node-workspace
 RUN npm cache clear --force
 RUN npx force-resolutions 
 RUN npm install --verbose --legacy-peer-deps
-RUN npm audit fix --verbose --force
+#RUN npm audit fix --verbose --force
 # Now copy the remaining source files
 # Files in .dockerignore will not be copied
 COPY . /node-workspace
