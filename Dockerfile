@@ -15,10 +15,10 @@ COPY package.json package-lock.json /node-workspace/
 WORKDIR /node-workspace
 
 # Clean Node module dependencies and install them fresh
-RUN npm config set https-proxy "http://daqnlb102-6cabec7b59104787.elb.us-gov-west-1.amazonaws.com:3128/"
-RUN npm config set proxy "http://daqnlb102-6cabec7b59104787.elb.us-gov-west-1.amazonaws.com:3128/"
-RUN npm config set registry "http://registry.npmjs.org/"
-#RUN npm install --verbose -g npm@la
+RUN npm config set https-proxy "http://daqnlb102-6cabec7b59104787.elb.us-gov-west-1.amazonaws.com:3128"
+RUN npm config set proxy "http://daqnlb102-6cabec7b59104787.elb.us-gov-west-1.amazonaws.com:3128"
+RUN npm config set registry "https://registry.npmjs.org/"
+#RUN npm install --verbose -g npm@latest
 RUN npm cache clear --force
 RUN npx npm-force-resolutions
 RUN npm install --verbose --legacy-peer-deps
