@@ -10,19 +10,17 @@ RUN mkdir /node-workspace && mkdir /test-results
 # have changed, and instead use the cached layer containing all those dependent packages.
 # Greatly speeds up repeated docker build calls on the same machine (like CI/CD boxes) 
 # by leveraging the docker image cache
-COPY package.json package-lock.json /node-workspace/
+COPY package.json /node-workspace/
 
 WORKDIR /node-workspace
 
 # Clean Node module dependencies and install them fresh
-RUN npm config set https-proxy "http://p1proxy.frb.org:8080/"
-RUN npm config set proxy "http://p1proxy.frb.org:8080/"
-RUN npm config set registry "https://registry.npmjs.org/"
-RUN npm install --verbose -g npm@latest
+# RUN npm install --verbose -g npm@latest
 RUN npm cache clear --force
-RUN npx npm-force-resolutions
+RUN npx force-resolutions 
 RUN npm install --verbose --legacy-peer-deps
-RUN npm audit fix --verbose --force
+# RUN npm audit fix --verbose --force
+
 # Now copy the remaining source files
 # Files in .dockerignore will not be copied
 COPY . /node-workspace
