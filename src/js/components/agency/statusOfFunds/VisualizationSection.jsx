@@ -85,7 +85,8 @@ const VisualizationSection = ({
             },
             {
                 title: 'outlays',
-                displayName: [`${fyString} Outlays`]
+                displayName: [`${fyString} Outlays`],
+                right: true
             }
         ]
         :
@@ -96,11 +97,13 @@ const VisualizationSection = ({
             },
             {
                 title: 'totalBudgetaryResources',
-                displayName: isMobile ? 'Total Budgetary Resources' : [`${fyString} Total Budgetary`, <br />, 'Resources']
+                displayName: isMobile ? `${fyString} Total Budgetary Resources` : [`${fyString} Total Budgetary`, <br />, 'Resources'],
+                right: true
             },
             {
                 title: 'obligations',
-                displayName: `${fyString} Obligations`
+                displayName: `${fyString} Obligations`,
+                right: true
             }
         ];
 
