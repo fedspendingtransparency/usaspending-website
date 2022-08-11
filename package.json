@@ -5,7 +5,7 @@
     "repository": "fedspendingtransparency/usaspending-website",
     "main": "src/index.js",
     "scripts": {
-        "preinstall": "",
+        "preinstall": "npx npm-force-resolutions",
         "start": "webpack serve --open --history-api-fallback --progress --config ./webpack/webpack.dev.config.js",
         "sass": "webpack serve --open --progress --config ./webpack/webpack.sass.config.js",
         "test": "./node_modules/.bin/jest; exit 0;",
@@ -115,7 +115,7 @@
         "d3-hierarchy": "^1.1.4",
         "d3-interpolate": "^1.1.4",
         "d3-scale": "^1.0.4",
-        "data-transparency-ui": "github:fedspendingtransparency/data-transparency-ui#v5.0.3",
+        "data-transparency-ui": "github:fedspendingtransparency/data-transparency-ui#v5.0.2",
         "date-fns": "^2.16.1",
         "file-loader": "^6.2.0",
         "focus-trap-react": "^9.0.2",
