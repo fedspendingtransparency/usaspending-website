@@ -217,8 +217,6 @@ const VisualizationSection = ({
                             classNames="award-type-tooltip__table"
                             columns={columns}
                             rows={rows}
-                            // expandable
-                            // divider=""
                             isStacked />
                     </div>
                 )}
