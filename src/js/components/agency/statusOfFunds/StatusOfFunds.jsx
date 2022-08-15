@@ -55,6 +55,7 @@ const StatusOfFunds = ({ fy }) => {
         }
         dispatch(resetAgencySubcomponents());
         dispatch(resetFederalAccountsList());
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     // eslint-disable-next-line eqeqeq
@@ -138,6 +139,7 @@ const StatusOfFunds = ({ fy }) => {
         if (Object.keys(subcomponent).length !== 0) {
             fetchFederalAccounts(subcomponent);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [subcomponent]);
 
     useEffect(() => {
@@ -152,6 +154,7 @@ const StatusOfFunds = ({ fy }) => {
                 fetchFederalAccounts(subcomponent);
             }
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentPage]);
 
     useEffect(() => {
@@ -164,12 +167,14 @@ const StatusOfFunds = ({ fy }) => {
                 changeCurrentPage(1);
             }
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [resetPageChange]);
 
     useEffect(() => {
         if (fy && overview.toptierCode) {
             fetchAgencySubcomponents();
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [fy, overview.toptierCode]);
 
     const onClick = (selectedLevel, data) => {
@@ -222,7 +227,25 @@ const StatusOfFunds = ({ fy }) => {
                             <FontAwesomeIcon icon="arrow-left" />
                             &nbsp;&nbsp;Back
                         </button> : <></>}
-                    { !loading ? <VisualizationSection toggle={toggle} onToggle={onToggle} onKeyToggle={onKeyToggle} fetchFederalAccounts={fetchFederalAccounts} totalItems={totalItems} setTotalItems={setTotalItems} loading={loading} setLoading={setLoading} level={level} setLevel={onClick} selectedSubcomponent={selectedSubcomponent} agencyId={overview.toptierCode} agencyName={overview.name} fy={fy} results={results} /> : <LoadingMessage /> }
+                    { !loading ?
+                        <VisualizationSection
+                            toggle={toggle}
+                            onToggle={onToggle}
+                            onKeyToggle={onKeyToggle}
+                            fetchFederalAccounts={fetchFederalAccounts}
+                            totalItems={totalItems}
+                            setTotalItems={setTotalItems}
+                            loading={loading}
+                            setLoading={setLoading}
+                            level={level}
+                            setLevel={onClick}
+                            selectedSubcomponent={selectedSubcomponent}
+                            agencyId={overview.toptierCode}
+                            agencyName={overview.name}
+                            fy={fy}
+                            results={results} />
+                        :
+                        <LoadingMessage /> }
                     <Pagination
                         currentPage={currentPage}
                         changePage={changeCurrentPage}

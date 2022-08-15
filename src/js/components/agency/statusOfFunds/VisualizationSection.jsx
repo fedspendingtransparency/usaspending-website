@@ -81,7 +81,7 @@ const VisualizationSection = ({
         [
             {
                 title: 'subComponent',
-                displayName: 'Sub-Component'
+                displayName: levels[level]
             },
             {
                 title: 'outlays',
@@ -93,7 +93,7 @@ const VisualizationSection = ({
         [
             {
                 title: 'subComponent',
-                displayName: 'Sub-Component'
+                displayName: levels[level]
             },
             {
                 title: 'totalBudgetaryResources',
@@ -197,7 +197,17 @@ const VisualizationSection = ({
             {viewType === 'chart' ? (
                 <div
                     className="status-of-funds__visualization-chart">
-                    <StatusOfFundsChart toggle={toggle} fetchFederalAccounts={fetchFederalAccounts} totalItems={totalItems} setTotalItems={setTotalItems} loading={loading} setLoading={setLoading} fy={fy} results={results} level={level} setLevel={setLevel} />
+                    <StatusOfFundsChart
+                        toggle={toggle}
+                        fetchFederalAccounts={fetchFederalAccounts}
+                        totalItems={totalItems}
+                        setTotalItems={setTotalItems}
+                        loading={loading}
+                        setLoading={setLoading}
+                        fy={fy}
+                        results={results}
+                        level={level}
+                        setLevel={setLevel} />
                 </div>
             )
                 :
@@ -207,6 +217,8 @@ const VisualizationSection = ({
                             classNames="award-type-tooltip__table"
                             columns={columns}
                             rows={rows}
+                            // expandable
+                            // divider=""
                             isStacked />
                     </div>
                 )}
