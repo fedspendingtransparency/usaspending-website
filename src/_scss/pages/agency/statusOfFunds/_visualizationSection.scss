@@ -1,26 +1,48 @@
 .status-of-funds__visualization {
-    .status-of-funds__controls {
+    // all css for the status of funds accordion is in the index.scss for the agency page
+    .status-of-funds__controls-mobile {
         margin-bottom: 16px;
-        @media(min-width: $large-screen) { 
-            display: flex;
-        }
-        margin-right: -16px;
-        @media(min-width: $medium-screen) {
-            justify-content: end;
-        }
 
-        .status-of-funds__line-div {
-            @media(min-width: $large-screen) { 
-                border-right: 1px solid $color-gray-lighter;
-                line-height: 24px;
-                height: 24px;
-                margin-left: 8px;
+            .status-of-funds__controls-mobile-row-one {
+            display: flex;
+            justify-content: space-between;
+
+            .rounded-toggle__wrapper {
+                align-self: center;
+            }
+        }
+    }
+    .status-of-funds__controls {
+        .status-of-funds__controls-desktop-row-one {
+            display: flex;
+            justify-content: space-between;
+            @media(min-width: $large-screen) {
+                margin-bottom: rem(16);
             }
         }
 
-        .status-of-funds__accordion {
-            &:hover, &:active, &:focus, &:visited {
-                color: $color-gray-medium;
+        .status-of-funds__controls-desktop-row-two {
+            @media(min-width: $large-screen) {
+                display: flex;
+                justify-content: end;
+            }
+
+            .rounded-toggle__wrapper {
+                @media(min-width: $tablet-screen) {
+                    margin-bottom: rem(6);
+                }
+                @media(min-width: $large-screen) {
+                    margin-bottom: 0;
+                }
+            }
+
+            .status-of-funds__line-div {
+                @media(min-width: $large-screen) {
+                    border-right: 1px solid $color-gray-lighter;
+                    line-height: 24px;
+                    height: 24px;
+                    margin-left: 8px;
+                }
             }
         }
     }
@@ -31,15 +53,15 @@
         border-right: 1px solid $color-primary-alt-light;
         border-bottom: 1px solid $color-primary-alt-light;
         background-color: #e0f3f8;
-        padding: 24px 16px;   
+        padding: 24px 16px;
         margin-left: 24px;
         margin-right: 8px;
         margin-bottom: 16px;
-        @media(max-width: $tablet-screen) { 
+        @media(max-width: $tablet-screen) {
             margin-left: 0;
             margin-right: 0;
         }
-        @media(min-width: $tablet-screen) and (max-width:$medium-screen) { 
+        @media(min-width: $tablet-screen) and (max-width:$medium-screen) {
             margin-left: 0;
             margin-right: 0;
             margin-top: 32px;
@@ -56,7 +78,7 @@
             &:hover, &:active, &:focus, &:visited {
                 color: $color-gray-medium;
             }
-        }    
+        }
 
         .status-of-funds__emphasis {
             white-space: nowrap;
@@ -147,7 +169,7 @@
         font-weight: $font-normal;
         color: $color-grayblack;
         @media(min-width: $medium-screen) {
-            margin-top: 0;
+            margin-top: rem(16);
         }
         @media(min-width: $large-screen) {
             margin-left: rem(32);
@@ -161,6 +183,19 @@
             line {
                 stroke: none;
                 fill: none;
+            }
+        }
+    }
+    .status-of-funds__visualization-table-container {
+        @media(min-width: $large-screen) {
+            margin-left: rem(32);
+
+            .usda-table {
+                margin: rem(20) 0;
+
+                .table-header__label {
+                    max-width: none;
+                }
             }
         }
     }

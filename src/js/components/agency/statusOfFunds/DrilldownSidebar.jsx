@@ -14,7 +14,7 @@ import DrilldownSidebarLevel from './DrilldownSidebarLevel';
 const propTypes = {
     toggle: PropTypes.bool.isRequired,
     level: PropTypes.number.isRequired,
-    setLevel: PropTypes.func,
+    goBack: PropTypes.func,
     fy: PropTypes.string.isRequired,
     agencyName: PropTypes.string,
     selectedSubcomponent: PropTypes.shape({
@@ -26,12 +26,12 @@ const propTypes = {
 };
 
 const DrilldownSidebar = ({
-    toggle, level, setLevel, fy, agencyName, selectedSubcomponent
+    toggle, level, goBack, fy, agencyName, selectedSubcomponent
 }) => {
     const { agencyBudgetShort, agencyObligatedShort } = useSelector((state) => state.agency.budgetaryResources?.[fy]) || '--';
     const { toptierCode } = useSelector((state) => state.agency.overview) || '--';
     const outlay = useSelector((state) => state.agency.agencyOutlays[toptierCode]) || '--';
-    const goBack = () => setLevel(level - 1);
+
     return (
         <>
             <DrilldownSidebarLevel

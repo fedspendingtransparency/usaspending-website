@@ -54,7 +54,7 @@ color: theme color for border, collapsed background, and highlighted text within
 backgroundColor: background of collapsed box
 */
 Accordion.propTypes = {
-    title: PropTypes.string.isRequired,
+    title: PropTypes.any.isRequired,
     children: PropTypes.element || PropTypes.string,
     icon: PropTypes.element || PropTypes.string,
     iconClassName: PropTypes.string,
