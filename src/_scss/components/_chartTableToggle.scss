@@ -1,0 +1,43 @@
+.chart-table-toggle {
+  display: flex;
+  border-radius: 4px;
+
+  @media(min-width: $tablet-screen) {
+    max-height: rem(46);
+    margin-top: rem(30);
+    margin-left: rem(20);
+  }
+
+  @media(min-width: $medium-screen) {
+    margin-top: 0;
+  }
+
+  // overriding the css in _viewTypeButton
+  .view-button {
+    margin: 0;
+    padding: rem(10);
+    background-color: $color-white;
+    color: $color-primary;
+    border: solid 1px $color-primary;
+    border-radius: 0;
+    &.active {
+      background-color: $color-primary;
+      color: $color-white;
+    }
+  }
+
+  button {
+    height: rem(40);
+    width: rem(48);
+  }
+  button:first-of-type {
+    border-radius: 4px 0 0 4px;
+  }
+  button:nth-of-type(2) {
+    border-radius: 0 4px 4px 0;
+  }
+  svg {
+    width: rem(22);
+    height: rem(18);
+  }
+}
