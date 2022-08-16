@@ -187,15 +187,21 @@
         }
     }
     .status-of-funds__visualization-table-container {
-        @media(min-width: $large-screen) {
+        .usda-table__cell {
+            word-break: normal;
+        }
+
+        @media(min-width: $tablet-screen) {
+            .table-header__label {
+                max-width: none;
+            }
+        }
+
+            @media(min-width: $large-screen) {
             margin-left: rem(32);
 
             .usda-table {
                 margin: rem(20) 0;
-
-                .table-header__label {
-                    max-width: none;
-                }
             }
         }
     }
