@@ -8,7 +8,6 @@ import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from 'prop-types';
 import { Table } from 'data-transparency-ui';
-import { tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { formatMoneyWithPrecision } from 'helpers/moneyFormatter';
 import { levels } from './StatusOfFunds';
 import StatusOfFundsChart from '../visualizations/StatusOfFundsChart';
