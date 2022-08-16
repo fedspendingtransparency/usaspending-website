@@ -5,11 +5,9 @@
 
 // eslint-disable-next-line no-unused-vars
 import React, { useEffect, useState } from 'react';
-import { throttle } from "lodash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from 'prop-types';
 import { Table } from 'data-transparency-ui';
-import { tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { formatMoneyWithPrecision } from 'helpers/moneyFormatter';
 import { levels } from './StatusOfFunds';
 import StatusOfFundsChart from '../visualizations/StatusOfFundsChart';
@@ -37,7 +35,10 @@ const propTypes = {
         id: PropTypes.string,
         budgetaryResources: PropTypes.string,
         obligations: PropTypes.string
-    })
+    }),
+    isMobile: PropTypes.bool,
+    viewType: PropTypes.string,
+    setViewType: PropTypes.func
 };
 
 const VisualizationSection = ({
@@ -54,29 +55,14 @@ const VisualizationSection = ({
     fy,
     results,
     selectedSubcomponent,
-    fetchFederalAccounts
+    fetchFederalAccounts,
+    isMobile,
+    viewType,
+    setViewType
 }) => {
     const [open, setOpen] = useState(false);
-    const [windowWidth, setWindowWidth] = useState(0);
-    const [isMobile, setIsMobile] = useState(window.innerWidth < tabletScreen);
-    const [viewType, setViewType] = useState(isMobile ? 'table' : 'chart');
-
     const fyString = `FY${fy.slice(2)}`;
     const accordionTitle = (<span>What&nbsp;is&nbsp;this?</span>);
-
-    useEffect(() => {
-        const handleResize = throttle(() => {
-            const newWidth = window.innerWidth;
-            if (windowWidth !== newWidth) {
-                setWindowWidth(newWidth);
-                setIsMobile(newWidth < tabletScreen);
-                setViewType(isMobile ? 'table' : viewType);
-            }
-        }, 50);
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, [isMobile, viewType, windowWidth]);
-
     const columns = toggle ?
         [
             {
