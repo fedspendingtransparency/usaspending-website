@@ -143,7 +143,7 @@ export default class DateRange extends React.Component {
                     onSubmit={this.submitRange}>
                     <DatePicker
                         type="startDate"
-                        title="Start Date"
+                        title="Action Date Start"
                         onDateChange={this.props.onDateChange}
                         value={this.props.startDate}
                         opposite={this.props.endDate}
@@ -156,7 +156,7 @@ export default class DateRange extends React.Component {
                         allowClearing />
                     <DatePicker
                         type="endDate"
-                        title="End Date"
+                        title="Action Date End"
                         onDateChange={this.props.onDateChange}
                         value={this.props.endDate}
                         opposite={this.props.startDate}
