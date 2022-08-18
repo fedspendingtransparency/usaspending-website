@@ -42,7 +42,7 @@
     "@lhci/cli": "^0.9.0",
     "@lhci/server": "^0.9.0",
     "@storybook/addon-actions": "^7.0.0-alpha.23",
-    "@storybook/addon-essentials": "^7.0.0-alpha.23",
+    "@storybook/addon-essentials": "^6.4.22",
     "@storybook/addon-interactions": "^7.0.0-alpha.23",
     "@storybook/addon-links": "^7.0.0-alpha.23",
     "@storybook/builder-webpack4": "^6.5.11-alpha.0",
