@@ -35,7 +35,7 @@ const UnlinkedAwardWarning = ({ topMargin, widerLayout }) => (
                         <li>Obligated Amount (as tracked in financial systems)</li>
                         <li>Outlay amount</li>
                     </ul>
-                    The awards listed on this page come from agency financial systems (File C) and these awards might not include all contracts or financial assistance funded by this account. An award may be unlinked if any of the following apply:
+                    An award may be unlinked if any of the following apply:
                     <ul>
                         <li>The award lacks a shared ID between spending submitted through agency financial systems (File C) and spending submitted through either FPDS (D1) or FABS (D2). For more information, <Link to="/submission-statistics/data-sources">see “Number of Unlinked Awards” here</Link>.</li>
                         <li>The award has no activity after FY17 Q2.</li>
