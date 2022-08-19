@@ -7,6 +7,8 @@ import React, { useCallback, useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { useSelector, useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
+import { throttle } from "lodash";
 
 import { FlexGridRow, FlexGridCol, Pagination, LoadingMessage } from 'data-transparency-ui';
 import {
@@ -48,6 +50,22 @@ const StatusOfFunds = ({ fy }) => {
     const [results, setResults] = useState([]);
     const { overview, selectedSubcomponent } = useSelector((state) => state.agency);
     const [toggle, setOnToggle] = useState(false);
+    const [windowWidth, setWindowWidth] = useState(0);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < tabletScreen);
+    const [viewType, setViewType] = useState(isMobile ? 'table' : 'chart');
+
+    useEffect(() => {
+        const handleResize = throttle(() => {
+            const newWidth = window.innerWidth;
+            if (windowWidth !== newWidth) {
+                setWindowWidth(newWidth);
+                setIsMobile(newWidth < tabletScreen);
+                setViewType(isMobile ? 'table' : viewType);
+            }
+        }, 50);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, [isMobile, viewType, windowWidth]);
 
     useEffect(() => {
         if (request.current) {
@@ -55,6 +73,7 @@ const StatusOfFunds = ({ fy }) => {
         }
         dispatch(resetAgencySubcomponents());
         dispatch(resetFederalAccountsList());
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     // eslint-disable-next-line eqeqeq
@@ -138,6 +157,7 @@ const StatusOfFunds = ({ fy }) => {
         if (Object.keys(subcomponent).length !== 0) {
             fetchFederalAccounts(subcomponent);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [subcomponent]);
 
     useEffect(() => {
@@ -152,6 +172,7 @@ const StatusOfFunds = ({ fy }) => {
                 fetchFederalAccounts(subcomponent);
             }
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentPage]);
 
     useEffect(() => {
@@ -164,22 +185,25 @@ const StatusOfFunds = ({ fy }) => {
                 changeCurrentPage(1);
             }
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [resetPageChange]);
 
     useEffect(() => {
         if (fy && overview.toptierCode) {
             fetchAgencySubcomponents();
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [fy, overview.toptierCode]);
 
     const onClick = (selectedLevel, data) => {
-    // reset to page 1 on drilldown
+        // reset to page 1 on drilldown
         setResetPageChange(true);
         const subcomponentTotalData = Object.create(BaseStatusOfFundsLevel);
         subcomponentTotalData.populate(data);
         dispatch(setSelectedSubcomponent(subcomponentTotalData));
         setSubcomponent(subcomponentTotalData);
     };
+
     const goBack = () => {
         if (overview.toptierCode) {
             setLevel(0);
@@ -211,18 +235,39 @@ const StatusOfFunds = ({ fy }) => {
                     <DrilldownSidebar
                         toggle={toggle}
                         level={level}
-                        setLevel={onClick}
+                        goBack={goBack}
                         agencyName={overview.name}
                         fy={fy}
                         selectedSubcomponent={selectedSubcomponent} />
                 </FlexGridCol>
                 <FlexGridCol className="status-of-funds__visualization" desktop={9}>
-                    {level === 1 ?
+                    {level === 1 && !isMobile ?
                         <button title="Go up a level" className="drilldown-back-button" onClick={goBack}>
                             <FontAwesomeIcon icon="arrow-left" />
                             &nbsp;&nbsp;Back
                         </button> : <></>}
-                    { !loading ? <VisualizationSection toggle={toggle} onToggle={onToggle} onKeyToggle={onKeyToggle} fetchFederalAccounts={fetchFederalAccounts} totalItems={totalItems} setTotalItems={setTotalItems} loading={loading} setLoading={setLoading} level={level} setLevel={onClick} selectedSubcomponent={selectedSubcomponent} agencyId={overview.toptierCode} agencyName={overview.name} fy={fy} results={results} /> : <LoadingMessage /> }
+                    { !loading ?
+                        <VisualizationSection
+                            toggle={toggle}
+                            onToggle={onToggle}
+                            onKeyToggle={onKeyToggle}
+                            fetchFederalAccounts={fetchFederalAccounts}
+                            totalItems={totalItems}
+                            setTotalItems={setTotalItems}
+                            loading={loading}
+                            setLoading={setLoading}
+                            level={level}
+                            setLevel={onClick}
+                            selectedSubcomponent={selectedSubcomponent}
+                            agencyId={overview.toptierCode}
+                            agencyName={overview.name}
+                            fy={fy}
+                            results={results}
+                            isMobile={isMobile}
+                            viewType={viewType}
+                            setViewType={setViewType} />
+                        :
+                        <LoadingMessage /> }
                     <Pagination
                         currentPage={currentPage}
                         changePage={changeCurrentPage}
