@@ -87,7 +87,7 @@ export const awardTableColumnTypes = {
     'Subsidy Cost': 'currency',
     'Sub-Award ID': 'string',
     'Sub-Award Type': 'string',
-    'Sub-Award Date': 'date',
+    'Action Date': 'date',
     'Sub-Awardee Name': 'string',
     'Sub-Award Amount': 'currency',
     'Prime Award ID': 'string',
