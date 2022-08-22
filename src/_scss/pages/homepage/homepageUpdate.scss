@@ -1,0 +1,34 @@
+.usa-da-home-page {
+  @import 'all';
+  @import "layouts/default/default";
+  @import "layouts/default/header/_warning";
+
+  .homepage-update-content {
+    background-color: white;
+
+    .usa-dt-flex-grid__row.grid-content {
+      @media (max-width: 1599px) {
+        margin: 0 $grid-column;
+      }
+    }
+
+    @media screen and (max-width: $medium-screen) {
+      .homepage-hero-content, .usa-dt-flex-grid__row.grid-content {
+        margin: 0 rem(16);
+      }
+    }
+  }
+
+  @import "hero/hero";
+  @import "summaryStats";
+  @import "featuredContent";
+  @import "wordOfTheDay";
+  @import "awardSearch";
+  @import "homepageExploreToggle";
+  @import "downloadExplorePlaceholder";
+  @import "homepageResources";
+  @import "readyToGetStarted";
+  @import "stayInTouch";
+}
+
+
