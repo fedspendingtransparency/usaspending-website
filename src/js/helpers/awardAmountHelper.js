@@ -113,6 +113,24 @@ export const determineFileCSpendingScenario = (awardType, awardAmountObj) => {
     return (fileCScenario === 'normal') ? 'normal' : 'insufficientData';
 };
 
+export const determineLoanSpendingScenario = (awardAmountObj) => {
+    const {
+        _totalOutlay, _totalObligation, _subsidy, _faceValue
+    } = awardAmountObj;
+
+    if (_subsidy === 0 && _faceValue === 0) return 'insufficientData';
+    if (_subsidy < 0 || _faceValue < 0) return 'insufficientData';
+    if (_totalOutlay > _totalObligation || _totalOutlay > _subsidy || _totalOutlay > _faceValue || _totalObligation > _subsidy || _totalObligation > _faceValue || _subsidy > _faceValue) return 'insufficientData';
+
+    if (_totalObligation === 0 && _totalOutlay === 0) {
+        if (_subsidy <= _faceValue) return 'normal';
+        return 'insufficientData';
+    }
+
+    if (_totalOutlay <= _totalObligation <= _subsidy <= _faceValue) return 'normal';
+    return 'insufficientData';
+};
+
 export const determineInfrastructureSpendingScenario = (awardType, awardAmountObj) => {
     const { _fileCOutlayInfrastructure, _fileCObligatedInfrastructure } = awardAmountObj;
     if (_fileCObligatedInfrastructure === 0 && _fileCOutlayInfrastructure === 0) return 'normal';
@@ -135,6 +153,11 @@ export const determineSpendingScenarioByAwardType = (awardType, awardAmountObj, 
     if (asstAwardTypesWithSimilarAwardAmountData.includes(awardType)) {
         return determineSpendingScenarioAsstAwards(awardAmountObj);
     }
+
+    if (awardType === 'loan') {
+        return (determineLoanSpendingScenario(awardAmountObj));
+    }
+
     // Small, bigger, and biggest define the expected ratio between spending categories
     const [small, bigger, biggest] = getAscendingSpendingCategoriesByAwardType(awardType, awardAmountObj);
     return determineSpendingScenario(small, bigger, biggest);

@@ -47,11 +47,11 @@ const HorizontalSingleStackedBarViz = ({
     const propsArr = [];
 
     const propValuesToArr = (num, num2, den) => {
-        if (numerator.className === 'loan-subsidy') {
-            propsArr.push(den.rawValue, num.rawValue, num2.rawValue);
+        if (num?.children[0]?.rawValue) {
+            propsArr.push(den.rawValue, num.rawValue, num.children[0].rawValue, num2.rawValue);
         }
         else {
-            propsArr.push(den.rawValue, num.rawValue, num.children[0].rawValue, num2.rawValue);
+            propsArr.push(den.rawValue, num.rawValue, num2.rawValue);
         }
     };
     propValuesToArr(numerator, numerator2, denominator);
@@ -91,7 +91,7 @@ const HorizontalSingleStackedBarViz = ({
                 .attr("y", height / 2.5)
                 .attr("width", x(propsArr[0]))
                 .attr("height", '50')
-                .attr("fill", "#dce4ee");
+                .attr("fill", numerator.className === "loan-subsidy" ? "#ded5db" : "#dce4ee");
             // grants, direct payments, other
             if (numerator.className === "asst-non-federal-funding") {
                 // obligated rect
@@ -195,7 +195,7 @@ const HorizontalSingleStackedBarViz = ({
                     .attr("y", (height / 2.5) + 5)
                     .attr("width", x(propsArr[1]))
                     .attr("height", '40')
-                    .attr("fill", "#8aa6c9");
+                    .attr("fill", numerator.className === "loan-subsidy" ? "#8c6e86" : "#8aa6c9");
                 // obligated rect
                 if (obligatedAmountValue?.indexOf("$0") < 0) {
                     chartSvg.append("rect")
@@ -221,7 +221,7 @@ const HorizontalSingleStackedBarViz = ({
                     .attr("x2", x(propsArr[0]) - 2)
                     .attr("y2", height - 50)
                     .style("stroke-width", 4)
-                    .style("stroke", "#dce4ee")
+                    .attr("stroke", numerator.className === "loan-subsidy" ? "#ded5db" : "#dce4ee")
                     .style("fill", "none");
                 // current line
                 chartSvg.append("line")
@@ -230,7 +230,8 @@ const HorizontalSingleStackedBarViz = ({
                     .attr("x2", x(propsArr[1]) - 2)
                     .attr("y2", 275)
                     .style("stroke-width", 4)
-                    .style("stroke", numerator.className === "asst-non-federal-funding" ? "#47AAA7" : "#8aa6c9")
+                    // eslint-disable-next-line no-nested-ternary
+                    .style("stroke", numerator.className === "asst-non-federal-funding" ? "#47AAA7" : numerator.className === "loan-subsidy" ? "#8c6e86" : "#8aa6c9")
                     .style("fill", "none");
                 // obligated line
                 if (obligatedAmountValue.indexOf("$0") < 0) {
@@ -340,6 +341,13 @@ const HorizontalSingleStackedBarViz = ({
                 .attr("width", x(propsArr[1]))
                 .attr("height", '40')
                 .attr("fill", "#8c6e86");
+            // obligated rect
+            chartSvg.append("rect")
+                .attr("x", 0)
+                .attr("y", (height / 2.5) + 10)
+                .attr("width", x(propsArr[3]))
+                .attr("height", '50')
+                .attr("fill", obligatedAmountColor);
             // outlayed rect
             chartSvg.append("rect")
                 .attr("x", 0)
@@ -372,7 +380,7 @@ const HorizontalSingleStackedBarViz = ({
                 .attr("x2", (x(propsArr[2]) - 2) < 8 ? 8 + (x(propsArr[2]) - 2) : (x(propsArr[2]) - 2))
                 .attr("y2", (height / 2.5) + 40)
                 .style("stroke-width", 4)
-                .style("stroke", "#0b2e5a")
+                .style("stroke", outlayedAmountColor)
                 .style("fill", "none");
             // subsidy label
             chartSvg.append("foreignObject")
@@ -422,11 +430,11 @@ const HorizontalSingleStackedBarViz = ({
             const newWidth = chartRef.current.getBoundingClientRect().width;
             setWindowWidth(newWidth);
         }
-        if (numerator.className === 'loan-subsidy') {
-            renderBarChartLoans();
+        if (propsArr.length > 3) {
+            renderBarChart();
         }
         else {
-            renderBarChart();
+            renderBarChartLoans();
         }
     }, [windowWidth, propsArr]);
 

@@ -25,7 +25,7 @@ export const orderedTableTitles = [
 ];
 
 export const spendingCategoriesByAwardType = {
-    loan: ['_subsidy', '_faceValue', '_totalOutlay'],
+    loan: ['_totalOutlay', '_totalObligation', '_subsidy', '_faceValue'],
     contract: ['_totalObligation', '_baseExercisedOptions', '_baseAndAllOptions', '_totalOutlay'],
     idv: ['_totalObligation', '_baseExercisedOptions', '_baseAndAllOptions', '_totalOutlay'],
     idv_aggregated: ['_totalObligation', '_baseExercisedOptions', '_baseAndAllOptions', '_combinedOutlay']
@@ -93,6 +93,7 @@ export const formattedSpendingCategoriesByAwardType = {
         'subsidyFormatted',
         'faceValueFormatted',
         'totalOutlayFormatted',
+        'totalObligationFormatted',
         'infrastructureOutlayFormatted',
         'infrastructureObligationFormatted'
     ]
@@ -168,6 +169,7 @@ export const tableTitlesBySpendingCategoryAndAwardType = {
         fileCOutlayFormatted: 'COVID-19 Outlayed Amount',
         fileCObligatedFormatted: 'COVID-19 Obligated Amount',
         totalOutlayFormatted: 'Outlayed Amount',
+        totalObligationFormatted: 'Obligated Amount',
         infrastructureOutlayFormatted: 'Infrastructure Outlayed Amounts',
         infrastructureObligationFormatted: 'Infrastructure Obligated Amounts'
     }
