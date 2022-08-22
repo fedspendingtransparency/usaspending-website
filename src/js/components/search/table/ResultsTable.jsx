@@ -54,7 +54,11 @@ export default class ResultsTable extends React.Component {
         const columnId = this.props.columns.visibleOrder[columnIndex];
         const column = this.props.columns.data[columnId];
         const isLast = (columnIndex + 1) === this.props.columns.visibleOrder.length;
-        const isActive = this.props.sort.field === column.columnName;
+        let isActive = this.props.sort.field === column.columnName;
+
+        if (!isActive && column.columnName === 'Action Date' && this.props.sort.field === 'Sub-Award Date') {
+            isActive = true;
+        }
         return (
             <ResultsTableHeaderCell
                 isLast={isLast}
