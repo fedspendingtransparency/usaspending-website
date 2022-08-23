@@ -702,9 +702,10 @@ const AwardAmountsChart = ({
                     tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory('loan', 'faceValue', awardAmounts)
                 }
             };
+
             const propsWithoutFileCAndOutlays = {
                 numerator: {
-                    labelPosition: 'top',
+                    labelPosition: 'bottom',
                     labelSortOrder: 1,
                     className: `${awardType}-subsidy`,
                     rawValue: awardAmounts._subsidy,
@@ -718,12 +719,12 @@ const AwardAmountsChart = ({
                             labelSortOrder: 1,
                             labelPosition: 'top',
                             tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'obligated', awardAmounts),
-                            rawValue: awardAmounts._totalObligation,
+                            rawValue: getAwardObligatedRawValue(awardAmounts, awardType, infrastructure),
                             denominatorValue: awardAmounts._totalFunding,
-                            value: awardAmounts.totalObligationAbbreviated,
+                            value: getAwardObligatedValue(awardAmounts, awardType, infrastructure),
                             lineOffset: lineOffsetsBySpendingCategory.obligationAsst,
                             text: 'Obligated Amount',
-                            color: obligatedColor
+                            color: getAwardColor(obligatedColor, infrastructureObligatedColor, infrastructure)
                         }
                     ]
                 },
@@ -741,9 +742,9 @@ const AwardAmountsChart = ({
                     labelSortOrder: 0,
                     labelPosition: 'top',
                     className: `${awardType}-outlayed`,
-                    rawValue: awardAmounts._totalOutlay,
-                    value: awardAmounts.totalOutlayAbbreviated,
-                    color: outlayColor,
+                    rawValue: getAwardOutlayRawValue(awardAmounts, awardType, infrastructure),
+                    value: getAwardOutlayValue(awardAmounts, awardType, infrastructure),
+                    color: getAwardColor(outlayColor, infrastructureOutlayColor, infrastructure),
                     lineOffset: lineOffsetsBySpendingCategory.potential,
                     text: 'Outlayed Amount'
                 }
@@ -780,7 +781,7 @@ const AwardAmountsChart = ({
                     }
                 }
                 : propsWithoutFileC;
-            if (hasOutlays) {
+            if (hasOutlays && !showFilecCovid) {
                 return <HorizontalSingleStackedBarViz {...propsWithoutFileCAndOutlays} />;
             }
             return <RectanglePercentViz {...props} />;
