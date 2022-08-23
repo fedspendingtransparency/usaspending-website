@@ -54,7 +54,11 @@ export default class ResultsTable extends React.Component {
         const columnId = this.props.columns.visibleOrder[columnIndex];
         const column = this.props.columns.data[columnId];
         const isLast = (columnIndex + 1) === this.props.columns.visibleOrder.length;
-        const isActive = this.props.sort.field === column.columnName;
+        let isActive = this.props.sort.field === column.columnName;
+
+        if (!isActive && column.columnName === 'Action Date' && this.props.sort.field === 'Sub-Award Date') {
+            isActive = true;
+        }
         return (
             <ResultsTableHeaderCell
                 isLast={isLast}
@@ -95,6 +99,9 @@ export default class ResultsTable extends React.Component {
             props.column = 'award';
             props.id = row.prime_award_generated_internal_id;
             props.onClick = this.props.subAwardIdClick.bind(null, `${row['Sub-Award ID']} (${props.id})`);
+        }
+        else if ((column.columnName === 'Action Date') && this.props.subaward) {
+            props.value = this.props.results[rowIndex]['Sub-Award Date'];
         }
         else if (column.columnName === 'Recipient Name' && this.props.results[rowIndex].recipient_id) {
             cellClass = ResultsTableLinkCell;

@@ -316,9 +316,8 @@ export class ResultsTableContainer extends React.Component {
 
         // Request fields for visible columns only
         const columnVisibility = this.state.columns[tableType].visibleOrder;
-
         columnVisibility.forEach((field) => {
-            if (!requestFields.includes(field)) {
+            if (!requestFields.includes(field) && field !== "Action Date") {
                 // Prevent duplicates in the list of fields to request
                 if (Object.keys(apiFieldByTableColumnName).includes(field)) {
                     requestFields.push(apiFieldByTableColumnName[field]);
@@ -326,6 +325,8 @@ export class ResultsTableContainer extends React.Component {
                 else {
                     requestFields.push(field);
                 }
+            } else if (field === "Action Date") {
+                requestFields.push('Sub-Award Date');
             }
         });
 
@@ -444,15 +445,26 @@ export class ResultsTableContainer extends React.Component {
     }
 
     updateSort(field, direction) {
-        this.setState({
-            sort: {
-                field,
-                direction
-            }
-        }, () => {
-            this.performSearch(true);
-        });
-    }
+        if (field === 'Action Date') {
+            this.setState({
+                sort: {
+                    field: 'Sub-Award Date',
+                    direction
+                }
+            }, () => {
+                this.performSearch(true);
+            });
+        } else {
+            this.setState({
+                sort: {
+                    field,
+                    direction
+                }
+            }, () => {
+                this.performSearch(true);
+            });
+        }
+    };
 
     awardIdClick = (id) => {
         Analytics.event({
