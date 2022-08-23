@@ -183,19 +183,11 @@ const OtherResources = ({
                                     Department of the Treasury -
                                 </span>
                                 <a
-                                    href="https://home.treasury.gov/policy-issues/cares"
-                                    onClick={handleClick}>
-                                    https://home.treasury.gov/policy-issues/cares&nbsp;
-                                    <span className="other-resources__link__icon">
-                                        <FontAwesomeIcon size="sm" icon="external-link-alt" />,&nbsp;
-                                    </span>
-                                </a>
-                                <a
                                     href="https://www.irs.gov/statistics/soi-tax-stats-coronavirus-aid-relief-and-economic-security-act-cares-act-statistics"
                                     onClick={handleClick}>
                                     https://www.irs.gov/statistics/soi-tax-stats-coronavirus-aid-relief-and-economic-security-act-cares-act-statistics&nbsp;
                                     <span className="other-resources__link__icon">
-                                        <FontAwesomeIcon size="sm" icon="external-link-alt" />,&nbsp;
+                                        <FontAwesomeIcon size="sm" icon="external-link-alt" />,{' '}
                                     </span>
                                 </a>
                                 <a
@@ -203,8 +195,16 @@ const OtherResources = ({
                                     onClick={handleClick}>
                                     https://home.treasury.gov/policy-issues/coronavirus&nbsp;
                                     <span className="other-resources__link__icon">
-                                        <FontAwesomeIcon size="sm" icon="external-link-alt" />
+                                        <FontAwesomeIcon size="sm" icon="external-link-alt" />,{' '}
                                     </span>
+                                </a>
+                                <a
+                                    href="https://home.treasury.gov/system/files/136/ERA-Subawards-USASpending-File.xlsx">
+                                    https://home.treasury.gov/system/files/136/ERA-Subawards-USASpending-File.xlsx,
+                                </a>{' '}
+                                <a
+                                    href="https://home.treasury.gov/system/files/136/SLFRF-Subaward-USASpending-File.xlsx">
+                                    https://home.treasury.gov/system/files/136/SLFRF-Subaward-USASpending-File.xlsx
                                 </a>
                             </div>
                         </li>
