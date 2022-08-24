@@ -4,14 +4,15 @@
  */
 
 import React from 'react';
+import { FlexGridRow } from 'data-transparency-ui';
 
 const HomepageExploreToggle = () => (
     <section className="homepage-explore-toggle__section">
-        <div className="usa-dt-flex-grid__row grid-content">
+        <FlexGridRow className="grid-content">
             <div>
             HOMEPAGE EXPLORE TOGGLE COMPONENT
             </div>
-        </div>
+        </FlexGridRow>
     </section>
 );
 

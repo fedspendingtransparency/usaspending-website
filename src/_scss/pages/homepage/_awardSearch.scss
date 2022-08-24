@@ -1,6 +1,8 @@
 .award-search__section {
-  border: solid 6px green;
-  border-radius: 4px;
-  height: 50rem;
-  margin: rem(6);
+
+  .grid-content {
+    height: 50rem;
+    border: solid 6px green;
+    border-radius: 4px;
+  }
 }

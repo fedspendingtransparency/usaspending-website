@@ -8,7 +8,7 @@ import { FlexGridRow } from 'data-transparency-ui';
 
 const HomepageResources = () => (
     <section className="homepage-resources__section">
-        <FlexGridRow className="usa-dt-flex-grid__row grid-content">
+        <FlexGridRow className="grid-content">
             <h1>
             HOMEPAGE RESOURCES COMPONENT
             </h1>

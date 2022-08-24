@@ -5,12 +5,9 @@
 
 import React from 'react';
 
-import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 import PageWrapper from "../sharedComponents/PageWrapper";
 import { homePageMetaTags } from "../../helpers/metaTagHelper";
 import Hero from './hero/Hero';
-import FeaturedContent from './FeaturedContent/FeaturedContent';
-import WordOfTheDay from './WordOfTheDay/WordOfTheDay';
 import SummaryStats from "./SummaryStats";
 import AwardSearch from "./AwardSearch/AwardSearch";
 import HomepageExploreToggle from "./HomepageExploreToggle/HomepageExploreToggle";
@@ -18,10 +15,11 @@ import DownloadExplorePlaceholder from "./DownloadExplorePlaceholder/DownloadExp
 import HomepageResources from "./HomepageResources/HomepageResources";
 import ReadyToGetStarted from "./ReadyToGetStarted/ReadyToGetStarted";
 import StayInTouch from "./StayInTouch/StayInTouch";
+import HomepageFirstRow from "./HomepageFirstRow/HomepageFirstRow";
 
 require('pages/homepage/homepageUpdate.scss');
 
-const Homepage = () => (
+const HomepageUpdate = () => (
     <PageWrapper
         pageName="Homepage"
         classNames="usa-da-home-page"
@@ -30,14 +28,7 @@ const Homepage = () => (
         <main id="main-content" className="main-content homepage-update-content">
             <Hero />
             <SummaryStats />
-            <FlexGridRow className="usa-dt-flex-grid__row grid-content">
-                <FlexGridCol width={8} >
-                    <FeaturedContent />
-                </FlexGridCol>
-                <FlexGridCol width={4} >
-                    <WordOfTheDay />
-                </FlexGridCol>
-            </FlexGridRow>
+            <HomepageFirstRow />
             <AwardSearch />
             <HomepageExploreToggle />
             <DownloadExplorePlaceholder />
@@ -47,4 +38,4 @@ const Homepage = () => (
         </main>
     </PageWrapper>);
 
-export default Homepage;
+export default HomepageUpdate;

@@ -8,7 +8,7 @@ import { FlexGridRow } from 'data-transparency-ui';
 
 const DownloadExplorePlaceholder = () => (
     <section className="download-explore__section">
-        <FlexGridRow className="usa-dt-flex-grid__row grid-content">
+        <FlexGridRow className="grid-content">
             <h1>
             DOWNLOAD EXPLORE COMPONENT PLACEHOLDER
             </h1>
