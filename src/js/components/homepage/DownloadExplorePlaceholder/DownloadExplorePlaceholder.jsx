@@ -4,12 +4,15 @@
  */
 
 import React from 'react';
+import { FlexGridRow } from 'data-transparency-ui';
 
 const DownloadExplorePlaceholder = () => (
     <section className="download-explore__section">
-        <h1>
+        <FlexGridRow className="usa-dt-flex-grid__row grid-content">
+            <h1>
             DOWNLOAD EXPLORE COMPONENT PLACEHOLDER
-        </h1>
+            </h1>
+        </FlexGridRow>
     </section>
 );
 

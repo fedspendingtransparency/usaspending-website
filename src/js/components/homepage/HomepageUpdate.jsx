@@ -30,7 +30,7 @@ const Homepage = () => (
         <main id="main-content" className="main-content homepage-update-content">
             <Hero />
             <SummaryStats />
-            <FlexGridRow className="homepage-update__feature-row">
+            <FlexGridRow className="usa-dt-flex-grid__row grid-content">
                 <FlexGridCol width={8} >
                     <FeaturedContent />
                 </FlexGridCol>

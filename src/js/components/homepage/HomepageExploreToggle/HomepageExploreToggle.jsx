@@ -7,8 +7,10 @@ import React from 'react';
 
 const HomepageExploreToggle = () => (
     <section className="homepage-explore-toggle__section">
-        <div>
+        <div className="usa-dt-flex-grid__row grid-content">
+            <div>
             HOMEPAGE EXPLORE TOGGLE COMPONENT
+            </div>
         </div>
     </section>
 );

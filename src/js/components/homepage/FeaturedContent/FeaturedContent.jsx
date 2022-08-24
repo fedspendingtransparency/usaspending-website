@@ -7,9 +7,11 @@ import React from 'react';
 
 const FeaturedContent = () => (
     <section className="featured-content__section">
-        <h1>
+        <div className="usa-dt-flex-grid__row grid-content">
+            <h1>
             FEATURED CONTENT COMPONENT
-        </h1>
+            </h1>
+        </div>
     </section>
 );
 
