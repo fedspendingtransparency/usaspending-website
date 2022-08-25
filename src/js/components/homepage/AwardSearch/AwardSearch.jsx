@@ -8,7 +8,7 @@ import { FlexGridRow } from 'data-transparency-ui';
 
 const AwardSearch = () => (
     <section className="award-search__section">
-        <FlexGridRow className="usa-dt-flex-grid__row grid-content" >
+        <FlexGridRow className="grid-content" >
             <h1>
             AWARD SEARCH COMPONENT
             </h1>

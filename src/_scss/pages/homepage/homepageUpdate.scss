@@ -6,20 +6,33 @@
   .homepage-update-content {
     background-color: white;
 
+    // todo - remove this when real components are used
+    @media (max-width: $tablet-screen) {
+      h1 {
+        font-size: 16px;
+      }
+    }
+
+    .homepage-hero-content {
+      margin: 0 rem(16);
+      @media (min-width: $tablet-screen) {
+        margin: 0 rem(32);
+      }
+      @media (min-width: $medium-screen) {
+        margin: 0;
+      }
+    }
+
     .usa-dt-flex-grid__row.grid-content {
+      margin: 0 rem(16);
+      @media (min-width: $tablet-screen) {
+        margin: 0 rem(32);
+      }
       @media (min-width: $large-screen) {
         margin: 0 $grid-column;
       }
-
       @media (min-width: 1600px) {
         max-width: 1400px;
-      }
-
-    }
-
-    @media screen and (max-width: $medium-screen) {
-      .homepage-hero-content, .usa-dt-flex-grid__row.grid-content {
-        margin: 0 rem(16);
       }
     }
   }

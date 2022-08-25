@@ -1,6 +1,15 @@
 .word-of-the-day__section {
-  border: solid 6px blue;
-  border-radius: 4px;
-  height: 50rem;
-  margin: rem(6) 0 rem(6) rem(3) ;
+  margin: rem(6) 0;
+  @media (min-width: $medium-screen) {
+    margin: rem(6) 0 rem(6) rem(3) ;
+    // override grid-content bc it adds margins right and left
+    .grid-content {
+      margin: 0 !important;
+    }
+  }
+    .grid-content {
+      border: solid 6px blue;
+      border-radius: 4px;
+      height: 50rem;
+    }
 }

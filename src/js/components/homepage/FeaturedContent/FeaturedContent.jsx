@@ -4,14 +4,15 @@
  */
 
 import React from 'react';
+import { FlexGridRow } from 'data-transparency-ui';
 
 const FeaturedContent = () => (
     <section className="featured-content__section">
-        <div className="usa-dt-flex-grid__row grid-content">
+        <FlexGridRow className="grid-content">
             <h1>
-            FEATURED CONTENT COMPONENT
+                FEATURED CONTENT COMPONENT
             </h1>
-        </div>
+        </FlexGridRow>
     </section>
 );
 

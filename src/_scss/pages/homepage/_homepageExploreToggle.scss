@@ -4,6 +4,9 @@
   font-size: 40px;
     div {
       padding-top: rem(20);
+      @media (max-width: $tablet-screen) {
+        font-size: 16px;
+      }
     }
     .grid-content {
       border: solid 6px yellow;
