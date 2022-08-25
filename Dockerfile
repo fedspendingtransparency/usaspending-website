@@ -10,7 +10,7 @@ RUN mkdir /node-workspace && mkdir /test-results
 # have changed, and instead use the cached layer containing all those dependent packages.
 # Greatly speeds up repeated docker build calls on the same machine (like CI/CD boxes) 
 # by leveraging the docker image cache
-COPY package.json /node-workspace/
+COPY package.json package-lock.json /node-workspace/
 
 WORKDIR /node-workspace
 
