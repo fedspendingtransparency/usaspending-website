@@ -183,7 +183,7 @@ export default class StateOverview extends React.PureComponent {
                                         rel="noopener noreferrer"
                                         to="/search"
                                         onClick={handleGoToAdvancedSearch}>
-                                        View awards to this recipient
+                                        View awards to this state
                                     </Link>
                                 }
                             </div>
