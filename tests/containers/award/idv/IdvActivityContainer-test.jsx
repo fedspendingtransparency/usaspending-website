@@ -5,17 +5,17 @@
 
 import React from 'react';
 import { mount, shallow } from 'enzyme';
-
+import { fetchIdvActivity } from 'helpers/idvHelper';
 import { IdvActivityContainer } from 'containers/award/idv/IdvActivityContainer';
 import BaseIdvActivityBar from 'models/v2/award/BaseIdvActivityBar';
 import { mockRedux, mockActions } from '../mockAward';
 import { mockIdvActivity } from '../../../models/award/mockAwardApi';
 
 jest.mock('helpers/idvHelper', () => require('../awardHelper'));
+jest.mock('helpers/idvHelper', () => ({ fetchIdvActivity: jest.fn() }));
 
 // mock the child component by replacing it with a function that returns a null element
-// jest.mock('components/award/idv/amounts/AggregatedAwardAmounts.jsx', () => jest.fn(() => null));
-
+jest.mock('components/award/idv/amounts/AggregatedAwardAmountsSection.jsx', () => jest.fn(() => null));
 const mockProps = {
     ...mockActions,
     ...mockRedux,
@@ -23,12 +23,19 @@ const mockProps = {
 };
 
 // REACT UPGRADE FIX TEST
-xdescribe('IdvActivityContainer', () => {
+describe('IdvActivityContainer', () => {
     const loadAwards = jest.fn();
     const parseAwards = jest.fn();
     it('should make an API call for the awards on mount', async () => {
         const container = mount(<IdvActivityContainer {...mockProps} />);
-
+        fetchIdvActivity.mockImplementation(() => ({
+            promise: new Promise((resolve) => {
+                process.nextTick(() => {
+                    resolve({ data: mockIdvActivity });
+                });
+            }),
+            cancel: jest.fn()
+        }));
         container.instance().loadAwards = loadAwards;
         container.instance().parseAwards = parseAwards;
         await container.instance().componentDidMount();
@@ -105,9 +112,20 @@ xdescribe('IdvActivityContainer', () => {
         expect(container.state().awards.length).toEqual(awards.length - 1);
     });
 
-    it('should change the page and update state and call api', () => {
-        const container = shallow(<IdvActivityContainer awardId="1234" />);
+    it('should change the page and update state and call api', async () => {
+        const container = mount(<IdvActivityContainer awardId="1234" />);
+        fetchIdvActivity.mockImplementation(() => ({
+            promise: new Promise((resolve) => {
+                process.nextTick(() => {
+                    resolve({ data: mockIdvActivity });
+                });
+            }),
+            cancel: jest.fn()
+        }));
         container.instance().loadAwards = loadAwards;
+        container.instance().parseAwards = parseAwards;
+
+        await container.instance().componentDidMount();
         container.instance().changePage(2);
 
         expect(container.state().page).toEqual(2);
