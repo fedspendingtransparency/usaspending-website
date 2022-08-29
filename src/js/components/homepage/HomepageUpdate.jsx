@@ -11,7 +11,6 @@ import Hero from './hero/Hero';
 import SummaryStats from "./SummaryStats";
 import AwardSearch from "./AwardSearch/AwardSearch";
 import HomepageExploreToggle from "./HomepageExploreToggle/HomepageExploreToggle";
-import DownloadExplorePlaceholder from "./DownloadExplorePlaceholder/DownloadExplorePlaceholder";
 import HomepageResources from "./HomepageResources/HomepageResources";
 import ReadyToGetStarted from "./ReadyToGetStarted/ReadyToGetStarted";
 import StayInTouch from "./StayInTouch/StayInTouch";
@@ -31,7 +30,6 @@ const HomepageUpdate = () => (
             <HomepageFirstRow />
             <AwardSearch />
             <HomepageExploreToggle />
-            <DownloadExplorePlaceholder />
             <HomepageResources />
             <ReadyToGetStarted />
             <StayInTouch />

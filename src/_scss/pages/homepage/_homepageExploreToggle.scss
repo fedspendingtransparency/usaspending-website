@@ -1,16 +1,23 @@
 .homepage-explore-toggle__section {
-  margin: rem(6) 0;
-  text-align: center;
-  font-size: 40px;
-    div {
-      padding-top: rem(20);
-      @media (max-width: $tablet-screen) {
-        font-size: 16px;
+  .grid-content {
+    justify-content: center;
+    .usa-dt-tab-list__border-post-filler {
+      border-bottom: none;
+    }
+    .usa-dt-tab__wrapper {
+      border-bottom: none;
+    }
+    .usa-dt-tab {
+      background-color: white;
+      margin-right: 0;
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      // todo - add this color to our color vars
+      border-bottom: solid 2px #c6cace;
+      &.active {
+        border-bottom: solid 4px $color-primary;
       }
     }
-    .grid-content {
-      border: solid 6px yellow;
-      border-radius: 4px;
-      height: 10rem;
-    }
+  }
 }

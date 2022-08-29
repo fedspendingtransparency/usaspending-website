@@ -1,19 +1,19 @@
 /**
- * DownloadExplorePlaceholder.jsx
- * Created by Brian Petway 08/22/22
+ * AccessDataPlaceholder.jsx
+ * Created by Brian Petway 08/29/22
  */
 
 import React from 'react';
 import { FlexGridRow } from 'data-transparency-ui';
 
-const DownloadExplorePlaceholder = () => (
+const AccessDataPlaceholder = () => (
     <section className="download-explore__section">
         <FlexGridRow className="grid-content">
             <h1>
-            DOWNLOAD EXPLORE COMPONENT PLACEHOLDER
+                ACCESS DATA COMPONENT PLACEHOLDER
             </h1>
         </FlexGridRow>
     </section>
 );
 
-export default DownloadExplorePlaceholder;
+export default AccessDataPlaceholder;
