@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Tabs } from "data-transparency-ui";
 
-import { determineSpendingScenarioByAwardType } from 'helpers/awardAmountHelper';
+import { determineSpendingScenarioByAwardType, generateDefcTabs } from 'helpers/awardAmountHelper';
 import { getToolTipBySectionAndAwardType } from 'dataMapping/award/tooltips';
 
 import AwardSection from '../AwardSection';
@@ -18,44 +18,43 @@ const propTypes = {
     jumpToTransactionHistoryTable: PropTypes.func
 };
 
-const tabTypes = [
-    {
-        internal: 'overall',
-        label: 'Overall Spending'
-    },
-    {
-        internal: 'infrastructure',
-        label: 'Infrastructure Spending'
-    }
-];
-
 const AwardAmountsSection = ({
     awardOverview,
     awardType,
     jumpToTransactionHistoryTable
 }) => {
-    const [active, setActive] = useState(tabTypes[0].internal);
     const spendingScenario = determineSpendingScenarioByAwardType(awardType, awardOverview, active === "infrastructure");
     const tooltip = getToolTipBySectionAndAwardType('awardAmounts', awardType);
+
+    const [active, setActive] = useState(null);
 
     const switchTab = (tab) => {
         setActive(tab);
     };
 
     // Filter out cases where award has both covid and infrastructure spending (ie. only show covid chart for now)
-    const showInfrastructureTabs = () => (awardOverview._fileCObligatedInfrastructure > 0 || awardOverview._fileCOutlayInfrastructure > 0) && !(awardOverview._fileCObligated > 0 || awardOverview._fileCOutlay > 0);
+
+    const tabTypes = generateDefcTabs(awardOverview);
+
+    useEffect(() => {
+        if (tabTypes.length > 0) {
+            setActive(tabTypes[0].internal);
+        }
+    }, [tabTypes]);
 
     return (
         <AwardSection type="column" className="award-viz award-amounts">
             <div className="award__col__content">
                 <AwardSectionHeader title="$ Award Amounts" tooltip={tooltip} />
                 <div className="award-amounts__content">
-                    <div style={{ display: showInfrastructureTabs() ? `block` : `none`, paddingBottom: showInfrastructureTabs() ? '20px' : '' }}>
-                        <Tabs
-                            active={active}
-                            switchTab={switchTab}
-                            types={tabTypes} />
-                    </div>
+                    {active &&
+                        <div style={{ paddingBottom: '20px' }}>
+                            <Tabs
+                                active={active}
+                                switchTab={switchTab}
+                                types={tabTypes}/>
+                        </div>
+                    }
                     <AwardAmountsChart
                         awardOverview={awardOverview}
                         awardType={awardType}

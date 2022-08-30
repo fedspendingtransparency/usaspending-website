@@ -7,7 +7,8 @@ import { formatMoneyWithPrecision } from 'helpers/moneyFormatter';
 import {
     spendingCategoriesByAwardType,
     asstAwardTypesWithSimilarAwardAmountData,
-    infrastructureSpendingCategoriesByAwardType
+    infrastructureSpendingCategoriesByAwardType,
+    defcTypes
 } from '../dataMapping/award/awardAmountsSection';
 
 // formats the specific checkboxes
@@ -164,3 +165,34 @@ export const determineSpendingScenarioByAwardType = (awardType, awardAmountObj, 
 };
 
 export const generatePercentage = (value) => `${(value * 100).toFixed(2)}%`;
+
+export const generateDefcTabs = (awardData) => {
+    const keysInData = [];
+
+    defcTypes.forEach((item) => {
+        if (awardData[item.keys.outlay] > 0 || awardData[item.keys.obligated] > 0) {
+            keysInData.push(item.codeType);
+        }
+    });
+
+    console.log(keysInData)
+    if (keysInData.length === 0) {
+        return [];
+    }
+
+    const tabs = [{
+        internal: 'overall',
+        label: 'Overall Spending'
+    }];
+
+    defcTypes.forEach((item) => {
+        if (keysInData.indexOf(item.codeType) > -1) {
+            tabs.push({
+                internal: item.codeType,
+                label: item.label
+            });
+        }
+    });
+
+    return tabs;
+}

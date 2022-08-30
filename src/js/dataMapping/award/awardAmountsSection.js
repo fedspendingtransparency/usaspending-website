@@ -214,3 +214,22 @@ export const lineOffsetsBySpendingCategory = {
     loanFileCObligated: 7,
     loanFileCOutlay: 9
 };
+
+export const defcTypes = [
+    {
+        codeType: "covid",
+        keys: {
+            outlay: "_fileCOutlay",
+            obligated: "_fileCObligated"
+        },
+        "label": "COVID-19 Spending"
+    },
+    {
+        codeType: "infrastructure",
+        keys: {
+            outlay: "_fileCOutlayInfrastructure",
+            obligated: "_fileCObligatedInfrastructure"
+        },
+        "label": "Infrastucture Spending"
+    }
+]
