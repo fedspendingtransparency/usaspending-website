@@ -107,6 +107,7 @@
     "follow-redirects": "1.14.8",
     "async": "2.6.4",
     "trim": "1.0.1",
+    "**/trim": "^1.0.0",
     "trim-newlines": "3.0.1",
     "got": "11.8.5",
     "glob-parent": "6.0.1",
