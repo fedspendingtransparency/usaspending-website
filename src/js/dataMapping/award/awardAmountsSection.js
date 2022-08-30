@@ -232,4 +232,4 @@ export const defcTypes = [
         },
         "label": "Infrastucture Spending"
     }
-]
+];
