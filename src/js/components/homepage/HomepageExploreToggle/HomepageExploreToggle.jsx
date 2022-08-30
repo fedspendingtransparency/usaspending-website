@@ -12,11 +12,25 @@ import AccessDataPlaceholder from "../AccessDataPlaceholder/AccessDataPlaceholde
 const toggleTabs = [
     {
         internal: 'explore',
-        label: [<FontAwesomeIcon icon="chart-pie" />, 'EXPLORE THE DATA']
+        label: [(
+            <div className="homepage-explore-toggle__text-container">
+                <div className="homepage-explore-toggle__icon-container">
+                    <FontAwesomeIcon icon="chart-pie" className="homepage-explore-toggle__icon" />
+                </div>
+                <div className="homepage-explore-toggle__text">EXPLORE THE DATA</div>
+            </div>
+        )]
     },
     {
         internal: 'access',
-        label: [<FontAwesomeIcon icon="file-download" />, 'ACCESS THE DATA']
+        label: [(
+            <div className="homepage-explore-toggle__text-container">
+                <div className="homepage-explore-toggle__icon-container">
+                    <FontAwesomeIcon icon="file-download" className="homepage-explore-toggle__icon" />
+                </div>
+                <div className="homepage-explore-toggle__text">ACCESS THE DATA</div>
+            </div>
+        )]
     }
 ];
 
