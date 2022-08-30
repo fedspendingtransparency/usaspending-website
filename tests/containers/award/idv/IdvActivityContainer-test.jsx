@@ -22,7 +22,6 @@ const mockProps = {
     defCodes: ['L', 'M', 'N', 'O', 'P', 'R']
 };
 
-// REACT UPGRADE FIX TEST
 describe('IdvActivityContainer', () => {
     const loadAwards = jest.fn();
     const parseAwards = jest.fn();
