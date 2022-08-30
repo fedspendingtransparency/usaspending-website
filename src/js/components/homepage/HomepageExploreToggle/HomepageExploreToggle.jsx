@@ -4,8 +4,10 @@
  */
 
 import React, { useState } from 'react';
-import { FlexGridRow, Tabs } from 'data-transparency-ui';
+import { FlexGridRow, FlexGridCol, Tabs } from 'data-transparency-ui';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import ExploreDataPlaceholder from "../ExploreDataPlaceholder/ExploreDataPlaceholder";
+import AccessDataPlaceholder from "../AccessDataPlaceholder/AccessDataPlaceholder";
 
 const toggleTabs = [
     {
@@ -27,10 +29,15 @@ const HomepageExploreToggle = () => {
 
     return (
         <section className="homepage-explore-toggle__section">
-            <FlexGridRow className="grid-content">
-                <div>
+            <FlexGridRow>
+                <FlexGridCol width={12} className="grid-content">
                     <Tabs active={activeTab} types={toggleTabs} switchTab={changeActiveTab} />
-                </div>
+                    {activeTab === 'explore' ?
+                        <ExploreDataPlaceholder />
+                        :
+                        <AccessDataPlaceholder />
+                    }
+                </FlexGridCol>
             </FlexGridRow>
         </section>
     );
