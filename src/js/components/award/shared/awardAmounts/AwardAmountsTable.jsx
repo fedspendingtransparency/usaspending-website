@@ -11,6 +11,7 @@ import {
 } from "dataMapping/award/awardAmountsSection";
 
 import { AWARD_AMOUNT_TYPE_PROPS } from "../../../../propTypes";
+import { defcTypes } from "../../../../dataMapping/award/awardAmountsSection";
 
 const propTypes = {
     showFileC: PropTypes.bool,
@@ -18,7 +19,8 @@ const propTypes = {
     awardAmountType: AWARD_AMOUNT_TYPE_PROPS,
     awardData: PropTypes.shape({}),
     spendingScenario: PropTypes.string,
-    infrastructureSpending: PropTypes.string
+    infrastructureSpending: PropTypes.string,
+    fileCType: PropTypes.string
 };
 
 const getSpendingCategoriesByAwardType = (awardAmountType) => {
@@ -40,7 +42,8 @@ const AwardAmountsTable = ({
     awardAmountType,
     spendingScenario,
     showFileC,
-    infrastructureSpending
+    infrastructureSpending,
+    fileCType
 }) => {
     /*
      * we have to do this because right now whenever there's any kind of overspending
@@ -99,28 +102,23 @@ const AwardAmountsTable = ({
     const sortTableTitles = (a, b) => orderedTableTitles.indexOf(a) - orderedTableTitles.indexOf(b);
 
     const hideRow = (title) => {
+        const defcByType = defcTypes.map((item) => item.codeType);
+        console.log(defcByType)
         const exclusions = ['Outlayed Amount', 'Combined Outlayed Amounts'];
-        const exclusionsFromInfrastructure = ['Combined Outlayed Amounts', 'Combined Obligated Amounts', 'Outlayed Amount', 'Obligated Amount'];
+        const allExclusions = ['Combined Outlayed Amounts', 'Combined Obligated Amounts', 'Outlayed Amount', 'Obligated Amount'];
+
         let hide = false;
 
-        if (infrastructure) {
-            exclusionsFromInfrastructure.forEach((item) => {
-                if (title === item) {
-                    hide = true;
-                }
-            });
-        } else {
-            exclusions.forEach((item) => {
-                if (title.indexOf(item) > -1 && amountMapByCategoryTitle[title] === '$0.00') {
-                    hide = true;
-                }
-            });
-
-            if (!infrastructure && title.includes('Infrastructure')) {
-                hide = true;
-            }
+        if (fileCType && title.includes(fileCType)) {
+            return false;
         }
 
+        allExclusions.forEach((item) => {
+            if (title.includes(item)) {
+                hide = true;
+            }
+        });
+        
         return hide;
     };
 
