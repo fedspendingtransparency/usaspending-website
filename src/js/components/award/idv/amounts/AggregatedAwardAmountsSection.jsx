@@ -90,7 +90,8 @@ export default class AggregatedAwardAmounts extends React.Component {
                     showFileC={this.props.showFileC}
                     awardData={awardAmounts}
                     spendingScenario={spendingScenario}
-                    infrastructureSpending={this.state.active} />
+                    infrastructureSpending={this.state.active}
+                    fileCType={this.state.active} />
                 <div className="award-amounts-children__data-wrapper">
                     <span className="title-and-link-span">
                         <p className="count-of-awards-title-text"><strong>Count of Awards Under this IDV</strong></p>

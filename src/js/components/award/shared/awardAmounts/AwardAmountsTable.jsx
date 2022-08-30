@@ -19,7 +19,6 @@ const propTypes = {
     awardAmountType: AWARD_AMOUNT_TYPE_PROPS,
     awardData: PropTypes.shape({}),
     spendingScenario: PropTypes.string,
-    infrastructureSpending: PropTypes.string,
     fileCType: PropTypes.string
 };
 
@@ -42,7 +41,6 @@ const AwardAmountsTable = ({
     awardAmountType,
     spendingScenario,
     showFileC,
-    infrastructureSpending,
     fileCType
 }) => {
     /*
@@ -51,12 +49,6 @@ const AwardAmountsTable = ({
      * irrespective of whether the award exceedsPotential or exceedsCurrent
      * so we're relying on the parent in this case because we cant deduce the spending scenario
      **/
-
-    const [infrastructure, setInfrastructure] = useState(infrastructureSpending === "infrastructure");
-
-    useEffect(() => {
-        setInfrastructure(infrastructureSpending === "infrastructure");
-    }, [infrastructureSpending]);
 
     const getOverSpendingRow = (awardAmounts = awardData, scenario = spendingScenario, type = awardAmountType) => {
         switch (scenario) {
@@ -102,23 +94,33 @@ const AwardAmountsTable = ({
     const sortTableTitles = (a, b) => orderedTableTitles.indexOf(a) - orderedTableTitles.indexOf(b);
 
     const hideRow = (title) => {
-        const defcByType = defcTypes.map((item) => item.codeType);
-        console.log(defcByType)
-        const exclusions = ['Outlayed Amount', 'Combined Outlayed Amounts'];
+        const defcByType = defcTypes.map((item) => {
+            return item.codeType
+        });
         const allExclusions = ['Combined Outlayed Amounts', 'Combined Obligated Amounts', 'Outlayed Amount', 'Obligated Amount'];
 
         let hide = false;
 
-        if (fileCType && title.includes(fileCType)) {
+        if (fileCType && defcByType.indexOf(fileCType) > -1 && title.includes(fileCType)) {
             return false;
         }
 
-        allExclusions.forEach((item) => {
-            if (title.includes(item)) {
-                hide = true;
-            }
-        });
-        
+        if (!fileCType || fileCType === "overall") {
+            defcByType.forEach(item => {
+                if (title.toLowerCase().includes(item)) {
+                    if (!hide) {
+                        hide = true;
+                    }
+                }
+            });
+        } else {
+            allExclusions.forEach((item) => {
+                if (title === item) {
+                    hide = true;
+                }
+            });
+        }
+
         return hide;
     };
 

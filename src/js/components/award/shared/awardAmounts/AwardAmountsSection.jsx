@@ -70,7 +70,8 @@ const AwardAmountsSection = ({
                         awardData={awardOverview}
                         awardAmountType={awardType}
                         spendingScenario={spendingScenario}
-                        infrastructureSpending={active} />
+                        infrastructureSpending={active}
+                        fileCType={active} />
                 </div>
             </div>
             <JumpToSectionButton icon="table" linkText="View Transaction History" onClick={jumpToTransactionHistoryTable} />
