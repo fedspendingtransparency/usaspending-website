@@ -222,7 +222,8 @@ export const defcTypes = [
             outlay: "_fileCOutlay",
             obligated: "_fileCObligated"
         },
-        "label": "COVID-19 Spending"
+        label: "COVID-19 Spending",
+        preText: "COVID-19"
     },
     {
         codeType: "infrastructure",
@@ -230,6 +231,7 @@ export const defcTypes = [
             outlay: "_fileCOutlayInfrastructure",
             obligated: "_fileCObligatedInfrastructure"
         },
-        "label": "Infrastucture Spending"
+        label: "Infrastucture Spending",
+        preText: "Infrastructure"
     }
 ];

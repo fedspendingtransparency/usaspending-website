@@ -15,7 +15,8 @@ import {
     infrastructureCurrentColor,
     infrastructurePotentialColor,
     // Offsets per DEV-5242:
-    lineOffsetsBySpendingCategory
+    lineOffsetsBySpendingCategory,
+    defcTypes
 } from 'dataMapping/award/awardAmountsSection';
 import { covidColor, covidObligatedColor } from 'dataMapping/covid19/covid19';
 
@@ -29,11 +30,27 @@ const propTypes = {
     awardType: PropTypes.string,
     awardOverview: AWARD_OVERVIEW_AWARD_AMOUNTS_SECTION_PROPS,
     spendingScenario: PropTypes.string,
-    infrastructureSpending: PropTypes.string
+    infrastructureSpending: PropTypes.string,
+    fileCType: PropTypes.string
 };
 
 // TO-DO: Move these functions to a helper file
+const getfileCInfo = (fileCType) => {
+   defcTypes.forEach((item) => {
+        if (item.codeType === fileCType) {
+            return item;
+        }
+    })
+
+    return null;
+};
+
 const getAwardTypeText = (awardType, amountType, infrastructure) => {
+    // const fileCInfo = getfileCInfo(fileCType);
+    // const preText = Object.keys(obj).length === 0; ? fileCInfo
+    //
+    //
+
     const infraText = infrastructure ? "Infrastructure" : "";
     return awardType === "idv" ? `Combined ${infraText} ${amountType} Amounts` : `${infraText} ${amountType} Amount`;
 };

@@ -9,9 +9,9 @@ import { Tabs } from "data-transparency-ui";
 
 import { formatNumber } from 'helpers/moneyFormatter';
 
-import { determineSpendingScenarioByAwardType, generateDefcTabs } from 'helpers/awardAmountHelper';
 import ChartError from 'components/search/visualizations/ChartError';
 import AwardsBanner from './AwardsBanner';
+import { determineSpendingScenarioByAwardType, generateDefcTabs } from 'helpers/awardAmountHelper';
 
 import { AWARD_AGGREGATED_AMOUNTS_PROPS } from '../../../../propTypes';
 import AwardAmountsTable from '../../shared/awardAmounts/AwardAmountsTable';
@@ -84,13 +84,14 @@ export default class AggregatedAwardAmounts extends React.Component {
                     awardOverview={awardAmounts}
                     awardType="idv"
                     spendingScenario={spendingScenario}
-                    infrastructureSpending={this.state.active} />
+                    infrastructureSpending={this.state.active}
+                    fileCType={this.state.active}
+                />
                 <AwardAmountsTable
                     awardAmountType="idv_aggregated"
                     showFileC={this.props.showFileC}
                     awardData={awardAmounts}
                     spendingScenario={spendingScenario}
-                    infrastructureSpending={this.state.active}
                     fileCType={this.state.active} />
                 <div className="award-amounts-children__data-wrapper">
                     <span className="title-and-link-span">

@@ -175,7 +175,6 @@ export const generateDefcTabs = (awardData) => {
         }
     });
 
-    console.log(keysInData)
     if (keysInData.length === 0) {
         return [];
     }

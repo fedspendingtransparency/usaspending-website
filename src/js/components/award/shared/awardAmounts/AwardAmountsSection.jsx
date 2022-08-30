@@ -32,15 +32,13 @@ const AwardAmountsSection = ({
         setActive(tab);
     };
 
-    // Filter out cases where award has both covid and infrastructure spending (ie. only show covid chart for now)
-
     const tabTypes = generateDefcTabs(awardOverview);
 
     useEffect(() => {
         if (tabTypes.length > 0) {
             setActive(tabTypes[0].internal);
         }
-    }, [tabTypes]);
+    }, []);
 
     return (
         <AwardSection type="column" className="award-viz award-amounts">
@@ -59,7 +57,8 @@ const AwardAmountsSection = ({
                         awardOverview={awardOverview}
                         awardType={awardType}
                         spendingScenario={spendingScenario}
-                        infrastructureSpending={active} />
+                        infrastructureSpending={active}
+                        fileCType={active} />
                     <AwardAmountsTable
                         showFileC={(
                             (
@@ -70,7 +69,6 @@ const AwardAmountsSection = ({
                         awardData={awardOverview}
                         awardAmountType={awardType}
                         spendingScenario={spendingScenario}
-                        infrastructureSpending={active}
                         fileCType={active} />
                 </div>
             </div>
