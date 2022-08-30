@@ -5,14 +5,17 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import { InfoCircle } from 'components/sharedComponents/icons/Icons';
-
+import { isCancel } from 'axios';
+import { initialState as defaultFilters } from 'redux/reducers/search/searchFiltersReducer';
+import { Link } from 'react-router-dom';
 import AwardBreakdownContainer from 'containers/state/visualizations/awardBreakdown/AwardBreakdownContainer';
 import GeoVisualizationSectionContainer from 'containers/state/visualizations/geo/GeoVisualizationSectionContainer';
 import FaceValueOfLoans from 'components/sharedComponents/FaceValueOfLoans';
 import { stateOverviewLoanInfo } from 'components/state/InfoTooltipContent';
 import DetailsTooltip from './DetailsTooltip';
+import { generateUrlHash } from "../../../helpers/searchHelper";
+
 
 const propTypes = {
     stateProfile: PropTypes.object
@@ -79,6 +82,57 @@ export default class StateOverview extends React.PureComponent {
         let populationSourceYear = '';
         let incomeSourceYear = '';
 
+        const usaCode = `USA_${this.props.stateProfile.code}`;
+        const getSelectedHash = (stateProfile) => {
+            const filterValue = {
+                filters: {
+                    ...defaultFilters,
+                    selectedLocations: {
+                        usaCode: {
+                            filter: {
+                                state: stateProfile.code,
+                                country: "USA"
+                            },
+                            display: {
+                                title: stateProfile.name,
+                                entity: stateProfile.type.charAt(0).toUpperCase() + stateProfile.type.slice(1),
+                                standalone: stateProfile.name
+                            },
+                            identifier: usaCode
+                        }
+                    }
+                },
+                version: "2020-06-01"
+            };
+
+            let tempHash = generateUrlHash(filterValue);
+            tempHash.promise
+                .then((results) => {
+                    const hashData = results.data;
+                    window.open(`/search/?hash=${hashData.hash}`, '_blank');
+                    // operation has resolved
+                    tempHash = null;
+                })
+                .catch((error) => {
+                    console.log(error);
+                    if (isCancel(error)) {
+                        // Got cancelled
+                    }
+                    else if (error.response) {
+                        // Errored out but got response, toggle noAward flag
+                        this.hash = null;
+                    }
+                    else {
+                        // Request failed
+                        tempHash = null;
+                        console.log(error);
+                    }
+                });
+        };
+        const handleGoToAdvancedSearch = (e) => {
+            e.preventDefault();
+            getSelectedHash(this.props.stateProfile);
+        };
         if ((this.props.stateProfile.population !== "--") && this.props.stateProfile.populationSourceYear) {
             populationSourceYear = `(${this.props.stateProfile.populationSourceYear} est.)`;
         }
@@ -122,6 +176,16 @@ export default class StateOverview extends React.PureComponent {
                                 <div className="totals__awards">
                                 from <span className="state-overview__total">{this.props.stateProfile.totalAwards}</span> prime awards
                                 </div>
+                                {(this.props.stateProfile.code) &&
+                                    <Link
+                                        className="state-section__award-button"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        to="/search"
+                                        onClick={handleGoToAdvancedSearch}>
+                                        View awards to this state
+                                    </Link>
+                                }
                             </div>
                             <div className="state-section__viz loan">
                                 <FaceValueOfLoans amount={this.props.stateProfile.totalFaceValueLoanAmount} transactions={this.props.stateProfile.totalFaceValueLoanPrimeAwards} primeAwards heading="Face Value of Loans" headingClass="state-overview__heading" tooltipIcon="info" tooltipClasses="state-section__viz-loan__tt" tooltipComponent={stateOverviewLoanInfo} tooltipPosition="right" />

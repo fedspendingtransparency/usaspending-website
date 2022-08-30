@@ -81,6 +81,23 @@
 				@include media($tablet-screen) {
 					@include flex(1 1 50%);
 				}
+
+				.state-section__award-button {
+					@include display(flex);
+					@include flex(0 0 auto);
+					@include align-items(center);
+					@include button-unstyled;
+					color: $color-primary;
+					margin-top: rem(16);
+					font-size: rem(14);
+					width: fit-content;
+					&:hover {
+						color: $color-primary-darker;
+						svg {
+							fill: $color-primary-darker;
+						}
+					}
+				}
 			}
 		}
     }
