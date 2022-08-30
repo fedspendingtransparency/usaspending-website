@@ -7,7 +7,7 @@ import React from 'react';
 import { FlexGridRow } from 'data-transparency-ui';
 
 const ExploreDataPlaceholder = () => (
-    <section className="download-explore__section">
+    <section className="explore-data__section">
         <FlexGridRow className="grid-content">
             <h1>
             EXPLORE DATA COMPONENT PLACEHOLDER

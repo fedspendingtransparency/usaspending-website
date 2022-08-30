@@ -29,16 +29,16 @@ const HomepageExploreToggle = () => {
 
     return (
         <section className="homepage-explore-toggle__section">
-            <FlexGridRow>
-                <FlexGridCol width={12} className="grid-content">
+            <FlexGridRow className="grid-content">
+                <div>
                     <Tabs active={activeTab} types={toggleTabs} switchTab={changeActiveTab} />
-                    {activeTab === 'explore' ?
-                        <ExploreDataPlaceholder />
-                        :
-                        <AccessDataPlaceholder />
-                    }
-                </FlexGridCol>
+                </div>
             </FlexGridRow>
+            {activeTab === 'explore' ?
+                <ExploreDataPlaceholder />
+                :
+                <AccessDataPlaceholder />
+            }
         </section>
     );
 };

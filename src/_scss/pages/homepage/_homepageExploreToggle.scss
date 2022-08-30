@@ -1,12 +1,15 @@
 .homepage-explore-toggle__section {
   .grid-content {
     justify-content: center;
+
     .usa-dt-tab-list__border-post-filler {
       border-bottom: none;
     }
+
     .usa-dt-tab__wrapper {
       border-bottom: none;
     }
+
     .usa-dt-tab {
       background-color: white;
       margin-right: 0;
@@ -15,9 +18,14 @@
       border-right: none;
       // todo - add this color to our color vars
       border-bottom: solid 2px #c6cace;
+
       &.active {
         border-bottom: solid 4px $color-primary;
       }
+    }
+    &.display-row {
+      justify-content: unset;
+      margin: 0;
     }
   }
 }
