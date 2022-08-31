@@ -126,7 +126,7 @@
         "lodash": "^4.17.12",
         "mapbox-gl": "^1.13.0",
         "moment": "^2.29.4",
-        "moment-timezone": "^0.5.4",
+        "moment-timezone": "^0.5.35",
         "mousetrap": "^1.6.1",
         "prop-types": "^15.7.2",
         "react": "^17.0.2",
