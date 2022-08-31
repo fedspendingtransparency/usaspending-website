@@ -71,8 +71,12 @@ const getAwardColor = (overallColor, infrastructureColor, covidColor, fileCType)
 const getAwardOutlayRawValue = (data, awardType, fileCType) => {
     const fileCInfo = getfileCInfo(fileCType);
 
-    if (fileCInfo) {
-        return data[fileCInfo.keys.outlays];
+    if (fileCInfo?.codeType === "covid") {
+        return data._fileCOutlay;
+    }
+
+    if (fileCInfo?.codeType === "infrastructure") {
+        return data._fileCOutlayInfrastructure;
     }
 
     return awardType === "idv" ? data._combinedOutlay : data._totalOutlay;
@@ -81,8 +85,12 @@ const getAwardOutlayRawValue = (data, awardType, fileCType) => {
 const getAwardOutlayValue = (data, awardType, fileCType) => {
     const fileCInfo = getfileCInfo(fileCType);
 
-    if (fileCInfo) {
-        return data[fileCInfo.keys.outlayAbbreviated];
+    if (fileCInfo?.codeType === "covid") {
+        return data.fileCOutlayAbbreviated;
+    }
+
+    if (fileCInfo?.codeType === "infrastructure") {
+        return data.infrastructureOutlayAbbreviated;
     }
 
     return awardType === 'idv' ? data.combinedOutlayAbbreviated : data.totalOutlayAbbreviated;
@@ -91,8 +99,12 @@ const getAwardOutlayValue = (data, awardType, fileCType) => {
 const getAwardObligatedRawValue = (data, awardType, fileCType) => {
     const fileCInfo = getfileCInfo(fileCType);
 
-    if (fileCInfo) {
-        return data[fileCInfo.keys.obligated];
+    if (fileCInfo?.codeType === "covid") {
+        return data._fileCObligated;
+    }
+
+    if (fileCInfo?.codeType === "infrastructure") {
+        return data._fileCObligatedInfrastructure;
     }
 
     return data._totalObligation;
@@ -208,42 +220,6 @@ const buildNormalProps = (awardType, data, hasfilecCovid, hasOutlays, fileCType)
     };
     if (!hasfilecCovid) return chartProps;
     return chartPropsOutlays; // show outlays for non-covid only first
-    // return {
-    //     ...chartProps,
-    //     // eslint-disable-next-line no-multi-assign
-    //     numerator: {
-    //         ...chartProps.numerator,
-    //         children: [{
-    //             ...chartProps.numerator.children[0],
-    //             children: [
-    //                 {
-    //                     labelSortOrder: 1,
-    //                     labelPosition: 'top',
-    //                     className: `${awardType}-file-c-obligated`,
-    //                     tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'fileCObligated', data),
-    //                     rawValue: data._fileCObligated,
-    //                     denominatorValue: data._totalObligation,
-    //                     value: data.fileCObligatedAbbreviated,
-    //                     text: 'COVID-19 Obligated Amount',
-    //                     color: covidObligatedColor,
-    //                     lineOffset: lineOffsetsBySpendingCategory.fileCProcurementObligated,
-    //                     children: [{
-    //                         labelSortOrder: 0,
-    //                         labelPosition: 'bottom',
-    //                         className: `${data._fileCOutlay > 0 ? `${awardType}-file-c-outlay` : `${awardType}-file-c-outlay--zero`}`,
-    //                         tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'fileCOutlay', data),
-    //                         denominatorValue: data._fileCObligated,
-    //                         rawValue: data._fileCOutlay,
-    //                         value: data.fileCOutlayAbbreviated,
-    //                         text: 'COVID-19 Outlayed Amount',
-    //                         color: covidColor,
-    //                         lineOffset: lineOffsetsBySpendingCategory.fileCProcurementOutlay
-    //                     }]
-    //                 }
-    //             ]
-    //         }]
-    //     }
-    // };
 };
 
 // Only for Contract and IDV Awards

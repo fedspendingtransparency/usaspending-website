@@ -102,31 +102,31 @@ const AwardAmountsTable = ({
 
         let hide = false;
 
-        if (fileCType && hasDefCode) {
-            if (title.includes(fileCType)) {
-                hide = false;
-            } else {
-                if (!hide) {
-                    hide = true;
-                }
-            }
-        }
-
-        if (!fileCType || fileCType === "overall") {
-            defcByType.forEach(item => {
-                if (title.toLowerCase().includes(item)) {
-                    if (!hide) {
-                        hide = true;
-                    }
-                }
-            });
-        } else {
-            allExclusions.forEach((item) => {
-                if (title === item) {
-                    hide = true;
-                }
-            });
-        }
+        // if (fileCType && hasDefCode) {
+        //     if (title.includes(fileCType)) {
+        //         hide = false;
+        //     } else {
+        //         if (!hide) {
+        //             hide = true;
+        //         }
+        //     }
+        // }
+        //
+        // if (!fileCType || fileCType === "overall") {
+        //     defcByType.forEach(item => {
+        //         if (title.toLowerCase().includes(item)) {
+        //             if (!hide) {
+        //                 hide = true;
+        //             }
+        //         }
+        //     });
+        // } else {
+        //     allExclusions.forEach((item) => {
+        //         if (title === item) {
+        //             hide = true;
+        //         }
+        //     });
+        // }
 
         return hide;
     };

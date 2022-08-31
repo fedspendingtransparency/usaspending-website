@@ -21,7 +21,7 @@ const propTypes = {
 };
 
 const AggregatedAwardAmountsTableWrapper = (props) => {
-    const [activeTab, setActiveTab] = useState(null);
+    const [activeTab, setActiveTab] = useState("overall");
     const { awardData } = props;
 
     const showInfrastructureTabs = () => (awardData._fileCObligatedInfrastructure > 0 || awardData._fileCOutlayInfrastructure > 0) && awardData._fileCObligated === 0 && awardData._fileCOutlay === 0;
@@ -30,13 +30,7 @@ const AggregatedAwardAmountsTableWrapper = (props) => {
     };
 
     const tabTypes = generateDefcTabs(awardData);
-
-    useEffect(() => {
-        if (tabTypes.length > 0) {
-            setActiveTab(tabTypes[0].internal);
-        }
-    }, []);
-
+    
     return (
         <div className="award-amounts__table-by-type" data-testid="award-amounts__table-by-type">
             {tabTypes.length > 0 &&
