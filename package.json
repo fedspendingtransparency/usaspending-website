@@ -94,6 +94,7 @@
     "locate-path": "^5.0.0",
     "mini-css-extract-plugin": "^2.6.1",
     "minimist": "1.2.6",
+    "moment-timezone": "^0.5.37",
     "ms": "^2.0.0",
     "p-locate": "^4.1.0",
     "path-exists": "^4.0.0",
@@ -131,7 +132,8 @@
     "got": "^11.8.5",
     "glob-parent": "^6.0.1",
     "terser": "^5.14.2",
-    "webpack": "5.67.0"
+    "webpack": "5.67.0",
+    "moment-timezone": "^0.5.37"
   },
   "dependencies": {
     "@babel/eslint-parser": "^7.17.0",
@@ -163,7 +165,6 @@
     "lodash": "^4.17.12",
     "mapbox-gl": "^1.13.0",
     "moment": "^2.29.4",
-    "moment-timezone": "^0.5.4",
     "mousetrap": "^1.6.1",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
