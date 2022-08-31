@@ -4,6 +4,7 @@ import { Tabs } from "data-transparency-ui";
 
 import { determineSpendingScenarioByAwardType, generateDefcTabs } from 'helpers/awardAmountHelper';
 import { getToolTipBySectionAndAwardType } from 'dataMapping/award/tooltips';
+import { defcTypes } from 'dataMapping/award/awardAmountsSection';
 
 import AwardSection from '../AwardSection';
 import AwardSectionHeader from '../AwardSectionHeader';
@@ -26,7 +27,7 @@ const AwardAmountsSection = ({
     const spendingScenario = determineSpendingScenarioByAwardType(awardType, awardOverview, active === "infrastructure");
     const tooltip = getToolTipBySectionAndAwardType('awardAmounts', awardType);
 
-    const [active, setActive] = useState(null);
+    const [active, setActive] = useState("overall");
 
     const switchTab = (tab) => {
         setActive(tab);
@@ -34,18 +35,12 @@ const AwardAmountsSection = ({
 
     const tabTypes = generateDefcTabs(awardOverview);
 
-    useEffect(() => {
-        if (tabTypes.length > 0) {
-            setActive(tabTypes[0].internal);
-        }
-    }, []);
-
     return (
         <AwardSection type="column" className="award-viz award-amounts">
             <div className="award__col__content">
                 <AwardSectionHeader title="$ Award Amounts" tooltip={tooltip} />
                 <div className="award-amounts__content">
-                    {active &&
+                    {tabTypes.length > 0 &&
                         <div style={{ paddingBottom: '20px' }}>
                             <Tabs
                                 active={active}
@@ -57,7 +52,6 @@ const AwardAmountsSection = ({
                         awardOverview={awardOverview}
                         awardType={awardType}
                         spendingScenario={spendingScenario}
-                        infrastructureSpending={active}
                         fileCType={active} />
                     <AwardAmountsTable
                         showFileC={(

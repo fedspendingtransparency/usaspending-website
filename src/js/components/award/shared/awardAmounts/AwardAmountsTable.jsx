@@ -97,12 +97,19 @@ const AwardAmountsTable = ({
         const defcByType = defcTypes.map((item) => {
             return item.codeType
         });
+        const hasDefCode = defcByType?.indexOf(fileCType) > -1;
         const allExclusions = ['Combined Outlayed Amounts', 'Combined Obligated Amounts', 'Outlayed Amount', 'Obligated Amount'];
 
         let hide = false;
 
-        if (fileCType && defcByType.indexOf(fileCType) > -1 && title.includes(fileCType)) {
-            return false;
+        if (fileCType && hasDefCode) {
+            if (title.includes(fileCType)) {
+                hide = false;
+            } else {
+                if (!hide) {
+                    hide = true;
+                }
+            }
         }
 
         if (!fileCType || fileCType === "overall") {

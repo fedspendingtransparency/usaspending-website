@@ -35,62 +35,81 @@ const propTypes = {
 };
 
 // TO-DO: Move these functions to a helper file
+
 const getfileCInfo = (fileCType) => {
-   defcTypes.forEach((item) => {
+    let fileCInfo = null;
+    defcTypes.forEach((item) => {
         if (item.codeType === fileCType) {
-            return item;
+            fileCInfo = item;
         }
     })
 
-    return null;
+    return fileCInfo;
 };
 
-const getAwardTypeText = (awardType, amountType, infrastructure) => {
-    // const fileCInfo = getfileCInfo(fileCType);
-    // const preText = Object.keys(obj).length === 0; ? fileCInfo
-    //
-    //
-
-    const infraText = infrastructure ? "Infrastructure" : "";
-    return awardType === "idv" ? `Combined ${infraText} ${amountType} Amounts` : `${infraText} ${amountType} Amount`;
+const getAwardTypeText = (awardType, amountType, fileCType) => {
+    const fileCInfo = getfileCInfo(fileCType);
+    const preText = fileCInfo && Object.keys(fileCInfo).length > 0 ? fileCInfo.preText : '';
+    return awardType === "idv" ? `Combined ${preText} ${amountType} Amounts` : `${preText} ${amountType} Amount`;
 };
 
-const getAwardColor = (overallColor, infrastructureColor, infrastructure) => (infrastructure ? infrastructureColor : overallColor);
+//TODO: Address with continued award chart refactor
+const getAwardColor = (overallColor, infrastructureColor, covidColor, fileCType) => {
+    const fileCInfo = getfileCInfo(fileCType);
 
-const getAwardOutlayRawValue = (data, awardType, infrastructure) => {
-    if (infrastructure) {
-        return data._fileCOutlayInfrastructure;
+    if (fileCInfo?.codeType === "infrastructure") {
+        return infrastructureColor;
+    }
+
+    if (fileCInfo?.codeType === "covid") {
+        return covidColor;
+    }
+
+    return overallColor;
+}
+
+const getAwardOutlayRawValue = (data, awardType, fileCType) => {
+    const fileCInfo = getfileCInfo(fileCType);
+
+    if (fileCInfo) {
+        return data[fileCInfo.keys.outlays];
     }
 
     return awardType === "idv" ? data._combinedOutlay : data._totalOutlay;
 };
 
-const getAwardOutlayValue = (data, awardType, infrastructure) => {
-    if (infrastructure) {
-        return data.infrastructureOutlayAbbreviated;
+const getAwardOutlayValue = (data, awardType, fileCType) => {
+    const fileCInfo = getfileCInfo(fileCType);
+
+    if (fileCInfo) {
+        return data[fileCInfo.keys.outlayAbbreviated];
     }
 
     return awardType === 'idv' ? data.combinedOutlayAbbreviated : data.totalOutlayAbbreviated;
 };
 
-const getAwardObligatedRawValue = (data, awardType, infrastructure) => {
-    if (infrastructure) {
-        return data._fileCObligatedInfrastructure;
+const getAwardObligatedRawValue = (data, awardType, fileCType) => {
+    const fileCInfo = getfileCInfo(fileCType);
+
+    if (fileCInfo) {
+        return data[fileCInfo.keys.obligated];
     }
 
     return data._totalObligation;
 };
 
-const getAwardObligatedValue = (data, awardType, infrastructure) => {
-    if (infrastructure) {
-        return data.infrastructureObligationAbbreviated;
+const getAwardObligatedValue = (data, awardType, fileCType) => {
+    const fileCInfo = getfileCInfo(fileCType);
+
+    if (fileCInfo) {
+        return data[fileCInfo.keys.obligationAbbreviation];
     }
 
     return data.totalObligationAbbreviated;
 };
 
 // Only for Contract and IDV Awards
-const buildNormalProps = (awardType, data, hasfilecCovid, hasOutlays, infrastructure) => {
+const buildNormalProps = (awardType, data, hasfilecCovid, hasOutlays, fileCType) => {
     const chartProps = {
         denominator: {
             labelSortOrder: 3,
@@ -143,7 +162,7 @@ const buildNormalProps = (awardType, data, hasfilecCovid, hasOutlays, infrastruc
             className: `${awardType}-potential`,
             rawValue: data._baseAndAllOptions,
             value: data.baseAndAllOptionsAbbreviated,
-            color: getAwardColor(potentialColor, infrastructurePotentialColor, infrastructure),
+            color: getAwardColor(potentialColor, infrastructurePotentialColor, covidColor, fileCType),
             lineOffset: lineOffsetsBySpendingCategory.potential,
             text: awardType === 'idv'
                 ? "Combined Potential Award Amounts"
@@ -154,11 +173,11 @@ const buildNormalProps = (awardType, data, hasfilecCovid, hasOutlays, infrastruc
             labelSortOrder: 0,
             labelPosition: 'top',
             className: `${awardType}-outlayed`,
-            rawValue: getAwardOutlayRawValue(data, awardType, infrastructure),
-            value: getAwardOutlayValue(data, awardType, infrastructure),
-            color: getAwardColor(outlayColor, infrastructureOutlayColor, infrastructure),
+            rawValue: getAwardOutlayRawValue(data, awardType, fileCType),
+            value: getAwardOutlayValue(data, awardType, fileCType),
+            color: getAwardColor(outlayColor, infrastructureOutlayColor, covidColor, fileCType),
             lineOffset: lineOffsetsBySpendingCategory.potential,
-            text: getAwardTypeText(awardType, "Outlayed", infrastructure)
+            text: getAwardTypeText(awardType, "Outlayed", fileCType)
         },
         numerator: {
             labelSortOrder: 2,
@@ -171,60 +190,60 @@ const buildNormalProps = (awardType, data, hasfilecCovid, hasOutlays, infrastruc
             text: awardType === 'idv'
                 ? "Combined Current Award Amounts"
                 : "Current Award Amount",
-            color: getAwardColor(currentColor, infrastructureCurrentColor, infrastructure),
+            color: getAwardColor(currentColor, infrastructureCurrentColor, covidColor, fileCType),
             children: [
                 {
                     labelSortOrder: 1,
                     labelPosition: 'top',
                     className: `${awardType}-obligated`,
-                    rawValue: getAwardObligatedRawValue(data, awardType, infrastructure),
+                    rawValue: getAwardObligatedRawValue(data, awardType, fileCType),
                     denominatorValue: data._baseExercisedOptions,
-                    value: getAwardObligatedValue(data, awardType, infrastructure),
-                    text: getAwardTypeText(awardType, "Obligated", infrastructure),
-                    color: getAwardColor(obligatedColor, infrastructureObligatedColor, infrastructure),
+                    value: getAwardObligatedValue(data, awardType, fileCType),
+                    text: getAwardTypeText(awardType, "Obligated", fileCType),
+                    color: getAwardColor(obligatedColor, infrastructureObligatedColor, covidObligatedColor, fileCType),
                     lineOffset: lineOffsetsBySpendingCategory.obligationProcurement
                 }
             ]
         }
     };
-    if (hasOutlays && !hasfilecCovid) return chartPropsOutlays; // show outlays for non-covid only first
     if (!hasfilecCovid) return chartProps;
-    return {
-        ...chartProps,
-        // eslint-disable-next-line no-multi-assign
-        numerator: {
-            ...chartProps.numerator,
-            children: [{
-                ...chartProps.numerator.children[0],
-                children: [
-                    {
-                        labelSortOrder: 1,
-                        labelPosition: 'top',
-                        className: `${awardType}-file-c-obligated`,
-                        tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'fileCObligated', data),
-                        rawValue: data._fileCObligated,
-                        denominatorValue: data._totalObligation,
-                        value: data.fileCObligatedAbbreviated,
-                        text: 'COVID-19 Obligated Amount',
-                        color: covidObligatedColor,
-                        lineOffset: lineOffsetsBySpendingCategory.fileCProcurementObligated,
-                        children: [{
-                            labelSortOrder: 0,
-                            labelPosition: 'bottom',
-                            className: `${data._fileCOutlay > 0 ? `${awardType}-file-c-outlay` : `${awardType}-file-c-outlay--zero`}`,
-                            tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'fileCOutlay', data),
-                            denominatorValue: data._fileCObligated,
-                            rawValue: data._fileCOutlay,
-                            value: data.fileCOutlayAbbreviated,
-                            text: 'COVID-19 Outlayed Amount',
-                            color: covidColor,
-                            lineOffset: lineOffsetsBySpendingCategory.fileCProcurementOutlay
-                        }]
-                    }
-                ]
-            }]
-        }
-    };
+    return chartPropsOutlays; // show outlays for non-covid only first
+    // return {
+    //     ...chartProps,
+    //     // eslint-disable-next-line no-multi-assign
+    //     numerator: {
+    //         ...chartProps.numerator,
+    //         children: [{
+    //             ...chartProps.numerator.children[0],
+    //             children: [
+    //                 {
+    //                     labelSortOrder: 1,
+    //                     labelPosition: 'top',
+    //                     className: `${awardType}-file-c-obligated`,
+    //                     tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'fileCObligated', data),
+    //                     rawValue: data._fileCObligated,
+    //                     denominatorValue: data._totalObligation,
+    //                     value: data.fileCObligatedAbbreviated,
+    //                     text: 'COVID-19 Obligated Amount',
+    //                     color: covidObligatedColor,
+    //                     lineOffset: lineOffsetsBySpendingCategory.fileCProcurementObligated,
+    //                     children: [{
+    //                         labelSortOrder: 0,
+    //                         labelPosition: 'bottom',
+    //                         className: `${data._fileCOutlay > 0 ? `${awardType}-file-c-outlay` : `${awardType}-file-c-outlay--zero`}`,
+    //                         tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'fileCOutlay', data),
+    //                         denominatorValue: data._fileCObligated,
+    //                         rawValue: data._fileCOutlay,
+    //                         value: data.fileCOutlayAbbreviated,
+    //                         text: 'COVID-19 Outlayed Amount',
+    //                         color: covidColor,
+    //                         lineOffset: lineOffsetsBySpendingCategory.fileCProcurementOutlay
+    //                     }]
+    //                 }
+    //             ]
+    //         }]
+    //     }
+    // };
 };
 
 // Only for Contract and IDV Awards
@@ -503,21 +522,19 @@ const AwardAmountsChart = ({
     awardType,
     awardOverview,
     spendingScenario,
-    infrastructureSpending
+    fileCType
 }) => {
-    const [infrastructure, setInfrastructure] = useState(infrastructureSpending === "infrastructure");
-
-    useEffect(() => {
-        setInfrastructure(infrastructureSpending === "infrastructure");
-    }, [infrastructureSpending]);
 
     const renderChartBySpendingScenario = (
         scenario = spendingScenario,
         type = awardType,
         awardAmounts = awardOverview
     ) => {
-        const hasfilecCovid = awardAmounts._fileCObligated > 0 || awardAmounts._fileCOutlay > 0;
-        const hasOutlays = awardAmounts._combinedOutlay > 0 || awardAmounts._totalOutlay > 0 || infrastructure;
+        const hasfilecCovid = fileCType === "covid";
+        const infrastructure = fileCType === "infrastructure";
+        const hasOutlays = awardOverview._combinedOutlay > 0 || awardOverview._totalOutlay > 0;
+
+        console.log(fileCType);
 
         switch (scenario) {
             case "exceedsBigger": {
@@ -531,9 +548,9 @@ const AwardAmountsChart = ({
                 );
             }
             case "normal":
-                if ((hasOutlays || infrastructure) && !hasfilecCovid) {
+                if (hasOutlays || infrastructure || hasfilecCovid) {
                     return (
-                        <HorizontalSingleStackedBarViz {...buildNormalProps(type, awardAmounts, hasfilecCovid, hasOutlays, infrastructure)} />
+                        <HorizontalSingleStackedBarViz {...buildNormalProps(type, awardAmounts, hasfilecCovid, hasOutlays, fileCType)} />
                     );
                 }
                 return (
@@ -552,8 +569,9 @@ const AwardAmountsChart = ({
         const isNormal = scenario === 'normal';
         if (asstAwardTypesWithSimilarAwardAmountData.includes(type) && isNormal) {
             const isNffZero = awardAmounts._nonFederalFunding === 0;
-            const showFilecCovid = awardAmounts._fileCObligated > 0;
-            const hasOutlays = awardAmounts._combinedOutlay > 0 || awardAmounts._totalOutlay > 0 || infrastructure;
+            const showFilecCovid = fileCType === "covid";
+            const hasInfrastructure = fileCType === "infrastructure";
+            const hasOutlays = awardAmounts._combinedOutlay > 0 || awardAmounts._totalOutlay > 0;
 
             const chartProps = {
                 denominator: {
@@ -633,12 +651,12 @@ const AwardAmountsChart = ({
                             labelSortOrder: 1,
                             labelPosition: 'top',
                             tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'obligated', awardAmounts),
-                            rawValue: getAwardObligatedRawValue(awardAmounts, awardType, infrastructure),
+                            rawValue: getAwardObligatedRawValue(awardAmounts, awardType, fileCType),
                             denominatorValue: awardAmounts._totalFunding,
-                            value: getAwardObligatedValue(awardAmounts, awardType, infrastructure),
+                            value: getAwardObligatedValue(awardAmounts, awardType, fileCType),
                             lineOffset: lineOffsetsBySpendingCategory.obligationAsst,
-                            text: getAwardTypeText(awardType, "Obligated", infrastructure),
-                            color: getAwardColor(obligatedColor, infrastructureObligatedColor, infrastructure)
+                            text: getAwardTypeText(awardType, "Obligated", fileCType),
+                            color: getAwardColor(obligatedColor, infrastructureObligatedColor, fileCType)
                         }
                     ]
                 },
@@ -646,11 +664,11 @@ const AwardAmountsChart = ({
                     labelSortOrder: 0,
                     labelPosition: 'top',
                     className: `${awardType}-outlayed`,
-                    rawValue: getAwardOutlayRawValue(awardAmounts, awardType, infrastructure),
-                    value: getAwardOutlayValue(awardAmounts, awardType, infrastructure),
-                    color: getAwardColor(outlayColor, infrastructureOutlayColor, infrastructure),
+                    rawValue: getAwardOutlayRawValue(awardAmounts, awardType, fileCType),
+                    value: getAwardOutlayValue(awardAmounts, awardType, fileCType),
+                    color: getAwardColor(outlayColor, infrastructureOutlayColor, fileCType),
                     lineOffset: lineOffsetsBySpendingCategory.potential,
-                    text: getAwardTypeText(awardType, "Outlayed", infrastructure)
+                    text: getAwardTypeText(awardType, "Outlayed", fileCType)
                 }
             };
             if (showFilecCovid) {
@@ -682,7 +700,7 @@ const AwardAmountsChart = ({
                     }
                 ];
             }
-            if ((hasOutlays || infrastructure) && !showFilecCovid) {
+            if ((hasOutlays || hasInfrastructure) && !showFilecCovid) {
                 return (
                     <HorizontalSingleStackedBarViz {...chartPropsOutlays} />
                 );
@@ -694,7 +712,7 @@ const AwardAmountsChart = ({
         }
         else if (type === 'loan' && isNormal) {
             const showFilecCovid = awardAmounts._fileCObligated > 0;
-            const hasOutlays = awardAmounts._combinedOutlay > 0 || awardAmounts._totalOutlay > 0 || infrastructure;
+            const hasOutlays = awardAmounts._combinedOutlay > 0 || awardAmounts._totalOutlay > 0 || hasInfrastructure;
             const propsWithoutFileC = {
                 numerator: {
                     labelPosition: 'top',
@@ -736,12 +754,12 @@ const AwardAmountsChart = ({
                             labelSortOrder: 1,
                             labelPosition: 'top',
                             tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'obligated', awardAmounts),
-                            rawValue: getAwardObligatedRawValue(awardAmounts, awardType, infrastructure),
+                            rawValue: getAwardObligatedRawValue(awardAmounts, awardType, fileCType),
                             denominatorValue: awardAmounts._totalFunding,
-                            value: getAwardObligatedValue(awardAmounts, awardType, infrastructure),
+                            value: getAwardObligatedValue(awardAmounts, awardType, fileCType),
                             lineOffset: lineOffsetsBySpendingCategory.obligationAsst,
                             text: 'Obligated Amount',
-                            color: getAwardColor(obligatedColor, infrastructureObligatedColor, infrastructure)
+                            color: getAwardColor(obligatedColor, infrastructureObligatedColor, fileCType)
                         }
                     ]
                 },
@@ -759,9 +777,9 @@ const AwardAmountsChart = ({
                     labelSortOrder: 0,
                     labelPosition: 'top',
                     className: `${awardType}-outlayed`,
-                    rawValue: getAwardOutlayRawValue(awardAmounts, awardType, infrastructure),
-                    value: getAwardOutlayValue(awardAmounts, awardType, infrastructure),
-                    color: getAwardColor(outlayColor, infrastructureOutlayColor, infrastructure),
+                    rawValue: getAwardOutlayRawValue(awardAmounts, awardType, fileCType),
+                    value: getAwardOutlayValue(awardAmounts, awardType, fileCType),
+                    color: getAwardColor(outlayColor, infrastructureOutlayColor, fileCType),
                     lineOffset: lineOffsetsBySpendingCategory.potential,
                     text: 'Outlayed Amount'
                 }

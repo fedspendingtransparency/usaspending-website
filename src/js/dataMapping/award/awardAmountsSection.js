@@ -220,7 +220,9 @@ export const defcTypes = [
         codeType: "covid",
         keys: {
             outlay: "_fileCOutlay",
-            obligated: "_fileCObligated"
+            obligated: "_fileCObligated",
+            outlayAbbreviated: "fileCOutlayAbbreviated",
+            obligationAbbreviation: "fileCObligatedAbbreviated",
         },
         label: "COVID-19 Spending",
         preText: "COVID-19"
@@ -229,7 +231,9 @@ export const defcTypes = [
         codeType: "infrastructure",
         keys: {
             outlay: "_fileCOutlayInfrastructure",
-            obligated: "_fileCObligatedInfrastructure"
+            obligated: "_fileCObligatedInfrastructure",
+            outlayAbbreviated: "infrastructureOutlayAbbreviated",
+            obligationAbbreviation: "infrastructureObligationAbbreviated"
         },
         label: "Infrastucture Spending",
         preText: "Infrastructure"
