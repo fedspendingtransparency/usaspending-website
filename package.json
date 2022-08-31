@@ -84,6 +84,7 @@
     "eslint-plugin-react-hooks": "^1.6.0",
     "find-up": "^4.1.0",
     "git-revision-webpack-plugin": "^5.0.0",
+    "glob-parent": "^6.0.2",
     "has-flag": "^4.0.0",
     "html-webpack-plugin": "^5.5.0",
     "identity-obj-proxy": "^3.0.0",
