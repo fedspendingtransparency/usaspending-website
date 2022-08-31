@@ -106,7 +106,7 @@ const HorizontalSingleStackedBarViz = ({
                 chartSvg.append("rect")
                     .attr("x", 0)
                     .attr("y", (height / 2.5) + 10)
-                    .attr("width", x(propsArr[3]) <= 100 ? x(propsArr[3]) + 2 : x(propsArr[3]))
+                    .attr("width", x(propsArr[3]) <= 100 ? x(propsArr[3]) + 4 : x(propsArr[3]))
                     .attr("height", '30')
                     .attr("fill", outlayedAmountColor);
                 if (!isNffZero) {
