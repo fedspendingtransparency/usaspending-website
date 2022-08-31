@@ -106,7 +106,7 @@ const HorizontalSingleStackedBarViz = ({
                 chartSvg.append("rect")
                     .attr("x", 0)
                     .attr("y", (height / 2.5) + 10)
-                    .attr("width", x(propsArr[3]) <= 100 ? x(propsArr[3]) + 4 : x(propsArr[3]))
+                    .attr("width", x(propsArr[3]) <= 100 ? x(propsArr[3]) + 2 : x(propsArr[3]))
                     .attr("height", '30')
                     .attr("fill", outlayedAmountColor);
                 if (!isNffZero) {
@@ -211,7 +211,7 @@ const HorizontalSingleStackedBarViz = ({
                     chartSvg.append("rect")
                         .attr("x", 0)
                         .attr("y", (height / 2.5) + 15)
-                        .attr("width", x(propsArr[3]) <= 100 ? x(propsArr[3]) + 4 : x(propsArr[3]))
+                        .attr("width", x(propsArr[3]) <= 100 ? x(propsArr[3]) + 2 : x(propsArr[3]))
                         .attr("height", '20')
                         .attr("fill", outlayedAmountColor);
                 }
@@ -246,11 +246,11 @@ const HorizontalSingleStackedBarViz = ({
                         .style("fill", "none");
                 }
                 // outlay line
-                if (outlayedAmountValue.indexOf("$0") < 0) {
+                if (outlayedAmountValue.indexOf("$0") === -1) {
                     chartSvg.append("line")
-                        .attr("x1", x(propsArr[3]) > 100 ? x(propsArr[3]) - 2 : x(propsArr[3]) + 4)
+                        .attr("x1", x(propsArr[3]) > 100 ? x(propsArr[3]) - 2 : x(propsArr[3]) + 2)
                         .attr("y1", 20)
-                        .attr("x2", x(propsArr[3]) > 100 ? x(propsArr[3]) - 2 : x(propsArr[3]) + 4)
+                        .attr("x2", x(propsArr[3]) > 100 ? x(propsArr[3]) - 2 : x(propsArr[3]) + 2)
                         .attr("y2", (height / 2.5) + 35)
                         .style("stroke-width", 4)
                         .style("stroke", outlayedAmountColor)
