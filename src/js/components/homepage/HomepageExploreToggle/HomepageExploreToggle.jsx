@@ -25,7 +25,7 @@ const toggleTabs = [
         internal: 'access',
         label: [(
             <div className="homepage-explore-toggle__text-container">
-                <div className="homepage-explore-toggle__icon-container">
+                <div className="homepage-explore-toggle__icon-container access">
                     <FontAwesomeIcon icon="file-download" className="homepage-explore-toggle__icon" />
                 </div>
                 <div className="homepage-explore-toggle__text">ACCESS THE DATA</div>

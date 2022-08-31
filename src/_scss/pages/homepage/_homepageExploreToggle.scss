@@ -24,6 +24,7 @@ $customWidthJustForThisComponent: 440px;
       border-top: none;
       border-left: none;
       border-right: none;
+      border-radius: 0;
       // todo - add this color to our color vars
       border-bottom: solid 1px #c6cace;
       @media(min-width: $customWidthJustForThisComponent) {
@@ -43,6 +44,9 @@ $customWidthJustForThisComponent: 440px;
           padding-left: rem(4);
           border-radius: rem(2);
           background-color: #e7f6f8;
+          &.access {
+            padding-left: rem(6);
+          }
         }
         .homepage-explore-toggle__icon {
           // todo - add this color to our color vars
