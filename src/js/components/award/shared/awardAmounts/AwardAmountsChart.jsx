@@ -223,7 +223,7 @@ const buildNormalProps = (awardType, data, hasfilecCovid, hasOutlays, fileCType)
         }
     };
     if (hasfilecCovid || fileCType === "infrastructure" || hasOutlays) return chartPropsOutlays;
-    return chartProps; 
+    return chartProps;
 };
 
 // Only for Contract and IDV Awards
