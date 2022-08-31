@@ -1,3 +1,5 @@
+$customWidthJustForThisComponent: 440px;
+
 .homepage-explore-toggle__section {
   .grid-content {
     justify-content: center;
@@ -24,8 +26,11 @@
       border-right: none;
       // todo - add this color to our color vars
       border-bottom: solid 1px #c6cace;
+      @media(min-width: $customWidthJustForThisComponent) {
+        padding: rem(4) rem(16);
+      }
 
-      &.active {
+        &.active {
         border-bottom: solid 2px $color-primary;
       }
 
@@ -55,11 +60,8 @@
           color: $color-grayblack;
           margin-left: rem(4);
           align-self: center;
-          @media(min-width: 400px) {
+          @media(min-width: $customWidthJustForThisComponent) {
             font-size: rem(16);
-            //font-weight: $font-semibold;
-            //font-stretch: normal;
-            //font-style: normal;
             line-height: 1.25;
             margin-left: rem(8);
           }
