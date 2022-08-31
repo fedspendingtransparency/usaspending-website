@@ -94,7 +94,7 @@
     "locate-path": "^5.0.0",
     "mini-css-extract-plugin": "^2.6.1",
     "minimist": "1.2.6",
-    "moment-timezone": "^0.5.37",
+    "moment-timezone": "0.5.37",
     "ms": "^2.0.0",
     "p-locate": "^4.1.0",
     "path-exists": "^4.0.0",
@@ -133,7 +133,7 @@
     "glob-parent": "^6.0.1",
     "terser": "^5.14.2",
     "webpack": "5.67.0",
-    "moment-timezone": "^0.5.37"
+    "moment-timezone": "0.5.37"
   },
   "dependencies": {
     "@babel/eslint-parser": "^7.17.0",
