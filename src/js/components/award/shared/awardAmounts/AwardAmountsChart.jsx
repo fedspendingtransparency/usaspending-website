@@ -222,8 +222,8 @@ const buildNormalProps = (awardType, data, hasfilecCovid, hasOutlays, fileCType)
             ]
         }
     };
-    if (!hasfilecCovid && !fileCType === "infrastructure") return chartProps;
-    return chartPropsOutlays; // show outlays for non-covid only first
+    if (hasfilecCovid || fileCType === "infrastructure" || hasOutlays) return chartPropsOutlays;
+    return chartProps; 
 };
 
 // Only for Contract and IDV Awards
