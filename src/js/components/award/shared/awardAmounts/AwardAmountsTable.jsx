@@ -94,39 +94,33 @@ const AwardAmountsTable = ({
     const sortTableTitles = (a, b) => orderedTableTitles.indexOf(a) - orderedTableTitles.indexOf(b);
 
     const hideRow = (title) => {
-        const defcByType = defcTypes.map((item) => {
-            return item.codeType
-        });
+        const defcByType = defcTypes.map((item) => item.codeType);
         const hasDefCode = defcByType?.indexOf(fileCType) > -1;
         const allExclusions = ['Combined Outlayed Amounts', 'Combined Obligated Amounts', 'Outlayed Amount', 'Obligated Amount'];
 
         let hide = false;
 
-        // if (fileCType && hasDefCode) {
-        //     if (title.includes(fileCType)) {
-        //         hide = false;
-        //     } else {
-        //         if (!hide) {
-        //             hide = true;
-        //         }
-        //     }
-        // }
-        //
-        // if (!fileCType || fileCType === "overall") {
-        //     defcByType.forEach(item => {
-        //         if (title.toLowerCase().includes(item)) {
-        //             if (!hide) {
-        //                 hide = true;
-        //             }
-        //         }
-        //     });
-        // } else {
-        //     allExclusions.forEach((item) => {
-        //         if (title === item) {
-        //             hide = true;
-        //         }
-        //     });
-        // }
+        if (fileCType && hasDefCode) {
+            defcByType.forEach((item) => {
+                if (title.toLowerCase().includes(item) && fileCType !== item) {
+                    hide = true;
+                }
+            });
+        }
+
+        if (!fileCType || fileCType === "overall") {
+            defcByType.forEach((item) => {
+                if (title.toLowerCase().includes(item)) {
+                    hide = true;
+                }
+            });
+        } else {
+            allExclusions.forEach((item) => {
+                if (title === item) {
+                    hide = true;
+                }
+            });
+        }
 
         return hide;
     };
