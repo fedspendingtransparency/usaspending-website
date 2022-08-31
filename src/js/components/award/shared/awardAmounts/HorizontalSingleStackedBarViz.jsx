@@ -54,9 +54,6 @@ const HorizontalSingleStackedBarViz = ({
             propsArr.push(den.rawValue, num.rawValue, num2.rawValue);
         }
     };
-    console.log(numerator);
-    console.log(numerator2);
-    console.log(denominator);
 
     propValuesToArr(numerator, numerator2, denominator);
 

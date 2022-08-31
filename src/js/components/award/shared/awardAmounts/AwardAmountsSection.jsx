@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Tabs } from "data-transparency-ui";
 
@@ -23,10 +23,10 @@ const AwardAmountsSection = ({
     awardType,
     jumpToTransactionHistoryTable
 }) => {
+    const [active, setActive] = useState("overall");
+
     const spendingScenario = determineSpendingScenarioByAwardType(awardType, awardOverview, active === "infrastructure");
     const tooltip = getToolTipBySectionAndAwardType('awardAmounts', awardType);
-
-    const [active, setActive] = useState("overall");
 
     const switchTab = (tab) => {
         setActive(tab);
@@ -44,7 +44,7 @@ const AwardAmountsSection = ({
                             <Tabs
                                 active={active}
                                 switchTab={switchTab}
-                                types={tabTypes}/>
+                                types={tabTypes} />
                         </div>
                     }
                     <AwardAmountsChart

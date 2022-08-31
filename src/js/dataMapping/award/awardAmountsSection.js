@@ -222,7 +222,7 @@ export const defcTypes = [
             outlay: "_fileCOutlay",
             obligated: "_fileCObligated",
             outlayAbbreviated: "fileCOutlayAbbreviated",
-            obligationAbbreviation: "fileCObligatedAbbreviated",
+            obligationAbbreviation: "fileCObligatedAbbreviated"
         },
         label: "COVID-19 Spending",
         preText: "COVID-19"

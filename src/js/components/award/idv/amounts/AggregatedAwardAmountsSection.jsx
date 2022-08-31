@@ -10,8 +10,9 @@ import { Tabs } from "data-transparency-ui";
 import { formatNumber } from 'helpers/moneyFormatter';
 
 import ChartError from 'components/search/visualizations/ChartError';
-import AwardsBanner from './AwardsBanner';
 import { determineSpendingScenarioByAwardType, generateDefcTabs } from 'helpers/awardAmountHelper';
+
+import AwardsBanner from './AwardsBanner';
 
 import { AWARD_AGGREGATED_AMOUNTS_PROPS } from '../../../../propTypes';
 import AwardAmountsTable from '../../shared/awardAmounts/AwardAmountsTable';
@@ -77,7 +78,7 @@ export default class AggregatedAwardAmounts extends React.Component {
                         tablessStyle
                         active={this.state.active}
                         switchTab={this.switchTab}
-                        types={tabTypes}/>
+                        types={tabTypes} />
                 }
                 <AwardAmountsChart
                     showCaresActViz={this.props.showFileC}
@@ -85,8 +86,7 @@ export default class AggregatedAwardAmounts extends React.Component {
                     awardType="idv"
                     spendingScenario={spendingScenario}
                     infrastructureSpending={this.state.active}
-                    fileCType={this.state.active}
-                />
+                    fileCType={this.state.active} />
                 <AwardAmountsTable
                     awardAmountType="idv_aggregated"
                     showFileC={this.props.showFileC}

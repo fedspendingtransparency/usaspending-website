@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import {
@@ -42,7 +42,7 @@ const getfileCInfo = (fileCType) => {
         if (item.codeType === fileCType) {
             fileCInfo = item;
         }
-    })
+    });
 
     return fileCInfo;
 };
@@ -53,8 +53,8 @@ const getAwardTypeText = (awardType, amountType, fileCType) => {
     return awardType === "idv" ? `Combined ${preText} ${amountType} Amounts` : `${preText} ${amountType} Amount`;
 };
 
-//TODO: Address with continued award chart refactor
-const getAwardColor = (overallColor, infrastructureColor, covidColor, fileCType) => {
+// TODO: Address with continued award chart refactor
+const getAwardColor = (overallColor, infrastructureColor, fileCColor, fileCType) => {
     const fileCInfo = getfileCInfo(fileCType);
 
     if (fileCInfo?.codeType === "infrastructure") {
@@ -62,16 +62,14 @@ const getAwardColor = (overallColor, infrastructureColor, covidColor, fileCType)
     }
 
     if (fileCInfo?.codeType === "covid") {
-        return covidColor;
+        return fileCColor;
     }
 
     return overallColor;
-}
+};
 
 const getAwardOutlayRawValue = (data, awardType, fileCType) => {
     const fileCInfo = getfileCInfo(fileCType);
-
-    console.log("here1")
 
     if (fileCInfo?.codeType === "covid") {
         return data._fileCOutlay;
@@ -80,8 +78,6 @@ const getAwardOutlayRawValue = (data, awardType, fileCType) => {
     if (fileCInfo?.codeType === "infrastructure") {
         return data._fileCOutlayInfrastructure;
     }
-
-    console.log("here3")
 
     return awardType === "idv" ? data._combinedOutlay : data._totalOutlay;
 };
@@ -508,7 +504,6 @@ const AwardAmountsChart = ({
     spendingScenario,
     fileCType
 }) => {
-
     const renderChartBySpendingScenario = (
         scenario = spendingScenario,
         type = awardType,
@@ -549,11 +544,12 @@ const AwardAmountsChart = ({
 
     const renderChartByAwardType = (awardAmounts = awardOverview, type = awardType, scenario = spendingScenario) => {
         const isNormal = scenario === 'normal';
+        const showFilecCovid = fileCType === "covid";
+        const hasInfrastructure = fileCType === "infrastructure";
+        const hasOutlays = awardAmounts._combinedOutlay > 0 || awardAmounts._totalOutlay > 0;
+
         if (asstAwardTypesWithSimilarAwardAmountData.includes(type) && isNormal) {
             const isNffZero = awardAmounts._nonFederalFunding === 0;
-            const showFilecCovid = fileCType === "covid";
-            const hasInfrastructure = fileCType === "infrastructure";
-            const hasOutlays = awardAmounts._combinedOutlay > 0 || awardAmounts._totalOutlay > 0;
 
             const chartProps = {
                 denominator: {
@@ -693,8 +689,6 @@ const AwardAmountsChart = ({
             );
         }
         else if (type === 'loan' && isNormal) {
-            const showFilecCovid = awardAmounts._fileCObligated > 0;
-            const hasOutlays = awardAmounts._combinedOutlay > 0 || awardAmounts._totalOutlay > 0 || hasInfrastructure;
             const propsWithoutFileC = {
                 numerator: {
                     labelPosition: 'top',

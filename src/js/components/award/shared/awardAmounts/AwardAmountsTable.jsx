@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { uniqueId } from 'lodash';
 
@@ -7,11 +7,11 @@ import {
     formattedSpendingCategoriesByAwardType,
     awardTableClassMap,
     caresActSpendingCategories,
-    orderedTableTitles
+    orderedTableTitles,
+    defcTypes
 } from "dataMapping/award/awardAmountsSection";
 
 import { AWARD_AMOUNT_TYPE_PROPS } from "../../../../propTypes";
-import { defcTypes } from "../../../../dataMapping/award/awardAmountsSection";
 
 const propTypes = {
     showFileC: PropTypes.bool,
