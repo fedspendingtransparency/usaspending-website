@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { uniqueId } from 'lodash';
 
@@ -7,7 +7,8 @@ import {
     formattedSpendingCategoriesByAwardType,
     awardTableClassMap,
     caresActSpendingCategories,
-    orderedTableTitles
+    orderedTableTitles,
+    defcTypes
 } from "dataMapping/award/awardAmountsSection";
 
 import { AWARD_AMOUNT_TYPE_PROPS } from "../../../../propTypes";
@@ -18,7 +19,7 @@ const propTypes = {
     awardAmountType: AWARD_AMOUNT_TYPE_PROPS,
     awardData: PropTypes.shape({}),
     spendingScenario: PropTypes.string,
-    infrastructureSpending: PropTypes.string
+    fileCType: PropTypes.string
 };
 
 const getSpendingCategoriesByAwardType = (awardAmountType) => {
@@ -40,7 +41,7 @@ const AwardAmountsTable = ({
     awardAmountType,
     spendingScenario,
     showFileC,
-    infrastructureSpending
+    fileCType
 }) => {
     /*
      * we have to do this because right now whenever there's any kind of overspending
@@ -48,12 +49,6 @@ const AwardAmountsTable = ({
      * irrespective of whether the award exceedsPotential or exceedsCurrent
      * so we're relying on the parent in this case because we cant deduce the spending scenario
      **/
-
-    const [infrastructure, setInfrastructure] = useState(infrastructureSpending === "infrastructure");
-
-    useEffect(() => {
-        setInfrastructure(infrastructureSpending === "infrastructure");
-    }, [infrastructureSpending]);
 
     const getOverSpendingRow = (awardAmounts = awardData, scenario = spendingScenario, type = awardAmountType) => {
         switch (scenario) {
@@ -99,26 +94,32 @@ const AwardAmountsTable = ({
     const sortTableTitles = (a, b) => orderedTableTitles.indexOf(a) - orderedTableTitles.indexOf(b);
 
     const hideRow = (title) => {
-        const exclusions = ['Outlayed Amount', 'Combined Outlayed Amounts'];
-        const exclusionsFromInfrastructure = ['Combined Outlayed Amounts', 'Combined Obligated Amounts', 'Outlayed Amount', 'Obligated Amount'];
+        const defcByType = defcTypes.map((item) => item.codeType);
+        const hasDefCode = defcByType?.indexOf(fileCType) > -1;
+        const allExclusions = ['Combined Outlayed Amounts', 'Combined Obligated Amounts', 'Outlayed Amount', 'Obligated Amount'];
+
         let hide = false;
 
-        if (infrastructure) {
-            exclusionsFromInfrastructure.forEach((item) => {
-                if (title === item) {
+        if (fileCType && hasDefCode) {
+            defcByType.forEach((item) => {
+                if (title.toLowerCase().includes(item) && fileCType !== item) {
+                    hide = true;
+                }
+            });
+        }
+
+        if (!fileCType || fileCType === "overall") {
+            defcByType.forEach((item) => {
+                if (title.toLowerCase().includes(item)) {
                     hide = true;
                 }
             });
         } else {
-            exclusions.forEach((item) => {
-                if (title.indexOf(item) > -1 && amountMapByCategoryTitle[title] === '$0.00') {
+            allExclusions.forEach((item) => {
+                if (title === item) {
                     hide = true;
                 }
             });
-
-            if (!infrastructure && title.includes('Infrastructure')) {
-                hide = true;
-            }
         }
 
         return hide;
