@@ -71,6 +71,8 @@ const getAwardColor = (overallColor, infrastructureColor, covidColor, fileCType)
 const getAwardOutlayRawValue = (data, awardType, fileCType) => {
     const fileCInfo = getfileCInfo(fileCType);
 
+    console.log("here1")
+
     if (fileCInfo?.codeType === "covid") {
         return data._fileCOutlay;
     }
@@ -78,6 +80,8 @@ const getAwardOutlayRawValue = (data, awardType, fileCType) => {
     if (fileCInfo?.codeType === "infrastructure") {
         return data._fileCOutlayInfrastructure;
     }
+
+    console.log("here3")
 
     return awardType === "idv" ? data._combinedOutlay : data._totalOutlay;
 };
@@ -113,8 +117,12 @@ const getAwardObligatedRawValue = (data, awardType, fileCType) => {
 const getAwardObligatedValue = (data, awardType, fileCType) => {
     const fileCInfo = getfileCInfo(fileCType);
 
-    if (fileCInfo) {
-        return data[fileCInfo.keys.obligationAbbreviation];
+    if (fileCInfo?.codeType === "covid") {
+        return data.fileCObligatedAbbreviated;
+    }
+
+    if (fileCInfo?.codeType === "infrastructure") {
+        return data.infrastructureObligationAbbreviated;
     }
 
     return data.totalObligationAbbreviated;
@@ -218,7 +226,7 @@ const buildNormalProps = (awardType, data, hasfilecCovid, hasOutlays, fileCType)
             ]
         }
     };
-    if (!hasfilecCovid) return chartProps;
+    if (!hasfilecCovid && !fileCType === "infrastructure") return chartProps;
     return chartPropsOutlays; // show outlays for non-covid only first
 };
 
@@ -510,8 +518,6 @@ const AwardAmountsChart = ({
         const infrastructure = fileCType === "infrastructure";
         const hasOutlays = awardOverview._combinedOutlay > 0 || awardOverview._totalOutlay > 0;
 
-        console.log(fileCType);
-
         switch (scenario) {
             case "exceedsBigger": {
                 return (
@@ -792,7 +798,7 @@ const AwardAmountsChart = ({
                     }
                 }
                 : propsWithoutFileC;
-            if (hasOutlays && !showFilecCovid) {
+            if ((hasOutlays || hasInfrastructure) && !showFilecCovid) {
                 return <HorizontalSingleStackedBarViz {...propsWithoutFileCAndOutlays} />;
             }
             return <RectanglePercentViz {...props} />;

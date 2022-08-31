@@ -235,7 +235,7 @@ export const defcTypes = [
             outlayAbbreviated: "infrastructureOutlayAbbreviated",
             obligationAbbreviation: "infrastructureObligationAbbreviated"
         },
-        label: "Infrastucture Spending",
+        label: "Infrastructure Spending",
         preText: "Infrastructure"
     }
 ];

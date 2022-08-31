@@ -4,7 +4,6 @@ import { Tabs } from "data-transparency-ui";
 
 import { determineSpendingScenarioByAwardType, generateDefcTabs } from 'helpers/awardAmountHelper';
 import { getToolTipBySectionAndAwardType } from 'dataMapping/award/tooltips';
-import { defcTypes } from 'dataMapping/award/awardAmountsSection';
 
 import AwardSection from '../AwardSection';
 import AwardSectionHeader from '../AwardSectionHeader';
