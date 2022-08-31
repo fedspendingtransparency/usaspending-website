@@ -20,7 +20,7 @@ WORKDIR /node-workspace
 # The npm ci will fail without npm install --package-lock-only due to dependency differences
 RUN npm install --verbose -g npm@8.16.0
 RUN npm cache clear --force
-RUN npm install --package-lock-only --legacy-peer-deps; npm ci --legacy-peer-deps
+RUN npm ci --legacy-peer-deps
 
 # Now copy the remaining source files
 # Files in .dockerignore will not be copied
