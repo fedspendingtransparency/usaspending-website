@@ -133,7 +133,7 @@ const staticFilters = {
     ],
     glossaryEntries: [
         null,
-        null,
+        'action-date',
         null,
         null,
         'treasury-account-symbol-tas',

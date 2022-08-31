@@ -64,6 +64,8 @@ _Custom and life-cycle scripts to execute, as defined under the `scripts` proper
 | `npm sass`   | dev server w/ scss source maps                              |
 | `npm travis` | executes travis validation script                           |
 | `npm ci`     | clean existing Node dependencies and install dependencies   |
+| `npm run build-storybook`     | builds storybook files                         |
+| `npm run storybook`     | starts storybook server so you can interact with stories   |
 
 ### Build and Run with Docker
 Docker can be used to build static site artifacts and/or run the site locally. Ensure your environment variables are configured and use this "one-liner" (or decompose and run each `docker` command separately):

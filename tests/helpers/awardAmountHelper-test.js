@@ -115,10 +115,6 @@ describe('Award Summary Page, Award Amount Section helper functions', () => {
     });
 
     describe('getAscendingSpendingCategoriesByAwardType', () => {
-        it('loan -- returns the right spending category values in what in normal circumstances would be ascending order', () => {
-            const spendingCategoriesInAscendingOrder = getAscendingSpendingCategoriesByAwardType("loan", loanAwardAmounts);
-            expect(spendingCategoriesInAscendingOrder).toEqual([0, 10, 1000]);
-        });
         it('contract -- returns the right spending category values in what in normal circumstances would be ascending order', () => {
             const spendingCategoriesInAscendingOrder = getAscendingSpendingCategoriesByAwardType("contract", contractAwardAmounts);
             expect(spendingCategoriesInAscendingOrder).toEqual([0, 10, 100, 1000]);
