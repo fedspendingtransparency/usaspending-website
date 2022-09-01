@@ -16,6 +16,7 @@ cache:
     - node_modules
 before_install:
   - npm install -g @lhci/cli@0.9.x
+  - npm install -g webpack@5.67.0
 install:
   - npm ci --legacy-peer-deps
 script:
