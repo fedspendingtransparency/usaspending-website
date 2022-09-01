@@ -20,8 +20,7 @@
     "lhci:desktop": "npx webpack --progress --config ./webpack/webpack.prod.config.js ; npx lhci --config=./lighthousercdesktop.js autorun",
     "build-redirect-config": "npx babel-node scripts/buildRedirectConfig.js",
     "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook",
-    "postinstall": "npx npm-force-resolutions@0.0.3"
+    "build-storybook": "build-storybook"
   },
   "author": "",
   "engines": {
@@ -133,6 +132,7 @@
     "trim-newlines": "3.0.1",
     "got": "11.8.5",
     "glob-parent": "^6.0.1",
+    "**/glob-parent": "^6.0.1",
     "terser": "5.14.2",
     "webpack": "^5.67.0",
     "moment-timezone": "0.5.37"
