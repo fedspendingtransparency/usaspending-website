@@ -7,7 +7,8 @@ import { formatMoneyWithPrecision } from 'helpers/moneyFormatter';
 import {
     spendingCategoriesByAwardType,
     asstAwardTypesWithSimilarAwardAmountData,
-    infrastructureSpendingCategoriesByAwardType
+    infrastructureSpendingCategoriesByAwardType,
+    defcTypes
 } from '../dataMapping/award/awardAmountsSection';
 
 // formats the specific checkboxes
@@ -113,6 +114,24 @@ export const determineFileCSpendingScenario = (awardType, awardAmountObj) => {
     return (fileCScenario === 'normal') ? 'normal' : 'insufficientData';
 };
 
+export const determineLoanSpendingScenario = (awardAmountObj) => {
+    const {
+        _totalOutlay, _totalObligation, _subsidy, _faceValue
+    } = awardAmountObj;
+
+    if (_subsidy === 0 && _faceValue === 0) return 'insufficientData';
+    if (_subsidy < 0 || _faceValue < 0) return 'insufficientData';
+    if (_totalOutlay > _totalObligation || _totalOutlay > _subsidy || _totalOutlay > _faceValue || _totalObligation > _subsidy || _totalObligation > _faceValue || _subsidy > _faceValue) return 'insufficientData';
+
+    if (_totalObligation === 0 && _totalOutlay === 0) {
+        if (_subsidy <= _faceValue) return 'normal';
+        return 'insufficientData';
+    }
+
+    if (_totalOutlay <= _totalObligation <= _subsidy <= _faceValue) return 'normal';
+    return 'insufficientData';
+};
+
 export const determineInfrastructureSpendingScenario = (awardType, awardAmountObj) => {
     const { _fileCOutlayInfrastructure, _fileCObligatedInfrastructure } = awardAmountObj;
     if (_fileCObligatedInfrastructure === 0 && _fileCOutlayInfrastructure === 0) return 'normal';
@@ -135,9 +154,44 @@ export const determineSpendingScenarioByAwardType = (awardType, awardAmountObj, 
     if (asstAwardTypesWithSimilarAwardAmountData.includes(awardType)) {
         return determineSpendingScenarioAsstAwards(awardAmountObj);
     }
+
+    if (awardType === 'loan') {
+        return (determineLoanSpendingScenario(awardAmountObj));
+    }
+
     // Small, bigger, and biggest define the expected ratio between spending categories
     const [small, bigger, biggest] = getAscendingSpendingCategoriesByAwardType(awardType, awardAmountObj);
     return determineSpendingScenario(small, bigger, biggest);
 };
 
 export const generatePercentage = (value) => `${(value * 100).toFixed(2)}%`;
+
+export const generateDefcTabs = (awardData) => {
+    const keysInData = [];
+
+    defcTypes.forEach((item) => {
+        if (awardData[item.keys.outlay] > 0 || awardData[item.keys.obligated] > 0) {
+            keysInData.push(item.codeType);
+        }
+    });
+
+    if (keysInData.length === 0) {
+        return [];
+    }
+
+    const tabs = [{
+        internal: 'overall',
+        label: 'Overall Spending'
+    }];
+
+    defcTypes.forEach((item) => {
+        if (keysInData.indexOf(item.codeType) > -1) {
+            tabs.push({
+                internal: item.codeType,
+                label: item.label
+            });
+        }
+    });
+
+    return tabs;
+};
