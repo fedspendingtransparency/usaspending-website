@@ -33,7 +33,9 @@ const mockStoreDod = {
 // REACT UPGRADE FIX TEST
 describe('AgencyOverview', () => {
     test('should display the \'About this Agency\'s Data\' section for DOD', async () => {
-        render(<AgencyOverview fy="2017" dataThroughDate="no data" />, { initialState: mockStoreDod });
+        act(() => {
+            render(<AgencyOverview fy="2017" dataThroughDate="no data" />, { initialState: mockStoreDod });
+        });
         const heading = screen.queryByText('About this Agency\'s Data');
         await expect(heading).toBeTruthy();
     });
