@@ -9,8 +9,8 @@
 const contractColumns = [
     'Award ID',
     'Recipient Name',
-    'Start Date',
-    'End Date',
+    'Start Date (Period of Performance)',
+    'End Date (Period of Performance)',
     'Award Amount',
     'Funding Agency',
     'Funding Sub Agency',
@@ -81,7 +81,7 @@ const contractColumns = [
     'Subcontracting Plan',
     'Sub-Award ID',
     'Sub-Awardee Name',
-    'Sub-Award Date',
+    'Action Date',
     'Sub-Award Amount',
     'Prime Award ID',
     'Prime Recipient Name'
@@ -90,8 +90,8 @@ const contractColumns = [
 const grantColumns = [
     'Award ID',
     'Recipient Name',
-    'Start Date',
-    'End Date',
+    'Start Date (Period of Performance)',
+    'End Date (Period of Performance)',
     'Award Amount',
     'Awarding Agency',
     'Awarding Sub Agency',
@@ -115,8 +115,8 @@ const loanColumns = [
 const directPaymentColumns = [
     'Award ID',
     'Recipient Name',
-    'Start Date',
-    'End Date',
+    'Start Date (Period of Performance)',
+    'End Date (Period of Performance)',
     'Award Amount',
     'Awarding Agency',
     'Awarding Sub Agency',
@@ -128,8 +128,8 @@ const directPaymentColumns = [
 const otherColumns = [
     'Award ID',
     'Recipient Name',
-    'Start Date',
-    'End Date',
+    'Start Date (Period of Performance)',
+    'End Date (Period of Performance)',
     'Award Amount',
     'Awarding Agency',
     'Awarding Sub Agency',
@@ -141,7 +141,7 @@ const otherColumns = [
 const idvColumns = [
     'Award ID',
     'Recipient Name',
-    'Start Date',
+    'Start Date (Period of Performance)',
     'Last Date to Order',
     'Award Amount',
     'Funding Agency',
@@ -213,7 +213,7 @@ const idvColumns = [
     'Subcontracting Plan',
     'Sub-Award ID',
     'Sub-Awardee Name',
-    'Sub-Award Date',
+    'Action Date',
     'Sub-Award Amount',
     'Prime Award ID',
     'Prime Recipient Name'
@@ -234,14 +234,14 @@ const subawardColumns = [
 const awardColWidth = 280;
 const covidColWidth = 190;
 const descWidth = 380;
-const datesWidth = 120;
+const datesWidth = 210;
 const covidColor = '#6E338E';
 
 const defaultContract = [
     { title: 'Award ID' },
     { title: 'Recipient Name' },
-    { title: 'Start Date', customWidth: datesWidth },
-    { title: 'End Date', customWidth: datesWidth },
+    { title: 'Start Date', subtitle: '(Period of Performance)', customWidth: datesWidth },
+    { title: 'End Date', subtitle: '(Period of Performance)', customWidth: datesWidth },
     { title: 'Award Amount', subtitle: '(Total Award Obligations to Date)', customWidth: awardColWidth },
     { title: 'Awarding Agency' },
     { title: 'Awarding Sub Agency' },
@@ -251,8 +251,8 @@ const defaultContract = [
 const defaultGrant = [
     { title: 'Award ID' },
     { title: 'Recipient Name' },
-    { title: 'Start Date', customWidth: datesWidth },
-    { title: 'End Date', customWidth: datesWidth },
+    { title: 'Start Date', subtitle: '(Period of Performance)', customWidth: datesWidth },
+    { title: 'End Date', subtitle: '(Period of Performance)', customWidth: datesWidth },
     { title: 'Award Amount', subtitle: '(Total Award Obligations to Date)', customWidth: awardColWidth },
     { title: 'Awarding Agency' },
     { title: 'Awarding Sub Agency' },
@@ -262,8 +262,8 @@ const defaultGrant = [
 const defaultDirectPayment = [
     { title: 'Award ID' },
     { title: 'Recipient Name' },
-    { title: 'Start Date', customWidth: datesWidth },
-    { title: 'End Date', customWidth: datesWidth },
+    { title: 'Start Date', subtitle: '(Period of Performance)', customWidth: datesWidth },
+    { title: 'End Date', subtitle: '(Period of Performance)', customWidth: datesWidth },
     { title: 'Award Amount', subtitle: '(Total Award Obligations to Date)', customWidth: awardColWidth },
     { title: 'Awarding Agency' },
     { title: 'Awarding Sub Agency' },
@@ -289,8 +289,8 @@ const defaultLoan = [
 const defaultOther = [
     { title: 'Award ID' },
     { title: 'Recipient Name' },
-    { title: 'Start Date', customWidth: datesWidth },
-    { title: 'End Date', customWidth: datesWidth },
+    { title: 'Start Date', subtitle: '(Period of Performance)', customWidth: datesWidth },
+    { title: 'End Date', subtitle: '(Period of Performance)', customWidth: datesWidth },
     { title: 'Award Amount', subtitle: '(Total Award Obligations to Date)', customWidth: awardColWidth },
     { title: 'Awarding Agency' },
     { title: 'Awarding Sub Agency' },
@@ -300,7 +300,7 @@ const defaultOther = [
 const defaultIdvColumns = [
     { title: 'Award ID' },
     { title: 'Recipient Name' },
-    { title: 'Start Date', customWidth: datesWidth },
+    { title: 'Start Date', subtitle: '(Period of Performance)', customWidth: datesWidth },
     { title: 'Last Date to Order', displayName: 'Ordering Period End Date', customWidth: 170 },
     { title: 'Award Amount', subtitle: '(Total Award Obligations to Date)', customWidth: awardColWidth },
     { title: 'Awarding Agency' },
@@ -351,7 +351,7 @@ tabsWithAdditionalCols.forEach((tab) => {
 const defaultSub = [
     { title: 'Sub-Award ID' },
     { title: 'Sub-Awardee Name' },
-    { title: 'Sub-Award Date' },
+    { title: 'Action Date' },
     { title: 'Sub-Award Amount' },
     { title: 'Awarding Agency' },
     { title: 'Awarding Sub Agency' },
