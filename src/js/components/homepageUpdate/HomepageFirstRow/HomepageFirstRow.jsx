@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react';
 import { FlexGridCol, FlexGridRow } from 'data-transparency-ui';
 import { throttle } from "lodash";
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
-import FeaturedContent from "../FeaturedContent/FeaturedContent";
+import FeaturedContent from "../../homepage/FeaturedContent/FeaturedContent";
 import WordOfTheDay from "../WordOfTheDay/WordOfTheDay";
 
 const HomepageFirstRow = () => {

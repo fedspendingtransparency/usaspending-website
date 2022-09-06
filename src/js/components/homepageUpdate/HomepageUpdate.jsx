@@ -3,23 +3,26 @@
  * Created by Brian Petway 08/22/22
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import PageWrapper from "../sharedComponents/PageWrapper";
 import { homePageMetaTags } from "../../helpers/metaTagHelper";
-import Hero from './hero/Hero';
-import SummaryStats from "./SummaryStats";
-import AwardSearch from "./AwardSearch/AwardSearch";
+import Hero from '../homepage/hero/Hero';
+import SummaryStats from "../homepage/SummaryStats";
+import AwardSearch from "../homepage/AwardSearch/AwardSearch";
 import HomepageExploreToggle from "./HomepageExploreToggle/HomepageExploreToggle";
-import DownloadExplorePlaceholder from "./DownloadExplorePlaceholder/DownloadExplorePlaceholder";
+import DownloadExplorePlaceholder from "../homepage/DownloadExplorePlaceholder/DownloadExplorePlaceholder";
 import HomepageResources from "./HomepageResources/HomepageResources";
 import ReadyToGetStarted from "./ReadyToGetStarted/ReadyToGetStarted";
 import StayInTouch from "./StayInTouch/StayInTouch";
 import HomepageFirstRow from "./HomepageFirstRow/HomepageFirstRow";
+import GlobalConstants from "GlobalConstants";
 
 require('pages/homepage/homepageUpdate.scss');
 
-const HomepageUpdate = () => (
+const HomepageUpdate = () => {
+    const isQAT = GlobalConstants.QAT;
+    return(isQAT ?
     <PageWrapper
         pageName="Homepage"
         classNames="usa-da-home-page"
@@ -36,6 +39,9 @@ const HomepageUpdate = () => (
             <ReadyToGetStarted />
             <StayInTouch />
         </main>
-    </PageWrapper>);
+    </PageWrapper>
+        :
+    <Redirect to="/404" />
+)};
 
 export default HomepageUpdate;
