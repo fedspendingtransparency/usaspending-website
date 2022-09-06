@@ -1,0 +1,30 @@
+@mixin outline-style {
+  border-radius: 8px;
+  border: solid 1px #dfe1e2;
+}
+
+.card-container {
+  padding: 24px 32px 24px 32px;
+  background-color: #fff;
+
+  &.outline {
+    @include outline-style;
+  }
+
+  &.elevated {
+    @include outline-style;
+
+    &.sm {
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    &.md {
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+
+    &.lg {
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    }
+  }
+}
+
