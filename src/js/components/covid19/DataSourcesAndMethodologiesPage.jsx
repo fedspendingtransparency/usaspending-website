@@ -518,13 +518,13 @@ export default () => {
                                             page for all Fiscal Years back to FY20
                                             </li>
                                             <li>
-                                            Calculate SUM[Total Budgetary Resources – (Unobligated Balance Brought Forward + Recoveries of Prior Year Unpaid Obligations + Recoveries of Prior Year Paid Obligations + Anticipated Recoveries of Prior Year Unpaid and Paid Obligations)]
+                                            Calculate SUM[Total Budgetary Resources – (Unobligated Balance Brought Forward + Adjustment to Unobligated Balance Brought Forward + Recoveries of Prior Year Unpaid Obligations + Recoveries of Prior Year Paid Obligations + Anticipated Recoveries of Prior Year Unpaid and Paid Obligations)]
                                             </li>
                                             <li>
                                             The calculation mapped to the Line Items in the SF-133 is:
                                                 <ul>
                                                     <li>
-                                                    SUM[1910 – (1000 + 1021 + 1033 + 1061)]
+                                                    SUM[1910 – (1000 + 1020 + 1021 + 1033 + 1061)]
                                                     </li>
                                                 </ul>
                                             </li>
@@ -543,7 +543,7 @@ export default () => {
                                             The calculation mapped to the Line Items in the SF-133 is:
                                                 <ul>
                                                     <li>
-                                                    SUM[1910 – (1000 + 1021 + 1033 + 1061)] - SUM[2190 – (1021 + 1033)]
+                                                    SUM[1910 – (1000 + 1020 + 1021 + 1033 + 1061)] - SUM[2190 – (1020 + 1021 + 1033)]
                                                     </li>
                                                 </ul>
                                             </li>
@@ -558,13 +558,13 @@ export default () => {
                                             page for all Fiscal Years back to FY20
                                             </li>
                                             <li>
-                                            SUM[New Obligations and Upward Adjustments – (Recoveries of Prior Year Unpaid Obligations + Recoveries of Prior Year Paid Obligations)]
+                                            SUM[New Obligations and Upward Adjustments – (Adjustment to Unobligated Balance Brought Forward + Recoveries of Prior Year Unpaid Obligations + Recoveries of Prior Year Paid Obligations)]
                                             </li>
                                             <li>
                                             The calculation mapped to the Line Items in the SF-133 is:
                                                 <ul>
                                                     <li>
-                                                    SUM[2190 – (1021 + 1033)]
+                                                    SUM[2190 – (1020 + 1021 + 1033)]
                                                     </li>
                                                 </ul>
                                             </li>
