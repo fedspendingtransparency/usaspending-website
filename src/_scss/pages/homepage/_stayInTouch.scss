@@ -1,14 +1,60 @@
 .stay-in-touch__section {
-  border: solid 6px deeppink;
-  border-radius: 4px;
-  height: 10rem;
-  margin: rem(6) 0;
-  text-align: center;
-  font-size: 40px;
-  div {
-    padding-top: rem(20);
+  // todo - add this color to vars
+  background-color: #edf5ff;
+  padding: $global-padding * 3 $global-padding * 2;
+
+  .stay-in-touch__top-row {
+    margin-bottom: $global-margin * 3;
+
+    .stay-in-touch__icon-container {
+      width: rem(35);
+      height: rem(35);
+      border-radius: 4px;
+      // todo - add this color to vars
+      background-color: #1a4480;
+    }
+
+    .stay-in-touch__title {
+      font-size: $font-size-28;
+      font-weight: $font-semibold;
+      line-height: 1.25;
+      color: $color-grayblack;
+      margin-left: $global-margin * 2;
+    }
+  }
+
+
+  .stay-in-touch__second-row {
     @media (max-width: $tablet-screen) {
-        font-size: 16px;
+      flex-direction: column;
+    }
+    .stay-in-touch__second-row-container {
+      &.top {
+        @media (max-width: $tablet-screen) {
+          margin-bottom: $global-margin * 3;
+        }
+      }
+      .stay-in-touch__second-row-title {
+        font-size: $font-size-20;
+        font-weight: $font-semibold;
+        line-height: 1.25;
+        color: $color-grayblack;
+        margin-bottom: $global-margin;
+      }
+      .stay-in-touch__second-row-text {
+        font-size: $font-size-16;
+        font-weight: $font-normal;
+        line-height: 1.5;
+        // todo - add this color to vars
+        color: #5c5c5c;
+        margin-bottom: $global-margin;
+      }
+      .stay-in-touch__second-row-link {
+        font-size: $font-size-16;
+        font-weight: $font-semibold;
+        line-height: 1.5;
+        color: $color-link;
+      }
     }
   }
 }
