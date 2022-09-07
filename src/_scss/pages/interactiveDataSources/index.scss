@@ -192,17 +192,7 @@
           justify-content: flex-end;
         }
       }
-      // for Example Scroller
-      .example-scroller-content {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        color: white;
-        font-size: 24px;
-        font-weight: 900;
-        text-shadow: 2px 2px 4px #000000;
-      }
+
     }
   }
 }

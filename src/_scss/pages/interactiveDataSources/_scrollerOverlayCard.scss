@@ -1,0 +1,72 @@
+.scroller-overlay-card-content {
+    width: 100%;
+    background-color: $color-white;
+    margin: 0 0 $global-margin * 4;
+    padding: $global-padding * 3;
+    border-radius: 6px;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+    min-height: 250px;
+    @media (min-width: $medium-screen) {
+      display: flex;
+      align-items: center;
+      padding: $global-margin * 5;
+    }
+  
+    .scroller-overlay-card__icon-wrapper {
+      width: 35px;
+      height: 35px;
+      background: $color-grayblack;
+      text-align: center;
+      border-radius: 4px;
+      padding: $global-padding;
+      margin-right: $global-margin * 2;
+      @media (max-width: $medium-screen) {
+        margin-bottom: rem(16);
+      }
+    }
+    .scroller-overlay-card__heading-wrapper {
+      font-size: $h4-font-size;
+      font-weight: $font-semibold;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.25;
+      letter-spacing: normal;
+      color: $color-grayblack;
+      @media (min-width: $medium-screen) {
+        padding-bottom: 2px;
+      }
+  
+      p {
+        margin: 0;
+      }
+    }
+  
+    .scroller-overlay-card__content-wrapper {
+      font-size: $base-font-size;
+      font-weight: normal;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.5;
+      letter-spacing: normal;
+      color: $color-base;
+      margin-bottom: $global-margin * 3;
+  
+      p {
+        margin-bottom: 0;
+      }
+    }
+    .scroller-overlay-card__link-wrapper {
+      font-size: $h5-font-size;
+      font-weight: $font-semibold;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.25;
+      letter-spacing: normal;
+      color: $color-primary;
+  
+      a:hover {
+        text-decoration: none;
+      }
+    }
+  }
+  

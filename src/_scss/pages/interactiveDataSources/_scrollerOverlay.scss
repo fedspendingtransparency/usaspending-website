@@ -7,18 +7,11 @@
   h3 {
     margin-top: 0;
   }
-  .scroller-card {
-    display: block;
-    background: white;
-    padding: 15px;
-    border-radius: 5px;
-    box-shadow: -3px 3px 5px rgb(1 1 1 / 15%);
-    max-width: 30%;
-    @media(max-width: $tablet-screen) {
-      max-width: 50%;
-    }
+  .scroller-overlay-card-container {
+    @import "./scrollerOverlayCard";
+    max-width: 50%;
     @media(max-width: $small-screen) {
-      max-width: 80%;
+      max-width: 100%;
     }
   }
   .scroller-overlay-content {
