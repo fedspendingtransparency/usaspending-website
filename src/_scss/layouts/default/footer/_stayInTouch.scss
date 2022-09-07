@@ -12,6 +12,14 @@
       border-radius: 4px;
       // todo - add this color to vars
       background-color: #1a4480;
+      display: flex;
+      justify-content: center;
+      svg {
+        color: white;
+        width: 20px;
+        height: 20px;
+        align-self: center;
+      }
     }
 
     .stay-in-touch__title {

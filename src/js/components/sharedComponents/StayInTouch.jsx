@@ -8,7 +8,7 @@ import { FlexGridRow } from 'data-transparency-ui';
 import PropTypes from "prop-types";
 import Analytics from 'helpers/analytics/Analytics';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRight, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
 const propTypes = {
@@ -30,7 +30,7 @@ const StayInTouch = (pageName) => {
         <section className="stay-in-touch__section">
             <FlexGridRow className="stay-in-touch__top-row">
                 <div className="stay-in-touch__icon-container">
-                    {/* icon goes here */}
+                    <FontAwesomeIcon icon={faPaperPlane} />
                 </div>
                 <div className="stay-in-touch__title">
                     Stay in touch
