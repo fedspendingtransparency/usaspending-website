@@ -54,6 +54,15 @@
         font-weight: $font-semibold;
         line-height: 1.5;
         color: $color-link;
+        a {
+          &:hover {
+            text-decoration: none;
+            color: $color-primary-darker;
+            //svg {
+            //  fill: $color-primary-darker;
+            //}
+          }
+        }
       }
     }
   }

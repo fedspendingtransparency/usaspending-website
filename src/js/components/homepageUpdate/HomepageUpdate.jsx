@@ -16,7 +16,6 @@ import HomepageExploreToggle from "./HomepageExploreToggle/HomepageExploreToggle
 import DownloadExplorePlaceholder from "../homepage/DownloadExplorePlaceholder/DownloadExplorePlaceholder";
 import HomepageResources from "./HomepageResources/HomepageResources";
 import ReadyToGetStarted from "./ReadyToGetStarted/ReadyToGetStarted";
-import StayInTouch from "./StayInTouch/StayInTouch";
 import HomepageFirstRow from "./HomepageFirstRow/HomepageFirstRow";
 
 require('pages/homepage/homepageUpdate.scss');
@@ -38,7 +37,6 @@ const HomepageUpdate = () => {
                 <DownloadExplorePlaceholder />
                 <HomepageResources />
                 <ReadyToGetStarted />
-                <StayInTouch />
             </main>
         </PageWrapper>
         :
