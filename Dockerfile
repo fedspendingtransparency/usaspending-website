@@ -20,10 +20,11 @@ WORKDIR /node-workspace
 # The npm ci will fail without npm install --package-lock-only due to dependency differences
 
 #FE Devs building docker locally may require you to uncomment the next two lines
-#RUN npm config set https-proxy "http://p1proxy.frb.org:8080/"
-#RUN npm config set proxy "http://p1proxy.frb.org:8080/"
+# RUN npm config set https-proxy "http://p1proxy.frb.org:8080/"
+# RUN npm config set proxy "http://p1proxy.frb.org:8080/"
 
 RUN npm install --verbose -g npm@8.5.0
+RUN npm install --verbose -g webpack@5.67.0
 RUN npm ci --legacy-peer-deps
 
 # Now copy the remaining source files
