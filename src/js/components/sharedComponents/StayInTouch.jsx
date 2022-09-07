@@ -8,7 +8,7 @@ import { FlexGridRow } from 'data-transparency-ui';
 import PropTypes from "prop-types";
 import Analytics from 'helpers/analytics/Analytics';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCaretRight } from "@fortawesome/free-solid-svg-icons";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 
 const propTypes = {
@@ -49,7 +49,7 @@ const StayInTouch = (pageName) => {
                             href="mailto:join-usaspending@lists.fiscal.treasury.gov?subject=Yes!%20I'd%20like%20to%20receive%20updates."
                             onClick={trackLinkSignUp}>
                             Sign Up
-                            <FontAwesomeIcon icon={faCaretRight} />
+                            <FontAwesomeIcon icon={faArrowRight} />
                         </a>
                     </div>
                 </div>
@@ -63,7 +63,7 @@ const StayInTouch = (pageName) => {
                     <div className="stay-in-touch__second-row-link">
                         <Link className="training__link" to={{ pathname: "/about", search: "section=training" }} onMouseUp={trackLinkLearnMore}>
                             Learn&nbsp;More
-                            <FontAwesomeIcon icon={faCaretRight} />
+                            <FontAwesomeIcon icon={faArrowRight} />
                         </Link>
                     </div>
                 </div>
