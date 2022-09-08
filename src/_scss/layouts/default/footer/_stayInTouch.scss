@@ -2,6 +2,9 @@
   // todo - add this color to vars
   background-color: #edf5ff;
   padding: $global-padding * 3 $global-padding * 2;
+  @media (min-width: $tablet-screen) {
+    padding: $global-padding * 3 $global-padding * 4;
+  }
 
   .stay-in-touch__top-row {
     margin-bottom: $global-margin * 3;
