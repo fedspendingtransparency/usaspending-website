@@ -92,13 +92,7 @@ class LottieAnimation extends React.Component {
             window.addEventListener("scroll", this.setDirectionState);
         }
         // load the animation
-        this.lottieAnimation = lottie.loadAnimation({
-            container: this.lottieRef.current, // the dom element on which to render the animation
-            renderer: 'svg',
-            loop: this.state.loop,
-            autoplay: this.state.autoplay,
-            path: this.state.src // the relative path to the animation object
-        });
+        this.loadLottieAnimation();
     }
 
     componentWillUnmount() {
@@ -126,6 +120,34 @@ class LottieAnimation extends React.Component {
     };
 
     /**
+     * Sets the animation segment order
+     * @param {*} startFrame Frame to start the animation
+     * @param {*} stopFrame Frame to stop the animation
+     * @param {*} duration Total duration of the animation
+     * @param {*} direction Play direction
+     * @returns an array of the new segment order (start frame to stop frame)
+     */
+    setSegmentOrder = (startFrame, stopFrame, duration, direction) => {
+        // Use direction to determine segment order (play forward or reverse)
+        if (startFrame && (!stopFrame || stopFrame === 0)) {
+            // go to start frame and play until end
+            return (direction === "down") ?
+                [startFrame, duration] : [duration, startFrame];
+        }
+        else if (stopFrame && (!startFrame || startFrame === 0)) {
+            // play from beginning until stop frame
+            return (direction === "down") ?
+                [0, stopFrame] : [stopFrame, 0];
+        }
+        else if (startFrame > 0 && stopFrame > 0) {
+            // play the segment
+            return (direction === "down") ?
+                [startFrame, stopFrame] : [stopFrame, startFrame];
+        }
+        return null;
+    };
+
+    /**
      * Updates the state `direction` property when the scroll direction changes
      * @param {*} newDirection Scroll direction, "up" or "down"
      */
@@ -137,6 +159,32 @@ class LottieAnimation extends React.Component {
     };
 
     /**
+     * Loads the lottie animation.
+     */
+    loadLottieAnimation = () => {
+        this.lottieAnimation = lottie.loadAnimation({
+            container: this.lottieRef.current, // the dom element on which to render the animation
+            renderer: 'svg',
+            loop: this.state.loop,
+            autoplay: this.state.autoplay,
+            path: this.state.src, // the relative path to the animation object
+            rendererSettings: {
+                progressiveLoad: true
+            }
+        });
+    };
+
+    /**
+     * Converts provided value (seconds or frames) for a play segment
+     * into a numeric value for the animation frame.
+     * @param {*} val Provided seconds or frames
+     * @param {*} fps frames per second
+     * @param {*} isTime if provided val is seconds
+     * @returns numeric value for the animation frame
+     */
+    convertSegmentValue = (val, fps, isTime) => (isTime ? val * fps : parseInt(val, 10));
+
+    /**
      * Plays the animation.
      * @param {number} start Frame or seconds to start the animation.
      * @param {number} stop Frame or seconds to stop the animation.
@@ -146,31 +194,11 @@ class LottieAnimation extends React.Component {
     playAnimation = (start = 0, stop = 0, speed = 1, isTime = false) => {
         if (!this.lottieAnimation) return;
         const { fps, direction } = this.state;
-
-        // if seconds, convert to frames
-        const startFrame = isTime ? start * fps : parseInt(start, 10);
-        const stopFrame = isTime ? stop * fps : parseInt(stop, 10);
-
+        const startFrame = this.convertSegmentValue(start, fps, isTime);
+        const stopFrame = this.convertSegmentValue(stop, fps, isTime);
         const duration = this.lottieAnimation.getDuration(true);
 
-        let segmentOrder;
-        // Use direction to determine segment order (play forward or reverse)
-        if (startFrame && (!stopFrame || stopFrame === 0)) {
-            // go to start frame and play until end
-            segmentOrder = (direction === "down") ?
-                [startFrame, duration] : [duration, startFrame];
-        }
-        else if (stopFrame && (!startFrame || startFrame === 0)) {
-            // play from beginning until stop frame
-            segmentOrder = (direction === "down") ?
-                [0, stopFrame] : [stopFrame, 0];
-        }
-        else if (startFrame > 0 && stopFrame > 0) {
-            // play the segment
-            segmentOrder = (direction === "down") ?
-                [startFrame, stopFrame] : [stopFrame, startFrame];
-        }
-
+        const segmentOrder = this.setSegmentOrder(startFrame, stopFrame, duration, direction);
         if (segmentOrder) {
             this.lottieAnimation.setSpeed(speed);
             this.lottieAnimation.playSegments(segmentOrder, true);
