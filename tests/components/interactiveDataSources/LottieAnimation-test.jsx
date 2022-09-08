@@ -1,11 +1,11 @@
 import React from 'react';
-import { mount, shallow } from 'enzyme';
-import { fireEvent } from 'test-utils';
+import { shallow } from 'enzyme';
+import { fireEvent, waitFor } from 'test-utils';
 import LottieAnimation from 'components/interactiveDataSources/lottieAnimation/LottieAnimation.jsx';
 
 describe('Lottie Animation', () => {
-    test('should create lottie animation with the correct state', () => {
-        const test = mount(<LottieAnimation
+    it('should create lottie animation with the correct state', () => {
+        const test = shallow(<LottieAnimation
             autoplay
             loop
             src="/animations/animation.json" />);
@@ -17,7 +17,7 @@ describe('Lottie Animation', () => {
         expect(test.state().direction).toBe('down');
         expect(test.state().oldScrollY).toBe(0);
     });
-    test('should initialize `lottieAnimation` with an `svg` animType during mount and then reset `lottieAnimation` during unmount', () => {
+    it('should initialize `lottieAnimation` with an `svg` animType during mount and then reset `lottieAnimation` during unmount', () => {
         const test = shallow(<LottieAnimation />);
         const instance = test.instance();
         const spy = jest.spyOn(instance, 'loadLottieAnimation');
@@ -31,7 +31,7 @@ describe('Lottie Animation', () => {
         instance.componentWillUnmount();
         expect(instance.lottieAnimation).toBeFalsy();
     });
-    test('should update the `lottieAnimation` playSpeed and totalFrames when a start, stop, and speed is provided during `playAnimation()`', () => {
+    it('should update the `lottieAnimation` playSpeed and totalFrames when a start, stop, and speed is provided during `playAnimation()`', () => {
         const test = shallow(<LottieAnimation />);
         const instance = test.instance();
         instance.componentDidMount();
@@ -45,8 +45,8 @@ describe('Lottie Animation', () => {
         expect(instance.lottieAnimation.playSpeed).toBe(newSpeed);
         expect(instance.lottieAnimation.totalFrames).toBe(totalFrames);
     });
-    test('should update the `direction` state during `changeDirection()`', () => {
-        const test = mount(<LottieAnimation />);
+    it('should update the `direction` state during `changeDirection()`', () => {
+        const test = shallow(<LottieAnimation />);
         expect(test.state().direction).toBe('down');
         const instance = test.instance();
         instance.componentDidMount();
@@ -54,21 +54,18 @@ describe('Lottie Animation', () => {
         instance.changeDirection('up');
         expect(test.state().direction).toBe('up');
     });
-    test('should update the `oldScrollY` state during `setDirectionState()`', () => {
-        const test = mount(<LottieAnimation />);
+    it('should update the `oldScrollY` state on scroll when `isScrollerBackdrop` prop is true', () => {
+        const test = shallow(<LottieAnimation isScrollerBackdrop />);
         const instance = test.instance();
         instance.componentDidMount();
         expect(test.state().oldScrollY).toBe(0);
 
         fireEvent.scroll(window, { target: { scrollY: 200 } });
-        instance.setDirectionState();
-        expect(test.state().oldScrollY).toBe(200);
-
-        fireEvent.scroll(window, { target: { scrollY: 0 } });
-        instance.setDirectionState();
-        expect(test.state().oldScrollY).toBe(0);
+        return waitFor(() => {
+            expect(test.state().oldScrollY).toBe(200);
+        });
     });
-    test('should set the segment order during `setSegmentOrder()`', () => {
+    it('should set the segment order during `setSegmentOrder()`', () => {
         const test = shallow(<LottieAnimation />);
         const instance = test.instance();
 
@@ -83,18 +80,18 @@ describe('Lottie Animation', () => {
 
         expect(instance.setSegmentOrder(-500, -500, 1000, 'up')).toBeFalsy();
     });
-    test('should add a scroll event listener during mount and remove it during unmount when `isScrollerBackdrop` prop is true', () => {
+    it('should add a scroll event listener during mount and remove it during unmount when `isScrollerBackdrop` prop is true', () => {
         const test = shallow(<LottieAnimation isScrollerBackdrop />);
         const instance = test.instance();
         const spyAdd = jest.spyOn(window, 'addEventListener').mockImplementationOnce();
         instance.componentDidMount();
         expect(spyAdd).toBeCalledWith('scroll', expect.any(Function));
 
-        const spyRemove = jest.spyOn(window, 'addEventListener').mockImplementationOnce();
+        const spyRemove = jest.spyOn(window, 'removeEventListener').mockImplementationOnce();
         instance.componentWillUnmount();
         expect(spyRemove).toBeCalledWith('scroll', expect.any(Function));
     });
-    test('should convert a value for a play segment into a numeric value for the animation frame', () => {
+    it('should convert a value for a play segment into a numeric value for the animation frame', () => {
         const test = shallow(<LottieAnimation />);
         const instance = test.instance();
         expect(instance.convertSegmentValue(1, 60, true)).toBe(60);
