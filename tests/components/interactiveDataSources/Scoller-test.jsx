@@ -4,7 +4,7 @@ import Scroller from 'components/interactiveDataSources/scroller/Scroller';
 import ScrollerOverlay from "components/interactiveDataSources/scroller/scrollerOverlay/ScrollerOverlay";
 import ScrollerOverlayCard from 'components/interactiveDataSources/scroller/scrollerOverlay/ScrollerOverlayCard';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { render, screen, waitFor, fireEvent } from '@test-utils';
+import { render, screen } from '@test-utils';
 import { mount } from 'enzyme';
 
 // Content for first overlay card
@@ -78,6 +78,10 @@ describe('Scroller Tests', () => {
         window.IntersectionObserver = mockIntersectionObserver;
     });
 
+    afterAll(() => {
+        jest.clearAllMocks();
+    });
+
 
     it('Renders scroller with props', () => {
         const renderComponent = () =>
@@ -90,43 +94,36 @@ describe('Scroller Tests', () => {
     });
 
 
-    it('Check scroller after scrolling down with mock', async () => {
-        const observe = jest.fn();
-        const unobserve = jest.fn();
-        const disconnect = jest.fn();
-
-        window.IntersectionObserver = jest.fn(() => ({
-            observe,
-            unobserve,
-            disconnect
-        }));
+    it('Check scroller backdrops and content overlays', () => {
         const { container, queryByText } = render(scroller);
-        const textToSee = queryByText("This is the second content overlay and backdrop.");
-        const scrollerVisible = container.querySelector('div[name="background-color-2"]');
-        const scrollama = container.querySelector('div[data-react-scrollama-id="react-scrollama-1"]').style;
+        const cardOverlayText = queryByText("This is the second content overlay and backdrop.");
+        const secondBackdrop = container.querySelector('div[name="background-color-2"]');
+        const secondOverlay = container.querySelector('div[data-react-scrollama-id="react-scrollama-1"]').style;
 
-        fireEvent.scroll(window, { target: { scrollY: 2000 } });
-        await waitFor(() => {
-            expect(textToSee).toBeTruthy();
-            expect(scrollerVisible).toBeTruthy();
-
-
-            expect(scrollama).toHaveProperty('opacity', '0.2');
-            expect(observe).toHaveBeenCalledTimes(4);
-        }, { timeout: 200 });
+        expect(cardOverlayText).toBeTruthy();
+        expect(secondBackdrop).toBeTruthy();
+        expect(secondOverlay).toHaveProperty('opacity', '0.2');
     });
 
 
-    it('Check scroller after scrolling down', async () => {
+    it('Trigger onStepEnter and check if current step index is updated', () => {
         const container = mount(scroller);
-        container.find('.scroller-container').simulate('scroll', { target: { scrollY: 2000 } });
+        const spy = jest.spyOn(container.instance(), "setCurrentStepIndex");
 
-        const scrollama = container.find('div[data-react-scrollama-id="react-scrollama-1"]');
+        container.instance().setupLists();
+        container.instance().forceUpdate();
+        container.update();
+        container.instance().onStepEnter({
+            element: null,
+            data: 1,
+            direction: "up",
+            entry: null
+        });
+        container.instance().forceUpdate();
         container.update();
 
 
-        await waitFor(() => {
-            expect(scrollama.props().style).toHaveProperty('opacity', 0.2);
-        }, { timeout: 200 });
+        expect(spy).toHaveBeenCalled();
+        expect(container.state('currentStepIndex')).toBe(1);
     });
 });
