@@ -24,8 +24,6 @@ WORKDIR /node-workspace
 # RUN npm config set proxy "http://p1proxy.frb.org:8080/"
 
 RUN npm install --verbose -g npm@8.5.0
-RUN npm install --verbose -g webpack@5.67.0
-RUN npm install -g webpack-cli@4.10.0
 RUN npm ci --legacy-peer-deps
 
 # Now copy the remaining source files
