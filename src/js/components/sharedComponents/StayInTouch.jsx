@@ -39,7 +39,7 @@ const StayInTouch = (pageName) => {
             <FlexGridRow className="stay-in-touch__second-row">
                 <div className="stay-in-touch__second-row-container top">
                     <div className="stay-in-touch__second-row-title">
-                        Get Release Notes delivered to your inbox
+                        Get release notes delivered to your inbox
                     </div>
                     <div className="stay-in-touch__second-row-text">
                         Sign up to receive our release notes to keep up with what’s new on USAspending.gov.
