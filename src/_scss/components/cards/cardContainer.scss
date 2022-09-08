@@ -1,30 +1,198 @@
+$small-screen:      320px;
+$tablet-screen:     768px;
+$medium-screen:     992px;
+$large-screen:      1200px;
+$x-large-screen:    1640px;
+$color-primary:              #0071bc;
+$color-primary-darker:       #205493;
+$color-primary-darkest:      #112e51;
+
+$color-primary-alt:          #02bfe7;
+$color-primary-alt-dark:     #00a6d2;
+$color-primary-alt-darkest:  #046b99;
+$color-primary-alt-light:    #9bdaf1; // lighten($color-primary-alt, 60%)
+$color-primary-alt-lightest: #e7f6f8;
+
+$color-white: #fff;
+
+@function rem($pxval) {
+  @if not unitless($pxval) {
+    $pxval: strip-units($pxval);
+  }
+
+  $base: 14;
+  @if not unitless($base) {
+    $base: strip-units($base);
+  }
+  @return ($pxval / $base) * 1rem;
+}
+
+
 @mixin outline-style {
-  border-radius: 8px;
   border: solid 1px #dfe1e2;
 }
 
-.card-container {
-  padding: 24px 32px 24px 32px;
-  background-color: #fff;
+@mixin top-border-radius($size) {
+  @if $size == "sm" {
+    border-radius: 4px 4px 0 0;
+  } @else if $size == "md" {
+    border-radius: 8px 8px 0 0;
+  } @else if $size == "lg" {
+    border-radius: 8px 8px 0 0;
+  }
+}
 
+@mixin border-radius($size) {
+  @if $size == "sm" {
+    border-radius: 4px;
+  } @else if $size == "md" {
+    border-radius: 8px;
+  } @else if $size == "lg" {
+    border-radius: 16px;
+  }
+}
+
+@mixin hero-variants($size) {
+  .card__hero {
+    &.expanded {
+      @include top-border-radius($size);
+    }
+
+    &.inset {
+      margin: 16px 16px 0;
+    }
+  }
+}
+
+@mixin container-variants($size) {
+  @include border-radius($size);
+  &.elevated {
+    @include box-shadow($size);
+    @include outline-style;
+  }
   &.outline {
     @include outline-style;
   }
 
-  &.elevated {
-    @include outline-style;
+}
 
-    &.sm {
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+@mixin box-shadow($size) {
+  @if $size == "sm" {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  } @else if $size == "md" {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  } @else if $size == "lg" {
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+  }
+}
+
+.card-container {
+  background-color: #fff;
+  &.sm {
+    @include container-variants("sm");
+    @include hero-variants("sm");
+  }
+
+  &.md {
+    @include container-variants("md");
+    @include hero-variants("md");
+  }
+
+  &.lg {
+    @include container-variants("lg");
+    @include hero-variants("lg");
+  }
+
+  .card__body {
+    padding: 24px 32px 24px 32px;
+    .inset {
+      padding-left: 16px;
+      padding-right: 16px;
     }
 
-    &.md {
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    .overline {
+      margin: 0 0 8px;
+      font-size: rem(14);
+      line-height: 1.5;
+      color: #5c5c5c;
+      text-transform: uppercase;
     }
 
-    &.lg {
-      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    .headline {
+      margin: 0 0 16px;
+      font-size: rem(24);
+      font-weight: 600;
+      line-height: 1.25;
+      color: #1b1b1b;
+    }
+
+    .text {
+      margin: 0 0 24px;
+      font-size: rem(16);
+      line-height: 1.5;
+      color: #5c5c5c;
     }
   }
+
+  .card__button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    @media (min-width: $medium-screen) {
+      flex-direction: row;
+    }
+
+    .card__button--secondary {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: nowrap;
+      height: rem(40);
+      font-weight: 600;
+      font-size: rem(16);
+      white-space: nowrap;
+      color: $color-primary;
+      background-color: transparent;
+      border: solid rem(1);
+      border-color: $color-primary;
+      //padding: rem(10) rem(24);
+      border-radius: rem(4);
+      width: 100%;
+     &.card__button--borderless {
+       border: unset;
+       text-align: left;
+       justify-content: start;
+     }
+      @media (min-width: $medium-screen) {
+        font-size: rem(20);
+        height: rem(56);
+        border-radius: rem(6);
+        //margin: 0 rem(16) rem(28) rem(8);
+      }
+
+      &:hover, &:active {
+        text-decoration: none;
+        border-color: darken($color-primary, 10%);
+        color: darken($color-primary, 10%);
+      }
+    }
+
+    .card__button--primary {
+      color: $color-white;
+      background-color: $color-primary;
+      @media (min-width: $medium-screen) {
+        font-size: rem(20);
+        //margin: 0 rem(8) rem(16) rem(16);
+        background-color: $color-primary;
+      }
+
+      &:hover, &:active {
+        text-decoration: none;
+        background-color: darken($color-primary, 10%);
+        color: $color-white;
+      }
+    }
+  }
+
 }
 

@@ -1,5 +1,5 @@
 /**
- * Card.jsx
+ * CardContainer.jsx
  * Created by Andrea Blackwell
  */
 
@@ -9,16 +9,17 @@ import PropTypes from "prop-types";
 require('components/cards/cardContainer.scss');
 
 const propTypes = {
-    variant: PropTypes.object,
-    size: PropTypes.string,
-    fill: PropTypes.string
+    variant: PropTypes.string, // possible variants are elevated or outline
+    size: PropTypes.string,  // sm, md, or lg
+    fill: PropTypes.string,
+    height: PropTypes.number // Brian's suggestion
 };
 
 const CardContainer = ({
-                  variant, size, children, fill
+                  variant, size, children, fill, height
               }) => {
     return (
-        <div className={`${variant} ${size} card-container`} style={{backgroundColor: `${fill}`}}>
+        <div className={`${variant} ${size} card-container`} style={{backgroundColor: `${fill}`, height: `${height}`}}>
             <div>{children}</div>
         </div>
     );
@@ -26,4 +27,6 @@ const CardContainer = ({
 };
 
 CardContainer.propTypes = propTypes;
+CardContainer.defaultProps = { variant: 'outline', size: 'md' };
+
 export default CardContainer;

@@ -1,5 +1,5 @@
 /**
- * Hero.jsx
+ * CardHero.jsx
  * Created by Andrea Blackwell 03/22
  */
 
