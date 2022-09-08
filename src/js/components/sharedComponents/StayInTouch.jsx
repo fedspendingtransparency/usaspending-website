@@ -37,7 +37,7 @@ const StayInTouch = (pageName) => {
                 </div>
             </FlexGridRow>
             <FlexGridRow className="stay-in-touch__second-row">
-                <div className="stay-in-touch__second-row-container top">
+                <div className="stay-in-touch__second-row-container top left">
                     <div className="stay-in-touch__second-row-title">
                         Get release notes delivered to your inbox
                     </div>

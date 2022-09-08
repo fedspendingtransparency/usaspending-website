@@ -5,9 +5,16 @@
   @media (min-width: $tablet-screen) {
     padding: $global-padding * 3 $global-padding * 4;
   }
+  @media (min-width: $large-screen) {
+    display: flex;
+  }
 
   .stay-in-touch__top-row {
     margin-bottom: $global-margin * 3;
+
+    @media (min-width: $large-screen) {
+      margin-right: $global-margin * 5;
+    }
 
     .stay-in-touch__icon-container {
       width: rem(35);
@@ -36,13 +43,26 @@
 
 
   .stay-in-touch__second-row {
-    @media (max-width: $tablet-screen) {
-      flex-direction: column;
+    flex-direction: column;
+    @media (min-width: $tablet-screen) {
+      flex-direction: row;
+      justify-content: space-between;
     }
     .stay-in-touch__second-row-container {
+      @media (min-width: $tablet-screen) {
+        width: rem(332);
+      }
+      @media (min-width: $large-screen) {
+        width: rem(425);
+      }
       &.top {
         @media (max-width: $tablet-screen) {
           margin-bottom: $global-margin * 3;
+        }
+      }
+      &.left {
+        @media (min-width: $tablet-screen) {
+          margin-right: rem(40);
         }
       }
       .stay-in-touch__second-row-title {
