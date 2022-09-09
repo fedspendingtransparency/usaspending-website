@@ -1,0 +1,167 @@
+@mixin outline-style {
+  border: solid 1px $card-outline-color;
+}
+
+@mixin top-border-radius($size) {
+  @if $size == "sm" {
+    border-radius: 4px 4px 0 0;
+  } @else if $size == "md" {
+    border-radius: 8px 8px 0 0;
+  } @else if $size == "lg" {
+    border-radius: 16px 16px 0 0;
+  }
+}
+
+@mixin border-radius($size) {
+  @if $size == "sm" {
+    border-radius: 4px;
+  } @else if $size == "md" {
+    border-radius: 8px;
+  } @else if $size == "lg" {
+    border-radius: 16px;
+  }
+}
+
+@mixin hero-variants($size) {
+  .card__hero {
+    &.expanded {
+      @include top-border-radius($size);
+    }
+
+    &.inset {
+      margin: 16px 16px 0;
+    }
+  }
+}
+
+@mixin container-variants($size) {
+  &.elevated {
+    background-color: $color-white;
+    @include box-shadow($size);
+    @include outline-style;
+    @include border-radius($size);
+  }
+  &.outline {
+    background-color: $color-white;
+    @include outline-style;
+    @include border-radius($size);
+  }
+
+}
+
+@mixin box-shadow($size) {
+  @if $size == "sm" {
+    box-shadow: $shadow-sm;
+  } @else if $size == "md" {
+    box-shadow: $shadow-md;
+  } @else if $size == "lg" {
+    box-shadow: $shadow-lg;
+  }
+}
+
+.card-container {
+  &.sm {
+    @include container-variants("sm");
+    @include hero-variants("sm");
+  }
+
+  &.md {
+    @include container-variants("md");
+    @include hero-variants("md");
+  }
+
+  &.lg {
+    @include container-variants("lg");
+    @include hero-variants("lg");
+  }
+
+  .card__body {
+    padding: 24px 32px 24px 32px;
+
+    &.inset {
+      padding: 0 16px;
+    }
+
+    .overline {
+      margin: 0 0 8px;
+      font-size: $font-size-14;
+      line-height: 1.5;
+      color: $body-color;
+      text-transform: uppercase;
+    }
+
+    .headline {
+      margin: 0 0 16px;
+      font-size: $font-size-24;
+      font-weight: $font-semibold;
+      line-height: 1.25;
+      color: $headline-color;
+    }
+
+    .text {
+      margin: 0 0 24px;
+      font-size: $font-size-16;
+      line-height: 1.5;
+      color: $body-color;
+    }
+  }
+
+  .card__button {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    @media (min-width: $medium-screen) {
+      flex-direction: row;
+    }
+
+    .card__button--secondary {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: nowrap;
+      height: rem(40);
+      font-weight: $font-semibold;
+      font-size: rem(16);
+      white-space: nowrap;
+      color: $color-primary;
+      background-color: transparent;
+      border: solid rem(1);
+      border-color: $color-primary;
+      border-radius: rem(4);
+      width: 100%;
+     &.card__button--borderless {
+       border: unset;
+       text-align: left;
+       justify-content: start;
+     }
+      @media (min-width: $medium-screen) {
+        font-size: rem(20);
+        height: rem(56);
+        border-radius: rem(6);
+      }
+
+      &:hover, &:active {
+        text-decoration: none;
+        border-color: darken($color-primary, 10%);
+        color: darken($color-primary, 10%);
+      }
+    }
+
+    .card__button--primary {
+      color: $color-white;
+      background-color: $color-primary;
+      @media (min-width: $medium-screen) {
+        font-size: rem(20);
+        background-color: $color-primary;
+      }
+
+      &:hover, &:active {
+        text-decoration: none;
+        background-color: darken($color-primary, 10%);
+        color: $color-white;
+      }
+    }
+  }
+
+}
+

@@ -1,5 +1,5 @@
 /**
- * Hero.jsx
+ * AnimatedHeading.jsx
  * Created by Andrea Blackwell 03/22
  */
 

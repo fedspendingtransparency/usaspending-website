@@ -132,6 +132,15 @@ $colors-outlayed: #0b2e5a;
 $color-infrastructure-obligations: #afcdd5;
 $color-infrastructure-outlays:    #2d6878;
 
+$headline-color: #1b1b1b;
+$body-color: #5c5c5c;
+$card-outline-color: #dfe1e2; // gray-cool-10 from USWDS
+
+// Shadows
+$shadow-sm: 0 4px 8px rgba(0, 0, 0, 0.1);
+$shadow-md: 0 8px 16px rgba(0, 0, 0, 0.1);
+$shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.1);
+
 
 // Global Padding and Margins
 // (example usage {padding: ($global-pad * 4);} = 60px of padding.)
