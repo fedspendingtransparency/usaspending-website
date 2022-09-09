@@ -1,16 +1,76 @@
+$customWidthJustForThisComponent: 440px;
+
 .homepage-explore-toggle__section {
-  margin: rem(6) 0;
-  text-align: center;
-  font-size: 40px;
-    div {
-      padding-top: rem(20);
-      @media (max-width: $tablet-screen) {
-        font-size: 16px;
+  .grid-content {
+    justify-content: center;
+
+    .usa-dt-tab-list__border-pre-filler {
+      width: 100%;
+      border-bottom: none;
+    }
+    .usa-dt-tab-list__border-post-filler {
+      border-bottom: none;
+    }
+
+    .usa-dt-tab__wrapper {
+      border-bottom: none;
+    }
+
+    .usa-dt-tab {
+      background-color: white;
+      margin-right: 0;
+      margin-bottom: 0;
+      padding: rem(4) rem(8);
+      border-top: none;
+      border-left: none;
+      border-right: none;
+      border-radius: 0;
+      // todo - add this color to our color vars
+      border-bottom: solid 1px #c6cace;
+      @media(min-width: $customWidthJustForThisComponent) {
+        padding: rem(4) rem(16);
+      }
+
+        &.active {
+        border-bottom: solid 2px $color-primary;
+      }
+
+      .homepage-explore-toggle__text-container {
+        display: flex;
+
+        .homepage-explore-toggle__icon-container {
+          width: rem(20);
+          height: rem(20);
+          padding-left: rem(4);
+          border-radius: rem(2);
+          background-color: #e7f6f8;
+          &.access {
+            padding-left: rem(6);
+          }
+        }
+        .homepage-explore-toggle__icon {
+          // todo - add this color to our color vars
+          color: #449dac;
+          font-size: rem(12);
+        }
+
+        .homepage-explore-toggle__text {
+          font-size: rem(14);
+          font-weight: $font-semibold;
+          font-stretch: normal;
+          font-style: normal;
+          line-height: 1;
+          letter-spacing: normal;
+          color: $color-grayblack;
+          margin-left: rem(4);
+          align-self: center;
+          @media(min-width: $customWidthJustForThisComponent) {
+            font-size: rem(16);
+            line-height: 1.25;
+            margin-left: rem(8);
+          }
+        }
       }
     }
-    .grid-content {
-      border: solid 6px yellow;
-      border-radius: 4px;
-      height: 10rem;
-    }
+  }
 }
