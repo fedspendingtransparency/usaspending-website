@@ -15,12 +15,12 @@ const propTypes = {
 const CardHero = ({ img, fill, variant, size }) => {
     return (
         <div className={`card__hero ${variant} ${size}`} style={{ backgroundColor: `${fill}`, height: !img ? '12px' : 'inherit' }}>
-            <img src={`${img}`} />
+            <img src={`${img}`} role="presentation" alt="" />
         </div>
     );
 };
 
 CardHero.propTypes = propTypes;
-CardHero.defaultProps = { variant: 'expanded', img: '../../img/top-bowie-state-combined-image.svg' };
+CardHero.defaultProps = { variant: 'expanded' };
 
 export default CardHero;

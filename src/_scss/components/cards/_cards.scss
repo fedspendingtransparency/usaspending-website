@@ -1,33 +1,3 @@
-$small-screen:      320px;
-$tablet-screen:     768px;
-$medium-screen:     992px;
-$large-screen:      1200px;
-$x-large-screen:    1640px;
-$color-primary:              #0071bc;
-$color-primary-darker:       #205493;
-$color-primary-darkest:      #112e51;
-
-$color-primary-alt:          #02bfe7;
-$color-primary-alt-dark:     #00a6d2;
-$color-primary-alt-darkest:  #046b99;
-$color-primary-alt-light:    #9bdaf1; // lighten($color-primary-alt, 60%)
-$color-primary-alt-lightest: #e7f6f8;
-
-$color-white: #fff;
-
-@function rem($pxval) {
-  @if not unitless($pxval) {
-    $pxval: strip-units($pxval);
-  }
-
-  $base: 14;
-  @if not unitless($base) {
-    $base: strip-units($base);
-  }
-  @return ($pxval / $base) * 1rem;
-}
-
-
 @mixin outline-style {
   border: solid 1px #dfe1e2;
 }
@@ -38,7 +8,7 @@ $color-white: #fff;
   } @else if $size == "md" {
     border-radius: 8px 8px 0 0;
   } @else if $size == "lg" {
-    border-radius: 8px 8px 0 0;
+    border-radius: 16px 16px 0 0;
   }
 }
 
@@ -65,13 +35,16 @@ $color-white: #fff;
 }
 
 @mixin container-variants($size) {
-  @include border-radius($size);
   &.elevated {
+    background-color: $color-white;
     @include box-shadow($size);
     @include outline-style;
+    @include border-radius($size);
   }
   &.outline {
+    background-color: $color-white;
     @include outline-style;
+    @include border-radius($size);
   }
 
 }
@@ -87,7 +60,6 @@ $color-white: #fff;
 }
 
 .card-container {
-  background-color: #fff;
   &.sm {
     @include container-variants("sm");
     @include hero-variants("sm");
@@ -105,9 +77,9 @@ $color-white: #fff;
 
   .card__body {
     padding: 24px 32px 24px 32px;
-    .inset {
-      padding-left: 16px;
-      padding-right: 16px;
+
+    &.inset {
+      padding: 0 16px;
     }
 
     .overline {

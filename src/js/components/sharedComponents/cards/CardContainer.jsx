@@ -6,8 +6,6 @@
 import React from 'react';
 import PropTypes from "prop-types";
 
-require('components/cards/cardContainer.scss');
-
 const propTypes = {
     variant: PropTypes.string, // possible variants are elevated or outline
     size: PropTypes.string,  // sm, md, or lg
@@ -27,6 +25,6 @@ const CardContainer = ({
 };
 
 CardContainer.propTypes = propTypes;
-CardContainer.defaultProps = { variant: 'outline', size: 'md' };
+CardContainer.defaultProps = { size: 'md' };
 
 export default CardContainer;

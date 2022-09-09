@@ -6,7 +6,11 @@ import CardBody from "./sharedComponents/cards/CardBody";
 import CardButton from "./sharedComponents/cards/CardButton";
 import PageWrapper from "./sharedComponents/PageWrapper";
 
+require('pages/homepage/homepage.scss');
+
 const tempPage = () => {
+    const imageLink = "../../img/top-bowie-state-combined-image.svg";
+
     return(
         <PageWrapper
             pageName="Test Page"
@@ -43,12 +47,22 @@ const tempPage = () => {
                             </CardBody>
                         </CardContainer>
                     </FlexGridCol>
+                    <FlexGridCol width={3} desktop={3}>
+                        <CardContainer>
+                            <CardBody
+                                overline={"Award Search"}
+                                headline={"Find details on federal awards"}
+                                text={"Search spending to your community using Location filters like Place of Performance"} >
+                                <CardButton text="Search" variant="primary" />
+                            </CardBody>
+                        </CardContainer>
+                    </FlexGridCol>
                 </FlexGridRow>
                 <h1>Hero Variants</h1>
                 <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32}>
                     <FlexGridCol width={3} desktop={3}>
                         <CardContainer variant={"elevated"} size={'sm'}>
-                            <CardHero variant={"inset"} fill={"#1a4480"} />
+                            <CardHero variant={"inset"} fill={"#1a4480"} img={imageLink} />
                             <CardBody variant={'inset'}>
                                 <p>hello</p>
                                 <p>hello</p>
@@ -57,14 +71,14 @@ const tempPage = () => {
                     </FlexGridCol>
                     <FlexGridCol width={3} desktop={3}>
                         <CardContainer variant={"elevated"} size={'md'}>
-                            <CardHero fill={"#1a4480"} />
+                            <CardHero fill={"#1a4480"} img={imageLink} />
                             <p>hello</p>
                             <p>hello</p>
                         </CardContainer>
                     </FlexGridCol>
                     <FlexGridCol width={3} desktop={3}>
                         <CardContainer variant={"elevated"} size={'md'}>
-                            <CardHero fill={"#1a4480"} img='' />
+                            <CardHero fill={"#1a4480"} />
                             <CardBody
                                 overline={"Award Search"}
                                 headline={"Find details on federal awards"}
@@ -78,7 +92,7 @@ const tempPage = () => {
                 <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32}>
                     <FlexGridCol width={4} desktop={4}>
                         <CardContainer variant={"elevated"} size={'md'}>
-                            <CardHero fill={"#1a4480"} img='' />
+                            <CardHero fill={"#1a4480"} />
                             <CardBody
                                 overline={"Resources"}
                                 headline={"Learn how to use USAspending with our tutorial videos"} >
@@ -88,7 +102,7 @@ const tempPage = () => {
                     </FlexGridCol>
                     <FlexGridCol width={4} desktop={4}>
                         <CardContainer variant={"elevated"} size={'md'}>
-                            <CardHero variant={"expanded"} fill={"#1a4480"} />
+                            <CardHero variant={"expanded"} img={imageLink} />
                             <CardBody
                                 overline={"Resources"}
                                 headline={"Learn how to use USAspending with our tutorial videos"} >
@@ -98,7 +112,7 @@ const tempPage = () => {
                     </FlexGridCol>
                     <FlexGridCol width={4} desktop={4}>
                         <CardContainer variant={"elevated"} size={'md'}>
-                            <CardHero variant={"expanded"} fill={"#1a4480"} />
+                            <CardHero variant={"expanded"} fill={"#1a4480"} img={imageLink} />
                             <CardBody
                                 overline={"Resources"}
                                 headline={"Learn how to use USAspending with our tutorial videos"} >
