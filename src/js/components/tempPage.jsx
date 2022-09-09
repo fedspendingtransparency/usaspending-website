@@ -55,7 +55,7 @@ const tempPage = () => {
                                     overline="Award Search"
                                     headline="Find details on federal awards"
                                     text="Search spending to your community using Location filters like Place of Performance" >
-                                    <CardButton text="Search" variant="primary" />
+                                    <CardButton text="Search" variant="primary" link="/search" />
                                 </CardBody>
                             </CardContainer>
                         </FlexGridCol>
@@ -85,7 +85,7 @@ const tempPage = () => {
                                     overline="Award Search"
                                     headline="Find details on federal awards"
                                     text="Search spending to your community using Location filters like Place of Performance" >
-                                    <CardButton text="Search" variant="primary" />
+                                    <CardButton text="Return Home" variant="primary" link="/" />
                                 </CardBody>
                             </CardContainer>
                         </FlexGridCol>
@@ -98,7 +98,7 @@ const tempPage = () => {
                                 <CardBody
                                     overline="Resources"
                                     headline="Learn how to use USAspending with our tutorial videos" >
-                                    <CardButton text="Search" variant="hero__button--action" />
+                                    <CardButton text="Search" variant="hero__button--action" link="/search" />
                                 </CardBody>
                             </CardContainer>
                         </FlexGridCol>
@@ -108,7 +108,7 @@ const tempPage = () => {
                                 <CardBody
                                     overline="Resources"
                                     headline="Learn how to use USAspending with our tutorial videos" >
-                                    <CardButton text="Search" />
+                                    <CardButton text="Search" link="/search" />
                                 </CardBody>
                             </CardContainer>
                         </FlexGridCol>
@@ -118,7 +118,7 @@ const tempPage = () => {
                                 <CardBody
                                     overline="Resources"
                                     headline="Learn how to use USAspending with our tutorial videos" >
-                                    <CardButton text="Search" variant="text" />
+                                    <CardButton text="Search" variant="text" link="/search" />
                                 </CardBody>
                             </CardContainer>
                         </FlexGridCol>
