@@ -6,8 +6,8 @@
 import React, { useState } from 'react';
 import { FlexGridRow, Tabs } from 'data-transparency-ui';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import ExploreDataPlaceholder from "../ExploreDataPlaceholder/ExploreDataPlaceholder";
-import AccessDataPlaceholder from "../AccessDataPlaceholder/AccessDataPlaceholder";
+import ExploreDataPlaceholder from "../../homepage/ExploreDataPlaceholder/ExploreDataPlaceholder";
+import AccessDataPlaceholder from "../../homepage/AccessDataPlaceholder/AccessDataPlaceholder";
 
 const toggleTabs = [
     {
