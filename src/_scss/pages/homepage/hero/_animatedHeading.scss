@@ -1,5 +1,5 @@
-$hold-increment: 3000ms;
-$scroll-increment: 500ms;
+$hold-increment: 2000ms;
+$scroll-increment: 200ms;
 $iteration-increment: $hold-increment + $scroll-increment;
 $green-text: #2d6878;
 
@@ -196,7 +196,7 @@ $green-text: #2d6878;
         }
 
         .phrase--exit-animation {
-            @include phrase-transition('long-fade-out', $scroll-increment * 2, 0);
+            @include phrase-transition('long-fade-out', $scroll-increment, 0);
         }
 
         @-moz-keyframes fade-in-landing-phrase {
