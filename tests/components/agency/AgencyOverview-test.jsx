@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { render, screen } from 'test-utils';
+import { render, screen, act } from 'test-utils';
 import AgencyOverview from 'components/agency/overview/AgencyOverview';
 import BaseAgencyOverview from 'models/v2/agency/BaseAgencyOverview';
 import BaseAgencyBudgetaryResources from 'models/v2/agency/BaseAgencyBudgetaryResources';
@@ -30,27 +30,23 @@ const mockStoreDod = {
     }
 };
 
-// REACT UPGRADE FIX TEST
-// test('should display the \'About this Agency\'s Data\' section for DOD', () => {
-//     render(<AgencyOverview />, { initialState: mockStoreDod });
-//     const heading = screen.queryByText('About this Agency\'s Data');
-//     expect(heading).toBeTruthy();
-// });
+describe('AgencyOverview', () => {
+    test('should display the \'About this Agency\'s Data\' section for DOD', async () => {
+        act(() => {
+            render(<AgencyOverview fy="2017" dataThroughDate="no data" />, { initialState: mockStoreDod });
+        });
+        const heading = screen.queryByText('About this Agency\'s Data');
+        await expect(heading).toBeTruthy();
+    });
 
-const overview = Object.create(BaseAgencyOverview);
-overview.populate(mockAgency);
 
-const mockStore = {
-    agency: {
-        overview,
-        budgetaryResources,
-        recipientDistribution
-    }
-};
-
-// REACT UPGRADE FIX TEST
-// test('should not display the \'About this Agency\'s Data\' section for non-DOD', () => {
-//     render(<AgencyOverview />, { initialState: mockStore });
-//     const heading = screen.queryByText('About this Agency\'s Data');
-//     expect(heading).toBeFalsy();
-// });
+    const overview = Object.create(BaseAgencyOverview);
+    overview.populate(mockAgency);
+    test('should not display the \'About this Agency\'s Data\' section for non-DOD', async () => {
+        act(() => {
+            render(<AgencyOverview fy="2017" dataThroughDate="no data" />);
+        });
+        const heading = screen.queryByText('About this Agency\'s Data');
+        await expect(heading).toBeFalsy();
+    });
+});

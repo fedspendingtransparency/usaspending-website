@@ -32,6 +32,7 @@ module.exports = {
         ".*GlobalConstants$": "<rootDir>/tests/testResources/mockGlobalConstants.js",
         '@test-utils': "<rootDir>/tests/testResources/test-utils.js"
     },
+    setupFiles: ["<rootDir>/tests/rejection.js"],
     setupFilesAfterEnv: ["<rootDir>/tests/setup.js"],
     transform: {
         "^.+\\.jsx$|js$": "babel-jest"
