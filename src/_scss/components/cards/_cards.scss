@@ -1,5 +1,5 @@
 @mixin outline-style {
-  border: solid 1px #dfe1e2;
+  border: solid 1px $card-outline-color;
 }
 
 @mixin top-border-radius($size) {
@@ -51,11 +51,11 @@
 
 @mixin box-shadow($size) {
   @if $size == "sm" {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: $shadow-sm;
   } @else if $size == "md" {
-    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    box-shadow: $shadow-md;
   } @else if $size == "lg" {
-    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+    box-shadow: $shadow-lg;
   }
 }
 
@@ -84,25 +84,25 @@
 
     .overline {
       margin: 0 0 8px;
-      font-size: rem(14);
+      font-size: $font-size-14;
       line-height: 1.5;
-      color: #5c5c5c;
+      color: $body-color;
       text-transform: uppercase;
     }
 
     .headline {
       margin: 0 0 16px;
-      font-size: rem(24);
-      font-weight: 600;
+      font-size: $font-size-24;
+      font-weight: $font-semibold;
       line-height: 1.25;
-      color: #1b1b1b;
+      color: $headline-color;
     }
 
     .text {
       margin: 0 0 24px;
-      font-size: rem(16);
+      font-size: $font-size-16;
       line-height: 1.5;
-      color: #5c5c5c;
+      color: $body-color;
     }
   }
 
@@ -120,14 +120,13 @@
       align-items: center;
       flex-wrap: nowrap;
       height: rem(40);
-      font-weight: 600;
+      font-weight: $font-semibold;
       font-size: rem(16);
       white-space: nowrap;
       color: $color-primary;
       background-color: transparent;
       border: solid rem(1);
       border-color: $color-primary;
-      //padding: rem(10) rem(24);
       border-radius: rem(4);
       width: 100%;
      &.card__button--borderless {
@@ -139,7 +138,6 @@
         font-size: rem(20);
         height: rem(56);
         border-radius: rem(6);
-        //margin: 0 rem(16) rem(28) rem(8);
       }
 
       &:hover, &:active {
@@ -154,7 +152,6 @@
       background-color: $color-primary;
       @media (min-width: $medium-screen) {
         font-size: rem(20);
-        //margin: 0 rem(8) rem(16) rem(16);
         background-color: $color-primary;
       }
 
