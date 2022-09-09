@@ -1,6 +1,6 @@
 /**
  * CardHero.jsx
- * Created by Andrea Blackwell
+ * Created by Andrea Blackwell  09/09/2022
  */
 
 import PropTypes from "prop-types";
@@ -12,13 +12,13 @@ const propTypes = {
     variant: PropTypes.string // inset or expanded
 };
 
-const CardHero = ({ img, fill, variant, size }) => {
-    return (
-        <div className={`card__hero ${variant} ${size}`} style={{ backgroundColor: `${fill}`, height: !img ? '12px' : 'inherit' }}>
-            <img src={`${img}`} role="presentation" alt="" />
-        </div>
-    );
-};
+const CardHero = ({
+    img, fill, variant, size
+}) => (
+    <div className={`card__hero ${variant} ${size}`} style={{ backgroundColor: `${fill}`, height: !img ? '12px' : 'inherit' }}>
+        <img src={`${img}`} role="presentation" alt="" />
+    </div>
+);
 
 CardHero.propTypes = propTypes;
 CardHero.defaultProps = { variant: 'expanded' };

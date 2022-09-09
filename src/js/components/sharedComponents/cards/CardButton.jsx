@@ -1,11 +1,11 @@
 /**
  * CardBody.jsx
- * Created by Andrea Blackwell
+ * Created by Andrea Blackwell  09/09/2022
  */
 
 import React from "react";
 import PropTypes from "prop-types";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import CardContainer from "./CardContainer";
 
 const propTypes = {
@@ -16,9 +16,9 @@ const propTypes = {
 
 };
 
-
-
-const CardButton = ({ link, action, text, variant }) => {
+const CardButton = ({
+    link, action, text, variant
+}) => {
     const variantMapper = {
         primary: "card__button--primary",
         text: "card__button--borderless"
@@ -36,10 +36,9 @@ const CardButton = ({ link, action, text, variant }) => {
             </Link>
         </div>
     );
-
 };
 
 CardButton.propTypes = propTypes;
-CardContainer.defaultProps = { variant: 'secondary'};
+CardContainer.defaultProps = { variant: 'secondary' };
 
 export default CardButton;
