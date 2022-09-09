@@ -6,10 +6,6 @@ $top: 60px;
   width: 100%;
 }
 
-.sk-scroller-content-collection {
-  display: none;
-}
-
 .scroller-backdrop  {
     position: sticky;
     display: block;
@@ -25,7 +21,7 @@ $top: 60px;
 
 .scroller-backdrop div {
     border: none;
-  }
+}
 
 .scroller-overlays {
   display: block;
@@ -34,6 +30,6 @@ $top: 60px;
   margin-top: calc(-100vh + #{$top});
   // fixes a safari bug where some overlays go behind the backdrop
   transform: translate3d(0, 0, 0);
-  pointer-events: none; // allows for interacting with the backdrop that is under the overlay.
-
+  // allows for interacting with the backdrop that is under the overlay.
+  pointer-events: none;
 }
