@@ -30,7 +30,6 @@ const mockStoreDod = {
     }
 };
 
-// REACT UPGRADE FIX TEST
 describe('AgencyOverview', () => {
     test('should display the \'About this Agency\'s Data\' section for DOD', async () => {
         act(() => {
