@@ -16,8 +16,10 @@ cache:
     - node_modules
 before_install:
   - npm install -g @lhci/cli@0.9.x
+  - npm install -g webpack@5.67.0
+  - npm install -g webpack-cli@4.10.0
 install:
-  - npm install --legacy-peer-deps
+  - npm ci --legacy-peer-deps
 script:
   - npm run dev
   - npm run travis
