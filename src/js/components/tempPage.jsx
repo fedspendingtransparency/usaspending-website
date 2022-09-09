@@ -1,9 +1,9 @@
 import React from "react";
 import { FlexGridRow, FlexGridCol } from "data-transparency-ui";
-import CardContainer from "./sharedComponents/cards/CardContainer";
-import CardHero from "./sharedComponents/cards/CardHero";
-import CardBody from "./sharedComponents/cards/CardBody";
-import CardButton from "./sharedComponents/cards/CardButton";
+import CardContainer from "./sharedComponents/commonCards/CardContainer";
+import CardHero from "./sharedComponents/commonCards/CardHero";
+import CardBody from "./sharedComponents/commonCards/CardBody";
+import CardButton from "./sharedComponents/commonCards/CardButton";
 import PageWrapper from "./sharedComponents/PageWrapper";
 import FeatureFlag from "./sharedComponents/FeatureFlag";
 
