@@ -4,14 +4,16 @@
  */
 
 import React from 'react';
-import { FlexGridRow } from 'data-transparency-ui';
+import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 
 const ReadyToGetStarted = () => (
     <section className="ready-to-get-started__section">
-        <h1>
-            READY TO GET STARTED COMPONENT
-        </h1>
-        <FlexGridRow className="grid-content ready-cards__row">
+        <FlexGridRow>
+            <FlexGridCol className="ready-to-get-started__title" width={12}>
+                Ready to get started?
+            </FlexGridCol>
+        </FlexGridRow>
+        <FlexGridRow className="grid-content">
             CARDS GO HERE
         </FlexGridRow>
     </section>

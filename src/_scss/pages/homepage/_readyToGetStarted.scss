@@ -1,11 +1,20 @@
 .ready-to-get-started__section {
-  border: solid 6px maroon;
-  border-radius: 4px;
-  height: 60rem;
-  margin: rem(6) 0;
-    .grid-content {
-      border: solid 6px darkolivegreen;
+  padding: $global-padding * 6 $global-padding * 2;
+  // todo - add this color to vars
+  background-color: #1a4480;
+    .usa-dt-flex-grid__row.grid-content {
+      color: #fff;
+      border: solid 6px yellowgreen;
       border-radius: 4px;
       height: 30rem;
+      margin: $global-margin * 5 0 0 0;
+    }
+
+    .ready-to-get-started__title {
+      color: #fff;
+      font-size: $font-size-40;
+      font-weight: $font-semibold;
+      line-height: 1.25;
+      text-align: center;
     }
 }
