@@ -77,11 +77,14 @@ export const resourceOptions = [
 
     },
     {
-        label: 'Data Model',
+        label: 'Data Sources',
+        type: 'data-sources',
         enabled: true,
-        url: 'https://fiscal.treasury.gov/data-transparency/DAIMS-current.html',
-        shouldOpenNewTab: true,
-        externalLink: true
+        url: '/data-sources',
+        callToAction: 'Explore the Data Sources',
+        shouldOpenNewTab: false,
+        externalLink: false,
+        isNewTab: false
     },
     {
         label: "Agency Submission Statistics",
