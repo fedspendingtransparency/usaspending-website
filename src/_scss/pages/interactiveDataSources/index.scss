@@ -30,75 +30,6 @@
     }
   }
 
-  .accordion-container {
-    @media (min-width: $large-screen) {
-      margin-left: rem(10);
-    }
-  }
-
-  .accordion-container .heading {
-    height: 14px;
-    color: $color-primary;
-    border: none;
-    font-size: $font-size-14;
-    max-width: rem(120);
-    padding: 0;
-    margin: 0;
-    justify-content: unset !important;
-
-    &:hover,
-    &:active,
-    &:focus,
-    &:visited {
-      color: $color-primary-darker;
-    }
-
-    @media (min-width: $large-screen) {
-      padding-top: rem(8);
-    }
-  }
-
-  .accordion-container .plus {
-    width: 10px;
-    height: 10px;
-    &:hover,
-    &:active,
-    &:focus,
-    &:visited {
-      color: $color-primary-darker;
-    }
-  }
-
-  .accordion-container .minus {
-    width: 10px;
-    height: 10px;
-    &:hover,
-    &:active,
-    &:focus,
-    &:visited {
-      color: $color-primary-darker;
-    }
-  }
-  .accordion-container .toggle {
-    color: $color-primary;
-    font-size: $font-size-14;
-    font-weight: $font-semibold;
-    padding-left: rem(6);
-    &:hover,
-    &:active,
-    &:focus,
-    &:visited {
-      color: $color-primary-darker;
-    }
-    @media (min-width: $large-screen) {
-      padding-right: rem(6);
-    }
-  }
-
-  .accordion-container .open .content {
-    display: none;
-  }
-
   .usda-page-header__toolbar
     .usa-dt-picker
     .usa-dt-picker__dropdown-container
@@ -160,6 +91,21 @@
         margin-top: rem(32);
         .table-wrapper {
           overflow-x: auto;
+        }
+      }
+      .intro-padded__content {
+        @import "./_scrollerOverlayCard.scss";
+        padding: 2.5% 8% 8% 8%;
+        h1, h2, h3 {
+          margin-top: 0;
+        }
+      }
+      .body-padded__content {
+        @import "./_scrollerOverlayCard.scss";
+        margin-top: 0;
+        padding: 0 10% 10% 10%;
+        h1, h2, h3 {
+          margin-top: 0;
         }
       }
       .usda-section__container {

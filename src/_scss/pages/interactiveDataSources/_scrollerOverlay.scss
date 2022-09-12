@@ -8,7 +8,10 @@
   }
   .scroller-overlay-card-container {
     @import "./scrollerOverlayCard";
-    max-width: 50%;
+    max-width: 35%;
+    @media(max-width: $tablet-screen) {
+      max-width: 40%;
+    }
     @media(max-width: $small-screen) {
       max-width: 100%;
     }
