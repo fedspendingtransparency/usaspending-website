@@ -5,7 +5,6 @@ import ScrollerOverlay from "components/interactiveDataSources/scroller/scroller
 import ScrollerOverlayCard from 'components/interactiveDataSources/scroller/scrollerOverlay/ScrollerOverlayCard';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { render, screen } from '@test-utils';
-import { mount } from 'enzyme';
 
 // Content for first overlay card
 const cardIcon1 = (
@@ -28,8 +27,9 @@ const cardContent2 = (
         <p>The background changed when this card scrolled into view.</p>
     </div>);
 const handleScroll = jest.fn();
+const ref1 = React.createRef();
 const scroller = (
-    <Scroller>
+    <Scroller ref={ref1}>
         {/* SCROLLER BACKDROPS */}
         <div
             name="background-color-1"
@@ -106,24 +106,30 @@ describe('Scroller Tests', () => {
     });
 
 
-    it('Trigger onStepEnter and check if current step index is updated', () => {
-        const container = mount(scroller);
-        const spy = jest.spyOn(container.instance(), "setCurrentStepIndex");
-
-        container.instance().setupLists();
-        container.instance().forceUpdate();
-        container.update();
-        container.instance().onStepEnter({
+    it('Trigger onStepEnter and check if callback is called', () => {
+        render(scroller);
+        ref1.current.onStepEnter({
             element: null,
             data: 1,
             direction: "up",
             entry: null
         });
-        container.instance().forceUpdate();
-        container.update();
+
+        expect(handleScroll).toHaveBeenCalled();
+    });
 
 
-        expect(spy).toHaveBeenCalled();
-        expect(container.state('currentStepIndex')).toBe(1);
+    it('Trigger onStepEnter and check if setupLists is called', () => {
+        render(scroller);
+        const spy = jest.spyOn(ref1.current, "setupLists");
+        ref1.current.componentDidMount();
+        ref1.current.onStepEnter({
+            element: null,
+            data: 1,
+            direction: "up",
+            entry: null
+        });
+
+        expect(spy).not.toHaveBeenCalled();
     });
 });
