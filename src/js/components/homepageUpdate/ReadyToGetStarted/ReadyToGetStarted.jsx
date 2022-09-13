@@ -18,7 +18,7 @@ const cardObjects = [
         overline: 'AWARD SEARCH',
         headline: 'Find details on federal awards',
         buttonText: 'Go to Award Search',
-        buttonLink: ''
+        buttonLink: '/search'
     },
     {
         fillColor: '#34a37e',
@@ -27,7 +27,7 @@ const cardObjects = [
         overline: 'SPENDING EXPLORER',
         headline: 'Break down the federal budget',
         buttonText: 'Dive into Spending Explorer',
-        buttonLink: ''
+        buttonLink: '/explorer'
     },
     {
         fillColor: '#fa9441',
@@ -36,7 +36,7 @@ const cardObjects = [
         overline: 'SPENDING PROFILES',
         headline: 'Find recipients of federal funds',
         buttonText: 'Browse Recipient Profiles',
-        buttonLink: ''
+        buttonLink: '/recipient'
     },
     {
         fillColor: '#9355dc',
@@ -45,7 +45,7 @@ const cardObjects = [
         overline: 'RESOURCES',
         headline: 'Learn more about USAspending.gov',
         buttonText: 'Find out what we do',
-        buttonLink: ''
+        buttonLink: '/about'
     }
 ];
 
