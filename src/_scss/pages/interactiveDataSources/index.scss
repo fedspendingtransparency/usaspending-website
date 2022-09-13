@@ -76,11 +76,14 @@
       @include display(flex);
       width: 100%;
       @include flex-direction(column);
-      padding: 2.5% 2.5% 0 2.5%;
+      padding: 0px;
       margin: rem(20) rem(20) rem(20) 0;
       background: $color-white;
       @media (min-width: $tablet-screen) {
         width: 70%;
+      }
+      @media (max-width: $tablet-screen) {
+        padding: 2.5% 2.5% 0 2.5%;
       }
       .usda-message {
         &.usda-message_error {
@@ -95,9 +98,12 @@
       }
       .intro-padded__content {
         @import "./_scrollerOverlayCard.scss";
-        padding: 2.5% 8% 8% 8%;
+        padding: 2.5% 8% 0% 8%;
         h1, h2, h3 {
           margin-top: 0;
+        }
+        @media (max-width: $tablet-screen) {
+          padding: 2.5% 8% 8% 8%;
         }
       }
       .body-padded__content {
@@ -120,6 +126,9 @@
       // Scroller styles
       @import "./_scroller.scss";
       @import "./_scrollerOverlay.scss";
+      // Other Page Portion styles
+      @import './_introSection.scss';
+      @import './_aboutSection.scss';
       .default-note {
         @include profile-page-wrap;
       }

@@ -1,3 +1,6 @@
+/* eslint-disable max-len */
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
 import React from 'react';
 import Accordion from "../../sharedComponents/accordion/Accordion";
 import ScrollerOverlayCard from '../scroller/scrollerOverlay/ScrollerOverlayCard';
@@ -41,33 +44,60 @@ export default class AboutSection extends React.Component {
         }];
         const dataModelCardContent = {
             heading: (
-                <p>USAspending Data Model</p>
+                <>
+                    <p>USAspending Data Model</p>
+                    <div className="interactives-guide__cardLine" />
+                </>
             ),
             content: (
-                <p>
-                To read the technical documentation for the data elements and source systems that flow into USAspending, <a href="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html" target="_blank">please visit this resources page from the Treasury Department’s Bureau of the Fiscal Service.</a>
-                </p>
+                <>
+                    <p className="interactives-guide-cardText">
+                        To read the technical documentation for the data elements and source systems that flow into USAspending, <a href="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html" target="_blank">please visit this resources page from the Treasury Department’s Bureau of the Fiscal Service.</a>
+                    </p>
+                    <div
+                        className="usa-button usa-button-outline read-more-button"
+                        aria-label="Read More Button"
+                        title="Read More Button">
+                            Read More
+                    </div>
+                </>
             )
         };
 
         return (
-            <div className="body__content body-padded__content interactive-data-sources-intro-section">
-                <h2>Data Act and Creation of DAIMS/USAspending</h2>
-                {aboutDetails.map((item, i) => (
-                    <Accordion
-                        key={`item_${i}`}
-                        title={item.title}>
-                        {item.details}
-                    </Accordion>
-                ))}
-                <br />
-                <ScrollerOverlayCard
-                    heading={dataModelCardContent.heading}
-                    content={dataModelCardContent.content} />
-                <br />
-                <div>
-                    <p >You can follow the money from the source systems through the submission process to see what is displayed on USAspending.gov.</p>
-                    <p>Scroll down to get started.</p>
+            <div className="body__content interactive-data-sources-intro-section">
+                <div className="body-padded__content">
+                    <h3 className="interactiveDataHeader__topTitle">Data Act and Creation of DAIMS/USAspending</h3>
+                    <h4 className="interactives-guide__questionSections">
+                        History
+                    </h4>
+                    <div className="interactives-guide__questionLine" />
+                    {aboutDetails.map((item, i) => (
+                        <Accordion
+                            key={`item_${i}`}
+                            title={item.title}>
+                            {item.details}
+                        </Accordion>
+                    ))}
+                </div>
+                <div className="interactives-guide__background-green">
+                    <div className="body-padded__content">
+                        <ScrollerOverlayCard
+                            heading={dataModelCardContent.heading}
+                            content={dataModelCardContent.content} />
+                    </div>
+                    <br />
+                    <div className="interactives-guide_begin-scroller">
+                        <h2>You can follow the money from the source systems through the submission process to see what is displayed on USAspending.gov.</h2>
+                        <h2>Scroll down to get started.</h2>
+
+                        <div className="interactives-guide_scroll-indicator">
+                            <h5>Scroll down to get started.</h5>
+                            <div className="interactives-arrow-holder">
+                                <FontAwesomeIcon icon={faArrowDown} className="interactives-down-icon" />
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         );
