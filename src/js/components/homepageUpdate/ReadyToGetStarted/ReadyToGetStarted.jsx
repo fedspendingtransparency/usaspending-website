@@ -14,6 +14,7 @@ const cardObjects = [
     {
         fillColor: '#00bde3',
         image: 'img/homepage-ready-to-get-started/homepage-get-started-award-search.webp',
+        imageHeight: '177px',
         overline: 'AWARD SEARCH',
         headline: 'Find details on federal awards',
         buttonText: 'Go to Award Search',
@@ -22,6 +23,7 @@ const cardObjects = [
     {
         fillColor: '#34a37e',
         image: 'img/homepage-ready-to-get-started/homepage-get-started-spending-explorer.webp',
+        imageHeight: '177px',
         overline: 'SPENDING EXPLORER',
         headline: 'Break down the federal budget',
         buttonText: 'Dive into Spending Explorer',
@@ -30,6 +32,7 @@ const cardObjects = [
     {
         fillColor: '#fa9441',
         image: 'img/homepage-ready-to-get-started/homepage-get-started-recipient-profiles.webp',
+        imageHeight: '177px',
         overline: 'SPENDING PROFILES',
         headline: 'Find recipients of federal funds',
         buttonText: 'Browse Recipient Profiles',
@@ -38,6 +41,7 @@ const cardObjects = [
     {
         fillColor: '#9355dc',
         image: 'img/homepage-ready-to-get-started/homepage-get-started-learn-more.webp',
+        imageHeight: '177px',
         overline: 'RESOURCES',
         headline: 'Learn more about USAspending.gov',
         buttonText: 'Find out what we do',
@@ -65,8 +69,10 @@ const ReadyToGetStarted = () => (
                                 size="md"
                                 variant="inset"
                                 fill={card.fillColor}
+                                imageContainerHeight={card.imageHeight}
                                 img={card.image} />
                             <CardBody
+                                variant="inset"
                                 overline={card.overline}
                                 headline={card.headline}>
                                 <CardButton
