@@ -70,6 +70,12 @@
       li {
         list-style: none;
       }
+      &.interactives-guide_bullet-points {
+        padding-left: 5px;
+        li {
+            list-style: disc;
+        }
+      }
     }
     @import "./sidebar";
     .body {
@@ -82,8 +88,8 @@
       @media (min-width: $tablet-screen) {
         width: 70%;
       }
-      @media (max-width: $tablet-screen) {
-        padding: 2.5% 2.5% 0 2.5%;
+      @media (max-width: $medium-screen) {
+        margin: rem(20) rem(20) rem(20) rem(20);
       }
       .usda-message {
         &.usda-message_error {
