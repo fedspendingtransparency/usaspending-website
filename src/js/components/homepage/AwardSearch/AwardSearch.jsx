@@ -44,7 +44,6 @@ const AwardSearch = () => {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-
     return (
         <section className="award-search__section">
             <FlexGridRow className="grid-content" >
@@ -61,7 +60,7 @@ const AwardSearch = () => {
                     <p className="award-search__subtext">Find information on awards such as contracts, loans, and grants based on location, industry, and more.</p>
                 </FlexGridCol>
                 <FlexGridCol desktop={6} tablet={12} mobile={12} className="award-search__col2">
-                    <Swiper navigation modules={[Navigation]} className="award-search__swiper">
+                    <Swiper centeredSlides watchSlidesVisibility slidesPerView="auto" navigation modules={[Navigation]} className="award-search__swiper">
                         <SwiperSlide className="award_search__slide" style={{ textAlign: "center" }}>Slide 1</SwiperSlide>
                         <SwiperSlide className="award_search__slide" style={{ textAlign: "center" }}>Slide 2</SwiperSlide>
                         <SwiperSlide className="award_search__slide" style={{ textAlign: "center" }}>Slide 3</SwiperSlide>

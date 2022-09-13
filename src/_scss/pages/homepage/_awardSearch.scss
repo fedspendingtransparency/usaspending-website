@@ -57,7 +57,20 @@
       color: $body-color;
     }
     .swiper-pagination-bullet-active {
-      background-color: #565c65 !important;
+      background-color: #565c65;
+    }
+    .swiper-slide-next {
+      opacity: .25;
+    }
+
+    .swiper-button-disabled{
+      display:none;   
+    }
+    .swiper-slide-visible {
+      opacity: 1;
+    }
+    .swiper-container {
+      overflow: visible;
     }
     .award-search__col2 {
       display: flex;
