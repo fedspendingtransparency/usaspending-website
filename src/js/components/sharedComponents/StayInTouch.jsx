@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { FlexGridRow } from 'data-transparency-ui';
+import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 import PropTypes from "prop-types";
 import Analytics from 'helpers/analytics/Analytics';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -26,47 +26,62 @@ const StayInTouch = (pageName) => {
         action: 'Link',
         label: 'learn-more'
     });
+
     return (
         <section className="stay-in-touch__section">
-            <FlexGridRow className="stay-in-touch__top-row">
-                <div className="stay-in-touch__icon-container">
-                    <FontAwesomeIcon icon={faPaperPlane} />
-                </div>
-                <div className="stay-in-touch__title">
-                    Stay in touch
-                </div>
-            </FlexGridRow>
-            <FlexGridRow className="stay-in-touch__second-row">
-                <div className="stay-in-touch__second-row-container top left">
+            <FlexGridRow className="stay-in-touch__container-row" hasGutter gutterSize="lg">
+                <FlexGridCol
+                    className="stay-in-touch__title-col"
+                    mobile={12}
+                    tablet={12}
+                    desktop={4}>
+                    <FlexGridRow>
+                        <div className="stay-in-touch__icon-container">
+                            <FontAwesomeIcon icon={faPaperPlane} />
+                        </div>
+                        <div className="stay-in-touch__title">
+                            Stay in touch
+                        </div>
+                    </FlexGridRow>
+                </FlexGridCol>
+                <FlexGridCol
+                    className="stay-in-touch__second-row-container top"
+                    mobile={12}
+                    tablet={6}
+                    desktop={4}>
                     <div className="stay-in-touch__second-row-title">
-                        Get release notes delivered to your inbox
+                            Get release notes delivered to your inbox
                     </div>
                     <div className="stay-in-touch__second-row-text">
-                        Sign up to receive our release notes to keep up with what’s new on USAspending.gov.
+                            Sign up to receive our release notes to keep up with what’s new on USAspending.gov.
                     </div>
                     <div className="stay-in-touch__second-row-link">
                         <a
                             href="mailto:join-usaspending@lists.fiscal.treasury.gov?subject=Yes!%20I'd%20like%20to%20receive%20updates."
                             onClick={trackLinkSignUp}>
-                            Sign Up
+                                Sign Up
                             <FontAwesomeIcon icon={faArrowRight} />
                         </a>
                     </div>
-                </div>
-                <div className="stay-in-touch__second-row-container">
+                </FlexGridCol>
+                <FlexGridCol
+                    className="stay-in-touch__second-row-container"
+                    mobile={12}
+                    tablet={6}
+                    desktop={4}>
                     <div className="stay-in-touch__second-row-title">
-                        Request a USAspending.gov training session
+                            Request a USAspending.gov training session
                     </div>
                     <div className="stay-in-touch__second-row-text">
-                        Receive customized training for your organization on how to use our tools and data.
+                            Receive customized training for your organization on how to use our tools and data.
                     </div>
                     <div className="stay-in-touch__second-row-link">
                         <Link className="training__link" to={{ pathname: "/about", search: "section=training" }} onMouseUp={trackLinkLearnMore}>
-                            Learn&nbsp;More
+                                Learn&nbsp;More
                             <FontAwesomeIcon icon={faArrowRight} />
                         </Link>
                     </div>
-                </div>
+                </FlexGridCol>
             </FlexGridRow>
         </section>
     );
