@@ -55,7 +55,7 @@ const ReadyToGetStarted = () => (
             <FlexGridCol className="ready-to-get-started__title" width={12}>
                 Ready to get started?
             </FlexGridCol>
-            <FlexGridRow hasGutter gutterSize="lg">
+            <FlexGridRow className="ready-to-get-started__card-row" hasGutter gutterSize="lg">
                 {cardObjects.map((card) => (
                     <FlexGridCol
                         className="ready-to-get-started__card"
