@@ -8,13 +8,24 @@ import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 
 const ReadyToGetStarted = () => (
     <section className="ready-to-get-started__section">
-        <FlexGridRow>
+        <FlexGridRow className="grid-content">
             <FlexGridCol className="ready-to-get-started__title" width={12}>
                 Ready to get started?
             </FlexGridCol>
-        </FlexGridRow>
-        <FlexGridRow className="grid-content">
-            CARDS GO HERE
+            <FlexGridRow hasGutter gutterSize="lg">
+                <FlexGridCol mobile={12} tablet={6} desktop={3}>
+                    CARD
+                </FlexGridCol>
+                <FlexGridCol mobile={12} tablet={6} desktop={3}>
+                    CARD
+                </FlexGridCol>
+                <FlexGridCol mobile={12} tablet={6} desktop={3}>
+                    CARD
+                </FlexGridCol>
+                <FlexGridCol mobile={12} tablet={6} desktop={3}>
+                    CARD
+                </FlexGridCol>
+            </FlexGridRow>
         </FlexGridRow>
     </section>
 );

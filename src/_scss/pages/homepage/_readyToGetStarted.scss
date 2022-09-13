@@ -1,13 +1,11 @@
 .ready-to-get-started__section {
-  padding: $global-padding * 6 $global-padding * 2;
+  padding: $global-padding * 6 0;
   // todo - add this color to vars
   background-color: #1a4480;
-    .usa-dt-flex-grid__row.grid-content {
+    .grid-content {
       color: #fff;
       border: solid 6px yellowgreen;
       border-radius: 4px;
-      height: 30rem;
-      margin: $global-margin * 5 0 0 0;
     }
 
     .ready-to-get-started__title {
@@ -16,5 +14,6 @@
       font-weight: $font-semibold;
       line-height: 1.25;
       text-align: center;
+      margin-bottom: rem(40);
     }
 }
