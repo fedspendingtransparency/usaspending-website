@@ -56,7 +56,9 @@
       letter-spacing: normal;
       color: $body-color;
     }
-  
+    .swiper-pagination-bullet-active {
+      background-color: #565c65 !important;
+    }
     .award-search__col2 {
       display: flex;
       justify-content: center;
@@ -68,7 +70,7 @@
             .swiper-slide-active {
               text-align: center;
               font-size: rem(16);
-            }
+            }            
           }
           
           .award_search__slide img {

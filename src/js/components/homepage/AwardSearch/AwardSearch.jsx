@@ -7,14 +7,19 @@ import React, { useState, useEffect } from 'react';
 import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation } from "swiper";
+import { Navigation, Pagination } from "swiper";
 import { throttle } from 'lodash';
 
-// eslint-disable-next-line
+/* eslint-disable */
 import "swiper/css/bundle";
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
+/* eslint-enable */
 
 const AwardSearch = () => {
     const [isDesktopXL, setDesktopXL] = useState(false);
+    const [isMobile, setMobile] = useState(false);
     const [windowWidth, setWindowWidth] = useState(0);
     useEffect(() => {
         const handleResize = throttle(() => {
@@ -26,6 +31,12 @@ const AwardSearch = () => {
                 }
                 else {
                     setDesktopXL(false);
+                }
+
+                if (newWidth < 768) {
+                    setMobile(true);
+                } else {
+                    setMobile(false);
                 }
             }
         }, 50);
@@ -72,12 +83,12 @@ const AwardSearch = () => {
                             <p className="award-search__subtext">Find information on awards such as contracts, loans, and grants based on location, industry, and more.</p>
                         </FlexGridCol>
                         <FlexGridCol desktop={8} tablet={12} mobile={12} className="award-search__col2">
-                            <Swiper navigation modules={[Navigation]} className="award-search__swiper">
-                                <SwiperSlide className="award_search__slide" style={{ textAlign: "center" }}>Slide 1</SwiperSlide>
-                                <SwiperSlide className="award_search__slide" style={{ textAlign: "center" }}>Slide 2</SwiperSlide>
-                                <SwiperSlide className="award_search__slide" style={{ textAlign: "center" }}>Slide 3</SwiperSlide>
-                                <SwiperSlide className="award_search__slide" style={{ textAlign: "center" }}>Slide 4</SwiperSlide>
-                                <SwiperSlide className="award_search__slide" style={{ textAlign: "center" }}>Slide 5</SwiperSlide>
+                            <Swiper pagination={isMobile} navigation={!isMobile} modules={[Pagination, Navigation]} className="award-search__swiper">
+                                <SwiperSlide className="award_search__slide" style={{ textAlign: "center", marginBottom: "20px" }}>Slide 1</SwiperSlide>
+                                <SwiperSlide className="award_search__slide" style={{ textAlign: "center", marginBottom: "20px" }}>Slide 2</SwiperSlide>
+                                <SwiperSlide className="award_search__slide" style={{ textAlign: "center", marginBottom: "20px" }}>Slide 3</SwiperSlide>
+                                <SwiperSlide className="award_search__slide" style={{ textAlign: "center", marginBottom: "20px" }}>Slide 4</SwiperSlide>
+                                <SwiperSlide className="award_search__slide" style={{ textAlign: "center", marginBottom: "20px" }}>Slide 5</SwiperSlide>
                             </Swiper>
                         </FlexGridCol>
                     </>)}
