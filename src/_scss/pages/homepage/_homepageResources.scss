@@ -1,5 +1,4 @@
 .homepage-resources__section {
-  //margin: rem(6) 0;
 
   .grid-content {
     border: solid 6px gold;
@@ -7,5 +6,38 @@
     height: 50rem;
 
     padding: $global-padding * 13 0;
+
+    .homepage-resources__top-label-container {
+      margin-bottom: $global-margin * 2;
+      .homepage-resources__top-label-icon-container {
+        width: rem(20);
+        height: rem(20);
+        border-radius: 2px;
+        // todo - add this color to vars
+        background-color: #e8f5ff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .homepage-resources__book-icon {
+          // todo - add color to vars
+          color: #005ea2;
+        }
+      }
+
+      .homepage-resources__top-label-text {
+        font-size: $font-size-16;
+        font-weight: $font-semibold;
+        line-height: 1.25;
+        color: $body-color;
+        margin-left: $global-margin;
+      }
+    }
+
+    .homepage-resources__headline {
+      font-size: $font-size-40;
+      font-weight: $font-semibold;
+      line-height: 1.25;
+      color: $headline-color;
+    }
   }
 }
