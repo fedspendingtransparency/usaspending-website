@@ -34,10 +34,10 @@ const AboutSection = () => {
             <>
                 <ul className="interactives-guide_bullet-points">
                     <li>
-                    The USAspending data model standardizes data elements and definitions, and the USAspending Broker System is used to validate the data submitted and extracted from agency systems for quality, consistency, and accuracy.
+                        The USAspending data model standardizes data elements and definitions, and the USAspending Broker System is used to validate the data submitted and extracted from agency systems for quality, consistency, and accuracy.
                     </li>
                     <li>
-                    USAspending is built on the principles of user-centered design and Agile software development, leveraging input from the public and federal stakeholders to iteratively release updates and enhancements many times per year.
+                        USAspending is built on the principles of user-centered design and Agile software development, leveraging input from the public and federal stakeholders to iteratively release updates and enhancements many times per year.
                     </li>
                 </ul>
             </>
@@ -47,18 +47,22 @@ const AboutSection = () => {
         heading: (
             <>
                 <p>USAspending Data Model</p>
-                <div className="interactives-guide__cardLine" />
+                <div role="separator" className="interactives-guide__cardLine" />
             </>
         ),
         content: (
             <>
-                <p className="interactives-guide-cardText">
-                    To read the technical documentation for the data elements and source systems that flow into USAspending, <a href="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html" target="_blank">please visit this resources page from the Treasury Department’s Bureau of the Fiscal Service.</a>
+                <p data-testid="cardText" className="interactives-guide-cardText">
+                    To read the technical documentation for the data elements and source systems that flow into USAspending,
+                    <a href="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html" title="DAIMS current page">
+                        please visit this resources page from the Treasury Department’s Bureau of the Fiscal Service.
+                    </a>
                 </p>
                 <div
                     className="usa-button usa-button-outline read-more-button"
+                    role="button"
                     aria-label="Read More Button"
-                    title="Read More Button">
+                    title="Read More USAspending's technical documentation">
                         Read More
                 </div>
             </>
@@ -68,13 +72,18 @@ const AboutSection = () => {
     return (
         <div className="body__content interactive-data-sources-intro-section">
             <div className="body-padded__content">
-                <h3 className="interactiveDataHeader__topTitle">Data Act and Creation of DAIMS/USAspending</h3>
+                <h3 className="interactiveDataHeader__topTitle">
+                    Data Act and Creation of DAIMS/USAspending
+                </h3>
                 <h4 className="interactives-guide__questionSections">
                     History
                 </h4>
-                <div className="interactives-guide__questionLine" />
+                <div role="separator" className="interactives-guide__questionLine" />
                 {aboutDetails.map((item, i) => (
                     <Accordion
+                        data-testid="accordion"
+                        aria-label="Toggle Expansion"
+                        aria-expanded="false"
                         key={`item_${i}`}
                         title={item.title}>
                         {item.details}
@@ -90,12 +99,17 @@ const AboutSection = () => {
                 <br />
                 <div className="interactives-guide_begin-scroller">
                     <h2>You can follow the money from the source systems through the submission process to see what is displayed on USAspending.gov.</h2>
-                    <h2>Scroll down to get started.</h2>
 
                     <div className="interactives-guide_scroll-indicator">
-                        <h5>Scroll down to get started.</h5>
+                        <h5 id="scroll-down-text">
+                            Scroll down to get started.
+                        </h5>
                         <div className="interactives-arrow-holder">
-                            <FontAwesomeIcon icon={faArrowDown} className="interactives-down-icon" />
+                            <FontAwesomeIcon
+                                aria-labelledby="scroll-down-text"
+                                alt="Down Arrow icon"
+                                icon={faArrowDown}
+                                className="interactives-down-icon" />
                         </div>
                     </div>
                 </div>
