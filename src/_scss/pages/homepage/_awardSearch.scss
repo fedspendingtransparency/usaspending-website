@@ -59,7 +59,9 @@
     .award-search__swiper {
       height: 100px;
     }
-
+    .swiper-wrapper {
+      align-items: center;
+    }
     .swiper-pagination-bullet-active {
       background-color: #565c65;
     }
@@ -72,6 +74,10 @@
     }
     .swiper-slide-visible {
       opacity: 1;
+    }
+
+    .swiper-slide {
+      padding-top: 40px;
     }
 
     .swiper-button-prev, .swiper-button-next {
@@ -95,24 +101,6 @@
       margin-left: auto;
       margin-right: 0;
       align-items: center;
-      .award_search__swiper {
-        vertical-align: middle;
-        div .swiper-wrapper {
-          .swiper-slide.award_search__slide {
-            .swiper-slide-active {
-              text-align: center;
-              font-size: rem(16);
-            }            
-          }
-          
-          .award_search__slide img {
-            display: block;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-          }
-        }
-      }
     }
   }
   

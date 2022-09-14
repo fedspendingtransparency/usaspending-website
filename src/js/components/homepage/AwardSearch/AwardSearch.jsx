@@ -60,8 +60,8 @@ const AwardSearch = () => {
                     <p className="award-search__subtext">Find information on awards such as contracts, loans, and grants based on location, industry, and more.</p>
                 </FlexGridCol>
                 <FlexGridCol desktop={6} tablet={12} mobile={12} className="award-search__col2">
-                    <Swiper centeredSlides watchSlidesVisibility slidesPerView="auto" navigation modules={[Navigation]} style={{ height: "100px" }}>
-                        <SwiperSlide className="award_search__slide" style={{ textAlign: "center" }}>Slide 1</SwiperSlide>
+                    <Swiper centeredSlides watchSlidesVisibility slidesPerView="auto" navigation modules={[Navigation]} style={{ height: "100px", alignItems: "middle" }}>
+                        <SwiperSlide className="award_search__slide" style={{ textAlign: "center", paddingTop: "40px" }}>Slide 1</SwiperSlide>
                         <SwiperSlide className="award_search__slide" style={{ textAlign: "center" }}>Slide 2</SwiperSlide>
                         <SwiperSlide className="award_search__slide" style={{ textAlign: "center" }}>Slide 3</SwiperSlide>
                         <SwiperSlide className="award_search__slide" style={{ textAlign: "center" }}>Slide 4</SwiperSlide>
