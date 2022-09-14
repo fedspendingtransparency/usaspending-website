@@ -60,7 +60,9 @@
       height: 100px;
     }
     .swiper-wrapper {
-      align-items: center;
+      @media (min-width: 1400px) {
+        justify-self: right;
+      }
     }
     .swiper-pagination-bullet-active {
       background-color: #565c65;
@@ -97,7 +99,12 @@
       overflow: visible;
     }
     .award-search__col2 {
-      display: flex;
+      @media (max-width: 1400px) {
+        display: flex;
+      }
+      @media (width: 1400px) {
+        display: inline;
+      }
       margin-left: auto;
       margin-right: 0;
       align-items: center;
