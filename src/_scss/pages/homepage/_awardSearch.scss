@@ -18,10 +18,10 @@
       .award-search__span {
         height: 20px;
         width: 20px;
-        background-color: #eff6fb;
+        background-color: $blue-5;
   
         svg {
-          color: #2378c3;
+          color: $theme-color-1;
         }
       }
       .award-search__overline {
@@ -65,7 +65,7 @@
       }
     }
     .swiper-pagination-bullet-active {
-      background-color: #565c65;
+      background-color: $gray-cool-60;
     }
     .swiper-slide-next {
       opacity: .25;
