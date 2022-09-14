@@ -56,6 +56,10 @@
       letter-spacing: normal;
       color: $body-color;
     }
+    .award-search__swiper {
+      height: 100px;
+    }
+
     .swiper-pagination-bullet-active {
       background-color: #565c65;
     }
@@ -69,6 +73,20 @@
     .swiper-slide-visible {
       opacity: 1;
     }
+
+    .swiper-button-prev, .swiper-button-next {
+      background-color: $color-primary;
+      border-radius: 24px;
+      height: 48px;
+      width: 48px;
+    }
+
+    .swiper-button-next::after, .swiper-button-prev::after {
+      color: $color-white;
+      font-size: rem(24);
+      font-weight: $font-semibold;
+    }
+
     .swiper-container {
       overflow: visible;
     }
