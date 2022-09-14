@@ -4,14 +4,21 @@
  */
 
 import React from 'react';
-import { FlexGridRow } from 'data-transparency-ui';
+import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 
 const HomepageResources = () => (
     <section className="homepage-resources__section">
         <FlexGridRow className="grid-content">
-            <h1>
-            HOMEPAGE RESOURCES COMPONENT
-            </h1>
+            <FlexGridCol width={12}>
+                <FlexGridRow>RESOURCES</FlexGridRow>
+                <FlexGridRow>Find answers to your data questions</FlexGridRow>
+            </FlexGridCol>
+            <FlexGridRow hasGutter gutterSize="lg">
+                <FlexGridCol>CARD</FlexGridCol>
+                <FlexGridCol>CARD</FlexGridCol>
+                <FlexGridCol>CARD</FlexGridCol>
+                <FlexGridCol>CARD</FlexGridCol>
+            </FlexGridRow>
         </FlexGridRow>
     </section>
 );
