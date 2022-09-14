@@ -1,5 +1,8 @@
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
+import { useQueryParams } from 'helpers/queryParams';
+import { throttle } from 'lodash';
 import { ComingSoon } from 'data-transparency-ui';
 import { scrollToY } from 'helpers/scrollToHelper';
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
@@ -9,24 +12,36 @@ import { interactiveDataSourcesPageMetaTags } from '../../helpers/metaTagHelper'
 import Sidebar from '../sharedComponents/sidebar/Sidebar';
 import AboutSection from './sections/AboutSection';
 import IntroSection from './sections/IntroSection';
+import FederalSpendingOverview from './scrollerSections/FederalSpendingOverview';
 
 require('pages/interactiveDataSources/index.scss');
 
 const scrollPositionOfSiteHeader = getStickyBreakPointForSidebar();
 const InteractiveDataSourcesPage = () => {
     const [activeSection, setActiveSection] = useState('intro-section');
+    const query = useQueryParams();
+    const history = useHistory();
     const sections = [
         {
             name: 'intro-section',
-            display: 'USAspending Data Sources',
+            display: 'Introduction',
             showSectionTitle: false,
+            scroller: false,
             component: <IntroSection />
         },
         {
-            name: 'about-section',
-            display: 'DATA Act and the Creation of USAspending',
+            name: 'history-section',
+            display: 'History of the DATA Act',
             showSectionTitle: false,
+            scroller: false,
             component: <AboutSection />
+        },
+        {
+            name: 'federal-spending-overview',
+            display: 'Federal Spending Overview',
+            showSectionTitle: false,
+            scroller: true,
+            component: <FederalSpendingOverview />
         }
     ];
     const jumpToSection = (section = '') => {
@@ -39,12 +54,34 @@ const InteractiveDataSourcesPage = () => {
         if (activeSection === 'intro-section') {
             scrollToY(sectionDom.offsetTop - 150, 700);
         }
+        else if (matchedSection.scroller) {
+            // for scroller sections, add height
+            scrollToY(sectionDom.offsetTop + 86, 700);
+        }
         else {
             // scrollY set to the top of the section, subtracting the height of sticky elements + 20px of margin
             scrollToY(sectionDom.offsetTop - 86, 700);
         }
         setActiveSection(matchedSection.name);
     };
+    useEffect(throttle(() => {
+        // prevents a console error about react unmounted component leak
+        let isMounted = true;
+        if (isMounted) {
+            const urlSection = query.section;
+            if (urlSection) {
+                // TODO: revisit settimeout
+                setTimeout(() => {
+                    jumpToSection(urlSection);
+                    // remove the query param from the url after scrolling to the given section
+                    history.replace(`/data-sources`);
+                }, 1000);
+            }
+        }
+        return () => {
+            isMounted = false;
+        };
+    }, 100), [history, query.section]);
     return (
         <PageWrapper
             pageName="Data Sources"

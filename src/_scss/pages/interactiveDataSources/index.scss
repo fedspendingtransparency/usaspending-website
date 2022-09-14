@@ -154,6 +154,15 @@
           justify-content: flex-end;
         }
       }
+      // to overlay animations on top of each other
+      .top-animation {
+        position: absolute;
+        z-index: 100;
+      }
+      .bottom-animation {
+        position: absolute;
+        z-index: 50;
+      }
 
     }
   }

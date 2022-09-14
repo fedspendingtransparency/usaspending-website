@@ -189,9 +189,10 @@ class LottieAnimation extends React.Component {
      * @param {number} start Frame or seconds to start the animation.
      * @param {number} stop Frame or seconds to stop the animation.
      * @param {number} speed Speed of the animation. Default is `1`.
+     * @param {boolean} force If true, forces animation to play segment even if animation is already playing. Can result in restarting the animation.
      * @param {boolean} isTime If start/stop are seconds or frames. `true` if seconds. Default `false`.
      */
-    playAnimation = (start = 0, stop = 0, speed = 1, isTime = false) => {
+    playAnimation = (start = 0, stop = 0, speed = 1, force = true, isTime = false) => {
         if (!this.lottieAnimation) return;
         const { fps, direction } = this.state;
         const startFrame = this.convertSegmentValue(start, fps, isTime);
@@ -201,7 +202,14 @@ class LottieAnimation extends React.Component {
         const segmentOrder = this.setSegmentOrder(startFrame, stopFrame, duration, direction);
         if (segmentOrder) {
             this.lottieAnimation.setSpeed(speed);
-            this.lottieAnimation.playSegments(segmentOrder, true);
+            if (force) {
+                // if already playing, would restart segment
+                this.lottieAnimation.playSegments(segmentOrder, true);
+            }
+            else if (this.lottieAnimation.isPaused) {
+                // only play if animation is paused
+                this.lottieAnimation.playSegments(segmentOrder, true);
+            }
         }
     };
 

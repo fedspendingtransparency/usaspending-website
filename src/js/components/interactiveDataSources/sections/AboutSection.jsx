@@ -7,7 +7,7 @@ import ScrollerOverlayCard from '../scroller/scrollerOverlay/ScrollerOverlayCard
 
 const AboutSection = () => {
     const aboutDetails = [{
-        title: "What",
+        title: "What is the DATA Act?",
         details: (<>
             <p>
             The Digital Accountability and Transparency Act (DATA Act) was signed into law in 2014, establishing governmentwide standards for financial data and a new reporting process for agencies to improve data quality, transparency, and accountability.
@@ -21,7 +21,7 @@ const AboutSection = () => {
         </>)
     },
     {
-        title: "Why",
+        title: "Why was the DATA Act needed?",
         details: (<>
             <p>
             Before the DATA Act, many programs in the federal government had the same types of spending data about agency expenses and federal awards such as contracts, grants, and loans. However, they weren't all defining their data elements in the same way. These differences made it hard to share or compare data across agencies and programs.
@@ -29,7 +29,7 @@ const AboutSection = () => {
         </>)
     },
     {
-        title: "How",
+        title: "How was the DATA Act implemented?",
         details: (
             <>
                 <ul className="interactives-guide_bullet-points">
@@ -54,17 +54,17 @@ const AboutSection = () => {
             <>
                 <p data-testid="cardText" className="interactives-guide-cardText">
                     To read the technical documentation for the data elements and source systems that flow into USAspending,
-                    <a href="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html" title="DAIMS current page">
-                        please visit this resources page from the Treasury Department’s Bureau of the Fiscal Service.
-                    </a>
+                    please visit the resources page from the Treasury Department's Bureau of the Fiscal Service.
                 </p>
-                <div
-                    className="usa-button usa-button-outline read-more-button"
-                    role="button"
-                    aria-label="Read More Button"
-                    title="Read More USAspending's technical documentation">
-                        Read More
-                </div>
+                <a href="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html" title="Read More: DATA Act Information Model Schema (DAIMS)" target="_blank" rel="noopener noreferrer">
+                    <div
+                        className="usa-button usa-button-outline read-more-button"
+                        role="button"
+                        aria-label="Read More Button"
+                        title="Read More: DATA Act Information Model Schema (DAIMS)">
+                            Read More
+                    </div>
+                </a>
             </>
         )
     };
@@ -73,12 +73,8 @@ const AboutSection = () => {
         <div className="body__content interactive-data-sources-intro-section">
             <div className="body-padded__content">
                 <h3 className="interactiveDataHeader__topTitle">
-                    Data Act and Creation of DAIMS/USAspending
+                History of the DATA Act
                 </h3>
-                <h4 className="interactives-guide__questionSections">
-                    History
-                </h4>
-                <div role="separator" className="interactives-guide__questionLine" />
                 {aboutDetails.map((item, i) => (
                     <Accordion
                         data-testid="accordion"

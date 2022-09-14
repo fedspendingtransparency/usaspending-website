@@ -1,3 +1,5 @@
+$mobile-large: 425px;
+
 .scroller-overlay-card-content {
     width: 100%;
     background-color: $color-primary-darker;
@@ -35,6 +37,12 @@
       @media (min-width: $medium-screen) {
         padding-bottom: 2px;
       }
+      @media (max-width: $mobile-large) {
+        font-size: $h5-font-size;
+      }
+      @media (max-width: $small-screen) {
+        font-size: $h5-font-size;
+      }
   
       p {
         margin: 0;
@@ -67,6 +75,24 @@
       a:hover {
         text-decoration: none;
       }
+    }
+
+    
+    .glossary-term {
+      font-weight: $font-semibold;
+      color: $color-white;
+    }
+    .usda-glossary-link {
+      color: $color-gray-light;
+      &:hover, &:active, &:focus, &:visited {
+          color: $color-white;
+      }
+    }
+    .scroller-overlay-card__link {
+      color: $color-white;
+      font-weight: $font-semibold;
+      font-style: normal;
+      letter-spacing: normal;
     }
   }
   
