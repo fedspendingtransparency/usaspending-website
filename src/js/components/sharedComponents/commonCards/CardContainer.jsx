@@ -17,7 +17,7 @@ const CardContainer = ({
     variant, size, children, fill, height
 }) => (
     <div className={`${variant} ${size} card-container`} style={{ backgroundColor: `${fill}`, height: `${height}` }}>
-        <div>{ children }</div>
+        { children }
     </div>
 );
 

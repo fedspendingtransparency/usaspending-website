@@ -26,6 +26,9 @@
   .card__hero {
     &.expanded {
       @include top-border-radius($size);
+      img {
+        margin-bottom: -8px;
+      }
     }
 
     &.inset {

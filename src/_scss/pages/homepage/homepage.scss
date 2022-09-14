@@ -3,6 +3,19 @@
   @import "layouts/default/default";
   @import "layouts/default/header/_warning";
 
+  .flex-gap {
+    display: inline-flex;
+    flex-wrap: wrap;
+  }
+
+  .flex-gap > div {
+    width: 20px;
+    height: 20px;
+    margin: 6px;
+    background-color: lightblue;
+  }
+
+
   .homepage-content {
     background-color: white;
 
@@ -13,6 +26,20 @@
         margin: 0 $grid-column;
       }
     }
+
+    .flex-gap {
+      display: inline-flex;
+      flex-wrap: wrap;
+    }
+
+    .flex-gap > div {
+      width: 20px;
+      height: 20px;
+      margin: 6px;
+      background-color: lightblue;
+    }
+
+
 
     @media screen and (max-width: $medium-screen) {
       .homepage-hero-content, .usa-dt-flex-grid__row.grid-content {

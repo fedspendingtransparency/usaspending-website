@@ -8,7 +8,7 @@ import PropTypes from "prop-types";
 
 const propTypes = {
     overline: PropTypes.string,
-    headline: PropTypes.string,
+    headline: PropTypes.string || PropTypes.element,
     subhead: PropTypes.string,
     text: PropTypes.string,
     variant: PropTypes.string // inset or no-variant
