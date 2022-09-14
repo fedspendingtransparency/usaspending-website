@@ -7,14 +7,14 @@ const IntroSection = () => (
         <div className="hero-container">
             <div className="hero__left-item">
                 <div className="hero__left-item__content">
-                    <h1>
+                    <h1 data-testid="introText">
                         USAspending Data Sources
                     </h1>
                     <div>
                         <h2>
                             A journey though government spending data
                         </h2>
-                        <p>
+                        <p data-testid="paragraphText">
                             USAspending links data from a variety of government systems, including agency financial systems and award systems. Scroll below to learn more about these systems, as well as the context for this historic initiative to provide federal spending transparency.
                         </p>
                     </div>

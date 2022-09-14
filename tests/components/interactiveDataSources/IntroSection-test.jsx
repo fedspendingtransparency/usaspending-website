@@ -4,7 +4,14 @@ import IntroSection from 'components/interactiveDataSources/sections/IntroSectio
 
 describe('IntroSection', () => {
     test('should display the intro section with text', () => {
-        render(<IntroSection />);
-        expect(screen.queryByText('USAspending Data Sources')).toBeTruthy();
+        const { getByTestId } = render(<IntroSection />);
+        const introMainText = getByTestId('introText');
+        expect(introMainText.innerHTML.length).toBeGreaterThan(2);
+    });
+
+    test('should display the body section with text', () => {
+        const { getByTestId } = render(<IntroSection />);
+        const bodyText = getByTestId('paragraphText');
+        expect(bodyText.innerHTML.length).toBeGreaterThan(2);
     });
 });
