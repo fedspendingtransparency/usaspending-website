@@ -1,0 +1,12 @@
+/* Only works for Safari 10.1+ */
+@media not all and (min-resolution:.001dpcm)
+{ 
+    @supports (-webkit-appearance:none) {
+
+        /* Fixes known sizing inconsistency bug for lottie web on safari browsers */
+        .lottie-animation-container {
+            min-width: 80%;
+        }
+
+    } 
+}
