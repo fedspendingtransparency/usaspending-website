@@ -7,13 +7,16 @@ import React from 'react';
 import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CardContainer from "../../sharedComponents/commonCards/CardContainer";
-import CardHero from "../../sharedComponents/commonCards/CardHero";
 import CardBody from "../../sharedComponents/commonCards/CardBody";
 import CardButton from "../../sharedComponents/commonCards/CardButton";
 
 const cardObjects = [
     {
-        icon: (<FontAwesomeIcon icon="chart-bar" />),
+        icon: (
+            <div className="homepage-resources__icon-container">
+                <FontAwesomeIcon icon="chart-bar" color="#112f4e" size="lg" />
+            </div>
+        ),
         headline: 'Analyst Guide',
         text: 'Learn how to use our data',
         buttonText: 'View the guide',
@@ -21,7 +24,11 @@ const cardObjects = [
         buttonLink: ''
     },
     {
-        icon: (<FontAwesomeIcon icon="database" />),
+        icon: (
+            <div className="homepage-resources__icon-container">
+                <FontAwesomeIcon icon="database" color="#34a37e" size="lg" />
+            </div>
+        ),
         headline: 'Data Dictionary',
         text: 'Learn about our data elements',
         buttonText: 'View the dictionary',
@@ -29,7 +36,11 @@ const cardObjects = [
         buttonLink: ''
     },
     {
-        icon: (<FontAwesomeIcon icon="sitemap" />),
+        icon: (
+            <div className="homepage-resources__icon-container">
+                <FontAwesomeIcon icon="sitemap" color="#0081a1" size="lg" />
+            </div>
+        ),
         headline: 'Data Model',
         text: 'Learn how our data is organized',
         buttonText: 'View the model',
@@ -37,7 +48,11 @@ const cardObjects = [
         buttonLink: ''
     },
     {
-        icon: (<FontAwesomeIcon icon="book" />),
+        icon: (
+            <div className="homepage-resources__icon-container">
+                <FontAwesomeIcon icon="book" color="#3333a3" size="lg" />
+            </div>
+        ),
         headline: 'Glossary',
         text: 'Learn about spending terms',
         buttonText: 'View the glossary',

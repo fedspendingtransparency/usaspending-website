@@ -43,5 +43,20 @@
     .card__body {
       padding: 0;
     }
+
+    .homepage-resources__icon-container {
+      width: rem(40);
+      height: rem(40);
+      opacity: 0.5;
+      border-radius: 2px;
+      // todo - add color to vars
+      background-color: #e8f5ff;
+      display: flex;
+      justify-content: center;
+      svg {
+        align-self: center;
+        //background-color: white;
+      }
+    }
   }
 }
