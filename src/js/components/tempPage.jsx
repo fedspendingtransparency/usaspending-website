@@ -19,7 +19,7 @@ const tempPage = () => {
                 classNames="usa-da-about-page"
                 title="Test Page">
                 <main id="main-content" className="main-content">
-                    <div className="flex-gap" style={{ display: 'inline-flex', 'flex-wrap': 'wrap', gap: '12px'}}>
+                    <div className="flex-gap" style={{ display: 'inline-flex', 'flex-wrap': 'wrap', gap: '12px' }}>
                         <div>1</div>
                         <div>2</div>
                         <div>3</div>
@@ -73,7 +73,7 @@ const tempPage = () => {
                         <FlexGridCol width={3} desktop={3}>
                             <CardContainer variant="elevated" size="sm">
                                 <CardHero variant="inset" fill="#1a4480" img={imageLink} />
-                                <CardBody variant="inset" overline={"blah lbahl bhal"} headline={"more more more"}>
+                                <CardBody variant="inset" overline="blah lbahl bhal" headline="more more more">
                                     <p>hello</p>
                                     <p>hello</p>
                                 </CardBody>
