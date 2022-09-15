@@ -25,6 +25,7 @@
 
     .usa-dt-flex-grid__row.grid-content {
       margin: 0 rem(16);
+      max-width: $site-max-width;
       @media (min-width: $tablet-screen) {
         margin: 0 rem(32);
       }
