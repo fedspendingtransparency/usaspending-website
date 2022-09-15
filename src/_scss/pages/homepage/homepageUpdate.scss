@@ -6,14 +6,6 @@
   .homepage-update-content {
     background-color: white;
 
-    .usa-dt-flex-grid__col-4 {
-      width: calc(8.33% * 4 - 40px) !important;
-    }
-
-    .usa-dt-flex-grid__col-6 {
-      width: calc(8.33% * 6 - 12px) !important;
-    }
-
     // todo - remove this when real components are used
     @media (max-width: $tablet-screen) {
       h1 {
@@ -31,7 +23,7 @@
       }
     }
 
-    .usa-dt-flex-grid__row.grid-content {
+    .grid-content {
       margin: 0 rem(16);
       @media (min-width: $tablet-screen) {
         margin: 0 rem(32);
@@ -45,6 +37,7 @@
     }
   }
 
+  @import "homepageFirstRow";
   @import "hero/hero";
   @import "summaryStats";
   @import "featuredContent";

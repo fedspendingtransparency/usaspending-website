@@ -12,7 +12,7 @@ const WordOfTheDay = () => (
     <section className="word-of-the-day__section">
         <CardContainer variant="outline" fill="#1a4480">
             <CardBody>
-                <div>When awarding funding, the U.S. government enters a binding agreement called an obligation, which meand that the federal government promises to spend the money.</div>
+                When awarding funding, the U.S. When awarding funding, the U.S.When awarding funding, the U.S.When awarding funding, the U.S.When awarding funding, the U.S.
             </CardBody>
         </CardContainer>
     </section>

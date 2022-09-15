@@ -1,0 +1,31 @@
+.featured-word-of-the-day-row {
+  margin: 80px 0 105px 0;
+  display: inline-flex;
+  width: 100%;
+  gap: 40px;
+  justify-content: space-between;
+  flex-direction: column;
+
+  @media (min-width: $medium-screen) {
+    flex-direction: row;
+  }
+
+  .featured-content__section {
+    display: inline-flex;
+    width: 100%;
+    gap: 24px;
+    flex-direction: column;
+
+    @media (min-width: $tablet-screen) {
+      flex-direction: row;
+    }
+  }
+
+  .usa-dt-flex-grid__col-4 {
+    width: calc(8.33% * 4 - 40px) !important;
+  }
+
+  .usa-dt-flex-grid__col-6 {
+    width: calc(8.33% * 6 - 12px) !important;
+  }
+}
