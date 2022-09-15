@@ -25,14 +25,12 @@
 
     .grid-content {
       margin: 0 rem(16);
+      max-width: $site-max-width;
       @media (min-width: $tablet-screen) {
         margin: 0 rem(32);
       }
       @media (min-width: $large-screen) {
         margin: 0 $grid-column;
-      }
-      @media (min-width: 1600px) {
-        max-width: 1400px;
       }
     }
   }

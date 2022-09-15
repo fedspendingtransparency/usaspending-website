@@ -24,15 +24,23 @@
 
 @mixin hero-variants($size) {
   .card__hero {
+    height: 12px;
     &.expanded {
       @include top-border-radius($size);
       img {
         margin-bottom: -8px;
       }
+      height: unset;
     }
 
     &.inset {
       margin: 16px 16px 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      img {
+        height: calc(100% - 32px);
+      }
     }
   }
 }
@@ -82,7 +90,7 @@
     padding: 24px 32px 24px 32px;
 
     &.inset {
-      padding: 0 16px;
+      padding: 24px 16px 16px 16px;
     }
 
     .overline {
@@ -133,13 +141,12 @@
       border-radius: rem(4);
       width: 100%;
      &.card__button--borderless {
+       height: unset;
        border: unset;
        text-align: left;
        justify-content: start;
      }
       @media (min-width: $medium-screen) {
-        font-size: rem(20);
-        height: rem(56);
         border-radius: rem(6);
       }
 
@@ -154,7 +161,6 @@
       color: $color-white;
       background-color: $color-primary;
       @media (min-width: $medium-screen) {
-        font-size: rem(20);
         background-color: $color-primary;
       }
 
