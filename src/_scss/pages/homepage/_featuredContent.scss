@@ -6,7 +6,7 @@
     font-weight: $font-semibold;
     line-height: 1.25;
     text-transform: uppercase;
-    color: #5c5c5c;
+    color: $theme-color-body;
     margin-bottom: 16px;
 
     .featured-content__heading--background {
@@ -19,6 +19,11 @@
       height: 20px;
       margin-right: 8px;
       border-radius: 2px;
+
+      .featured-content__heading--icon {
+        width: 12px;
+        color: #005ea2;
+      }
     }
   }
 

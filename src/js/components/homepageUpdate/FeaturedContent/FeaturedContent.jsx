@@ -18,7 +18,7 @@ const FeaturedContent = () => (
         <section className="featured-content__section">
             <div className="featured-content__heading">
                 <div className="featured-content__heading--background">
-                    <FontAwesomeIcon style={{ width: "12px", color: "#005ea2" }} icon="bullhorn" />
+                    <FontAwesomeIcon className="featured-content__heading--icon" icon="bullhorn" />
                 </div>
                 <span>Featured Content</span>
             </div>

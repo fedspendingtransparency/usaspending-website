@@ -6,7 +6,7 @@
     font-weight: $font-semibold;
     line-height: 1.25;
     text-transform: uppercase;
-    color: #5c5c5c;
+    color: $theme-color-body;
     margin-bottom: 16px;
 
     .word-of-the-day__heading--background {
@@ -19,6 +19,11 @@
       height: 20px;
       margin-right: 8px;
       border-radius: 2px;
+
+      .word-of-the-day__heading--icon {
+        width: 8px;
+        color: $theme-color-accent-4;
+      }
     }
   }
 
