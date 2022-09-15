@@ -10,26 +10,6 @@
     flex-direction: row;
   }
 
-  .featured-content__section {
-    display: inline-flex;
-    width: 100%;
-    gap: 40px;
-    flex-direction: column;
-    margin-top: 16px;
-
-    .featured-content__header {
-      font-size: rem(16);
-      font-weight: $font-semibold;
-      line-height: 1.25;
-      color: #5c5c5c;
-    }
-
-    @media (min-width: $tablet-screen) {
-      gap: 24px;
-      flex-direction: row;
-    }
-  }
-
   .usa-dt-flex-grid__col-4 {
     width: calc(8.33% * 4 - 40px) !important;
   }
@@ -37,4 +17,7 @@
   .usa-dt-flex-grid__col-6 {
     width: calc(8.33% * 6 - 12px) !important;
   }
+
+  @import "featuredContent";
+  @import "wordOfTheDay";
 }

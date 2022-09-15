@@ -1,16 +1,30 @@
 .word-of-the-day__section {
-  display: flex;
-  width: 100%;
-  height: 100%;
-  @media (min-width: $medium-screen) {
-    // override grid-content bc it adds margins right and left
-    //.grid-content {
-    //  margin: 0 !important;
-    //}
+  .word-of-the-day__heading {
+    display: flex;
+    flex-direction: row;
+    font-size: rem(16);
+    font-weight: $font-semibold;
+    line-height: 1.25;
+    text-transform: uppercase;
+    color: #5c5c5c;
+    margin-bottom: 16px;
+
+    .word-of-the-day__heading--background {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: row;
+      background-color: #ffe2d1;
+      width: 20px;
+      height: 20px;
+      margin-right: 8px;
+      border-radius: 2px;
+    }
   }
-    //.grid-content {
-    //  border: solid 6px blue;
-    //  border-radius: 4px;
-    //  height: 50rem;
-    //}
+
+  .card-container {
+    display: flex;
+    width: 100%;
+    height: 100%;
+  }
 }
