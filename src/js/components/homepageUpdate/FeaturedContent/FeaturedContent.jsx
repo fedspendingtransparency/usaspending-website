@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import CardContainer from "../../sharedComponents/commonCards/CardContainer";
 import CardHero from "../../sharedComponents/commonCards/CardHero";
 import CardBody from "../../sharedComponents/commonCards/CardBody";
+import ExternalLink from "../../sharedComponents/ExternalLink";
 
 
 const FeaturedContent = () => (
@@ -38,18 +39,20 @@ const FeaturedContent = () => (
                     </Link>
                 </FlexGridCol>
                 <FlexGridCol width={12} desktop={6} tablet={6} mobile={12}>
-                    <CardContainer variant="outline" size="md">
-                        <CardHero fill="#009ec1" img="img/homepage-featured-content/homepage-featured-youtube.webp" />
-                        <CardBody
-                            overline="Resources"
-                            headline={
-                                <div style={{ height: '90px' }}>
-                                    Learn how to use USAspending with our tutorial videos&nbsp;
-                                    <FontAwesomeIcon style={{ width: '20px' }} icon="external-link-alt" />
-                                </div>
-                            }>
-                        </CardBody>
-                    </CardContainer>
+                    <ExternalLink url="https://www.youtube.com/channel/UCyDn83O-0XC98H3TCV-VCGQ" isCard>
+                        <CardContainer variant="outline" size="md">
+                            <CardHero fill="#009ec1" img="img/homepage-featured-content/homepage-featured-youtube.webp" />
+                            <CardBody
+                                overline="Resources"
+                                headline={
+                                    <div style={{ height: '90px' }}>
+                                        Learn how to use USAspending with our tutorial videos&nbsp;
+                                        <FontAwesomeIcon style={{ width: '20px' }} icon="external-link-alt" />
+                                    </div>
+                                }>
+                            </CardBody>
+                        </CardContainer>
+                    </ExternalLink>
                 </FlexGridCol>
             </div>
         </section>
