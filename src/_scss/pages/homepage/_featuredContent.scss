@@ -14,7 +14,7 @@
       align-items: center;
       justify-content: center;
       flex-direction: row;
-      background-color: #e8f5ff;
+      background-color: $theme-color-accent-6-light;
       width: 20px;
       height: 20px;
       margin-right: 8px;
@@ -22,7 +22,7 @@
 
       .featured-content__heading--icon {
         width: 12px;
-        color: #005ea2;
+        color: $theme-color-accent-6;
       }
     }
   }
