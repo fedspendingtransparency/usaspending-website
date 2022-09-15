@@ -33,9 +33,8 @@ const StayInTouch = (pageName) => {
                 <FlexGridCol
                     className="stay-in-touch__title-col"
                     mobile={12}
-                    tablet={12}
-                    desktop={4}>
-                    <FlexGridRow>
+                    tablet={12}>
+                    <FlexGridRow className="stay-in-touch__title-row">
                         <div className="stay-in-touch__icon-container">
                             <FontAwesomeIcon icon={faPaperPlane} />
                         </div>
@@ -47,8 +46,7 @@ const StayInTouch = (pageName) => {
                 <FlexGridCol
                     className="stay-in-touch__second-row-container top"
                     mobile={12}
-                    tablet={6}
-                    desktop={4}>
+                    tablet={6}>
                     <div className="stay-in-touch__second-row-title">
                             Get release notes delivered to your inbox
                     </div>
@@ -67,8 +65,7 @@ const StayInTouch = (pageName) => {
                 <FlexGridCol
                     className="stay-in-touch__second-row-container"
                     mobile={12}
-                    tablet={6}
-                    desktop={4}>
+                    tablet={6}>
                     <div className="stay-in-touch__second-row-title">
                             Request a USAspending.gov training session
                     </div>
