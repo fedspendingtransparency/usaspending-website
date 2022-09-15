@@ -13,10 +13,19 @@
   .featured-content__section {
     display: inline-flex;
     width: 100%;
-    gap: 24px;
+    gap: 40px;
     flex-direction: column;
+    margin-top: 16px;
+
+    .featured-content__header {
+      font-size: rem(16);
+      font-weight: $font-semibold;
+      line-height: 1.25;
+      color: #5c5c5c;
+    }
 
     @media (min-width: $tablet-screen) {
+      gap: 24px;
       flex-direction: row;
     }
   }
