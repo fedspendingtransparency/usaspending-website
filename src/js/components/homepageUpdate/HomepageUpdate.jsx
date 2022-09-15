@@ -4,25 +4,21 @@
  */
 
 import React from 'react';
-import { Redirect } from "react-router-dom";
-
-import GlobalConstants from "GlobalConstants";
 import PageWrapper from "../sharedComponents/PageWrapper";
 import { homePageMetaTags } from "../../helpers/metaTagHelper";
 import Hero from '../homepage/hero/Hero';
 import SummaryStats from "../homepage/SummaryStats";
 import AwardSearch from "../homepage/AwardSearch/AwardSearch";
 import HomepageExploreToggle from "./HomepageExploreToggle/HomepageExploreToggle";
-import DownloadExplorePlaceholder from "../homepage/DownloadExplorePlaceholder/DownloadExplorePlaceholder";
 import HomepageResources from "./HomepageResources/HomepageResources";
 import ReadyToGetStarted from "./ReadyToGetStarted/ReadyToGetStarted";
 import HomepageFirstRow from "./HomepageFirstRow/HomepageFirstRow";
+import FeatureFlag from "../sharedComponents/FeatureFlag";
 
 require('pages/homepage/homepageUpdate.scss');
 
-const HomepageUpdate = () => {
-    const isQAT = GlobalConstants.QAT;
-    return (isQAT ?
+const HomepageUpdate = () => (
+    <FeatureFlag>
         <PageWrapper
             pageName="Homepage"
             classNames="usa-da-home-page"
@@ -34,14 +30,10 @@ const HomepageUpdate = () => {
                 <HomepageFirstRow />
                 <AwardSearch />
                 <HomepageExploreToggle />
-                <DownloadExplorePlaceholder />
                 <HomepageResources />
                 <ReadyToGetStarted />
             </main>
         </PageWrapper>
-        :
-        <Redirect to="/404" />
-    );
-};
+    </FeatureFlag>);
 
 export default HomepageUpdate;
