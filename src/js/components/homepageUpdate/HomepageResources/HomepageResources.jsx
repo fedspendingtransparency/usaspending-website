@@ -19,9 +19,13 @@ const cardObjects = [
         ),
         headline: 'Analyst Guide',
         text: 'Learn how to use our data',
-        buttonText: 'View the guide',
-        buttonIcon: (<FontAwesomeIcon icon="arrow-right" />),
-        buttonLink: ''
+        buttonText: (
+            <>
+                <div>View the guide&nbsp;&nbsp;</div>
+                <FontAwesomeIcon icon="arrow-right" />
+            </>
+        ),
+        buttonLink: '/analyst-guide'
     },
     {
         icon: (
@@ -31,9 +35,13 @@ const cardObjects = [
         ),
         headline: 'Data Dictionary',
         text: 'Learn about our data elements',
-        buttonText: 'View the dictionary',
-        buttonIcon: (<FontAwesomeIcon icon="arrow-right" />),
-        buttonLink: ''
+        buttonText: (
+            <>
+                <div>View the dictionary&nbsp;&nbsp;</div>
+                <FontAwesomeIcon icon="arrow-right" />
+            </>
+        ),
+        buttonLink: '/data-dictionary'
     },
     {
         icon: (
@@ -43,8 +51,12 @@ const cardObjects = [
         ),
         headline: 'Data Model',
         text: 'Learn how our data is organized',
-        buttonText: 'View the model',
-        buttonIcon: (<FontAwesomeIcon icon="arrow-right" />),
+        buttonText: (
+            <>
+                <div>View the model&nbsp;&nbsp;</div>
+                <FontAwesomeIcon icon="arrow-right" />
+            </>
+        ),
         buttonLink: ''
     },
     {
@@ -55,8 +67,12 @@ const cardObjects = [
         ),
         headline: 'Glossary',
         text: 'Learn about spending terms',
-        buttonText: 'View the glossary',
-        buttonIcon: (<FontAwesomeIcon icon="arrow-right" />),
+        buttonText: (
+            <>
+                <div>View the glossary&nbsp;&nbsp;</div>
+                <FontAwesomeIcon icon="arrow-right" />
+            </>
+        ),
         buttonLink: ''
     }
 ];
@@ -76,9 +92,10 @@ const HomepageResources = () => (
                 </FlexGridRow>
                 <FlexGridRow className="homepage-resources__headline">Find answers to your data questions</FlexGridRow>
             </FlexGridCol>
-            <FlexGridRow hasGutter gutterSize="lg">
+            <FlexGridRow className="homepage-resources__card-row" hasGutter gutterSize="lg">
                 {cardObjects.map((card) => (
                     <FlexGridCol
+                        className="homepage-resources__card-col"
                         mobile={12}
                         tablet={6}
                         desktop={3}>
@@ -88,7 +105,7 @@ const HomepageResources = () => (
                                 headline={card.headline}
                                 text={card.text}>
                                 <CardButton
-                                    variant="primary"
+                                    variant="text"
                                     text={card.buttonText}
                                     link={card.buttonLink} />
                             </CardBody>
