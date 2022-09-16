@@ -95,7 +95,7 @@ const AboutSection = () => {
                 </div>
                 <br />
                 <div className="interactives-guide_begin-scroller">
-                    <h2>You can follow the money from the source systems through the submission and extraction process to see what is displayed on USAspending.</h2>
+                    <h4>You can follow the money from the source systems through the submission and extraction process to see what is displayed on USAspending.</h4>
 
                     <div className="interactives-guide_scroll-indicator">
                         <h5 id="scroll-down-text">

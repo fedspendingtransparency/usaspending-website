@@ -9,8 +9,9 @@ $textColor: white;
     margin-top: 0px;
 
     .interactive-data-sources-intro-animation {
-        svg {
-            transform: translate3d(0px, 0px, 0px) scale(1.04) !important;
+        // gets rid of weird gap between bottom of animation and container
+        .lottie-animation-container > div {
+          font-size: 0px;
         }
         @media (max-width: $tablet-screen) and (min-width: $small-screen) {
           margin-top: 15%;

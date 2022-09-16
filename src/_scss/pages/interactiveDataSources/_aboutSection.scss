@@ -90,7 +90,7 @@ $bodyHoverColor: #1a67a6;
         align-items: center;
         padding-bottom: 5%;
 
-        h2 {
+        h4 {
             color: #fff;
             font-size: rem(20);
             line-height: rem(30);
@@ -129,12 +129,13 @@ $bodyHoverColor: #1a67a6;
 
                 .interactives-down-icon {
                     background-color: #387688;
-                    border-radius: 30px;
+                    border-radius: 50%;
                     color: white;
                     fill: white;
                     font-size: rem(45);
                     margin: 0 auto;
                     padding: 10px;
+                    width: rem(50);
                     text-align: center;
                     animation: moveUpDown 1.5s linear infinite;
                     transform: translateY(0px);
