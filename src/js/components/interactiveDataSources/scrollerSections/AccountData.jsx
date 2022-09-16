@@ -25,9 +25,11 @@ function AccountData() {
             heading: <p>File A</p>,
             content: (
                 <p>
-                File A (“Account Balances”) is part of the package of data submitted
-                to USAspending by federal agencies, as required by the DATA Act. File
-                A is generated from data in GTAS. It contains{" "}
+                    <span className="glossary-term">File A (“Account Balances”)</span>{" "}
+                    <GlossaryLink term="account-balance-file-a" />{" "}
+                    is part of the package of data submittedto USAspending by federal
+                    agencies, as required by the DATA Act. File A is generated from data
+                    in GTAS. It contains{" "}
                     <span className="glossary-term">budgetary resources</span>{" "}
                     <GlossaryLink term="budgetary-resources" />, obligation, and outlay
                 data for all the Treasury Accounts in that agency.
@@ -39,14 +41,15 @@ function AccountData() {
             content: (
                 <>
                     <p>
-                    File B (“Account Breakdown by Program Activity & Object Class”) is
-                    part of the package of data submitted to USAspending by federal
-                    agencies, as required by the DATA Act. It contains obligation and
-                    outlay data for all the Treasury Accounts in that agency, with a
-                    breakdown by accounting categories known as{" "}
-                        <span className="glossary-term">Program Activitys</span>{" "}
+                        <span className="glossary-term">File B (“Account Breakdown by Program Activity & Object Class”)</span>{" "}
+                        <GlossaryLink term="account-breakdown-by-program-activity-object-class-file-b" />{" "}
+                        is part of the package of data submitted to USAspending by federal
+                        agencies, as required by the DATA Act. It contains obligation and
+                        outlay data for all the Treasury Accounts in that agency, with a
+                        breakdown by accounting categories known as{" "}
+                        <span className="glossary-term">Program Activity</span>{" "}
                         <GlossaryLink term="program-activity" /> and{" "}
-                        <span className="glossary-term">object class</span>{" "}
+                        <span className="glossary-term">Object Class</span>{" "}
                         <GlossaryLink term="object-class" />.
                     </p>
                     <p>
@@ -54,7 +57,8 @@ function AccountData() {
                         <span className="glossary-term">
                             Disaster Emergency Fund Codes (DEFC)
                         </span>{" "}
-                        <GlossaryLink term="disaster-emergency-fund-code-defc" /> to track spending from supplemental
+                        <GlossaryLink term="disaster-emergency-fund-code-defc" />{" "}
+                        to track spending from supplemental
                         appropriation bills addressing topics such as COVID-19 relief and
                         infrastructure investment.
                     </p>

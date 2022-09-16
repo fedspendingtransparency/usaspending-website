@@ -51,8 +51,13 @@ function DataSourceSystems() {
                 content="animation">
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
-                        heading={<p>TBD: USAspending Source Systems</p>}
-                        content={<p>You can understand the USAspending source systems as grouped by the type of data they provide: Account Data, Award Data, and Additional Data.</p>} />
+                        content={
+                            <p>
+                                You can understand the USAspending source systems as grouped by
+                                the type of data they provide: Account Data, Award Data, and
+                                Additional Data.
+                            </p>
+                        } />
                 </div>
             </ScrollerOverlay>
 
@@ -75,7 +80,22 @@ function DataSourceSystems() {
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
                         heading={<p>Agency Budget Execution</p>}
-                        content={<p>Agency budget execution information shows how agencies across the federal government spend their funding, as required by the <a className="scroller-overlay-card__link" href="https://www.whitehouse.gov/wp-content/uploads/2018/06/a11.pdf" target="_blank">Office of Management and Budget's Circular A-11</a>. Some smaller agencies do not submit their account data to USAspending but nonetheless submit budget execution data to a different system.</p>} />
+                        content={
+                            <p>
+                                Agency budget execution information shows how agencies across
+                                the federal government spend their funding, as required by the{" "}
+                                <a
+                                    className="scroller-overlay-card__link"
+                                    href="https://www.whitehouse.gov/wp-content/uploads/2018/06/a11.pdf"
+                                    target="_blank"
+                                    rel="noopener noreferrer">
+                                Office of Management and Budget's Circular A-11
+                                </a>
+                                . Some smaller agencies do not submit their account data to
+                                USAspending but nonetheless submit budget execution data to a
+                                different system.
+                            </p>
+                        } />
                 </div>
             </ScrollerOverlay>
 
@@ -98,7 +118,15 @@ function DataSourceSystems() {
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
                         heading={<p>Agency Financial Systems</p>}
-                        content={<p>Federal agencies maintain business systems to track their own finances, such as for operational costs, employee salaries, and spending for federal awards. Data from these systems are submitted directly to USAspending in accordance with the DATA Act and guidance from the Office of Management and Budget.</p>} />
+                        content={
+                            <p>
+                                Federal agencies maintain business systems to track their own
+                                finances, such as for operational costs, employee salaries, and
+                                spending for federal awards. Data from these systems are
+                                submitted directly to USAspending in accordance with the DATA
+                                Act and guidance from the Office of Management and Budget.
+                            </p>
+                        } />
                 </div>
             </ScrollerOverlay>
 
@@ -160,7 +188,15 @@ function DataSourceSystems() {
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
                         heading={<p>Additional Government Data</p>}
-                        content={<p>Certain agencies are considered authoritative sources for information related to the spending data that USAspending publishes. USAspending draws from these agencies' systems as needed to provide standardized names, codes, and element relationships.</p>} />
+                        content={
+                            <p>
+                                Certain agencies are considered authoritative sources for
+                                information related to the spending data that USAspending
+                                publishes. USAspending draws from these agencies' systems as
+                                needed to provide standardized names, codes, and element
+                                relationships.
+                            </p>
+                        } />
                 </div>
             </ScrollerOverlay>
 

@@ -1,42 +1,47 @@
 import React, { useRef } from 'react';
+import { Link } from 'react-router-dom';
 import Scroller from "../scroller/Scroller";
 import ScrollerOverlay from "../scroller/scrollerOverlay/ScrollerOverlay";
 import LottieAnimation from '../lottieAnimation/LottieAnimation';
 import ScrollerOverlayCard from '../scroller/scrollerOverlay/ScrollerOverlayCard';
-import GlossaryLink from '../../sharedComponents/GlossaryLink';
 
 function AdditionalData() {
     const cards = {
         card1: {
-            heading: <p>Census, population and location data for map visualizations</p>,
             content: (
                 <p>
-                Examples include U.S. Postal Code data for zip codes, Census Bureau
-                data for congressional district, SAM.gov data for Assistance Listing
-                (CFDA Program) names and codes, and federal hierarchy data from the
-                Office of Management and Budget (OMB) and the General Services
-                Administration (GSA). A complete list of systems for data extracted to
-                USAspending is found on{" "}
-                    <a
-                        className="scroller-overlay-card__link"
-                        href="https://github.com/fedspendingtransparency/data-act-documentation/blob/master/data/data_exchanges.md"
-                        target="_blank"
-                        rel="noopener noreferrer">
-                    this GitHub page
-                    </a>
-                .
+                    USAspending uses information from authoritative government systems to
+                    provide additional context to account data and award data. Some
+                    examples of these additional data are below.
                 </p>
             )
         },
         card2: {
-            heading: <p>TBD: CARD ON FEDERAL HIERARCY</p>,
+            heading: <p>Location Data</p>,
             content: (
-                <>
-                    <p>
-                        OMB, federal hierarchy for account data, plus TAS information
-                    </p>
-                    <p>GSA, federal hierarchy for award data</p>
-                </>
+                <p>
+                    USAspending standardizes the location elements in its award data by
+                    using authoritative names and codes from government systems. For
+                    example, U.S. Postal Code data are used for zip codes, and Census
+                    Bureau data are used for congressional districts.
+                </p>
+            )
+        },
+        card3: {
+            heading: <p>Federal Hierarchy Data</p>,
+            content: (
+                <p>
+                    There are two federal hierarchies that relate agencies to their
+                    subcomponents. USAspending draws from the Office of Management and
+                    Budget's hierarchy for account data, and from the General Services
+                    Administration's hierarchy for award data. You can see these two
+                    hierarchies in any of the{" "}
+                    <Link
+                        className="scroller-overlay-card__link"
+                        to="/agency">
+                        Agency Profile pages
+                    </Link>.
+                </p>
             )
         }
     };
@@ -81,21 +86,11 @@ function AdditionalData() {
                 onStepEnter={() =>
                     ref1.current?.playAnimation(120, 180, 1.5)
                 }>
-                {/* used as transition. no card. */}
-            </ScrollerOverlay>
-            <ScrollerOverlay
-                content="animation"
-                position="right"
-                onStepEnter={() =>
-                    ref1.current?.playAnimation(180, 240, 1)
-                }>
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
-                        heading={cards.card1.heading}
                         content={cards.card1.content} />
                 </div>
             </ScrollerOverlay>
-
 
             {/* Cards on Federal Hierarchy */}
             <ScrollerOverlay
@@ -108,6 +103,18 @@ function AdditionalData() {
                     <ScrollerOverlayCard
                         heading={cards.card2.heading}
                         content={cards.card2.content} />
+                </div>
+            </ScrollerOverlay>
+            <ScrollerOverlay
+                content="animation"
+                position="right"
+                onStepEnter={() =>
+                    ref1.current?.playAnimation(180, 240, 1, false)
+                }>
+                <div className="scroller-overlay-card-container">
+                    <ScrollerOverlayCard
+                        heading={cards.card3.heading}
+                        content={cards.card3.content} />
                 </div>
             </ScrollerOverlay>
 

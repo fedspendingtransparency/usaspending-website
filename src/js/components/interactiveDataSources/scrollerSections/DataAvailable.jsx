@@ -90,7 +90,7 @@ function DataAvailable() {
                 }>
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
-                        heading={<p>TBD: Data Available</p>}
+                        heading={<p>Data Available on USAspending</p>}
                         content={
                             <p>
                                 USAspending receives over 400 data elements from many
@@ -99,13 +99,13 @@ function DataAvailable() {
                                 <span className="glossary-term">agency</span>{" "}
                                 <GlossaryLink term="agency" /> and agency{" "}
                                 <span className="glossary-term">account</span>{" "}
-                                <GlossaryLink term="treasury-account-symbol" /> information,{" "}
+                                <GlossaryLink term="treasury-account-symbol-tas" /> information,{" "}
                                 <span className="glossary-term">award type</span>{" "}
-                                <GlossaryLink term="award-type" /> information, prime award{" "}
-                                <span className="glossary-term">recipient</span>{" "}
+                                <GlossaryLink term="award-type" /> information,{" "}
+                                <span className="glossary-term">prime award recipient</span>{" "}
                                 <GlossaryLink term="prime-recipient" /> and{" "}
                                 <span className="glossary-term">subrecipient</span>{" "}
-                                <GlossaryLink term="subrecipient" /> information, as well as
+                                <GlossaryLink term="sub-recipient" /> information, as well as
                                 information such as Census data for additional context.
                             </p>
                         } />
@@ -131,7 +131,7 @@ function DataAvailable() {
                 }>
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
-                        heading={<p>TBD: Data Not Available</p>}
+                        heading={<p>Data Not Available on USAspending</p>}
                         content={(
                             <>
                                 <p>
@@ -157,13 +157,16 @@ function DataAvailable() {
                 }>
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
-                        heading={<p>TBD: Data Not Available</p>}
                         content={
                             <p>
-                            In addition, some smaller executive branch agencies, as well
-                            as the entire legislative and judicial branches, are not
-                            required to report to USAspending. The full list of reporting
-                            agencies can be found on our <Link className="scroller-overlay-card__link" to="/agency">Agency Profile landing page</Link>.
+                                In addition, some smaller executive branch agencies, as well as
+                                the entire legislative and judicial branches, are not required
+                                to report to USAspending. The full list of reporting agencies
+                                can be found on our{" "}
+                                <Link className="scroller-overlay-card__link" to="/agency">
+                                Agency Profile landing page
+                                </Link>
+                                .
                             </p>
                         } />
                 </div>

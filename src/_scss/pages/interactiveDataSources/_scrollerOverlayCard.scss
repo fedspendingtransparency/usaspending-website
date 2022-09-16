@@ -1,17 +1,18 @@
-$mobile-large: 425px;
+$mobile-large: 500px;
 
 .scroller-overlay-card-content {
     width: 100%;
     background-color: $color-primary-darker;
     margin: 0 0 $global-margin * 4;
-    padding: $global-padding * 3;
+    padding-top: $global-padding * 3;
+    padding-bottom: $global-padding * 3;
+    padding-left: $global-padding * 4;
+    padding-right: $global-padding * 4;
     border-radius: 6px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-    min-height: 250px;
     @media (min-width: $medium-screen) {
       display: flex;
       align-items: center;
-      padding: $global-margin * 5;
     }
   
     .scroller-overlay-card__icon-wrapper {
@@ -57,7 +58,7 @@ $mobile-large: 425px;
       line-height: 1.5;
       letter-spacing: normal;
       color: $color-white;
-      margin-bottom: $global-margin * 3;
+      margin-bottom: $global-margin * 2;
   
       p {
         margin-bottom: 0;

@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import { Link } from 'react-router-dom';
 import Scroller from "../scroller/Scroller";
 import ScrollerOverlay from "../scroller/scrollerOverlay/ScrollerOverlay";
 import LottieAnimation from '../lottieAnimation/LottieAnimation';
@@ -11,12 +12,16 @@ function AwardData() {
             heading: <p>File C</p>,
             content: (
                 <p>
-                File C (“Account Breakdown by Award”) is part of the package of data
-                submitted to USAspending by federal agencies, as required by the
-                DATA Act. It contains obligation and outlay data for all awards
-                issued by that agency, covering both contract and financial
-                assistance awards over the lifetime of those awards. These spending
-                amounts represent a subset of the account-level spending in File B.
+                    <span className="glossary-term">
+                        File C (“Account Breakdown by Award”)
+                    </span>{" "}
+                    <GlossaryLink term="account-breakdown-by-award-file-c" />{" "}
+                    is part of the package of data submitted to USAspending by federal
+                    agencies, as required by the DATA Act. It contains obligation and
+                    outlay data for all awards issued by that agency, covering both
+                    contract and financial assistance awards over the lifetime of those
+                    awards. These spending amounts represent a subset of the account-level
+                    spending in File B.
                 </p>
             )
         },
@@ -25,7 +30,7 @@ function AwardData() {
             content: (
                 <>
                     <p>
-                    The Financial Assistance Broker Submission (FABS) is how federal agencies submit{" "}
+                        The Financial Assistance Broker Submission (FABS) is how federal agencies submit{" "}
                         <span className="glossary-term">transaction-level</span>{" "}
                         <GlossaryLink term="transaction" /> data for{" "}
                         <span className="glossary-term">financial assistance</span>{" "}
@@ -39,9 +44,14 @@ function AwardData() {
                         <span className="glossary-term">place of performance</span>{" "}
                         <GlossaryLink term="primary-place-of-performance" />, and {" "}
                         <span className="glossary-term">assistance listing</span>{" "}
-                        <GlossaryLink term="assistance-listing" />, among other details.
+                        <GlossaryLink term="assistance-listings-cfda-program" />,{" "}
+                        among other details.
                     </p>
-                    <p>The collection of data in FABS is known as File D2.</p>
+                    <p>
+                        The collection of data in FABS is known as{" "}
+                        <span className="glossary-term">File D2</span>{" "}
+                        <GlossaryLink term="awards-data-file-d" />.
+                    </p>
                 </>
             )
         },
@@ -50,8 +60,8 @@ function AwardData() {
             content: (
                 <>
                     <p>
-                    The Federal Procurement Data System is the database where federal
-                    contracting officials submit{" "}
+                        The Federal Procurement Data System is the database where federal
+                        contracting officials submit{" "}
                         <span className="glossary-term">transaction-level</span>{" "}
                         <GlossaryLink term="transaction" /> data for{" "}
                         <span className="glossary-term">contracts</span>{" "}
@@ -59,7 +69,8 @@ function AwardData() {
                         <span className="glossary-term">
                         indefinite delivery vehicles (IDV)
                         </span>{" "}
-                        <GlossaryLink term="indefinite-delivery-vehicle-idv" />. It contains information about award
+                        <GlossaryLink term="indefinite-delivery-vehicle-idv" />
+                        .It contains information about award
                         transaction obligation,{" "}
                         <span className="glossary-term">action date</span>{" "}
                         <GlossaryLink term="action-date" />,{" "}
@@ -76,7 +87,11 @@ function AwardData() {
                         <span className="glossary-term">set aside</span>{" "}
                         <GlossaryLink term="set-aside-type" />, among other details.
                     </p>
-                    <p>The collection of data in FPDS that USAspending receives is known as File D1.</p>
+                    <p>
+                        The collection of data in FPDS that USAspending receives is known as{" "}
+                        <span className="glossary-term">File D1</span>{" "}
+                        <GlossaryLink term="awards-data-file-d" />.
+                    </p>
                 </>
             )
         },
@@ -86,8 +101,8 @@ function AwardData() {
                 <>
                     <p>
                     Whereas File C provides data over the lifetime of individual awards
-                    from agency financial systems, Files D1 and D2 provide data from{" "}
-                        <span className="glossary-term">award transactions</span>{" "}
+                    from agency financial systems, Files D1 and D2 provide data from award{" "}
+                        <span className="glossary-term">transactions</span>{" "}
                         <GlossaryLink term="transaction" /> in governmentwide award systems.
                     USAspending links these two sources of award data. However, due to
                     different policies and reporting requirements for these separate
@@ -96,22 +111,18 @@ function AwardData() {
                     <p>
                     You can see statistics about unlinked contract awards and unlinked
                     assistance awards in the{" "}
-                        <a
+                        <Link
                             className="scroller-overlay-card__link"
-                            href="https://www.usaspending.gov/submission-statistics"
-                            target="_blank"
-                            rel="noopener noreferrer">
-                        Agency Submission Statistics page
-                        </a>
-                    . More information about linked awards is available in the{" "}
-                        <a
+                            to="/submission-statistics">
+                            Agency Submission Statistics page
+                        </Link>
+                        . More information about linked awards is available in the{" "}
+                        <Link
                             className="scroller-overlay-card__link"
-                            href="https://www.usaspending.gov/submission-statistics/data-sources"
-                            target="_blank"
-                            rel="noopener noreferrer">
-                        Data Sources and Methodology page
-                        </a>{" "}
-                    for these statistics.
+                            to="/submission-statistics/data-sources">
+                            Data Sources and Methodology page
+                        </Link>{" "}
+                        for these statistics.
                     </p>
                 </>
             )
@@ -119,16 +130,57 @@ function AwardData() {
         card5: {
             heading: <p>FSRS (File F)</p>,
             content: (
-                <p>
-                    TBD: FSRS, subaward data
-                </p>
+                <>
+                    <p>
+                        The Federal Funding Accountability and Transparency Act Subaward
+                        Reporting System (FSRS) is where{" "}
+                        <span className="glossary-term">prime recipients</span>{" "}
+                        <GlossaryLink term="prime-recipient" /> submit information about
+                        their subawards. This information includes data about both the prime
+                        award and the subaward, such as their respective{" "}
+                        <span className="glossary-term">action dates</span>{" "}
+                        <GlossaryLink term="action-date" />,{" "}
+                        <span className="glossary-term">recipient codes</span>{" "}
+                        <GlossaryLink term="unique-entity-identifier-uei" />,{" "}
+                        <span className="glossary-term">recipient locations</span>{" "}
+                        <GlossaryLink term="recipient-location" />,{" "}
+                        <span className="glossary-term">places of performance</span>{" "}
+                        <GlossaryLink term="primary-place-of-performance" />,{" "}
+                        <span className="glossary-term">award descriptions</span>{" "}
+                        <GlossaryLink term="award-description" />, and{" "}
+                        <span className="glossary-term">executive compensation</span>{" "}
+                        <GlossaryLink term="highly-compensated-officer-total-compensation" />{" "}
+                        data.
+                    </p>
+                    <p>
+                        The collection of data in FSRS that USAspending receives is known as
+                        File F.
+                    </p>
+                </>
             )
         },
         card6: {
             heading: <p>SAM.gov (File E)</p>,
             content: (
                 <p>
-                    - - - - TBD - - -
+                    <a
+                        className="scroller-overlay-card__link"
+                        href="https://sam.gov/"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        SAM.gov
+                    </a>{" "}
+                    is the “System for Award Management” where potential recipients must
+                    register if they want to be eligible to receive federal{" "}
+                    <span className="glossary-term">prime awards</span>{" "}
+                    <GlossaryLink term="prime-award" />
+                    . USAspending uses SAM.gov as the source
+                    of authoritative recipient name,{" "}
+                    <span className="glossary-term">code</span>{" "}
+                    <GlossaryLink term="unique-entity-identifier-uei" />
+                    , and <span className="glossary-term">executive compensation</span>{" "}
+                    <GlossaryLink term="highly-compensated-officer-total-compensation" />{" "}
+                    data.
                 </p>
             )
         },

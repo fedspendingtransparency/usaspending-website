@@ -19,53 +19,57 @@ function DataValidation() {
             {/* SCROLLER OVERLAYS */}
             <ScrollerOverlay
                 content="animation-loop"
+                onStepEnter={() =>
+                    ref1.current?.playAnimation(120, 300, 1, false)
+                }>
+                {/* used as transition. no card */}
+            </ScrollerOverlay>
+            <ScrollerOverlay
+                content="animation-loop"
+                position="right">
+                <div className="scroller-overlay-card-container">
+                    <ScrollerOverlayCard
+                        heading={<p>TBD</p>}
+                        content={<p>[Intro card]</p>} />
+                </div>
+            </ScrollerOverlay>
+            <ScrollerOverlay
+                content="animation-loop"
+                position="right">
+                <div className="scroller-overlay-card-container">
+                    <ScrollerOverlayCard
+                        heading={<p>TBD</p>}
+                        content={<p>[Example validation 1]</p>} />
+                </div>
+            </ScrollerOverlay>
+            <ScrollerOverlay
+                content="animation-loop"
+                position="right">
+                <div className="scroller-overlay-card-container">
+                    <ScrollerOverlayCard
+                        heading={<p>TBD</p>}
+                        content={<p>[Example validation 2]</p>} />
+                </div>
+            </ScrollerOverlay>
+            <ScrollerOverlay
+                content="animation-loop"
+                position="right">
+                <div className="scroller-overlay-card-container">
+                    <ScrollerOverlayCard
+                        heading={<p>TBD</p>}
+                        content={<p>[Example validation 3]</p>} />
+                </div>
+            </ScrollerOverlay>
+            <ScrollerOverlay
+                content="animation-loop"
                 position="right"
                 onStepEnter={() =>
                     ref1.current?.playAnimation(120, 300, 1, false)
                 }>
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
-                        heading={<p>TBD: Intro Card</p>}
-                        content={<p>- - - - TBD - - - - </p>} />
-                </div>
-            </ScrollerOverlay>
-            <ScrollerOverlay
-                content="animation-loop"
-                position="right">
-                <div className="scroller-overlay-card-container">
-                    <ScrollerOverlayCard
-                        heading={<p>TBD: Example Validation 1</p>}
-                        content={<p>TBD: Example validation 1</p>} />
-                </div>
-            </ScrollerOverlay>
-            <ScrollerOverlay
-                content="animation-loop"
-                position="right">
-                <div className="scroller-overlay-card-container">
-                    <ScrollerOverlayCard
-                        heading={<p>TBD: Example Validation 2</p>}
-                        content={<p>TBD: Example validation 2</p>} />
-                </div>
-            </ScrollerOverlay>
-            <ScrollerOverlay
-                content="animation-loop"
-                position="right">
-                <div className="scroller-overlay-card-container">
-                    <ScrollerOverlayCard
-                        heading={<p>TBD: Example Validation 3</p>}
-                        content={<p>TBD: Example validation 3</p>} />
-                </div>
-            </ScrollerOverlay>
-            <ScrollerOverlay
-                content="animation-loop"
-                position="right"
-                onStepEnter={() =>
-                    ref1.current?.playAnimation(120, 300, 1, false)
-                }>
-                <div className="scroller-overlay-card-container">
-                    <ScrollerOverlayCard
-                        heading={<p>TBD: Example Validation 4</p>}
-                        content={<p>TBD: Example validation 4</p>} />
+                        heading={<p>TBD</p>}
+                        content={<p>[Example validation 4]</p>} />
                 </div>
             </ScrollerOverlay>
         </Scroller>

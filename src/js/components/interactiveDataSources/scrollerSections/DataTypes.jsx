@@ -56,8 +56,13 @@ function DataTypes() {
                 }>
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
-                        heading={<p>TBD: Data Types</p>}
-                        content={<p>Even though USAspending has hundreds of data elements, you can think of them in three major categories: Account Data; Award Data; and Additional Data.</p>} />
+                        content={
+                            <p>
+                                Even though USAspending has hundreds of data elements, you can
+                                think of them in three major categories: Account Data; Award
+                                Data; and Additional Data.
+                            </p>
+                        } />
                 </div>
             </ScrollerOverlay>
 
@@ -79,7 +84,16 @@ function DataTypes() {
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
                         heading={<p>Account Data</p>}
-                        content={<p>Account data contain information about an agency's overall spending authority, obligations and outlays, and the subset of spending on federal awards. USAspending receives account data from most federal agencies and supplements the data with authoritative agency budget execution data.</p>} />
+                        content={
+                            <p>
+                                Account data contain information about an agency's overall
+                                spending authority, obligations and outlays, and the subset of
+                                spending on federal awards. Account data provide the “big
+                                picture” of an agency's spending. USAspending receives account
+                                data from most federal agencies and supplements the data with
+                                authoritative agency budget execution data.
+                            </p>
+                        } />
                 </div>
             </ScrollerOverlay>
 
@@ -101,7 +115,16 @@ function DataTypes() {
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
                         heading={<p>Award Data</p>}
-                        content={<p>Award data contain rich details about individual federal awards, such as who received the award, when obligations were made, where the money went, and what the award’s purpose is. USAspending links award data to the account data that agencies submit.</p>} />
+                        content={
+                            <p>
+                                Award data contain rich details about individual federal awards,
+                                such as who received the award, when obligations were made,
+                                where the money went, and what the award's purpose is. Award
+                                spending is a subset of an agency's overall spending.
+                                USAspending receives award data from agency financial systems as
+                                well as governmentwide award systems.
+                            </p>
+                        } />
                 </div>
             </ScrollerOverlay>
 
@@ -124,7 +147,13 @@ function DataTypes() {
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
                         heading={<p>Additional Data</p>}
-                        content={<p>USAspending extracts reference data from government sources to ensure consistency and provide additional context to the account data and award data.</p>} />
+                        content={
+                            <p>
+                                USAspending extracts reference data from government sources to
+                                ensure consistency and provide additional context to the account
+                                data and award data.
+                            </p>
+                        } />
                 </div>
             </ScrollerOverlay>
 

@@ -42,14 +42,18 @@ function DataSubmissionExtraction() {
             </ScrollerOverlay>
             <ScrollerOverlay
                 content="animation"
-                position="right"
+                position="center"
                 onStepEnter={() =>
                     ref1.current?.playAnimation(120, 300, 1)
                 }>
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
-                        heading={<p>Intro Card</p>}
-                        content={<p>- - - - TBD - - - - </p>} />
+                        content={
+                            <p>
+                                Data from government systems flow into USAspending in one of two
+                                ways: they are either submitted directly or extracted.
+                            </p>
+                        } />
                 </div>
             </ScrollerOverlay>
 
@@ -69,8 +73,23 @@ function DataSubmissionExtraction() {
                 }>
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
-                        heading={<p>TBD: CARD ON DATA SUBMITTED</p>}
-                        content={<p>Agencies submit account and contract award data from their financial systems and submit assistance awards (grants, loans, etc.) via FABS. You can learn more about the Agency submission requirements and process <a className="scroller-overlay-card__link" href="https://fiscal.treasury.gov/files/data-transparency/daims-information-flow-diagram.pdf" target="_blank" rel="noopener noreferrer">here</a>.</p>} />
+                        heading={<p>Data Submitted</p>}
+                        content={
+                            <p>
+                                Files A, B, and C, as well as FABS data, are all sent directly
+                                from federal agencies to USAspending. For more information about
+                                what is included in these submissions, please consult the
+                                Reporting Submission Specification (RSS) spreadsheet in this{" "}
+                                <a
+                                    className="scroller-overlay-card__link"
+                                    href="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html"
+                                    target="_blank"
+                                    rel="noopener noreferrer">
+                                    resources page from the Bureau of the Fiscal Service
+                                </a>
+                                .
+                            </p>
+                        } />
                 </div>
             </ScrollerOverlay>
 
@@ -91,8 +110,23 @@ function DataSubmissionExtraction() {
                 }>
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
-                        heading={<p>TBD: CARD ON DATA EXTRACTED</p>}
-                        content={<p>USAspending extracts all its other data from source systems to validate agency data, to enrich award record with additional details, and provide context for visualizations.</p>} />
+                        heading={<p>Data Extracted</p>}
+                        content={
+                            <p>
+                                Data in Files D1, D2, E, and F, as well as all reference data,
+                                are extracted by USAspending from government sources. For more
+                                information about what is included in these extractions, please
+                                consult the Interface Definition Document (IDD) spreadsheet in
+                                this{" "}
+                                <a
+                                    className="scroller-overlay-card__link"
+                                    href="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html"
+                                    target="_blank"
+                                    rel="noopener noreferrer">
+                                    resources page from the Bureau of the Fiscal Service
+                                </a>
+                                .
+                            </p>} />
                 </div>
             </ScrollerOverlay>
 

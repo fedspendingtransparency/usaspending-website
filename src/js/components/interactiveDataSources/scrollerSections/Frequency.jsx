@@ -3,6 +3,7 @@ import Scroller from "../scroller/Scroller";
 import ScrollerOverlay from "../scroller/scrollerOverlay/ScrollerOverlay";
 import LottieAnimation from '../lottieAnimation/LottieAnimation';
 import ScrollerOverlayCard from '../scroller/scrollerOverlay/ScrollerOverlayCard';
+import GlossaryLink from '../../sharedComponents/GlossaryLink';
 
 function Frequency() {
     const ref1 = useRef();
@@ -32,7 +33,6 @@ function Frequency() {
             {/* INTRO CARD ON FREQUENCY */}
             <ScrollerOverlay
                 content="animation"
-                position="right"
                 onStepEnter={() => {
                     ref1.current?.playAnimation(0, 120, 1);
                     ref2.current?.playAnimation(120, 300, 1, false);
@@ -49,8 +49,13 @@ function Frequency() {
                 }>
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
-                        heading={<p>TBD: Frequency of Updates</p>}
-                        content={<p>The website is updated daily, but source systems have different requirements for the frequency of reporting.</p>} />
+                        content={
+                            <p>
+                                The data on USAspending are updated every day after the nightly
+                                data pipeline runs. However, some source systems have different
+                                requirements for the frequency of reporting.{" "}
+                            </p>
+                        } />
                 </div>
             </ScrollerOverlay>
 
@@ -73,8 +78,23 @@ function Frequency() {
                 }>
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
-                        heading={<p>New Obligations & Outlays</p>}
-                        content={<p>New Obligations & Outlays update monthly with Agency submissions (File A-C and GTAS).</p>} />
+                        heading={<p>Files A, B, and C</p>}
+                        content={
+                            <p>
+                                Files A, B, and C are submitted by federal agencies to
+                                USAspending on a monthly basis, as required by the DATA Act. You
+                                can see specific DATA Act reporting submission dates in the
+                                spreadsheets available in this this{" "}
+                                <a
+                                    className="scroller-overlay-card__link"
+                                    href="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html"
+                                    target="_blank"
+                                    rel="noopener noreferrer">
+                                    resources page from the Bureau of the Fiscal Service
+                                </a>
+                                .
+                            </p>
+                        } />
                 </div>
             </ScrollerOverlay>
 
@@ -98,7 +118,35 @@ function Frequency() {
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
                         heading={<p>FABS</p>}
-                        content={<p>New assistance awards appear within about two weeks of the award, except loans which are a month after</p>} />
+                        content={
+                            <>
+                                <p>
+                                    Federal agencies must submit{" "}
+                                    <span className="glossary-term">financial-assistance</span>{" "}
+                                    <GlossaryLink term="financial-assistance" /> data to FABS
+                                    within two weeks of the award{" "}
+                                    <span className="glossary-term">transaction</span>{" "}
+                                    <GlossaryLink term="transaction" />. This requirement applies
+                                    to all financial assistance awards except loans, which are
+                                    required to be reported within 30 days of the award
+                                    transaction.
+                                </p>
+                                <ul className="interactives-guide_bullet-points">
+                                    <li>
+                                        Grant Example: A grant transaction is issued on September 8.
+                                        It must be reported to FABS within 14 days, by September 22.
+                                        If submitted on September 22, the new data are published on
+                                        USAspending on September 23.
+                                    </li>
+                                    <li>
+                                        Loan Example: A loan transaction is issued on September 8.
+                                        It must be reported to FABS by October 8. If submitted on
+                                        October 8, the new data are published on USAspending on
+                                        October 9.{" "}
+                                    </li>
+                                </ul>
+                            </>
+                        } />
                 </div>
             </ScrollerOverlay>
 
@@ -121,8 +169,32 @@ function Frequency() {
                 }>
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
-                        heading={<p>FPDS</p>}
-                        content={<p>New contract awards & transactions appear within about a few days of the award</p>} />
+                        heading={<p>FPDS (File D1)</p>}
+                        content={
+                            <>
+                                <p>
+                                    Federal agencies must submit{" "}
+                                    <span className="glossary-term">contract</span>{" "}
+                                    <GlossaryLink term="contract" /> data to FPDS within three
+                                    days of the award{" "}
+                                    <span className="glossary-term">transaction</span>{" "}
+                                    <GlossaryLink term="transaction" />. The day after submission,
+                                    these data are made available to USAspending. On the following
+                                    day, these data are automatically published on USAspending.
+                                </p>
+                                <ul className="interactives-guide_bullet-points">
+                                    <li>
+                                        Example 1: A contract transaction is made on a given Thursday. The award is reported to FPDS three business days later, on the following Tuesday. It is then made available to USAspending on Wednesday morning and published to the site on Thursday after the nightly data pipeline runs
+                                    </li>
+                                    <li>
+                                        Example 2: A contract transaction is made on a given Tuesday. The award is reported to FPDS three business days later, on Friday. It is then made available to USAspending on Saturday morning and published to the site on Sunday after the nightly data pipeline runs. 
+                                    </li>
+                                </ul>
+                                <p>
+                                    Please note that the submission of data to FPDS is delayed by 90 days for the Department of Defense (DOD) and the U.S. Army Corps of Engineers (USACE).
+                                </p>
+                            </>
+                        } />
                 </div>
             </ScrollerOverlay>
 
@@ -145,8 +217,47 @@ function Frequency() {
                 }>
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
-                        heading={<p>FSRS</p>}
-                        content={<p>New Subawards appear by end of the month following the month of the subaward</p>} />
+                        heading={<p>FSRS (File F)</p>}
+                        content={
+                            <>
+                                <p>
+                                    <span className="glossary-term">Prime Recipients</span>{" "}
+                                    <GlossaryLink term="prime-recipient" />{" "}
+                                    must report any{" "}
+                                    <span className="glossary-term">subaward</span>{" "}
+                                    <GlossaryLink term="sub-award" />{" "}
+                                    greater or equal to $30,000
+                                    to FSRS by the end of the month following the month the
+                                    subaward was made.
+                                </p>
+                                <ul className="interactives-guide_bullet-points">
+                                    <li>
+                                        Example 1: A subaward is issued on September 1. It must be
+                                        reported to FSRS by October 31. If submitted on October 31,
+                                        the new data are available to USAspending on November 1 and
+                                        published to the site on November 2.
+                                    </li>
+                                    <li>
+                                        Example 2: A subaward is issued on September 30. It must be
+                                        reported to FSRS by October 31. If submitted on October 31,
+                                        the new data are available to USAspending on November 1 and
+                                        published to the site on November 2.
+                                    </li>
+                                </ul>
+                                <p>
+                                You can read more about subaward reporting requirements on
+                                this{" "}
+                                    <a
+                                        className="scroller-overlay-card__link"
+                                        href="https://www.fsrs.gov/#a-faqs"
+                                        target="_blank"
+                                        rel="noopener noreferrer">
+                                    FSRS informational page
+                                    </a>
+                                .
+                                </p>
+                            </>
+                        } />
                 </div>
             </ScrollerOverlay>
 
@@ -169,8 +280,15 @@ function Frequency() {
                 }>
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
-                        heading={<p>Reference Data and Existing Records</p>}
-                        content={<p>Reference data and existing records refresh daily with any updates or corrections that agencies make</p>} />
+                        heading={<p>Reference Data</p>}
+                        content={
+                            <p>
+                                All reference data (such as location data) are extracted by
+                                USAspending.gov on a daily basis. In addition, data from SAM.gov
+                                (such as executive compensation data, also known as File E) and
+                                GTAS are also extracted daily.
+                            </p>
+                        } />
                 </div>
             </ScrollerOverlay>
 
