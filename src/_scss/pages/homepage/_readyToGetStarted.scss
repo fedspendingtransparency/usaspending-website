@@ -28,6 +28,12 @@
       @media (min-width: $medium-screen) {
         margin-bottom: 0;
       }
+      .headline {
+        min-height: rem(60);
+        @media (min-width: $medium-screen) {
+          min-height: rem(90);
+        }
+      }
     }
   }
 
