@@ -25,6 +25,10 @@
         color: $theme-color-accent-6;
       }
     }
+    .card-container {
+      display: flex;
+      justify-content: space-between;
+    }
   }
 
   .featured-content__section--flex-row {

@@ -30,7 +30,7 @@ const FeaturedContent = () => (
                             <CardBody
                                 overline="COVID-19 Spending"
                                 headline={
-                                    <div style={{ height: '90px' }}>
+                                    <div>
                                         Track federal spending in response to the COVID-19 pandemic
                                     </div>
                                 }>
@@ -45,7 +45,7 @@ const FeaturedContent = () => (
                             <CardBody
                                 overline="Resources"
                                 headline={
-                                    <div style={{ height: '90px' }}>
+                                    <div>
                                         Learn how to use USAspending with our tutorial videos&nbsp;
                                         <FontAwesomeIcon style={{ width: '20px' }} icon="external-link-alt" />
                                     </div>
