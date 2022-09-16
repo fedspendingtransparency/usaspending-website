@@ -98,7 +98,7 @@ function Frequency() {
                 </div>
             </ScrollerOverlay>
 
-            {/* FABS */}
+            {/* FPDS */}
             <ScrollerOverlay
                 content="animation"
                 position="right"
@@ -113,58 +113,6 @@ function Frequency() {
                 position="right"
                 onStepEnter={() => {
                     ref1.current?.playAnimation(480, 540, 1);
-                }
-                }>
-                <div className="scroller-overlay-card-container">
-                    <ScrollerOverlayCard
-                        heading={<p>FABS</p>}
-                        content={
-                            <>
-                                <p>
-                                    Federal agencies must submit{" "}
-                                    <span className="glossary-term">financial-assistance</span>{" "}
-                                    <GlossaryLink term="financial-assistance" /> data to FABS
-                                    within two weeks of the award{" "}
-                                    <span className="glossary-term">transaction</span>{" "}
-                                    <GlossaryLink term="transaction" />. This requirement applies
-                                    to all financial assistance awards except loans, which are
-                                    required to be reported within 30 days of the award
-                                    transaction.
-                                </p>
-                                <ul className="interactives-guide_bullet-points">
-                                    <li>
-                                        Grant Example: A grant transaction is issued on September 8.
-                                        It must be reported to FABS within 14 days, by September 22.
-                                        If submitted on September 22, the new data are published on
-                                        USAspending on September 23.
-                                    </li>
-                                    <li>
-                                        Loan Example: A loan transaction is issued on September 8.
-                                        It must be reported to FABS by October 8. If submitted on
-                                        October 8, the new data are published on USAspending on
-                                        October 9.{" "}
-                                    </li>
-                                </ul>
-                            </>
-                        } />
-                </div>
-            </ScrollerOverlay>
-
-            {/* FPDS */}
-            <ScrollerOverlay
-                content="animation"
-                position="right"
-                onStepEnter={() => {
-                    ref1.current?.playAnimation(540, 600, 1);
-                }
-                }>
-                {/* transition no card */}
-            </ScrollerOverlay>
-            <ScrollerOverlay
-                content="animation"
-                position="right"
-                onStepEnter={() => {
-                    ref1.current?.playAnimation(600, 660, 1);
                 }
                 }>
                 <div className="scroller-overlay-card-container">
@@ -193,6 +141,58 @@ function Frequency() {
                                 <p>
                                     Please note that the submission of data to FPDS is delayed by 90 days for the Department of Defense (DOD) and the U.S. Army Corps of Engineers (USACE).
                                 </p>
+                            </>
+                        } />
+                </div>
+            </ScrollerOverlay>
+
+            {/* FABS */}
+            <ScrollerOverlay
+                content="animation"
+                position="right"
+                onStepEnter={() => {
+                    ref1.current?.playAnimation(540, 600, 1);
+                }
+                }>
+                {/* transition no card */}
+            </ScrollerOverlay>
+            <ScrollerOverlay
+                content="animation"
+                position="right"
+                onStepEnter={() => {
+                    ref1.current?.playAnimation(600, 660, 1);
+                }
+                }>
+                <div className="scroller-overlay-card-container">
+                    <ScrollerOverlayCard
+                        heading={<p>FABS (File D2)</p>}
+                        content={
+                            <>
+                                <p>
+                                    Federal agencies must submit{" "}
+                                    <span className="glossary-term">financial-assistance</span>{" "}
+                                    <GlossaryLink term="financial-assistance" /> data to FABS
+                                    within two weeks of the award{" "}
+                                    <span className="glossary-term">transaction</span>{" "}
+                                    <GlossaryLink term="transaction" />. This requirement applies
+                                    to all financial assistance awards except loans, which are
+                                    required to be reported within 30 days of the award
+                                    transaction.
+                                </p>
+                                <ul className="interactives-guide_bullet-points">
+                                    <li>
+                                        Grant Example: A grant transaction is issued on September 8.
+                                        It must be reported to FABS within 14 days, by September 22.
+                                        If submitted on September 22, the new data are published on
+                                        USAspending on September 23.
+                                    </li>
+                                    <li>
+                                        Loan Example: A loan transaction is issued on September 8.
+                                        It must be reported to FABS by October 8. If submitted on
+                                        October 8, the new data are published on USAspending on
+                                        October 9.{" "}
+                                    </li>
+                                </ul>
                             </>
                         } />
                 </div>

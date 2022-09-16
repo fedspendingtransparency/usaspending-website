@@ -35,7 +35,7 @@ const AboutSection = () => {
             <>
                 <ul className="interactives-guide_bullet-points">
                     <li>
-                    The USAspending data model standardizes data elements and definitions, and the USAspending Broker System validates the data submitted and extracted from agency systems for quality, consistency, and accuracy.
+                    The USAspending data model standardizes data elements and definitions, and the USAspending Broker validates the data submitted and extracted from agency systems for quality, consistency, and accuracy.
                     </li>
                     <li>
                     USAspending is built on principles of user-centered design and Agile software development, leveraging input from the public and federal stakeholders to iteratively release updates and enhancements many times per year.
@@ -55,7 +55,7 @@ const AboutSection = () => {
             <>
                 <p data-testid="cardText" className="interactives-guide-cardText">
                     To read the technical documentation for the data elements and source systems that flow into USAspending,
-                    please visit the resources page from the Treasury Department's Bureau of the Fiscal Service.
+                    visit the resources page from the Treasury Department's Bureau of the Fiscal Service.
                 </p>
                 <a href="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html" title="Read More: DATA Act Information Model Schema (DAIMS)" target="_blank" rel="noopener noreferrer">
                     <div
@@ -63,7 +63,7 @@ const AboutSection = () => {
                         role="button"
                         aria-label="Read More Button"
                         title="Read More: DATA Act Information Model Schema (DAIMS)">
-                            Read More
+                            Read Our Documentation
                     </div>
                 </a>
             </>
