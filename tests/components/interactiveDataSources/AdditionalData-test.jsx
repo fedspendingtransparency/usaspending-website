@@ -21,7 +21,7 @@ describe('AdditionalData', () => {
     it('Check if content wrapper is on the page', () => {
         const { container } = render(<AdditionalData />);
         const content = container.getElementsByClassName('scroller-overlay-card__content-wrapper');
-        expect(content.length).toBe(2);
+        expect(content.length).toBeGreaterThan(2);
     });
 
     it('Check if text is in content wrapper', () => {
