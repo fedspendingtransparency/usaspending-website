@@ -12,7 +12,9 @@ function FederalSpendingOverview() {
             content: (
                 <p>
                 Every year, the Treasury Department issues funds to federal agency
-                spending accounts (known as Treasury Accounts) as a result of{" "}
+                spending accounts (known as{" "}
+                    <span className="glossary-term">Treasury Accounts</span>{" "}
+                    <GlossaryLink term="treasury-account-symbol-tas" />) as a result of{" "}
                     <span className="glossary-term">appropriations</span>{" "}
                     <GlossaryLink term="appropriation" /> from Congress.
                 </p>

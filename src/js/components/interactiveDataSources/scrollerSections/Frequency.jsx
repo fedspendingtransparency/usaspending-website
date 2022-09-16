@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import { Link } from 'react-router-dom';
 import Scroller from "../scroller/Scroller";
 import ScrollerOverlay from "../scroller/scrollerOverlay/ScrollerOverlay";
 import LottieAnimation from '../lottieAnimation/LottieAnimation';
@@ -52,14 +53,14 @@ function Frequency() {
                         content={
                             <p>
                                 The data on USAspending are updated every day after the nightly
-                                data pipeline runs. However, some source systems have different
-                                requirements for the frequency of reporting.{" "}
+                                data pipeline runs. However, USAspending source systems have
+                                different requirements for the frequency of their data updates.
                             </p>
                         } />
                 </div>
             </ScrollerOverlay>
 
-            {/* NEW OBLIGATIONS AND OUTLAYS */}
+            {/* FILES A, B, and C */}
             <ScrollerOverlay
                 content="animation"
                 position="right"
@@ -80,20 +81,32 @@ function Frequency() {
                     <ScrollerOverlayCard
                         heading={<p>Files A, B, and C</p>}
                         content={
-                            <p>
-                                Files A, B, and C are submitted by federal agencies to
-                                USAspending on a monthly basis, as required by the DATA Act. You
-                                can see specific DATA Act reporting submission dates in the
-                                spreadsheets available in this this{" "}
-                                <a
-                                    className="scroller-overlay-card__link"
-                                    href="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html"
-                                    target="_blank"
-                                    rel="noopener noreferrer">
-                                    resources page from the Bureau of the Fiscal Service
-                                </a>
-                                .
-                            </p>
+                            <>
+                                <p>
+                                    Files A, B, and C are submitted by federal agencies to
+                                    USAspending on a monthly basis, as required by the DATA Act. You
+                                    can see specific DATA Act reporting submission dates in the
+                                    spreadsheets available in this this{" "}
+                                    <a
+                                        className="scroller-overlay-card__link"
+                                        href="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html"
+                                        target="_blank"
+                                        rel="noopener noreferrer">
+                                        resources page from the Bureau of the Fiscal Service
+                                    </a>
+                                    .
+                                </p>
+                                <p>
+                                    You can see publication and certification dates for agency
+                                    submissions in the “Most Recent Update” column of the{" "}
+                                    <Link
+                                        className="scroller-overlay-card__link"
+                                        to="/submission-statistics">
+                                        Agency Submission Statistics page
+                                    </Link>
+                                    .
+                                </p>
+                            </>
                         } />
                 </div>
             </ScrollerOverlay>
@@ -132,14 +145,24 @@ function Frequency() {
                                 </p>
                                 <ul className="interactives-guide_bullet-points">
                                     <li>
-                                        Example 1: A contract transaction is made on a given Thursday. The award is reported to FPDS three business days later, on the following Tuesday. It is then made available to USAspending on Wednesday morning and published to the site on Thursday after the nightly data pipeline runs
+                                        Example 1: A contract transaction is made on a given
+                                        Thursday. The award is reported to FPDS three business
+                                        days later, on the following Tuesday. It is then made
+                                        available to USAspending on Wednesday morning and published
+                                        to the site on Thursday.
                                     </li>
                                     <li>
-                                        Example 2: A contract transaction is made on a given Tuesday. The award is reported to FPDS three business days later, on Friday. It is then made available to USAspending on Saturday morning and published to the site on Sunday after the nightly data pipeline runs. 
+                                        Example 2: A contract transaction is made on a given
+                                        Tuesday. The award is reported to FPDS three business
+                                        days later, on Friday. It is then made available to
+                                        USAspending on Saturday morning and published to the
+                                        site on Sunday.
                                     </li>
                                 </ul>
                                 <p>
-                                    Please note that the submission of data to FPDS is delayed by 90 days for the Department of Defense (DOD) and the U.S. Army Corps of Engineers (USACE).
+                                    Note that the submission of data to FPDS is delayed by
+                                    90 days for the Department of Defense (DOD) and the U.S.
+                                    Army Corps of Engineers (USACE).
                                 </p>
                             </>
                         } />
@@ -170,7 +193,7 @@ function Frequency() {
                             <>
                                 <p>
                                     Federal agencies must submit{" "}
-                                    <span className="glossary-term">financial-assistance</span>{" "}
+                                    <span className="glossary-term">financial assistance</span>{" "}
                                     <GlossaryLink term="financial-assistance" /> data to FABS
                                     within two weeks of the award{" "}
                                     <span className="glossary-term">transaction</span>{" "}

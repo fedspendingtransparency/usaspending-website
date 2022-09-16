@@ -27,7 +27,7 @@ function AccountData() {
                 <p>
                     <span className="glossary-term">File A (“Account Balances”)</span>{" "}
                     <GlossaryLink term="account-balance-file-a" />{" "}
-                    is part of the package of data submittedto USAspending by federal
+                    is part of the package of data submitted to USAspending by federal
                     agencies, as required by the DATA Act. File A is generated from data
                     in GTAS. It contains{" "}
                     <span className="glossary-term">budgetary resources</span>{" "}

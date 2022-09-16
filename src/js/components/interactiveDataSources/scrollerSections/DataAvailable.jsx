@@ -93,19 +93,19 @@ function DataAvailable() {
                         heading={<p>Data Available on USAspending</p>}
                         content={
                             <p>
-                                USAspending receives over 400 data elements from many
-                                government systems. These data elements cover financial
-                                information, federal{" "}
-                                <span className="glossary-term">agency</span>{" "}
-                                <GlossaryLink term="agency" /> and agency{" "}
-                                <span className="glossary-term">account</span>{" "}
-                                <GlossaryLink term="treasury-account-symbol-tas" /> information,{" "}
-                                <span className="glossary-term">award type</span>{" "}
-                                <GlossaryLink term="award-type" /> information,{" "}
-                                <span className="glossary-term">prime award recipient</span>{" "}
-                                <GlossaryLink term="prime-recipient" /> and{" "}
-                                <span className="glossary-term">subrecipient</span>{" "}
-                                <GlossaryLink term="sub-recipient" /> information, as well as
+                                USAspending receives over 400 data elements coming from
+                                various government systems. These data elements cover
+                                information about federal{" "}
+                                <span className="glossary-term">agencies</span>{" "}
+                                <GlossaryLink term="agency" />, agency{" "}
+                                <span className="glossary-term">accounts</span>{" "}
+                                <GlossaryLink term="treasury-account-symbol-tas" />,{" "}
+                                <span className="glossary-term">award types</span>{" "}
+                                <GlossaryLink term="award-type" />,{" "}
+                                <span className="glossary-term">prime award recipients</span>{" "}
+                                <GlossaryLink term="prime-recipient" />, and{" "}
+                                <span className="glossary-term">subrecipients</span>{" "}
+                                <GlossaryLink term="sub-recipient" />, as well as
                                 information such as Census data for additional context.
                             </p>
                         } />

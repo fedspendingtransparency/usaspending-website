@@ -180,7 +180,7 @@ function DataFeatures() {
                                             className="scroller-overlay-card__link"
                                             to="/disaster/covid-19/data-sources">
                                         Data Sources and Methodology page
-                                        </Link>{" "}
+                                        </Link>
                                         )
                                     </li>
                                     <li>
@@ -203,7 +203,7 @@ function DataFeatures() {
                 </div>
             </ScrollerOverlay>
 
-            {/* DOWNLOADS */}
+            {/* DOWNLOADS and APIs */}
             <ScrollerOverlay
                 content="animation-loop"
                 position="right"
@@ -249,7 +249,7 @@ function DataFeatures() {
                                             href="https://files.usaspending.gov/database_download/"
                                             target="_blank"
                                             rel="noopener noreferrer">
-                                        Custom Account Data Download
+                                        Database Download
                                         </a>
                                     </li>
                                     <li>

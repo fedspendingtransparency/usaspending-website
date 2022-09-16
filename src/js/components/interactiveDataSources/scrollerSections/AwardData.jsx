@@ -69,8 +69,8 @@ function AwardData() {
                         <span className="glossary-term">
                         indefinite delivery vehicles (IDV)
                         </span>{" "}
-                        <GlossaryLink term="indefinite-delivery-vehicle-idv" />
-                        .It contains information about award
+                        <GlossaryLink term="indefinite-delivery-vehicle-idv" />.{" "}
+                        It contains information about award
                         transaction obligation,{" "}
                         <span className="glossary-term">action date</span>{" "}
                         <GlossaryLink term="action-date" />,{" "}
@@ -82,7 +82,7 @@ function AwardData() {
                         <GlossaryLink term="primary-place-of-performance" />,{" "}
                         <span className="glossary-term">industry</span>{" "}
                         <GlossaryLink term="naics" />,{" "}
-                        <span className="glossary-term">product of service</span>{" "}
+                        <span className="glossary-term">product or service</span>{" "}
                         <GlossaryLink term="product-or-service-code-psc" />, and type of{" "}
                         <span className="glossary-term">set aside</span>{" "}
                         <GlossaryLink term="set-aside-type" />, among other details.
@@ -107,6 +107,9 @@ function AwardData() {
                     USAspending links these two sources of award data. However, due to
                     different policies and reporting requirements for these separate
                     systems, not all award data can be linked across both sources.
+                    Awards can only be linked across systems through a shared{" "}
+                        <span className="glossary-term">award ID</span>{" "}
+                        <GlossaryLink term="award-id" />.
                     </p>
                     <p>
                     You can see statistics about unlinked contract awards and unlinked
@@ -162,28 +165,33 @@ function AwardData() {
         card6: {
             heading: <p>SAM.gov (File E)</p>,
             content: (
-                <p>
-                    <a
-                        className="scroller-overlay-card__link"
-                        href="https://sam.gov/"
-                        target="_blank"
-                        rel="noopener noreferrer">
-                        SAM.gov
-                    </a>{" "}
-                    is the “System for Award Management” where potential recipients must
-                    register if they want to be eligible to receive federal{" "}
-                    <span className="glossary-term">prime awards</span>{" "}
-                    <GlossaryLink term="prime-award" />
-                    . USAspending uses SAM.gov as the source
-                    of authoritative recipient name,{" "}
-                    <span className="glossary-term">code</span>{" "}
-                    <GlossaryLink term="unique-entity-identifier-uei" />
-                    , and <span className="glossary-term">executive compensation</span>{" "}
-                    <GlossaryLink term="highly-compensated-officer-total-compensation" />{" "}
-                    data.
-                </p>
+                <>
+                    <p>
+                        <a
+                            className="scroller-overlay-card__link"
+                            href="https://sam.gov/"
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            SAM.gov
+                        </a>{" "}
+                        is the “System for Award Management” where potential recipients must
+                        register if they want to be eligible to receive federal{" "}
+                        <span className="glossary-term">prime awards</span>{" "}
+                        <GlossaryLink term="prime-award" />
+                        . USAspending uses SAM.gov as the source
+                        of authoritative recipient name,{" "}
+                        <span className="glossary-term">code</span>{" "}
+                        <GlossaryLink term="unique-entity-identifier-uei" />
+                        , and <span className="glossary-term">executive compensation</span>{" "}
+                        <GlossaryLink term="highly-compensated-officer-total-compensation" />{" "}
+                        data.
+                    </p>
+                    <p>
+                        The collection of executive compensation data in SAM.gov is known as File E.
+                    </p>
+                </>
             )
-        },
+        }
     };
     const ref1 = useRef();
     const ref2 = useRef();

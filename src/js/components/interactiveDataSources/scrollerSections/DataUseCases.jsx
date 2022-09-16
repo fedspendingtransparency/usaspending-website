@@ -123,11 +123,13 @@ function DataUseCases() {
                             <p>
                                 We hope you find your own way to use USAspending data. You can
                                 reach us at{" "}
+                                <br />
                                 <a
                                     className="scroller-overlay-card__link"
                                     href="mailto:USAspending.help@fiscal.treasury.gov">
                                 USAspending.help@&#8203;fiscal.treasury.gov
                                 </a>{" "}
+                                <br />
                                 to give feedback or ask questions about the data or the website.
                                 We look forward to hearing from you!
                             </p>

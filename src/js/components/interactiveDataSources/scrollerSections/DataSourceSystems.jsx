@@ -155,7 +155,7 @@ function DataSourceSystems() {
                             obligations for award{" "}
                                 <span className="glossary-term">transactions</span>{" "}
                                 <GlossaryLink term="transaction" /> as well as related data
-                                about their federal awards such as recipients, locations, and
+                                about federal awards such as recipients, locations, and
                                 purposes. Separate systems exist for{" "}
                                 <span className="glossary-term">contract</span>{" "}
                                 <GlossaryLink term="contract" /> awards,{" "}

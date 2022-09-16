@@ -83,6 +83,7 @@ function AdditionalData() {
             {/* CENSUS, POPULATION, LOCATION */}
             <ScrollerOverlay
                 content="animation"
+                position="right"
                 onStepEnter={() =>
                     ref1.current?.playAnimation(120, 180, 1.5)
                 }>
