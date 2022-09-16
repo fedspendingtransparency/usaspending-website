@@ -92,7 +92,7 @@ const HomepageResources = () => (
                 </FlexGridRow>
                 <FlexGridRow className="homepage-resources__headline">Find answers to your data questions</FlexGridRow>
             </FlexGridCol>
-            <FlexGridRow className="homepage-resources__card-row" hasGutter gutterSize="lg">
+            <FlexGridRow className="homepage-resources__card-row grid-content" hasGutter gutterSize="lg">
                 {cardObjects.map((card) => (
                     <FlexGridCol
                         className="homepage-resources__card-col"

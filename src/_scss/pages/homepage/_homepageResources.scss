@@ -34,10 +34,13 @@
       font-weight: $font-semibold;
       line-height: 1.25;
       color: $headline-color;
-      margin-bottom: $global-margin * 4.5;
+      margin-bottom: $global-margin * 5;
     }
 
     .homepage-resources__card-row {
+      width: 100%;
+      padding: 0;
+      margin: 0;
       .homepage-resources__card-col:last-child {
         margin-bottom: 0;
       }
@@ -48,9 +51,7 @@
       }
 
       .homepage-resources__card-col {
-        border: solid 1px gold;
-        border-radius: 2px;
-
+        padding: 0;
         margin-bottom: $global-margin * 6;
         @media (min-width: $medium-screen) {
           margin-bottom: 0;
