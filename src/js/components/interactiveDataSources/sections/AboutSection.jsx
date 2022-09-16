@@ -10,13 +10,13 @@ const AboutSection = () => {
         title: "What is the DATA Act?",
         details: (<>
             <p>
-            The Digital Accountability and Transparency Act (DATA Act) was signed into law in 2014, establishing governmentwide standards for financial data and a new reporting process for agencies to improve data quality, transparency, and accountability.
+            The Digital Accountability and Transparency Act (DATA Act) was signed into law in 2014, establishing federal standards for financial data and a new reporting process for agencies to improve data quality, transparency, and accountability.
             </p>
             <p>
-            The result is an ongoing collaboration between the federal community and external stakeholders to create a standard data model and a publicly accessible and searchable website: USAspending.gov.
+            The result is an ongoing partnership between the federal community and external stakeholders to create a standard data model and a publicly accessible and searchable website: USAspending.gov.
             </p>
             <p>
-            Today, more than 100 federal agencies submit financial data on a monthly basis, and thousands of public users visit USAspending every day to access the data via visualizations, downloads, and open APIs.
+            Today, more than 100 federal agencies submit financial data to USAspending on a monthly basis, and thousands of public users visit the site every day to access data via visualizations, downloads, and open APIs.
             </p>
         </>)
     },
@@ -24,7 +24,8 @@ const AboutSection = () => {
         title: "Why was the DATA Act needed?",
         details: (<>
             <p>
-            Before the DATA Act, many programs in the federal government had the same types of spending data about agency expenses and federal awards such as contracts, grants, and loans. However, they weren't all defining their data elements in the same way. These differences made it hard to share or compare data across agencies and programs.
+            Before the DATA Act, many programs in the federal government had the same types
+            of spending data about agency expenses and federal awards such as contracts, grants, and loans. However, they weren't all defining their data elements in the same way. These differences made it hard to share or compare data across agencies and programs.
             </p>
         </>)
     },
@@ -34,10 +35,10 @@ const AboutSection = () => {
             <>
                 <ul className="interactives-guide_bullet-points">
                     <li>
-                        The USAspending data model standardizes data elements and definitions, and the USAspending Broker System is used to validate the data submitted and extracted from agency systems for quality, consistency, and accuracy.
+                    The USAspending data model standardizes data elements and definitions, and the USAspending Broker System validates the data submitted and extracted from agency systems for quality, consistency, and accuracy.
                     </li>
                     <li>
-                        USAspending is built on the principles of user-centered design and Agile software development, leveraging input from the public and federal stakeholders to iteratively release updates and enhancements many times per year.
+                    USAspending is built on principles of user-centered design and Agile software development, leveraging input from the public and federal stakeholders to iteratively release updates and enhancements many times per year.
                     </li>
                 </ul>
             </>
@@ -94,7 +95,7 @@ const AboutSection = () => {
                 </div>
                 <br />
                 <div className="interactives-guide_begin-scroller">
-                    <h2>You can follow the money from the source systems through the submission process to see what is displayed on USAspending.gov.</h2>
+                    <h2>You can follow the money from the source systems through the submission and extraction process to see what is displayed on USAspending.</h2>
 
                     <div className="interactives-guide_scroll-indicator">
                         <h5 id="scroll-down-text">

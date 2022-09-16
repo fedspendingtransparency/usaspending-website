@@ -13,6 +13,17 @@ import Sidebar from '../sharedComponents/sidebar/Sidebar';
 import AboutSection from './sections/AboutSection';
 import IntroSection from './sections/IntroSection';
 import FederalSpendingOverview from './scrollerSections/FederalSpendingOverview';
+import DataTypes from './scrollerSections/DataTypes';
+import DataSubmissionExtraction from './scrollerSections/DataSubmissionExtraction';
+import Frequency from './scrollerSections/Frequency';
+import DataValidation from './scrollerSections/DataValidation';
+import DataFeatures from './scrollerSections/DataFeatures';
+import DataUseCases from './scrollerSections/DataUseCases';
+import DataAvailable from './scrollerSections/DataAvailable';
+import DataSourceSystems from './scrollerSections/DataSourceSystems';
+import AccountData from './scrollerSections/AccountData';
+import AwardData from './scrollerSections/AwardData';
+import AdditionalData from './scrollerSections/AdditionalData';
 
 require('pages/interactiveDataSources/index.scss');
 
@@ -42,6 +53,83 @@ const InteractiveDataSourcesPage = () => {
             showSectionTitle: false,
             scroller: true,
             component: <FederalSpendingOverview />
+        },
+        {
+            name: 'data-available',
+            display: 'Data Available on USAspending',
+            showSectionTitle: false,
+            scroller: true,
+            component: <DataAvailable />
+        },
+        {
+            name: 'data-types',
+            display: 'USAspending Data Types',
+            showSectionTitle: false,
+            scroller: true,
+            component: <DataTypes />
+        },
+        {
+            name: 'data-source-systems',
+            display: 'USAspending Source Systems',
+            showSectionTitle: false,
+            scroller: true,
+            component: <DataSourceSystems />
+        },
+        {
+            name: 'account-data',
+            display: 'USAspending Account Data',
+            showSectionTitle: false,
+            scroller: true,
+            component: <AccountData />
+        },
+        {
+            name: 'award-data',
+            display: 'USAspending Award Data',
+            showSectionTitle: false,
+            scroller: true,
+            component: <AwardData />
+        },
+        {
+            name: 'additional-data',
+            display: 'USAspending Additional Data',
+            showSectionTitle: false,
+            scroller: true,
+            component: <AdditionalData />
+        },
+        {
+            name: 'data-submission-extraction',
+            display: 'Data Submission and Extraction',
+            showSectionTitle: false,
+            scroller: true,
+            component: <DataSubmissionExtraction />
+        },
+        {
+            name: 'frequency',
+            display: 'Frequency of Data Updates',
+            showSectionTitle: false,
+            scroller: true,
+            component: <Frequency />
+        },
+        {
+            name: 'data-validation',
+            display: 'Data Validation',
+            showSectionTitle: false,
+            scroller: true,
+            component: <DataValidation />
+        },
+        {
+            name: 'data-access',
+            display: 'Features on USAspending',
+            showSectionTitle: false,
+            scroller: true,
+            component: <DataFeatures />
+        },
+        {
+            name: 'data-use-cases',
+            display: 'USAspending Use Cases',
+            showSectionTitle: false,
+            scroller: true,
+            component: <DataUseCases />
         }
     ];
     const jumpToSection = (section = '') => {
