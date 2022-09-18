@@ -26,7 +26,7 @@ const FeaturedContent = () => (
                 <FlexGridCol width={12} desktop={6} tablet={6} mobile={12}>
                     <Link to="disaster/covid-19">
                         <CardContainer variant="outline" size="md">
-                            <CardHero fill="#1a4480" img="img/homepage-featured-content/homepage-feature-covid-19.webp" />
+                            <CardHero fill="#3333a3" img="img/homepage-featured-content/homepage-feature-covid-19.webp" />
                             <CardBody
                                 overline="COVID-19 Spending"
                                 headline={
