@@ -10,14 +10,13 @@ const propTypes = {
     img: PropTypes.string,
     fill: PropTypes.string,
     variant: PropTypes.string, // inset or expanded
-    size: PropTypes.string, // sm, md, lg
     imageContainerHeight: PropTypes.string
 };
 
 const CardHero = ({
-    img, fill, variant, size, imageContainerHeight
+    img, fill, variant, imageContainerHeight
 }) => (
-    <div className={`card__hero ${variant} ${size}`} style={{ backgroundColor: `${fill}`, height: `${imageContainerHeight}` }}>
+    <div className={`card__hero ${variant}`} style={{ backgroundColor: `${fill}`, height: `${imageContainerHeight}` }}>
         <img src={`${img}`} role="presentation" alt="" />
     </div>
 );

@@ -11,7 +11,6 @@ const propTypes = {
     size: PropTypes.string, // sm, md, or lg
     fill: PropTypes.string,
     height: PropTypes.number,
-    externalLink: PropTypes.bool,
     className: PropTypes.string
 };
 
@@ -24,10 +23,10 @@ const flexStyles = {
 };
 
 const CardContainer = ({
-    variant, size, children, fill, height, externalLink
+    variant, size, children, fill, height
 }) => (
     <div style={flexStyles}>
-        <div className={`${variant} ${size} card-container ${externalLink ? 'card__external-link' : ''}`} style={{ backgroundColor: `${fill}`, height: `${height}` }}>
+        <div className={`${variant} ${size} card-container`} style={{ backgroundColor: `${fill}`, height: `${height}` }}>
             { children }
         </div>
     </div>

@@ -5,6 +5,7 @@
 
 import React from "react";
 import PropTypes from "prop-types";
+import CardHero from "./CardHero";
 
 const propTypes = {
     overline: PropTypes.string,
@@ -12,13 +13,14 @@ const propTypes = {
     subhead: PropTypes.string,
     text: PropTypes.string,
     variant: PropTypes.string, // inset or no-variant
-    children: PropTypes.element
+    children: PropTypes.element,
+    imageContainerHeight: PropTypes.string
 };
 
 const CardBody = ({
-    overline, headline, subhead, text, variant, children
+    overline, headline, subhead, text, variant, children, imageContainerHeight
 }) => (
-    <div className={`card__body ${variant}`}>
+    <div className={`card__body ${variant}`} style={{ height: imageContainerHeight ? `calc(100% - ${imageContainerHeight} - 12px)` : '' }}>
         {overline && <div className="overline">{overline}</div>}
         {headline && <div className="headline">{headline}</div>}
         {subhead && <div className="subhead">{subhead}</div>}
@@ -28,4 +30,5 @@ const CardBody = ({
 );
 
 CardBody.propTypes = propTypes;
+CardHero.defaultProps = { variant: '' };
 export default CardBody;
