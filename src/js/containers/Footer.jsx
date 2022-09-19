@@ -20,8 +20,7 @@ import BulkDownloadBottomBarContainer from
     'containers/bulkDownload/modal/BulkDownloadBottomBarContainer';
 import FloatingGlossaryButton from 'components/sharedComponents/FloatingGlossaryButton';
 import FooterExternalLink from 'components/sharedComponents/FooterExternalLink';
-import Subscribe from '../components/sharedComponents/Subscribe';
-import Training from '../components/sharedComponents/Training';
+import StayInTouch from "../components/sharedComponents/StayInTouch";
 
 const propTypes = {
     pageName: PropTypes.string.isRequired,
@@ -52,8 +51,7 @@ const Footer = ({
             <DownloadBottomBarContainer
                 filters={filters} />
             <BulkDownloadBottomBarContainer />
-            <Subscribe pageName={pageName} />
-            <Training pageName={pageName} />
+            <StayInTouch pageName={pageName} />
             <footer
                 className="footer-outer-wrap"
                 role="contentinfo"

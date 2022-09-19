@@ -1,15 +1,45 @@
 .featured-content__section {
-  margin: rem(6) 0;
-  @media (min-width: $medium-screen) {
-    margin: rem(6) rem(3) rem(6) 0;
-      // override grid-content bc it adds margins right and left
-      .grid-content {
-        margin: 0 !important;
+  .featured-content__heading {
+    display: flex;
+    flex-direction: row;
+    font-size: rem(16);
+    font-weight: $font-semibold;
+    line-height: 1.25;
+    text-transform: uppercase;
+    color: $theme-color-body;
+    margin-bottom: 16px;
+
+    .featured-content__heading--background {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: row;
+      background-color: $blue-vivid-5v;
+      width: 20px;
+      height: 20px;
+      margin-right: 8px;
+      border-radius: 2px;
+
+      .featured-content__heading--icon {
+        width: 12px;
+        color: $blue-vivid-60v;
       }
-  }
-    .grid-content {
-      border: solid 6px red;
-      border-radius: 4px;
-      height: 50rem;
     }
+    .card-container {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+
+  .featured-content__section--flex-row {
+    display: inline-flex;
+    width: 100%;
+    gap: 40px;
+    flex-direction: column;
+
+    @media (min-width: $tablet-screen) {
+      gap: 24px;
+      flex-direction: row;
+    }
+  }
 }

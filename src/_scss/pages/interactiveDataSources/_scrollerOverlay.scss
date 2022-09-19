@@ -1,3 +1,5 @@
+$mobile-large: 500px;
+
 .scroller-overlay {
   min-height: 100vh;
   display: flex;
@@ -8,7 +10,13 @@
   }
   .scroller-overlay-card-container {
     @import "./scrollerOverlayCard";
-    max-width: 50%;
+    max-width: 40%;
+    @media(max-width: $tablet-screen) {
+      max-width: 45%;
+    }
+    @media(max-width: $mobile-large) {
+      max-width: 100%;
+    }
     @media(max-width: $small-screen) {
       max-width: 100%;
     }

@@ -1,15 +1,18 @@
+$mobile-large: 500px;
+
 .scroller-overlay-card-content {
     width: 100%;
-    background-color: $color-white;
+    background-color: $color-primary-darker;
     margin: 0 0 $global-margin * 4;
-    padding: $global-padding * 3;
+    padding-top: $global-padding * 3;
+    padding-bottom: $global-padding * 3;
+    padding-left: $global-padding * 4;
+    padding-right: $global-padding * 4;
     border-radius: 6px;
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-    min-height: 250px;
     @media (min-width: $medium-screen) {
       display: flex;
       align-items: center;
-      padding: $global-margin * 5;
     }
   
     .scroller-overlay-card__icon-wrapper {
@@ -31,13 +34,34 @@
       font-style: normal;
       line-height: 1.25;
       letter-spacing: normal;
-      color: $color-grayblack;
+      color: $color-white;
       @media (min-width: $medium-screen) {
         padding-bottom: 2px;
       }
+      @media (max-width: $mobile-large) {
+        font-size: $h5-font-size;
+      }
+      @media (max-width: $small-screen) {
+        font-size: $h5-font-size;
+      }
   
-      p {
+      h4 {
         margin: 0;
+        font-size: $h4-font-size;
+        font-weight: $font-semibold;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.25;
+        letter-spacing: normal;
+        @media (min-width: $medium-screen) {
+          padding-bottom: 2px;
+        }
+        @media (max-width: $mobile-large) {
+          font-size: $h5-font-size;
+        }
+        @media (max-width: $small-screen) {
+          font-size: $h5-font-size;
+        }
       }
     }
   
@@ -48,8 +72,8 @@
       font-style: normal;
       line-height: 1.5;
       letter-spacing: normal;
-      color: $color-base;
-      margin-bottom: $global-margin * 3;
+      color: $color-white;
+      margin-bottom: $global-margin * 2;
   
       p {
         margin-bottom: 0;
@@ -67,6 +91,25 @@
       a:hover {
         text-decoration: none;
       }
+    }
+
+    
+    .glossary-term {
+      font-weight: $font-semibold;
+      color: $color-white;
+    }
+    .usda-glossary-link {
+      color: $color-white;
+      &:hover, &:active, &:focus, &:visited {
+          color: $color-gray-light;
+      }
+    }
+    .scroller-overlay-card__link {
+      color: $color-white;
+      font-weight: $font-semibold;
+      font-style: normal;
+      letter-spacing: normal;
+      text-decoration: underline;
     }
   }
   
