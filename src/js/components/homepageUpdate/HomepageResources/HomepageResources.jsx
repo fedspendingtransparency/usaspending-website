@@ -93,9 +93,10 @@ const HomepageResources = () => (
                 <FlexGridRow className="homepage-resources__headline">Find answers to your data questions</FlexGridRow>
             </FlexGridCol>
             <FlexGridRow className="homepage-resources__card-row grid-content" hasGutter gutterSize="lg">
-                {cardObjects.map((card) => (
+                {cardObjects.map((card, index) => (
                     <FlexGridCol
                         className="homepage-resources__card-col"
+                        key={index}
                         mobile={12}
                         tablet={6}
                         desktop={3}>

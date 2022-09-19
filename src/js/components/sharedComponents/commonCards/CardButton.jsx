@@ -11,7 +11,8 @@ import CardContainer from "./CardContainer";
 const propTypes = {
     link: PropTypes.string,
     action: PropTypes.func,
-    text: PropTypes.string || PropTypes.object, // Can accept a string or markup
+    // text: PropTypes.string || PropTypes.object, // Can accept a string or markup
+    text: PropTypes.oneOfType([PropTypes.string, PropTypes.object]), // Can accept a string or markup
     variant: PropTypes.string // primary, secondary, and text
 
 };
