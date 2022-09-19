@@ -1,0 +1,100 @@
+.stay-in-touch__section {
+  // todo - add this color to vars
+  background-color: #edf5ff;
+  padding: $global-padding * 3 $global-padding * 2;
+  @media (min-width: $tablet-screen) {
+    padding: $global-padding * 3 $global-padding * 4;
+  }
+
+  .stay-in-touch__container-row {
+    max-width: 1600px;
+    @media (min-width: $medium-screen) {
+      flex-flow: row nowrap;
+      justify-content: flex-start;
+    }
+    @media (min-width: 1600px) {
+      margin: 0 $grid-column;
+    }
+
+    .stay-in-touch__title-col {
+      margin-bottom: $global-margin * 3;
+      @media (min-width: $medium-screen) {
+        width: rem(250);
+      }
+      @media (min-width: 1600px) {
+        padding: 0;
+        width: unset;
+        margin-right: $global-margin * 4;
+      }
+      .stay-in-touch__title-row {
+        flex-flow: row nowrap;
+      }
+    }
+
+    .stay-in-touch__icon-container {
+      width: rem(35);
+      height: rem(35);
+      border-radius: 4px;
+      // todo - add this color to vars
+      background-color: #1a4480;
+      display: flex;
+      justify-content: center;
+      svg {
+        color: white;
+        width: 20px;
+        height: 20px;
+        align-self: center;
+      }
+    }
+
+    .stay-in-touch__title {
+      font-size: $font-size-28;
+      font-weight: $font-semibold;
+      line-height: 1.25;
+      color: $color-grayblack;
+      margin-left: $global-margin * 2;
+      white-space: nowrap;
+    }
+
+    .stay-in-touch__second-row-container {
+      @media (min-width: 1600px) {
+        padding: 0;
+      }
+      &.top {
+        @media (max-width: $tablet-screen) {
+          margin-bottom: $global-margin * 3;
+        }
+      }
+      .stay-in-touch__second-row-title {
+        font-size: $font-size-20;
+        font-weight: $font-semibold;
+        line-height: 1.25;
+        color: $color-grayblack;
+        margin-bottom: $global-margin;
+      }
+      .stay-in-touch__second-row-text {
+        font-size: $font-size-16;
+        font-weight: $font-normal;
+        line-height: 1.5;
+        // todo - add this color to vars
+        color: #5c5c5c;
+        margin-bottom: $global-margin;
+      }
+      .stay-in-touch__second-row-link {
+        font-size: $font-size-16;
+        font-weight: $font-semibold;
+        line-height: 1.5;
+        color: $color-link;
+        a {
+          &:hover {
+            text-decoration: none;
+            color: $color-primary-darker;
+          }
+          svg {
+            margin-left: $global-margin;
+          }
+        }
+      }
+    }
+  }
+}
