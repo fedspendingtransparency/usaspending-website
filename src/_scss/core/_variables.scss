@@ -43,6 +43,39 @@ $font-bold:        700;
 
 $image-path: './img';
 
+// USWDS Color Tokens
+$orange-30v: #FA9441;
+$orange-warm-40v: #FF580A;
+$mint-40: #34A37E;
+$cyan-30v: #00BDE3;
+$cyan-50: #168092;
+$blue-5: #eff6fb;
+$blue-50: #2378C3;
+$blue-warm-70v: #1A4480;
+$indigo-cool-80v: #1B2B85;
+$violet-50v: #9355DC;
+
+$gray-2: #F9F9F9;
+$gray-10: #E6E6E6;
+$gray-90: #1B1B1B;    // TODO: already in use so need to refactor
+$gray-60: #5C5C5C;    // TODO: already in use so need to refactor
+
+// Theme Colors
+$theme-color-1: $blue-50;
+$theme-color-2: $cyan-50;
+$theme-color-3: $blue-warm-70v;
+$theme-color-4: $indigo-cool-80v;
+$theme-color-accent-1: $mint-40;
+$theme-color-accent-2: $cyan-30v;
+$theme-color-accent-3: $violet-50v;
+$theme-color-accent-4: $orange-warm-40v;
+$theme-color-accent-5: $orange-30v;
+
+$theme-color-headline: $gray-90;
+$theme-color-headline-inverse: $gray-2;
+$theme-color-body: $gray-60;
+$theme-color-body-inverse: $gray-10;
+
 
 // Color
 $color-primary:              #0071bc;
