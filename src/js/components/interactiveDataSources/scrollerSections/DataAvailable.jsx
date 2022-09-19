@@ -7,7 +7,6 @@ import ScrollerOverlayCard from '../scroller/scrollerOverlay/ScrollerOverlayCard
 import GlossaryLink from '../../sharedComponents/GlossaryLink';
 
 function DataAvailable() {
-    // TODO: Revisit backdrop setup for this component
     const ref1 = useRef();
     const ref2 = useRef();
     const ref3 = useRef();

@@ -26,36 +26,6 @@ function AwardData() {
             )
         },
         card2: {
-            heading: <p>FABS (File D2)</p>,
-            content: (
-                <>
-                    <p>
-                        The Financial Assistance Broker Submission (FABS) is how federal agencies submit{" "}
-                        <span className="glossary-term">transaction-level</span>{" "}
-                        <GlossaryLink term="transaction" /> data for{" "}
-                        <span className="glossary-term">financial assistance</span>{" "}
-                        <GlossaryLink term="financial-assistance" /> awards to USAspending. It contains information about award transaction obligation,{" "}
-                        <span className="glossary-term">action date</span>{" "}
-                        <GlossaryLink term="action-date" />,{" "}
-                        <span className="glossary-term">awarding agency</span>{" "}
-                        <GlossaryLink term="awarding-agency" />,{" "}
-                        <span className="glossary-term">recipient location</span>{" "}
-                        <GlossaryLink term="recipient-location" />,{" "}
-                        <span className="glossary-term">place of performance</span>{" "}
-                        <GlossaryLink term="primary-place-of-performance" />, and {" "}
-                        <span className="glossary-term">assistance listing</span>{" "}
-                        <GlossaryLink term="assistance-listings-cfda-program" />,{" "}
-                        among other details.
-                    </p>
-                    <p>
-                        The collection of data in FABS is known as{" "}
-                        <span className="glossary-term">File D2</span>{" "}
-                        <GlossaryLink term="awards-data-file-d" />.
-                    </p>
-                </>
-            )
-        },
-        card3: {
             heading: <p>FPDS (File D1)</p>,
             content: (
                 <>
@@ -90,6 +60,36 @@ function AwardData() {
                     <p>
                         The collection of data in FPDS that USAspending receives is known as{" "}
                         <span className="glossary-term">File D1</span>{" "}
+                        <GlossaryLink term="awards-data-file-d" />.
+                    </p>
+                </>
+            )
+        },
+        card3: {
+            heading: <p>FABS (File D2)</p>,
+            content: (
+                <>
+                    <p>
+                        The Financial Assistance Broker Submission (FABS) is how federal agencies submit{" "}
+                        <span className="glossary-term">transaction-level</span>{" "}
+                        <GlossaryLink term="transaction" /> data for{" "}
+                        <span className="glossary-term">financial assistance</span>{" "}
+                        <GlossaryLink term="financial-assistance" /> awards to USAspending. It contains information about award transaction obligation,{" "}
+                        <span className="glossary-term">action date</span>{" "}
+                        <GlossaryLink term="action-date" />,{" "}
+                        <span className="glossary-term">awarding agency</span>{" "}
+                        <GlossaryLink term="awarding-agency" />,{" "}
+                        <span className="glossary-term">recipient location</span>{" "}
+                        <GlossaryLink term="recipient-location" />,{" "}
+                        <span className="glossary-term">place of performance</span>{" "}
+                        <GlossaryLink term="primary-place-of-performance" />, and {" "}
+                        <span className="glossary-term">assistance listing</span>{" "}
+                        <GlossaryLink term="assistance-listings-cfda-program" />,{" "}
+                        among other details.
+                    </p>
+                    <p>
+                        The collection of data in FABS is known as{" "}
+                        <span className="glossary-term">File D2</span>{" "}
                         <GlossaryLink term="awards-data-file-d" />.
                     </p>
                 </>
@@ -131,6 +131,36 @@ function AwardData() {
             )
         },
         card5: {
+            heading: <p>SAM.gov (File E)</p>,
+            content: (
+                <>
+                    <p>
+                        <a
+                            className="scroller-overlay-card__link"
+                            href="https://sam.gov/"
+                            target="_blank"
+                            rel="noopener noreferrer">
+                            SAM.gov
+                        </a>{" "}
+                        is the “System for Award Management” where potential recipients must
+                        register if they want to be eligible to receive federal{" "}
+                        <span className="glossary-term">prime awards</span>{" "}
+                        <GlossaryLink term="prime-award" />
+                        . USAspending uses SAM.gov as the source
+                        of authoritative recipient name,{" "}
+                        <span className="glossary-term">code</span>{" "}
+                        <GlossaryLink term="unique-entity-identifier-uei" />
+                        , and <span className="glossary-term">executive compensation</span>{" "}
+                        <GlossaryLink term="highly-compensated-officer-total-compensation" />{" "}
+                        data.
+                    </p>
+                    <p>
+                        The collection of executive compensation data in SAM.gov is known as File E.
+                    </p>
+                </>
+            )
+        },
+        card6: {
             heading: <p>FSRS (File F)</p>,
             content: (
                 <>
@@ -158,36 +188,6 @@ function AwardData() {
                     <p>
                         The collection of data in FSRS that USAspending receives is known as
                         File F.
-                    </p>
-                </>
-            )
-        },
-        card6: {
-            heading: <p>SAM.gov (File E)</p>,
-            content: (
-                <>
-                    <p>
-                        <a
-                            className="scroller-overlay-card__link"
-                            href="https://sam.gov/"
-                            target="_blank"
-                            rel="noopener noreferrer">
-                            SAM.gov
-                        </a>{" "}
-                        is the “System for Award Management” where potential recipients must
-                        register if they want to be eligible to receive federal{" "}
-                        <span className="glossary-term">prime awards</span>{" "}
-                        <GlossaryLink term="prime-award" />
-                        . USAspending uses SAM.gov as the source
-                        of authoritative recipient name,{" "}
-                        <span className="glossary-term">code</span>{" "}
-                        <GlossaryLink term="unique-entity-identifier-uei" />
-                        , and <span className="glossary-term">executive compensation</span>{" "}
-                        <GlossaryLink term="highly-compensated-officer-total-compensation" />{" "}
-                        data.
-                    </p>
-                    <p>
-                        The collection of executive compensation data in SAM.gov is known as File E.
                     </p>
                 </>
             )
@@ -222,7 +222,7 @@ function AwardData() {
                 content="animation"
                 onStepEnter={() => {
                     ref1.current?.playAnimation(0, 120, 1.5);
-                    ref2.current?.playAnimation(120, 300, 1);
+                    ref2.current?.playAnimation(120, 300, 1, false);
                 }
                 }>
                 {/* used as transition. no card. */}
@@ -251,8 +251,7 @@ function AwardData() {
                 </div>
             </ScrollerOverlay>
 
-
-            {/* FABS */}
+            {/* FPDS */}
             <ScrollerOverlay
                 content="animation"
                 onStepEnter={() => {
@@ -275,7 +274,7 @@ function AwardData() {
             </ScrollerOverlay>
 
 
-            {/* FPDS */}
+            {/* FABS */}
             <ScrollerOverlay
                 content="animation"
                 onStepEnter={() => {
@@ -320,11 +319,11 @@ function AwardData() {
                 </div>
             </ScrollerOverlay>
 
-            {/* FSRS File F */}
+            {/* SAM */}
             <ScrollerOverlay
                 content="animation"
                 onStepEnter={() => {
-                    ref1.current?.playAnimation(600, 660, 1);
+                    ref1.current?.playAnimation(600, 660, 1.5);
                 }
                 }>
                 {/* used as transition. no card. */}
@@ -342,8 +341,7 @@ function AwardData() {
                 </div>
             </ScrollerOverlay>
 
-
-            {/* SAM */}
+            {/* FSRS File F */}
             <ScrollerOverlay
                 content="animation"
                 onStepEnter={() => {
@@ -370,6 +368,7 @@ function AwardData() {
                 content="animation"
                 onStepEnter={() => {
                     ref1.current?.playAnimation(840, 900, 1.5);
+                    ref2.current?.playAnimation(120, 300, 1, false);
                 }
                 }>
                 {/* used as transition. no card. */}

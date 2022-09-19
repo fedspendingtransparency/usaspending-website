@@ -35,7 +35,7 @@ function Frequency() {
             <ScrollerOverlay
                 content="animation"
                 onStepEnter={() => {
-                    ref1.current?.playAnimation(0, 120, 1);
+                    ref1.current?.playAnimation(0, 120, 1.5);
                     ref2.current?.playAnimation(120, 300, 1, false);
                 }
                 }>
@@ -65,7 +65,7 @@ function Frequency() {
                 content="animation"
                 position="right"
                 onStepEnter={() => {
-                    ref1.current?.playAnimation(300, 360, 1);
+                    ref1.current?.playAnimation(300, 360, 1.5);
                 }
                 }>
                 {/* transition no card */}
@@ -116,7 +116,7 @@ function Frequency() {
                 content="animation"
                 position="right"
                 onStepEnter={() => {
-                    ref1.current?.playAnimation(420, 480, 1);
+                    ref1.current?.playAnimation(420, 480, 1.5);
                 }
                 }>
                 {/* transition no card */}
@@ -174,7 +174,7 @@ function Frequency() {
                 content="animation"
                 position="right"
                 onStepEnter={() => {
-                    ref1.current?.playAnimation(540, 600, 1);
+                    ref1.current?.playAnimation(540, 600, 1.5);
                 }
                 }>
                 {/* transition no card */}
@@ -226,7 +226,7 @@ function Frequency() {
                 content="animation"
                 position="right"
                 onStepEnter={() => {
-                    ref1.current?.playAnimation(660, 720, 1);
+                    ref1.current?.playAnimation(660, 720, 1.5);
                 }
                 }>
                 {/* transition no card */}
@@ -289,7 +289,7 @@ function Frequency() {
                 content="animation"
                 position="right"
                 onStepEnter={() => {
-                    ref1.current?.playAnimation(780, 840, 1);
+                    ref1.current?.playAnimation(780, 840, 1.5);
                 }
                 }>
                 {/* transition no card */}
@@ -319,7 +319,7 @@ function Frequency() {
             <ScrollerOverlay
                 content="animation"
                 onStepEnter={() => {
-                    ref1.current?.playAnimation(900, 960, 1);
+                    ref1.current?.playAnimation(900, 960, 1.5);
                     ref2.current?.playAnimation(120, 300, 1, false);
                 }
                 }>

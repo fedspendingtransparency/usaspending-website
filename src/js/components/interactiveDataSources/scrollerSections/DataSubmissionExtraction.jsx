@@ -34,7 +34,7 @@ function DataSubmissionExtraction() {
             <ScrollerOverlay
                 content="animation"
                 onStepEnter={() => {
-                    ref1.current?.playAnimation(0, 120, 1);
+                    ref1.current?.playAnimation(0, 120, 1.5);
                     ref2.current?.playAnimation(120, 300, 1, false);
                 }
                 }>
@@ -61,7 +61,7 @@ function DataSubmissionExtraction() {
             <ScrollerOverlay
                 content="animation"
                 onStepEnter={() =>
-                    ref1.current?.playAnimation(300, 360, 1)
+                    ref1.current?.playAnimation(300, 360, 1.5)
                 }>
                 {/* used as transition. no card. */}
             </ScrollerOverlay>
@@ -98,7 +98,7 @@ function DataSubmissionExtraction() {
             <ScrollerOverlay
                 content="animation"
                 onStepEnter={() =>
-                    ref1.current?.playAnimation(420, 480, 1)
+                    ref1.current?.playAnimation(420, 480, 1.5)
                 }>
                 {/* used as transition. no card. */}
             </ScrollerOverlay>
@@ -113,7 +113,7 @@ function DataSubmissionExtraction() {
                         heading={<p>Data Extracted</p>}
                         content={
                             <p>
-                                Data in Files D1, D2, E, and F, as well as all reference data,
+                                Data in Files D1, E, and F, as well as all reference data,
                                 are extracted by USAspending from government sources. For more
                                 information about what is included in these extractions, please
                                 consult the Interface Definition Document (IDD) spreadsheet in
@@ -133,8 +133,10 @@ function DataSubmissionExtraction() {
             {/* TRANSITION TO END SECTION */}
             <ScrollerOverlay
                 content="animation"
-                onStepEnter={() =>
-                    ref1.current?.playAnimation(540, 600, 1)
+                onStepEnter={() => {
+                    ref1.current?.playAnimation(540, 600, 1.5);
+                    ref2.current?.playAnimation(120, 300, 1, false);
+                }
                 }>
                 {/* used as transition. no card. */}
             </ScrollerOverlay>

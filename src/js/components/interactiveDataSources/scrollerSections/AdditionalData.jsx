@@ -122,8 +122,10 @@ function AdditionalData() {
             {/* TRANSITION TO END SECTION */}
             <ScrollerOverlay
                 content="animation"
-                onStepEnter={() =>
-                    ref1.current?.playAnimation(240, 300, 1.5)
+                onStepEnter={() => {
+                    ref1.current?.playAnimation(240, 300, 1.5);
+                    ref2.current?.playAnimation(120, 300, 1, false);
+                }
                 }>
                 {/* used as transition. no card. */}
             </ScrollerOverlay>
