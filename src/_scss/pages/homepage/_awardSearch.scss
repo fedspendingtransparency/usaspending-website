@@ -2,7 +2,6 @@
 
   .grid-content {
     height: 50rem;
-    border: solid 6px green;
     border-radius: 4px;
 
     @media (min-width: 1400px) {
@@ -79,6 +78,7 @@
     }
 
     .swiper-slide {
+
     }
 
     .swiper-button-prev, .swiper-button-next {

@@ -64,11 +64,62 @@ const AwardSearch = () => {
                 </FlexGridCol>
                 <FlexGridCol desktop={6} tablet={12} mobile={12} className="award-search__col2">
                     <Swiper centeredSlides watchSlidesVisibility slidesPerView="auto" navigation modules={[Navigation]} style={{ height: "100px", alignItems: "middle" }}>
-                        <SwiperSlide className="award_search__slide" style={{ textAlign: "center", paddingTop: "40px" }}>Slide 1</SwiperSlide>
-                        <SwiperSlide className="award_search__slide" style={{ textAlign: "center" }}>Slide 2</SwiperSlide>
-                        <SwiperSlide className="award_search__slide" style={{ textAlign: "center" }}>Slide 3</SwiperSlide>
-                        <SwiperSlide className="award_search__slide" style={{ textAlign: "center" }}>Slide 4</SwiperSlide>
-                        <SwiperSlide className="award_search__slide" style={{ textAlign: "center" }}>Slide 5</SwiperSlide>
+                        <SwiperSlide className="award_search__slide" style={{ marginBottom: "20px" }}>
+                            <FlexGridCol width={3} desktop={3}>
+                                <CardContainer variant="elevated" size="lg">
+                                    <CardBody
+                                        headline="Federal Spending to Communities"
+                                        text="Search spending to your community using Location filters like Place of Performance">
+                                        <div>
+                                            <img src="img/homepage-award-search/award-search-placeholder-communities.svg" alt="" />
+                                        </div>
+                                        <CardButton text="View spending by state" variant="primary" link="/search" />
+                                    </CardBody>
+                                </CardContainer>
+                            </FlexGridCol>
+                        </SwiperSlide>
+                        <SwiperSlide className="award_search__slide" style={{ marginBottom: "20px" }}>
+                            <FlexGridCol width={3} desktop={3}>
+                                <CardContainer variant="elevated" size="lg">
+                                    <CardBody
+                                        headline="Federal Spending Over Time"
+                                        text="See spending data over time using our Time Period filters, like Fiscal Year">
+                                        <div>
+                                            <img src="img/homepage-award-search/award-search-placeholder-time.svg" alt="" />
+                                        </div>
+                                        <CardButton text="View spending by fiscal year" variant="primary" link="/search" />
+                                    </CardBody>
+                                </CardContainer>
+                            </FlexGridCol>
+                        </SwiperSlide>
+                        <SwiperSlide className="award_search__slide" style={{ marginBottom: "20px" }}>
+                            <FlexGridCol width={3} desktop={3}>
+                                <CardContainer variant="elevated" size="lg">
+                                    <CardBody
+                                        headline="Federal Spending by Industry"
+                                        text="Use the North American Industry Classification System (NAICS) filter to find spending by industry">
+                                        <div>
+                                            <img src="img/homepage-award-search/award-search-placeholder-industry.svg" alt="" />
+                                        </div>
+                                        <CardButton text="View spending by industry" variant="primary" link="/search" />
+                                    </CardBody>
+                                </CardContainer>
+                            </FlexGridCol>
+                        </SwiperSlide>
+                        <SwiperSlide className="award_search__slide" style={{ marginBottom: "20px" }}>
+                            <FlexGridCol width={3} desktop={3}>
+                                <CardContainer variant="elevated" size="lg">
+                                    <CardBody
+                                        headline="Federal Spending by Product or Service"
+                                        text="From medical supplies to aircraft equipment, use Product or Service Codes (PSCs) to see what’s being purchased">
+                                        <div>
+                                            <img src="img/homepage-award-search/award-search-placeholder-product.svg" alt="" />
+                                        </div>
+                                        <CardButton text="View spending by product or service" variant="primary" link="/search" />
+                                    </CardBody>
+                                </CardContainer>
+                            </FlexGridCol>
+                        </SwiperSlide>
                     </Swiper>
                 </FlexGridCol>
             </>)}
