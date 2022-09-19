@@ -9,14 +9,12 @@
         width: rem(20);
         height: rem(20);
         border-radius: 2px;
-        // todo - add this color to vars
-        background-color: #e8f5ff;
+        background-color: $theme-color-accent-7;
         display: flex;
         justify-content: center;
         align-items: center;
         .homepage-resources__book-icon {
-          // todo - add color to vars
-          color: #005ea2;
+          color: $theme-color-accent-8;
         }
       }
 
@@ -66,8 +64,7 @@
           height: rem(40);
           border-radius: 2px;
           margin-bottom: $global-margin * 2;
-          // todo - add color to vars
-          background-color: #e8f5ff;
+          background-color: $theme-color-accent-7;
           display: flex;
           justify-content: center;
           svg {

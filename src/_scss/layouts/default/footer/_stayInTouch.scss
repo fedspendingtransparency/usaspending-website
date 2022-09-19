@@ -1,5 +1,4 @@
 .stay-in-touch__section {
-  // todo - add this color to vars
   background-color: #edf5ff;
   padding: $global-padding * 3 $global-padding * 2;
   @media (min-width: $tablet-screen) {
@@ -35,8 +34,7 @@
       width: rem(35);
       height: rem(35);
       border-radius: 4px;
-      // todo - add this color to vars
-      background-color: #1a4480;
+      background-color: $theme-color-3;
       display: flex;
       justify-content: center;
       svg {
@@ -76,8 +74,7 @@
         font-size: $font-size-16;
         font-weight: $font-normal;
         line-height: 1.5;
-        // todo - add this color to vars
-        color: #5c5c5c;
+        color: $body-color;
         margin-bottom: $global-margin;
       }
       .stay-in-touch__second-row-link {
