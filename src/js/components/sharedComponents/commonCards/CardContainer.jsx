@@ -34,5 +34,5 @@ const CardContainer = ({
 );
 
 CardContainer.propTypes = propTypes;
-CardContainer.defaultProps = { size: 'md', variant: ''};
+CardContainer.defaultProps = { size: 'md', variant: '' };
 export default CardContainer;
