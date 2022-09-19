@@ -14,7 +14,7 @@ import ExternalLink from "../../sharedComponents/ExternalLink";
 const cardObjects = [
     {
         icon: (
-            <div className="homepage-resources__icon-container">
+            <div className="homepage-resources__icon-container guide">
                 <FontAwesomeIcon icon="chart-bar" color="#112f4e" size="lg" />
             </div>
         ),
@@ -30,7 +30,7 @@ const cardObjects = [
     },
     {
         icon: (
-            <div className="homepage-resources__icon-container">
+            <div className="homepage-resources__icon-container dictionary">
                 <FontAwesomeIcon icon="database" color="#34a37e" size="lg" />
             </div>
         ),
@@ -46,7 +46,7 @@ const cardObjects = [
     },
     {
         icon: (
-            <div className="homepage-resources__icon-container">
+            <div className="homepage-resources__icon-container model">
                 <FontAwesomeIcon icon="sitemap" color="#0081a1" size="lg" />
             </div>
         ),
@@ -61,7 +61,7 @@ const cardObjects = [
     },
     {
         icon: (
-            <div className="homepage-resources__icon-container">
+            <div className="homepage-resources__icon-container glossary">
                 <FontAwesomeIcon icon="book" color="#3333a3" size="lg" />
             </div>
         ),

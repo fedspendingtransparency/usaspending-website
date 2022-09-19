@@ -64,11 +64,22 @@
           height: rem(40);
           border-radius: 2px;
           margin-bottom: $global-margin * 2;
-          background-color: $theme-color-accent-7;
           display: flex;
           justify-content: center;
           svg {
             align-self: center;
+          }
+          &.guide {
+            background-color: $theme-color-accent-7;
+          }
+          &.dictionary {
+            background-color: $theme-color-accent-9;
+          }
+          &.model {
+            background-color: $theme-color-accent-10;
+          }
+          &.glossary {
+            background-color: $theme-color-accent-11;
           }
         }
         .headline {
