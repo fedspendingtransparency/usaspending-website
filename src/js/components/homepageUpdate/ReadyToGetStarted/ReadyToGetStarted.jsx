@@ -73,6 +73,7 @@ const ReadyToGetStarted = () => (
                                 img={card.image} />
                             <CardBody
                                 variant="inset"
+                                imageContainerHeight={card.imageHeight}
                                 overline={card.overline}
                                 headline={card.headline}>
                                 <CardButton
