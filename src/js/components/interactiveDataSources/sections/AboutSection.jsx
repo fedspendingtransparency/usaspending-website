@@ -47,7 +47,7 @@ const AboutSection = () => {
     const dataModelCardContent = {
         heading: (
             <>
-                <p>USAspending Data Model</p>
+                <h4>USAspending Data Model</h4>
                 <div role="separator" className="interactives-guide__cardLine" />
             </>
         ),

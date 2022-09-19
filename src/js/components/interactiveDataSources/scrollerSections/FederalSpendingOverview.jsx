@@ -8,7 +8,7 @@ import GlossaryLink from '../../sharedComponents/GlossaryLink';
 function FederalSpendingOverview() {
     const cards = {
         card1: {
-            heading: <p>Appropriations</p>,
+            heading: <h4>Appropriations</h4>,
             content: (
                 <p>
                 Every year, the Treasury Department issues funds to federal agency
@@ -21,7 +21,7 @@ function FederalSpendingOverview() {
             )
         },
         card2: {
-            heading: <p>Obligations</p>,
+            heading: <h4>Obligations</h4>,
             content: (
                 <p>
                 Agencies enter into binding agreements called{" "}
@@ -35,7 +35,7 @@ function FederalSpendingOverview() {
             )
         },
         card3: {
-            heading: <p>Outlays</p>,
+            heading: <h4>Outlays</h4>,
             content: (
                 <>
                     <p>

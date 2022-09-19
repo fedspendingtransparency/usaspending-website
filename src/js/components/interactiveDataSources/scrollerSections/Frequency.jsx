@@ -79,7 +79,7 @@ function Frequency() {
                 }>
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
-                        heading={<p>Files A, B, and C</p>}
+                        heading={<h4>Files A, B, and C</h4>}
                         content={
                             <>
                                 <p>
@@ -130,7 +130,7 @@ function Frequency() {
                 }>
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
-                        heading={<p>FPDS (File D1)</p>}
+                        heading={<h4>FPDS (File D1)</h4>}
                         content={
                             <>
                                 <p>
@@ -188,7 +188,7 @@ function Frequency() {
                 }>
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
-                        heading={<p>FABS (File D2)</p>}
+                        heading={<h4>FABS (File D2)</h4>}
                         content={
                             <>
                                 <p>
@@ -240,7 +240,7 @@ function Frequency() {
                 }>
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
-                        heading={<p>FSRS (File F)</p>}
+                        heading={<h4>FSRS (File F)</h4>}
                         content={
                             <>
                                 <p>
@@ -303,7 +303,7 @@ function Frequency() {
                 }>
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
-                        heading={<p>Reference Data</p>}
+                        heading={<h4>Reference Data</h4>}
                         content={
                             <p>
                                 All reference data (such as location data) are extracted by

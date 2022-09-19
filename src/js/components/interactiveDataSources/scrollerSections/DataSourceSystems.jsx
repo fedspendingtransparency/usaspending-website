@@ -79,7 +79,7 @@ function DataSourceSystems() {
                 }>
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
-                        heading={<p>Agency Budget Execution</p>}
+                        heading={<h4>Agency Budget Execution</h4>}
                         content={
                             <p>
                                 Agency budget execution information shows how agencies across
@@ -117,7 +117,7 @@ function DataSourceSystems() {
                 }>
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
-                        heading={<p>Agency Financial Systems</p>}
+                        heading={<h4>Agency Financial Systems</h4>}
                         content={
                             <p>
                                 Federal agencies maintain business systems to track their own
@@ -147,7 +147,7 @@ function DataSourceSystems() {
                 }>
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
-                        heading={<p>Governmentwide Award Systems</p>}
+                        heading={<h4>Governmentwide Award Systems</h4>}
                         content={
                             <p>
                             Agencies maintain detailed records of their federal awards in
@@ -187,7 +187,7 @@ function DataSourceSystems() {
                 }>
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
-                        heading={<p>Additional Government Data</p>}
+                        heading={<h4>Additional Government Data</h4>}
                         content={
                             <p>
                                 Certain agencies are considered authoritative sources for

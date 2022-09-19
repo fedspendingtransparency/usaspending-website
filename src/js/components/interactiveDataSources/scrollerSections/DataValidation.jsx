@@ -29,7 +29,7 @@ function DataValidation() {
                 position="right">
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
-                        heading={<p>TBD</p>}
+                        heading={<h4>TBD</h4>}
                         content={<p>[Intro card]</p>} />
                 </div>
             </ScrollerOverlay>
@@ -38,7 +38,7 @@ function DataValidation() {
                 position="right">
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
-                        heading={<p>TBD</p>}
+                        heading={<h4>TBD</h4>}
                         content={<p>[Example validation 1]</p>} />
                 </div>
             </ScrollerOverlay>
@@ -47,7 +47,7 @@ function DataValidation() {
                 position="right">
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
-                        heading={<p>TBD</p>}
+                        heading={<h4>TBD</h4>}
                         content={<p>[Example validation 2]</p>} />
                 </div>
             </ScrollerOverlay>
@@ -56,7 +56,7 @@ function DataValidation() {
                 position="right">
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
-                        heading={<p>TBD</p>}
+                        heading={<h4>TBD</h4>}
                         content={<p>[Example validation 3]</p>} />
                 </div>
             </ScrollerOverlay>
@@ -68,7 +68,7 @@ function DataValidation() {
                 }>
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
-                        heading={<p>TBD</p>}
+                        heading={<h4>TBD</h4>}
                         content={<p>[Example validation 4]</p>} />
                 </div>
             </ScrollerOverlay>

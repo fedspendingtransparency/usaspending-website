@@ -35,7 +35,7 @@ function DataFeatures() {
                 position="right">
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
-                        heading={<p>Features for Account Data</p>}
+                        heading={<h4>Features for Account Data</h4>}
                         content={
                             <>
                                 <p>
@@ -88,7 +88,7 @@ function DataFeatures() {
                 position="right">
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
-                        heading={<p>Features for Award Data</p>}
+                        heading={<h4>Features for Award Data</h4>}
                         content={
                             <>
                                 <p>
@@ -149,7 +149,7 @@ function DataFeatures() {
                 position="right">
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
-                        heading={<p>Features for COVID-19 and Infrastructure Spending Data</p>}
+                        heading={<h4>Features for COVID-19 and Infrastructure Spending Data</h4>}
                         content={
                             <>
                                 <p>
@@ -212,7 +212,7 @@ function DataFeatures() {
                 }>
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
-                        heading={<p>Features for Downloads and APIs</p>}
+                        heading={<h4>Features for Downloads and APIs</h4>}
                         content={
                             <>
                                 <p>

@@ -83,7 +83,7 @@ function DataTypes() {
                 }>
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
-                        heading={<p>Account Data</p>}
+                        heading={<h4>Account Data</h4>}
                         content={
                             <p>
                                 Account data contain information about an agency's overall
@@ -114,7 +114,7 @@ function DataTypes() {
                 }>
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
-                        heading={<p>Award Data</p>}
+                        heading={<h4>Award Data</h4>}
                         content={
                             <p>
                                 Award data contain rich details about individual federal awards,
@@ -146,7 +146,7 @@ function DataTypes() {
                 }>
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
-                        heading={<p>Additional Data</p>}
+                        heading={<h4>Additional Data</h4>}
                         content={
                             <p>
                                 USAspending extracts reference data from government sources to

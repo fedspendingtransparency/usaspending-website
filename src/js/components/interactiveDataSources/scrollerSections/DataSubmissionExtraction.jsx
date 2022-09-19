@@ -73,7 +73,7 @@ function DataSubmissionExtraction() {
                 }>
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
-                        heading={<p>Data Submitted</p>}
+                        heading={<h4>Data Submitted</h4>}
                         content={
                             <p>
                                 Files A, B, and C, as well as FABS data, are all sent directly
@@ -110,7 +110,7 @@ function DataSubmissionExtraction() {
                 }>
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
-                        heading={<p>Data Extracted</p>}
+                        heading={<h4>Data Extracted</h4>}
                         content={
                             <p>
                                 Data in Files D1, E, and F, as well as all reference data,

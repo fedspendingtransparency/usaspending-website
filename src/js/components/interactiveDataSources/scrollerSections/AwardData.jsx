@@ -9,7 +9,7 @@ import GlossaryLink from '../../sharedComponents/GlossaryLink';
 function AwardData() {
     const cards = {
         card1: {
-            heading: <p>File C</p>,
+            heading: <h4>File C</h4>,
             content: (
                 <p>
                     <span className="glossary-term">
@@ -26,7 +26,7 @@ function AwardData() {
             )
         },
         card2: {
-            heading: <p>FPDS (File D1)</p>,
+            heading: <h4>FPDS (File D1)</h4>,
             content: (
                 <>
                     <p>
@@ -66,7 +66,7 @@ function AwardData() {
             )
         },
         card3: {
-            heading: <p>FABS (File D2)</p>,
+            heading: <h4>FABS (File D2)</h4>,
             content: (
                 <>
                     <p>
@@ -96,7 +96,7 @@ function AwardData() {
             )
         },
         card4: {
-            heading: <p>Linked Awards</p>,
+            heading: <h4>Linked Awards</h4>,
             content: (
                 <>
                     <p>
@@ -131,7 +131,7 @@ function AwardData() {
             )
         },
         card5: {
-            heading: <p>SAM.gov (File E)</p>,
+            heading: <h4>SAM.gov (File E)</h4>,
             content: (
                 <>
                     <p>
@@ -161,7 +161,7 @@ function AwardData() {
             )
         },
         card6: {
-            heading: <p>FSRS (File F)</p>,
+            heading: <h4>FSRS (File F)</h4>,
             content: (
                 <>
                     <p>

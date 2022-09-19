@@ -8,7 +8,7 @@ import GlossaryLink from '../../sharedComponents/GlossaryLink';
 function AccountData() {
     const cards = {
         card1: {
-            heading: <p>GTAS</p>,
+            heading: <h4>GTAS</h4>,
             content: (
                 <p>
                 Agency budget execution information is submitted in a system called
@@ -22,7 +22,7 @@ function AccountData() {
             )
         },
         card2: {
-            heading: <p>File A</p>,
+            heading: <h4>File A</h4>,
             content: (
                 <p>
                     <span className="glossary-term">File A (“Account Balances”)</span>{" "}
@@ -37,7 +37,7 @@ function AccountData() {
             )
         },
         card3: {
-            heading: <p>File B</p>,
+            heading: <h4>File B</h4>,
             content: (
                 <>
                     <p>

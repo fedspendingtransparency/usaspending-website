@@ -17,7 +17,7 @@ function AdditionalData() {
             )
         },
         card2: {
-            heading: <p>Location Data</p>,
+            heading: <h4>Location Data</h4>,
             content: (
                 <p>
                     USAspending standardizes the location elements in its award data by
@@ -28,7 +28,7 @@ function AdditionalData() {
             )
         },
         card3: {
-            heading: <p>Federal Hierarchy Data</p>,
+            heading: <h4>Federal Hierarchy Data</h4>,
             content: (
                 <p>
                     There are two federal hierarchies that relate agencies to their

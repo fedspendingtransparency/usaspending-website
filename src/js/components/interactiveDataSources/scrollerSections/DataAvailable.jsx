@@ -89,7 +89,7 @@ function DataAvailable() {
                 }>
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
-                        heading={<p>Data Available on USAspending</p>}
+                        heading={<h4>Data Available on USAspending</h4>}
                         content={
                             <p>
                                 USAspending receives over 400 data elements coming from
@@ -130,7 +130,7 @@ function DataAvailable() {
                 }>
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
-                        heading={<p>Data Not Available on USAspending</p>}
+                        heading={<h4>Data Not Available on USAspending</h4>}
                         content={(
                             <>
                                 <p>

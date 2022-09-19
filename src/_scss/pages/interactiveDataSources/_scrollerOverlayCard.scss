@@ -45,8 +45,23 @@ $mobile-large: 500px;
         font-size: $h5-font-size;
       }
   
-      p {
+      h4 {
         margin: 0;
+        font-size: $h4-font-size;
+        font-weight: $font-semibold;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.25;
+        letter-spacing: normal;
+        @media (min-width: $medium-screen) {
+          padding-bottom: 2px;
+        }
+        @media (max-width: $mobile-large) {
+          font-size: $h5-font-size;
+        }
+        @media (max-width: $small-screen) {
+          font-size: $h5-font-size;
+        }
       }
     }
   
