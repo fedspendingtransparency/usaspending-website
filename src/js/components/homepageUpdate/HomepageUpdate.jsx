@@ -12,7 +12,6 @@ import AwardSearch from "../homepage/AwardSearch/AwardSearch";
 import HomepageExploreToggle from "./HomepageExploreToggle/HomepageExploreToggle";
 import HomepageResources from "./HomepageResources/HomepageResources";
 import ReadyToGetStarted from "./ReadyToGetStarted/ReadyToGetStarted";
-import StayInTouch from "./StayInTouch/StayInTouch";
 import HomepageFirstRow from "./HomepageFirstRow/HomepageFirstRow";
 import FeatureFlag from "../sharedComponents/FeatureFlag";
 
@@ -33,7 +32,6 @@ const HomepageUpdate = () => (
                 <HomepageExploreToggle />
                 <HomepageResources />
                 <ReadyToGetStarted />
-                <StayInTouch />
             </main>
         </PageWrapper>
     </FeatureFlag>);
