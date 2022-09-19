@@ -57,7 +57,7 @@
       color: $body-color;
     }
     .award-search__swiper {
-      height: 100px;
+      height: auto;
     }
     .swiper-wrapper {
       @media (min-width: 1400px) {
@@ -79,7 +79,6 @@
     }
 
     .swiper-slide {
-      padding-top: 40px;
     }
 
     .swiper-button-prev, .swiper-button-next {

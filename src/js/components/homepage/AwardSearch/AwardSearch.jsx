@@ -9,6 +9,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper";
 import { throttle } from 'lodash';
+import CardButton from "../../sharedComponents/commonCards/CardButton";
+import CardBody from "../../sharedComponents/commonCards/CardBody";
+import CardContainer from "../../sharedComponents/commonCards/CardContainer";
 
 /* eslint-disable */
 import "swiper/css/bundle";
@@ -83,11 +86,51 @@ const AwardSearch = () => {
                         </FlexGridCol>
                         <FlexGridCol desktop={8} tablet={12} mobile={12} className="award-search__col2">
                             <Swiper pagination={isMobile} navigation={!isMobile} modules={[Pagination, Navigation]} className="award-search__swiper">
-                                <SwiperSlide className="award_search__slide" style={{ textAlign: "center", marginBottom: "20px" }}>Slide 1</SwiperSlide>
-                                <SwiperSlide className="award_search__slide" style={{ textAlign: "center", marginBottom: "20px" }}>Slide 2</SwiperSlide>
-                                <SwiperSlide className="award_search__slide" style={{ textAlign: "center", marginBottom: "20px" }}>Slide 3</SwiperSlide>
-                                <SwiperSlide className="award_search__slide" style={{ textAlign: "center", marginBottom: "20px" }}>Slide 4</SwiperSlide>
-                                <SwiperSlide className="award_search__slide" style={{ textAlign: "center", marginBottom: "20px" }}>Slide 5</SwiperSlide>
+                                <SwiperSlide className="award_search__slide" style={{ marginBottom: "20px" }}>
+                                    <FlexGridCol width={3} desktop={3}>
+                                        <CardContainer variant="elevated" size="lg">
+                                            <CardBody>
+                                                <div>When awarding funding, the U.S. government enters a binding agreement called an obligation, which meand that the federal government promises to spend the money.</div>
+                                            </CardBody>
+                                        </CardContainer>
+                                    </FlexGridCol>
+                                </SwiperSlide>
+                                <SwiperSlide className="award_search__slide" style={{ marginBottom: "20px" }}>
+                                    <FlexGridCol width={3} desktop={3}>
+                                        <CardContainer variant="elevated" size="lg">
+                                            <CardBody>
+                                                <div>When awarding funding, the U.S. government enters a binding agreement called an obligation, which meand that the federal government promises to spend the money.</div>
+                                            </CardBody>
+                                        </CardContainer>
+                                    </FlexGridCol>
+                                </SwiperSlide>
+                                <SwiperSlide className="award_search__slide" style={{ marginBottom: "20px" }}>
+                                    <FlexGridCol width={3} desktop={3}>
+                                        <CardContainer variant="elevated" size="lg">
+                                            <CardBody>
+                                                <div>When awarding funding, the U.S. government enters a binding agreement called an obligation, which meand that the federal government promises to spend the money.</div>
+                                            </CardBody>
+                                        </CardContainer>
+                                    </FlexGridCol>
+                                </SwiperSlide>
+                                <SwiperSlide className="award_search__slide" style={{ marginBottom: "20px" }}>
+                                    <FlexGridCol width={3} desktop={3}>
+                                        <CardContainer variant="elevated" size="lg">
+                                            <CardBody>
+                                                <div>When awarding funding, the U.S. government enters a binding agreement called an obligation, which meand that the federal government promises to spend the money.</div>
+                                            </CardBody>
+                                        </CardContainer>
+                                    </FlexGridCol>
+                                </SwiperSlide>
+                                <SwiperSlide className="award_search__slide" style={{ marginBottom: "20px" }}>
+                                    <FlexGridCol width={3} desktop={3}>
+                                        <CardContainer variant="elevated" size="lg">
+                                            <CardBody>
+                                                <div>When awarding funding, the U.S. government enters a binding agreement called an obligation, which meand that the federal government promises to spend the money.</div>
+                                            </CardBody>
+                                        </CardContainer>
+                                    </FlexGridCol>
+                                </SwiperSlide>
                             </Swiper>
                         </FlexGridCol>
                     </>)}
