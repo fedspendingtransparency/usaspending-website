@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CardContainer from "../../sharedComponents/commonCards/CardContainer";
 import CardBody from "../../sharedComponents/commonCards/CardBody";
 import CardButton from "../../sharedComponents/commonCards/CardButton";
+import ExternalLink from "../../sharedComponents/ExternalLink";
 
 const cardObjects = [
     {
@@ -53,11 +54,10 @@ const cardObjects = [
         text: 'Learn how our data is organized',
         buttonText: (
             <>
-                <div>View the model&nbsp;&nbsp;</div>
+                <ExternalLink url="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html" isCard>View the model&nbsp;&nbsp;</ExternalLink>
                 <FontAwesomeIcon icon="arrow-right" />
             </>
-        ),
-        buttonLink: ''
+        )
     },
     {
         icon: (
