@@ -11,21 +11,16 @@ const propTypes = {
     size: PropTypes.string, // sm, md, or lg
     fill: PropTypes.string,
     height: PropTypes.number,
-    className: PropTypes.string
-};
-
-const flexStyles = {
-    display: "flex",
-    "flex-direction": "column",
-    flex: "1 1 auto",
-    "flex-basis": "auto",
-    height: "100%"
+    className: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.object
+    ])
 };
 
 const CardContainer = ({
     variant, size, children, fill, height
 }) => (
-    <div style={flexStyles}>
+    <div className="card-column">
         <div className={`${variant} ${size} card-container`} style={{ backgroundColor: `${fill}`, height: `${height}` }}>
             { children }
         </div>

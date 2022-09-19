@@ -81,6 +81,12 @@ a:hover, a:active {
     }
   }
 }
+.card-column {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  height: 100%;
+}
 
 .card-container {
   flex: 1 1 auto;

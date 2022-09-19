@@ -9,11 +9,17 @@ import CardHero from "./CardHero";
 
 const propTypes = {
     overline: PropTypes.string,
-    headline: PropTypes.string || PropTypes.element,
+    headline: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.object
+    ]),
     subhead: PropTypes.string,
     text: PropTypes.string,
     variant: PropTypes.string, // inset or no-variant
-    children: PropTypes.element,
+    children: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.object
+    ]),
     imageContainerHeight: PropTypes.string
 };
 

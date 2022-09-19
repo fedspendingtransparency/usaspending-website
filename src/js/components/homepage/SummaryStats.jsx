@@ -108,7 +108,7 @@ const SummaryStats = () => {
                             }
                         </div>
                     </FlexGridCol>
-                    <div style={{ display: "flex", "flex-direction": "row", "justify-content": "center" }}>
+                    <div style={{ display: "flex", flexDirection: "row", justifyContent: "center" }}>
                         <div className="summary-stats__vertical-border">&nbsp;</div>
                     </div>
                     <FlexGridCol width={2} className="summary-stats__spending-link">
@@ -135,7 +135,7 @@ const SummaryStats = () => {
             <div className="summary-stats-mobile">
                 <FlexGridRow className="grid-content">
                     <FlexGridCol width={12} className="summary-stats__budget-total-container">
-                        <span>So far this year, <span style={{ "white-space": "nowrap" }}>the federal government</span></span><br />
+                        <span>So far this year, <span style={{ whiteSpace: "nowrap" }}>the federal government</span></span><br />
                         <span>plans to spend {loading ? <span className="dot-pulse" /> : <span className="summary-stats__budget-total">{formatMoneyWithUnits(budgetTotal)}</span>} including…</span>
                     </FlexGridCol>
                     <FlexGridCol
