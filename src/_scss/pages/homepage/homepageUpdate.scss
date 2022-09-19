@@ -23,30 +23,28 @@
       }
     }
 
-    .usa-dt-flex-grid__row.grid-content {
+    .grid-content {
       margin: 0 rem(16);
+      max-width: 1600px;
       @media (min-width: $tablet-screen) {
         margin: 0 rem(32);
       }
-      @media (min-width: $large-screen) {
-        margin: 0 $grid-column;
-      }
       @media (min-width: 1600px) {
-        max-width: 1400px;
+        margin: 0 $grid-column;
       }
     }
   }
 
+  @import "homepageFirstRow";
   @import "hero/hero";
   @import "summaryStats";
   @import "featuredContent";
   @import "wordOfTheDay";
   @import "awardSearch";
   @import "homepageExploreToggle";
-  @import "downloadExplorePlaceholder";
+  @import "exploreDataPlaceholder";
   @import "homepageResources";
   @import "readyToGetStarted";
-  @import "stayInTouch";
 }
 
 
