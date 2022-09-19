@@ -25,11 +25,11 @@
 
     .grid-content {
       margin: 0 rem(16);
-      max-width: $site-max-width;
+      max-width: 1600px;
       @media (min-width: $tablet-screen) {
         margin: 0 rem(32);
       }
-      @media (min-width: $large-screen) {
+      @media (min-width: 1600px) {
         margin: 0 $grid-column;
       }
     }
@@ -45,7 +45,6 @@
   @import "exploreDataPlaceholder";
   @import "homepageResources";
   @import "readyToGetStarted";
-  @import "stayInTouch";
 }
 
 
