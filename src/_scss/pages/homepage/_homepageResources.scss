@@ -76,9 +76,6 @@
         }
         .text {
           margin-bottom: $global-margin * 2;
-          @media (min-width: $medium-screen) {
-            min-height: rem(48)
-          }
         }
       }
     }
