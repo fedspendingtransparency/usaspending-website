@@ -1,5 +1,5 @@
 .stay-in-touch__section {
-  background-color: #edf5ff;
+  background-color: $theme-color-5;
   padding: $global-padding * 3 $global-padding * 2;
   @media (min-width: $tablet-screen) {
     padding: $global-padding * 3 $global-padding * 4;
