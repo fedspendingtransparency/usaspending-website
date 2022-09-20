@@ -1,8 +1,9 @@
 .award-search__section {
 
   .grid-content {
-    height: 50rem;
+    margin-bottom: 72px;
     border-radius: 4px;
+    min-height: 50rem;
 
     @media (min-width: 1400px) {
       align-items: center;
@@ -10,6 +11,10 @@
     
     .award-search__col1 {
       align-items: center;
+      @media (min-width: 1400px) {
+        display: inline;
+        width: 35%;
+      }
     }
     .award-search__overline-div {
       display: flex;
@@ -54,6 +59,10 @@
       line-height: 1.5;
       letter-spacing: normal;
       color: $body-color;
+
+      @media(min-width: 320px) {
+        margin-bottom: 40px;
+      }
     }
     .award-search__swiper {
       height: auto;
@@ -66,19 +75,83 @@
     .swiper-pagination-bullet-active {
       background-color: $gray-cool-60;
     }
-    .swiper-slide-next {
-      opacity: .25;
+    .swiper-slide-next { // next slide up
+      opacity: .5;
+
+      @media(min-width:320px) {
+
+      }
+      @media(min-width:768px) {
+        transform: translate(-7rem, 0);
+      }
+      @media(min-width:1200px) {
+      }
+      @media(min-width:1400px) {
+      }
+      
+    }
+    .swiper-slide-visible { // the size of the slide you can see
+      opacity: 1;
+      @media(min-width:320px) {
+      }
+      @media(min-width:768px) {
+        transform: translate(-10rem, 0);
+      }
+      @media(min-width:1200px) {
+      }
+      @media(min-width:1400px) {
+      }
+    }
+    .swiper-slide-active { // the space the visible slide occupies (box including the slide)
+      @media(min-width:320px) {
+        min-height:514px;
+        transform:translateX(4%);
+      }
+      @media(min-width:600px) {
+        transform:translateX(10%);
+      }
+      @media(min-width:670px) {
+        transform:translateX(12%);
+      }
+      @media(min-width:700px) {
+        transform:translateX(15%);
+      }
+      @media(min-width:720px) {
+        transform:translateX(17%);
+      }
+      @media(min-width:768px) {
+        transform: translateX(18%);
+      }
+      @media(min-width:800px) {
+        transform: translateX(20%);
+      }
+      @media(min-width:850px) {
+        transform: translateX(21%);
+      }
+      @media(min-width:900px) {
+        transform: translateX(24%);
+      }
+      @media(min-width:950px) {
+        transform: translateX(25%);
+      }
+      @media(min-width:992px) {
+        transform: translateX(0%);
+      }
+      @media(min-width:1050px) {
+        transform: translateX(25%);
+      }
+      @media(min-width:1100px) {
+        transform: translateX(25%);
+      }
+      @media(min-width:1200px) {
+      }
+      @media(min-width:1400px) {
+        transform: translateX(10%);
+      }
     }
 
     .swiper-button-disabled{
       display:none;   
-    }
-    .swiper-slide-visible {
-      opacity: 1;
-    }
-
-    .swiper-slide {
-
     }
 
     .swiper-button-prev, .swiper-button-next {
@@ -98,15 +171,21 @@
       overflow: visible;
     }
     .award-search__col2 {
-      @media (max-width: 1400px) {
-        display: flex;
+      @media(min-width:1050px) {
+        width:100%;
       }
-      @media (width: 1400px) {
+      @media (min-width: 1400px) {
         display: inline;
+        width: 50%;
       }
       margin-left: auto;
       margin-right: 0;
       align-items: center;
+
+      .usa-dt-flex-grid__col-3 {
+        max-width: 484px;
+        width: 90%;
+      }
     }
   }
   

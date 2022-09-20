@@ -63,7 +63,7 @@ const AwardSearch = () => {
                     <p className="award-search__subtext">Find information on awards such as contracts, loans, and grants based on location, industry, and more.</p>
                 </FlexGridCol>
                 <FlexGridCol desktop={6} tablet={12} mobile={12} className="award-search__col2">
-                    <Swiper centeredSlides watchSlidesVisibility slidesPerView="auto" navigation modules={[Navigation]} style={{ height: "100px", alignItems: "middle" }}>
+                    <Swiper centeredSlides watchSlidesVisibility slidesPerView="auto" spaceBetween={0} navigation modules={[Navigation]} style={{ alignItems: "middle" }}>
                         <SwiperSlide className="award_search__slide" style={{ marginBottom: "20px" }}>
                             <FlexGridCol width={3} desktop={3}>
                                 <CardContainer variant="elevated" size="lg">
@@ -136,7 +136,7 @@ const AwardSearch = () => {
                             <p className="award-search__subtext">Find information on awards such as contracts, loans, and grants based on location, industry, and more.</p>
                         </FlexGridCol>
                         <FlexGridCol desktop={8} tablet={12} mobile={12} className="award-search__col2">
-                            <Swiper pagination={isMobile} navigation={!isMobile} modules={[Pagination, Navigation]} className="award-search__swiper">
+                            <Swiper centeredSlides pagination={isMobile} navigation={!isMobile} watchSlidesVisibility slidesPerView="auto" spaceBetween={0} modules={[Pagination, Navigation]} className="award-search__swiper">
                                 <SwiperSlide className="award_search__slide" style={{ marginBottom: "20px" }}>
                                     <FlexGridCol width={3} desktop={3}>
                                         <CardContainer variant="elevated" size="lg">
