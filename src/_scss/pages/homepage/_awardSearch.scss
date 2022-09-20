@@ -77,29 +77,14 @@
     }
     .swiper-slide-next { // next slide up
       opacity: .5;
-
-      @media(min-width:320px) {
-
-      }
       @media(min-width:768px) {
         transform: translate(-7rem, 0);
       }
-      @media(min-width:1200px) {
-      }
-      @media(min-width:1400px) {
-      }
-      
     }
     .swiper-slide-visible { // the size of the slide you can see
       opacity: 1;
-      @media(min-width:320px) {
-      }
       @media(min-width:768px) {
         transform: translate(-10rem, 0);
-      }
-      @media(min-width:1200px) {
-      }
-      @media(min-width:1400px) {
       }
     }
     .swiper-slide-active { // the space the visible slide occupies (box including the slide)
@@ -142,8 +127,6 @@
       }
       @media(min-width:1100px) {
         transform: translateX(25%);
-      }
-      @media(min-width:1200px) {
       }
       @media(min-width:1400px) {
         transform: translateX(10%);
