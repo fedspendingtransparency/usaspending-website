@@ -14,7 +14,7 @@ const propTypes = {
 };
 
 const CardHero = ({
-    img, fill, variant = "expanded", imageContainerHeight
+    img, fill, variant, imageContainerHeight
 }) => (
     <div className={`card__hero ${variant}`} style={{ backgroundColor: `${fill}`, height: `${imageContainerHeight}` }}>
         <img src={`${img}`} role="presentation" alt="" />
