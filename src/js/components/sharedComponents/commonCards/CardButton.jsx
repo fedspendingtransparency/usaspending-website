@@ -6,7 +6,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import CardContainer from "./CardContainer";
 
 const propTypes = {
     link: PropTypes.string,
@@ -20,7 +19,7 @@ const propTypes = {
 };
 
 const CardButton = ({
-    link, action, text, variant
+    link, action, text, variant = "secondary"
 }) => {
     const variantMapper = {
         primary: "card__button--primary",
@@ -42,6 +41,4 @@ const CardButton = ({
 };
 
 CardButton.propTypes = propTypes;
-CardContainer.defaultProps = { variant: 'secondary' };
-
 export default CardButton;
