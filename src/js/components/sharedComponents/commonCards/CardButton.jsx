@@ -23,6 +23,7 @@ const CardButton = ({
 }) => {
     const variantMapper = {
         primary: "card__button--primary",
+        sedondary: "",
         text: "card__button--borderless"
     };
 
