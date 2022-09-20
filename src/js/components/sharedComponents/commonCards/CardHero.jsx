@@ -14,7 +14,7 @@ const propTypes = {
 };
 
 const CardHero = ({
-    img, fill, variant, imageContainerHeight
+    img, fill, variant = "expanded", imageContainerHeight
 }) => (
     <div className={`card__hero ${variant}`} style={{ backgroundColor: `${fill}`, height: `${imageContainerHeight}` }}>
         <img src={`${img}`} role="presentation" alt="" />
@@ -22,6 +22,4 @@ const CardHero = ({
 );
 
 CardHero.propTypes = propTypes;
-CardHero.defaultProps = { variant: 'expanded' };
-
 export default CardHero;

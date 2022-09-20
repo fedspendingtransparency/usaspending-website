@@ -1,10 +1,9 @@
 .ready-to-get-started__section {
   padding: $global-padding * 6 0;
-  // todo - add this color to vars
-  background-color: #1a4480;
+  background-color: $theme-color-3;
 
   .ready-to-get-started__title {
-    color: #fff;
+    color: $color-white;
     font-size: $font-size-40;
     font-weight: $font-semibold;
     line-height: 1.25;
