@@ -1,9 +1,22 @@
 .explore-data__section {
   margin: rem(6) 0;
 
+  .explore-data__color-bar {
+    //background-color: $blue-warm-70v;
+    //height: 262px
+  }
+
   .grid-content {
     height: 50rem;
     border: solid 6px purple;
     border-radius: 4px;
+
+    .explore-data__title {
+      font-size: $font-size-40;
+      font-weight: $font-semibold;
+      line-height: 1.25;
+      text-align: center;
+      color: #1b1b1b;
+    }
   }
 }

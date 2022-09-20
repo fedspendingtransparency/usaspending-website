@@ -6,8 +6,61 @@
 import React, { useState } from 'react';
 import { FlexGridRow, Tabs } from 'data-transparency-ui';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import ExploreDataPlaceholder from "../../homepage/ExploreDataPlaceholder/ExploreDataPlaceholder";
-import AccessDataPlaceholder from "../../homepage/AccessDataPlaceholder/AccessDataPlaceholder";
+import ExploreTheData from "../../homepage/ExploreTheData/ExploreTheData";
+
+const exploreDataTitle = 'Browse ready-made analyses with our Spending Profiles';
+const exploreData = [
+    {
+        fillColor: '$theme-color-2',
+        headline: 'Tools for understanding agency spending',
+        text: 'Use our interactive tools to find out how federal agencies are spending money',
+        buttonText: 'Explore Agency Profiles',
+        buttonLink: ''
+    },
+    {
+        // todo - add color to vars
+        fillColor: '#009ec1',
+        headline: 'Insights into federal award recipients',
+        text: 'See who is receiving contracts, grants, loans, and other types of awards',
+        buttonText: 'View Recipient Profiles',
+        buttonLink: ''
+    },
+    {
+        fillColor: '$theme-color-6',
+        headline: 'Overview of federal awards made to states ',
+        text: 'Find data on contracts, grants, and other types of awards made in each state',
+        buttonText: 'Browse State Profiles',
+        buttonLink: ''
+    }
+];
+
+const accessDataTitle = 'Create your own analyses using USAspending data';
+const accessData = [
+    {
+        // todo - add color to vars
+        fillColor: '#783cb9',
+        headline: 'Download prime and sub-award data',
+        text: 'Create a custom download with details on specific awards',
+        buttonText: 'Go to award data download',
+        buttonLink: ''
+    },
+    {
+        // todo - add color to vars
+        fillColor: '#4a50c4',
+        headline: 'Download all federal spending data',
+        text: 'Our account data includes award and non-award spending',
+        buttonText: 'Go to account data download',
+        buttonLink: ''
+    },
+    {
+        // todo - add color to vars
+        fillColor: '#0050d8',
+        headline: 'Use our API for your products',
+        text: 'Our API is open, allowing you to create your own data visualizations',
+        buttonText: 'View API endpoints',
+        buttonLink: ''
+    }
+];
 
 const toggleTabs = [
     {
@@ -49,9 +102,9 @@ const HomepageExploreToggle = () => {
                 </div>
             </FlexGridRow>
             {activeTab === 'explore' ?
-                <ExploreDataPlaceholder />
+                <ExploreTheData title={exploreDataTitle} cardObjects={exploreData} />
                 :
-                <AccessDataPlaceholder />
+                <ExploreTheData title={accessDataTitle} cardObjects={accessData} />
             }
         </section>
     );
