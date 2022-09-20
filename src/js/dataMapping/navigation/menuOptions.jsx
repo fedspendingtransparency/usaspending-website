@@ -77,13 +77,13 @@ export const resourceOptions = [
 
     },
     {
-        label: 'Data Sources',
+        label: GlobalConstants.QAT ? 'Data Sources' : 'Data Model',
         type: 'data-sources',
         enabled: true,
-        url: '/data-sources',
+        url: GlobalConstants.QAT ? '/data-sources' : 'https://fiscal.treasury.gov/data-transparency/DAIMS-current.html',
         callToAction: 'Explore the Data Sources',
-        shouldOpenNewTab: false,
-        externalLink: false,
+        shouldOpenNewTab: !GlobalConstants.QAT,
+        externalLink: !GlobalConstants.QAT,
         isNewTab: false
     },
     {
