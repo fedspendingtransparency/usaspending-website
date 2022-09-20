@@ -5,7 +5,6 @@
 
 import React from "react";
 import PropTypes from "prop-types";
-import CardHero from "./CardHero";
 
 const propTypes = {
     overline: PropTypes.string,
@@ -20,13 +19,14 @@ const propTypes = {
         PropTypes.string,
         PropTypes.object
     ]),
-    imageContainerHeight: PropTypes.string
+    imageContainerHeight: PropTypes.string,
+    customClassName: PropTypes.string
 };
 
 const CardBody = ({
-    overline, headline, subhead, text, variant, children, imageContainerHeight
+    overline, headline, subhead, text, variant = '', children, imageContainerHeight, customClassName
 }) => (
-    <div className={`card__body ${variant}`} style={{ height: imageContainerHeight ? `calc(100% - ${imageContainerHeight} - 12px)` : '' }}>
+    <div className={`card__body ${variant} ${customClassName}`} style={{ height: imageContainerHeight ? `calc(100% - ${imageContainerHeight} - 12px)` : '' }}>
         {overline && <div className="overline">{overline}</div>}
         {headline && <div className="headline">{headline}</div>}
         {subhead && <div className="subhead">{subhead}</div>}
@@ -36,5 +36,4 @@ const CardBody = ({
 );
 
 CardBody.propTypes = propTypes;
-CardHero.defaultProps = { variant: '' };
 export default CardBody;
