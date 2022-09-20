@@ -10,14 +10,15 @@
 
     .sidebar__content {
         position: relative;
-        
+        z-index: 1;
+
         .covid19-sidebar-reference {
             display: none;
             &.float-sidebar {
                 display: block;
             }
         }
-    
+
         .covid19-sidebar-content {
             height: 654px;
             overflow-y: scroll;
@@ -44,10 +45,10 @@
             ul {
                 @include unstyled-list;
                 padding: rem(30) rem(20);
-    
+
                 li {
                     margin-bottom: rem(24);
-    
+
                     &:last-child {
                         margin-bottom: rem(0);
                     }
@@ -55,16 +56,16 @@
                         border-bottom: 5px solid $color-primary;
                     }
                 }
-    
+
                 a.sidebar-link {
                     color: $color-base;
                     font-size: rem(19);
                     line-height: rem(20);
-    
+
                     text-decoration: none;
                     border-bottom: 5px solid transparent;
                     @include transition(all 0.15s ease-in-out);
-    
+
                     &.active {
                         font-weight: $font-bold;
                         border-bottom: 5px solid $color-primary;

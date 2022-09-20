@@ -9,6 +9,7 @@
     &.float-sidebar {
         position: fixed;
         top: rem(96);
+        z-index: 1;
     }
 
     background-color: $color-white;
