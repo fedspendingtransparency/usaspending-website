@@ -24,7 +24,7 @@ const propTypes = {
 };
 
 const CardBody = ({
-    overline, headline, subhead, text, variant = '', children, imageContainerHeight, customClassName
+    overline, headline, subhead, text, variant = '', children, imageContainerHeight, customClassName = ""
 }) => (
     <div className={`card__body ${variant} ${customClassName}`} style={{ height: imageContainerHeight ? `calc(100% - ${imageContainerHeight} - 12px)` : '' }}>
         {overline && <div className="overline">{overline}</div>}
