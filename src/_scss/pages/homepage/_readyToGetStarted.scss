@@ -34,6 +34,10 @@
           min-height: rem(90);
         }
       }
+      .card__button--borderless {
+        white-space: normal;
+        min-height: rem(40);
+      }
     }
   }
 
