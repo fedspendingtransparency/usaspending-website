@@ -20,9 +20,9 @@ const WordOfTheDay = () => (
         </div>
         <CardContainer variant="outline" fill="#1a4480">
             <FlexGridCol>
+                <div className="word-of-the-day__headline">Obligation</div>
+                <div className="word-of-the-day__divider" />
                 <CardBody customClassName="word-of-the-day__body">
-                    <div className="word-of-the-day__headline">Obligation</div>
-                    <div className="word-of-the-day__divider" />
                     When awarding funding, the U.S. government enters a binding agreement called an obligation, which means that the federal government promises to spend the money.
                     <CardButton variant="secondary" customClassName="word-of-the-day__button" text="Read More" />
                 </CardBody>

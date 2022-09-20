@@ -34,16 +34,16 @@
 
   .word-of-the-day__headline {
     color: $theme-color-headline-inverse;
-    margin: rem(16) 0 rem(16);
+    margin: rem(40) rem(32) rem(16) rem(32);
     font-size: rem(24);
     font-weight: $font-semibold;
     line-height: 1.25;
   }
 
   .word-of-the-day__divider {
+    margin: 0 rem(32);
     width: rem(64);
     height: rem(4);
-    margin: 0 0 24px 0;
     background-color: #5994f6;
   }
 
@@ -54,7 +54,7 @@
   }
 
   .card__body {
-    height: 100%;
+    height: calc(100% - 100px);
   }
 
   .usa-dt-flex-grid__col {
