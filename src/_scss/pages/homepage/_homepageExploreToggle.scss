@@ -25,8 +25,7 @@ $customWidthJustForThisComponent: 440px;
       border-left: none;
       border-right: none;
       border-radius: 0;
-      // todo - add this color to our color vars
-      border-bottom: solid 1px #c6cace;
+      border-bottom: solid 1px $theme-color-underline;
       @media(min-width: $customWidthJustForThisComponent) {
         padding: rem(4) rem(16);
       }
@@ -49,8 +48,7 @@ $customWidthJustForThisComponent: 440px;
           }
         }
         .homepage-explore-toggle__icon {
-          // todo - add this color to our color vars
-          color: #449dac;
+          color: $theme-color-accent-6;
           font-size: rem(12);
         }
 

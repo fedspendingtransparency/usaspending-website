@@ -56,9 +56,10 @@ const ReadyToGetStarted = () => (
                 Ready to get started?
             </FlexGridCol>
             <FlexGridRow className="ready-to-get-started__card-row" hasGutter gutterSize="lg">
-                {cardObjects.map((card) => (
+                {cardObjects.map((card, index) => (
                     <FlexGridCol
                         className="ready-to-get-started__card"
+                        key={index}
                         mobile={12}
                         tablet={6}
                         desktop={3}>
