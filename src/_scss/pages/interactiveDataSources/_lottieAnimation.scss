@@ -1,0 +1,4 @@
+/* Fixes known sizing inconsistency bug for lottie web on safari browsers */
+.lottie-animation-container {
+    width: 100%;
+}
