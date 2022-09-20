@@ -36,9 +36,6 @@
     }
 
     .homepage-resources__card-row {
-      width: 100%;
-      padding: 0;
-      margin: 0;
       .homepage-resources__card-col:last-child {
         margin-bottom: 0;
       }
@@ -49,7 +46,6 @@
       }
 
       .homepage-resources__card-col {
-        padding: 0;
         margin-bottom: $global-margin * 6;
         @media (min-width: $medium-screen) {
           margin-bottom: 0;
