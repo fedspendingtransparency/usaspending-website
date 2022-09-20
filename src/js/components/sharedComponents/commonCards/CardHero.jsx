@@ -22,6 +22,4 @@ const CardHero = ({
 );
 
 CardHero.propTypes = propTypes;
-CardHero.defaultProps = { variant: 'expanded' };
-
 export default CardHero;
