@@ -93,28 +93,30 @@ const HomepageResources = () => (
                 </FlexGridRow>
                 <FlexGridRow className="homepage-resources__headline">Find answers to your data questions</FlexGridRow>
             </FlexGridCol>
-            <FlexGridRow className="homepage-resources__card-row grid-content" hasGutter gutterSize="lg">
-                {cardObjects.map((card, index) => (
-                    <FlexGridCol
-                        className="homepage-resources__card-col"
-                        key={index}
-                        mobile={12}
-                        tablet={6}
-                        desktop={3}>
-                        <CardContainer>
-                            {card.icon}
-                            <CardBody
-                                headline={card.headline}
-                                text={card.text}>
-                                <CardButton
-                                    variant="text"
-                                    text={card.buttonText}
-                                    link={card.buttonLink} />
-                            </CardBody>
-                        </CardContainer>
-                    </FlexGridCol>
-                ))}
-            </FlexGridRow>
+            <FlexGridCol width={12}>
+                <FlexGridRow className="homepage-resources__card-row" hasGutter gutterSize="lg">
+                    {cardObjects.map((card, index) => (
+                        <FlexGridCol
+                            className="homepage-resources__card-col"
+                            key={index}
+                            mobile={12}
+                            tablet={6}
+                            desktop={3}>
+                            <CardContainer>
+                                {card.icon}
+                                <CardBody
+                                    headline={card.headline}
+                                    text={card.text}>
+                                    <CardButton
+                                        variant="text"
+                                        text={card.buttonText}
+                                        link={card.buttonLink} />
+                                </CardBody>
+                            </CardContainer>
+                        </FlexGridCol>
+                    ))}
+                </FlexGridRow>
+            </FlexGridCol>
         </FlexGridRow>
     </section>
 );

@@ -77,11 +77,14 @@ export const resourceOptions = [
 
     },
     {
-        label: 'Data Model',
+        label: GlobalConstants.QAT ? 'Data Sources' : 'Data Model',
+        type: 'data-sources',
         enabled: true,
-        url: 'https://fiscal.treasury.gov/data-transparency/DAIMS-current.html',
-        shouldOpenNewTab: true,
-        externalLink: true
+        url: GlobalConstants.QAT ? '/data-sources' : 'https://fiscal.treasury.gov/data-transparency/DAIMS-current.html',
+        callToAction: 'Explore the Data Sources',
+        shouldOpenNewTab: !GlobalConstants.QAT,
+        externalLink: !GlobalConstants.QAT,
+        isNewTab: false
     },
     {
         label: "Agency Submission Statistics",
