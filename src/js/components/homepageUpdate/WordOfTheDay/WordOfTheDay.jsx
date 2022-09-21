@@ -7,10 +7,12 @@ import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FlexGridCol } from 'data-transparency-ui';
 import { isCancel } from "axios";
-import { fetchAllTerms } from "helpers/glossaryHelper";
+import { useLocation, Link } from "react-router-dom";
+import { fetchAllTerms, getNewUrlForGlossary } from "helpers/glossaryHelper";
 import CardContainer from "../../sharedComponents/commonCards/CardContainer";
 import CardBody from "../../sharedComponents/commonCards/CardBody";
 import CardButton from "../../sharedComponents/commonCards/CardButton";
+
 
 const WordOfTheDay = () => {
 
@@ -19,6 +21,8 @@ const WordOfTheDay = () => {
     const [term, setTerm] = useState('');
     const [definition, setDefinition] = useState('');
     const [glossary, setGlossary] = useState('');
+    const [glossaryLink, setGlossaryLink] = useState('');
+    const { pathname, search } = useLocation();
 
     const glossaryTerms = ["Account Balance (File A)",
         "Account Breakdown by Award (File C)",
@@ -101,6 +105,8 @@ const WordOfTheDay = () => {
     };
 
     useEffect(() => {
+        setGlossaryLink(getNewUrlForGlossary(pathname, `?glossary=${term}`, search));
+
         for (let i = 0; i < glossary.length; i++) {
             if (glossary[i].term === term) {
                 setDefinition(glossary[i].plain);
@@ -142,7 +148,9 @@ const WordOfTheDay = () => {
                         <div className="word-of-the-day__divider" />
                         <CardBody customClassName="word-of-the-day__body">
                             {truncateText(definition, 95)}
-                            <CardButton variant="secondary" customClassName="word-of-the-day__button" text="Read More"/>
+                            <CardButton variant="secondary" link={glossaryLink} customClassName="word-of-the-day__button">
+                                Read More
+                            </CardButton>
                         </CardBody>
                     </FlexGridCol>
                     :

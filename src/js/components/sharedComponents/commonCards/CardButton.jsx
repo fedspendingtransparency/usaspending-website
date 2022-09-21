@@ -15,11 +15,15 @@ const propTypes = {
         PropTypes.object
     ]), // Can accept a string or markup
     variant: PropTypes.string, // primary, secondary, and text
-    customClassName: PropTypes.string
+    customClassName: PropTypes.string,
+    children: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.object
+    ])
 };
 
 const CardButton = ({
-    link, action, text, variant = "secondary", customClassName = ''
+    link, action, text, variant = "secondary", customClassName = '', children
 }) => {
     const variantMapper = {
         primary: "card__button--primary",
@@ -35,7 +39,7 @@ const CardButton = ({
                 aria-label={`${text}`}
                 to={link}
                 onClick={action}>
-                {text}
+                {text || children}
             </Link>
         </div>
     );
