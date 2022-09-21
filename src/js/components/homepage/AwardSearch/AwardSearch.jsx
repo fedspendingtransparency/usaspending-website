@@ -71,7 +71,7 @@ const AwardSearch = () => {
                                         headline="Federal Spending to Communities"
                                         text="Search spending to your community using Location filters like Place of Performance">
                                         <div>
-                                            <img src="img/homepage-award-search/award-search-placeholder-communities.svg" alt="" />
+                                            <img src="img/homepage-award-search/award-search-communities-2x.svg" alt="" />
                                         </div>
                                         <CardButton text="View spending by state" variant="primary" link="/search" />
                                     </CardBody>
@@ -85,7 +85,7 @@ const AwardSearch = () => {
                                         headline="Federal Spending Over Time"
                                         text="See spending data over time using our Time Period filters, like Fiscal Year">
                                         <div>
-                                            <img src="img/homepage-award-search/award-search-placeholder-time.svg" alt="" />
+                                            <img src="img/homepage-award-search/award-search-over-time-2x.svg" alt="" />
                                         </div>
                                         <CardButton text="View spending by fiscal year" variant="primary" link="/search" />
                                     </CardBody>
@@ -99,7 +99,7 @@ const AwardSearch = () => {
                                         headline="Federal Spending by Industry"
                                         text="Use the North American Industry Classification System (NAICS) filter to find spending by industry">
                                         <div>
-                                            <img src="img/homepage-award-search/award-search-placeholder-industry.svg" alt="" />
+                                            <img src="img/homepage-award-search/award-search-industry-2x.svg" alt="" />
                                         </div>
                                         <CardButton text="View spending by industry" variant="primary" link="/search" />
                                     </CardBody>
@@ -113,7 +113,7 @@ const AwardSearch = () => {
                                         headline="Federal Spending by Product or Service"
                                         text="From medical supplies to aircraft equipment, use Product or Service Codes (PSCs) to see what’s being purchased">
                                         <div>
-                                            <img src="img/homepage-award-search/award-search-placeholder-product.svg" alt="" />
+                                            <img src="img/homepage-award-search/award-search-product-service-2x.svg" alt="" />
                                         </div>
                                         <CardButton text="View spending by product or service" variant="primary" link="/search" />
                                     </CardBody>
@@ -144,7 +144,7 @@ const AwardSearch = () => {
                                                 headline="Federal Spending to Communities"
                                                 text="Search spending to your community using Location filters like Place of Performance">
                                                 <div>
-                                                    <img src="img/homepage-award-search/award-search-placeholder-communities.svg" alt="" />
+                                                    <img src="img/homepage-award-search/award-search-communities-2x.svg" alt="" />
                                                 </div>
                                                 <CardButton text="View spending by state" variant="primary" link="/search" />
                                             </CardBody>
@@ -158,7 +158,7 @@ const AwardSearch = () => {
                                                 headline="Federal Spending Over Time"
                                                 text="See spending data over time using our Time Period filters, like Fiscal Year">
                                                 <div>
-                                                    <img src="img/homepage-award-search/award-search-placeholder-time.svg" alt="" />
+                                                    <img src="img/homepage-award-search/award-search-over-time-2x.svg" alt="" />
                                                 </div>
                                                 <CardButton text="View spending by fiscal year" variant="primary" link="/search" />
                                             </CardBody>
@@ -172,7 +172,7 @@ const AwardSearch = () => {
                                                 headline="Federal Spending by Industry"
                                                 text="Use the North American Industry Classification System (NAICS) filter to find spending by industry">
                                                 <div>
-                                                    <img src="img/homepage-award-search/award-search-placeholder-industry.svg" alt="" />
+                                                    <img src="img/homepage-award-search/award-search-industry-2x.svg" alt="" />
                                                 </div>
                                                 <CardButton text="View spending by industry" variant="primary" link="/search" />
                                             </CardBody>
@@ -186,7 +186,7 @@ const AwardSearch = () => {
                                                 headline="Federal Spending by Product or Service"
                                                 text="From medical supplies to aircraft equipment, use Product or Service Codes (PSCs) to see what’s being purchased">
                                                 <div>
-                                                    <img src="img/homepage-award-search/award-search-placeholder-product.svg" alt="" />
+                                                    <img src="img/homepage-award-search/award-search-product-service-2x.svg" alt="" />
                                                 </div>
                                                 <CardButton text="View spending by product or service" variant="primary" link="/search" />
                                             </CardBody>
