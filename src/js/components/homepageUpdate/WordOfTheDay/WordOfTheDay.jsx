@@ -6,16 +6,19 @@
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FlexGridCol } from 'data-transparency-ui';
+import { isCancel } from "axios";
 import { fetchAllTerms } from "helpers/glossaryHelper";
 import CardContainer from "../../sharedComponents/commonCards/CardContainer";
 import CardBody from "../../sharedComponents/commonCards/CardBody";
 import CardButton from "../../sharedComponents/commonCards/CardButton";
-import {isCancel} from "axios";
 
 const WordOfTheDay = () => {
 
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
+    const [term, setTerm] = useState('');
+    const [definition, setDefinition] = useState('');
+    const [glossary, setGlossary] = useState('');
 
     const glossaryTerms = ["Account Balance (File A)",
         "Account Breakdown by Award (File C)",
@@ -90,11 +93,27 @@ const WordOfTheDay = () => {
         console.log(utc.toLocaleString());
     };
 
+    const truncateText = (text, maxLength) => {
+        if (text.length > maxLength) {
+            return `${text.substring(0, maxLength - 5)}...`;
+        }
+        return text;
+    };
+
+    useEffect(() => {
+        for (let i = 0; i < glossary.length; i++) {
+            if (glossary[i].term === term) {
+                setDefinition(glossary[i].plain);
+            }
+        }
+        // setDefinition(glossary?.find((d) => d.term === term));
+    }, [glossary]);
+
     useEffect(() => {
         fetchAllTerms().promise
             .then((res) => {
-                console.log(res);
-                selectWordOfTheDay(res);
+                setTerm(glossaryTerms[0]);
+                setGlossary(res.data.results);
                 setLoading(false);
                 setError(false);
             })
@@ -116,14 +135,21 @@ const WordOfTheDay = () => {
                 <span>Word of the Day</span>
             </div>
             <CardContainer variant="outline" fill="#1a4480">
-                <FlexGridCol>
-                    <div className="word-of-the-day__headline">Obligation</div>
-                    <div className="word-of-the-day__divider" />
+                {/* eslint-disable-next-line no-nested-ternary */}
+                {!loading && !error ?
+                    <FlexGridCol>
+                        <div className="word-of-the-day__headline">{truncateText(term, 30)}</div>
+                        <div className="word-of-the-day__divider" />
+                        <CardBody customClassName="word-of-the-day__body">
+                            {truncateText(definition, 95)}
+                            <CardButton variant="secondary" customClassName="word-of-the-day__button" text="Read More"/>
+                        </CardBody>
+                    </FlexGridCol>
+                    :
                     <CardBody customClassName="word-of-the-day__body">
-                        When awarding funding, the U.S. government enters a binding agreement called an obligation, which means that the federal government promises to spend the money.
-                        <CardButton variant="secondary" customClassName="word-of-the-day__button" text="Read More" />
+                        {loading ? <h3>Loading...</h3> : <h3>Error</h3>}
                     </CardBody>
-                </FlexGridCol>
+                }
             </CardContainer>
         </section>
     );
