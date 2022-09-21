@@ -11,7 +11,8 @@ import ExploreTheData from "../../homepage/ExploreTheData/ExploreTheData";
 const exploreDataTitle = 'Browse ready-made analyses with our Spending Profiles';
 const exploreData = [
     {
-        fillColor: '$theme-color-2',
+        // this color is in vars but figure out how to use that var here
+        fillColor: '#168092',
         headline: 'Tools for understanding agency spending',
         text: 'Use our interactive tools to find out how federal agencies are spending money',
         buttonText: 'Explore Agency Profiles',
@@ -26,7 +27,8 @@ const exploreData = [
         buttonLink: ''
     },
     {
-        fillColor: '$theme-color-6',
+        // this color is in vars but figure out how to use that var here
+        fillColor: '#005ea2',
         headline: 'Overview of federal awards made to states ',
         text: 'Find data on contracts, grants, and other types of awards made in each state',
         buttonText: 'Browse State Profiles',

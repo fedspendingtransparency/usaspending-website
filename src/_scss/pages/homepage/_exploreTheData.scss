@@ -1,0 +1,33 @@
+.explore-data__section {
+  margin-top: $global-margin * 3;
+
+  .explore-data__color-bar {
+    //background-color: $blue-warm-70v;
+    //height: 262px
+    // the answer here may be to make the full bg blue and make the div white, since the div naturally wants to be on top
+  }
+
+  .grid-content {
+
+    .explore-data__title {
+      font-size: $font-size-40;
+      font-weight: $font-semibold;
+      line-height: 1.25;
+      text-align: center;
+      color: $color-grayblack;
+      margin-bottom: $global-margin * 5;
+      //margin: 0 26%;
+    }
+
+    .explore-data__card {
+      margin-bottom: $global-margin * 5;
+
+      .headline {
+        margin-bottom: $global-margin;
+      }
+      .card__button {
+        margin-bottom: 0;
+      }
+    }
+  }
+}
