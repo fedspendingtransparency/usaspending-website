@@ -7,13 +7,11 @@ import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { FlexGridCol } from 'data-transparency-ui';
 import { isCancel } from "axios";
-import { useLocation, Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { fetchAllTerms, getNewUrlForGlossary } from "helpers/glossaryHelper";
 import CardContainer from "../../sharedComponents/commonCards/CardContainer";
 import CardBody from "../../sharedComponents/commonCards/CardBody";
 import CardButton from "../../sharedComponents/commonCards/CardButton";
-import { throttle } from "lodash";
-
 
 const WordOfTheDay = () => {
     const [loading, setLoading] = useState(true);
@@ -23,7 +21,8 @@ const WordOfTheDay = () => {
     const [glossary, setGlossary] = useState('');
     const [glossaryLink, setGlossaryLink] = useState('');
     const { pathname, search } = useLocation();
-    const [hasOverflow, setHasOverflow] = useState(false);
+    const [currentMonth, setCurrentMonth] = useState('');
+    const [currentDate, setCurrentDate] = useState('');
 
 
     const glossaryTerms = ["Account Balance (File A)",
@@ -88,37 +87,33 @@ const WordOfTheDay = () => {
         "Unobligated Balance",
         "URI"];
 
+    const dateDataMapper = {
+        0: { startingIndex: 31 },
+        1: { startingIndex: 0 },
+        2: { startingIndex: 31 },
+        3: { startingIndex: 0 },
+        4: { startingIndex: 31 },
+        5: { startingIndex: 0 },
+        6: { startingIndex: 31 },
+        7: { startingIndex: 31 },
+        8: { startingIndex: 0 },
+        9: { startingIndex: 31 },
+        10: { startingIndex: 0 },
+        11: { startingIndex: 31 }
+    };
+
+    useEffect(() => {
+        if (currentDate && currentMonth) {
+            const index = dateDataMapper[currentMonth]?.startingIndex + currentDate;
+            setTerm(glossaryTerms[index]);
+        }
+    }, [currentDate, currentMonth]);
+
     const selectWordOfTheDay = () => {
         const d = new Date();
-
-        // convert to msec
-        // subtract local time zone offset
-        // get UTC time in msec
-        const utc = d.getTime() + (d.getTimezoneOffset() * 60000);
-
-        console.log(utc.toLocaleString());
+        setCurrentDate(d.getUTCDate());
+        setCurrentMonth(d.getUTCMonth());
     };
-
-    const truncateText = (text, maxLength) => {
-        if (text.length > maxLength) {
-            return `${text.substring(0, maxLength - 5)}...`;
-        }
-        return text;
-    };
-
-    const handleResize = throttle(() => {
-        const el = document.querySelector('.definition');
-        const curOverf = el.style.overflow;
-        const isOverflowing = el.clientWidth < el.scrollWidth
-            || el.clientHeight < el.scrollHeight;
-
-        // eslint-disable-next-line no-param-reassign
-        el.style.overflow = curOverf;
-
-        console.log(isOverflowing);
-        setHasOverflow(isOverflowing);
-        return isOverflowing;
-    }, 50);
 
     useEffect(() => {
         setGlossaryLink(getNewUrlForGlossary(pathname, `?glossary=${term}`, search));
@@ -128,13 +123,12 @@ const WordOfTheDay = () => {
                 setDefinition(glossary[i].plain);
             }
         }
-        // setDefinition(glossary?.find((d) => d.term === term));
-    }, [glossary, pathname, search, term]);
+    }, [glossary, term]);
 
     useEffect(() => {
         fetchAllTerms().promise
             .then((res) => {
-                setTerm(glossaryTerms[6]);
+                selectWordOfTheDay();
                 setGlossary(res.data.results);
                 setLoading(false);
                 setError(false);
@@ -146,10 +140,7 @@ const WordOfTheDay = () => {
                     setError(true);
                 }
             });
-
-        window.addEventListener('resize', handleResize);
-        return () => window.removeEventListener('resize', handleResize);
-    }, [glossaryTerms, handleResize]);
+    }, []);
 
     return (
         <section className="word-of-the-day__section">
@@ -163,13 +154,15 @@ const WordOfTheDay = () => {
                 {/* eslint-disable-next-line no-nested-ternary */}
                 {!loading && !error ?
                     <FlexGridCol>
-                        <div className="word-of-the-day__headline">{truncateText(term, 30)}</div>
+                        <div className="word-of-the-day__headline">{term}</div>
                         <div className="word-of-the-day__divider" />
                         <CardBody customClassName="word-of-the-day__body">
-                            <div className="definition"><div>{definition}</div></div>
-                            <CardButton variant="secondary" link={glossaryLink} customClassName="word-of-the-day__button">
-                                Read More
-                            </CardButton>
+                            <>
+                                <div className="definition"><div>{definition}</div></div>
+                                <CardButton variant="secondary" link={glossaryLink} customClassName="word-of-the-day__button">
+                                    Read More
+                                </CardButton>
+                            </>
                         </CardBody>
                     </FlexGridCol>
                     :

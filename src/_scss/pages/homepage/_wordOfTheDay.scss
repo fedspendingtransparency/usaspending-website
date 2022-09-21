@@ -80,5 +80,11 @@
     border-color: $card-outline-color;
     color: $card-outline-color;
     width: rem(106);
+
+
+    &:hover {
+      border-color: $gray-cool-5;
+      color: $gray-cool-5;
+    }
   }
 }
