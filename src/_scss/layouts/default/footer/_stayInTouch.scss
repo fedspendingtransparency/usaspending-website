@@ -4,6 +4,9 @@
   @media (min-width: $tablet-screen) {
     padding: $global-padding * 3 $global-padding * 4;
   }
+  @media (min-width: 1600px) {
+    padding: $global-padding * 3 0;
+  }
 
   .stay-in-touch__container-row {
     max-width: 1600px;
@@ -20,10 +23,15 @@
       @media (min-width: $medium-screen) {
         width: rem(250);
       }
+      @media (min-width: $large-screen) {
+        margin-right: $global-margin * 3;
+      }
+      @media (min-width: 1400px) {
+        margin-right: $global-margin * 8;
+      }
       @media (min-width: 1600px) {
         padding: 0;
-        width: unset;
-        margin-right: $global-margin * 4;
+        margin-right: $global-margin * 18;
       }
       .stay-in-touch__title-row {
         flex-flow: row nowrap;
