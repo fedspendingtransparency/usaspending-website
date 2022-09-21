@@ -1,9 +1,11 @@
 .explore-data__section {
-  margin: $global-margin * 3 0 $global-margin * 5 0;
+  padding: $global-padding * 3 0 $global-padding * 5 0;
+
+  //background-color: $blue-warm-70v !important;
 
   .explore-data__color-bar {
-    //background-color: $blue-warm-70v;
-    //height: 262px
+    //background-color: $color-white;
+    //height: 75%;
     // the answer here may be to make the full bg blue and make the div white, since the div naturally wants to be on top
   }
 

@@ -59,9 +59,9 @@ const accessData = [
         fillColor: '#0050d8',
         headline: 'Use our API for your products',
         text: 'Our API is open, allowing you to create your own data visualizations',
-        buttonText: (
-            <a href="https://api.usaspending.gov/docs/endpoints" rel="noopener noreferrer">View API endpoints</a>
-        )
+        buttonText: 'View API endpoints',
+        buttonLink: 'https://api.usaspending.gov/docs/endpoints',
+        apiLink: true
     }
 ];
 

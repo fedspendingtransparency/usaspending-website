@@ -9,17 +9,17 @@ import { Link } from "react-router-dom";
 
 const propTypes = {
     link: PropTypes.string,
+    apiLink: PropTypes.bool,
     action: PropTypes.func,
     text: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.object
     ]), // Can accept a string or markup
     variant: PropTypes.string // primary, secondary, and text
-
 };
 
 const CardButton = ({
-    link, action, text, variant = "secondary"
+    link, apiLink, action, text, variant = "secondary"
 }) => {
     const variantMapper = {
         primary: "card__button--primary",
@@ -29,14 +29,25 @@ const CardButton = ({
 
     return (
         <div className="card__button">
-            <Link
-                className={`card__button--secondary ${variantMapper[variant]}`}
-                role="button"
-                aria-label={`${text}`}
-                to={link}
-                onClick={action}>
-                {text}
-            </Link>
+            {apiLink ? (
+                <div
+                    className={`card__button--secondary ${variantMapper[variant]}`}
+                    role="button"
+                    aria-label={`${text}`}>
+                    <a href={link}>{text}</a>
+                </div>
+            )
+                :
+                (
+                    <Link
+                        className={`card__button--secondary ${variantMapper[variant]}`}
+                        role="button"
+                        aria-label={`${text}`}
+                        to={link}
+                        onClick={action}>
+                        {text}
+                    </Link>
+                )}
         </div>
     );
 };
