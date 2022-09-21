@@ -116,11 +116,12 @@ const WordOfTheDay = () => {
     };
 
     useEffect(() => {
-        setGlossaryLink(getNewUrlForGlossary(pathname, `?glossary=${term}`, search));
-
-        for (let i = 0; i < glossary.length; i++) {
-            if (glossary[i].term === term) {
-                setDefinition(glossary[i].plain);
+        if (glossary && term) {
+            for (let i = 0; i < glossary.length; i++) {
+                if (glossary[i].term === term) {
+                    setGlossaryLink(getNewUrlForGlossary(pathname, `?glossary=${glossary[i].slug}`, search));
+                    setDefinition(glossary[i].plain);
+                }
             }
         }
     }, [glossary, term]);
