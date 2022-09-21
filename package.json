@@ -139,6 +139,7 @@
     "glob-parent": "6.0.2",
     "**/glob-parent": "6.0.2",
     "postcss": "8.4.16",
+    "**/postcss": "8.4.16",
     "terser": "5.14.2",
     "webpack": "5.67.0",
     "moment-timezone": "0.5.37"
@@ -175,6 +176,7 @@
     "mapbox-gl": "^1.13.0",
     "moment": "^2.29.4",
     "mousetrap": "^1.6.1",
+    "postcss": "^8.4.16",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
     "react-aria-modal": "^4.0.1",
