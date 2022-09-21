@@ -1,5 +1,5 @@
 .explore-data__section {
-  margin-top: $global-margin * 3;
+  margin: $global-margin * 3 0 $global-margin * 5 0;
 
   .explore-data__color-bar {
     //background-color: $blue-warm-70v;
@@ -16,17 +16,32 @@
       text-align: center;
       color: $color-grayblack;
       margin-bottom: $global-margin * 5;
+      @media (min-width: $tablet-screen) {
+        margin: 0 10% $global-margin * 5 10%;
+      }
       //margin: 0 26%;
     }
 
-    .explore-data__card {
-      margin-bottom: $global-margin * 5;
-
-      .headline {
-        margin-bottom: $global-margin;
-      }
-      .card__button {
+    .explore-data__card-row {
+      .explore-data__card:last-child {
         margin-bottom: 0;
+      }
+      @media (min-width: $tablet-screen) {
+        flex-direction: column;
+        width: 386px;
+      }
+      .explore-data__card {
+        margin-bottom: $global-margin * 5;
+        @media (min-width: $tablet-screen) {
+          margin-bottom: $global-margin * 4;
+        }
+
+        .headline {
+          margin-bottom: $global-margin;
+        }
+        .card__button {
+          margin-bottom: 0;
+        }
       }
     }
   }

@@ -29,7 +29,7 @@ const ExploreTheData = (props) => (
                             className="explore-data__card"
                             key={index}
                             mobile={12}
-                            tablet={6}
+                            tablet={12}
                             desktop={4}>
                             <CardContainer variant="elevated" size="md">
                                 <CardHero fill={card.fillColor} />
