@@ -64,13 +64,13 @@ const AwardSearch = () => {
                 </FlexGridCol>
                 <FlexGridCol desktop={6} tablet={12} mobile={12} className="award-search__col2">
                     <Swiper centeredSlides watchSlidesVisibility slidesPerView="auto" spaceBetween={0} navigation modules={[Navigation]} style={{ alignItems: "middle" }}>
-                        <SwiperSlide className="award_search__slide" style={{ marginBottom: "20px" }}>
+                        <SwiperSlide className="award-search__slide" style={{ marginBottom: "20px" }}>
                             <FlexGridCol width={3} desktop={3}>
                                 <CardContainer variant="elevated" size="lg">
                                     <CardBody
                                         headline="Federal Spending to Communities"
                                         text="Search spending to your community using Location filters like Place of Performance">
-                                        <div>
+                                        <div className="award-search__image">
                                             <img src="img/homepage-award-search/award-search-communities-2x.png" alt="" />
                                         </div>
                                         <CardButton text="View spending by state" variant="primary" link="/search" />
@@ -78,13 +78,13 @@ const AwardSearch = () => {
                                 </CardContainer>
                             </FlexGridCol>
                         </SwiperSlide>
-                        <SwiperSlide className="award_search__slide" style={{ marginBottom: "20px" }}>
+                        <SwiperSlide className="award-search__slide" style={{ marginBottom: "20px" }}>
                             <FlexGridCol width={3} desktop={3}>
                                 <CardContainer variant="elevated" size="lg">
                                     <CardBody
                                         headline="Federal Spending Over Time"
                                         text="See spending data over time using our Time Period filters, like Fiscal Year">
-                                        <div>
+                                        <div className="award-search__image">
                                             <img src="img/homepage-award-search/award-search-over-time-2x.png" alt="" />
                                         </div>
                                         <CardButton text="View spending by fiscal year" variant="primary" link="/search" />
@@ -92,13 +92,13 @@ const AwardSearch = () => {
                                 </CardContainer>
                             </FlexGridCol>
                         </SwiperSlide>
-                        <SwiperSlide className="award_search__slide" style={{ marginBottom: "20px" }}>
+                        <SwiperSlide className="award-search__slide" style={{ marginBottom: "20px" }}>
                             <FlexGridCol width={3} desktop={3}>
                                 <CardContainer variant="elevated" size="lg">
                                     <CardBody
                                         headline="Federal Spending by Industry"
                                         text="Use the North American Industry Classification System (NAICS) filter to find spending by industry">
-                                        <div>
+                                        <div className="award-search__image">
                                             <img src="img/homepage-award-search/award-search-industry-2x.png" alt="" />
                                         </div>
                                         <CardButton text="View spending by industry" variant="primary" link="/search" />
@@ -106,13 +106,13 @@ const AwardSearch = () => {
                                 </CardContainer>
                             </FlexGridCol>
                         </SwiperSlide>
-                        <SwiperSlide className="award_search__slide" style={{ marginBottom: "20px" }}>
+                        <SwiperSlide className="award-search__slide" style={{ marginBottom: "20px" }}>
                             <FlexGridCol width={3} desktop={3}>
                                 <CardContainer variant="elevated" size="lg">
                                     <CardBody
                                         headline="Federal Spending by Product or Service"
                                         text="From medical supplies to aircraft equipment, use Product or Service Codes (PSCs) to see what’s being purchased">
-                                        <div>
+                                        <div className="award-search__image">
                                             <img src="img/homepage-award-search/award-search-product-service-2x.png" alt="" />
                                         </div>
                                         <CardButton text="View spending by product or service" variant="primary" link="/search" />
@@ -137,13 +137,13 @@ const AwardSearch = () => {
                         </FlexGridCol>
                         <FlexGridCol desktop={8} tablet={12} mobile={12} className="award-search__col2">
                             <Swiper centeredSlides pagination={isMobile} navigation={!isMobile} watchSlidesVisibility slidesPerView="auto" spaceBetween={0} modules={[Pagination, Navigation]} className="award-search__swiper">
-                                <SwiperSlide className="award_search__slide" style={{ marginBottom: "20px" }}>
+                                <SwiperSlide className="award-search__slide" style={{ marginBottom: "20px" }}>
                                     <FlexGridCol width={3} desktop={3}>
                                         <CardContainer variant="elevated" size="lg">
                                             <CardBody
                                                 headline="Federal Spending to Communities"
                                                 text="Search spending to your community using Location filters like Place of Performance">
-                                                <div>
+                                                <div className="award-search__image">
                                                     <img src="img/homepage-award-search/award-search-communities-2x.png" alt="" />
                                                 </div>
                                                 <CardButton text="View spending by state" variant="primary" link="/search" />
@@ -151,13 +151,13 @@ const AwardSearch = () => {
                                         </CardContainer>
                                     </FlexGridCol>
                                 </SwiperSlide>
-                                <SwiperSlide className="award_search__slide" style={{ marginBottom: "20px" }}>
+                                <SwiperSlide className="award-search__slide" style={{ marginBottom: "20px" }}>
                                     <FlexGridCol width={3} desktop={3}>
                                         <CardContainer variant="elevated" size="lg">
                                             <CardBody
                                                 headline="Federal Spending Over Time"
                                                 text="See spending data over time using our Time Period filters, like Fiscal Year">
-                                                <div>
+                                                <div className="award-search__image">
                                                     <img src="img/homepage-award-search/award-search-over-time-2x.png" alt="" />
                                                 </div>
                                                 <CardButton text="View spending by fiscal year" variant="primary" link="/search" />
@@ -165,13 +165,13 @@ const AwardSearch = () => {
                                         </CardContainer>
                                     </FlexGridCol>
                                 </SwiperSlide>
-                                <SwiperSlide className="award_search__slide" style={{ marginBottom: "20px" }}>
+                                <SwiperSlide className="award-search__slide" style={{ marginBottom: "20px" }}>
                                     <FlexGridCol width={3} desktop={3}>
                                         <CardContainer variant="elevated" size="lg">
                                             <CardBody
                                                 headline="Federal Spending by Industry"
                                                 text="Use the North American Industry Classification System (NAICS) filter to find spending by industry">
-                                                <div>
+                                                <div className="award-search__image">
                                                     <img src="img/homepage-award-search/award-search-industry-2x.png" alt="" />
                                                 </div>
                                                 <CardButton text="View spending by industry" variant="primary" link="/search" />
@@ -179,13 +179,13 @@ const AwardSearch = () => {
                                         </CardContainer>
                                     </FlexGridCol>
                                 </SwiperSlide>
-                                <SwiperSlide className="award_search__slide" style={{ marginBottom: "20px" }}>
+                                <SwiperSlide className="award-search__slide" style={{ marginBottom: "20px" }}>
                                     <FlexGridCol width={3} desktop={3}>
                                         <CardContainer variant="elevated" size="lg">
                                             <CardBody
                                                 headline="Federal Spending by Product or Service"
                                                 text="From medical supplies to aircraft equipment, use Product or Service Codes (PSCs) to see what’s being purchased">
-                                                <div>
+                                                <div className="award-search__image">
                                                     <img src="img/homepage-award-search/award-search-product-service-2x.png" alt="" />
                                                 </div>
                                                 <CardButton text="View spending by product or service" variant="primary" link="/search" />
