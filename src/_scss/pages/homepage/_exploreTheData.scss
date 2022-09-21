@@ -19,7 +19,9 @@
       @media (min-width: $tablet-screen) {
         margin: 0 10% $global-margin * 5 10%;
       }
-      //margin: 0 26%;
+      @media (min-width: $medium-screen) {
+        margin: 0 26% $global-margin * 5 26%;
+      }
     }
 
     .explore-data__card-row {
@@ -28,12 +30,20 @@
       }
       @media (min-width: $tablet-screen) {
         flex-direction: column;
-        width: 386px;
+        width: 382px;
+      }
+      @media (min-width: $medium-screen) {
+        flex-direction: unset;
+        width: unset;
       }
       .explore-data__card {
         margin-bottom: $global-margin * 5;
         @media (min-width: $tablet-screen) {
           margin-bottom: $global-margin * 4;
+        }
+        @media (min-width: $medium-screen) {
+          margin-bottom: 0;
+          max-width: 350px;
         }
 
         .headline {
