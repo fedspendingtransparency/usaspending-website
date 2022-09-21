@@ -1,14 +1,10 @@
 .explore-data__section {
   padding: $global-padding * 3 0 $global-padding * 5 0;
+  background-image: linear-gradient(180deg, $color-white 80%, $theme-color-3 20%);
 
-  //background-color: $blue-warm-70v !important;
-
-  .explore-data__color-bar {
-    //background-color: $color-white;
-    //height: 75%;
-    // the answer here may be to make the full bg blue and make the div white, since the div naturally wants to be on top
+  @media (min-width: $medium-screen) {
+    background-image: linear-gradient(180deg, $color-white 50%, $theme-color-3 50%);
   }
-
   .grid-content {
 
     .explore-data__title {

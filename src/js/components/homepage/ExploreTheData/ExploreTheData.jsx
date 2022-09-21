@@ -18,37 +18,35 @@ const propTypes = {
 
 const ExploreTheData = (props) => (
     <section className="explore-data__section">
-        <div className="explore-data__color-bar">
-            <FlexGridRow className="grid-content">
-                <FlexGridCol className="explore-data__title" width={12}>
-                    {props.title}
-                </FlexGridCol>
-                <FlexGridRow className="explore-data__card-row" hasGutter gutterSize="lg">
-                    {props.cardObjects.map((card, index) => (
-                        <FlexGridCol
-                            className="explore-data__card"
-                            key={index}
-                            mobile={12}
-                            tablet={12}
-                            desktop={4}>
-                            <CardContainer variant="elevated" size="md">
-                                <CardHero fill={card.fillColor} />
-                                <CardBody
-                                    headline={card.headline}
-                                    text={card.text}>
-                                    <CardButton
-                                        variant="hero__button--action"
-                                        text={card.buttonText}
-                                        link={card.buttonLink}
-                                        apiLink={card.apiLink}>
-                                    </CardButton>
-                                </CardBody>
-                            </CardContainer>
-                        </FlexGridCol>
-                    ))}
-                </FlexGridRow>
+        <FlexGridRow className="grid-content">
+            <FlexGridCol className="explore-data__title" width={12}>
+                {props.title}
+            </FlexGridCol>
+            <FlexGridRow className="explore-data__card-row" hasGutter gutterSize="lg">
+                {props.cardObjects.map((card, index) => (
+                    <FlexGridCol
+                        className="explore-data__card"
+                        key={index}
+                        mobile={12}
+                        tablet={12}
+                        desktop={4}>
+                        <CardContainer variant="elevated" size="md">
+                            <CardHero fill={card.fillColor} />
+                            <CardBody
+                                headline={card.headline}
+                                text={card.text}>
+                                <CardButton
+                                    variant="hero__button--action"
+                                    text={card.buttonText}
+                                    link={card.buttonLink}
+                                    apiLink={card.apiLink}>
+                                </CardButton>
+                            </CardBody>
+                        </CardContainer>
+                    </FlexGridCol>
+                ))}
             </FlexGridRow>
-        </div>
+        </FlexGridRow>
     </section>
 );
 
