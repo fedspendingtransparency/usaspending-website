@@ -1,7 +1,7 @@
 import React from 'react';
 import { render, screen } from 'test-utils';
 import AboutTheDataModal from 'components/aboutTheData/AboutTheDataModal';
-
+window.scroll = jest.fn();
 const defaultProps = {
     mounted: true,
     closeModal: () => {},
@@ -16,7 +16,7 @@ const defaultProps = {
     }
 };
 
-xdescribe('About The Data Modal', () => {
+describe('About The Data Modal', () => {
     it('should render agency name', () => {
         render(<AboutTheDataModal {...defaultProps} />);
         expect(screen.queryByText(defaultProps.agencyData.agencyName.toUpperCase())).toBeTruthy();

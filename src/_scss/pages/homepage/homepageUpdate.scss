@@ -1,0 +1,50 @@
+.usa-da-home-page {
+  @import 'all';
+  @import "layouts/default/default";
+  @import "layouts/default/header/_warning";
+
+  .homepage-update-content {
+    background-color: white;
+
+    // todo - remove this when real components are used
+    @media (max-width: $tablet-screen) {
+      h1 {
+        font-size: 16px;
+      }
+    }
+
+    .homepage-hero-content {
+      margin: 0 rem(16);
+      @media (min-width: $tablet-screen) {
+        margin: 0 rem(32);
+      }
+      @media (min-width: $medium-screen) {
+        margin: 0;
+      }
+    }
+
+    .grid-content {
+      margin: 0 rem(16);
+      max-width: 1600px;
+      @media (min-width: $tablet-screen) {
+        margin: 0 rem(32);
+      }
+      @media (min-width: 1600px) {
+        margin: 0 $grid-column;
+      }
+    }
+  }
+
+  @import "homepageFirstRow";
+  @import "hero/hero";
+  @import "summaryStats";
+  @import "featuredContent";
+  @import "wordOfTheDay";
+  @import "awardSearch";
+  @import "homepageExploreToggle";
+  @import "exploreDataPlaceholder";
+  @import "homepageResources";
+  @import "readyToGetStarted";
+}
+
+
