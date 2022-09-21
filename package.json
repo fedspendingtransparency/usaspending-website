@@ -141,7 +141,7 @@
     "postcss": "8.4.16",
     "**/postcss": "8.4.16",
     "terser": "5.14.2",
-    "webpack": "5.67.0",
+    "webpack": "5.74.0",
     "moment-timezone": "0.5.37"
   },
   "dependencies": {
