@@ -91,8 +91,9 @@ const WordOfTheDay = () => {
     };
 
     useEffect(() => {
-        fetchAllTerms()
+        fetchAllTerms().promise
             .then((res) => {
+                console.log(res);
                 selectWordOfTheDay(res);
                 setLoading(false);
                 setError(false);
