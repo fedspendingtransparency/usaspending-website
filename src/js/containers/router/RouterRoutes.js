@@ -37,6 +37,7 @@ const SubmissionStatisticsDataSources = React.lazy(() => import('components/abou
 const DataDictionaryPage = React.lazy(() => import('components/dataDictionary/DataDictionaryPage').then((comp) => comp));
 const AnalystGuidePage = React.lazy(() => import('components/analystGuide/AnalystGuidePage').then((comp) => comp));
 const EquityCovidSpendingPage = React.lazy(() => import('components/dataDives/EquityCovidSpendingPage').then((comp) => comp));
+const InteractiveDataSourcesPage = React.lazy(() => import('components/interactiveDataSources/InteractiveDataSourcesPage').then((comp) => comp));
 const TempPage = React.lazy(() => import('components/tempPage').then((comp) => comp));
 
 // /* eslint-disable import/prefer-default-export */
@@ -209,6 +210,11 @@ export const routes = [
     {
         path: '/data-dictionary',
         component: DataDictionaryPage,
+        exact: true
+    },
+    {
+        path: '/data-sources',
+        component: InteractiveDataSourcesPage,
         exact: true
     },
     {

@@ -205,6 +205,15 @@ export const dataDictionaryPageMetaTags = {
     og_image: `${productionURL}${imgDirectory}${facebookImage}`
 };
 
+export const interactiveDataSourcesPageMetaTags = {
+    og_url: `${productionURL}data-sources`,
+    og_title: 'Data Sources | USAspending',
+    og_description:
+        'A journey through government spending data.',
+    og_site_name: siteName,
+    og_image: `${productionURL}${imgDirectory}${facebookImage}`
+};
+
 export const metadataDownloadPageMetaTags = {
     og_url: `${productionURL}download_center/dataset_metadata`,
     og_title: 'Dataset Metadata | USAspending',
