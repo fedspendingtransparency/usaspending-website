@@ -12,10 +12,10 @@ import { fetchAllTerms, getNewUrlForGlossary } from "helpers/glossaryHelper";
 import CardContainer from "../../sharedComponents/commonCards/CardContainer";
 import CardBody from "../../sharedComponents/commonCards/CardBody";
 import CardButton from "../../sharedComponents/commonCards/CardButton";
+import { throttle } from "lodash";
 
 
 const WordOfTheDay = () => {
-
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [term, setTerm] = useState('');
@@ -23,6 +23,8 @@ const WordOfTheDay = () => {
     const [glossary, setGlossary] = useState('');
     const [glossaryLink, setGlossaryLink] = useState('');
     const { pathname, search } = useLocation();
+    const [hasOverflow, setHasOverflow] = useState(false);
+
 
     const glossaryTerms = ["Account Balance (File A)",
         "Account Breakdown by Award (File C)",
@@ -104,6 +106,20 @@ const WordOfTheDay = () => {
         return text;
     };
 
+    const handleResize = throttle(() => {
+        const el = document.querySelector('.definition');
+        const curOverf = el.style.overflow;
+        const isOverflowing = el.clientWidth < el.scrollWidth
+            || el.clientHeight < el.scrollHeight;
+
+        // eslint-disable-next-line no-param-reassign
+        el.style.overflow = curOverf;
+
+        console.log(isOverflowing);
+        setHasOverflow(isOverflowing);
+        return isOverflowing;
+    }, 50);
+
     useEffect(() => {
         setGlossaryLink(getNewUrlForGlossary(pathname, `?glossary=${term}`, search));
 
@@ -113,12 +129,12 @@ const WordOfTheDay = () => {
             }
         }
         // setDefinition(glossary?.find((d) => d.term === term));
-    }, [glossary]);
+    }, [glossary, pathname, search, term]);
 
     useEffect(() => {
         fetchAllTerms().promise
             .then((res) => {
-                setTerm(glossaryTerms[0]);
+                setTerm(glossaryTerms[6]);
                 setGlossary(res.data.results);
                 setLoading(false);
                 setError(false);
@@ -130,7 +146,10 @@ const WordOfTheDay = () => {
                     setError(true);
                 }
             });
-    }, []);
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, [glossaryTerms, handleResize]);
 
     return (
         <section className="word-of-the-day__section">
@@ -147,7 +166,7 @@ const WordOfTheDay = () => {
                         <div className="word-of-the-day__headline">{truncateText(term, 30)}</div>
                         <div className="word-of-the-day__divider" />
                         <CardBody customClassName="word-of-the-day__body">
-                            {truncateText(definition, 95)}
+                            <div className="definition"><div>{definition}</div></div>
                             <CardButton variant="secondary" link={glossaryLink} customClassName="word-of-the-day__button">
                                 Read More
                             </CardButton>

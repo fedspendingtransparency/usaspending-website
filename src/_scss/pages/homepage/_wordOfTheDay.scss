@@ -51,6 +51,16 @@
     color: $theme-color-body-inverse;
     font-size: rem(20);
     line-height: 1.5;
+
+    .definition {
+      height: 150px;
+      overflow: hidden;
+      div {
+        display: -webkit-box;
+        -webkit-line-clamp: 5;
+        -webkit-box-orient: vertical;
+      }
+    }
   }
 
   .card__body {
