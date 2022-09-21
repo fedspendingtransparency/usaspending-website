@@ -33,7 +33,10 @@ module.exports = {
         '@test-utils': "<rootDir>/tests/testResources/test-utils.js"
     },
     setupFiles: ["<rootDir>/tests/rejection.js"],
-    setupFilesAfterEnv: ["<rootDir>/tests/setup.js"],
+    setupFilesAfterEnv: [
+        "<rootDir>/tests/setup.js",
+        "jest-canvas-mock"
+    ],
     transform: {
         "^.+\\.jsx$|js$": "babel-jest"
     },
