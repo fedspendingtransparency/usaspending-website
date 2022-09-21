@@ -16,7 +16,7 @@ const exploreData = [
         headline: 'Tools for understanding agency spending',
         text: 'Use our interactive tools to find out how federal agencies are spending money',
         buttonText: 'Explore Agency Profiles',
-        buttonLink: ''
+        buttonLink: '/agency'
     },
     {
         // todo - add color to vars
@@ -24,15 +24,15 @@ const exploreData = [
         headline: 'Insights into federal award recipients',
         text: 'See who is receiving contracts, grants, loans, and other types of awards',
         buttonText: 'View Recipient Profiles',
-        buttonLink: ''
+        buttonLink: '/recipient'
     },
     {
         // this color is in vars but figure out how to use that var here
         fillColor: '#005ea2',
-        headline: 'Overview of federal awards made to states ',
+        headline: 'Overview of federal awards made to states',
         text: 'Find data on contracts, grants, and other types of awards made in each state',
         buttonText: 'Browse State Profiles',
-        buttonLink: ''
+        buttonLink: '/state'
     }
 ];
 
@@ -44,7 +44,7 @@ const accessData = [
         headline: 'Download prime and sub-award data',
         text: 'Create a custom download with details on specific awards',
         buttonText: 'Go to award data download',
-        buttonLink: ''
+        buttonLink: '/download_center/custom_award_data'
     },
     {
         // todo - add color to vars
@@ -52,15 +52,16 @@ const accessData = [
         headline: 'Download all federal spending data',
         text: 'Our account data includes award and non-award spending',
         buttonText: 'Go to account data download',
-        buttonLink: ''
+        buttonLink: '/download_center/custom_account_data'
     },
     {
         // todo - add color to vars
         fillColor: '#0050d8',
         headline: 'Use our API for your products',
         text: 'Our API is open, allowing you to create your own data visualizations',
-        buttonText: 'View API endpoints',
-        buttonLink: ''
+        buttonText: (
+            <a href="https://api.usaspending.gov/docs/endpoints" rel="noopener noreferrer">View API endpoints</a>
+        )
     }
 ];
 
