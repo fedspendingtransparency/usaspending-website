@@ -24,7 +24,7 @@ const WordOfTheDay = () => {
     const [currentMonth, setCurrentMonth] = useState('');
     const [currentDate, setCurrentDate] = useState('');
 
-
+    // Please note before adding terms to this list, verify the term exactly matches the term returned from /v2/references/glossary
     const glossaryTerms = ["Account Balance (File A)",
         "Account Breakdown by Award (File C)",
         "Account Breakdown by Program Activity & Object Class (File B)",
@@ -82,7 +82,7 @@ const WordOfTheDay = () => {
         "Sub-Recipient",
         "Transaction",
         "Treasury Account Symbol (TAS)",
-        "Unique Entity Identifier",
+        "Unique Entity Identifier (UEI)",
         "Unlinked Award",
         "Unobligated Balance",
         "URI"];
