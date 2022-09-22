@@ -50,8 +50,15 @@
           margin-bottom: 0;
         }
 
+        .card__body {
+          height: 100%;
+        }
+
         .headline {
           margin-bottom: $global-margin;
+          @media (min-width: $medium-screen) {
+            //min-height: rem(60);
+          }
         }
         .card__button {
           margin-bottom: 0;
