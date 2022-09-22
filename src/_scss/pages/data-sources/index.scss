@@ -71,6 +71,7 @@
                 @include flex-direction(column);
                 width: 22%;
                 margin: rem(20);
+                z-index: 1;
             }
             .data-sources-sidebar-reference {
                 display: none;
@@ -78,7 +79,7 @@
                     display: block;
                 }
             }
-        
+
             .data-sources-sidebar-content {
                 background-color: $color-white;
                 box-shadow: $container-shadow;
@@ -94,10 +95,10 @@
                 ul {
                     @include unstyled-list;
                     padding: rem(30);
-        
+
                     li {
                         padding: rem(12) 0;
-        
+
                         &:last-child {
                             padding-bottom: rem(0);
                         }
@@ -110,7 +111,7 @@
                             font-size: rem(19);
                             line-height: rem(20);
                             padding-bottom: rem(5);
-            
+
                             text-decoration: none;
                             border-bottom: 5px solid transparent;
                             @include transition(all 0.15s ease-in-out);
