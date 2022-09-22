@@ -5,6 +5,15 @@
   @media (min-width: $medium-screen) {
     background-image: linear-gradient(180deg, $color-white 50%, $theme-color-3 50%);
   }
+
+  &.access {
+    background-image: linear-gradient(180deg, $color-white 80%, $theme-color-4 20%);
+
+    @media (min-width: $medium-screen) {
+      background-image: linear-gradient(180deg, $color-white 50%, $theme-color-4 50%);
+    }
+  }
+
   .grid-content {
 
     .explore-data__title {

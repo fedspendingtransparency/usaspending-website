@@ -13,11 +13,12 @@ import CardButton from "../../sharedComponents/commonCards/CardButton";
 
 const propTypes = {
     title: PropTypes.string,
-    cardObjects: PropTypes.array
+    cardObjects: PropTypes.array,
+    access: PropTypes.bool
 };
 
 const ExploreTheData = (props) => (
-    <section className="explore-data__section">
+    <section className={`explore-data__section ${props.access ? "access" : ""}`}>
         <FlexGridRow className="grid-content">
             <FlexGridCol className="explore-data__title" width={12}>
                 {props.title}

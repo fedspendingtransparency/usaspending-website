@@ -105,7 +105,7 @@ const HomepageExploreToggle = () => {
             {activeTab === 'explore' ?
                 <ExploreTheData title={exploreDataTitle} cardObjects={exploreData} />
                 :
-                <ExploreTheData title={accessDataTitle} cardObjects={accessData} />
+                <ExploreTheData title={accessDataTitle} cardObjects={accessData} access />
             }
         </section>
     );
