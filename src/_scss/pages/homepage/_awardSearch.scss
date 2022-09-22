@@ -76,8 +76,8 @@
       background-color: $gray-cool-60;
     }
     .swiper-slide-next { // next slide up
-      opacity: .5;
       @media(min-width:768px) {
+        opacity: .5;
         transform: translate(-7rem, 0);
       }
     }
