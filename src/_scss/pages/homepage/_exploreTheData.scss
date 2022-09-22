@@ -11,11 +11,12 @@
       font-size: $font-size-40;
       font-weight: $font-semibold;
       line-height: 1.25;
-      text-align: center;
+      text-align: left;
       color: $color-grayblack;
       margin-bottom: $global-margin * 5;
       @media (min-width: $tablet-screen) {
         margin: 0 10% $global-margin * 5 10%;
+        text-align: center;
       }
       @media (min-width: $medium-screen) {
         margin: 0 26% $global-margin * 5 26%;
@@ -35,13 +36,9 @@
         width: unset;
       }
       .explore-data__card {
-        margin-bottom: $global-margin * 5;
-        @media (min-width: $tablet-screen) {
-          margin-bottom: $global-margin * 4;
-        }
+        margin-bottom: $global-margin * 4;
         @media (min-width: $medium-screen) {
           margin-bottom: 0;
-          max-width: 350px;
         }
 
         .headline {
