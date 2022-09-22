@@ -45,22 +45,14 @@ const CardButton = ({
                 :
                 (
                     <Link
-                        className={`card__button--secondary ${variantMapper[variant]}`}
+                        className={`card__button--secondary ${variantMapper[variant]} ${customClassName}`}
                         role="button"
                         aria-label={`${text}`}
                         to={link}
                         onClick={action}>
-                        {text}
+                        {text || children}
                     </Link>
                 )}
-            <Link
-                className={`card__button--secondary ${variantMapper[variant]} ${customClassName}`}
-                role="button"
-                aria-label={`${text}`}
-                to={link}
-                onClick={action}>
-                {text || children}
-            </Link>
         </div>
     );
 };
