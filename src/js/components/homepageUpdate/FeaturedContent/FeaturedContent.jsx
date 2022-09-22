@@ -24,7 +24,7 @@ const FeaturedContent = () => (
             </div>
             <div className="featured-content__section--flex-row">
                 <FlexGridCol width={12} desktop={6} tablet={6} mobile={12}>
-                    <Link to="disaster/covid-19">
+                    <Link className="featured-content__section--link" to="disaster/covid-19">
                         <CardContainer variant="outline" size="md">
                             <CardHero fill="#3333a3" variant="expanded" img="img/homepage-featured-content/homepage-feature-covid-19.webp" />
                             <CardBody
@@ -46,7 +46,7 @@ const FeaturedContent = () => (
                                 overline="Resources"
                                 headline={
                                     <div>
-                                        Learn how to use USAspending with our tutorial&nbsp;
+                                            Learn how to use USAspending with our tutorial&nbsp;
                                         <span style={{ whiteSpace: "nowrap" }}>videos&nbsp;
                                             <FontAwesomeIcon style={{ width: '20px' }} icon="external-link-alt" />
                                         </span>
