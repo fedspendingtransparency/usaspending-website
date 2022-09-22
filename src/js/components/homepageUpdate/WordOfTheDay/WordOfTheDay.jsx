@@ -30,7 +30,7 @@ const WordOfTheDay = () => {
         "Account Breakdown by Program Activity & Object Class (File B)",
         "Action Date",
         "Appropriation",
-        "Assistance Listing (CFDA Program)",
+        "Assistance Listings (CFDA Program)",
         "Award",
         "Award Type",
         "Awards Data (File D)",
