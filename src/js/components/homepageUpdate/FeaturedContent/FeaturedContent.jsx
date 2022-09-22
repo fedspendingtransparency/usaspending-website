@@ -24,7 +24,7 @@ const FeaturedContent = () => (
             </div>
             <div className="featured-content__section--flex-row">
                 <FlexGridCol width={12} desktop={6} tablet={6} mobile={12}>
-                    <Link to="disaster/covid-19">
+                    <Link to="disaster/covid-19" tabIndex="0">
                         <CardContainer variant="outline" size="md">
                             <CardHero fill="#3333a3" variant="expanded" img="img/homepage-featured-content/homepage-feature-covid-19.webp" />
                             <CardBody
@@ -39,8 +39,8 @@ const FeaturedContent = () => (
                     </Link>
                 </FlexGridCol>
                 <FlexGridCol width={12} desktop={6} tablet={6} mobile={12}>
-                    <ExternalLink url="https://www.youtube.com/channel/UCyDn83O-0XC98H3TCV-VCGQ" isCard>
-                        <CardContainer variant="outline" size="md">
+                    <ExternalLink url="https://www.youtube.com/channel/UCyDn83O-0XC98H3TCV-VCGQ" isCard tabIndex="0">
+                        <CardContainer variant="outline" size="md" tabIndex={0}>
                             <CardHero fill="#009ec1" variant="expanded" img="img/homepage-featured-content/homepage-featured-youtube.webp" />
                             <CardBody
                                 overline="Resources"

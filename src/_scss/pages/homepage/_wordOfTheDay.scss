@@ -1,4 +1,9 @@
 .word-of-the-day__section {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  height: 100%;
+
   .word-of-the-day__heading {
     display: flex;
     flex-direction: row;
@@ -27,9 +32,59 @@
     }
   }
 
-  .card-container {
-    display: flex;
-    width: 100%;
+  .word-of-the-day__headline {
+    color: $theme-color-headline-inverse;
+    margin: rem(40) rem(32) rem(16) rem(32);
+    font-size: rem(24);
+    font-weight: $font-semibold;
+    line-height: 1.25;
+  }
+
+  .word-of-the-day__divider {
+    margin: 0 rem(32);
+    width: rem(64);
+    height: rem(4);
+    background-color: $blue-warm-40v;
+  }
+
+  .word-of-the-day__body {
+    color: $theme-color-body-inverse;
+    font-size: rem(20);
+    line-height: 1.5;
+
+    .definition {
+      height: 150px;
+      overflow: hidden;
+      div {
+        display: -webkit-box;
+        -webkit-line-clamp: 5;
+        -webkit-box-orient: vertical;
+      }
+    }
+  }
+
+  .card__body {
+    height: calc(100% - 100px);
+  }
+
+  .usa-dt-flex-grid__col {
     height: 100%;
+  }
+
+  .card__button {
+    margin-top: rem(32);
+    justify-content: flex-start;
+  }
+
+  .word-of-the-day__button {
+    border-color: $card-outline-color;
+    color: $card-outline-color;
+    width: rem(106);
+
+
+    &:hover {
+      border-color: $gray-cool-5;
+      color: $gray-cool-5;
+    }
   }
 }
