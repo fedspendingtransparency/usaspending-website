@@ -142,6 +142,11 @@
       border-radius: 24px;
       height: 48px;
       width: 48px;
+      box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.1);
+
+      &:hover {
+        background-color: $color-primary-darker;
+      }
     }
 
     .swiper-button-next::after, .swiper-button-prev::after {
