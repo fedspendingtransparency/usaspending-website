@@ -12,6 +12,7 @@ import { throttle } from 'lodash';
 import CardButton from "../../sharedComponents/commonCards/CardButton";
 import CardBody from "../../sharedComponents/commonCards/CardBody";
 import CardContainer from "../../sharedComponents/commonCards/CardContainer";
+import GlossaryLink from '../../sharedComponents/GlossaryLink';
 
 /* eslint-disable */
 import "swiper/css/bundle";
@@ -24,6 +25,11 @@ const AwardSearch = () => {
     const [isDesktopXL, setDesktopXL] = useState(false);
     const [isMobile, setMobile] = useState(false);
     const [windowWidth, setWindowWidth] = useState(0);
+
+    const placeOfPerformance = <div>Search spending to your community using Location filters like Place of Performance {<GlossaryLink term="primary-place-of-performance" />}</div>;
+    const fiscalYear = <div>See spending data over time using our Time Period filters, like Fiscal Year {<GlossaryLink term="fiscal-year-fy" />}</div>;
+    const naics = <div>Use the North American Industry Classification System (NAICS) {<GlossaryLink term="naics" />} filter to find spending by industry</div>;
+    const psc = <div>From medical supplies to aircraft equipment, use Product or Service Codes (PSCs) {<GlossaryLink term="product-or-service-code-psc" />} to see what&apos;s being purchased</div>;
     useEffect(() => {
         const handleResize = throttle(() => {
             const newWidth = window.innerWidth;
@@ -69,7 +75,7 @@ const AwardSearch = () => {
                                 <CardContainer variant="elevated" size="lg">
                                     <CardBody
                                         headline="Federal Spending to Communities"
-                                        text="Search spending to your community using Location filters like Place of Performance">
+                                        text={placeOfPerformance} >
                                         <div className="award-search__image">
                                             <img src="img/homepage-award-search/award-search-communities-2x.png" alt="" />
                                         </div>
@@ -83,7 +89,7 @@ const AwardSearch = () => {
                                 <CardContainer variant="elevated" size="lg">
                                     <CardBody
                                         headline="Federal Spending Over Time"
-                                        text="See spending data over time using our Time Period filters, like Fiscal Year">
+                                        text={fiscalYear}>
                                         <div className="award-search__image">
                                             <img src="img/homepage-award-search/award-search-over-time-2x.png" alt="" />
                                         </div>
@@ -97,7 +103,7 @@ const AwardSearch = () => {
                                 <CardContainer variant="elevated" size="lg">
                                     <CardBody
                                         headline="Federal Spending by Industry"
-                                        text="Use the North American Industry Classification System (NAICS) filter to find spending by industry">
+                                        text={naics}>
                                         <div className="award-search__image">
                                             <img src="img/homepage-award-search/award-search-industry-2x.png" alt="" />
                                         </div>
@@ -111,7 +117,7 @@ const AwardSearch = () => {
                                 <CardContainer variant="elevated" size="lg">
                                     <CardBody
                                         headline="Federal Spending by Product or Service"
-                                        text="From medical supplies to aircraft equipment, use Product or Service Codes (PSCs) to see what’s being purchased">
+                                        text={psc}>
                                         <div className="award-search__image">
                                             <img src="img/homepage-award-search/award-search-product-service-2x.png" alt="" />
                                         </div>
@@ -142,7 +148,7 @@ const AwardSearch = () => {
                                         <CardContainer variant="elevated" size="lg">
                                             <CardBody
                                                 headline="Federal Spending to Communities"
-                                                text="Search spending to your community using Location filters like Place of Performance">
+                                                text={placeOfPerformance}>
                                                 <div className="award-search__image">
                                                     <img src="img/homepage-award-search/award-search-communities-2x.png" alt="" />
                                                 </div>
@@ -156,7 +162,7 @@ const AwardSearch = () => {
                                         <CardContainer variant="elevated" size="lg">
                                             <CardBody
                                                 headline="Federal Spending Over Time"
-                                                text="See spending data over time using our Time Period filters, like Fiscal Year">
+                                                text={fiscalYear}>
                                                 <div className="award-search__image">
                                                     <img src="img/homepage-award-search/award-search-over-time-2x.png" alt="" />
                                                 </div>
@@ -170,7 +176,7 @@ const AwardSearch = () => {
                                         <CardContainer variant="elevated" size="lg">
                                             <CardBody
                                                 headline="Federal Spending by Industry"
-                                                text="Use the North American Industry Classification System (NAICS) filter to find spending by industry">
+                                                text={naics}>
                                                 <div className="award-search__image">
                                                     <img src="img/homepage-award-search/award-search-industry-2x.png" alt="" />
                                                 </div>
@@ -184,7 +190,7 @@ const AwardSearch = () => {
                                         <CardContainer variant="elevated" size="lg">
                                             <CardBody
                                                 headline="Federal Spending by Product or Service"
-                                                text="From medical supplies to aircraft equipment, use Product or Service Codes (PSCs) to see what’s being purchased">
+                                                text={psc}>
                                                 <div className="award-search__image">
                                                     <img src="img/homepage-award-search/award-search-product-service-2x.png" alt="" />
                                                 </div>

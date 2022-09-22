@@ -147,7 +147,7 @@
     .swiper-button-next::after, .swiper-button-prev::after {
       color: $color-white;
       font-size: rem(24);
-      font-weight: $font-semibold;
+      font-weight: 700;
     }
 
     .swiper-container {
@@ -175,6 +175,10 @@
           margin-top: 16px;
           margin-bottom: 32px;
         }
+
+        .usda-glossary-link svg {
+          color: $color-gray-light;
+      }
       }
     }
   }
