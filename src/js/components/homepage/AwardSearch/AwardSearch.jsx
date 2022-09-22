@@ -26,10 +26,10 @@ const AwardSearch = () => {
     const [isMobile, setMobile] = useState(false);
     const [windowWidth, setWindowWidth] = useState(0);
 
-    const placeOfPerformance = <div>Search spending to your community using Location filters like Place of Performance {<GlossaryLink term="primary-place-of-performance" />}</div>;
-    const fiscalYear = <div>See spending data over time using our Time Period filters, like Fiscal Year {<GlossaryLink term="fiscal-year-fy" />}</div>;
-    const naics = <div>Use the North American Industry Classification System (NAICS) {<GlossaryLink term="naics" />} filter to find spending by industry</div>;
-    const psc = <div>From medical supplies to aircraft equipment, use Product or Service Codes (PSCs) {<GlossaryLink term="product-or-service-code-psc" />} to see what&apos;s being purchased</div>;
+    const placeOfPerformance = <div>Search spending to your community using Location filters like <div className="award-search__glossary">Place of Performance</div> {<GlossaryLink term="primary-place-of-performance" />}</div>;
+    const fiscalYear = <div>See spending data over time using our Time Period filters, like <div className="award-search__glossary">Fiscal Year</div> {<GlossaryLink term="fiscal-year-fy" />}</div>;
+    const naics = <div>Use the <div className="award-search__glossary">North American Industry Classification System (NAICS)</div> {<GlossaryLink term="naics" />} filter to find spending by industry</div>;
+    const psc = <div>From medical supplies to aircraft equipment, use <div className="award-search__glossary">Product or Service Codes (PSCs)</div> {<GlossaryLink term="product-or-service-code-psc" />} to see what&apos;s being purchased</div>;
     useEffect(() => {
         const handleResize = throttle(() => {
             const newWidth = window.innerWidth;

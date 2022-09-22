@@ -168,11 +168,33 @@
       .usa-dt-flex-grid__col-3 {
         max-width: 484px;
         width: 90%;
+
+        .card__body {
+          padding-left: 40px;
+          padding-top: 40px;
+          padding-right: 40px;
+          padding-bottom: 32px;
+          height: auto;
+          .headline {
+            margin-bottom: 8px;
+          }
+          .text {
+            margin-bottom: 32px;
+
+            .award-search__glossary {
+              display: inline;
+              font-weight: $font-semibold;
+            }
+          }
+          .card__button {
+            margin-bottom:0;
+          }
+        }
       }
 
       .award-search__slide {
         .award-search__image {
-          margin-top: 16px;
+          margin-top: 8px;
           margin-bottom: 32px;
         }
 
