@@ -47,7 +47,7 @@ const WordOfTheDay = () => {
         "Federal Account",
         "Federal Action Obligation",
         "Financial Assistance",
-        "Fiscal Year",
+        "Fiscal Year (FY)",
         "Funding Opportunity Number",
         "Grant",
         "Indefinite Delivery Vehicle (IDV)",
