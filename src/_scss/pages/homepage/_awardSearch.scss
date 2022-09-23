@@ -80,6 +80,12 @@
         opacity: .5;
         transform: translate(-7rem, 0);
       }
+
+      .card-container.lg.elevated {
+        @media(min-width:768px) {
+          box-shadow: none;
+        }
+      }
     }
     .swiper-slide-visible { // the size of the slide you can see
       opacity: 1;
