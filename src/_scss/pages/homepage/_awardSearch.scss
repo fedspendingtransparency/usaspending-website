@@ -15,6 +15,9 @@
         display: inline;
         width: 35%;
       }
+      @media (max-width:1200px) {
+        width:auto;
+      }
     }
     .award-search__overline-div {
       display: flex;
@@ -84,6 +87,12 @@
         opacity: .5;
         transform: translate(-7rem, 0);
       }
+      @media(min-width:1100px) {
+        transform: translate(-22rem, 0);
+      }
+      @media(min-width:1200px) {
+        transform: translate(-24rem, 0);
+      }
 
       .card-container.lg.elevated {
         @media(min-width:768px) {
@@ -136,7 +145,10 @@
         transform: translateX(25%);
       }
       @media(min-width:1100px) {
-        transform: translateX(25%);
+        transform: translateX(29%);
+      }
+      @media(min-width:1200px) {
+        transform: translateX(30%);
       }
       @media(min-width:1400px) {
         transform: translateX(10%);
@@ -151,6 +163,7 @@
       background-color: $color-primary;
       border-radius: 24px;
       height: 48px;
+      transform: translateY(-20px);
       width: 48px;
       box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.1);
 
@@ -163,6 +176,15 @@
       color: $color-white;
       font-size: rem(20);
       font-weight: 1000;
+      margin-bottom: 2px;
+    }
+
+    .swiper-button-next::after {
+      margin-left: 5px;
+    }
+
+    .swiper-button-prev::after {
+      margin-right: 5px;
     }
 
     .swiper-container {
