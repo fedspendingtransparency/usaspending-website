@@ -55,7 +55,7 @@ const accessData = [
         text: 'Our API is open, allowing you to create your own data visualizations',
         buttonText: 'View API endpoints',
         buttonLink: 'https://api.usaspending.gov/docs/endpoints',
-        apiLink: true
+        govLink: true
     }
 ];
 

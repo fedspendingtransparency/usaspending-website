@@ -40,7 +40,7 @@ const ExploreTheData = (props) => (
                                     variant="hero__button--action"
                                     text={card.buttonText}
                                     link={card.buttonLink}
-                                    apiLink={card.apiLink}>
+                                    govLink={card.govLink}>
                                 </CardButton>
                             </CardBody>
                         </CardContainer>
