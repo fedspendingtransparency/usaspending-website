@@ -66,6 +66,10 @@
     }
     .award-search__swiper {
       height: auto;
+
+      .swiper-pagination {
+        bottom: -4px;
+      }
     }
     .swiper-wrapper {
       @media (min-width: 1400px) {
