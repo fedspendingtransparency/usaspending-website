@@ -13,7 +13,10 @@ const propTypes = {
         PropTypes.object
     ]),
     subhead: PropTypes.string,
-    text: PropTypes.string,
+    text: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.object
+    ]),
     variant: PropTypes.string, // inset or no-variant
     children: PropTypes.oneOfType([
         PropTypes.string,

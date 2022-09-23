@@ -1,52 +1,258 @@
 .award-search__section {
 
   .grid-content {
-    height: 50rem;
-    border: solid 6px green;
+    margin-bottom: 72px;
     border-radius: 4px;
-  }
-  .award-search__overline-div {
-    display: flex;
+    min-height: 50rem;
 
-    .award-search__span {
-      height: 20px;
-      width: 20px;
-      background-color: $blue-5;
-
-      svg {
-        color: $theme-color-1;
+    @media (min-width: 1400px) {
+      align-items: center;
+    }
+    
+    .award-search__col1 {
+      align-items: center;
+      @media (min-width: 1400px) {
+        display: inline;
+        width: 35%;
+      }
+      @media (max-width:1200px) {
+        width:auto;
       }
     }
-    .award-search__overline {
-      margin: 0 0 0 8px;
-      font-size: rem(16);
+    .award-search__overline-div {
+      display: flex;
+  
+      .award-search__span {
+        height: 20px;
+        width: 20px;
+        background-color: $blue-5;
+  
+        svg {
+          color: $theme-color-1;
+        }
+      }
+      .award-search__overline {
+        margin: 0 0 0 8px;
+        font-size: rem(16);
+        font-weight: $font-semibold;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.25;
+        letter-spacing: normal;
+        color: $body-color;    
+      }
+    }
+  
+    .award-search__header {
+      font-size: rem(40);
       font-weight: $font-semibold;
+      color: $color-grayblack;
       font-stretch: normal;
       font-style: normal;
       line-height: 1.25;
       letter-spacing: normal;
-      color: $body-color;    
+      margin: 16px 0 0 0;
+    }
+  
+    .award-search__subtext {
+      margin: 16px 0 0;
+      font-size: rem(20);
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.5;
+      letter-spacing: normal;
+      color: $body-color;
+
+      @media(min-width: 320px) {
+        margin-bottom: 40px;
+      }
+    }
+    .award-search__swiper {
+      height: auto;
+
+      .swiper-pagination {
+        bottom: -4px;
+      }
+    }
+    .swiper-wrapper {
+      @media (min-width: 1400px) {
+        justify-self: right;
+      }
+    }
+    .swiper-pagination-bullet-active {
+      background-color: $gray-cool-60;
+    }
+    .swiper-slide-next { // next slide up
+      @media(min-width:768px) {
+        opacity: .5;
+        transform: translate(-7rem, 0);
+      }
+      @media(min-width:1100px) {
+        transform: translate(-22rem, 0);
+      }
+      @media(min-width:1200px) {
+        transform: translate(-24rem, 0);
+      }
+      @media(min-width:1400px) {
+        opacity: .5;
+        transform: translate(-7rem, 0);
+      }
+
+      .card-container.lg.elevated {
+        @media(min-width:768px) {
+          box-shadow: none;
+        }
+      }
+    }
+    .swiper-slide-visible { // the size of the slide you can see
+      opacity: 1;
+      @media(min-width:768px) {
+        transform: translate(-10rem, 0);
+      }
+    }
+    .swiper-slide-active { // the space the visible slide occupies (box including the slide)
+      @media(min-width:320px) {
+        min-height:514px;
+        transform:translateX(4%);
+      }
+      @media(min-width:600px) {
+        transform:translateX(10%);
+      }
+      @media(min-width:670px) {
+        transform:translateX(12%);
+      }
+      @media(min-width:700px) {
+        transform:translateX(15%);
+      }
+      @media(min-width:720px) {
+        transform:translateX(17%);
+      }
+      @media(min-width:768px) {
+        transform: translateX(18%);
+      }
+      @media(min-width:800px) {
+        transform: translateX(20%);
+      }
+      @media(min-width:850px) {
+        transform: translateX(21%);
+      }
+      @media(min-width:900px) {
+        transform: translateX(24%);
+      }
+      @media(min-width:950px) {
+        transform: translateX(25%);
+      }
+      @media(min-width:992px) {
+        transform: translateX(0%);
+      }
+      @media(min-width:1050px) {
+        transform: translateX(25%);
+      }
+      @media(min-width:1100px) {
+        transform: translateX(30%);
+      }
+      @media(min-width:1200px) {
+        transform: translateX(31%);
+      }
+      @media(min-width:1400px) {
+        transform: translateX(10%);
+      }
+    }
+
+    .swiper-button-disabled{
+      display:none;   
+    }
+
+    .swiper-button-prev, .swiper-button-next {
+      background-color: $color-primary;
+      border-radius: 24px;
+      height: 48px;
+      transform: translateY(-20px);
+      width: 48px;
+      box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.1);
+
+      &:hover {
+        background-color: $color-primary-darker;
+      }
+    }
+
+    .swiper-button-next::after, .swiper-button-prev::after {
+      color: $color-white;
+      font-size: rem(20);
+      font-weight: 1000;
+      margin-bottom: -1px;
+    }
+
+    .swiper-button-next::after {
+      margin-left: 5px;
+    }
+
+    .swiper-button-prev::after {
+      margin-right: 5px;
+    }
+
+    .swiper-container {
+      overflow: visible;
+    }
+    .award-search__col2 {
+      @media(min-width:1050px) {
+        width:100%;
+      }
+      @media (min-width: 1400px) {
+        display: inline;
+        width: 50%;
+      }
+      margin-left: auto;
+      margin-right: 0;
+      align-items: center;
+
+      .usa-dt-flex-grid__col-3 {
+        max-width: 484px;
+        width: 90%;
+
+        .card__body {
+          padding-left: 40px;
+          padding-top: 40px;
+          padding-right: 40px;
+          padding-bottom: 32px;
+          height: auto;
+          .headline {
+            margin-bottom: 8px;
+          }
+          .text {
+            margin-bottom: 32px;
+
+            .award-search__glossary {
+              display: inline;
+              font-weight: $font-semibold;
+            }
+          }
+          .card__button {
+            margin-bottom:0;
+
+            .card__button--primary {
+              white-space: normal;
+              text-align: center;
+              padding-top: 10px;
+              padding-bottom: 10px;
+              padding-left: 24px;
+              padding-right: 24px;
+            }
+          }
+        }
+      }
+
+      .award-search__slide {
+        .award-search__image {
+          margin-top: 8px;
+          margin-bottom: 32px;
+        }
+
+        .usda-glossary-link svg {
+          color: $color-gray-light;
+      }
+      }
     }
   }
-
-  .award-search__header {
-    font-size: rem(40);
-    font-weight: $font-semibold;
-    color: $color-grayblack;
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.25;
-    letter-spacing: normal;
-    margin: 16px 0 0 0;
-  }
-
-  .award-search__subtext {
-    margin: 16px 0 0;
-    font-size: rem(20);
-    font-stretch: normal;
-    font-style: normal;
-    line-height: 1.5;
-    letter-spacing: normal;
-    color: $body-color;
-  }
+  
 }
