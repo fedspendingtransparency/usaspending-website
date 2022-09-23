@@ -93,6 +93,10 @@
       @media(min-width:1200px) {
         transform: translate(-24rem, 0);
       }
+      @media(min-width:1400px) {
+        opacity: .5;
+        transform: translate(-7rem, 0);
+      }
 
       .card-container.lg.elevated {
         @media(min-width:768px) {
