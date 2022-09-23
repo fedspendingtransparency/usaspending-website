@@ -25,6 +25,7 @@
 @mixin hero-variants($size) {
   .card__hero {
     height: 12px;
+    @include top-border-radius($size);
     &.expanded {
       @include top-border-radius($size);
       padding-top: 4px;
