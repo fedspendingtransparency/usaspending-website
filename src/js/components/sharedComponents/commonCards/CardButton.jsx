@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 
 const propTypes = {
     link: PropTypes.string,
-    apiLink: PropTypes.bool,
+    govLink: PropTypes.bool,
     action: PropTypes.func,
     text: PropTypes.oneOfType([
         PropTypes.string,
@@ -24,7 +24,7 @@ const propTypes = {
 };
 
 const CardButton = ({
-    link, apiLink, action, text, variant = "secondary", customClassName = '', children
+    link, govLink, action, text, variant = "secondary", customClassName = '', children
 }) => {
     const variantMapper = {
         primary: "card__button--primary",
@@ -34,7 +34,7 @@ const CardButton = ({
 
     return (
         <div className="card__button">
-            {apiLink ? (
+            {govLink ? (
                 <div
                     className={`card__button--secondary ${variantMapper[variant]}`}
                     role="button"

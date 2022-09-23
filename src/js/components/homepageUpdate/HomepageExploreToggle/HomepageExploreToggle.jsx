@@ -18,8 +18,7 @@ const exploreData = [
         buttonLink: '/agency'
     },
     {
-        // todo - add color to vars
-        fillColor: '#009ec1',
+        fillColor: '#009ec1', // $theme-color-accent-12
         headline: 'Insights into federal award recipients',
         text: 'See who is receiving contracts, grants, loans, and other types of awards',
         buttonText: 'View Recipient Profiles',
@@ -37,29 +36,26 @@ const exploreData = [
 const accessDataTitle = 'Create your own analyses using USAspending data';
 const accessData = [
     {
-        // todo - add color to vars
-        fillColor: '#783cb9',
+        fillColor: '#783cb9', // $violet-60v
         headline: 'Download prime and sub-award data',
         text: 'Create a custom download with details on specific awards',
         buttonText: 'Go to award data download',
         buttonLink: '/download_center/custom_award_data'
     },
     {
-        // todo - add color to vars
-        fillColor: '#4a50c4',
+        fillColor: '#4a50c4', // $theme-color-accent-14
         headline: 'Download all federal spending data',
         text: 'Our account data includes award and non-award spending',
         buttonText: 'Go to account data download',
         buttonLink: '/download_center/custom_account_data'
     },
     {
-        // todo - add color to vars
-        fillColor: '#0050d8',
+        fillColor: '#0050d8', // $theme-color-accent-15
         headline: 'Use our API for your products',
         text: 'Our API is open, allowing you to create your own data visualizations',
         buttonText: 'View API endpoints',
         buttonLink: 'https://api.usaspending.gov/docs/endpoints',
-        apiLink: true
+        govLink: true
     }
 ];
 

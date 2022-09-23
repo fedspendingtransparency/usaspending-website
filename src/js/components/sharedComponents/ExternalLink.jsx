@@ -21,10 +21,15 @@ const ExternalLink = ({ url, children, isCard }) => {
         dispatch(showModal(url));
     };
 
+    const keyPressHandler = (e) => {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            dispatch(showModal(url));
+        }
+    };
     return (<>
         {isCard ?
-            // eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions
-            <a style={{ cursor: "pointer" }} onClick={redirect}>{children}</a>
+            <a className="usda-external-link__card" role="link" onClick={redirect} onKeyPress={keyPressHandler} tabIndex={0}>{children}</a>
             :
             <button className="usda-external-link" onClick={redirect}>
                 {children || url} <FontAwesomeIcon icon="external-link-alt" />
