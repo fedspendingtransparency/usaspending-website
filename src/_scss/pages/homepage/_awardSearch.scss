@@ -149,10 +149,10 @@
         transform: translateX(25%);
       }
       @media(min-width:1100px) {
-        transform: translateX(29%);
+        transform: translateX(30%);
       }
       @media(min-width:1200px) {
-        transform: translateX(30%);
+        transform: translateX(31%);
       }
       @media(min-width:1400px) {
         transform: translateX(10%);
@@ -229,6 +229,15 @@
           }
           .card__button {
             margin-bottom:0;
+
+            .card__button--primary {
+              white-space: normal;
+              text-align: center;
+              padding-top: 10px;
+              padding-bottom: 10px;
+              padding-left: 24px;
+              padding-right: 24px;
+            }
           }
         }
       }
