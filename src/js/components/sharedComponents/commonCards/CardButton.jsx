@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 
 const propTypes = {
     link: PropTypes.string,
+    govLink: PropTypes.bool,
     action: PropTypes.func,
     text: PropTypes.oneOfType([
         PropTypes.string,
@@ -23,24 +24,35 @@ const propTypes = {
 };
 
 const CardButton = ({
-    link, action, text, variant = "secondary", customClassName = '', children
+    link, govLink, action, text, variant = "secondary", customClassName = '', children
 }) => {
     const variantMapper = {
         primary: "card__button--primary",
-        sedondary: "",
+        secondary: "",
         text: "card__button--borderless"
     };
 
     return (
         <div className="card__button">
-            <Link
-                className={`card__button--secondary ${variantMapper[variant]} ${customClassName}`}
-                role="button"
-                aria-label={`${text}`}
-                to={link}
-                onClick={action}>
-                {text || children}
-            </Link>
+            {govLink ? (
+                <div
+                    className={`card__button--secondary ${variantMapper[variant]}`}
+                    role="button"
+                    aria-label={`${text}`}>
+                    <a href={link}>{text}</a>
+                </div>
+            )
+                :
+                (
+                    <Link
+                        className={`card__button--secondary ${variantMapper[variant]} ${customClassName}`}
+                        role="button"
+                        aria-label={`${text}`}
+                        to={link}
+                        onClick={action}>
+                        {text || children}
+                    </Link>
+                )}
         </div>
     );
 };
