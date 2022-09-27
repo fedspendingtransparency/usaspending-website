@@ -77,7 +77,7 @@ const AwardSearch = () => {
                                         headline="Federal Spending to Communities"
                                         text={placeOfPerformance} >
                                         <div className="award-search__image">
-                                            <img src="img/homepage-award-search/award-search-communities-2x.png" alt="" />
+                                            <img src="img/homepage-award-search/award-search-communities-2x.svg" alt="" />
                                         </div>
                                         <CardButton text="View spending by state" variant="primary" link="/search" />
                                     </CardBody>
@@ -91,7 +91,7 @@ const AwardSearch = () => {
                                         headline="Federal Spending Over Time"
                                         text={fiscalYear}>
                                         <div className="award-search__image">
-                                            <img src="img/homepage-award-search/award-search-over-time-2x.png" alt="" />
+                                            <img src="img/homepage-award-search/award-search-over-time-2x.svg" alt="" />
                                         </div>
                                         <CardButton text="View spending by fiscal year" variant="primary" link="/search" />
                                     </CardBody>
@@ -105,7 +105,7 @@ const AwardSearch = () => {
                                         headline="Federal Spending by Industry"
                                         text={naics}>
                                         <div className="award-search__image">
-                                            <img src="img/homepage-award-search/award-search-industry-2x.png" alt="" />
+                                            <img src="img/homepage-award-search/award-search-industry-2x.svg" alt="" />
                                         </div>
                                         <CardButton text="View spending by industry" variant="primary" link="/search" />
                                     </CardBody>
@@ -119,7 +119,7 @@ const AwardSearch = () => {
                                         headline="Federal Spending by Product or Service"
                                         text={psc}>
                                         <div className="award-search__image">
-                                            <img src="img/homepage-award-search/award-search-product-service-2x.png" alt="" />
+                                            <img src="img/homepage-award-search/award-search-psc-2x.svg" alt="" />
                                         </div>
                                         <CardButton text="View spending by product or service" variant="primary" link="/search" />
                                     </CardBody>
@@ -150,7 +150,7 @@ const AwardSearch = () => {
                                                 headline="Federal Spending to Communities"
                                                 text={placeOfPerformance}>
                                                 <div className="award-search__image">
-                                                    <img src="img/homepage-award-search/award-search-communities-2x.png" alt="" />
+                                                    <img src="img/homepage-award-search/award-search-communities-2x.svg" alt="" />
                                                 </div>
                                                 <CardButton text="View spending by state" variant="primary" link="/search" />
                                             </CardBody>
@@ -164,7 +164,7 @@ const AwardSearch = () => {
                                                 headline="Federal Spending Over Time"
                                                 text={fiscalYear}>
                                                 <div className="award-search__image">
-                                                    <img src="img/homepage-award-search/award-search-over-time-2x.png" alt="" />
+                                                    <img src="img/homepage-award-search/award-search-over-time-2x.svg" alt="" />
                                                 </div>
                                                 <CardButton text="View spending by fiscal year" variant="primary" link="/search" />
                                             </CardBody>
@@ -178,7 +178,7 @@ const AwardSearch = () => {
                                                 headline="Federal Spending by Industry"
                                                 text={naics}>
                                                 <div className="award-search__image">
-                                                    <img src="img/homepage-award-search/award-search-industry-2x.png" alt="" />
+                                                    <img src="img/homepage-award-search/award-search-industry-2x.svg" alt="" />
                                                 </div>
                                                 <CardButton text="View spending by industry" variant="primary" link="/search" />
                                             </CardBody>
@@ -192,7 +192,7 @@ const AwardSearch = () => {
                                                 headline="Federal Spending by Product or Service"
                                                 text={psc}>
                                                 <div className="award-search__image">
-                                                    <img src="img/homepage-award-search/award-search-product-service-2x.png" alt="" />
+                                                    <img src="img/homepage-award-search/award-search-psc-2x.svg" alt="" />
                                                 </div>
                                                 <CardButton text="View spending by product or service" variant="primary" link="/search" />
                                             </CardBody>
