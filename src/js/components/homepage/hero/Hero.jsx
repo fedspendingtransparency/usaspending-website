@@ -33,6 +33,19 @@ const Hero = () => {
 
     return (
         <section className="homepage-hero-container" aria-label="Hero sections">
+            <div className="hero__graphic-layer-background"></div>
+            <div className="hero__graphic-layer-bridge">
+                <img
+                    role="presentation"
+                    src="../../../../img/homepage-hero/homepage-hero-bridge@2x.png"
+                    alt="Bridge" />
+            </div>
+            <div className="hero__graphic-layer-buildings">
+                <img
+                    role="presentation"
+                    src="../../../../img/homepage-hero/homepage-hero-buildings@2x.png"
+                    alt="Buildings" />
+            </div>
             <div className="homepage-hero-content">
                 <AnimatedHeading paused={isPaused} />
                 <div className="hero__lower-wrapper">
@@ -95,8 +108,7 @@ const Hero = () => {
                     </div> */}
                 </div>
             </div>
-            <div className="hero__graphic-layer-2"></div>
-            <div className="hero__graphic-layer-1"></div>
+            <div className="hero__graphic-layer-foreground"></div>
         </section>
     );
 };

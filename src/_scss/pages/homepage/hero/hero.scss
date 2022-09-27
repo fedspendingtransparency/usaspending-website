@@ -1,3 +1,5 @@
+$hero__graphic-layer-bridge-width: 50%;
+
 @-webkit-keyframes slideInUp {
     from {
       -webkit-transform: translate3d(0, 50%, 0);
@@ -36,13 +38,16 @@
     // background-size: 100% auto;
     // background-size: cover;
 
-    .hero__graphic-layer-1 {
+    .hero__graphic-layer-foreground {
         width: 100%;
-        background-image: url(#{$image-path}/homepage-hero/homepage-hero-layer-1.png);
+        background-image: url(#{$image-path}/homepage-hero/homepage-hero-layer-1@2x.png);
+        // background-image: url(#{$image-path}/homepage-hero/homepage-hero-layer-foreground@2x.png);
         background-repeat: no-repeat;
         background-position: center top;
+        // background-position: center center;
         background-size: cover;
         min-height: 216px;
+        // min-height: 480px;
         z-index: 0;
         -webkit-animation-duration: 2s;
         animation-duration: 2s;
@@ -54,12 +59,12 @@
         animation-name: slideInUp;
     }
 
-    .hero__graphic-layer-2 {
+    .hero__graphic-layer-background {
         position: absolute;
         left: 0;
         bottom: 0;
         width: 100%;
-        background-image: url(#{$image-path}/homepage-hero/homepage-hero-layer-2.png);
+        background-image: url(#{$image-path}/homepage-hero/homepage-hero-layer-2@2x.png);
         background-repeat: no-repeat;
         background-position: center top;
         background-size: cover;
@@ -75,20 +80,49 @@
         animation-name: slideInUp;
     }
 
-    // .hero__graphic-layer-1 {
-    //     position: absolute;
-    //     display: flex;
-    //     padding: 0;
-    //     margin: 0;
-    //     width: 100%;
-    //     left: 0;
-    //     bottom: 0;
+    .hero__graphic-layer-buildings {
+        position: absolute;
+        left: 32px;
+        bottom: 64px;
+        display: inline-block;
+        max-width: 32%;
+        -webkit-animation-duration: 2.25s;
+        animation-duration: 2.25s;
+        -webkit-animation-duration: 2.25s;
+        animation-duration: 2.25s;
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both;
+        -webkit-animation-name: slideInUp;
+        animation-name: slideInUp;
 
-    //     img {
-    //         width: 100%;
-    //         margin: 0 auto;
-    //     }
-    // }
+        img {
+            width: 100%;
+            margin: 0 auto;
+        }
+    }
+
+    .hero__graphic-layer-bridge {
+        position: absolute;
+        // calculate 50% minus the total width of the graphic / 2
+        // e.g., calc(50% - (50%/2)) to center align absolutely positioned graphic
+        left: calc(50% - #{$hero__graphic-layer-bridge-width/2});
+        bottom: 64px;
+        display: inline-block;
+        width: $hero__graphic-layer-bridge-width;
+        -webkit-animation-duration: 3s;
+        animation-duration: 3s;
+        -webkit-animation-duration: 3s;
+        animation-duration: 3s;
+        -webkit-animation-fill-mode: both;
+        animation-fill-mode: both;
+        -webkit-animation-name: slideInUp;
+        animation-name: slideInUp;
+
+        img {
+            width: 100%;
+            margin: 0 auto;
+        }
+    }
 
     .homepage-hero-content {
         padding: rem(40) rem(16);
