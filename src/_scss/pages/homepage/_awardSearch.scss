@@ -113,10 +113,28 @@
     .swiper-slide-active { // the space the visible slide occupies (box including the slide)
       @media(min-width:320px) {
         min-height:514px;
-        transform:translateX(4%);
+        transform:translateX(3%);
+      }
+      @media(min-width:350px) {
+        transform:translateX(9%);
+      }
+      @media(min-width:400px) {
+        transform:translateX(11%);
+      }
+      @media(min-width:450px) {
+        transform:translateX(14%);
+      }
+      @media(min-width:484px) {
+        transform:translateX(5%);
+      }
+      @media(min-width:500px) {
+        transform:translateX(5%);
+      }
+      @media(min-width:550px) {
+        transform:translateX(6.5%);
       }
       @media(min-width:600px) {
-        transform:translateX(10%);
+        transform:translateX(8%);
       }
       @media(min-width:670px) {
         transform:translateX(12%);
@@ -125,7 +143,7 @@
         transform:translateX(15%);
       }
       @media(min-width:720px) {
-        transform:translateX(17%);
+        transform:translateX(15%);
       }
       @media(min-width:768px) {
         transform: translateX(18%);
@@ -209,7 +227,9 @@
       .usa-dt-flex-grid__col-3 {
         max-width: 484px;
         width: 90%;
-
+        @media (max-width:484px) {
+          max-width:288px;
+        }
         .card__body {
           padding-left: 40px;
           padding-top: 40px;
