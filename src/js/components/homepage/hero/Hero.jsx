@@ -46,6 +46,18 @@ const Hero = () => {
                     src="../../../../img/homepage-hero/homepage-hero-buildings@2x.png"
                     alt="Buildings" />
             </div>
+            <div className="hero__graphic-layer-windmills">
+                <img
+                    role="presentation"
+                    src="../../../../img/homepage-hero/homepage-hero-trees-windmills@2x.png"
+                    alt="Windmills" />
+            </div>
+            <div className="hero__graphic-layer-foreground">
+                <img
+                    role="presentation"
+                    src="../../../../img/homepage-hero/homepage-hero-layer-foreground@2x.png"
+                    alt="Road" />
+            </div>
             <div className="homepage-hero-content">
                 <AnimatedHeading paused={isPaused} />
                 <div className="hero__lower-wrapper">
@@ -108,7 +120,7 @@ const Hero = () => {
                     </div> */}
                 </div>
             </div>
-            <div className="hero__graphic-layer-foreground"></div>
+            {/* <div className="hero__graphic-layer-foreground"></div> */}
         </section>
     );
 };
