@@ -36,14 +36,14 @@ const Hero = () => {
             <div className="homepage-hero-content">
                 <AnimatedHeading paused={isPaused} />
                 <div className="hero__lower-wrapper">
-                    <div className="hero__left-image-wrapper">
+                    {/* <div className="hero__left-image-wrapper">
                         <picture>
                             <img
                                 role="presentation"
                                 src="../../../../img/homepage-hero-graphic-left.svg"
                                 alt="" />
                         </picture>
-                    </div>
+                    </div> */}
                     <div className="hero__center-content-wrapper">
                         <div className="hero__center-content">
                             <div className="hero__button-container">
@@ -85,16 +85,18 @@ const Hero = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="hero__right-image-wrapper">
+                    {/* <div className="hero__right-image-wrapper">
                         <picture>
                             <img
                                 role="presentation"
                                 src="../../../../img/homepage-hero-graphic-right.svg"
                                 alt="" />
                         </picture>
-                    </div>
+                    </div> */}
                 </div>
             </div>
+            <div className="hero__graphic-layer-2"></div>
+            <div className="hero__graphic-layer-1"></div>
         </section>
     );
 };
