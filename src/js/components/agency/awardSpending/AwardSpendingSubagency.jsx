@@ -74,7 +74,6 @@ const AwardSpendingSubagency = ({ fy }) => {
     const { overview, subagencyCount } = useSelector((state) => state.agency);
     const [prevActiveTab, activeTab, setActiveTab] = useStateWithPrevious(initialActiveTabState);
 
-
     const moreOptionsTabsRef = useRef(null);
 
     const subagencyData = subagencyCount;

@@ -32,7 +32,11 @@ module.exports = {
         ".*GlobalConstants$": "<rootDir>/tests/testResources/mockGlobalConstants.js",
         '@test-utils': "<rootDir>/tests/testResources/test-utils.js"
     },
-    setupFilesAfterEnv: ["<rootDir>/tests/setup.js"],
+    setupFiles: ["<rootDir>/tests/rejection.js"],
+    setupFilesAfterEnv: [
+        "<rootDir>/tests/setup.js",
+        "jest-canvas-mock"
+    ],
     transform: {
         "^.+\\.jsx$|js$": "babel-jest"
     },

@@ -1,0 +1,90 @@
+.homepage-resources__section {
+
+  .grid-content {
+    padding: $global-padding * 13 0;
+
+    .homepage-resources__top-label-container {
+      margin-bottom: $global-margin * 2;
+      .homepage-resources__top-label-icon-container {
+        width: rem(20);
+        height: rem(20);
+        border-radius: 2px;
+        background-color: $theme-color-accent-7;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .homepage-resources__book-icon {
+          color: $theme-color-accent-8;
+        }
+      }
+
+      .homepage-resources__top-label-text {
+        font-size: $font-size-16;
+        font-weight: $font-semibold;
+        line-height: 1.25;
+        color: $body-color;
+        margin-left: $global-margin;
+      }
+    }
+
+    .homepage-resources__headline {
+      font-size: $font-size-40;
+      font-weight: $font-semibold;
+      line-height: 1.25;
+      color: $headline-color;
+      margin-bottom: $global-margin * 5;
+    }
+
+    .homepage-resources__card-row {
+      .homepage-resources__card-col:last-child {
+        margin-bottom: 0;
+      }
+      @media (min-width: $tablet-screen) {
+        .homepage-resources__card-col:nth-last-child(2) {
+          margin-bottom: 0;
+        }
+      }
+
+      .homepage-resources__card-col {
+        margin-bottom: $global-margin * 6;
+        @media (min-width: $medium-screen) {
+          margin-bottom: 0;
+        }
+
+        .card__body {
+          padding: 0;
+        }
+
+        .homepage-resources__icon-container {
+          width: rem(40);
+          height: rem(40);
+          border-radius: 2px;
+          margin-bottom: $global-margin * 2;
+          display: flex;
+          justify-content: center;
+          svg {
+            align-self: center;
+          }
+          &.guide {
+            background-color: $theme-color-accent-7;
+          }
+          &.dictionary {
+            background-color: $theme-color-accent-9;
+          }
+          &.model {
+            background-color: $theme-color-accent-10;
+          }
+          &.glossary {
+            background-color: $theme-color-accent-11;
+          }
+        }
+        .headline {
+          margin-bottom: $global-margin;
+        }
+        .text {
+          margin-bottom: $global-margin * 2;
+        }
+      }
+    }
+  }
+}

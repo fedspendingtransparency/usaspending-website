@@ -1,0 +1,35 @@
+$top: 60px;
+
+.scroller-container {
+  display: block;
+  position: relative;
+  width: 100%;
+}
+
+.scroller-backdrop  {
+    position: sticky;
+    display: block;
+    top: $top;
+    overflow: hidden;
+  }
+
+.scroller-backdrop > * {
+  width: 100%;
+  height: calc(100vh - #{$top});
+  margin: 0 auto;
+}
+
+.scroller-backdrop div {
+    border: none;
+}
+
+.scroller-overlays {
+  display: block;
+  width: 100%;
+  min-height: calc(100vh - #{$top});
+  margin-top: calc(-100vh + #{$top});
+  // fixes a safari bug where some overlays go behind the backdrop
+  transform: translate3d(0, 0, 0);
+  // allows for interacting with the backdrop that is under the overlay.
+  pointer-events: none;
+}

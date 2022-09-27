@@ -1,0 +1,43 @@
+$mobile-large: 500px;
+
+.scroller-overlay {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding: 0px 30px;
+  h3 {
+    margin-top: 0;
+  }
+  .scroller-overlay-card-container {
+    @import "./scrollerOverlayCard";
+    max-width: 40%;
+    @media(max-width: $tablet-screen) {
+      max-width: 45%;
+    }
+    @media(max-width: $mobile-large) {
+      max-width: 100%;
+    }
+    @media(max-width: $small-screen) {
+      max-width: 100%;
+    }
+  }
+  .scroller-overlay-content {
+    display: flex;
+    width: 100%;
+    justify-content: center; // center by default
+  
+    &.left-justified {
+      justify-content: flex-start;
+    }
+  
+    &.right-justified {
+      justify-content: flex-end;
+    }
+  }
+  
+  .scroller-overlay-content > * {
+    // `Scroller` component has pointer-events set to none.
+    // For the scroller-overlay content (e.g. the overlay cards), set to auto
+    pointer-events: auto;
+  }
+}
