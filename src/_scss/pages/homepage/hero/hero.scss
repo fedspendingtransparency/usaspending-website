@@ -27,7 +27,6 @@
 .homepage-hero-container {
     background: rgba(136, 180, 192, .15);
     position: relative;
-    // min-height: 560px;
     min-height: 680px;
     overflow: hidden;
     // min-height: 720px;
@@ -37,38 +36,12 @@
     // background-size: 100% auto;
     // background-size: cover;
 
-    // .hero__graphic-layer-foreground {
-    //     position: absolute;
-    //     left: 0;
-    //     bottom: 0;
-    //     width: 100%;
-    //     background-image: url(#{$image-path}/homepage-hero/homepage-hero-layer-foreground@2x.png);
-    //     background-repeat: no-repeat;
-    //     background-position: center top;
-    //     background-size: cover;
-    //     min-height: 480px;
-    //     z-index: 0;
-    //     -webkit-animation-duration: 2s;
-    //     animation-duration: 2s;
-    //     -webkit-animation-duration: 2s;
-    //     animation-duration: 2s;
-    //     -webkit-animation-fill-mode: both;
-    //     animation-fill-mode: both;
-    //     -webkit-animation-name: slideInUp;
-    //     animation-name: slideInUp;
-    // }
-
     .hero__graphic-layer-background {
         position: absolute;
         left: 0;
-        bottom: 0;
+        bottom: -24px;
+        display: inline-block;
         width: 100%;
-        background-image: url(#{$image-path}/homepage-hero/homepage-hero-layer-background@2x.png);
-        background-repeat: no-repeat;
-        background-position: center top;
-        background-size: cover;
-        min-height: 480px;
-        z-index: 0;
         -webkit-animation-duration: 2.5s;
         animation-duration: 2.5s;
         -webkit-animation-duration: 2.5s;
@@ -77,6 +50,11 @@
         animation-fill-mode: both;
         -webkit-animation-name: slideInUp;
         animation-name: slideInUp;
+
+        img {
+            width: 100%;
+            margin: 0 auto;
+        }
     }
 
     .hero__graphic-layer-buildings {
@@ -84,7 +62,7 @@
         left: 0;
         bottom: -24px;
         display: inline-block;
-        max-width: 50%;
+        max-width: 100%;
         -webkit-animation-duration: 2.5s;
         animation-duration: 2.5s;
         -webkit-animation-duration: 2.5s;
@@ -105,7 +83,7 @@
         right: 0;
         bottom: -24px;
         display: inline-block;
-        max-width: 50%;
+        max-width: 100%;
         -webkit-animation-duration: 2.5s;
         animation-duration: 2.5s;
         -webkit-animation-duration: 2.5s;
@@ -127,10 +105,10 @@
         bottom: -24px;
         display: inline-block;
         width: 100%;
-        -webkit-animation-duration: 3s;
-        animation-duration: 3s;
-        -webkit-animation-duration: 3s;
-        animation-duration: 3s;
+        -webkit-animation-duration: 2.5s;
+        animation-duration: 2.5s;
+        -webkit-animation-duration: 2.5s;
+        animation-duration: 2.5s;
         -webkit-animation-fill-mode: both;
         animation-fill-mode: both;
         -webkit-animation-name: slideInUp;
@@ -153,10 +131,10 @@
         bottom: -24px;
         display: inline-block;
         width: 100%;
-        -webkit-animation-duration: 3s;
-        animation-duration: 3s;
-        -webkit-animation-duration: 3s;
-        animation-duration: 3s;
+        -webkit-animation-duration: 2s;
+        animation-duration: 2s;
+        -webkit-animation-duration: 2s;
+        animation-duration: 2s;
         -webkit-animation-fill-mode: both;
         animation-fill-mode: both;
         -webkit-animation-name: slideInUp;
@@ -173,8 +151,7 @@
         // add position:relative; so div sits above absolutely positioned background graphics
         position: relative;
         @media (min-width: $medium-screen) {
-            // padding: rem(88) rem(40) rem(48) rem(40);
-            padding: rem(96) rem(40) rem(0) rem(40);
+            padding: rem(88) rem(40) rem(48) rem(40);
             margin: 0 auto;
             max-width: rem(1600);
         }

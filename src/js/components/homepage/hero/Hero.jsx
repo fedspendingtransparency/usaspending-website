@@ -33,7 +33,12 @@ const Hero = () => {
 
     return (
         <section className="homepage-hero-container" aria-label="Hero sections">
-            <div className="hero__graphic-layer-background"></div>
+            <div className="hero__graphic-layer-background">
+                <img
+                    role="presentation"
+                    src="../../../../img/homepage-hero/homepage-hero-layer-background@2x.png"
+                    alt="Hills" />
+            </div>
             <div className="hero__graphic-layer-bridge">
                 <img
                     role="presentation"
@@ -120,7 +125,6 @@ const Hero = () => {
                     </div> */}
                 </div>
             </div>
-            {/* <div className="hero__graphic-layer-foreground"></div> */}
         </section>
     );
 };
