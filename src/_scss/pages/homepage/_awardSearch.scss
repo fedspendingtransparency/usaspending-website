@@ -230,9 +230,10 @@
 
       .usa-dt-flex-grid__col-3 {
         width: 486px;
-        
+        height: 462px;
         @media (max-width:486px) {
           width:290px;
+          height:482px;
         }
         .card__body {
           padding-left: 40px;
