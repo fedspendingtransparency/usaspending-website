@@ -225,10 +225,10 @@
       align-items: center;
 
       .usa-dt-flex-grid__col-3 {
-        max-width: 484px;
-        width: 90%;
-        @media (max-width:484px) {
-          max-width:288px;
+        width: 486px;
+        
+        @media (max-width:486px) {
+          width:290px;
         }
         .card__body {
           padding-left: 40px;
