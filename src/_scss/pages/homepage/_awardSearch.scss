@@ -82,6 +82,10 @@
     .swiper-pagination-bullet-active {
       background-color: $gray-cool-60;
     }
+    .swiper-slide-prev {
+      opacity: .5;
+    }
+
     .swiper-slide-next { // next slide up
       @media(min-width:768px) {
         opacity: .5;
