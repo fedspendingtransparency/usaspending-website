@@ -115,15 +115,26 @@ const WordOfTheDay = () => {
         setCurrentMonth(d.getUTCMonth());
     };
 
+    const definitionNotFound = () => {
+        setTerm(glossaryTerms[0]);
+    };
+
     useEffect(() => {
+        let found = false;
         if (glossary && term) {
             for (let i = 0; i < glossary.length; i++) {
-                if (glossary[i].term === term) {
+                if (glossary[i].term.trim() === term.trim()) {
                     setGlossaryLink(getNewUrlForGlossary(pathname, `?glossary=${glossary[i].slug}`, search));
+                    found = true;
                     setDefinition(glossary[i].plain);
                 }
             }
         }
+
+        if (!found) {
+            definitionNotFound();
+        }
+
     }, [glossary, term]);
 
     useEffect(() => {
