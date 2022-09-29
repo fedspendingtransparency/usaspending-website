@@ -4,17 +4,17 @@
   @media (min-width: $tablet-screen) {
     padding: $global-padding * 3 $global-padding * 4;
   }
-  @media (min-width: 1400px) {
+  @media (min-width: $homepage-max-width) {
     padding: $global-padding * 3 0;
   }
 
   .stay-in-touch__container-row {
-    max-width: 1400px;
+    max-width: $homepage-max-width;
     @media (min-width: $medium-screen) {
       flex-flow: row nowrap;
       justify-content: flex-start;
     }
-    @media (min-width: 1400px) {
+    @media (min-width: $homepage-max-width) {
       margin: 0 $grid-column;
     }
 
@@ -26,10 +26,10 @@
       @media (min-width: $large-screen) {
         margin-right: $global-margin * 3;
       }
-      @media (min-width: 1400px) {
+      @media (min-width: $homepage-max-width) {
         margin-right: $global-margin * 8;
       }
-      @media (min-width: 1400px) {
+      @media (min-width: $homepage-max-width) {
         padding: 0;
         margin-right: $global-margin * 18;
       }
@@ -63,7 +63,7 @@
     }
 
     .stay-in-touch__second-row-container {
-      @media (min-width: 1400px) {
+      @media (min-width: $homepage-max-width) {
         padding: 0;
       }
       &.top {

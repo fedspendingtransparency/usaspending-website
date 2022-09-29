@@ -48,21 +48,15 @@ $largeMobile: 576px;
     @media (min-width: $stackedShort) {
       justify-content: space-between;
       text-align: left;
-      margin: 0 auto;
     }
 
-    @media (min-width: $stackedShort) and (max-width: 1400px) {
+    @media (min-width: $stackedShort) and (max-width: 1467px) {
       padding: 0;
       margin: 0 rem(32) !important;
     }
 
     @media (min-width: 1399px) {
       padding: 0;
-    }
-
-    @media (min-width: $maxWidth) {
-      width: rem(1355);
-      justify-content: space-between;
     }
 
     span {
@@ -184,8 +178,13 @@ $largeMobile: 576px;
       cursor: pointer;
       margin: 0;
 
-      @media(min-width: $stackedShort) {
-        margin: auto rem(4);
+
+      @media(min-width: $stackedShort) and (max-width: 1467px) {
+        margin: auto 0;
+      }
+
+      @media(min-width: 1468px) {
+        margin: auto 0;
       }
 
       .usa-dt-flex-grid__row {

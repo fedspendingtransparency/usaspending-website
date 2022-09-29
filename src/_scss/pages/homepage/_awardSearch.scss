@@ -6,13 +6,13 @@
     border-radius: 4px;
     min-height: 50rem;
 
-    @media (min-width: 1400px) {
+    @media (min-width: $homepage-max-width) {
       align-items: center;
     }
     
     .award-search__col1 {
       align-items: center;
-      @media (min-width: 1400px) {
+      @media (min-width: $homepage-max-width) {
         display: inline;
         width: 35%;
       }
@@ -76,7 +76,7 @@
       }
     }
     .swiper-wrapper {
-      @media (min-width: 1400px) {
+      @media (min-width: $homepage-max-width) {
         justify-self: right;
       }
     }
@@ -94,7 +94,7 @@
       @media(min-width:1200px) {
         transform: translate(-24rem, 0);
       }
-      @media(min-width:1400px) {
+      @media(min-width:$homepage-max-width) {
         opacity: .5;
         transform: translate(-7rem, 0);
       }
@@ -155,7 +155,7 @@
       @media(min-width:1200px) {
         transform: translateX(31%);
       }
-      @media(min-width:1400px) {
+      @media(min-width:$homepage-max-width) {
         transform: translateX(10%);
       }
     }
@@ -199,7 +199,7 @@
       @media(min-width:1050px) {
         width:100%;
       }
-      @media (min-width: 1400px) {
+      @media (min-width: $homepage-max-width) {
         display: inline;
         width: 50%;
       }
