@@ -179,11 +179,7 @@ $largeMobile: 576px;
       margin: 0;
 
 
-      @media(min-width: $stackedShort) and (max-width: 1467px) {
-        margin: auto 0;
-      }
-
-      @media(min-width: 1468px) {
+      @media(min-width: $stackedShort) {
         margin: auto 0;
       }
 
