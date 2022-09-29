@@ -111,7 +111,7 @@ const AwardSearch = () => {
                                         <div className="award-search__image">
                                             <img src="img/homepage-award-search/award-search-industry-2x.svg" alt="" />
                                         </div>
-                                        <CardButton text="View spending by industry" variant="primary" link="/search" action={() => { handleGoToAdvancedSearch("rank"); }} />
+                                        <CardButton text="View spending by industry" variant="primary" link="/search" action={() => { handleGoToAdvancedSearch("rank", "naics"); }} />
                                     </CardBody>
                                 </CardContainer>
                             </FlexGridCol>
@@ -125,7 +125,7 @@ const AwardSearch = () => {
                                         <div className="award-search__image">
                                             <img src="img/homepage-award-search/award-search-psc-2x.svg" alt="" />
                                         </div>
-                                        <CardButton text="View spending by product or service" variant="primary" link="/search" action={() => { handleGoToAdvancedSearch("rank"); }} />
+                                        <CardButton text="View spending by product or service" variant="primary" link="/search" action={() => { handleGoToAdvancedSearch("rank", "psc"); }} />
                                     </CardBody>
                                 </CardContainer>
                             </FlexGridCol>
@@ -184,7 +184,7 @@ const AwardSearch = () => {
                                                 <div className="award-search__image">
                                                     <img src="img/homepage-award-search/award-search-industry-2x.svg" alt="" />
                                                 </div>
-                                                <CardButton text="View spending by industry" variant="primary" link="/search" action={() => { handleGoToAdvancedSearch("rank"); }} />
+                                                <CardButton text="View spending by industry" variant="primary" link="/search" action={() => { handleGoToAdvancedSearch("rank", "naics"); }} />
                                             </CardBody>
                                         </CardContainer>
                                     </FlexGridCol>
@@ -198,7 +198,7 @@ const AwardSearch = () => {
                                                 <div className="award-search__image">
                                                     <img src="img/homepage-award-search/award-search-psc-2x.svg" alt="" />
                                                 </div>
-                                                <CardButton text="View spending by product or service" variant="primary" link="/search" action={() => { handleGoToAdvancedSearch("rank"); }} />
+                                                <CardButton text="View spending by product or service" variant="primary" link="/search" action={() => { handleGoToAdvancedSearch("rank", "psc"); }} />
                                             </CardBody>
                                         </CardContainer>
                                     </FlexGridCol>
