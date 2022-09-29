@@ -4,15 +4,22 @@
  */
 
 import React, { useState, useEffect } from 'react';
+import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
+import { isCancel } from 'axios';
+import { useDispatch } from 'react-redux';
+import { setSearchViewType } from 'redux/actions/search/searchViewActions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper";
+import { initialState as defaultFilters } from 'redux/reducers/search/searchFiltersReducer';
 import { throttle } from 'lodash';
 import CardButton from "../../sharedComponents/commonCards/CardButton";
 import CardBody from "../../sharedComponents/commonCards/CardBody";
 import CardContainer from "../../sharedComponents/commonCards/CardContainer";
 import GlossaryLink from '../../sharedComponents/GlossaryLink';
+import { generateUrlHash } from "../../../helpers/searchHelper";
+
 
 /* eslint-disable */
 import "swiper/css/bundle";
@@ -22,6 +29,7 @@ import "swiper/css/navigation";
 /* eslint-enable */
 
 const AwardSearch = () => {
+    const dispatch = useDispatch();
     const [isDesktopXL, setDesktopXL] = useState(false);
     const [isMobile, setMobile] = useState(false);
     const [windowWidth, setWindowWidth] = useState(0);
@@ -53,9 +61,61 @@ const AwardSearch = () => {
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-    const handleGoToAdvancedSearch = (buttonName) => {
-        console.debug(buttonName);
-        // getSelectedTab();
+
+    const getSelectedTab = (tab, rankType) => {
+        const filterValue = {
+            filters: {
+                ...defaultFilters
+            },
+            version: "2020-06-01"
+        };
+
+        if (tab === "map") {
+            filterValue.timePeriodFY = [FiscalYearHelper.currentFiscalYear()];
+        } else if (tab === "time") {
+            filterValue.timePeriodFY =
+            [FiscalYearHelper.currentFiscalYear(),
+                FiscalYearHelper.currentFiscalYear() - 1,
+                FiscalYearHelper.currentFiscalYear() - 2,
+                FiscalYearHelper.currentFiscalYear() - 3,
+                FiscalYearHelper.currentFiscalYear() - 4];
+        } else if (tab === "rank" && rankType === "naics") {
+            filterValue.timePeriodFY = [FiscalYearHelper.currentFiscalYear()];
+        } else if (tab === "rank" && rankType === "psc") {
+            filterValue.timePeriodFY = [FiscalYearHelper.currentFiscalYear()];
+        }
+
+        let tempHash = generateUrlHash(filterValue);
+        tempHash.promise
+            .then((results) => {
+                const hashData = results.data;
+                const ref = window.open(`/search/?hash=${hashData.hash}`, "_self");
+                console.debug(ref);
+                // operation has resolved
+                tempHash = null;
+            }).then(() => {
+                console.debug("testing 1");
+                dispatch(setSearchViewType(tab));
+            })
+            .catch((error) => {
+                console.log(error);
+                if (isCancel(error)) {
+                    // Got cancelled
+                }
+                else if (error.response) {
+                    // Errored out but got response, toggle noAward flag
+                    this.hash = null;
+                }
+                else {
+                    // Request failed
+                    tempHash = null;
+                    console.log(error);
+                }
+            });
+    };
+    const handleGoToAdvancedSearch = (buttonName, rankType) => {
+        getSelectedTab(buttonName, rankType);
+        console.debug("testing 2");
     };
     return (
         <section className="award-search__section">
@@ -83,7 +143,7 @@ const AwardSearch = () => {
                                         <div className="award-search__image">
                                             <img src="img/homepage-award-search/award-search-communities-2x.svg" alt="" />
                                         </div>
-                                        <CardButton text="View spending by state" variant="primary" link="/search" action={() => { handleGoToAdvancedSearch("map"); }} />
+                                        <CardButton onlyPerformAction text="View spending by state" variant="primary" action={() => { handleGoToAdvancedSearch("map"); }} />
                                     </CardBody>
                                 </CardContainer>
                             </FlexGridCol>
@@ -97,7 +157,7 @@ const AwardSearch = () => {
                                         <div className="award-search__image">
                                             <img src="img/homepage-award-search/award-search-over-time-2x.svg" alt="" />
                                         </div>
-                                        <CardButton text="View spending by fiscal year" variant="primary" link="/search" action={() => { handleGoToAdvancedSearch("time"); }} />
+                                        <CardButton onlyPerformAction text="View spending by fiscal year" variant="primary" action={() => { handleGoToAdvancedSearch("time"); }} />
                                     </CardBody>
                                 </CardContainer>
                             </FlexGridCol>
@@ -111,7 +171,7 @@ const AwardSearch = () => {
                                         <div className="award-search__image">
                                             <img src="img/homepage-award-search/award-search-industry-2x.svg" alt="" />
                                         </div>
-                                        <CardButton text="View spending by industry" variant="primary" link="/search" action={() => { handleGoToAdvancedSearch("rank", "naics"); }} />
+                                        <CardButton onlyPerformAction text="View spending by industry" variant="primary" action={() => { handleGoToAdvancedSearch("rank", "naics"); }} />
                                     </CardBody>
                                 </CardContainer>
                             </FlexGridCol>
@@ -125,7 +185,7 @@ const AwardSearch = () => {
                                         <div className="award-search__image">
                                             <img src="img/homepage-award-search/award-search-psc-2x.svg" alt="" />
                                         </div>
-                                        <CardButton text="View spending by product or service" variant="primary" link="/search" action={() => { handleGoToAdvancedSearch("rank", "psc"); }} />
+                                        <CardButton onlyPerformAction text="View spending by product or service" variant="primary" action={() => { handleGoToAdvancedSearch("rank", "psc"); }} />
                                     </CardBody>
                                 </CardContainer>
                             </FlexGridCol>
@@ -156,7 +216,7 @@ const AwardSearch = () => {
                                                 <div className="award-search__image">
                                                     <img src="img/homepage-award-search/award-search-communities-2x.svg" alt="" />
                                                 </div>
-                                                <CardButton text="View spending by state" variant="primary" link="/search" action={() => { handleGoToAdvancedSearch("map"); }} />
+                                                <CardButton onlyPerformAction text="View spending by state" variant="primary" action={() => { handleGoToAdvancedSearch("map"); }} />
                                             </CardBody>
                                         </CardContainer>
                                     </FlexGridCol>
@@ -170,7 +230,7 @@ const AwardSearch = () => {
                                                 <div className="award-search__image">
                                                     <img src="img/homepage-award-search/award-search-over-time-2x.svg" alt="" />
                                                 </div>
-                                                <CardButton text="View spending by fiscal year" variant="primary" link="/search" action={() => { handleGoToAdvancedSearch("time"); }} />
+                                                <CardButton onlyPerformAction text="View spending by fiscal year" variant="primary" action={() => { handleGoToAdvancedSearch("time"); }} />
                                             </CardBody>
                                         </CardContainer>
                                     </FlexGridCol>
@@ -184,7 +244,7 @@ const AwardSearch = () => {
                                                 <div className="award-search__image">
                                                     <img src="img/homepage-award-search/award-search-industry-2x.svg" alt="" />
                                                 </div>
-                                                <CardButton text="View spending by industry" variant="primary" link="/search" action={() => { handleGoToAdvancedSearch("rank", "naics"); }} />
+                                                <CardButton onlyPerformAction text="View spending by industry" variant="primary" action={() => { handleGoToAdvancedSearch("rank", "naics"); }} />
                                             </CardBody>
                                         </CardContainer>
                                     </FlexGridCol>
@@ -198,7 +258,7 @@ const AwardSearch = () => {
                                                 <div className="award-search__image">
                                                     <img src="img/homepage-award-search/award-search-psc-2x.svg" alt="" />
                                                 </div>
-                                                <CardButton text="View spending by product or service" variant="primary" link="/search" action={() => { handleGoToAdvancedSearch("rank", "psc"); }} />
+                                                <CardButton onlyPerformAction text="View spending by product or service" variant="primary" action={() => { handleGoToAdvancedSearch("rank", "psc"); }} />
                                             </CardBody>
                                         </CardContainer>
                                     </FlexGridCol>

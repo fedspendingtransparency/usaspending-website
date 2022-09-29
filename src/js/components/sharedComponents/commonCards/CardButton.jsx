@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 const propTypes = {
     link: PropTypes.string,
     govLink: PropTypes.bool,
+    onlyPerformAction: PropTypes.bool,
     action: PropTypes.func,
     text: PropTypes.oneOfType([
         PropTypes.string,
@@ -24,7 +25,7 @@ const propTypes = {
 };
 
 const CardButton = ({
-    link, govLink, action, text, variant = "secondary", customClassName = '', children
+    link, govLink, onlyPerformAction = "false", action, text, variant = "secondary", customClassName = '', children
 }) => {
     const variantMapper = {
         primary: "card__button--primary",
@@ -32,29 +33,41 @@ const CardButton = ({
         text: "card__button--borderless"
     };
 
+    if (!onlyPerformAction) {
+        return (
+            <div className="card__button">
+                {govLink ? (
+                    <div
+                        className={`card__button--secondary ${variantMapper[variant]}`}
+                        role="button"
+                        aria-label={`${text}`}>
+                        <a href={link}>{text}</a>
+                    </div>
+                )
+                    :
+                    (
+                        <Link
+                            className={`card__button--secondary ${variantMapper[variant]} ${customClassName}`}
+                            role="button"
+                            aria-label={`${text}`}
+                            to={link}
+                            onClick={action}>
+                            {text || children}
+                        </Link>
+                    )}
+            </div>
+        );
+    }
+
     return (
         <div className="card__button">
-            {govLink ? (
-                <div
-                    className={`card__button--secondary ${variantMapper[variant]}`}
-                    role="button"
-                    aria-label={`${text}`}>
-                    <a href={link}>{text}</a>
-                </div>
-            )
-                :
-                (
-                    <Link
-                        className={`card__button--secondary ${variantMapper[variant]} ${customClassName}`}
-                        role="button"
-                        aria-label={`${text}`}
-                        to={link}
-                        onClick={action}>
-                        {text || children}
-                    </Link>
-                )}
-        </div>
-    );
+            <button
+                className={`card__button--secondary ${variantMapper[variant]} ${customClassName}`}
+                aria-label={`${text}`}
+                onClick={action}>
+                {text || children}
+            </button>
+        </div>);
 };
 
 CardButton.propTypes = propTypes;
