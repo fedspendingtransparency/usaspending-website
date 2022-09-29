@@ -6,13 +6,15 @@
 
   .homepage-update-content {
     background-color: white;
-
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     // todo - remove this when real components are used
-    @media (max-width: $tablet-screen) {
-      h1 {
-        font-size: 16px;
-      }
-    }
+    //@media (max-width: $tablet-screen) {
+    //  h1 {
+    //    font-size: 16px;
+    //  }
+    //}
 
     .homepage-hero-content {
       margin: 0 rem(16);
@@ -26,11 +28,12 @@
 
     .grid-content {
       margin: 0 rem(16);
-      max-width: 1600px;
+      max-width: 1400px;
+      align-self: center;
       @media (min-width: $tablet-screen) {
         margin: 0 rem(32);
       }
-      @media (min-width: 1600px) {
+      @media (min-width: 1400px) {
         margin: 0 $grid-column;
       }
     }
