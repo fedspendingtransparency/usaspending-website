@@ -56,9 +56,10 @@ class VisualizationWrapper extends React.Component {
     parseTabAndRank() {
         const params = this.props.history.location.search.split("&");
         params.shift();
-        if (params.length === 2) {
-            console.debug(params[0].substring(4));
+        if (params.length === 2 && params[0].substring(0, 4) === "tab=") {
             this.clickedTab(params[0].substring(4)); // everything after tab=
+
+            
         }
     }
 

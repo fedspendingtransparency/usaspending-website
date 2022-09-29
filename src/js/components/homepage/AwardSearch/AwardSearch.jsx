@@ -74,11 +74,11 @@ const AwardSearch = () => {
             filterValue.timePeriodFY = [FiscalYearHelper.currentFiscalYear()];
         } else if (tab === "time") {
             filterValue.timePeriodFY =
-            [FiscalYearHelper.currentFiscalYear(),
-                FiscalYearHelper.currentFiscalYear() - 1,
-                FiscalYearHelper.currentFiscalYear() - 2,
-                FiscalYearHelper.currentFiscalYear() - 3,
-                FiscalYearHelper.currentFiscalYear() - 4];
+            [(FiscalYearHelper.currentFiscalYear()).toString(),
+                (FiscalYearHelper.currentFiscalYear() - 1).toString(),
+                (FiscalYearHelper.currentFiscalYear() - 2).toString(),
+                (FiscalYearHelper.currentFiscalYear() - 3).toString(),
+                (FiscalYearHelper.currentFiscalYear() - 4).toString()];
         } else if (tab === "rank" && rankType === "naics") {
             filterValue.timePeriodFY = [FiscalYearHelper.currentFiscalYear()];
         } else if (tab === "rank" && rankType === "psc") {
