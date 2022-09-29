@@ -89,12 +89,10 @@ const AwardSearch = () => {
         tempHash.promise
             .then((results) => {
                 const hashData = results.data;
-                const ref = window.open(`/search/?hash=${hashData.hash}`, "_self");
-                console.debug(ref);
+                window.open(`/search?hash=${hashData.hash}&tab=${tab}&rankType=${rankType}`, "_self");
                 // operation has resolved
                 tempHash = null;
             }).then(() => {
-                console.debug("testing 1");
                 dispatch(setSearchViewType(tab));
             })
             .catch((error) => {
@@ -115,7 +113,6 @@ const AwardSearch = () => {
     };
     const handleGoToAdvancedSearch = (buttonName, rankType) => {
         getSelectedTab(buttonName, rankType);
-        console.debug("testing 2");
     };
     return (
         <section className="award-search__section">
