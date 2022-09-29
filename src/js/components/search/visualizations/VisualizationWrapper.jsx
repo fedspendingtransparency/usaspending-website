@@ -59,7 +59,9 @@ class VisualizationWrapper extends React.Component {
         if (params.length === 2 && params[0].substring(0, 4) === "tab=") {
             this.clickedTab(params[0].substring(4)); // everything after tab=
 
-            
+            if (params[1].substring(0, 9) === "rankType=") {
+                console.debug(params[1].substring(9));
+            }
         }
     }
 
