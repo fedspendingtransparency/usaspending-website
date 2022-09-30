@@ -85,14 +85,16 @@ export class RankVisualizationWrapperContainer extends React.Component {
         }
     }
     parseRank() {
-        const params = this.props.history.location.search.split("&");
-        params.shift();
-        if (params.length === 2 && params[0].substring(0, 4) === "tab=") {
-            if (params[1].substring(0, 9) === "rankType=") {
-                const rankVal = params[1].substring(9);
-                this.changeSpendingBy("industryCode");
-                if (rankVal === "naics" || rankVal === "psc") {
-                    this.changeScope(rankVal);
+        if (this.props.history) {
+            const params = this.props.history.location.search.split("&");
+            params.shift();
+            if (params.length === 2 && params[0].substring(0, 4) === "tab=") {
+                if (params[1].substring(0, 9) === "rankType=") {
+                    const rankVal = params[1].substring(9);
+                    this.changeSpendingBy("industryCode");
+                    if (rankVal === "naics" || rankVal === "psc") {
+                        this.changeScope(rankVal);
+                    }
                 }
             }
         }
