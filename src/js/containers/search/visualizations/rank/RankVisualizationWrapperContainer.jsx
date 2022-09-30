@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { isCancel } from 'axios';
+import { withRouter } from "react-router-dom";
 
 import { isEqual, max, get } from 'lodash';
 import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
@@ -67,6 +68,7 @@ export class RankVisualizationWrapperContainer extends React.Component {
 
     componentDidMount() {
         this.newSearch();
+        this.parseRank();
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -80,6 +82,19 @@ export class RankVisualizationWrapperContainer extends React.Component {
         else if (prevState.scope !== this.state.scope) {
             // scope changed, perform a new search
             this.newSearch();
+        }
+    }
+    parseRank() {
+        const params = this.props.history.location.search.split("&");
+        params.shift();
+        if (params.length === 2 && params[0].substring(0, 4) === "tab=") {
+            if (params[1].substring(0, 9) === "rankType=") {
+                const rankVal = params[1].substring(9);
+                this.changeSpendingBy("industryCode");
+                if (rankVal === "naics" || rankVal === "psc") {
+                    this.changeScope(rankVal);
+                }
+            }
         }
     }
 
@@ -314,11 +329,11 @@ export class RankVisualizationWrapperContainer extends React.Component {
 
 RankVisualizationWrapperContainer.propTypes = propTypes;
 
-export default connect(
+export default withRouter(connect(
     (state) => ({
         reduxFilters: state.appliedFilters.filters,
         noApplied: state.appliedFilters._empty,
         subaward: state.searchView.subaward
     }),
     (dispatch) => bindActionCreators(combinedActions, dispatch)
-)(RankVisualizationWrapperContainer);
+)(RankVisualizationWrapperContainer));

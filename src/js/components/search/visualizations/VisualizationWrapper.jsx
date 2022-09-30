@@ -46,22 +46,18 @@ class VisualizationWrapper extends React.Component {
     componentDidMount() {
         this._mounted = true;
         this.logVisualizationTab(this.props.type);
-        this.parseTabAndRank();
+        this.parseTab();
     }
 
     componentWillUnmount() {
         this._mounted = false;
     }
 
-    parseTabAndRank() {
+    parseTab() {
         const params = this.props.history.location.search.split("&");
         params.shift();
         if (params.length === 2 && params[0].substring(0, 4) === "tab=") {
             this.clickedTab(params[0].substring(4)); // everything after tab=
-
-            if (params[1].substring(0, 9) === "rankType=") {
-                console.debug(params[1].substring(9));
-            }
         }
     }
 
