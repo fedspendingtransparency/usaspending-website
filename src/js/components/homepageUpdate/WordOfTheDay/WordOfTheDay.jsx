@@ -134,7 +134,6 @@ const WordOfTheDay = () => {
         if (!found) {
             definitionNotFound();
         }
-
     }, [glossary, term]);
 
     useEffect(() => {
