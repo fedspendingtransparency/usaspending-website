@@ -19,7 +19,7 @@ import CardBody from "../../sharedComponents/commonCards/CardBody";
 import CardContainer from "../../sharedComponents/commonCards/CardContainer";
 import GlossaryLink from '../../sharedComponents/GlossaryLink';
 import { generateUrlHash } from "../../../helpers/searchHelper";
-
+import { REQUEST_VERSION } from "../../../GlobalConstants";
 
 /* eslint-disable */
 import "swiper/css/bundle";
@@ -67,7 +67,7 @@ const AwardSearch = () => {
             filters: {
                 ...defaultFilters
             },
-            version: "2020-06-01"
+            version: REQUEST_VERSION
         };
 
         if (tab === "map") {
@@ -89,7 +89,11 @@ const AwardSearch = () => {
         tempHash.promise
             .then((results) => {
                 const hashData = results.data;
-                window.open(`/search?hash=${hashData.hash}&tab=${tab}&rankType=${rankType}`, "_self");
+                if (rankType === "naics" || rankType === "psc") {
+                    window.open(`/search?hash=${hashData.hash}&tab=${tab}&rankType=${rankType}`, "_self");
+                } else {
+                    window.open(`/search?hash=${hashData.hash}&tab=${tab}`, "_self");
+                }
                 // operation has resolved
                 tempHash = null;
             }).then(() => {
