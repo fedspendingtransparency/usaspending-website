@@ -471,8 +471,8 @@ const StatusOfFundsChart = ({
                 handleClick(d);
             });
             // tab through and enter key functionality
-            svg.selectAll(".bar-group").on("keypress", (d) => {
-                if (d3.event.keyCode === 13) {
+            svg.selectAll(".bar-group").on("keypress", (event, d) => {
+                if (event.keyCode === 13) {
                     handleClick(d);
                 }
             });
@@ -779,8 +779,8 @@ const StatusOfFundsChart = ({
                 handleClick(d);
             });
             // tab through and enter key functionality
-            svg.selectAll(".bar-group").on("keypress", (d) => {
-                if (d3.event.keyCode === 13) {
+            svg.selectAll(".bar-group").on("keypress", (event, d) => {
+                if (event.keyCode === 13) {
                     handleClick(d);
                 }
             });
