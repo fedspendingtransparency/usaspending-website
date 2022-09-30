@@ -142,7 +142,13 @@
     "**/postcss": "8.4.16",
     "terser": "5.14.2",
     "webpack": "5.74.0",
-    "moment-timezone": "0.5.37"
+    "moment-timezone": "0.5.37",
+    "d3": "^7.6.1",
+    "d3-interpolate": "^3.0.1",
+    "d3-scale": "^4.0.2",
+    "**/d3": "^7.6.1",
+    "**/d3-interpolate": "^3.0.1",
+    "**/d3-scale": "^4.0.2"
   },
   "dependencies": {
     "@babel/eslint-parser": "^7.17.0",
@@ -159,10 +165,10 @@
     "commander": "4.1.1",
     "commonmark": "^0.27.0",
     "core-js": "^3.0.1",
-    "d3": "^4.13.0",
+    "d3": "^7.6.1",
     "d3-hierarchy": "^1.1.4",
-    "d3-interpolate": "^1.1.4",
-    "d3-scale": "^1.0.4",
+    "d3-interpolate": "^3.0.1",
+    "d3-scale": "^4.0.2",
     "data-transparency-ui": "github:fedspendingtransparency/data-transparency-ui#v5.0.3",
     "date-fns": "^2.16.1",
     "file-loader": "^6.2.0",
