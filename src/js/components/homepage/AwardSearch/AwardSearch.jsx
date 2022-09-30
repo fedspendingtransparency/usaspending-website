@@ -71,18 +71,18 @@ const AwardSearch = () => {
         };
 
         if (tab === "map") {
-            filterValue.timePeriodFY = [FiscalYearHelper.currentFiscalYear()];
+            filterValue.filters.timePeriodFY = [(FiscalYearHelper.currentFiscalYear()).toString()];
         } else if (tab === "time") {
-            filterValue.timePeriodFY =
+            filterValue.filters.timePeriodFY =
             [(FiscalYearHelper.currentFiscalYear()).toString(),
                 (FiscalYearHelper.currentFiscalYear() - 1).toString(),
                 (FiscalYearHelper.currentFiscalYear() - 2).toString(),
                 (FiscalYearHelper.currentFiscalYear() - 3).toString(),
                 (FiscalYearHelper.currentFiscalYear() - 4).toString()];
         } else if (tab === "rank" && rankType === "naics") {
-            filterValue.timePeriodFY = [FiscalYearHelper.currentFiscalYear()];
+            filterValue.filters.timePeriodFY = [FiscalYearHelper.currentFiscalYear()];
         } else if (tab === "rank" && rankType === "psc") {
-            filterValue.timePeriodFY = [FiscalYearHelper.currentFiscalYear()];
+            filterValue.filters.timePeriodFY = [FiscalYearHelper.currentFiscalYear()];
         }
 
         let tempHash = generateUrlHash(filterValue);
