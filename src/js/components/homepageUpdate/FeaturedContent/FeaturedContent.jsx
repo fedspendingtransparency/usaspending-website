@@ -70,6 +70,6 @@ const FeaturedContent = () => {
             </div>
         </section>
     </>
-)};
+    ); };
 
 export default FeaturedContent;
