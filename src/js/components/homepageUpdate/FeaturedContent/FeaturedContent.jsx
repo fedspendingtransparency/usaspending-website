@@ -7,14 +7,25 @@ import React from 'react';
 import { FlexGridCol } from 'data-transparency-ui';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
+import Analytics from 'helpers/analytics/Analytics';
 import CardContainer from "../../sharedComponents/commonCards/CardContainer";
 import CardHero from "../../sharedComponents/commonCards/CardHero";
 import CardBody from "../../sharedComponents/commonCards/CardBody";
 import ExternalLink from "../../sharedComponents/ExternalLink";
 
 
-const FeaturedContent = () => (
-    <>
+const FeaturedContent = () => {
+    const trackFeaturedCovidLink = () => Analytics.event({
+        category: 'Homepage',
+        action: 'Link',
+        label: 'covid-19 featured content'
+    });
+    const trackFeaturedResourcesLink = () => Analytics.event({
+        category: 'Homepage',
+        action: 'Link',
+        label: 'reasources featured content'
+    });
+    return (<>
         <section className="featured-content__section">
             <div className="featured-content__heading">
                 <div className="featured-content__heading--background">
@@ -24,7 +35,7 @@ const FeaturedContent = () => (
             </div>
             <div className="featured-content__section--flex-row">
                 <FlexGridCol width={12} desktop={6} tablet={6} mobile={12}>
-                    <Link className="featured-content__section--link" to="disaster/covid-19">
+                    <Link className="featured-content__section--link" to="disaster/covid-19" onClick={trackFeaturedCovidLink}>
                         <CardContainer variant="outline" size="md">
                             <CardHero fill="#3333a3" variant="expanded" img="img/homepage-featured-content/homepage-feature-covid-19.webp" />
                             <CardBody
@@ -39,7 +50,7 @@ const FeaturedContent = () => (
                     </Link>
                 </FlexGridCol>
                 <FlexGridCol width={12} desktop={6} tablet={6} mobile={12}>
-                    <ExternalLink url="https://www.youtube.com/channel/UCyDn83O-0XC98H3TCV-VCGQ" isCard>
+                    <ExternalLink url="https://www.youtube.com/channel/UCyDn83O-0XC98H3TCV-VCGQ" isCard onClick={trackFeaturedResourcesLink}>
                         <CardContainer variant="outline" size="md">
                             <CardHero fill="#009ec1" variant="expanded" img="img/homepage-featured-content/homepage-featured-youtube.webp" />
                             <CardBody
@@ -59,6 +70,6 @@ const FeaturedContent = () => (
             </div>
         </section>
     </>
-);
+)};
 
 export default FeaturedContent;
