@@ -80,9 +80,9 @@ const AwardSearch = () => {
                 (FiscalYearHelper.currentFiscalYear() - 3).toString(),
                 (FiscalYearHelper.currentFiscalYear() - 4).toString()];
         } else if (tab === "rank" && rankType === "naics") {
-            filterValue.filters.timePeriodFY = [FiscalYearHelper.currentFiscalYear()];
+            filterValue.filters.timePeriodFY = [FiscalYearHelper.currentFiscalYear().toString()];
         } else if (tab === "rank" && rankType === "psc") {
-            filterValue.filters.timePeriodFY = [FiscalYearHelper.currentFiscalYear()];
+            filterValue.filters.timePeriodFY = [FiscalYearHelper.currentFiscalYear().toString()];
         }
 
         let tempHash = generateUrlHash(filterValue);
