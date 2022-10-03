@@ -59,6 +59,13 @@
         display: -webkit-box;
         -webkit-line-clamp: 5;
         -webkit-box-orient: vertical;
+        @media(min-width: $medium-screen) {
+          -webkit-line-clamp: 4;
+          overflow: hidden;
+        }
+        @media(min-width: $large-screen) {
+          -webkit-line-clamp: 5;
+        }
       }
     }
   }
@@ -74,6 +81,9 @@
   .card__button {
     margin-top: rem(32);
     justify-content: flex-start;
+    @media(min-width: $medium-screen) {
+      margin-top: 0;
+    }
   }
 
   .word-of-the-day__button {
