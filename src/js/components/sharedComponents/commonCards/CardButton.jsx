@@ -33,41 +33,41 @@ const CardButton = ({
         text: "card__button--borderless"
     };
 
-    if (!onlyPerformAction) {
+    if (onlyPerformAction === true) {
         return (
             <div className="card__button">
-                {govLink ? (
-                    <div
-                        className={`card__button--secondary ${variantMapper[variant]}`}
-                        role="button"
-                        aria-label={`${text}`}>
-                        <a href={link}>{text}</a>
-                    </div>
-                )
-                    :
-                    (
-                        <Link
-                            className={`card__button--secondary ${variantMapper[variant]} ${customClassName}`}
-                            role="button"
-                            aria-label={`${text}`}
-                            to={link}
-                            onClick={action}>
-                            {text || children}
-                        </Link>
-                    )}
-            </div>
-        );
+                <button
+                    className={`card__button--secondary ${variantMapper[variant]} ${customClassName}`}
+                    aria-label={`${text}`}
+                    onClick={action}>
+                    {text || children}
+                </button>
+            </div>);
     }
 
     return (
         <div className="card__button">
-            <button
-                className={`card__button--secondary ${variantMapper[variant]} ${customClassName}`}
-                aria-label={`${text}`}
-                onClick={action}>
-                {text || children}
-            </button>
-        </div>);
+            {govLink ? (
+                <div
+                    className={`card__button--secondary ${variantMapper[variant]}`}
+                    role="button"
+                    aria-label={`${text}`}>
+                    <a href={link}>{text}</a>
+                </div>
+            )
+                :
+                (
+                    <Link
+                        className={`card__button--secondary ${variantMapper[variant]} ${customClassName}`}
+                        role="button"
+                        aria-label={`${text}`}
+                        to={link}
+                        onClick={action}>
+                        {text || children}
+                    </Link>
+                )}
+        </div>
+    );
 };
 
 CardButton.propTypes = propTypes;
