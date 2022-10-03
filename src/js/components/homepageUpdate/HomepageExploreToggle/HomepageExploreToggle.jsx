@@ -20,7 +20,7 @@ const exploreData = [
         action: () => Analytics.event({
             category: 'Homepage',
             action: 'Link',
-            label: 'explore agency profiles'
+            label: 'explore agency profiles card'
         })
     },
     {
@@ -32,7 +32,7 @@ const exploreData = [
         action: () => Analytics.event({
             category: 'Homepage',
             action: 'Link',
-            label: 'view recipient profiles'
+            label: 'view recipient profiles card'
         })
     },
     {
@@ -44,7 +44,7 @@ const exploreData = [
         action: () => Analytics.event({
             category: 'Homepage',
             action: 'Link',
-            label: 'browse state profiles'
+            label: 'browse state profiles card'
         })
     }
 ];
@@ -60,7 +60,7 @@ const accessData = [
         action: () => Analytics.event({
             category: 'Homepage',
             action: 'Link',
-            label: 'custom award data download'
+            label: 'custom award data download card'
         })
     },
     {

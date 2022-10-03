@@ -9,6 +9,7 @@ import CardContainer from "../../sharedComponents/commonCards/CardContainer";
 import CardHero from "../../sharedComponents/commonCards/CardHero";
 import CardBody from "../../sharedComponents/commonCards/CardBody";
 import CardButton from "../../sharedComponents/commonCards/CardButton";
+import Analytics from '../../../helpers/analytics/Analytics';
 
 const cardObjects = [
     {
@@ -18,7 +19,12 @@ const cardObjects = [
         overline: 'AWARD SEARCH',
         headline: 'Find details on federal awards',
         buttonText: 'Go to Award Search',
-        buttonLink: '/search'
+        buttonLink: '/search',
+        action: () => Analytics.event({
+            category: 'Homepage',
+            action: 'Link',
+            label: 'award search card'
+        })
     },
     {
         fillColor: '#34a37e',
@@ -27,7 +33,12 @@ const cardObjects = [
         overline: 'SPENDING EXPLORER',
         headline: 'Break down the federal budget',
         buttonText: 'Dive into Spending Explorer',
-        buttonLink: '/explorer'
+        buttonLink: '/explorer',
+        action: () => Analytics.event({
+            category: 'Homepage',
+            action: 'Link',
+            label: 'spending explorer card'
+        })
     },
     {
         fillColor: '#fa9441',
@@ -36,7 +47,12 @@ const cardObjects = [
         overline: 'SPENDING PROFILES',
         headline: 'Find recipients of federal funds',
         buttonText: 'Browse Recipient Profiles',
-        buttonLink: '/recipient'
+        buttonLink: '/recipient',
+        action: () => Analytics.event({
+            category: 'Homepage',
+            action: 'Link',
+            label: 'spending profiles card'
+        })
     },
     {
         fillColor: '#9355dc',
@@ -45,7 +61,12 @@ const cardObjects = [
         overline: 'RESOURCES',
         headline: 'Learn more about USAspending.gov',
         buttonText: 'Find out what we do',
-        buttonLink: '/about'
+        buttonLink: '/about',
+        action: () => Analytics.event({
+            category: 'Homepage',
+            action: 'Link',
+            label: 'resources card'
+        })
     }
 ];
 
@@ -80,7 +101,8 @@ const ReadyToGetStarted = () => (
                                 <CardButton
                                     text={card.buttonText}
                                     variant="text"
-                                    link={card.buttonLink} />
+                                    link={card.buttonLink}
+                                    action={card.action} />
                             </CardBody>
                         </CardContainer>
                     </FlexGridCol>

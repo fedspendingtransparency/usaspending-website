@@ -20,6 +20,7 @@ import CardContainer from "../../sharedComponents/commonCards/CardContainer";
 import GlossaryLink from '../../sharedComponents/GlossaryLink';
 import { generateUrlHash } from "../../../helpers/searchHelper";
 import { REQUEST_VERSION } from "../../../GlobalConstants";
+import Analytics from '../../../helpers/analytics/Analytics';
 
 /* eslint-disable */
 import "swiper/css/bundle";
@@ -115,8 +116,14 @@ const AwardSearch = () => {
                 }
             });
     };
+    const trackClick = (buttonName) => Analytics.event({
+        category: 'Homepage',
+        action: 'Link',
+        label: `carousel ${buttonName}`
+    });
     const handleGoToAdvancedSearch = (buttonName, rankType) => {
         getSelectedTab(buttonName, rankType);
+        trackClick(buttonName);
     };
     return (
         <section className="award-search__section">

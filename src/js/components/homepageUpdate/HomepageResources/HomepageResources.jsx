@@ -31,7 +31,7 @@ const cardObjects = [
         action: () => Analytics.event({
             category: 'Homepage',
             action: 'Link',
-            label: 'learn how to use our data'
+            label: 'learn how to use our data card'
         })
     },
     {
@@ -52,7 +52,7 @@ const cardObjects = [
         action: () => Analytics.event({
             category: 'Homepage',
             action: 'Link',
-            label: 'data dictionary'
+            label: 'data dictionary card'
         })
     },
     {
@@ -72,7 +72,7 @@ const cardObjects = [
         action: () => Analytics.event({
             category: 'Homepage',
             action: 'Link',
-            label: 'data model'
+            label: 'data model card'
         })
     },
     {
@@ -94,7 +94,7 @@ const cardObjects = [
         action: () => Analytics.event({
             category: 'Homepage',
             action: 'Link',
-            label: 'glossary'
+            label: 'glossary card'
         })
     }
 ];
