@@ -10,6 +10,7 @@ import CardContainer from "../../sharedComponents/commonCards/CardContainer";
 import CardBody from "../../sharedComponents/commonCards/CardBody";
 import CardButton from "../../sharedComponents/commonCards/CardButton";
 import ExternalLink from "../../sharedComponents/ExternalLink";
+import Analytics from '../../../helpers/analytics/Analytics';
 
 const cardObjects = [
     {
@@ -26,7 +27,12 @@ const cardObjects = [
                 <FontAwesomeIcon icon="arrow-right" />
             </>
         ),
-        buttonLink: '/analyst-guide'
+        buttonLink: '/analyst-guide',
+        action: () => Analytics.event({
+            category: 'Homepage',
+            action: 'Link',
+            label: 'learn how to use our data'
+        })
     },
     {
         icon: (
@@ -42,7 +48,12 @@ const cardObjects = [
                 <FontAwesomeIcon icon="arrow-right" />
             </>
         ),
-        buttonLink: '/data-dictionary'
+        buttonLink: '/data-dictionary',
+        action: () => Analytics.event({
+            category: 'Homepage',
+            action: 'Link',
+            label: 'data dictionary'
+        })
     },
     {
         icon: (
@@ -57,7 +68,12 @@ const cardObjects = [
                 <ExternalLink url="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html" isCard>View the model&nbsp;&nbsp;</ExternalLink>
                 <FontAwesomeIcon icon="arrow-right" />
             </>
-        )
+        ),
+        action: () => Analytics.event({
+            category: 'Homepage',
+            action: 'Link',
+            label: 'data model'
+        })
     },
     {
         icon: (
@@ -74,7 +90,12 @@ const cardObjects = [
             </>
         ),
         // todo - change this path when the url changes to /homepage
-        buttonLink: '/homepage_update/?glossary&'
+        buttonLink: '/homepage_update/?glossary&',
+        action: () => Analytics.event({
+            category: 'Homepage',
+            action: 'Link',
+            label: 'glossary'
+        })
     }
 ];
 
@@ -110,7 +131,8 @@ const HomepageResources = () => (
                                     <CardButton
                                         variant="text"
                                         text={card.buttonText}
-                                        link={card.buttonLink} />
+                                        link={card.buttonLink}
+                                        action={card.action} />
                                 </CardBody>
                             </CardContainer>
                         </FlexGridCol>
