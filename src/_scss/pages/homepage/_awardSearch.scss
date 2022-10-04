@@ -17,7 +17,7 @@
         width: 35%;
       }
       @media (max-width:1200px) {
-        width:auto;
+        width: auto;
       }
     }
     .award-search__overline-div {
@@ -77,9 +77,9 @@
     }
     .swiper-wrapper {
       width:50%;
-      // @media (min-width: $homepage-max-width) {
-      //   justify-self: right;
-      // }
+      @media (min-width: $homepage-max-width) {
+        justify-self: right;
+      }
     }
     .swiper-pagination-bullet-active {
       background-color: $gray-cool-60;
