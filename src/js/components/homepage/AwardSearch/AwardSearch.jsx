@@ -133,7 +133,7 @@ const AwardSearch = () => {
     };
     return (
         <section className="award-search__section">
-            <div style={{ display: "flex", justifyContent: "center" }}>
+            <div style={{ justifyContent: "center" }}>
                 <FlexGridRow className="grid-content">
                     {isDesktopXL &&
             (<>
