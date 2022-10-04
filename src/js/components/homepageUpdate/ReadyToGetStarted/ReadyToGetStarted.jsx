@@ -51,42 +51,44 @@ const cardObjects = [
 
 const ReadyToGetStarted = () => (
     <section className="ready-to-get-started__section">
-        <FlexGridRow className="grid-content">
-            <FlexGridCol className="ready-to-get-started__title" width={12}>
+        <div style={{ display: "flex", justifyContent: "center" }}>
+            <FlexGridRow className="grid-content">
+                <FlexGridCol className="ready-to-get-started__title" width={12}>
                 Ready to get started?
-            </FlexGridCol>
-            <FlexGridRow className="ready-to-get-started__card-row" hasGutter gutterSize="lg">
-                {cardObjects.map((card, index) => (
-                    <FlexGridCol
-                        className="ready-to-get-started__card"
-                        key={index}
-                        mobile={12}
-                        tablet={6}
-                        desktop={3}>
-                        <CardContainer
-                            variant="outline"
-                            size="md">
-                            <CardHero
-                                size="md"
-                                variant="inset"
-                                fill={card.fillColor}
-                                imageContainerHeight={card.imageHeight}
-                                img={card.image} />
-                            <CardBody
-                                variant="inset"
-                                imageContainerHeight={card.imageHeight}
-                                overline={card.overline}
-                                headline={card.headline}>
-                                <CardButton
-                                    text={card.buttonText}
-                                    variant="text"
-                                    link={card.buttonLink} />
-                            </CardBody>
-                        </CardContainer>
-                    </FlexGridCol>
-                ))}
+                </FlexGridCol>
+                <FlexGridRow className="ready-to-get-started__card-row" hasGutter gutterSize="lg">
+                    {cardObjects.map((card, index) => (
+                        <FlexGridCol
+                            className="ready-to-get-started__card"
+                            key={index}
+                            mobile={12}
+                            tablet={6}
+                            desktop={3}>
+                            <CardContainer
+                                variant="outline"
+                                size="md">
+                                <CardHero
+                                    size="md"
+                                    variant="inset"
+                                    fill={card.fillColor}
+                                    imageContainerHeight={card.imageHeight}
+                                    img={card.image} />
+                                <CardBody
+                                    variant="inset"
+                                    imageContainerHeight={card.imageHeight}
+                                    overline={card.overline}
+                                    headline={card.headline}>
+                                    <CardButton
+                                        text={card.buttonText}
+                                        variant="text"
+                                        link={card.buttonLink} />
+                                </CardBody>
+                            </CardContainer>
+                        </FlexGridCol>
+                    ))}
+                </FlexGridRow>
             </FlexGridRow>
-        </FlexGridRow>
+        </div>
     </section>
 );
 

@@ -181,17 +181,19 @@ const InteractiveDataSourcesPage = () => {
                 title="Data Sources">
                 <main id="main-content" className="main-content usda__flex-row">
                     <div className="sidebar usda__flex-col">
-                        <Sidebar
-                            pageName="interactive-data-sources"
-                            fixedStickyBreakpoint={scrollPositionOfSiteHeader}
-                            isGoingToBeSticky
-                            active={activeSection}
-                            jumpToSection={jumpToSection}
-                            detectActiveSection={setActiveSection}
-                            sections={sections.map((section) => ({
-                                section: section.name,
-                                label: section.display
-                            }))} />
+                        <div className="sidebar_content">
+                            <Sidebar
+                                pageName="interactive-data-sources"
+                                fixedStickyBreakpoint={scrollPositionOfSiteHeader}
+                                isGoingToBeSticky
+                                active={activeSection}
+                                jumpToSection={jumpToSection}
+                                detectActiveSection={setActiveSection}
+                                sections={sections.map((section) => ({
+                                    section: section.name,
+                                    label: section.display
+                                }))} />
+                        </div>
                     </div>
                     <div className="body usda__flex-col">
                         {sections.map((section) => (
