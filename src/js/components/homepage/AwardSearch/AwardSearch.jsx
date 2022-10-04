@@ -65,7 +65,20 @@ const AwardSearch = () => {
     const getSelectedTab = (tab, rankType) => {
         const filterValue = {
             filters: {
-                ...defaultFilters
+                ...defaultFilters,
+                selectedLocations: {
+                    USA: {
+                        filter: {
+                            country: "USA"
+                        },
+                        display: {
+                            title: "UNITED STATES",
+                            entity: "Country",
+                            standalone: "UNITED STATES"
+                        },
+                        identifier: "USA"
+                    }
+                }
             },
             version: REQUEST_VERSION
         };
