@@ -17,7 +17,7 @@
         }
     }
 
-    @media (max-width: 1400px) {
+    @media (max-width: $homepage-max-width) {
         &.tooltip-wrapper .tooltip-spacer {
             left: -15rem;
         }

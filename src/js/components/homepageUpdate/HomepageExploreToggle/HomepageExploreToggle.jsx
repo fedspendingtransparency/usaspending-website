@@ -124,16 +124,18 @@ const HomepageExploreToggle = () => {
 
     return (
         <section className="homepage-explore-toggle__section">
-            <FlexGridRow className="grid-content">
-                <div>
-                    <Tabs active={activeTab} types={toggleTabs} switchTab={changeActiveTab} />
-                </div>
-            </FlexGridRow>
-            {activeTab === 'explore' ?
-                <ExploreTheData title={exploreDataTitle} cardObjects={exploreData} />
-                :
-                <ExploreTheData title={accessDataTitle} cardObjects={accessData} access />
-            }
+            <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
+                <FlexGridRow className="grid-content">
+                    <div>
+                        <Tabs active={activeTab} types={toggleTabs} switchTab={changeActiveTab} />
+                    </div>
+                </FlexGridRow>
+                {activeTab === 'explore' ?
+                    <ExploreTheData title={exploreDataTitle} cardObjects={exploreData} />
+                    :
+                    <ExploreTheData title={accessDataTitle} cardObjects={accessData} access />
+                }
+            </div>
         </section>
     );
 };
