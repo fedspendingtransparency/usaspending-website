@@ -65,7 +65,20 @@ const AwardSearch = () => {
     const getSelectedTab = (tab, rankType) => {
         const filterValue = {
             filters: {
-                ...defaultFilters
+                ...defaultFilters,
+                selectedLocations: {
+                    USA: {
+                        filter: {
+                            country: "USA"
+                        },
+                        display: {
+                            title: "UNITED STATES",
+                            entity: "Country",
+                            standalone: "UNITED STATES"
+                        },
+                        identifier: "USA"
+                    }
+                }
             },
             version: REQUEST_VERSION
         };
@@ -80,9 +93,9 @@ const AwardSearch = () => {
                 (FiscalYearHelper.currentFiscalYear() - 3).toString(),
                 (FiscalYearHelper.currentFiscalYear() - 4).toString()];
         } else if (tab === "rank" && rankType === "naics") {
-            filterValue.filters.timePeriodFY = [FiscalYearHelper.currentFiscalYear()];
+            filterValue.filters.timePeriodFY = [FiscalYearHelper.currentFiscalYear().toString()];
         } else if (tab === "rank" && rankType === "psc") {
-            filterValue.filters.timePeriodFY = [FiscalYearHelper.currentFiscalYear()];
+            filterValue.filters.timePeriodFY = [FiscalYearHelper.currentFiscalYear().toString()];
         }
 
         let tempHash = generateUrlHash(filterValue);
