@@ -4,18 +4,18 @@
   @media (min-width: $tablet-screen) {
     padding: $global-padding * 3 $global-padding * 4;
   }
-  @media (min-width: 1600px) {
+  @media (min-width: 1400px) {
     padding: $global-padding * 3 0;
   }
 
   .stay-in-touch__container-row {
-    max-width: 1600px;
+    max-width: 1400px;
     @media (min-width: $medium-screen) {
       flex-flow: row nowrap;
       justify-content: flex-start;
     }
-    @media (min-width: 1600px) {
-      margin: 0 $grid-column;
+    @media (min-width: 1400px) and (max-width: 1468px) {
+      margin: 0 rem(32);
     }
 
     .stay-in-touch__title-col {
@@ -23,16 +23,16 @@
       @media (min-width: $medium-screen) {
         width: rem(250);
       }
-      @media (min-width: $large-screen) {
+
+      @media (min-width: $large-screen) and (max-width: 1399px) {
         margin-right: $global-margin * 3;
       }
+
       @media (min-width: 1400px) {
-        margin-right: $global-margin * 8;
-      }
-      @media (min-width: 1600px) {
+        margin-right: $global-margin * 3;
         padding: 0;
-        margin-right: $global-margin * 18;
       }
+
       .stay-in-touch__title-row {
         flex-flow: row nowrap;
       }
@@ -63,7 +63,7 @@
     }
 
     .stay-in-touch__second-row-container {
-      @media (min-width: 1600px) {
+      @media (min-width: 1400px) {
         padding: 0;
       }
       &.top {
