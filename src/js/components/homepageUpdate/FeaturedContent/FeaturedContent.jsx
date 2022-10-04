@@ -23,7 +23,7 @@ const FeaturedContent = () => {
     const trackFeaturedResourcesLink = () => Analytics.event({
         category: 'Homepage',
         action: 'Link',
-        label: 'reasources featured content'
+        label: 'resources featured content'
     });
     return (<>
         <section className="featured-content__section">
