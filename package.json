@@ -22,6 +22,9 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
+  "jest": {
+    "transformIgnorePatterns": ["/node_modules/(?!d3|d3-scale|internmap|delaunator|robust-predicates)"]
+  },
   "author": "",
   "engines": {
     "node": ">=16.14.2",

@@ -2,6 +2,8 @@
 // Update test configuration to make testing react functional components easier.
 process.env.TZ = 'America/New_York';
 
+const esModules = ['d3', 'd3-scale'].join('|');
+
 module.exports = {
     rootDir: ".",
     testRegex: "(tests|scripts)/.*-(test)\\.jsx?$",
@@ -41,7 +43,8 @@ module.exports = {
         "^.+\\.jsx$|js$": "babel-jest"
     },
     transformIgnorePatterns: [
-        "node_modules/(?!(data-transparency-ui))"
-    ],
+        "node_modules/(?!(data-transparency-ui))",
+        `/node_modules/(?!${esModules})`
+],
     modulePaths: ["<rootDir>/tests/testResources", "<rootDir>/src/js"]
 };
