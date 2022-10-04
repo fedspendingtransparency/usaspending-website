@@ -15,7 +15,7 @@ import FaceValueOfLoans from 'components/sharedComponents/FaceValueOfLoans';
 import { stateOverviewLoanInfo } from 'components/state/InfoTooltipContent';
 import DetailsTooltip from './DetailsTooltip';
 import { generateUrlHash } from "../../../helpers/searchHelper";
-
+import { REQUEST_VERSION } from "../../../GlobalConstants";
 
 const propTypes = {
     stateProfile: PropTypes.object
@@ -102,7 +102,7 @@ export default class StateOverview extends React.PureComponent {
                         }
                     }
                 },
-                version: "2020-06-01"
+                version: REQUEST_VERSION
             };
 
             let tempHash = generateUrlHash(filterValue);

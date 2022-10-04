@@ -1,17 +1,18 @@
 .award-search__section {
 
   .grid-content {
+    margin-top: 0;
     margin-bottom: 72px;
     border-radius: 4px;
     min-height: 50rem;
 
-    @media (min-width: 1400px) {
+    @media (min-width: $homepage-max-width) {
       align-items: center;
     }
     
     .award-search__col1 {
       align-items: center;
-      @media (min-width: 1400px) {
+      @media (min-width: $homepage-max-width) {
         display: inline;
         width: 35%;
       }
@@ -75,13 +76,17 @@
       }
     }
     .swiper-wrapper {
-      @media (min-width: 1400px) {
+      @media (min-width: $homepage-max-width) {
         justify-self: right;
       }
     }
     .swiper-pagination-bullet-active {
       background-color: $gray-cool-60;
     }
+    .swiper-slide-prev {
+      opacity: .5;
+    }
+
     .swiper-slide-next { // next slide up
       @media(min-width:768px) {
         opacity: .5;
@@ -93,13 +98,13 @@
       @media(min-width:1200px) {
         transform: translate(-24rem, 0);
       }
-      @media(min-width:1400px) {
+      @media(min-width:$homepage-max-width) {
         opacity: .5;
         transform: translate(-7rem, 0);
       }
 
       .card-container.lg.elevated {
-        @media(min-width:768px) {
+        @media(min-width:320px) {
           box-shadow: none;
         }
       }
@@ -113,10 +118,28 @@
     .swiper-slide-active { // the space the visible slide occupies (box including the slide)
       @media(min-width:320px) {
         min-height:514px;
-        transform:translateX(4%);
+        transform:translateX(3%);
+      }
+      @media(min-width:350px) {
+        transform:translateX(9%);
+      }
+      @media(min-width:400px) {
+        transform:translateX(11%);
+      }
+      @media(min-width:450px) {
+        transform:translateX(14%);
+      }
+      @media(min-width:486px) {
+        transform:translateX(5%);
+      }
+      @media(min-width:500px) {
+        transform:translateX(1%);
+      }
+      @media(min-width:550px) {
+        transform:translateX(6.5%);
       }
       @media(min-width:600px) {
-        transform:translateX(10%);
+        transform:translateX(8%);
       }
       @media(min-width:670px) {
         transform:translateX(12%);
@@ -125,7 +148,7 @@
         transform:translateX(15%);
       }
       @media(min-width:720px) {
-        transform:translateX(17%);
+        transform:translateX(15%);
       }
       @media(min-width:768px) {
         transform: translateX(18%);
@@ -154,7 +177,7 @@
       @media(min-width:1200px) {
         transform: translateX(31%);
       }
-      @media(min-width:1400px) {
+      @media(min-width:$homepage-max-width) {
         transform: translateX(10%);
       }
     }
@@ -198,7 +221,7 @@
       @media(min-width:1050px) {
         width:100%;
       }
-      @media (min-width: 1400px) {
+      @media (min-width: $homepage-max-width) {
         display: inline;
         width: 50%;
       }
@@ -207,9 +230,12 @@
       align-items: center;
 
       .usa-dt-flex-grid__col-3 {
-        max-width: 484px;
-        width: 90%;
-
+        width: 486px;
+        height: 462px;
+        @media (max-width:486px) {
+          width:290px;
+          height:482px;
+        }
         .card__body {
           padding-left: 40px;
           padding-top: 40px;
