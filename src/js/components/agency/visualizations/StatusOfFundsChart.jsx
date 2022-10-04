@@ -72,8 +72,8 @@ const StatusOfFundsChart = ({
     }, 100);
 
     useEffect(() => {
-        document.getElementById('sof_chart').addEventListener('mousemove', setMouseData);
-        return () => document.getElementById('sof_chart').removeEventListener('mousemove', setMouseData);
+        document?.getElementById('sof_chart')?.addEventListener('mousemove', setMouseData);
+        return () => document?.getElementById('sof_chart')?.removeEventListener('mousemove', setMouseData);
     }, []);
 
     useEffect(() => {
