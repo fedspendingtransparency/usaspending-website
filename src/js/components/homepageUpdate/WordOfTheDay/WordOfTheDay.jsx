@@ -14,6 +14,7 @@ import CardBody from "../../sharedComponents/commonCards/CardBody";
 import CardButton from "../../sharedComponents/commonCards/CardButton";
 import Analytics from '../../../helpers/analytics/Analytics';
 import { LoadingWrapper } from "../../sharedComponents/Loading";
+import ErrorWordOfTheDay from "./ErrorWordOfTheDay";
 
 const WordOfTheDay = () => {
     const [loading, setLoading] = useState(true);
@@ -186,7 +187,7 @@ const WordOfTheDay = () => {
                     </FlexGridCol>
                     :
                     <CardBody customClassName="word-of-the-day__body">
-                        {loading ? <LoadingWrapper isLoading={loading} /> : <h3>Error</h3>}
+                        {loading ? <LoadingWrapper isLoading={loading} /> : <ErrorWordOfTheDay />}
                     </CardBody>
                 }
             </CardContainer>
