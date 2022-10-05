@@ -118,7 +118,7 @@ export default function ObligationsByAwardType({
                 return outer[currentCategoryId].color;
             })
             .style('cursor', 'pointer')
-            .on('mouseenter', (d) => {
+            .on('mouseenter', (event, d) => {
                 // store the award type of the section the user is hovering over
                 setActiveType(d.data.label);
                 setCategoryHover(mapToFullCategoryName(d.data.type));
@@ -141,7 +141,7 @@ export default function ObligationsByAwardType({
             )
             .attr('fill', 'white')
             .style('cursor', 'pointer')
-            .on('mouseenter', (d) => {
+            .on('mouseenter', (event, d) => {
                 // store the award type of the section the user is hovering over
                 setActiveType(d.data.label);
             })
@@ -168,12 +168,12 @@ export default function ObligationsByAwardType({
                 return ((activeType && activeType !== inner[i].label) && !isMobile) ? inner[i].fadedColor : inner[i].color;
             })
             .style('cursor', 'pointer')
-            .on('mouseover', (d) => {
+            .on('mouseover', (event, d) => {
                 // store the award type of the section the user is hovering over
                 setActiveType(d.data.label);
             })
             .on('mouseout', () => setActiveType(null))
-            .on('focus', (d) => {
+            .on('focus', (event, d) => {
                 // store the award type of the section the user is hovering over
                 setActiveType(d.data.label);
             })

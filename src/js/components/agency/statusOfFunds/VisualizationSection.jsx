@@ -140,7 +140,9 @@ const VisualizationSection = ({
             className="status-of-funds__visualization"
             onMouseLeave={() => {
                 const el = document.querySelector("div.tooltip-wrapper.sof_chart-tt");
-                el.style.display = "none";
+                if (el) {
+                    el.style.display = "none";
+                }
             }}>
             {isMobile ? (
                 <>
