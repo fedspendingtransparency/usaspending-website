@@ -7,8 +7,6 @@ import React, { useState, useEffect } from 'react';
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 import { isCancel } from 'axios';
-import { useDispatch } from 'react-redux';
-import { setSearchViewType } from 'redux/actions/search/searchViewActions';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper";
@@ -30,10 +28,9 @@ import "swiper/css/navigation";
 /* eslint-enable */
 
 const AwardSearch = () => {
-    const dispatch = useDispatch();
-    const [isDesktopXL, setDesktopXL] = useState(false);
+    const [isDesktopXL, setDesktopXL] = useState(window.innerWidth >= 1400);
     const [isMobile, setMobile] = useState(false);
-    const [windowWidth, setWindowWidth] = useState(0);
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
     const placeOfPerformance = <div>Search spending to your community using Location filters like <div className="award-search__glossary">Place of Performance</div> {<GlossaryLink term="primary-place-of-performance" />}</div>;
     const fiscalYear = <div>See spending data over time using our Time Period filters, like <div className="award-search__glossary">Fiscal Year</div> {<GlossaryLink term="fiscal-year-fy" />}</div>;
@@ -110,8 +107,6 @@ const AwardSearch = () => {
                 }
                 // operation has resolved
                 tempHash = null;
-            }).then(() => {
-                dispatch(setSearchViewType(tab));
             })
             .catch((error) => {
                 console.log(error);
@@ -170,7 +165,7 @@ const AwardSearch = () => {
                         <h2 className="award-search__header">Search data on federal award spending</h2>
                         <p className="award-search__subtext">Find information on awards such as contracts, loans, and grants based on location, industry, and more.</p>
                     </FlexGridCol>
-                    <FlexGridCol desktop={6} tablet={12} mobile={12} className="award-search__col2" style={{ width: "36%" }}>
+                    <FlexGridCol desktop={6} tablet={12} mobile={12} className="award-search__col2" style={{ width: "43%" }}>
                         <Swiper a11y centeredSlides watchslidesvisibility="true" slidesPerView="auto" spaceBetween={0} navigation modules={[Navigation]} style={{ alignItems: "middle" }} onSlideChange={onSlideChange}>
                             <SwiperSlide aria-hidden="false" tabIndex={0} className="award-search__slide award-search__card1" style={{ marginBottom: "20px" }}>
                                 <CardContainer variant="elevated" size="lg">
