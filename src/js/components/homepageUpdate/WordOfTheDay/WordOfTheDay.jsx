@@ -12,6 +12,7 @@ import { fetchAllTerms, getNewUrlForGlossary } from "helpers/glossaryHelper";
 import CardContainer from "../../sharedComponents/commonCards/CardContainer";
 import CardBody from "../../sharedComponents/commonCards/CardBody";
 import CardButton from "../../sharedComponents/commonCards/CardButton";
+import Analytics from '../../../helpers/analytics/Analytics';
 
 const WordOfTheDay = () => {
     const [loading, setLoading] = useState(true);
@@ -119,6 +120,12 @@ const WordOfTheDay = () => {
         setTerm(glossaryTerms[0]);
     };
 
+    const trackWordLink = () => Analytics.event({
+        category: 'Homepage',
+        action: 'Link',
+        label: 'word of the day'
+    });
+
     useEffect(() => {
         let found = false;
         if (glossary && term) {
@@ -170,7 +177,7 @@ const WordOfTheDay = () => {
                         <CardBody customClassName="word-of-the-day__body">
                             <>
                                 <div className="definition"><div>{definition}</div></div>
-                                <CardButton variant="secondary" link={glossaryLink} customClassName="word-of-the-day__button">
+                                <CardButton action={trackWordLink} variant="secondary" link={glossaryLink} customClassName="word-of-the-day__button">
                                     Read More
                                 </CardButton>
                             </>
