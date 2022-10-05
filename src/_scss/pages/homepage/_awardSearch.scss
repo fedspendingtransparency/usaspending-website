@@ -9,29 +9,31 @@
     @media (min-width: $homepage-max-width) {
       align-items: center;
     }
-    
+
     .award-search__col1 {
       align-items: center;
+
       @media (min-width: $homepage-max-width) {
         display: inline;
         width: 35%;
       }
-      @media (max-width:1200px) {
-        width: auto;
-      }
+
+      @media (max-width:1200px) {}
     }
+
     .award-search__overline-div {
       display: flex;
-  
+
       .award-search__span {
         height: 20px;
         width: 20px;
         background-color: $blue-5;
-  
+
         svg {
           color: $theme-color-1;
         }
       }
+
       .award-search__overline {
         margin: 0 0 0 8px;
         font-size: rem(16);
@@ -40,10 +42,10 @@
         font-style: normal;
         line-height: 1.25;
         letter-spacing: normal;
-        color: $body-color;    
+        color: $body-color;
       }
     }
-  
+
     .award-search__header {
       font-size: rem(40);
       font-weight: $font-semibold;
@@ -54,7 +56,7 @@
       letter-spacing: normal;
       margin: 16px 0 0 0;
     }
-  
+
     .award-search__subtext {
       margin: 16px 0 0;
       font-size: rem(20);
@@ -68,43 +70,51 @@
         margin-bottom: 40px;
       }
     }
+
     .award-search__swiper {
       height: auto;
 
       .swiper-pagination {
-        bottom: -4px;
+        bottom: 12px;
       }
     }
+
     .swiper-wrapper {
-      width:50%;
+      width: 50%;
+
       @media (min-width: $homepage-max-width) {
         justify-self: right;
       }
+
+      @media(min-width:320px) {
+        height: 500px;
+      }
     }
+
     .swiper-pagination-bullet-active {
       background-color: $gray-cool-60;
     }
+
     .swiper-slide-prev {
       opacity: .5;
-      margin-right:40px;
-      width:auto;
+      margin-right: 40px;
+      // @media(max-width:768px){
+      //   margin-right: 0;
+      // }
     }
 
-    .swiper-slide-next { // next slide up
-      margin-left:40px;
+    .swiper-slide-next {
+      // next slide up
+      margin-left: 40px;
+      // @media(max-width:768px){
+      //   margin-left: 0;
+      // }
       @media(min-width:768px) {
         opacity: .5;
-        // transform: translate(-7rem, 0);
       }
-      @media(min-width:1100px) {
-        // transform: translate(-22rem, 0);
-      }
-      @media(min-width:1200px) {
-        // transform: translate(-24rem, 0);
-      }
+
       @media(min-width:$homepage-max-width) {
         opacity: .5;
-        // transform: translate(-7rem, 0);
       }
 
       .card-container.lg.elevated {
@@ -113,85 +123,30 @@
         }
       }
     }
-    .swiper-slide-visible { // the size of the slide you can see
+
+    .swiper-slide-visible {
+      // the size of the slide you can see
       opacity: 1;
-      @media(min-width:768px) {
-        // transform: translate(-10rem, 0);
-      }
-    }
-    .swiper-slide-active { // the space the visible slide occupies (box including the slide)
-      width: auto;
-      @media(min-width:320px) {
-        min-height:514px;
-        // transform:translateX(3%);
-      }
-      @media(min-width:350px) {
-        // transform:translateX(9%);
-      }
-      @media(min-width:400px) {
-        // transform:translateX(11%);
-      }
-      @media(min-width:450px) {
-        // transform:translateX(14%);
-      }
-      @media(min-width:486px) {
-        // transform:translateX(5%);
-      }
-      @media(min-width:500px) {
-       // transform:translateX(1%);
-      }
-      @media(min-width:550px) {
-        // transform:translateX(6.5%);
-      }
-      @media(min-width:600px) {
-        // transform:translateX(8%);
-      }
-      @media(min-width:670px) {
-        // transform:translateX(12%);
-      }
-      @media(min-width:700px) {
-        // transform:translateX(15%);
-      }
-      @media(min-width:720px) {
-        // transform:translateX(15%);
-      }
-      /*@media(min-width:768px) {
-        transform: translateX(18%);
-      }
-      @media(min-width:800px) {
-        transform: translateX(20%);
-      }
-      @media(min-width:850px) {
-        transform: translateX(21%);
-      }
-      @media(min-width:900px) {
-        transform: translateX(24%);
-      }
-      @media(min-width:950px) {
-        transform: translateX(25%);
-      }
-      @media(min-width:992px) {
-        transform: translateX(0%);
-      }
-      @media(min-width:1050px) {
-        transform: translateX(25%);
-      }
-      @media(min-width:1100px) {
-        transform: translateX(30%);
-      }
-      @media(min-width:1200px) {
-        transform: translateX(31%);
-      }*/
-      @media(min-width:$homepage-max-width) {
-        // transform: translateX(10%);
-      }
     }
 
-    .swiper-button-disabled{
-      display:none;   
+    .swiper-slide-active {
+      // the space the visible slide occupies (box including the slide)
+      // @media(min-width:320px) {
+      //   height:514px;
+      //   width: 288px;
+      // }
+      // @media(min-width:1200px) {
+      //   height:462px;
+      //   width: 484px;
+      // }
     }
 
-    .swiper-button-prev, .swiper-button-next {
+    .swiper-button-disabled {
+      display: none;
+    }
+
+    .swiper-button-prev,
+    .swiper-button-next {
       background-color: $color-primary;
       border-radius: 24px;
       height: 48px;
@@ -204,7 +159,8 @@
       }
     }
 
-    .swiper-button-next::after, .swiper-button-prev::after {
+    .swiper-button-next::after,
+    .swiper-button-prev::after {
       color: $color-white;
       font-size: rem(20);
       font-weight: 1000;
@@ -223,42 +179,97 @@
       overflow: visible;
       width: 100%;
     }
+
     .award-search__col2 {
-      @media(min-width:1050px) {
-        
-      }
       @media (min-width: $homepage-max-width) {
         display: inline;
         width: 50%;
         justify-content: right;
       }
 
-      .usa-dt-flex-grid__col-3 {
-        width: 486px;
-        height: 462px;
-        @media (max-width:486px) {
-          width:290px;
-          height:482px;
+      // .usa-dt-flex-grid__col-3 {
+      //   width: 486px;
+      //   height: 462px;
+      //   @media (max-width:486px) {
+      //     width:290px;
+      //     height:482px;
+      //   }
+      //   .card__body {
+      //     padding-left: 40px;
+      //     padding-top: 40px;
+      //     padding-right: 40px;
+      //     padding-bottom: 32px;
+      //     height: auto;
+      //     .headline {
+      //       margin-bottom: 8px;
+      //     }
+      //     .text {
+      //       margin-bottom: 32px;
+
+      //       .award-search__glossary {
+      //         display: inline;
+      //         font-weight: $font-semibold;
+      //       }
+      //     }
+      //     .card__button {
+      //       margin-bottom:0;
+
+      //       .card__button--primary {
+      //         white-space: normal;
+      //         text-align: center;
+      //         padding-top: 10px;
+      //         padding-bottom: 10px;
+      //         padding-left: 24px;
+      //         padding-right: 24px;
+      //       }
+      //     }
+      //   }
+      // }
+
+      .award-search__slide {
+        width: 484px !important;
+        height: 462px !important;
+
+        @media (max-width:767px) {
+          width: 288px !important;
+          height: 480px;
+        }
+
+        .award-search__card1 {
+          height: 448px;
+        }
+
+        .award-search__card2 {
+          height: 448px;
+          .text {
+            height: 96px;
+          }
+        }
+
+        .award-search__card3 {
+          height: 448px;
+        }
+
+        .award-search__card4 {
+          width: 295px;
+          height: 450px;
         }
         .card__body {
           padding-left: 40px;
           padding-top: 40px;
           padding-right: 40px;
           padding-bottom: 32px;
-          height: auto;
+
           .headline {
             margin-bottom: 8px;
           }
+
           .text {
             margin-bottom: 32px;
-
-            .award-search__glossary {
-              display: inline;
-              font-weight: $font-semibold;
-            }
           }
+
           .card__button {
-            margin-bottom:0;
+            margin-bottom: 0;
 
             .card__button--primary {
               white-space: normal;
@@ -267,22 +278,25 @@
               padding-bottom: 10px;
               padding-left: 24px;
               padding-right: 24px;
+              margin: 0;
             }
           }
         }
-      }
 
-      .award-search__slide {
+        .award-search__glossary {
+          display: inline;
+          font-weight: $font-semibold;
+        }
+
         .award-search__image {
-          margin-top: 8px;
           margin-bottom: 32px;
         }
 
         .usda-glossary-link svg {
           color: $color-gray-light;
-      }
+        }
       }
     }
   }
-  
+
 }
