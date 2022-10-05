@@ -155,8 +155,8 @@ const AwardSearch = () => {
                         <h2 className="award-search__header">Search data on federal award spending</h2>
                         <p className="award-search__subtext">Find information on awards such as contracts, loans, and grants based on location, industry, and more.</p>
                     </FlexGridCol>
-                    <FlexGridCol desktop={6} tablet={12} mobile={12} className="award-search__col2" style={{ marginLeft: "120px" }}>
-                        <Swiper watchslidesvisibility="true" slidesPerView="auto" spaceBetween={0} navigation modules={[Navigation]} style={{ alignItems: "middle" }}>
+                    <FlexGridCol desktop={6} tablet={12} mobile={12} className="award-search__col2" style={{ width: "36%" }}>
+                        <Swiper centeredSlides watchslidesvisibility="true" slidesPerView="auto" spaceBetween={0} navigation modules={[Navigation]} style={{ alignItems: "middle" }}>
                             <SwiperSlide tabIndex={0} className="award-search__slide award-search__card1" style={{ marginBottom: "20px" }}>
                                 <CardContainer variant="elevated" size="lg">
                                     <CardBody

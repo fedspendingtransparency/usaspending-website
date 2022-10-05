@@ -13,12 +13,14 @@
     .award-search__col1 {
       align-items: center;
 
-      @media (min-width: $homepage-max-width) {
-        display: inline;
-        width: 35%;
+      @media (max-width:1400px) {
+        width: 100%;
       }
 
-      @media (max-width:1200px) {}
+      @media(min-width:1400px) {
+        width: 23%;
+        margin-right: 120px;
+      }
     }
 
     .award-search__overline-div {
@@ -98,18 +100,13 @@
     .swiper-slide-prev {
       opacity: .5;
       margin-right: 40px;
-      // @media(max-width:768px){
-      //   margin-right: 0;
-      // }
+
     }
 
     .swiper-slide-next {
       // next slide up
       margin-left: 40px;
 
-      // @media(max-width:768px){
-      //   margin-left: 0;
-      // }
       @media(min-width:768px) {
         opacity: .5;
       }
@@ -128,18 +125,6 @@
     .swiper-slide-visible {
       // the size of the slide you can see
       opacity: 1;
-    }
-
-    .swiper-slide-active {
-      // the space the visible slide occupies (box including the slide)
-      // @media(min-width:320px) {
-      //   height:514px;
-      //   width: 288px;
-      // }
-      // @media(min-width:1200px) {
-      //   height:462px;
-      //   width: 484px;
-      // }
     }
 
     .swiper-button-disabled {
@@ -188,45 +173,6 @@
         justify-content: right;
       }
 
-      // .usa-dt-flex-grid__col-3 {
-      //   width: 486px;
-      //   height: 462px;
-      //   @media (max-width:486px) {
-      //     width:290px;
-      //     height:482px;
-      //   }
-      //   .card__body {
-      //     padding-left: 40px;
-      //     padding-top: 40px;
-      //     padding-right: 40px;
-      //     padding-bottom: 32px;
-      //     height: auto;
-      //     .headline {
-      //       margin-bottom: 8px;
-      //     }
-      //     .text {
-      //       margin-bottom: 32px;
-
-      //       .award-search__glossary {
-      //         display: inline;
-      //         font-weight: $font-semibold;
-      //       }
-      //     }
-      //     .card__button {
-      //       margin-bottom:0;
-
-      //       .card__button--primary {
-      //         white-space: normal;
-      //         text-align: center;
-      //         padding-top: 10px;
-      //         padding-bottom: 10px;
-      //         padding-left: 24px;
-      //         padding-right: 24px;
-      //       }
-      //     }
-      //   }
-      // }
-
       .award-search__slide {
         width: 486px !important;
         height: 462px !important;
@@ -272,8 +218,14 @@
         }
 
         .award-search__card4 {
-          width: 295px;
+          width: 294px;
           height: 450px;
+
+          .card__body {
+            .text {
+              margin-bottom: 8px;
+            }
+          }
 
           @media(min-width:768px) {
             height: 462px;
