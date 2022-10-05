@@ -106,6 +106,7 @@
     .swiper-slide-next {
       // next slide up
       margin-left: 40px;
+
       // @media(max-width:768px){
       //   margin-left: 0;
       // }
@@ -227,7 +228,7 @@
       // }
 
       .award-search__slide {
-        width: 484px !important;
+        width: 486px !important;
         height: 462px !important;
 
         @media (max-width:767px) {
@@ -237,23 +238,49 @@
 
         .award-search__card1 {
           height: 448px;
+
+          @media(min-width:768px) {
+            height: 462px;
+            width: 486px;
+          }
         }
 
         .award-search__card2 {
           height: 448px;
+
           .text {
             height: 96px;
+          }
+
+          @media(min-width:768px) {
+            height: 462px;
+            width: 486px;
+
+            .text {
+              height: auto;
+            }
           }
         }
 
         .award-search__card3 {
           height: 448px;
+
+          @media(min-width:768px) {
+            height: 462px;
+            width: 486px;
+          }
         }
 
         .award-search__card4 {
           width: 295px;
           height: 450px;
+
+          @media(min-width:768px) {
+            height: 462px;
+            width: 486px;
+          }
         }
+
         .card__body {
           padding-left: 40px;
           padding-top: 40px;
