@@ -13,6 +13,7 @@ import CardContainer from "../../sharedComponents/commonCards/CardContainer";
 import CardBody from "../../sharedComponents/commonCards/CardBody";
 import CardButton from "../../sharedComponents/commonCards/CardButton";
 import Analytics from '../../../helpers/analytics/Analytics';
+import { LoadingWrapper } from "../../sharedComponents/Loading";
 
 const WordOfTheDay = () => {
     const [loading, setLoading] = useState(true);
@@ -108,7 +109,7 @@ const WordOfTheDay = () => {
             const index = dateDataMapper[currentMonth]?.startingIndex + currentDate;
             setTerm(glossaryTerms[index]);
         }
-    }, [currentDate, currentMonth]);
+    }, [currentDate, currentMonth, dateDataMapper, glossaryTerms]);
 
     const selectWordOfTheDay = () => {
         const d = new Date();
@@ -141,7 +142,7 @@ const WordOfTheDay = () => {
         if (!found) {
             definitionNotFound();
         }
-    }, [glossary, term]);
+    }, [definitionNotFound, glossary, pathname, search, term]);
 
     useEffect(() => {
         fetchAllTerms().promise
@@ -185,7 +186,7 @@ const WordOfTheDay = () => {
                     </FlexGridCol>
                     :
                     <CardBody customClassName="word-of-the-day__body">
-                        {loading ? <h3>Loading...</h3> : <h3>Error</h3>}
+                        {loading ? <LoadingWrapper isLoading={loading} /> : <h3>Error</h3>}
                     </CardBody>
                 }
             </CardContainer>
