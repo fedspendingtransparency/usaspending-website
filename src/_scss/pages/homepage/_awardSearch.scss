@@ -1,5 +1,9 @@
 .award-search__section {
-
+  @media (min-width:1400px) {
+    flex-direction: column;
+    display:flex;
+    margin: 0 3.2rem;
+  }
   .grid-content {
     margin-top: 0;
     margin-bottom: 72px;
@@ -101,12 +105,37 @@
       opacity: .5;
       margin-right: 40px;
 
+      @media(min-width:320px) {
+        margin-right: 1px;
+      }
+      @media(min-width:374px) {
+        margin-right: 10px;
+      }
+      @media(min-width:415px) {
+        margin-right: 20px;
+      }
+      @media(min-width: 450px) {
+        margin-right: 40px;
+      }
+
     }
 
     .swiper-slide-next {
       // next slide up
       margin-left: 40px;
 
+      @media(min-width:320px) {
+        margin-left: 1px;
+      }
+      @media(min-width:374px) {
+        margin-left: 10px;
+      }
+      @media(min-width:415px) {
+        margin-left: 20px;
+      }
+      @media(min-width: 450px) {
+        margin-left: 40px;
+      }
       @media(min-width:768px) {
         opacity: .5;
       }
@@ -193,11 +222,17 @@
 
         .award-search__card2 {
           height: 448px;
-
-          .text {
-            height: 96px;
+          @media(max-width:500px) {
+            .text {
+              height: 96px;
+            }
           }
 
+          @media(max-width:768px) {
+            .text {
+              height: 98px;
+            }
+          }
           @media(min-width:768px) {
             height: 462px;
             width: 486px;
@@ -218,18 +253,30 @@
         }
 
         .award-search__card4 {
-          width: 294px;
-          height: 450px;
+          height: 448px;
 
           .card__body {
             .text {
               margin-bottom: 4px;
+              @media(min-width:450px) and (max-width:768px) {
+                margin-bottom:0;
+              }
+              @media(min-width:768px) {
+                margin-bottom: 32px;
+              }
             }
           }
 
           @media(min-width:768px) {
             height: 462px;
             width: 486px;
+          }
+
+          .award-search__image {
+            @media(max-width:768px) {
+              margin-bottom: 8px;
+            }
+
           }
         }
 

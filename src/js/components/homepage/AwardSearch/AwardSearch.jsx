@@ -29,7 +29,7 @@ import "swiper/css/navigation";
 
 const AwardSearch = () => {
     const [isDesktopXL, setDesktopXL] = useState(window.innerWidth >= 1400);
-    const [isMobile, setMobile] = useState(false);
+    const [isMobile, setMobile] = useState(window.innerWidth < 768);
     const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
     const placeOfPerformance = <div>Search spending to your community using Location filters like <div className="award-search__glossary">Place of Performance</div> {<GlossaryLink term="primary-place-of-performance" />}</div>;
@@ -150,11 +150,11 @@ const AwardSearch = () => {
 
     return (
         <section className="award-search__section">
-            <div style={{ display: "flex", flexDirection: "column", justifyContent: "center" }}>
+            <div style={{ justifyContent: "center" }}>
                 <FlexGridRow className="grid-content">
                     {isDesktopXL &&
             (<>
-                <FlexGridRow width={12} desktop={12} tablet={12} mobile={12} style={{ alignSelf: 'center' }}>
+                <FlexGridRow desktop={12} tablet={12} mobile={12} style={{ alignSelf: 'center' }}>
                     <FlexGridCol desktop={4} tablet={12} mobile={12} className="award-search__col1">
                         <div className="award-search__overline-div">
                             <span
