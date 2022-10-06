@@ -1,19 +1,13 @@
 .award-search__section {
-  @media (min-width:1400px) {
+  @media (min-width:1400px) and (max-width: 1600px) {
     flex-direction: column;
     display:flex;
-    margin: 0 3.2rem;
   }
   .grid-content {
     margin-top: 0;
     margin-bottom: 72px;
     border-radius: 4px;
     min-height: 50rem;
-
-    @media (min-width: $homepage-max-width) {
-      align-items: center;
-      margin: 0 3.2rem;
-    }
 
     .award-search__col1 {
       align-items: center;
@@ -23,7 +17,7 @@
 
       @media(min-width:1400px) {
         width: 23%;
-        margin-right:120px;
+        margin-right:80px;
       }
     }
 
@@ -87,7 +81,7 @@
 
     .swiper-wrapper {
       width: 50%;
-      @media (min-width: $homepage-max-width) {
+      @media (min-width: 1400px) {
         justify-self: right;
         width: 50%;
       }
@@ -140,7 +134,7 @@
         opacity: .5;
       }
 
-      @media(min-width:$homepage-max-width) {
+      @media(min-width:1400px) {
         opacity: .5;
       }
 
