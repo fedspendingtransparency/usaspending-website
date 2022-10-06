@@ -8,9 +8,10 @@
     margin-bottom: 72px;
     border-radius: 4px;
     min-height: 50rem;
-
+    align-self: center;
     @media (min-width: 1400px) {
       align-items: center;
+      margin-right: 0;
     }
     .award-search__col1 {
       align-items: center;
