@@ -9,6 +9,9 @@
     border-radius: 4px;
     min-height: 50rem;
 
+    @media (min-width: 1400px) {
+      align-items: center;
+    }
     .award-search__col1 {
       align-items: center;
       @media (max-width:1400px) {
@@ -80,10 +83,9 @@
     }
 
     .swiper-wrapper {
-      width: 50%;
       @media (min-width: 1400px) {
         justify-self: right;
-        width: 50%;
+        width:unset;
       }
 
       @media(min-width:320px) {
