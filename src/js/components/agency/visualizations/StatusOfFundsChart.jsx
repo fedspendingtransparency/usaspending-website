@@ -72,8 +72,8 @@ const StatusOfFundsChart = ({
     }, 100);
 
     useEffect(() => {
-        document.getElementById('sof_chart').addEventListener('mousemove', setMouseData);
-        return () => document.getElementById('sof_chart').removeEventListener('mousemove', setMouseData);
+        document?.getElementById('sof_chart')?.addEventListener('mousemove', setMouseData);
+        return () => document?.getElementById('sof_chart')?.removeEventListener('mousemove', setMouseData);
     }, []);
 
     useEffect(() => {
@@ -464,20 +464,20 @@ const StatusOfFundsChart = ({
                 svg.selectAll('#tbr-bar').remove();
             }
             // on click drilldown
-            svg.selectAll(".bar-group").on('click', (d) => {
+            svg.selectAll(".bar-group").on('click', (event, d) => {
                 handleClick(d);
             });
-            svg.selectAll(".bar-group").on('touchend', (d) => {
+            svg.selectAll(".bar-group").on('touchend', (event, d) => {
                 handleClick(d);
             });
             // tab through and enter key functionality
-            svg.selectAll(".bar-group").on("keypress", (d) => {
-                if (d3.event.keyCode === 13) {
+            svg.selectAll(".bar-group").on("keypress", (event, d) => {
+                if (event.keyCode === 13) {
                     handleClick(d);
                 }
             });
             // tooltip hover for bar groups
-            svg.selectAll(".bar-group").on('mouseenter', (d) => {
+            svg.selectAll(".bar-group").on('mouseenter', (event, d) => {
                 setIsHovered(true);
                 setHoverData(d);
                 tooltip(hoverData);
@@ -772,20 +772,20 @@ const StatusOfFundsChart = ({
                 svg.selectAll('#tbr-bar').remove();
             }
             // on click drilldown
-            svg.selectAll("#out-bar").on('click', (d) => {
+            svg.selectAll("#out-bar").on('click', (event, d) => {
                 handleClick(d);
             });
-            svg.selectAll("#out-bar").on('touchend', (d) => {
+            svg.selectAll("#out-bar").on('touchend', (event, d) => {
                 handleClick(d);
             });
             // tab through and enter key functionality
-            svg.selectAll(".bar-group").on("keypress", (d) => {
-                if (d3.event.keyCode === 13) {
+            svg.selectAll(".bar-group").on("keypress", (event, d) => {
+                if (event.keyCode === 13) {
                     handleClick(d);
                 }
             });
             // tooltip hover for bar groups
-            svg.selectAll(".bar-group").on('mouseenter', (d) => {
+            svg.selectAll(".bar-group").on('mouseenter', (event, d) => {
                 setIsHovered(true);
                 setHoverData(d);
                 tooltip(hoverData);
