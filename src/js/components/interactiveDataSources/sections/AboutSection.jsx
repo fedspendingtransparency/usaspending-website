@@ -27,20 +27,21 @@ const AboutSection = () => {
             Before the DATA Act, many programs in the federal government had the same types
             of spending data about agency expenses and federal awards such as contracts, grants, and loans. However, they weren't all defining their data elements in the same way. These differences made it hard to share or compare data across agencies and programs.
             </p>
+            <p>
+                In addition, agency financial systems were not linked to governmentwide award systems, so there was no way to follow the money from appropriated funds to award spending for recipients across the country and the world. As a result of the DATA Act, policies and mechanisms now exist for this linkage.
+            </p>
         </>)
     },
     {
         title: "How was the DATA Act implemented?",
         details: (
             <>
-                <ul className="interactives-guide_bullet-points">
-                    <li>
+                <p>
                     The USAspending data model standardizes data elements and definitions, and the USAspending Broker validates the data submitted and extracted from agency systems for quality, consistency, and accuracy.
-                    </li>
-                    <li>
+                </p>
+                <p>
                     USAspending is built on principles of user-centered design and Agile software development, leveraging input from the public and federal stakeholders to iteratively release updates and enhancements many times per year.
-                    </li>
-                </ul>
+                </p>
             </>
         )
     }];
@@ -54,8 +55,7 @@ const AboutSection = () => {
         content: (
             <>
                 <p data-testid="cardText" className="interactives-guide-cardText">
-                    To read the technical documentation for the data elements and source systems that flow into USAspending,
-                    visit the resources page from the Treasury Department's Bureau of the Fiscal Service.
+                    The USAspending data model is a collection of resources that explains the elements, relationships, and sources for the data on USAspending. This Data Sources page is one such resource. Read about the other resources below.
                 </p>
                 <a href="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html" title="Read More: DATA Act Information Model Schema (DAIMS)" target="_blank" rel="noopener noreferrer">
                     <div

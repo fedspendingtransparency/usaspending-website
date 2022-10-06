@@ -17,6 +17,10 @@ function FederalSpendingOverview() {
                     <GlossaryLink term="treasury-account-symbol-tas" />) as a result of{" "}
                     <span className="glossary-term">appropriations</span>{" "}
                     <GlossaryLink term="appropriation" /> from Congress.
+                    Appropriations are one form of{" "}
+                    <span className="glossary-term">budgetary resource</span>{" "}
+                    <GlossaryLink term="budgetary-resources" />
+                    , and any given Treasury Account may include a variety of budgetary resources.
                 </p>
             )
         },
@@ -46,8 +50,8 @@ function FederalSpendingOverview() {
                     represents actual spending.
                     </p>
                     <p>
-                    USAspending has data on both obligations and outlays, but obligation
-                    data are currently more common.
+                    USAspending has data on both obligations and outlays, but in most cases, it is
+                    more common to measure spending by obligations rather than outlays.
                     </p>
                 </>
             )

@@ -138,9 +138,14 @@ function DataAvailable() {
                                 </p>
                                 <ul className="interactives-guide_bullet-points">
                                     <li>Personally identifiable information (PII);</li>
-                                    <li>Information that may compromise national security; and</li>
+                                    <li>Information that may compromise national security;</li>
+                                    <li>Proprietary information or documents from federal award recipients; and</li>
                                     <li>Tax expenditure data, including Economic Impact Payments (i.e., COVID stimulus checks)</li>
                                 </ul>
+                                <p>
+                                    While USAspending does receive contract award data from the Department of Defense (DOD) and the
+                                    U.S. Army Corps of Engineers (USACE), there is a 90 delay in the submission of these data to the FPDS source system.
+                                </p>
                             </>
                         )
                         } />
@@ -158,7 +163,7 @@ function DataAvailable() {
                     <ScrollerOverlayCard
                         content={
                             <p>
-                                In addition, some smaller executive branch agencies, as well as
+                                Note that some smaller executive branch agencies, as well as
                                 the entire legislative and judicial branches, are not required
                                 to report to USAspending. The full list of reporting agencies
                                 can be found on our{" "}
