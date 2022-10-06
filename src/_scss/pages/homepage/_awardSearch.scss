@@ -8,18 +8,17 @@
 
     @media (min-width: $homepage-max-width) {
       align-items: center;
+      margin: 0 3.2rem;
     }
 
     .award-search__col1 {
       align-items: center;
-
       @media (max-width:1400px) {
         width: 100%;
       }
 
       @media(min-width:1400px) {
         width: 23%;
-        margin-right: 120px;
       }
     }
 
