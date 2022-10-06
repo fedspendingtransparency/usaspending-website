@@ -19,6 +19,7 @@
 
       @media(min-width:1400px) {
         width: 23%;
+        margin-right:120px;
       }
     }
 
@@ -82,9 +83,9 @@
 
     .swiper-wrapper {
       width: 50%;
-
       @media (min-width: $homepage-max-width) {
         justify-self: right;
+        width: 50%;
       }
 
       @media(min-width:320px) {
