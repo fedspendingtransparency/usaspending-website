@@ -13,19 +13,23 @@ const propTypes = {
         PropTypes.object
     ]),
     subhead: PropTypes.string,
-    text: PropTypes.string,
+    text: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.object
+    ]),
     variant: PropTypes.string, // inset or no-variant
     children: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.object
     ]),
-    imageContainerHeight: PropTypes.string
+    imageContainerHeight: PropTypes.string,
+    customClassName: PropTypes.string
 };
 
 const CardBody = ({
-    overline, headline, subhead, text, variant = "", children, imageContainerHeight
+    overline, headline, subhead, text, variant = '', children, imageContainerHeight, customClassName = ""
 }) => (
-    <div className={`card__body ${variant}`} style={{ height: imageContainerHeight ? `calc(100% - ${imageContainerHeight} - 12px)` : '' }}>
+    <div className={`card__body ${variant} ${customClassName}`} style={{ height: imageContainerHeight ? `calc(100% - ${imageContainerHeight} - 12px)` : '' }}>
         {overline && <div className="overline">{overline}</div>}
         {headline && <div className="headline">{headline}</div>}
         {subhead && <div className="subhead">{subhead}</div>}

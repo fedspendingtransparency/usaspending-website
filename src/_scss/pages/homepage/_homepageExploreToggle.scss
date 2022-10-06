@@ -31,7 +31,15 @@ $customWidthJustForThisComponent: 440px;
       }
 
         &.active {
-        border-bottom: solid 2px $color-primary;
+          border-bottom: solid 2px $color-primary;
+
+          .homepage-explore-toggle__text {
+            font-weight: $font-semibold;
+            color: $color-grayblack;
+          }
+          .homepage-explore-toggle__icon-container {
+            opacity: 100% !important;
+          }
       }
 
       .homepage-explore-toggle__text-container {
@@ -43,6 +51,7 @@ $customWidthJustForThisComponent: 440px;
           padding-left: rem(4);
           border-radius: rem(2);
           background-color: #e7f6f8;
+          opacity: 50%;
           &.access {
             padding-left: rem(6);
           }
@@ -54,12 +63,11 @@ $customWidthJustForThisComponent: 440px;
 
         .homepage-explore-toggle__text {
           font-size: rem(14);
-          font-weight: $font-semibold;
           font-stretch: normal;
           font-style: normal;
           line-height: 1;
           letter-spacing: normal;
-          color: $color-grayblack;
+          color: $color-base;
           margin-left: rem(4);
           align-self: center;
           @media(min-width: $customWidthJustForThisComponent) {

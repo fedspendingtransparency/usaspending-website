@@ -15,6 +15,7 @@ import { idList } from 'dataMapping/shared/recipientIdentifiers';
 import { generateUrlHash } from "../../helpers/searchHelper";
 import FaceValueOfLoans from '../sharedComponents/FaceValueOfLoans';
 import RecipientMultiParentCollapse from './RecipientMultiParentCollapse';
+import { REQUEST_VERSION } from "../../GlobalConstants";
 
 const propTypes = {
     recipient: PropTypes.object,
@@ -104,7 +105,7 @@ const RecipientOverview = (props) => {
                 ...defaultFilters,
                 selectedRecipients: filter
             },
-            version: "2020-06-01"
+            version: REQUEST_VERSION
         };
         let tempHash = generateUrlHash(filterValue);
         tempHash.promise

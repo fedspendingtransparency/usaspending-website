@@ -21,7 +21,7 @@ export default class RedirectModal extends React.Component {
             <Modal
                 mounted={this.props.mounted}
                 onExit={this.props.hideModal}
-                titleText="You're leaving a Bureau of the Fiscal Service website."
+                titleText="You're leaving a Federal Government website."
                 dialogClass="usa-dt-modal"
                 verticallyCenter
                 escapeExits>
@@ -43,11 +43,11 @@ export default class RedirectModal extends React.Component {
                                 </i>
                             </div>
                             <div className="usa-dt-modal__title-text">
-                                You&apos;re leaving a Bureau of the Fiscal Service website.
+                                You&apos;re leaving a Federal Government website.
                             </div>
                         </div>
                         <div className="usa-dt-modal__explanation">
-                            You&apos;re going to a website that is not managed or controlled by the Bureau of the Fiscal Service.
+                            You&apos;re going to a website that is not managed or controlled by the Federal Government.
                             <br /> Its privacy policies may differ from ours.
                         </div>
                         <div className="usa-dt-modal__directions">

@@ -2,16 +2,13 @@
   @import 'all';
   @import "layouts/default/default";
   @import "layouts/default/header/_warning";
+  @import "components/externalLink";
 
   .homepage-update-content {
     background-color: white;
-
-    // todo - remove this when real components are used
-    @media (max-width: $tablet-screen) {
-      h1 {
-        font-size: 16px;
-      }
-    }
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 
     .homepage-hero-content {
       margin: 0 rem(16);
@@ -25,24 +22,25 @@
 
     .grid-content {
       margin: 0 rem(16);
-      max-width: 1600px;
+      max-width: $homepage-max-width;
+      align-self: center;
       @media (min-width: $tablet-screen) {
         margin: 0 rem(32);
       }
-      @media (min-width: 1600px) {
+      @media (min-width: $homepage-max-width) {
         margin: 0 $grid-column;
       }
     }
   }
 
-  @import "homepageFirstRow";
   @import "hero/hero";
   @import "summaryStats";
+  @import "homepageFirstRow";
   @import "featuredContent";
   @import "wordOfTheDay";
   @import "awardSearch";
   @import "homepageExploreToggle";
-  @import "exploreDataPlaceholder";
+  @import "exploreTheData";
   @import "homepageResources";
   @import "readyToGetStarted";
 }
