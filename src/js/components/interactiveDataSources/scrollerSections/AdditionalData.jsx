@@ -38,7 +38,9 @@ function AdditionalData() {
                     hierarchies in any of the{" "}
                     <Link
                         className="scroller-overlay-card__link"
-                        to="/agency">
+                        to="/agency"
+                        target="_blank"
+                        rel="noopener noreferrer">
                         Agency Profile pages
                     </Link>.
                 </p>

@@ -101,7 +101,9 @@ function Frequency() {
                                     submissions in the “Most Recent Update” column of the{" "}
                                     <Link
                                         className="scroller-overlay-card__link"
-                                        to="/submission-statistics">
+                                        to="/submission-statistics"
+                                        target="_blank"
+                                        rel="noopener noreferrer">
                                         Agency Submission Statistics page
                                     </Link>
                                     .

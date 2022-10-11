@@ -162,7 +162,7 @@ function DataAvailable() {
                                 the entire legislative and judicial branches, are not required
                                 to report to USAspending. The full list of reporting agencies
                                 can be found on our{" "}
-                                <Link className="scroller-overlay-card__link" to="/agency">
+                                <Link className="scroller-overlay-card__link" to="/agency" target="_blank" rel="noopener noreferrer">
                                 Agency Profile landing page
                                 </Link>
                                 .
