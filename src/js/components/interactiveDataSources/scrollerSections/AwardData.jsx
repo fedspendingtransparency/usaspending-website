@@ -116,13 +116,17 @@ function AwardData() {
                     assistance awards in the{" "}
                         <Link
                             className="scroller-overlay-card__link"
-                            to="/submission-statistics">
+                            to="/submission-statistics"
+                            target="_blank"
+                            rel="noopener noreferrer">
                             Agency Submission Statistics page
                         </Link>
                         . More information about linked awards is available in the{" "}
                         <Link
                             className="scroller-overlay-card__link"
-                            to="/submission-statistics/data-sources">
+                            to="/submission-statistics/data-sources"
+                            target="_blank"
+                            rel="noopener noreferrer">
                             Data Sources and Methodology page
                         </Link>{" "}
                         for these statistics.
@@ -204,13 +208,15 @@ function AwardData() {
                     <LottieAnimation
                         isScrollerBackdrop
                         ref={ref1}
-                        src="/img/interactive-data-sources/5_DS_AWARD.json" />
+                        src="/img/interactive-data-sources/5_DS_AWARD.json"
+                        role="presentation" />
                 </div>
                 <div className="bottom-animation">
                     <LottieAnimation
                         loop
                         ref={ref2}
-                        src="/img/interactive-data-sources/5_DS_AWARD_BG.json" />
+                        src="/img/interactive-data-sources/5_DS_AWARD_BG.json"
+                        role="presentation" />
                 </div>
             </div>
 

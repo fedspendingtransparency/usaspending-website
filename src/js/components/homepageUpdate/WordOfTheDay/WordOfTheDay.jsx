@@ -13,11 +13,14 @@ import CardContainer from "../../sharedComponents/commonCards/CardContainer";
 import CardBody from "../../sharedComponents/commonCards/CardBody";
 import CardButton from "../../sharedComponents/commonCards/CardButton";
 import Analytics from '../../../helpers/analytics/Analytics';
+import { LoadingWrapper } from "../../sharedComponents/Loading";
+import ErrorWordOfTheDay from "./ErrorWordOfTheDay";
 
 const WordOfTheDay = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [term, setTerm] = useState('');
+    const [changedTerm, setChangedTerm] = useState('');
     const [definition, setDefinition] = useState('');
     const [glossary, setGlossary] = useState('');
     const [glossaryLink, setGlossaryLink] = useState('');
@@ -108,7 +111,7 @@ const WordOfTheDay = () => {
             const index = dateDataMapper[currentMonth]?.startingIndex + currentDate;
             setTerm(glossaryTerms[index]);
         }
-    }, [currentDate, currentMonth]);
+    }, [currentDate, currentMonth, dateDataMapper, glossaryTerms]);
 
     const selectWordOfTheDay = () => {
         const d = new Date();
@@ -141,7 +144,27 @@ const WordOfTheDay = () => {
         if (!found) {
             definitionNotFound();
         }
-    }, [glossary, term]);
+    }, [definitionNotFound, glossary, pathname, search, term]);
+
+    useEffect(() => {
+        if (term === "Account Balance (File A)") {
+            setChangedTerm("File A");
+        } else if (term === "Account Breakdown by Award (File C)") {
+            setChangedTerm("File C");
+        } else if (term === "Account Breakdown by Program Activity & Object Class (File B)") {
+            setChangedTerm("File B");
+        } else if (term === "Period of Performance Current End Date") {
+            setChangedTerm("Current End Date");
+        } else if (term === "Period of Performance Potential End Date") {
+            setChangedTerm("Potential End Date");
+        } else if (term === "Period of Performance Start Date") {
+            setChangedTerm("Start Date");
+        } else if (term === "Procurement Instrument Identifier (PIID)") {
+            setChangedTerm("PIID");
+        } else {
+            setChangedTerm("");
+        }
+    }, [glossary, pathname, search, term]);
 
     useEffect(() => {
         fetchAllTerms().promise
@@ -172,7 +195,7 @@ const WordOfTheDay = () => {
                 {/* eslint-disable-next-line no-nested-ternary */}
                 {!loading && !error ?
                     <FlexGridCol>
-                        <div className="word-of-the-day__headline">{term}</div>
+                        <div className="word-of-the-day__headline">{changedTerm === "" ? term : changedTerm}</div>
                         <div className="word-of-the-day__divider" />
                         <CardBody customClassName="word-of-the-day__body">
                             <>
@@ -185,7 +208,7 @@ const WordOfTheDay = () => {
                     </FlexGridCol>
                     :
                     <CardBody customClassName="word-of-the-day__body">
-                        {loading ? <h3>Loading...</h3> : <h3>Error</h3>}
+                        {loading ? <LoadingWrapper isLoading={loading} /> : <ErrorWordOfTheDay />}
                     </CardBody>
                 }
             </CardContainer>

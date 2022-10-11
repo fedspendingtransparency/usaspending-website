@@ -30,7 +30,8 @@ module.exports = {
         "^(data-transparency-ui)$": "<rootDir>/node_modules/data-transparency-ui",
         "\\.(css|less|scss)$": "<rootDir>/tests/testResources/stylesStub.js",
         ".*GlobalConstants$": "<rootDir>/tests/testResources/mockGlobalConstants.js",
-        '@test-utils': "<rootDir>/tests/testResources/test-utils.js"
+        '@test-utils': "<rootDir>/tests/testResources/test-utils.js",
+        d3: '<rootDir>/node_modules/d3/dist/d3.min.js'
     },
     setupFiles: ["<rootDir>/tests/rejection.js"],
     setupFilesAfterEnv: [
@@ -41,7 +42,6 @@ module.exports = {
         "^.+\\.jsx$|js$": "babel-jest"
     },
     transformIgnorePatterns: [
-        "node_modules/(?!(data-transparency-ui))"
-    ],
+        "node_modules/(?!(data-transparency-ui))"],
     modulePaths: ["<rootDir>/tests/testResources", "<rootDir>/src/js"]
 };
