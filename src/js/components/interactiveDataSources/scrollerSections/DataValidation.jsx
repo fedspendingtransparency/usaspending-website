@@ -15,7 +15,8 @@ function DataValidation() {
                 <LottieAnimation
                     loop
                     ref={ref1}
-                    src="/img/interactive-data-sources/8_DVBS.json" />
+                    src="/img/interactive-data-sources/8_DVBS.json"
+                    role="presentation" />
             </div>
 
             {/* SCROLLER OVERLAYS */}

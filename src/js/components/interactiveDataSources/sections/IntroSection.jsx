@@ -25,7 +25,8 @@ const IntroSection = () => (
             <LottieAnimation
                 autoplay
                 loop
-                src="/img/interactive-data-sources/intro-animation.json" />
+                src="/img/interactive-data-sources/intro-animation.json"
+                role="presentation" />
         </div>
     </div>
 );

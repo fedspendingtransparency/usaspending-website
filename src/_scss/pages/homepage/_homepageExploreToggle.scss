@@ -50,15 +50,19 @@ $customWidthJustForThisComponent: 440px;
           height: rem(20);
           padding-left: rem(4);
           border-radius: rem(2);
-          background-color: #e7f6f8;
+          background-color: $color-primary-alt-lightest;
           opacity: 50%;
           &.access {
+            background-color: $theme-color-accent-11;
             padding-left: rem(6);
           }
         }
         .homepage-explore-toggle__icon {
           color: $theme-color-accent-6;
           font-size: rem(12);
+          &.access {
+            color: $theme-color-accent-16;
+          }
         }
 
         .homepage-explore-toggle__text {
