@@ -66,6 +66,7 @@ export const parseRemoteFilters = (data) => {
     // send the selected filters to Google Analytics
     const events = convertFiltersToAnalyticEvents(reduxValues);
     sendFieldCombinations(events);
+    console.log(events);
     sendAnalyticEvents(events);
     return reduxValues;
 };
