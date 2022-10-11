@@ -20,6 +20,7 @@ const WordOfTheDay = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [term, setTerm] = useState('');
+    const [changedTerm, setChangedTerm] = useState('');
     const [definition, setDefinition] = useState('');
     const [glossary, setGlossary] = useState('');
     const [glossaryLink, setGlossaryLink] = useState('');
@@ -146,6 +147,26 @@ const WordOfTheDay = () => {
     }, [definitionNotFound, glossary, pathname, search, term]);
 
     useEffect(() => {
+        if (term === "Account Balance (File A)") {
+            setChangedTerm("File A");
+        } else if (term === "Account Breakdown by Award (File C)") {
+            setChangedTerm("File C");
+        } else if (term === "Account Breakdown by Program Activity & Object Class (File B)") {
+            setChangedTerm("File B");
+        } else if (term === "Period of Performance Current End Date") {
+            setChangedTerm("Current End Date");
+        } else if (term === "Period of Performance Potential End Date") {
+            setChangedTerm("Potential End Date");
+        } else if (term === "Period of Performance Start Date") {
+            setChangedTerm("Start Date");
+        } else if (term === "Procurement Instrument Identifier (PIID)") {
+            setChangedTerm("PIID");
+        } else {
+            setChangedTerm("");
+        }
+    }, [glossary, pathname, search, term]);
+
+    useEffect(() => {
         fetchAllTerms().promise
             .then((res) => {
                 selectWordOfTheDay();
@@ -174,7 +195,7 @@ const WordOfTheDay = () => {
                 {/* eslint-disable-next-line no-nested-ternary */}
                 {!loading && !error ?
                     <FlexGridCol>
-                        <div className="word-of-the-day__headline">{term}</div>
+                        <div className="word-of-the-day__headline">{changedTerm === "" ? term : changedTerm}</div>
                         <div className="word-of-the-day__divider" />
                         <CardBody customClassName="word-of-the-day__body">
                             <>
