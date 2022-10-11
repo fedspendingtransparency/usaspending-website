@@ -17,19 +17,22 @@ function DataTypes() {
                     <LottieAnimation
                         isScrollerBackdrop
                         ref={ref1}
-                        src="/img/interactive-data-sources/3_DT.json" />
+                        src="/img/interactive-data-sources/3_DT.json"
+                        role="presentation" />
                 </div>
                 <div className="top-animation">
                     <LottieAnimation
                         loop
                         ref={ref2}
-                        src="/img/interactive-data-sources/3_DT_GIRL.json" />
+                        src="/img/interactive-data-sources/3_DT_GIRL.json"
+                        role="presentation" />
                 </div>
                 <div className="bottom-animation">
                     <LottieAnimation
                         loop
                         ref={ref3}
-                        src="/img/interactive-data-sources/3_DT_BG.json" />
+                        src="/img/interactive-data-sources/3_DT_BG.json"
+                        role="presentation" />
                 </div>
             </div>
 

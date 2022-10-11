@@ -16,7 +16,8 @@ function DataFeatures() {
                 <LottieAnimation
                     loop
                     ref={ref1}
-                    src="/img/interactive-data-sources/9_DA.json" />
+                    src="/img/interactive-data-sources/9_DA.json"
+                    role="presentation" />
             </div>
 
 
@@ -46,7 +47,9 @@ function DataFeatures() {
                                     <li>
                                         <Link
                                             className="scroller-overlay-card__link"
-                                            to="/explorer">
+                                            to="/explorer"
+                                            target="_blank"
+                                            rel="noopener noreferrer">
                                         Spending Explorer
                                         </Link>{" "}
                                         lets you drill down from larger budget categories to smaller
@@ -55,7 +58,9 @@ function DataFeatures() {
                                     <li>
                                         <Link
                                             className="scroller-overlay-card__link"
-                                            to="/agency">
+                                            to="/agency"
+                                            target="_blank"
+                                            rel="noopener noreferrer">
                                         Agency Profiles
                                         </Link>{" "}
                                         show you account spending (and award spending) summaries for
@@ -67,7 +72,9 @@ function DataFeatures() {
                                     <li>
                                         <Link
                                             className="scroller-overlay-card__link"
-                                            to="/federal_account">
+                                            to="/federal_account"
+                                            target="_blank"
+                                            rel="noopener noreferrer">
                                         Federal Account Profiles
                                         </Link>{" "}
                                         show you account spending (and award spending) summaries for
@@ -98,7 +105,11 @@ function DataFeatures() {
                                     <span className="glossary-term">subaward</span>{" "}
                                     <GlossaryLink term="sub-award" />
                                     ), you should go directly to{" "}
-                                    <Link className="scroller-overlay-card__link" to="/search">
+                                    <Link
+                                        className="scroller-overlay-card__link"
+                                        to="/search"
+                                        target="_blank"
+                                        rel="noopener noreferrer">
                                         Advanced Search
                                     </Link>
                                     . This feature has many filters to help narrow your search,
@@ -172,19 +183,27 @@ function DataFeatures() {
                                     <li>
                                         <Link
                                             className="scroller-overlay-card__link"
-                                            to="/disaster/covid-19">
+                                            to="/disaster/covid-19"
+                                            target="_blank"
+                                            rel="noopener noreferrer">
                                         COVID-19 Spending Profile
                                         </Link>{" "}
                                         (with more information available in the{" "}
                                         <Link
                                             className="scroller-overlay-card__link"
-                                            to="/disaster/covid-19/data-sources">
+                                            to="/disaster/covid-19/data-sources"
+                                            target="_blank"
+                                            rel="noopener noreferrer">
                                         Data Sources and Methodology page
                                         </Link>
                                         )
                                     </li>
                                     <li>
-                                        <Link className="scroller-overlay-card__link" to="/search">
+                                        <Link
+                                            className="scroller-overlay-card__link"
+                                            to="/search"
+                                            target="_blank"
+                                            rel="noopener noreferrer">
                                         Advanced Search
                                         </Link>{" "}
                                         (using the DEFC filter)
@@ -192,7 +211,9 @@ function DataFeatures() {
                                     <li>
                                         <Link
                                             className="scroller-overlay-card__link"
-                                            to="/download_center/custom_account_data">
+                                            to="/download_center/custom_account_data"
+                                            target="_blank"
+                                            rel="noopener noreferrer">
                                         Custom Account Data download
                                         </Link>{" "}
                                         (using the DEFC filter)
@@ -224,13 +245,17 @@ function DataFeatures() {
                                         Award data can be accessed as pre-generated files in the{" "}
                                         <Link
                                             className="scroller-overlay-card__link"
-                                            to="/download_center/award_data_archive">
+                                            to="/download_center/award_data_archive"
+                                            target="_blank"
+                                            rel="noopener noreferrer">
                                         Award Data Archive
                                         </Link>{" "}
                                         , or as customized downloads in the{" "}
                                         <Link
                                             className="scroller-overlay-card__link"
-                                            to="download_center/custom_award_data">
+                                            to="download_center/custom_award_data"
+                                            target="_blank"
+                                            rel="noopener noreferrer">
                                         Custom Award Data Download
                                         </Link>
                                     </li>
@@ -238,7 +263,9 @@ function DataFeatures() {
                                         Account data can be accessed as customized downloads in the{" "}
                                         <Link
                                             className="scroller-overlay-card__link"
-                                            to="/download_center/custom_account_data">
+                                            to="/download_center/custom_account_data"
+                                            target="_blank"
+                                            rel="noopener noreferrer">
                                         Custom Account Data Download
                                         </Link>
                                     </li>

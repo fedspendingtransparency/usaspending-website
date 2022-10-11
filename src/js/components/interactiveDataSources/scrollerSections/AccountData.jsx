@@ -77,13 +77,15 @@ function AccountData() {
                     <LottieAnimation
                         isScrollerBackdrop
                         ref={ref1}
-                        src="/img/interactive-data-sources/5_DS_ACCOUNT.json" />
+                        src="/img/interactive-data-sources/5_DS_ACCOUNT.json"
+                        role="presentation" />
                 </div>
                 <div className="bottom-animation">
                     <LottieAnimation
                         loop
                         ref={ref2}
-                        src="/img/interactive-data-sources/5_DS_ACCOUNT_BG.json" />
+                        src="/img/interactive-data-sources/5_DS_ACCOUNT_BG.json"
+                        role="presentation" />
                 </div>
             </div>
 
@@ -118,7 +120,8 @@ function AccountData() {
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
                         heading={cards.card1.heading}
-                        content={cards.card1.content} />
+                        content={cards.card1.content}
+                        role="presentation" />
                 </div>
             </ScrollerOverlay>
 

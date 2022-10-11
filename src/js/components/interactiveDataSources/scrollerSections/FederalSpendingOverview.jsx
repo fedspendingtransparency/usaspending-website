@@ -63,13 +63,15 @@ function FederalSpendingOverview() {
                     <LottieAnimation
                         isScrollerBackdrop
                         ref={ref1}
-                        src="/img/interactive-data-sources/1_FSO_COIN.json" />
+                        src="/img/interactive-data-sources/1_FSO_COIN.json"
+                        role="presentation" />
                 </div>
                 <div className="bottom-animation">
                     <LottieAnimation
                         loop
                         ref={ref2}
-                        src="/img/interactive-data-sources/1_FSO.json" />
+                        src="/img/interactive-data-sources/1_FSO.json"
+                        role="presentation" />
                 </div>
             </div>
 

@@ -14,7 +14,8 @@ function DataUseCases() {
                 <LottieAnimation
                     loop
                     ref={ref1}
-                    src="/img/interactive-data-sources/10_UUC.json" />
+                    src="/img/interactive-data-sources/10_UUC.json"
+                    role="presentation" />
             </div>
 
 
