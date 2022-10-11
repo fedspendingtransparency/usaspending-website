@@ -3,6 +3,13 @@
     flex-direction: column;
     display:flex;
   }
+
+  .award-search__topdiv {
+    @media(min-width:1600px) {
+      justify-content: center;
+      display:flex;
+    }
+  }
   .grid-content {
     margin-top: 0;
     margin-bottom: 96px;
@@ -192,9 +199,9 @@
     }
 
     .award-search__col2 {
-      @media (min-width: $homepage-max-width) {
+      @media (min-width: 1400px) {
         display: inline;
-        width: 50%;
+        width: 70%;
         justify-content: right;
       }
 
