@@ -20,7 +20,9 @@ const AboutSection = () => {
                 <li>
                     <Link
                         className="scroller-overlay-card__link"
-                        to="/analyst-guide">
+                        to="/analyst-guide"
+                        target="_blank"
+                        rel="noopener noreferrer">
                         Analyst Guide
                     </Link>
                     : a collection of frequently asked questions
@@ -28,7 +30,9 @@ const AboutSection = () => {
                 <li>
                     <Link
                         className="scroller-overlay-card__link"
-                        to="/data-dictionary">
+                        to="/data-dictionary"
+                        target="_blank"
+                        rel="noopener noreferrer">
                         Data Dictionary
                     </Link>
                     : a crosswalk spreadsheet for data element names and definitions across USAspending downloads and source systems
@@ -36,7 +40,9 @@ const AboutSection = () => {
                 <li>
                     <Link
                         className="scroller-overlay-card__link"
-                        to="/download_center/dataset_metadata">
+                        to="/download_center/dataset_metadata"
+                        target="_blank"
+                        rel="noopener noreferrer">
                         Dataset Metadata
                     </Link>
                     : documentation for all JSON objects accessible from downloads
