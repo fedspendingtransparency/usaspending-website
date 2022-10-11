@@ -208,13 +208,15 @@ function AwardData() {
                     <LottieAnimation
                         isScrollerBackdrop
                         ref={ref1}
-                        src="/img/interactive-data-sources/5_DS_AWARD.json" />
+                        src="/img/interactive-data-sources/5_DS_AWARD.json"
+                        role="presentation" />
                 </div>
                 <div className="bottom-animation">
                     <LottieAnimation
                         loop
                         ref={ref2}
-                        src="/img/interactive-data-sources/5_DS_AWARD_BG.json" />
+                        src="/img/interactive-data-sources/5_DS_AWARD_BG.json"
+                        role="presentation" />
                 </div>
             </div>
 

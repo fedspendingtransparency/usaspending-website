@@ -18,13 +18,15 @@ function Frequency() {
                     <LottieAnimation
                         isScrollerBackdrop
                         ref={ref1}
-                        src="/img/interactive-data-sources/7_FDU_UPDATES.json" />
+                        src="/img/interactive-data-sources/7_FDU_UPDATES.json"
+                        role="presentation" />
                 </div>
                 <div className="bottom-animation">
                     <LottieAnimation
                         loop
                         ref={ref2}
-                        src="/img/interactive-data-sources/7_FDU.json" />
+                        src="/img/interactive-data-sources/7_FDU.json"
+                        role="presentation" />
                 </div>
             </div>
 

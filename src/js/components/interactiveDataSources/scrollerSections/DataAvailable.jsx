@@ -24,13 +24,15 @@ function DataAvailable() {
                     <LottieAnimation
                         isScrollerBackdrop
                         ref={ref1}
-                        src="/img/interactive-data-sources/2_DA.json" />
+                        src="/img/interactive-data-sources/2_DA.json"
+                        role="presentation" />
                 </div>
                 <div className="bottom-animation">
                     <LottieAnimation
                         loop
                         ref={ref2}
-                        src="/img/interactive-data-sources/2_DA_BG.json" />
+                        src="/img/interactive-data-sources/2_DA_BG.json"
+                        role="presentation" />
                 </div>
             </div>
             {/* used with data Available */}
@@ -39,13 +41,15 @@ function DataAvailable() {
                     <LottieAnimation
                         loop
                         ref={ref3}
-                        src="/img/interactive-data-sources/2_DA.json" />
+                        src="/img/interactive-data-sources/2_DA.json"
+                        role="presentation" />
                 </div>
                 <div className="bottom-animation">
                     <LottieAnimation
                         loop
                         ref={ref4}
-                        src="/img/interactive-data-sources/2_DA_BG.json" />
+                        src="/img/interactive-data-sources/2_DA_BG.json"
+                        role="presentation" />
                 </div>
             </div>
             {/* used with data not Available */}
@@ -54,13 +58,15 @@ function DataAvailable() {
                     <LottieAnimation
                         loop
                         ref={ref5}
-                        src="/img/interactive-data-sources/2_DA.json" />
+                        src="/img/interactive-data-sources/2_DA.json"
+                        role="presentation" />
                 </div>
                 <div className="bottom-animation">
                     <LottieAnimation
                         loop
                         ref={ref6}
-                        src="/img/interactive-data-sources/2_DA_BG.json" />
+                        src="/img/interactive-data-sources/2_DA_BG.json"
+                        role="presentation" />
                 </div>
             </div>
 

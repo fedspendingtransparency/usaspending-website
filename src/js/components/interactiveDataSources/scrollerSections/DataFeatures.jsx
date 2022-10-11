@@ -16,7 +16,8 @@ function DataFeatures() {
                 <LottieAnimation
                     loop
                     ref={ref1}
-                    src="/img/interactive-data-sources/9_DA.json" />
+                    src="/img/interactive-data-sources/9_DA.json"
+                    role="presentation" />
             </div>
 
 
