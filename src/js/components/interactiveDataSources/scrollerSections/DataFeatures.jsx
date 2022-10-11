@@ -193,7 +193,7 @@ function DataFeatures() {
                                         <Link
                                             className="scroller-overlay-card__link"
                                             to="/download_center/custom_account_data">
-                                        Custom Account Data download
+                                        Custom Account Data Download
                                         </Link>{" "}
                                         (using the DEFC filter)
                                     </li>
@@ -216,7 +216,7 @@ function DataFeatures() {
                         content={
                             <>
                                 <p>
-                                If you just want to access our data for your own use, you can
+                                If you just want to access the data for your own purposes, you can
                                 use our various download and API features:
                                 </p>
                                 <ul className="interactives-guide_bullet-points">
@@ -251,6 +251,25 @@ function DataFeatures() {
                                             rel="noopener noreferrer">
                                         Database Download
                                         </a>
+                                    </li>
+                                    <li>
+                                        Results from{" "}
+                                        <Link
+                                            className="scroller-overlay-card__link"
+                                            to="/search">
+                                            Advanced Search
+                                        </Link>{" "}
+                                        can be downloaded from the top right of the page
+                                    </li>
+                                    <li>
+                                        Data from individual Award Summary Profile pages (accessed from the “Award ID”
+                                        column in{" "}
+                                        <Link
+                                            className="scroller-overlay-card__link"
+                                            to="/search">
+                                            Advanced Search
+                                        </Link>{" "}
+                                        results) can be downloaded from the top right of the page
                                     </li>
                                     <li>
                                         The USAspending API documentation includes a list of{" "}
