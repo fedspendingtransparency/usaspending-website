@@ -2,10 +2,68 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
 import React from 'react';
+import ReadMore from 'components/sharedComponents/ReadMore';
+import { Link } from "react-router-dom";
 import Accordion from "../../sharedComponents/accordion/Accordion";
 import ScrollerOverlayCard from '../scroller/scrollerOverlay/ScrollerOverlayCard';
+import GlossaryLink from "../../sharedComponents/GlossaryLink";
 
 const AboutSection = () => {
+    const readMoreList = [(
+        <>
+            <br />
+            <ul>
+                <li><span className="glossary-term">Glossary</span>{" "}
+                    <GlossaryLink term="/" />: a collection of plain-language and official definitions for commonly used terms
+                </li>
+                <li>About the Data: a collection of disclosures and background information</li>
+                <li>
+                    <Link
+                        className="scroller-overlay-card__link"
+                        to="/analyst-guide">
+                        Analyst Guide
+                    </Link>
+                    : a collection of frequently asked questions
+                </li>
+                <li>
+                    <Link
+                        className="scroller-overlay-card__link"
+                        to="/data-dictionary">
+                        Data Dictionary
+                    </Link>
+                    : a crosswalk spreadsheet for data element names and definitions across USAspending downloads and source systems
+                </li>
+                <li>
+                    <Link
+                        className="scroller-overlay-card__link"
+                        to="/download_center/dataset_metadata">
+                        Dataset Metadata
+                    </Link>
+                    : documentation for all JSON objects accessible from downloads
+                </li>
+                <li>
+                    <a
+                        className="scroller-overlay-card__link"
+                        href="https://api.usaspending.gov/docs/endpoints"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        API Endpoints
+                    </a>
+                    : documentation all JSON objects accessible from API endpoints
+                </li>
+                <li>
+                    <a
+                        className="scroller-overlay-card__link"
+                        href="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        USAspending Source and Submission Model
+                    </a>
+                    : technical documentation for the data submitted to, and extracted by, USAspending (Files A, B, C, D1, D2, E, and F)
+                </li>
+            </ul>
+        </>
+    )];
     const aboutDetails = [{
         title: "What is the DATA Act?",
         details: (<>
@@ -57,15 +115,13 @@ const AboutSection = () => {
                 <p data-testid="cardText" className="interactives-guide-cardText">
                     The USAspending data model is a collection of resources that explains the elements, relationships, and sources for the data on USAspending. This Data Sources page is one such resource. Read about the other resources below.
                 </p>
-                <a href="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html" title="Read More: DATA Act Information Model Schema (DAIMS)" target="_blank" rel="noopener noreferrer">
-                    <div
-                        className="usa-button usa-button-outline read-more-button"
-                        role="button"
-                        aria-label="Read More Button"
-                        title="Read More: DATA Act Information Model Schema (DAIMS)">
-                            Read Our Documentation
-                    </div>
-                </a>
+                <ReadMore>
+                    {/* className="usa-button usa-button-outline read-more-button" */}
+                    {/* role="button" */}
+                    {/* aria-label="Read More Button" */}
+                    {/* title="Read More: DATA Act Information Model Schema (DAIMS)"> */}
+                    {readMoreList}
+                </ReadMore>
             </>
         )
     };
