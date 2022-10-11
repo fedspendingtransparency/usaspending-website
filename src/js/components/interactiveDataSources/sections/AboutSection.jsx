@@ -9,7 +9,7 @@ import ScrollerOverlayCard from '../scroller/scrollerOverlay/ScrollerOverlayCard
 import GlossaryLink from "../../sharedComponents/GlossaryLink";
 
 const AboutSection = () => {
-    const readMoreList = [(
+    const readMoreList = (
         <>
             <br />
             <ul>
@@ -63,7 +63,7 @@ const AboutSection = () => {
                 </li>
             </ul>
         </>
-    )];
+    );
     const aboutDetails = [{
         title: "What is the DATA Act?",
         details: (<>
@@ -116,10 +116,6 @@ const AboutSection = () => {
                     The USAspending data model is a collection of resources that explains the elements, relationships, and sources for the data on USAspending. This Data Sources page is one such resource. Read about the other resources below.
                 </p>
                 <ReadMore>
-                    {/* className="usa-button usa-button-outline read-more-button" */}
-                    {/* role="button" */}
-                    {/* aria-label="Read More Button" */}
-                    {/* title="Read More: DATA Act Information Model Schema (DAIMS)"> */}
                     {readMoreList}
                 </ReadMore>
             </>
