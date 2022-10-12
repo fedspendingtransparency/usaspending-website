@@ -48,11 +48,11 @@ $green-text: #2d6878;
             line-height: rem(50);
             text-align: left;
             font-size: rem(40);
-            //max-width: rem(640);
+            max-width: rem(640);
             justify-content: normal;
         }
         @media (min-width: $medium-screen - 1) and (max-width: 1279px) {
-            //max-width: 1143px;
+            max-width: 1143px;
         }
     }
 

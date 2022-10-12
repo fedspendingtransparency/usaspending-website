@@ -6,7 +6,7 @@
 import React from 'react';
 import PageWrapper from "../sharedComponents/PageWrapper";
 import { homePageMetaTags } from "../../helpers/metaTagHelper";
-import Hero from '../homepage/hero/Hero';
+import HeroUpdate from './heroUpdate/Hero';
 import SummaryStats from "../homepage/SummaryStats";
 import AwardSearch from "../homepage/AwardSearch/AwardSearch";
 import HomepageExploreToggle from "./HomepageExploreToggle/HomepageExploreToggle";
@@ -25,7 +25,7 @@ const HomepageUpdate = () => (
             noHeader
             metaTagProps={{ ...homePageMetaTags }}>
             <main id="main-content" className="main-content homepage-update-content">
-                <Hero />
+                <HeroUpdate />
                 <SummaryStats />
                 <HomepageFirstRow />
                 <AwardSearch />

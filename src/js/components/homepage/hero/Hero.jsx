@@ -32,10 +32,18 @@ const Hero = () => {
     };
 
     return (
-        <section className="homepage-hero">
+        <section className="homepage-hero-container" aria-label="Hero sections">
             <div className="homepage-hero-content">
                 <AnimatedHeading paused={isPaused} />
                 <div className="hero__lower-wrapper">
+                    <div className="hero__left-image-wrapper">
+                        <picture>
+                            <img
+                                role="presentation"
+                                src="../../../../img/homepage-hero-graphic-left.svg"
+                                alt="" />
+                        </picture>
+                    </div>
                     <div className="hero__center-content-wrapper">
                         <div className="hero__center-content">
                             <div className="hero__button-container">
@@ -77,39 +85,13 @@ const Hero = () => {
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
-            <div className="homepage-hero-graphic-container">
-                <div className="homepage-hero-graphic" aria-label="Hero sections">
-                    <div className="hero__graphic-layer-background">
-                        <img
-                            role="presentation"
-                            src="../../../../img/homepage-hero/hero-graphic-background-mountains.png"
-                            alt="Hills" />
-                    </div>
-                    <div className="hero__graphic-layer-bridge">
-                        <img
-                            role="presentation"
-                            src="../../../../img/homepage-hero/hero-graphic-background-bridge.png"
-                            alt="Bridge" />
-                    </div>
-                    <div className="hero__graphic-layer-buildings">
-                        <img
-                            role="presentation"
-                            src="../../../../img/homepage-hero/hero-graphic-background-left-hill.png"
-                            alt="Buildings" />
-                    </div>
-                    <div className="hero__graphic-layer-windmills">
-                        <img
-                            role="presentation"
-                            src="../../../../img/homepage-hero/hero-graphic-background-right-hill.png"
-                            alt="Windmills" />
-                    </div>
-                    <div className="hero__graphic-layer-foreground">
-                        <img
-                            role="presentation"
-                            src="../../../../img/homepage-hero/hero-graphic-foreground.png"
-                            alt="Road" />
+                    <div className="hero__right-image-wrapper">
+                        <picture>
+                            <img
+                                role="presentation"
+                                src="../../../../img/homepage-hero-graphic-right.svg"
+                                alt="" />
+                        </picture>
                     </div>
                 </div>
             </div>
