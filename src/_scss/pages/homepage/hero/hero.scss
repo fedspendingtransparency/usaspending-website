@@ -24,18 +24,26 @@
     }
 }
 
+.homepage-hero-background {
+    background-color: #d2e3e5;
+    overflow-x: hidden;
+}
+
+.homepage-hero-margin {
+    margin: 0 -250px;
+}
+
 .homepage-hero-container {
     position: relative;
     min-height: 680px;
-    overflow: hidden;
-    max-width: 1464px;
+    width: 100%;
+    overflow-y: hidden;
+    max-width: 1839px;
     margin: 0 auto;
-    // min-height: 720px;
-    // background-image: url(#{$image-path}/homepage-hero-background.png);
-    // background-repeat: no-repeat;
-    // background-position: center bottom;
-    // background-size: 100% auto;
-    // background-size: cover;
+
+    @media (max-width: 1200px) {
+        max-width: 1400px;
+    }
 
     .hero__graphic-layer-background {
         position: absolute;
@@ -84,7 +92,6 @@
         right: 0;
         bottom: -24px;
         display: inline-block;
-        max-width: 100%;
         -webkit-animation-duration: 2.5s;
         animation-duration: 2.5s;
         -webkit-animation-duration: 2.5s;
@@ -154,7 +161,7 @@
         @media (min-width: $medium-screen) {
             padding: rem(88) rem(40) rem(48) rem(40);
             margin: 0 auto;
-            max-width: rem(1600);
+            max-width: rem(1400);
         }
 
         .hero__heading-wrapper {
