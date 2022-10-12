@@ -80,36 +80,36 @@ const Hero = () => {
                 </div>
             </div>
             <div className="homepage-hero-graphic-container">
-                <div className="homepage-hero-graphic" aria-label="Hero sections">
+                <div className="homepage-hero-graphic">
                     <div className="hero__graphic-layer-background">
                         <img
                             role="presentation"
                             src="../../../../img/homepage-hero/hero-graphic-background-mountains.webp"
-                            alt="Hills" />
+                            alt="" />
                     </div>
                     <div className="hero__graphic-layer-bridge">
                         <img
                             role="presentation"
                             src="../../../../img/homepage-hero/hero-graphic-background-bridge.webp"
-                            alt="Bridge" />
+                            alt="" />
                     </div>
                     <div className="hero__graphic-layer-buildings">
                         <img
                             role="presentation"
                             src="../../../../img/homepage-hero/hero-graphic-background-left-hill.webp"
-                            alt="Buildings" />
+                            alt="" />
                     </div>
                     <div className="hero__graphic-layer-windmills">
                         <img
                             role="presentation"
                             src="../../../../img/homepage-hero/hero-graphic-background-right-hill.webp"
-                            alt="Windmills" />
+                            alt="" />
                     </div>
                     <div className="hero__graphic-layer-foreground">
                         <img
                             role="presentation"
                             src="../../../../img/homepage-hero/hero-graphic-foreground.webp"
-                            alt="Road" />
+                            alt="" />
                     </div>
                 </div>
             </div>
