@@ -1,10 +1,10 @@
 import React, { useRef } from 'react';
+import { Link } from "react-router-dom";
 import Scroller from "../scroller/Scroller";
 import ScrollerOverlay from "../scroller/scrollerOverlay/ScrollerOverlay";
 import LottieAnimation from '../lottieAnimation/LottieAnimation';
 import ScrollerOverlayCard from '../scroller/scrollerOverlay/ScrollerOverlayCard';
 import GlossaryLink from "../../sharedComponents/GlossaryLink";
-import { Link } from "react-router-dom";
 
 function DataValidation() {
     const ref1 = useRef();

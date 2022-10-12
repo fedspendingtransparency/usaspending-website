@@ -9,6 +9,7 @@ import ScrollerOverlayCard from '../scroller/scrollerOverlay/ScrollerOverlayCard
 import GlossaryLink from "../../sharedComponents/GlossaryLink";
 
 const AboutSection = () => {
+    // todo figure out why interactives-guide_bullet-points adds the bullet points but messes up the layout; currently appears as just text
     const readMoreList = (
         <>
             <br />
