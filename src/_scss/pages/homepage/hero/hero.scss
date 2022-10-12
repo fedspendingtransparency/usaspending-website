@@ -24,28 +24,27 @@
     }
 }
 
-.homepage-hero-background {
-    background-color: #d2e3e5;
+.homepage-hero {
+    background-color: rgba(136, 180, 192, .15);
     overflow-x: hidden;
     display: flex;
     flex-direction: row;
     justify-content: center;
 }
 
-.homepage-hero-margin {
-    width: 130%;
+.homepage-hero-graphic-container {
+    width: 140%;
     margin: 0 -250px;
 }
 
 .homepage-hero-content {
     padding: rem(40) rem(16);
-    // add position:relative; so div sits above absolutely positioned background graphics
     position: absolute;
     margin: 0 auto;
+    z-index: 100;
     @media (min-width: $medium-screen) {
         padding: rem(88) rem(40) rem(48) rem(40);
         margin: 0 auto;
-        //max-width: rem(1400);
     }
 
     .hero__heading-wrapper {
@@ -194,12 +193,12 @@
 }
 
 
-.homepage-hero-container {
+.homepage-hero-graphic {
     position: relative;
-    min-height: 680px;
+    min-height: 660px;
     width: 100%;
     overflow-y: hidden;
-    max-width: 1839px;
+    max-width: 2000px;
     margin: 0 auto;
 
     .hero__graphic-layer-background {

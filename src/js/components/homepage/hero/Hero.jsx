@@ -32,7 +32,7 @@ const Hero = () => {
     };
 
     return (
-        <div className="homepage-hero-background">
+        <section className="homepage-hero">
             <div className="homepage-hero-content">
                 <AnimatedHeading paused={isPaused} />
                 <div className="hero__lower-wrapper">
@@ -79,9 +79,8 @@ const Hero = () => {
                     </div>
                 </div>
             </div>
-
-            <div className="homepage-hero-margin">
-                <section className="homepage-hero-container" aria-label="Hero sections">
+            <div className="homepage-hero-graphic-container">
+                <div className="homepage-hero-graphic" aria-label="Hero sections">
                     <div className="hero__graphic-layer-background">
                         <img
                             role="presentation"
@@ -112,9 +111,9 @@ const Hero = () => {
                             src="../../../../img/homepage-hero/hero-graphic-foreground.png"
                             alt="Road" />
                     </div>
-                </section>
+                </div>
             </div>
-        </div>
+        </section>
     );
 };
 
