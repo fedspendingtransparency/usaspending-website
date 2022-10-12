@@ -1,5 +1,5 @@
 /**
- * Hero.jsx
+ * HeroUpdate.jsx
  * Created by Brian Petway 03/22
  */
 
@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Analytics from 'helpers/analytics/Analytics';
 import AnimatedHeading from './AnimatedHeading';
 
-const Hero = () => {
+const HeroUpdate = () => {
     const [isPaused, setIsPaused] = useState(false);
 
     const trackSearchLink = () => Analytics.event({
@@ -117,4 +117,4 @@ const Hero = () => {
     );
 };
 
-export default Hero;
+export default HeroUpdate;

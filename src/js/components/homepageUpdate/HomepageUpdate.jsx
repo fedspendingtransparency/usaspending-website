@@ -6,7 +6,7 @@
 import React from 'react';
 import PageWrapper from "../sharedComponents/PageWrapper";
 import { homePageMetaTags } from "../../helpers/metaTagHelper";
-import HeroUpdate from './heroUpdate/Hero';
+import HeroUpdate from './heroUpdate/HeroUpdate';
 import SummaryStats from "../homepage/SummaryStats";
 import AwardSearch from "./AwardSearch/AwardSearch";
 import HomepageExploreToggle from "./HomepageExploreToggle/HomepageExploreToggle";

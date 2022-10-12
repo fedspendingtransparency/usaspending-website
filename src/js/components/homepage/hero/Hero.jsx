@@ -1,5 +1,5 @@
 /**
- * Hero.jsx
+ * HeroUpdate.jsx
  * Created by Brian Petway 03/22
  */
 
