@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Analytics from 'helpers/analytics/Analytics';
 import AnimatedHeading from './AnimatedHeading';
 
-const Hero = () => {
+const HeroUpdate = () => {
     const [isPaused, setIsPaused] = useState(false);
 
     const trackSearchLink = () => Analytics.event({
@@ -32,18 +32,10 @@ const Hero = () => {
     };
 
     return (
-        <section className="homepage-hero-container" aria-label="Hero sections">
+        <section className="homepage-hero">
             <div className="homepage-hero-content">
                 <AnimatedHeading paused={isPaused} />
                 <div className="hero__lower-wrapper">
-                    <div className="hero__left-image-wrapper">
-                        <picture>
-                            <img
-                                role="presentation"
-                                src="../../../../img/homepage-hero-graphic-left.svg"
-                                alt="" />
-                        </picture>
-                    </div>
                     <div className="hero__center-content-wrapper">
                         <div className="hero__center-content">
                             <div className="hero__button-container">
@@ -85,13 +77,39 @@ const Hero = () => {
                             </div>
                         </div>
                     </div>
-                    <div className="hero__right-image-wrapper">
-                        <picture>
-                            <img
-                                role="presentation"
-                                src="../../../../img/homepage-hero-graphic-right.svg"
-                                alt="" />
-                        </picture>
+                </div>
+            </div>
+            <div className="homepage-hero-graphic-container">
+                <div className="homepage-hero-graphic">
+                    <div className="hero__graphic-layer-background">
+                        <img
+                            role="presentation"
+                            src="../../../../img/homepage-hero/hero-graphic-background-mountains.webp"
+                            alt="" />
+                    </div>
+                    <div className="hero__graphic-layer-bridge">
+                        <img
+                            role="presentation"
+                            src="../../../../img/homepage-hero/hero-graphic-background-bridge.webp"
+                            alt="" />
+                    </div>
+                    <div className="hero__graphic-layer-buildings">
+                        <img
+                            role="presentation"
+                            src="../../../../img/homepage-hero/hero-graphic-background-left-hill.webp"
+                            alt="" />
+                    </div>
+                    <div className="hero__graphic-layer-windmills">
+                        <img
+                            role="presentation"
+                            src="../../../../img/homepage-hero/hero-graphic-background-right-hill.webp"
+                            alt="" />
+                    </div>
+                    <div className="hero__graphic-layer-foreground">
+                        <img
+                            role="presentation"
+                            src="../../../../img/homepage-hero/hero-graphic-foreground.webp"
+                            alt="" />
                     </div>
                 </div>
             </div>
@@ -99,4 +117,4 @@ const Hero = () => {
     );
 };
 
-export default Hero;
+export default HeroUpdate;
