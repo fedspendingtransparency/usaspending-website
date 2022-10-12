@@ -55,6 +55,7 @@ function DataUseCases() {
                 position="right">
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
+                        heading={<h4>Federal Spending Transparency and Accountability</h4>}
                         content={
                             <p>
                                 Congressional staffers and researchers use USAspending to
@@ -71,6 +72,7 @@ function DataUseCases() {
                 position="right">
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
+                        heading={<h4>Market Research</h4>}
                         content={
                             <p>
                                 Small business owners use USAspending to perform market research
@@ -86,6 +88,7 @@ function DataUseCases() {
                 position="right">
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
+                        heading={<h4>Grant Opportunities and Compliance</h4>}
                         content={
                             <p>
                                 State and local government agencies use USAspending to research
@@ -102,6 +105,7 @@ function DataUseCases() {
                 position="right">
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
+                        heading={<h4>Federal Spending Trends and Stories</h4>}
                         content={
                             <p>
                                 Journalists use USAspending to find noteworthy trends or stories

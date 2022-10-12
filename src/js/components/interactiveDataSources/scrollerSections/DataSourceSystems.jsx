@@ -57,7 +57,7 @@ function DataSourceSystems() {
                         content={
                             <p>
                                 You can understand the USAspending source systems as grouped by
-                                the type of data they provide: Account Data, Award Data, and
+                                the type of data they provide: Account Data; Award Data; and
                                 Additional Data.
                             </p>
                         } />
@@ -152,22 +152,30 @@ function DataSourceSystems() {
                     <ScrollerOverlayCard
                         heading={<h4>Governmentwide Award Systems</h4>}
                         content={
-                            <p>
+                            <>
+                                <p>
                             Agencies maintain detailed records of their federal awards in
                             governmentwide award systems. These award systems track
                             obligations for award{" "}
-                                <span className="glossary-term">transactions</span>{" "}
-                                <GlossaryLink term="transaction" /> as well as related data
+                                    <span className="glossary-term">transactions</span>{" "}
+                                    <GlossaryLink term="transaction" /> as well as related data
                                 about federal awards such as recipients, locations, and
-                                purposes. Separate systems exist for{" "}
-                                <span className="glossary-term">contract</span>{" "}
-                                <GlossaryLink term="contract" /> awards,{" "}
-                                <span className="glossary-term">financial assistance</span>{" "}
-                                <GlossaryLink term="financial-assistance" /> awards,{" "}
-                                <span className="glossary-term">subawards</span>{" "}
-                                <GlossaryLink term="sub-award" />, as well as recipient
+                                purposes. Any individual award is composed of one or more
+                                transactions with a common{" "}
+                                    <span className="glossary-term">award ID</span>{" "}
+                                    <GlossaryLink term="award-id" />.
+                                </p>
+                                <p>
+                                Separate systems exist for{" "}
+                                    <span className="glossary-term">contract</span>{" "}
+                                    <GlossaryLink term="contract" /> awards,{" "}
+                                    <span className="glossary-term">financial assistance</span>{" "}
+                                    <GlossaryLink term="financial-assistance" /> awards,{" "}
+                                    <span className="glossary-term">subawards</span>{" "}
+                                    <GlossaryLink term="sub-award" />, as well as recipient
                                 registration data.
-                            </p>
+                                </p>
+                            </>
                         } />
                 </div>
             </ScrollerOverlay>

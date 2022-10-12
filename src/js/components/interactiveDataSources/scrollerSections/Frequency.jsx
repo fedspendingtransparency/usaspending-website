@@ -88,13 +88,13 @@ function Frequency() {
                                     Files A, B, and C are submitted by federal agencies to
                                     USAspending on a monthly basis, as required by the DATA Act. You
                                     can see specific DATA Act reporting submission dates in the
-                                    spreadsheets available in this this{" "}
+                                    spreadsheets available in the{" "}
                                     <a
                                         className="scroller-overlay-card__link"
-                                        href="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html"
+                                        href="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html#fed"
                                         target="_blank"
                                         rel="noopener noreferrer">
-                                        resources page from the Bureau of the Fiscal Service
+                                        resources page for the USAspending Source and Submission Model
                                     </a>
                                     .
                                 </p>
@@ -311,7 +311,7 @@ function Frequency() {
                         content={
                             <p>
                                 All reference data (such as location data) are extracted by
-                                USAspending.gov on a daily basis. In addition, data from SAM.gov
+                                USAspending on a daily basis. In addition, data from SAM.gov
                                 (such as executive compensation data, also known as File E) and
                                 GTAS are also extracted daily.
                             </p>

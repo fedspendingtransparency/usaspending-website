@@ -2,10 +2,75 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowDown } from "@fortawesome/free-solid-svg-icons";
 import React from 'react';
+import ReadMore from 'components/sharedComponents/ReadMore';
+import { Link } from "react-router-dom";
 import Accordion from "../../sharedComponents/accordion/Accordion";
 import ScrollerOverlayCard from '../scroller/scrollerOverlay/ScrollerOverlayCard';
+import GlossaryLink from "../../sharedComponents/GlossaryLink";
 
 const AboutSection = () => {
+    // todo figure out why interactives-guide_bullet-points adds the bullet points but messes up the layout; currently appears as just text
+    const readMoreList = (
+        <>
+            <br />
+            <ul>
+                <li><span className="glossary-term">Glossary</span>{" "}
+                    <GlossaryLink term="/" />: a collection of plain-language and official definitions for commonly used terms
+                </li>
+                <li>About the Data: a collection of disclosures and background information</li>
+                <li>
+                    <Link
+                        className="scroller-overlay-card__link"
+                        to="/analyst-guide"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        Analyst Guide
+                    </Link>
+                    : a collection of frequently asked questions
+                </li>
+                <li>
+                    <Link
+                        className="scroller-overlay-card__link"
+                        to="/data-dictionary"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        Data Dictionary
+                    </Link>
+                    : a crosswalk spreadsheet for data element names and definitions across USAspending downloads and source systems
+                </li>
+                <li>
+                    <Link
+                        className="scroller-overlay-card__link"
+                        to="/download_center/dataset_metadata"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        Dataset Metadata
+                    </Link>
+                    : documentation for all JSON objects accessible from downloads
+                </li>
+                <li>
+                    <a
+                        className="scroller-overlay-card__link"
+                        href="https://api.usaspending.gov/docs/endpoints"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        API Endpoints
+                    </a>
+                    : documentation all JSON objects accessible from API endpoints
+                </li>
+                <li>
+                    <a
+                        className="scroller-overlay-card__link"
+                        href="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html"
+                        target="_blank"
+                        rel="noopener noreferrer">
+                        USAspending Source and Submission Model
+                    </a>
+                    : technical documentation for the data submitted to, and extracted by, USAspending (Files A, B, C, D1, D2, E, and F)
+                </li>
+            </ul>
+        </>
+    );
     const aboutDetails = [{
         title: "What is the DATA Act?",
         details: (<>
@@ -27,20 +92,21 @@ const AboutSection = () => {
             Before the DATA Act, many programs in the federal government had the same types
             of spending data about agency expenses and federal awards such as contracts, grants, and loans. However, they weren't all defining their data elements in the same way. These differences made it hard to share or compare data across agencies and programs.
             </p>
+            <p>
+                In addition, agency financial systems were not linked to governmentwide award systems, so there was no way to follow the money from appropriated funds to award spending for recipients across the country and the world. As a result of the DATA Act, policies and mechanisms now exist for this linkage.
+            </p>
         </>)
     },
     {
         title: "How was the DATA Act implemented?",
         details: (
             <>
-                <ul className="interactives-guide_bullet-points">
-                    <li>
+                <p>
                     The USAspending data model standardizes data elements and definitions, and the USAspending Broker validates the data submitted and extracted from agency systems for quality, consistency, and accuracy.
-                    </li>
-                    <li>
+                </p>
+                <p>
                     USAspending is built on principles of user-centered design and Agile software development, leveraging input from the public and federal stakeholders to iteratively release updates and enhancements many times per year.
-                    </li>
-                </ul>
+                </p>
             </>
         )
     }];
@@ -54,18 +120,11 @@ const AboutSection = () => {
         content: (
             <>
                 <p data-testid="cardText" className="interactives-guide-cardText">
-                    To read the technical documentation for the data elements and source systems that flow into USAspending,
-                    visit the resources page from the Treasury Department's Bureau of the Fiscal Service.
+                    The USAspending data model is a collection of resources that explains the elements, relationships, and sources for the data on USAspending. This Data Sources page is one such resource. Read about the other resources below.
                 </p>
-                <a href="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html" title="Read More: DATA Act Information Model Schema (DAIMS)" target="_blank" rel="noopener noreferrer">
-                    <div
-                        className="usa-button usa-button-outline read-more-button"
-                        role="button"
-                        aria-label="Read More Button"
-                        title="Read More: DATA Act Information Model Schema (DAIMS)">
-                            Read Our Documentation
-                    </div>
-                </a>
+                <ReadMore>
+                    {readMoreList}
+                </ReadMore>
             </>
         )
     };
