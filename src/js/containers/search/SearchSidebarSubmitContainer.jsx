@@ -100,7 +100,6 @@ export class SearchSidebarSubmitContainer extends React.Component {
         });
 
         const events = convertFiltersToAnalyticEvents(this.props.stagedFilters);
-        console.log(events);
         sendAnalyticEvents(events);
         sendFieldCombinations(events);
     }
