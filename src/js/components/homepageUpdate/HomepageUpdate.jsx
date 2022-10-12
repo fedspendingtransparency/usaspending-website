@@ -15,7 +15,7 @@ import ReadyToGetStarted from "./ReadyToGetStarted/ReadyToGetStarted";
 import HomepageFirstRow from "./HomepageFirstRow/HomepageFirstRow";
 import FeatureFlag from "../sharedComponents/FeatureFlag";
 
-require('pages/homepage/homepageUpdate.scss');
+require('pages/homepageUpdate/homepageUpdate.scss');
 
 const HomepageUpdate = () => (
     <FeatureFlag>
