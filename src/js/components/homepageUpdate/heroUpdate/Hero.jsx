@@ -84,31 +84,31 @@ const Hero = () => {
                     <div className="hero__graphic-layer-background">
                         <img
                             role="presentation"
-                            src="../../../../img/homepage-hero/hero-graphic-background-mountains.png"
+                            src="../../../../img/homepage-hero/hero-graphic-background-mountains.webp"
                             alt="Hills" />
                     </div>
                     <div className="hero__graphic-layer-bridge">
                         <img
                             role="presentation"
-                            src="../../../../img/homepage-hero/hero-graphic-background-bridge.png"
+                            src="../../../../img/homepage-hero/hero-graphic-background-bridge.webp"
                             alt="Bridge" />
                     </div>
                     <div className="hero__graphic-layer-buildings">
                         <img
                             role="presentation"
-                            src="../../../../img/homepage-hero/hero-graphic-background-left-hill.png"
+                            src="../../../../img/homepage-hero/hero-graphic-background-left-hill.webp"
                             alt="Buildings" />
                     </div>
                     <div className="hero__graphic-layer-windmills">
                         <img
                             role="presentation"
-                            src="../../../../img/homepage-hero/hero-graphic-background-right-hill.png"
+                            src="../../../../img/homepage-hero/hero-graphic-background-right-hill.webp"
                             alt="Windmills" />
                     </div>
                     <div className="hero__graphic-layer-foreground">
                         <img
                             role="presentation"
-                            src="../../../../img/homepage-hero/hero-graphic-foreground.png"
+                            src="../../../../img/homepage-hero/hero-graphic-foreground.webp"
                             alt="Road" />
                     </div>
                 </div>

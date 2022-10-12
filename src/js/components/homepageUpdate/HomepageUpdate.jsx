@@ -8,7 +8,7 @@ import PageWrapper from "../sharedComponents/PageWrapper";
 import { homePageMetaTags } from "../../helpers/metaTagHelper";
 import HeroUpdate from './heroUpdate/Hero';
 import SummaryStats from "../homepage/SummaryStats";
-import AwardSearch from "../homepage/AwardSearch/AwardSearch";
+import AwardSearch from "./AwardSearch/AwardSearch";
 import HomepageExploreToggle from "./HomepageExploreToggle/HomepageExploreToggle";
 import HomepageResources from "./HomepageResources/HomepageResources";
 import ReadyToGetStarted from "./ReadyToGetStarted/ReadyToGetStarted";

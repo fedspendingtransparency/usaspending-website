@@ -6,7 +6,7 @@
 import React, { useState } from 'react';
 import { FlexGridRow, Tabs } from 'data-transparency-ui';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import ExploreTheData from "../../homepage/ExploreTheData/ExploreTheData";
+import ExploreTheData from "../ExploreTheData/ExploreTheData";
 import Analytics from '../../../helpers/analytics/Analytics';
 
 const exploreDataTitle = 'Browse ready-made analyses with our Spending Profiles';
