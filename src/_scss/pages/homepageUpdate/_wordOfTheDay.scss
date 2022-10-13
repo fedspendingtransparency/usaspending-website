@@ -52,6 +52,10 @@
     font-size: rem(20);
     line-height: 1.5;
 
+    .page__loading {
+      min-height: unset;
+    }
+    
     .definition {
       height: 150px;
       overflow: hidden;
