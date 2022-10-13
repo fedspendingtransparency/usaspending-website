@@ -1,7 +1,7 @@
-$summary-stats-teal: #00687D;
-$maxWidth: 1600px;
-$stackedShort: 1200px;
-$stackedTall: 768px;
+$summary-stats-teal: $cyan-60v;
+$maxWidth: $homepage-max-width;
+$stackedShort: $large-screen;
+$stackedTall: $tablet-screen;
 $largeMobile: 576px;
 
 .summary-stats {
@@ -48,21 +48,15 @@ $largeMobile: 576px;
     @media (min-width: $stackedShort) {
       justify-content: space-between;
       text-align: left;
-      margin: 0 auto;
     }
 
-    @media (min-width: $stackedShort) and (max-width: 1400px) {
+    @media (min-width: $stackedShort) and (max-width: 1467px) {
       padding: 0;
       margin: 0 rem(32) !important;
     }
 
     @media (min-width: 1399px) {
       padding: 0;
-    }
-
-    @media (min-width: $maxWidth) {
-      width: rem(1355);
-      justify-content: space-between;
     }
 
     span {
@@ -184,8 +178,9 @@ $largeMobile: 576px;
       cursor: pointer;
       margin: 0;
 
+
       @media(min-width: $stackedShort) {
-        margin: auto rem(4);
+        margin: auto 0;
       }
 
       .usa-dt-flex-grid__row {
@@ -217,7 +212,7 @@ $largeMobile: 576px;
       .arrow-circle-right {
         width: rem(24);
         @media (min-width: $stackedTall - 1) {
-          color: #00687d;
+          color: $cyan-60v;
           width: rem(24);
           height: rem(24);
           opacity: 0.4;
@@ -231,12 +226,12 @@ $largeMobile: 576px;
       .summary-stats__spending-link-text {
         text-align: center;
         font-weight: $font-semibold;
-        color: #DFE1E2;
+        color: $gray-cool-10;
         font-size: rem(16);
         line-height: rem(20);
 
         :hover {
-          color: #EDEFF0;
+          color: $gray-cool-5;
           font-weight: $font-semibold;
           text-decoration: none;
         }

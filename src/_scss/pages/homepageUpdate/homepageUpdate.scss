@@ -27,13 +27,13 @@
       @media (min-width: $tablet-screen) {
         margin: 0 rem(32);
       }
-      @media (min-width: $homepage-max-width) {
+      @media (min-width: 1400px) {
         margin: 0 $grid-column;
       }
     }
   }
 
-  @import "hero/hero";
+  @import "heroUpdate/heroUpdate";
   @import "summaryStats";
   @import "homepageFirstRow";
   @import "featuredContent";

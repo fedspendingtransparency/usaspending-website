@@ -54,6 +54,7 @@ $cyan-30v: #00BDE3;
 $cyan-40: #449dac;
 $cyan-40v: #009ec1;
 $cyan-50: #168092;
+$cyan-60v: #00687d;
 $blue-5: #eff6fb;
 $blue-5v: #e8f5ff;
 $blue-50: #2378C3;
@@ -65,6 +66,7 @@ $blue-warm-40v: #5994f6;
 $blue-warm-60v: #0050d8;
 $blue-warm-70v: #1A4480;
 $indigo-5v: #f0f0ff;
+$indigo-50v: #656bd7;
 $indigo-60v: #4a50c4;
 $indigo-70v: #3333a3;
 $indigo-cool-80v: #1B2B85;
@@ -77,6 +79,7 @@ $gray-90: #1B1B1B;    // TODO: already in use so need to refactor
 $gray-cool-60: #565C65;
 $gray-60: #5C5C5C;    // TODO: already in use so need to refactor
 $gray-cool-5: #edeff0;
+$gray-cool-10: #dfe1e2;
 $gray-cool-20: #c6cace;
 
 // Theme Colors
@@ -102,6 +105,7 @@ $theme-color-accent-12: $cyan-40v;
 $theme-color-accent-13: $violet-60v;
 $theme-color-accent-14: $indigo-60v;
 $theme-color-accent-15: $blue-warm-60v;
+$theme-color-accent-16: $indigo-50v;
 
 $theme-color-headline: $gray-90;
 $theme-color-headline-inverse: $gray-2;

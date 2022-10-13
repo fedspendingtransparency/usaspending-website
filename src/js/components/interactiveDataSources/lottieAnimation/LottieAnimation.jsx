@@ -81,7 +81,8 @@ class LottieAnimation extends React.Component {
             fps: this.props.fps || 60, // frames per second
             isScrollerBackdrop: this.props.isScrollerBackdrop || false, // if used as `Scroller` backdrop
             direction: 'down',
-            oldScrollY: 0
+            oldScrollY: 0,
+            role: this.props.role || ""
         };
         this.lottieRef = React.createRef();
     }
@@ -216,7 +217,7 @@ class LottieAnimation extends React.Component {
     render() {
         return (
             <div className="lottie-animation-container">
-                <div ref={this.lottieRef} />
+                <div ref={this.lottieRef} role={this.props.role} />
             </div>
         );
     }
@@ -229,7 +230,8 @@ LottieAnimation.propTypes = {
     fps: PropTypes.number,
     isScrollerBackdrop: PropTypes.bool,
     direction: PropTypes.string,
-    oldScrollY: PropTypes.number
+    oldScrollY: PropTypes.number,
+    role: PropTypes.string
 };
 
 export default LottieAnimation;

@@ -25,11 +25,12 @@ function AccountData() {
             heading: <h4>File A</h4>,
             content: (
                 <p>
-                    <span className="glossary-term">File A (“Account Balances”)</span>{" "}
+                    <span className="glossary-term">File A (Account Balances)</span>{" "}
                     <GlossaryLink term="account-balance-file-a" />{" "}
                     is part of the package of data submitted to USAspending by federal
-                    agencies, as required by the DATA Act. File A is generated from data
-                    in GTAS. It contains{" "}
+                    agencies, as required by the DATA Act. It can be generated from data
+                    in GTAS, but agencies may also upload their own custom File A data.
+                    File A contains{" "}
                     <span className="glossary-term">budgetary resources</span>{" "}
                     <GlossaryLink term="budgetary-resources" />, obligation, and outlay
                 data for all the Treasury Accounts in that agency.
@@ -41,7 +42,7 @@ function AccountData() {
             content: (
                 <>
                     <p>
-                        <span className="glossary-term">File B (“Account Breakdown by Program Activity & Object Class”)</span>{" "}
+                        <span className="glossary-term">File B (Account Breakdown by Program Activity & Object Class)</span>{" "}
                         <GlossaryLink term="account-breakdown-by-program-activity-object-class-file-b" />{" "}
                         is part of the package of data submitted to USAspending by federal
                         agencies, as required by the DATA Act. It contains obligation and
@@ -77,13 +78,15 @@ function AccountData() {
                     <LottieAnimation
                         isScrollerBackdrop
                         ref={ref1}
-                        src="/img/interactive-data-sources/5_DS_ACCOUNT.json" />
+                        src="/img/interactive-data-sources/5_DS_ACCOUNT.json"
+                        role="presentation" />
                 </div>
                 <div className="bottom-animation">
                     <LottieAnimation
                         loop
                         ref={ref2}
-                        src="/img/interactive-data-sources/5_DS_ACCOUNT_BG.json" />
+                        src="/img/interactive-data-sources/5_DS_ACCOUNT_BG.json"
+                        role="presentation" />
                 </div>
             </div>
 
@@ -118,7 +121,8 @@ function AccountData() {
                 <div className="scroller-overlay-card-container">
                     <ScrollerOverlayCard
                         heading={cards.card1.heading}
-                        content={cards.card1.content} />
+                        content={cards.card1.content}
+                        role="presentation" />
                 </div>
             </ScrollerOverlay>
 

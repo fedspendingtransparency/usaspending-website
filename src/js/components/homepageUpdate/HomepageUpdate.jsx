@@ -6,16 +6,16 @@
 import React from 'react';
 import PageWrapper from "../sharedComponents/PageWrapper";
 import { homePageMetaTags } from "../../helpers/metaTagHelper";
-import Hero from '../homepage/hero/Hero';
+import HeroUpdate from './heroUpdate/HeroUpdate';
 import SummaryStats from "../homepage/SummaryStats";
-import AwardSearch from "../homepage/AwardSearch/AwardSearch";
+import AwardSearch from "./AwardSearch/AwardSearch";
 import HomepageExploreToggle from "./HomepageExploreToggle/HomepageExploreToggle";
 import HomepageResources from "./HomepageResources/HomepageResources";
 import ReadyToGetStarted from "./ReadyToGetStarted/ReadyToGetStarted";
 import HomepageFirstRow from "./HomepageFirstRow/HomepageFirstRow";
 import FeatureFlag from "../sharedComponents/FeatureFlag";
 
-require('pages/homepage/homepageUpdate.scss');
+require('pages/homepageUpdate/homepageUpdate.scss');
 
 const HomepageUpdate = () => (
     <FeatureFlag>
@@ -25,7 +25,7 @@ const HomepageUpdate = () => (
             noHeader
             metaTagProps={{ ...homePageMetaTags }}>
             <main id="main-content" className="main-content homepage-update-content">
-                <Hero />
+                <HeroUpdate />
                 <SummaryStats />
                 <HomepageFirstRow />
                 <AwardSearch />

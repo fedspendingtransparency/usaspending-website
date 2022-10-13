@@ -6,7 +6,7 @@
 import React, { useState } from 'react';
 import { FlexGridRow, Tabs } from 'data-transparency-ui';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import ExploreTheData from "../../homepage/ExploreTheData/ExploreTheData";
+import ExploreTheData from "../ExploreTheData/ExploreTheData";
 import Analytics from '../../../helpers/analytics/Analytics';
 
 const exploreDataTitle = 'Browse ready-made analyses with our Spending Profiles';
@@ -107,7 +107,7 @@ const toggleTabs = [
         label: [(
             <div className="homepage-explore-toggle__text-container">
                 <div className="homepage-explore-toggle__icon-container access">
-                    <FontAwesomeIcon icon="file-download" className="homepage-explore-toggle__icon" />
+                    <FontAwesomeIcon icon="file-download" className="homepage-explore-toggle__icon access" />
                 </div>
                 <div className="homepage-explore-toggle__text">ACCESS THE DATA</div>
             </div>
