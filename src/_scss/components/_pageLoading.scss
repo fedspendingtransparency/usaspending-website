@@ -3,7 +3,7 @@
     @include align-items(center);
     @include justify-content(center);
     @include flex(1 1 auto);
-
+    min-height: 50vh;
     .page__ellipsis-container {
         width: 1px;
         .page__ellipsis {
