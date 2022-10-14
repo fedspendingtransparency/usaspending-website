@@ -1,7 +1,5 @@
-
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { mount } from 'enzyme';
 import { OrderedMap } from 'immutable';
 import SelectedAgencies from '../../../../../src/js/components/search/filters/agency/SelectedAgencies';
 
