@@ -1,9 +1,6 @@
-/**
- * SelectedAgencies-test.jsx
- * Created by Kirk Barden 3/17/20
- **/
 
 import React from 'react';
+import { render, screen } from '@testing-library/react';
 import { mount } from 'enzyme';
 import { OrderedMap } from 'immutable';
 import SelectedAgencies from '../../../../../src/js/components/search/filters/agency/SelectedAgencies';
@@ -25,9 +22,8 @@ describe('SelectedAgencies', () => {
                 }
             }
         });
-        const wrapper = mount(<SelectedAgencies type="Awarding" selectedAgencies={selectedAgencies} toggleAgency={jest.fn()} />);
-        const shownFilterButton = wrapper.find('.shown-filter-button');
-        expect(shownFilterButton.text()).toEqual('Subtier Agency (SA) | Sub-Agency of TA');
+        render(<SelectedAgencies type="Awarding" selectedAgencies={selectedAgencies} toggleAgency={jest.fn()} />);
+        expect(screen.queryByText('Subtier Agency (SA) | Sub-Agency of TA')).toBeTruthy();
     });
     it('Should use toptier name in tag', () => {
         const selectedAgencies = OrderedMap({
@@ -45,8 +41,7 @@ describe('SelectedAgencies', () => {
                 }
             }
         });
-        const wrapper = mount(<SelectedAgencies type="Awarding" selectedAgencies={selectedAgencies} toggleAgency={jest.fn()} />);
-        const shownFilterButton = wrapper.find('.shown-filter-button');
-        expect(shownFilterButton.text()).toEqual('Subtier Agency (SA) | Sub-Agency of Toptier Agency');
+        render(<SelectedAgencies type="Awarding" selectedAgencies={selectedAgencies} toggleAgency={jest.fn()} />);
+        expect(screen.queryByText('Subtier Agency (SA) | Sub-Agency of Toptier Agency')).toBeTruthy();
     });
 });
