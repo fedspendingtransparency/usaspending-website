@@ -1,10 +1,5 @@
-/**
- * AgencyFilterGroup-test.js
- * Created by Kirk Barden 3/17/20
- **/
-
 import React from 'react';
-import { shallow } from 'enzyme';
+import { render, screen } from '@testing-library/react';
 import AgencyFilterGroup from '../../../../../src/js/components/search/topFilterBar/filterGroups/AgencyFilterGroup';
 
 describe('AgencyFilterGroup', () => {
@@ -25,9 +20,8 @@ describe('AgencyFilterGroup', () => {
                 }
             ]
         };
-        const wrapper = shallow(<AgencyFilterGroup filter={filter} />);
-        const tags = wrapper.instance().generateTags();
-        expect(tags[0].title).toEqual('Subtier Agency (SA) | Sub-Agency of TA');
+        render(<AgencyFilterGroup filter={filter} />);
+        expect(screen.queryByText('Subtier Agency (SA) | Sub-Agency of TA')).toBeTruthy();
     });
     it('Should use toptier name in tag', () => {
         const filter = {
@@ -46,8 +40,7 @@ describe('AgencyFilterGroup', () => {
                 }
             ]
         };
-        const wrapper = shallow(<AgencyFilterGroup filter={filter} />);
-        const tags = wrapper.instance().generateTags();
-        expect(tags[0].title).toEqual('Subtier Agency (SA) | Sub-Agency of Toptier Agency');
+        render(<AgencyFilterGroup filter={filter} />);
+        expect(screen.queryByText('Subtier Agency (SA) | Sub-Agency of Toptier Agency')).toBeTruthy();
     });
 });
