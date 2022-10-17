@@ -28,10 +28,9 @@ function AwardData() {
                     location information.
                     </p>
                     <p>
-                        File C also contains obligations and outlays tagged by
-                        Disaster{" "}
+                        File C also contains obligations and outlays tagged by{" "}
                         <span className="glossary-term">
-                        Emergency Fund Codes (DEFC)
+                        Disaster Emergency Fund Codes (DEFC)
                         </span>{" "}
                         <GlossaryLink term="disaster-emergency-fund-code-defc" />{" "}
                         to track

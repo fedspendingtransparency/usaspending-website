@@ -214,7 +214,7 @@ function DataFeatures() {
                                             to="/download_center/custom_account_data"
                                             target="_blank"
                                             rel="noopener noreferrer">
-                                        Custom Account Data download
+                                        Custom Account Data Download
                                         </Link>{" "}
                                         (using the DEFC filter)
                                     </li>
@@ -283,7 +283,9 @@ function DataFeatures() {
                                         Results from{" "}
                                         <Link
                                             className="scroller-overlay-card__link"
-                                            to="/search">
+                                            to="/search"
+                                            target="_blank"
+                                            rel="noopener noreferrer">
                                             Advanced Search
                                         </Link>{" "}
                                         can be downloaded from the top right of the page
@@ -293,7 +295,9 @@ function DataFeatures() {
                                         column in{" "}
                                         <Link
                                             className="scroller-overlay-card__link"
-                                            to="/search">
+                                            to="/search"
+                                            target="_blank"
+                                            rel="noopener noreferrer">
                                             Advanced Search
                                         </Link>{" "}
                                         results) can be downloaded from the top right of the page
