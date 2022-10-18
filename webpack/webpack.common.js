@@ -5,7 +5,7 @@ const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const { GitRevisionPlugin } = require('git-revision-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-
+const CompressionPlugin = require('compression-webpack-plugin');
 // const gitRevisionPlugin = new GitRevisionPlugin({ branch: true }); // 'rev-parse HEAD' is default command to find latest commit
 
 // console.log("Commit Hash for this build: ", gitRevisionPlugin.commithash());
@@ -119,6 +119,13 @@ module.exports = {
                     noErrorOnMissing: true
                 }
             ]
+        }),
+        new CompressionPlugin({
+            asset: "[path].gz[query]",
+            algorithm: "gzip",
+            test: /\.js$|\.css$|\.html$/,
+            threshold: 10240,
+            minRatio: 0.8
         }),
         new webpack.DefinePlugin({
             'process.env.ENV': process.env.ENV ? JSON.stringify(process.env.ENV) : JSON.stringify('qat')
