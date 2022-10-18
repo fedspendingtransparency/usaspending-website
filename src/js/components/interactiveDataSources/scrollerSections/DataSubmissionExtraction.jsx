@@ -119,15 +119,15 @@ function DataSubmissionExtraction() {
                                 are extracted by USAspending from government sources. For more
                                 information about what is included in these extractions, please
                                 consult the Interface Definition Document (IDD) spreadsheet in
-                                this{" "}
+                                the{" "}
                                 <a
                                     className="scroller-overlay-card__link"
                                     href="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html"
                                     target="_blank"
                                     rel="noopener noreferrer">
-                                    resources page from the Bureau of the Fiscal Service
-                                </a>
-                                .
+                                    USAspending Source and Submission Model
+                                </a>{" "}
+                                page.
                             </p>} />
                 </div>
             </ScrollerOverlay>

@@ -56,7 +56,7 @@ const AboutSection = () => {
                         rel="noopener noreferrer">
                         API Endpoints
                     </a>
-                    : documentation all JSON objects accessible from API endpoints
+                    : documentation for all JSON objects accessible from API endpoints
                 </li>
                 <li>
                     <a
@@ -98,7 +98,7 @@ const AboutSection = () => {
         </>)
     },
     {
-        title: "How was the DATA Act implemented?",
+        title: "How is the DATA Act implemented?",
         details: (
             <>
                 <p>
