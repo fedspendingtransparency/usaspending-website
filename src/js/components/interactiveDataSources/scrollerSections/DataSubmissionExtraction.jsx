@@ -16,13 +16,15 @@ function DataSubmissionExtraction() {
                     <LottieAnimation
                         isScrollerBackdrop
                         ref={ref1}
-                        src="/img/interactive-data-sources/6_DSE.json" />
+                        src="/img/interactive-data-sources/6_DSE.json"
+                        role="presentation" />
                 </div>
                 <div className="bottom-animation">
                     <LottieAnimation
                         loop
                         ref={ref2}
-                        src="/img/interactive-data-sources/6_DSE_BG.json" />
+                        src="/img/interactive-data-sources/6_DSE_BG.json"
+                        role="presentation" />
                 </div>
             </div>
 
@@ -79,15 +81,15 @@ function DataSubmissionExtraction() {
                                 Files A, B, and C, as well as FABS data, are all sent directly
                                 from federal agencies to USAspending. For more information about
                                 what is included in these submissions, please consult the
-                                Reporting Submission Specification (RSS) spreadsheet in this{" "}
+                                Reporting Submission Specification (RSS) spreadsheet in the{" "}
                                 <a
                                     className="scroller-overlay-card__link"
-                                    href="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html"
+                                    href="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html#fed"
                                     target="_blank"
                                     rel="noopener noreferrer">
-                                    resources page from the Bureau of the Fiscal Service
-                                </a>
-                                .
+                                    USAspending Source and Submission Model
+                                </a>{" "}
+                                page.
                             </p>
                         } />
                 </div>

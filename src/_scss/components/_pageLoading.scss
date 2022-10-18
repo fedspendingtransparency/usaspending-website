@@ -3,14 +3,43 @@
     @include align-items(center);
     @include justify-content(center);
     @include flex(1 1 auto);
-    // for ie11 
     min-height: 50vh;
-    h4 {
+    .page__ellipsis-container {
+        width: 1px;
+        .page__ellipsis {
+            margin-left: -18px;
+        }
+
+        .page__ellipsis:after {
+            overflow: hidden;
+            display: inline-block;
+            vertical-align: bottom;
+            animation: ellipsis steps(4,end) 1400ms infinite;
+            content: "\2026"; /* ascii code for the ellipsis character */
+            width: 0;
+        }
+
+        @keyframes ellipsis {
+            to {
+                width: 1.25em;
+            }
+        }
+
+        @-webkit-keyframes ellipsis {
+            to {
+                width: 1.25em;
+            }
+        }
+    }
+
+    div {
         display: none;
         @include media($medium-screen) {
             display: block;
             margin: 0;
             padding-left: rem(10);
+            font-size: $font-size-20;
+            font-weight: $font-semibold;
         }
     }
 }

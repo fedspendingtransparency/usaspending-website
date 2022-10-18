@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { PageHeader } from 'data-transparency-ui';
@@ -16,34 +16,6 @@ export const LoadingWrapper = ({
     children,
     includeFooter = false
 }) => {
-    const [dots, updateDots] = useState("...");
-    const timeouts = [];
-
-    useEffect(() => {
-        if (isLoading) {
-            timeouts.push(setTimeout(() => {
-                switch (dots.length) {
-                    case 2:
-                        updateDots("...");
-                        break;
-                    case 3:
-                        updateDots("");
-                        break;
-                    case 0:
-                        updateDots(".");
-                        break;
-                    default:
-                        updateDots("..");
-                        break;
-                }
-            }, 350));
-        }
-
-        if (!isLoading) timeouts.forEach((t) => clearTimeout(t));
-
-        return () => timeouts.forEach((t) => clearTimeout(t));
-    }, [updateDots, dots, timeouts, isLoading]);
-
     if (isLoading) {
         return (
         // TODO: [DEV-5940] Make a nice App Level Loading Component.
@@ -54,7 +26,10 @@ export const LoadingWrapper = ({
                         <PageHeader title="--" stickyBreakPoint={getStickyBreakPointForSidebar()}>
                             <div className="page__loading">
                                 <FontAwesomeIcon icon="spinner" spin size="lg" />
-                                <h4>{`${msg}${dots}`}</h4>
+                                <div>{`${msg}`}</div>
+                                <div className="page__ellipsis-container">
+                                    <div className="page__ellipsis" />
+                                </div>
                             </div>
                             {includeFooter && (<Footer pageName="Loading" />)}
                         </PageHeader>
@@ -62,7 +37,10 @@ export const LoadingWrapper = ({
                 )}
                 <div className="page__loading">
                     <FontAwesomeIcon icon="spinner" spin size="lg" />
-                    <h4>{`${msg}${dots}`}</h4>
+                    <div>{`${msg}`}</div>
+                    <div className="page__ellipsis-container">
+                        <div className="page__ellipsis" />
+                    </div>
                 </div>
                 {includeFooter && (<Footer pageName="Loading" />)}
             </>

@@ -17,19 +17,22 @@ function DataTypes() {
                     <LottieAnimation
                         isScrollerBackdrop
                         ref={ref1}
-                        src="/img/interactive-data-sources/3_DT.json" />
+                        src="/img/interactive-data-sources/3_DT.json"
+                        role="presentation" />
                 </div>
                 <div className="top-animation">
                     <LottieAnimation
                         loop
                         ref={ref2}
-                        src="/img/interactive-data-sources/3_DT_GIRL.json" />
+                        src="/img/interactive-data-sources/3_DT_GIRL.json"
+                        role="presentation" />
                 </div>
                 <div className="bottom-animation">
                     <LottieAnimation
                         loop
                         ref={ref3}
-                        src="/img/interactive-data-sources/3_DT_BG.json" />
+                        src="/img/interactive-data-sources/3_DT_BG.json"
+                        role="presentation" />
                 </div>
             </div>
 
@@ -87,9 +90,9 @@ function DataTypes() {
                         content={
                             <p>
                                 Account data contain information about an agency's overall
-                                spending authority, obligations and outlays, and the subset of
+                                spending authority, obligations and outlays, including the subset of
                                 spending on federal awards. Account data provide the “big
-                                picture” of an agency's spending. USAspending receives account
+                                picture” of an agency's total spending. USAspending receives account
                                 data from most federal agencies and supplements the data with
                                 authoritative agency budget execution data.
                             </p>
@@ -120,7 +123,7 @@ function DataTypes() {
                                 Award data contain rich details about individual federal awards,
                                 such as who received the award, when obligations were made,
                                 where the money went, and what the award's purpose is. Award
-                                spending is a subset of an agency's overall spending.
+                                spending is a subset of an agency's total spending.
                                 USAspending receives award data from agency financial systems as
                                 well as governmentwide award systems.
                             </p>

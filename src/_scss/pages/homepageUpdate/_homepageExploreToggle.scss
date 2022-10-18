@@ -31,7 +31,15 @@ $customWidthJustForThisComponent: 440px;
       }
 
         &.active {
-        border-bottom: solid 2px $color-primary;
+          border-bottom: solid 2px $color-primary;
+
+          .homepage-explore-toggle__text {
+            font-weight: $font-semibold;
+            color: $color-grayblack;
+          }
+          .homepage-explore-toggle__icon-container {
+            opacity: 100% !important;
+          }
       }
 
       .homepage-explore-toggle__text-container {
@@ -42,24 +50,28 @@ $customWidthJustForThisComponent: 440px;
           height: rem(20);
           padding-left: rem(4);
           border-radius: rem(2);
-          background-color: #e7f6f8;
+          background-color: $color-primary-alt-lightest;
+          opacity: 50%;
           &.access {
+            background-color: $theme-color-accent-11;
             padding-left: rem(6);
           }
         }
         .homepage-explore-toggle__icon {
           color: $theme-color-accent-6;
           font-size: rem(12);
+          &.access {
+            color: $theme-color-accent-16;
+          }
         }
 
         .homepage-explore-toggle__text {
           font-size: rem(14);
-          font-weight: $font-semibold;
           font-stretch: normal;
           font-style: normal;
           line-height: 1;
           letter-spacing: normal;
-          color: $color-grayblack;
+          color: $color-base;
           margin-left: rem(4);
           align-self: center;
           @media(min-width: $customWidthJustForThisComponent) {

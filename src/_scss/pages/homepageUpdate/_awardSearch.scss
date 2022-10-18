@@ -1,0 +1,331 @@
+.award-search__section {
+  @media (min-width:1400px) and (max-width: 1600px) {
+    flex-direction: column;
+    display:flex;
+  }
+
+  .award-search__topdiv {
+    @media(min-width:1600px) {
+      justify-content: center;
+      display:flex;
+    }
+  }
+  .grid-content {
+    margin-top: 0;
+    margin-bottom: 96px;
+    border-radius: 4px;
+    min-height: 50rem;
+
+    @media (min-width: 1400px) {
+      align-items: center;
+    }
+    .award-search__col1 {
+      align-items: center;
+      @media (max-width:1400px) {
+        width: 100%;
+      }
+
+      @media(min-width:1400px) {
+        width: 23%;
+        margin-right:80px;
+      }
+    }
+
+    .award-search__overline-div {
+      display: flex;
+
+      .award-search__span {
+        height: 20px;
+        width: 20px;
+        background-color: $blue-5;
+
+        svg {
+          color: $theme-color-1;
+        }
+      }
+
+      .award-search__overline {
+        margin: 0 0 0 8px;
+        font-size: rem(16);
+        font-weight: $font-semibold;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.25;
+        letter-spacing: normal;
+        color: $body-color;
+      }
+    }
+
+    .award-search__header {
+      font-size: rem(40);
+      font-weight: $font-semibold;
+      color: $color-grayblack;
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.25;
+      letter-spacing: normal;
+      margin: 16px 0 0 0;
+    }
+
+    .award-search__subtext {
+      margin: 16px 0 0;
+      font-size: rem(20);
+      font-stretch: normal;
+      font-style: normal;
+      line-height: 1.5;
+      letter-spacing: normal;
+      color: $body-color;
+
+      @media(min-width: 320px) {
+        margin-bottom: 40px;
+      }
+    }
+
+    .award-search__swiper {
+      height: auto;
+
+      .swiper-pagination {
+        bottom: 12px;
+      }
+    }
+
+    .swiper-wrapper {
+      @media (min-width: 1400px) {
+        justify-self: right;
+        width:unset;
+      }
+
+      @media(min-width:320px) {
+        height: 500px;
+      }
+    }
+
+    .swiper-pagination-bullet-active {
+      background-color: $gray-cool-60;
+    }
+
+    .swiper-slide-prev {
+      opacity: .5;
+      margin-right: 40px;
+
+      @media(min-width:320px) {
+        margin-right: 1px;
+      }
+      @media(min-width:374px) {
+        margin-right: 10px;
+      }
+      @media(min-width:415px) {
+        margin-right: 20px;
+      }
+      @media(min-width: 450px) {
+        margin-right: 40px;
+      }
+
+    }
+
+    .swiper-slide-next {
+      // next slide up
+      margin-left: 40px;
+
+      @media(min-width:320px) {
+        margin-left: 1px;
+      }
+      @media(min-width:374px) {
+        margin-left: 10px;
+      }
+      @media(min-width:415px) {
+        margin-left: 20px;
+      }
+      @media(min-width: 450px) {
+        margin-left: 40px;
+      }
+      @media(min-width:768px) {
+        opacity: .5;
+      }
+
+      @media(min-width:1400px) {
+        opacity: .5;
+      }
+
+      .card-container.lg.elevated {
+        @media(min-width:320px) {
+          box-shadow: none;
+        }
+      }
+    }
+
+    .swiper-slide-visible {
+      // the size of the slide you can see
+      opacity: 1;
+    }
+
+    .swiper-button-disabled {
+      display: none;
+    }
+
+    .swiper-button-prev,
+    .swiper-button-next {
+      background-color: $color-primary;
+      border-radius: 24px;
+      height: 48px;
+      transform: translateY(-20px);
+      width: 48px;
+      box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.1);
+
+      &:hover {
+        background-color: $color-primary-darker;
+      }
+    }
+
+    .swiper-button-next::after,
+    .swiper-button-prev::after {
+      color: $color-white;
+      font-size: rem(20);
+      font-weight: 1000;
+      margin-bottom: -1px;
+    }
+
+    .swiper-button-next::after {
+      margin-left: 5px;
+    }
+
+    .swiper-button-prev::after {
+      margin-right: 5px;
+    }
+
+    .swiper-container {
+      overflow: visible;
+      width: 100%;
+    }
+
+    .award-search__col2 {
+      @media (min-width: 1400px) {
+        display: inline;
+        width: 70%;
+        justify-content: right;
+      }
+
+      .award-search__slide {
+        width: 486px !important;
+        height: 462px !important;
+
+        @media (max-width:767px) {
+          width: 288px !important;
+          height: 480px;
+        }
+
+        .award-search__card1 {
+          height: 448px;
+
+          @media(min-width:768px) {
+            height: 462px;
+            width: 486px;
+          }
+        }
+
+        .award-search__card2 {
+          height: 448px;
+          @media(max-width:500px) {
+            .text {
+              height: 96px;
+            }
+          }
+
+          @media(max-width:768px) {
+            .text {
+              height: 98px;
+            }
+          }
+          @media(min-width:768px) {
+            height: 462px;
+            width: 486px;
+
+            .text {
+              height: auto;
+            }
+          }
+        }
+
+        .award-search__card3 {
+          height: 448px;
+
+          @media(min-width:768px) {
+            height: 462px;
+            width: 486px;
+          }
+        }
+
+        .award-search__card4 {
+          height: 448px;
+
+          .card__body {
+            .text {
+              margin-bottom: 4px;
+              @media(min-width:450px) and (max-width:768px) {
+                margin-bottom:0;
+              }
+              @media(min-width:768px) {
+                margin-bottom: 32px;
+              }
+            }
+          }
+
+          @media(min-width:768px) {
+            height: 462px;
+            width: 486px;
+          }
+
+          .award-search__image {
+            @media(max-width:768px) {
+              margin-bottom: 8px;
+            }
+
+          }
+        }
+
+        .card__body {
+          padding-left: 40px;
+          padding-top: 40px;
+          padding-right: 40px;
+          padding-bottom: 32px;
+
+          .headline {
+            margin-bottom: 8px;
+          }
+
+          .text {
+            margin-bottom: 32px;
+          }
+
+          .card__button {
+            margin-bottom: 0;
+
+            .card__button--primary {
+              white-space: normal;
+              text-align: center;
+              padding-top: 10px;
+              padding-bottom: 10px;
+              padding-left: 24px;
+              padding-right: 24px;
+              margin: 0;
+            }
+          }
+        }
+
+        .award-search__glossary {
+          display: inline;
+          font-weight: $font-semibold;
+        }
+
+        .award-search__image {
+          margin-bottom: 32px;
+        }
+
+        .usda-glossary-link svg {
+          color: $color-gray-light;
+        }
+      }
+    }
+  }
+
+}

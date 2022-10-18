@@ -18,9 +18,9 @@ const propTypes = {
 };
 
 const CardContainer = ({
-    variant = '', size = "md", children, fill, height
+    variant = '', size = "md", children, fill, height, className = ""
 }) => (
-    <div className="card-column">
+    <div className={`card-column ${className}`}>
         <div className={`${variant} ${size} card-container`} style={{ backgroundColor: `${fill}`, height: `${height}` }}>
             { children }
         </div>

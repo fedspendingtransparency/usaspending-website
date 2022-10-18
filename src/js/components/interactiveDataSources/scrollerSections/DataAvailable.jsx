@@ -24,13 +24,15 @@ function DataAvailable() {
                     <LottieAnimation
                         isScrollerBackdrop
                         ref={ref1}
-                        src="/img/interactive-data-sources/2_DA.json" />
+                        src="/img/interactive-data-sources/2_DA.json"
+                        role="presentation" />
                 </div>
                 <div className="bottom-animation">
                     <LottieAnimation
                         loop
                         ref={ref2}
-                        src="/img/interactive-data-sources/2_DA_BG.json" />
+                        src="/img/interactive-data-sources/2_DA_BG.json"
+                        role="presentation" />
                 </div>
             </div>
             {/* used with data Available */}
@@ -39,13 +41,15 @@ function DataAvailable() {
                     <LottieAnimation
                         loop
                         ref={ref3}
-                        src="/img/interactive-data-sources/2_DA.json" />
+                        src="/img/interactive-data-sources/2_DA.json"
+                        role="presentation" />
                 </div>
                 <div className="bottom-animation">
                     <LottieAnimation
                         loop
                         ref={ref4}
-                        src="/img/interactive-data-sources/2_DA_BG.json" />
+                        src="/img/interactive-data-sources/2_DA_BG.json"
+                        role="presentation" />
                 </div>
             </div>
             {/* used with data not Available */}
@@ -54,13 +58,15 @@ function DataAvailable() {
                     <LottieAnimation
                         loop
                         ref={ref5}
-                        src="/img/interactive-data-sources/2_DA.json" />
+                        src="/img/interactive-data-sources/2_DA.json"
+                        role="presentation" />
                 </div>
                 <div className="bottom-animation">
                     <LottieAnimation
                         loop
                         ref={ref6}
-                        src="/img/interactive-data-sources/2_DA_BG.json" />
+                        src="/img/interactive-data-sources/2_DA_BG.json"
+                        role="presentation" />
                 </div>
             </div>
 
@@ -138,9 +144,14 @@ function DataAvailable() {
                                 </p>
                                 <ul className="interactives-guide_bullet-points">
                                     <li>Personally identifiable information (PII);</li>
-                                    <li>Information that may compromise national security; and</li>
+                                    <li>Information that may compromise national security;</li>
+                                    <li>Proprietary information or documents from federal award recipients; and</li>
                                     <li>Tax expenditure data, including Economic Impact Payments (i.e., COVID stimulus checks)</li>
                                 </ul>
+                                <p>
+                                    While USAspending does receive contract award data from the Department of Defense (DOD) and the
+                                    U.S. Army Corps of Engineers (USACE), there is a 90 delay in the submission of these data to the FPDS source system.
+                                </p>
                             </>
                         )
                         } />
@@ -158,11 +169,11 @@ function DataAvailable() {
                     <ScrollerOverlayCard
                         content={
                             <p>
-                                In addition, some smaller executive branch agencies, as well as
+                                Note that some smaller executive branch agencies, as well as
                                 the entire legislative and judicial branches, are not required
                                 to report to USAspending. The full list of reporting agencies
                                 can be found on our{" "}
-                                <Link className="scroller-overlay-card__link" to="/agency">
+                                <Link className="scroller-overlay-card__link" to="/agency" target="_blank" rel="noopener noreferrer">
                                 Agency Profile landing page
                                 </Link>
                                 .

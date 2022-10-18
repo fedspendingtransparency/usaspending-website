@@ -8,11 +8,11 @@
         display: flex;
         justify-content: center;
         margin: auto;
-        max-width: calc(1600px - #{grid-column} * 2);
-        @media (min-width: 1600px - 1) {
+        max-width: calc(#{homepage-max-width} - #{grid-column} * 2);
+        @media (min-width: $homepage-max-width - 1) {
             max-width: 1334px;
         }
-        @media (max-width: 1600px) {
+        @media (max-width: $homepage-max-width) {
             margin: 0 $grid-column;
         }
         @media screen and (max-width: $medium-screen) {

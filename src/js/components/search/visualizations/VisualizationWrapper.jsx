@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Analytics from 'helpers/analytics/Analytics';
-
+import { withRouter } from "react-router-dom";
 import ResultsTableContainer from 'containers/search/table/ResultsTableContainer';
 import TimeVisualizationSectionContainer from
     'containers/search/visualizations/time/TimeVisualizationSectionContainer';
@@ -33,7 +33,7 @@ const propTypes = {
     setSearchViewSubaward: PropTypes.func
 };
 
-export default class VisualizationWrapper extends React.Component {
+class VisualizationWrapper extends React.Component {
     constructor(props) {
         super(props);
 
@@ -46,10 +46,19 @@ export default class VisualizationWrapper extends React.Component {
     componentDidMount() {
         this._mounted = true;
         this.logVisualizationTab(this.props.type);
+        this.parseTab();
     }
 
     componentWillUnmount() {
         this._mounted = false;
+    }
+
+    parseTab() {
+        const params = this.props.history.location.search.split("&");
+        params.shift();
+        if ((params.length === 1 || params.length === 2) && params[0].substring(0, 4) === "tab=") {
+            this.clickedTab(params[0].substring(4)); // everything after tab=
+        }
     }
 
     logVisualizationTab(tab) {
@@ -85,6 +94,7 @@ export default class VisualizationWrapper extends React.Component {
             <VisualizationTabItem
                 {...tab}
                 key={tab.code}
+                id={tab.code}
                 active={this.props.type === tab.code}
                 clickedTab={this.clickedTab}
                 disabled={!this.props.requestsComplete} />
@@ -150,3 +160,5 @@ export default class VisualizationWrapper extends React.Component {
 }
 
 VisualizationWrapper.propTypes = propTypes;
+
+export default withRouter(VisualizationWrapper);
