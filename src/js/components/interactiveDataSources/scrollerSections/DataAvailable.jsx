@@ -150,7 +150,7 @@ function DataAvailable() {
                                 </ul>
                                 <p>
                                     While USAspending does receive contract award data from the Department of Defense (DOD) and the
-                                    U.S. Army Corps of Engineers (USACE), there is a 90 delay in the submission of these data to the FPDS source system.
+                                    U.S. Army Corps of Engineers (USACE), there is a 90-day delay in the submission of these data to the FPDS source system.
                                 </p>
                             </>
                         )
