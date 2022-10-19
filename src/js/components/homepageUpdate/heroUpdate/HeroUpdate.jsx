@@ -47,7 +47,7 @@ const HeroUpdate = () => {
                                 </Link>
                                 <Link
                                     className="hero__button"
-                                    to="/about"
+                                    to="/data-sources"
                                     onClick={trackAboutLink}>
                                     Learn about USAspending
                                 </Link>
