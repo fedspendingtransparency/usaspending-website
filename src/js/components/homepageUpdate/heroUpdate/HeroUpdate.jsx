@@ -49,7 +49,7 @@ const HeroUpdate = () => {
                                     className="hero__button"
                                     to="/data-sources"
                                     onClick={trackAboutLink}>
-                                    Learn about USAspending
+                                    Learn about USAspending.gov
                                 </Link>
                             </div>
                             <div className="hero__text-container">
