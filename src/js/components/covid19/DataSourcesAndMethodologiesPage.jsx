@@ -608,6 +608,7 @@ export default () => {
                                             <ExternalLink url="https://portal.max.gov/portal/document/SF133/Budget/FACTS II - SF 133 Report on Budget Execution and Budgetary Resources.html">this</ExternalLink>
                                         page and the &quot;Account Breakdown&quot; files in the COVID-19 Spending profile page download. <strong>These four amounts remain constant regardless of any spending type selection in the dropdown.</strong>
                                         </p>
+                                        <p>When the “Total Spending” dropdown is selected in this section, you will see a row for “unreported” data as the last row of the table. The “unreported” data row displays the difference between the high-level, boxed figure above the table versus the sum of all the rows in the table itself. The reason why a difference exists between the high-level figure and the sum of the table rows is because these data come from different systems with different reporting requirements, timing, and practical execution by submitting agencies. As mentioned at the beginning of this section, the high-level figures come from SF-133, whereas the table rows come from agency-submitted data to USAspending.gov (specifically File B).</p>
                                         <p>
                                             <strong>Number of Agencies</strong> calculation:
                                         </p>
@@ -655,7 +656,6 @@ export default () => {
                                             Refer to the calculations in the “Overview Section” above; these amounts are calculated in the exact same way as in that section.
                                             </li>
                                         </ul>
-                                        <p>When the “Total Spending” dropdown is selected in this section, you will see a row for “unreported” data as the last row of the table. The “unreported” data row displays the difference between the high-level, boxed figure above the table versus the sum of all the rows in the table itself. The reason why a difference exists between the high-level figure and the sum of the table rows is because these data come from different systems with different reporting requirements, timing, and practical execution by submitting agencies. As mentioned at the beginning of this section, the high-level figures come from SF-133, whereas the table rows come from agency-submitted data to USAspending.gov (specifically File B).</p>
                                     </div>
                                 </div>
 
