@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useQueryParams } from 'helpers/queryParams';
@@ -38,98 +37,98 @@ const InteractiveDataSourcesPage = () => {
             display: 'Introduction',
             showSectionTitle: false,
             scroller: false,
-            component: <IntroSection />
+            component: <IntroSection/>
         },
         {
             name: 'history-section',
             display: 'History of the DATA Act',
             showSectionTitle: false,
             scroller: false,
-            component: <AboutSection />
+            component: <AboutSection/>
         },
         {
             name: 'federal-spending-overview',
             display: 'Federal Spending Overview',
             showSectionTitle: false,
             scroller: true,
-            component: <FederalSpendingOverview />
+            component: <FederalSpendingOverview/>
         },
         {
             name: 'data-available',
             display: 'Data Available on USAspending',
             showSectionTitle: false,
             scroller: true,
-            component: <DataAvailable />
+            component: <DataAvailable/>
         },
         {
             name: 'data-types',
             display: 'USAspending Data Types',
             showSectionTitle: false,
             scroller: true,
-            component: <DataTypes />
+            component: <DataTypes/>
         },
         {
             name: 'data-source-systems',
             display: 'USAspending Source Systems',
             showSectionTitle: false,
             scroller: true,
-            component: <DataSourceSystems />
+            component: <DataSourceSystems/>
         },
         {
             name: 'account-data',
             display: 'USAspending Account Data',
             showSectionTitle: false,
             scroller: true,
-            component: <AccountData />
+            component: <AccountData/>
         },
         {
             name: 'award-data',
             display: 'USAspending Award Data',
             showSectionTitle: false,
             scroller: true,
-            component: <AwardData />
+            component: <AwardData/>
         },
         {
             name: 'additional-data',
             display: 'USAspending Additional Data',
             showSectionTitle: false,
             scroller: true,
-            component: <AdditionalData />
+            component: <AdditionalData/>
         },
         {
             name: 'data-submission-extraction',
             display: 'Data Submission and Extraction',
             showSectionTitle: false,
             scroller: true,
-            component: <DataSubmissionExtraction />
+            component: <DataSubmissionExtraction/>
         },
         {
             name: 'frequency',
             display: 'Frequency of Data Updates',
             showSectionTitle: false,
             scroller: true,
-            component: <Frequency />
+            component: <Frequency/>
         },
         {
             name: 'data-validation',
             display: 'Data Validation',
             showSectionTitle: false,
             scroller: true,
-            component: <DataValidation />
+            component: <DataValidation/>
         },
         {
             name: 'data-access',
             display: 'Features on USAspending',
             showSectionTitle: false,
             scroller: true,
-            component: <DataFeatures />
+            component: <DataFeatures/>
         },
         {
             name: 'data-use-cases',
             display: 'USAspending Use Cases',
             showSectionTitle: false,
             scroller: true,
-            component: <DataUseCases />
+            component: <DataUseCases/>
         }
     ];
     const jumpToSection = (section = '') => {
@@ -171,40 +170,40 @@ const InteractiveDataSourcesPage = () => {
         };
     }, 100), [history, query.section]);
     return (
-            <PageWrapper
-                pageName="Data Sources"
-                classNames="usa-da-interactive-data-sources-page"
-                overLine="resources"
-                metaTagProps={interactiveDataSourcesPageMetaTags}
-                title="Data Sources">
-                <main id="main-content" className="main-content usda__flex-row">
-                    <div className="sidebar usda__flex-col">
-                        <div className="sidebar_content">
-                            <Sidebar
-                                pageName="interactive-data-sources"
-                                fixedStickyBreakpoint={scrollPositionOfSiteHeader}
-                                isGoingToBeSticky
-                                active={activeSection}
-                                jumpToSection={jumpToSection}
-                                detectActiveSection={setActiveSection}
-                                sections={sections.map((section) => ({
-                                    section: section.name,
-                                    label: section.display
-                                }))} />
-                        </div>
+        <PageWrapper
+            pageName="Data Sources"
+            classNames="usa-da-interactive-data-sources-page"
+            overLine="resources"
+            metaTagProps={interactiveDataSourcesPageMetaTags}
+            title="Data Sources">
+            <main id="main-content" className="main-content usda__flex-row">
+                <div className="sidebar usda__flex-col">
+                    <div className="sidebar_content">
+                        <Sidebar
+                            pageName="interactive-data-sources"
+                            fixedStickyBreakpoint={scrollPositionOfSiteHeader}
+                            isGoingToBeSticky
+                            active={activeSection}
+                            jumpToSection={jumpToSection}
+                            detectActiveSection={setActiveSection}
+                            sections={sections.map((section) => ({
+                                section: section.name,
+                                label: section.display
+                            }))}/>
                     </div>
-                    <div className="body usda__flex-col">
-                        {sections.map((section) => (
-                            <InteractiveDataSourcesSection
-                                key={section.name}
-                                section={section}
-                                icon={section.icon}>
-                                {section.component || <ComingSoon />}
-                            </InteractiveDataSourcesSection>
-                        ))}
-                    </div>
-                </main>
-            </PageWrapper>
+                </div>
+                <div className="body usda__flex-col">
+                    {sections.map((section) => (
+                        <InteractiveDataSourcesSection
+                            key={section.name}
+                            section={section}
+                            icon={section.icon}>
+                            {section.component || <ComingSoon/>}
+                        </InteractiveDataSourcesSection>
+                    ))}
+                </div>
+            </main>
+        </PageWrapper>
     );
 };
 export default InteractiveDataSourcesPage;
