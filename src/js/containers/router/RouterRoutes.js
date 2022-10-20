@@ -46,11 +46,6 @@ const TempPage = React.lazy(() => import('components/tempPage').then((comp) => c
 export const routes = [
     {
         path: `/`,
-        component: Homepage,
-        exact: true
-    },
-    {
-        path: `/homepage_update`,
         component: HomepageUpdate,
         exact: true
     },

@@ -13,27 +13,25 @@ import HomepageExploreToggle from "./HomepageExploreToggle/HomepageExploreToggle
 import HomepageResources from "./HomepageResources/HomepageResources";
 import ReadyToGetStarted from "./ReadyToGetStarted/ReadyToGetStarted";
 import HomepageFirstRow from "./HomepageFirstRow/HomepageFirstRow";
-import FeatureFlag from "../sharedComponents/FeatureFlag";
 
 require('pages/homepageUpdate/homepageUpdate.scss');
 
 const HomepageUpdate = () => (
-    <FeatureFlag>
-        <PageWrapper
-            pageName="Homepage"
-            classNames="usa-da-home-page"
-            noHeader
-            metaTagProps={{ ...homePageMetaTags }}>
-            <main id="main-content" className="main-content homepage-update-content">
-                <HeroUpdate />
-                <SummaryStats />
-                <HomepageFirstRow />
-                <AwardSearch />
-                <HomepageExploreToggle />
-                <HomepageResources />
-                <ReadyToGetStarted />
-            </main>
-        </PageWrapper>
-    </FeatureFlag>);
+    <PageWrapper
+        pageName="Homepage"
+        classNames="usa-da-home-page"
+        noHeader
+        metaTagProps={{ ...homePageMetaTags }}>
+        <main id="main-content" className="main-content homepage-update-content">
+            <HeroUpdate />
+            <SummaryStats />
+            <HomepageFirstRow />
+            <AwardSearch />
+            <HomepageExploreToggle />
+            <HomepageResources />
+            <ReadyToGetStarted />
+        </main>
+    </PageWrapper>
+);
 
 export default HomepageUpdate;
