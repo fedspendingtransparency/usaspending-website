@@ -24,7 +24,6 @@ import DataSourceSystems from './scrollerSections/DataSourceSystems';
 import AccountData from './scrollerSections/AccountData';
 import AwardData from './scrollerSections/AwardData';
 import AdditionalData from './scrollerSections/AdditionalData';
-import FeatureFlag from "../sharedComponents/FeatureFlag";
 
 require('pages/interactiveDataSources/index.scss');
 
@@ -172,7 +171,6 @@ const InteractiveDataSourcesPage = () => {
         };
     }, 100), [history, query.section]);
     return (
-        <FeatureFlag>
             <PageWrapper
                 pageName="Data Sources"
                 classNames="usa-da-interactive-data-sources-page"
@@ -207,7 +205,6 @@ const InteractiveDataSourcesPage = () => {
                     </div>
                 </main>
             </PageWrapper>
-        </FeatureFlag>
     );
 };
 export default InteractiveDataSourcesPage;
