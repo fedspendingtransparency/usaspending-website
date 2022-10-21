@@ -7,7 +7,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import { throttle } from 'lodash';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { mediumScreen, smallScreen, tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
+import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 
 import Analytics from 'helpers/analytics/Analytics';
 import AnimatedHeading from './AnimatedHeading';
@@ -16,8 +16,6 @@ const HeroUpdate = () => {
     const [isPaused, setIsPaused] = useState(false);
     const [windowWidth, setWindowWidth] = useState(0);
     const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth >= mediumScreen);
-    const [isMediumScreen, setIsMediumScreen] = useState(window.innerWidth < mediumScreen && window.innerWidth >= tabletScreen);
-    const [isMobile, setIsMobile] = useState(window.innerWidth < tabletScreen);
     const trackSearchLink = () => Analytics.event({
         category: 'Homepage',
         action: 'Link',
@@ -42,8 +40,6 @@ const HeroUpdate = () => {
             if (windowWidth !== newWidth) {
                 setWindowWidth(newWidth);
                 setIsLargeScreen(newWidth >= mediumScreen);
-                setIsMobile(newWidth < tabletScreen);
-                setIsMediumScreen(newWidth < mediumScreen && newWidth > smallScreen);
             }
         }, 50);
         window.addEventListener('resize', handleResize);
@@ -132,40 +128,7 @@ const HeroUpdate = () => {
                             alt="" />
                     </div>
                 </div> }
-                {isMediumScreen &&
-                <div className="homepage-hero-graphic">
-                    <div className="hero__graphic-layer-background">
-                        <img
-                            role="presentation"
-                            src="../../../../img/homepage-hero/desktop/hero-graphic-background-mountains@2x.webp"
-                            alt="" />
-                    </div>
-                    <div className="hero__graphic-layer-bridge">
-                        <img
-                            role="presentation"
-                            src="../../../../img/homepage-hero/desktop/hero-graphic-background-bridge@2x.webp"
-                            alt="" />
-                    </div>
-                    <div className="hero__graphic-layer-buildings">
-                        <img
-                            role="presentation"
-                            src="../../../../img/homepage-hero/desktop/hero-graphic-background-left-hill@2x.webp"
-                            alt="" />
-                    </div>
-                    <div className="hero__graphic-layer-windmills">
-                        <img
-                            role="presentation"
-                            src="../../../../img/homepage-hero/desktop/hero-graphic-background-right-hill@2x.webp"
-                            alt="" />
-                    </div>
-                    <div className="hero__graphic-layer-foreground">
-                        <img
-                            role="presentation"
-                            src="../../../../img/homepage-hero/desktop/hero-graphic-foreground@2x.webp"
-                            alt="" />
-                    </div>
-                </div> }
-                {isMobile &&
+                {!isLargeScreen &&
                 <div className="homepage-hero-graphic">
                     <div className="hero__graphic-layer-background">
                         <img
