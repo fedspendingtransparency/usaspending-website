@@ -84,31 +84,31 @@ const HeroUpdate = () => {
                     <div className="hero__graphic-layer-background">
                         <img
                             role="presentation"
-                            src="../../../../img/homepage-hero/hero-graphic-background-mountains.webp"
+                            src="../../../../img/homepage-hero/hero-graphic-background-mountains@2x.webp"
                             alt="" />
                     </div>
                     <div className="hero__graphic-layer-bridge">
                         <img
                             role="presentation"
-                            src="../../../../img/homepage-hero/hero-graphic-background-bridge.webp"
+                            src="../../../../img/homepage-hero/hero-graphic-background-bridge@2x.webp"
                             alt="" />
                     </div>
                     <div className="hero__graphic-layer-buildings">
                         <img
                             role="presentation"
-                            src="../../../../img/homepage-hero/hero-graphic-background-left-hill.webp"
+                            src="../../../../img/homepage-hero/hero-graphic-background-left-hill@2x.webp"
                             alt="" />
                     </div>
                     <div className="hero__graphic-layer-windmills">
                         <img
                             role="presentation"
-                            src="../../../../img/homepage-hero/hero-graphic-background-right-hill.webp"
+                            src="../../../../img/homepage-hero/hero-graphic-background-right-hill@2x.webp"
                             alt="" />
                     </div>
                     <div className="hero__graphic-layer-foreground">
                         <img
                             role="presentation"
-                            src="../../../../img/homepage-hero/hero-graphic-foreground.webp"
+                            src="../../../../img/homepage-hero/hero-graphic-foreground@2x.webp"
                             alt="" />
                     </div>
                 </div>
