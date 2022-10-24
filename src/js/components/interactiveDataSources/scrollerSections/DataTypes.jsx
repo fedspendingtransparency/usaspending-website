@@ -22,14 +22,14 @@ function DataTypes() {
                 </div>
                 <div className="top-animation">
                     <LottieAnimation
-                        loop
+                        loop={1}
                         ref={ref2}
                         src="/img/interactive-data-sources/3_DT_GIRL.json"
                         role="presentation" />
                 </div>
                 <div className="bottom-animation">
                     <LottieAnimation
-                        loop
+                        loop={1}
                         ref={ref3}
                         src="/img/interactive-data-sources/3_DT_BG.json"
                         role="presentation" />
