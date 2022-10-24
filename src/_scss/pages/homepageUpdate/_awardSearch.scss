@@ -26,7 +26,8 @@
       }
 
       @media(min-width:1400px) {
-        width: 34%;
+        padding-right: 32px;
+        width: 33%;
       }
     }
 
@@ -120,6 +121,9 @@
         margin-right: 40px;
       }
 
+      .card-container.lg.elevated {
+          box-shadow: none;
+      }
     }
 
     .swiper-slide-next {
@@ -147,9 +151,7 @@
       }
 
       .card-container.lg.elevated {
-        @media(min-width:320px) {
           box-shadow: none;
-        }
       }
     }
 
@@ -192,15 +194,10 @@
       margin-right: 5px;
     }
 
-    .swiper-container {
-      overflow: visible;
-      width: 100%;
-    }
-
     .award-search__col2 {
       @media (min-width: 1400px) {
         display: inline;
-        width: 66%;
+        width: 67%;
       }
 
       .award-search__slide {
@@ -325,5 +322,4 @@
       }
     }
   }
-
 }
