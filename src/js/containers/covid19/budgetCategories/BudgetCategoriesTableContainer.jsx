@@ -173,13 +173,13 @@ const BudgetCategoriesTableContainer = (props) => {
         const unlinkedData = calculateUnlinkedTotals(overviewTotals, totals);
 
         if (props.type === 'agency' && spendingCategory === 'total_spending') {
-            unlinkedName = 'Unknown Agency (Unlinked Data)';
+            unlinkedName = 'Unreported Agencies';
         }
         else if (props.type === 'federal_account' && spendingCategory === 'total_spending') {
-            unlinkedName = 'Unknown Federal Account (Unlinked Data)';
+            unlinkedName = 'Unreported Federal Accounts';
         }
         else if (props.type === 'object_class' && spendingCategory === 'total_spending') {
-            unlinkedName = 'Unknown Object Class (Unlinked Data)';
+            unlinkedName = 'Unreported Object Classes';
         }
 
         if (unlinkedName && unlinkedData && overview) {
