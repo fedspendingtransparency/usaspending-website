@@ -129,41 +129,30 @@ const HeroUpdate = () => {
                     </div>
                 </div> }
                 {!isLargeScreen &&
-                <div className="homepage-hero-graphic">
-                    <div className="hero__graphic-layer-background">
-                        <img
-                            role="presentation"
-                            src="../../../../img/homepage-hero/desktop/hero-graphic-background-mountains@2x.webp"
-                            alt="" />
-                    </div>
-                    <div className="hero__graphic-layer-bridge">
-                        <img
-                            role="presentation"
-                            src="../../../../img/homepage-hero/desktop/hero-graphic-background-bridge@2x.webp"
-                            alt="" />
-                    </div>
-                    <div className="hero__graphic-layer-buildings">
-                        <img
-                            role="presentation"
-                            src="../../../../img/homepage-hero/desktop/hero-graphic-background-left-hill@2x.webp"
-                            alt="" />
-                    </div>
-                    <div className="hero__graphic-layer-windmills">
-                        <img
-                            role="presentation"
-                            src="../../../../img/homepage-hero/desktop/hero-graphic-background-right-hill@2x.webp"
-                            alt="" />
-                    </div>
-                    <div className="hero__graphic-layer-foreground">
-                        <img
-                            role="presentation"
-                            src="../../../../img/homepage-hero/desktop/hero-graphic-foreground@2x.webp"
-                            alt="" />
-                    </div>
-                </div> }
+                    <div className="homepage-hero-graphic">
+                        <div className="hero__graphic-layer-background">
+                            <img
+                                role="presentation"
+                                src="../../../../img/homepage-hero/mobile/mobile-hero-graphic-background-left-hill@2x.webp"
+                                alt="" />
+                        </div>
+                        <div className="hero__graphic-layer-background">
+                            <img
+                                role="presentation"
+                                src="../../../../img/homepage-hero/mobile/mobile-hero-graphic-background-right-hill@2x.webp"
+                                alt="" />
+                        </div>
+                        <div className="hero__graphic-layer-foreground">
+                            <img
+                                role="presentation"
+                                src="../../../../img/homepage-hero/mobile/mobile-hero-graphic-foreground@2x.webp"
+                                alt="" />
+                        </div>
+                    </div> }
             </div>
         </section>
     );
 };
 
 export default HeroUpdate;
+
