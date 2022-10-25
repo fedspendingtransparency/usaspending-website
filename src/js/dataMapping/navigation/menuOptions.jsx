@@ -81,8 +81,8 @@ export const resourceOptions = [
         enabled: true,
         url: '/data-sources',
         callToAction: 'Explore the Data Sources',
-        shouldOpenNewTab: !GlobalConstants.QAT,
-        externalLink: !GlobalConstants.QAT,
+        shouldOpenNewTab: true,
+        externalLink: false,
         isNewTab: true
     },
     {
