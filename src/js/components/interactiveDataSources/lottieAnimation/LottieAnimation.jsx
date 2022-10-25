@@ -226,7 +226,7 @@ class LottieAnimation extends React.Component {
 LottieAnimation.propTypes = {
     src: PropTypes.string,
     autoplay: PropTypes.bool,
-    loop: PropTypes.bool,
+    loop: PropTypes.oneOfType([PropTypes.bool, PropTypes.number]),
     fps: PropTypes.number,
     isScrollerBackdrop: PropTypes.bool,
     direction: PropTypes.string,

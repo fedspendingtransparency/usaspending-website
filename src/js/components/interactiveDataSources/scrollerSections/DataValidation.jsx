@@ -13,7 +13,7 @@ function DataValidation() {
             {/* SCROLLER BACKDROPS */}
             <div name="animation-loop" className="position position--center">
                 <LottieAnimation
-                    loop
+                    loop={1}
                     ref={ref1}
                     src="/img/interactive-data-sources/8_DVBS.json"
                     role="presentation" />

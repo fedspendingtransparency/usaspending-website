@@ -112,10 +112,9 @@ const AboutSection = () => {
     }];
     const dataModelCardContent = {
         heading: (
-            <>
-                <h4>USAspending Data Model</h4>
-                <div role="separator" className="interactives-guide__cardLine" />
-            </>
+            <div className="interactives-guide__heading-container">
+                <h4 className="interactives-guide__heading">USAspending Data Model</h4>
+            </div>
         ),
         content: (
             <>
