@@ -171,7 +171,7 @@ const AwardSearch = () => {
                                 <p className="award-search__subtext">Find information on awards such as contracts, loans, and grants based on location, industry, and more.</p>
                             </FlexGridCol>
                             <FlexGridCol desktop={8} tablet={12} mobile={12} className="award-search__col2">
-                                <Swiper a11y centeredSlides watchslidesvisibility="true" slidesPerView="auto" spaceBetween={0} navigation modules={[Navigation]} style={{ alignItems: "middle" }} onSlideChange={onSlideChange}>
+                                <Swiper a11y centeredSlides watchslidesvisibility="true" slidesPerView="auto" spaceBetween={40} navigation modules={[Navigation]} style={{ alignItems: "middle" }} onSlideChange={onSlideChange}>
                                     <SwiperSlide aria-hidden="false" tabIndex={0} className="award-search__slide award-search__card1" style={{ marginBottom: "20px" }}>
                                         <CardContainer variant="elevated" size="lg">
                                             <CardBody
@@ -262,7 +262,7 @@ const AwardSearch = () => {
                                 </FlexGridCol>
                             </FlexGridRow>
                             <FlexGridCol desktop={8} tablet={12} mobile={12} className="award-search__col2" style={{ width: "100%", margin: "auto" }}>
-                                <Swiper a11y centeredSlides pagination={isMobile} navigation={!isMobile} watchslidesvisibility="true" slidesPerView="auto" modules={[Pagination, Navigation]} className="award-search__swiper" onSlideChange={onSlideChange}>
+                                <Swiper a11y centeredSlides pagination={isMobile} navigation={!isMobile} watchslidesvisibility="true" slidesPerView="auto" spaceBetween={40} modules={[Pagination, Navigation]} className="award-search__swiper" onSlideChange={onSlideChange}>
                                     <SwiperSlide aria-hidden="false" className="award-search__slide" style={{ marginBottom: "20px" }}>
                                         <CardContainer className="award-search__card1" variant="elevated" size={isMobile ? "sm" : "lg"}>
                                             <CardBody
