@@ -24,7 +24,7 @@ const IntroSection = () => (
         <div className="interactive-data-sources-intro-animation">
             <LottieAnimation
                 autoplay
-                loop
+                loop={1}
                 src="/img/interactive-data-sources/intro-animation.json"
                 role="presentation" />
         </div>

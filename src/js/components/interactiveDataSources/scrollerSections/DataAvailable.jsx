@@ -29,7 +29,7 @@ function DataAvailable() {
                 </div>
                 <div className="bottom-animation">
                     <LottieAnimation
-                        loop
+                        loop={1}
                         ref={ref2}
                         src="/img/interactive-data-sources/2_DA_BG.json"
                         role="presentation" />
@@ -39,14 +39,14 @@ function DataAvailable() {
             <div name="animation-loop1" className="position position--center">
                 <div className="top-animation">
                     <LottieAnimation
-                        loop
+                        loop={1}
                         ref={ref3}
                         src="/img/interactive-data-sources/2_DA.json"
                         role="presentation" />
                 </div>
                 <div className="bottom-animation">
                     <LottieAnimation
-                        loop
+                        loop={1}
                         ref={ref4}
                         src="/img/interactive-data-sources/2_DA_BG.json"
                         role="presentation" />
@@ -56,14 +56,14 @@ function DataAvailable() {
             <div name="animation-loop2" className="position position--center">
                 <div className="top-animation">
                     <LottieAnimation
-                        loop
+                        loop={1}
                         ref={ref5}
                         src="/img/interactive-data-sources/2_DA.json"
                         role="presentation" />
                 </div>
                 <div className="bottom-animation">
                     <LottieAnimation
-                        loop
+                        loop={1}
                         ref={ref6}
                         src="/img/interactive-data-sources/2_DA_BG.json"
                         role="presentation" />

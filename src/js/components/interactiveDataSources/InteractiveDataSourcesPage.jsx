@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useQueryParams } from 'helpers/queryParams';
@@ -24,7 +23,6 @@ import DataSourceSystems from './scrollerSections/DataSourceSystems';
 import AccountData from './scrollerSections/AccountData';
 import AwardData from './scrollerSections/AwardData';
 import AdditionalData from './scrollerSections/AdditionalData';
-import FeatureFlag from "../sharedComponents/FeatureFlag";
 
 require('pages/interactiveDataSources/index.scss');
 
@@ -172,42 +170,40 @@ const InteractiveDataSourcesPage = () => {
         };
     }, 100), [history, query.section]);
     return (
-        <FeatureFlag>
-            <PageWrapper
-                pageName="Data Sources"
-                classNames="usa-da-interactive-data-sources-page"
-                overLine="resources"
-                metaTagProps={interactiveDataSourcesPageMetaTags}
-                title="Data Sources">
-                <main id="main-content" className="main-content usda__flex-row">
-                    <div className="sidebar usda__flex-col">
-                        <div className="sidebar_content">
-                            <Sidebar
-                                pageName="interactive-data-sources"
-                                fixedStickyBreakpoint={scrollPositionOfSiteHeader}
-                                isGoingToBeSticky
-                                active={activeSection}
-                                jumpToSection={jumpToSection}
-                                detectActiveSection={setActiveSection}
-                                sections={sections.map((section) => ({
-                                    section: section.name,
-                                    label: section.display
-                                }))} />
-                        </div>
+        <PageWrapper
+            pageName="Data Sources"
+            classNames="usa-da-interactive-data-sources-page"
+            overLine="resources"
+            metaTagProps={interactiveDataSourcesPageMetaTags}
+            title="Data Sources">
+            <main id="main-content" className="main-content usda__flex-row">
+                <div className="sidebar usda__flex-col">
+                    <div className="sidebar_content">
+                        <Sidebar
+                            pageName="interactive-data-sources"
+                            fixedStickyBreakpoint={scrollPositionOfSiteHeader}
+                            isGoingToBeSticky
+                            active={activeSection}
+                            jumpToSection={jumpToSection}
+                            detectActiveSection={setActiveSection}
+                            sections={sections.map((section) => ({
+                                section: section.name,
+                                label: section.display
+                            }))} />
                     </div>
-                    <div className="body usda__flex-col">
-                        {sections.map((section) => (
-                            <InteractiveDataSourcesSection
-                                key={section.name}
-                                section={section}
-                                icon={section.icon}>
-                                {section.component || <ComingSoon />}
-                            </InteractiveDataSourcesSection>
-                        ))}
-                    </div>
-                </main>
-            </PageWrapper>
-        </FeatureFlag>
+                </div>
+                <div className="body usda__flex-col">
+                    {sections.map((section) => (
+                        <InteractiveDataSourcesSection
+                            key={section.name}
+                            section={section}
+                            icon={section.icon}>
+                            {section.component || <ComingSoon />}
+                        </InteractiveDataSourcesSection>
+                    ))}
+                </div>
+            </main>
+        </PageWrapper>
     );
 };
 export default InteractiveDataSourcesPage;

@@ -14,7 +14,7 @@ function DataFeatures() {
             {/* SCROLLER BACKDROPS */}
             <div name="animation-loop" className="position position--center">
                 <LottieAnimation
-                    loop
+                    loop={1}
                     ref={ref1}
                     src="/img/interactive-data-sources/9_DA.json"
                     role="presentation" />

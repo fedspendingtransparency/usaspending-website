@@ -23,7 +23,7 @@ function Frequency() {
                 </div>
                 <div className="bottom-animation">
                     <LottieAnimation
-                        loop
+                        loop={1}
                         ref={ref2}
                         src="/img/interactive-data-sources/7_FDU.json"
                         role="presentation" />
