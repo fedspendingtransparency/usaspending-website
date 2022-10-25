@@ -1,4 +1,5 @@
 import Enzyme from 'enzyme';
+import '@testing-library/jest-dom';
 import Adapter from '@wojtekmaj/enzyme-adapter-react-17';
 import registerIcons from "../src/js/registerIcons";
 
