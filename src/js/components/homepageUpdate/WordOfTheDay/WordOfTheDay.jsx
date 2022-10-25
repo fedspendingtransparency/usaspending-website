@@ -172,7 +172,7 @@ const WordOfTheDay = () => {
                 selectWordOfTheDay();
                 setGlossary(res.data.results);
                 setLoading(false);
-                setError(false);
+                setError(true);
             })
             .catch((err) => {
                 if (!isCancel(err)) {
@@ -207,7 +207,7 @@ const WordOfTheDay = () => {
                         </CardBody>
                     </FlexGridCol>
                     :
-                    <CardBody customClassName="word-of-the-day__body">
+                    <CardBody customClassName="card__body_error">
                         {loading ? <LoadingWrapper isLoading={loading} /> : <ErrorWordOfTheDay />}
                     </CardBody>
                 }
