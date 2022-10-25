@@ -144,7 +144,8 @@ const WordOfTheDay = () => {
         if (!found) {
             definitionNotFound();
         }
-    }, [definitionNotFound, glossary, pathname, search, term]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [glossary, term]);
 
     useEffect(() => {
         if (term === "Account Balance (File A)") {
