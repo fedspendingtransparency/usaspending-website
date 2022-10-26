@@ -34,7 +34,9 @@
 
 .homepage-hero-graphic-container {
     width: 140%;
-    margin: 0 -250px;
+    @media(min-width:992px) {
+        margin: 0 -250px;
+    }
 }
 
 .homepage-hero-content {
