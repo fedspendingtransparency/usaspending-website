@@ -60,8 +60,8 @@ const cardObjects = [
         imageHeight: '177px',
         overline: 'RESOURCES',
         headline: 'Learn more about USAspending.gov',
-        buttonText: 'Find out what we do',
-        buttonLink: '/about',
+        buttonText: 'Read about the Data Sources',
+        buttonLink: '/data-sources',
         action: () => Analytics.event({
             category: 'Homepage',
             action: 'Link',
