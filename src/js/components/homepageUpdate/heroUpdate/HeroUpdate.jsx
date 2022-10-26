@@ -130,16 +130,16 @@ const HeroUpdate = () => {
                 </div> }
                 {!isLargeScreen &&
                     <div className="homepage-hero-graphic">
-                        <div className="hero__graphic-layer-background">
+                        <div className="hero__graphic-layer-windmills">
                             <img
                                 role="presentation"
-                                src="../../../../img/homepage-hero/mobile/mobile-hero-graphic-background-left-hill@2x.webp"
+                                src="../../../../img/homepage-hero/mobile/mobile-hero-graphic-background-right-hill@2x.webp"
                                 alt="" />
                         </div>
                         <div className="hero__graphic-layer-background">
                             <img
                                 role="presentation"
-                                src="../../../../img/homepage-hero/mobile/mobile-hero-graphic-background-right-hill@2x.webp"
+                                src="../../../../img/homepage-hero/mobile/mobile-hero-graphic-background-left-hill@2x.webp"
                                 alt="" />
                         </div>
                         <div className="hero__graphic-layer-foreground">
