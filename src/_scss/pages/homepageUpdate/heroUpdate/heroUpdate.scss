@@ -34,6 +34,10 @@
 
 .homepage-hero-graphic-container {
     width: 140%;
+
+    @media(min-width:768px) and (max-width:992px) {
+        margin-top: 40px;
+    }
     @media(min-width:992px) {
         margin: 0 -250px;
     }
