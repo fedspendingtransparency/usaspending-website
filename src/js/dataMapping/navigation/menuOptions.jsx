@@ -83,7 +83,7 @@ export const resourceOptions = [
         callToAction: 'Explore the Data Sources',
         shouldOpenNewTab: true,
         externalLink: false,
-        isNewTab: true
+        isNewTab: false
     },
     {
         label: "Agency Submission Statistics",
