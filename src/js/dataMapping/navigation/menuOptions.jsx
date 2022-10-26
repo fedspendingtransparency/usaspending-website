@@ -81,9 +81,9 @@ export const resourceOptions = [
         enabled: true,
         url: '/data-sources',
         callToAction: 'Explore the Data Sources',
-        shouldOpenNewTab: true,
+        shouldOpenNewTab: false,
         externalLink: false,
-        isNewTab: false
+        isNewTab: true
     },
     {
         label: "Agency Submission Statistics",
