@@ -41,6 +41,9 @@
     @media(min-width:992px) {
         margin: 0 -250px;
     }
+    @media(min-width:992px) and (max-width:1200px) {
+        margin-top: 40px;
+    }
 }
 
 .homepage-hero-content {
