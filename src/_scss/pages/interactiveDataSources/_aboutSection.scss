@@ -30,7 +30,7 @@
     }
 
     .interactives-guide-cardText {
-        margin-top: 0px;
+        margin-top: 20px;
         a {
             color: white;
             &:visited {
@@ -63,16 +63,19 @@
         border-bottom: 2px solid black;
     }
 
-    .interactives-guide__cardLine {
-        @media (max-width: $medium-screen) {
-            margin: 2px 16px 20px;
-            width: 100%;
-        }
-        width: 38%;
-        margin: 5px 0px 10px;
-        border-bottom: 3px solid $color-primary;
-    }
+    .interactives-guide__heading-container {
+        display: inline-block;
 
+        .interactives-guide__heading {
+            border-bottom: 3px solid $color-primary;
+            line-height: 1.5 !important;
+            width: 84%;
+            @media (min-width: 408px) {
+                line-height: 1.75 !important;
+                width: unset;
+            }
+        }
+    }
 
     .interactives-guide__background-green {
         background: linear-gradient(to bottom, $color-white 25%, $color-vis-green-darkest 25%);

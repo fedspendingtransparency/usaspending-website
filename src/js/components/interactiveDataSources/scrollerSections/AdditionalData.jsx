@@ -63,7 +63,7 @@ function AdditionalData() {
                 </div>
                 <div className="bottom-animation">
                     <LottieAnimation
-                        loop
+                        loop={1}
                         ref={ref2}
                         src="/img/interactive-data-sources/5_DS_ADDITIONAL_BG.json"
                         role="presentation" />

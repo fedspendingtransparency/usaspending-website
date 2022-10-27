@@ -68,7 +68,7 @@ const StayInTouch = (pageName) => {
                         mobile={12}
                         tablet={6}>
                         <div className="stay-in-touch__second-row-title">
-                                Request a USAspending.gov training session
+                                Request a USAspending training session
                         </div>
                         <div className="stay-in-touch__second-row-text">
                                 Receive customized training for your organization on how to use our tools and data.

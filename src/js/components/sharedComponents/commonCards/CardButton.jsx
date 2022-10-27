@@ -21,11 +21,12 @@ const propTypes = {
     children: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.object
-    ])
+    ]),
+    disabled: PropTypes.bool
 };
 
 const CardButton = ({
-    link, govLink, onlyPerformAction = "false", action, text, variant = "secondary", customClassName = '', children
+    link, govLink, onlyPerformAction = "false", action, text, variant = "secondary", customClassName = '', children, disabled
 }) => {
     const variantMapper = {
         primary: "card__button--primary",
@@ -39,6 +40,7 @@ const CardButton = ({
                 <button
                     className={`card__button--secondary ${variantMapper[variant]} ${customClassName}`}
                     aria-label={`${text}`}
+                    disabled={disabled}
                     onClick={action}>
                     {text || children}
                 </button>
@@ -60,6 +62,7 @@ const CardButton = ({
                     <Link
                         className={`card__button--secondary ${variantMapper[variant]} ${customClassName}`}
                         role="button"
+                        tabIndex={disabled ? "-1" : ""}
                         aria-label={`${text}`}
                         to={link}
                         onClick={action}>

@@ -11,17 +11,23 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { getNewUrlForGlossary } from 'helpers/glossaryHelper';
 
 const propTypes = {
-    term: PropTypes.string.isRequired
+    term: PropTypes.string.isRequired,
+    hidden: PropTypes.bool
 };
 
-const GlossaryLink = ({ term }) => {
+const GlossaryLink = ({ term, hidden }) => {
     const { pathname, search } = useLocation();
     const newUrl = getNewUrlForGlossary(pathname, `?glossary=${term}`, search);
     const stopBubble = (e) => {
         e.stopPropagation();
     };
     return (
-        <Link className="usda-glossary-link" to={newUrl} aria-label="Open the Glossary" onClick={stopBubble}>
+        <Link
+            className="usda-glossary-link"
+            to={newUrl}
+            aria-label="Open the Glossary"
+            tabIndex={hidden ? "-1" : ""}
+            onClick={stopBubble}>
             <FontAwesomeIcon icon="book" />
         </Link>
     );

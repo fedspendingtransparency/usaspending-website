@@ -144,27 +144,36 @@ const WordOfTheDay = () => {
         if (!found) {
             definitionNotFound();
         }
-    }, [definitionNotFound, glossary, pathname, search, term]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [glossary, term]);
 
     useEffect(() => {
         if (term === "Account Balance (File A)") {
             setChangedTerm("File A");
-        } else if (term === "Account Breakdown by Award (File C)") {
+        }
+        else if (term === "Account Breakdown by Award (File C)") {
             setChangedTerm("File C");
-        } else if (term === "Account Breakdown by Program Activity & Object Class (File B)") {
+        }
+        else if (term === "Account Breakdown by Program Activity & Object Class (File B)") {
             setChangedTerm("File B");
-        } else if (term === "Period of Performance Current End Date") {
+        }
+        else if (term === "Period of Performance Current End Date") {
             setChangedTerm("Current End Date");
-        } else if (term === "Period of Performance Potential End Date") {
+        }
+        else if (term === "Period of Performance Potential End Date") {
             setChangedTerm("Potential End Date");
-        } else if (term === "Period of Performance Start Date") {
+        }
+        else if (term === "Period of Performance Start Date") {
             setChangedTerm("Start Date");
-        } else if (term === "Procurement Instrument Identifier (PIID)") {
+        }
+        else if (term === "Procurement Instrument Identifier (PIID)") {
             setChangedTerm("PIID");
-        } else {
+        }
+        else {
             setChangedTerm("");
         }
-    }, [glossary, pathname, search, term]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [term]);
 
     useEffect(() => {
         fetchAllTerms().promise

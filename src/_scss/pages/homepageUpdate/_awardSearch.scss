@@ -26,8 +26,8 @@
       }
 
       @media(min-width:1400px) {
-        width: 23%;
-        margin-right:80px;
+        padding-right: 32px;
+        width: 33%;
       }
     }
 
@@ -104,58 +104,20 @@
       background-color: $gray-cool-60;
     }
 
-    .swiper-slide-prev {
+    .swiper-slide-prev, .swiper-slide-next {
       opacity: .5;
-      margin-right: 40px;
 
-      @media(min-width:320px) {
-        margin-right: 1px;
-      }
-      @media(min-width:374px) {
-        margin-right: 10px;
-      }
-      @media(min-width:415px) {
-        margin-right: 20px;
-      }
-      @media(min-width: 450px) {
-        margin-right: 40px;
-      }
-
-    }
-
-    .swiper-slide-next {
-      // next slide up
-      margin-left: 40px;
-
-      @media(min-width:320px) {
-        margin-left: 1px;
-      }
-      @media(min-width:374px) {
-        margin-left: 10px;
-      }
-      @media(min-width:415px) {
-        margin-left: 20px;
-      }
-      @media(min-width: 450px) {
-        margin-left: 40px;
-      }
-      @media(min-width:768px) {
-        opacity: .5;
-      }
-
-      @media(min-width:1400px) {
-        opacity: .5;
-      }
-
-      .card-container.lg.elevated {
-        @media(min-width:320px) {
+      .card-container {
           box-shadow: none;
-        }
+      }
+
+      .card__button, .usda-glossary-link {
+        cursor: not-allowed;
+        pointer-events: none;
       }
     }
 
     .swiper-slide-visible {
-      // the size of the slide you can see
       opacity: 1;
     }
 
@@ -193,16 +155,14 @@
       margin-right: 5px;
     }
 
-    .swiper-container {
-      overflow: visible;
-      width: 100%;
-    }
-
     .award-search__col2 {
+      .card-container {
+        border-radius: 16px;
+      }
+
       @media (min-width: 1400px) {
         display: inline;
-        width: 70%;
-        justify-content: right;
+        width: 67%;
       }
 
       .award-search__slide {
@@ -284,10 +244,7 @@
         }
 
         .card__body {
-          padding-left: 40px;
-          padding-top: 40px;
-          padding-right: 40px;
-          padding-bottom: 32px;
+          padding: 40px 40px 32px 40px;
 
           .headline {
             margin-bottom: 8px;
@@ -303,10 +260,7 @@
             .card__button--primary {
               white-space: normal;
               text-align: center;
-              padding-top: 10px;
-              padding-bottom: 10px;
-              padding-left: 24px;
-              padding-right: 24px;
+              padding: 10px 24px;
               margin: 0;
             }
           }
@@ -327,5 +281,4 @@
       }
     }
   }
-
 }

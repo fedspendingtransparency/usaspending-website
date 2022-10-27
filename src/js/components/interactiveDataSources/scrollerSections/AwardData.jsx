@@ -276,7 +276,7 @@ function AwardData() {
                 </div>
                 <div className="bottom-animation">
                     <LottieAnimation
-                        loop
+                        loop={1}
                         ref={ref2}
                         src="/img/interactive-data-sources/5_DS_AWARD_BG.json"
                         role="presentation" />

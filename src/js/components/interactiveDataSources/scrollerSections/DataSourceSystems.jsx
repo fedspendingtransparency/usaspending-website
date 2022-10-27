@@ -23,14 +23,14 @@ function DataSourceSystems() {
                 </div>
                 <div className="top-animation">
                     <LottieAnimation
-                        loop
+                        loop={1}
                         ref={ref2}
                         src="/img/interactive-data-sources/4_DSS_TYPES.json"
                         role="presentation" />
                 </div>
                 <div className="bottom-animation">
                     <LottieAnimation
-                        loop
+                        loop={1}
                         ref={ref3}
                         src="/img/interactive-data-sources/4_DSS_BG.json"
                         role="presentation" />

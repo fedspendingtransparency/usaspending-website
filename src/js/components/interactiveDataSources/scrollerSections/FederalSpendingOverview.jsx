@@ -72,7 +72,7 @@ function FederalSpendingOverview() {
                 </div>
                 <div className="bottom-animation">
                     <LottieAnimation
-                        loop
+                        loop={1}
                         ref={ref2}
                         src="/img/interactive-data-sources/1_FSO.json"
                         role="presentation" />
