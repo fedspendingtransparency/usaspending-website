@@ -143,9 +143,6 @@ const Footer = ({
                             </div>
                             <ul className="links">
                                 <li>
-                                    <a target="_blank" rel="noopener noreferrer" href="https://datalab.usaspending.gov/">Data Lab</a>
-                                </li>
-                                <li>
                                     <a target="_blank" rel="noopener noreferrer" href="https://fiscaldata.treasury.gov/">Fiscal Data</a>
                                 </li>
                             </ul>
