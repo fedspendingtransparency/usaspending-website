@@ -55,28 +55,28 @@ const InteractiveDataSourcesPage = () => {
         },
         {
             name: 'data-available',
-            display: 'Data Available on USAspending',
+            display: 'Data Available on USAspending.gov',
             showSectionTitle: false,
             scroller: true,
             component: <DataAvailable />
         },
         {
             name: 'data-types',
-            display: 'USAspending Data Types',
+            display: 'Data Types',
             showSectionTitle: false,
             scroller: true,
             component: <DataTypes />
         },
         {
             name: 'data-source-systems',
-            display: 'USAspending Source Systems',
+            display: 'Source Systems',
             showSectionTitle: false,
             scroller: true,
             component: <DataSourceSystems />
         },
         {
             name: 'account-data',
-            display: 'USAspending Account Data',
+            display: 'Account Data',
             showSectionTitle: false,
             scroller: true,
             component: <AccountData />

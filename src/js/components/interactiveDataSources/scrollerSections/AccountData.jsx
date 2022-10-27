@@ -15,7 +15,7 @@ function AccountData() {
                 the Governmentwide Treasury Account Symbol Adjusted Trial Balance
                 System (GTAS), and this information is used to generate authoritative{" "}
                     <span className="glossary-term">Treasury Account</span>{" "}
-                    <GlossaryLink term="treasury-account-symbol-tas" /> balances. USAspending
+                    <GlossaryLink term="treasury-account-symbol-tas" /> balances. USAspending.gov
                 extracts some data from GTAS for governmentwide spending figures and
                 other purposes.
                 </p>
