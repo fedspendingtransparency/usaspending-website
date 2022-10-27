@@ -110,18 +110,18 @@
     color: $gray-2;
   }
   .word-of-the-day-paragraph-one{
-    font-size: rem(24);
+    font-size: $font-size-24;
     text-align: center;
     font-weight: $font-semibold;
     margin-bottom: rem(4);
   }
   .word-of-the-day-paragraph-two{
-    font-size: rem(16);
+    font-size: $font-size-16;
     margin-top: rem(4);
   }
   .word-of-the-day-button{
     border-radius: rem(4);
-    border: solid rem(1) #dfe1e2;
+    border: solid rem(1) $gray-cool-10;
     background-color: #1a4480;
     width: rem(147);
     height: rem(40);
