@@ -83,14 +83,14 @@ const InteractiveDataSourcesPage = () => {
         },
         {
             name: 'award-data',
-            display: 'USAspending Award Data',
+            display: 'Award Data',
             showSectionTitle: false,
             scroller: true,
             component: <AwardData />
         },
         {
             name: 'additional-data',
-            display: 'USAspending Additional Data',
+            display: 'Additional Data',
             showSectionTitle: false,
             scroller: true,
             component: <AdditionalData />
@@ -118,14 +118,14 @@ const InteractiveDataSourcesPage = () => {
         },
         {
             name: 'data-access',
-            display: 'Features on USAspending',
+            display: 'Features on USAspending.gov',
             showSectionTitle: false,
             scroller: true,
             component: <DataFeatures />
         },
         {
             name: 'data-use-cases',
-            display: 'USAspending Use Cases',
+            display: 'Use Cases',
             showSectionTitle: false,
             scroller: true,
             component: <DataUseCases />
