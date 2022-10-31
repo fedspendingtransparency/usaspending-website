@@ -11,6 +11,10 @@ import { explorerPageMetaTags } from 'helpers/metaTagHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import AnimatedAboutTheDataWrapper from "../aboutTheDataUpdated/AnimatedAboutTheDataWrapper";
+import AboutTheData from "../aboutTheDataUpdated/AboutTheData";
+
+require('pages/aboutTheDataUpdate/aboutTheDataPage.scss');
 
 const propTypes = {
     children: PropTypes.element,
@@ -38,9 +42,11 @@ const ExplorerWrapperPage = (props) => {
     };
 
     const handleATDButtonClick = () => {
-        setATDOpen(!!atdOpen);
-        console.debug(atdOpen);
+        setATDOpen(!atdOpen);
+        console.debug("should do something");
     };
+
+    const atd = <AboutTheData />;
 
     return (
         <PageWrapper
@@ -62,6 +68,7 @@ const ExplorerWrapperPage = (props) => {
                 id="main-content"
                 className="main-content">
                 {props.children}
+                {atdOpen && <AnimatedAboutTheDataWrapper aboutTheData={atd} />}
             </main>
         </PageWrapper>
     );
