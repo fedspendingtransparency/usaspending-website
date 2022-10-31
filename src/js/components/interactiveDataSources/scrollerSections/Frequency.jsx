@@ -54,7 +54,7 @@ function Frequency() {
                     <ScrollerOverlayCard
                         content={
                             <p>
-                                The data on USAspending are updated every day after the nightly
+                                The data on USAspending.gov are updated every day after the nightly
                                 data pipeline runs. However, USAspending source systems have
                                 different requirements for the frequency of their data updates.
                             </p>
