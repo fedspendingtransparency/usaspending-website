@@ -172,7 +172,7 @@ const WordOfTheDay = () => {
                 selectWordOfTheDay();
                 setGlossary(res.data.results);
                 setLoading(false);
-                setError(true);
+                setError(false);
             })
             .catch((err) => {
                 if (!isCancel(err)) {
