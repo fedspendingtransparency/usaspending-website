@@ -9,7 +9,7 @@ import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 import { isCancel } from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, Pagination } from "swiper";
+import { Navigation, Pagination, Keyboard, A11y } from "swiper";
 import { initialState as defaultFilters } from 'redux/reducers/search/searchFiltersReducer';
 import { throttle } from 'lodash';
 import CardButton from "../../sharedComponents/commonCards/CardButton";
@@ -23,8 +23,6 @@ import Analytics from '../../../helpers/analytics/Analytics';
 /* eslint-disable */
 import "swiper/css/bundle";
 import "swiper/css";
-// import "swiper/css/pagination";
-// import "swiper/css/navigation";
 /* eslint-enable */
 
 const AwardSearch = () => {
@@ -173,7 +171,17 @@ const AwardSearch = () => {
                                 <p className="award-search__subtext">Find information on awards such as contracts, loans, and grants based on location, industry, and more.</p>
                             </FlexGridCol>
                             <FlexGridCol desktop={8} tablet={12} mobile={12} className="award-search__col2">
-                                <Swiper a11y centeredSlides watchslidesvisibility="true" slidesPerView="auto" spaceBetween={40} navigation modules={[Navigation]} style={{ alignItems: "middle" }} onSlideChange={onSlideChange}>
+                                <Swiper
+                                    a11y={{ enabled: true }}
+                                    centeredSlides
+                                    navigation
+                                    watchslidesvisibility="true"
+                                    slidesPerView="auto"
+                                    spaceBetween={40}
+                                    modules={[Keyboard, A11y, Navigation]}
+                                    keyboard={{ enabled: true }}
+                                    style={{ alignItems: "middle" }}
+                                    onSlideChange={onSlideChange}>
                                     <SwiperSlide aria-hidden="false" tabIndex={0} className="award-search__slide award-search__card1" style={{ marginBottom: "20px" }}>
                                         <CardContainer variant="elevated" size="lg">
                                             <CardBody
@@ -268,8 +276,19 @@ const AwardSearch = () => {
                                 </FlexGridCol>
                             </FlexGridRow>
                             <FlexGridCol desktop={8} tablet={12} mobile={12} className="award-search__col2" style={{ width: "100%", margin: "auto" }}>
-                                <Swiper a11y centeredSlides pagination={isMobile} navigation={!isMobile} watchslidesvisibility="true" slidesPerView="auto" spaceBetween={40} modules={[Pagination, Navigation]} className="award-search__swiper" onSlideChange={onSlideChange}>
-                                    <SwiperSlide aria-hidden="false" className="award-search__slide" style={{ marginBottom: "20px" }}>
+                                <Swiper
+                                    a11y={{ enabled: true }}
+                                    centeredSlides
+                                    pagination={isMobile}
+                                    navigation={!isMobile}
+                                    watchslidesvisibility="true"
+                                    slidesPerView="auto"
+                                    spaceBetween={40}
+                                    modules={[Keyboard, A11y, Pagination, Navigation]}
+                                    keyboard={{ enabled: true }}
+                                    className="award-search__swiper"
+                                    onSlideChange={onSlideChange}>
+                                    <SwiperSlide aria-hidden="false" tabIndex={0} className="award-search__slide" style={{ marginBottom: "20px" }}>
                                         <CardContainer className="award-search__card1" variant="elevated" size={isMobile ? "sm" : "lg"}>
                                             <CardBody
                                                 headline="Federal Spending to Communities"
@@ -288,7 +307,7 @@ const AwardSearch = () => {
                                             </CardBody>
                                         </CardContainer>
                                     </SwiperSlide>
-                                    <SwiperSlide aria-hidden="true" className="award-search__slide award-search__card2" style={{ marginBottom: "20px" }}>
+                                    <SwiperSlide aria-hidden="true" tabIndex={0} className="award-search__slide award-search__card2" style={{ marginBottom: "20px" }}>
                                         <CardContainer className="award-search__card2" variant="elevated" size={isMobile ? "sm" : "lg"}>
                                             <CardBody
                                                 headline="Federal Spending Over Time"
@@ -307,7 +326,7 @@ const AwardSearch = () => {
                                             </CardBody>
                                         </CardContainer>
                                     </SwiperSlide>
-                                    <SwiperSlide aria-hidden="true" className="award-search__slide award-search__card3" style={{ marginBottom: "20px" }}>
+                                    <SwiperSlide aria-hidden="true" tabIndex={0} className="award-search__slide award-search__card3" style={{ marginBottom: "20px" }}>
                                         <CardContainer className="award-search__card3" variant="elevated" size={isMobile ? "sm" : "lg"}>
                                             <CardBody
                                                 headline="Federal Spending by Industry"
@@ -326,7 +345,7 @@ const AwardSearch = () => {
                                             </CardBody>
                                         </CardContainer>
                                     </SwiperSlide>
-                                    <SwiperSlide aria-hidden="true" className="award-search__slide award-search__card4" style={{ marginBottom: "20px" }}>
+                                    <SwiperSlide aria-hidden="true" tabIndex={0} className="award-search__slide award-search__card4" style={{ marginBottom: "20px" }}>
                                         <CardContainer className="award-search__card4" variant="elevated" size={isMobile ? "sm" : "lg"}>
                                             <CardBody
                                                 headline="Federal Spending by Product or Service"

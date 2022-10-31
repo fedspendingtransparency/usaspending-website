@@ -94,14 +94,14 @@
   }
 
   .word-of-the-day__button {
-    border-color: $card-outline-color;
-    color: $card-outline-color;
+    border-color: $card-outline-color !important;
+    color: $card-outline-color !important;
     width: rem(106);
 
 
     &:hover {
-      border-color: $gray-cool-5;
-      color: $gray-cool-5;
+      border-color: $gray-cool-5 !important;
+      color: $gray-cool-5 !important;
     }
   }
 
