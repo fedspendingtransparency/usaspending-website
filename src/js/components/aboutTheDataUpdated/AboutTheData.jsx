@@ -4,7 +4,8 @@ import { Scrollbars } from 'react-custom-scrollbars';
 import AboutTheDataHeader from "./AboutTheDataHeader";
 
 const propTypes = {
-    children: PropTypes.element
+    children: PropTypes.element,
+    onClose: PropTypes.func
 };
 
 const AboutTheData = (props) => {
@@ -17,8 +18,8 @@ const AboutTheData = (props) => {
         setHeight(sidebarHeight);
     }, []);
 
-    const track = () => <div className="glossary-scrollbar-track" />;
-    const thumb = () => <div className="glossary-scrollbar-thumb" />;
+    const track = () => <div className="atd-scrollbar-track" />;
+    const thumb = () => <div className="atd-scrollbar-thumb" />;
 
     return (
         <div id="usa-atd-wrapper" className="usa-atd-wrapper">
@@ -30,7 +31,7 @@ const AboutTheData = (props) => {
                     style={{ height }}
                     renderTrackVertical={track}
                     renderThumbVertical={thumb}>
-                    <AboutTheDataHeader />
+                    <AboutTheDataHeader closeAboutTheData={props.onClose} />
                 </Scrollbars>
             </aside>
         </div>);

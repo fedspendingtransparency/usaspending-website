@@ -43,10 +43,17 @@ const ExplorerWrapperPage = (props) => {
 
     const handleATDButtonClick = () => {
         setATDOpen(!atdOpen);
-        console.debug("should do something");
     };
 
-    const atd = <AboutTheData />;
+    const onClose = () => {
+        setATDOpen(false);
+        // move focus back to the main content
+        const mainContent = document.getElementById('main-focus');
+        if (mainContent) {
+            mainContent.focus();
+        }
+    };
+    const atd = <AboutTheData onClose={onClose} />;
 
     return (
         <PageWrapper

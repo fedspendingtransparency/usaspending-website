@@ -2,8 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
-import AboutTheData from './AboutTheData';
-
 const propTypes = {
     aboutTheData: PropTypes.object
 };
@@ -15,7 +13,7 @@ const AnimatedAboutTheDataWrapper = (props) => (
                 classNames="atd-slide"
                 timeout={500}
                 exit>
-                <AboutTheData {...props} />
+                {props.aboutTheData}
             </CSSTransition>
         </TransitionGroup>
     </div>
