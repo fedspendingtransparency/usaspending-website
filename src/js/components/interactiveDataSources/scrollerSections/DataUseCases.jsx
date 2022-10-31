@@ -39,7 +39,7 @@ function DataUseCases() {
                     <ScrollerOverlayCard
                         content={
                             <p>
-                                The wealth of data on USAspending allows for many use cases by
+                                The wealth of data on USAspending.gov allows for many use cases by
                                 users of diverse backgrounds, from citizens and taxpayers to
                                 researchers, journalists, small business owners, public
                                 servants, government watchdogs, and more. Read about some of
@@ -58,7 +58,7 @@ function DataUseCases() {
                         heading={<h4>Federal Spending Transparency and Accountability</h4>}
                         content={
                             <p>
-                                Congressional staffers and researchers use USAspending to
+                                Congressional staffers and researchers use USAspending.gov to
                                 identify award recipients and spending amounts to states and
                                 congressional districts.
                             </p>
@@ -75,7 +75,7 @@ function DataUseCases() {
                         heading={<h4>Market Research</h4>}
                         content={
                             <p>
-                                Small business owners use USAspending to perform market research
+                                Small business owners use USAspending.gov to perform market research
                                 for particular locations, industries, and set asides.
                             </p>
                         } />
@@ -91,7 +91,7 @@ function DataUseCases() {
                         heading={<h4>Grant Opportunities and Compliance</h4>}
                         content={
                             <p>
-                                State and local government agencies use USAspending to research
+                                State and local government agencies use USAspending.gov to research
                                 potential grant opportunities and monitor their own grants for
                                 compliance purposes.
                             </p>
@@ -108,7 +108,7 @@ function DataUseCases() {
                         heading={<h4>Federal Spending Trends and Stories</h4>}
                         content={
                             <p>
-                                Journalists use USAspending to find noteworthy trends or stories
+                                Journalists use USAspending.gov to find noteworthy trends or stories
                                 about federal spending.
                             </p>
                         } />

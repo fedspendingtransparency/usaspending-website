@@ -61,9 +61,9 @@ function DataTypes() {
                     <ScrollerOverlayCard
                         content={
                             <p>
-                                Even though USAspending has hundreds of data elements, you can
-                                think of them in three major categories: Account Data; Award
-                                Data; and Additional Data.
+                                Even though USAspending.gov has hundreds of data elements, you can
+                                think of them in three major categories: Account Data, Award
+                                Data, and Additional Data.
                             </p>
                         } />
                 </div>
@@ -92,7 +92,7 @@ function DataTypes() {
                                 Account data contain information about an agency's overall
                                 spending authority, obligations and outlays, including the subset of
                                 spending on federal awards. Account data provide the “big
-                                picture” of an agency's total spending. USAspending receives account
+                                picture” of an agency's total spending. USAspending.gov receives account
                                 data from most federal agencies and supplements the data with
                                 authoritative agency budget execution data.
                             </p>
@@ -124,7 +124,7 @@ function DataTypes() {
                                 such as who received the award, when obligations were made,
                                 where the money went, and what the award's purpose is. Award
                                 spending is a subset of an agency's total spending.
-                                USAspending receives award data from agency financial systems as
+                                USAspending.gov receives award data from agency financial systems as
                                 well as governmentwide award systems.
                             </p>
                         } />
@@ -152,7 +152,7 @@ function DataTypes() {
                         heading={<h4>Additional Data</h4>}
                         content={
                             <p>
-                                USAspending extracts reference data from government sources to
+                                USAspending.gov extracts reference data from government sources to
                                 ensure consistency and provide additional context to the account
                                 data and award data.
                             </p>
