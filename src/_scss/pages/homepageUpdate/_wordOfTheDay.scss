@@ -80,7 +80,10 @@
   .card__body {
     height: calc(100% - 100px);
   }
-
+  .card__body_error{
+    height: 100%;
+    justify-content: center;
+  }
   .usa-dt-flex-grid__col {
     height: 100%;
   }
@@ -107,5 +110,25 @@
 
   .word-of-the-day__error-message {
     text-align: center;
+    color: $gray-2;
+  }
+  .word-of-the-day-paragraph-one{
+    font-size: $font-size-24;
+    text-align: center;
+    font-weight: $font-semibold;
+    margin-bottom: rem(4);
+    margin-top: rem(0);
+  }
+  .word-of-the-day-paragraph-two{
+    font-size: $font-size-16;
+    margin-top: rem(4);
+  }
+  .word-of-the-day-button{
+    border-radius: rem(4);
+    border: solid rem(1) $gray-cool-10;
+    background-color: #1a4480;
+    width: rem(147);
+    height: rem(40);
+    font-weight: $font-semibold;
   }
 }
