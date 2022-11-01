@@ -258,14 +258,14 @@ const HorizontalSingleStackedBarViz = ({
                 }
                 // current label
                 chartSvg.append("foreignObject")
-                    .attr('width', x(propsArr[1]) - 10)
+                    .attr('width', x(propsArr[0]) - x(propsArr[1]) <= 270 ? x(propsArr[1]) - 10 : x(propsArr[0]) - x(propsArr[1]) - 10)
                     .attr('height', 70)
-                    .attr('x', 0)
+                    .attr('x', x(propsArr[0]) - x(propsArr[1]) <= 270 ? 0 : x(propsArr[1]) + 10)
                     .attr('y', 230)
                     .html(`<div className="award-amounts-viz-label__desc-text"><strong>${currentAmountValue}</strong><br />${currentAmountLabel}</div>`)
                     .select('div')
-                    .style('float', 'right')
-                    .style('text-align', 'right')
+                    .style('float', x(propsArr[0]) - x(propsArr[1]) <= 270 ? 'right' : 'left')
+                    .style('text-align', x(propsArr[0]) - x(propsArr[1]) <= 270 ? 'right' : 'left')
                     .style('background-color', 'white')
                     .select('strong')
                     .style('font-size', '20px');
@@ -437,7 +437,7 @@ const HorizontalSingleStackedBarViz = ({
         else {
             renderBarChartLoans();
         }
-    }, [windowWidth, propsArr]);
+    }, [windowWidth, propsArr, numerator.className, potentialAmountValue, potentialAmountLabel, outlayedAmountValue, obligatedAmountColor, outlayedAmountColor, isNffZero, obligatedAmountValue, obligatedAmountLabel, currentAmountValue, currentAmountLabel, outlayedAmountLabel]);
 
     useEffect(() => {
         const handleResize = throttle(() => {
