@@ -61,7 +61,6 @@ const cardObjects = [
                 <FontAwesomeIcon icon="sitemap" color="#0081a1" size="lg" />
             </div>
         ),
-        // unnecessary comment to check in this file again
         headline: 'Data Model',
         text: 'Learn how our data is organized',
         buttonText: (
@@ -90,8 +89,7 @@ const cardObjects = [
                 <FontAwesomeIcon icon="arrow-right" />
             </>
         ),
-        // todo - change this path when the url changes to /homepage
-        buttonLink: '/homepage_update/?glossary&',
+        buttonLink: '/?glossary&',
         action: () => Analytics.event({
             category: 'Homepage',
             action: 'Link',

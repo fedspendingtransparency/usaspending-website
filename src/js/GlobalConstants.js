@@ -20,11 +20,8 @@ const globalConstants = {
     PROD: process.env.ENV === 'prod',
     FILES_SERVER_BASE_URL: filesServerUrlByEnv[process.env.ENV],
     ARP_RELEASED: process.env.ENV !== 'prod',
-    DUNS_LABEL: 'Legacy ', // 'Legacy ' later...
-    SHOW_HOMEPAGE_UPDATE: true,
+    DUNS_LABEL: 'Legacy ',
     REQUEST_VERSION: '2020-06-01'
-
-
 };
 
 module.exports = globalConstants;

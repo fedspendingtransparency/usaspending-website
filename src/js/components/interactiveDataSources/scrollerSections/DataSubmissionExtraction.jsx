@@ -21,7 +21,7 @@ function DataSubmissionExtraction() {
                 </div>
                 <div className="bottom-animation">
                     <LottieAnimation
-                        loop
+                        loop={1}
                         ref={ref2}
                         src="/img/interactive-data-sources/6_DSE_BG.json"
                         role="presentation" />
@@ -52,7 +52,7 @@ function DataSubmissionExtraction() {
                     <ScrollerOverlayCard
                         content={
                             <p>
-                                Data from government systems flow into USAspending in one of two
+                                Data from government systems flow into USAspending.gov in one of two
                                 ways: they are either submitted directly or extracted.
                             </p>
                         } />
@@ -79,7 +79,7 @@ function DataSubmissionExtraction() {
                         content={
                             <p>
                                 Files A, B, and C, as well as FABS data, are all sent directly
-                                from federal agencies to USAspending. For more information about
+                                from federal agencies to USAspending.gov. For more information about
                                 what is included in these submissions, please consult the
                                 Reporting Submission Specification (RSS) spreadsheet in the{" "}
                                 <a
@@ -116,7 +116,7 @@ function DataSubmissionExtraction() {
                         content={
                             <p>
                                 Data in Files D1, E, and F, as well as all reference data,
-                                are extracted by USAspending from government sources. For more
+                                are extracted by USAspending.gov from government sources. For more
                                 information about what is included in these extractions, please
                                 consult the Interface Definition Document (IDD) spreadsheet in
                                 the{" "}

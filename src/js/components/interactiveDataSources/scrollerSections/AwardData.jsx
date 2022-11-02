@@ -19,7 +19,7 @@ function AwardData() {
                         <GlossaryLink term="account-breakdown-by-award-file-c" />{" "}
                     is part of the package of data submitted to USAspending by federal
                     agencies, as required by the DATA Act. It contains obligation and
-                    outlay data for all awards issued by that agency, covering both
+                    outlay data for all awards issued by a reporting agency, covering both
                     contract and financial assistance awards over the lifetime of those
                     awards. These spending amounts represent a subset of the account-level
                     spending in File B. Note that File C represents only the financial
@@ -80,7 +80,7 @@ function AwardData() {
                         <GlossaryLink term="recipient-location" />,{" "}
                         <span className="glossary-term">place of performance</span>{" "}
                         <GlossaryLink term="primary-place-of-performance" />,{" "}
-                        <span className="glossary-term">industry</span>{" "}
+                        <span className="glossary-term">industry (NAICS)</span>{" "}
                         <GlossaryLink term="naics" />,{" "}
                         <span className="glossary-term">product or service</span>{" "}
                         <GlossaryLink term="product-or-service-code-psc" />, and type of{" "}
@@ -88,7 +88,7 @@ function AwardData() {
                         <GlossaryLink term="set-aside-type" />, among other details.
                     </p>
                     <p>
-                        The collection of data in FPDS that USAspending receives
+                        The collection of data in FPDS that USAspending.gov receives
                         (as part of agency monthly submissions and quarterly certifications)
                         is known as{" "}
                         <span className="glossary-term">File D1</span>{" "}
@@ -129,7 +129,7 @@ function AwardData() {
                         among other details.
                     </p>
                     <p>
-                        The collection of data in FABS that USAspending receives
+                        The collection of data in FABS that USAspending.gov receives
                         (as part of agency monthly submissions and quarterly certifications)
                         is known as{" "}
                         <span className="glossary-term">File D2</span>{" "}
@@ -147,7 +147,7 @@ function AwardData() {
                     from agency financial systems, Files D1 and D2 provide data from award{" "}
                         <span className="glossary-term">transactions</span>{" "}
                         <GlossaryLink term="transaction" /> in governmentwide award systems.
-                    USAspending links these two sources of award data. However, due to
+                    USAspending.gov links these two sources of award data. However, due to
                     different policies and reporting requirements for these separate
                     systems, not all award data can be linked across both sources.
                     Awards can only be linked through a shared{" "}
@@ -252,7 +252,7 @@ function AwardData() {
                         data.
                     </p>
                     <p>
-                        The collection of data in FSRS that USAspending receives
+                        The collection of data in FSRS that USAspending.gov receives
                         (as part of agency monthly submissions and quarterly certifications)
                         is known as File F.
                     </p>
@@ -276,7 +276,7 @@ function AwardData() {
                 </div>
                 <div className="bottom-animation">
                     <LottieAnimation
-                        loop
+                        loop={1}
                         ref={ref2}
                         src="/img/interactive-data-sources/5_DS_AWARD_BG.json"
                         role="presentation" />

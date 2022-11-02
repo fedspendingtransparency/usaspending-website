@@ -12,10 +12,10 @@ const IntroSection = () => (
                     </h1>
                     <div>
                         <h2>
-                            A journey though government spending data
+                            A journey through government spending data
                         </h2>
                         <p data-testid="paragraphText">
-                            USAspending links data from many government systems, including agency financial systems and governmentwide award systems. Scroll below to learn more about these systems, as well as the context for this historic initiative to provide federal spending transparency.
+                            USAspending.gov links data from many government systems, including agency financial systems and governmentwide award systems. Scroll below to learn more about these systems, as well as the context for this historic initiative to provide federal spending transparency.
                         </p>
                     </div>
                 </div>
@@ -24,7 +24,7 @@ const IntroSection = () => (
         <div className="interactive-data-sources-intro-animation">
             <LottieAnimation
                 autoplay
-                loop
+                loop={1}
                 src="/img/interactive-data-sources/intro-animation.json"
                 role="presentation" />
         </div>
