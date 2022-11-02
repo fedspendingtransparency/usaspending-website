@@ -9,6 +9,7 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 const propTypes = {
     aboutTheData: PropTypes.object
 };
+require('pages/aboutTheDataUpdate/aboutTheDataPage.scss');
 
 const AnimatedAboutTheDataWrapper = (props) => (
     <div className="usa-atd-animations">
@@ -17,7 +18,9 @@ const AnimatedAboutTheDataWrapper = (props) => (
                 classNames="atd-slide"
                 timeout={500}
                 exit>
-                {props.aboutTheData}
+                <>
+                    {props.aboutTheData}
+                </>
             </CSSTransition>
         </TransitionGroup>
     </div>

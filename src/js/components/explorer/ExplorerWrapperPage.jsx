@@ -14,8 +14,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AnimatedAboutTheDataWrapper from "../aboutTheDataUpdated/AnimatedAboutTheDataWrapper";
 import AboutTheData from "../aboutTheDataUpdated/AboutTheData";
 
-require('pages/aboutTheDataUpdate/aboutTheDataPage.scss');
-
 const propTypes = {
     children: PropTypes.element,
     showShareIcon: PropTypes.bool,

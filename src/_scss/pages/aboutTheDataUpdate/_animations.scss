@@ -3,7 +3,7 @@
 @import "../../lib/bourbon/settings/prefixer";
 @import "../../lib/bourbon/addons/prefixer";
 
-@keyframes slidein {
+@keyframes atd-slidein {
     0% {
         transform: translate(300px, 0);
     }
@@ -12,7 +12,7 @@
     }
 }
 
-@keyframes slideout {
+@keyframes atd-slideout {
     0% {
         transform: translate(0, 0);
     }
@@ -22,9 +22,9 @@
 }  
 
 .atd-slide-enter, .atd-slide-enter-active {
-    @include animation(slidein 0.5s ease-in forwards);
+    @include animation(atd-slidein 0.5s ease-in forwards);
 }
 
 .atd-slide-exit, .atd-slide-exit-active {
-    @include animation(slideout 0.5s ease-in forwards);
+    @include animation(atd-slideout 0.5s ease-in forwards);
 }
