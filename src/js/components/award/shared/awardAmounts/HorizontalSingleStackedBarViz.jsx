@@ -437,7 +437,8 @@ const HorizontalSingleStackedBarViz = ({
         else {
             renderBarChartLoans();
         }
-    }, [windowWidth, propsArr, numerator.className, potentialAmountValue, potentialAmountLabel, outlayedAmountValue, obligatedAmountColor, outlayedAmountColor, isNffZero, obligatedAmountValue, obligatedAmountLabel, currentAmountValue, currentAmountLabel, outlayedAmountLabel]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [windowWidth, propsArr]);
 
     useEffect(() => {
         const handleResize = throttle(() => {
