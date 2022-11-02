@@ -13,7 +13,7 @@ require('pages/aboutTheDataUpdate/aboutTheDataPage.scss');
 
 const AnimatedAboutTheDataWrapper = (props) => (
     <div className="usa-atd-animations">
-        <TransitionGroup>
+        <TransitionGroup component={null} enter exit>
             <CSSTransition
                 classNames="atd-slide"
                 timeout={500}

@@ -35,9 +35,12 @@
     }
 
     h1.usa-atd-header__title {
-        font-weight: 300;
-        font-size: rem(38);
-        line-height: rem(47);
+        font-weight: $font-semibold;
+        font-size: rem(32);
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.25;
+        letter-spacing: normal;
 
         margin: 0;
         padding: 0;
