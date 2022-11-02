@@ -117,7 +117,7 @@ function DataFeatures() {
                                 </p>
                                 <ul className="interactives-guide_bullet-points">
                                     <li>
-                                        <span className="glossary-term">Time Period</span>{" "}
+                                        <span className="glossary-term">Action Date</span>{" "}
                                         <GlossaryLink term="action-date" />
                                     </li>
                                     <li>
@@ -145,7 +145,7 @@ function DataFeatures() {
                                         <GlossaryLink term="assistance-listings-cfda-program" />
                                     </li>
                                     <li>
-                                        <span className="glossary-term">Industry</span>{" "}
+                                        <span className="glossary-term">Industry (NAICS)</span>{" "}
                                         <GlossaryLink term="naics" />
                                     </li>
                                 </ul>

@@ -5,7 +5,6 @@
 
 import React from 'react';
 
-const Homepage = React.lazy(() => import('components/homepage/Homepage').then((comp) => comp));
 const HomepageUpdate = React.lazy(() => import('components/homepageUpdate/HomepageUpdate').then((comp) => comp));
 const SearchContainer = React.lazy(() => import('containers/search/SearchContainer').then((comp) => comp));
 const SearchContainerRedirect = React.lazy(() => import('containers/search/SearchContainer').then((module) => ({ default: module.SearchContainerRedirect })));
@@ -46,11 +45,6 @@ const TempPage = React.lazy(() => import('components/tempPage').then((comp) => c
 export const routes = [
     {
         path: `/`,
-        component: Homepage,
-        exact: true
-    },
-    {
-        path: `/homepage_update`,
         component: HomepageUpdate,
         exact: true
     },

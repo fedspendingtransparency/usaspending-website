@@ -714,7 +714,7 @@ const AwardAmountsChart = ({
                 }
             };
 
-            const propsWithoutFileCAndOutlays = {
+            const hasOutlaysOrHasInfrastructureProps = {
                 numerator: {
                     labelPosition: 'bottom',
                     labelSortOrder: 1,
@@ -789,11 +789,24 @@ const AwardAmountsChart = ({
                                 tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory('loan', 'fileCOutlay', awardAmounts)
                             }]
                         }]
+                    },
+                    numerator2: {
+                        labelSortOrder: 0,
+                        labelPosition: 'top',
+                        className: `${awardType}-outlayed`,
+                        rawValue: getAwardOutlayRawValue(awardAmounts, awardType, fileCType),
+                        value: getAwardOutlayValue(awardAmounts, awardType, fileCType),
+                        color: getAwardColor(outlayColor, infrastructureOutlayColor, fileCType),
+                        lineOffset: lineOffsetsBySpendingCategory.potential,
+                        text: 'Outlayed Amount'
                     }
                 }
                 : propsWithoutFileC;
-            if ((hasOutlays || hasInfrastructure) && !showFilecCovid) {
-                return <HorizontalSingleStackedBarViz {...propsWithoutFileCAndOutlays} />;
+            if (showFilecCovid) {
+                return <HorizontalSingleStackedBarViz {...props} />;
+            }
+            else if (hasOutlays || hasInfrastructure) {
+                return <HorizontalSingleStackedBarViz {...hasOutlaysOrHasInfrastructureProps} />;
             }
             return <RectanglePercentViz {...props} />;
         }
