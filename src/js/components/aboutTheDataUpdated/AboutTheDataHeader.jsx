@@ -1,3 +1,7 @@
+/**
+ * AboutTheDataHeader.jsx
+ * Created by Nick Torres 11/2/22
+ */
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import * as Icons from 'components/sharedComponents/icons/Icons';

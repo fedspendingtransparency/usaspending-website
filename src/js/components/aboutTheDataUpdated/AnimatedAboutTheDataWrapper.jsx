@@ -1,3 +1,7 @@
+/**
+ * AboutTheDataWrapper.jsx
+ * Created by Nick Torres 11/2/22
+ */
 import React from 'react';
 import PropTypes from 'prop-types';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
