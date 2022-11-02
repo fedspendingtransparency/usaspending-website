@@ -1,5 +1,5 @@
 /**
- * AboutTheDataWrapper.jsx
+ * AnimatedAboutTheDataWrapper.jsx
  * Created by Nick Torres 11/2/22
  */
 import React from 'react';
