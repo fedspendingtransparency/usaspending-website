@@ -144,39 +144,31 @@ const WordOfTheDay = () => {
         if (!found) {
             definitionNotFound();
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [glossary, pathname, search, term]);
 
-    useEffect(() => {
         if (term === "Account Balance (File A)") {
             setChangedTerm("File A");
-            setTerm(null);
         }
         else if (term === "Account Breakdown by Award (File C)") {
             setChangedTerm("File C");
-            setTerm(null);
         }
         else if (term === "Account Breakdown by Program Activity & Object Class (File B)") {
             setChangedTerm("File B");
-            setTerm(null);
         }
         else if (term === "Period of Performance Current End Date") {
             setChangedTerm("Current End Date");
-            setTerm(null);
         }
         else if (term === "Period of Performance Potential End Date") {
             setChangedTerm("Potential End Date");
-            setTerm(null);
         }
         else if (term === "Period of Performance Start Date") {
             setChangedTerm("Start Date");
-            setTerm(null);
         }
         else if (term === "Procurement Instrument Identifier (PIID)") {
             setChangedTerm("PIID");
-            setTerm(null);
         }
-    }, [term]);
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [glossary, pathname, search, term]);
 
     useEffect(() => {
         fetchAllTerms().promise
@@ -193,6 +185,7 @@ const WordOfTheDay = () => {
                     setError(true);
                 }
             });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (

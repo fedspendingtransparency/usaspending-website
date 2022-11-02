@@ -61,7 +61,7 @@ const cardObjects = [
                 <FontAwesomeIcon icon="sitemap" color="#0081a1" size="lg" />
             </div>
         ),
-        headline: 'Data Source',
+        headline: 'Data Model',
         text: 'Learn how our data is organized',
         buttonText: (
             <>
