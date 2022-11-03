@@ -8,7 +8,8 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import AboutTheData from "../aboutTheDataUpdated/AboutTheData";
 
 const propTypes = {
-    onClose: PropTypes.func
+    onClose: PropTypes.func,
+    open: PropTypes.bool
 };
 
 const AnimatedAboutTheDataWrapper = (props) => (
@@ -21,7 +22,7 @@ const AnimatedAboutTheDataWrapper = (props) => (
                 in
                 exit>
                 <>
-                    <AboutTheData onClose={props.onClose} />
+                    {props.open && <AboutTheData onClose={props.onClose} /> }
                 </>
             </CSSTransition>
         </TransitionGroup>

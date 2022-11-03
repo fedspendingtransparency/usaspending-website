@@ -6,12 +6,12 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { ShareIcon } from 'data-transparency-ui';
-
 import { explorerPageMetaTags } from 'helpers/metaTagHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AnimatedAboutTheDataWrapper from "../aboutTheDataUpdated/AnimatedAboutTheDataWrapper";
+import ATDButton from "../sharedComponents/aboutTheData/ATDButton";
 
 const propTypes = {
     children: PropTypes.element,
@@ -62,16 +62,13 @@ const ExplorerWrapperPage = (props) => {
                     onShareOptionClick={handleShare}
                     url={getBaseUrl(slug)} /> : <></>,
                 !props.showAboutTheDataIcon ?
-                    <button tabIndex="0" className="explorer-page__atd-icon" onClick={handleATDButtonClick}>
-                        <FontAwesomeIcon icon="file-alt" size="lg" />
-                        <span className="explorer-page__atd-span">About the Data</span>
-                    </button> : <></>
+                    <ATDButton onClick={handleATDButtonClick} /> : <></>
             ]}>
             <main
                 id="main-content"
                 className="main-content">
                 {props.children}
-                {atdOpen && <AnimatedAboutTheDataWrapper onClose={onClose} />}
+                <AnimatedAboutTheDataWrapper onClose={onClose} open={atdOpen} />
             </main>
         </PageWrapper>
     );
