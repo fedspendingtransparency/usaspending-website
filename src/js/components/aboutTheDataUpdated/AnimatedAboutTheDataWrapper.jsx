@@ -21,7 +21,7 @@ const AnimatedAboutTheDataWrapper = (props) => (
                 in
                 exit>
                 <>
-                    <AboutTheData onClose={props.onClose}/>
+                    <AboutTheData onClose={props.onClose} />
                 </>
             </CSSTransition>
         </TransitionGroup>
