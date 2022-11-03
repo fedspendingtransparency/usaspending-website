@@ -9,7 +9,6 @@ import { ShareIcon } from 'data-transparency-ui';
 import { explorerPageMetaTags } from 'helpers/metaTagHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AnimatedAboutTheDataWrapper from "../aboutTheDataUpdated/AnimatedAboutTheDataWrapper";
 import ATDButton from "../sharedComponents/aboutTheData/ATDButton";
 
