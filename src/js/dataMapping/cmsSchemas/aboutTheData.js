@@ -6,8 +6,7 @@ export const schema = {
             fields: [
                 {
                     title: "File A (Account Balances)",
-                    slug: "file-a",
-                    isGlossaryTerm: false
+                    slug: "file-a"
                 }
             ]
         },
@@ -17,19 +16,7 @@ export const schema = {
             fields: [
                 {
                     title: "File A (Account Balances)",
-                    slug: "file-a",
-                    isGlossaryTerm: false
-                }
-            ]
-        },
-        {
-            label: "Data Sources on this Page",
-            path: 'content/data-sources/page',
-            fields: [
-                {
-                    title: "File A (Account Balances)",
-                    slug: "file-a",
-                    isGlossaryTerm: false
+                    slug: "file-a"
                 }
             ]
         }
