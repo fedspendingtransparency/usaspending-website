@@ -9,7 +9,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { omit, snakeCase } from 'lodash';
 import { ShareIcon } from 'data-transparency-ui';
-
+import { Helmet } from 'react-helmet';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
 import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
@@ -99,6 +99,9 @@ const Covid19Page = ({ loading }) => {
                 <DownloadButtonContainer />
             ]}>
             <LoadingWrapper isLoading={loading}>
+                <Helmet>
+                    <link href="https://api.mapbox.com/mapbox-gl-js/v1.13.0/mapbox-gl.css" rel="stylesheet" />
+                </Helmet>
                 <main id="main-content" className="main-content usda__flex-row">
                     <div className="sidebar">
                         <div className="sidebar__content">
