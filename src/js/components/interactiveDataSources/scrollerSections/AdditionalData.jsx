@@ -10,7 +10,7 @@ function AdditionalData() {
         card1: {
             content: (
                 <p>
-                    USAspending uses information from authoritative government systems to
+                    USAspending.gov uses information from authoritative government systems to
                     provide additional context to account data and award data. Some
                     examples of these additional data are below.
                 </p>
@@ -20,7 +20,7 @@ function AdditionalData() {
             heading: <h4>Location Data</h4>,
             content: (
                 <p>
-                    USAspending standardizes the location elements in its award data by
+                    USAspending.gov standardizes the location elements in its award data by
                     using authoritative names and codes from government systems. For
                     example, U.S. Postal Code data are used for zip codes, and Census
                     Bureau data are used for congressional districts.
@@ -32,7 +32,7 @@ function AdditionalData() {
             content: (
                 <p>
                     There are two federal hierarchies that relate agencies to their
-                    subcomponents. USAspending draws from the Office of Management and
+                    subcomponents. USAspending.gov draws from the Office of Management and
                     Budget's hierarchy for account data, and from the General Services
                     Administration's hierarchy for award data. You can see these two
                     hierarchies in any of the{" "}
@@ -63,7 +63,7 @@ function AdditionalData() {
                 </div>
                 <div className="bottom-animation">
                     <LottieAnimation
-                        loop
+                        loop={1}
                         ref={ref2}
                         src="/img/interactive-data-sources/5_DS_ADDITIONAL_BG.json"
                         role="presentation" />

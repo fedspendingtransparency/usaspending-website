@@ -23,14 +23,14 @@ function DataSourceSystems() {
                 </div>
                 <div className="top-animation">
                     <LottieAnimation
-                        loop
+                        loop={1}
                         ref={ref2}
                         src="/img/interactive-data-sources/4_DSS_TYPES.json"
                         role="presentation" />
                 </div>
                 <div className="bottom-animation">
                     <LottieAnimation
-                        loop
+                        loop={1}
                         ref={ref3}
                         src="/img/interactive-data-sources/4_DSS_BG.json"
                         role="presentation" />
@@ -57,7 +57,7 @@ function DataSourceSystems() {
                         content={
                             <p>
                                 You can understand the USAspending source systems as grouped by
-                                the type of data they provide: Account Data; Award Data; and
+                                the type of data they provide: Account Data, Award Data, and
                                 Additional Data.
                             </p>
                         } />
@@ -85,7 +85,7 @@ function DataSourceSystems() {
                         heading={<h4>Agency Budget Execution</h4>}
                         content={
                             <p>
-                                Agency budget execution information shows how agencies across
+                                Agency budget execution information (compiled in SF 133 reports) shows how agencies across
                                 the federal government spend their funding, as required by the{" "}
                                 <a
                                     className="scroller-overlay-card__link"
@@ -95,7 +95,7 @@ function DataSourceSystems() {
                                 Office of Management and Budget's Circular A-11
                                 </a>
                                 . Some smaller agencies do not submit their account data to
-                                USAspending but nonetheless submit budget execution data to a
+                                USAspending.gov but nonetheless submit budget execution data to a
                                 different system.
                             </p>
                         } />
@@ -126,7 +126,7 @@ function DataSourceSystems() {
                                 Federal agencies maintain business systems to track their own
                                 finances, such as for operational costs, employee salaries, and
                                 spending for federal awards. Data from these systems are
-                                submitted directly to USAspending in accordance with the DATA
+                                submitted directly to USAspending.gov in accordance with the DATA
                                 Act and guidance from the Office of Management and Budget.
                             </p>
                         } />
@@ -202,8 +202,8 @@ function DataSourceSystems() {
                         content={
                             <p>
                                 Certain agencies are considered authoritative sources for
-                                information related to the spending data that USAspending
-                                publishes. USAspending draws from these agencies' systems as
+                                information related to the spending data that USAspending.gov
+                                publishes. USAspending.gov draws from these agencies' systems as
                                 needed to provide standardized names, codes, and element
                                 relationships.
                             </p>

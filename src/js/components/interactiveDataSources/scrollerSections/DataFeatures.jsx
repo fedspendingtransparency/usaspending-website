@@ -14,7 +14,7 @@ function DataFeatures() {
             {/* SCROLLER BACKDROPS */}
             <div name="animation-loop" className="position position--center">
                 <LottieAnimation
-                    loop
+                    loop={1}
                     ref={ref1}
                     src="/img/interactive-data-sources/9_DA.json"
                     role="presentation" />
@@ -117,7 +117,7 @@ function DataFeatures() {
                                 </p>
                                 <ul className="interactives-guide_bullet-points">
                                     <li>
-                                        <span className="glossary-term">Time Period</span>{" "}
+                                        <span className="glossary-term">Action Date</span>{" "}
                                         <GlossaryLink term="action-date" />
                                     </li>
                                     <li>
@@ -145,7 +145,7 @@ function DataFeatures() {
                                         <GlossaryLink term="assistance-listings-cfda-program" />
                                     </li>
                                     <li>
-                                        <span className="glossary-term">Industry</span>{" "}
+                                        <span className="glossary-term">Industry (NAICS)</span>{" "}
                                         <GlossaryLink term="naics" />
                                     </li>
                                 </ul>
@@ -214,7 +214,7 @@ function DataFeatures() {
                                             to="/download_center/custom_account_data"
                                             target="_blank"
                                             rel="noopener noreferrer">
-                                        Custom Account Data download
+                                        Custom Account Data Download
                                         </Link>{" "}
                                         (using the DEFC filter)
                                     </li>
@@ -283,7 +283,9 @@ function DataFeatures() {
                                         Results from{" "}
                                         <Link
                                             className="scroller-overlay-card__link"
-                                            to="/search">
+                                            to="/search"
+                                            target="_blank"
+                                            rel="noopener noreferrer">
                                             Advanced Search
                                         </Link>{" "}
                                         can be downloaded from the top right of the page
@@ -293,7 +295,9 @@ function DataFeatures() {
                                         column in{" "}
                                         <Link
                                             className="scroller-overlay-card__link"
-                                            to="/search">
+                                            to="/search"
+                                            target="_blank"
+                                            rel="noopener noreferrer">
                                             Advanced Search
                                         </Link>{" "}
                                         results) can be downloaded from the top right of the page
