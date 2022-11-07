@@ -119,10 +119,6 @@ const WordOfTheDay = () => {
         setCurrentMonth(d.getUTCMonth());
     };
 
-    const definitionNotFound = () => {
-        setTerm(glossaryTerms[0]);
-    };
-
     const trackWordLink = () => Analytics.event({
         category: 'Homepage',
         action: 'Link',
@@ -142,7 +138,7 @@ const WordOfTheDay = () => {
         }
 
         if (!found) {
-            definitionNotFound();
+            setError(true);
         }
 
         if (term === "Account Balance (File A)") {
