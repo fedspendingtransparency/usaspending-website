@@ -114,18 +114,20 @@ export const determineFileCSpendingScenario = (awardType, awardAmountObj) => {
     return (fileCScenario === 'normal') ? 'normal' : 'insufficientData';
 };
 
-export const determineLoanSpendingScenario = (awardAmountObj) => {
+export const determineLoanSpendingScenario = (awardAmountObj, covidSpending) => {
     const {
-        _totalOutlay, _totalObligation, _subsidy, _faceValue
+        _totalOutlay, _totalObligation, _subsidy, _faceValue, _fileCObligated
     } = awardAmountObj;
-
-    console.log('_totalOutlay', _totalOutlay);
-    console.log('_totalObligation', _totalObligation);
-    console.log('_subsidy', _subsidy);
-    console.log('_faceValue', _faceValue);
 
     if (_subsidy === 0 && _faceValue === 0) return 'insufficientData';
     if (_subsidy < 0 || _faceValue < 0) return 'insufficientData';
+
+    if (covidSpending) {
+        console.log('in new block');
+        if (_totalOutlay > _fileCObligated || _totalOutlay > _subsidy || _totalOutlay > _faceValue || _fileCObligated > _subsidy || _fileCObligated > _faceValue || _subsidy > _faceValue) return 'insufficientData';
+        if (_totalOutlay <= _fileCObligated <= _subsidy <= _faceValue) return 'normal';
+    }
+
     if (_totalOutlay > _totalObligation || _totalOutlay > _subsidy || _totalOutlay > _faceValue || _totalObligation > _subsidy || _totalObligation > _faceValue || _subsidy > _faceValue) return 'insufficientData';
 
     if (_totalObligation === 0 && _totalOutlay === 0) {
@@ -150,8 +152,8 @@ export const determineInfrastructureSpendingScenario = (awardType, awardAmountOb
     return (fileCScenario === 'normal') ? 'normal' : 'insufficientData';
 };
 
-export const determineSpendingScenarioByAwardType = (awardType, awardAmountObj, infrastructure) => {
-    if (infrastructure) {
+export const determineSpendingScenarioByAwardType = (awardType, awardAmountObj, activeTab) => {
+    if (activeTab === "infrastructure") {
         if (determineInfrastructureSpendingScenario(awardType, awardAmountObj) !== 'normal') return 'insufficientData';
     }
 
@@ -161,7 +163,7 @@ export const determineSpendingScenarioByAwardType = (awardType, awardAmountObj, 
     }
 
     if (awardType === 'loan') {
-        return (determineLoanSpendingScenario(awardAmountObj));
+        return (determineLoanSpendingScenario(awardAmountObj, activeTab === 'covid'));
     }
 
     // Small, bigger, and biggest define the expected ratio between spending categories

@@ -548,11 +548,6 @@ const AwardAmountsChart = ({
         const hasInfrastructure = fileCType === "infrastructure";
         const hasOutlays = awardAmounts._combinedOutlay > 0 || awardAmounts._totalOutlay > 0;
 
-        console.log('isNormal', isNormal);
-        console.log('showFilecCovid', showFilecCovid);
-        console.log('hasInfrastructure', hasInfrastructure);
-        console.log('hasOutlays', hasOutlays);
-
         if (asstAwardTypesWithSimilarAwardAmountData.includes(type) && isNormal) {
             const isNffZero = awardAmounts._nonFederalFunding === 0;
 
