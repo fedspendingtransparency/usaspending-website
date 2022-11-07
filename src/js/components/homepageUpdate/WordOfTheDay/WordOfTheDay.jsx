@@ -164,7 +164,7 @@ const WordOfTheDay = () => {
         }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [glossary, pathname, search, term, changedTerm]);
+    }, [glossary, pathname, search, term]);
 
     useEffect(() => {
         fetchAllTerms().promise
