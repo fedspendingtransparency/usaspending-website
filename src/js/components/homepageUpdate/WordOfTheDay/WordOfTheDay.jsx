@@ -119,10 +119,6 @@ const WordOfTheDay = () => {
         setCurrentMonth(d.getUTCMonth());
     };
 
-    const definitionNotFound = () => {
-        setTerm(glossaryTerms[0]);
-    };
-
     const trackWordLink = () => Analytics.event({
         category: 'Homepage',
         action: 'Link',
@@ -142,9 +138,9 @@ const WordOfTheDay = () => {
         }
 
         if (!found) {
-            definitionNotFound();
+            setError(true);
         }
-
+        console.debug(term);
         if (term === "Account Balance (File A)") {
             setChangedTerm("File A");
         }
@@ -168,7 +164,7 @@ const WordOfTheDay = () => {
         }
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [glossary, pathname, search, term]);
+    }, [glossary, pathname, search, term, changedTerm]);
 
     useEffect(() => {
         fetchAllTerms().promise
