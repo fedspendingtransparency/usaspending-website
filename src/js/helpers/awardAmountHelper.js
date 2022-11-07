@@ -119,6 +119,11 @@ export const determineLoanSpendingScenario = (awardAmountObj) => {
         _totalOutlay, _totalObligation, _subsidy, _faceValue
     } = awardAmountObj;
 
+    console.log('_totalOutlay', _totalOutlay);
+    console.log('_totalObligation', _totalObligation);
+    console.log('_subsidy', _subsidy);
+    console.log('_faceValue', _faceValue);
+
     if (_subsidy === 0 && _faceValue === 0) return 'insufficientData';
     if (_subsidy < 0 || _faceValue < 0) return 'insufficientData';
     if (_totalOutlay > _totalObligation || _totalOutlay > _subsidy || _totalOutlay > _faceValue || _totalObligation > _subsidy || _totalObligation > _faceValue || _subsidy > _faceValue) return 'insufficientData';

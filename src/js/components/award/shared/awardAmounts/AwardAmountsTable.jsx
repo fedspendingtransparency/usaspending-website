@@ -50,6 +50,10 @@ const AwardAmountsTable = ({
      * so we're relying on the parent in this case because we cant deduce the spending scenario
      **/
 
+    console.log('awardData', awardData);
+    console.log('spendingScenario', spendingScenario);
+    console.log('showFileC', showFileC);
+
     const getOverSpendingRow = (awardAmounts = awardData, scenario = spendingScenario, type = awardAmountType) => {
         switch (scenario) {
             case ('normal'):
@@ -114,7 +118,8 @@ const AwardAmountsTable = ({
                     hide = true;
                 }
             });
-        } else {
+        }
+        else {
             allExclusions.forEach((item) => {
                 if (title === item) {
                     hide = true;
