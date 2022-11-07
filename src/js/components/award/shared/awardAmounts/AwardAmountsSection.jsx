@@ -34,8 +34,6 @@ const AwardAmountsSection = ({
 
     const tabTypes = generateDefcTabs(awardOverview);
 
-    console.log('active', active);
-
     return (
         <AwardSection type="column" className="award-viz award-amounts">
             <div className="award__col__content">
