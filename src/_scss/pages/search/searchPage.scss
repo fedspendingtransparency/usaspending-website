@@ -2,6 +2,7 @@
     @import "all";
     @import "layouts/tabbedSearch/tabbedSearch";
     @import "layouts/default/stickyHeader/header";
+    @import "../../components/atdButton";
 
     @import "./searchSidebar";
     @import "./_pagePositioning";
@@ -12,6 +13,7 @@
 
     #main-content {
         padding-bottom: rem(32);
+        @import "../aboutTheDataUpdate/aboutTheDataPage";
     }
 
     .search-results-wrapper {

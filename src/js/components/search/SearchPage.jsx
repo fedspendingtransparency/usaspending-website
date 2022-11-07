@@ -17,6 +17,8 @@ import PageWrapper from 'components/sharedComponents/PageWrapper';
 import SearchSidebar from './SearchSidebar';
 import SearchResults from './SearchResults';
 import NoDownloadHover from './header/NoDownloadHover';
+import AnimatedAboutTheDataWrapper from "../aboutTheDataUpdated/AnimatedAboutTheDataWrapper";
+import ATDButton from "../sharedComponents/aboutTheData/ATDButton";
 
 const propTypes = {
     download: PropTypes.object,
@@ -27,7 +29,8 @@ const propTypes = {
     downloadInFlight: PropTypes.bool,
     requestsComplete: PropTypes.bool,
     noFiltersApplied: PropTypes.bool,
-    hash: PropTypes.string
+    hash: PropTypes.string,
+    showAboutTheDataIcon: PropTypes.bool
 };
 
 export default class SearchPage extends React.Component {
@@ -38,7 +41,8 @@ export default class SearchPage extends React.Component {
             showMobileFilters: false,
             filterCount: 0,
             isMobile: false,
-            showFullDownload: false
+            showFullDownload: false,
+            atdOpen: false
         };
 
         // throttle the ocurrences of the scroll callback to once every 50ms
@@ -49,6 +53,9 @@ export default class SearchPage extends React.Component {
 
         this.showModal = this.showModal.bind(this);
         this.hideModal = this.hideModal.bind(this);
+        this.showATD = this.showATD.bind(this);
+        this.hideATD = this.hideATD.bind(this);
+        this.onATDClose = this.onATDClose.bind(this);
     }
 
     componentDidMount() {
@@ -60,6 +67,15 @@ export default class SearchPage extends React.Component {
     componentWillUnmount() {
     // stop observing scroll and resize events
         window.removeEventListener('resize', this.handleWindowResize);
+    }
+
+    onATDClose() {
+        this.hideATD();
+        // move focus back to the main content
+        const mainContent = document.getElementById('main-focus');
+        if (mainContent) {
+            mainContent.focus();
+        }
     }
 
     handleWindowResize() {
@@ -119,6 +135,18 @@ export default class SearchPage extends React.Component {
         });
     }
 
+    showATD() {
+        this.setState({
+            atdOpen: true
+        });
+    }
+
+    hideATD() {
+        this.setState({
+            atdOpen: false
+        });
+    }
+
     render() {
         let fullSidebar = (
             <SearchSidebar
@@ -143,10 +171,13 @@ export default class SearchPage extends React.Component {
                         }
                         isEnabled={this.props.downloadAvailable}
                         downloadInFlight={this.props.downloadInFlight}
-                        onClick={this.showModal} />
+                        onClick={this.showModal} />,
+                    !this.props.showAboutTheDataIcon ?
+                        <ATDButton onClick={this.showATD} /> : <></>
                 ]}
                 filters={this.props.appliedFilters}>
                 <div id="main-content">
+                    <AnimatedAboutTheDataWrapper onClose={this.onATDClose} open={this.state.atdOpen} />
                     <div className="search-contents">
                         <div className="full-search-sidebar">
                             { fullSidebar }

@@ -1,0 +1,57 @@
+.atd-search-results {
+    padding: 20px;
+    padding-bottom: 40px;
+
+    h2.section-title {
+        font-size: 20px;
+        line-height: 24px;
+        font-weight: 600;
+
+        margin: 0;
+    }
+
+    .atd-result-group {
+        margin-top: 20px;
+
+        h2.group-title {
+            @include h3;
+            font-size: 18px;
+            line-height: 26px;
+            font-weight: 600;
+
+            margin: 0;
+        }
+
+        hr.group-divider {
+            border: none;
+            border-top: 1px solid $color-white;
+            opacity: 0.5;
+        }
+
+        ul.group-items {
+            @include unstyled-list;
+
+            li {
+                margin-top: 10px;
+
+                button.glossary-link {
+                    @include button-unstyled;
+                    font-size: 14px;
+                    line-height: 18px;
+                    color: $color-white;
+
+                    width: 100%;
+
+                    &:hover, &:active {
+                        text-decoration: underline;
+                    }
+
+                    .matched-highlight {
+                        font-weight: 600;
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+    }
+}
