@@ -35,14 +35,6 @@ jest.mock('components/account/InvalidAccount', () =>
 jest.mock('components/account/LoadingAccount', () =>
     jest.fn(() => null));
 
-// mock the GlossaryButtonWrapper container because there's no Redux store to connect to
-jest.mock('containers/glossary/GlossaryButtonWrapperContainer', () =>
-    jest.fn(() => null));
-
-// also mock the Glossary container for the same reason
-jest.mock('containers/glossary/GlossaryContainer', () =>
-    jest.fn(() => null));
-
 const stripModelId = (model) => {
     const stripped = Object.assign({}, model);
     delete stripped._jsid;
