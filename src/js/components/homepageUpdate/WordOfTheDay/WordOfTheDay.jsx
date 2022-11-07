@@ -140,7 +140,7 @@ const WordOfTheDay = () => {
         if (!found) {
             setError(true);
         }
-        console.debug(term);
+
         if (term === "Account Balance (File A)") {
             setChangedTerm("File A");
         }
