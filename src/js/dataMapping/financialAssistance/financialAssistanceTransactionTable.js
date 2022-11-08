@@ -38,7 +38,7 @@ const tableSearchFields = {
             description: 'description'
         },
         modificationNumber: 'Modification Number',
-        cfdaNumber: 'CFDA Number',
+        cfdaNumber: 'Assistance Listing',
         actionDate: 'Action Date',
         federalActionObligation: 'Amount',
         actionTypeDescription: 'Action Type',
