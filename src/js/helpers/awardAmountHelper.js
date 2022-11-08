@@ -123,7 +123,6 @@ export const determineLoanSpendingScenario = (awardAmountObj, covidSpending) => 
     if (_subsidy < 0 || _faceValue < 0) return 'insufficientData';
 
     if (covidSpending) {
-        console.log('in new block');
         if (_totalOutlay > _fileCObligated || _totalOutlay > _subsidy || _totalOutlay > _faceValue || _fileCObligated > _subsidy || _fileCObligated > _faceValue || _subsidy > _faceValue) return 'insufficientData';
         if (_totalOutlay <= _fileCObligated <= _subsidy <= _faceValue) return 'normal';
     }
