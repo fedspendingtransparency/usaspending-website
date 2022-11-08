@@ -23,7 +23,7 @@ function Frequency() {
                 </div>
                 <div className="bottom-animation">
                     <LottieAnimation
-                        loop
+                        loop={1}
                         ref={ref2}
                         src="/img/interactive-data-sources/7_FDU.json"
                         role="presentation" />
@@ -54,7 +54,7 @@ function Frequency() {
                     <ScrollerOverlayCard
                         content={
                             <p>
-                                The data on USAspending are updated every day after the nightly
+                                The data on USAspending.gov are updated every day after the nightly
                                 data pipeline runs. However, USAspending source systems have
                                 different requirements for the frequency of their data updates.
                             </p>
@@ -86,12 +86,12 @@ function Frequency() {
                             <>
                                 <p>
                                     Files A, B, and C are submitted by federal agencies to
-                                    USAspending on a monthly basis, as required by the DATA Act. You
+                                    USAspending.gov on a monthly basis, as required by the DATA Act. You
                                     can see specific DATA Act reporting submission dates in the
                                     spreadsheets available in the{" "}
                                     <a
                                         className="scroller-overlay-card__link"
-                                        href="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html#fed"
+                                        href="https://fiscal.treasury.gov/data-transparency/resources.html"
                                         target="_blank"
                                         rel="noopener noreferrer">
                                         resources page for the USAspending Source and Submission Model
@@ -144,22 +144,22 @@ function Frequency() {
                                     days of the award{" "}
                                     <span className="glossary-term">transaction</span>{" "}
                                     <GlossaryLink term="transaction" />. The day after submission,
-                                    these data are made available to USAspending. On the following
-                                    day, these data are automatically published on USAspending.
+                                    these data are made available to USAspending.gov. On the following
+                                    day, these data are automatically published on USAspending.gov.
                                 </p>
                                 <ul className="interactives-guide_bullet-points">
                                     <li>
                                         Example 1: A contract transaction is made on a given
                                         Thursday. The award is reported to FPDS three business
                                         days later, on the following Tuesday. It is then made
-                                        available to USAspending on Wednesday morning and published
+                                        available to USAspending.gov on Wednesday morning and published
                                         to the site on Thursday.
                                     </li>
                                     <li>
                                         Example 2: A contract transaction is made on a given
                                         Tuesday. The award is reported to FPDS three business
                                         days later, on Friday. It is then made available to
-                                        USAspending on Saturday morning and published to the
+                                        USAspending.gov on Saturday morning and published to the
                                         site on Sunday.
                                     </li>
                                 </ul>
@@ -211,12 +211,12 @@ function Frequency() {
                                         Grant Example: A grant transaction is issued on September 8.
                                         It must be reported to FABS within 14 days, by September 22.
                                         If submitted on September 22, the new data are published on
-                                        USAspending on September 23.
+                                        USAspending.gov on September 23.
                                     </li>
                                     <li>
                                         Loan Example: A loan transaction is issued on September 8.
                                         It must be reported to FABS by October 8. If submitted on
-                                        October 8, the new data are published on USAspending on
+                                        October 8, the new data are published on USAspending.gov on
                                         October 9.{" "}
                                     </li>
                                 </ul>
@@ -261,13 +261,13 @@ function Frequency() {
                                     <li>
                                         Example 1: A subaward is issued on September 1. It must be
                                         reported to FSRS by October 31. If submitted on October 31,
-                                        the new data are available to USAspending on November 1 and
+                                        the new data are available to USAspending.gov on November 1 and
                                         published to the site on November 2.
                                     </li>
                                     <li>
                                         Example 2: A subaward is issued on September 30. It must be
                                         reported to FSRS by October 31. If submitted on October 31,
-                                        the new data are available to USAspending on November 1 and
+                                        the new data are available to USAspending.gov on November 1 and
                                         published to the site on November 2.
                                     </li>
                                 </ul>
@@ -311,7 +311,7 @@ function Frequency() {
                         content={
                             <p>
                                 All reference data (such as location data) are extracted by
-                                USAspending on a daily basis. In addition, data from SAM.gov
+                                USAspending.gov on a daily basis. In addition, data from SAM.gov
                                 (such as executive compensation data, also known as File E) and
                                 GTAS are also extracted daily.
                             </p>

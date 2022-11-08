@@ -34,7 +34,15 @@
 
 .homepage-hero-graphic-container {
     width: 140%;
-    margin: 0 -250px;
+
+    @media(min-width:768px){
+        margin-top: 40px;
+    }
+    @media(min-width:992px) {
+        margin-right: -250px;
+        margin-left: -250px;
+        marbin-bottom: 0;
+    }
 }
 
 .homepage-hero-content {

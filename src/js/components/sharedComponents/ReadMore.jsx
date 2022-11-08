@@ -42,7 +42,7 @@ const ReadMore = ({
                     additionalFunctionality(expanded);
                 }
             }}>{closePrompt}{' '}<span className="usa-button-link__icon"><FontAwesomeIcon className="readMoreUpdated__link-icon" icon={closeIcon} /></span>
-        </button>) : (<button className="read-more-button" onClick={() => setExpanded(false)}>read less</button>);
+        </button>) : (<button className="read-more-button" onClick={() => setExpanded(false)}>Read Less</button>);
     const readMore = openIcon ? (
         <button
             className="readMoreUpdated__button"
@@ -52,7 +52,7 @@ const ReadMore = ({
                     additionalFunctionality();
                 }
             }}>{openPrompt}{' '}<span className="usa-button-link__icon"><FontAwesomeIcon className="readMoreUpdated__link-icon" icon={openIcon} /></span>
-        </button>) : (<button className="read-more-button" onClick={() => setExpanded(true)}>read more</button>);
+        </button>) : (<button className="read-more-button" onClick={() => setExpanded(true)}>Read More</button>);
     if (expanded && children) {
         return (
             <>

@@ -52,7 +52,7 @@ const StatePage = ({
     };
 
     const backgroundColor = {
-        backgroundColor: "#555",
+        backgroundColor: "#1a4480",
         ' @media(max-width: $medium-screen)': {
             backgroundColor: "#f1f1f1"
         }

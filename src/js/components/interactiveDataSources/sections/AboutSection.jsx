@@ -56,7 +56,7 @@ const AboutSection = () => {
                         rel="noopener noreferrer">
                         API Endpoints
                     </a>
-                    : documentation all JSON objects accessible from API endpoints
+                    : documentation for all JSON objects accessible from API endpoints
                 </li>
                 <li>
                     <a
@@ -66,7 +66,7 @@ const AboutSection = () => {
                         rel="noopener noreferrer">
                         USAspending Source and Submission Model
                     </a>
-                    : technical documentation for the data submitted to, and extracted by, USAspending (Files A, B, C, D1, D2, E, and F)
+                    : technical documentation for the data submitted to, and extracted by, USAspending.gov (Files A, B, C, D1, D2, E, and F)
                 </li>
             </ul>
         </>
@@ -81,7 +81,7 @@ const AboutSection = () => {
             The result is an ongoing partnership between the federal community and external stakeholders to create a standard data model and a publicly accessible and searchable website: USAspending.gov.
             </p>
             <p>
-            Today, more than 100 federal agencies submit financial data to USAspending on a monthly basis, and thousands of public users visit the site every day to access data via visualizations, downloads, and open APIs.
+            Today, more than 100 federal agencies submit financial data to USAspending.gov on a monthly basis, and thousands of public users visit the site every day to access data via visualizations, downloads, and open APIs.
             </p>
         </>)
     },
@@ -98,29 +98,28 @@ const AboutSection = () => {
         </>)
     },
     {
-        title: "How was the DATA Act implemented?",
+        title: "How is the DATA Act implemented?",
         details: (
             <>
                 <p>
                     The USAspending data model standardizes data elements and definitions, and the USAspending Broker validates the data submitted and extracted from agency systems for quality, consistency, and accuracy.
                 </p>
                 <p>
-                    USAspending is built on principles of user-centered design and Agile software development, leveraging input from the public and federal stakeholders to iteratively release updates and enhancements many times per year.
+                    USAspending.gov is built on principles of user-centered design and Agile software development, leveraging input from the public and federal stakeholders to iteratively release updates and enhancements many times per year.
                 </p>
             </>
         )
     }];
     const dataModelCardContent = {
         heading: (
-            <>
-                <h4>USAspending Data Model</h4>
-                <div role="separator" className="interactives-guide__cardLine" />
-            </>
+            <div className="interactives-guide__heading-container">
+                <h4 className="interactives-guide__heading">USAspending Data Model</h4>
+            </div>
         ),
         content: (
             <>
                 <p data-testid="cardText" className="interactives-guide-cardText">
-                    The USAspending data model is a collection of resources that explains the elements, relationships, and sources for the data on USAspending. This Data Sources page is one such resource. Read about the other resources below.
+                    The USAspending data model is a collection of resources that explains the elements, relationships, and sources for the data on USAspending.gov. This Data Sources page is one such resource. Read about the other resources below.
                 </p>
                 <ReadMore>
                     {readMoreList}
@@ -154,7 +153,7 @@ const AboutSection = () => {
                 </div>
                 <br />
                 <div className="interactives-guide_begin-scroller">
-                    <h4>You can follow the money from the source systems through the submission and extraction process to see what is displayed on USAspending.</h4>
+                    <h4>You can follow the money from the source systems through the submission and extraction process to see what is displayed on USAspending.gov.</h4>
 
                     <div className="interactives-guide_scroll-indicator">
                         <h5 id="scroll-down-text">

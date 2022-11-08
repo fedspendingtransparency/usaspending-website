@@ -57,7 +57,7 @@ const FeaturedContent = () => {
                                 overline="Resources"
                                 headline={
                                     <div>
-                                        Learn how to use USAspending with our tutorial&nbsp;
+                                        Learn how to use USAspending.gov with our tutorial&nbsp;
                                         <span style={{ whiteSpace: "nowrap" }}>videos&nbsp;
                                             <FontAwesomeIcon style={{ width: '20px' }} icon="external-link-alt" />
                                         </span>
@@ -70,6 +70,7 @@ const FeaturedContent = () => {
             </div>
         </section>
     </>
-    ); };
+    );
+};
 
 export default FeaturedContent;

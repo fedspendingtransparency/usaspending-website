@@ -70,19 +70,6 @@ export default class Header extends React.Component {
                                 <li>
                                     <a
                                         className="official-banner__site-link"
-                                        href="https://datalab.usaspending.gov"
-                                        onClick={clickedHeaderLink.bind(null, 'https://datalab.usaspending.gov')}>
-                                        Data Lab
-                                    </a>
-                                </li>
-                                <li
-                                    className="official-banner__site-item official-banner__site-item_spacer"
-                                    aria-hidden="true">
-                                    |
-                                </li>
-                                <li>
-                                    <a
-                                        className="official-banner__site-link"
                                         href="http://fiscaldata.treasury.gov/"
                                         onClick={clickedHeaderLink.bind(null, 'http://fiscaldata.treasury.gov')}>
                                         Fiscal Data
