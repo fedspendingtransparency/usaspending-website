@@ -1,6 +1,6 @@
 .sticky-toolbar__atd-icon {
     @include button-unstyled;
-    margin: 0;
+    margin: 0 0 0 40px;
     background-color: unset;
     color: $gray-cool-10;
     padding-top: 0;
