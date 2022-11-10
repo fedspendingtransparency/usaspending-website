@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
 import { DownloadIconButton } from 'data-transparency-ui';
+import { Helmet } from 'react-helmet';
 
 import * as MetaTagHelper from 'helpers/metaTagHelper';
 
@@ -181,6 +182,9 @@ export default class SearchPage extends React.Component {
                         <div className="full-search-sidebar">
                             { fullSidebar }
                         </div>
+                        <Helmet>
+                            <link href="https://api.mapbox.com/mapbox-gl-js/v1.13.0/mapbox-gl.css" rel="stylesheet" />
+                        </Helmet>
                         <SearchResults
                             filters={this.props.filters}
                             isMobile={this.state.isMobile}

@@ -15,4 +15,5 @@ const ATDButton = (props) =>
     );
 
 ATDButton.propTypes = propTypes;
+ATDButton.displayName = "ATDButton";
 export default ATDButton;
