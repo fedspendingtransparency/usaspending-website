@@ -54,7 +54,13 @@ const CardButton = ({
                     className={`card__button--secondary ${variantMapper[variant]}`}
                     role="button"
                     aria-label={`${text}`}>
-                    <a onClick={action} href={link}>{text}</a>
+                    <a
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={action}
+                        href={link}>
+                        {text}
+                    </a>
                 </div>
             )
                 :
