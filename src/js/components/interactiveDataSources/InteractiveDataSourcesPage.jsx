@@ -36,6 +36,7 @@ const InteractiveDataSourcesPage = () => {
             name: 'intro-section',
             display: 'Introduction',
             showSectionTitle: false,
+            subtitle: '',
             scroller: false,
             component: <IntroSection />
         },
@@ -43,6 +44,7 @@ const InteractiveDataSourcesPage = () => {
             name: 'history-section',
             display: 'History of the DATA Act',
             showSectionTitle: false,
+            subtitle: '',
             scroller: false,
             component: <AboutSection />
         },
@@ -50,6 +52,7 @@ const InteractiveDataSourcesPage = () => {
             name: 'federal-spending-overview',
             display: 'Federal Spending Overview',
             showSectionTitle: false,
+            subtitle: 'How do federal dollars move from Congress to the American people?',
             scroller: true,
             component: <FederalSpendingOverview />
         },
@@ -57,6 +60,7 @@ const InteractiveDataSourcesPage = () => {
             name: 'data-available',
             display: 'Data Available on USAspending.gov',
             showSectionTitle: false,
+            subtitle: 'What kinds of data does USAspending.gov have?',
             scroller: true,
             component: <DataAvailable />
         },
@@ -64,6 +68,7 @@ const InteractiveDataSourcesPage = () => {
             name: 'data-types',
             display: 'Data Types',
             showSectionTitle: false,
+            subtitle: 'How can I understand all the data types on USAspending.gov?',
             scroller: true,
             component: <DataTypes />
         },
@@ -71,6 +76,7 @@ const InteractiveDataSourcesPage = () => {
             name: 'data-source-systems',
             display: 'Source Systems',
             showSectionTitle: false,
+            subtitle: 'What government data systems flow into USAspending.gov?',
             scroller: true,
             component: <DataSourceSystems />
         },
@@ -78,6 +84,7 @@ const InteractiveDataSourcesPage = () => {
             name: 'account-data',
             display: 'Account Data',
             showSectionTitle: false,
+            subtitle: 'What are the sources for account data on USAspending.gov?',
             scroller: true,
             component: <AccountData />
         },
@@ -85,6 +92,7 @@ const InteractiveDataSourcesPage = () => {
             name: 'award-data',
             display: 'Award Data',
             showSectionTitle: false,
+            subtitle: 'What are the sources for award data on USAspending.gov?',
             scroller: true,
             component: <AwardData />
         },
@@ -92,6 +100,7 @@ const InteractiveDataSourcesPage = () => {
             name: 'additional-data',
             display: 'Additional Data',
             showSectionTitle: false,
+            subtitle: 'What are the sources for additional data on USAspending.gov?',
             scroller: true,
             component: <AdditionalData />
         },
@@ -99,6 +108,7 @@ const InteractiveDataSourcesPage = () => {
             name: 'data-submission-extraction',
             display: 'Data Submission and Extraction',
             showSectionTitle: false,
+            subtitle: 'What data are submitted directly to USAspending.gov, and what data are extracted by USAspending.gov?',
             scroller: true,
             component: <DataSubmissionExtraction />
         },
@@ -106,6 +116,7 @@ const InteractiveDataSourcesPage = () => {
             name: 'frequency',
             display: 'Frequency of Data Updates',
             showSectionTitle: false,
+            subtitle: 'How often are data updated on USAspending.gov?',
             scroller: true,
             component: <Frequency />
         },
@@ -113,6 +124,7 @@ const InteractiveDataSourcesPage = () => {
             name: 'data-validation',
             display: 'Data Validation',
             showSectionTitle: false,
+            subtitle: ': How does the DATA Act Broker validate data before they are accessible to the public?',
             scroller: true,
             component: <DataValidation />
         },
@@ -120,6 +132,7 @@ const InteractiveDataSourcesPage = () => {
             name: 'data-access',
             display: 'Features on USAspending.gov',
             showSectionTitle: false,
+            subtitle: 'Where can I find data on USAspending.gov from these sources?',
             scroller: true,
             component: <DataFeatures />
         },
@@ -127,6 +140,7 @@ const InteractiveDataSourcesPage = () => {
             name: 'data-use-cases',
             display: 'Use Cases',
             showSectionTitle: false,
+            subtitle: 'What can I do with the data on USAspending.gov?',
             scroller: true,
             component: <DataUseCases />
         }
@@ -196,8 +210,7 @@ const InteractiveDataSourcesPage = () => {
                     {sections.map((section) => (
                         <InteractiveDataSourcesSection
                             key={section.name}
-                            section={section}
-                            icon={section.icon}>
+                            section={section}>
                             {section.component || <ComingSoon />}
                         </InteractiveDataSourcesSection>
                     ))}
