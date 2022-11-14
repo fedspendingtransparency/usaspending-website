@@ -9,7 +9,7 @@ import { ShareIcon, FiscalYearPicker } from 'data-transparency-ui';
 
 import { statePageMetaTags } from 'helpers/metaTagHelper';
 import { currentFiscalYear, earliestFiscalYear, getFiscalYearsWithLatestAndAll } from 'helpers/fiscalYearHelper';
-
+import { Helmet } from 'react-helmet';
 import Error from 'components/sharedComponents/Error';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
 import { LoadingWrapper } from "components/sharedComponents/Loading";
@@ -52,7 +52,7 @@ const StatePage = ({
     };
 
     const backgroundColor = {
-        backgroundColor: "#555",
+        backgroundColor: "#1a4480",
         ' @media(max-width: $medium-screen)': {
             backgroundColor: "#f1f1f1"
         }
@@ -76,6 +76,9 @@ const StatePage = ({
                     url={getBaseUrl(slug)} />
             ]}>
             <main id="main-content" className="main-content">
+                <Helmet>
+                    <link href="https://api.mapbox.com/mapbox-gl-js/v1.13.0/mapbox-gl.css" rel="stylesheet" />
+                </Helmet>
                 <LoadingWrapper isLoading={loading}>
                     {content}
                 </LoadingWrapper>

@@ -55,42 +55,42 @@ const InteractiveDataSourcesPage = () => {
         },
         {
             name: 'data-available',
-            display: 'Data Available on USAspending',
+            display: 'Data Available on USAspending.gov',
             showSectionTitle: false,
             scroller: true,
             component: <DataAvailable />
         },
         {
             name: 'data-types',
-            display: 'USAspending Data Types',
+            display: 'Data Types',
             showSectionTitle: false,
             scroller: true,
             component: <DataTypes />
         },
         {
             name: 'data-source-systems',
-            display: 'USAspending Source Systems',
+            display: 'Source Systems',
             showSectionTitle: false,
             scroller: true,
             component: <DataSourceSystems />
         },
         {
             name: 'account-data',
-            display: 'USAspending Account Data',
+            display: 'Account Data',
             showSectionTitle: false,
             scroller: true,
             component: <AccountData />
         },
         {
             name: 'award-data',
-            display: 'USAspending Award Data',
+            display: 'Award Data',
             showSectionTitle: false,
             scroller: true,
             component: <AwardData />
         },
         {
             name: 'additional-data',
-            display: 'USAspending Additional Data',
+            display: 'Additional Data',
             showSectionTitle: false,
             scroller: true,
             component: <AdditionalData />
@@ -118,14 +118,14 @@ const InteractiveDataSourcesPage = () => {
         },
         {
             name: 'data-access',
-            display: 'Features on USAspending',
+            display: 'Features on USAspending.gov',
             showSectionTitle: false,
             scroller: true,
             component: <DataFeatures />
         },
         {
             name: 'data-use-cases',
-            display: 'USAspending Use Cases',
+            display: 'Use Cases',
             showSectionTitle: false,
             scroller: true,
             component: <DataUseCases />

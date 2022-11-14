@@ -12,10 +12,10 @@ const IntroSection = () => (
                     </h1>
                     <div>
                         <h2>
-                            A journey though government spending data
+                            A journey through government spending data
                         </h2>
                         <p data-testid="paragraphText">
-                            USAspending links data from many government systems, including agency financial systems and governmentwide award systems. Scroll below to learn more about these systems, as well as the context for this historic initiative to provide federal spending transparency.
+                            USAspending.gov links data from many government systems, including agency financial systems and governmentwide award systems. Scroll below to learn more about these systems, as well as the context for this historic initiative to provide federal spending transparency.
                         </p>
                     </div>
                 </div>

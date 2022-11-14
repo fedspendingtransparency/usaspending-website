@@ -119,10 +119,6 @@ const WordOfTheDay = () => {
         setCurrentMonth(d.getUTCMonth());
     };
 
-    const definitionNotFound = () => {
-        setTerm(glossaryTerms[0]);
-    };
-
     const trackWordLink = () => Analytics.event({
         category: 'Homepage',
         action: 'Link',
@@ -142,12 +138,9 @@ const WordOfTheDay = () => {
         }
 
         if (!found) {
-            definitionNotFound();
+            setError(true);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [glossary, term]);
 
-    useEffect(() => {
         if (term === "Account Balance (File A)") {
             setChangedTerm("File A");
         }
@@ -169,11 +162,9 @@ const WordOfTheDay = () => {
         else if (term === "Procurement Instrument Identifier (PIID)") {
             setChangedTerm("PIID");
         }
-        else {
-            setChangedTerm("");
-        }
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [term]);
+    }, [glossary, pathname, search, term]);
 
     useEffect(() => {
         fetchAllTerms().promise
@@ -190,6 +181,7 @@ const WordOfTheDay = () => {
                     setError(true);
                 }
             });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
@@ -216,7 +208,7 @@ const WordOfTheDay = () => {
                         </CardBody>
                     </FlexGridCol>
                     :
-                    <CardBody customClassName="word-of-the-day__body">
+                    <CardBody customClassName="card__body_error">
                         {loading ? <LoadingWrapper isLoading={loading} /> : <ErrorWordOfTheDay />}
                     </CardBody>
                 }

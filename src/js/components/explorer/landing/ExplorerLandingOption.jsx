@@ -15,7 +15,8 @@ const propTypes = {
     title: PropTypes.string,
     description: PropTypes.string,
     url: PropTypes.string,
-    term: PropTypes.string
+    term: PropTypes.string,
+    onClick: PropTypes.func
 };
 
 const ExplorerLandingOption = (props) => {
@@ -38,7 +39,8 @@ const ExplorerLandingOption = (props) => {
 
             <Link
                 className="landing-option__button"
-                to={props.url}>
+                to={props.url}
+                onClick={props.onClick}>
                 Start
             </Link>
         </div>

@@ -15,7 +15,7 @@ function AccountData() {
                 the Governmentwide Treasury Account Symbol Adjusted Trial Balance
                 System (GTAS), and this information is used to generate authoritative{" "}
                     <span className="glossary-term">Treasury Account</span>{" "}
-                    <GlossaryLink term="treasury-account-symbol-tas" /> balances. USAspending
+                    <GlossaryLink term="treasury-account-symbol-tas" /> balances. USAspending.gov
                 extracts some data from GTAS for governmentwide spending figures and
                 other purposes.
                 </p>
@@ -33,7 +33,7 @@ function AccountData() {
                     File A contains{" "}
                     <span className="glossary-term">budgetary resources</span>{" "}
                     <GlossaryLink term="budgetary-resources" />, obligation, and outlay
-                data for all the Treasury Accounts in that agency.
+                data for all the relevant Treasury Accounts in a reporting agency.
                 </p>
             )
         },
@@ -46,8 +46,8 @@ function AccountData() {
                         <GlossaryLink term="account-breakdown-by-program-activity-object-class-file-b" />{" "}
                         is part of the package of data submitted to USAspending by federal
                         agencies, as required by the DATA Act. It contains obligation and
-                        outlay data for all the Treasury Accounts in that agency, with a
-                        breakdown by accounting categories known as{" "}
+                        outlay data for all the relevant Treasury Accounts in a reporting agency, with a
+                        breakdown by two accounting categories called{" "}
                         <span className="glossary-term">Program Activity</span>{" "}
                         <GlossaryLink term="program-activity" /> and{" "}
                         <span className="glossary-term">Object Class</span>{" "}

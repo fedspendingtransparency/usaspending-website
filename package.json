@@ -63,7 +63,7 @@
     "ansi-styles": "^4.3.0",
     "argparse": "^2.0.1",
     "babel-jest": "^27.0.1",
-    "babel-loader": "^8.2.5",
+    "babel-loader": "^9.1.0",
     "babel-plugin-module-resolver": "^3.2.0",
     "chalk": "^4.1.2",
     "color-convert": "^2.0.1",
@@ -143,7 +143,9 @@
     "terser": "5.14.2",
     "webpack": "5.74.0",
     "moment-timezone": "0.5.37",
-    "d3-color": "3.1.0"
+    "d3-color": "3.1.0",
+    "loader-utils": "3.2.0",
+    "**/loader-utils": "3.2.0"
   },
   "dependencies": {
     "@babel/eslint-parser": "^7.17.0",
@@ -164,7 +166,7 @@
     "d3-hierarchy": "^3.1.2",
     "d3-interpolate": "^3.0.1",
     "d3-scale": "^4.0.2",
-    "data-transparency-ui": "github:fedspendingtransparency/data-transparency-ui#v5.0.3",
+    "data-transparency-ui": "github:fedspendingtransparency/data-transparency-ui#v5.1.1",
     "date-fns": "^2.16.1",
     "file-loader": "^6.2.0",
     "focus-trap-react": "^9.0.2",

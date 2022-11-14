@@ -36,7 +36,7 @@ function DataValidation() {
                         content={
                             <p>
                             The DATA Act Broker is the system that collects and validates federal spending
-                            data from source systems before they are ultimately published on USAspending.
+                            data from source systems before they are ultimately published on USAspending.gov.
                             It receives data through two processes: one process is for FABS (i.e., transaction-level
                             financial assistance data) and one process is for monthly compilations and quarterly
                             certifications of Files A, B, C, D1, D2, E, and F. Data from the FABS process generates
@@ -60,7 +60,7 @@ function DataValidation() {
                                 The DATA Act Broker validates the data it receives from agency financial systems (Files A, B, and C) as well as FABS. These validations are based on business rules (such as for award linkage between File C and Files D1 and D2) and checks against authoritative sources such as GTAS. Agency financial systems are subject to other data quality assurance measures, such as review by Offices of Inspector General (OIG) and the Government Accountability Office (GAO) for reports as required by the DATA Act.
                                 </p>
                                 <p>
-                                USAspending relies on internal validations of data within source systems outside of the Treasury Department (such as FPDS, FSRS, and SAM.gov). The data extracted from these systems may not always align with the data standards, definitions, and requirements established in guidance from the Office of Management and Budget (OMB) and Treasury Department.
+                                USAspending.gov relies on internal validations of data within source systems outside of the Treasury Department (such as FPDS, FSRS, and SAM.gov). The data extracted from these systems may not always align with the data standards, definitions, and requirements established in guidance from the Office of Management and Budget (OMB) and Treasury Department.
                                 </p>
                                 <p>
                                 Read below for examples of the DATA Act Broker’s validation measures.
