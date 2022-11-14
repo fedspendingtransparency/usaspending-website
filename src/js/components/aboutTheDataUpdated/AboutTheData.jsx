@@ -5,8 +5,15 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Scrollbars } from 'react-custom-scrollbars';
+import schema from 'dataMapping/aboutTheDataSchemas/aboutTheData';
+import pageSchema from 'dataMapping/aboutTheDataSchemas/aboutTheDataByPage';
 import AboutTheDataHeader from "./AboutTheDataHeader";
 import AboutTheDataListView from "./AboutTheDataListView";
+import AboutTheDataByPage from "./AboutTheDataByPage";
+import DownloadButton from "./DownloadButton";
+
+
+require('components/aboutTheDataUpdate/aboutTheData.scss');
 
 const propTypes = {
     children: PropTypes.element,
@@ -38,7 +45,14 @@ const AboutTheData = (props) => {
                     style={{ height }}
                     renderTrackVertical={track}
                     renderThumbVertical={thumb}>
-                    <AboutTheDataListView />
+                    <div className="atd__body">
+                        <AboutTheDataByPage section={pageSchema.collections[0]} />
+                        <DownloadButton />
+                        <AboutTheDataListView section={schema.collections[0]} />
+                        <AboutTheDataListView section={schema.collections[1]} />
+                        <AboutTheDataListView section={schema.collections[2]} />
+                        <AboutTheDataListView section={schema.collections[3]} />
+                    </div>
                 </Scrollbars>
             </aside>
         </div>);

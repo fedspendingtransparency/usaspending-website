@@ -4,22 +4,17 @@
  */
 import React from 'react';
 import PropTypes from 'prop-types';
-import schema from 'dataMapping/aboutTheDataSchemas/aboutTheData';
 
 const propTypes = {
-    children: PropTypes.element,
-    onClose: PropTypes.func
+    section: PropTypes.string
 };
 
-
-const AboutTheDataListView = () => {
-    console.log(schema);
-    return schema.collections.map((section) =>
-        <>
-            <h1>{section.label}</h1>
-            {section.fields.map((list) => <p>{list.title}</p>)}
-        </>);
-};
+const AboutTheDataListView = ({ section }) =>
+    <>
+        <div className="atd__heading">{section.heading}</div>
+        <hr />
+        {section.fields.map((list) => <p className="atd__link">{list.name}</p>)}
+    </>;
 
 AboutTheDataListView.propTypes = propTypes;
 export default AboutTheDataListView;
