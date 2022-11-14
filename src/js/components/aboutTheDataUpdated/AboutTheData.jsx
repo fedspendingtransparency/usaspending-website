@@ -6,6 +6,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Scrollbars } from 'react-custom-scrollbars';
 import AboutTheDataHeader from "./AboutTheDataHeader";
+import AboutTheDataListView from "./AboutTheDataListView";
 
 const propTypes = {
     children: PropTypes.element,
@@ -31,11 +32,13 @@ const AboutTheData = (props) => {
                 role="dialog"
                 aria-labelledby="atd-title"
                 className="atd-sidebar">
+                <AboutTheDataHeader closeAboutTheData={props.onClose} />
+
                 <Scrollbars
                     style={{ height }}
                     renderTrackVertical={track}
                     renderThumbVertical={thumb}>
-                    <AboutTheDataHeader closeAboutTheData={props.onClose} />
+                    <AboutTheDataListView />
                 </Scrollbars>
             </aside>
         </div>);
