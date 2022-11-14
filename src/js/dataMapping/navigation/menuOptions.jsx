@@ -77,7 +77,7 @@ export const resourceOptions = [
     },
     {
         label: 'Data Sources',
-        type: 'data-sources',
+        type: 'about-the-data',
         enabled: true,
         url: '/data-sources',
         callToAction: 'Explore the Data Sources',

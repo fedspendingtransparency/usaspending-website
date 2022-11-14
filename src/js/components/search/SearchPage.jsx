@@ -17,8 +17,8 @@ import PageWrapper from 'components/sharedComponents/PageWrapper';
 import SearchSidebar from './SearchSidebar';
 import SearchResults from './SearchResults';
 import NoDownloadHover from './header/NoDownloadHover';
-import AnimatedAboutTheDataWrapper from "../aboutTheDataUpdated/AnimatedAboutTheDataWrapper";
-import ATDButton from "../sharedComponents/aboutTheData/ATDButton";
+import AnimatedAboutTheDataWrapper from "../aboutTheDataSidebar/AnimatedAboutTheDataWrapper";
+import ATDButton from "../sharedComponents/aboutTheDataSidebar/ATDButton";
 
 const propTypes = {
     download: PropTypes.object,

@@ -6,6 +6,6 @@
     .main-content {
         @import "./landing/explorerLanding";
         @import "./detail/explorerDetail";
-        @import "../aboutTheDataUpdate/aboutTheDataPage";
+        @import "components/aboutTheDataSidebar/aboutTheData";
     }
 }

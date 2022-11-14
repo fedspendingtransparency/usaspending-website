@@ -21,7 +21,7 @@ const routes = [
     '/state',
     '/recipient',
     '/disaster/covid-19',
-    '/disaster/covid-19/data-sources',
+    '/disaster/covid-19/about-the-data',
     '/data-dictionary'
 ];
 

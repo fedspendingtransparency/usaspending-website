@@ -8,11 +8,11 @@ import { Scrollbars } from 'react-custom-scrollbars';
 import schema from 'dataMapping/aboutTheDataSchema';
 import AboutTheDataHeader from "./AboutTheDataHeader";
 import AboutTheDataListView from "./AboutTheDataListView";
+import AboutTheDataDrilldown from "./AboutTheDataDrilldown";
 import AboutTheDataByPage from "./AboutTheDataByPage";
 import DownloadButton from "./DownloadButton";
 
-
-require('components/aboutTheDataUpdate/aboutTheData.scss');
+require('components/aboutTheDataSidebar/aboutTheData.scss');
 
 const propTypes = {
     children: PropTypes.element,
@@ -21,11 +21,13 @@ const propTypes = {
 
 const AboutTheData = (props) => {
     const [height, setHeight] = useState();
+    const [drilldown, setDrilldown] = useState();
 
     useEffect(() => {
         const wrapper = document.getElementById('usa-atd-wrapper');
         const sidebarHeight = wrapper.getBoundingClientRect().height;
 
+        setDrilldown(false);
         setHeight(sidebarHeight);
     }, []);
 
@@ -45,12 +47,17 @@ const AboutTheData = (props) => {
                     renderTrackVertical={track}
                     renderThumbVertical={thumb}>
                     <div className="atd__body">
-                        <AboutTheDataByPage section={schema["by-page"]} />
-                        <DownloadButton />
-                        <AboutTheDataListView section={schema.descriptions} />
-                        <AboutTheDataListView section={schema.disclosures} />
-                        <AboutTheDataListView section={schema["award-disclosures"]} />
-                        <AboutTheDataListView section={schema["covid-disclosures"]} />
+                        {drilldown ?
+                            <AboutTheDataDrilldown />
+                            :
+                            <>
+                                <AboutTheDataByPage section={schema["by-page"]} />
+                                <DownloadButton />
+                                <AboutTheDataListView section={schema.descriptions} />
+                                <AboutTheDataListView section={schema.disclosures} />
+                                <AboutTheDataListView section={schema["award-disclosures"]} />
+                                <AboutTheDataListView section={schema["covid-disclosures"]} />
+                            </>}
                     </div>
                 </Scrollbars>
             </aside>
