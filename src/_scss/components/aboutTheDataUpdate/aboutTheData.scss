@@ -37,7 +37,9 @@
             margin: rem(27) rem(24);
 
             hr {
-                color: $theme-color-underline;
+                height: rem(1);
+                background-color: $theme-color-underline;
+                border: none;
             }
         }
 

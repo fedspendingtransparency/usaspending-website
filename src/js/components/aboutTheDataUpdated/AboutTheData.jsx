@@ -5,8 +5,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Scrollbars } from 'react-custom-scrollbars';
-import schema from 'dataMapping/aboutTheDataSchemas/aboutTheData';
-import pageSchema from 'dataMapping/aboutTheDataSchemas/aboutTheDataByPage';
+import schema from 'dataMapping/aboutTheDataSchema';
 import AboutTheDataHeader from "./AboutTheDataHeader";
 import AboutTheDataListView from "./AboutTheDataListView";
 import AboutTheDataByPage from "./AboutTheDataByPage";
@@ -46,12 +45,12 @@ const AboutTheData = (props) => {
                     renderTrackVertical={track}
                     renderThumbVertical={thumb}>
                     <div className="atd__body">
-                        <AboutTheDataByPage section={pageSchema.collections[0]} />
+                        <AboutTheDataByPage section={schema["by-page"]} />
                         <DownloadButton />
-                        <AboutTheDataListView section={schema.collections[0]} />
-                        <AboutTheDataListView section={schema.collections[1]} />
-                        <AboutTheDataListView section={schema.collections[2]} />
-                        <AboutTheDataListView section={schema.collections[3]} />
+                        <AboutTheDataListView section={schema.descriptions} />
+                        <AboutTheDataListView section={schema.disclosures} />
+                        <AboutTheDataListView section={schema["award-disclosures"]} />
+                        <AboutTheDataListView section={schema["covid-disclosures"]} />
                     </div>
                 </Scrollbars>
             </aside>
