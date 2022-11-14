@@ -76,7 +76,7 @@ export const schema = {
                 },
                 {
                     title: "File C (Account Breakdown by Award)",
-                    slug: "file-c"
+                    slug: "file-c.md"
                 },
                 {
                     title: "File D1 (Award and Awardee Attributes (Procurement))",
