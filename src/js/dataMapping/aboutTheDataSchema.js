@@ -5,7 +5,7 @@ const schema = {
         fields: [
             {
                 pageName: "Spending Explorer",
-                route: "explorer",
+                route: "explorer"
             },
             {
                 pageName: "Advanced Search",

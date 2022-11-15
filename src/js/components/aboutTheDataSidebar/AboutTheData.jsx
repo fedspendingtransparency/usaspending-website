@@ -44,7 +44,7 @@ const AboutTheData = (props) => {
         setDrilldownItemId(null);
         setDrilldownSection(null);
         setDrilldown(false);
-    }
+    };
 
     useEffect(() => {
         if (drilldownItemId !== null && drilldownItemId >= 0 && drilldownSection) {
