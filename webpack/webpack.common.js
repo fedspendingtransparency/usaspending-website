@@ -35,17 +35,6 @@ module.exports = {
         noParse: /(mapbox-gl)\.js$/,
         rules: [
             {
-                test: /\.md$/,
-                use: [
-                    {
-                        loader: "html-loader",
-                    },
-                    {
-                        loader: "markdown-loader"
-                    }
-                ]
-            },
-            {
                 test: /\.js$|jsx$/,
                 exclude: /node_modules\.*/,
                 loader: "babel-loader"
@@ -77,6 +66,16 @@ module.exports = {
                 options: {
                     name: '[path][name].[ext]'
                 }
+            },
+            {
+                test: /\.mdx?$/,
+                use: [
+                    {
+                        loader: '@mdx-js/loader',
+                        /** @type {import('@mdx-js/loader').Options} */
+                        options: {}
+                    }
+                ]
             }
         ]
     },

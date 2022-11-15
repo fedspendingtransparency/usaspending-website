@@ -5,7 +5,7 @@ const schema = {
         fields: [
             {
                 pageName: "Spending Explorer",
-                route: "explorer"
+                route: "explorer",
             },
             {
                 pageName: "Advanced Search",
@@ -75,7 +75,7 @@ const schema = {
             },
             {
                 name: "File C (Account Breakdown by Award)",
-                slug: "file-c.md"
+                slug: "file-c"
             },
             {
                 name: "File D1 (Award and Awardee Attributes (Procurement))",

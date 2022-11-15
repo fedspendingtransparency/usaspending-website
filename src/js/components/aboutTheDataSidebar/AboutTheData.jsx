@@ -48,7 +48,7 @@ const AboutTheData = (props) => {
                     renderThumbVertical={thumb}>
                     <div className="atd__body">
                         {drilldown ?
-                            <AboutTheDataDrilldown entry="descriptions/file-a.md" />
+                            <AboutTheDataDrilldown section={schema.descriptions.heading} name={schema.descriptions.fields[0].name} />
                             :
                             <>
                                 <AboutTheDataByPage section={schema["by-page"]} />
