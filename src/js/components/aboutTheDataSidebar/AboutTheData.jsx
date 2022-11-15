@@ -21,18 +21,24 @@ const propTypes = {
 
 const AboutTheData = (props) => {
     const [height, setHeight] = useState();
-    const [drilldown, setDrilldown] = useState();
+    const [drilldownItemId, setDrilldownItemId] = useState(null);
+    const [drilldownSection, setDrilldownSection] = useState(null);
 
     useEffect(() => {
         const wrapper = document.getElementById('usa-atd-wrapper');
         const sidebarHeight = wrapper.getBoundingClientRect().height;
 
-        setDrilldown(true);
+        // setDrilldown(false);
         setHeight(sidebarHeight);
     }, []);
 
     const track = () => <div className="atd-scrollbar-track" />;
     const thumb = () => <div className="atd-scrollbar-thumb" />;
+
+    const selectItem = (index, section) => {
+        setDrilldownItemId(index);
+        setDrilldownSection(section);
+    };
 
     return (
         <div id="usa-atd-wrapper" className="usa-atd-wrapper">
@@ -47,16 +53,16 @@ const AboutTheData = (props) => {
                     renderTrackVertical={track}
                     renderThumbVertical={thumb}>
                     <div className="atd__body">
-                        {drilldown ?
-                            <AboutTheDataDrilldown section={schema.descriptions.heading} name={schema.descriptions.fields[0].name} />
+                        {drilldownItemId && drilldownSection ?
+                            <AboutTheDataDrilldown section={drilldownSection.heading} name={drilldownSection.fields[drilldownItemId].name} />
                             :
                             <>
                                 <AboutTheDataByPage section={schema["by-page"]} />
                                 <DownloadButton />
-                                <AboutTheDataListView section={schema.descriptions} />
-                                <AboutTheDataListView section={schema.disclosures} />
-                                <AboutTheDataListView section={schema["award-disclosures"]} />
-                                <AboutTheDataListView section={schema["covid-disclosures"]} />
+                                <AboutTheDataListView section={schema.descriptions} selectItem={selectItem} />
+                                <AboutTheDataListView section={schema.disclosures} selectItem={selectItem} />
+                                <AboutTheDataListView section={schema["award-disclosures"]} selectItem={selectItem} />
+                                <AboutTheDataListView section={schema["covid-disclosures"]} selectItem={selectItem} />
                             </>}
                     </div>
                 </Scrollbars>
