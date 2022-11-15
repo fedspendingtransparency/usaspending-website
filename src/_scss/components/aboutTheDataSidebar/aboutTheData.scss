@@ -57,7 +57,7 @@
                 font-weight: $font-semibold;
             }
 
-            .atd__heading__drilldown {
+            .atd__heading-drilldown {
                 font-size: $font-size-24;
                 margin-top: rem(8);
                 line-height: rem(30);
@@ -65,6 +65,24 @@
                 font-weight: $font-semibold;
             }
 
+            .atd__back {
+                margin-bottom: rem(24);
+
+                .usa-da-icon-angle-left {
+                    height: rem(12);
+                    width: rem(16);
+                    fill: $gray-cool-10;
+                }
+
+                .atd__back__label {
+                    font-size: $font-size-16;
+                    line-height: rem(24);
+                    color: $theme-color-headline-inverse;
+                    font-weight: $font-semibold;
+                    text-transform: uppercase;
+                    margin-left: rem(8);
+                }
+            }
 
             .atd__link {
                 font-size: $font-size-16;

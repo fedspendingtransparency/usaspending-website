@@ -21,6 +21,7 @@ const propTypes = {
 
 const AboutTheData = (props) => {
     const [height, setHeight] = useState();
+    const [drilldown, setDrilldown] = useState(null);
     const [drilldownItemId, setDrilldownItemId] = useState(null);
     const [drilldownSection, setDrilldownSection] = useState(null);
 
@@ -28,9 +29,8 @@ const AboutTheData = (props) => {
         const wrapper = document.getElementById('usa-atd-wrapper');
         const sidebarHeight = wrapper.getBoundingClientRect().height;
 
-        // setDrilldown(false);
         setHeight(sidebarHeight);
-    }, []);
+    }, [drilldown]);
 
     const track = () => <div className="atd-scrollbar-track" />;
     const thumb = () => <div className="atd-scrollbar-thumb" />;
@@ -39,6 +39,18 @@ const AboutTheData = (props) => {
         setDrilldownItemId(index);
         setDrilldownSection(section);
     };
+
+    const clearDrilldown = () => {
+        setDrilldownItemId(null);
+        setDrilldownSection(null);
+        setDrilldown(false);
+    }
+
+    useEffect(() => {
+        if (drilldownItemId !== null && drilldownItemId >= 0 && drilldownSection) {
+            setDrilldown(true);
+        }
+    }, [drilldownItemId, drilldownSection]);
 
     return (
         <div id="usa-atd-wrapper" className="usa-atd-wrapper">
@@ -53,8 +65,10 @@ const AboutTheData = (props) => {
                     renderTrackVertical={track}
                     renderThumbVertical={thumb}>
                     <div className="atd__body">
-                        {drilldownItemId && drilldownSection ?
-                            <AboutTheDataDrilldown section={drilldownSection.heading} name={drilldownSection.fields[drilldownItemId].name} />
+                        {drilldown ?
+                            <>
+                                <AboutTheDataDrilldown section={drilldownSection.heading} name={drilldownSection.fields[drilldownItemId].name} clearDrilldown={clearDrilldown} />
+                            </>
                             :
                             <>
                                 <AboutTheDataByPage section={schema["by-page"]} />
