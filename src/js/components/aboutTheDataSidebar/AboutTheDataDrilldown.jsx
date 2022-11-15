@@ -9,7 +9,7 @@ import Gtas from "content/about-the-data/descriptions/gtas.md";
 const AboutTheDataDrilldown = ({ section, name }) => {
     return (<>
         <div className="atd__overline">{ section }</div>
-        <div className="atd__heading">{ name }</div>
+        <div className="atd__heading__drilldown">{ name }</div>
         <div className="atd__copy"><Gtas /></div>
     </>);
 };

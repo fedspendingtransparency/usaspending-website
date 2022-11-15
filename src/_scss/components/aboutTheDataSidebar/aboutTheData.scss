@@ -57,6 +57,15 @@
                 font-weight: $font-semibold;
             }
 
+            .atd__heading__drilldown {
+                font-size: $font-size-24;
+                margin-top: rem(8);
+                line-height: rem(30);
+                color: $theme-color-headline-inverse;
+                font-weight: $font-semibold;
+            }
+
+
             .atd__link {
                 font-size: $font-size-16;
                 line-height: rem(24);
