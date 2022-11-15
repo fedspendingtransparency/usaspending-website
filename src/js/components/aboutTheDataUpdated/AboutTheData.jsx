@@ -7,8 +7,7 @@ import PropTypes from 'prop-types';
 import { Scrollbars } from 'react-custom-scrollbars';
 import AboutTheDataHeader from "./AboutTheDataHeader";
 
-// eslint-disable-next-line import/no-absolute-path
-import Test from '/mdx/test.mdx';
+import Test from '../../../mdx/test.mdx';
 
 const propTypes = {
     children: PropTypes.element,
