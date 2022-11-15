@@ -35,6 +35,17 @@ module.exports = {
         noParse: /(mapbox-gl)\.js$/,
         rules: [
             {
+                test: /\.md$/,
+                use: [
+                    {
+                        loader: "html-loader",
+                    },
+                    {
+                        loader: "markdown-loader"
+                    }
+                ]
+            },
+            {
                 test: /\.js$|jsx$/,
                 exclude: /node_modules\.*/,
                 loader: "babel-loader"

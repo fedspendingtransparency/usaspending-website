@@ -27,7 +27,7 @@ const AboutTheData = (props) => {
         const wrapper = document.getElementById('usa-atd-wrapper');
         const sidebarHeight = wrapper.getBoundingClientRect().height;
 
-        setDrilldown(false);
+        setDrilldown(true);
         setHeight(sidebarHeight);
     }, []);
 
@@ -48,7 +48,7 @@ const AboutTheData = (props) => {
                     renderThumbVertical={thumb}>
                     <div className="atd__body">
                         {drilldown ?
-                            <AboutTheDataDrilldown />
+                            <AboutTheDataDrilldown entry="descriptions/file-a.md" />
                             :
                             <>
                                 <AboutTheDataByPage section={schema["by-page"]} />
