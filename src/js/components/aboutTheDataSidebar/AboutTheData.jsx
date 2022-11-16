@@ -2,6 +2,7 @@
  * AboutTheData.jsx
  * Created by Nick Torres 11/2/22
  */
+
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Scrollbars } from 'react-custom-scrollbars';
@@ -13,8 +14,6 @@ import AboutTheDataByPage from "./AboutTheDataByPage";
 import DownloadButton from "./DownloadButton";
 
 require('components/aboutTheDataSidebar/aboutTheData.scss');
-
-import Test from '../../../mdx/test.mdx';
 
 const propTypes = {
     children: PropTypes.element,
@@ -43,25 +42,26 @@ const AboutTheData = (props) => {
                 aria-labelledby="atd-title"
                 className="atd-sidebar">
                 <AboutTheDataHeader closeAboutTheData={props.onClose} />
-                <Test />
 
                 <Scrollbars
                     style={{ height }}
                     renderTrackVertical={track}
                     renderThumbVertical={thumb}>
-                    <div className="atd__body">
-                        {drilldown ?
+                    {drilldown ?
+                        <div className="atd__body">
                             <AboutTheDataDrilldown />
-                            :
-                            <>
-                                <AboutTheDataByPage section={schema["by-page"]} />
+                        </div>
+                        :
+                        <>
+                            <AboutTheDataByPage section={schema["by-page"]} />
+                            <div className="atd__body">
                                 <DownloadButton />
                                 <AboutTheDataListView section={schema.descriptions} />
                                 <AboutTheDataListView section={schema.disclosures} />
                                 <AboutTheDataListView section={schema["award-disclosures"]} />
                                 <AboutTheDataListView section={schema["covid-disclosures"]} />
-                            </>}
-                    </div>
+                            </div>
+                        </>}
                 </Scrollbars>
             </aside>
         </div>);
