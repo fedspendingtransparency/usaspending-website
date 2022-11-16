@@ -18,7 +18,7 @@ export const recipientCategoryTitles = {
     awarding_agency: 'Awarding Agencies',
     awarding_subagency: 'Awarding Sub-Agencies',
     federal_account: 'Federal Accounts',
-    assistance_listings: 'Assistance Listings',
+    assistance_listings: 'Assistance Listings (CFDA Programs)',
     naics: 'NAICS Codes',
     psc: 'Product Service Codes',
     country: 'Countries',
