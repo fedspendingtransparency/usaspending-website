@@ -32,5 +32,28 @@
             @import "./_header";
             @import "./_scrollbar";
         }
+
+        .atd__body {
+            margin: rem(27) rem(24);
+
+            hr {
+                height: rem(1);
+                background-color: $theme-color-underline;
+                border: none;
+            }
+        }
+
+        .atd__heading {
+            font-size: $font-size-20;
+            line-height: rem(25);
+            color: $theme-color-headline-inverse;
+            font-weight: $font-semibold;
+        }
+
+        .atd__link {
+            font-size: $font-size-16;
+            line-height: rem(24);
+            color: $gray-cool-10;
+        }
     }
 }
