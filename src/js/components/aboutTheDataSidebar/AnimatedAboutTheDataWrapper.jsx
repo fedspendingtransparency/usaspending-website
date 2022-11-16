@@ -5,7 +5,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-import AboutTheData from "../aboutTheDataUpdated/AboutTheData";
+import AboutTheData from ".//AboutTheData";
 
 const propTypes = {
     onClose: PropTypes.func,
