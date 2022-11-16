@@ -66,6 +66,16 @@ module.exports = {
                 options: {
                     name: '[path][name].[ext]'
                 }
+            },
+            {
+                test: /\.mdx?$/,
+                use: [
+                    {
+                        loader: '@mdx-js/loader',
+                        /** @type {import('@mdx-js/loader').Options} */
+                        options: {}
+                    }
+                ]
             }
         ]
     },
