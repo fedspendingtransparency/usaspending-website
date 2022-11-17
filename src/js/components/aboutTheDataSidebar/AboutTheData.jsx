@@ -13,6 +13,8 @@ import AboutTheDataDrilldown from "./AboutTheDataDrilldown";
 import AboutTheDataByPage from "./AboutTheDataByPage";
 import DownloadButton from "./DownloadButton";
 
+import Test from '../../../mdx/test.mdx';
+
 require('components/aboutTheDataSidebar/aboutTheData.scss');
 
 const propTypes = {
@@ -45,6 +47,7 @@ const AboutTheData = (props) => {
                 aria-labelledby="atd-title"
                 className="atd-sidebar">
                 <AboutTheDataHeader closeAboutTheData={props.onClose} />
+                <Test />
 
                 <Scrollbars
                     style={{ height }}
