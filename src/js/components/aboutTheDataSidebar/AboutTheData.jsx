@@ -2,6 +2,7 @@
  * AboutTheData.jsx
  * Created by Nick Torres 11/2/22
  */
+
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Scrollbars } from 'react-custom-scrollbars';
@@ -11,6 +12,8 @@ import AboutTheDataListView from "./AboutTheDataListView";
 import AboutTheDataDrilldown from "./AboutTheDataDrilldown";
 import AboutTheDataByPage from "./AboutTheDataByPage";
 import DownloadButton from "./DownloadButton";
+
+import Test from '../../../mdx/test.mdx';
 
 require('components/aboutTheDataSidebar/aboutTheData.scss');
 
@@ -41,6 +44,7 @@ const AboutTheData = (props) => {
                 aria-labelledby="atd-title"
                 className="atd-sidebar">
                 <AboutTheDataHeader closeAboutTheData={props.onClose} />
+                <Test />
 
                 <Scrollbars
                     style={{ height }}
