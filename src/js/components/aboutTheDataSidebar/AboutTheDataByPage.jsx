@@ -9,28 +9,27 @@ import AgencyMD from '../../../content/about-the-data/pages/agency.md';
 
 const propTypes = {
     section: PropTypes.string,
-    url: PropTypes.string
+    pathname: PropTypes.string
 };
 
-const AboutTheDataByPage = ({ section, url }) => {
-    console.log('url prop', url);
-
+const AboutTheDataByPage = ({ section, pathname }) => {
     const [markdownFilename, setMarkdownFilename] = useState('');
 
     const checkSchemaForUrlSlug = () => {
-        // iterate through each section.fields.route and if any of those are in the url
-        // then make .route the markdownFilename
-        const resultsArray = section.fields.filter((item) => url.includes(item.route));
-        console.log('resultsArray', resultsArray);
+        const splitPathname = pathname.split('/')[1];
+        const resultsArray = section.fields.filter((item) => splitPathname.includes(item.route));
         setMarkdownFilename(resultsArray[0]?.route);
     };
 
-    useEffect(() => {
-        checkSchemaForUrlSlug(url);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [url]);
-
+    // todo - remove when the var is actually used
     console.log('markdownFilename', markdownFilename);
+
+    useEffect(() => {
+        if (pathname) {
+            checkSchemaForUrlSlug();
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [pathname]);
 
     return (
         <div className="atd-page-section__container">
