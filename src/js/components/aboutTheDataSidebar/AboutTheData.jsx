@@ -23,6 +23,7 @@ const propTypes = {
 const AboutTheData = (props) => {
     const [height, setHeight] = useState();
     const [drilldown, setDrilldown] = useState();
+    const [pageUrl, setPageUrl] = useState();
 
     useEffect(() => {
         const wrapper = document.getElementById('usa-atd-wrapper');
@@ -30,6 +31,8 @@ const AboutTheData = (props) => {
 
         setDrilldown(false);
         setHeight(sidebarHeight);
+        console.log('window.location.href.toString()', window.location.href.toString());
+        setPageUrl(window.location.href.toString());
     }, []);
 
     const track = () => <div className="atd-scrollbar-track" />;
@@ -53,7 +56,7 @@ const AboutTheData = (props) => {
                         </div>
                         :
                         <>
-                            <AboutTheDataByPage section={schema["by-page"]} />
+                            <AboutTheDataByPage section={schema["by-page"]} url={pageUrl} />
                             <div className="atd__body">
                                 <DownloadButton />
                                 <AboutTheDataListView section={schema.descriptions} />
