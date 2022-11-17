@@ -17,7 +17,6 @@ import Test from '../../../mdx/test.mdx';
 
 require('components/aboutTheDataSidebar/aboutTheData.scss');
 
-
 const propTypes = {
     children: PropTypes.element,
     onClose: PropTypes.func
