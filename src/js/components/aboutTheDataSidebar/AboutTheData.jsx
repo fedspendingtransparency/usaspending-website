@@ -13,8 +13,6 @@ import AboutTheDataDrilldown from "./AboutTheDataDrilldown";
 import AboutTheDataByPage from "./AboutTheDataByPage";
 import DownloadButton from "./DownloadButton";
 
-import Test from '../../../mdx/test.mdx';
-
 require('components/aboutTheDataSidebar/aboutTheData.scss');
 
 const propTypes = {
@@ -23,9 +21,9 @@ const propTypes = {
 };
 
 const AboutTheData = (props) => {
-    const [height, setHeight] = useState();
-    const [drilldown, setDrilldown] = useState();
-    const [pageUrl, setPageUrl] = useState();
+    const [height, setHeight] = useState(0);
+    const [drilldown, setDrilldown] = useState(false);
+    const [pageUrl, setPageUrl] = useState('');
 
     useEffect(() => {
         const wrapper = document.getElementById('usa-atd-wrapper');
@@ -33,8 +31,7 @@ const AboutTheData = (props) => {
 
         setDrilldown(false);
         setHeight(sidebarHeight);
-        console.log('window.location.href.toString()', window.location.href.toString());
-        setPageUrl(window.location.href.toString());
+        setPageUrl(window.location.href);
     }, []);
 
     const track = () => <div className="atd-scrollbar-track" />;
@@ -47,7 +44,6 @@ const AboutTheData = (props) => {
                 aria-labelledby="atd-title"
                 className="atd-sidebar">
                 <AboutTheDataHeader closeAboutTheData={props.onClose} />
-                <Test />
 
                 <Scrollbars
                     style={{ height }}
