@@ -34,7 +34,7 @@ const AboutTheDataByPage = ({ section, pathname }) => {
     return (
         <div className="atd-page-section__container">
             <div className="atd__heading">{section.label}</div>
-            <hr />
+            <hr className="atd_hr" />
             <AgencyMD />
         </div>
     );

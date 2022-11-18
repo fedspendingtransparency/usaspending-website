@@ -48,8 +48,12 @@
         .atd__heading {
             font-size: $font-size-20;
             line-height: rem(25);
-            color: $theme-color-headline-inverse;
+            color: $theme-color-body-inverse;
             font-weight: $font-semibold;
+        }
+
+        .atd_hr {
+            color: $gray-cool-20;
         }
 
         .atd__link {
