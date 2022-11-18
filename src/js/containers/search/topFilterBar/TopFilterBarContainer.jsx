@@ -614,7 +614,7 @@ export class TopFilterBarContainer extends React.Component {
 
         if (selected) {
             filter.code = 'selectedCFDA';
-            filter.name = 'Assistance Listings';
+            filter.name = 'Assistance Listing';
             return filter;
         }
 
