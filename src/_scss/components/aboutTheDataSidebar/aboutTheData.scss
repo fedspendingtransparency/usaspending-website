@@ -65,6 +65,13 @@
                 font-weight: $font-semibold;
             }
 
+            a {
+                font-size: $font-size-16;
+                line-height: 1.5;
+                color: $gray-cool-5;
+                text-decoration: underline;
+            }
+
             .atd__back {
                 margin-bottom: rem(24);
 
