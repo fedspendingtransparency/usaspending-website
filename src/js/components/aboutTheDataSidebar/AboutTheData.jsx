@@ -25,12 +25,24 @@ const AboutTheData = (props) => {
     const [drilldownItemId, setDrilldownItemId] = useState(null);
     const [drilldownSection, setDrilldownSection] = useState(null);
 
-    useEffect(() => {
-        const wrapper = document.getElementById('usa-atd-wrapper');
-        const sidebarHeight = wrapper.getBoundingClientRect().height;
+    const measureAvailableHeight = () => {
+        const paddingBottom = 200;
+        const wrapperHeight = document.getElementById('usa-atd-wrapper')?.getBoundingClientRect().height || 0;
+        const headerHeight = document.getElementById('usa-atd-header')?.getBoundingClientRect().height || 0;
+
+        const sidebarHeight = wrapperHeight - headerHeight - paddingBottom;
 
         setHeight(sidebarHeight);
+    };
+
+    useEffect(() => {
+        measureAvailableHeight();
     }, [drilldown]);
+
+    useEffect(() => {
+        window.addEventListener('resize', measureAvailableHeight);
+        return () => window.removeEventListener('resize', measureAvailableHeight);
+    }, []);
 
     const track = () => <div className="atd-scrollbar-track" />;
     const thumb = () => <div className="atd-scrollbar-thumb" />;

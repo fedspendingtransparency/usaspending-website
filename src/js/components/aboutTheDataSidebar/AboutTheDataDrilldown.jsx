@@ -28,9 +28,12 @@ const AboutTheDataDrilldown = ({ section, name, clearDrilldown }) => {
                 Back
             </span>
         </div>
-        <div className="atd__overline">{ section }</div>
-        <div className="atd__heading-drilldown">{ name }</div>
-        <div className="atd__copy"><Gtas /></div>
+        <div className="atd__drilldown">
+            <div className="atd__overline">{ section }</div>
+            <div className="atd__drilldown__heading">{ name }</div>
+            <div className="atd__copy"><Gtas /></div>
+        </div>
+
     </>);
 };
 

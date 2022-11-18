@@ -57,20 +57,23 @@
                 font-weight: $font-semibold;
             }
 
-            .atd__heading-drilldown {
-                font-size: $font-size-24;
-                margin-top: rem(8);
-                line-height: rem(30);
-                color: $theme-color-headline-inverse;
-                font-weight: $font-semibold;
+            .atd__drilldown {
+                .atd__drilldown__heading {
+                    font-size: $font-size-24;
+                    margin-top: rem(8);
+                    line-height: rem(30);
+                    color: $theme-color-headline-inverse;
+                    font-weight: $font-semibold;
+                }
+
+                a {
+                    font-size: $font-size-16;
+                    line-height: 1.5;
+                    color: $gray-cool-5;
+                    text-decoration: underline;
+                }
             }
 
-            a {
-                font-size: $font-size-16;
-                line-height: 1.5;
-                color: $gray-cool-5;
-                text-decoration: underline;
-            }
 
             .atd__back {
                 margin-bottom: rem(24);

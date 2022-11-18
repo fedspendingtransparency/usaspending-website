@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from "prop-types";
 
 const propTypes = {
-    section: PropTypes.string
+    section: PropTypes.object
 };
 
 const AboutTheDataByPage = ({ section }) => <><div className="atd__heading">{section.label}</div><hr /></>;
