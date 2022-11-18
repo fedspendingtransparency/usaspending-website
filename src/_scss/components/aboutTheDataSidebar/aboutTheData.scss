@@ -56,6 +56,13 @@
             font-size: $font-size-16;
             line-height: rem(24);
             color: $gray-cool-10;
-        }
+
+            &:hover{
+                color: $gray-cool-5;
+            }
+            &:active{
+                color: $gray-cool-1;
+            }
     }
+}
 }
