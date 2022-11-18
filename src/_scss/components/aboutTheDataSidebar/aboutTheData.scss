@@ -40,6 +40,7 @@
                 height: rem(1);
                 background-color: $theme-color-underline;
                 border: none;
+                margin-top: rem(8);
             }
         }
 
@@ -48,6 +49,7 @@
             line-height: rem(25);
             color: $theme-color-headline-inverse;
             font-weight: $font-semibold;
+            margin-top: rem(24);
         }
 
         .atd__link {
