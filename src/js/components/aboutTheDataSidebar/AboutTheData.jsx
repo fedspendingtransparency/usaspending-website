@@ -3,7 +3,7 @@
  * Created by Nick Torres 11/2/22
  */
 
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Scrollbars } from 'react-custom-scrollbars';
 import schema from 'dataMapping/aboutTheDataSchema';
