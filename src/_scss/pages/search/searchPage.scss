@@ -13,7 +13,7 @@
 
     #main-content {
         padding-bottom: rem(32);
-        @import "../aboutTheDataUpdate/aboutTheDataPage";
+        @import "components/aboutTheDataSidebar/aboutTheData";
     }
 
     .search-results-wrapper {

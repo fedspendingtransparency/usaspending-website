@@ -19,7 +19,7 @@ module.exports = merge(common, {
         allowedHosts: "all",
         historyApiFallback: true,
         static: {
-            directory: path.resolve(__dirname, "public"),
+            directory: path.resolve(__dirname, "public")
         }
     },
     module: {

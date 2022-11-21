@@ -1,0 +1,18 @@
+Subawards (specifically, subcontracts and subgrants) greater than or
+equal to $30,000 must be reported by prime award recipients to the
+FFATA Subaward Reporting System (FSRS) by the end of the month
+following the month the subaward was made.
+
+-   Example 1: A subaward is issued on September 1. It must be
+    reported to FSRS by October 31. If submitted on October 31, the
+    new data are available to USAspending.gov on November 1 and
+    published to the site on November 2.
+
+-   Example 2: A subaward is issued on September 30. It must be
+    reported to FSRS by October 31. If submitted on October 31, the
+    new data are available to USAspending.gov on November 1 and
+    published to the site on November 2.
+
+For more information on subaward reporting requirements, please
+refer to [this informational page](https://www.fsrs.gov/#a-faqs) on
+FSRS.

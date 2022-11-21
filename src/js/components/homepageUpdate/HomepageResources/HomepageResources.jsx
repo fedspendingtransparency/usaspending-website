@@ -9,7 +9,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import CardContainer from "../../sharedComponents/commonCards/CardContainer";
 import CardBody from "../../sharedComponents/commonCards/CardBody";
 import CardButton from "../../sharedComponents/commonCards/CardButton";
-import ExternalLink from "../../sharedComponents/ExternalLink";
 import Analytics from '../../../helpers/analytics/Analytics';
 
 const cardObjects = [
@@ -65,15 +64,17 @@ const cardObjects = [
         text: 'Learn how our data is organized',
         buttonText: (
             <>
-                <ExternalLink url="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html" isCard>View the model&nbsp;&nbsp;</ExternalLink>
+                View the model&nbsp;&nbsp;
                 <FontAwesomeIcon icon="arrow-right" />
             </>
         ),
+        buttonLink: "https://fiscal.treasury.gov/data-transparency/DAIMS-current.html",
         action: () => Analytics.event({
             category: 'Homepage',
             action: 'Link',
             label: 'data model card'
-        })
+        }),
+        govLink: true
     },
     {
         icon: (
@@ -132,6 +133,7 @@ const HomepageResources = () => (
                                             variant="text"
                                             text={card.buttonText}
                                             link={card.buttonLink}
+                                            govLink={card.govLink}
                                             action={card.action} />
                                     </CardBody>
                                 </CardContainer>
