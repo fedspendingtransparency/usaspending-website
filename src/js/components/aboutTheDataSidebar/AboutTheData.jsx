@@ -80,7 +80,11 @@ const AboutTheData = (props) => {
                     renderThumbVertical={thumb}>
                     {drilldown ?
                         <div className="atd__body">
-                            <AboutTheDataDrilldown section={drilldownSection.heading} name={drilldownSection.fields[drilldownItemId].name} clearDrilldown={clearDrilldown} />
+                            <AboutTheDataDrilldown
+                                section={drilldownSection.heading}
+                                name={drilldownSection.fields[drilldownItemId].name}
+                                clearDrilldown={clearDrilldown}
+                                slug={drilldownSection.fields[drilldownItemId].slug} />
                         </div>
                         :
                         <>

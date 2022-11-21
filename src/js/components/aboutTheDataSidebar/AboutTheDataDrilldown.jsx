@@ -6,8 +6,6 @@
 import React, { useEffect, useState } from 'react';
 import { AngleLeft } from 'components/sharedComponents/icons/Icons';
 
-import Gtas from "../../../content/about-the-data/descriptions/gtas.mdx";
-
 import PropTypes from 'prop-types';
 
 const propTypes = {
@@ -16,18 +14,16 @@ const propTypes = {
     clearDrilldown: PropTypes.func
 };
 
-const AboutTheDataDrilldown = ({ section, name, clearDrilldown }) => {
-    const fileName = "gtas";
+const AboutTheDataDrilldown = ({
+    section, name, clearDrilldown, slug
+}) => {
+    const [component, setComponent] = useState(<></>);
 
-    const [Component, setComponent] = useState(null);
+    let Component;
 
     useEffect(() => {
-        // eslint-disable-next-line global-require,import/no-dynamic-require
-        // const tempComponent = require(`../../../content/descriptions/${fileName}.mdx`);
-        import(`../../../content/descriptions/${fileName}.mdx`).then((module) => {
-            console.log(module);
-            setComponent(module);
-        });
+        Component = React.lazy(() => import(/* webpackPreload: true */ `../../../content/about-the-data/${slug}.md`).then((comp) => comp));
+        setComponent(<Component />);
     }, []);
 
     const handleKeyUp = (e) => {
@@ -46,7 +42,7 @@ const AboutTheDataDrilldown = ({ section, name, clearDrilldown }) => {
         <div className="atd__drilldown">
             <div className="atd__overline">{ section }</div>
             <div className="atd__drilldown__heading">{ name }</div>
-            <div className="atd__copy" />
+            <div className="atd__copy">{ component }</div>
         </div>
 
     </>);
