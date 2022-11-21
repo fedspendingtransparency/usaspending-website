@@ -1,0 +1,14 @@
+.atd-page-section__container {
+  padding: 32px 24px;
+  background-color: $cyan-vivid-70;
+
+    hr {
+      height: rem(1);
+      background-color: $theme-color-underline;
+      border: none;
+    }
+
+  .atd-page-section__body {
+    color: $theme-color-body-inverse;
+  }
+}
