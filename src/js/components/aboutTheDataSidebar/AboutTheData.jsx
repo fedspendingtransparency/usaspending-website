@@ -3,7 +3,7 @@
  * Created by Nick Torres 11/2/22
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { Scrollbars } from 'react-custom-scrollbars';
 import schema from 'dataMapping/aboutTheDataSchema';
@@ -26,6 +26,7 @@ const AboutTheData = (props) => {
     const [drilldown, setDrilldown] = useState(null);
     const [drilldownItemId, setDrilldownItemId] = useState(null);
     const [drilldownSection, setDrilldownSection] = useState(null);
+    const [scrollbar, setScrollbar] = useState(null);
 
     const measureAvailableHeight = () => {
         const paddingBottom = 200;
@@ -39,6 +40,9 @@ const AboutTheData = (props) => {
 
     useEffect(() => {
         measureAvailableHeight();
+        if (scrollbar) {
+            scrollbar.scrollToTop();
+        }
     }, [drilldown]);
 
     useEffect(() => {
@@ -77,7 +81,8 @@ const AboutTheData = (props) => {
                 <Scrollbars
                     style={{ height }}
                     renderTrackVertical={track}
-                    renderThumbVertical={thumb}>
+                    renderThumbVertical={thumb}
+                    ref={(s) => setScrollbar(s)}>
                     {drilldown ?
                         <div className="atd__body">
                             <AboutTheDataDrilldown section={drilldownSection.heading} name={drilldownSection.fields[drilldownItemId].name} clearDrilldown={clearDrilldown} />
