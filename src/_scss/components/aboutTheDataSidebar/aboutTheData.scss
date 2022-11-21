@@ -42,22 +42,34 @@
             color: $theme-color-body-inverse;
         }
 
+        hr {
+            height: rem(1);
+            background-color: $theme-color-underline;
+            border: none;
+        }
+
+        .atd__heading {
+            font-size: $font-size-20;
+            margin-top: rem(8);
+            line-height: rem(25);
+            color: $theme-color-headline-inverse;
+            font-weight: $font-semibold;
+        }
+
+        .atd__link {
+            font-size: $font-size-16;
+            line-height: rem(24);
+            color: $gray-cool-10;
+        }
+
+        .atd__copy p {
+            font-size: $font-size-16;
+            line-height: rem(24);
+            color: $gray-cool-10;
+        }
+
         .atd__body {
             margin: rem(27) rem(24);
-
-            hr {
-                height: rem(1);
-                background-color: $theme-color-underline;
-                border: none;
-            }
-
-            .atd__heading {
-                font-size: $font-size-20;
-                margin-top: rem(8);
-                line-height: rem(25);
-                color: $theme-color-headline-inverse;
-                font-weight: $font-semibold;
-            }
 
             .atd__drilldown {
                 .atd__drilldown__heading {
@@ -95,20 +107,6 @@
                     margin-left: rem(8);
                 }
             }
-
-            .atd__link {
-                font-size: $font-size-16;
-                line-height: rem(24);
-                color: $gray-cool-10;
-            }
-
-            .atd__copy p {
-                font-size: $font-size-16;
-                line-height: rem(24);
-                color: $gray-cool-10;
-            }
         }
-
-
     }
 }

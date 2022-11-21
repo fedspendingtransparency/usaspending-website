@@ -43,7 +43,6 @@ const AboutTheData = (props) => {
 
     useEffect(() => {
         window.addEventListener('resize', measureAvailableHeight);
-        setHeight(sidebarHeight);
         setPathname(window.location.pathname);
         return () => window.removeEventListener('resize', measureAvailableHeight);
     }, []);
@@ -79,22 +78,21 @@ const AboutTheData = (props) => {
                     style={{ height }}
                     renderTrackVertical={track}
                     renderThumbVertical={thumb}>
-                    <div className="atd__body">
-                        {drilldown ?
+                    {drilldown ?
+                        <div className="atd__body">
+                            <AboutTheDataDrilldown section={drilldownSection.heading} name={drilldownSection.fields[drilldownItemId].name} clearDrilldown={clearDrilldown} />
+                        </div>
+                        :
+                        <>
+                            <AboutTheDataByPage section={schema["by-page"]} pathname={pathname} />
                             <div className="atd__body">
-                                <AboutTheDataDrilldown section={drilldownSection.heading} name={drilldownSection.fields[drilldownItemId].name} clearDrilldown={clearDrilldown} />
+                                <DownloadButton />
+                                <AboutTheDataListView section={schema.descriptions} selectItem={selectItem} />
+                                <AboutTheDataListView section={schema.disclosures} selectItem={selectItem} />
+                                <AboutTheDataListView section={schema["award-disclosures"]} selectItem={selectItem} />
+                                <AboutTheDataListView section={schema["covid-disclosures"]} selectItem={selectItem} />
                             </div>
-                            :
-                            <>
-                                <AboutTheDataByPage section={schema["by-page"]} pathname={pathname} />
-                                <div className="atd__body">                                <DownloadButton />
-                                    <AboutTheDataListView section={schema.descriptions} selectItem={selectItem} />
-                                    <AboutTheDataListView section={schema.disclosures} selectItem={selectItem} />
-                                    <AboutTheDataListView section={schema["award-disclosures"]} selectItem={selectItem} />
-                                    <AboutTheDataListView section={schema["covid-disclosures"]} selectItem={selectItem} />
-                                </div>
-                            </>}
-                    </div>
+                        </>}
                 </Scrollbars>
             </aside>
         </div>);
