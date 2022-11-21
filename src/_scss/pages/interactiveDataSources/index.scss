@@ -137,6 +137,7 @@
       // Other Page Portion styles
       @import './_introSection.scss';
       @import './_aboutSection.scss';
+      @import './_federalSpendingOverview.scss';
       .default-note {
         @include profile-page-wrap;
       }
