@@ -417,7 +417,7 @@ export const descriptionInfoAsst = (
             <p className="tooltip__text-section">
                 The description of this award is provided by the financial assistance manager who submitted its data. The level of detail in descriptions varies and is dependent on the author and the standards of the agencies involved. The description featured here comes from the base award. Modifications have their own descriptions which can differ from the description of the base award; these can be viewed in the Transaction History tab of the Award History section below or by downloading the data via the top-right “DOWNLOAD” button.
             </p>
-            <p className="tooltip__text-section">Additional contextual information on the purpose of this award can be gleaned from the CFDA / Assistance Listing Information module below.</p>
+            <p className="tooltip__text-section">Additional contextual information on the purpose of this award can be gleaned from the Assistance Listing (CFDA Program) module below.</p>
         </div>
     </div>
 );
@@ -1164,7 +1164,7 @@ export const LoanAwardAmountsInfo = (
 export const CFDAOverviewInfo = (
     <div className="award-summary-tooltip">
         <div className="tooltip__title">
-            CFDA Program / Assistance Listing
+        Assistance Listing (CFDA Program)
         </div>
         <div className="tooltip__text">
             <p>
@@ -1178,7 +1178,7 @@ export const CFDAOverviewInfo = (
 export const CFDASectionInfo = (
     <div className="award-summary-tooltip">
         <div className="tooltip__title">
-            CFDA Program / Assistance Listing
+        Assistance Listing (CFDA Program)
         </div>
         <div className="tooltip__text">
             <p>The Catalog of Federal Domestic Assistance (CFDA), also known as Assistance Listings, is a collection of federal financial assistance programs that provide benefits to the American public. Every assistance award must be categorized under a CFDA program, and every CFDA program must be specifically authorized by Congressional statute before an agency can begin to issue awards under it.</p>

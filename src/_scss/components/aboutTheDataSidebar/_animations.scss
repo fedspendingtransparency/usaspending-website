@@ -19,7 +19,7 @@
     100% {
         transform: translate(300px, 0);
     }
-}  
+}
 
 .atd-slide-enter, .atd-slide-enter-active {
     @include animation(atd-slidein 0.5s ease-in forwards);

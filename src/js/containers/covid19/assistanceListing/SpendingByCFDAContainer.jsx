@@ -41,8 +41,8 @@ const columns = [
         title: 'name',
         displayName: (
             <div className="table-header-label__title">
-                <div>CFDA Program</div>
-                <div>(Assistance Listing)</div>
+                <div>Assistance Listing</div>
+                <div>(CFDA Program)</div>
             </div>
         )
     },
@@ -73,8 +73,8 @@ const loanColumns = [
         title: 'assistanceListing',
         displayName: (
             <div className="table-header-label__title">
-                <div>CFDA Program</div>
-                <div>(Assistance Listing)</div>
+                <div>Assistance Listing</div>
+                <div>(CFDA Program)</div>
             </div>
         )
     },
@@ -194,7 +194,7 @@ const SpendingByCFDAContainer = ({ activeTab, scrollIntoView }) => {
         ));
         history.push('/search');
         Analytics.event({
-            category: `COVID-19 - Award Spending by CFDA - ${activeTab}`,
+            category: `COVID-19 - Award Spending by Assistance Listing - ${activeTab}`,
             action: 'CFDA listing click',
             label: cfdaData.description
         });

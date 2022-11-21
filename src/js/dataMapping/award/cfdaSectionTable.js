@@ -5,7 +5,7 @@
 
 const tableMapping = {
     cfdaTitleShort: {
-        displayName: 'CFDA Program / Assistance Listing Title',
+        displayName: 'Assistance Listing (CFDA Program)',
         field: 'cfdaTitle',
         classname: 'cfda-section-table__body-cell',
         onClick: true

@@ -1,14 +1,16 @@
 .usa-atd-animations {
     @import "../../lib/bourbon/bourbon";
     @import '../../lib/neat/neat';
-    
+
     @import "../../core/variables";
     @import "../../core/utilities";
 
     @import "../../elements/buttons";
     @import "../../elements/typography";
-    
+
     @import "./_animations";
+
+    @import "byPage";
 
     .usa-atd-wrapper {
         position: fixed;
@@ -23,7 +25,7 @@
         box-shadow: -3px 0px 4px rgba(0, 0, 0, 0.2);
 
         .atd-sidebar {
-            background-color: $cyan-vivid-70;
+            background-color: $cyan-60v;
             color: $color-white;
             font-size: rem(14);
 

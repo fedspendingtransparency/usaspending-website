@@ -13,8 +13,6 @@ import AboutTheDataDrilldown from "./AboutTheDataDrilldown";
 import AboutTheDataByPage from "./AboutTheDataByPage";
 import DownloadButton from "./DownloadButton";
 
-import Test from '../../../mdx/test.mdx';
-
 require('components/aboutTheDataSidebar/aboutTheData.scss');
 
 const propTypes = {
@@ -23,7 +21,8 @@ const propTypes = {
 };
 
 const AboutTheData = (props) => {
-    const [height, setHeight] = useState();
+    const [height, setHeight] = useState(0);
+    const [pathname, setPathname] = useState('');
     const [drilldown, setDrilldown] = useState(null);
     const [drilldownItemId, setDrilldownItemId] = useState(null);
     const [drilldownSection, setDrilldownSection] = useState(null);
@@ -44,6 +43,8 @@ const AboutTheData = (props) => {
 
     useEffect(() => {
         window.addEventListener('resize', measureAvailableHeight);
+        setHeight(sidebarHeight);
+        setPathname(window.location.pathname);
         return () => window.removeEventListener('resize', measureAvailableHeight);
     }, []);
 
@@ -74,25 +75,24 @@ const AboutTheData = (props) => {
                 aria-labelledby="atd-title"
                 className="atd-sidebar">
                 <AboutTheDataHeader closeAboutTheData={props.onClose} />
-                <Test />
-
                 <Scrollbars
                     style={{ height }}
                     renderTrackVertical={track}
                     renderThumbVertical={thumb}>
                     <div className="atd__body">
                         {drilldown ?
-                            <>
+                            <div className="atd__body">
                                 <AboutTheDataDrilldown section={drilldownSection.heading} name={drilldownSection.fields[drilldownItemId].name} clearDrilldown={clearDrilldown} />
-                            </>
+                            </div>
                             :
                             <>
-                                <AboutTheDataByPage section={schema["by-page"]} />
-                                <DownloadButton />
-                                <AboutTheDataListView section={schema.descriptions} selectItem={selectItem} />
-                                <AboutTheDataListView section={schema.disclosures} selectItem={selectItem} />
-                                <AboutTheDataListView section={schema["award-disclosures"]} selectItem={selectItem} />
-                                <AboutTheDataListView section={schema["covid-disclosures"]} selectItem={selectItem} />
+                                <AboutTheDataByPage section={schema["by-page"]} pathname={pathname} />
+                                <div className="atd__body">                                <DownloadButton />
+                                    <AboutTheDataListView section={schema.descriptions} selectItem={selectItem} />
+                                    <AboutTheDataListView section={schema.disclosures} selectItem={selectItem} />
+                                    <AboutTheDataListView section={schema["award-disclosures"]} selectItem={selectItem} />
+                                    <AboutTheDataListView section={schema["covid-disclosures"]} selectItem={selectItem} />
+                                </div>
                             </>}
                     </div>
                 </Scrollbars>
