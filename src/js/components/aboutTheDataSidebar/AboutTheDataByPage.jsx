@@ -5,10 +5,10 @@
 
 import React, { useEffect, useState } from 'react';
 import PropTypes from "prop-types";
-import AgencyMD from '../../../content/about-the-data/pages/agency.md';
+import AgencyMD from 'content/about-the-data/pages/agency.md';
 
 const propTypes = {
-    section: PropTypes.string,
+    section: PropTypes.object,
     pathname: PropTypes.string
 };
 
