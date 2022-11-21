@@ -207,7 +207,7 @@ export const routes = [
         exact: true
     },
     {
-        path: '/about-the-data',
+        path: '/data-sources',
         component: InteractiveDataSourcesPage,
         exact: true
     },

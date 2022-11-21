@@ -75,7 +75,7 @@ const schema = {
             },
             {
                 name: "File C (Account Breakdown by Award)",
-                slug: "file-c.md"
+                slug: "file-c"
             },
             {
                 name: "File D1 (Award and Awardee Attributes (Procurement))",
