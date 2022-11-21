@@ -3,9 +3,11 @@
  * Created by Andrea Blackwell 11/14/22
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { AngleLeft } from 'components/sharedComponents/icons/Icons';
-import Gtas from "content/about-the-data/descriptions/gtas.md";
+
+import Gtas from "../../../content/about-the-data/descriptions/gtas.mdx";
+
 import PropTypes from 'prop-types';
 
 const propTypes = {
@@ -15,6 +17,19 @@ const propTypes = {
 };
 
 const AboutTheDataDrilldown = ({ section, name, clearDrilldown }) => {
+    const fileName = "gtas";
+
+    const [Component, setComponent] = useState(null);
+
+    useEffect(() => {
+        // eslint-disable-next-line global-require,import/no-dynamic-require
+        // const tempComponent = require(`../../../content/descriptions/${fileName}.mdx`);
+        import(`../../../content/descriptions/${fileName}.mdx`).then((module) => {
+            console.log(module);
+            setComponent(module);
+        });
+    }, []);
+
     const handleKeyUp = (e) => {
         if (e.key === "Enter") {
             clearDrilldown();
@@ -31,7 +46,7 @@ const AboutTheDataDrilldown = ({ section, name, clearDrilldown }) => {
         <div className="atd__drilldown">
             <div className="atd__overline">{ section }</div>
             <div className="atd__drilldown__heading">{ name }</div>
-            <div className="atd__copy"><Gtas /></div>
+            <div className="atd__copy" />
         </div>
 
     </>);
