@@ -10,7 +10,6 @@ import schema from 'dataMapping/aboutTheDataSchema';
 import AboutTheDataHeader from "./AboutTheDataHeader";
 import AboutTheDataListView from "./AboutTheDataListView";
 import AboutTheDataDrilldown from "./AboutTheDataDrilldown";
-import AboutTheDataByPage from "./AboutTheDataByPage";
 import DownloadButton from "./DownloadButton";
 
 require('components/aboutTheDataSidebar/aboutTheData.scss');
@@ -22,10 +21,11 @@ const propTypes = {
 
 const AboutTheData = (props) => {
     const [height, setHeight] = useState(0);
-    const [pathname, setPathname] = useState('');
     const [drilldown, setDrilldown] = useState(null);
     const [drilldownItemId, setDrilldownItemId] = useState(null);
     const [drilldownSection, setDrilldownSection] = useState(null);
+    const [drilldownComponent, setDrilldownComponent] = useState(null);
+
     const [scrollbar, setScrollbar] = useState(null);
 
     const measureAvailableHeight = () => {
@@ -47,7 +47,6 @@ const AboutTheData = (props) => {
 
     useEffect(() => {
         window.addEventListener('resize', measureAvailableHeight);
-        setPathname(window.location.pathname);
         return () => window.removeEventListener('resize', measureAvailableHeight);
     }, []);
 
@@ -68,6 +67,11 @@ const AboutTheData = (props) => {
     useEffect(() => {
         if (drilldownItemId !== null && drilldownItemId >= 0 && drilldownSection) {
             setDrilldown(true);
+
+            // lazy load the md files
+            const slug = drilldownSection.fields[drilldownItemId].slug;
+            const Component = React.lazy(() => import(/* webpackPreload: true */ `../../../content/about-the-data/${slug}.md`).then((comp) => comp));
+            setDrilldownComponent(<Component />);
         }
     }, [drilldownItemId, drilldownSection]);
 
@@ -83,13 +87,17 @@ const AboutTheData = (props) => {
                     renderTrackVertical={track}
                     renderThumbVertical={thumb}
                     ref={(s) => setScrollbar(s)}>
-                    {drilldown ?
+                    {drilldown && drilldownComponent ?
                         <div className="atd__body">
-                            <AboutTheDataDrilldown section={drilldownSection.heading} name={drilldownSection.fields[drilldownItemId].name} clearDrilldown={clearDrilldown} />
+                            <AboutTheDataDrilldown
+                                section={drilldownSection.heading}
+                                name={drilldownSection.fields[drilldownItemId].name}
+                                clearDrilldown={clearDrilldown}
+                                slug={drilldownSection.fields[drilldownItemId].slug}
+                                entry={drilldownComponent} />
                         </div>
                         :
                         <>
-                            <AboutTheDataByPage section={schema["by-page"]} pathname={pathname} />
                             <div className="atd__body">
                                 <DownloadButton />
                                 <AboutTheDataListView section={schema.descriptions} selectItem={selectItem} />
