@@ -93,7 +93,7 @@ export const componentByCovid19Section = (publicLaw, handleExternalLinkClick) =>
         headerText: awardSpendingText,
         showInMenu: true,
         showInMainSection: true,
-        title: 'Award Spending by Assistance Listings'
+        title: 'Award Spending by Assistance Listing'
     },
     data_sources_and_methodology: {
         showInMenu: true,

@@ -34,7 +34,7 @@ export const AwardSpendingAgencyTT = () => (
 
 export const AwardSpendingCfdaTT = () => (
     <div className="covid-profile-tt">
-        <h2 className="tooltip__title">Award Spending by Assistance Listings (CFDA Programs))</h2>
+        <h2 className="tooltip__title">Award Spending by Assistance Listing (CFDA Programs))</h2>
         <div className="tooltip__text ul-override">
             <p>
                 This section shows a breakdown of award spending according to CFDA Program.
