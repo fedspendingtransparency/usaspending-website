@@ -3,7 +3,7 @@
  * Created by Andrea Blackwell 11/14/22
  */
 
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { AngleLeft } from 'components/sharedComponents/icons/Icons';
 import PropTypes from 'prop-types';
 import { LoadingWrapper } from "../sharedComponents/Loading";
@@ -11,19 +11,14 @@ import { LoadingWrapper } from "../sharedComponents/Loading";
 const propTypes = {
     section: PropTypes.string,
     name: PropTypes.string,
-    clearDrilldown: PropTypes.func
+    clearDrilldown: PropTypes.func,
+    slug: PropTypes.string,
+    entry: PropTypes.element
 };
 
 const AboutTheDataDrilldown = ({
-    section, name, clearDrilldown, slug
+    section, name, clearDrilldown, entry
 }) => {
-    const [component, setComponent] = useState(null);
-
-    useEffect(() => {
-        const Component = React.lazy(() => import(/* webpackPreload: true */ `../../../content/about-the-data/${slug}.md`).then((comp) => comp));
-        setComponent(<Component />);
-    }, [slug]);
-
     const handleKeyUp = (e) => {
         if (e.key === "Enter") {
             clearDrilldown();
@@ -37,11 +32,11 @@ const AboutTheDataDrilldown = ({
                 Back
             </span>
         </div>
-        {component ?
+        {entry ?
             <div className="atd__drilldown">
                 <div className="atd__overline">{ section }</div>
                 <div className="atd__drilldown__heading">{ name }</div>
-                <div className="atd__copy">{component}</div>
+                <div className="atd__copy">{entry}</div>
             </div>
             :
             <><LoadingWrapper isLoading /></>}
