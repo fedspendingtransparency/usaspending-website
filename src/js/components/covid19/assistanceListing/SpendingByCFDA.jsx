@@ -141,7 +141,7 @@ const SpendingByCFDA = ({ publicLaw, handleExternalLinkClick }) => {
             }
             <div className="body__narrative-description">
                 <p>
-                    Overall financial assistance awards represent the vast majority of COVID-19 appropriated spending. <span className="glossary-term">Assistance Listings are programs</span> <GlossaryLink term="a" /> like
+                    Overall financial assistance awards represent the vast majority of COVID-19 appropriated spending. <span className="glossary-term">Assistance Listings</span>&nbsp;<GlossaryLink term="assistance-listings-cfda-program" /> are programs like
                     <a
                         href="https://beta.sam.gov/fal/ccb612a4c4bb4ba98dbd427638a63029/view?keywords=snap&sort=-relevance&index=cfda&is_active=true&page=1"
                         onClick={handleClick}>
