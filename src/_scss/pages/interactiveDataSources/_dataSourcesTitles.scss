@@ -1,12 +1,16 @@
-.federal-spending-overview__container {    
-    .federal-spending-overview__title {
+.data-sources-titles__container {    
+    .data-sources__title {
         font-size: rem(56);
         line-height: 1.25;
         font-weight: $font-semibold;
         color: $theme-color-2;
         margin: 0 0 24px 0;
+
+        @media(min-width: 1200px) {
+            transform: translate(80px,296px);
+        }
     }
-    .federal-spending-overview__subtitle {
+    .data-sources__subtitle {
         font-size: rem(32);
         line-height: 1.25;
         font-weight: $font-semibold;
