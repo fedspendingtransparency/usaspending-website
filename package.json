@@ -171,7 +171,7 @@
     "d3-hierarchy": "^3.1.2",
     "d3-interpolate": "^3.0.1",
     "d3-scale": "^4.0.2",
-    "data-transparency-ui": "github:fedspendingtransparency/data-transparency-ui#v5.1.1",
+    "data-transparency-ui": "file:../data-transparency-ui/data-transparency-ui-5.1.2.tgz",
     "date-fns": "^2.16.1",
     "file-loader": "^6.2.0",
     "focus-trap-react": "^9.0.2",
