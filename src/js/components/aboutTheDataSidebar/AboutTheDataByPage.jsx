@@ -3,6 +3,11 @@
  * Created by Andrea Blackwell 11/14/22
  */
 
+/*
+    USAGE - <AboutTheDataByPage section={schema["by-page"]} pathname={pathname} />
+    Removed for MVP
+*/
+
 import React, { useEffect, useState } from 'react';
 import PropTypes from "prop-types";
 import AgencyMD from '../../../content/about-the-data/pages/agency.md';

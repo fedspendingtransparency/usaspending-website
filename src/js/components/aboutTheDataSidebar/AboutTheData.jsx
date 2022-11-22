@@ -10,7 +10,6 @@ import schema from 'dataMapping/aboutTheDataSchema';
 import AboutTheDataHeader from "./AboutTheDataHeader";
 import AboutTheDataListView from "./AboutTheDataListView";
 import AboutTheDataDrilldown from "./AboutTheDataDrilldown";
-import AboutTheDataByPage from "./AboutTheDataByPage";
 import DownloadButton from "./DownloadButton";
 
 require('components/aboutTheDataSidebar/aboutTheData.scss');
@@ -22,7 +21,6 @@ const propTypes = {
 
 const AboutTheData = (props) => {
     const [height, setHeight] = useState(0);
-    const [pathname, setPathname] = useState('');
     const [drilldown, setDrilldown] = useState(null);
     const [drilldownItemId, setDrilldownItemId] = useState(null);
     const [drilldownSection, setDrilldownSection] = useState(null);
@@ -47,7 +45,6 @@ const AboutTheData = (props) => {
 
     useEffect(() => {
         window.addEventListener('resize', measureAvailableHeight);
-        setPathname(window.location.pathname);
         return () => window.removeEventListener('resize', measureAvailableHeight);
     }, []);
 
@@ -93,7 +90,6 @@ const AboutTheData = (props) => {
                         </div>
                         :
                         <>
-                            <AboutTheDataByPage section={schema["by-page"]} pathname={pathname} />
                             <div className="atd__body">
                                 <DownloadButton />
                                 <AboutTheDataListView section={schema.descriptions} selectItem={selectItem} />
