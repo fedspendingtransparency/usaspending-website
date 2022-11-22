@@ -5,8 +5,8 @@
 
 import React, { useEffect, useState } from 'react';
 import { AngleLeft } from 'components/sharedComponents/icons/Icons';
-
 import PropTypes from 'prop-types';
+import { LoadingWrapper } from "../sharedComponents/Loading";
 
 const propTypes = {
     section: PropTypes.string,
@@ -17,14 +17,12 @@ const propTypes = {
 const AboutTheDataDrilldown = ({
     section, name, clearDrilldown, slug
 }) => {
-    const [component, setComponent] = useState(<></>);
-
-    let Component;
+    const [component, setComponent] = useState(null);
 
     useEffect(() => {
-        Component = React.lazy(() => import(/* webpackPreload: true */ `../../../content/about-the-data/${slug}.md`).then((comp) => comp));
+        const Component = React.lazy(() => import(/* webpackPreload: true */ `../../../content/about-the-data/${slug}.md`).then((comp) => comp));
         setComponent(<Component />);
-    }, []);
+    }, [slug]);
 
     const handleKeyUp = (e) => {
         if (e.key === "Enter") {
@@ -39,12 +37,14 @@ const AboutTheDataDrilldown = ({
                 Back
             </span>
         </div>
-        <div className="atd__drilldown">
-            <div className="atd__overline">{ section }</div>
-            <div className="atd__drilldown__heading">{ name }</div>
-            <div className="atd__copy">{ component }</div>
-        </div>
-
+        {component ?
+            <div className="atd__drilldown">
+                <div className="atd__overline">{ section }</div>
+                <div className="atd__drilldown__heading">{ name }</div>
+                <div className="atd__copy">{component}</div>
+            </div>
+            :
+            <><LoadingWrapper isLoading /></>}
     </>);
 };
 

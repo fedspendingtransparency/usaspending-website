@@ -60,15 +60,6 @@ module.exports = {
                 }
             },
             {
-                test: /\.(md|mdx)$/,
-                use: [{
-                    loader: 'raw-loader',
-                    options: {
-                        esModule: false
-                    }
-                }]
-            },
-            {
                 test: /\.(json)$/,
                 type: 'javascript/auto',
                 loader: 'file-loader',
@@ -83,9 +74,6 @@ module.exports = {
                         loader: '@mdx-js/loader',
                         /** @type {import('@mdx-js/loader').Options} */
                         options: {}
-                    },
-                    {
-                        loader: 'raw-loader'
                     }
                 ]
             }
