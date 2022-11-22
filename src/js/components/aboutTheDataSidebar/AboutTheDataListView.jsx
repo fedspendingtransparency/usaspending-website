@@ -18,13 +18,13 @@ const AboutTheDataListView = ({ section, selectItem }) => {
         selectItem(index, section);
     };
 
-    return(<>
+    return (<>
         <div className="atd__heading">{section.heading}</div>
         <hr />
         {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
         {section.fields.map((list, index) => <p className="atd__link" key={`atd-list-item-${index}`} onClick={(e) => clickHandler(e, index, section)}>{list.name}</p>)}
     </>);
-}
+};
 
 AboutTheDataListView.propTypes = propTypes;
 export default AboutTheDataListView;
