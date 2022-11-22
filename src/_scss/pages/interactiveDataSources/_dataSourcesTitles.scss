@@ -6,9 +6,19 @@
         color: $theme-color-2;
         margin: 0 0 24px 0;
 
+        @media(max-width:767px) {
+            transform: translate(0px,280px);
+        }
+        @media(min-width:768px) {
+            transform: translate(24px,280px);
+        }
+        @media(min-width:992px) {
+            transform: translate(24px,280px);
+        }
         @media(min-width: 1200px) {
             transform: translate(80px,296px);
         }
+        
     }
     .data-sources__subtitle {
         font-size: rem(32);
