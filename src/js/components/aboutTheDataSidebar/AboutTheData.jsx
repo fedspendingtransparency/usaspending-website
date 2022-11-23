@@ -66,6 +66,7 @@ const AboutTheData = (props) => {
 
     useEffect(() => {
         if (drilldownItemId !== null && drilldownItemId >= 0 && drilldownSection) {
+            scrollbar.scrollToTop();
             setDrilldown(true);
 
             // lazy load the md files
