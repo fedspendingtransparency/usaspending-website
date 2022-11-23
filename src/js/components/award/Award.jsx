@@ -56,7 +56,7 @@ const awardSections = [
     },
     {
         section: 'cfda',
-        label: 'CFDA Program / Assistance Listing Information'
+        label: 'Assistance Listing (CFDA Program) Information'
     }
 ];
 

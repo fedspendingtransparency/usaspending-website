@@ -46,7 +46,7 @@ const CovidModalContainer = ({
     const handleGoToDsm = (e) => {
         e.preventDefault();
         hideModal();
-        history.push('/disaster/covid-19/data-sources');
+        history.push('/disaster/covid-19/about-the-data');
     };
 
     return (

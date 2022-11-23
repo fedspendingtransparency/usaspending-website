@@ -21,7 +21,7 @@ const CFDASection = ({
 }) => (
     <AwardSection id="award-cfda" type="column" className="cfda-section award-viz">
         <AwardSectionHeader
-            title="CFDA Program / Assistance Listing Information"
+            title="Assistance Listing (CFDA Program) Information"
             icon={<FontAwesomeIcon icon="hands-helping" />}
             tooltip={CFDASectionInfo}
             left={false}

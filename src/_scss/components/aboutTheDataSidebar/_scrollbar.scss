@@ -1,0 +1,17 @@
+.atd-scrollbar-track {
+    // this is the "track" that the thumb moves within - it's essentially a wrapper around the
+    // scroll position indicator
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+
+    width: 10px;
+}
+
+.atd-scrollbar-thumb {
+    // this is the element that actually moves up and down with the scroll position
+    width: 10px;
+    opacity: 0.3;
+    background-color: $color-white;
+}

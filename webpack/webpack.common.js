@@ -66,6 +66,16 @@ module.exports = {
                 options: {
                     name: '[path][name].[ext]'
                 }
+            },
+            {
+                test: /\.mdx?$/,
+                use: [
+                    {
+                        loader: '@mdx-js/loader',
+                        /** @type {import('@mdx-js/loader').Options} */
+                        options: {}
+                    }
+                ]
             }
         ]
     },
@@ -100,6 +110,12 @@ module.exports = {
         // new webpack.HashedModuleIdsPlugin(),
         new CopyWebpackPlugin({
             patterns: [
+                {
+                    from: '*.xml',
+                    to: path.resolve(__dirname, "../public"),
+                    context: path.resolve(__dirname, '../'),
+                    noErrorOnMissing: true
+                },
                 {
                     from: '*.xml',
                     to: path.resolve(__dirname, "../public"),
