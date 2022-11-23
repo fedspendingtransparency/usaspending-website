@@ -70,5 +70,52 @@
             &:active{
                 color: $gray-cool-1;
             }
+        }
+
+        .atd__copy p {
+            font-size: $font-size-16;
+            line-height: rem(24);
+            color: $gray-cool-10;
+        }
+
+        .atd__body {
+            margin: rem(27) rem(24);
+
+            .atd__drilldown {
+                .atd__drilldown__heading {
+                    font-size: $font-size-24;
+                    margin-top: rem(8);
+                    line-height: rem(30);
+                    color: $theme-color-headline-inverse;
+                    font-weight: $font-semibold;
+                }
+
+                a {
+                    font-size: $font-size-16;
+                    line-height: 1.5;
+                    color: $gray-cool-5;
+                    text-decoration: underline;
+                }
+            }
+
+
+            .atd__back {
+                margin-bottom: rem(24);
+
+                .usa-da-icon-angle-left {
+                    height: rem(12);
+                    width: rem(16);
+                    fill: $gray-cool-10;
+                }
+
+                .atd__back__label {
+                    font-size: $font-size-16;
+                    line-height: rem(24);
+                    color: $theme-color-headline-inverse;
+                    font-weight: $font-semibold;
+                    text-transform: uppercase;
+                    margin-left: rem(8);
+                }
+            }
+        }
     }
-}
