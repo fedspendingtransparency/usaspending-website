@@ -5,7 +5,7 @@ import LottieAnimation from '../lottieAnimation/LottieAnimation';
 import ScrollerOverlayCard from '../scroller/scrollerOverlay/ScrollerOverlayCard';
 
 const DataUseCases = (props) => {
-    const overline = <p>{props.title.toUpperCase()}</p>;
+    const overline = <p>{props.title?.toUpperCase()}</p>;
 
     const ref1 = useRef();
     return (

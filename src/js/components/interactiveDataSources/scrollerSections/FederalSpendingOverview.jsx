@@ -6,7 +6,7 @@ import ScrollerOverlayCard from '../scroller/scrollerOverlay/ScrollerOverlayCard
 import GlossaryLink from '../../sharedComponents/GlossaryLink';
 
 const FederalSpendingOverview = (props) => {
-    const overline = <p>{props.title.toUpperCase()}</p>;
+    const overline = <p>{props.title?.toUpperCase()}</p>;
 
     const cards = {
         card1: {

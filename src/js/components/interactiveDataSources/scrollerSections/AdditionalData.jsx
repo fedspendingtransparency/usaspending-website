@@ -6,7 +6,7 @@ import LottieAnimation from '../lottieAnimation/LottieAnimation';
 import ScrollerOverlayCard from '../scroller/scrollerOverlay/ScrollerOverlayCard';
 
 const AdditionalData = (props) => {
-    const overline = <p>{props.title.toUpperCase()}</p>;
+    const overline = <p>{props.title?.toUpperCase()}</p>;
 
     const cards = {
         card1: {

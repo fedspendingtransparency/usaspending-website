@@ -7,7 +7,7 @@ import GlossaryLink from '../../sharedComponents/GlossaryLink';
 
 
 const AccountData = (props) => {
-    const overline = <p>{props.title.toUpperCase()}</p>;
+    const overline = <p>{props.title?.toUpperCase()}</p>;
 
     const cards = {
         card1: {

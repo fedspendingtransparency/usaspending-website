@@ -7,7 +7,7 @@ import ScrollerOverlayCard from '../scroller/scrollerOverlay/ScrollerOverlayCard
 import GlossaryLink from '../../sharedComponents/GlossaryLink';
 
 const DataFeatures = (props) => {
-    const overline = <p>{props.title.toUpperCase()}</p>;
+    const overline = <p>{props.title?.toUpperCase()}</p>;
 
     const ref1 = useRef();
     return (
