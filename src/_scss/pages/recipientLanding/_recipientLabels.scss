@@ -1,5 +1,5 @@
 .recipient-labels {
-    @import "pages/homepage/hero/_heroTooltip";
+    @import "pages/homepageUpdate/heroUpdate/_heroTooltip";
     @include display(inline-flex);
     margin: 0 0 rem(16) 0;
 
@@ -25,7 +25,7 @@
         margin-right: rem(5);
         font-size: rem(14);
     }
-    @import "pages/homepage/hero/_heroTooltip";
+    @import "pages/homepageUpdate/heroUpdate/_heroTooltip";
 
     .homepage-hero-tooltip {
         // we don't want the tooltip to be on top of the fix header, this will make sure that
