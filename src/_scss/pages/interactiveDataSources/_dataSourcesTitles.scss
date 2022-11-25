@@ -1,13 +1,17 @@
 .data-sources-titles__container {    
     .data-sources__title {
         font-size: rem(56);
+
         line-height: 1.25;
         font-weight: $font-semibold;
         color: $theme-color-2;
         margin: 0 0 24px 0;
 
         @media(max-width:767px) {
-            transform: translate(0px,280px);
+            transform: translate(0px,264px);
+            font-size: rem(32);
+            margin: 0 16px 24px 16px;
+            width: auto;
         }
         @media(min-width:768px) {
             transform: translate(24px,280px);
@@ -25,6 +29,12 @@
         line-height: 1.25;
         font-weight: $font-semibold;
         color: $theme-color-body;
-        max-width: 500px;
+        max-width: 550px;
+
+        @media(max-width: 767px) {
+            font-size: rem(20);
+            max-width:unset;
+            width: auto;
+        }
     }
 } 
