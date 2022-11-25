@@ -5,6 +5,8 @@ import LottieAnimation from '../lottieAnimation/LottieAnimation';
 import ScrollerOverlayCard from '../scroller/scrollerOverlay/ScrollerOverlayCard';
 
 const DataUseCases = (props) => {
+    const overline = <p>{props.title.toUpperCase()}</p>;
+
     const ref1 = useRef();
     return (
         <div className="data-sources-titles__container">
@@ -44,6 +46,7 @@ const DataUseCases = (props) => {
                     position="right">
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
+                            overline={overline}
                             content={
                                 <p>
                                 The wealth of data on USAspending.gov allows for many use cases by
@@ -62,6 +65,7 @@ const DataUseCases = (props) => {
                     position="right">
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
+                            overline={overline}
                             heading={<h4>Federal Spending Transparency and Accountability</h4>}
                             content={
                                 <p>
@@ -79,6 +83,7 @@ const DataUseCases = (props) => {
                     position="right">
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
+                            overline={overline}
                             heading={<h4>Market Research</h4>}
                             content={
                                 <p>
@@ -95,6 +100,7 @@ const DataUseCases = (props) => {
                     position="right">
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
+                            overline={overline}
                             heading={<h4>Grant Opportunities and Compliance</h4>}
                             content={
                                 <p>
@@ -112,6 +118,7 @@ const DataUseCases = (props) => {
                     position="right">
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
+                            overline={overline}
                             heading={<h4>Federal Spending Trends and Stories</h4>}
                             content={
                                 <p>
@@ -131,6 +138,7 @@ const DataUseCases = (props) => {
                     }>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
+                            overline={overline}
                             content={
                                 <p>
                                 We hope you find your own way to use USAspending data. You can

@@ -7,6 +7,8 @@ import GlossaryLink from '../../sharedComponents/GlossaryLink';
 
 
 const AccountData = (props) => {
+    const overline = <p>{props.title.toUpperCase()}</p>;
+
     const cards = {
         card1: {
             heading: <h4>GTAS</h4>,
@@ -128,6 +130,7 @@ const AccountData = (props) => {
                     }>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
+                            overline={overline}
                             heading={cards.card1.heading}
                             content={cards.card1.content}
                             role="presentation" />
@@ -152,6 +155,7 @@ const AccountData = (props) => {
                     }>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
+                            overline={overline}
                             heading={cards.card2.heading}
                             content={cards.card2.content} />
                     </div>
@@ -175,6 +179,7 @@ const AccountData = (props) => {
                     }>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
+                            overline={overline}
                             heading={cards.card3.heading}
                             content={cards.card3.content} />
                     </div>

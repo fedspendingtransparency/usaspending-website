@@ -100,7 +100,7 @@ const InteractiveDataSourcesPage = () => {
             display: 'Data Submission and Extraction',
             showSectionTitle: false,
             scroller: true,
-            component: <DataSubmissionExtraction title="Data Submission and Extraction" subtitle="What data are submitted directly to USAspending.gov, and what data are extracted by USAspending.gov?" />
+            component: <DataSubmissionExtraction title="Data Submission and Extraction" subtitle="What data are submitted directly to and extracted by USAspending?" />
         },
         {
             name: 'frequency',
@@ -114,7 +114,7 @@ const InteractiveDataSourcesPage = () => {
             display: 'Data Validation',
             showSectionTitle: false,
             scroller: true,
-            component: <DataValidation title="Data Validation" subtitle="How does the DATA Act Broker validate data before they are accessible to the public?" />
+            component: <DataValidation title="Data Validation" subtitle="How does the DATA Act Broker validate data before they are publicly available?" />
         },
         {
             name: 'data-access',

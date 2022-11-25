@@ -5,6 +5,8 @@ import LottieAnimation from '../lottieAnimation/LottieAnimation';
 import ScrollerOverlayCard from '../scroller/scrollerOverlay/ScrollerOverlayCard';
 
 const DataTypes = (props) => {
+    const overline = <p>{props.title.toUpperCase()}</p>;
+
     const ref1 = useRef();
     const ref2 = useRef();
     const ref3 = useRef();
@@ -66,6 +68,7 @@ const DataTypes = (props) => {
                     }>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
+                            overline={overline}
                             content={
                                 <p>
                                 Even though USAspending.gov has hundreds of data elements, you can
@@ -93,6 +96,7 @@ const DataTypes = (props) => {
                     }>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
+                            overline={overline}
                             heading={<h4>Account Data</h4>}
                             content={
                                 <p>
@@ -124,6 +128,7 @@ const DataTypes = (props) => {
                     }>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
+                            overline={overline}
                             heading={<h4>Award Data</h4>}
                             content={
                                 <p>
@@ -156,6 +161,7 @@ const DataTypes = (props) => {
                     }>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
+                            overline={overline}
                             heading={<h4>Additional Data</h4>}
                             content={
                                 <p>

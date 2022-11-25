@@ -7,6 +7,8 @@ import ScrollerOverlayCard from '../scroller/scrollerOverlay/ScrollerOverlayCard
 import GlossaryLink from "../../sharedComponents/GlossaryLink";
 
 const DataValidation = (props) => {
+    const overline = <p>{props.title.toUpperCase()}</p>;
+
     const ref1 = useRef();
     return (
         <div className="data-sources-titles__container">
@@ -39,6 +41,7 @@ const DataValidation = (props) => {
                     position="right">
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
+                            overline={overline}
                             heading={<h4>DATA Act Broker Practices</h4>}
                             content={
                                 <p>
@@ -60,6 +63,7 @@ const DataValidation = (props) => {
                     position="right">
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
+                            overline={overline}
                             heading={<h4>System Validations</h4>}
                             content={
                                 <>
@@ -81,6 +85,7 @@ const DataValidation = (props) => {
                     position="right">
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
+                            overline={overline}
                             heading={<h4>Treasury Account Validations</h4>}
                             content={
                                 <p>
@@ -99,6 +104,7 @@ const DataValidation = (props) => {
                     position="right">
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
+                            overline={overline}
                             heading={<h4>Zip Code Validations</h4>}
                             content={
                                 <p>
@@ -120,6 +126,7 @@ const DataValidation = (props) => {
                     }>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
+                            overline={overline}
                             heading={<h4>Unique Entity Identifier (UEI) Validations</h4>}
                             content={
                                 <p>
@@ -137,6 +144,7 @@ const DataValidation = (props) => {
                     position="right">
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
+                            overline={overline}
                             heading={<h4>Award Linkage Validation</h4>}
                             content={
                                 <>

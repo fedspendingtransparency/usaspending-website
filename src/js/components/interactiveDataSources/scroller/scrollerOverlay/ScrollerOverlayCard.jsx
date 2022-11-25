@@ -10,12 +10,17 @@ const propTypes = {
 };
 
 const ScrollerOverlayCard = ({
-    icon, heading, content, link
+    icon, heading, content, link, overline
 }) => (
     <FlexGridRow className="scroller-overlay-card-content" tabIndex="0">
         {icon &&
             <FlexGridCol width={12} desktop={1} className="scroller-overlay-card__icon-wrapper">
                 {icon}
+            </FlexGridCol>
+        }
+        {overline &&
+            <FlexGridCol width={12} desktop={12} className="scroller-overlay-card__overline-wrapper">
+                {overline}
             </FlexGridCol>
         }
         {heading &&

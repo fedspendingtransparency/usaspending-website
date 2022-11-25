@@ -7,6 +7,8 @@ import ScrollerOverlayCard from '../scroller/scrollerOverlay/ScrollerOverlayCard
 import GlossaryLink from '../../sharedComponents/GlossaryLink';
 
 const DataAvailable = (props) => {
+    const overline = <p>{props.title.toUpperCase()}</p>;
+
     const ref1 = useRef();
     const ref2 = useRef();
     const ref3 = useRef();
@@ -102,6 +104,7 @@ const DataAvailable = (props) => {
                     }>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
+                            overline={overline}
                             heading={<h4>Data Available on USAspending.gov</h4>}
                             content={
                                 <p>
@@ -143,6 +146,7 @@ const DataAvailable = (props) => {
                     }>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
+                            overline={overline}
                             heading={<h4>Data Not Available on USAspending.gov</h4>}
                             content={(
                                 <>
@@ -174,6 +178,7 @@ const DataAvailable = (props) => {
                     }>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
+                            overline={overline}
                             content={
                                 <p>
                                 Note that some smaller executive branch agencies, as well as

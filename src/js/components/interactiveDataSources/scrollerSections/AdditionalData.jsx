@@ -6,6 +6,8 @@ import LottieAnimation from '../lottieAnimation/LottieAnimation';
 import ScrollerOverlayCard from '../scroller/scrollerOverlay/ScrollerOverlayCard';
 
 const AdditionalData = (props) => {
+    const overline = <p>{props.title.toUpperCase()}</p>;
+
     const cards = {
         card1: {
             content: (
@@ -100,6 +102,7 @@ const AdditionalData = (props) => {
                     }>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
+                            overline={overline}
                             content={cards.card1.content} />
                     </div>
                 </ScrollerOverlay>
@@ -113,6 +116,7 @@ const AdditionalData = (props) => {
                     }>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
+                            overline={overline}
                             heading={cards.card2.heading}
                             content={cards.card2.content} />
                     </div>
@@ -125,6 +129,7 @@ const AdditionalData = (props) => {
                     }>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
+                            overline={overline}
                             heading={cards.card3.heading}
                             content={cards.card3.content} />
                     </div>

@@ -5,6 +5,8 @@ import LottieAnimation from '../lottieAnimation/LottieAnimation';
 import ScrollerOverlayCard from '../scroller/scrollerOverlay/ScrollerOverlayCard';
 
 const DataSubmissionExtraction = (props) => {
+    const overline = <p>{props.title.toUpperCase()}</p>;
+
     const ref1 = useRef();
     const ref2 = useRef();
     return (
@@ -57,6 +59,7 @@ const DataSubmissionExtraction = (props) => {
                     }>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
+                            overline={overline}
                             content={
                                 <p>
                                 Data from government systems flow into USAspending.gov in one of two
@@ -82,6 +85,7 @@ const DataSubmissionExtraction = (props) => {
                     }>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
+                            overline={overline}
                             heading={<h4>Data Submitted</h4>}
                             content={
                                 <p>
@@ -119,6 +123,7 @@ const DataSubmissionExtraction = (props) => {
                     }>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
+                            overline={overline}
                             heading={<h4>Data Extracted</h4>}
                             content={
                                 <p>

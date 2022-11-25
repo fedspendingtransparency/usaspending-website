@@ -6,6 +6,8 @@ import ScrollerOverlayCard from '../scroller/scrollerOverlay/ScrollerOverlayCard
 import GlossaryLink from '../../sharedComponents/GlossaryLink';
 
 const FederalSpendingOverview = (props) => {
+    const overline = <p>{props.title.toUpperCase()}</p>;
+
     const cards = {
         card1: {
             heading: <h4>Appropriations</h4>,
@@ -105,6 +107,7 @@ const FederalSpendingOverview = (props) => {
                     position="right">
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
+                            overline={overline}
                             heading={cards.card1.heading}
                             content={cards.card1.content} />
                     </div>
@@ -116,6 +119,7 @@ const FederalSpendingOverview = (props) => {
                     position="right">
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
+                            overline={overline}
                             heading={cards.card2.heading}
                             content={cards.card2.content} />
                     </div>
@@ -127,6 +131,7 @@ const FederalSpendingOverview = (props) => {
                     position="right">
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
+                            overline={overline}
                             heading={cards.card3.heading}
                             content={cards.card3.content} />
                     </div>

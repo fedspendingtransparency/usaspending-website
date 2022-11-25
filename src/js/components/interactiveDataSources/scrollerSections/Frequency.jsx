@@ -7,6 +7,8 @@ import ScrollerOverlayCard from '../scroller/scrollerOverlay/ScrollerOverlayCard
 import GlossaryLink from '../../sharedComponents/GlossaryLink';
 
 const Frequency = (props) => {
+    const overline = <p>{props.title.toUpperCase()}</p>;
+
     const ref1 = useRef();
     const ref2 = useRef();
     return (
@@ -59,6 +61,7 @@ const Frequency = (props) => {
                     }>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
+                            overline={overline}
                             content={
                                 <p>
                                 The data on USAspending.gov are updated every day after the nightly
@@ -88,6 +91,7 @@ const Frequency = (props) => {
                     }>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
+                            overline={overline}
                             heading={<h4>Files A, B, and C</h4>}
                             content={
                                 <>
@@ -141,6 +145,7 @@ const Frequency = (props) => {
                     }>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
+                            overline={overline}
                             heading={<h4>FPDS (File D1)</h4>}
                             content={
                                 <>
@@ -199,6 +204,7 @@ const Frequency = (props) => {
                     }>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
+                            overline={overline}
                             heading={<h4>FABS (File D2)</h4>}
                             content={
                                 <>
@@ -251,6 +257,7 @@ const Frequency = (props) => {
                     }>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
+                            overline={overline}
                             heading={<h4>FSRS (File F)</h4>}
                             content={
                                 <>
@@ -314,6 +321,7 @@ const Frequency = (props) => {
                     }>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
+                            overline={overline}
                             heading={<h4>Reference Data</h4>}
                             content={
                                 <p>

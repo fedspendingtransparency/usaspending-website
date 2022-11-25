@@ -7,6 +7,8 @@ import ScrollerOverlayCard from '../scroller/scrollerOverlay/ScrollerOverlayCard
 import GlossaryLink from '../../sharedComponents/GlossaryLink';
 
 const DataFeatures = (props) => {
+    const overline = <p>{props.title.toUpperCase()}</p>;
+
     const ref1 = useRef();
     return (
         <div className="data-sources-titles__container">
@@ -43,6 +45,7 @@ const DataFeatures = (props) => {
                     position="right">
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
+                            overline={overline}
                             heading={<h4>Features for Account Data</h4>}
                             content={
                                 <>
@@ -102,6 +105,7 @@ const DataFeatures = (props) => {
                     position="right">
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
+                            overline={overline}
                             heading={<h4>Features for Award Data</h4>}
                             content={
                                 <>
@@ -167,6 +171,7 @@ const DataFeatures = (props) => {
                     position="right">
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
+                            overline={overline}
                             heading={<h4>Features for COVID-19 and Infrastructure Spending Data</h4>}
                             content={
                                 <>
@@ -240,6 +245,7 @@ const DataFeatures = (props) => {
                     }>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
+                            overline={overline}
                             heading={<h4>Features for Downloads and APIs</h4>}
                             content={
                                 <>

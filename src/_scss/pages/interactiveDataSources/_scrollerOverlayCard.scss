@@ -27,6 +27,18 @@ $mobile-large: 500px;
         margin-bottom: rem(16);
       }
     }
+
+    .scroller-overlay-card__overline-wrapper {
+      font-size: rem(14);
+      line-height: 1.25;
+      margin: 0 0 4px 0;
+      color: $color-white;
+      height: auto;
+
+      p {
+        margin: 0;
+      }
+    }
     .scroller-overlay-card__heading-wrapper {
       font-size: $h4-font-size;
       font-weight: $font-semibold;

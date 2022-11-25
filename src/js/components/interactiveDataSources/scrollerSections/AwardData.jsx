@@ -7,6 +7,8 @@ import ScrollerOverlayCard from '../scroller/scrollerOverlay/ScrollerOverlayCard
 import GlossaryLink from '../../sharedComponents/GlossaryLink';
 
 const AwardData = (props) => {
+    const overline = <p>{props.title.toUpperCase()}</p>;
+
     const cards = {
         card1: {
             heading: <h4>File C</h4>,
@@ -322,6 +324,7 @@ const AwardData = (props) => {
                     }>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
+                            overline={overline}
                             heading={cards.card1.heading}
                             content={cards.card1.content} />
                     </div>
@@ -344,6 +347,7 @@ const AwardData = (props) => {
                     }>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
+                            overline={overline}
                             heading={cards.card2.heading}
                             content={cards.card2.content} />
                     </div>
@@ -367,6 +371,7 @@ const AwardData = (props) => {
                     }>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
+                            overline={overline}
                             heading={cards.card3.heading}
                             content={cards.card3.content} />
                     </div>
@@ -390,6 +395,7 @@ const AwardData = (props) => {
                     }>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
+                            overline={overline}
                             heading={cards.card4.heading}
                             content={cards.card4.content} />
                     </div>
@@ -412,6 +418,7 @@ const AwardData = (props) => {
                     }>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
+                            overline={overline}
                             heading={cards.card5.heading}
                             content={cards.card5.content} />
                     </div>
@@ -434,6 +441,7 @@ const AwardData = (props) => {
                     }>
                     <div className="scroller-overlay-card-container">
                         <ScrollerOverlayCard
+                            overline={overline}
                             heading={cards.card6.heading}
                             content={cards.card6.content} />
                     </div>
