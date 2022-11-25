@@ -100,7 +100,7 @@ const InteractiveDataSourcesPage = () => {
             display: 'Data Submission and Extraction',
             showSectionTitle: false,
             scroller: true,
-            component: <DataSubmissionExtraction title="Data Submission and Extraction" subtitle="What data are submitted directly to and extracted by USAspending?" />
+            component: <DataSubmissionExtraction title="Data Submission and Extraction" subtitle="What data are submitted to, versus extracted by, USAspending.gov?" />
         },
         {
             name: 'frequency',
