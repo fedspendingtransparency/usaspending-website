@@ -85,26 +85,11 @@ $mobile-large: 500px;
       line-height: 1.5;
       letter-spacing: normal;
       color: $color-white;
-      margin-bottom: $global-margin * 2;
   
       p {
         margin-bottom: 0;
       }
     }
-    .scroller-overlay-card__link-wrapper {
-      font-size: $h5-font-size;
-      font-weight: $font-semibold;
-      font-stretch: normal;
-      font-style: normal;
-      line-height: 1.25;
-      letter-spacing: normal;
-      color: $color-primary;
-  
-      a:hover {
-        text-decoration: none;
-      }
-    }
-
     
     .glossary-term {
       font-weight: $font-semibold;
