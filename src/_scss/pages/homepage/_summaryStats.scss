@@ -246,7 +246,7 @@ $largeMobile: 576px;
           font-weight: $font-semibold;
         }
 
-        @media (min-width: $stackedShort - 1) {
+        @media (min-width: ($stackedShort - 1)) {
           text-align: left;
           min-width: rem(156);
         }
