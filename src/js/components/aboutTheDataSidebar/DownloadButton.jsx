@@ -5,7 +5,7 @@
 
 import React from 'react';
 
-const DownloadButton = () => <div>--</div>;
+const DownloadButton = () => <div>&nbsp;</div>;
 
 export default DownloadButton;
 

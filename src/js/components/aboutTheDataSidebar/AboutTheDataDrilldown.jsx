@@ -5,16 +5,20 @@
 
 import React from 'react';
 import { AngleLeft } from 'components/sharedComponents/icons/Icons';
-import Gtas from "content/about-the-data/descriptions/gtas.md";
 import PropTypes from 'prop-types';
+import { LoadingWrapper } from "../sharedComponents/Loading";
 
 const propTypes = {
     section: PropTypes.string,
     name: PropTypes.string,
-    clearDrilldown: PropTypes.func
+    clearDrilldown: PropTypes.func,
+    slug: PropTypes.string,
+    entry: PropTypes.element
 };
 
-const AboutTheDataDrilldown = ({ section, name, clearDrilldown }) => {
+const AboutTheDataDrilldown = ({
+    section, name, clearDrilldown, entry
+}) => {
     const handleKeyUp = (e) => {
         if (e.key === "Enter") {
             clearDrilldown();
@@ -28,12 +32,14 @@ const AboutTheDataDrilldown = ({ section, name, clearDrilldown }) => {
                 Back
             </span>
         </div>
-        <div className="atd__drilldown">
-            <div className="atd__overline">{ section }</div>
-            <div className="atd__drilldown__heading">{ name }</div>
-            <div className="atd__copy"><Gtas /></div>
-        </div>
-
+        {entry ?
+            <div className="atd__drilldown">
+                <div className="atd__overline">{ section }</div>
+                <div className="atd__drilldown__heading">{ name }</div>
+                <div className="atd__copy">{entry}</div>
+            </div>
+            :
+            <><LoadingWrapper isLoading /></>}
     </>);
 };
 
