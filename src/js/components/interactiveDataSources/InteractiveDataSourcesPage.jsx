@@ -51,84 +51,84 @@ const InteractiveDataSourcesPage = () => {
             display: 'Federal Spending Overview',
             showSectionTitle: false,
             scroller: true,
-            component: <FederalSpendingOverview />
+            component: <FederalSpendingOverview title="Federal Spending Overview" subtitle="How do federal dollars move from Congress to the American people?" />
         },
         {
             name: 'data-available',
             display: 'Data Available on USAspending.gov',
             showSectionTitle: false,
             scroller: true,
-            component: <DataAvailable />
+            component: <DataAvailable title="Data Available on USAspending.gov" subtitle="What kinds of data does USAspending.gov have?" />
         },
         {
             name: 'data-types',
             display: 'Data Types',
             showSectionTitle: false,
             scroller: true,
-            component: <DataTypes />
+            component: <DataTypes title="Data Types" subtitle="How can I understand all the data types on USAspending.gov?" />
         },
         {
             name: 'data-source-systems',
             display: 'Source Systems',
             showSectionTitle: false,
             scroller: true,
-            component: <DataSourceSystems />
+            component: <DataSourceSystems title="Source Systems" subtitle="What government data systems flow into USAspending.gov?" />
         },
         {
             name: 'account-data',
             display: 'Account Data',
             showSectionTitle: false,
             scroller: true,
-            component: <AccountData />
+            component: <AccountData title="Account Data" subtitle="What are the sources for account data on USAspending.gov?" />
         },
         {
             name: 'award-data',
             display: 'Award Data',
             showSectionTitle: false,
             scroller: true,
-            component: <AwardData />
+            component: <AwardData title="Award Data" subtitle="What are the sources for award data on USAspending.gov?" />
         },
         {
             name: 'additional-data',
             display: 'Additional Data',
             showSectionTitle: false,
             scroller: true,
-            component: <AdditionalData />
+            component: <AdditionalData title="Additional Data" subtitle="What are the sources for additional data on USAspending.gov?" />
         },
         {
             name: 'data-submission-extraction',
             display: 'Data Submission and Extraction',
             showSectionTitle: false,
             scroller: true,
-            component: <DataSubmissionExtraction />
+            component: <DataSubmissionExtraction title="Data Submission and Extraction" subtitle="What data are submitted to, versus extracted by, USAspending.gov?" />
         },
         {
             name: 'frequency',
             display: 'Frequency of Data Updates',
             showSectionTitle: false,
             scroller: true,
-            component: <Frequency />
+            component: <Frequency title="Frequency of Data Updates" subtitle="How often are data updated on USAspending.gov?" />
         },
         {
             name: 'data-validation',
             display: 'Data Validation',
             showSectionTitle: false,
             scroller: true,
-            component: <DataValidation />
+            component: <DataValidation title="Data Validation" subtitle="How does the DATA Act Broker validate data before they are publicly available?" />
         },
         {
             name: 'data-access',
             display: 'Features on USAspending.gov',
             showSectionTitle: false,
             scroller: true,
-            component: <DataFeatures />
+            component: <DataFeatures title="Features on USAspending.gov" subtitle="Where can I find data on USAspending.gov from these sources?" />
         },
         {
             name: 'data-use-cases',
             display: 'Use Cases',
             showSectionTitle: false,
             scroller: true,
-            component: <DataUseCases />
+            component: <DataUseCases title="Use Cases" subtitle="What can I do with the data on USAspending.gov?" />
         }
     ];
     const jumpToSection = (section = '') => {
@@ -196,8 +196,7 @@ const InteractiveDataSourcesPage = () => {
                     {sections.map((section) => (
                         <InteractiveDataSourcesSection
                             key={section.name}
-                            section={section}
-                            icon={section.icon}>
+                            section={section}>
                             {section.component || <ComingSoon />}
                         </InteractiveDataSourcesSection>
                     ))}

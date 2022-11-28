@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { SectionTitle } from 'data-transparency-ui';
 
 const propTypes = {
@@ -15,7 +14,6 @@ const propTypes = {
 
 const InteractiveDataSourcesSection = ({
     section,
-    icon = "chart-area",
     children
 }) => (
     <>
@@ -24,8 +22,7 @@ const InteractiveDataSourcesSection = ({
             <SectionTitle
                 // isCollapsible // Currently disable for `Scroller`
                 id={`interactive-data-sources-${section.name}`}
-                title={section.display}
-                icon={<FontAwesomeIcon size="2x" icon={icon} />}>
+                title={section.display}>
                 {children}
             </SectionTitle>
             :
