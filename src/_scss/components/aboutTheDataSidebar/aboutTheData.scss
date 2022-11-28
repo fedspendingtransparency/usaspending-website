@@ -42,10 +42,12 @@
             color: $theme-color-body-inverse;
         }
 
-        hr {
-            height: rem(1);
-            background-color: $theme-color-underline;
-            border: none;
+            hr {
+                height: rem(1);
+                background-color: $theme-color-underline;
+                border: none;
+                margin-top: rem(8);
+            }
         }
 
         .atd__heading {
@@ -54,12 +56,23 @@
             line-height: rem(25);
             color: $theme-color-headline-inverse;
             font-weight: $font-semibold;
+            margin-top: rem(24);
         }
 
         .atd__link {
             font-size: $font-size-16;
             line-height: rem(24);
             color: $gray-cool-10;
+            cursor: pointer;
+
+            &:hover{
+                color: $gray-cool-5;
+                text-decoration: underline;
+            }
+            &:active{
+                color: $gray-cool-1;
+                text-decoration: underline;
+            }
         }
 
         .atd__copy p {
@@ -91,6 +104,7 @@
 
             .atd__back {
                 margin-bottom: rem(24);
+                cursor: pointer;
 
                 .usa-da-icon-angle-left {
                     height: rem(12);
@@ -109,4 +123,3 @@
             }
         }
     }
-}
