@@ -1,4 +1,14 @@
-.data-sources-titles__container {    
+.data-sources-titles__container { 
+    @media(max-width:767px) {
+        transform: translateY(-88px);
+    }
+    @media(min-width:768px) {
+        transform: translateY(-80px);
+    }
+    @media(min-width: 992px) {
+        transform: translateY(-170px);
+    }
+    
     .data-sources__title {
         font-size: rem(56);
         line-height: 1.25;
@@ -13,7 +23,7 @@
             width: auto;
         }
         @media(min-width:768px) {
-            transform: translate(24px,280px);
+            transform: translate(24px,264px);
         }
         @media(min-width:992px) {
             transform: translate(24px,280px);
