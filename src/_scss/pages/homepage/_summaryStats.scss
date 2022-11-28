@@ -235,13 +235,13 @@ $largeMobile: 576px;
         font-size: rem(16);
         line-height: rem(20);
 
-        :hover {
-          color: #EDEFF0;
+        &:hover {
+          color: $gray-cool-5;
           font-weight: $font-semibold;
           text-decoration: none;
         }
 
-        :active {
+        &:active {
           color: white;
           font-weight: $font-semibold;
         }
