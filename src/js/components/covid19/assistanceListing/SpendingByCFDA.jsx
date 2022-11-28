@@ -147,7 +147,7 @@ const SpendingByCFDA = ({ publicLaw, handleExternalLinkClick }) => {
                         onClick={handleClick}>
                         &nbsp;Supplemental Nutrition Assistance Program (SNAP)&nbsp;
                     </a>
-                    that provide financial assistance to individuals, organizations, businesses, or state, local, or tribal governments. All financial assistance awards must be associated with a Assistance Listing and be explicitly authorized by law. In this section, you will see awards that Assistance Listings have funded in response to COVID-19.
+                    that provide financial assistance to individuals, organizations, businesses, or state, local, or tribal governments. All financial assistance awards must be associated with an Assistance Listing and be explicitly authorized by law. In this section, you will see awards that Assistance Listings have funded in response to COVID-19.
                 </p>
             </div>
             <div ref={moreOptionsTabsRef}>
