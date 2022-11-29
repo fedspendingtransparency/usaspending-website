@@ -1,0 +1,19 @@
+.sticky-toolbar__atd-icon {
+    @include button-unstyled;
+    margin: 0 0 0 40px;
+    background-color: unset;
+    color: $gray-cool-10;
+    padding-top: 0;
+    padding-bottom: 0;
+    text-align: center;
+    
+    &:focus &:hover &:active{
+        background-color: unset;
+    }
+    .sticky-toolbar__atd-span {
+        font-size: rem(14);
+        line-height: 1.5;
+        color: $gray-cool-10;
+        margin-top: 2px;
+    }
+}

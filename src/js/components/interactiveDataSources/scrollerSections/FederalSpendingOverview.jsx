@@ -5,7 +5,9 @@ import LottieAnimation from '../lottieAnimation/LottieAnimation';
 import ScrollerOverlayCard from '../scroller/scrollerOverlay/ScrollerOverlayCard';
 import GlossaryLink from '../../sharedComponents/GlossaryLink';
 
-function FederalSpendingOverview() {
+const FederalSpendingOverview = (props) => {
+    const overline = <p>{props.title?.toUpperCase()}</p>;
+
     const cards = {
         card1: {
             heading: <h4>Appropriations</h4>,
@@ -60,83 +62,93 @@ function FederalSpendingOverview() {
     const ref1 = useRef();
     const ref2 = useRef();
     return (
-        <Scroller>
-            {/* SCROLLER BACKDROPS */}
-            <div name="animation" className="position position--center">
-                <div className="top-animation">
-                    <LottieAnimation
-                        isScrollerBackdrop
-                        ref={ref1}
-                        src="/img/interactive-data-sources/1_FSO_COIN.json"
-                        role="presentation" />
-                </div>
-                <div className="bottom-animation">
-                    <LottieAnimation
-                        loop={1}
-                        ref={ref2}
-                        src="/img/interactive-data-sources/1_FSO.json"
-                        role="presentation" />
+        <div className="data-sources-titles__container">
+            <div className="data-sources__title">
+                {props.title}
+                <div className="data-sources__subtitle">
+                    {props.subtitle}
                 </div>
             </div>
-
-
-            {/* SCROLLER OVERLAYS */}
-
-
-            <ScrollerOverlay
-                content="animation"
-                onStepEnter={() => {
-                    ref1.current?.playAnimation(0, 120, 1);
-                    ref2.current?.playAnimation(120, 300, 1, false);
-                }
-                }>
-                {/* used as transition. no card. */}
-            </ScrollerOverlay>
-
-            {/* APPROPRIATIONS */}
-            <ScrollerOverlay
-                content="animation"
-                position="right">
-                <div className="scroller-overlay-card-container">
-                    <ScrollerOverlayCard
-                        heading={cards.card1.heading}
-                        content={cards.card1.content} />
+            <Scroller>
+                {/* SCROLLER BACKDROPS */}
+                <div name="animation" className="position position--center">
+                    <div className="top-animation">
+                        <LottieAnimation
+                            isScrollerBackdrop
+                            ref={ref1}
+                            src="/img/interactive-data-sources/1_FSO_COIN.json"
+                            role="presentation" />
+                    </div>
+                    <div className="bottom-animation">
+                        <LottieAnimation
+                            loop={1}
+                            ref={ref2}
+                            src="/img/interactive-data-sources/1_FSO.json"
+                            role="presentation" />
+                    </div>
                 </div>
-            </ScrollerOverlay>
 
-            {/* OBLIGATIONS */}
-            <ScrollerOverlay
-                content="animation"
-                position="right">
-                <div className="scroller-overlay-card-container">
-                    <ScrollerOverlayCard
-                        heading={cards.card2.heading}
-                        content={cards.card2.content} />
-                </div>
-            </ScrollerOverlay>
+                {/* SCROLLER OVERLAYS */}
 
-            {/* OUTLAYS */}
-            <ScrollerOverlay
-                content="animation"
-                position="right">
-                <div className="scroller-overlay-card-container">
-                    <ScrollerOverlayCard
-                        heading={cards.card3.heading}
-                        content={cards.card3.content} />
-                </div>
-            </ScrollerOverlay>
 
-            <ScrollerOverlay
-                content="animation"
-                onStepEnter={() => {
-                    ref1.current?.playAnimation(300, 420, 1);
-                    ref2.current?.playAnimation(120, 300, 1, false);
-                }
-                }>
-                {/* used as transition. no card. */}
-            </ScrollerOverlay>
-        </Scroller>
+                <ScrollerOverlay
+                    content="animation"
+                    onStepEnter={() => {
+                        ref1.current?.playAnimation(0, 120, 1);
+                        ref2.current?.playAnimation(120, 300, 1, false);
+                    }
+                    }>
+                    {/* used as transition. no card. */}
+                </ScrollerOverlay>
+
+                {/* APPROPRIATIONS */}
+                <ScrollerOverlay
+                    content="animation"
+                    position="right">
+                    <div className="scroller-overlay-card-container">
+                        <ScrollerOverlayCard
+                            overline={overline}
+                            heading={cards.card1.heading}
+                            content={cards.card1.content} />
+                    </div>
+                </ScrollerOverlay>
+
+                {/* OBLIGATIONS */}
+                <ScrollerOverlay
+                    content="animation"
+                    position="right">
+                    <div className="scroller-overlay-card-container">
+                        <ScrollerOverlayCard
+                            overline={overline}
+                            heading={cards.card2.heading}
+                            content={cards.card2.content} />
+                    </div>
+                </ScrollerOverlay>
+
+                {/* OUTLAYS */}
+                <ScrollerOverlay
+                    content="animation"
+                    position="right">
+                    <div className="scroller-overlay-card-container">
+                        <ScrollerOverlayCard
+                            overline={overline}
+                            heading={cards.card3.heading}
+                            content={cards.card3.content} />
+                    </div>
+                </ScrollerOverlay>
+
+                <ScrollerOverlay
+                    content="animation"
+                    onStepEnter={() => {
+                        ref1.current?.playAnimation(300, 420, 1);
+                        ref2.current?.playAnimation(120, 300, 1, false);
+                    }
+                    }>
+                    {/* used as transition. no card. */}
+                </ScrollerOverlay>
+            </Scroller>
+        </div>
     );
-}
+};
 
 export default FederalSpendingOverview;

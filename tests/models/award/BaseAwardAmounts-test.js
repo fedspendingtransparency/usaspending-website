@@ -159,7 +159,7 @@ describe('BaseAwardAmounts', () => {
         it('should format the amount overspent with units', () => {
             expect(awardAmountsOverspent.overspendingAbbreviated).toEqual('$2.5 M');
         });
-        it('should aggregate child/grandchild file-c award amounts', () => {
+        it('should aggregate child/grandchild file-c.md award amounts', () => {
             expect(awardAmounts._fileCObligated).toEqual(100);
             expect(awardAmounts._fileCOutlay).toEqual(100);
         });

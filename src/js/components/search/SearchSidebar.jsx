@@ -72,7 +72,7 @@ const staticFilters = {
             title: 'Award ID'
         },
         {
-            title: 'CFDA Program'
+            title: 'Assistance Listing (CFDA Program)'
         },
         {
             title: 'Disaster Emergency Fund Code (DEFC)',

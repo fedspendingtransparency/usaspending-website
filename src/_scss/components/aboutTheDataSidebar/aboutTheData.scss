@@ -1,0 +1,125 @@
+.usa-atd-animations {
+    @import "../../lib/bourbon/bourbon";
+    @import '../../lib/neat/neat';
+
+    @import "../../core/variables";
+    @import "../../core/utilities";
+
+    @import "../../elements/buttons";
+    @import "../../elements/typography";
+
+    @import "./_animations";
+
+    @import "byPage";
+
+    .usa-atd-wrapper {
+        position: fixed;
+        right: 0;
+        top: 0;
+
+        width: 310px;
+        height: 100%;
+
+        z-index: $z-guide;
+
+        box-shadow: -3px 0px 4px rgba(0, 0, 0, 0.2);
+
+        .atd-sidebar {
+            background-color: $cyan-60v;
+            color: $color-white;
+            font-size: rem(14);
+
+            width: 100%;
+            height: 100%;
+            @import "./_header";
+            @import "./_scrollbar";
+        }
+
+        .atd__overline {
+            font-size: $font-size-14;
+            line-height: rem(21);
+            text-transform: uppercase;
+            color: $theme-color-body-inverse;
+        }
+
+            hr {
+                height: rem(1);
+                background-color: $theme-color-underline;
+                border: none;
+                margin-top: rem(8);
+            }
+        }
+
+        .atd__heading {
+            font-size: $font-size-20;
+            margin-top: rem(8);
+            line-height: rem(25);
+            color: $theme-color-headline-inverse;
+            font-weight: $font-semibold;
+            margin-top: rem(24);
+        }
+
+        .atd__link {
+            font-size: $font-size-16;
+            line-height: rem(24);
+            color: $gray-cool-10;
+            cursor: pointer;
+
+            &:hover{
+                color: $gray-cool-5;
+                text-decoration: underline;
+            }
+            &:active{
+                color: $gray-cool-1;
+                text-decoration: underline;
+            }
+        }
+
+        .atd__copy p {
+            font-size: $font-size-16;
+            line-height: rem(24);
+            color: $gray-cool-10;
+        }
+
+        .atd__body {
+            margin: rem(27) rem(24);
+
+            .atd__drilldown {
+                .atd__drilldown__heading {
+                    font-size: $font-size-24;
+                    margin-top: rem(8);
+                    line-height: rem(30);
+                    color: $theme-color-headline-inverse;
+                    font-weight: $font-semibold;
+                }
+
+                a {
+                    font-size: $font-size-16;
+                    line-height: 1.5;
+                    color: $gray-cool-5;
+                    text-decoration: underline;
+                }
+            }
+
+
+            .atd__back {
+                margin-bottom: rem(24);
+                cursor: pointer;
+
+                .usa-da-icon-angle-left {
+                    height: rem(12);
+                    width: rem(16);
+                    fill: $gray-cool-10;
+                }
+
+                .atd__back__label {
+                    font-size: $font-size-16;
+                    line-height: rem(24);
+                    color: $theme-color-headline-inverse;
+                    font-weight: $font-semibold;
+                    text-transform: uppercase;
+                    margin-left: rem(8);
+                }
+            }
+        }
+    }

@@ -179,7 +179,7 @@ export const convertFilter = (type, value) => {
         case 'selectedCFDA':
             return convertReducibleValue(
                 value,
-                'CFDA Program',
+                'Assistance Listing',
                 (cfda) => `${cfda.program_number} - ${cfda.program_title}`
             );
         case 'defCodes': {
