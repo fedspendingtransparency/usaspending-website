@@ -143,7 +143,7 @@ const InteractiveDataSourcesPage = () => {
         }
         else if (matchedSection.scroller) {
             // for scroller sections, add height
-            scrollToY(sectionDom.offsetTop + 86, 700);
+            scrollToY(sectionDom.offsetTop + 40, 700);
         }
         else {
             // scrollY set to the top of the section, subtracting the height of sticky elements + 20px of margin
