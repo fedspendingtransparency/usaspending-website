@@ -13,6 +13,7 @@ import * as MetaTagHelper from 'helpers/metaTagHelper';
 
 import FullDownloadModalContainer from 'containers/search/modals/fullDownload/FullDownloadModalContainer';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
+import { QAT } from 'GlobalConstants';
 
 import SearchSidebar from './SearchSidebar';
 import SearchResults from './SearchResults';
@@ -172,7 +173,7 @@ export default class SearchPage extends React.Component {
                         isEnabled={this.props.downloadAvailable}
                         downloadInFlight={this.props.downloadInFlight}
                         onClick={this.showModal} />,
-                    !this.props.showAboutTheDataIcon ?
+                    !this.props.showAboutTheDataIcon && QAT ?
                         <ATDButton onClick={this.showATD} /> : <></>
                 ]}
                 filters={this.props.appliedFilters}>

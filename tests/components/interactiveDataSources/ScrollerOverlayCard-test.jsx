@@ -7,12 +7,12 @@ describe('Scroller Overlay Card', () => {
     test('should display an icon, heading, content, and link', () => {
         render(<ScrollerOverlayCard
             icon={<FontAwesomeIcon title="font-awesome-icon" size="2x" icon="chart-area" />}
+            overline={<p>testing</p>}
             heading={<p>hello</p>}
-            content={<p>world</p>}
-            link={<a href="https://www.usaspending.gov/">USAspending</a>} />);
+            content={<p>world</p>} />);
         expect(screen.queryByTitle('font-awesome-icon')).toBeTruthy();
+        expect(screen.queryByText('testing')).toBeTruthy();
         expect(screen.queryByText('hello')).toBeTruthy();
         expect(screen.queryByText('world')).toBeTruthy();
-        expect(screen.queryByText('USAspending')).toBeTruthy();
     });
 });

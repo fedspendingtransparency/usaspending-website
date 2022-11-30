@@ -9,6 +9,7 @@ import { ShareIcon } from 'data-transparency-ui';
 import { explorerPageMetaTags } from 'helpers/metaTagHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
+import { QAT } from 'GlobalConstants';
 import AnimatedAboutTheDataWrapper from "../aboutTheDataSidebar/AnimatedAboutTheDataWrapper";
 import ATDButton from "../sharedComponents/aboutTheDataSidebar/ATDButton";
 
@@ -60,7 +61,7 @@ const ExplorerWrapperPage = (props) => {
                 props.showShareIcon ? <ShareIcon
                     onShareOptionClick={handleShare}
                     url={getBaseUrl(slug)} /> : <></>,
-                !props.showAboutTheDataIcon ?
+                !props.showAboutTheDataIcon && QAT ?
                     <ATDButton onClick={handleATDButtonClick} /> : <></>
             ]}>
             <main
