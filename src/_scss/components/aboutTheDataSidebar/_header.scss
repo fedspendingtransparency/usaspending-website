@@ -1,29 +1,20 @@
 .usa-atd-header {
     width: 100%;
-    min-height: 200px;
-
-    padding: 20px;
-
+    padding: 24px;
     background-color: $cyan-vivid-80;
+    color: $theme-color-headline-inverse;
 
     @include clearfix();
 
     .close-button {
         @include button-unstyled;
-        width: 30px;
-        height: 30px;
-
-        position: relative;
+        width: 16px;
+        height: 16px;
         float: right;
 
         svg {
-            position: absolute;
-            top: 7px;
-            left: 7px;
-
-            width: 17px;
-            height: 17px;
-
+            width: 16px;
+            height: 16px;
             fill: $color-white;
         }
 
@@ -46,7 +37,10 @@
         padding: 0;
     }
 
-    .atd-example {
+    .usa-atd-example {
+        font-size: 14px;
+        line-height: 1.5;
+        color: $theme-color-body-inverse;
         font-style: italic;
     }
 
