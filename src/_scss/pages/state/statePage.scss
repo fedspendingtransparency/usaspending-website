@@ -20,6 +20,10 @@
         width: 91%
     }
 
+    .usda-page-header__toolbar .usda-fy-picker__container .usa-dt-picker.usda-fy-picker .usa-dt-picker__button-text {
+        min-width: 126px;
+    }
+
     .main-content {
         @import "../../mixins/fullSectionWrap";
         @include fullSectionWrap(($global-mrg * 2), ($global-mrg * 2));
