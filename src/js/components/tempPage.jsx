@@ -7,7 +7,7 @@ import CardButton from "./sharedComponents/commonCards/CardButton";
 import PageWrapper from "./sharedComponents/PageWrapper";
 import FeatureFlag from "./sharedComponents/FeatureFlag";
 
-require("pages/homepage/homepage.scss");
+require("pages/homepageUpdate/homepageUpdate.scss");
 
 const tempPage = () => {
     const imageLink = "../../img/top-bowie-state-combined-image.svg";
