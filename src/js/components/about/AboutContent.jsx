@@ -6,8 +6,6 @@
 import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { find, throttle } from 'lodash';
-import { useDispatch } from 'react-redux';
-import { showModal } from 'redux/actions/modal/modalActions';
 import { useQueryParams } from 'helpers/queryParams';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
@@ -16,8 +14,6 @@ import Sidebar from '../sharedComponents/sidebar/Sidebar';
 
 import Mission from './Mission';
 import Background from './Background';
-import DataSources from './DataSources';
-import DataQuality from './DataQuality';
 import MoreInfo from './MoreInfo';
 import Contact from './Contact';
 import Development from './Development';
@@ -78,13 +74,6 @@ const AboutContent = () => {
         setActiveSection(section);
     };
 
-    const dispatch = useDispatch();
-    const onExternalLinkClick = (e) => {
-        e.persist();
-        if (e?.target) {
-            dispatch(showModal(e.target.parentNode.getAttribute('data-href') || e.target.getAttribute('data-href') || e.target.value));
-        }
-    };
 
     useEffect(throttle(() => {
         // prevents a console error about react unmounted component leak
