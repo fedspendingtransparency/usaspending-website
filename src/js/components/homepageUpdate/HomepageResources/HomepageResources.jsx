@@ -64,7 +64,7 @@ const cardObjects = [
         text: 'Read important data disclosures',
         buttonText: (
             <>
-                View the disclosures;
+                View the disclosures&nbsp;&nbsp;
                 <FontAwesomeIcon icon="arrow-right" />
             </>
         ),
