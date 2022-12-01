@@ -35,14 +35,6 @@ const aboutSections = [
         label: 'Background'
     },
     {
-        section: 'about-the-data',
-        label: 'Data Sources'
-    },
-    {
-        section: 'data-quality',
-        label: 'Data Quality'
-    },
-    {
         section: 'development',
         label: 'Development and Releases'
     },
@@ -126,8 +118,6 @@ const AboutContent = () => {
                 <div className="about-padded-content">
                     <Mission />
                     <Background />
-                    <DataSources onExternalLinkClick={onExternalLinkClick} />
-                    <DataQuality onExternalLinkClick={onExternalLinkClick} />
                     <Development />
                     <Careers />
                     <Licensing />
