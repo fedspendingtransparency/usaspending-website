@@ -5,7 +5,7 @@
 
 export const defaultScopes = {
     awardingAgency: 'awarding_agency',
-    cfda: 'Assistance Listing (CFDA Program)',
+    cfda: 'cfda',
     industryCode: 'psc',
     recipient: 'recipient'
 };
