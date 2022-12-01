@@ -3,15 +3,13 @@
  * Created by Kevin Li 8/16/17
  */
 
-import React, { useState } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { ShareIcon } from 'data-transparency-ui';
 import { explorerPageMetaTags } from 'helpers/metaTagHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
-import { QAT } from 'GlobalConstants';
 import AnimatedAboutTheDataWrapper from "../aboutTheDataSidebar/AnimatedAboutTheDataWrapper";
-import ATDButton from "../sharedComponents/aboutTheDataSidebar/ATDButton";
 
 const propTypes = {
     children: PropTypes.element,
@@ -20,8 +18,7 @@ const propTypes = {
 };
 
 const defaultProps = {
-    showShareIcon: false,
-    showAboutTheDataIcon: false
+    showShareIcon: false
 };
 
 require('pages/explorer/explorerPage.scss');
@@ -30,7 +27,6 @@ const slug = 'explorer';
 const emailSubject = 'USAspending.gov Federal Spending Explorer';
 
 const ExplorerWrapperPage = (props) => {
-    const [atdOpen, setATDOpen] = useState(false);
     const handleShare = (name) => {
         handleShareOptionClick(name, slug, {
             subject: emailSubject,
@@ -38,12 +34,7 @@ const ExplorerWrapperPage = (props) => {
         });
     };
 
-    const handleATDButtonClick = () => {
-        setATDOpen(!atdOpen);
-    };
-
     const onClose = () => {
-        setATDOpen(false);
         // move focus back to the main content
         const mainContent = document.getElementById('main-focus');
         if (mainContent) {
@@ -60,9 +51,7 @@ const ExplorerWrapperPage = (props) => {
             toolBarComponents={[
                 props.showShareIcon ? <ShareIcon
                     onShareOptionClick={handleShare}
-                    url={getBaseUrl(slug)} /> : <></>,
-                !props.showAboutTheDataIcon && QAT ?
-                    <ATDButton onClick={handleATDButtonClick} /> : <></>
+                    url={getBaseUrl(slug)} /> : <></>
             ]}>
             <main
                 id="main-content"
