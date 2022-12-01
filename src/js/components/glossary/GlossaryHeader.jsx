@@ -13,7 +13,6 @@ const propTypes = {
     closeGlossary: PropTypes.func
 };
 
-
 const GlossaryHeader = (props) => {
     const closeButtonRef = useRef(null);
     useEffect(() => {
