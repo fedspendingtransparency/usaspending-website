@@ -69,7 +69,7 @@ const sections = [
     }
 ];
 
-require('pages/aboutTheData/aboutTheData.scss');
+require('pages/data-sources/index.scss');
 
 const getDefCValues = (errorMsg, isLoading, codes) => {
     if (isLoading) return "Loading...";
@@ -115,7 +115,7 @@ const renderDefCodes = (errorMsg, isLoading, codes) => {
         ));
 };
 
-const jumpToSection = createJumpToSectionForSidebar("about-the-data", sections.reduce((acc, obj) => ({
+const jumpToSection = createJumpToSectionForSidebar("data-sources", sections.reduce((acc, obj) => ({
     ...acc,
     [obj.section]: { title: obj.label }
 }), {}));
@@ -153,7 +153,7 @@ export default () => {
     };
 
     const handleShare = (name) => {
-        handleShareOptionClick(name, "disaster/covid-19/about-the-data", getEmailSocialShareData);
+        handleShareOptionClick(name, "disaster/covid-19/data-sources", getEmailSocialShareData);
     };
 
     return (
@@ -167,7 +167,7 @@ export default () => {
             toolBarComponents={[
                 <ShareIcon
                     onShareOptionClick={handleShare}
-                    url={getBaseUrl("disaster/covid-19/about-the-data")} />
+                    url={getBaseUrl("disaster/covid-19/data-sources")} />
             ]}>
             <>
                 {dataDisclaimerBanner !== 'hide' && (
