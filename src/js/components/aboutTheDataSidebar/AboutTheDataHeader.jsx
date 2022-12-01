@@ -2,9 +2,11 @@
  * AboutTheDataHeader.jsx
  * Created by Nick Torres 11/2/22
  */
+
 import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import * as Icons from 'components/sharedComponents/icons/Icons';
+import AboutTheDataSearchBar from "./AboutTheDataSearchBar";
 
 const propTypes = {
     children: PropTypes.element,
@@ -33,6 +35,12 @@ const AboutTheDataHeader = (props) => {
                 </button>
             </div>
             <h1 tabIndex={-1} className="usa-atd-header__title">About The Data</h1>
+
+            <AboutTheDataSearchBar />
+
+            <div className="usa-atd-example">
+                Example: &quot;Award Data&quot;
+            </div>
         </div>
     );
 };
