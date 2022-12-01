@@ -130,7 +130,7 @@
             @media(min-width: $tablet-screen) {
                 width: 70%;
             }
-            @media(min-width: 992px) {
+            @media(min-width: $medium-screen) {
                 margin: rem(20) rem(20) rem(20) 0;
             }
             @import './overview/pageTitle';
