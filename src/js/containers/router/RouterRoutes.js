@@ -182,12 +182,12 @@ export const routes = [
         exact: true
     },
     {
-        path: '/submission-statistics/about-the-data',
+        path: '/submission-statistics/data-sources',
         component: SubmissionStatisticsDataSources,
         exact: true
     },
     {
-        path: '/disaster/covid-19/about-the-data',
+        path: '/disaster/covid-19/data-sources',
         component: DataSourcesAndMethodologiesPage,
         exact: true
     },

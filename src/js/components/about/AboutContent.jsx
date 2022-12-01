@@ -35,7 +35,7 @@ const aboutSections = [
         label: 'Background'
     },
     {
-        section: 'about-the-data',
+        section: 'data-sources',
         label: 'Data Sources'
     },
     {

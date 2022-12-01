@@ -56,9 +56,9 @@ const sections = [
     }
 ];
 
-require('pages/aboutTheData/aboutTheData.scss');
+require('pages/data-sources/index.scss');
 
-const jumpToSection = createJumpToSectionForSidebar("about-the-data", sections.reduce((acc, obj) => ({
+const jumpToSection = createJumpToSectionForSidebar("data-sources", sections.reduce((acc, obj) => ({
     ...acc,
     [obj.section]: { title: obj.label }
 }), {}));
