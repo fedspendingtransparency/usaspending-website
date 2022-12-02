@@ -38,6 +38,10 @@
         @include button-link;
       }
 
+      .usda-share-icon .usa-dt-picker {
+        margin-bottom: 0;
+      }
+      
       .usda-share-icon .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list {
         min-width: 15rem;
       }
