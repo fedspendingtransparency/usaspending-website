@@ -5,8 +5,10 @@
 
 import React from 'react';
 import { AngleLeft } from 'components/sharedComponents/icons/Icons';
+import { FlexGridRow, ShareIcon } from "data-transparency-ui";
 import PropTypes from 'prop-types';
 import { LoadingWrapper } from "../sharedComponents/Loading";
+import { getBaseUrl, handleShareOptionClick } from '../../helpers/socialShare';
 
 const propTypes = {
     section: PropTypes.string,
@@ -19,6 +21,17 @@ const propTypes = {
 const AboutTheDataDrilldown = ({
     section, name, clearDrilldown, entry
 }) => {
+    const slug = "?about-the-data";
+
+    const onShareClick = (param) => {
+        const emailSubject = `USAspending.gov Statement About the Data ${param}`;
+        const emailArgs = {
+            subject: `${emailSubject}`,
+            body: `View this statement about the data on USAspending.gov ${getBaseUrl(slug)}`
+        };
+        handleShareOptionClick(name, slug, emailArgs);
+    };
+
     const handleKeyUp = (e) => {
         if (e.key === "Enter") {
             clearDrilldown();
@@ -26,12 +39,21 @@ const AboutTheDataDrilldown = ({
     };
 
     return (<>
-        <div className="atd__back" role="button" onKeyUp={(e) => handleKeyUp(e)} tabIndex="0" onClick={() => clearDrilldown()}>
-            <AngleLeft alt="Back" />
-            <span className="atd__back__label">
+        <FlexGridRow width={12}>
+            <div className="atd__back" role="button" onKeyUp={(e) => handleKeyUp(e)} tabIndex="0" onClick={() => clearDrilldown()}>
+                <AngleLeft alt="Back" />
+                <span className="atd__back__label">
                 Back
-            </span>
-        </div>
+                </span>
+            </div>
+            <div className="atd__share__icon">
+                <ShareIcon
+                    url={getBaseUrl(slug)}
+                    onShareOptionClick={onShareClick}
+                    colors={{ backgroundColor: "#00687d", color: "#dfe1e2" }} />
+            </div>
+        </FlexGridRow>
+
         {entry ?
             <div className="atd__drilldown">
                 <div className="atd__overline">{ section }</div>
