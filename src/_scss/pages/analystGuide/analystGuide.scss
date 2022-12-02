@@ -37,6 +37,10 @@
       .usda-share-icon .usa-dt-picker__dropdown-container {
         @include button-link;
       }
+
+      .usda-share-icon .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list {
+        min-width: 15rem;
+      }
   
       .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__button {
         margin: 0 0.5rem;

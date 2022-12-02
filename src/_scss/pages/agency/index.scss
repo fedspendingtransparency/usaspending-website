@@ -95,6 +95,10 @@
         width: 100%
     }
 
+    .usda-page-header__toolbar .usda-share-icon .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list {
+        min-width: 15rem;
+    }
+
 	.usda__flex-row {
 		@include display(flex);
 		@include flex-wrap(wrap);
