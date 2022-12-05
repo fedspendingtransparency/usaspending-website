@@ -17,6 +17,7 @@ const TrainingVideosPage = () => (
     <PageWrapper
         pageName="TrainingVideos"
         classNames="training-videos-page"
+        title="Training Videos"
         metaTagProps={{ ...homePageMetaTags }}>
         <main
             id="main-content"
