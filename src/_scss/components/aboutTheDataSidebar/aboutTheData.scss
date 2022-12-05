@@ -86,8 +86,11 @@
         margin: rem(27) rem(24);
 
         .atd__download-wrapper {
-            display: flex;
-            justify-content: end;
+            display: none;
+            @media(min-width:$tablet-screen) {
+                display: flex;
+                justify-content: end;
+            }
 
             .atd__download-span {
                 font-size: rem(14);
