@@ -6,9 +6,11 @@
 import React from 'react';
 
 const HighlightedVideo = () => (
-    <div>
-        HIGHLIGHTED VIDEOS SECTION
-    </div>
+    <section className="highlighted-video__section">
+        <div className="grid-content">
+            HIGHLIGHTED VIDEO SECTION
+        </div>
+    </section>
 );
 
 export default HighlightedVideo;

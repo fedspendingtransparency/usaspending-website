@@ -6,9 +6,11 @@
 import React from 'react';
 
 const ListOfVideos = () => (
-    <div>
-        LIST OF VIDEOS SECTION
-    </div>
+    <section className="list-of-videos__section">
+        <div className="grid-content">
+            LIST OF VIDEOS SECTION
+        </div>
+    </section>
 );
 
 export default ListOfVideos;

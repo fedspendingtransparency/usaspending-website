@@ -1,0 +1,16 @@
+.training-videos-page {
+  @import 'all';
+  @import "layouts/default/default";
+
+  .training-videos-content {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  @import "trainingVideosHeading";
+  @import "highlightedVideo";
+  @import "trainingVideosFilters";
+  @import "listOfVideos";
+}

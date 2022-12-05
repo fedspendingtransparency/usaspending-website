@@ -6,9 +6,11 @@
 import React from 'react';
 
 const TrainingVideosHeading = () => (
-    <div>
-        TRAINING VIDEOS HEADING
-    </div>
+    <section className="training-videos-heading__section">
+        <div className="grid-content">
+            TRAINING VIDEOS HEADING
+        </div>
+    </section>
 );
 
 export default TrainingVideosHeading;

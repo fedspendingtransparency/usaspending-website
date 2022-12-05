@@ -11,17 +11,16 @@ import HighlightedVideo from "./highlightedVideo/HighlightedVideo";
 import TrainingVideosFilters from "./trainingVideosFilters/TrainingVideosFilters";
 import ListOfVideos from "./listOfVideos/ListOfVideos";
 
+require('pages/trainingVideos/trainingVideos.scss');
+
 const TrainingVideosPage = () => (
     <PageWrapper
         pageName="TrainingVideos"
-        classNames="training-videos"
+        classNames="training-videos-page"
         metaTagProps={{ ...homePageMetaTags }}>
         <main
             id="main-content"
             className="main-content training-videos-content">
-            <div>
-                TRAINING VIDEOS PAGE
-            </div>
             <TrainingVideosHeading />
             <HighlightedVideo />
             <TrainingVideosFilters />
