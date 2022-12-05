@@ -340,6 +340,15 @@ export const analystGuideMetaTags = {
     og_image: `${productionURL}${imgDirectory}${facebookImage}`
 };
 
+export const trainingVideosMetaTags = {
+    og_url: `${productionURL}training-videos`,
+    og_title: 'Training Videos | USAspending',
+    og_description:
+        'Find training videos for USAspending.gov.',
+    og_site_name: siteName,
+    og_image: `${productionURL}${imgDirectory}${facebookImage}`
+};
+
 /* eslint-enable max-len */
 
 export const isCustomPageTitleDefined = (title = "USAspending.gov") => {
