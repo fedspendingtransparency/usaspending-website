@@ -12,11 +12,13 @@ const DownloadButton = () => (
         <a
             href="/data/about-the-data-download.pdf"
             target="_blank"
+            aria-labelledby="atd__download-span"
+            aria-label="Download"
             rel="noopener noreferrer"
             className="atd__download-button"
             download>
             <FontAwesomeIcon data-href="/data/about-the-data-download.pdf" icon={faFileDownload} className="atd__download-icon" />
-            <span className="atd__download-span">Download</span>
+            <span id="atd__download-span" className="atd__download-span">Download</span>
         </a>
     </div>);
 
