@@ -70,7 +70,7 @@ const AboutContent = () => {
         const conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight : 10;
         const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight - conditionalOffset);
 
-        window.scrollTo({ top: sectionTop, left: 0 });
+        window.scrollTo({ top: sectionTop + 15, left: 0 });
         setActiveSection(section);
     };
 
