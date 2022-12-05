@@ -87,7 +87,7 @@
 
         .atd__download-wrapper {
             display: none;
-            @media(min-width:$tablet-screen) {
+            @media(min-width:$medium-screen) {
                 display: flex;
                 justify-content: end;
             }
