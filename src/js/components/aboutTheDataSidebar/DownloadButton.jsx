@@ -10,12 +10,12 @@ import { faFileDownload } from "@fortawesome/free-solid-svg-icons";
 const DownloadButton = () => (
     <div className="atd__download-wrapper">
         <a
-            href="/data/analyst-guide-download.pdf"
+            href="/data/about-the-data-download.pdf"
             target="_blank"
             rel="noopener noreferrer"
             className="atd__download-button"
             download>
-            <FontAwesomeIcon data-href="/data/analyst-guide-download.pdf" icon={faFileDownload} className="atd__download-icon" />
+            <FontAwesomeIcon data-href="/data/about-the-data-download.pdf" icon={faFileDownload} className="atd__download-icon" />
             <span className="atd__download-span">Download</span>
         </a>
     </div>);
