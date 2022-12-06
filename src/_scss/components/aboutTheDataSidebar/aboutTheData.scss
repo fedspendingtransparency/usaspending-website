@@ -56,7 +56,7 @@
         line-height: rem(25);
         color: $theme-color-headline-inverse;
         font-weight: $font-semibold;
-        margin-top: rem(24);
+        margin-top: rem(16);
     }
 
     .atd__link {
@@ -83,15 +83,24 @@
     }
 
     .atd__body {
-        margin: rem(27) rem(24);
+        margin: 24px 24px 32px 24px;
 
         .atd__download-wrapper {
             display: none;
             @media(min-width:$medium-screen) {
                 display: flex;
                 justify-content: end;
+                a {
+                    &:hover {
+                        color: $gray-cool-5;
+                        text-decoration: none;
+                    }
+                
+                    &:active {
+                        color: $gray-cool-1;
+                    }
+                }
             }
-
             .atd__download-span {
                 font-size: rem(14);
                 font-weight: $font-semibold;
@@ -101,6 +110,13 @@
                 letter-spacing: normal;
                 color: $gray-cool-10;
                 vertical-align: middle;
+                &:hover {
+                    color: $gray-cool-5;
+                }
+            
+                &:active {
+                    color: $gray-cool-1;
+                }
             }
 
             .atd__download-icon {
@@ -109,6 +125,15 @@
                 margin-right: 8px;
                 color: $gray-cool-10;
                 vertical-align: middle;
+
+                &:hover {
+                    color: $gray-cool-5;
+                    text-decoration: none;
+                }
+            
+                &:active {
+                    color: $gray-cool-1;
+                }
             }
         }
     }
