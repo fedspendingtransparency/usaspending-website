@@ -4,9 +4,9 @@
  */
 
 import React from 'react';
-import { ShareIcon } from "data-transparency-ui";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faShare, faShareAlt } from '@fortawesome/free-solid-svg-icons';
+import { faShareAlt } from '@fortawesome/free-solid-svg-icons';
+
 
 const TrainingVideosHeading = () => (
     <section className="youtube-main-container">
@@ -19,7 +19,8 @@ const TrainingVideosHeading = () => (
             <div className="youtube-info-wrap">
                 <p className="youtube-resources-title">Resources</p>
                 <p className="youtube-header">Training Videos</p>
-                <p className="youtube-body">Learn how to use USAspending.gov and understand the data. Subscribe to our YouTube channel for the latest videos!</p>
+                <p className="youtube-body-tablet-desktop">Learn how to use USAspending.gov and understand the data. Subscribe to our YouTube channel for the latest videos!</p>
+                <p className="youtube-body-mobile">Watch our videos to learn how to use the website and understand the data.</p>
                 <FontAwesomeIcon className="youtube-share-icon" icon={faShareAlt} />
             </div>
         </div>

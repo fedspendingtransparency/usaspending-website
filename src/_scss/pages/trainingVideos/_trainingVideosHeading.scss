@@ -28,6 +28,7 @@
       flex-direction: column;
       justify-content: center;
       margin: 0%;
+      padding-left: rem(16);
 
     }
 
@@ -42,8 +43,8 @@
 
 
       .youtube-resources-title {
-        width: 424px;
-        height: 24px;
+        width: rem(424);
+        height: rem(24);
         margin: 0 0 rem(8);
         font-stretch: normal;
         font-style: normal;
@@ -54,8 +55,8 @@
       }
 
       .youtube-header {
-        width: 424px;
-        height: 60px;
+        width: rem(424);
+        height: rem(60);
         color: $gray-90;
         font-size: $font-size-48;
         line-height: 1.25;
@@ -72,10 +73,14 @@
           line-height: 1.25;
           letter-spacing: normal;
         }
+        @media (max-width: $small-screen) {
+          width: rem(288);
+          height: rem(120);
+
+        }
       }
 
-      .youtube-body {
-        height: 90px;
+      .youtube-body-tablet-desktop {
         margin: 0 0 rem(8);
         font-stretch: normal;
         font-style: normal;
@@ -83,11 +88,24 @@
         letter-spacing: normal;
         font-size: $font-size-20;
         color: $gray-60;
+        @media (max-width: $small-screen) {
+          display: none;
+        }
+      }
+      .youtube-body-mobile{
+
+        width: rem(288);
+        height: rem(90);
+        margin: rem(16) 0 0;
+        font-size: $font-size-20;
+        @media (min-width: $small-screen + 1) {
+          display: none;
+        }
       }
 
       .youtube-share-icon {
-        width: 17.5px;
-        height: 20px;
+        width: rem(17.5);
+        height: rem(20);
         color: $blue-50;
         margin-top: rem(26);
       }
