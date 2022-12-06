@@ -24,8 +24,29 @@ const AboutTheData = (props) => {
     const [drilldownItemId, setDrilldownItemId] = useState(null);
     const [drilldownSection, setDrilldownSection] = useState(null);
     const [drilldownComponent, setDrilldownComponent] = useState(null);
-
     const [scrollbar, setScrollbar] = useState(null);
+    const [searchTerm, setSearchTerm] = useState('');
+    // const [searchResults, setSearchResults] = useState(null);
+
+    const tempSearchTerm = 'money';
+    const tempSectionObj = {
+        heading: 'heading',
+        path: '/path',
+        fields: [
+            {
+                name: 'field 1',
+                slug: 'slug-one'
+            },
+            {
+                name: 'field 2',
+                slug: 'slug-two'
+            }
+        ]
+    };
+
+    const performSearch = (term) => {
+        console.log('AboutTheData search function engaged with term', term);
+    };
 
     const measureAvailableHeight = () => {
         const paddingBottom = 200;
@@ -42,7 +63,7 @@ const AboutTheData = (props) => {
         if (scrollbar) {
             scrollbar.scrollToTop();
         }
-    }, [drilldown]);
+    }, [drilldown, scrollbar]);
 
     useEffect(() => {
         window.addEventListener('resize', measureAvailableHeight);
@@ -73,7 +94,9 @@ const AboutTheData = (props) => {
             const Component = React.lazy(() => import(/* webpackPreload: true */ `../../../content/about-the-data/${slug}.md`).then((comp) => comp));
             setDrilldownComponent(<Component />);
         }
-    }, [drilldownItemId, drilldownSection]);
+    }, [drilldownItemId, drilldownSection, scrollbar]);
+
+    console.log('searchTerm', searchTerm);
 
     return (
         <div id="usa-atd-wrapper" className="usa-atd-wrapper">
@@ -81,7 +104,12 @@ const AboutTheData = (props) => {
                 role="dialog"
                 aria-labelledby="atd-title"
                 className="atd-sidebar">
-                <AboutTheDataHeader closeAboutTheData={props.onClose} />
+                <AboutTheDataHeader
+                    closeAboutTheData={props.onClose}
+                    searchTerm={searchTerm}
+                    setSearchTerm={setSearchTerm}
+                    performSearch={performSearch} />
+                {/* loading goes here */}
                 <Scrollbars
                     style={{ height }}
                     renderTrackVertical={track}
@@ -99,11 +127,20 @@ const AboutTheData = (props) => {
                         :
                         <>
                             <div className="atd__body">
+                                {/* still may want to make a 'content' obj to go here bc you may want to use another ternary bc we need a loading state for search */}
                                 <DownloadButton />
-                                <AboutTheDataListView section={schema.descriptions} selectItem={selectItem} />
-                                <AboutTheDataListView section={schema.disclosures} selectItem={selectItem} />
-                                <AboutTheDataListView section={schema["award-disclosures"]} selectItem={selectItem} />
-                                <AboutTheDataListView section={schema["covid-disclosures"]} selectItem={selectItem} />
+                                <AboutTheDataListView
+                                    section={tempSearchTerm ? tempSectionObj : schema.descriptions}
+                                    selectItem={selectItem} />
+                                <AboutTheDataListView
+                                    section={schema.disclosures}
+                                    selectItem={selectItem} />
+                                <AboutTheDataListView
+                                    section={schema["award-disclosures"]}
+                                    selectItem={selectItem} />
+                                <AboutTheDataListView
+                                    section={schema["covid-disclosures"]}
+                                    selectItem={selectItem} />
                             </div>
                         </>}
                 </Scrollbars>
