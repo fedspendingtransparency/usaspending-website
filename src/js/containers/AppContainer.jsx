@@ -12,6 +12,7 @@ import { BrowserRouter, Switch, Route, useLocation } from 'react-router-dom';
 
 import storeSingleton from 'redux/storeSingleton';
 import withGlossaryListener from 'containers/glossary/GlossaryListener';
+import withAboutTheDataListener from 'containers/aboutTheDataSidebar/AboutTheDataListener';
 import reducers from 'redux/reducers/index';
 
 import { LoadingWrapper as Loading } from 'components/sharedComponents/Loading';
@@ -67,7 +68,7 @@ const AppContainer = () => (
                         <Route
                             exact
                             path={path}
-                            component={(routerProps) => withGlossaryListener(component, routerProps)}
+                            component={(routerProps) => withAboutTheDataListener(component, routerProps)}
                             key={path} />
                     ))}
                 </Switch>

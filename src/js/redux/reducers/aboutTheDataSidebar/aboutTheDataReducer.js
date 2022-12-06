@@ -1,6 +1,5 @@
 /**
  * aboutTheDataReducer.js
- * Created by Kevin Li 4/28/17
  */
 
 import { Record, Map } from 'immutable';
@@ -26,24 +25,24 @@ export const initialState = {
     termFromUrl: ''
 };
 
-const glossaryReducer = (state = initialState, action) => {
+const aboutTheDataReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'SHOW_GLOSSARY': {
+        case 'SHOW_ATD': {
             return Object.assign({}, state, {
                 display: true
             });
         }
-        case 'HIDE_GLOSSARY': {
+        case 'HIDE_ATD': {
             return Object.assign({}, state, {
                 display: false
             });
         }
-        case 'TOGGLE_GLOSSARY': {
+        case 'TOGGLE_ATD': {
             return Object.assign({}, state, {
                 display: !state.display
             });
         }
-        case 'SET_GLOSSARY_SEARCH_VALUE': {
+        case 'SET_ATD_SEARCH_VALUE': {
             const search = Object.assign({}, state.search, {
                 input: action.value
             });
@@ -52,7 +51,7 @@ const glossaryReducer = (state = initialState, action) => {
                 term: new Definition()
             });
         }
-        case 'SET_GLOSSARY_SEARCH_RESULTS': {
+        case 'SET_ATD_SEARCH_RESULTS': {
             const search = Object.assign({}, state.search, {
                 results: action.results
             });
@@ -60,23 +59,23 @@ const glossaryReducer = (state = initialState, action) => {
                 search
             });
         }
-        case 'SET_GLOSSARY_FULL_CACHE': {
+        case 'SET_ATD_FULL_CACHE': {
             return Object.assign({}, state, {
                 cache: new Map(action.cache)
             });
         }
-        case 'SET_GLOSSARY_TERM': {
+        case 'SET_ATD_TERM': {
             return Object.assign({}, state, {
                 term: new Definition(action.term)
             });
         }
-        case 'CLEAR_GLOSSARY_TERM': {
+        case 'CLEAR_ATD_TERM': {
             return Object.assign({}, state, {
                 term: new Definition(),
                 termFromUrl: ''
             });
         }
-        case 'SET_GLOSSARY_TERM_FROM_URL': {
+        case 'SET_ATD_TERM_FROM_URL': {
             return {
                 ...state,
                 termFromUrl: action.term
@@ -87,4 +86,4 @@ const glossaryReducer = (state = initialState, action) => {
     }
 };
 
-export default glossaryReducer;
+export default aboutTheDataReducer;
