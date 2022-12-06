@@ -26,26 +26,50 @@ const AboutTheData = (props) => {
     const [drilldownComponent, setDrilldownComponent] = useState(null);
     const [scrollbar, setScrollbar] = useState(null);
     const [searchTerm, setSearchTerm] = useState('');
-    // const [searchResults, setSearchResults] = useState(null);
-
-    const tempSearchTerm = 'money';
-    const tempSectionObj = {
-        heading: 'heading',
-        path: '/path',
-        fields: [
-            {
-                name: 'field 1',
-                slug: 'slug-one'
-            },
-            {
-                name: 'field 2',
-                slug: 'slug-two'
-            }
-        ]
-    };
+    const [searchResults, setSearchResults] = useState(schema);
 
     const performSearch = (term) => {
         console.log('AboutTheData search function engaged with term', term);
+        const results = {};
+        // look for search term in each 'fields.name' in each section
+        Object.entries(searchResults).filter(([sectionKey, section]) => section.heading !== undefined).forEach(([sectionKey, section]) => {
+            const matchingFields = section.fields.filter((field) => field.name.toLowerCase().includes(term.toLowerCase()));
+            if (matchingFields.length) {
+                const markupFields = [];
+                matchingFields.forEach((field) => {
+                    // add classname to the search term in the results
+                    const regex = new RegExp(term, 'gi');
+                    const markupName = field.name.replace(regex, '<match>$&<match>');
+                    const parts = markupName.split('<match>');
+                    const markup = <>
+                        {parts.map((part) => (
+                            <>
+                                {part.toLowerCase() === term.toLowerCase() ? (
+                                    <span className="matched-highlight" style={{ color: 'red' }}>
+                                        {part}
+                                    </span>
+                                )
+                                    :
+                                    <>
+                                        { part }
+                                    </>
+                                }
+                            </>
+                        ))}
+                    </>;
+
+                    markupFields.push({
+                        name: markup,
+                        slug: field.slug
+                    });
+                });
+                results[sectionKey] = {
+                    fields: markupFields,
+                    heading: section.heading
+                };
+            }
+        });
+        setSearchResults(results);
     };
 
     const measureAvailableHeight = () => {
@@ -96,8 +120,6 @@ const AboutTheData = (props) => {
         }
     }, [drilldownItemId, drilldownSection, scrollbar]);
 
-    console.log('searchTerm', searchTerm);
-
     return (
         <div id="usa-atd-wrapper" className="usa-atd-wrapper">
             <aside
@@ -127,20 +149,12 @@ const AboutTheData = (props) => {
                         :
                         <>
                             <div className="atd__body">
-                                {/* still may want to make a 'content' obj to go here bc you may want to use another ternary bc we need a loading state for search */}
                                 <DownloadButton />
-                                <AboutTheDataListView
-                                    section={tempSearchTerm ? tempSectionObj : schema.descriptions}
-                                    selectItem={selectItem} />
-                                <AboutTheDataListView
-                                    section={schema.disclosures}
-                                    selectItem={selectItem} />
-                                <AboutTheDataListView
-                                    section={schema["award-disclosures"]}
-                                    selectItem={selectItem} />
-                                <AboutTheDataListView
-                                    section={schema["covid-disclosures"]}
-                                    selectItem={selectItem} />
+                                {Object.values(searchResults).filter((section) => section.heading !== undefined).map((section) => (
+                                    <AboutTheDataListView
+                                        section={section}
+                                        selectItem={selectItem} />
+                                ))}
                             </div>
                         </>}
                 </Scrollbars>
