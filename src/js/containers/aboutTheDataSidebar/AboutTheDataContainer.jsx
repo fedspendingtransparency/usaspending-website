@@ -19,7 +19,7 @@ import { Entry } from 'redux/reducers/aboutTheDataSidebar/aboutTheDataReducer';
 require('pages/glossary/glossaryPage.scss');
 
 const propTypes = {
-    aboutTheDataSchema: PropTypes.object,
+    aboutTheDataSidebar: PropTypes.object,
     setAboutTheDataResults: PropTypes.func,
     showAboutTheData: PropTypes.func,
     setAboutTheDataTerm: PropTypes.func,
@@ -27,28 +27,26 @@ const propTypes = {
 };
 
 export const AboutTheDataContainer = (props) => {
-    const [loading, setLoading] = useState(true);
-    const [searchLoading, setSearchLoading] = useState(false);
-    const [error, setError] = useState(false);
-
     useEffect(() => {
+        console.log(props.aboutTheDataSidebar)
+        props.showAboutTheData();
         // if (termFromUrl) {
         //     props.setAboutTheDataTerm(term);
         //     props.setTermFromUrl('');
         // }
     }, []);
 
-    const populateWithAllTerms = () => {
-
-    };
+    // const populateWithAllTerms = () => {
+    //
+    // };
 
     const performSearch = () => {
         return false;
     };
 
     const parseTerms = (data) => {
-        // const terms = data.map((result) => new Entry(result));
-        // this.props.setAboutTheDataResults(terms);
+        const terms = data.map((result) => new Entry(result));
+        props.setAboutTheDataResults(terms);
     };
 
     // jumpToTerm(slug) {
@@ -64,19 +62,15 @@ export const AboutTheDataContainer = (props) => {
 
     return (
         <AnimatedAboutTheDataWrapper
-            {...props}
-            loading={loading}
-            error={error}
-            searchLoading={searchLoading}
-            performSearch={performSearch} />
+            {...props} />
     );
-}
+};
 
 AboutTheDataContainer.propTypes = propTypes;
 
 export default connect(
     (state) => ({
-        aboutTheDataSchema: state.aboutTheDataSchema
+        aboutTheDataSidebar: state.aboutTheDataSidebar
     }),
     (dispatch) => bindActionCreators(aboutTheDataActions, dispatch)
 )(AboutTheDataContainer);

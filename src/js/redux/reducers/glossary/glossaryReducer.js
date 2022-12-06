@@ -1,5 +1,5 @@
 /**
- * aboutTheDataReducer.js
+ * glossaryReducer.js
  * Created by Kevin Li 4/28/17
  */
 

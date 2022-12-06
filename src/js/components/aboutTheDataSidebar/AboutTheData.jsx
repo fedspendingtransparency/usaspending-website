@@ -15,7 +15,7 @@ require('components/aboutTheDataSidebar/aboutTheData.scss');
 
 const propTypes = {
     children: PropTypes.element,
-    onClose: PropTypes.func
+    aboutTheData: PropTypes.object
 };
 
 const AboutTheData = (props) => {
@@ -63,6 +63,18 @@ const AboutTheData = (props) => {
         setDrilldown(false);
     };
 
+    const closeAboutTheData = () => {
+        // close the glossary when the escape key is pressed for accessibility and general
+        // non-annoyance
+        props.hideAboutTheData();
+
+        // move focus back to the main content
+        const mainContent = document.getElementById('main-focus');
+        if (mainContent) {
+            mainContent.focus();
+        }
+    }
+
     useEffect(() => {
         if (drilldownItemId !== null && drilldownItemId >= 0 && drilldownSection) {
             scrollbar.scrollToTop();
@@ -81,7 +93,7 @@ const AboutTheData = (props) => {
                 role="dialog"
                 aria-labelledby="atd-title"
                 className="atd-sidebar">
-                <AboutTheDataHeader closeAboutTheData={props.onClose} />
+                <AboutTheDataHeader closeAboutTheData={closeAboutTheData} />
                 <Scrollbars
                     style={{ height }}
                     renderTrackVertical={track}

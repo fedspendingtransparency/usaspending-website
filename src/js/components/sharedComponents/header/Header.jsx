@@ -4,9 +4,10 @@ import { Link } from 'react-router-dom';
 
 import GlossaryContainer from 'containers/glossary/GlossaryContainer';
 import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
-import Analytics from 'helpers/analytics/Analytics';
+import Analytics from 'helpers/analytics/Analytics'
+import AboutTheDataContainer from "containers/aboutTheDataSidebar/AboutTheDataContainer";
+
 import NavBar from './NavBar';
-import AnimatedAboutTheDataWrapper from "../../aboutTheDataSidebar/AnimatedAboutTheDataWrapper";
 
 const clickedHeaderLink = (route) => {
     Analytics.event({
@@ -90,7 +91,7 @@ export default class Header extends React.Component {
                     </div>
                     <NavBar />
                 </header>
-                <AnimatedAboutTheDataWrapper />
+                <AboutTheDataContainer />
                 <GlossaryContainer />
                 <GlobalModalContainer />
             </div>

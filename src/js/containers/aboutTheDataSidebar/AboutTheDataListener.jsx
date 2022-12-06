@@ -14,7 +14,7 @@ import { useQueryParams, getQueryParamString } from 'helpers/queryParams';
 
 const AboutTheDataListener = ({
     history,
-    aboutTheData,
+    aboutTheDataSidebar,
     match,
     location,
     showAboutTheData,
@@ -41,10 +41,10 @@ const AboutTheDataListener = ({
             const { "about-the-data": term } = queryParams;
             showAboutTheData();
             setAboutTheDataTermFromUrl(term);
-            // history.replace({
-            //     pathname,
-            //     search: getQueryParamString(omit(queryParams, ['about-the-data']))
-            // });
+            history.replace({
+                pathname,
+                search: getQueryParamString(omit(queryParams, ['about-the-data']))
+            });
         }
     }, [history, history.location.search, setAboutTheDataTermFromUrl, search, queryParams, pathname]);
     return <Child {...{ history, match, location }} />;
@@ -54,7 +54,7 @@ AboutTheDataListener.propTypes = {
     history: PropTypes.object,
     match: PropTypes.object,
     location: PropTypes.object,
-    aboutTheData: PropTypes.object,
+    aboutTheDataSidebar: PropTypes.object,
     showAboutTheData: PropTypes.func,
     setAboutTheDataTermFromUrl: PropTypes.func,
     Child: PropTypes.oneOfType([PropTypes.object, PropTypes.func, PropTypes.element, PropTypes.node])
@@ -62,7 +62,7 @@ AboutTheDataListener.propTypes = {
 
 const AboutTheDataListenerContainer = connect(
     (state) => ({
-        aboutTheData: state.aboutTheData
+        aboutTheDataSidebar: state.aboutTheDataSidebar
     }),
     (dispatch) => ({
         showAboutTheData: () => dispatch(aboutTheDataActions.showAboutTheData()),
@@ -70,9 +70,5 @@ const AboutTheDataListenerContainer = connect(
     })
 )(AboutTheDataListener);
 
+export default AboutTheDataListenerContainer;
 
-const withAboutTheDataListener = (component, props) => (
-    <AboutTheDataListenerContainer {...props} Child={component} />
-);
-
-export default withAboutTheDataListener;
