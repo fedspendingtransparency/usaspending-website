@@ -8,7 +8,8 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import AboutTheData from ".//AboutTheData";
 
 const propTypes = {
-    aboutTheDataSidebar: PropTypes.object
+    aboutTheDataSidebar: PropTypes.object,
+    schema: PropTypes.object
 };
 
 const AnimatedAboutTheDataWrapper = (props) => (

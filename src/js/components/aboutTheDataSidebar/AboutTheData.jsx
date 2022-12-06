@@ -5,17 +5,15 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Scrollbars } from 'react-custom-scrollbars';
-import schema from 'dataMapping/aboutTheDataSchema';
 import AboutTheDataHeader from "./AboutTheDataHeader";
 import AboutTheDataListView from "./AboutTheDataListView";
 import AboutTheDataDrilldown from "./AboutTheDataDrilldown";
 import DownloadButton from "./DownloadButton";
 
-require('components/aboutTheDataSidebar/aboutTheData.scss');
-
 const propTypes = {
     children: PropTypes.element,
-    aboutTheData: PropTypes.object
+    aboutTheData: PropTypes.object,
+    schema: PropTypes.object
 };
 
 const AboutTheData = (props) => {
@@ -24,8 +22,9 @@ const AboutTheData = (props) => {
     const [drilldownItemId, setDrilldownItemId] = useState(null);
     const [drilldownSection, setDrilldownSection] = useState(null);
     const [drilldownComponent, setDrilldownComponent] = useState(null);
-
     const [scrollbar, setScrollbar] = useState(null);
+
+    const { schema } = props;
 
     const measureAvailableHeight = () => {
         const paddingBottom = 200;
