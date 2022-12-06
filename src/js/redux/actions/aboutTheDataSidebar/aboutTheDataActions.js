@@ -1,44 +1,45 @@
 /**
  * aboutTheDataActions.js
+ * Created by Andrea Blackwell 12/06/2022
  */
 
-export const showATD = () => ({
-    type: 'SHOW_ATD'
+export const showAboutTheData = () => ({
+    type: 'SHOW_ABOUT_THE_DATA'
 });
 
-export const hideATD = () => ({
-    type: 'HIDE_ATD'
+export const hideAboutTheData = () => ({
+    type: 'HIDE_ABOUT_THE_DATA'
 });
 
-export const toggleATD = () => ({
-    type: 'TOGGLE_ATD'
+export const toggleAboutTheData = () => ({
+    type: 'TOGGLE_ABOUT_THE_DATA'
 });
 
-export const setATDSearchValue = (state) => ({
-    type: 'SET_ATD_SEARCH_VALUE',
+export const setAboutTheDataSearchValue = (state) => ({
+    type: 'SET_ABOUT_THE_DATA_SEARCH_VALUE',
     value: state
 });
 
-export const setATDTerm = (state) => ({
-    type: 'SET_ATD_TERM',
+export const setAboutTheDataTerm = (state) => ({
+    type: 'SET_ABOUT_THE_DATA_TERM',
     term: state
 });
 
-export const clearATDTerm = () => ({
-    type: 'CLEAR_ATD_TERM'
+export const clearAboutTheDataTerm = () => ({
+    type: 'CLEAR_ABOUT_THE_DATA_TERM'
 });
 
-export const setATDResults = (state) => ({
-    type: 'SET_ATD_SEARCH_RESULTS',
+export const setAboutTheDataResults = (state) => ({
+    type: 'SET_ABOUT_THE_DATA_SEARCH_RESULTS',
     results: state
 });
 
-export const setATDCache = (state) => ({
-    type: 'SET_ATD_FULL_CACHE',
+export const setAboutTheDataCache = (state) => ({
+    type: 'SET_ABOUT_THE_DATA_FULL_CACHE',
     cache: state
 });
 
-export const setATDTermFromUrl = (term) => ({
-    type: 'SET_ATD_TERM_FROM_URL',
+export const setAboutTheDataTermFromUrl = (term) => ({
+    type: 'SET_ABOUT_THE_DATA_TERM_FROM_URL',
     term
 });

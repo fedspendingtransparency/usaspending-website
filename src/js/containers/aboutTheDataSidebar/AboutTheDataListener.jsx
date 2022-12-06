@@ -1,3 +1,8 @@
+/**
+ * AboutTheDataListener.jsx
+ * Created by Andrea Blackwell 12/06/2022
+ */
+
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -9,11 +14,11 @@ import { useQueryParams, getQueryParamString } from 'helpers/queryParams';
 
 const AboutTheDataListener = ({
     history,
-    ATD,
+    aboutTheData,
     match,
     location,
-    showATD,
-    setATDTermFromUrl,
+    showAboutTheData,
+    setAboutTheDataTermFromUrl,
     Child
 }) => {
     const { pathname, search } = useLocation();
@@ -34,14 +39,14 @@ const AboutTheDataListener = ({
     useEffect(() => {
         if (search.includes('about-the-data')) {
             const { "about-the-data": term } = queryParams;
-            showATD();
-            setATDTermFromUrl(term);
+            showAboutTheData();
+            setAboutTheDataTermFromUrl(term);
             // history.replace({
             //     pathname,
             //     search: getQueryParamString(omit(queryParams, ['about-the-data']))
             // });
         }
-    }, [history, history.location.search, setATDTermFromUrl, search, queryParams, pathname]);
+    }, [history, history.location.search, setAboutTheDataTermFromUrl, search, queryParams, pathname]);
     return <Child {...{ history, match, location }} />;
 };
 
@@ -49,19 +54,19 @@ AboutTheDataListener.propTypes = {
     history: PropTypes.object,
     match: PropTypes.object,
     location: PropTypes.object,
-    ATD: PropTypes.object,
-    showATD: PropTypes.func,
-    setATDTermFromUrl: PropTypes.func,
+    aboutTheData: PropTypes.object,
+    showAboutTheData: PropTypes.func,
+    setAboutTheDataTermFromUrl: PropTypes.func,
     Child: PropTypes.oneOfType([PropTypes.object, PropTypes.func, PropTypes.element, PropTypes.node])
 };
 
 const AboutTheDataListenerContainer = connect(
     (state) => ({
-        ATD: state.ATD
+        aboutTheData: state.aboutTheData
     }),
     (dispatch) => ({
-        showATD: () => dispatch(aboutTheDataActions.showATD()),
-        setATDTermFromUrl: (term) => dispatch(aboutTheDataActions.setATDTermFromUrl(term))
+        showAboutTheData: () => dispatch(aboutTheDataActions.showAboutTheData()),
+        setAboutTheDataTermFromUrl: (term) => dispatch(aboutTheDataActions.setAboutTheDataTermFromUrl(term))
     })
 )(AboutTheDataListener);
 

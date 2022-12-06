@@ -1,23 +1,18 @@
 /**
  * aboutTheDataReducer.js
+ * Created by Andrea Blackwell 12/06/2022
  */
 
 import { Record, Map } from 'immutable';
 
-export const Definition = Record({
-    term: '',
-    data_act_term: '',
-    slug: '',
-    plain: '',
-    official: '',
-    resources: '',
-    termFromUrl: ''
+export const Entry = Record({
+    name: '',
+    slug: ''
 });
 
 export const initialState = {
     display: false,
-    term: new Definition(),
-    cache: new Map(),
+    term: new Entry(),
     search: {
         input: '',
         results: []
@@ -27,31 +22,31 @@ export const initialState = {
 
 const aboutTheDataReducer = (state = initialState, action) => {
     switch (action.type) {
-        case 'SHOW_ATD': {
+        case 'SHOW_ABOUT_THE_DATA': {
             return Object.assign({}, state, {
                 display: true
             });
         }
-        case 'HIDE_ATD': {
+        case 'HIDE_ABOUT_THE_DATA': {
             return Object.assign({}, state, {
                 display: false
             });
         }
-        case 'TOGGLE_ATD': {
+        case 'TOGGLE_ABOUT_THE_DATA': {
             return Object.assign({}, state, {
                 display: !state.display
             });
         }
-        case 'SET_ATD_SEARCH_VALUE': {
+        case 'SET_ABOUT_THE_DATA_SEARCH_VALUE': {
             const search = Object.assign({}, state.search, {
                 input: action.value
             });
             return Object.assign({}, state, {
                 search,
-                term: new Definition()
+                term: new Entry()
             });
         }
-        case 'SET_ATD_SEARCH_RESULTS': {
+        case 'SET_ABOUT_THE_DATA_SEARCH_RESULTS': {
             const search = Object.assign({}, state.search, {
                 results: action.results
             });
@@ -59,23 +54,18 @@ const aboutTheDataReducer = (state = initialState, action) => {
                 search
             });
         }
-        case 'SET_ATD_FULL_CACHE': {
+        case 'SET_ABOUT_THE_DATA_TERM': {
             return Object.assign({}, state, {
-                cache: new Map(action.cache)
+                term: new Entry(action.term)
             });
         }
-        case 'SET_ATD_TERM': {
+        case 'CLEAR_ABOUT_THE_DATA_TERM': {
             return Object.assign({}, state, {
-                term: new Definition(action.term)
-            });
-        }
-        case 'CLEAR_ATD_TERM': {
-            return Object.assign({}, state, {
-                term: new Definition(),
+                term: new Entry(),
                 termFromUrl: ''
             });
         }
-        case 'SET_ATD_TERM_FROM_URL': {
+        case 'SET_ABOUT_THE_DATA_TERM_FROM_URL': {
             return {
                 ...state,
                 termFromUrl: action.term
