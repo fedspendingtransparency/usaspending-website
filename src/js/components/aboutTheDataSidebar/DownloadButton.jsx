@@ -18,7 +18,7 @@ const DownloadButton = () => (
             className="atd__download-button"
             download>
             <FontAwesomeIcon data-href="/data/about-the-data-download.pdf" icon={faFileDownload} className="atd__download-icon" />
-            <span id="atd__download-span" className="atd__download-span">Download</span>
+            Download
         </a>
     </div>);
 
