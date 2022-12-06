@@ -24,6 +24,15 @@
 
         box-shadow: -3px 0px 4px rgba(0, 0, 0, 0.2);
 
+        .usda-share-icon .copy-confirmation {
+            background-color: $color-white;
+            z-index: 99;
+
+            svg {
+                color: $green-cool-50;
+            }
+        }
+
         .atd-sidebar {
             background-color: $cyan-60v;
             color: $color-white;
@@ -137,20 +146,45 @@
                         display: none;
                     }
 
-                    .usa-dt-picker {
-                        .usa-dt-picker__dropdown-container {
-                            .usa-dt-picker__list {
-                                .usa-dt-picker__list-item {
-                                    .usa-dt-picker__item {
-                                        background-color: white;
-                                        span {
-                                            display: unset;
-                                        }
-                                    }
-                                }
-                            }
+                    .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__list-item .usa-dt-picker__item {
+                        background-color: white;
+                        span {
+                            display: unset;
                         }
                     }
+
+                    .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list {
+                        min-width: 15rem;
+                        margin-top: 4px;
+                        padding-top: 8px;
+                        padding-bottom: 8px;
+                        .usa-dt-picker__list-item {
+                          border-top: none;
+                        }
+                        svg {
+                          color: $gray-cool-60;
+                          width: 16px;
+                        height: 16px;
+                        }
+                        span {
+                          color: $gray-cool-60;
+                          font-weight: $font-semibold;
+                          font-size: rem(16);
+                          margin-left: 16px;
+                        }
+                        .usa-dt-picker__item {
+                          padding-left: 16px;
+                          padding-right: unset;
+                          padding-top: 8px;
+                          padding-bottom: 8px;
+                          width: 100%;
+                          display:flex;
+                          left: 0;
+                          &:hover {
+                            background-color: $gray-cool-3;
+                          }
+                        }
+                      }
                 }
             }
         }
