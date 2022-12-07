@@ -24,11 +24,8 @@ const AboutTheData = (props) => {
     const [drilldown, setDrilldown] = useState(null);
     const [drilldownItemId, setDrilldownItemId] = useState(null);
     const [drilldownSection, setDrilldownSection] = useState(null);
-    // const [drilldownComponent, setDrilldownComponent] = useState(null);
     const [scrollbar, setScrollbar] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
-    // const [slug, setSlug] = useState(null);
-
 
     const { schema } = props;
 
@@ -59,7 +56,7 @@ const AboutTheData = (props) => {
         setIsLoading(false);
         window.addEventListener('resize', measureAvailableHeight);
         return () => window.removeEventListener('resize', measureAvailableHeight);
-    }, [props?.aboutTheDataSidebar?.term?.slug, schema]);
+    }, [props.aboutTheDataSidebar.term.slug, schema]);
 
     const track = () => <div className="atd-scrollbar-track" />;
     const thumb = () => <div className="atd-scrollbar-thumb" />;
@@ -92,15 +89,6 @@ const AboutTheData = (props) => {
             setDrilldown(true);
         }
     }, [drilldownItemId, drilldownSection, scrollbar]);
-
-    // useEffect(() => {
-    //     if (slug?.length > 0) {
-    //         console.log(slug);
-    //         // lazy load the md files
-    //         // const Component = React.lazy(() => import(/* webpackPreload: true */ `../../../content/about-the-data/${slug}.md`).then((comp) => comp));
-    //         // setDrilldownComponent(<Component />);
-    //     }
-    // }, [slug]);
 
     return (
         <div id="usa-atd-wrapper" className="usa-atd-wrapper">

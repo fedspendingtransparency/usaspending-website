@@ -19,7 +19,6 @@ const AboutTheDataDrilldown = ({
     section, name, clearDrilldown, slug
 }) => {
     const [drilldownComponent, setDrilldownComponent] = useState(null);
-    const [isLoading, setIsLoading] = useState(true);
     const [isError, setIsError] = useState(false);
 
     const handleKeyUp = (e) => {
@@ -33,14 +32,10 @@ const AboutTheDataDrilldown = ({
             // lazy load the md files
             const Component = React.lazy(() => import(/* webpackPreload: true */ `../../../content/about-the-data/${slug}.md`).catch((err) => {
                 setIsError(true);
-                setIsLoading(false);
                 console.log(err);
             }));
 
-            if (Component) {
-                setIsLoading(false);
-                setDrilldownComponent(<Component />);
-            }
+            setDrilldownComponent(<Component />);
         }
     }, [slug]);
 
