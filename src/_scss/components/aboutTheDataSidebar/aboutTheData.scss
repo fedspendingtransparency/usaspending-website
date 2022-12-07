@@ -189,62 +189,64 @@
                     text-transform: uppercase;
                     margin-left: rem(8);
 
-                    .atd__share__icon {
-                        right: 0;
-                        position: absolute;
 
-                        .usda-share-icon {
-                            margin-right: 0;
-                            margin-bottom: 24px;
+                }
+            }
 
-                            span {
-                                display: none;
-                            }
+            .atd__share__icon {
+                right: 0;
+                position: absolute;
 
-                            .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__list-item .usa-dt-picker__item {
-                                background-color: white;
+                .usda-share-icon {
+                    margin-right: 0;
+                    margin-bottom: 24px;
 
-                                span {
-                                    display: unset;
-                                }
-                            }
+                    span {
+                        display: none;
+                    }
 
-                            .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list {
-                                min-width: 15rem;
-                                margin-top: 4px;
-                                padding-top: 8px;
-                                padding-bottom: 8px;
+                    .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__list-item .usa-dt-picker__item {
+                        background-color: white;
 
-                                .usa-dt-picker__list-item {
-                                    border-top: none;
-                                }
+                        span {
+                            display: unset;
+                        }
+                    }
 
-                                svg {
-                                    color: $gray-cool-60;
-                                    width: 16px;
-                                    height: 16px;
-                                }
+                    .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list {
+                        min-width: 15rem;
+                        margin-top: 4px;
+                        padding-top: 8px;
+                        padding-bottom: 8px;
 
-                                span {
-                                    color: $gray-cool-60;
-                                    font-weight: $font-semibold;
-                                    font-size: rem(16);
-                                    margin-left: 16px;
-                                }
+                        .usa-dt-picker__list-item {
+                            border-top: none;
+                        }
 
-                                .usa-dt-picker__item {
-                                    padding-left: 16px;
-                                    padding-right: unset;
-                                    padding-top: 8px;
-                                    padding-bottom: 8px;
-                                    width: 100%;
-                                    display: flex;
-                                    left: 0;
+                        svg {
+                            color: $gray-cool-60;
+                            width: 16px;
+                            height: 16px;
+                        }
 
-                                    &:hover {
-                                        background-color: $gray-cool-3;
-                                    }
-                                }
+                        span {
+                            color: $gray-cool-60;
+                            font-weight: $font-semibold;
+                            font-size: rem(16);
+                            margin-left: 16px;
+                        }
+
+                        .usa-dt-picker__item {
+                            padding-left: 16px;
+                            padding-right: unset;
+                            padding-top: 8px;
+                            padding-bottom: 8px;
+                            width: 100%;
+                            display: flex;
+                            left: 0;
+
+                            &:hover {
+                                background-color: $gray-cool-3;
                             }
                         }
                     }
