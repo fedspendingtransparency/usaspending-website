@@ -4,7 +4,7 @@
  */
 
 import { Map } from 'immutable';
-import glossaryReducer, { initialState, Definition } from 'redux/reducers/glossary/aboutTheDataReducer';
+import glossaryReducer, { initialState, Definition } from 'redux/reducers/glossary/glossaryReducer';
 
 describe('glossaryReducer', () => {
     describe('SHOW_GLOSSARY', () => {
