@@ -3,7 +3,7 @@
  * Created by Andrea Blackwell 11/14/22
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { AngleLeft } from 'components/sharedComponents/icons/Icons';
 import { FlexGridRow, ShareIcon } from "data-transparency-ui";
 import PropTypes from 'prop-types';
@@ -14,15 +14,12 @@ const propTypes = {
     section: PropTypes.string,
     name: PropTypes.string,
     clearDrilldown: PropTypes.func,
-    slug: PropTypes.string,
-    entry: PropTypes.element
+    slug: PropTypes.string
 };
 
 const AboutTheDataDrilldown = ({
-    section, name, clearDrilldown, entry
+    section, name, clearDrilldown, slug
 }) => {
-    const slug = "?about-the-data";
-
     const onShareClick = () => {
         console.debug("testing... ", name);
         // const emailSubject = `USAspending.gov Statement About the Data ${param}`;
@@ -32,12 +29,29 @@ const AboutTheDataDrilldown = ({
         // };
         // handleShareOptionClick(param, slug, emailArgs);
     };
+    const [drilldownComponent, setDrilldownComponent] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [isError, setIsError] = useState(false);
 
     const handleKeyUp = (e) => {
         if (e.key === "Enter") {
             clearDrilldown();
         }
     };
+
+    useEffect(() => {
+        if (slug?.length > 0) {
+            // lazy load the md files
+            const Component = React.lazy(() => import(/* webpackPreload: true */ `../../../content/about-the-data/${slug}.md`).then((comp) => comp));
+            if (Component) {
+                setIsLoading(false);
+                setDrilldownComponent(<Component />);
+            } else {
+                setIsError(true);
+            }
+        }
+    }, [slug]);
+
 
     return (<>
         <FlexGridRow width={12}>
@@ -55,14 +69,15 @@ const AboutTheDataDrilldown = ({
             </div>
         </FlexGridRow>
 
-        {entry ?
+        {isLoading ?
+            <><LoadingWrapper isLoading /></>
+            :
             <div className="atd__drilldown">
                 <div className="atd__overline">{ section }</div>
                 <div className="atd__drilldown__heading">{ name }</div>
-                <div className="atd__copy">{entry}</div>
+                {/* <div className="atd__copy">{ drilldownComponent }</div> */}
             </div>
-            :
-            <><LoadingWrapper isLoading /></>}
+        }
     </>);
 };
 
