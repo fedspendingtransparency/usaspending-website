@@ -46,7 +46,7 @@ const AboutTheDataListener = ({
                 search: getQueryParamString(omit(queryParams, ['about-the-data']))
             });
         }
-    }, [history, aboutTheDataSidebar.display, history.location.search, setAboutTheDataTermFromUrl, search, queryParams, pathname]);
+    }, [history, aboutTheDataSidebar.display, history.location.search, setAboutTheDataTermFromUrl]);
     return <Child {...{ history, match, location }} />;
 };
 
