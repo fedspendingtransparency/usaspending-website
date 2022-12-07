@@ -22,10 +22,10 @@ const AboutTheData = (props) => {
     const [drilldown, setDrilldown] = useState(null);
     const [drilldownItemId, setDrilldownItemId] = useState(null);
     const [drilldownSection, setDrilldownSection] = useState(null);
-    const [drilldownComponent, setDrilldownComponent] = useState(null);
+    // const [drilldownComponent, setDrilldownComponent] = useState(null);
     const [scrollbar, setScrollbar] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
-    const [slug, setSlug] = useState(null);
+    // const [slug, setSlug] = useState(null);
 
 
     const { schema } = props;
@@ -82,7 +82,6 @@ const AboutTheData = (props) => {
 
     const closeAboutTheData = () => {
         // close the glossary when the escape key is pressed for accessibility and general
-        // non-annoyance
         props.hideAboutTheData();
 
         // move focus back to the main content
@@ -96,9 +95,6 @@ const AboutTheData = (props) => {
         if (drilldownItemId !== null && drilldownItemId >= 0 && drilldownSection) {
             scrollbar?.scrollToTop();
             setDrilldown(true);
-
-            // const tempSlug = drilldownSection.fields[drilldownItemId].slug;
-            // setSlug(tempSlug);
         }
     }, [drilldownItemId, drilldownSection, scrollbar]);
 
