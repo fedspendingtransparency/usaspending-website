@@ -10,10 +10,13 @@ import PropTypes from "prop-types";
 const propTypes = {
     searchTerm: PropTypes.string,
     setSearchTerm: PropTypes.func,
+    // setAboutTheDataSearchValue: PropTypes.func,
     performSearch: PropTypes.func
 };
 
-const AboutTheDataSearchBar = ({ searchTerm, setSearchTerm, performSearch }) => {
+const AboutTheDataSearchBar = (props) => {
+    // const { setAboutTheDataSearchValue, performSearch } = props;
+    const { searchTerm, setSearchTerm, performSearch } = props;
     const [searchTimer, setSearchTimer] = useState(0);
 
     const localPerformSearch = (term) => {
@@ -37,13 +40,14 @@ const AboutTheDataSearchBar = ({ searchTerm, setSearchTerm, performSearch }) => 
     };
 
     const changedSearchValue = (e) => {
+        // setAboutTheDataSearchValue(e.target.value);
         setSearchTerm(e.target.value);
-        // performSearch(e.target.value);
         localPerformSearch(e.target.value);
     };
 
     const submitSearch = (e) => {
         e.preventDefault();
+        // todo - get searchterm from redux for this prop, and change to localPerformSearch
         performSearch(searchTerm);
     };
 

@@ -12,12 +12,18 @@ import AboutTheDataListView from "./AboutTheDataListView";
 import AboutTheDataDrilldown from "./AboutTheDataDrilldown";
 import DownloadButton from "./DownloadButton";
 import { LoadingWrapper } from "../sharedComponents/Loading";
+import {
+    setAboutTheDataResults,
+    setAboutTheDataSearchValue
+} from "../../redux/actions/aboutTheDataSidebar/aboutTheDataActions";
 
 const propTypes = {
-    children: PropTypes.element,
+    setAboutTheDataSearchValue: PropTypes.func,
+    setAboutTheDataResults: PropTypes.func,
     aboutTheDataSidebar: PropTypes.object,
     schema: PropTypes.object,
-    clearAboutTheDataTerm: PropTypes.func
+    clearAboutTheDataTerm: PropTypes.func,
+    hideAboutTheData: PropTypes.func
 };
 
 const AboutTheData = (props) => {
@@ -27,14 +33,16 @@ const AboutTheData = (props) => {
     const [drilldownSection, setDrilldownSection] = useState(null);
     const [scrollbar, setScrollbar] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
-
-    const { schema } = props;
     const [searchTerm, setSearchTerm] = useState('');
+    const { schema } = props;
     const [searchResults, setSearchResults] = useState(schema);
+
+    console.log('props', props);
 
     const performSearch = (term) => {
         console.log('AboutTheData search function engaged with term', term);
         const results = {};
+        setAboutTheDataSearchValue(term);
         // look for search term in each 'fields.name' in each section
         Object.entries(searchResults).filter(([sectionKey, section]) => section.heading !== undefined).forEach(([sectionKey, section]) => {
             const matchingFields = section.fields.filter((field) => field.name.toLowerCase().includes(term.toLowerCase()));
@@ -49,7 +57,7 @@ const AboutTheData = (props) => {
                         {parts.map((part) => (
                             <>
                                 {part.toLowerCase() === term.toLowerCase() ? (
-                                    <span className="matched-highlight" style={{ color: 'red' }}>
+                                    <span className="matched-highlight">
                                         {part}
                                     </span>
                                 )
@@ -74,6 +82,7 @@ const AboutTheData = (props) => {
             }
         });
         setSearchResults(results);
+        setAboutTheDataResults(results);
     };
 
     const measureAvailableHeight = () => {
@@ -121,7 +130,7 @@ const AboutTheData = (props) => {
     };
 
     const closeAboutTheData = () => {
-        // close the glossary when the escape key is pressed for accessibility and general
+        // close the about the data module when the escape key is pressed for accessibility and general
         props.hideAboutTheData();
 
         // move focus back to the main content
@@ -149,7 +158,7 @@ const AboutTheData = (props) => {
                     :
                     <>
                         <AboutTheDataHeader
-                            closeAboutTheData={props.onClose}
+                            closeAboutTheData={closeAboutTheData}
                             searchTerm={searchTerm}
                             setSearchTerm={setSearchTerm}
                             performSearch={performSearch} />

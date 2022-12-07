@@ -141,6 +141,11 @@
         }
     }
 
+    .matched-highlight {
+        font-weight: 600;
+        text-decoration: underline;
+    }
+
     .atd__drilldown {
         .atd__drilldown__heading {
             font-size: $font-size-24;
