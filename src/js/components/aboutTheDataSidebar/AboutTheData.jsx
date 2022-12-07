@@ -12,7 +12,6 @@ import AboutTheDataListView from "./AboutTheDataListView";
 import AboutTheDataDrilldown from "./AboutTheDataDrilldown";
 import DownloadButton from "./DownloadButton";
 import { LoadingWrapper } from "../sharedComponents/Loading";
-import { clearAboutTheDataTerm } from "../../redux/actions/aboutTheDataSidebar/aboutTheDataActions";
 
 const propTypes = {
     children: PropTypes.element,

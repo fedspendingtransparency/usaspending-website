@@ -15,7 +15,7 @@ const propTypes = {
 const AnimatedAboutTheDataWrapper = (props) => (
     <div className="usa-atd-animations">
         <TransitionGroup>
-            {props.aboutTheDataSidebar.display && (
+            {props?.aboutTheDataSidebar?.display && (
                 <CSSTransition
                     className="atd-slide"
                     classNames="atd-slide"
