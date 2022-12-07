@@ -6,17 +6,16 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { Scrollbars } from 'react-custom-scrollbars';
-import schema from 'dataMapping/aboutTheDataSchema';
 import AboutTheDataHeader from "./AboutTheDataHeader";
 import AboutTheDataListView from "./AboutTheDataListView";
 import AboutTheDataDrilldown from "./AboutTheDataDrilldown";
 import DownloadButton from "./DownloadButton";
-
-require('components/aboutTheDataSidebar/aboutTheData.scss');
+import { LoadingWrapper } from "../sharedComponents/Loading";
 
 const propTypes = {
     children: PropTypes.element,
-    onClose: PropTypes.func
+    aboutTheDataSidebar: PropTypes.object,
+    schema: PropTypes.object
 };
 
 const AboutTheData = (props) => {
@@ -24,9 +23,13 @@ const AboutTheData = (props) => {
     const [drilldown, setDrilldown] = useState(null);
     const [drilldownItemId, setDrilldownItemId] = useState(null);
     const [drilldownSection, setDrilldownSection] = useState(null);
-    const [drilldownComponent, setDrilldownComponent] = useState(null);
-
+    // const [drilldownComponent, setDrilldownComponent] = useState(null);
     const [scrollbar, setScrollbar] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+    // const [slug, setSlug] = useState(null);
+
+
+    const { schema } = props;
 
     const measureAvailableHeight = () => {
         const paddingBottom = 200;
@@ -43,12 +46,26 @@ const AboutTheData = (props) => {
         if (scrollbar) {
             scrollbar.scrollToTop();
         }
-    }, [drilldown]);
+    }, [drilldown, scrollbar]);
 
     useEffect(() => {
+        if (props.aboutTheDataSidebar.term.slug && props.aboutTheDataSidebar.term.slug !== '') {
+            for (let i = 0; i < Object.keys(schema).length; i++) {
+                const sectionName = Object.keys(schema)[i];
+                for (let j = 0; j < schema[sectionName].fields.length; j++) {
+                    if (schema[sectionName].fields[j].slug === props.aboutTheDataSidebar.term.slug) {
+                        setDrilldownItemId(j);
+                        setDrilldownSection(schema[sectionName]);
+                        break;
+                    }
+                }
+            }
+        }
+
+        setIsLoading(false);
         window.addEventListener('resize', measureAvailableHeight);
         return () => window.removeEventListener('resize', measureAvailableHeight);
-    }, []);
+    }, [props?.aboutTheDataSidebar?.term?.slug, schema]);
 
     const track = () => <div className="atd-scrollbar-track" />;
     const thumb = () => <div className="atd-scrollbar-thumb" />;
@@ -64,17 +81,32 @@ const AboutTheData = (props) => {
         setDrilldown(false);
     };
 
+    const closeAboutTheData = () => {
+        // close the glossary when the escape key is pressed for accessibility and general
+        props.hideAboutTheData();
+
+        // move focus back to the main content
+        const mainContent = document.getElementById('main-focus');
+        if (mainContent) {
+            mainContent.focus();
+        }
+    };
+
     useEffect(() => {
         if (drilldownItemId !== null && drilldownItemId >= 0 && drilldownSection) {
-            scrollbar.scrollToTop();
+            scrollbar?.scrollToTop();
             setDrilldown(true);
-
-            // lazy load the md files
-            const slug = drilldownSection.fields[drilldownItemId].slug;
-            const Component = React.lazy(() => import(/* webpackPreload: true */ `../../../content/about-the-data/${slug}.md`).then((comp) => comp));
-            setDrilldownComponent(<Component />);
         }
-    }, [drilldownItemId, drilldownSection]);
+    }, [drilldownItemId, drilldownSection, scrollbar]);
+
+    // useEffect(() => {
+    //     if (slug?.length > 0) {
+    //         console.log(slug);
+    //         // lazy load the md files
+    //         // const Component = React.lazy(() => import(/* webpackPreload: true */ `../../../content/about-the-data/${slug}.md`).then((comp) => comp));
+    //         // setDrilldownComponent(<Component />);
+    //     }
+    // }, [slug]);
 
     return (
         <div id="usa-atd-wrapper" className="usa-atd-wrapper">
@@ -82,32 +114,37 @@ const AboutTheData = (props) => {
                 role="dialog"
                 aria-labelledby="atd-title"
                 className="atd-sidebar">
-                <AboutTheDataHeader closeAboutTheData={props.onClose} />
-                <Scrollbars
-                    style={{ height }}
-                    renderTrackVertical={track}
-                    renderThumbVertical={thumb}
-                    ref={(s) => setScrollbar(s)}>
-                    {drilldown && drilldownComponent ?
-                        <div className="atd__body">
-                            <AboutTheDataDrilldown
-                                section={drilldownSection.heading}
-                                name={drilldownSection.fields[drilldownItemId].name}
-                                clearDrilldown={clearDrilldown}
-                                slug={drilldownSection.fields[drilldownItemId].slug}
-                                entry={drilldownComponent} />
-                        </div>
-                        :
-                        <>
-                            <div className="atd__body">
-                                <DownloadButton />
-                                <AboutTheDataListView section={schema.descriptions} selectItem={selectItem} />
-                                <AboutTheDataListView section={schema.disclosures} selectItem={selectItem} />
-                                <AboutTheDataListView section={schema["award-disclosures"]} selectItem={selectItem} />
-                                <AboutTheDataListView section={schema["covid-disclosures"]} selectItem={selectItem} />
-                            </div>
-                        </>}
-                </Scrollbars>
+                {isLoading ?
+                    <><LoadingWrapper isLoading /></>
+                    :
+                    <>
+                        <AboutTheDataHeader closeAboutTheData={closeAboutTheData} />
+                        <Scrollbars
+                            style={{ height }}
+                            renderTrackVertical={track}
+                            renderThumbVertical={thumb}
+                            ref={(s) => setScrollbar(s)}>
+                            {drilldown ?
+                                <div className="atd__body">
+                                    <AboutTheDataDrilldown
+                                        section={drilldownSection.heading}
+                                        name={drilldownSection.fields[drilldownItemId].name}
+                                        clearDrilldown={clearDrilldown}
+                                        slug={drilldownSection.fields[drilldownItemId].slug} />
+                                </div>
+                                :
+                                <>
+                                    <div className="atd__body">
+                                        <DownloadButton />
+                                        <AboutTheDataListView section={schema.descriptions} selectItem={selectItem} />
+                                        <AboutTheDataListView section={schema.disclosures} selectItem={selectItem} />
+                                        <AboutTheDataListView section={schema["award-disclosures"]} selectItem={selectItem} />
+                                        <AboutTheDataListView section={schema["covid-disclosures"]} selectItem={selectItem} />
+                                    </div>
+                                </>}
+                        </Scrollbars>
+                    </>
+                }
             </aside>
         </div>);
 };

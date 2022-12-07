@@ -1,5 +1,5 @@
 import { Map } from 'immutable';
-import { Definition } from 'redux/reducers/glossary/glossaryReducer';
+import { Definition } from 'redux/reducers/glossary/aboutTheDataReducer';
 
 export const standardTerm = new Definition({
     term: 'Test Term',
