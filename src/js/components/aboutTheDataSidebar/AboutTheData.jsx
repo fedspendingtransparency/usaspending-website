@@ -5,6 +5,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Scrollbars } from 'react-custom-scrollbars';
+import { getDrilldownEntrySectionAndId } from 'helpers/aboutTheDataSidebarHelper';
 import AboutTheDataHeader from "./AboutTheDataHeader";
 import AboutTheDataListView from "./AboutTheDataListView";
 import AboutTheDataDrilldown from "./AboutTheDataDrilldown";
@@ -49,16 +50,9 @@ const AboutTheData = (props) => {
 
     useEffect(() => {
         if (props.aboutTheDataSidebar.term.slug && props.aboutTheDataSidebar.term.slug !== '') {
-            for (let i = 0; i < Object.keys(schema).length; i++) {
-                const sectionName = Object.keys(schema)[i];
-                for (let j = 0; j < schema[sectionName].fields.length; j++) {
-                    if (schema[sectionName].fields[j].slug === props.aboutTheDataSidebar.term.slug) {
-                        setDrilldownItemId(j);
-                        setDrilldownSection(schema[sectionName]);
-                        break;
-                    }
-                }
-            }
+            const entry = getDrilldownEntrySectionAndId(schema, props.aboutTheDataSidebar.term.slug);
+            setDrilldownItemId(entry.entryId);
+            setDrilldownSection(entry.section);
         }
 
         setIsLoading(false);
