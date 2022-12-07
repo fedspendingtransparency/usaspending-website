@@ -42,84 +42,140 @@
             color: $theme-color-body-inverse;
         }
 
-            hr {
-                height: rem(1);
-                background-color: $theme-color-underline;
-                border: none;
-                margin-top: rem(8);
-            }
-        }
-
-        .atd__heading {
-            font-size: $font-size-20;
+        hr {
+            height: rem(1);
+            background-color: $theme-color-underline;
+            border: none;
             margin-top: rem(8);
-            line-height: rem(25);
-            color: $theme-color-headline-inverse;
-            font-weight: $font-semibold;
-            margin-top: rem(24);
+        }
+    }
+
+    .atd__heading {
+        font-size: $font-size-20;
+        margin-top: rem(8);
+        line-height: rem(25);
+        color: $theme-color-headline-inverse;
+        font-weight: $font-semibold;
+        margin-top: rem(16);
+    }
+
+    .atd__link {
+        font-size: $font-size-16;
+        line-height: rem(24);
+        color: $gray-cool-10;
+        cursor: pointer;
+
+        &:hover {
+            color: $gray-cool-5;
+            text-decoration: underline;
         }
 
-        .atd__link {
-            font-size: $font-size-16;
-            line-height: rem(24);
-            color: $gray-cool-10;
-            cursor: pointer;
-
-            &:hover{
-                color: $gray-cool-5;
-                text-decoration: underline;
-            }
-            &:active{
-                color: $gray-cool-1;
-                text-decoration: underline;
-            }
+        &:active {
+            color: $gray-cool-1;
+            text-decoration: underline;
         }
+    }
 
-        .atd__copy p {
-            font-size: $font-size-16;
-            line-height: rem(24);
-            color: $gray-cool-10;
-        }
+    .atd__copy p {
+        font-size: $font-size-16;
+        line-height: rem(24);
+        color: $gray-cool-10;
+    }
 
-        .atd__body {
-            margin: rem(27) rem(24);
+    .atd__body {
+        margin: 24px 24px 32px 24px;
 
-            .atd__drilldown {
-                .atd__drilldown__heading {
-                    font-size: $font-size-24;
-                    margin-top: rem(8);
-                    line-height: rem(30);
-                    color: $theme-color-headline-inverse;
-                    font-weight: $font-semibold;
+        .atd__download-wrapper {
+            display: none;
+
+            @media(min-width:$medium-screen) {
+                display: flex;
+                justify-content: end;
+
+                svg {
+                    &:hover {
+                        color: $gray-cool-5;
+                        text-decoration: none;
+                    }
+
+                    &:active {
+                        color: $gray-cool-1;
+                    }
                 }
+            }
 
-                a {
-                    font-size: $font-size-16;
-                    line-height: 1.5;
+            .atd__download-button {
+                font-size: rem(14);
+                font-weight: $font-semibold;
+                font-stretch: normal;
+                font-style: normal;
+                line-height: 1.5;
+                letter-spacing: normal;
+                color: $gray-cool-10;
+                vertical-align: middle;
+                &:hover {
                     color: $gray-cool-5;
-                    text-decoration: underline;
-                }
-            }
-
-
-            .atd__back {
-                margin-bottom: rem(24);
-                cursor: pointer;
-
-                .usa-da-icon-angle-left {
-                    height: rem(12);
-                    width: rem(16);
-                    fill: $gray-cool-10;
+                    text-decoration: none;
                 }
 
-                .atd__back__label {
-                    font-size: $font-size-16;
-                    line-height: rem(24);
-                    color: $theme-color-headline-inverse;
-                    font-weight: $font-semibold;
-                    text-transform: uppercase;
-                    margin-left: rem(8);
+                &:active {
+                    color: $gray-cool-1;
+                }
+                .atd__download-icon {
+                    width: 12px;
+                    height: 16px;
+                    margin-right: 8px;
+                    color: $gray-cool-10;
+                    vertical-align: middle;
+
+                    &:hover {
+                        color: $gray-cool-5;
+                        text-decoration: none;
+                    }
+
+                    &:active {
+                        color: $gray-cool-1;
+                    }
                 }
             }
         }
     }
+
+    .atd__drilldown {
+        .atd__drilldown__heading {
+            font-size: $font-size-24;
+            margin-top: rem(8);
+            line-height: rem(30);
+            color: $theme-color-headline-inverse;
+            font-weight: $font-semibold;
+        }
+
+        a {
+            font-size: $font-size-16;
+            line-height: 1.5;
+            color: $gray-cool-5;
+            text-decoration: underline;
+        }
+    }
+
+
+    .atd__back {
+        margin-bottom: rem(24);
+        cursor: pointer;
+
+        .usa-da-icon-angle-left {
+            height: rem(12);
+            width: rem(16);
+            fill: $gray-cool-10;
+        }
+
+        .atd__back__label {
+            font-size: $font-size-16;
+            line-height: rem(24);
+            color: $theme-color-headline-inverse;
+            font-weight: $font-semibold;
+            text-transform: uppercase;
+            margin-left: rem(8);
+        }
+    }
+}
