@@ -20,7 +20,8 @@ const propTypes = {
     setAboutTheDataResults: PropTypes.func,
     showAboutTheData: PropTypes.func,
     setAboutTheDataTerm: PropTypes.func,
-    setAboutTheDataTermFromUrl: PropTypes.func
+    setAboutTheDataTermFromUrl: PropTypes.func,
+    clearAboutTheDataTerm: PropTypes.func
 };
 
 export const AboutTheDataContainer = (props) => {

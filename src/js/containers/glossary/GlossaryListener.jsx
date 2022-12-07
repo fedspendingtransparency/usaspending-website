@@ -41,7 +41,7 @@ const GlossaryListener = ({
                 search: getQueryParamString(omit(queryParams, ['glossary']))
             });
         }
-    }, [history, glossary.display, history.location.search, setTermFromUrl, showGlossary, search, queryParams, pathname]);
+    }, [history, glossary.display, history.location.search, setTermFromUrl, showGlossary]);
     return <Child {...{ history, match, location }} />;
 };
 

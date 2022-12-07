@@ -1,10 +1,10 @@
 /**
- * aboutTheDataReducer-test.js
+ * glossaryReducer-test.js
  * Created by Kevin Li 5/3/17
  */
 
 import { Map } from 'immutable';
-import glossaryReducer, { initialState, Definition } from 'redux/reducers/glossary/aboutTheDataReducer';
+import glossaryReducer, { initialState, Definition } from 'redux/reducers/glossary/glossaryReducer';
 
 describe('glossaryReducer', () => {
     describe('SHOW_GLOSSARY', () => {

@@ -67,7 +67,7 @@ const AppContainer = () => (
                         <Route
                             exact
                             path={path}
-                            component={(routerProps) => WithUrlListener(component, routerProps, path)}
+                            component={(routerProps) => WithUrlListener(component, routerProps)}
                             key={path} />
                     ))}
                 </Switch>
