@@ -170,11 +170,14 @@ const AboutTheData = (props) => {
                                 <>
                                     <div className="atd__body">
                                         <DownloadButton />
-                                        {Object.values(searchResults).filter((section) => section.heading !== undefined).map((section) => (
-                                            <AboutTheDataListView
-                                                section={section}
-                                                selectItem={selectItem} />
-                                        ))}
+                                        {Object.values(searchResults)
+                                            .filter((section) => section.heading !== undefined)
+                                            .map((section) => (
+                                                <AboutTheDataListView
+                                                    section={section}
+                                                    selectItem={selectItem} />
+                                            ))}
+                                    </div>
                                 </>}
                         </Scrollbars>
                     </>
