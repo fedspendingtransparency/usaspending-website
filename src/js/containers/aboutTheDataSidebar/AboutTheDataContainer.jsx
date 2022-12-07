@@ -11,6 +11,7 @@ import { connect } from 'react-redux';
 import schema from 'dataMapping/aboutTheDataSchema';
 import AnimatedAboutTheDataWrapper from 'components/aboutTheDataSidebar/AnimatedAboutTheDataWrapper';
 import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
+import { getDrilldownEntry } from 'helpers/aboutTheDataSidebarHelper';
 
 require('components/aboutTheDataSidebar/aboutTheData.scss');
 
@@ -26,19 +27,13 @@ export const AboutTheDataContainer = (props) => {
     useEffect(() => {
         const { termFromUrl } = props.aboutTheDataSidebar;
         if (termFromUrl) {
-            // find the term in the schema
-            for (let i = 0; i < Object.keys(schema).length; i++) {
-                const sectionName = Object.keys(schema)[i];
-                for (let j = 0; j < schema[sectionName].fields.length; j++) {
-                    if (schema[sectionName].fields[j].slug === termFromUrl) {
-                        props.setAboutTheDataTerm(schema[sectionName].fields[j]);
-                        props.setAboutTheDataTermFromUrl('');
-                        break;
-                    }
-                }
+            const drilldownEntry = getDrilldownEntry(schema, termFromUrl);
+            if (drilldownEntry) {
+                props.setAboutTheDataTerm(drilldownEntry);
+                props.setAboutTheDataTermFromUrl('');
             }
         }
-    });
+    }, [props.aboutTheDataSidebar]);
 
     return (
         <AnimatedAboutTheDataWrapper
