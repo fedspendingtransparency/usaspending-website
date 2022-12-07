@@ -14,3 +14,23 @@ export const getDrilldownEntry = (schema, termFromUrl) => {
         }
     }
 };
+
+export const getNewUrlForATD = (existingUrl, atdFragment, existingQueryParams = '') => {
+    if (existingUrl === '/' && !existingQueryParams) return atdFragment;
+    if (existingUrl[existingUrl.length - 1] === '/' && !existingQueryParams) {
+        return `${existingUrl.substr(0, existingUrl.length - 1)}${atdFragment}`;
+    }
+    if (existingQueryParams && existingUrl[existingUrl.length - 1] === '/') {
+        const cleanQueryParams = existingQueryParams[0] === '?'
+            ? existingQueryParams.substr(1)
+            : existingQueryParams;
+        return `${existingUrl.substr(0, existingUrl.length - 1)}${atdFragment}&${cleanQueryParams}`;
+    }
+    if (existingQueryParams) {
+        const cleanQueryParams = existingQueryParams[0] === '?'
+            ? existingQueryParams.substr(1)
+            : existingQueryParams;
+        return `${existingUrl}${atdFragment}&${cleanQueryParams}`;
+    }
+    return `${existingUrl}${atdFragment}`;
+};

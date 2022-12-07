@@ -59,7 +59,7 @@ export const resourceOptions = [
         label: 'About the Data',
         url: '/?about-the-data',
         enabled: true,
-        appendToExistingUrl: false
+        appendToExistingUrl: true
     },
     {
         label: 'Data Dictionary',
