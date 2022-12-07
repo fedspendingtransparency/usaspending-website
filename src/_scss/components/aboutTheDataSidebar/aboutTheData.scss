@@ -57,42 +57,99 @@
             border: none;
             margin-top: rem(8);
         }
-    }
 
-    .atd__heading {
-        font-size: $font-size-20;
-        margin-top: rem(8);
-        line-height: rem(25);
-        color: $theme-color-headline-inverse;
-        font-weight: $font-semibold;
-        margin-top: rem(24);
-    }
-
-    .atd__link {
-        font-size: $font-size-16;
-        line-height: rem(24);
-        color: $gray-cool-10;
-        cursor: pointer;
-
-        &:hover {
-            color: $gray-cool-5;
-            text-decoration: underline;
+        .atd__heading {
+            font-size: $font-size-20;
+            margin-top: rem(8);
+            line-height: rem(25);
+            color: $theme-color-headline-inverse;
+            font-weight: $font-semibold;
+            margin-top: rem(16);
         }
 
-        &:active {
-            color: $gray-cool-1;
-            text-decoration: underline;
+        .atd__link {
+            font-size: $font-size-16;
+            line-height: rem(24);
+            color: $gray-cool-10;
+            cursor: pointer;
+
+            &:hover {
+                color: $gray-cool-5;
+                text-decoration: underline;
+            }
+
+            &:active {
+                color: $gray-cool-1;
+                text-decoration: underline;
+            }
         }
-    }
 
-    .atd__copy p {
-        font-size: $font-size-16;
-        line-height: rem(24);
-        color: $gray-cool-10;
-    }
+        .atd__copy p {
+            font-size: $font-size-16;
+            line-height: rem(24);
+            color: $gray-cool-10;
+        }
 
-    .atd__body {
-        margin: rem(27) rem(24);
+        .atd__body {
+            margin: 24px 24px 32px 24px;
+
+            .atd__download-wrapper {
+                display: none;
+
+                @media(min-width:$medium-screen) {
+                    display: flex;
+                    justify-content: end;
+
+                    svg {
+                        &:hover {
+                            color: $gray-cool-5;
+                            text-decoration: none;
+                        }
+
+                        &:active {
+                            color: $gray-cool-1;
+                        }
+                    }
+                }
+
+                .atd__download-button {
+                    font-size: rem(14);
+                    font-weight: $font-semibold;
+                    font-stretch: normal;
+                    font-style: normal;
+                    line-height: 1.5;
+                    letter-spacing: normal;
+                    color: $gray-cool-10;
+                    vertical-align: middle;
+
+                    &:hover {
+                        color: $gray-cool-5;
+                        text-decoration: none;
+                    }
+
+                    &:active {
+                        color: $gray-cool-1;
+                    }
+
+                    .atd__download-icon {
+                        width: 12px;
+                        height: 16px;
+                        margin-right: 8px;
+                        color: $gray-cool-10;
+                        vertical-align: middle;
+
+                        &:hover {
+                            color: $gray-cool-5;
+                            text-decoration: none;
+                        }
+
+                        &:active {
+                            color: $gray-cool-1;
+                        }
+                    }
+                }
+            }
+        }
 
         .atd__drilldown {
             .atd__drilldown__heading {
@@ -131,60 +188,66 @@
                     font-weight: $font-semibold;
                     text-transform: uppercase;
                     margin-left: rem(8);
-                }
-            }
 
-            .atd__share__icon {
-                right: 0;
-                position: absolute;
+                    .atd__share__icon {
+                        right: 0;
+                        position: absolute;
 
-                .usda-share-icon {
-                    margin-right: 0;
-                    margin-bottom: 24px;
+                        .usda-share-icon {
+                            margin-right: 0;
+                            margin-bottom: 24px;
 
-                    span {
-                        display: none;
-                    }
+                            span {
+                                display: none;
+                            }
 
-                    .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__list-item .usa-dt-picker__item {
-                        background-color: white;
-                        span {
-                            display: unset;
+                            .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__list-item .usa-dt-picker__item {
+                                background-color: white;
+
+                                span {
+                                    display: unset;
+                                }
+                            }
+
+                            .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list {
+                                min-width: 15rem;
+                                margin-top: 4px;
+                                padding-top: 8px;
+                                padding-bottom: 8px;
+
+                                .usa-dt-picker__list-item {
+                                    border-top: none;
+                                }
+
+                                svg {
+                                    color: $gray-cool-60;
+                                    width: 16px;
+                                    height: 16px;
+                                }
+
+                                span {
+                                    color: $gray-cool-60;
+                                    font-weight: $font-semibold;
+                                    font-size: rem(16);
+                                    margin-left: 16px;
+                                }
+
+                                .usa-dt-picker__item {
+                                    padding-left: 16px;
+                                    padding-right: unset;
+                                    padding-top: 8px;
+                                    padding-bottom: 8px;
+                                    width: 100%;
+                                    display: flex;
+                                    left: 0;
+
+                                    &:hover {
+                                        background-color: $gray-cool-3;
+                                    }
+                                }
+                            }
                         }
                     }
-
-                    .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list {
-                        min-width: 15rem;
-                        margin-top: 4px;
-                        padding-top: 8px;
-                        padding-bottom: 8px;
-                        .usa-dt-picker__list-item {
-                          border-top: none;
-                        }
-                        svg {
-                          color: $gray-cool-60;
-                          width: 16px;
-                        height: 16px;
-                        }
-                        span {
-                          color: $gray-cool-60;
-                          font-weight: $font-semibold;
-                          font-size: rem(16);
-                          margin-left: 16px;
-                        }
-                        .usa-dt-picker__item {
-                          padding-left: 16px;
-                          padding-right: unset;
-                          padding-top: 8px;
-                          padding-bottom: 8px;
-                          width: 100%;
-                          display:flex;
-                          left: 0;
-                          &:hover {
-                            background-color: $gray-cool-3;
-                          }
-                        }
-                      }
                 }
             }
         }
