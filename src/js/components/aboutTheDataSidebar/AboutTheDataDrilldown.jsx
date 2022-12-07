@@ -8,7 +8,7 @@ import { AngleLeft } from 'components/sharedComponents/icons/Icons';
 import { FlexGridRow, ShareIcon } from "data-transparency-ui";
 import PropTypes from 'prop-types';
 import { LoadingWrapper } from "../sharedComponents/Loading";
-import { getBaseUrl, handleShareOptionClick } from '../../helpers/socialShare';
+import { getBaseUrl } from '../../helpers/socialShare';
 
 const propTypes = {
     section: PropTypes.string,
@@ -23,13 +23,14 @@ const AboutTheDataDrilldown = ({
 }) => {
     const slug = "?about-the-data";
 
-    const onShareClick = (param) => {
-        const emailSubject = `USAspending.gov Statement About the Data ${param}`;
-        const emailArgs = {
-            subject: `${emailSubject}`,
-            body: `View this statement about the data on USAspending.gov ${getBaseUrl(slug)}`
-        };
-        handleShareOptionClick(name, slug, emailArgs);
+    const onShareClick = () => {
+        console.debug("testing... ", name);
+        // const emailSubject = `USAspending.gov Statement About the Data ${param}`;
+        // const emailArgs = {
+        //     subject: `${emailSubject}`,
+        //     body: `View this statement about the data on USAspending.gov ${getBaseUrl(slug)}`
+        // };
+        // handleShareOptionClick(param, slug, emailArgs);
     };
 
     const handleKeyUp = (e) => {
