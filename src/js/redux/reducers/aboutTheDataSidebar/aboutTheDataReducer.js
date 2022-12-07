@@ -4,6 +4,7 @@
  */
 
 import { Record } from 'immutable';
+import { Definition } from "../glossary/glossaryReducer";
 
 export const Entry = Record({
     name: '',
@@ -13,6 +14,10 @@ export const Entry = Record({
 export const initialState = {
     display: false,
     term: new Entry(),
+    search: {
+        input: '',
+        results: []
+    },
     termFromUrl: ''
 };
 
@@ -31,6 +36,23 @@ const aboutTheDataReducer = (state = initialState, action) => {
         case 'TOGGLE_ABOUT_THE_DATA': {
             return Object.assign({}, state, {
                 display: !state.display
+            });
+        }
+        case 'SET_ABOUT_THE_DATA_SEARCH_VALUE': {
+            const search = Object.assign({}, state.search, {
+                input: action.value
+            });
+            return Object.assign({}, state, {
+                search,
+                term: new Definition()
+            });
+        }
+        case 'SET_ABOUT_THE_DATA_SEARCH_RESULTS': {
+            const search = Object.assign({}, state.search, {
+                results: action.results
+            });
+            return Object.assign({}, state, {
+                search
             });
         }
         case 'SET_ABOUT_THE_DATA_TERM': {

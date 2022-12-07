@@ -47,6 +47,7 @@ const AboutTheDataListener = ({
             });
         }
     }, [history, aboutTheDataSidebar.display, history.location.search, setAboutTheDataTermFromUrl, search, queryParams, pathname]);
+
     return <Child {...{ history, match, location }} />;
 };
 
