@@ -2,10 +2,11 @@
  * AboutTheData.jsx
  * Created by Nick Torres 11/2/22
  */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
-
 import { Scrollbars } from 'react-custom-scrollbars';
+import Mousetrap from "mousetrap";
+
 import { getDrilldownEntrySectionAndId } from 'helpers/aboutTheDataSidebarHelper';
 import AboutTheDataHeader from "./AboutTheDataHeader";
 import AboutTheDataListView from "./AboutTheDataListView";
@@ -17,7 +18,8 @@ const propTypes = {
     children: PropTypes.element,
     aboutTheDataSidebar: PropTypes.object,
     schema: PropTypes.object,
-    clearAboutTheDataTerm: PropTypes.func
+    clearAboutTheDataTerm: PropTypes.func,
+    setAboutTheDataTerm: PropTypes.func
 };
 
 const AboutTheData = (props) => {
@@ -47,34 +49,8 @@ const AboutTheData = (props) => {
         }
     }, [drilldown, scrollbar]);
 
-    useEffect(() => {
-        if (props.aboutTheDataSidebar.term.slug && props.aboutTheDataSidebar.term.slug !== '') {
-            const entry = getDrilldownEntrySectionAndId(schema, props.aboutTheDataSidebar.term.slug);
-            setDrilldownItemId(entry.entryId);
-            setDrilldownSection(entry.section);
-        }
 
-        setIsLoading(false);
-        window.addEventListener('resize', measureAvailableHeight);
-        return () => window.removeEventListener('resize', measureAvailableHeight);
-    }, [props.aboutTheDataSidebar.term.slug, schema]);
-
-    const track = () => <div className="atd-scrollbar-track" />;
-    const thumb = () => <div className="atd-scrollbar-thumb" />;
-
-    const selectItem = (index, section) => {
-        setDrilldownItemId(index);
-        setDrilldownSection(section);
-    };
-
-    const clearDrilldown = () => {
-        setDrilldownItemId(null);
-        setDrilldownSection(null);
-        setDrilldown(false);
-        props.clearAboutTheDataTerm();
-    };
-
-    const closeAboutTheData = () => {
+    const closeAboutTheData = useCallback(() => {
         // close the glossary when the escape key is pressed for accessibility and general
         props.hideAboutTheData();
 
@@ -83,6 +59,39 @@ const AboutTheData = (props) => {
         if (mainContent) {
             mainContent.focus();
         }
+    });
+
+    useEffect(() => {
+        if (props.aboutTheDataSidebar.term.slug && props.aboutTheDataSidebar.term.slug !== '') {
+            const entry = getDrilldownEntrySectionAndId(schema, props.aboutTheDataSidebar.term.slug);
+            setDrilldownItemId(entry.entryId);
+            setDrilldownSection(entry.section);
+        }
+
+        setIsLoading(false);
+        Mousetrap.bind('esc', closeAboutTheData);
+
+        window.addEventListener('resize', measureAvailableHeight);
+        return () => {
+            window.removeEventListener('resize', measureAvailableHeight);
+            Mousetrap.unbind('esc');
+        };
+    }, [props.aboutTheDataSidebar.term.slug]);
+
+    const track = () => <div className="atd-scrollbar-track" />;
+    const thumb = () => <div className="atd-scrollbar-thumb" />;
+
+    const selectItem = (index, section) => {
+        setDrilldownItemId(index);
+        setDrilldownSection(section);
+        props.setAboutTheDataTerm(section.fields[index]);
+    };
+
+    const clearDrilldown = () => {
+        setDrilldownItemId(null);
+        setDrilldownSection(null);
+        setDrilldown(false);
+        props.clearAboutTheDataTerm();
     };
 
     useEffect(() => {
