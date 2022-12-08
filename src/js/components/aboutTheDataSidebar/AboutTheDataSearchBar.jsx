@@ -47,8 +47,7 @@ const AboutTheDataSearchBar = (props) => {
 
     const submitSearch = (e) => {
         e.preventDefault();
-        // todo - get searchterm from redux for this prop, and change to localPerformSearch
-        performSearch(searchTerm);
+        localPerformSearch(searchTerm);
     };
 
     return (

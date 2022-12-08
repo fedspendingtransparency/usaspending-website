@@ -2,9 +2,9 @@
  * AboutTheData.jsx
  * Created by Nick Torres 11/2/22
  */
+
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-
 import { Scrollbars } from 'react-custom-scrollbars';
 import { getDrilldownEntrySectionAndId } from 'helpers/aboutTheDataSidebarHelper';
 import AboutTheDataHeader from "./AboutTheDataHeader";
@@ -16,6 +16,7 @@ import {
     setAboutTheDataResults,
     setAboutTheDataSearchValue
 } from "../../redux/actions/aboutTheDataSidebar/aboutTheDataActions";
+import AboutTheDataNoResults from "./AboutTheDataNoResults";
 
 const propTypes = {
     setAboutTheDataSearchValue: PropTypes.func,
@@ -37,12 +38,19 @@ const AboutTheData = (props) => {
     const { schema } = props;
     const [searchResults, setSearchResults] = useState(schema);
 
-    console.log('props', props);
-
     const performSearch = (term) => {
         console.log('AboutTheData search function engaged with term', term);
+
+        if (!term) {
+            setSearchResults(schema);
+            return;
+        }
+
         const results = {};
+
+        // todo - redux fn isn't working yet
         setAboutTheDataSearchValue(term);
+
         // look for search term in each 'fields.name' in each section
         Object.entries(searchResults).filter(([sectionKey, section]) => section.heading !== undefined).forEach(([sectionKey, section]) => {
             const matchingFields = section.fields.filter((field) => field.name.toLowerCase().includes(term.toLowerCase()));
@@ -82,6 +90,7 @@ const AboutTheData = (props) => {
             }
         });
         setSearchResults(results);
+        // todo - redux fn isn't working yet
         setAboutTheDataResults(results);
     };
 
@@ -140,6 +149,23 @@ const AboutTheData = (props) => {
         }
     };
 
+    const content = Object.keys(searchResults).length === 0 ? (
+        <AboutTheDataNoResults searchTerm={searchTerm} />
+    )
+        :
+        (
+            <>
+                <DownloadButton />
+                {Object.values(searchResults)
+                    .filter((section) => section.heading !== undefined)
+                    .map((section) => (
+                        <AboutTheDataListView
+                            section={section}
+                            selectItem={selectItem} />
+                    ))}
+            </>
+        );
+
     useEffect(() => {
         if (drilldownItemId !== null && drilldownItemId >= 0 && drilldownSection) {
             scrollbar?.scrollToTop();
@@ -178,14 +204,7 @@ const AboutTheData = (props) => {
                                 :
                                 <>
                                     <div className="atd__body">
-                                        <DownloadButton />
-                                        {Object.values(searchResults)
-                                            .filter((section) => section.heading !== undefined)
-                                            .map((section) => (
-                                                <AboutTheDataListView
-                                                    section={section}
-                                                    selectItem={selectItem} />
-                                            ))}
+                                        {content}
                                     </div>
                                 </>}
                         </Scrollbars>
