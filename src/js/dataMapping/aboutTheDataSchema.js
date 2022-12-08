@@ -142,7 +142,7 @@ const schema = {
                 slug: "reporting-threshold-for-prime-awards"
             },
             {
-                name: "Frequency of Updates to Prime Award Data for Contracts",
+                name: "Frequency of Updates to Prime Award Data for Contracts (Procurement)",
                 slug: "frequency-of-updates-to-prime-award-data-for-contracts"
             },
             {
@@ -204,7 +204,7 @@ const schema = {
                 slug: "start-date-for-defc-tracking"
             },
             {
-                name: "Statement from the Department of the Treasury — Economic Impact Payment",
+                name: "Statement from the Department of the Treasury — Economic Impact Payment (EIP) and Payroll Support Program",
                 slug: "treasury-eip"
             },
             {
@@ -235,6 +235,64 @@ const schema = {
                 name: "Statement from the Department of Agriculture (USDA)",
                 slug: "usda-outlays"
             }
+        ]
+    },
+    "legal-disclosures": {
+        heading: "Legal and Policy Documentation",
+        path: 'content/about-the-data/legal-disclosures',
+        fields: [
+            {
+                name: "Statuory Authority",
+                slug: "statutory-authority"
+            },
+            {
+                name: "the Congressional Budget Justification Transparency Act of 2021. These laws are codified in 31 USC § 6101 note. ",
+                slug: "omb-m-08272010"
+            },
+            {
+                name: "OMB Memorandum 2016-03: Additional Guidance for DATA Act Implementation: Implementing Data-Centric Approach for Reporting Federal Spending Information",
+                slug: "omb-m-2016-03"
+            },
+            {
+                name: "OMB Memorandum M-17-04: Additional Guidance for DATA Act Implementation: Further Requirements for Reporting and Assuring Data Reliability",
+                slug: "omb-m-17-04"
+            },
+            {
+                name: "OMB Memorandum M-18-16: OMB Circular A-123, Appendix A, Management of Reporting and Data Integrity Risk",
+                slug: "omb-m-18-16"
+            },
+            {
+                name: "OMB Memorandum M-20-21: Implementation Guidance for Supplemental Funding Provided in Response to the Coronavirus Disease 2019 (COVID-19)",
+                slug: "omb-m-20-21"
+            },
+            {
+                name: "OMB Memorandum M-21-20: Promoting Public Trust in the Federal Government through Effective Implementation of the American Rescue Plan Act and Stewardship of the Taxpayer Resources)",
+                slug: "omb-m-21-20"
+            },
+            {
+                name: "OMB Memorandum M-22-02: New Financial Assistance Transparency Reporting Requirements",
+                slug: "omb-m-22-02"
+            },
+            {
+                name: "OMB Memorandum M-22-12: Advancing Effective Stewardship of Taxpayer Resources and Outcomes in the Implementation of the Infrastructure Investment and Jobs Act",
+                slug: "omb-m-22-12"
+            },
+            {
+                name: "Federal Acquisition Regulation (FAR)",
+                slug: "far"
+            },
+            {
+                name: "Code of Federal Regulations (CFR)",
+                slug: "cfr"
+            },
+            {
+                name: "OMB Circular A-11",
+                slug: "omb-circular-a-11"
+            },
+            {
+                name: "DATA Act Information Model Schema (DAIMS)",
+                slug: "daims"
+            },
         ]
     }
 };
