@@ -37,6 +37,7 @@ const DataDictionaryPage = React.lazy(() => import('components/dataDictionary/Da
 const AnalystGuidePage = React.lazy(() => import('components/analystGuide/AnalystGuidePage').then((comp) => comp));
 const EquityCovidSpendingPage = React.lazy(() => import('components/dataDives/EquityCovidSpendingPage').then((comp) => comp));
 const InteractiveDataSourcesPage = React.lazy(() => import('components/interactiveDataSources/InteractiveDataSourcesPage').then((comp) => comp));
+const TrainingVideosPage = React.lazy(() => import('components/trainingVideos/TrainingVideosPage').then((comp) => comp));
 const TempPage = React.lazy(() => import('components/tempPage').then((comp) => comp));
 
 // /* eslint-disable import/prefer-default-export */
@@ -182,12 +183,12 @@ export const routes = [
         exact: true
     },
     {
-        path: '/submission-statistics/about-the-data',
+        path: '/submission-statistics/data-sources',
         component: SubmissionStatisticsDataSources,
         exact: true
     },
     {
-        path: '/disaster/covid-19/about-the-data',
+        path: '/disaster/covid-19/data-sources',
         component: DataSourcesAndMethodologiesPage,
         exact: true
     },
@@ -224,6 +225,11 @@ export const routes = [
     {
         path: '/temp-page',
         component: TempPage,
+        exact: true
+    },
+    {
+        path: '/training-videos',
+        component: TrainingVideosPage,
         exact: true
     },
     {

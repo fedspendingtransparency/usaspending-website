@@ -41,7 +41,7 @@ export default class GlossarySearchBar extends React.Component {
         this.props.setSearchValue(term);
 
         if (term.length > 0 && term.length < 3) {
-            // do not perform a search because the search term is too search
+            // do not perform a search because the search term is too short
             // but DO allow an empty string (which indicates a request for the full list)
             return;
         }
