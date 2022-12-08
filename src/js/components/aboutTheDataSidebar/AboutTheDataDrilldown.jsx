@@ -28,6 +28,7 @@ const AboutTheDataDrilldown = ({
         };
         handleShareOptionClick(optionName, `${getBaseUrl('?about-the-data=')}${slug}`, emailArgs);
     };
+
     const [drilldownComponent, setDrilldownComponent] = useState(null);
     const [isError, setIsError] = useState(false);
 
@@ -60,7 +61,7 @@ const AboutTheDataDrilldown = ({
             </div>
             <div className="atd__share__icon">
                 <ShareIcon
-                    url={getBaseUrl(slug)}
+                    url={getBaseUrl(`?about-the-data=${slug}`)}
                     onShareOptionClick={onShareClick}
                     colors={{ backgroundColor: "#00687d", color: "#dfe1e2" }} />
             </div>
