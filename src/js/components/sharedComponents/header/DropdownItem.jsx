@@ -41,12 +41,9 @@ const DropdownItem = ({
 }) => {
     const { pathname, search } = useLocation();
 
-    let newUrl = url;
-    if (appendToExistingUrl && pathname.includes('about-the-data')) {
-        newUrl = getNewUrlForATD(pathname, url, search);
-    } else if (appendToExistingUrl && pathname.includes('glossary')) {
-        newUrl = getNewUrlForGlossary(pathname, url, search);
-    }
+    const newUrl = appendToExistingUrl
+        ? getNewUrlForGlossary(pathname, url, search)
+        : url;
 
     const dispatch = useDispatch();
 
