@@ -7,7 +7,6 @@ import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Scrollbars } from 'react-custom-scrollbars';
 import Mousetrap from "mousetrap";
-
 import { getDrilldownEntrySectionAndId } from 'helpers/aboutTheDataSidebarHelper';
 import AboutTheDataHeader from "./AboutTheDataHeader";
 import AboutTheDataListView from "./AboutTheDataListView";
@@ -133,7 +132,7 @@ const AboutTheData = (props) => {
             window.removeEventListener('resize', measureAvailableHeight);
             Mousetrap.unbind('esc');
         };
-    }, [props.aboutTheDataSidebar.term.slug]);
+    }, [closeAboutTheData, props.aboutTheDataSidebar.term.slug, schema]);
 
     const track = () => <div className="atd-scrollbar-track" />;
     const thumb = () => <div className="atd-scrollbar-thumb" />;
