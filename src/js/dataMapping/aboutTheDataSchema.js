@@ -292,7 +292,7 @@ const schema = {
             {
                 name: "DATA Act Information Model Schema (DAIMS)",
                 slug: "daims"
-            },
+            }
         ]
     }
 };
