@@ -2,10 +2,11 @@
  * AboutTheData.jsx
  * Created by Nick Torres 11/2/22
  */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
-
 import { Scrollbars } from 'react-custom-scrollbars';
+import Mousetrap from "mousetrap";
+
 import { getDrilldownEntrySectionAndId } from 'helpers/aboutTheDataSidebarHelper';
 import AboutTheDataHeader from "./AboutTheDataHeader";
 import AboutTheDataListView from "./AboutTheDataListView";
@@ -47,6 +48,18 @@ const AboutTheData = (props) => {
         }
     }, [drilldown, scrollbar]);
 
+
+    const closeAboutTheData = useCallback(() => {
+        // close the glossary when the escape key is pressed for accessibility and general
+        props.hideAboutTheData();
+
+        // move focus back to the main content
+        const mainContent = document.getElementById('main-focus');
+        if (mainContent) {
+            mainContent.focus();
+        }
+    });
+
     useEffect(() => {
         if (props.aboutTheDataSidebar.term.slug && props.aboutTheDataSidebar.term.slug !== '') {
             const entry = getDrilldownEntrySectionAndId(schema, props.aboutTheDataSidebar.term.slug);
@@ -55,9 +68,14 @@ const AboutTheData = (props) => {
         }
 
         setIsLoading(false);
+        Mousetrap.bind('esc', closeAboutTheData);
+
         window.addEventListener('resize', measureAvailableHeight);
-        return () => window.removeEventListener('resize', measureAvailableHeight);
-    }, [props.aboutTheDataSidebar.term.slug, schema]);
+        return () => {
+            window.removeEventListener('resize', measureAvailableHeight);
+            Mousetrap.unbind('esc');
+        };
+    }, [closeAboutTheData, props.aboutTheDataSidebar.term.slug, schema]);
 
     const track = () => <div className="atd-scrollbar-track" />;
     const thumb = () => <div className="atd-scrollbar-thumb" />;
@@ -72,17 +90,6 @@ const AboutTheData = (props) => {
         setDrilldownSection(null);
         setDrilldown(false);
         props.clearAboutTheDataTerm();
-    };
-
-    const closeAboutTheData = () => {
-        // close the glossary when the escape key is pressed for accessibility and general
-        props.hideAboutTheData();
-
-        // move focus back to the main content
-        const mainContent = document.getElementById('main-focus');
-        if (mainContent) {
-            mainContent.focus();
-        }
     };
 
     useEffect(() => {
