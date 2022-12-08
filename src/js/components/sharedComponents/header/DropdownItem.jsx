@@ -47,6 +47,8 @@ const DropdownItem = ({
         newUrl = getNewUrlForGlossary(pathname, url, search);
     }
 
+    console.debug("NEW URL: ", newUrl);
+
     let className = 'nav-children__link_disabled';
     let comingSoon = (
         <div className="nav-children__coming-soon">
@@ -99,7 +101,7 @@ const DropdownItem = ({
             </a>
         );
     }
-
+    console.debug("LINK: ", link);
     let firstClass = '';
     if (isFirst) {
         firstClass = 'nav-children__list-separator_hidden';

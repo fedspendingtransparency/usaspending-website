@@ -57,7 +57,7 @@ export const resourceOptions = [
     },
     {
         label: 'About the Data',
-        url: '/?about-the-data',
+        url: '?about-the-data',
         enabled: true,
         appendToExistingUrl: true
     },
