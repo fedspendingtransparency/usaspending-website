@@ -29,16 +29,6 @@ export const clearAboutTheDataTerm = () => ({
     type: 'CLEAR_ABOUT_THE_DATA_TERM'
 });
 
-export const setAboutTheDataResults = (state) => ({
-    type: 'SET_ABOUT_THE_DATA_SEARCH_RESULTS',
-    results: state
-});
-
-export const setAboutTheDataCache = (state) => ({
-    type: 'SET_ABOUT_THE_DATA_FULL_CACHE',
-    cache: state
-});
-
 export const setAboutTheDataTermFromUrl = (term) => ({
     type: 'SET_ABOUT_THE_DATA_TERM_FROM_URL',
     term
