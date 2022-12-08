@@ -18,7 +18,8 @@ const propTypes = {
     children: PropTypes.element,
     aboutTheDataSidebar: PropTypes.object,
     schema: PropTypes.object,
-    clearAboutTheDataTerm: PropTypes.func
+    clearAboutTheDataTerm: PropTypes.func,
+    setAboutTheDataTerm: PropTypes.func
 };
 
 const AboutTheData = (props) => {
@@ -75,7 +76,7 @@ const AboutTheData = (props) => {
             window.removeEventListener('resize', measureAvailableHeight);
             Mousetrap.unbind('esc');
         };
-    }, [closeAboutTheData, props.aboutTheDataSidebar.term.slug, schema]);
+    }, [props.aboutTheDataSidebar.term.slug]);
 
     const track = () => <div className="atd-scrollbar-track" />;
     const thumb = () => <div className="atd-scrollbar-thumb" />;
@@ -83,6 +84,7 @@ const AboutTheData = (props) => {
     const selectItem = (index, section) => {
         setDrilldownItemId(index);
         setDrilldownSection(section);
+        props.setAboutTheDataTerm(section.fields[index]);
     };
 
     const clearDrilldown = () => {

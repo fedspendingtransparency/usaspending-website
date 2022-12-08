@@ -17,7 +17,6 @@ require('components/aboutTheDataSidebar/aboutTheData.scss');
 
 const propTypes = {
     aboutTheDataSidebar: PropTypes.object,
-    setAboutTheDataResults: PropTypes.func,
     showAboutTheData: PropTypes.func,
     setAboutTheDataTerm: PropTypes.func,
     setAboutTheDataTermFromUrl: PropTypes.func,
