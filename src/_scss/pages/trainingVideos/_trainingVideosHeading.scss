@@ -1,6 +1,9 @@
 .youtube-main-container {
   display: flex;
   align-items: center;
+  flex-direction: column;
+  justify-content: center;
+
   height: rem(464);
   background-color: #ccecf2;
 
@@ -9,7 +12,6 @@
     align-items: center;
     flex-direction: column;
     justify-content: center;
-    padding: 0 rem(20);
 
     @media (max-width: $medium-screen) {
       display: flex;
@@ -20,7 +22,7 @@
       width: 50%;
       padding: 0;
       display: flex;
-      align-items: center;
+      align-items: right;
       flex-direction: column;
       justify-content: center;
       margin: 0%;
@@ -82,19 +84,26 @@
         line-height: 1.5;
         letter-spacing: normal;
         font-size: $font-size-20;
+        margin-top: 0;
         color: $gray-60;
-        width: 424px;
-        height: 90px;
+        max-width: 424px;
+        max-height: 90px;
         @media (max-width: $medium-screen) {
-          width: 458.7px;
-          height: 90px;
+          max-width: 458.7px;
+          max-height: 90px;
+        }
+        @media (max-width: $small-screen) {
+          width: rem(288);
+          height: rem(150);
+          margin: 16px 0 24px;
+
         }
 
       }
 
       .youtube-share-icon {
-        width: rem(24);
-        height: rem(24);
+        width: rem(17.5);
+        height: rem(20);
         color: $blue-50;
         margin-top: rem(26);
       }
@@ -106,8 +115,8 @@
 
     @media (min-width: $medium-screen) {
       display: flex;
-      flex-direction: column;
       align-items: center;
+      flex-direction: column;
       justify-content: center;
 
 
@@ -116,7 +125,8 @@
     .youtube-img-container {
       display: flex;
       justify-content: center;
-      padding-left: 164px;
+      height: rem(400);
+      width: rem(652);
 
     }
 
@@ -126,5 +136,12 @@
       max-width: rem(652);
     }
   }
+  .flexgridcol-display{
+    display: none;
+
+    @media (min-width: $medium-screen) {
+      display: contents;
+  }
+}
 
 }

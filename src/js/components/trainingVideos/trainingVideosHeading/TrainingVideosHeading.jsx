@@ -10,7 +10,7 @@ import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 
 const TrainingVideosHeading = () => (
     <section className="youtube-main-container">
-        <FlexGridRow className="grid-content" hasGutter gutterSize="lg">
+        <FlexGridRow className="grid-content" hasGutter gutterSize="sm">
             <FlexGridCol
                 width={6}
                 desktop={6}
@@ -25,8 +25,8 @@ const TrainingVideosHeading = () => (
             <FlexGridCol
                 width={4}
                 desktop={4}
-                tablet={4}
-                mobile={2}>
+                tablet={12}
+                mobile={12}>
                 <div className="youtube-info-container" >
                     <div className="youtube-info-wrap">
                         <p className="youtube-resources-title">RESOURCES</p>
