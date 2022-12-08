@@ -4,11 +4,11 @@
  */
 
 import React, { useEffect, useState, Suspense } from 'react';
+import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import { AngleLeft } from 'components/sharedComponents/icons/Icons';
 import { FlexGridRow, ShareIcon } from "data-transparency-ui";
 import PropTypes from 'prop-types';
 import { LoadingWrapper } from "../sharedComponents/Loading";
-import { getBaseUrl } from '../../helpers/socialShare';
 
 const propTypes = {
     section: PropTypes.string,
@@ -20,14 +20,13 @@ const propTypes = {
 const AboutTheDataDrilldown = ({
     section, name, clearDrilldown, slug
 }) => {
-    const onShareClick = () => {
-        console.debug("testing... ", section, slug);
-        // const emailSubject = `USAspending.gov Statement About the Data ${param}`;
-        // const emailArgs = {
-        //     subject: `${emailSubject}`,
-        //     body: `View this statement about the data on USAspending.gov ${getBaseUrl(slug)}`
-        // };
-        // handleShareOptionClick(param, slug, emailArgs);
+    const onShareClick = (optionName) => {
+        const emailSubject = `USAspending.gov Statement About the Data ${name}`;
+        const emailArgs = {
+            subject: `${emailSubject}`,
+            body: `View this statement about the data on USAspending.gov ${`${getBaseUrl('/?about-the-data=')}${slug}`}`
+        };
+        handleShareOptionClick(optionName, `${getBaseUrl('/?about-the-data=')}${slug}`, emailArgs);
     };
     const [drilldownComponent, setDrilldownComponent] = useState(null);
     const [isError, setIsError] = useState(false);
