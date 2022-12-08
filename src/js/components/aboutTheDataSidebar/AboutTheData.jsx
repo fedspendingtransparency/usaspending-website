@@ -51,7 +51,6 @@ const AboutTheData = (props) => {
         // look for search term in each 'fields.name' in each section
         Object.entries(schema).filter(([sectionKey, section]) => section.heading !== undefined).forEach(([sectionKey, section]) => {
             const matchingFields = section.fields.filter((field) =>
-                // console.log('field', field)
                 field.name.toLowerCase()
                     .includes(term.toLowerCase())
             );
