@@ -12,10 +12,10 @@ import AboutTheDataListView from "./AboutTheDataListView";
 import AboutTheDataDrilldown from "./AboutTheDataDrilldown";
 import DownloadButton from "./DownloadButton";
 import { LoadingWrapper } from "../sharedComponents/Loading";
-import {
-    setAboutTheDataResults,
-    setAboutTheDataSearchValue
-} from "../../redux/actions/aboutTheDataSidebar/aboutTheDataActions";
+// import {
+//     setAboutTheDataResults,
+//     setAboutTheDataSearchValue
+// } from "../../redux/actions/aboutTheDataSidebar/aboutTheDataActions";
 import AboutTheDataNoResults from "./AboutTheDataNoResults";
 
 const propTypes = {
@@ -49,11 +49,15 @@ const AboutTheData = (props) => {
         const results = {};
 
         // todo - redux fn isn't working yet
-        setAboutTheDataSearchValue(term);
+        // setAboutTheDataSearchValue(term);
 
         // look for search term in each 'fields.name' in each section
-        Object.entries(searchResults).filter(([sectionKey, section]) => section.heading !== undefined).forEach(([sectionKey, section]) => {
-            const matchingFields = section.fields.filter((field) => field.name.toLowerCase().includes(term.toLowerCase()));
+        Object.entries(schema).filter(([sectionKey, section]) => section.heading !== undefined).forEach(([sectionKey, section]) => {
+            const matchingFields = section.fields.filter((field) =>
+                // console.log('field', field)
+                field.name.toLowerCase()
+                    .includes(term.toLowerCase())
+            );
             if (matchingFields.length) {
                 const markupFields = [];
                 matchingFields.forEach((field) => {
@@ -91,7 +95,7 @@ const AboutTheData = (props) => {
         });
         setSearchResults(results);
         // todo - redux fn isn't working yet
-        setAboutTheDataResults(results);
+        // setAboutTheDataResults(results);
     };
 
     const measureAvailableHeight = () => {
