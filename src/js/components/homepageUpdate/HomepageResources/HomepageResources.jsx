@@ -19,7 +19,7 @@ const cardObjects = [
             </div>
         ),
         headline: 'Analyst Guide',
-        text: 'Learn how to use our data',
+        text: 'Learn how to use the data',
         buttonText: (
             <>
                 <div>View the guide&nbsp;&nbsp;</div>
@@ -30,7 +30,7 @@ const cardObjects = [
         action: () => Analytics.event({
             category: 'Homepage',
             action: 'Link',
-            label: 'learn how to use our data card'
+            label: 'learn how to use the data card'
         })
     },
     {
@@ -40,7 +40,7 @@ const cardObjects = [
             </div>
         ),
         headline: 'Data Dictionary',
-        text: 'Learn about our data elements',
+        text: 'Learn about the data elements',
         buttonText: (
             <>
                 <div>View the dictionary&nbsp;&nbsp;</div>
@@ -60,21 +60,21 @@ const cardObjects = [
                 <FontAwesomeIcon icon="sitemap" color="#0081a1" size="lg" />
             </div>
         ),
-        headline: 'Data Model',
-        text: 'Learn how our data is organized',
+        headline: 'About the Data',
+        text: 'Read important data disclosures',
         buttonText: (
             <>
-                View the model&nbsp;&nbsp;
+                View the disclosures&nbsp;&nbsp;
                 <FontAwesomeIcon icon="arrow-right" />
             </>
         ),
-        buttonLink: "https://fiscal.treasury.gov/data-transparency/DAIMS-current.html",
+        buttonLink: "/?about-the-data",
         action: () => Analytics.event({
             category: 'Homepage',
             action: 'Link',
             label: 'data model card'
         }),
-        govLink: true
+        govLink: false
     },
     {
         icon: (
