@@ -21,7 +21,7 @@ const AboutTheDataDrilldown = ({
     section, name, clearDrilldown, slug
 }) => {
     const onShareClick = () => {
-        console.debug("testing... ", name);
+        console.debug("testing... ", section, slug);
         // const emailSubject = `USAspending.gov Statement About the Data ${param}`;
         // const emailArgs = {
         //     subject: `${emailSubject}`,
@@ -69,12 +69,6 @@ const AboutTheDataDrilldown = ({
 
         {!isError &&
             <Suspense fallback={<LoadingWrapper isLoading />}>
-                <div className="atd__back" role="button" onKeyUp={(e) => handleKeyUp(e)} tabIndex="0" onClick={() => clearDrilldown()}>
-                    <AngleLeft alt="Back" />
-                    <span className="atd__back__label">
-                        Back
-                    </span>
-                </div>
                 <div className="atd__drilldown">
                     <div className="atd__overline">{ section }</div>
                     <div className="atd__drilldown__heading">{ name }</div>
