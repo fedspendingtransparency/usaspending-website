@@ -7,6 +7,8 @@
 /* eslint-disable max-len */
 
 import React, { useState, useEffect, useCallback } from 'react';
+import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Scrollbars } from 'react-custom-scrollbars';
 import Mousetrap from "mousetrap";
@@ -17,10 +19,10 @@ import AboutTheDataDrilldown from "./AboutTheDataDrilldown";
 import DownloadButton from "./DownloadButton";
 import { LoadingWrapper } from "../sharedComponents/Loading";
 import AboutTheDataNoResults from "./AboutTheDataNoResults";
-import { setAboutTheDataResults } from "../../redux/actions/aboutTheDataSidebar/aboutTheDataActions";
 
 const propTypes = {
     aboutTheDataSidebar: PropTypes.object,
+    hideAboutTheData: PropTypes.func,
     schema: PropTypes.object,
     clearAboutTheDataTerm: PropTypes.func,
     setAboutTheDataTerm: PropTypes.func
@@ -36,6 +38,7 @@ const AboutTheData = (props) => {
     const [searchTerm, setSearchTerm] = useState('');
     const { schema } = props;
     const [searchResults, setSearchResults] = useState(schema);
+    const dispatch = useDispatch();
 
     const performSearch = (term) => {
         if (!term) {
@@ -90,7 +93,7 @@ const AboutTheData = (props) => {
         // set results in local scope
         setSearchResults(results);
         // and in redux
-        setAboutTheDataResults(results);
+        dispatch(aboutTheDataActions.setAboutTheDataResults(results));
     };
 
     const measureAvailableHeight = () => {
@@ -103,14 +106,6 @@ const AboutTheData = (props) => {
         setHeight(sidebarHeight);
     };
 
-    useEffect(() => {
-        measureAvailableHeight();
-        if (scrollbar) {
-            scrollbar.scrollToTop();
-        }
-    }, [drilldown, scrollbar]);
-
-
     const closeAboutTheData = useCallback(() => {
         // close the glossary when the escape key is pressed for accessibility and general
         props.hideAboutTheData();
@@ -121,23 +116,6 @@ const AboutTheData = (props) => {
             mainContent.focus();
         }
     });
-
-    useEffect(() => {
-        if (props.aboutTheDataSidebar.term.slug && props.aboutTheDataSidebar.term.slug !== '') {
-            const entry = getDrilldownEntrySectionAndId(schema, props.aboutTheDataSidebar.term.slug);
-            setDrilldownItemId(entry.entryId);
-            setDrilldownSection(entry.section);
-        }
-
-        setIsLoading(false);
-        Mousetrap.bind('esc', closeAboutTheData);
-
-        window.addEventListener('resize', measureAvailableHeight);
-        return () => {
-            window.removeEventListener('resize', measureAvailableHeight);
-            Mousetrap.unbind('esc');
-        };
-    }, [closeAboutTheData, props.aboutTheDataSidebar.term.slug, schema]);
 
     const track = () => <div className="atd-scrollbar-track" />;
     const thumb = () => <div className="atd-scrollbar-thumb" />;
@@ -171,6 +149,30 @@ const AboutTheData = (props) => {
                     ))}
             </>
         );
+
+    useEffect(() => {
+        if (props.aboutTheDataSidebar.term.slug && props.aboutTheDataSidebar.term.slug !== '') {
+            const entry = getDrilldownEntrySectionAndId(schema, props.aboutTheDataSidebar.term.slug);
+            setDrilldownItemId(entry.entryId);
+            setDrilldownSection(entry.section);
+        }
+
+        setIsLoading(false);
+        Mousetrap.bind('esc', closeAboutTheData);
+
+        window.addEventListener('resize', measureAvailableHeight);
+        return () => {
+            window.removeEventListener('resize', measureAvailableHeight);
+            Mousetrap.unbind('esc');
+        };
+    }, [closeAboutTheData, props.aboutTheDataSidebar.term.slug, schema]);
+
+    useEffect(() => {
+        measureAvailableHeight();
+        if (scrollbar) {
+            scrollbar.scrollToTop();
+        }
+    }, [drilldown, scrollbar]);
 
     useEffect(() => {
         if (drilldownItemId !== null && drilldownItemId >= 0 && drilldownSection) {

@@ -7,9 +7,10 @@
 /* eslint-disable max-len */
 
 import React, { useState } from 'react';
+import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
+import { useDispatch } from 'react-redux';
 import { Search } from 'components/sharedComponents/icons/Icons';
 import PropTypes from "prop-types";
-import { setAboutTheDataSearchValue } from "../../redux/actions/aboutTheDataSidebar/aboutTheDataActions";
 
 const propTypes = {
     searchTerm: PropTypes.string,
@@ -21,6 +22,7 @@ const propTypes = {
 const AboutTheDataSearchBar = (props) => {
     const { searchTerm, setSearchTerm, performSearch } = props;
     const [searchTimer, setSearchTimer] = useState(0);
+    const dispatch = useDispatch();
 
     const localPerformSearch = (term) => {
         if (searchTimer) {
@@ -45,7 +47,7 @@ const AboutTheDataSearchBar = (props) => {
     const changedSearchValue = (e) => {
         setSearchTerm(e.target.value);
         // set it in redux too
-        setAboutTheDataSearchValue(e.target.value);
+        dispatch(aboutTheDataActions.setAboutTheDataSearchValue(e.target.value));
         localPerformSearch(e.target.value);
     };
 
