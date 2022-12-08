@@ -12,10 +12,6 @@ import AboutTheDataListView from "./AboutTheDataListView";
 import AboutTheDataDrilldown from "./AboutTheDataDrilldown";
 import DownloadButton from "./DownloadButton";
 import { LoadingWrapper } from "../sharedComponents/Loading";
-// import {
-//     setAboutTheDataResults,
-//     setAboutTheDataSearchValue
-// } from "../../redux/actions/aboutTheDataSidebar/aboutTheDataActions";
 import AboutTheDataNoResults from "./AboutTheDataNoResults";
 
 const propTypes = {
@@ -39,17 +35,12 @@ const AboutTheData = (props) => {
     const [searchResults, setSearchResults] = useState(schema);
 
     const performSearch = (term) => {
-        console.log('AboutTheData search function engaged with term', term);
-
         if (!term) {
             setSearchResults(schema);
             return;
         }
 
         const results = {};
-
-        // todo - redux fn isn't working yet
-        // setAboutTheDataSearchValue(term);
 
         // look for search term in each 'fields.name' in each section
         Object.entries(schema).filter(([sectionKey, section]) => section.heading !== undefined).forEach(([sectionKey, section]) => {
@@ -94,8 +85,6 @@ const AboutTheData = (props) => {
             }
         });
         setSearchResults(results);
-        // todo - redux fn isn't working yet
-        // setAboutTheDataResults(results);
     };
 
     const measureAvailableHeight = () => {
