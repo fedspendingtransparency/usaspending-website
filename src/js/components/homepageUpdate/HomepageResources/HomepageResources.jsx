@@ -68,13 +68,13 @@ const cardObjects = [
                 <FontAwesomeIcon icon="arrow-right" />
             </>
         ),
-        buttonLink: "https://fiscal.treasury.gov/data-transparency/DAIMS-current.html",
+        buttonLink: "/?about-the-data",
         action: () => Analytics.event({
             category: 'Homepage',
             action: 'Link',
             label: 'data model card'
         }),
-        govLink: true
+        govLink: false
     },
     {
         icon: (
