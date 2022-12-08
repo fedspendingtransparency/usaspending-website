@@ -148,7 +148,8 @@
     "moment-timezone": "0.5.37",
     "d3-color": "3.1.0",
     "loader-utils": "3.2.1",
-    "**/loader-utils": "3.2.1"
+    "**/loader-utils": "3.2.1",
+    "decode-uri-component": "0.2.2"
   },
   "dependencies": {
     "@babel/eslint-parser": "^7.17.0",
