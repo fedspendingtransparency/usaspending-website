@@ -9,12 +9,10 @@ import { ShareIcon } from 'data-transparency-ui';
 import { explorerPageMetaTags } from 'helpers/metaTagHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
-import AnimatedAboutTheDataWrapper from "../aboutTheDataSidebar/AnimatedAboutTheDataWrapper";
 
 const propTypes = {
     children: PropTypes.element,
-    showShareIcon: PropTypes.bool,
-    showAboutTheDataIcon: PropTypes.bool
+    showShareIcon: PropTypes.bool
 };
 
 const defaultProps = {
@@ -34,14 +32,6 @@ const ExplorerWrapperPage = (props) => {
         });
     };
 
-    const onClose = () => {
-        // move focus back to the main content
-        const mainContent = document.getElementById('main-focus');
-        if (mainContent) {
-            mainContent.focus();
-        }
-    };
-
     return (
         <PageWrapper
             pageName="Spending Explorer"
@@ -57,7 +47,6 @@ const ExplorerWrapperPage = (props) => {
                 id="main-content"
                 className="main-content">
                 {props.children}
-                <AnimatedAboutTheDataWrapper onClose={onClose} open={atdOpen} />
             </main>
         </PageWrapper>
     );

@@ -17,7 +17,6 @@ import PageWrapper from 'components/sharedComponents/PageWrapper';
 import SearchSidebar from './SearchSidebar';
 import SearchResults from './SearchResults';
 import NoDownloadHover from './header/NoDownloadHover';
-import AnimatedAboutTheDataWrapper from "../aboutTheDataSidebar/AnimatedAboutTheDataWrapper";
 
 const propTypes = {
     download: PropTypes.object,
@@ -40,7 +39,7 @@ export default class SearchPage extends React.Component {
             showMobileFilters: false,
             filterCount: 0,
             isMobile: false,
-            showFullDownload: false,
+            showFullDownload: false
         };
 
         // throttle the ocurrences of the scroll callback to once every 50ms
