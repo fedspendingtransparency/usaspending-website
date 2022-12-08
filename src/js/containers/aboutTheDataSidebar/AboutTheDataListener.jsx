@@ -46,8 +46,8 @@ const AboutTheDataListener = ({
                 search: getQueryParamString(omit(queryParams, ['about-the-data']))
             });
         }
-    }, [history, aboutTheDataSidebar.display, history.location.search, setAboutTheDataTermFromUrl, search, queryParams, pathname]);
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [history, aboutTheDataSidebar.display, history.location.search, setAboutTheDataTermFromUrl]);
     return <Child {...{ history, match, location }} />;
 };
 
