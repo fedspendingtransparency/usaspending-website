@@ -49,7 +49,6 @@ const AboutTheData = (props) => {
         }
     }, [drilldown, scrollbar]);
 
-
     const closeAboutTheData = useCallback(() => {
         // close the glossary when the escape key is pressed for accessibility and general
         props.hideAboutTheData();
