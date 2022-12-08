@@ -10,7 +10,6 @@ import { Link, useLocation } from 'react-router-dom';
 import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
 import Analytics from 'helpers/analytics/Analytics';
 import { getNewUrlForGlossary } from 'helpers/glossaryHelper';
-import { getNewUrlForATD } from 'helpers/aboutTheDataSidebarHelper';
 import DropdownComingSoon from './DropdownComingSoon';
 
 const propTypes = {
