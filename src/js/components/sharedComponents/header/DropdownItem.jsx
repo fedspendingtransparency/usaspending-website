@@ -9,7 +9,7 @@ import { Link, useLocation } from 'react-router-dom';
 
 import Analytics from 'helpers/analytics/Analytics';
 import { getNewUrlForGlossary } from 'helpers/glossaryHelper';
-
+import { getNewUrlForATD } from 'helpers/aboutTheDataSidebarHelper';
 import DropdownComingSoon from './DropdownComingSoon';
 
 const propTypes = {
@@ -39,9 +39,15 @@ const DropdownItem = ({
     appendToExistingUrl = false
 }) => {
     const { pathname, search } = useLocation();
-    const newUrl = appendToExistingUrl
-        ? getNewUrlForGlossary(pathname, url, search)
-        : url;
+
+    let newUrl = url;
+    if (appendToExistingUrl && pathname.includes('about-the-data')) {
+        newUrl = getNewUrlForATD(pathname, url, search);
+    } else if (appendToExistingUrl && pathname.includes('glossary')) {
+        newUrl = getNewUrlForGlossary(pathname, url, search);
+    }
+
+    console.debug("NEW URL: ", newUrl);
 
     let className = 'nav-children__link_disabled';
     let comingSoon = (
@@ -95,7 +101,7 @@ const DropdownItem = ({
             </a>
         );
     }
-
+    console.debug("LINK: ", link);
     let firstClass = '';
     if (isFirst) {
         firstClass = 'nav-children__list-separator_hidden';
