@@ -8,7 +8,7 @@ USAspending.gov the following day.
     September 22, the new data are published on USAspending.gov on
     September 23.
 
-The exception is loan awards, which, per OMB Memorandum M-20-21, must be published within 30 days, following the general requirements of the Federal Funding Accountability and Transparency Act of 2006 (FFATA) ([31 U.S.C. § 6101 note)](https://uscode.house.gov/view.xhtml?req=(title:31%20section:6101%20edition:prelim)%20OR%20(granuleid:USC-prelim-title31-section6101)&f=treesort&edition=prelim&num=0&jumpTo=true).
+The exception is loan awards, which must be published within 30 days, following the general requirements of the Federal Funding Accountability and Transparency Act of 2006 (FFATA) ([31 U.S.C. § 6101 note)](https://uscode.house.gov/view.xhtml?req=(title:31%20section:6101%20edition:prelim)%20OR%20(granuleid:USC-prelim-title31-section6101)&f=treesort&edition=prelim&num=0&jumpTo=true).
 
 -   Example: A loan is issued on September 8. It must be published on
     USAspending.gov by October 8 and thus must be submitted to the DATA

@@ -1,8 +1,7 @@
-The USAspending data reflects obligations to a single entity that is
-processing payments on behalf of HHS. The full Provider Relief Fund
-Public Use File is posted on
-<https://taggs.hhs.gov/Coronavirus/Overview>. This Public Use file
-is updated weekly and includes payments under the General
+The USAspending data reflect obligations to a single entity that is
+processing payments on behalf of the Department of Health and Human Services (HHS). 
+[The Full Provider Relief Fun Public Use File is posted here](https://taggs.hhs.gov/Coronavirus/Overview). 
+This Public Use file is updated weekly and includes payments under the General
 Distribution including Medicare, Medicaid/CHIP, Dental, Assisted
 Living Facilities, and Behavioral Health/other providers; and
 targeted allocations to high impact areas, safety net hospitals,
@@ -14,4 +13,4 @@ receiving one or more payments from the aforementioned allocations
 and agreed to Terms and Conditions. Because not all providers (who
 in many cases received a payment unsolicited) have yet to attest to
 accepting that payment, the totals listed for this program in the
-Public Use File are less than those reflected on USAspending.
+Public Use File are less than those reflected on USAspending.gov.

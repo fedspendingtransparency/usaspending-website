@@ -232,7 +232,7 @@ const schema = {
                 slug: "hhs-ffcra-6004-6008"
             },
             {
-                name: "Statement from Department of Agriculture (USDA)",
+                name: "Statement from the Department of Agriculture (USDA)",
                 slug: "usda-outlays"
             }
         ]

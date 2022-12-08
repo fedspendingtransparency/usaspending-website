@@ -1,6 +1,6 @@
 Federal agencies are required to report spending data to
-USAspending.gov under federal law (DATA Act, [31 U.S.C. § 6101 note](https://uscode.house.gov/view.xhtml?req=(title:31%20section:6101%20edition:prelim)%20OR%20(granuleid:USC-prelim-title31-section6101)&f=treesort&edition=prelim&num=0&jumpTo=true)).
-A federal agency is defined as an "executive agency" in 31 U.S.C. §6101 note, and an "executive agency" is an "an Executive department, a
+USAspending.gov under the DATA ACT ([31 U.S.C. § 6101 note](https://uscode.house.gov/view.xhtml?req=(title:31%20section:6101%20edition:prelim)%20OR%20(granuleid:USC-prelim-title31-section6101)&f=treesort&edition=prelim&num=0&jumpTo=true)).
+A federal agency is defined as an "executive agency" in 31 U.S.C. §6101 note, and an "executive agency" is "an Executive department, a
 Government corporation, and an independent establishment" as per 5 U.S.C. § 105.
 
 The full list of reporting agencies, and information about their historical submissions to USAspending.gov, are available on the

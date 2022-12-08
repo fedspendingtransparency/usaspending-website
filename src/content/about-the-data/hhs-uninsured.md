@@ -1,7 +1,5 @@
-The USAspending data reflects obligations to a single entity that is
-processing claims reimbursements on behalf of HHS. The full HRSA
-COVID-19 Uninsured Program Public Use File is posted on
-<https://taggs.hhs.gov/Coronavirus/Overview>. This file is updated
+The USAspending data reflect obligations to a single entity that is
+processing claims reimbursements on behalf of the Department of Health and Human Services (HHS). [The full HRSA COVID-19 Uninsured Program Public Use File is posted here](https://taggs.hhs.gov/Coronavirus/Overview). This file is updated
 weekly and represents the list of health care entities who have
 agreed to Terms and Conditions and received claims reimbursement for
 COVID-19 testing of uninsured individuals and/or treatment for
