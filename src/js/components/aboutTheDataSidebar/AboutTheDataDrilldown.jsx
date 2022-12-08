@@ -24,9 +24,9 @@ const AboutTheDataDrilldown = ({
         const emailSubject = `USAspending.gov Statement About the Data ${name}`;
         const emailArgs = {
             subject: `${emailSubject}`,
-            body: `View this statement about the data on USAspending.gov ${`${getBaseUrl('/?about-the-data=')}${slug}`}`
+            body: `View this statement about the data on USAspending.gov ${`${getBaseUrl('?about-the-data=')}${slug}`}`
         };
-        handleShareOptionClick(optionName, `${getBaseUrl('/?about-the-data=')}${slug}`, emailArgs);
+        handleShareOptionClick(optionName, `${getBaseUrl('?about-the-data=')}${slug}`, emailArgs);
     };
     const [drilldownComponent, setDrilldownComponent] = useState(null);
     const [isError, setIsError] = useState(false);

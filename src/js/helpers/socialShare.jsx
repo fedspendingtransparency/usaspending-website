@@ -63,14 +63,16 @@ const handlersBySocialMedium = {
 };
 
 export const getSocialShareFn = (socialMedium) => {
+    console.debug("Test ", socialMedium);
     const fn = handlersBySocialMedium[socialMedium];
     if (socialMedium === 'email') {
         return (args) => fn(args);
     }
-    return (slg) => fn(getBaseUrl(slg));
+    return (slug) => fn(getBaseUrl(slug));
 };
 
 export const handleShareOptionClick = (name, url, emailArgs) => {
+    console.debug("DSOFLIJF: ", name, url, emailArgs);
     const fn = getSocialShareFn(name);
     if (name === 'email') {
         fn(emailArgs);
