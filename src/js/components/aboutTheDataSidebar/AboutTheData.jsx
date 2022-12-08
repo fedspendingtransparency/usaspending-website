@@ -3,6 +3,9 @@
  * Created by Nick Torres 11/2/22
  */
 
+// Disabling max-len property for readability / editability
+/* eslint-disable max-len */
+
 import React, { useState, useEffect, useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { Scrollbars } from 'react-custom-scrollbars';
@@ -14,10 +17,9 @@ import AboutTheDataDrilldown from "./AboutTheDataDrilldown";
 import DownloadButton from "./DownloadButton";
 import { LoadingWrapper } from "../sharedComponents/Loading";
 import AboutTheDataNoResults from "./AboutTheDataNoResults";
+import { setAboutTheDataResults } from "../../redux/actions/aboutTheDataSidebar/aboutTheDataActions";
 
 const propTypes = {
-    setAboutTheDataSearchValue: PropTypes.func,
-    setAboutTheDataResults: PropTypes.func,
     aboutTheDataSidebar: PropTypes.object,
     schema: PropTypes.object,
     clearAboutTheDataTerm: PropTypes.func,
@@ -85,7 +87,10 @@ const AboutTheData = (props) => {
                 };
             }
         });
+        // set results in local scope
         setSearchResults(results);
+        // and in redux
+        setAboutTheDataResults(results);
     };
 
     const measureAvailableHeight = () => {

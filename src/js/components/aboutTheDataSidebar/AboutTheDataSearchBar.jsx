@@ -3,19 +3,22 @@
  * Created by Brian Petway 11/30/22
  */
 
+// Disabling max-len property for readability / editability
+/* eslint-disable max-len */
+
 import React, { useState } from 'react';
 import { Search } from 'components/sharedComponents/icons/Icons';
 import PropTypes from "prop-types";
+import { setAboutTheDataSearchValue } from "../../redux/actions/aboutTheDataSidebar/aboutTheDataActions";
 
 const propTypes = {
     searchTerm: PropTypes.string,
     setSearchTerm: PropTypes.func,
-    // setAboutTheDataSearchValue: PropTypes.func,
+    setAboutTheDataSearchValue: PropTypes.func,
     performSearch: PropTypes.func
 };
 
 const AboutTheDataSearchBar = (props) => {
-    // const { setAboutTheDataSearchValue, performSearch } = props;
     const { searchTerm, setSearchTerm, performSearch } = props;
     const [searchTimer, setSearchTimer] = useState(0);
 
@@ -40,8 +43,9 @@ const AboutTheDataSearchBar = (props) => {
     };
 
     const changedSearchValue = (e) => {
-        // setAboutTheDataSearchValue(e.target.value);
         setSearchTerm(e.target.value);
+        // set it in redux too
+        setAboutTheDataSearchValue(e.target.value);
         localPerformSearch(e.target.value);
     };
 
