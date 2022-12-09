@@ -24,7 +24,7 @@ module.exports = {
     },
     context: path.resolve(__dirname, "../src"),
     resolve: {
-        extensions: [".js", ".jsx"],
+        extensions: [".js", ".jsx", ".md", ".mdx"],
         modules: ["node_modules", path.resolve(__dirname, "../src/_scss")],
         fallback: { querystring: require.resolve("querystring-es3") }
     },
