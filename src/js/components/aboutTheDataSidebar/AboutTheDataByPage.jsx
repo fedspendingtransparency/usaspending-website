@@ -18,6 +18,7 @@ const propTypes = {
 };
 
 const AboutTheDataByPage = ({ section, pathname }) => {
+    // eslint-disable-next-line no-unused-vars
     const [markdownFilename, setMarkdownFilename] = useState('');
 
     const checkSchemaForUrlSlug = () => {
@@ -25,9 +26,6 @@ const AboutTheDataByPage = ({ section, pathname }) => {
         const resultsArray = section.fields.filter((item) => splitPathname.includes(item.route));
         setMarkdownFilename(resultsArray[0]?.route);
     };
-
-    // todo - remove when the var is actually used
-    console.log('markdownFilename', markdownFilename);
 
     useEffect(() => {
         if (pathname) {
