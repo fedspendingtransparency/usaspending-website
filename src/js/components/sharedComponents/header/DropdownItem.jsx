@@ -4,12 +4,12 @@
  */
 
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
-
+import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
 import Analytics from 'helpers/analytics/Analytics';
 import { getNewUrlForGlossary } from 'helpers/glossaryHelper';
-
 import DropdownComingSoon from './DropdownComingSoon';
 
 const propTypes = {
@@ -39,9 +39,17 @@ const DropdownItem = ({
     appendToExistingUrl = false
 }) => {
     const { pathname, search } = useLocation();
+
     const newUrl = appendToExistingUrl
         ? getNewUrlForGlossary(pathname, url, search)
         : url;
+
+    const dispatch = useDispatch();
+
+    const openATD = (e) => {
+        dispatch(aboutTheDataActions.showAboutTheData());
+        e.preventDefault();
+    };
 
     let className = 'nav-children__link_disabled';
     let comingSoon = (
@@ -93,6 +101,19 @@ const DropdownItem = ({
                 {newLabel}
                 {comingSoon}
             </a>
+        );
+    }
+
+    if (appendToExistingUrl && label.includes("About the Data")) {
+        link = (
+            <Link
+                className={`nav-children__link ${className}`}
+                onClick={openATD}
+                {...newTabProps}>
+                {!newLabel && label}
+                {newLabel}
+                {comingSoon}
+            </Link>
         );
     }
 
