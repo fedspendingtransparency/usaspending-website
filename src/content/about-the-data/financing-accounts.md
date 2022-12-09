@@ -2,7 +2,7 @@ Financing accounts are non-budgetary accounts associated with each
 credit program that hold balances, receive payments, and include
 cash flows resulting from direct loan obligations or loan guarantee
 commitments made on or after Fiscal Year 1992. They are reported to
-Treasury via the Government wide Treasury Account Symbol Adjusted
+Treasury via the Governmentwide Treasury Account Symbol Adjusted
 Trial Balance System (GTAS), but  they do not represent spending in 
 the budgetary sense because they fund loans that will be paid back. 
 Thus, they should not be reported to the DATA Act Broker and are not 
