@@ -48,6 +48,10 @@ const AboutTheData = (props) => {
 
         const results = {};
 
+        function escapeRegExp(stringToGoIntoTheRegex) {
+            return stringToGoIntoTheRegex.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
+        }
+
         // look for search term in each 'fields.name' in each section
         Object.entries(schema).filter(([, section]) => section.heading !== undefined).forEach(([sectionKey, section]) => {
             const matchingFields = section.fields.filter((field) =>
@@ -58,7 +62,7 @@ const AboutTheData = (props) => {
                 const markupFields = [];
                 matchingFields.forEach((field) => {
                     // add classname to the search term in the results
-                    const regex = new RegExp(term, 'gi');
+                    const regex = new RegExp(escapeRegExp(term), 'gi');
                     const markupName = field.name.replace(regex, '<match>$&<match>');
                     const parts = markupName.split('<match>');
                     const markup = <>
