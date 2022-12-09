@@ -14,4 +14,4 @@ the day after they are submitted (i.e., published) by the agency.
 More information about the agency financial data reporting policy is found in 
 the [Office of Management and Budget (OMB) Memorandum M-20-21](https://www.whitehouse.gov/wp-content/uploads/2020/04/Implementation-Guidance-for-Supplemental-Funding-Provided-in-Response.pdf). 
 
-The full schedule for agency submissions can be found in the "DATA Act Reporting Submission Dates" files on the   resources page for the DATA ACT Information Model Schema (DAIMS).
+The full schedule for agency submissions can be found in the "DATA Act Reporting Submission Dates" files on the  [ resources page for the DATA ACT Information Model Schema (DAIMS)](https://fiscal.treasury.gov/data-transparency/resources.html).
