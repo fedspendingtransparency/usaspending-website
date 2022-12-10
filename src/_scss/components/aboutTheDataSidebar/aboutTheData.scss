@@ -82,7 +82,7 @@
     }
 
     .atd__body {
-        margin: 24px 24px 32px 24px;
+        margin: 24px 24px 48px 24px;
 
         .atd__download-wrapper {
             display: none;
@@ -160,6 +160,10 @@
             line-height: 1.5;
             color: $gray-cool-5;
             text-decoration: underline;
+        }
+
+        a:visited {
+            color: $gray-cool-5;
         }
     }
 
