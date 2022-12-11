@@ -6,7 +6,7 @@
 // Disabling max-len property for readability / editability
 /* eslint-disable max-len */
 
-import React, { useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
 import { useDispatch } from 'react-redux';
 import { Search } from 'components/sharedComponents/icons/Icons';
@@ -24,7 +24,7 @@ const AboutTheDataSearchBar = (props) => {
     const [searchTimer, setSearchTimer] = useState(0);
     const dispatch = useDispatch();
 
-    const localPerformSearch = (term) => {
+    const localPerformSearch = useCallback((term) => {
         if (searchTimer) {
             // clear any existing timers, it's old data
             window.clearTimeout(searchTimer);
@@ -33,6 +33,7 @@ const AboutTheDataSearchBar = (props) => {
         if (term.length > 0 && term.length < 3) {
             // do not perform a search because the search term is too short
             // but DO allow an empty string (which indicates a request for the full list)
+            // TODO: if there is something on redux clear it
             return;
         }
 
@@ -42,7 +43,7 @@ const AboutTheDataSearchBar = (props) => {
                 performSearch(term);
             }, 300);
         });
-    };
+    });
 
     const changedSearchValue = (e) => {
         setSearchTerm(e.target.value);
@@ -50,6 +51,12 @@ const AboutTheDataSearchBar = (props) => {
         dispatch(aboutTheDataActions.setAboutTheDataSearchValue(e.target.value));
         localPerformSearch(e.target.value);
     };
+
+    useEffect(() => {
+        if (searchTerm) {
+            localPerformSearch(searchTerm);
+        }
+    }, [localPerformSearch, searchTerm]);
 
     const submitSearch = (e) => {
         e.preventDefault();
@@ -59,11 +66,13 @@ const AboutTheDataSearchBar = (props) => {
     return (
         <div className="atd-search-bar">
             <form onSubmit={submitSearch}>
+                {/* eslint-disable-next-line react/void-dom-elements-no-children */}
                 <input
                     className="search-field"
                     type="text"
                     placeholder="Search for a topic..."
-                    onChange={changedSearchValue} />
+                    onChange={changedSearchValue}
+                    value={searchTerm} />
                 <button
                     aria-label="Search"
                     className="search-button"

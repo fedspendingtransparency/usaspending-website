@@ -8,7 +8,7 @@
 
 import React, { useState, useEffect, useCallback } from 'react';
 import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Scrollbars } from 'react-custom-scrollbars';
 import Mousetrap from "mousetrap";
@@ -40,13 +40,22 @@ const AboutTheData = (props) => {
     const [searchResults, setSearchResults] = useState(schema);
     const dispatch = useDispatch();
 
+    const { input, results } = useSelector((state) => state.aboutTheDataSidebar.search);
+
+    useEffect(() => {
+        setSearchTerm(input);
+        if (results?.length > 0) {
+            setSearchResults(results);
+        }
+    }, []);
+
     const performSearch = (term) => {
         if (!term) {
             setSearchResults(schema);
             return;
         }
 
-        const results = {};
+        const resultItems = {};
 
         // look for search term in each 'fields.name' in each section
         Object.entries(schema).filter(([, section]) => section.heading !== undefined).forEach(([sectionKey, section]) => {
@@ -83,16 +92,16 @@ const AboutTheData = (props) => {
                         slug: field.slug
                     });
                 });
-                results[sectionKey] = {
+                resultItems[sectionKey] = {
                     fields: markupFields,
                     heading: section.heading
                 };
             }
         });
         // set results in local scope
-        setSearchResults(results);
+        setSearchResults(resultItems);
         // and in redux
-        dispatch(aboutTheDataActions.setAboutTheDataResults(results));
+        dispatch(aboutTheDataActions.setAboutTheDataResults(resultItems));
     };
 
     const measureAvailableHeight = () => {
