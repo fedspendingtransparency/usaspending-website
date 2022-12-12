@@ -6,7 +6,7 @@
 // Disabling max-len property for readability / editability
 /* eslint-disable max-len */
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, {useState, useEffect, useCallback, useRef} from 'react';
 import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -28,6 +28,14 @@ const propTypes = {
     setAboutTheDataTerm: PropTypes.func
 };
 
+const usePrevious = (value) => {
+    const ref = useRef();
+    useEffect(() => {
+        ref.current = value;
+    });
+    return ref.current;
+};
+
 const AboutTheData = (props) => {
     const [height, setHeight] = useState(0);
     const [drilldown, setDrilldown] = useState(null);
@@ -42,31 +50,34 @@ const AboutTheData = (props) => {
     const dispatch = useDispatch();
 
     const { input, results } = useSelector((state) => state.aboutTheDataSidebar.search);
+    const prevResults = usePrevious({ searchResults });
+
+    const objectsEqual = (o1, o2) =>
+        Object.keys(o1).length === Object.keys(o2).length
+        && Object.keys(o1).every((p) => o1[p] === o2[p]);
 
     useEffect(() => {
         setSearchTerm(input);
 
-        console.log(input)
-        console.log(results)
         if (!input || input?.length === 0) {
             setSearchResultsPending(false);
             setIsLoading(false);
         }
 
         // if there are already results on redux set the UI to the results
-        if ((input || input?.length > 0) && results?.length > 0) {
-            console.log(searchResults);
+        if ((input || input?.length > 0) && results?.length > 0 && !objectsEqual(results, searchResults)) {
             setSearchResultsPending(true);
             setSearchResults(results);
         }
-    }, [input, results]);
+    }, []);
 
     useEffect(() => {
-        if (results?.length > 0 && searchResultsPending && searchResults?.length > 0) {
+        console.log(searchResults);
+        if (results?.length > 0 && searchResultsPending && searchResults?.length > 0 && objectsEqual(results, searchResults)) {
             setSearchResultsPending(false);
             setIsLoading(false);
         }
-    }, [searchResults, searchResultsPending]);
+    }, [searchResults]);
 
     const performSearch = (term) => {
         if (!term) {
