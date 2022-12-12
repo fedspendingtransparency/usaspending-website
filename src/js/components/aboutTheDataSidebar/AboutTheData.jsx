@@ -54,14 +54,21 @@ const AboutTheData = (props) => {
             setSearchResultsPending(true);
             setSearchResults(results);
         }
-    }, []);
+    }, [input, results, searchResults]);
 
     useEffect(() => {
         if (searchResultsPending && isEqual(results, searchResults)) {
             setSearchResultsPending(false);
             setIsLoading(false);
         }
-    }, [searchResults]);
+    }, [results, searchResults, searchResultsPending]);
+
+    const clearDrilldown = () => {
+        setDrilldownItemId(null);
+        setDrilldownSection(null);
+        setDrilldown(false);
+        props.clearAboutTheDataTerm();
+    };
 
     const performSearch = (term) => {
         if (!term) {
@@ -114,6 +121,7 @@ const AboutTheData = (props) => {
         });
         // set results in local scope
         setSearchResults(resultItems);
+        clearDrilldown();
         // and in redux
         dispatch(aboutTheDataActions.setAboutTheDataResults(resultItems));
     };
@@ -146,13 +154,6 @@ const AboutTheData = (props) => {
         setDrilldownItemId(index);
         setDrilldownSection(section);
         props.setAboutTheDataTerm(section.fields[index]);
-    };
-
-    const clearDrilldown = () => {
-        setDrilldownItemId(null);
-        setDrilldownSection(null);
-        setDrilldown(false);
-        props.clearAboutTheDataTerm();
     };
 
     const content = Object.keys(searchResults).length === 0 ? (

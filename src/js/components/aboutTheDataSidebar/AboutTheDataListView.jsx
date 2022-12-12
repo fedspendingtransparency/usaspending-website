@@ -23,7 +23,7 @@ const AboutTheDataListView = ({ section, selectItem }) => {
         if (e.keyCode === 13) {
             clickHandler(e, index, section);
         }
-    }
+    };
 
     return (<>
         <div className="atd__heading">{section.heading}</div>
