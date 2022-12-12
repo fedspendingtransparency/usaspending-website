@@ -12,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Scrollbars } from 'react-custom-scrollbars';
 import Mousetrap from "mousetrap";
+import { isEqual, isEmpty } from "lodash";
 import { getDrilldownEntrySectionAndId } from 'helpers/aboutTheDataSidebarHelper';
 import AboutTheDataHeader from "./AboutTheDataHeader";
 import AboutTheDataListView from "./AboutTheDataListView";
@@ -50,30 +51,24 @@ const AboutTheData = (props) => {
     const dispatch = useDispatch();
 
     const { input, results } = useSelector((state) => state.aboutTheDataSidebar.search);
-    const prevResults = usePrevious({ searchResults });
-
-    const objectsEqual = (o1, o2) =>
-        Object.keys(o1).length === Object.keys(o2).length
-        && Object.keys(o1).every((p) => o1[p] === o2[p]);
 
     useEffect(() => {
         setSearchTerm(input);
 
-        if (!input || input?.length === 0) {
+        if (input === null || input?.length === 0) {
             setSearchResultsPending(false);
             setIsLoading(false);
         }
 
         // if there are already results on redux set the UI to the results
-        if ((input || input?.length > 0) && results?.length > 0 && !objectsEqual(results, searchResults)) {
+        if (input?.length > 0 && !isEqual(results, searchResults)) {
             setSearchResultsPending(true);
             setSearchResults(results);
         }
     }, []);
 
     useEffect(() => {
-        console.log(searchResults);
-        if (results?.length > 0 && searchResultsPending && searchResults?.length > 0 && objectsEqual(results, searchResults)) {
+        if (searchResultsPending && isEqual(results, searchResults)) {
             setSearchResultsPending(false);
             setIsLoading(false);
         }
