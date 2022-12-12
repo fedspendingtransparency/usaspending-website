@@ -215,16 +215,16 @@ const AboutTheData = (props) => {
                 role="dialog"
                 aria-labelledby="atd-title"
                 className="atd-sidebar">
-                <AboutTheDataHeader
-                    closeAboutTheData={closeAboutTheData}
-                    searchTerm={searchTerm}
-                    setSearchTerm={setSearchTerm}
-                    performSearch={performSearch}
-                    clearSearch={clearSearch} />
                 {isLoading || searchResultsPending ?
                     <><LoadingWrapper isLoading /></>
                     :
                     <>
+                        <AboutTheDataHeader
+                            closeAboutTheData={closeAboutTheData}
+                            searchTerm={searchTerm}
+                            setSearchTerm={setSearchTerm}
+                            performSearch={performSearch}
+                            clearSearch={clearSearch} />
                         <Scrollbars
                             style={{ height }}
                             renderTrackVertical={track}
