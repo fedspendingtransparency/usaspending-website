@@ -20,6 +20,11 @@ export const setAboutTheDataSearchValue = (state) => ({
     value: state
 });
 
+export const setAboutTheDataResults = (state) => ({
+    type: 'SET_ABOUT_THE_DATA_SEARCH_RESULTS',
+    results: state
+});
+
 export const setAboutTheDataTerm = (state) => ({
     type: 'SET_ABOUT_THE_DATA_TERM',
     term: state
