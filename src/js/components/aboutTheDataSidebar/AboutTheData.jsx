@@ -211,12 +211,7 @@ const AboutTheData = (props) => {
                                 :
                                 <>
                                     <div className="atd__body">
-                                        <DownloadButton />
-                                        <AboutTheDataListView section={schema.descriptions} selectItem={selectItem} />
-                                        <AboutTheDataListView section={schema.disclosures} selectItem={selectItem} />
-                                        <AboutTheDataListView section={schema["award-disclosures"]} selectItem={selectItem} />
-                                        <AboutTheDataListView section={schema["covid-disclosures"]} selectItem={selectItem} />
-                                        <AboutTheDataListView section={schema["legal-disclosures"]} selectItem={selectItem} />
+                                        {content}
                                     </div>
                                 </>}
                         </Scrollbars>
