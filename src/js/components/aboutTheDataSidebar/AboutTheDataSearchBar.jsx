@@ -26,7 +26,9 @@ const usePrevious = (value) => {
 };
 
 const AboutTheDataSearchBar = (props) => {
-    const { searchTerm, setSearchTerm, performSearch, clearSearch } = props;
+    const {
+        searchTerm, setSearchTerm, performSearch, clearSearch
+    } = props;
     const prevTerm = usePrevious({ searchTerm });
     const dispatch = useDispatch();
 
@@ -52,7 +54,7 @@ const AboutTheDataSearchBar = (props) => {
         if (searchTerm && prevTerm !== searchTerm) {
             localPerformSearch(searchTerm);
         }
-    }, [searchTerm]);
+    }, [localPerformSearch, prevTerm, searchTerm]);
 
     return (
         <div className="atd-search-bar">
