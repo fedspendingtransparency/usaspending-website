@@ -162,7 +162,7 @@
             text-decoration: underline;
         }
 
-        a:visited {
+        a:visited, a:hover {
             color: $gray-cool-5;
         }
     }
