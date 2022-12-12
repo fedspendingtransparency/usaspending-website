@@ -12,7 +12,7 @@ import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Scrollbars } from 'react-custom-scrollbars';
 import Mousetrap from "mousetrap";
-import { getDrilldownEntrySectionAndId } from 'helpers/aboutTheDataSidebarHelper';
+import { getDrilldownEntrySectionAndId, escapeRegExp } from 'helpers/aboutTheDataSidebarHelper';
 import AboutTheDataHeader from "./AboutTheDataHeader";
 import AboutTheDataListView from "./AboutTheDataListView";
 import AboutTheDataDrilldown from "./AboutTheDataDrilldown";
@@ -47,10 +47,6 @@ const AboutTheData = (props) => {
         }
 
         const results = {};
-
-        function escapeRegExp(stringToGoIntoTheRegex) {
-            return stringToGoIntoTheRegex.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
-        }
 
         // look for search term in each 'fields.name' in each section
         Object.entries(schema).filter(([, section]) => section.heading !== undefined).forEach(([sectionKey, section]) => {
