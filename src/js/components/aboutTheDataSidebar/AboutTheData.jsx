@@ -44,7 +44,7 @@ const AboutTheData = (props) => {
     useEffect(() => {
         setSearchTerm(input);
 
-        if (input === null || input?.length === 0) {
+        if (input === null || input?.length === 0 || isEqual(results, searchResults)) {
             setSearchResultsPending(false);
             setIsLoading(false);
         }
@@ -68,6 +68,11 @@ const AboutTheData = (props) => {
         setDrilldownSection(null);
         setDrilldown(false);
         props.clearAboutTheDataTerm();
+    };
+
+    const clearSearch = () => {
+        setSearchResults(schema);
+        dispatch(aboutTheDataActions.setAboutTheDataResults(schema));
     };
 
     const performSearch = (term) => {
@@ -214,7 +219,8 @@ const AboutTheData = (props) => {
                     closeAboutTheData={closeAboutTheData}
                     searchTerm={searchTerm}
                     setSearchTerm={setSearchTerm}
-                    performSearch={performSearch} />
+                    performSearch={performSearch}
+                    clearSearch={clearSearch} />
                 {isLoading || searchResultsPending ?
                     <><LoadingWrapper isLoading /></>
                     :

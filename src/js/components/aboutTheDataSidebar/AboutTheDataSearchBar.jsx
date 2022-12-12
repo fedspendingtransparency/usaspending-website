@@ -13,7 +13,8 @@ const propTypes = {
     searchTerm: PropTypes.string,
     setSearchTerm: PropTypes.func,
     setAboutTheDataSearchValue: PropTypes.func,
-    performSearch: PropTypes.func
+    performSearch: PropTypes.func,
+    clearSearch: PropTypes.func
 };
 
 const usePrevious = (value) => {
@@ -25,7 +26,7 @@ const usePrevious = (value) => {
 };
 
 const AboutTheDataSearchBar = (props) => {
-    const { searchTerm, setSearchTerm, performSearch } = props;
+    const { searchTerm, setSearchTerm, performSearch, clearSearch } = props;
     const prevTerm = usePrevious({ searchTerm });
     const dispatch = useDispatch();
 
@@ -33,7 +34,8 @@ const AboutTheDataSearchBar = (props) => {
         if (term.length > 0 && term.length < 3) {
             // do not perform a search because the search term is too short
             // but DO allow an empty string (which indicates a request for the full list)
-            // TODO: if there is something on redux clear it
+            // clear if there are already search results
+            clearSearch();
             return;
         }
 
