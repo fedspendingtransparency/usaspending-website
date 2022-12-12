@@ -35,6 +35,7 @@ const AboutTheData = (props) => {
     const [drilldownSection, setDrilldownSection] = useState(null);
     const [scrollbar, setScrollbar] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [searchResultsPending, setSearchResultsPending] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
     const { schema } = props;
     const [searchResults, setSearchResults] = useState(schema);
@@ -44,12 +45,28 @@ const AboutTheData = (props) => {
 
     useEffect(() => {
         setSearchTerm(input);
-        if (results?.length > 0) {
-            setSearchResults(results);
-        } else {
-            setIsLoading(true);
+
+        console.log(input)
+        console.log(results)
+        if (!input || input?.length === 0) {
+            setSearchResultsPending(false);
+            setIsLoading(false);
         }
-    }, []);
+
+        // if there are already results on redux set the UI to the results
+        if ((input || input?.length > 0) && results?.length > 0) {
+            console.log(searchResults);
+            setSearchResultsPending(true);
+            setSearchResults(results);
+        }
+    }, [input, results]);
+
+    useEffect(() => {
+        if (results?.length > 0 && searchResultsPending && searchResults?.length > 0) {
+            setSearchResultsPending(false);
+            setIsLoading(false);
+        }
+    }, [searchResults, searchResultsPending]);
 
     const performSearch = (term) => {
         if (!term) {
@@ -165,9 +182,9 @@ const AboutTheData = (props) => {
             const entry = getDrilldownEntrySectionAndId(schema, props.aboutTheDataSidebar.term.slug);
             setDrilldownItemId(entry.entryId);
             setDrilldownSection(entry.section);
+            // setIsLoading(false);
         }
 
-        setIsLoading(false);
         Mousetrap.bind('esc', closeAboutTheData);
 
         window.addEventListener('resize', measureAvailableHeight);
@@ -197,15 +214,15 @@ const AboutTheData = (props) => {
                 role="dialog"
                 aria-labelledby="atd-title"
                 className="atd-sidebar">
-                {isLoading ?
+                <AboutTheDataHeader
+                    closeAboutTheData={closeAboutTheData}
+                    searchTerm={searchTerm}
+                    setSearchTerm={setSearchTerm}
+                    performSearch={performSearch} />
+                {isLoading || searchResultsPending ?
                     <><LoadingWrapper isLoading /></>
                     :
                     <>
-                        <AboutTheDataHeader
-                            closeAboutTheData={closeAboutTheData}
-                            searchTerm={searchTerm}
-                            setSearchTerm={setSearchTerm}
-                            performSearch={performSearch} />
                         <Scrollbars
                             style={{ height }}
                             renderTrackVertical={track}
