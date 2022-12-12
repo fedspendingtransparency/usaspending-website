@@ -18,11 +18,17 @@ const AboutTheDataListView = ({ section, selectItem }) => {
         selectItem(index, section);
     };
 
+    // eslint-disable-next-line no-shadow
+    const keyHandler = (e, index, section) => {
+        if (e.keyCode === 13) {
+            clickHandler(e, index, section);
+        }
+    }
+
     return (<>
         <div className="atd__heading">{section.heading}</div>
         <hr />
-        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-noninteractive-element-interactions */}
-        {section.fields.map((list, index) => <p className="atd__link" key={`atd-list-item-${index}`} onClick={(e) => clickHandler(e, index, section)}>{list.name}</p>)}
+        {section.fields.map((list, index) => <a className="atd__link" role="link" key={`atd-list-item-${index}`} tabIndex={0} onKeyUp={(e) => keyHandler(e, index, section)} onClick={(e) => clickHandler(e, index, section)}>{list.name}</a>)}
     </>);
 };
 
