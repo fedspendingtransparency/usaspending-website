@@ -3,9 +3,6 @@
  * Created by Brian Petway 11/30/22
  */
 
-// Disabling max-len property for readability / editability
-/* eslint-disable max-len */
-
 import React, { useEffect, useCallback, useRef } from 'react';
 import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
 import { useDispatch } from 'react-redux';

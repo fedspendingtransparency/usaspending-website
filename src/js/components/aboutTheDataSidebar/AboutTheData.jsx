@@ -3,16 +3,13 @@
  * Created by Nick Torres 11/2/22
  */
 
-// Disabling max-len property for readability / editability
-/* eslint-disable max-len */
-
-import React, {useState, useEffect, useCallback, useRef} from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
 import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Scrollbars } from 'react-custom-scrollbars';
 import Mousetrap from "mousetrap";
-import { isEqual, isEmpty } from "lodash";
+import { isEqual } from "lodash";
 import { getDrilldownEntrySectionAndId } from 'helpers/aboutTheDataSidebarHelper';
 import AboutTheDataHeader from "./AboutTheDataHeader";
 import AboutTheDataListView from "./AboutTheDataListView";
@@ -27,14 +24,6 @@ const propTypes = {
     schema: PropTypes.object,
     clearAboutTheDataTerm: PropTypes.func,
     setAboutTheDataTerm: PropTypes.func
-};
-
-const usePrevious = (value) => {
-    const ref = useRef();
-    useEffect(() => {
-        ref.current = value;
-    });
-    return ref.current;
 };
 
 const AboutTheData = (props) => {
