@@ -46,6 +46,8 @@ const AboutTheData = (props) => {
         setSearchTerm(input);
         if (results?.length > 0) {
             setSearchResults(results);
+        } else {
+            setIsLoading(true);
         }
     }, []);
 
