@@ -28,7 +28,7 @@ const AboutTheDataListView = ({ section, selectItem }) => {
     return (<>
         <div className="atd__heading">{section.heading}</div>
         <hr />
-        {section.fields.map((list, index) => <a className="atd__link" role="link" key={`atd-list-item-${index}`} tabIndex={0} onKeyUp={(e) => keyHandler(e, index, section)} onClick={(e) => clickHandler(e, index, section)}>{list.name}</a>)}
+        {section.fields.map((list, index) => <a className="atd__link" role="link" key={`atd-list-item-${index}`} tabIndex={0} onKeyUp={(e) => keyHandler(e, index, section)} onClick={(e) => clickHandler(e, index, section)}><p>{list.name}</p></a>)}
     </>);
 };
 
