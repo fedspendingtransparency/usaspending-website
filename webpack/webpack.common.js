@@ -24,7 +24,7 @@ module.exports = {
     },
     context: path.resolve(__dirname, "../src"),
     resolve: {
-        extensions: [".js", ".jsx"],
+        extensions: [".js", ".jsx", ".md", ".mdx"],
         modules: ["node_modules", path.resolve(__dirname, "../src/_scss")],
         fallback: { querystring: require.resolve("querystring-es3") }
     },
@@ -70,6 +70,9 @@ module.exports = {
             {
                 test: /\.mdx?$/,
                 use: [
+                    // Note that Webpack runs right-to-left: `@mdx-js/loader` is used first, then
+                    // `babel-loader`.
+                    { loader: 'babel-loader', options: {} },
                     {
                         loader: '@mdx-js/loader',
                         /** @type {import('@mdx-js/loader').Options} */
