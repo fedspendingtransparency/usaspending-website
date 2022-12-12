@@ -130,7 +130,7 @@ const schema = {
         path: 'content/about-the-data/award-disclosures',
         fields: [
             {
-                name: "Date for Prime Award and Subaward Data on USAspending.gov",
+                name: "Start Date for Prime Award and Subaward Data on USAspending.gov",
                 slug: "start-date-for-prime-award-and-subaward-data"
             },
             {
@@ -242,11 +242,11 @@ const schema = {
         path: 'content/about-the-data/legal-disclosures',
         fields: [
             {
-                name: "Statuory Authority",
+                name: "Statutory  Authority",
                 slug: "statutory-authority"
             },
             {
-                name: "the Congressional Budget Justification Transparency Act of 2021. These laws are codified in 31 USC § 6101 note. ",
+                name: "OMB Memorandum 2010: Open Government Directive – Federal Spending Transparency and Subaward and Compensation Data Reporting",
                 slug: "omb-m-08272010"
             },
             {
@@ -266,7 +266,7 @@ const schema = {
                 slug: "omb-m-20-21"
             },
             {
-                name: "OMB Memorandum M-21-20: Promoting Public Trust in the Federal Government through Effective Implementation of the American Rescue Plan Act and Stewardship of the Taxpayer Resources)",
+                name: "OMB Memorandum M-21-20: Promoting Public Trust in the Federal Government through Effective Implementation of the American Rescue Plan Act and Stewardship of the Taxpayer Resources",
                 slug: "omb-m-21-20"
             },
             {

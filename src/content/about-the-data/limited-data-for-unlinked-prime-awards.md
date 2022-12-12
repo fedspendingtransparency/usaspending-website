@@ -11,12 +11,12 @@ If an award appears in agency financial systems but NOT in governmentwide
 award systems, then it will lack information such as recipient,
 location, industry, contract competition, and assistance listing (CFDA program).
 
-On the other hand, if an award appears in governmentawide award systems but NOT
+On the other hand, if an award appears in governmentwide award systems but NOT
 in agency financial systems, then it will lack information such as
 treasury account symbol (TAS), program activity, object class, disaster emergency
 fund code (FEFC), and outlays.
 
-In additional to a missing common award identifier an award may also be unlinked if any of the following apply:
+In additional to a missing common award identifier, an award may also be unlinked if any of the following apply:
 
 -   The award has no activity after Fiscal Year 2017 Quarter 2.
 

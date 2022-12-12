@@ -2,7 +2,8 @@ Subaward data are currently submitted by prime recipients of federal
 awards (specifically, contracts and grants, including cooperative
 agreements) to the [FFATA Subaward Reporting System (FSRS)](https://www.fsrs.gov/), which is operated by the General
 Services Administration (GSA). Effective November 2020, the Office
-of Management and Budget (OMB) updated 2 C.F.R. § 170.105 to expand
+of Management and Budget (OMB) updated [2 CFR §
+170.105](https://www.ecfr.gov/current/title-2/subtitle-A/chapter-I/part-170/subpart-A/section-170.105) to expand
 the subaward reporting requirements to other types of financial
 assistance beyond grants and cooperative agreements, such as direct
 payments (direct appropriations), loans, subsidies, and insurance however, as of August 2022, FSRS has
@@ -12,8 +13,8 @@ types.
 While federal agency personnel do not submit subaward data themselves,
 they are required to ensure that the award terms and conditions for
 any federal award include specific language requiring subaward
-reporting (subject to certain exceptions listed in 2 C.F.R. §
-170.110(b-c)) moreover, agencies are responsible for enforcement and
+reporting (subject to certain exceptions listed in [2 CFR §
+170.110](https://www.ecfr.gov/current/title-2/subtitle-A/chapter-I/part-170/subpart-A/section-170.110) moreover, agencies are responsible for enforcement and
 oversight of award terms and conditions. In practice, agency internal
 controls and practices vary widely with regard to monitoring and
 ensuring compliance with subaward data reporting.

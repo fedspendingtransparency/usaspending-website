@@ -23,4 +23,4 @@ administrative codes rather than words, or lack meaningful information
 altogether. More information about award description data quality can
 be found in the Government Accountability Office (GAO) report
 [GAO-20-75](https://www.gao.gov/assets/gao-20-75.pdf).
-OMB has addressed financial assistance award description data quality in guidance for implementation of the American Rescue Plan Act [Memorandum M-21-20](https://www.whitehouse.gov/wp-content/uploads/2021/03/M_21_20.pdf) and the Infrastructure Investment and Jobs Act [Memorandum M-22-12](https://www.whitehouse.gov/wp-content/uploads/2022/04/M-22-12.pdf).
+OMB has addressed financial assistance award description data quality in guidance for implementation of the American Rescue Plan Act ([Memorandum M-21-20](https://www.whitehouse.gov/wp-content/uploads/2021/03/M_21_20.pdf)) and the Infrastructure Investment and Jobs Act ([Memorandum M-22-12](https://www.whitehouse.gov/wp-content/uploads/2022/04/M-22-12.pdf)).

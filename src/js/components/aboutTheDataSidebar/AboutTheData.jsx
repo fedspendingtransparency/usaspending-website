@@ -133,6 +133,7 @@ const AboutTheData = (props) => {
                                         <AboutTheDataListView section={schema.disclosures} selectItem={selectItem} />
                                         <AboutTheDataListView section={schema["award-disclosures"]} selectItem={selectItem} />
                                         <AboutTheDataListView section={schema["covid-disclosures"]} selectItem={selectItem} />
+                                        <AboutTheDataListView section={schema["legal-disclosures"]} selectItem={selectItem} />
                                     </div>
                                 </>}
                         </Scrollbars>

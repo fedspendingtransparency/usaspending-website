@@ -3,13 +3,13 @@ above must be reported to USAspending.gov, as per [31 U.S.C. § 6101 note](https
 
 Additionally, Federal agencies must report all contract and
 financial assistance awards that are above a micro-purchase
-threshold to the Federal Procurement Data System (FPDS), Financial
+threshold to the [Federal Procurement Data System (FPDS)](https://www.fpds.gov/), Financial
 Assistance Broker Submission (FABS), and USAspending. gov. The
 requirement for agencies to report contact awards above a
 micro-purchase threshold is in Federal Acquisition Regulation (FAR) 4.606
-(48 C.F.R. § 4.606), while the requirement to report financial
+([48 C.F.R. § 4.606](https://www.ecfr.gov/current/title-48/chapter-1/subchapter-A/part-4/subpart-4.6/section-4.606)), while the requirement to report financial
 assistance awards above the micro-purchase threshold to the FABS and
-USAspending.gov is set forth in 2 C.F.R. § 170.200. FAR 2.101 (48
-C.F.R. § 2.101) provides the amount of the micro-purchase threshold for
+USAspending.gov is set forth in [2 C.F.R. § 170.200](https://www.ecfr.gov/current/title-2/subtitle-A/chapter-I/part-170/subpart-B/section-170.200). FAR 2.101 ([48
+C.F.R. § 2.101](https://www.ecfr.gov/current/title-48/chapter-1/subchapter-A/part-2/subpart-2.1)) provides the amount of the micro-purchase threshold for
 both contract and financial assistance awards, which was \$10,000 as of 
 2022 (with a few exceptions).
