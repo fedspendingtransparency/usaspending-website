@@ -10,7 +10,7 @@ import PropTypes from 'prop-types';
 import { Scrollbars } from 'react-custom-scrollbars';
 import Mousetrap from "mousetrap";
 import { isEqual } from "lodash";
-import { getDrilldownEntrySectionAndId } from 'helpers/aboutTheDataSidebarHelper';
+import { getDrilldownEntrySectionAndId, escapeRegExp } from 'helpers/aboutTheDataSidebarHelper';
 import AboutTheDataHeader from "./AboutTheDataHeader";
 import AboutTheDataListView from "./AboutTheDataListView";
 import AboutTheDataDrilldown from "./AboutTheDataDrilldown";
@@ -93,7 +93,7 @@ const AboutTheData = (props) => {
                 const markupFields = [];
                 matchingFields.forEach((field) => {
                     // add classname to the search term in the results
-                    const regex = new RegExp(term, 'gi');
+                    const regex = new RegExp(escapeRegExp(term), 'gi');
                     const markupName = field.name.replace(regex, '<match>$&<match>');
                     const parts = markupName.split('<match>');
                     const markup = <>
@@ -183,7 +183,7 @@ const AboutTheData = (props) => {
             const entry = getDrilldownEntrySectionAndId(schema, props.aboutTheDataSidebar.term.slug);
             setDrilldownItemId(entry.entryId);
             setDrilldownSection(entry.section);
-            // setIsLoading(false);
+            setIsLoading(false);
         }
 
         Mousetrap.bind('esc', closeAboutTheData);
