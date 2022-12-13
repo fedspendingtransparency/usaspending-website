@@ -70,12 +70,6 @@ const AboutTheDataDrilldown = ({
 
         {!isError &&
             <Suspense fallback={<LoadingWrapper isLoading />}>
-                <div className="atd__back" role="button" onKeyUp={(e) => handleKeyUp(e)} tabIndex="0" onClick={() => clearDrilldown()}>
-                    <FontAwesomeIcon icon="chevron-left" className="left-chevron-icon" alt="Back" />
-                    <span className="atd__back__label">
-                        Back
-                    </span>
-                </div>
                 <div className="atd__drilldown">
                     <div className="atd__overline">{ section }</div>
                     <div className="atd__drilldown__heading">{ name }</div>
