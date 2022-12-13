@@ -22,7 +22,7 @@ const TrainingVideosHeading = () => (
                 </div>
             </FlexGridCol>
             <FlexGridCol
-                desktop={4}
+                desktop={6}
                 tablet={12}
                 mobile={12}>
                 <div className="training-videos__column-two" >
