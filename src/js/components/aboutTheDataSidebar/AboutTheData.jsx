@@ -54,7 +54,7 @@ const AboutTheData = (props) => {
             setSearchResultsPending(true);
             setSearchResults(results);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-dep
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {

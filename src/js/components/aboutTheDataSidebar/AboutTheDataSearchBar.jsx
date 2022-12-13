@@ -54,7 +54,7 @@ const AboutTheDataSearchBar = (props) => {
         if (searchTerm && prevTerm !== searchTerm) {
             localPerformSearch(searchTerm);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-dep
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchTerm]);
 
     return (
