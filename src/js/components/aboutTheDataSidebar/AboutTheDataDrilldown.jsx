@@ -5,8 +5,7 @@
 
 import React, { useEffect, useState, Suspense } from 'react';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
-import { AngleLeft } from 'components/sharedComponents/icons/Icons';
-import { FlexGridRow, ShareIcon } from "data-transparency-ui";
+import { ShareIcon } from "data-transparency-ui";
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { LoadingWrapper } from "../sharedComponents/Loading";
