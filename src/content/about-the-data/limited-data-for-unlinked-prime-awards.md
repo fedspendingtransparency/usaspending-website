@@ -14,7 +14,7 @@ location, industry, contract competition, and assistance listing (CFDA program).
 On the other hand, if an award appears in governmentwide award systems but NOT
 in agency financial systems, then it will lack information such as
 treasury account symbol (TAS), program activity, object class, disaster emergency
-fund code (FEFC), and outlays.
+fund code (DEFC), and outlays.
 
 In additional to a missing common award identifier, an award may also be unlinked if any of the following apply:
 
