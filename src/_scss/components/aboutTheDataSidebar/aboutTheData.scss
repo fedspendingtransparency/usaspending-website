@@ -204,7 +204,9 @@
         .atd__share__icon {
             right: 0;
             position: absolute;
-
+            @media(max-width:$medium-screen) {
+                display: none;
+            }
             .usda-share-icon {
                 margin-right: 0;
                 margin-bottom: 24px;
