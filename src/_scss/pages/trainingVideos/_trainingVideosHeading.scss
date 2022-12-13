@@ -48,7 +48,7 @@
       justify-content: center;
 
       @media (min-width: $tablet-screen) {
-        margin: 0 $global-margin * 15.5
+        margin: 0 $global-margin * 15.5;
       }
       @media (min-width: $medium-screen){
         margin: unset;
