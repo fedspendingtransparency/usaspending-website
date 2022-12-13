@@ -54,7 +54,8 @@ const AboutTheData = (props) => {
             setSearchResultsPending(true);
             setSearchResults(results);
         }
-    }, [input, results, searchResults]);
+        // eslint-disable-next-line react-hooks/exhaustive-dep
+    }, []);
 
     useEffect(() => {
         if (searchResultsPending && isEqual(results, searchResults)) {

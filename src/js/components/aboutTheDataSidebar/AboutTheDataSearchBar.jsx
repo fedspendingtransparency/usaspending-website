@@ -54,7 +54,8 @@ const AboutTheDataSearchBar = (props) => {
         if (searchTerm && prevTerm !== searchTerm) {
             localPerformSearch(searchTerm);
         }
-    }, [localPerformSearch, prevTerm, searchTerm]);
+        // eslint-disable-next-line react-hooks/exhaustive-dep
+    }, [searchTerm]);
 
     return (
         <div className="atd-search-bar">
