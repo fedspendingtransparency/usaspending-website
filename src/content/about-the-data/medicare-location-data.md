@@ -13,7 +13,7 @@ or provider physicians/hospitals are located (which are usually in
 different states than the MAC's location).
 
 Note that, as per policy ([Office of Management and Budget (OMB) Memorandum M-17-04](https://www.whitehouse.gov/wp-content/uploads/legacy_drupal_files/omb/memoranda/2017/m-17-04.pdf)),
-the aggregate record format is solely intended to shield personally
+the aggregate record format is intended to shield personally
 identifiable information (PII) of individual citizens, rather than to
 anonymize the names of companies like MACs.
 

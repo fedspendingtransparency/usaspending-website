@@ -1,13 +1,18 @@
-The SF 133 report contains information about overall budget
-execution for certain Treasury Accounts within the federal
-government, as required by the [Office of Management and Budget's
-Circular
+The Governmentwide Treasury Account Symbol Adjusted Trial Balance
+System (GTAS) is where federal entities, including agencies, provide
+proprietary financial reporting information and information about
+budget execution. Data in GTAS are used to generate the SF 133 report
+containing budget execution for certain Treasury Accounts within the
+federal government, as required by the [Office of Management and
+Budget's Circular
 A-11](https://www.whitehouse.gov/wp-content/uploads/2018/06/a11.pdf).
-SF 133 reports are generated based on agency financial data as
-submitted to the Governmentwide Treasury Account Symbol Adjusted
-Trial Balance System (GTAS) at the Treasury Department. Some
-agencies submit financial data directly to GTAS but not to
+>
+Some agencies submit financial data directly to GTAS but not to
 USAspending.gov. USAspending.gov extracts data from GTAS on a daily
-basis for governmentwide spending figures and other purposes. File A
-crosswalks with the SF 133 report, though the SF 133 report contains
-additional line items not featured in File A.
+basis; the data are published along with File A, B, and C data each
+month as context for governmentwide spending figures and for other
+purposes. File A crosswalks with the SF 133 report, but the SF 133
+report contains additional line items not featured in File A. GTAS
+data are not directly downloadable from USAspending.gov, but are
+instead available on [this government
+website](https://portal.max.gov/portal/document/SF133/Budget/FACTS%20II%20-%20SF%20133%20Report%20on%20Budget%20Execution%20and%20Budgetary%20Resources.html).
