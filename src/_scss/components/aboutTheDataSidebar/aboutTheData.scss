@@ -180,12 +180,39 @@
         }
     }
 
-    .usa-dt-flex-grid__row {
+
+
+
+    .atd__back {
+        margin-bottom: rem(24);
+        cursor: pointer;
+        display: flex;
         align-items: center;
+
+        .usa-da-icon-angle-left {
+            height: rem(16);
+            width: rem(16);
+            fill: $gray-cool-10;
+        }
+
+        .atd__back__label {
+            font-size: $font-size-16;
+            line-height: rem(24);
+            color: $theme-color-headline-inverse;
+            font-weight: $font-semibold;
+            text-transform: uppercase;
+            margin-left: rem(8);
+        }
+
+        .left-chevron-icon {
+            font-size: rem(16);
+            color: $gray-cool-10;
+        }
 
         .atd__share__icon {
             right: 0;
             position: absolute;
+            align-items: center;
 
             @media(max-width:$medium-screen) {
                 display: none;
@@ -193,8 +220,6 @@
 
             .usda-share-icon {
                 margin-right: 0;
-                margin-bottom: 24px;
-
                 span {
                     display: none;
                 }
@@ -254,33 +279,6 @@
                         }
                     }
                 }
-            }
-        }
-
-        .atd__back {
-            margin-bottom: rem(24);
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-
-            .usa-da-icon-angle-left {
-                height: rem(16);
-                width: rem(16);
-                fill: $gray-cool-10;
-            }
-
-            .atd__back__label {
-                font-size: $font-size-16;
-                line-height: rem(24);
-                color: $theme-color-headline-inverse;
-                font-weight: $font-semibold;
-                text-transform: uppercase;
-                margin-left: rem(8);
-            }
-
-            .left-chevron-icon {
-                font-size: rem(16);
-                color: $gray-cool-10;
             }
         }
     }
