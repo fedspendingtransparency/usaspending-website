@@ -3,10 +3,7 @@
  * Created by Brian Petway 11/30/22
  */
 
-// Disabling max-len property for readability / editability
-/* eslint-disable max-len */
-
-import React, { useState } from 'react';
+import React, { useEffect, useCallback, useRef } from 'react';
 import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
 import { useDispatch } from 'react-redux';
 import { Search } from 'components/sharedComponents/icons/Icons';
@@ -16,54 +13,60 @@ const propTypes = {
     searchTerm: PropTypes.string,
     setSearchTerm: PropTypes.func,
     setAboutTheDataSearchValue: PropTypes.func,
-    performSearch: PropTypes.func
+    performSearch: PropTypes.func,
+    clearSearch: PropTypes.func
+};
+
+const usePrevious = (value) => {
+    const ref = useRef();
+    useEffect(() => {
+        ref.current = value;
+    });
+    return ref.current;
 };
 
 const AboutTheDataSearchBar = (props) => {
-    const { searchTerm, setSearchTerm, performSearch } = props;
-    const [searchTimer, setSearchTimer] = useState(0);
+    const {
+        searchTerm, setSearchTerm, performSearch, clearSearch
+    } = props;
+    const prevTerm = usePrevious({ searchTerm });
     const dispatch = useDispatch();
 
-    const localPerformSearch = (term) => {
-        if (searchTimer) {
-            // clear any existing timers, it's old data
-            window.clearTimeout(searchTimer);
-        }
-
+    const localPerformSearch = useCallback((term) => {
         if (term.length > 0 && term.length < 3) {
             // do not perform a search because the search term is too short
             // but DO allow an empty string (which indicates a request for the full list)
+            // clear if there are already search results
+            clearSearch();
             return;
         }
 
-        // wait for typing to stop 300ms before performing search
-        setSearchTimer(() => {
-            window.setTimeout(() => {
-                performSearch(term);
-            }, 300);
-        });
-    };
+        performSearch(term);
+    });
 
     const changedSearchValue = (e) => {
         setSearchTerm(e.target.value);
         // set it in redux too
         dispatch(aboutTheDataActions.setAboutTheDataSearchValue(e.target.value));
-        localPerformSearch(e.target.value);
     };
 
-    const submitSearch = (e) => {
-        e.preventDefault();
-        localPerformSearch(searchTerm);
-    };
+    useEffect(() => {
+        if (searchTerm && prevTerm !== searchTerm) {
+            localPerformSearch(searchTerm);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [searchTerm]);
 
     return (
         <div className="atd-search-bar">
-            <form onSubmit={submitSearch}>
+            <form>
+                {/* eslint-disable-next-line react/void-dom-elements-no-children */}
                 <input
                     className="search-field"
                     type="text"
                     placeholder="Search for a topic..."
-                    onChange={changedSearchValue} />
+                    onChange={changedSearchValue}
+                    value={searchTerm} />
                 <button
                     aria-label="Search"
                     className="search-button"

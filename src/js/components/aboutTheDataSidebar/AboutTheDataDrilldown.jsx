@@ -4,8 +4,8 @@
  */
 
 import React, { useEffect, useState, Suspense } from 'react';
-import { AngleLeft } from 'components/sharedComponents/icons/Icons';
 import PropTypes from 'prop-types';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { LoadingWrapper } from "../sharedComponents/Loading";
 
 const propTypes = {
@@ -44,7 +44,7 @@ const AboutTheDataDrilldown = ({
         {!isError &&
             <Suspense fallback={<LoadingWrapper isLoading />}>
                 <div className="atd__back" role="button" onKeyUp={(e) => handleKeyUp(e)} tabIndex="0" onClick={() => clearDrilldown()}>
-                    <AngleLeft alt="Back" />
+                    <FontAwesomeIcon icon="chevron-left" className="left-chevron-icon" alt="Back" />
                     <span className="atd__back__label">
                         Back
                     </span>
