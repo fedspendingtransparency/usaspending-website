@@ -149,7 +149,7 @@ export default class GlossaryDefinition extends React.Component {
                     className="glossary-back"
                     onClick={this.clickedBack}>
                     <div className="back-content">
-                        <AngleLeft alt="Back" />
+                        <FontAwesomeIcon icon="chevron-left" className="left-chevron-icon" alt="Back" />
                         <div className="label">
                             Back
                         </div>
