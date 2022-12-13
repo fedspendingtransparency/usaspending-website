@@ -1,8 +1,7 @@
-The USAspending data reflect obligations to a single entity that is
-processing payments on behalf of the Department of Health and Human
+The USAspending data reflect obligations to a single entity that is 
+processing payments on behalf of the Department of Health and Human 
 Services (HHS). [The full Rural Health Clinic (RHC) Testing Fund
-Public Use File is posted
-here](https://taggs.hhs.gov/Coronavirus/Overview). This file is
+Public Use File is posted here](https://taggs.hhs.gov/Coronavirus/Overview). This file is
 updated weekly and includes payments to RHCs for COVID-19 testing.
 Payments are made at the Tax Identification Number (TIN)
 organizational level. This dataset represents the list of providers

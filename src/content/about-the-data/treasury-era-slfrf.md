@@ -1,13 +1,7 @@
-The USAspending data reflect obligations to a single entity that is
-processing payments on behalf of the Department of Health and Human
-Services (HHS). [The full Rural Health Clinic (RHC) Testing Fund
-Public Use File is posted
-here](https://taggs.hhs.gov/Coronavirus/Overview). This file is
-updated weekly and includes payments to RHCs for COVID-19 testing.
-Payments are made at the Tax Identification Number (TIN)
-organizational level. This dataset represents the list of providers
-who have attested to receiving a payment from the aforementioned
-allocation and agreed to the Terms and Conditions. Because not all
-providers (who received a payment unsolicited) have yet to attest to
-accepting that payment, the totals listed for this program in the
-Public Use File are less than those reflected on USAspending.gov.
+Subaward data for the Emergency Rental Assistance (ERA) and State and Local Fiscal Recovery Funds (SLFRF) programs are not available in the Subaward Reporting System (FSRS) because this system currently only supports subgrant reporting for financial assistance, and ERA and SLFRF awards are direct payments rather than grants. As such, these subaward data are also not integrated into USAspending subaward data, since USAspending subaward data are currently sourced exclusively from FSRS. In consequence and for transparency purposes, the Department of the Treasury is publishing and updating these data separately from USAspending.gov, but is including links to them here and on the USAspending COVID Spending profile page (in the ‘Other Resources’ section). These files will be updated as additional data are collected, with the last updated date noted in the XLSX file.
+
+-   [ERA subaward data
+    file](https://home.treasury.gov/system/files/136/ERA-Subawards-USASpending-File.xlsx)
+
+-   [SLFRF subaward data
+    file](https://home.treasury.gov/system/files/136/SLFRF-Subaward-USASpending-File.xlsx)

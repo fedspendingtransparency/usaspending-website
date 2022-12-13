@@ -225,7 +225,7 @@ const schema = {
             },
             {
                 name: "Statement from the Department of Health and Human Services (HHS) – Rural Health Clinic (RHC) Testing",
-                slug: "treasury-era-slfrf"
+                slug: "hhs-rhc"
             },
             {
                 name: "Statement from the Department of Health and Human Services (HHS) – State Reported Expenditure for Section 6004 and Section 6008 of the Families First Coronavirus Response Act (FFCRA)",
