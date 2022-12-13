@@ -179,10 +179,6 @@
             color: $gray-cool-5;
         }
     }
-
-
-
-
     .atd__back {
         margin-bottom: rem(24);
         cursor: pointer;
@@ -208,75 +204,77 @@
             font-size: rem(16);
             color: $gray-cool-10;
         }
+    }
 
-        .atd__share__icon {
-            right: 0;
-            position: absolute;
-            align-items: center;
+    .atd__share__icon {
+        right: 0;
+        top: 0;
+        position: absolute;
+        align-items: center;
+        margin-top: 16px;
+        @media(max-width:$medium-screen) {
+            display: none;
+        }
 
-            @media(max-width:$medium-screen) {
+        .usda-share-icon {
+            margin-right: 0;
+
+            span {
                 display: none;
             }
 
-            .usda-share-icon {
-                margin-right: 0;
+            span.copy-confirmation {
+                display: flex;
+
+            }
+
+            .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__list-item .usa-dt-picker__item {
+                background-color: white;
+
                 span {
-                    display: none;
+                    display: unset;
+                }
+            }
+
+            .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list {
+                min-width: 15rem;
+                margin-top: 4px;
+                padding-top: 8px;
+                padding-bottom: 8px;
+
+                .usa-dt-picker__list-item {
+                    border-top: none;
+                    margin-bottom: 2px;
                 }
 
-                span.copy-confirmation {
-                    display: flex;
-
+                .usa-dt-picker__list-item:focus {
+                    border-top: unset;
                 }
 
-                .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__list-item .usa-dt-picker__item {
-                    background-color: white;
-
-                    span {
-                        display: unset;
-                    }
+                svg {
+                    color: $gray-cool-60;
+                    width: 16px;
+                    height: 16px;
                 }
 
-                .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list {
-                    min-width: 15rem;
-                    margin-top: 4px;
+                span {
+                    color: $gray-cool-60;
+                    font-weight: $font-semibold;
+                    font-size: rem(16);
+                    margin-left: 16px;
+                }
+
+                .usa-dt-picker__item {
+                    padding-left: 16px;
+                    padding-right: unset;
                     padding-top: 8px;
                     padding-bottom: 8px;
+                    width: 100%;
+                    display: flex;
+                    left: 0;
 
-                    .usa-dt-picker__list-item {
-                        border-top: none;
-                        margin-bottom: 2px;
-                    }
-
-                    .usa-dt-picker__list-item:focus {
-                        border-top: unset;
-                    }
-
-                    svg {
-                        color: $gray-cool-60;
-                        width: 16px;
-                        height: 16px;
-                    }
-
-                    span {
-                        color: $gray-cool-60;
-                        font-weight: $font-semibold;
-                        font-size: rem(16);
-                        margin-left: 16px;
-                    }
-
-                    .usa-dt-picker__item {
-                        padding-left: 16px;
-                        padding-right: unset;
-                        padding-top: 8px;
-                        padding-bottom: 8px;
-                        width: 100%;
-                        display: flex;
-                        left: 0;
-
-                        &:hover {
-                            background-color: $gray-cool-3;
-                        }
+                    &:hover {
+                        background-color: $gray-cool-3;
                     }
                 }
             }

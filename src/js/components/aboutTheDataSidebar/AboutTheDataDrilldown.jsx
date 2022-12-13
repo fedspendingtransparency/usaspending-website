@@ -21,6 +21,7 @@ const AboutTheDataDrilldown = ({
     section, name, clearDrilldown, slug
 }) => {
     const onShareClick = (optionName) => {
+        console.debug("what");
         const emailSubject = `USAspending.gov Statement About the Data: ${name}`;
         const emailArgs = {
             subject: `${emailSubject}`,
@@ -59,12 +60,12 @@ const AboutTheDataDrilldown = ({
                     <span className="atd__back__label">
                         Back
                     </span>
-                    <div className="atd__share__icon">
-                        <ShareIcon
-                            url={getBaseUrl(`?about-the-data=${slug}`)}
-                            onShareOptionClick={onShareClick}
-                            colors={{ backgroundColor: "#00687d", color: "#dfe1e2" }} />
-                    </div>
+                </div>
+                <div className="atd__share__icon">
+                    <ShareIcon
+                        url={getBaseUrl(`?about-the-data=${slug}`)}
+                        onShareOptionClick={onShareClick}
+                        colors={{ backgroundColor: "#00687d", color: "#dfe1e2" }} />
                 </div>
                 <div className="atd__drilldown">
                     <div className="atd__overline">{ section }</div>
