@@ -151,103 +151,110 @@
             }
         }
 
-        .atd__drilldown {
-            .atd__drilldown__heading {
-                font-size: $font-size-24;
-                margin-top: rem(8);
-                line-height: rem(30);
-                color: $theme-color-headline-inverse;
-                font-weight: $font-semibold;
+        @import "noResults";
+    }
+
+    .matched-highlight {
+        font-weight: $font-semibold;
+        text-decoration: underline;
+    }
+
+    .atd__drilldown {
+        .atd__drilldown__heading {
+            font-size: $font-size-24;
+            margin-top: rem(8);
+            line-height: rem(30);
+            color: $theme-color-headline-inverse;
+            font-weight: $font-semibold;
+        }
+
+        a {
+            font-size: $font-size-16;
+            line-height: 1.5;
+            color: $gray-cool-5;
+            text-decoration: underline;
+        }
+    }
+
+    .usa-dt-flex-grid__row {
+        align-items: center;
+
+        .atd__back {
+            margin-bottom: rem(24);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+
+            .usa-da-icon-angle-left {
+                height: rem(16);
+                width: rem(16);
+                fill: $gray-cool-10;
             }
 
-            a {
+            .atd__back__label {
                 font-size: $font-size-16;
-                line-height: 1.5;
-                color: $gray-cool-5;
-                text-decoration: underline;
+                line-height: rem(24);
+                color: $theme-color-headline-inverse;
+                font-weight: $font-semibold;
+                text-transform: uppercase;
+                margin-left: rem(8);
             }
         }
 
-        .usa-dt-flex-grid__row {
-            align-items: center;
-            
-            .atd__back {
-                margin-bottom: rem(24);
-                cursor: pointer;
-                display: flex;
-                align-items: center;
-        
-                .usa-da-icon-angle-left {
-                    height: rem(16);
-                    width: rem(16);
-                    fill: $gray-cool-10;
+        .atd__share__icon {
+            right: 0;
+            position: absolute;
+
+            .usda-share-icon {
+                margin-right: 0;
+                margin-bottom: 24px;
+
+                span {
+                    display: none;
                 }
 
-                .atd__back__label {
-                    font-size: $font-size-16;
-                    line-height: rem(24);
-                    color: $theme-color-headline-inverse;
-                    font-weight: $font-semibold;
-                    text-transform: uppercase;
-                    margin-left: rem(8);
-                }
-            }
-
-            .atd__share__icon {
-                right: 0;
-                position: absolute;
-
-                .usda-share-icon {
-                    margin-right: 0;
-                    margin-bottom: 24px;
+                .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__list-item .usa-dt-picker__item {
+                    background-color: white;
 
                     span {
-                        display: none;
+                        display: unset;
+                    }
+                }
+
+                .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list {
+                    min-width: 15rem;
+                    margin-top: 4px;
+                    padding-top: 8px;
+                    padding-bottom: 8px;
+
+                    .usa-dt-picker__list-item {
+                        border-top: none;
                     }
 
-                    .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__list-item .usa-dt-picker__item {
-                        background-color: white;
-
-                        span {
-                            display: unset;
-                        }
+                    svg {
+                        color: $gray-cool-60;
+                        width: 16px;
+                        height: 16px;
                     }
 
-                    .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list {
-                        min-width: 15rem;
-                        margin-top: 4px;
+                    span {
+                        color: $gray-cool-60;
+                        font-weight: $font-semibold;
+                        font-size: rem(16);
+                        margin-left: 16px;
+                    }
+
+                    .usa-dt-picker__item {
+                        padding-left: 16px;
+                        padding-right: unset;
                         padding-top: 8px;
                         padding-bottom: 8px;
+                        width: 100%;
+                        display: flex;
+                        left: 0;
 
-                        .usa-dt-picker__list-item {
-                            border-top: none;
-                        }
-
-                        svg {
-                            color: $gray-cool-60;
-                            width: 16px;
-                            height: 16px;
-                        }
-
-                        span {
-                            color: $gray-cool-60;
-                            font-weight: $font-semibold;
-                            font-size: rem(16);
-                            margin-left: 16px;
-                        }
-
-                        .usa-dt-picker__item {
-                            padding-left: 16px;
-                            padding-right: unset;
-                            padding-top: 8px;
-                            padding-bottom: 8px;
-                            width: 100%;
-                            display: flex;
-                            left: 0;
-
-                            &:hover {
-                                background-color: $gray-cool-3;
-                            }
+                        &:hover {
+                            background-color: $gray-cool-3;
                         }
                     }
                 }
@@ -255,3 +262,4 @@
         }
     }
 }
+

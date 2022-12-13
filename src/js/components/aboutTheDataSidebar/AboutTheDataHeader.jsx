@@ -9,8 +9,10 @@ import * as Icons from 'components/sharedComponents/icons/Icons';
 import AboutTheDataSearchBar from "./AboutTheDataSearchBar";
 
 const propTypes = {
-    children: PropTypes.element,
-    closeAboutTheData: PropTypes.func
+    closeAboutTheData: PropTypes.func,
+    searchTerm: PropTypes.string,
+    setSearchTerm: PropTypes.func,
+    performSearch: PropTypes.func
 };
 
 const AboutTheDataHeader = (props) => {
@@ -36,7 +38,7 @@ const AboutTheDataHeader = (props) => {
             </div>
             <h1 tabIndex={-1} className="usa-atd-header__title">About The Data</h1>
 
-            <AboutTheDataSearchBar />
+            <AboutTheDataSearchBar {...props} />
 
             <div className="usa-atd-example">
                 Example: &quot;Award Data&quot;
