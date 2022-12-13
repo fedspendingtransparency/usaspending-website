@@ -48,3 +48,6 @@ export const getDrilldownEntrySectionAndId = (schema, slug) => {
         }
     }
 };
+
+export const escapeRegExp = (stringToGoIntoTheRegex) => stringToGoIntoTheRegex.replace(/[-/\\^$*+?.()|[\]{}]/g, '\\$&');
+
