@@ -52,10 +52,10 @@
       }
       @media (min-width: $medium-screen){
         margin: unset;
-        padding: $global-padding * 7 0 0 $global-padding * 7.5;
+        padding: $global-padding * 7 0 $global-padding * 7 $global-padding * 7.5;
       }
       @media (min-width: $large-screen){
-        padding: $global-padding * 8 0 0 $global-padding * 13.75;
+        padding: $global-padding * 8 0 $global-padding * 8 $global-padding * 13.75;
       }
 
       .training-videos__column-two-container {
