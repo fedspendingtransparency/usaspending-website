@@ -21,10 +21,10 @@ const AboutTheDataDrilldown = ({
     section, name, clearDrilldown, slug
 }) => {
     const onShareClick = (optionName) => {
-        const emailSubject = `USAspending.gov Statement About the Data ${name}`;
+        const emailSubject = `USAspending.gov Statement About the Data: ${name}`;
         const emailArgs = {
             subject: `${emailSubject}`,
-            body: `View this statement about the data on USAspending.gov ${`${getBaseUrl('?about-the-data=')}${slug}`}`
+            body: `View this statement about the data on USAspending.gov: ${`${getBaseUrl('?about-the-data=')}${slug}`}`
         };
         handleShareOptionClick(optionName, `${getBaseUrl('?about-the-data=')}${slug}`, emailArgs);
     };
