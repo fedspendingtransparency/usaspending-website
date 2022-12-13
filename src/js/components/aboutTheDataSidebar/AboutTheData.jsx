@@ -3,15 +3,13 @@
  * Created by Nick Torres 11/2/22
  */
 
-// Disabling max-len property for readability / editability
-/* eslint-disable max-len */
-
 import React, { useState, useEffect, useCallback } from 'react';
 import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Scrollbars } from 'react-custom-scrollbars';
 import Mousetrap from "mousetrap";
+import { isEqual } from "lodash";
 import { getDrilldownEntrySectionAndId, escapeRegExp } from 'helpers/aboutTheDataSidebarHelper';
 import AboutTheDataHeader from "./AboutTheDataHeader";
 import AboutTheDataListView from "./AboutTheDataListView";
@@ -35,10 +33,48 @@ const AboutTheData = (props) => {
     const [drilldownSection, setDrilldownSection] = useState(null);
     const [scrollbar, setScrollbar] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
+    const [searchResultsPending, setSearchResultsPending] = useState(false);
     const [searchTerm, setSearchTerm] = useState('');
     const { schema } = props;
     const [searchResults, setSearchResults] = useState(schema);
     const dispatch = useDispatch();
+
+    const { input, results } = useSelector((state) => state.aboutTheDataSidebar.search);
+
+    useEffect(() => {
+        setSearchTerm(input);
+
+        if (input === null || input?.length === 0 || isEqual(results, searchResults)) {
+            setSearchResultsPending(false);
+            setIsLoading(false);
+        }
+
+        // if there are already results on redux set the UI to the results
+        if (input?.length > 0 && !isEqual(results, searchResults)) {
+            setSearchResultsPending(true);
+            setSearchResults(results);
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    useEffect(() => {
+        if (searchResultsPending && isEqual(results, searchResults)) {
+            setSearchResultsPending(false);
+            setIsLoading(false);
+        }
+    }, [results, searchResults, searchResultsPending]);
+
+    const clearDrilldown = () => {
+        setDrilldownItemId(null);
+        setDrilldownSection(null);
+        setDrilldown(false);
+        props.clearAboutTheDataTerm();
+    };
+
+    const clearSearch = () => {
+        setSearchResults(schema);
+        dispatch(aboutTheDataActions.setAboutTheDataResults(schema));
+    };
 
     const performSearch = (term) => {
         if (!term) {
@@ -46,7 +82,7 @@ const AboutTheData = (props) => {
             return;
         }
 
-        const results = {};
+        const resultItems = {};
 
         // look for search term in each 'fields.name' in each section
         Object.entries(schema).filter(([, section]) => section.heading !== undefined).forEach(([sectionKey, section]) => {
@@ -83,16 +119,17 @@ const AboutTheData = (props) => {
                         slug: field.slug
                     });
                 });
-                results[sectionKey] = {
+                resultItems[sectionKey] = {
                     fields: markupFields,
                     heading: section.heading
                 };
             }
         });
         // set results in local scope
-        setSearchResults(results);
+        setSearchResults(resultItems);
+        clearDrilldown();
         // and in redux
-        dispatch(aboutTheDataActions.setAboutTheDataResults(results));
+        dispatch(aboutTheDataActions.setAboutTheDataResults(resultItems));
     };
 
     const measureAvailableHeight = () => {
@@ -124,13 +161,6 @@ const AboutTheData = (props) => {
         props.setAboutTheDataTerm(section.fields[index]);
     };
 
-    const clearDrilldown = () => {
-        setDrilldownItemId(null);
-        setDrilldownSection(null);
-        setDrilldown(false);
-        props.clearAboutTheDataTerm();
-    };
-
     const content = Object.keys(searchResults).length === 0 ? (
         <AboutTheDataNoResults searchTerm={searchTerm} />
     )
@@ -153,9 +183,9 @@ const AboutTheData = (props) => {
             const entry = getDrilldownEntrySectionAndId(schema, props.aboutTheDataSidebar.term.slug);
             setDrilldownItemId(entry.entryId);
             setDrilldownSection(entry.section);
+            setIsLoading(false);
         }
 
-        setIsLoading(false);
         Mousetrap.bind('esc', closeAboutTheData);
 
         window.addEventListener('resize', measureAvailableHeight);
@@ -185,7 +215,7 @@ const AboutTheData = (props) => {
                 role="dialog"
                 aria-labelledby="atd-title"
                 className="atd-sidebar">
-                {isLoading ?
+                {isLoading || searchResultsPending ?
                     <><LoadingWrapper isLoading /></>
                     :
                     <>
@@ -193,7 +223,8 @@ const AboutTheData = (props) => {
                             closeAboutTheData={closeAboutTheData}
                             searchTerm={searchTerm}
                             setSearchTerm={setSearchTerm}
-                            performSearch={performSearch} />
+                            performSearch={performSearch}
+                            clearSearch={clearSearch} />
                         <Scrollbars
                             style={{ height }}
                             renderTrackVertical={track}

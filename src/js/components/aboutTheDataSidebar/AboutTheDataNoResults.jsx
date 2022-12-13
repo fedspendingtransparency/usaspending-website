@@ -13,7 +13,7 @@ const propTypes = {
 const AboutTheDataNoResults = ({ searchTerm }) => (
     <div className="atd-no-results">
         <div className="atd-no-results__heading">
-            No results found
+            No Results Found
         </div>
         <div className="atd-no-results__text">
             No results found for "{searchTerm}."

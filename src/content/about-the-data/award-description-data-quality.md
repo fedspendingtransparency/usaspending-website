@@ -4,17 +4,16 @@ Definition Document
 as follows:
 
 -   For procurement awards: As per the Federal Procurement Data
-    System (FPDS) data dictionary, USAspending.gov provides a brief,
+    System (FPDS) data dictionary, the award description is a brief,
     summary-level, plain English description of the contract, award,
-    or modification. Additional information: the description field
-    may also include abbreviations, acronyms, or other information
-    that are not plain English, such as those identified in Office
-    of Management and Budget (OMB) policies.
+    or modification. The description field may also include abbreviations, 
+    acronyms, or other information that are not plain English, such as 
+    those identified in Office of Management and Budget (OMB) policies.
 
--   For financial assistance awards: USAspending.gov provides a
-    plain language description of the federal award purpose;
-    activities to be performed; deliverables and expected outcomes;
-    intended beneficiary(ies); and subrecipient activities if
+-   For financial assistance awards: The award description is a
+    plain-language description of the federal award purpose,
+    activities to be performed, deliverables and expected outcomes,
+    intended beneficiary(ies), and subrecipient activities if
     known/specified at the time of award.
 
 Maintaining data quality for the award description field has been
@@ -24,3 +23,4 @@ administrative codes rather than words, or lack meaningful information
 altogether. More information about award description data quality can
 be found in the Government Accountability Office (GAO) report
 [GAO-20-75](https://www.gao.gov/assets/gao-20-75.pdf).
+OMB has addressed financial assistance award description data quality in guidance for implementation of the American Rescue Plan Act ([Memorandum M-21-20](https://www.whitehouse.gov/wp-content/uploads/2021/03/M_21_20.pdf)) and the Infrastructure Investment and Jobs Act ([Memorandum M-22-12](https://www.whitehouse.gov/wp-content/uploads/2022/04/M-22-12.pdf)).

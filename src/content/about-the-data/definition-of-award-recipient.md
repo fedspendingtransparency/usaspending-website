@@ -9,4 +9,4 @@ requirements for what types of entities are eligible. Entities are
 identified on USAspending.gov by a Unique Entity Identifier (UEI)
 code.
 
-Although USAspending.gov does publish information about awards to individual persons, this information is either aggregated or redacted to prevent publication of personally identifiable information (PII). For more information about reporting requirements for assistance awards containing PII, please refer to the [Office of Management and Budget (OMB) Memorandum M-17-04](https://www.whitehouse.gov/wp-content/uploads/legacy_drupal_files/omb/memoranda/2017/m-17-04.pdf).
+Although USAspending.gov does publish information about awards to individual persons, this information is either aggregated or redacted to prevent publication of personally identifiable information (PII). For more information about reporting requirements for financial assistance awards containing PII, please refer to the [Office of Management and Budget (OMB) Memorandum M-17-04](https://www.whitehouse.gov/wp-content/uploads/legacy_drupal_files/omb/memoranda/2017/m-17-04.pdf).
