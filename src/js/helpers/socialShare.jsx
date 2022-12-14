@@ -64,7 +64,7 @@ const handlersBySocialMedium = {
 
 export const getSocialShareFn = (socialMedium, url) => {
     if (socialMedium === 'copy' && url.includes('about-the-data')) {
-        return url;
+        return () => url;
     }
     const fn = handlersBySocialMedium[socialMedium];
     if (socialMedium === 'email') {
@@ -80,6 +80,8 @@ export const handleShareOptionClick = (name, url, emailArgs) => {
     }
     else if (!url.includes('about-the-data')) {
         fn(url);
+    } else {
+        fn();
     }
 };
 

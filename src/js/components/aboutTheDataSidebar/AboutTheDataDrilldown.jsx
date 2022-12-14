@@ -21,13 +21,14 @@ const AboutTheDataDrilldown = ({
     section, name, clearDrilldown, slug
 }) => {
     const onShareClick = (optionName) => {
-        console.debug("what");
         const emailSubject = `USAspending.gov Statement About the Data: ${name}`;
         const emailArgs = {
             subject: `${emailSubject}`,
             body: `View this statement about the data on USAspending.gov: ${`${getBaseUrl('?about-the-data=')}${slug}`}`
         };
-        handleShareOptionClick(optionName, `${getBaseUrl('?about-the-data=')}${slug}`, emailArgs);
+        const placeHolder = `${getBaseUrl('?about-the-data=')}${slug}`;
+        console.debug(placeHolder);
+        handleShareOptionClick(optionName, placeHolder, emailArgs);
     };
 
     const [drilldownComponent, setDrilldownComponent] = useState(null);
@@ -63,7 +64,7 @@ const AboutTheDataDrilldown = ({
                 </div>
                 <div className="atd__share__icon">
                     <ShareIcon
-                        url={getBaseUrl(`?about-the-data=${slug}`)}
+                        url={`${getBaseUrl('?about-the-data=')}${slug}`}
                         onShareOptionClick={onShareClick}
                         colors={{ backgroundColor: "#00687d", color: "#dfe1e2" }} />
                 </div>
