@@ -12,16 +12,16 @@ import AboutTheData from 'component/aboutTheDataSidebar/AboutTheData';
 import { initialState } from 'redux/reducers/aboutTheDataSidebar/aboutTheDataReducer';
 import { mockActions, mockData, mockSearch, standardTerm } from './mockAboutTheDataSidebarFn';
 
-describe('About the Data Main Component', () => {
+xdescribe('About the Data Main Component', () => {
 
-    it('should only call populateGlossaryWithAllTerms when search term is empty', () => {
-        render(<AboutTheData {...mockActions} schema={{schema}} />);
-
-
-        expect(populateGlossaryWithAllTermsSpy.callCount).toEqual(0);
-        expect(performSearchSpy.callCount).toEqual(1);
-
-    });
+    // it('should only call populateGlossaryWithAllTerms when search term is empty', () => {
+    //     render(<AboutTheData {...mockActions} schema={{schema}} />);
+    //
+    //
+    //     expect(populateGlossaryWithAllTermsSpy.callCount).toEqual(0);
+    //     expect(performSearchSpy.callCount).toEqual(1);
+    //
+    // });
 
     // xdescribe('parseTerms', () => {
     //     it('should parse the API response into an array of Definition objects', () => {
