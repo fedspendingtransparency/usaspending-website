@@ -65,6 +65,11 @@ const AboutTheDataDrilldown = ({
                     <ShareIcon
                         url={`${getBaseUrl('?about-the-data=')}${slug}`}
                         onShareOptionClick={onShareClick}
+                        onKeyUp={(e) => {
+                            if (e.keyCode === 13) {
+                                onShareClick();
+                            }
+                        }}
                         colors={{ backgroundColor: "#00687d", color: "#dfe1e2" }} />
                 </div>
                 <div className="atd__drilldown">
