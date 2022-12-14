@@ -11,8 +11,6 @@ import AboutTheData from 'components/aboutTheDataSidebar/AboutTheData';
 import { mockActions, mockData } from './mockAboutTheDataSidebarFn';
 
 describe('About the Data Main Component', () => {
-    jest.mock("./MockAboutTheDataDrilldown", () => ({ AboutTheDataDrilldown: () => <></>}));
-
     it('Should show the About the Data with the correct sections', async () => {
         const mockShowAboutTheData = jest.fn();
         const mockSetAboutTheData = jest.fn();
