@@ -11,6 +11,9 @@ compensation) and **File F** (for subawards) are available in
 the download for this profile.
 
 *Read more about these data sources in the section below. More
-information can also be found in the [Data Sources & Methodology
-page](https://www.usaspending.gov/disaster/covid-19/data-sources) for
+information can also be found in the 
+
+[Data Sources & Methodology
+page](https://www.usaspending.gov/disaster/covid-19/data-sources)
+for
 this profile.*
