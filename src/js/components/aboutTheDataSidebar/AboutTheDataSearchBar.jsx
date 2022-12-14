@@ -33,7 +33,7 @@ const AboutTheDataSearchBar = (props) => {
     const dispatch = useDispatch();
 
     const localPerformSearch = useCallback((term) => {
-        if (term.length > 0 && term.length < 3) {
+        if (term.length >= 0 && term.length < 3) {
             // do not perform a search because the search term is too short
             // but DO allow an empty string (which indicates a request for the full list)
             // clear if there are already search results
@@ -50,8 +50,14 @@ const AboutTheDataSearchBar = (props) => {
         dispatch(aboutTheDataActions.setAboutTheDataSearchValue(e.target.value));
     };
 
+    const submitSearch = (e) => {
+        e.preventDefault();
+        setSearchTerm(searchTerm);
+        dispatch(aboutTheDataActions.setAboutTheDataSearchValue(searchTerm));
+    };
+
     useEffect(() => {
-        if (searchTerm && prevTerm !== searchTerm) {
+        if (prevTerm !== searchTerm) {
             localPerformSearch(searchTerm);
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -59,8 +65,7 @@ const AboutTheDataSearchBar = (props) => {
 
     return (
         <div className="atd-search-bar">
-            <form>
-                {/* eslint-disable-next-line react/void-dom-elements-no-children */}
+            <form onSubmit={submitSearch}>
                 <input
                     className="search-field"
                     type="text"
