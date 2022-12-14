@@ -27,7 +27,6 @@ const AboutTheDataDrilldown = ({
             body: `View this statement about the data on USAspending.gov: ${`${getBaseUrl('?about-the-data=')}${slug}`}`
         };
         const placeHolder = `${getBaseUrl('?about-the-data=')}${slug}`;
-        console.debug(placeHolder);
         handleShareOptionClick(optionName, placeHolder, emailArgs);
     };
 
