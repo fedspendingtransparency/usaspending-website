@@ -173,6 +173,7 @@ const AboutTheData = (props) => {
                     .filter((section) => section.heading !== undefined)
                     .map((section) => (
                         <AboutTheDataListView
+                            key={`section-${section.heading}`}
                             section={section}
                             selectItem={selectItem} />
                     ))}
