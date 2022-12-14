@@ -67,10 +67,13 @@ export const getSocialShareFn = (socialMedium, url) => {
         return () => url;
     }
     const fn = handlersBySocialMedium[socialMedium];
+    if (socialMedium !== 'email') {
+        return () => fn(url);
+    }
     if (socialMedium === 'email') {
         return (args) => fn(args);
     }
-    return (slug) => fn(getBaseUrl(slug));
+    return (slg) => fn(getBaseUrl(slg));
 };
 
 export const handleShareOptionClick = (name, url, emailArgs) => {
@@ -78,7 +81,7 @@ export const handleShareOptionClick = (name, url, emailArgs) => {
     if (name === 'email') {
         fn(emailArgs);
     }
-    else if (!url.includes('about-the-data')) {
+    else if (name !== 'copy') {
         fn(url);
     } else {
         fn();
