@@ -182,7 +182,7 @@
     "js-search": "^1.4.2",
     "lodash": "^4.17.12",
     "lottie-web": "^5.9.6",
-    "mapbox-gl": "^1.13.0",
+    "mapbox-gl": "^2.11.1",
     "moment": "^2.29.4",
     "mousetrap": "^1.6.1",
     "postcss": "^8.4.16",
