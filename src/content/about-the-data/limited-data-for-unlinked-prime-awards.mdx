@@ -1,0 +1,37 @@
+Prime award data on USAspending.gov come from two types of
+sources: agency financial systems (whose data are submitted in
+File C) and governmentwide award systems (whose data are extracted in Files
+D1 and D2). These two source types provide complementary data about
+federal awards. Complete information about any given award is only
+possible if that award is \"linked\" across the two source types
+through a common award identifier (also known as a "prime award
+unique key").
+
+If an award appears in agency financial systems but NOT in governmentwide
+award systems, then it will lack information such as recipient,
+location, industry, contract competition, and assistance listing (CFDA program).
+
+On the other hand, if an award appears in governmentwide award systems but NOT
+in agency financial systems, then it will lack information such as
+treasury account symbol (TAS), program activity, object class, disaster emergency
+fund code (DEFC), and outlays.
+
+In additional to a missing common award identifier, an award may also be unlinked if any of the following apply:
+
+-   The award has no activity after Fiscal Year 2017 Quarter 2.
+
+-   The award is a loan with zero or negative subsidy cost.
+
+-   The award is under the micropurchase threshold, and the agency
+    reports it in File C but not File D1/D2, or vice versa.
+
+For more information on unlinked awards, see the "Number of Unlinked
+Awards" section on this
+ <a target="_blank" rel="noopener noreferrer" href="https://www.usaspending.gov/submission-statistics/data-sources?section=unlinked_awards">Agency Submission Statistics page</a>.
+For information on the specific data elements provided in Files C, D1,
+and D2, please refer to the
+ <a target="_blank" rel="noopener noreferrer" href="https://www.usaspending.gov/data-dictionary">Data Dictionary</a>
+ or the
+documents in the
+ <a target="_blank" rel="noopener noreferrer" href="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html">DATA Act Information Model Schema (DAIMS</a>)
+(particularly the RSS and IDD diagram files).
