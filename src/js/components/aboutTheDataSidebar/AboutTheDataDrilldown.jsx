@@ -4,6 +4,8 @@
  */
 
 import React, { useEffect, useState, Suspense } from 'react';
+import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
+import { ShareIcon } from "data-transparency-ui";
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { LoadingWrapper } from "../sharedComponents/Loading";
@@ -18,6 +20,16 @@ const propTypes = {
 const AboutTheDataDrilldown = ({
     section, name, clearDrilldown, slug
 }) => {
+    const onShareClick = (optionName) => {
+        const emailSubject = `USAspending.gov Statement About the Data: ${name}`;
+        const emailArgs = {
+            subject: `${emailSubject}`,
+            body: `View this statement about the data on USAspending.gov: ${`${getBaseUrl('?about-the-data=')}${slug}`}`
+        };
+        const placeHolder = `${getBaseUrl('?about-the-data=')}${slug}`;
+        handleShareOptionClick(optionName, placeHolder, emailArgs);
+    };
+
     const [drilldownComponent, setDrilldownComponent] = useState(null);
     const [isError, setIsError] = useState(false);
 
@@ -48,6 +60,12 @@ const AboutTheDataDrilldown = ({
                     <span className="atd__back__label">
                         Back
                     </span>
+                </div>
+                <div className="atd__share__icon">
+                    <ShareIcon
+                        url={`${getBaseUrl('?about-the-data=')}${slug}`}
+                        onShareOptionClick={onShareClick}
+                        colors={{ backgroundColor: "#00687d", color: "#dfe1e2" }} />
                 </div>
                 <div className="atd__drilldown">
                     <div className="atd__overline">{ section }</div>
