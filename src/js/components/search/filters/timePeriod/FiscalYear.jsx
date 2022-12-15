@@ -52,7 +52,6 @@ export default class FiscalYear extends React.Component {
                         <span className="fy-option-label">
                             All Fiscal Years
                         </span>
-                        <GlossaryLink term="fiscal-year" />
                     </label>
                 </li>
             );
