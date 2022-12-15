@@ -23,7 +23,7 @@ const AboutTheDataDrilldown = ({
     const onShareClick = (optionName) => {
         const emailSubject = `USAspending.gov Statement About the Data: ${name}`;
         const emailArgs = {
-            subject: `${emailSubject}`,
+            subject: encodeURIComponent(`${emailSubject}`),
             body: `View this statement about the data on USAspending.gov: ${`${getBaseUrl('?about-the-data=')}${slug}`}`
         };
         const placeHolder = `${getBaseUrl('?about-the-data=')}${slug}`;
