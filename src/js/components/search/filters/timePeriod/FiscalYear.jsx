@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import GlossaryLink from "../../../sharedComponents/GlossaryLink";
 
 const propTypes = {
     year: PropTypes.string,
@@ -51,6 +52,7 @@ export default class FiscalYear extends React.Component {
                         <span className="fy-option-label">
                             All Fiscal Years
                         </span>
+                        <GlossaryLink term="fiscal-year" />
                     </label>
                 </li>
             );
