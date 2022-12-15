@@ -24,4 +24,4 @@ There are two exceptions to the three-business-day rule for contract data from F
 
 -   As per procurement regulation [(Federal Acquisition Regulation (FAR) 4.604)](https://www.acquisition.gov/far/4.604), any contract
     award made in accordance with the [FAR 6.302-2](https://www.acquisition.gov/far/6.302-2#FAR_6_302_2), or
-    pursuant to any of the authorities listed in the FAR [subpart 18.2](https://www.acquisition.gov/far/subpart-18.2#FAR_Subpart_18_2), must be submitted to FPDS within 30 days of the contract award.
+    pursuant to any of the authorities listed in the [FAR subpart 18.2](https://www.acquisition.gov/far/subpart-18.2#FAR_Subpart_18_2), must be submitted to FPDS within 30 days of the contract award.
