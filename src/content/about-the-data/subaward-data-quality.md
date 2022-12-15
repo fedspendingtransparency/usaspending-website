@@ -6,7 +6,7 @@ of Management and Budget (OMB) updated [2 CFR §
 170.105](https://www.ecfr.gov/current/title-2/subtitle-A/chapter-I/part-170/subpart-A/section-170.105) to expand
 the subaward reporting requirements to other types of financial
 assistance beyond grants and cooperative agreements, such as direct
-payments (direct appropriations), loans, subsidies, and insurance however, as of August 2022, FSRS has
+payments (direct appropriations), loans, subsidies, and insurance; however, as of August 2022, FSRS has
 not been updated to allow for reporting of these other assistance
 types.
 
@@ -14,7 +14,7 @@ While federal agency personnel do not submit subaward data themselves,
 they are required to ensure that the award terms and conditions for
 any federal award include specific language requiring subaward
 reporting (subject to certain exceptions listed in [2 CFR §
-170.110](https://www.ecfr.gov/current/title-2/subtitle-A/chapter-I/part-170/subpart-A/section-170.110) moreover, agencies are responsible for enforcement and
+170.110](https://www.ecfr.gov/current/title-2/subtitle-A/chapter-I/part-170/subpart-A/section-170.110); moreover, agencies are responsible for enforcement and
 oversight of award terms and conditions. In practice, agency internal
 controls and practices vary widely with regard to monitoring and
 ensuring compliance with subaward data reporting.
