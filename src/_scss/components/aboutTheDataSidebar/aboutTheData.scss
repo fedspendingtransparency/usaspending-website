@@ -24,6 +24,14 @@
 
         box-shadow: -3px 0px 4px rgba(0, 0, 0, 0.2);
 
+        .usda-share-icon .copy-confirmation {
+            background-color: $color-white;
+
+            svg {
+                color: $green-cool-50;
+            }
+        }
+
         .atd-sidebar {
             background-color: $cyan-60v;
             color: $color-white;
@@ -48,82 +56,68 @@
             border: none;
             margin-top: rem(8);
         }
-    }
 
-    .atd__heading {
-        font-size: $font-size-20;
-        line-height: rem(25);
-        color: $theme-color-headline-inverse;
-        font-weight: $font-semibold;
-        margin-top: rem(16);
-    }
-
-    .atd__link {
-        font-size: $font-size-16;
-        line-height: rem(24);
-        color: $gray-cool-10;
-        cursor: pointer;
-
-        &:hover {
-            color: $gray-cool-5;
-            text-decoration: underline;
+        .atd__heading {
+            font-size: $font-size-20;
+            margin-top: rem(8);
+            line-height: rem(25);
+            color: $theme-color-headline-inverse;
+            font-weight: $font-semibold;
+            margin-top: rem(16);
         }
 
-        &:active {
-            color: $gray-cool-1;
-            text-decoration: underline;
-        }
-    }
+        .atd__link {
+            font-size: $font-size-16;
+            line-height: rem(24);
+            color: $gray-cool-10;
+            cursor: pointer;
 
-    .atd__copy p {
-        font-size: $font-size-16;
-        line-height: rem(24);
-        color: $gray-cool-10;
-    }
-
-    .atd__body {
-        margin: 24px 24px 32px 24px;
-
-        .atd__download-wrapper {
-            display: none;
-
-            @media(min-width:$medium-screen) {
-                display: flex;
-                justify-content: end;
-
-                svg {
-                    &:hover {
-                        color: $gray-cool-5;
-                        text-decoration: none;
-                    }
-
-                    &:active {
-                        color: $gray-cool-1;
-                    }
-                }
+            &:hover {
+                color: $gray-cool-5;
+                text-decoration: underline;
             }
 
-            .atd__download-button {
-                font-size: rem(14);
-                font-weight: $font-semibold;
-                font-stretch: normal;
-                font-style: normal;
-                line-height: 1.5;
-                letter-spacing: normal;
-                color: $gray-cool-10;
-                vertical-align: middle;
-                &:hover {
-                    color: $gray-cool-5;
-                    text-decoration: none;
+            &:active {
+                color: $gray-cool-1;
+                text-decoration: underline;
+            }
+        }
+
+        .atd__copy p {
+            font-size: $font-size-16;
+            line-height: rem(24);
+            color: $gray-cool-10;
+        }
+
+        .atd__body {
+            margin: 24px 24px 48px 24px;
+
+            .atd__download-wrapper {
+                display: none;
+
+                @media(min-width:$medium-screen) {
+                    display: flex;
+                    justify-content: end;
+
+                    svg {
+                        &:hover {
+                            color: $gray-cool-5;
+                            text-decoration: none;
+                        }
+
+                        &:active {
+                            color: $gray-cool-1;
+                        }
+                    }
                 }
 
-                &:active {
-                    color: $gray-cool-1;
-                }
-                .atd__download-icon {
-                    width: 12px;
-                    height: 16px;
-                    margin-right: 8px;
+                .atd__download-button {
+                    font-size: rem(14);
+                    font-weight: $font-semibold;
+                    font-stretch: normal;
+                    font-style: normal;
+                    line-height: 1.5;
+                    letter-spacing: normal;
                     color: $gray-cool-10;
                     vertical-align: middle;
 
@@ -135,9 +129,27 @@
                     &:active {
                         color: $gray-cool-1;
                     }
+
+                    .atd__download-icon {
+                        width: 12px;
+                        height: 16px;
+                        margin-right: 8px;
+                        color: $gray-cool-10;
+                        vertical-align: middle;
+
+                        &:hover {
+                            color: $gray-cool-5;
+                            text-decoration: none;
+                        }
+
+                        &:active {
+                            color: $gray-cool-1;
+                        }
+                    }
                 }
             }
         }
+
         @import "noResults";
     }
 
@@ -161,15 +173,18 @@
             color: $gray-cool-5;
             text-decoration: underline;
         }
+
+        a:visited,
+        a:hover {
+            color: $gray-cool-5;
+        }
     }
-
-
     .atd__back {
         margin-bottom: rem(24);
         cursor: pointer;
         display: flex;
         align-items: center;
-
+        width: 60px;
         .usa-da-icon-angle-left {
             height: rem(16);
             width: rem(16);
@@ -183,6 +198,83 @@
             font-weight: $font-semibold;
             text-transform: uppercase;
             margin-left: rem(8);
+        }
+
+        .left-chevron-icon {
+            font-size: rem(16);
+            color: $gray-cool-10;
+        }
+    }
+
+    .atd__share__icon {
+        right: 0;
+        top: 0;
+        position: absolute;
+        align-items: center;
+        margin-top: 16px;
+        margin-right: 24px;
+        .usda-share-icon {
+            margin-right: 0;
+
+            span {
+                display: none;
+            }
+
+            span.copy-confirmation {
+                display: flex;
+
+            }
+
+            .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__list-item .usa-dt-picker__item {
+                background-color: white;
+
+                span {
+                    display: unset;
+                }
+            }
+
+            .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list {
+                min-width: 15rem;
+                margin-top: 4px;
+                padding-top: 8px;
+                padding-bottom: 8px;
+                overflow: hidden;
+                .usa-dt-picker__list-item {
+                    border-top: none;
+                    margin-bottom: 2px;
+                }
+
+                .usa-dt-picker__list-item:focus {
+                    border-top: unset;
+                }
+
+                svg {
+                    color: $gray-cool-60;
+                    width: 16px;
+                    height: 16px;
+                }
+
+                span {
+                    color: $gray-cool-60;
+                    font-weight: $font-semibold;
+                    font-size: rem(16);
+                    margin-left: 16px;
+                }
+
+                .usa-dt-picker__item {
+                    padding-left: 16px;
+                    padding-right: unset;
+                    padding-top: 8px;
+                    padding-bottom: 8px;
+                    width: 100%;
+                    display: flex;
+                    left: 0;
+
+                    &:hover {
+                        background-color: $gray-cool-3;
+                    }
+                }
+            }
         }
     }
 }

@@ -4,7 +4,7 @@
  */
 
 import schema from 'dataMapping/aboutTheDataSchema';
-import { getDrilldownEntry, getDrilldownEntrySectionAndId } from 'helpers/aboutTheDataSidebarHelper';
+import { getDrilldownEntry, getDrilldownEntrySectionAndId, escapeRegExp } from 'helpers/aboutTheDataSidebarHelper';
 
 describe('About the Data Sidebar Helpers', () => {
     it('should return the correct entry object', () => {
@@ -26,5 +26,13 @@ describe('About the Data Sidebar Helpers', () => {
         expect(entry.entryId).toEqual(3);
     });
 
+    it('should add an escape for special chars in the regexp', () => {
+        const term = '-/\\^$*+?.()|[]{}';
+        const result = escapeRegExp(term);
+        // this is a weird one; i'm open to better ideas
+        // and there are still more special chars that we could add to the list
+        // but it's doing what it needs to do for now
+        expect(result).toBe('\\-\\/\\\\\\^\\$\\*\\+\\?\\.\\(\\)\\|\\[\\]\\{\\}');
+    });
 });
 

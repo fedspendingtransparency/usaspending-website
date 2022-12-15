@@ -36,7 +36,7 @@ const AboutTheDataHeader = (props) => {
                     <Icons.Close alt="Close About The Data" />
                 </button>
             </div>
-            <h1 tabIndex={-1} className="usa-atd-header__title">About The Data</h1>
+            <h1 tabIndex={-1} className="usa-atd-header__title">About the Data</h1>
 
             <AboutTheDataSearchBar {...props} />
 
