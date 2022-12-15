@@ -41,7 +41,9 @@ export const LocationTooltip = () => (
             Location
         </h3>
         <div className="advanced-search-tt__body">
-            <p>There are two location fields for award data on USAspending.gov: 1) place of performance  and 2) recipient location . Each prime award transaction includes separate fields for the place of performance of the award as well as the business address of the award recipient. Each subaward record includes these two location fields for the prime award recipient, as well as for the subaward recipient. Spending amounts may vary based on whether the place of performance or recipient location field is selected as a location filter.</p>
+            <p>There are two location fields for award data on USAspending.gov:<br /> 1) place of performance USAspending.gov and <br /> 2) recipient location USAspending.gov.</p>
+            <p>Each prime award transaction includes separate fields for the place of performance of the award as well as the business address (recipient location) of the award recipient. Each subaward record includes these two location fields for the prime award recipient, as well as for the subaward recipient.</p>
+            <p>Spending amounts may vary based on whether the place of performance or recipient location field is selected as a location filter.</p>
         </div>
     </div>
 );
