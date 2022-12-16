@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import GlossaryLink from "../../../sharedComponents/GlossaryLink";
 
 const propTypes = {
     year: PropTypes.string,
