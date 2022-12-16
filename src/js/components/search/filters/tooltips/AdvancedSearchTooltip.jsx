@@ -7,7 +7,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { DUNS_LABEL } from 'GlobalConstants';
-import GlossaryLink from '../../../sharedComponents/GlossaryLink';
 
 export const KeyWordTooltip = () => (
     <div className="advanced-search-tt">
