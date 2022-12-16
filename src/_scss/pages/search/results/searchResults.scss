@@ -6,14 +6,10 @@
         border: 1px solid $color-gray-lighter;
         border-radius: 0 rem(5) rem(5) rem(5);
         z-index: 1;
-
         background-color: $color-white;
-
         padding: rem(30);
-
         @import "./_typography";
         @import "../../../elements/_divider";
-
         @import "./table/resultsTable";
         @import "./visualizations/visualizations";
         @import "./screens/screens";

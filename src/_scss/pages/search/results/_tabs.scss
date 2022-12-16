@@ -1,16 +1,13 @@
 .search-visualizations {
     position: relative;
-
     margin-top: rem(20);
+
     @include media($medium-screen) {
         margin-top: 0;
     }
 
     .visualization-content-wrapper {
         position: relative;
-        // position the tabs 5px higher than default in order to cover up the border radius and
-        // merge the tabs' bottom curves to the top of the visualization area
-        top: rem(-1);
     }
 
 }
@@ -45,12 +42,10 @@
 .visualization-tabs__list {
     @include flex(1 1 auto);
     @include unstyled-list;
-
     @include display(flex);
     @include justify-content(flex-start);
     @include align-items(center);
     position: relative;
-    //background-color: $color-gray-lightest;
 
     .visualization-type-tab {
         @include button-unstyled;
@@ -59,18 +54,21 @@
         @include align-items(center);
         position: relative;
         z-index: 2;
-
-        //background-color: transparent;
-        //transition: opacity 0.15s;
-        //opacity: 1;
-
-        //border: none;
+        margin-left: rem(5);
+        padding: rem(20);
+        background-color: $gray-cool-10;
         border-top-left-radius: 5px;
         border-top-right-radius: 5px;
+        border: 1px solid $color-gray-lighter;
+        border-bottom: 1px solid $gray-cool-10;
+        // special boxshadow to not cast shadow below (since the tab is supposed to be
+        // visually the same object as the rest of the visualization box)
+        box-shadow: -2px 0 2px -2px $color-shadow, 2px 0 2px -3px $color-shadow;
+        // this makes the active tab overlap the border of the container below
+        // so it appears to be connected to it
+        // this is a remnant of the original design
+        top: rem(1);
 
-        margin-left: rem(5);
-
-        padding: rem(20);
         @include media($tablet-screen) {
             padding: rem(20) rem(30);
         }
@@ -104,58 +102,10 @@
 
             @include media($tablet-screen) {
                 display: block;
-                color: $color-gray;
-                font-weight: $font-semibold;
+                color: $theme-color-body;
                 text-transform: uppercase;
                 line-height: rem(18);
                 letter-spacing: rem(2);
-            }
-        }
-
-        // moved from the active class, 12.14.22
-        background-color: $color-white;
-        border: 1px solid $color-gray-lighter;
-        border-bottom: 1px solid $color-white;
-
-        // special boxshadow to not cast shadow below (since the tab is supposed to be
-        // visually the same object as the rest of the visualization box)
-        box-shadow: -2px 0 2px -2px $color-shadow, 2px 0 2px -3px $color-shadow;
-
-        // create pseudo elements for the bottom left and right tab curves
-        //&:before, &:after {
-        //    position: absolute;
-        //    bottom: rem(3);
-        //    width: rem(5);
-        //    height: rem(5);
-        //    content: " ";
-        //}
-        //
-        //&:before {
-        //    left: rem(-5);
-        //    border-bottom-right-radius: rem(5);
-        //    border-right: 1px solid $color-gray-lighter;
-        //    border-bottom: 1px solid $color-gray-lighter;
-        //    box-shadow: 4px 4px 0 4px $color-white;
-        //}
-        //
-        //&:after {
-        //    right: rem(-5);
-        //    border-bottom-left-radius: rem(5);
-        //    border-left: 1px solid $color-gray-lighter;
-        //    border-bottom: 1px solid $color-gray-lighter;
-        //    box-shadow: -4px 4px 0 4px $color-white;
-        //}
-
-        &:hover {
-            background-color: $color-white;
-            .label {
-                color: $color-primary;
-            }
-
-            .icon {
-                svg {
-                    fill: $color-primary;
-                }
             }
         }
 
@@ -164,14 +114,16 @@
         }
 
         &.active {
+            background-color: $color-white;
+            border-bottom: none;
 
             .label {
-                color: $color-primary;
+                font-weight: $font-semibold;
             }
 
             .icon {
                 svg {
-                    fill: $color-primary;
+                    font-weight: $font-semibold;
                 }
             }
         }
@@ -190,29 +142,7 @@
         &:first-child {
             .visualization-type-tab {
                 margin-left: 0;
-                //&.active {
-                //    &:before {
-                //        // create a special box to cover the artifacts that result from where the
-                //        // visualization section's rounded border and the tab border meet.
-                //        // this only applies to the leftmost tab
-                //        width: rem(5);
-                //        height: rem(5);
-                //        border-radius: 0;
-                //        left: rem(-1);
-                //        bottom: rem(-5);
-                //        background-color: $color-white;
-                //        border: none;
-                //        box-shadow: none;
-                //        border-left: 1px solid $color-gray-lighter;
-                //    }
-                //}
             }
-        }
-
-        &:last-child {
-            // require 10px margin on the rightmost tab item to provide horizontal spacing between
-            // the end of the tab list and the end of the visualization content area
-            //margin-right: 10px;
         }
     }
 }
