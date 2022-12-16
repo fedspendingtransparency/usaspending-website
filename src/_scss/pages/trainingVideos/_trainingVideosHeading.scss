@@ -1,0 +1,98 @@
+.training-videos__hero {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  background-color: $theme-color-7;
+  padding: $global-padding * 6 0;
+
+  @media (min-width: $medium-screen) {
+    padding: $global-padding * 4 0;
+    
+  }
+
+  .grid-content {
+    @media (min-width: $medium-screen){
+      margin: 0 $global-margin * 16;
+    }
+    @media (min-width: $large-screen){
+      margin: 0 $global-margin * 18.25;
+    }
+
+    .training-videos__column-one {
+      display: none;
+
+      @media (min-width: $medium-screen) {
+        display: flex;
+        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+      }
+
+      .training-img-container {
+        display: flex;
+        justify-content: center;
+
+      }
+
+      .training-img {
+        margin: auto;
+
+      }
+    }
+
+    .training-videos__column-two {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      justify-content: center;
+
+      @media (min-width: $tablet-screen) {
+        margin: 0 $global-margin * 15.5;
+      }
+      @media (min-width: $medium-screen){
+        margin: unset;
+        padding: $global-padding * 7 0 $global-padding * 7 $global-padding * 7.5;
+      }
+      @media (min-width: $large-screen){
+        padding: $global-padding * 8 0 $global-padding * 8 $global-padding * 13.75;
+      }
+
+      .training-videos__column-two-container {
+
+        .training-videos__column-two-title {
+          margin-bottom: $global-margin;
+          line-height: 1.5;
+          font-size: $font-size-16;
+          color: $gray-60;
+        }
+
+        .training-videos__column-two-header {
+          color: $gray-90;
+          font-size: $font-size-48;
+          line-height: 1.25;
+          font-weight: $font-semibold;
+          margin-bottom: $global-margin * 2;
+
+          @media (max-width: $medium-screen) {
+            font-weight: $font-semibold;
+            line-height: 1.25;
+          }
+        }
+
+        .training-videos__column-two-body {
+          line-height: 1.5;
+          font-size: $font-size-20;
+          margin-bottom: $global-margin * 3;
+          color: $gray-60;
+        }
+
+        .training-videos__column-two-share-icon {
+          width: rem(17.5);
+          height: rem(20);
+          color: $blue-50;
+        }
+      }
+    }
+  }
+}

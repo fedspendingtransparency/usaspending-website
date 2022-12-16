@@ -8,7 +8,7 @@ import { connect } from 'react-redux';
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFacebookSquare, faLinkedin, faGithub, faTwitter } from "@fortawesome/free-brands-svg-icons";
+import { faFacebookSquare, faLinkedin, faGithub, faTwitter, faYoutube } from "@fortawesome/free-brands-svg-icons";
 
 import { showModal } from 'redux/actions/modal/modalActions';
 
@@ -174,6 +174,11 @@ const Footer = ({
                         </ul>
                         <ul className="social-links">
                             <li className="social-link">
+                                <button onClick={generateOnClick("https://www.youtube.com/channel/UCyDn83O-0XC98H3TCV-VCGQ")} title="Youtube">
+                                    <FontAwesomeIcon icon={faYoutube} size="1x" color="#D4D4D4" />
+                                </button>
+                            </li>
+                            <li className="social-link">
                                 <button onClick={generateOnClick("https://twitter.com/usaspending/")} title="Twitter">
                                     <FontAwesomeIcon icon={faTwitter} size="1x" color="#D4D4D4" />
                                 </button>
@@ -189,7 +194,7 @@ const Footer = ({
                                 </button>
                             </li>
                             <li className="social-link">
-                                <button onClick={generateOnClick("https://www.linkedin.com/company/united-states-department-of-the-treasury-bureau-of-public-debt/")} title="LinkedIn">
+                                <button onClick={generateOnClick("https://www.linkedin.com/company/bureau-of-the-fiscal-service/")} title="LinkedIn">
                                     <FontAwesomeIcon icon={faLinkedin} size="1x" color="#D4D4D4" />
                                 </button>
                             </li>

@@ -9,7 +9,6 @@ import { Picker } from 'data-transparency-ui';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { startCase, isEqual } from "lodash";
 
-import { AngleLeft } from 'components/sharedComponents/icons/Icons';
 import { getSocialShareFn, socialShareOptions } from 'helpers/socialShare';
 
 import DefinitionTabs from './DefinitionTabs';
@@ -149,7 +148,7 @@ export default class GlossaryDefinition extends React.Component {
                     className="glossary-back"
                     onClick={this.clickedBack}>
                     <div className="back-content">
-                        <AngleLeft alt="Back" />
+                        <FontAwesomeIcon icon="chevron-left" className="left-chevron-icon" alt="Back" />
                         <div className="label">
                             Back
                         </div>

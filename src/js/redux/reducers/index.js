@@ -27,6 +27,7 @@ import agencyReducer from './agency/agencyReducer';
 import covid19Reducer from './covid19/covid19Reducer';
 import aboutTheDataReducer from './aboutTheData';
 import googleAnalyticsReducer from './googleAnalytics/googleAnalyticsReducer';
+import aboutTheDataSidebarReducer from './aboutTheDataSidebar/aboutTheDataReducer';
 
 const appReducer = combineReducers({
     filters: filtersReducer,
@@ -54,7 +55,8 @@ const appReducer = combineReducers({
     agency: agencyReducer,
     covid19: covid19Reducer,
     aboutTheData: aboutTheDataReducer,
-    googleAnalytics: googleAnalyticsReducer
+    googleAnalytics: googleAnalyticsReducer,
+    aboutTheDataSidebar: aboutTheDataSidebarReducer
 });
 
 export default appReducer;

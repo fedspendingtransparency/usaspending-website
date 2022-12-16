@@ -60,7 +60,7 @@ export default class GlossarySearchResults extends React.Component {
             const startingLetter = result.term.charAt(0).toUpperCase();
             // check if we already have the character
             if (Object.hasOwnProperty.call(groups, startingLetter)) {
-                // we do, add it to to the list
+                // we do, add it to the list
                 const groupValues = concat([], groups[startingLetter].terms, result);
                 groups[startingLetter].terms = sortBy(groupValues, ['term']);
             }
