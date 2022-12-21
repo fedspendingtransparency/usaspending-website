@@ -1,11 +1,11 @@
 /**
- * HighlightedVideo.jsx
+ * FeaturedVideo.jsx
  * Created by Brian Petway 12/05/22
  */
 
 import React from 'react';
 
-const HighlightedVideo = () => (
+const FeaturedVideo = () => (
     <section className="highlighted-video__section">
         <div className="grid-content">
             HIGHLIGHTED VIDEO SECTION
@@ -13,4 +13,4 @@ const HighlightedVideo = () => (
     </section>
 );
 
-export default HighlightedVideo;
+export default FeaturedVideo;
