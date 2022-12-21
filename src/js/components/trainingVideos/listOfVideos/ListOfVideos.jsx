@@ -4,34 +4,28 @@
  */
 
 import React from 'react';
+import { FlexGridRow, FlexGridCol } from "data-transparency-ui";
+import VideoCard from '../videoCard/VideoCard';
+
 
 const ListOfVideos = ({ videos }) => {
-    videos.sort((a, b) => {
-        const nameA = a.publishedAt();
-        const nameB = b.publishedAt();
-        if (nameA < nameB) {
-            return -1;
-        }
-        if (nameA > nameB) {
-            return 1;
-        }
-
-        // names must be equal
-        return 0;
-    });
-
-    return (
-        <section className="list-of-videos__section">
-            <div className="grid-content">
-                {videos.forEach((video) => {
-                    return (
-
-                    )
-                })}
-                LIST OF VIDEOS SECTION
-            </div>
-        </section>
-    );
+    console.log(videos);
+    return (<section className="list-of-videos__section">
+        <div className="grid-content">
+            <FlexGridRow hasGutter gutterSize="lg">
+                {videos.map((video, index) =>
+                    (<FlexGridCol
+                        width={3}
+                        desktop={3}
+                        className="list-of-videos__video">
+                        <VideoCard
+                            key={`video-${index}`}
+                            thumbnailUrl={video.thumbnails.standard.url}
+                            description={video.description} />
+                    </FlexGridCol>))}
+            </FlexGridRow>
+        </div>
+    </section>);
 };
 
 export default ListOfVideos;

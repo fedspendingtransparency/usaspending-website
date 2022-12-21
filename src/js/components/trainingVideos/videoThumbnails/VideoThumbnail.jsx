@@ -14,13 +14,16 @@ const propTypes = {
     thumbnailUrl: ''
 };
 
-const VideoThumbnail = ({ showPlay, showDuration, thumbnailUrl }) => (
-    <>
-        <img src={thumbnailUrl} alt="Video thumbnail placeholder alt text" />
-        {showPlay && <PlayButton />}
-        {showDuration && <Duration />}
-    </>
-);
+const VideoThumbnail = ({ showPlay, showDuration, thumbnailUrl }) => {
+    console.log(thumbnailUrl)
+    return (
+        <>
+            <img src={thumbnailUrl} alt="VideoCard thumbnail placeholder alt text" />
+            {showPlay && <PlayButton />}
+            {showDuration && <Duration />}
+        </>
+    );
+}
 
 VideoThumbnail.propTypes = propTypes;
 

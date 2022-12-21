@@ -2,20 +2,24 @@ import React from "react";
 import CardContainer from "../../sharedComponents/commonCards/CardContainer";
 import CardHero from "../../sharedComponents/commonCards/CardHero";
 import CardBody from "../../sharedComponents/commonCards/CardBody";
+import VideoThumbnail from "../videoThumbnails/VideoThumbnail";
 
-const Video = () => {
+const VideoCard = ({ thumbnailUrl, description }) => (
     <CardContainer variant="outline" size="md">
-        <CardHero fill="#3333a3" variant="expanded" img="img/homepage-featured-content/homepage-feature-covid-19.webp" />
+        <CardHero
+            variant="expanded"
+            thumbnail>
+            <VideoThumbnail thumbnailUrl={thumbnailUrl} />
+        </CardHero>
         <CardBody
-            overline="COVID-19 Spending"
             headline={
                 <div>
-                    Track federal spending in response to the COVID-19 pandemic
+                    {description.title}
                 </div>
             }>
         </CardBody>
     </CardContainer>
-}
+);
 
 
-export default Video;
+export default VideoCard;
