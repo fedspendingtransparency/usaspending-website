@@ -15,7 +15,8 @@ ul.toggle-buttons {
             margin-bottom: 0;
             padding: 0 rem(15);
             z-index: 9000;
-            .usda-glossary-link {
+            @import 'components/glossaryLink';
+            .usda-glossary-link svg {
                 margin-left: rem(6);
             }
         }

@@ -22,6 +22,7 @@ const propTypes = {
 
 export default class Glossary extends React.Component {
     constructor(props) {
+        console.log('glossary cmpnt');
         super(props);
 
         this.state = {
@@ -96,6 +97,7 @@ export default class Glossary extends React.Component {
     }
 
     render() {
+        console.log('glossary render');
         let content = (<GlossarySearchResults
             {...this.props}
             updateContentHeight={this.updateContentHeight} />);
