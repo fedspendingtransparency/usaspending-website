@@ -32,11 +32,6 @@ const aboutTheDataReducer = (state = initialState, action) => {
                 display: false
             });
         }
-        case 'TOGGLE_ABOUT_THE_DATA': {
-            return Object.assign({}, state, {
-                display: !state.display
-            });
-        }
         case 'SET_ABOUT_THE_DATA_SEARCH_VALUE': {
             const search = Object.assign({}, state.search, {
                 input: action.value
