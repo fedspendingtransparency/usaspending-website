@@ -9,7 +9,6 @@ import VideoCard from '../videoCard/VideoCard';
 
 
 const ListOfVideos = ({ videos }) => {
-    console.log(videos);
     return (
         <section className="list-of-videos__section">
             <div className="grid-content">
