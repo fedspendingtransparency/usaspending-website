@@ -11,12 +11,11 @@ const VideoMetadata = {
         this.publishedAt = data.snippet.publishedAt || '';
         this.duration = data.contentDetails.duration || '';
         this.thumbnails = data.snippet.thumbnails || '';
+        this._url = data.url || '';
+    },
+    get url() {
+        return `https://www.youtube.com/watch?v=${this.id}`;
     }
-    //
-    // get name() {
-    //     const abbreviation = this._abbreviation ? ` (${this._abbreviation})` : '';
-    //     return `${this._name}${abbreviation}`;
-    // }
 };
 
 export default VideoMetadata;

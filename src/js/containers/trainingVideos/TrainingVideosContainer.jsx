@@ -1,13 +1,15 @@
 /**
- * AboutTheDataContainer.jsx
+ * TrainingVideosContainer.jsx
  * Created by Andrea Blackwell 12/20/2022
  */
 
+// eslint-disable-next-line no-unused-vars
 import React from 'react';
-import metadata from 'dataMapping/videoLanding/playListMetadata';
+import metadata from 'dataMapping/trainingVideos/playListMetadata';
 import VideoMetadata from 'models/v2/video/VideoMetadata';
+import TrainingVideosPage from "../../components/trainingVideos/TrainingVideosPage";
 
-export const VideoLandingContainer = (props) => {
+const TrainingVideosContainer = () => {
     const videos = {};
     let featuredVideo = {};
 
@@ -23,6 +25,12 @@ export const VideoLandingContainer = (props) => {
     });
 
     console.log(videos);
-    return (<>{props.children}</>);
+
+    return (
+        <TrainingVideosPage
+            featuredVideo={featuredVideo}
+            videos={videos} />);
 };
+
+export default TrainingVideosContainer;
 

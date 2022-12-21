@@ -10,27 +10,24 @@ import TrainingVideosHeading from "./trainingVideosHeading/TrainingVideosHeading
 import HighlightedVideo from "./highlightedVideo/HighlightedVideo";
 import TrainingVideosFilters from "./trainingVideosFilters/TrainingVideosFilters";
 import ListOfVideos from "./listOfVideos/ListOfVideos";
-import { VideoLandingContainer } from "../../containers/videoLanding/VideoLandingContainer";
 
 require('pages/trainingVideos/trainingVideos.scss');
 
 const TrainingVideosPage = () => (
-    <VideoLandingContainer>
-        <PageWrapper
-            pageName="TrainingVideos"
-            classNames="training-videos-page"
-            title="Training Videos"
-            metaTagProps={{ ...homePageMetaTags }}>
-            <main
-                id="main-content"
-                className="main-content training-videos-content">
-                <TrainingVideosHeading />
-                <HighlightedVideo />
-                <TrainingVideosFilters />
-                <ListOfVideos />
-            </main>
-        </PageWrapper>
-    </VideoLandingContainer>
+    <PageWrapper
+        pageName="TrainingVideos"
+        classNames="training-videos-page"
+        title="Training Videos"
+        metaTagProps={{ ...homePageMetaTags }}>
+        <main
+            id="main-content"
+            className="main-content training-videos-content">
+            <TrainingVideosHeading />
+            <HighlightedVideo />
+            <TrainingVideosFilters />
+            <ListOfVideos />
+        </main>
+    </PageWrapper>
 );
 
 export default TrainingVideosPage;
