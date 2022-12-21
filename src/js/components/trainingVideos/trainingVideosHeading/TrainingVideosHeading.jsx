@@ -35,7 +35,6 @@ const TrainingVideosHeading = () => (
                 </div>
             </FlexGridCol>
         </FlexGridRow>
-
     </section>
 );
 
