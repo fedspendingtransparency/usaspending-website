@@ -28,6 +28,7 @@ import ExtentCompetedContainer from 'containers/search/filters/ExtentCompetedCon
 import DEFCheckboxTree from 'containers/search/filters/def/DEFCheckboxTree';
 
 import {
+    TimePeriodTooltip,
     KeyWordTooltip,
     DEFTooltip
 } from 'components/search/filters/tooltips/AdvancedSearchTooltip';
@@ -45,7 +46,8 @@ const staticFilters = {
             tooltip: <KeyWordTooltip />
         },
         {
-            title: 'Time Period'
+            title: 'Time Period',
+            tooltip: <TimePeriodTooltip />
         },
         {
             title: 'Award Type'
