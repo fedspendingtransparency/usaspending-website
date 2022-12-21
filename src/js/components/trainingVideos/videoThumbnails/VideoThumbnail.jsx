@@ -9,21 +9,21 @@ import PlayButton from "./PlayButton";
 import Duration from "./Duration";
 
 const propTypes = {
-    showPlay: true,
-    showDuration: true,
-    thumbnailUrl: ''
+    showPlay: PropTypes.bool,
+    showDuration: PropTypes.bool,
+    thumbnailUrl: PropTypes.string,
+    title: PropTypes.string
 };
 
-const VideoThumbnail = ({ showPlay, showDuration, thumbnailUrl }) => {
-    console.log(thumbnailUrl)
-    return (
-        <>
-            <img src={thumbnailUrl} alt="VideoCard thumbnail placeholder alt text" />
-            {showPlay && <PlayButton />}
-            {showDuration && <Duration />}
-        </>
-    );
-}
+const VideoThumbnail = ({
+    showPlay, showDuration, thumbnailUrl, title
+}) => (
+    <>
+        <img src={thumbnailUrl} alt={title} />
+        {showPlay && <PlayButton />}
+        {showDuration && <Duration />}
+    </>
+);
 
 VideoThumbnail.propTypes = propTypes;
 
