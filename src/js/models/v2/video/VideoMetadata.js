@@ -5,13 +5,12 @@
 
 const VideoMetadata = {
     populate(data) {
-        this.name = data.name || '';
-        this.title = data.title || '';
-        this.description = data.description || '';
-        // eslint-disable-next-line camelcase
         this.id = data.id || '';
-        this.duration = data.duration || '';
-        this.thumbnail = data.thumbnail || '';
+        this.title = data.snippet.title || '';
+        this.description = data.snippet.description || '';
+        this.publishedAt = data.snippet.publishedAt || '';
+        this.duration = data.contentDetails.duration || '';
+        this.thumbnails = data.snippet.thumbnails || '';
     }
     //
     // get name() {
