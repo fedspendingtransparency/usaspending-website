@@ -5,6 +5,4 @@ completeness, consistency, and quality of specific data elements
 over time. More recent fiscal years tend to have higher quality
 spending data than older fiscal years.
 
-Click here to download a spreadsheet with information on when specific data elements became optional or required in:
-- [Files A, B, C, and FABS](\h)
-- [Files D1, D2, E, and F](\h)
+

@@ -62,8 +62,14 @@ const handlersBySocialMedium = {
     copy: (slug) => Analytics.event({ category: slug, action: 'copy link', label: `${getBaseUrl(slug)}` })
 };
 
-export const getSocialShareFn = (socialMedium) => {
+export const getSocialShareFn = (socialMedium, url) => {
+    if (socialMedium === 'copy' && url.includes('about-the-data')) {
+        return () => url;
+    }
     const fn = handlersBySocialMedium[socialMedium];
+    if (socialMedium !== 'email' && url?.includes('about-the-data')) {
+        return () => fn(url);
+    }
     if (socialMedium === 'email') {
         return (args) => fn(args);
     }
@@ -71,12 +77,14 @@ export const getSocialShareFn = (socialMedium) => {
 };
 
 export const handleShareOptionClick = (name, url, emailArgs) => {
-    const fn = getSocialShareFn(name);
+    const fn = getSocialShareFn(name, url);
     if (name === 'email') {
         fn(emailArgs);
     }
-    else {
+    else if (name !== 'copy') {
         fn(url);
+    } else {
+        fn();
     }
 };
 

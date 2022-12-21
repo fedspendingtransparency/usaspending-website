@@ -1,0 +1,31 @@
+.training-videos-page {
+  @import 'all';
+  @import "layouts/default/default";
+
+  .training-videos-content {
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    .grid-content {
+      margin: 0 rem(16);
+      max-width: $homepage-max-width;
+      align-self: center;
+      @media (min-width: $tablet-screen) {
+        margin: 0 rem(32);
+      }
+      @media (min-width: 1400px) {
+        margin: 0 $grid-column;
+      }
+    }
+  }
+
+  @import "trainingVideosHeading";
+  @import "highlightedVideo";
+  @import "trainingVideosFilters";
+  @import "listOfVideos";
+}
+
+
+
