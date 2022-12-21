@@ -1,3 +1,8 @@
+/**
+ * playlist.js
+ * Created by Andrea Blackwell 12/20/22
+ **/
+
 export const videos = [
     "AEKL2LOkRZY",
     "8-r7aSvl8tY",

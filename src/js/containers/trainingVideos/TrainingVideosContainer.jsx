@@ -12,9 +12,10 @@ import TrainingVideosPage from "../../components/trainingVideos/TrainingVideosPa
 const TrainingVideosContainer = () => {
     const videos = {};
     let featuredVideo = {};
+    const featuredVideoId = 'b7SDGhSZ5wM';
 
     metadata.items.forEach((item) => {
-        if (item.id === 'b7SDGhSZ5wM') {
+        if (item.id === featuredVideoId) {
             featuredVideo = Object.create(VideoMetadata);
             featuredVideo.populate(item);
         } else {
@@ -23,8 +24,6 @@ const TrainingVideosContainer = () => {
             videos[item.id] = videoMetadata;
         }
     });
-
-    console.log(videos);
 
     return (
         <TrainingVideosPage
