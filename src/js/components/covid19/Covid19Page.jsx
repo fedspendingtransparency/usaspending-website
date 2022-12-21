@@ -100,7 +100,7 @@ const Covid19Page = ({ loading }) => {
             ]}>
             <LoadingWrapper isLoading={loading}>
                 <Helmet>
-                    <link href="https://api.mapbox.com/mapbox-gl-js/v1.13.0/mapbox-gl.css" rel="stylesheet" />
+                    <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css" rel="stylesheet" />
                 </Helmet>
                 <main id="main-content" className="main-content usda__flex-row">
                     <div className="sidebar">
