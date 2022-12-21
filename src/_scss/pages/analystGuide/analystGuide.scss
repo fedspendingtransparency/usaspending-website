@@ -36,6 +36,9 @@
 
       .usda-share-icon .copy-confirmation {
         background-color: $color-white;
+        @media(max-width:$medium-screen) {
+          transform: translateX(120px);
+        }
         svg {
           color: $green-cool-50;
         }
@@ -106,7 +109,7 @@
         @include button-link;
         padding: 0px 20px 0px 20px;
         margin-top: 10px;
-        margin-bottom: 6px;
+        margin-bottom: 8px;
         @media (min-width: $medium-screen) {
           padding: 0px 20px 7px 20px;
           margin-top: 10px;
