@@ -19,7 +19,7 @@ const propTypes = {
 
 require('pages/trainingVideos/trainingVideos.scss');
 
-const TrainingVideosPage = ({featuredVideo, videos}) => (
+const TrainingVideosPage = ({ featuredVideo, videos }) => (
     <PageWrapper
         pageName="TrainingVideos"
         classNames="training-videos-page"
