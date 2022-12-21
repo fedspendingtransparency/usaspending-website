@@ -84,7 +84,6 @@ export const mockRecipient = {
     dot_certified_disadvantage: "f",
     self_certified_small_disadvantaged_business: null,
     historically_underutilized_business_zone: "f",
-    small_disadvantaged_business: null,
     the_ability_one_program: null,
     historically_black_college: "f",
     c1862_land_grant_college: "f",
