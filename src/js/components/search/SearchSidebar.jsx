@@ -30,7 +30,8 @@ import DEFCheckboxTree from 'containers/search/filters/def/DEFCheckboxTree';
 import {
     TimePeriodTooltip,
     KeyWordTooltip,
-    DEFTooltip
+    DEFTooltip,
+    LocationTooltip
 } from 'components/search/filters/tooltips/AdvancedSearchTooltip';
 
 import { Filter as FilterIcon } from 'components/sharedComponents/icons/Icons';
@@ -59,7 +60,8 @@ const staticFilters = {
             title: 'Treasury Account Symbol (TAS)'
         },
         {
-            title: 'Location'
+            title: 'Location',
+            tooltip: <LocationTooltip />
         },
         {
             title: 'Recipient'
