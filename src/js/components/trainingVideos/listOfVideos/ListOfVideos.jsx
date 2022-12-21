@@ -21,6 +21,9 @@ const ListOfVideos = ({ videos }) => {
                         <VideoCard
                             key={`video-${index}`}
                             thumbnailUrl={video.thumbnails.standard.url}
+                            title={video.title}
+                            duration={video.duration}
+                            publishedAt={video.publishedAt}
                             description={video.description} />
                     </FlexGridCol>))}
             </FlexGridRow>
