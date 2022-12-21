@@ -100,7 +100,7 @@
                 width: rem(140);
 
                 .usa-dt-picker__button-text {
-                    font-size: rem(16);
+                    font-size: $base-font-size;
                     white-space: nowrap;
                     margin-right: rem(6);
                     color: #555555;
