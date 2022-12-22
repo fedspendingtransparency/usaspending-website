@@ -18,6 +18,10 @@
       @media (min-width: 1400px) {
         margin: 0 $grid-column;
       }
+      // this is to make the fa play icon show up
+      svg {
+        overflow: visible;
+      }
     }
   }
 

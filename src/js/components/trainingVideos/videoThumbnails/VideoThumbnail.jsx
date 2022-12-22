@@ -23,10 +23,12 @@ const VideoThumbnail = ({
     <FlexGridRow>
         <FlexGridCol width={12}>
             <img src={thumbnailUrl} title={title} alt={title} />
-            <div className="list-of-videos__thumbnail-overlays">
+            <FlexGridRow className="list-of-videos__play-overlay">
                 {showPlay && <PlayButton />}
+            </FlexGridRow>
+            <FlexGridRow className="list-of-videos__duration-overlay">
                 {showDuration && <Duration duration={duration} />}
-            </div>
+            </FlexGridRow>
         </FlexGridCol>
     </FlexGridRow>
 );

@@ -11,7 +11,7 @@ const propTypes = {
 };
 
 const Duration = ({ duration }) => (
-    <div className="overlay-time-status">
+    <div className="overlay-duration">
         <span className="duration-text">{duration}</span>
     </div>
 );

@@ -26,7 +26,7 @@ const VideoCard = ({ thumbnailUrl, title, duration }) => (
             <VideoThumbnail
                 thumbnailUrl={thumbnailUrl}
                 duration={duration}
-                showPlay={false}
+                showPlay
                 showDuration />
         </CardHero>
         <CardBody
