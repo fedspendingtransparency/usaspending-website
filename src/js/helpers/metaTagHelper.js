@@ -344,7 +344,7 @@ export const trainingVideosMetaTags = {
     og_url: `${productionURL}training-videos`,
     og_title: 'Training Videos | USAspending',
     og_description:
-        'Find training videos for USAspending.gov.',
+        'Watch training videos to learn about federal spending and how to find data using features such as Advanced Search, profile pages, downloads, and APIs.',
     og_site_name: siteName,
     og_image: `${productionURL}${imgDirectory}${facebookImage}`
 };

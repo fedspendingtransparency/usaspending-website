@@ -14,6 +14,7 @@ import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import DateRange from './DateRange';
 import AllFiscalYears from './AllFiscalYears';
 import DateRangeError from './DateRangeError';
+import GlossaryLink from "../../../sharedComponents/GlossaryLink";
 
 const defaultProps = {
     activeTab: 'fy',
@@ -310,7 +311,7 @@ export default class TimePeriod extends React.Component {
                                 aria-label="Fiscal Year"
                                 title="Fiscal Year"
                                 onClick={this.toggleFilters}>
-                                Fiscal Year
+                                Fiscal Year<GlossaryLink term="fiscal-year-fy" />
                             </button>
                         </li>
                         <li>
