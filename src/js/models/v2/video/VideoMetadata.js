@@ -7,7 +7,7 @@ const VideoMetadata = {
     populate(data) {
         this.id = data.id || '';
         this.title = data.snippet.title || '';
-        this.description = data.snippet.description || '';
+        this._description = data.snippet.description || '';
         this._publishedAt = data.snippet.publishedAt || '';
         this._duration = data.contentDetails.duration || '';
         this.thumbnails = data.snippet.thumbnails || '';
@@ -16,7 +16,6 @@ const VideoMetadata = {
     get url() {
         return `https://www.youtube.com/watch?v=${this.id}`;
     },
-
     get publishedAt() {
         const options = {
             weekday: 'long', year: 'numeric', month: 'short', day: 'numeric'
@@ -25,7 +24,6 @@ const VideoMetadata = {
         const formattedDate = date.toLocaleDateString('en-us', options).replace(/^\w+,\s*/g, '');
         return formattedDate;
     },
-
     get duration() {
         const str = this._duration.toUpperCase();
         let hours = ''; let min = ''; let sec = '';
@@ -69,6 +67,36 @@ const VideoMetadata = {
         }
 
         return `${hours}${min}${sec}`;
+    },
+    get description() {
+        if (this._description.indexOf('CHAPTERS') > -1) {
+            const regex = /\d+:\d\d/g;
+            const found = this._description.match(regex);
+            const timeInSecs = [];
+            found.forEach((item) => {
+                let sec = 0;
+                let newItem = item.split(':');
+                newItem = newItem.reverse();
+                for (let i = 0; i < newItem.length; i++) {
+                    if (i === 0) {
+                        sec += parseInt(newItem[i], 10);
+                    } else {
+                        sec += parseInt(newItem[i], 10) * 60;
+                    }
+                }
+                timeInSecs.push(sec);
+            });
+
+            // find the timestamp in the description
+            let newDescription = this._description;
+            for (let j = 0; j < found.length; j++) {
+                newDescription = newDescription.replace(found[j], `<a href="https://www.youtube.com/watch?v=${this.id}&t=${timeInSecs[j]}s">${found[j]}</a>`);
+            }
+
+            return newDescription;
+        }
+
+        return this._description;
     }
 };
 
