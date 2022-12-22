@@ -1,10 +1,20 @@
-import React from "react";
+/**
+ * Duration.jsx
+ * Created by Brian Petway 12/22/22
+ */
 
-const Duration = () => (
-    <>
-        <p>mm:ss</p>
-    </>
+import React from "react";
+import PropTypes from "prop-types";
+
+const propTypes = {
+    duration: PropTypes.string
+};
+
+const Duration = ({ duration }) => (
+    <div className="overlay-time-status">
+        <span className="duration-text">{duration}</span>
+    </div>
 );
 
-
+Duration.propTypes = propTypes;
 export default Duration;

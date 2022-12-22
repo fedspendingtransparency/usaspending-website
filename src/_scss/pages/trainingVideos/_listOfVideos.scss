@@ -14,7 +14,37 @@
       padding-top: 0;
 
       img {
+        position: relative;
         border-radius: rem(8) rem(8) 0 0;
+      }
+
+      .list-of-videos__thumbnail-overlays {
+        display: block;
+        .overlay-time-status {
+          background-color: #1b1b1b;
+          color: white;
+          border-radius: 4px;
+          position: absolute;
+          bottom: 0;
+          right: 0;
+          margin: 2px;
+          padding: 3px 4px;
+          height: 20px;
+          font-size: 2rem;
+          line-height: 2rem;
+          flex-direction: row;
+          align-items: center;
+          display: inline-flex;
+
+          .duration-text {
+            max-height: 2rem;
+            overflow: hidden;
+            margin: 0;
+            padding: 0;
+            border: 0;
+            background: transparent;
+          }
+        }
       }
     }
   }

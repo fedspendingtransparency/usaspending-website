@@ -4,6 +4,7 @@
  */
 
 import React from "react";
+import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 import PropTypes from "prop-types";
 import PlayButton from "./PlayButton";
 import Duration from "./Duration";
@@ -19,13 +20,16 @@ const propTypes = {
 const VideoThumbnail = ({
     showPlay, showDuration, thumbnailUrl, title, duration
 }) => (
-    <>
-        <img src={thumbnailUrl} alt={title} />
-        {showPlay && <PlayButton />}
-        {showDuration && <Duration duration={duration} />}
-    </>
+    <FlexGridRow>
+        <FlexGridCol width={12}>
+            <img src={thumbnailUrl} title={title} alt={title} />
+            <div className="list-of-videos__thumbnail-overlays">
+                {showPlay && <PlayButton />}
+                {showDuration && <Duration duration={duration} />}
+            </div>
+        </FlexGridCol>
+    </FlexGridRow>
 );
 
 VideoThumbnail.propTypes = propTypes;
-
 export default VideoThumbnail;

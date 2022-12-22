@@ -7,7 +7,6 @@ import React from 'react';
 import { FlexGridRow, FlexGridCol } from "data-transparency-ui";
 import VideoCard from '../videoCard/VideoCard';
 
-
 const ListOfVideos = ({ videos }) => (
     <section className="list-of-videos__section">
         <div className="grid-content">
