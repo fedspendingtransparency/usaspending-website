@@ -153,7 +153,7 @@ export default class SearchPage extends React.Component {
                             { fullSidebar }
                         </div>
                         <Helmet>
-                            <link href="https://api.mapbox.com/mapbox-gl-js/v1.13.0/mapbox-gl.css" rel="stylesheet" />
+                            <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css" rel="stylesheet" />
                         </Helmet>
                         <SearchResults
                             filters={this.props.filters}
