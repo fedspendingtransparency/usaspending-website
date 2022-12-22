@@ -2,24 +2,24 @@
  * TrainingVideo-test.js
  * Created by Andrea Blackwell 12/21/22
  */
-
+import React from "react";
 import VideoMetadata from 'models/v2/video/VideoMetadata';
 import metadata from 'dataMapping/trainingVideos/playListMetadata';
 
 const sampleVideo = Object.create(VideoMetadata);
 sampleVideo.populate(metadata.items[0]);
 
-describe('TrainingVideo', () => {
+describe('Video Metadata model', () => {
     it ('should contain a full URL to a YouTube video', () => {
         expect(sampleVideo.url).toEqual('https://www.youtube.com/watch?v=AEKL2LOkRZY');
     });
 
     it ('should include a title', () => {
-        expect(sampleVideo.title).not.toEqual('');
+        expect(sampleVideo.title).toEqual('TUTORIAL: How to Use USAspending API Endpoints');
     });
 
-    it ('should include a description', () => {
-        expect(sampleVideo.description).not.toEqual('');
+    it ('should include a description with chapter timestamps converted to links', () => {
+        expect(sampleVideo.description).toMatch('v=AEKL2LOkRZY&t=188s');
     });
 
     it ('should include a published at date', () => {
