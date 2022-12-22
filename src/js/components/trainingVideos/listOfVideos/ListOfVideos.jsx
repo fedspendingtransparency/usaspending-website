@@ -14,6 +14,7 @@ const ListOfVideos = ({ videos }) => (
             <FlexGridRow hasGutter gutterSize="lg">
                 {videos.map((video, index) => (
                     <FlexGridCol
+                        key={index}
                         width={3}
                         desktop={3}
                         className="list-of-videos__video">

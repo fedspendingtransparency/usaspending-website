@@ -24,9 +24,6 @@ const TrainingVideosContainer = () => {
         }
     });
 
-    console.log(featuredVideo);
-    console.log(videos);
-
     return (
         <TrainingVideosPage
             featuredVideo={featuredVideo}
