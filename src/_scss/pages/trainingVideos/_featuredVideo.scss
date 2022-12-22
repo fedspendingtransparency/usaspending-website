@@ -1,7 +1,7 @@
 .featured-video__section {
     margin: 16px $grid-column;
 
-    @media(max-width: $medium-screen) {
+    @media(max-width: $large-screen) {
       margin: 16px 0;
     }
 
@@ -18,7 +18,7 @@
     }
 
     .usa-dt-flex-grid__row {
-      @media(max-width: $medium-screen) {
+      @media(max-width: $tablet-screen) {
         flex-direction: column-reverse;
 
         .featured-video__text {
