@@ -12,16 +12,17 @@ const propTypes = {
     showPlay: PropTypes.bool,
     showDuration: PropTypes.bool,
     thumbnailUrl: PropTypes.string,
-    title: PropTypes.string
+    title: PropTypes.string,
+    duration: PropTypes.string
 };
 
 const VideoThumbnail = ({
-    showPlay, showDuration, thumbnailUrl, title
+    showPlay, showDuration, thumbnailUrl, title, duration
 }) => (
     <>
         <img src={thumbnailUrl} alt={title} />
         {showPlay && <PlayButton />}
-        {showDuration && <Duration />}
+        {showDuration && <Duration duration={duration} />}
     </>
 );
 

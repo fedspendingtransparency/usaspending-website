@@ -18,12 +18,16 @@ const propTypes = {
     publishedAt: PropTypes.string
 };
 
-const VideoCard = ({ thumbnailUrl, title }) => (
+const VideoCard = ({ thumbnailUrl, title, duration }) => (
     <CardContainer variant="outline" size="md">
         <CardHero
             variant="expanded"
             thumbnail>
-            <VideoThumbnail thumbnailUrl={thumbnailUrl} />
+            <VideoThumbnail
+                thumbnailUrl={thumbnailUrl}
+                duration={duration}
+                showPlay
+                showDuration />
         </CardHero>
         <CardBody
             headline={

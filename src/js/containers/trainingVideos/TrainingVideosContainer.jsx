@@ -3,7 +3,6 @@
  * Created by Andrea Blackwell 12/20/2022
  */
 
-// eslint-disable-next-line no-unused-vars
 import React from 'react';
 import metadata from 'dataMapping/trainingVideos/playListMetadata';
 import VideoMetadata from 'models/v2/video/VideoMetadata';
