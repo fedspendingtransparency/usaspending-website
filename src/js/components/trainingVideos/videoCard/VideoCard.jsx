@@ -15,11 +15,14 @@ const propTypes = {
     title: PropTypes.string,
     description: PropTypes.string,
     duration: PropTypes.string,
-    publishedAt: PropTypes.string
+    publishedAt: PropTypes.string,
+    onClick: PropTypes.func
 };
 
-const VideoCard = ({ thumbnailUrl, title, duration }) => (
-    <CardContainer variant="outline" size="md">
+const VideoCard = ({
+    thumbnailUrl, title, duration, onClick, description
+}) => (
+    <CardContainer variant="outline" size="md" onClick={onClick}>
         <CardHero
             variant="expanded"
             thumbnail>
@@ -34,7 +37,8 @@ const VideoCard = ({ thumbnailUrl, title, duration }) => (
                 <div>
                     {title}
                 </div>
-            }>
+            }
+            text={description}>
         </CardBody>
     </CardContainer>
 );

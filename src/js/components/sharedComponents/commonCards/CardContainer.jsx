@@ -11,6 +11,7 @@ const propTypes = {
     size: PropTypes.string, // sm, md, or lg
     fill: PropTypes.string,
     height: PropTypes.number,
+    onClick: PropTypes.func,
     className: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.object
@@ -18,9 +19,9 @@ const propTypes = {
 };
 
 const CardContainer = ({
-    variant = '', size = "md", children, fill, height, className = ""
+    variant = '', size = "md", children, fill, height, className = "", onClick
 }) => (
-    <div className={`card-column ${className}`}>
+    <div className={`card-column ${className}`} onClick={onClick} role="presentation">
         <div className={`${variant} ${size} card-container`} style={{ backgroundColor: `${fill}`, height: `${height}` }}>
             { children }
         </div>
