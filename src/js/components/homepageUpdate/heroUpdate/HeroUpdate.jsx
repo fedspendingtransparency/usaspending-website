@@ -8,7 +8,6 @@ import { Link } from "react-router-dom";
 import { throttle } from 'lodash';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
-
 import Analytics from 'helpers/analytics/Analytics';
 import AnimatedHeading from './AnimatedHeading';
 
@@ -16,6 +15,7 @@ const HeroUpdate = () => {
     const [isPaused, setIsPaused] = useState(false);
     const [windowWidth, setWindowWidth] = useState(0);
     const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth >= mediumScreen);
+
     const trackSearchLink = () => Analytics.event({
         category: 'Homepage',
         action: 'Link',
@@ -44,7 +44,7 @@ const HeroUpdate = () => {
         }, 50);
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-    }, []);
+    }, [windowWidth]);
 
     return (
         <section className="homepage-hero">
