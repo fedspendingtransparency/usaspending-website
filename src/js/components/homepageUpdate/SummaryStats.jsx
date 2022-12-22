@@ -78,7 +78,8 @@ const SummaryStats = () => {
         if (latestFy && latestPeriod) {
             fetchBudgetFunctions();
         }
-    }, [fetchBudgetFunctions, latestFy, latestPeriod]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [latestFy, latestPeriod]);
 
     return (
         <section className="summary-stats">
