@@ -19,8 +19,11 @@ const ListOfVideos = ({ videos }) => {
                     {videos.map((video, index) => (
                         <FlexGridCol
                             key={index}
-                            width={3}
-                            desktop={3}
+                            width={4}
+                            desktopxl={4}
+                            desktop={6}
+                            tablet={12}
+                            mobile={12}
                             className="list-of-videos__video">
                             <VideoCard
                                 key={`video-${index}`}
