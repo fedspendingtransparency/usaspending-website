@@ -54,7 +54,7 @@
       .list-of-videos__duration-overlay {
         justify-content: flex-end;
         .overlay-duration {
-          background-color: #1b1b1b;
+          background-color: $gray-90;
           color: $gray-cool-1;
           border-radius: 4px;
           position: absolute;
