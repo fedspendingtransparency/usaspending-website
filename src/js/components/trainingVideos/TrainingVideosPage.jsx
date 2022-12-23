@@ -9,7 +9,6 @@ import PageWrapper from "../sharedComponents/PageWrapper";
 import { homePageMetaTags } from "../../helpers/metaTagHelper";
 import TrainingVideosHeading from "./trainingVideosHeading/TrainingVideosHeading";
 import FeaturedVideo from "./featuredVideo/FeaturedVideo";
-import TrainingVideosFilters from "./trainingVideosFilters/TrainingVideosFilters";
 import ListOfVideos from "./listOfVideos/ListOfVideos";
 
 const propTypes = {
