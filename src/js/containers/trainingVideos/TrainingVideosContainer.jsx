@@ -24,6 +24,8 @@ const TrainingVideosContainer = () => {
         }
     });
 
+    // remove this is it's in descending order bc it's already in ascending order
+    videos.sort((v1, v2) => new Date(v1._publishedAt) - new Date(v2._publishedAt));
     return (
         <TrainingVideosPage
             featuredVideo={featuredVideo}

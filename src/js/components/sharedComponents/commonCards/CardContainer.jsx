@@ -12,6 +12,7 @@ const propTypes = {
     fill: PropTypes.string,
     height: PropTypes.number,
     onClick: PropTypes.func,
+    onKeyUp: PropTypes.func,
     className: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.object
@@ -19,9 +20,10 @@ const propTypes = {
 };
 
 const CardContainer = ({
-    variant = '', size = "md", children, fill, height, className = "", onClick
+    variant = '', size = "md", children, fill, height, className = "", onClick, onKeyUp
 }) => (
-    <div className={`card-column ${className}`} onClick={onClick} role="presentation">
+    // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+    <div className={`card-column ${className}`} onClick={onClick} role="presentation" tabIndex="0" onKeyUp={onKeyUp}>
         <div className={`${variant} ${size} card-container`} style={{ backgroundColor: `${fill}`, height: `${height}` }}>
             { children }
         </div>

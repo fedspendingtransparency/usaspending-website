@@ -9,12 +9,32 @@
 
   .list-of-videos__video {
     margin-bottom: rem(32);
+    @media (max-width:$medium-screen) {
+      display:flex;
+      justify-content:center;
+    }
+    .card-column {
+      max-width: 288px;
+
+      @media(min-width:$tablet-screen) {
+        max-width: 704px;
+      }
+
+      @media(min-width: $medium-screen) {
+        max-width: 551.98px;
+      }
+
+      @media(min-width: 1400px) {
+        max-width: 424px;
+      }
+    }
 
     .card__hero.expanded {
       padding-top: 0;
 
       img {
         border-radius: rem(8) rem(8) 0 0;
+        width: 100%;
       }
     }
     .card__body .headline {

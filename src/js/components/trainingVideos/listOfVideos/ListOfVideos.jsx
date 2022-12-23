@@ -12,6 +12,12 @@ const ListOfVideos = ({ videos }) => {
     const onClick = () => {
         console.debug("clicked card!!!");
     };
+
+    const onKeyUp = (e) => {
+        if (e.keyCode === 13) {
+            onClick();
+        }
+    };
     return (
         <section className="list-of-videos__section">
             <div className="grid-content">
@@ -26,13 +32,15 @@ const ListOfVideos = ({ videos }) => {
                             mobile={12}
                             className="list-of-videos__video">
                             <VideoCard
+                                tabIndex="0"
                                 key={`video-${index}`}
                                 thumbnailUrl={video.thumbnails.standard.url}
                                 title={video.title}
                                 duration={video.duration}
                                 publishedAt={video.publishedAt}
                                 description={video.description}
-                                onClick={onClick} />
+                                onClick={onClick}
+                                onKeyUp={onKeyUp} />
                         </FlexGridCol>))
                     }
                 </FlexGridRow>
