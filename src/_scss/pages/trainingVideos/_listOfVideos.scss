@@ -26,8 +26,7 @@
           left: 50%;
           transform: translate(-50%, -50%);
           .play-button-bg {
-            height: 48px;
-            width: 96px;
+            height: 56px;
             padding: 12px 48px;
             border-radius: 8px;
             // not using color var here so the opacity won't apply to the icon
@@ -36,8 +35,7 @@
             justify-content: center;
             align-items: center;
             @media(min-width: $tablet-screen) {
-              height: 88px;
-              width: 168px;
+              height: 80px;
             }
             .play-button__icon {
               height: 32px;
@@ -57,22 +55,22 @@
         justify-content: flex-end;
         .overlay-duration {
           background-color: #1b1b1b;
-          color: white;
+          color: $gray-cool-1;
           border-radius: 4px;
           position: absolute;
           bottom: 0;
           right: 0;
           margin: 2px;
           padding: 3px 4px;
-          height: 20px;
-          font-size: 2rem;
-          line-height: 2rem;
+          height: 16px;
+          font-size: $font-size-16;
+          line-height: $font-size-16;
           display: inline-flex;
           flex-direction: row;
           align-items: center;
 
           .duration-text {
-            max-height: 2rem;
+            max-height: $font-size-16;
             overflow: hidden;
             margin: 0;
             padding: 0;

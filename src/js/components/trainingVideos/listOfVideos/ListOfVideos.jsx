@@ -4,21 +4,27 @@
  */
 
 import React from 'react';
+import PropTypes from "prop-types";
 import { FlexGridRow, FlexGridCol } from "data-transparency-ui";
 import VideoCard from '../videoCard/VideoCard';
+
+const propTypes = {
+    videos: PropTypes.array
+};
 
 const ListOfVideos = ({ videos }) => (
     <section className="list-of-videos__section">
         <div className="grid-content">
             <FlexGridRow hasGutter gutterSize="lg">
-                {videos.map((video, index) => (
+                {videos.map((video) => (
                     <FlexGridCol
-                        key={index}
-                        width={3}
-                        desktop={3}
+                        key={video.id}
+                        desktop={4}
+                        tablet={6}
+                        mobile={12}
                         className="list-of-videos__video">
                         <VideoCard
-                            key={`video-${index}`}
+                            key={video.id}
                             thumbnailUrl={video.thumbnails.standard.url}
                             title={video.title}
                             duration={video.duration}
@@ -30,4 +36,5 @@ const ListOfVideos = ({ videos }) => (
         </div>
     </section>);
 
+ListOfVideos.propTypes = propTypes;
 export default ListOfVideos;
