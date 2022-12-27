@@ -12,7 +12,7 @@ const FeaturedVideo = ({ featuredVideo }) => (
         {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
         <div
             className="grid-content"
-            tabIndex="0"
+            tabIndex={0}
             onKeyDown={() => console.log("launch modal here")}
             onClick={() => console.log("launch modal here")}>
             <FlexGridRow>
