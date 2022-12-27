@@ -10,7 +10,11 @@ import VideoThumbnail from "../videoThumbnails/VideoThumbnail";
 const FeaturedVideo = ({ featuredVideo }) => (
     <section className="featured-video__section">
         {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-        <div className="grid-content" onClick={() => console.log("launch modal here")}>
+        <div
+            className="grid-content"
+            tabIndex="0"
+            onKeyDown={() => console.log("launch modal here")}
+            onClick={() => console.log("launch modal here")}>
             <FlexGridRow>
                 <FlexGridCol width={5} desktop={5} tablet={5} mobile={12}>
                     <div className="featured-video__text">
