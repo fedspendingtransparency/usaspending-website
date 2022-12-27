@@ -21,7 +21,7 @@ const propTypes = {
 };
 
 const VideoCard = ({
-    thumbnailUrl, title, duration, onClick, description, onKeyUp
+    thumbnailUrl, title, duration, onClick, description, onKeyUp, publishedAt
 }) => (
     <CardContainer variant="outline" size="md" onClick={onClick} tabIndex="0" onKeyUp={onKeyUp}>
         <CardHero
@@ -40,6 +40,9 @@ const VideoCard = ({
                 </div>
             }
             text={description}>
+            <div className="video-card__metadiv">
+                {publishedAt}
+            </div>
         </CardBody>
     </CardContainer>
 );

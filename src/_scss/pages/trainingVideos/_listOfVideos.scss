@@ -51,5 +51,11 @@
       font-size: $base-font-size;
       overflow: hidden;
     }
+
+    div.video-card__metadiv {
+      color: $gray-60;
+      font-size: rem(14);
+      text-align: left;
+    }
   }
 }
