@@ -18,11 +18,11 @@
     }
 
     .usa-dt-flex-grid__row {
-      @media(max-width: $tablet-screen - 1) {
+      @media(max-width: $medium-screen - 1) {
         flex-direction: column-reverse;
 
         .featured-video__text {
-          width: 100%;
+          width: 10%;
           border-radius: 0 0 8px 8px;
           margin-top: -8px;
         }
@@ -33,6 +33,10 @@
       }
     }
 
+    .feature-video__img{
+      height: 100%;
+    }
+
     .featured-video__text {
       display: flex;
       flex-direction: column;
@@ -41,6 +45,12 @@
       padding: 64px 40px;
       height: 100%;
       align-content: center;
+      @media(min-width: $large-screen){
+        padding: 40px 40px;
+      }
+      @media(min-width: $m-large-screen){
+        padding: 64px 40px;
+      }
     }
 
     .featured-video__headline {
