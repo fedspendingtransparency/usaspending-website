@@ -132,6 +132,7 @@ export default class CFDAViz extends React.Component {
                         name: `${x.cfdaNumber} ${x.cfdaTitle}`,
                         onClick: onDropdownClick
                     }));
+                console.log(options)
                 return (<Picker
                     options={options}
                     dropdownDirection="right"

@@ -5,6 +5,8 @@
 
 import React from 'react';
 import PropTypes from "prop-types";
+import { Picker } from 'data-transparency-ui';
+
 import PageWrapper from "../sharedComponents/PageWrapper";
 import { homePageMetaTags } from "../../helpers/metaTagHelper";
 import TrainingVideosHeading from "./trainingVideosHeading/TrainingVideosHeading";
@@ -31,7 +33,6 @@ const TrainingVideosPage = ({ featuredVideo, videos }) => (
             className="main-content training-videos-content">
             <TrainingVideosHeading />
             <FeaturedVideo featuredVideo={featuredVideo} />
-            <TrainingVideosFilters />
             <ListOfVideos videos={videos} />
         </main>
     </PageWrapper>

@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from "prop-types";
-import { FlexGridRow, FlexGridCol } from "data-transparency-ui";
+import {FlexGridRow, FlexGridCol, Picker} from "data-transparency-ui";
 import VideoCard from '../videoCard/VideoCard';
 
 const propTypes = {
@@ -15,6 +15,19 @@ const propTypes = {
 const ListOfVideos = ({ videos }) => (
     <section className="list-of-videos__section">
         <div className="grid-content">
+            <FlexGridRow>
+                <FlexGridCol width={12}>
+                    <Picker
+                        className="video-sort"
+                        options={[{ name: 'Newest', value: "Newest"},
+                            { name: 'Oldest', value: "Oldest" },
+                            { name: 'Shortest', value: "Shortest" },
+                            { name: 'Longest', value: "Longest" }]}
+                        dropdownDirection="right"
+                        backgroundColor="#ffffff"
+                        selectedOption="Newest" />
+                </FlexGridCol>
+            </FlexGridRow>
             <FlexGridRow hasGutter gutterSize="lg">
                 {videos.map((video) => (
                     <FlexGridCol
