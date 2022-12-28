@@ -15,10 +15,10 @@ const TrainingVideosHeading = () => {
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
 
     const onShareClick = (name) => {
-        const emailSubject = `USAspending.gov Analyst's Guide`;
+        const emailSubject = `USAspending.gov Training Video`;
         const emailArgs = {
             subject: `${emailSubject}`,
-            body: `Interested in learning how to effectively use Federal Spending Data? Check out #USAspending Analyst Guide! ${getBaseUrl(slug)}`
+            body: `Interested in learning how to effectively use Federal Spending Data? Check out #USAspending About The Data! ${getBaseUrl(slug)}`
         };
         handleShareOptionClick(name, slug, emailArgs);
     };

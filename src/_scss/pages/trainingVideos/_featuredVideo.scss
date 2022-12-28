@@ -22,7 +22,7 @@
         flex-direction: column-reverse;
 
         .featured-video__text {
-          width: 10%;
+          width: 100%;
           border-radius: 0 0 8px 8px;
           margin-top: -8px;
         }
@@ -32,7 +32,6 @@
         }
       }
     }
-
     .feature-video__img{
       height: 100%;
     }
@@ -46,7 +45,7 @@
       height: 100%;
       align-content: center;
       @media(min-width: $large-screen){
-        padding: 40px 40px;
+        padding: 64px 40px;
       }
       @media(min-width: $m-large-screen){
         padding: 64px 40px;
@@ -69,5 +68,36 @@
 
   img {
     border-radius: 0 8px 8px 0;
+  }
+  .featured-video__inline{
+    display:flex;
+    flex-direction: inherit;
+  }
+  .training-video-feature__column-share-icon{
+    height: rem(24);
+    width: rem(24);
+    display: left;
+    padding-left: rem(185);
+    span{
+      display: none;
+    }
+    .usa-dt-picker__dropdown-container{
+      height: rem(24);
+      width: rem(24);
+      span{
+        display: inherit;
+      }
+    }
+    .usa-dt-picker__button{
+      padding: 0 0 0 0;
+      margin-right: 0;
+
+    }
+    button{
+      margin-left: 0;
+    }
+    .usda-share-icon{
+      margin-left: 0;
+    }
   }
 }
