@@ -1,6 +1,35 @@
-.video-sort {
-  padding: rem(32) 0;
-  font-size: $font-size-24;
-  text-align: center;
+.list-of-videos__sort {
   justify-content: end;
+  .usa-dt-flex-grid__col-12 {
+    width: unset;
+  }
+
+  .video-sort {
+    margin: rem(32) 0;
+    font-size: $font-size-24;
+    text-align: center;
+    border-radius: 4px;
+    border: solid 2px #dfe1e2;
+    background-color: #fff;
+    color: #565c65;
+
+    .usa-dt-picker__button {
+      padding: 16px;
+      margin: 0;
+    }
+  }
+
+  .usa-dt-picker__list {
+    z-index: 999;
+    border-radius: 0 0 4px 4px;
+
+    button.usa-dt-picker__item {
+      padding-top: 8px;
+      padding-bottom: 8px;
+    }
+  }
+
+  .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__list-item {
+    border-top: none;
+  }
 }

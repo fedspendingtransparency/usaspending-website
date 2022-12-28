@@ -15,10 +15,9 @@ const propTypes = {
 const ListOfVideos = ({ videos }) => (
     <section className="list-of-videos__section">
         <div className="grid-content">
-            <FlexGridRow>
+            <FlexGridRow className="list-of-videos__sort">
                 <FlexGridCol width={12}>
-                    <Picker
-                        className="video-sort"
+                    <div className="video-sort">Sort By: <Picker
                         options={[{ name: 'Newest', value: "Newest"},
                             { name: 'Oldest', value: "Oldest" },
                             { name: 'Shortest', value: "Shortest" },
