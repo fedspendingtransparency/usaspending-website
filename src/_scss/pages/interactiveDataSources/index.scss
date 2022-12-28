@@ -18,11 +18,13 @@
   .main-content,
   .footer-container {
     width: 100%;
+
     .usda-page-header__toolbar {
       .usda-download-btn .usda-button {
         padding: 0;
         margin: 0;
       }
+
       .usda-download-btn span,
       .usda-share-icon span {
         margin-top: rem(5);
@@ -30,79 +32,89 @@
     }
   }
 
-  .usda-page-header__toolbar
-    .usa-dt-picker
-    .usa-dt-picker__dropdown-container
-    .usa-dt-picker__list
-    .usa-dt-picker__item {
-    padding-left: 25px;
+  .usda-page-header__toolbar .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item {
+    padding-left: 16px;
   }
 
-  .usda-page-header__toolbar
-    .usda-fy-picker__container
-    .usa-dt-picker
-    .usa-dt-picker__dropdown-container
-    .usa-dt-picker__list {
+  .usda-page-header__toolbar .usda-fy-picker__container .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list {
     width: 86%;
   }
 
   .usda-page-header__toolbar .usda-share-icon .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item.active {
     background: unset;
     border: unset;
-
     &:hover {
       background-color: $gray-cool-3;
     }
   }
+  .usda-page-header .usda-page-header__mobile-top .usda-share-icon .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item.active {
+    background: unset;
+    border: unset;
+    &:hover {
+      background-color: $gray-cool-3;
+    }
+  }
+
   .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list {
     min-width: 15rem;
     margin-top: 4px;
     padding-top: 4px;
     padding-bottom: 0;
     overflow: hidden;
+
     .usa-dt-picker__list-item {
-        border-top: none;
-        margin-bottom: 2px;
+      border-top: none;
+      margin-bottom: 2px;
     }
 
     .usa-dt-picker__list-item:focus {
-        border-top: unset;
+      border-top: unset;
     }
 
     svg {
-        color: $gray-cool-60;
-        width: 16px;
-        height: 16px;
+      color: $gray-cool-60;
+      width: 16px;
+      height: 16px;
     }
 
     span {
-        color: $gray-cool-60;
-        font-weight: $font-semibold;
-        font-size: rem(16);
-        margin-left: 16px;
+      color: $gray-cool-60;
+      font-weight: $font-semibold;
+      font-size: rem(16);
+      margin-left: 16px;
     }
 
     .usa-dt-picker__item {
-        padding-left: 16px;
-        padding-right: unset;
-        padding-top: 8px;
-        padding-bottom: 8px;
-        width: 100%;
-        display: flex;
-        left: 0;
-      
-        &:hover {
-          background-color: $gray-cool-3;
-        }
-    }    
-}
+      padding-left: 16px;
+      padding-right: unset;
+      padding-top: 8px;
+      padding-bottom: 8px;
+      width: 100%;
+      display: flex;
+      left: 0;
+
+      &:hover {
+        background-color: $gray-cool-3;
+      }
+    }
+  }
+
+  .copy-confirmation {
+    background-color: $color-white;
+    
+    svg {
+      color: $green-cool-50;
+    }
+  }
 
   .usda__flex-row {
     @include display(flex);
     @include flex-wrap(wrap);
     width: 100%;
+
     .usda__flex-col {
       @include flex(1 1 auto);
+
       .body__content {
         width: 100%; // Fixes an IE Flexbox bug
       }
@@ -116,20 +128,26 @@
     @include flex-wrap(wrap);
     max-width: rem(1600);
     margin: auto;
+
     ul {
       padding: 0;
+
       li {
         list-style: none;
       }
+
       &.interactives-guide_bullet-points {
         padding-top: 8px;
         padding-left: 5px;
+
         li {
-            list-style: disc;
+          list-style: disc;
         }
       }
     }
+
     @import "./sidebar";
+
     .body {
       @include display(flex);
       width: 100%;
@@ -137,41 +155,56 @@
       padding: 0px;
       margin: rem(20) rem(20) rem(20) 0;
       background: $color-white;
+
       @media (min-width: $tablet-screen) {
         width: 70%;
       }
+
       @media (max-width: $medium-screen) {
         margin: rem(20) rem(20) rem(20) rem(20);
       }
+
       .usda-message {
         &.usda-message_error {
           background-color: $color-white;
         }
       }
+
       .body__content {
         margin-top: rem(32);
+
         .table-wrapper {
           overflow-x: auto;
         }
       }
+
       .intro-padded__content {
         @import "./_scrollerOverlayCard.scss";
         padding: 2.5% 8% 0% 8%;
-        h1, h2, h3 {
+
+        h1,
+        h2,
+        h3 {
           margin-top: 0;
         }
+
         @media (max-width: $tablet-screen) {
           padding: 2.5% 8% 8% 8%;
         }
       }
+
       .body-padded__content {
         @import "./_scrollerOverlayCard.scss";
         margin-top: 0;
         padding: 0 10% 10% 10%;
-        h1, h2, h3 {
+
+        h1,
+        h2,
+        h3 {
           margin-top: 0;
         }
       }
+
       .usda-section__container {
         @include display(flex);
 
@@ -189,6 +222,7 @@
       @import './_introSection.scss';
       @import './_aboutSection.scss';
       @import './_dataSourcesTitles.scss';
+
       .default-note {
         @include profile-page-wrap;
       }
@@ -197,28 +231,34 @@
         display: flex;
         align-items: center;
         height: 100%;
+
         &--center {
           justify-content: center;
         }
+
         &--left {
           justify-content: flex-start;
         }
+
         &--right {
           justify-content: flex-end;
         }
       }
+
       // to overlay animations on top of each other
       .top-animation {
         position: absolute;
         z-index: 100;
       }
+
       .bottom-animation {
         position: absolute;
         z-index: 50;
       }
 
       /* Fixes known sizing inconsistency bug for lottie web on safari browsers */
-      .top-animation, .bottom-animation {
+      .top-animation,
+      .bottom-animation {
         width: 100%;
       }
     }
