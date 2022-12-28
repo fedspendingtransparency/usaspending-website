@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { isEqual } from 'lodash';
+import Analytics from 'helpers/analytics/Analytics';
 
 const propTypes = {
     item: PropTypes.object,
@@ -89,6 +90,10 @@ export default class ResultItem extends React.Component {
 
     clickedLink() {
         this.props.selectTerm(this.props.item);
+        Analytics.event({
+            category: 'Glossary',
+            action: `Clicked ${this.props.item}`
+        });
     }
 
     render() {
