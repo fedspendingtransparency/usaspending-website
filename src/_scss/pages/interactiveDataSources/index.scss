@@ -53,10 +53,19 @@
     &:hover {
       background-color: $gray-cool-3;
     }
+
+  }
+
+  .usda-page-header__toolbar .usda-share-icon .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item svg, .usda-page-header__toolbar .usda-fy-picker__container .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item svg, .usda-page-header .usda-page-header__mobile-top .usda-share-icon .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item svg {
+    margin-right: 0;
+  }
+
+  .usda-page-header__toolbar .usda-share-icon .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item span, .usda-page-header__toolbar .usda-fy-picker__container .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item span {
+    margin-left: 16px;
   }
 
   .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list {
-    min-width: 15rem;
+    min-width: 148px;
     margin-top: 4px;
     padding-top: 4px;
     padding-bottom: 0;
@@ -86,7 +95,7 @@
 
     .usa-dt-picker__item {
       padding-left: 16px;
-      padding-right: unset;
+      padding-right: 16px;
       padding-top: 8px;
       padding-bottom: 8px;
       width: 100%;
