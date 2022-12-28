@@ -9,6 +9,7 @@ import { faShareAlt } from '@fortawesome/free-solid-svg-icons';
 import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 
 const TrainingVideosHeading = () => (
+
     <section className="training-videos__hero">
         <FlexGridRow className="grid-content">
             <FlexGridCol
@@ -30,7 +31,9 @@ const TrainingVideosHeading = () => (
                         <div className="training-videos__column-two-title">RESOURCES</div>
                         <div className="training-videos__column-two-header">Training Videos</div>
                         <div className="training-videos__column-two-body">Learn how to use USAspending.gov and understand the data. Subscribe to our YouTube channel for the latest videos!</div>
-                        <FontAwesomeIcon className="training-videos__column-two-share-icon" icon={faShareAlt} />
+                        <div className="training-video__column-share-icon">
+                            <FontAwesomeIcon className="training-videos__column-two-share-icon" icon={faShareAlt} onClick={() => window.navigator.clipboard.writeText('https://www.usaspending.gov/training-videos')} />
+                        </div>
                     </div>
                 </div>
             </FlexGridCol>
