@@ -92,15 +92,7 @@ export default class ResultItem extends React.Component {
         this.props.selectTerm(this.props.item);
         Analytics.event({
             category: 'Homepage',
-            action: 'Link',
-            label: 'explorer'
-        });
-    }
-
-    handleGlossryAnayltic() {
-        Analytics.event({
-            category: 'Homepage',
-            action: 'Link',
+            action: `Clicked ${this.props.item}`,
             label: 'explorer'
         });
     }
