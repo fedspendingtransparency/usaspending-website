@@ -23,11 +23,11 @@ describe('TrainingVideo', () => {
     });
 
     it ('should include a published at date', () => {
-        expect(sampleVideo.publishedAt).not.toEqual('');
+        expect(sampleVideo.publishedAt).toEqual('Dec 5, 2022');
     });
 
     it ('should include a duration', () => {
-        expect(sampleVideo.duration).not.toEqual('');
+        expect(sampleVideo.duration).toEqual('9:58');
     });
 
     it ('should include a default thumbnail', () => {
