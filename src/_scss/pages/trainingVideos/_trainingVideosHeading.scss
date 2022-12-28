@@ -95,6 +95,21 @@
         .training-video__column-share-icon{
           height: rem(24);
           width: rem(24);
+          display: left;
+          span{
+            display: none;
+          }
+          .usa-dt-picker__dropdown-container{
+            span{
+              display: inherit;
+            }
+          }
+          button{
+            margin-left: 0;
+          }
+          .usda-share-icon{
+            margin-left: 0;
+          }
         }
       }
     }
