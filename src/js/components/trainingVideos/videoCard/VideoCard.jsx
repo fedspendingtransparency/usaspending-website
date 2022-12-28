@@ -22,30 +22,43 @@ const propTypes = {
 
 const VideoCard = ({
     thumbnailUrl, title, duration, onClick, description, onKeyUp, publishedAt
-}) => (
-    <CardContainer variant="outline" size="md" onClick={onClick} tabIndex="0" onKeyUp={onKeyUp}>
-        <CardHero
-            variant="expanded"
-            thumbnail>
-            <VideoThumbnail
-                thumbnailUrl={thumbnailUrl}
-                duration={duration}
-                showPlay
-                showDuration />
-        </CardHero>
-        <CardBody
-            headline={
-                <div>
-                    {title}
-                </div>
-            }
-            text={description}>
-            <div className="video-card__metadiv">
-                {publishedAt}
-            </div>
-        </CardBody>
-    </CardContainer>
-);
+}) => {
+    
+    return (
+        <>
+            <CardContainer variant="outline" size="md" onClick={onClick} tabIndex="0" onKeyUp={onKeyUp}>
+                <CardHero
+                    variant="expanded"
+                    thumbnail>
+                    <VideoThumbnail
+                        thumbnailUrl={thumbnailUrl}
+                        duration={duration}
+                        showPlay
+                        showDuration />
+                </CardHero>
+                <CardBody
+                    headline={
+                        <div>
+                            {title}
+                        </div>
+                    }
+                    text={description}>
+                    <div className="video-card__metadiv">
+                        {publishedAt}
+                    </div>
+                </CardBody>
+            </CardContainer>
+            <TrainingVideoModal
+                mounted={isModalOpen}
+                hideModal={() => setIsModalOpen(false)}
+                thumbnailUrl={video.thumbnails.standard.url}
+                title={video.title}
+                duration={video.duration}
+                publishedAt={video.publishedAt}
+                description={video.description} />
+        </>
+    );
+}
 
 VideoCard.propTypes = propTypes;
 

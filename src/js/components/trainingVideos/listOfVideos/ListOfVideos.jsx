@@ -3,18 +3,20 @@
  * Created by Brian Petway 12/05/22
  */
 
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from "prop-types";
 import { FlexGridRow, FlexGridCol } from "data-transparency-ui";
 import VideoCard from '../videoCard/VideoCard';
+import TrainingVideoModal from "../../sharedComponents/TrainingVideoModal";
 
 const propTypes = {
     videos: PropTypes.array
 };
 
 const ListOfVideos = ({ videos }) => {
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const onClick = () => {
-        console.debug("clicked card!!!");
+        setIsModalOpen(true);
     };
 
     const onKeyUp = (e) => {

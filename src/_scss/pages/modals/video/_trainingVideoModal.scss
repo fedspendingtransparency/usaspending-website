@@ -1,0 +1,33 @@
+.training-video-modal {
+    background: unset;
+    .usa-dt-modal__header {
+        // background-color: rgba(255,255,255,0.05);
+        justify-content: left;
+        align-items: center;
+        .training__back__label {
+            color: $gray-cool-1;
+            font-size: rem(14);
+            line-height: 1.5;
+            margin-left: 5px;
+        }
+        svg {
+            width: 14px;
+            height: 14px;
+        }
+    }
+
+    .usa-dt-modal__body {
+        display: flex;
+
+        .usa-dt-modal__body-text {
+            overflow-y: scroll;
+
+            @media(min-width: 1200px) {
+                height: 118px;
+            }
+            @media(min-width: 1400px) {
+                height: 180px;
+            }
+        }
+    }
+}
