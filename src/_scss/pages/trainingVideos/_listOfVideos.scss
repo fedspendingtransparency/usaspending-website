@@ -103,6 +103,14 @@
     .card__body .headline {
       text-align: left;
       color: $gray-90;
+
+      @media (min-width:$medium-screen) {
+        min-height: 60px;
+      }
+
+      @media (min-width:$medium-screen) and (max-width: 1127px) {
+        min-height: 90px;
+      }
     }
 
     .card__body .text {
