@@ -31,7 +31,6 @@ const ListOfVideos = ({ videos }) => {
                     {videos.map((video) => (
                         <FlexGridCol
                             key={video.id}
-                            width={4}
                             desktopxl={4}
                             desktop={6}
                             tablet={12}
@@ -40,7 +39,7 @@ const ListOfVideos = ({ videos }) => {
                             <VideoCard
                                 tabIndex="0"
                                 key={video.id}
-                                thumbnailUrl={video.thumbnails.standard.url}
+                                thumbnailUrl={video.thumbnails.maxres.url}
                                 title={video.title}
                                 duration={video.duration}
                                 publishedAt={video.publishedAt}

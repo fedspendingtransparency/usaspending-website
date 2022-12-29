@@ -1,10 +1,14 @@
 .list-of-videos__section {
   margin: 16px 0;
-
+  display: flex;
+  justify-content: center;
+  width: 100%;
   .grid-content {
-    padding: 24px;
+    padding: 24px 0;
     font-size: $font-size-24;
     text-align: center;
+    margin-left: 32px;
+    margin-right: 32px;
   }
 
   .list-of-videos__video {
@@ -13,21 +17,7 @@
       display:flex;
       justify-content:center;
     }
-    .card-column {
-      max-width: 288px;
-
-      @media(min-width:$tablet-screen) {
-        max-width: 704px;
-      }
-
-      @media(min-width: $medium-screen) {
-        max-width: 551.98px;
-      }
-
-      @media(min-width: 1400px) {
-        max-width: 424px;
-      }
-    }
+    
 
     .card__hero.expanded {
       padding-top: 0;
@@ -103,16 +93,35 @@
     .card__body .headline {
       text-align: left;
       color: $gray-90;
+
+      @media (min-width:$medium-screen) {
+        min-height: 60px;
+      }
+
+      @media (min-width:1400px) {
+        min-height: 90px;
+      }
     }
 
     .card__body .text {
       display: -webkit-box;
-      -webkit-line-clamp: 5;
+      -webkit-line-clamp: 4;
+      line-clamp: 4;
+
+      @media(min-width: 768px) and (max-width:992px) {
+        -webkit-line-clamp: 2;
+        line-clamp: 2;
+      }
+      @media(min-width:992px) and (max-width: 1200px) {
+        -webkit-line-clamp: 3;
+        line-clamp: 3;
+      }
       -webkit-box-orient: vertical;
       text-align: left;
       color: $gray-60;
       font-size: $base-font-size;
       overflow: hidden;
+      margin-bottom: 16px;
     }
 
     div.video-card__metadiv {
