@@ -38,7 +38,7 @@ const ListOfVideos = ({ videos }) => {
                             <VideoCard
                                 tabIndex="0"
                                 key={video.id}
-                                thumbnailUrl={video.thumbnails.standard.url}
+                                thumbnailUrl={video.thumbnails.maxres.url}
                                 title={video.title}
                                 duration={video.duration}
                                 publishedAt={video.publishedAt}
