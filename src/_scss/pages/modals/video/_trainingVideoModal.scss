@@ -1,33 +1,51 @@
 .training-video-modal {
     background: unset;
+
     .usa-dt-modal__header {
-        // background-color: rgba(255,255,255,0.05);
         justify-content: left;
         align-items: center;
+        height: 0;
+
         .training__back__label {
             color: $gray-cool-1;
             font-size: rem(14);
             line-height: 1.5;
             margin-left: 5px;
+            transform: translateY(-16px);
         }
+
         svg {
             width: 14px;
             height: 14px;
+            transform: translateY(-16px);
         }
+    }
+
+    .usa-dt-modal__title {
+        text-align: left;
+        font-size: rem(24);
+        font-weight: $font-semibold;
+        line-height: 1.25;
+        color: $gray-90;
     }
 
     .usa-dt-modal__body {
         display: flex;
+        padding: 0;
 
-        .usa-dt-modal__body-text {
-            overflow-y: scroll;
-            text-align: left;
-            
-            @media(min-width: 1200px) {
-                height: 118px;
-            }
-            @media(min-width: 1400px) {
-                height: 180px;
+        .usa-dt-modal__card {
+            padding: 48px;
+            .usa-dt-modal__body-text {
+                overflow-y: scroll;
+                text-align: left;
+
+                @media(min-width: 1200px) {
+                    height: 118px;
+                }
+
+                @media(min-width: 1400px) {
+                    height: 180px;
+                }
             }
         }
     }

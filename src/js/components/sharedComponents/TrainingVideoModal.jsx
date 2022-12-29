@@ -7,6 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-aria-modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { FlexGridCol } from "data-transparency-ui";
 
 const propTypes = {
     mounted: PropTypes.bool,
@@ -37,17 +38,27 @@ const TrainingVideoModal = (props) => {
                     </span>
                 </div>
                 <div className="usa-dt-modal__body">
-                    <div className="usa-dt-modal__card">
+                    <FlexGridCol
+                        className="usa-dt-modal__card"
+                        desktopxl={5}
+                        desktop={4}
+                        tablet={0}
+                        mobile={0}>
                         <div className="usa-dt-modal__title">
                             {props.title}
                         </div>
                         <p className="usa-dt-modal__body-text">
                             {props.description}
                         </p>
-                    </div>
-                    <div className="usa-dt-modal__video">
-                        {props.thumbnailUrl}
-                    </div>
+                    </FlexGridCol>
+                    <FlexGridCol
+                        desktopxl={7}
+                        desktop={6}
+                        mobile={12}
+                        tablet={12}
+                        className="usa-dt-modal__video">
+                        <img src={props.thumbnailUrl} alt="" />
+                    </FlexGridCol>
                 </div>
             </div>
         </Modal>
