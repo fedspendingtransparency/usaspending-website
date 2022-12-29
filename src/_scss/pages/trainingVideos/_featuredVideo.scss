@@ -70,14 +70,18 @@
     border-radius: 0 8px 8px 0;
   }
   .featured-video__inline{
-    display:flex;
+    display:inline-flex;
     flex-direction: inherit;
+    width: 100%;
   }
   .training-video-feature__column-share-icon{
     height: rem(24);
     width: rem(24);
-    display: left;
     padding-left: rem(185);
+    @media(max-width: $medium-screen){
+      padding-right: rem(40);
+      float: right;
+    }
     span{
       display: none;
     }
