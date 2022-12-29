@@ -16,12 +16,10 @@ const ListOfVideos = ({ videos }) => (
     <section className="list-of-videos__section">
         <div className="grid-content">
             <FlexGridRow className="list-of-videos__sort">
-                <FlexGridCol width={2}>
-                    <span>Sort By: </span>
-                </FlexGridCol>
-                <FlexGridCol width={1}>
+                <FlexGridCol width={12} className="video-sort">
+                    <div className="video-sort-label">Sort By: </div>
                     <Picker
-                        className="video-sort"
+                        className="video-sort-list"
                         options={[{ name: 'Newest', value: "Newest" },
                             { name: 'Oldest', value: "Oldest" },
                             { name: 'Shortest', value: "Shortest" },
