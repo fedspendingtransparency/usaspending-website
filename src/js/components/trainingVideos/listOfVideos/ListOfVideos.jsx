@@ -29,7 +29,6 @@ const ListOfVideos = ({ videos }) => {
                     {videos.map((video) => (
                         <FlexGridCol
                             key={video.id}
-                            width={4}
                             desktopxl={4}
                             desktop={6}
                             tablet={12}
