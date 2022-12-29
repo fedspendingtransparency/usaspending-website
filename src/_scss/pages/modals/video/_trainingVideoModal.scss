@@ -21,7 +21,8 @@
 
         .usa-dt-modal__body-text {
             overflow-y: scroll;
-
+            text-align: left;
+            
             @media(min-width: 1200px) {
                 height: 118px;
             }

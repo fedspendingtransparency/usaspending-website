@@ -3,12 +3,13 @@
  * Created by Andrea Blackwell 12/20/22
  */
 
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import CardContainer from "../../sharedComponents/commonCards/CardContainer";
 import CardHero from "../../sharedComponents/commonCards/CardHero";
 import CardBody from "../../sharedComponents/commonCards/CardBody";
 import VideoThumbnail from "../videoThumbnails/VideoThumbnail";
+import TrainingVideoModal from "../../sharedComponents/TrainingVideoModal";
 
 const propTypes = {
     thumbnailUrl: PropTypes.string,
@@ -21,9 +22,18 @@ const propTypes = {
 };
 
 const VideoCard = ({
-    thumbnailUrl, title, duration, onClick, description, onKeyUp, publishedAt
+    thumbnailUrl, title, duration, description, publishedAt
 }) => {
-    
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const onClick = () => {
+        setIsModalOpen(true);
+    };
+
+    const onKeyUp = (e) => {
+        if (e.keyCode === 13) {
+            onClick();
+        }
+    };
     return (
         <>
             <CardContainer variant="outline" size="md" onClick={onClick} tabIndex="0" onKeyUp={onKeyUp}>
@@ -51,14 +61,14 @@ const VideoCard = ({
             <TrainingVideoModal
                 mounted={isModalOpen}
                 hideModal={() => setIsModalOpen(false)}
-                thumbnailUrl={video.thumbnails.standard.url}
-                title={video.title}
-                duration={video.duration}
-                publishedAt={video.publishedAt}
-                description={video.description} />
+                thumbnailUrl={thumbnailUrl}
+                title={title}
+                duration={duration}
+                publishedAt={publishedAt}
+                description={description} />
         </>
     );
-}
+};
 
 VideoCard.propTypes = propTypes;
 
