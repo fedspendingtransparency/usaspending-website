@@ -88,11 +88,11 @@ export default class ResultItem extends React.Component {
         });
     }
 
-    clickedLink() {
+    clickedLink(term) {
         this.props.selectTerm(this.props.item);
         Analytics.event({
             category: 'Glossary',
-            action: `Clicked ${this.props.item}`
+            action: `Clicked ${term.target.innerText}`
         });
     }
 
