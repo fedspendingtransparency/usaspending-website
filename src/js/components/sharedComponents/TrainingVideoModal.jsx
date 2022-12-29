@@ -50,6 +50,9 @@ const TrainingVideoModal = (props) => {
                         <p className="usa-dt-modal__body-text">
                             {props.description}
                         </p>
+                        <div className="usa-dt-modal__meta">
+                            {props.publishedAt}
+                        </div>
                     </FlexGridCol>
                     <FlexGridCol
                         desktopxl={7}
@@ -57,7 +60,7 @@ const TrainingVideoModal = (props) => {
                         mobile={12}
                         tablet={12}
                         className="usa-dt-modal__video">
-                        <img src={props.thumbnailUrl} alt="" />
+                        <img className="usa-dt-modal__thumb" src={props.thumbnailUrl} alt="" />
                     </FlexGridCol>
                 </div>
             </div>

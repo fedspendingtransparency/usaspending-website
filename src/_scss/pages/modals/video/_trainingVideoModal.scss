@@ -37,8 +37,10 @@
             padding: 48px;
             .usa-dt-modal__body-text {
                 overflow-y: scroll;
-                text-align: left;
-
+                text-align: left;  
+                color: $gray-60;
+                font-size: rem(16);
+                line-height: 1.5;
                 @media(min-width: 1200px) {
                     height: 118px;
                 }
@@ -46,6 +48,19 @@
                 @media(min-width: 1400px) {
                     height: 180px;
                 }
+            } 
+            .usa-dt-modal__meta {
+                text-align: left;
+                font-size: rem(14);
+                color: $gray-60;
+                margin-top:24px;
+            }
+        }
+
+        .usa-dt-modal__video {
+            height: 100%;
+            img.usa-dt-modal__thumb {
+                height: 100%;
             }
         }
     }
