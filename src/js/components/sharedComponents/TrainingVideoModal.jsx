@@ -12,11 +12,11 @@ import { FlexGridCol } from "data-transparency-ui";
 const propTypes = {
     mounted: PropTypes.bool,
     hideModal: PropTypes.func,
-    thumbnailUrl: PropTypes.string,
     title: PropTypes.string,
     description: PropTypes.string,
     duration: PropTypes.string,
-    publishedAt: PropTypes.string
+    publishedAt: PropTypes.string,
+    id: PropTypes.string
 };
 
 const TrainingVideoModal = (props) => {
@@ -40,8 +40,8 @@ const TrainingVideoModal = (props) => {
                 <div className="usa-dt-modal__body">
                     <FlexGridCol
                         className="usa-dt-modal__card"
-                        desktopxl={5}
-                        desktop={4}
+                        desktopxl={4}
+                        desktop={5}
                         tablet={0}
                         mobile={0}>
                         <div className="usa-dt-modal__title">
@@ -55,12 +55,12 @@ const TrainingVideoModal = (props) => {
                         </div>
                     </FlexGridCol>
                     <FlexGridCol
-                        desktopxl={7}
-                        desktop={6}
+                        desktopxl={8}
+                        desktop={7}
                         mobile={12}
                         tablet={12}
                         className="usa-dt-modal__video">
-                        <img className="usa-dt-modal__thumb" src={props.thumbnailUrl} alt="" />
+                        <iframe width="100%" src={`https://www.youtube.com/embed/${props.id}`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
                     </FlexGridCol>
                 </div>
             </div>

@@ -28,6 +28,7 @@ const ListOfVideos = ({ videos }) => (
                             tabIndex="0"
                             key={video.id}
                             thumbnailUrl={video.thumbnails.maxres.url}
+                            id={video.id}
                             title={video.title}
                             duration={video.duration}
                             publishedAt={video.publishedAt}

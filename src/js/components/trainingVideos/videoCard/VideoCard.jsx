@@ -18,11 +18,12 @@ const propTypes = {
     duration: PropTypes.string,
     publishedAt: PropTypes.string,
     onClick: PropTypes.func,
-    onKeyUp: PropTypes.func
+    onKeyUp: PropTypes.func,
+    id: PropTypes.string
 };
 
 const VideoCard = ({
-    thumbnailUrl, title, duration, description, publishedAt
+    thumbnailUrl, title, duration, description, publishedAt, id
 }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const onClick = () => {
@@ -62,6 +63,7 @@ const VideoCard = ({
                 mounted={isModalOpen}
                 hideModal={() => setIsModalOpen(false)}
                 thumbnailUrl={thumbnailUrl}
+                id={id}
                 title={title}
                 duration={duration}
                 publishedAt={publishedAt}
