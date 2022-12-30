@@ -60,7 +60,7 @@ const TrainingVideoModal = (props) => {
                         mobile={12}
                         tablet={12}
                         className="usa-dt-modal__video">
-                        <iframe width="100%" src={`https://www.youtube.com/embed/${props.id}`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
+                        <iframe height="100%" width="100%" src={`https://www.youtube.com/embed/${props.id}`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
                     </FlexGridCol>
                 </div>
             </div>
