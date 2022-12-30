@@ -1,17 +1,21 @@
 .training-video-modal {
     background: unset;
-    
-    @media(min-width: $tablet-screen) {
-        max-width: 704px;
+
+    @media(min-width: $medium-screen) {
+        min-width: 704px;
+        min-height: 375px;
     }
 
     @media(min-width: $large-screen) {
-        max-width: 1136px;
+        min-width: 1136px;
+        min-height: 346px;
     }
 
     @media(min-width: 1400px) {
-        max-width: 1336px;
+        min-width: 1336px;
+        min-height: 408px;
     }
+
     .usa-dt-modal__header {
         justify-content: left;
         align-items: center;
@@ -43,29 +47,38 @@
     .usa-dt-modal__body {
         display: flex;
         padding: 0;
-
+        @media(min-width: $medium-screen) {
+            min-height: 375px;
+        }
+        @media(min-width: $large-screen) {
+            min-height: 408px;
+        }
         .usa-dt-modal__card {
             padding: 48px;
             display: none;
+
             @media(min-width: $large-screen) {
                 display: unset;
             }
+
             .usa-dt-modal__body-text {
                 overflow-y: scroll;
-                text-align: left;  
+                text-align: left;
                 color: $gray-60;
                 font-size: rem(16);
                 line-height: 1.5;
                 display: -webkit-box;
+                margin-top: 24px;
+                margin-bottom: 24px;
                 -webkit-line-clamp: 5;
                 -webkit-box-orient: vertical;
-                line-clamp: 5;
-            } 
+            }
+
             .usa-dt-modal__meta {
                 text-align: left;
                 font-size: rem(14);
                 color: $gray-60;
-                margin-top:24px;
+                margin-top: 24px;
             }
         }
     }

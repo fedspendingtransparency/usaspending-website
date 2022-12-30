@@ -14,7 +14,7 @@ import TrainingVideoModal from "../../sharedComponents/TrainingVideoModal";
 const propTypes = {
     thumbnailUrl: PropTypes.string,
     title: PropTypes.string,
-    description: PropTypes.string,
+    description: PropTypes.object,
     duration: PropTypes.string,
     publishedAt: PropTypes.string,
     onClick: PropTypes.func,
