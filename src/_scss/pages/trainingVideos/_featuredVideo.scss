@@ -1,5 +1,5 @@
 .featured-video__section {
-    margin: 16px $grid-column;
+  margin: 16px $grid-column;
 
     @media(max-width: $large-screen) {
       margin: 16px 0;
@@ -33,7 +33,7 @@
       }
     }
 
-    .feature-video__img{
+    .feature-video__img {
       height: 100%;
     }
 
