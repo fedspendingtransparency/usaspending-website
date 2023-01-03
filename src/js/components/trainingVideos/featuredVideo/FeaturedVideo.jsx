@@ -38,7 +38,9 @@ const FeaturedVideo = ({ featuredVideo }) => (
                         thumbnailUrl={featuredVideo.thumbnails.maxres.url}
                         duration={featuredVideo.duration}
                         showPlay
-                        showDuration />
+                        showDuration
+                        title={featuredVideo.title}
+                        alt={featuredVideo.title} />
                 </FlexGridCol>
             </FlexGridRow>
         </div>
