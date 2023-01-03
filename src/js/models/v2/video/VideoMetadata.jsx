@@ -3,6 +3,8 @@
  * Created by Andrea Blackwell 12/20/22
  */
 
+import React from "react";
+
 const VideoMetadata = {
     populate(data) {
         this.id = data.id || '';
@@ -69,9 +71,14 @@ const VideoMetadata = {
         return `${hours}${min}${sec}`;
     },
     get description() {
+        let newDescription = this._description;
+
+        newDescription = newDescription.replaceAll('\n', '<br />');
+
         if (this._description.indexOf('CHAPTERS') > -1) {
             const regex = /\d+:\d\d/g;
-            const found = this._description.match(regex);
+
+            const found = newDescription.match(regex);
             const timeInSecs = [];
             found.forEach((item) => {
                 let sec = 0;
@@ -80,7 +87,8 @@ const VideoMetadata = {
                 for (let i = 0; i < newItem.length; i++) {
                     if (i === 0) {
                         sec += parseInt(newItem[i], 10);
-                    } else {
+                    }
+                    else {
                         sec += parseInt(newItem[i], 10) * 60;
                     }
                 }
@@ -88,15 +96,12 @@ const VideoMetadata = {
             });
 
             // find the timestamp in the description
-            let newDescription = this._description;
             for (let j = 0; j < found.length; j++) {
-                newDescription = newDescription.replace(found[j], `<a href="https://www.youtube.com/watch?v=${this.id}&t=${timeInSecs[j]}s">${found[j]}</a>`);
+                newDescription = newDescription.replace(found[j], `<a class="videoChapter" data-id="${this.id}" data-time="${timeInSecs[j]}">${found[j]}</a>`);
             }
-
-            return newDescription;
         }
 
-        return this._description;
+        return (<div dangerouslySetInnerHTML={{ __html: newDescription }} />);
     }
 };
 
