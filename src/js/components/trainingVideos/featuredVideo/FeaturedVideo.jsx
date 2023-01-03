@@ -34,7 +34,6 @@ const FeaturedVideo = ({ featuredVideo }) => (
                 </FlexGridCol>
                 <FlexGridCol width={7} desktop={7} tablet={12} mobile={12}>
                     <VideoThumbnail
-                        className="feature-video__img"
                         tabIndex="0"
                         thumbnailUrl={featuredVideo.thumbnails.maxres.url}
                         duration={featuredVideo.duration}
