@@ -6,11 +6,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { FlexGridRow, FlexGridCol } from "data-transparency-ui";
 import { Link } from "react-router-dom";
-
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { fetchBreakdown } from 'helpers/explorerHelper';
 import { formatMoneyWithUnits } from "helpers/moneyFormatter";
 import { useLatestAccountData } from 'containers/account/WithLatestFy';
+import Analytics from 'helpers/analytics/Analytics';
 
 const SummaryStats = () => {
     const [loading, setLoading] = useState(true);
@@ -21,6 +21,12 @@ const SummaryStats = () => {
     const [randomIndex, setRandomIndex] = useState(0);
     const budgetCategories = [{ name: "Medicare" }, { name: "National Defense" }, { name: "Social Security" }, { name: "Transportation" }, { name: "Agriculture" }, { name: "Veterans Benefits and Services", label: "Veterans Benefits" }, { name: "Energy" }, { name: "Net Interest" }];
     const [, , { year: latestFy, period: latestPeriod }] = useLatestAccountData();
+
+    const trackExplorerLink = () => Analytics.event({
+        category: 'Homepage',
+        action: 'Link',
+        label: 'explorer'
+    });
 
     const selectRandomIndex = () => Math.floor(Math.random() * 10);
 
@@ -72,6 +78,7 @@ const SummaryStats = () => {
         if (latestFy && latestPeriod) {
             fetchBudgetFunctions();
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [latestFy, latestPeriod]);
 
     return (
@@ -113,7 +120,9 @@ const SummaryStats = () => {
                     </div>
                     <FlexGridCol width={2} className="summary-stats__spending-link">
                         <FlexGridRow>
-                            <Link to="/explorer/budget_function">
+                            <Link
+                                to="/explorer/budget_function"
+                                onClick={trackExplorerLink}>
                                 <div className="summary-stats__spending-link-text">
                                     <div>See more breakdowns<br />
                                     of federal spending
