@@ -18,6 +18,11 @@
       justify-content:center;
     }
     
+    .card-column {
+      &:hover {
+        box-shadow: 0 12px 24px 0 rgba(0, 0, 0, 0.1);
+      }
+    }
 
     .card__hero.expanded {
       padding-top: 0;
