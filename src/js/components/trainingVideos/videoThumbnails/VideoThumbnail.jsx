@@ -21,7 +21,7 @@ const VideoThumbnail = ({
     showPlay, showDuration, thumbnailUrl, title, duration
 }) => (
     <FlexGridRow>
-        <FlexGridCol width={12}>
+        <FlexGridCol width={12} className="video-thumbnail__column-container">
             <img src={thumbnailUrl} title={title} alt={title} />
             <FlexGridRow className="video-thumbnail__play-overlay">
                 {showPlay && <PlayButton />}

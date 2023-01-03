@@ -17,6 +17,8 @@ const FeaturedVideo = ({ featuredVideo }) => (
         {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
         <div
             className="grid-content"
+            /* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */
+            tabIndex="0"
             onKeyDown={() => console.log("launch modal here")}
             onClick={() => console.log("launch modal here")}>
             <FlexGridRow>
@@ -34,7 +36,6 @@ const FeaturedVideo = ({ featuredVideo }) => (
                 </FlexGridCol>
                 <FlexGridCol width={7} desktop={7} tablet={12} mobile={12}>
                     <VideoThumbnail
-                        tabIndex="0"
                         thumbnailUrl={featuredVideo.thumbnails.maxres.url}
                         duration={featuredVideo.duration}
                         showPlay
