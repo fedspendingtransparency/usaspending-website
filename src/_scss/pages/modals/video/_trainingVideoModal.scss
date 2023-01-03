@@ -72,6 +72,16 @@
                 margin-bottom: 24px;
                 -webkit-line-clamp: 5;
                 -webkit-box-orient: vertical;
+
+                ::-webkit-scrollbar {
+                    border-radius: 2.5px;
+                    border: solid 1px $gray-cool-10;
+                    background-color: $gray-cool-10;
+                }
+
+                ::-webkit-scrollbar-track {
+                    width: 6px;
+                }
             }
 
             .usa-dt-modal__meta {
