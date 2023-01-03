@@ -18,9 +18,10 @@
     }
 
     .usa-dt-flex-grid__row {
+      height: 100%;
       @media(max-width: $medium-screen - 1) {
         flex-direction: column-reverse;
-
+        
         .featured-video__text {
           width: 100%;
           border-radius: 0 0 8px 8px;
