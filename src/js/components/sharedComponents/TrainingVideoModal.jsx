@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-noninteractive-tabindex */
 
 /**
  * TrainingVideoModal.jsx
@@ -53,7 +54,7 @@ const TrainingVideoModal = (props) => (
                     <div className="usa-dt-modal__title">
                         {props.title}
                     </div>
-                    <p className="usa-dt-modal__body-text">
+                    <p tabIndex="0" className="usa-dt-modal__body-text">
                         {props.description}
                     </p>
                     <div className="usa-dt-modal__meta">
