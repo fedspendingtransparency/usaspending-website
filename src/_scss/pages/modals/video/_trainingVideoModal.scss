@@ -73,15 +73,16 @@
                 -webkit-line-clamp: 5;
                 -webkit-box-orient: vertical;
 
-                ::-webkit-scrollbar {
+                &::-webkit-scrollbar {
                     border-radius: 2.5px;
                     border: solid 1px $gray-cool-10;
+                    width: 6px;
+                }
+
+                &::-webkit-scrollbar-thumb {
                     background-color: $gray-cool-10;
                 }
 
-                ::-webkit-scrollbar-track {
-                    width: 6px;
-                }
             }
 
             .usa-dt-modal__meta {
