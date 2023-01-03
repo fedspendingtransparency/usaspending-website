@@ -23,7 +23,7 @@ const TrainingVideosContainer = () => {
             videos.push(videoMetadata);
         }
     });
-
+    videos.sort((v1, v2) => new Date(v2._publishedAt) - new Date(v1._publishedAt));
     return (
         <TrainingVideosPage
             featuredVideo={featuredVideo}
