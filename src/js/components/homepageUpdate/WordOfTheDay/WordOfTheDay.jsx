@@ -107,7 +107,7 @@ const WordOfTheDay = () => {
     };
 
     useEffect(() => {
-        if (currentDate && currentMonth) {
+        if (currentDate !== '' && currentMonth !== '') {
             const index = dateDataMapper[currentMonth]?.startingIndex + currentDate;
             setTerm(glossaryTerms[index]);
         }
