@@ -18,7 +18,7 @@ const TrainingVideosHeading = () => {
         const emailSubject = `USAspending.gov Training Video`;
         const emailArgs = {
             subject: `${emailSubject}`,
-            body: `Interested in learning how to effectively use Federal Spending Data? Check out #USAspending About The Data! ${getBaseUrl(slug)}`
+            body: `Interested in learning more about #USAspending? Check out #USAspending Training Videos! ${getBaseUrl(slug)}`
         };
         handleShareOptionClick(name, slug, emailArgs);
     };

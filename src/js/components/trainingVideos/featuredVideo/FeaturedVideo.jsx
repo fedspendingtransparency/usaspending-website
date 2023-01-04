@@ -14,10 +14,12 @@ import VideoThumbnail from '../videoThumbnails/VideoThumbnail';
 
 
 const propTypes = {
-    featuredVideo: PropTypes.array
+    featuredVideo: PropTypes.array,
+    url: PropTypes.func
 };
 
-const FeaturedVideo = ({ featuredVideo }) => {
+const FeaturedVideo = ({ featuredVideo, url }) => {
+    const slug = "https://www.youtube.com/watch?v=ZuvZQ33ZvAE";
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
 
@@ -25,9 +27,9 @@ const FeaturedVideo = ({ featuredVideo }) => {
         const emailSubject = `USAspending.gov Training Video`;
         const emailArgs = {
             subject: `${emailSubject}`,
-            body: `Check out #USAspending About The Data! ${<Link href="https://youtu.be/b7SDGhSZ5wM" />}`
+            body: `Check out this #USAspending video! ${slug}`
         };
-        handleShareOptionClick(name, emailArgs);
+        handleShareOptionClick(name, slug, emailArgs);
     };
 
     useEffect(() => {
@@ -61,7 +63,7 @@ const FeaturedVideo = ({ featuredVideo }) => {
                                     <div className="featured-video__publishedAt">{ featuredVideo.publishedAt }</div>
                                     <div className="training-video-feature__column-share-icon">
                                         <ShareIcon
-                                            url="https://youtu.be/b7SDGhSZ5wM"
+                                            url={slug}
                                             tabIndex={0}
                                             onShareOptionClick={onShareClick}
                                             colors={{ backgroundColor: "#1b2b85", color: "#fff" }}
@@ -76,6 +78,7 @@ const FeaturedVideo = ({ featuredVideo }) => {
                             tabIndex="0"
                             thumbnailUrl={featuredVideo.thumbnails.maxres.url}
                             duration={featuredVideo.duration}
+                            url={VideoThumbnail.url}
                             showPlay
                             showDuration
                             title={featuredVideo.title}

@@ -29,6 +29,7 @@ const propTypes = {
 const VideoCard = ({
     thumbnailUrl, title, duration, onClick, description, onKeyUp, publishedAt, url
 }) => {
+    const slug = url;
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
 
@@ -36,9 +37,9 @@ const VideoCard = ({
         const emailSubject = `USAspending.gov Training Video`;
         const emailArgs = {
             subject: `${emailSubject}`,
-            body: `Check out this #USAspending video ${<Link href={url} />}`
+            body: `Check out this #USAspending video ${slug}`
         };
-        handleShareOptionClick(name, emailArgs);
+        handleShareOptionClick(name, slug, emailArgs);
     };
 
     useEffect(() => {
@@ -79,7 +80,7 @@ const VideoCard = ({
                     </div>
                     <div className="list-of-videos__column-share-icon">
                         <ShareIcon
-                            url={url}
+                            url={slug}
                             tabIndex={0}
                             onKeyUp={onKeyUp}
                             onShareOptionClick={onShareClick}
