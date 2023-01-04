@@ -53,7 +53,6 @@ export class GlobalModalContainer extends React.Component {
             );
         }
         if (this.props.globalModal.modal === "training-videos") {
-            console.debug("PROPS PASSED IN: ", this.props);
             return (
                 <TrainingVideoModal
                     mounted={this.props.globalModal.display}

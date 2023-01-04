@@ -10,19 +10,16 @@ export const showModal = (url, modalType = "redirect") => ({
     modalType
 });
 
-export const showTrainingVideoModal = (props) => {
-    console.debug("SHOW TVM:", props);
-    return ({
-        type: 'SHOW_MODAL',
-        url: props.url,
-        modalType: props.modalType,
-        title: props.title,
-        description: props.description,
-        publishedAt: props.publishedAt,
-        duration: props.duration,
-        id: props.id
-    });
-};
+export const showTrainingVideoModal = (props) => ({
+    type: 'SHOW_TRAINING_MODAL',
+    url: props.url,
+    modalType: props.modalType,
+    title: props.title,
+    description: props.description,
+    publishedAt: props.publishedAt,
+    duration: props.duration,
+    id: props.id
+});
 
 export const hideModal = () => ({
     type: 'HIDE_MODAL'
