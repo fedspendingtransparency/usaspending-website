@@ -28,7 +28,7 @@ const parseChapters = (description, videoId) => {
 
         // find the timestamp in the description
         for (let j = 0; j < found.length; j++) {
-            newDescription = newDescription.replace(found[j], `<a class="videoChapter" className="videoChapter" tabindex=0 data-id="${videoId}" data-time="${timeInSecs[j]}">${found[j]}</a>`);
+            newDescription = newDescription.replace(found[j], `<a class="videoChapter" className="videoChapter" role="link" tabindex=0 data-id="${videoId}" data-time="${timeInSecs[j]}">${found[j]}</a>`);
         }
     }
 

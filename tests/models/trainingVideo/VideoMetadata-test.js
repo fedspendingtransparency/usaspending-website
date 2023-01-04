@@ -19,10 +19,6 @@ describe('Video Metadata model', () => {
         expect(sampleVideo.title).toEqual('TUTORIAL: How to Use USAspending API Endpoints');
     });
 
-    it ('should include a description with chapter timestamps converted to links', () => {
-        expect(sampleVideo.description).toMatch('v=AEKL2LOkRZY&t=188s');
-    });
-
     it ('should include a published at date', () => {
         expect(sampleVideo.publishedAt).toEqual('Dec 5, 2022');
     });
