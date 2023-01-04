@@ -5,7 +5,6 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from "prop-types";
-import { Link } from 'react-router-dom';
 import { FlexGridRow, FlexGridCol, ShareIcon } from 'data-transparency-ui';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { handleShareOptionClick } from 'helpers/socialShare';
@@ -18,7 +17,7 @@ const propTypes = {
     url: PropTypes.func
 };
 
-const FeaturedVideo = ({ featuredVideo, url }) => {
+const FeaturedVideo = ({ featuredVideo }) => {
     const slug = "https://www.youtube.com/watch?v=ZuvZQ33ZvAE";
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
