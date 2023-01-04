@@ -52,11 +52,17 @@ export class GlobalModalContainer extends React.Component {
                     hideModal={this.props.hideModal} />
             );
         }
-        if (this.props.globalModal.modal === "training-video") {
+        if (this.props.globalModal.modal === "training-videos") {
+            console.debug("PROPS PASSED IN: ", this.props);
             return (
                 <TrainingVideoModal
                     mounted={this.props.globalModal.display}
-                    hideModal={this.props.hideModal} />
+                    hideModal={this.props.hideModal}
+                    title={this.props.globalModal.title}
+                    description={this.props.globalModal.description}
+                    duration={this.props.globalModal.duration}
+                    publishedAt={this.props.globalModal.publishedAt}
+                    id={this.props.globalModal.id} />
             );
         }
         return null;

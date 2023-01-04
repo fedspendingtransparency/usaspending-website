@@ -129,7 +129,12 @@ export const AWARD_AGGREGATED_AMOUNTS_PROPS = PropTypes.shape({
 export const globalModalProps = PropTypes.shape({
     display: PropTypes.bool,
     url: PropTypes.string,
-    modal: PropTypes.oneOf(['redirect', '', 'covid', 'covid-data-disclaimer'])
+    modal: PropTypes.oneOf(['redirect', '', 'covid', 'covid-data-disclaimer', 'training-videos']),
+    title: PropTypes.string,
+    description: PropTypes.object,
+    duration: PropTypes.string,
+    publishedAt: PropTypes.string,
+    id: PropTypes.string
 });
 
 export const LATEST_PERIOD_PROPS = PropTypes.shape({

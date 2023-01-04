@@ -3,13 +3,15 @@
  * Created by Andrea Blackwell 12/20/22
  */
 
-import React, { useState } from "react";
+import React from "react";
+import { useDispatch } from 'react-redux';
+import { showTrainingVideoModal } from 'redux/actions/modal/modalActions';
+
 import PropTypes from "prop-types";
 import CardContainer from "../../sharedComponents/commonCards/CardContainer";
 import CardHero from "../../sharedComponents/commonCards/CardHero";
 import CardBody from "../../sharedComponents/commonCards/CardBody";
 import VideoThumbnail from "../videoThumbnails/VideoThumbnail";
-import TrainingVideoModal from "../../sharedComponents/TrainingVideoModal";
 
 const propTypes = {
     thumbnailUrl: PropTypes.string,
@@ -25,9 +27,12 @@ const propTypes = {
 const VideoCard = ({
     thumbnailUrl, title, duration, description, publishedAt, id
 }) => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const onClick = () => {
-        setIsModalOpen(true);
+    const dispatch = useDispatch();
+    const onClick = (e) => {
+        e.persist();
+        dispatch(showTrainingVideoModal({
+            url: thumbnailUrl, modalType: 'training-videos', title, description, publishedAt, duration, id
+        }));
     };
 
     const onKeyUp = (e) => {
@@ -60,15 +65,6 @@ const VideoCard = ({
                     </div>
                 </CardBody>
             </CardContainer>
-            <TrainingVideoModal
-                mounted={isModalOpen}
-                hideModal={() => setIsModalOpen(false)}
-                thumbnailUrl={thumbnailUrl}
-                id={id}
-                title={title}
-                duration={duration}
-                publishedAt={publishedAt}
-                description={description} />
         </>
     );
 };
