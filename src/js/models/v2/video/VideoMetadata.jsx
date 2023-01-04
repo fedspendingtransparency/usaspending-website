@@ -3,13 +3,12 @@
  * Created by Andrea Blackwell 12/20/22
  */
 
-import React from "react";
 
 const VideoMetadata = {
     populate(data) {
         this.id = data.id || '';
         this.title = data.snippet.title || '';
-        this._description = data.snippet.description || '';
+        this.description = data.snippet.description || '';
         this._publishedAt = data.snippet.publishedAt || '';
         this._duration = data.contentDetails.duration || '';
         this.thumbnails = data.snippet.thumbnails || '';
@@ -69,39 +68,6 @@ const VideoMetadata = {
         }
 
         return `${hours}${min}${sec}`;
-    },
-    get description() {
-        let newDescription = this._description;
-
-        newDescription = newDescription.replaceAll('\n', '<br />');
-
-        if (this._description.indexOf('CHAPTERS') > -1) {
-            const regex = /\d+:\d\d/g;
-
-            const found = newDescription.match(regex);
-            const timeInSecs = [];
-            found.forEach((item) => {
-                let sec = 0;
-                let newItem = item.split(':');
-                newItem = newItem.reverse();
-                for (let i = 0; i < newItem.length; i++) {
-                    if (i === 0) {
-                        sec += parseInt(newItem[i], 10);
-                    }
-                    else {
-                        sec += parseInt(newItem[i], 10) * 60;
-                    }
-                }
-                timeInSecs.push(sec);
-            });
-
-            // find the timestamp in the description
-            for (let j = 0; j < found.length; j++) {
-                newDescription = newDescription.replace(found[j], `<a class="videoChapter" className="videoChapter" tabindex=0 data-id="${this.id}" data-time="${timeInSecs[j]}">${found[j]}</a>`);
-            }
-        }
-
-        return (<div dangerouslySetInnerHTML={{ __html: newDescription }} />);
     }
 };
 

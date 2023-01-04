@@ -1,4 +1,5 @@
 import React from 'react';
+import DOMPurify from 'dompurify';
 
 const parseChapters = (description, videoId) => {
     let newDescription = description;
@@ -27,11 +28,15 @@ const parseChapters = (description, videoId) => {
 
         // find the timestamp in the description
         for (let j = 0; j < found.length; j++) {
-            newDescription = newDescription.replace(found[j], `<a href="https://www.youtube.com/watch?v=${videoId}&t=${timeInSecs[j]}s">${found[j]}</a>`);
+            newDescription = newDescription.replace(found[j], `<a class="videoChapter" className="videoChapter" tabindex=0 data-id="${videoId}" data-time="${timeInSecs[j]}">${found[j]}</a>`);
         }
     }
 
-    return (<div dangerouslySetInnerHTML={{ __html: newDescription }} />);
+    const sanitizedData = () => ({
+        __html: DOMPurify.sanitize(newDescription)
+    });
+
+    return (<div dangerouslySetInnerHTML={sanitizedData()} />);
 };
 
 export default parseChapters;

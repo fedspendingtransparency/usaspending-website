@@ -4,12 +4,13 @@
  * TrainingVideoModal.jsx
  * Created by Nick Torres 12/27/2022
  */
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-aria-modal';
 import YouTube from 'react-youtube';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FlexGridCol } from "data-transparency-ui";
+import parseChapters from "../../helpers/trainingVideoHelper";
 
 const propTypes = {
     mounted: PropTypes.bool,
@@ -23,11 +24,22 @@ const propTypes = {
 
 const TrainingVideoModal = (props) => {
     const [chapterTimestamp, setChapterTimestamp] = useState(0);
+    const [parsedDescription, setParsedDescription] = useState(null);
 
     const updatePlayerChapter = (e, time) => {
         setChapterTimestamp(time);
         e.preventDefault();
     };
+
+    const chapterKeypressHandler = (e, time) => {
+        if (e.keyCode === 13) {
+            updatePlayerChapter(e, time);
+        }
+    };
+
+    useEffect(() => {
+        setParsedDescription(parseChapters(props.description, updatePlayerChapter));
+    }, [props.description]);
 
     const youTubeOnReady = (e) => {
         e.target.playVideo();
@@ -37,7 +49,8 @@ const TrainingVideoModal = (props) => {
         if (body) {
             for (let i = 0; i < chapterEls.length; i++) {
                 const chapterTime = chapterEls[i].getAttribute('data-time');
-                chapterEls[i].addEventListener('click', (e) => updatePlayerChapter(e, chapterTime));
+                chapterEls[i].addEventListener('click', (clickEv) => updatePlayerChapter(clickEv, chapterTime));
+                chapterEls[i].addEventListener('keyup', (keyEv) => chapterKeypressHandler(keyEv, chapterTime));
             }
         }
     };
@@ -77,7 +90,7 @@ const TrainingVideoModal = (props) => {
                             {props.title}
                         </div>
                         <div tabIndex={0} id="video-description" className="usa-dt-modal__body-text">
-                            {props.description}
+                            {parsedDescription}
                         </div>
                         <div className="usa-dt-modal__meta">
                             {props.publishedAt}
