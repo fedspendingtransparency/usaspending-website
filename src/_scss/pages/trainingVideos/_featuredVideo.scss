@@ -18,6 +18,7 @@
     }
 
     .usa-dt-flex-grid__row {
+      height: 100%;
       @media(max-width: $medium-screen - 1) {
         flex-direction: column-reverse;
 
@@ -63,6 +64,7 @@
     .featured-video__publishedAt {
       font-size: $font-size-16;
       color: #e6e6e6;
+      width: 100%;
     }
   }
 
@@ -77,7 +79,7 @@
   .training-video-feature__column-share-icon{
     height: rem(24);
     width: rem(24);
-    padding-left: rem(185);
+    width: 100%;
     @media(max-width: $medium-screen){
       padding-right: rem(40);
       float: right;
@@ -102,6 +104,9 @@
     }
     .usda-share-icon{
       margin-left: 0;
+    }
+    .usa-dt-picker{
+      float: right;
     }
   }
 }

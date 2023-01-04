@@ -4,12 +4,17 @@
  */
 
 import React, { useState, useEffect } from 'react';
+import PropTypes from "prop-types";
+import { Link } from 'react-router-dom';
 import { FlexGridRow, FlexGridCol, ShareIcon } from 'data-transparency-ui';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { handleShareOptionClick } from 'helpers/socialShare';
 import { throttle } from 'lodash';
 import VideoThumbnail from "../videoThumbnails/VideoThumbnail";
-import { Link } from 'react-router-dom';
+
+const propTypes = {
+    featuredVideo: PropTypes.array
+};
 
 const FeaturedVideo = ({ featuredVideo }) => {
     const [windowWidth, setWindowWidth] = useState(0);
@@ -40,7 +45,6 @@ const FeaturedVideo = ({ featuredVideo }) => {
             {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
             <div
                 className="grid-content"
-                tabIndex={1}
                 onKeyDown={() => console.log("launch modal here")}
                 onClick={() => console.log("launch modal here")}>
                 <FlexGridRow>
@@ -67,12 +71,19 @@ const FeaturedVideo = ({ featuredVideo }) => {
                         </div>
                     </FlexGridCol>
                     <FlexGridCol width={7} desktop={7} tablet={12} mobile={12}>
-                        <VideoThumbnail class="feature-video__img" thumbnailUrl={featuredVideo.thumbnails.maxres.url} duration={featuredVideo.duration} />
+                        <VideoThumbnail
+                            tabIndex="0"
+                            thumbnailUrl={featuredVideo.thumbnails.maxres.url}
+                            duration={featuredVideo.duration}
+                            showPlay
+                            showDuration
+                            title={featuredVideo.title}
+                            alt={featuredVideo.title} />
                     </FlexGridCol>
                 </FlexGridRow>
             </div>
         </section>
 );
-    };
-
+};
+FeaturedVideo.propTypes = propTypes;
 export default FeaturedVideo;
