@@ -10,7 +10,8 @@ import { FlexGridRow, FlexGridCol, ShareIcon } from 'data-transparency-ui';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { handleShareOptionClick } from 'helpers/socialShare';
 import { throttle } from 'lodash';
-import VideoThumbnail from "../videoThumbnails/VideoThumbnail";
+import VideoThumbnail from '../videoThumbnails/VideoThumbnail';
+
 
 const propTypes = {
     featuredVideo: PropTypes.array
@@ -83,7 +84,7 @@ const FeaturedVideo = ({ featuredVideo }) => {
                 </FlexGridRow>
             </div>
         </section>
-);
+    );
 };
 FeaturedVideo.propTypes = propTypes;
 export default FeaturedVideo;

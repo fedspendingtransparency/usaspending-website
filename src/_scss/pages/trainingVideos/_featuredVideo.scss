@@ -1,5 +1,5 @@
 .featured-video__section {
-    margin: 16px $grid-column;
+  margin: 64px $grid-column;
 
     @media(max-width: $large-screen) {
       margin: 16px 0;
@@ -21,7 +21,7 @@
       height: 100%;
       @media(max-width: $medium-screen - 1) {
         flex-direction: column-reverse;
-
+        
         .featured-video__text {
           width: 100%;
           border-radius: 0 0 8px 8px;
@@ -32,9 +32,6 @@
           border-radius: rem(8) rem(8) 0 0;
         }
       }
-    }
-    .feature-video__img{
-      height: 100%;
     }
 
     .featured-video__text {

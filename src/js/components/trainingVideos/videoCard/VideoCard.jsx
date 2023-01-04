@@ -1,5 +1,5 @@
 /**
- * ListOfVideos.jsx
+ * VideoCard.jsx
  * Created by Andrea Blackwell 12/20/22
  */
 
@@ -15,11 +15,15 @@ const propTypes = {
     title: PropTypes.string,
     description: PropTypes.string,
     duration: PropTypes.string,
-    publishedAt: PropTypes.string
+    publishedAt: PropTypes.string,
+    onClick: PropTypes.func,
+    onKeyUp: PropTypes.func
 };
 
-const VideoCard = ({ thumbnailUrl, title, duration }) => (
-    <CardContainer variant="outline" size="md">
+const VideoCard = ({
+    thumbnailUrl, title, duration, onClick, description, onKeyUp, publishedAt
+}) => (
+    <CardContainer variant="outline" size="md" onClick={onClick} tabIndex="0" onKeyUp={onKeyUp}>
         <CardHero
             variant="expanded"
             thumbnail>
@@ -27,14 +31,19 @@ const VideoCard = ({ thumbnailUrl, title, duration }) => (
                 thumbnailUrl={thumbnailUrl}
                 duration={duration}
                 showPlay
-                showDuration />
+                showDuration
+                title={title} />
         </CardHero>
         <CardBody
             headline={
                 <div>
                     {title}
                 </div>
-            }>
+            }
+            text={description}>
+            <div className="video-card__metadiv">
+                {publishedAt}
+            </div>
         </CardBody>
     </CardContainer>
 );
