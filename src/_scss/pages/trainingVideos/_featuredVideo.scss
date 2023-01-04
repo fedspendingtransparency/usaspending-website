@@ -78,7 +78,6 @@
     width: rem(24);
     width: 100%;
     @media(max-width: $medium-screen){
-      padding-right: rem(40);
       float: right;
     }
     span{
@@ -100,7 +99,7 @@
       margin-left: 0;
     }
     .usda-share-icon{
-      margin-left: 0;
+      margin: 0 0;
     }
     .usa-dt-picker{
       float: right;

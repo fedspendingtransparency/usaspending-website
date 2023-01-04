@@ -42,13 +42,9 @@
       width: rem(24);
       width: 100%;
       @media(max-width: $medium-screen){
-        padding-right: rem(40);
         float: right;
       }
-      @media(max-width: $large-screen){
-        padding-right: rem(35.5);
-        float: right;
-      }
+
       span{
         display: none;
       }
@@ -68,7 +64,7 @@
         margin-left: 0;
       }
       .usda-share-icon{
-        margin-left: 0;
+        margin: 0 0;
       }
       .usa-dt-picker{
         float: right;
