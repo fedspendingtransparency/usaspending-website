@@ -97,7 +97,7 @@ const VideoMetadata = {
 
             // find the timestamp in the description
             for (let j = 0; j < found.length; j++) {
-                newDescription = newDescription.replace(found[j], `<a class="videoChapter" data-id="${this.id}" data-time="${timeInSecs[j]}">${found[j]}</a>`);
+                newDescription = newDescription.replace(found[j], `<a class="videoChapter" tabindex=0 data-id="${this.id}" data-time="${timeInSecs[j]}">${found[j]}</a>`);
             }
         }
 

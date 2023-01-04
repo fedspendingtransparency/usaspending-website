@@ -23,6 +23,10 @@
         margin: 0 $grid-column;
       }
     }
+
+    a.videoChapter {
+      cursor: pointer;
+    }
   }
 
   @import "trainingVideosHeading";

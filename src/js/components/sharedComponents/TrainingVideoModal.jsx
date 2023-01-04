@@ -4,9 +4,10 @@
  * TrainingVideoModal.jsx
  * Created by Nick Torres 12/27/2022
  */
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import Modal from 'react-aria-modal';
+import YouTube from 'react-youtube';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FlexGridCol } from "data-transparency-ui";
 
@@ -23,38 +24,23 @@ const propTypes = {
 const TrainingVideoModal = (props) => {
     const [chapterTimestamp, setChapterTimestamp] = useState(0);
 
-    useEffect(() => {
-
-    }, []);
-
     const updatePlayerChapter = (e, time) => {
         setChapterTimestamp(time);
         e.preventDefault();
-        // player.playVideo();
-        // add code to play the video
     };
 
-    useEffect(() => {
+    const youTubeOnReady = (e) => {
+        e.target.playVideo();
         const body = document.getElementById('video-description');
-        console.log(body);
         const chapterEls = body?.getElementsByClassName("videoChapter");
 
         if (body) {
-            for (let i = 0; i < chapterEls?.length; i++) {
+            for (let i = 0; i < chapterEls.length; i++) {
                 const chapterTime = chapterEls[i].getAttribute('data-time');
                 chapterEls[i].addEventListener('click', (e) => updatePlayerChapter(e, chapterTime));
             }
         }
-
-        return () => {
-            if (body && chapterEls) {
-                for (let i = 0; i < chapterEls?.length; i++) {
-                    const chapterTime = chapterEls[i].getAttribute('data-time');
-                    chapterEls[i].removeEventListener('click', (e) => updatePlayerChapter(e, chapterTime));
-                }
-            }
-        };
-    }, [props.description, updatePlayerChapter]);
+    };
 
     return (
         <Modal
@@ -90,7 +76,7 @@ const TrainingVideoModal = (props) => {
                         <div className="usa-dt-modal__title">
                             {props.title}
                         </div>
-                        <div id="video-description" className="usa-dt-modal__body-text">
+                        <div tabIndex={0} id="video-description" className="usa-dt-modal__body-text">
                             {props.description}
                         </div>
                         <div className="usa-dt-modal__meta">
@@ -103,7 +89,19 @@ const TrainingVideoModal = (props) => {
                         mobile={12}
                         tablet={12}
                         className="usa-dt-modal__video">
-                        <iframe width="100%" height="100%" src={`https://www.youtube.com/embed/${props.id}&autoplay=1&t=${chapterTimestamp}s`} title="YouTube video player" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
+                        <YouTube
+                            videoId={props.id}
+                            opts={{
+                                height: '410',
+                                width: '922',
+                                playerVars: {
+                                    // https://developers.google.com/youtube/player_parameters
+                                    autoplay: 1,
+                                    start: chapterTimestamp
+                                }
+                            }}
+                            onReady={youTubeOnReady}
+                            title="YouTube video player" />;
                     </FlexGridCol>
                 </div>
             </div>
