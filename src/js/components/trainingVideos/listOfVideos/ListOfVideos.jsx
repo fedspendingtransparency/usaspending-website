@@ -5,10 +5,10 @@
 
 import React from 'react';
 import PropTypes from "prop-types";
-import { FlexGridRow, FlexGridCol } from "data-transparency-ui";
-import VideoCard from '../videoCard/VideoCard';
 import { useDispatch } from 'react-redux';
 import { showTrainingVideoModal } from 'redux/actions/modal/modalActions';
+import { FlexGridRow, FlexGridCol } from "data-transparency-ui";
+import VideoCard from '../videoCard/VideoCard';
 
 const propTypes = {
     videos: PropTypes.array

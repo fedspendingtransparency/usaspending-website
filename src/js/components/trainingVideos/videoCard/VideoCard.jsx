@@ -4,9 +4,6 @@
  */
 
 import React from "react";
-import { useDispatch } from 'react-redux';
-import { showTrainingVideoModal } from 'redux/actions/modal/modalActions';
-
 import PropTypes from "prop-types";
 import CardContainer from "../../sharedComponents/commonCards/CardContainer";
 import CardHero from "../../sharedComponents/commonCards/CardHero";
