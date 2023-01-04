@@ -2,6 +2,10 @@
   @import 'all';
   @import "layouts/default/default";
 
+  img {
+    height: 100%;
+  }
+
   .training-videos-content {
     background-color: white;
     display: flex;
@@ -22,9 +26,10 @@
   }
 
   @import "trainingVideosHeading";
-  @import "highlightedVideo";
+  @import "featuredVideo";
   @import "trainingVideosFilters";
   @import "listOfVideos";
+  @import "videoThumbnail";
   @import "videoSort";
 }
 

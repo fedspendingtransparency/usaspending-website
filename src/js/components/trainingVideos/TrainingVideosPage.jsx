@@ -11,8 +11,6 @@ import PageWrapper from "../sharedComponents/PageWrapper";
 import { homePageMetaTags } from "../../helpers/metaTagHelper";
 import TrainingVideosHeading from "./trainingVideosHeading/TrainingVideosHeading";
 import FeaturedVideo from "./featuredVideo/FeaturedVideo";
-import TrainingVideosFilters from "./trainingVideosFilters/TrainingVideosFilters";
-// eslint-disable-next-line import/no-named-as-default-member
 import ListOfVideos from "./listOfVideos/ListOfVideos";
 
 const propTypes = {
