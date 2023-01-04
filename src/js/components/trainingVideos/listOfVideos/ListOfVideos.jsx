@@ -3,7 +3,7 @@
  * Created by Brian Petway 12/05/22
  */
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from "prop-types";
 import { FlexGridRow, FlexGridCol, Picker } from "data-transparency-ui";
 import VideoCard from '../videoCard/VideoCard';
@@ -13,6 +13,7 @@ const propTypes = {
 };
 
 const ListOfVideos = ({ videos }) => {
+    const [sortOrder, setSortOrder] = useState("Newest");
     const onClick = () => {
         console.debug("clicked card!!!");
     };
@@ -22,6 +23,11 @@ const ListOfVideos = ({ videos }) => {
             onClick();
         }
     };
+
+    const sortBy = (field, direction) => {
+
+    };
+
     return (
         <section className="list-of-videos__section">
             <div className="grid-content">
@@ -30,10 +36,10 @@ const ListOfVideos = ({ videos }) => {
                         <div className="video-sort-label">Sort By: </div>
                         <Picker
                             className="video-sort-list"
-                            options={[{ name: 'Newest', value: "Newest" },
-                                { name: 'Oldest', value: "Oldest" },
-                                { name: 'Shortest', value: "Shortest" },
-                                { name: 'Longest', value: "Longest" }]}
+                            options={[{ name: 'Newest', value: 0, onClick: () => {} },
+                                { name: 'Oldest', value: 1, onClick: () => {} },
+                                { name: 'Shortest', value: 2, onClick: () => {} },
+                                { name: 'Longest', value: 3, onClick: () => {} }]}
                             dropdownDirection="right"
                             backgroundColor="#ffffff"
                             selectedOption="Newest" />
