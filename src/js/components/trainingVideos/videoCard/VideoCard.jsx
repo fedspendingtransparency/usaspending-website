@@ -9,6 +9,7 @@ import { ShareIcon } from 'data-transparency-ui';
 import { handleShareOptionClick } from 'helpers/socialShare';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { throttle } from 'lodash';
+import { Link } from 'react-router-dom';
 import CardContainer from "../../sharedComponents/commonCards/CardContainer";
 import CardHero from "../../sharedComponents/commonCards/CardHero";
 import CardBody from "../../sharedComponents/commonCards/CardBody";
@@ -21,11 +22,12 @@ const propTypes = {
     duration: PropTypes.string,
     publishedAt: PropTypes.string,
     onClick: PropTypes.func,
-    onKeyUp: PropTypes.func
+    onKeyUp: PropTypes.func,
+    url: PropTypes.func
 };
 
 const VideoCard = ({
-    thumbnailUrl, title, duration, onClick, description, onKeyUp, publishedAt
+    thumbnailUrl, title, duration, onClick, description, onKeyUp, publishedAt, url
 }) => {
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
@@ -34,7 +36,7 @@ const VideoCard = ({
         const emailSubject = `USAspending.gov Training Video`;
         const emailArgs = {
             subject: `${emailSubject}`,
-            body: `Check out #USAspending About The Data! ${<Link href="https://youtu.be/b7SDGhSZ5wM" />}`
+            body: `Check out this #USAspending video ${<Link href={url} />}`
         };
         handleShareOptionClick(name, emailArgs);
     };
@@ -77,8 +79,9 @@ const VideoCard = ({
                     </div>
                     <div className="list-of-videos__column-share-icon">
                         <ShareIcon
-                            url="https://youtu.be/b7SDGhSZ5wM"
+                            url={url}
                             tabIndex={0}
+                            onKeyUp={onKeyUp}
                             onShareOptionClick={onShareClick}
                             colors={{ backgroundColor: "white", color: "#2378c3" }}
                             dropdownDirection={isMobile ? 'right' : 'left'} />
