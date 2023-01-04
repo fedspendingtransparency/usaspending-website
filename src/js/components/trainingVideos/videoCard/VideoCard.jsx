@@ -3,13 +3,12 @@
  * Created by Andrea Blackwell 12/20/22
  */
 
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import CardContainer from "../../sharedComponents/commonCards/CardContainer";
 import CardHero from "../../sharedComponents/commonCards/CardHero";
 import CardBody from "../../sharedComponents/commonCards/CardBody";
 import VideoThumbnail from "../videoThumbnails/VideoThumbnail";
-import TrainingVideoModal from "../../sharedComponents/TrainingVideoModal";
 
 const propTypes = {
     thumbnailUrl: PropTypes.string,
@@ -18,18 +17,12 @@ const propTypes = {
     duration: PropTypes.string,
     publishedAt: PropTypes.string,
     onClick: PropTypes.func,
-    onKeyUp: PropTypes.func,
     id: PropTypes.string
 };
 
 const VideoCard = ({
-    thumbnailUrl, title, duration, description, publishedAt, id
+    thumbnailUrl, title, duration, description, publishedAt, onClick
 }) => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const onClick = () => {
-        setIsModalOpen(true);
-    };
-
     const onKeyUp = (e) => {
         if (e.keyCode === 13) {
             onClick();
@@ -60,15 +53,6 @@ const VideoCard = ({
                     </div>
                 </CardBody>
             </CardContainer>
-            <TrainingVideoModal
-                mounted={isModalOpen}
-                hideModal={() => setIsModalOpen(false)}
-                thumbnailUrl={thumbnailUrl}
-                id={id}
-                title={title}
-                duration={duration}
-                publishedAt={publishedAt}
-                description={description} />
         </>
     );
 };
