@@ -1,5 +1,5 @@
 .featured-video__section {
-    margin: 16px $grid-column;
+  margin: 64px $grid-column;
 
     @media(max-width: $large-screen) {
       margin: 16px 0;
@@ -18,9 +18,10 @@
     }
 
     .usa-dt-flex-grid__row {
-      @media(max-width: $tablet-screen - 1) {
+      height: 100%;
+      @media(max-width: $medium-screen - 1) {
         flex-direction: column-reverse;
-
+        
         .featured-video__text {
           width: 100%;
           border-radius: 0 0 8px 8px;
@@ -41,6 +42,12 @@
       padding: 64px 40px;
       height: 100%;
       align-content: center;
+      @media(min-width: $large-screen){
+        padding: 40px 40px;
+      }
+      @media(min-width: $m-large-screen){
+        padding: 64px 40px;
+      }
     }
 
     .featured-video__headline {
