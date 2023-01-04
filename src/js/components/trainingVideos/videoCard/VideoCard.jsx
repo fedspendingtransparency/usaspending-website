@@ -20,21 +20,12 @@ const propTypes = {
     duration: PropTypes.string,
     publishedAt: PropTypes.string,
     onClick: PropTypes.func,
-    onKeyUp: PropTypes.func,
     id: PropTypes.string
 };
 
 const VideoCard = ({
-    thumbnailUrl, title, duration, description, publishedAt, id
+    thumbnailUrl, title, duration, description, publishedAt, onClick
 }) => {
-    const dispatch = useDispatch();
-    const onClick = (e) => {
-        e.persist();
-        dispatch(showTrainingVideoModal({
-            url: thumbnailUrl, modalType: 'training-videos', title, description, publishedAt, duration, id
-        }));
-    };
-
     const onKeyUp = (e) => {
         if (e.keyCode === 13) {
             onClick();
