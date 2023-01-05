@@ -91,7 +91,7 @@
       }
     }
     .usa-dt-picker__button{
-      padding: 0 0 0 0;
+      padding: 0;
       margin-right: 0;
       padding-right: rem(3);
 
@@ -100,7 +100,7 @@
       margin-left: 0;
     }
     .usda-share-icon{
-      margin: 0 0;
+      margin: 0;
     }
     .usa-dt-picker{
       float: right;
@@ -124,10 +124,7 @@
         margin-left: 16px;
       }
       .usa-dt-picker__item {
-        padding-left: 16px;
-        padding-right: unset;
-        padding-top: 8px;
-        padding-bottom: 8px;
+        padding: 8px unset 8px 16px;
 
         &:hover {
           background-color: $gray-cool-3;
