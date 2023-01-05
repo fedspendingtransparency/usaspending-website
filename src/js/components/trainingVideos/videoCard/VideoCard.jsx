@@ -13,7 +13,7 @@ import VideoThumbnail from "../videoThumbnails/VideoThumbnail";
 const propTypes = {
     thumbnailUrl: PropTypes.string,
     title: PropTypes.string,
-    description: PropTypes.object,
+    description: PropTypes.string,
     duration: PropTypes.string,
     publishedAt: PropTypes.string,
     onClick: PropTypes.func,
