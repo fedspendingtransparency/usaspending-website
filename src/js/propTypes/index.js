@@ -131,7 +131,7 @@ export const globalModalProps = PropTypes.shape({
     url: PropTypes.string,
     modal: PropTypes.oneOf(['redirect', '', 'covid', 'covid-data-disclaimer', 'training-videos']),
     title: PropTypes.string,
-    description: PropTypes.object,
+    description: PropTypes.string,
     duration: PropTypes.string,
     publishedAt: PropTypes.string,
     id: PropTypes.string

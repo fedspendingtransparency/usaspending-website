@@ -16,7 +16,7 @@ const propTypes = {
     mounted: PropTypes.bool,
     hideModal: PropTypes.func,
     title: PropTypes.string,
-    description: PropTypes.object,
+    description: PropTypes.string,
     duration: PropTypes.string,
     publishedAt: PropTypes.string,
     id: PropTypes.string
