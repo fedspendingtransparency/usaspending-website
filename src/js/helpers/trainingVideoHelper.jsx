@@ -35,7 +35,7 @@ const parseChapters = (description, videoId) => {
 
     newDescription = linkifyHtml(DOMPurify.sanitize(newDescription), { target: "_blank", rel: "noopener noreferrer" });
 
-    return (<div dangerouslySetInnerHTML={{ __html: newDescription}} />);
+    return (<div dangerouslySetInnerHTML={{ __html: newDescription }} />);
 };
 
 export default parseChapters;
