@@ -11,6 +11,7 @@ import { hideModal } from 'redux/actions/modal/modalActions';
 import RedirectModal from 'components/sharedComponents/RedirectModal';
 import InterimDataDisclaimerModal from 'components/covid19/InterimDataDisclaimerModal';
 import CovidModalContainer from 'containers/covid19/CovidModalContainer';
+import TrainingVideoModal from "../../components/sharedComponents/TrainingVideoModal";
 
 import { globalModalProps } from '../../propTypes';
 import UEIModalContainer from "../shared/UEIModalContainer";
@@ -49,6 +50,18 @@ export class GlobalModalContainer extends React.Component {
                 <UEIModalContainer
                     mounted={this.props.globalModal.display}
                     hideModal={this.props.hideModal} />
+            );
+        }
+        if (this.props.globalModal.modal === "training-videos") {
+            return (
+                <TrainingVideoModal
+                    mounted={this.props.globalModal.display}
+                    hideModal={this.props.hideModal}
+                    title={this.props.globalModal.title}
+                    description={this.props.globalModal.description}
+                    duration={this.props.globalModal.duration}
+                    publishedAt={this.props.globalModal.publishedAt}
+                    id={this.props.globalModal.id} />
             );
         }
         return null;

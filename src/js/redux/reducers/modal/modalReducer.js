@@ -25,6 +25,18 @@ const modalReducer = (state = initialState, action) => {
                 modal: ''
             });
         }
+        case 'SHOW_TRAINING_MODAL': {
+            return Object.assign({}, state, {
+                display: true,
+                url: action.url,
+                modal: action.modalType,
+                description: action.description,
+                publishedAt: action.publishedAt,
+                duration: action.duration,
+                title: action.title,
+                id: action.id
+            });
+        }
         default:
             return state;
     }
