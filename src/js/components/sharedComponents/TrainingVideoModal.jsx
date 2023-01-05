@@ -47,8 +47,8 @@ const TrainingVideoModal = (props) => (
             <div className="usa-dt-modal__body">
                 <FlexGridCol
                     className="usa-dt-modal__card"
-                    desktopxl={5}
-                    desktop={6}
+                    desktopxl={6}
+                    desktop={7}
                     tablet={0}
                     mobile={0}>
                     <div className="usa-dt-modal__title">

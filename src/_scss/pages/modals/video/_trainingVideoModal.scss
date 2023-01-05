@@ -1,6 +1,6 @@
 .usa-dt-modal {
     width: 100% - $grid-column;
-    @media(min-width: $large-screen) {
+    @media(min-width: $m-large-screen) {
         width: 100% - $grid-column * 3;
     }
     .training-video-modal {
@@ -65,7 +65,7 @@
                     display: -webkit-box;
                     margin-top: 24px;
                     margin-bottom: 24px;
-                    -webkit-line-clamp: 5;
+                    -webkit-line-clamp: 7;
                     -webkit-box-orient: vertical;
 
                     &::-webkit-scrollbar {
