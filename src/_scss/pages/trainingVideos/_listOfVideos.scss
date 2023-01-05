@@ -69,6 +69,11 @@
       .usa-dt-picker{
         float: right;
       }
+      .svg-inline--fa{
+        &:hover{
+          color: $blue-70v;
+        }
+      }
       .usda-share-icon .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list {
         min-width: 15rem;
         margin-top:20px;

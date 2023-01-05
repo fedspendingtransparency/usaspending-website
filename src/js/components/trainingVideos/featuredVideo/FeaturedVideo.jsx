@@ -65,7 +65,7 @@ const FeaturedVideo = ({ featuredVideo }) => {
                                             url={slug}
                                             tabIndex={0}
                                             onShareOptionClick={onShareClick}
-                                            colors={{ backgroundColor: "#1b2b85", color: "#fff" }}
+                                            colors={{ backgroundColor: "#1b2b85", color: "#DFE1E2" }}
                                             dropdownDirection={isMobile ? 'right' : 'left'} />
                                     </div>
                                 </div>
