@@ -181,6 +181,8 @@
     "immutable": "^3.8.1",
     "js-cookie": "^2.1.0",
     "js-search": "^1.4.2",
+    "linkify-html": "^4.1.0",
+    "linkifyjs": "^4.1.0",
     "lodash": "^4.17.12",
     "lottie-web": "^5.9.6",
     "mapbox-gl": "^2.11.1",

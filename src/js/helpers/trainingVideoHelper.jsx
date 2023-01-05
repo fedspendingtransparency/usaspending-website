@@ -1,5 +1,6 @@
 import React from 'react';
 import DOMPurify from 'dompurify';
+import linkifyHtml from 'linkify-html';
 
 const parseChapters = (description, videoId) => {
     let newDescription = description;
@@ -32,11 +33,9 @@ const parseChapters = (description, videoId) => {
         }
     }
 
-    const sanitizedData = () => ({
-        __html: DOMPurify.sanitize(newDescription)
-    });
+    newDescription = linkifyHtml(DOMPurify.sanitize(newDescription), { target: "_blank", rel: "noopener noreferrer" });
 
-    return (<div dangerouslySetInnerHTML={sanitizedData()} />);
+    return (<div dangerouslySetInnerHTML={{ __html: newDescription}} />);
 };
 
 export default parseChapters;
