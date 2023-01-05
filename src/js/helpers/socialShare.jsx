@@ -63,11 +63,14 @@ const handlersBySocialMedium = {
 };
 
 export const getSocialShareFn = (socialMedium, url) => {
-    if (socialMedium === 'copy' && url.includes('about-the-data')) {
+    if (socialMedium === 'copy' && (url.includes('about-the-data'))) {
         return () => url;
     }
     const fn = handlersBySocialMedium[socialMedium];
-    if (socialMedium !== 'email' && url?.includes('about-the-data')) {
+    if (socialMedium === 'copy' && (url?.includes('youtube'))) {
+        return () => fn(url);
+    }
+    if (socialMedium !== 'email' && (url?.includes('about-the-data') || url?.includes('youtube'))) {
         return () => fn(url);
     }
     if (socialMedium === 'email') {
