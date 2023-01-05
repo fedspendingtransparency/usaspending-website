@@ -15,7 +15,7 @@ const TrainingVideosHeading = () => {
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
 
     const onShareClick = (name) => {
-        const emailSubject = `USAspending.gov Training Video`;
+        const emailSubject = `USAspending.gov Training Video Home Page`;
         const emailArgs = {
             subject: `${emailSubject}`,
             body: `Interested in learning more about #USAspending? Check out #USAspending Training Videos! ${getBaseUrl(slug)}`

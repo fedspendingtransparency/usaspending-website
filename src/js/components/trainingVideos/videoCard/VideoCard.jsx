@@ -33,10 +33,10 @@ const VideoCard = ({
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
 
     const onShareClick = (name) => {
-        const emailSubject = `USAspending.gov Training Video`;
+        const emailSubject = `${title}`;
         const emailArgs = {
             subject: `${emailSubject}`,
-            body: `Check out this #USAspending video ${slug}`
+            body: `Watch this video about USAspending.gov: ${slug}`
         };
         handleShareOptionClick(name, slug, emailArgs);
     };
