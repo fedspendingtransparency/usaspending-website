@@ -105,7 +105,7 @@ const TrainingVideoModal = (props) => {
                         <YouTube
                             videoId={props.id}
                             opts={{
-                                height: '410',
+                                height: '400',
                                 width: '922',
                                 playerVars: {
                                     // https://developers.google.com/youtube/player_parameters

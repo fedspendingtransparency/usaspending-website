@@ -92,5 +92,19 @@
                 }
             }
         }
+
+
+        .usa-dt-modal__video {
+            position: relative;
+            width: 100%;
+        }
+
+        .usa-dt-modal__video iframe{
+            position: absolute;
+            top:0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
     }
 }
