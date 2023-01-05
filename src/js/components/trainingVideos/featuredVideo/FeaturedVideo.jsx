@@ -62,7 +62,7 @@ const FeaturedVideo = ({ featuredVideo }) => {
                                     <div className="featured-video__publishedAt">{ featuredVideo.publishedAt }</div>
                                     <div className="training-video-feature__column-share-icon">
                                         <ShareIcon
-                                            url={slug}
+                                            url="https://www.youtube.com/watch?v=ZuvZQ33ZvAE"
                                             tabIndex={0}
                                             onShareOptionClick={onShareClick}
                                             colors={{ backgroundColor: "#1b2b85", color: "#DFE1E2" }}
