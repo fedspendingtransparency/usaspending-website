@@ -11,7 +11,6 @@ import { connect } from 'react-redux';
 import schema from 'dataMapping/aboutTheDataSchema';
 import AnimatedAboutTheDataWrapper from 'components/aboutTheDataSidebar/AnimatedAboutTheDataWrapper';
 import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
-import * as slideoutActions from 'redux/actions/slideouts/slideoutActions';
 import { getDrilldownEntry } from 'helpers/aboutTheDataSidebarHelper';
 
 require('components/aboutTheDataSidebar/aboutTheData.scss');

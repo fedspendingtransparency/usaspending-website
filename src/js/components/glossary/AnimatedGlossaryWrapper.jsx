@@ -3,33 +3,43 @@
  * Created by Kevin Li 4/28/17
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector } from "react-redux";
 import PropTypes from 'prop-types';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
-
 import Glossary from './Glossary';
 
 const propTypes = {
     glossary: PropTypes.object
 };
 
-export default class AnimatedGlossaryWrapper extends React.Component {
-    render() {
-        return (
-            <div className="usa-da-glossary-animations">
-                <TransitionGroup>
-                    {this.props.glossary.display && (
-                        <CSSTransition
-                            classNames="glossary-slide"
-                            timeout={500}
-                            exit>
-                            <Glossary {...this.props} />
-                        </CSSTransition>
-                    )}
-                </TransitionGroup>
-            </div>
-        );
-    }
-}
+const AnimatedGlossaryWrapper = (props) => {
+    const [zIndexClass, setZIndexClass] = useState(null);
+
+    const { lastOpenedSlideout } = useSelector((state) => state.slideouts);
+
+    useEffect(() => {
+        setZIndexClass(lastOpenedSlideout ? 'z-index-plus-one' : 'z-index');
+    }, [lastOpenedSlideout]);
+
+    console.log('lastOpenedSlideout glossary', lastOpenedSlideout);
+
+    return (
+        <div className="usa-da-glossary-animations">
+            <TransitionGroup>
+                {props.glossary.display && (
+                    <CSSTransition
+                        classNames="glossary-slide"
+                        timeout={500}
+                        exit>
+                        <Glossary {...props} zIndexClass={zIndexClass} />
+                    </CSSTransition>
+                )}
+            </TransitionGroup>
+        </div>
+    );
+};
 
 AnimatedGlossaryWrapper.propTypes = propTypes;
+export default AnimatedGlossaryWrapper;
+

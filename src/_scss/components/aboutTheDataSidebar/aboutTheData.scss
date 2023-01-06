@@ -20,7 +20,7 @@
         width: 310px;
         height: 100%;
 
-        z-index: $z-guide;
+        //z-index: $z-guide;
 
         box-shadow: -3px 0px 4px rgba(0, 0, 0, 0.2);
 
@@ -148,6 +148,13 @@
                     }
                 }
             }
+        }
+
+        &.z-index {
+            z-index: $z-guide;
+        }
+        &.z-index-plus-one {
+            z-index: $z-guide + 1;
         }
 
         @import "noResults";
