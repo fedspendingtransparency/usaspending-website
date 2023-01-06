@@ -5,7 +5,9 @@ import { useLocation } from 'react-router-dom';
 import { omit } from 'lodash';
 
 import * as glossaryActions from 'redux/actions/glossary/glossaryActions';
+import * as slideoutActions from 'redux/actions/slideouts/slideoutActions';
 import { useQueryParams, getQueryParamString } from 'helpers/queryParams';
+import { setLastOpenedSlideout } from "../../redux/actions/slideouts/slideoutActions";
 
 const GlossaryListener = ({
     history,
@@ -40,8 +42,12 @@ const GlossaryListener = ({
                 pathname,
                 search: getQueryParamString(omit(queryParams, ['glossary']))
             });
+            setLastOpenedSlideout('glossary');
+            // setTimeout(() => {
+            //     setLastOpenedSlideout('glossary');
+            // }, 300);
         }
-    }, [history, glossary.display, history.location.search, setTermFromUrl, showGlossary]);
+    }, [history, glossary.display, history.location.search, setTermFromUrl, showGlossary, search, queryParams, pathname]);
     return <Child {...{ history, match, location }} />;
 };
 
@@ -61,7 +67,8 @@ const GlossaryListenerContainer = connect(
     }),
     (dispatch) => ({
         showGlossary: () => dispatch(glossaryActions.showGlossary()),
-        setTermFromUrl: (term) => dispatch(glossaryActions.setTermFromUrl(term))
+        setTermFromUrl: (term) => dispatch(glossaryActions.setTermFromUrl(term)),
+        setLastOpenedSlideout: () => dispatch(slideoutActions.setLastOpenedSlideout())
     })
 )(GlossaryListener);
 

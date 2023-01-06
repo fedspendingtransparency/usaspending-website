@@ -44,6 +44,8 @@ const AboutTheData = (props) => {
     const { lastOpenedSlideout } = useSelector((state) => state.slideouts);
 
     useEffect(() => {
+        console.log('lastOpenedSlideout atd useEffect', lastOpenedSlideout);
+
         setZIndexClass(lastOpenedSlideout === 'glossary' ? 'z-index-plus-one' : 'z-index');
     }, [lastOpenedSlideout]);
 
@@ -215,8 +217,6 @@ const AboutTheData = (props) => {
             setDrilldown(true);
         }
     }, [drilldownItemId, drilldownSection, scrollbar]);
-
-    console.log('lastOpenedSlideout atd', lastOpenedSlideout);
 
     return (
         <div id="usa-atd-wrapper" className={`usa-atd-wrapper ${zIndexClass}`}>

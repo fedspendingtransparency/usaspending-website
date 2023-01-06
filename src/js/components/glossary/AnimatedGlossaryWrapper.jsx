@@ -19,10 +19,9 @@ const AnimatedGlossaryWrapper = (props) => {
     const { lastOpenedSlideout } = useSelector((state) => state.slideouts);
 
     useEffect(() => {
+        console.log('lastOpenedSlideout glossary useEffect', lastOpenedSlideout);
         setZIndexClass(lastOpenedSlideout === 'atd' ? 'z-index-plus-one' : 'z-index');
     }, [lastOpenedSlideout]);
-
-    console.log('lastOpenedSlideout glossary', lastOpenedSlideout);
 
     return (
         <div className="usa-da-glossary-animations">

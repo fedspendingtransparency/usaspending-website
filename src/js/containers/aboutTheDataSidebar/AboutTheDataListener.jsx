@@ -10,7 +10,9 @@ import { useLocation } from 'react-router-dom';
 import { omit } from 'lodash';
 
 import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
+import * as slideoutActions from 'redux/actions/slideouts/slideoutActions';
 import { useQueryParams, getQueryParamString } from 'helpers/queryParams';
+import { setLastOpenedSlideout } from "../../redux/actions/slideouts/slideoutActions";
 
 const AboutTheDataListener = ({
     history,
@@ -45,6 +47,10 @@ const AboutTheDataListener = ({
                 pathname,
                 search: getQueryParamString(omit(queryParams, ['about-the-data']))
             });
+            setLastOpenedSlideout('atd');
+            // setTimeout(() => {
+            //     setLastOpenedSlideout('atd');
+            // }, 300);
         }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [history, aboutTheDataSidebar.display, history.location.search, setAboutTheDataTermFromUrl]);
@@ -67,7 +73,8 @@ const AboutTheDataListenerContainer = connect(
     }),
     (dispatch) => ({
         showAboutTheData: () => dispatch(aboutTheDataActions.showAboutTheData()),
-        setAboutTheDataTermFromUrl: (term) => dispatch(aboutTheDataActions.setAboutTheDataTermFromUrl(term))
+        setAboutTheDataTermFromUrl: (term) => dispatch(aboutTheDataActions.setAboutTheDataTermFromUrl(term)),
+        setLastOpenedSlideout: () => dispatch(slideoutActions.setLastOpenedSlideout())
     })
 )(AboutTheDataListener);
 
