@@ -25,8 +25,8 @@ const WordOfTheDay = () => {
     const [glossary, setGlossary] = useState('');
     const [glossaryLink, setGlossaryLink] = useState('');
     const { pathname, search } = useLocation();
-    const [currentMonth, setCurrentMonth] = useState('');
-    const [currentDate, setCurrentDate] = useState('');
+    const [currentMonth, setCurrentMonth] = useState(-1);
+    const [currentDate, setCurrentDate] = useState(-1);
 
     // Please note before adding terms to this list, verify the term exactly matches the term returned from /v2/references/glossary
     const glossaryTerms = ["Account Balance (File A)",
@@ -107,7 +107,7 @@ const WordOfTheDay = () => {
     };
 
     useEffect(() => {
-        if (currentDate && currentMonth) {
+        if (currentDate > -1 && currentMonth > -1) {
             const index = dateDataMapper[currentMonth]?.startingIndex + currentDate;
             setTerm(glossaryTerms[index]);
         }
