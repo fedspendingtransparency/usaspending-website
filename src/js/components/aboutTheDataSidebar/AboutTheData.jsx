@@ -44,7 +44,7 @@ const AboutTheData = (props) => {
     const { lastOpenedSlideout } = useSelector((state) => state.slideouts);
 
     useEffect(() => {
-        setZIndexClass(lastOpenedSlideout ? 'z-index-plus-one' : 'z-index');
+        setZIndexClass(lastOpenedSlideout === 'glossary' ? 'z-index-plus-one' : 'z-index');
     }, [lastOpenedSlideout]);
 
     useEffect(() => {
