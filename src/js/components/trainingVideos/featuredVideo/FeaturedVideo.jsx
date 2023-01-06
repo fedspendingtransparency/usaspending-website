@@ -18,7 +18,7 @@ const propTypes = {
 };
 
 const FeaturedVideo = ({ featuredVideo }) => {
-    const slug = "https://www.youtube.com/watch?v=ZuvZQ33ZvAE";
+    const slug = "https://www.youtube.com/watch?v=b7SDGhSZ5wM";
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
 
@@ -62,7 +62,7 @@ const FeaturedVideo = ({ featuredVideo }) => {
                                     <div className="featured-video__publishedAt">{ featuredVideo.publishedAt }</div>
                                     <div className="training-video-feature__column-share-icon">
                                         <ShareIcon
-                                            url="https://www.youtube.com/watch?v=ZuvZQ33ZvAE"
+                                            url="https://www.youtube.com/watch?v=b7SDGhSZ5wM"
                                             tabIndex={0}
                                             onShareOptionClick={onShareClick}
                                             colors={{ backgroundColor: "#1b2b85", color: "#DFE1E2" }}
