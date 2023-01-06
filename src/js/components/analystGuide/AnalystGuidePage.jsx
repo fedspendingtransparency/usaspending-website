@@ -4,13 +4,14 @@
  */
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { FlexGridRow, FlexGridCol, ShareIcon } from "data-transparency-ui";
 import { faFileDownload } from "@fortawesome/free-solid-svg-icons";
+import { throttle } from 'lodash';
 import 'pages/analystGuide/analystGuide.scss';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import { useDispatch } from "react-redux";
-
+import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { showModal } from 'redux/actions/modal/modalActions';
 import AnalystGuideHeader from './AnalystGuideHeader';
 import PageWrapper from "../sharedComponents/PageWrapper";
@@ -21,6 +22,8 @@ import AnalystGuideIntro from "./AnalystGuideIntro";
 
 const AnalystGuidePage = () => {
     const slug = 'analyst-guide';
+    const [windowWidth, setWindowWidth] = useState(0);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
 
     const onShareClick = (name) => {
         const emailSubject = `USAspending.gov Analyst's Guide`;
@@ -38,6 +41,17 @@ const AnalystGuidePage = () => {
             dispatch(showModal(e.target.parentNode.getAttribute('data-href') || e.target.getAttribute('data-href') || e.target.value));
         }
     };
+    useEffect(() => {
+        const handleResize = throttle(() => {
+            const newWidth = window.innerWidth;
+            if (windowWidth !== newWidth) {
+                setWindowWidth(newWidth);
+                setIsMobile(newWidth < mediumScreen);
+            }
+        }, 50);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     return (
         <PageWrapper
@@ -57,7 +71,7 @@ const AnalystGuidePage = () => {
                                     url={getBaseUrl(slug)}
                                     onShareOptionClick={onShareClick}
                                     colors={{ backgroundColor: "white", color: "#0071bc" }}
-                                    classNames="" />
+                                    dropdownDirection={isMobile ? 'right' : 'left'} />
                             </div>
                             <div className="analyst-guide__download-wrapper">
                                 <a

@@ -91,14 +91,14 @@
             display: inline-block;
             margin: 0;
             margin-left: 18px;
-            color: $color-grayblack;
+            color: $gray-90;
         }
 
         .status-of-funds__what-second-heading {
             font-size: rem(16);
             font-weight: $font-semibold;
             display: inline-block;
-            color: $color-grayblack;
+            color: $gray-90;
             margin: 24px 16px 0 40px;
         }
 
@@ -167,7 +167,7 @@
     h6 {
         font-size: rem(20);
         font-weight: $font-normal;
-        color: $color-grayblack;
+        color: $gray-90;
         @media(min-width: $medium-screen) {
             margin-top: rem(16);
         }

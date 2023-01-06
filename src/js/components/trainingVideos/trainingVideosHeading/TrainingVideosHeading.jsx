@@ -16,7 +16,7 @@ const TrainingVideosHeading = () => (
                 tablet={0}
                 mobile={0}>
                 <div className="training-videos__column-one">
-                    <div className="trianing-img-container">
+                    <div className="training-img-container">
                         <img className="training-img" src="img/youtube-page/youtube-landing-page-hero-image@2x.webp" alt="placeholder" />
                     </div>
                 </div>
@@ -35,7 +35,6 @@ const TrainingVideosHeading = () => (
                 </div>
             </FlexGridCol>
         </FlexGridRow>
-
     </section>
 );
 

@@ -2,7 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { useQueryParams } from 'helpers/queryParams';
 import { throttle } from 'lodash';
-import { ComingSoon } from 'data-transparency-ui';
+import { ComingSoon, ShareIcon } from 'data-transparency-ui';
+import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import { scrollToY } from 'helpers/scrollToHelper';
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
@@ -169,13 +170,25 @@ const InteractiveDataSourcesPage = () => {
             isMounted = false;
         };
     }, 100), [history, query.section]);
+
+
+    const emailData = {
+        subject: "USAspending Data Sources",
+        body: "View a visualization of USAspending data sources on this interactive page: https://www.usaspending.gov/data-sources"
+    };
+    const handleShare = (name) => {
+        handleShareOptionClick(name, `data-sources`, emailData);
+    };
     return (
         <PageWrapper
             pageName="Data Sources"
             classNames="usa-da-interactive-data-sources-page"
             overLine="resources"
             metaTagProps={interactiveDataSourcesPageMetaTags}
-            title="Data Sources">
+            title="Data Sources"
+            toolBarComponents={[
+                <ShareIcon url={getBaseUrl('data-sources')} onShareOptionClick={handleShare} />
+            ]}>
             <main id="main-content" className="main-content usda__flex-row">
                 <div className="sidebar usda__flex-col">
                     <div className="sidebar_content">

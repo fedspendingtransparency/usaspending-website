@@ -33,9 +33,8 @@ const AboutTheDataSearchBar = (props) => {
     const dispatch = useDispatch();
 
     const localPerformSearch = useCallback((term) => {
+        // do not perform a search if the search term is too short
         if (term.length >= 0 && term.length < 3) {
-            // do not perform a search because the search term is too short
-            // but DO allow an empty string (which indicates a request for the full list)
             // clear if there are already search results
             clearSearch();
             return;

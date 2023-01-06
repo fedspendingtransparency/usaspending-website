@@ -324,10 +324,6 @@ export const getBusinessTypes = () => {
                 fieldName: 'self_certified_small_disadvantaged_business'
             },
             {
-                displayName: 'Small Disadvantaged Business',
-                fieldName: 'small_disadvantaged_business'
-            },
-            {
                 displayName: '8a Program Participant',
                 fieldName: 'c8a_program_participant'
             },
