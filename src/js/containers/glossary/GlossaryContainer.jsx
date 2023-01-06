@@ -14,6 +14,7 @@ import * as GlossaryHelper from 'helpers/glossaryHelper';
 import AnimatedGlossaryWrapper from 'components/glossary/AnimatedGlossaryWrapper';
 
 import * as glossaryActions from 'redux/actions/glossary/glossaryActions';
+import * as slideoutActions from 'redux/actions/slideouts/slideoutActions';
 import { Definition } from 'redux/reducers/glossary/glossaryReducer';
 
 require('pages/glossary/glossaryPage.scss');
