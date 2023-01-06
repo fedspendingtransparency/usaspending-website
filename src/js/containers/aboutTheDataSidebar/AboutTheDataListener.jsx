@@ -10,9 +10,7 @@ import { useLocation } from 'react-router-dom';
 import { omit } from 'lodash';
 
 import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
-import * as slideoutActions from 'redux/actions/slideouts/slideoutActions';
 import { useQueryParams, getQueryParamString } from 'helpers/queryParams';
-import { setLastOpenedSlideout } from "../../redux/actions/slideouts/slideoutActions";
 
 const AboutTheDataListener = ({
     history,
@@ -21,7 +19,8 @@ const AboutTheDataListener = ({
     location,
     showAboutTheData,
     setAboutTheDataTermFromUrl,
-    Child
+    Child,
+    setLastOpenedSlideout
 }) => {
     const { pathname, search } = useLocation();
     const queryParams = useQueryParams();
@@ -38,6 +37,9 @@ const AboutTheDataListener = ({
         history.replace(urlWithNoHash);
     }, [location, history]);
 
+    // this is not currently being used to open the atd slideout
+    // for now it is only opened from the openATD function in dropdownItem.jsx
+    // that will change if we add links to atd on other pages
     useEffect(() => {
         if (search.includes('about-the-data')) {
             const { "about-the-data": term } = queryParams;
@@ -47,13 +49,8 @@ const AboutTheDataListener = ({
                 pathname,
                 search: getQueryParamString(omit(queryParams, ['about-the-data']))
             });
-            setLastOpenedSlideout('atd');
-            // setTimeout(() => {
-            //     setLastOpenedSlideout('atd');
-            // }, 300);
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [history, aboutTheDataSidebar.display, history.location.search, setAboutTheDataTermFromUrl]);
+    }, [history, aboutTheDataSidebar.display, history.location.search, setAboutTheDataTermFromUrl, search, queryParams, showAboutTheData, pathname, setLastOpenedSlideout]);
     return <Child {...{ history, match, location }} />;
 };
 
@@ -64,7 +61,8 @@ AboutTheDataListener.propTypes = {
     aboutTheDataSidebar: PropTypes.object,
     showAboutTheData: PropTypes.func,
     setAboutTheDataTermFromUrl: PropTypes.func,
-    Child: PropTypes.oneOfType([PropTypes.object, PropTypes.func, PropTypes.element, PropTypes.node])
+    Child: PropTypes.oneOfType([PropTypes.object, PropTypes.func, PropTypes.element, PropTypes.node]),
+    setLastOpenedSlideout: PropTypes.func
 };
 
 const AboutTheDataListenerContainer = connect(
@@ -73,10 +71,8 @@ const AboutTheDataListenerContainer = connect(
     }),
     (dispatch) => ({
         showAboutTheData: () => dispatch(aboutTheDataActions.showAboutTheData()),
-        setAboutTheDataTermFromUrl: (term) => dispatch(aboutTheDataActions.setAboutTheDataTermFromUrl(term)),
-        setLastOpenedSlideout: () => dispatch(slideoutActions.setLastOpenedSlideout())
+        setAboutTheDataTermFromUrl: (term) => dispatch(aboutTheDataActions.setAboutTheDataTermFromUrl(term))
     })
 )(AboutTheDataListener);
 
 export default AboutTheDataListenerContainer;
-

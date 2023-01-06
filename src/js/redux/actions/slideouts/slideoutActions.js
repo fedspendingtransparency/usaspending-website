@@ -5,5 +5,5 @@
 
 export const setLastOpenedSlideout = (state) => ({
     type: 'SET_LAST_OPENED',
-    lastOpened: state
+    lastOpenedSlideout: state
 });

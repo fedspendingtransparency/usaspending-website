@@ -19,8 +19,7 @@ const AnimatedGlossaryWrapper = (props) => {
     const { lastOpenedSlideout } = useSelector((state) => state.slideouts);
 
     useEffect(() => {
-        console.log('lastOpenedSlideout glossary useEffect', lastOpenedSlideout);
-        setZIndexClass(lastOpenedSlideout === 'atd' ? 'z-index-plus-one' : 'z-index');
+        setZIndexClass(lastOpenedSlideout === 'glossary' ? 'z-index-plus-one' : 'z-index');
     }, [lastOpenedSlideout]);
 
     return (

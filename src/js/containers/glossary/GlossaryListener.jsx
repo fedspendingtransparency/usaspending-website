@@ -7,7 +7,6 @@ import { omit } from 'lodash';
 import * as glossaryActions from 'redux/actions/glossary/glossaryActions';
 import * as slideoutActions from 'redux/actions/slideouts/slideoutActions';
 import { useQueryParams, getQueryParamString } from 'helpers/queryParams';
-import { setLastOpenedSlideout } from "../../redux/actions/slideouts/slideoutActions";
 
 const GlossaryListener = ({
     history,
@@ -16,7 +15,8 @@ const GlossaryListener = ({
     location,
     showGlossary,
     setTermFromUrl,
-    Child
+    Child,
+    setLastOpenedSlideout
 }) => {
     const { pathname, search } = useLocation();
     const queryParams = useQueryParams();
@@ -43,11 +43,8 @@ const GlossaryListener = ({
                 search: getQueryParamString(omit(queryParams, ['glossary']))
             });
             setLastOpenedSlideout('glossary');
-            // setTimeout(() => {
-            //     setLastOpenedSlideout('glossary');
-            // }, 300);
         }
-    }, [history, glossary.display, history.location.search, setTermFromUrl, showGlossary, search, queryParams, pathname]);
+    }, [history, glossary.display, history.location.search, setTermFromUrl, showGlossary, search, queryParams, pathname, setLastOpenedSlideout]);
     return <Child {...{ history, match, location }} />;
 };
 
@@ -58,7 +55,8 @@ GlossaryListener.propTypes = {
     glossary: PropTypes.object,
     showGlossary: PropTypes.func,
     setTermFromUrl: PropTypes.func,
-    Child: PropTypes.oneOfType([PropTypes.object, PropTypes.func, PropTypes.element, PropTypes.node])
+    Child: PropTypes.oneOfType([PropTypes.object, PropTypes.func, PropTypes.element, PropTypes.node]),
+    setLastOpenedSlideout: PropTypes.func
 };
 
 const GlossaryListenerContainer = connect(
@@ -68,7 +66,7 @@ const GlossaryListenerContainer = connect(
     (dispatch) => ({
         showGlossary: () => dispatch(glossaryActions.showGlossary()),
         setTermFromUrl: (term) => dispatch(glossaryActions.setTermFromUrl(term)),
-        setLastOpenedSlideout: () => dispatch(slideoutActions.setLastOpenedSlideout())
+        setLastOpenedSlideout: (lastOpened) => dispatch(slideoutActions.setLastOpenedSlideout(lastOpened))
     })
 )(GlossaryListener);
 

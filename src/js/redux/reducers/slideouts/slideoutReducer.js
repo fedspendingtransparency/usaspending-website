@@ -11,7 +11,7 @@ const slideoutReducer = (state = initialState, action) => {
     switch (action.type) {
         case 'SET_LAST_OPENED': {
             return Object.assign({}, state, {
-                lastOpenedSlideout: action.lastOpened
+                lastOpenedSlideout: action.lastOpenedSlideout
             });
         }
         default:
