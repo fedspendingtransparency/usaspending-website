@@ -13,7 +13,6 @@ import CardContainer from "../../sharedComponents/commonCards/CardContainer";
 import CardHero from "../../sharedComponents/commonCards/CardHero";
 import CardBody from "../../sharedComponents/commonCards/CardBody";
 import VideoThumbnail from "../videoThumbnails/VideoThumbnail";
-import CardButton from '../../sharedComponents/commonCards/CardButton';
 
 const propTypes = {
     thumbnailUrl: PropTypes.string,
@@ -31,7 +30,6 @@ const VideoCard = ({
 }) => {
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
-
     const onShareClick = (name) => {
         const emailSubject = `${title}`;
         const emailArgs = {
