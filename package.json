@@ -39,7 +39,7 @@
     "@babel/polyfill": "^7.10.4",
     "@babel/preset-env": "^7.4.2",
     "@babel/preset-react": "^7.16.7",
-    "@lhci/cli": "^0.9.0",
+    "@lhci/cli": "^0.10.0",
     "@lhci/server": "^0.9.0",
     "@mdx-js/loader": "^2.1.5",
     "@mdx-js/react": "^2.1.5",
@@ -66,7 +66,7 @@
     "argparse": "^2.0.1",
     "babel-jest": "^27.0.1",
     "babel-loader": "^9.1.0",
-    "babel-plugin-module-resolver": "^3.2.0",
+    "babel-plugin-module-resolver": "^5.0.0",
     "chalk": "^4.1.2",
     "color-convert": "^2.0.1",
     "color-name": "^1.1.4",
@@ -135,7 +135,11 @@
     "decode-uri-component": "0.2.2",
     "trim": "1.0.1",
     "**/trim": "1.0.1",
-    "validator": "13.7.0"
+    "validator": "13.7.0",
+    "**/validator": "13.7.0",
+    "got": "11.8.5",
+    "**/got": "11.8.5",
+    "json5": "2.2.3"
   },
   "dependencies": {
     "@babel/eslint-parser": "^7.17.0",
