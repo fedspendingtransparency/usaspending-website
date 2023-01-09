@@ -54,8 +54,9 @@ const VideoCard = ({
 
 
     return (
-        <CardContainer variant="outline" size="md" onClick={onClick} tabIndex="0" onKeyUp={onKeyUp}>
+        <CardContainer variant="outline" size="md" tabIndex="0" onKeyUp={onKeyUp}>
             <CardHero
+                onClick={onClick}
                 variant="expanded"
                 thumbnail>
                 <VideoThumbnail
