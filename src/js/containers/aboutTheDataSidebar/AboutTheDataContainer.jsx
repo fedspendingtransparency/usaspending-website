@@ -33,7 +33,8 @@ export const AboutTheDataContainer = (props) => {
                 props.setAboutTheDataTermFromUrl('');
             }
         }
-    }, [props, props.aboutTheDataSidebar]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [props.aboutTheDataSidebar]);
 
     return (
         <AnimatedAboutTheDataWrapper
