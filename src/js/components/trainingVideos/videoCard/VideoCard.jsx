@@ -13,6 +13,7 @@ import CardContainer from "../../sharedComponents/commonCards/CardContainer";
 import CardHero from "../../sharedComponents/commonCards/CardHero";
 import CardBody from "../../sharedComponents/commonCards/CardBody";
 import VideoThumbnail from "../videoThumbnails/VideoThumbnail";
+import CardButton from '../../sharedComponents/commonCards/CardButton';
 
 const propTypes = {
     thumbnailUrl: PropTypes.string,
@@ -69,7 +70,10 @@ const VideoCard = ({
             <CardBody
                 headline={
                     <div>
-                        {title}
+                        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+                        <div onClick={onClick} >
+                            {title}
+                        </div>
                     </div>
                 }
                 text={description}>

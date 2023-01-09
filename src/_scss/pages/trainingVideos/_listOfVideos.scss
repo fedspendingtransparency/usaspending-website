@@ -19,13 +19,17 @@
     }
 
     .card-column {
-      &:hover {
-        box-shadow: 0 12px 24px 0 rgba(0, 0, 0, 0.1);
-      }
+      // &:hover {
+      //   box-shadow: 0 12px 24px 0 rgba(0, 0, 0, 0.1);
+      // }
     }
 
     .card__hero.expanded {
       padding-top: 0;
+      &:hover {
+        box-shadow: $shadow-lg;
+        cursor: pointer;
+      }
 
       img {
         border-radius: rem(8) rem(8) 0 0;
@@ -105,7 +109,10 @@
     .card__body .headline {
       text-align: left;
       color: $gray-90;
-
+      &:hover{
+        text-decoration: underline;
+        cursor: pointer;
+      }
       @media (min-width:$medium-screen) {
         min-height: 60px;
       }
