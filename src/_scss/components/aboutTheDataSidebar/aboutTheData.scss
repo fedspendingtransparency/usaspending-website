@@ -16,12 +16,8 @@
         position: fixed;
         right: 0;
         top: 0;
-
         width: 310px;
         height: 100%;
-
-        //z-index: $z-guide;
-
         box-shadow: -3px 0px 4px rgba(0, 0, 0, 0.2);
 
         .usda-share-icon .copy-confirmation {
@@ -36,9 +32,9 @@
             background-color: $cyan-60v;
             color: $color-white;
             font-size: rem(14);
-
             width: 100%;
             height: 100%;
+
             @import "./_header";
             @import "./_scrollbar";
         }
@@ -58,12 +54,11 @@
         }
 
         .atd__heading {
+            margin-top: rem(16);
             font-size: $font-size-20;
-            margin-top: rem(8);
             line-height: rem(25);
             color: $theme-color-headline-inverse;
             font-weight: $font-semibold;
-            margin-top: rem(16);
         }
 
         .atd__link {
