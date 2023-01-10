@@ -53,6 +53,11 @@ $letter-color: #323A45;
                 padding-left: rem(40);
                 padding-top: 0;
             }
+            
+            .advanced-search__glossary-term {
+                font-weight: $font-semibold;
+            }
+
         }
     }
 }

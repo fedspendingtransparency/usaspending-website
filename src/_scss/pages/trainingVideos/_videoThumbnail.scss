@@ -1,0 +1,74 @@
+.video-thumbnail__column-container {
+  display: flex;
+
+  img {
+    width: 100%;
+  }
+
+  .video-thumbnail__play-overlay {
+    justify-content: center;
+    align-items: center;
+
+    .overlay-play-button {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+
+      .play-button-bg {
+        height: 56px;
+        padding: 12px 48px;
+        border-radius: 8px;
+        // not using color var here so the opacity won't apply to the icon
+        background-color: rgb(0, 0, 0, .25);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        @media(min-width: $tablet-screen) {
+          height: 80px;
+        }
+
+        .play-button__icon {
+          height: 32px;
+          width: 32px;
+          color: $gray-cool-1;
+          opacity: 1;
+          @media(min-width: $tablet-screen) {
+            height: 56px;
+            width: 56px;
+          }
+        }
+      }
+    }
+  }
+
+  .video-thumbnail__duration-overlay {
+    justify-content: flex-end;
+
+    .overlay-duration {
+      background-color: $gray-90;
+      color: $gray-cool-1;
+      border-radius: 4px;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      margin: 2px;
+      padding: 3px 4px;
+      height: 16px;
+      font-size: $font-size-16;
+      line-height: $font-size-16;
+      display: inline-flex;
+      flex-direction: row;
+      align-items: center;
+
+      .duration-text {
+        max-height: $font-size-16;
+        overflow: hidden;
+        margin: 0;
+        padding: 0;
+        border: 0;
+        background: transparent;
+      }
+    }
+  }
+}

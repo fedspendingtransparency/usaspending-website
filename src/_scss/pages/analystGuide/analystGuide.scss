@@ -36,6 +36,9 @@
 
       .usda-share-icon .copy-confirmation {
         background-color: $color-white;
+        @media(max-width:$medium-screen) {
+          transform: translateX(120px);
+        }
         svg {
           color: $green-cool-50;
         }
@@ -88,32 +91,6 @@
           color: $color-primary-darker !important;
         }
       }
-  
-      // these affect the share dropdown position
-      // overriding the styles in data-transparency-ui Picker, sent by ShareIcon
-      .usa-dt-picker .usa-dt-picker__dropdown-container ul {
-        @media (min-width: $small-screen) and (max-width: 374px) {
-          right: 110px !important;
-        }
-        @media (min-width: 375px) and (max-width: 474px) {
-          right: 132px !important;
-        }
-        @media (min-width: 475px) and (max-width: 574px) {
-          right: 232px !important;
-        }
-        @media (min-width: 575px) and (max-width: 674px) {
-          right: 332px !important;
-        }
-        @media (min-width: 675px) and (max-width: 767px) {
-          right: 444px !important;
-        }
-        @media (min-width: 768px) and (max-width: 868px) {
-          right: 525px !important;
-        }
-        @media (min-width: 869px) and (max-width: $medium-screen) {
-          right: 625px !important;
-        }
-      }
     }
   
     .analyst-guide__download-wrapper {
@@ -121,19 +98,18 @@
       color: $color-primary;
       background-color: white;
       margin-top: $global-margin * 4;
+      margin-left: 0;
       left: 10px;
       &:hover {
         color: $color-primary-darker;
       }
-      @media (min-width: $medium-screen) {
-        margin-left: 0px;
-      }
+
   
       .analyst-guide__download-button {
         @include button-link;
         padding: 0px 20px 0px 20px;
         margin-top: 10px;
-        margin-bottom: 6px;
+        margin-bottom: 8px;
         @media (min-width: $medium-screen) {
           padding: 0px 20px 7px 20px;
           margin-top: 10px;
@@ -162,7 +138,7 @@
     font-style: normal;
     line-height: $heading-line-height;
     letter-spacing: normal;
-    color: $color-grayblack;
+    color: $gray-90;
     font-size: rem(28);
     margin: 36px 0px 20px;
     @media (max-width: $medium-screen) {
@@ -206,7 +182,7 @@
       font-style: normal;
       line-height: $heading-line-height;
       letter-spacing: normal;
-      color: $color-grayblack;
+      color: $gray-90;
   }
 
   .analyst-guide__answerSection {

@@ -4,16 +4,21 @@
  */
 
 import React from 'react';
+import PropTypes from "prop-types";
 import PageWrapper from "../sharedComponents/PageWrapper";
 import { homePageMetaTags } from "../../helpers/metaTagHelper";
 import TrainingVideosHeading from "./trainingVideosHeading/TrainingVideosHeading";
-import HighlightedVideo from "./highlightedVideo/HighlightedVideo";
-import TrainingVideosFilters from "./trainingVideosFilters/TrainingVideosFilters";
+import FeaturedVideo from "./featuredVideo/FeaturedVideo";
 import ListOfVideos from "./listOfVideos/ListOfVideos";
+
+const propTypes = {
+    featuredVideo: PropTypes.object,
+    videos: PropTypes.array
+};
 
 require('pages/trainingVideos/trainingVideos.scss');
 
-const TrainingVideosPage = () => (
+const TrainingVideosPage = ({ featuredVideo, videos }) => (
     <PageWrapper
         pageName="TrainingVideos"
         classNames="training-videos-page"
@@ -23,11 +28,12 @@ const TrainingVideosPage = () => (
             id="main-content"
             className="main-content training-videos-content">
             <TrainingVideosHeading />
-            <HighlightedVideo />
-            <TrainingVideosFilters />
-            <ListOfVideos />
+            <FeaturedVideo featuredVideo={featuredVideo} />
+            <ListOfVideos videos={videos} />
         </main>
     </PageWrapper>
 );
+
+TrainingVideosPage.propTypes = propTypes;
 
 export default TrainingVideosPage;
