@@ -19,8 +19,7 @@ const AboutTheDataListener = ({
     location,
     showAboutTheData,
     setAboutTheDataTermFromUrl,
-    Child,
-    setLastOpenedSlideout
+    Child
 }) => {
     const { pathname, search } = useLocation();
     const queryParams = useQueryParams();
@@ -62,8 +61,7 @@ AboutTheDataListener.propTypes = {
     aboutTheDataSidebar: PropTypes.object,
     showAboutTheData: PropTypes.func,
     setAboutTheDataTermFromUrl: PropTypes.func,
-    Child: PropTypes.oneOfType([PropTypes.object, PropTypes.func, PropTypes.element, PropTypes.node]),
-    setLastOpenedSlideout: PropTypes.func
+    Child: PropTypes.oneOfType([PropTypes.object, PropTypes.func, PropTypes.element, PropTypes.node])
 };
 
 const AboutTheDataListenerContainer = connect(
