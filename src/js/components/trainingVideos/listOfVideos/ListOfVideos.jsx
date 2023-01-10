@@ -27,8 +27,10 @@ const ListOfVideos = ({ videos }) => {
         }
     };
 
-    const sortBy = (field, direction) => {
-
+    const sortBy = (a, b, sortByField) => {
+        if (a.sortOrder < b.sortOrder) return -1;
+        if (b.sortOrder < a.sortOrder) return 1;
+        return 0;
     };
 
     return (
@@ -39,13 +41,14 @@ const ListOfVideos = ({ videos }) => {
                         <div className="video-sort-label">Sort By: </div>
                         <Picker
                             className="video-sort-list"
-                            options={[{ name: 'Newest', value: 0, onClick: () => {} },
-                                { name: 'Oldest', value: 1, onClick: () => {} },
-                                { name: 'Shortest', value: 2, onClick: () => {} },
-                                { name: 'Longest', value: 3, onClick: () => {} }]}
+                            sortFn={ sortBy }
+                            options={[{ name: 'Newest', value: 0, onClick: () => { setSortOrder("Newest"); } },
+                                { name: 'Oldest', value: 1, onClick: () => { setSortOrder("Oldest"); } },
+                                { name: 'Shortest', value: 2, onClick: () => { setSortOrder("Shortest"); } },
+                                { name: 'Longest', value: 3, onClick: () => { setSortOrder("Longest"); } }]}
                             dropdownDirection="right"
                             backgroundColor="#ffffff"
-                            selectedOption="Newest" />
+                            selectedOption={sortOrder} />
                     </FlexGridCol>
                 </FlexGridRow>
                 <FlexGridRow hasGutter gutterSize="lg">
