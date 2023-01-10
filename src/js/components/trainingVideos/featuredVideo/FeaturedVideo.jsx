@@ -46,9 +46,7 @@ const FeaturedVideo = ({ featuredVideo }) => {
         <section className="featured-video__section">
             {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
             <div
-                className="grid-content"
-                onKeyDown={() => console.log("launch modal here")}
-                onClick={() => console.log("launch modal here")}>
+                className="grid-content">
                 <FlexGridRow>
                     <FlexGridCol width={5} desktop={5} tablet={12} mobile={12}>
                         <div className="featured-video__text">
@@ -72,7 +70,13 @@ const FeaturedVideo = ({ featuredVideo }) => {
                             </div>
                         </div>
                     </FlexGridCol>
-                    <FlexGridCol width={7} desktop={7} tablet={12} mobile={12}>
+                    <FlexGridCol
+                        width={7}
+                        desktop={7}
+                        tablet={12}
+                        mobile={12}
+                        onKeyDown={() => console.log("launch modal here")}
+                        onClick={() => console.log("launch modal here")} >
                         <VideoThumbnail
                             tabIndex="0"
                             thumbnailUrl={featuredVideo.thumbnails.maxres.url}
