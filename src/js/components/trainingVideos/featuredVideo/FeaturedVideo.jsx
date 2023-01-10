@@ -9,7 +9,7 @@ import { FlexGridCol, FlexGridRow } from "data-transparency-ui";
 import VideoThumbnail from "../videoThumbnails/VideoThumbnail";
 
 const propTypes = {
-    featuredVideo: PropTypes.array
+    featuredVideo: PropTypes.object
 };
 
 const FeaturedVideo = ({ featuredVideo }) => (

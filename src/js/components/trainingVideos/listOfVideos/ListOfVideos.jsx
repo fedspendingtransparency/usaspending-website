@@ -5,6 +5,8 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from "prop-types";
+import { useDispatch } from 'react-redux';
+import { showTrainingVideoModal } from 'redux/actions/modal/modalActions';
 import { FlexGridRow, FlexGridCol, Picker } from "data-transparency-ui";
 import VideoCard from '../videoCard/VideoCard';
 
@@ -13,6 +15,7 @@ const propTypes = {
 };
 
 const ListOfVideos = ({ videos }) => {
+    const dispatch = useDispatch();
     const [sortOrder, setSortOrder] = useState("Newest");
     const onClick = () => {
         console.debug("clicked card!!!");
@@ -58,12 +61,17 @@ const ListOfVideos = ({ videos }) => {
                                 tabIndex="0"
                                 key={video.id}
                                 thumbnailUrl={video.thumbnails.maxres.url}
+                                id={video.id}
                                 title={video.title}
                                 duration={video.duration}
                                 publishedAt={video.publishedAt}
                                 description={video.description}
-                                onClick={onClick}
-                                onKeyUp={onKeyUp} />
+                                onClick={(e) => {
+                                    e.persist();
+                                    dispatch(showTrainingVideoModal({
+                                        url: video.thumbnails.maxres.url, modalType: 'training-videos', title: video.title, description: video.description, publishedAt: video.publishedAt, duration: video.duration, id: video.id
+                                    }));
+                                }} />
                         </FlexGridCol>))
                     }
                 </FlexGridRow>

@@ -17,36 +17,45 @@ const propTypes = {
     duration: PropTypes.string,
     publishedAt: PropTypes.string,
     onClick: PropTypes.func,
-    onKeyUp: PropTypes.func
+    id: PropTypes.string
 };
 
 const VideoCard = ({
-    thumbnailUrl, title, duration, onClick, description, onKeyUp, publishedAt
-}) => (
-    <CardContainer variant="outline" size="md" onClick={onClick} tabIndex="0" onKeyUp={onKeyUp}>
-        <CardHero
-            variant="expanded"
-            thumbnail>
-            <VideoThumbnail
-                thumbnailUrl={thumbnailUrl}
-                duration={duration}
-                showPlay
-                showDuration
-                title={title} />
-        </CardHero>
-        <CardBody
-            headline={
-                <div>
-                    {title}
-                </div>
-            }
-            text={description}>
-            <div className="video-card__metadiv">
-                {publishedAt}
-            </div>
-        </CardBody>
-    </CardContainer>
-);
+    thumbnailUrl, title, duration, description, publishedAt, onClick
+}) => {
+    const onKeyUp = (e) => {
+        if (e.keyCode === 13) {
+            onClick();
+        }
+    };
+    return (
+        <>
+            <CardContainer variant="outline" size="md" onClick={onClick} tabIndex="0" onKeyUp={onKeyUp}>
+                <CardHero
+                    variant="expanded"
+                    thumbnail>
+                    <VideoThumbnail
+                        thumbnailUrl={thumbnailUrl}
+                        duration={duration}
+                        showPlay
+                        showDuration
+                        title={title} />
+                </CardHero>
+                <CardBody
+                    headline={
+                        <div>
+                            {title}
+                        </div>
+                    }
+                    text={description}>
+                    <div className="video-card__metadiv">
+                        {publishedAt}
+                    </div>
+                </CardBody>
+            </CardContainer>
+        </>
+    );
+};
 
 VideoCard.propTypes = propTypes;
 

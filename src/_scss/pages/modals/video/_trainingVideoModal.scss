@@ -1,0 +1,116 @@
+.usa-dt-modal {
+    width: 100% - $grid-column;
+    @media(min-width: $m-large-screen) {
+        width: 100% - $grid-column * 3;
+    }
+    .training-video-modal {
+        background: unset;
+        width: 100%;
+        min-width: 100%;
+
+        .usa-dt-modal__header {
+            justify-content: left;
+            align-items: center;
+            height: 0;
+
+            .training__back__label {
+                color: $gray-cool-1;
+                font-size: rem(14);
+                line-height: 1.5;
+                margin-left: 5px;
+                transform: translateY(-16px);
+            }
+
+            svg {
+                width: 14px;
+                height: 14px;
+                transform: translateY(-16px);
+            }
+        }
+
+        .usa-dt-modal__title {
+            text-align: left;
+            font-size: rem(24);
+            font-weight: $font-semibold;
+            line-height: 1.25;
+            color: $gray-90;
+            padding-left: 4px;
+        }
+
+        .usa-dt-modal__body {
+            display: flex;
+            padding: 0;
+            min-height: 35vh;
+            @media(min-width: $medium-screen) {
+                min-height: 375px;
+            }
+
+            @media(min-width: $large-screen) {
+                min-height: 408px;
+            }
+
+            .usa-dt-modal__card {
+                padding: 48px;
+                display: none;
+
+                @media(min-width: $large-screen) {
+                    display: unset;
+                }
+
+                .usa-dt-modal__body-text {
+                    overflow-y: scroll;
+                    text-align: left;
+                    color: $gray-60;
+                    font-size: rem(16);
+                    line-height: 1.5;
+                    display: -webkit-box;
+                    margin-top: 24px;
+                    margin-bottom: 24px;
+                    -webkit-line-clamp: 7;
+                    -webkit-box-orient: vertical;
+
+                    &::-webkit-scrollbar {
+                        border-radius: 2.5px;
+                        border: solid 1px $gray-cool-10;
+                        width: 6px;
+                    }
+
+                    &::-webkit-scrollbar-thumb {
+                        background-color: $gray-cool-10;
+                    }
+
+                    & > div {
+                        padding: 4px;
+                    }
+
+                    a {
+                        cursor: pointer;
+                    }
+
+                }
+
+                .usa-dt-modal__meta {
+                    text-align: left;
+                    font-size: rem(14);
+                    color: $gray-60;
+                    margin-top: 24px;
+                    padding-left: 4px;
+                }
+            }
+        }
+
+
+        .usa-dt-modal__video {
+            position: relative;
+            width: 100%;
+        }
+
+        .usa-dt-modal__video iframe{
+            position: absolute;
+            top:0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+    }
+}
