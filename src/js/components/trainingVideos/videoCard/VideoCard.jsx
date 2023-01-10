@@ -51,7 +51,6 @@ const VideoCard = ({
         return () => window.removeEventListener('resize', handleResize);
     }, []);
 
-
     return (
         <CardContainer variant="outline" size="md" tabIndex="0" onKeyUp={onKeyUp}>
             <CardHero
