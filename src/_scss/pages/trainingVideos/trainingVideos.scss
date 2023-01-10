@@ -2,6 +2,16 @@
   @import 'all';
   @import "layouts/default/default";
 
+  .usda-page-header {
+    display: -webkit-box;
+    display: -moz-box;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: flex;
+    min-height: 6rem;
+  }
+
   img {
     height: 100%;
   }
