@@ -12,6 +12,7 @@
   }
 
   .grid-content {
+    align-items: center;
     @media (min-width: $medium-screen){
       margin: 0 $global-margin * 16;
     }
@@ -37,6 +38,7 @@
 
       .training-img {
         margin: auto;
+        max-height: 400px;
 
       }
     }

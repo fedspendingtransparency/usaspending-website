@@ -1,37 +1,31 @@
 .usa-da-glossary-animations {
     @import "../../lib/bourbon/bourbon";
     @import '../../lib/neat/neat';
-    
+
     @import "../../core/variables";
     @import "../../core/utilities";
 
     @import "../../elements/buttons";
     @import "../../elements/typography";
-    
+
     @import "./_animations";
 
     .usa-da-glossary-wrapper {
         position: fixed;
         right: 0;
         top: 0;
-
         width: 310px;
         height: 100%;
-
-        z-index: $z-guide;
-
         box-shadow: -3px 0px 4px rgba(0, 0, 0, 0.2);
 
         .glossary-sidebar {
             background-color: $color-primary-darker;
             color: $color-white;
             font-size: 14px;
-
             width: 100%;
             height: 100%;
 
             @import "./_scrollbar";
-
             @import "./_header";
             @import "./_searchList";
             @import "./_definition";
@@ -49,6 +43,13 @@
                 font-size: rem(16);
                 color: $gray-cool-10;
             }
+        }
+
+        &.z-index {
+            z-index: $z-guide;
+        }
+        &.z-index-plus-one {
+            z-index: $z-guide + 1;
         }
     }
 }
