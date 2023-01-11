@@ -105,7 +105,7 @@ const Frequency = (props) => {
                                             href="https://fiscal.treasury.gov/data-transparency/resources.html"
                                             target="_blank"
                                             rel="noopener noreferrer">
-                                        resources page for the USAspending Source and Submission Model
+                                        resources page for the DATA Act Information Model Schema (DAIMS)
                                         </a>
                                     .
                                     </p>

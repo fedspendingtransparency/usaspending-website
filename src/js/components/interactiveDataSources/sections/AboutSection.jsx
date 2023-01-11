@@ -64,7 +64,7 @@ const AboutSection = () => {
                         href="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html"
                         target="_blank"
                         rel="noopener noreferrer">
-                        USAspending Source and Submission Model
+                        DATA Act Information Model Schema (DAIMS)
                     </a>
                     : technical documentation for the data submitted to, and extracted by, USAspending.gov (Files A, B, C, D1, D2, E, and F)
                 </li>
