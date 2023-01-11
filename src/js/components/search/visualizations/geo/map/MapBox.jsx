@@ -78,10 +78,13 @@ export default class MapBox extends React.Component {
     }
 
     getMapLayer(layerId) {
+        console.log(layerId)
+        console.log(this.map.getLayer(layerId))
         return this.map.getLayer(layerId);
     }
 
     setDataLayers(layerIds) {
+        console.log(layerIds)
         this.setState({
             dataLayers: layerIds
         });

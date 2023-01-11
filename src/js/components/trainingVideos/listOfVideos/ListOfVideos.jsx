@@ -17,21 +17,26 @@ const propTypes = {
 const ListOfVideos = ({ videos }) => {
     const dispatch = useDispatch();
     const [sortOrder, setSortOrder] = useState("Newest");
-    const onClick = () => {
-        console.debug("clicked card!!!");
+    const optionsFields = {
+        newest: "publishedAt", oldest: "publishedAt", shortest: "duration", longest: "duration"
     };
 
-    const onKeyUp = (e) => {
-        if (e.keyCode === 13) {
-            onClick();
-        }
-    };
-
-    const sortBy = (a, b, sortByField) => {
-        if (a.sortOrder < b.sortOrder) return -1;
-        if (b.sortOrder < a.sortOrder) return 1;
-        return 0;
-    };
+    // const sortBy = (i, j, sortByField) => {
+    //     videos.sort((a, b) => {
+    //         const itemA = a[sortField];
+    //         const itemB = b[sortField];
+    //
+    //         if (itemA < itemB) {
+    //             return -1;
+    //         }
+    //         if (itemA > itemB) {
+    //             return 1;
+    //         }
+    //
+    //         // names must be equal
+    //         return 0;
+    //     });
+    // };
 
     return (
         <section className="list-of-videos__section">
@@ -41,11 +46,34 @@ const ListOfVideos = ({ videos }) => {
                         <div className="video-sort-label">Sort By: </div>
                         <Picker
                             className="video-sort-list"
-                            sortFn={ sortBy }
-                            options={[{ name: 'Newest', value: 0, onClick: () => { setSortOrder("Newest"); } },
-                                { name: 'Oldest', value: 1, onClick: () => { setSortOrder("Oldest"); } },
-                                { name: 'Shortest', value: 2, onClick: () => { setSortOrder("Shortest"); } },
-                                { name: 'Longest', value: 3, onClick: () => { setSortOrder("Longest"); } }]}
+                            options={[{
+                                name: 'Newest',
+                                value: '0',
+                                onClick: () => {
+                                    setSortOrder("Newest");
+                                }
+                            },
+                            {
+                                name: 'Oldest',
+                                value: 1,
+                                onClick: () => {
+                                    setSortOrder("Oldest");
+                                }
+                            },
+                            {
+                                name: 'Shortest',
+                                value: 2,
+                                onClick: () => {
+                                    setSortOrder("Shortest");
+                                }
+                            },
+                            {
+                                name: 'Longest',
+                                value: 3,
+                                onClick: () => {
+                                    setSortOrder("Longest");
+                                }
+                            }]}
                             dropdownDirection="right"
                             backgroundColor="#ffffff"
                             selectedOption={sortOrder} />
