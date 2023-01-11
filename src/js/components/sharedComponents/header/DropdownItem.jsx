@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
 import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
+import * as slideoutActions from 'redux/actions/slideouts/slideoutActions';
 import Analytics from 'helpers/analytics/Analytics';
 import { getNewUrlForGlossary } from 'helpers/glossaryHelper';
 import DropdownComingSoon from './DropdownComingSoon';
@@ -48,6 +49,7 @@ const DropdownItem = ({
 
     const openATD = (e) => {
         dispatch(aboutTheDataActions.showAboutTheData());
+        dispatch(slideoutActions.setLastOpenedSlideout('atd'));
         e.preventDefault();
     };
 
@@ -131,5 +133,4 @@ const DropdownItem = ({
 };
 
 DropdownItem.propTypes = propTypes;
-
 export default DropdownItem;
