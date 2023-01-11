@@ -16,7 +16,10 @@ const AboutTheDataNoResults = ({ searchTerm }) => (
             No Results Found
         </div>
         <div className="atd-no-results__text">
-            No results found for "{searchTerm}."
+            No results found for "{searchTerm}" among titles of entries.
+        </div>
+        <div className="atd-no-results__text">
+            To search through the text of entries, please click the link above to download a PDF of all the entries.
         </div>
     </div>
 );
