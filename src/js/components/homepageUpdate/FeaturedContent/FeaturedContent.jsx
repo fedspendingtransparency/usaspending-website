@@ -11,7 +11,6 @@ import Analytics from 'helpers/analytics/Analytics';
 import CardContainer from "../../sharedComponents/commonCards/CardContainer";
 import CardHero from "../../sharedComponents/commonCards/CardHero";
 import CardBody from "../../sharedComponents/commonCards/CardBody";
-import ExternalLink from "../../sharedComponents/ExternalLink";
 
 
 const FeaturedContent = () => {
