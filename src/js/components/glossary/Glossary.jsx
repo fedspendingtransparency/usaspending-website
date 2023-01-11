@@ -17,7 +17,8 @@ const propTypes = {
     glossary: PropTypes.object,
     loading: PropTypes.bool,
     error: PropTypes.bool,
-    hideGlossary: PropTypes.func
+    hideGlossary: PropTypes.func,
+    zIndexClass: PropTypes.string
 };
 
 export default class Glossary extends React.Component {
@@ -128,7 +129,7 @@ export default class Glossary extends React.Component {
         }
 
         return (
-            <div className="usa-da-glossary-wrapper">
+            <div className={`usa-da-glossary-wrapper ${this.props.zIndexClass}`}>
                 <aside
                     role="dialog"
                     aria-labelledby="glossary-title"

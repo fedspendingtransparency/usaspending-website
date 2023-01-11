@@ -38,8 +38,14 @@ const AboutTheData = (props) => {
     const { schema } = props;
     const [searchResults, setSearchResults] = useState(schema);
     const dispatch = useDispatch();
+    const [zIndexClass, setZIndexClass] = useState(null);
 
     const { input, results } = useSelector((state) => state.aboutTheDataSidebar.search);
+    const { lastOpenedSlideout } = useSelector((state) => state.slideouts);
+
+    useEffect(() => {
+        setZIndexClass(lastOpenedSlideout === 'atd' ? 'z-index-plus-one' : 'z-index');
+    }, [lastOpenedSlideout]);
 
     useEffect(() => {
         setSearchTerm(input);
@@ -214,7 +220,7 @@ const AboutTheData = (props) => {
     }, [drilldownItemId, drilldownSection, scrollbar]);
 
     return (
-        <div id="usa-atd-wrapper" className="usa-atd-wrapper">
+        <div id="usa-atd-wrapper" className={`usa-atd-wrapper ${zIndexClass}`}>
             <aside
                 role="dialog"
                 aria-labelledby="atd-title"
