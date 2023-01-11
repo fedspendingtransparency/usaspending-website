@@ -162,7 +162,10 @@ const AboutTheData = (props) => {
     };
 
     const content = Object.keys(searchResults).length === 0 ? (
-        <AboutTheDataNoResults searchTerm={searchTerm} />
+        <>
+            <DownloadButton />
+            <AboutTheDataNoResults searchTerm={searchTerm} />
+        </>
     )
         :
         (
