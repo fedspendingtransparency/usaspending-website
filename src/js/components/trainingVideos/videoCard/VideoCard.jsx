@@ -23,6 +23,9 @@ const propTypes = {
 const VideoCard = ({
     thumbnailUrl, title, duration, description, publishedAt, onClick
 }) => {
+
+    console.log(publishedAt);
+
     const onKeyUp = (e) => {
         if (e.keyCode === 13) {
             onClick();

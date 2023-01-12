@@ -3,7 +3,7 @@
  * Created by Brian Petway 12/05/22
  */
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from "prop-types";
 import { useDispatch } from 'react-redux';
 import { showTrainingVideoModal } from 'redux/actions/modal/modalActions';
@@ -16,27 +16,43 @@ const propTypes = {
 
 const ListOfVideos = ({ videos }) => {
     const dispatch = useDispatch();
-    const [sortOrder, setSortOrder] = useState("Newest");
-    const optionsFields = {
-        newest: "publishedAt", oldest: "publishedAt", shortest: "duration", longest: "duration"
-    };
+    const [sortOrder, setSortOrder] = useState();
+    const [videoList, setVideoList] = useState(videos);
+    const originalVideoList = videos;
+    const prevSortRef = useRef();
 
-    // const sortBy = (i, j, sortByField) => {
-    //     videos.sort((a, b) => {
-    //         const itemA = a[sortField];
-    //         const itemB = b[sortField];
-    //
-    //         if (itemA < itemB) {
-    //             return -1;
-    //         }
-    //         if (itemA > itemB) {
-    //             return 1;
-    //         }
-    //
-    //         // names must be equal
-    //         return 0;
-    //     });
-    // };
+    useEffect(() => {
+        setSortOrder("Newest");
+    }, []);
+
+    useEffect(() => {
+        const tmpVideos = [...originalVideoList];
+        console.log(tmpVideos);
+        if (prevSortRef.current === sortOrder) {
+            return;
+        }
+
+        prevSortRef.current = sortOrder;
+        if (sortOrder === "Newest") {
+            tmpVideos.sort((a, b) => new Date(b._publishedAt) - new Date(a._publishedAt));
+        }
+
+
+        if (sortOrder === "Oldest") {
+            tmpVideos.sort((a, b) => new Date(a._publishedAt) - new Date(b._publishedAt));
+        }
+
+        // if (sortOrder === "Shortest") {
+        //     tmpVideos.sort((a, b) => new Date(b.durationInSecs) - new Date(a.durationInSecs));
+        // }
+        //
+        //
+        // if (sortOrder === "Longest") {
+        //     tmpVideos.sort((a, b) => new Date(a.durationInSecs) - new Date(b.durationInSecs));
+        // }
+
+        setVideoList(tmpVideos);
+    }, [originalVideoList, sortOrder]);
 
     return (
         <section className="list-of-videos__section">
@@ -80,7 +96,7 @@ const ListOfVideos = ({ videos }) => {
                     </FlexGridCol>
                 </FlexGridRow>
                 <FlexGridRow hasGutter gutterSize="lg">
-                    {videos.map((video) => (
+                    {videoList.map((video) => (
                         <FlexGridCol
                             key={video.id}
                             desktopxl={4}

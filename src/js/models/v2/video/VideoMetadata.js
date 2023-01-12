@@ -3,7 +3,6 @@
  * Created by Andrea Blackwell 12/20/22
  */
 
-
 const VideoMetadata = {
     populate(data) {
         this.id = data.id || '';
@@ -12,11 +11,11 @@ const VideoMetadata = {
         this._publishedAt = data.snippet.publishedAt || '';
         this._duration = data.contentDetails.duration || '';
         this.thumbnails = data.snippet.thumbnails || '';
-        this._url = data.url || '';
     },
     get url() {
         return `https://www.youtube.com/watch?v=${this.id}`;
     },
+
     get publishedAt() {
         const options = {
             weekday: 'long', year: 'numeric', month: 'short', day: 'numeric'
@@ -25,6 +24,7 @@ const VideoMetadata = {
         const formattedDate = date.toLocaleDateString('en-us', options).replace(/^\w+,\s*/g, '');
         return formattedDate;
     },
+
     get duration() {
         const str = this._duration.toUpperCase();
         let hours = ''; let min = ''; let sec = '';
