@@ -11,7 +11,6 @@ import Analytics from 'helpers/analytics/Analytics';
 import CardContainer from "../../sharedComponents/commonCards/CardContainer";
 import CardHero from "../../sharedComponents/commonCards/CardHero";
 import CardBody from "../../sharedComponents/commonCards/CardBody";
-import ExternalLink from "../../sharedComponents/ExternalLink";
 
 
 const FeaturedContent = () => {
@@ -50,7 +49,7 @@ const FeaturedContent = () => {
                     </Link>
                 </FlexGridCol>
                 <FlexGridCol width={12} desktop={6} tablet={6} mobile={12}>
-                    <ExternalLink url="https://www.youtube.com/channel/UCyDn83O-0XC98H3TCV-VCGQ" isCard onClick={trackFeaturedResourcesLink}>
+                    <Link to="training-videos" isCard onClick={trackFeaturedResourcesLink}>
                         <CardContainer variant="outline" size="md">
                             <CardHero fill="#009ec1" variant="expanded" img="img/homepage-featured-content/homepage-featured-youtube.webp" />
                             <CardBody
@@ -65,7 +64,7 @@ const FeaturedContent = () => {
                                 }>
                             </CardBody>
                         </CardContainer>
-                    </ExternalLink>
+                    </Link>
                 </FlexGridCol>
             </div>
         </section>
