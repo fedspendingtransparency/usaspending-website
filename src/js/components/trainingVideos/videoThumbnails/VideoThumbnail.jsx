@@ -9,7 +9,6 @@ import PropTypes from "prop-types";
 import PlayButton from "./PlayButton";
 import Duration from "./Duration";
 
-
 const propTypes = {
     showPlay: PropTypes.bool,
     showDuration: PropTypes.bool,
