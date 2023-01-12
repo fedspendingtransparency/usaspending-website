@@ -35,5 +35,4 @@ const TrainingVideosPage = ({ featuredVideo, videos }) => (
 );
 
 TrainingVideosPage.propTypes = propTypes;
-
 export default TrainingVideosPage;
