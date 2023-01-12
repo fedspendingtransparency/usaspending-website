@@ -1,25 +1,25 @@
 /**
- * DownloadButton.jsx
- * Created by Andrea Blackwell 11/14/22
+ * DownloadStaticFile.jsx
+ * Created by Brian Petway 01/12/23
  */
 
 import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileDownload } from "@fortawesome/free-solid-svg-icons";
 
-const DownloadButton = () => (
-    <div className="atd__download-wrapper">
+const DownloadStaticFile = () => (
+    <div className="download_static-file__container">
+        <FontAwesomeIcon data-href="/data/data-sources-download.pdf" icon={faFileDownload} />
         <a
-            href="/data/about-the-data-download.pdf"
+            href="/data/data-sources-download.pdf"
             target="_blank"
             aria-labelledby="atd__download-span"
             aria-label="Download"
+            title="Download"
             rel="noopener noreferrer"
-            className="atd__download-button"
             download>
-            <FontAwesomeIcon data-href="/data/about-the-data-download.pdf" icon={faFileDownload} className="atd__download-icon" />
             Download
         </a>
     </div>);
 
-export default DownloadButton;
+export default DownloadStaticFile;
