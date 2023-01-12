@@ -17,7 +17,14 @@ const AboutSection = () => {
                 <li><span className="glossary-term">Glossary</span>{" "}
                     <GlossaryLink term="/" />: a collection of plain-language and official definitions for commonly used terms
                 </li>
-                <li>About the Data: a collection of disclosures and background information</li>
+                <li>
+                    <Link
+                        className="scroller-overlay-card__link"
+                        to="/?about-the-data"
+                        target="_blank"
+                        rel="noopener noreferrer">About the Data
+                    </Link>: a collection of disclosures and background information
+                </li>
                 <li>
                     <Link
                         className="scroller-overlay-card__link"
