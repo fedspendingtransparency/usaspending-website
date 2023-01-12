@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from "prop-types";
-import { Picker } from 'data-transparency-ui';
 
 import PageWrapper from "../sharedComponents/PageWrapper";
 import { homePageMetaTags } from "../../helpers/metaTagHelper";
