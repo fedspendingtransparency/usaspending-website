@@ -1,5 +1,7 @@
 .featured-video__section {
   margin: $global-margin * 8 0;
+  display: flex;
+  justify-content: center;
   .grid-content {
     font-size: $font-size-24;
     border-radius: 8px;
