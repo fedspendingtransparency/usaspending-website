@@ -3,12 +3,26 @@
   display: flex;
   justify-content: center;
   width: 100%;
+
   .grid-content {
-    padding: 24px 0;
+    padding: 0 0 24px 0;
     font-size: $font-size-24;
     text-align: center;
     margin-left: 32px;
     margin-right: 32px;
+  }
+
+  .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__button .usa-dt-picker__button-text, .usa-dt-picker .usa-dt-picker__item {
+    padding: 0 16px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.5;
+    color: #565c65;
+  }
+
+  .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__button .usa-dt-picker__button-icon svg {
+    width: 12px;
+    color: #2378c3;
   }
 
   .list-of-videos__video {

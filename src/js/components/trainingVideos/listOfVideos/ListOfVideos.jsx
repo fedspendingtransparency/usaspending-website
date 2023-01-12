@@ -27,7 +27,6 @@ const ListOfVideos = ({ videos }) => {
 
     useEffect(() => {
         const tmpVideos = [...originalVideoList];
-        console.log(tmpVideos);
         if (prevSortRef.current === sortOrder) {
             return;
         }
@@ -42,14 +41,14 @@ const ListOfVideos = ({ videos }) => {
             tmpVideos.sort((a, b) => new Date(a._publishedAt) - new Date(b._publishedAt));
         }
 
-        // if (sortOrder === "Shortest") {
-        //     tmpVideos.sort((a, b) => new Date(b.durationInSecs) - new Date(a.durationInSecs));
-        // }
-        //
-        //
-        // if (sortOrder === "Longest") {
-        //     tmpVideos.sort((a, b) => new Date(a.durationInSecs) - new Date(b.durationInSecs));
-        // }
+        if (sortOrder === "Longest") {
+            tmpVideos.sort((a, b) => new Date(b.durationInSecs) - new Date(a.durationInSecs));
+        }
+
+
+        if (sortOrder === "Shortest") {
+            tmpVideos.sort((a, b) => new Date(a.durationInSecs) - new Date(b.durationInSecs));
+        }
 
         setVideoList(tmpVideos);
     }, [originalVideoList, sortOrder]);
