@@ -13,7 +13,7 @@
       font-size: rem(16);
       font-weight: $font-semibold;
       line-height: 1.5;
-      color: #1c1d1f;
+      color: $gray-cool-90;
       margin-right: rem(8);
     }
 
@@ -23,7 +23,7 @@
       border-radius: 4px;
       border: solid 2px #dfe1e2;
       background-color: #fff;
-      color: #565c65;
+      color: $gray-cool-60;
 
       .usa-dt-picker__button {
         padding: 8px;
@@ -45,4 +45,19 @@
   .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__list-item {
     border-top: none;
   }
+
+
+  .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__button .usa-dt-picker__button-text, .usa-dt-picker .usa-dt-picker__item {
+    padding: 0 16px;
+    font-size: 16px;
+    font-weight: 600;
+    line-height: 1.5;
+    color: $gray-cool-60;
+  }
+
+  .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__button .usa-dt-picker__button-icon svg {
+    width: 12px;
+    color: $blue-50;
+  }
+
 }

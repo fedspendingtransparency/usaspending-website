@@ -12,19 +12,6 @@
     margin-right: 32px;
   }
 
-  .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__button .usa-dt-picker__button-text, .usa-dt-picker .usa-dt-picker__item {
-    padding: 0 16px;
-    font-size: 16px;
-    font-weight: 600;
-    line-height: 1.5;
-    color: #565c65;
-  }
-
-  .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__button .usa-dt-picker__button-icon svg {
-    width: 12px;
-    color: #2378c3;
-  }
-
   .list-of-videos__video {
     margin-bottom: rem(32);
     @media (max-width:$medium-screen) {
