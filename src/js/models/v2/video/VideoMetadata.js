@@ -30,28 +30,24 @@ const VideoMetadata = {
         let duration = str.replace('PT', '');
         let totalDuration = 0;
 
-        // if hours exist get value, add colon
         if (duration.indexOf('H') > -1) {
             hours = duration.split('H');
             duration = hours[1];
             totalDuration += parseInt(hours[0], 10) * 3600;
         }
 
-        // if minutes exist get value, else set value to 0; duration should always show minutes
         if (duration.indexOf('M') > -1) {
             min = duration.split('M');
             duration = min[1];
             totalDuration += parseInt(min[0], 10) * 60;
         }
 
-        // secs will always exist, so if no S in duration make S 00
         if (duration.indexOf('S') > -1) {
             sec = duration.replace('S', '');
             if (sec.length > 0) {
                 totalDuration += parseInt(sec, 10);
             }
         }
-
 
         return totalDuration;
     },
