@@ -92,5 +92,6 @@ const FeaturedVideo = ({ featuredVideo }) => {
         </section>
     );
 };
+
 FeaturedVideo.propTypes = propTypes;
 export default FeaturedVideo;
