@@ -9,9 +9,7 @@
     font-size: $font-size-24;
     border-radius: 8px;
     &:hover {
-      box-shadow: $shadow-lg;
       cursor: pointer;
-
       .featured-video__headline {
         text-decoration: underline;
       }

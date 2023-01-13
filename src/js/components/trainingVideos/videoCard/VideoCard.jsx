@@ -43,7 +43,7 @@ const VideoCard = ({
                 </CardHero>
                 <CardBody
                     headline={
-                        <div>
+                        <div className="video-card__headline">
                             {title}
                         </div>
                     }

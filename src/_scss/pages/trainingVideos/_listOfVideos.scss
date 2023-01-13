@@ -18,12 +18,6 @@
       justify-content:center;
     }
 
-    .card-column {
-      &:hover {
-        box-shadow: 0 12px 24px 0 rgba(0, 0, 0, 0.1);
-      }
-    }
-
     .card__hero.expanded {
       padding-top: 0;
 
@@ -33,7 +27,12 @@
       }
 
     }
-
+    .video-card__headline{
+      &:hover{
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    }
     .card__body .headline {
       text-align: left;
       color: $gray-90;
