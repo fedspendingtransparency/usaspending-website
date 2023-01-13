@@ -9,7 +9,6 @@ import { faFileDownload } from "@fortawesome/free-solid-svg-icons";
 
 const DownloadStaticFile = () => (
     <div className="download_static-file__container">
-        <FontAwesomeIcon data-href="/data/data-sources-download.pdf" icon={faFileDownload} />
         <a
             href="/data/data-sources-download.pdf"
             target="_blank"
@@ -18,7 +17,10 @@ const DownloadStaticFile = () => (
             title="Download"
             rel="noopener noreferrer"
             download>
+            <div className="download_static-file__button-content">
+                <FontAwesomeIcon data-href="/data/data-sources-download.pdf" icon={faFileDownload} />
             Download
+            </div>
         </a>
     </div>);
 
