@@ -199,7 +199,7 @@ const AwardData = (props) => {
                         register if they want to be eligible to receive federal{" "}
                         <span className="glossary-term">prime awards</span>{" "}
                         <GlossaryLink term="prime-award" />
-                        . USAspending uses SAM.gov as the source
+                        . USAspending.gov uses SAM.gov as the source
                         of authoritative{" "}
                         <span className="glossary-term">
                         recipient name
@@ -213,7 +213,7 @@ const AwardData = (props) => {
                     </p>
                     <p>
                         The collection of executive compensation data in SAM.gov
-                        that USAspending extracts is known as File E.
+                        that USAspending.gov extracts is known as File E.
                     </p>
                 </>
             )
