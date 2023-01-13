@@ -188,7 +188,7 @@ const DataFeatures = (props) => {
                                         <GlossaryLink term="account-breakdown-by-program-activity-object-class-file-b" />{" "}
                                     and <span className="glossary-term">File C</span>{" "}
                                         <GlossaryLink term="account-breakdown-by-award-file-c" />{" "}
-                                    (i.e., in account data). You can find DEFC spending data in
+                                    (i.e., in submissions from agency financial systems). You can find DEFC spending data in
                                     the following features:
                                     </p>
                                     <ul className="interactives-guide_bullet-points">

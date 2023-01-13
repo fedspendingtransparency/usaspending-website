@@ -23,21 +23,21 @@ const AwardData = (props) => {
                     agencies, as required by the DATA Act. It contains obligation and
                     outlay data for all awards issued by a reporting agency, covering both
                     contract and financial assistance awards over the lifetime of those
-                    awards. These spending amounts represent a subset of the account-level
-                    spending in File B. Note that File C represents only the financial
-                    aspect of awards, whereas Files D1 and D2 provide both financial
-                    information and other non-financial details such as recipient and
-                    location information.
+                    awards.
                     </p>
                     <p>
-                        File C also contains obligations and outlays tagged by{" "}
+                    File C is a further breakdown of File B, showing award spending broken down by Treasury Account,
                         <span className="glossary-term">
-                        Disaster Emergency Fund Codes (DEFC)
+                        Program Activity
                         </span>{" "}
-                        <GlossaryLink term="disaster-emergency-fund-code-defc" />{" "}
-                        to track
-                        spending from supplemental appropriation bills addressing topics
-                        such as COVID-19 relief and infrastructure investment.
+                        <GlossaryLink term="program-activity" />,{" "}
+                        <span className="glossary-term">Object Class</span>{" "}
+                        <GlossaryLink term="object-class" />, and{" "}
+                        <span className="glossary-term">Disaster Emergency Fund Code</span>{" "}
+                        <GlossaryLink term="defc" /> (DEFC, which is used to track spending from supplemental appropriation bills addressing topics such as COVID-19 relief and infrastructure investment).
+                    </p>
+                    <p>
+                    Note that File C represents only the financial aspect of awards (e.g., Treasury Account, Program Activity, and Object Class information), whereas Files D1 and D2 provide both financial information and other non-financial details (e.g., recipient name, recipient location, and place of performance).
                     </p>
                 </>
             )
@@ -90,8 +90,7 @@ const AwardData = (props) => {
                         <GlossaryLink term="set-aside-type" />, among other details.
                     </p>
                     <p>
-                        The collection of data in FPDS that USAspending.gov receives
-                        (as part of agency monthly submissions and quarterly certifications)
+                        The collection of data in FPDS that USAspending.gov extracts
                         is known as{" "}
                         <span className="glossary-term">File D1</span>{" "}
                         <GlossaryLink term="awards-data-file-d" />.
@@ -108,7 +107,7 @@ const AwardData = (props) => {
                         <span className="glossary-term">transaction-level</span>{" "}
                         <GlossaryLink term="transaction" /> data for{" "}
                         <span className="glossary-term">financial assistance</span>{" "}
-                        <GlossaryLink term="financial-assistance" /> awards to USAspending. It contains information
+                        <GlossaryLink term="financial-assistance" /> awards to USAspending.gov. It contains information
                         about award transaction obligation,{" "}
                         <span className="glossary-term">
                         award transaction description
@@ -132,7 +131,6 @@ const AwardData = (props) => {
                     </p>
                     <p>
                         The collection of data in FABS that USAspending.gov receives
-                        (as part of agency monthly submissions and quarterly certifications)
                         is known as{" "}
                         <span className="glossary-term">File D2</span>{" "}
                         <GlossaryLink term="awards-data-file-d" />.
@@ -201,7 +199,7 @@ const AwardData = (props) => {
                         register if they want to be eligible to receive federal{" "}
                         <span className="glossary-term">prime awards</span>{" "}
                         <GlossaryLink term="prime-award" />
-                        . USAspending uses SAM.gov as the source
+                        . USAspending.gov uses SAM.gov as the source
                         of authoritative{" "}
                         <span className="glossary-term">
                         recipient name
@@ -215,8 +213,7 @@ const AwardData = (props) => {
                     </p>
                     <p>
                         The collection of executive compensation data in SAM.gov
-                        that USAspending receives (as part of agency monthly submissions and
-                        quarterly certifications) is known as File E.
+                        that USAspending.gov extracts is known as File E.
                     </p>
                 </>
             )
@@ -254,8 +251,7 @@ const AwardData = (props) => {
                         data.
                     </p>
                     <p>
-                        The collection of data in FSRS that USAspending.gov receives
-                        (as part of agency monthly submissions and quarterly certifications)
+                        The collection of data in FSRS that USAspending.gov extracts
                         is known as File F.
                     </p>
                 </>

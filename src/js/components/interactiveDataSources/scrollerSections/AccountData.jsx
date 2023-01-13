@@ -30,13 +30,13 @@ const AccountData = (props) => {
                 <p>
                     <span className="glossary-term">File A (Account Balances)</span>{" "}
                     <GlossaryLink term="account-balance-file-a" />{" "}
-                    is part of the package of data submitted to USAspending by federal
+                    is part of the package of data submitted to USAspending.gov by federal
                     agencies, as required by the DATA Act. It can be generated from data
                     in GTAS, but agencies may also upload their own custom File A data.
                     File A contains{" "}
                     <span className="glossary-term">budgetary resources</span>{" "}
                     <GlossaryLink term="budgetary-resources" />, obligation, and outlay
-                data for all the relevant Treasury Accounts in a reporting agency.
+                data for all the relevant Treasury Accounts in a reporting agency. It includes both award and non-award spending (grouped together), and crosswalks with the SF 133 report.
                 </p>
             )
         },
@@ -47,24 +47,17 @@ const AccountData = (props) => {
                     <p>
                         <span className="glossary-term">File B (Account Breakdown by Program Activity & Object Class)</span>{" "}
                         <GlossaryLink term="account-breakdown-by-program-activity-object-class-file-b" />{" "}
-                        is part of the package of data submitted to USAspending by federal
+                        is part of the package of data submitted to USAspending.gov by federal
                         agencies, as required by the DATA Act. It contains obligation and
-                        outlay data for all the relevant Treasury Accounts in a reporting agency, with a
+                        outlay data for all the relevant <span className="glossary-term">Treasury Accounts</span>{" "}
+                        <GlossaryLink term="treasury-accounts" />{" "} in a reporting agency, with a
                         breakdown by two accounting categories called{" "}
                         <span className="glossary-term">Program Activity</span>{" "}
-                        <GlossaryLink term="program-activity" /> and{" "}
+                        <GlossaryLink term="program-activity" />,{" "}
                         <span className="glossary-term">Object Class</span>{" "}
-                        <GlossaryLink term="object-class" />.
-                    </p>
-                    <p>
-                        File B also contains obligations and outlays tagged by{" "}
-                        <span className="glossary-term">
-                            Disaster Emergency Fund Codes (DEFC)
-                        </span>{" "}
-                        <GlossaryLink term="disaster-emergency-fund-code-defc" />{" "}
-                        to track spending from supplemental
-                        appropriation bills addressing topics such as COVID-19 relief and
-                        infrastructure investment.
+                        <GlossaryLink term="object-class" />, and{" "}
+                        <span className="glossary-term">Disaster Emergency Fund Code</span>{" "}
+                        <GlossaryLink term="defc" /> (DEFC, which is used to track spending from supplemental appropriation bills addressing topics such as COVID-19 relief and infrastructure investment). It includes both award and non-award spending (grouped together).
                     </p>
                 </>
             )
