@@ -36,9 +36,12 @@ const AboutTheDataListener = ({
         history.replace(urlWithNoHash);
     }, [location, history]);
 
-    // this is not currently being used to open the atd slideout
-    // for now it is only opened from the openATD function in dropdownItem.jsx
-    // that will change if we add links to atd on other pages
+    // this is not currently being used to open the atd slideout;
+    // for now it being opened from special functions in DropdownItem,
+    // MobileDropdownItem, and HomepageResources;
+    // We aren't using this listener for ATD because it was causing
+    // the page to reload when opening the slideout;
+    // todo - figure out why this listener is causing a page reload when the GlossaryListener does not
     useEffect(() => {
         if (search.includes('about-the-data')) {
             const { "about-the-data": term } = queryParams;
