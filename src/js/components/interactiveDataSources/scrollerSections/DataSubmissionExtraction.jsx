@@ -98,7 +98,7 @@ const DataSubmissionExtraction = (props) => {
                                         href="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html#fed"
                                         target="_blank"
                                         rel="noopener noreferrer">
-                                    USAspending Source and Submission Model
+                                    DATA Act Information Model Schema (DAIMS)
                                     </a>{" "}
                                 page.
                                 </p>
@@ -137,7 +137,7 @@ const DataSubmissionExtraction = (props) => {
                                         href="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html"
                                         target="_blank"
                                         rel="noopener noreferrer">
-                                    USAspending Source and Submission Model
+                                    DATA Act Information Model Schema (DAIMS)
                                     </a>{" "}
                                 page.
                                 </p>} />

@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from "prop-types";
+
 import PageWrapper from "../sharedComponents/PageWrapper";
 import { homePageMetaTags } from "../../helpers/metaTagHelper";
 import TrainingVideosHeading from "./trainingVideosHeading/TrainingVideosHeading";
