@@ -1,8 +1,6 @@
 .usa-dt-modal {
     width: 100% - $grid-column;
-    @media(min-width: $m-large-screen) {
-        width: 100% - $grid-column * 3;
-    }
+
     .training-video-modal {
         background: unset;
         width: 100%;
