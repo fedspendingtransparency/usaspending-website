@@ -1,7 +1,7 @@
 .list-of-videos__sort {
   justify-content: end;
   margin: 0 0 rem(32) 0;
-  
+
   .usa-dt-flex-grid__col-12 {
     width: unset;
     display: flex;
@@ -35,6 +35,7 @@
   .usa-dt-picker__list {
     z-index: 999;
     border-radius: 0 0 4px 4px;
+    overflow: hidden;
 
     button.usa-dt-picker__item {
       padding-top: 8px;
