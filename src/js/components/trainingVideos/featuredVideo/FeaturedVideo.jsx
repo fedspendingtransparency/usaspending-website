@@ -18,14 +18,12 @@ const FeaturedVideo = ({ featuredVideo }) => (
         <div
             className="grid-content"
             /* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */
-            tabIndex="0"
-            onKeyDown={() => console.log("launch modal here")}
-            onClick={() => console.log("launch modal here")}>
+            tabIndex="0">
             <FlexGridRow>
                 <FlexGridCol width={5} desktop={5} tablet={12} mobile={12}>
                     <div className="featured-video__text">
                         <div className="featured-video__heading">
-                            <div className="featured-video__headline">
+                            <div className="featured-video__headline" onKeyDown={() => console.log("launch modal here")} onClick={() => console.log("launch modal here")}>
                                 Learn how USAspending.gov
                                 <br />
                                 got started
@@ -34,7 +32,13 @@ const FeaturedVideo = ({ featuredVideo }) => (
                         </div>
                     </div>
                 </FlexGridCol>
-                <FlexGridCol width={7} desktop={7} tablet={12} mobile={12}>
+                <FlexGridCol 
+                width={7}
+                desktop={7}
+                tablet={12} 
+                mobile={12}
+                onKeyDown={() => console.log("launch modal here")}
+                onClick={() => console.log("launch modal here")}>
                     <VideoThumbnail
                         thumbnailUrl={featuredVideo.thumbnails.maxres.url}
                         duration={featuredVideo.duration}
