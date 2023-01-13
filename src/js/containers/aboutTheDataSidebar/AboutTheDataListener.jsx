@@ -36,6 +36,9 @@ const AboutTheDataListener = ({
         history.replace(urlWithNoHash);
     }, [location, history]);
 
+    // this is not currently being used to open the atd slideout
+    // for now it is only opened from the openATD function in dropdownItem.jsx
+    // that will change if we add links to atd on other pages
     useEffect(() => {
         if (search.includes('about-the-data')) {
             const { "about-the-data": term } = queryParams;
@@ -46,7 +49,7 @@ const AboutTheDataListener = ({
                 search: getQueryParamString(omit(queryParams, ['about-the-data']))
             });
         }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [history, aboutTheDataSidebar.display, history.location.search, setAboutTheDataTermFromUrl]);
     return <Child {...{ history, match, location }} />;
 };
@@ -72,4 +75,3 @@ const AboutTheDataListenerContainer = connect(
 )(AboutTheDataListener);
 
 export default AboutTheDataListenerContainer;
-

@@ -36,6 +36,7 @@ const ListOfVideos = ({ videos }) => {
                                 title={video.title}
                                 duration={video.duration}
                                 publishedAt={video.publishedAt}
+                                url={video.url}
                                 description={video.description}
                                 onClick={(e) => {
                                     e.persist();

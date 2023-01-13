@@ -3,8 +3,12 @@
  * Created by Andrea Blackwell 12/20/22
  */
 
-import React from "react";
+import React, { useState, useEffect } from 'react';
 import PropTypes from "prop-types";
+import { ShareIcon } from 'data-transparency-ui';
+import { handleShareOptionClick } from 'helpers/socialShare';
+import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
+import { throttle } from 'lodash';
 import CardContainer from "../../sharedComponents/commonCards/CardContainer";
 import CardHero from "../../sharedComponents/commonCards/CardHero";
 import CardBody from "../../sharedComponents/commonCards/CardBody";
@@ -17,43 +21,75 @@ const propTypes = {
     duration: PropTypes.string,
     publishedAt: PropTypes.string,
     onClick: PropTypes.func,
-    id: PropTypes.string
+    onKeyUp: PropTypes.func,
+    url: PropTypes.func
 };
 
 const VideoCard = ({
-    thumbnailUrl, title, duration, description, publishedAt, onClick
+    thumbnailUrl, title, duration, onClick, description, onKeyUp, publishedAt, url
 }) => {
-    const onKeyUp = (e) => {
-        if (e.keyCode === 13) {
-            onClick();
-        }
+    const [windowWidth, setWindowWidth] = useState(0);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
+    const onShareClick = (name) => {
+        const emailSubject = `${title}`;
+        const emailArgs = {
+            subject: `${emailSubject}`,
+            body: `Watch this video about USAspending.gov: ${url}`
+        };
+        handleShareOptionClick(name, url, emailArgs);
     };
+
+    useEffect(() => {
+        const handleResize = throttle(() => {
+            const newWidth = window.innerWidth;
+            if (windowWidth !== newWidth) {
+                setWindowWidth(newWidth);
+                setIsMobile(newWidth < mediumScreen);
+            }
+        }, 50);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
+
     return (
-        <>
-            <CardContainer variant="outline" size="md" onClick={onClick} tabIndex="0" onKeyUp={onKeyUp}>
-                <CardHero
-                    variant="expanded"
-                    thumbnail>
-                    <VideoThumbnail
-                        thumbnailUrl={thumbnailUrl}
-                        duration={duration}
-                        showPlay
-                        showDuration
-                        title={title} />
-                </CardHero>
-                <CardBody
-                    headline={
-                        <div className="video-card__headline">
+        <CardContainer variant="outline" size="md" tabIndex="0" onKeyUp={onKeyUp}>
+            <CardHero
+                onClick={onClick}
+                variant="expanded"
+                thumbnail>
+                <VideoThumbnail
+                    thumbnailUrl={thumbnailUrl}
+                    duration={duration}
+                    showPlay
+                    showDuration
+                    title={title} />
+            </CardHero>
+            <CardBody
+                headline={
+                    <div>
+                        {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+                        <div onClick={onClick} >
                             {title}
                         </div>
-                    }
-                    text={description}>
+                    </div>
+                }
+                text={description}>
+                <div className="list-of-videos__inline">
                     <div className="video-card__metadiv">
                         {publishedAt}
                     </div>
-                </CardBody>
-            </CardContainer>
-        </>
+                    <div className="list-of-videos__column-share-icon">
+                        <ShareIcon
+                            url={url}
+                            tabIndex={0}
+                            onKeyUp={onKeyUp}
+                            onShareOptionClick={onShareClick}
+                            colors={{ backgroundColor: "white", color: "#2378c3" }}
+                            dropdownDirection={isMobile ? 'right' : 'left'} />
+                    </div>
+                </div>
+            </CardBody>
+        </CardContainer>
     );
 };
 

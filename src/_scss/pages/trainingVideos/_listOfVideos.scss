@@ -17,9 +17,11 @@
       display:flex;
       justify-content:center;
     }
-
     .card__hero.expanded {
       padding-top: 0;
+      &:hover {
+        cursor: pointer;
+      }
 
       img {
         border-radius: rem(8) rem(8) 0 0;
@@ -33,10 +35,82 @@
         cursor: pointer;
       }
     }
+    .list-of-videos__inline{
+      display:inline-flex;
+      width: 100%;
+    }
+    .list-of-videos__column-share-icon{
+      height: rem(24);
+      width: rem(24);
+      width: 100%;
+      @media(max-width: $medium-screen){
+        float: right;
+      }
+
+      span{
+        display: none;
+      }
+      .usa-dt-picker__dropdown-container{
+        height: rem(24);
+        width: rem(24);
+        span{
+          display: inherit;
+        }
+      }
+      .usa-dt-picker__button{
+        padding: 0;
+        margin-right: 0;
+  
+      }
+      button{
+        margin-left: 0;
+      }
+      .usda-share-icon{
+        margin: 0;
+      }
+      .usa-dt-picker{
+        float: right;
+      }
+      .svg-inline--fa{
+        &:hover{
+          color: $blue-70v;
+        }
+      }
+      .usda-share-icon .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list {
+        min-width: 15rem;
+        margin-top:20px;
+        padding-top: 8px;
+        overflow: hidden;
+        padding-bottom: 8px;
+        .usa-dt-picker__list-item {
+          border-top: none;
+        }
+        svg {
+          color: $gray-cool-60;
+        }
+        span {
+          color: $gray-cool-60;
+          font-weight: $font-semibold;
+          font-size: rem(16);
+          margin-left: 16px;
+        }
+        .usa-dt-picker__item {
+          padding: 8px unset 8px 16px;
+
+          &:hover {
+            background-color: $gray-cool-3;
+          }
+        }
+      }
+    }
+
     .card__body .headline {
       text-align: left;
       color: $gray-90;
-
+      &:hover{
+        text-decoration: underline;
+        cursor: pointer;
+      }
       @media (min-width:$medium-screen) {
         min-height: 60px;
       }
@@ -71,6 +145,7 @@
       color: $gray-60;
       font-size: rem(14);
       text-align: left;
+      width: 100%
     }
   }
 }
