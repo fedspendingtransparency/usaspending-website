@@ -24,14 +24,12 @@ const FeaturedVideo = ({ featuredVideo }) => (
             <FlexGridRow>
                 <FlexGridCol width={5} desktop={5} tablet={12} mobile={12}>
                     <div className="featured-video__text">
-                        <div className="featured-video__heading">
-                            <div className="featured-video__headline">
+                        <div className="featured-video__headline">
                                 Learn how USAspending.gov
-                                <br />
+                            <br />
                                 got started
-                            </div>
-                            <div className="featured-video__publishedAt">{ featuredVideo.publishedAt }</div>
                         </div>
+                        <div className="featured-video__publishedAt">{ featuredVideo.publishedAt }</div>
                     </div>
                 </FlexGridCol>
                 <FlexGridCol width={7} desktop={7} tablet={12} mobile={12}>
