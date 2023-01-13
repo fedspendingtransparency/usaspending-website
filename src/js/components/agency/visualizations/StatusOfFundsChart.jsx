@@ -47,7 +47,7 @@ const StatusOfFundsChart = ({
 
     const handleClick = (data) => {
         console.log(data);
-        setLevel(1, data);
+        setLevel(level, data);
     };
 
     const setMouseData = throttle((e) => {
@@ -121,7 +121,7 @@ const StatusOfFundsChart = ({
         });
     }
     const truncateTextLabel = (text) => {
-        if (level === 1 && text.length > 35) {
+        if (level > 0 && text.length > 35) {
             return `${text.substring(0, 30)}...`;
         }
         return text;
@@ -491,7 +491,7 @@ const StatusOfFundsChart = ({
             // tooltip hover for label text
             svg.selectAll(".y-axis-labels").append("svg:title")
                 .text((d) => d);
-            if (level === 1) {
+            if (level > 0) {
                 svg.selectAll(".bar-group").on('click', null);
                 svg.selectAll(".bar-group").on('keypress', null);
                 svg.selectAll(".bar-group").on('touchend', null);
@@ -799,7 +799,7 @@ const StatusOfFundsChart = ({
             // tooltip hover for label text
             svg.selectAll(".y-axis-labels").append("svg:title")
                 .text((d) => d);
-            if (level === 1) {
+            if (level > 0) {
                 svg.selectAll(".bar-group").on('click', null);
                 svg.selectAll(".bar-group").on('keypress', null);
                 svg.selectAll(".bar-group").on('touchend', null);
