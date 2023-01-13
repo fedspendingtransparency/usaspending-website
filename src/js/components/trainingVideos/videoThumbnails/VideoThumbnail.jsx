@@ -34,4 +34,5 @@ const VideoThumbnail = ({
 );
 
 VideoThumbnail.propTypes = propTypes;
+
 export default VideoThumbnail;

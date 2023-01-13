@@ -94,6 +94,51 @@
           height: rem(20);
           color: $blue-50;
         }
+        .training-video__column-share-icon{
+          height: rem(24);
+          width: rem(24);
+          display: left;
+          span{
+            display: none;
+          }
+          .usa-dt-picker__dropdown-container{
+            span{
+              display: inherit;
+            }
+          }
+          button{
+            margin-left: 0;
+          }
+          .usda-share-icon{
+            margin-left: 0;
+          }
+          .usda-share-icon .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list {
+            min-width: 15rem;
+            margin-top:20px;
+            padding-top: 8px;
+            overflow: hidden;
+            padding-bottom: 8px;
+            .usa-dt-picker__list-item {
+              border-top: none;
+            }
+            svg {
+              color: $gray-cool-60;
+            }
+            span {
+              color: $gray-cool-60;
+              font-weight: $font-semibold;
+              font-size: rem(16);
+              margin-left: 16px;
+            }
+            .usa-dt-picker__item {
+              padding: 8px unset 8px 16px;
+    
+              &:hover {
+                background-color: $gray-cool-3;
+              }
+            }
+          }
+        }
       }
     }
   }
