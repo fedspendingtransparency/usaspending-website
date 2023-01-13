@@ -53,6 +53,7 @@ const StatusOfFunds = ({ fy }) => {
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < tabletScreen);
     const [viewType, setViewType] = useState(isMobile ? 'table' : 'chart');
+    const [federalAccount, setFederalAccount] = useState();
 
     useEffect(() => {
         const handleResize = throttle(() => {
@@ -153,7 +154,7 @@ const StatusOfFunds = ({ fy }) => {
             });
     });
 
-    const fetchTas = useCallback((agencyData) => {
+    const fetchTas = useCallback(() => {
         if (request.current) {
             request.current.cancel();
         }

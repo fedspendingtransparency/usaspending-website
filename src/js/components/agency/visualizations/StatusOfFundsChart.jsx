@@ -46,8 +46,7 @@ const StatusOfFundsChart = ({
     const [textScale, setTextScale] = useState(viewWidth / viewWidth);
 
     const handleClick = (data) => {
-        console.log(data);
-        setLevel(level, data);
+        setLevel(level + 1, data);
     };
 
     const setMouseData = throttle((e) => {

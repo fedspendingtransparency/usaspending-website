@@ -64,6 +64,8 @@ const VisualizationSection = ({
     const [open, setOpen] = useState(false);
     const fyString = `FY${fy.slice(2)}`;
     const accordionTitle = (<span>What&nbsp;is&nbsp;this?</span>);
+    const selectionName = [agencyName, selectedSubcomponent?.name];
+
     const columns = toggle ?
         [
             {
@@ -147,7 +149,7 @@ const VisualizationSection = ({
             }}>
             {isMobile ? (
                 <>
-                    <h6>{level === 1 ? selectedSubcomponent?.name : agencyName} by <span className="status-of-funds__emphasis">{levels[level]}</span> for FY {fy}
+                    <h6>{selectionName[level]} by <span className="status-of-funds__emphasis">{levels[level]}</span> for FY {fy}
                     </h6>
                     <div className="status-of-funds__controls-mobile">
                         <div className="status-of-funds__controls-mobile-row-one">
