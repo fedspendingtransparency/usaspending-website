@@ -51,7 +51,7 @@ const FeaturedVideo = ({ featuredVideo }) => {
                     <FlexGridCol width={5} desktop={5} tablet={12} mobile={12}>
                         <div className="featured-video__text">
                             <div className="featured-video__heading">
-                                <div className="featured-video__headline">
+                                <div className="featured-video__headline" onKeyDown={() => console.log("launch modal here")} onClick={() => console.log("launch modal here")} >
                                     Learn how USAspending.gov
                                     <br />
                                     got started
