@@ -18,7 +18,7 @@ const StatusOfFundsChart = ({
     results, fy, setLevel, level, toggle
 }) => {
     const chartRef = useRef();
-
+    console.log(level);
     const [windowWidth, setWindowWidth] = useState(0);
     const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth < largeScreen);
     const [isMediumScreen, setIsMediumScreen] = useState(window.innerWidth < mediumScreen && window.innerWidth > smallScreen);
@@ -46,6 +46,7 @@ const StatusOfFundsChart = ({
     const [textScale, setTextScale] = useState(viewWidth / viewWidth);
 
     const handleClick = (data) => {
+        console.log(data);
         setLevel(1, data);
     };
 

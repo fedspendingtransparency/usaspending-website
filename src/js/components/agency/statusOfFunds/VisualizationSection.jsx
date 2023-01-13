@@ -56,6 +56,7 @@ const VisualizationSection = ({
     results,
     selectedSubcomponent,
     fetchFederalAccounts,
+    fetchTas,
     isMobile,
     viewType,
     setViewType
@@ -188,6 +189,7 @@ const VisualizationSection = ({
                     <StatusOfFundsChart
                         toggle={toggle}
                         fetchFederalAccounts={fetchFederalAccounts}
+                        fetchTas={fetchTas}
                         totalItems={totalItems}
                         setTotalItems={setTotalItems}
                         loading={loading}

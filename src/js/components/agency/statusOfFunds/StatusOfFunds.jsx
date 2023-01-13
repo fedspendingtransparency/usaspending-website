@@ -19,7 +19,7 @@ import {
     setFederalAccountsList,
     resetFederalAccountsList
 } from "redux/actions/agency/agencyActions";
-import { fetchSubcomponentsList, fetchFederalAccountsList } from 'apis/agency';
+import { fetchSubcomponentsList, fetchFederalAccountsList, fetchTasList } from 'apis/agency';
 import { parseRows } from 'helpers/agency/StatusOfFundsVizHelper';
 import { useStateWithPrevious } from 'helpers';
 import { useLatestAccountData } from 'containers/account/WithLatestFy';
@@ -153,6 +153,44 @@ const StatusOfFunds = ({ fy }) => {
             });
     });
 
+    const fetchTas = useCallback((agencyData) => {
+        if (request.current) {
+            request.current.cancel();
+        }
+        if (error) {
+            setError(false);
+        }
+        if (!loading) {
+            setLoading(true);
+        }
+        const params = {
+            limit: pageSize,
+            page: currentPage
+        };
+        request.current = fetchTasList(overview.toptierCode, fy, params.page);
+        const tasRequest = request.current;
+        tasRequest.promise
+            .then((res) => {
+                const parsedData = parseRows(res.data.results);
+                console.log(parsedData)
+                // const totalsData = {
+                //     name: `${agencyData.name}`,
+                //     id: `${agencyData.id}`,
+                //     total_budgetary_resources: `${agencyData.budgetaryResources}`,
+                //     total_obligations: `${agencyData.obligations}`
+                // };
+                // setLevel(1, totalsData);
+                // setResults(parsedData);
+                // dispatch(setFederalAccountsList(parsedData));
+                // setTotalItems(res.data.page_metadata.total);
+                setLoading(false);
+            }).catch((err) => {
+            setError(true);
+            setLoading(false);
+            console.error(err);
+        });
+    });
+
     useEffect(() => {
         if (Object.keys(subcomponent).length !== 0) {
             fetchFederalAccounts(subcomponent);
@@ -252,6 +290,7 @@ const StatusOfFunds = ({ fy }) => {
                             onToggle={onToggle}
                             onKeyToggle={onKeyToggle}
                             fetchFederalAccounts={fetchFederalAccounts}
+                            fetchTas={fetchTas}
                             totalItems={totalItems}
                             setTotalItems={setTotalItems}
                             loading={loading}
