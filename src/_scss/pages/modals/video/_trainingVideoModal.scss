@@ -104,6 +104,9 @@
         .usa-dt-modal__video {
             position: relative;
             width: 100%;
+            @media(min-width:$tablet-screen) and (max-width:$medium-screen) {
+                min-height: 400px;
+            }
         }
 
         .usa-dt-modal__video iframe{
