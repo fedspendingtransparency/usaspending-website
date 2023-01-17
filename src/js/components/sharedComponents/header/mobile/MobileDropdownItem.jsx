@@ -4,12 +4,13 @@
  */
 
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
+import * as slideoutActions from 'redux/actions/slideouts/slideoutActions';
 import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
-
 import Analytics from 'helpers/analytics/Analytics';
 import { getNewUrlForGlossary } from 'helpers/glossaryHelper';
-
 import DropdownComingSoon from '../DropdownComingSoon';
 
 const propTypes = {
@@ -46,9 +47,19 @@ const MobileDropdownItem = ({
         ? getNewUrlForGlossary(pathname, url, search)
         : url;
 
+    const dispatch = useDispatch();
+
     const clickedLink = () => {
         clickedHeaderLink(newUrl);
         hideMobileNav();
+    };
+
+    const openATDMobile = (e) => {
+        clickedHeaderLink(newUrl);
+        hideMobileNav();
+        dispatch(aboutTheDataActions.showAboutTheData());
+        dispatch(slideoutActions.setLastOpenedSlideout('atd'));
+        e.preventDefault();
     };
 
     let activeClass = '';
@@ -64,6 +75,20 @@ const MobileDropdownItem = ({
             <div className="mobile-dropdown__coming-soon">
                 <DropdownComingSoon />
             </div>
+        );
+    }
+
+    if (appendToExistingUrl && title.includes("About the Data")) {
+        return (
+            <li className={`mobile-dropdown__item ${comingSoonClass}`}>
+                <Link
+                    className={`mobile-dropdown__link ${activeClass}`}
+                    onClick={openATDMobile}>
+                    {title}
+                    {isNewTab && <span className="new-badge dropdown-item"> NEW</span>}
+                </Link>
+                {comingSoonDecorator}
+            </li>
         );
     }
 
@@ -97,5 +122,4 @@ const MobileDropdownItem = ({
 };
 
 MobileDropdownItem.propTypes = propTypes;
-
 export default MobileDropdownItem;
