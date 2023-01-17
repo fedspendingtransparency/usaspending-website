@@ -44,14 +44,17 @@ const FeaturedVideo = ({ featuredVideo }) => {
     }, []);
     return (
         <section className="featured-video__section">
-            {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
             <div
                 className="grid-content">
                 <FlexGridRow>
                     <FlexGridCol width={5} desktop={5} tablet={12} mobile={12}>
                         <div className="featured-video__text">
                             <div className="featured-video__heading">
-                                <div className="featured-video__headline">
+                                {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
+                                <div
+                                    className="featured-video__headline"
+                                    onKeyDown={() => console.log("launch modal here")}
+                                    onClick={() => console.log("launch modal here")} >
                                     Learn how USAspending.gov
                                     <br />
                                     got started
