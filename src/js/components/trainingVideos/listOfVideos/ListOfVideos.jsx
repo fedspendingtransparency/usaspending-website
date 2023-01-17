@@ -53,6 +53,11 @@ const ListOfVideos = ({ videos }) => {
         setVideoList(tmpVideos);
     }, [originalVideoList, sortOrder]);
 
+    const sortBy = () => {
+        const tmpVideos = [...originalVideoList];
+        tmpVideos.sort((a, b) => b.value > a.value);
+    };
+
     return (
         <section className="list-of-videos__section">
             <div className="grid-content">
@@ -61,6 +66,7 @@ const ListOfVideos = ({ videos }) => {
                         <div className="video-sort-label">Sort By: </div>
                         <Picker
                             className="video-sort-list"
+                            sortFn={sortBy}
                             options={[{
                                 name: 'Newest',
                                 value: '0',
