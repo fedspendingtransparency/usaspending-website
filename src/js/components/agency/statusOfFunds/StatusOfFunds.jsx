@@ -34,7 +34,7 @@ const propTypes = {
     fy: PropTypes.string
 };
 
-export const levels = ['Sub-Component', 'Federal Account'];
+export const levels = ['Sub-Component', 'Federal Account', 'Treasury Account Symbol'];
 
 const StatusOfFunds = ({ fy }) => {
     const dispatch = useDispatch();
@@ -154,7 +154,7 @@ const StatusOfFunds = ({ fy }) => {
             });
     });
 
-    const fetchTas = useCallback(() => {
+    const fetchTas = useCallback((federalAccountData) => {
         if (request.current) {
             request.current.cancel();
         }
@@ -172,17 +172,17 @@ const StatusOfFunds = ({ fy }) => {
         const tasRequest = request.current;
         tasRequest.promise
             .then((res) => {
-                // const parsedData = parseRows(res.data.results);
+                const parsedData = parseRows(res.data.results);
                 console.log(res.data.results);
-                setLevel(2, res.data.results);
-                // const totalsData = {
-                //     name: `${agencyData.name}`,
-                //     id: `${agencyData.id}`,
-                //     total_budgetary_resources: `${agencyData.budgetaryResources}`,
-                //     total_obligations: `${agencyData.obligations}`
-                // };
-                // setLevel(1, totalsData);
-                // setResults(parsedData);
+                console.log(parsedData);
+                const totalsData = {
+                    name: `${federalAccountData.name}`,
+                    id: `${federalAccountData.id}`,
+                    total_budgetary_resources: `${federalAccountData.budgetaryResources}`,
+                    total_obligations: `${federalAccountData.obligations}`
+                };
+                setLevel(2, totalsData);
+                setResults(parsedData);
                 // dispatch(setFederalAccountsList(parsedData));
                 // setTotalItems(res.data.page_metadata.total);
                 setLoading(false);

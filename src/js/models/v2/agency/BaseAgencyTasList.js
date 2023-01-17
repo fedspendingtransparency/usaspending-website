@@ -1,12 +1,12 @@
 /**
- * BaseAgencySubcomponentsList.js
+ * BaseAgencyTasList.js
  * Created by Afna Saifudeen 12/14/21
  */
 import { formatMoneyWithUnitsShortLabel } from 'helpers/moneyFormatter';
 
 const BaseAgencySubcomponentsList = {
     populate(data) {
-        this.id = data?.id || data?.code || '';
+        this.id = data?.id || '';
         this.name = data?.name || '';
         /* eslint-disable camelcase */
         this._budgetaryResources = data?.total_budgetary_resources || 0;
