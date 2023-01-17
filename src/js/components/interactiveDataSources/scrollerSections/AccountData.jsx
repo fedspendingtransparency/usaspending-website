@@ -50,14 +50,14 @@ const AccountData = (props) => {
                         is part of the package of data submitted to USAspending.gov by federal
                         agencies, as required by the DATA Act. It contains obligation and
                         outlay data for all the relevant <span className="glossary-term">Treasury Accounts</span>{" "}
-                        <GlossaryLink term="treasury-accounts" />{" "} in a reporting agency, with a
+                        <GlossaryLink term="treasury-account-symbol-tas" />{" "} in a reporting agency, with a
                         breakdown by two accounting categories called{" "}
                         <span className="glossary-term">Program Activity</span>{" "}
                         <GlossaryLink term="program-activity" />,{" "}
                         <span className="glossary-term">Object Class</span>{" "}
                         <GlossaryLink term="object-class" />, and{" "}
                         <span className="glossary-term">Disaster Emergency Fund Code</span>{" "}
-                        <GlossaryLink term="defc" /> (DEFC, which is used to track spending from supplemental appropriation bills addressing topics such as COVID-19 relief and infrastructure investment). It includes both award and non-award spending (grouped together).
+                        <GlossaryLink term="disaster-emergency-fund-code-defc" /> (DEFC, which is used to track spending from supplemental appropriation bills addressing topics such as COVID-19 relief and infrastructure investment). It includes both award and non-award spending (grouped together).
                     </p>
                 </>
             )

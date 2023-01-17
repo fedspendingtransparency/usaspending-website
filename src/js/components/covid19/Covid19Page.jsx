@@ -160,5 +160,4 @@ const Covid19Page = ({ loading }) => {
 };
 
 Covid19Page.propTypes = propTypes;
-
 export default Covid19Page;
