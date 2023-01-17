@@ -172,8 +172,9 @@ const StatusOfFunds = ({ fy }) => {
         const tasRequest = request.current;
         tasRequest.promise
             .then((res) => {
-                const parsedData = parseRows(res.data.results);
-                console.log(parsedData)
+                // const parsedData = parseRows(res.data.results);
+                console.log(res.data.results);
+                setLevel(2, res.data.results);
                 // const totalsData = {
                 //     name: `${agencyData.name}`,
                 //     id: `${agencyData.id}`,
@@ -186,10 +187,10 @@ const StatusOfFunds = ({ fy }) => {
                 // setTotalItems(res.data.page_metadata.total);
                 setLoading(false);
             }).catch((err) => {
-            setError(true);
-            setLoading(false);
-            console.error(err);
-        });
+                setError(true);
+                setLoading(false);
+                console.error(err);
+            });
     });
 
     useEffect(() => {
@@ -200,22 +201,30 @@ const StatusOfFunds = ({ fy }) => {
     }, [subcomponent]);
 
     useEffect(() => {
+        console.log("currentPage", level);
+
         if (resetPageChange) {
             setResetPageChange(false);
         }
         else {
+            console.log("in reset method", level);
             if (prevPage !== currentPage && level === 0) {
                 fetchAgencySubcomponents();
             }
             if (prevPage !== currentPage && level === 1) {
                 fetchFederalAccounts(subcomponent);
             }
+            if (prevPage !== currentPage && level === 2) {
+                fetchTas();
+            }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentPage]);
 
     useEffect(() => {
+        console.log("parent", level);
         if (resetPageChange) {
+            setLoading(true);
             setLoading(true);
             if (currentPage === 1) {
                 setResetPageChange(false);
@@ -234,13 +243,21 @@ const StatusOfFunds = ({ fy }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [fy, overview.toptierCode]);
 
-    const onClick = (selectedLevel, data) => {
+    const setDrilldownLevel = (selectedLevel, data) => {
+        console.log('in set drilldownlevel', selectedLevel, data);
+        setLevel(selectedLevel);
         // reset to page 1 on drilldown
-        setResetPageChange(true);
-        const subcomponentTotalData = Object.create(BaseStatusOfFundsLevel);
-        subcomponentTotalData.populate(data);
-        dispatch(setSelectedSubcomponent(subcomponentTotalData));
-        setSubcomponent(subcomponentTotalData);
+        if (selectedLevel === 1) {
+            setResetPageChange(true);
+            const subcomponentTotalData = Object.create(BaseStatusOfFundsLevel);
+            subcomponentTotalData.populate(data);
+            dispatch(setSelectedSubcomponent(subcomponentTotalData));
+            setSubcomponent(subcomponentTotalData);
+        }
+
+        if (selectedLevel === 2) {
+            fetchTas(data);
+        }
     };
 
     const goBack = () => {
@@ -280,7 +297,7 @@ const StatusOfFunds = ({ fy }) => {
                         selectedSubcomponent={selectedSubcomponent} />
                 </FlexGridCol>
                 <FlexGridCol className="status-of-funds__visualization" desktop={9}>
-                    {level === 1 && !isMobile ?
+                    {level > 0 && !isMobile ?
                         <button title="Go up a level" className="drilldown-back-button" onClick={goBack}>
                             <FontAwesomeIcon icon="arrow-left" />
                             &nbsp;&nbsp;Back
@@ -297,7 +314,7 @@ const StatusOfFunds = ({ fy }) => {
                             loading={loading}
                             setLoading={setLoading}
                             level={level}
-                            setLevel={onClick}
+                            setDrilldownLevel={setDrilldownLevel}
                             selectedSubcomponent={selectedSubcomponent}
                             agencyId={overview.toptierCode}
                             agencyName={overview.name}

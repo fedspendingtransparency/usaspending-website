@@ -10,15 +10,14 @@ const propTypes = {
     fy: PropTypes.string,
     results: PropTypes.array,
     level: PropTypes.number.isRequired,
-    setLevel: PropTypes.func,
+    setDrilldownLevel: PropTypes.func,
     toggle: PropTypes.bool
 };
 
 const StatusOfFundsChart = ({
-    results, fy, setLevel, level, toggle
+    results, fy, setDrilldownLevel, level, toggle
 }) => {
     const chartRef = useRef();
-    console.log(level);
     const [windowWidth, setWindowWidth] = useState(0);
     const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth < largeScreen);
     const [isMediumScreen, setIsMediumScreen] = useState(window.innerWidth < mediumScreen && window.innerWidth > smallScreen);
@@ -46,7 +45,8 @@ const StatusOfFundsChart = ({
     const [textScale, setTextScale] = useState(viewWidth / viewWidth);
 
     const handleClick = (data) => {
-        setLevel(level + 1, data);
+        console.log(level + 1)
+        setDrilldownLevel(level + 1, data);
     };
 
     const setMouseData = throttle((e) => {
@@ -490,7 +490,9 @@ const StatusOfFundsChart = ({
             // tooltip hover for label text
             svg.selectAll(".y-axis-labels").append("svg:title")
                 .text((d) => d);
-            if (level > 0) {
+
+            // remove the drilldown functionality levels greater than 1
+            if (level > 1) {
                 svg.selectAll(".bar-group").on('click', null);
                 svg.selectAll(".bar-group").on('keypress', null);
                 svg.selectAll(".bar-group").on('touchend', null);
@@ -798,7 +800,8 @@ const StatusOfFundsChart = ({
             // tooltip hover for label text
             svg.selectAll(".y-axis-labels").append("svg:title")
                 .text((d) => d);
-            if (level > 0) {
+            // remove the drilldown functionality levels greater than 1
+            if (level > 1) {
                 svg.selectAll(".bar-group").on('click', null);
                 svg.selectAll(".bar-group").on('keypress', null);
                 svg.selectAll(".bar-group").on('touchend', null);
@@ -869,27 +872,27 @@ const StatusOfFundsChart = ({
 
     return (
         <>
-            {
-                isHovered &&
-                <TooltipWrapper
-                    className="sof_chart-tt"
-                    width={288}
-                    styles={!toggle ? {
-                        position: 'absolute',
-                        transform: `translate(${mouseValue.x - 144}px,${mouseValue.y - 230}px)`
-                    } : {
-                        position: 'absolute',
-                        transform: `translate(${mouseValue.x - 144}px,${mouseValue.y - 200}px)`
-                    }}
-                    tooltipPosition="bottom"
-                    tooltipComponent={tooltip(hoverData)}
-                    controlledProps={{
-                        isControlled: true,
-                        isVisible: isHovered,
-                        showTooltip: () => { },
-                        closeTooltip: () => { }
-                    }} />
-            }
+            {/*{*/}
+            {/*    isHovered &&*/}
+            {/*    <TooltipWrapper*/}
+            {/*        className="sof_chart-tt"*/}
+            {/*        width={288}*/}
+            {/*        styles={!toggle ? {*/}
+            {/*            position: 'absolute',*/}
+            {/*            transform: `translate(${mouseValue.x - 144}px,${mouseValue.y - 230}px)`*/}
+            {/*        } : {*/}
+            {/*            position: 'absolute',*/}
+            {/*            transform: `translate(${mouseValue.x - 144}px,${mouseValue.y - 200}px)`*/}
+            {/*        }}*/}
+            {/*        tooltipPosition="bottom"*/}
+            {/*        tooltipComponent={tooltip(hoverData)}*/}
+            {/*        controlledProps={{*/}
+            {/*            isControlled: true,*/}
+            {/*            isVisible: isHovered,*/}
+            {/*            showTooltip: () => { },*/}
+            {/*            closeTooltip: () => { }*/}
+            {/*        }} />*/}
+            {/*}*/}
             {isMobile &&
             <FlexGridRow className="legend" style={{ flexDirection: isLargeScreen ? 'column' : 'row' }}>
                 <div className="legend__item">

@@ -58,5 +58,5 @@ export const fetchFederalAccountsList = (code, slug, fy, page) => apiRequest({
 });
 
 export const fetchTasList = (code, fy, page) => apiRequest({
-    url: `/api/v2/agency/${code}/federal_account/${fy ? `?fiscal_year=${fy}` : ''}${page ? `&page=${page}` : ''}`
+    url: `v2/agency/${code}/federal_account/${fy ? `?fiscal_year=${fy}` : ''}${page ? `&page=${page}` : ''}`
 })

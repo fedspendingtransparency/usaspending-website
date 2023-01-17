@@ -3,8 +3,7 @@
  * Created by Lizzie Salita 10/29/21
  */
 
-// eslint-disable-next-line no-unused-vars
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from 'prop-types';
 import { Table } from 'data-transparency-ui';
@@ -21,7 +20,7 @@ const propTypes = {
     onToggle: PropTypes.func,
     onKeyToggle: PropTypes.func,
     level: PropTypes.number.isRequired,
-    setLevel: PropTypes.func,
+    setDrilldownLevel: PropTypes.func,
     loading: PropTypes.bool,
     setLoading: PropTypes.func,
     totalItems: PropTypes.number,
@@ -48,7 +47,7 @@ const VisualizationSection = ({
     loading,
     setLoading,
     level,
-    setLevel,
+    setDrilldownLevel,
     totalItems,
     setTotalItems,
     agencyName,
@@ -199,7 +198,7 @@ const VisualizationSection = ({
                         fy={fy}
                         results={results}
                         level={level}
-                        setLevel={setLevel} />
+                        setDrilldownLevel={setDrilldownLevel} />
                 </div>
             )
                 :
