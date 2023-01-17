@@ -168,13 +168,13 @@ const StatusOfFunds = ({ fy }) => {
             limit: pageSize,
             page: currentPage
         };
-        request.current = fetchTasList(overview.toptierCode, fy, params.page);
+
+        console.log("federal account", federalAccountData)
+        request.current = fetchTasList(federalAccountData.id, fy, params.page);
         const tasRequest = request.current;
         tasRequest.promise
             .then((res) => {
-                const parsedData = parseRows(res.data.results);
-                console.log(res.data.results);
-                console.log(parsedData);
+                const parsedData = parseRows(res.data.children);
                 const totalsData = {
                     name: `${federalAccountData.name}`,
                     id: `${federalAccountData.id}`,
