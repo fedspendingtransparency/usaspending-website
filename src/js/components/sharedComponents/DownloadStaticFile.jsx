@@ -17,7 +17,6 @@ const DownloadStaticFile = ({ path }) => (
         <a
             href={path}
             target="_blank"
-            aria-labelledby="atd__download-span"
             aria-label="Download"
             title="Download"
             rel="noopener noreferrer"
