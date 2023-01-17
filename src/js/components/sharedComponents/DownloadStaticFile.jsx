@@ -6,11 +6,16 @@
 import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFileDownload } from "@fortawesome/free-solid-svg-icons";
+import PropTypes from "prop-types";
 
-const DownloadStaticFile = () => (
+const propTypes = {
+    path: PropTypes.string
+};
+
+const DownloadStaticFile = ({ path }) => (
     <div className="download_static-file__container">
         <a
-            href="/data/data-sources-download.pdf"
+            href={path}
             target="_blank"
             aria-labelledby="atd__download-span"
             aria-label="Download"
@@ -18,10 +23,11 @@ const DownloadStaticFile = () => (
             rel="noopener noreferrer"
             download>
             <div className="download_static-file__button-content">
-                <FontAwesomeIcon data-href="/data/data-sources-download.pdf" icon={faFileDownload} />
+                <FontAwesomeIcon data-href={path} icon={faFileDownload} />
             Download
             </div>
         </a>
     </div>);
 
+DownloadStaticFile.propTypes = propTypes;
 export default DownloadStaticFile;

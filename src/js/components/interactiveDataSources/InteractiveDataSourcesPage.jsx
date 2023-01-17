@@ -189,7 +189,8 @@ const InteractiveDataSourcesPage = () => {
             title="Data Sources"
             toolBarComponents={[
                 <ShareIcon url={getBaseUrl('data-sources')} onShareOptionClick={handleShare} />,
-                <DownloadStaticFile />
+                <DownloadStaticFile
+                    path="/data/data-sources-download.pdf" />
             ]}>
             <main id="main-content" className="main-content usda__flex-row">
                 <div className="sidebar usda__flex-col">

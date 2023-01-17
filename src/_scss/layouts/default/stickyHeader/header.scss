@@ -36,6 +36,10 @@
                         }
                     }
                 }
+
+                @media(min-width:$x-large-screen) {
+                    margin-right: 14px
+                }
             }
         }
         @media(min-width: $medium-screen) {
