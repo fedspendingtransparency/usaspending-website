@@ -104,8 +104,14 @@
         .usa-dt-modal__video {
             position: relative;
             width: 100%;
+            top:0;
+            right: 0;
             @media(min-width:$tablet-screen) and (max-width:$medium-screen) {
                 min-height: 400px;
+            }
+            @media(min-width: $medium-screen) {
+                top:0;
+                right: -1px;
             }
         }
 
