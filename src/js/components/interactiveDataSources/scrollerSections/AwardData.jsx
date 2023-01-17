@@ -26,7 +26,7 @@ const AwardData = (props) => {
                     awards.
                     </p>
                     <p>
-                    File C is a further breakdown of File B, showing award spending broken down by Treasury Account,
+                    File C is a further breakdown of File B, showing award spending broken down by Treasury Account,{" "}
                         <span className="glossary-term">
                         Program Activity
                         </span>{" "}
@@ -34,7 +34,7 @@ const AwardData = (props) => {
                         <span className="glossary-term">Object Class</span>{" "}
                         <GlossaryLink term="object-class" />, and{" "}
                         <span className="glossary-term">Disaster Emergency Fund Code</span>{" "}
-                        <GlossaryLink term="defc" /> (DEFC, which is used to track spending from supplemental appropriation bills addressing topics such as COVID-19 relief and infrastructure investment).
+                        <GlossaryLink term="disaster-emergency-fund-code-defc" /> (DEFC, which is used to track spending from supplemental appropriation bills addressing topics such as COVID-19 relief and infrastructure investment).
                     </p>
                     <p>
                     Note that File C represents only the financial aspect of awards (e.g., Treasury Account, Program Activity, and Object Class information), whereas Files D1 and D2 provide both financial information and other non-financial details (e.g., recipient name, recipient location, and place of performance).
@@ -228,7 +228,7 @@ const AwardData = (props) => {
                             href="https://www.fsrs.gov/"
                             target="_blank"
                             rel="noopener noreferrer">
-                            The Federal Funding Accountability and Transparency Act Subaward
+                            The FFATA Subaward
                             Reporting System (FSRS)
                         </a>{" "}
                         is where{" "}
