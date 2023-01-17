@@ -12,6 +12,35 @@
                 }
                 padding-left: $outer-gutter / 2;
             }
+            .download_static-file__container {
+                display: none;
+
+                @media(min-width:$medium-screen) {
+                    display: flex;
+
+                    a {
+                        font-size: $font-size-14;
+                        line-height: 1.2;
+
+                        .download_static-file__button-content {
+                            display: flex;
+                            flex-direction: column;
+                            align-items: center;
+                            color: $gray-cool-10;
+                            svg {
+                                height: 24px;
+                                width: 24px;
+                                // this odd number is to make it line up with the Share icon
+                                margin-bottom: 3px;
+                            }
+                        }
+                    }
+                }
+
+                @media(min-width:$x-large-screen) {
+                    margin-right: 14px
+                }
+            }
         }
         @media(min-width: $medium-screen) {
             @include fullSectionWrap(0, 0);
