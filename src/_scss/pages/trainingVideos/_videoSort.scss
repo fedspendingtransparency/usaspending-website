@@ -61,4 +61,23 @@
     color: $blue-50;
   }
 
+  .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item:hover {
+    background-color: $gray-cool-3;
+    color: $gray-cool-60;
+  }
+
+  .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item.active {
+    color: $gray-cool-60;
+  }
+
+  .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item.active:hover {
+    background-color: $gray-cool-10;
+    color: $gray-cool-60;
+  }
+
+  .usa-dt-picker .usa-dt-picker__dropdown-container ul {
+    left: -1px !important;
+    width: 121px;
+    z-index: 1;
+  }
 }
