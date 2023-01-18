@@ -50,7 +50,15 @@ const VideoCard = ({
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
-
+    let changedTitle;
+    let overline;
+    if (title.startsWith("TUTORIAL:")) {
+        changedTitle = title.substring(10);
+        overline = title.substring(0, 9);
+    } else if (title.startsWith("QUICK START:")) {
+        changedTitle = title.substring(13);
+        overline = title.substring(0, 11);
+    }
     return (
         <CardContainer variant="outline" size="md" tabIndex="0" onKeyUp={onKeyUp}>
             <CardHero
@@ -62,14 +70,15 @@ const VideoCard = ({
                     duration={duration}
                     showPlay
                     showDuration
-                    title={title} />
+                    title={changedTitle} />
             </CardHero>
             <CardBody
+                overline={overline}
                 headline={
                     <div>
                         {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
                         <div className="video-card__headline" onClick={onClick} >
-                            {title}
+                            {changedTitle}
                         </div>
                     </div>
                 }

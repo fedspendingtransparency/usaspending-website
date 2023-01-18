@@ -8,8 +8,8 @@
     padding: 0 0 24px 0;
     font-size: $font-size-24;
     text-align: center;
-    margin-left: 32px;
-    margin-right: 32px;
+    margin-left: 16px;
+    margin-right: 16px;
   }
 
   .list-of-videos__video {
@@ -109,14 +109,6 @@
     .card__body .headline {
       text-align: left;
       color: $gray-90;
-
-      @media (min-width:$medium-screen) {
-        min-height: 60px;
-      }
-
-      @media (min-width:1400px) {
-        min-height: 90px;
-      }
     }
 
     .card__body .text {
