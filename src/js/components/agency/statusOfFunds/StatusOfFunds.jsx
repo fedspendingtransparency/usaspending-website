@@ -144,6 +144,7 @@ const StatusOfFunds = ({ fy }) => {
                 };
                 setLevel(1, totalsData);
                 setResults(parsedData);
+                setFederalAccount(parsedData);
                 dispatch(setFederalAccountsList(parsedData));
                 setTotalItems(res.data.page_metadata.total);
                 setLoading(false);
@@ -225,7 +226,6 @@ const StatusOfFunds = ({ fy }) => {
         console.log("parent", level);
         if (resetPageChange) {
             setLoading(true);
-            setLoading(true);
             if (currentPage === 1) {
                 setResetPageChange(false);
             }
@@ -262,13 +262,17 @@ const StatusOfFunds = ({ fy }) => {
 
     const goBack = () => {
         if (overview.toptierCode) {
-            setLevel(0);
-            fetchAgencySubcomponents();
-            if (currentPage === 1) {
-                setResetPageChange(false);
+            if (level === 2) {
+                setDrilldownLevel(1, federalAccount);
             }
-            else {
-                changeCurrentPage(1);
+
+            if (level === 1) {
+                fetchAgencySubcomponents();
+                if (currentPage === 1) {
+                    setResetPageChange(false);
+                } else {
+                    changeCurrentPage(1);
+                }
             }
         }
     };
