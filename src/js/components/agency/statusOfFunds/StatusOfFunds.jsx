@@ -170,7 +170,6 @@ const StatusOfFunds = ({ fy }) => {
             page: currentPage
         };
 
-        console.log("federal account", federalAccountData)
         request.current = fetchTasList(federalAccountData.id, fy, params.page);
         const tasRequest = request.current;
         tasRequest.promise
@@ -202,13 +201,10 @@ const StatusOfFunds = ({ fy }) => {
     }, [subcomponent]);
 
     useEffect(() => {
-        console.log("currentPage", level);
-
         if (resetPageChange) {
             setResetPageChange(false);
         }
         else {
-            console.log("in reset method", level);
             if (prevPage !== currentPage && level === 0) {
                 fetchAgencySubcomponents();
             }
@@ -216,6 +212,7 @@ const StatusOfFunds = ({ fy }) => {
                 fetchFederalAccounts(subcomponent);
             }
             if (prevPage !== currentPage && level === 2) {
+                // this isn't doing anything
                 fetchTas();
             }
         }
@@ -223,7 +220,6 @@ const StatusOfFunds = ({ fy }) => {
     }, [currentPage]);
 
     useEffect(() => {
-        console.log("parent", level);
         if (resetPageChange) {
             setLoading(true);
             if (currentPage === 1) {
@@ -244,7 +240,6 @@ const StatusOfFunds = ({ fy }) => {
     }, [fy, overview.toptierCode]);
 
     const setDrilldownLevel = (selectedLevel, data) => {
-        console.log('in set drilldownlevel', selectedLevel, data);
         if (selectedLevel === 2) {
             fetchTas(data);
         } else {
