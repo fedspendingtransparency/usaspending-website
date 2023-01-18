@@ -245,28 +245,26 @@ const StatusOfFunds = ({ fy }) => {
 
     const setDrilldownLevel = (selectedLevel, data) => {
         console.log('in set drilldownlevel', selectedLevel, data);
-        setLevel(selectedLevel);
-        // reset to page 1 on drilldown
-        if (selectedLevel === 1) {
+        if (selectedLevel === 2) {
+            fetchTas(data);
+        } else {
+            // reset to page 1 on drilldown
             setResetPageChange(true);
             const subcomponentTotalData = Object.create(BaseStatusOfFundsLevel);
             subcomponentTotalData.populate(data);
             dispatch(setSelectedSubcomponent(subcomponentTotalData));
             setSubcomponent(subcomponentTotalData);
         }
-
-        if (selectedLevel === 2) {
-            fetchTas(data);
-        }
     };
 
     const goBack = () => {
         if (overview.toptierCode) {
             if (level === 2) {
-                setDrilldownLevel(1, federalAccount);
-            }
-
-            if (level === 1) {
+                setLevel(1);
+                setResults(federalAccount);
+                changeCurrentPage(1);
+            } else {
+                setLevel(0);
                 fetchAgencySubcomponents();
                 if (currentPage === 1) {
                     setResetPageChange(false);
