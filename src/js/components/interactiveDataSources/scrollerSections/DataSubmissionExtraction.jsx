@@ -95,7 +95,7 @@ const DataSubmissionExtraction = (props) => {
                                 Reporting Submission Specification (RSS) spreadsheet in the{" "}
                                     <a
                                         className="scroller-overlay-card__link"
-                                        href="https://fiscal.treasury.gov/data-transparency/resources.html"
+                                        href="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html#fed"
                                         target="_blank"
                                         rel="noopener noreferrer">
                                     DATA Act Information Model Schema (DAIMS)
@@ -134,7 +134,7 @@ const DataSubmissionExtraction = (props) => {
                                 the{" "}
                                     <a
                                         className="scroller-overlay-card__link"
-                                        href="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html"
+                                        href="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html#fed"
                                         target="_blank"
                                         rel="noopener noreferrer">
                                     DATA Act Information Model Schema (DAIMS)
