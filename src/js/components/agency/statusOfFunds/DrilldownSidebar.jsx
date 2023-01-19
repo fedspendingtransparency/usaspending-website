@@ -32,35 +32,6 @@ const DrilldownSidebar = ({
     const { toptierCode } = useSelector((state) => state.agency.overview) || '--';
     const outlay = useSelector((state) => state.agency.agencyOutlays[toptierCode]) || '--';
 
-
-    useEffect(() => {
-        console.log("on initial load of drilldown sidebar");
-        console.log(level)
-        console.log(selectedLevelData)
-        console.log(selectedLevelDataArray)
-
-        // if (level === 0) {
-        //     selectedSubcomponentArray.push({
-        //         name: agencyName,
-        //         obligated: agencyObligatedShort,
-        //         bugetaryResources: agencyBudgetShort,
-        //         outlay: MoneyFormatter.formatMoneyWithUnitsShortLabel(outlay, 2)
-        //     });
-        // }
-        //
-        // if (level > 0) {
-        //     selectedSubcomponentArray.push({
-        //         name: selectedSubcomponent.name,
-        //         obligated: selectedSubcomponent._obligations,
-        //         bugetaryResources: selectedSubcomponent._budgetaryResources,
-        //         outlay: selectedSubcomponent._outlays
-        //     });
-        // }
-        //
-        // console.log(selectedSubcomponentArray)
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [level]);
-
     return (
         <>
             <DrilldownSidebarLevel
@@ -77,11 +48,11 @@ const DrilldownSidebar = ({
                     active={level === i + 1}
                     name={selectedLevelData[i]?.name}
                     label={dataType}
-                    obligated={selectedLevelData[i]?._obligations}
-                    budgetaryResources={selectedLevelData[i]?._budgetaryResources}
+                    obligated={MoneyFormatter.formatMoneyWithUnitsShortLabel(selectedLevelData[i]?._obligations, 2)}
+                    budgetaryResources={MoneyFormatter.formatMoneyWithUnitsShortLabel(selectedLevelData[i]?._budgetaryResources, 2)}
                     goBack={goBack}
                     toggle={toggle}
-                    outlay={selectedLevelData[i]?._outlays} />
+                    outlay={MoneyFormatter.formatMoneyWithUnitsShortLabel(selectedLevelData[i]?._outlays, 2)} />
             ) : '')
             )}
         </>
