@@ -25,6 +25,8 @@ const propTypes = {
 const TrainingVideoModal = (props) => {
     const [chapterTimestamp, setChapterTimestamp] = useState(0);
     const [parsedDescription, setParsedDescription] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [isError, setIsError] = useState(false);
 
     const updatePlayerChapter = (e, time) => {
         setChapterTimestamp(time);
@@ -53,6 +55,14 @@ const TrainingVideoModal = (props) => {
                 chapterEls[i].addEventListener('keyup', (keyEv) => chapterKeypressHandler(keyEv, chapterTime));
             }
         }
+
+        setIsLoading(false);
+        setIsError(false);
+    };
+
+    const handleError = () => {
+        setIsLoading(false);
+        setIsError(true);
     };
 
     return (
@@ -79,44 +89,46 @@ const TrainingVideoModal = (props) => {
                 Back
                     </span>
                 </div>
-                <div className="usa-dt-modal__body">
-                    <FlexGridCol
-                        className="usa-dt-modal__card"
-                        desktopxl={5}
-                        desktop={6}
-                        tablet={0}
-                        mobile={0}>
-                        <div className="usa-dt-modal__title">
-                            {props.title}
-                        </div>
-                        <div tabIndex={0} id="video-description" className="usa-dt-modal__body-text">
-                            {parsedDescription}
-                        </div>
-                        <div className="usa-dt-modal__meta">
-                            {props.publishedAt}
-                        </div>
-                    </FlexGridCol>
-                    <FlexGridCol
-                        desktopxl={12}
-                        desktop={12}
-                        mobile={12}
-                        tablet={12}
-                        className="usa-dt-modal__video">
-                        <YouTube
-                            videoId={props.id}
-                            opts={{
-                                height: '400',
-                                width: '922',
-                                playerVars: {
-                                    // https://developers.google.com/youtube/player_parameters
-                                    autoplay: 1,
-                                    start: chapterTimestamp
-                                }
-                            }}
-                            onReady={youTubeOnReady}
-                            title="YouTube video player" />;
-                    </FlexGridCol>
-                </div>
+                {isLoading &&
+                    <div className="usa-dt-modal__body">
+                        <FlexGridCol
+                            className="usa-dt-modal__card"
+                            desktopxl={5}
+                            desktop={6}
+                            tablet={0}
+                            mobile={0}>
+                            <div className="usa-dt-modal__title">
+                                {props.title}
+                            </div>
+                            <div tabIndex={0} id="video-description" className="usa-dt-modal__body-text">
+                                {parsedDescription}
+                            </div>
+                            <div className="usa-dt-modal__meta">
+                                {props.publishedAt}
+                            </div>
+                        </FlexGridCol>
+                        <FlexGridCol
+                            desktopxl={12}
+                            desktop={12}
+                            mobile={12}
+                            tablet={12}
+                            className="usa-dt-modal__video">
+                            <YouTube
+                                onError={handleError}
+                                videoId={props.id}
+                                opts={{
+                                    height: '400',
+                                    width: '922',
+                                    playerVars: {
+                                        // https://developers.google.com/youtube/player_parameters
+                                        autoplay: 1,
+                                        start: chapterTimestamp
+                                    }
+                                }}
+                                onReady={youTubeOnReady}
+                                title="YouTube video player" />
+                        </FlexGridCol>
+                    </div>}
             </div>
         </Modal>);
 };
