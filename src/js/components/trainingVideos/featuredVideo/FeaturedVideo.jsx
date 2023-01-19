@@ -45,7 +45,12 @@ const FeaturedVideo = ({ featuredVideo }) => {
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
-
+    const launchModal = (e) => {
+        e.persist();
+        dispatch(showTrainingVideoModal({
+            url: featuredVideo.thumbnails.maxres.url, modalType: 'training-videos', title: featuredVideo.title, description: featuredVideo.description, publishedAt: featuredVideo.publishedAt, duration: featuredVideo.duration, id: featuredVideo.id
+        }));
+    };
     return (
         <section className="featured-video__section">
             <div
@@ -57,18 +62,8 @@ const FeaturedVideo = ({ featuredVideo }) => {
                                 {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
                                 <div
                                     className="featured-video__headline"
-                                    onKeyDown={(e) => {
-                                        e.persist();
-                                        dispatch(showTrainingVideoModal({
-                                            url: featuredVideo.thumbnails.maxres.url, modalType: 'training-videos', title: featuredVideo.title, description: featuredVideo.description, publishedAt: featuredVideo.publishedAt, duration: featuredVideo.duration, id: featuredVideo.id
-                                        }));
-                                    }}
-                                    onClick={(e) => {
-                                        e.persist();
-                                        dispatch(showTrainingVideoModal({
-                                            url: featuredVideo.thumbnails.maxres.url, modalType: 'training-videos', title: featuredVideo.title, description: featuredVideo.description, publishedAt: featuredVideo.publishedAt, duration: featuredVideo.duration, id: featuredVideo.id
-                                        }));
-                                    }} >
+                                    onKeyDown={launchModal}
+                                    onClick={launchModal} >
                                     Learn how USAspending.gov
                                     <br />
                                     got started
@@ -92,18 +87,8 @@ const FeaturedVideo = ({ featuredVideo }) => {
                         desktop={7}
                         tablet={12}
                         mobile={12}
-                        onKeyDown={(e) => {
-                            e.persist();
-                            dispatch(showTrainingVideoModal({
-                                url: featuredVideo.thumbnails.maxres.url, modalType: 'training-videos', title: featuredVideo.title, description: featuredVideo.description, publishedAt: featuredVideo.publishedAt, duration: featuredVideo.duration, id: featuredVideo.id
-                            }));
-                        }}
-                        onClick={(e) => {
-                            e.persist();
-                            dispatch(showTrainingVideoModal({
-                                url: featuredVideo.thumbnails.maxres.url, modalType: 'training-videos', title: featuredVideo.title, description: featuredVideo.description, publishedAt: featuredVideo.publishedAt, duration: featuredVideo.duration, id: featuredVideo.id
-                            }));
-                        }} >
+                        onKeyDown={launchModal}
+                        onClick={launchModal} >
                         <VideoThumbnail
                             tabIndex="0"
                             thumbnailUrl={featuredVideo.thumbnails.maxres.url}
