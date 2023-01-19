@@ -5,6 +5,8 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from "prop-types";
+import { useDispatch } from 'react-redux';
+import { showTrainingVideoModal } from 'redux/actions/modal/modalActions';
 import { FlexGridRow, FlexGridCol, ShareIcon } from 'data-transparency-ui';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { handleShareOptionClick } from 'helpers/socialShare';
@@ -21,6 +23,7 @@ const FeaturedVideo = ({ featuredVideo }) => {
     const slug = "https://www.youtube.com/watch?v=b7SDGhSZ5wM";
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
+    const dispatch = useDispatch();
 
     const onShareClick = (name) => {
         const emailSubject = `TUTORIAL: How to Find Government Spending to Your State`;
@@ -42,6 +45,7 @@ const FeaturedVideo = ({ featuredVideo }) => {
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
     }, []);
+
     return (
         <section className="featured-video__section">
             <div
@@ -53,8 +57,18 @@ const FeaturedVideo = ({ featuredVideo }) => {
                                 {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
                                 <div
                                     className="featured-video__headline"
-                                    onKeyDown={() => console.log("launch modal here")}
-                                    onClick={() => console.log("launch modal here")} >
+                                    onKeyDown={(e) => {
+                                        e.persist();
+                                        dispatch(showTrainingVideoModal({
+                                            url: featuredVideo.thumbnails.maxres.url, modalType: 'training-videos', title: featuredVideo.title, description: featuredVideo.description, publishedAt: featuredVideo.publishedAt, duration: featuredVideo.duration, id: featuredVideo.id
+                                        }));
+                                    }}
+                                    onClick={(e) => {
+                                        e.persist();
+                                        dispatch(showTrainingVideoModal({
+                                            url: featuredVideo.thumbnails.maxres.url, modalType: 'training-videos', title: featuredVideo.title, description: featuredVideo.description, publishedAt: featuredVideo.publishedAt, duration: featuredVideo.duration, id: featuredVideo.id
+                                        }));
+                                    }} >
                                     Learn how USAspending.gov
                                     <br />
                                     got started
@@ -78,8 +92,18 @@ const FeaturedVideo = ({ featuredVideo }) => {
                         desktop={7}
                         tablet={12}
                         mobile={12}
-                        onKeyDown={() => console.log("launch modal here")}
-                        onClick={() => console.log("launch modal here")} >
+                        onKeyDown={(e) => {
+                            e.persist();
+                            dispatch(showTrainingVideoModal({
+                                url: featuredVideo.thumbnails.maxres.url, modalType: 'training-videos', title: featuredVideo.title, description: featuredVideo.description, publishedAt: featuredVideo.publishedAt, duration: featuredVideo.duration, id: featuredVideo.id
+                            }));
+                        }}
+                        onClick={(e) => {
+                            e.persist();
+                            dispatch(showTrainingVideoModal({
+                                url: featuredVideo.thumbnails.maxres.url, modalType: 'training-videos', title: featuredVideo.title, description: featuredVideo.description, publishedAt: featuredVideo.publishedAt, duration: featuredVideo.duration, id: featuredVideo.id
+                            }));
+                        }} >
                         <VideoThumbnail
                             tabIndex="0"
                             thumbnailUrl={featuredVideo.thumbnails.maxres.url}
