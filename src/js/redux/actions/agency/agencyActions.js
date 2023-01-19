@@ -80,6 +80,15 @@ export const resetFederalAccountsList = () => ({
     type: 'RESET_FEDERAL_ACC_LIST'
 });
 
+export const setTasList = (agencyTasList) => ({
+    type: 'SET_TAS_LIST',
+    agencyTasList
+});
+
+export const resetTasList = () => ({
+    type: 'RESET_TAS_LIST'
+});
+
 export const setDataThroughDates = (dates) => ({
     type: 'SET_DATA_THROUGH_DATES',
     dates

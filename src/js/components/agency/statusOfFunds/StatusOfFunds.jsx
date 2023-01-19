@@ -17,6 +17,8 @@ import {
     setDataThroughDates,
     resetAgencySubcomponents,
     setFederalAccountsList,
+    setTasList,
+    resetTasList,
     resetFederalAccountsList
 } from "redux/actions/agency/agencyActions";
 import { fetchSubcomponentsList, fetchFederalAccountsList, fetchTasList } from 'apis/agency';
@@ -183,7 +185,7 @@ const StatusOfFunds = ({ fy }) => {
                 };
                 setLevel(2, totalsData);
                 setResults(parsedData);
-                // dispatch(setFederalAccountsList(parsedData));
+                dispatch(setTasList(parsedData));
                 // setTotalItems(res.data.page_metadata.total);
                 setLoading(false);
             }).catch((err) => {
@@ -212,7 +214,7 @@ const StatusOfFunds = ({ fy }) => {
                 fetchFederalAccounts(subcomponent);
             }
             if (prevPage !== currentPage && level === 2) {
-                // this isn't doing anything
+                // this isn't doing anything yet
                 fetchTas();
             }
         }
@@ -242,6 +244,7 @@ const StatusOfFunds = ({ fy }) => {
     const setDrilldownLevel = (selectedLevel, data) => {
         if (selectedLevel === 2) {
             fetchTas(data);
+            // start here and setselectedsubcomponent
         } else {
             // reset to page 1 on drilldown
             setResetPageChange(true);
