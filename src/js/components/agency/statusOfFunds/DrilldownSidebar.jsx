@@ -26,7 +26,7 @@ const propTypes = {
 };
 
 const DrilldownSidebar = ({
-    toggle, level, goBack, fy, agencyName, selectedSubcomponent, selectedSubcomponentArray
+    toggle, level, goBack, fy, agencyName, selectedLevelDataArray, selectedLevelData
 }) => {
     const { agencyBudgetShort, agencyObligatedShort } = useSelector((state) => state.agency.budgetaryResources?.[fy]) || '--';
     const { toptierCode } = useSelector((state) => state.agency.overview) || '--';
@@ -34,10 +34,10 @@ const DrilldownSidebar = ({
 
 
     useEffect(() => {
-        console.log("on initial load");
+        console.log("on initial load of drilldown sidebar");
         console.log(level)
-        console.log(selectedSubcomponent)
-        console.log(selectedSubcomponentArray)
+        console.log(selectedLevelData)
+        console.log(selectedLevelDataArray)
 
         // if (level === 0) {
         //     selectedSubcomponentArray.push({
@@ -75,13 +75,13 @@ const DrilldownSidebar = ({
                 <DrilldownSidebarLevel
                     key={dataType}
                     active={level === i + 1}
-                    name={selectedSubcomponent?.name}
+                    name={selectedLevelData[i]?.name}
                     label={dataType}
-                    obligated={selectedSubcomponent?._obligations}
-                    budgetaryResources={selectedSubcomponent?._budgetaryResources}
+                    obligated={selectedLevelData[i]?._obligations}
+                    budgetaryResources={selectedLevelData[i]?._budgetaryResources}
                     goBack={goBack}
                     toggle={toggle}
-                    outlay={selectedSubcomponent?._outlays} />
+                    outlay={selectedLevelData[i]?._outlays} />
             ) : '')
             )}
         </>

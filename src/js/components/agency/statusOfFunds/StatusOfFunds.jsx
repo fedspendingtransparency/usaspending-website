@@ -11,7 +11,7 @@ import { tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { throttle } from "lodash";
 
 import { FlexGridRow, FlexGridCol, Pagination, LoadingMessage } from 'data-transparency-ui';
-import { setDataThroughDates } from "redux/actions/agency/agencyActions";
+import { setDataThroughDates, currentlySelected } from "redux/actions/agency/agencyActions";
 import { fetchSubcomponentsList, fetchFederalAccountsList, fetchTasList } from 'apis/agency';
 import { parseRows } from 'helpers/agency/StatusOfFundsVizHelper';
 import { useStateWithPrevious } from 'helpers';
@@ -35,7 +35,6 @@ const StatusOfFunds = ({ fy }) => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(false);
     const [resetPageChange, setResetPageChange] = useState(false);
-    const [subcomponent, setSubcomponent] = useState({});
     const [prevPage, currentPage, changeCurrentPage] = useStateWithPrevious(1);
     const [pageSize, changePageSize] = useStateWithPrevious(10);
     const [totalItems, setTotalItems] = useState(0);
@@ -46,10 +45,16 @@ const StatusOfFunds = ({ fy }) => {
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < tabletScreen);
     const [viewType, setViewType] = useState(isMobile ? 'table' : 'chart');
-    const [federalAccount, setFederalAccount] = useState();
-    const [selectedArray, setSelectedSubcomponentArray] = useState();
 
-    const selectedSubcomponentArray = [];
+    // TODO this should probably go in redux
+    const [subcomponent, setSubcomponent] = useState({});
+    const [selectedSubcomponent, setSelectedSubcomponent] = useState();
+    const [federalAccount, setFederalAccount] = useState();
+    const [selectedFederalAccount, setSelectedFederalAccount] = useState();
+    const [selectedMetadata, setSelectedMetadata] = useState();
+    const [selectedDrilldownList, setSelectedDrilldownList] = useState([]);
+
+    const selectedLevelsArray = [];
 
     useEffect(() => {
         const handleResize = throttle(() => {
@@ -87,6 +92,7 @@ const StatusOfFunds = ({ fy }) => {
             .then((res) => {
                 const parsedData = parseRows(res.data.results);
                 setResults(parsedData);
+                setSubcomponent(parsedData);
                 setTotalItems(res.data.page_metadata.total);
 
                 if (parsedData.length === 0) {
@@ -133,6 +139,7 @@ const StatusOfFunds = ({ fy }) => {
                 setResults(parsedData);
                 setFederalAccount(parsedData);
                 setTotalItems(res.data.page_metadata.total);
+                setSelectedMetadata(agencyData);
                 setLoading(false);
             }).catch((err) => {
                 setError(true);
@@ -169,6 +176,7 @@ const StatusOfFunds = ({ fy }) => {
                 };
                 setLevel(2, totalsData);
                 setResults(parsedData);
+                setSelectedMetadata(federalAccountData);
                 // setTotalItems(res.data.page_metadata.total);
                 setLoading(false);
             }).catch((err) => {
@@ -190,8 +198,7 @@ const StatusOfFunds = ({ fy }) => {
                 fetchFederalAccounts(subcomponent);
             }
             if (prevPage !== currentPage && level === 2) {
-                // this isn't doing anything yet
-                fetchTas();
+                fetchTas(federalAccount);
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -220,18 +227,23 @@ const StatusOfFunds = ({ fy }) => {
     const setDrilldownLevel = (selectedLevel, parentData) => {
         if (selectedLevel === 1) {
             fetchFederalAccounts(parentData);
+            setSelectedSubcomponent(parentData);
         }
 
         if (selectedLevel === 2) {
             fetchTas(parentData);
+            setSelectedFederalAccount(parentData);
+            selectedLevelsArray.push(selectedSubcomponent);
         }
+
+        selectedLevelsArray.push(parentData);
 
         setResetPageChange(true);
         const subcomponentTotalData = Object.create(BaseStatusOfFundsLevel);
         subcomponentTotalData.populate(parentData);
-        selectedSubcomponentArray.push(subcomponentTotalData);
-        setSelectedSubcomponentArray(selectedSubcomponentArray);
-        setSubcomponent(subcomponentTotalData);
+        setSelectedDrilldownList(selectedLevelsArray);
+        setResults(subcomponentTotalData);
+        setSelectedMetadata(parentData);
     };
 
     const goBack = () => {
@@ -240,10 +252,11 @@ const StatusOfFunds = ({ fy }) => {
                 setLevel(1);
                 setResults(federalAccount);
                 changeCurrentPage(1);
+                // figure out pagination here
             }
             else {
                 setLevel(0);
-                fetchAgencySubcomponents();
+                setResults(subcomponent);
                 if (currentPage === 1) {
                     setResetPageChange(false);
                 }
@@ -275,8 +288,8 @@ const StatusOfFunds = ({ fy }) => {
                         goBack={goBack}
                         agencyName={overview.name}
                         fy={fy}
-                        selectedSubcomponentArray={selectedArray}
-                        selectedSubcomponent={subcomponent} />
+                        selectedLevelDataArray={selectedLevelsArray}
+                        selectedLevelData={selectedDrilldownList} />
                 </FlexGridCol>
                 <FlexGridCol className="status-of-funds__visualization" desktop={9}>
                     {level > 0 && !isMobile ?
@@ -291,7 +304,7 @@ const StatusOfFunds = ({ fy }) => {
                             onKeyToggle={onKeyToggle}
                             level={level}
                             setDrilldownLevel={setDrilldownLevel}
-                            selectedSubcomponent={subcomponent}
+                            selectedLevelData={selectedMetadata}
                             agencyName={overview.name}
                             fy={fy}
                             results={results}

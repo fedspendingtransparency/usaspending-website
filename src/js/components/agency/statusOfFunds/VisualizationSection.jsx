@@ -26,7 +26,7 @@ const propTypes = {
     agencyName: PropTypes.string,
     fy: PropTypes.string,
     results: PropTypes.array,
-    selectedSubcomponent: PropTypes.shape({
+    selectedLevelData: PropTypes.shape({
         name: PropTypes.string,
         id: PropTypes.string,
         budgetaryResources: PropTypes.string,
@@ -46,7 +46,7 @@ const VisualizationSection = ({
     agencyName,
     fy,
     results,
-    selectedSubcomponent,
+    selectedLevelData,
     isMobile,
     viewType,
     setViewType
@@ -54,8 +54,9 @@ const VisualizationSection = ({
     const [open, setOpen] = useState(false);
     const fyString = `FY${fy.slice(2)}`;
     const accordionTitle = (<span>What&nbsp;is&nbsp;this?</span>);
-    const selectionName = [agencyName, selectedSubcomponent?.name];
+    const selectionName = [agencyName, selectedLevelData?.name];
 
+    console.log(selectedLevelData)
     const columns = toggle ?
         [
             {
@@ -155,7 +156,7 @@ const VisualizationSection = ({
                     <>
                         <div className="status-of-funds__controls">
                             <div className="status-of-funds__controls-desktop-row-one">
-                                <h6>{level === 1 ? selectedSubcomponent?.name : agencyName} by <span className="status-of-funds__emphasis">{levels[level]}</span> for FY {fy}
+                                <h6>{level === 0 ? agencyName : selectedLevelData?.name } by <span className="status-of-funds__emphasis">{levels[level]}</span> for FY {fy}
                                 </h6>
                                 {chartTableToggle}
                             </div>
