@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import PropTypes from "prop-types";
+import PropTypes, { oneOfType } from "prop-types";
 import { ShareIcon } from 'data-transparency-ui';
 import { handleShareOptionClick } from 'helpers/socialShare';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
@@ -22,7 +22,7 @@ const propTypes = {
     publishedAt: PropTypes.string,
     onClick: PropTypes.func,
     onKeyUp: PropTypes.func,
-    url: PropTypes.func
+    url: oneOfType([PropTypes.string, PropTypes.func])
 };
 
 const VideoCard = ({

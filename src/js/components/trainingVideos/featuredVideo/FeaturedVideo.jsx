@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import PropTypes from "prop-types";
+import PropTypes, { oneOfType } from "prop-types";
 import { FlexGridRow, FlexGridCol, ShareIcon } from 'data-transparency-ui';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { handleShareOptionClick } from 'helpers/socialShare';
@@ -13,8 +13,8 @@ import VideoThumbnail from '../videoThumbnails/VideoThumbnail';
 
 
 const propTypes = {
-    featuredVideo: PropTypes.array,
-    url: PropTypes.func
+    featuredVideo: PropTypes.object,
+    url: oneOfType([PropTypes.string, PropTypes.func])
 };
 
 const FeaturedVideo = ({ featuredVideo }) => {
