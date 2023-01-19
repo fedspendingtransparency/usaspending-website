@@ -45,7 +45,6 @@ const StatusOfFundsChart = ({
     const [textScale, setTextScale] = useState(viewWidth / viewWidth);
 
     const handleClick = (data) => {
-        console.log(level + 1)
         setDrilldownLevel(level + 1, data);
     };
 

@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 10/29/21
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 import { useSelector } from 'react-redux';
@@ -26,11 +26,40 @@ const propTypes = {
 };
 
 const DrilldownSidebar = ({
-    toggle, level, goBack, fy, agencyName, selectedSubcomponent
+    toggle, level, goBack, fy, agencyName, selectedSubcomponent, selectedSubcomponentArray
 }) => {
     const { agencyBudgetShort, agencyObligatedShort } = useSelector((state) => state.agency.budgetaryResources?.[fy]) || '--';
     const { toptierCode } = useSelector((state) => state.agency.overview) || '--';
     const outlay = useSelector((state) => state.agency.agencyOutlays[toptierCode]) || '--';
+
+
+    useEffect(() => {
+        console.log("on initial load");
+        console.log(level)
+        console.log(selectedSubcomponent)
+        console.log(selectedSubcomponentArray)
+
+        // if (level === 0) {
+        //     selectedSubcomponentArray.push({
+        //         name: agencyName,
+        //         obligated: agencyObligatedShort,
+        //         bugetaryResources: agencyBudgetShort,
+        //         outlay: MoneyFormatter.formatMoneyWithUnitsShortLabel(outlay, 2)
+        //     });
+        // }
+        //
+        // if (level > 0) {
+        //     selectedSubcomponentArray.push({
+        //         name: selectedSubcomponent.name,
+        //         obligated: selectedSubcomponent._obligations,
+        //         bugetaryResources: selectedSubcomponent._budgetaryResources,
+        //         outlay: selectedSubcomponent._outlays
+        //     });
+        // }
+        //
+        // console.log(selectedSubcomponentArray)
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [level]);
 
     return (
         <>

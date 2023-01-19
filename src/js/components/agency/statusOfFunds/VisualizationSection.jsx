@@ -23,12 +23,9 @@ const propTypes = {
     setDrilldownLevel: PropTypes.func,
     loading: PropTypes.bool,
     setLoading: PropTypes.func,
-    totalItems: PropTypes.number,
-    setTotalItems: PropTypes.func,
     agencyName: PropTypes.string,
     fy: PropTypes.string,
     results: PropTypes.array,
-    fetchFederalAccounts: PropTypes.func,
     selectedSubcomponent: PropTypes.shape({
         name: PropTypes.string,
         id: PropTypes.string,
@@ -44,18 +41,12 @@ const VisualizationSection = ({
     toggle,
     onKeyToggle,
     onToggle,
-    loading,
-    setLoading,
     level,
     setDrilldownLevel,
-    totalItems,
-    setTotalItems,
     agencyName,
     fy,
     results,
     selectedSubcomponent,
-    fetchFederalAccounts,
-    fetchTas,
     isMobile,
     viewType,
     setViewType
@@ -189,12 +180,6 @@ const VisualizationSection = ({
                     className="status-of-funds__visualization-chart">
                     <StatusOfFundsChart
                         toggle={toggle}
-                        fetchFederalAccounts={fetchFederalAccounts}
-                        fetchTas={fetchTas}
-                        totalItems={totalItems}
-                        setTotalItems={setTotalItems}
-                        loading={loading}
-                        setLoading={setLoading}
                         fy={fy}
                         results={results}
                         level={level}

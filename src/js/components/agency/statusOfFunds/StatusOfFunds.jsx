@@ -11,16 +11,7 @@ import { tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { throttle } from "lodash";
 
 import { FlexGridRow, FlexGridCol, Pagination, LoadingMessage } from 'data-transparency-ui';
-import {
-    setSelectedSubcomponent,
-    setAgencySubcomponents,
-    setDataThroughDates,
-    resetAgencySubcomponents,
-    setFederalAccountsList,
-    setTasList,
-    resetTasList,
-    resetFederalAccountsList
-} from "redux/actions/agency/agencyActions";
+import { setDataThroughDates } from "redux/actions/agency/agencyActions";
 import { fetchSubcomponentsList, fetchFederalAccountsList, fetchTasList } from 'apis/agency';
 import { parseRows } from 'helpers/agency/StatusOfFundsVizHelper';
 import { useStateWithPrevious } from 'helpers';
@@ -50,12 +41,15 @@ const StatusOfFunds = ({ fy }) => {
     const [totalItems, setTotalItems] = useState(0);
     const request = useRef(null);
     const [results, setResults] = useState([]);
-    const { overview, selectedSubcomponent } = useSelector((state) => state.agency);
+    const { overview } = useSelector((state) => state.agency);
     const [toggle, setOnToggle] = useState(false);
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < tabletScreen);
     const [viewType, setViewType] = useState(isMobile ? 'table' : 'chart');
     const [federalAccount, setFederalAccount] = useState();
+    const [selectedArray, setSelectedSubcomponentArray] = useState();
+
+    const selectedSubcomponentArray = [];
 
     useEffect(() => {
         const handleResize = throttle(() => {
@@ -70,16 +64,8 @@ const StatusOfFunds = ({ fy }) => {
         return () => window.removeEventListener('resize', handleResize);
     }, [isMobile, viewType, windowWidth]);
 
-    useEffect(() => {
-        if (request.current) {
-            request.current.cancel();
-        }
-        dispatch(resetAgencySubcomponents());
-        dispatch(resetFederalAccountsList());
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
-
     // eslint-disable-next-line eqeqeq
+    // TODO not sure if this is necessary
     let statusDataThroughDate = useLatestAccountData()[1].toArray().filter((i) => i.submission_fiscal_year == fy)[0].period_end_date;
     const fetchAgencySubcomponents = useCallback(() => {
         if (request.current) {
@@ -101,7 +87,6 @@ const StatusOfFunds = ({ fy }) => {
             .then((res) => {
                 const parsedData = parseRows(res.data.results);
                 setResults(parsedData);
-                dispatch(setAgencySubcomponents(parsedData));
                 setTotalItems(res.data.page_metadata.total);
 
                 if (parsedData.length === 0) {
@@ -147,7 +132,6 @@ const StatusOfFunds = ({ fy }) => {
                 setLevel(1, totalsData);
                 setResults(parsedData);
                 setFederalAccount(parsedData);
-                dispatch(setFederalAccountsList(parsedData));
                 setTotalItems(res.data.page_metadata.total);
                 setLoading(false);
             }).catch((err) => {
@@ -185,7 +169,6 @@ const StatusOfFunds = ({ fy }) => {
                 };
                 setLevel(2, totalsData);
                 setResults(parsedData);
-                dispatch(setTasList(parsedData));
                 // setTotalItems(res.data.page_metadata.total);
                 setLoading(false);
             }).catch((err) => {
@@ -194,13 +177,6 @@ const StatusOfFunds = ({ fy }) => {
                 console.error(err);
             });
     });
-
-    useEffect(() => {
-        if (Object.keys(subcomponent).length !== 0) {
-            fetchFederalAccounts(subcomponent);
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [subcomponent]);
 
     useEffect(() => {
         if (resetPageChange) {
@@ -241,18 +217,21 @@ const StatusOfFunds = ({ fy }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [fy, overview.toptierCode]);
 
-    const setDrilldownLevel = (selectedLevel, data) => {
-        if (selectedLevel === 2) {
-            fetchTas(data);
-            // start here and setselectedsubcomponent
-        } else {
-            // reset to page 1 on drilldown
-            setResetPageChange(true);
-            const subcomponentTotalData = Object.create(BaseStatusOfFundsLevel);
-            subcomponentTotalData.populate(data);
-            dispatch(setSelectedSubcomponent(subcomponentTotalData));
-            setSubcomponent(subcomponentTotalData);
+    const setDrilldownLevel = (selectedLevel, parentData) => {
+        if (selectedLevel === 1) {
+            fetchFederalAccounts(parentData);
         }
+
+        if (selectedLevel === 2) {
+            fetchTas(parentData);
+        }
+
+        setResetPageChange(true);
+        const subcomponentTotalData = Object.create(BaseStatusOfFundsLevel);
+        subcomponentTotalData.populate(parentData);
+        selectedSubcomponentArray.push(subcomponentTotalData);
+        setSelectedSubcomponentArray(selectedSubcomponentArray);
+        setSubcomponent(subcomponentTotalData);
     };
 
     const goBack = () => {
@@ -261,12 +240,14 @@ const StatusOfFunds = ({ fy }) => {
                 setLevel(1);
                 setResults(federalAccount);
                 changeCurrentPage(1);
-            } else {
+            }
+            else {
                 setLevel(0);
                 fetchAgencySubcomponents();
                 if (currentPage === 1) {
                     setResetPageChange(false);
-                } else {
+                }
+                else {
                     changeCurrentPage(1);
                 }
             }
@@ -294,7 +275,8 @@ const StatusOfFunds = ({ fy }) => {
                         goBack={goBack}
                         agencyName={overview.name}
                         fy={fy}
-                        selectedSubcomponent={selectedSubcomponent} />
+                        selectedSubcomponentArray={selectedArray}
+                        selectedSubcomponent={subcomponent} />
                 </FlexGridCol>
                 <FlexGridCol className="status-of-funds__visualization" desktop={9}>
                     {level > 0 && !isMobile ?
@@ -307,16 +289,9 @@ const StatusOfFunds = ({ fy }) => {
                             toggle={toggle}
                             onToggle={onToggle}
                             onKeyToggle={onKeyToggle}
-                            fetchFederalAccounts={fetchFederalAccounts}
-                            fetchTas={fetchTas}
-                            totalItems={totalItems}
-                            setTotalItems={setTotalItems}
-                            loading={loading}
-                            setLoading={setLoading}
                             level={level}
                             setDrilldownLevel={setDrilldownLevel}
-                            selectedSubcomponent={selectedSubcomponent}
-                            agencyId={overview.toptierCode}
+                            selectedSubcomponent={subcomponent}
                             agencyName={overview.name}
                             fy={fy}
                             results={results}
