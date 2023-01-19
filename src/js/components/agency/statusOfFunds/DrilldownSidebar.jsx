@@ -17,16 +17,16 @@ const propTypes = {
     goBack: PropTypes.func,
     fy: PropTypes.string.isRequired,
     agencyName: PropTypes.string,
-    selectedSubcomponent: PropTypes.shape({
+    selectedLevelDataList: PropTypes.arrayOf(PropTypes.shape({
         name: PropTypes.string,
         id: PropTypes.string,
         budgetaryResources: PropTypes.string,
         obligations: PropTypes.string
-    })
+    }))
 };
 
 const DrilldownSidebar = ({
-    toggle, level, goBack, fy, agencyName, selectedLevelDataArray, selectedLevelData
+    toggle, level, goBack, fy, agencyName, selectedLevelDataList
 }) => {
     const { agencyBudgetShort, agencyObligatedShort } = useSelector((state) => state.agency.budgetaryResources?.[fy]) || '--';
     const { toptierCode } = useSelector((state) => state.agency.overview) || '--';
@@ -46,13 +46,13 @@ const DrilldownSidebar = ({
                 <DrilldownSidebarLevel
                     key={dataType}
                     active={level === i + 1}
-                    name={selectedLevelData[i]?.name}
+                    name={selectedLevelDataList[i]?.name}
                     label={dataType}
-                    obligated={MoneyFormatter.formatMoneyWithUnitsShortLabel(selectedLevelData[i]?._obligations, 2)}
-                    budgetaryResources={MoneyFormatter.formatMoneyWithUnitsShortLabel(selectedLevelData[i]?._budgetaryResources, 2)}
+                    obligated={MoneyFormatter.formatMoneyWithUnitsShortLabel(selectedLevelDataList[i]?._obligations, 2)}
+                    budgetaryResources={MoneyFormatter.formatMoneyWithUnitsShortLabel(selectedLevelDataList[i]?._budgetaryResources, 2)}
                     goBack={goBack}
                     toggle={toggle}
-                    outlay={MoneyFormatter.formatMoneyWithUnitsShortLabel(selectedLevelData[i]?._outlays, 2)} />
+                    outlay={MoneyFormatter.formatMoneyWithUnitsShortLabel(selectedLevelDataList[i]?._outlays, 2)} />
             ) : '')
             )}
         </>

@@ -177,6 +177,7 @@ const StatusOfFunds = ({ fy }) => {
                 setLevel(2, totalsData);
                 setResults(parsedData);
                 setSelectedMetadata(federalAccountData);
+                // TODO - calculate pages here
                 // setTotalItems(res.data.page_metadata.total);
                 setLoading(false);
             }).catch((err) => {
@@ -243,7 +244,6 @@ const StatusOfFunds = ({ fy }) => {
         subcomponentTotalData.populate(parentData);
         setSelectedDrilldownList(selectedLevelsArray);
         setResults(subcomponentTotalData);
-        setSelectedMetadata(parentData);
     };
 
     const goBack = () => {
@@ -288,8 +288,7 @@ const StatusOfFunds = ({ fy }) => {
                         goBack={goBack}
                         agencyName={overview.name}
                         fy={fy}
-                        selectedLevelDataArray={selectedLevelsArray}
-                        selectedLevelData={selectedDrilldownList} />
+                        selectedLevelDataList={selectedDrilldownList} />
                 </FlexGridCol>
                 <FlexGridCol className="status-of-funds__visualization" desktop={9}>
                     {level > 0 && !isMobile ?

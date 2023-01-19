@@ -56,7 +56,6 @@ const VisualizationSection = ({
     const accordionTitle = (<span>What&nbsp;is&nbsp;this?</span>);
     const selectionName = [agencyName, selectedLevelData?.name];
 
-    console.log(selectedLevelData)
     const columns = toggle ?
         [
             {
