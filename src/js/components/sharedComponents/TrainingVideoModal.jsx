@@ -44,6 +44,13 @@ const TrainingVideoModal = (props) => {
     }, [props.description]);
 
     const youTubeOnReady = (e) => {
+        let elem = document.getElementById("usa-dt-modal__body");
+        elem.style.display = "flex";
+
+        elem = document.getElementById("usa-dt-modal__loading");
+        elem.style.display = "none";
+        setIsLoading(false);
+        setIsError(false);
         e.target.playVideo();
         const body = document.getElementById('video-description');
         const chapterEls = body?.getElementsByClassName("videoChapter");
@@ -55,9 +62,6 @@ const TrainingVideoModal = (props) => {
                 chapterEls[i].addEventListener('keyup', (keyEv) => chapterKeypressHandler(keyEv, chapterTime));
             }
         }
-
-        setIsLoading(false);
-        setIsError(false);
     };
 
     const handleError = () => {
@@ -89,46 +93,55 @@ const TrainingVideoModal = (props) => {
                 Back
                     </span>
                 </div>
-                {isLoading &&
-                    <div className="usa-dt-modal__body">
-                        <FlexGridCol
-                            className="usa-dt-modal__card"
-                            desktopxl={5}
-                            desktop={6}
-                            tablet={0}
-                            mobile={0}>
-                            <div className="usa-dt-modal__title">
-                                {props.title}
-                            </div>
-                            <div tabIndex={0} id="video-description" className="usa-dt-modal__body-text">
-                                {parsedDescription}
-                            </div>
-                            <div className="usa-dt-modal__meta">
-                                {props.publishedAt}
-                            </div>
-                        </FlexGridCol>
-                        <FlexGridCol
-                            desktopxl={12}
-                            desktop={12}
-                            mobile={12}
-                            tablet={12}
-                            className="usa-dt-modal__video">
-                            <YouTube
-                                onError={handleError}
-                                videoId={props.id}
-                                opts={{
-                                    height: '400',
-                                    width: '922',
-                                    playerVars: {
-                                        // https://developers.google.com/youtube/player_parameters
-                                        autoplay: 1,
-                                        start: chapterTimestamp
-                                    }
-                                }}
-                                onReady={youTubeOnReady}
-                                title="YouTube video player" />
-                        </FlexGridCol>
-                    </div>}
+                <div className="usa-dt-modal__body" id="usa-dt-modal__loading">
+                    <FlexGridCol
+                        desktopxl={12}
+                        desktop={12}
+                        mobile={12}
+                        tablet={12}>
+                            Loading
+                    </FlexGridCol>
+                </div>
+                <div className="usa-dt-modal__body" id="usa-dt-modal__body" style={{ display: "none" }}>
+                    <FlexGridCol
+                        className="usa-dt-modal__card"
+                        desktopxl={5}
+                        desktop={6}
+                        tablet={0}
+                        mobile={0}>
+                        <div className="usa-dt-modal__title">
+                            {props.title}
+                        </div>
+                        <div tabIndex={0} id="video-description" className="usa-dt-modal__body-text">
+                            {parsedDescription}
+                        </div>
+                        <div className="usa-dt-modal__meta">
+                            {props.publishedAt}
+                        </div>
+                    </FlexGridCol>
+                    <FlexGridCol
+                        desktopxl={12}
+                        desktop={12}
+                        mobile={12}
+                        tablet={12}
+                        className="usa-dt-modal__video">
+                        <YouTube
+                            id="usa-dt-modal__yt-video"
+                            onError={handleError}
+                            videoId={props.id}
+                            opts={{
+                                height: '400',
+                                width: '922',
+                                playerVars: {
+                                    // https://developers.google.com/youtube/player_parameters
+                                    autoplay: 1,
+                                    start: chapterTimestamp
+                                }
+                            }}
+                            onReady={youTubeOnReady}
+                            title="YouTube video player" />
+                    </FlexGridCol>
+                </div>
             </div>
         </Modal>);
 };
