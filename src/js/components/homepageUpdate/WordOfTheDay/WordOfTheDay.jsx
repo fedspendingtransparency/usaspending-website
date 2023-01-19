@@ -129,7 +129,7 @@ const WordOfTheDay = () => {
         let found = false;
         if (glossary && term) {
             for (let i = 0; i < glossary.length; i++) {
-                if (glossary[i].term.trim() === term.trim()) {
+                if (glossary[i]?.term?.trim().toLowerCase() === term?.trim().toLowerCase()) {
                     setGlossaryLink(getNewUrlForGlossary(pathname, `?glossary=${glossary[i].slug}`, search));
                     found = true;
                     setDefinition(glossary[i].plain);
