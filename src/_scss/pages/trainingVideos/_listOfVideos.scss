@@ -1,8 +1,11 @@
 .list-of-videos__section {
   margin: 16px 0;
-  display: flex;
-  justify-content: center;
-  width: 100%;
+
+  @media (min-width: $medium-screen) {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
 
   .grid-content {
     padding: 0 0 24px 0;
@@ -10,6 +13,11 @@
     text-align: center;
     margin-left: 16px;
     margin-right: 16px;
+
+    @media (min-width: $tablet-screen) {
+      margin-left: 32px;
+      margin-right: 32px;
+    }
   }
 
   .list-of-videos__video {
