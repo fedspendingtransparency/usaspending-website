@@ -7,6 +7,8 @@
     border-radius: 8px;
 
     .usa-dt-flex-grid__row {
+      background-color: $indigo-cool-80v;
+      border-radius: 8px;
       height: 100%;
       @media(max-width: $medium-screen - 1) {
         flex-direction: column-reverse;
@@ -33,7 +35,7 @@
       align-items: flex-start;
 
       border-radius: 8px 0 0 8px;
-      background-color: #1b2b85;
+      background-color: $indigo-cool-80v;
       padding: 71px 40px;
       height: 100%;
       align-content: center;
@@ -49,7 +51,7 @@
       font-size: $font-size-24;
       font-weight: $font-semibold;
       line-height: 1.25;
-      color: #f9f9f9;
+      color: $gray-2;
       margin-bottom: 40px;
       @media(min-width: $tablet-screen){
         font-size: $font-size-40;
@@ -62,7 +64,7 @@
 
     .featured-video__publishedAt {
       font-size: $font-size-16;
-      color: #e6e6e6;
+      color: $gray-10;
       width: 100%;
     }
   }
