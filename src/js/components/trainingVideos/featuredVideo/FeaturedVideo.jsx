@@ -51,7 +51,6 @@ const FeaturedVideo = ({ featuredVideo }) => {
             url: featuredVideo.thumbnails.maxres.url, modalType: 'training-videos', title: featuredVideo.title, description: featuredVideo.description, publishedAt: featuredVideo.publishedAt, duration: featuredVideo.duration, id: featuredVideo.id
         }));
     };
-    console.debug(featuredVideo);
     return (
         <section className="featured-video__section">
             <div
