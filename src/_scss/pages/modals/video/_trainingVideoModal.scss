@@ -1,4 +1,6 @@
 .usa-dt-modal {
+    @import "components/_genericErrorMessage";
+
     width: 100% - $grid-column;
     @media(min-width: $x-large-screen) {
         width: 100% - $grid-column * 3;
