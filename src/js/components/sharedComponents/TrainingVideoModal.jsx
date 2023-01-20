@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FlexGridCol } from "data-transparency-ui";
 import parseChapters from "../../helpers/trainingVideoHelper";
 import { LoadingWrapper } from "../sharedComponents/Loading";
+import GenericErrorMessage from "../trainingVideos/GenericErrorMessage";
 
 const propTypes = {
     mounted: PropTypes.bool,
@@ -91,7 +92,7 @@ const TrainingVideoModal = (props) => {
                     onClick={props.hideModal}>
                     <FontAwesomeIcon icon="chevron-left" className="left-chevron-icon" alt="Back" />
                     <span className="training__back__label">
-                Back
+                        Back
                     </span>
                 </div>
                 <div className="usa-dt-modal__body" id="usa-dt-modal__loading">
@@ -126,21 +127,27 @@ const TrainingVideoModal = (props) => {
                         mobile={12}
                         tablet={12}
                         className="usa-dt-modal__video">
-                        <YouTube
-                            id="usa-dt-modal__yt-video"
-                            onError={handleError}
-                            videoId={props.id}
-                            opts={{
-                                height: '400',
-                                width: '922',
-                                playerVars: {
+                        {isError ?
+                            <GenericErrorMessage
+                                message="Sorry, we're unable to load this video."
+                                emailSubject="Training%20Videos%20Error" />
+                            :
+                            <YouTube
+                                id="usa-dt-modal__yt-video"
+                                onError={handleError}
+                                videoId={`${props.id}abc`}
+                                opts={{
+                                    height: '400',
+                                    width: '922',
+                                    playerVars: {
                                     // https://developers.google.com/youtube/player_parameters
-                                    autoplay: 1,
-                                    start: chapterTimestamp
-                                }
-                            }}
-                            onReady={youTubeOnReady}
-                            title="YouTube video player" />
+                                        autoplay: 1,
+                                        start: chapterTimestamp
+                                    }
+                                }}
+                                onReady={youTubeOnReady}
+                                title="YouTube video player" />
+                        }
                     </FlexGridCol>
                 </div>
             </div>
