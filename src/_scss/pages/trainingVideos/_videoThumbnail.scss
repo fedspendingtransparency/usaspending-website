@@ -3,6 +3,9 @@
 
   img {
     width: 100%;
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   .video-thumbnail__play-overlay {
