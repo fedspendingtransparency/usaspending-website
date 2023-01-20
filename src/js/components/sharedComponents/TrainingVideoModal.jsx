@@ -100,7 +100,7 @@ const TrainingVideoModal = (props) => {
                         desktop={12}
                         mobile={12}
                         tablet={12}>
-                        <LoadingWrapper isLoading={isLoading} />
+                        <LoadingWrapper isLoading={isLoading}>&nbsp;</LoadingWrapper>
                     </FlexGridCol>
                 </div>
                 <div className="usa-dt-modal__body" id="usa-dt-modal__body" style={{ display: "none" }}>
