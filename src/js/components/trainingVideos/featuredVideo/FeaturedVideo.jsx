@@ -26,7 +26,7 @@ const FeaturedVideo = ({ featuredVideo }) => {
     const dispatch = useDispatch();
 
     const onShareClick = (name) => {
-        const emailSubject = `TUTORIAL: How to Find Government Spending to Your State`;
+        const emailSubject = `${featuredVideo.title}`;
         const emailArgs = {
             subject: `${emailSubject}`,
             body: `Watch this video about USAspending.gov: ${slug}`
@@ -51,6 +51,7 @@ const FeaturedVideo = ({ featuredVideo }) => {
             url: featuredVideo.thumbnails.maxres.url, modalType: 'training-videos', title: featuredVideo.title, description: featuredVideo.description, publishedAt: featuredVideo.publishedAt, duration: featuredVideo.duration, id: featuredVideo.id
         }));
     };
+    console.debug(featuredVideo);
     return (
         <section className="featured-video__section">
             <div
