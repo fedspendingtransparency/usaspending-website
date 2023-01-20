@@ -11,6 +11,7 @@ import YouTube from 'react-youtube';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FlexGridCol } from "data-transparency-ui";
 import parseChapters from "../../helpers/trainingVideoHelper";
+import { LoadingWrapper } from "../sharedComponents/Loading";
 
 const propTypes = {
     mounted: PropTypes.bool,
@@ -99,7 +100,7 @@ const TrainingVideoModal = (props) => {
                         desktop={12}
                         mobile={12}
                         tablet={12}>
-                            Loading
+                        <LoadingWrapper isLoading={isLoading} />
                     </FlexGridCol>
                 </div>
                 <div className="usa-dt-modal__body" id="usa-dt-modal__body" style={{ display: "none" }}>
