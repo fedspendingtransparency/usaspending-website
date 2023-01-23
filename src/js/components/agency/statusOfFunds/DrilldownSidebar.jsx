@@ -32,6 +32,14 @@ const DrilldownSidebar = ({
     const { toptierCode } = useSelector((state) => state.agency.overview) || '--';
     const outlay = useSelector((state) => state.agency.agencyOutlays[toptierCode]) || '--';
 
+    const formatName = (selectedLevel, index) => {
+        if (selectedLevel === 2) {
+            return `${selectedLevelDataList[index]?.id}: ${selectedLevelDataList[index]?.name}`;
+        }
+
+        return selectedLevelDataList[index]?.name;
+    };
+
     return (
         <>
             <DrilldownSidebarLevel
@@ -46,7 +54,7 @@ const DrilldownSidebar = ({
                 <DrilldownSidebarLevel
                     key={dataType}
                     active={level === i + 1}
-                    name={selectedLevelDataList[i]?.name}
+                    name={formatName(level, i)}
                     label={dataType}
                     obligated={MoneyFormatter.formatMoneyWithUnitsShortLabel(selectedLevelDataList[i]?._obligations, 2)}
                     budgetaryResources={MoneyFormatter.formatMoneyWithUnitsShortLabel(selectedLevelDataList[i]?._budgetaryResources, 2)}

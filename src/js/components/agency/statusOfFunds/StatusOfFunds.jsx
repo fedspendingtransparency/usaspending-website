@@ -177,6 +177,9 @@ const StatusOfFunds = ({ fy }) => {
                     total_obligations: `${federalAccountData.obligations}`
                 };
                 setLevel(2, totalsData);
+                // Hack to make the status of funds chart show the labels per the mock
+                // eslint-disable-next-line no-param-reassign,no-return-assign
+                parsedData.map((item) => item.name = item.id);
                 setResults(paginatedTasList(parsedData));
                 setFederalAccountList(parsedData);
                 setDrilldownSelection(federalAccountData);
