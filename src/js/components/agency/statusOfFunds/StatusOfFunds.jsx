@@ -1,3 +1,4 @@
+
 /**
  * StatusOfFunds.jsx
  * Created by Lizzie Salita 10/27/21
@@ -11,7 +12,7 @@ import { tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { throttle } from "lodash";
 
 import { FlexGridRow, FlexGridCol, Pagination, LoadingMessage } from 'data-transparency-ui';
-import { setDataThroughDates, currentlySelected } from "redux/actions/agency/agencyActions";
+import { setDataThroughDates } from "redux/actions/agency/agencyActions";
 import { fetchSubcomponentsList, fetchFederalAccountsList, fetchTasList } from 'apis/agency';
 import { parseRows } from 'helpers/agency/StatusOfFundsVizHelper';
 import { useStateWithPrevious } from 'helpers';
@@ -47,13 +48,23 @@ const StatusOfFunds = ({ fy }) => {
     const [viewType, setViewType] = useState(isMobile ? 'table' : 'chart');
 
     // TODO this should probably go in redux
-    const [subcomponent, setSubcomponent] = useState({});
     const [selectedSubcomponent, setSelectedSubcomponent] = useState();
-    const [federalAccount, setFederalAccount] = useState();
+    const [federalAccountList, setFederalAccountList] = useState();
     const [selectedMetadata, setSelectedMetadata] = useState();
     const [selectedDrilldownList, setSelectedDrilldownList] = useState([]);
 
     const selectedLevelsArray = [];
+    // TODO not sure if this is necessary
+    // eslint-disable-next-line eqeqeq
+    let statusDataThroughDate = useLatestAccountData()[1].toArray().filter((i) => i.submission_fiscal_year == fy)[0].period_end_date;
+
+    const paginatedTasList = (list) => {
+        const cp = currentPage || 1;
+        const startIndex = 10 * (cp - 1);
+        const endIndex = startIndex + 9;
+        list.slice(startIndex, endIndex);
+        return list.slice(startIndex, endIndex);
+    };
 
     useEffect(() => {
         const handleResize = throttle(() => {
@@ -68,9 +79,6 @@ const StatusOfFunds = ({ fy }) => {
         return () => window.removeEventListener('resize', handleResize);
     }, [isMobile, viewType, windowWidth]);
 
-    // eslint-disable-next-line eqeqeq
-    // TODO not sure if this is necessary
-    let statusDataThroughDate = useLatestAccountData()[1].toArray().filter((i) => i.submission_fiscal_year == fy)[0].period_end_date;
     const fetchAgencySubcomponents = useCallback(() => {
         if (request.current) {
             request.current.cancel();
@@ -91,7 +99,6 @@ const StatusOfFunds = ({ fy }) => {
             .then((res) => {
                 const parsedData = parseRows(res.data.results);
                 setResults(parsedData);
-                setSubcomponent(parsedData);
                 setTotalItems(res.data.page_metadata.total);
 
                 if (parsedData.length === 0) {
@@ -136,7 +143,7 @@ const StatusOfFunds = ({ fy }) => {
                 };
                 setLevel(1, totalsData);
                 setResults(parsedData);
-                setFederalAccount(parsedData);
+                setFederalAccountList(parsedData);
                 setTotalItems(res.data.page_metadata.total);
                 setSelectedMetadata(agencyData);
                 setLoading(false);
@@ -170,9 +177,9 @@ const StatusOfFunds = ({ fy }) => {
                     total_obligations: `${federalAccountData.obligations}`
                 };
                 setLevel(2, totalsData);
-                setResults(parsedData);
+                setResults(paginatedTasList(parsedData));
+                setFederalAccountList(parsedData);
                 setSelectedMetadata(federalAccountData);
-                // TODO - calculate pages here
                 setTotalItems(parsedData.length);
                 setLoading(false);
             }).catch((err) => {
@@ -191,10 +198,10 @@ const StatusOfFunds = ({ fy }) => {
                 fetchAgencySubcomponents();
             }
             if (prevPage !== currentPage && level === 1) {
-                fetchFederalAccounts(subcomponent);
+                fetchFederalAccounts(selectedSubcomponent);
             }
             if (prevPage !== currentPage && level === 2) {
-                fetchTas(federalAccount);
+                setResults(paginatedTasList(federalAccountList));
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -244,14 +251,11 @@ const StatusOfFunds = ({ fy }) => {
         if (overview.toptierCode) {
             if (level === 2) {
                 setLevel(1);
-                setResults(federalAccount);
-                // changeCurrentPage(1);
-                // figure out pagination here
+                fetchFederalAccounts(selectedSubcomponent);
             }
             else {
                 setLevel(0);
                 fetchAgencySubcomponents();
-                // setResults(subcomponent);
             }
 
             if (currentPage === 1) {
