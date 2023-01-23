@@ -2,6 +2,7 @@
   margin: $global-margin * 8 0;
   display: flex;
   justify-content: center;
+
   .grid-content {
     font-size: $font-size-24;
     border-radius: 8px;
@@ -10,7 +11,8 @@
       background-color: $indigo-cool-80v;
       border-radius: 8px;
       height: 100%;
-      @media(max-width: $medium-screen - 1) {
+
+      @media(max-width: ($medium-screen - 1)) {
         flex-direction: column-reverse;
 
         .featured-video__text {
@@ -39,10 +41,12 @@
       padding: 71px 40px;
       height: 100%;
       align-content: center;
-      @media(min-width: $large-screen){
+
+      @media(min-width: $large-screen) {
         padding: 64px 40px;
       }
-      @media(min-width: $medium-screen){
+
+      @media(min-width: $medium-screen) {
         padding: 0 40px;
       }
     }
@@ -53,13 +57,15 @@
       line-height: 1.25;
       color: $gray-2;
       margin-bottom: 40px;
-      @media(min-width: $tablet-screen){
+
+      @media(min-width: $tablet-screen) {
         font-size: $font-size-40;
       }
+
       &:hover {
         cursor: pointer;
-          text-decoration: underline;
-        }
+        text-decoration: underline;
+      }
     }
 
     .featured-video__publishedAt {
@@ -72,68 +78,89 @@
   img {
     border-radius: 0 8px 8px 0;
   }
-  .featured-video__inline{
-    display:inline-flex;
+
+  .featured-video__inline {
+    display: inline-flex;
     flex-direction: inherit;
     width: 100%;
   }
-  .training-video-feature__column-share-icon{
+
+  .training-video-feature__column-share-icon {
     height: rem(24);
     width: rem(24);
-    @media(max-width: $medium-screen){
+
+    @media(max-width: $medium-screen) {
       float: right;
     }
-    span{
+
+    span {
       display: none;
     }
-    .usa-dt-picker__dropdown-container{
+
+    .usa-dt-picker__dropdown-container {
       height: rem(24);
       width: rem(24);
-      span{
+
+      span {
         display: inherit;
       }
     }
-    .usa-dt-picker__button{
+
+    .usa-dt-picker__button {
       padding: 0;
       margin-right: 0;
       padding-right: rem(3);
 
     }
-    button{
+
+    button {
       margin-left: 0;
     }
-    .usda-share-icon{
+
+    .usda-share-icon {
       margin: 0;
     }
-    .usa-dt-picker{
+
+    .usa-dt-picker {
       float: right;
     }
-    .usda-share-icon .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list {
-      min-width: 15rem;
-      margin-top:20px;
-      padding-top: 8px;
-      overflow: hidden;
-      padding-bottom: 8px;
-      .usa-dt-picker__list-item {
-        border-top: none;
+
+    .usda-share-icon .usa-dt-picker .usa-dt-picker__dropdown-container {
+      .usa-dt-picker__button svg:hover {
+        color: $gray-cool-5;
       }
-      svg {
-        color: $gray-cool-60;
-      }
-      span {
-        color: $gray-cool-60;
-        font-weight: $font-semibold;
-        font-size: rem(16);
-        margin-left: 16px;
-      }
-      .usa-dt-picker__item {
-        padding-left: 16px;
-        padding-right: unset;
+
+      .usa-dt-picker__list {
+        min-width: 15rem;
+        margin-top: 20px;
         padding-top: 8px;
+        overflow: hidden;
         padding-bottom: 8px;
 
-        &:hover {
-          background-color: $gray-cool-3;
+        .usa-dt-picker__list-item {
+          border-top: none;
+        }
+
+        svg {
+          color: $gray-cool-60;
+        }
+
+        span {
+          color: $gray-cool-60;
+          font-weight: $font-semibold;
+          font-size: rem(16);
+          margin-left: 16px;
+        }
+
+        .usa-dt-picker__item {
+          padding-left: 16px;
+          padding-right: unset;
+          padding-top: 8px;
+          padding-bottom: 8px;
+
+          &:hover {
+            background-color: $gray-cool-3;
+          }
         }
       }
     }

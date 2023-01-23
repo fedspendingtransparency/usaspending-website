@@ -26,7 +26,7 @@ const FeaturedVideo = ({ featuredVideo }) => {
     const dispatch = useDispatch();
 
     const onShareClick = (name) => {
-        const emailSubject = `TUTORIAL: How to Find Government Spending to Your State`;
+        const emailSubject = `${featuredVideo.title}`;
         const emailArgs = {
             subject: `${emailSubject}`,
             body: `Watch this video about USAspending.gov: ${slug}`
@@ -76,7 +76,7 @@ const FeaturedVideo = ({ featuredVideo }) => {
                                             tabIndex={0}
                                             onShareOptionClick={onShareClick}
                                             colors={{ backgroundColor: "#1b2b85", color: "#DFE1E2" }}
-                                            dropdownDirection={isMobile ? 'right' : 'left'} />
+                                            dropdownDirection={isMobile ? 'left' : 'right'} />
                                     </div>
                                 </div>
                             </div>

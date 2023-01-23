@@ -94,7 +94,7 @@ const VideoCard = ({
                             onKeyUp={onKeyUp}
                             onShareOptionClick={onShareClick}
                             colors={{ backgroundColor: "white", color: "#2378c3" }}
-                            dropdownDirection={isMobile ? 'right' : 'left'} />
+                            dropdownDirection={isMobile ? 'left' : 'right'} />
                     </div>
                 </div>
             </CardBody>
