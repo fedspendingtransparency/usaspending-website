@@ -50,7 +50,7 @@ const StatusOfFunds = ({ fy }) => {
     // TODO this should probably go in redux
     const [selectedSubcomponent, setSelectedSubcomponent] = useState();
     const [federalAccountList, setFederalAccountList] = useState();
-    const [drilldownSelection, setDrilldownSelection] = useState();
+    const [drilldownSelection, setDrilldownSelection] = useState({});
     const [selectedDrilldownList, setSelectedDrilldownList] = useState([]);
 
     const selectedLevelsArray = [];
@@ -141,11 +141,11 @@ const StatusOfFunds = ({ fy }) => {
                     total_budgetary_resources: `${agencyData.budgetaryResources}`,
                     total_obligations: `${agencyData.obligations}`
                 };
-                setLevel(1, totalsData);
+                setLevel(1);
                 setResults(parsedData);
                 setFederalAccountList(parsedData);
                 setTotalItems(res.data.page_metadata.total);
-                setDrilldownSelection(agencyData);
+                setDrilldownSelection(totalsData);
                 setLoading(false);
             }).catch((err) => {
                 setError(true);
@@ -171,18 +171,18 @@ const StatusOfFunds = ({ fy }) => {
             .then((res) => {
                 const parsedData = parseRows(res.data.children);
                 const totalsData = {
-                    name: `${federalAccountData.name}`,
+                    name: `${federalAccountData.id}: ${federalAccountData.name}`,
                     id: `${federalAccountData.id}`,
                     total_budgetary_resources: `${federalAccountData.budgetaryResources}`,
                     total_obligations: `${federalAccountData.obligations}`
                 };
-                setLevel(2, totalsData);
+                setLevel(2);
                 // Hack to make the status of funds chart show the labels per the mock
                 // eslint-disable-next-line no-param-reassign,no-return-assign
                 parsedData.map((item) => item.name = item.id);
                 setResults(paginatedTasList(parsedData));
                 setFederalAccountList(parsedData);
-                setDrilldownSelection(federalAccountData);
+                setDrilldownSelection(totalsData);
                 setTotalItems(parsedData.length);
                 setLoading(false);
             }).catch((err) => {
