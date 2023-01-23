@@ -50,7 +50,7 @@ const StatusOfFunds = ({ fy }) => {
     // TODO this should probably go in redux
     const [selectedSubcomponent, setSelectedSubcomponent] = useState();
     const [federalAccountList, setFederalAccountList] = useState();
-    const [selectedMetadata, setSelectedMetadata] = useState();
+    const [drilldownSelection, setDrilldownSelection] = useState();
     const [selectedDrilldownList, setSelectedDrilldownList] = useState([]);
 
     const selectedLevelsArray = [];
@@ -145,7 +145,7 @@ const StatusOfFunds = ({ fy }) => {
                 setResults(parsedData);
                 setFederalAccountList(parsedData);
                 setTotalItems(res.data.page_metadata.total);
-                setSelectedMetadata(agencyData);
+                setDrilldownSelection(agencyData);
                 setLoading(false);
             }).catch((err) => {
                 setError(true);
@@ -179,7 +179,7 @@ const StatusOfFunds = ({ fy }) => {
                 setLevel(2, totalsData);
                 setResults(paginatedTasList(parsedData));
                 setFederalAccountList(parsedData);
-                setSelectedMetadata(federalAccountData);
+                setDrilldownSelection(federalAccountData);
                 setTotalItems(parsedData.length);
                 setLoading(false);
             }).catch((err) => {
@@ -303,7 +303,7 @@ const StatusOfFunds = ({ fy }) => {
                             onKeyToggle={onKeyToggle}
                             level={level}
                             setDrilldownLevel={setDrilldownLevel}
-                            selectedLevelData={selectedMetadata}
+                            selectedLevelData={drilldownSelection}
                             agencyName={overview.name}
                             fy={fy}
                             results={results}

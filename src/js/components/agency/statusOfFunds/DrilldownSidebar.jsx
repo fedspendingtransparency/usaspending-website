@@ -3,7 +3,7 @@
  * Created by Lizzie Salita 10/29/21
  */
 
-import React, { useEffect } from 'react';
+import React from 'react';
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 import { useSelector } from 'react-redux';

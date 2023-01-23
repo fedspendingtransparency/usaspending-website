@@ -871,27 +871,27 @@ const StatusOfFundsChart = ({
 
     return (
         <>
-            {/*{*/}
-            {/*    isHovered &&*/}
-            {/*    <TooltipWrapper*/}
-            {/*        className="sof_chart-tt"*/}
-            {/*        width={288}*/}
-            {/*        styles={!toggle ? {*/}
-            {/*            position: 'absolute',*/}
-            {/*            transform: `translate(${mouseValue.x - 144}px,${mouseValue.y - 230}px)`*/}
-            {/*        } : {*/}
-            {/*            position: 'absolute',*/}
-            {/*            transform: `translate(${mouseValue.x - 144}px,${mouseValue.y - 200}px)`*/}
-            {/*        }}*/}
-            {/*        tooltipPosition="bottom"*/}
-            {/*        tooltipComponent={tooltip(hoverData)}*/}
-            {/*        controlledProps={{*/}
-            {/*            isControlled: true,*/}
-            {/*            isVisible: isHovered,*/}
-            {/*            showTooltip: () => { },*/}
-            {/*            closeTooltip: () => { }*/}
-            {/*        }} />*/}
-            {/*}*/}
+            {
+                isHovered &&
+                <TooltipWrapper
+                    className="sof_chart-tt"
+                    width={288}
+                    styles={!toggle ? {
+                        position: 'absolute',
+                        transform: `translate(${mouseValue.x - 144}px,${mouseValue.y - 230}px)`
+                    } : {
+                        position: 'absolute',
+                        transform: `translate(${mouseValue.x - 144}px,${mouseValue.y - 200}px)`
+                    }}
+                    tooltipPosition="bottom"
+                    tooltipComponent={tooltip(hoverData)}
+                    controlledProps={{
+                        isControlled: true,
+                        isVisible: isHovered,
+                        showTooltip: () => { },
+                        closeTooltip: () => { }
+                    }} />
+            }
             {isMobile &&
             <FlexGridRow className="legend" style={{ flexDirection: isLargeScreen ? 'column' : 'row' }}>
                 <div className="legend__item">
