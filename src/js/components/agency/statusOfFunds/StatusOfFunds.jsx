@@ -50,7 +50,6 @@ const StatusOfFunds = ({ fy }) => {
     const [subcomponent, setSubcomponent] = useState({});
     const [selectedSubcomponent, setSelectedSubcomponent] = useState();
     const [federalAccount, setFederalAccount] = useState();
-    const [selectedFederalAccount, setSelectedFederalAccount] = useState();
     const [selectedMetadata, setSelectedMetadata] = useState();
     const [selectedDrilldownList, setSelectedDrilldownList] = useState([]);
 
@@ -158,12 +157,8 @@ const StatusOfFunds = ({ fy }) => {
         if (!loading) {
             setLoading(true);
         }
-        const params = {
-            limit: pageSize,
-            page: currentPage
-        };
 
-        request.current = fetchTasList(federalAccountData.id, fy, params.page);
+        request.current = fetchTasList(federalAccountData.id, fy);
         const tasRequest = request.current;
         tasRequest.promise
             .then((res) => {
@@ -178,7 +173,7 @@ const StatusOfFunds = ({ fy }) => {
                 setResults(parsedData);
                 setSelectedMetadata(federalAccountData);
                 // TODO - calculate pages here
-                // setTotalItems(res.data.page_metadata.total);
+                setTotalItems(parsedData.length);
                 setLoading(false);
             }).catch((err) => {
                 setError(true);
@@ -233,7 +228,6 @@ const StatusOfFunds = ({ fy }) => {
 
         if (selectedLevel === 2) {
             fetchTas(parentData);
-            setSelectedFederalAccount(parentData);
             selectedLevelsArray.push(selectedSubcomponent);
         }
 
@@ -251,18 +245,20 @@ const StatusOfFunds = ({ fy }) => {
             if (level === 2) {
                 setLevel(1);
                 setResults(federalAccount);
-                changeCurrentPage(1);
+                // changeCurrentPage(1);
                 // figure out pagination here
             }
             else {
                 setLevel(0);
-                setResults(subcomponent);
-                if (currentPage === 1) {
-                    setResetPageChange(false);
-                }
-                else {
-                    changeCurrentPage(1);
-                }
+                fetchAgencySubcomponents();
+                // setResults(subcomponent);
+            }
+
+            if (currentPage === 1) {
+                setResetPageChange(false);
+            }
+            else {
+                changeCurrentPage(1);
             }
         }
     };
