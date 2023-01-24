@@ -61,7 +61,7 @@ const StatusOfFunds = ({ fy }) => {
     const paginatedTasList = (list) => {
         const cp = currentPage || 1;
         const startIndex = 10 * (cp - 1);
-        const endIndex = startIndex + 9;
+        const endIndex = startIndex + 10;
         list.slice(startIndex, endIndex);
         return list.slice(startIndex, endIndex);
     };
