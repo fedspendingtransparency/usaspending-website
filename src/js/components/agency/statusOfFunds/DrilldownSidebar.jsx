@@ -33,7 +33,7 @@ const DrilldownSidebar = ({
     const outlay = useSelector((state) => state.agency.agencyOutlays[toptierCode]) || '--';
 
     const formatName = (selectedLevel, index) => {
-        if (selectedLevel === 2) {
+        if (selectedLevel === 2 && index === 1) {
             return `${selectedLevelDataList[index]?.id}: ${selectedLevelDataList[index]?.name}`;
         }
 
