@@ -12,6 +12,7 @@
 
     .error-message__paragraph-one {
       font-size: $font-size-24;
+      line-height: rem(30);
       text-align: center;
       font-weight: $font-semibold;
       margin-bottom: rem(4);
@@ -21,6 +22,7 @@
     .error-message__paragraph-two {
       font-size: $font-size-16;
       margin-top: rem(4);
+      color: $gray-10;
     }
 
     .error-message__button {
@@ -31,6 +33,8 @@
       width: rem(147);
       height: rem(40);
       font-weight: $font-semibold;
+      font-size: $font-size-16;
+      padding: 0;
     }
   }
 }
