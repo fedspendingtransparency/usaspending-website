@@ -1,6 +1,8 @@
 .usa-dt-modal {
+    @import "components/_genericErrorMessage";
+
     width: 100% - $grid-column;
-    @media(min-width: $m-large-screen) {
+    @media(min-width: $x-large-screen) {
         width: 100% - $grid-column * 3;
     }
     .training-video-modal {
@@ -17,8 +19,10 @@
                 color: $gray-cool-1;
                 font-size: rem(14);
                 line-height: 1.5;
+                font-weight: $font-semibold;
                 margin-left: 5px;
                 transform: translateY(-16px);
+                cursor: pointer;
             }
 
             svg {
@@ -53,7 +57,7 @@
                 padding: 48px;
                 display: none;
 
-                @media(min-width: $large-screen) {
+                @media(min-width: $medium-screen) {
                     display: unset;
                 }
 
@@ -103,6 +107,15 @@
         .usa-dt-modal__video {
             position: relative;
             width: 100%;
+            top:0;
+            right: 0;
+            @media(min-width:$tablet-screen) and (max-width:$medium-screen) {
+                min-height: 400px;
+            }
+            @media(min-width: $medium-screen) {
+                top:0;
+                right: -1px;
+            }
         }
 
         .usa-dt-modal__video iframe{

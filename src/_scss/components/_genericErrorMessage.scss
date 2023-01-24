@@ -1,0 +1,40 @@
+.generic-error-message-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  background-color: $gray-90;
+
+  .error-message {
+    text-align: center;
+    color: $gray-2;
+
+    .error-message__paragraph-one {
+      font-size: $font-size-24;
+      line-height: rem(30);
+      text-align: center;
+      font-weight: $font-semibold;
+      margin-bottom: rem(4);
+      margin-top: rem(0);
+    }
+
+    .error-message__paragraph-two {
+      font-size: $font-size-16;
+      margin-top: rem(4);
+      color: $gray-10;
+    }
+
+    .error-message__button {
+      background: none;
+      border-radius: rem(4);
+      border: solid rem(1) $gray-cool-10;
+      color: $gray-cool-10;
+      width: rem(147);
+      height: rem(40);
+      font-weight: $font-semibold;
+      font-size: $font-size-16;
+      padding: 0;
+    }
+  }
+}
