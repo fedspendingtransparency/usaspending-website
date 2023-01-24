@@ -135,7 +135,7 @@ const TrainingVideoModal = (props) => {
                             <YouTube
                                 id="usa-dt-modal__yt-video"
                                 onError={handleError}
-                                videoId={props.id}
+                                videoId={`${props.id}aaa`}
                                 opts={{
                                     height: '400',
                                     width: '922',
