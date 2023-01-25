@@ -10,15 +10,14 @@ const propTypes = {
     fy: PropTypes.string,
     results: PropTypes.array,
     level: PropTypes.number.isRequired,
-    setLevel: PropTypes.func,
+    setDrilldownLevel: PropTypes.func,
     toggle: PropTypes.bool
 };
 
 const StatusOfFundsChart = ({
-    results, fy, setLevel, level, toggle
+    results, fy, setDrilldownLevel, level, toggle
 }) => {
     const chartRef = useRef();
-
     const [windowWidth, setWindowWidth] = useState(0);
     const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth < largeScreen);
     const [isMediumScreen, setIsMediumScreen] = useState(window.innerWidth < mediumScreen && window.innerWidth > smallScreen);
@@ -46,7 +45,7 @@ const StatusOfFundsChart = ({
     const [textScale, setTextScale] = useState(viewWidth / viewWidth);
 
     const handleClick = (data) => {
-        setLevel(1, data);
+        setDrilldownLevel(level + 1, data);
     };
 
     const setMouseData = throttle((e) => {
@@ -120,7 +119,7 @@ const StatusOfFundsChart = ({
         });
     }
     const truncateTextLabel = (text) => {
-        if (level === 1 && text.length > 35) {
+        if (level > 0 && text.length > 35) {
             return `${text.substring(0, 30)}...`;
         }
         return text;
@@ -490,7 +489,9 @@ const StatusOfFundsChart = ({
             // tooltip hover for label text
             svg.selectAll(".y-axis-labels").append("svg:title")
                 .text((d) => d);
-            if (level === 1) {
+
+            // remove the drilldown functionality levels greater than 1
+            if (level > 1) {
                 svg.selectAll(".bar-group").on('click', null);
                 svg.selectAll(".bar-group").on('keypress', null);
                 svg.selectAll(".bar-group").on('touchend', null);
@@ -798,7 +799,8 @@ const StatusOfFundsChart = ({
             // tooltip hover for label text
             svg.selectAll(".y-axis-labels").append("svg:title")
                 .text((d) => d);
-            if (level === 1) {
+            // remove the drilldown functionality levels greater than 1
+            if (level > 1) {
                 svg.selectAll(".bar-group").on('click', null);
                 svg.selectAll(".bar-group").on('keypress', null);
                 svg.selectAll(".bar-group").on('touchend', null);

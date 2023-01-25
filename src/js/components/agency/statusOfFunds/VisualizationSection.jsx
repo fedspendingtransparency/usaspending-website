@@ -3,8 +3,7 @@
  * Created by Lizzie Salita 10/29/21
  */
 
-// eslint-disable-next-line no-unused-vars
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from 'prop-types';
 import { Table } from 'data-transparency-ui';
@@ -21,16 +20,13 @@ const propTypes = {
     onToggle: PropTypes.func,
     onKeyToggle: PropTypes.func,
     level: PropTypes.number.isRequired,
-    setLevel: PropTypes.func,
+    setDrilldownLevel: PropTypes.func,
     loading: PropTypes.bool,
     setLoading: PropTypes.func,
-    totalItems: PropTypes.number,
-    setTotalItems: PropTypes.func,
     agencyName: PropTypes.string,
     fy: PropTypes.string,
     results: PropTypes.array,
-    fetchFederalAccounts: PropTypes.func,
-    selectedSubcomponent: PropTypes.shape({
+    selectedLevelData: PropTypes.shape({
         name: PropTypes.string,
         id: PropTypes.string,
         budgetaryResources: PropTypes.string,
@@ -45,17 +41,12 @@ const VisualizationSection = ({
     toggle,
     onKeyToggle,
     onToggle,
-    loading,
-    setLoading,
     level,
-    setLevel,
-    totalItems,
-    setTotalItems,
+    setDrilldownLevel,
     agencyName,
     fy,
     results,
-    selectedSubcomponent,
-    fetchFederalAccounts,
+    selectedLevelData,
     isMobile,
     viewType,
     setViewType
@@ -63,6 +54,8 @@ const VisualizationSection = ({
     const [open, setOpen] = useState(false);
     const fyString = `FY${fy.slice(2)}`;
     const accordionTitle = (<span>What&nbsp;is&nbsp;this?</span>);
+    const selectionName = [agencyName, selectedLevelData?.name];
+
     const columns = toggle ?
         [
             {
@@ -146,7 +139,7 @@ const VisualizationSection = ({
             }}>
             {isMobile ? (
                 <>
-                    <h6>{level === 1 ? selectedSubcomponent?.name : agencyName} by <span className="status-of-funds__emphasis">{levels[level]}</span> for FY {fy}
+                    <h6>{selectionName[level]} by <span className="status-of-funds__emphasis">{levels[level]}</span> for FY {fy}
                     </h6>
                     <div className="status-of-funds__controls-mobile">
                         <div className="status-of-funds__controls-mobile-row-one">
@@ -162,7 +155,7 @@ const VisualizationSection = ({
                     <>
                         <div className="status-of-funds__controls">
                             <div className="status-of-funds__controls-desktop-row-one">
-                                <h6>{level === 1 ? selectedSubcomponent?.name : agencyName} by <span className="status-of-funds__emphasis">{levels[level]}</span> for FY {fy}
+                                <h6>{level === 0 ? agencyName : selectedLevelData?.name } by <span className="status-of-funds__emphasis">{levels[level]}</span> for FY {fy}
                                 </h6>
                                 {chartTableToggle}
                             </div>
@@ -187,15 +180,10 @@ const VisualizationSection = ({
                     className="status-of-funds__visualization-chart">
                     <StatusOfFundsChart
                         toggle={toggle}
-                        fetchFederalAccounts={fetchFederalAccounts}
-                        totalItems={totalItems}
-                        setTotalItems={setTotalItems}
-                        loading={loading}
-                        setLoading={setLoading}
                         fy={fy}
                         results={results}
                         level={level}
-                        setLevel={setLevel} />
+                        setDrilldownLevel={setDrilldownLevel} />
                 </div>
             )
                 :

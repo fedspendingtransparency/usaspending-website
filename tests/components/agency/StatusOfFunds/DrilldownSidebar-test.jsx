@@ -13,24 +13,24 @@ describe('Agency V2 Status of Funds DrilldownSidebar', () => {
         level: 0,
         fy: '1999',
         agencyName: 'Department of Sandwiches',
-        selectedSubcomponent: {
+        selectedLevelDataList: [{
             name: 'Bureau of Subs',
             id: '456',
             budgetaryResources: '$55.61 M',
             obligations: '$44.50 M'
-        }
+        }]
     };
 
     const level1 = {
         level: 1,
         fy: '1999',
         agencyName: 'Ministry of Magic',
-        selectedSubcomponent: {
+        selectedLevelDataList: [{
             name: 'Department of Mysteries',
             id: '123',
             budgetaryResources: '$45.61 M',
             obligations: '$34.50 M'
-        }
+        }]
     };
 
     it('always renders the parent agency level', () => {
@@ -41,11 +41,11 @@ describe('Agency V2 Status of Funds DrilldownSidebar', () => {
         expect(screen.queryByText(level1.agencyName)).toBeTruthy();
     });
 
-    it('only renders the subcomponnt level when level > 0', () => {
+    it('only renders the subcomponent level when level > 0', () => {
         render(<DrilldownSidebar {...level0} />);
-        expect(screen.queryByText(level0.selectedSubcomponent.name)).toBeFalsy();
+        expect(screen.queryByText(level0.selectedLevelDataList[0].name)).toBeFalsy();
 
         render(<DrilldownSidebar {...level1} />);
-        expect(screen.queryByText(level1.selectedSubcomponent.name)).toBeTruthy();
+        expect(screen.queryByText(level1.selectedLevelDataList[0].name)).toBeTruthy();
     });
 });
