@@ -7,7 +7,6 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from 'prop-types';
 import { Table } from 'data-transparency-ui';
-import { formatMoneyWithPrecision } from 'helpers/moneyFormatter';
 import { levels } from './StatusOfFunds';
 import StatusOfFundsChart from '../visualizations/StatusOfFundsChart';
 import RoundedToggle from "../../sharedComponents/RoundedToggle";
@@ -52,71 +51,8 @@ const VisualizationSection = ({
     setViewType
 }) => {
     const [open, setOpen] = useState(false);
-    const fyString = `FY${fy.slice(2)}`;
     const accordionTitle = (<span>What&nbsp;is&nbsp;this?</span>);
     const selectionName = [agencyName, selectedLevelData?.name];
-
-    const columns = toggle ?
-        [
-            {
-                title: 'subComponent',
-                displayName: levels[level]
-            },
-            {
-                title: 'outlays',
-                displayName: [`${fyString} Outlays`],
-                right: true
-            }
-        ]
-        :
-        [
-            {
-                title: 'subComponent',
-                displayName: levels[level]
-            },
-            {
-                title: 'totalBudgetaryResources',
-                displayName: isMobile ? `${fyString} Total Budgetary Resources` : [`${fyString} Total Budgetary`, <br />, 'Resources'],
-                right: true
-            },
-            {
-                title: 'obligations',
-                displayName: `${fyString} Obligations`,
-                right: true
-            }
-        ];
-
-    const rows = results.map((data) => (toggle ?
-        [
-            (
-                <div>
-                    {data.name}
-                </div>
-            ),
-            (
-                <div>
-                    {formatMoneyWithPrecision(data._outlays)}
-                </div>
-            )
-        ]
-        :
-        [
-            (
-                <div>
-                    {data.name}
-                </div>
-            ),
-            (
-                <div>
-                    {formatMoneyWithPrecision(data._budgetaryResources)}
-                </div>
-            ),
-            (
-                <div>
-                    {formatMoneyWithPrecision(data._obligations)}
-                </div>
-            )
-        ]));
 
     const changeView = (label) => {
         setViewType(label);
@@ -191,8 +127,8 @@ const VisualizationSection = ({
                     <div className="status-of-funds__visualization-table-container">
                         <Table
                             classNames="award-type-tooltip__table"
-                            columns={columns}
-                            rows={rows}
+                            isMobile={isMobile}
+                            fy={fy}
                             isStacked />
                     </div>
                 )}
