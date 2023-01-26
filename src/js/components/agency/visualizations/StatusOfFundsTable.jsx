@@ -10,11 +10,12 @@ const propTypes = {
     level: PropTypes.number.isRequired,
     setDrilldownLevel: PropTypes.func,
     toggle: PropTypes.bool,
-    isMobile: PropTypes.bool
+    isMobile: PropTypes.bool,
+    maxLevel: PropTypes.number
 };
 
 const StatusOfFundsTable = ({
-    results, fy, setDrilldownLevel, level, toggle, isMobile
+    results, fy, setDrilldownLevel, level, toggle, isMobile, maxLevel
 }) => {
     const fyString = `FY${fy.slice(2)}`;
 
@@ -49,42 +50,28 @@ const StatusOfFundsTable = ({
         ];
 
     const rows = results.map((data) => (toggle ?
-        [
-            (
-                <div>
-                    {data.name}
-                </div>
-            ),
-            (
-                <div>
-                    {formatMoneyWithPrecision(data._outlays)}
-                </div>
-            )
-        ]
+        [data.name,
+            formatMoneyWithPrecision(data._outlays)]
         :
-        [
-            (
-                <div>
-                    {data.name}
-                </div>
-            ),
-            (
-                <div>
-                    {formatMoneyWithPrecision(data._budgetaryResources)}
-                </div>
-            ),
-            (
-                <div>
-                    {formatMoneyWithPrecision(data._obligations)}
-                </div>
-            )
+        [data.name,
+            formatMoneyWithPrecision(data._budgetaryResources),
+            formatMoneyWithPrecision(data._obligations)
         ]));
+
+    const onClickHandler = (item) => {
+        const itemName = item[0] || '';
+        const data = results.find(({ name }) => name === itemName);
+        if (level < maxLevel) {
+            setDrilldownLevel(level + 1, data);
+        }
+    };
 
     return (
         <Table
             classNames="award-type-tooltip__table"
             columns={columns}
             rows={rows}
+            onClickHandler={onClickHandler}
             isStacked />
     );
 };

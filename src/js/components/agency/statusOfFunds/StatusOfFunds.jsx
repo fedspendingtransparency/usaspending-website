@@ -54,6 +54,7 @@ const StatusOfFunds = ({ fy }) => {
     const [selectedDrilldownList, setSelectedDrilldownList] = useState([]);
 
     const selectedLevelsArray = [];
+    const maxLevel = 2;
     // TODO not sure if this is necessary
     // eslint-disable-next-line eqeqeq
     let statusDataThroughDate = useLatestAccountData()[1].toArray().filter((i) => i.submission_fiscal_year == fy)[0].period_end_date;
@@ -312,7 +313,8 @@ const StatusOfFunds = ({ fy }) => {
                             results={results}
                             isMobile={isMobile}
                             viewType={viewType}
-                            setViewType={setViewType} />
+                            setViewType={setViewType}
+                            maxLevel={maxLevel} />
                         :
                         <LoadingMessage /> }
                     <Pagination
