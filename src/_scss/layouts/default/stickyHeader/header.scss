@@ -12,6 +12,19 @@
                 }
                 padding-left: $outer-gutter / 2;
             }
+            @media(min-width:$medium-screen) {
+                .usda-share-icon {
+                    //margin-top: 0;
+                    span {
+                        //justify-content: center;
+                        //align-content: center;
+                        //flex-wrap: wrap;
+                    }
+                }
+                .usda-download-btn {
+                    margin: 0
+                }
+            }
             .download_static-file__container {
                 display: none;
 
