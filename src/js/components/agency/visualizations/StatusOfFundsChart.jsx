@@ -11,11 +11,12 @@ const propTypes = {
     results: PropTypes.array,
     level: PropTypes.number.isRequired,
     setDrilldownLevel: PropTypes.func,
-    toggle: PropTypes.bool
+    toggle: PropTypes.bool,
+    maxLevel: PropTypes.number
 };
 
 const StatusOfFundsChart = ({
-    results, fy, setDrilldownLevel, level, toggle
+    results, fy, setDrilldownLevel, level, toggle, maxLevel
 }) => {
     const chartRef = useRef();
     const [windowWidth, setWindowWidth] = useState(0);
@@ -491,7 +492,7 @@ const StatusOfFundsChart = ({
                 .text((d) => d);
 
             // remove the drilldown functionality levels greater than 1
-            if (level > 1) {
+            if (level >= maxLevel) {
                 svg.selectAll(".bar-group").on('click', null);
                 svg.selectAll(".bar-group").on('keypress', null);
                 svg.selectAll(".bar-group").on('touchend', null);
@@ -800,7 +801,7 @@ const StatusOfFundsChart = ({
             svg.selectAll(".y-axis-labels").append("svg:title")
                 .text((d) => d);
             // remove the drilldown functionality levels greater than 1
-            if (level > 1) {
+            if (level >= maxLevel) {
                 svg.selectAll(".bar-group").on('click', null);
                 svg.selectAll(".bar-group").on('keypress', null);
                 svg.selectAll(".bar-group").on('touchend', null);
