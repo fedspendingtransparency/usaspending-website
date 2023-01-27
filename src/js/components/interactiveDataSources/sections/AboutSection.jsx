@@ -17,7 +17,14 @@ const AboutSection = () => {
                 <li><span className="glossary-term">Glossary</span>{" "}
                     <GlossaryLink term="/" />: a collection of plain-language and official definitions for commonly used terms
                 </li>
-                <li>About the Data: a collection of disclosures and background information</li>
+                <li>
+                    <Link
+                        className="scroller-overlay-card__link"
+                        to="/?about-the-data"
+                        target="_blank"
+                        rel="noopener noreferrer">About the Data
+                    </Link>: a collection of disclosures and background information
+                </li>
                 <li>
                     <Link
                         className="scroller-overlay-card__link"
@@ -64,7 +71,7 @@ const AboutSection = () => {
                         href="https://fiscal.treasury.gov/data-transparency/DAIMS-current.html"
                         target="_blank"
                         rel="noopener noreferrer">
-                        USAspending Source and Submission Model
+                        DATA Act Information Model Schema (DAIMS)
                     </a>
                     : technical documentation for the data submitted to, and extracted by, USAspending.gov (Files A, B, C, D1, D2, E, and F)
                 </li>

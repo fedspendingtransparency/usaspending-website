@@ -14,11 +14,12 @@ const propTypes = {
     showDuration: PropTypes.bool,
     thumbnailUrl: PropTypes.string,
     title: PropTypes.string,
-    duration: PropTypes.string
+    duration: PropTypes.string,
+    isFeaturedVideo: PropTypes.bool
 };
 
 const VideoThumbnail = ({
-    showPlay, showDuration, thumbnailUrl, title, duration
+    showPlay, showDuration, thumbnailUrl, title, duration, isFeaturedVideo
 }) => (
     <FlexGridRow>
         <FlexGridCol width={12} className="video-thumbnail__column-container">
@@ -27,11 +28,12 @@ const VideoThumbnail = ({
                 {showPlay && <PlayButton />}
             </FlexGridRow>
             <FlexGridRow className="video-thumbnail__duration-overlay">
-                {showDuration && <Duration duration={duration} />}
+                {showDuration && <Duration duration={duration} isFeaturedVideo={isFeaturedVideo} />}
             </FlexGridRow>
         </FlexGridCol>
     </FlexGridRow>
 );
 
 VideoThumbnail.propTypes = propTypes;
+
 export default VideoThumbnail;

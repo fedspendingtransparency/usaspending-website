@@ -11,6 +11,8 @@ import YouTube from 'react-youtube';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FlexGridCol } from "data-transparency-ui";
 import parseChapters from "../../helpers/trainingVideoHelper";
+import { LoadingWrapper } from "../sharedComponents/Loading";
+import GenericErrorMessage from "../trainingVideos/GenericErrorMessage";
 
 const propTypes = {
     mounted: PropTypes.bool,
@@ -25,6 +27,8 @@ const propTypes = {
 const TrainingVideoModal = (props) => {
     const [chapterTimestamp, setChapterTimestamp] = useState(0);
     const [parsedDescription, setParsedDescription] = useState(null);
+    const [isLoading, setIsLoading] = useState(true);
+    const [isError, setIsError] = useState(false);
 
     const updatePlayerChapter = (e, time) => {
         setChapterTimestamp(time);
@@ -42,6 +46,13 @@ const TrainingVideoModal = (props) => {
     }, [props.description]);
 
     const youTubeOnReady = (e) => {
+        let elem = document.getElementById("usa-dt-modal__body");
+        elem.style.display = "flex";
+
+        elem = document.getElementById("usa-dt-modal__loading");
+        elem.style.display = "none";
+        setIsLoading(false);
+        setIsError(false);
         e.target.playVideo();
         const body = document.getElementById('video-description');
         const chapterEls = body?.getElementsByClassName("videoChapter");
@@ -53,6 +64,11 @@ const TrainingVideoModal = (props) => {
                 chapterEls[i].addEventListener('keyup', (keyEv) => chapterKeypressHandler(keyEv, chapterTime));
             }
         }
+    };
+
+    const handleError = () => {
+        setIsLoading(false);
+        setIsError(true);
     };
 
     return (
@@ -76,10 +92,19 @@ const TrainingVideoModal = (props) => {
                     onClick={props.hideModal}>
                     <FontAwesomeIcon icon="chevron-left" className="left-chevron-icon" alt="Back" />
                     <span className="training__back__label">
-                Back
+                        Back
                     </span>
                 </div>
-                <div className="usa-dt-modal__body">
+                <div className="usa-dt-modal__body" id="usa-dt-modal__loading">
+                    <FlexGridCol
+                        desktopxl={12}
+                        desktop={12}
+                        mobile={12}
+                        tablet={12}>
+                        <LoadingWrapper isLoading={isLoading}>&nbsp;</LoadingWrapper>
+                    </FlexGridCol>
+                </div>
+                <div className="usa-dt-modal__body" id="usa-dt-modal__body" style={{ display: "none" }}>
                     <FlexGridCol
                         className="usa-dt-modal__card"
                         desktopxl={5}
@@ -102,19 +127,27 @@ const TrainingVideoModal = (props) => {
                         mobile={12}
                         tablet={12}
                         className="usa-dt-modal__video">
-                        <YouTube
-                            videoId={props.id}
-                            opts={{
-                                height: '400',
-                                width: '922',
-                                playerVars: {
+                        {isError ?
+                            <GenericErrorMessage
+                                message="Sorry, we're unable to load this video."
+                                emailSubject="Training%20Videos%20Error" />
+                            :
+                            <YouTube
+                                id="usa-dt-modal__yt-video"
+                                onError={handleError}
+                                videoId={props.id}
+                                opts={{
+                                    height: '400',
+                                    width: '922',
+                                    playerVars: {
                                     // https://developers.google.com/youtube/player_parameters
-                                    autoplay: 1,
-                                    start: chapterTimestamp
-                                }
-                            }}
-                            onReady={youTubeOnReady}
-                            title="YouTube video player" />;
+                                        autoplay: 1,
+                                        start: chapterTimestamp
+                                    }
+                                }}
+                                onReady={youTubeOnReady}
+                                title="YouTube video player" />
+                        }
                     </FlexGridCol>
                 </div>
             </div>
