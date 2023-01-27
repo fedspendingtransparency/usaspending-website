@@ -1,6 +1,6 @@
 @include media($small-screen) {
     .uei-modal-header {
-        background: #205493 !important;
+        background: $color-primary-darker !important;
         h1 {
             padding-left: rem(24) !important;
         }

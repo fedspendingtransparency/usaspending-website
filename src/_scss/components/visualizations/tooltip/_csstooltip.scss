@@ -33,7 +33,7 @@
             left: 50%;
             box-sizing: border-box;
             border: 10px solid black;
-            border-color: transparent transparent #ffffff #ffffff;
+            border-color: transparent transparent $color-white $color-white;
             transform-origin: 0 0;
             transform: rotate(-45deg);
             box-shadow: -2px 2px 2px 0 rgba(0, 0, 0, 0.25);

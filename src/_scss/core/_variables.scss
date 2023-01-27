@@ -59,7 +59,6 @@ $cyan-60v: #00687d;
 $cyan-vivid-70: #0e4f5c;
 $cyan-vivid-80: #093b44;
 $blue-5: #eff6fb;
-$blue-5v: #e8f5ff;
 $blue-50: #2378C3;
 $blue-60v: #005ea2;
 $blue-70v: #0B4778;
@@ -104,7 +103,7 @@ $theme-color-accent-4: $orange-warm-40v;
 $theme-color-accent-4-light: $orange-warm-10v;
 $theme-color-accent-5: $orange-30v;
 $theme-color-accent-6: $cyan-40;
-$theme-color-accent-7: $blue-5v;
+$theme-color-accent-7: $blue-vivid-5v;
 $theme-color-accent-8: $blue-60v;
 $theme-color-accent-9: $mint-5;
 $theme-color-accent-10: $cyan-5v;
@@ -143,7 +142,7 @@ $color-secondary-lightest:   #f9dede;
 $color-white:                #fff;
 $color-black:                #000;
 $color-base:                 #555;
-$color-link:                 #0071bc;
+$color-link:                 $color-primary;
 
 $color-gray-dark:            #323a45;
 $color-gray:                 #5b616b;
@@ -165,7 +164,7 @@ $color-green-light:          #4aa564;
 $color-green-lighter:        #94bfa2;
 $color-green-lightest:       #e7f4e4;
 $green-cool-50:              #4d8055;
-$color-cool-blue:            #205493;
+$color-cool-blue:            $color-primary-darker;
 $color-cool-blue-light:      #4773aa;
 $color-cool-blue-lighter:    #8ba6ca;
 $color-cool-blue-lightest:   #dce4ef;
@@ -209,9 +208,9 @@ $colors-outlayed: #0b2e5a;
 $color-infrastructure-obligations: #afcdd5;
 $color-infrastructure-outlays:    #2d6878;
 
-$headline-color: #1b1b1b;
+$headline-color: $gray-90;
 $body-color: #5c5c5c;
-$card-outline-color: #dfe1e2; // gray-cool-10 from USWDS
+$card-outline-color: $gray-cool-10; // gray-cool-10 from USWDS
 
 // Shadows
 $shadow-sm: 0 4px 8px rgba(0, 0, 0, 0.1);

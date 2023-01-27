@@ -45,7 +45,7 @@
             }
             .usa-dt-picker__button .usa-dt-picker__button-text {
                 font-size: rem(18);
-                color: #fff;
+                color: $color-white;
                 @media(max-width: $medium-screen) {
                     color: #555
                 }
