@@ -33,7 +33,7 @@
             path {
                 fill: $color-gray-lighter;
                 @media(max-width: $medium-screen) {
-                    fill: #555
+                    fill: $color-base;
                 }
             }
         }
@@ -47,7 +47,7 @@
                 font-size: rem(18);
                 color: $color-white;
                 @media(max-width: $medium-screen) {
-                    color: #555
+                    color: $color-base;
                 }
             }
 
@@ -64,7 +64,7 @@
                     color: $color-gray-lighter;
 
                     @media(max-width: $medium-screen) {
-                        color: #555
+                        color: $color-base;
                     }
                 }
             }

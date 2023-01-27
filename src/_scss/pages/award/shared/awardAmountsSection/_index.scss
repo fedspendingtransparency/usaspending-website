@@ -1,5 +1,5 @@
 .award-amounts {
-    $border-gray: #555555;
+    $border-gray: $color-base;
     $border-light-gray: #d5d6d8;
     .award-amounts__content, .award-amounts__table-by-type {
       @import '../../../search/results/table/tableMessages';
