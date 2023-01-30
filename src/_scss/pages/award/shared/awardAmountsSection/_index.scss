@@ -91,7 +91,7 @@
   }
 
   .usa-dt-tab-list:not(.tabless-tabs) .usa-dt-tab-list__border-post-filler {
-    border-bottom: 2px solid #d6d7d9 !important;
+    border-bottom: 2px solid $color-gray-lighter !important;
   }
 
     @import "./charts";

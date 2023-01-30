@@ -20,7 +20,7 @@
 
         @media(max-width: $medium-screen) {
             background: $color-gray-lightest;
-            border: rem(2) solid #AEB0B5;
+            border: rem(2) solid $color-gray-light;
             border-radius: rem(4);
             height: auto;
         }
