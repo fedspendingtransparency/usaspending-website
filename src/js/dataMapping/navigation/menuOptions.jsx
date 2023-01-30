@@ -63,7 +63,7 @@ export const resourceOptions = [
         isNewTab: true
     },
     {
-        label: 'Video Tutorials',
+        label: 'Training Videos',
         type: 'training-videos',
         url: '/training-videos',
         shouldOpenNewTab: false,
