@@ -143,7 +143,6 @@ $color-white:                #fff;
 $color-black:                #000;
 $color-base:                 #555;
 $color-link:                 $color-primary;
-
 $color-gray-dark:            #323a45;
 $color-gray:                 #5b616b;
 $color-gray-medium:          #757575;
@@ -167,7 +166,7 @@ $green-cool-50:              #4d8055;
 $color-cool-blue:            $color-primary-darker;
 $color-cool-blue-light:      #4773aa;
 $color-cool-blue-lighter:    #8ba6ca;
-$color-cool-blue-lightest:   #dce4ef;
+$color-cool-blue-lightest:   $color-gray-cool-light;
 
 $color-warning:              #FCF8E3;
 $color-warning-dark:         #F0AD4E;
@@ -187,7 +186,7 @@ $color-active:				 #F2B733;
 $color-focus:                #3e94cf;
 $color-visited:              #4c2c92;
 $color-shadow:               rgba(#000, 0.3);
-$color-tab-inactive:		 #f1f1f1; // color for inactive tab
+$color-tab-inactive:	     $color-gray-lightest; // color for inactive tab
 $color-gray-border:          #D8D8D8;
 
 $color-placeholder:          #747474;
@@ -200,16 +199,16 @@ $colors-grants-nff: #47AAA7;
 $colors-loans-subsidy: #8c6e86;
 $colors-loans-face-value: #ded5db;
 
-$colors-obligated: #4773aa;
+$colors-obligated: $color-cool-blue-light;
 $colors-current: #8ba6c9;
 $colors-potential: #dce4ee;
 $colors-outlayed: #0b2e5a;
 
 $color-infrastructure-obligations: #afcdd5;
 $color-infrastructure-outlays:    #2d6878;
-
+///
 $headline-color: $gray-90;
-$body-color: #5c5c5c;
+$body-color: $gray-60;
 $card-outline-color: $gray-cool-10; // gray-cool-10 from USWDS
 
 // Shadows
