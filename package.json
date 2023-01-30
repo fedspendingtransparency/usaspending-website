@@ -178,6 +178,7 @@
     "mapbox-gl": "^2.11.1",
     "moment": "^2.29.4",
     "mousetrap": "^1.6.1",
+    "nwsapi": "^2.2.2",
     "postcss": "^8.4.16",
     "prop-types": "^15.7.2",
     "react": "^17.0.2",
