@@ -7,11 +7,12 @@ import React from "react";
 import PropTypes from "prop-types";
 
 const propTypes = {
-    duration: PropTypes.string
+    duration: PropTypes.string,
+    isFeaturedVideo: PropTypes.bool
 };
 
-const Duration = ({ duration }) => (
-    <div className="overlay-duration">
+const Duration = ({ duration, isFeaturedVideo }) => (
+    <div className={`overlay-duration ${isFeaturedVideo ? 'featured-video' : ''}`}>
         <span className="duration-text">{duration}</span>
     </div>
 );

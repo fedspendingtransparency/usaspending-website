@@ -61,30 +61,11 @@
             margin-left: 0;
             margin-right: 0;
         }
-        @media(min-width: $tablet-screen) and (max-width:$medium-screen) {
+        @media(min-width: $tablet-screen) and (max-width: $medium-screen) {
             margin-left: 0;
             margin-right: 0;
             margin-top: 32px;
         }
-
-        .status-of-funds__info-icon {
-            height: 20px;
-            width: 20px;
-            color: #00bfe7;
-        }
-
-        .usda-glossary-link{
-            color: $color-gray-light;
-            &:hover, &:active, &:focus, &:visited {
-                color: $color-gray-medium;
-            }
-        }
-
-        .status-of-funds__emphasis {
-            white-space: nowrap;
-            font-weight: $font-semibold;
-        }
-
         .status-of-funds__what-heading {
             font-size: rem(16);
             font-weight: $font-semibold;
@@ -110,6 +91,24 @@
             margin-right: 16px;
             margin-top: 8px;
         }
+    }
+
+    .status-of-funds__info-icon {
+        height: 20px;
+        width: 20px;
+        color: #00bfe7;
+    }
+
+    .usda-glossary-link{
+        color: $color-gray-light;
+        &:hover, &:active, &:focus, &:visited {
+            color: $color-gray-medium;
+        }
+    }
+
+    .status-of-funds__emphasis {
+        white-space: nowrap;
+        font-weight: $font-semibold;
     }
 
     .usa-dt-pagination__totals {
@@ -189,6 +188,15 @@
     .status-of-funds__visualization-table-container {
         .usda-table__cell {
             word-break: normal;
+        }
+
+        .usda-table__row-item {
+            &:hover {
+                cursor: pointer;
+                .usda-table__cell {
+                    background-color: $color-primary-alt-lightest;
+                }
+            }
         }
 
         @media(min-width: $tablet-screen) {

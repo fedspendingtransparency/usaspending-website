@@ -28,6 +28,7 @@ import covid19Reducer from './covid19/covid19Reducer';
 import aboutTheDataReducer from './aboutTheData';
 import googleAnalyticsReducer from './googleAnalytics/googleAnalyticsReducer';
 import aboutTheDataSidebarReducer from './aboutTheDataSidebar/aboutTheDataReducer';
+import slideoutReducer from './slideouts/slideoutReducer';
 
 const appReducer = combineReducers({
     filters: filtersReducer,
@@ -56,7 +57,8 @@ const appReducer = combineReducers({
     covid19: covid19Reducer,
     aboutTheData: aboutTheDataReducer,
     googleAnalytics: googleAnalyticsReducer,
-    aboutTheDataSidebar: aboutTheDataSidebarReducer
+    aboutTheDataSidebar: aboutTheDataSidebarReducer,
+    slideouts: slideoutReducer
 });
 
 export default appReducer;

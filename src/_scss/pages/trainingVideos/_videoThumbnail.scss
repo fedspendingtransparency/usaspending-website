@@ -3,6 +3,9 @@
 
   img {
     width: 100%;
+    &:hover {
+      cursor: pointer;
+    }
   }
 
   .video-thumbnail__play-overlay {
@@ -27,6 +30,17 @@
         @media(min-width: $tablet-screen) {
           height: 80px;
         }
+        &:hover{
+          background-color: rgb(0, 0, 0, .35);
+          padding: 12px 50px;
+          width: 150px;
+          height: 82px;
+          cursor: pointer;
+          .play-button__icon{
+            height: 58px;
+            width: 50px;
+          }
+        }
 
         .play-button__icon {
           height: 32px;
@@ -50,16 +64,19 @@
       color: $gray-cool-1;
       border-radius: 4px;
       position: absolute;
-      bottom: 0;
+      bottom: -8px;
       right: 0;
-      margin: 2px;
-      padding: 3px 4px;
-      height: 16px;
+      margin: 4px;
+      padding: 0 4px 2px 4px;
       font-size: $font-size-16;
       line-height: $font-size-16;
+      font-weight: 800;
       display: inline-flex;
       flex-direction: row;
       align-items: center;
+        &.featured-video {
+          bottom: 0;
+        }
 
       .duration-text {
         max-height: $font-size-16;
