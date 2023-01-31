@@ -123,6 +123,11 @@ const agencyReducer = (state = initialState, action) => {
         case 'RESET_FEDERAL_ACC_LIST':
             return {
                 ...state,
+                agencySubcomponentsList: action.agencySubcomponentsList
+            };
+        case 'SET_TAS_LIST':
+            return {
+                ...state,
                 agencySubcomponentsList: initialState.agencySubcomponentsList
             };
         case 'SET_DATA_THROUGH_DATES':

@@ -17,20 +17,28 @@ const propTypes = {
     goBack: PropTypes.func,
     fy: PropTypes.string.isRequired,
     agencyName: PropTypes.string,
-    selectedSubcomponent: PropTypes.shape({
+    selectedLevelDataList: PropTypes.arrayOf(PropTypes.shape({
         name: PropTypes.string,
         id: PropTypes.string,
         budgetaryResources: PropTypes.string,
         obligations: PropTypes.string
-    })
+    }))
 };
 
 const DrilldownSidebar = ({
-    toggle, level, goBack, fy, agencyName, selectedSubcomponent
+    toggle, level, goBack, fy, agencyName, selectedLevelDataList
 }) => {
     const { agencyBudgetShort, agencyObligatedShort } = useSelector((state) => state.agency.budgetaryResources?.[fy]) || '--';
     const { toptierCode } = useSelector((state) => state.agency.overview) || '--';
     const outlay = useSelector((state) => state.agency.agencyOutlays[toptierCode]) || '--';
+
+    const formatName = (selectedLevel, index) => {
+        if (selectedLevel === 2 && index === 1) {
+            return `${selectedLevelDataList[index]?.id}: ${selectedLevelDataList[index]?.name}`;
+        }
+
+        return selectedLevelDataList[index]?.name;
+    };
 
     return (
         <>
@@ -46,13 +54,13 @@ const DrilldownSidebar = ({
                 <DrilldownSidebarLevel
                     key={dataType}
                     active={level === i + 1}
-                    name={selectedSubcomponent?.name}
+                    name={formatName(level, i)}
                     label={dataType}
-                    obligated={selectedSubcomponent?._obligations}
-                    budgetaryResources={selectedSubcomponent?._budgetaryResources}
+                    obligated={MoneyFormatter.formatMoneyWithUnitsShortLabel(selectedLevelDataList[i]?._obligations, 2)}
+                    budgetaryResources={MoneyFormatter.formatMoneyWithUnitsShortLabel(selectedLevelDataList[i]?._budgetaryResources, 2)}
                     goBack={goBack}
                     toggle={toggle}
-                    outlay={selectedSubcomponent?._outlays} />
+                    outlay={MoneyFormatter.formatMoneyWithUnitsShortLabel(selectedLevelDataList[i]?._outlays, 2)} />
             ) : '')
             )}
         </>

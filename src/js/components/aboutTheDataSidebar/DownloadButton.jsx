@@ -12,7 +12,6 @@ const DownloadButton = () => (
         <a
             href="/data/about-the-data-download.pdf"
             target="_blank"
-            aria-labelledby="atd__download-span"
             aria-label="Download"
             rel="noopener noreferrer"
             className="atd__download-button"
@@ -23,4 +22,3 @@ const DownloadButton = () => (
     </div>);
 
 export default DownloadButton;
-

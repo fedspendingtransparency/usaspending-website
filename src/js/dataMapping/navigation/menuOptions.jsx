@@ -63,6 +63,16 @@ export const resourceOptions = [
         isNewTab: true
     },
     {
+        label: 'Training Videos',
+        type: 'training-videos',
+        url: '/training-videos',
+        shouldOpenNewTab: false,
+        enabled: true,
+        externalLink: false,
+        isNewTab: true
+
+    },
+    {
         label: 'Data Dictionary',
         type: 'data-dictionary',
         url: '/data-dictionary',

@@ -131,8 +131,8 @@ const DataValidation = (props) => {
                             content={
                                 <p>
                             The DATA Act Broker checks that financial assistance award recipients with a
-                            unique entity identifier (UEI) are registered in SAM.gov as of the date of the{" "}
-                                    <span className="glossary-term">award transaction</span>{" "}
+                            unique entity identifier (UEI) are registered in SAM.gov as of the {" "}
+                                    <span className="glossary-term">date of the award transaction</span>{" "}
                                     <GlossaryLink term="action-date" />.{" "}
                             Some exceptions apply, such as if the date is before October 1, 2010.
                                 </p>

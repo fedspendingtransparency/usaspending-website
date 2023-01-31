@@ -24,6 +24,7 @@ import DataSourceSystems from './scrollerSections/DataSourceSystems';
 import AccountData from './scrollerSections/AccountData';
 import AwardData from './scrollerSections/AwardData';
 import AdditionalData from './scrollerSections/AdditionalData';
+import DownloadStaticFile from "../sharedComponents/DownloadStaticFile";
 
 require('pages/interactiveDataSources/index.scss');
 
@@ -187,7 +188,9 @@ const InteractiveDataSourcesPage = () => {
             metaTagProps={interactiveDataSourcesPageMetaTags}
             title="Data Sources"
             toolBarComponents={[
-                <ShareIcon url={getBaseUrl('data-sources')} onShareOptionClick={handleShare} />
+                <ShareIcon url={getBaseUrl('data-sources')} onShareOptionClick={handleShare} />,
+                <DownloadStaticFile
+                    path="/data/data-sources-download.pdf" />
             ]}>
             <main id="main-content" className="main-content usda__flex-row">
                 <div className="sidebar usda__flex-col">
