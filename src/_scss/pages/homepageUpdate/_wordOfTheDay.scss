@@ -52,24 +52,24 @@
     font-size: rem(20);
     line-height: 1.5;
 
-    .page__loading {
-      min-height: unset;
-    }
-
     .definition {
       height: 150px;
       overflow: hidden;
+
       @media(min-width: $large-screen) {
         height: unset;
       }
+
       div {
         display: -webkit-box;
         -webkit-line-clamp: 5;
         -webkit-box-orient: vertical;
+
         @media(min-width: $medium-screen) {
           -webkit-line-clamp: 4;
           overflow: hidden;
         }
+
         @media(min-width: $large-screen) {
           -webkit-line-clamp: 6;
         }
@@ -79,11 +79,24 @@
 
   .card__body {
     height: calc(100% - 100px);
+
+    .page__loading {
+      min-height: unset;
+      div,
+      svg {
+        color: $gray-2;
+      }
+    }
+    .page__loading .page__ellipsis-container .page__ellipsis:after {
+      color: $gray-2;
+    }
   }
-  .card__body_error{
+
+  .card__body_error {
     height: 100%;
     justify-content: center;
   }
+
   .usa-dt-flex-grid__col {
     height: 100%;
   }
@@ -91,6 +104,7 @@
   .card__button {
     margin-top: rem(32);
     justify-content: flex-start;
+
     @media(min-width: $medium-screen) {
       margin-top: 0;
     }
@@ -112,18 +126,21 @@
     text-align: center;
     color: $gray-2;
   }
-  .word-of-the-day-paragraph-one{
+
+  .word-of-the-day-paragraph-one {
     font-size: $font-size-24;
     text-align: center;
     font-weight: $font-semibold;
     margin-bottom: rem(4);
     margin-top: rem(0);
   }
-  .word-of-the-day-paragraph-two{
+
+  .word-of-the-day-paragraph-two {
     font-size: $font-size-16;
     margin-top: rem(4);
   }
-  .word-of-the-day-button{
+
+  .word-of-the-day-button {
     border-radius: rem(4);
     border: solid rem(1) $gray-cool-10;
     background-color: #1a4480;
