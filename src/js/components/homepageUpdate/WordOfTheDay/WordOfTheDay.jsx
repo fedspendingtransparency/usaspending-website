@@ -109,12 +109,12 @@ const WordOfTheDay = () => {
     useEffect(() => {
         if (currentDate > -1 && currentMonth > -1) {
             let index = dateDataMapper[currentMonth]?.startingIndex + currentDate;
-            if (glossaryTerms.length >= index) {
+            if (index >= glossaryTerms.length) {
                 index = currentDate;
             }
             setTerm(glossaryTerms[index]);
         }
-    }, [currentDate, currentMonth, glossaryTerms, dateDataMapper]);
+    }, [currentDate, currentMonth, dateDataMapper, glossaryTerms]);
 
     const selectWordOfTheDay = () => {
         const d = new Date();

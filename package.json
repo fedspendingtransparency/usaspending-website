@@ -191,7 +191,7 @@
     "react-helmet": "^5.0.0",
     "react-hot-loader": "^4.8.2",
     "react-markdown": "^2.5.0",
-    "react-redux": "^7.0.1",
+    "react-redux": "^7.2.9",
     "react-router-dom": "^5.1.2",
     "react-scrollama": "^2.3.2",
     "react-side-effect": "^2.1.2",
