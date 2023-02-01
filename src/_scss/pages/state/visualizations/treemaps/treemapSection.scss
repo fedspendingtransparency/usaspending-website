@@ -40,8 +40,8 @@
             .function-detail{
                 @include h6;
                 text-align: center;
-                border-top: #D6D7D9 1px solid;
-                border-bottom: #D6D7D9 1px solid;
+                border-top: $color-gray-lighter 1px solid;
+                border-bottom: $color-gray-lighter 1px solid;
                 font-size: rem(19);
                 line-height: rem(24);
                 margin-top: 0;
@@ -111,7 +111,7 @@
             top: 33%;
             right: rem(-25);
             background-color: #A3F383;
-            color: #1B4956;
+            color: $color-vis-green-darkest;
             font-size: rem(20);
             line-height: rem(28);
             padding: rem(13) rem(15);

@@ -1,5 +1,5 @@
 .award-amounts {
-    $border-gray: #555555;
+    $border-gray: $color-base;
     $border-light-gray: #d5d6d8;
     .award-amounts__content, .award-amounts__table-by-type {
       @import '../../../search/results/table/tableMessages';
@@ -76,7 +76,7 @@
         svg {
             width: rem(10);
             height: rem(10);
-            fill: #5B616B;
+            fill: $color-gray;
         }
     }
 
@@ -91,7 +91,7 @@
   }
 
   .usa-dt-tab-list:not(.tabless-tabs) .usa-dt-tab-list__border-post-filler {
-    border-bottom: 2px solid #d6d7d9 !important;
+    border-bottom: 2px solid $color-gray-lighter !important;
   }
 
     @import "./charts";

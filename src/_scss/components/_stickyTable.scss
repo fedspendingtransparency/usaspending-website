@@ -53,7 +53,7 @@
                         padding-right: 3.6rem; // to match 0.8 padding + 2.8 width of the action button
                         .not-certified {
                             margin-left: rem(5);
-                            background: #dce4ee;
+                            background: $colors-potential;
                             border-radius: rem(2);
                             color: $color-base;
                             padding: rem(5);
