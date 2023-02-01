@@ -44,7 +44,7 @@ const FeaturedVideo = ({ featuredVideo }) => {
         }, 50);
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-    }, []);
+    }, [windowWidth]);
     const launchModal = (e) => {
         e.persist();
         dispatch(showTrainingVideoModal({
@@ -96,6 +96,7 @@ const FeaturedVideo = ({ featuredVideo }) => {
                             url={VideoThumbnail.url}
                             showPlay
                             showDuration
+                            isFeaturedVideo
                             title={featuredVideo.title}
                             alt={featuredVideo.title} />
                     </FlexGridCol>

@@ -64,16 +64,19 @@
       color: $gray-cool-1;
       border-radius: 4px;
       position: absolute;
-      bottom: 0;
+      bottom: -8px;
       right: 0;
       margin: 4px;
-      padding: 2px 4px;
+      padding: 0 4px 2px 4px;
       font-size: $font-size-16;
       line-height: $font-size-16;
       font-weight: 800;
       display: inline-flex;
       flex-direction: row;
       align-items: center;
+        &.featured-video {
+          bottom: 0;
+        }
 
       .duration-text {
         max-height: $font-size-16;

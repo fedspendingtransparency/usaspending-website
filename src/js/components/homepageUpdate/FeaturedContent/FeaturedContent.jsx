@@ -49,17 +49,14 @@ const FeaturedContent = () => {
                     </Link>
                 </FlexGridCol>
                 <FlexGridCol width={12} desktop={6} tablet={6} mobile={12}>
-                    <Link to="training-videos" isCard onClick={trackFeaturedResourcesLink}>
+                    <Link to="/training-videos" onClick={trackFeaturedResourcesLink} className="featured-content__section--link" >
                         <CardContainer variant="outline" size="md">
                             <CardHero fill="#009ec1" variant="expanded" img="img/homepage-featured-content/homepage-featured-youtube.webp" />
                             <CardBody
                                 overline="Resources"
                                 headline={
                                     <div>
-                                        Learn how to use USAspending.gov with our tutorial&nbsp;
-                                        <span style={{ whiteSpace: "nowrap" }}>videos&nbsp;
-                                            <FontAwesomeIcon style={{ width: '20px' }} icon="external-link-alt" />
-                                        </span>
+                                        Learn how to use USAspending.gov with our tutorial videos
                                     </div>
                                 }>
                             </CardBody>
