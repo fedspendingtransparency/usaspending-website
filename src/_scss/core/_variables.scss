@@ -79,9 +79,9 @@ $violet-60v: #783cb9;
 $gray-cool-1: #FBFCFD;
 $gray-2: #F9F9F9;
 $gray-10: #E6E6E6;
-$gray-90: #1B1B1B;    // TODO: already in use so need to refactor
+$gray-90: #1B1B1B;
 $gray-cool-60: #565C65;
-$gray-60: #5C5C5C;    // TODO: already in use so need to refactor
+$gray-60: #5C5C5C;
 $gray-cool-3: #f5f6f7;
 $gray-cool-5: #edeff0;
 $gray-cool-10: #dfe1e2;
@@ -186,7 +186,7 @@ $color-active:				 #F2B733;
 $color-focus:                #3e94cf;
 $color-visited:              #4c2c92;
 $color-shadow:               rgba(#000, 0.3);
-$color-tab-inactive:	     $color-gray-lightest; // color for inactive tab
+$color-tab-inactive:	     $color-gray-lightest;
 $color-gray-border:          #D8D8D8;
 
 $color-placeholder:          #747474;
@@ -206,10 +206,10 @@ $colors-outlayed: #0b2e5a;
 
 $color-infrastructure-obligations: #afcdd5;
 $color-infrastructure-outlays:    #2d6878;
-///
+
 $headline-color: $gray-90;
 $body-color: $gray-60;
-$card-outline-color: $gray-cool-10; // gray-cool-10 from USWDS
+$card-outline-color: $gray-cool-10;
 
 // Shadows
 $shadow-sm: 0 4px 8px rgba(0, 0, 0, 0.1);
