@@ -6,6 +6,7 @@ import CardBody from "./sharedComponents/commonCards/CardBody";
 import CardButton from "./sharedComponents/commonCards/CardButton";
 import PageWrapper from "./sharedComponents/PageWrapper";
 import FeatureFlag from "./sharedComponents/FeatureFlag";
+import Button from "./sharedComponents/buttons/Button";
 
 require("pages/homepageUpdate/homepageUpdate.scss");
 
@@ -130,6 +131,9 @@ const tempPage = () => {
                                 </CardBody>
                             </CardContainer>
                         </FlexGridCol>
+                    </FlexGridRow>
+                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32}>
+                        <Button />
                     </FlexGridRow>
                 </main>
             </PageWrapper>
