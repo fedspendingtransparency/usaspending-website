@@ -32,7 +32,8 @@ const StatusOfFundsChart = ({
     let viewHeight;
     if (!toggle) {
         viewHeight = 760;
-    } else {
+    }
+    else {
         viewHeight = 1200;
     }
     const viewWidth = 1000;
@@ -74,7 +75,7 @@ const StatusOfFundsChart = ({
     useEffect(() => {
         document?.getElementById('sof_chart')?.addEventListener('mousemove', setMouseData);
         return () => document?.getElementById('sof_chart')?.removeEventListener('mousemove', setMouseData);
-    }, []);
+    }, [setMouseData]);
 
     useEffect(() => {
         setTextScale(viewWidth / chartRef.current.getBoundingClientRect().width);
@@ -91,7 +92,7 @@ const StatusOfFundsChart = ({
         }, 50);
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-    }, []);
+    }, [windowWidth]);
 
 
     // Wrap y axis labels - reference https://bl.ocks.org/mbostock/7555321
@@ -145,17 +146,20 @@ const StatusOfFundsChart = ({
     const chartHeightViewBox = () => {
         if (window.innerWidth >= 992 && window.innerWidth < 1200 && toggle) {
             return viewHeight * 1.5;
-        } else if (isMobile) {
+        }
+        else if (isMobile) {
             if (toggle) {
                 return viewHeight * 2.54;
             }
             return (viewHeight + 10) * 2.4;
-        } else if (isMediumScreen) {
+        }
+        else if (isMediumScreen) {
             if (!toggle) {
                 return 800 + margins.top + margins.bottom;
             }
             return 1600 + margins.top + margins.bottom;
-        } else if (isLargeScreen) {
+        }
+        else if (isLargeScreen) {
             if (!toggle) {
                 return 1300 + margins.top + margins.bottom;
             }
@@ -253,7 +257,8 @@ const StatusOfFundsChart = ({
             const tickMobileYAxis = () => {
                 if (window.innerWidth >= 992 && window.innerWidth < 1200) {
                     return 'translate(-150,-60)';
-                } else if (isLargeScreen) {
+                }
+                else if (isLargeScreen) {
                     return 'translate(-150,-35)';
                 }
                 return 'translate(60,0)';
@@ -554,9 +559,11 @@ const StatusOfFundsChart = ({
             const tickMobileYAxis = () => {
                 if (window.innerWidth >= 992 && window.innerWidth < 1200) {
                     return 'translate(-150,-85)';
-                } else if (isMediumScreen && !isMobile) {
+                }
+                else if (isMediumScreen && !isMobile) {
                     return 'translate(-150,-90)';
-                } else if (!isLargeScreen) {
+                }
+                else if (!isLargeScreen) {
                     return 'translate(60,0)';
                 }
                 return 'translate(-150,-135)';
@@ -741,7 +748,8 @@ const StatusOfFundsChart = ({
                     if (!isMobile) {
                         if (window.innerWidth >= 992 && window.innerWidth < 1200) {
                             return y(d.name) + 50;
-                        } else if (isMediumScreen) {
+                        }
+                        else if (isMediumScreen) {
                             return y(d.name) + 40;
                         }
                         return y(d.name) + 100;

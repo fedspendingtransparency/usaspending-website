@@ -13,7 +13,7 @@ import { throttle } from "lodash";
 
 import { FlexGridRow, FlexGridCol, Pagination, LoadingMessage } from 'data-transparency-ui';
 import { setDataThroughDates } from "redux/actions/agency/agencyActions";
-import { fetchSubcomponentsList, fetchFederalAccountsList, fetchTasList } from 'apis/agency';
+import { fetchSubcomponentsList, fetchFederalAccountsList, fetchTasList, fetchProgramAccountsList } from 'apis/agency';
 import { parseRows } from 'helpers/agency/StatusOfFundsVizHelper';
 import { useStateWithPrevious } from 'helpers';
 import { useLatestAccountData } from 'containers/account/WithLatestFy';
@@ -54,7 +54,7 @@ const StatusOfFunds = ({ fy }) => {
     const [selectedDrilldownList, setSelectedDrilldownList] = useState([]);
 
     const selectedLevelsArray = [];
-    const maxLevel = 2;
+    const maxLevel = 3;
     // TODO not sure if this is necessary
     // eslint-disable-next-line eqeqeq
     let statusDataThroughDate = useLatestAccountData()[1].toArray().filter((i) => i.submission_fiscal_year == fy)[0].period_end_date;
@@ -156,6 +156,7 @@ const StatusOfFunds = ({ fy }) => {
     });
 
     const fetchTas = useCallback((federalAccountData) => {
+        console.log('fetchTas federalAccountData', federalAccountData);
         if (request.current) {
             request.current.cancel();
         }
@@ -193,6 +194,51 @@ const StatusOfFunds = ({ fy }) => {
             });
     });
 
+    const fetchProgramActivity = useCallback((tasData) => {
+        if (request.current) {
+            request.current.cancel();
+        }
+        if (error) {
+            setError(false);
+        }
+        if (!loading) {
+            setLoading(true);
+        }
+        const params = {
+            limit: pageSize,
+            page: currentPage
+        };
+
+        request.current = fetchProgramAccountsList(overview.toptierCode, fy, params.page);
+        const programActivityRequest = request.current;
+        programActivityRequest.promise
+            .then((res) => {
+                console.log('res', res);
+                const parsedData = parseRows(res.data.results);
+                console.log('parsedData', parsedData);
+
+                const totalsData = {
+                    name: `${tasData.id}: ${tasData.name}`,
+                    id: `${tasData.id}`,
+                    total_budgetary_resources: `${tasData.budgetaryResources}`,
+                    total_obligations: `${tasData.obligations}`
+                };
+
+                setLevel(3);
+                setResults(parsedData);
+                setFederalAccountList(parsedData);
+                setTotalItems(res.data.page_metadata.total);
+
+                setDrilldownSelection(totalsData);
+
+                setLoading(false);
+            }).catch((err) => {
+                setError(true);
+                setLoading(false);
+                console.error(err);
+            });
+    });
+
     useEffect(() => {
         if (resetPageChange) {
             setResetPageChange(false);
@@ -206,6 +252,9 @@ const StatusOfFunds = ({ fy }) => {
             }
             if (prevPage !== currentPage && level === 2) {
                 setResults(paginatedTasList(federalAccountList));
+            }
+            if (prevPage !== currentPage && level === 3) {
+                fetchProgramActivity();
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -232,6 +281,8 @@ const StatusOfFunds = ({ fy }) => {
     }, [fy, overview.toptierCode]);
 
     const setDrilldownLevel = (selectedLevel, parentData) => {
+        console.log('setDrilldownLevel selectedLevel', selectedLevel);
+        console.log('setDrilldownLevel parentData', parentData);
         if (selectedLevel === 1) {
             fetchFederalAccounts(parentData);
             setSelectedSubcomponent(parentData);
@@ -242,6 +293,13 @@ const StatusOfFunds = ({ fy }) => {
             selectedLevelsArray.push(selectedSubcomponent);
         }
 
+        if (selectedLevel === 3) {
+            fetchProgramActivity(parentData);
+            selectedLevelsArray.push(selectedSubcomponent);
+        }
+
+        // todo - isn't this line undoing the .push in the selectedLevel === 2 block?
+        // if so you can remove both of the .push from ===2 and ===3, bc it's always parentData
         selectedLevelsArray.push(parentData);
 
         setResetPageChange(true);
@@ -253,6 +311,11 @@ const StatusOfFunds = ({ fy }) => {
 
     const goBack = () => {
         if (overview.toptierCode) {
+            if (level === 3) {
+                setLevel(2);
+                // todo - problem here
+                fetchTas(paginatedTasList(federalAccountList));
+            }
             if (level === 2) {
                 setLevel(1);
                 fetchFederalAccounts(selectedSubcomponent);
@@ -262,6 +325,7 @@ const StatusOfFunds = ({ fy }) => {
                 fetchAgencySubcomponents();
             }
 
+            // todo - look into changing the order of these to be more efficient
             if (currentPage === 1) {
                 setResetPageChange(false);
             }
