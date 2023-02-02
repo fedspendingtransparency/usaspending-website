@@ -6,14 +6,13 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from 'prop-types';
-import { Table } from 'data-transparency-ui';
-import { formatMoneyWithPrecision } from 'helpers/moneyFormatter';
 import { levels } from './StatusOfFunds';
 import StatusOfFundsChart from '../visualizations/StatusOfFundsChart';
 import RoundedToggle from "../../sharedComponents/RoundedToggle";
 import Accordion from "../../sharedComponents/accordion/Accordion";
 import GlossaryLink from "../../sharedComponents/GlossaryLink";
 import ChartTableToggle from "../../sharedComponents/buttons/ChartTableToggle";
+import StatusOfFundsTable from "../visualizations/StatusOfFundsTable";
 
 const propTypes = {
     toggle: PropTypes.bool,
@@ -34,7 +33,8 @@ const propTypes = {
     }),
     isMobile: PropTypes.bool,
     viewType: PropTypes.string,
-    setViewType: PropTypes.func
+    setViewType: PropTypes.func,
+    maxLevel: PropTypes.number
 };
 
 const VisualizationSection = ({
@@ -49,74 +49,11 @@ const VisualizationSection = ({
     selectedLevelData,
     isMobile,
     viewType,
-    setViewType
+    setViewType,
+    maxLevel
 }) => {
     const [open, setOpen] = useState(false);
-    const fyString = `FY${fy.slice(2)}`;
     const accordionTitle = (<span>What&nbsp;is&nbsp;this?</span>);
-    const selectionName = [agencyName, selectedLevelData?.name];
-
-    const columns = toggle ?
-        [
-            {
-                title: 'subComponent',
-                displayName: levels[level]
-            },
-            {
-                title: 'outlays',
-                displayName: [`${fyString} Outlays`],
-                right: true
-            }
-        ]
-        :
-        [
-            {
-                title: 'subComponent',
-                displayName: levels[level]
-            },
-            {
-                title: 'totalBudgetaryResources',
-                displayName: isMobile ? `${fyString} Total Budgetary Resources` : [`${fyString} Total Budgetary`, <br />, 'Resources'],
-                right: true
-            },
-            {
-                title: 'obligations',
-                displayName: `${fyString} Obligations`,
-                right: true
-            }
-        ];
-
-    const rows = results.map((data) => (toggle ?
-        [
-            (
-                <div>
-                    {data.name}
-                </div>
-            ),
-            (
-                <div>
-                    {formatMoneyWithPrecision(data._outlays)}
-                </div>
-            )
-        ]
-        :
-        [
-            (
-                <div>
-                    {data.name}
-                </div>
-            ),
-            (
-                <div>
-                    {formatMoneyWithPrecision(data._budgetaryResources)}
-                </div>
-            ),
-            (
-                <div>
-                    {formatMoneyWithPrecision(data._obligations)}
-                </div>
-            )
-        ]));
 
     const changeView = (label) => {
         setViewType(label);
@@ -139,7 +76,7 @@ const VisualizationSection = ({
             }}>
             {isMobile ? (
                 <>
-                    <h6>{selectionName[level]} by <span className="status-of-funds__emphasis">{levels[level]}</span> for FY {fy}
+                    <h6>{level === 0 ? agencyName : selectedLevelData?.name } by <span className="status-of-funds__emphasis">{levels[level]}</span> for FY {fy}
                     </h6>
                     <div className="status-of-funds__controls-mobile">
                         <div className="status-of-funds__controls-mobile-row-one">
@@ -183,17 +120,21 @@ const VisualizationSection = ({
                         fy={fy}
                         results={results}
                         level={level}
-                        setDrilldownLevel={setDrilldownLevel} />
+                        setDrilldownLevel={setDrilldownLevel}
+                        maxLevel={maxLevel} />
                 </div>
             )
                 :
                 (
                     <div className="status-of-funds__visualization-table-container">
-                        <Table
-                            classNames="award-type-tooltip__table"
-                            columns={columns}
-                            rows={rows}
-                            isStacked />
+                        <StatusOfFundsTable
+                            fy={fy}
+                            results={results}
+                            level={level}
+                            setDrilldownLevel={setDrilldownLevel}
+                            isMobile={isMobile}
+                            toggle={toggle}
+                            maxLevel={maxLevel} />
                     </div>
                 )}
         </div>

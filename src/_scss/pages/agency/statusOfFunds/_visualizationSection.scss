@@ -190,6 +190,15 @@
             word-break: normal;
         }
 
+        .usda-table__row-item {
+            &:hover {
+                cursor: pointer;
+                .usda-table__cell {
+                    background-color: $color-primary-alt-lightest;
+                }
+            }
+        }
+
         @media(min-width: $tablet-screen) {
             .table-header__label {
                 max-width: none;

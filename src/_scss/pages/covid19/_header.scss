@@ -26,7 +26,7 @@
 
         @media(max-width: $medium-screen) {
             background: $color-gray-lightest;
-            border: rem(2) solid #AEB0B5;
+            border: rem(2) solid $color-gray-light;
             border-radius: rem(4);
             height: auto;
         }
@@ -39,7 +39,7 @@
             path {
                 fill: $color-gray-lighter;
                 @media(max-width: $medium-screen) {
-                    fill: #555
+                    fill: $color-base;
                 }
             }
         }
@@ -51,9 +51,9 @@
             }
             .usa-dt-picker__button .usa-dt-picker__button-text {
                 font-size: rem(18);
-                color: #fff;
+                color: $color-white;
                 @media(max-width: $medium-screen) {
-                    color: #555
+                    color: $color-base;
                 }
             }
 
@@ -70,7 +70,7 @@
                     color: $color-gray-lighter;
 
                     @media(max-width: $medium-screen) {
-                        color: #555
+                        color: $color-base;
                     }
                 }
             }

@@ -7,7 +7,7 @@
   @include justify-content(center);
   @include align-items(center);
   font-size: rem(14);
-  color: #FFF;
+  color: $color-white;
   font-weight: 600;
   margin-right: rem(35);
   @media(max-width: $medium-screen) {

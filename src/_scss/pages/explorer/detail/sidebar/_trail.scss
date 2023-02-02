@@ -31,7 +31,7 @@
                 height: rem(30);
                 border-radius: rem(15);
                 background-color: $color-link;
-                border: 4px solid #D8D8D8;
+                border: 4px solid $color-gray-border;
                 z-index: 2;
                 margin-bottom: rem(5);
             }

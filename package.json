@@ -25,7 +25,7 @@
   "author": "",
   "engines": {
     "node": ">=16.14.2",
-    "npm": ">=8.5.0"
+    "npm": ">=8.5.1"
   },
   "license": "SEE LICENSE IN LICENSE.MD",
   "devDependencies": {
@@ -162,7 +162,7 @@
     "d3-hierarchy": "^3.1.2",
     "d3-interpolate": "^3.0.1",
     "d3-scale": "^4.0.2",
-    "data-transparency-ui": "github:fedspendingtransparency/data-transparency-ui#v5.2.2",
+    "data-transparency-ui": "github:fedspendingtransparency/data-transparency-ui#v5.2.4",
     "date-fns": "^2.16.1",
     "dompurify": "^2.4.1",
     "file-loader": "^6.2.0",
@@ -190,7 +190,7 @@
     "react-helmet": "^5.0.0",
     "react-hot-loader": "^4.8.2",
     "react-markdown": "^2.5.0",
-    "react-redux": "^7.0.1",
+    "react-redux": "^7.2.9",
     "react-router-dom": "^5.1.2",
     "react-scrollama": "^2.3.2",
     "react-side-effect": "^2.1.2",
