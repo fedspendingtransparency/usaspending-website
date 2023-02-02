@@ -14,11 +14,9 @@
             }
             @media(min-width:$medium-screen) {
                 .usda-share-icon {
-                    //margin-top: 0;
                     span {
-                        //justify-content: center;
-                        //align-content: center;
-                        //flex-wrap: wrap;
+                        margin-top: rem(4);
+                        line-height: 0.9;
                     }
                 }
                 .usda-download-btn {
