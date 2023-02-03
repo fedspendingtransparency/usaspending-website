@@ -1,36 +1,5 @@
-.button__sm {
-    height: 32px;
-    border-radius: 3px;
-    font-size: rem(14);
-    font-weight: $font-semibold;
-    padding: 0 12px;
-    vertical-align: middle;
-    align-items: center;
-    display:flex;
-}
-
-.button__md {
-    height: 40px;
-    border-radius: 4px;
-    font-size: rem(16);
-    font-weight: $font-semibold;
-    padding: 0 16px;
-    vertical-align: middle;
-    align-items: center;
-    display:flex;
-}
-
-.button__lg {
-    height: 56px;
-    border-radius: 6px;
-    font-size: rem(20);
-    font-weight: $font-semibold;
-    padding: 0 24px;
-    vertical-align: middle;
-    align-items: center;
-    display:flex;
-}
-.button-type__primary-light {
+.button-type__primary-light,
+.button-type__primaryIcon-light {
     background-color: $blue-50;
     &:hover {
         background-color: $blue-70v;
@@ -251,3 +220,50 @@
     }  
 }
 
+.button__sm {
+    height: 32px;
+    border-radius: 3px;
+    font-size: rem(14);
+    font-weight: $font-semibold;
+    padding: 0 12px;
+    vertical-align: middle;
+    align-items: center;
+    display:flex;
+
+    svg {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+.button__md {
+    height: 40px;
+    border-radius: 4px;
+    font-size: rem(16);
+    font-weight: $font-semibold;
+    padding: 0 16px;
+    vertical-align: middle;
+    align-items: center;
+    display:flex;
+
+    svg {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+.button__lg {
+    height: 56px;
+    border-radius: 6px;
+    font-size: rem(20);
+    font-weight: $font-semibold;
+    padding: 0 24px;
+    vertical-align: middle;
+    align-items: center;
+    display:flex;
+
+    svg {
+        width: 32px;
+        height: 32px;
+    }
+}
