@@ -1,0 +1,222 @@
+.button__sm {
+    height: 32px;
+    border-radius: 3px;
+    font-size: rem(14);
+    font-weight: $font-semibold;
+    padding: 0 12px;
+    vertical-align: middle;
+    align-items: center;
+    display:flex;
+}
+
+.button__md {
+    height: 40px;
+    border-radius: 4px;
+    font-size: rem(16);
+    font-weight: $font-semibold;
+    padding: 0 16px;
+    vertical-align: middle;
+    align-items: center;
+    display:flex;
+}
+
+.button__lg {
+    height: 56px;
+    border-radius: 6px;
+    font-size: rem(20);
+    font-weight: $font-semibold;
+    padding: 0 24px;
+    vertical-align: middle;
+    align-items: center;
+    display:flex;
+}
+.button-type__primary {
+    background-color: $blue-50;
+    &:hover {
+        background-color: $blue-70v;
+    }
+
+    &:active {
+        background-color: $blue-cool-80v;
+    }
+
+    &:focus {
+        background-color: $blue-50;
+    }
+
+    &:disabled {
+        background-color: $blue-50;
+        opacity: 0.5;
+    }
+}
+
+.button-type__secondary {
+    border-radius: 6px;
+    border: solid 1px $blue-50;
+    background-color: transparent;
+    color: $blue-50;
+
+    &:hover {
+        color: $blue-70v;
+        border: solid 1px $blue-70v;
+        background-color: transparent;
+    }
+
+    &:active {
+        color: $blue-80v;
+        border: solid 1px $blue-80v;
+        background-color: transparent;
+    }
+
+    &:focus {
+        color: $blue-50;
+        border: solid 1px $blue-50;
+        background-color: transparent;
+    }
+
+    &:disabled {
+        color: $blue-50;
+        border: solid 1px $blue-50;
+        background-color: transparent;
+        opacity: 0.5;
+    }
+}
+
+.button-type__tertiary {
+    border-radius: 6px;
+    border: solid 1px $gray-cool-10;
+    background-color: transparent;
+    color: $color-primary;
+
+    &:hover {
+        color: $color-primary-darker;
+        border: solid 1px $gray-cool-30;
+        background-color: transparent;
+    }
+
+    &:active {
+        color: #122e51;
+        border: solid 1px $gray-cool-50;
+        background-color: transparent;
+    }
+
+    &:focus {
+        color: $color-primary;
+        border: solid 1px #d6d7d9;
+        background-color: transparent;
+    }
+
+    &:disabled {
+        color: $color-primary;
+        border: solid 1px #d6d7d9;
+        background-color: transparent;
+        opacity: 0.5;
+    }
+}
+
+.button-type__text, .button-type__intext {
+    background-color: transparent;
+    border-radius: none;
+    color: $blue-50;
+    &:hover {
+        color: $blue-70v;
+        background-color: transparent;
+    }
+
+    &:active {
+        color: $blue-cool-80v;
+        background-color: transparent;
+    }
+
+    &:focus {
+        color: $blue-50;
+        background-color: transparent;
+    }
+
+    &:disabled {
+        background-color: transparent;
+        color: $blue-50;
+        opacity: 0.5;
+    }
+    &:visited {
+        background-color: transparent;
+        color: $violet-70v;
+    }
+}
+
+.button-type__inline {
+    background-color: transparent;
+    border-radius: none;
+    font-weight: $font-semibold;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+    color: $gray-cool-60;
+
+    svg {
+        color: $gray-cool-60;
+    }
+
+    &:hover {
+        color: $gray-cool-60;
+        background-color: transparent;
+
+        svg {
+            color: $gray-cool-60;
+        }
+    }
+
+    &:active {
+        color: $gray-cool-60;
+        background-color: transparent;
+
+        svg {
+            color: $gray-cool-60;
+        }
+    }
+
+    &:focus {
+        color: $gray-cool-60;
+        background-color: transparent;
+
+        svg {
+            color: $gray-cool-60;
+        }
+    }
+
+    &:disabled {
+        background-color: transparent;
+        color: $gray-cool-60;
+        opacity: 0.5;
+
+        svg {
+            color: $gray-cool-60;
+            opacity: 0.5;
+        }
+    }  
+}
+
+
+// .button__dark {
+//     color: $gray-cool-10;
+//     fill: none;
+//     background-color: transparent;
+//     border: solid 1px $gray-cool-10;
+//     &:hover {
+//         color: $gray-cool-5;
+//     }
+
+//     &:active {
+//         color: $gray-cool-1;
+//     }
+
+//     &:focus {
+//         color: $gray-cool-10;
+//     }
+
+//     &:disabled {
+//         color: $gray-cool-10;
+//         opacity: 0.5;
+//     }
+// }
