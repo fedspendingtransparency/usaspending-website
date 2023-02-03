@@ -9,7 +9,7 @@ const BaseAgencySubcomponentsList = {
         this.id = data?.id || data?.code || '';
         this.name = data?.name || '';
         /* eslint-disable camelcase */
-        this._budgetaryResources = data?.total_budgetary_resources || 0;
+        this._budgetaryResources = data?.total_budgetary_resources || data?.budgetary_resources_amount || 0;
         this._obligations = data?.total_obligations || data?.obligated_amount || 0;
         this._outlays = data?.total_outlays || data?.gross_outlay_amount || 0;
     },
