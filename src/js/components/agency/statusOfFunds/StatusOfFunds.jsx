@@ -28,7 +28,7 @@ const propTypes = {
     fy: PropTypes.string
 };
 
-export const levels = ['Sub-Component', 'Federal Account', 'Treasury Account Symbol'];
+export const levels = ['Sub-Component', 'Federal Account', 'Treasury Account Symbol', 'Program Activity'];
 
 const StatusOfFunds = ({ fy }) => {
     const dispatch = useDispatch();
@@ -156,7 +156,6 @@ const StatusOfFunds = ({ fy }) => {
     });
 
     const fetchTas = useCallback((federalAccountData) => {
-        console.log('fetchTas federalAccountData', federalAccountData);
         if (request.current) {
             request.current.cancel();
         }
@@ -209,19 +208,20 @@ const StatusOfFunds = ({ fy }) => {
             page: currentPage
         };
 
+        console.log('fetchProgramActivity tasData', tasData);
+
         request.current = fetchProgramAccountsList(overview.toptierCode, fy, params.page);
         const programActivityRequest = request.current;
         programActivityRequest.promise
             .then((res) => {
-                console.log('res', res);
                 const parsedData = parseRows(res.data.results);
-                console.log('parsedData', parsedData);
-
                 const totalsData = {
-                    name: `${tasData.id}: ${tasData.name}`,
+                    // currently, in the data the id and name are the same string
+                    // which is an alphanumeric code, not a 'name'
+                    name: `${tasData.name}`,
                     id: `${tasData.id}`,
-                    total_budgetary_resources: `${tasData.budgetaryResources}`,
-                    total_obligations: `${tasData.obligations}`
+                    total_budgetary_resources: `${tasData._budgetaryResources}`,
+                    total_obligations: `${tasData._obligations}`
                 };
 
                 setLevel(3);
@@ -281,8 +281,6 @@ const StatusOfFunds = ({ fy }) => {
     }, [fy, overview.toptierCode]);
 
     const setDrilldownLevel = (selectedLevel, parentData) => {
-        console.log('setDrilldownLevel selectedLevel', selectedLevel);
-        console.log('setDrilldownLevel parentData', parentData);
         if (selectedLevel === 1) {
             fetchFederalAccounts(parentData);
             setSelectedSubcomponent(parentData);
@@ -296,10 +294,9 @@ const StatusOfFunds = ({ fy }) => {
         if (selectedLevel === 3) {
             fetchProgramActivity(parentData);
             selectedLevelsArray.push(selectedSubcomponent);
+            selectedLevelsArray.push(drilldownSelection);
         }
 
-        // todo - isn't this line undoing the .push in the selectedLevel === 2 block?
-        // if so you can remove both of the .push from ===2 and ===3, bc it's always parentData
         selectedLevelsArray.push(parentData);
 
         setResetPageChange(true);

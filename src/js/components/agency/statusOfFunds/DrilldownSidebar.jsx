@@ -56,8 +56,8 @@ const DrilldownSidebar = ({
                     active={level === i + 1}
                     name={formatName(level, i)}
                     label={dataType}
-                    obligated={MoneyFormatter.formatMoneyWithUnitsShortLabel(selectedLevelDataList[i]?._obligations, 2)}
-                    budgetaryResources={MoneyFormatter.formatMoneyWithUnitsShortLabel(selectedLevelDataList[i]?._budgetaryResources, 2)}
+                    obligated={selectedLevelDataList[i]?.total_obligations ? selectedLevelDataList[i].total_obligations : MoneyFormatter.formatMoneyWithUnitsShortLabel(selectedLevelDataList[i]?._obligations, 2)}
+                    budgetaryResources={selectedLevelDataList[i]?.total_budgetary_resources ? selectedLevelDataList[i].total_budgetary_resources : MoneyFormatter.formatMoneyWithUnitsShortLabel(selectedLevelDataList[i]?._budgetaryResources, 2)}
                     goBack={goBack}
                     toggle={toggle}
                     outlay={MoneyFormatter.formatMoneyWithUnitsShortLabel(selectedLevelDataList[i]?._outlays, 2)} />
