@@ -74,6 +74,9 @@ const Button = (props) => {
             else if (props.imageAlignment === 'right') {
                 classNameList += ' button-type__text-right-light ';
             }
+            else {
+                classNameList += ' button-type__text-light ';
+            }
         }
         else if (props.backgroundColor === 'dark ') {
             if (props.imageAlignment === 'left') {
@@ -81,6 +84,9 @@ const Button = (props) => {
             }
             else if (props.imageAlignment === 'right') {
                 classNameList += ' button-type__text-right-dark ';
+            }
+            else {
+                classNameList += ' button-type__text-dark ';
             }
         }
     }

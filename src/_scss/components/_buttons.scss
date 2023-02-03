@@ -30,7 +30,7 @@
     align-items: center;
     display:flex;
 }
-.button-type__primary {
+.button-type__primary-light {
     background-color: $blue-50;
     &:hover {
         background-color: $blue-70v;
@@ -50,7 +50,7 @@
     }
 }
 
-.button-type__secondary {
+.button-type__secondary-light {
     border-radius: 6px;
     border: solid 1px $blue-50;
     background-color: transparent;
@@ -82,7 +82,34 @@
     }
 }
 
-.button-type__tertiary {
+.button-type__secondary-dark {
+    color: $gray-cool-10;
+    fill: none;
+    background-color: transparent;
+    border: solid 1px $gray-cool-10;
+    &:hover {
+        color: $gray-cool-5;
+        background-color: transparent;
+    }
+
+    &:active {
+        color: $gray-cool-1;
+        background-color: transparent;
+    }
+
+    &:focus {
+        color: $gray-cool-10;
+        background-color: transparent;
+    }
+
+    &:disabled {
+        color: $gray-cool-10;
+        opacity: 0.5;
+        background-color: transparent;
+    }
+}
+
+.button-type__tertiary-light {
     border-radius: 6px;
     border: solid 1px $gray-cool-10;
     background-color: transparent;
@@ -114,7 +141,7 @@
     }
 }
 
-.button-type__text, .button-type__intext {
+.button-type__text-light, .button-type__intext-light {
     background-color: transparent;
     border-radius: none;
     color: $blue-50;
@@ -144,7 +171,34 @@
     }
 }
 
-.button-type__inline {
+.button-type__text-dark {
+    color: $gray-cool-10;
+    fill: none;
+    background-color: transparent;
+    border: none;
+    &:hover {
+        color: $gray-cool-5;
+        background-color: transparent;
+    }
+
+    &:active {
+        color: $gray-cool-1;
+        background-color: transparent;
+    }
+
+    &:focus {
+        color: $gray-cool-10;
+        background-color: transparent;
+    }
+
+    &:disabled {
+        color: $gray-cool-10;
+        opacity: 0.5;
+        background-color: transparent;
+    }
+}
+
+.button-type__inline-light {
     background-color: transparent;
     border-radius: none;
     font-weight: $font-semibold;
@@ -197,26 +251,3 @@
     }  
 }
 
-
-// .button__dark {
-//     color: $gray-cool-10;
-//     fill: none;
-//     background-color: transparent;
-//     border: solid 1px $gray-cool-10;
-//     &:hover {
-//         color: $gray-cool-5;
-//     }
-
-//     &:active {
-//         color: $gray-cool-1;
-//     }
-
-//     &:focus {
-//         color: $gray-cool-10;
-//     }
-
-//     &:disabled {
-//         color: $gray-cool-10;
-//         opacity: 0.5;
-//     }
-// }
