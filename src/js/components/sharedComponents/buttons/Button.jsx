@@ -112,13 +112,13 @@ const Button = (props) => {
     else if (props.buttonType === "intext") {
         classNameList += ' button-type__intext-light ';
     }
-
-    if (!props.additionalClassnames.empty()) {
+    console.debug(classNameList);
+    if (!props.additionalClassnames?.empty() && !props.additionalClassnames !== null && !props.additionalClassnames !== undefined) {
         classNameList += ' ';
         classNameList += props.additionalClassnames;
     }
 
-    console.debug(classNameList);
+    console.debug("after: ", classNameList);
     return (
         <button className={classNameList} tabIndex="0" onClick={props.onClick}>{props.copy}</button>
     );
