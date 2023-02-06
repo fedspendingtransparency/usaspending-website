@@ -34,10 +34,10 @@ const Button = (props) => {
 
     // text alignment
     if (props.textAlignment === 'left') {
-        classNameList += ' button-text__left-align';
+        classNameList += ' button-text__left-align ';
     }
     else if (props.textAlignment === 'center') {
-        classNameList += ' button-text__center-align';
+        classNameList += ' button-text__center-align ';
     }
 
     // variants
