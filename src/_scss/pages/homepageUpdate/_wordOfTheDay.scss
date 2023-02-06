@@ -81,7 +81,7 @@
     height: calc(100% - 100px);
 
     .page__loading {
-      @media(max-width:$medium-screen) {
+      @media(min-width: $large-screen) {
         min-height: unset;
       }
 
