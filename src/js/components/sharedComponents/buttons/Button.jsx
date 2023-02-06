@@ -41,9 +41,11 @@ const Button = (props) => {
     }
 
     // variants
+    // PRIMARY
     if (props.buttonType === "primary") {
         classNameList += ' button-type__primary-light ';
     }
+    // SECONDARY LIGHT AND DARK
     else if (props.buttonType === "secondary") {
         if (props.backgroundColor === 'light') {
             classNameList += ' button-type__secondary-light ';
@@ -52,9 +54,11 @@ const Button = (props) => {
             classNameList += ' button-type__secondary-dark ';
         }
     }
+    // PRIMARY WITH ICON
     else if (props.buttonType === "primaryIcon") {
         classNameList += ' button-type__primaryIcon-light ';
     }
+    // SECONDARY WITH ICON
     else if (props.buttonType === "secondaryIcon") {
         if (props.backgroundColor === 'light') {
             classNameList += ' button-type__secondaryIcon-light ';
@@ -63,16 +67,19 @@ const Button = (props) => {
             classNameList += ' button-type__secondaryIcon-dark ';
         }
     }
+    // TERTIARY LIGHT
     else if (props.buttonType === "tertiary") {
         classNameList += ' button-type__tertiary-light ';
     }
+    // TEXT LIGHT LEFT/RIGHT/NO ICON
+    // TEXT DARK LEFT/RIGHT/NO ICON
     else if (props.buttonType === "text") {
         if (props.backgroundColor === 'light') {
             if (props.imageAlignment === 'left') {
-                classNameList += ' button-type__text-left-light ';
+                classNameList += ' button-type__text-left-icon-light ';
             }
             else if (props.imageAlignment === 'right') {
-                classNameList += ' button-type__text-right-light ';
+                classNameList += ' button-type__text-right-icon-light ';
             }
             else {
                 classNameList += ' button-type__text-light ';
@@ -80,24 +87,26 @@ const Button = (props) => {
         }
         else if (props.backgroundColor === 'dark ') {
             if (props.imageAlignment === 'left') {
-                classNameList += ' button-type__text-left-dark ';
+                classNameList += ' button-type__text-left-icon-dark ';
             }
             else if (props.imageAlignment === 'right') {
-                classNameList += ' button-type__text-right-dark ';
+                classNameList += ' button-type__text-right-icon-dark ';
             }
             else {
                 classNameList += ' button-type__text-dark ';
             }
         }
     }
+    // STACKED LIGHT/DARK
     else if (props.buttonType === "stacked") {
         if (props.backgroundColor === 'light') {
-            classNameList += ' button-type__stacked-light ';
+            classNameList += ' button-type__stacked-icon-light ';
         }
         else if (props.backgroundColor === 'dark') {
-            classNameList += ' button-type__stacked-dark ';
+            classNameList += ' button-type__stacked-icon-dark ';
         }
     }
+    // ICON LIGHT/DARK
     else if (props.buttonType === "icon") {
         if (props.backgroundColor === 'light') {
             classNameList += ' button-type__icon-light ';
@@ -106,19 +115,33 @@ const Button = (props) => {
             classNameList += ' button-type__icon-dark ';
         }
     }
+    // INLINE LIGHT
     else if (props.buttonType === "inline") {
         classNameList += ' button-type__inline-light ';
     }
+    // INTEXT LIGHT
     else if (props.buttonType === "intext") {
         classNameList += ' button-type__intext-light ';
     }
+
     console.debug(classNameList);
+    // ANY ADDITIONAL CLASS NAMES
     if (!props.additionalClassnames?.empty() && props.additionalClassnames !== null && props.additionalClassnames !== undefined) {
         classNameList += ' ';
         classNameList += props.additionalClassnames;
     }
 
     console.debug("after: ", classNameList);
+    if (classNameList.includes('left-icon')) {
+        return (
+            <button className={classNameList} tabIndex="0" onClick={props.onClick}>{props.image}{props.copy}</button>
+        );
+    }
+    else if (classNameList.includes('right-icon')) {
+        return (
+            <button className={classNameList} tabIndex="0" onClick={props.onClick}>{props.copy}{props.image}</button>
+        );
+    }
     return (
         <button className={classNameList} tabIndex="0" onClick={props.onClick}>{props.copy}</button>
     );
