@@ -208,8 +208,6 @@ const StatusOfFunds = ({ fy }) => {
             page: currentPage
         };
 
-        console.log('fetchProgramActivity tasData', tasData);
-
         request.current = fetchProgramAccountsList(overview.toptierCode, fy, params.page);
         const programActivityRequest = request.current;
         programActivityRequest.promise
@@ -253,8 +251,9 @@ const StatusOfFunds = ({ fy }) => {
             if (prevPage !== currentPage && level === 2) {
                 setResults(paginatedTasList(federalAccountList));
             }
+            // todo - this may not be right
             if (prevPage !== currentPage && level === 3) {
-                fetchProgramActivity();
+                fetchProgramActivity(drilldownSelection);
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -311,7 +310,8 @@ const StatusOfFunds = ({ fy }) => {
             if (level === 3) {
                 setLevel(2);
                 // todo - problem here
-                fetchTas(paginatedTasList(federalAccountList));
+                // fetchTas(paginatedTasList(federalAccountList));
+                setResults(paginatedTasList(federalAccountList));
             }
             if (level === 2) {
                 setLevel(1);
