@@ -1,6 +1,7 @@
 .button-type__primary-light,
 .button-type__primaryIcon-light {
     background-color: $blue-50;
+
     &:hover {
         background-color: $blue-70v;
     }
@@ -56,6 +57,7 @@
     fill: none;
     background-color: transparent;
     border: solid 1px $gray-cool-10;
+
     &:hover {
         color: $gray-cool-5;
         background-color: transparent;
@@ -110,10 +112,12 @@
     }
 }
 
-.button-type__text-light, .button-type__intext-light {
+.button-type__text-light,
+.button-type__intext-light {
     background-color: transparent;
     border-radius: none;
     color: $blue-50;
+
     &:hover {
         color: $blue-70v;
         background-color: transparent;
@@ -134,6 +138,7 @@
         color: $blue-50;
         opacity: 0.5;
     }
+
     &:visited {
         background-color: transparent;
         color: $violet-70v;
@@ -144,6 +149,7 @@
     background-color: transparent;
     border-radius: none;
     color: $blue-50;
+
     &:hover {
         color: $blue-70v;
         background-color: transparent;
@@ -164,6 +170,7 @@
         color: $blue-50;
         opacity: 0.5;
     }
+
     &:visited {
         background-color: transparent;
         color: $violet-70v;
@@ -172,36 +179,40 @@
     svg {
         margin-right: 8px;
         color: $blue-50;
+
         &:hover {
             color: $blue-70v;
             background-color: transparent;
         }
-    
+
         &:active {
             color: $blue-cool-80v;
             background-color: transparent;
         }
-    
+
         &:focus {
             color: $blue-50;
             background-color: transparent;
         }
-    
+
         &:disabled {
             background-color: transparent;
             color: $blue-50;
             opacity: 0.5;
         }
+
         &:visited {
             background-color: transparent;
             color: $violet-70v;
         }
     }
 }
+
 .button-type__text-right-icon-light {
     background-color: transparent;
     border-radius: none;
     color: $blue-50;
+
     &:hover {
         color: $blue-70v;
         background-color: transparent;
@@ -222,6 +233,7 @@
         color: $blue-50;
         opacity: 0.5;
     }
+
     &:visited {
         background-color: transparent;
         color: $violet-70v;
@@ -230,26 +242,28 @@
     svg {
         margin-left: 8px;
         color: $blue-50;
+
         &:hover {
             color: $blue-70v;
             background-color: transparent;
         }
-    
+
         &:active {
             color: $blue-cool-80v;
             background-color: transparent;
         }
-    
+
         &:focus {
             color: $blue-50;
             background-color: transparent;
         }
-    
+
         &:disabled {
             background-color: transparent;
             color: $blue-50;
             opacity: 0.5;
         }
+
         &:visited {
             background-color: transparent;
             color: $violet-70v;
@@ -262,6 +276,7 @@
     fill: none;
     background-color: transparent;
     border: none;
+
     &:hover {
         color: $gray-cool-5;
         background-color: transparent;
@@ -281,6 +296,112 @@
         color: $gray-cool-10;
         opacity: 0.5;
         background-color: transparent;
+    }
+}
+
+.button-type__text-left-icon-dark {
+    fill: none;
+    background-color: transparent;
+    border: none;
+    color: $gray-cool-10;
+
+    &:hover {
+        color: $gray-cool-5;
+        background-color: transparent;
+    }
+
+    &:active {
+        color: $gray-cool-1;
+        background-color: transparent;
+    }
+
+    &:focus {
+        color: $gray-cool-10;
+        background-color: transparent;
+    }
+
+    &:disabled {
+        color: $gray-cool-10;
+        opacity: 0.5;
+        background-color: transparent;
+    }
+
+    svg {
+        color: $gray-cool-10;
+        margin-right: 8px;
+        &:hover {
+            color: $gray-cool-5;
+            background-color: transparent;
+        }
+
+        &:active {
+            color: $gray-cool-1;
+            background-color: transparent;
+        }
+
+        &:focus {
+            color: $gray-cool-10;
+            background-color: transparent;
+        }
+
+        &:disabled {
+            color: $gray-cool-10;
+            opacity: 0.5;
+            background-color: transparent;
+        }
+    }
+}
+
+.button-type__text-right-icon-dark {
+    color: $gray-cool-10;
+    fill: none;
+    background-color: transparent;
+    border: none;
+
+    &:hover {
+        color: $gray-cool-5;
+        background-color: transparent;
+    }
+
+    &:active {
+        color: $gray-cool-1;
+        background-color: transparent;
+    }
+
+    &:focus {
+        color: $gray-cool-10;
+        background-color: transparent;
+    }
+
+    &:disabled {
+        color: $gray-cool-10;
+        opacity: 0.5;
+        background-color: transparent;
+    }
+
+    svg {
+        color: $gray-cool-10;
+        margin-left: 8px;
+        &:hover {
+            color: $gray-cool-5;
+            background-color: transparent;
+        }
+
+        &:active {
+            color: $gray-cool-1;
+            background-color: transparent;
+        }
+
+        &:focus {
+            color: $gray-cool-10;
+            background-color: transparent;
+        }
+
+        &:disabled {
+            color: $gray-cool-10;
+            opacity: 0.5;
+            background-color: transparent;
+        }
     }
 }
 
@@ -334,7 +455,7 @@
             color: $gray-cool-60;
             opacity: 0.5;
         }
-    }  
+    }
 }
 
 .button__sm {
@@ -345,7 +466,7 @@
     padding: 0 12px;
     vertical-align: middle;
     align-items: center;
-    display:flex;
+    display: flex;
 
     svg {
         width: 16px;
@@ -361,7 +482,7 @@
     padding: 0 16px;
     vertical-align: middle;
     align-items: center;
-    display:flex;
+    display: flex;
 
     svg {
         width: 24px;
@@ -377,7 +498,7 @@
     padding: 0 24px;
     vertical-align: middle;
     align-items: center;
-    display:flex;
+    display: flex;
 
     svg {
         width: 32px;
@@ -387,6 +508,7 @@
 
 .button-text__left-align {
     text-align: left;
+    display: flex;
 }
 
 .button-text__center-align {
