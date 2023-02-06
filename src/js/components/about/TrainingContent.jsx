@@ -4,7 +4,6 @@
  */
 
 import React from 'react';
-import ExternalLink from 'components/sharedComponents/ExternalLink';
 
 export default class TrainingContent extends React.Component {
     render() {
@@ -23,7 +22,7 @@ export default class TrainingContent extends React.Component {
                     </p>
                     <p>
                         Please fill out all the required information on the training request form. Otherwise, we will not be able to process your request. Also, please note that we are only able to provide training on the website and its data. <span className="trainingContent__strong">We are unable to provide any information on specific government programs or funding opportunities. </span>
-                        <ExternalLink url="https://www.surveymonkey.com/r/YK963LJ">Click here to request training for your organization.</ExternalLink>
+                        <a target="_blank" rel="noopener noreferrer" href="https://www.surveymonkey.com/r/YK963LJ">Click here to request training for your organization.</a>
                     </p>
                 </div>
             </div>

@@ -12,7 +12,6 @@ import * as redirectHelper from 'helpers/redirectHelper';
 import UnreportedErrorScreen from 'components/explorer/detail/UnreportedErrorScreen';
 import ExplorerTableContainer from 'containers/explorer/detail/table/ExplorerTableContainer';
 import Note, { dodNote } from 'components/sharedComponents/Note';
-import ExternalLink from 'components/sharedComponents/ExternalLink';
 import BreakdownDropdown from './toolbar/BreakdownDropdown';
 import ExplorerTreemap from './treemap/ExplorerTreemap';
 
@@ -146,9 +145,9 @@ export default class ExplorerVisualization extends React.Component {
                         message={(
                             <>
                                 Unreported amounts are calculated using the difference in the total obligated amount from the&nbsp;
-                                <ExternalLink url="https://portal.max.gov/portal/document/SF133/Budget/FACTS%20II%20-%20SF%20133%20Report%20on%20Budget%20Execution%20and%20Budgetary%20Resources.html">
+                                <a target="_blank" rel="noopener noreferrer" href="https://portal.max.gov/portal/document/SF133/Budget/FACTS%20II%20-%20SF%20133%20Report%20on%20Budget%20Execution%20and%20Budgetary%20Resources.html">
                                     Report on Budget Execution and Budgetary Resources
-                                </ExternalLink>
+                                </a>
                                 &nbsp;(excluding financing accounts) and the total obligated amount reported by agencies to USAspending.gov in 'Account Breakdown by Program Activity &amp; Object Class' data (also called 'File B' data).
                             </>
                         )} />
