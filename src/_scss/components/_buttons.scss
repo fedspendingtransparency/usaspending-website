@@ -140,7 +140,7 @@
     }
 }
 
-.button-type__text-left-light {
+.button-type__text-left-icon-light {
     background-color: transparent;
     border-radius: none;
     color: $blue-50;
@@ -171,6 +171,64 @@
 
     svg {
         margin-right: 8px;
+        color: $blue-50;
+        &:hover {
+            color: $blue-70v;
+            background-color: transparent;
+        }
+    
+        &:active {
+            color: $blue-cool-80v;
+            background-color: transparent;
+        }
+    
+        &:focus {
+            color: $blue-50;
+            background-color: transparent;
+        }
+    
+        &:disabled {
+            background-color: transparent;
+            color: $blue-50;
+            opacity: 0.5;
+        }
+        &:visited {
+            background-color: transparent;
+            color: $violet-70v;
+        }
+    }
+}
+.button-type__text-right-icon-light {
+    background-color: transparent;
+    border-radius: none;
+    color: $blue-50;
+    &:hover {
+        color: $blue-70v;
+        background-color: transparent;
+    }
+
+    &:active {
+        color: $blue-cool-80v;
+        background-color: transparent;
+    }
+
+    &:focus {
+        color: $blue-50;
+        background-color: transparent;
+    }
+
+    &:disabled {
+        background-color: transparent;
+        color: $blue-50;
+        opacity: 0.5;
+    }
+    &:visited {
+        background-color: transparent;
+        color: $violet-70v;
+    }
+
+    svg {
+        margin-left: 8px;
         color: $blue-50;
         &:hover {
             color: $blue-70v;

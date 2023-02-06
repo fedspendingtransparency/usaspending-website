@@ -32,14 +32,6 @@ const Button = (props) => {
         classNameList += ' button__sm ';
     }
 
-    // text alignment
-    if (props.textAlignment === 'left') {
-        classNameList += ' button-text__left-align ';
-    }
-    else if (props.textAlignment === 'center') {
-        classNameList += ' button-text__center-align ';
-    }
-
     // variants
     // PRIMARY
     if (props.buttonType === "primary") {
@@ -122,6 +114,14 @@ const Button = (props) => {
     // INTEXT LIGHT
     else if (props.buttonType === "intext") {
         classNameList += ' button-type__intext-light ';
+    }
+
+    // text alignment
+    if (props.textAlignment === 'left') {
+        classNameList += ' button-text__left-align ';
+    }
+    else if (props.textAlignment === 'center') {
+        classNameList += ' button-text__center-align ';
     }
 
     console.debug(classNameList);

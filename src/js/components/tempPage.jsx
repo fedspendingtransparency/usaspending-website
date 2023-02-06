@@ -1,5 +1,6 @@
 import React from "react";
 import { FlexGridRow, FlexGridCol } from "data-transparency-ui";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import CardContainer from "./sharedComponents/commonCards/CardContainer";
 import CardHero from "./sharedComponents/commonCards/CardHero";
 import CardBody from "./sharedComponents/commonCards/CardBody";
@@ -134,9 +135,7 @@ const tempPage = () => {
                     </FlexGridRow>
                     <h1>New Button Variants</h1>
                     <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32}>
-                        <Button copy="TEST" buttonSize="lg" buttonType="secondary" backgroundColor="dark" />
-                        <Button copy="TEST" buttonSize="md" buttonType="tertiary" backgroundColor="dark" />
-                        <Button copy="TEST" buttonSize="sm" buttonType="text" backgroundColor="dark" />
+                        <Button copy="TEST" textAlignment="left" buttonSize="lg" buttonType="text" backgroundColor="light" imageAlignment="right" image={<FontAwesomeIcon icon="share-alt" />} />
                     </FlexGridRow>
                 </main>
             </PageWrapper>
