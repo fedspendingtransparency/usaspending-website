@@ -8,7 +8,7 @@ import VideoMetadata from 'models/v2/video/VideoMetadata';
 import metadata from 'dataMapping/trainingVideos/playListMetadata';
 
 const sampleVideo = Object.create(VideoMetadata);
-sampleVideo.populate(metadata.items[0]);
+sampleVideo.populate(metadata.items[1]);
 
 describe('Video Metadata model', () => {
     it ('should contain a full URL to a YouTube video', () => {
