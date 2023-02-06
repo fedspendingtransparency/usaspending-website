@@ -8,9 +8,9 @@
     $top-text-color: #4A4A4A;
     $top-item-border-color: #CACACA;
     $top-clear-button-background-color: #CBCCCE;
-    $top-clear-button-color: #5B616B;
+    $top-clear-button-color: $color-gray;
     $top-header-color: #525252;
-    $top-divider-color: #D8D8D8;
+    $top-divider-color: $color-gray-border;
     $top-group-color: #E2E3E4;
     width: 100%;
     font-size: rem(12);

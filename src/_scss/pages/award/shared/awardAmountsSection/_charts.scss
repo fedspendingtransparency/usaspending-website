@@ -79,7 +79,7 @@ $proc-current-offset: rem(5);
                 &.idv-extreme-overspending-potential-wrapper,
                 &.contract-extreme-overspending-potential-wrapper {
                     border: 0.2rem solid $colors-potential;
-                    background-color: #fff;
+                    background-color: $color-white;
                     .award-amounts-viz__bar .nested-obligations .award-amounts-viz__bar,
                     .award-amounts-viz__bar .nested-obligations .award-amounts-viz__bar {
                         &.contract-extreme-overspending-current,
@@ -109,8 +109,8 @@ $proc-current-offset: rem(5);
             &.contract-extreme-overspending {
                 height: rem(40);
                 background: repeating-linear-gradient(45deg, $colors-obligated, $colors-obligated 0.8rem, #e31c3d 0.2rem, #e31c3d 1rem);
-                border-top: solid 0.4rem #fff;
-                border-bottom: solid 0.4rem #fff;
+                border-top: solid 0.4rem $color-white;
+                border-bottom: solid 0.4rem $color-white;
             }
             
             &.asst-non-federal-funding {
@@ -154,7 +154,7 @@ $proc-current-offset: rem(5);
                         width: rem(5);
                         height: rem(55);
                         border: solid rem(1) $exceeds-current-color;
-                        background: repeating-linear-gradient(45deg, #fff, #fff 0.5rem, $exceeds-current-color 0.2rem, $exceeds-current-color 0.7rem);
+                        background: repeating-linear-gradient(45deg, $color-white, #fff 0.5rem, $exceeds-current-color 0.2rem, $exceeds-current-color 0.7rem);
                         margin-left: rem(5);                        
                     }
                     &.contract-extreme-overspending-label::after,

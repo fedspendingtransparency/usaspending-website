@@ -71,15 +71,15 @@
       .shown-filter-button {
         line-height: rem(15);
         font-size: rem(12);
-        color: #5B616B;
+        color: $color-gray;
         .close {
-          color: #5B616B;
+          color: $color-gray;
         }
         &:hover {
           outline: none;
           border: rem(1) solid $color-gray-lighter;
           & .close {
-            color: #5B616B;
+            color: $color-gray;
             outline: none;
           }
         }

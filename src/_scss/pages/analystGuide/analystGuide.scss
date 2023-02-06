@@ -2,7 +2,7 @@
   @import 'all';
   @import "./_analystGuideHeader.scss";
 
-  background-color: #ffffff;
+  background-color: $color-white;
 
   .main-content {
     margin-bottom: rem(40);
@@ -206,7 +206,7 @@
   }
 
   .analyst-guide__answerStyle {
-    color: #555;
+    color: $color-base;
     font-weight: $font-normal;
     word-break: break-word;
     .analyst-guide__external-link {
