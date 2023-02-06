@@ -48,7 +48,7 @@ const Button = (props) => {
         if (props.backgroundColor === 'light') {
             classNameList += ' button-type__secondary-light ';
         }
-        else if (props.backgroundColor === 'dark ') {
+        else if (props.backgroundColor === 'dark') {
             classNameList += ' button-type__secondary-dark ';
         }
     }
@@ -59,7 +59,7 @@ const Button = (props) => {
         if (props.backgroundColor === 'light') {
             classNameList += ' button-type__secondaryIcon-light ';
         }
-        else if (props.backgroundColor === 'dark ') {
+        else if (props.backgroundColor === 'dark') {
             classNameList += ' button-type__secondaryIcon-dark ';
         }
     }
@@ -94,7 +94,7 @@ const Button = (props) => {
         if (props.backgroundColor === 'light') {
             classNameList += ' button-type__stacked-light ';
         }
-        else if (props.backgroundColor === 'dark ') {
+        else if (props.backgroundColor === 'dark') {
             classNameList += ' button-type__stacked-dark ';
         }
     }
@@ -102,7 +102,7 @@ const Button = (props) => {
         if (props.backgroundColor === 'light') {
             classNameList += ' button-type__icon-light ';
         }
-        else if (props.backgroundColor === 'dark ') {
+        else if (props.backgroundColor === 'dark') {
             classNameList += ' button-type__icon-dark ';
         }
     }
@@ -113,7 +113,7 @@ const Button = (props) => {
         classNameList += ' button-type__intext-light ';
     }
     console.debug(classNameList);
-    if (!props.additionalClassnames?.empty() && !props.additionalClassnames !== null && !props.additionalClassnames !== undefined) {
+    if (!props.additionalClassnames?.empty() && props.additionalClassnames !== null && props.additionalClassnames !== undefined) {
         classNameList += ' ';
         classNameList += props.additionalClassnames;
     }
