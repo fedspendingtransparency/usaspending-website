@@ -199,6 +199,26 @@ const tempPage = () => {
                         <Button copy="TEST" buttonSize="md" buttonType="text" backgroundColor="dark" imageAlignment="right" image={<FontAwesomeIcon icon="share-alt" />} />
                         <Button copy="TEST" buttonSize="lg" buttonType="text" backgroundColor="dark" imageAlignment="right" image={<FontAwesomeIcon icon="share-alt" />} />
                     </FlexGridRow>
+                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
+                        <Button copy="TEST" buttonSize="sm" buttonType="stacked" backgroundColor="light" image={<FontAwesomeIcon icon="share-alt" />} />
+                        <Button copy="TEST" buttonSize="md" buttonType="stacked" backgroundColor="light" image={<FontAwesomeIcon icon="share-alt" />} />
+                        <Button copy="TEST" buttonSize="lg" buttonType="stacked" backgroundColor="light" image={<FontAwesomeIcon icon="share-alt" />} />
+                    </FlexGridRow>
+                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
+                        <Button copy="TEST" buttonSize="sm" buttonType="stacked" backgroundColor="dark" image={<FontAwesomeIcon icon="share-alt" />} />
+                        <Button copy="TEST" buttonSize="md" buttonType="stacked" backgroundColor="dark" image={<FontAwesomeIcon icon="share-alt" />} />
+                        <Button copy="TEST" buttonSize="lg" buttonType="stacked" backgroundColor="dark" image={<FontAwesomeIcon icon="share-alt" />} />
+                    </FlexGridRow>
+                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
+                        <Button buttonSize="sm" buttonType="icon" backgroundColor="light" image={<FontAwesomeIcon icon="share-alt" />} />
+                        <Button buttonSize="md" buttonType="icon" backgroundColor="light" image={<FontAwesomeIcon icon="share-alt" />} />
+                        <Button buttonSize="lg" buttonType="icon" backgroundColor="light" image={<FontAwesomeIcon icon="share-alt" />} />
+                    </FlexGridRow>
+                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
+                        <Button buttonSize="sm" buttonType="icon" backgroundColor="dark" image={<FontAwesomeIcon icon="share-alt" />} />
+                        <Button buttonSize="md" buttonType="icon" backgroundColor="dark" image={<FontAwesomeIcon icon="share-alt" />} />
+                        <Button buttonSize="lg" buttonType="icon" backgroundColor="dark" image={<FontAwesomeIcon icon="share-alt" />} />
+                    </FlexGridRow>
                 </main>
             </PageWrapper>
         </FeatureFlag>
