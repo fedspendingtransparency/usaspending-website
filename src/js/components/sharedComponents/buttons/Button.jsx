@@ -48,15 +48,23 @@ const Button = (props) => {
     }
     // PRIMARY WITH ICON
     else if (props.buttonType === "primaryIcon") {
-        classNameList += ' button-type__primaryIcon-light ';
+        if (props.backgroundColor === 'light') {
+            if (props.imageAlignment === 'left') {
+                classNameList += ' button-type__primary-left-icon-light ';
+            }
+        }
     }
-    // SECONDARY WITH ICON
+    // SECONDARY WITH ICON - LEFT ALIGNMENT ONLY
     else if (props.buttonType === "secondaryIcon") {
         if (props.backgroundColor === 'light') {
-            classNameList += ' button-type__secondaryIcon-light ';
+            if (props.imageAlignment === 'left') {
+                classNameList += ' button-type__secondary-left-icon-light ';
+            }
         }
         else if (props.backgroundColor === 'dark') {
-            classNameList += ' button-type__secondaryIcon-dark ';
+            if (props.imageAlignment === 'left') {
+                classNameList += ' button-type__secondary-left-icon-dark ';
+            }
         }
     }
     // TERTIARY LIGHT

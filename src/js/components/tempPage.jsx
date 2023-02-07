@@ -135,7 +135,7 @@ const tempPage = () => {
                     </FlexGridRow>
                     <h1>New Button Variants</h1>
                     <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32}>
-                        <Button buttonSize="lg" buttonType="icon" backgroundColor="dark" image={<FontAwesomeIcon icon="share-alt" />} />
+                        <Button copy="TEST" buttonSize="lg" buttonType="secondaryIcon" backgroundColor="dark" imageAlignment="left" image={<FontAwesomeIcon icon="share-alt" />} />
                     </FlexGridRow>
                 </main>
             </PageWrapper>

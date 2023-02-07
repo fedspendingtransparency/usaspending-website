@@ -55,7 +55,7 @@
     text-align: center;
 }
 .button-type__primary-light,
-.button-type__primaryIcon-light {
+.button-type__primary-left-icon-light {
     background-color: $blue-50;
 
     &:hover {
@@ -74,9 +74,15 @@
         background-color: $blue-50;
         opacity: 0.5;
     }
+
+    svg {
+        margin-right: 8px;
+        color: $gray-cool-1;
+    }
 }
 
-.button-type__secondary-light {
+.button-type__secondary-light,
+.button-type__secondary-left-icon-light {
     border-radius: 6px;
     border: solid 1px $blue-50;
     background-color: transparent;
@@ -106,9 +112,14 @@
         background-color: transparent;
         opacity: 0.5;
     }
+
+    svg {
+        margin-right: 8px;
+    }
 }
 
-.button-type__secondary-dark {
+.button-type__secondary-dark,
+.button-type__secondary-left-icon-dark {
     color: $gray-cool-10;
     fill: none;
     background-color: transparent;
@@ -133,6 +144,10 @@
         color: $gray-cool-10;
         opacity: 0.5;
         background-color: transparent;
+    }
+
+    svg {
+        margin-right: 8px;
     }
 }
 
