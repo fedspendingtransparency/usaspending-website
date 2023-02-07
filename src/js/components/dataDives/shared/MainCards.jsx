@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { largeScreen } from 'dataMapping/shared/mobileBreakpoints';
+import ExternalLink from 'components/sharedComponents/ExternalLink';
 import Analytics from 'helpers/analytics/Analytics';
 
 import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
@@ -54,7 +55,7 @@ const MainCards = ({ contentObject }) => {
                                 imageColor={card.color}
                                 heading={<h2>{card.heading}</h2>}
                                 text={cardContent}
-                                button={<a target="_blank" rel="noopener noreferrer" href={card.link} onClick={() => analyticsEvent(<h2>{card.text}</h2>)}>See Project&nbsp;&nbsp;</a>} />
+                                button={<ExternalLink url={card.link} onClick={() => analyticsEvent(<h2>{card.text}</h2>)}>See Project&nbsp;&nbsp;</ExternalLink>} />
                         </FlexGridCol>
                     );
                 })}
