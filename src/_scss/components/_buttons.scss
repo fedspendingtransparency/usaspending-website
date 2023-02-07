@@ -1,3 +1,59 @@
+.button__sm {
+    height: 32px;
+    border-radius: 3px;
+    font-size: rem(14);
+    font-weight: $font-semibold;
+    padding: 0 12px;
+    vertical-align: middle;
+    align-items: center;
+    display: flex;
+
+    svg {
+        width: 16px;
+        height: 16px;
+    }
+}
+
+.button__md {
+    height: 40px;
+    border-radius: 4px;
+    font-size: rem(16);
+    font-weight: $font-semibold;
+    padding: 0 16px;
+    vertical-align: middle;
+    align-items: center;
+    display: flex;
+
+    svg {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+.button__lg {
+    height: 56px;
+    border-radius: 6px;
+    font-size: rem(20);
+    font-weight: $font-semibold;
+    padding: 0 24px;
+    vertical-align: middle;
+    align-items: center;
+    display: flex;
+
+    svg {
+        width: 32px;
+        height: 32px;
+    }
+}
+
+.button-text__left-align {
+    text-align: left;
+    display: flex;
+}
+
+.button-text__center-align {
+    text-align: center;
+}
 .button-type__primary-light,
 .button-type__primaryIcon-light {
     background-color: $blue-50;
@@ -405,6 +461,71 @@
     }
 }
 
+.button-type__stacked-icon-light {
+    color: $blue-50;
+    display: block;
+    background-color: transparent;
+    
+    &:hover {
+        color: $blue-70v;
+        background-color: transparent;
+    }
+
+    &:active {
+        color: $blue-cool-80v;
+        background-color: transparent;
+    }
+
+    &:focus {
+        color: $blue-50;
+        background-color: transparent;
+    }
+
+    &:disabled {
+        color: $blue-50;
+        background-color: transparent;
+        opacity: 0.5;
+    }
+}
+.stacked-button__only-text {
+    margin-top: 2px;
+    font-size: rem(14);
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.5;
+    letter-spacing: normal;
+}
+.stacked-button__only-image {
+    margin: 0;
+}
+.button-type__stacked-icon-dark {
+    color: $gray-cool-10;
+    fill: none;
+    background-color: transparent;
+    display: block;
+    &:hover {
+        color: $gray-cool-5;
+        background-color: transparent;
+    }
+
+    &:active {
+        color: $gray-cool-1;
+        background-color: transparent;
+    }
+
+    &:focus {
+        color: $gray-cool-10;
+        background-color: transparent;
+    }
+
+    &:disabled {
+        color: $gray-cool-10;
+        opacity: 0.5;
+        background-color: transparent;
+    }
+}
+
 .button-type__inline-light {
     background-color: transparent;
     border-radius: none;
@@ -456,61 +577,4 @@
             opacity: 0.5;
         }
     }
-}
-
-.button__sm {
-    height: 32px;
-    border-radius: 3px;
-    font-size: rem(14);
-    font-weight: $font-semibold;
-    padding: 0 12px;
-    vertical-align: middle;
-    align-items: center;
-    display: flex;
-
-    svg {
-        width: 16px;
-        height: 16px;
-    }
-}
-
-.button__md {
-    height: 40px;
-    border-radius: 4px;
-    font-size: rem(16);
-    font-weight: $font-semibold;
-    padding: 0 16px;
-    vertical-align: middle;
-    align-items: center;
-    display: flex;
-
-    svg {
-        width: 24px;
-        height: 24px;
-    }
-}
-
-.button__lg {
-    height: 56px;
-    border-radius: 6px;
-    font-size: rem(20);
-    font-weight: $font-semibold;
-    padding: 0 24px;
-    vertical-align: middle;
-    align-items: center;
-    display: flex;
-
-    svg {
-        width: 32px;
-        height: 32px;
-    }
-}
-
-.button-text__left-align {
-    text-align: left;
-    display: flex;
-}
-
-.button-text__center-align {
-    text-align: center;
 }
