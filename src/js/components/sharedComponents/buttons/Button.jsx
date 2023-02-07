@@ -147,6 +147,11 @@ const Button = (props) => {
             <button className={classNameList} tabIndex="0" onClick={props.onClick}><div className="stacked-button__only-image">{props.image}</div><div className="stacked-button__only-text">{props.copy}</div></button>
         );
     }
+    else if (classNameList.includes('icon-light') || classNameList.includes('icon-dark')) {
+        return (
+            <button className={classNameList} tabIndex="0" onClick={props.onClick}>{props.image}</button>
+        );
+    }
     return (
         <button className={classNameList} tabIndex="0" onClick={props.onClick}>{props.copy}</button>
     );

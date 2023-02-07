@@ -578,3 +578,54 @@
         }
     }
 }
+
+.button-type__icon-light {
+    color: $blue-50;
+    background-color: transparent;
+    
+    &:hover {
+        color: $blue-70v;
+        background-color: transparent;
+    }
+
+    &:active {
+        color: $blue-cool-80v;
+        background-color: transparent;
+    }
+
+    &:focus {
+        color: $blue-50;
+        background-color: transparent;
+    }
+
+    &:disabled {
+        color: $blue-50;
+        background-color: transparent;
+        opacity: 0.5;
+    }
+}
+.button-type__icon-dark {
+    color: $gray-cool-10;
+    fill: none;
+    background-color: transparent;
+    &:hover {
+        color: $gray-cool-5;
+        background-color: transparent;
+    }
+
+    &:active {
+        color: $gray-cool-1;
+        background-color: transparent;
+    }
+
+    &:focus {
+        color: $gray-cool-10;
+        background-color: transparent;
+    }
+
+    &:disabled {
+        color: $gray-cool-10;
+        opacity: 0.5;
+        background-color: transparent;
+    }
+}
