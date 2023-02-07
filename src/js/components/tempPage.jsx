@@ -219,6 +219,16 @@ const tempPage = () => {
                         <Button buttonSize="md" buttonType="icon" backgroundColor="dark" image={<FontAwesomeIcon icon="share-alt" />} />
                         <Button buttonSize="lg" buttonType="icon" backgroundColor="dark" image={<FontAwesomeIcon icon="share-alt" />} />
                     </FlexGridRow>
+                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
+                        <Button buttonSize="sm" buttonType="inline" backgroundColor="light" image={<FontAwesomeIcon icon="share-alt" />} />
+                        <Button buttonSize="md" buttonType="inline" backgroundColor="light" image={<FontAwesomeIcon icon="share-alt" />} />
+                        <Button buttonSize="lg" buttonType="inline" backgroundColor="light" image={<FontAwesomeIcon icon="share-alt" />} />
+                    </FlexGridRow>
+                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
+                        <Button buttonSize="sm" buttonType="intext" backgroundColor="light" image={<FontAwesomeIcon icon="share-alt" />} />
+                        <Button buttonSize="md" buttonType="intext" backgroundColor="light" image={<FontAwesomeIcon icon="share-alt" />} />
+                        <Button buttonSize="lg" buttonType="intext" backgroundColor="light" image={<FontAwesomeIcon icon="share-alt" />} />
+                    </FlexGridRow>
                 </main>
             </PageWrapper>
         </FeatureFlag>
