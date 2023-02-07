@@ -143,14 +143,12 @@ const Button = (props) => {
         classNameList += ' button-text__center-align ';
     }
 
-    console.debug(classNameList);
     // ANY ADDITIONAL CLASS NAMES
     if (!props.additionalClassnames?.empty() && props.additionalClassnames !== null && props.additionalClassnames !== undefined) {
         classNameList += ' ';
         classNameList += props.additionalClassnames;
     }
 
-    console.debug("after: ", classNameList);
     if (classNameList.includes('button-type__intext-light')) {
         return (
             <a className={classNameList} role="link" tabIndex="0" onKeyUp={props.onKeyUp} onClick={props.onClick}>{props.copy}</a>
