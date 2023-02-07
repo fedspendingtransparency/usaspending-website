@@ -134,7 +134,29 @@ const tempPage = () => {
                         </FlexGridCol>
                     </FlexGridRow>
                     <h1>New Button Variants</h1>
-                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32}>
+                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
+                        <Button copy="TEST" buttonSize="sm" buttonType="primary" backgroundColor="light" />
+                        <Button copy="TEST" buttonSize="md" buttonType="primary" backgroundColor="light" />
+                        <Button copy="TEST" buttonSize="lg" buttonType="primary" backgroundColor="light" />
+                    </FlexGridRow>
+                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
+                        <Button copy="TEST" buttonSize="sm" buttonType="primaryIcon" backgroundColor="light" imageAlignment="left" image={<FontAwesomeIcon icon="share-alt" />} />
+                        <Button copy="TEST" buttonSize="md" buttonType="primaryIcon" backgroundColor="light" imageAlignment="left" image={<FontAwesomeIcon icon="share-alt" />} />
+                        <Button copy="TEST" buttonSize="lg" buttonType="primaryIcon" backgroundColor="light" imageAlignment="left" image={<FontAwesomeIcon icon="share-alt" />} />
+                    </FlexGridRow>
+                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
+                        <Button copy="TEST" buttonSize="sm" buttonType="secondary" backgroundColor="light" />
+                        <Button copy="TEST" buttonSize="md" buttonType="secondary" backgroundColor="light" />
+                        <Button copy="TEST" buttonSize="lg" buttonType="secondary" backgroundColor="light" />
+                    </FlexGridRow>
+                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
+                        <Button copy="TEST" buttonSize="sm" buttonType="secondary" backgroundColor="dark" />
+                        <Button copy="TEST" buttonSize="md" buttonType="secondary" backgroundColor="dark" />
+                        <Button copy="TEST" buttonSize="lg" buttonType="secondary" backgroundColor="dark" />
+                    </FlexGridRow>
+                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
+                        <Button copy="TEST" buttonSize="sm" buttonType="secondaryIcon" backgroundColor="dark" imageAlignment="left" image={<FontAwesomeIcon icon="share-alt" />} />
+                        <Button copy="TEST" buttonSize="md" buttonType="secondaryIcon" backgroundColor="dark" imageAlignment="left" image={<FontAwesomeIcon icon="share-alt" />} />
                         <Button copy="TEST" buttonSize="lg" buttonType="secondaryIcon" backgroundColor="dark" imageAlignment="left" image={<FontAwesomeIcon icon="share-alt" />} />
                     </FlexGridRow>
                 </main>
