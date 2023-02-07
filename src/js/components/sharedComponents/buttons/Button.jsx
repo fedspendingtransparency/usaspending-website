@@ -68,7 +68,7 @@ const Button = (props) => {
             }
         }
     }
-    // TERTIARY LIGHT and ICON LEFT LIGHT
+    // TERTIARY
     else if (props.buttonType === "tertiary") {
         classNameList += ' button-type__tertiary-light ';
     }
