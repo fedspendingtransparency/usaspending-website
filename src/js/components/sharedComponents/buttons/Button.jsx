@@ -126,7 +126,9 @@ const Button = (props) => {
     }
     // INLINE LIGHT
     else if (props.buttonType === "inline") {
-        classNameList += ' button-type__inline-light ';
+        if (props.imageAlignment === "right") {
+            classNameList += ' button-type__inline-right-icon-light ';
+        }
     }
     // INTEXT LIGHT
     else if (props.buttonType === "intext") {

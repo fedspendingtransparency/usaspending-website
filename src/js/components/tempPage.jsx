@@ -220,14 +220,14 @@ const tempPage = () => {
                         <Button buttonSize="lg" buttonType="icon" backgroundColor="dark" image={<FontAwesomeIcon icon="share-alt" />} />
                     </FlexGridRow>
                     <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
-                        <Button buttonSize="sm" buttonType="inline" backgroundColor="light" image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button buttonSize="md" buttonType="inline" backgroundColor="light" image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button buttonSize="lg" buttonType="inline" backgroundColor="light" image={<FontAwesomeIcon icon="share-alt" />} />
+                        <Button copy="what" buttonSize="sm" buttonType="inline" backgroundColor="light" imageAlignment="right" image={<FontAwesomeIcon icon="share-alt" />} />
+                        <Button copy="what" buttonSize="md" buttonType="inline" backgroundColor="light" imageAlignment="right" image={<FontAwesomeIcon icon="share-alt" />} />
+                        <Button copy="what" buttonSize="lg" buttonType="inline" backgroundColor="light" imageAlignment="right" image={<FontAwesomeIcon icon="share-alt" />} />
                     </FlexGridRow>
                     <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
-                        <Button buttonSize="sm" buttonType="intext" backgroundColor="light" image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button buttonSize="md" buttonType="intext" backgroundColor="light" image={<FontAwesomeIcon icon="share-alt" />} />
-                        <Button buttonSize="lg" buttonType="intext" backgroundColor="light" image={<FontAwesomeIcon icon="share-alt" />} />
+                        <Button copy="hello" buttonSize="sm" buttonType="intext" backgroundColor="light" />
+                        <Button copy="hello" buttonSize="md" buttonType="intext" backgroundColor="light" />
+                        <Button copy="hello" buttonSize="lg" buttonType="intext" backgroundColor="light" />
                     </FlexGridRow>
                 </main>
             </PageWrapper>

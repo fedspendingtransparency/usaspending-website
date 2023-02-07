@@ -546,7 +546,7 @@
     }
 }
 
-.button-type__inline-light {
+.button-type__inline-right-icon-light {
     background-color: transparent;
     border-radius: none;
     font-weight: $font-semibold;
@@ -558,6 +558,7 @@
 
     svg {
         color: $gray-cool-60;
+        margin-left:4px;
     }
 
     &:hover {
@@ -598,7 +599,24 @@
         }
     }
 }
-
+.button__lg.button-type__inline-right-icon-light {
+    svg {
+        width: 20px;
+        height: 20px;
+    }
+}
+.button__md.button-type__inline-right-icon-light {
+    svg {
+        width: 16px;
+        height: 16px;
+    }
+}
+.button__sm.button-type__inline-right-icon-light {
+    svg {
+        width: 14px;
+        height: 14px;
+    }
+}
 .button-type__icon-light {
     color: $blue-50;
     background-color: transparent;
