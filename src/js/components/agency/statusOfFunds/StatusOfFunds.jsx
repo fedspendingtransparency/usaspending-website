@@ -50,6 +50,8 @@ const StatusOfFunds = ({ fy }) => {
     // TODO this should probably go in redux
     const [selectedSubcomponent, setSelectedSubcomponent] = useState();
     const [federalAccountList, setFederalAccountList] = useState();
+    const [selectedTas, setSelectedTas] = useState();
+    const [selectedProgramActivity, setSelectedProgramActivity] = useState();
     const [drilldownSelection, setDrilldownSelection] = useState({});
     const [selectedDrilldownList, setSelectedDrilldownList] = useState([]);
 
@@ -182,6 +184,7 @@ const StatusOfFunds = ({ fy }) => {
                 // eslint-disable-next-line no-param-reassign,no-return-assign
                 parsedData.map((item) => item.name = item.id);
                 setResults(paginatedTasList(parsedData));
+                setSelectedTas(federalAccountData);
                 setFederalAccountList(parsedData);
                 setDrilldownSelection(totalsData);
                 setTotalItems(parsedData.length);
@@ -224,11 +227,10 @@ const StatusOfFunds = ({ fy }) => {
 
                 setLevel(3);
                 setResults(parsedData);
+                setSelectedProgramActivity(tasData);
                 setFederalAccountList(parsedData);
                 setTotalItems(res.data.page_metadata.total);
-
                 setDrilldownSelection(totalsData);
-
                 setLoading(false);
             }).catch((err) => {
                 setError(true);
@@ -252,8 +254,10 @@ const StatusOfFunds = ({ fy }) => {
                 setResults(paginatedTasList(federalAccountList));
             }
             // todo - this may not be right
+            // this controls the pagination in the chart at that level
             if (prevPage !== currentPage && level === 3) {
-                fetchProgramActivity(drilldownSelection);
+                // setResults(selectedProgramActivity);
+                fetchProgramActivity(selectedProgramActivity);
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -305,26 +309,49 @@ const StatusOfFunds = ({ fy }) => {
         setResults(subcomponentTotalData);
     };
 
+    // const goBack = () => {
+    //     console.log('goBack fn, overview', overview);
+    //     if (overview.toptierCode) {
+    //         console.log('toptierCode if block', level);
+    //         if (level === 3) {
+    //             console.log('if level === 3', selectedTas);
+    //             setLevel(2);
+    //             // setResults(selectedTas);
+    //             fetchTas(selectedTas);
+    //         }
+    //         if (level === 2) {
+    //             setLevel(1);
+    //             fetchFederalAccounts(selectedSubcomponent);
+    //         }
+    //         else {
+    //             setLevel(0);
+    //             fetchAgencySubcomponents();
+    //         }
+    //
+    //         // todo - look into changing the order of these to be more efficient
+    //         if (currentPage === 1) {
+    //             setResetPageChange(false);
+    //         }
+    //         else {
+    //             changeCurrentPage(1);
+    //         }
+    //     }
+    // };
+
     const goBack = () => {
         if (overview.toptierCode) {
-            if (level === 3) {
-                setLevel(2);
-                // todo - problem here
-                // fetchTas(paginatedTasList(federalAccountList));
-                setResults(paginatedTasList(federalAccountList));
+            if (level === 1) {
+                setLevel(0);
+                fetchAgencySubcomponents();
             }
             if (level === 2) {
                 setLevel(1);
                 fetchFederalAccounts(selectedSubcomponent);
             }
-            else {
-                setLevel(0);
-                fetchAgencySubcomponents();
-            }
-
-            // todo - look into changing the order of these to be more efficient
-            if (currentPage === 1) {
-                setResetPageChange(false);
+            if (level === 3) {
+                setLevel(2);
+                // setResults(selectedTas);
+                fetchTas(selectedTas);
             }
             else {
                 changeCurrentPage(1);
