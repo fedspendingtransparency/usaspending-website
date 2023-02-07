@@ -151,7 +151,8 @@
     }
 }
 
-.button-type__tertiary-light {
+.button-type__tertiary-light, 
+.button-type__tertiary-left-icon-light {
     border-radius: 6px;
     border: solid 1px $gray-cool-10;
     background-color: transparent;
@@ -180,6 +181,10 @@
         border: solid 1px #d6d7d9;
         background-color: transparent;
         opacity: 0.5;
+    }
+
+    svg {
+        margin-right: 8px;
     }
 }
 

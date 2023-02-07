@@ -9,13 +9,14 @@ import PropTypes from "prop-types";
 const propTypes = {
     buttonSize: PropTypes.oneOf(['large', 'medium', 'small', 'lg', 'md', 'sm']).isRequired,
     backgroundColor: PropTypes.oneOf(['light', 'dark']).isRequired,
-    buttonType: PropTypes.oneOf(['primary', 'primaryIcon', 'secondary', 'secondaryIcon', 'tertiary', 'text', 'stacked', 'icon', 'inline', 'intext']).isRequired,
+    buttonType: PropTypes.oneOf(['primary', 'primaryIcon', 'secondary', 'secondaryIcon', 'tertiary', 'tertiaryIcon', 'text', 'stacked', 'icon', 'inline', 'intext']).isRequired,
     copy: PropTypes.string.isRequired,
     image: PropTypes.element,
     textAlignment: PropTypes.oneOf(['left', 'center']),
     imageAlignment: PropTypes.oneOf(['left', 'right']),
     additionalClassnames: PropTypes.string,
-    onClick: PropTypes.func
+    onClick: PropTypes.func,
+    onKeyUp: PropTypes.func
 };
 
 const Button = (props) => {
@@ -67,9 +68,17 @@ const Button = (props) => {
             }
         }
     }
-    // TERTIARY LIGHT
+    // TERTIARY LIGHT and ICON LEFT LIGHT
     else if (props.buttonType === "tertiary") {
         classNameList += ' button-type__tertiary-light ';
+    }
+    // TERTIARY LIGHT and ICON LEFT LIGHT
+    else if (props.buttonType === "tertiaryIcon") {
+        if (props.imageAlignment === 'left') {
+            if (props.backgroundColor === 'light') {
+                classNameList += ' button-type__tertiary-left-icon-light ';
+            }
+        }
     }
     // TEXT LIGHT LEFT/RIGHT/NO ICON
     // TEXT DARK LEFT/RIGHT/NO ICON
@@ -140,7 +149,12 @@ const Button = (props) => {
     }
 
     console.debug("after: ", classNameList);
-    if (classNameList.includes('left-icon')) {
+    if (classNameList.includes('button-type__intext-light')) {
+        return (
+            <a className={classNameList} role="link" tabIndex="0" onKeyUp={props.onKeyUp} onClick={props.onClick}>{props.copy}</a>
+        );
+    }
+    else if (classNameList.includes('left-icon')) {
         return (
             <button className={classNameList} tabIndex="0" onClick={props.onClick}>{props.image}{props.copy}</button>
         );
