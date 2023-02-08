@@ -4,14 +4,23 @@
  */
 
 import React from 'react';
-import ExternalLink from 'components/sharedComponents/ExternalLink';
 
 const opicNote = (
     <>
         On January 2nd, 2020, OPIC was replaced by DFC (source:&nbsp;
-        <ExternalLink url="https://www.dfc.gov/media/press-releases/us-international-development-finance-corporation-begins-operations" />
+        <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://www.dfc.gov/media/press-releases/us-international-development-finance-corporation-begins-operations" >
+            https://www.dfc.gov/media/press-releases/us-international-development-finance-corporation-begins-operations
+        </a>
         ). In addition to absorbing OPIC, DFC also combined aspects of USAID,  including chiefly its Development Credit Authority (DCA) (source:&nbsp;
-        <ExternalLink url="https://www.congress.gov/115/plaws/publ254/PLAW-115publ254.pdf" />
+        <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://www.congress.gov/115/plaws/publ254/PLAW-115publ254.pdf" >
+                https://www.congress.gov/115/plaws/publ254/PLAW-115publ254.pdf
+        </a>
         &nbsp;pg 29). For DATA Act reporting purposes, DFC continued to report as OPIC until its last submission in FY20Q4, and began to include the full set of DFC TAS in FY20Q3. DFC's first submission as DFC was in FY21Q1.
     </>
 );
