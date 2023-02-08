@@ -16,7 +16,8 @@ const propTypes = {
     imageAlignment: PropTypes.oneOf(['left', 'right']),
     additionalClassnames: PropTypes.string,
     onClick: PropTypes.func,
-    onKeyUp: PropTypes.func
+    onKeyUp: PropTypes.func,
+    buttonTitle: PropTypes.string.isRequired
 };
 
 const Button = (props) => {
@@ -151,31 +152,31 @@ const Button = (props) => {
 
     if (classNameList.includes('button-type__intext-light')) {
         return (
-            <a className={classNameList} role="link" tabIndex="0" onKeyUp={props.onKeyUp} onClick={props.onClick}>{props.copy}</a>
+            <a aria-label={props.buttonTitle} className={classNameList} role="link" tabIndex="0" onKeyUp={props.onKeyUp} onClick={props.onClick}>{props.copy}</a>
         );
     }
     else if (classNameList.includes('left-icon')) {
         return (
-            <button className={classNameList} tabIndex="0" onClick={props.onClick}>{props.image}{props.copy}</button>
+            <button aria-label={props.buttonTitle} className={classNameList} tabIndex="0" onClick={props.onClick}>{props.image}{props.copy}</button>
         );
     }
     else if (classNameList.includes('right-icon')) {
         return (
-            <button className={classNameList} tabIndex="0" onClick={props.onClick}>{props.copy}{props.image}</button>
+            <button aria-label={props.buttonTitle} className={classNameList} tabIndex="0" onClick={props.onClick}>{props.copy}{props.image}</button>
         );
     }
     else if (classNameList.includes('stacked-icon')) {
         return (
-            <button className={classNameList} tabIndex="0" onClick={props.onClick}><div className="stacked-button__only-image">{props.image}</div><div className="stacked-button__only-text">{props.copy}</div></button>
+            <button aria-label={props.buttonTitle} className={classNameList} tabIndex="0" onClick={props.onClick}><div className="stacked-button__only-image">{props.image}</div><div className="stacked-button__only-text">{props.copy}</div></button>
         );
     }
     else if (classNameList.includes('icon-light') || classNameList.includes('icon-dark')) {
         return (
-            <button className={classNameList} tabIndex="0" onClick={props.onClick}>{props.image}</button>
+            <button aria-label={props.buttonTitle} className={classNameList} tabIndex="0" onClick={props.onClick}>{props.image}</button>
         );
     }
     return (
-        <button className={classNameList} tabIndex="0" onClick={props.onClick}>{props.copy}</button>
+        <button aria-label={props.buttonTitle} className={classNameList} tabIndex="0" onClick={props.onClick}>{props.copy}</button>
     );
 };
 
