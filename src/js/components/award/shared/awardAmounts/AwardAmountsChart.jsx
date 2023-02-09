@@ -126,6 +126,7 @@ const getAwardObligatedValue = (data, awardType, fileCType) => {
 
 // Only for Contract and IDV Awards
 const buildNormalProps = (awardType, data, hasfilecCovid, hasOutlays, fileCType) => {
+    console.debug("build normal props: ", awardType, data, hasfilecCovid, hasOutlays, fileCType);
     const chartProps = {
         denominator: {
             labelSortOrder: 3,
@@ -222,7 +223,7 @@ const buildNormalProps = (awardType, data, hasfilecCovid, hasOutlays, fileCType)
             ]
         }
     };
-    if (hasfilecCovid || fileCType === "infrastructure" || hasOutlays) return chartPropsOutlays;
+    if (hasfilecCovid || fileCType === "infrastructure" || hasOutlays || awardType === "grant" || awardType === "direct payment" || awardType === "other" || awardType === "insurance") return chartPropsOutlays;
     return chartProps;
 };
 
@@ -678,14 +679,15 @@ const AwardAmountsChart = ({
                     }
                 ];
             }
+            console.debug(showFilecCovid);
             if ((hasOutlays || hasInfrastructure) && !showFilecCovid) {
                 return (
                     <HorizontalSingleStackedBarViz {...chartPropsOutlays} />
                 );
             }
-
+            console.debug(chartProps, chartPropsOutlays);
             return (
-                <RectanglePercentViz {...chartProps} />
+                <HorizontalSingleStackedBarViz {...chartPropsOutlays} />
             );
         }
         else if (type === 'loan' && isNormal) {
