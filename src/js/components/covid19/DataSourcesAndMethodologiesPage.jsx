@@ -23,7 +23,6 @@ import {
 import { useDefCodes } from 'containers/covid19/WithDefCodes';
 import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
-import ExternalLink from 'components/sharedComponents/ExternalLink';
 
 const getEmailSocialShareData = {
     subject: "COVID-19 Spending: Data Sources and Methodology",
@@ -469,10 +468,12 @@ export default () => {
                                     <div className="about-section-content">
                                         <p>
                                             In accordance with the Office of Management and Budget (OMB)
-                                            <ExternalLink
-                                                url="https://www.whitehouse.gov/wp-content/uploads/2020/04/Implementation-Guidance-for-Supplemental-Funding-Provided-in-Response.pdf">
+                                            <a
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                                href="https://www.whitehouse.gov/wp-content/uploads/2020/04/Implementation-Guidance-for-Supplemental-Funding-Provided-in-Response.pdf">
                                                 Memorandum M-20-21
-                                            </ExternalLink>, <strong>COVID-19 supplemental appropriations are identified by a Disaster Emergency Fund Code (DEFC)</strong>. The COVID-19 Spending profile page download is pre-filtered to include only spending data associated with COVID-19 DEFC values. If you use the <Link to="/download_center/custom_account_data">Custom Account Data</Link> page to download Broker File C data, be sure to filter for rows with DEFC values {getDefCValues(errorMsg, isLoading, covidDefCodes)} in the downloaded file.
+                                            </a>, <strong>COVID-19 supplemental appropriations are identified by a Disaster Emergency Fund Code (DEFC)</strong>. The COVID-19 Spending profile page download is pre-filtered to include only spending data associated with COVID-19 DEFC values. If you use the <Link to="/download_center/custom_account_data">Custom Account Data</Link> page to download Broker File C data, be sure to filter for rows with DEFC values {getDefCValues(errorMsg, isLoading, covidDefCodes)} in the downloaded file.
                                         </p>
                                         <p>
                                             Note that the <strong>National Interest Action (NIA)</strong> code is also used to track COVID-19 spending. However, it only applies to procurement actions (i.e., contracts) and is not necessarily tied to COVID-19 supplemental appropriations. Thus, awards with the COVID-19 NIA value may not have a COVID-19 DEFC value, and vice versa.
@@ -505,7 +506,7 @@ export default () => {
                                     <div className="about-section-content">
                                         <p>
                                             All calculations in this section can be recreated from the “Disaster and Emergency Funding Tracking SF-133 Report on Budget Execution & Budgetary Resources” Files on
-                                            <ExternalLink url="https://portal.max.gov/portal/document/SF133/Budget/FACTS II - SF 133 Report on Budget Execution and Budgetary Resources.html">this</ExternalLink>
+                                            <a target="_blank" rel="noopener noreferrer" href="https://portal.max.gov/portal/document/SF133/Budget/FACTS II - SF 133 Report on Budget Execution and Budgetary Resources.html">this</a>
                                             page.
                                         </p>
                                         <p>
@@ -514,7 +515,7 @@ export default () => {
                                         <ul>
                                             <li>
                                                 Locate the Disaster and Emergency Funding Tracking SF-133 Report on Budget Execution & Budgetary Resources on
-                                                <ExternalLink url="https://portal.max.gov/portal/document/SF133/Budget/FACTS II - SF 133 Report on Budget Execution and Budgetary Resources.html">this</ExternalLink>
+                                                <a target="_blank" rel="noopener noreferrer" href="https://portal.max.gov/portal/document/SF133/Budget/FACTS II - SF 133 Report on Budget Execution and Budgetary Resources.html">this</a>
                                                 page for all Fiscal Years back to FY20
                                             </li>
                                             <li>
@@ -554,7 +555,7 @@ export default () => {
                                         <ul>
                                             <li>
                                                 Locate the Disaster and Emergency Funding Tracking SF-133 Report on Budget Execution & Budgetary Resources on
-                                                <ExternalLink url="https://portal.max.gov/portal/document/SF133/Budget/FACTS II - SF 133 Report on Budget Execution and Budgetary Resources.html">this</ExternalLink>
+                                                <a target="_blank" rel="noopener noreferrer" href="https://portal.max.gov/portal/document/SF133/Budget/FACTS II - SF 133 Report on Budget Execution and Budgetary Resources.html">this</a>
                                                 page for all Fiscal Years back to FY20
                                             </li>
                                             <li>
@@ -578,7 +579,7 @@ export default () => {
                                         <ul>
                                             <li>
                                                 Locate the Disaster and Emergency Funding Tracking SF-133 Report on Budget Execution & Budgetary Resources on
-                                                <ExternalLink url="https://portal.max.gov/portal/document/SF133/Budget/FACTS II - SF 133 Report on Budget Execution and Budgetary Resources.html">this</ExternalLink>
+                                                <a target="_blank" rel="noopener noreferrer" href="https://portal.max.gov/portal/document/SF133/Budget/FACTS II - SF 133 Report on Budget Execution and Budgetary Resources.html">this</a>
                                                 page for all Fiscal Years back to FY20
                                             </li>
                                             <li>
@@ -605,7 +606,7 @@ export default () => {
                                     <div className="about-section-content">
                                         <p>
                                             All high-level, boxed calculations in this section can be recreated using the &quot;Disaster and Emergency Funding Tracking SF-133 Report on Budget Execution & Budgetary Resources&quot; Files on
-                                            <ExternalLink url="https://portal.max.gov/portal/document/SF133/Budget/FACTS II - SF 133 Report on Budget Execution and Budgetary Resources.html">this</ExternalLink>
+                                            <a target="_blank" rel="noopener noreferrer" href="https://portal.max.gov/portal/document/SF133/Budget/FACTS II - SF 133 Report on Budget Execution and Budgetary Resources.html">this</a>
                                             page and the &quot;Account Breakdown&quot; files in the COVID-19 Spending profile page download. <strong>These four amounts remain constant regardless of any spending type selection in the dropdown.</strong>
                                         </p>
                                         <p>When the “Total Spending” dropdown is selected in this section, you will see a row for “unreported” data as the last row of the table. The “unreported” data row displays the difference between the high-level, boxed figure above the table versus the sum of all the rows in the table itself. The reason why a difference exists between the high-level figure and the sum of the table rows is because these data come from different systems with different reporting requirements, timing, and practical execution by submitting agencies. As mentioned at the beginning of this section, the high-level figures come from SF-133, whereas the table rows come from agency-submitted data to USAspending.gov (specifically File B).</p>
