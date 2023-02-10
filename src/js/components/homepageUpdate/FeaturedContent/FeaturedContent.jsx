@@ -4,14 +4,10 @@
  */
 
 import React from 'react';
-import { FlexGridCol } from 'data-transparency-ui';
+import { FlexGridCol, CardContainer, CardHero, CardBody } from 'data-transparency-ui';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import Analytics from 'helpers/analytics/Analytics';
-import CardContainer from "../../sharedComponents/commonCards/CardContainer";
-import CardHero from "../../sharedComponents/commonCards/CardHero";
-import CardBody from "../../sharedComponents/commonCards/CardBody";
-
 
 const FeaturedContent = () => {
     const trackFeaturedCovidLink = () => Analytics.event({
