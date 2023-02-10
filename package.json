@@ -139,7 +139,8 @@
     "**/validator": "13.7.0",
     "got": "11.8.5",
     "**/got": "11.8.5",
-    "json5": "2.2.3"
+    "json5": "2.2.3",
+    "http-cache-semantic": "4.1.1"
   },
   "dependencies": {
     "@babel/eslint-parser": "^7.17.0",
