@@ -140,6 +140,14 @@ const tempPage = () => {
                         <Button copy="TEST" buttonTitle="TEST" buttonSize="lg" buttonType="primary" backgroundColor="light" />
                     </FlexGridRow>
                     <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
+                        <Button copy="This is an example of wrapping button text yayyyyyyy" buttonTitle="TEST" buttonSize="lg" buttonType="primary" backgroundColor="light" />
+                    </FlexGridRow>
+                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
+                        <Button copy="TEST" buttonTitle="TEST" buttonSize="sm" buttonType="primary" backgroundColor="light" disabled />
+                        <Button copy="TEST" buttonTitle="TEST" buttonSize="md" buttonType="primary" backgroundColor="light" disabled />
+                        <Button copy="TEST" buttonTitle="TEST" buttonSize="lg" buttonType="primary" backgroundColor="light" disabled />
+                    </FlexGridRow>
+                    <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
                         <Button copy="TEST" buttonTitle="TEST" buttonSize="sm" buttonType="primaryIcon" backgroundColor="light" imageAlignment="left" image={<FontAwesomeIcon icon="share-alt" />} />
                         <Button copy="TEST" buttonTitle="TEST" buttonSize="md" buttonType="primaryIcon" backgroundColor="light" imageAlignment="left" image={<FontAwesomeIcon icon="share-alt" />} />
                         <Button copy="TEST" buttonTitle="TEST" buttonSize="lg" buttonType="primaryIcon" backgroundColor="light" imageAlignment="left" image={<FontAwesomeIcon icon="share-alt" />} />

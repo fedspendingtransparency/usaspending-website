@@ -17,7 +17,8 @@ const propTypes = {
     additionalClassnames: PropTypes.string,
     onClick: PropTypes.func,
     onKeyUp: PropTypes.func,
-    buttonTitle: PropTypes.string.isRequired
+    buttonTitle: PropTypes.string.isRequired,
+    disabled: PropTypes.bool
 };
 
 const Button = (props) => {
@@ -152,31 +153,31 @@ const Button = (props) => {
 
     if (classNameList.includes('button-type__intext-light')) {
         return (
-            <a aria-label={props.buttonTitle} className={classNameList} role="link" tabIndex="0" onKeyUp={props.onKeyUp} onClick={props.onClick}>{props.copy}</a>
+            <a aria-label={props.buttonTitle} className={classNameList} role="link" tabIndex="0" onKeyUp={props.onKeyUp} onClick={props.onClick} disabled={props.disabled}>{props.copy}</a>
         );
     }
     else if (classNameList.includes('left-icon')) {
         return (
-            <button aria-label={props.buttonTitle} className={classNameList} tabIndex="0" onClick={props.onClick}>{props.image}{props.copy}</button>
+            <button aria-label={props.buttonTitle} className={classNameList} tabIndex="0" onClick={props.onClick} disabled={props.disabled}>{props.image}{props.copy}</button>
         );
     }
     else if (classNameList.includes('right-icon')) {
         return (
-            <button aria-label={props.buttonTitle} className={classNameList} tabIndex="0" onClick={props.onClick}>{props.copy}{props.image}</button>
+            <button aria-label={props.buttonTitle} className={classNameList} tabIndex="0" onClick={props.onClick} disabled={props.disabled}>{props.copy}{props.image}</button>
         );
     }
     else if (classNameList.includes('stacked-icon')) {
         return (
-            <button aria-label={props.buttonTitle} className={classNameList} tabIndex="0" onClick={props.onClick}><div className="stacked-button__only-image">{props.image}</div><div className="stacked-button__only-text">{props.copy}</div></button>
+            <button aria-label={props.buttonTitle} className={classNameList} tabIndex="0" onClick={props.onClick} disabled={props.disabled}><div className="stacked-button__only-image">{props.image}</div><div className="stacked-button__only-text">{props.copy}</div></button>
         );
     }
     else if (classNameList.includes('icon-light') || classNameList.includes('icon-dark')) {
         return (
-            <button aria-label={props.buttonTitle} className={classNameList} tabIndex="0" onClick={props.onClick}>{props.image}</button>
+            <button aria-label={props.buttonTitle} className={classNameList} tabIndex="0" onClick={props.onClick} disabled={props.disabled}>{props.image}</button>
         );
     }
     return (
-        <button aria-label={props.buttonTitle} className={classNameList} tabIndex="0" onClick={props.onClick}>{props.copy}</button>
+        <button aria-label={props.buttonTitle} className={classNameList} tabIndex="0" onClick={props.onClick} disabled={props.disabled}>{props.copy}</button>
     );
 };
 
