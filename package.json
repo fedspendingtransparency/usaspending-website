@@ -129,7 +129,7 @@
     "webpack-merge": "^4.1.0"
   },
   "resolutions": {
-    "trim-newlines": "3.0.1",
+    "trim-newlines": "4.0.2",
     "glob-parent": "6.0.2",
     "**/glob-parent": "6.0.2",
     "decode-uri-component": "0.2.2",
