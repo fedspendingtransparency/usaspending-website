@@ -140,7 +140,8 @@ const tempPage = () => {
                         <Button copy="TEST" buttonTitle="TEST" buttonSize="lg" buttonType="primary" backgroundColor="light" />
                     </FlexGridRow>
                     <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
-                        <Button copy="This is an example of wrapping button text yayyyyyyy" buttonTitle="TEST" buttonSize="lg" buttonType="primary" backgroundColor="light" />
+                        <Button copy="This is wrapping button text" buttonTitle="TEST" buttonSize="lg" buttonType="primary" backgroundColor="light" maxWidth="200px" textAlignment="center" />
+                        <Button copy="This is wrapping button text" buttonTitle="TEST" buttonSize="lg" buttonType="primary" backgroundColor="light" maxWidth="200px" textAlignment="left" />
                     </FlexGridRow>
                     <FlexGridRow width={3} desktop={3} hasGutter gutterSize={32} style={{ marginLeft: "16px" }}>
                         <Button copy="TEST" buttonTitle="TEST" buttonSize="sm" buttonType="primary" backgroundColor="light" disabled />
