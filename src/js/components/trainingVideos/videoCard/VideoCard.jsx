@@ -5,13 +5,10 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes, { oneOfType } from "prop-types";
-import { ShareIcon } from 'data-transparency-ui';
+import { ShareIcon, CardContainer, CardHero, CardBody } from 'data-transparency-ui';
 import { handleShareOptionClick } from 'helpers/socialShare';
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { throttle } from 'lodash';
-import CardContainer from "../../sharedComponents/commonCards/CardContainer";
-import CardHero from "../../sharedComponents/commonCards/CardHero";
-import CardBody from "../../sharedComponents/commonCards/CardBody";
 import VideoThumbnail from "../videoThumbnails/VideoThumbnail";
 
 const propTypes = {

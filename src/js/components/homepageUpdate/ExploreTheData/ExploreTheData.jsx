@@ -5,11 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
-import CardContainer from "../../sharedComponents/commonCards/CardContainer";
-import CardHero from "../../sharedComponents/commonCards/CardHero";
-import CardBody from "../../sharedComponents/commonCards/CardBody";
-import CardButton from "../../sharedComponents/commonCards/CardButton";
+import { FlexGridRow, FlexGridCol, CardContainer, CardHero, CardBody, CardButton } from 'data-transparency-ui';
 
 const propTypes = {
     title: PropTypes.string,
