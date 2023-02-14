@@ -37,6 +37,7 @@ import {
 import { Filter as FilterIcon } from 'components/sharedComponents/icons/Icons';
 import FilterSidebar from 'components/sharedComponents/filterSidebar/FilterSidebar';
 import * as SidebarHelper from 'helpers/sidebarHelper';
+import KeywordSearchContainer from "../../containers/search/filters/recipient/KeywordSearchContainer";
 
 const staticFilters = {
     // NOTE: if you update the title here
@@ -106,6 +107,7 @@ const staticFilters = {
         ProgramSourceContainer,
         LocationSectionContainer,
         RecipientSearchContainer,
+        KeywordSearchContainer,
         RecipientTypeContainer,
         AwardAmountSearchContainer,
         AwardIDSearchContainer,
