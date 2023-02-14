@@ -56,6 +56,7 @@ const getAwardTypeText = (awardType, amountType, fileCType) => {
 // TODO: Address with continued award chart refactor
 const getAwardColor = (overallColor, infrastructureColor, fileCColor, fileCType) => {
     const fileCInfo = getfileCInfo(fileCType);
+
     if (fileCInfo?.codeType === "infrastructure") {
         return infrastructureColor;
     }
@@ -224,124 +225,7 @@ const buildNormalProps = (awardType, data, hasfilecCovid, hasOutlays, fileCType)
     if (hasfilecCovid || fileCType === "infrastructure" || hasOutlays || awardType === "grant" || awardType === "direct payment" || awardType === "other" || awardType === "insurance") return chartPropsOutlays;
     return chartProps;
 };
-const buildGrantDirectOtherProps = (awardType, data, hasfilecCovid, hasOutlays, fileCType) => {
-    const chartProps = {
-        denominator: {
-            labelSortOrder: 3,
-            labelPosition: 'bottom',
-            className: `${awardType}-potential`,
-            rawValue: data._baseAndAllOptions,
-            value: data.baseAndAllOptionsAbbreviated,
-            color: potentialColor,
-            lineOffset: lineOffsetsBySpendingCategory.potential,
-            text: () => {
-                if (awardType === "grant" || awardType === "direct payment" || awardType === "insurance" || awardType === "other") {
-                    return "Combined Potential Award Amounts";
-                }
-                return "Potential Award Amount";
-            },
-            tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'potential', data)
-        },
-        numerator: {
-            labelSortOrder: 1,
-            labelPosition: 'bottom',
-            className: `${awardType}-current`,
-            tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'current', data),
-            rawValue: data._baseExercisedOptions,
-            denominatorValue: data._baseAndAllOptions,
-            value: data.baseExercisedOptionsAbbreviated,
-            lineOffset: lineOffsetsBySpendingCategory.current,
-            text: () => {
-                if (awardType === "grant" || awardType === "direct payment" || awardType === "insurance" || awardType === "other") {
-                    return "Combined Current Award Amounts";
-                }
-                return "Current Award Amount";
-            },
-            color: currentColor,
-            children: [
-                {
-                    labelSortOrder: 0,
-                    labelPosition: 'top',
-                    className: `${awardType}-obligated`,
-                    rawValue: data._totalObligation,
-                    denominatorValue: data._baseExercisedOptions,
-                    value: data.totalObligationAbbreviated,
-                    text: () => {
-                        if (awardType === "grant" || awardType === "direct payment" || awardType === "insurance" || awardType === "other") {
-                            return "Combined Obligated Amounts";
-                        }
-                        return "Obligated Amount";
-                    },
-                    color: covidObligatedColor,
-                    tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'obligated', data),
-                    lineOffset: lineOffsetsBySpendingCategory.obligationProcurement
-                }
-            ]
-        }
-    };
-    const chartPropsOutlays = {
-        denominator: {
-            labelSortOrder: 3,
-            labelPosition: 'bottom',
-            className: `${awardType}-potential`,
-            rawValue: data._baseAndAllOptions,
-            value: data.baseAndAllOptionsAbbreviated,
-            color: getAwardColor(potentialColor, infrastructurePotentialColor, covidColor, fileCType),
-            lineOffset: lineOffsetsBySpendingCategory.potential,
-            text: () => {
-                if (awardType === "grant" || awardType === "direct payment" || awardType === "insurance" || awardType === "other") {
-                    return "Combined Potential Award Amounts";
-                }
-                return "Potential Award Amount";
-            }
-        },
-        // outlays numerator
-        numerator2: {
-            labelSortOrder: 0,
-            labelPosition: 'top',
-            className: `${awardType}-outlayed`,
-            rawValue: getAwardOutlayRawValue(data, awardType, fileCType),
-            value: getAwardOutlayValue(data, awardType, fileCType),
-            color: getAwardColor(outlayColor, infrastructureOutlayColor, covidColor, fileCType),
-            lineOffset: lineOffsetsBySpendingCategory.potential,
-            text: getAwardTypeText(awardType, "Outlayed", fileCType)
-        },
-        numerator: {
-            labelSortOrder: 2,
-            labelPosition: 'bottom',
-            className: `${awardType}-current`,
-            rawValue: data._baseExercisedOptions,
-            denominatorValue: data._baseAndAllOptions,
-            value: data.baseExercisedOptionsAbbreviated,
-            lineOffset: lineOffsetsBySpendingCategory.current,
-            text: () => {
-                if (awardType === "grant" || awardType === "direct payment" || awardType === "insurance" || awardType === "other") {
-                    return "Combined Current Award Amounts";
-                }
-                return "Current Award Amount";
-            },
-            color: getAwardColor(currentColor, infrastructureCurrentColor, covidColor, fileCType),
-            children: [
-                {
-                    labelSortOrder: 1,
-                    labelPosition: 'top',
-                    className: `${awardType}-obligated`,
-                    rawValue: getAwardObligatedRawValue(data, awardType, fileCType),
-                    denominatorValue: data._baseExercisedOptions,
-                    value: getAwardObligatedValue(data, awardType, fileCType),
-                    text: getAwardTypeText(awardType, "Obligated", fileCType),
-                    color: getAwardColor(obligatedColor, infrastructureObligatedColor, covidObligatedColor, fileCType),
-                    lineOffset: lineOffsetsBySpendingCategory.obligationProcurement
-                }
-            ]
-        }
-    };
 
-    if (hasfilecCovid || fileCType === "infrastructure" || hasOutlays || awardType === "grant" || awardType === "direct payment" || awardType === "other" || awardType === "insurance") {
-        return chartPropsOutlays;
-    }
-    return chartProps;
-};
 // Only for Contract and IDV Awards
 const buildExceedsCurrentProps = (awardType, data, hasfilecCovid) => {
     const chartProps = {
@@ -628,9 +512,7 @@ const AwardAmountsChart = ({
         const hasfilecCovid = fileCType === "covid";
         const infrastructure = fileCType === "infrastructure";
         const hasOutlays = awardOverview._combinedOutlay > 0 || awardOverview._totalOutlay > 0;
-        const isGrant = awardType === "grant";
-        const isDirectPayment = awardType === "direct payment";
-        const isOther = (awardType === "insurance" || awardType === "other");
+
         switch (scenario) {
             case "exceedsBigger": {
                 return (
@@ -646,10 +528,6 @@ const AwardAmountsChart = ({
                 if (hasOutlays || infrastructure || hasfilecCovid) {
                     return (
                         <HorizontalSingleStackedBarViz {...buildNormalProps(type, awardAmounts, hasfilecCovid, hasOutlays, fileCType)} />
-                    );
-                } else if (isGrant || isOther || isDirectPayment) {
-                    return (
-                        <HorizontalSingleStackedBarViz {...buildGrantDirectOtherProps(type, awardAmounts, hasfilecCovid, hasOutlays, fileCType)} />
                     );
                 }
                 return (
