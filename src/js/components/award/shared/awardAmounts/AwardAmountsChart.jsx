@@ -56,7 +56,7 @@ const getAwardTypeText = (awardType, amountType, fileCType) => {
 // TODO: Address with continued award chart refactor
 const getAwardColor = (overallColor, infrastructureColor, fileCColor, fileCType) => {
     const fileCInfo = getfileCInfo(fileCType);
-
+    console.debug("FILE C INFO: ", fileCInfo, overallColor, infrastructureColor, fileCColor);
     if (fileCInfo?.codeType === "infrastructure") {
         return infrastructureColor;
     }
@@ -226,7 +226,6 @@ const buildNormalProps = (awardType, data, hasfilecCovid, hasOutlays, fileCType)
     return chartProps;
 };
 const buildGrantDirectOtherProps = (awardType, data, hasfilecCovid, hasOutlays, fileCType) => {
-    console.debug("build grantdo props: ", awardType, data, hasfilecCovid, hasOutlays, fileCType);
     const chartProps = {
         denominator: {
             labelSortOrder: 3,
@@ -274,7 +273,7 @@ const buildGrantDirectOtherProps = (awardType, data, hasfilecCovid, hasOutlays, 
                         }
                         return "Obligated Amount";
                     },
-                    color: obligatedColor,
+                    color: covidObligatedColor,
                     tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'obligated', data),
                     lineOffset: lineOffsetsBySpendingCategory.obligationProcurement
                 }
@@ -340,7 +339,6 @@ const buildGrantDirectOtherProps = (awardType, data, hasfilecCovid, hasOutlays, 
     };
 
     if (hasfilecCovid || fileCType === "infrastructure" || hasOutlays || awardType === "grant" || awardType === "direct payment" || awardType === "other" || awardType === "insurance") {
-        console.debug("chart props outlays: ", chartPropsOutlays);
         return chartPropsOutlays;
     }
     return chartProps;
@@ -676,10 +674,9 @@ const AwardAmountsChart = ({
         const showFilecCovid = fileCType === "covid";
         const hasInfrastructure = fileCType === "infrastructure";
         const hasOutlays = awardAmounts._combinedOutlay > 0 || awardAmounts._totalOutlay > 0;
-
-        if (asstAwardTypesWithSimilarAwardAmountData.includes(type) && isNormal) {
+        console.debug("TYPE: ", type);
+        if (asstAwardTypesWithSimilarAwardAmountData.includes(type) && isNormal) { // grants, direct payments, and other
             const isNffZero = awardAmounts._nonFederalFunding === 0;
-
             const chartProps = {
                 denominator: {
                     labelPosition: 'bottom',
@@ -702,7 +699,7 @@ const AwardAmountsChart = ({
                     value: awardAmounts.totalObligationAbbreviated,
                     lineOffset: lineOffsetsBySpendingCategory.obligationAsst,
                     text: 'Obligated Amount',
-                    color: obligatedColor
+                    color: getAwardColor(obligatedColor, infrastructureObligatedColor, covidObligatedColor, fileCType)
                 },
                 ...isNffZero ? {} : {
                     numerator2: {
@@ -763,7 +760,7 @@ const AwardAmountsChart = ({
                             value: getAwardObligatedValue(awardAmounts, awardType, fileCType),
                             lineOffset: lineOffsetsBySpendingCategory.obligationAsst,
                             text: getAwardTypeText(awardType, "Obligated", fileCType),
-                            color: getAwardColor(obligatedColor, infrastructureObligatedColor, fileCType)
+                            color: getAwardColor(obligatedColor, infrastructureObligatedColor, covidObligatedColor, fileCType)
                         }
                     ]
                 },
@@ -773,7 +770,7 @@ const AwardAmountsChart = ({
                     className: `${awardType}-outlayed`,
                     rawValue: getAwardOutlayRawValue(awardAmounts, awardType, fileCType),
                     value: getAwardOutlayValue(awardAmounts, awardType, fileCType),
-                    color: getAwardColor(outlayColor, infrastructureOutlayColor, fileCType),
+                    color: getAwardColor(outlayColor, infrastructureOutlayColor, covidColor, fileCType),
                     lineOffset: lineOffsetsBySpendingCategory.potential,
                     text: getAwardTypeText(awardType, "Outlayed", fileCType)
                 }
@@ -807,7 +804,6 @@ const AwardAmountsChart = ({
                     }
                 ];
             }
-            console.debug("show file c covid: ", showFilecCovid);
             if ((hasOutlays || hasInfrastructure) && !showFilecCovid) {
                 return (
                     <HorizontalSingleStackedBarViz {...chartPropsOutlays} />
@@ -817,7 +813,6 @@ const AwardAmountsChart = ({
                     <HorizontalSingleStackedBarViz {...chartPropsOutlays} />
                 );
             }
-            console.debug("props: ", chartProps, chartPropsOutlays);
             return (
                 <HorizontalSingleStackedBarViz {...chartProps} />
             );
