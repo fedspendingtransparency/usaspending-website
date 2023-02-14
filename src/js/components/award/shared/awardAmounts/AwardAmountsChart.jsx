@@ -222,7 +222,7 @@ const buildNormalProps = (awardType, data, hasfilecCovid, hasOutlays, fileCType)
             ]
         }
     };
-    if (hasfilecCovid || fileCType === "infrastructure" || hasOutlays || awardType === "grant" || awardType === "direct payment" || awardType === "other" || awardType === "insurance") return chartPropsOutlays;
+    if (hasfilecCovid || fileCType === "infrastructure" || hasOutlays) return chartPropsOutlays;
     return chartProps;
 };
 
@@ -550,6 +550,7 @@ const AwardAmountsChart = ({
         const showFilecCovid = fileCType === "covid";
         const hasInfrastructure = fileCType === "infrastructure";
         const hasOutlays = awardAmounts._combinedOutlay > 0 || awardAmounts._totalOutlay > 0;
+
         if (asstAwardTypesWithSimilarAwardAmountData.includes(type) && isNormal) { // grants, direct payments, and other
             const isNffZero = awardAmounts._nonFederalFunding === 0;
             const chartProps = {
@@ -823,7 +824,7 @@ const AwardAmountsChart = ({
             </div>
         );
     };
-    console.debug("viz: ", awardOverview, awardType, spendingScenario);
+
     const visualization = renderChartByAwardType(awardOverview, awardType, spendingScenario);
 
     return (
