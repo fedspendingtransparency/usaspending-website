@@ -74,27 +74,6 @@ const AboutContent = () => {
         setActiveSection(section);
     };
 
-    // const jumpToSection = (section = '') => {
-    //     // check if valid section
-    //     const matchedSection = aboutSections.find((obj) => obj.name === section);
-    //     if (!matchedSection) return; // no matching section
-    //     // scroll to correct section
-    //     const sectionDom = document.querySelector(`#about-${matchedSection.name}`);
-    //     if (!sectionDom) return;
-    //     if (activeSection === 'intro-mission') {
-    //         scrollToY(sectionDom.offsetTop - 150, 700);
-    //     }
-    //     else if (matchedSection.scroller) {
-    //         // for scroller sections, add height
-    //         scrollToY(sectionDom.offsetTop + 18, 700);
-    //     }
-    //     else {
-    //         // scrollY set to the top of the section, subtracting the height of sticky elements + 20px of margin
-    //         scrollToY(sectionDom.offsetTop - 86, 700);
-    //     }
-    //     setActiveSection(matchedSection.name);
-    // };
-
     useEffect(throttle(() => {
         // prevents a console error about react unmounted component leak
         let isMounted = true;
