@@ -56,7 +56,6 @@ const getAwardTypeText = (awardType, amountType, fileCType) => {
 // TODO: Address with continued award chart refactor
 const getAwardColor = (overallColor, infrastructureColor, fileCColor, fileCType) => {
     const fileCInfo = getfileCInfo(fileCType);
-    console.debug("FILE C INFO: ", fileCInfo, overallColor, infrastructureColor, fileCColor);
     if (fileCInfo?.codeType === "infrastructure") {
         return infrastructureColor;
     }
@@ -666,7 +665,6 @@ const AwardAmountsChart = ({
     };
 
     const renderChartByAwardType = (awardAmounts = awardOverview, type = awardType, scenario = spendingScenario) => {
-        console.debug("props: ", scenario, fileCType, type);
         const isNormal = scenario === 'normal';
         const isGrant = awardType === "grant";
         const isDirectPayment = awardType === "direct payment";
@@ -674,7 +672,6 @@ const AwardAmountsChart = ({
         const showFilecCovid = fileCType === "covid";
         const hasInfrastructure = fileCType === "infrastructure";
         const hasOutlays = awardAmounts._combinedOutlay > 0 || awardAmounts._totalOutlay > 0;
-        console.debug("TYPE: ", type);
         if (asstAwardTypesWithSimilarAwardAmountData.includes(type) && isNormal) { // grants, direct payments, and other
             const isNffZero = awardAmounts._nonFederalFunding === 0;
             const chartProps = {
