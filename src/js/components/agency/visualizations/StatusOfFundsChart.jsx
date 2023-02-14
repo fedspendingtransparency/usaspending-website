@@ -219,6 +219,13 @@ const StatusOfFundsChart = ({
         return '';
     };
 
+    const drawNegativeBudgetaryResources = (data, x) => {
+        if (data._budgetaryResources < 0) {
+            return (Math.abs(x(0) - x(data._budgetaryResources))) + 7;
+        }
+        return (Math.abs(x(0) - x(data._budgetaryResources))) + 2;
+    };
+
     const renderChart = () => {
         if (!toggle) {
             // setup x and y scales
@@ -233,15 +240,6 @@ const StatusOfFundsChart = ({
                     return (Math.abs(x(0) - x(data._obligations))) + 7;
                 }
                 return (Math.abs(x(0) - x(data._obligations))) + 2;
-            };
-
-            // todo - if this works correctly, you can probably combine into onw fn to draw negative amounts
-            const drawNegativeBudgetaryResources = (data) => {
-                if (data._budgetaryResources < 0) {
-                    console.log('drawNegativeBudgetaryResources if block', data);
-                    return (Math.abs(x(0) - x(data._budgetaryResources))) + 7;
-                }
-                return (Math.abs(x(0) - x(data._budgetaryResources))) + 2;
             };
 
             // append the svg object to the div
@@ -273,6 +271,7 @@ const StatusOfFundsChart = ({
                 return 'translate(60,0)';
             };
             // scale to x and y data points
+            // todo - this may be redundant; we're iterating through sortedNums in the results useEffect
             sortedNums.forEach((item) => {
                 if (item._obligations < 0) {
                     x.domain(d3.extent(sortedNums, (d) => d._obligations)).nice(2);
@@ -444,7 +443,7 @@ const StatusOfFundsChart = ({
                 // .attr("width", (d) => x(d._budgetaryResources) + 11)
                 .attr("width", (d) => {
                     if (isNegative) {
-                        return drawNegativeBudgetaryResources(d);
+                        return drawNegativeBudgetaryResources(d, x);
                     }
                     if (d._budgetaryResources === 0) {
                         return 0;
@@ -506,11 +505,6 @@ const StatusOfFundsChart = ({
                 .attr('class', 'hbars')
                 .attr('id', 'obl-bar');
 
-
-            // if (isNegative) {
-            //     svg.selectAll('#tbr-bar').remove();
-            // }
-
             // on click drilldown
             svg.selectAll(".bar-group").on('click', (event, d) => {
                 handleClick(d);
@@ -562,6 +556,7 @@ const StatusOfFundsChart = ({
                     .attr("x1", x(0))
                     .attr("y1", 0)
                     .attr("x2", x(0))
+                    // todo this chartHeight plus 500 may need to be adjusted
                     .attr("y2", isLargeScreen ? chartHeight + 500 : chartHeight + 4);
             }
         }
@@ -613,12 +608,20 @@ const StatusOfFundsChart = ({
             };
 
             // scale to x and y data points
-            if (sortedNums[sortedNums.length - 1]._outlays < 0) {
-                x.domain(d3.extent(sortedNums, (d) => d._outlays)).nice(2);
-            }
-            else {
-                x.domain([0, Math.max(sortedNums[0]._budgetaryResources, sortedNums[0]._outlays)]).nice(2);
-            }
+            sortedNums.forEach((item) => {
+                if (item._outlays < 0) {
+                    x.domain(d3.extent(sortedNums, (d) => d._outlays)).nice(2);
+                }
+                else {
+                    x.domain([0, Math.max(sortedNums[0]._budgetaryResources, sortedNums[0]._outlays)]).nice(2);
+                }
+            });
+            // if (sortedNums[sortedNums.length - 1]._outlays < 0) {
+            //     x.domain(d3.extent(sortedNums, (d) => d._outlays)).nice(2);
+            // }
+            // else {
+            //     x.domain([0, Math.max(sortedNums[0]._budgetaryResources, sortedNums[0]._outlays)]).nice(2);
+            // }
             // extract sorted agency names
             for (let i = 0; i < sortedNums.length; i++) {
                 resultNames = resultNames.concat(sortedNums[i].name);
@@ -721,6 +724,7 @@ const StatusOfFundsChart = ({
                 .attr('transform', !isMobile ? "translate(0,-10)" : "translate(0,0)");
             barGroups.append("rect")
                 .attr('transform', tickMobileXAxis)
+                // todo - need to change this if negative?
                 .attr("x", -8)
                 .attr("y", (d) => {
                     if (!isMobile) {
@@ -731,6 +735,7 @@ const StatusOfFundsChart = ({
                     }
                     return y(d.name) - 10;
                 })
+                // todo - need to change this if negative?
                 .attr("width", isLargeScreen ? chartWidth + 340 : chartWidth + 90)
                 .attr("height", () => {
                     if (!isMobile) {
@@ -748,7 +753,16 @@ const StatusOfFundsChart = ({
             // append total budgetary resources bars
             barGroups.append("rect")
                 .attr('transform', tickMobileXAxis)
-                .attr("x", -8)
+                // .attr("x", -8)
+                .attr("x", (d) => {
+                    if (d._budgetaryResources < 0) {
+                        return x(Math.min(0, d._budgetaryResources)) - 8;
+                    }
+                    if (!isNegative) {
+                        return x(0) - 8;
+                    }
+                    return x(0);
+                })
                 .attr("y", (d) => {
                     if (!isMobile) {
                         if (isMediumScreen || (window.innerWidth >= 992 && window.innerWidth < 1200)) {
@@ -758,7 +772,16 @@ const StatusOfFundsChart = ({
                     }
                     return y(d.name) - 90;
                 })
-                .attr("width", (d) => x(d._budgetaryResources) + 11)
+                // .attr("width", (d) => x(d._budgetaryResources) + 11)
+                .attr("width", (d) => {
+                    if (isNegative) {
+                        return drawNegativeBudgetaryResources(d, x);
+                    }
+                    if (d._budgetaryResources === 0) {
+                        return 0;
+                    }
+                    return x(d._budgetaryResources) + 11;
+                })
                 .attr("height", () => {
                     if (!isMobile) {
                         if (isMediumScreen) {
@@ -820,10 +843,6 @@ const StatusOfFundsChart = ({
                 .attr("fill", "#FFBE2E")
                 .attr('class', 'hbars')
                 .attr('id', 'out-bar');
-
-            // if (isNegative) {
-            //     svg.selectAll('#tbr-bar').remove();
-            // }
 
             // on click drilldown
             svg.selectAll("#out-bar").on('click', (event, d) => {
@@ -903,13 +922,16 @@ const StatusOfFundsChart = ({
     }, [renderChart, sortedNums, textScale, hoverData, toggle]);
 
     useEffect(() => {
+        // set isNegative to false again in case it was true at the previous level
+        setIsNegative(false);
         if (results?.length > 0) {
+            // just sort by tbr for now
+            setSortedNums(results.sort((a, b) => (b._budgetaryResources - a._budgetaryResources)));
             if (!toggle) {
                 // todo - do we need to sort by tbr or obl?
                 // setSortedNums(results.sort((a, b) => (a._budgetaryResources > b._obligations ? b._budgetaryResources - a._budgetaryResources : b._obligations - a._obligations)));
-                setSortedNums(results.sort((a, b) => (b._budgetaryResources - a._budgetaryResources)));
                 results.forEach((item) => {
-                    if (item._obligations || item._budgetaryResources < 0) {
+                    if (item._obligations < 0 || item._budgetaryResources < 0) {
                         setIsNegative(true);
                     }
                 });
@@ -919,9 +941,9 @@ const StatusOfFundsChart = ({
                 // }
             }
             else {
-                setSortedNums(results.sort((a, b) => (a._budgetaryResources > b._outlays ? b._budgetaryResources - a._budgetaryResources : b._outlays - a._outlays)));
+                // setSortedNums(results.sort((a, b) => (a._budgetaryResources > b._outlays ? b._budgetaryResources - a._budgetaryResources : b._outlays - a._outlays)));
                 results.forEach((item) => {
-                    if (item._obligations || item._budgetaryResources || item._outlays < 0) {
+                    if (item._outlays < 0) {
                         setIsNegative(true);
                     }
                 });
@@ -931,7 +953,7 @@ const StatusOfFundsChart = ({
                 // }
             }
         }
-    }, [results, toggle]);
+    }, [isNegative, results, toggle]);
 
 
     return (
