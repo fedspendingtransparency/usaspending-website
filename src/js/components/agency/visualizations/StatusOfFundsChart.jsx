@@ -23,7 +23,6 @@ const StatusOfFundsChart = ({
     const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth < largeScreen);
     const [isMediumScreen, setIsMediumScreen] = useState(window.innerWidth < mediumScreen && window.innerWidth > smallScreen);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
-    const [isNegative, setIsNegative] = useState(false);
     const [negativeTbr, setNegativeTbr] = useState(false);
     const [negativeObl, setNegativeObl] = useState(false);
     const [negativeOutlay, setNegativeOutlay] = useState(false);
@@ -284,7 +283,6 @@ const StatusOfFundsChart = ({
             // todo - this is a bit redundant bc we're iterating through this array in the results useEffect too, could maybe more efficient
             sortedNums.forEach((item) => {
                 if (item._obligations < 0) {
-                    // x.domain(d3.extent(sortedNums, (d) => d._obligations)).nice(2);
                     negOblArray.push(item._obligations);
                     setNegativeObl(true);
                 }
@@ -292,7 +290,6 @@ const StatusOfFundsChart = ({
                     posOblArray.push(item._obligations);
                 }
                 if (item._budgetaryResources < 0) {
-                    // x.domain(d3.extent(sortedNums, (d) => d._budgetaryResources)).nice(2);
                     negTbrArray.push(item._budgetaryResources);
                     setNegativeTbr(true);
                 }
@@ -318,7 +315,7 @@ const StatusOfFundsChart = ({
                 arrayOfMaxValues.push(maxPosObl);
             }
 
-            if (isNegative) {
+            if (negativeTbr || negativeObl) {
                 x.domain(d3.extent(arrayOfMaxValues)).nice(2);
             }
             else {
@@ -457,7 +454,7 @@ const StatusOfFundsChart = ({
                     if (d._budgetaryResources < 0) {
                         return x(d._budgetaryResources) - 8;
                     }
-                    if (!isNegative) {
+                    if (!negativeTbr && !negativeObl) {
                         return x(0) - 8;
                     }
                     return x(0);
@@ -472,7 +469,7 @@ const StatusOfFundsChart = ({
                     return y(d.name) + 40;
                 })
                 .attr("width", (d) => {
-                    if (isNegative) {
+                    if (negativeTbr || negativeObl) {
                         return drawNegativeBudgetaryResources(d, x);
                     }
                     if (d._budgetaryResources === 0) {
@@ -499,7 +496,7 @@ const StatusOfFundsChart = ({
                     if (d._obligations < 0) {
                         return x(d._obligations) - 8;
                     }
-                    if (!isNegative) {
+                    if (!negativeTbr && !negativeObl) {
                         return x(0) - 8;
                     }
                     return x(0);
@@ -514,7 +511,7 @@ const StatusOfFundsChart = ({
                     return y(d.name) + 40;
                 })
                 .attr("width", (d) => {
-                    if (isNegative) {
+                    if (negativeTbr || negativeObl) {
                         return drawNegativeObligations(d);
                     }
                     if (d._obligations === 0) {
@@ -578,7 +575,7 @@ const StatusOfFundsChart = ({
                 .attr("y1", isMobile ? chartHeight + 1020 : horizontalBorderYPos())
                 .attr("x2", isLargeScreen ? chartWidth + 330 : chartWidth + 85)
                 .attr("y2", isMobile ? chartHeight + 1020 : horizontalBorderYPos());
-            if (isNegative) {
+            if (negativeTbr || negativeObl) {
                 svg.append('line')
                     .attr('transform', tickMobileXAxis)
                     .style("stroke", "#aeb0b5")
@@ -687,7 +684,7 @@ const StatusOfFundsChart = ({
                 arrayOfMaxValues.push(maxPosOutlay);
             }
 
-            if (isNegative) {
+            if (negativeTbr || negativeOutlay) {
                 x.domain(d3.extent(arrayOfMaxValues)).nice(2);
             }
             else {
@@ -827,7 +824,7 @@ const StatusOfFundsChart = ({
                     if (d._budgetaryResources < 0) {
                         return x(d._budgetaryResources) - 8;
                     }
-                    if (!isNegative) {
+                    if (!negativeTbr && !negativeOutlay) {
                         return x(0) - 8;
                     }
                     return x(0);
@@ -842,7 +839,7 @@ const StatusOfFundsChart = ({
                     return y(d.name) - 90;
                 })
                 .attr("width", (d) => {
-                    if (isNegative) {
+                    if (negativeTbr || negativeOutlay) {
                         return drawNegativeBudgetaryResources(d, x);
                     }
                     if (d._budgetaryResources === 0) {
@@ -873,7 +870,7 @@ const StatusOfFundsChart = ({
                     if (d._outlays < 0) {
                         return x(d._outlays) - 8;
                     }
-                    if (!isNegative) {
+                    if (!negativeTbr && !negativeOutlay) {
                         return x(0) - 8;
                     }
                     return x(0);
@@ -891,7 +888,7 @@ const StatusOfFundsChart = ({
                     return y(d.name) - 10;
                 })
                 .attr("width", (d) => {
-                    if (isNegative) {
+                    if (negativeTbr || negativeOutlay) {
                         return drawNegativeOutlays(d);
                     }
                     if (d._outlays === 0) {
@@ -957,7 +954,7 @@ const StatusOfFundsChart = ({
                 .attr("y1", isMobile ? chartHeight + 1740 : horizontalBorderYPos())
                 .attr("x2", isLargeScreen ? chartWidth + 330 : chartWidth + 85)
                 .attr("y2", isMobile ? chartHeight + 1740 : horizontalBorderYPos());
-            if (isNegative) {
+            if (negativeTbr || negativeOutlay) {
                 svg.append('line')
                     .attr('transform', tickMobileXAxis)
                     .style("stroke", "#aeb0b5")
@@ -990,32 +987,11 @@ const StatusOfFundsChart = ({
     }, [renderChart, sortedNums, textScale, hoverData, toggle]);
 
     useEffect(() => {
-        // set isNegative to false in case it was true at the previous level
-        setIsNegative(false);
         if (results?.length > 0) {
             // sort by tbr, high to low
             setSortedNums(results.sort((a, b) => (b._budgetaryResources - a._budgetaryResources)));
-            if (!toggle) {
-                results.forEach((item) => {
-                    if (item._obligations < 0 || item._budgetaryResources < 0) {
-                        // todo - consider using the state vars for negative tbr, obl here and getting rid of isNegative
-                        // or change the name to chartHasNegativeValue
-                        setIsNegative(true);
-                    }
-                });
-            }
-            else {
-                results.forEach((item) => {
-                    if (item._outlays < 0 || item._budgetaryResources < 0) {
-                        // todo - consider using state var for negative outlay here instead
-                        setIsNegative(true);
-                    }
-                });
-            }
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [results, toggle]);
-
+    }, [results]);
 
     return (
         <>
