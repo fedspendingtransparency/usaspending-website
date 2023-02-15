@@ -689,8 +689,9 @@ const AwardAmountsChart = ({
                     <HorizontalSingleStackedBarViz {...chartPropsOutlays} />
                 );
             }
+
             return (
-                <HorizontalSingleStackedBarViz {...chartProps} />
+                <RectanglePercentViz {...chartProps} />
             );
         }
         else if (type === 'loan' && isNormal) {
