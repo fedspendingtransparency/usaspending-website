@@ -454,8 +454,7 @@ const StatusOfFundsChart = ({
                 .attr('transform', tickMobileXAxis)
                 .attr("x", (d) => {
                     if (d._budgetaryResources < 0) {
-                        // todo - shouldn't need min here, already < 0
-                        return x(Math.min(0, d._budgetaryResources)) - 8;
+                        return x(d._budgetaryResources) - 8;
                     }
                     if (!isNegative) {
                         return x(0) - 8;
@@ -497,7 +496,7 @@ const StatusOfFundsChart = ({
                 .attr('transform', tickMobileXAxis)
                 .attr("x", (d) => {
                     if (d._obligations < 0) {
-                        return x(Math.min(0, d._obligations)) - 8;
+                        return x(d._obligations) - 8;
                     }
                     if (!isNegative) {
                         return x(0) - 8;
@@ -796,7 +795,6 @@ const StatusOfFundsChart = ({
                 .attr('transform', !isMobile ? "translate(0,-10)" : "translate(0,0)");
             barGroups.append("rect")
                 .attr('transform', tickMobileXAxis)
-                // todo - need to change this if negative?
                 .attr("x", -8)
                 .attr("y", (d) => {
                     if (!isMobile) {
@@ -826,7 +824,7 @@ const StatusOfFundsChart = ({
                 .attr('transform', tickMobileXAxis)
                 .attr("x", (d) => {
                     if (d._budgetaryResources < 0) {
-                        return x(Math.min(0, d._budgetaryResources)) - 8;
+                        return x(d._budgetaryResources) - 8;
                     }
                     if (!isNegative) {
                         return x(0) - 8;
@@ -872,7 +870,7 @@ const StatusOfFundsChart = ({
                 .attr('transform', tickMobileXAxis)
                 .attr("x", (d) => {
                     if (d._outlays < 0) {
-                        return x(Math.min(0, d._outlays)) - 8;
+                        return x(d._outlays) - 8;
                     }
                     if (!isNegative) {
                         return x(0) - 8;
