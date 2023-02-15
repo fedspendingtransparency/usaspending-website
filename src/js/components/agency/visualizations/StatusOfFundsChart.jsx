@@ -228,6 +228,13 @@ const StatusOfFundsChart = ({
         return (Math.abs(x(0) - x(data._budgetaryResources))) + 2;
     };
 
+    const negativeObligationsArray = [];
+    const positiveObligationsArray = [];
+    const negativeTbrArray = [];
+    const positiveTbrArray = [];
+    const negativeOutlaysArray = [];
+    const positiveOutlaysArray = [];
+
     const renderChart = () => {
         if (!toggle) {
             // setup x and y scales
@@ -273,35 +280,30 @@ const StatusOfFundsChart = ({
                 return 'translate(60,0)';
             };
 
-            // scale to x data points; if there are negative values, use the largest absolute value of the negative values
-            // in domain; if not, use the largest value; and you have to do this separately for obligations and for total budgetary resources
-            const negOblArray = [];
-            const posOblArray = [];
-            const negTbrArray = [];
-            const posTbrArray = [];
-
-            // todo - this is a bit redundant bc we're iterating through this array in the results useEffect too, could maybe more efficient
+            // scale to x data points;
+            // if there are negative values, use the largest absolute value of the negative values in domain;
+            // if not, use the largest value;
             sortedNums.forEach((item) => {
                 if (item._obligations < 0) {
-                    negOblArray.push(item._obligations);
+                    negativeObligationsArray.push(item._obligations);
                     setNegativeObl(true);
                 }
                 if (item._obligations >= 0) {
-                    posOblArray.push(item._obligations);
+                    positiveObligationsArray.push(item._obligations);
                 }
                 if (item._budgetaryResources < 0) {
-                    negTbrArray.push(item._budgetaryResources);
+                    negativeTbrArray.push(item._budgetaryResources);
                     setNegativeTbr(true);
                 }
                 if (item._budgetaryResources >= 0) {
-                    posTbrArray.push(item._budgetaryResources);
+                    positiveTbrArray.push(item._budgetaryResources);
                 }
             });
 
-            const maxPosTbr = posTbrArray.length ? posTbrArray.reduce((a, b) => Math.max(a, b)) : null;
-            const maxNegTbr = negTbrArray.length ? negTbrArray.reduce((a, b) => Math.max(Math.abs(a), Math.abs(b))) : null;
-            const maxPosObl = posOblArray.length ? posOblArray.reduce((a, b) => Math.max(a, b)) : null;
-            const maxNegObl = negOblArray.length ? negOblArray.reduce((a, b) => Math.max(Math.abs(a), Math.abs(b))) : null;
+            const maxPosTbr = positiveTbrArray.length ? positiveTbrArray.reduce((a, b) => Math.max(a, b)) : null;
+            const maxNegTbr = negativeTbrArray.length ? negativeTbrArray.reduce((a, b) => Math.max(Math.abs(a), Math.abs(b))) : null;
+            const maxPosObl = positiveObligationsArray.length ? positiveObligationsArray.reduce((a, b) => Math.max(a, b)) : null;
+            const maxNegObl = negativeObligationsArray.length ? negativeObligationsArray.reduce((a, b) => Math.max(Math.abs(a), Math.abs(b))) : null;
 
             const arrayOfMaxValues = [];
             if (negativeTbr) {
@@ -633,44 +635,28 @@ const StatusOfFundsChart = ({
                 return 'translate(-150,-135)';
             };
 
-            // scale to x and y data points
-
-            // sortedNums.forEach((item) => {
-            //     if (item._outlays < 0) {
-            //         x.domain(d3.extent(sortedNums, (d) => d._outlays)).nice(2);
-            //     }
-            //     else {
-            //         x.domain([0, Math.max(sortedNums[0]._budgetaryResources, sortedNums[0]._outlays)]).nice(2);
-            //     }
-            // });
-
-            const negOutlayArray = [];
-            const posOutlayArray = [];
-            const negTbrArray = [];
-            const posTbrArray = [];
-
-            // todo - this is a bit redundant bc we're iterating through this array in the results useEffect too, could maybe more efficient
+            // scale to x data points
             sortedNums.forEach((item) => {
                 if (item._outlays < 0) {
-                    negOutlayArray.push(item._outlays);
+                    negativeOutlaysArray.push(item._outlays);
                     setNegativeOutlay(true);
                 }
                 if (item._outlays >= 0) {
-                    posOutlayArray.push(item._outlays);
+                    positiveOutlaysArray.push(item._outlays);
                 }
                 if (item._budgetaryResources < 0) {
-                    negTbrArray.push(item._budgetaryResources);
+                    negativeTbrArray.push(item._budgetaryResources);
                     setNegativeTbr(true);
                 }
                 if (item._budgetaryResources >= 0) {
-                    posTbrArray.push(item._budgetaryResources);
+                    positiveTbrArray.push(item._budgetaryResources);
                 }
             });
 
-            const maxPosTbr = posTbrArray.length ? posTbrArray.reduce((a, b) => Math.max(a, b)) : null;
-            const maxNegTbr = negTbrArray.length ? negTbrArray.reduce((a, b) => Math.max(Math.abs(a), Math.abs(b))) : null;
-            const maxPosOutlay = posOutlayArray.length ? posOutlayArray.reduce((a, b) => Math.max(a, b)) : null;
-            const maxNegOutlay = negOutlayArray.length ? negOutlayArray.reduce((a, b) => Math.max(Math.abs(a), Math.abs(b))) : null;
+            const maxPosTbr = positiveTbrArray.length ? positiveTbrArray.reduce((a, b) => Math.max(a, b)) : null;
+            const maxNegTbr = negativeTbrArray.length ? negativeTbrArray.reduce((a, b) => Math.max(Math.abs(a), Math.abs(b))) : null;
+            const maxPosOutlay = positiveOutlaysArray.length ? positiveOutlaysArray.reduce((a, b) => Math.max(a, b)) : null;
+            const maxNegOutlay = negativeOutlaysArray.length ? negativeOutlaysArray.reduce((a, b) => Math.max(Math.abs(a), Math.abs(b))) : null;
 
             const arrayOfMaxValues = [];
             if (negativeTbr) {
