@@ -24,6 +24,9 @@ const StatusOfFundsChart = ({
     const [isMediumScreen, setIsMediumScreen] = useState(window.innerWidth < mediumScreen && window.innerWidth > smallScreen);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
     const [isNegative, setIsNegative] = useState(false);
+    const [negativeTbr, setNegativeTbr] = useState(false);
+    const [negativeObl, setNegativeObl] = useState(false);
+    const [negativeOutlay, setNegativeOutlay] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
     const [mouseValue, setMouseValue] = useState({ x: 0, y: 0 });
     const [sortedNums, setSortedNums] = useState(null);
@@ -270,28 +273,56 @@ const StatusOfFundsChart = ({
                 }
                 return 'translate(60,0)';
             };
-            // scale to x and y data points
-            // todo - this may be redundant; we're iterating through sortedNums in the results useEffect
+
+            // scale to x data points
+            const negOblArray = [];
+            const posOblArray = [];
+            const negTbrArray = [];
+            const posTbrArray = [];
+
+            // todo - this is a bit redundant bc we're iterating through this array in the results useEffect too, could maybe more efficient
             sortedNums.forEach((item) => {
                 if (item._obligations < 0) {
-                    x.domain(d3.extent(sortedNums, (d) => d._obligations)).nice(2);
+                    // x.domain(d3.extent(sortedNums, (d) => d._obligations)).nice(2);
+                    negOblArray.push(item._obligations);
+                    setNegativeObl(true);
+                }
+                if (item._obligations >= 0) {
+                    posOblArray.push(item._obligations);
                 }
                 if (item._budgetaryResources < 0) {
-                    x.domain(d3.extent(sortedNums, (d) => d._budgetaryResources)).nice(2);
+                    // x.domain(d3.extent(sortedNums, (d) => d._budgetaryResources)).nice(2);
+                    negTbrArray.push(item._budgetaryResources);
+                    setNegativeTbr(true);
                 }
-                else {
-                    x.domain([0, Math.max(sortedNums[0]._budgetaryResources, sortedNums[0]._obligations)]).nice(2);
+                if (item._budgetaryResources >= 0) {
+                    posTbrArray.push(item._budgetaryResources);
                 }
             });
-            // if (sortedNums[sortedNums.length - 1]._obligations < 0) {
-            //     x.domain(d3.extent(sortedNums, (d) => d._obligations)).nice(2);
-            // }
-            // if (sortedNums[sortedNums.length - 1]._budgetaryResources < 0) {
-            //     x.domain(d3.extent(sortedNums, (d) => d._budgetaryResources)).nice(2);
-            // }
-            // else {
-            //     x.domain([0, Math.max(sortedNums[0]._budgetaryResources, sortedNums[0]._obligations)]).nice(2);
-            // }
+
+            const maxPosTbr = posTbrArray.length ? posTbrArray.reduce((a, b) => Math.max(a, b)) : null;
+            const maxNegTbr = negTbrArray.length ? negTbrArray.reduce((a, b) => Math.max(Math.abs(a), Math.abs(b))) : null;
+            const maxPosObl = posOblArray.length ? posOblArray.reduce((a, b) => Math.max(a, b)) : null;
+            const maxNegObl = negOblArray.length ? negOblArray.reduce((a, b) => Math.max(Math.abs(a), Math.abs(b))) : null;
+
+            const arrayOfMaxValues = [];
+            if (negativeTbr) {
+                arrayOfMaxValues.push(maxNegTbr);
+            }
+            else arrayOfMaxValues.push(maxPosTbr);
+            if (negativeObl) {
+                arrayOfMaxValues.push(maxNegObl);
+            }
+            else {
+                arrayOfMaxValues.push(maxPosObl);
+            }
+
+            if (isNegative) {
+                x.domain(d3.extent(arrayOfMaxValues)).nice(2);
+            }
+            else {
+                x.domain([0, Math.max(maxPosTbr, maxPosObl)]).nice(2);
+            }
 
             // extract sorted agency names
             for (let i = 0; i < sortedNums.length; i++) {
@@ -421,9 +452,9 @@ const StatusOfFundsChart = ({
             // append total budgetary resources bars
             barGroups.append("rect")
                 .attr('transform', tickMobileXAxis)
-                // .attr("x", -8)
                 .attr("x", (d) => {
                     if (d._budgetaryResources < 0) {
+                        // todo - shouldn't need min here, already < 0
                         return x(Math.min(0, d._budgetaryResources)) - 8;
                     }
                     if (!isNegative) {
@@ -440,7 +471,6 @@ const StatusOfFundsChart = ({
                     }
                     return y(d.name) + 40;
                 })
-                // .attr("width", (d) => x(d._budgetaryResources) + 11)
                 .attr("width", (d) => {
                     if (isNegative) {
                         return drawNegativeBudgetaryResources(d, x);
@@ -556,7 +586,6 @@ const StatusOfFundsChart = ({
                     .attr("x1", x(0))
                     .attr("y1", 0)
                     .attr("x2", x(0))
-                    // todo this chartHeight plus 500 may need to be adjusted
                     .attr("y2", isLargeScreen ? chartHeight + 500 : chartHeight + 4);
             }
         }
@@ -608,20 +637,63 @@ const StatusOfFundsChart = ({
             };
 
             // scale to x and y data points
+
+            // sortedNums.forEach((item) => {
+            //     if (item._outlays < 0) {
+            //         x.domain(d3.extent(sortedNums, (d) => d._outlays)).nice(2);
+            //     }
+            //     else {
+            //         x.domain([0, Math.max(sortedNums[0]._budgetaryResources, sortedNums[0]._outlays)]).nice(2);
+            //     }
+            // });
+
+            const negOutlayArray = [];
+            const posOutlayArray = [];
+            const negTbrArray = [];
+            const posTbrArray = [];
+
+            // todo - this is a bit redundant bc we're iterating through this array in the results useEffect too, could maybe more efficient
             sortedNums.forEach((item) => {
                 if (item._outlays < 0) {
-                    x.domain(d3.extent(sortedNums, (d) => d._outlays)).nice(2);
+                    negOutlayArray.push(item._outlays);
+                    setNegativeOutlay(true);
                 }
-                else {
-                    x.domain([0, Math.max(sortedNums[0]._budgetaryResources, sortedNums[0]._outlays)]).nice(2);
+                if (item._outlays >= 0) {
+                    posOutlayArray.push(item._outlays);
+                }
+                if (item._budgetaryResources < 0) {
+                    negTbrArray.push(item._budgetaryResources);
+                    setNegativeTbr(true);
+                }
+                if (item._budgetaryResources >= 0) {
+                    posTbrArray.push(item._budgetaryResources);
                 }
             });
-            // if (sortedNums[sortedNums.length - 1]._outlays < 0) {
-            //     x.domain(d3.extent(sortedNums, (d) => d._outlays)).nice(2);
-            // }
-            // else {
-            //     x.domain([0, Math.max(sortedNums[0]._budgetaryResources, sortedNums[0]._outlays)]).nice(2);
-            // }
+
+            const maxPosTbr = posTbrArray.length ? posTbrArray.reduce((a, b) => Math.max(a, b)) : null;
+            const maxNegTbr = negTbrArray.length ? negTbrArray.reduce((a, b) => Math.max(Math.abs(a), Math.abs(b))) : null;
+            const maxPosOutlay = posOutlayArray.length ? posOutlayArray.reduce((a, b) => Math.max(a, b)) : null;
+            const maxNegOutlay = negOutlayArray.length ? negOutlayArray.reduce((a, b) => Math.max(Math.abs(a), Math.abs(b))) : null;
+
+            const arrayOfMaxValues = [];
+            if (negativeTbr) {
+                arrayOfMaxValues.push(maxNegTbr);
+            }
+            else arrayOfMaxValues.push(maxPosTbr);
+            if (negativeOutlay) {
+                arrayOfMaxValues.push(maxNegOutlay);
+            }
+            else {
+                arrayOfMaxValues.push(maxPosOutlay);
+            }
+
+            if (isNegative) {
+                x.domain(d3.extent(arrayOfMaxValues)).nice(2);
+            }
+            else {
+                x.domain([0, Math.max(maxPosTbr, maxPosOutlay)]).nice(2);
+            }
+
             // extract sorted agency names
             for (let i = 0; i < sortedNums.length; i++) {
                 resultNames = resultNames.concat(sortedNums[i].name);
@@ -735,7 +807,6 @@ const StatusOfFundsChart = ({
                     }
                     return y(d.name) - 10;
                 })
-                // todo - need to change this if negative?
                 .attr("width", isLargeScreen ? chartWidth + 340 : chartWidth + 90)
                 .attr("height", () => {
                     if (!isMobile) {
@@ -753,7 +824,6 @@ const StatusOfFundsChart = ({
             // append total budgetary resources bars
             barGroups.append("rect")
                 .attr('transform', tickMobileXAxis)
-                // .attr("x", -8)
                 .attr("x", (d) => {
                     if (d._budgetaryResources < 0) {
                         return x(Math.min(0, d._budgetaryResources)) - 8;
@@ -772,7 +842,6 @@ const StatusOfFundsChart = ({
                     }
                     return y(d.name) - 90;
                 })
-                // .attr("width", (d) => x(d._budgetaryResources) + 11)
                 .attr("width", (d) => {
                     if (isNegative) {
                         return drawNegativeBudgetaryResources(d, x);
@@ -922,38 +991,31 @@ const StatusOfFundsChart = ({
     }, [renderChart, sortedNums, textScale, hoverData, toggle]);
 
     useEffect(() => {
-        // set isNegative to false again in case it was true at the previous level
+        // set isNegative to false in case it was true at the previous level
         setIsNegative(false);
         if (results?.length > 0) {
-            // just sort by tbr for now
+            // sort by tbr, high to low
             setSortedNums(results.sort((a, b) => (b._budgetaryResources - a._budgetaryResources)));
             if (!toggle) {
-                // todo - do we need to sort by tbr or obl?
-                // setSortedNums(results.sort((a, b) => (a._budgetaryResources > b._obligations ? b._budgetaryResources - a._budgetaryResources : b._obligations - a._obligations)));
                 results.forEach((item) => {
                     if (item._obligations < 0 || item._budgetaryResources < 0) {
+                        // todo - consider using the state vars for negative tbr, obl here and getting rid of isNegative
+                        // or change the name to chartHasNegativeValue
                         setIsNegative(true);
                     }
                 });
-                // if (results[results.length - 1]._obligations < 0) {
-                //     setSortedNums(results.sort((a, b) => (a.obligations > b._obligations ? b._budgetaryResources - a._budgetaryResources : b._obligations - a._obligations)));
-                //     setIsNegative(true);
-                // }
             }
             else {
-                // setSortedNums(results.sort((a, b) => (a._budgetaryResources > b._outlays ? b._budgetaryResources - a._budgetaryResources : b._outlays - a._outlays)));
                 results.forEach((item) => {
-                    if (item._outlays < 0) {
+                    if (item._outlays < 0 || item._budgetaryResources < 0) {
+                        // todo - consider using state var for negative outlay here instead
                         setIsNegative(true);
                     }
                 });
-                // if (results[results.length - 1]._obligations < 0) {
-                //     setSortedNums(results.sort((a, b) => (a.obligations > b._outlays ? b._budgetaryResources - a._budgetaryResources : b._outlays - a._outlays)));
-                //     setIsNegative(true);
-                // }
             }
         }
-    }, [isNegative, results, toggle]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [results, toggle]);
 
 
     return (
