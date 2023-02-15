@@ -72,6 +72,7 @@ const StatusOfFundsTable = ({
             columns={columns}
             rows={rows}
             onClickHandler={onClickHandler}
+            isMobile={isMobile}
             isStacked />
     );
 };
