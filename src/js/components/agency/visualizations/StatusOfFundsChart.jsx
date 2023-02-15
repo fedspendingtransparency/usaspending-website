@@ -228,13 +228,6 @@ const StatusOfFundsChart = ({
         return (Math.abs(x(0) - x(data._budgetaryResources))) + 2;
     };
 
-    const negativeObligationsArray = [];
-    const positiveObligationsArray = [];
-    const negativeTbrArray = [];
-    const positiveTbrArray = [];
-    const negativeOutlaysArray = [];
-    const positiveOutlaysArray = [];
-
     const renderChart = () => {
         if (!toggle) {
             // setup x and y scales
@@ -283,6 +276,12 @@ const StatusOfFundsChart = ({
             // scale to x data points;
             // if there are negative values, use the largest absolute value of the negative values in domain;
             // if not, use the largest value;
+            // and we have to use separate arrays for the values because outlays has to be separate because they are not always shown
+            const negativeTbrArray = [];
+            const positiveTbrArray = [];
+            const negativeObligationsArray = [];
+            const positiveObligationsArray = [];
+
             sortedNums.forEach((item) => {
                 if (item._obligations < 0) {
                     negativeObligationsArray.push(item._obligations);
@@ -635,7 +634,15 @@ const StatusOfFundsChart = ({
                 return 'translate(-150,-135)';
             };
 
-            // scale to x data points
+            // scale to x data points;
+            // if there are negative values, use the largest absolute value of the negative values in domain;
+            // if not, use the largest value;
+            // and we have to use separate arrays for the values because outlays has to be separate because they are not always shown
+            const negativeTbrArray = [];
+            const positiveTbrArray = [];
+            const negativeOutlaysArray = [];
+            const positiveOutlaysArray = [];
+
             sortedNums.forEach((item) => {
                 if (item._outlays < 0) {
                     negativeOutlaysArray.push(item._outlays);
