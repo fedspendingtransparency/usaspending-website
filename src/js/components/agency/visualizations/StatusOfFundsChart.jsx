@@ -274,7 +274,8 @@ const StatusOfFundsChart = ({
                 return 'translate(60,0)';
             };
 
-            // scale to x data points
+            // scale to x data points; if there are negative values, use the largest absolute value of the negative values
+            // in domain; if not, use the largest value; and you have to do this separately for obligations and for total budgetary resources
             const negOblArray = [];
             const posOblArray = [];
             const negTbrArray = [];
