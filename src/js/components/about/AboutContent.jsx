@@ -9,7 +9,7 @@ import { find, throttle } from 'lodash';
 import { useQueryParams } from 'helpers/queryParams';
 import { stickyHeaderHeight } from 'dataMapping/stickyHeader/stickyHeader';
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
-
+import { scrollToY } from 'helpers/scrollToHelper';
 import Sidebar from '../sharedComponents/sidebar/Sidebar';
 
 import Mission from './Mission';
@@ -67,13 +67,12 @@ const AboutContent = () => {
             return;
         }
         const sectionDom = document.querySelector(`#about-${section}`);
+        if (!sectionDom) return;
         const conditionalOffset = window.scrollY < getStickyBreakPointForSidebar() ? stickyHeaderHeight : 10;
         const sectionTop = (sectionDom.offsetTop - stickyHeaderHeight - conditionalOffset);
-
-        window.scrollTo({ top: sectionTop + 15, left: 0 });
+        scrollToY(sectionTop + 15, 700);
         setActiveSection(section);
     };
-
 
     useEffect(throttle(() => {
         // prevents a console error about react unmounted component leak
