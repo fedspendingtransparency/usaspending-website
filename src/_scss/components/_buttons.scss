@@ -57,7 +57,7 @@
 .button-type__primary-light,
 .button-type__primary-left-icon-light {
     background-color: $blue-50;
-
+    line-height: 1.5;
     &:hover {
         background-color: $blue-70v;
     }
@@ -82,7 +82,7 @@
     border: solid 1px $blue-50;
     background-color: transparent;
     color: $blue-50;
-
+    line-height: 1.5;
     &:hover {
         color: $blue-70v;
         border: solid 1px $blue-70v;
@@ -113,7 +113,7 @@
     fill: none;
     background-color: transparent;
     border: solid 1px $gray-cool-10;
-
+    line-height: 1.5;
     &:hover {
         color: $gray-cool-5;
         background-color: transparent;
@@ -145,7 +145,7 @@
     border: solid 1px $gray-cool-10;
     background-color: transparent;
     color: $color-primary;
-
+    line-height: 1.5;
     &:hover {
         color: $color-primary-darker;
         border: solid 1px $gray-cool-30;
@@ -176,6 +176,7 @@
     border-radius: none;
     color: $blue-50;
     font-weight: $font-normal;
+    line-height: 1.5;
     &:hover {
         color: $blue-70v;
         background-color: transparent;
@@ -202,7 +203,7 @@
     background-color: transparent;
     border-radius: none;
     color: $blue-50;
-
+    line-height: 1.5;
     &:hover {
         color: $blue-70v;
         background-color: transparent;
@@ -233,7 +234,7 @@
     background-color: transparent;
     border-radius: none;
     color: $blue-50;
-
+    line-height: 1.5;
     &:hover {
         color: $blue-70v;
         background-color: transparent;
@@ -265,7 +266,7 @@
     fill: none;
     background-color: transparent;
     border: none;
-
+    line-height: 1.5;
     &:hover {
         color: $gray-cool-5;
         background-color: transparent;
@@ -288,7 +289,7 @@
     background-color: transparent;
     border: none;
     color: $gray-cool-10;
-
+    line-height: 1.5;
     &:hover {
         color: $gray-cool-5;
         background-color: transparent;
@@ -315,7 +316,7 @@
     fill: none;
     background-color: transparent;
     border: none;
-
+    line-height: 1.5;
     &:hover {
         color: $gray-cool-5;
         background-color: transparent;
@@ -338,10 +339,10 @@
 }
 
 .button-type__stacked-icon-light {
+    height: unset;
     color: $blue-50;
     display: block;
     background-color: transparent;
-    
     &:hover {
         color: $blue-70v;
         background-color: transparent;
@@ -371,6 +372,7 @@
     margin: 0;
 }
 .button-type__stacked-icon-dark {
+    height: unset;
     color: $gray-cool-10;
     fill: none;
     background-color: transparent;

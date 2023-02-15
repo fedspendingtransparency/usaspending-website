@@ -19,7 +19,8 @@ const propTypes = {
     onKeyUp: PropTypes.func,
     buttonTitle: PropTypes.string.isRequired,
     disabled: PropTypes.bool,
-    maxWidth: PropTypes.string
+    maxWidth: PropTypes.string,
+    to: PropTypes.string
 };
 
 const Button = (props) => {
@@ -154,7 +155,7 @@ const Button = (props) => {
 
     if (classNameList.includes('button-type__intext-light')) {
         return (
-            <a aria-label={props.buttonTitle} className={classNameList} role="link" tabIndex="0" onKeyUp={props.onKeyUp} onClick={props.onClick} disabled={props.disabled} style={{ maxWidth: props.maxWidth }}>{props.copy}</a>
+            <a aria-label={props.buttonTitle} className={classNameList} tabIndex="0" onKeyUp={props.onKeyUp} onClick={props.onClick} disabled={props.disabled} style={{ maxWidth: props.maxWidth }} target="_blank" rel="noopener noreferrer" href={props.to}>{props.copy}</a>
         );
     }
     else if (classNameList.includes('left-icon')) {
