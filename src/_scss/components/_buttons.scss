@@ -1,9 +1,9 @@
 .button__sm {
-    height: 32px;
+    min-height: 32px;
     border-radius: 3px;
     font-size: rem(14);
     font-weight: $font-semibold;
-    padding: 0 12px;
+    padding: 5.5px 12px;
     vertical-align: middle;
     align-items: center;
     display: flex;
@@ -15,11 +15,11 @@
 }
 
 .button__md {
-    height: 40px;
+    min-height: 40px;
     border-radius: 4px;
     font-size: rem(16);
     font-weight: $font-semibold;
-    padding: 0 16px;
+    padding: 8px 16px;
     vertical-align: middle;
     align-items: center;
     display: flex;
@@ -31,11 +31,11 @@
 }
 
 .button__lg {
-    height: 56px;
+    min-height: 56px;
     border-radius: 6px;
     font-size: rem(20);
     font-weight: $font-semibold;
-    padding: 0 24px;
+    padding: 13px 24px;
     vertical-align: middle;
     align-items: center;
     display: flex;
@@ -66,7 +66,7 @@
         background-color: $blue-cool-80v;
     }
     &:focus {
-        background-color: $blue-cool-80v;
+        background-color: $blue-50;
     }
 
     &:disabled {
@@ -98,8 +98,8 @@
         background-color: transparent;
     }
     &:focus {
-        color: $blue-80v;
-        border: solid 1px $blue-80v;
+        color: $blue-50;
+        border: solid 1px $blue-50;
         background-color: transparent;
     }
 
@@ -135,9 +135,9 @@
         border: solid 1px $gray-cool-1;
     }
     &:focus {
-        color: $gray-cool-1;
+        color: $gray-cool-10;
         background-color: transparent;
-        border: solid 1px $gray-cool-1;
+        border: solid 1px $gray-cool-10;
     }
     &:disabled {
         color: $gray-cool-10;
@@ -170,8 +170,8 @@
         background-color: transparent;
     }
     &:focus {
-        color: #122e51;
-        border: solid 1px $gray-cool-50;
+        color: $color-primary;
+        border: solid 1px $gray-cool-10;
         background-color: transparent;
     }
 
@@ -204,7 +204,7 @@
         background-color: transparent;
     }
     &:focus {
-        color: $blue-cool-80v;
+        color: $blue-50;
         background-color: transparent;
     }
 
@@ -235,7 +235,7 @@
         background-color: transparent;
     }
     &:focus {
-        color: $blue-cool-80v;
+        color: $blue-50;
         background-color: transparent;
     }
 
@@ -270,7 +270,7 @@
         background-color: transparent;
     }
     &:focus {
-        color: $blue-cool-80v;
+        color: $blue-50;
         background-color: transparent;
     }
 
@@ -306,7 +306,7 @@
         background-color: transparent;
     }
     &:focus {
-        color: $gray-cool-1;
+        color: $gray-cool-10;
         background-color: transparent;
     }
 
@@ -364,7 +364,7 @@
         background-color: transparent;
     }
     &:focus {
-        color: $gray-cool-1;
+        color: $gray-cool-10;
         background-color: transparent;
     }
 
@@ -394,7 +394,7 @@
         background-color: transparent;
     }
     &:focus {
-        color: $blue-cool-80v;
+        color: $blue-50;
         background-color: transparent;
     }
 
@@ -432,7 +432,7 @@
         background-color: transparent;
     }
     &:focus {
-        color: $gray-cool-1;
+        color: $gray-cool-10;
         background-color: transparent;
     }
 
@@ -509,7 +509,7 @@
         background-color: transparent;
     }
     &:focus {
-        color: $blue-cool-80v;
+        color: $blue-50;
         background-color: transparent;
     }
 
@@ -533,7 +533,7 @@
         background-color: transparent;
     }
     &:focus {
-        color: $gray-cool-1;
+        color: $gray-cool-10;
         background-color: transparent;
     }
 
