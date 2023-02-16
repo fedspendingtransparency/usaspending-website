@@ -62,7 +62,10 @@
         background-color: $blue-70v;
     }
 
-    &:active, &:focus {
+    &:active {
+        background-color: $blue-cool-80v;
+    }
+    &:focus {
         background-color: $blue-cool-80v;
     }
 
@@ -89,7 +92,12 @@
         background-color: transparent;
     }
 
-    &:active, &:focus {
+    &:active {
+        color: $blue-80v;
+        border: solid 1px $blue-80v;
+        background-color: transparent;
+    }
+    &:focus {
         color: $blue-80v;
         border: solid 1px $blue-80v;
         background-color: transparent;
@@ -121,12 +129,16 @@
 
     }
 
-    &:active, &:focus {
+    &:active {
         color: $gray-cool-1;
         background-color: transparent;
         border: solid 1px $gray-cool-1;
     }
-
+    &:focus {
+        color: $gray-cool-1;
+        background-color: transparent;
+        border: solid 1px $gray-cool-1;
+    }
     &:disabled {
         color: $gray-cool-10;
         border: solid 1px $gray-cool-10;
@@ -152,7 +164,12 @@
         background-color: transparent;
     }
 
-    &:active, &:focus {
+    &:active {
+        color: #122e51;
+        border: solid 1px $gray-cool-50;
+        background-color: transparent;
+    }
+    &:focus {
         color: #122e51;
         border: solid 1px $gray-cool-50;
         background-color: transparent;
@@ -182,7 +199,11 @@
         background-color: transparent;
     }
 
-    &:active, &:focus {
+    &:active {
+        color: $blue-cool-80v;
+        background-color: transparent;
+    }
+    &:focus {
         color: $blue-cool-80v;
         background-color: transparent;
     }
@@ -209,7 +230,11 @@
         background-color: transparent;
     }
 
-    &:active, &:focus {
+    &:active {
+        color: $blue-cool-80v;
+        background-color: transparent;
+    }
+    &:focus {
         color: $blue-cool-80v;
         background-color: transparent;
     }
@@ -240,7 +265,11 @@
         background-color: transparent;
     }
 
-    &:active, &:focus {
+    &:active {
+        color: $blue-cool-80v;
+        background-color: transparent;
+    }
+    &:focus {
         color: $blue-cool-80v;
         background-color: transparent;
     }
@@ -272,7 +301,11 @@
         background-color: transparent;
     }
 
-    &:active, &:focus {
+    &:active{
+        color: $gray-cool-1;
+        background-color: transparent;
+    }
+    &:focus {
         color: $gray-cool-1;
         background-color: transparent;
     }
@@ -295,7 +328,11 @@
         background-color: transparent;
     }
 
-    &:active, &:focus {
+    &:active{
+        color: $gray-cool-1;
+        background-color: transparent;
+    }
+    &:focus {
         color: $gray-cool-1;
         background-color: transparent;
     }
@@ -322,7 +359,11 @@
         background-color: transparent;
     }
 
-    &:active, &:focus {
+    &:active {
+        color: $gray-cool-1;
+        background-color: transparent;
+    }
+    &:focus {
         color: $gray-cool-1;
         background-color: transparent;
     }
@@ -348,7 +389,11 @@
         background-color: transparent;
     }
 
-    &:active, &:focus {
+    &:active {
+        color: $blue-cool-80v;
+        background-color: transparent;
+    }
+    &:focus {
         color: $blue-cool-80v;
         background-color: transparent;
     }
@@ -382,7 +427,11 @@
         background-color: transparent;
     }
 
-    &:active, &:focus {
+    &:active {
+        color: $gray-cool-1;
+        background-color: transparent;
+    }
+    &:focus {
         color: $gray-cool-1;
         background-color: transparent;
     }
@@ -413,7 +462,11 @@
         background-color: transparent;
     }
 
-    &:active, &:focus {
+    &:active {
+        color: $gray-cool-60;
+        background-color: transparent;
+    }
+    &:focus {
         color: $gray-cool-60;
         background-color: transparent;
     }
@@ -451,7 +504,11 @@
         background-color: transparent;
     }
 
-    &:active, &:focus {
+    &:active {
+        color: $blue-cool-80v;
+        background-color: transparent;
+    }
+    &:focus {
         color: $blue-cool-80v;
         background-color: transparent;
     }
@@ -471,7 +528,11 @@
         background-color: transparent;
     }
 
-    &:active, &:focus {
+    &:active{
+        color: $gray-cool-1;
+        background-color: transparent;
+    }
+    &:focus {
         color: $gray-cool-1;
         background-color: transparent;
     }
