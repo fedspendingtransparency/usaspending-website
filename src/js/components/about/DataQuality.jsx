@@ -4,7 +4,6 @@
  */
 
 import React from 'react';
-import ExternalLink from 'components/sharedComponents/ExternalLink';
 
 const DataQuality = () => (
     <div
@@ -65,14 +64,14 @@ const DataQuality = () => (
                 Additionally, the Inspector General of each agency must issue reports to
                 Congress on the agency&apos;s compliance with DATA Act requirements.
                 Go to&nbsp;
-                <ExternalLink url="https://www.oversight.gov/">oversight.gov</ExternalLink>
+                <a target="_blank" rel="noopener noreferrer" href="https://www.oversight.gov/">oversight.gov</a>
                 &nbsp;to see these reports.
             </p>
             <div className="about-subtitle">
                 <p>
                     <strong>
                         The Government Accountability Office (GAO) has&nbsp;
-                        <ExternalLink url="https://www.gao.gov/assets/710/702586.pdf">identified</ExternalLink>
+                        <a target="_blank" rel="noopener noreferrer" href="https://www.gao.gov/assets/710/702586.pdf">identified</a>
                         &nbsp;the need to disclose the following two items:
                     </strong>
                 </p>
@@ -82,11 +81,11 @@ const DataQuality = () => (
                     <li>
                     GSA’s FPDS delays publishing procurement (i.e., contract and IDV) data for the Department of Defense
                     (DOD) and U.S. Army Corps of Engineers (USACE) in order to&nbsp;
-                        <ExternalLink url="https://www.acq.osd.mil/dpap/policy/policyvault/2006-2086-DPAP.pdf">address potential DOD operational tempo issues</ExternalLink>
+                        <a target="_blank" rel="noopener noreferrer" href="https://www.acq.osd.mil/dpap/policy/policyvault/2006-2086-DPAP.pdf">address potential DOD operational tempo issues</a>
                     , delaying the availability of procurement, account breakdown by award (File C),
                     and subcontract data on USAspending.gov that pertain to DOD and USACE by 90 days as well. This
                     delay is acknowledged in a&nbsp;
-                        <ExternalLink url="https://media.defense.gov/2017/Nov/08/2001839818/-1/-1/1/DODIG-2018-020.PDF">2017 DOD Inspector General report</ExternalLink>
+                        <a target="_blank" rel="noopener noreferrer" href="https://media.defense.gov/2017/Nov/08/2001839818/-1/-1/1/DODIG-2018-020.PDF">2017 DOD Inspector General report</a>
                     . Account Balances (File A), Account
                     Breakdown by Program Activity &amp; Object Class (File B) data and assistance award data are unaffected
                     by this delay.
@@ -95,7 +94,7 @@ const DataQuality = () => (
                     The Department of Health and Human Services (HHS) Centers for Medicare &amp; Medicaid Services (CMS)
                     reports financial assistance awards from Medicare programs (CFDA 93.773, 93.774, and 93.770) as
                     lump sum payments, with each record corresponding to the amount of money sent to a specific&nbsp;
-                        <ExternalLink url="https://www.cms.gov/Medicare/Medicare-Contracting/Medicare-Administrative-Contractors/What-is-a-MAC">Medicare Administrative Contractor (MAC)</ExternalLink>
+                        <a target="_blank" rel="noopener noreferrer" href="https://www.cms.gov/Medicare/Medicare-Contracting/Medicare-Administrative-Contractors/What-is-a-MAC">Medicare Administrative Contractor (MAC)</a>
                         &nbsp;in a given month. The recipient location and primary place of
                     performance location fields in these records correspond to the county where the MAC is located. As
                     such, the location fields for these records do not reflect the places where Medicare beneficiaries

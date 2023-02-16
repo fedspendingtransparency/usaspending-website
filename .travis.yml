@@ -18,6 +18,7 @@ before_install:
   - npm install -g @lhci/cli@0.9.x
   - npm install -g webpack@5.67.0
   - npm install -g webpack-cli@4.10.0
+  - npm install -g npm@8.5.1
 install:
   - npm ci --legacy-peer-deps
 script:

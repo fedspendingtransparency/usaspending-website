@@ -2,7 +2,7 @@ header.site-header__wrapper {
     background-color: $color-white;
 
     $nav-color: #595959;
-    $nav-coming-soon: #757575;
+    $nav-coming-soon: $color-gray-medium;
 
     .site-navigation {
         padding-top: rem(10);

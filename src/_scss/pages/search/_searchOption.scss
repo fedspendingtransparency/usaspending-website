@@ -1,5 +1,5 @@
 .search-option {
-    border-bottom: 1px solid #e4e2e0;
+    border-bottom: 1px solid $color-gray-warm-light;
     label {
         @include usa-label;
         padding: 0.1rem 0;

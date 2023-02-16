@@ -5,13 +5,10 @@
 
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { FlexGridCol } from 'data-transparency-ui';
+import { FlexGridCol, CardContainer, CardBody, CardButton } from 'data-transparency-ui';
 import { isCancel } from "axios";
 import { useLocation } from "react-router-dom";
 import { fetchAllTerms, getNewUrlForGlossary } from "helpers/glossaryHelper";
-import CardContainer from "../../sharedComponents/commonCards/CardContainer";
-import CardBody from "../../sharedComponents/commonCards/CardBody";
-import CardButton from "../../sharedComponents/commonCards/CardButton";
 import Analytics from '../../../helpers/analytics/Analytics';
 import { LoadingWrapper } from "../../sharedComponents/Loading";
 import ErrorWordOfTheDay from "./ErrorWordOfTheDay";

@@ -25,7 +25,7 @@
             button, a {
                 @include button-unstyled;
                 display: block;
-                color: #323A45;
+                color: $color-gray-dark;
                 font-size: rem(19);
                 font-weight: $font-normal;
                 &:hover {
