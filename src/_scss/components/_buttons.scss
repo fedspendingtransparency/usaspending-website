@@ -1,5 +1,5 @@
 .button__sm {
-    height: 32px;
+    height: 100%;
     border-radius: 3px;
     font-size: rem(14);
     font-weight: $font-semibold;
@@ -15,7 +15,7 @@
 }
 
 .button__md {
-    height: 40px;
+    height: 100%;
     border-radius: 4px;
     font-size: rem(16);
     font-weight: $font-semibold;
@@ -31,7 +31,7 @@
 }
 
 .button__lg {
-    height: 56px;
+    height: 100%;
     border-radius: 6px;
     font-size: rem(20);
     font-weight: $font-semibold;
