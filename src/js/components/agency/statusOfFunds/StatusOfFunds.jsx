@@ -253,7 +253,7 @@ const StatusOfFunds = ({ fy }) => {
             if (prevPage !== currentPage && level === 2) {
                 setResults(paginatedTasList(federalAccountList));
             }
-            // todo - this may not be right
+            // todo - this is not right; pagination at this level is broken
             // this controls the pagination in the chart at that level
             if (prevPage !== currentPage && level === 3) {
                 // setResults(selectedProgramActivity);
@@ -309,37 +309,6 @@ const StatusOfFunds = ({ fy }) => {
         setResults(subcomponentTotalData);
     };
 
-    // old version
-    // const goBack = () => {
-    //     console.log('goBack fn, overview', overview);
-    //     if (overview.toptierCode) {
-    //         console.log('toptierCode if block', level);
-    //         if (level === 3) {
-    //             console.log('if level === 3', selectedTas);
-    //             setLevel(2);
-    //             // setResults(selectedTas);
-    //             fetchTas(selectedTas);
-    //         }
-    //         if (level === 2) {
-    //             setLevel(1);
-    //             fetchFederalAccounts(selectedSubcomponent);
-    //         }
-    //         else {
-    //             setLevel(0);
-    //             fetchAgencySubcomponents();
-    //         }
-    //
-    //         // todo - look into changing the order of these to be more efficient
-    //         if (currentPage === 1) {
-    //             setResetPageChange(false);
-    //         }
-    //         else {
-    //             changeCurrentPage(1);
-    //         }
-    //     }
-    // };
-
-    // 9492 version
     const goBack = () => {
         if (overview.toptierCode) {
             if (level === 1) {
@@ -352,7 +321,6 @@ const StatusOfFunds = ({ fy }) => {
             }
             if (level === 3) {
                 setLevel(2);
-                // setResults(selectedTas);
                 fetchTas(selectedTas);
             }
             else {
@@ -360,37 +328,6 @@ const StatusOfFunds = ({ fy }) => {
             }
         }
     };
-
-    // from qat
-    // const goBack = () => {
-    //     if (overview.toptierCode) {
-    //         if (level === 2) {
-    //             setLevel(1);
-    //             if (currentPage === 1) {
-    //                 fetchFederalAccounts(selectedSubcomponent);
-    //             }
-    //             else {
-    //                 changeCurrentPage(1);
-    //             }
-    //         }
-    //         else {
-    //             setLevel(0);
-    //             if (currentPage === 1) {
-    //                 fetchAgencySubcomponents();
-    //             }
-    //             else {
-    //                 changeCurrentPage(1);
-    //             }
-    //         }
-    //
-    //         if (currentPage === 1) {
-    //             setResetPageChange(false);
-    //         }
-    //         else {
-    //             changeCurrentPage(1);
-    //         }
-    //     }
-    // };
 
     const onToggle = () => {
         setOnToggle(!toggle);
