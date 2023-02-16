@@ -23,7 +23,9 @@ const StatusOfFundsChart = ({
     const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth < largeScreen);
     const [isMediumScreen, setIsMediumScreen] = useState(window.innerWidth < mediumScreen && window.innerWidth > smallScreen);
     const [isMobile, setIsMobile] = useState(window.innerWidth < 600);
-    const [isNegative, setIsNegative] = useState(false);
+    const [negativeTbr, setNegativeTbr] = useState(false);
+    const [negativeObl, setNegativeObl] = useState(false);
+    const [negativeOutlay, setNegativeOutlay] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
     const [mouseValue, setMouseValue] = useState({ x: 0, y: 0 });
     const [sortedNums, setSortedNums] = useState(null);
@@ -32,7 +34,8 @@ const StatusOfFundsChart = ({
     let viewHeight;
     if (!toggle) {
         viewHeight = 760;
-    } else {
+    }
+    else {
         viewHeight = 1200;
     }
     const viewWidth = 1000;
@@ -74,7 +77,7 @@ const StatusOfFundsChart = ({
     useEffect(() => {
         document?.getElementById('sof_chart')?.addEventListener('mousemove', setMouseData);
         return () => document?.getElementById('sof_chart')?.removeEventListener('mousemove', setMouseData);
-    }, []);
+    }, [setMouseData]);
 
     useEffect(() => {
         setTextScale(viewWidth / chartRef.current.getBoundingClientRect().width);
@@ -91,7 +94,7 @@ const StatusOfFundsChart = ({
         }, 50);
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-    }, []);
+    }, [windowWidth]);
 
 
     // Wrap y axis labels - reference https://bl.ocks.org/mbostock/7555321
@@ -145,17 +148,20 @@ const StatusOfFundsChart = ({
     const chartHeightViewBox = () => {
         if (window.innerWidth >= 992 && window.innerWidth < 1200 && toggle) {
             return viewHeight * 1.5;
-        } else if (isMobile) {
+        }
+        else if (isMobile) {
             if (toggle) {
                 return viewHeight * 2.54;
             }
             return (viewHeight + 10) * 2.4;
-        } else if (isMediumScreen) {
+        }
+        else if (isMediumScreen) {
             if (!toggle) {
                 return 800 + margins.top + margins.bottom;
             }
             return 1600 + margins.top + margins.bottom;
-        } else if (isLargeScreen) {
+        }
+        else if (isLargeScreen) {
             if (!toggle) {
                 return 1300 + margins.top + margins.bottom;
             }
@@ -215,6 +221,13 @@ const StatusOfFundsChart = ({
         return '';
     };
 
+    const drawNegativeBudgetaryResources = (data, x) => {
+        if (data._budgetaryResources < 0) {
+            return (Math.abs(x(0) - x(data._budgetaryResources))) + 7;
+        }
+        return (Math.abs(x(0) - x(data._budgetaryResources))) + 2;
+    };
+
     const renderChart = () => {
         if (!toggle) {
             // setup x and y scales
@@ -253,18 +266,63 @@ const StatusOfFundsChart = ({
             const tickMobileYAxis = () => {
                 if (window.innerWidth >= 992 && window.innerWidth < 1200) {
                     return 'translate(-150,-60)';
-                } else if (isLargeScreen) {
+                }
+                else if (isLargeScreen) {
                     return 'translate(-150,-35)';
                 }
                 return 'translate(60,0)';
             };
-            // scale to x and y data points
-            if (sortedNums[sortedNums.length - 1]._obligations < 0) {
-                x.domain(d3.extent(sortedNums, (d) => d._obligations)).nice(2);
+
+            // scale to x data points;
+            // if there are negative values, use the largest absolute value of the negative values in domain;
+            // if not, use the largest value;
+            // and we have to use separate arrays for the values because outlays has to be separate because they are not always shown
+            const negativeTbrArray = [];
+            const positiveTbrArray = [];
+            const negativeObligationsArray = [];
+            const positiveObligationsArray = [];
+
+            sortedNums.forEach((item) => {
+                if (item._obligations < 0) {
+                    negativeObligationsArray.push(item._obligations);
+                    setNegativeObl(true);
+                }
+                if (item._obligations >= 0) {
+                    positiveObligationsArray.push(item._obligations);
+                }
+                if (item._budgetaryResources < 0) {
+                    negativeTbrArray.push(item._budgetaryResources);
+                    setNegativeTbr(true);
+                }
+                if (item._budgetaryResources >= 0) {
+                    positiveTbrArray.push(item._budgetaryResources);
+                }
+            });
+
+            const maxPosTbr = positiveTbrArray.length ? positiveTbrArray.reduce((a, b) => Math.max(a, b)) : null;
+            const maxNegTbr = negativeTbrArray.length ? negativeTbrArray.reduce((a, b) => Math.max(Math.abs(a), Math.abs(b))) : null;
+            const maxPosObl = positiveObligationsArray.length ? positiveObligationsArray.reduce((a, b) => Math.max(a, b)) : null;
+            const maxNegObl = negativeObligationsArray.length ? negativeObligationsArray.reduce((a, b) => Math.max(Math.abs(a), Math.abs(b))) : null;
+
+            const arrayOfMaxValues = [];
+            if (negativeTbr) {
+                arrayOfMaxValues.push(maxNegTbr);
+            }
+            else arrayOfMaxValues.push(maxPosTbr);
+            if (negativeObl) {
+                arrayOfMaxValues.push(maxNegObl);
             }
             else {
-                x.domain([0, Math.max(sortedNums[0]._budgetaryResources, sortedNums[0]._obligations)]).nice(2);
+                arrayOfMaxValues.push(maxPosObl);
             }
+
+            if (negativeTbr || negativeObl) {
+                x.domain(d3.extent(arrayOfMaxValues)).nice(2);
+            }
+            else {
+                x.domain([0, Math.max(maxPosTbr, maxPosObl)]).nice(2);
+            }
+
             // extract sorted agency names
             for (let i = 0; i < sortedNums.length; i++) {
                 resultNames = resultNames.concat(sortedNums[i].name);
@@ -393,7 +451,15 @@ const StatusOfFundsChart = ({
             // append total budgetary resources bars
             barGroups.append("rect")
                 .attr('transform', tickMobileXAxis)
-                .attr("x", -8)
+                .attr("x", (d) => {
+                    if (d._budgetaryResources < 0) {
+                        return x(d._budgetaryResources) - 8;
+                    }
+                    if (!negativeTbr && !negativeObl) {
+                        return x(0) - 8;
+                    }
+                    return x(0);
+                })
                 .attr("y", (d) => {
                     if (isLargeScreen) {
                         if (isMediumScreen) {
@@ -403,7 +469,15 @@ const StatusOfFundsChart = ({
                     }
                     return y(d.name) + 40;
                 })
-                .attr("width", (d) => x(d._budgetaryResources) + 11)
+                .attr("width", (d) => {
+                    if (negativeTbr || negativeObl) {
+                        return drawNegativeBudgetaryResources(d, x);
+                    }
+                    if (d._budgetaryResources === 0) {
+                        return 0;
+                    }
+                    return x(d._budgetaryResources) + 11;
+                })
                 .attr("height", () => {
                     if (!isMobile) {
                         if (isMediumScreen) {
@@ -421,9 +495,9 @@ const StatusOfFundsChart = ({
                 .attr('transform', tickMobileXAxis)
                 .attr("x", (d) => {
                     if (d._obligations < 0) {
-                        return x(Math.min(0, d._obligations)) - 8;
+                        return x(d._obligations) - 8;
                     }
-                    if (!isNegative) {
+                    if (!negativeTbr && !negativeObl) {
                         return x(0) - 8;
                     }
                     return x(0);
@@ -438,7 +512,7 @@ const StatusOfFundsChart = ({
                     return y(d.name) + 40;
                 })
                 .attr("width", (d) => {
-                    if (isNegative) {
+                    if (negativeTbr || negativeObl) {
                         return drawNegativeObligations(d);
                     }
                     if (d._obligations === 0) {
@@ -459,10 +533,6 @@ const StatusOfFundsChart = ({
                 .attr('class', 'hbars')
                 .attr('id', 'obl-bar');
 
-
-            if (isNegative) {
-                svg.selectAll('#tbr-bar').remove();
-            }
             // on click drilldown
             svg.selectAll(".bar-group").on('click', (event, d) => {
                 handleClick(d);
@@ -506,7 +576,7 @@ const StatusOfFundsChart = ({
                 .attr("y1", isMobile ? chartHeight + 1020 : horizontalBorderYPos())
                 .attr("x2", isLargeScreen ? chartWidth + 330 : chartWidth + 85)
                 .attr("y2", isMobile ? chartHeight + 1020 : horizontalBorderYPos());
-            if (isNegative) {
+            if (negativeTbr || negativeObl) {
                 svg.append('line')
                     .attr('transform', tickMobileXAxis)
                     .style("stroke", "#aeb0b5")
@@ -554,21 +624,66 @@ const StatusOfFundsChart = ({
             const tickMobileYAxis = () => {
                 if (window.innerWidth >= 992 && window.innerWidth < 1200) {
                     return 'translate(-150,-85)';
-                } else if (isMediumScreen && !isMobile) {
+                }
+                else if (isMediumScreen && !isMobile) {
                     return 'translate(-150,-90)';
-                } else if (!isLargeScreen) {
+                }
+                else if (!isLargeScreen) {
                     return 'translate(60,0)';
                 }
                 return 'translate(-150,-135)';
             };
 
-            // scale to x and y data points
-            if (sortedNums[sortedNums.length - 1]._outlays < 0) {
-                x.domain(d3.extent(sortedNums, (d) => d._outlays)).nice(2);
+            // scale to x data points;
+            // if there are negative values, use the largest absolute value of the negative values in domain;
+            // if not, use the largest value;
+            // and we have to use separate arrays for the values because outlays has to be separate because they are not always shown
+            const negativeTbrArray = [];
+            const positiveTbrArray = [];
+            const negativeOutlaysArray = [];
+            const positiveOutlaysArray = [];
+
+            sortedNums.forEach((item) => {
+                if (item._outlays < 0) {
+                    negativeOutlaysArray.push(item._outlays);
+                    setNegativeOutlay(true);
+                }
+                if (item._outlays >= 0) {
+                    positiveOutlaysArray.push(item._outlays);
+                }
+                if (item._budgetaryResources < 0) {
+                    negativeTbrArray.push(item._budgetaryResources);
+                    setNegativeTbr(true);
+                }
+                if (item._budgetaryResources >= 0) {
+                    positiveTbrArray.push(item._budgetaryResources);
+                }
+            });
+
+            const maxPosTbr = positiveTbrArray.length ? positiveTbrArray.reduce((a, b) => Math.max(a, b)) : null;
+            const maxNegTbr = negativeTbrArray.length ? negativeTbrArray.reduce((a, b) => Math.max(Math.abs(a), Math.abs(b))) : null;
+            const maxPosOutlay = positiveOutlaysArray.length ? positiveOutlaysArray.reduce((a, b) => Math.max(a, b)) : null;
+            const maxNegOutlay = negativeOutlaysArray.length ? negativeOutlaysArray.reduce((a, b) => Math.max(Math.abs(a), Math.abs(b))) : null;
+
+            const arrayOfMaxValues = [];
+            if (negativeTbr) {
+                arrayOfMaxValues.push(maxNegTbr);
+            }
+            else arrayOfMaxValues.push(maxPosTbr);
+            if (negativeOutlay) {
+                arrayOfMaxValues.push(maxNegOutlay);
             }
             else {
-                x.domain([0, Math.max(sortedNums[0]._budgetaryResources, sortedNums[0]._outlays)]).nice(2);
+                arrayOfMaxValues.push(maxPosOutlay);
             }
+
+            if (negativeTbr || negativeOutlay) {
+                x.domain(d3.extent(arrayOfMaxValues)).nice(2);
+            }
+            else {
+                x.domain([0, Math.max(maxPosTbr, maxPosOutlay)]).nice(2);
+            }
+
             // extract sorted agency names
             for (let i = 0; i < sortedNums.length; i++) {
                 resultNames = resultNames.concat(sortedNums[i].name);
@@ -698,7 +813,15 @@ const StatusOfFundsChart = ({
             // append total budgetary resources bars
             barGroups.append("rect")
                 .attr('transform', tickMobileXAxis)
-                .attr("x", -8)
+                .attr("x", (d) => {
+                    if (d._budgetaryResources < 0) {
+                        return x(d._budgetaryResources) - 8;
+                    }
+                    if (!negativeTbr && !negativeOutlay) {
+                        return x(0) - 8;
+                    }
+                    return x(0);
+                })
                 .attr("y", (d) => {
                     if (!isMobile) {
                         if (isMediumScreen || (window.innerWidth >= 992 && window.innerWidth < 1200)) {
@@ -708,7 +831,15 @@ const StatusOfFundsChart = ({
                     }
                     return y(d.name) - 90;
                 })
-                .attr("width", (d) => x(d._budgetaryResources) + 11)
+                .attr("width", (d) => {
+                    if (negativeTbr || negativeOutlay) {
+                        return drawNegativeBudgetaryResources(d, x);
+                    }
+                    if (d._budgetaryResources === 0) {
+                        return 0;
+                    }
+                    return x(d._budgetaryResources) + 11;
+                })
                 .attr("height", () => {
                     if (!isMobile) {
                         if (isMediumScreen) {
@@ -730,9 +861,9 @@ const StatusOfFundsChart = ({
                 .attr('transform', tickMobileXAxis)
                 .attr("x", (d) => {
                     if (d._outlays < 0) {
-                        return x(Math.min(0, d._outlays)) - 8;
+                        return x(d._outlays) - 8;
                     }
-                    if (!isNegative) {
+                    if (!negativeTbr && !negativeOutlay) {
                         return x(0) - 8;
                     }
                     return x(0);
@@ -741,7 +872,8 @@ const StatusOfFundsChart = ({
                     if (!isMobile) {
                         if (window.innerWidth >= 992 && window.innerWidth < 1200) {
                             return y(d.name) + 50;
-                        } else if (isMediumScreen) {
+                        }
+                        else if (isMediumScreen) {
                             return y(d.name) + 40;
                         }
                         return y(d.name) + 100;
@@ -749,7 +881,7 @@ const StatusOfFundsChart = ({
                     return y(d.name) - 10;
                 })
                 .attr("width", (d) => {
-                    if (isNegative) {
+                    if (negativeTbr || negativeOutlay) {
                         return drawNegativeOutlays(d);
                     }
                     if (d._outlays === 0) {
@@ -770,9 +902,6 @@ const StatusOfFundsChart = ({
                 .attr('class', 'hbars')
                 .attr('id', 'out-bar');
 
-            if (isNegative) {
-                svg.selectAll('#tbr-bar').remove();
-            }
             // on click drilldown
             svg.selectAll("#out-bar").on('click', (event, d) => {
                 handleClick(d);
@@ -818,7 +947,7 @@ const StatusOfFundsChart = ({
                 .attr("y1", isMobile ? chartHeight + 1740 : horizontalBorderYPos())
                 .attr("x2", isLargeScreen ? chartWidth + 330 : chartWidth + 85)
                 .attr("y2", isMobile ? chartHeight + 1740 : horizontalBorderYPos());
-            if (isNegative) {
+            if (negativeTbr || negativeOutlay) {
                 svg.append('line')
                     .attr('transform', tickMobileXAxis)
                     .style("stroke", "#aeb0b5")
@@ -852,23 +981,10 @@ const StatusOfFundsChart = ({
 
     useEffect(() => {
         if (results?.length > 0) {
-            if (!toggle) {
-                setSortedNums(results.sort((a, b) => (a._budgetaryResources > b._obligations ? b._budgetaryResources - a._budgetaryResources : b._obligations - a._obligations)));
-                if (results[results.length - 1]._obligations < 0) {
-                    setSortedNums(results.sort((a, b) => (a.obligations > b._obligations ? b._budgetaryResources - a._budgetaryResources : b._obligations - a._obligations)));
-                    setIsNegative(true);
-                }
-            }
-            else {
-                setSortedNums(results.sort((a, b) => (a._budgetaryResources > b._outlays ? b._budgetaryResources - a._budgetaryResources : b._outlays - a._outlays)));
-                if (results[results.length - 1]._obligations < 0) {
-                    setSortedNums(results.sort((a, b) => (a.obligations > b._outlays ? b._budgetaryResources - a._budgetaryResources : b._outlays - a._outlays)));
-                    setIsNegative(true);
-                }
-            }
+            // sort by tbr, high to low
+            setSortedNums(results.sort((a, b) => (b._budgetaryResources - a._budgetaryResources)));
         }
-    }, [results, toggle]);
-
+    }, [results]);
 
     return (
         <>
