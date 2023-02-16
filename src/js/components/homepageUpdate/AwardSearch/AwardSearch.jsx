@@ -5,16 +5,13 @@
 
 import React, { useState, useEffect } from 'react';
 import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
-import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
+import { FlexGridRow, FlexGridCol, CardContainer, CardButton, CardBody } from 'data-transparency-ui';
 import { isCancel } from 'axios';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Keyboard, A11y } from "swiper";
 import { initialState as defaultFilters } from 'redux/reducers/search/searchFiltersReducer';
 import { throttle } from 'lodash';
-import CardButton from "../../sharedComponents/commonCards/CardButton";
-import CardBody from "../../sharedComponents/commonCards/CardBody";
-import CardContainer from "../../sharedComponents/commonCards/CardContainer";
 import GlossaryLink from '../../sharedComponents/GlossaryLink';
 import { generateUrlHash } from "../../../helpers/searchHelper";
 import { REQUEST_VERSION } from "../../../GlobalConstants";

@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { throttle } from "lodash";
 
-import { FlexGridRow, FlexGridCol, Pagination, LoadingMessage } from 'data-transparency-ui';
+import { FlexGridRow, FlexGridCol, Pagination, LoadingMessage, ErrorMessage } from 'data-transparency-ui';
 import { setDataThroughDates } from "redux/actions/agency/agencyActions";
 import { fetchSubcomponentsList, fetchFederalAccountsList, fetchTasList, fetchProgramAccountsList } from 'apis/agency';
 import { parseRows } from 'helpers/agency/StatusOfFundsVizHelper';
@@ -309,6 +309,7 @@ const StatusOfFunds = ({ fy }) => {
         setResults(subcomponentTotalData);
     };
 
+    // old version
     // const goBack = () => {
     //     console.log('goBack fn, overview', overview);
     //     if (overview.toptierCode) {
@@ -338,6 +339,7 @@ const StatusOfFunds = ({ fy }) => {
     //     }
     // };
 
+    // 9492 version
     const goBack = () => {
         if (overview.toptierCode) {
             if (level === 1) {
@@ -358,6 +360,37 @@ const StatusOfFunds = ({ fy }) => {
             }
         }
     };
+
+    // from qat
+    // const goBack = () => {
+    //     if (overview.toptierCode) {
+    //         if (level === 2) {
+    //             setLevel(1);
+    //             if (currentPage === 1) {
+    //                 fetchFederalAccounts(selectedSubcomponent);
+    //             }
+    //             else {
+    //                 changeCurrentPage(1);
+    //             }
+    //         }
+    //         else {
+    //             setLevel(0);
+    //             if (currentPage === 1) {
+    //                 fetchAgencySubcomponents();
+    //             }
+    //             else {
+    //                 changeCurrentPage(1);
+    //             }
+    //         }
+    //
+    //         if (currentPage === 1) {
+    //             setResetPageChange(false);
+    //         }
+    //         else {
+    //             changeCurrentPage(1);
+    //         }
+    //     }
+    // };
 
     const onToggle = () => {
         setOnToggle(!toggle);
@@ -388,7 +421,9 @@ const StatusOfFunds = ({ fy }) => {
                             <FontAwesomeIcon icon="arrow-left" />
                             &nbsp;&nbsp;Back
                         </button> : <></>}
-                    { !loading ?
+                    {loading && <LoadingMessage />}
+                    {error && <ErrorMessage />}
+                    { !loading && !error &&
                         <VisualizationSection
                             toggle={toggle}
                             onToggle={onToggle}
@@ -403,8 +438,7 @@ const StatusOfFunds = ({ fy }) => {
                             viewType={viewType}
                             setViewType={setViewType}
                             maxLevel={maxLevel} />
-                        :
-                        <LoadingMessage /> }
+                    }
                     <Pagination
                         currentPage={currentPage}
                         changePage={changeCurrentPage}

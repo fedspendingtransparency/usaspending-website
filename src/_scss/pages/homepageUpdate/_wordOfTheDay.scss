@@ -81,7 +81,10 @@
     height: calc(100% - 100px);
 
     .page__loading {
-      min-height: unset;
+      @media(min-width: $large-screen) {
+        min-height: unset;
+      }
+
       div,
       svg {
         color: $gray-2;
