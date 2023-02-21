@@ -5,7 +5,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { FlexGridCol, CardContainer, CardBody, CardButton } from 'data-transparency-ui';
+import { CardContainer, CardBody, CardButton } from 'data-transparency-ui';
 import { isCancel } from "axios";
 import { useLocation } from "react-router-dom";
 import { fetchAllTerms, getNewUrlForGlossary } from "helpers/glossaryHelper";
