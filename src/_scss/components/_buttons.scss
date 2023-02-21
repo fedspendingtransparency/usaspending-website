@@ -58,6 +58,7 @@
 .button-type__primary-left-icon-light {
     background-color: $blue-50;
     line-height: 1.5;
+    color: $gray-cool-1;
     &:hover {
         background-color: $blue-70v;
     }
@@ -144,7 +145,7 @@
     border-radius: 6px;
     border: solid 1px $gray-cool-10;
     background-color: transparent;
-    color: $color-primary;
+    color: $blue-50;
     line-height: 1.5;
     &:hover {
         color: $color-primary-darker;
