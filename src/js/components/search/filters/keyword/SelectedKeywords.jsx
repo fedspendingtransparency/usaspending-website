@@ -29,7 +29,8 @@ export default class SelectedKeywords extends React.Component {
             <div
                 className={`selected-filters ${hideTags}`}
                 id="selected-keyword-tags"
-                role="status">
+                role="status"
+                onChange={this.props.toggleKeyword}>
                 {shownKeywords}
             </div>
         );
