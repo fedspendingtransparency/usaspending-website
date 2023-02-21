@@ -1,7 +1,7 @@
 $hold-increment: 2000ms;
 $scroll-increment: 200ms;
 $iteration-increment: $hold-increment + $scroll-increment;
-$green-text: #2d6878;
+$green-text: $color-infrastructure-outlays;
 
 @mixin rotation ($animation, $increment, $delay, $opacity: 0, $position: absolute) {
     animation: $animation $increment linear;

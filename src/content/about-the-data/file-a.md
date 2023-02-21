@@ -6,5 +6,5 @@ File A automatically from data in the Governmentwide Treasury
 Account Symbol Adjusted Trial Balance System (GTAS), or choose to upload
 their own custom File A data. File A contains budgetary resources,
 obligation, and outlay data for all the relevant Treasury Account Symbols (TAS)
-in a reporting agency. It includes both award and non-award spending
+in a reporting agency, with additional breakdown by Budget Function. It includes both award and non-award spending
 (grouped together), and crosswalks with the SF 133 report.

@@ -22,10 +22,10 @@
       @media (min-width: $medium-screen) {
         width: 60%;
       }
-      color: #ffffff;
+      color: $color-white;
 
       h1 {
-        color: #fff;
+        color: $color-white;
         margin: 0 0 24px;
         font-stretch: normal;
         font-style: normal;
@@ -36,7 +36,7 @@
       }
 
       h2 {
-        color: #fff;
+        color: $color-white;
         font-size: rem(20);
         line-height: rem(30);
         font-weight: $font-semibold;

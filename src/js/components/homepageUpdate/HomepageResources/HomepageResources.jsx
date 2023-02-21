@@ -7,11 +7,8 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import * as slideoutActions from 'redux/actions/slideouts/slideoutActions';
 import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
-import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
+import { FlexGridRow, FlexGridCol, CardContainer, CardBody, CardButton } from 'data-transparency-ui';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import CardContainer from "../../sharedComponents/commonCards/CardContainer";
-import CardBody from "../../sharedComponents/commonCards/CardBody";
-import CardButton from "../../sharedComponents/commonCards/CardButton";
 import Analytics from '../../../helpers/analytics/Analytics';
 
 const HomepageResources = () => {
