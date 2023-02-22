@@ -79,7 +79,6 @@ export default class Keyword extends React.Component {
                                 placeholder="Search by Keyword"
                                 value={this.state.value}
                                 onChange={this.changedInput}
-                                toggleRecipient={this.props.toggleRecipient}
                                 ref={(input) => {
                                     this.searchInput = input;
                                 }} />

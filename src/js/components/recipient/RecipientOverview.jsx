@@ -104,7 +104,7 @@ const RecipientOverview = (props) => {
             filters = {
                 filters: {
                     ...defaultFilters,
-                    keyword: { uei }
+                    keyword: { [uei]: uei }
                 },
                 version: REQUEST_VERSION
             };
