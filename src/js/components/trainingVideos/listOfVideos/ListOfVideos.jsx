@@ -110,6 +110,14 @@ const ListOfVideos = ({ videos }) => {
                             mobile={12}
                             className="list-of-videos__video">
                             <VideoCard
+                                onKeyUp={(e) => {
+                                    e.persist();
+                                    if (e.keyCode === 13) {
+                                        dispatch(showTrainingVideoModal({
+                                            url: video.thumbnails.maxres.url, modalType: 'training-videos', title: video.title, description: video.description, publishedAt: video.publishedAt, duration: video.duration, id: video.id
+                                        }));
+                                    }
+                                }}
                                 tabIndex="0"
                                 key={video.id}
                                 thumbnailUrl={video.thumbnails.maxres.url}

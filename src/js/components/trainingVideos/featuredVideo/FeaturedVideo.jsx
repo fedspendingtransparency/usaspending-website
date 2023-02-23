@@ -61,8 +61,14 @@ const FeaturedVideo = ({ featuredVideo }) => {
                             <div className="featured-video__heading">
                                 {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
                                 <div
+                                    // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+                                    tabIndex="0"
                                     className="featured-video__headline"
-                                    onKeyDown={launchModal}
+                                    onKeyUp={(e) => {
+                                        if (e.keyCode === 13) {
+                                            launchModal(e);
+                                        }
+                                    }}
                                     onClick={launchModal} >
                                     Learn how USAspending.gov
                                     <br />
