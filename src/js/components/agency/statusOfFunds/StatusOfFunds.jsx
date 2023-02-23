@@ -11,7 +11,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { throttle } from "lodash";
 
-import { FlexGridRow, FlexGridCol, Pagination, LoadingMessage } from 'data-transparency-ui';
+import { FlexGridRow, FlexGridCol, Pagination, LoadingMessage, ErrorMessage } from 'data-transparency-ui';
 import { setDataThroughDates } from "redux/actions/agency/agencyActions";
 import { fetchSubcomponentsList, fetchFederalAccountsList, fetchTasList } from 'apis/agency';
 import { parseRows } from 'helpers/agency/StatusOfFundsVizHelper';
@@ -208,6 +208,7 @@ const StatusOfFunds = ({ fy }) => {
                 setResults(paginatedTasList(federalAccountList));
             }
         }
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentPage]);
 
@@ -255,11 +256,21 @@ const StatusOfFunds = ({ fy }) => {
         if (overview.toptierCode) {
             if (level === 2) {
                 setLevel(1);
-                fetchFederalAccounts(selectedSubcomponent);
+                if (currentPage === 1) {
+                    fetchFederalAccounts(selectedSubcomponent);
+                }
+                else {
+                    changeCurrentPage(1);
+                }
             }
             else {
                 setLevel(0);
-                fetchAgencySubcomponents();
+                if (currentPage === 1) {
+                    fetchAgencySubcomponents();
+                }
+                else {
+                    changeCurrentPage(1);
+                }
             }
 
             if (currentPage === 1) {
@@ -300,7 +311,9 @@ const StatusOfFunds = ({ fy }) => {
                             <FontAwesomeIcon icon="arrow-left" />
                             &nbsp;&nbsp;Back
                         </button> : <></>}
-                    { !loading ?
+                    {loading && <LoadingMessage />}
+                    {error && <ErrorMessage />}
+                    { !loading && !error &&
                         <VisualizationSection
                             toggle={toggle}
                             onToggle={onToggle}
@@ -315,8 +328,7 @@ const StatusOfFunds = ({ fy }) => {
                             viewType={viewType}
                             setViewType={setViewType}
                             maxLevel={maxLevel} />
-                        :
-                        <LoadingMessage /> }
+                    }
                     <Pagination
                         currentPage={currentPage}
                         changePage={changeCurrentPage}

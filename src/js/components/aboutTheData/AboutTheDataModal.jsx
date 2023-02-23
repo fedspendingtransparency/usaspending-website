@@ -18,7 +18,8 @@ const propTypes = {
     type: PropTypes.string,
     title: PropTypes.string,
     className: PropTypes.string,
-    agencyData: PropTypes.object
+    agencyData: PropTypes.object,
+    id: PropTypes.string
 };
 
 const AboutTheDataModal = ({
@@ -27,7 +28,8 @@ const AboutTheDataModal = ({
     type,
     title,
     className,
-    agencyData
+    agencyData,
+    id
 }) => {
     if (!agencyData) return null;
     const fiscalYearQuarterPeriodText = showQuarterText(agencyData.fiscalPeriod) ?
@@ -35,6 +37,7 @@ const AboutTheDataModal = ({
         `FY ${agencyData.fiscalYear} P${agencyData.fiscalPeriod}`;
     return (
         <Modal
+            dialogId={id}
             mounted={mounted}
             onExit={closeModal}
             titleText={title}

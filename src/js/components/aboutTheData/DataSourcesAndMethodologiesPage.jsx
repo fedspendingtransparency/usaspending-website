@@ -16,7 +16,6 @@ import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 
 import PageWrapper from 'components/sharedComponents/PageWrapper';
 import Sidebar from 'components/sharedComponents/sidebar/Sidebar';
-import ExternalLink from 'components/sharedComponents/ExternalLink';
 
 const sections = [
     {
@@ -170,10 +169,12 @@ const DataSourcesAndMethodologiesPage = () => {
                                     </p>
                                     <p>
                                         The policy governing which agencies submit quarterly vs. monthly is found in
-                                        <ExternalLink
-                                            url="https://www.whitehouse.gov/wp-content/uploads/2020/04/Implementation-Guidance-for-Supplemental-Funding-Provided-in-Response.pdf">
+                                        <a
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            href="https://www.whitehouse.gov/wp-content/uploads/2020/04/Implementation-Guidance-for-Supplemental-Funding-Provided-in-Response.pdf">
                                             OMB’s Memorandum M-20-21 (Appendix A, Section III).
-                                        </ExternalLink>
+                                        </a>
                                         The full schedule of deadlines for agency submissions is found on the{' '}
                                         <a
                                             className="usda-external-link"
