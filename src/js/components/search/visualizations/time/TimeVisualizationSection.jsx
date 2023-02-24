@@ -13,11 +13,13 @@ import { fullMonthFromAbbr } from 'helpers/monthHelper';
 import { isIe } from 'helpers/browser';
 import TimeVisualization from './TimeVisualization';
 import TimeVisualizationPeriodButton from './TimeVisualizationPeriodButton';
+import GlossaryLink from '../../../sharedComponents/GlossaryLink';
 
 const propTypes = {
     data: PropTypes.object,
     updateVisualizationPeriod: PropTypes.func,
-    visualizationPeriod: PropTypes.string
+    visualizationPeriod: PropTypes.string,
+    subaward: PropTypes.bool
 };
 
 export default class TimeVisualizationSection extends React.Component {
@@ -26,15 +28,27 @@ export default class TimeVisualizationSection extends React.Component {
 
         this.state = {
             windowWidth: 0,
-            visualizationWidth: 0
+            visualizationWidth: 0,
+            tableTitle: "",
+            tableBody: ""
         };
 
         this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
+        this.handleUpdateTitle = this.handleUpdateTitle.bind(this);
+        this.handleUpdateBody = this.handleUpdateBody.bind(this);
     }
 
     componentDidMount() {
         this.handleWindowResize();
+        this.handleUpdateTitle();
+        this.handleUpdateBody();
         window.addEventListener('resize', this.handleWindowResize);
+    }
+    componentDidUpdate(prevProps) {
+        if (this.props.subaward !== prevProps.subaward) {
+            this.handleUpdateTitle();
+            this.handleUpdateBody();
+        }
     }
 
     componentWillUnmount() {
@@ -87,6 +101,41 @@ export default class TimeVisualizationSection extends React.Component {
         }
     }
 
+    handleUpdateTitle() {
+        const toggleValue = document.querySelector(".subaward-toggle"); // if true it's a prime award, false sub-award
+        const primeAwardTitle = "Spending by Prime Award Transaction Over Time";
+        const subAwardTitle = "Sub-Award Spending Over Time";
+        if (toggleValue.ariaPressed === "true") {
+            this.setState({
+                tableTitle: primeAwardTitle
+            });
+        } else {
+            this.setState({
+                tableTitle: subAwardTitle
+            });
+        }
+    }
+
+    handleUpdateBody() {
+        const toggleValue = document.querySelector(".subaward-toggle"); // if true it's a prime award, false sub-award
+        const primeAwardBody = [<>The data in the chart below represent {<span className="award-search__glossary-term"> obligation</span>}{' '}{<GlossaryLink term="obligation" />} amounts for prime award {<span className="award-search__glossary-term"> transactions</span>}{' '}{<GlossaryLink term="transaction" />} within the selected filters. Prime award transactions with the same unique award ID are grouped under a single prime award summary. Prime award summaries can be viewed in the Table tab.</>];
+        const subAwardBody = (
+            [<>The data below represent{<span className="award-search__glossary-term"> sub-awards</span>}{' '}{<GlossaryLink term="sub-award" />} that meet the selected filter criteria. The results do not reflect sub-awards whose
+                {<span className="award-search__glossary-term"> prime awards</span>}{' '}{<GlossaryLink term="prime-award" />}
+            meet the selected filter criteria. For example, if you filter by Fiscal Year 2019, you will see only sub-awards with Action Dates in Fiscal Year 2019, but you will not see all sub-awards whose prime award overlaps with Fiscal Year 2019.{<><br /><br /></>}
+            Sub-award amounts are funded by prime award obligations and outlays. In theory, the total value of all sub-award amounts for any given prime award is a subset of the Current Award Amount for that prime award; sub-award amounts generally should not exceed the Current Award Amount for their associated prime award. To avoid double-counting the overall value of a prime award, do not sum up sub-award amounts and prime award obligations or outlays.
+            </>]);
+        if (toggleValue.ariaPressed === "true") {
+            this.setState({
+                tableBody: primeAwardBody
+            });
+        } else {
+            this.setState({
+                tableBody: subAwardBody
+            });
+        }
+    }
+
     // eslint-disable-next-line no-undef
     downloadBlob = () => new Blob([this.getDownloadData()], { type: 'text/csv;charset=utf-8;' });
 
@@ -119,7 +168,7 @@ export default class TimeVisualizationSection extends React.Component {
                 id="results-section-time"
                 aria-label="Spending Over Time">
                 <h2 className="visualization-title">
-                    Spending Over Time
+                    {this.state.tableTitle}
                 </h2>
                 <hr
                     className="results-divider"
@@ -130,7 +179,7 @@ export default class TimeVisualizationSection extends React.Component {
                 <div className="visualization-top">
                     <div className="visualization-description">
                         <div className="content">
-                            Spot trends in spending over your chosen time period. Break down your results by years, quarters, or months, and hover over the bars for more detailed information.
+                            {this.state.tableBody}
                         </div>
                     </div>
                     <div className="visualization-period">
