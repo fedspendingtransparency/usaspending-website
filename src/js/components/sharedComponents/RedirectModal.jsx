@@ -19,6 +19,7 @@ export default class RedirectModal extends React.Component {
     render() {
         return (
             <Modal
+                dialogId="usa-dt-modal__redirect-modal"
                 mounted={this.props.mounted}
                 onExit={this.props.hideModal}
                 titleText="You're leaving a Federal Government website."
