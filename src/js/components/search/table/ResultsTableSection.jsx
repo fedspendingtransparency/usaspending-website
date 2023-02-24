@@ -5,15 +5,14 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { Tabs } from 'data-transparency-ui';
-
 import ResultsTable from './ResultsTable';
-
 import ResultsTableLoadingMessage from './ResultsTableLoadingMessage';
 import ResultsTableNoResults from './ResultsTableNoResults';
 import ResultsTableErrorMessage from './ResultsTableErrorMessage';
+import GlossaryLink from '../../sharedComponents/GlossaryLink';
+import ReadMore from '../../sharedComponents/ReadMore';
 
 const propTypes = {
     inFlight: PropTypes.bool,
@@ -69,14 +68,29 @@ export default class ResultsTableSection extends React.Component {
             (!this.props.error && !this.props.inFlight && this.props.results.length > 0) ||
             this.props.inFlight
         );
+
+        const primeAwardText = `The rows in the table below represent award summaries for prime awards.
+        Award summaries contain all the individual transactions and modifications that share the same unique award ID.
+        If you searched based on a Time Period filter, the award summaries below will overlap with your selected time period based on their
+                ${<span className="award-search__glossary-term"> Prime Award Base Transaction Action Date</span>} ${<GlossaryLink term="base-transaction-action-date" />} and
+                ${<span className="award-search__glossary-term"> Prime Award Latest Transaction Action Date</span>} ${<GlossaryLink term="latest-transaction-action-date" />},
+        but individual transactions for any single award summary may not exist within the selected time period.`;
         return (
             <div className="search-results-table-section" id="results-section-table">
                 <div className="table-section-header">
                     <h2 className="visualization-title">
-                        Spending by {type}
+                        {type === "Prime Award" ? `Spending by ${type} Summary` : `Spending by ${type}`}
                     </h2>
                 </div>
                 <hr className="results-divider" />
+                {this.props.subaward === false ?
+                    <div className="prime-award__explainer-wrapper">
+                        <div prime-award__explainer-heading>
+                            <ReadMore limit={330} openPrompt="read more" closePrompt="read less" text={primeAwardText} openIcon="" closeIcon="" />
+
+                        </div>
+                    </div> :
+                    <div className="sub-award__explainer-wrapper">fart2</div>}
                 <Tabs
                     types={this.props.tableTypes}
                     active={this.props.currentType}

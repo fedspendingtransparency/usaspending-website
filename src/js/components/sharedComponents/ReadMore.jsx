@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
     children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]),
-    text: PropTypes.string,
+    text: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     limit: PropTypes.number,
     initiallyExpanded: PropTypes.bool,
     inline: PropTypes.bool,
