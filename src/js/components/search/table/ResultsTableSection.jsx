@@ -68,13 +68,20 @@ export default class ResultsTableSection extends React.Component {
             (!this.props.error && !this.props.inFlight && this.props.results.length > 0) ||
             this.props.inFlight
         );
-
-        const primeAwardText = `The rows in the table below represent award summaries for prime awards.
+        const primeAwardText = (
+            `The rows in the table below represent award summaries for prime awards.
         Award summaries contain all the individual transactions and modifications that share the same unique award ID.
         If you searched based on a Time Period filter, the award summaries below will overlap with your selected time period based on their
-                ${<span className="award-search__glossary-term"> Prime Award Base Transaction Action Date</span>} ${<GlossaryLink term="base-transaction-action-date" />} and
-                ${<span className="award-search__glossary-term"> Prime Award Latest Transaction Action Date</span>} ${<GlossaryLink term="latest-transaction-action-date" />},
-        but individual transactions for any single award summary may not exist within the selected time period.`;
+                ${<span className="award-search__glossary-term"> Prime Award Base Transaction Action Date</span>}${' '}${<GlossaryLink term="base-transaction-action-date" />} and
+                ${<span className="award-search__glossary-term"> Prime Award Latest Transaction Action Date</span>}${' '}${<GlossaryLink term="latest-transaction-action-date" />},
+        but individual transactions for any single award summary may not exist within the selected time period.`);
+
+        const subAwardText = (
+            `The rows in the table below represent${<span className="award-search__glossary-term"> sub-awards</span>}${' '}${<GlossaryLink term="sub-award" />} that meet the selected filter criteria. The results do not reflect sub-awards whose
+            ${<span className="award-search__glossary-term"> prime awards</span>}${' '}${<GlossaryLink term="prime-award" />}
+            meet the selected filter criteria. For example, if you filter by Fiscal Year 2019, you will see only sub-awards with Action Dates in Fiscal Year 2019, but you will not see all sub-awards whose prime award overlaps with Fiscal Year 2019.${<br />}
+            Sub-award amounts are funded by prime award obligations and outlays. In theory, the total value of all sub-award amounts for any given prime award is a subset of the Current Award Amount for that prime award; sub-award amounts generally should not exceed the Current Award Amount for their associated prime award. To avoid double-counting the overall value of a prime award, do not sum up sub-award amounts and prime award obligations or outlays.
+            `);
         return (
             <div className="search-results-table-section" id="results-section-table">
                 <div className="table-section-header">
@@ -84,13 +91,8 @@ export default class ResultsTableSection extends React.Component {
                 </div>
                 <hr className="results-divider" />
                 {this.props.subaward === false ?
-                    <div className="prime-award__explainer-wrapper">
-                        <div prime-award__explainer-heading>
-                            <ReadMore limit={330} openPrompt="read more" closePrompt="read less" text={primeAwardText} openIcon="" closeIcon="" />
-
-                        </div>
-                    </div> :
-                    <div className="sub-award__explainer-wrapper">fart2</div>}
+                    <ReadMore limit={330} openPrompt="read more" closePrompt="read less" text={primeAwardText} openIcon="" closeIcon="" /> :
+                    <ReadMore limit={330} openPrompt="read more" closePrompt="read less" text={subAwardText} openIcon="" closeIcon="" />}
                 <Tabs
                     types={this.props.tableTypes}
                     active={this.props.currentType}
