@@ -1,6 +1,12 @@
 // Overwriting the baseModalStyles
 #usa-dt-modal__redirect-modal {
     width: auto;
+
+    .usa-dt-modal__link {
+        @media(max-width: $tablet-screen) {
+            word-wrap: break-word;
+        }
+    }
 }
 .redirect-modal {
     width: 100% !important;
