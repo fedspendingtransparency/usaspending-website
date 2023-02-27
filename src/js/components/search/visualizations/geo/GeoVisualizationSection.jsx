@@ -19,6 +19,7 @@ import MapWrapper from './MapWrapper';
 import GeoVisualizationTooltip from './GeoVisualizationTooltip';
 import MapDisclaimer from './MapDisclaimer';
 import MapMessage from './MapMessage';
+import GlossaryLink from '../../../sharedComponents/GlossaryLink';
 
 const propTypes = {
     scope: PropTypes.string,
@@ -33,7 +34,8 @@ const propTypes = {
     error: PropTypes.bool,
     noResults: PropTypes.bool,
     mapLegendToggle: PropTypes.string,
-    updateMapLegendToggle: PropTypes.func
+    updateMapLegendToggle: PropTypes.func,
+    subaward: PropTypes.bool
 };
 
 const availableLayers = ['state', 'county', 'congressionalDistrict'];
@@ -51,6 +53,8 @@ export default class GeoVisualizationSection extends React.Component {
         this.showTooltip = this.showTooltip.bind(this);
         this.hideTooltip = this.hideTooltip.bind(this);
         this.closeDisclaimer = this.closeDisclaimer.bind(this);
+        this.handleUpdateTitle = this.handleUpdateTitle.bind(this);
+        this.handleUpdateBody = this.handleUpdateBody.bind(this);
     }
 
     componentDidMount() {
@@ -59,8 +63,17 @@ export default class GeoVisualizationSection extends React.Component {
             // cookie does not exist, show the disclaimer
             this.showDisclaimer();
         }
+
+        this.handleUpdateTitle();
+        this.handleUpdateBody();
     }
 
+    componentDidUpdate(prevProps) {
+        if (this.props.subaward !== prevProps.subaward) {
+            this.handleUpdateTitle();
+            this.handleUpdateBody();
+        }
+    }
     showDisclaimer = () => this.setState({ showDisclaimer: true });
 
     showTooltip(geoId, position) {
@@ -92,7 +105,39 @@ export default class GeoVisualizationSection extends React.Component {
             showDisclaimer: false
         });
     }
+    handleUpdateTitle() {
+        const toggleValue = document.querySelector(".subaward-toggle"); // if true it's a prime award, false sub-award
+        const primeAwardTitle = "Spending by Geography";
+        const subAwardTitle = "Sub-Award Spending by Geography";
+        if (toggleValue.ariaPressed === "true") {
+            this.setState({
+                tableTitle: primeAwardTitle
+            });
+        } else {
+            this.setState({
+                tableTitle: subAwardTitle
+            });
+        }
+    }
 
+    handleUpdateBody() {
+        const toggleValue = document.querySelector(".subaward-toggle"); // if true it's a prime award, false sub-award
+        const primeAwardBody = [<>Use the map below to break down spending by state, county, or congressional district.{<><br /><br /></>}The data in the map represent  {<span className="award-search__glossary-term"> obligation</span>}{' '}{<GlossaryLink term="obligation" />} amounts for prime award {<span className="award-search__glossary-term"> transactions</span>}{' '}{<GlossaryLink term="transaction" />} within the selected filters. Prime award transactions with the same unique award ID are grouped under a single prime award summary. Prime award summaries can be viewed in the Table tab.</>];
+        const subAwardBody = (
+            [<>Use the map below to break down spending by state, county, or congressional district.{<><br /><br /></>}
+            The data below represent{<span className="award-search__glossary-term"> sub-awards</span>}{' '}{<GlossaryLink term="sub-award" />} that meet the selected filter criteria. For example, if you filter by Place of Performance in your county, you will see only sub-awards with Place of Performance in your county, but you will not see all sub-awards whose prime award lists Place of Performance in your county.{<><br /><br /></>}
+            Sub-award amounts are funded by prime award obligations and outlays. In theory, the total value of all sub-award amounts for any given prime award is a subset of the Current Award Amount for that prime award; sub-award amounts generally should not exceed the Current Award Amount for their associated prime award. To avoid double-counting the overall value of a prime award, do not sum up sub-award amounts and prime award obligations or outlays.
+            </>]);
+        if (toggleValue.ariaPressed === "true") {
+            this.setState({
+                tableBody: primeAwardBody
+            });
+        } else {
+            this.setState({
+                tableBody: subAwardBody
+            });
+        }
+    }
     render() {
         if (!MapboxGL.supported()) {
             return (
@@ -158,7 +203,7 @@ export default class GeoVisualizationSection extends React.Component {
                 id="results-section-geo"
                 aria-label="Spending by Geography">
                 <h2 className="visualization-title">
-                    Spending by Geography
+                    {this.state.tableTitle}
                 </h2>
                 <hr
                     className="results-divider"
@@ -169,7 +214,7 @@ export default class GeoVisualizationSection extends React.Component {
                 <div className="visualization-top">
                     <div className="visualization-description">
                         <div className="content">
-                            Explore the map to see a breakdown of spending by state, county, or congressional district. View your results by place of performance or recipient location, and hover over your chosen location for more detailed information.
+                            {this.state.tableBody}
                         </div>
                     </div>
 

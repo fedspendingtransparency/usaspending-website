@@ -7,7 +7,7 @@
         font-size: $small-font-size;
         line-height: rem(26);
         @include media($tablet-screen) {
-            @include display(flex);
+            @include display(inline);
             @include flex(1 1 56%);
             padding-right: rem(15);
         }
