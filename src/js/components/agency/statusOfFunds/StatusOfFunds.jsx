@@ -46,6 +46,7 @@ const StatusOfFunds = ({ fy }) => {
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < tabletScreen);
     const [viewType, setViewType] = useState(isMobile ? 'table' : 'chart');
+    const [goBackEngaged, setGoBackEngaged] = useState(false);
 
     // TODO this should probably go in redux
     const [selectedSubcomponent, setSelectedSubcomponent] = useState();
@@ -253,10 +254,9 @@ const StatusOfFunds = ({ fy }) => {
             if (prevPage !== currentPage && level === 2) {
                 setResults(paginatedTasList(federalAccountList));
             }
-            // todo - this is not right; pagination at this level is broken
+            // todo - problem with pagination at this level
             // this controls the pagination in the chart at that level
             if (prevPage !== currentPage && level === 3) {
-                // setResults(selectedProgramActivity);
                 fetchProgramActivity(selectedProgramActivity);
             }
         }
@@ -307,9 +307,11 @@ const StatusOfFunds = ({ fy }) => {
         subcomponentTotalData.populate(parentData);
         setSelectedDrilldownList(selectedLevelsArray);
         setResults(subcomponentTotalData);
+        setGoBackEngaged(false);
     };
 
     const goBack = () => {
+        setGoBackEngaged(true);
         if (overview.toptierCode) {
             if (level === 1) {
                 setLevel(0);
@@ -348,6 +350,7 @@ const StatusOfFunds = ({ fy }) => {
                         toggle={toggle}
                         level={level}
                         goBack={goBack}
+                        goBackEngaged={goBackEngaged}
                         agencyName={overview.name}
                         fy={fy}
                         selectedLevelDataList={selectedDrilldownList} />

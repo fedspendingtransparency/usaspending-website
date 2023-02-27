@@ -26,14 +26,14 @@ const propTypes = {
 };
 
 const DrilldownSidebar = ({
-    toggle, level, goBack, fy, agencyName, selectedLevelDataList
+    toggle, level, goBack, fy, agencyName, selectedLevelDataList, goBackEngaged
 }) => {
     const { agencyBudgetShort, agencyObligatedShort } = useSelector((state) => state.agency.budgetaryResources?.[fy]) || '--';
     const { toptierCode } = useSelector((state) => state.agency.overview) || '--';
     const outlay = useSelector((state) => state.agency.agencyOutlays[toptierCode]) || '--';
 
     const formatName = (selectedLevel, index) => {
-        if (selectedLevel === 2 && index === 1) {
+        if (selectedLevel === 2 && index === 1 && !goBackEngaged) {
             return `${selectedLevelDataList[index]?.id}: ${selectedLevelDataList[index]?.name}`;
         }
 
