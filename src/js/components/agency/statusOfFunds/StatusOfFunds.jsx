@@ -256,8 +256,6 @@ const StatusOfFunds = ({ fy }) => {
             if (prevPage !== currentPage && level === 2) {
                 setResults(paginatedTasList(tasList));
             }
-            // todo - problem with pagination at this level
-            // this controls the pagination in the chart at that level
             if (prevPage !== currentPage && level === 3) {
                 fetchProgramActivity(selectedTas);
             }
