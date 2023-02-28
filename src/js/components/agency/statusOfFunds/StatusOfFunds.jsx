@@ -54,6 +54,7 @@ const StatusOfFunds = ({ fy }) => {
     const [selectedFederalAccount, setSelectedFederalAccount] = useState();
     const [selectedTas, setSelectedTas] = useState();
     const [tasList, setTasList] = useState();
+    const [programActivityList, setProgramActivityList] = useState();
     const [drilldownSelection, setDrilldownSelection] = useState({});
     const [selectedDrilldownList, setSelectedDrilldownList] = useState([]);
 
@@ -230,7 +231,7 @@ const StatusOfFunds = ({ fy }) => {
                 setLevel(3);
                 setResults(parsedData);
                 setSelectedTas(tasData);
-                setFederalAccountList(parsedData);
+                setProgramActivityList(parsedData);
                 setTotalItems(res.data.page_metadata.total);
                 setDrilldownSelection(totalsData);
                 setLoading(false);
