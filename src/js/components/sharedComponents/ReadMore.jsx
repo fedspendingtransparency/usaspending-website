@@ -143,6 +143,10 @@ const ReadMore = ({
             </div>
         );
     }
+    console.debug(typeof text === "object", Object.keys(text));
+    if (typeof (text) === "object" && text && text.length > limit) {
+        console.debug("going here???");
+    }
     return (
         <div>
             {readMore()}
