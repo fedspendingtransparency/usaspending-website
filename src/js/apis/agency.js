@@ -61,6 +61,6 @@ export const fetchTasList = (code, fy) => apiRequest({
     url: `v2/federal_accounts/${code}/${fy ? `?fiscal_year=${fy}` : ''}`
 });
 
-export const fetchProgramAccountsList = (code, fy) => apiRequest({
+export const fetchProgramActivityList = (code, fy) => apiRequest({
     url: `v2/agency/${code}/program_activity/${fy ? `?fiscal_year=${fy}` : ''}`
 });

@@ -13,7 +13,7 @@ import { throttle } from "lodash";
 
 import { FlexGridRow, FlexGridCol, Pagination, LoadingMessage, ErrorMessage } from 'data-transparency-ui';
 import { setDataThroughDates } from "redux/actions/agency/agencyActions";
-import { fetchSubcomponentsList, fetchFederalAccountsList, fetchTasList, fetchProgramAccountsList } from 'apis/agency';
+import { fetchSubcomponentsList, fetchFederalAccountsList, fetchTasList, fetchProgramActivityList } from 'apis/agency';
 import { parseRows } from 'helpers/agency/StatusOfFundsVizHelper';
 import { useStateWithPrevious } from 'helpers';
 import { useLatestAccountData } from 'containers/account/WithLatestFy';
@@ -48,11 +48,12 @@ const StatusOfFunds = ({ fy }) => {
     const [viewType, setViewType] = useState(isMobile ? 'table' : 'chart');
     const [goBackEngaged, setGoBackEngaged] = useState(false);
 
-    // TODO this should probably go in redux
+    // TODO this should probably go in redux, maybe?
     const [selectedSubcomponent, setSelectedSubcomponent] = useState();
     const [federalAccountList, setFederalAccountList] = useState();
+    const [selectedFederalAccount, setSelectedFederalAccount] = useState();
     const [selectedTas, setSelectedTas] = useState();
-    const [selectedProgramActivity, setSelectedProgramActivity] = useState();
+    const [tasList, setTasList] = useState();
     const [drilldownSelection, setDrilldownSelection] = useState({});
     const [selectedDrilldownList, setSelectedDrilldownList] = useState([]);
 
@@ -185,8 +186,8 @@ const StatusOfFunds = ({ fy }) => {
                 // eslint-disable-next-line no-param-reassign,no-return-assign
                 parsedData.map((item) => item.name = item.id);
                 setResults(paginatedTasList(parsedData));
-                setSelectedTas(federalAccountData);
-                setFederalAccountList(parsedData);
+                setSelectedFederalAccount(federalAccountData);
+                setTasList(parsedData);
                 setDrilldownSelection(totalsData);
                 setTotalItems(parsedData.length);
                 setLoading(false);
@@ -212,7 +213,7 @@ const StatusOfFunds = ({ fy }) => {
             page: currentPage
         };
 
-        request.current = fetchProgramAccountsList(overview.toptierCode, fy, params.page);
+        request.current = fetchProgramActivityList(overview.toptierCode, fy, params.page);
         const programActivityRequest = request.current;
         programActivityRequest.promise
             .then((res) => {
@@ -228,7 +229,7 @@ const StatusOfFunds = ({ fy }) => {
 
                 setLevel(3);
                 setResults(parsedData);
-                setSelectedProgramActivity(tasData);
+                setSelectedTas(tasData);
                 setFederalAccountList(parsedData);
                 setTotalItems(res.data.page_metadata.total);
                 setDrilldownSelection(totalsData);
@@ -252,12 +253,12 @@ const StatusOfFunds = ({ fy }) => {
                 fetchFederalAccounts(selectedSubcomponent);
             }
             if (prevPage !== currentPage && level === 2) {
-                setResults(paginatedTasList(federalAccountList));
+                setResults(paginatedTasList(tasList));
             }
             // todo - problem with pagination at this level
             // this controls the pagination in the chart at that level
             if (prevPage !== currentPage && level === 3) {
-                fetchProgramActivity(selectedProgramActivity);
+                fetchProgramActivity(selectedTas);
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -323,7 +324,7 @@ const StatusOfFunds = ({ fy }) => {
             }
             if (level === 3) {
                 setLevel(2);
-                fetchTas(selectedTas);
+                fetchTas(selectedFederalAccount);
             }
             else {
                 changeCurrentPage(1);
