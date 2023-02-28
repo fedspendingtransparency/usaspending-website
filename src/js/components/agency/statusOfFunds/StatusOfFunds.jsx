@@ -315,15 +315,30 @@ const StatusOfFunds = ({ fy }) => {
         if (overview.toptierCode) {
             if (level === 1) {
                 setLevel(0);
-                fetchAgencySubcomponents();
+                if (currentPage === 1) {
+                    fetchAgencySubcomponents();
+                }
+                else {
+                    changeCurrentPage(1);
+                }
             }
             if (level === 2) {
                 setLevel(1);
-                fetchFederalAccounts(selectedSubcomponent);
+                if (currentPage === 1) {
+                    fetchFederalAccounts(selectedSubcomponent);
+                }
+                else {
+                    changeCurrentPage(1);
+                }
             }
             if (level === 3) {
                 setLevel(2);
-                fetchTas(selectedFederalAccount);
+                if (currentPage === 1) {
+                    fetchTas(selectedFederalAccount);
+                }
+                else {
+                    changeCurrentPage(1);
+                }
             }
             else {
                 changeCurrentPage(1);
