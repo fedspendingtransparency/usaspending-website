@@ -11,6 +11,7 @@
             }
         }
     }
+    display:flex;
 
     .award-search__glossary-term {
         font-weight: $font-semibold;
@@ -32,4 +33,5 @@
         margin-left: 2px;
         margin-right: 0;
     }
+    align-self:flex-end;
 }

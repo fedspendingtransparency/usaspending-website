@@ -3,6 +3,8 @@
     margin-bottom: rem(20);
     @import "../../../../../components/visualizations/_description";
     @import "../../../../../components/visualizations/_period";
+
+    display:flex;
     .visualization-period {
         .content {
             li {
