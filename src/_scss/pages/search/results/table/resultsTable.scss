@@ -67,4 +67,24 @@
         }
     }
 
+    .award-search__glossary-term {
+        font-weight: $font-semibold;
+    }
+
+    .usda-glossary-link {
+        color: $color-gray-light;
+        &:hover, &:active, &:focus, &:visited {
+            color: $color-gray-medium;
+        }
+    }
+
+    .readMoreUpdated__button {
+        background-color: transparent;
+        color: #0074be;
+        padding: 0;
+        margin-top: 4px;
+        margin-bottom: 20px;
+        margin-left: 2px;
+        margin-right: 0;
+    }
 }
