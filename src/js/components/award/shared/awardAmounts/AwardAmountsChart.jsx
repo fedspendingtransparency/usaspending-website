@@ -49,7 +49,7 @@ const getfileCInfo = (fileCType) => {
 
 const getAwardTypeText = (awardType, amountType, fileCType) => {
     const fileCInfo = getfileCInfo(fileCType);
-    const preText = fileCInfo && Object.keys(fileCInfo).length > 0 ? fileCInfo.preText : '';
+    const preText = fileCInfo && Object.keys(fileCInfo)?.length > 0 ? fileCInfo.preText : '';
     return awardType === "idv" ? `Combined ${preText} ${amountType} Amounts` : `${preText} ${amountType} Amount`;
 };
 
@@ -133,51 +133,6 @@ const buildNormalProps = (awardType, data, hasfilecCovid, hasOutlays, fileCType)
             className: `${awardType}-potential`,
             rawValue: data._baseAndAllOptions,
             value: data.baseAndAllOptionsAbbreviated,
-            color: potentialColor,
-            lineOffset: lineOffsetsBySpendingCategory.potential,
-            text: awardType === 'idv'
-                ? "Combined Potential Award Amounts"
-                : "Potential Award Amount",
-            tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'potential', data)
-        },
-        numerator: {
-            labelSortOrder: 1,
-            labelPosition: 'bottom',
-            className: `${awardType}-current`,
-            tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'current', data),
-            rawValue: data._baseExercisedOptions,
-            denominatorValue: data._baseAndAllOptions,
-            value: data.baseExercisedOptionsAbbreviated,
-            lineOffset: lineOffsetsBySpendingCategory.current,
-            text: awardType === 'idv'
-                ? "Combined Current Award Amounts"
-                : "Current Award Amount",
-            color: currentColor,
-            children: [
-                {
-                    labelSortOrder: 0,
-                    labelPosition: 'top',
-                    className: `${awardType}-obligated`,
-                    rawValue: data._totalObligation,
-                    denominatorValue: data._baseExercisedOptions,
-                    value: data.totalObligationAbbreviated,
-                    text: awardType === 'idv'
-                        ? "Combined Obligated Amounts"
-                        : "Obligated Amount",
-                    color: obligatedColor,
-                    tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'obligated', data),
-                    lineOffset: lineOffsetsBySpendingCategory.obligationProcurement
-                }
-            ]
-        }
-    };
-    const chartPropsOutlays = {
-        denominator: {
-            labelSortOrder: 3,
-            labelPosition: 'bottom',
-            className: `${awardType}-potential`,
-            rawValue: data._baseAndAllOptions,
-            value: data.baseAndAllOptionsAbbreviated,
             color: getAwardColor(potentialColor, infrastructurePotentialColor, covidColor, fileCType),
             lineOffset: lineOffsetsBySpendingCategory.potential,
             text: awardType === 'idv'
@@ -222,281 +177,280 @@ const buildNormalProps = (awardType, data, hasfilecCovid, hasOutlays, fileCType)
             ]
         }
     };
-    if (hasfilecCovid || fileCType === "infrastructure" || hasOutlays) return chartPropsOutlays;
     return chartProps;
 };
 
 // Only for Contract and IDV Awards
-const buildExceedsCurrentProps = (awardType, data, hasfilecCovid) => {
-    const chartProps = {
-        denominator: {
-            labelPosition: 'bottom',
-            labelSortOrder: 3,
-            className: `${awardType}-potential`,
-            rawValue: data._baseAndAllOptions,
-            value: data.baseAndAllOptionsAbbreviated,
-            color: potentialColor,
-            text: awardType === 'idv'
-                ? "Combined Potential Award Amounts"
-                : "Potential Award Amount",
-            lineOffset: 0,
-            tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'potential', data)
-        },
-        numerator: {
-            labelSortOrder: 1,
-            labelPosition: 'bottom',
-            className: `${awardType}-overspending-current`,
-            tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'current', data),
-            rawValue: data._baseExercisedOptions,
-            denominatorValue: data._totalObligation,
-            value: data.baseExercisedOptionsAbbreviated,
-            lineOffset: lineOffsetsBySpendingCategory.current,
-            text: awardType === 'idv'
-                ? "Combined Current Award Amounts"
-                : "Current Award Amount",
-            color: obligatedColor,
-            children: [{
-                labelSortOrder: 0,
-                labelPosition: 'top',
-                className: `${awardType}-overspending-obligated`,
-                rawValue: data._totalObligation,
-                denominatorValue: data._baseAndAllOptions,
-                value: data.totalObligationAbbreviated,
-                lineOffset: lineOffsetsBySpendingCategory.obligationProcurement,
-                text: awardType === 'idv'
-                    ? "Combined Obligated Amounts"
-                    : "Obligated Amount",
-                color: obligatedColor,
-                tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'obligated', data),
-                improper: {
-                    labelSortOrder: 1,
-                    labelPosition: 'hide',
-                    className: `${awardType}-overspending`,
-                    rawValue: data._totalObligation,
-                    denominatorValue: data._baseAndAllOptions,
-                    value: data.overspendingAbbreviated,
-                    text: awardType === 'idv'
-                        ? "Exceeds Combined Current Award Amounts"
-                        : "Exceeds Current Award Amount",
-                    color: obligatedColor,
-                    tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'exceedsCurrent', data)
-                }
-            }]
-        },
-        numerator2: {
-            labelSortOrder: 1,
-            labelPosition: 'hide',
-            className: `${awardType}-overspending`,
-            rawValue: data._totalObligation,
-            denominatorValue: data._baseAndAllOptions,
-            value: data.overspendingAbbreviated,
-            barWidthOverrides: {
-                rawValue: data._totalObligation - data._baseExercisedOptions,
-                denominatorValue: data._baseAndAllOptions
-            },
-            text: awardType === 'idv'
-                ? "Exceeds Combined Current Award Amounts"
-                : "Exceeds Current Award Amount",
-            color: obligatedColor,
-            tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'exceedsCurrent', data)
-        }
-    };
-    if (!hasfilecCovid) return chartProps;
-    return {
-        ...chartProps,
-        // eslint-disable-next-line no-multi-assign
-        numerator: {
-            ...chartProps.numerator,
-            children: chartProps.numerator.children.map((child, i) => {
-                if (i === 0) {
-                    return {
-                        ...child,
-                        children: [
-                            {
-                                labelSortOrder: 1,
-                                labelPosition: 'top',
-                                className: `${awardType}-file-c-obligated`,
-                                tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'fileCObligated', data),
-                                rawValue: data._fileCObligated,
-                                denominatorValue: data._totalObligation,
-                                value: data.fileCObligatedAbbreviated,
-                                text: 'COVID-19 Obligated Amount',
-                                barWidthOverrides: {
-                                    rawValue: data._fileCObligated,
-                                    denominatorValue: data._baseExercisedOptions
-                                },
-                                color: covidObligatedColor,
-                                children: [{
-                                    labelSortOrder: 0,
-                                    labelPosition: 'bottom',
-                                    className: `${data._fileCOutlay > 0 ? `${awardType}-file-c-outlay` : `${awardType}-file-c-outlay--zero`}`,
-                                    tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'fileCOutlay', data),
-                                    denominatorValue: data._fileCObligated,
-                                    rawValue: data._fileCOutlay,
-                                    value: data.fileCOutlayAbbreviated,
-                                    barWidthOverrides: {
-                                        rawValue: data._fileCOutlay,
-                                        denominatorValue: data._fileCObligated
-                                    },
-                                    text: 'COVID-19 Outlayed Amount',
-                                    color: covidColor
-                                }]
-                            }
-                        ]
-                    };
-                }
-                return child;
-            })
-
-        }
-    };
-};
+// const buildExceedsCurrentProps = (awardType, data, hasfilecCovid) => {
+//     const chartProps = {
+//         denominator: {
+//             labelPosition: 'bottom',
+//             labelSortOrder: 3,
+//             className: `${awardType}-potential`,
+//             rawValue: data._baseAndAllOptions,
+//             value: data.baseAndAllOptionsAbbreviated,
+//             color: potentialColor,
+//             text: awardType === 'idv'
+//                 ? "Combined Potential Award Amounts"
+//                 : "Potential Award Amount",
+//             lineOffset: 0,
+//             tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'potential', data)
+//         },
+//         numerator: {
+//             labelSortOrder: 1,
+//             labelPosition: 'bottom',
+//             className: `${awardType}-overspending-current`,
+//             tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'current', data),
+//             rawValue: data._baseExercisedOptions,
+//             denominatorValue: data._totalObligation,
+//             value: data.baseExercisedOptionsAbbreviated,
+//             lineOffset: lineOffsetsBySpendingCategory.current,
+//             text: awardType === 'idv'
+//                 ? "Combined Current Award Amounts"
+//                 : "Current Award Amount",
+//             color: obligatedColor,
+//             children: [{
+//                 labelSortOrder: 0,
+//                 labelPosition: 'top',
+//                 className: `${awardType}-overspending-obligated`,
+//                 rawValue: data._totalObligation,
+//                 denominatorValue: data._baseAndAllOptions,
+//                 value: data.totalObligationAbbreviated,
+//                 lineOffset: lineOffsetsBySpendingCategory.obligationProcurement,
+//                 text: awardType === 'idv'
+//                     ? "Combined Obligated Amounts"
+//                     : "Obligated Amount",
+//                 color: obligatedColor,
+//                 tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'obligated', data),
+//                 improper: {
+//                     labelSortOrder: 1,
+//                     labelPosition: 'hide',
+//                     className: `${awardType}-overspending`,
+//                     rawValue: data._totalObligation,
+//                     denominatorValue: data._baseAndAllOptions,
+//                     value: data.overspendingAbbreviated,
+//                     text: awardType === 'idv'
+//                         ? "Exceeds Combined Current Award Amounts"
+//                         : "Exceeds Current Award Amount",
+//                     color: obligatedColor,
+//                     tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'exceedsCurrent', data)
+//                 }
+//             }]
+//         },
+//         numerator2: {
+//             labelSortOrder: 1,
+//             labelPosition: 'hide',
+//             className: `${awardType}-overspending`,
+//             rawValue: data._totalObligation,
+//             denominatorValue: data._baseAndAllOptions,
+//             value: data.overspendingAbbreviated,
+//             barWidthOverrides: {
+//                 rawValue: data._totalObligation - data._baseExercisedOptions,
+//                 denominatorValue: data._baseAndAllOptions
+//             },
+//             text: awardType === 'idv'
+//                 ? "Exceeds Combined Current Award Amounts"
+//                 : "Exceeds Current Award Amount",
+//             color: obligatedColor,
+//             tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'exceedsCurrent', data)
+//         }
+//     };
+//     if (!hasfilecCovid) return chartProps;
+//     return {
+//         ...chartProps,
+//         // eslint-disable-next-line no-multi-assign
+//         numerator: {
+//             ...chartProps.numerator,
+//             children: chartProps.numerator.children.map((child, i) => {
+//                 if (i === 0) {
+//                     return {
+//                         ...child,
+//                         children: [
+//                             {
+//                                 labelSortOrder: 1,
+//                                 labelPosition: 'top',
+//                                 className: `${awardType}-file-c-obligated`,
+//                                 tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'fileCObligated', data),
+//                                 rawValue: data._fileCObligated,
+//                                 denominatorValue: data._totalObligation,
+//                                 value: data.fileCObligatedAbbreviated,
+//                                 text: 'COVID-19 Obligated Amount',
+//                                 barWidthOverrides: {
+//                                     rawValue: data._fileCObligated,
+//                                     denominatorValue: data._baseExercisedOptions
+//                                 },
+//                                 color: covidObligatedColor,
+//                                 children: [{
+//                                     labelSortOrder: 0,
+//                                     labelPosition: 'bottom',
+//                                     className: `${data._fileCOutlay > 0 ? `${awardType}-file-c-outlay` : `${awardType}-file-c-outlay--zero`}`,
+//                                     tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'fileCOutlay', data),
+//                                     denominatorValue: data._fileCObligated,
+//                                     rawValue: data._fileCOutlay,
+//                                     value: data.fileCOutlayAbbreviated,
+//                                     barWidthOverrides: {
+//                                         rawValue: data._fileCOutlay,
+//                                         denominatorValue: data._fileCObligated
+//                                     },
+//                                     text: 'COVID-19 Outlayed Amount',
+//                                     color: covidColor
+//                                 }]
+//                             }
+//                         ]
+//                     };
+//                 }
+//                 return child;
+//             })
+//
+//         }
+//     };
+// };
 
 // Only for Contract and IDV Awards
-const buildExceedsPotentialProps = (awardType, data, hasfilecCovid) => {
-    const chartProps = {
-        denominator: {
-            labelSortOrder: 0,
-            labelPosition: 'top',
-            className: `${awardType}-extreme-overspending-obligated`,
-            rawValue: data._totalObligation,
-            denominatorValue: data._baseAndAllOptions,
-            value: data.totalObligationAbbreviated,
-            text: awardType === 'idv'
-                ? "Combined Obligated Amounts"
-                : "Obligated Amount",
-            color: `transparent`,
-            tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'obligated', data),
-            lineOffset: lineOffsetsBySpendingCategory.obligationProcurement,
-            improper: {
-                labelSortOrder: 1,
-                labelPosition: 'hide',
-                className: `${awardType}-extreme-overspending-label`,
-                rawValue: data._totalObligation,
-                denominatorValue: data._baseAndAllOptions,
-                value: data.overspendingAbbreviated,
-                text: awardType === 'idv'
-                    ? "Exceeds Combined Potential Award Amounts"
-                    : "Exceeds Potential Award Amount",
-                color: obligatedColor,
-                tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'exceedsCurrent', data)
-            }
-        },
-        numerator: {
-            labelSortOrder: 1,
-            labelPosition: 'hidden',
-            className: `${awardType}-extreme-overspending-potential-wrapper`,
-            tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'current', data),
-            rawValue: data._baseAndAllOptions,
-            denominatorValue: data._totalObligation,
-            value: data.baseExercisedOptionsAbbreviated,
-            lineOffset: 0,
-            text: null,
-            color: potentialColor,
-            children: [
-                {
-                    labelSortOrder: 1,
-                    labelPosition: 'bottom',
-                    isImproper: true,
-                    className: `${awardType}-extreme-overspending-current`,
-                    tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'current', data),
-                    rawValue: data._baseExercisedOptions,
-                    denominatorValue: data._baseAndAllOptions,
-                    value: data.baseExercisedOptionsAbbreviated,
-                    text: awardType === 'idv'
-                        ? "Combined Current Award Amounts"
-                        : "Current Award Amount",
-                    color: obligatedColor,
-                    lineOffset: lineOffsetsBySpendingCategory.current
-                },
-                {
-                    className: `${awardType}-extreme-overspending-potential`,
-                    labelPosition: 'bottom',
-                    labelSortOrder: 2,
-                    isImproper: true,
-                    rawValue: data._baseAndAllOptions,
-                    denominatorValue: data._totalObligation,
-                    value: data.baseAndAllOptionsAbbreviated,
-                    color: obligatedColor,
-                    lineOffset: 0,
-                    barWidthOverrides: {
-                        rawValue: data._baseAndAllOptions - data._baseExercisedOptions,
-                        denominatorValue: data._baseAndAllOptions
-                    },
-                    text: awardType === 'idv'
-                        ? "Combined Potential Award Amounts"
-                        : "Potential Award Amount",
-                    tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'potential', data)
-                }
-            ]
-        },
-        numerator2: {
-            labelSortOrder: 2,
-            labelPosition: 'hide',
-            className: `${awardType}-extreme-overspending`,
-            rawValue: data._totalObligation,
-            denominatorValue: data._baseAndAllOptions,
-            value: data.extremeOverspendingAbbreviated,
-            barWidthOverrides: {
-                rawValue: data._totalObligation - data._baseAndAllOptions,
-                denominatorValue: data._totalObligation
-            },
-            text: awardType === 'idv'
-                ? "Exceeds Combined Potential Award Amounts"
-                : "Exceeds Potential Award Amount",
-            color: potentialColor,
-            tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'exceedsPotential', data)
-        }
-    };
-    if (!hasfilecCovid) return chartProps;
-    return {
-        ...chartProps,
-        // eslint-disable-next-line no-multi-assign
-        numerator: {
-            ...chartProps.numerator,
-            children: chartProps.numerator.children.map((child, i) => {
-                if (i === 0) {
-                    return {
-                        ...child,
-                        children: [
-                            {
-                                labelSortOrder: 1,
-                                labelPosition: 'top',
-                                className: `${awardType}-file-c-obligated`,
-                                tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'fileCObligated', data),
-                                rawValue: data._fileCObligated,
-                                denominatorValue: data._totalObligation,
-                                value: data.fileCObligatedAbbreviated,
-                                text: 'COVID-19 Obligated Amount',
-                                barWidthOverrides: {
-                                    rawValue: data._fileCObligated,
-                                    denominatorValue: data._baseExercisedOptions
-                                },
-                                color: covidObligatedColor,
-                                children: [{
-                                    labelSortOrder: 0,
-                                    labelPosition: 'bottom',
-                                    className: `${data._fileCOutlay > 0 ? `${awardType}-file-c-outlay` : `${awardType}-file-c-outlay--zero`}`,
-                                    tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'fileCOutlay', data),
-                                    denominatorValue: data._fileCObligated,
-                                    rawValue: data._fileCOutlay,
-                                    value: data.fileCOutlayAbbreviated,
-                                    barWidthOverrides: {
-                                        rawValue: data._fileCOutlay,
-                                        denominatorValue: data._fileCObligated
-                                    },
-                                    text: 'COVID-19 Outlayed Amount',
-                                    color: covidColor
-                                }]
-                            }
-                        ]
-                    };
-                }
-                return child;
-            })
-        }
-    };
-};
+// const buildExceedsPotentialProps = (awardType, data, hasfilecCovid) => {
+//     const chartProps = {
+//         denominator: {
+//             labelSortOrder: 0,
+//             labelPosition: 'top',
+//             className: `${awardType}-extreme-overspending-obligated`,
+//             rawValue: data._totalObligation,
+//             denominatorValue: data._baseAndAllOptions,
+//             value: data.totalObligationAbbreviated,
+//             text: awardType === 'idv'
+//                 ? "Combined Obligated Amounts"
+//                 : "Obligated Amount",
+//             color: `transparent`,
+//             tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'obligated', data),
+//             lineOffset: lineOffsetsBySpendingCategory.obligationProcurement,
+//             improper: {
+//                 labelSortOrder: 1,
+//                 labelPosition: 'hide',
+//                 className: `${awardType}-extreme-overspending-label`,
+//                 rawValue: data._totalObligation,
+//                 denominatorValue: data._baseAndAllOptions,
+//                 value: data.overspendingAbbreviated,
+//                 text: awardType === 'idv'
+//                     ? "Exceeds Combined Potential Award Amounts"
+//                     : "Exceeds Potential Award Amount",
+//                 color: obligatedColor,
+//                 tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'exceedsCurrent', data)
+//             }
+//         },
+//         numerator: {
+//             labelSortOrder: 1,
+//             labelPosition: 'hidden',
+//             className: `${awardType}-extreme-overspending-potential-wrapper`,
+//             tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'current', data),
+//             rawValue: data._baseAndAllOptions,
+//             denominatorValue: data._totalObligation,
+//             value: data.baseExercisedOptionsAbbreviated,
+//             lineOffset: 0,
+//             text: null,
+//             color: potentialColor,
+//             children: [
+//                 {
+//                     labelSortOrder: 1,
+//                     labelPosition: 'bottom',
+//                     isImproper: true,
+//                     className: `${awardType}-extreme-overspending-current`,
+//                     tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'current', data),
+//                     rawValue: data._baseExercisedOptions,
+//                     denominatorValue: data._baseAndAllOptions,
+//                     value: data.baseExercisedOptionsAbbreviated,
+//                     text: awardType === 'idv'
+//                         ? "Combined Current Award Amounts"
+//                         : "Current Award Amount",
+//                     color: obligatedColor,
+//                     lineOffset: lineOffsetsBySpendingCategory.current
+//                 },
+//                 {
+//                     className: `${awardType}-extreme-overspending-potential`,
+//                     labelPosition: 'bottom',
+//                     labelSortOrder: 2,
+//                     isImproper: true,
+//                     rawValue: data._baseAndAllOptions,
+//                     denominatorValue: data._totalObligation,
+//                     value: data.baseAndAllOptionsAbbreviated,
+//                     color: obligatedColor,
+//                     lineOffset: 0,
+//                     barWidthOverrides: {
+//                         rawValue: data._baseAndAllOptions - data._baseExercisedOptions,
+//                         denominatorValue: data._baseAndAllOptions
+//                     },
+//                     text: awardType === 'idv'
+//                         ? "Combined Potential Award Amounts"
+//                         : "Potential Award Amount",
+//                     tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'potential', data)
+//                 }
+//             ]
+//         },
+//         numerator2: {
+//             labelSortOrder: 2,
+//             labelPosition: 'hide',
+//             className: `${awardType}-extreme-overspending`,
+//             rawValue: data._totalObligation,
+//             denominatorValue: data._baseAndAllOptions,
+//             value: data.extremeOverspendingAbbreviated,
+//             barWidthOverrides: {
+//                 rawValue: data._totalObligation - data._baseAndAllOptions,
+//                 denominatorValue: data._totalObligation
+//             },
+//             text: awardType === 'idv'
+//                 ? "Exceeds Combined Potential Award Amounts"
+//                 : "Exceeds Potential Award Amount",
+//             color: potentialColor,
+//             tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'exceedsPotential', data)
+//         }
+//     };
+//     if (!hasfilecCovid) return chartProps;
+//     return {
+//         ...chartProps,
+//         // eslint-disable-next-line no-multi-assign
+//         numerator: {
+//             ...chartProps.numerator,
+//             children: chartProps.numerator.children.map((child, i) => {
+//                 if (i === 0) {
+//                     return {
+//                         ...child,
+//                         children: [
+//                             {
+//                                 labelSortOrder: 1,
+//                                 labelPosition: 'top',
+//                                 className: `${awardType}-file-c-obligated`,
+//                                 tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'fileCObligated', data),
+//                                 rawValue: data._fileCObligated,
+//                                 denominatorValue: data._totalObligation,
+//                                 value: data.fileCObligatedAbbreviated,
+//                                 text: 'COVID-19 Obligated Amount',
+//                                 barWidthOverrides: {
+//                                     rawValue: data._fileCObligated,
+//                                     denominatorValue: data._baseExercisedOptions
+//                                 },
+//                                 color: covidObligatedColor,
+//                                 children: [{
+//                                     labelSortOrder: 0,
+//                                     labelPosition: 'bottom',
+//                                     className: `${data._fileCOutlay > 0 ? `${awardType}-file-c-outlay` : `${awardType}-file-c-outlay--zero`}`,
+//                                     tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'fileCOutlay', data),
+//                                     denominatorValue: data._fileCObligated,
+//                                     rawValue: data._fileCOutlay,
+//                                     value: data.fileCOutlayAbbreviated,
+//                                     barWidthOverrides: {
+//                                         rawValue: data._fileCOutlay,
+//                                         denominatorValue: data._fileCObligated
+//                                     },
+//                                     text: 'COVID-19 Outlayed Amount',
+//                                     color: covidColor
+//                                 }]
+//                             }
+//                         ]
+//                     };
+//                 }
+//                 return child;
+//             })
+//         }
+//     };
+// };
 
 const AwardAmountsChart = ({
     awardType,
@@ -516,22 +470,33 @@ const AwardAmountsChart = ({
         switch (scenario) {
             case "exceedsBigger": {
                 return (
-                    <RectanglePercentViz {...buildExceedsCurrentProps(type, awardAmounts, hasfilecCovid)} />
+                    <div className="results-table-message-container">
+                        <NoResultsMessage title="Chart Not Available" message="Data in this instance is not suitable for charting" />
+                    </div>
                 );
+                // return (
+                //     <RectanglePercentViz {...buildExceedsCurrentProps(type, awardAmounts, hasfilecCovid)} />
+                // );
             }
             case "exceedsBiggest": {
                 return (
-                    <RectanglePercentViz {...buildExceedsPotentialProps(type, awardAmounts, hasfilecCovid)} />
+                    <div className="results-table-message-container">
+                        <NoResultsMessage title="Chart Not Available" message="Data in this instance is not suitable for charting" />
+                    </div>
                 );
+                // return (
+                //     <RectanglePercentViz {...buildExceedsPotentialProps(type, awardAmounts, hasfilecCovid)} />
+                // );
             }
             case "normal":
+                console.log(buildNormalProps(type, awardAmounts))
                 if (hasOutlays || infrastructure || hasfilecCovid) {
                     return (
                         <HorizontalSingleStackedBarViz {...buildNormalProps(type, awardAmounts, hasfilecCovid, hasOutlays, fileCType)} />
                     );
                 }
                 return (
-                    <RectanglePercentViz {...buildNormalProps(type, awardAmounts, hasfilecCovid)} />
+                    <HorizontalSingleStackedBarViz {...buildNormalProps(type, awardAmounts)} />
                 );
             default:
                 return (
@@ -553,52 +518,52 @@ const AwardAmountsChart = ({
 
         if (asstAwardTypesWithSimilarAwardAmountData.includes(type) && isNormal) { // grants, direct payments, and other
             const isNffZero = awardAmounts._nonFederalFunding === 0;
+            // const chartProps = {
+            //     denominator: {
+            //         labelPosition: 'bottom',
+            //         labelSortOrder: 2,
+            //         className: `asst-total-funding`,
+            //         rawValue: awardAmounts._totalFunding,
+            //         value: awardAmounts.totalFundingAbbreviated,
+            //         color: `#FFF`,
+            //         lineOffset: 0,
+            //         text: `Total Funding`,
+            //         tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'totalFunding', awardAmounts)
+            //     },
+            //     numerator: {
+            //         className: `asst-obligation`,
+            //         labelSortOrder: 0,
+            //         labelPosition: 'top',
+            //         tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'obligated', awardAmounts),
+            //         rawValue: awardAmounts._totalObligation,
+            //         denominatorValue: awardAmounts._totalFunding,
+            //         value: awardAmounts.totalObligationAbbreviated,
+            //         lineOffset: lineOffsetsBySpendingCategory.obligationAsst,
+            //         text: 'Obligated Amount',
+            //         color: getAwardColor(obligatedColor, infrastructureObligatedColor, covidObligatedColor, fileCType)
+            //     },
+            //     ...isNffZero ? {} : {
+            //         numerator2: {
+            //             className: awardAmounts._nonFederalFunding > 0 ? `asst-non-federal-funding` : `asst-nff-zero`,
+            //             labelSortOrder: 1,
+            //             labelPosition: 'bottom',
+            //             // fudging this for to get the correct tooltip position.
+            //             rawValue: awardAmounts._nonFederalFunding + awardAmounts._totalObligation,
+            //             denominatorValue: awardAmounts._totalFunding,
+            //             lineOffset: lineOffsetsBySpendingCategory.nonFederalFunding,
+            //             barWidthOverrides: {
+            //                 applyToLine: true,
+            //                 rawValue: awardAmounts._nonFederalFunding,
+            //                 denominatorValue: awardAmounts._totalFunding
+            //             },
+            //             value: awardAmounts.nonFederalFundingAbbreviated,
+            //             color: nonFederalFundingColor,
+            //             text: "Non Federal Funding",
+            //             tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'nonFederalFunding', awardAmounts)
+            //         }
+            //     }
+            // };
             const chartProps = {
-                denominator: {
-                    labelPosition: 'bottom',
-                    labelSortOrder: 2,
-                    className: `asst-total-funding`,
-                    rawValue: awardAmounts._totalFunding,
-                    value: awardAmounts.totalFundingAbbreviated,
-                    color: `#FFF`,
-                    lineOffset: 0,
-                    text: `Total Funding`,
-                    tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'totalFunding', awardAmounts)
-                },
-                numerator: {
-                    className: `asst-obligation`,
-                    labelSortOrder: 0,
-                    labelPosition: 'top',
-                    tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'obligated', awardAmounts),
-                    rawValue: awardAmounts._totalObligation,
-                    denominatorValue: awardAmounts._totalFunding,
-                    value: awardAmounts.totalObligationAbbreviated,
-                    lineOffset: lineOffsetsBySpendingCategory.obligationAsst,
-                    text: 'Obligated Amount',
-                    color: getAwardColor(obligatedColor, infrastructureObligatedColor, covidObligatedColor, fileCType)
-                },
-                ...isNffZero ? {} : {
-                    numerator2: {
-                        className: awardAmounts._nonFederalFunding > 0 ? `asst-non-federal-funding` : `asst-nff-zero`,
-                        labelSortOrder: 1,
-                        labelPosition: 'bottom',
-                        // fudging this for to get the correct tooltip position.
-                        rawValue: awardAmounts._nonFederalFunding + awardAmounts._totalObligation,
-                        denominatorValue: awardAmounts._totalFunding,
-                        lineOffset: lineOffsetsBySpendingCategory.nonFederalFunding,
-                        barWidthOverrides: {
-                            applyToLine: true,
-                            rawValue: awardAmounts._nonFederalFunding,
-                            denominatorValue: awardAmounts._totalFunding
-                        },
-                        value: awardAmounts.nonFederalFundingAbbreviated,
-                        color: nonFederalFundingColor,
-                        text: "Non Federal Funding",
-                        tooltipData: getTooltipPropsByAwardTypeAndSpendingCategory(awardType, 'nonFederalFunding', awardAmounts)
-                    }
-                }
-            };
-            const chartPropsOutlays = {
                 denominator: {
                     labelPosition: 'bottom',
                     labelSortOrder: 3,
@@ -682,16 +647,16 @@ const AwardAmountsChart = ({
             }
             if ((hasOutlays || hasInfrastructure) && !showFilecCovid) {
                 return (
-                    <HorizontalSingleStackedBarViz {...chartPropsOutlays} />
+                    <HorizontalSingleStackedBarViz {...chartProps} />
                 );
             } else if (isDirectPayment || isGrant || isOther) {
                 return (
-                    <HorizontalSingleStackedBarViz {...chartPropsOutlays} />
+                    <HorizontalSingleStackedBarViz {...chartProps} />
                 );
             }
 
             return (
-                <RectanglePercentViz {...chartProps} />
+                <HorizontalSingleStackedBarViz {...chartProps} />
             );
         }
         else if (type === 'loan' && isNormal) {

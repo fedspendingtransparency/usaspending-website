@@ -41,12 +41,18 @@ const HorizontalSingleStackedBarViz = ({
     numerator2,
     denominator
 }) => {
+
+    console.log(numerator)
+    console.log(numerator2)
+    console.log(denominator)
+
     const chartRef = useRef();
     const [windowWidth, setWindowWidth] = useState(0);
     const height = 400;
     const propsArr = [];
 
     const propValuesToArr = (num, num2, den) => {
+
         if (num?.children[0]?.rawValue) {
             propsArr.push(den.rawValue, num.rawValue, num.children[0].rawValue, num2.rawValue);
         }
