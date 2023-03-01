@@ -20,6 +20,7 @@ import GeoVisualizationTooltip from './GeoVisualizationTooltip';
 import MapDisclaimer from './MapDisclaimer';
 import MapMessage from './MapMessage';
 import GlossaryLink from '../../../sharedComponents/GlossaryLink';
+import ReadMore from '../../../sharedComponents/ReadMore';
 
 const propTypes = {
     scope: PropTypes.string,
@@ -47,7 +48,10 @@ export default class GeoVisualizationSection extends React.Component {
         this.state = {
             showHover: false,
             showDisclaimer: false,
-            selectedItem: {}
+            selectedItem: {},
+            tableBody: "",
+            tableTitle: "",
+            tablePreview: ""
         };
 
         this.showTooltip = this.showTooltip.bind(this);
@@ -122,19 +126,25 @@ export default class GeoVisualizationSection extends React.Component {
 
     handleUpdateBody() {
         const toggleValue = document.querySelector(".subaward-toggle"); // if true it's a prime award, false sub-award
-        const primeAwardBody = [<>Use the map below to break down spending by state, county, or congressional district.{<><br /><br /></>}The data in the map represent  {<span className="award-search__glossary-term"> obligation</span>}{' '}{<GlossaryLink term="obligation" />} amounts for prime award {<span className="award-search__glossary-term"> transactions</span>}{' '}{<GlossaryLink term="transaction" />} within the selected filters. Prime award transactions with the same unique award ID are grouped under a single prime award summary. Prime award summaries can be viewed in the Table tab.</>];
+
+        const primeAwardPreview = "Use the map below to break down spending by state, county, or congressional district...";
+        const primeAwardBody = <>{<br />}The data in the map represent {<span className="award-search__glossary-term"> obligation</span>}{' '}{<GlossaryLink term="obligation" />} amounts for prime award {<span className="award-search__glossary-term"> transactions</span>}{' '}{<GlossaryLink term="transaction" />} within the selected filters. Prime award transactions with the same unique award ID are grouped under a single prime award summary. Prime award summaries can be viewed in the Table tab.</>;
+
+        const subAwardPreview = "Use the map below to break down spending by state, county, or congressional district...";
         const subAwardBody = (
-            [<>Use the map below to break down spending by state, county, or congressional district.{<><br /><br /></>}
+            <>{<br />}
             The data below represent{<span className="award-search__glossary-term"> sub-awards</span>}{' '}{<GlossaryLink term="sub-award" />} that meet the selected filter criteria. For example, if you filter by Place of Performance in your county, you will see only sub-awards with Place of Performance in your county, but you will not see all sub-awards whose prime award lists Place of Performance in your county.{<><br /><br /></>}
             Sub-award amounts are funded by prime award obligations and outlays. In theory, the total value of all sub-award amounts for any given prime award is a subset of the Current Award Amount for that prime award; sub-award amounts generally should not exceed the Current Award Amount for their associated prime award. To avoid double-counting the overall value of a prime award, do not sum up sub-award amounts and prime award obligations or outlays.
-            </>]);
+            </>);
         if (toggleValue.ariaPressed === "true") {
             this.setState({
-                tableBody: primeAwardBody
+                tableBody: primeAwardBody,
+                tablePreview: primeAwardPreview
             });
         } else {
             this.setState({
-                tableBody: subAwardBody
+                tableBody: subAwardBody,
+                tablePreview: subAwardPreview
             });
         }
     }
@@ -214,7 +224,7 @@ export default class GeoVisualizationSection extends React.Component {
                 <div className="visualization-top">
                     <div className="visualization-description">
                         <div className="content">
-                            {this.state.tableBody}
+                            <ReadMore openPrompt="read more" closePrompt="read less" openIcon="" closeIcon="" showPreview previewLines={this.state.tablePreview}>{this.state.tableBody}</ReadMore>
                         </div>
                     </div>
 
