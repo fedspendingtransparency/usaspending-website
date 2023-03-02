@@ -1,4 +1,3 @@
-
 /**
  * StatusOfFunds.jsx
  * Created by Lizzie Salita 10/27/21
