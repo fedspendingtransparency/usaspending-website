@@ -254,7 +254,7 @@ const StatusOfFunds = ({ fy }) => {
                 fetchFederalAccounts(selectedSubcomponent);
             }
             if (prevPage !== currentPage && level === 2) {
-                setResults(paginatedTasList(tasList));
+                fetchTas(selectedFederalAccount);
             }
             if (prevPage !== currentPage && level === 3) {
                 fetchProgramActivity(selectedTas);
@@ -318,17 +318,11 @@ const StatusOfFunds = ({ fy }) => {
                 if (currentPage === 1) {
                     fetchAgencySubcomponents();
                 }
-                else {
-                    changeCurrentPage(1);
-                }
             }
             if (level === 2) {
                 setLevel(1);
                 if (currentPage === 1) {
                     fetchFederalAccounts(selectedSubcomponent);
-                }
-                else {
-                    changeCurrentPage(1);
                 }
             }
             if (level === 3) {
@@ -336,13 +330,9 @@ const StatusOfFunds = ({ fy }) => {
                 if (currentPage === 1) {
                     fetchTas(selectedFederalAccount);
                 }
-                else {
-                    changeCurrentPage(1);
-                }
             }
-            else {
-                changeCurrentPage(1);
-            }
+
+            changeCurrentPage(1);
         }
     };
 
@@ -379,28 +369,30 @@ const StatusOfFunds = ({ fy }) => {
                     {loading && <LoadingMessage />}
                     {error && <ErrorMessage />}
                     { !loading && !error &&
-                        <VisualizationSection
-                            toggle={toggle}
-                            onToggle={onToggle}
-                            onKeyToggle={onKeyToggle}
-                            level={level}
-                            setDrilldownLevel={setDrilldownLevel}
-                            selectedLevelData={drilldownSelection}
-                            agencyName={overview.name}
-                            fy={fy}
-                            results={results}
-                            isMobile={isMobile}
-                            viewType={viewType}
-                            setViewType={setViewType}
-                            maxLevel={maxLevel} />
+                        <>
+                            <VisualizationSection
+                                toggle={toggle}
+                                onToggle={onToggle}
+                                onKeyToggle={onKeyToggle}
+                                level={level}
+                                setDrilldownLevel={setDrilldownLevel}
+                                selectedLevelData={drilldownSelection}
+                                agencyName={overview.name}
+                                fy={fy}
+                                results={results}
+                                isMobile={isMobile}
+                                viewType={viewType}
+                                setViewType={setViewType}
+                                maxLevel={maxLevel} />
+                            <Pagination
+                                currentPage={currentPage}
+                                changePage={changeCurrentPage}
+                                changeLimit={changePageSize}
+                                resultsText
+                                pageSize={10}
+                                totalItems={totalItems} />
+                        </>
                     }
-                    <Pagination
-                        currentPage={currentPage}
-                        changePage={changeCurrentPage}
-                        changeLimit={changePageSize}
-                        resultsText
-                        pageSize={10}
-                        totalItems={totalItems} />
                 </FlexGridCol>
             </FlexGridRow>
             <Note message={
