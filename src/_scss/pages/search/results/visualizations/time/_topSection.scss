@@ -24,6 +24,12 @@
         }
     }
 
+    .award-search__body-text {
+        line-height: 1.5;
+        margin-top: 4px;
+        margin-bottom: 0;
+    }
+
     .readMoreUpdated__button {
         background-color: transparent;
         color: #0074be;
@@ -32,6 +38,7 @@
         margin-bottom: 0;
         margin-left: 2px;
         margin-right: 0;
+        line-height: 1.5;
     }
     align-self:flex-end;
 }

@@ -119,7 +119,6 @@ const ReadMore = ({
         }
         return (<button className="read-more-button" onClick={() => setExpanded(true)}>Read More</button>);
     };
-    console.debug("expanded: ", expanded);
 
     if (expanded && children) {
         if (showPreview === true) {
@@ -175,7 +174,6 @@ const ReadMore = ({
             </div>
         );
     }
-    console.debug("huh");
     return (
         <div>
             {readMore()}

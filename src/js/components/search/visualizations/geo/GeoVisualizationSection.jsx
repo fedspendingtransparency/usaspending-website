@@ -117,7 +117,8 @@ export default class GeoVisualizationSection extends React.Component {
             this.setState({
                 tableTitle: primeAwardTitle
             });
-        } else {
+        }
+        else {
             this.setState({
                 tableTitle: subAwardTitle
             });
@@ -128,20 +129,27 @@ export default class GeoVisualizationSection extends React.Component {
         const toggleValue = document.querySelector(".subaward-toggle"); // if true it's a prime award, false sub-award
 
         const primeAwardPreview = "Use the map below to break down spending by state, county, or congressional district...";
-        const primeAwardBody = <>{<br />}The data in the map represent {<span className="award-search__glossary-term"> obligation</span>}{' '}{<GlossaryLink term="obligation" />} amounts for prime award {<span className="award-search__glossary-term"> transactions</span>}{' '}{<GlossaryLink term="transaction" />} within the selected filters. Prime award transactions with the same unique award ID are grouped under a single prime award summary. Prime award summaries can be viewed in the Table tab.</>;
+        const primeAwardBody = <>
+            <p className="award-search__body-text">The data in the map represent {<span className="award-search__glossary-term"> obligation</span>}{' '}{<GlossaryLink term="obligation" />} amounts for prime award {<span className="award-search__glossary-term"> transactions</span>}{' '}{<GlossaryLink term="transaction" />} within the selected filters. Prime award transactions with the same unique award ID are grouped under a single prime award summary. Prime award summaries can be viewed in the Table tab.</p>
+        </>;
 
         const subAwardPreview = "Use the map below to break down spending by state, county, or congressional district...";
         const subAwardBody = (
-            <>{<br />}
-            The data below represent{<span className="award-search__glossary-term"> sub-awards</span>}{' '}{<GlossaryLink term="sub-award" />} that meet the selected filter criteria. For example, if you filter by Place of Performance in your county, you will see only sub-awards with Place of Performance in your county, but you will not see all sub-awards whose prime award lists Place of Performance in your county.{<><br /><br /></>}
+            <>
+                <p className="award-search__body-text">
+            The data below represent{<span className="award-search__glossary-term"> sub-awards</span>}{' '}{<GlossaryLink term="sub-award" />} that meet the selected filter criteria. For example, if you filter by Place of Performance in your county, you will see only sub-awards with Place of Performance in your county, but you will not see all sub-awards whose prime award lists Place of Performance in your county.
+                </p>
+                <p className="award-search__body-text">
             Sub-award amounts are funded by prime award obligations and outlays. In theory, the total value of all sub-award amounts for any given prime award is a subset of the Current Award Amount for that prime award; sub-award amounts generally should not exceed the Current Award Amount for their associated prime award. To avoid double-counting the overall value of a prime award, do not sum up sub-award amounts and prime award obligations or outlays.
+                </p>
             </>);
         if (toggleValue.ariaPressed === "true") {
             this.setState({
                 tableBody: primeAwardBody,
                 tablePreview: primeAwardPreview
             });
-        } else {
+        }
+        else {
             this.setState({
                 tableBody: subAwardBody,
                 tablePreview: subAwardPreview
