@@ -50,11 +50,8 @@ const StatusOfFunds = ({ fy }) => {
 
     // TODO this should probably go in redux, maybe?
     const [selectedSubcomponent, setSelectedSubcomponent] = useState();
-    const [federalAccountList, setFederalAccountList] = useState();
     const [selectedFederalAccount, setSelectedFederalAccount] = useState();
     const [selectedTas, setSelectedTas] = useState();
-    const [tasList, setTasList] = useState();
-    const [programActivityList, setProgramActivityList] = useState();
     const [drilldownSelection, setDrilldownSelection] = useState({});
     const [selectedDrilldownList, setSelectedDrilldownList] = useState([]);
 
@@ -149,7 +146,6 @@ const StatusOfFunds = ({ fy }) => {
                 };
                 setLevel(1);
                 setResults(parsedData);
-                setFederalAccountList(parsedData);
                 setTotalItems(res.data.page_metadata.total);
                 setDrilldownSelection(totalsData);
                 setLoading(false);
@@ -188,7 +184,6 @@ const StatusOfFunds = ({ fy }) => {
                 parsedData.map((item) => item.name = item.id);
                 setResults(paginatedTasList(parsedData));
                 setSelectedFederalAccount(federalAccountData);
-                setTasList(parsedData);
                 setDrilldownSelection(totalsData);
                 setTotalItems(parsedData.length);
                 setLoading(false);
@@ -231,7 +226,6 @@ const StatusOfFunds = ({ fy }) => {
                 setLevel(3);
                 setResults(parsedData);
                 setSelectedTas(tasData);
-                setProgramActivityList(parsedData);
                 setTotalItems(res.data.page_metadata.total);
                 setDrilldownSelection(totalsData);
                 setLoading(false);
