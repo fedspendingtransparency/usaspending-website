@@ -51,7 +51,8 @@ export default class GeoVisualizationSection extends React.Component {
             selectedItem: {},
             tableBody: "",
             tableTitle: "",
-            tablePreview: ""
+            tablePreview: "",
+            expanded: null
         };
 
         this.showTooltip = this.showTooltip.bind(this);
@@ -62,7 +63,7 @@ export default class GeoVisualizationSection extends React.Component {
     }
 
     componentDidMount() {
-    // check if the disclaimer cookie exists
+        // check if the disclaimer cookie exists
         if (!Cookies.get('usaspending_search_map_disclaimer')) {
             // cookie does not exist, show the disclaimer
             this.showDisclaimer();
@@ -73,6 +74,12 @@ export default class GeoVisualizationSection extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
+        if (!this.state.expanded || this.state.expanded === null) {
+            const elem = document.querySelector(".read-more__preview-lines");
+            console.debug(elem);
+            elem?.classList.add("line-clamp");
+        }
+
         if (this.props.subaward !== prevProps.subaward) {
             this.handleUpdateTitle();
             this.handleUpdateBody();
@@ -81,7 +88,7 @@ export default class GeoVisualizationSection extends React.Component {
     showDisclaimer = () => this.setState({ showDisclaimer: true });
 
     showTooltip(geoId, position) {
-    // convert state code to full string name
+        // convert state code to full string name
         const label = this.props.data.labels[geoId];
         this.setState({
             showHover: true,
@@ -103,7 +110,7 @@ export default class GeoVisualizationSection extends React.Component {
     }
 
     closeDisclaimer() {
-    // set a cookie to hide the disclaimer in the future
+        // set a cookie to hide the disclaimer in the future
         Cookies.set('usaspending_search_map_disclaimer', 'hide', { expires: 730 });
         this.setState({
             showDisclaimer: false
@@ -128,19 +135,19 @@ export default class GeoVisualizationSection extends React.Component {
     handleUpdateBody() {
         const toggleValue = document.querySelector(".subaward-toggle"); // if true it's a prime award, false sub-award
 
-        const primeAwardPreview = "Use the map below to break down spending by state, county, or congressional district...";
+        const primeAwardPreview = "Use the map below to break down spending by state, county, or congressional district.";
         const primeAwardBody = <>
             <p className="award-search__body-text">The data in the map represent {<span className="award-search__glossary-term"> obligation</span>}{' '}{<GlossaryLink term="obligation" />} amounts for prime award {<span className="award-search__glossary-term"> transactions</span>}{' '}{<GlossaryLink term="transaction" />} within the selected filters. Prime award transactions with the same unique award ID are grouped under a single prime award summary. Prime award summaries can be viewed in the Table tab.</p>
         </>;
 
-        const subAwardPreview = "Use the map below to break down spending by state, county, or congressional district...";
+        const subAwardPreview = "Use the map below to break down spending by state, county, or congressional district.";
         const subAwardBody = (
             <>
                 <p className="award-search__body-text">
-            The data below represent{<span className="award-search__glossary-term"> sub-awards</span>}{' '}{<GlossaryLink term="sub-award" />} that meet the selected filter criteria. For example, if you filter by Place of Performance in your county, you will see only sub-awards with Place of Performance in your county, but you will not see all sub-awards whose prime award lists Place of Performance in your county.
+                    The data below represent{<span className="award-search__glossary-term"> sub-awards</span>}{' '}{<GlossaryLink term="sub-award" />} that meet the selected filter criteria. For example, if you filter by Place of Performance in your county, you will see only sub-awards with Place of Performance in your county, but you will not see all sub-awards whose prime award lists Place of Performance in your county.
                 </p>
                 <p className="award-search__body-text">
-            Sub-award amounts are funded by prime award obligations and outlays. In theory, the total value of all sub-award amounts for any given prime award is a subset of the Current Award Amount for that prime award; sub-award amounts generally should not exceed the Current Award Amount for their associated prime award. To avoid double-counting the overall value of a prime award, do not sum up sub-award amounts and prime award obligations or outlays.
+                    Sub-award amounts are funded by prime award obligations and outlays. In theory, the total value of all sub-award amounts for any given prime award is a subset of the Current Award Amount for that prime award; sub-award amounts generally should not exceed the Current Award Amount for their associated prime award. To avoid double-counting the overall value of a prime award, do not sum up sub-award amounts and prime award obligations or outlays.
                 </p>
             </>);
         if (toggleValue.ariaPressed === "true") {
@@ -214,7 +221,24 @@ export default class GeoVisualizationSection extends React.Component {
                 </MapMessage>
             );
         }
+        const applyLineClamp = (elem) => {
+            elem.classList.add("line-clamp");
+        };
 
+        const removeLineClamp = (elem) => {
+            elem.classList.remove("line-clamp");
+        };
+
+        const additionalFunctionality = (expanded) => {
+            const elem = document.querySelector(".read-more__preview-lines");
+            this.setState({ expanded: !expanded });
+            if (!expanded) {
+                removeLineClamp(elem);
+            }
+            else {
+                applyLineClamp(elem);
+            }
+        };
         return (
             <section
                 className="results-visualization-geo-section"
@@ -233,7 +257,16 @@ export default class GeoVisualizationSection extends React.Component {
                     <div className="visualization-description">
                         <p className="award-search__what-title">What's included in this view of the data?</p>
                         <div className="content">
-                            <ReadMore openPrompt="read more" closePrompt="read less" openIcon="" closeIcon="" showPreview previewLines={this.state.tablePreview}>{this.state.tableBody}</ReadMore>
+                            <ReadMore
+                                openPrompt="read more"
+                                closePrompt="read less"
+                                openIcon=""
+                                closeIcon=""
+                                showPreview
+                                previewLines={this.state.tablePreview}
+                                additionalFunctionality={additionalFunctionality}>
+                                {this.state.tableBody}
+                            </ReadMore>
                         </div>
                     </div>
 

@@ -124,7 +124,7 @@ const ReadMore = ({
         if (showPreview === true) {
             return (
                 <>
-                    {previewLines}
+                    <p className="read-more__preview-lines">{previewLines}</p>
                     <div>
                         {children}
                     </div>
@@ -145,7 +145,7 @@ const ReadMore = ({
         if (showPreview === true) {
             return (
                 <>
-                    {previewLines}
+                    <p className="read-more__preview-lines">{previewLines}</p>
                     <div>{readMore()}</div>
                 </>
             );

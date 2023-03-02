@@ -41,7 +41,16 @@
         margin-top: 4px;
         margin-bottom: 0;
     }
-
+    .read-more__preview-lines {
+        margin-bottom: 0;
+        margin-top: 0;
+    }
+    .line-clamp {
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
     .award-search__what-title {
         font-size: rem(14);
         font-weight: $font-semibold;

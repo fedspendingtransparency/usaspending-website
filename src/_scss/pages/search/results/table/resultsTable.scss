@@ -95,6 +95,18 @@
         }
     }
 
+    .read-more__preview-lines {
+        margin-bottom: 0;
+        margin-top: 0;
+    }
+
+    .line-clamp {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
     .readMoreUpdated__button {
         background-color: transparent;
         color: #0074be;

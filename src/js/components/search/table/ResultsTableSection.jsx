@@ -40,11 +40,15 @@ export default class ResultsTableSection extends React.Component {
 
         this.setTableWidth = this.setTableWidth.bind(this);
     }
+
     componentDidMount() {
     // set the initial table width
         this.setTableWidth();
         // watch the window for size changes
         window.addEventListener('resize', this.setTableWidth);
+
+        const elem = document.querySelector(".read-more__preview-lines");
+        elem.classList.add("line-clamp");
     }
 
     componentWillUnmount() {
@@ -68,7 +72,27 @@ export default class ResultsTableSection extends React.Component {
             (!this.props.error && !this.props.inFlight && this.props.results.length > 0) ||
             this.props.inFlight
         );
-        const primePreview = "View a list of award summaries based on your selected filters. If you search on a specific Time Period, your results will include awards that are active during your chosen Fiscal Year or Date Range. Click the Award ID, Recipient Name, or Awarding Agency  to find more detailed information on individual awards including transaction history, subawards, and more...";
+
+        const applyLineClamp = (elem) => {
+            elem.classList.add("line-clamp");
+        };
+
+        const removeLineClamp = (elem) => {
+            elem.classList.remove("line-clamp");
+        };
+
+        const additionalFunctionality = (expanded) => {
+            const elem = document.querySelector(".read-more__preview-lines");
+
+            if (!expanded) {
+                removeLineClamp(elem);
+            }
+            else {
+                applyLineClamp(elem);
+            }
+        };
+
+        const primePreview = "View a list of award summaries based on your selected filters. If you search on a specific Time Period, your results will include awards that are active during your chosen Fiscal Year or Date Range. Click the Award ID, Recipient Name, or Awarding Agency  to find more detailed information on individual awards including transaction history, subawards, and more.";
         const primeAwardText = (
             <>
                 <p className="award-search__body-text">The rows in the table below represent award summaries for {<span className="award-search__glossary-term"> prime awards</span>}{' '}{<GlossaryLink term="prime-award" />}.
@@ -80,7 +104,7 @@ export default class ResultsTableSection extends React.Component {
                 </p>
             </>);
 
-        const subAwardPreview = ("View a list of sub-award summaries based on your selected filters. If you search on a specific Time Period, your results will include sub-awards that are active during your chosen Fiscal Year or Date Range. Click the Sub-Award ID, Prime Award ID, or Prime Recipient Name to find more detailed information on individual awards....");
+        const subAwardPreview = ("View a list of sub-award summaries based on your selected filters. If you search on a specific Time Period, your results will include sub-awards that are active during your chosen Fiscal Year or Date Range. Click the Sub-Award ID, Prime Award ID, or Prime Recipient Name to find more detailed information on individual awards.");
         const subAwardText = (
             <>
                 <p className="award-search__body-text">The rows in the table below represent{<span className="award-search__glossary-term"> sub-awards</span>}{' '}{<GlossaryLink term="sub-award" />} that meet the selected filter criteria. The results do not reflect sub-awards whose
@@ -101,8 +125,26 @@ export default class ResultsTableSection extends React.Component {
                 <hr className="results-divider" />
                 <p className="award-search__what-title">What's included in this view of the data?</p>
                 {this.props.subaward === false ?
-                    <ReadMore id="search-table-results__prime-body" openPrompt="read more" closePrompt="read less" openIcon="" closeIcon="" showPreview previewLines={primePreview}>{primeAwardText}</ReadMore> :
-                    <ReadMore id="search-table-results__sub-body" openPrompt="read more" closePrompt="read less" openIcon="" closeIcon="" showPreview previewLines={subAwardPreview}>{subAwardText}</ReadMore>}
+                    <ReadMore
+                        id="search-table-results__prime-body"
+                        openPrompt="read more"
+                        closePrompt="read less"
+                        openIcon=""
+                        closeIcon=""
+                        showPreview
+                        previewLines={primePreview}
+                        additionalFunctionality={additionalFunctionality}>{primeAwardText}
+                    </ReadMore> :
+                    <ReadMore
+                        id="search-table-results__sub-body"
+                        openPrompt="read more"
+                        closePrompt="read less"
+                        openIcon=""
+                        closeIcon=""
+                        showPreview
+                        previewLines={subAwardPreview}
+                        additionalFunctionality={additionalFunctionality}>{subAwardText}
+                    </ReadMore>}
                 <Tabs
                     types={this.props.tableTypes}
                     active={this.props.currentType}

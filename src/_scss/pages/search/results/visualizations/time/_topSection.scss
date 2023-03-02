@@ -41,6 +41,16 @@
         margin-bottom: 8px;
         margin-top: 0;
     }
+    .read-more__preview-lines {
+        margin-bottom: 0;
+        margin-top: 0;
+    }
+    .line-clamp {
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
 
     .readMoreUpdated__button {
         background-color: transparent;
