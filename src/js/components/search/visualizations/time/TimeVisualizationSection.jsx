@@ -191,9 +191,9 @@ export default class TimeVisualizationSection extends React.Component {
                     ref={(hr) => {
                         this.sectionHr = hr;
                     }} />
-
                 <div className="visualization-top">
                     <div className="visualization-description">
+                        <p className="award-search__what-title">What's included in this view of the data?</p>
                         <div className="content">
                             <ReadMore openPrompt="read more" closePrompt="read less" openIcon="" closeIcon="" showPreview previewLines={this.state.tablePreview}>{this.state.tableBody}</ReadMore>
                         </div>

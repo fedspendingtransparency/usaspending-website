@@ -30,6 +30,7 @@ export default class SpendingByAgencySection extends React.Component {
             <RankVisualizationSection {...this.props}>
                 <div className="visualization-top">
                     <div className="visualization-top__description">
+                        <p className="award-search__what-title">What's included in this view of the data?</p>
                         View a list of the top Agencies from highest to lowest.
                             View your results by Awarding Agency, Sub Agency, or Office, and hover over the bars
                             for more detailed information.

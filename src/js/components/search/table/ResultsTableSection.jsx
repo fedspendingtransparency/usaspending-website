@@ -99,6 +99,7 @@ export default class ResultsTableSection extends React.Component {
                     </h2>
                 </div>
                 <hr className="results-divider" />
+                <p className="award-search__what-title">What's included in this view of the data?</p>
                 {this.props.subaward === false ?
                     <ReadMore id="search-table-results__prime-body" openPrompt="read more" closePrompt="read less" openIcon="" closeIcon="" showPreview previewLines={primePreview}>{primeAwardText}</ReadMore> :
                     <ReadMore id="search-table-results__sub-body" openPrompt="read more" closePrompt="read less" openIcon="" closeIcon="" showPreview previewLines={subAwardPreview}>{subAwardText}</ReadMore>}

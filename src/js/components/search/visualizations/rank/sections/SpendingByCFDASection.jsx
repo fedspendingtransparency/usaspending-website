@@ -15,6 +15,7 @@ export default class SpendingByCFDASection extends React.Component {
             <RankVisualizationSection {...this.props}>
                 <div className="visualization-top">
                     <div className="visualization-top__description">
+                        <p className="award-search__what-title">What's included in this view of the data?</p>
                          View a list of the top CFDA Programs from highest to lowest, and hover over the bars for
                                    more detailed information.
                         {this.props.subaward ?

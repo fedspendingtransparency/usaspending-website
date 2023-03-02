@@ -24,6 +24,7 @@ export default class SpendingByRecipientSection extends React.Component {
             <RankVisualizationSection {...this.props}>
                 <div className="visualization-top">
                     <div className="visualization-top__description">
+                        <p className="award-search__what-title">What's included in this view of the data?</p>
                         View a list of the top Recipients from highest to lowest.
                         View your results by Parent Recipient or Recipient,
                         and hover over the bars for more detailed information...

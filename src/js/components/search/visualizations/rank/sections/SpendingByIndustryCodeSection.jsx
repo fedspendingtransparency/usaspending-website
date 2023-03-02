@@ -24,6 +24,7 @@ export default class SpendingByIndustryCodeSection extends React.Component {
             <RankVisualizationSection {...this.props}>
                 <div className="visualization-top">
                     <div className="visualization-top__description">
+                        <p className="award-search__what-title">What's included in this view of the data?</p>
                             View a list of the top Industry Codes from highest to lowest.
                             View your results by NAICS Code or PSC Code, and hover over
                             the bars for more detailed information.
