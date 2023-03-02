@@ -6,6 +6,7 @@
 
 import React, { useCallback, useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
+import GlobalConstants from "GlobalConstants";
 import { useSelector, useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
@@ -56,7 +57,9 @@ const StatusOfFunds = ({ fy }) => {
     const [selectedDrilldownList, setSelectedDrilldownList] = useState([]);
 
     const selectedLevelsArray = [];
-    const maxLevel = 3;
+    // todo remove isQat and change to maxLevel = 3 after api work for program activity is done
+    const isQAT = GlobalConstants.QAT;
+    const maxLevel = isQAT ? 3 : 2;
     // TODO not sure if this is necessary
     // eslint-disable-next-line eqeqeq
     let statusDataThroughDate = useLatestAccountData()[1].toArray().filter((i) => i.submission_fiscal_year == fy)[0].period_end_date;
