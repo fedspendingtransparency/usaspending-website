@@ -50,7 +50,6 @@ export default class TimeVisualizationSection extends React.Component {
     componentDidUpdate(prevProps) {
         if (!this.state.expanded || this.state.expanded === null) {
             const elem = document.querySelector(".read-more__preview-lines");
-            console.debug(elem);
             elem?.classList.add("line-clamp");
         }
 
