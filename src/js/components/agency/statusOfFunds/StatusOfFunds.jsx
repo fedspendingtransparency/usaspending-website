@@ -314,28 +314,30 @@ const StatusOfFunds = ({ fy }) => {
                     {loading && <LoadingMessage />}
                     {error && <ErrorMessage />}
                     { !loading && !error &&
-                        <VisualizationSection
-                            toggle={toggle}
-                            onToggle={onToggle}
-                            onKeyToggle={onKeyToggle}
-                            level={level}
-                            setDrilldownLevel={setDrilldownLevel}
-                            selectedLevelData={drilldownSelection}
-                            agencyName={overview.name}
-                            fy={fy}
-                            results={results}
-                            isMobile={isMobile}
-                            viewType={viewType}
-                            setViewType={setViewType}
-                            maxLevel={maxLevel} />
+                        <>
+                            <VisualizationSection
+                                toggle={toggle}
+                                onToggle={onToggle}
+                                onKeyToggle={onKeyToggle}
+                                level={level}
+                                setDrilldownLevel={setDrilldownLevel}
+                                selectedLevelData={drilldownSelection}
+                                agencyName={overview.name}
+                                fy={fy}
+                                results={results}
+                                isMobile={isMobile}
+                                viewType={viewType}
+                                setViewType={setViewType}
+                                maxLevel={maxLevel} />
+                            <Pagination
+                                currentPage={currentPage}
+                                changePage={changeCurrentPage}
+                                changeLimit={changePageSize}
+                                resultsText
+                                pageSize={10}
+                                totalItems={totalItems} />
+                        </>
                     }
-                    <Pagination
-                        currentPage={currentPage}
-                        changePage={changeCurrentPage}
-                        changeLimit={changePageSize}
-                        resultsText
-                        pageSize={10}
-                        totalItems={totalItems} />
                 </FlexGridCol>
             </FlexGridRow>
             <Note message={

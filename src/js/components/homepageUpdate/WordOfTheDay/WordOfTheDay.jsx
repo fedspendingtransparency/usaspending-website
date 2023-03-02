@@ -5,7 +5,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { FlexGridCol, CardContainer, CardBody, CardButton } from 'data-transparency-ui';
+import { CardContainer, CardBody, CardButton } from 'data-transparency-ui';
 import { isCancel } from "axios";
 import { useLocation } from "react-router-dom";
 import { fetchAllTerms, getNewUrlForGlossary } from "helpers/glossaryHelper";
@@ -195,7 +195,7 @@ const WordOfTheDay = () => {
             <CardContainer variant="outline" fill="#1a4480">
                 {/* eslint-disable-next-line no-nested-ternary */}
                 {!loading && !error ?
-                    <FlexGridCol>
+                    <>
                         <div className="word-of-the-day__headline">{changedTerm === "" ? term : changedTerm}</div>
                         <div className="word-of-the-day__divider" />
                         <CardBody customClassName="word-of-the-day__body">
@@ -206,7 +206,7 @@ const WordOfTheDay = () => {
                                 </CardButton>
                             </>
                         </CardBody>
-                    </FlexGridCol>
+                    </>
                     :
                     <CardBody customClassName="card__body_error">
                         {loading ? <LoadingWrapper isLoading={loading} /> : <ErrorWordOfTheDay />}
