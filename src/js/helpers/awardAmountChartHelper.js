@@ -173,7 +173,6 @@ export const buildContractIDVProps = (awardType, data, hasfilecCovid, hasOutlays
 };
 
 export const buildGrantsDirectOtherProps = (awardType, awardAmounts, hasOutlays, showFilecCovid, fileCType) => {
-
     const chartProps = {
         denominator: {
             labelPosition: 'bottom',
