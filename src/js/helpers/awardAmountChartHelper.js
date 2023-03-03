@@ -173,7 +173,6 @@ export const buildContractIDVProps = (awardType, data, hasfilecCovid, hasOutlays
 };
 
 export const buildGrantsDirectOtherProps = (awardType, awardAmounts, hasOutlays, showFilecCovid, fileCType) => {
-    const isNffZero = awardAmounts._nonFederalFunding === 0;
 
     const chartProps = {
         denominator: {
@@ -187,7 +186,7 @@ export const buildGrantsDirectOtherProps = (awardType, awardAmounts, hasOutlays,
             text: `Total Funding`
         },
         numerator: {
-            className: `asst-non-federal-funding`,
+            className: `${awardAmounts._nonFederalFunding > 0 ? `asst-non-federal-funding` : `asst-nff-zero`}`,
             labelSortOrder: 2,
             labelPosition: 'bottom',
             // fudging this for to get the correct tooltip position.
@@ -227,26 +226,6 @@ export const buildGrantsDirectOtherProps = (awardType, awardAmounts, hasOutlays,
         }
     };
 
-    // TODO: This doesn't seem correct
-    if (!isNffZero) {
-        chartProps.numerator2 = {
-            className: awardAmounts._nonFederalFunding > 0 ? `asst-non-federal-funding` : `asst-nff-zero`,
-            labelSortOrder: 1,
-            labelPosition: 'bottom',
-            // fudging this for to get the correct tooltip position.
-            rawValue: awardAmounts._nonFederalFunding + awardAmounts._totalObligation,
-            denominatorValue: awardAmounts._totalFunding,
-            lineOffset: lineOffsetsBySpendingCategory.nonFederalFunding,
-            barWidthOverrides: {
-                applyToLine: true,
-                rawValue: awardAmounts._nonFederalFunding,
-                denominatorValue: awardAmounts._totalFunding
-            },
-            value: awardAmounts.nonFederalFundingAbbreviated,
-            color: nonFederalFundingColor,
-            text: "Non Federal Funding"
-        };
-    }
     return chartProps;
 };
 
