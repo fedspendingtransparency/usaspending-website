@@ -204,7 +204,7 @@ export const buildGrantsDirectOtherProps = (awardType, awardAmounts, hasOutlays,
             text: "Non-Federal Funding",
             children: [
                 {
-                    className: `asst-obligation`,
+                    className: `asst-obligation ${showFilecCovid ? `asst-file-c-obligated` : ``}`,
                     labelSortOrder: 1,
                     labelPosition: 'top',
                     rawValue: getAwardObligatedRawValue(awardAmounts, awardType, fileCType),
@@ -215,9 +215,20 @@ export const buildGrantsDirectOtherProps = (awardType, awardAmounts, hasOutlays,
                     color: getAwardColor(obligatedColor, infrastructureObligatedColor, covidObligatedColor, fileCType)
                 }
             ]
+        },
+        numerator2: {
+            labelSortOrder: 0,
+            labelPosition: 'top',
+            className: `${awardType}-outlayed ${awardAmounts._fileCOutlay > 0 ? `asst-file-c-outlay` : `asst-file-c-outlay--zero`}`,
+            rawValue: getAwardOutlayRawValue(awardAmounts, awardType, fileCType),
+            value: getAwardOutlayValue(awardAmounts, awardType, fileCType),
+            color: getAwardColor(outlayColor, infrastructureOutlayColor, covidColor, fileCType),
+            lineOffset: lineOffsetsBySpendingCategory.potential,
+            text: getAwardTypeText(awardType, "Outlayed", fileCType)
         }
     };
 
+    // TODO: This doesn't seem correct
     if (!isNffZero) {
         chartProps.numerator2 = {
             className: awardAmounts._nonFederalFunding > 0 ? `asst-non-federal-funding` : `asst-nff-zero`,
@@ -237,47 +248,6 @@ export const buildGrantsDirectOtherProps = (awardType, awardAmounts, hasOutlays,
             text: "Non Federal Funding"
         };
     }
-
-    chartProps.numerator2 = {
-        labelSortOrder: 0,
-        labelPosition: 'top',
-        className: `${awardType}-outlayed`,
-        rawValue: getAwardOutlayRawValue(awardAmounts, awardType, fileCType),
-        value: getAwardOutlayValue(awardAmounts, awardType, fileCType),
-        color: getAwardColor(outlayColor, infrastructureOutlayColor, covidColor, fileCType),
-        lineOffset: lineOffsetsBySpendingCategory.potential,
-        text: getAwardTypeText(awardType, "Outlayed", fileCType)
-    };
-
-    // TODO:  This can be refactored
-    if (showFilecCovid) {
-        // eslint-disable-next-line no-multi-assign
-        chartProps.numerator.children = [
-            {
-                labelSortOrder: 1,
-                labelPosition: 'top',
-                className: `asst-file-c-obligated`,
-                rawValue: awardAmounts._fileCObligated,
-                denominatorValue: awardAmounts._totalObligation,
-                value: awardAmounts.fileCObligatedAbbreviated,
-                lineOffset: lineOffsetsBySpendingCategory.fileCAsstObligation,
-                text: 'COVID-19 Obligated Amount',
-                color: covidObligatedColor,
-                children: [{
-                    labelSortOrder: 0,
-                    labelPosition: 'bottom',
-                    className: `${awardAmounts._fileCOutlay > 0 ? `asst-file-c-outlay` : `asst-file-c-outlay--zero`}`,
-                    lineOffset: lineOffsetsBySpendingCategory.fileCAsstOutlay,
-                    denominatorValue: awardAmounts._fileCObligated,
-                    rawValue: awardAmounts._fileCOutlay,
-                    value: awardAmounts.fileCOutlayAbbreviated,
-                    text: 'COVID-19 Outlayed Amount',
-                    color: covidColor
-                }]
-            }
-        ];
-    }
-
     return chartProps;
 };
 
