@@ -6,6 +6,7 @@
 
 import React, { useCallback, useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
+import GlobalConstants from "GlobalConstants";
 import { useSelector, useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
@@ -13,7 +14,7 @@ import { throttle } from "lodash";
 
 import { FlexGridRow, FlexGridCol, Pagination, LoadingMessage, ErrorMessage } from 'data-transparency-ui';
 import { setDataThroughDates } from "redux/actions/agency/agencyActions";
-import { fetchSubcomponentsList, fetchFederalAccountsList, fetchTasList } from 'apis/agency';
+import { fetchSubcomponentsList, fetchFederalAccountsList, fetchTasList, fetchProgramActivityList } from 'apis/agency';
 import { parseRows } from 'helpers/agency/StatusOfFundsVizHelper';
 import { useStateWithPrevious } from 'helpers';
 import { useLatestAccountData } from 'containers/account/WithLatestFy';
@@ -28,7 +29,7 @@ const propTypes = {
     fy: PropTypes.string
 };
 
-export const levels = ['Sub-Component', 'Federal Account', 'Treasury Account Symbol'];
+export const levels = ['Sub-Component', 'Federal Account', 'Treasury Account Symbol', 'Program Activity'];
 
 const StatusOfFunds = ({ fy }) => {
     const dispatch = useDispatch();
@@ -46,15 +47,19 @@ const StatusOfFunds = ({ fy }) => {
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < tabletScreen);
     const [viewType, setViewType] = useState(isMobile ? 'table' : 'chart');
+    const [goBackEngaged, setGoBackEngaged] = useState(false);
 
-    // TODO this should probably go in redux
+    // TODO this should probably go in redux, maybe?
     const [selectedSubcomponent, setSelectedSubcomponent] = useState();
-    const [federalAccountList, setFederalAccountList] = useState();
+    const [selectedFederalAccount, setSelectedFederalAccount] = useState();
+    const [selectedTas, setSelectedTas] = useState();
     const [drilldownSelection, setDrilldownSelection] = useState({});
     const [selectedDrilldownList, setSelectedDrilldownList] = useState([]);
 
     const selectedLevelsArray = [];
-    const maxLevel = 2;
+    // todo remove isQat and change to maxLevel = 3 after api work for program activity is done
+    const isQAT = GlobalConstants.QAT;
+    const maxLevel = isQAT ? 3 : 2;
     // TODO not sure if this is necessary
     // eslint-disable-next-line eqeqeq
     let statusDataThroughDate = useLatestAccountData()[1].toArray().filter((i) => i.submission_fiscal_year == fy)[0].period_end_date;
@@ -144,7 +149,6 @@ const StatusOfFunds = ({ fy }) => {
                 };
                 setLevel(1);
                 setResults(parsedData);
-                setFederalAccountList(parsedData);
                 setTotalItems(res.data.page_metadata.total);
                 setDrilldownSelection(totalsData);
                 setLoading(false);
@@ -182,9 +186,51 @@ const StatusOfFunds = ({ fy }) => {
                 // eslint-disable-next-line no-param-reassign,no-return-assign
                 parsedData.map((item) => item.name = item.id);
                 setResults(paginatedTasList(parsedData));
-                setFederalAccountList(parsedData);
+                setSelectedFederalAccount(federalAccountData);
                 setDrilldownSelection(totalsData);
                 setTotalItems(parsedData.length);
+                setLoading(false);
+            }).catch((err) => {
+                setError(true);
+                setLoading(false);
+                console.error(err);
+            });
+    });
+
+    const fetchProgramActivity = useCallback((tasData) => {
+        if (request.current) {
+            request.current.cancel();
+        }
+        if (error) {
+            setError(false);
+        }
+        if (!loading) {
+            setLoading(true);
+        }
+        const params = {
+            limit: pageSize,
+            page: currentPage
+        };
+
+        request.current = fetchProgramActivityList(overview.toptierCode, fy, params.page);
+        const programActivityRequest = request.current;
+        programActivityRequest.promise
+            .then((res) => {
+                const parsedData = parseRows(res.data.results);
+                const totalsData = {
+                    // currently, in the data the id and name are the same string
+                    // which is an alphanumeric code, not a 'name'
+                    name: `${tasData.name}`,
+                    id: `${tasData.id}`,
+                    total_budgetary_resources: `${tasData._budgetaryResources}`,
+                    total_obligations: `${tasData._obligations}`
+                };
+
+                setLevel(3);
+                setResults(parsedData);
+                setSelectedTas(tasData);
+                setTotalItems(res.data.page_metadata.total);
+                setDrilldownSelection(totalsData);
                 setLoading(false);
             }).catch((err) => {
                 setError(true);
@@ -205,10 +251,12 @@ const StatusOfFunds = ({ fy }) => {
                 fetchFederalAccounts(selectedSubcomponent);
             }
             if (prevPage !== currentPage && level === 2) {
-                setResults(paginatedTasList(federalAccountList));
+                fetchTas(selectedFederalAccount);
+            }
+            if (prevPage !== currentPage && level === 3) {
+                fetchProgramActivity(selectedTas);
             }
         }
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentPage]);
 
@@ -243,6 +291,12 @@ const StatusOfFunds = ({ fy }) => {
             selectedLevelsArray.push(selectedSubcomponent);
         }
 
+        if (selectedLevel === 3) {
+            fetchProgramActivity(parentData);
+            selectedLevelsArray.push(selectedSubcomponent);
+            selectedLevelsArray.push(drilldownSelection);
+        }
+
         selectedLevelsArray.push(parentData);
 
         setResetPageChange(true);
@@ -250,35 +304,32 @@ const StatusOfFunds = ({ fy }) => {
         subcomponentTotalData.populate(parentData);
         setSelectedDrilldownList(selectedLevelsArray);
         setResults(subcomponentTotalData);
+        setGoBackEngaged(false);
     };
 
     const goBack = () => {
+        setGoBackEngaged(true);
         if (overview.toptierCode) {
+            if (level === 1) {
+                setLevel(0);
+                if (currentPage === 1) {
+                    fetchAgencySubcomponents();
+                }
+            }
             if (level === 2) {
                 setLevel(1);
                 if (currentPage === 1) {
                     fetchFederalAccounts(selectedSubcomponent);
                 }
-                else {
-                    changeCurrentPage(1);
-                }
             }
-            else {
-                setLevel(0);
+            if (level === 3) {
+                setLevel(2);
                 if (currentPage === 1) {
-                    fetchAgencySubcomponents();
-                }
-                else {
-                    changeCurrentPage(1);
+                    fetchTas(selectedFederalAccount);
                 }
             }
 
-            if (currentPage === 1) {
-                setResetPageChange(false);
-            }
-            else {
-                changeCurrentPage(1);
-            }
+            changeCurrentPage(1);
         }
     };
 
@@ -301,6 +352,7 @@ const StatusOfFunds = ({ fy }) => {
                         toggle={toggle}
                         level={level}
                         goBack={goBack}
+                        goBackEngaged={goBackEngaged}
                         agencyName={overview.name}
                         fy={fy}
                         selectedLevelDataList={selectedDrilldownList} />
