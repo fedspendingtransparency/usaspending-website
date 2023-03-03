@@ -21,7 +21,6 @@ import {
 } from 'dataMapping/award/awardAmountsSection';
 
 import { covidColor, covidObligatedColor } from 'dataMapping/covid19/covid19';
-import { getTooltipPropsByAwardTypeAndSpendingCategory } from 'components/award/shared/awardAmounts/Tooltips';
 
 export const getfileCInfo = (fileCType) => {
     let fileCInfo = null;

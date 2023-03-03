@@ -35,7 +35,7 @@ const AwardAmountsChart = ({
             return <HorizontalSingleStackedBarViz {...buildLoanProps(awardAmounts, hasOutlays, showFilecCovid, type, fileCType)} />;
         }
         else if ((type === 'idv' || type === 'contract') && isNormal) {
-            return <HorizontalSingleStackedBarViz {...buildContractIDVProps(type, awardAmounts, showFilecCovid, hasOutlays, fileCType)} />
+            return <HorizontalSingleStackedBarViz {...buildContractIDVProps(type, awardAmounts, showFilecCovid, hasOutlays, fileCType)} />;
         }
         return (
             <div className="results-table-message-container">

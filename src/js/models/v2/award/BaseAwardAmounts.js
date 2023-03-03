@@ -46,10 +46,10 @@ const BaseAwardAmounts = {
         );
         this._fileCObligatedInfrastructure = getInfrastructureTotals(data.child_account_obligations_by_defc
             .concat(data.grandchild_account_obligations_by_defc),
-            defCodes);
+        defCodes);
         this._fileCOutlayInfrastructure = getInfrastructureTotals(data.child_account_obligations_by_defc
             .concat(data.grandchild_account_obligations_by_defc),
-            defCodes);
+        defCodes);
     },
     populateIdv(data, defCodes) {
         this._totalObligation = data._totalObligation;
