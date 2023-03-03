@@ -238,19 +238,16 @@ export const buildGrantsDirectOtherProps = (awardType, awardAmounts, hasOutlays,
         };
     }
 
-    // TODO: Not sure if this if hasOutlays condition is necessary
-    if (hasOutlays) {
-        chartProps.numerator2 = {
-            labelSortOrder: 0,
-            labelPosition: 'top',
-            className: `${awardType}-outlayed`,
-            rawValue: getAwardOutlayRawValue(awardAmounts, awardType, fileCType),
-            value: getAwardOutlayValue(awardAmounts, awardType, fileCType),
-            color: getAwardColor(outlayColor, infrastructureOutlayColor, covidColor, fileCType),
-            lineOffset: lineOffsetsBySpendingCategory.potential,
-            text: getAwardTypeText(awardType, "Outlayed", fileCType)
-        };
-    }
+    chartProps.numerator2 = {
+        labelSortOrder: 0,
+        labelPosition: 'top',
+        className: `${awardType}-outlayed`,
+        rawValue: getAwardOutlayRawValue(awardAmounts, awardType, fileCType),
+        value: getAwardOutlayValue(awardAmounts, awardType, fileCType),
+        color: getAwardColor(outlayColor, infrastructureOutlayColor, covidColor, fileCType),
+        lineOffset: lineOffsetsBySpendingCategory.potential,
+        text: getAwardTypeText(awardType, "Outlayed", fileCType)
+    };
 
     // TODO:  This can be refactored
     if (showFilecCovid) {

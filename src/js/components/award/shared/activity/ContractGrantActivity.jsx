@@ -174,7 +174,9 @@ const ContractGrantActivity = ({
 
     const handleTooltipDataLine = (data, text) => {
         let tooltipInfo = null;
+        console.log("should show alert")
         if (!text) { // potential award amount line
+            console.log("here")
             tooltipInfo = potentialAwardAmountLineTooltipData(data);
         }
         else { // all other award lines

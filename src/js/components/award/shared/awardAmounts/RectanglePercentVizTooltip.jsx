@@ -13,7 +13,7 @@ export const RectanglePercentVizTooltip = ({ amount, title, description }) => (
         <h5 className="tooltip__amount--loans">{amount}</h5>
         {description &&
         <div className="tooltip__text">
-            <p>{description}</p>
+            <p>here *** {description}</p>
         </div>}
     </div>
 );
