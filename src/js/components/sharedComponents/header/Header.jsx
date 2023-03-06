@@ -6,8 +6,10 @@ import GlossaryContainer from 'containers/glossary/GlossaryContainer';
 import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
 import Analytics from 'helpers/analytics/Analytics';
 import AboutTheDataContainer from "containers/aboutTheDataSidebar/AboutTheDataContainer";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import NavBar from './NavBar';
+import InfoBanner from "./InfoBanner";
 
 const clickedHeaderLink = (route) => {
     Analytics.event({
@@ -90,6 +92,12 @@ export default class Header extends React.Component {
                         </div>
                     </div>
                     <NavBar />
+                    <InfoBanner
+                        icon={<FontAwesomeIcon size="lg" icon="exclamation-triangle" color="#FDB81E" />}
+                        border="#f9c642"
+                        backgroundColor="#fff1d2"
+                        title="IMPORTANT: We are currently experiencing delays processing download requests."
+                        content="While we are working to resolve the issue, please do not attempt to resubmit your download as it will further delay your request." />
                 </header>
                 <AboutTheDataContainer />
                 <GlossaryContainer />
