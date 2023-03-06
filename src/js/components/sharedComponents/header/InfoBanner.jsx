@@ -13,6 +13,9 @@ const propTypes = {
 const InfoBanner = (props) => {
     const [closeBanner, setCloseBanner] = useState(false);
     const bannerClosed = () => {
+        if (props.closeBanner && typeof props.closeBanner === "function") {
+            props.closeBanner("showInfoBanner");
+        }
         setCloseBanner(true);
     };
 
