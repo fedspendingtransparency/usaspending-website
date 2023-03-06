@@ -358,10 +358,11 @@ export class ResultsTableContainer extends React.Component {
                     inFlight: false
                 };
 
-                const parsedResults = res.data.results.map((result) => ({
-                    ...result,
-                    generated_internal_id: encodeURIComponent(result.generated_internal_id)
-                }));
+                // const parsedResults = res.data.results.map((result) => ({
+                //     ...result,
+                //     generated_internal_id: encodeURIComponent(result.generated_internal_id)
+                // }));
+                const parsedResults = mockData.results;
                 // don't clear records if we're appending (not the first page)
                 if (pageNumber <= 1 || newSearch) {
                     newState.tableInstance = `${uniqueId()}`;
@@ -373,8 +374,8 @@ export class ResultsTableContainer extends React.Component {
 
                 // request is done
                 this.searchRequest = null;
-                newState.page = res.data.page_metadata.page;
-                newState.lastPage = !res.data.page_metadata.hasNext;
+                // newState.page = res.data.page_metadata.page;
+                // newState.lastPage = !res.data.page_metadata.hasNext;
 
                 this.setState(newState);
 
