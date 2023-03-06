@@ -30,7 +30,6 @@ import ResultsTableSection from 'components/search/table/ResultsTableSection';
 
 import searchActions from 'redux/actions/searchActions';
 import * as appliedFilterActions from 'redux/actions/search/appliedFilterActions';
-import mockData from './mockData';
 
 const propTypes = {
     filters: PropTypes.object,
