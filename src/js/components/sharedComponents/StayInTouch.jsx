@@ -9,7 +9,8 @@ import PropTypes from "prop-types";
 import Analytics from 'helpers/analytics/Analytics';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
+import Button from './buttons/Button';
 
 const propTypes = {
     pageName: PropTypes.string.isRequired
@@ -21,11 +22,22 @@ const StayInTouch = (pageName) => {
         action: 'Link',
         label: 'sign-up'
     });
+    const history = useHistory();
+    const handleSignUp = () => {
+        trackLinkSignUp();
+        const path = `"mailto:join-usaspending@lists.fiscal.treasury.gov?subject=Yes!%20I'd%20like%20to%20receive%20updates.`;
+        history.push(path);
+    };
     const trackLinkLearnMore = () => Analytics.event({
         category: pageName,
         action: 'Link',
         label: 'learn-more'
     });
+    const handleLearnMore = () => {
+        trackLinkSignUp();
+        const path = `{ pathname: "/about", search: "section=training" }`;
+        history.push(path);
+    };
 
     return (
         <section className="stay-in-touch__section">
@@ -55,6 +67,15 @@ const StayInTouch = (pageName) => {
                                 Sign up to receive our release notes to keep up with what’s new on USAspending.gov.
                         </div>
                         <div className="stay-in-touch__second-row-link">
+                            <Button
+                                copy="Sign Up"
+                                buttonTitle="Sign Up"
+                                buttonSize="md"
+                                onClick={handleSignUp}
+                                buttonType="text"
+                                backgroundColor="light"
+                                imageAlignment="right"
+                                image={<FontAwesomeIcon icon={faArrowRight} />} />
                             <a
                                 href="mailto:join-usaspending@lists.fiscal.treasury.gov?subject=Yes!%20I'd%20like%20to%20receive%20updates."
                                 onClick={trackLinkSignUp}>
@@ -74,6 +95,15 @@ const StayInTouch = (pageName) => {
                                 Receive customized training for your organization on how to use our tools and data.
                         </div>
                         <div className="stay-in-touch__second-row-link">
+                            <Button
+                                copy="Learn More"
+                                onClick={handleLearnMore}
+                                buttonTitle="Learn More"
+                                buttonSize="md"
+                                buttonType="text"
+                                backgroundColor="light"
+                                imageAlignment="right"
+                                image={<FontAwesomeIcon icon={faArrowRight} />} />
                             <Link className="training__link" to={{ pathname: "/about", search: "section=training" }} onMouseUp={trackLinkLearnMore}>
                                     Learn&nbsp;More
                                 <FontAwesomeIcon icon={faArrowRight} />
