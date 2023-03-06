@@ -777,7 +777,6 @@ const StatusOfFundsChart = ({
             });
             // create bar group <g>'s for each bar component
             const barGroups = svg.append('g')
-                // .attr('class', 'parent-g')
                 .attr('class', () => {
                     if (level !== maxLevel) {
                         return 'parent-g';
