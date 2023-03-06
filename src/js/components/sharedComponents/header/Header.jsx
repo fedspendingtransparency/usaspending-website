@@ -6,10 +6,10 @@ import GlossaryContainer from 'containers/glossary/GlossaryContainer';
 import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
 import Analytics from 'helpers/analytics/Analytics';
 import AboutTheDataContainer from "containers/aboutTheDataSidebar/AboutTheDataContainer";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import NavBar from './NavBar';
 import InfoBanner from "./InfoBanner";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const clickedHeaderLink = (route) => {
     Analytics.event({
