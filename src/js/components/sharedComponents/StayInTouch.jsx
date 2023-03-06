@@ -25,8 +25,7 @@ const StayInTouch = (pageName) => {
     const history = useHistory();
     const handleSignUp = () => {
         trackLinkSignUp();
-        const path = `"mailto:join-usaspending@lists.fiscal.treasury.gov?subject=Yes!%20I'd%20like%20to%20receive%20updates.`;
-        history.push(path);
+        
     };
     const trackLinkLearnMore = () => Analytics.event({
         category: pageName,
@@ -34,8 +33,8 @@ const StayInTouch = (pageName) => {
         label: 'learn-more'
     });
     const handleLearnMore = () => {
-        trackLinkSignUp();
-        const path = `{ pathname: "/about", search: "section=training" }`;
+        trackLinkLearnMore();
+        const path = `about?section=training`;
         history.push(path);
     };
 
@@ -104,10 +103,6 @@ const StayInTouch = (pageName) => {
                                 backgroundColor="light"
                                 imageAlignment="right"
                                 image={<FontAwesomeIcon icon={faArrowRight} />} />
-                            <Link className="training__link" to={{ pathname: "/about", search: "section=training" }} onMouseUp={trackLinkLearnMore}>
-                                    Learn&nbsp;More
-                                <FontAwesomeIcon icon={faArrowRight} />
-                            </Link>
                         </div>
                     </FlexGridCol>
                 </FlexGridRow>
