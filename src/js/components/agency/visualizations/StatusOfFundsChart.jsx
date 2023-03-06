@@ -411,12 +411,11 @@ const StatusOfFundsChart = ({
             });
             // create bar group <g>'s for each bar component
             const barGroups = svg.append('g')
-                // .attr('class', 'parent-g')
                 .attr('class', () => {
-                    if (level === maxLevel) {
-                        return 'parent-g maxLevel';
+                    if (level !== maxLevel) {
+                        return 'parent-g';
                     }
-                    return 'parent-g';
+                    return '';
                 })
                 .on('mouseleave', () => {
                     setIsHovered(false);
@@ -778,7 +777,13 @@ const StatusOfFundsChart = ({
             });
             // create bar group <g>'s for each bar component
             const barGroups = svg.append('g')
-                .attr('class', 'parent-g')
+                // .attr('class', 'parent-g')
+                .attr('class', () => {
+                    if (level !== maxLevel) {
+                        return 'parent-g';
+                    }
+                    return '';
+                })
                 .on('mouseleave', () => {
                     setIsHovered(false);
                     setHoverData(null);
@@ -1033,7 +1038,7 @@ const StatusOfFundsChart = ({
                 </div>
             </FlexGridRow>
             }
-            <div id="sof_chart" className="status-of-funds__visualization" ref={chartRef} />
+            <div id="sof_chart" className="sof_chart__visualization" ref={chartRef} />
             {!isMobile &&
                 <FlexGridRow className="legend" style={{ flexDirection: isLargeScreen ? 'column' : 'row' }}>
                     <div className="legend__item">
