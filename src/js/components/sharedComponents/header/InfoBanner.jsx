@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -11,12 +11,13 @@ const propTypes = {
 };
 
 const InfoBanner = (props) => {
+    const [closeBanner, setCloseBanner] = useState(false);
     const bannerClosed = () => {
-        props.closeBanner('showInfoBanner');
+        setCloseBanner(true);
     };
 
     return (
-        <div className="info-banner">
+        <div className="info-banner" style={{ display: `${closeBanner ? 'none' : ''}`, backgroundColor: props.backgroundColor, borderTop: `5px solid ${props.border}` }}>
             <div className="info-banner__content">
                 {props.icon}
                 <>
@@ -28,6 +29,7 @@ const InfoBanner = (props) => {
                         className="info-banner__close-button"
                         title="Dismiss message"
                         aria-label="Dismiss message"
+                        onKeyUp={(e) => ((e.keyCode === "Enter") ? bannerClosed : '')}
                         onClick={bannerClosed}>
                         <FontAwesomeIcon size="lg" alt="Dismiss message" icon="times" />
                     </button>
