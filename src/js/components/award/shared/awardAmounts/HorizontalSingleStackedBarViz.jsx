@@ -366,10 +366,6 @@ const HorizontalSingleStackedBarViz = ({
                 .attr("y1", (height / 2.5))
                 .attr("x2", x(propsArr[0]) - 2)
                 .attr("y2", height - 50)
-                // .attr("x1", x(propsArr[0]) - 2)
-                // .attr("y1", (height / 2.5) + 5)
-                // .attr("x2", x(propsArr[0]) - 2)
-                // .attr("y2", 275)
                 .style("stroke-width", 4)
                 .style("stroke", "#ded5db")
                 .style("fill", "none");
