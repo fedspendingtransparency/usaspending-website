@@ -30,6 +30,7 @@ import ResultsTableSection from 'components/search/table/ResultsTableSection';
 
 import searchActions from 'redux/actions/searchActions';
 import * as appliedFilterActions from 'redux/actions/search/appliedFilterActions';
+import mockData from './mockData';
 
 const propTypes = {
     filters: PropTypes.object,
@@ -361,7 +362,6 @@ export class ResultsTableContainer extends React.Component {
                     ...result,
                     generated_internal_id: encodeURIComponent(result.generated_internal_id)
                 }));
-
                 // don't clear records if we're appending (not the first page)
                 if (pageNumber <= 1 || newSearch) {
                     newState.tableInstance = `${uniqueId()}`;
@@ -494,7 +494,6 @@ export class ResultsTableContainer extends React.Component {
             count: this.state.counts[type.internal],
             disabled: this.state.inFlight || this.state.counts[type.internal] === 0
         }));
-
         return (
             <ResultsTableSection
                 error={this.state.error}

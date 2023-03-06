@@ -236,6 +236,7 @@ const covidColWidth = 190;
 const descWidth = 380;
 const datesWidth = 210;
 const covidColor = '#6E338E';
+const infrastructureColor = '#5b616b';
 
 const defaultContract = [
     { title: 'Award ID' },
@@ -309,12 +310,12 @@ const defaultIdvColumns = [
 ];
 const infrastructureObligationsCol = {
     title: 'Infrastructure Obligations',
-    background: covidColor,
+    background: infrastructureColor,
     customWidth: covidColWidth
 };
 const infrastructureOutlaysCol = {
     title: 'Infrastructure Outlays',
-    background: covidColor,
+    background: infrastructureColor,
     customWidth: covidColWidth
 };
 const covidObligationsCol = {
