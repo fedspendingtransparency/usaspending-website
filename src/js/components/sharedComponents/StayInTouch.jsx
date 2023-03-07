@@ -25,7 +25,7 @@ const StayInTouch = (pageName) => {
     const history = useHistory();
     const handleSignUp = () => {
         trackLinkSignUp();
-        
+        window.location.href = "mailto:join-usaspending@lists.fiscal.treasury.gov?subject=Yes!%20I'd%20like%20to%20receive%20updates.";
     };
     const trackLinkLearnMore = () => Analytics.event({
         category: pageName,
@@ -75,12 +75,6 @@ const StayInTouch = (pageName) => {
                                 backgroundColor="light"
                                 imageAlignment="right"
                                 image={<FontAwesomeIcon icon={faArrowRight} />} />
-                            <a
-                                href="mailto:join-usaspending@lists.fiscal.treasury.gov?subject=Yes!%20I'd%20like%20to%20receive%20updates."
-                                onClick={trackLinkSignUp}>
-                                    Sign Up
-                                <FontAwesomeIcon icon={faArrowRight} />
-                            </a>
                         </div>
                     </FlexGridCol>
                     <FlexGridCol
