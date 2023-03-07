@@ -110,11 +110,15 @@ export const getAwardObligatedValue = (data, awardType, fileCType) => {
     return data.totalObligationAbbreviated;
 };
 
-// New Bar chart
-// denominator - potential
-// numerator2 - outlay
-// numberator - current
-// numerator children - obligated
+/** The functions below build the props necessary for teh HorizontalSingleStackedBarViz (ie. the latest version of the bar chart).
+    For each function the following is true -
+        The numerator2 and numerator children should be displayed above the bars in the chart
+            numerator2 => outlay
+            numerator children => obligated
+        The numerator and denominator should show below the bars in the chart
+            numerator => current (Non-Federal Funding or Subsidy Cost depending on the award type)
+            denominator => potential (Total Funding or Face Value of Direct Loan depending on the award type)
+**/
 
 // Only for Contract and IDV Awards
 export const buildContractIDVProps = (awardType, data, hasfilecCovid, hasOutlays, fileCType) => {
@@ -249,7 +253,6 @@ export const buildLoanProps = (awardAmounts, hasOutlays, showFilecCovid, awardTy
                 text: getAwardTypeText(awardType, "Obligated", fileCType),
                 className: showFilecCovid ? `loan-file-c-obligated` : 'asst-obligation',
                 denominatorValue: awardAmounts._subsidy,
-                // lineOffset: lineOffsetsBySpendingCategory.loanFileCObligated,
                 lineOffset: lineOffsetsBySpendingCategory.loanFileCObligated,
                 color: getAwardColor(obligatedColor, infrastructureObligatedColor, covidObligatedColor, fileCType)
             }]
