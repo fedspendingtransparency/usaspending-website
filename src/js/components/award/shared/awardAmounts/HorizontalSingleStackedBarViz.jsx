@@ -67,7 +67,7 @@ const HorizontalSingleStackedBarViz = ({
     const obligatedAmountColor = numerator.children[0].color;
     const potentialAmountValue = denominator.value;
     const potentialAmountLabel = denominator.text;
-    const isNffZero = numerator.className === 'asst-non-federal-funding' && numerator.value === '$0';
+    const isNffZero = numerator.className.includes('asst-non-federal-funding') && numerator.value === '$0';
 
     useEffect(() => {
         const renderBarChart = () => {
@@ -94,7 +94,7 @@ const HorizontalSingleStackedBarViz = ({
                 .attr("height", '50')
                 .attr("fill", numerator.className === "loan-subsidy" ? "#ded5db" : "#dce4ee");
             // grants, direct payments, other
-            if (numerator.className === "asst-non-federal-funding") {
+            if (numerator.className.includes("asst-non-federal-funding")) {
                 // obligated rect
                 chartSvg.append("rect")
                     .attr("x", 0)

@@ -185,7 +185,7 @@ export const buildGrantsDirectOtherProps = (awardType, awardAmounts, hasOutlays,
             text: `Total Funding`
         },
         numerator: {
-            className: `${awardAmounts._nonFederalFunding > 0 ? `asst-non-federal-funding` : `asst-nff-zero`}`,
+            className: `asst-non-federal-funding ${awardAmounts._nonFederalFunding > 0 ? `` : `asst-nff-zero`}`,
             labelSortOrder: 2,
             labelPosition: 'bottom',
             // fudging this for to get the correct tooltip position.

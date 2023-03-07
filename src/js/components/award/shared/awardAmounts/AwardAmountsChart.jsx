@@ -25,7 +25,6 @@ const AwardAmountsChart = ({
     const renderChartByAwardType = (awardAmounts = awardOverview, type = awardType, scenario = spendingScenario) => {
         const isNormal = scenario === 'normal';
         const showFilecCovid = fileCType === "covid";
-        // const hasInfrastructure = fileCType === "infrastructure";
         const hasOutlays = awardAmounts._combinedOutlay > 0 || awardAmounts._totalOutlay > 0;
 
         if (asstAwardTypesWithSimilarAwardAmountData.includes(type) && isNormal) { // grants, direct payments, and other
