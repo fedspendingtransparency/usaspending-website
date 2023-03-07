@@ -107,13 +107,13 @@ class VisualizationWrapper extends React.Component {
                     content = <ResultsTableContainer />;
                     break;
                 case 'time':
-                    content = <TimeVisualizationSectionContainer />;
+                    content = <TimeVisualizationSectionContainer subaward={this.props.subaward} />;
                     break;
                 case 'map':
-                    content = <GeoVisualizationSectionContainer />;
+                    content = <GeoVisualizationSectionContainer subaward={this.props.subaward} />;
                     break;
                 case 'rank':
-                    content = <RankVisualizationWrapperContainer />;
+                    content = <RankVisualizationWrapperContainer subaward={this.props.subaward} />;
                     break;
                 default:
                     content = null;

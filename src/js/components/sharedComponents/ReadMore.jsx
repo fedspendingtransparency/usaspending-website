@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const propTypes = {
     children: PropTypes.oneOfType([PropTypes.element, PropTypes.array]),
-    text: PropTypes.string,
+    text: PropTypes.oneOfType([PropTypes.string, PropTypes.object, PropTypes.array]),
     limit: PropTypes.number,
     initiallyExpanded: PropTypes.bool,
     inline: PropTypes.bool,
@@ -18,54 +18,144 @@ const propTypes = {
     openPrompt: PropTypes.string,
     closePrompt: PropTypes.string,
     iconColor: PropTypes.string,
-    additionalFunctionality: PropTypes.func
+    id: PropTypes.string,
+    additionalFunctionality: PropTypes.func,
+    showPreview: PropTypes.bool,
+    previewLines: PropTypes.string
 };
 
 const ReadMore = ({
     children, // pre-determined content to be hidden/ shown by the buttons
-    text = '', // a string to be truncated based on the limit
+    text, // a string to be truncated based on the limit
     limit = 300,
     initiallyExpanded = false,
     openIcon = "",
     closeIcon = "",
     openPrompt = "",
     closePrompt = "",
-    additionalFunctionality = null
+    additionalFunctionality = null,
+    id = "",
+    showPreview = false,
+    previewLines = ""
 }) => {
     const [expanded, setExpanded] = useState(!!initiallyExpanded);
-    const readLess = closeIcon ? (
-        <button
-            className="readMoreUpdated__button"
-            onClick={() => {
-                setExpanded(false);
-                if (additionalFunctionality !== null) {
-                    additionalFunctionality(expanded);
-                }
-            }}>{closePrompt}{' '}<span className="usa-button-link__icon"><FontAwesomeIcon className="readMoreUpdated__link-icon" icon={closeIcon} /></span>
-        </button>) : (<button className="read-more-button" onClick={() => setExpanded(false)}>Read Less</button>);
-    const readMore = openIcon ? (
-        <button
-            className="readMoreUpdated__button"
-            onClick={() => {
-                setExpanded(true);
-                if (additionalFunctionality !== null) {
-                    additionalFunctionality();
-                }
-            }}>{openPrompt}{' '}<span className="usa-button-link__icon"><FontAwesomeIcon className="readMoreUpdated__link-icon" icon={openIcon} /></span>
-        </button>) : (<button className="read-more-button" onClick={() => setExpanded(true)}>Read More</button>);
+
+    const readLess = () => {
+        if (closeIcon && closePrompt) {
+            return (
+                <button
+                    className="readMoreUpdated__button"
+                    onClick={() => {
+                        setExpanded(false);
+                        if (additionalFunctionality !== null) {
+                            additionalFunctionality(expanded);
+                        }
+                    }}>{closePrompt}{' '}<span className="usa-button-link__icon"><FontAwesomeIcon className="readMoreUpdated__link-icon" icon={closeIcon} /></span>
+                </button>);
+        }
+        else if (closeIcon) {
+            return (
+                <button
+                    className="readMoreUpdated__button"
+                    onClick={() => {
+                        setExpanded(false);
+                        if (additionalFunctionality !== null) {
+                            additionalFunctionality(expanded);
+                        }
+                    }}>Read Less{' '}<span className="usa-button-link__icon"><FontAwesomeIcon className="readMoreUpdated__link-icon" icon={closeIcon} /></span>
+                </button>
+            );
+        }
+        else if (closePrompt) {
+            return (
+                <button
+                    className="readMoreUpdated__button"
+                    onClick={() => {
+                        setExpanded(false);
+                        if (additionalFunctionality !== null) {
+                            additionalFunctionality(expanded);
+                        }
+                    }}>{closePrompt}
+                </button>);
+        }
+        return (<button className="read-more-button" onClick={() => setExpanded(false)}>Read Less</button>);
+    };
+    const readMore = () => {
+        if (openPrompt && openIcon) {
+            return (
+                <button
+                    className="readMoreUpdated__button"
+                    onClick={() => {
+                        setExpanded(true);
+                        if (additionalFunctionality !== null) {
+                            additionalFunctionality(expanded);
+                        }
+                    }}>{openPrompt}{' '}<span className="usa-button-link__icon"><FontAwesomeIcon className="readMoreUpdated__link-icon" icon={openIcon} /></span>
+                </button>);
+        }
+        else if (openPrompt) {
+            return (
+                <button
+                    className="readMoreUpdated__button"
+                    onClick={() => {
+                        setExpanded(true);
+                        if (additionalFunctionality !== null) {
+                            additionalFunctionality(expanded);
+                        }
+                    }}>{openPrompt}
+                </button>);
+        }
+        else if (openIcon) {
+            return (
+                <button
+                    className="readMoreUpdated__button"
+                    onClick={() => {
+                        setExpanded(true);
+                        if (additionalFunctionality !== null) {
+                            additionalFunctionality(expanded);
+                        }
+                    }}><span className="usa-button-link__icon"><FontAwesomeIcon className="readMoreUpdated__link-icon" icon={openIcon} /></span>
+                </button>);
+        }
+        return (<button className="read-more-button" onClick={() => setExpanded(true)}>Read More</button>);
+    };
+
     if (expanded && children) {
+        if (showPreview === true) {
+            return (
+                <>
+                    <p className="read-more__preview-lines">{previewLines}</p>
+                    <div>
+                        {children}
+                    </div>
+                    <div>{readLess()}</div>
+                </>
+            );
+        }
         return (
             <>
-                {children}
-                <div>{readLess}</div>
+                <div id={id}>
+                    {children}
+                </div>
+                <div>{readLess()}</div>
             </>
         );
+    }
+    if (!expanded && children) {
+        if (showPreview === true) {
+            return (
+                <>
+                    <p className="read-more__preview-lines">{previewLines}</p>
+                    <div>{readMore()}</div>
+                </>
+            );
+        }
     }
     if (expanded && (text && text.length > limit)) {
         return (
             <>
                 <p>{text}</p>
-                <div>{readLess}</div>
+                <div>{readLess()}</div>
             </>
         );
     }
@@ -73,7 +163,7 @@ const ReadMore = ({
         return (
             <div>
                 <p>{`${text.substring(0, limit)}...`}</p>
-                {readMore}
+                {readMore()}
             </div>
         );
     }
@@ -86,7 +176,7 @@ const ReadMore = ({
     }
     return (
         <div>
-            {readMore}
+            {readMore()}
         </div>
     );
 };

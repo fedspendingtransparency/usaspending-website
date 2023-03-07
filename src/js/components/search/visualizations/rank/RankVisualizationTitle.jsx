@@ -12,7 +12,8 @@ import * as Icons from 'components/sharedComponents/icons/Icons';
 const propTypes = {
     fieldTypes: PropTypes.array,
     changeSpendingBy: PropTypes.func,
-    currentSpendingBy: PropTypes.string
+    currentSpendingBy: PropTypes.string,
+    subaward: PropTypes.bool
 };
 
 export default class RankVisualizationTitle extends React.Component {
@@ -69,7 +70,7 @@ export default class RankVisualizationTitle extends React.Component {
         return (
             <div className="rank-visualization-title">
                 <h2 className="static-title">
-                    Spending by:&nbsp;
+                    {this.props.subaward ? `Sub-Award Spending by: ` : `Spending by `}
                 </h2>
 
                 <div className="field-picker">

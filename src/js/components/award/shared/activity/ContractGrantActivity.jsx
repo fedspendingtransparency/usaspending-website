@@ -174,11 +174,10 @@ const ContractGrantActivity = ({
 
     const handleTooltipDataLine = (data, text) => {
         let tooltipInfo = null;
-        if (!text) { // potential award amount line
-            tooltipInfo = potentialAwardAmountLineTooltipData(data);
-        }
-        else { // all other award lines
+        if (text) { // all other award lines
             tooltipInfo = verticalLinesTooltipData(data, text);
+        } else { // potential award amount line
+            tooltipInfo = potentialAwardAmountLineTooltipData(data);
         }
         setTooltipData(tooltipInfo);
         setShowTooltipLine(true);
