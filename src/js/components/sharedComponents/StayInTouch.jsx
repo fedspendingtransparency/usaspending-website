@@ -75,7 +75,7 @@ const StayInTouch = (pageName) => {
                                 backgroundColor="light"
                                 imageAlignment="right"
                                 textAlignment="left"
-                                image={<FontAwesomeIcon icon={faArrowRight} style={{ height: '16px', width: '16px' }} />} />
+                                image={<FontAwesomeIcon icon={faArrowRight} style={{ height: '16px', width: '14px' }} />} />
                         </div>
                     </FlexGridCol>
                     <FlexGridCol
@@ -98,7 +98,7 @@ const StayInTouch = (pageName) => {
                                 backgroundColor="light"
                                 textAlignment="left"
                                 imageAlignment="right"
-                                image={<FontAwesomeIcon icon={faArrowRight} style={{ height: '16px', width: '16px' }} />} />
+                                image={<FontAwesomeIcon icon={faArrowRight} style={{ height: '16px', width: '14px' }} />} />
                         </div>
                     </FlexGridCol>
                 </FlexGridRow>
