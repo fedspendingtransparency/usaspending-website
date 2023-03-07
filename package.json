@@ -129,7 +129,7 @@
     "webpack-merge": "^4.1.0"
   },
   "resolutions": {
-    "trim-newlines": "3.0.1",
+    "trim-newlines": "4.0.2",
     "glob-parent": "6.0.2",
     "**/glob-parent": "6.0.2",
     "decode-uri-component": "0.2.2",
@@ -139,7 +139,9 @@
     "**/validator": "13.7.0",
     "got": "11.8.5",
     "**/got": "11.8.5",
-    "json5": "2.2.3"
+    "json5": "2.2.3",
+    "http-cache-semantic": "4.1.1",
+    "sequelize": "6.29.0"
   },
   "dependencies": {
     "@babel/eslint-parser": "^7.17.0",
@@ -162,7 +164,7 @@
     "d3-hierarchy": "^3.1.2",
     "d3-interpolate": "^3.0.1",
     "d3-scale": "^4.0.2",
-    "data-transparency-ui": "github:fedspendingtransparency/data-transparency-ui#v5.2.4",
+    "data-transparency-ui": "github:fedspendingtransparency/data-transparency-ui#v5.2.7",
     "date-fns": "^2.16.1",
     "dompurify": "^2.4.1",
     "file-loader": "^6.2.0",

@@ -9,7 +9,6 @@ import tabs from 'containers/covid19/helpers/recipient';
 import DateNote from 'components/covid19/DateNote';
 import { Tabs } from "data-transparency-ui";
 import ReadMore from 'components/sharedComponents/ReadMore';
-import ExternalLink from 'components/sharedComponents/ExternalLink';
 import Analytics from 'helpers/analytics/Analytics';
 import Note, { dodNote } from 'components/sharedComponents/Note';
 
@@ -47,7 +46,7 @@ const RecipientSection = ({ publicLaw }) => {
                         In the case of recipients who are individual persons and not organizations, data is aggregated by county or state to protect personally identifiable information (PII). Data about the location where the award money is used, known as the &apos;Primary Place of Performance&apos;, is available through the download button at the top of the table.
                     </p>
                     <p className="footnotes">
-                        <sup>1</sup> To learn more about eligibility criteria for receiving a financial assistance award or contract, visit <ExternalLink url="https://beta.sam.gov/" />
+                        <sup>1</sup> To learn more about eligibility criteria for receiving a financial assistance award or contract, visit <a target="_blank" rel="noopener noreferrer" href="https://beta.sam.gov/" >https://beta.sam.gov/</a>
                     </p>
                 </ReadMore>
             </div>

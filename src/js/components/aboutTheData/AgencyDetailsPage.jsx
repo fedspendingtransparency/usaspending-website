@@ -17,7 +17,6 @@ import PageWrapper from 'components/sharedComponents/PageWrapper';
 import AgencyDetailsContainer from 'containers/aboutTheData/AgencyDetailsContainer';
 import { modalTitles, modalClassNames } from 'dataMapping/aboutTheData/modals';
 import BaseAgencyOverview from 'models/v2/agency/BaseAgencyOverview';
-import ExternalLink from 'components/sharedComponents/ExternalLink';
 import { agencyNotes } from './componentMapping/agencyNotes';
 import AboutTheDataModal from './AboutTheDataModal';
 import { useAgencySlugs } from "../../containers/agency/WithAgencySlugs";
@@ -121,7 +120,7 @@ const AgencyDetailsPage = () => {
                                         <h5>Agency Contact Information</h5>
                                         <div className="more-info-note">Contact this Agency with questions about their submissions</div>
                                         <div className="agency-info__website">
-                                            <ExternalLink url={agencyOverview.website} />
+                                            <a target="_blank" rel="noopener noreferrer" href={agencyOverview.website} >{agencyOverview.website}</a>
                                         </div>
                                     </div>
                                 )}
