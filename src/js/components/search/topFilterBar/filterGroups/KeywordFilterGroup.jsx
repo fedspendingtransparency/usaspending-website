@@ -44,7 +44,7 @@ export default class KeywordFilterGroup extends React.Component {
         keywords.forEach((value) => {
             const tag = {
                 value: `${value}`,
-                title: `KEYWORD | ${value}`,
+                title: `${value}`,
                 removeFilter: this.removeFilter
             };
 
