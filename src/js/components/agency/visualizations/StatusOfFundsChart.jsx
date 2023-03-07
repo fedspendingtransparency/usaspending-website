@@ -561,7 +561,7 @@ const StatusOfFundsChart = ({
             svg.selectAll(".y-axis-labels").append("svg:title")
                 .text((d) => d);
 
-            // remove the drilldown functionality levels greater than 1
+            // remove the drilldown functionality levels greater than maxLevel
             if (level >= maxLevel) {
                 svg.selectAll(".bar-group").on('click', null);
                 svg.selectAll(".bar-group").on('keypress', null);
@@ -929,7 +929,7 @@ const StatusOfFundsChart = ({
             // tooltip hover for label text
             svg.selectAll(".y-axis-labels").append("svg:title")
                 .text((d) => d);
-            // remove the drilldown functionality levels greater than 1
+            // remove the drilldown functionality levels greater than maxLevel
             if (level >= maxLevel) {
                 svg.selectAll(".bar-group").on('click', null);
                 svg.selectAll(".bar-group").on('keypress', null);
