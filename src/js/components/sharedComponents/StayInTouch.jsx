@@ -74,6 +74,7 @@ const StayInTouch = (pageName) => {
                                 buttonType="text"
                                 backgroundColor="light"
                                 imageAlignment="right"
+                                textAlignment="left"
                                 image={<FontAwesomeIcon icon={faArrowRight} />} />
                         </div>
                     </FlexGridCol>
@@ -95,6 +96,7 @@ const StayInTouch = (pageName) => {
                                 buttonSize="md"
                                 buttonType="text"
                                 backgroundColor="light"
+                                textAlignment="center"
                                 imageAlignment="right"
                                 image={<FontAwesomeIcon icon={faArrowRight} />} />
                         </div>
