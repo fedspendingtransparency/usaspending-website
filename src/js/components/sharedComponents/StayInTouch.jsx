@@ -9,7 +9,8 @@ import PropTypes from "prop-types";
 import Analytics from 'helpers/analytics/Analytics';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+import Button from './buttons/Button';
 
 const propTypes = {
     pageName: PropTypes.string.isRequired
@@ -21,11 +22,21 @@ const StayInTouch = (pageName) => {
         action: 'Link',
         label: 'sign-up'
     });
+    const history = useHistory();
+    const handleSignUp = () => {
+        trackLinkSignUp();
+        window.location.href = "mailto:join-usaspending@lists.fiscal.treasury.gov?subject=Yes!%20I'd%20like%20to%20receive%20updates.";
+    };
     const trackLinkLearnMore = () => Analytics.event({
         category: pageName,
         action: 'Link',
         label: 'learn-more'
     });
+    const handleLearnMore = () => {
+        trackLinkLearnMore();
+        const path = `about?section=training`;
+        history.push(path);
+    };
 
     return (
         <section className="stay-in-touch__section">
@@ -55,12 +66,16 @@ const StayInTouch = (pageName) => {
                                 Sign up to receive our release notes to keep up with what’s new on USAspending.gov.
                         </div>
                         <div className="stay-in-touch__second-row-link">
-                            <a
-                                href="mailto:join-usaspending@lists.fiscal.treasury.gov?subject=Yes!%20I'd%20like%20to%20receive%20updates."
-                                onClick={trackLinkSignUp}>
-                                    Sign Up
-                                <FontAwesomeIcon icon={faArrowRight} />
-                            </a>
+                            <Button
+                                copy="Sign Up"
+                                buttonTitle="Sign Up"
+                                buttonSize="md"
+                                onClick={handleSignUp}
+                                buttonType="text"
+                                backgroundColor="light"
+                                imageAlignment="right"
+                                textAlignment="left"
+                                image={<FontAwesomeIcon icon={faArrowRight} style={{ height: '16px', width: '14px' }} />} />
                         </div>
                     </FlexGridCol>
                     <FlexGridCol
@@ -74,10 +89,16 @@ const StayInTouch = (pageName) => {
                                 Receive customized training for your organization on how to use our tools and data.
                         </div>
                         <div className="stay-in-touch__second-row-link">
-                            <Link className="training__link" to={{ pathname: "/about", search: "section=training" }} onMouseUp={trackLinkLearnMore}>
-                                    Learn&nbsp;More
-                                <FontAwesomeIcon icon={faArrowRight} />
-                            </Link>
+                            <Button
+                                copy="Learn More"
+                                onClick={handleLearnMore}
+                                buttonTitle="Learn More"
+                                buttonSize="md"
+                                buttonType="text"
+                                backgroundColor="light"
+                                textAlignment="left"
+                                imageAlignment="right"
+                                image={<FontAwesomeIcon icon={faArrowRight} style={{ height: '16px', width: '14px' }} />} />
                         </div>
                     </FlexGridCol>
                 </FlexGridRow>
