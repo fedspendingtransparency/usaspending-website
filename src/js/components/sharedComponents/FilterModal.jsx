@@ -18,7 +18,6 @@ const propTypes = {
 
 const FilterModal = (props) => {
     const dispatch = useDispatch();
-    console.debug("DA FUCK");
     return (
         <Modal
             mounted={props.mounted}

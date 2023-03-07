@@ -10,6 +10,7 @@ import Analytics from 'helpers/analytics/Analytics';
 import { withRouter } from "react-router-dom";
 import { showModal } from 'redux/actions/modal/modalActions';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useDispatch } from 'react-redux';
 import ResultsTableContainer from 'containers/search/table/ResultsTableContainer';
 import TimeVisualizationSectionContainer from
     'containers/search/visualizations/time/TimeVisualizationSectionContainer';
@@ -38,6 +39,7 @@ const propTypes = {
 
 const VisualizationWrapper = (props) => {
     const [_mounted, setMounted] = useState(false);
+    const dispatch = useDispatch();
     let _queuedAnalyticEvent = null;
     const logVisualizationTab = useCallback((tab) => {
         if (props.noFiltersApplied) {
@@ -117,14 +119,13 @@ const VisualizationWrapper = (props) => {
             <div className="visualization-tabs__toggle-mobile">
                 <Button
                     onClick={(e) => {
-                        console.debug("test");
                         e.persist();
-                        showModal(window.location.href, 'filter');
+                        dispatch(showModal(window.location.href, 'filter'));
                     }}
                     onKeyUp={(e) => {
                         e.persist();
                         if (e.key === 'Enter') {
-                            showModal(window.location.href, 'filter');
+                            dispatch(showModal(window.location.href, 'filter'));
                         }
                     }}
                     copy="Learn how active filters work"
