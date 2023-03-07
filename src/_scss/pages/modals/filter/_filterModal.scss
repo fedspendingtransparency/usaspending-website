@@ -1,0 +1,89 @@
+.usa-dt-modal {
+    @import "components/_genericErrorMessage";
+
+    width: 100% - $grid-column;
+
+    @media(min-width: $x-large-screen) {
+        width: 100% - $grid-column * 3;
+    }
+
+    .filter-modal {
+        background: unset;
+        width: 100%;
+        min-width: 100%;
+
+        .filter-modal__header {
+            padding: 16px 16px 32px 24px;
+            background-color: $color-primary-darker;
+
+            .filter-modal__header-close {
+                display: flex;
+                justify-content: flex-end;
+
+                .button-type__icon-dark {
+                    margin: 0;
+                    height: auto;
+                    padding: 0;
+                }
+            }
+
+            .filter-modal__header-text {
+                font-size: rem(24);
+                font-weight: $font-semibold;
+                font-stretch: normal;
+                font-style: normal;
+                line-height: 1.25;
+                letter-spacing: normal;
+                color: #fff;
+            }
+        }
+
+        .filter-modal__body {
+            padding: 32px 24px 32px;
+            background-color: #fff;
+
+            .filter-modal__top-description {
+                font-size: rem(16);
+                font-weight: normal;
+                font-stretch: normal;
+                font-style: normal;
+                line-height: 1.5;
+                letter-spacing: normal;
+            }
+
+            .filter-modal__example {
+                margin-top: 24px;
+                .filter-modal__title {
+                    font-size: rem(16);
+                    font-weight: $font-semibold;
+                    font-stretch: normal;
+                    font-style: normal;
+                    line-height: 1.5;
+                    letter-spacing: normal;
+                    color: $color-base;
+                }
+
+                .filter-modal__image {
+                    margin-top: 8px;
+                    margin-bottom: 8px;
+                    width: 240px;
+                    height: 72px;
+                    @media(min-width: $tablet-screen) {
+                        width: 381px;
+                        height: 108px;
+                    }
+                }
+
+                .filter-modal__description {
+                    font-size: rem(16);
+                    font-weight: normal;
+                    font-stretch: normal;
+                    font-style: normal;
+                    line-height: 1.5;
+                    letter-spacing: normal;
+                    color: $color-base;
+                }
+            }
+        }
+    }
+}
