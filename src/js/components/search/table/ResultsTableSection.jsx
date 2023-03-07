@@ -92,7 +92,7 @@ export default class ResultsTableSection extends React.Component {
             }
         };
 
-        const primePreview = "View a list of award summaries based on your selected filters. If you search on a specific Time Period, your results will include awards that are active during your chosen Fiscal Year or Date Range. Click the Award ID, Recipient Name, or Awarding Agency  to find more detailed information on individual awards including transaction history, subawards, and more.";
+        const primePreview = "View a list of award summaries based on your selected filters. Click the Award ID, Recipient Name, or Awarding Agency to find more detailed information on individual awards including transaction history, subawards, and more.";
         const primeAwardText = (
             <>
                 <p className="award-search__body-text">The rows in the table below represent award summaries for {<span className="award-search__glossary-term"> prime awards</span>}{' '}{<GlossaryLink term="prime-award" />}.
@@ -104,7 +104,7 @@ export default class ResultsTableSection extends React.Component {
                 </p>
             </>);
 
-        const subAwardPreview = ("View a list of sub-award summaries based on your selected filters. If you search on a specific Time Period, your results will include sub-awards that are active during your chosen Fiscal Year or Date Range. Click the Sub-Award ID, Prime Award ID, or Prime Recipient Name to find more detailed information on individual awards.");
+        const subAwardPreview = ("View a list of sub-award transactions based on your selected filters. Click the Sub-Award ID or Prime Award ID for additional details on the prime award. You can also learn more about the prime award’s recipient by clicking the Prime Recipient Name.");
         const subAwardText = (
             <>
                 <p className="award-search__body-text">The rows in the table below represent{<span className="award-search__glossary-term"> sub-awards</span>}{' '}{<GlossaryLink term="sub-award" />} that meet the selected filter criteria. The results do not reflect sub-awards whose

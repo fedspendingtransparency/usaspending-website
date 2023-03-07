@@ -5,6 +5,9 @@
     @import "../../../../../components/visualizations/_period";
 
     display:flex;
+    @media(max-width: $tablet-screen) {
+        display: block;
+    }
     .visualization-period {
         .content {
             li {
