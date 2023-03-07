@@ -141,7 +141,12 @@
     "**/got": "11.8.5",
     "json5": "2.2.3",
     "http-cache-semantic": "4.1.1",
-    "sequelize": "6.29.0"
+    "sequelize": "6.29.0",
+    "chokidar": "3.5.3",
+    "watchpack-chokidar2": "2.0.1",
+    "watchpack": "2.4.0",
+    "remark-mdx": "2.3.0",
+    "remark-parse": "10.0.1"
   },
   "dependencies": {
     "@babel/eslint-parser": "^7.17.0",
