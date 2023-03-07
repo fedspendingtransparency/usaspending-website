@@ -1,5 +1,7 @@
 .visualization-top {
     padding-bottom: rem(20);
+    @import "../../../../../components/visualizations/_description";
+    @import "../../../../../components/visualizations/_period";
     @include media($tablet-screen) {
         @include display(flex);
     }

@@ -12,7 +12,9 @@
         }
     }
     display:flex;
-
+    @media(max-width: $tablet-screen) {
+        display: block;
+    }
     .award-search__glossary-term {
         font-weight: $font-semibold;
     }
