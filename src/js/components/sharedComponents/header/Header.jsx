@@ -97,7 +97,7 @@ export default class Header extends React.Component {
                         border="#00A91C"
                         backgroundColor="#ECF3EC"
                         title="RESOLVED: We are no longer experiencing delays processing download requests."
-                        content="Thank you for your patience." />
+                        content="The issue has been resolved, and you can resume submitting downloads as normal. Thank you for your patience." />
                 </header>
                 <AboutTheDataContainer />
                 <GlossaryContainer />
