@@ -93,11 +93,11 @@ export default class Header extends React.Component {
                     </div>
                     <NavBar />
                     <InfoBanner
-                        icon={<FontAwesomeIcon size="lg" icon="exclamation-triangle" color="#FDB81E" />}
-                        border="#f9c642"
-                        backgroundColor="#fff1d2"
-                        title="IMPORTANT: We are currently experiencing delays processing download requests."
-                        content="While we are working to resolve the issue, please do not attempt to resubmit your download as it will further delay your request." />
+                        icon={<FontAwesomeIcon size="lg" icon="exclamation-triangle" color="#00A91C" />}
+                        border="#00A91C"
+                        backgroundColor="#ECF3EC"
+                        title="RESOLVED: We are no longer experiencing delays processing download requests."
+                        content="The issue has been resolved, and you can resume submitting downloads as normal. Thank you for your patience." />
                 </header>
                 <AboutTheDataContainer />
                 <GlossaryContainer />
