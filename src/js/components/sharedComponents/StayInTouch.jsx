@@ -96,7 +96,7 @@ const StayInTouch = (pageName) => {
                                 buttonSize="md"
                                 buttonType="text"
                                 backgroundColor="light"
-                                textAlignment="center"
+                                textAlignment="left"
                                 imageAlignment="right"
                                 image={<FontAwesomeIcon icon={faArrowRight} />} />
                         </div>
