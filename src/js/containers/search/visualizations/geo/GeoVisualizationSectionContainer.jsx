@@ -324,7 +324,8 @@ export class GeoVisualizationSectionContainer extends React.Component {
                 changeScope={this.changeScope}
                 changeMapLayer={this.changeMapLayer}
                 updateMapLegendToggle={this.updateMapLegendToggle}
-                mapLegendToggle={this.props.mapLegendToggle} />
+                mapLegendToggle={this.props.mapLegendToggle}
+                subaward={this.props.subaward} />
         );
     }
 }
