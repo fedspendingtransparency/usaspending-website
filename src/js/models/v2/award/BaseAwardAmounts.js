@@ -6,8 +6,7 @@
 import * as MoneyFormatter from 'helpers/moneyFormatter';
 
 const getCovid19Totals = (arr, defCodes = []) => arr.filter((obj) => defCodes.filter((d) => d?.disaster === "covid_19")?.map((defc) => defc.code).includes(obj?.code)).reduce((acc, obj) => acc + obj?.amount || 0, 0);
-
-const getInfrastructureTotals = (arr) => arr.filter((d) => d?.code === "Z" || d?.code === "1")?.reduce((acc, obj) => acc + obj?.amount || 0, 0);
+const getInfrastructureTotals = (arr, defCodes = []) => arr.filter((obj) => defCodes.filter((d) => d?.disaster === "infrastructure")?.map((defc) => defc.code).includes(obj?.code)).reduce((acc, obj) => acc + obj?.amount || 0, 0);
 
 const BaseAwardAmounts = {
     populateBase(data) {
@@ -46,9 +45,11 @@ const BaseAwardAmounts = {
             defCodes
         );
         this._fileCObligatedInfrastructure = getInfrastructureTotals(data.child_account_obligations_by_defc
-            .concat(data.grandchild_account_obligations_by_defc));
+            .concat(data.grandchild_account_obligations_by_defc),
+        defCodes);
         this._fileCOutlayInfrastructure = getInfrastructureTotals(data.child_account_obligations_by_defc
-            .concat(data.grandchild_account_obligations_by_defc));
+            .concat(data.grandchild_account_obligations_by_defc),
+        defCodes);
     },
     populateIdv(data, defCodes) {
         this._totalObligation = data._totalObligation;
@@ -59,8 +60,8 @@ const BaseAwardAmounts = {
         this._baseAndAllOptions = data._baseAndAllOptions;
         this._fileCOutlay = getCovid19Totals(data.fileC.outlays, defCodes);
         this._fileCObligated = getCovid19Totals(data.fileC.obligations, defCodes);
-        this._fileCOutlayInfrastructure = getInfrastructureTotals(data.fileC.outlays);
-        this._fileCObligatedInfrastructure = getInfrastructureTotals(data.fileC.obligations);
+        this._fileCOutlayInfrastructure = getInfrastructureTotals(data.fileC.outlays, defCodes);
+        this._fileCObligatedInfrastructure = getInfrastructureTotals(data.fileC.obligations, defCodes);
     },
     populateLoan(data, defCodes) {
         this._subsidy = data._subsidy;
@@ -69,8 +70,8 @@ const BaseAwardAmounts = {
         this._totalObligation = data._totalObligation;
         this._fileCOutlay = getCovid19Totals(data.fileC.outlays, defCodes);
         this._fileCObligated = getCovid19Totals(data.fileC.obligations, defCodes);
-        this._fileCOutlayInfrastructure = getInfrastructureTotals(data.fileC.outlays);
-        this._fileCObligatedInfrastructure = getInfrastructureTotals(data.fileC.obligations);
+        this._fileCOutlayInfrastructure = getInfrastructureTotals(data.fileC.outlays, defCodes);
+        this._fileCObligatedInfrastructure = getInfrastructureTotals(data.fileC.obligations, defCodes);
     },
     populateAsst(data, defCodes) {
         this._totalObligation = data._totalObligation;
@@ -79,8 +80,8 @@ const BaseAwardAmounts = {
         this._nonFederalFunding = data._nonFederalFunding;
         this._fileCOutlay = getCovid19Totals(data.fileC.outlays, defCodes);
         this._fileCObligated = getCovid19Totals(data.fileC.obligations, defCodes);
-        this._fileCOutlayInfrastructure = getInfrastructureTotals(data.fileC.outlays);
-        this._fileCObligatedInfrastructure = getInfrastructureTotals(data.fileC.obligations);
+        this._fileCOutlayInfrastructure = getInfrastructureTotals(data.fileC.outlays, defCodes);
+        this._fileCObligatedInfrastructure = getInfrastructureTotals(data.fileC.obligations, defCodes);
     },
     populateContract(data, defCodes) {
         this._totalObligation = data._totalObligation;
@@ -89,8 +90,8 @@ const BaseAwardAmounts = {
         this._baseAndAllOptions = data._baseAndAllOptions;
         this._fileCOutlay = getCovid19Totals(data.fileC.outlays, defCodes);
         this._fileCObligated = getCovid19Totals(data.fileC.obligations, defCodes);
-        this._fileCOutlayInfrastructure = getInfrastructureTotals(data.fileC.outlays);
-        this._fileCObligatedInfrastructure = getInfrastructureTotals(data.fileC.obligations);
+        this._fileCOutlayInfrastructure = getInfrastructureTotals(data.fileC.outlays, defCodes);
+        this._fileCObligatedInfrastructure = getInfrastructureTotals(data.fileC.obligations, defCodes);
     },
     populate(data, awardAmountType, defCodes) {
         this.populateBase(data, awardAmountType);
