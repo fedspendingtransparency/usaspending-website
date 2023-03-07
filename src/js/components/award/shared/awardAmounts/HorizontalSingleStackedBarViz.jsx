@@ -103,12 +103,14 @@ const HorizontalSingleStackedBarViz = ({
                     .attr("height", '40')
                     .attr("fill", obligatedAmountColor);
                 // outlayed rect
-                chartSvg.append("rect")
-                    .attr("x", 0)
-                    .attr("y", (height / 2.5) + 10)
-                    .attr("width", x(propsArr[3]) <= 100 ? x(propsArr[3]) + 4 : x(propsArr[3]))
-                    .attr("height", '30')
-                    .attr("fill", outlayedAmountColor);
+                if (outlayedAmountValue?.indexOf("$0") < 0) {
+                    chartSvg.append("rect")
+                        .attr("x", 0)
+                        .attr("y", (height / 2.5) + 10)
+                        .attr("width", x(propsArr[3]) <= 100 ? x(propsArr[3]) + 4 : x(propsArr[3]))
+                        .attr("height", '30')
+                        .attr("fill", outlayedAmountColor);
+                }
                 if (!isNffZero) {
                     // nff rect
                     chartSvg.append("rect")
@@ -350,12 +352,14 @@ const HorizontalSingleStackedBarViz = ({
                 .attr("height", '50')
                 .attr("fill", obligatedAmountColor);
             // outlayed rect
-            chartSvg.append("rect")
-                .attr("x", 0)
-                .attr("y", (height / 2.5) + 10)
-                .attr("width", x(propsArr[2]) < 8 ? 8 + x(propsArr[2]) : x(propsArr[2]))
-                .attr("height", '30')
-                .attr("fill", outlayedAmountColor);
+            if (outlayedAmountValue?.indexOf("$0") < 0) {
+                chartSvg.append("rect")
+                    .attr("x", 0)
+                    .attr("y", (height / 2.5) + 10)
+                    .attr("width", x(propsArr[2]) < 8 ? 8 + x(propsArr[2]) : x(propsArr[2]))
+                    .attr("height", '30')
+                    .attr("fill", outlayedAmountColor);
+            }
             // face value line
             if (!isNffZero) {
                 chartSvg.append("line")
@@ -377,26 +381,30 @@ const HorizontalSingleStackedBarViz = ({
                 .style("stroke", "#8c6e86")
                 .style("fill", "none");
             // outlay line
-            chartSvg.append("line")
-                .attr("x1", (x(propsArr[2]) - 2) < 8 ? 8 + (x(propsArr[2]) - 2) : (x(propsArr[2]) - 2))
-                .attr("y1", 20)
-                .attr("x2", (x(propsArr[2]) - 2) < 8 ? 8 + (x(propsArr[2]) - 2) : (x(propsArr[2]) - 2))
-                .attr("y2", (height / 2.5) + 40)
-                .style("stroke-width", 4)
-                .style("stroke", outlayedAmountColor)
-                .style("fill", "none");
+            if (outlayedAmountValue?.indexOf("$0") < 0) {
+                chartSvg.append("line")
+                    .attr("x1", (x(propsArr[2]) - 2) < 8 ? 8 + (x(propsArr[2]) - 2) : (x(propsArr[2]) - 2))
+                    .attr("y1", 20)
+                    .attr("x2", (x(propsArr[2]) - 2) < 8 ? 8 + (x(propsArr[2]) - 2) : (x(propsArr[2]) - 2))
+                    .attr("y2", (height / 2.5) + 40)
+                    .style("stroke-width", 4)
+                    .style("stroke", outlayedAmountColor)
+                    .style("fill", "none");
+            }
             // subsidy label
-            chartSvg.append("foreignObject")
-                .attr('width', x(propsArr[0]) - x(propsArr[1]) <= 270 ? x(propsArr[1]) - 10 : x(propsArr[0]) - x(propsArr[1]) - 10)
-                .attr('height', 70)
-                .attr('x', x(propsArr[0]) - x(propsArr[1]) <= 270 ? 0 : x(propsArr[1]) + 10)
-                .attr('y', 90)
-                .html(`<div className="award-amounts-viz-outlays__desc-text"><strong>${currentAmountValue}</strong><br />${currentAmountLabel}</div>`)
-                .select('div')
-                .style('float', x(propsArr[0]) - x(propsArr[1]) <= 270 ? 'right' : 'left')
-                .style('text-align', x(propsArr[0]) - x(propsArr[1]) <= 270 ? 'right' : 'left')
-                .select('strong')
-                .style('font-size', '20px');
+            if (currentAmountValue?.indexOf("$0") < 0) {
+                chartSvg.append("foreignObject")
+                    .attr('width', x(propsArr[0]) - x(propsArr[1]) <= 270 ? x(propsArr[1]) - 10 : x(propsArr[0]) - x(propsArr[1]) - 10)
+                    .attr('height', 70)
+                    .attr('x', x(propsArr[0]) - x(propsArr[1]) <= 270 ? 0 : x(propsArr[1]) + 10)
+                    .attr('y', 90)
+                    .html(`<div className="award-amounts-viz-outlays__desc-text"><strong>${currentAmountValue}</strong><br />${currentAmountLabel}</div>`)
+                    .select('div')
+                    .style('float', x(propsArr[0]) - x(propsArr[1]) <= 270 ? 'right' : 'left')
+                    .style('text-align', x(propsArr[0]) - x(propsArr[1]) <= 270 ? 'right' : 'left')
+                    .select('strong')
+                    .style('font-size', '20px');
+            }
             const outlayLabelMinXPos = (outlayScaled) => {
                 if (outlayScaled <= 16) {
                     return 16;
@@ -404,17 +412,19 @@ const HorizontalSingleStackedBarViz = ({
                 return outlayScaled + 10;
             };
             // outlay label
-            chartSvg.append("foreignObject")
-                .attr('width', x(propsArr[0]) - x(propsArr[2]) <= 100 ? x(propsArr[2]) - 10 : x(propsArr[0]) - x(propsArr[2]) - 10)
-                .attr('height', 70)
-                .attr('x', x(propsArr[0]) - x(propsArr[2]) <= 100 ? 0 : outlayLabelMinXPos(x(propsArr[2])))
-                .attr('y', 20)
-                .html(`<div className="award-amounts-viz-outlays__desc-text"><strong>${outlayedAmountValue}</strong><br />${outlayedAmountLabel}</div>`)
-                .select('div')
-                .style('float', x(propsArr[0]) - x(propsArr[2]) <= 100 ? 'right' : 'left')
-                .style('text-align', x(propsArr[0]) - x(propsArr[2]) <= 100 ? 'right' : 'left')
-                .select('strong')
-                .style('font-size', '20px');
+            if (outlayedAmountValue?.indexOf("$0") < 0) {
+                chartSvg.append("foreignObject")
+                    .attr('width', x(propsArr[0]) - x(propsArr[2]) <= 100 ? x(propsArr[2]) - 10 : x(propsArr[0]) - x(propsArr[2]) - 10)
+                    .attr('height', 70)
+                    .attr('x', x(propsArr[0]) - x(propsArr[2]) <= 100 ? 0 : outlayLabelMinXPos(x(propsArr[2])))
+                    .attr('y', 20)
+                    .html(`<div className="award-amounts-viz-outlays__desc-text"><strong>${outlayedAmountValue}</strong><br />${outlayedAmountLabel}</div>`)
+                    .select('div')
+                    .style('float', x(propsArr[0]) - x(propsArr[2]) <= 100 ? 'right' : 'left')
+                    .style('text-align', x(propsArr[0]) - x(propsArr[2]) <= 100 ? 'right' : 'left')
+                    .select('strong')
+                    .style('font-size', '20px');
+            }
             // face value label
             chartSvg.append("foreignObject")
                 .attr('width', x(propsArr[0]) - 10)
