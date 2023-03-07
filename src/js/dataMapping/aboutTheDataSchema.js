@@ -112,8 +112,8 @@ const schema = {
                 slug: "frequency-of-updates-to-agency-account-data"
             },
             {
-                name: "Non-Validation of Data from Source Systems",
-                slug: "non-validation-of-data-from-source-systems"
+                name: "Data Validation of Source Systems",
+                slug: "data-validation-of-source-systems"
             },
             {
                 name: "Changes in Reporting Requirements",
