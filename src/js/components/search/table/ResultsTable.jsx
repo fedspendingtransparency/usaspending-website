@@ -135,7 +135,7 @@ export default class ResultsTable extends React.Component {
             }
         }
         else if (
-            (column.columnName === 'COVID-19 Obligations' || column.columnName === 'COVID-19 Outlays' || column.columnName === 'Infrastructure Obligations' || column.columnName === 'Infrastructure Outlays')
+            (column.columnName === 'COVID-19 Obligations' || column.columnName === 'COVID-19 Outlays')
             && !this.props.results[rowIndex][column.columnName] && this.props.results[rowIndex][column.columnName] !== 0) {
             props.value = '--';
         }
@@ -153,6 +153,11 @@ export default class ResultsTable extends React.Component {
             }
             else {
                 props.value = this.props.results[rowIndex].Description;
+            }
+        }
+        else if (column.columnName === 'Infrastructure Obligations' || column.columnName === 'Infrastructure Outlays') {
+            if (!this.props.results[rowIndex][column.columnName] && this.props.results[rowIndex][column.columnName] !== 0) {
+                props.value = '--';
             }
         }
         return React.createElement(
