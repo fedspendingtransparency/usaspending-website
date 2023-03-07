@@ -18,7 +18,6 @@ export default class SelectedKeywords extends React.Component {
         if (this.props.selectedKeywords.length !== 0) {
             hideTags = '';
         }
-        console.log(this.props.selectedKeywords);
         const shownKeywords = this.props.selectedKeywords.map((keyword) => (
             <ShownValue
                 label={keyword}
