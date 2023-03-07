@@ -1,5 +1,11 @@
 .status-of-funds__visualization {
     // all css for the status of funds accordion is in the index.scss for the agency page
+
+    .usda-message_loading {
+        @media(max-width: $tablet-screen) {
+            margin-top: rem(24);
+        }
+    }
     .status-of-funds__controls-mobile {
         margin-bottom: 16px;
 
