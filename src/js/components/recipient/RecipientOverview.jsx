@@ -119,13 +119,6 @@ const RecipientOverview = (props) => {
                 version: REQUEST_VERSION
             };
         }
-        // const filterValue = {
-        //     filters: {
-        //         ...defaultFilters,
-        //         selectedRecipients: filter
-        //     },
-        //     version: REQUEST_VERSION
-        // };
         let tempHash = generateUrlHash(filters);
         tempHash.promise
             .then((results) => {
