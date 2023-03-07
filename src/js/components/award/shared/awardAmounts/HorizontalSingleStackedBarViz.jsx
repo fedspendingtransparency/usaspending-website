@@ -338,12 +338,14 @@ const HorizontalSingleStackedBarViz = ({
                 .attr("height", '50')
                 .attr("fill", "#ded5db");
             // subsidy cost rect
-            chartSvg.append("rect")
-                .attr("x", 0)
-                .attr("y", (height / 2.5) + 5)
-                .attr("width", x(propsArr[1]))
-                .attr("height", '40')
-                .attr("fill", "#8c6e86");
+            if (currentAmountValue?.indexOf("$0") < 0) {
+                chartSvg.append("rect")
+                    .attr("x", 0)
+                    .attr("y", (height / 2.5) + 5)
+                    .attr("width", x(propsArr[1]))
+                    .attr("height", '40')
+                    .attr("fill", "#8c6e86");
+            }
             // obligated rect
             chartSvg.append("rect")
                 .attr("x", 0)
@@ -372,14 +374,16 @@ const HorizontalSingleStackedBarViz = ({
                     .style("fill", "none");
             }
             // subsidy line
-            chartSvg.append("line")
-                .attr("x1", x(propsArr[1]) - 2)
-                .attr("y1", 90)
-                .attr("x2", x(propsArr[1]) - 2)
-                .attr("y2", (height / 2.5) + 45)
-                .style("stroke-width", 4)
-                .style("stroke", "#8c6e86")
-                .style("fill", "none");
+            if (currentAmountValue?.indexOf("$0") < 0) {
+                chartSvg.append("line")
+                    .attr("x1", x(propsArr[1]) - 2)
+                    .attr("y1", 90)
+                    .attr("x2", x(propsArr[1]) - 2)
+                    .attr("y2", (height / 2.5) + 45)
+                    .style("stroke-width", 4)
+                    .style("stroke", "#8c6e86")
+                    .style("fill", "none");
+            }
             // outlay line
             if (outlayedAmountValue?.indexOf("$0") < 0) {
                 chartSvg.append("line")
