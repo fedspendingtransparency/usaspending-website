@@ -361,8 +361,7 @@ export class ResultsTableContainer extends React.Component {
                     ...result,
                     generated_internal_id: encodeURIComponent(result.generated_internal_id)
                 }));
-                // can test mock datat with this
-                // const parsedResults = mockData.results;
+
                 // don't clear records if we're appending (not the first page)
                 if (pageNumber <= 1 || newSearch) {
                     newState.tableInstance = `${uniqueId()}`;
