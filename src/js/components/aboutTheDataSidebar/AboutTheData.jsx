@@ -159,7 +159,7 @@ const AboutTheData = (props) => {
     });
 
     const track = () => <div className="atd-scrollbar-track" />;
-    const thumb = () => <div className="atd-scrollbar-thumb" />;
+    const thumb = () => <div className="atd-scrollbar-thumb" id="atd-scrollbar-thumb" />;
 
     const selectItem = (index, section) => {
         setDrilldownItemId(index);
