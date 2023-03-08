@@ -13,13 +13,12 @@
         min-width: 100%;
 
         .filter-modal__header {
-            padding: 16px 16px 32px 24px;
+            padding: 32px 16px 32px 24px;
             background-color: $color-primary-darker;
-
+            display:flex;
+            justify-content: space-between;
             .filter-modal__header-close {
-                display: flex;
-                justify-content: flex-end;
-
+                transform: translateY(-16px);
                 .button-type__icon-dark {
                     margin: 0;
                     height: auto;

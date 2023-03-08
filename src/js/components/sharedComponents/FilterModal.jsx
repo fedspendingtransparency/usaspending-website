@@ -27,8 +27,12 @@ const FilterModal = (props) => {
             verticallyCenter>
             <div className="filter-modal" >
                 <div className="filter-modal__header">
+                    <div className="filter-modal__header-text">
+                        Learn how active filters work
+                    </div>
                     <div className="filter-modal__header-close">
                         <Button
+                            additionalClassnames="usa-dt-modal__close-button"
                             onClick={(e) => {
                                 e.persist();
                                 dispatch(hideModal());
@@ -45,9 +49,6 @@ const FilterModal = (props) => {
                             buttonType="icon"
                             backgroundColor="dark"
                             image={<FontAwesomeIcon icon="times" />} />
-                    </div>
-                    <div className="filter-modal__header-text">
-                        Learn how active filters work
                     </div>
                 </div>
                 <div className="filter-modal__body">

@@ -28,5 +28,18 @@
                 font-weight: $font-bold;
             }
         }
+
+        .tablet-search__modal {
+            display:none;
+            @media(min-width: $tablet-screen) and (max-width: $medium-screen) {
+                display: unset;
+                .button-type__text-right-icon-light {
+                    margin: 16px 0 0 0;
+                    height: auto;
+                    padding: 0;
+                }
+            }
+        }
+        
     }
 }
