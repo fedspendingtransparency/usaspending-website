@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { uniqueId } from 'lodash';
-import { scrollToY } from 'helpers/scrollToHelper';
 import * as Icons from 'components/sharedComponents/icons/Icons';
 
 // Mapping of section identifier to tooltip content JSX
@@ -1244,17 +1243,6 @@ CovidFlagTooltip.propTypes = {
 
 
 export const UnlinkedTooltip = (props) => {
-    const handleClick = () => {
-        const selector = `.federal-accounts`;
-        // scroll to the correct section
-        const sectionDom = document.querySelector(selector);
-        if (!sectionDom) {
-            return;
-        }
-        props.setShowTooltip(false);
-        scrollToY(sectionDom.offsetTop - 150, 700);
-    };
-
     const clickCloseTooltip = () => {
         props.setShowTooltip(false);
     };
@@ -1289,7 +1277,6 @@ export const UnlinkedTooltip = (props) => {
             </div>
             <div className="tooltip__text">
                 <p>This means all financial system data elements (File C) are unavailable on this page and in downloads for this award.</p>
-                <p>For more information, view the <a className="award-summary__unlinked-anchor" role="link" tabIndex={0} onMouseUp={handleClick}>Federal Accounts</a> section below.</p>
             </div>
         </div>);
 };
