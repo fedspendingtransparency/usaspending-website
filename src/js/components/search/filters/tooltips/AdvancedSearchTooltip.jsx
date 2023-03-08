@@ -35,7 +35,26 @@ export const TimePeriodTooltip = () => (
         </div>
     </div>
 );
+export const FilterTooltip = () => (
+    <div className="advanced-search-tt">
+        <h3 className="advanced-search-tt__header">
+            Learn which data elements are associated with each filter
+        </h3>
+        <div className="advanced-search-tt__body">
+        The data in award search come primarily from governmentwide award
+        systems in formats called File D1 (for <strong>contract award elements</strong>) and
+        File D2 (for <strong>financial assistance award elements</strong>). If a filter is not
+        listed below, then it applies to both contract and financial assistance
+        award elements.
 
+        Filters for <strong>agency account elements</strong> apply to both contract and financial
+         assistance award elements, but they come from File C (award data from
+         agency financial systems that are submitted directly to USAspending.gov)
+         rather than from Files D1 or D2.
+        </div>
+
+    </div>
+);
 export const KeyWordTooltip = () => (
     <div className="advanced-search-tt">
         <h3 className="advanced-search-tt__header">

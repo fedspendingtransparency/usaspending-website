@@ -37,6 +37,7 @@ import {
 import { Filter as FilterIcon } from 'components/sharedComponents/icons/Icons';
 import FilterSidebar from 'components/sharedComponents/filterSidebar/FilterSidebar';
 import * as SidebarHelper from 'helpers/sidebarHelper';
+import Tooltip from '../sharedComponents/Tooltip';
 
 const staticFilters = {
     // NOTE: if you update the title here
@@ -198,6 +199,10 @@ const SearchSidebar = ({
                     <FilterIcon />
                 </span>
                 <h2 className="sidebar-title">Filters</h2>
+                <div className="sidebar-paragraph">Learn which data elements are associated with each filter</div>
+                <div className="tooltip__icon">
+                    <Tooltip />
+                </div>
             </div>
             <div className="sidebar-top-submit">
                 <SearchSidebarSubmitContainer />

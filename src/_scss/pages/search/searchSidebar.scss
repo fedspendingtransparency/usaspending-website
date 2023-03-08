@@ -12,8 +12,8 @@
         display: none;
         @include media($tablet-screen) {
             @include display(flex);
-            @include align-items(center);
-            @include flex-flow(row);
+            @include align-items(left);
+            @include flex-flow(column);
             @include justify-content(flex-start);
             position: relative;
             border-bottom: rem(1) solid $color-gray-lighter;
@@ -38,6 +38,10 @@
                     width: rem(16);
                     margin-top: rem(5);
                 }
+            }
+            .sidebar-paragraph {
+                flex-flow: column
+
             }
         }
     }
