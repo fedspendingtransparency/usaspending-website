@@ -1244,17 +1244,6 @@ CovidFlagTooltip.propTypes = {
 
 
 export const UnlinkedTooltip = (props) => {
-    // const handleClick = () => {
-    //     const selector = `.federal-accounts`;
-    //     // scroll to the correct section
-    //     const sectionDom = document.querySelector(selector);
-    //     if (!sectionDom) {
-    //         return;
-    //     }
-    //     props.setShowTooltip(false);
-    //     scrollToY(sectionDom.offsetTop - 150, 700);
-    // };
-
     const clickCloseTooltip = () => {
         props.setShowTooltip(false);
     };
