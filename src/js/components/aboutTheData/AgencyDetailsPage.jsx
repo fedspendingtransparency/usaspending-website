@@ -145,6 +145,7 @@ const AgencyDetailsPage = () => {
                     </>
                 )}
                 <AboutTheDataModal
+                    id="usa-dt-modal__agency-submission-statistics"
                     mounted={!!showModal.length}
                     type={showModal}
                     className={modalClassNames[showModal]}
