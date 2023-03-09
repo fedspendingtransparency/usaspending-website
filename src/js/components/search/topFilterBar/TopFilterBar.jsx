@@ -10,6 +10,10 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux';
+import { showModal } from 'redux/actions/modal/modalActions';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Button from "../../sharedComponents/buttons/Button";
 
 const propTypes = {
     filters: PropTypes.array,
@@ -30,6 +34,8 @@ const TopFilterBar = (props) => {
     }
     filterBarHeader += ':';
 
+    const dispatch = useDispatch();
+
     return (
         <div>
             <div
@@ -42,6 +48,24 @@ const TopFilterBar = (props) => {
                         id="top-filter-bar-title">
                         {filterBarHeader}
                     </h2>
+                    <Button
+                        onClick={(e) => {
+                            e.persist();
+                            dispatch(showModal(window.location.href, 'filter'));
+                        }}
+                        onKeyUp={(e) => {
+                            e.persist();
+                            if (e.key === 'Enter') {
+                                dispatch(showModal(window.location.href, 'filter'));
+                            }
+                        }}
+                        copy="Learn how active filters work"
+                        buttonTitle="filter modal"
+                        buttonSize="sm"
+                        buttonType="text"
+                        backgroundColor="light"
+                        imageAlignment="right"
+                        image={<FontAwesomeIcon icon="window-restore" />} />
                 </div>
                 <div className="search-top-filters">
                     <div

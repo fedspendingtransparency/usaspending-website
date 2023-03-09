@@ -27,6 +27,12 @@
   @media(min-width: $tablet-screen) {
     display: none;
   }
+
+  .button-type__text-right-icon-light {
+    padding-left: 0;
+    margin: 0 0 20px 0;
+    padding: 0;
+  }
 }
 
 .visualization-tabs__toggle {

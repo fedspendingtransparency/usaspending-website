@@ -8,11 +8,11 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { hideModal } from 'redux/actions/modal/modalActions';
+import FilterModal from "components/sharedComponents/FilterModal";
 import RedirectModal from 'components/sharedComponents/RedirectModal';
 import InterimDataDisclaimerModal from 'components/covid19/InterimDataDisclaimerModal';
 import CovidModalContainer from 'containers/covid19/CovidModalContainer';
 import TrainingVideoModal from "../../components/sharedComponents/TrainingVideoModal";
-
 import { globalModalProps } from '../../propTypes';
 import UEIModalContainer from "../shared/UEIModalContainer";
 
@@ -62,6 +62,14 @@ export class GlobalModalContainer extends React.Component {
                     duration={this.props.globalModal.duration}
                     publishedAt={this.props.globalModal.publishedAt}
                     id={this.props.globalModal.id} />
+            );
+        }
+
+        if (this.props.globalModal.modal === "filter") {
+            return (
+                <FilterModal
+                    mounted={this.props.globalModal.display}
+                    hideModal={this.props.hideModal} />
             );
         }
         return null;

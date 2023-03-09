@@ -1,5 +1,6 @@
 .search-top-filter-bar {
     display: none;
+
     @include media($medium-screen) {
         display: block;
     }
@@ -14,10 +15,16 @@
     $top-group-color: #E2E3E4;
     width: 100%;
     font-size: rem(12);
+
     .search-top-filter-header {
         @include clearfix;
         border-bottom: 1px solid $top-divider-color;
         padding-bottom: rem(7);
+
+        @include media($medium-screen) {
+            display: flex;
+        }
+
         .header-title {
             float: left;
             font-weight: 600;
@@ -26,16 +33,28 @@
             color: $top-header-color;
             margin: 0;
         }
+
+        .button-type__text-right-icon-light {
+            margin: 0;
+            padding: 0;
+            position:absolute;
+            height: auto;
+            right: 0;
+        }
+
         @import "./_clearAllButton";
     }
+
     .search-top-filters {
         display: table-cell;
         vertical-align: middle;
+
         .search-top-filters-content {
             display: block;
             padding-right: rem(10);
             padding-bottom: rem(10);
         }
+
         @import "./_group";
     }
 }
