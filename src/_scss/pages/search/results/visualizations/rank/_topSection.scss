@@ -1,4 +1,5 @@
 .visualization-top {
+    @include row();
     padding-bottom: rem(20);
     @import "../../../../../components/visualizations/_description";
     @import "../../../../../components/visualizations/_period";
@@ -60,8 +61,8 @@
         @include media($tablet-screen) {
             @include display(inline);
             @include flex(1 1 56%);
-            padding-right: rem(15);
         }
+        margin-right: 2.5%;
     }
     .visualization-scope {
         @include display(flex);
