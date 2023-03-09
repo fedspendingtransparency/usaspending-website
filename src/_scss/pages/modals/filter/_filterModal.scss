@@ -33,13 +33,13 @@
                 font-style: normal;
                 line-height: 1.25;
                 letter-spacing: normal;
-                color: #fff;
+                color: $color-white;
             }
         }
 
         .filter-modal__body {
             padding: 32px 24px 32px;
-            background-color: #fff;
+            background-color: $color-white;
 
             .filter-modal__top-description {
                 font-size: rem(16);
