@@ -16,16 +16,10 @@
     <title>USAspending.gov</title>
     <link rel="shortcut icon" href="img/favicon.ico">
 
+    <!-- Google Analytics - DAP -->
     <script async type="text/javascript" id="_fed_an_ua_tag"
         src="https://dap.digitalgov.gov/Universal-Federated-Analytics-Min.js?agency=TREAS&subagency=FS"></script>
-    
-    <!-- Google Analytics -->
-    <script>
-        window.ga = window.ga || function () { (ga.q = ga.q || []).push(arguments) }; ga.l = +new Date;
-        ga('create', '<%= GA_TRACKING_ID %>', 'auto');
-    </script>
-    <script async src='https://www.google-analytics.com/analytics.js'></script>
-    <!-- End Google Analytics -->
+
     <!-- Start ForeSee Survey -->
     <% if (IS_PROD) { %>
         <script type="text/javascript">
@@ -78,27 +72,23 @@
     <% } %>
     <!-- End ForeSee Survey -->
 
-    <% if (USE_GTM) { %>
-        <!-- Google Tag Manager -->
-        <script>(
-            function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-                new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-                j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-                'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-                })(window,document,'script','dataLayer','<%= GTM_ID %>');
-        </script>
-        <!-- End Google Tag Manager -->
-    <% } %>
+    <!-- Google Tag Manager (configured with Google Analytics - Non-DAP account) -->
+    <script>(
+        function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','<%= GTM_ID %>');
+    </script>
+    <!-- End Google Tag Manager -->
 </head>
 <body>
-    <% if (USE_GTM) { %>
-        <!-- Google Tag Manager (noscript) -->
-        <noscript>
-            <iframe src="https://www.googletagmanager.com/ns.html?id='<%= GTM_ID %>'"
-            height="0" width="0" style="display:none;visibility:hidden"></iframe>
-        </noscript>
-        <!-- End Google Tag Manager (noscript) -->
-    <% } %>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript>
+        <iframe src="https://www.googletagmanager.com/ns.html?id='<%= GTM_ID %>'"
+        height="0" width="0" style="display:none;visibility:hidden"></iframe>
+    </noscript>
+    <!-- End Google Tag Manager (noscript) -->
     <div id="app"></div>
 </body>
 
