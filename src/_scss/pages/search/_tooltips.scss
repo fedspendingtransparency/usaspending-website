@@ -12,6 +12,19 @@ $letter-color: $color-gray-dark;
         @include flex-direction(column);
         width: 100%;
         // tooltip header styles
+        .advanced-search-tt__title {
+            margin: 0;
+            padding: rem(16) rem(10);
+            font-weight: bold;
+            font-size: rem(16);
+            width: 100%;
+            color: $letter-color;
+            text-align: left;
+            background: #F0F0F0;
+            line-height: normal;
+            z-index: 2;
+
+        }
         h3 {
             margin: 0;
             padding: 0 rem(10);
@@ -42,6 +55,10 @@ $letter-color: $color-gray-dark;
                 font-weight: 400;
                 width: 100%;
             }
+            .advanced-search-tt__Filtertooltip {
+                font-weight: $font-bold;
+                font-size: $font-size-14;
+            }
             p {
                 margin: rem(5);
                 &:last-of-type {
@@ -57,7 +74,6 @@ $letter-color: $color-gray-dark;
             .advanced-search__glossary-term {
                 font-weight: $font-semibold;
             }
-
         }
     }
 }
