@@ -1037,7 +1037,7 @@ const StatusOfFundsChart = ({
                 </div>
             </FlexGridRow>
             }
-            <div id="sof_chart" className="sof_chart__visualization" ref={chartRef} />
+            <div id="sof_chart" className="status-of-funds__visualization" ref={chartRef} />
             {!isMobile &&
                 <FlexGridRow className="legend" style={{ flexDirection: isLargeScreen ? 'column' : 'row' }}>
                     <div className="legend__item">
