@@ -203,8 +203,8 @@ const SearchSidebar = ({
                     <h2 className="sidebar-title">Filters</h2>
                 </div>
                 <div className="sidebar-paragraph__container">
-                    <div className="sidebar-paragraph">Learn which data elements are associated with each filter</div>
-                    <TooltipWrapper icon="info" tooltipPosition="right" tooltipComponent={FilterTooltip} />
+                    <div className="sidebar-paragraph">Learn which data elements are associated with each filter <TooltipWrapper icon="info" tooltipPosition="right" tooltipComponent={FilterTooltip} /></div>
+
                 </div>
             </div>
 

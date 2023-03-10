@@ -54,13 +54,14 @@
                     font-weight: $font-semibold;
                     font-size: $font-size-14;
                 }
-                .sidebar-tooltip__icon {
-                    color: $color-gray-medium;
-                    line-height: $base-line-height;
+                .tooltip-wrapper {
+                    display: inline-block;
                     text-align: left;
-                    position: absolute;
-                    height: rem(15);
-                    width: rem(15);
+                    .tooltip__icon{
+                        height: rem(15);
+                        width: rem(15);
+
+                    }
                 }
 
             }
