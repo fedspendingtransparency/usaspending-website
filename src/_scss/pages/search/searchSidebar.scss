@@ -46,14 +46,13 @@
                 }
 
             }
-            .sidebar_paragraph-icon__container{
+            .sidebar-paragraph__container{
                 padding-bottom: rem(16);
                 display: flex;
-                flex-flow: inherit;
+                flex-flow: row;
                 .sidebar-paragraph {
                     font-weight: $font-semibold;
                     font-size: $font-size-14;
-    
                 }
                 .sidebar-tooltip__icon {
                     color: $color-gray-medium;

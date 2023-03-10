@@ -31,14 +31,14 @@ import {
     TimePeriodTooltip,
     KeyWordTooltip,
     DEFTooltip,
-    LocationTooltip,
-    FilterTooltip
+    LocationTooltip
 } from 'components/search/filters/tooltips/AdvancedSearchTooltip';
 
 import { Filter as FilterIcon } from 'components/sharedComponents/icons/Icons';
 import FilterSidebar from 'components/sharedComponents/filterSidebar/FilterSidebar';
 import * as SidebarHelper from 'helpers/sidebarHelper';
 import { TooltipWrapper } from 'data-transparency-ui';
+import { FilterTooltip } from '../../components/award/shared/InfoTooltipContent';
 
 const staticFilters = {
     // NOTE: if you update the title here
@@ -202,8 +202,9 @@ const SearchSidebar = ({
                     </span>
                     <h2 className="sidebar-title">Filters</h2>
                 </div>
-                <div className="sidebar_paragraph-icon__container">
-                    <div className="sidebar-paragraph">Learn which data elements are associated with each filter <TooltipWrapper icon="info" tooltipPosition="right" tooltipComponent={<FilterTooltip />} /></div>
+                <div className="sidebar-paragraph__container">
+                    <div className="sidebar-paragraph">Learn which data elements are associated with each filter</div>
+                    <TooltipWrapper icon="info" tooltipPosition="right" tooltipComponent={FilterTooltip} />
                 </div>
             </div>
 
