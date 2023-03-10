@@ -99,7 +99,7 @@ export default class ResultsTableSection extends React.Component {
                 Award summaries contain all the individual transactions and modifications that share the same unique award ID.
                 If you selected any Time Period filter, your results will include prime awards where the
                 {<span className="award-search__glossary-term"> earliest</span>}{' '}{<GlossaryLink term="base-transaction-action-date" />} and
-                {<span className="award-search__glossary-term"> latest</span>}{' '}{<GlossaryLink term="latest-transaction-action-date" />},
+                {<span className="award-search__glossary-term"> latest</span>}{' '}{<GlossaryLink term="latest-transaction-action-date" />}{' '}
                 transactions overlap with your selected time period (regardless of whether any transactions occur within that period).
                 </p>
             </>);
