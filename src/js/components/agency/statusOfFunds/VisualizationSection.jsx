@@ -65,6 +65,8 @@ const VisualizationSection = ({
             changeView={changeView} />
     );
 
+    const maxLevelClass = level !== maxLevel ? ' not-max-level' : '';
+
     return (
         <div
             className="status-of-funds__visualization"
@@ -126,7 +128,7 @@ const VisualizationSection = ({
             )
                 :
                 (
-                    <div className="status-of-funds__visualization-table-container">
+                    <div className={`status-of-funds__visualization-table-container${maxLevelClass}`}>
                         <StatusOfFundsTable
                             fy={fy}
                             results={results}

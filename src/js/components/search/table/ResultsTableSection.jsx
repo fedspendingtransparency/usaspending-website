@@ -96,11 +96,11 @@ export default class ResultsTableSection extends React.Component {
         const primeAwardText = (
             <>
                 <p className="award-search__body-text">The rows in the table below represent award summaries for {<span className="award-search__glossary-term"> prime awards</span>}{' '}{<GlossaryLink term="prime-award" />}.
-            Award summaries contain all the individual transactions and modifications that share the same unique award ID.
-            If you searched based on a Time Period filter, the award summaries below will overlap with your selected time period based on their
-                {<span className="award-search__glossary-term"> Prime Award Base Transaction Action Date</span>}{' '}{<GlossaryLink term="base-transaction-action-date" />} and
-                {<span className="award-search__glossary-term"> Prime Award Latest Transaction Action Date</span>}{' '}{<GlossaryLink term="latest-transaction-action-date" />},
-        but individual transactions for any single award summary may not exist within the selected time period.
+                Award summaries contain all the individual transactions and modifications that share the same unique award ID.
+                If you selected any Time Period filter, your results will include prime awards where the
+                {<span className="award-search__glossary-term"> earliest</span>}{' '}{<GlossaryLink term="base-transaction-action-date" />} and
+                {<span className="award-search__glossary-term"> latest</span>}{' '}{<GlossaryLink term="latest-transaction-action-date" />}{' '}
+                transactions overlap with your selected time period (regardless of whether any transactions occur within that period).
                 </p>
             </>);
 
