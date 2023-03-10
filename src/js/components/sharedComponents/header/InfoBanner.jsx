@@ -32,7 +32,7 @@ const InfoBanner = (props) => {
                         className="info-banner__close-button"
                         title="Dismiss message"
                         aria-label="Dismiss message"
-                        onKeyUp={(e) => ((e.keyCode === "Enter") ? bannerClosed : '')}
+                        onKeyUp={(e) => ((e.key === 'Enter') ? bannerClosed : '')}
                         onClick={bannerClosed}>
                         <FontAwesomeIcon size="lg" alt="Dismiss message" icon="times" />
                     </button>
