@@ -256,7 +256,8 @@ export class RankVisualizationWrapperContainer extends React.Component {
                         {...this.state}
                         changeScope={this.changeScope}
                         nextPage={this.nextPage}
-                        previousPage={this.previousPage} />
+                        previousPage={this.previousPage}
+                        subaward={this.props.subaward} />
                 );
             case 'recipient':
                 return (
@@ -265,7 +266,8 @@ export class RankVisualizationWrapperContainer extends React.Component {
                         changeScope={this.changeScope}
                         nextPage={this.nextPage}
                         previousPage={this.previousPage}
-                        recipientError={this.state.recipientError} />
+                        recipientError={this.state.recipientError}
+                        subaward={this.props.subaward} />
                 );
             case 'cfda':
                 return (
@@ -273,7 +275,8 @@ export class RankVisualizationWrapperContainer extends React.Component {
                         {...this.state}
                         changeScope={this.changeScope}
                         nextPage={this.nextPage}
-                        previousPage={this.previousPage} />
+                        previousPage={this.previousPage}
+                        subaward={this.props.subaward} />
                 );
             case 'industryCode':
                 return (
@@ -282,7 +285,8 @@ export class RankVisualizationWrapperContainer extends React.Component {
                         changeScope={this.changeScope}
                         nextPage={this.nextPage}
                         previousPage={this.previousPage}
-                        industryCodeError={this.props.subaward} />
+                        industryCodeError={this.props.subaward}
+                        subaward={this.props.subaward} />
                 );
             default:
                 return (
@@ -291,7 +295,8 @@ export class RankVisualizationWrapperContainer extends React.Component {
                         changeScope={this.changeScope}
                         nextPage={this.nextPage}
                         previousPage={this.previousPage}
-                        agencyType="awarding" />
+                        agencyType="awarding"
+                        subaward={this.props.subaward} />
                 );
         }
     }
@@ -322,7 +327,8 @@ export class RankVisualizationWrapperContainer extends React.Component {
                 <RankVisualizationTitle
                     fieldTypes={fieldTypes}
                     changeSpendingBy={this.changeSpendingBy}
-                    currentSpendingBy={this.state.spendingBy} />
+                    currentSpendingBy={this.state.spendingBy}
+                    subaward={this.props.subaward} />
                 { visualization }
             </div>
         );

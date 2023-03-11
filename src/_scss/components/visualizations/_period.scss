@@ -6,6 +6,7 @@
         @include span-columns(7);
         margin-top: 0;
     }
+    align-self:flex-end;
     .content {
         @include span-columns(16);
         li {

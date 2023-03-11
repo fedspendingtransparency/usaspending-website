@@ -411,7 +411,12 @@ const StatusOfFundsChart = ({
             });
             // create bar group <g>'s for each bar component
             const barGroups = svg.append('g')
-                .attr('class', 'parent-g')
+                .attr('class', () => {
+                    if (level !== maxLevel) {
+                        return 'parent-g';
+                    }
+                    return '';
+                })
                 .on('mouseleave', () => {
                     setIsHovered(false);
                     setHoverData(null);
@@ -561,7 +566,7 @@ const StatusOfFundsChart = ({
             svg.selectAll(".y-axis-labels").append("svg:title")
                 .text((d) => d);
 
-            // remove the drilldown functionality levels greater than 1
+            // remove the drilldown functionality levels greater than maxLevel
             if (level >= maxLevel) {
                 svg.selectAll(".bar-group").on('click', null);
                 svg.selectAll(".bar-group").on('keypress', null);
@@ -772,7 +777,12 @@ const StatusOfFundsChart = ({
             });
             // create bar group <g>'s for each bar component
             const barGroups = svg.append('g')
-                .attr('class', 'parent-g')
+                .attr('class', () => {
+                    if (level !== maxLevel) {
+                        return 'parent-g';
+                    }
+                    return '';
+                })
                 .on('mouseleave', () => {
                     setIsHovered(false);
                     setHoverData(null);
@@ -929,7 +939,7 @@ const StatusOfFundsChart = ({
             // tooltip hover for label text
             svg.selectAll(".y-axis-labels").append("svg:title")
                 .text((d) => d);
-            // remove the drilldown functionality levels greater than 1
+            // remove the drilldown functionality levels greater than maxLevel
             if (level >= maxLevel) {
                 svg.selectAll(".bar-group").on('click', null);
                 svg.selectAll(".bar-group").on('keypress', null);

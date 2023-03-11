@@ -4,12 +4,13 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { throttle } from 'lodash';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import Analytics from 'helpers/analytics/Analytics';
 import AnimatedHeading from './AnimatedHeading';
+import Button from './../../sharedComponents/buttons/Button';
 
 const HeroUpdate = () => {
     const [isPaused, setIsPaused] = useState(false);
@@ -26,6 +27,17 @@ const HeroUpdate = () => {
         action: 'Link',
         label: 'about'
     });
+    const history = useHistory();
+    const handleSearch = () => {
+        trackSearchLink();
+        const path = `/search`;
+        history.push(path);
+    };
+    const handleDataSources = () => {
+        trackAboutLink();
+        const path = `/data-sources`;
+        history.push(path);
+    };
 
     const keyPressHandler = (e) => {
         if (e.key === 'Enter') {
@@ -54,18 +66,20 @@ const HeroUpdate = () => {
                     <div className="hero__center-content-wrapper">
                         <div className="hero__center-content">
                             <div className="hero__button-container">
-                                <Link
-                                    className="hero__button hero__button--action"
-                                    to="/search"
-                                    onClick={trackSearchLink}>
-                                    Start Searching Awards
-                                </Link>
-                                <Link
-                                    className="hero__button"
-                                    to="/data-sources"
-                                    onClick={trackAboutLink}>
-                                    Learn about USAspending.gov
-                                </Link>
+                                <Button
+                                    buttonSize="lg"
+                                    copy="Start Searching Awards"
+                                    buttonTitle="Start Searching Awards"
+                                    buttonType="primary"
+                                    backgroundColor="light"
+                                    onClick={handleSearch} />
+                                <Button
+                                    buttonSize="lg"
+                                    copy="Learn About USAspending.gov"
+                                    buttonTitle="Learn About USAspending.gov"
+                                    buttonType="secondary"
+                                    backgroundColor="light"
+                                    onClick={handleDataSources} />
                             </div>
                             <div className="hero__text-container">
                                 <p>

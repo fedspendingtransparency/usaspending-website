@@ -99,15 +99,27 @@ const RecipientOverview = (props) => {
     }
 
     const getSelectedHash = (uei) => {
-        const filter = new Set().add(uei);
-        const filterValue = {
-            filters: {
-                ...defaultFilters,
-                selectedRecipients: filter
-            },
-            version: REQUEST_VERSION
-        };
-        let tempHash = generateUrlHash(filterValue);
+        let filters = null;
+        if (recipient.level === 'P') {
+            filters = {
+                filters: {
+                    ...defaultFilters,
+                    keyword: { [uei]: uei }
+                },
+                version: REQUEST_VERSION
+            };
+        }
+        else {
+            const filter = new Set().add(uei);
+            filters = {
+                filters: {
+                    ...defaultFilters,
+                    selectedRecipients: filter
+                },
+                version: REQUEST_VERSION
+            };
+        }
+        let tempHash = generateUrlHash(filters);
         tempHash.promise
             .then((results) => {
                 const hashData = results.data;
