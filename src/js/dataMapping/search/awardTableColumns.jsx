@@ -236,6 +236,7 @@ const covidColWidth = 190;
 const descWidth = 380;
 const datesWidth = 210;
 const covidColor = '#6E338E';
+const infrastructureColor = '#5b616b';
 
 const defaultContract = [
     { title: 'Award ID' },
@@ -307,7 +308,16 @@ const defaultIdvColumns = [
     { title: 'Awarding Sub Agency' },
     { title: 'Contract Award Type' }
 ];
-
+const infrastructureObligationsCol = {
+    title: 'Infrastructure Obligations',
+    background: infrastructureColor,
+    customWidth: covidColWidth
+};
+const infrastructureOutlaysCol = {
+    title: 'Infrastructure Outlays',
+    background: infrastructureColor,
+    customWidth: covidColWidth
+};
 const covidObligationsCol = {
     title: 'COVID-19 Obligations',
     background: covidColor,
@@ -346,6 +356,8 @@ tabsWithAdditionalCols.forEach((tab) => {
     tab.splice(6, 0, covidDefCCol);
     tab.splice(7, 0, covidObligationsCol);
     tab.splice(8, 0, covidOutlaysCol);
+    tab.splice(9, 0, infrastructureObligationsCol);
+    tab.splice(10, 0, infrastructureOutlaysCol);
 });
 
 const defaultSub = [

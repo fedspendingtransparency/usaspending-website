@@ -494,7 +494,6 @@ export class ResultsTableContainer extends React.Component {
             count: this.state.counts[type.internal],
             disabled: this.state.inFlight || this.state.counts[type.internal] === 0
         }));
-
         return (
             <ResultsTableSection
                 error={this.state.error}
