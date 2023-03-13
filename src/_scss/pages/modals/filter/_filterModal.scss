@@ -42,12 +42,22 @@
             background-color: $color-white;
 
             .filter-modal__top-description {
+                margin-bottom: 0;
+                margin-top: 0;
+            }
+
+            .filter-modal__top-description, .filter-modal__top-description-2 {
                 font-size: rem(16);
                 font-weight: normal;
                 font-stretch: normal;
                 font-style: normal;
                 line-height: 1.5;
                 letter-spacing: normal;
+            }
+
+            .filter-modal__top-description-2 {
+                margin-top: 4px;
+                margin-bottom: 0;
             }
 
             .filter-modal__example {
@@ -76,6 +86,16 @@
                 .filter-modal__description {
                     font-size: rem(16);
                     font-weight: normal;
+                    font-stretch: normal;
+                    font-style: normal;
+                    line-height: 1.5;
+                    letter-spacing: normal;
+                    color: $color-base;
+                }
+
+                .filter-modal__operator {
+                    font-size: rem(16);
+                    font-weight: $font-semibold;
                     font-stretch: normal;
                     font-style: normal;
                     line-height: 1.5;
