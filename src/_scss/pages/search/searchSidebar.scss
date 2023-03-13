@@ -8,15 +8,17 @@
     box-shadow: $container-shadow;
     border-radius: rem(5);
     margin-top: rem(32);
+
     .sidebar-header {
         display: none;
-        @include media($tablet-screen) {
+        @include media($small-screen) {
             display: inline-table;
             @include align-items(left);
             @include justify-content(flex-start);
             position: relative;
             border-bottom: rem(1) solid $color-gray-lighter;
             height: rem(70);
+            width: 100%;
             margin: 0;
             padding: 0 0 0 rem(15);
             .sidebar-header_title{
@@ -50,17 +52,30 @@
                 padding-bottom: rem(16);
                 display: flex;
                 flex-flow: row;
+                padding-right: rem(4);
                 .sidebar-paragraph {
                     font-weight: $font-semibold;
                     font-size: $font-size-14;
                 }
                 .tooltip-wrapper {
                     display: inline-block;
-                    text-align: left;
+                    text-align: bottom;
+                    .award-summary__new-catagory{
+                        margin-bottom: rem(0);
+                    }
                     .tooltip__icon{
                         height: rem(15);
                         width: rem(15);
-
+                    }
+                    .ul-override {
+                        padding-left: rem(16);
+                        margin-top: rem(0);
+                        ul li {
+                            display: list-item;
+                          }
+                        ul li:before {
+                            content: " • ";
+                        }
                     }
                 }
 
