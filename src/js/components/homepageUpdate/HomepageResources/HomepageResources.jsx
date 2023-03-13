@@ -5,6 +5,7 @@
 
 import React from 'react';
 import { useDispatch } from 'react-redux';
+import { Link } from 'react-router-dom';
 import * as slideoutActions from 'redux/actions/slideouts/slideoutActions';
 import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
 import { FlexGridRow, FlexGridCol, CardContainer, CardBody, CardButton } from 'data-transparency-ui';
@@ -66,10 +67,10 @@ const HomepageResources = () => {
             headline: 'About the Data',
             text: 'Read important data disclosures',
             buttonText: (
-                <>
+                <div className="homepage-resources__atd-link-container">
                     View the disclosures&nbsp;&nbsp;
                     <FontAwesomeIcon icon="arrow-right" />
-                </>
+                </div>
             ),
             action: () => {
                 Analytics.event({
@@ -92,12 +93,15 @@ const HomepageResources = () => {
             headline: 'Glossary',
             text: 'Learn about spending terms',
             buttonText: (
-                <>
-                    <div>View the glossary&nbsp;&nbsp;</div>
-                    <FontAwesomeIcon icon="arrow-right" />
-                </>
+                <div className="homepage-resources__glossary-link-container">
+                    <Link
+                        to="/?glossary">
+                        <div>View the glossary&nbsp;&nbsp;
+                            <FontAwesomeIcon icon="arrow-right" />
+                        </div>
+                    </Link>
+                </div>
             ),
-            buttonLink: '/?glossary&',
             action: () => Analytics.event({
                 category: 'Homepage',
                 action: 'Link',

@@ -84,6 +84,17 @@
         .text {
           margin-bottom: $global-margin * 2;
         }
+        .homepage-resources__atd-link-container {
+          cursor: pointer;
+        }
+        .homepage-resources__glossary-link-container {
+          a:visited {
+            color: $color-primary;
+            &:hover, &:active {
+              color: darken($color-primary, 10%);
+            }
+          }
+        }
       }
     }
   }
