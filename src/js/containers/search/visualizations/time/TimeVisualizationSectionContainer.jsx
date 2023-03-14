@@ -203,7 +203,8 @@ export class TimeVisualizationSectionContainer extends React.Component {
             <TimeVisualizationSection
                 data={this.state}
                 updateVisualizationPeriod={this.updateVisualizationPeriod}
-                visualizationPeriod={this.state.visualizationPeriod} />
+                visualizationPeriod={this.state.visualizationPeriod}
+                subaward={this.props.subaward} />
         );
     }
 }

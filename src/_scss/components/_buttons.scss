@@ -31,6 +31,7 @@
 }
 
 .button__lg {
+    border: solid 1px $blue-50;
     height: 100%;
     border-radius: 6px;
     font-size: rem(20);
@@ -47,6 +48,7 @@
 }
 
 .button-text__left-align {
+    padding-left: 0px;
     text-align: left;
     display: flex;
 }
@@ -58,6 +60,7 @@
 .button-type__primary-left-icon-light {
     background-color: $blue-50;
     line-height: 1.5;
+    color: $gray-cool-1;
     &:hover {
         background-color: $blue-70v;
     }
@@ -144,7 +147,7 @@
     border-radius: 6px;
     border: solid 1px $gray-cool-10;
     background-color: transparent;
-    color: $color-primary;
+    color: $blue-50;
     line-height: 1.5;
     &:hover {
         color: $color-primary-darker;

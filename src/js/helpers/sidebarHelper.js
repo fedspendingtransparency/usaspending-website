@@ -5,6 +5,11 @@
 // eslint-disable-next-line import/prefer-default-export
 export const filterHasSelections = (reduxFilters, filter) => {
     switch (filter.title) {
+        case 'Keyword':
+            if (reduxFilters.keyword.toArray().length > 0) {
+                return true;
+            }
+            return false;
         case 'Time Period':
             if (reduxFilters.timePeriodFY.toArray().length > 0
                 || (reduxFilters.timePeriodRange
