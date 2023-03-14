@@ -29,7 +29,6 @@
                 & .sidebar-title {
                     @include h6;
                     @include flex(1 1 auto);
-
                     color: $color-gray;
                     font-size: rem(19);
                     line-height: rem(21);
@@ -46,7 +45,6 @@
                         margin-top: rem(4);
                     }
                 }
-
             }
             .sidebar-paragraph__container{
                 padding-bottom: rem(16);
@@ -59,7 +57,6 @@
                 }
                 .tooltip-wrapper {
                     display: inline-block;
-                    text-align: bottom;
                     .award-summary__new-catagory{
                         margin-bottom: rem(0);
                     }
@@ -67,23 +64,17 @@
                         height: rem(15);
                         width: rem(15);
                     }
-                    .ul-override {
+                    .ul-override_filter {
                         padding-left: rem(16);
                         margin-top: rem(0);
                         ul li {
                             display: list-item;
                           }
-                        ul li:before {
-                            content: " • ";
-                        }
                     }
                 }
-
             }
-
         }
     }
-
     // implement text input style
     input[type=text] {
         @include usa-input;

@@ -1219,7 +1219,7 @@ export const CFDASectionInfo = (
 
 export const FilterTooltip = (
     <div className="award-summary-tooltip">
-        <div className="tooltip__title" style={{ textAlign: "left" }}>
+        <div className="tooltip__title">
             Learn which data elements are associated with each filter
         </div>
         <div className="tooltip__text">
@@ -1230,14 +1230,14 @@ export const FilterTooltip = (
             <p>
             Filters for <strong>agency account elements</strong> apply to both contract and financial assistance award elements, but they come from File C (award data from agency financial systems that are submitted directly to USAspending.gov) rather than from Files D1 or D2.
             </p>
-            <p className="award-summary__new-catagory"><strong>Contract Award Elements</strong></p>
+            <p className="award-summary__new-category"><strong>Contract Award Elements</strong></p>
             <p>
             Contract award elements contain information from a governmentwide award system called the Federal Procurement Data System (FPDS). This information is extracted by <a href="http://usaspending.gov/">USAspending.gov</a> in a format called File D1.
             </p>
             <p>
                 Filters that draw exclusively from contract award elements are:
             </p>
-            <ul className="ul-override">
+            <ul className="ul-override_filter">
                 <li>&bull; North American Industry Classification System (NAICS)</li>
                 <li>&bull; Product or Service Code (PSC)</li>
                 <li>&bull; Type of Contract Pricing</li>
@@ -1251,7 +1251,7 @@ export const FilterTooltip = (
             <p>
                 Filters that draw exclusively from agency account elements are:
             </p>
-            <ul className="ul-override">
+            <ul className="ul-override_filter">
                 <li>&bull; Treasury Account Symbol (TAS)</li>
                 <li>&bull; Disaster Emergency Fund Code (DEFC)</li>
             </ul>
