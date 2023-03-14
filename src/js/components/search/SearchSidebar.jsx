@@ -196,11 +196,11 @@ const SearchSidebar = ({
             role="search"
             aria-label="Filters">
             <div className="sidebar-header">
-                <div className="sidebar-header_title">
+                <div className="sidebar-header_title-advanced-search">
                     <span className="filter-icon">
                         <FilterIcon />
                     </span>
-                    <h2 className="sidebar-title">Filters</h2>
+                    <h2 className="sidebar-title_advanced-search">Filters</h2>
                 </div>
                 <div className="sidebar-paragraph__container">
                     <div className="sidebar-paragraph">Learn which data elements are associated with each filter <TooltipWrapper icon="info" tooltipPosition="right" tooltipComponent={FilterTooltip} /></div>
