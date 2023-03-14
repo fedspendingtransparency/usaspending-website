@@ -15,6 +15,8 @@ export const awardTableColumnTypes = {
     'Award Amount': 'currency',
     'COVID-19 Outlays': 'currency',
     'COVID-19 Obligations': 'currency',
+    'Infrastructure Obligations': 'currency',
+    'Infrastructure Outlays': 'currency',
     'Funding Agency': 'string',
     'Funding Sub Agency': 'string',
     'Contract Award Type': 'string',

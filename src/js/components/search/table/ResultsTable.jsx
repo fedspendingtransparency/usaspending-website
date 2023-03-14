@@ -155,6 +155,11 @@ export default class ResultsTable extends React.Component {
                 props.value = this.props.results[rowIndex].Description;
             }
         }
+        else if (column.columnName === 'Infrastructure Obligations' || column.columnName === 'Infrastructure Outlays') {
+            if (!this.props.results[rowIndex][column.columnName] && this.props.results[rowIndex][column.columnName] !== 0) {
+                props.value = '--';
+            }
+        }
         return React.createElement(
             cellClass,
             props
