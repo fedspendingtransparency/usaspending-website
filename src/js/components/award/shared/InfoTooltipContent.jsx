@@ -1226,7 +1226,6 @@ export const FilterTooltip = (
             <p>
             The data in award search come primarily from governmentwide award systems in formats called File D1 (for <strong>contract award elements</strong>) and File D2 (for <strong>financial assistance award elements</strong>). If a filter is not listed below, then it applies to both contract and financial assistance award elements.
             </p>
-
             <p>
             Filters for <strong>agency account elements</strong> apply to both contract and financial assistance award elements, but they come from File C (award data from agency financial systems that are submitted directly to USAspending.gov) rather than from Files D1 or D2.
             </p>
@@ -1237,7 +1236,7 @@ export const FilterTooltip = (
             <p>
                 Filters that draw exclusively from contract award elements are:
             </p>
-            <ul className="ul-override_filter">
+            <ul className="ul-override">
                 <li>&bull; North American Industry Classification System (NAICS)</li>
                 <li>&bull; Product or Service Code (PSC)</li>
                 <li>&bull; Type of Contract Pricing</li>
@@ -1251,12 +1250,11 @@ export const FilterTooltip = (
             <p>
                 Filters that draw exclusively from agency account elements are:
             </p>
-            <ul className="ul-override_filter">
+            <ul className="ul-override">
                 <li>&bull; Treasury Account Symbol (TAS)</li>
                 <li>&bull; Disaster Emergency Fund Code (DEFC)</li>
             </ul>
         </div>
-
     </div>
 );
 
