@@ -79,22 +79,19 @@
                 }
                 .tooltip-wrapper {
                     display: inline-block;
-                    text-align: bottom;
-                    .award-summary__new-catagory{
-                        margin-bottom: rem(0);
+                    .award-summary__new-category {
+                        p{
+                            margin-bottom: rem(0);
+                        }
                     }
                     .tooltip__icon{
                         height: rem(15);
                         width: rem(15);
                     }
                     .ul-override_filter {
-                        padding-left: rem(16);
-                        margin-top: rem(0);
-                        ul li {
-                            display: list-item;
-                        }
-                        ul li:before {
-                            content: " • ";
+                        ul{
+                            padding-left: rem(16);
+                            margin-top: rem(0);
                         }
                     }
                 }
