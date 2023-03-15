@@ -1223,14 +1223,14 @@ export const FilterTooltip = (
             Learn which data elements are associated with each filter
         </div>
         <div className="tooltip__text ul-override_filter ul-override">
-            <p>
+            <p className="award-summary__new-category">
             The data in award search come primarily from governmentwide award systems in formats called File D1 (for <strong>contract award elements</strong>) and File D2 (for <strong>financial assistance award elements</strong>). If a filter is not listed below, then it applies to both contract and financial assistance award elements.
             </p>
             <p>
             Filters for <strong>agency account elements</strong> apply to both contract and financial assistance award elements, but they come from File C (award data from agency financial systems that are submitted directly to USAspending.gov) rather than from Files D1 or D2.
             </p>
             <p className="award-summary__new-category"><strong>Contract Award Elements</strong></p>
-            <p>
+            <p className="award-summary__new-category">
             Contract award elements contain information from a governmentwide award system called the Federal Procurement Data System (FPDS). This information is extracted by <a href="http://usaspending.gov/">USAspending.gov</a> in a format called File D1.
             </p>
             <p>
@@ -1244,7 +1244,7 @@ export const FilterTooltip = (
                 <li>Extent Competed</li>
             </ul>
             <p className="award-summary__new-category"><strong>Financial Assistance Award Elements</strong></p>
-            <p>
+            <p className="award-summary__new-category">
             Agency account elements contain information from agency financial systems, and includes information about federal awards in a format called File C. Data in File C complement data in Files D1 and D2, which come from governmentwide award systems. If you select a filter that draws from agency account elements, then these data must be linked to data in governmentwide award systems before any results can be displayed. (The reverse is not true: you may see results from governmentwide award systems that are not linked to data in agency account elements.)
             </p>
             <p>
