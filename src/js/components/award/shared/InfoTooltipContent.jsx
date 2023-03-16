@@ -1217,6 +1217,47 @@ export const CFDASectionInfo = (
     </div>
 );
 
+export const FilterTooltip = (
+    <div className="award-summary-tooltip">
+        <div className="tooltip__title">
+            Learn which data elements are associated with each filter
+        </div>
+        <div className="tooltip__text ul-override_filter ul-override">
+            <p className="award-summary__new-category">
+            The data in award search come primarily from governmentwide award systems in formats called File D1 (for <strong>contract award elements</strong>) and File D2 (for <strong>financial assistance award elements</strong>). If a filter is not listed below, then it applies to both contract and financial assistance award elements.
+            </p>
+            <p>
+            Filters for <strong>agency account elements</strong> apply to both contract and financial assistance award elements, but they come from File C (award data from agency financial systems that are submitted directly to USAspending.gov) rather than from Files D1 or D2.
+            </p>
+            <p className="award-summary__new-category"><strong>Contract Award Elements</strong></p>
+            <p className="award-summary__new-category">
+            Contract award elements contain information from a governmentwide award system called the Federal Procurement Data System (FPDS). This information is extracted by USAspending.gov in a format called File D1.
+            </p>
+            <p>
+                Filters that draw exclusively from contract award elements are:
+            </p>
+            <ul>
+                <li>North American Industry Classification System (NAICS)</li>
+                <li>Product or Service Code (PSC)</li>
+                <li>Type of Contract Pricing</li>
+                <li>Type of Set Aside</li>
+                <li>Extent Competed</li>
+            </ul>
+            <p className="award-summary__new-category"><strong>Financial Assistance Award Elements</strong></p>
+            <p className="award-summary__new-category">
+            Agency account elements contain information from agency financial systems, and includes information about federal awards in a format called File C. Data in File C complement data in Files D1 and D2, which come from governmentwide award systems. If you select a filter that draws from agency account elements, then these data must be linked to data in governmentwide award systems before any results can be displayed. (The reverse is not true: you may see results from governmentwide award systems that are not linked to data in agency account elements.)
+            </p>
+            <p>
+                Filters that draw exclusively from agency account elements are:
+            </p>
+            <ul>
+                <li>Treasury Account Symbol (TAS)</li>
+                <li>Disaster Emergency Fund Code (DEFC)</li>
+            </ul>
+        </div>
+    </div>
+);
+
 export const CovidFlagTooltip = ({ codes }) => (
     <div className="award-summary-tooltip covid-19">
         <div className="tooltip__title">
