@@ -7,7 +7,7 @@ import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CardContainer, CardBody, CardButton } from 'data-transparency-ui';
 import { isCancel } from "axios";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { fetchAllTerms, getNewUrlForGlossary } from "helpers/glossaryHelper";
 import Analytics from '../../../helpers/analytics/Analytics';
 import { LoadingWrapper } from "../../sharedComponents/Loading";
@@ -24,7 +24,6 @@ const WordOfTheDay = () => {
     const { pathname, search } = useLocation();
     const [currentMonth, setCurrentMonth] = useState(-1);
     const [currentDate, setCurrentDate] = useState(-1);
-    const [readMoreButtonText, setReadMoreButtonText] = useState(null);
 
     // Please note before adding terms to this list, verify the term exactly matches the term returned from /v2/references/glossary
     const glossaryTerms = ["Account Balance (File A)",
@@ -168,21 +167,6 @@ const WordOfTheDay = () => {
     }, [glossary, pathname, search, term]);
 
     useEffect(() => {
-        // using Link component in this text to prevent the page from
-        // reloading when the glossary opens
-        if (glossaryLink) {
-            setReadMoreButtonText(
-                <div>
-                    <Link
-                        to={glossaryLink}>
-                        <div>Read More</div>
-                    </Link>
-                </div>
-            );
-        }
-    }, [glossaryLink]);
-
-    useEffect(() => {
         fetchAllTerms().promise
             .then((res) => {
                 selectWordOfTheDay();
@@ -220,8 +204,9 @@ const WordOfTheDay = () => {
                                 <CardButton
                                     action={trackWordLink}
                                     variant="secondary"
-                                    text={readMoreButtonText}
+                                    link={glossaryLink}
                                     customClassName="word-of-the-day__button">
+                                    Read More
                                 </CardButton>
                             </>
                         </CardBody>

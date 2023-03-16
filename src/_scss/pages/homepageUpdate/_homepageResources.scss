@@ -89,12 +89,7 @@
           cursor: pointer;
         }
         .homepage-resources__glossary-link-container {
-          a:visited {
-            color: $color-primary;
-            &:hover, &:active {
-              color: darken($color-primary, 10%);
-            }
-          }
+          cursor: pointer;
         }
       }
     }

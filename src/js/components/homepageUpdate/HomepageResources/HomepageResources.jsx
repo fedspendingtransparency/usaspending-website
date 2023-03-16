@@ -5,9 +5,9 @@
 
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { Link } from 'react-router-dom';
 import * as slideoutActions from 'redux/actions/slideouts/slideoutActions';
 import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
+import * as glossaryActions from 'redux/actions/glossary/glossaryActions';
 import { FlexGridRow, FlexGridCol, CardContainer, CardBody, CardButton } from 'data-transparency-ui';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Analytics from '../../../helpers/analytics/Analytics';
@@ -94,19 +94,20 @@ const HomepageResources = () => {
             text: 'Learn about spending terms',
             buttonText: (
                 <div className="homepage-resources__glossary-link-container">
-                    <Link
-                        to="/?glossary">
-                        <div>View the glossary&nbsp;&nbsp;
-                            <FontAwesomeIcon icon="arrow-right" />
-                        </div>
-                    </Link>
+                    <div>View the glossary&nbsp;&nbsp;
+                        <FontAwesomeIcon icon="arrow-right" />
+                    </div>
                 </div>
             ),
-            action: () => Analytics.event({
-                category: 'Homepage',
-                action: 'Link',
-                label: 'glossary card'
-            })
+            action: () => {
+                Analytics.event({
+                    category: 'Homepage',
+                    action: 'Link',
+                    label: 'glossary card'
+                });
+                dispatch(glossaryActions.showGlossary());
+                dispatch(slideoutActions.setLastOpenedSlideout('glossary'));
+            }
         }
     ];
 

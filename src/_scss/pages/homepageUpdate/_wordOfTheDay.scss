@@ -118,12 +118,9 @@
     color: $card-outline-color !important;
     width: rem(106);
 
-    a:visited {
-      color: $card-outline-color !important;
-      &:hover, &:active {
-        border-color: $gray-cool-5 !important;
-        color: $gray-cool-5 !important;
-      }
+    &:hover {
+      border-color: $gray-cool-5 !important;
+      color: $gray-cool-5 !important;
     }
   }
 
