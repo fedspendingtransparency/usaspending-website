@@ -1231,7 +1231,7 @@ export const FilterTooltip = (
             </p>
             <p className="award-summary__new-category"><strong>Contract Award Elements</strong></p>
             <p className="award-summary__new-category">
-            Contract award elements contain information from a governmentwide award system called the Federal Procurement Data System (FPDS). This information is extracted by <a href="http://usaspending.gov/">USAspending.gov</a> in a format called File D1.
+            Contract award elements contain information from a governmentwide award system called the Federal Procurement Data System (FPDS). This information is extracted by USAspending.gov in a format called File D1.
             </p>
             <p>
                 Filters that draw exclusively from contract award elements are:
