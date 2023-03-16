@@ -4,11 +4,14 @@
  */
 
 import React, { useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import * as slideoutActions from 'redux/actions/slideouts/slideoutActions';
+import * as glossaryActions from 'redux/actions/glossary/glossaryActions';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CardContainer, CardBody, CardButton } from 'data-transparency-ui';
 import { isCancel } from "axios";
 import { useLocation } from "react-router-dom";
-import { fetchAllTerms, getNewUrlForGlossary } from "helpers/glossaryHelper";
+import { fetchAllTerms } from "helpers/glossaryHelper";
 import Analytics from '../../../helpers/analytics/Analytics';
 import { LoadingWrapper } from "../../sharedComponents/Loading";
 import ErrorWordOfTheDay from "./ErrorWordOfTheDay";
@@ -20,10 +23,12 @@ const WordOfTheDay = () => {
     const [changedTerm, setChangedTerm] = useState('');
     const [definition, setDefinition] = useState('');
     const [glossary, setGlossary] = useState('');
-    const [glossaryLink, setGlossaryLink] = useState('');
+    const [glossarySlug, setGlossarySlug] = useState('');
     const { pathname, search } = useLocation();
     const [currentMonth, setCurrentMonth] = useState(-1);
     const [currentDate, setCurrentDate] = useState(-1);
+
+    const dispatch = useDispatch();
 
     // Please note before adding terms to this list, verify the term exactly matches the term returned from /v2/references/glossary
     const glossaryTerms = ["Account Balance (File A)",
@@ -119,18 +124,23 @@ const WordOfTheDay = () => {
         setCurrentMonth(d.getUTCMonth());
     };
 
-    const trackWordLink = () => Analytics.event({
-        category: 'Homepage',
-        action: 'Link',
-        label: 'word of the day'
-    });
+    const readMoreAction = () => {
+        Analytics.event({
+            category: 'Homepage',
+            action: 'Link',
+            label: 'word of the day'
+        });
+        dispatch(glossaryActions.showGlossary());
+        dispatch(glossaryActions.setTermFromUrl(glossarySlug));
+        dispatch(slideoutActions.setLastOpenedSlideout('glossary'));
+    };
 
     useEffect(() => {
         let found = false;
         if (glossary && term) {
             for (let i = 0; i < glossary.length; i++) {
                 if (glossary[i]?.term?.trim().toLowerCase() === term?.trim().toLowerCase()) {
-                    setGlossaryLink(getNewUrlForGlossary(pathname, `/?glossary=${glossary[i].slug}`, search));
+                    setGlossarySlug(glossary[i].slug);
                     found = true;
                     setDefinition(glossary[i].plain);
                 }
@@ -202,9 +212,8 @@ const WordOfTheDay = () => {
                             <>
                                 <div className="definition"><div>{definition}</div></div>
                                 <CardButton
-                                    action={trackWordLink}
+                                    action={readMoreAction}
                                     variant="secondary"
-                                    link={glossaryLink}
                                     customClassName="word-of-the-day__button">
                                     Read More
                                 </CardButton>
