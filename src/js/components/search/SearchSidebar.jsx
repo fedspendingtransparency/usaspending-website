@@ -37,6 +37,8 @@ import {
 import { Filter as FilterIcon } from 'components/sharedComponents/icons/Icons';
 import FilterSidebar from 'components/sharedComponents/filterSidebar/FilterSidebar';
 import * as SidebarHelper from 'helpers/sidebarHelper';
+import { TooltipWrapper } from 'data-transparency-ui';
+import { FilterTooltip } from '../../components/award/shared/InfoTooltipContent';
 
 const staticFilters = {
     // NOTE: if you update the title here
@@ -194,11 +196,17 @@ const SearchSidebar = ({
             role="search"
             aria-label="Filters">
             <div className="sidebar-header">
-                <span className="filter-icon">
-                    <FilterIcon />
-                </span>
-                <h2 className="sidebar-title">Filters</h2>
+                <div className="sidebar-header_title-advanced-search">
+                    <span className="filter-icon">
+                        <FilterIcon />
+                    </span>
+                    <h2 className="sidebar-title_advanced-search">Filters</h2>
+                </div>
+                <div className="sidebar-paragraph__container">
+                    <div className="sidebar-paragraph">Learn which data elements are associated with each filter <TooltipWrapper icon="info" tooltipPosition="right" tooltipComponent={FilterTooltip} /></div>
+                </div>
             </div>
+
             <div className="sidebar-top-submit">
                 <SearchSidebarSubmitContainer />
             </div>
