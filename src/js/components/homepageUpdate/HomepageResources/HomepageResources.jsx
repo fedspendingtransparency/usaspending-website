@@ -105,6 +105,7 @@ const HomepageResources = () => {
                     action: 'Link',
                     label: 'glossary card'
                 });
+                dispatch(glossaryActions.clearGlossaryTerm());
                 dispatch(glossaryActions.showGlossary());
                 dispatch(slideoutActions.setLastOpenedSlideout('glossary'));
             }
