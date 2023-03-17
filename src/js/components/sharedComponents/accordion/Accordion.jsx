@@ -15,7 +15,7 @@ const Accordion = ({
     };
 
     const keyClickToggle = (e) => {
-        if (e.keyCode === '13') {
+        if (e.key === 'Enter') {
             e.stopPropagation();
             setClosed((prevClosed) => !prevClosed);
         }

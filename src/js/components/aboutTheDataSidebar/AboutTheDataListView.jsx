@@ -25,7 +25,7 @@ const AboutTheDataListView = ({ section, selectItem }) => {
 
     // eslint-disable-next-line no-shadow
     const keyHandler = (e, index, section) => {
-        if (e.keyCode === 13) {
+        if (e.key === 'Enter') {
             clickHandler(e, index, section);
         }
     };

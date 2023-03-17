@@ -1301,7 +1301,7 @@ export const UnlinkedTooltip = (props) => {
     };
 
     const closeTooltip = (e) => {
-        if (e.keyCode === 13 || e.keyCode === 27) {
+        if (e.key === 'Enter' || e.key === 'Escape') {
             clickCloseTooltip();
         }
     };

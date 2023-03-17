@@ -112,7 +112,7 @@ const ListOfVideos = ({ videos }) => {
                             <VideoCard
                                 onKeyUp={(e) => {
                                     e.persist();
-                                    if (e.keyCode === 13) {
+                                    if (e.key === 'Enter') {
                                         dispatch(showTrainingVideoModal({
                                             url: video.thumbnails.maxres.url, modalType: 'training-videos', title: video.title, description: video.description, publishedAt: video.publishedAt, duration: video.duration, id: video.id
                                         }));

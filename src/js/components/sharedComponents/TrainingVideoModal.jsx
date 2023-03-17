@@ -36,7 +36,7 @@ const TrainingVideoModal = (props) => {
     };
 
     const chapterKeypressHandler = (e, time) => {
-        if (e.keyCode === 13) {
+        if (e.key === 'Enter') {
             updatePlayerChapter(e, time);
         }
     };
@@ -85,7 +85,7 @@ const TrainingVideoModal = (props) => {
                     role="button"
                     tabIndex="0"
                     onKeyUp={(e) => {
-                        if (e.keyCode === 27) {
+                        if (e.key === 'Escape') {
                             props.hideModal();
                         }
                     }}
