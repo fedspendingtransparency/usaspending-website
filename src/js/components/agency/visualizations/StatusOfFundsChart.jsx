@@ -170,6 +170,16 @@ const StatusOfFundsChart = ({
 
         return viewHeight * 1.06;
     };
+    const chartLevelText = () => {
+        if (level === 0) {
+            return <><hr /><div className="tooltip__text-note">Click a sub-component to view <br />Federal Accounts</div></>;
+        } else if (level === 1) {
+            return <><hr /><div className="tooltip__text-note">Click a Federal Account to view <br />Treasury Accounts</div></>;
+        } else if (level === 2) {
+            return <><hr /><div className="tooltip__text-note">Click a Treasury Account to view <br />Program Activities or Object Classes</div></>;
+        }
+        return null;
+    };
     const paddingResize = () => {
         if (isLargeScreen) {
             return 0.3;
@@ -213,7 +223,7 @@ const StatusOfFundsChart = ({
                             {!toggle && <div className="tooltip__text-label">FY{fy[2]}{fy[3]} Total Budgetary<br />Resources</div>}
                             {!toggle && <div className="tooltip__text-amount">{data.budgetaryResources}</div>}
                         </div>
-                        {level === 0 && (<><hr /><div className="tooltip__text-note">Click bar to view Federal Accounts</div></>)}
+                        {chartLevelText()}
                     </div>
                 </div>
             );
