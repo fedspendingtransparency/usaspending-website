@@ -64,6 +64,30 @@
 							width: 100%;
 						}
 
+						.congressional-district-tooltip__body {
+                            font-size: rem(14);
+                            font-weight: normal;
+                            font-stretch: normal;
+                            font-style: normal;
+                            line-height: 1.5;
+                            letter-spacing: normal;
+                            color: $color-base;
+
+                            .congressional-district__span {
+                                font-weight: $font-semibold;
+                            }
+                        }
+
+                        .congressional-district-tooptip__italics {
+                            font-size: rem(14);
+                            font-weight: normal;
+                            font-stretch: normal;
+                            font-style: italic;
+                            line-height: 1.5;
+                            letter-spacing: normal;
+                            color: $color-base;
+                        }
+
 						svg {
 							height: rem(20);
 							width: rem(20);

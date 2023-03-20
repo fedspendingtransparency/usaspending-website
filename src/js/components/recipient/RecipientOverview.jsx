@@ -7,10 +7,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Set } from 'immutable';
 import { isCancel } from 'axios';
+import { TooltipWrapper } from 'data-transparency-ui';
 import { initialState as defaultFilters } from 'redux/reducers/search/searchFiltersReducer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
-import { recipientOverviewLoanInfo } from 'components/recipient/InfoTooltipContent';
+import { recipientOverviewLoanInfo, recipientCongressionalDistrict } from 'components/recipient/InfoTooltipContent';
 import { idList } from 'dataMapping/shared/recipientIdentifiers';
 import { generateUrlHash } from "../../helpers/searchHelper";
 import FaceValueOfLoans from '../sharedComponents/FaceValueOfLoans';
@@ -73,12 +74,18 @@ const RecipientOverview = (props) => {
     let address = (
         <td>Address not provided in source system</td>
     );
+
+    let congressionalDistrict = (<td>--</td>);
     if (recipient.location.streetAddress && recipient.location.regionalAddress && recipient.location.fullCongressionalDistrict) {
         address = (
             <td>
                 <div>{recipient.location.streetAddress}</div>
                 <div>{recipient.location.regionalAddress}</div>
-                <div>{recipient.location.fullCongressionalDistrict}</div>
+            </td>
+        );
+        congressionalDistrict = (
+            <td>
+                <div>{recipient.location.congressionalDistrict}</div>
             </td>
         );
     }
@@ -203,6 +210,10 @@ const RecipientOverview = (props) => {
                                 <tr>
                                     <th>Address</th>
                                     {address}
+                                </tr>
+                                <tr>
+                                    <th className="details__table-cd-row">Congressional District<TooltipWrapper icon="info" tooltipPosition="right" tooltipComponent={recipientCongressionalDistrict} /></th>
+                                    {congressionalDistrict}
                                 </tr>
                                 <tr>
                                     <th>Business Types</th>
