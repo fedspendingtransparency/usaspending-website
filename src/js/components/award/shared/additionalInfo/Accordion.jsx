@@ -112,11 +112,11 @@ export default class Accordion extends React.Component {
                     key={key}
                     className="accordion-row">
                     <div className="accordion-row__title">{key}</div>
-                    <div className={`accordion-row__data${key === awardIdField ? ' generated-id' : ''}`}>
+                    <div className={`accordion-row__data${key === awardIdField ? ' generated-id' : ''} ${this.state.showCDTooltip ? ' show-tooltip' : ''}`}>
                         {data}
                         {this.state.showCDTooltip && (
                             <FeatureFlag>
-                                <div className="award-overview__left-section__recipient-tooltip">
+                                <div className="accordion-row__data-tooltip">
                                     <TooltipWrapper
                                         className="homepage__covid-19-tt"
                                         icon="info"

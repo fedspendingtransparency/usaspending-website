@@ -108,6 +108,13 @@
                           &.generated-id {
                             word-break: break-word;
                           }
+                          &.show-tooltip {
+                            display: flex;
+                            flex-flow: row nowrap;
+                            .accordion-row__data-tooltip {
+                              align-self: flex-end;
+                            }
+                          }
                           .accordion-table__list {
                             list-style-type: none;
                             margin: 0;
