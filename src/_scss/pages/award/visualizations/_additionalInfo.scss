@@ -96,12 +96,10 @@
                         font-size: rem(14);
                         .accordion-row__title {
                           @include flex-direction(column);
-                          flex-basis: 100%;
                           flex: 1;
                         }
                         .accordion-row__data {
                           @include flex-direction(column);
-                          flex-basis: 100%;
                           flex: 1;
                           font-weight: $font-light;
                           padding-left: rem(40);
