@@ -12,20 +12,22 @@ import { createOnKeyDownHandler } from 'helpers/keyboardEventsHelper';
 
 const awardIdField = 'Unique Award Key';
 
-export default class Accordion extends React.Component {
-    static propTypes = {
-        accordionName: PropTypes.string,
-        accordionIcon: PropTypes.string,
-        iconClassName: PropTypes.string,
-        accordionData: PropTypes.object,
-        globalToggle: PropTypes.bool
-    };
+const propTypes = {
+    accordionName: PropTypes.string,
+    accordionIcon: PropTypes.string,
+    iconClassName: PropTypes.string,
+    accordionData: PropTypes.object,
+    globalToggle: PropTypes.bool
+};
 
+export default class Accordion extends React.Component {
     constructor(props) {
         super(props);
+
         this.state = {
             open: false
         };
+
         this.handleClick = this.handleClick.bind(this);
     }
 
@@ -139,3 +141,6 @@ export default class Accordion extends React.Component {
         );
     }
 }
+
+Accordion.propTypes = propTypes;
+
