@@ -9,6 +9,9 @@ import { compact } from 'lodash';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { createOnKeyDownHandler } from 'helpers/keyboardEventsHelper';
+import { TooltipWrapper } from "data-transparency-ui";
+import { CDTooltip } from 'components/search/filters/tooltips/AdvancedSearchTooltip';
+import FeatureFlag from "../../../sharedComponents/FeatureFlag";
 
 const awardIdField = 'Unique Award Key';
 
@@ -25,7 +28,8 @@ export default class Accordion extends React.Component {
         super(props);
 
         this.state = {
-            open: false
+            open: false,
+            showCDTooltip: false
         };
 
         this.handleClick = this.handleClick.bind(this);
@@ -90,6 +94,7 @@ export default class Accordion extends React.Component {
         const { accordionData } = this.props;
         if (!accordionData) return null;
         return Object.keys(accordionData).map((key) => {
+            this.state.showCDTooltip = false;
             let data = accordionData[key] || '--';
             // display data as a link, address or list
             if (accordionData[key]) {
@@ -98,13 +103,28 @@ export default class Accordion extends React.Component {
                 if (specialType) {
                     data = this[awardInfo.type](awardInfo.data);
                 }
+                if (specialType === 'address') {
+                    this.state.showCDTooltip = true;
+                }
             }
             return (
                 <div
                     key={key}
                     className="accordion-row">
                     <div className="accordion-row__title">{key}</div>
-                    <div className={`accordion-row__data${key === awardIdField ? ' generated-id' : ''}`}>{data}</div>
+                    <div className={`accordion-row__data${key === awardIdField ? ' generated-id' : ''}`}>
+                        {data}
+                        {this.state.showCDTooltip && (
+                            <FeatureFlag>
+                                <div className="award-overview__left-section__recipient-tooltip">
+                                    <TooltipWrapper
+                                        className="homepage__covid-19-tt"
+                                        icon="info"
+                                        tooltipComponent={<CDTooltip />} />
+                                </div>
+                            </FeatureFlag>
+                        )}
+                    </div>
                 </div>
             );
         });

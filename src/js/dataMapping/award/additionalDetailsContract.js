@@ -137,8 +137,8 @@ const additionalDetailsContracts = (awardData) => {
                 data: [
                     `${recipient.location.streetAddress}`,
                     `${recipient.location.regionalAddress}`,
-                    `${recipient.location.fullCongressionalDistrict}`,
-                    `${recipient.location._country}`
+                    `${recipient.location._country}`,
+                    `${recipient.location.fullCongressionalDistrict}`
                 ]
             },
             'Business Types': {
@@ -146,7 +146,7 @@ const additionalDetailsContracts = (awardData) => {
                 data: recipient.businessCategories || []
             }
         },
-        aquisitionDetails: {
+        acquisitionDetails: {
             'Product or Service Code (PSC)': awardData.additionalDetails.pscCode,
             'North American Industry Classification System (NAICS) Code': awardData.additionalDetails.naicsCode,
             'DoD Claimant Code': awardData.additionalDetails.dodClaimantProgram,

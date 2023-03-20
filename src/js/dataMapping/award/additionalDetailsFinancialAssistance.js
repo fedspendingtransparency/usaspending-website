@@ -127,8 +127,8 @@ const additionalDetailsFinancialAssistance = (awardData) => {
                 data: [
                     `${recipient.location.streetAddress}`,
                     `${recipient.location.regionalAddress}`,
-                    `${recipient.location.fullCongressionalDistrict}`,
-                    `${recipient.location._country}`
+                    `${recipient.location._country}`,
+                    `${recipient.location.fullCongressionalDistrict}`
                 ]
             },
             'Business Types': {

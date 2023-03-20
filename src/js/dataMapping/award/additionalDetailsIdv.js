@@ -110,7 +110,7 @@ const additionalDetails = (awardData) => {
                 data: recipient.businessCategories || []
             }
         },
-        aquisitionDetails: {
+        acquisitionDetails: {
             'Product or Service Code (PSC)': awardData.additionalDetails.pscCode,
             'NAICS Code': awardData.additionalDetails.naicsCode,
             'DoD Claimant Code': awardData.additionalDetails.dodClaimantProgram,

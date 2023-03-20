@@ -114,7 +114,7 @@ export default class AdditionalInfo extends React.Component {
                 globalToggle={this.state.globalToggle}
                 accordionName="Acquisition Details"
                 accordionIcon="tag"
-                accordionData={data.aquisitionDetails} />),
+                accordionData={data.acquisitionDetails} />),
             (<Accordion
                 key="CompetitionDetails"
                 globalToggle={this.state.globalToggle}
