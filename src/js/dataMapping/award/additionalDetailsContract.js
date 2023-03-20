@@ -93,8 +93,8 @@ const additionalDetailsContracts = (awardData) => {
                 type: 'address',
                 data: [
                     `${placeOfPerformance.regionalAddress}`,
-                    `${placeOfPerformance.fullCongressionalDistrict}`,
-                    `${placeOfPerformance._country}`
+                    `${placeOfPerformance._country}`,
+                    `${placeOfPerformance.fullCongressionalDistrict}`
                 ]
             }
         },
