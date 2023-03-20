@@ -337,7 +337,7 @@ const StatusOfFunds = ({ fy }) => {
     };
 
     const onKeyToggle = (event) => {
-        if (event.keyCode === 13) {
+        if (event.key === 'Enter') {
             setOnToggle(!toggle);
         }
     };
