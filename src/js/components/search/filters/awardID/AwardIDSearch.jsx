@@ -38,7 +38,7 @@ export default class AwardIDSearch extends React.Component {
 
     changedInput(e) {
         this.setState({
-            awardID: e.target.value
+            awardID: e.target.value.toUpperCase()
         });
     }
 
