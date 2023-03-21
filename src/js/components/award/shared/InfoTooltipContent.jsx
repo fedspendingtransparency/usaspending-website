@@ -1220,7 +1220,7 @@ export const CFDASectionInfo = (
 export const FilterTooltip = (
     <div className="award-summary-tooltip">
         <div className="tooltip__title">
-            Learn which data elements are associated with each filter
+        Learn which data elements are associated with certain search filters
         </div>
         <div className="tooltip__text ul-override_filter ul-override">
             <p className="award-summary__new-category">
@@ -1244,6 +1244,16 @@ export const FilterTooltip = (
                 <li>Extent Competed</li>
             </ul>
             <p className="award-summary__new-category"><strong>Financial Assistance Award Elements</strong></p>
+            <p className="award-summary__new-category">
+            Financial assistance award elements contain information from a governmentwide award system called the Financial Assistance Broker System (FABS). This information is submitted directly to USAspending.gov in a format called File D2. 
+            </p>
+            <p>
+            The filter that draws exclusively from financial assistance award elements is:
+            </p>
+            <ul>
+                <li>Assistance Listing (CFDA Program)</li>
+            </ul>
+            <p className="award-summary__new-category"><strong>Agency Account Elements</strong></p>
             <p className="award-summary__new-category">
             Agency account elements contain information from agency financial systems, and includes information about federal awards in a format called File C. Data in File C complement data in Files D1 and D2, which come from governmentwide award systems. If you select a filter that draws from agency account elements, then these data must be linked to data in governmentwide award systems before any results can be displayed. (The reverse is not true: you may see results from governmentwide award systems that are not linked to data in agency account elements.)
             </p>
