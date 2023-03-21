@@ -89,6 +89,37 @@ export const DEFTooltip = () => (
     </div>
 );
 
+export const CDTooltip = () => (
+    <div className="homepage__covid-19-tt cd-tt">
+        <h2 className="tooltip__title">
+            CONGRESSIONAL DISTRICT (US ONLY)
+        </h2>
+        <div className="tooltip__text">
+            <p>
+                <strong>Current Congressional Districts (based on 2023 redistricting)</strong>
+            </p>
+            <p>
+                Use this filter to find spending based on the current geographic boundaries of each congressional district, including for awards that predated those districts.
+            </p>
+            <p>
+                Search results will reflect current congressional districts based on redistricting as a result of the 2020 Census. These districts will be in effect from 2023 – 2033.&#42;
+            </p>
+            <p>
+                <em>&#42;Court-ordered redistricting might alter the time frame a congressional district is in effect.</em>
+            </p>
+            <p>
+                <strong>Original Congressional Districts (as reported by federal agencies)</strong>
+            </p>
+            <p>
+                Use this filter to find spending based on the congressional district boundaries that were in effect when an award was issued.
+            </p>
+            <p>
+                Note that district boundaries have changed over time.
+            </p>
+        </div>
+    </div>
+);
+
 const CSSOnlyTooltipProps = {
     definition: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
     heading: PropTypes.string,
