@@ -31,9 +31,9 @@ export const recipientCongressionalDistrict = (
             <p className="congressional-district-tooltip__body">
             Additional information on congressional districts and how they are displayed on the site can be found within the Congressional District section of the <span className="congressional-district__span">About the Data</span> module under <span className="congressional-district__span">Resources</span>.
             </p>
-            <span className="congressional-district-tooptip__italics">
+            <p className="congressional-district-tooptip__italics">
             *Court-ordered redistricting might alter the time frame a congressional district is in effect.
-            </span>
+            </p>
         </div>
     </div>
 );
