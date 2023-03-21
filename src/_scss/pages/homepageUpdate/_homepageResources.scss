@@ -78,11 +78,18 @@
             background-color: $theme-color-accent-11;
           }
         }
+
         .headline {
           margin-bottom: $global-margin;
         }
         .text {
           margin-bottom: $global-margin * 2;
+        }
+        .homepage-resources__atd-link-container {
+          cursor: pointer;
+        }
+        .homepage-resources__glossary-link-container {
+          cursor: pointer;
         }
       }
     }

@@ -114,10 +114,10 @@
   }
 
   .word-of-the-day__button {
+    cursor: pointer;
     border-color: $card-outline-color !important;
     color: $card-outline-color !important;
     width: rem(106);
-
 
     &:hover {
       border-color: $gray-cool-5 !important;
