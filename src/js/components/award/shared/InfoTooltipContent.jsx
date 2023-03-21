@@ -1245,7 +1245,7 @@ export const FilterTooltip = (
             </ul>
             <p className="award-summary__new-category"><strong>Financial Assistance Award Elements</strong></p>
             <p className="award-summary__new-category">
-            Financial assistance award elements contain information from a governmentwide award system called the Financial Assistance Broker System (FABS). This information is submitted directly to USAspending.gov in a format called File D2. 
+            Financial assistance award elements contain information from a governmentwide award system called the Financial Assistance Broker System (FABS). This information is submitted directly to USAspending.gov in a format called File D2.
             </p>
             <p>
             The filter that draws exclusively from financial assistance award elements is:
