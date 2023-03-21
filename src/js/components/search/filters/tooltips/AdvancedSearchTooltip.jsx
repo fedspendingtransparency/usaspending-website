@@ -90,11 +90,11 @@ export const DEFTooltip = () => (
 );
 
 export const CDTooltip = () => (
-    <div className="spending_types-tt">
+    <div className="homepage__covid-19-tt cd-tt">
         <h2 className="tooltip__title">
             CONGRESSIONAL DISTRICT (US ONLY)
         </h2>
-        <div className="tooltip__text cd-tt">
+        <div className="tooltip__text">
             <p>
                 <strong>Current Congressional Districts (based on 2023 redistricting)</strong>
             </p>

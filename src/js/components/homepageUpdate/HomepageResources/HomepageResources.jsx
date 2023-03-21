@@ -7,6 +7,7 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import * as slideoutActions from 'redux/actions/slideouts/slideoutActions';
 import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
+import * as glossaryActions from 'redux/actions/glossary/glossaryActions';
 import { FlexGridRow, FlexGridCol, CardContainer, CardBody, CardButton } from 'data-transparency-ui';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Analytics from '../../../helpers/analytics/Analytics';
@@ -66,10 +67,10 @@ const HomepageResources = () => {
             headline: 'About the Data',
             text: 'Read important data disclosures',
             buttonText: (
-                <>
+                <div className="homepage-resources__atd-link-container">
                     View the disclosures&nbsp;&nbsp;
                     <FontAwesomeIcon icon="arrow-right" />
-                </>
+                </div>
             ),
             action: () => {
                 Analytics.event({
@@ -92,17 +93,22 @@ const HomepageResources = () => {
             headline: 'Glossary',
             text: 'Learn about spending terms',
             buttonText: (
-                <>
-                    <div>View the glossary&nbsp;&nbsp;</div>
-                    <FontAwesomeIcon icon="arrow-right" />
-                </>
+                <div className="homepage-resources__glossary-link-container">
+                    <div>View the glossary&nbsp;&nbsp;
+                        <FontAwesomeIcon icon="arrow-right" />
+                    </div>
+                </div>
             ),
-            buttonLink: '/?glossary&',
-            action: () => Analytics.event({
-                category: 'Homepage',
-                action: 'Link',
-                label: 'glossary card'
-            })
+            action: () => {
+                Analytics.event({
+                    category: 'Homepage',
+                    action: 'Link',
+                    label: 'glossary card'
+                });
+                dispatch(glossaryActions.clearGlossaryTerm());
+                dispatch(glossaryActions.showGlossary());
+                dispatch(slideoutActions.setLastOpenedSlideout('glossary'));
+            }
         }
     ];
 

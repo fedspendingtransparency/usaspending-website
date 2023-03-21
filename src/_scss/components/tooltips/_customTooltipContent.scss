@@ -118,7 +118,7 @@
         color: $color-base;
     }
     &.homepage__covid-19-tt {
-        h2.tooltip__title {
+        h2, .tooltip__title {
             text-align: center;
         }
     }
