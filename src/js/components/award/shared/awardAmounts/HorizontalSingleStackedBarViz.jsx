@@ -180,9 +180,9 @@ const HorizontalSingleStackedBarViz = ({
                 // obligated label
                 console.log(x(propsArr[0]), x(propsArr[1]), x(propsArr[2]), x(propsArr[3]));
                 chartSvg.append("foreignObject")
-                    .attr('width', x(propsArr[0]))
+                    .attr('width', x(propsArr[0]) - x(propsArr[2]) <= 270 ? x(propsArr[0]) : x(propsArr[0]) - x(propsArr[2]) - 10)
                     .attr('height', 70)
-                    .attr('x', -8)
+                    .attr('x', x(propsArr[0]) - x(propsArr[2]) <= 270 ? "-8" : x(propsArr[2]) + 10)
                     .attr('y', 90)
                     .html(`<div className="award-amounts-viz-label__desc-text obligated"><strong>${obligatedAmountValue}</strong><br />${obligatedAmountLabel}</div>`)
                     .select('div')
