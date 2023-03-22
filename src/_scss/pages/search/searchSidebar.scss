@@ -82,11 +82,11 @@
                     .award-summary__new-category {
                             margin-bottom: rem(0);
                     }
-                    .tooltip__icon{
+                    .tooltip__icon {
                         height: rem(15);
                         width: rem(15);
                     }
-                    .tooltip-spacer{
+                    .tooltip-spacer {
                         @media (max-width: $medium-screen) {
                             left: rem(-13) !important;
                         }
