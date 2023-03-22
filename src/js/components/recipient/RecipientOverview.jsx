@@ -17,6 +17,7 @@ import { generateUrlHash } from "../../helpers/searchHelper";
 import FaceValueOfLoans from '../sharedComponents/FaceValueOfLoans';
 import RecipientMultiParentCollapse from './RecipientMultiParentCollapse';
 import { REQUEST_VERSION } from "../../GlobalConstants";
+import FeatureFlag from "../sharedComponents/FeatureFlag";
 
 const propTypes = {
     recipient: PropTypes.object,
@@ -75,7 +76,7 @@ const RecipientOverview = (props) => {
         <td>Address not provided in source system</td>
     );
 
-    let congressionalDistrict = (<td>--</td>);
+    let congressionalDistrict = (<td>Not provided</td>);
     if (recipient.location.streetAddress && recipient.location.regionalAddress && recipient.location.fullCongressionalDistrict) {
         address = (
             <td>
@@ -212,12 +213,18 @@ const RecipientOverview = (props) => {
                                     {address}
                                 </tr>
                                 <tr>
-                                    <th className="details__table-cd-row">Congressional District
-                                        <TooltipWrapper
-                                            className="congressional-district__tt"
-                                            icon="info"
-                                            tooltipPosition="right"
-                                            tooltipComponent={recipientCongressionalDistrict} />
+                                    <th className="details__table-cd-row">
+                                        Congressional District
+                                        <FeatureFlag>
+                                            <TooltipWrapper
+                                                className="congressional-district__tt"
+                                                icon="info"
+                                                tooltipPosition="bottom"
+                                                styles={{
+                                                    position: 'relative'
+                                                }}
+                                                tooltipComponent={recipientCongressionalDistrict} />
+                                        </FeatureFlag>
                                     </th>
                                     {congressionalDistrict}
                                 </tr>

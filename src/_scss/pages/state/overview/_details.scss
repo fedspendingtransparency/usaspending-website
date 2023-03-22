@@ -40,6 +40,24 @@
                     flex-wrap: wrap;
 
                     .tooltip-wrapper {
+                        @media(min-width: $tablet-screen) and (max-width: $medium-screen) {
+                            svg {
+                                margin-left: 0;
+                            }
+                        }
+                        @media(min-width: $large-screen) {
+                            padding: 0;
+                            margin: 0;
+                        }
+                        .tooltip-spacer {
+                            transform: translateX(-24px) !important;
+                            @media(min-width: 596px) {
+                            transform: translateX(-160px) !important;
+                            }
+                            @media(min-width: $tablet-screen) {
+                                transform: translate(-172px, 8px) !important;
+                            }
+                        }
 
                         .congressional-district-tooltip__body {
                             font-size: rem(14);
