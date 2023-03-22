@@ -1015,10 +1015,10 @@ const StatusOfFundsChart = ({
                     width={288}
                     styles={!toggle ? {
                         position: 'absolute',
-                        transform: `translate(${mouseValue.x - 144}px,${mouseValue.y - 280}px)`
+                        transform: `translate(${mouseValue.x - 144}px,${mouseValue.y - 270}px)`
                     } : {
                         position: 'absolute',
-                        transform: `translate(${mouseValue.x - 144}px,${mouseValue.y - 280}px)`
+                        transform: `translate(${mouseValue.x - 144}px,${mouseValue.y - 210}px)`
                     }}
                     tooltipPosition="bottom"
                     tooltipComponent={tooltip(hoverData)}
