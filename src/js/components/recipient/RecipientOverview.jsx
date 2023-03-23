@@ -7,15 +7,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Set } from 'immutable';
 import { isCancel } from 'axios';
+import { TooltipWrapper } from 'data-transparency-ui';
 import { initialState as defaultFilters } from 'redux/reducers/search/searchFiltersReducer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
-import { recipientOverviewLoanInfo } from 'components/recipient/InfoTooltipContent';
+import { recipientOverviewLoanInfo, recipientCongressionalDistrict } from 'components/recipient/InfoTooltipContent';
 import { idList } from 'dataMapping/shared/recipientIdentifiers';
 import { generateUrlHash } from "../../helpers/searchHelper";
 import FaceValueOfLoans from '../sharedComponents/FaceValueOfLoans';
 import RecipientMultiParentCollapse from './RecipientMultiParentCollapse';
 import { REQUEST_VERSION } from "../../GlobalConstants";
+import FeatureFlag from "../sharedComponents/FeatureFlag";
 
 const propTypes = {
     recipient: PropTypes.object,
@@ -27,13 +29,13 @@ const RecipientOverview = (props) => {
     const recipient = props.recipient.overview;
     let label = (
         <div className="recipient-overview__label">
-                Recipient
+            Recipient
         </div>
     );
     let viewChildren = null;
     let parent = null;
     if (recipient.level === 'C') {
-    // This is a child recipient
+        // This is a child recipient
         label = (
             <div className="recipient-overview__label recipient-overview__label_child">
                 Child Recipient
@@ -43,7 +45,7 @@ const RecipientOverview = (props) => {
             parents={recipient.parents} />);
     }
     else if (recipient.level === 'P') {
-    // This is a parent recipient
+        // This is a parent recipient
         label = (
             <span className="recipient-overview__label recipient-overview__label_parent">
                 Parent Recipient
@@ -53,7 +55,7 @@ const RecipientOverview = (props) => {
             <button
                 className="recipient-overview__children-button"
                 onClick={props.showChildRecipientModal}>
-                    View child recipients <FontAwesomeIcon icon="caret-right" />
+                View child recipients <FontAwesomeIcon icon="caret-right" />
             </button>
         );
     }
@@ -73,12 +75,18 @@ const RecipientOverview = (props) => {
     let address = (
         <td>Address not provided in source system</td>
     );
+
+    let congressionalDistrict = (<td>Not provided</td>);
     if (recipient.location.streetAddress && recipient.location.regionalAddress && recipient.location.fullCongressionalDistrict) {
         address = (
             <td>
                 <div>{recipient.location.streetAddress}</div>
                 <div>{recipient.location.regionalAddress}</div>
-                <div>{recipient.location.fullCongressionalDistrict}</div>
+            </td>
+        );
+        congressionalDistrict = (
+            <td>
+                <div>{recipient.location.congressionalDistrict}</div>
             </td>
         );
     }
@@ -172,7 +180,7 @@ const RecipientOverview = (props) => {
                                 {recipient.totalAmount}
                             </div>
                             <div className="totals__awards">
-                            from <span className="state-overview__total">{recipient.totalTransactions}</span> transactions
+                                from <span className="state-overview__total">{recipient.totalTransactions}</span> transactions
                             </div>
                             {(recipient.uei !== "" && recipient.uei !== null && recipient.uei !== undefined) &&
                                 <Link
@@ -181,7 +189,7 @@ const RecipientOverview = (props) => {
                                     rel="noopener noreferrer"
                                     to="/search"
                                     onClick={handleGoToAdvancedSearch}>
-                                View awards to this recipient
+                                    View awards to this recipient
                                 </Link>
                             }
                         </div>
@@ -203,6 +211,22 @@ const RecipientOverview = (props) => {
                                 <tr>
                                     <th>Address</th>
                                     {address}
+                                </tr>
+                                <tr>
+                                    <th className="details__table-cd-row">
+                                        Congressional District
+                                        <FeatureFlag>
+                                            <TooltipWrapper
+                                                className="congressional-district__tt"
+                                                icon="info"
+                                                tooltipPosition="bottom"
+                                                styles={{
+                                                    position: 'relative'
+                                                }}
+                                                tooltipComponent={recipientCongressionalDistrict} />
+                                        </FeatureFlag>
+                                    </th>
+                                    {congressionalDistrict}
                                 </tr>
                                 <tr>
                                     <th>Business Types</th>
