@@ -170,6 +170,19 @@ const StatusOfFundsChart = ({
 
         return viewHeight * 1.06;
     };
+    const chartLevelText = () => {
+        if (level === 0) {
+            return <><hr /><div className="tooltip__text-note">Click a sub-component to view <br />Federal Accounts</div></>;
+        } else if (level === 1) {
+            return <><hr /><div className="tooltip__text-note">Click a Federal Account to view <br />Treasury Accounts</div></>;
+        } else if (level === 2) {
+            return <><hr /><div className="tooltip__text-note">Click a Treasury Account to view <br />Program Activities or Object Classes</div></>;
+        }
+        return null;
+    };
+    const tooltipHeight = level === 1 ? 280 : 230;
+    const tooltipHeightOutlay = level === 1 ? 280 : 210;
+
     const paddingResize = () => {
         if (isLargeScreen) {
             return 0.3;
@@ -213,7 +226,7 @@ const StatusOfFundsChart = ({
                             {!toggle && <div className="tooltip__text-label">FY{fy[2]}{fy[3]} Total Budgetary<br />Resources</div>}
                             {!toggle && <div className="tooltip__text-amount">{data.budgetaryResources}</div>}
                         </div>
-                        {level === 0 && (<><hr /><div className="tooltip__text-note">Click bar to view Federal Accounts</div></>)}
+                        {chartLevelText()}
                     </div>
                 </div>
             );
@@ -995,7 +1008,6 @@ const StatusOfFundsChart = ({
             setSortedNums(results.sort((a, b) => (b._budgetaryResources - a._budgetaryResources)));
         }
     }, [results]);
-
     return (
         <>
             {
@@ -1005,10 +1017,10 @@ const StatusOfFundsChart = ({
                     width={288}
                     styles={!toggle ? {
                         position: 'absolute',
-                        transform: `translate(${mouseValue.x - 144}px,${mouseValue.y - 230}px)`
+                        transform: `translate(${mouseValue.x - 144}px,${mouseValue.y - tooltipHeight}px)`
                     } : {
                         position: 'absolute',
-                        transform: `translate(${mouseValue.x - 144}px,${mouseValue.y - 200}px)`
+                        transform: `translate(${mouseValue.x - 144}px,${mouseValue.y - tooltipHeightOutlay}px)`
                     }}
                     tooltipPosition="bottom"
                     tooltipComponent={tooltip(hoverData)}
