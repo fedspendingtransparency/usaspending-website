@@ -53,7 +53,6 @@ export const getInfrastructureAscendingSpendingCategoriesByAwardType = (awardTyp
 
 // includes logic for grant, loan, insurance, and other award types
 export const determineSpendingScenarioAsstAwards = (awardAmountObj) => {
-
     const {
         _totalOutlay, _totalObligation, _nonFederalFunding, _totalFunding
     } = awardAmountObj;
