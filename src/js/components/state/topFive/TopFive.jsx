@@ -5,7 +5,10 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { TooltipWrapper } from 'data-transparency-ui';
 import { categoryTitles } from 'dataMapping/state/topCategories';
+import { recipientCongressionalDistrict } from 'components/recipient/InfoTooltipContent';
+import FeatureFlag from "../../sharedComponents/FeatureFlag";
 
 import TopFiveRow from './TopFiveRow';
 
@@ -42,7 +45,6 @@ const TopFive = (props) => {
             </div>
         );
     }
-
     return (
         <div className="category-table">
             <div className="category-table__title">
@@ -51,7 +53,19 @@ const TopFive = (props) => {
                     src={`img/state-categories/${props.category}.png`}
                     alt="" />
                 <div className="category-table__title-name">
-                    {categoryTitles[props.category]}
+                    {props.category === "district" ?
+                        <>{categoryTitles[props.category]}
+                            <FeatureFlag>
+                                <TooltipWrapper
+                                    className="congressional-district__tt"
+                                    icon="info"
+                                    tooltipPosition="right"
+                                    styles={{
+                                        position: 'relative'
+                                    }}
+                                    tooltipComponent={recipientCongressionalDistrict} />
+                            </FeatureFlag>
+                        </> : categoryTitles[props.category]}
                 </div>
             </div>
             <table className="category-table__table">
