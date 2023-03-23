@@ -180,6 +180,9 @@ const StatusOfFundsChart = ({
         }
         return null;
     };
+     const tooltipHeight = level === 1 ? 280 : 230;
+     const tooltipHeightOutlay = level === 1 ? 280 : 210;
+
     const paddingResize = () => {
         if (isLargeScreen) {
             return 0.3;
@@ -1005,7 +1008,6 @@ const StatusOfFundsChart = ({
             setSortedNums(results.sort((a, b) => (b._budgetaryResources - a._budgetaryResources)));
         }
     }, [results]);
-
     return (
         <>
             {
@@ -1015,10 +1017,10 @@ const StatusOfFundsChart = ({
                     width={288}
                     styles={!toggle ? {
                         position: 'absolute',
-                        transform: `translate(${mouseValue.x - 144}px,${mouseValue.y - 270}px)`
+                        transform: `translate(${mouseValue.x - 144}px,${mouseValue.y - tooltipHeight}px)`
                     } : {
                         position: 'absolute',
-                        transform: `translate(${mouseValue.x - 144}px,${mouseValue.y - 210}px)`
+                        transform: `translate(${mouseValue.x - 144}px,${mouseValue.y - tooltipHeightOutlay}px)`
                     }}
                     tooltipPosition="bottom"
                     tooltipComponent={tooltip(hoverData)}
