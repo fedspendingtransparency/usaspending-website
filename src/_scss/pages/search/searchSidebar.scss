@@ -86,6 +86,11 @@
                         height: rem(15);
                         width: rem(15);
                     }
+                    .tooltip-spacer {
+                        @media (max-width: $medium-screen) {
+                            left: rem(-13) !important;
+                        }
+                    }
                     .ul-override_filter {
                         ul {
                             padding-left: rem(16);
