@@ -178,7 +178,6 @@ const HorizontalSingleStackedBarViz = ({
                         .style("fill", "none");
                 }
                 // obligated label
-                console.log(x(propsArr[0]), x(propsArr[1]), x(propsArr[2]), x(propsArr[3]));
                 chartSvg.append("foreignObject")
                     .attr('width', x(propsArr[0]) - x(propsArr[2]) <= 270 ? x(propsArr[0]) : x(propsArr[0]) - x(propsArr[2]) - 10)
                     .attr('height', 70)

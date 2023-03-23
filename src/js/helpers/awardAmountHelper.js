@@ -53,7 +53,6 @@ export const getInfrastructureAscendingSpendingCategoriesByAwardType = (awardTyp
 
 // includes logic for grant, loan, insurance, and other award types
 export const determineSpendingScenarioAsstAwards = (awardAmountObj) => {
-    console.log("awardAmountObj", awardAmountObj);
 
     const {
         _totalOutlay, _totalObligation, _nonFederalFunding, _totalFunding
@@ -83,9 +82,6 @@ export const determineSpendingScenarioAsstAwards = (awardAmountObj) => {
 export const determineSpendingScenario = (small = 0, bigger = 0, biggest = null) => {
     const allCategoriesAreInPlay = (small && bigger && biggest);
 
-    console.log(small);
-    console.log(bigger);
-    console.log(biggest);
     if (small === 0 && bigger === 0 && biggest === 0) {
         return 'insufficientData';
     }
@@ -129,7 +125,6 @@ export const determineLoanSpendingScenario = (awardAmountObj) => {
         _totalOutlay, _totalObligation, _subsidy, _faceValue
     } = awardAmountObj;
 
-    console.log("awardAmountObj", awardAmountObj);
     if (_subsidy === 0 && _faceValue === 0) return 'insufficientData';
     if (_subsidy < 0 || _faceValue < 0) return 'insufficientData';
     if (_totalOutlay > _totalObligation || _totalOutlay > _subsidy || _totalOutlay > _faceValue || _totalObligation > _subsidy || _totalObligation > _faceValue || _subsidy > _faceValue) return 'insufficientData';
