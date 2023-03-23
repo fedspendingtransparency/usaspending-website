@@ -180,8 +180,8 @@ const StatusOfFundsChart = ({
         }
         return null;
     };
-     const tooltipHeight = level === 1 ? 280 : 230;
-     const tooltipHeightOutlay = level === 1 ? 280 : 210;
+    const tooltipHeight = level === 1 ? 280 : 230;
+    const tooltipHeightOutlay = level === 1 ? 280 : 210;
 
     const paddingResize = () => {
         if (isLargeScreen) {
