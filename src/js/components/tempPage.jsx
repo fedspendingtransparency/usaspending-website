@@ -1,9 +1,8 @@
 import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { FlexGridRow, FlexGridCol, CardContainer, CardHero, CardBody, CardButton } from "data-transparency-ui";
+import { FlexGridRow, FlexGridCol, CardContainer, CardHero, CardBody, CardButton, Button } from "data-transparency-ui";
 import PageWrapper from "./sharedComponents/PageWrapper";
 import FeatureFlag from "./sharedComponents/FeatureFlag";
-import Button from "./sharedComponents/buttons/Button";
 
 require("pages/homepageUpdate/homepageUpdate.scss");
 
