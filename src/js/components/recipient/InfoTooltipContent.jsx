@@ -19,10 +19,10 @@ export const recipientOverviewLoanInfo = (
     </div>
 );
 
-export const recipientCongressionalDistrict = (
+export const recipientCongressionalDistrict = (title) => (
     <div className="recipient-congressional-district-tooltip">
         <div className="tooltip__title">
-            Congressional Districts
+            {title}
         </div>
         <div className="tooltip__text">
             <p className="congressional-district-tooptip__body">
