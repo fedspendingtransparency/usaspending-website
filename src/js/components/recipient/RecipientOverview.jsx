@@ -223,7 +223,7 @@ const RecipientOverview = (props) => {
                                                 styles={{
                                                     position: 'relative'
                                                 }}
-                                                tooltipComponent={recipientCongressionalDistrict} />
+                                                tooltipComponent={recipientCongressionalDistrict('Congressional District')} />
                                         </FeatureFlag>
                                     </th>
                                     {congressionalDistrict}
