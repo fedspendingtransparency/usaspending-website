@@ -6,6 +6,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { AddresskeysByAwardType } from 'dataMapping/award/awardOverview';
+import { TooltipWrapper } from "data-transparency-ui";
+import { CDTooltip } from 'components/search/filters/tooltips/AdvancedSearchTooltip';
+import FeatureFlag from "../../../sharedComponents/FeatureFlag";
 
 const propTypes = {
     aggregateRecordType: PropTypes.string,
@@ -32,8 +35,18 @@ const RecipientAddress = ({ recipientLocation, aggregateRecordType }) => {
         .map((addressKey) => recipientLocation[addressKey] || '')
         .some(regExTest);
     return (
-        <div className="award-overview__left-section__recipient__recipient-address">
-            { !addressContainsLetters ? '--' : recipientAddress }
+        <div className="award-overview__left-section__recipient-address-container">
+            <div className="award-overview__left-section__recipient__recipient-address">
+                { !addressContainsLetters ? '--' : recipientAddress }
+            </div>
+            <FeatureFlag>
+                <div className="award-overview__left-section__recipient-tooltip">
+                    <TooltipWrapper
+                        className="homepage__covid-19-tt"
+                        icon="info"
+                        tooltipComponent={<CDTooltip />} />
+                </div>
+            </FeatureFlag>
         </div>
     );
 };
