@@ -63,7 +63,7 @@ const TopFive = (props) => {
                                     styles={{
                                         position: 'relative'
                                     }}
-                                    tooltipComponent={recipientCongressionalDistrict} />
+                                    tooltipComponent={recipientCongressionalDistrict('Congressional Districts')} />
                             </FeatureFlag>
                         </> : categoryTitles[props.category]}
                 </div>
