@@ -14,11 +14,11 @@ import additionalDetailsIdv from 'dataMapping/award/additionalDetailsIdv';
 import Accordion from './Accordion';
 import IdvPeriodOfPerformance from './IdvPeriodOfPerformance';
 
-export default class AdditionalInfo extends React.Component {
-    static propTypes = {
-        overview: PropTypes.object
-    };
+const propTypes = {
+    overview: PropTypes.object
+};
 
+export default class AdditionalInfo extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -114,7 +114,7 @@ export default class AdditionalInfo extends React.Component {
                 globalToggle={this.state.globalToggle}
                 accordionName="Acquisition Details"
                 accordionIcon="tag"
-                accordionData={data.aquisitionDetails} />),
+                accordionData={data.acquisitionDetails} />),
             (<Accordion
                 key="CompetitionDetails"
                 globalToggle={this.state.globalToggle}
@@ -232,3 +232,5 @@ export default class AdditionalInfo extends React.Component {
         );
     }
 }
+
+AdditionalInfo.propTypes = propTypes;

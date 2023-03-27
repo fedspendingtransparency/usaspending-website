@@ -9,23 +9,29 @@ import { compact } from 'lodash';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { createOnKeyDownHandler } from 'helpers/keyboardEventsHelper';
+import { TooltipWrapper } from "data-transparency-ui";
+import { CDTooltip } from 'components/search/filters/tooltips/AdvancedSearchTooltip';
+import FeatureFlag from "../../../sharedComponents/FeatureFlag";
 
 const awardIdField = 'Unique Award Key';
 
-export default class Accordion extends React.Component {
-    static propTypes = {
-        accordionName: PropTypes.string,
-        accordionIcon: PropTypes.string,
-        iconClassName: PropTypes.string,
-        accordionData: PropTypes.object,
-        globalToggle: PropTypes.bool
-    };
+const propTypes = {
+    accordionName: PropTypes.string,
+    accordionIcon: PropTypes.string,
+    iconClassName: PropTypes.string,
+    accordionData: PropTypes.object,
+    globalToggle: PropTypes.bool
+};
 
+export default class Accordion extends React.Component {
     constructor(props) {
         super(props);
+
         this.state = {
-            open: false
+            open: false,
+            showCDTooltip: false
         };
+
         this.handleClick = this.handleClick.bind(this);
     }
 
@@ -88,6 +94,7 @@ export default class Accordion extends React.Component {
         const { accordionData } = this.props;
         if (!accordionData) return null;
         return Object.keys(accordionData).map((key) => {
+            this.state.showCDTooltip = false;
             let data = accordionData[key] || '--';
             // display data as a link, address or list
             if (accordionData[key]) {
@@ -96,13 +103,28 @@ export default class Accordion extends React.Component {
                 if (specialType) {
                     data = this[awardInfo.type](awardInfo.data);
                 }
+                if (specialType === 'address') {
+                    this.state.showCDTooltip = true;
+                }
             }
             return (
                 <div
                     key={key}
                     className="accordion-row">
                     <div className="accordion-row__title">{key}</div>
-                    <div className={`accordion-row__data${key === awardIdField ? ' generated-id' : ''}`}>{data}</div>
+                    <div className={`accordion-row__data${key === awardIdField ? ' generated-id' : ''} ${this.state.showCDTooltip ? ' show-tooltip' : ''}`}>
+                        {data}
+                        {this.state.showCDTooltip && (
+                            <FeatureFlag>
+                                <div className="accordion-row__data-tooltip">
+                                    <TooltipWrapper
+                                        className="homepage__covid-19-tt"
+                                        icon="info"
+                                        tooltipComponent={<CDTooltip />} />
+                                </div>
+                            </FeatureFlag>
+                        )}
+                    </div>
                 </div>
             );
         });
@@ -139,3 +161,6 @@ export default class Accordion extends React.Component {
         );
     }
 }
+
+Accordion.propTypes = propTypes;
+
