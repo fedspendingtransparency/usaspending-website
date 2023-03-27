@@ -26,7 +26,7 @@ import PricingTypeContainer from 'containers/search/filters/PricingTypeContainer
 import SetAsideContainer from 'containers/search/filters/SetAsideContainer';
 import ExtentCompetedContainer from 'containers/search/filters/ExtentCompetedContainer';
 import DEFCheckboxTree from 'containers/search/filters/def/DEFCheckboxTree';
-
+import { mediumScreen, tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
 import {
     TimePeriodTooltip,
     KeyWordTooltip,
@@ -189,6 +189,15 @@ const SearchSidebar = ({
             expanded.push(SidebarHelper.filterHasSelections(filters, filter));
         }
     });
+    const tooltipDirection = () => {
+        if (window.innerWidth <= tabletScreen) {
+            return "bottom";
+        }
+        else if (window.innerWidth < mediumScreen) {
+            return "left";
+        }
+        return "right";
+    };
 
     return (
         <div
@@ -203,7 +212,7 @@ const SearchSidebar = ({
                     <h2 className="sidebar-title_advanced-search">Filters</h2>
                 </div>
                 <div className="sidebar-paragraph__container">
-                    <div className="sidebar-paragraph">Learn which data elements are associated with certain search filters<TooltipWrapper icon="info" tooltipPosition="right" tooltipComponent={FilterTooltip} /></div>
+                    <div className="sidebar-paragraph">Learn which data elements are associated with certain search filters<TooltipWrapper icon="info" tooltipPosition={tooltipDirection()} tooltipComponent={FilterTooltip} /></div>
                 </div>
             </div>
 
