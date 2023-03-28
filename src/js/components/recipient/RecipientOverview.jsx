@@ -215,7 +215,9 @@ const RecipientOverview = (props) => {
                                 </tr>
                                 <tr>
                                     <th className="details__table-cd-row">
-                                        Congressional District
+                                        <div className="details__table-cd-text">
+                                            Congressional District
+                                        </div>
                                         <FeatureFlag>
                                             <TooltipWrapper
                                                 className="congressional-district__tt"

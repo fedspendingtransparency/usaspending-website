@@ -37,7 +37,13 @@
                     display: flex;
                     line-height: 1.5;
                     align-content: center;
-                    flex-wrap: nowrap;
+                    
+                    .details__table-cd-text {
+                        white-space: nowrap;
+                        @media(max-width: $medium-screen) {
+                            white-space: normal;
+                        }
+                    }
 
                     .tooltip-wrapper {
                         @media(min-width: $tablet-screen) and (max-width: $medium-screen) {
