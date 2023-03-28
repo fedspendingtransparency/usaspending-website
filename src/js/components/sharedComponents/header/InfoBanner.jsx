@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Cookies from "js-cookie";
+
 const globalInfoBanner = 'usaspending_info-banner';
 
 const propTypes = {
@@ -24,7 +25,7 @@ const InfoBanner = (props) => {
         }
     };
 
-    useEffect(()=> {
+    useEffect(() => {
         if (Cookies.get(globalInfoBanner) !== 'hide') {
             setCloseBanner(false);
         }
