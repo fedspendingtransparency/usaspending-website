@@ -926,10 +926,10 @@ const StatusOfFundsChart = ({
                 .attr('id', 'out-bar');
 
             // on click drilldown
-            svg.selectAll("#out-bar").on('click', (event, d) => {
+            svg.selectAll(".bar-group").on('click', (event, d) => {
                 handleClick(d);
             });
-            svg.selectAll("#out-bar").on('touchend', (event, d) => {
+            svg.selectAll(".bar-group").on('touchend', (event, d) => {
                 handleClick(d);
             });
             // tab through and enter key functionality

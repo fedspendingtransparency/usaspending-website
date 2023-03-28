@@ -37,7 +37,7 @@
                     display: flex;
                     line-height: 1.5;
                     align-content: center;
-                    flex-wrap: wrap;
+                    flex-wrap: nowrap;
 
                     .tooltip-wrapper {
                         @media(min-width: $tablet-screen) and (max-width: $medium-screen) {
@@ -73,7 +73,7 @@
                             }
                         }
 
-                        .congressional-district-tooptip__italics {
+                        .congressional-district-tooltip__italics {
                             font-size: rem(14);
                             font-weight: normal;
                             font-stretch: normal;
