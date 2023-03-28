@@ -7,8 +7,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { TooltipWrapper } from 'data-transparency-ui';
 import { categoryTitles } from 'dataMapping/state/topCategories';
-import { recipientCongressionalDistrict } from 'components/recipient/InfoTooltipContent';
 import FeatureFlag from "../../sharedComponents/FeatureFlag";
+import { CondensedCDTooltip } from '../../../components/award/shared/InfoTooltipContent';
 
 import TopFiveRow from './TopFiveRow';
 
@@ -63,7 +63,7 @@ const TopFive = (props) => {
                                     styles={{
                                         position: 'relative'
                                     }}
-                                    tooltipComponent={recipientCongressionalDistrict('Congressional Districts')} />
+                                    tooltipComponent={<CondensedCDTooltip title="Congressional Districts" />} />
                             </FeatureFlag>
                         </> : categoryTitles[props.category]}
                 </div>
