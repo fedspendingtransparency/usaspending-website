@@ -1,25 +1,70 @@
 .details {
     @import './detailsTooltip';
+
     .details__table {
         margin-top: rem(10);
         margin-bottom: rem(15);
+
         tbody {
             tr {
                 &:nth-child(odd) {
-                    td, th {
+
+                    td,
+                    th {
                         background-color: $color-gray-lightest;
                     }
                 }
+
                 td {
                     border: 0;
                     font-weight: $font-light;
                     padding: rem(8) rem(15);
                 }
+
                 th {
                     font-weight: $font-normal;
                     border: 0;
                     padding: rem(8) rem(15);
                     vertical-align: top;
+
+                    .recipient-congressional-district-tooltip {
+                        @include display(inline-block);
+                        width: 100%;
+                    }
+                }
+
+                th.details__table-cd-row {
+                    display: flex;
+                    line-height: 1.5;
+                    align-content: center;
+                    
+                    .details__table-cd-text {
+                        white-space: nowrap;
+                        @media(max-width: $medium-screen) {
+                            white-space: normal;
+                        }
+                    }
+
+                    .tooltip-wrapper {
+                        @media(min-width: $tablet-screen) and (max-width: $medium-screen) {
+                            svg {
+                                margin-left: 0;
+                            }
+                        }
+                        @media(min-width: $large-screen) {
+                            padding: 0;
+                            margin: 0;
+                        }
+                        .tooltip-spacer {
+                            transform: translateX(-24px) !important;
+                            @media(min-width: 596px) {
+                            transform: translateX(-160px) !important;
+                            }
+                            @media(min-width: $tablet-screen) {
+                                transform: translate(-172px, 8px) !important;
+                            }
+                        }
+                    }
                 }
             }
         }
