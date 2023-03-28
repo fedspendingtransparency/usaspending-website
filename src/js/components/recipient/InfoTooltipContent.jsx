@@ -25,13 +25,13 @@ export const recipientCongressionalDistrict = (title) => (
             {title}
         </div>
         <div className="tooltip__text">
-            <p className="congressional-district-tooptip__body">
+            <p className="congressional-district-tooltip__body">
             The congressional districts displayed reflect their current geographic boundaries and are based on the 2020 Census. These districts will be in effect from 2023 – 2033.*
             </p>
             <p className="congressional-district-tooltip__body">
             Additional information on congressional districts and how they are displayed on the site can be found within the Congressional District section of the <span className="congressional-district__span">About the Data</span> module under <span className="congressional-district__span">Resources</span>.
             </p>
-            <p className="congressional-district-tooptip__italics">
+            <p className="congressional-district-tooltip__italics">
             *Court-ordered redistricting might alter the time frame a congressional district is in effect.
             </p>
         </div>
