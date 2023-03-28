@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { createOnKeyDownHandler } from 'helpers/keyboardEventsHelper';
 import { TooltipWrapper } from "data-transparency-ui";
-import { CDTooltip } from 'components/search/filters/tooltips/AdvancedSearchTooltip';
+import { CondensedCDTooltip } from 'components/award/shared/InfoTooltipContent';
 import FeatureFlag from "../../../sharedComponents/FeatureFlag";
 
 const awardIdField = 'Unique Award Key';
@@ -120,7 +120,7 @@ export default class Accordion extends React.Component {
                                     <TooltipWrapper
                                         className="homepage__covid-19-tt"
                                         icon="info"
-                                        tooltipComponent={<CDTooltip />} />
+                                        tooltipComponent={<CondensedCDTooltip title="Congressional District" />} />
                                 </div>
                             </FeatureFlag>
                         )}
