@@ -155,23 +155,4 @@
   .category-table__disclaimer {
     font-size: 75%;
   }
-
-  .category-table__link {
-    margin: rem(11) 0;
-
-    svg {
-      height: rem(15);
-      fill: $color-link;
-      width: rem(15);
-      transform: rotate(180deg);
-      margin-right: rem(2.5);
-    }
-
-    span {
-      font-size: rem(13);
-      position: relative;
-      margin-left: rem(3);
-      bottom: rem(3);
-    }
-  }
 }
