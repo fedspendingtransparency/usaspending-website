@@ -11,13 +11,14 @@ import { TooltipWrapper } from 'data-transparency-ui';
 import { initialState as defaultFilters } from 'redux/reducers/search/searchFiltersReducer';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
-import { recipientOverviewLoanInfo, recipientCongressionalDistrict } from 'components/recipient/InfoTooltipContent';
+import { recipientOverviewLoanInfo } from 'components/recipient/InfoTooltipContent';
 import { idList } from 'dataMapping/shared/recipientIdentifiers';
 import { generateUrlHash } from "../../helpers/searchHelper";
 import FaceValueOfLoans from '../sharedComponents/FaceValueOfLoans';
 import RecipientMultiParentCollapse from './RecipientMultiParentCollapse';
 import { REQUEST_VERSION } from "../../GlobalConstants";
 import FeatureFlag from "../sharedComponents/FeatureFlag";
+import { CondensedCDTooltip } from '../../components/award/shared/InfoTooltipContent';
 
 const propTypes = {
     recipient: PropTypes.object,
@@ -223,7 +224,7 @@ const RecipientOverview = (props) => {
                                                 styles={{
                                                     position: 'relative'
                                                 }}
-                                                tooltipComponent={recipientCongressionalDistrict('Congressional District')} />
+                                                tooltipComponent={<CondensedCDTooltip title="Congressional District" />} />
                                         </FeatureFlag>
                                     </th>
                                     {congressionalDistrict}
