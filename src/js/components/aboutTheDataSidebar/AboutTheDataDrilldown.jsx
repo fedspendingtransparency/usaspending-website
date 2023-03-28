@@ -65,7 +65,7 @@ const AboutTheDataDrilldown = ({
                     url={`${getBaseUrl('?about-the-data=')}${slug}`}
                     onShareOptionClick={onShareClick}
                     onKeyUp={(e) => {
-                        if (e.keyCode === 13) {
+                        if (e.key === 'Enter') {
                             onShareClick();
                         }
                     }}

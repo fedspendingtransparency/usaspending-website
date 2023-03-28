@@ -65,7 +65,7 @@ const FeaturedVideo = ({ featuredVideo }) => {
                                     tabIndex="0"
                                     className="featured-video__headline"
                                     onKeyUp={(e) => {
-                                        if (e.keyCode === 13) {
+                                        if (e.key === 'Enter') {
                                             launchModal(e);
                                         }
                                     }}

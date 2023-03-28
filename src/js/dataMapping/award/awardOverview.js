@@ -14,8 +14,8 @@ export const AddresskeysByAwardType = {
         'streetAddress1',
         '_address2',
         'recipientRegionalAddress',
-        'recipientCongressionalDistrict',
-        'countryName'
+        'countryName',
+        'recipientCongressionalDistrict'
     ],
     financialAssistanceForeign: [
         'streetAddress1',
@@ -27,8 +27,8 @@ export const AddresskeysByAwardType = {
         'streetAddress1',
         '_address2',
         'recipientRegionalAddress',
-        'recipientCongressionalDistrict',
-        'countryName'
+        'countryName',
+        'recipientCongressionalDistrict'
     ],
     nonFinancialAssistanceForeign: [
         'streetAddress1',
@@ -36,10 +36,10 @@ export const AddresskeysByAwardType = {
         'recipientRegionalAddressContractsAndIDV',
         'countryName'
     ],
-    redactedDueToPIIDomestic: ['recipientRegionalAddress', 'recipientCongressionalDistrict', 'countryName'],
+    redactedDueToPIIDomestic: ['recipientRegionalAddress', 'countryName', 'recipientCongressionalDistrict'],
     redactedDueToPIIForeign: ['recipientRegionalAddress', 'countryName'],
-    aggregatedByState: ['stateName', 'recipientCongressionalDistrict', 'countryName'],
-    aggregatedByCounty: ['countyAndState', 'recipientCongressionalDistrict', 'countryName'],
+    aggregatedByState: ['stateName', 'countryName', 'recipientCongressionalDistrict'],
+    aggregatedByCounty: ['countyAndState', 'countryName', 'recipientCongressionalDistrict'],
     aggregatedByCountry: ['countryName']
 };
 
