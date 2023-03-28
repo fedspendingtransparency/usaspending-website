@@ -7,7 +7,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { AddresskeysByAwardType } from 'dataMapping/award/awardOverview';
 import { TooltipWrapper } from "data-transparency-ui";
-import { CDTooltip } from 'components/search/filters/tooltips/AdvancedSearchTooltip';
+import { CondensedCDTooltip } from 'components/award/shared/InfoTooltipContent';
 import FeatureFlag from "../../../sharedComponents/FeatureFlag";
 
 const propTypes = {
@@ -44,7 +44,7 @@ const RecipientAddress = ({ recipientLocation, aggregateRecordType }) => {
                     <TooltipWrapper
                         className="homepage__covid-19-tt"
                         icon="info"
-                        tooltipComponent={<CDTooltip />} />
+                        tooltipComponent={<CondensedCDTooltip title="Congressional District" />} />
                 </div>
             </FeatureFlag>
         </div>
