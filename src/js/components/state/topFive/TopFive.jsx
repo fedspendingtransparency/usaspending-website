@@ -59,7 +59,7 @@ const TopFive = (props) => {
                                 <TooltipWrapper
                                     className="congressional-district__tt"
                                     icon="info"
-                                    tooltipPosition="right"
+                                    tooltipPosition="bottom"
                                     styles={{
                                         position: 'relative'
                                     }}

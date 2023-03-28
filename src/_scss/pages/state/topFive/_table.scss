@@ -64,6 +64,8 @@
 
       .tooltip-spacer {
         max-width: 286px;
+        transform: translate(-125px, 10px);
+
         @media(max-width: $tablet-screen) {
           position:absolute;
           left: 0 !important;
