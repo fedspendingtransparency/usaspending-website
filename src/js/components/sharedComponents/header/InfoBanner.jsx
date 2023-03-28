@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Cookies from "js-cookie";
+const globalInfoBanner = 'usaspending_info-banner';
 
 const propTypes = {
     closeBanner: PropTypes.func,
@@ -11,13 +13,22 @@ const propTypes = {
 };
 
 const InfoBanner = (props) => {
-    const [closeBanner, setCloseBanner] = useState(false);
+    const [closeBanner, setCloseBanner] = useState(true);
     const bannerClosed = () => {
-        if (props.closeBanner && typeof props.closeBanner === "function") {
-            props.closeBanner("showInfoBanner");
+        if (Cookies.get(globalInfoBanner) !== 'hide') {
+            Cookies.set(globalInfoBanner, 'hide', { expires: 7 });
+            if (props.closeBanner && typeof props.closeBanner === "function") {
+                props.closeBanner("showInfoBanner");
+            }
+            setCloseBanner(true);
         }
-        setCloseBanner(true);
     };
+
+    useEffect(()=> {
+        if (Cookies.get(globalInfoBanner) !== 'hide') {
+            setCloseBanner(false);
+        }
+    }, []);
 
     return (
         <div className="info-banner" style={{ display: `${closeBanner ? 'none' : ''}`, backgroundColor: props.backgroundColor, borderTop: `5px solid ${props.border}` }}>
