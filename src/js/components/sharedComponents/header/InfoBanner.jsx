@@ -32,7 +32,14 @@ const InfoBanner = (props) => {
     }, []);
 
     return (
-        <div className="info-banner" style={{ display: `${closeBanner ? 'none' : ''}`, backgroundColor: props.backgroundColor, borderTop: `5px solid ${props.border}` }}>
+        <div
+            className="info-banner"
+            style={{
+                display: `${closeBanner ? 'none' : ''}`,
+                backgroundColor: props.backgroundColor,
+                borderTop: `5px solid ${props.borderTopColor}`,
+                borderBottom: `1px solid ${props.borderBottomColor}`
+            }}>
             <div className="info-banner__content">
                 <div className="info-banner__icon">
                     {props.icon}

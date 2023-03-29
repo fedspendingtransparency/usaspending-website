@@ -52,6 +52,14 @@ export default class Header extends React.Component {
                 <header
                     className="site-header__wrapper"
                     aria-label="Site header">
+                    <InfoBanner
+                        icon={<FontAwesomeIcon style={{ width: "20", height: "20" }} size="lg" icon="info-circle" color="#97d4ea" />}
+                        borderTopColor="#97d4ea"
+                        borderBottomColor="#c3ebfa"
+                        backgroundColor="#e1f3f8"
+                        title="Love using USAspending.gov? Tell us more!"
+                        content={<>USAspending.gov is looking to share stories of how federal spending data has improved your life or increased your trust in government.
+                            Do you have a story to share?&nbsp;<ExternalLink isCard url="https://forms.office.com/g/neemMd2J4a">Fill out this survey and you may be featured in an upcoming USAspending YouTube video!</ExternalLink></>} />
                     <div
                         className="official-banner"
                         role="note">
@@ -92,13 +100,6 @@ export default class Header extends React.Component {
                         </div>
                     </div>
                     <NavBar />
-                    <InfoBanner
-                        icon={<FontAwesomeIcon style={{ width: "20", height: "20" }} size="lg" icon="info-circle" color="#97d4ea" />}
-                        border="#97d4ea"
-                        backgroundColor="#e1f3f8"
-                        title="Love using USAspending.gov? Tell us more!"
-                        content={<>USAspending.gov is looking to share stories of how federal spending data has improved your life or increased your trust in government.
-                            Do you have a story to share?&nbsp;<ExternalLink isCard url="https://forms.office.com/g/neemMd2J4a">Fill out this survey and you may be featured in an upcoming USAspending YouTube video!</ExternalLink></>} />
                 </header>
                 <AboutTheDataContainer />
                 <GlossaryContainer />
