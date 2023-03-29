@@ -8,7 +8,7 @@
         @include display(flex);
         @include align-items(flex-start);
         @media(max-width: $tablet-screen) {
-            margin: rem(12) rem(20);
+            margin: rem(16) rem(20);
         }
         @media(min-width: $tablet-screen) {
             margin: rem(16) rem(25);
@@ -21,10 +21,10 @@
             max-width: rem(1600);
         }
 
-        .info-banner__info-circle {
-            @include flex(0 0 auto);
-            color: $color-primary-alt-light;
+        info-banner__icon {
+            height: 100%;
         }
+
         .info-banner__hyphen {
           padding: 0 rem(2);
         }
@@ -32,7 +32,6 @@
             @include flex(1 1 auto);
             @include align-self(center);
             margin-left: 1rem;
-            padding-bottom: rem(8);
             font-size: $small-font-size;
             line-height: rem(21);
             .info-banner__title-text {

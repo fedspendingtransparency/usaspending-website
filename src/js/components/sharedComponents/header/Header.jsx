@@ -93,7 +93,7 @@ export default class Header extends React.Component {
                     </div>
                     <NavBar />
                     <InfoBanner
-                        icon={<FontAwesomeIcon style={{ width: "27", height: "27" }} icon="info-circle" color="#97d4ea" />}
+                        icon={<FontAwesomeIcon style={{ width: "20", height: "20" }} size="lg" icon="info-circle" color="#97d4ea" />}
                         border="#97d4ea"
                         backgroundColor="#e1f3f8"
                         title="Love using USAspending.gov? Tell us more!"
