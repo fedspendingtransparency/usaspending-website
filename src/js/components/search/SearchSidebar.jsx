@@ -26,7 +26,7 @@ import PricingTypeContainer from 'containers/search/filters/PricingTypeContainer
 import SetAsideContainer from 'containers/search/filters/SetAsideContainer';
 import ExtentCompetedContainer from 'containers/search/filters/ExtentCompetedContainer';
 import DEFCheckboxTree from 'containers/search/filters/def/DEFCheckboxTree';
-import { mediumScreen, tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
+import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import {
     TimePeriodTooltip,
     KeyWordTooltip,
