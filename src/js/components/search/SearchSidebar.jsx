@@ -38,7 +38,7 @@ import { Filter as FilterIcon } from 'components/sharedComponents/icons/Icons';
 import FilterSidebar from 'components/sharedComponents/filterSidebar/FilterSidebar';
 import * as SidebarHelper from 'helpers/sidebarHelper';
 import { TooltipWrapper } from 'data-transparency-ui';
-import { FilterTooltip } from '../../components/award/shared/InfoTooltipContent';
+import { FilterTooltip } from '../award/shared/InfoTooltipContent';
 
 const staticFilters = {
     // NOTE: if you update the title here

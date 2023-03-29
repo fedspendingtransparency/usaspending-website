@@ -91,7 +91,7 @@ export default class EntityDropdown extends React.Component {
     }
 
     handleOnKeyDown(e) {
-        if (e.keyCode === 8) { // backspace
+        if (e.key === 'Backspace') { // backspace
             this.resetSelectedItem();
         }
     }
