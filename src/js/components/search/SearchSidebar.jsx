@@ -190,11 +190,8 @@ const SearchSidebar = ({
         }
     });
     const tooltipDirection = () => {
-        if (window.innerWidth <= tabletScreen) {
+        if (window.innerWidth <= mediumScreen) {
             return "bottom";
-        }
-        else if (window.innerWidth < mediumScreen) {
-            return "left";
         }
         return "right";
     };

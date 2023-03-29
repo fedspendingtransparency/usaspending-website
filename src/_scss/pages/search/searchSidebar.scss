@@ -88,8 +88,13 @@
                     }
                     .tooltip-spacer {
                         @media (max-width: $medium-screen) {
+                            top: 90px;
+                            left: 250px;
+                        }
+                        @media (max-width: $tablet-screen) {
                             left: rem(-13) !important;
                         }
+
                     }
                     .ul-override_filter {
                         ul{
