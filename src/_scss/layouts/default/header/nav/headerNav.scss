@@ -1,6 +1,7 @@
 header.site-header__wrapper {
+    display: flex;
+    flex-direction: column;
     background-color: $color-white;
-
     $nav-color: #595959;
     $nav-coming-soon: $color-gray-medium;
 
