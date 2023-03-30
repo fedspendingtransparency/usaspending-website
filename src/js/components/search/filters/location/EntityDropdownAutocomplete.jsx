@@ -15,6 +15,7 @@ const propTypes = {
     openDropdown: PropTypes.func,
     handleTextInputChange: PropTypes.func,
     handleOnKeyDown: PropTypes.func,
+    handleOnKeyUp: PropTypes.func,
     toggleDropdown: PropTypes.func,
     context: PropTypes.shape({}), // the $this variable of the parent, used to create a ref
     expanded: PropTypes.bool,
@@ -40,6 +41,7 @@ export const EntityDropdownAutocomplete = ({
     context, // the $this variable
     loading,
     handleOnKeyDown,
+    handleOnKeyUp,
     showDisclaimer,
     onClear,
     isClearable
@@ -52,6 +54,7 @@ export const EntityDropdownAutocomplete = ({
             value={searchString}
             onClick={openDropdown}
             onKeyDown={handleOnKeyDown}
+            onKeyUp={handleOnKeyUp}
             onChange={handleTextInputChange}
             placeholder={placeholder}
             ref={(dropdown) => {

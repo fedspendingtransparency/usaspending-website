@@ -70,6 +70,7 @@ export default class EntityDropdown extends React.Component {
         this.handleTextInputChange = this.handleTextInputChange.bind(this);
         this.resetSelectedItem = this.resetSelectedItem.bind(this);
         this.handleOnKeyDown = this.handleOnKeyDown.bind(this);
+        this.handleOnKeyUp = this.handleOnKeyUp.bind(this);
     }
 
     componentDidUpdate(prevProps) {
@@ -93,6 +94,12 @@ export default class EntityDropdown extends React.Component {
     handleOnKeyDown(e) {
         if (e.key === 'Backspace') { // backspace
             this.resetSelectedItem();
+        }
+    }
+
+    handleOnKeyUp(e) {
+        if (e.key === "Enter") {
+            this.handleTextInputChange(e);
         }
     }
 
@@ -323,6 +330,7 @@ export default class EntityDropdown extends React.Component {
                                 enabled={enabled}
                                 openDropdown={this.openDropdown}
                                 handleOnKeyDown={this.handleOnKeyDown}
+                                handleOnKeyUp={this.handleOnKeyUp}
                                 handleTextInputChange={this.handleTextInputChange}
                                 toggleDropdown={this.toggleDropdown}
                                 placeholder={this.props.placeholder}

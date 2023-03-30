@@ -52,7 +52,13 @@ const EntityDropdownList = (props) => {
                     title={item.name}
                     aria-label={item.name}
                     data-listindex={i}
-                    onMouseDown={handleSelection}>
+                    onMouseDown={handleSelection}
+                    onKeyUp={(e) => {
+                        e.preventDefault();
+                        if (e.key === "Enter") {
+                            handleSelection();
+                        }
+                    }}>
                     {item.name}
                 </button>
             </li>
