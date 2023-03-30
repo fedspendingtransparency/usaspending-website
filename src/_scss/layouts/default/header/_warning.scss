@@ -34,7 +34,9 @@
             margin-left: 1rem;
             font-size: $small-font-size;
             line-height: rem(21);
+            color: $theme-color-body;
             .info-banner__title-text {
+                color: $theme-color-headline;
                 font-size: rem(20);
                 font-weight: 600;
                 line-height: rem(25);
@@ -65,7 +67,7 @@
             @include flex(0 0 auto);
             @include button-unstyled;
             padding: rem(5) 0;
-            color: $color-base;
+            color: $gray-cool-90;
         }
     }
 
