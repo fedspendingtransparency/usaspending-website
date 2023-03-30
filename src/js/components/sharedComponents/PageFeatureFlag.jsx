@@ -8,11 +8,11 @@ import { Redirect } from "react-router-dom";
 import GlobalConstants from "GlobalConstants";
 
 
-const FeatureFlag = ({ children }) => {
+const PageFeatureFlag = ({ children }) => {
     const isQAT = GlobalConstants.QAT;
     return (isQAT ? <>{children}</>
         :
         <Redirect to="/404" />);
 };
 
-export default FeatureFlag;
+export default PageFeatureFlag;
