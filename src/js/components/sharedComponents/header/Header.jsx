@@ -57,9 +57,8 @@ export default class Header extends React.Component {
                         borderTopColor="#97d4ea"
                         borderBottomColor="#c3ebfa"
                         backgroundColor="#e1f3f8"
-                        title="Love using USAspending.gov? Tell us more!"
-                        content={<>USAspending.gov is looking to share stories of how federal spending data has improved your life or increased your trust in government.
-                            Do you have a story to share?&nbsp;<ExternalLink isCard url="https://forms.office.com/g/neemMd2J4a">Fill out this survey and you may be featured in an upcoming USAspending YouTube video!</ExternalLink></>} />
+                        title={<>Love using USAspending.gov?&nbsp;<span style={{ whiteSpace: 'nowrap' }}>Tell us more!</span></>}
+                        content={<>USAspending.gov is looking to share stories of how federal spending data has improved your life or increased your trust in government.&nbsp;<ExternalLink isCard url="https://forms.office.com/g/neemMd2J4a">Share your story and you may be featured in an upcoming USAspending Youtube video!</ExternalLink></>} />
                     <div
                         className="official-banner"
                         role="note">
