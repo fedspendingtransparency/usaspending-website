@@ -2,7 +2,7 @@ import React from "react";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FlexGridRow, FlexGridCol, CardContainer, CardHero, CardBody, CardButton } from "data-transparency-ui";
 import PageWrapper from "./sharedComponents/PageWrapper";
-import FeatureFlag from "./sharedComponents/FeatureFlag";
+import FeatureFlag from "./sharedComponents/PageFeatureFlag";
 import Button from "./sharedComponents/buttons/Button";
 
 require("pages/homepageUpdate/homepageUpdate.scss");
@@ -11,7 +11,7 @@ const tempPage = () => {
     const imageLink = "../../img/top-bowie-state-combined-image.svg";
 
     return (
-        <FeatureFlag>
+        <PageFeatureFlag>
             <PageWrapper
                 pageName="Test Page"
                 classNames="usa-da-about-page"
@@ -236,7 +236,7 @@ const tempPage = () => {
                     </FlexGridRow>
                 </main>
             </PageWrapper>
-        </FeatureFlag>
+        </PageFeatureFlag>
     );
 };
 
