@@ -140,8 +140,7 @@ const VisualizationWrapper = (props) => {
                     subaward={props.subaward}
                     setSearchViewSubaward={props.setSearchViewSubaward} />
             </div>
-            <div
-                className="visualization-tabs">
+            <div className="visualization-tabs">
                 <div
                     className="visualization-tabs__list"
                     aria-label="Visualization types"
