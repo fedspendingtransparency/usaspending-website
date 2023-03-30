@@ -66,7 +66,7 @@
         max-width: 286px;
         transform: translate(-125px, 10px);
 
-        @media(max-width: $tablet-screen) {
+        @media(max-width: 767px) {
           position:absolute;
           left: 0 !important;
           transform: translateX(-224px);
