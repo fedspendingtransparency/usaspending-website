@@ -209,7 +209,7 @@ const SearchSidebar = ({
                     <h2 className="sidebar-title_advanced-search">Filters</h2>
                 </div>
                 <div className="sidebar-paragraph__container">
-                    <div className="sidebar-paragraph">Learn which data elements are associated with certain search filters<TooltipWrapper icon="info" tooltipPosition={tooltipDirection()} tooltipComponent={FilterTooltip} /></div>
+                    <div className="sidebar-paragraph">Learn which data elements are associated with certain search <div style={{ display: 'inline-table' }}>filters<TooltipWrapper icon="info" tooltipPosition={tooltipDirection()} tooltipComponent={FilterTooltip} /></div></div>
                 </div>
             </div>
 
