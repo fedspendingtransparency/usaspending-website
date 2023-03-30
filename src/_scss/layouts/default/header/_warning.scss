@@ -8,25 +8,23 @@
         @include display(flex);
         @include align-items(flex-start);
         @media(max-width: $tablet-screen) {
-            margin: rem(12) rem(20);
+            margin: rem(16) rem(16) rem(16) rem(20);
         }
         @media(min-width: $tablet-screen) {
-            margin: rem(10) rem(25);
+            margin: rem(16) rem(16) rem(16) rem(20);
         }
         @media(min-width: $large-screen) {
-            margin: rem(10) rem(40);
+            margin: rem(16) rem(36) rem(16) rem(40);
         }
         @media(min-width: $x-large-screen) {
-            margin: rem(10) auto;
+            margin: rem(16) auto;
             max-width: rem(1600);
         }
-        padding-bottom: 10px;
-        margin-bottom: -10px !important;
 
-        .info-banner__info-circle {
-            @include flex(0 0 auto);
-            color: $color-primary-alt-light;
+        info-banner__icon {
+            height: 100%;
         }
+
         .info-banner__hyphen {
           padding: 0 rem(2);
         }
@@ -34,14 +32,13 @@
             @include flex(1 1 auto);
             @include align-self(center);
             margin-left: 1rem;
-            padding-bottom: rem(8);
             font-size: $small-font-size;
-            line-height: rem(22);
+            line-height: rem(21);
             .info-banner__title-text {
-                font-size: rem(18);
+                font-size: rem(20);
                 font-weight: 600;
-                line-height: rem(22);
-                padding-bottom: rem(3);
+                line-height: rem(25);
+                padding-bottom: rem(4);
                 margin-top: 0;
             }
             p {
@@ -67,7 +64,7 @@
         .info-banner__close-button {
             @include flex(0 0 auto);
             @include button-unstyled;
-            padding: rem(5) rem(10);
+            padding: rem(5) 0;
             color: $color-base;
         }
     }
