@@ -42,6 +42,12 @@
                 line-height: rem(25);
                 padding-bottom: rem(4);
                 margin-top: 0;
+
+                .info-banner__linebreak {
+                    @media (min-width: 576px) {
+                        display: none;
+                    }
+                }
             }
             p {
                 margin: 0;
