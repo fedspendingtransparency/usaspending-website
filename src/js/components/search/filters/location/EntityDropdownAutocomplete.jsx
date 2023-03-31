@@ -54,7 +54,7 @@ export const EntityDropdownAutocomplete = ({
             value={searchString}
             onClick={openDropdown}
             onKeyDown={handleOnKeyDown}
-            onKeyUp={handleOnKeyUp(toggleDropdown)}
+            onKeyUp={handleOnKeyUp}
             onChange={handleTextInputChange}
             placeholder={placeholder}
             ref={(dropdown) => {
