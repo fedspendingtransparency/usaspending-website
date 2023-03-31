@@ -99,6 +99,9 @@ export default class EntityDropdown extends React.Component {
 
     handleOnKeyUp(e) {
         if (e.key === "Enter") {
+            this.setState({
+                expanded: true
+            });
             this.handleTextInputChange(e);
         }
     }
