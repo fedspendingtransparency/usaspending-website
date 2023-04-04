@@ -26,7 +26,7 @@ import PricingTypeContainer from 'containers/search/filters/PricingTypeContainer
 import SetAsideContainer from 'containers/search/filters/SetAsideContainer';
 import ExtentCompetedContainer from 'containers/search/filters/ExtentCompetedContainer';
 import DEFCheckboxTree from 'containers/search/filters/def/DEFCheckboxTree';
-
+import { mediumScreen } from 'dataMapping/shared/mobileBreakpoints';
 import {
     TimePeriodTooltip,
     KeyWordTooltip,
@@ -37,6 +37,8 @@ import {
 import { Filter as FilterIcon } from 'components/sharedComponents/icons/Icons';
 import FilterSidebar from 'components/sharedComponents/filterSidebar/FilterSidebar';
 import * as SidebarHelper from 'helpers/sidebarHelper';
+import { TooltipWrapper } from 'data-transparency-ui';
+import { FilterTooltip } from '../award/shared/InfoTooltipContent';
 
 const staticFilters = {
     // NOTE: if you update the title here
@@ -187,6 +189,12 @@ const SearchSidebar = ({
             expanded.push(SidebarHelper.filterHasSelections(filters, filter));
         }
     });
+    const tooltipDirection = () => {
+        if (window.innerWidth <= mediumScreen) {
+            return "bottom";
+        }
+        return "right";
+    };
 
     return (
         <div
@@ -194,11 +202,17 @@ const SearchSidebar = ({
             role="search"
             aria-label="Filters">
             <div className="sidebar-header">
-                <span className="filter-icon">
-                    <FilterIcon />
-                </span>
-                <h2 className="sidebar-title">Filters</h2>
+                <div className="sidebar-header_title-advanced-search">
+                    <span className="filter-icon">
+                        <FilterIcon />
+                    </span>
+                    <h2 className="sidebar-title_advanced-search">Filters</h2>
+                </div>
+                <div className="sidebar-paragraph__container">
+                    <div className="sidebar-paragraph">Learn which data elements are associated with certain search <div style={{ display: 'inline-table' }}>filters<TooltipWrapper icon="info" tooltipPosition={tooltipDirection()} tooltipComponent={FilterTooltip} /></div></div>
+                </div>
             </div>
+
             <div className="sidebar-top-submit">
                 <SearchSidebarSubmitContainer />
             </div>

@@ -53,12 +53,17 @@ export const getInfrastructureAscendingSpendingCategoriesByAwardType = (awardTyp
 
 // includes logic for grant, loan, insurance, and other award types
 export const determineSpendingScenarioAsstAwards = (awardAmountObj) => {
-    const { _totalObligation, _nonFederalFunding, _totalFunding } = awardAmountObj;
+    const {
+        _totalOutlay, _totalObligation, _nonFederalFunding, _totalFunding
+    } = awardAmountObj;
     // if any of the values are negative, return insufficient data
-    if (_totalObligation < 0 || _nonFederalFunding < 0 || _totalFunding < 0) {
+    if (_totalOutlay < 0 || _totalObligation < 0 || _nonFederalFunding < 0 || _totalFunding < 0) {
         return 'insufficientData';
     }
     else if (_totalObligation === 0 && _nonFederalFunding === 0 && _totalFunding === 0) {
+        return 'insufficientData';
+    }
+    else if (_totalOutlay > _totalObligation || _totalOutlay > _totalFunding || _totalObligation > _totalFunding || _nonFederalFunding > _totalFunding) {
         return 'insufficientData';
     }
     // if total funding is sum of obligation and non federal funding, return normal

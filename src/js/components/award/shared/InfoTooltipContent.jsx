@@ -1216,6 +1216,57 @@ export const CFDASectionInfo = (
     </div>
 );
 
+export const FilterTooltip = (
+    <div className="award-summary-tooltip">
+        <div className="tooltip__title">
+        Learn which data elements are associated with certain search filters
+        </div>
+        <div className="tooltip__text ul-override_filter ul-override">
+            <p className="award-summary__new-category">
+            The data in award search come primarily from governmentwide award systems in formats called File D1 (for <strong>contract award elements</strong>) and File D2 (for <strong>financial assistance award elements</strong>). If a filter is not listed below, then it applies to both contract and financial assistance award elements.
+            </p>
+            <p>
+            Filters for <strong>agency account elements</strong> apply to both contract and financial assistance award elements, but they come from File C (award data from agency financial systems that are submitted directly to USAspending.gov) rather than from Files D1 or D2.
+            </p>
+            <p className="award-summary__new-category"><strong>Contract Award Elements</strong></p>
+            <p className="award-summary__new-category">
+            Contract award elements contain information from a governmentwide award system called the Federal Procurement Data System (FPDS). This information is extracted by USAspending.gov in a format called File D1.
+            </p>
+            <p>
+                Filters that draw exclusively from contract award elements are:
+            </p>
+            <ul>
+                <li>North American Industry Classification System (NAICS)</li>
+                <li>Product or Service Code (PSC)</li>
+                <li>Type of Contract Pricing</li>
+                <li>Type of Set Aside</li>
+                <li>Extent Competed</li>
+            </ul>
+            <p className="award-summary__new-category"><strong>Financial Assistance Award Elements</strong></p>
+            <p className="award-summary__new-category">
+            Financial assistance award elements contain information from a governmentwide award system called the Financial Assistance Broker System (FABS). This information is submitted directly to USAspending.gov in a format called File D2.
+            </p>
+            <p>
+            The filter that draws exclusively from financial assistance award elements is:
+            </p>
+            <ul>
+                <li>Assistance Listing (CFDA Program)</li>
+            </ul>
+            <p className="award-summary__new-category"><strong>Agency Account Elements</strong></p>
+            <p className="award-summary__new-category">
+            Agency account elements contain information from agency financial systems, and includes information about federal awards in a format called File C. Data in File C complement data in Files D1 and D2, which come from governmentwide award systems. If you select a filter that draws from agency account elements, then these data must be linked to data in governmentwide award systems before any results can be displayed. (The reverse is not true: you may see results from governmentwide award systems that are not linked to data in agency account elements.)
+            </p>
+            <p>
+                Filters that draw exclusively from agency account elements are:
+            </p>
+            <ul>
+                <li>Treasury Account Symbol (TAS)</li>
+                <li>Disaster Emergency Fund Code (DEFC)</li>
+            </ul>
+        </div>
+    </div>
+);
+
 export const CovidFlagTooltip = ({ codes }) => (
     <div className="award-summary-tooltip covid-19">
         <div className="tooltip__title">
@@ -1248,7 +1299,7 @@ export const UnlinkedTooltip = (props) => {
     };
 
     const closeTooltip = (e) => {
-        if (e.keyCode === 13 || e.keyCode === 27) {
+        if (e.key === 'Enter' || e.key === 'Escape') {
             clickCloseTooltip();
         }
     };
@@ -1283,5 +1334,28 @@ export const UnlinkedTooltip = (props) => {
 
 UnlinkedTooltip.propTypes = {
     setShowTooltip: PropTypes.func
+};
+
+export const CondensedCDTooltip = ({ title }) => (
+    <div className="award-summary-tooltip">
+        <div className="tooltip__title">
+            {title}
+        </div>
+        <div className="tooltip__text">
+            <p>
+                The congressional districts displayed reflect their current geographic boundaries and are based on the 2020 Census. These districts will be in effect from 2023 – 2033.&#42;
+            </p>
+            <p>
+                Additional information on congressional districts and how they are displayed on the site can be found within the Congressional District section of the <strong>About the Data</strong> module under <strong>Resources</strong>.
+            </p>
+            <p>
+                <em>&#42;Court-ordered redistricting might alter the time frame a congressional district is in effect.</em>
+            </p>
+        </div>
+    </div>
+);
+
+CondensedCDTooltip.propTypes = {
+    title: PropTypes.string
 };
 

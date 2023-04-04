@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-
 import IndividualSubmit from 'components/search/filters/IndividualSubmit';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import SelectedAwardIDs from './SelectedAwardIDs';
@@ -37,14 +36,12 @@ export default class AwardIDSearch extends React.Component {
     }
 
     changedInput(e) {
-        this.setState({
-            awardID: e.target.value
-        });
+        this.setState({ awardID: e.target.value });
     }
 
     applyAwardID(e) {
         e.preventDefault();
-        this.props.toggleAwardID(this.state.awardID);
+        this.props.toggleAwardID(this.state.awardID.toUpperCase());
         this.setState({
             awardID: ''
         });

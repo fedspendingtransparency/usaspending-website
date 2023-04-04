@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Cookies from "js-cookie";
+
+const globalInfoBanner = 'usaspending_info-banner';
 
 const propTypes = {
     closeBanner: PropTypes.func,
@@ -11,18 +14,36 @@ const propTypes = {
 };
 
 const InfoBanner = (props) => {
-    const [closeBanner, setCloseBanner] = useState(false);
+    const [closeBanner, setCloseBanner] = useState(true);
     const bannerClosed = () => {
-        if (props.closeBanner && typeof props.closeBanner === "function") {
-            props.closeBanner("showInfoBanner");
+        if (Cookies.get(globalInfoBanner) !== 'hide') {
+            Cookies.set(globalInfoBanner, 'hide', { expires: 7 });
+            if (props.closeBanner && typeof props.closeBanner === "function") {
+                props.closeBanner("showInfoBanner");
+            }
+            setCloseBanner(true);
         }
-        setCloseBanner(true);
     };
 
+    useEffect(() => {
+        if (Cookies.get(globalInfoBanner) !== 'hide') {
+            setCloseBanner(false);
+        }
+    }, []);
+
     return (
-        <div className="info-banner" style={{ display: `${closeBanner ? 'none' : ''}`, backgroundColor: props.backgroundColor, borderTop: `5px solid ${props.border}` }}>
+        <div
+            className="info-banner"
+            style={{
+                display: `${closeBanner ? 'none' : ''}`,
+                backgroundColor: props.backgroundColor,
+                borderTop: `5px solid ${props.borderTopColor}`,
+                borderBottom: `1px solid ${props.borderBottomColor}`
+            }}>
             <div className="info-banner__content">
-                {props.icon}
+                <div className="info-banner__icon">
+                    {props.icon}
+                </div>
                 <>
                     <div className="info-banner__alert-text">
                         <p className="info-banner__title-text">{props.title}</p>
@@ -32,7 +53,7 @@ const InfoBanner = (props) => {
                         className="info-banner__close-button"
                         title="Dismiss message"
                         aria-label="Dismiss message"
-                        onKeyUp={(e) => ((e.keyCode === "Enter") ? bannerClosed : '')}
+                        onKeyUp={(e) => ((e.key === 'Enter') ? bannerClosed : '')}
                         onClick={bannerClosed}>
                         <FontAwesomeIcon size="lg" alt="Dismiss message" icon="times" />
                     </button>

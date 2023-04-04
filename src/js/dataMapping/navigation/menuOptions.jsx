@@ -59,8 +59,7 @@ export const resourceOptions = [
         label: 'About the Data',
         url: '?about-the-data',
         enabled: true,
-        appendToExistingUrl: true,
-        isNewTab: true
+        appendToExistingUrl: true
     },
     {
         label: 'Training Videos',
@@ -99,8 +98,7 @@ export const resourceOptions = [
         url: '/data-sources',
         callToAction: 'Explore the Data Sources',
         shouldOpenNewTab: false,
-        externalLink: false,
-        isNewTab: true
+        externalLink: false
     },
     {
         label: "Agency Submission Statistics",
@@ -108,8 +106,7 @@ export const resourceOptions = [
             pathname: '/submission-statistics',
             search: '?tab=submissions'
         },
-        enabled: true,
-        isNewTab: false
+        enabled: true
     },
     {
         label: 'API Tutorial',
