@@ -301,13 +301,13 @@ export default class TimePeriod extends React.Component {
                 <div className="filter-item-wrap">
                     <ul
                         className="toggle-buttons"
-                        role="menu">
+                        role="tablist">
                         <li>
                             <button
                                 className={`tab-toggle ${activeClassFY}`}
                                 value="fy"
-                                role="menuitemradio"
-                                aria-checked={this.props.activeTab === 'fy'}
+                                role="tab"
+                                aria-selected={this.props.activeTab === 'fy'}
                                 aria-label="Fiscal Year"
                                 title="Fiscal Year"
                                 onClick={this.toggleFilters}>
@@ -319,8 +319,8 @@ export default class TimePeriod extends React.Component {
                                 className={`tab-toggle ${activeClassDR}`}
                                 id="filter-date-range-tab"
                                 value="dr"
-                                role="menuitemradio"
-                                aria-checked={this.props.activeTab === 'dr'}
+                                role="tab"
+                                aria-selected={this.props.activeTab === 'dr'}
                                 aria-label="Date Range"
                                 title="Date Range"
                                 onClick={this.toggleFilters}
