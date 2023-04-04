@@ -38,7 +38,6 @@ export default class RankVisualizationTitle extends React.Component {
         const prevValue = this.props.currentSpendingBy;
         const value = e.target.value;
 
-        console.debug("VALUE: ", value, prevValue);
         if (value !== '') {
             this.props.changeSpendingBy(value);
         } else {
