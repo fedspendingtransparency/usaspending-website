@@ -35,8 +35,15 @@ export default class RankVisualizationTitle extends React.Component {
     }
 
     clickedItem(e) {
+        const prevValue = this.props.currentSpendingBy;
         const value = e.target.value;
-        this.props.changeSpendingBy(value);
+
+        console.debug("VALUE: ", value, prevValue);
+        if (value !== '') {
+            this.props.changeSpendingBy(value);
+        } else {
+            this.props.changeSpendingBy(prevValue);
+        }
 
         this.setState({
             showPicker: false
@@ -53,7 +60,7 @@ export default class RankVisualizationTitle extends React.Component {
                     title={categoryNames[field]}
                     aria-label={categoryNames[field]}
                     value={field}
-                    onClick={this.clickedItem}>
+                    onMouseDown={this.clickedItem}>
                     {categoryNames[field]}
                 </button>
             </li>
@@ -78,7 +85,14 @@ export default class RankVisualizationTitle extends React.Component {
                         className="selected-button"
                         title={categoryNames[currentField]}
                         aria-label={categoryNames[currentField]}
-                        onClick={this.togglePicker}>
+                        onMouseDown={this.togglePicker}
+                        onBlur={(e) => {
+                            if (e.target.value === '') {
+                                this.togglePicker();
+                            }
+
+                            this.clickedItem(e);
+                        }}>
                         <span className="label">
                             {categoryNames[currentField]}
                         </span>
