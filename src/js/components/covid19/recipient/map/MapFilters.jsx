@@ -12,6 +12,8 @@ import { mapFilterSortOrderByValue } from 'dataMapping/covid19/covid19';
 import { handleSort } from 'helpers/covid19Helper';
 
 import MapFiltersHeader from './MapFiltersHeader';
+import { TooltipWrapper } from 'data-transparency-ui';
+import { SpendingByRecipientMapTT } from 'components/covid19/Covid19Tooltips';
 
 const propTypes = {
     filters: PropTypes.object,
@@ -30,6 +32,13 @@ const MapFilters = ({ filters, activeFilters, isOpen }) => (
                     <div key={uniqueId()} className="map__filters-filter__container">
                         <div className="map__filters-label">
                             {filters[filter].label}
+                            {filters[filter].label === 'AMOUNT TYPE' ?
+                                <TooltipWrapper
+                                    className="spending_types-tt"
+                                    icon="info"
+                                    tooltipPosition="right"
+                                    tooltipComponent={<SpendingByRecipientMapTT />} /> :
+                                null}
                         </div>
                         <Picker
                             backgroundColor="#ffffff"
