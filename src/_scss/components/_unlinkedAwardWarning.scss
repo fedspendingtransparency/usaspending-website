@@ -1,5 +1,8 @@
 .unlinked-award-warning__wrapper {
-  height: 90%;
+  height: 60%;
+  @media (min-width: $medium-screen) {
+    height: 18%;
+  }
   @media (min-width: $tablet-screen) {
     margin-bottom: 0;
   }

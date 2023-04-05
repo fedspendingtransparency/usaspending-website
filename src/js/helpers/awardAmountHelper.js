@@ -57,7 +57,7 @@ export const determineSpendingScenarioAsstAwards = (awardAmountObj) => {
         _totalOutlay, _totalObligation, _nonFederalFunding, _totalFunding
     } = awardAmountObj;
     // if any of the values are negative, return insufficient data
-    if (_totalOutlay < 0 || _totalObligation < 0 || _nonFederalFunding < 0 || _nonFederalFunding < 0) {
+    if (_totalOutlay < 0 || _totalObligation < 0 || _nonFederalFunding < 0 || _totalFunding < 0) {
         return 'insufficientData';
     }
     else if (_totalObligation === 0 && _nonFederalFunding === 0 && _totalFunding === 0) {
