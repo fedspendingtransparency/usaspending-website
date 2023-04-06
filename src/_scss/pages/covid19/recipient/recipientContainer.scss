@@ -154,6 +154,7 @@
 
                     .tooltip-pointer {
                       left: -0.8rem;
+                      z-index: 2;
                     }
                     .tooltip-pointer::after {
                       background-color: $color-white !important;

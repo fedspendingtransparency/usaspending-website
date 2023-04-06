@@ -34,7 +34,6 @@ const MapFilters = ({ filters, activeFilters, isOpen }) => (
                             {filters[filter].label === 'AREA TYPE' ?
                                 <FeatureFlag>
                                     <TooltipWrapper
-                                        className="spending_types-tt"
                                         icon="info"
                                         tooltipPosition="right"
                                         tooltipComponent={<CondensedCDTooltip title="Area Type: Congressional Districts" />} />
