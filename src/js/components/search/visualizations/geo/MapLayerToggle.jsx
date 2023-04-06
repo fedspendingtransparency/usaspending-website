@@ -5,6 +5,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { TooltipWrapper } from 'data-transparency-ui';
+import { CondensedCDTooltip } from '../../../award/shared/InfoTooltipContent';
+import FeatureFlag from '../../../sharedComponents/FeatureFlag';
 
 const propTypes = {
     active: PropTypes.string,
@@ -30,7 +33,6 @@ const MapLayerToggle = (props) => {
         if (props.active === layer) {
             active = 'active';
         }
-
         return (
             <li
                 key={layer}>
@@ -41,7 +43,13 @@ const MapLayerToggle = (props) => {
                     aria-label={`Display by ${title}`}
                     data-content={title}
                     value={layer}>
-                    {title}
+                    {title === 'Congressional District' ?
+                        <div
+                            style={{ display: 'flex' }}>
+                            {title}s <FeatureFlag><TooltipWrapper className="congressional-district__tt" tooltipPosition="right" icon="info" tooltipComponent={<CondensedCDTooltip title="Congressional District" />} /></FeatureFlag>
+                        </div>
+                        :
+                        <>{title}s </>}
                 </button>
             </li>
         );

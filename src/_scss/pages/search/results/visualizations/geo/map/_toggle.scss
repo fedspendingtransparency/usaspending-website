@@ -65,6 +65,11 @@
                 display: block;
                 height: 0;
             }
+            .tooltip-pointer {
+                &.left {
+                    left: rem(-16);
+                }
+            }
         }
     }
 }
