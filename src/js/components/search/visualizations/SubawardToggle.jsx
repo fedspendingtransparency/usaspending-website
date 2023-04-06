@@ -37,6 +37,7 @@ export default class SubawardToggle extends React.Component {
         const currentSelection = this.props.subaward ? 'Sub-Awards' : 'Prime Awards';
         return (
             <button
+                tabIndex="0"
                 className="subaward-toggle"
                 onClick={this.toggledSwitch}
                 aria-pressed={!this.props.subaward}
