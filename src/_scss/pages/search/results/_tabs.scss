@@ -60,7 +60,7 @@
         @include align-items(center);
         position: relative;
         z-index: 2;
-        margin-left: rem(5);
+        margin-right: rem(4);
         padding: rem(20);
         background-color: $gray-cool-10;
         border-top-left-radius: 5px;
@@ -140,14 +140,6 @@
 
             &.active {
                 opacity: 1;
-            }
-        }
-    }
-
-    li {
-        &:first-child {
-            .visualization-type-tab {
-                margin-left: 0;
             }
         }
     }
