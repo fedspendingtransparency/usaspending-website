@@ -6,14 +6,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { uniqueId } from 'lodash';
-import { Picker } from 'data-transparency-ui';
-
+import { Picker, TooltipWrapper } from 'data-transparency-ui';
 import { mapFilterSortOrderByValue } from 'dataMapping/covid19/covid19';
 import { handleSort } from 'helpers/covid19Helper';
-
+import { SpendingByRecipientMapTT } from '../../../../components/covid19/Covid19Tooltips';
 import MapFiltersHeader from './MapFiltersHeader';
-import { TooltipWrapper } from 'data-transparency-ui';
-import { SpendingByRecipientMapTT } from 'components/covid19/Covid19Tooltips';
 
 const propTypes = {
     filters: PropTypes.object,

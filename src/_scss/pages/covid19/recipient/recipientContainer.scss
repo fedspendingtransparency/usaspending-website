@@ -141,12 +141,28 @@
                 padding-bottom: 2rem;
                 transition: 2s;
                 .map__filters-label {
-                  opacity: 0.75;
                   font-size: 1.2rem;
                   letter-spacing: 0;
                   line-height: 1.5rem;
-                  display: flex;
                   white-space: nowrap;
+                  display: flex;
+                  @import "../../../components/tooltips/customTooltipContent";
+
+                  .tooltip-wrapper {
+                    white-space: normal;
+                    display: inline;
+                    opacity: 1 !important;
+
+                    .tooltip__content {
+                      opacity: 1 !important;
+                    }
+                    .tooltip-pointer {
+                      left: -0.7rem;
+                    }
+                    .tooltip-pointer::after {
+                      background-color: $color-white;
+                    }
+                  }
                 }
                 .usa-dt-picker {
                   .usa-dt-picker__dropdown-container {
@@ -178,6 +194,7 @@
                       }
                       .usa-dt-picker__list {
                         z-index: 3;
+                        overflow: hidden;
                       }
                     }
                     .usa-dt-picker__list {
