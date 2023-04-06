@@ -153,10 +153,10 @@
                     display: inline;
 
                     .tooltip-pointer {
-                      left: -0.7rem;
+                      left: -0.8rem;
                     }
                     .tooltip-pointer::after {
-                      background-color: $color-white;;
+                      background-color: $color-white !important;
                     }
                   }
                 }
@@ -195,6 +195,7 @@
                     }
                     .usa-dt-picker__list {
                       z-index: 3;
+                      overflow: hidden;
                       // some styles need to go here to hide the scroll bar in ie
                       -ms-overflow-style: none;
                       .usa-dt-picker__list-item {
