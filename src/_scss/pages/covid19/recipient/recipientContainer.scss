@@ -151,16 +151,12 @@
                   .tooltip-wrapper {
                     white-space: normal;
                     display: inline;
-                    opacity: 1 !important;
 
-                    .tooltip__content {
-                      opacity: 1 !important;
-                    }
                     .tooltip-pointer {
                       left: -0.7rem;
                     }
                     .tooltip-pointer::after {
-                      background-color: $color-white;
+                      background-color: $color-white;;
                     }
                   }
                 }

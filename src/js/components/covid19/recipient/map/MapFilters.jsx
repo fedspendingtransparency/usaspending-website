@@ -11,6 +11,8 @@ import { mapFilterSortOrderByValue } from 'dataMapping/covid19/covid19';
 import { handleSort } from 'helpers/covid19Helper';
 import { SpendingByRecipientMapTT } from '../../../../components/covid19/Covid19Tooltips';
 import MapFiltersHeader from './MapFiltersHeader';
+import { CondensedCDTooltip } from '../../../../components/award/shared/InfoTooltipContent';
+import FeatureFlag from "../../../sharedComponents/FeatureFlag";
 
 const propTypes = {
     filters: PropTypes.object,
@@ -29,6 +31,16 @@ const MapFilters = ({ filters, activeFilters, isOpen }) => (
                     <div key={uniqueId()} className="map__filters-filter__container">
                         <div className="map__filters-label">
                             {filters[filter].label}
+                            {filters[filter].label === 'AREA TYPE' ?
+                                <FeatureFlag>
+                                    <TooltipWrapper
+                                        className="spending_types-tt"
+                                        icon="info"
+                                        tooltipPosition="right"
+                                        tooltipComponent={<CondensedCDTooltip title="Area Type: Congressional Districts" />} />
+                                </FeatureFlag>
+                                :
+                                null}
                             {filters[filter].label === 'AMOUNT TYPE' ?
                                 <TooltipWrapper
                                     className="spending_types-tt"
