@@ -46,7 +46,7 @@ const MapLayerToggle = (props) => {
                     {title === 'Congressional District' ?
                         <div
                             style={{ display: 'flex' }}>
-                            {title}s <FeatureFlag><TooltipWrapper className="congressional-district__tt" tooltipPosition="right" icon="info" tooltipComponent={<CondensedCDTooltip title="Congressional District" />} /></FeatureFlag>
+                            {title}s <FeatureFlag><TooltipWrapper tooltipPosition="right" icon="info" tooltipComponent={<CondensedCDTooltip title="Congressional District" />} /></FeatureFlag>
                         </div>
                         :
                         <>{title}s </>}
