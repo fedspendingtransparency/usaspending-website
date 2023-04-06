@@ -1,0 +1,140 @@
+.footer2-container {
+  @import 'all';
+
+  display: flex;
+  flex-flow: column wrap;
+  align-items: center;
+  background-color: $theme-color-dark-blue-bg;
+  color: $theme-color-headline-inverse;
+  font-size: $small-font-size;
+  text-align: center;
+  padding: $global-padding * 5 $global-padding * 4 $global-padding * 8;
+  width: 100%;
+
+  .footer2-logo {
+    margin-bottom: $global-margin * 3;
+
+    a {
+      // display inline-block for selection area to wrap child element completely
+      display: inline-block;
+    }
+
+    img {
+      height: rem(32);
+    }
+  }
+
+  .footer2-heading {
+    font-size: $font-size-24;
+    font-weight: $font-semibold;
+    line-height: 1.25;
+    margin-bottom: $global-margin;
+  }
+
+  .footer2-subHeading {
+    font-size: $base-font-size;
+    line-height: 1.5;
+    color: $theme-color-body-inverse;
+    margin-bottom: $global-margin * 5;
+  }
+
+  .footer2-link-section {
+    margin-bottom: $global-margin * 5;
+
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+      margin: 0;
+
+      li:last-of-type {
+        margin-bottom: 0;
+      }
+
+      a {
+        color: $card-outline-color;
+        text-decoration: none;
+      }
+    }
+
+    .footer2-link-section-title {
+      font-weight: $font-semibold;
+      line-height: 1.25;
+      color: $theme-color-headline-inverse;
+      margin-bottom: $global-margin;
+    }
+
+    li {
+      line-height: 1.5;
+      color: $card-outline-color;
+      margin-bottom: $global-margin * .5;
+
+      a {
+        &:hover {
+          color: white;
+        }
+      }
+    }
+  }
+
+  .footer2-social-media-section {
+    width: rem(288);
+    padding: 0 $global-padding * 3;
+    margin-bottom: $global-margin * 5;
+
+    ul {
+      @include unstyled-list;
+
+      display: flex;
+      flex-flow: row nowrap;
+      justify-content: space-between;
+
+      li {
+        &:hover {
+          svg {
+            color: white;
+          }
+        }
+
+        button {
+          @include button-unstyled;
+          font-size: rem(32);
+        }
+      }
+    }
+  }
+
+  .footer2-legal-links-section {
+
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+      margin: 0;
+
+      li:last-of-type {
+        margin-bottom: $global-margin * 5;
+      }
+
+      a {
+        color: $card-outline-color;
+        text-decoration: none;
+      }
+
+      li {
+        line-height: 1.5;
+        color: $card-outline-color;
+        margin-bottom: $global-margin * 2;
+
+        a {
+          &:hover {
+            color: white;
+          }
+        }
+      }
+    }
+  }
+
+  .footer2-copyright-section {
+    line-height: 1.5;
+    color: $card-outline-color;
+  }
+}
