@@ -9,7 +9,6 @@ import PropTypes from "prop-types";
 import Analytics from 'helpers/analytics/Analytics';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
-import { useHistory } from "react-router-dom";
 import Button from './buttons/Button';
 
 const propTypes = {
@@ -22,7 +21,7 @@ const StayInTouch = (pageName) => {
         action: 'Link',
         label: 'sign-up'
     });
-    const history = useHistory();
+
     const handleSignUp = () => {
         trackLinkSignUp();
         window.location.href = "mailto:join-usaspending@lists.fiscal.treasury.gov?subject=Yes!%20I'd%20like%20to%20receive%20updates.";
@@ -34,8 +33,7 @@ const StayInTouch = (pageName) => {
     });
     const handleLearnMore = () => {
         trackLinkLearnMore();
-        const path = `about?section=training`;
-        history.push(path);
+        window.open("/about?section=training", "_self");
     };
 
     return (
