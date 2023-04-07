@@ -25,7 +25,13 @@ const MapLayerToggle = (props) => {
     };
 
     const items = props.available.map((layer) => {
-        const title = capitalizeLabel(props.sources[layer].label);
+        let tempLabel = '';
+        if (props.sources[layer].label === 'county') {
+            tempLabel = 'counties';
+        } else {
+            tempLabel = 'congressional districts';
+        }
+        const title = capitalizeLabel(tempLabel);
         let active = '';
         if (props.active === layer) {
             active = 'active';
@@ -46,7 +52,6 @@ const MapLayerToggle = (props) => {
             </li>
         );
     });
-
     return (
         <div className="map-layer-toggle">
             <ul className="map-layer-list">
