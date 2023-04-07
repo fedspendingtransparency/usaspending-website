@@ -4,7 +4,7 @@
  **/
 
 import React, { useState, useEffect } from 'react';
-import { tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
+import { tabletScreen, mlargeScreen } from 'dataMapping/shared/mobileBreakpoints';
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { throttle } from "lodash";
@@ -34,6 +34,7 @@ const Footer2 = ({
 }) => {
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < tabletScreen);
+    const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth >= mlargeScreen);
 
     const generateOnClick = (url) => () => {
         clickedFooterLink(url);
@@ -47,24 +48,30 @@ const Footer2 = ({
             if (windowWidth !== newWidth) {
                 setWindowWidth(newWidth);
                 setIsMobile(newWidth < tabletScreen);
+                setIsLargeScreen(newWidth >= mlargeScreen);
             }
         }, 50);
         window.addEventListener('resize', handleResize);
         return () => window.removeEventListener('resize', handleResize);
-    }, [isMobile, windowWidth]);
+    }, [isMobile, isLargeScreen, windowWidth]);
 
     return (
         <>
             <StayInTouch pageName={pageName} />
             <div className="footer2-container">
-                <div className="footer2-logo">
-                    <Link
-                        to="/"
-                        title="USAspending.gov Home"
-                        aria-label="USAspending.gov Home"
-                        onClick={clickedFooterLink.bind(null, '/')}>
-                        <img src="img/footer_logo.png" alt="USAspending.gov" />
-                    </Link>
+                <div className="footer2-logo-container">
+                    <div className="footer2-logo">
+                        <Link
+                            to="/"
+                            title="USAspending.gov Home"
+                            aria-label="USAspending.gov Home"
+                            onClick={clickedFooterLink.bind(null, '/')}>
+                            <img src="img/footer_logo.png" alt="USAspending.gov" />
+                        </Link>
+                    </div>
+                    {isLargeScreen && (
+                        <div className="footer2-border-bottom" />
+                    )}
                 </div>
                 <div className="footer2-large-screen-row-one">
                     <div className="footer2-heading-container">

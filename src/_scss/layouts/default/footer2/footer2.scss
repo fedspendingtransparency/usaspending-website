@@ -41,18 +41,36 @@
     }
   }
 
-  .footer2-logo {
-    margin-bottom: $global-margin * 3;
+  .footer2-logo-container {
 
-    a {
-      // display inline-block for selection area to wrap child element completely
-      display: inline-block;
+    @media (min-width: $m-large-screen) {
+      display: flex;
+      width: 100%;
     }
 
-    img {
-      height: rem(32);
+    .footer2-logo {
+      margin-bottom: $global-margin * 3;
+
+      a {
+        // display inline-block for selection area to wrap child element completely
+        display: inline-block;
+      }
+
+      img {
+        height: rem(32);
+        @media (min-width: $m-large-screen) {
+          max-width: unset;
+        }
+      }
+    }
+
+    .footer2-border-bottom {
+      width: 100%;
+      border-bottom: $theme-color-another-underline solid 1px;
+      margin: 0 0 $global-margin * 4 $global-margin;
     }
   }
+
 
   .footer2-heading {
     font-size: $font-size-24;
