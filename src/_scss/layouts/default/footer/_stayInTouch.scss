@@ -5,7 +5,7 @@
     padding: $global-padding * 3 $global-padding * 4;
   }
   @media (min-width: 1400px) {
-    padding: $global-padding * 3 0;
+    padding: $global-padding * 3 $global-padding * 13;
   }
 
   .stay-in-touch__container-row {
