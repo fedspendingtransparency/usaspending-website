@@ -52,7 +52,7 @@
     @media (min-width: $tablet-screen) {
       display: flex;
       justify-content: space-evenly;
-      width: 100%;
+      width: rem(568);
       margin-bottom: $global-margin * 6;
     }
 
@@ -131,6 +131,7 @@
     width: 100%;
 
     @media (min-width: $tablet-screen) {
+      width: rem(558);
       margin-bottom: $global-margin * 5;
     }
 

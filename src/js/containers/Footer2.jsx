@@ -3,9 +3,11 @@
  * Created by Brian Petway 04/06/2023
  **/
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
+import { throttle } from "lodash";
 import Analytics from 'helpers/analytics/Analytics';
 import { faFacebookSquare, faGithub, faLinkedin, faTwitter, faYoutube } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -30,11 +32,26 @@ const Footer2 = ({
     pageName,
     redirectUser
 }) => {
+    const [windowWidth, setWindowWidth] = useState(0);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < tabletScreen);
+
     const generateOnClick = (url) => () => {
         clickedFooterLink(url);
         redirectUser(url);
     };
     const year = new Date().getFullYear();
+
+    useEffect(() => {
+        const handleResize = throttle(() => {
+            const newWidth = window.innerWidth;
+            if (windowWidth !== newWidth) {
+                setWindowWidth(newWidth);
+                setIsMobile(newWidth < tabletScreen);
+            }
+        }, 50);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, [isMobile, windowWidth]);
 
     return (
         <>
@@ -150,6 +167,9 @@ const Footer2 = ({
                                 Accessibility
                             </Link>
                         </li>
+                        {!isMobile && (
+                            <li>|</li>
+                        )}
                         <li>
                             <Link
                                 to="/about/privacy"
@@ -157,6 +177,9 @@ const Footer2 = ({
                                 Privacy Policy
                             </Link>
                         </li>
+                        {!isMobile && (
+                            <li>|</li>
+                        )}
                         <li>
                             <Link
                                 to="/about/foia"
@@ -164,6 +187,9 @@ const Footer2 = ({
                                 Freedom of Information Act
                             </Link>
                         </li>
+                        {!isMobile && (
+                            <li>|</li>
+                        )}
                         <li>
                             <Link
                                 to="/db_info"
