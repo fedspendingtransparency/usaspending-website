@@ -55,60 +55,62 @@ const Footer2 = ({
                 <div className="footer2-subHeading">
                     Providing publicly accessible and searchable data on what the federal government spends each year.
                 </div>
-                <div className="footer2-link-section">
-                    <div className="footer2-link-section-title">ABOUT</div>
-                    <ul>
-                        <li>
-                            <Link
-                                to="/about"
-                                onClick={clickedFooterLink.bind(null, '/about')}>
+                <div className="footer2-main-links-section">
+                    <div className="footer2-link-section">
+                        <div className="footer2-link-section-title">ABOUT</div>
+                        <ul>
+                            <li>
+                                <Link
+                                    to="/about"
+                                    onClick={clickedFooterLink.bind(null, '/about')}>
                             Mission
-                            </Link>
-                        </li>
-                        <li>
-                            <Link
-                                to="/about?section=careers"
-                                onClick={clickedFooterLink.bind(null, '/about')}>
+                                </Link>
+                            </li>
+                            <li>
+                                <Link
+                                    to="/about?section=careers"
+                                    onClick={clickedFooterLink.bind(null, '/about')}>
                             Careers
-                            </Link>
-                        </li>
-                    </ul>
-                </div>
-                <div className="footer2-link-section">
-                    <div className="footer2-link-section-title">HELP</div>
-                    <ul>
-                        <li>
-                            <FooterExternalLink
-                                link="https://fiscalservice.force.com/usaspending/s/recordlist/Knowledge__kav/00B3d000000V4WDEA0"
-                                title="FAQs" />
-                        </li>
-                        <li>
-                            <FooterExternalLink
-                                link="https://fiscalservice.force.com/usaspending/s/"
-                                title="Community" />
-                        </li>
-                        <li>
-                            <a
-                                href="mailto:usaspending.help@fiscal.treasury.gov?subject=Contact%20Us"
-                                onClick={clickedFooterLink.bind(
-                                    null,
-                                    'mailto:usaspending.help@fiscal.treasury.gov?subject=Contact%20Us'
-                                )}>
+                                </Link>
+                            </li>
+                        </ul>
+                    </div>
+                    <div className="footer2-link-section">
+                        <div className="footer2-link-section-title">HELP</div>
+                        <ul>
+                            <li>
+                                <FooterExternalLink
+                                    link="https://fiscalservice.force.com/usaspending/s/recordlist/Knowledge__kav/00B3d000000V4WDEA0"
+                                    title="FAQs" />
+                            </li>
+                            <li>
+                                <FooterExternalLink
+                                    link="https://fiscalservice.force.com/usaspending/s/"
+                                    title="Community" />
+                            </li>
+                            <li>
+                                <a
+                                    href="mailto:usaspending.help@fiscal.treasury.gov?subject=Contact%20Us"
+                                    onClick={clickedFooterLink.bind(
+                                        null,
+                                        'mailto:usaspending.help@fiscal.treasury.gov?subject=Contact%20Us'
+                                    )}>
                                 Email Us
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-                <div className="footer2-link-section">
-                    <div className="footer2-link-section-title">RELATED SITES</div>
-                    <ul>
-                        <li>
-                            <a target="_blank" rel="noopener noreferrer" href="https://fiscaldata.treasury.gov/">Fiscal Data</a>
-                        </li>
-                        <li>
-                            <a target="_blank" rel="noopener noreferrer" href="https://fiscal.treasury.gov/">Bureau of the Fiscal Service</a>
-                        </li>
-                    </ul>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div className="footer2-link-section">
+                        <div className="footer2-link-section-title">RELATED SITES</div>
+                        <ul>
+                            <li>
+                                <a target="_blank" rel="noopener noreferrer" href="https://fiscaldata.treasury.gov/">Fiscal Data</a>
+                            </li>
+                            <li>
+                                <a target="_blank" rel="noopener noreferrer" href="https://fiscal.treasury.gov/">Bureau of the Fiscal Service</a>
+                            </li>
+                        </ul>
+                    </div>
                 </div>
                 <div className="footer2-social-media-section">
                     <ul>

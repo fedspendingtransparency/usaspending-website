@@ -11,6 +11,10 @@
   padding: $global-padding * 5 $global-padding * 4 $global-padding * 8;
   width: 100%;
 
+  @media (min-width: $tablet-screen) {
+    padding: $global-padding * 5 $global-padding * 13;
+  }
+
   .footer2-logo {
     margin-bottom: $global-margin * 3;
 
@@ -36,45 +40,66 @@
     line-height: 1.5;
     color: $theme-color-body-inverse;
     margin-bottom: $global-margin * 5;
+
+    @media (min-width: $tablet-screen) {
+      width: rem(426);
+      margin-bottom: $global-margin * 6;
+    }
   }
 
-  .footer2-link-section {
-    margin-bottom: $global-margin * 5;
+  .footer2-main-links-section {
 
-    ul {
-      list-style-type: none;
-      padding-left: 0;
-      margin: 0;
+    @media (min-width: $tablet-screen) {
+      display: flex;
+      justify-content: space-evenly;
+      width: 100%;
+      margin-bottom: $global-margin * 6;
+    }
 
-      li:last-of-type {
+    .footer2-link-section {
+      margin-bottom: $global-margin * 5;
+
+      @media (min-width: $tablet-screen) {
+        width: rem(160);
         margin-bottom: 0;
       }
 
-      a {
-        color: $card-outline-color;
-        text-decoration: none;
+      ul {
+        list-style-type: none;
+        padding-left: 0;
+        margin: 0;
+
+        li:last-of-type {
+          margin-bottom: 0;
+        }
+
+        a {
+          color: $card-outline-color;
+          text-decoration: none;
+        }
       }
-    }
 
-    .footer2-link-section-title {
-      font-weight: $font-semibold;
-      line-height: 1.25;
-      color: $theme-color-headline-inverse;
-      margin-bottom: $global-margin;
-    }
+      .footer2-link-section-title {
+        font-weight: $font-semibold;
+        line-height: 1.25;
+        color: $theme-color-headline-inverse;
+        margin-bottom: $global-margin;
+      }
 
-    li {
-      line-height: 1.5;
-      color: $card-outline-color;
-      margin-bottom: $global-margin * .5;
+      li {
+        line-height: 1.5;
+        color: $card-outline-color;
+        margin-bottom: $global-margin * .5;
 
-      a {
-        &:hover {
-          color: white;
+        a {
+          &:hover {
+            color: white;
+          }
         }
       }
     }
   }
+
 
   .footer2-social-media-section {
     width: rem(288);
@@ -85,7 +110,6 @@
       @include unstyled-list;
 
       display: flex;
-      flex-flow: row nowrap;
       justify-content: space-between;
 
       li {
@@ -104,14 +128,28 @@
   }
 
   .footer2-legal-links-section {
+    width: 100%;
+
+    @media (min-width: $tablet-screen) {
+      margin-bottom: $global-margin * 5;
+    }
 
     ul {
       list-style-type: none;
       padding-left: 0;
       margin: 0;
 
+      @media (min-width: $tablet-screen) {
+        display: flex;
+        justify-content: space-evenly;
+      }
+
       li:last-of-type {
         margin-bottom: $global-margin * 5;
+
+        @media (min-width: $tablet-screen) {
+          margin-bottom: 0;
+        }
       }
 
       a {
@@ -123,6 +161,10 @@
         line-height: 1.5;
         color: $card-outline-color;
         margin-bottom: $global-margin * 2;
+
+        @media (min-width: $tablet-screen) {
+          margin-bottom: 0;
+        }
 
         a {
           &:hover {
