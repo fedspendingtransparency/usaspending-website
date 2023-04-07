@@ -164,8 +164,10 @@ const Footer2 = ({
                         </li>
                         <li>
                             <Link
-                                to="/"
-                                onClick={clickedFooterLink.bind(null, '/about/foia')}>
+                                to="/db_info"
+                                title="Limitation on Permissible Use of Dun & Bradstreet, Inc. (D&B) Data"
+                                aria-label="Limitation on Permissible Use of Dun & Bradstreet, Inc. (D&B) Data"
+                                onClick={clickedFooterLink.bind(null, '/db_info')}>
                                 D&B Information
                             </Link>
                         </li>
