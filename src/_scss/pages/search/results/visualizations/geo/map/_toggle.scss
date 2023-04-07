@@ -32,7 +32,7 @@
                 margin-top: 0;
             }
             @include media($large-screen) {
-                margin-left: rem(40);
+                margin-left: rem(20);
             }
 
             &:first-child {
@@ -44,11 +44,12 @@
         .map-layer-option {
             @include button-unstyled;
             color: $color-base;
-            text-align: center;
+            text-align: left;
             font-size: $small-font-size;
             font-weight: $font-normal;
             line-height: rem(18);
-
+            white-space: nowrap;
+            display: flex;
             padding: 0 rem(5);
             border-bottom: rem(4) solid $color-white;
 
@@ -64,6 +65,10 @@
                 visibility: hidden;
                 display: block;
                 height: 0;
+            }
+
+            .state-profile__cd-tooltip {
+                white-space: normal;
             }
         }
     }

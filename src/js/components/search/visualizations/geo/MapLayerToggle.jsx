@@ -5,6 +5,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { TooltipWrapper } from "data-transparency-ui";
+import { CondensedCDTooltip } from 'components/award/shared/InfoTooltipContent';
+import FeatureFlag from "../../../sharedComponents/FeatureFlag";
 
 const propTypes = {
     active: PropTypes.string,
@@ -28,7 +31,8 @@ const MapLayerToggle = (props) => {
         let tempLabel = '';
         if (props.sources[layer].label === 'county') {
             tempLabel = 'counties';
-        } else {
+        }
+        else {
             tempLabel = 'congressional districts';
         }
         const title = capitalizeLabel(tempLabel);
@@ -48,6 +52,15 @@ const MapLayerToggle = (props) => {
                     data-content={title}
                     value={layer}>
                     {title}
+                    {title === "Congressional Districts" ?
+                        <FeatureFlag>
+                            <div className="state-profile__cd-tooltip">
+                                <TooltipWrapper
+                                    icon="info"
+                                    tooltipComponent={<CondensedCDTooltip title="Congressional District" />} />
+                            </div>
+                        </FeatureFlag>
+                        : null}
                 </button>
             </li>
         );
