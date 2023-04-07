@@ -27,6 +27,7 @@
             @include flex(1 1 auto);
             margin-left: 0;
             margin-top: rem(5);
+            display: flex;
             @include media($tablet-screen) {
                 margin-left: rem(10);
                 margin-top: 0;
@@ -39,6 +40,12 @@
                 margin-top: 0;
                 margin-left: 0;
             }
+            
+            .state-profile__cd-tooltip {
+                svg { 
+                    margin-left: 8px;
+                }
+            }
         }
 
         .map-layer-option {
@@ -48,8 +55,7 @@
             font-size: $small-font-size;
             font-weight: $font-normal;
             line-height: rem(18);
-            display: flex;
-            padding: 0 rem(5);
+            padding: 0;
             border-bottom: rem(4) solid $color-white;
 
             &.active, &:hover, &:active {
@@ -65,9 +71,11 @@
                 display: block;
                 height: 0;
             }
-
-            .state-profile__cd-tooltip {
-                white-space: normal;
+        }
+        .state-profile__cd-tooltip {
+            white-space: normal;
+            .tooltip-spacer {
+                max-width: 316px !important;
             }
         }
     }

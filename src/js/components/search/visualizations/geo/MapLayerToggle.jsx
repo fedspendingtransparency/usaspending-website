@@ -52,16 +52,16 @@ const MapLayerToggle = (props) => {
                     data-content={title}
                     value={layer}>
                     {title}
-                    {title === "Congressional Districts" ?
-                        <FeatureFlag>
-                            <div className="state-profile__cd-tooltip">
-                                <TooltipWrapper
-                                    icon="info"
-                                    tooltipComponent={<CondensedCDTooltip title="Congressional District" />} />
-                            </div>
-                        </FeatureFlag>
-                        : null}
                 </button>
+                {title === "Congressional Districts" ?
+                    <FeatureFlag>
+                        <div className="state-profile__cd-tooltip">
+                            <TooltipWrapper
+                                icon="info"
+                                tooltipComponent={<CondensedCDTooltip title="Congressional District" />} />
+                        </div>
+                    </FeatureFlag>
+                    : null}
             </li>
         );
     });
