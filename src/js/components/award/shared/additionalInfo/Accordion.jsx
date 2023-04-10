@@ -112,9 +112,11 @@ export default class Accordion extends React.Component {
                     key={key}
                     className="accordion-row">
                     <div className="accordion-row__title">{key}</div>
-                    <div className={`accordion-row__data${key === awardIdField ? ' generated-id' : ''} ${this.state.showCDTooltip ? ' show-tooltip' : ''}`}>
-                        {data}
-                        {this.state.showCDTooltip && (
+                    <div className={`accordion-row__data${key === awardIdField ? ' generated-id' : ''}${this.state.showCDTooltip ? ' show-tooltip' : ''}`}>
+                        <div className={`${this.state.open ? 'tab-enabled' : 'tab-disabled'}`}>
+                            {data}
+                        </div>
+                        {(this.state.open && this.state.showCDTooltip) && (
                             <FeatureFlag>
                                 <div className="accordion-row__data-tooltip">
                                     <TooltipWrapper
