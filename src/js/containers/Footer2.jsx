@@ -8,6 +8,8 @@ import { tabletScreen, mlargeScreen } from 'dataMapping/shared/mobileBreakpoints
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { throttle } from "lodash";
+import { connect } from "react-redux";
+import { showModal } from 'redux/actions/modal/modalActions';
 import Analytics from 'helpers/analytics/Analytics';
 import { faFacebookSquare, faGithub, faLinkedin, faTwitter, faYoutube } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -223,4 +225,10 @@ const Footer2 = ({
 };
 
 Footer2.propTypes = propTypes;
-export default Footer2;
+
+const mapDispatchToProps = (dispatch) => ({
+    redirectUser: (url) => dispatch(showModal(url))
+});
+
+export default connect(null, mapDispatchToProps)(Footer2);
+
