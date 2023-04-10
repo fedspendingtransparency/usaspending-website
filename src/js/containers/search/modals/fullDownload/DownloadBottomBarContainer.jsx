@@ -34,6 +34,8 @@ export class DownloadBottomBarContainer extends React.Component {
     constructor(props) {
         super(props);
 
+        console.log('props', props);
+
         this.state = {
             visible: false,
             showError: false,
@@ -249,7 +251,7 @@ export class DownloadBottomBarContainer extends React.Component {
     // we need to modify the browser event to trigger a warning message
         e.returnValue = `You have a file that is still being generated. If you leave, the file \
 will no longer download to your computer. Are you sure you want to do this?`;
-    /* eslint-ensable no-param-reassign */
+    /* eslint-enable no-param-reassign */
     }
 
     render() {
