@@ -41,7 +41,7 @@
                 margin-left: 0;
             }
             
-            .state-profile__cd-tooltip {
+            .map-layer__cd-tooltip {
                 svg { 
                     margin-left: 8px;
                 }
@@ -78,14 +78,13 @@
                 }
             }
         }
-        .map-layer__cd-tooltip{
+        .map-layer__cd-tooltip {
             display: inline-flex;
-        }
-        .state-profile__cd-tooltip {
             white-space: normal;
             .tooltip-spacer {
                 max-width: 316px !important;
             }
         }
+
     }
 }
