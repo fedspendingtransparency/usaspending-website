@@ -58,7 +58,7 @@ const MapLayerToggle = (props) => {
                         <div className="state-profile__cd-tooltip">
                             <TooltipWrapper
                                 icon="info"
-                                tooltipComponent={<CondensedCDTooltip title="Congressional District" />} />
+                                tooltipComponent={<CondensedCDTooltip title="Congressional Districts" />} />
                         </div>
                     </FeatureFlag>
                     : null}
