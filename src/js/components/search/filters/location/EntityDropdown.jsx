@@ -280,13 +280,15 @@ export default class EntityDropdown extends React.Component {
         return (
             <div
                 className="geo-entity-item">
-                <label
-                    className={`location-label ${disabled}`}
-                    htmlFor={`${field}-${type}-${uniqueIdentifier}`}>
-                    {this.props.title}
+                <div className="location-label__with-tt">
+                    <label
+                        className={`location-label ${disabled}`}
+                        htmlFor={`${field}-${type}-${uniqueIdentifier}`}>
+                        {this.props.title}
+                    </label>
                     {this.props.title === 'CONGRESSIONAL DISTRICT (US ONLY)' ?
                         <FeatureFlag>
-                            <div className={`${disabled}`}>
+                            <div>
                                 <TooltipWrapper
                                     className="advanced-search__cd-tooltip"
                                     icon="info"
@@ -294,7 +296,7 @@ export default class EntityDropdown extends React.Component {
                             </div>
                         </FeatureFlag>
                         : ''}
-                </label>
+                </div>
                 <div
                     id={`${field}-${type}-${uniqueIdentifier}`}
                     className={`geo-entity-dropdown ${disabled} ${autocompleteClass}`}
