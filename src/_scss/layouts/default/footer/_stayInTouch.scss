@@ -5,17 +5,18 @@
     padding: $global-padding * 3 $global-padding * 4;
   }
   @media (min-width: 1400px) {
-    padding: $global-padding * 3 $global-padding * 13;
+    padding: $global-padding * 3 $global-padding * 18;
   }
 
   .stay-in-touch__container-row {
-    max-width: 1400px;
     @media (min-width: $medium-screen) {
       flex-flow: row nowrap;
       justify-content: flex-start;
     }
-    @media (min-width: 1400px) and (max-width: 1468px) {
-      margin: 0 rem(32);
+
+    @media (min-width: 1400px) {
+      // this is a hacky fix bc it needs to match the footer, which isn't using Grid system
+      padding-left: $global-padding * 2;
     }
 
     .stay-in-touch__title-col {
@@ -29,7 +30,7 @@
       }
 
       @media (min-width: 1400px) {
-        margin-right: $global-margin * 3;
+        margin: 0 $global-margin * 3 0 0;
         padding: 0;
       }
 
