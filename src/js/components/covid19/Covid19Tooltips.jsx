@@ -112,7 +112,7 @@ export const SpendingByRecipientTT = () => (
 
 export const SpendingByRecipientMapTT = () => (
     <div className="spending_types-tt">
-        <h2 className="tooltip__title">Recipient Map</h2>
+        <h2 className="tooltip__title">Amount Type</h2>
         <div className="tooltip__text">
             <p>
                 Use the dropdown to filter spending amounts on the map.
