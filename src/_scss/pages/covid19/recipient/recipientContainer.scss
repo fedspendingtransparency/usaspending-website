@@ -155,9 +155,10 @@
                     .tooltip-pointer {
                       left: -0.8rem;
                       z-index: 2;
+                      color: $color-gray-lightest;
                     }
                     .tooltip-pointer::after {
-                      background-color: $color-white !important;
+                      background-color: $color-gray-lightest;
                     }
                   }
                 }
