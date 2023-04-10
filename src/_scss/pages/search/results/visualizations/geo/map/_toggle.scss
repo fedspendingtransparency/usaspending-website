@@ -71,6 +71,15 @@
                 display: block;
                 height: 0;
             }
+
+            .tooltip-pointer {
+                &.left {
+                    left: rem(-16);
+                }
+            }
+        }
+        .map-layer__cd-tooltip{
+            display: inline-flex;
         }
         .state-profile__cd-tooltip {
             white-space: normal;
