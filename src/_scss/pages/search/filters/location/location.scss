@@ -24,6 +24,15 @@
             &:first-child {
                 margin-top: rem(10);
             }
+            .location-label {
+                display: flex;
+                white-space: nowrap;
+        
+                .advanced-search__cd-tooltip {
+                    white-space: normal;
+                    display: unset;
+                }
+            }
         }
 
         .location-label {
