@@ -81,6 +81,7 @@ const VisualizationWrapper = (props) => {
         logVisualizationTab(props.type);
         parseTab();
         setMounted(true);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const tabs = tabOptions.map((tab) => (
@@ -139,15 +140,13 @@ const VisualizationWrapper = (props) => {
                     subaward={props.subaward}
                     setSearchViewSubaward={props.setSearchViewSubaward} />
             </div>
-            <div
-                className="visualization-tabs"
-                role="navigation"
-                aria-label="Visualization types">
-                <ul
+            <div className="visualization-tabs">
+                <div
                     className="visualization-tabs__list"
-                    role="menu">
+                    aria-label="Visualization types"
+                    role="tablist">
                     {tabs}
-                </ul>
+                </div>
                 <div className="visualization-tabs__toggle">
                     <SubawardToggle
                         subaward={props.subaward}

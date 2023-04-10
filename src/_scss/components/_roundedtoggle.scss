@@ -48,18 +48,18 @@
   }
   
   input:checked + .rounded-toggle__slider {
-    background-color: $color-primary;
+    background-color: $color-primary !important;
   }
   
   input:focus + .rounded-toggle__slider {
-    box-shadow: 0 0 1px $color-primary;
+    box-shadow: 0 0 2px $color-primary !important;
   }
   
   input:checked + .rounded-toggle__slider:before {
     -webkit-transform: translateX(22px);
     -ms-transform: translateX(22px);
     transform: translateX(22px);
-    border: 1px solid $color-gray;
+    border: 1px solid $color-gray !important;
   }
   
   .rounded-toggle__slider.rounded-toggle__round {
