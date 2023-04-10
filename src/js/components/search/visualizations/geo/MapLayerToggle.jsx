@@ -28,7 +28,17 @@ const MapLayerToggle = (props) => {
     };
 
     const items = props.available.map((layer) => {
-        const title = capitalizeLabel(props.sources[layer].label);
+        let tempLabel = '';
+        if (props.sources[layer].label === 'county') {
+            tempLabel = 'counties';
+        }
+        else if (props.sources[layer].label === 'state') {
+            tempLabel = 'states';
+        }
+        else {
+            tempLabel = 'Congressional Districts';
+        }
+        const title = capitalizeLabel(tempLabel);
         let active = '';
         if (props.active === layer) {
             active = 'active';
@@ -43,14 +53,17 @@ const MapLayerToggle = (props) => {
                     aria-label={`Display by ${title}`}
                     data-content={title}
                     value={layer}>
-                    {title === 'Congressional District' ?
-                        <span
-                            style={{ display: 'flex' }}>
-                            {title}s <FeatureFlag><TooltipWrapper tooltipPosition="right" icon="info" tooltipComponent={<CondensedCDTooltip title="Congressional District" />} /></FeatureFlag>
-                        </span>
-                        :
-                        <>{title}s </>}
+                    {title}
                 </button>
+                {title === "Congressional Districts" ?
+                    <FeatureFlag>
+                        <div className="map-layer__cd-tooltip">
+                            <TooltipWrapper
+                                icon="info"
+                                tooltipComponent={<CondensedCDTooltip title="Congressional Districts" />} />
+                        </div>
+                    </FeatureFlag>
+                    : null}
             </li>
         );
     });
