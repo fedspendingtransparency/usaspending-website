@@ -141,10 +141,31 @@
                 padding-bottom: 2rem;
                 transition: 2s;
                 .map__filters-label {
-                  opacity: 0.75;
                   font-size: 1.2rem;
                   letter-spacing: 0;
                   line-height: 1.5rem;
+                  white-space: nowrap;
+                  display: flex;
+                  @import "../../../components/tooltips/customTooltipContent";
+                  align-items: baseline
+                  ;
+                  svg {
+                    width: 12px;
+                    height: 12px;
+                  }
+                  .tooltip-wrapper {
+                    white-space: normal;
+                    display: inline;
+
+                    .tooltip-pointer {
+                      left: -0.8rem;
+                      z-index: 2;
+                      color: $color-gray-lightest;
+                    }
+                    .tooltip-pointer::after {
+                      background-color: $color-gray-lightest;
+                    }
+                  }
                 }
                 .usa-dt-picker {
                   .usa-dt-picker__dropdown-container {
@@ -176,10 +197,12 @@
                       }
                       .usa-dt-picker__list {
                         z-index: 3;
+                        overflow: hidden;
                       }
                     }
                     .usa-dt-picker__list {
                       z-index: 3;
+                      overflow: hidden;
                       // some styles need to go here to hide the scroll bar in ie
                       -ms-overflow-style: none;
                       .usa-dt-picker__list-item {
