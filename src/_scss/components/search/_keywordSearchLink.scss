@@ -38,6 +38,10 @@
             line-height: 1.5;
             letter-spacing: normal;
             color: $blue-50;
+
+            .advanced-search__keyword-search-span {
+                white-space: nowrap;
+            }
         }
     }
 }

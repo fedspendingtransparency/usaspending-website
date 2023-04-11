@@ -16,7 +16,7 @@ const KeywordSearchLink = () => (
             <p className="advanced-search__keyword-search-link-text">
                 Looking for the "Keyword Search" page?
             </p>
-            <Link className="advanced-search__keyword-search-link" to="/keyword_search">Click here to search award transactions by keyword.</Link>
+            <Link className="advanced-search__keyword-search-link" to="/keyword_search">Click here to search award transactions <span className="advanced-search__keyword-search-span">by keyword.</span></Link>
         </div>
     </div>
 );

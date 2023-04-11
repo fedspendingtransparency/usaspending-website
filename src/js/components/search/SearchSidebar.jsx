@@ -40,6 +40,7 @@ import * as SidebarHelper from 'helpers/sidebarHelper';
 import { TooltipWrapper } from 'data-transparency-ui';
 import { FilterTooltip } from '../award/shared/InfoTooltipContent';
 import KeywordSearchLink from "./KeywordSearchLink";
+import FeatureFlag from "../sharedComponents/FeatureFlag";
 
 const staticFilters = {
     // NOTE: if you update the title here
@@ -222,9 +223,11 @@ const SearchSidebar = ({
                 expanded={expanded} />
             <div className="sidebar-bottom-submit">
                 <SearchSidebarSubmitContainer />
-                <div className="sidebar-bottom__keyword-link-container">
-                    <KeywordSearchLink />
-                </div>
+                <FeatureFlag>
+                    <div className="sidebar-bottom__keyword-link-container">
+                        <KeywordSearchLink />
+                    </div>
+                </FeatureFlag>
             </div>
         </div>
     );
