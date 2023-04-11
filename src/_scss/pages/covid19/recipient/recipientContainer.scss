@@ -147,7 +147,12 @@
                   white-space: nowrap;
                   display: flex;
                   @import "../../../components/tooltips/customTooltipContent";
-
+                  align-items: baseline
+                  ;
+                  svg {
+                    width: 12px;
+                    height: 12px;
+                  }
                   .tooltip-wrapper {
                     white-space: normal;
                     display: inline;
