@@ -10,8 +10,8 @@ import { PageHeader } from 'data-transparency-ui';
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'containers/shared/HeaderContainer';
-import Footer from 'containers/Footer';
-// import Footer2 from 'containers/Footer2';
+// import Footer from 'containers/Footer';
+import Footer2 from 'containers/Footer2';
 
 const PageWrapper = ({
     pageName,
@@ -36,8 +36,8 @@ const PageWrapper = ({
         {React.cloneElement(children, {
             className: `usda-page__container${children.props.className ? ` ${children.props.className}` : ''}`
         })}
-        <Footer pageName={pageName} filters={filters} />
-        {/* <Footer2 pageName={pageName} filters={filters} /> */}
+        {/* <Footer pageName={pageName} filters={filters} /> */}
+        <Footer2 pageName={pageName} filters={filters} />
     </div>
 );
 

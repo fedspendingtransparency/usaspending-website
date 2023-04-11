@@ -5,15 +5,11 @@
 
 import React from 'react';
 import { forEach } from 'lodash';
-
 import * as MetaTagHelper from 'helpers/metaTagHelper';
-import Footer from 'containers/Footer';
+import Footer2 from 'containers/Footer2';
 import Header from 'containers/shared/HeaderContainer';
-
 import MetaTags from '../sharedComponents/metaTags/MetaTags';
-
 import * as Icons from '../sharedComponents/icons/Icons';
-
 import IconsExample from './IconsExample';
 import ButtonsExample from './ButtonsExample';
 
@@ -46,7 +42,7 @@ export default class TestStylePage extends React.Component {
                         </div>
                     </div>
                 </main>
-                <Footer pageName="Test Style Page" />
+                <Footer2 pageName="Test Style Page" />
             </div>
         );
     }

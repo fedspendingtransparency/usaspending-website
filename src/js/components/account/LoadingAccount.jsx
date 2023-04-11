@@ -5,10 +5,8 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-
-import Footer from 'containers/Footer';
+import Footer2 from 'containers/Footer2';
 import Header from 'containers/shared/HeaderContainer';
-
 import Error from '../sharedComponents/Error';
 
 const propTypes = {
@@ -29,7 +27,7 @@ export default class LoadingAccount extends React.Component {
                             message="" />
                     </div>
                 </main>
-                <Footer pageName="Loading Account" />
+                <Footer2 pageName="Loading Account" />
             </div>
         );
     }
