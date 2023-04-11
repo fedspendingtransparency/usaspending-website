@@ -1,5 +1,5 @@
 .map-layer-toggle {
-    z-index: 2;
+    z-index: 3;
     background-color: $color-white;
     display: block;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
@@ -74,6 +74,13 @@
         }
         .map-layer__cd-tooltip{
             display: inline-flex;
+            white-space: normal;
+            .tooltip-spacer {
+                max-width: 316px !important;
+                @media (max-width: $tablet-screen) {
+                    left: rem(-19) !important;
+                }
+            }
         }
     }
 }
