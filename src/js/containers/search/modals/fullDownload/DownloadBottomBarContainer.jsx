@@ -34,8 +34,6 @@ export class DownloadBottomBarContainer extends React.Component {
     constructor(props) {
         super(props);
 
-        console.log('props', props);
-
         this.state = {
             visible: false,
             showError: false,
@@ -55,7 +53,7 @@ export class DownloadBottomBarContainer extends React.Component {
     }
 
     componentDidMount() {
-        if (this.props.download.pendingDownload && this.props.download.showCollapsedProgress &&
+        if (this.props.download?.pendingDownload && this.props.download?.showCollapsedProgress &&
             !this.state.visible) {
             this.requestDownload(this.props.filters,
                 this.props.download.columns, this.props.download.type);
@@ -64,7 +62,7 @@ export class DownloadBottomBarContainer extends React.Component {
     }
 
     componentDidUpdate() {
-        if (this.props.download.pendingDownload && this.props.download.showCollapsedProgress &&
+        if (this.props.download?.pendingDownload && this.props.download?.showCollapsedProgress &&
             !this.state.visible) {
             this.requestDownload(this.props.filters,
                 this.props.download.columns, this.props.download.type);
@@ -79,7 +77,7 @@ export class DownloadBottomBarContainer extends React.Component {
     }
 
     displayBar() {
-    // monitor for window close events
+        // monitor for window close events
         window.addEventListener('beforeunload', this.windowWillClose);
         this.setState({
             visible: true,

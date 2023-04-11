@@ -62,7 +62,10 @@ const Footer2 = ({
     }, [isMobile, isLargeScreen, windowWidth]);
 
     return (
-        <>
+        <footer>
+            <DownloadBottomBarContainer
+                filters={filters} />
+            <BulkDownloadBottomBarContainer />
             <StayInTouch pageName={pageName} />
             <div className="footer2-container">
                 <div className="footer2-logo-container">
@@ -224,8 +227,7 @@ const Footer2 = ({
                     </div>
                 </div>
             </div>
-        </>
-
+        </footer>
     );
 };
 
