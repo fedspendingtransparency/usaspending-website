@@ -130,7 +130,7 @@ export default class SearchPage extends React.Component {
         if (this.state.isMobile) {
             fullSidebar = null;
         }
-
+        console.debug("state: ", this.state);
         return (
             <PageWrapper
                 pageName="Advanced Search"
@@ -152,7 +152,7 @@ export default class SearchPage extends React.Component {
                     <div className="search-contents">
                         <div className="full-search-sidebar">
                             { fullSidebar }
-                            <KeywordSearchLink />
+                            {this.state.isMobile === false ? <KeywordSearchLink /> : '' }
                         </div>
                         <Helmet>
                             <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css" rel="stylesheet" />
