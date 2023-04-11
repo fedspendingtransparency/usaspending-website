@@ -4,7 +4,7 @@
     background-color: $blue-5;
     display: flex;
 
-    @media(min-width: $large-screen) {
+    @media(min-width: $medium-screen) {
         padding: 24px 16px 24px 16px;
         margin-top: 24px;
     }
