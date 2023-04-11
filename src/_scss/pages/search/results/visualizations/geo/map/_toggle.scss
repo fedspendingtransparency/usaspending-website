@@ -1,5 +1,5 @@
 .map-layer-toggle {
-    z-index: 3;
+    z-index: 4;
     background-color: $color-white;
     display: block;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.3);
@@ -39,6 +39,11 @@
                 margin-top: 0;
                 margin-left: 0;
             }
+            .map-layer__cd-tooltip {
+                svg { 
+                    margin-left: 8px;
+                }
+            }
         }
 
         .map-layer-option {
@@ -49,7 +54,7 @@
             font-weight: $font-normal;
             line-height: rem(18);
 
-            padding: 0 rem(5);
+            padding: 0;
             border-bottom: rem(4) solid $color-white;
 
             &.active, &:hover, &:active {
