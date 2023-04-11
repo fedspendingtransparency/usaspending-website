@@ -17,6 +17,7 @@ import PageWrapper from 'components/sharedComponents/PageWrapper';
 import SearchSidebar from './SearchSidebar';
 import SearchResults from './SearchResults';
 import NoDownloadHover from './header/NoDownloadHover';
+import KeywordSearchLink from "./KeywordSearchLink";
 
 const propTypes = {
     download: PropTypes.object,
@@ -151,6 +152,7 @@ export default class SearchPage extends React.Component {
                     <div className="search-contents">
                         <div className="full-search-sidebar">
                             { fullSidebar }
+                            <KeywordSearchLink />
                         </div>
                         <Helmet>
                             <link href="https://api.mapbox.com/mapbox-gl-js/v2.11.1/mapbox-gl.css" rel="stylesheet" />
