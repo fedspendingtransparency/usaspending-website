@@ -58,7 +58,7 @@
       }
 
       img {
-        max-height: rem(30);
+        max-height: rem(32);
         @media (min-width: $m-large-screen) {
           max-width: unset;
         }
