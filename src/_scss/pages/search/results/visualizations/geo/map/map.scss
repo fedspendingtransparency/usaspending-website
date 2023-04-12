@@ -28,7 +28,7 @@
             float: right;
             right: rem(5);
             bottom: rem(80);
-            z-index: 3;
+            z-index: 2;
             .first-row,
             .second-row {
                 @include display(flex);
