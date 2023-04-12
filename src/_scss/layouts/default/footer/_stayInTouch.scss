@@ -44,7 +44,7 @@
       width: rem(35);
       height: rem(35);
       border-radius: 4px;
-      background-color: $theme-color-3;
+      background-color: $theme-color-dark-blue-bg;
       display: flex;
       justify-content: center;
       svg {
@@ -67,6 +67,9 @@
     .stay-in-touch__second-row-container {
       @media (min-width: 1400px) {
         padding: 0;
+      }
+      @media (min-width: 1400px) and (max-width: 1466px) {
+        margin-right: $global-margin * 4;
       }
       &.top {
         @media (max-width: $tablet-screen) {
