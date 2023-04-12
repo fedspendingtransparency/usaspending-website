@@ -189,7 +189,7 @@ const Footer2 = ({
                                 </Link>
                             </li>
                             {!isMobile && (
-                                <li>|</li>
+                                <li className="footer2-pipe-class">|</li>
                             )}
                             <li>
                                 <Link
@@ -199,7 +199,7 @@ const Footer2 = ({
                                 </Link>
                             </li>
                             {!isMobile && (
-                                <li>|</li>
+                                <li className="footer2-pipe-class">|</li>
                             )}
                             <li>
                                 <Link
@@ -209,7 +209,7 @@ const Footer2 = ({
                                 </Link>
                             </li>
                             {!isMobile && (
-                                <li>|</li>
+                                <li className="footer2-pipe-class">|</li>
                             )}
                             <li>
                                 <Link

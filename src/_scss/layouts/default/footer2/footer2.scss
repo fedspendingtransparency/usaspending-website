@@ -160,7 +160,11 @@
   .footer2-social-media-section {
     width: rem(288);
     padding: 0 $global-padding * 3;
-    margin-bottom: $global-margin * 5;
+    margin: $global-margin 0 $global-margin * 5;
+
+    @media (min-width: $tablet-screen) {
+      margin-top: 0;
+    }
 
     @media (min-width: $m-large-screen) {
       margin-bottom: 0;
@@ -238,6 +242,10 @@
             color: $gray-cool-5;
           }
         }
+      }
+
+      .footer2-pipe-class {
+        color: $theme-color-vertical-pipe;
       }
     }
   }
