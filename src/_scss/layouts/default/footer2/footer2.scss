@@ -49,6 +49,7 @@
     }
 
     .footer2-logo {
+      max-width: rem(300);
       margin-bottom: $global-margin * 3;
 
       a {
@@ -57,7 +58,7 @@
       }
 
       img {
-        height: rem(32);
+        max-height: rem(30);
         @media (min-width: $m-large-screen) {
           max-width: unset;
         }
