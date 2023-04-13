@@ -131,7 +131,7 @@ export default class SearchPage extends React.Component {
         if (this.state.isMobile) {
             fullSidebar = null;
         }
-        console.debug("state: ", this.state);
+
         return (
             <PageWrapper
                 pageName="Advanced Search"
