@@ -5,6 +5,7 @@
 
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from 'react-router-dom';
 
 const KeywordSearchLink = () => (
     <div className="advanced-search__keyword-search-link-container">
@@ -15,7 +16,7 @@ const KeywordSearchLink = () => (
             <p className="advanced-search__keyword-search-link-text">
                 Looking for the "Keyword Search" page?
             </p>
-            <a target="_blank" rel="noopener noreferrer" className="advanced-search__keyword-search-link button-type__intext-light" href="/keyword_search">Click here to search award transactions <span className="advanced-search__keyword-search-span">by keyword.</span></a>
+            <Link target="_blank" rel="noopener noreferrer" className="advanced-search__keyword-search-link" to="/keyword_search">Click here to search award transactions <span className="advanced-search__keyword-search-span">by keyword.</span></Link>
         </div>
     </div>
 );
