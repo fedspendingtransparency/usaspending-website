@@ -223,11 +223,12 @@ const SearchSidebar = ({
                 expanded={expanded} />
             <div className="sidebar-bottom-submit">
                 <SearchSidebarSubmitContainer />
+                {window.innerWidth <= mediumScreen &&
                 <FeatureFlag>
                     <div className="sidebar-bottom__keyword-link-container">
                         <KeywordSearchLink />
                     </div>
-                </FeatureFlag>
+                </FeatureFlag>}
             </div>
         </div>
     );
