@@ -20,6 +20,5 @@ const KeywordSearchLink = () => (
         </div>
     </div>
 );
-// /keyword_search
 export default KeywordSearchLink;
 
