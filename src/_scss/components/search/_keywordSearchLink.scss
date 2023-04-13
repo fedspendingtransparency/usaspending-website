@@ -1,5 +1,5 @@
 .advanced-search__keyword-search-link-container {
-    padding: 16px;
+    padding: $global-padding * 2;
     border: solid 1px $gray-cool-10;
     background-color: $blue-5;
     display: flex;
@@ -7,17 +7,17 @@
 
 
     @media(min-width: $medium-screen) {
-        padding: 24px 16px 24px 16px;
-        margin-top: 24px;
+        padding: $global-padding * 3 $global-padding * 2;
+        margin-top: $global-margin * 3;
     }
     .advanced-search__keyword-search-link-col1{
-        width: 24px;
-        height: 24px;
+        width: rem(24);
+        height: rem(24);
         .advanced-search__keyword-search-icon {
-            width: 16px;
-            height: 16px;
+            width: rem(16);
+            height: rem(16);
             color: $blue-50;
-            margin-right: 8px;
+            margin-right: $global-margin;
         }
     }
     .advanced-search__keyword-search-link-col2 {
