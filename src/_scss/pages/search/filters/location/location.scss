@@ -15,16 +15,28 @@
         margin-right: rem(5);
     }
 
-    .location-filter-form {
-        padding: 0 rem(5);
-
-        .location-item {
-            margin-top: rem(15);
-
-            &:first-child {
-                margin-top: rem(10);
+        .location-filter-form {
+            padding: 0 rem(5);
+    
+            .location-item {
+                margin-top: rem(15);
+    
+                &:first-child {
+                    margin-top: rem(10);
+                }
+    
+                .location-label__with-tt {
+                    display: flex;
+                    align-items: center;
+                    .advanced-search__cd-tooltip {
+                        opacity: 1;
+                        white-space: normal;
+                        display: unset;
+                        text-transform: none !important;
+                    }
+    
+                }
             }
-        }
 
         .location-label {
             padding: rem(5) 0;
