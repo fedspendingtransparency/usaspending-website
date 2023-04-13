@@ -17,5 +17,8 @@
         display: none !important;
     }
 
+    & .mapboxgl-ctrl-attrib {
+        display: none !important;
+    }
     @import "./_message";
 }

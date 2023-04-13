@@ -1,8 +1,14 @@
 .award-summary-tooltip {
     width: 100%;
+
     .tooltip__title,
     .tooltip__text {
         text-align: left;
+    }
+
+    .tooltip__title {
+        position: relative;
+        z-index: 2;
     }
     &.covid-19 {
         @include display(flex);
