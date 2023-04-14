@@ -67,7 +67,6 @@ const MapLayerToggle = (props) => {
             </li>
         );
     });
-
     return (
         <div className="map-layer-toggle">
             <ul className="map-layer-list">

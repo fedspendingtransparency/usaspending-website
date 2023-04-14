@@ -27,12 +27,13 @@
             @include flex(1 1 auto);
             margin-left: 0;
             margin-top: rem(5);
+            display: flex;
             @include media($tablet-screen) {
                 margin-left: rem(10);
                 margin-top: 0;
             }
             @include media($large-screen) {
-                margin-left: rem(40);
+                margin-left: rem(20);
             }
 
             &:first-child {
@@ -49,11 +50,10 @@
         .map-layer-option {
             @include button-unstyled;
             color: $color-base;
-            text-align: center;
+            text-align: left;
             font-size: $small-font-size;
             font-weight: $font-normal;
             line-height: rem(18);
-
             padding: 0;
             border-bottom: rem(4) solid $color-white;
 
@@ -77,7 +77,7 @@
                 }
             }
         }
-        .map-layer__cd-tooltip{
+        .map-layer__cd-tooltip {
             display: inline-flex;
             white-space: normal;
             .tooltip-spacer {
