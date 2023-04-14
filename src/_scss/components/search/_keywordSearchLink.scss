@@ -41,6 +41,14 @@
             letter-spacing: normal;
             color: $blue-50;
 
+            &:hover {
+                color: $blue-70v;
+            }
+        
+            &:active {
+                color: $blue-cool-80v;
+            }
+
             .advanced-search__keyword-search-span {
                 white-space: nowrap;
             }
