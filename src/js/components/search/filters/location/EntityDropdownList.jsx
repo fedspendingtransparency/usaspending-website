@@ -53,7 +53,7 @@ const EntityDropdownList = (props) => {
                     aria-label={item.name}
                     data-listindex={i}
                     onMouseDown={handleSelection}
-                    onKeyUp={(e) => {
+                    onKeyDown={(e) => {
                         e.preventDefault();
                         if (e.key === "Enter") {
                             handleSelection();
