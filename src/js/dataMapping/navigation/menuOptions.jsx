@@ -9,13 +9,18 @@ const { FILES_SERVER_BASE_URL } = GlobalConstants;
 
 export const searchOptions = [
     {
-        label: 'Advanced Search',
-        url: '/search',
+        label: 'Budget Function Drill Down',
+        url: 'explorer/budget_function',
         enabled: true
     },
     {
-        label: 'Keyword Search',
-        url: '/keyword_search',
+        label: 'Agency Drill Down',
+        url: '/explorer/agency',
+        enabled: true
+    },
+    {
+        label: 'Object Class Drill Down',
+        url: '/explorer/object_class',
         enabled: true
     }
 ];
@@ -27,13 +32,13 @@ export const profileOptions = [
         enabled: true
     },
     {
-        label: 'Federal Accounts',
-        url: '/federal_account',
+        label: 'States & Territories',
+        url: '/state',
         enabled: true
     },
     {
-        label: 'States',
-        url: '/state',
+        label: 'Federal Accounts',
+        url: '/federal_account',
         enabled: true
     },
     {

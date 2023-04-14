@@ -10,7 +10,7 @@ import { searchOptions, profileOptions, downloadOptions, resourceOptions } from 
 import EmailSignUp from 'components/homepageUpdate/EmailSignUp';
 
 import { QAT } from '../../../GlobalConstants';
-import Dropdown from './DropdownStripe';
+import Dropdown from './Dropdown';
 import MobileNav from './mobile/MobileNav';
 
 const clickedHeaderLink = (route) => {
@@ -141,16 +141,6 @@ export default class NavBar extends React.Component {
                         <ul
                             className="full-menu__list"
                             role="menu">
-                            {QAT && (
-                                <li
-                                    className="full-menu__item"
-                                    role="menuitem">
-                                    <button className="full-menu__item--button" onClick={this.toggleModal}>
-                                        <FontAwesomeIcon icon={faEnvelope} />
-                                        Stay In Touch
-                                    </button>
-                                </li>
-                            )}
                             <li
                                 className="full-menu__item"
                                 role="menuitem">
@@ -159,31 +149,23 @@ export default class NavBar extends React.Component {
                                     to="/explorer"
                                     title="Spending Explorer: Navigate the levels of government spending from top to bottom"
                                     onClick={clickedHeaderLink.bind(null, '/explorer')}>
-                                    Spending Explorer
+                                    Search Award Data
                                 </Link>
                             </li>
                             <li
                                 className="full-menu__item"
                                 role="menuitem">
                                 <Dropdown
-                                    title="Award Search: Search through awards and discover trends and connections"
-                                    label="Award Search"
-                                    items={searchOptions} />
-                            </li>
-                            <li
-                                className="full-menu__item"
-                                role="menuitem">
-                                <Dropdown
-                                    title="Profiles: Learn more about organizations and accounts"
-                                    label="Profiles"
-                                    items={profileOptions} />
+                                    title="Explore The Data"
+                                    label="Explore the data"
+                                    items={searchOptions && profileOptions} />
                             </li>
                             <li
                                 className="full-menu__item"
                                 role="menuitem">
                                 <Dropdown
                                     title="Download"
-                                    label="Download"
+                                    label="Download The Data"
                                     items={downloadOptions} />
                             </li>
                             <li
@@ -191,7 +173,7 @@ export default class NavBar extends React.Component {
                                 role="menuitem">
                                 <Dropdown
                                     title="Resources"
-                                    label="Resources"
+                                    label="Find Resources"
                                     items={resourceOptions} />
                             </li>
                         </ul>
