@@ -253,7 +253,8 @@ const SearchContainer = ({ history }) => {
             downloadAvailable={downloadAvailable}
             downloadInFlight={downloadInFlight}
             download={download}
-            requestsComplete={areFiltersApplied} />
+            requestsComplete={areFiltersApplied}
+        />
     );
 };
 
