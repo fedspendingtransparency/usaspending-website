@@ -326,7 +326,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
                 updateMapLegendToggle={this.updateMapLegendToggle}
                 mapLegendToggle={this.props.mapLegendToggle}
                 subaward={this.props.subaward}
-                isDefCodeInFilter={this.props.reduxFilters?.filters?.defCodes?.counts} />
+                isDefCodeInFilter={this.props.reduxFilters?.defCodes?.counts} />
         );
     }
 }

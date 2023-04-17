@@ -11,6 +11,7 @@ import schema from "dataMapping/aboutTheDataSchema";
 import { showAboutTheData, setAboutTheDataTerm } from "redux/actions/aboutTheDataSidebar/aboutTheDataActions";
 import { setLastOpenedSlideout } from 'redux/actions/slideouts/slideoutActions';
 import { Link } from "react-router-dom";
+import { getDrilldownEntrySectionAndId } from "helpers/aboutTheDataSidebarHelper";
 
 const propTypes = {
     entry: PropTypes.string
@@ -18,15 +19,8 @@ const propTypes = {
 
 const AboutTheDataLink = ({ slug, children }) => {
     const dispatch = useDispatch();
-    const sections = Object.keys(schema);
-    let entry;
-    for (let i = 0; i < sections.length; i++) {
-        entry = schema[sections[i]].fields.find((item) => item.slug === slug);
-        if (entry && Object.keys(entry).length > 0) {
-            break;
-        }
-    }
-
+    const item = getDrilldownEntrySectionAndId(schema, slug);
+    const entry = item.section.fields[item?.entryId];
     const openAboutTheDataSidebar = (e) => {
         dispatch(setAboutTheDataTerm(entry));
         dispatch(showAboutTheData());

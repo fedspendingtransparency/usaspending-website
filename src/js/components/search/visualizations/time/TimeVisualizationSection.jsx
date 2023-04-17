@@ -10,7 +10,8 @@ import { throttle, capitalize } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { TooltipWrapper } from 'data-transparency-ui';
 import { fullMonthFromAbbr } from 'helpers/monthHelper';
-import AboutTheDataLink from "components/sharedComponents/AboutTheDataLink";
+import { getAtdDefcText } from "helpers/aboutTheDataSidebarHelper";
+
 import TimeVisualization from './TimeVisualization';
 import TimeVisualizationPeriodButton from './TimeVisualizationPeriodButton';
 import GlossaryLink from '../../../sharedComponents/GlossaryLink';
@@ -130,15 +131,14 @@ export default class TimeVisualizationSection extends React.Component {
 
         const primeAwardPreview = "Spot trends in spending over your chosen time period. Break down your results by years, quarters, or months.";
         const primeAwardBody = <>
-            {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
-            {this.props.isDefCodeInFilter?.length > 0 && <p>Because you selected at least one Disaster Emergency Fund Code (DEFC) filter, your results were filtered by the earliest relevant public law that funded awards in your search. <AboutTheDataLink slug="start-date-for-defc-tracking">Read more about this date filter.</AboutTheDataLink> [link to “Start Date for Disaster Emergency Fund Code (DEFC) Tracking” About the Data entry, applied to the entire second sentence]</p>}
+            {getAtdDefcText(this.props.isDefCodeInFilter?.length > 0)}
             <p className="award-search__body-text">The data in the chart below represent {<span className="award-search__glossary-term"> obligation</span>}{' '}{<GlossaryLink term="obligation" />} amounts for prime award {<span className="award-search__glossary-term"> transactions</span>}{' '}{<GlossaryLink term="transaction" />} within the selected filters. Prime award transactions with the same unique award ID are grouped under a single prime award summary. Prime award summaries can be viewed in the Table tab.</p>
         </>;
 
         const subAwardPreview = "Spot trends in spending over your chosen time period. Break down your results by years, quarters, or months.";
         const subAwardBody = (
             <>
-                {this.props.isDefCodeInFilter?.length > 0 && <p>Because you selected at least one Disaster Emergency Fund Code (DEFC) filter, your results were filtered by the earliest relevant public law that funded awards in your search. Read more about this date filter. [link to “Start Date for Disaster Emergency Fund Code (DEFC) Tracking” About the Data entry, applied to the entire second sentence]</p>}
+                {getAtdDefcText(this.props.isDefCodeInFilter?.length > 0)}
                 <p className="award-search__body-text">The data below represent{<span className="award-search__glossary-term"> sub-awards</span>}{' '}{<GlossaryLink term="sub-award" />} that meet the selected filter criteria. The results do not reflect sub-awards whose
                     {<span className="award-search__glossary-term"> prime awards</span>}{' '}{<GlossaryLink term="prime-award" />}
                     {' '}meet the selected filter criteria. For example, if you filter by Fiscal Year 2019, you will see only sub-awards with Action Dates in Fiscal Year 2019, but you will not see all sub-awards whose prime award overlaps with Fiscal Year 2019.
