@@ -509,8 +509,7 @@ export class ResultsTableContainer extends React.Component {
                 loadNextPage={this.loadNextPage}
                 subaward={this.props.subaward}
                 awardIdClick={this.awardIdClick}
-                subAwardIdClick={this.subAwardIdClick}
-                isDefCodeInFilter={this.props.filters?.defCodes?.counts} />
+                subAwardIdClick={this.subAwardIdClick} />
         );
     }
 }

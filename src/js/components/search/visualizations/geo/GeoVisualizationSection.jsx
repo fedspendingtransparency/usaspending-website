@@ -136,12 +136,14 @@ export default class GeoVisualizationSection extends React.Component {
 
         const primeAwardPreview = "Use the map below to break down spending by state, county, or congressional district.";
         const primeAwardBody = <>
+            {this.props.isDefCodeInFilter?.length > 0 && <p>Because you selected at least one Disaster Emergency Fund Code (DEFC) filter, your results were filtered by the earliest relevant public law that funded awards in your search. Read more about this date filter. [link to “Start Date for Disaster Emergency Fund Code (DEFC) Tracking” About the Data entry, applied to the entire second sentence]</p>}
             <p className="award-search__body-text">The data in the map represent {<span className="award-search__glossary-term"> obligation</span>}{' '}{<GlossaryLink term="obligation" />} amounts for prime award {<span className="award-search__glossary-term"> transactions</span>}{' '}{<GlossaryLink term="transaction" />} within the selected filters. Prime award transactions with the same unique award ID are grouped under a single prime award summary. Prime award summaries can be viewed in the Table tab.</p>
         </>;
 
         const subAwardPreview = "Use the map below to break down spending by state, county, or congressional district.";
         const subAwardBody = (
             <>
+                {this.props.isDefCodeInFilter?.length > 0 && <p>Because you selected at least one Disaster Emergency Fund Code (DEFC) filter, your results were filtered by the earliest relevant public law that funded awards in your search. Read more about this date filter. [link to “Start Date for Disaster Emergency Fund Code (DEFC) Tracking” About the Data entry, applied to the entire second sentence]</p>}
                 <p className="award-search__body-text">
                     The data below represent{<span className="award-search__glossary-term"> sub-awards</span>}{' '}{<GlossaryLink term="sub-award" />}{' '}that meet the selected filter criteria. The results do not reflect sub-awards whose
                     {<span className="award-search__glossary-term"> prime awards</span>}{' '}{<GlossaryLink term="prime-award" />}
@@ -165,7 +167,6 @@ export default class GeoVisualizationSection extends React.Component {
         }
     }
     render() {
-        console.log(this.props.isDefCodeInFilter);
         if (!MapboxGL.supported()) {
             return (
                 <div className="results-table-message-container">

@@ -33,8 +33,7 @@ export default class TimeVisualizationSection extends React.Component {
             tableTitle: "",
             tableBody: "",
             tablePreview: "",
-            expanded: null,
-            isDefCodesInFilter: props.isDefCodesInFilter
+            expanded: null
         };
 
         this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
@@ -58,9 +57,6 @@ export default class TimeVisualizationSection extends React.Component {
             this.handleUpdateTitle();
             this.handleUpdateBody();
         }
-
-        this.state.isDefCodesInFilter = this.props.isDefCodeInFilter;
-
     }
 
     componentWillUnmount() {
@@ -141,6 +137,7 @@ export default class TimeVisualizationSection extends React.Component {
         const subAwardPreview = "Spot trends in spending over your chosen time period. Break down your results by years, quarters, or months.";
         const subAwardBody = (
             <>
+                {this.props.isDefCodeInFilter?.length > 0 && <p>Because you selected at least one Disaster Emergency Fund Code (DEFC) filter, your results were filtered by the earliest relevant public law that funded awards in your search. Read more about this date filter. [link to “Start Date for Disaster Emergency Fund Code (DEFC) Tracking” About the Data entry, applied to the entire second sentence]</p>}
                 <p className="award-search__body-text">The data below represent{<span className="award-search__glossary-term"> sub-awards</span>}{' '}{<GlossaryLink term="sub-award" />} that meet the selected filter criteria. The results do not reflect sub-awards whose
                     {<span className="award-search__glossary-term"> prime awards</span>}{' '}{<GlossaryLink term="prime-award" />}
                     {' '}meet the selected filter criteria. For example, if you filter by Fiscal Year 2019, you will see only sub-awards with Action Dates in Fiscal Year 2019, but you will not see all sub-awards whose prime award overlaps with Fiscal Year 2019.
@@ -166,31 +163,18 @@ export default class TimeVisualizationSection extends React.Component {
     // eslint-disable-next-line no-undef
     downloadBlob = () => new Blob([this.getDownloadData()], { type: 'text/csv;charset=utf-8;' });
 
-    renderDownloadLink = () => (isIe() ?
-        (
-            <button onClick={() => {
-                window.navigator.msSaveOrOpenBlob(this.downloadBlob(), 'spending-over-time.csv');
-            }}>
-                <FontAwesomeIcon icon="download" size="lg" />
-                <span className="text">
-                    Download data by {capitalize(this.props.data.visualizationPeriod === 'fiscal_year' ? 'year' : this.props.data.visualizationPeriod)}
-                </span>
-            </button>
-        ) : (
-            <a
-                href={URL.createObjectURL(this.downloadBlob())}
-                download="spending-over-time.csv" >
-                <FontAwesomeIcon icon="download" size="lg" />
-                <span className="text">
-                    Download data by {capitalize(this.props.data.visualizationPeriod === 'fiscal_year' ? 'year' : this.props.data.visualizationPeriod)}
-                </span>
-            </a>
-        )
+    renderDownloadLink = () => (
+        <a
+            href={URL.createObjectURL(this.downloadBlob())}
+            download="spending-over-time.csv" >
+            <FontAwesomeIcon icon="download" size="lg" />
+            <span className="text">
+                Download data by {capitalize(this.props.data.visualizationPeriod === 'fiscal_year' ? 'year' : this.props.data.visualizationPeriod)}
+            </span>
+        </a>
     );
 
     render() {
-        console.log(this.props.isDefCodeInFilter);
-
         const applyLineClamp = (elem) => {
             elem.classList.add("line-clamp");
         };
