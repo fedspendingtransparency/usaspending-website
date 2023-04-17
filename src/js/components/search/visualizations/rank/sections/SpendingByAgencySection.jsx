@@ -7,8 +7,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import ComingSoonLabel from 'components/sharedComponents/ComingSoonLabel';
-import RankVisualizationScopeButton from '../RankVisualizationScopeButton';
+import { getAtdDefcText } from "helpers/aboutTheDataSidebarHelper";
 
+import RankVisualizationScopeButton from '../RankVisualizationScopeButton';
 import RankVisualizationSection from './RankVisualizationSection';
 import GlossaryLink from '../../../../sharedComponents/GlossaryLink';
 import ReadMore from '../../../../sharedComponents/ReadMore';
@@ -71,6 +72,7 @@ export default class SpendingByAgencySection extends React.Component {
                         {this.props.subaward ?
                             <ReadMore openPrompt="read more" closePrompt="read less" openIcon="" closeIcon="" additionalFunctionality={additionalFunctionality}>
                                 <>
+                                    {getAtdDefcText(this.props.isDefCodeInFilter?.length > 0)}
                                     <p className="award-search__body-text">The data below represent{<span className="award-search__glossary-term"> sub-awards</span>}{' '}{<GlossaryLink term="sub-award" />} that meet the selected filter criteria. The results do not reflect sub-awards whose
                                         {<span className="award-search__glossary-term"> prime awards</span>}{' '}{<GlossaryLink term="prime-award" />}{' '}
             meet the selected filter criteria. For example, if you filter by Fiscal Year 2019, you will see only sub-awards with Action Dates in Fiscal Year 2019, but you will not see all sub-awards whose prime award overlaps with Fiscal Year 2019.
@@ -82,6 +84,7 @@ export default class SpendingByAgencySection extends React.Component {
                             </ReadMore> :
                             <ReadMore openPrompt="read more" closePrompt="read less" openIcon="" closeIcon="" additionalFunctionality={additionalFunctionality}>
                                 <>
+                                    {getAtdDefcText(this.props.isDefCodeInFilter?.length > 0)}
                                     <p className="award-search__body-text">The data in the chart below represent <span className="award-search__glossary-term"> obligation</span>{' '}<GlossaryLink term="obligation" /> amounts for prime award <span className="award-search__glossary-term"> transactions</span>{' '}<GlossaryLink term="transaction" /> within the selected filters. Prime award transactions with the same unique award ID are grouped under a single prime award summary. Prime award summaries can be viewed in the Table tab.</p>
                                 </>
                             </ReadMore>
