@@ -77,8 +77,6 @@ export default class TimeVisualization extends React.Component {
     }
 
     render() {
-        console.log(this.props);
-
         let tooltip = null;
         if (this.state.tooltipData && window.innerWidth > 720) {
             tooltip = (<Tooltip

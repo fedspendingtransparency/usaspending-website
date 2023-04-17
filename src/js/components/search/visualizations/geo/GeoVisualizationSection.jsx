@@ -165,6 +165,7 @@ export default class GeoVisualizationSection extends React.Component {
         }
     }
     render() {
+        console.log(this.props.isDefCodeInFilter);
         if (!MapboxGL.supported()) {
             return (
                 <div className="results-table-message-container">

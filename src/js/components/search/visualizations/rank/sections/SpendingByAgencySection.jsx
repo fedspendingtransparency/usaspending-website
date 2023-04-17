@@ -40,6 +40,8 @@ export default class SpendingByAgencySection extends React.Component {
         }
     }
     render() {
+        console.log(this.props.isDefCodeInFilter);
+
         const applyLineClamp = (elem) => {
             elem.classList.add("line-clamp");
         };

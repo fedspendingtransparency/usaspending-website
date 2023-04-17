@@ -205,7 +205,7 @@ export class TimeVisualizationSectionContainer extends React.Component {
                 updateVisualizationPeriod={this.updateVisualizationPeriod}
                 visualizationPeriod={this.state.visualizationPeriod}
                 subaward={this.props.subaward}
-                isDefCodeInFilter={this.props.reduxFilters?.filters?.defCodes?.counts} />
+                isDefCodeInFilter={this.props.reduxFilters?.defCodes?.counts} />
         );
     }
 }
