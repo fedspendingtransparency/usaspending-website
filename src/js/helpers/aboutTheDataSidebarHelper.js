@@ -40,7 +40,7 @@ export const getAtdDefcText = (isDefCodeInFilter) => {
         return (
             // eslint-disable-next-line react/jsx-filename-extension
             <p>Because you selected at least one Disaster Emergency Fund Code (DEFC) filter, your results were
-                filtered by the earliest relevant public law that funded awards in your search.
+                filtered by the earliest relevant public law that funded awards in your search.&nbsp;
             <AboutTheDataLink
                 slug="start-date-for-defc-tracking">Read more about this date filter.
             </AboutTheDataLink>
