@@ -98,7 +98,8 @@ const SearchResults = (props) => {
                     <VisualizationWrapperContainer
                         isMobile={props.isMobile}
                         requestsComplete={props.requestsComplete}
-                        noFiltersApplied={props.noFiltersApplied} />
+                        noFiltersApplied={props.noFiltersApplied}
+                    />
                 </div>
             </div>
         </div>

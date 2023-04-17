@@ -62,6 +62,7 @@ export default class ResultsTableSection extends React.Component {
     }
 
     render() {
+        console.log(this.props.isDefCodeInFilter);
         const type = this.props.subaward ? 'Sub-Award' : 'Prime Award';
         const showTableMessage = (
             (!this.props.error && !this.props.inFlight && this.props.results.length === 0) ||

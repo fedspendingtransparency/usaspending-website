@@ -41,8 +41,7 @@ export default class SearchPage extends React.Component {
             showMobileFilters: false,
             filterCount: 0,
             isMobile: false,
-            showFullDownload: false,
-            isDefCodeInFilter: false
+            showFullDownload: false
         };
 
         // throttle the ocurrences of the scroll callback to once every 50ms
@@ -59,23 +58,6 @@ export default class SearchPage extends React.Component {
     // watch the page for scroll and resize events
         window.addEventListener('resize', this.handleWindowResize);
         this.handleWindowResize();
-    }
-
-    componentDidUpdate() {
-        const defCodesInFilter = this.props.appliedFilters?.defCodes?._map?._root?.entries[0][1];
-        if (this.state.isDefCodeInFilter && defCodesInFilter.length > 0) {
-            console.log(true);
-            this.setState({
-                isDefCodeInFilter: true
-            });
-        }
-
-        if (!defCodesInFilter && this.state.isDefCodeInFilter) {
-            console.log(false);
-            this.setState({
-                isDefCodeInFilter: false
-            });
-        }
     }
 
     componentWillUnmount() {
@@ -188,7 +170,8 @@ export default class SearchPage extends React.Component {
                             updateFilterCount={this.updateFilterCount}
                             toggleMobileFilters={this.toggleMobileFilters}
                             requestsComplete={this.props.requestsComplete}
-                            noFiltersApplied={this.props.noFiltersApplied} />
+                            noFiltersApplied={this.props.noFiltersApplied}
+                        />
                     </div>
                     <FullDownloadModalContainer
                         download={this.props.download}
