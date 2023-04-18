@@ -1,6 +1,6 @@
 /**
  * Dropdown.jsx
- * Created by Chas Stevens 4/12/2023
+ * Created by Kevin Li 1/18/18
  */
 
 import React, { useState } from 'react';
@@ -9,6 +9,7 @@ import { AngleDown } from 'components/sharedComponents/icons/Icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import DropdownItem from './DropdownItemStripe';
+import { faFan } from '@fortawesome/free-solid-svg-icons';
 
 const propTypes = {
     label: PropTypes.string.isRequired,

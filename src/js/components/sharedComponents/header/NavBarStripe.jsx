@@ -1,16 +1,14 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import Modal from 'react-aria-modal';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 
 import Analytics from 'helpers/analytics/Analytics';
 import { searchOptions, profileOptions, downloadOptions, resourceOptions } from 'dataMapping/navigation/menuOptions';
 import EmailSignUp from 'components/homepageUpdate/EmailSignUp';
 
-import { QAT } from '../../../GlobalConstants';
-import Dropdown from './Dropdown';
+import Dropdown from './DropdownStripe';
 import MobileNav from './mobile/MobileNav';
 
 const clickedHeaderLink = (route) => {
@@ -67,6 +65,7 @@ export default class NavBar extends React.Component {
     toggleModal = () => {
         this.setState({ showStayInTouchModal: !this.state.showStayInTouchModal });
     };
+
 
     render() {
         return (
@@ -158,7 +157,7 @@ export default class NavBar extends React.Component {
                                 <Dropdown
                                     title="Explore The Data"
                                     label="Explore the data"
-                                    items={searchOptions && profileOptions} />
+                                    items={profileOptions} />
                             </li>
                             <li
                                 className="full-menu__item"
