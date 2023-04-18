@@ -14,7 +14,8 @@ const propTypes = {
     active: PropTypes.string,
     available: PropTypes.array,
     changeMapLayer: PropTypes.func,
-    sources: PropTypes.object
+    sources: PropTypes.object,
+    className: PropTypes.string
 };
 
 const capitalizeLabel = (original) => {
@@ -61,6 +62,7 @@ const MapLayerToggle = (props) => {
                         <div className="map-layer__cd-tooltip">
                             <TooltipWrapper
                                 icon="info"
+                                className={props.className}
                                 tooltipPosition={(window.innerWidth >= tabletScreen && window.innerWidth <= mediumScreen) ? 'left' : 'right'}
                                 tooltipComponent={<CondensedCDTooltip title="Congressional Districts" />} />
                         </div>

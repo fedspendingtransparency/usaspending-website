@@ -30,7 +30,8 @@ const propTypes = {
     noApplied: PropTypes.bool,
     subaward: PropTypes.bool,
     mapLegendToggle: PropTypes.string,
-    updateMapLegendToggle: PropTypes.func
+    updateMapLegendToggle: PropTypes.func,
+    className: PropTypes.string
 };
 
 const apiScopes = {
@@ -326,7 +327,8 @@ export class GeoVisualizationSectionContainer extends React.Component {
                 updateMapLegendToggle={this.updateMapLegendToggle}
                 mapLegendToggle={this.props.mapLegendToggle}
                 subaward={this.props.subaward}
-                isDefCodeInFilter={this.props.reduxFilters?.defCodes?.counts} />
+                isDefCodeInFilter={this.props.reduxFilters?.defCodes?.counts}
+                className={this.props.className} />
         );
     }
 }
