@@ -257,7 +257,8 @@ export class RankVisualizationWrapperContainer extends React.Component {
                         changeScope={this.changeScope}
                         nextPage={this.nextPage}
                         previousPage={this.previousPage}
-                        subaward={this.props.subaward} />
+                        subaward={this.props.subaward}
+                        isDefCodeInFilter={this.props.reduxFilters?.defCodes?.counts} />
                 );
             case 'recipient':
                 return (
@@ -267,7 +268,8 @@ export class RankVisualizationWrapperContainer extends React.Component {
                         nextPage={this.nextPage}
                         previousPage={this.previousPage}
                         recipientError={this.state.recipientError}
-                        subaward={this.props.subaward} />
+                        subaward={this.props.subaward}
+                        isDefCodeInFilter={this.props.reduxFilters?.defCodes?.counts} />
                 );
             case 'cfda':
                 return (
@@ -276,7 +278,8 @@ export class RankVisualizationWrapperContainer extends React.Component {
                         changeScope={this.changeScope}
                         nextPage={this.nextPage}
                         previousPage={this.previousPage}
-                        subaward={this.props.subaward} />
+                        subaward={this.props.subaward}
+                        isDefCodeInFilter={this.props.reduxFilters?.defCodes?.counts} />
                 );
             case 'industryCode':
                 return (
@@ -286,7 +289,8 @@ export class RankVisualizationWrapperContainer extends React.Component {
                         nextPage={this.nextPage}
                         previousPage={this.previousPage}
                         industryCodeError={this.props.subaward}
-                        subaward={this.props.subaward} />
+                        subaward={this.props.subaward}
+                        isDefCodeInFilter={this.props.reduxFilters?.defCodes?.counts} />
                 );
             default:
                 return (
@@ -296,7 +300,8 @@ export class RankVisualizationWrapperContainer extends React.Component {
                         nextPage={this.nextPage}
                         previousPage={this.previousPage}
                         agencyType="awarding"
-                        subaward={this.props.subaward} />
+                        subaward={this.props.subaward}
+                        isDefCodeInFilter={this.props.reduxFilters?.defCodes?.counts} />
                 );
         }
     }
