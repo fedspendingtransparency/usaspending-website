@@ -88,9 +88,27 @@
                         top: rem(62) !important;
                         left: rem(-30) !important;
                     }
-                    @media ((min-width: $tablet-screen) and (max-width: $large-screen)) {
+                    @media ((min-width: $tablet-screen) and (max-width: $medium-screen)) {
                         top: rem(40) !important;
                         left: rem(-30) !important;
+
+                        .smart-bottom-right {
+                            left: 24.3rem;
+                            
+                        }
+                    }
+                    @media ((min-width: $medium-screen) and (max-width: $large-screen)) {
+                        top: rem(40) !important;
+                        left: rem(-30) !important;
+
+                        .smart-bottom-right {
+                            left: 24.3rem;
+                            
+                        }
+                    }
+                    @media ((min-width: $large-screen) and (max-width: $m-large-screen)) {
+                        top: rem(40) !important;
+                        left: rem(-20) !important;
 
                         .smart-bottom-right {
                             left: 24.3rem;
