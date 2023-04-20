@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-
+import { Flipper } from "react-flip-toolkit"
 import GlossaryContainer from 'containers/glossary/GlossaryContainer';
 import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
 import Analytics from 'helpers/analytics/Analytics';
 import AboutTheDataContainer from "containers/aboutTheDataSidebar/AboutTheDataContainer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ExternalLink from 'components/sharedComponents/ExternalLink';
-import NavBar from './NavBarStripe';
+import NavBarStripe from './NavBarStripe';
 import InfoBanner from "./InfoBanner";
 
 const clickedHeaderLink = (route) => {
@@ -27,7 +27,7 @@ export default class Header extends React.Component {
     }
 
     skippedNav(e) {
-    // don't update the URL due to potential React Router conflicts
+        // don't update the URL due to potential React Router conflicts
         e.preventDefault();
         // scroll to the main-content id
         const mainContent = document.getElementById('main-content');
@@ -47,7 +47,7 @@ export default class Header extends React.Component {
                     href="#main-content"
                     className="skip-nav"
                     onClick={this.skippedNav}>
-                        Skip to main content
+                    Skip to main content
                 </a>
                 <header
                     className="site-header__wrapper"
@@ -98,7 +98,10 @@ export default class Header extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <NavBar />
+                    <Flipper
+                        spring={300}>
+                        <NavBarStripe />
+                    </Flipper>
                 </header>
                 <AboutTheDataContainer />
                 <GlossaryContainer />

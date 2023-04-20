@@ -19,7 +19,7 @@ const clickedHeaderLink = (route) => {
     });
 };
 
-export default class NavBar extends React.Component {
+export default class NavBarStripe extends React.Component {
     constructor(props) {
         super(props);
 
