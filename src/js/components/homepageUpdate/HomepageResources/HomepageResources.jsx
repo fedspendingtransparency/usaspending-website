@@ -144,6 +144,8 @@ const HomepageResources = () => {
                                             text={card.text}>
                                             <CardButton
                                                 variant="text"
+                                                backgroundColor="light"
+                                                textAlignment="left"
                                                 text={card.buttonText}
                                                 link={card.buttonLink}
                                                 govLink={card.govLink}

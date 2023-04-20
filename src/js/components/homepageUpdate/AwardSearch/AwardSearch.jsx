@@ -191,6 +191,7 @@ const AwardSearch = () => {
                                                     onlyPerformAction
                                                     text="View spending by state"
                                                     variant="primary"
+                                                    backgroundColor="dark"
                                                     disabled={activeCardIndex !== 0}
                                                     action={() => {
                                                         handleGoToAdvancedSearch("map");

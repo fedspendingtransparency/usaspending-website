@@ -98,6 +98,7 @@ const ReadyToGetStarted = () => (
                                     <CardButton
                                         text={card.buttonText}
                                         variant="text"
+                                        backgroundColor="light"
                                         link={card.buttonLink}
                                         action={card.action} />
                                 </CardBody>
