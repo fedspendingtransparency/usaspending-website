@@ -50,6 +50,7 @@
             position: absolute;
             width: 692px;  
             height: 382px;
+            margin-top: 15px;
             background-color: $color-white;
             box-shadow: 0 4px 5px 0 rgba(0,0,0,0.5);
             border-top: 1px solid $dropdown-border;
@@ -74,7 +75,7 @@
         hr.nav-children__list-separator {
             border: none;
             border-bottom: 1px solid $dropdown-border;
-            margin: 0 rem(13);
+            margin: rem(10) rem(13);
 
             &.nav-children__list-separator_hidden {
                 display: none;

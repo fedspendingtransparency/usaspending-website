@@ -7,12 +7,12 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
 import * as slideoutActions from 'redux/actions/slideouts/slideoutActions';
 import Analytics from 'helpers/analytics/Analytics';
 import { getNewUrlForGlossary } from 'helpers/glossaryHelper';
 import DropdownComingSoon from './DropdownComingSoon';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faFan } from '@fortawesome/free-solid-svg-icons';
 
 const propTypes = {
@@ -41,7 +41,6 @@ const DropdownItem = ({
     description,
     enabled = true,
     shouldOpenNewTab = false,
-    isFirst = false,
     isNewTab = false,
     appendToExistingUrl = false
 }) => {
@@ -124,22 +123,13 @@ const DropdownItem = ({
         );
     }
 
-    let firstClass = '';
-    if (isFirst) {
-        firstClass = 'nav-children__list-separator_hidden';
-    }
-
     return (
         <li className="nav-children__list-item">
-            {/* <hr className={`nav-children__list-separator ${firstClass}`} /> */}
             <div className="nav-children__container">
                 <FontAwesomeIcon clasName="nav-children__font" icon={icon} />
                 {link}
                 <div className="nav-children__container_description">{description}</div>
             </div>
-           
-
-
         </li>
     );
 };

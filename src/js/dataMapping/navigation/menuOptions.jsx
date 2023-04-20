@@ -12,6 +12,7 @@ export const searchOptions = [
         label: 'Budget Function Drill Down',
         description: 'by high-level category',
         url: 'explorer/budget_function',
+        icon: 'faList',
         enabled: true
     },
     {

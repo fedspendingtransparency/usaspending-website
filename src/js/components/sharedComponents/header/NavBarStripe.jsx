@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import Modal from 'react-aria-modal';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faFan } from '@fortawesome/free-solid-svg-icons';
 
 import Analytics from 'helpers/analytics/Analytics';
 import { searchOptions, profileOptions, downloadOptions, resourceOptions } from 'dataMapping/navigation/menuOptions';
@@ -157,7 +158,7 @@ export default class NavBar extends React.Component {
                                 <Dropdown
                                     title="Explore The Data"
                                     label="Explore the data"
-                                    items={profileOptions} />
+                                    items={searchOptions} />
                             </li>
                             <li
                                 className="full-menu__item"
