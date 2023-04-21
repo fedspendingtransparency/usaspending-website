@@ -104,7 +104,7 @@ const VisualizationWrapper = (props) => {
                 content = <TimeVisualizationSectionContainer subaward={props.subaward} />;
                 break;
             case 'map':
-                content = <GeoVisualizationSectionContainer subaward={props.subaward} />;
+                content = <GeoVisualizationSectionContainer subaward={props.subaward} className="award-search__geo-toggle" />;
                 break;
             case 'rank':
                 content = <RankVisualizationWrapperContainer subaward={props.subaward} />;

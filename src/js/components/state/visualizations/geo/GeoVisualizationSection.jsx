@@ -26,7 +26,8 @@ const propTypes = {
     loading: PropTypes.bool,
     error: PropTypes.bool,
     noResults: PropTypes.bool,
-    stateCenter: PropTypes.array
+    stateCenter: PropTypes.array,
+    className: PropTypes.string
 };
 
 const availableLayers = ['county', 'congressionalDistrict'];
@@ -128,6 +129,7 @@ export default class GeoVisualizationSection extends React.Component {
         return (
             <div className="geo__map-section">
                 <MapWrapper
+                    className={this.props.className}
                     data={this.props.data}
                     renderHash={this.props.renderHash}
                     scope={this.props.mapLayer}

@@ -16,7 +16,8 @@ import * as FiscalYearHelper from 'helpers/fiscalYearHelper';
 import MapBroadcaster from 'helpers/mapBroadcaster';
 
 const propTypes = {
-    stateProfile: PropTypes.object
+    stateProfile: PropTypes.object,
+    className: PropTypes.string
 };
 
 const apiScopes = {
@@ -43,7 +44,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
         this.apiRequest = null;
 
         this.mapListeners = [];
-
+        this.className = "";
         this.changeMapLayer = this.changeMapLayer.bind(this);
         this.mapLoaded = this.mapLoaded.bind(this);
         this.prepareFetch = this.prepareFetch.bind(this);
@@ -212,7 +213,8 @@ export class GeoVisualizationSectionContainer extends React.Component {
                 stateCenter={this.props.stateProfile.center}
                 noResults={this.state.data.values.length === 0}
                 changeScope={this.changeScope}
-                changeMapLayer={this.changeMapLayer} />
+                changeMapLayer={this.changeMapLayer}
+                className={this.props.className} />
         );
     }
 }

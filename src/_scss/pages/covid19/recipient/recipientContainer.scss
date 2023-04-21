@@ -57,8 +57,9 @@
         @import "pages/search/results/visualizations/geo/map/map";
         .map-container {
           .map-legend {
-            bottom: 6.5rem;
+            bottom: 4rem;
             left: 1.5rem;
+            z-index: 1;
             @include media($tablet-screen) {
               bottom: 6rem;
               right: 1rem;
@@ -123,6 +124,10 @@
                   @include display(flex);
                   align-items: center;
                   .tooltip-wrapper {
+                    .tooltip-spacer {
+                      z-index: 15;
+                    }
+
                     .tooltip-pointer {
                       left: -0.7rem;
                     }
@@ -243,6 +248,10 @@
           //Hide info button that was added after mapbox package update to v1.13.0
           & .mapboxgl-ctrl-attrib-button {
               display: none !important;
+          }
+
+          & .mapboxgl-ctrl-attrib {
+            display: none !important;
           }
 
           @import "pages/search/results/visualizations/geo/_disclaimer";

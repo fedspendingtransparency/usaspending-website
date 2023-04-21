@@ -23,6 +23,9 @@
     & .mapboxgl-ctrl-attrib-button {
         display: none !important;
     }
+    & .mapboxgl-ctrl-attrib {
+        display: none !important;
+      }
 
     @import "./_disclaimer";
     @import "./_message";
