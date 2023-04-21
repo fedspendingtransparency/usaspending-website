@@ -98,6 +98,7 @@ const ReadyToGetStarted = () => (
                                     <CardButton
                                         text={card.buttonText}
                                         variant="text"
+                                        buttonSize="sm"
                                         backgroundColor="light"
                                         textAlignment="left"
                                         link={card.buttonLink}
