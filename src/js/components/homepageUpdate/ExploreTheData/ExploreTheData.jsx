@@ -34,8 +34,10 @@ const ExploreTheData = (props) => (
                                     headline={card.headline}
                                     text={card.text}>
                                     <CardButton
-                                        variant="hero__button--action"
+                                        variant="secondary"
                                         backgroundColor="light"
+                                        buttonSize="md"
+                                        textAlignment="center"
                                         text={card.buttonText}
                                         link={card.buttonLink}
                                         govLink={card.govLink}

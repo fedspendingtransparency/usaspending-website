@@ -172,7 +172,7 @@ a:hover, a:active {
        height: unset;
        border: unset;
        text-align: left;
-       justify-content: start;
+       justify-content: left !important;
      }
       @media (min-width: $medium-screen) {
         border-radius: rem(6);
