@@ -1,6 +1,3 @@
-import React from "react";
-import AboutTheDataLink from "components/sharedComponents/AboutTheDataLink";
-
 /**
  * aboutTheDataSidebarHelper.js
  * Created by Andrea Blackwell 12/07/2022
