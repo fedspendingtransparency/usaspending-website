@@ -13,6 +13,7 @@ import LoadingSpinner from 'components/sharedComponents/LoadingSpinner';
 import { ExclamationTriangle } from 'components/sharedComponents/icons/Icons';
 import Note from 'components/sharedComponents/Note';
 import { noteMessage } from 'dataMapping/search/geoVisualizationSection';
+import { getAtdDefcText } from "helpers/aboutTheDataSidebarHelper";
 
 import GeoVisualizationScopeButton from './GeoVisualizationScopeButton';
 import MapWrapper from './MapWrapper';
@@ -36,7 +37,8 @@ const propTypes = {
     noResults: PropTypes.bool,
     mapLegendToggle: PropTypes.string,
     updateMapLegendToggle: PropTypes.func,
-    subaward: PropTypes.bool
+    subaward: PropTypes.bool,
+    className: PropTypes.string
 };
 
 const availableLayers = ['state', 'county', 'congressionalDistrict'];
@@ -54,7 +56,7 @@ export default class GeoVisualizationSection extends React.Component {
             tablePreview: "",
             expanded: null
         };
-
+        this.className = "";
         this.showTooltip = this.showTooltip.bind(this);
         this.hideTooltip = this.hideTooltip.bind(this);
         this.closeDisclaimer = this.closeDisclaimer.bind(this);
@@ -136,12 +138,16 @@ export default class GeoVisualizationSection extends React.Component {
 
         const primeAwardPreview = "Use the map below to break down spending by state, county, or congressional district.";
         const primeAwardBody = <>
-            <p className="award-search__body-text">The data in the map represent {<span className="award-search__glossary-term"> obligation</span>}{' '}{<GlossaryLink term="obligation" />} amounts for prime award {<span className="award-search__glossary-term"> transactions</span>}{' '}{<GlossaryLink term="transaction" />} within the selected filters. Prime award transactions with the same unique award ID are grouped under a single prime award summary. Prime award summaries can be viewed in the Table tab.</p>
+            {getAtdDefcText(this.props.isDefCodeInFilter?.length > 0)}
+            <p className="award-search__body-text">
+                The data in the map represent {<span className="award-search__glossary-term"> obligation</span>}{' '}{<GlossaryLink term="obligation" />} amounts for prime award {<span className="award-search__glossary-term"> transactions</span>}{' '}{<GlossaryLink term="transaction" />} within the selected filters. Prime award transactions with the same unique award ID are grouped under a single prime award summary. Prime award summaries can be viewed in the Table tab.
+            </p>
         </>;
 
         const subAwardPreview = "Use the map below to break down spending by state, county, or congressional district.";
         const subAwardBody = (
             <>
+                {getAtdDefcText(this.props.isDefCodeInFilter?.length > 0)}
                 <p className="award-search__body-text">
                     The data below represent{<span className="award-search__glossary-term"> sub-awards</span>}{' '}{<GlossaryLink term="sub-award" />}{' '}that meet the selected filter criteria. The results do not reflect sub-awards whose
                     {<span className="award-search__glossary-term"> prime awards</span>}{' '}{<GlossaryLink term="prime-award" />}
@@ -306,6 +312,7 @@ export default class GeoVisualizationSection extends React.Component {
                     availableLayers={availableLayers}
                     showLayerToggle
                     center={[-95.569430, 38.852892]}
+                    className={this.props.className}
                     mapLegendToggle={this.props.mapLegendToggle}
                     updateMapLegendToggle={this.props.updateMapLegendToggle}>
                     {disclaimer}

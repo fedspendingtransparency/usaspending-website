@@ -126,7 +126,6 @@ export default class GlossaryDefinition extends React.Component {
         });
         return (
             <div className="glossary-definition">
-                <input readOnly id="slug" type="text" className="text" style={{ opacity: 0 }} value={url} />
                 <DefinitionTabs
                     hasPlain={this.state.hasPlain}
                     hasOfficial={this.state.hasOfficial}
