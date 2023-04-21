@@ -1,13 +1,38 @@
-As identified by Disaster Emergency Fund Codes (DEFC), COVID-19 response spending data are tracked starting in April 2020.
-All federal agencies that submit data to USAspending.gov must include COVID-19-related DEFC attributes in their Files B and C
- submissions starting in June 2020.
+Disaster Emergency Fund Codes (DEFC) tag spending that are funded by supplemental appropriations laws, tracked in agency financial systems, and submitted to USAspending.gov in Files B and C on a monthly basis. These laws could have funded new prime awards (with no prior transactions) or existing prime awards (with a history of transactions before the enactment of the law). File B covers agency account spending, and File C covers agency prime award spending (which is a subset of agency account spending).
 
-In Advanced Search, when any COVID-19 DEFC filter is selected, all prime award transaction-level results (in the Time, Map, and Categories tabs, and in the Advanced Search transaction downloads) are limited to transactions whose action dates are April 1, 2020 and later, and that are part of awards that were funded in whole or part by the selected COVID-19 DEFC. The date limitation prevents the display of prime award transactions that could not have used COVID-19 supplemental funding as tracked by a DEFC (because they were obligated before any COVID-19 supplemental funds were awarded). This is the only transaction-level limitation triggered by the COVID-19 DEFC filter. However, the date limitation does not mean that every transaction-level result with a selected COVID-19 DEFC filter is funded at the transaction level by COVID-19 supplementals, for two reasons: 1) COVID-19 awards often have multiple funding sources, both COVID-19 and non-COVID-19; 2) there is no way to determine how these multiple funding sources are divided among transactions.
 
-For the first point, please note that if an award is only ever funded by COVID-19 DEFCs, then that award’s transactions can be assumed to have used COVID-19 supplemental funds. For the second point, it is important to understand that DEFCs for prime awards are tracked in agency financial systems and submitted in File C data to USAspending.gov, while prime award transactions are tracked in distinct governmentwide award systems that provide the source data for Files D1 and D2. File C data (showing DEFC-tagged obligation and outlay amounts for the lifetime of the award at the end of a reporting period) and File D1 and D2 data (showing obligation amounts made on the transaction’s action date, without any DEFC label) only connect through a common prime award unique key. While a prime award transaction in File D1 or D2 can be linked to a DEFC-tagged prime award in File C, no individual prime award transaction can be tagged with a DEFC. Thus, COVID-19 DEFC spending can only be understood in the USAspending data model at the prime award summary level, taking into account the lifetime spending of an award at the end of a reporting period. The aforementioned date limitation is intended only to exclude any transactions that obviously cannot have used COVID-19 supplemental funds, when examining the transaction-level spending of an award that is funded in whole or part by COVID-19 DEFCs.
 
-Similarly, subaward data in the COVID-19 Spending Profile download, as well as in Advanced Search results and download files when any COVID-19 DEFC filter is selected, are limited to subawards whose action dates are April 1, 2020 or later. Again, this limitation prevents the display of subawards that could not have used COVID-19 supplemental funding as tracked by a DEFC (because they were obligated before any COVID-19 supplemental funds were awarded). No individual subaward can be tagged with a DEFC, although a subaward (derived in File F) can be connected to a DEFC-tagged prime award in File C through a common prime award unique key.
-
-Due to the timing of when
+COVID-19 response spending tagged with DEFC values was tracked by agencies starting in April 2020 and was required to be reported in Files B and C submissions starting in June 2020. Due to the timing of when
  <a target="_blank" rel="noopener noreferrer" href="https://www.whitehouse.gov/wp-content/uploads/2020/04/Implementation-Guidance-for-Supplemental-Funding-Provided-in-Response.pdf">Office of Management and Budget (OMB) Memorandum M-20-21</a>
- went into effect, if any awards were issued in March 2020 that were funded by the Coronavirus Preparedness and Response Supplemental Appropriations Act, 2020 (signed 3/6/20) or the Families First Coronavirus Response Act (signed 3/18/20), they would not be tagged with a DEFC in USAspending data. However, given the timing of those bills and the additional delays inherent in the warrants and awards processes, it is unlikely that a significant number of such awards, if any, were issued in March 2020.
+ went into effect, if any awards were issued in March 2020 that were funded by the Coronavirus Preparedness and Response Supplemental Appropriations Act, 2020 (enacted 3/6/20) or the Families First Coronavirus Response Act (enacted 3/18/20), they would not be tagged with a DEFC in USAspending data. However, given the timing of those bills and the additional delays inherent in the warrants and awards processes, it is unlikely that a significant number of such awards, if any, were issued in March 2020.
+
+
+
+Infrastructure investment spending (through the Infrastructure Investment and Jobs Act, also known as the Bipartisan Infrastructure Law) is tracked using the same DEFC system used by COVID-19 response spending.
+
+
+
+When searching for transaction-level award data (coming from Files D1 and D2) or for subaward-level data (coming from File F), you can filter based on DEFC values if there is a prime award unique key linking a record in File C with a record in Files D1, D2, or F. When showing transaction-level award data or subaward-level data that have been filtered by a DEFC value, USAspending.gov uses a date filter to prevent the display of award amounts that could not possibly have been funded by the law associated with the selected DEFC value. (In the case of DEFC values associated with multiple laws, the date filter uses the earliest date of enactment.)
+
+
+
+For example, let’s say a prime award has a history of transactions and subawards starting in 2005. After the enactment of the Consolidated Appropriations Act in 2021 (signed on December 27, 2020), this prime award received additional funding. If you search for this award and select the filter for this law (DEFC value “U”), then the prime award transaction-level results and the subaward-level results that you see will only show records starting from December 27, 2020. However, there is no way of knowing whether any prime award transaction or subaward after this date used funding from this law—the transaction or subaward may have used funding that existed prior to this law. This inability to track DEFC-tagged spending at the transaction level and the subaward level is an important limitation of the data.
+
+
+
+Note that File C shows obligation and outlay amounts for specific DEFC values, but these amounts are at the prime award summary level, and not at the prime award transaction level or subaward level. The date filter does not affect the DEFC-tagged amounts in File C. The benefit of the date filter in transaction-level and subaward-level results is to show recipient and location data (among other details) about awards that were funded by laws tagged by DEFC values; these details are available in Files D1 and D2 (for prime award transactions) and in File F (for subawards), but not in File C.
+
+
+
+For reference, below is a list of DEFC values and earliest dates of enactment for their relevant law(s).
+
+- DEFC “L”: 3/6/2020
+- DEFC “M”: 3/18/2020
+- DEFC “N”: 3/27/2020
+- DEFC “O”: 03/27/2020
+- DEFC “P”: 4/24/2020
+- DEFC “U”: 12/27/2020
+- DEFC “V”: 3/11/2021
+- DEFC “Z”: 11/15/2021
+- DEFC “1”: 11/15/2021
+
