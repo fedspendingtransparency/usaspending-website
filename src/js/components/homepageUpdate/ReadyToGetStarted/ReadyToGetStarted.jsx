@@ -99,6 +99,7 @@ const ReadyToGetStarted = () => (
                                         text={card.buttonText}
                                         variant="text"
                                         backgroundColor="light"
+                                        textAlignment="left"
                                         link={card.buttonLink}
                                         action={card.action} />
                                 </CardBody>

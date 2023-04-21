@@ -32,8 +32,12 @@
       }
       .card__button {
         margin-bottom: 0;
+        justify-content: left;
         .card__button--borderless {
           white-space: normal;
+        }
+        .button-type__text-light{
+          font-weight: $font-semibold !important;
         }
       }
     }
