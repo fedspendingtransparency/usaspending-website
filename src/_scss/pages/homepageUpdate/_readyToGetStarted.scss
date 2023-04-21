@@ -38,6 +38,9 @@
         }
         .button-type__text-light{
           font-weight: $font-semibold !important;
+          margin: 0;
+          padding: 0;
+          font-size: $font-size-16;
         }
       }
     }

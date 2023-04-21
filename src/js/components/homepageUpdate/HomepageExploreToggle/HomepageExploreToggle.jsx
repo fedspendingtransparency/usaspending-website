@@ -17,6 +17,7 @@ const exploreData = [
         text: 'Use our interactive tools to find out how federal agencies are spending money',
         buttonText: 'Explore Agency Profiles',
         buttonLink: '/agency',
+        buttonSize: 'sm',
         action: () => Analytics.event({
             category: 'Homepage',
             action: 'Link',
@@ -29,6 +30,7 @@ const exploreData = [
         text: 'See who is receiving contracts, grants, loans, and other types of awards',
         buttonText: 'View Recipient Profiles',
         buttonLink: '/recipient',
+        buttonSize: 'sm',
         action: () => Analytics.event({
             category: 'Homepage',
             action: 'Link',
@@ -41,6 +43,7 @@ const exploreData = [
         text: 'Find data on contracts, grants, and other types of awards made in each state',
         buttonText: 'Browse State Profiles',
         buttonLink: '/state',
+        buttonSize: 'sm',
         action: () => Analytics.event({
             category: 'Homepage',
             action: 'Link',
@@ -69,6 +72,7 @@ const accessData = [
         text: 'Our account data includes award and non-award spending',
         buttonText: 'Go to account data download',
         buttonLink: '/download_center/custom_account_data',
+        buttonSize: 'sm',
         action: () => Analytics.event({
             category: 'Homepage',
             action: 'Link',

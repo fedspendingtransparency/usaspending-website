@@ -36,7 +36,7 @@ const ExploreTheData = (props) => (
                                     <CardButton
                                         variant="secondary"
                                         backgroundColor="light"
-                                        buttonSize="md"
+                                        buttonSize="sm"
                                         textAlignment="center"
                                         text={card.buttonText}
                                         link={card.buttonLink}
