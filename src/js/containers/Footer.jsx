@@ -3,9 +3,12 @@
  * Created by Destin Frasier 02/24/2017
  **/
 
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import React from 'react';
+import { throttle } from "lodash";
+import { tabletScreen, mlargeScreen } from 'dataMapping/shared/mobileBreakpoints';
+
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFacebookSquare, faLinkedin, faGithub, faTwitter, faYoutube } from "@fortawesome/free-brands-svg-icons";
@@ -38,23 +41,39 @@ const Footer = ({
     filters,
     redirectUser
 }) => {
+    const [windowWidth, setWindowWidth] = useState(0);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < tabletScreen);
+    const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth >= mlargeScreen);
+
     const generateOnClick = (url) => () => {
         clickedFooterLink(url);
         redirectUser(url);
     };
+
     const year = new Date().getFullYear();
+
+    useEffect(() => {
+        const handleResize = throttle(() => {
+            const newWidth = window.innerWidth;
+            if (windowWidth !== newWidth) {
+                setWindowWidth(newWidth);
+                setIsMobile(newWidth < tabletScreen);
+                setIsLargeScreen(newWidth >= mlargeScreen);
+            }
+        }, 50);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, [isMobile, isLargeScreen, windowWidth]);
+
     return (
-        <div className="footer-container">
+        <footer>
             <DownloadBottomBarContainer
                 filters={filters} />
             <BulkDownloadBottomBarContainer />
             <StayInTouch pageName={pageName} />
-            <footer
-                className="footer-outer-wrap"
-                role="contentinfo"
-                aria-label="Footer">
-                <div className="footer-container">
-                    <div className="footer-logo">
+            <div className="footer2-container">
+                <div className="footer2-logo-container">
+                    <div className="footer2-logo">
                         <Link
                             to="/"
                             title="USAspending.gov Home"
@@ -63,17 +82,28 @@ const Footer = ({
                             <img src="img/footer_logo.png" alt="USAspending.gov" />
                         </Link>
                     </div>
-                    <div className="footer-links">
-                        <div className="link-group">
-                            <div className="group-title">
-                                About
-                            </div>
-                            <ul className="links">
+                    {isLargeScreen && (
+                        <div className="footer2-border-bottom" />
+                    )}
+                </div>
+                <div className="footer2-large-screen-row-one">
+                    <div className="footer2-heading-container">
+                        <div className="footer2-heading">
+                            Building a more transparent government.
+                        </div>
+                        <div className="footer2-subHeading">
+                            Providing publicly accessible and searchable data on what the federal government spends each year.
+                        </div>
+                    </div>
+                    <div className="footer2-main-links-section">
+                        <div className="footer2-link-section">
+                            <div className="footer2-link-section-title">ABOUT</div>
+                            <ul>
                                 <li>
                                     <Link
                                         to="/about"
                                         onClick={clickedFooterLink.bind(null, '/about')}>
-                                        About USAspending
+                                        Mission
                                     </Link>
                                 </li>
                                 <li>
@@ -85,11 +115,9 @@ const Footer = ({
                                 </li>
                             </ul>
                         </div>
-                        <div className="link-group">
-                            <div className="group-title">
-                                Help
-                            </div>
-                            <ul className="links">
+                        <div className="footer2-link-section">
+                            <div className="footer2-link-section-title">HELP</div>
+                            <ul>
                                 <li>
                                     <FooterExternalLink
                                         link="https://fiscalservice.force.com/usaspending/s/recordlist/Knowledge__kav/00B3d000000V4WDEA0"
@@ -107,113 +135,103 @@ const Footer = ({
                                             null,
                                             'mailto:usaspending.help@fiscal.treasury.gov?subject=Contact%20Us'
                                         )}>
-                                        Contact Us
+                                        Email Us
                                     </a>
                                 </li>
                             </ul>
                         </div>
-                        <div className="link-group">
-                            <div className="group-title">
-                                Developers
-                            </div>
-                            <ul className="links">
-                                <li>
-                                    <FooterExternalLink
-                                        link="https://api.usaspending.gov"
-                                        title="API" />
-                                </li>
-                                <li>
-                                    <FooterExternalLink
-                                        link="https://github.com/fedspendingtransparency/usaspending-website/tree/master"
-                                        title="Explore the Code" />
-                                </li>
-                                <li>
-                                    <FooterExternalLink
-                                        link="https://github.com/fedspendingtransparency/usaspending-website/wiki"
-                                        title="Release Notes" />
-                                </li>
-                            </ul>
-                        </div>
-                        <div className="link-group">
-                            <div className="group-title">
-                                    Our Sites
-                            </div>
-                            <ul className="links">
+                        <div className="footer2-link-section">
+                            <div className="footer2-link-section-title">RELATED SITES</div>
+                            <ul>
                                 <li>
                                     <a target="_blank" rel="noopener noreferrer" href="https://fiscaldata.treasury.gov/">Fiscal Data</a>
+                                </li>
+                                <li>
+                                    <a target="_blank" rel="noopener noreferrer" href="https://fiscal.treasury.gov/">Bureau of the Fiscal Service</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
-                    <div className="legal-and-social-links">
-                        <ul className="legal-links">
-                            <li className="copyright__legal-item">
+                </div>
+                <div className="footer2-large-screen-row-two">
+                    <div className="footer2-social-media-section">
+                        <ul>
+                            <li>
+                                <button onClick={generateOnClick("https://www.youtube.com/channel/UCyDn83O-0XC98H3TCV-VCGQ")} title="Youtube">
+                                    <FontAwesomeIcon icon={faYoutube} size="sm" color="#dfe1e2" />
+                                </button>
+                            </li>
+                            <li>
+                                <button onClick={generateOnClick("https://twitter.com/usaspending/")} title="Twitter">
+                                    <FontAwesomeIcon icon={faTwitter} size="sm" color="#dfe1e2" />
+                                </button>
+                            </li>
+                            <li>
+                                <button onClick={generateOnClick("https://www.facebook.com/fiscalservice/")} title="Facebook">
+                                    <FontAwesomeIcon icon={faFacebookSquare} size="sm" color="#dfe1e2" />
+                                </button>
+                            </li>
+                            <li>
+                                <button onClick={generateOnClick("https://github.com/fedspendingtransparency/usaspending-website")} title="Github">
+                                    <FontAwesomeIcon icon={faGithub} size="sm" color="#dfe1e2" />
+                                </button>
+                            </li>
+                            <li>
+                                <button onClick={generateOnClick("https://www.linkedin.com/company/bureau-of-the-fiscal-service/")} title="LinkedIn">
+                                    <FontAwesomeIcon icon={faLinkedin} size="sm" color="#dfe1e2" />
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                    <div className="footer2-legal-links-section">
+                        <ul>
+                            <li>
                                 <Link
-                                    className="copyright__link"
                                     to="/about/accessibility"
                                     onClick={clickedFooterLink.bind(null, '/about/accessibility')}>
                                     Accessibility
                                 </Link>
                             </li>
-                            <li className="copyright__legal-item">
+                            {!isMobile && (
+                                <li className="footer2-pipe-class">|</li>
+                            )}
+                            <li>
                                 <Link
-                                    className="copyright__link"
                                     to="/about/privacy"
                                     onClick={clickedFooterLink.bind(null, '/about/privacy')}>
                                     Privacy Policy
                                 </Link>
                             </li>
-                            <li className="copyright__legal-item">
+                            {!isMobile && (
+                                <li className="footer2-pipe-class">|</li>
+                            )}
+                            <li>
                                 <Link
-                                    className="copyright__link"
                                     to="/about/foia"
                                     onClick={clickedFooterLink.bind(null, '/about/foia')}>
                                     Freedom of Information Act
                                 </Link>
                             </li>
-                        </ul>
-                        <ul className="social-links">
-                            <li className="social-link">
-                                <button onClick={generateOnClick("https://www.youtube.com/channel/UCyDn83O-0XC98H3TCV-VCGQ")} title="Youtube">
-                                    <FontAwesomeIcon icon={faYoutube} size="1x" color="#D4D4D4" />
-                                </button>
-                            </li>
-                            <li className="social-link">
-                                <button onClick={generateOnClick("https://twitter.com/usaspending/")} title="Twitter">
-                                    <FontAwesomeIcon icon={faTwitter} size="1x" color="#D4D4D4" />
-                                </button>
-                            </li>
-                            <li className="social-link">
-                                <button onClick={generateOnClick("https://www.facebook.com/fiscalservice/")} title="Facebook">
-                                    <FontAwesomeIcon icon={faFacebookSquare} size="1x" color="#D4D4D4" />
-                                </button>
-                            </li>
-                            <li className="social-link">
-                                <button onClick={generateOnClick("https://github.com/fedspendingtransparency/usaspending-website")} title="Github">
-                                    <FontAwesomeIcon icon={faGithub} size="1x" color="#D4D4D4" />
-                                </button>
-                            </li>
-                            <li className="social-link">
-                                <button onClick={generateOnClick("https://www.linkedin.com/company/bureau-of-the-fiscal-service/")} title="LinkedIn">
-                                    <FontAwesomeIcon icon={faLinkedin} size="1x" color="#D4D4D4" />
-                                </button>
+                            {!isMobile && (
+                                <li className="footer2-pipe-class">|</li>
+                            )}
+                            <li>
+                                <Link
+                                    to="/db_info"
+                                    title="Limitation on Permissible Use of Dun & Bradstreet, Inc. (D&B) Data"
+                                    aria-label="Limitation on Permissible Use of Dun & Bradstreet, Inc. (D&B) Data"
+                                    onClick={clickedFooterLink.bind(null, '/db_info')}>
+                                    D&B Information
+                                </Link>
                             </li>
                         </ul>
                     </div>
-                </div>
-                <div className="copyright">
-                    <div className="copyright__container">
-                        <p className="copyright__notice">
-                            &copy; {year} USAspending.gov
-                        </p>
-                        <p className="copyright__db">
-                            <strong>NOTE:</strong>&nbsp;
-                            <Link to="/db_info" target="_blank" rel="noopener noreferrer" title="Limitation on Permissible Use of Dun & Bradstreet, Inc. (D&B) Data" aria-label="Limitation on Permissible Use of Dun & Bradstreet, Inc. (D&B) Data" onClick={clickedFooterLink.bind(null, '/db_info')}>You must click here for very important D&amp;B information.</Link>
-                        </p>
+                    <div className="footer2-copyright-section">
+                        &copy; {year} USAspending.gov
                     </div>
                 </div>
-            </footer>
-        </div>
+            </div>
+        </footer>
     );
 };
 

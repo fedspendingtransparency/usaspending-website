@@ -4,19 +4,20 @@
  **/
 
 import React, { useState, useEffect } from 'react';
+import { connect } from 'react-redux';
 import { tabletScreen, mlargeScreen } from 'dataMapping/shared/mobileBreakpoints';
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { throttle } from "lodash";
-import { connect } from "react-redux";
 import { showModal } from 'redux/actions/modal/modalActions';
 import Analytics from 'helpers/analytics/Analytics';
 import { faFacebookSquare, faGithub, faLinkedin, faTwitter, faYoutube } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { DownloadBottomBarContainer } from "containers/search/modals/fullDownload/DownloadBottomBarContainer";
+import { BulkDownloadBottomBarContainer } from "containers/bulkDownload/modal/BulkDownloadBottomBarContainer";
 import StayInTouch from "../components/sharedComponents/StayInTouch";
 import FooterExternalLink from "../components/sharedComponents/FooterExternalLink";
-import { DownloadBottomBarContainer } from "./search/modals/fullDownload/DownloadBottomBarContainer";
-import { BulkDownloadBottomBarContainer } from "./bulkDownload/modal/BulkDownloadBottomBarContainer";
+
 
 require('layouts/default/footer2/footer2.scss');
 
