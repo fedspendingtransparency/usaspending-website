@@ -40,7 +40,8 @@ export default class RankVisualizationTitle extends React.Component {
 
         if (value !== '') {
             this.props.changeSpendingBy(value);
-        } else {
+        }
+        else {
             this.props.changeSpendingBy(prevValue);
         }
 
@@ -52,14 +53,23 @@ export default class RankVisualizationTitle extends React.Component {
     render() {
         const fields = this.props.fieldTypes.map((field) => (
             <li
+                // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+                tabIndex={0}
                 className="field-item"
                 key={`field-${field}`}>
                 <button
+                    tabIndex={0}
                     className="item-button"
                     title={categoryNames[field]}
                     aria-label={categoryNames[field]}
                     value={field}
-                    onMouseDown={this.clickedItem}>
+                    onMouseDown={this.clickedItem}
+                    onKeyDown={(e) => {
+                        console.debug("EVENT 1: ", e);
+                        if (e.key === 'Enter') {
+                            this.clickedItem(e);
+                        }
+                    }}>
                     {categoryNames[field]}
                 </button>
             </li>
@@ -81,10 +91,18 @@ export default class RankVisualizationTitle extends React.Component {
 
                 <div className="field-picker">
                     <button
+                        tabIndex="0"
                         className="selected-button"
                         title={categoryNames[currentField]}
                         aria-label={categoryNames[currentField]}
                         onMouseDown={this.togglePicker}
+                        onKeyDown={(e) => {
+                            e.preventDefault();
+                            console.debug("EVENT 2: ", e);
+                            if (e.key === "Enter") {
+                                this.togglePicker();
+                            }
+                        }}
                         onBlur={(e) => {
                             if (e.target.value === '') {
                                 this.togglePicker();
@@ -105,7 +123,9 @@ export default class RankVisualizationTitle extends React.Component {
                         style={{
                             height: (this.props.fieldTypes.length * 55) + 1
                         }}>
-                        <ul>
+                        <ul
+                            // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
+                            tabIndex={0}>
                             {fields}
                         </ul>
                     </div>
