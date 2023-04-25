@@ -35,15 +35,8 @@ export default class RankVisualizationTitle extends React.Component {
     }
 
     clickedItem(e) {
-        const prevValue = this.props.currentSpendingBy;
         const value = e.target.value;
-
-        if (value !== '') {
-            this.props.changeSpendingBy(value);
-        }
-        else {
-            this.props.changeSpendingBy(prevValue);
-        }
+        this.props.changeSpendingBy(value);
 
         this.setState({
             showPicker: false
@@ -53,23 +46,14 @@ export default class RankVisualizationTitle extends React.Component {
     render() {
         const fields = this.props.fieldTypes.map((field) => (
             <li
-                // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-                tabIndex={0}
                 className="field-item"
                 key={`field-${field}`}>
                 <button
-                    tabIndex={0}
                     className="item-button"
                     title={categoryNames[field]}
                     aria-label={categoryNames[field]}
                     value={field}
-                    onMouseDown={this.clickedItem}
-                    onKeyDown={(e) => {
-                        console.debug("EVENT 1: ", e);
-                        if (e.key === 'Enter') {
-                            this.clickedItem(e);
-                        }
-                    }}>
+                    onClick={this.clickedItem}>
                     {categoryNames[field]}
                 </button>
             </li>
@@ -91,25 +75,10 @@ export default class RankVisualizationTitle extends React.Component {
 
                 <div className="field-picker">
                     <button
-                        tabIndex="0"
                         className="selected-button"
                         title={categoryNames[currentField]}
                         aria-label={categoryNames[currentField]}
-                        onMouseDown={this.togglePicker}
-                        onKeyDown={(e) => {
-                            e.preventDefault();
-                            console.debug("EVENT 2: ", e);
-                            if (e.key === "Enter") {
-                                this.togglePicker();
-                            }
-                        }}
-                        onBlur={(e) => {
-                            if (e.target.value === '') {
-                                this.togglePicker();
-                            }
-
-                            this.clickedItem(e);
-                        }}>
+                        onClick={this.togglePicker}>
                         <span className="label">
                             {categoryNames[currentField]}
                         </span>
@@ -123,9 +92,7 @@ export default class RankVisualizationTitle extends React.Component {
                         style={{
                             height: (this.props.fieldTypes.length * 55) + 1
                         }}>
-                        <ul
-                            // eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex
-                            tabIndex={0}>
+                        <ul>
                             {fields}
                         </ul>
                     </div>
