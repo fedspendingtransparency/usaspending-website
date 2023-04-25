@@ -53,7 +53,13 @@ export default class RankVisualizationTitle extends React.Component {
                     title={categoryNames[field]}
                     aria-label={categoryNames[field]}
                     value={field}
-                    onClick={this.clickedItem}>
+                    onClick={this.clickedItem}
+                    onBlur={(e) => {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        console.debug("TESTING BLUR 1: ", e);
+                        console.debug(this.state);
+                    }}>
                     {categoryNames[field]}
                 </button>
             </li>
@@ -68,17 +74,35 @@ export default class RankVisualizationTitle extends React.Component {
         }
 
         return (
-            <div className="rank-visualization-title">
+            <div
+                className="rank-visualization-title"
+                onBlur={(e) => {
+                    e.preventDefault();
+                    console.debug("TESTING BLUR 5: ", e);
+                    console.debug(this.state);
+                }}>
                 <h2 className="static-title">
                     {this.props.subaward ? `Sub-Award Spending by: ` : `Spending by `}
                 </h2>
 
-                <div className="field-picker">
+                <div
+                    className="field-picker"
+                    onBlur={(e) => {
+                        e.preventDefault();
+                        console.debug("TESTING BLUR 4: ", e);
+                        console.debug(this.state);
+                    }}>
                     <button
                         className="selected-button"
                         title={categoryNames[currentField]}
                         aria-label={categoryNames[currentField]}
-                        onClick={this.togglePicker}>
+                        onClick={this.togglePicker}
+                        onBlur={(e) => {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            console.debug("TESTING BLUR 2: ", e);
+                            console.debug(this.state);
+                        }}>
                         <span className="label">
                             {categoryNames[currentField]}
                         </span>
@@ -91,6 +115,11 @@ export default class RankVisualizationTitle extends React.Component {
                         className={`field-list ${showPicker}`}
                         style={{
                             height: (this.props.fieldTypes.length * 55) + 1
+                        }}
+                        onBlur={(e) => {
+                            e.preventDefault();
+                            console.debug("TESTING BLUR 3: ", e);
+                            console.debug(this.state);
                         }}>
                         <ul>
                             {fields}
