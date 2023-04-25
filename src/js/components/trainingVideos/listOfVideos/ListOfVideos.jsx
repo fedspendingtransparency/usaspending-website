@@ -7,7 +7,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import PropTypes from "prop-types";
 import { useDispatch } from 'react-redux';
 import { showTrainingVideoModal } from 'redux/actions/modal/modalActions';
-import { FlexGridRow, FlexGridCol, Picker, ShareIcon } from "data-transparency-ui";
+import { FlexGridRow, FlexGridCol, Picker } from "data-transparency-ui";
 import VideoCard from '../videoCard/VideoCard';
 
 const propTypes = {
@@ -18,7 +18,6 @@ const ListOfVideos = ({ videos }) => {
     const dispatch = useDispatch();
     const [sortOrder, setSortOrder] = useState();
     const [videoList, setVideoList] = useState(videos);
-    const [isShareIconOpen, setIsShareIconOpen] = useState(false);
     const originalVideoList = videos;
     const prevSortRef = useRef();
 
@@ -58,9 +57,6 @@ const ListOfVideos = ({ videos }) => {
         const tmpVideos = [...originalVideoList];
         tmpVideos.sort((a, b) => b.value > a.value);
     };
-    const handleShareIconClick = () => {
-        setIsShareIconOpen(!isShareIconOpen);
-    }
 
     return (
         <section className="list-of-videos__section">
