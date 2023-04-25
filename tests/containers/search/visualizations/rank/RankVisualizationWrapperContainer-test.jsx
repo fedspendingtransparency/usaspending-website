@@ -158,6 +158,7 @@ describe('RankVisualizationWrapperContainer', () => {
                 next: null,
                 previous: null,
                 hasNextPage: false,
+                showPicker: false,
                 hasPreviousPage: false,
                 recipientError: false
             };

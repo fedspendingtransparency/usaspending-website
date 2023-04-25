@@ -18,7 +18,9 @@ const propTypes = {
     scope: PropTypes.string,
     changeScope: PropTypes.func,
     hideSuboptionBar: PropTypes.string,
-    subward: PropTypes.bool
+    subward: PropTypes.bool,
+    togglePicker: PropTypes.func,
+    showPicker: PropTypes.bool
 };
 
 const defaultProps = {
@@ -62,7 +64,13 @@ export default class SpendingByAgencySection extends React.Component {
         return (
             <RankVisualizationSection {...this.props}>
                 <div className="visualization-top">
-                    <div className="visualization-top__description">
+                    <div
+                        className="visualization-top__description"
+                        onFocus={() => {
+                            if (this.props.showPicker === true) {
+                                this.props.togglePicker();
+                            }
+                        }}>
                         <p className="award-search__what-title">What's included in this view of the data?</p>
 
                         <p className="read-more__preview-lines">View a list of the top Agencies from highest to lowest.
