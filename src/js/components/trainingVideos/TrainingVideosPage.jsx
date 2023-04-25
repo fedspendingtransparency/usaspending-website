@@ -22,8 +22,8 @@ require('pages/trainingVideos/trainingVideos.scss');
 const TrainingVideosPage = ({ featuredVideo, videos }) => (
     <PageWrapper
         pageName="TrainingVideos"
+        noHeader
         classNames="training-videos-page"
-        title="Training Videos"
         metaTagProps={{ ...homePageMetaTags }}>
         <main
             id="main-content"
