@@ -56,7 +56,9 @@ export class RankVisualizationWrapperContainer extends React.Component {
             previous: '',
             hasNextPage: false,
             hasPreviousPage: false,
-            recipientError: false
+            recipientError: false,
+            showPicker: false
+
         };
 
         this.changeSpendingBy = this.changeSpendingBy.bind(this);
@@ -64,6 +66,8 @@ export class RankVisualizationWrapperContainer extends React.Component {
         this.nextPage = this.nextPage.bind(this);
         this.previousPage = this.previousPage.bind(this);
         this.apiRequest = null;
+        this.togglePicker = this.togglePicker.bind(this);
+        this.setPickerState = this.setPickerState.bind(this);
     }
 
     componentDidMount() {
@@ -84,6 +88,18 @@ export class RankVisualizationWrapperContainer extends React.Component {
             this.newSearch();
         }
     }
+    setPickerState(value) {
+        this.setState({
+            showPicker: value
+        });
+    }
+    togglePicker() {
+        this.setState({
+            showPicker: !this.state.showPicker
+        });
+    }
+
+
     parseRank() {
         if (this.props.history) {
             const params = this.props.history.location.search.split("&");
@@ -258,7 +274,9 @@ export class RankVisualizationWrapperContainer extends React.Component {
                         nextPage={this.nextPage}
                         previousPage={this.previousPage}
                         subaward={this.props.subaward}
-                        isDefCodeInFilter={this.props.reduxFilters?.defCodes?.counts} />
+                        isDefCodeInFilter={this.props.reduxFilters?.defCodes?.counts}
+                        togglePicker={this.togglePicker}
+                        showPicker={this.state.showPicker} />
                 );
             case 'recipient':
                 return (
@@ -269,7 +287,8 @@ export class RankVisualizationWrapperContainer extends React.Component {
                         previousPage={this.previousPage}
                         recipientError={this.state.recipientError}
                         subaward={this.props.subaward}
-                        isDefCodeInFilter={this.props.reduxFilters?.defCodes?.counts} />
+                        isDefCodeInFilter={this.props.reduxFilters?.defCodes?.counts}
+                        togglePicker={this.togglePicker} />
                 );
             case 'cfda':
                 return (
@@ -279,7 +298,8 @@ export class RankVisualizationWrapperContainer extends React.Component {
                         nextPage={this.nextPage}
                         previousPage={this.previousPage}
                         subaward={this.props.subaward}
-                        isDefCodeInFilter={this.props.reduxFilters?.defCodes?.counts} />
+                        isDefCodeInFilter={this.props.reduxFilters?.defCodes?.counts}
+                        togglePicker={this.togglePicker} />
                 );
             case 'industryCode':
                 return (
@@ -290,7 +310,8 @@ export class RankVisualizationWrapperContainer extends React.Component {
                         previousPage={this.previousPage}
                         industryCodeError={this.props.subaward}
                         subaward={this.props.subaward}
-                        isDefCodeInFilter={this.props.reduxFilters?.defCodes?.counts} />
+                        isDefCodeInFilter={this.props.reduxFilters?.defCodes?.counts}
+                        togglePicker={this.togglePicker} />
                 );
             default:
                 return (
@@ -301,7 +322,8 @@ export class RankVisualizationWrapperContainer extends React.Component {
                         previousPage={this.previousPage}
                         agencyType="awarding"
                         subaward={this.props.subaward}
-                        isDefCodeInFilter={this.props.reduxFilters?.defCodes?.counts} />
+                        isDefCodeInFilter={this.props.reduxFilters?.defCodes?.counts}
+                        togglePicker={this.togglePicker} />
                 );
         }
     }
@@ -333,7 +355,10 @@ export class RankVisualizationWrapperContainer extends React.Component {
                     fieldTypes={fieldTypes}
                     changeSpendingBy={this.changeSpendingBy}
                     currentSpendingBy={this.state.spendingBy}
-                    subaward={this.props.subaward} />
+                    subaward={this.props.subaward}
+                    showPicker={this.state.showPicker}
+                    togglePicker={this.togglePicker}
+                    setPickerState={this.setPickerState} />
                 { visualization }
             </div>
         );

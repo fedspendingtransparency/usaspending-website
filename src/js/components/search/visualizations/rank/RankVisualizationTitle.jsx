@@ -13,34 +13,23 @@ const propTypes = {
     fieldTypes: PropTypes.array,
     changeSpendingBy: PropTypes.func,
     currentSpendingBy: PropTypes.string,
-    subaward: PropTypes.bool
+    subaward: PropTypes.bool,
+    showPicker: PropTypes.bool,
+    togglePicker: PropTypes.func,
+    setPickerState: PropTypes.func
 };
 
 export default class RankVisualizationTitle extends React.Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            showPicker: false
-        };
-
-        this.togglePicker = this.togglePicker.bind(this);
         this.clickedItem = this.clickedItem.bind(this);
-    }
-
-    togglePicker() {
-        this.setState({
-            showPicker: !this.state.showPicker
-        });
     }
 
     clickedItem(e) {
         const value = e.target.value;
         this.props.changeSpendingBy(value);
 
-        this.setState({
-            showPicker: false
-        });
+        this.props.setPickerState(false);
     }
 
     render() {
@@ -62,7 +51,7 @@ export default class RankVisualizationTitle extends React.Component {
         const currentField = this.props.currentSpendingBy;
         let showPicker = 'hide';
         let icon = <Icons.AngleDown alt="Pick a field" />;
-        if (this.state.showPicker) {
+        if (this.props.showPicker) {
             showPicker = '';
             icon = <Icons.AngleUp alt="Pick a field" />;
         }
@@ -80,7 +69,7 @@ export default class RankVisualizationTitle extends React.Component {
                         className="selected-button"
                         title={categoryNames[currentField]}
                         aria-label={categoryNames[currentField]}
-                        onClick={this.togglePicker}>
+                        onClick={this.props.togglePicker}>
                         <span className="label">
                             {categoryNames[currentField]}
                         </span>
