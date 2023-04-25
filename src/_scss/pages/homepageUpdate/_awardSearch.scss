@@ -257,11 +257,17 @@
           .card__button {
             margin-bottom: 0;
 
+
             .card__button--primary {
               white-space: normal;
               text-align: center;
               padding: 10px 24px;
               margin: 0;
+              width: 100%;
+            }
+            .button-type__primary-light{
+              width: 100%;
+              justify-content: center;
             }
           }
         }

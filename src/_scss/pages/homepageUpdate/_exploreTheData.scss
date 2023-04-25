@@ -48,10 +48,36 @@
         margin-bottom: $global-margin * 4;
         @media (min-width: $medium-screen) {
           margin-bottom: 0;
+          .card__button {
+            margin-bottom: 0;
+            justify-content: center;
+            .card__button--borderless {
+              white-space: normal;
+            }
+            .button-type__text-light{
+              margin-top: 0;
+              padding-top: 0;
+              width: 100%;
+            }
+          }
         }
 
         .card__body {
           height: 100%;
+        }
+        .card__button {
+          margin-bottom: 0;
+          justify-content: center;
+          .card__button--borderless {
+            white-space: normal;
+          }
+          .button-type__secondary-light{
+            margin-top: 0;
+            padding-top: 0;
+            justify-content: center;
+            width: 100%;
+            font-size: $font-size-16;
+          }
         }
 
         .headline {
@@ -61,6 +87,7 @@
         }
         .card__button {
           margin-bottom: 0;
+          width: 100%;
         }
       }
     }
