@@ -214,6 +214,7 @@ const WordOfTheDay = () => {
                                 <CardButton
                                     action={readMoreAction}
                                     variant="secondary"
+                                    backgroundColor="dark"
                                     customClassName="word-of-the-day__button">
                                     Read More
                                 </CardButton>
