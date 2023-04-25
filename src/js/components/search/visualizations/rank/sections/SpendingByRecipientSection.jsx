@@ -16,7 +16,9 @@ import ReadMore from '../../../../sharedComponents/ReadMore';
 const propTypes = {
     scope: PropTypes.string,
     changeScope: PropTypes.func,
-    subaward: PropTypes.bool
+    subaward: PropTypes.bool,
+    togglePicker: PropTypes.func,
+    showPicker: PropTypes.bool
 };
 
 export default class SpendingByRecipientSection extends React.Component {
@@ -56,7 +58,13 @@ export default class SpendingByRecipientSection extends React.Component {
         return (
             <RankVisualizationSection {...this.props}>
                 <div className="visualization-top">
-                    <div className="visualization-top__description">
+                    <div
+                        className="visualization-top__description"
+                        onFocus={() => {
+                            if (this.props.showPicker === true) {
+                                this.props.togglePicker();
+                            }
+                        }}>
                         <p className="award-search__what-title">What's included in this view of the data?</p>
                         <p className="read-more__preview-lines">View a list of the top Recipients from highest to lowest.
                             View your results by Parent Recipient or Recipient,
