@@ -3,10 +3,8 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import Modal from 'react-aria-modal';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFan } from '@fortawesome/free-solid-svg-icons';
-
 import Analytics from 'helpers/analytics/Analytics';
-import { searchOptions, profileOptions, downloadOptions, resourceOptions } from 'dataMapping/navigation/menuOptions';
+import { searchOptions, downloadOptions, resourceOptions } from 'dataMapping/navigation/menuOptions';
 import EmailSignUp from 'components/homepageUpdate/EmailSignUp';
 
 import Dropdown from './DropdownStripe';

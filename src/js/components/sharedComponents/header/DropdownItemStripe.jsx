@@ -13,7 +13,6 @@ import * as slideoutActions from 'redux/actions/slideouts/slideoutActions';
 import Analytics from 'helpers/analytics/Analytics';
 import { getNewUrlForGlossary } from 'helpers/glossaryHelper';
 import DropdownComingSoon from './DropdownComingSoon';
-import { faFan } from '@fortawesome/free-solid-svg-icons';
 
 const propTypes = {
     url: PropTypes.oneOfType([PropTypes.string, PropTypes.shape({ pathname: PropTypes.string, search: PropTypes.string })]),
