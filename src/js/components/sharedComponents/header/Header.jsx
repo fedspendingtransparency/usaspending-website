@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import { Flipper } from "react-flip-toolkit"
+import { Flipper } from "react-flip-toolkit";
 import GlossaryContainer from 'containers/glossary/GlossaryContainer';
 import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
 import Analytics from 'helpers/analytics/Analytics';
