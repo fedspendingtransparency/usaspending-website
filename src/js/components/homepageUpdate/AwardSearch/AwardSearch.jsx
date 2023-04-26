@@ -191,6 +191,8 @@ const AwardSearch = () => {
                                                     onlyPerformAction
                                                     text="View spending by state"
                                                     variant="primary"
+                                                    textAlignment="center"
+                                                    backgroundColor="dark"
                                                     disabled={activeCardIndex !== 0}
                                                     action={() => {
                                                         handleGoToAdvancedSearch("map");
@@ -210,6 +212,7 @@ const AwardSearch = () => {
                                                     onlyPerformAction
                                                     text="View spending by fiscal year"
                                                     variant="primary"
+                                                    textAlignment="center"
                                                     disabled={activeCardIndex !== 1}
                                                     action={() => {
                                                         handleGoToAdvancedSearch("time");
@@ -229,6 +232,7 @@ const AwardSearch = () => {
                                                     onlyPerformAction
                                                     text="View spending by industry"
                                                     variant="primary"
+                                                    textAlignment="center"
                                                     disabled={activeCardIndex !== 2}
                                                     action={() => {
                                                         handleGoToAdvancedSearch("rank", "naics");
@@ -248,6 +252,7 @@ const AwardSearch = () => {
                                                     onlyPerformAction
                                                     text="View spending by product or service"
                                                     variant="primary"
+                                                    textAlignment="center"
                                                     disabled={activeCardIndex !== 3}
                                                     action={() => {
                                                         handleGoToAdvancedSearch("rank", "psc");
@@ -297,6 +302,8 @@ const AwardSearch = () => {
                                                     onlyPerformAction
                                                     text="View spending by state"
                                                     variant="primary"
+                                                    textAlignment="center"
+                                                    backgroundColor="dark"
                                                     disabled={activeCardIndex !== 0}
                                                     action={() => {
                                                         handleGoToAdvancedSearch("map");
