@@ -4,12 +4,18 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { getAtdDefcText } from "helpers/aboutTheDataSidebarHelper";
 
 import RankVisualizationSection from './RankVisualizationSection';
 import GlossaryLink from '../../../../sharedComponents/GlossaryLink';
 import ReadMore from '../../../../sharedComponents/ReadMore';
 
+const propTypes = {
+    togglePicker: PropTypes.func,
+    showPicker: PropTypes.bool
+};
 export default class SpendingByCFDASection extends React.Component {
     constructor(props) {
         super(props);
@@ -47,7 +53,13 @@ export default class SpendingByCFDASection extends React.Component {
         return (
             <RankVisualizationSection {...this.props}>
                 <div className="visualization-top">
-                    <div className="visualization-top__description">
+                    <div
+                        className="visualization-top__description"
+                        onFocus={() => {
+                            if (this.props.showPicker === true) {
+                                this.props.togglePicker();
+                            }
+                        }}>
                         <p className="award-search__what-title">What's included in this view of the data?</p>
                         <p className="read-more__preview-lines">View a list of the top CFDA Programs from highest to lowest, and hover over the bars for more detailed information.</p>
                         {this.props.subaward ?
@@ -74,3 +86,4 @@ export default class SpendingByCFDASection extends React.Component {
         );
     }
 }
+SpendingByCFDASection.propTypes = propTypes;
