@@ -53,6 +53,19 @@
 
         .card__body {
           padding: 0;
+          .card__button {
+            margin-bottom: 0;
+            justify-content: left;
+            .card__button--borderless {
+              white-space: normal;
+            }
+            .button-type__text-light{
+              line-height: 1;
+              font-size: $font-size-16;
+              margin: 0;
+              padding: 0;
+            }
+          }
         }
 
         .homepage-resources__icon-container {
