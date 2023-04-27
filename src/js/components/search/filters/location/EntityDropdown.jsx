@@ -190,7 +190,7 @@ export default class EntityDropdown extends React.Component {
             // nth-child is 1 indexed but listindex is based on the array so it is 0 indexed
             // add 1 to the index to bring them in line
             const currentIndex = parseInt(active.getAttribute('data-listindex'), 10) + 1;
-            if (currentIndex + 1 < this.props.options.length) {
+            if (currentIndex + 1 <= this.props.options.length) {
                 // we're not at the end of the list
                 const nextItem = document.querySelector(`.geo-entity-list li:nth-child(${currentIndex + 1}) .list-item`);
                 if (nextItem) {
