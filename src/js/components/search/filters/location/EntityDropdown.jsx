@@ -286,13 +286,18 @@ export default class EntityDropdown extends React.Component {
         return (
             <div
                 className="geo-entity-item">
-                <div className="location-label__with-tt">
+                {(this.props.title.includes('Congressional Districts')) ?
+                    <label
+                        className={`location-label__overline ${disabled}`}
+                        htmlFor={`${field}-${type}-${uniqueIdentifier}`}>
+                        {this.props.title}
+                    </label> :
                     <label
                         className={`location-label ${disabled}`}
                         htmlFor={`${field}-${type}-${uniqueIdentifier}`}>
                         {this.props.title}
                     </label>
-                </div>
+                }
                 <div
                     id={`${field}-${type}-${uniqueIdentifier}`}
                     className={`geo-entity-dropdown ${disabled} ${autocompleteClass}`}

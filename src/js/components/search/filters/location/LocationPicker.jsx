@@ -282,20 +282,21 @@ export default class LocationPicker extends React.Component {
                             </div>
                         </FeatureFlag>
                     </div>
-
-                    <div className="location-item">
-                        <EntityDropdown
-                            field="district"
-                            matchKey="district"
-                            placeholder={districtPlaceholder}
-                            title="Current Congressional Districts (based on 2023 redistricting)"
-                            value={this.props.district}
-                            selectEntity={this.props.selectEntity}
-                            options={this.props.availableDistricts}
-                            enabled={isDistrictEnabled}
-                            generateDisclaimer={this.generateDisclaimer} />
-                    </div>
-                    <div className="location-item">
+                    <FeatureFlag>
+                        <div className="location-item__with-overline">
+                            <EntityDropdown
+                                field="district"
+                                matchKey="district"
+                                placeholder={districtPlaceholder}
+                                title="Current Congressional Districts (based on 2023 redistricting) - for QAT only"
+                                value={this.props.district}
+                                selectEntity={this.props.selectEntity}
+                                options={this.props.availableDistricts}
+                                enabled={isDistrictEnabled}
+                                generateDisclaimer={this.generateDisclaimer} />
+                        </div>
+                    </FeatureFlag>
+                    <div className="location-item__with-overline">
                         <EntityDropdown
                             field="district"
                             matchKey="district"

@@ -25,6 +25,13 @@
                 }
             }
 
+            .location-item__with-overline {
+                margin-top: rem(10);
+                &:last-child {
+                    margin-bottom: rem(15);
+                }
+            }
+
             .location-item__cd {
                 display: flex;
                 align-items: center;
@@ -54,6 +61,15 @@
             font-size: $base-font-size;
             text-transform: uppercase;
 
+            &.disabled {
+                opacity: 0.4;
+            }
+        }
+
+        .location-label__overline {
+            padding: rem(5) 0;
+            margin: rem(10) rem(5) rem(5) 0;
+            font-size: $font-size-14;
             &.disabled {
                 opacity: 0.4;
             }
