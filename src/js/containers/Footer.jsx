@@ -7,7 +7,7 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { throttle } from "lodash";
-import { tabletScreen, mlargeScreen } from 'dataMapping/shared/mobileBreakpoints';
+import { tabletScreen, mLargeScreen } from 'dataMapping/shared/mobileBreakpoints';
 
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -43,7 +43,7 @@ const Footer = ({
 }) => {
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < tabletScreen);
-    const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth >= mlargeScreen);
+    const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth >= mLargeScreen);
 
     const generateOnClick = (url) => () => {
         clickedFooterLink(url);
@@ -58,7 +58,7 @@ const Footer = ({
             if (windowWidth !== newWidth) {
                 setWindowWidth(newWidth);
                 setIsMobile(newWidth < tabletScreen);
-                setIsLargeScreen(newWidth >= mlargeScreen);
+                setIsLargeScreen(newWidth >= mLargeScreen);
             }
         }, 50);
         window.addEventListener('resize', handleResize);
