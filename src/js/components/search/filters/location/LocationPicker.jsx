@@ -23,12 +23,14 @@ const propTypes = {
     availableCountries: PropTypes.array,
     availableStates: PropTypes.array,
     availableCounties: PropTypes.array,
-    availableDistricts: PropTypes.array,
+    availableCurrentDistricts: PropTypes.array,
+    availableOriginalDistricts: PropTypes.array,
     availableCities: PropTypes.array,
     selectEntity: PropTypes.func,
     loadStates: PropTypes.func,
     loadCounties: PropTypes.func,
-    loadDistricts: PropTypes.func,
+    loadOriginalDistricts: PropTypes.func,
+    loadCurrentDistricts: PropTypes.func,
     clearStates: PropTypes.func,
     clearCounties: PropTypes.func,
     clearDistricts: PropTypes.func,
@@ -90,7 +92,8 @@ export default class LocationPicker extends React.Component {
         if (stateChanged && this.props.state.code) {
             // new state selected , load the corresponding counties & districts
             this.props.loadCounties(this.props.state.code.toLowerCase());
-            this.props.loadDistricts(this.props.state.code.toLowerCase());
+            this.props.loadOriginalDistricts(this.props.state.code.toLowerCase());
+            this.props.loadCurrentDistricts(this.props.state.code.toLowerCase());
             if (!isCityInState) { // only clear the city if the new state does not contain selected city
                 this.props.clearCitiesAndSelectedCity();
             }
@@ -143,6 +146,7 @@ export default class LocationPicker extends React.Component {
                 county,
                 city
             } = this.props;
+            console.debug("props: ", this.props);
             const countyOrDistrictSelected = (district.district || county.code);
             if (!state.code) {
                 // no state
@@ -191,7 +195,7 @@ export default class LocationPicker extends React.Component {
         );
 
         let districtPlaceholder = 'Select a congressional district';
-        if (this.props.state.code !== '' && this.props.availableDistricts.length === 0) {
+        if (this.props.state.code !== '' && (this.props.availableOriginalDistricts?.length === 0 || this.props.availableCurrentDistricts?.length === 0)) {
             // no districts in this state
             districtPlaceholder = 'No congressional districts in territory';
         }
@@ -291,7 +295,7 @@ export default class LocationPicker extends React.Component {
                                 title="Current Congressional Districts (based on 2023 redistricting) - for QAT only"
                                 value={this.props.district}
                                 selectEntity={this.props.selectEntity}
-                                options={this.props.availableDistricts}
+                                options={this.props.availableCurrentDistricts}
                                 enabled={isDistrictEnabled}
                                 generateDisclaimer={this.generateDisclaimer} />
                         </div>
@@ -304,7 +308,7 @@ export default class LocationPicker extends React.Component {
                             title="Original Congressional Districts (as reported by federal agencies)"
                             value={this.props.district}
                             selectEntity={this.props.selectEntity}
-                            options={this.props.availableDistricts}
+                            options={this.props.availableOriginalDistricts}
                             enabled={isDistrictEnabled}
                             generateDisclaimer={this.generateDisclaimer} />
                     </div>

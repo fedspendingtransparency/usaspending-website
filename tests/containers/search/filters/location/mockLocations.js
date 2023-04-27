@@ -27,7 +27,7 @@ export const getSelectedLocationProps = (props = defaultLocationValues) => ({
 export const getLoadLocationMethods = () => ({
     loadStates: jest.fn(),
     loadCounties: jest.fn(),
-    loadDistricts: jest.fn()
+    loadOriginalDistricts: jest.fn()
 });
 
 export const getClearLocationMethods = () => ({
