@@ -1,6 +1,6 @@
 /**
- * FooterComponent.jsx
- * Created by Destin Frasier 02/24/2017
+ * Footer.jsx
+ * Created by Brian Petway 04/14/23
  **/
 
 import React, { useState, useEffect } from 'react';
