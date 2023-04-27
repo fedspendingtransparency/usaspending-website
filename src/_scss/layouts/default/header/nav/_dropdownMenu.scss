@@ -1,5 +1,4 @@
 .nav-dropdown {
-    $dropdown-hover: #EEEEEE;
     $dropdown-border: #DCDCDC;
     @import "./_comingSoon";
 
@@ -11,29 +10,31 @@
         position: relative;
         padding: rem(18) rem(20);
 
-        &:hover, &:active, &.nav-dropdown__parent_active {
-            box-shadow: 0 2px 6px 0 rgba(78,78,78,0.5);
+        .nav-dropdown__parent-label {
+            @include flex(1 1 auto);
+            color: $gray-90;
+            font-weight: $font-semibold;
+            font-size: rem(15);
+            line-height: rem(19);
+            @include display(flex);
+            @import "components/_newBadge.scss";
         }
-    }
-    .nav-dropdown__parent-label {
-        @include flex(1 1 auto);
-        color: $nav-color;
-        font-weight: $font-semibold;
-        font-size: rem(15);
-        line-height: rem(19);
-        @include display(flex);
-        @import "components/_newBadge.scss";
-    }
-    .nav-dropdown__parent-icon {
-        @include flex(0 0 auto);
-        margin-left: rem(10);
 
-        svg {
-            width: rem(10);
-            height: rem(10);
-            fill: $nav-color;
-            margin-top: rem(3);
+        .nav-dropdown__parent-icon {
+            @include flex(0 0 auto);
+            margin-left: rem(10);
+
+            svg {
+                width: rem(10);
+                height: rem(10);
+                fill: $nav-color;
+                margin-top: rem(3);
+            }
         }
+    }
+
+    .nav-dropdown__parent:hover  div.nav-dropdown__parent-label { 
+        color: $gray-60;
     }
 
     .nav-children {
@@ -48,22 +49,33 @@
         ul.nav-children__list {
             @include unstyled-list;
             position: absolute;
-            width: rem(230);
+            width: 692px;
+            height: 382px;
+            margin-top: 15px;
             background-color: $color-white;
-            box-shadow: 0 4px 5px 0 rgba(0,0,0,0.5);
+            box-shadow: 0 4px 5px 0 rgba(0, 0, 0, 0.5);
             border-top: 1px solid $dropdown-border;
+
             &:not(.resources) {
                 left: 0;
             }
+
             &.resources {
                 right: 0;
+            }
+
+            .nav-children__container {
+                display: inline-table;
+                font-size: $font-size-16;
+                padding: rem(15) rem(20);
+                ;
             }
         }
 
         hr.nav-children__list-separator {
             border: none;
             border-bottom: 1px solid $dropdown-border;
-            margin: 0 rem(13);
+            margin: rem(10) rem(13);
 
             &.nav-children__list-separator_hidden {
                 display: none;
@@ -75,12 +87,14 @@
             @include align-items(center);
             font-size: rem(15);
             line-height: rem(19);
-            color: $nav-color;
+            color: $gray-90;
             font-weight: $font-semibold;
             padding: rem(15) rem(20);
-            &:hover, &:active {
+
+            &:hover,
+            &:active {
                 text-decoration: none;
-                background-color: $dropdown-hover;
+                background-color: $gray-60;
             }
 
             &.nav-children__link_disabled {
@@ -89,6 +103,7 @@
                 font-weight: $font-normal;
                 color: $nav-coming-soon;
             }
+
             @import "../../../../components/newBadge";
         }
 
@@ -98,11 +113,13 @@
             width: 100%;
             font-size: rem(15);
             line-height: rem(19);
-            color: $nav-color;
+            color: $gray-90;
             font-weight: $font-semibold;
             padding: rem(15) rem(20);
-            &:hover, &:active {
-                background-color: $dropdown-hover;
+
+            &:hover,
+            &:active {
+                background-color: $gray-60;
             }
         }
     }

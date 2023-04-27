@@ -9,13 +9,22 @@ const { FILES_SERVER_BASE_URL } = GlobalConstants;
 
 export const searchOptions = [
     {
-        label: 'Advanced Search',
-        url: '/search',
+        label: 'Budget Function Drill Down',
+        description: 'by high-level category',
+        url: 'explorer/budget_function',
+        icon: 'faList',
         enabled: true
     },
     {
-        label: 'Keyword Search',
-        url: '/keyword_search',
+        label: 'Agency Drill Down',
+        description: 'by federal agency',
+        url: '/explorer/agency',
+        enabled: true
+    },
+    {
+        label: 'Object Class Drill Down',
+        description: 'By the goods and services the goverment buys',
+        url: '/explorer/object_class',
         enabled: true
     }
 ];
@@ -23,26 +32,33 @@ export const searchOptions = [
 export const profileOptions = [
     {
         label: 'Agencies',
+        description: 'Track spending by federal agency',
         url: '/agency',
+        icon: 'faFan',
         enabled: true
     },
     {
-        label: 'Federal Accounts',
-        url: '/federal_account',
-        enabled: true
-    },
-    {
-        label: 'States',
+        label: 'States & Territories',
+        description: 'Track spending to states & territories',
+        icon: 'faUser',
         url: '/state',
         enabled: true
     },
     {
+        label: 'Federal Accounts',
+        description: 'by high-level category',
+        url: '/federal_account',
+        enabled: true
+    },
+    {
         label: 'Recipients',
+        description: 'by high-level category',
         url: '/recipient',
         enabled: true
     },
     {
         label: "COVID-19 Spending",
+        description: 'by high-level category',
         url: '/disaster/covid-19',
         enabled: true
     }
