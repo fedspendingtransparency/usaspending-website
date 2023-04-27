@@ -8,15 +8,11 @@ import PropTypes from 'prop-types';
 import Mousetrap from 'mousetrap';
 import { uniqueId, isEqual } from 'lodash';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { TooltipWrapper } from "data-transparency-ui";
 import { defaultLocationValues }
     from "containers/search/filters/location/LocationPickerContainer";
-
 import EntityDropdownList from './EntityDropdownList';
 import EntityWarning from './EntityWarning';
 import { EntityDropdownAutocomplete } from './EntityDropdownAutocomplete';
-import FeatureFlag from "../../../sharedComponents/FeatureFlag";
-import { CDTooltip } from "../tooltips/AdvancedSearchTooltip";
 
 const propTypes = {
     value: PropTypes.object,
@@ -296,16 +292,6 @@ export default class EntityDropdown extends React.Component {
                         htmlFor={`${field}-${type}-${uniqueIdentifier}`}>
                         {this.props.title}
                     </label>
-                    {this.props.title === 'CONGRESSIONAL DISTRICT (US ONLY)' ?
-                        <FeatureFlag>
-                            <div>
-                                <TooltipWrapper
-                                    className="advanced-search__cd-tooltip"
-                                    icon="info"
-                                    tooltipComponent={<CDTooltip />} />
-                            </div>
-                        </FeatureFlag>
-                        : ''}
                 </div>
                 <div
                     id={`${field}-${type}-${uniqueIdentifier}`}
@@ -373,3 +359,16 @@ export default class EntityDropdown extends React.Component {
 
 EntityDropdown.propTypes = propTypes;
 EntityDropdown.defaultProps = defaultProps;
+
+/*
+{this.props.title === 'CONGRESSIONAL DISTRICT (US ONLY)' ?
+                        <FeatureFlag>
+                            <div>
+                                <TooltipWrapper
+                                    className="advanced-search__cd-tooltip"
+                                    icon="info"
+                                    tooltipComponent={<CDTooltip />} />
+                            </div>
+                        </FeatureFlag>
+                        : ''}
+*/

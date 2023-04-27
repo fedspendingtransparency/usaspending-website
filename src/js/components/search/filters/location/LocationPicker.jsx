@@ -5,10 +5,12 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import { TooltipWrapper } from "data-transparency-ui";
 import EntityDropdown from './EntityDropdown';
 import ZIPField from './ZIPField';
 import { defaultLocationValues } from "../../../../containers/search/filters/location/LocationPickerContainer";
+import FeatureFlag from "../../../sharedComponents/FeatureFlag";
+import { CDTooltip } from "../tooltips/AdvancedSearchTooltip";
 
 const propTypes = {
     selectedLocations: PropTypes.object,
@@ -268,12 +270,37 @@ export default class LocationPicker extends React.Component {
                             searchString={this.props.citySearchString}
                             showDisclaimer={showDisclaimer} />
                     </div>}
+
+                    <div className={`location-item__cd ${isDistrictEnabled === false ? "disabled" : ""}`}>
+                        <span className="location-label__with-tt">CONGRESSIONAL DISTRICT (US ONLY)</span>
+                        <FeatureFlag>
+                            <div>
+                                <TooltipWrapper
+                                    className="advanced-search__cd-tooltip"
+                                    icon="info"
+                                    tooltipComponent={<CDTooltip />} />
+                            </div>
+                        </FeatureFlag>
+                    </div>
+
                     <div className="location-item">
                         <EntityDropdown
                             field="district"
                             matchKey="district"
                             placeholder={districtPlaceholder}
-                            title="CONGRESSIONAL DISTRICT (US ONLY)"
+                            title="Current Congressional Districts (based on 2023 redistricting)"
+                            value={this.props.district}
+                            selectEntity={this.props.selectEntity}
+                            options={this.props.availableDistricts}
+                            enabled={isDistrictEnabled}
+                            generateDisclaimer={this.generateDisclaimer} />
+                    </div>
+                    <div className="location-item">
+                        <EntityDropdown
+                            field="district"
+                            matchKey="district"
+                            placeholder={districtPlaceholder}
+                            title="Original Congressional Districts (as reported by federal agencies)"
                             value={this.props.district}
                             selectEntity={this.props.selectEntity}
                             options={this.props.availableDistricts}

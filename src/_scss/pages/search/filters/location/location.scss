@@ -20,11 +20,23 @@
     
             .location-item {
                 margin-top: rem(15);
+                &:first-child {
+                    margin-top: rem(10);
+                }
+            }
+
+            .location-item__cd {
+                display: flex;
+                align-items: center;
+                margin-top: rem(15);
     
                 &:first-child {
                     margin-top: rem(10);
                 }
-    
+                &.disabled {
+                    opacity: 0.4;
+                }
+
                 .location-label__with-tt {
                     display: flex;
                     align-items: center;
@@ -34,7 +46,6 @@
                         display: unset;
                         text-transform: none !important;
                     }
-    
                 }
             }
 
