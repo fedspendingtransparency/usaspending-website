@@ -30,7 +30,8 @@ const propTypes = {
     center: PropTypes.array,
     stateProfile: PropTypes.bool,
     mapLegendToggle: PropTypes.string,
-    updateMapLegendToggle: PropTypes.func
+    updateMapLegendToggle: PropTypes.func,
+    className: PropTypes.string
 };
 
 const defaultProps = {
@@ -99,9 +100,8 @@ export default class MapWrapper extends React.Component {
         this.mapOperationQueue = {};
         this.loadedLayers = {};
         this.broadcastReceivers = [];
-
         this.renderCallback = null;
-
+        this.className = "";
         this.mapReady = this.mapReady.bind(this);
         this.mapRemoved = this.mapRemoved.bind(this);
 
@@ -489,14 +489,16 @@ export default class MapWrapper extends React.Component {
             showLayerToggle,
             availableLayers,
             scope,
-            changeMapLayer
+            changeMapLayer,
+            className
         } = this.props;
         if (showLayerToggle && availableLayers.length > 1) {
             return (<MapLayerToggle
                 active={scope}
                 available={availableLayers}
                 sources={mapboxSources}
-                changeMapLayer={changeMapLayer} />);
+                changeMapLayer={changeMapLayer}
+                className={className} />);
         }
         return null;
     };

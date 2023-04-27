@@ -79,6 +79,7 @@ const AnalystGuidePage = () => {
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="analyst-guide__download-button"
+                                    aria-label="download"
                                     download>
                                     <FontAwesomeIcon data-href="/data/analyst-guide-download.pdf" icon={faFileDownload} className="analyst-guide__download-icon" />
                                 </a>

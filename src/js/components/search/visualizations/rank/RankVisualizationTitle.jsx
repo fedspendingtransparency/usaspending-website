@@ -13,40 +13,23 @@ const propTypes = {
     fieldTypes: PropTypes.array,
     changeSpendingBy: PropTypes.func,
     currentSpendingBy: PropTypes.string,
-    subaward: PropTypes.bool
+    subaward: PropTypes.bool,
+    showPicker: PropTypes.bool,
+    togglePicker: PropTypes.func,
+    setPickerState: PropTypes.func
 };
 
 export default class RankVisualizationTitle extends React.Component {
     constructor(props) {
         super(props);
-
-        this.state = {
-            showPicker: false
-        };
-
-        this.togglePicker = this.togglePicker.bind(this);
         this.clickedItem = this.clickedItem.bind(this);
     }
 
-    togglePicker() {
-        this.setState({
-            showPicker: !this.state.showPicker
-        });
-    }
-
     clickedItem(e) {
-        const prevValue = this.props.currentSpendingBy;
         const value = e.target.value;
+        this.props.changeSpendingBy(value);
 
-        if (value !== '') {
-            this.props.changeSpendingBy(value);
-        } else {
-            this.props.changeSpendingBy(prevValue);
-        }
-
-        this.setState({
-            showPicker: false
-        });
+        this.props.setPickerState(false);
     }
 
     render() {
@@ -59,7 +42,7 @@ export default class RankVisualizationTitle extends React.Component {
                     title={categoryNames[field]}
                     aria-label={categoryNames[field]}
                     value={field}
-                    onMouseDown={this.clickedItem}>
+                    onClick={this.clickedItem}>
                     {categoryNames[field]}
                 </button>
             </li>
@@ -68,30 +51,25 @@ export default class RankVisualizationTitle extends React.Component {
         const currentField = this.props.currentSpendingBy;
         let showPicker = 'hide';
         let icon = <Icons.AngleDown alt="Pick a field" />;
-        if (this.state.showPicker) {
+        if (this.props.showPicker) {
             showPicker = '';
             icon = <Icons.AngleUp alt="Pick a field" />;
         }
 
         return (
-            <div className="rank-visualization-title">
+            <div
+                className="rank-visualization-title">
                 <h2 className="static-title">
                     {this.props.subaward ? `Sub-Award Spending by: ` : `Spending by `}
                 </h2>
 
-                <div className="field-picker">
+                <div
+                    className="field-picker">
                     <button
                         className="selected-button"
                         title={categoryNames[currentField]}
                         aria-label={categoryNames[currentField]}
-                        onMouseDown={this.togglePicker}
-                        onBlur={(e) => {
-                            if (e.target.value === '') {
-                                this.togglePicker();
-                            }
-
-                            this.clickedItem(e);
-                        }}>
+                        onClick={this.props.togglePicker}>
                         <span className="label">
                             {categoryNames[currentField]}
                         </span>

@@ -10,7 +10,8 @@ import { throttle, capitalize } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { TooltipWrapper } from 'data-transparency-ui';
 import { fullMonthFromAbbr } from 'helpers/monthHelper';
-import { isIe } from 'helpers/browser';
+import { getAtdDefcText } from "helpers/aboutTheDataSidebarHelper";
+
 import TimeVisualization from './TimeVisualization';
 import TimeVisualizationPeriodButton from './TimeVisualizationPeriodButton';
 import GlossaryLink from '../../../sharedComponents/GlossaryLink';
@@ -130,12 +131,14 @@ export default class TimeVisualizationSection extends React.Component {
 
         const primeAwardPreview = "Spot trends in spending over your chosen time period. Break down your results by years, quarters, or months.";
         const primeAwardBody = <>
+            {getAtdDefcText(this.props.isDefCodeInFilter?.length > 0)}
             <p className="award-search__body-text">The data in the chart below represent {<span className="award-search__glossary-term"> obligation</span>}{' '}{<GlossaryLink term="obligation" />} amounts for prime award {<span className="award-search__glossary-term"> transactions</span>}{' '}{<GlossaryLink term="transaction" />} within the selected filters. Prime award transactions with the same unique award ID are grouped under a single prime award summary. Prime award summaries can be viewed in the Table tab.</p>
         </>;
 
         const subAwardPreview = "Spot trends in spending over your chosen time period. Break down your results by years, quarters, or months.";
         const subAwardBody = (
             <>
+                {getAtdDefcText(this.props.isDefCodeInFilter?.length > 0)}
                 <p className="award-search__body-text">The data below represent{<span className="award-search__glossary-term"> sub-awards</span>}{' '}{<GlossaryLink term="sub-award" />} that meet the selected filter criteria. The results do not reflect sub-awards whose
                     {<span className="award-search__glossary-term"> prime awards</span>}{' '}{<GlossaryLink term="prime-award" />}
                     {' '}meet the selected filter criteria. For example, if you filter by Fiscal Year 2019, you will see only sub-awards with Action Dates in Fiscal Year 2019, but you will not see all sub-awards whose prime award overlaps with Fiscal Year 2019.
@@ -161,26 +164,15 @@ export default class TimeVisualizationSection extends React.Component {
     // eslint-disable-next-line no-undef
     downloadBlob = () => new Blob([this.getDownloadData()], { type: 'text/csv;charset=utf-8;' });
 
-    renderDownloadLink = () => (isIe() ?
-        (
-            <button onClick={() => {
-                window.navigator.msSaveOrOpenBlob(this.downloadBlob(), 'spending-over-time.csv');
-            }}>
-                <FontAwesomeIcon icon="download" size="lg" />
-                <span className="text">
-                    Download data by {capitalize(this.props.data.visualizationPeriod === 'fiscal_year' ? 'year' : this.props.data.visualizationPeriod)}
-                </span>
-            </button>
-        ) : (
-            <a
-                href={URL.createObjectURL(this.downloadBlob())}
-                download="spending-over-time.csv" >
-                <FontAwesomeIcon icon="download" size="lg" />
-                <span className="text">
-                    Download data by {capitalize(this.props.data.visualizationPeriod === 'fiscal_year' ? 'year' : this.props.data.visualizationPeriod)}
-                </span>
-            </a>
-        )
+    renderDownloadLink = () => (
+        <a
+            href={URL.createObjectURL(this.downloadBlob())}
+            download="spending-over-time.csv" >
+            <FontAwesomeIcon icon="download" size="lg" />
+            <span className="text">
+                Download data by {capitalize(this.props.data.visualizationPeriod === 'fiscal_year' ? 'year' : this.props.data.visualizationPeriod)}
+            </span>
+        </a>
     );
 
     render() {

@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
 const KeywordSearchLink = () => (
     <div className="advanced-search__keyword-search-link-container">
         <div className="advanced-search__keyword-search-link-col1">
-            <FontAwesomeIcon className="advanced-search__keyword-search-icon" size="md" icon="info-circle" />
+            <FontAwesomeIcon className="advanced-search__keyword-search-icon" icon="info-circle" />
         </div>
         <div className="advanced-search__keyword-search-link-col2">
             <p className="advanced-search__keyword-search-link-text">

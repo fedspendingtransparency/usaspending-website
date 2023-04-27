@@ -73,6 +73,7 @@ export default class EntityDropdown extends React.Component {
         this.handleTextInputChange = this.handleTextInputChange.bind(this);
         this.resetSelectedItem = this.resetSelectedItem.bind(this);
         this.handleOnKeyDown = this.handleOnKeyDown.bind(this);
+        this.handleOnKeyUp = this.handleOnKeyUp.bind(this);
     }
 
     componentDidUpdate(prevProps) {
@@ -96,6 +97,15 @@ export default class EntityDropdown extends React.Component {
     handleOnKeyDown(e) {
         if (e.key === 'Backspace') { // backspace
             this.resetSelectedItem();
+        }
+    }
+
+    handleOnKeyUp(e) {
+        if (e.key === "Enter") {
+            this.setState({
+                expanded: true
+            });
+            this.handleTextInputChange(e);
         }
     }
 
@@ -180,7 +190,7 @@ export default class EntityDropdown extends React.Component {
             // nth-child is 1 indexed but listindex is based on the array so it is 0 indexed
             // add 1 to the index to bring them in line
             const currentIndex = parseInt(active.getAttribute('data-listindex'), 10) + 1;
-            if (currentIndex + 1 < this.props.options.length) {
+            if (currentIndex + 1 <= this.props.options.length) {
                 // we're not at the end of the list
                 const nextItem = document.querySelector(`.geo-entity-list li:nth-child(${currentIndex + 1}) .list-item`);
                 if (nextItem) {
@@ -338,6 +348,7 @@ export default class EntityDropdown extends React.Component {
                                 enabled={enabled}
                                 openDropdown={this.openDropdown}
                                 handleOnKeyDown={this.handleOnKeyDown}
+                                handleOnKeyUp={this.handleOnKeyUp}
                                 handleTextInputChange={this.handleTextInputChange}
                                 toggleDropdown={this.toggleDropdown}
                                 placeholder={this.props.placeholder}

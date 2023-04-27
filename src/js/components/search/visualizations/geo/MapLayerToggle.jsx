@@ -8,12 +8,14 @@ import PropTypes from 'prop-types';
 import { TooltipWrapper } from 'data-transparency-ui';
 import { CondensedCDTooltip } from '../../../award/shared/InfoTooltipContent';
 import FeatureFlag from '../../../sharedComponents/FeatureFlag';
+import { tabletScreen, mLargeScreen } from '../../../../dataMapping/shared/mobileBreakpoints';
 
 const propTypes = {
     active: PropTypes.string,
     available: PropTypes.array,
     changeMapLayer: PropTypes.func,
-    sources: PropTypes.object
+    sources: PropTypes.object,
+    className: PropTypes.string
 };
 
 const capitalizeLabel = (original) => {
@@ -60,6 +62,8 @@ const MapLayerToggle = (props) => {
                         <div className="map-layer__cd-tooltip">
                             <TooltipWrapper
                                 icon="info"
+                                className={props.className}
+                                tooltipPosition={(window.innerWidth >= tabletScreen && window.innerWidth <= mLargeScreen) ? 'left' : 'right'}
                                 tooltipComponent={<CondensedCDTooltip title="Congressional Districts" />} />
                         </div>
                     </FeatureFlag>
@@ -67,7 +71,6 @@ const MapLayerToggle = (props) => {
             </li>
         );
     });
-
     return (
         <div className="map-layer-toggle">
             <ul className="map-layer-list">

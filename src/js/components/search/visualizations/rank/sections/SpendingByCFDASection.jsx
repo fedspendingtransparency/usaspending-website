@@ -4,11 +4,18 @@
  */
 
 import React from 'react';
+import PropTypes from 'prop-types';
+
+import { getAtdDefcText } from "helpers/aboutTheDataSidebarHelper";
 
 import RankVisualizationSection from './RankVisualizationSection';
 import GlossaryLink from '../../../../sharedComponents/GlossaryLink';
 import ReadMore from '../../../../sharedComponents/ReadMore';
 
+const propTypes = {
+    togglePicker: PropTypes.func,
+    showPicker: PropTypes.bool
+};
 export default class SpendingByCFDASection extends React.Component {
     constructor(props) {
         super(props);
@@ -46,12 +53,19 @@ export default class SpendingByCFDASection extends React.Component {
         return (
             <RankVisualizationSection {...this.props}>
                 <div className="visualization-top">
-                    <div className="visualization-top__description">
+                    <div
+                        className="visualization-top__description"
+                        onFocus={() => {
+                            if (this.props.showPicker === true) {
+                                this.props.togglePicker();
+                            }
+                        }}>
                         <p className="award-search__what-title">What's included in this view of the data?</p>
                         <p className="read-more__preview-lines">View a list of the top CFDA Programs from highest to lowest, and hover over the bars for more detailed information.</p>
                         {this.props.subaward ?
                             <ReadMore openPrompt="read more" closePrompt="read less" openIcon="" closeIcon="" additionalFunctionality={additionalFunctionality}>
                                 <>
+                                    {getAtdDefcText(this.props.isDefCodeInFilter?.length > 0)}
                                     <p className="award-search__body-text">The data below represent{<span className="award-search__glossary-term"> sub-awards</span>}{' '}{<GlossaryLink term="sub-award" />} that meet the selected filter criteria. The results do not reflect sub-awards whose
                                         {<span className="award-search__glossary-term"> prime awards</span>}{' '}{<GlossaryLink term="prime-award" />}{' '}
             meet the selected filter criteria. For example, if you filter by Fiscal Year 2019, you will see only sub-awards with Action Dates in Fiscal Year 2019, but you will not see all sub-awards whose prime award overlaps with Fiscal Year 2019.
@@ -62,6 +76,7 @@ export default class SpendingByCFDASection extends React.Component {
                             </ReadMore> :
                             <ReadMore openPrompt="read more" closePrompt="read less" openIcon="" closeIcon="" additionalFunctionality={additionalFunctionality}>
                                 <>
+                                    {getAtdDefcText(this.props.isDefCodeInFilter?.length > 0)}
                                     <p className="award-search__body-text">The data in the chart below represent <span className="award-search__glossary-term"> obligation</span>{' '}<GlossaryLink term="obligation" /> amounts for prime award <span className="award-search__glossary-term"> transactions</span>{' '}<GlossaryLink term="transaction" /> within the selected filters. Prime award transactions with the same unique award ID are grouped under a single prime award summary. Prime award summaries can be viewed in the Table tab.</p>
                                 </>
                             </ReadMore>}
@@ -71,3 +86,4 @@ export default class SpendingByCFDASection extends React.Component {
         );
     }
 }
+SpendingByCFDASection.propTypes = propTypes;

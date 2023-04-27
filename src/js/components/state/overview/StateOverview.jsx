@@ -236,7 +236,7 @@ export default class StateOverview extends React.PureComponent {
                             <h3 className="state-overview__heading">
                                 Primary Place of Performance
                             </h3>
-                            <GeoVisualizationSectionContainer />
+                            <GeoVisualizationSectionContainer className="state-profile__map-toggle" />
                         </div>
                     </div>
                 </div>
