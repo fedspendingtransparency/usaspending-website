@@ -71,9 +71,9 @@ const Footer = ({
                 filters={filters} />
             <BulkDownloadBottomBarContainer />
             <StayInTouch pageName={pageName} />
-            <div className="footer2-container">
-                <div className="footer2-logo-container">
-                    <div className="footer2-logo">
+            <div className="footer-container">
+                <div className="footer-logo-container">
+                    <div className="footer-logo">
                         <Link
                             to="/"
                             title="USAspending.gov Home"
@@ -83,21 +83,21 @@ const Footer = ({
                         </Link>
                     </div>
                     {isLargeScreen && (
-                        <div className="footer2-border-bottom" />
+                        <div className="footer-border-bottom" />
                     )}
                 </div>
-                <div className="footer2-large-screen-row-one">
-                    <div className="footer2-heading-container">
-                        <div className="footer2-heading">
+                <div className="footer-large-screen-row-one">
+                    <div className="footer-heading-container">
+                        <div className="footer-heading">
                             Building a more transparent government.
                         </div>
-                        <div className="footer2-subHeading">
+                        <div className="footer-subHeading">
                             Providing publicly accessible and searchable data on what the federal government spends each year.
                         </div>
                     </div>
-                    <div className="footer2-main-links-section">
-                        <div className="footer2-link-section">
-                            <div className="footer2-link-section-title">ABOUT</div>
+                    <div className="footer-main-links-section">
+                        <div className="footer-link-section">
+                            <div className="footer-link-section-title">ABOUT</div>
                             <ul>
                                 <li>
                                     <Link
@@ -115,8 +115,8 @@ const Footer = ({
                                 </li>
                             </ul>
                         </div>
-                        <div className="footer2-link-section">
-                            <div className="footer2-link-section-title">HELP</div>
+                        <div className="footer-link-section">
+                            <div className="footer-link-section-title">HELP</div>
                             <ul>
                                 <li>
                                     <FooterExternalLink
@@ -140,8 +140,8 @@ const Footer = ({
                                 </li>
                             </ul>
                         </div>
-                        <div className="footer2-link-section">
-                            <div className="footer2-link-section-title">RELATED SITES</div>
+                        <div className="footer-link-section">
+                            <div className="footer-link-section-title">RELATED SITES</div>
                             <ul>
                                 <li>
                                     <a target="_blank" rel="noopener noreferrer" href="https://fiscaldata.treasury.gov/">Fiscal Data</a>
@@ -153,8 +153,8 @@ const Footer = ({
                         </div>
                     </div>
                 </div>
-                <div className="footer2-large-screen-row-two">
-                    <div className="footer2-social-media-section">
+                <div className="footer-large-screen-row-two">
+                    <div className="footer-social-media-section">
                         <ul>
                             <li>
                                 <button onClick={generateOnClick("https://www.youtube.com/channel/UCyDn83O-0XC98H3TCV-VCGQ")} title="Youtube">
@@ -183,7 +183,7 @@ const Footer = ({
                             </li>
                         </ul>
                     </div>
-                    <div className="footer2-legal-links-section">
+                    <div className="footer-legal-links-section">
                         <ul>
                             <li>
                                 <Link
@@ -193,7 +193,7 @@ const Footer = ({
                                 </Link>
                             </li>
                             {!isMobile && (
-                                <li className="footer2-pipe-class">|</li>
+                                <li className="footer-pipe-class">|</li>
                             )}
                             <li>
                                 <Link
@@ -203,7 +203,7 @@ const Footer = ({
                                 </Link>
                             </li>
                             {!isMobile && (
-                                <li className="footer2-pipe-class">|</li>
+                                <li className="footer-pipe-class">|</li>
                             )}
                             <li>
                                 <Link
@@ -213,7 +213,7 @@ const Footer = ({
                                 </Link>
                             </li>
                             {!isMobile && (
-                                <li className="footer2-pipe-class">|</li>
+                                <li className="footer-pipe-class">|</li>
                             )}
                             <li>
                                 <Link
@@ -226,7 +226,7 @@ const Footer = ({
                             </li>
                         </ul>
                     </div>
-                    <div className="footer2-copyright-section">
+                    <div className="footer-copyright-section">
                         &copy; {year} USAspending.gov
                     </div>
                 </div>

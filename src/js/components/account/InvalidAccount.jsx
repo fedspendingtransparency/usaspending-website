@@ -5,7 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import Footer2 from 'containers/Footer2';
+import Footer from 'containers/Footer';
 import Header from 'containers/shared/HeaderContainer';
 import Error from '../sharedComponents/Error';
 
@@ -28,7 +28,7 @@ export default class InvalidAccount extends React.Component {
                             Please check the ID and try again." />
                     </div>
                 </main>
-                <Footer2 pageName="Invalid Account" />
+                <Footer pageName="Invalid Account" />
             </div>
         );
     }

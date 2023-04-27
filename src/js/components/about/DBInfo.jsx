@@ -6,7 +6,7 @@
 import React from 'react';
 
 import * as MetaTagHelper from 'helpers/metaTagHelper';
-import Footer2 from 'containers/Footer2';
+import Footer from 'containers/Footer';
 import Header from 'containers/shared/HeaderContainer';
 
 import MetaTags from '../sharedComponents/metaTags/MetaTags';
@@ -45,7 +45,7 @@ export default class DBInfo extends React.Component {
                         </p>
                     </div>
                 </main>
-                <Footer2 pageName="DBInfo" />
+                <Footer pageName="DBInfo" />
             </div>
         );
     }

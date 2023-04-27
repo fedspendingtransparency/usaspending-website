@@ -6,7 +6,7 @@
 import React from 'react';
 import { forEach } from 'lodash';
 import * as MetaTagHelper from 'helpers/metaTagHelper';
-import Footer2 from 'containers/Footer2';
+import Footer from 'containers/Footer';
 import Header from 'containers/shared/HeaderContainer';
 import MetaTags from '../sharedComponents/metaTags/MetaTags';
 import * as Icons from '../sharedComponents/icons/Icons';
@@ -42,7 +42,7 @@ export default class TestStylePage extends React.Component {
                         </div>
                     </div>
                 </main>
-                <Footer2 pageName="Test Style Page" />
+                <Footer pageName="Test Style Page" />
             </div>
         );
     }
