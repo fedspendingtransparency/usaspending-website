@@ -79,7 +79,6 @@ export default class EntityDropdown extends React.Component {
     }
 
     getSelectedItemIdentifier() {
-        console.debug("selecteditemid: ", this.props.value[this.props.matchKey]);
         return this.props.value[this.props.matchKey];
     }
 

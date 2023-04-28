@@ -319,7 +319,6 @@ export default class LocationPickerContainer extends React.Component {
             availableOriginalDistricts: districts,
             originalDistrict: Object.assign({}, defaultLocationValues.originalDistrict)
         });
-        console.debug("STATE AFTER SET1 : ", this.state);
     }
 
     parseCurrentDistricts(data) {
@@ -340,7 +339,6 @@ export default class LocationPickerContainer extends React.Component {
             availableCurrentDistricts: districts,
             currentDistrict: Object.assign({}, defaultLocationValues.currentDistrict)
         });
-        console.debug("STATE AFTER SET 2: ", this.state);
     }
 
     clearDistricts() {
@@ -594,7 +592,7 @@ export default class LocationPickerContainer extends React.Component {
     }
 
     render() {
-        console.debug("STATE: ", this.state.district);
+        console.debug("STATE: ", this.state);
         return (
             <LocationPicker
                 {...this.state}

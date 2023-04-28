@@ -47,7 +47,6 @@ const EntityDropdownList = (props) => {
         }
 
         const handleSelection = clickedItem.bind(null, item);
-        console.debug("handleSelection: ", clickedItem, item);
         return (
             <li
                 key={uniqueId(item.code)}>
