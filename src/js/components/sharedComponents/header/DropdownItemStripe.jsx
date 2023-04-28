@@ -36,7 +36,6 @@ const clickedHeaderLink = (route) => {
 const DropdownItem = ({
     url = '',
     label,
-    icon,
     description,
     enabled = true,
     shouldOpenNewTab = false,
@@ -125,7 +124,6 @@ const DropdownItem = ({
     return (
         <li className="nav-children__list-item">
             <div className="nav-children__container">
-                <FontAwesomeIcon clasName="nav-children__font" icon={icon} />
                 {link}
                 <div className="nav-children__container_description">{description}</div>
             </div>

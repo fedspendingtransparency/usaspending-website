@@ -6,7 +6,6 @@ header.site-header__wrapper {
     $nav-coming-soon: $color-gray-medium;
 
     .site-navigation {
-        padding-top: rem(10);
 
         .site-navigation__wrapper {
             @import "mixins/fullSectionWrap";
@@ -38,6 +37,9 @@ header.site-header__wrapper {
                 @include flex(1 0 auto);
             }
         }
+    }
+    .site-navigation_home-page {
+        background-color: rgba(136, 180, 192, .15);
     }
     // style the mobile menu button
     @import "./_mobileHamburger";

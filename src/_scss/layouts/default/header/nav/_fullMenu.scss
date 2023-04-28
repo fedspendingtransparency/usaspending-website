@@ -21,9 +21,9 @@
                 font-size: rem(15);
                 line-height: rem(19);
                 text-align: center;
-                padding: rem(18) rem(20);
+                padding: rem(22) rem(16);
 
-                color: $gray-90;
+                color: $gray-60;
                 text-decoration: none;
 
                 &:hover, &:active {
@@ -36,7 +36,7 @@
                 color: $color-primary;
                 border: 1px solid $color-primary;
                 font-size: rem(14);
-                font-weight: bold;
+                font-weight: $font-size-16;
                 line-height: rem(18);
                 @include display(flex);
                 @include align-items(center);

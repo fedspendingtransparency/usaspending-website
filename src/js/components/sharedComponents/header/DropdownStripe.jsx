@@ -5,7 +5,7 @@
 
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { AngleDown } from 'components/sharedComponents/icons/Icons';
+// import { AngleDown, AngleUp } from 'components/sharedComponents/icons/Icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import DropdownItem from './DropdownItemStripe';
@@ -40,11 +40,14 @@ const Dropdown = ({
     let activeChildren = '';
     let activeParent = '';
     let iconAlt = 'Collapsed menu';
+    let navChevronDirection = "chevron-down";
     if (expanded) {
         activeChildren = 'nav-children_active';
         activeParent = 'nav-dropdown__parent_active';
         iconAlt = 'Expanded menu';
+        navChevronDirection = "chevron-up";
     }
+
 
     const containsNewNavItem = items.some(({ isNewTab }) => isNewTab);
     return (
@@ -65,7 +68,7 @@ const Dropdown = ({
                     {label}
                 </div>
                 <div className="nav-dropdown__parent-icon">
-                    <AngleDown alt={iconAlt} />
+                    <FontAwesomeIcon icon={navChevronDirection} alt={iconAlt} />
                 </div>
             </button>
 

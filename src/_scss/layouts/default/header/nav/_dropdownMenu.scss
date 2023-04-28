@@ -8,13 +8,13 @@
         @include align-items(center);
         @include justify-content(center);
         position: relative;
-        padding: rem(18) rem(20);
+        padding: rem(22) rem(16);
 
         .nav-dropdown__parent-label {
             @include flex(1 1 auto);
             color: $gray-90;
             font-weight: $font-semibold;
-            font-size: rem(15);
+            font-size: $font-size-16;
             line-height: rem(19);
             @include display(flex);
             @import "components/_newBadge.scss";
@@ -22,12 +22,15 @@
 
         .nav-dropdown__parent-icon {
             @include flex(0 0 auto);
-            margin-left: rem(10);
+            margin-left: rem(4);
+            width: 14px;
+            height: 14px;
+            color: #2378c3;
 
             svg {
                 width: rem(10);
                 height: rem(10);
-                fill: $nav-color;
+                fill: #2378c3;
                 margin-top: rem(3);
             }
         }

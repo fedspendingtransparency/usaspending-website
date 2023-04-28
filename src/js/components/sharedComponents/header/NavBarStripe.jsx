@@ -20,12 +20,10 @@ const clickedHeaderLink = (route) => {
 export default class NavBarStripe extends React.Component {
     constructor(props) {
         super(props);
-
         this.state = {
             showMobileNav: false,
             showStayInTouchModal: false
         };
-
         this.siteBody = null;
 
         this.toggleMobileNav = this.toggleMobileNav.bind(this);
@@ -60,16 +58,21 @@ export default class NavBarStripe extends React.Component {
             this.displayMobileNav();
         }
     }
-
     toggleModal = () => {
         this.setState({ showStayInTouchModal: !this.state.showStayInTouchModal });
     };
 
 
     render() {
+        const navHomePage = window.location.href;
+        let bananas = '';
+        if (navHomePage === "http://localhost:3000/") {
+            bananas = "site-navigation_home-page";
+        }
+        console.log(navHomePage);
         return (
             <nav
-                className="site-navigation"
+                className={`site-navigation  ${bananas}`}
                 aria-label="Site navigation">
                 <Modal
                     className="email-sign-up__modal"
