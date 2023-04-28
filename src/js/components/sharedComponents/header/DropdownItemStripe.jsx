@@ -7,7 +7,6 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
 import * as slideoutActions from 'redux/actions/slideouts/slideoutActions';
 import Analytics from 'helpers/analytics/Analytics';
