@@ -79,6 +79,7 @@ export default class EntityDropdown extends React.Component {
     }
 
     getSelectedItemIdentifier() {
+        console.debug("selecteditemid: ", this.props.value[this.props.matchKey]);
         return this.props.value[this.props.matchKey];
     }
 
@@ -365,15 +366,3 @@ export default class EntityDropdown extends React.Component {
 EntityDropdown.propTypes = propTypes;
 EntityDropdown.defaultProps = defaultProps;
 
-/*
-{this.props.title === 'CONGRESSIONAL DISTRICT (US ONLY)' ?
-                        <FeatureFlag>
-                            <div>
-                                <TooltipWrapper
-                                    className="advanced-search__cd-tooltip"
-                                    icon="info"
-                                    tooltipComponent={<CDTooltip />} />
-                            </div>
-                        </FeatureFlag>
-                        : ''}
-*/

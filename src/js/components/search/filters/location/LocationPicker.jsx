@@ -18,7 +18,8 @@ const propTypes = {
     state: PropTypes.object,
     county: PropTypes.object,
     city: PropTypes.object,
-    district: PropTypes.object,
+    currentDistrict: PropTypes.object,
+    originalDistrict: PropTypes.object,
     zip: PropTypes.object,
     availableCountries: PropTypes.array,
     availableStates: PropTypes.array,
@@ -29,8 +30,7 @@ const propTypes = {
     selectEntity: PropTypes.func,
     loadStates: PropTypes.func,
     loadCounties: PropTypes.func,
-    loadOriginalDistricts: PropTypes.func,
-    loadCurrentDistricts: PropTypes.func,
+    loadDistricts: PropTypes.func,
     clearStates: PropTypes.func,
     clearCounties: PropTypes.func,
     clearDistricts: PropTypes.func,
@@ -92,8 +92,7 @@ export default class LocationPicker extends React.Component {
         if (stateChanged && this.props.state.code) {
             // new state selected , load the corresponding counties & districts
             this.props.loadCounties(this.props.state.code.toLowerCase());
-            this.props.loadOriginalDistricts(this.props.state.code.toLowerCase());
-            this.props.loadCurrentDistricts(this.props.state.code.toLowerCase());
+            this.props.loadDistricts(this.props.state.code.toLowerCase());
             if (!isCityInState) { // only clear the city if the new state does not contain selected city
                 this.props.clearCitiesAndSelectedCity();
             }
@@ -142,12 +141,12 @@ export default class LocationPicker extends React.Component {
         else if (this.props.country.code === 'USA') {
             const {
                 state,
-                district,
+                originalDistrict,
+                currentDistrict,
                 county,
                 city
             } = this.props;
-            console.debug("props: ", this.props);
-            const countyOrDistrictSelected = (district.district || county.code);
+            const countyOrDistrictSelected = ((originalDistrict.district || currentDistrict.district) || county.code);
             if (!state.code) {
                 // no state
                 return (
@@ -158,8 +157,8 @@ export default class LocationPicker extends React.Component {
                     </span>
                 );
             }
-            else if (countyOrDistrictSelected || (city.code && (!district.district || !county.code))) {
-                const selectedField = (district.district) ? "congressional district" : "county"; // if evaluates to county, double check it's not actually city
+            else if (countyOrDistrictSelected || (city.code && ((!originalDistrict.district || !currentDistrict.district) || !county.code))) {
+                const selectedField = (originalDistrict.district || currentDistrict.district) ? "congressional district" : "county"; // if evaluates to county, double check it's not actually city
                 return (
                     <span>
                         You cannot select both a <span className="field">{(selectedField === "county" && !county.code) ? "city" : selectedField}</span> and a <span className="field"> {field}</span>.
@@ -181,11 +180,13 @@ export default class LocationPicker extends React.Component {
         const isCityEnabled = (
             this.props.country.code !== "" &&
             !this.props.county.code &&
-            !this.props.district.district
+            !this.props.currentDistrict.district &&
+            !this.props.originalDistrict.district
         );
         const isCountyEnabled = (
             this.props.state.code !== "" &&
-            !this.props.district.district &&
+            !this.props.currentDistrict.district &&
+            !this.props.originalDistrict.district &&
             !this.props.city.code
         );
         const isDistrictEnabled = (
@@ -218,7 +219,7 @@ export default class LocationPicker extends React.Component {
             this.props.country.code !== 'USA' &&
             this.props.country.code !== ''
         );
-
+        console.debug("PROPS: ", this.props.district);
         return (
             <div>
                 <form
@@ -293,7 +294,7 @@ export default class LocationPicker extends React.Component {
                                 matchKey="district"
                                 placeholder={districtPlaceholder}
                                 title="Current Congressional Districts (based on 2023 redistricting) - for QAT only"
-                                value={this.props.district}
+                                value={this.props.currentDistrict}
                                 selectEntity={this.props.selectEntity}
                                 options={this.props.availableCurrentDistricts}
                                 enabled={isDistrictEnabled}
@@ -306,7 +307,7 @@ export default class LocationPicker extends React.Component {
                             matchKey="district"
                             placeholder={districtPlaceholder}
                             title="Original Congressional Districts (as reported by federal agencies)"
-                            value={this.props.district}
+                            value={this.props.originalDistrict}
                             selectEntity={this.props.selectEntity}
                             options={this.props.availableOriginalDistricts}
                             enabled={isDistrictEnabled}

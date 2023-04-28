@@ -65,7 +65,7 @@ describe('componentDidMount', () => {
             const wrapper = createWrapperWithProps('state', { code: "GA" }).instance();
             wrapper.componentDidUpdate({ ...defaultProps, state: { ...defaultProps.state, code: "SC" } });
             expect(defaultProps.loadCounties).toHaveBeenCalledTimes(1);
-            expect(defaultProps.loadOriginalDistricts).toHaveBeenCalledTimes(1);
+            expect(defaultProps.loadDistricts).toHaveBeenCalledTimes(1);
         });
 
         it('does not clear the selected city if it is within the newly selected state', () => {
