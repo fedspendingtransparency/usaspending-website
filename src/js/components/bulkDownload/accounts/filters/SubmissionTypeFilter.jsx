@@ -67,7 +67,7 @@ export default class SubmissionTypeFilter extends React.Component {
                 </h3>
                 <div className="download-filter__content">
                     {submissionTypes}
-                    <p className="download-filter__content-note"><span className="download-filter__content-note_bold">*Note:</span> This file links agency financial data to award data. Columns related to award data will be blank when this linkage cannot be made.</p>
+                    <p className="download-filter__content-note"><span className="download-filter__content-note_bold">*Note:</span> To facilitate processing of these files for download, File C award records are separated into three buckets: contract awards (with linked awards between File C and File D1), financial assistance awards (with linked awards between File C and File D2), and unlinked awards (with awards in File C that are not linked to any award in Files D1 or D2). Each bucket will include one or more files, depending on the size of your download request. Please note that any files with unlinked awards will include the same columns as the files with linked awards; however, the columns that involve data from Files D1 and D2 will be blank in the files with unlinked awards.</p>
                 </div>
             </div>
         );
