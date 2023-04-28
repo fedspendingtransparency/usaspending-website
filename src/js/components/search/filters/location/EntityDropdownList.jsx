@@ -47,7 +47,7 @@ const EntityDropdownList = (props) => {
         }
 
         const handleSelection = clickedItem.bind(null, item);
-
+        console.debug("handleSelection: ", clickedItem, item);
         return (
             <li
                 key={uniqueId(item.code)}>
@@ -71,7 +71,7 @@ const EntityDropdownList = (props) => {
 
     return (
         <ul
-            id={`geo-dropdown-${(scope === 'currentdistrict' || scope === 'originaldistrict' ? "district" : scope)}`}
+            id={`geo-dropdown-${scope}`}
             className="geo-entity-list"
             role="listbox">
             {list}
