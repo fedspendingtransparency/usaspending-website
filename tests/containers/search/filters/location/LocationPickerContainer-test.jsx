@@ -141,7 +141,7 @@ describe('LocationPickerContainer', () => {
             });
         });
     });
-    describe('clearDistricts', () => {
+    describe('clearOriginalDistricts', () => {
         it('should clear the available congressional districts and reset the selected congressional district to a blank value', () => {
             const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
             container.setState({
@@ -149,7 +149,7 @@ describe('LocationPickerContainer', () => {
                 district: mockDistricts.districts[0]
             });
 
-            container.instance().clearDistricts();
+            container.instance().clearOriginalDistricts();
 
             expect(container.state().availableOriginalDistricts).toEqual([]);
             expect(container.state().district).toEqual({

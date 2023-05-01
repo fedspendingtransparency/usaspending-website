@@ -75,7 +75,9 @@ describe('componentDidMount', () => {
                 state: { ...defaultProps.state, code: "GA" },
                 city: { ...defaultProps.city, code: "GA" }
             }} />);
-            wrapper.instance().componentDidUpdate({ ...defaultProps, country: { ...defaultProps.country, code: "USA" }, state: { ...defaultProps.state, code: "SC" }, city: { ...defaultProps.city, code: "SC" } });
+            wrapper.instance().componentDidUpdate({
+                ...defaultProps, country: { ...defaultProps.country, code: "USA" }, state: { ...defaultProps.state, code: "SC" }, city: { ...defaultProps.city, code: "SC" }
+            });
             expect(defaultProps.clearCitiesAndSelectedCity).not.toHaveBeenCalled();
         });
 
@@ -93,7 +95,7 @@ describe('componentDidMount', () => {
             const wrapper = shallow(<LocationPicker {...{ ...defaultProps, state: { ...defaultProps.state, name: 'All states' } }} />).instance();
             wrapper.componentDidUpdate({ ...defaultProps, state: { ...defaultProps.state, code: "GA" } });
             expect(defaultProps.clearCounties).toHaveBeenCalled();
-            expect(defaultProps.clearDistricts).toHaveBeenCalled();
+            expect(defaultProps.clearOriginalDistricts).toHaveBeenCalled();
             expect(defaultProps.clearCitiesAndSelectedCity).toHaveBeenCalled();
         });
 
@@ -107,7 +109,7 @@ describe('componentDidMount', () => {
             const wrapper = shallow(<LocationPicker {...{ ...defaultProps, state: { ...defaultProps.state, name: 'All states' } }} />).instance();
             wrapper.componentDidUpdate({ ...defaultProps, state: { ...defaultProps.state, code: "GA", autoPopulated: true } });
             expect(defaultProps.clearCounties).toHaveBeenCalled();
-            expect(defaultProps.clearDistricts).toHaveBeenCalled();
+            expect(defaultProps.clearOriginalDistricts).toHaveBeenCalled();
             expect(defaultProps.clearCitiesAndSelectedCity).not.toHaveBeenCalled();
         });
 
@@ -117,7 +119,7 @@ describe('componentDidMount', () => {
             const wrapper = shallow(<LocationPicker {...{ ...defaultProps, state: { ...defaultProps.state, name: 'All states' } }} />).instance();
             wrapper.componentDidUpdate({ ...defaultProps, state: { ...defaultProps.state, code: "GA" } });
             expect(defaultProps.clearCounties).toHaveBeenCalled();
-            expect(defaultProps.clearDistricts).toHaveBeenCalled();
+            expect(defaultProps.clearOriginalDistricts).toHaveBeenCalled();
             expect(defaultProps.clearCitiesAndSelectedCity).toHaveBeenCalled();
         });
     });

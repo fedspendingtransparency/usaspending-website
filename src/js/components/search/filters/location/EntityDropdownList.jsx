@@ -27,10 +27,6 @@ const EntityDropdownList = (props) => {
     } = props;
     const list = options.map((item, i) => {
         let active = '';
-        console.debug("item: ", item);
-        console.debug("i: ", item);
-        console.debug("item[match]: ", item[matchKey]);
-        console.debug("selected: ", selectedItem);
         if (item[matchKey] === selectedItem && selectedItem !== '') {
             active = 'active';
         }

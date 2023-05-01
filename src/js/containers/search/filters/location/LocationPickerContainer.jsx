@@ -111,7 +111,8 @@ export default class LocationPickerContainer extends React.Component {
 
         this.clearStates = this.clearStates.bind(this);
         this.clearCounties = this.clearCounties.bind(this);
-        this.clearDistricts = this.clearDistricts.bind(this);
+        this.clearOriginalDistricts = this.clearOriginalDistricts.bind(this);
+        this.clearCurrentDistricts = this.clearCurrentDistricts.bind(this);
         this.clearCitiesAndSelectedCity = this.clearCitiesAndSelectedCity.bind(this);
 
         this.selectEntity = this.selectEntity.bind(this);
@@ -341,12 +342,16 @@ export default class LocationPickerContainer extends React.Component {
         });
     }
 
-    clearDistricts() {
+    clearOriginalDistricts() {
         this.setState({
             availableOriginalDistricts: [],
-            availableCurrentDistricts: [],
-            currentDistrict: Object.assign({}, defaultLocationValues.currentDistrict),
             originalDistrict: Object.assign({}, defaultLocationValues.originalDistrict)
+        });
+    }
+    clearCurrentDistricts() {
+        this.setState({
+            availableCurrentDistricts: [],
+            currentDistrict: Object.assign({}, defaultLocationValues.currentDistrict)
         });
     }
 
@@ -381,6 +386,7 @@ export default class LocationPickerContainer extends React.Component {
                 );
             this.setState({ country: countryFromCity });
         }
+
         this.setState({
             [level]: value
         });
@@ -592,7 +598,6 @@ export default class LocationPickerContainer extends React.Component {
     }
 
     render() {
-        console.debug("STATE: ", this.state);
         return (
             <LocationPicker
                 {...this.state}
@@ -605,7 +610,8 @@ export default class LocationPickerContainer extends React.Component {
                 clearStates={this.clearStates}
                 clearCitiesAndSelectedCity={this.clearCitiesAndSelectedCity}
                 clearCounties={this.clearCounties}
-                clearDistricts={this.clearDistricts}
+                clearOriginalDistricts={this.clearOriginalDistricts}
+                clearCurrentDistricts={this.clearCurrentDistricts}
                 selectEntity={this.selectEntity}
                 createLocationObject={this.createLocationObject}
                 addLocation={this.addLocation}
