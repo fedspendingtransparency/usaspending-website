@@ -18,16 +18,17 @@
                 @include flex(1 1 auto);
 
                 font-weight: $font-semibold;
-                font-size: rem(15);
+                font-size: $font-size-16;
                 line-height: rem(19);
                 text-align: center;
-                padding: rem(22) rem(16);
+                padding: rem(22) rem(0) rem(22) rem(16);
 
-                color: $gray-60;
+                color: $gray-90;
                 text-decoration: none;
 
                 &:hover, &:active {
                     text-decoration: none;
+                    color: $gray-60;
                 }
 
             }

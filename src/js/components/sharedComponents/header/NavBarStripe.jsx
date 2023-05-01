@@ -157,8 +157,8 @@ export default class NavBarStripe extends React.Component {
                                 className="full-menu__item"
                                 role="menuitem">
                                 <Dropdown
-                                    title="Explore The Data"
-                                    label="Explore the data"
+                                    title="Explore the Data"
+                                    label="Explore the Data"
                                     items={searchOptions} />
                             </li>
                             <li
@@ -166,11 +166,11 @@ export default class NavBarStripe extends React.Component {
                                 role="menuitem">
                                 <Dropdown
                                     title="Download"
-                                    label="Download The Data"
+                                    label="Download the Data"
                                     items={downloadOptions} />
                             </li>
                             <li
-                                className="full-menu__item"
+                                className="full-menu__item full-menu__item-last"
                                 role="menuitem">
                                 <Dropdown
                                     title="Resources"

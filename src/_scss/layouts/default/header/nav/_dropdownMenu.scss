@@ -8,7 +8,7 @@
         @include align-items(center);
         @include justify-content(center);
         position: relative;
-        padding: rem(22) rem(16);
+        padding: rem(22) rem(0) rem(22) rem(32);
 
         .nav-dropdown__parent-label {
             @include flex(1 1 auto);
