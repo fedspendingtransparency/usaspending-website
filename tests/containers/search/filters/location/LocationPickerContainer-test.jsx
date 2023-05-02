@@ -385,9 +385,9 @@ describe('LocationPickerContainer', () => {
                     fips: 'XX',
                     name: 'Alaska'
                 },
-                district: {
+                originalDistrict: {
                     code: 'XX',
-                    district: '99',
+                    originalDistrict: '99',
                     name: 'AK-99'
                 }
             });
@@ -401,7 +401,7 @@ describe('LocationPickerContainer', () => {
                 expect(location.filter).toEqual({
                     country: 'ABC',
                     state: 'AK',
-                    district: '99'
+                    originalDistrict: '99'
                 });
             });
             it('locationObject.display is correct', () => {
