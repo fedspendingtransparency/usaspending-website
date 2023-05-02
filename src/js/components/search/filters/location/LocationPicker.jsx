@@ -161,7 +161,7 @@ export default class LocationPicker extends React.Component {
                     </span>
                 );
             }
-            else if (countyOrDistrictSelected || (city.code && ((!originalDistrict.district || !currentDistrict.district) || !county.code))) {
+            else if (countyOrDistrictSelected || (city.code && ((!originalDistrict || !currentDistrict) || !county.code))) {
                 const selectedField = (originalDistrict.district || currentDistrict.district) ? "congressional district" : "county"; // if evaluates to county, double check it's not actually city
                 return (
                     <span>
@@ -184,13 +184,13 @@ export default class LocationPicker extends React.Component {
         const isCityEnabled = (
             this.props.country.code !== "" &&
             !this.props.county.code &&
-            !this.props.currentDistrict.district &&
-            !this.props.originalDistrict.district
+            !this.props.currentDistrict?.district &&
+            !this.props.originalDistrict?.district
         );
         const isCountyEnabled = (
             this.props.state.code !== "" &&
-            !this.props.currentDistrict.district &&
-            !this.props.originalDistrict.district &&
+            !this.props.currentDistrict?.district &&
+            !this.props.originalDistrict?.district &&
             !this.props.city.code
         );
         const isDistrictEnabled = (

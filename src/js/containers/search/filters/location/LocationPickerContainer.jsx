@@ -173,7 +173,7 @@ export default class LocationPickerContainer extends React.Component {
             { code: "USA", name: "UNITED STATES" },
             { code: "FOREIGN", name: "ALL FOREIGN COUNTRIES" },
             { code: "", name: "---" },
-            ...data.countries
+            data.countries
         ].map((country) => ({ ...country, autoPopulated: false }));
         this.setState({
             availableCountries: countries

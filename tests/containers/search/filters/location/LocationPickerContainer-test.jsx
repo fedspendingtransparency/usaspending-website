@@ -152,7 +152,7 @@ describe('LocationPickerContainer', () => {
             container.instance().clearOriginalDistricts();
 
             expect(container.state().availableOriginalDistricts).toEqual([]);
-            expect(container.state().district).toEqual({
+            expect(container.state().originalDistrict).toEqual({
                 code: '',
                 district: '',
                 name: ''
