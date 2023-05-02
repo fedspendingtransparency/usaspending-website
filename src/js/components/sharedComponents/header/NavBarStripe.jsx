@@ -64,15 +64,14 @@ export default class NavBarStripe extends React.Component {
 
 
     render() {
-        const navHomePage = window.location.href;
-        let bananas = '';
-        if (navHomePage === "http://localhost:3000/") {
-            bananas = "site-navigation_home-page";
+        let navHomePage = '';
+        if (window.location.href === "http://localhost:3000/") {
+            navHomePage = "site-navigation_home-page";
         }
         console.log(navHomePage);
         return (
             <nav
-                className={`site-navigation  ${bananas}`}
+                className={`site-navigation  ${navHomePage}`}
                 aria-label="Site navigation">
                 <Modal
                     className="email-sign-up__modal"
