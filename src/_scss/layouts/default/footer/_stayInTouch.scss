@@ -5,7 +5,7 @@
   @media (min-width: $tablet-screen) {
     padding: $global-padding * 3 $global-padding * 4;
   }
-  @media (min-width: 1400px) {
+  @media (min-width: $m-large-screen) {
     padding: $global-padding * 3 $global-padding * 18;
   }
 
@@ -15,7 +15,7 @@
       justify-content: flex-start;
     }
 
-    @media (min-width: 1400px) {
+    @media (min-width: $m-large-screen) {
       // this is a hacky fix bc it needs to match the footer, which isn't using Grid system
       padding-left: $global-padding * 2;
     }
@@ -30,7 +30,7 @@
         margin-right: $global-margin * 3;
       }
 
-      @media (min-width: 1400px) {
+      @media (min-width: $m-large-screen) {
         margin: 0 $global-margin * 3 0 0;
         padding: 0;
       }
@@ -65,10 +65,10 @@
     }
 
     .stay-in-touch__second-row-container {
-      @media (min-width: 1400px) {
+      @media (min-width: $m-large-screen) {
         padding: 0;
       }
-      @media (min-width: 1400px) and (max-width: 1466px) {
+      @media (min-width: $m-large-screen) and (max-width: 1466px) {
         margin-right: $global-margin * 4;
       }
       &.top {
