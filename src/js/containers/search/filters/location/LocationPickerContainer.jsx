@@ -71,8 +71,8 @@ const locationProperties = ["country", "state", "originalDistrict", "currentDist
 const locationPropertyAccessorMap = {
     country: 'code',
     city: 'name',
-    originalDistrict: 'district',
-    currentDistrict: 'district',
+    originalDistrict: 'originalDistrict',
+    currentDistrict: 'currentDistrict',
     state: 'code',
     county: 'fips'
 };
@@ -443,7 +443,7 @@ export default class LocationPickerContainer extends React.Component {
                         [prop]: parsedKeyValue
                     },
                     display: {
-                        entity: prop === 'district'
+                        entity: (prop === 'district' || prop === 'originalDistrict' || prop === 'currentDistrict')
                             ? 'Congressional district'
                             : `${prop.substr(0, 1).toUpperCase()}${prop.substr(1)}`,
                         standalone: prop === 'county'
