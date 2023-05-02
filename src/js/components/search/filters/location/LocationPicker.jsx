@@ -65,8 +65,6 @@ export default class LocationPicker extends React.Component {
         const manuallyPopulatedCountryChanged = (!this.props.country.autoPopulated && (prevProps.country.code !== this.props.country.code));
         const stateChanged = (prevProps.state.code !== this.props.state.code);
         const countryChanged = (prevProps.country.code !== this.props.country.code);
-        const originalDistrictChanged = (prevProps.originalDistrict.code !== this.props.originalDistrict.code);
-        const currentDistrictChanged = (prevProps.currentDistrict.code !== this.props.currentDistrict.code);
 
         const isCityInState = ( // selected city is w/in the selected state
             this.props.country.code === 'USA' &&
