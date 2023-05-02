@@ -213,7 +213,7 @@ export const routes = [
         exact: true
     },
     {
-        path: '/analyst-guide',
+        path: '/federal-spending-guide',
         component: AnalystGuidePage,
         exact: true
     },

@@ -28,7 +28,7 @@ const AboutSection = () => {
                 <li>
                     <Link
                         className="scroller-overlay-card__link"
-                        to="/analyst-guide"
+                        to="/federal-spending-guide"
                         target="_blank"
                         rel="noopener noreferrer">
                         Analyst Guide

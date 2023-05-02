@@ -22,7 +22,7 @@ const HomepageResources = () => {
                     <FontAwesomeIcon icon="chart-bar" color="#112f4e" size="lg" />
                 </div>
             ),
-            headline: 'Analyst Guide',
+            headline: 'Federal Spending Guide',
             text: 'Learn how to use the data',
             buttonText: (
                 <>
@@ -30,7 +30,7 @@ const HomepageResources = () => {
                     <FontAwesomeIcon icon="arrow-right" />
                 </>
             ),
-            buttonLink: '/analyst-guide',
+            buttonLink: '/federal-spending-guide',
             action: () => Analytics.event({
                 category: 'Homepage',
                 action: 'Link',

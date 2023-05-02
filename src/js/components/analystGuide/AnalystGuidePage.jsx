@@ -26,10 +26,10 @@ const AnalystGuidePage = () => {
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
 
     const onShareClick = (name) => {
-        const emailSubject = `USAspending.gov Analyst's Guide`;
+        const emailSubject = `USAspending.gov Federal Spending Guide`;
         const emailArgs = {
             subject: `${emailSubject}`,
-            body: `Interested in learning how to effectively use Federal Spending Data? Check out #USAspending Analyst Guide! ${getBaseUrl(slug)}`
+            body: `Interested in learning how to effectively use Federal Spending Data? Check out #USAspending Federal Spending Guide! ${getBaseUrl(slug)}`
         };
         handleShareOptionClick(name, slug, emailArgs);
     };
@@ -55,13 +55,13 @@ const AnalystGuidePage = () => {
 
     return (
         <PageWrapper
-            pageName="AnalystGuide"
+            pageName="FederalSpendingGuide"
             classNames="usa-da-analyst-guide-page"
             noHeader
             metaTagProps={{ ...analystGuideMetaTags }}>
             <main id="main-content" className="main-content">
                 <section>
-                    <AnalystGuideHeader title="Analyst&apos;s Guide to Federal Spending Data" subtitle="Guidance on effectively using USAspending.gov data." />
+                    <AnalystGuideHeader title="Federal Spending Guide" subtitle="Questions and answers about USAspending data and federal spending concepts" />
                 </section>
                 <FlexGridRow style={{ justifyContent: 'center' }}>
                     <FlexGridCol desktop={6} tablet={12} className="analyst-guide-body">
