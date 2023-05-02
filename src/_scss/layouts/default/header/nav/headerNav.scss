@@ -16,6 +16,7 @@ header.site-header__wrapper {
             @include align-items(center);
             // style the primary menu
             @import "./_fullMenu";
+            margin: rem(0) rem(32) !important;
         }
 
         .site-navigation__logo {

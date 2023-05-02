@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 // import { AngleDown, AngleUp } from 'components/sharedComponents/icons/Icons';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+
 import DropdownItem from './DropdownItemStripe';
 
 const propTypes = {

@@ -84,7 +84,7 @@ export const resourceOptions = [
         shouldOpenNewTab: false,
         enabled: true,
         externalLink: false,
-        isNewTab: true
+        isNewTab: false
 
     },
     {
