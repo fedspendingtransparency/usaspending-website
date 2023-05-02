@@ -112,10 +112,23 @@
         }
     }
 
-    .status-of-funds__emphasis {
-        white-space: nowrap;
-        font-weight: $font-semibold;
+    .status-of-funds__controls-heading-container {
+        display: flex;
+        flex-wrap: wrap;
+            @media(min-width: $medium-screen) {
+                margin: rem(16) 0 rem(10) rem(32);
+            }
+        .status-of-funds__controls-heading {
+            font-size: rem(20);
+            font-weight: $font-normal;
+            color: $gray-90;
+            &.emphasis {
+                white-space: nowrap;
+                font-weight: $font-semibold;
+            }
+        }
     }
+
 
     .usa-dt-pagination__totals {
         @media(min-width: $large-screen) {
@@ -167,17 +180,6 @@
             @media(max-width: 350px) {
                 font-size: rem(44);
             }
-        }
-    }
-    h6 {
-        font-size: rem(20);
-        font-weight: $font-normal;
-        color: $gray-90;
-        @media(min-width: $medium-screen) {
-            margin-top: rem(16);
-        }
-        @media(min-width: $large-screen) {
-            margin-left: rem(32);
         }
     }
     .tickLines-vertical {

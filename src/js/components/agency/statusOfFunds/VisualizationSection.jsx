@@ -7,6 +7,7 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from 'prop-types';
 import { levels } from './StatusOfFunds';
+import { Picker } from "data-transparency-ui";
 import StatusOfFundsChart from '../visualizations/StatusOfFundsChart';
 import RoundedToggle from "../../sharedComponents/RoundedToggle";
 import Accordion from "../../sharedComponents/accordion/Accordion";
@@ -94,8 +95,36 @@ const VisualizationSection = ({
                     <>
                         <div className="status-of-funds__controls">
                             <div className="status-of-funds__controls-desktop-row-one">
-                                <h6>{level === 0 ? agencyName : selectedLevelData?.name } by <span className="status-of-funds__emphasis">{levels[level]}</span> for FY {fy}
-                                </h6>
+                                <div className="status-of-funds__controls-heading-container">
+                                    <div className="status-of-funds__controls-heading">{level === 0 ? agencyName : selectedLevelData?.name } by&thinsp;</div>
+                                    {level === 3 ? (
+                                        <div className="status-of-funds__chart-picker">
+                                            <Picker
+                                                options={[{
+                                                    name: 'Program Activity',
+                                                    value: '0',
+                                                    onClick: () => {
+                                                        console.log('PA click');
+                                                    }
+                                                },
+                                                {
+                                                    name: 'Object Class',
+                                                    value: 1,
+                                                    onClick: () => {
+                                                        console.log('OC click');
+                                                    }
+                                                }]}
+                                                dropdownDirection="right"
+                                                backgroundColor="#ffffff"
+                                                selectedOption="Program Activity" />
+                                        </div>
+                                    ) :
+                                        <div className="status-of-funds__controls-heading emphasis">
+                                            {levels[level]}&thinsp;
+                                        </div>
+                                    }
+                                    <div className="status-of-funds__controls-heading">for FY {fy}</div>
+                                </div>
                                 {chartTableToggle}
                             </div>
                             <div className="status-of-funds__controls-desktop-row-two">
