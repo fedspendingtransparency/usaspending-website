@@ -60,7 +60,6 @@ export default class LocationPicker extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        console.debug("fartr");
         // a state that was autoPopulated and then removed via city de-selection will have prevProps.state.autoPopulated === true
         const manuallyPopulatedStateChanged = (!prevProps.state.autoPopulated && (prevProps.state.code !== this.props.state.code));
         const manuallyPopulatedCountryChanged = (!this.props.country.autoPopulated && (prevProps.country.code !== this.props.country.code));
@@ -69,7 +68,6 @@ export default class LocationPicker extends React.Component {
         const originalDistrictChanged = (prevProps.originalDistrict.code !== this.props.originalDistrict.code);
         const currentDistrictChanged = (prevProps.currentDistrict.code !== this.props.currentDistrict.code);
 
-        console.debug(originalDistrictChanged, currentDistrictChanged);
         const isCityInState = ( // selected city is w/in the selected state
             this.props.country.code === 'USA' &&
             this.props.state.code === this.props.city.code &&
@@ -112,12 +110,6 @@ export default class LocationPicker extends React.Component {
             if (manuallyPopulatedStateChanged) {
                 this.props.clearCitiesAndSelectedCity();
             }
-        }
-
-        if (originalDistrictChanged) {
-            this.props.clearCurrentDistricts();
-        } else if (currentDistrictChanged) {
-            this.props.clearOriginalDistricts();
         }
 
         if (cityDeselected && this.props.state.autoPopulated) {
@@ -209,9 +201,16 @@ export default class LocationPicker extends React.Component {
             !this.props.city.code
         );
 
-        const isOriginalDistrictEnabled = (isDistrictEnabled && isEqual(this.props.currentDistrict, defaultLocationValues.currentDistrict));
-        const isCurrentDistrictEnabled = (isDistrictEnabled && isEqual(this.props.originalDistrict, defaultLocationValues.originalDistrict));
-        console.debug(isDistrictEnabled, isEqual(this.props.currentDistrict, defaultLocationValues.currentDistrict), isOriginalDistrictEnabled, this.props.currentDistrict, defaultLocationValues.currentDistrict);
+        const isOriginalDistrictEnabled = (isDistrictEnabled && (isEqual(this.props.currentDistrict, defaultLocationValues.currentDistrict) || isEqual(this.props.currentDistrict, {
+            code: '',
+            district: '',
+            name: 'All congressional districts'
+        })));
+        const isCurrentDistrictEnabled = (isDistrictEnabled && (isEqual(this.props.originalDistrict, defaultLocationValues.originalDistrict) || isEqual(this.props.originalDistrict, {
+            code: '',
+            district: '',
+            name: 'All congressional districts'
+        })));
 
         let districtPlaceholder = 'Select a congressional district';
 
