@@ -47,7 +47,13 @@ export const profileOptions = [
         enabled: true
     }
 ];
-
+const federalSpendingGuide = () => {
+    if (window.location.href === 'http://localhost:3000/analyst-guide') {
+        return window.location.replace('http://localhost:3000/federal-spending-guide');
+    }
+    return '/federal-spending-guide';
+};
+console.log("here", federalSpendingGuide());
 export const resourceOptions = [
     {
         label: 'Glossary',
@@ -85,7 +91,7 @@ export const resourceOptions = [
     {
         label: 'Federal Spending Guide',
         type: 'analyst-guide',
-        url: '/federal-spending-guide',
+        url: `${federalSpendingGuide()}`,
         shouldOpenNewTab: false,
         enabled: true,
         externalLink: false

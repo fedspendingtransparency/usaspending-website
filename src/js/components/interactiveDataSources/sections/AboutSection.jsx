@@ -31,7 +31,7 @@ const AboutSection = () => {
                         to="/federal-spending-guide"
                         target="_blank"
                         rel="noopener noreferrer">
-                        Analyst Guide
+                        Federal Spending Guide
                     </Link>
                     : a collection of frequently asked questions
                 </li>

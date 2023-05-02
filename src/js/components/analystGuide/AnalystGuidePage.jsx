@@ -75,13 +75,13 @@ const AnalystGuidePage = () => {
                             </div>
                             <div className="analyst-guide__download-wrapper">
                                 <a
-                                    href="/data/analyst-guide-download.pdf"
+                                    href="/data/Federal-Spending-Guide.pdf"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="analyst-guide__download-button"
                                     aria-label="download"
                                     download>
-                                    <FontAwesomeIcon data-href="/data/analyst-guide-download.pdf" icon={faFileDownload} className="analyst-guide__download-icon" />
+                                    <FontAwesomeIcon data-href="/data/Federal-Spending-Guide.pdf" icon={faFileDownload} className="analyst-guide__download-icon" />
                                 </a>
                                 <div>
                                     <span>Download</span>
