@@ -4,7 +4,6 @@
  **/
 
 import React from 'react';
-import { Redirect } from "react-router-dom";
 
 const HomepageUpdate = React.lazy(() => import('components/homepageUpdate/HomepageUpdate').then((comp) => comp));
 const SearchContainer = React.lazy(() => import('containers/search/SearchContainer').then((comp) => comp));
