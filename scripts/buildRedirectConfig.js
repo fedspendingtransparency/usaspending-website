@@ -10,7 +10,8 @@ const legacyRedirects = {
     "^/Pages/AdvancedSearch.aspx/": "/search",
     "^/DownloadCenter/Pages/DataDownload.aspx/": "/download_center/custom_award_data",
     "^/DownloadCenter/Pages/dataarchives.aspx/": "/download_center/award_data_archive",
-    "^/covid-19/": "/disaster/covid-19"
+    "^/covid-19/": "/disaster/covid-19",
+    "^/analyst-guide/": "/federal-spending"
 };
 
 const stateRedirects = Object.entries(stateNameByFipsId)

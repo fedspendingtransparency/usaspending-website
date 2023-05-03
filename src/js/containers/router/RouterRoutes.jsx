@@ -40,14 +40,6 @@ const InteractiveDataSourcesPage = React.lazy(() => import('components/interacti
 const TrainingVideosContainer = React.lazy(() => import('containers/trainingVideos/TrainingVideosContainer').then((comp) => comp));
 const TempPage = React.lazy(() => import('components/tempPage').then((comp) => comp));
 
-const federalSpendingGuide = () => {
-    if (window.location.href === 'http://localhost:3000/analyst-guide') {
-        return window.location.replace('http://localhost:3000/federal-spending-guide');
-    }
-    return '/federal-spending-guide';
-};
-console.log("here", federalSpendingGuide());
-
 // /* eslint-disable import/prefer-default-export */
 // Please add any new routes to the scripts/pages.js routes file.
 // eslint-disable-next-line import/prefer-default-export
@@ -221,11 +213,6 @@ export const routes = [
         exact: true
     },
     {
-        path: `${federalSpendingGuide()}`,
-        component: AnalystGuidePage,
-        exact: true
-    },
-    {
         path: '/data-dives/equity-COVID-19-spending',
         component: EquityCovidSpendingPage,
         exact: true
@@ -241,9 +228,12 @@ export const routes = [
         exact: true
     },
     {
+        path: '/federal-spending-guide',
+        component: AnalystGuidePage
+    },
+    {
         path: '*',
         component: ErrorPage
     }
 ];
-/* eslint-enable import/prefer-default-export */
 
