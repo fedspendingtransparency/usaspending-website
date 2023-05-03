@@ -122,11 +122,78 @@
             font-size: rem(20);
             font-weight: $font-normal;
             color: $gray-90;
+            display: flex;
+            flex-wrap: wrap;
+            align-content: center;
             &.emphasis {
                 white-space: nowrap;
                 font-weight: $font-semibold;
             }
         }
+        .status-of-funds__chart-picker {
+            font-size: $font-size-24;
+            text-align: center;
+            border-radius: 4px;
+            border: solid 2px $gray-cool-10;
+            background-color: $color-white;
+            color: $gray-cool-60;
+            margin: 0 rem(6);
+
+            .usa-dt-picker__button {
+                padding: rem(4) rem(10);
+                margin: 0;
+
+                .usa-dt-picker__button-text {
+                    font-size: $font-size-16;
+                    font-weight: $font-semibold;
+                    line-height: 1.5;
+                    color: $gray-cool-60;
+                    white-space: nowrap;
+                }
+                .usa-dt-picker__button-icon {
+                    width: 13px;
+                    height: 13px;
+                    margin-bottom: 4px;
+                    flex-basis: unset;
+                }
+                .svg-inline--fa {
+                    color: $theme-color-1;
+                    height: 12px;
+                    width: 12px;
+                }
+            }
+        }
+    }
+
+    .usa-dt-picker__list {
+        overflow: hidden;
+    }
+
+    .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__list-item {
+        border-top: none;
+    }
+
+    .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__button .usa-dt-picker__button-text, .usa-dt-picker .usa-dt-picker__item {
+        font-size: $font-size-16;
+        font-weight: $font-semibold;
+        line-height: 1.5;
+        color: $gray-cool-60;
+    }
+
+    .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item:hover {
+        background-color: $gray-cool-3;
+    }
+
+    .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item.active {
+        color: $gray-cool-60;
+    }
+
+    .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item.active:hover {
+        background-color: $gray-cool-10;
+    }
+
+    .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item:focus {
+        background-color: $gray-cool-3;
     }
 
 
