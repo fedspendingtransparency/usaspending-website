@@ -62,5 +62,5 @@ export const fetchTasList = (code, fy) => apiRequest({
 });
 
 export const fetchProgramActivityList = (code, fy, page) => apiRequest({
-    url: `v2/agency/${code}/program_activity/${fy ? `?fiscal_year=${fy}` : ''}${page ? `&page=${page}` : ''}`
+    url: `v2/agency/${code}/object_class/${fy ? `?fiscal_year=${fy}` : ''}${page ? `&page=${page}` : ''}`
 });
