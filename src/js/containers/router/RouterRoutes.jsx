@@ -4,6 +4,7 @@
  **/
 
 import React from 'react';
+import { Redirect } from "react-router-dom";
 
 const HomepageUpdate = React.lazy(() => import('components/homepageUpdate/HomepageUpdate').then((comp) => comp));
 const SearchContainer = React.lazy(() => import('containers/search/SearchContainer').then((comp) => comp));
@@ -39,6 +40,14 @@ const EquityCovidSpendingPage = React.lazy(() => import('components/dataDives/Eq
 const InteractiveDataSourcesPage = React.lazy(() => import('components/interactiveDataSources/InteractiveDataSourcesPage').then((comp) => comp));
 const TrainingVideosContainer = React.lazy(() => import('containers/trainingVideos/TrainingVideosContainer').then((comp) => comp));
 const TempPage = React.lazy(() => import('components/tempPage').then((comp) => comp));
+
+const federalSpendingGuide = () => {
+    if (window.location.href === 'http://localhost:3000/analyst-guide') {
+        return window.location.replace('http://localhost:3000/federal-spending-guide');
+    }
+    return '/federal-spending-guide';
+};
+console.log("here", federalSpendingGuide());
 
 // /* eslint-disable import/prefer-default-export */
 // Please add any new routes to the scripts/pages.js routes file.
@@ -213,7 +222,7 @@ export const routes = [
         exact: true
     },
     {
-        path: '/federal-spending-guide',
+        path: `${federalSpendingGuide()}`,
         component: AnalystGuidePage,
         exact: true
     },
