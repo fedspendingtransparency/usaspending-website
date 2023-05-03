@@ -165,7 +165,7 @@ const AwardSearch = () => {
                                     <p className="award-search__overline">SEARCH AWARD DATA</p>
                                 </div>
                                 <h2 className="award-search__header">Search data on federal award spending</h2>
-                                <p className="award-search__subtext">Find information on awards such as contracts, grants, and loans, and grants based on location, industry, and more.</p>
+                                <p className="award-search__subtext">Find information on awards such as contracts, grants, and loans based on location, industry, and more.</p>
                             </FlexGridCol>
                             <FlexGridCol desktop={8} tablet={12} mobile={12} className="award-search__col2">
                                 <Swiper
@@ -274,7 +274,7 @@ const AwardSearch = () => {
                                         <p className="award-search__overline">AWARD SEARCH</p>
                                     </div>
                                     <h2 className="award-search__header">Search data on federal award spending</h2>
-                                    <p className="award-search__subtext">Find information on awards such as contracts, loans, and grants based on location, industry, and more.</p>
+                                    <p className="award-search__subtext">Find information on awards such as contracts, grants, and loans based on location, industry, and more.</p>
                                 </FlexGridCol>
                             </FlexGridRow>
                             <FlexGridCol desktop={8} tablet={12} mobile={12} className="award-search__col2" style={{ width: "100%", margin: "auto" }}>
