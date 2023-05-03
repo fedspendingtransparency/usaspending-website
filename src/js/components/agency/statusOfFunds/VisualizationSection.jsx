@@ -55,6 +55,7 @@ const VisualizationSection = ({
 }) => {
     const [open, setOpen] = useState(false);
     const accordionTitle = (<span>What&nbsp;is&nbsp;this?</span>);
+    const [dropdownSelection, setDropdownSelection] = useState('Program Activity');
 
     const changeView = (label) => {
         setViewType(label);
@@ -67,6 +68,10 @@ const VisualizationSection = ({
     );
 
     const maxLevelClass = level !== maxLevel ? ' not-max-level' : '';
+
+    const dropdownClickFunction = (value) => {
+        setDropdownSelection(value);
+    };
 
     return (
         <div
@@ -102,21 +107,17 @@ const VisualizationSection = ({
                                             className="status-of-funds__chart-picker"
                                             options={[{
                                                 name: 'Program Activity',
-                                                value: '0',
-                                                onClick: () => {
-                                                    console.log('PA click');
-                                                }
+                                                value: 'Program Activity',
+                                                onClick: dropdownClickFunction
                                             },
                                             {
                                                 name: 'Object Class',
-                                                value: 1,
-                                                onClick: () => {
-                                                    console.log('OC click');
-                                                }
+                                                value: 'Object Class',
+                                                onClick: dropdownClickFunction
                                             }]}
                                             dropdownDirection="right"
                                             backgroundColor="#ffffff"
-                                            selectedOption="Program Activity" />
+                                            selectedOption={dropdownSelection} />
                                     ) :
                                         <div className="status-of-funds__controls-heading emphasis">
                                             {levels[level]}&thinsp;
