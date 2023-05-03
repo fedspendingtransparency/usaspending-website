@@ -22,7 +22,7 @@ const HomepageResources = () => {
                     <FontAwesomeIcon icon="chart-bar" color="#112f4e" size="lg" />
                 </div>
             ),
-            headline: 'Analyst Guide',
+            headline: 'Federal Spending Guide',
             text: 'Learn how to use the data',
             buttonText: (
                 <>
@@ -124,7 +124,7 @@ const HomepageResources = () => {
                                     icon="book-open"
                                     size="xs" />
                             </div>
-                            <div className="homepage-resources__top-label-text">RESOURCES</div>
+                            <div className="homepage-resources__top-label-text">FIND RESOURCES</div>
                         </FlexGridRow>
                         <FlexGridRow className="homepage-resources__headline">Find answers to your data questions</FlexGridRow>
                     </FlexGridCol>
