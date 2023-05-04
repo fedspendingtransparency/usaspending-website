@@ -51,6 +51,7 @@ const StatusOfFunds = ({ fy }) => {
     const [selectedSubcomponent, setSelectedSubcomponent] = useState();
     const [selectedFederalAccount, setSelectedFederalAccount] = useState();
     const [selectedTas, setSelectedTas] = useState();
+    const [selectedProgramActivity, setSelectedProgramActivity] = useState();
     const [drilldownSelection, setDrilldownSelection] = useState({});
     const [selectedDrilldownList, setSelectedDrilldownList] = useState([]);
 
@@ -269,7 +270,7 @@ const StatusOfFunds = ({ fy }) => {
 
                 setLevel(4);
                 setResults(parsedData);
-                setSelectedTas(tas);
+                setSelectedProgramActivity(tas);
                 setTotalItems(res.data.page_metadata.total);
                 setDrilldownSelection(totalsData);
                 setLoading(false);
@@ -297,9 +298,10 @@ const StatusOfFunds = ({ fy }) => {
             if (prevPage !== currentPage && level === 3) {
                 fetchProgramActivity(selectedTas);
             }
-            // if (prevPage !== currentPage && level === 4) {
-            //     fetchDataByTas(selectedTas);
-            // }
+            if (prevPage !== currentPage && level === 4) {
+                // todo - what if user has selected object class? how can we know that from here?
+                fetchDataByTas(selectedProgramActivity, false);
+            }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentPage]);
