@@ -379,6 +379,12 @@ const StatusOfFunds = ({ fy }) => {
                     fetchTas(selectedFederalAccount);
                 }
             }
+            if (level === 4) {
+                setLevel(3);
+                if (currentPage === 1) {
+                    fetchProgramActivity(selectedTas);
+                }
+            }
 
             changeCurrentPage(1);
         }
