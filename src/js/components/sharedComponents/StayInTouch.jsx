@@ -38,69 +38,67 @@ const StayInTouch = (pageName) => {
 
     return (
         <section className="stay-in-touch__section">
-            <div style={{ display: "flex", justifyContent: "center" }}>
-                <FlexGridRow className="stay-in-touch__container-row" hasGutter gutterSize="lg">
-                    <FlexGridCol
-                        className="stay-in-touch__title-col"
-                        mobile={12}
-                        tablet={12}>
-                        <FlexGridRow className="stay-in-touch__title-row">
-                            <div className="stay-in-touch__icon-container">
-                                <FontAwesomeIcon icon={faPaperPlane} />
-                            </div>
-                            <div className="stay-in-touch__title">
+            <FlexGridRow className="stay-in-touch__container-row" hasGutter gutterSize="lg">
+                <FlexGridCol
+                    className="stay-in-touch__title-col"
+                    mobile={12}
+                    tablet={12}>
+                    <FlexGridRow className="stay-in-touch__title-row">
+                        <div className="stay-in-touch__icon-container">
+                            <FontAwesomeIcon icon={faPaperPlane} />
+                        </div>
+                        <div className="stay-in-touch__title">
                                 Stay in touch
-                            </div>
-                        </FlexGridRow>
-                    </FlexGridCol>
-                    <FlexGridCol
-                        className="stay-in-touch__second-row-container top"
-                        mobile={12}
-                        tablet={6}>
-                        <div className="stay-in-touch__second-row-title">
+                        </div>
+                    </FlexGridRow>
+                </FlexGridCol>
+                <FlexGridCol
+                    className="stay-in-touch__second-row-container top"
+                    mobile={12}
+                    tablet={6}>
+                    <div className="stay-in-touch__second-row-title">
                                 Get release notes delivered to your inbox
-                        </div>
-                        <div className="stay-in-touch__second-row-text">
+                    </div>
+                    <div className="stay-in-touch__second-row-text">
                                 Sign up to receive our release notes to keep up with what’s new on USAspending.gov.
-                        </div>
-                        <div className="stay-in-touch__second-row-link">
-                            <Button
-                                copy="Sign Up"
-                                buttonTitle="Sign Up"
-                                buttonSize="md"
-                                onClick={handleSignUp}
-                                buttonType="text"
-                                backgroundColor="light"
-                                imageAlignment="right"
-                                textAlignment="left"
-                                image={<FontAwesomeIcon icon={faArrowRight} style={{ height: '16px', width: '14px' }} />} />
-                        </div>
-                    </FlexGridCol>
-                    <FlexGridCol
-                        className="stay-in-touch__second-row-container"
-                        mobile={12}
-                        tablet={6}>
-                        <div className="stay-in-touch__second-row-title">
+                    </div>
+                    <div className="stay-in-touch__second-row-link">
+                        <Button
+                            copy="Sign Up"
+                            buttonTitle="Sign Up"
+                            buttonSize="md"
+                            onClick={handleSignUp}
+                            buttonType="text"
+                            backgroundColor="light"
+                            imageAlignment="right"
+                            textAlignment="left"
+                            image={<FontAwesomeIcon icon={faArrowRight} style={{ height: '16px', width: '14px' }} />} />
+                    </div>
+                </FlexGridCol>
+                <FlexGridCol
+                    className="stay-in-touch__second-row-container"
+                    mobile={12}
+                    tablet={6}>
+                    <div className="stay-in-touch__second-row-title">
                                 Request a USAspending training session
-                        </div>
-                        <div className="stay-in-touch__second-row-text">
+                    </div>
+                    <div className="stay-in-touch__second-row-text">
                                 Receive customized training for your organization on how to use our tools and data.
-                        </div>
-                        <div className="stay-in-touch__second-row-link">
-                            <Button
-                                copy="Learn More"
-                                onClick={handleLearnMore}
-                                buttonTitle="Learn More"
-                                buttonSize="md"
-                                buttonType="text"
-                                backgroundColor="light"
-                                textAlignment="left"
-                                imageAlignment="right"
-                                image={<FontAwesomeIcon icon={faArrowRight} style={{ height: '16px', width: '14px' }} />} />
-                        </div>
-                    </FlexGridCol>
-                </FlexGridRow>
-            </div>
+                    </div>
+                    <div className="stay-in-touch__second-row-link">
+                        <Button
+                            copy="Learn More"
+                            onClick={handleLearnMore}
+                            buttonTitle="Learn More"
+                            buttonSize="md"
+                            buttonType="text"
+                            backgroundColor="light"
+                            textAlignment="left"
+                            imageAlignment="right"
+                            image={<FontAwesomeIcon icon={faArrowRight} style={{ height: '16px', width: '14px' }} />} />
+                    </div>
+                </FlexGridCol>
+            </FlexGridRow>
         </section>
     );
 };

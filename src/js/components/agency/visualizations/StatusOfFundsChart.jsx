@@ -123,7 +123,7 @@ const StatusOfFundsChart = ({
         });
     }
     const truncateTextLabel = (text) => {
-        if (level > 0 && text.length > 35) {
+        if (level >= 0 && text.length > 35) {
             return `${text.substring(0, 30)}...`;
         }
         return text;
