@@ -173,9 +173,11 @@ const StatusOfFundsChart = ({
     const chartLevelText = () => {
         if (level === 0) {
             return <><hr /><div className="tooltip__text-note">Click a sub-component to view <br />Federal Accounts</div></>;
-        } else if (level === 1) {
+        }
+        else if (level === 1) {
             return <><hr /><div className="tooltip__text-note">Click a Federal Account to view <br />Treasury Accounts</div></>;
-        } else if (level === 2) {
+        }
+        else if (level === 2) {
             return <><hr /><div className="tooltip__text-note">Click a Treasury Account to view <br />Program Activities or Object Classes</div></>;
         }
         return null;
@@ -579,7 +581,7 @@ const StatusOfFundsChart = ({
             svg.selectAll(".y-axis-labels").append("svg:title")
                 .text((d) => d);
 
-            // remove the drilldown functionality levels greater than maxLevel
+            // remove the drilldown functionality for levels greater than maxLevel
             if (level >= maxLevel) {
                 svg.selectAll(".bar-group").on('click', null);
                 svg.selectAll(".bar-group").on('keypress', null);
@@ -952,7 +954,7 @@ const StatusOfFundsChart = ({
             // tooltip hover for label text
             svg.selectAll(".y-axis-labels").append("svg:title")
                 .text((d) => d);
-            // remove the drilldown functionality levels greater than maxLevel
+            // remove the drilldown functionality for levels greater than maxLevel
             if (level >= maxLevel) {
                 svg.selectAll(".bar-group").on('click', null);
                 svg.selectAll(".bar-group").on('keypress', null);
@@ -1008,6 +1010,7 @@ const StatusOfFundsChart = ({
             setSortedNums(results.sort((a, b) => (b._budgetaryResources - a._budgetaryResources)));
         }
     }, [results]);
+
     return (
         <>
             {

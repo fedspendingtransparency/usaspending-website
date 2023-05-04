@@ -5,7 +5,6 @@
 
 import React, { useCallback, useState, useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
-import GlobalConstants from "GlobalConstants";
 import { useSelector, useDispatch } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
@@ -13,7 +12,7 @@ import { throttle } from "lodash";
 
 import { FlexGridRow, FlexGridCol, Pagination, LoadingMessage, ErrorMessage } from 'data-transparency-ui';
 import { setDataThroughDates } from "redux/actions/agency/agencyActions";
-import { fetchSubcomponentsList, fetchFederalAccountsList, fetchTasList, fetchProgramActivityList } from 'apis/agency';
+import { fetchSubcomponentsList, fetchFederalAccountsList, fetchTasList, fetchProgramActivityList, fetchProgramActivityByTas } from 'apis/agency';
 import { parseRows } from 'helpers/agency/StatusOfFundsVizHelper';
 import { useStateWithPrevious } from 'helpers';
 import { useLatestAccountData } from 'containers/account/WithLatestFy';
@@ -213,7 +212,7 @@ const StatusOfFunds = ({ fy }) => {
         const programActivityRequest = request.current;
         programActivityRequest.promise
             .then((res) => {
-                const parsedData = parseRows(res.data.results);
+                const parsedData = parseRows(res.data.results, tasData.id);
                 const totalsData = {
                     // currently, in the data the id and name are the same string
                     // which is an alphanumeric code, not a 'name'
@@ -226,6 +225,46 @@ const StatusOfFunds = ({ fy }) => {
                 setLevel(3);
                 setResults(parsedData);
                 setSelectedTas(tasData);
+                setTotalItems(res.data.page_metadata.total);
+                setDrilldownSelection(totalsData);
+                setLoading(false);
+            }).catch((err) => {
+                setError(true);
+                setLoading(false);
+                console.error(err);
+            });
+    });
+
+    const fetchDataByTas = useCallback((tas) => {
+        if (request.current) {
+            request.current.cancel();
+        }
+        if (error) {
+            setError(false);
+        }
+        if (!loading) {
+            setLoading(true);
+        }
+        const params = {
+            limit: pageSize,
+            page: currentPage
+        };
+
+        request.current = fetchProgramActivityByTas(tas.id, fy, params.page);
+        const programActivityRequest = request.current;
+        programActivityRequest.promise
+            .then((res) => {
+                const parsedData = parseRows(res.data.results, tas.id);
+                const totalsData = {
+                    name: `${tas.name}`,
+                    id: `${tas.id}`,
+                    total_budgetary_resources: `${tas.total_budgetary_resources}`,
+                    total_obligations: `${tas.total_obligations}`
+                };
+
+                setLevel(4);
+                setResults(parsedData);
+                setSelectedTas(tas);
                 setTotalItems(res.data.page_metadata.total);
                 setDrilldownSelection(totalsData);
                 setLoading(false);
@@ -253,6 +292,9 @@ const StatusOfFunds = ({ fy }) => {
             if (prevPage !== currentPage && level === 3) {
                 fetchProgramActivity(selectedTas);
             }
+            // if (prevPage !== currentPage && level === 4) {
+            //     fetchDataByTas(selectedTas);
+            // }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentPage]);
@@ -291,6 +333,13 @@ const StatusOfFunds = ({ fy }) => {
         if (selectedLevel === 3) {
             fetchProgramActivity(parentData);
             selectedLevelsArray.push(selectedSubcomponent);
+            selectedLevelsArray.push(drilldownSelection);
+        }
+
+        if (selectedLevel === 4) {
+            fetchDataByTas(parentData);
+            selectedLevelsArray.push(selectedSubcomponent);
+            selectedLevelsArray.push(selectedTas);
             selectedLevelsArray.push(drilldownSelection);
         }
 

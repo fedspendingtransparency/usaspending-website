@@ -64,3 +64,11 @@ export const fetchTasList = (code, fy) => apiRequest({
 export const fetchProgramActivityList = (code, fy, page) => apiRequest({
     url: `v2/agency/${code}/object_class/${fy ? `?fiscal_year=${fy}` : ''}${page ? `&page=${page}` : ''}`
 });
+
+export const fetchProgramActivityByTas = (code, fy, page) => apiRequest({
+    url: `v2/agency/treasury_account/${code}/program_activity/${fy ? `?fiscal_year=${fy}` : ''}${page ? `&page=${page}` : ''}`
+});
+
+export const fetchObjectClassByTas = (code, fy, page) => apiRequest({
+    url: `v2/agency/treasury_account/${code}/object_class/${fy ? `?fiscal_year=${fy}` : ''}${page ? `&page=${page}` : ''}`
+});

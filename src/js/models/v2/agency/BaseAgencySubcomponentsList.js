@@ -5,8 +5,8 @@
 import { formatMoneyWithUnitsShortLabel } from 'helpers/moneyFormatter';
 
 const BaseAgencySubcomponentsList = {
-    populate(data) {
-        this.id = data?.id || data?.code || '';
+    populate(data, id) {
+        this.id = id || data?.id || data?.code || '';
         this.name = data?.name || '';
         /* eslint-disable camelcase */
         this._budgetaryResources = data?.total_budgetary_resources || data?.budgetary_resources_amount || 0;
