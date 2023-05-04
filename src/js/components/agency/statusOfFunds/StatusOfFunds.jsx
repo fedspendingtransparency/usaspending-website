@@ -12,7 +12,7 @@ import { throttle } from "lodash";
 
 import { FlexGridRow, FlexGridCol, Pagination, LoadingMessage, ErrorMessage } from 'data-transparency-ui';
 import { setDataThroughDates } from "redux/actions/agency/agencyActions";
-import { fetchSubcomponentsList, fetchFederalAccountsList, fetchTasList, fetchProgramActivityList, fetchProgramActivityByTas } from 'apis/agency';
+import { fetchSubcomponentsList, fetchFederalAccountsList, fetchTasList, fetchProgramActivityList, fetchProgramActivityByTas, fetchObjectClassByTas } from 'apis/agency';
 import { parseRows } from 'helpers/agency/StatusOfFundsVizHelper';
 import { useStateWithPrevious } from 'helpers';
 import { useLatestAccountData } from 'containers/account/WithLatestFy';
@@ -235,7 +235,7 @@ const StatusOfFunds = ({ fy }) => {
             });
     });
 
-    const fetchDataByTas = useCallback((tas) => {
+    const fetchDataByTas = useCallback((tas, objectClassFlag) => {
         if (request.current) {
             request.current.cancel();
         }
@@ -250,7 +250,12 @@ const StatusOfFunds = ({ fy }) => {
             page: currentPage
         };
 
-        request.current = fetchProgramActivityByTas(tas.id, fy, params.page);
+        if (objectClassFlag) {
+            request.current = fetchObjectClassByTas(tas.id, fy, params.page);
+        }
+        else {
+            request.current = fetchProgramActivityByTas(tas.id, fy, params.page);
+        }
         const programActivityRequest = request.current;
         programActivityRequest.promise
             .then((res) => {
@@ -319,7 +324,7 @@ const StatusOfFunds = ({ fy }) => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [fy, overview.toptierCode]);
 
-    const setDrilldownLevel = (selectedLevel, parentData) => {
+    const setDrilldownLevel = (selectedLevel, parentData, objectClassFlag) => {
         if (selectedLevel === 1) {
             fetchFederalAccounts(parentData);
             setSelectedSubcomponent(parentData);
@@ -337,7 +342,7 @@ const StatusOfFunds = ({ fy }) => {
         }
 
         if (selectedLevel === 4) {
-            fetchDataByTas(parentData);
+            fetchDataByTas(parentData, objectClassFlag);
             selectedLevelsArray.push(selectedSubcomponent);
             selectedLevelsArray.push(selectedTas);
             selectedLevelsArray.push(drilldownSelection);

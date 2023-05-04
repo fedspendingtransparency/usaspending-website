@@ -71,6 +71,13 @@ const VisualizationSection = ({
 
     const dropdownClickFunction = (value) => {
         setDropdownSelection(value);
+
+        if (value === 'Object Class') {
+            setDrilldownLevel(level + 1, selectedLevelData, true);
+        }
+        else {
+            setDrilldownLevel(level + 1, selectedLevelData);
+        }
     };
 
     return (
