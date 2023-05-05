@@ -37,6 +37,11 @@ export const setSelectedTas = (tas) => ({
     tas
 });
 
+export const setCurrentLevelNameAndId = (nameAndId) => ({
+    type: 'SET_CURRENT_LEVEL_NAME_AND_ID',
+    nameAndId
+});
+
 export const setAgencyRecipients = (recipientDistribution) => ({
     type: 'SET_AGENCY_RECIPIENTS',
     recipientDistribution

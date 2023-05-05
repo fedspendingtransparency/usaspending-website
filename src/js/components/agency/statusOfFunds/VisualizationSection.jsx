@@ -4,6 +4,7 @@
  */
 
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from 'prop-types';
 import { Picker } from "data-transparency-ui";
@@ -46,10 +47,8 @@ const VisualizationSection = ({
     onToggle,
     level,
     setDrilldownLevel,
-    agencyName,
     fy,
     results,
-    selectedLevelData,
     isMobile,
     viewType,
     setViewType,
@@ -59,6 +58,14 @@ const VisualizationSection = ({
 }) => {
     const [open, setOpen] = useState(false);
     const accordionTitle = (<span>What&nbsp;is&nbsp;this?</span>);
+
+    // todo - find the redux shorthand to pull the obj with one command
+    const name = useSelector((state) => state.agency.currentLevelNameAndId.name);
+    const id = useSelector((state) => state.agency.currentLevelNameAndId.id);
+    const currentLevelData = {
+        name,
+        id
+    };
 
     const changeView = (label) => {
         setViewType(label);
@@ -76,10 +83,10 @@ const VisualizationSection = ({
         setDropdownSelection(value);
 
         if (value === 'Object Class') {
-            setDrilldownLevel(level, selectedLevelData, true);
+            setDrilldownLevel(level, currentLevelData, true);
         }
         else {
-            setDrilldownLevel(level, selectedLevelData);
+            setDrilldownLevel(level, currentLevelData);
         }
     };
 
@@ -94,7 +101,7 @@ const VisualizationSection = ({
             }}>
             {isMobile ? (
                 <>
-                    <h6>{level === 0 ? agencyName : selectedLevelData?.name } by <span className="status-of-funds__emphasis">{levels[level]}</span> for FY {fy}
+                    <h6>{currentLevelData.name} by <span className="status-of-funds__emphasis">{levels[level]}</span> for FY {fy}
                     </h6>
                     <div className="status-of-funds__controls-mobile">
                         <div className="status-of-funds__controls-mobile-row-one">
@@ -111,7 +118,7 @@ const VisualizationSection = ({
                         <div className="status-of-funds__controls">
                             <div className="status-of-funds__controls-desktop-row-one">
                                 <div className="status-of-funds__controls-heading-container">
-                                    <div className="status-of-funds__controls-heading">{level === 0 ? agencyName : selectedLevelData?.name } by&thinsp;</div>
+                                    <div className="status-of-funds__controls-heading">{currentLevelData.name} by&thinsp;</div>
                                     {level === 3 ? (
                                         <Picker
                                             className="status-of-funds__chart-picker"

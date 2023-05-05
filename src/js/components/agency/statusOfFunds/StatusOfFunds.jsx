@@ -11,7 +11,7 @@ import { tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { throttle } from "lodash";
 
 import { FlexGridRow, FlexGridCol, Pagination, LoadingMessage, ErrorMessage } from 'data-transparency-ui';
-import { setDataThroughDates, setSelectedSubcomponent, setSelectedFederalAccount, setSelectedTas } from "redux/actions/agency/agencyActions";
+import { setDataThroughDates, setSelectedSubcomponent, setSelectedFederalAccount, setSelectedTas, setCurrentLevelNameAndId } from "redux/actions/agency/agencyActions";
 import { fetchSubcomponentsList, fetchFederalAccountsList, fetchTasList, fetchProgramActivityByTas, fetchObjectClassByTas } from 'apis/agency';
 import { parseRows } from 'helpers/agency/StatusOfFundsVizHelper';
 import { useStateWithPrevious } from 'helpers';
@@ -49,10 +49,6 @@ const StatusOfFunds = ({ fy }) => {
     const [dropdownSelection, setDropdownSelection] = useState('Program Activity');
 
     // TODO this should probably go in redux, maybe?
-    // const [selectedSubcomponent, setSelectedSubcomponent] = useState();
-    // const [selectedFederalAccount, setSelectedFederalAccount] = useState();
-    // const [selectedTas, setSelectedTas] = useState();
-    const [drilldownSelection, setDrilldownSelection] = useState({});
     const [selectedDrilldownList, setSelectedDrilldownList] = useState([]);
 
     const selectedLevelsArray = [];
@@ -101,6 +97,11 @@ const StatusOfFunds = ({ fy }) => {
         agencySubcomponentsListRequest.promise
             .then((res) => {
                 const parsedData = parseRows(res.data.results);
+                const nameAndId = {
+                    name: `${overview.name}`,
+                    id: `${overview.id}`
+                };
+                dispatch(setCurrentLevelNameAndId(nameAndId));
                 setResults(parsedData);
                 setTotalItems(parsedData.length);
 
@@ -138,16 +139,14 @@ const StatusOfFunds = ({ fy }) => {
         federalAccountsRequest.promise
             .then((res) => {
                 const parsedData = parseRows(res.data.results);
-                // const totalsData = {
-                //     name: `${agencyData.name}`,
-                //     id: `${agencyData.id}`,
-                //     total_budgetary_resources: `${agencyData.budgetaryResources}`,
-                //     total_obligations: `${agencyData.obligations}`
-                // };
+                const nameAndId = {
+                    name: `${agencyData.name}`,
+                    id: `${agencyData.id}`
+                };
+                dispatch(setCurrentLevelNameAndId(nameAndId));
                 setLevel(1);
                 setResults(parsedData);
                 setTotalItems(parsedData.length);
-                // setDrilldownSelection(totalsData);
                 setLoading(false);
             }).catch((err) => {
                 setError(true);
@@ -172,19 +171,18 @@ const StatusOfFunds = ({ fy }) => {
         tasRequest.promise
             .then((res) => {
                 const parsedData = parseRows(res.data.children);
-                // const totalsData = {
-                //     name: `${federalAccountData.id}: ${federalAccountData.name}`,
-                //     id: `${federalAccountData.id}`,
-                //     total_budgetary_resources: `${federalAccountData.budgetaryResources}`,
-                //     total_obligations: `${federalAccountData.obligations}`
-                // };
+                const nameAndId = {
+                    name: `${federalAccountData.id}: ${federalAccountData.name}`,
+                    id: `${federalAccountData.id}`
+                };
+                dispatch(setCurrentLevelNameAndId(nameAndId));
                 setLevel(2);
+                setResults(paginatedTasList(parsedData));
+
                 // Hack to make the status of funds chart show the labels per the mock
                 // eslint-disable-next-line no-param-reassign,no-return-assign
                 parsedData.map((item) => item.name = item.id);
-                setResults(paginatedTasList(parsedData));
-                // setSelectedFederalAccount(federalAccountData);
-                // setDrilldownSelection(totalsData);
+
                 setTotalItems(parsedData.length);
                 setLoading(false);
             }).catch((err) => {
@@ -261,18 +259,14 @@ const StatusOfFunds = ({ fy }) => {
         programActivityRequest.promise
             .then((res) => {
                 const parsedData = parseRows(res.data.results, tas.id);
-                const totalsData = {
+                const nameAndId = {
                     name: `${tas.name}`,
-                    id: `${tas.id}`,
-                    total_budgetary_resources: `${tas.total_budgetary_resources}`,
-                    total_obligations: `${tas.total_obligations}`
+                    id: `${tas.id}`
                 };
-
+                dispatch(setCurrentLevelNameAndId(nameAndId));
                 setLevel(3);
                 setResults(parsedData);
-                // setSelectedTas(tas);
-                setTotalItems(res.data.page_metadata.total);
-                setDrilldownSelection(totalsData);
+                setTotalItems(parsedData.length);
                 setLoading(false);
             }).catch((err) => {
                 setError(true);
@@ -326,21 +320,17 @@ const StatusOfFunds = ({ fy }) => {
     const setDrilldownLevel = (selectedLevel, parentData, objectClassFlag) => {
         if (selectedLevel === 1) {
             fetchFederalAccounts(parentData);
-            // setSelectedSubcomponent(parentData);
             dispatch(setSelectedSubcomponent(parentData));
         }
 
         if (selectedLevel === 2) {
             fetchTas(parentData);
-            // selectedLevelsArray.push(selectedSubcomponent);
             dispatch(setSelectedFederalAccount(parentData));
         }
 
         if (selectedLevel === 3) {
             fetchDataByTas(parentData, objectClassFlag);
             dispatch(setSelectedTas(parentData));
-            // selectedLevelsArray.push(selectedSubcomponent);
-            // selectedLevelsArray.push(drilldownSelection);
         }
 
         selectedLevelsArray.push(parentData);
@@ -419,8 +409,6 @@ const StatusOfFunds = ({ fy }) => {
                                 onKeyToggle={onKeyToggle}
                                 level={level}
                                 setDrilldownLevel={setDrilldownLevel}
-                                selectedLevelData={drilldownSelection}
-                                agencyName={overview.name}
                                 fy={fy}
                                 results={results}
                                 isMobile={isMobile}
