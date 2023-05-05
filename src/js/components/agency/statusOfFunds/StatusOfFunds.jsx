@@ -330,7 +330,7 @@ const StatusOfFunds = ({ fy }) => {
 
         if (selectedLevel === 3) {
             fetchDataByTas(parentData, objectClassFlag);
-            dispatch(setSelectedTas(parentData));
+            // dispatch(setSelectedTas(parentData));
         }
 
         selectedLevelsArray.push(parentData);

@@ -14,21 +14,13 @@ const propTypes = {
     level: PropTypes.number.isRequired,
     goBack: PropTypes.func,
     fy: PropTypes.string.isRequired,
-    selectedLevelDataList: PropTypes.arrayOf(PropTypes.shape({
-        name: PropTypes.string,
-        id: PropTypes.string,
-        budgetaryResources: PropTypes.string,
-        obligations: PropTypes.string
-    }))
 };
 
 const DrilldownSidebar = ({
     toggle,
     level,
     goBack,
-    fy,
-    selectedLevelDataList,
-    goBackEngaged
+    fy
 }) => {
     const { agencyBudgetShort, agencyObligatedShort } = useSelector((state) => state.agency.budgetaryResources?.[fy]) || '--';
     const { toptierCode } = useSelector((state) => state.agency.overview) || '--';
@@ -52,28 +44,6 @@ const DrilldownSidebar = ({
     const tasObligation = MoneyFormatter.formatMoneyWithUnitsShortLabel(useSelector((state) => state.agency.selectedTas?._obligations), 2);
     const tasOutlays = MoneyFormatter.formatMoneyWithUnitsShortLabel(useSelector((state) => state.agency.selectedTas?._outlays), 2);
 
-
-    console.log('selectedLevelDataList', selectedLevelDataList);
-
-    // const formatName = (selectedLevel, index) => {
-    //     if (selectedLevel === 2 && index === 1 && !goBackEngaged) {
-    //         return `${selectedLevelDataList[index]?.id}: ${selectedLevelDataList[index]?.name}`;
-    //     }
-    //
-    //     return selectedLevelDataList[index]?.name;
-    // };
-    //
-    // const obligatedText = level === 3 ? (
-    //     <div className="drilldown-level__description">
-    //         <strong>{obligated}</strong> committed
-    //     </div>
-    // ) : (
-    //     <div className="drilldown-level__description">
-    //         <strong>{obligated}</strong> committed of <strong>{budgetaryResources}</strong> Total
-    //         Budgetary Resources
-    //     </div>
-    // );
-
     return (
         <>
             <DrilldownSidebarLevel
@@ -88,20 +58,6 @@ const DrilldownSidebar = ({
                 )}
                 toggle={toggle}
                 outlay={MoneyFormatter.formatMoneyWithUnitsShortLabel(outlay, 2)} />
-            {/* {levels.map((dataType, i) => ((i < level) ? ( */}
-            {/*     <DrilldownSidebarLevel */}
-            {/*         key={dataType} */}
-            {/*         active={level === i + 1} */}
-            {/*         name={formatName(level, i)} */}
-            {/*         label={dataType} */}
-            {/*         obligated={selectedLevelDataList[i]?.total_obligations ? selectedLevelDataList[i].total_obligations : MoneyFormatter.formatMoneyWithUnitsShortLabel(selectedLevelDataList[i]?._obligations, 2)} */}
-            {/*         budgetaryResources={selectedLevelDataList[i]?.total_budgetary_resources ? selectedLevelDataList[i].total_budgetary_resources : MoneyFormatter.formatMoneyWithUnitsShortLabel(selectedLevelDataList[i]?._budgetaryResources, 2)} */}
-            {/*         goBack={goBack} */}
-            {/*         toggle={toggle} */}
-            {/*         outlay={MoneyFormatter.formatMoneyWithUnitsShortLabel(selectedLevelDataList[i]?._outlays, 2)} */}
-            {/*         level={level} /> */}
-            {/* ) : '') */}
-            {/* )} */}
             {level >= 1 &&
                 <DrilldownSidebarLevel
                     key="Sub-Component"
