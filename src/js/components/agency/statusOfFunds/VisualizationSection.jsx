@@ -35,7 +35,9 @@ const propTypes = {
     isMobile: PropTypes.bool,
     viewType: PropTypes.string,
     setViewType: PropTypes.func,
-    maxLevel: PropTypes.number
+    maxLevel: PropTypes.number,
+    dropdownSelection: PropTypes.string,
+    setDropdownSelection: PropTypes.func
 };
 
 const VisualizationSection = ({
@@ -51,11 +53,12 @@ const VisualizationSection = ({
     isMobile,
     viewType,
     setViewType,
-    maxLevel
+    maxLevel,
+    dropdownSelection,
+    setDropdownSelection
 }) => {
     const [open, setOpen] = useState(false);
     const accordionTitle = (<span>What&nbsp;is&nbsp;this?</span>);
-    const [dropdownSelection, setDropdownSelection] = useState('Program Activity');
 
     const changeView = (label) => {
         setViewType(label);
@@ -73,10 +76,10 @@ const VisualizationSection = ({
         setDropdownSelection(value);
 
         if (value === 'Object Class') {
-            setDrilldownLevel(level + 1, selectedLevelData, true);
+            setDrilldownLevel(level, selectedLevelData, true);
         }
         else {
-            setDrilldownLevel(level + 1, selectedLevelData);
+            setDrilldownLevel(level, selectedLevelData);
         }
     };
 

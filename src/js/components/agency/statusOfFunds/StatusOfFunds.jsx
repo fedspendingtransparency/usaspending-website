@@ -46,6 +46,7 @@ const StatusOfFunds = ({ fy }) => {
     const [isMobile, setIsMobile] = useState(window.innerWidth < tabletScreen);
     const [viewType, setViewType] = useState(isMobile ? 'table' : 'chart');
     const [goBackEngaged, setGoBackEngaged] = useState(false);
+    const [dropdownSelection, setDropdownSelection] = useState('Program Activity');
 
     // TODO this should probably go in redux, maybe?
     const [selectedSubcomponent, setSelectedSubcomponent] = useState();
@@ -422,7 +423,9 @@ const StatusOfFunds = ({ fy }) => {
                                 isMobile={isMobile}
                                 viewType={viewType}
                                 setViewType={setViewType}
-                                maxLevel={maxLevel} />
+                                maxLevel={maxLevel}
+                                dropdownSelection={dropdownSelection}
+                                setDropdownSelection={setDropdownSelection} />
                             <Pagination
                                 currentPage={currentPage}
                                 changePage={changeCurrentPage}
