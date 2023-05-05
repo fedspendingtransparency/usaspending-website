@@ -30,7 +30,7 @@ const HomepageResources = () => {
                     <FontAwesomeIcon icon="arrow-right" />
                 </>
             ),
-            buttonLink: '/analyst-guide',
+            buttonLink: '/federal-spending-guide',
             action: () => Analytics.event({
                 category: 'Homepage',
                 action: 'Link',

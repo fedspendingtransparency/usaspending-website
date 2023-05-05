@@ -83,9 +83,9 @@ export const resourceOptions = [
         externalLink: false
     },
     {
-        label: 'Analyst Guide',
+        label: 'Federal Spending Guide',
         type: 'analyst-guide',
-        url: '/analyst-guide',
+        url: '/federal-spending-guide',
         shouldOpenNewTab: false,
         enabled: true,
         externalLink: false
