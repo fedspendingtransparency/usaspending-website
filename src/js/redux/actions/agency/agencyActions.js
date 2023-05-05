@@ -27,6 +27,16 @@ export const setSelectedSubcomponent = (subcomponent) => ({
     subcomponent
 });
 
+export const setSelectedFederalAccount = (federalAccount) => ({
+    type: 'SET_FEDERAL_ACCOUNT',
+    federalAccount
+});
+
+export const setSelectedTas = (tas) => ({
+    type: 'SET_TAS',
+    tas
+});
+
 export const setAgencyRecipients = (recipientDistribution) => ({
     type: 'SET_AGENCY_RECIPIENTS',
     recipientDistribution

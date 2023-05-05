@@ -11,8 +11,8 @@ import { tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { throttle } from "lodash";
 
 import { FlexGridRow, FlexGridCol, Pagination, LoadingMessage, ErrorMessage } from 'data-transparency-ui';
-import { setDataThroughDates } from "redux/actions/agency/agencyActions";
-import { fetchSubcomponentsList, fetchFederalAccountsList, fetchTasList, fetchProgramActivityList, fetchProgramActivityByTas, fetchObjectClassByTas } from 'apis/agency';
+import { setDataThroughDates, setSelectedSubcomponent, setSelectedFederalAccount, setSelectedTas } from "redux/actions/agency/agencyActions";
+import { fetchSubcomponentsList, fetchFederalAccountsList, fetchTasList, fetchProgramActivityByTas, fetchObjectClassByTas } from 'apis/agency';
 import { parseRows } from 'helpers/agency/StatusOfFundsVizHelper';
 import { useStateWithPrevious } from 'helpers';
 import { useLatestAccountData } from 'containers/account/WithLatestFy';
@@ -27,7 +27,7 @@ const propTypes = {
     fy: PropTypes.string
 };
 
-export const levels = ['Sub-Component', 'Federal Account', 'Treasury Account Symbol', 'Program Activity'];
+export const levels = ['Sub-Component', 'Federal Account', 'Treasury Account Symbol'];
 
 const StatusOfFunds = ({ fy }) => {
     const dispatch = useDispatch();
@@ -49,9 +49,9 @@ const StatusOfFunds = ({ fy }) => {
     const [dropdownSelection, setDropdownSelection] = useState('Program Activity');
 
     // TODO this should probably go in redux, maybe?
-    const [selectedSubcomponent, setSelectedSubcomponent] = useState();
-    const [selectedFederalAccount, setSelectedFederalAccount] = useState();
-    const [selectedTas, setSelectedTas] = useState();
+    // const [selectedSubcomponent, setSelectedSubcomponent] = useState();
+    // const [selectedFederalAccount, setSelectedFederalAccount] = useState();
+    // const [selectedTas, setSelectedTas] = useState();
     const [drilldownSelection, setDrilldownSelection] = useState({});
     const [selectedDrilldownList, setSelectedDrilldownList] = useState([]);
 
@@ -102,7 +102,7 @@ const StatusOfFunds = ({ fy }) => {
             .then((res) => {
                 const parsedData = parseRows(res.data.results);
                 setResults(parsedData);
-                setTotalItems(res.data.page_metadata.total);
+                setTotalItems(parsedData.length);
 
                 if (parsedData.length === 0) {
                     statusDataThroughDate = 'no data';
@@ -138,16 +138,16 @@ const StatusOfFunds = ({ fy }) => {
         federalAccountsRequest.promise
             .then((res) => {
                 const parsedData = parseRows(res.data.results);
-                const totalsData = {
-                    name: `${agencyData.name}`,
-                    id: `${agencyData.id}`,
-                    total_budgetary_resources: `${agencyData.budgetaryResources}`,
-                    total_obligations: `${agencyData.obligations}`
-                };
+                // const totalsData = {
+                //     name: `${agencyData.name}`,
+                //     id: `${agencyData.id}`,
+                //     total_budgetary_resources: `${agencyData.budgetaryResources}`,
+                //     total_obligations: `${agencyData.obligations}`
+                // };
                 setLevel(1);
                 setResults(parsedData);
-                setTotalItems(res.data.page_metadata.total);
-                setDrilldownSelection(totalsData);
+                setTotalItems(parsedData.length);
+                // setDrilldownSelection(totalsData);
                 setLoading(false);
             }).catch((err) => {
                 setError(true);
@@ -172,19 +172,19 @@ const StatusOfFunds = ({ fy }) => {
         tasRequest.promise
             .then((res) => {
                 const parsedData = parseRows(res.data.children);
-                const totalsData = {
-                    name: `${federalAccountData.id}: ${federalAccountData.name}`,
-                    id: `${federalAccountData.id}`,
-                    total_budgetary_resources: `${federalAccountData.budgetaryResources}`,
-                    total_obligations: `${federalAccountData.obligations}`
-                };
+                // const totalsData = {
+                //     name: `${federalAccountData.id}: ${federalAccountData.name}`,
+                //     id: `${federalAccountData.id}`,
+                //     total_budgetary_resources: `${federalAccountData.budgetaryResources}`,
+                //     total_obligations: `${federalAccountData.obligations}`
+                // };
                 setLevel(2);
                 // Hack to make the status of funds chart show the labels per the mock
                 // eslint-disable-next-line no-param-reassign,no-return-assign
                 parsedData.map((item) => item.name = item.id);
                 setResults(paginatedTasList(parsedData));
-                setSelectedFederalAccount(federalAccountData);
-                setDrilldownSelection(totalsData);
+                // setSelectedFederalAccount(federalAccountData);
+                // setDrilldownSelection(totalsData);
                 setTotalItems(parsedData.length);
                 setLoading(false);
             }).catch((err) => {
@@ -270,7 +270,7 @@ const StatusOfFunds = ({ fy }) => {
 
                 setLevel(3);
                 setResults(parsedData);
-                setSelectedTas(tas);
+                // setSelectedTas(tas);
                 setTotalItems(res.data.page_metadata.total);
                 setDrilldownSelection(totalsData);
                 setLoading(false);
@@ -289,16 +289,16 @@ const StatusOfFunds = ({ fy }) => {
             if (prevPage !== currentPage && level === 0) {
                 fetchAgencySubcomponents();
             }
-            if (prevPage !== currentPage && level === 1) {
-                fetchFederalAccounts(selectedSubcomponent);
-            }
-            if (prevPage !== currentPage && level === 2) {
-                fetchTas(selectedFederalAccount);
-            }
-            if (prevPage !== currentPage && level === 3) {
-                // todo - what if user has selected object class? how can we know that from here?
-                fetchDataByTas(selectedTas, false);
-            }
+            // if (prevPage !== currentPage && level === 1) {
+            //     fetchFederalAccounts(selectedSubcomponent);
+            // }
+            // if (prevPage !== currentPage && level === 2) {
+            //     fetchTas(selectedFederalAccount);
+            // }
+            // if (prevPage !== currentPage && level === 3) {
+            //     // todo - what if user has selected object class? how can we know that from here?
+            //     fetchDataByTas(selectedTas, false);
+            // }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentPage]);
@@ -326,18 +326,21 @@ const StatusOfFunds = ({ fy }) => {
     const setDrilldownLevel = (selectedLevel, parentData, objectClassFlag) => {
         if (selectedLevel === 1) {
             fetchFederalAccounts(parentData);
-            setSelectedSubcomponent(parentData);
+            // setSelectedSubcomponent(parentData);
+            dispatch(setSelectedSubcomponent(parentData));
         }
 
         if (selectedLevel === 2) {
             fetchTas(parentData);
-            selectedLevelsArray.push(selectedSubcomponent);
+            // selectedLevelsArray.push(selectedSubcomponent);
+            dispatch(setSelectedFederalAccount(parentData));
         }
 
         if (selectedLevel === 3) {
             fetchDataByTas(parentData, objectClassFlag);
-            selectedLevelsArray.push(selectedSubcomponent);
-            selectedLevelsArray.push(drilldownSelection);
+            dispatch(setSelectedTas(parentData));
+            // selectedLevelsArray.push(selectedSubcomponent);
+            // selectedLevelsArray.push(drilldownSelection);
         }
 
         selectedLevelsArray.push(parentData);
@@ -359,18 +362,18 @@ const StatusOfFunds = ({ fy }) => {
                     fetchAgencySubcomponents();
                 }
             }
-            if (level === 2) {
-                setLevel(1);
-                if (currentPage === 1) {
-                    fetchFederalAccounts(selectedSubcomponent);
-                }
-            }
-            if (level === 3) {
-                setLevel(2);
-                if (currentPage === 1) {
-                    fetchTas(selectedFederalAccount);
-                }
-            }
+            // if (level === 2) {
+            //     setLevel(1);
+            //     if (currentPage === 1) {
+            //         fetchFederalAccounts(selectedSubcomponent);
+            //     }
+            // }
+            // if (level === 3) {
+            //     setLevel(2);
+            //     if (currentPage === 1) {
+            //         fetchTas(selectedFederalAccount);
+            //     }
+            // }
 
             changeCurrentPage(1);
         }
