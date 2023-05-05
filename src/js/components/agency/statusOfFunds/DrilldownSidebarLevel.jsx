@@ -20,7 +20,13 @@ const propTypes = {
 };
 
 const DrilldownSidebarLevel = ({
-    label, name, active, goBack, toggle, outlay, obligatedText
+    label,
+    name,
+    active,
+    goBack,
+    toggle,
+    outlay,
+    obligatedText
 }) => (
     <div className={`drilldown-level${active ? ' drilldown-level_active' : ''}`}>
         {goBack ? (

@@ -48,6 +48,14 @@ const StatusOfFunds = ({ fy }) => {
     const [goBackEngaged, setGoBackEngaged] = useState(false);
     const [dropdownSelection, setDropdownSelection] = useState('Program Activity');
 
+    // these are used for goBack fn
+    const selectedSubComponentId = {
+        id: useSelector((state) => state.agency.selectedSubcomponent?.id)
+    };
+    const selectedFederalAccountId = {
+        id: useSelector((state) => state.agency.selectedFederalAccount?.id)
+    };
+
     // TODO this should probably go in redux, maybe?
     const [selectedDrilldownList, setSelectedDrilldownList] = useState([]);
 
@@ -235,6 +243,7 @@ const StatusOfFunds = ({ fy }) => {
     // });
 
     const fetchDataByTas = useCallback((tas, objectClassFlag) => {
+        console.log('fetchDataByTas prop', tas);
         if (request.current) {
             request.current.cancel();
         }
@@ -258,6 +267,7 @@ const StatusOfFunds = ({ fy }) => {
         const programActivityRequest = request.current;
         programActivityRequest.promise
             .then((res) => {
+                console.log('res', res);
                 const parsedData = parseRows(res.data.results, tas.id);
                 const nameAndId = {
                     name: `${tas.name}`,
@@ -283,12 +293,12 @@ const StatusOfFunds = ({ fy }) => {
             if (prevPage !== currentPage && level === 0) {
                 fetchAgencySubcomponents();
             }
-            // if (prevPage !== currentPage && level === 1) {
-            //     fetchFederalAccounts(selectedSubcomponent);
-            // }
-            // if (prevPage !== currentPage && level === 2) {
-            //     fetchTas(selectedFederalAccount);
-            // }
+            if (prevPage !== currentPage && level === 1) {
+                fetchFederalAccounts(selectedSubComponentId);
+            }
+            if (prevPage !== currentPage && level === 2) {
+                fetchTas(selectedFederalAccountId);
+            }
             // if (prevPage !== currentPage && level === 3) {
             //     // todo - what if user has selected object class? how can we know that from here?
             //     fetchDataByTas(selectedTas, false);
@@ -330,7 +340,7 @@ const StatusOfFunds = ({ fy }) => {
 
         if (selectedLevel === 3) {
             fetchDataByTas(parentData, objectClassFlag);
-            // dispatch(setSelectedTas(parentData));
+            dispatch(setSelectedTas(parentData));
         }
 
         selectedLevelsArray.push(parentData);
@@ -352,18 +362,18 @@ const StatusOfFunds = ({ fy }) => {
                     fetchAgencySubcomponents();
                 }
             }
-            // if (level === 2) {
-            //     setLevel(1);
-            //     if (currentPage === 1) {
-            //         fetchFederalAccounts(selectedSubcomponent);
-            //     }
-            // }
-            // if (level === 3) {
-            //     setLevel(2);
-            //     if (currentPage === 1) {
-            //         fetchTas(selectedFederalAccount);
-            //     }
-            // }
+            if (level === 2) {
+                setLevel(1);
+                if (currentPage === 1) {
+                    fetchFederalAccounts(selectedSubComponentId);
+                }
+            }
+            if (level === 3) {
+                setLevel(2);
+                if (currentPage === 1) {
+                    fetchTas(selectedFederalAccountId);
+                }
+            }
 
             changeCurrentPage(1);
         }
