@@ -45,7 +45,6 @@ const StatusOfFunds = ({ fy }) => {
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < tabletScreen);
     const [viewType, setViewType] = useState(isMobile ? 'table' : 'chart');
-    const [goBackEngaged, setGoBackEngaged] = useState(false);
     const [dropdownSelection, setDropdownSelection] = useState('Program Activity');
 
     // these are used for goBack fn
@@ -56,11 +55,8 @@ const StatusOfFunds = ({ fy }) => {
         id: useSelector((state) => state.agency.selectedFederalAccount?.id)
     };
 
-    // TODO this should probably go in redux, maybe?
-    const [selectedDrilldownList, setSelectedDrilldownList] = useState([]);
-
-    const selectedLevelsArray = [];
     const maxLevel = 3;
+
     // TODO not sure if this is necessary
     // eslint-disable-next-line eqeqeq
     let statusDataThroughDate = useLatestAccountData()[1].toArray().filter((i) => i.submission_fiscal_year == fy)[0].period_end_date;
@@ -243,7 +239,6 @@ const StatusOfFunds = ({ fy }) => {
     // });
 
     const fetchDataByTas = useCallback((tas, objectClassFlag) => {
-        console.log('fetchDataByTas prop', tas);
         if (request.current) {
             request.current.cancel();
         }
@@ -267,7 +262,6 @@ const StatusOfFunds = ({ fy }) => {
         const programActivityRequest = request.current;
         programActivityRequest.promise
             .then((res) => {
-                console.log('res', res);
                 const parsedData = parseRows(res.data.results, tas.id);
                 const nameAndId = {
                     name: `${tas.name}`,
@@ -301,6 +295,7 @@ const StatusOfFunds = ({ fy }) => {
             }
             // if (prevPage !== currentPage && level === 3) {
             //     // todo - what if user has selected object class? how can we know that from here?
+                    // use the state var for it
             //     fetchDataByTas(selectedTas, false);
             // }
         }
@@ -343,18 +338,13 @@ const StatusOfFunds = ({ fy }) => {
             dispatch(setSelectedTas(parentData));
         }
 
-        selectedLevelsArray.push(parentData);
-
         setResetPageChange(true);
         const subcomponentTotalData = Object.create(BaseStatusOfFundsLevel);
         subcomponentTotalData.populate(parentData);
-        setSelectedDrilldownList(selectedLevelsArray);
         setResults(subcomponentTotalData);
-        setGoBackEngaged(false);
     };
 
     const goBack = () => {
-        setGoBackEngaged(true);
         if (overview.toptierCode) {
             if (level === 1) {
                 setLevel(0);
@@ -398,10 +388,7 @@ const StatusOfFunds = ({ fy }) => {
                         toggle={toggle}
                         level={level}
                         goBack={goBack}
-                        goBackEngaged={goBackEngaged}
-                        agencyName={overview.name}
-                        fy={fy}
-                        selectedLevelDataList={selectedDrilldownList} />
+                        fy={fy} />
                 </FlexGridCol>
                 <FlexGridCol className="status-of-funds__visualization" desktop={9}>
                     {level > 0 && !isMobile ?
