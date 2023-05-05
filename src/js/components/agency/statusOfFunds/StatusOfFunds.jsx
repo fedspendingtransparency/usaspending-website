@@ -47,12 +47,15 @@ const StatusOfFunds = ({ fy }) => {
     const [viewType, setViewType] = useState(isMobile ? 'table' : 'chart');
     const [dropdownSelection, setDropdownSelection] = useState('Program Activity');
 
-    // these are used for goBack fn
+    // these are used for goBack fn and when changing pages in results
     const selectedSubComponentId = {
         id: useSelector((state) => state.agency.selectedSubcomponent?.id)
     };
     const selectedFederalAccountId = {
         id: useSelector((state) => state.agency.selectedFederalAccount?.id)
+    };
+    const selectedTasId = {
+        id: useSelector((state) => state.agency.selectedTas?.id)
     };
 
     const maxLevel = 3;
@@ -293,11 +296,9 @@ const StatusOfFunds = ({ fy }) => {
             if (prevPage !== currentPage && level === 2) {
                 fetchTas(selectedFederalAccountId);
             }
-            // if (prevPage !== currentPage && level === 3) {
-            //     // todo - what if user has selected object class? how can we know that from here?
-                    // use the state var for it
-            //     fetchDataByTas(selectedTas, false);
-            // }
+            if (prevPage !== currentPage && level === 3) {
+                fetchDataByTas(selectedTasId, dropdownSelection === 'Object Class');
+            }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentPage]);
