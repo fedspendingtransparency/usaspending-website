@@ -18,7 +18,7 @@ const propTypes = {
     outlay: PropTypes.string
 };
 
-const DrilldownSidebar = ({
+const DrilldownSidebarLevel = ({
     label, name, obligated, budgetaryResources, active, goBack, toggle, outlay
 }) => (
     <div className={`drilldown-level${active ? ' drilldown-level_active' : ''}`}>
@@ -50,5 +50,5 @@ const DrilldownSidebar = ({
     </div>
 );
 
-DrilldownSidebar.propTypes = propTypes;
-export default DrilldownSidebar;
+DrilldownSidebarLevel.propTypes = propTypes;
+export default DrilldownSidebarLevel;

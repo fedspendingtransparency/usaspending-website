@@ -51,12 +51,11 @@ const StatusOfFunds = ({ fy }) => {
     const [selectedSubcomponent, setSelectedSubcomponent] = useState();
     const [selectedFederalAccount, setSelectedFederalAccount] = useState();
     const [selectedTas, setSelectedTas] = useState();
-    const [selectedProgramActivity, setSelectedProgramActivity] = useState();
     const [drilldownSelection, setDrilldownSelection] = useState({});
     const [selectedDrilldownList, setSelectedDrilldownList] = useState([]);
 
     const selectedLevelsArray = [];
-    const maxLevel = 4;
+    const maxLevel = 3;
     // TODO not sure if this is necessary
     // eslint-disable-next-line eqeqeq
     let statusDataThroughDate = useLatestAccountData()[1].toArray().filter((i) => i.submission_fiscal_year == fy)[0].period_end_date;
@@ -194,47 +193,47 @@ const StatusOfFunds = ({ fy }) => {
             });
     });
 
-    const fetchProgramActivity = useCallback((tasData) => {
-        if (request.current) {
-            request.current.cancel();
-        }
-        if (error) {
-            setError(false);
-        }
-        if (!loading) {
-            setLoading(true);
-        }
-        const params = {
-            limit: pageSize,
-            page: currentPage
-        };
-
-        request.current = fetchProgramActivityList(overview.toptierCode, fy, params.page);
-        const programActivityRequest = request.current;
-        programActivityRequest.promise
-            .then((res) => {
-                const parsedData = parseRows(res.data.results, tasData.id);
-                const totalsData = {
-                    // currently, in the data the id and name are the same string
-                    // which is an alphanumeric code, not a 'name'
-                    name: `${tasData.name}`,
-                    id: `${tasData.id}`,
-                    total_budgetary_resources: `${tasData._budgetaryResources}`,
-                    total_obligations: `${tasData._obligations}`
-                };
-
-                setLevel(3);
-                setResults(parsedData);
-                setSelectedTas(tasData);
-                setTotalItems(res.data.page_metadata.total);
-                setDrilldownSelection(totalsData);
-                setLoading(false);
-            }).catch((err) => {
-                setError(true);
-                setLoading(false);
-                console.error(err);
-            });
-    });
+    // const fetchProgramActivity = useCallback((tasData) => {
+    //     if (request.current) {
+    //         request.current.cancel();
+    //     }
+    //     if (error) {
+    //         setError(false);
+    //     }
+    //     if (!loading) {
+    //         setLoading(true);
+    //     }
+    //     const params = {
+    //         limit: pageSize,
+    //         page: currentPage
+    //     };
+    //
+    //     request.current = fetchProgramActivityList(overview.toptierCode, fy, params.page);
+    //     const programActivityRequest = request.current;
+    //     programActivityRequest.promise
+    //         .then((res) => {
+    //             const parsedData = parseRows(res.data.results, tasData.id);
+    //             const totalsData = {
+    //                 // currently, in the data the id and name are the same string
+    //                 // which is an alphanumeric code, not a 'name'
+    //                 name: `${tasData.name}`,
+    //                 id: `${tasData.id}`,
+    //                 total_budgetary_resources: `${tasData._budgetaryResources}`,
+    //                 total_obligations: `${tasData._obligations}`
+    //             };
+    //
+    //             setLevel(3);
+    //             setResults(parsedData);
+    //             setSelectedTas(tasData);
+    //             setTotalItems(res.data.page_metadata.total);
+    //             setDrilldownSelection(totalsData);
+    //             setLoading(false);
+    //         }).catch((err) => {
+    //             setError(true);
+    //             setLoading(false);
+    //             console.error(err);
+    //         });
+    // });
 
     const fetchDataByTas = useCallback((tas, objectClassFlag) => {
         if (request.current) {
@@ -268,9 +267,9 @@ const StatusOfFunds = ({ fy }) => {
                     total_obligations: `${tas.total_obligations}`
                 };
 
-                setLevel(4);
+                setLevel(3);
                 setResults(parsedData);
-                setSelectedProgramActivity(tas);
+                setSelectedTas(tas);
                 setTotalItems(res.data.page_metadata.total);
                 setDrilldownSelection(totalsData);
                 setLoading(false);
@@ -296,11 +295,8 @@ const StatusOfFunds = ({ fy }) => {
                 fetchTas(selectedFederalAccount);
             }
             if (prevPage !== currentPage && level === 3) {
-                fetchProgramActivity(selectedTas);
-            }
-            if (prevPage !== currentPage && level === 4) {
                 // todo - what if user has selected object class? how can we know that from here?
-                fetchDataByTas(selectedProgramActivity, false);
+                fetchDataByTas(selectedTas, false);
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -338,15 +334,8 @@ const StatusOfFunds = ({ fy }) => {
         }
 
         if (selectedLevel === 3) {
-            fetchProgramActivity(parentData);
-            selectedLevelsArray.push(selectedSubcomponent);
-            selectedLevelsArray.push(drilldownSelection);
-        }
-
-        if (selectedLevel === 4) {
             fetchDataByTas(parentData, objectClassFlag);
             selectedLevelsArray.push(selectedSubcomponent);
-            selectedLevelsArray.push(selectedTas);
             selectedLevelsArray.push(drilldownSelection);
         }
 
@@ -379,12 +368,6 @@ const StatusOfFunds = ({ fy }) => {
                 setLevel(2);
                 if (currentPage === 1) {
                     fetchTas(selectedFederalAccount);
-                }
-            }
-            if (level === 4) {
-                setLevel(3);
-                if (currentPage === 1) {
-                    fetchProgramActivity(selectedTas);
                 }
             }
 
