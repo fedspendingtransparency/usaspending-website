@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FlexGridRow, FlexGridCol, CardContainer, CardHero, CardBody, CardButton, Button } from "data-transparency-ui";
 import PageWrapper from "./sharedComponents/PageWrapper";
 import PageFeatureFlag from "./sharedComponents/PageFeatureFlag";
+import MegaMenu from 'components/megaMenu/megaMenu';
 
 require("pages/homepageUpdate/homepageUpdate.scss");
 
@@ -16,6 +17,8 @@ const tempPage = () => {
                 classNames="usa-da-about-page"
                 title="Test Page">
                 <main id="main-content" className="main-content">
+
+                    <MegaMenu />
                     <div className="flex-gap" style={{ display: 'inline-flex', 'flex-wrap': 'wrap', gap: '12px' }}>
                         <div>1</div>
                         <div>2</div>
