@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FlexGridRow, FlexGridCol, CardContainer, CardHero, CardBody, CardButton, Button } from "data-transparency-ui";
 import PageWrapper from "./sharedComponents/PageWrapper";
 import PageFeatureFlag from "./sharedComponents/PageFeatureFlag";
-import MegaMenu from 'components/megaMenu/megaMenu';
+import MegaMenu from 'components/megaMenu/MegaMenu';
 
 require("pages/homepageUpdate/homepageUpdate.scss");
 
