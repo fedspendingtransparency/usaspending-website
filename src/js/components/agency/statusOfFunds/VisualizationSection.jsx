@@ -67,6 +67,17 @@ const VisualizationSection = ({
         id
     };
 
+    const tasName = useSelector((state) => state.agency.selectedTas?.name);
+    const tasId = useSelector((state) => state.agency.selectedTas?.id);
+    const tasObligation = useSelector((state) => state.agency.selectedTas?._obligations);
+    const tasOutlays = useSelector((state) => state.agency.selectedTas?._outlays);
+    const currentTasData = {
+        name: tasName,
+        id: tasId,
+        _obligations: tasObligation,
+        _outlays: tasOutlays
+    };
+
     const changeView = (label) => {
         setViewType(label);
     };
@@ -83,10 +94,10 @@ const VisualizationSection = ({
         setDropdownSelection(value);
 
         if (value === 'Object Class') {
-            setDrilldownLevel(level, currentLevelData, true);
+            setDrilldownLevel(level, currentTasData, true);
         }
         else {
-            setDrilldownLevel(level, currentLevelData);
+            setDrilldownLevel(level, currentTasData);
         }
     };
 
