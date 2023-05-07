@@ -2,7 +2,7 @@ import React from 'react';
 import AnimatedNavbar from './AnimatedNavbar';
 
 const MegaMenu = () => {
-    const duration = 300, ease = "easeOutExpo";
+    const duration = 750, ease = "easeOutExpo";
 
     return (
         <div className="mega-menu-container">

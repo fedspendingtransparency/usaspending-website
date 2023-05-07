@@ -83,8 +83,7 @@ export default class AnimatedNavbar extends Component {
                                     <DropdownContainer
                                         direction={direction}
                                         animatingOut={this.state.animatingOut}
-                                        tweenConfig={this.props.tweenConfig}
-                                    >
+                                        tweenConfig={this.props.tweenConfig}>
                                         <CurrentDropdown />
                                         {PrevDropdown && <PrevDropdown />}
                                     </DropdownContainer>

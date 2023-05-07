@@ -58,6 +58,33 @@
     }
   }
 
+  .caret {
+    width: 0;
+    height: 0;
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent transparent var(--white);
+    /* make sure it's above the main dropdown container so now box-shadow bleeds over it */
+    z-index: 1;
+    position: relative;
+    /* prevent any gap in between caret and main dropdown */
+    top: 1px;
+  }
+
+  .dropdown-background {
+    transform-origin: 0 0;
+    background-color: var(--white);
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 50px 100px rgba(50, 50, 93, 0.1),
+    0 15px 35px rgba(50, 50, 93, 0.15), 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .fade-container {
+    animation-duration: 300ms;
+  }
+
   @keyframes dropdown-animate-out {
     from {
       transform: rotateX(0);
@@ -85,7 +112,7 @@
       transform: translateX(0);
     }
     to {
-      transform: translateX(-10px);
+      transform: translateX(-20px);
       opacity: 0;
     }
   }
