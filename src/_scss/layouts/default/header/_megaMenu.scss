@@ -2,11 +2,11 @@
   background: #53f;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-
-  > div:first-of-type {
-    flex: 1 0 70vh;
-  }
+  //min-height: 100vh;
+  //
+  //> div:first-of-type {
+  //  flex: 1 0 70vh;
+  //}
 
   .navbar-item-title {
     background-color: transparent;
@@ -164,7 +164,6 @@
 }
 
 body {
-  font-family: karla, -apple-system, system-ui, "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   color: var(--dark-grey);
 }

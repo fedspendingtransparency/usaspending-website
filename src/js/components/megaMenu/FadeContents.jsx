@@ -6,37 +6,34 @@ const getFadeContainerKeyFrame = (animatingOut, direction) => {
 
     if (animatingOut) {
         return `fade-content-animate-out-${direction}`;
-    } else {
-        return `fade-content-animate-in-${direction}`;
     }
-}
+    return `fade-content-animate-in-${direction}`;
+};
 
 const getOpacity = (direction, animatingOut) => {
     if (direction && !animatingOut) {
         return 0;
     }
     return 1;
-}
+};
 
 const getPosition = (animatingOut) => {
     if (animatingOut) {
         return "absolute";
     }
     return "relative";
-}
-
-const fadeContainer = (duration, animatingOut, direction) => {
-    return({
-        animationName: getFadeContainerKeyFrame(animatingOut, direction),
-        animationDuration: '225ms',
-        animationFillMode: "forwards",
-        position: getPosition(animatingOut),
-        opacity: getOpacity(direction, animatingOut),
-        animationTimingFunction: "linear",
-        top: "0",
-        left: "0"
-    });
 };
+
+const fadeContainer = (duration, animatingOut, direction) => ({
+    animationName: getFadeContainerKeyFrame(animatingOut, direction),
+    animationDuration: '225ms',
+    animationFillMode: "forwards",
+    position: getPosition(animatingOut),
+    opacity: getOpacity(direction, animatingOut),
+    animationTimingFunction: "linear",
+    top: "0",
+    left: "0"
+});
 
 const propTypes = {
     duration: PropTypes.number,
@@ -58,10 +55,11 @@ const FadeContents = (props) => {
     const [fadeContainerStyles, setFadeContainerStyles] = useState();
     useEffect(() => {
         setFadeContainerStyles(fadeContainer(duration, animatingOut, direction));
-    }, [props]);
+    }, [animatingOut, direction, duration, props]);
 
     return (
-        <div style={fadeContainerStyles}
+        <div
+            style={fadeContainerStyles}
             // prevent screen readers from reading out hidden content
             aria-hidden={animatingOut}
             animatingOut={animatingOut}
@@ -71,11 +69,8 @@ const FadeContents = (props) => {
             {children}
         </div>
     );
-}
+};
 
 FadeContents.propTypes = propTypes;
 export default FadeContents;
-
-
-
 

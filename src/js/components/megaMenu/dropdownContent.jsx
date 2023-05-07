@@ -6,7 +6,7 @@ const Heading = styled.h3`
   font-weight: bold;
   font-size: 1.1rem;
   margin-top: 0;
-  margin-bottom: ${props => (props.noMarginBottom ? 0 : "1rem")};
+  margin-bottom: ${(props) => (props.noMarginBottom ? 0 : "1rem")};
   color: ${({ color }) => (color ? `var(--${color})` : "var(--blue)")};
 `;
 
@@ -21,7 +21,7 @@ const LinkList = styled.ul`
     margin-bottom: 0;
   }
 
-  margin-left: ${props => (props.marginLeft ? props.marginLeft : 0)};
+  margin-left: ${(props) => (props.marginLeft ? props.marginLeft : 0)};
 `;
 
 const Icon = styled.div`
@@ -43,54 +43,52 @@ const CompanyDropdownEl = styled.div`
   width: 18.5rem;
 `;
 
-export const CompanyDropdown = () => {
-    return (
-        <CompanyDropdownEl>
-            <DropdownSection data-first-dropdown-section>
-                <ul>
-                    <HeadingLink>
-                        <a href="/">
-                            <Icon /> About Stripe
-                        </a>
-                    </HeadingLink>
-                    <HeadingLink>
-                        <a href="/">
-                            <Icon />Customers
-                        </a>
-                    </HeadingLink>
-                    <HeadingLink>
-                        <a href="/">
-                            <Icon />Jobs
-                        </a>
-                    </HeadingLink>
-                    <HeadingLink noMarginBottom>
-                        <a href="/">
-                            <Icon />Environment
-                        </a>
-                    </HeadingLink>
-                </ul>
-            </DropdownSection>
-            <DropdownSection>
-                <div>
-                    <Heading>
-                        <Icon />From the Blog
-                    </Heading>
-                    <LinkList marginLeft="25px">
-                        <li>
-                            <a href="/">Stripe Atlas &rsaquo;</a>
-                        </li>
-                        <li>
-                            <a href="/">Stripe Home &rsaquo;</a>
-                        </li>
-                        <li>
-                            <a href="/">Improved Fraud Detection &rsaquo;</a>
-                        </li>
-                    </LinkList>
-                </div>
-            </DropdownSection>
-        </CompanyDropdownEl>
-    );
-};
+export const CompanyDropdown = () => (
+    <CompanyDropdownEl>
+        <DropdownSection data-first-dropdown-section>
+            <ul>
+                <HeadingLink>
+                    <a href="/">
+                        <Icon /> About Stripe
+                    </a>
+                </HeadingLink>
+                <HeadingLink>
+                    <a href="/">
+                        <Icon />Customers
+                    </a>
+                </HeadingLink>
+                <HeadingLink>
+                    <a href="/">
+                        <Icon />Jobs
+                    </a>
+                </HeadingLink>
+                <HeadingLink noMarginBottom>
+                    <a href="/">
+                        <Icon />Environment
+                    </a>
+                </HeadingLink>
+            </ul>
+        </DropdownSection>
+        <DropdownSection>
+            <div>
+                <Heading>
+                    <Icon />From the Blog
+                </Heading>
+                <LinkList marginLeft="25px">
+                    <li>
+                        <a href="/">Stripe Atlas &rsaquo;</a>
+                    </li>
+                    <li>
+                        <a href="/">Stripe Home &rsaquo;</a>
+                    </li>
+                    <li>
+                        <a href="/">Improved Fraud Detection &rsaquo;</a>
+                    </li>
+                </LinkList>
+            </div>
+        </DropdownSection>
+    </CompanyDropdownEl>
+);
 
 const DevelopersDropdownEl = styled.div`
   width: 25rem;
@@ -103,67 +101,65 @@ const Flex = styled.div`
   }
 `;
 
-export const DevelopersDropdown = () => {
-    return (
-        <DevelopersDropdownEl>
-            <DropdownSection data-first-dropdown-section>
-                <div>
-                    <Heading>Documentation</Heading>
-                    <p>Start integrating Stripe&rsquo;s products and tools</p>
-                    <Flex>
-                        <div>
-                            <h4>Get Started</h4>
-                            <LinkList>
-                                <li>
-                                    <a href="/">Elements</a>
-                                </li>
-                                <li>
-                                    <a href="/">Checkout</a>
-                                </li>
-                                <li>
-                                    <a href="/">Mobile apps</a>
-                                </li>
-                            </LinkList>
-                        </div>
-                        <div>
-                            <h4>Popular Topics</h4>
-                            <LinkList>
-                                <li>
-                                    <a href="/">Apple Pay</a>
-                                </li>
-                                <li>
-                                    <a href="/">Testing</a>
-                                </li>
-                                <li>
-                                    <a href="/">Launch Checklist</a>
-                                </li>
-                            </LinkList>
-                        </div>
-                    </Flex>
-                </div>
-            </DropdownSection>
-            <DropdownSection>
-                <ul>
-                    <HeadingLink>
-                        <a href="/">
-                            <Icon /> Full API Reference
-                        </a>
-                    </HeadingLink>
-                    <HeadingLink>
-                        <a href="/">
-                            <Icon /> API Status
-                        </a>
-                    </HeadingLink>
-                    <HeadingLink noMarginBottom>
-                        <a href="/">
-                            <Icon /> Open Source
-                        </a>
-                    </HeadingLink>
-                </ul>
-            </DropdownSection>
-        </DevelopersDropdownEl>
-    );
-};
+export const DevelopersDropdown = () => (
+    <DevelopersDropdownEl>
+        <DropdownSection data-first-dropdown-section>
+            <div>
+                <Heading>Documentation</Heading>
+                <p>Start integrating Stripe&rsquo;s products and tools</p>
+                <Flex>
+                    <div>
+                        <h4>Get Started</h4>
+                        <LinkList>
+                            <li>
+                                <a href="/">Elements</a>
+                            </li>
+                            <li>
+                                <a href="/">Checkout</a>
+                            </li>
+                            <li>
+                                <a href="/">Mobile apps</a>
+                            </li>
+                        </LinkList>
+                    </div>
+                    <div>
+                        <h4>Popular Topics</h4>
+                        <LinkList>
+                            <li>
+                                <a href="/">Apple Pay</a>
+                            </li>
+                            <li>
+                                <a href="/">Testing</a>
+                            </li>
+                            <li>
+                                <a href="/">Launch Checklist</a>
+                            </li>
+                        </LinkList>
+                    </div>
+                </Flex>
+            </div>
+        </DropdownSection>
+        <DropdownSection>
+            <ul>
+                <HeadingLink>
+                    <a href="/">
+                        <Icon /> Full API Reference
+                    </a>
+                </HeadingLink>
+                <HeadingLink>
+                    <a href="/">
+                        <Icon /> API Status
+                    </a>
+                </HeadingLink>
+                <HeadingLink noMarginBottom>
+                    <a href="/">
+                        <Icon /> Open Source
+                    </a>
+                </HeadingLink>
+            </ul>
+        </DropdownSection>
+    </DevelopersDropdownEl>
+);
 
 const ProductsDropdownEl = styled.div`
   width: 29rem;
@@ -212,65 +208,63 @@ h3 {
 }
 `;
 
-export const ProductsDropdown = () => {
-    return (
-        <ProductsDropdownEl>
-            <DropdownSection data-first-dropdown-section>
-                <ProductsSection>
-                    <li>
-                        <div>
-                            <Logo color="blue" />
-                        </div>
-                        <div>
-                            <Heading color="blue">Payments</Heading>
-                            <p>A complete payments platform</p>
-                        </div>
-                    </li>
-                    <li>
-                        <div>
-                            <Logo color="green" />
-                        </div>
-                        <div>
-                            <Heading color="green">Billing</Heading>
-                            <p>Build and scale your recurring business model</p>
-                        </div>
-                    </li>
-                    <li>
-                        <div>
-                            <Logo color="teal" />
-                        </div>
-                        <div>
-                            <Heading color="teal">Connect</Heading>
-                            <p style={{ marginBottom: 0 }}>
+export const ProductsDropdown = () => (
+    <ProductsDropdownEl>
+        <DropdownSection data-first-dropdown-section>
+            <ProductsSection>
+                <li>
+                    <div>
+                        <Logo color="blue" />
+                    </div>
+                    <div>
+                        <Heading color="blue">Payments</Heading>
+                        <p>A complete payments platform</p>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <Logo color="green" />
+                    </div>
+                    <div>
+                        <Heading color="green">Billing</Heading>
+                        <p>Build and scale your recurring business model</p>
+                    </div>
+                </li>
+                <li>
+                    <div>
+                        <Logo color="teal" />
+                    </div>
+                    <div>
+                        <Heading color="teal">Connect</Heading>
+                        <p style={{ marginBottom: 0 }}>
                                 Everything platforms need to get sellers paid
-                            </p>
-                        </div>
-                    </li>
-                </ProductsSection>
-            </DropdownSection>
-            <DropdownSection>
-                <SubProductsList>
-                    <li>
-                        <Heading noMarginBottom>Sigma</Heading>
-                        <div>Your business data at your fingertips.</div>
-                    </li>
-                    <li>
-                        <Heading noMarginBottom>Atlas</Heading>
-                        <div>The best way to start an internet business.</div>
-                    </li>
-                    <li>
-                        <Heading noMarginBottom>Radar</Heading>
-                        <div>Fight fraud with machine learning.</div>
-                    </li>
-                </SubProductsList>
-                <WorksWithStripe>
-                    <Heading noMarginBottom>
-                        <a href="/">
-                            <Icon /> Works with Stripe
-                        </a>
-                    </Heading>
-                </WorksWithStripe>
-            </DropdownSection>
-        </ProductsDropdownEl>
-    );
-};
+                        </p>
+                    </div>
+                </li>
+            </ProductsSection>
+        </DropdownSection>
+        <DropdownSection>
+            <SubProductsList>
+                <li>
+                    <Heading noMarginBottom>Sigma</Heading>
+                    <div>Your business data at your fingertips.</div>
+                </li>
+                <li>
+                    <Heading noMarginBottom>Atlas</Heading>
+                    <div>The best way to start an internet business.</div>
+                </li>
+                <li>
+                    <Heading noMarginBottom>Radar</Heading>
+                    <div>Fight fraud with machine learning.</div>
+                </li>
+            </SubProductsList>
+            <WorksWithStripe>
+                <Heading noMarginBottom>
+                    <a href="/">
+                        <Icon /> Works with Stripe
+                    </a>
+                </Heading>
+            </WorksWithStripe>
+        </DropdownSection>
+    </ProductsDropdownEl>
+);

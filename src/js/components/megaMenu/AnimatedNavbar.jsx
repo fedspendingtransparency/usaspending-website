@@ -16,29 +16,22 @@ export default class AnimatedNavbar extends Component {
         activeIndices: []
     };
 
-    resetDropdownState = i => {
-        this.setState({
-            activeIndices: typeof i === "number" ? [i] : [],
-            animatingOut: false
-        });
-        delete this.animatingOutTimeout;
-    };
-
-    onMouseEnter = i => {
+    onMouseEnter = (i) => {
         if (this.animatingOutTimeout) {
             clearTimeout(this.animatingOutTimeout);
             this.resetDropdownState(i);
             return;
         }
-        if (this.state.activeIndices[this.state.activeIndices.length - 1] === i)
+        if (this.state.activeIndices[this.state.activeIndices.length - 1] === i) {
             return;
+        }
 
-        this.setState(prevState => ({
+        this.setState((prevState) => ({
             activeIndices: prevState.activeIndices.concat(i),
             animatingOut: false
         }));
     };
-    onMouseLeave = ev => {
+    onMouseLeave = () => {
         this.setState({
             animatingOut: true
         });
@@ -46,6 +39,14 @@ export default class AnimatedNavbar extends Component {
             this.resetDropdownState,
             this.props.tweenConfig.duration
         );
+    };
+
+    resetDropdownState = (i) => {
+        this.setState({
+            activeIndices: typeof i === "number" ? [i] : [],
+            animatingOut: false
+        });
+        delete this.animatingOutTimeout;
     };
 
     render() {
@@ -56,14 +57,15 @@ export default class AnimatedNavbar extends Component {
         let direction;
 
         const currentIndex = this.state.activeIndices[
-        this.state.activeIndices.length - 1
-            ];
+            this.state.activeIndices.length - 1
+        ];
         const prevIndex =
             this.state.activeIndices.length > 1 &&
             this.state.activeIndices[this.state.activeIndices.length - 2];
 
-        if (typeof currentIndex === "number")
+        if (typeof currentIndex === "number") {
             CurrentDropdown = navbarConfig[currentIndex].dropdown;
+        }
         if (typeof prevIndex === "number") {
             PrevDropdown = navbarConfig[prevIndex].dropdown;
             direction = currentIndex > prevIndex ? "right" : "left";
@@ -72,25 +74,22 @@ export default class AnimatedNavbar extends Component {
         return (
             <Flipper flipKey={currentIndex} {...tweenConfig}>
                 <Navbar onMouseLeave={this.onMouseLeave}>
-                    {navbarConfig.map((n, index) => {
-                        return (
-                            <NavbarItem
-                                title={n.title}
-                                index={index}
-                                onMouseEnter={this.onMouseEnter}
-                            >
-                                {currentIndex === index && (
-                                    <DropdownContainer
-                                        direction={direction}
-                                        animatingOut={this.state.animatingOut}
-                                        tweenConfig={this.props.tweenConfig}>
-                                        <CurrentDropdown />
-                                        {PrevDropdown && <PrevDropdown />}
-                                    </DropdownContainer>
-                                )}
-                            </NavbarItem>
-                        );
-                    })}
+                    {navbarConfig.map((n, index) => (
+                        <NavbarItem
+                            title={n.title}
+                            index={index}
+                            onMouseEnter={this.onMouseEnter}>
+                            {currentIndex === index && (
+                                <DropdownContainer
+                                    direction={direction}
+                                    animatingOut={this.state.animatingOut}
+                                    tweenConfig={this.props.tweenConfig}>
+                                    <CurrentDropdown />
+                                    {PrevDropdown && <PrevDropdown />}
+                                </DropdownContainer>
+                            )}
+                        </NavbarItem>
+                    ))}
                 </Navbar>
             </Flipper>
         );
