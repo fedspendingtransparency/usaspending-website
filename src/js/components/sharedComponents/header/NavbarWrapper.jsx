@@ -4,9 +4,9 @@ import { Link, useLocation } from 'react-router-dom';
 
 import Analytics from 'helpers/analytics/Analytics';
 import MobileNav from './mobile/MobileNav';
-import MegaMenu from "../../megaMenu/MegaMenu";
+import MegaMenu from "./megaMenu/MegaMenu";
 
-const NavBar = () => {
+const NavbarWrapper = () => {
     const [showMobileNav, setShowMobileNav] = useState(false);
     const [isHomepage, setIsHomepage] = useState(false);
     let siteBody = null;
@@ -102,5 +102,5 @@ const NavBar = () => {
     );
 };
 
-export default NavBar;
+export default NavbarWrapper;
 
