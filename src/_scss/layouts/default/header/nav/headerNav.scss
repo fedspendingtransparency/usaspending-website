@@ -10,7 +10,7 @@ header.site-header__wrapper {
         background-color: $color-white;
 
         &.site-navigation-homepage {
-            background: rgba(136, 180, 192, 0.15);
+            background: $theme-color-homepage-hero;
         }
         .site-navigation__wrapper {
             @import "mixins/fullSectionWrap";
