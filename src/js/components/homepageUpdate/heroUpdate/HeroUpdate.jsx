@@ -83,7 +83,7 @@ const HeroUpdate = () => {
                             </div>
                             <div className="hero__text-container">
                                 <p>
-                                    USAspending is the official open data source of federal spending information.
+                                    USAspending is the official open data source of federal spending information, <br />including information about federal awards such as contracts, grants, and loans.
                                 </p>
                             </div>
                             <div className="hero__pause-button-container">
