@@ -36,7 +36,7 @@ const EntityDropdownList = (props) => {
         // variable matchKeys allow us to match by numeric codes for congressional district
         // instead of display name
         if (item[matchKey] !== '') {
-            const firstLetter = item[matchKey].substring(0, 1).toLowerCase();
+            const firstLetter = item[matchKey]?.substring(0, 1).toLowerCase();
             if (alphabetRegex.test(firstLetter)) {
                 letterClass = firstLetter;
             }
