@@ -434,6 +434,20 @@ export default class LocationPickerContainer extends React.Component {
                 const parsedKeyValue = prop === 'city'
                     ? this.state.city.name.split(", ").filter((str) => str !== this.state.city.code).join(", ")
                     : this.state[prop][accessor];
+
+                let entityValue = '';
+                if (prop === 'district') {
+                    entityValue = 'Congressional district';
+                }
+                else if (prop === 'originalDistrict') {
+                    entityValue = 'Original congressional district';
+                }
+                else if (prop === 'currentDistrict') {
+                    entityValue = 'Current congressional district';
+                }
+                else {
+                    entityValue = `${prop.substr(0, 1).toUpperCase()}${prop.substr(1)}`;
+                }
                 return {
                     identifier: prop === 'country' // init identifier value w/o appended '_'
                         ? this.state.country.code
@@ -443,9 +457,7 @@ export default class LocationPickerContainer extends React.Component {
                         [prop]: parsedKeyValue
                     },
                     display: {
-                        entity: (prop === 'district' || prop === 'originalDistrict' || prop === 'currentDistrict')
-                            ? 'Congressional district'
-                            : `${prop.substr(0, 1).toUpperCase()}${prop.substr(1)}`,
+                        entity: `${entityValue}`,
                         standalone: prop === 'county'
                             ? `${this.state.county.name}, ${this.state.state.code}`
                             : this.state[prop].name,
