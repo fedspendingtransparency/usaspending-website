@@ -188,7 +188,7 @@ const schema = {
         ]
     },
     "covid-disclosures": {
-        heading: "Sitewide COVID-19 Spending Data Disclosures",
+        heading: "Sitewide COVID-19 and Infrastructure Spending Data Disclosures",
         path: 'content/about-the-data/covid-disclosures',
         fields: [
             {
