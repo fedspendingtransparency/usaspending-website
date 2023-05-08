@@ -84,7 +84,7 @@ export const resourceOptions = [
     },
     {
         label: 'Federal Spending Guide',
-        type: 'analyst-guide',
+        type: 'federal-spending-guide',
         url: '/federal-spending-guide',
         shouldOpenNewTab: false,
         enabled: true,
