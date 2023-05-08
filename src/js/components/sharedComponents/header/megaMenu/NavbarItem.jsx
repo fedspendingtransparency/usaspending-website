@@ -19,7 +19,9 @@ const NavbarItem = (props) => {
         navChevronDirection = "chevron-down";
     };
 
-    const { title, children, url, index } = props;
+    const {
+        title, children, url, index
+    } = props;
 
     return (
         <li className="navbar-item-el">
