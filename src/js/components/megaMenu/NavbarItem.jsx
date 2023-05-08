@@ -1,21 +1,44 @@
-import React, { Component } from "react";
+import React from "react";
+import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export default class NavbarItem extends Component {
-    onMouseEnter = () => {
-        this.props.onMouseEnter(this.props.index);
+const NavbarItem = (props) => {
+    const activeChildren = '';
+    const activeParent = '';
+    let iconAlt = 'Collapsed menu';
+    let navChevronDirection = "chevron-down";
+    if (!props.animatingOut) {
+        // activeChildren = 'nav-children_active';
+        // activeParent = 'nav-dropdown__parent_active';
+        iconAlt = 'Expanded menu';
+        navChevronDirection = "chevron-up";
+    }
+
+    const onMouseEnter = () => {
+        props.onMouseEnter(props.index);
     };
 
-    render() {
-        const { title, children } = this.props;
-        return (
-            <li className="navbar-item-el">
-                <button className="navbar-item-title"
-                    onMouseEnter={this.onMouseEnter}
-                    onFocus={this.onMouseEnter}>
-                    {title}
-                </button>
-                <div className="dropdown-slot">{children}</div>
-            </li>
-        );
-    }
-}
+    const { title, children, url } = props;
+    
+    return (
+        <li className="navbar-item-el">
+            {url ? <Link className="navbar-item-title" to={url}>{title}</Link>
+                :
+                <>
+                    <button
+                        className="navbar-item-title"
+                        onMouseEnter={onMouseEnter}
+                        onFocus={onMouseEnter}>
+                        {title}
+                        {/* <div className="nav-dropdown__parent-icon">*/}
+                        {/*    <FontAwesomeIcon icon={navChevronDirection} alt={iconAlt} />*/}
+                        {/* </div>*/}
+                    </button>
+                    <div className="dropdown-slot">{children}</div>
+                </>
+            }
+        </li>
+    );
+};
+
+export default NavbarItem;

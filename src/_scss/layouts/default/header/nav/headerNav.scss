@@ -6,7 +6,8 @@ header.site-header__wrapper {
     $nav-coming-soon: $color-gray-medium;
 
     .site-navigation {
-        padding-top: rem(10);
+        height: rem(64);
+        background: rgba(136, 180, 192, 0.15);
 
         .site-navigation__wrapper {
             @import "mixins/fullSectionWrap";
@@ -17,6 +18,7 @@ header.site-header__wrapper {
             @include align-items(center);
             // style the primary menu
             @import "./_fullMenu";
+            margin: 0 rem(24);
         }
 
         .site-navigation__logo {

@@ -1,14 +1,31 @@
 import React, { Component } from "react";
 import { Flipper } from "react-flip-toolkit";
+import { searchOptions, profileOptions, downloadOptions, resourceOptions } from 'dataMapping/navigation/menuOptions';
 import Navbar from "./Navbar";
 import DropdownContainer from "./DropdownContainer";
 import NavbarItem from './NavbarItem';
-import { ProductsDropdown, DevelopersDropdown, CompanyDropdown } from './dropdownContent';
+import ItemContent from './ItemContent';
 
 const navbarConfig = [
-    { title: "Products", dropdown: ProductsDropdown },
-    { title: "Developers", dropdown: DevelopersDropdown },
-    { title: "Company", dropdown: CompanyDropdown }
+    {
+        title: "Search Award Data",
+        url: '/search'
+    },
+    {
+        title: "Explore the Data",
+        items: searchOptions,
+        dropdown: ItemContent
+    },
+    {
+        title: "Download the Data",
+        items: profileOptions,
+        dropdown: ItemContent
+    },
+    {
+        title: "Find Resources",
+        items: downloadOptions,
+        dropdown: ItemContent
+    }
 ];
 
 export default class AnimatedNavbar extends Component {
@@ -55,6 +72,9 @@ export default class AnimatedNavbar extends Component {
         let CurrentDropdown;
         let PrevDropdown;
         let direction;
+        let currentProps;
+        let prevProps;
+        let currentUrl;
 
         const currentIndex = this.state.activeIndices[
             this.state.activeIndices.length - 1
@@ -64,10 +84,18 @@ export default class AnimatedNavbar extends Component {
             this.state.activeIndices[this.state.activeIndices.length - 2];
 
         if (typeof currentIndex === "number") {
-            CurrentDropdown = navbarConfig[currentIndex].dropdown;
+            if (navbarConfig[currentIndex]?.dropdown) {
+                CurrentDropdown = navbarConfig[currentIndex]?.dropdown;
+                currentUrl = navbarConfig[currentIndex]?.url;
+            } else {
+                CurrentDropdown = null;
+            }
+            currentProps = navbarConfig[currentIndex].items;
         }
         if (typeof prevIndex === "number") {
             PrevDropdown = navbarConfig[prevIndex].dropdown;
+            prevProps = navbarConfig[prevIndex].items;
+
             direction = currentIndex > prevIndex ? "right" : "left";
         }
 
@@ -78,14 +106,15 @@ export default class AnimatedNavbar extends Component {
                         <NavbarItem
                             title={n.title}
                             index={index}
+                            url={n.url}
                             onMouseEnter={this.onMouseEnter}>
                             {currentIndex === index && (
                                 <DropdownContainer
                                     direction={direction}
                                     animatingOut={this.state.animatingOut}
                                     tweenConfig={this.props.tweenConfig}>
-                                    <CurrentDropdown />
-                                    {PrevDropdown && <PrevDropdown />}
+                                    <CurrentDropdown items={currentProps}/>
+                                    {PrevDropdown && <PrevDropdown items={prevProps}/>}
                                 </DropdownContainer>
                             )}
                         </NavbarItem>

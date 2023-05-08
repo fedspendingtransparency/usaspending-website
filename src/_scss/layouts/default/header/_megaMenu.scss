@@ -1,21 +1,17 @@
 .mega-menu-container {
-  background: #53f;
   display: flex;
   flex-direction: column;
-  //min-height: 100vh;
-  //
-  //> div:first-of-type {
-  //  flex: 1 0 70vh;
-  //}
 
   .navbar-item-title {
     background-color: transparent;
     font-family: inherit;
-    font-weight: bold;
+    font-weight: $font-semibold;
+    font-size: $font-size-16;
+    line-height: 1.25;
     border: none;
-    font-size: 18px;
-    padding: 1.25rem;
-    color: white;
+    padding: 14px 8px;
+    margin: 8px;
+    color: #1b1b1b;
     display: flex;
     justify-content: center;
     transition: opacity 250ms;
@@ -33,6 +29,11 @@
   .navbar-item-el {
     position: relative;
     cursor: pointer;
+
+    &:hover,
+    &:active {
+      color: $gray-60;
+    }
   }
 
   .dropdown-slot {
@@ -40,6 +41,13 @@
     left: 50%;
     transform: translateX(-50%);
     perspective: 1500px;
+    z-index: 150;
+  }
+
+  .dropdown-section {
+    padding: var(--spacer);
+    position: relative;
+    z-index: 1;
   }
 
   .navbar-el {
@@ -52,7 +60,7 @@
 
     .navbar-list {
       display: flex;
-      justify-content: center;
+      justify-content: end;
       list-style: none;
       margin: 0;
     }
