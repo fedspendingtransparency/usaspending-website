@@ -5,8 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const NavbarItem = (props) => {
     let iconAlt = 'Collapsed menu';
     let navChevronDirection = "chevron-down";
-    if (document.querySelector("button.navbar-item-title:hover") != null ||
-        document.querySelector("button.navbar-item-title:active") != null) {
+    if (document.querySelector(`button.navbar-item-title-${props.index}:hover`) != null ||
+        document.querySelector(`button.navbar-item-title-${props.index}:active`) != null) {
         iconAlt = 'Expanded menu';
         navChevronDirection = "chevron-up";
     }
@@ -19,7 +19,7 @@ const NavbarItem = (props) => {
         navChevronDirection = "chevron-down";
     };
 
-    const { title, children, url } = props;
+    const { title, children, url, index } = props;
 
     return (
         <li className="navbar-item-el">
@@ -27,7 +27,7 @@ const NavbarItem = (props) => {
                 :
                 <>
                     <button
-                        className="navbar-item-title"
+                        className={`navbar-item-title navbar-item-title-${index}`}
                         onMouseEnter={onMouseEnter}
                         onMouseLeave={onMouseLeave}
                         onFocus={onMouseEnter}>

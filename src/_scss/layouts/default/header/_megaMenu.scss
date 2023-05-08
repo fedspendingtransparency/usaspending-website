@@ -11,7 +11,7 @@
     border: none;
     padding: 14px 8px;
     margin: 8px;
-    color: #1b1b1b;
+    color: $gray-90;
     display: flex;
     justify-content: center;
     transition: opacity 250ms;
@@ -21,7 +21,7 @@
 
     &:hover,
     &:focus {
-      opacity: 0.7;
+      color: $gray-60;
       outline: none;
     }
   }
@@ -54,7 +54,7 @@
   }
 
   .dropdown-section {
-    padding: var(--spacer);
+    padding: 28px;
     position: relative;
     z-index: 1;
   }
@@ -80,7 +80,7 @@
     height: 0;
     border-width: 10px;
     border-style: solid;
-    border-color: transparent transparent var(--white);
+    border-color: transparent transparent $color-white;
     /* make sure it's above the main dropdown container so now box-shadow bleeds over it */
     z-index: 1;
     position: relative;
@@ -90,7 +90,7 @@
 
   .dropdown-background {
     transform-origin: 0 0;
-    background-color: var(--white);
+    background-color: $color-white;
     border-radius: 4px;
     overflow: hidden;
     position: relative;
@@ -167,35 +167,4 @@
 
 * {
   box-sizing: border-box;
-}
-
-:root {
-  --white: #fff;
-  --grey: #f1f4f8b0;
-  --dark-grey: #6b7c93;
-  --green: #24b47e;
-  --teal: #4F96CE;
-  --blue: #6772e5;
-  --dark-blue: #4F3EF5;
-  --spacer: 28px;
-}
-
-body {
-  -webkit-font-smoothing: antialiased;
-  color: var(--dark-grey);
-}
-
-a {
-  text-decoration: none;
-  color: var(--blue);
-}
-
-a:hover,
-a:focus {
-  color: var(--dark-blue);
-}
-
-p {
-  margin-top: 0;
-  margin-bottom: 1rem;
 }
