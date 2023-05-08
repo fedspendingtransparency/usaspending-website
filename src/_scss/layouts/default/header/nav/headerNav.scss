@@ -7,8 +7,11 @@ header.site-header__wrapper {
 
     .site-navigation {
         height: rem(64);
-        background: rgba(136, 180, 192, 0.15);
+        background-color: $color-white;
 
+        &.site-navigation-homepage {
+            background: rgba(136, 180, 192, 0.15);
+        }
         .site-navigation__wrapper {
             @import "mixins/fullSectionWrap";
             @include fullSectionWrap(0, 0);

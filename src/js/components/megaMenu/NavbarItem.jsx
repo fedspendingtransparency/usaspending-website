@@ -3,19 +3,20 @@ import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const NavbarItem = (props) => {
-    const activeChildren = '';
-    const activeParent = '';
-    const iconAlt = 'Collapsed menu';
-    const navChevronDirection = "chevron-down";
-    // if (!props.animatingOut) {
-    //     // activeChildren = 'nav-children_active';
-    //     // activeParent = 'nav-dropdown__parent_active';
-    //     iconAlt = 'Expanded menu';
-    //     navChevronDirection = "chevron-up";
-    // }
+    let iconAlt = 'Collapsed menu';
+    let navChevronDirection = "chevron-down";
+    if (document.querySelector("button.navbar-item-title:hover") != null ||
+        document.querySelector("button.navbar-item-title:active") != null) {
+        iconAlt = 'Expanded menu';
+        navChevronDirection = "chevron-up";
+    }
 
     const onMouseEnter = () => {
         props.onMouseEnter(props.index);
+    };
+
+    const onMouseLeave = () => {
+        navChevronDirection = "chevron-down";
     };
 
     const { title, children, url } = props;
@@ -28,6 +29,7 @@ const NavbarItem = (props) => {
                     <button
                         className="navbar-item-title"
                         onMouseEnter={onMouseEnter}
+                        onMouseLeave={onMouseLeave}
                         onFocus={onMouseEnter}>
                         {title}
                         <div className="navbar-chevron-icon">
