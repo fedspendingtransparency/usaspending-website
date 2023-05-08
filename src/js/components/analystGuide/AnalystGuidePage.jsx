@@ -21,7 +21,7 @@ import AnalystGuideIntro from "./AnalystGuideIntro";
 
 
 const AnalystGuidePage = () => {
-    const slug = 'analyst-guide';
+    const slug = 'federal-spending-guide';
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
 
