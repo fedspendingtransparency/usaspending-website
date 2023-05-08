@@ -101,6 +101,34 @@ const VisualizationSection = ({
         }
     };
 
+    const chartHeadingWithDropdown = (
+        <div className="status-of-funds__controls-heading-container">
+            <div className="status-of-funds__controls-heading">{currentLevelData.name} by&thinsp;</div>
+            {level === 3 ? (
+                <Picker
+                    className="status-of-funds__chart-picker"
+                    options={[{
+                        name: 'Program Activity',
+                        value: 'Program Activity',
+                        onClick: dropdownClickFunction
+                    },
+                    {
+                        name: 'Object Class',
+                        value: 'Object Class',
+                        onClick: dropdownClickFunction
+                    }]}
+                    dropdownDirection="right"
+                    backgroundColor="#ffffff"
+                    selectedOption={dropdownSelection} />
+            ) :
+                <div className="status-of-funds__controls-heading emphasis">
+                    {levels[level]}&thinsp;
+                </div>
+            }
+            <div className="status-of-funds__controls-heading">for FY {fy}</div>
+        </div>
+    );
+
     return (
         <div
             className="status-of-funds__visualization"
@@ -112,8 +140,7 @@ const VisualizationSection = ({
             }}>
             {isMobile ? (
                 <>
-                    <h6>{currentLevelData.name} by <span className="status-of-funds__emphasis">{levels[level]}</span> for FY {fy}
-                    </h6>
+                    {chartHeadingWithDropdown}
                     <div className="status-of-funds__controls-mobile">
                         <div className="status-of-funds__controls-mobile-row-one">
                             <RoundedToggle toggle={toggle} onKeyToggle={onKeyToggle} onToggle={onToggle} label="View Outlays" />
@@ -128,31 +155,7 @@ const VisualizationSection = ({
                     <>
                         <div className="status-of-funds__controls">
                             <div className="status-of-funds__controls-desktop-row-one">
-                                <div className="status-of-funds__controls-heading-container">
-                                    <div className="status-of-funds__controls-heading">{currentLevelData.name} by&thinsp;</div>
-                                    {level === 3 ? (
-                                        <Picker
-                                            className="status-of-funds__chart-picker"
-                                            options={[{
-                                                name: 'Program Activity',
-                                                value: 'Program Activity',
-                                                onClick: dropdownClickFunction
-                                            },
-                                            {
-                                                name: 'Object Class',
-                                                value: 'Object Class',
-                                                onClick: dropdownClickFunction
-                                            }]}
-                                            dropdownDirection="right"
-                                            backgroundColor="#ffffff"
-                                            selectedOption={dropdownSelection} />
-                                    ) :
-                                        <div className="status-of-funds__controls-heading emphasis">
-                                            {levels[level]}&thinsp;
-                                        </div>
-                                    }
-                                    <div className="status-of-funds__controls-heading">for FY {fy}</div>
-                                </div>
+                                {chartHeadingWithDropdown}
                                 {chartTableToggle}
                             </div>
                             <div className="status-of-funds__controls-desktop-row-two">

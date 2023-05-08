@@ -12,6 +12,7 @@
             .status-of-funds__controls-mobile-row-one {
             display: flex;
             justify-content: space-between;
+            align-items: center;
 
             .rounded-toggle__wrapper {
                 align-self: center;
@@ -22,8 +23,12 @@
         .status-of-funds__controls-desktop-row-one {
             display: flex;
             justify-content: space-between;
+            align-items: center;
+            @media(min-width: $tablet-screen) {
+                margin: rem(24) 0 rem(8);
+            }
             @media(min-width: $large-screen) {
-                margin-bottom: rem(16);
+                margin: rem(16) 0 rem(24) rem(32);
             }
         }
 
@@ -115,9 +120,13 @@
     .status-of-funds__controls-heading-container {
         display: flex;
         flex-wrap: wrap;
-            @media(min-width: $medium-screen) {
-                margin: rem(16) 0 rem(10) rem(32);
-            }
+        margin: rem(8) 0;
+        @media(min-width: $tablet-screen) {
+            margin: 0;
+        }
+            //@media(min-width: $medium-screen) {
+            //    margin: rem(16) 0 rem(10) rem(32);
+            //}
         .status-of-funds__controls-heading {
             font-size: rem(20);
             font-weight: $font-normal;
@@ -125,6 +134,8 @@
             display: flex;
             flex-wrap: wrap;
             align-content: center;
+            height: rem(36);
+
             &.emphasis {
                 white-space: nowrap;
                 font-weight: $font-semibold;
@@ -138,6 +149,7 @@
             background-color: $color-white;
             color: $gray-cool-60;
             margin: 0 rem(6);
+            height: rem(36);
 
             .usa-dt-picker__button {
                 padding: rem(4) rem(10);
@@ -208,12 +220,11 @@
     }
     .drilldown-back-button {
         @media(max-width: $medium-screen) {
-            margin-top: 3rem;
+            margin-top: rem(24);
         }
         @media(min-width: $large-screen) {
             margin-left: rem(32);
         }
-        margin-bottom: 2rem;
         font-size: rem(16);
         padding: 0;
         border: none;
