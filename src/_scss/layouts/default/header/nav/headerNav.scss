@@ -20,7 +20,6 @@ header.site-header__wrapper {
             @include flex-direction(row);
             @include align-items(center);
             // style the primary menu
-            @import "./_fullMenu";
             margin: 0 rem(24);
         }
 
@@ -44,8 +43,13 @@ header.site-header__wrapper {
             }
         }
     }
+
+    @import "./_megaMenu";
+    @import "./_logo";
+    @import "./_glossaryLink";
     // style the mobile menu button
     @import "./_mobileHamburger";
     @import "./mobile/mobileNav";
-    @import "./_logo";
 }
+
+
