@@ -24,7 +24,7 @@ const dropdownRoot = (props) => ({
 });
 
 const altBackgroundStyles = (props) => ({
-    backgroundColor: "var(--grey)",
+    backgroundColor: "#f0f0f0",
     width: "200%",
     height: "100%",
     position: "absolute",
