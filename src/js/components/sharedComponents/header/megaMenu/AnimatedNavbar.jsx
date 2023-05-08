@@ -14,17 +14,25 @@ const navbarConfig = [
     {
         title: "Explore the Data",
         items: profileOptions,
-        dropdown: ItemContent
+        dropdown: ItemContent,
+        section1Title: "Spending Explorer",
+        section2Title: "Profiles"
     },
     {
         title: "Download the Data",
         items: downloadOptions,
-        dropdown: ItemContent
+        dropdown: ItemContent,
+        section1Title: "Award Data",
+        section2Title: "Account Data",
+        section3Title: "All Data"
     },
     {
         title: "Find Resources",
         items: resourceOptions,
-        dropdown: ItemContent
+        dropdown: ItemContent,
+        section1Title: "Learn",
+        section2Title: "Reference Materials",
+        section3Title: "For Developers"
     }
 ];
 
@@ -74,7 +82,9 @@ export default class AnimatedNavbar extends Component {
         let direction;
         let currentProps;
         let prevProps;
-
+        let currentSection1Title;
+        let currentSection2Title;
+        let currentSection3Title;
         const currentIndex = this.state.activeIndices[
             this.state.activeIndices.length - 1
         ];
@@ -85,6 +95,9 @@ export default class AnimatedNavbar extends Component {
         if (typeof currentIndex === "number") {
             CurrentDropdown = navbarConfig[currentIndex]?.dropdown;
             currentProps = navbarConfig[currentIndex].items;
+            currentSection1Title = navbarConfig[currentIndex].section1Title;
+            currentSection2Title = navbarConfig[currentIndex].section2Title;
+            currentSection3Title = navbarConfig[currentIndex].section3Title;
         }
         if (typeof prevIndex === "number") {
             PrevDropdown = navbarConfig[prevIndex].dropdown;
@@ -107,7 +120,7 @@ export default class AnimatedNavbar extends Component {
                                     direction={direction}
                                     animatingOut={this.state.animatingOut}
                                     tweenConfig={this.props.tweenConfig}>
-                                    <CurrentDropdown items={currentProps} />
+                                    <CurrentDropdown items={currentProps} section1Title={currentSection1Title} section2Title={currentSection2Title} section3Title={currentSection3Title} />
                                     {PrevDropdown && <PrevDropdown items={prevProps} />}
                                 </DropdownContainer>
                             )}

@@ -1,11 +1,13 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const ItemContent = ({ items }) => (
+const ItemContent = ({
+    items, section1Title, section2Title, section3Title
+}) => (
     <div>
         <div className="dropdown-section" data-first-dropdown-section>
             <div>
-                <p>Section 1</p>
+                <p>{section1Title}</p>
                 <ul>
                     {items.map((item) => (
                         <li>
@@ -17,7 +19,7 @@ const ItemContent = ({ items }) => (
         </div>
         <div className="dropdown-section">
             <div>
-                <p>Section 2</p>
+                <p>{section2Title}</p>
                 <ul>
                     <li>
                         <a href="/">Stripe Atlas &rsaquo;</a>
@@ -28,8 +30,20 @@ const ItemContent = ({ items }) => (
                 </ul>
             </div>
         </div>
-
-
+        {section3Title !== null && section3Title !== undefined && section3Title !== '' ?
+            <div className="dropdown-section">
+                <div>
+                    <p>{section3Title}</p>
+                    <ul>
+                        <li>
+                            <a href="/">Stripe Atlas &rsaquo;</a>
+                        </li>
+                        <li>
+                            <a href="/">Stripe Home &rsaquo;</a>
+                        </li>
+                    </ul>
+                </div>
+            </div> : ''}
     </div>
 
 );
