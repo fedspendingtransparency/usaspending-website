@@ -406,7 +406,7 @@ describe('LocationPickerContainer', () => {
             });
             it('locationObject.display is correct', () => {
                 expect(location.display).toEqual({
-                    entity: 'Congressional district',
+                    entity: 'Original congressional district',
                     title: 'AK-99',
                     standalone: 'AK-99'
                 });
