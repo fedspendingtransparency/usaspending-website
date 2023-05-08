@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Flipper } from "react-flip-toolkit";
-import { searchOptions, profileOptions, downloadOptions, resourceOptions } from 'dataMapping/navigation/menuOptions';
+import { profileOptions, downloadOptions, resourceOptions } from 'dataMapping/navigation/menuOptions';
 import Navbar from "./Navbar";
 import DropdownContainer from "./DropdownContainer";
 import NavbarItem from './NavbarItem';
@@ -13,17 +13,17 @@ const navbarConfig = [
     },
     {
         title: "Explore the Data",
-        items: searchOptions,
-        dropdown: ItemContent
-    },
-    {
-        title: "Download the Data",
         items: profileOptions,
         dropdown: ItemContent
     },
     {
-        title: "Find Resources",
+        title: "Download the Data",
         items: downloadOptions,
+        dropdown: ItemContent
+    },
+    {
+        title: "Find Resources",
+        items: resourceOptions,
         dropdown: ItemContent
     }
 ];
@@ -74,7 +74,6 @@ export default class AnimatedNavbar extends Component {
         let direction;
         let currentProps;
         let prevProps;
-        let currentUrl;
 
         const currentIndex = this.state.activeIndices[
             this.state.activeIndices.length - 1
@@ -84,12 +83,7 @@ export default class AnimatedNavbar extends Component {
             this.state.activeIndices[this.state.activeIndices.length - 2];
 
         if (typeof currentIndex === "number") {
-            if (navbarConfig[currentIndex]?.dropdown) {
-                CurrentDropdown = navbarConfig[currentIndex]?.dropdown;
-                currentUrl = navbarConfig[currentIndex]?.url;
-            } else {
-                CurrentDropdown = null;
-            }
+            CurrentDropdown = navbarConfig[currentIndex]?.dropdown;
             currentProps = navbarConfig[currentIndex].items;
         }
         if (typeof prevIndex === "number") {
@@ -113,8 +107,8 @@ export default class AnimatedNavbar extends Component {
                                     direction={direction}
                                     animatingOut={this.state.animatingOut}
                                     tweenConfig={this.props.tweenConfig}>
-                                    <CurrentDropdown items={currentProps}/>
-                                    {PrevDropdown && <PrevDropdown items={prevProps}/>}
+                                    <CurrentDropdown items={currentProps} />
+                                    {PrevDropdown && <PrevDropdown items={prevProps} />}
                                 </DropdownContainer>
                             )}
                         </NavbarItem>
