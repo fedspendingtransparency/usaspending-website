@@ -48,14 +48,17 @@ const StatusOfFunds = ({ fy }) => {
     const [dropdownSelection, setDropdownSelection] = useState('Program Activity');
 
     // these are used for goBack fn and when changing pages in results
-    const selectedSubComponentId = {
-        id: useSelector((state) => state.agency.selectedSubcomponent?.id)
+    const selectedSubComponentNameAndId = {
+        id: useSelector((state) => state.agency.selectedSubcomponent?.id),
+        name: useSelector((state) => state.agency.selectedSubcomponent?.name)
     };
-    const selectedFederalAccountId = {
-        id: useSelector((state) => state.agency.selectedFederalAccount?.id)
+    const selectedFederalAccountNameId = {
+        id: useSelector((state) => state.agency.selectedFederalAccount?.id),
+        name: useSelector((state) => state.agency.selectedFederalAccount?.name)
     };
-    const selectedTasId = {
-        id: useSelector((state) => state.agency.selectedTas?.id)
+    const selectedTasNameAndId = {
+        id: useSelector((state) => state.agency.selectedTas?.id),
+        name: useSelector((state) => state.agency.selectedTas?.name)
     };
 
     const maxLevel = 3;
@@ -291,13 +294,16 @@ const StatusOfFunds = ({ fy }) => {
                 fetchAgencySubcomponents();
             }
             if (prevPage !== currentPage && level === 1) {
-                fetchFederalAccounts(selectedSubComponentId);
+                // need to also send the name here, for the heading
+                fetchFederalAccounts(selectedSubComponentNameAndId);
             }
             if (prevPage !== currentPage && level === 2) {
-                fetchTas(selectedFederalAccountId);
+                // need to also send the name here, for the heading
+                fetchTas(selectedFederalAccountNameId);
             }
             if (prevPage !== currentPage && level === 3) {
-                fetchDataByTas(selectedTasId, dropdownSelection === 'Object Class');
+                // need to also send the name here, for the heading
+                fetchDataByTas(selectedTasNameAndId, dropdownSelection === 'Object Class');
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -356,13 +362,15 @@ const StatusOfFunds = ({ fy }) => {
             if (level === 2) {
                 setLevel(1);
                 if (currentPage === 1) {
-                    fetchFederalAccounts(selectedSubComponentId);
+                    // need to also send the name here, for the heading
+                    fetchFederalAccounts(selectedSubComponentNameAndId);
                 }
             }
             if (level === 3) {
                 setLevel(2);
                 if (currentPage === 1) {
-                    fetchTas(selectedFederalAccountId);
+                    // need to also send the name here, for the heading
+                    fetchTas(selectedFederalAccountNameId);
                 }
             }
 
