@@ -13,7 +13,7 @@ const propTypes = {
     toggle: PropTypes.bool.isRequired,
     level: PropTypes.number.isRequired,
     goBack: PropTypes.func,
-    fy: PropTypes.string.isRequired,
+    fy: PropTypes.string.isRequired
 };
 
 const DrilldownSidebar = ({
