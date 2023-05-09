@@ -24,19 +24,22 @@ export const spendingOptions = [
         label: 'Budget Function ',
         description: 'Drilldown from high-level categories addressing national needs',
         url: '/explorer/budget_function',
-        enabled: true
+        enabled: true,
+        icon: 'list-alt'
     },
     {
         label: 'Agency',
         description: 'Drilldown from federal agencies',
         url: '/explorer/agency',
-        enabled: true
+        enabled: true,
+        icon: 'landmark'
     },
     {
         label: 'Object Class',
         description: 'Drilldown from items or services purchased',
         url: '/explorer/object_class',
-        enabled: true
+        enabled: true,
+        icon: 'th'
     }
 ];
 export const profileOptions = [
@@ -44,31 +47,36 @@ export const profileOptions = [
         label: 'Agencies',
         description: 'Status of funds and award spending for federal agencies',
         url: '/agency',
-        enabled: true
+        enabled: true,
+        icon: 'landmark'
     },
     {
         label: 'Federal Accounts',
         url: '/federal_account',
         description: 'Spending details for accounts within federal agencies',
-        enabled: true
+        enabled: true,
+        icon: 'money-check-alt'
     },
     {
         label: 'State & Territories',
         url: '/state',
         description: 'Award amounts to states & territories',
-        enabled: true
+        enabled: true,
+        icon: 'map-marker-alt'
     },
     {
         label: 'Recipients',
         url: '/recipient',
         description: 'Award amounts to federal award recipients',
-        enabled: true
+        enabled: true,
+        icon: 'building'
     },
     {
         label: "COVID-19 Spending",
         url: '/disaster/covid-19',
         description: 'Total spending and award spending in response to COVID-19',
-        enabled: true
+        enabled: true,
+        icon: 'hand-holding-medical'
     }
 ];
 
@@ -81,7 +89,6 @@ export const learnResourceOptions = [
         shouldOpenNewTab: false,
         enabled: true,
         externalLink: false
-
     },
     {
         label: 'Data Sources',
@@ -102,7 +109,6 @@ export const learnResourceOptions = [
         enabled: true,
         externalLink: false,
         isNewTab: true
-
     }
 ];
 export const referenceMaterialsOptions = [
@@ -177,7 +183,8 @@ export const awardDownloadOptions = [{
     callToAction: 'Download Award Data',
     shouldOpenNewTab: false,
     enabled: true,
-    externalLink: false
+    externalLink: false,
+    icon: ''
 },
 {
     label: 'Award Data Archive',
@@ -188,7 +195,8 @@ export const awardDownloadOptions = [{
     callToAction: 'Grab Award Files',
     shouldOpenNewTab: false,
     enabled: true,
-    externalLink: false
+    externalLink: false,
+    icon: ''
 }];
 
 export const accountDataOptions = [
@@ -201,7 +209,8 @@ export const accountDataOptions = [
         callToAction: 'Download Account Data',
         shouldOpenNewTab: false,
         enabled: true,
-        externalLink: false
+        externalLink: false,
+        icon: ''
     }
 ];
 
@@ -216,7 +225,8 @@ export const allDownloadOptions = [
         shouldOpenNewTab: true,
         enabled: true,
         internalDomain: true,
-        externalLink: true
+        externalLink: true,
+        icon: ''
     },
     {
         label: 'Dataset Metadata',
@@ -227,7 +237,8 @@ export const allDownloadOptions = [
         callToAction: 'Explore Dataset Metadata',
         shouldOpenNewTab: false,
         enabled: true,
-        externalLink: false
+        externalLink: false,
+        icon: ''
     }
 ];
 export const downloadOptions = [

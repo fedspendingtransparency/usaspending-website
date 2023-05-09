@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const ItemContent = ({
     section1Title,
@@ -21,7 +22,7 @@ const ItemContent = ({
                 <ul>
                     {section1Items.map((item, index) => (
                         <li key={`link-${index}`}>
-                            <Link to={item.url}>{item.label}</Link>
+                            <FontAwesomeIcon className="" icon={item.icon} /><Link to={item.url}>{item.label}</Link>
                         </li>
                     ))}
                 </ul>
@@ -35,7 +36,7 @@ const ItemContent = ({
                 <ul>
                     {section2Items.map((item, index) => (
                         <li key={`link-${index}`}>
-                            <Link to={item.url}>{item.label}</Link>
+                            <FontAwesomeIcon className="" icon={item.icon} /><Link to={item.url}>{item.label}</Link>
                         </li>
                     ))}
                 </ul>
