@@ -30,7 +30,6 @@ const StatusOfFundsChart = ({
     const [mouseValue, setMouseValue] = useState({ x: 0, y: 0 });
     const [sortedNums, setSortedNums] = useState(null);
     const [hoverData, setHoverData] = useState(null);
-    const [tbrPresent, setTbrPresent] = useState(true);
 
     let viewHeight;
     if (!toggle) {
@@ -311,11 +310,11 @@ const StatusOfFundsChart = ({
                 if (item._obligations >= 0) {
                     positiveObligationsArray.push(item._obligations);
                 }
-                if (item._budgetaryResources && item._budgetaryResources < 0) {
+                if (item._budgetaryResources < 0) {
                     negativeTbrArray.push(item._budgetaryResources);
                     setNegativeTbr(true);
                 }
-                if (item._budgetaryResources && item._budgetaryResources >= 0) {
+                if (item._budgetaryResources >= 0) {
                     positiveTbrArray.push(item._budgetaryResources);
                 }
             });
@@ -330,7 +329,6 @@ const StatusOfFundsChart = ({
                 arrayOfMaxValues.push(maxNegTbr);
             }
             else arrayOfMaxValues.push(maxPosTbr);
-
             if (negativeObl) {
                 arrayOfMaxValues.push(maxNegObl);
             }
@@ -345,19 +343,13 @@ const StatusOfFundsChart = ({
                 x.domain([0, Math.max(maxPosTbr, maxPosObl)]).nice(2);
             }
 
-            // extract sorted agency names and determine if tbr present
+            // extract sorted agency names
             for (let i = 0; i < sortedNums.length; i++) {
                 resultNames = resultNames.concat(sortedNums[i].name);
-                if (!sortedNums[i]?._budgetaryResources) {
-                    setTbrPresent(false);
-                }
             }
             if (sortedNums.length < 10) {
                 for (let i = sortedNums.length; i < 10; i++) {
                     resultNames.push(i);
-                    if (!sortedNums[i]?._budgetaryResources) {
-                        setTbrPresent(false);
-                    }
                 }
             }
             y.domain(resultNames);
@@ -481,50 +473,48 @@ const StatusOfFundsChart = ({
                 .attr("stroke", "#f1f1f1")
                 .attr('class', 'hbars')
                 .attr('id', 'hlines');
-            if (tbrPresent) {
-                // append total budgetary resources bars
-                barGroups.append("rect")
-                    .attr('transform', tickMobileXAxis)
-                    .attr("x", (d) => {
-                        if (d._budgetaryResources < 0) {
-                            return x(d._budgetaryResources) - 8;
+            // append total budgetary resources bars
+            barGroups.append("rect")
+                .attr('transform', tickMobileXAxis)
+                .attr("x", (d) => {
+                    if (d._budgetaryResources < 0) {
+                        return x(d._budgetaryResources) - 8;
+                    }
+                    if (!negativeTbr && !negativeObl) {
+                        return x(0) - 8;
+                    }
+                    return x(0);
+                })
+                .attr("y", (d) => {
+                    if (isLargeScreen) {
+                        if (isMediumScreen) {
+                            return y(d.name) + 10;
                         }
-                        if (!negativeTbr && !negativeObl) {
-                            return x(0) - 8;
+                        return y(d.name);
+                    }
+                    return y(d.name) + 40;
+                })
+                .attr("width", (d) => {
+                    if (negativeTbr || negativeObl) {
+                        return drawNegativeBudgetaryResources(d, x);
+                    }
+                    if (d._budgetaryResources === 0) {
+                        return 0;
+                    }
+                    return x(d._budgetaryResources) + 11;
+                })
+                .attr("height", () => {
+                    if (!isMobile) {
+                        if (isMediumScreen) {
+                            return "31.12";
                         }
-                        return x(0);
-                    })
-                    .attr("y", (d) => {
-                        if (isLargeScreen) {
-                            if (isMediumScreen) {
-                                return y(d.name) + 10;
-                            }
-                            return y(d.name);
-                        }
-                        return y(d.name) + 40;
-                    })
-                    .attr("width", (d) => {
-                        if (negativeTbr || negativeObl) {
-                            return drawNegativeBudgetaryResources(d, x);
-                        }
-                        if (d._budgetaryResources === 0) {
-                            return 0;
-                        }
-                        return x(d._budgetaryResources) + 11;
-                    })
-                    .attr("height", () => {
-                        if (!isMobile) {
-                            if (isMediumScreen) {
-                                return "31.12";
-                            }
-                            return "42.37";
-                        }
-                        return "63.63";
-                    })
-                    .attr("fill", "#BBDFC7")
-                    .attr('class', 'hbars')
-                    .attr('id', 'tbr-bar');
-            }
+                        return "42.37";
+                    }
+                    return "63.63";
+                })
+                .attr("fill", "#BBDFC7")
+                .attr('class', 'hbars')
+                .attr('id', 'tbr-bar');
             // append total obligations bars
             barGroups.append("rect")
                 .attr('transform', tickMobileXAxis)
@@ -686,11 +676,11 @@ const StatusOfFundsChart = ({
                 if (item._outlays >= 0) {
                     positiveOutlaysArray.push(item._outlays);
                 }
-                if (item._budgetaryResources && item._budgetaryResources < 0) {
+                if (item._budgetaryResources < 0) {
                     negativeTbrArray.push(item._budgetaryResources);
                     setNegativeTbr(true);
                 }
-                if (item._budgetaryResources && item._budgetaryResources >= 0) {
+                if (item._budgetaryResources >= 0) {
                     positiveTbrArray.push(item._budgetaryResources);
                 }
             });
@@ -705,7 +695,6 @@ const StatusOfFundsChart = ({
                 arrayOfMaxValues.push(maxNegTbr);
             }
             else arrayOfMaxValues.push(maxPosTbr);
-
             if (negativeOutlay) {
                 arrayOfMaxValues.push(maxNegOutlay);
             }
@@ -720,19 +709,13 @@ const StatusOfFundsChart = ({
                 x.domain([0, Math.max(maxPosTbr, maxPosOutlay)]).nice(2);
             }
 
-            // extract sorted agency names and determine if tbr present
+            // extract sorted agency names
             for (let i = 0; i < sortedNums.length; i++) {
                 resultNames = resultNames.concat(sortedNums[i].name);
-                if (!sortedNums[i]?._budgetaryResources) {
-                    setTbrPresent(false);
-                }
             }
             if (sortedNums.length < 10) {
                 for (let i = sortedNums.length; i < 10; i++) {
                     resultNames.push(i);
-                    if (!sortedNums[i]?._budgetaryResources) {
-                        setTbrPresent(false);
-                    }
                 }
             }
             y.domain(resultNames);
@@ -857,53 +840,52 @@ const StatusOfFundsChart = ({
                 .attr("stroke", "#f1f1f1")
                 .attr('class', 'hbars')
                 .attr('id', 'hlines');
-            if (tbrPresent) {
-                // append total budgetary resources bars
-                barGroups.append("rect")
-                    .attr('transform', tickMobileXAxis)
-                    .attr("x", (d) => {
-                        if (d._budgetaryResources < 0) {
-                            return x(d._budgetaryResources) - 8;
+            // append total budgetary resources bars
+            barGroups.append("rect")
+                .attr('transform', tickMobileXAxis)
+                .attr("x", (d) => {
+                    if (d._budgetaryResources < 0) {
+                        return x(d._budgetaryResources) - 8;
+                    }
+                    if (!negativeTbr && !negativeOutlay) {
+                        return x(0) - 8;
+                    }
+                    return x(0);
+                })
+                .attr("y", (d) => {
+                    if (!isMobile) {
+                        if (isMediumScreen || (window.innerWidth >= 992 && window.innerWidth < 1200)) {
+                            return y(d.name);
                         }
-                        if (!negativeTbr && !negativeOutlay) {
-                            return x(0) - 8;
+                        return y(d.name) + 50;
+                    }
+                    return y(d.name) - 90;
+                })
+                .attr("width", (d) => {
+                    if (negativeTbr || negativeOutlay) {
+                        return drawNegativeBudgetaryResources(d, x);
+                    }
+                    if (d._budgetaryResources === 0) {
+                        return 0;
+                    }
+                    return x(d._budgetaryResources) + 11;
+                })
+                .attr("height", () => {
+                    if (!isMobile) {
+                        if (isMediumScreen) {
+                            return "31.12";
                         }
-                        return x(0);
-                    })
-                    .attr("y", (d) => {
-                        if (!isMobile) {
-                            if (isMediumScreen || (window.innerWidth >= 992 && window.innerWidth < 1200)) {
-                                return y(d.name);
-                            }
-                            return y(d.name) + 50;
-                        }
-                        return y(d.name) - 90;
-                    })
-                    .attr("width", (d) => {
-                        if (negativeTbr || negativeOutlay) {
-                            return drawNegativeBudgetaryResources(d, x);
-                        }
-                        if (d._budgetaryResources === 0) {
-                            return 0;
-                        }
-                        return x(d._budgetaryResources) + 11;
-                    })
-                    .attr("height", () => {
-                        if (!isMobile) {
-                            if (isMediumScreen) {
-                                return "31.12";
-                            }
-                            return "42.37";
-                        }
-                        return "63.63";
-                    })
-                    .attr('class', 'hbars')
-                    .attr('id', 'tbr-bar')
-                    .attr("style", "outline: thin solid #D7D8D9;")
-                    .attr('aria-disabled', "true")
-                    .attr("stroke-width", 2)
-                    .attr('fill', 'url(#diagonalHatch)');
-            }
+                        return "42.37";
+                    }
+                    return "63.63";
+                })
+                .attr('class', 'hbars')
+                .attr('id', 'tbr-bar')
+                .attr("style", "outline: thin solid #D7D8D9;")
+                .attr('aria-disabled', "true")
+                .attr("stroke-width", 2)
+                .attr('fill', 'url(#diagonalHatch)');
+
             // append total outlay bars
             barGroups.append("rect")
                 .attr('transform', tickMobileXAxis)
@@ -1025,21 +1007,14 @@ const StatusOfFundsChart = ({
         if (sortedNums?.length > 0) {
             renderChart(toggle);
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [sortedNums, toggle]);
+    }, [renderChart, sortedNums, textScale, hoverData, toggle]);
 
     useEffect(() => {
         if (results?.length > 0) {
-            // if level 5, there is no tbr so sort by obligations
-            if (level === 5) {
-                setSortedNums(results.sort((a, b) => (b._obligations - a._obligations)));
-            }
             // sort by tbr, high to low
             setSortedNums(results.sort((a, b) => (b._budgetaryResources - a._budgetaryResources)));
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [results]);
-
     return (
         <>
             {
@@ -1064,24 +1039,24 @@ const StatusOfFundsChart = ({
                     }} />
             }
             {isMobile &&
-            <FlexGridRow className="legend" style={{ flexDirection: isLargeScreen ? 'column' : 'row' }}>
-                <div className="legend__item">
-                    <div
-                        className="legend__circle"
-                        style={!toggle ? { backgroundColor: '#2B71B8' } : { backgroundColor: '#FFBE2E' }} />
-                    {!toggle && <div className="legend__text">FY{fy[2]}{fy[3]} Obligations</div>}
-                    {toggle && <div className="legend__text">FY{fy[2]}{fy[3]} Outlays</div>}
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                </div>
-                {level < 3 && (
+                <FlexGridRow className="legend" style={{ flexDirection: isLargeScreen ? 'column' : 'row' }}>
                     <div className="legend__item">
                         <div
                             className="legend__circle"
-                            style={!toggle ? { backgroundColor: '#BBDFC7' } : { display: 'transparent' }} />
-                        {!toggle && <div className="legend__text">FY{fy[2]}{fy[3]} Total Budgetary Resources</div>}
+                            style={!toggle ? { backgroundColor: '#2B71B8' } : { backgroundColor: '#FFBE2E' }} />
+                        {!toggle && <div className="legend__text">FY{fy[2]}{fy[3]} Obligations</div>}
+                        {toggle && <div className="legend__text">FY{fy[2]}{fy[3]} Outlays</div>}
+                        &nbsp;&nbsp;&nbsp;&nbsp;
                     </div>
-                )}
-            </FlexGridRow>
+                    {level < 3 && (
+                        <div className="legend__item">
+                            <div
+                                className="legend__circle"
+                                style={!toggle ? { backgroundColor: '#BBDFC7' } : { display: 'transparent' }} />
+                            {!toggle && <div className="legend__text">FY{fy[2]}{fy[3]} Total Budgetary Resources</div>}
+                        </div>
+                    )}
+                </FlexGridRow>
             }
             <div id="sof_chart" className="status-of-funds__visualization" ref={chartRef} />
             {!isMobile &&
