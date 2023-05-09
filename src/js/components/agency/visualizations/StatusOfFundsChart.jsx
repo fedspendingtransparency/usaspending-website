@@ -202,7 +202,15 @@ const StatusOfFundsChart = ({
     let tooltipName = null;
     const tooltip = (data) => {
         if (hoverData) {
-            tooltipName = data.name.length;
+            if (data.name.length <= 33) {
+                tooltipName = data.name.length + 230;
+            }
+            else if (data.name.length > 33 && data.name.length < 66) {
+                tooltipName = data.name.length + 215;
+            }
+            else {
+                tooltipName = data.name.length + 200;
+            }
             return (
                 <div className="sof-chart-tooltip">
                     <div className="tooltip__title">
@@ -1019,10 +1027,10 @@ const StatusOfFundsChart = ({
                     tooltipComponent={tooltip(hoverData)}
                     styles={!toggle ? {
                         position: 'absolute',
-                        transform: `translate(${mouseValue.x - 144}px,${mouseValue.y - (tooltipName + 200)}px)`
+                        transform: `translate(${mouseValue.x - 144}px,${mouseValue.y - tooltipName}px)`
                     } : {
                         position: 'absolute',
-                        transform: `translate(${mouseValue.x - 144}px,${mouseValue.y - (tooltipName + 200)}px)`
+                        transform: `translate(${mouseValue.x - 144}px,${mouseValue.y - (tooltipName - 10)}px)`
                     }}
                     controlledProps={{
                         isControlled: true,
