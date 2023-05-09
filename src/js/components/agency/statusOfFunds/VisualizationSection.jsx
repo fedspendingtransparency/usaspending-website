@@ -22,17 +22,8 @@ const propTypes = {
     onKeyToggle: PropTypes.func,
     level: PropTypes.number.isRequired,
     setDrilldownLevel: PropTypes.func,
-    loading: PropTypes.bool,
-    setLoading: PropTypes.func,
-    agencyName: PropTypes.string,
     fy: PropTypes.string,
     results: PropTypes.array,
-    selectedLevelData: PropTypes.shape({
-        name: PropTypes.string,
-        id: PropTypes.string,
-        budgetaryResources: PropTypes.string,
-        obligations: PropTypes.string
-    }),
     isMobile: PropTypes.bool,
     viewType: PropTypes.string,
     setViewType: PropTypes.func,
@@ -59,7 +50,6 @@ const VisualizationSection = ({
     const [open, setOpen] = useState(false);
     const accordionTitle = (<span>What&nbsp;is&nbsp;this?</span>);
 
-    // todo - find the redux shorthand to pull the obj with one command
     const name = useSelector((state) => state.agency.currentLevelNameAndId.name);
     const id = useSelector((state) => state.agency.currentLevelNameAndId.id);
     const currentLevelData = {
