@@ -475,7 +475,7 @@ const StatusOfFundsChart = ({
                     if (d._budgetaryResources && d._budgetaryResources < 0) {
                         return x(d._budgetaryResources) - 8;
                     }
-                    if (!negativeTbr && !negativeObl) {
+                    if (d._budgetaryResources && !negativeTbr && !negativeObl) {
                         return x(0) - 8;
                     }
                     return x(0);
@@ -490,16 +490,16 @@ const StatusOfFundsChart = ({
                     return y(d.name) + 40;
                 })
                 .attr("width", (d) => {
-                    if (level === 5) {
-                        return x(d._obligations) + 11;
-                    }
-                    if (negativeTbr || negativeObl) {
+                    if (d._budgetaryResources && (negativeTbr || negativeObl)) {
                         return drawNegativeBudgetaryResources(d, x);
                     }
-                    if (d._budgetaryResources === 0) {
+                    if (d._budgetaryResources && d._budgetaryResources === 0) {
                         return 0;
                     }
-                    return x(d._budgetaryResources) + 11;
+                    if (d._budgetaryResources) {
+                        return x(d._budgetaryResources) + 11;
+                    }
+                    return '';
                 })
                 .attr("height", () => {
                     if (!isMobile) {
@@ -845,7 +845,7 @@ const StatusOfFundsChart = ({
                     if (d._budgetaryResources && d._budgetaryResources < 0) {
                         return x(d._budgetaryResources) - 8;
                     }
-                    if (!negativeTbr && !negativeOutlay) {
+                    if (d._budgetaryResources && !negativeTbr && !negativeOutlay) {
                         return x(0) - 8;
                     }
                     return x(0);
@@ -860,16 +860,16 @@ const StatusOfFundsChart = ({
                     return y(d.name) - 90;
                 })
                 .attr("width", (d) => {
-                    if (level === 5) {
-                        return x(d._obligations) + 11;
-                    }
-                    if (negativeTbr || negativeOutlay) {
+                    if (d._budgetaryResources && (negativeTbr || negativeOutlay)) {
                         return drawNegativeBudgetaryResources(d, x);
                     }
                     if (d._budgetaryResources && d._budgetaryResources === 0) {
                         return 0;
                     }
-                    return x(d._budgetaryResources) + 11;
+                    if (d._budgetaryResources) {
+                        return x(d._budgetaryResources) + 11;
+                    }
+                    return '';
                 })
                 .attr("height", () => {
                     if (!isMobile) {
@@ -1019,7 +1019,6 @@ const StatusOfFundsChart = ({
             // sort by tbr, high to low
             setSortedNums(results.sort((a, b) => (b._budgetaryResources - a._budgetaryResources)));
         }
-        console.log('sortedNums', sortedNums);
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [results]);
 

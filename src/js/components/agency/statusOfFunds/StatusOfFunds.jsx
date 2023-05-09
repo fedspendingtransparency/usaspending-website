@@ -111,6 +111,7 @@ const StatusOfFunds = ({ fy }) => {
         const agencySubcomponentsListRequest = request.current;
         agencySubcomponentsListRequest.promise
             .then((res) => {
+                console.log('res', res);
                 const parsedData = parseRows(res.data.results);
                 const nameAndId = {
                     name: `${overview.name}`,
@@ -118,7 +119,7 @@ const StatusOfFunds = ({ fy }) => {
                 };
                 dispatch(setCurrentLevelNameAndId(nameAndId));
                 setResults(parsedData);
-                setTotalItems(parsedData.length);
+                setTotalItems(res.data.page_metadata.total);
 
                 if (parsedData.length === 0) {
                     statusDataThroughDate = 'no data';
@@ -161,7 +162,7 @@ const StatusOfFunds = ({ fy }) => {
                 dispatch(setCurrentLevelNameAndId(nameAndId));
                 setLevel(1);
                 setResults(parsedData);
-                setTotalItems(parsedData.length);
+                setTotalItems(res.data.page_metadata.total);
                 setLoading(false);
             }).catch((err) => {
                 setError(true);
@@ -241,7 +242,7 @@ const StatusOfFunds = ({ fy }) => {
                 dispatch(setCurrentLevelNameAndId(nameAndId));
                 setLevel(3);
                 setResults(parsedData);
-                setTotalItems(parsedData.length);
+                setTotalItems(res.data.page_metadata.total);
                 setLoading(false);
             }).catch((err) => {
                 setError(true);
