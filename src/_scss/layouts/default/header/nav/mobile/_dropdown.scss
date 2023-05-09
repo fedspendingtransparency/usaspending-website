@@ -6,33 +6,30 @@
         @include align-items(center);
         @include justify-content(center);
         position: relative;
-        margin-left: auto;
-        margin-right: auto;
-
-        color: $color-gray;
-        font-size: rem(30);
+        text-align: left;
+        color: $gray-90;
+        font-size: $font-size-16;
         line-height: rem(36);
-        opacity: 0.6;
+        font-weight: $font-semibold;
         &:active, &:hover {
             opacity: 1;
         }
 
         .mobile-dropdown__parent-label {
             display: contents;
-            @include flex(0 0 auto);
             margin-right: rem(10);
             @import "components/_newBadge.scss";
         }
 
         .mobile-dropdown__parent-icon {
             @include flex(0 0 auto);
-            width: rem(30);
-            height: rem(30);
+            width: rem(16);
+            height: rem(16);
 
             svg {
-                width: rem(30);
-                height: rem(30);
-                fill: $color-gray;                            
+                width: rem(16);
+                height: rem(16);
+                fill: $blue-50;                            
             }
         }
     }

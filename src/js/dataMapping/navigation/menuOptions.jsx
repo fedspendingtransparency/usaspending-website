@@ -23,26 +23,31 @@ export const searchOptions = [
 export const profileOptions = [
     {
         label: 'Agencies',
+        description: "Track spending by federal agency",
         url: '/agency',
         enabled: true
     },
     {
-        label: 'Federal Accounts',
-        url: '/federal_account',
-        enabled: true
-    },
-    {
-        label: 'States',
+        label: 'States & Territories',
+        description: "Track spending to states & territories",
         url: '/state',
         enabled: true
     },
     {
         label: 'Recipients',
+        description: "Track spending to federal award recipients",
         url: '/recipient',
         enabled: true
     },
     {
+        label: 'Federal Accounts',
+        description: "Track the accounts agencies use to spend money",
+        url: '/federal_account',
+        enabled: true
+    },
+    {
         label: "COVID-19 Spending",
+        description: "Track the federal response to COVID-19",
         url: '/disaster/covid-19',
         enabled: true
     }

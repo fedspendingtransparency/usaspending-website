@@ -18,6 +18,7 @@ const propTypes = {
     comingSoon: PropTypes.bool,
     url: PropTypes.oneOfType([PropTypes.string, PropTypes.shape({ pathname: PropTypes.string, search: PropTypes.string })]),
     search: PropTypes.string,
+    description: PropTypes.node,
     title: PropTypes.oneOfType([PropTypes.element, PropTypes.string]),
     hideMobileNav: PropTypes.func,
     externalLink: PropTypes.bool,
@@ -34,6 +35,7 @@ const clickedHeaderLink = (route) => {
 
 const MobileDropdownItem = ({
     url,
+    description,
     title = '',
     active = false,
     comingSoon = false,
@@ -103,6 +105,7 @@ const MobileDropdownItem = ({
                 {title}
                 {isNewTab && <span className="new-badge dropdown-item"> NEW</span>}
             </a>
+            <div className="nav-children__container_description">{description}</div>
             {comingSoonDecorator}
         </li>
 
@@ -116,6 +119,7 @@ const MobileDropdownItem = ({
                     {title}
                     {isNewTab && <span className="new-badge dropdown-item"> NEW</span>}
                 </Link>
+                <div className="nav-children__container_description">{description}</div>
                 {comingSoonDecorator}
             </li>
         );
