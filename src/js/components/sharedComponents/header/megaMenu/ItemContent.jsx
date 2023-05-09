@@ -2,15 +2,23 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const ItemContent = ({
-    items, section1Title, section2Title, section3Title
+    section1Title,
+    section2Title,
+    section3Title,
+    section1Items,
+    section2Items,
+    section3Items,
+    section1Sub,
+    section2Sub,
+    section3Sub
 }) => (
-    <div>
+    <div className="dropdown-section__wrapper">
         <div className="dropdown-section" data-first-dropdown-section>
             <div>
                 <p>{section1Title}</p>
                 <ul>
-                    {items.map((item) => (
-                        <li>
+                    {section1Items.map((item, index) => (
+                        <li key={`link-${index}`}>
                             <Link to={item.url}>{item.label}</Link>
                         </li>
                     ))}
@@ -21,12 +29,11 @@ const ItemContent = ({
             <div>
                 <p>{section2Title}</p>
                 <ul>
-                    <li>
-                        <a href="/">Stripe Atlas &rsaquo;</a>
-                    </li>
-                    <li>
-                        <a href="/">Stripe Home &rsaquo;</a>
-                    </li>
+                    {section2Items.map((item, index) => (
+                        <li key={`link-${index}`}>
+                            <Link to={item.url}>{item.label}</Link>
+                        </li>
+                    ))}
                 </ul>
             </div>
         </div>
@@ -35,12 +42,11 @@ const ItemContent = ({
                 <div>
                     <p>{section3Title}</p>
                     <ul>
-                        <li>
-                            <a href="/">Stripe Atlas &rsaquo;</a>
-                        </li>
-                        <li>
-                            <a href="/">Stripe Home &rsaquo;</a>
-                        </li>
+                        {section3Items.map((item, index) => (
+                            <li key={`link-${index}`}>
+                                <Link to={item.url}>{item.label}</Link>
+                            </li>
+                        ))}
                     </ul>
                 </div>
             </div> : ''}

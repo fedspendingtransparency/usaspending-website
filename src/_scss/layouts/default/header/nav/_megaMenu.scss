@@ -52,12 +52,14 @@
     perspective: 1500px;
     z-index: 150;
   }
-
-  .dropdown-section {
-    padding: 28px;
-    position: relative;
-    z-index: 1;
-  }
+    .dropdown-section__wrapper {
+      display: flex;
+      .dropdown-section {
+        padding: 28px;
+        position: relative;
+        z-index: 1;
+      }
+    }
 
   .navbar-el {
     margin: auto;
