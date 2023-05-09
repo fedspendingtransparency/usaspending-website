@@ -40,7 +40,10 @@ const navbarConfig = [
         section2Title: "Account Data",
         section3Title: "All Data",
         section1Sub: "Data about contracts, grants, loans, and other awards that the federal government has made",
-        section2Sub: "Data from agency financial submissions, covering both award and non-award spending"
+        section2Sub: "Data from agency financial submissions, covering both award and non-award spending",
+        section1Icon: "hand-holding-usd",
+        section2Icon: "money-bill-wave",
+        section3Icon: "server"
     },
     {
         title: "Find Resources",
@@ -50,7 +53,10 @@ const navbarConfig = [
         dropdown: ItemContent,
         section1Title: "Learn",
         section2Title: "Reference Materials",
-        section3Title: "For Developers"
+        section3Title: "For Developers",
+        section1Icon: "graduation-cap",
+        section2Icon: "book-open",
+        section3Icon: "code-branch"
     }
 ];
 
@@ -99,6 +105,7 @@ export default class AnimatedNavbar extends Component {
         let CurrentDropdown;
         let PrevDropdown;
         let direction;
+
         let currentSection1Props;
         let currentSection2Props;
         let currentSection3Props;
@@ -112,6 +119,9 @@ export default class AnimatedNavbar extends Component {
         let currentSection1Sub;
         let currentSection2Sub;
         let currentSection3Sub;
+        let currentSection1Icon;
+        let currentSection2Icon;
+        let currentSection3Icon;
 
         const currentIndex = this.state.activeIndices[
             this.state.activeIndices.length - 1
@@ -133,6 +143,10 @@ export default class AnimatedNavbar extends Component {
             currentSection1Sub = navbarConfig[currentIndex].section1Sub;
             currentSection2Sub = navbarConfig[currentIndex].section2Sub;
             currentSection3Sub = navbarConfig[currentIndex].section3Sub;
+
+            currentSection1Icon = navbarConfig[currentIndex].section1Icon;
+            currentSection2Icon = navbarConfig[currentIndex].section2Icon;
+            currentSection3Icon = navbarConfig[currentIndex].section3Icon;
         }
         else if (typeof prevIndex === "number") {
             PrevDropdown = navbarConfig[prevIndex].dropdown;
@@ -167,7 +181,10 @@ export default class AnimatedNavbar extends Component {
                                         section3Title={currentSection3Title}
                                         section1Sub={currentSection1Sub}
                                         section2Sub={currentSection2Sub}
-                                        section3Sub={currentSection3Sub} />
+                                        section3Sub={currentSection3Sub}
+                                        section1Icon={currentSection1Icon}
+                                        section2Icon={currentSection2Icon}
+                                        section3Icon={currentSection3Icon} />
                                     {PrevDropdown && <PrevDropdown section1Items={prevSection1Props} section2Items={prevSection2Props} section3Items={prevSection3Props} />}
                                 </DropdownContainer>
                             )}

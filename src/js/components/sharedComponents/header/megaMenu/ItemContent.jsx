@@ -11,7 +11,10 @@ const ItemContent = ({
     section3Items,
     section1Sub,
     section2Sub,
-    section3Sub
+    section3Sub,
+    section1Icon,
+    section2Icon,
+    section3Icon
 }) => (
     <div className="dropdown-section__wrapper">
         <div className="dropdown-section" data-first-dropdown-section>
