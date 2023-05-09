@@ -203,7 +203,6 @@ const StatusOfFundsChart = ({
     const tooltip = (data) => {
         if (hoverData) {
             tooltipName = data.name.length;
-            console.log(tooltipName);
             return (
                 <div className="sof-chart-tooltip">
                     <div className="tooltip__title">
