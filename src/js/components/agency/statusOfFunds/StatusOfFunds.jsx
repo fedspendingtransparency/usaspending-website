@@ -11,9 +11,9 @@ import { tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { throttle } from "lodash";
 
 import { FlexGridRow, FlexGridCol, Pagination, LoadingMessage, ErrorMessage } from 'data-transparency-ui';
-import { setDataThroughDates, setSelectedSubcomponent, setSelectedFederalAccount, setSelectedTas, setCurrentLevelNameAndId } from "redux/actions/agency/agencyActions";
+import { setDataThroughDates, setSelectedSubcomponent, setSelectedFederalAccount, setSelectedTas, setCurrentLevelNameAndId, setLevel4ApiResponse } from "redux/actions/agency/agencyActions";
 import { fetchSubcomponentsList, fetchFederalAccountsList, fetchTasList, fetchProgramActivityByTas, fetchObjectClassByTas } from 'apis/agency';
-import { parseRows } from 'helpers/agency/StatusOfFundsVizHelper';
+import { parseRows, getLevel5Data } from 'helpers/agency/StatusOfFundsVizHelper';
 import { useStateWithPrevious } from 'helpers';
 import { useLatestAccountData } from 'containers/account/WithLatestFy';
 import BaseStatusOfFundsLevel from 'models/v2/agency/BaseStatusOfFundsLevel';
@@ -61,7 +61,12 @@ const StatusOfFunds = ({ fy }) => {
         name: useSelector((state) => state.agency.selectedTas?.name)
     };
 
-    const maxLevel = 3;
+    // this one is used to get level 5 data, which is sent as children array of level 4 data
+    const level4ApiResponse = {
+        res: useSelector((state) => state.agency.level4ApiResponse)
+    };
+
+    const maxLevel = 4;
 
     // TODO not sure if this is necessary
     // eslint-disable-next-line eqeqeq
@@ -202,48 +207,6 @@ const StatusOfFunds = ({ fy }) => {
             });
     });
 
-    // const fetchProgramActivity = useCallback((tasData) => {
-    //     if (request.current) {
-    //         request.current.cancel();
-    //     }
-    //     if (error) {
-    //         setError(false);
-    //     }
-    //     if (!loading) {
-    //         setLoading(true);
-    //     }
-    //     const params = {
-    //         limit: pageSize,
-    //         page: currentPage
-    //     };
-    //
-    //     request.current = fetchProgramActivityList(overview.toptierCode, fy, params.page);
-    //     const programActivityRequest = request.current;
-    //     programActivityRequest.promise
-    //         .then((res) => {
-    //             const parsedData = parseRows(res.data.results, tasData.id);
-    //             const totalsData = {
-    //                 // currently, in the data the id and name are the same string
-    //                 // which is an alphanumeric code, not a 'name'
-    //                 name: `${tasData.name}`,
-    //                 id: `${tasData.id}`,
-    //                 total_budgetary_resources: `${tasData._budgetaryResources}`,
-    //                 total_obligations: `${tasData._obligations}`
-    //             };
-    //
-    //             setLevel(3);
-    //             setResults(parsedData);
-    //             setSelectedTas(tasData);
-    //             setTotalItems(res.data.page_metadata.total);
-    //             setDrilldownSelection(totalsData);
-    //             setLoading(false);
-    //         }).catch((err) => {
-    //             setError(true);
-    //             setLoading(false);
-    //             console.error(err);
-    //         });
-    // });
-
     const fetchDataByTas = useCallback((tas, objectClassFlag) => {
         if (request.current) {
             request.current.cancel();
@@ -268,6 +231,8 @@ const StatusOfFunds = ({ fy }) => {
         const programActivityRequest = request.current;
         programActivityRequest.promise
             .then((res) => {
+                // store the api res in redux so that when the user clicks one of the bars you can use the id from that click to get the children of that id to set as results for level 5
+                dispatch(setLevel4ApiResponse(res.data.results));
                 const parsedData = parseRows(res.data.results, tas.id);
                 const nameAndId = {
                     name: `${tas.name}`,
@@ -294,16 +259,17 @@ const StatusOfFunds = ({ fy }) => {
                 fetchAgencySubcomponents();
             }
             if (prevPage !== currentPage && level === 1) {
-                // need to also send the name here, for the heading
                 fetchFederalAccounts(selectedSubComponentNameAndId);
             }
             if (prevPage !== currentPage && level === 2) {
-                // need to also send the name here, for the heading
                 fetchTas(selectedFederalAccountNameId);
             }
             if (prevPage !== currentPage && level === 3) {
-                // need to also send the name here, for the heading
                 fetchDataByTas(selectedTasNameAndId, dropdownSelection === 'Object Class');
+            }
+            if (prevPage !== currentPage && level === 4) {
+                // todo - need to call setDrilldownLevel here, rather than the fetch fn
+                // fetchDataByTas(selectedTasNameAndId, dropdownSelection === 'Object Class');
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -345,6 +311,14 @@ const StatusOfFunds = ({ fy }) => {
             dispatch(setSelectedTas(parentData));
         }
 
+        if (selectedLevel === 4) {
+            const newData = getLevel5Data(parentData.name, level4ApiResponse);
+            // you have to send this third param when at this level bc there is no tbr field in the data here
+            const parsedData = parseRows(newData, parentData.id, true);
+            setResults(parsedData);
+            // todo - do we also need to save this in redux, like the other levels?
+        }
+
         setResetPageChange(true);
         const subcomponentTotalData = Object.create(BaseStatusOfFundsLevel);
         subcomponentTotalData.populate(parentData);
@@ -362,14 +336,20 @@ const StatusOfFunds = ({ fy }) => {
             if (level === 2) {
                 setLevel(1);
                 if (currentPage === 1) {
-                    // need to also send the name here, for the heading
                     fetchFederalAccounts(selectedSubComponentNameAndId);
                 }
             }
             if (level === 3) {
                 setLevel(2);
                 if (currentPage === 1) {
-                    // need to also send the name here, for the heading
+                    fetchTas(selectedFederalAccountNameId);
+                }
+            }
+            if (level === 4) {
+                setLevel(3);
+                if (currentPage === 1) {
+                    // todo - what happens here?
+                    // rather than calling the fetch fn, we have to call setDrilldownLevel, but we need the parent data to do that
                     fetchTas(selectedFederalAccountNameId);
                 }
             }

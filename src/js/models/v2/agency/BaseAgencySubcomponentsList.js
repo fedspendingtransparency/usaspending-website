@@ -5,11 +5,13 @@
 import { formatMoneyWithUnitsShortLabel } from 'helpers/moneyFormatter';
 
 const BaseAgencySubcomponentsList = {
-    populate(data, id) {
+    populate(data, id, level5) {
         this.id = id || data?.id || data?.code || '';
         this.name = data?.name || '';
+        if (!level5) {
         /* eslint-disable camelcase */
-        this._budgetaryResources = data?.total_budgetary_resources || data?.budgetary_resources_amount || 0;
+            this._budgetaryResources = data?.total_budgetary_resources || data?.budgetary_resources_amount || 0;
+        }
         this._obligations = data?.total_obligations || data?.obligated_amount || 0;
         this._outlays = data?.total_outlays || data?.gross_outlay_amount || 0;
     },

@@ -305,11 +305,11 @@ const StatusOfFundsChart = ({
                 if (item._obligations >= 0) {
                     positiveObligationsArray.push(item._obligations);
                 }
-                if (item._budgetaryResources < 0) {
+                if (item._budgetaryResources && item._budgetaryResources < 0) {
                     negativeTbrArray.push(item._budgetaryResources);
                     setNegativeTbr(true);
                 }
-                if (item._budgetaryResources >= 0) {
+                if (item._budgetaryResources && item._budgetaryResources >= 0) {
                     positiveTbrArray.push(item._budgetaryResources);
                 }
             });
@@ -472,7 +472,7 @@ const StatusOfFundsChart = ({
             barGroups.append("rect")
                 .attr('transform', tickMobileXAxis)
                 .attr("x", (d) => {
-                    if (d._budgetaryResources < 0) {
+                    if (d._budgetaryResources && d._budgetaryResources < 0) {
                         return x(d._budgetaryResources) - 8;
                     }
                     if (!negativeTbr && !negativeObl) {
@@ -490,6 +490,9 @@ const StatusOfFundsChart = ({
                     return y(d.name) + 40;
                 })
                 .attr("width", (d) => {
+                    if (level === 5) {
+                        return x(d._obligations) + 11;
+                    }
                     if (negativeTbr || negativeObl) {
                         return drawNegativeBudgetaryResources(d, x);
                     }
@@ -671,11 +674,11 @@ const StatusOfFundsChart = ({
                 if (item._outlays >= 0) {
                     positiveOutlaysArray.push(item._outlays);
                 }
-                if (item._budgetaryResources < 0) {
+                if (item._budgetaryResources && item._budgetaryResources < 0) {
                     negativeTbrArray.push(item._budgetaryResources);
                     setNegativeTbr(true);
                 }
-                if (item._budgetaryResources >= 0) {
+                if (item._budgetaryResources && item._budgetaryResources >= 0) {
                     positiveTbrArray.push(item._budgetaryResources);
                 }
             });
@@ -839,7 +842,7 @@ const StatusOfFundsChart = ({
             barGroups.append("rect")
                 .attr('transform', tickMobileXAxis)
                 .attr("x", (d) => {
-                    if (d._budgetaryResources < 0) {
+                    if (d._budgetaryResources && d._budgetaryResources < 0) {
                         return x(d._budgetaryResources) - 8;
                     }
                     if (!negativeTbr && !negativeOutlay) {
@@ -857,10 +860,13 @@ const StatusOfFundsChart = ({
                     return y(d.name) - 90;
                 })
                 .attr("width", (d) => {
+                    if (level === 5) {
+                        return x(d._obligations) + 11;
+                    }
                     if (negativeTbr || negativeOutlay) {
                         return drawNegativeBudgetaryResources(d, x);
                     }
-                    if (d._budgetaryResources === 0) {
+                    if (d._budgetaryResources && d._budgetaryResources === 0) {
                         return 0;
                     }
                     return x(d._budgetaryResources) + 11;
@@ -1006,9 +1012,15 @@ const StatusOfFundsChart = ({
 
     useEffect(() => {
         if (results?.length > 0) {
+            // if level 5, there is no tbr so sort by obligations
+            if (level === 5) {
+                setSortedNums(results.sort((a, b) => (b._obligations - a._obligations)));
+            }
             // sort by tbr, high to low
             setSortedNums(results.sort((a, b) => (b._budgetaryResources - a._budgetaryResources)));
         }
+        console.log('sortedNums', sortedNums);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [results]);
 
     return (
