@@ -221,13 +221,15 @@ const StatusOfFundsChart = ({
                             {toggle && <div className="tooltip__text-label">FY{fy[2]}{fy[3]} Outlays</div> }
                             {toggle && <div className="tooltip__text-amount">{data.outlays}</div>}
                         </div>
-                        <div className="tooltip__item">
-                            <div
-                                className="tooltip__circle"
-                                style={!toggle ? { backgroundColor: '#BBDFC7' } : { backgroundColor: 'transparent' }} />
-                            {!toggle && <div className="tooltip__text-label">FY{fy[2]}{fy[3]} Total Budgetary<br />Resources</div>}
-                            {!toggle && <div className="tooltip__text-amount">{data.budgetaryResources}</div>}
-                        </div>
+                        {level < 3 && (
+                            <div className="tooltip__item">
+                                <div
+                                    className="tooltip__circle"
+                                    style={!toggle ? { backgroundColor: '#BBDFC7' } : { backgroundColor: 'transparent' }} />
+                                {!toggle && <div className="tooltip__text-label">FY{fy[2]}{fy[3]} Total Budgetary<br />Resources</div>}
+                                {!toggle && <div className="tooltip__text-amount">{data.budgetaryResources}</div>}
+                            </div>
+                        )}
                         {chartLevelText()}
                     </div>
                 </div>
@@ -1055,12 +1057,14 @@ const StatusOfFundsChart = ({
                     {toggle && <div className="legend__text">FY{fy[2]}{fy[3]} Outlays</div>}
                 &nbsp;&nbsp;&nbsp;&nbsp;
                 </div>
-                <div className="legend__item">
-                    <div
-                        className="legend__circle"
-                        style={!toggle ? { backgroundColor: '#BBDFC7' } : { display: 'transparent' }} />
-                    {!toggle && <div className="legend__text">FY{fy[2]}{fy[3]} Total Budgetary Resources</div>}
-                </div>
+                {level < 3 && (
+                    <div className="legend__item">
+                        <div
+                            className="legend__circle"
+                            style={!toggle ? { backgroundColor: '#BBDFC7' } : { display: 'transparent' }} />
+                        {!toggle && <div className="legend__text">FY{fy[2]}{fy[3]} Total Budgetary Resources</div>}
+                    </div>
+                )}
             </FlexGridRow>
             }
             <div id="sof_chart" className="status-of-funds__visualization" ref={chartRef} />
@@ -1074,12 +1078,14 @@ const StatusOfFundsChart = ({
                         {toggle && <div className="legend__text">FY{fy[2]}{fy[3]} Outlays</div>}
                         &nbsp;&nbsp;&nbsp;&nbsp;
                     </div>
-                    <div className="legend__item">
-                        <div
-                            className="legend__circle"
-                            style={!toggle ? { backgroundColor: '#BBDFC7' } : { display: 'transparent' }} />
-                        {!toggle && <div className="legend__text">FY{fy[2]}{fy[3]} Total Budgetary Resources</div>}
-                    </div>
+                    {level < 3 && (
+                        <div className="legend__item">
+                            <div
+                                className="legend__circle"
+                                style={!toggle ? { backgroundColor: '#BBDFC7' } : { display: 'transparent' }} />
+                            {!toggle && <div className="legend__text">FY{fy[2]}{fy[3]} Total Budgetary Resources</div>}
+                        </div>
+                    )}
                 </FlexGridRow>
             }
         </>
