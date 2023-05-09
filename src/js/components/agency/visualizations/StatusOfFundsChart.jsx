@@ -30,6 +30,7 @@ const StatusOfFundsChart = ({
     const [mouseValue, setMouseValue] = useState({ x: 0, y: 0 });
     const [sortedNums, setSortedNums] = useState(null);
     const [hoverData, setHoverData] = useState(null);
+    const [tbrPresent, setTbrPresent] = useState(true);
 
     let viewHeight;
     if (!toggle) {
@@ -343,13 +344,19 @@ const StatusOfFundsChart = ({
                 x.domain([0, Math.max(maxPosTbr, maxPosObl)]).nice(2);
             }
 
-            // extract sorted agency names
+            // extract sorted agency names and determine if tbr present
             for (let i = 0; i < sortedNums.length; i++) {
                 resultNames = resultNames.concat(sortedNums[i].name);
+                if (!sortedNums[i]?._budgetaryResources) {
+                    setTbrPresent(false);
+                }
             }
             if (sortedNums.length < 10) {
                 for (let i = sortedNums.length; i < 10; i++) {
                     resultNames.push(i);
+                    if (!sortedNums[i]?._budgetaryResources) {
+                        setTbrPresent(false);
+                    }
                 }
             }
             y.domain(resultNames);
@@ -473,51 +480,50 @@ const StatusOfFundsChart = ({
                 .attr("stroke", "#f1f1f1")
                 .attr('class', 'hbars')
                 .attr('id', 'hlines');
-            // append total budgetary resources bars
-            barGroups.append("rect")
-                .attr('transform', tickMobileXAxis)
-                .attr("x", (d) => {
-                    if (d._budgetaryResources && d._budgetaryResources < 0) {
-                        return x(d._budgetaryResources) - 8;
-                    }
-                    if (d._budgetaryResources && !negativeTbr && !negativeObl) {
-                        return x(0) - 8;
-                    }
-                    return x(0);
-                })
-                .attr("y", (d) => {
-                    if (isLargeScreen) {
-                        if (isMediumScreen) {
-                            return y(d.name) + 10;
+            if (tbrPresent) {
+                // append total budgetary resources bars
+                barGroups.append("rect")
+                    .attr('transform', tickMobileXAxis)
+                    .attr("x", (d) => {
+                        if (d._budgetaryResources < 0) {
+                            return x(d._budgetaryResources) - 8;
                         }
-                        return y(d.name);
-                    }
-                    return y(d.name) + 40;
-                })
-                .attr("width", (d) => {
-                    if (d._budgetaryResources && (negativeTbr || negativeObl)) {
-                        return drawNegativeBudgetaryResources(d, x);
-                    }
-                    if (d._budgetaryResources && d._budgetaryResources === 0) {
-                        return 0;
-                    }
-                    if (d._budgetaryResources) {
+                        if (!negativeTbr && !negativeObl) {
+                            return x(0) - 8;
+                        }
+                        return x(0);
+                    })
+                    .attr("y", (d) => {
+                        if (isLargeScreen) {
+                            if (isMediumScreen) {
+                                return y(d.name) + 10;
+                            }
+                            return y(d.name);
+                        }
+                        return y(d.name) + 40;
+                    })
+                    .attr("width", (d) => {
+                        if (negativeTbr || negativeObl) {
+                            return drawNegativeBudgetaryResources(d, x);
+                        }
+                        if (d._budgetaryResources === 0) {
+                            return 0;
+                        }
                         return x(d._budgetaryResources) + 11;
-                    }
-                    return '';
-                })
-                .attr("height", () => {
-                    if (!isMobile) {
-                        if (isMediumScreen) {
-                            return "31.12";
+                    })
+                    .attr("height", () => {
+                        if (!isMobile) {
+                            if (isMediumScreen) {
+                                return "31.12";
+                            }
+                            return "42.37";
                         }
-                        return "42.37";
-                    }
-                    return "63.63";
-                })
-                .attr("fill", "#BBDFC7")
-                .attr('class', 'hbars')
-                .attr('id', 'tbr-bar');
+                        return "63.63";
+                    })
+                    .attr("fill", "#BBDFC7")
+                    .attr('class', 'hbars')
+                    .attr('id', 'tbr-bar');
+            }
             // append total obligations bars
             barGroups.append("rect")
                 .attr('transform', tickMobileXAxis)
@@ -712,13 +718,19 @@ const StatusOfFundsChart = ({
                 x.domain([0, Math.max(maxPosTbr, maxPosOutlay)]).nice(2);
             }
 
-            // extract sorted agency names
+            // extract sorted agency names and determine if tbr present
             for (let i = 0; i < sortedNums.length; i++) {
                 resultNames = resultNames.concat(sortedNums[i].name);
+                if (!sortedNums[i]?._budgetaryResources) {
+                    setTbrPresent(false);
+                }
             }
             if (sortedNums.length < 10) {
                 for (let i = sortedNums.length; i < 10; i++) {
                     resultNames.push(i);
+                    if (!sortedNums[i]?._budgetaryResources) {
+                        setTbrPresent(false);
+                    }
                 }
             }
             y.domain(resultNames);
@@ -843,55 +855,53 @@ const StatusOfFundsChart = ({
                 .attr("stroke", "#f1f1f1")
                 .attr('class', 'hbars')
                 .attr('id', 'hlines');
-            // append total budgetary resources bars
-            barGroups.append("rect")
-                .attr('transform', tickMobileXAxis)
-                .attr("x", (d) => {
-                    if (d._budgetaryResources && d._budgetaryResources < 0) {
-                        return x(d._budgetaryResources) - 8;
-                    }
-                    if (d._budgetaryResources && !negativeTbr && !negativeOutlay) {
-                        return x(0) - 8;
-                    }
-                    return x(0);
-                })
-                .attr("y", (d) => {
-                    if (!isMobile) {
-                        if (isMediumScreen || (window.innerWidth >= 992 && window.innerWidth < 1200)) {
-                            return y(d.name);
+            if (tbrPresent) {
+                // append total budgetary resources bars
+                barGroups.append("rect")
+                    .attr('transform', tickMobileXAxis)
+                    .attr("x", (d) => {
+                        if (d._budgetaryResources < 0) {
+                            return x(d._budgetaryResources) - 8;
                         }
-                        return y(d.name) + 50;
-                    }
-                    return y(d.name) - 90;
-                })
-                .attr("width", (d) => {
-                    if (d._budgetaryResources && (negativeTbr || negativeOutlay)) {
-                        return drawNegativeBudgetaryResources(d, x);
-                    }
-                    if (d._budgetaryResources && d._budgetaryResources === 0) {
-                        return 0;
-                    }
-                    if (d._budgetaryResources) {
+                        if (!negativeTbr && !negativeOutlay) {
+                            return x(0) - 8;
+                        }
+                        return x(0);
+                    })
+                    .attr("y", (d) => {
+                        if (!isMobile) {
+                            if (isMediumScreen || (window.innerWidth >= 992 && window.innerWidth < 1200)) {
+                                return y(d.name);
+                            }
+                            return y(d.name) + 50;
+                        }
+                        return y(d.name) - 90;
+                    })
+                    .attr("width", (d) => {
+                        if (negativeTbr || negativeOutlay) {
+                            return drawNegativeBudgetaryResources(d, x);
+                        }
+                        if (d._budgetaryResources === 0) {
+                            return 0;
+                        }
                         return x(d._budgetaryResources) + 11;
-                    }
-                    return '';
-                })
-                .attr("height", () => {
-                    if (!isMobile) {
-                        if (isMediumScreen) {
-                            return "31.12";
+                    })
+                    .attr("height", () => {
+                        if (!isMobile) {
+                            if (isMediumScreen) {
+                                return "31.12";
+                            }
+                            return "42.37";
                         }
-                        return "42.37";
-                    }
-                    return "63.63";
-                })
-                .attr('class', 'hbars')
-                .attr('id', 'tbr-bar')
-                .attr("style", "outline: thin solid #D7D8D9;")
-                .attr('aria-disabled', "true")
-                .attr("stroke-width", 2)
-                .attr('fill', 'url(#diagonalHatch)');
-
+                        return "63.63";
+                    })
+                    .attr('class', 'hbars')
+                    .attr('id', 'tbr-bar')
+                    .attr("style", "outline: thin solid #D7D8D9;")
+                    .attr('aria-disabled', "true")
+                    .attr("stroke-width", 2)
+                    .attr('fill', 'url(#diagonalHatch)');
+            }
             // append total outlay bars
             barGroups.append("rect")
                 .attr('transform', tickMobileXAxis)
@@ -1026,6 +1036,8 @@ const StatusOfFundsChart = ({
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [results]);
+
+    console.log('tbrPresent', tbrPresent);
 
     return (
         <>

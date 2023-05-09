@@ -111,7 +111,6 @@ const StatusOfFunds = ({ fy }) => {
         const agencySubcomponentsListRequest = request.current;
         agencySubcomponentsListRequest.promise
             .then((res) => {
-                console.log('res', res);
                 const parsedData = parseRows(res.data.results);
                 const nameAndId = {
                     name: `${overview.name}`,
