@@ -76,15 +76,6 @@ const updateAltBackground = ({
 };
 
 export default class DropdownContainer extends Component {
-    // eslint-disable-next-line react/sort-comp
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            dropdownRootStyles: dropdownRoot(props)
-        };
-    }
-
     static propTypes = {
         children: PropTypes.node.isRequired,
         animatingOut: PropTypes.bool,
@@ -108,10 +99,11 @@ export default class DropdownContainer extends Component {
         const {
             children, direction, animatingOut, tweenConfig
         } = this.props;
+
         const [currentDropdown, prevDropdown] = Children.toArray(children);
         return (
             <div
-                style={this.state.dropdownRootStyles}
+                style={dropdownRoot(this.props)}
                 direction={direction}
                 animatingOut={animatingOut}
                 duration={tweenConfig.duration} >

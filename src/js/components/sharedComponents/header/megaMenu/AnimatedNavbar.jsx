@@ -47,6 +47,7 @@ export default class AnimatedNavbar extends Component {
             this.resetDropdownState(i);
             return;
         }
+
         if (this.state.activeIndices[this.state.activeIndices.length - 1] === i) {
             return;
         }
@@ -114,6 +115,7 @@ export default class AnimatedNavbar extends Component {
                             title={n.title}
                             index={index}
                             url={n.url}
+                            closeDropdown={this.onMouseLeave}
                             onMouseEnter={this.onMouseEnter}>
                             {currentIndex === index && (
                                 <DropdownContainer
