@@ -62,7 +62,6 @@ const FadeContents = (props) => {
             style={fadeContainerStyles}
             // prevent screen readers from reading out hidden content
             aria-hidden={animatingOut}
-            animatingOut={animatingOut}
             direction={direction}
             duration={duration}
             ref={(el) => innerRefFn(el)}>
