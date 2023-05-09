@@ -86,8 +86,7 @@ export default class AnimatedNavbar extends Component {
         if (typeof currentIndex === "number") {
             CurrentDropdown = navbarConfig[currentIndex]?.dropdown;
             currentProps = navbarConfig[currentIndex].items;
-        }
-        if (typeof prevIndex === "number") {
+        } else if (typeof prevIndex === "number") {
             PrevDropdown = navbarConfig[prevIndex].dropdown;
             prevProps = navbarConfig[prevIndex].items;
 

@@ -7,8 +7,8 @@ const ItemContent = ({ items }) => (
             <div>
                 <p>Section 1</p>
                 <ul>
-                    {items.map((item) => (
-                        <li>
+                    {items.map((item, index) => (
+                        <li key={`link-${index}`}>
                             <Link to={item.url}>{item.label}</Link>
                         </li>
                     ))}
