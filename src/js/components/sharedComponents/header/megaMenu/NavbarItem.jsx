@@ -19,11 +19,13 @@ const NavbarItem = (props) => {
         navChevronDirection = "chevron-down";
     };
 
-    const { title, children, url, index } = props;
+    const {
+        title, children, url, index, closeDropdown
+    } = props;
 
     return (
         <li className="navbar-item-el">
-            {url ? <Link className="navbar-item-title" to={url}>{title}</Link>
+            {url ? <Link onMouseEnter={closeDropdown} className="navbar-item-title" to={url}>{title}</Link>
                 :
                 <>
                     <button
