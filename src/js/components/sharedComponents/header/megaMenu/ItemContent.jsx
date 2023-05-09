@@ -16,6 +16,8 @@ const ItemContent = ({
         <div className="dropdown-section" data-first-dropdown-section>
             <div>
                 <p>{section1Title}</p>
+                {section1Sub !== null && section1Sub !== undefined && section1Sub !== '' ?
+                    <span className="dropdown-section__section-subtitle">{section1Sub}</span> : ''}
                 <ul>
                     {section1Items.map((item, index) => (
                         <li key={`link-${index}`}>
@@ -28,6 +30,8 @@ const ItemContent = ({
         <div className="dropdown-section">
             <div>
                 <p>{section2Title}</p>
+                {section2Sub !== null && section2Sub !== undefined && section2Sub !== '' ?
+                    <span className="dropdown-section__section-subtitle">{section2Sub}</span> : ''}
                 <ul>
                     {section2Items.map((item, index) => (
                         <li key={`link-${index}`}>
@@ -41,6 +45,8 @@ const ItemContent = ({
             <div className="dropdown-section">
                 <div>
                     <p>{section3Title}</p>
+                    {section3Sub !== null && section3Sub !== undefined && section3Sub !== '' ?
+                        <span className="dropdown-section__section-subtitle">{section3Sub}</span> : ''}
                     <ul>
                         {section3Items.map((item, index) => (
                             <li key={`link-${index}`}>
