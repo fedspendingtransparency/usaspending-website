@@ -66,7 +66,7 @@ const StatusOfFunds = ({ fy }) => {
         res: useSelector((state) => state.agency.level4ApiResponse)
     };
 
-    const maxLevel = 4;
+    const maxLevel = 3;
 
     // TODO not sure if this is necessary
     // eslint-disable-next-line eqeqeq
@@ -231,7 +231,8 @@ const StatusOfFunds = ({ fy }) => {
         const programActivityRequest = request.current;
         programActivityRequest.promise
             .then((res) => {
-                // store the api res in redux so that when the user clicks one of the bars you can use the id from that click to get the children of that id to set as results for level 5
+                // store the api res in redux so that when the user clicks one of the bars you can use the id
+                // from that click to get the children of that id to set as results for level 5
                 dispatch(setLevel4ApiResponse(res.data.results));
                 const parsedData = parseRows(res.data.results, tas.id);
                 const nameAndId = {
@@ -266,10 +267,6 @@ const StatusOfFunds = ({ fy }) => {
             }
             if (prevPage !== currentPage && level === 3) {
                 fetchDataByTas(selectedTasNameAndId, dropdownSelection === 'Object Class');
-            }
-            if (prevPage !== currentPage && level === 4) {
-                // todo - need to call setDrilldownLevel here, rather than the fetch fn
-                // fetchDataByTas(selectedTasNameAndId, dropdownSelection === 'Object Class');
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -316,7 +313,6 @@ const StatusOfFunds = ({ fy }) => {
             // you have to send this third param when at this level bc there is no tbr field in the data here
             const parsedData = parseRows(newData, parentData.id, true);
             setResults(parsedData);
-            // todo - do we also need to save this in redux, like the other levels?
         }
 
         setResetPageChange(true);
@@ -342,14 +338,6 @@ const StatusOfFunds = ({ fy }) => {
             if (level === 3) {
                 setLevel(2);
                 if (currentPage === 1) {
-                    fetchTas(selectedFederalAccountNameId);
-                }
-            }
-            if (level === 4) {
-                setLevel(3);
-                if (currentPage === 1) {
-                    // todo - what happens here?
-                    // rather than calling the fetch fn, we have to call setDrilldownLevel, but we need the parent data to do that
                     fetchTas(selectedFederalAccountNameId);
                 }
             }

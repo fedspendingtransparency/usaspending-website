@@ -330,6 +330,7 @@ const StatusOfFundsChart = ({
                 arrayOfMaxValues.push(maxNegTbr);
             }
             else arrayOfMaxValues.push(maxPosTbr);
+
             if (negativeObl) {
                 arrayOfMaxValues.push(maxNegObl);
             }
@@ -704,6 +705,7 @@ const StatusOfFundsChart = ({
                 arrayOfMaxValues.push(maxNegTbr);
             }
             else arrayOfMaxValues.push(maxPosTbr);
+
             if (negativeOutlay) {
                 arrayOfMaxValues.push(maxNegOutlay);
             }
@@ -1023,7 +1025,8 @@ const StatusOfFundsChart = ({
         if (sortedNums?.length > 0) {
             renderChart(toggle);
         }
-    }, [renderChart, sortedNums, textScale, hoverData, toggle]);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [sortedNums, toggle]);
 
     useEffect(() => {
         if (results?.length > 0) {
@@ -1036,8 +1039,6 @@ const StatusOfFundsChart = ({
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [results]);
-
-    console.log('tbrPresent', tbrPresent);
 
     return (
         <>
