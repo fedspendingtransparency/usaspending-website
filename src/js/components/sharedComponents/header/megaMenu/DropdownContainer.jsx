@@ -97,7 +97,7 @@ export default class DropdownContainer extends Component {
 
     render() {
         const {
-            children, direction, animatingOut, tweenConfig
+            children, direction, tweenConfig
         } = this.props;
 
         const [currentDropdown, prevDropdown] = Children.toArray(children);
@@ -105,7 +105,6 @@ export default class DropdownContainer extends Component {
             <div
                 style={dropdownRoot(this.props)}
                 direction={direction}
-                animatingOut={animatingOut}
                 duration={tweenConfig.duration} >
                 <Flipped flipId="dropdown-caret">
                     <div className="caret" />
