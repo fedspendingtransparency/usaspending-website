@@ -8,7 +8,7 @@ import Analytics from 'helpers/analytics/Analytics';
 import AboutTheDataContainer from "containers/aboutTheDataSidebar/AboutTheDataContainer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ExternalLink from 'components/sharedComponents/ExternalLink';
-import NavBar from './NavBar';
+import NavbarWrapper from './NavbarWrapper';
 import InfoBanner from "./InfoBanner";
 
 const clickedHeaderLink = (route) => {
@@ -98,7 +98,7 @@ export default class Header extends React.Component {
                             </div>
                         </div>
                     </div>
-                    <NavBar />
+                    <NavbarWrapper />
                 </header>
                 <AboutTheDataContainer />
                 <GlossaryContainer />

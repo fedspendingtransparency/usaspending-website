@@ -1,0 +1,171 @@
+.mega-menu-container {
+  display: flex;
+  flex-direction: column;
+
+  .navbar-item-title {
+    background-color: transparent;
+    font-family: inherit;
+    font-weight: $font-semibold;
+    font-size: $font-size-16;
+    line-height: 1.25;
+    border: none;
+    padding: 14px 8px;
+    margin: 8px;
+    color: $gray-90;
+    display: flex;
+    justify-content: center;
+    transition: opacity 250ms;
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+
+    &:hover,
+    &:focus {
+      color: $gray-60;
+      outline: none;
+    }
+  }
+
+  .navbar-item-el {
+    position: relative;
+    cursor: pointer;
+
+    &:hover,
+    &:active {
+      color: $gray-60;
+    }
+
+    .navbar-chevron-icon {
+      svg {
+        width: 10.2px;
+        margin-top: 4px;
+        margin-left: 4px;
+      }
+      color: $blue-50;
+    }
+  }
+
+  .dropdown-slot {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    perspective: 1500px;
+    z-index: 150;
+  }
+
+  .dropdown-section {
+    padding: 28px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .navbar-el {
+    margin: auto;
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .navbar-list {
+      display: flex;
+      justify-content: end;
+      list-style: none;
+      margin: 0;
+    }
+  }
+
+  .caret {
+    width: 0;
+    height: 0;
+    border-width: 10px;
+    border-style: solid;
+    border-color: transparent transparent $color-white;
+    /* make sure it's above the main dropdown container so now box-shadow bleeds over it */
+    z-index: 1;
+    position: relative;
+    /* prevent any gap in between caret and main dropdown */
+    top: 1px;
+  }
+
+  .dropdown-background {
+    transform-origin: 0 0;
+    background-color: $color-white;
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    //TODO - This shadow should change with DEV-9700 so it's ok we're not using a variable for now
+    box-shadow: 0 50px 100px rgba(50, 50, 93, 0.1),
+    0 15px 35px rgba(50, 50, 93, 0.15), 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  .fade-container {
+    animation-duration: 300ms;
+  }
+
+  @keyframes dropdown-animate-out {
+    from {
+      transform: rotateX(0);
+      opacity: 1;
+    }
+    to {
+      transform: rotateX(-15deg);
+      opacity: 0;
+    }
+  }
+
+  @keyframes dropdown-animate-in {
+    from {
+      transform: rotateX(-15deg);
+      opacity: 0;
+    }
+    to {
+      transform: rotateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes fade-content-animate-out-left {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(-20px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes fade-content-animate-out-right {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(20px);
+      opacity: 0;
+    }
+  }
+
+  @keyframes fade-content-animate-in-left {
+    from {
+      transform: translateX(20px);
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+
+  @keyframes fade-content-animate-in-right {
+    from {
+      transform: translateX(-20px);
+    }
+    to {
+      transform: translateX(0);
+      opacity: 1;
+    }
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
