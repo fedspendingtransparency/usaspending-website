@@ -180,8 +180,6 @@ const StatusOfFundsChart = ({
         }
         return null;
     };
-    const tooltipHeight = level === 1 ? 280 : 230;
-    const tooltipHeightOutlay = level === 1 ? 280 : 210;
 
     const paddingResize = () => {
         if (isLargeScreen) {
@@ -201,9 +199,11 @@ const StatusOfFundsChart = ({
         }
         return 18;
     };
-
+    let tooltipName = null;
     const tooltip = (data) => {
         if (hoverData) {
+            tooltipName = data.name.length;
+            console.log(tooltipName);
             return (
                 <div className="sof-chart-tooltip">
                     <div className="tooltip__title">
@@ -1008,6 +1008,7 @@ const StatusOfFundsChart = ({
             setSortedNums(results.sort((a, b) => (b._budgetaryResources - a._budgetaryResources)));
         }
     }, [results]);
+
     return (
         <>
             {
@@ -1015,15 +1016,15 @@ const StatusOfFundsChart = ({
                 <TooltipWrapper
                     className="sof_chart-tt"
                     width={288}
-                    styles={!toggle ? {
-                        position: 'absolute',
-                        transform: `translate(${mouseValue.x - 144}px,${mouseValue.y - tooltipHeight}px)`
-                    } : {
-                        position: 'absolute',
-                        transform: `translate(${mouseValue.x - 144}px,${mouseValue.y - tooltipHeightOutlay}px)`
-                    }}
                     tooltipPosition="bottom"
                     tooltipComponent={tooltip(hoverData)}
+                    styles={!toggle ? {
+                        position: 'absolute',
+                        transform: `translate(${mouseValue.x - 144}px,${mouseValue.y - (tooltipName + 200)}px)`
+                    } : {
+                        position: 'absolute',
+                        transform: `translate(${mouseValue.x - 144}px,${mouseValue.y - (tooltipName + 200)}px)`
+                    }}
                     controlledProps={{
                         isControlled: true,
                         isVisible: isHovered,
