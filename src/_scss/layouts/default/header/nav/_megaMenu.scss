@@ -55,15 +55,14 @@
   }
 
   .dropdown-section__wrapper {
-    display: flex;
-
+    display: block;
     @media(min-width: $medium-screen) {
       width: rem(720);
       padding: rem(40);
     }
 
     .dropdown-section__top-columns {
-      display: flex;
+      display: flex !important;
     }
 
     .dropdown-section {
