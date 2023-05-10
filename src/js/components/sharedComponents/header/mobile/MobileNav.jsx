@@ -44,7 +44,7 @@ const MobileNav = (hideMobileNav, location, props) => {
 
     useEffect(() => {
         checkCurrentProfile();
-    }, [location.pathname]);
+    }, [checkCurrentProfile]);
 
 
     return (
@@ -62,7 +62,7 @@ const MobileNav = (hideMobileNav, location, props) => {
                             title="Spending Explorer"
                             name="explorer"
                             onClick={clickedLink}>
-                            Spending Explorer
+                            Search Award Data
                         </Link>
                         <hr className="mobile-nav-content__divider" />
                     </li>

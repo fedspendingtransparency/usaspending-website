@@ -27,9 +27,12 @@ const ItemContent = ({
                         {section1Items.map((item, index) => (
                             <>
                                 <li key={`link-${index}`}>
-                                    {item.icon && item.icon !== '' && item.icon !== null ? <FontAwesomeIcon size="lg" className="" icon={item.icon} /> : ''}<Link to={item.url}>{item.label}</Link>
+                                    {item.icon && item.icon !== '' && item.icon !== null ? <FontAwesomeIcon size="lg" className="" icon={item.icon} /> : ''}
+                                    <div className="dropdown-item__link-desc">
+                                        <Link className="dropdown-item__link-label" to={item.url}>{item.label}</Link>
+                                        <span className="dropdown-item__description">{item.description}</span>
+                                    </div>
                                 </li>
-                                <span className="dropdown-item__description">{item.description}</span>
                             </>
                         ))}
                     </ul>
@@ -44,9 +47,12 @@ const ItemContent = ({
                         {section2Items.map((item, index) => (
                             <>
                                 <li key={`second-section-link-${index}`}>
-                                    {item.icon && item.icon !== '' && item.icon !== null ? <FontAwesomeIcon size="lg" className="" icon={item.icon} /> : ''}<Link to={item.url}>{item.label}</Link>
+                                    {item.icon && item.icon !== '' && item.icon !== null ? <FontAwesomeIcon size="lg" className="" icon={item.icon} /> : ''}
+                                    <div className="dropdown-item__link-desc">
+                                        <Link className="dropdown-item__link-label" to={item.url}>{item.label}</Link>
+                                        <span className="dropdown-item__description">{item.description}</span>
+                                    </div>
                                 </li>
-                                <span className="dropdown-item__description">{item.description}</span>
                             </>
                         ))}
                     </ul>

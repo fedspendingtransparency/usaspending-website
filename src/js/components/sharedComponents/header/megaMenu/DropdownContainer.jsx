@@ -114,7 +114,6 @@ export default class DropdownContainer extends Component {
                         <Flipped inverseFlipId="dropdown" scale>
                             <div>
                                 <div
-                                    style={altBackgroundStyles(this.props)}
                                     /* eslint-disable-next-line no-return-assign */
                                     ref={(el) => (this.altBackgroundEl = el)}
                                     duration={tweenConfig.duration} />

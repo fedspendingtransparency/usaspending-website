@@ -124,8 +124,6 @@ export default class AnimatedNavbar extends Component {
             this.state.activeIndices.length > 1 &&
             this.state.activeIndices[this.state.activeIndices.length - 2];
 
-
-        console.debug(section1Options[currentIndex]?.title);
         if (typeof currentIndex === "number") {
             CurrentDropdown = navbarConfig[currentIndex]?.dropdown;
             currentSection1Props = navbarConfig[currentIndex].section1Items;
