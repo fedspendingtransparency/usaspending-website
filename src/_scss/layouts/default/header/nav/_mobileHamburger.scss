@@ -24,7 +24,7 @@
 
     .mobile-hamburger__meat-buns {
         @include transition(all 0.75s $ease-in-out-sine);
-        background: $color-primary;
+        background: $gray-cool-90;
         display: inline-block;
         height: rem(3);
         left: rem(10);

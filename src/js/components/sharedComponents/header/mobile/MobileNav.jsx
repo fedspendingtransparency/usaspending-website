@@ -1,6 +1,6 @@
 /**
  * MobileNav.jsx
- * Created by Kevin Li 9/15/17
+ * Created by Chas Stevens 5/10/2023
  */
 
 import React, { useEffect, useState } from 'react';
@@ -27,20 +27,21 @@ const propTypes = {
     location: PropTypes.object
 };
 
-const MobileNav = (props) => {
+const MobileNav = (hideMobileNav, location, props) => {
     const [url, setUrl] = useState('');
 
     const clickedLink = (e) => {
         const route = e.target.name;
         clickedHeaderLink(route);
-        props.hideMobileNav();
+        hideMobileNav();
     };
     const checkCurrentProfile = () => {
-        const currentUrl = props.location.pathname;
+        const currentUrl = location.pathname;
         if (url !== currentUrl) {
             setUrl(currentUrl);
         }
     };
+
     useEffect(() => {
         checkCurrentProfile();
     }, [props.location.pathname]);
@@ -54,6 +55,7 @@ const MobileNav = (props) => {
             <div className="mobile-nav-content">
                 <ul className="mobile-nav-content__list">
                     <li className="mobile-nav-content__list-item">
+                        <hr className="mobile-nav-content__divider" />
                         <Link
                             className="mobile-nav-content__link"
                             to="/explorer"
@@ -67,7 +69,7 @@ const MobileNav = (props) => {
                     <li className="mobile-nav-content__list-item">
                         <MobileDropdown
                             {...props}
-                            label="Award Search"
+                            label="Explore the Data"
                             items={spendingOptions}
                             active={url} />
                         <hr className="mobile-nav-content__divider" />
@@ -75,18 +77,17 @@ const MobileNav = (props) => {
                     <li className="mobile-nav-content__list-item">
                         <MobileDropdown
                             {...props}
-                            label="Profiles"
-                            items={profileOptions}
-                            active={url} />
-                        <hr className="mobile-nav-content__divider" />
-                    </li>
-                    <li className="mobile-nav-content__list-item mobile-nav-content__list-item_no-phone">
-                        <MobileDropdown
-                            {...props}
-                            label="Download Center"
+                            label="Download the Data"
                             items={downloadOptions}
                             active={url} />
                         <hr className="mobile-nav-content__divider" />
+                    </li>
+                    <li className="mobile-nav-content__list-item">
+                        <MobileDropdown
+                            {...props}
+                            label="Find Resources"
+                            items={learnResourceOptions}
+                            active={url} />
                     </li>
 
                 </ul>
