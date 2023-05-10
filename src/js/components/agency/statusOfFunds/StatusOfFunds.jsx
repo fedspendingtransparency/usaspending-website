@@ -11,9 +11,9 @@ import { tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { throttle } from "lodash";
 
 import { FlexGridRow, FlexGridCol, Pagination, LoadingMessage, ErrorMessage } from 'data-transparency-ui';
-import { setDataThroughDates, setSelectedSubcomponent, setSelectedFederalAccount, setSelectedTas, setCurrentLevelNameAndId, setLevel4ApiResponse } from "redux/actions/agency/agencyActions";
+import { setDataThroughDates, setSelectedSubcomponent, setSelectedFederalAccount, setSelectedTas, setCurrentLevelNameAndId } from "redux/actions/agency/agencyActions";
 import { fetchSubcomponentsList, fetchFederalAccountsList, fetchTasList, fetchProgramActivityByTas, fetchObjectClassByTas } from 'apis/agency';
-import { parseRows, getLevel5Data } from 'helpers/agency/StatusOfFundsVizHelper';
+import { parseRows } from 'helpers/agency/StatusOfFundsVizHelper';
 import { useStateWithPrevious } from 'helpers';
 import { useLatestAccountData } from 'containers/account/WithLatestFy';
 import BaseStatusOfFundsLevel from 'models/v2/agency/BaseStatusOfFundsLevel';
@@ -231,9 +231,6 @@ const StatusOfFunds = ({ fy }) => {
         const programActivityRequest = request.current;
         programActivityRequest.promise
             .then((res) => {
-                // store the api res in redux so that when the user clicks one of the bars you can use the id
-                // from that click to get the children of that id to set as results for level 5
-                dispatch(setLevel4ApiResponse(res.data.results));
                 const parsedData = parseRows(res.data.results, tas.id);
                 const nameAndId = {
                     name: `${tas.name}`,
@@ -306,13 +303,6 @@ const StatusOfFunds = ({ fy }) => {
         if (selectedLevel === 3) {
             fetchDataByTas(parentData, objectClassFlag);
             dispatch(setSelectedTas(parentData));
-        }
-
-        if (selectedLevel === 4) {
-            const newData = getLevel5Data(parentData.name, level4ApiResponse);
-            // you have to send this third param when at this level bc there is no tbr field in the data here
-            const parsedData = parseRows(newData, parentData.id, true);
-            setResults(parsedData);
         }
 
         setResetPageChange(true);
