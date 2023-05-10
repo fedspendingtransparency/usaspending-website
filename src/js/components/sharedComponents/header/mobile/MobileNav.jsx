@@ -107,7 +107,7 @@ const MobileNav = (hideMobileNav, location, props) => {
                                         title="Spending Explorer"
                                         name="explorer"
                                         onClick={clickedLink}>
-                                        Spending Explorer
+                                        Search Award Data
                                     </Link>
                                     :
                                     <MobileDropdown
