@@ -36,6 +36,9 @@ export const initialState = {
     agencyOutlays: {},
     agencyIds: {},
     selectedSubcomponent: null,
+    selectedFederalAccount: null,
+    selectedTas: null,
+    currentLevelNameAndId: null,
     agencySubcomponentsList,
     awardSpendingDataThroughDate: null
 };
@@ -66,6 +69,21 @@ const agencyReducer = (state = initialState, action) => {
             return {
                 ...state,
                 selectedSubcomponent: action.subcomponent
+            };
+        case 'SET_FEDERAL_ACCOUNT':
+            return {
+                ...state,
+                selectedFederalAccount: action.federalAccount
+            };
+        case 'SET_TAS':
+            return {
+                ...state,
+                selectedTas: action.tas
+            };
+        case 'SET_CURRENT_LEVEL_NAME_AND_ID':
+            return {
+                ...state,
+                currentLevelNameAndId: action.nameAndId
             };
         case 'SET_AGENCY_RECIPIENTS':
             return {

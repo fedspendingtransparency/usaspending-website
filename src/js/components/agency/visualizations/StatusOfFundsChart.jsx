@@ -173,9 +173,11 @@ const StatusOfFundsChart = ({
     const chartLevelText = () => {
         if (level === 0) {
             return <><hr /><div className="tooltip__text-note">Click a sub-component to view <br />Federal Accounts</div></>;
-        } else if (level === 1) {
+        }
+        else if (level === 1) {
             return <><hr /><div className="tooltip__text-note">Click a Federal Account to view <br />Treasury Accounts</div></>;
-        } else if (level === 2) {
+        }
+        else if (level === 2) {
             return <><hr /><div className="tooltip__text-note">Click a Treasury Account to view <br />Program Activities or Object Classes</div></>;
         }
         return null;
@@ -226,13 +228,15 @@ const StatusOfFundsChart = ({
                             {toggle && <div className="tooltip__text-label">FY{fy[2]}{fy[3]} Outlays</div> }
                             {toggle && <div className="tooltip__text-amount">{data.outlays}</div>}
                         </div>
-                        <div className="tooltip__item">
-                            <div
-                                className="tooltip__circle"
-                                style={!toggle ? { backgroundColor: '#BBDFC7' } : { backgroundColor: 'transparent' }} />
-                            {!toggle && <div className="tooltip__text-label">FY{fy[2]}{fy[3]} Total Budgetary<br />Resources</div>}
-                            {!toggle && <div className="tooltip__text-amount">{data.budgetaryResources}</div>}
-                        </div>
+                        {level < 3 && (
+                            <div className="tooltip__item">
+                                <div
+                                    className="tooltip__circle"
+                                    style={!toggle ? { backgroundColor: '#BBDFC7' } : { backgroundColor: 'transparent' }} />
+                                {!toggle && <div className="tooltip__text-label">FY{fy[2]}{fy[3]} Total Budgetary<br />Resources</div>}
+                                {!toggle && <div className="tooltip__text-amount">{data.budgetaryResources}</div>}
+                            </div>
+                        )}
                         {chartLevelText()}
                     </div>
                 </div>
@@ -586,7 +590,7 @@ const StatusOfFundsChart = ({
             svg.selectAll(".y-axis-labels").append("svg:title")
                 .text((d) => d);
 
-            // remove the drilldown functionality levels greater than maxLevel
+            // remove the drilldown functionality for levels greater than maxLevel
             if (level >= maxLevel) {
                 svg.selectAll(".bar-group").on('click', null);
                 svg.selectAll(".bar-group").on('keypress', null);
@@ -959,7 +963,7 @@ const StatusOfFundsChart = ({
             // tooltip hover for label text
             svg.selectAll(".y-axis-labels").append("svg:title")
                 .text((d) => d);
-            // remove the drilldown functionality levels greater than maxLevel
+            // remove the drilldown functionality for levels greater than maxLevel
             if (level >= maxLevel) {
                 svg.selectAll(".bar-group").on('click', null);
                 svg.selectAll(".bar-group").on('keypress', null);
@@ -1040,22 +1044,24 @@ const StatusOfFundsChart = ({
                     }} />
             }
             {isMobile &&
-            <FlexGridRow className="legend" style={{ flexDirection: isLargeScreen ? 'column' : 'row' }}>
-                <div className="legend__item">
-                    <div
-                        className="legend__circle"
-                        style={!toggle ? { backgroundColor: '#2B71B8' } : { backgroundColor: '#FFBE2E' }} />
-                    {!toggle && <div className="legend__text">FY{fy[2]}{fy[3]} Obligations</div>}
-                    {toggle && <div className="legend__text">FY{fy[2]}{fy[3]} Outlays</div>}
-                &nbsp;&nbsp;&nbsp;&nbsp;
-                </div>
-                <div className="legend__item">
-                    <div
-                        className="legend__circle"
-                        style={!toggle ? { backgroundColor: '#BBDFC7' } : { display: 'transparent' }} />
-                    {!toggle && <div className="legend__text">FY{fy[2]}{fy[3]} Total Budgetary Resources</div>}
-                </div>
-            </FlexGridRow>
+                <FlexGridRow className="legend" style={{ flexDirection: isLargeScreen ? 'column' : 'row' }}>
+                    <div className="legend__item">
+                        <div
+                            className="legend__circle"
+                            style={!toggle ? { backgroundColor: '#2B71B8' } : { backgroundColor: '#FFBE2E' }} />
+                        {!toggle && <div className="legend__text">FY{fy[2]}{fy[3]} Obligations</div>}
+                        {toggle && <div className="legend__text">FY{fy[2]}{fy[3]} Outlays</div>}
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                    </div>
+                    {level < 3 && (
+                        <div className="legend__item">
+                            <div
+                                className="legend__circle"
+                                style={!toggle ? { backgroundColor: '#BBDFC7' } : { display: 'transparent' }} />
+                            {!toggle && <div className="legend__text">FY{fy[2]}{fy[3]} Total Budgetary Resources</div>}
+                        </div>
+                    )}
+                </FlexGridRow>
             }
             <div id="sof_chart" className="status-of-funds__visualization" ref={chartRef} />
             {!isMobile &&
@@ -1068,12 +1074,14 @@ const StatusOfFundsChart = ({
                         {toggle && <div className="legend__text">FY{fy[2]}{fy[3]} Outlays</div>}
                         &nbsp;&nbsp;&nbsp;&nbsp;
                     </div>
-                    <div className="legend__item">
-                        <div
-                            className="legend__circle"
-                            style={!toggle ? { backgroundColor: '#BBDFC7' } : { display: 'transparent' }} />
-                        {!toggle && <div className="legend__text">FY{fy[2]}{fy[3]} Total Budgetary Resources</div>}
-                    </div>
+                    {level < 3 && (
+                        <div className="legend__item">
+                            <div
+                                className="legend__circle"
+                                style={!toggle ? { backgroundColor: '#BBDFC7' } : { display: 'transparent' }} />
+                            {!toggle && <div className="legend__text">FY{fy[2]}{fy[3]} Total Budgetary Resources</div>}
+                        </div>
+                    )}
                 </FlexGridRow>
             }
         </>
