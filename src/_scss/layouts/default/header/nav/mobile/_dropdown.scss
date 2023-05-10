@@ -33,9 +33,38 @@
             svg {
                 width: rem(6);
                 height: rem(9.8);
-                fill: $blue-50;                            
+                fill: $blue-50;
             }
         }
+    }
+
+    .mobile-dropdown__layout-container {
+        display: flex;
+        flex-direction: column;
+
+        .mobile-dropdown__title {
+
+        }
+
+        .mobile-dropdown__sub {
+
+        }
+
+        .mobile-dropdown__section-row-one {
+            display: flex;
+            flex-direction: column;
+
+            .mobile-dropdown__section-icon {
+
+            }
+            .mobile-dropdown__section-label {
+
+            }
+        }
+        .mobile-dropdown__section-description {
+
+        }
+
     }
 
     ul.mobile-dropdown__list {

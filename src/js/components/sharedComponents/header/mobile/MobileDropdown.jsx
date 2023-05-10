@@ -6,7 +6,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from 'prop-types';
-import { AngleLeft, AngleRight } from 'components/sharedComponents/icons/Icons';
 import MobileDropdownItem from './MobileDropdownItem';
 
 const propTypes = {
@@ -14,12 +13,20 @@ const propTypes = {
     active: PropTypes.string,
     title: PropTypes.string,
     label: PropTypes.string.isRequired,
-    items: PropTypes.array.isRequired
+    section1Items: PropTypes.array,
+    section2Items: PropTypes.array,
+    section3Items: PropTypes.array,
+    section1Options: PropTypes.array,
+    section2Options: PropTypes.array,
+    section3Options: PropTypes.array,
+    index: PropTypes.number
 };
 
 export default class MobileDropdown extends React.Component {
     constructor(props) {
         super(props);
+
+        console.log('props', props);
 
         this.state = {
             expandedDropdown: false
@@ -42,27 +49,27 @@ export default class MobileDropdown extends React.Component {
     }
 
     render() {
-
         let hideList = '';
         if (!this.state.expandedDropdown) {
             hideList = 'mobile-dropdown__list_hide';
         }
 
 
-        const items = this.props.items.map((item) => (
-            <MobileDropdownItem
-                {...item}
-                key={item.url}
-                comingSoon={!item.enabled}
-                title={item.label}
-                isNewTab={item.isNewTab}
-                url={item.url}
-                active={item.url === this.props.active}
-                externalLink={item.externalLink}
-                hideMobileNav={this.props.hideMobileNav} />
-        ));
+        // const items = this.props.items.map((item) => (
+        //     <MobileDropdownItem
+        //         {...item}
+        //         key={item.url}
+        //         comingSoon={!item.enabled}
+        //         title={item.label}
+        //         isNewTab={item.isNewTab}
+        //         url={item.url}
+        //         active={item.url === this.props.active}
+        //         externalLink={item.externalLink}
+        //         hideMobileNav={this.props.hideMobileNav} />
+        // ));
 
-        const containsNewNavItem = this.props.items.some(({ isNewTab }) => isNewTab);
+        // TODO - REPLACE THIS WITH AN INDIVIDUAL PROP FOR NEW ITEM
+        // const containsNewNavItem = this.props.items.some(({ isNewTab }) => isNewTab);
 
         return (
             <div className="mobile-dropdown">
@@ -71,11 +78,11 @@ export default class MobileDropdown extends React.Component {
                     title={this.props.title || this.props.label}
                     onClick={this.toggleDropdown}>
                     <span className="mobile-dropdown__parent-label">
-                        {containsNewNavItem &&
-                            <div className="new-badge-outer">
-                                <FontAwesomeIcon icon="circle" />
-                            </div>
-                        }
+                        {/* {containsNewNavItem && */}
+                        {/*     <div className="new-badge-outer"> */}
+                        {/*         <FontAwesomeIcon icon="circle" /> */}
+                        {/*     </div> */}
+                        {/* } */}
                         {this.props.label}
                     </span>
                     <span className="mobile-dropdown__parent-icon">
@@ -84,7 +91,7 @@ export default class MobileDropdown extends React.Component {
                 </button>
 
                 <ul className={`mobile-dropdown__list ${hideList}`}>
-                    {items}
+                    <MobileDropdownItem {...this.props} />
                 </ul>
             </div>
         );

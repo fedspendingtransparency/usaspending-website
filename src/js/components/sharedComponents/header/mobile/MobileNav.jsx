@@ -18,8 +18,7 @@ import {
     allDownloadOptions,
     section1Options,
     section2Options,
-    section3Options,
-    downloadOptions
+    section3Options
 } from 'dataMapping/navigation/menuOptions';
 import MobileTop from './MobileTop';
 import MobileDropdown from './MobileDropdown';
@@ -111,9 +110,16 @@ const MobileNav = (hideMobileNav, location, props) => {
                                     </Link>
                                     :
                                     <MobileDropdown
+                                        {...props}
                                         label={navbarConfig[index].title}
                                         title={navbarConfig[index].title}
-                                        items={navbarConfig[index].section1Items}
+                                        section1Items={navbarConfig[index].section1Items}
+                                        section2Items={navbarConfig[index].section2Items}
+                                        section3Items={navbarConfig[index].section3Items}
+                                        section1Options={navbarConfig[index].section1Options}
+                                        section2Options={navbarConfig[index].section2Options}
+                                        section3Options={navbarConfig[index].section3Options}
+                                        index={index}
                                         active={url} />
                                 }
                             </li>
