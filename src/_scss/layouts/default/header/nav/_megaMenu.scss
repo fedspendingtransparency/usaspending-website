@@ -115,6 +115,11 @@
             background: $gray-cool-3;
             border-radius: rem(8);
             cursor: pointer;
+
+            svg {
+              background-color: $blue-warm-10;
+              color: $blue-warm-80;
+            }
           }
 
           svg {
