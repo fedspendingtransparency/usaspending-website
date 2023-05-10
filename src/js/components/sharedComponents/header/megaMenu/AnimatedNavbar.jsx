@@ -8,7 +8,10 @@ import {
     developerOptions,
     awardDownloadOptions,
     accountDataOptions,
-    allDownloadOptions
+    allDownloadOptions,
+    section1Options,
+    section2Options,
+    section3Options
 } from 'dataMapping/navigation/menuOptions';
 import Navbar from "./Navbar";
 import DropdownContainer from "./DropdownContainer";
@@ -25,10 +28,9 @@ const navbarConfig = [
         section1Items: spendingOptions,
         section2Items: profileOptions,
         dropdown: ItemContent,
-        section1Title: "Spending Explorer",
-        section1Sub: "Annual federal spending through three different starting points",
-        section2Title: "Profiles",
-        section2Sub: "Federal spending through interactive snapshots"
+        section1Options,
+        section2Options,
+        section3Options
     },
     {
         title: "Download the Data",
@@ -36,14 +38,9 @@ const navbarConfig = [
         section2Items: accountDataOptions,
         section3Items: allDownloadOptions,
         dropdown: ItemContent,
-        section1Title: "Award Data",
-        section2Title: "Account Data",
-        section3Title: "All Data",
-        section1Sub: "Data about contracts, grants, loans, and other awards that the federal government has made",
-        section2Sub: "Data from agency financial submissions, covering both award and non-award spending",
-        section1Icon: "hand-holding-usd",
-        section2Icon: "money-bill-wave",
-        section3Icon: "server"
+        section1Options,
+        section2Options,
+        section3Options
     },
     {
         title: "Find Resources",
@@ -51,12 +48,9 @@ const navbarConfig = [
         section2Items: referenceMaterialsOptions,
         section3Items: developerOptions,
         dropdown: ItemContent,
-        section1Title: "Learn",
-        section2Title: "Reference Materials",
-        section3Title: "For Developers",
-        section1Icon: "graduation-cap",
-        section2Icon: "book-open",
-        section3Icon: "code-branch"
+        section1Options,
+        section2Options,
+        section3Options
     }
 ];
 
@@ -130,23 +124,25 @@ export default class AnimatedNavbar extends Component {
             this.state.activeIndices.length > 1 &&
             this.state.activeIndices[this.state.activeIndices.length - 2];
 
+
+        console.debug(section1Options[currentIndex]?.title);
         if (typeof currentIndex === "number") {
             CurrentDropdown = navbarConfig[currentIndex]?.dropdown;
             currentSection1Props = navbarConfig[currentIndex].section1Items;
             currentSection2Props = navbarConfig[currentIndex].section2Items;
             currentSection3Props = navbarConfig[currentIndex].section3Items;
 
-            currentSection1Title = navbarConfig[currentIndex].section1Title;
-            currentSection2Title = navbarConfig[currentIndex].section2Title;
-            currentSection3Title = navbarConfig[currentIndex].section3Title;
+            currentSection1Title = navbarConfig[currentIndex].section1Options[currentIndex]?.title;
+            currentSection2Title = navbarConfig[currentIndex].section2Options[currentIndex]?.title;
+            currentSection3Title = navbarConfig[currentIndex].section3Options[currentIndex]?.title;
 
-            currentSection1Sub = navbarConfig[currentIndex].section1Sub;
-            currentSection2Sub = navbarConfig[currentIndex].section2Sub;
-            currentSection3Sub = navbarConfig[currentIndex].section3Sub;
+            currentSection1Sub = navbarConfig[currentIndex].section1Options[currentIndex]?.sub;
+            currentSection2Sub = navbarConfig[currentIndex].section2Options[currentIndex]?.sub;
+            currentSection3Sub = navbarConfig[currentIndex].section3Options[currentIndex]?.sub;
 
-            currentSection1Icon = navbarConfig[currentIndex].section1Icon;
-            currentSection2Icon = navbarConfig[currentIndex].section2Icon;
-            currentSection3Icon = navbarConfig[currentIndex].section3Icon;
+            currentSection1Icon = navbarConfig[currentIndex].section1Options[currentIndex]?.icon;
+            currentSection2Icon = navbarConfig[currentIndex].section2Options[currentIndex]?.icon;
+            currentSection3Icon = navbarConfig[currentIndex].section3Options[currentIndex]?.icon;
         }
         else if (typeof prevIndex === "number") {
             PrevDropdown = navbarConfig[prevIndex].dropdown;

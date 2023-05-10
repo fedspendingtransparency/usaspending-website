@@ -370,6 +370,11 @@ export const resourceOptions = [
 
 export const section1Options = [
     {
+        title: '',
+        sub: '',
+        icon: ''
+    },
+    {
         title: 'Spending Explorer',
         sub: 'Annual federal spending through three different starting points',
         icon: ''
@@ -387,6 +392,11 @@ export const section1Options = [
 ];
 export const section2Options = [
     {
+        title: '',
+        sub: '',
+        icon: ''
+    },
+    {
         title: 'Profiles',
         sub: 'Federal spending through interactive snapshots',
         icon: ''
@@ -403,6 +413,11 @@ export const section2Options = [
     }
 ];
 export const section3Options = [
+    {
+        title: '',
+        sub: '',
+        icon: ''
+    },
     {
         title: '',
         sub: '',
