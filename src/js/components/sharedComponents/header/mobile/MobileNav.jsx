@@ -44,7 +44,7 @@ const MobileNav = (hideMobileNav, location, props) => {
 
     useEffect(() => {
         checkCurrentProfile();
-    }, [props.location.pathname]);
+    }, [location.pathname]);
 
 
     return (

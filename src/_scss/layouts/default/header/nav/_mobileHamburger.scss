@@ -34,7 +34,7 @@
         &::before,
         &::after {
             content: "";
-            background: $color-primary;
+            background: $gray-cool-90;
             display: block;
             height: rem(3);
             position: absolute;
