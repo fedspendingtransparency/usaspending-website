@@ -18,7 +18,7 @@ const ItemContent = ({
 }) => (
     <div className="dropdown-section__wrapper">
         <div className="dropdown-section__top-columns">
-            <div className="dropdown-section" data-first-dropdown-section>
+            <div className="dropdown-section first-dropdown-section" data-first-dropdown-section>
                 <div>
                     {section1Icon && section1Icon !== null && section1Icon !== '' ? <FontAwesomeIcon size="lg" className="" icon={section1Icon} /> : ''}<p className="dropdown-section__section-title">{section1Title}</p>
                     {section1Sub !== null && section1Sub !== undefined && section1Sub !== '' ?

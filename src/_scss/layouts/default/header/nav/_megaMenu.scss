@@ -64,6 +64,10 @@
 
     .dropdown-section__top-columns {
       display: flex !important;
+
+      .first-dropdown-section {
+        margin-right: $global-margin * 4;
+      }
     }
 
     .dropdown-section {
@@ -105,6 +109,13 @@
           margin-top: $global-margin * 2;
           margin-bottom: $global-margin * .5;
           display: flex;
+          padding: $global-padding;
+
+          &:hover {
+            background: $gray-cool-3;
+            border-radius: rem(8);
+            cursor: pointer;
+          }
 
           svg {
             background-color: $blue-warm-5;
