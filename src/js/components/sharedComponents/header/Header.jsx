@@ -1,12 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-// eslint-disable-next-line import/no-extraneous-dependencies
+import { Link } from 'react-router-dom';
+
 import GlossaryContainer from 'containers/glossary/GlossaryContainer';
 import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
+import Analytics from 'helpers/analytics/Analytics';
 import AboutTheDataContainer from "containers/aboutTheDataSidebar/AboutTheDataContainer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ExternalLink from 'components/sharedComponents/ExternalLink';
-import NavBar from './NavBar';
+import NavbarWrapper from './NavbarWrapper';
 import InfoBanner from "./InfoBanner";
 import GovBanner from "./GovBanner";
 
