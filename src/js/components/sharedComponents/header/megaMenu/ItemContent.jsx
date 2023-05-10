@@ -1,35 +1,74 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const ItemContent = ({ items }) => (
-    <div>
+const ItemContent = ({
+    section1Title,
+    section2Title,
+    section3Title,
+    section1Items,
+    section2Items,
+    section3Items,
+    section1Sub,
+    section2Sub,
+    section3Sub,
+    section1Icon,
+    section2Icon,
+    section3Icon
+}) => (
+    <div className="dropdown-section__wrapper">
         <div className="dropdown-section" data-first-dropdown-section>
             <div>
-                <p>Section 1</p>
+                {section1Icon && section1Icon !== null && section1Icon !== '' ? <FontAwesomeIcon className="" icon={section1Icon} /> : ''}<p>{section1Title}</p>
+                {section1Sub !== null && section1Sub !== undefined && section1Sub !== '' ?
+                    <span className="dropdown-section__section-subtitle">{section1Sub}</span> : ''}
                 <ul>
-                    {items.map((item, index) => (
-                        <li key={`link-${index}`}>
-                            <Link to={item.url}>{item.label}</Link>
-                        </li>
+                    {section1Items.map((item, index) => (
+                        <>
+                            <li key={`link-${index}`}>
+                                {item.icon && item.icon !== '' && item.icon !== null ? <FontAwesomeIcon className="" icon={item.icon} /> : ''}<Link to={item.url}>{item.label}</Link>
+                            </li>
+                            <span>{item.description}</span>
+                        </>
                     ))}
                 </ul>
             </div>
         </div>
         <div className="dropdown-section">
             <div>
-                <p>Section 2</p>
+                {section2Icon && section2Icon !== null && section2Icon !== '' ? <FontAwesomeIcon className="" icon={section2Icon} /> : ''}<p>{section2Title}</p>
+                {section2Sub !== null && section2Sub !== undefined && section2Sub !== '' ?
+                    <span className="dropdown-section__section-subtitle">{section2Sub}</span> : ''}
                 <ul>
-                    <li>
-                        <a href="/">Stripe Atlas &rsaquo;</a>
-                    </li>
-                    <li>
-                        <a href="/">Stripe Home &rsaquo;</a>
-                    </li>
+                    {section2Items.map((item, index) => (
+                        <>
+                            <li key={`link-${index}`}>
+                                {item.icon && item.icon !== '' && item.icon !== null ? <FontAwesomeIcon className="" icon={item.icon} /> : ''}<Link to={item.url}>{item.label}</Link>
+                            </li>
+                            <span>{item.description}</span>
+                        </>
+                    ))}
                 </ul>
             </div>
         </div>
-
-
+        {section3Title !== null && section3Title !== undefined && section3Title !== '' ?
+            <div className="dropdown-section">
+                <div>
+                    {section3Icon && section3Icon !== null && section3Icon !== '' ? <FontAwesomeIcon className="" icon={section3Icon} /> : ''}<p>{section3Title}</p>
+                    {section3Sub !== null && section3Sub !== undefined && section3Sub !== '' ?
+                        <span className="dropdown-section__section-subtitle">{section3Sub}</span> : ''}
+                    <ul>
+                        {section3Items.map((item, index) => (
+                            <>
+                                <li key={`link-${index}`}>
+                                    <Link to={item.url}>{item.label}</Link>
+                                </li>
+                                <span>{item.description}</span>
+                            </>
+                        ))}
+                    </ul>
+                </div>
+            </div> : ''}
     </div>
 
 );
