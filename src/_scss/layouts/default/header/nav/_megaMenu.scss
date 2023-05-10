@@ -9,8 +9,8 @@
     font-size: $font-size-16;
     line-height: 1.25;
     border: none;
-    padding: 14px 8px;
-    margin: 8px;
+    padding: rem(14) $global-padding;
+    margin: $global-margin;
     color: $gray-90;
     display: flex;
     justify-content: center;
@@ -38,8 +38,8 @@
     .navbar-chevron-icon {
       svg {
         width: 10.2px;
-        margin-top: 4px;
-        margin-left: 4px;
+        margin-top: $global-margin * .5;
+        margin-left: $global-margin * .5;
       }
 
       color: $blue-50;
@@ -55,15 +55,15 @@
   }
 
   .dropdown-section__wrapper {
-    display: flex;
+    display: block;
 
     @media(min-width: $medium-screen) {
       width: rem(720);
-      padding: rem(40);
+      padding: $global-padding * 5;
     }
 
     .dropdown-section__top-columns {
-      display: flex;
+      display: flex !important;
     }
 
     .dropdown-section {
@@ -82,7 +82,7 @@
       }
 
       .dropdown-section__section-subtitle {
-        margin: rem(4) 0 0;
+        margin: $global-margin*.5 0 0;
         font-size: $font-size-12;
         font-weight: normal;
         font-stretch: normal;
@@ -99,6 +99,30 @@
       .dropdown-section__section-list {
         margin: 0 !important;
         padding: 0;
+
+        li {
+          margin-top: $global-margin * 2;
+          margin-bottom: $global-margin * .5;
+
+          svg {
+            background-color: $blue-warm-5;
+            color: $blue-warm-60;
+            padding: $global-padding * .5;
+            border-radius: rem(4);
+            margin-right: $global-margin;
+          }
+        }
+
+        .dropdown-item__description {
+          margin: $global-margin * .5 0 0 $global-margin;
+          font-size: $font-size-12;
+          font-weight: normal;
+          font-stretch: normal;
+          font-style: normal;
+          line-height: 1.5;
+          letter-spacing: normal;
+          color: $gray-60;
+        }
       }
     }
   }
