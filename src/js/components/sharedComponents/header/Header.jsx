@@ -1,10 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 
 import GlossaryContainer from 'containers/glossary/GlossaryContainer';
 import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
-import Analytics from 'helpers/analytics/Analytics';
 import AboutTheDataContainer from "containers/aboutTheDataSidebar/AboutTheDataContainer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import ExternalLink from 'components/sharedComponents/ExternalLink';
@@ -54,7 +52,7 @@ export default class Header extends React.Component {
                         title={<>Love using USAspending.gov?&nbsp;<br className="info-banner__linebreak" />Tell us more!</>}
                         content={<>USAspending.gov is looking to share stories of how federal spending data has improved your life or increased your trust in government.&nbsp;<ExternalLink isCard url="https://forms.office.com/g/neemMd2J4a">Share your story and you may be featured in an upcoming USAspending Youtube video!</ExternalLink></>} />
                     <GovBanner />
-                    <NavBar />
+                    <NavbarWrapper />
                 </header>
                 <AboutTheDataContainer />
                 <GlossaryContainer />

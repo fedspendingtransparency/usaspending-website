@@ -1,10 +1,47 @@
 // uswds overrides
 
-.usa-banner__inner {
-  margin-left: 0;
-}
+//.usa-banner__inner {
+//  margin-left: 0;
+//}
+//
+//usa-banner__header-text {
+//  font-size: rem(12.8);
+//}
 
-usa-banner__header-text {
-  font-size: rem(12.8);
+.usa-banner {
+  @media(max-width: $tablet-screen) {
+    margin: rem(16) rem(16) rem(16) rem(20);
+  }
+  @media(min-width: $tablet-screen) {
+    margin: rem(16) rem(16) rem(16) rem(20);
+  }
+  @media(min-width: $large-screen) {
+    margin: rem(16) rem(36) rem(16) rem(40);
+  }
+  @media(min-width: $x-large-screen) {
+    margin: rem(16) auto;
+    max-width: rem(1600);
+  }
+
+  @include button-unstyled;
+
+  .usa-banner__header-text {
+    font-size: rem(12.8);
+  }
+
+  .usa-banner__header-action {
+    width: 114px;
+    height: 15px;
+    margin: 0 2px 1px 0;
+    font-family: SourceSansPro;
+    font-size: 12.8px;
+    font-weight: normal;
+    font-stretch: normal;
+    font-style: normal;
+    line-height: 1.1;
+    letter-spacing: normal;
+    text-align: left;
+    color: #2378c3;
+  }
 }
 

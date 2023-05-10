@@ -1,4 +1,5 @@
 import React from 'react';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const GovBanner = () => {
     return(
@@ -11,12 +12,15 @@ const GovBanner = () => {
                             {/*className="usa-banner__header-flag" alt="U.S. flag"*/}
                             {/*src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEAAAAAsCAIAAABaPSmoAAAABGdBTUEAALGPC/xhBQAAADhlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAAqACAAQAAAABAAAAQKADAAQAAAABAAAALAAAAAA5W/rGAAABlElEQVRoBe2ZTU4DMQyFYzTLXoHOhhsAW24AR4GzFdb8iC2cABaoPUYXDFKlJt+TSJtZpFEkd+W4jhPnOX5Jxs4vV2H/M7O9GMI0JRkStbAOooef98V97L39pVVUh7yfZJOZTjhLJn1KHkBr3Abm3/rjNs5nvHqM8vrzLspZ/fVTtOH+GV9/kr6C5ClUYVFnueweAVuCByR01HLmtNgUNJ4XD9FqQjHn3vufHWK3nZCbTvcIeAAK9OlbQ0ByMUc3BZywBFdsyBXghIs354GDsPoeOLg8J/jTmMfcA6zTnAdrtthgL5E3yAPUix9xlEYDbWTvDJ5Cab3aSN0jMDAvpZajxhfdB2BPbnEeOJKZ3adQ9wGYvAsBLqnTBXqYyBvRC96FpK6j9lNPPyVy9wh4ACUw17Qxnn9qDlTLt6dQrZUt9ds9AvZ1Mx4NVr4boMrPrd+ZKwOPTjyaybxyfbtHwAMQnBs0nAcaLLoM6XtAlqNBw77BA3IHyJzXhRNyRIC+oI3Agj/3DMZx2ddTqEHWyJDdI/AHdI1y3pPhjf8AAAAASUVORK5CYII=">*/}
                         </div>
-                        <div className="grid-col-fill tablet:grid-col-auto" data-testid="banner-header-grid-div"><p
-                            className="usa-banner__header-text">An official website of the United States government</p><p
-                            className="usa-banner__header-action" aria-hidden="true">Here’s how you know</p></div>
-                        <button type="button" className="usa-accordion__button usa-banner__button" aria-expanded="false"
-                                aria-controls="gov-banner"><span className="usa-banner__button-text">Here’s how you know</span>
-                        </button>
+                        <div className="grid-col-fill tablet:grid-col-auto" data-testid="banner-header-grid-div">
+                            <div className="usa-banner__header-text">An official website of the United States government&nbsp;
+                                <button type="button" className="usa-accordion__button usa-banner__button" aria-expanded="false"
+                                        aria-controls="gov-banner"><span className="usa-banner__button-text">Here’s how you know
+                                    <FontAwesomeIcon icon="chevron-up" alt="Expanded menu" /></span>
+                                </button>
+                            </div>
+                        </div>
+
                     </div>
                 </header>
                 <div className="usa-banner__content usa-accordion__content" hidden="" id="gov-banner">
