@@ -19,7 +19,7 @@ const ItemContent = ({
     <div className="dropdown-section__wrapper">
         <div className="dropdown-section" data-first-dropdown-section>
             <div>
-                <p>{section1Title}</p>
+                {section1Icon ? <FontAwesomeIcon className="" icon={section1Icon} /> : ''}<p>{section1Title}</p>
                 {section1Sub !== null && section1Sub !== undefined && section1Sub !== '' ?
                     <span className="dropdown-section__section-subtitle">{section1Sub}</span> : ''}
                 <ul>
@@ -33,7 +33,7 @@ const ItemContent = ({
         </div>
         <div className="dropdown-section">
             <div>
-                <p>{section2Title}</p>
+                {section2Icon ? <FontAwesomeIcon className="" icon={section2Icon} /> : ''}<p>{section2Title}</p>
                 {section2Sub !== null && section2Sub !== undefined && section2Sub !== '' ?
                     <span className="dropdown-section__section-subtitle">{section2Sub}</span> : ''}
                 <ul>
@@ -48,7 +48,7 @@ const ItemContent = ({
         {section3Title !== null && section3Title !== undefined && section3Title !== '' ?
             <div className="dropdown-section">
                 <div>
-                    <p>{section3Title}</p>
+                    {section3Icon ? <FontAwesomeIcon className="" icon={section3Icon} /> : ''}<p>{section3Title}</p>
                     {section3Sub !== null && section3Sub !== undefined && section3Sub !== '' ?
                         <span className="dropdown-section__section-subtitle">{section3Sub}</span> : ''}
                     <ul>
