@@ -4,13 +4,38 @@
   min-height: 24px;
   display: flex;
 
-  .close-button {
+  .usa-banner-close {
     display: none;
   }
   &.open {
     height: 100%;
-    .close-button {
-      align-self: end;
+
+    @media(max-width: $tablet-screen) {
+      .usa-banner__button {
+        display: none;
+      }
+      .usa-banner__header-text > span {
+        display: inline-block;
+        width: 200px;
+      }
+    }
+
+    .usa-banner-close {
+      @media(min-width: $tablet-screen) {
+        display: none;
+      }
+      display: block;
+      position: absolute;
+      background-color: $gray-10;
+      right: 2.2px;
+      height: 48px;
+      width: 48px;
+      margin-top: -4px;
+      .fa-times {
+        color: $blue-60v;
+        width: 100%;
+        height: 100%;
+      }
     }
   }
 }
@@ -77,12 +102,17 @@
 
     @media(min-width: $tablet-screen) {
       flex-direction: row;
-
+      > .usa-banner__guidance {
+        margin: rem(24);
+      }
     }
 
-    .usa-banner__guidance {
-      margin: rem(24);
+    > .usa-banner__guidance {
+      margin: 40px 0 0 16px;
+    }
 
+    > .usa-banner__guidance ~ .usa-banner__guidance {
+      margin: 24px 0 24px 16px;
     }
 
     &.closed {

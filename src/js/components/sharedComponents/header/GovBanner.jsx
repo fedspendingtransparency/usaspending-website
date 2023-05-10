@@ -7,6 +7,10 @@ const GovBanner = () => {
         setAccordionOpen((prevState) => !prevState);
     };
 
+    const closeAccordion = () => {
+        setAccordionOpen(false);
+    };
+
     return (
         <div className={`usa-banner__wrapper ${accordionOpen ? "open" : ""}`}>
             <section className="usa-banner" data-testid="govBanner">
@@ -17,20 +21,23 @@ const GovBanner = () => {
                                 className="usa-banner__header-flag"
                                 alt="U.S. flag"
                                 src="img/uswds/us_flag_small.png" />
-                            <div style={{ justifyContent: "space-between" }}>
-                                <div className="usa-banner__header-text">&nbsp;&nbsp;An official website of the United States government&nbsp;
-                                    <button
-                                        type="button"
-                                        onClick={toggleAccordion}
-                                        className="usa-accordion__button usa-banner__button"
-                                        aria-expanded="false"
-                                        aria-controls="gov-banner">
-                                        <span className="usa-banner__button-text">Here’s how you know</span>
-                                        <span>&nbsp;&nbsp;</span>
-                                        <FontAwesomeIcon width="11.7px" icon={accordionOpen === true ? "chevron-up" : "chevron-down"} alt="Expanded menu" />
-                                    </button>
-                                </div>
-                                <div className="close-button">here</div>
+                            <div className="usa-banner__header-text">&nbsp;&nbsp;<span>An official website of the <span style={{ whiteSpace: 'nowrap' }}>United States government&nbsp;</span></span>
+                                <button
+                                    type="button"
+                                    onClick={toggleAccordion}
+                                    className="usa-accordion__button usa-banner__button"
+                                    aria-expanded="false"
+                                    aria-controls="gov-banner">
+                                    <span className="usa-banner__button-text">Here’s how you know</span>
+                                    <span>&nbsp;&nbsp;</span>
+                                    <FontAwesomeIcon width="11.7px" icon={accordionOpen === true ? "chevron-up" : "chevron-down"} alt="Expanded menu" />
+                                </button>
+                            </div>
+                            {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
+                            <div
+                                className="usa-banner-close"
+                                onClick={closeAccordion}>
+                                <FontAwesomeIcon icon="times" alt="Close Menu" />
                             </div>
                         </div>
                     </header>
