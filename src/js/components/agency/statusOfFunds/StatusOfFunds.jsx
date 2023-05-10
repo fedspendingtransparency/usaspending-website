@@ -61,11 +61,6 @@ const StatusOfFunds = ({ fy }) => {
         name: useSelector((state) => state.agency.selectedTas?.name)
     };
 
-    // this one is used to get level 5 data, which is sent as children array of level 4 data
-    const level4ApiResponse = {
-        res: useSelector((state) => state.agency.level4ApiResponse)
-    };
-
     const maxLevel = 3;
 
     // TODO not sure if this is necessary
