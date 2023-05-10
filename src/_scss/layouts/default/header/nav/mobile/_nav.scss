@@ -1,11 +1,11 @@
 .mobile-nav-content {
     ul.mobile-nav-content__list {
         @include unstyled-list;
-        margin-top: rem(50);
+        margin-top: rem(0);
 
         li.mobile-nav-content__list-item {
             text-align: left;
-            padding: rem(0) rem(32);
+            padding: rem(0) rem(16);
             &.mobile-nav-content__list-item_no-phone {
                 @media screen and (max-width: 450px) {
                     display: none;
@@ -17,7 +17,7 @@
             color: $gray-90;
             font-weight: $font-semibold;
             font-size: $font-size-16;
-            line-height: rem(36);
+            line-height: 1.25;
             &:active, &:hover {
                 text-decoration: none;
                 opacity: 1;

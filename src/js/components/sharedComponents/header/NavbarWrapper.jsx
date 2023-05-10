@@ -33,7 +33,7 @@ const NavbarWrapper = () => {
 
     const displayMobileNav = () => {
     // disable body scrolling
-        siteBody.classList.add('show-mobile-nav');
+        // siteBody.classList.add('show-mobile-nav');
         setShowMobileNav(true);
     };
 

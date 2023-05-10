@@ -108,7 +108,7 @@ export const learnResourceOptions = [
         shouldOpenNewTab: false,
         enabled: true,
         externalLink: false,
-        isNewTab: true
+        isNewTab: false
     }
 ];
 export const referenceMaterialsOptions = [
@@ -319,7 +319,7 @@ export const resourceOptions = [
         shouldOpenNewTab: false,
         enabled: true,
         externalLink: false,
-        isNewTab: true
+        isNewTab: false
 
     },
     {

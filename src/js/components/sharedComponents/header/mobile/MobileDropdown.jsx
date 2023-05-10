@@ -4,11 +4,9 @@
  */
 
 import React from 'react';
-import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import PropTypes from 'prop-types';
 import { AngleLeft, AngleRight } from 'components/sharedComponents/icons/Icons';
-
-
 import MobileDropdownItem from './MobileDropdownItem';
 
 const propTypes = {
@@ -44,10 +42,6 @@ export default class MobileDropdown extends React.Component {
     }
 
     render() {
-        let icon = <AngleRight alt="Expand dropdown list" />;
-        if (this.state.expandedDropdown) {
-            icon = <AngleLeft alt="Collapse dropdown list" />;
-        }
 
         let hideList = '';
         if (!this.state.expandedDropdown) {
@@ -85,7 +79,7 @@ export default class MobileDropdown extends React.Component {
                         {this.props.label}
                     </span>
                     <span className="mobile-dropdown__parent-icon">
-                        {icon}
+                        <FontAwesomeIcon icon="chevron-right" />
                     </span>
                 </button>
 
