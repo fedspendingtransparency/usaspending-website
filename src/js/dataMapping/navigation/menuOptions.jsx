@@ -367,3 +367,55 @@ export const resourceOptions = [
         externalLink: true
     }
 ];
+
+export const section1Options = [
+    {
+        title: 'Spending Explorer',
+        sub: 'Annual federal spending through three different starting points',
+        icon: ''
+    },
+    {
+        title: 'Award Data',
+        sub: 'Data about contracts, grants, loans, and other awards that the federal government has made',
+        icon: 'hand-holding-usd'
+    },
+    {
+        title: 'Learn',
+        sub: '',
+        icon: 'graduation-cap'
+    }
+];
+export const section2Options = [
+    {
+        title: 'Profiles',
+        sub: 'Federal spending through interactive snapshots',
+        icon: ''
+    },
+    {
+        title: 'Account Data',
+        sub: 'Data from agency financial submissions, covering both award and non-award spending',
+        icon: 'money-bill-wave'
+    },
+    {
+        title: 'Reference Materials',
+        sub: '',
+        icon: 'book-open'
+    }
+];
+export const section3Options = [
+    {
+        title: '',
+        sub: '',
+        icon: ''
+    },
+    {
+        title: 'All Data',
+        sub: '',
+        icon: 'server'
+    },
+    {
+        title: 'For Developers',
+        sub: '',
+        icon: 'code-branch'
+    }
+];
