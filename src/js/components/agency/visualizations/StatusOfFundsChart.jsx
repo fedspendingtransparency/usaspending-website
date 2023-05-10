@@ -180,9 +180,6 @@ const StatusOfFundsChart = ({
         else if (level === 2) {
             return <><hr /><div className="tooltip__text-note">Click a Treasury Account to view <br />Program Activities or Object Classes</div></>;
         }
-        else if (level >= 3) {
-            return <><hr /><div className="tooltip__text-note">Click bar to view <br />Program Activities or Object Classes</div></>;
-        }
         return null;
     };
     const tooltipHeight = level === 1 ? 280 : 230;
