@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 // eslint-disable-next-line import/no-extraneous-dependencies
 import { GovBanner } from "@trussworks/react-uswds";
+import '@trussworks/react-uswds/lib/index.css';
 import GlossaryContainer from 'containers/glossary/GlossaryContainer';
 import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
 import AboutTheDataContainer from "containers/aboutTheDataSidebar/AboutTheDataContainer";

@@ -6,7 +6,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { PageHeader } from 'data-transparency-ui';
-
+// import { GovBanner } from '@trussworks/react-uswds';
+// // eslint-disable-next-line import/no-extraneous-dependencies
+// import '@trussworks/react-uswds/lib/index.css';
 import { getStickyBreakPointForSidebar } from 'helpers/stickyHeaderHelper';
 import MetaTags from 'components/sharedComponents/metaTags/MetaTags';
 import Header from 'containers/shared/HeaderContainer';
@@ -26,6 +28,7 @@ const PageWrapper = ({
 }) => (
     <div className={classNames} ref={ref}>
         <MetaTags {...metaTagProps} />
+        {/*<GovBanner />*/}
         <Header />
         {noHeader ? null : <PageHeader
             title={title}

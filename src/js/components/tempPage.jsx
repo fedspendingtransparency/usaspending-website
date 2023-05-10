@@ -3,7 +3,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { FlexGridRow, FlexGridCol, CardContainer, CardHero, CardBody, CardButton, Button } from "data-transparency-ui";
 import PageWrapper from "./sharedComponents/PageWrapper";
 import PageFeatureFlag from "./sharedComponents/PageFeatureFlag";
-
+import { GovBanner } from '@trussworks/react-uswds';
+import '@trussworks/react-uswds/lib/index.css';
 
 require("pages/homepageUpdate/homepageUpdate.scss");
 
@@ -14,9 +15,10 @@ const tempPage = () => {
         <PageFeatureFlag>
             <PageWrapper
                 pageName="Test Page"
-                classNames="usa-da-about-page"
+                classNames="usa-da-home-page"
                 title="Test Page">
                 <main id="main-content" className="main-content">
+                    <GovBanner />
                     <div className="flex-gap" style={{ display: 'inline-flex', 'flex-wrap': 'wrap', gap: '12px' }}>
                         <div>1</div>
                         <div>2</div>
