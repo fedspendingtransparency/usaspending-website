@@ -63,15 +63,21 @@
 
     .dropdown-section__top-columns {
       display: flex !important;
-
+      background-color: $color-white;
+      background-clip: padding-box;
       .first-dropdown-section {
         margin-right: $global-margin * 4;
+        background-color: $color-white;
       }
     }
 
     .dropdown-section {
       position: relative;
       z-index: 1;
+      
+      .dropdown-section__alternate-top {
+        display: flex;
+      }
 
       svg {
         background-color: $blue-warm-5;
@@ -173,6 +179,10 @@
     .dropdown-section__bottom-portion {
       background: $gray-cool-2;
 
+      .dropdown-section__alternate-top {
+        display: flex;
+      }
+
       .dropdown-section__section-list {
         margin: 0 !important;
         padding: 0;
@@ -265,7 +275,6 @@
 
   .dropdown-background {
     transform-origin: 0 0;
-    background-color: $color-white;
     border-radius: rem(8);
     overflow: hidden;
     position: relative;
