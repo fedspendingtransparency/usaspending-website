@@ -60,18 +60,20 @@ const ItemContent = ({
             </div>
         </div>
         {section3Title !== null && section3Title !== undefined && section3Title !== '' ?
-            <div className="dropdown-section">
+            <div className="dropdown-section dropdown-section__bottom-portion">
                 <div>
                     {section3Icon && section3Icon !== null && section3Icon !== '' ? <FontAwesomeIcon size="lg" className="" icon={section3Icon} /> : ''}<p className="dropdown-section__section-title">{section3Title}</p>
                     {section3Sub !== null && section3Sub !== undefined && section3Sub !== '' ?
                         <span className="dropdown-section__section-subtitle">{section3Sub}</span> : ''}
-                    <ul>
+                    <ul className="dropdown-section__section-list">
                         {section3Items.map((item, index) => (
                             <>
                                 <li key={`third-section-link-${index}`}>
-                                    <Link to={item.url}>{item.label}</Link>
+                                    <div className="dropdown-item__link-desc">
+                                        <Link className="dropdown-item__link-label" to={item.url}>{item.label}</Link>
+                                        <span className="dropdown-item__description">{item.description}</span>
+                                    </div>
                                 </li>
-                                <span className="dropdown-item__description">{item.description}</span>
                             </>
                         ))}
                     </ul>
