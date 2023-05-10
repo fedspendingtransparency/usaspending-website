@@ -1,29 +1,40 @@
-// uswds overrides
+.usa-banner__wrapper {
+  background-color: $theme-color-background;
+  color: $gray-90;
+  min-height: 24px;
+  display: flex;
 
-//.usa-banner__inner {
-//  margin-left: 0;
-//}
-//
-//usa-banner__header-text {
-//  font-size: rem(12.8);
-//}
+  .close-button {
+    display: none;
+  }
+  &.open {
+    height: 100%;
+    .close-button {
+      align-self: end;
+    }
+  }
+}
 
 .usa-banner {
   @media(max-width: $tablet-screen) {
-    margin: rem(16) rem(16) rem(16) rem(20);
+    margin: 0 rem(16) 0 rem(20);
   }
   @media(min-width: $tablet-screen) {
-    margin: rem(16) rem(16) rem(16) rem(20);
+    margin: 0 rem(16) 0 rem(20);
   }
   @media(min-width: $large-screen) {
-    margin: rem(16) rem(36) rem(16) rem(40);
+    margin: 0 rem(36) 0 rem(40);
   }
   @media(min-width: $x-large-screen) {
     margin: rem(16) auto;
     max-width: rem(1600);
   }
 
-  @include button-unstyled;
+  .usa-banner__header-flag {
+    width: rem(16);
+    height: rem(14);
+    margin-bottom: 2px;
+  }
 
   .usa-banner__header-text {
     font-size: rem(12.8);
@@ -33,15 +44,59 @@
     width: 114px;
     height: 15px;
     margin: 0 2px 1px 0;
-    font-family: SourceSansPro;
     font-size: 12.8px;
-    font-weight: normal;
-    font-stretch: normal;
-    font-style: normal;
     line-height: 1.1;
-    letter-spacing: normal;
     text-align: left;
-    color: #2378c3;
+    color: $theme-color-1;
+    text-decoration: underline;
+  }
+
+  .usa-banner__inner {
+    display: flex;
+    margin-top: 4px;
+    margin-bottom: 4px;
+  }
+
+  button {
+    background: none;
+    color: $theme-color-1;
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+    font-size: inherit;
+    text-decoration: underline;
+  }
+
+  .usa-banner__button-text {
+    text-decoration: underline;
+  }
+
+  .usa-accordion__content {
+    display: flex;
+    flex-direction: column;
+
+    @media(min-width: $tablet-screen) {
+      flex-direction: row;
+
+    }
+
+    .usa-banner__guidance {
+      margin: rem(24);
+
+    }
+
+    &.closed {
+      display: none;
+    }
+
+    .usa-media-block__body {
+      display: flex;
+      align-items: start;
+
+      p {
+        margin: 0 0 0 8px;
+      }
+    }
   }
 }
 
