@@ -24,9 +24,12 @@ const ItemContent = ({
                     <span className="dropdown-section__section-subtitle">{section1Sub}</span> : ''}
                 <ul>
                     {section1Items.map((item, index) => (
-                        <li key={`link-${index}`}>
-                            {item.icon && item.icon !== '' && item.icon !== null ? <FontAwesomeIcon className="" icon={item.icon} /> : ''}<Link to={item.url}>{item.label}</Link>
-                        </li>
+                        <>
+                            <li key={`link-${index}`}>
+                                {item.icon && item.icon !== '' && item.icon !== null ? <FontAwesomeIcon className="" icon={item.icon} /> : ''}<Link to={item.url}>{item.label}</Link>
+                            </li>
+                            <span>{item.description}</span>
+                        </>
                     ))}
                 </ul>
             </div>
@@ -38,9 +41,12 @@ const ItemContent = ({
                     <span className="dropdown-section__section-subtitle">{section2Sub}</span> : ''}
                 <ul>
                     {section2Items.map((item, index) => (
-                        <li key={`link-${index}`}>
-                            {item.icon && item.icon !== '' && item.icon !== null ? <FontAwesomeIcon className="" icon={item.icon} /> : ''}<Link to={item.url}>{item.label}</Link>
-                        </li>
+                        <>
+                            <li key={`link-${index}`}>
+                                {item.icon && item.icon !== '' && item.icon !== null ? <FontAwesomeIcon className="" icon={item.icon} /> : ''}<Link to={item.url}>{item.label}</Link>
+                            </li>
+                            <span>{item.description}</span>
+                        </>
                     ))}
                 </ul>
             </div>
@@ -53,9 +59,12 @@ const ItemContent = ({
                         <span className="dropdown-section__section-subtitle">{section3Sub}</span> : ''}
                     <ul>
                         {section3Items.map((item, index) => (
-                            <li key={`link-${index}`}>
-                                <Link to={item.url}>{item.label}</Link>
-                            </li>
+                            <>
+                                <li key={`link-${index}`}>
+                                    <Link to={item.url}>{item.label}</Link>
+                                </li>
+                                <span>{item.description}</span>
+                            </>
                         ))}
                     </ul>
                 </div>
