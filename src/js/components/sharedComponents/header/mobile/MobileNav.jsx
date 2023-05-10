@@ -6,11 +6,21 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter, Link } from 'react-router-dom';
-
 import Analytics from 'helpers/analytics/Analytics';
-
-import { spendingOptions, profileOptions, downloadOptions, learnResourceOptions } from 'dataMapping/navigation/menuOptions';
-
+import {
+    spendingOptions,
+    profileOptions,
+    learnResourceOptions,
+    referenceMaterialsOptions,
+    developerOptions,
+    awardDownloadOptions,
+    accountDataOptions,
+    allDownloadOptions,
+    section1Options,
+    section2Options,
+    section3Options,
+    downloadOptions
+} from 'dataMapping/navigation/menuOptions';
 import MobileTop from './MobileTop';
 import MobileDropdown from './MobileDropdown';
 
@@ -21,11 +31,43 @@ const clickedHeaderLink = (route) => {
     });
 };
 
-
 const propTypes = {
     hideMobileNav: PropTypes.func,
     location: PropTypes.object
 };
+
+const navbarConfig = [
+    {
+        title: "Search Award Data",
+        url: '/search'
+    },
+    {
+        title: "Explore the Data",
+        section1Items: spendingOptions,
+        section2Items: profileOptions,
+        section1Options,
+        section2Options,
+        section3Options
+    },
+    {
+        title: "Download the Data",
+        section1Items: awardDownloadOptions,
+        section2Items: accountDataOptions,
+        section3Items: allDownloadOptions,
+        section1Options,
+        section2Options,
+        section3Options
+    },
+    {
+        title: "Find Resources",
+        section1Items: learnResourceOptions,
+        section2Items: referenceMaterialsOptions,
+        section3Items: developerOptions,
+        section1Options,
+        section2Options,
+        section3Options
+    }
+];
 
 const MobileNav = (hideMobileNav, location, props) => {
     const [url, setUrl] = useState('');
@@ -44,8 +86,8 @@ const MobileNav = (hideMobileNav, location, props) => {
 
     useEffect(() => {
         checkCurrentProfile();
-    }, [checkCurrentProfile]);
-
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [location.pathname]);
 
     return (
         <div className="mobile-nav">
@@ -54,42 +96,29 @@ const MobileNav = (hideMobileNav, location, props) => {
             </div>
             <div className="mobile-nav-content">
                 <ul className="mobile-nav-content__list">
-                    <li className="mobile-nav-content__list-item">
-                        <hr className="mobile-nav-content__divider" />
-                        <Link
-                            className="mobile-nav-content__link"
-                            to="/explorer"
-                            title="Spending Explorer"
-                            name="explorer"
-                            onClick={clickedLink}>
-                            Search Award Data
-                        </Link>
-                        <hr className="mobile-nav-content__divider" />
-                    </li>
-                    <li className="mobile-nav-content__list-item">
-                        <MobileDropdown
-                            {...props}
-                            label="Explore the Data"
-                            items={spendingOptions}
-                            active={url} />
-                        <hr className="mobile-nav-content__divider" />
-                    </li>
-                    <li className="mobile-nav-content__list-item">
-                        <MobileDropdown
-                            {...props}
-                            label="Download the Data"
-                            items={downloadOptions}
-                            active={url} />
-                        <hr className="mobile-nav-content__divider" />
-                    </li>
-                    <li className="mobile-nav-content__list-item">
-                        <MobileDropdown
-                            {...props}
-                            label="Find Resources"
-                            items={learnResourceOptions}
-                            active={url} />
-                    </li>
-
+                    {navbarConfig.map((n, index) => (
+                        <>
+                            <hr className="mobile-nav-content__divider" />
+                            <li className="mobile-nav-content__list-item">
+                                {index === 0 ?
+                                    <Link
+                                        className="mobile-nav-content__link"
+                                        to="/explorer"
+                                        title="Spending Explorer"
+                                        name="explorer"
+                                        onClick={clickedLink}>
+                                        Spending Explorer
+                                    </Link>
+                                    :
+                                    <MobileDropdown
+                                        label={navbarConfig[index].title}
+                                        title={navbarConfig[index].title}
+                                        items={navbarConfig[index].section1Items}
+                                        active={url} />
+                                }
+                            </li>
+                        </>
+                    ))}
                 </ul>
             </div>
         </div>

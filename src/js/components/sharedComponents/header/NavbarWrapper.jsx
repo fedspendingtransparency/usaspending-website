@@ -22,6 +22,7 @@ const NavbarWrapper = () => {
         if (pathname === "/") {
             setIsHomepage(true);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     const clickedHeaderLink = (route) => {
@@ -39,7 +40,7 @@ const NavbarWrapper = () => {
 
     const hideMobileNav = () => {
     // re-enable body scrolling
-        siteBody.classList.remove('show-mobile-nav');
+    //     siteBody.classList.remove('show-mobile-nav');
         setShowMobileNav(false);
     };
 
