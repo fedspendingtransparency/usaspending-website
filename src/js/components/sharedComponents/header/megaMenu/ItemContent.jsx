@@ -49,7 +49,7 @@ const ItemContent = ({
                                 <li key={`second-section-link-${index}`}>
                                     {item.icon && item.icon !== '' && item.icon !== null ? <FontAwesomeIcon size="lg" className="" icon={item.icon} /> : ''}
                                     <div className="dropdown-item__link-desc">
-                                        <Link to={item.url}>{item.label}</Link>
+                                        <Link className="dropdown-item__link-label" to={item.url}>{item.label}</Link>
                                         <span className="dropdown-item__description">{item.description}</span>
                                     </div>
                                 </li>
