@@ -24,17 +24,16 @@
       @media(min-width: $tablet-screen) {
         display: none;
       }
-      display: block;
-      position: absolute;
+      display: flex;
+      justify-content: center;
       background-color: $gray-10;
       right: 2.2px;
       height: 48px;
       width: 48px;
       margin-top: -4px;
-      .fa-times {
-        color: $blue-60v;
-        width: 100%;
-        height: 100%;
+      .usa-da-icon-close {
+        width: 40px;
+        fill: #005ea2;
       }
     }
   }
@@ -42,10 +41,10 @@
 
 .usa-banner {
   @media(max-width: $tablet-screen) {
-    margin: 0 rem(16) 0 rem(20);
+    margin: 0 0 0 rem(20);
   }
   @media(min-width: $tablet-screen) {
-    margin: 0 rem(16) 0 rem(20);
+    margin: 0 0 0 rem(20);
   }
   @media(min-width: $large-screen) {
     margin: 0 rem(36) 0 rem(40);
@@ -87,8 +86,13 @@
 
   .usa-banner__inner {
     display: flex;
+    justify-content: space-between;
     margin-top: 4px;
     margin-bottom: 4px;
+    @media(min-width: $x-large-screen) {
+      //margin: rem(16) auto;
+      //max-width: rem(1600);
+    }
   }
 
   button {
@@ -145,6 +149,10 @@
 
     .usa-banner__content-lock {
       width: 9.5px;
+    }
+
+    .usa-da-icon-close {
+      width: 40px;
     }
   }
 }

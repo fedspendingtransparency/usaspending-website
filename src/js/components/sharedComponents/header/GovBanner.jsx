@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import * as Icons from 'components/sharedComponents/icons/Icons';
 
 const GovBanner = () => {
     const [accordionOpen, setAccordionOpen] = useState(false);
@@ -17,26 +18,28 @@ const GovBanner = () => {
                 <div className="usa-accordion">
                     <header className="usa-banner__header">
                         <div className="usa-banner__inner" data-testid="banner-header-inner-div">
-                            <img
-                                className="usa-banner__header-flag"
-                                alt="U.S. flag"
-                                src="img/uswds/us_flag_small.png" />
-                            <div className="usa-banner__header-text">&nbsp;&nbsp;<span>An official website of the <span style={{ whiteSpace: 'nowrap' }}>United States government</span></span>
-                                <button
-                                    type="button"
-                                    onClick={toggleAccordion}
-                                    className="usa-accordion__button usa-banner__button"
-                                    aria-expanded="false"
-                                    aria-controls="gov-banner">
-                                    <span className="usa-banner__button-text">Here’s how you know</span>
-                                    <FontAwesomeIcon width="11.7px" icon={accordionOpen === true ? "chevron-up" : "chevron-down"} alt="Expanded menu" />
-                                </button>
+                            <div>
+                                <img
+                                    className="usa-banner__header-flag"
+                                    alt="U.S. flag"
+                                    src="img/uswds/us_flag_small.png" />
+                                <div className="usa-banner__header-text">&nbsp;&nbsp;<span>An official website of the <span style={{ whiteSpace: 'nowrap' }}>United States government</span></span>
+                                    <button
+                                        type="button"
+                                        onClick={toggleAccordion}
+                                        className="usa-accordion__button usa-banner__button"
+                                        aria-expanded="false"
+                                        aria-controls="gov-banner">
+                                        <span className="usa-banner__button-text">Here’s how you know</span>
+                                        <FontAwesomeIcon width="11.7px" icon={accordionOpen === true ? "chevron-up" : "chevron-down"} alt="Expanded menu" />
+                                    </button>
+                                </div>
                             </div>
                             {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
                             <div
                                 className="usa-banner-close"
                                 onClick={closeAccordion}>
-                                <FontAwesomeIcon icon="times" alt="Close Menu" />
+                                <Icons.Close alt="Close Top Hat Mobile Menu" />
                             </div>
                         </div>
                     </header>
