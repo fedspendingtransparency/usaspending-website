@@ -41,6 +41,7 @@
         margin-top: 4px;
         margin-left: 4px;
       }
+
       color: $blue-50;
     }
   }
@@ -52,14 +53,55 @@
     perspective: 1500px;
     z-index: 150;
   }
-    .dropdown-section__wrapper {
+
+  .dropdown-section__wrapper {
+    display: flex;
+
+    @media(min-width: $medium-screen) {
+      width: rem(720);
+      padding: rem(40);
+    }
+
+    .dropdown-section__top-columns {
       display: flex;
-      .dropdown-section {
-        padding: 28px;
-        position: relative;
-        z-index: 1;
+    }
+
+    .dropdown-section {
+      position: relative;
+      z-index: 1;
+
+      .dropdown-section__section-title {
+        font-size: $font-size-14;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.25;
+        color: $gray-90;
+        margin: 0;
+        padding: 0;
+      }
+
+      .dropdown-section__section-subtitle {
+        margin: rem(4) 0 0;
+        font-size: $font-size-12;
+        font-weight: normal;
+        font-stretch: normal;
+        font-style: normal;
+        line-height: 1.5;
+        letter-spacing: normal;
+        text-align: left;
+        color: $gray-60;
+        width: rem(300);
+        display: flex;
+        word-wrap: break-word;
+      }
+
+      .dropdown-section__section-list {
+        margin: 0 !important;
+        padding: 0;
       }
     }
+  }
 
   .navbar-el {
     margin: auto;
@@ -96,9 +138,6 @@
     border-radius: 4px;
     overflow: hidden;
     position: relative;
-    //TODO - This shadow should change with DEV-9700 so it's ok we're not using a variable for now
-    box-shadow: 0 50px 100px rgba(50, 50, 93, 0.1),
-    0 15px 35px rgba(50, 50, 93, 0.15), 0 5px 15px rgba(0, 0, 0, 0.1);
   }
 
   .fade-container {
@@ -110,6 +149,7 @@
       transform: rotateX(0);
       opacity: 1;
     }
+
     to {
       transform: rotateX(-15deg);
       opacity: 0;
@@ -121,6 +161,7 @@
       transform: rotateX(-15deg);
       opacity: 0;
     }
+
     to {
       transform: rotateX(0);
       opacity: 1;
@@ -131,6 +172,7 @@
     from {
       transform: translateX(0);
     }
+
     to {
       transform: translateX(-20px);
       opacity: 0;
@@ -141,6 +183,7 @@
     from {
       transform: translateX(0);
     }
+
     to {
       transform: translateX(20px);
       opacity: 0;
@@ -151,6 +194,7 @@
     from {
       transform: translateX(20px);
     }
+
     to {
       transform: translateX(0);
       opacity: 1;
@@ -161,6 +205,7 @@
     from {
       transform: translateX(-20px);
     }
+
     to {
       transform: translateX(0);
       opacity: 1;
