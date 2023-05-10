@@ -91,22 +91,29 @@ const VisualizationSection = ({
         }
     };
 
+    const options = [{
+        name: 'Program Activity',
+        value: 'Program Activity',
+        onClick: dropdownClickFunction
+    },
+    {
+        name: 'Object Class',
+        value: 'Object Class',
+        onClick: dropdownClickFunction
+    }];
+
+    // the dtui picker component will put the options in alpha order if no sort fn is given
+    // in this case we want the order to always be the same, hence...
+    const sortButNotReally = () => options;
+
     const chartHeadingWithDropdown = (
         <div className="status-of-funds__controls-heading-container">
             <div className="status-of-funds__controls-heading">{currentLevelData.name} by&thinsp;</div>
             {level === 3 ? (
                 <Picker
                     className="status-of-funds__chart-picker"
-                    options={[{
-                        name: 'Program Activity',
-                        value: 'Program Activity',
-                        onClick: dropdownClickFunction
-                    },
-                    {
-                        name: 'Object Class',
-                        value: 'Object Class',
-                        onClick: dropdownClickFunction
-                    }]}
+                    sortFn={sortButNotReally}
+                    options={options}
                     dropdownDirection="right"
                     backgroundColor="#ffffff"
                     selectedOption={dropdownSelection} />
