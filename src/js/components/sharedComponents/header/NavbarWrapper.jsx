@@ -84,7 +84,7 @@ const NavbarWrapper = () => {
                 </div>
                 <div className="mobile-nav-animations">
                     <TransitionGroup>
-                        {showMobileNav && (
+                        {displayMobileNav && (
                             <CSSTransition
                                 classNames="mobile-nav-slide"
                                 timeout={{ enter: 225, exit: 195 }}

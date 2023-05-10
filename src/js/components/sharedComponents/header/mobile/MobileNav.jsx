@@ -9,7 +9,7 @@ import { withRouter, Link } from 'react-router-dom';
 
 import Analytics from 'helpers/analytics/Analytics';
 
-import { searchOptions, profileOptions, downloadOptions, resourceOptions } from 'dataMapping/navigation/menuOptions';
+import { spendingOptions, profileOptions, downloadOptions, learnResourceOptions } from 'dataMapping/navigation/menuOptions';
 
 import MobileTop from './MobileTop';
 import MobileDropdown from './MobileDropdown';
