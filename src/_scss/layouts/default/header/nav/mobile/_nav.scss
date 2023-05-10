@@ -14,7 +14,7 @@
         }
 
         a.mobile-nav-content__link {
-            color: $color-gray;
+            color: $gray-90;
             font-weight: $font-semibold;
             font-size: $font-size-16;
             line-height: rem(36);
@@ -39,14 +39,17 @@
 
         hr.mobile-nav-content__divider {
             border: none;
-            border-bottom: 2px solid $color-gray;
+            border-bottom: 2px solid $gray-cool-10;
             width: 100%;
             margin-left: auto;
             margin-right: auto;
             margin-top: rem(20);
             margin-bottom: rem(20);
-            opacity: 0.6;
+            .divider-top{
+                margin-top: rem(0) !important;
+            }
         }
+
 
         @import "./_dropdown";
     }

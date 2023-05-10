@@ -3,7 +3,7 @@
  * Created by Kevin Li 9/15/17
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { withRouter, Link } from 'react-router-dom';
 
@@ -21,92 +21,79 @@ const clickedHeaderLink = (route) => {
     });
 };
 
+
 const propTypes = {
     hideMobileNav: PropTypes.func,
     location: PropTypes.object
 };
 
-export class MobileNav extends React.Component {
-    constructor(props) {
-        super(props);
+const MobileNav = (props) => {
+    const [url, setUrl] = useState('');
 
-        this.state = {
-            url: ''
-        };
-
-        this.clickedLink = this.clickedLink.bind(this);
-    }
-
-    componentDidMount() {
-        this.checkCurrentProfile();
-    }
-
-    clickedLink(e) {
+    const clickedLink = (e) => {
         const route = e.target.name;
         clickedHeaderLink(route);
-        this.props.hideMobileNav();
-    }
-
-    checkCurrentProfile() {
-    // determine if we need to highlight a dropdown menu option
-        const currentUrl = this.props.location.pathname;
-        if (this.state.url !== currentUrl) {
-            this.setState({
-                url: currentUrl
-            });
+        props.hideMobileNav();
+    };
+    const checkCurrentProfile = () => {
+        const currentUrl = props.location.pathname;
+        if (url !== currentUrl) {
+            setUrl(currentUrl);
         }
-    }
+    };
+    useEffect(() => {
+        checkCurrentProfile();
+    }, [props.location.pathname]);
 
-    render() {
-        return (
-            <div className="mobile-nav">
-                <div className="mobile-nav__top">
-                    <MobileTop {...this.props} />
-                </div>
-                <div className="mobile-nav-content">
-                    <ul
-                        className="mobile-nav-content__list">
-                        <li className="mobile-nav-content__list-item">
-                            <Link
-                                className="mobile-nav-content__link"
-                                to="/explorer"
-                                title="Spending Explorer"
-                                name="explorer"
-                                onClick={this.clickedLink}>
-                                Search Award Data
-                            </Link>
-                            <hr className="mobile-nav-content__divider" />
-                        </li>
-                        <li className="mobile-nav-content__list-item">
-                            <MobileDropdown
-                                {...this.props}
-                                label="Explore the Data"
-                                items={profileOptions}
-                                active={this.state.url} />
-                            <hr className="mobile-nav-content__divider" />
-                        </li>
-                        <li className="mobile-nav-content__list-item">
-                            <MobileDropdown
-                                {...this.props}
-                                label="Download the Data"
-                                items={profileOptions}
-                                active={this.state.url} />
-                            <hr className="mobile-nav-content__divider" />
-                        </li>
-                        <li className="mobile-nav-content__list-item mobile-nav-content__list-item_no-phone">
-                            <MobileDropdown
-                                {...this.props}
-                                label="Find Resources"
-                                items={downloadOptions}
-                                active={this.state.url} />
-                            <hr className="mobile-nav-content__divider" />
-                        </li>
-                    </ul>
-                </div>
+
+    return (
+        <div className="mobile-nav">
+            <div className="mobile-nav__top">
+                <MobileTop {...props} />
             </div>
-        );
-    }
-}
+            <div className="mobile-nav-content">
+                <ul className="mobile-nav-content__list">
+                    <li className="mobile-nav-content__list-item">
+                        <Link
+                            className="mobile-nav-content__link"
+                            to="/explorer"
+                            title="Spending Explorer"
+                            name="explorer"
+                            onClick={clickedLink}>
+                            Spending Explorer
+                        </Link>
+                        <hr className="mobile-nav-content__divider" />
+                    </li>
+                    <li className="mobile-nav-content__list-item">
+                        <MobileDropdown
+                            {...props}
+                            label="Award Search"
+                            items={spendingOptions}
+                            active={url} />
+                        <hr className="mobile-nav-content__divider" />
+                    </li>
+                    <li className="mobile-nav-content__list-item">
+                        <MobileDropdown
+                            {...props}
+                            label="Profiles"
+                            items={profileOptions}
+                            active={url} />
+                        <hr className="mobile-nav-content__divider" />
+                    </li>
+                    <li className="mobile-nav-content__list-item mobile-nav-content__list-item_no-phone">
+                        <MobileDropdown
+                            {...props}
+                            label="Download Center"
+                            items={downloadOptions}
+                            active={url} />
+                        <hr className="mobile-nav-content__divider" />
+                    </li>
+
+                </ul>
+            </div>
+        </div>
+    );
+};
 
 MobileNav.propTypes = propTypes;
 export default withRouter(MobileNav);

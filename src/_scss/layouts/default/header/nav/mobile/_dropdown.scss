@@ -4,25 +4,28 @@
         @include button-unstyled;
         @include display(flex);
         @include align-items(center);
-        @include justify-content(center);
+        @include justify-content(space-between);
         position: relative;
-        text-align: left;
         color: $gray-90;
         font-size: $font-size-16;
         line-height: rem(36);
         font-weight: $font-semibold;
+        width: 100%;
         &:active, &:hover {
             opacity: 1;
         }
 
         .mobile-dropdown__parent-label {
-            display: contents;
+            display: flex;
+            text-align: left;
             margin-right: rem(10);
             @import "components/_newBadge.scss";
         }
 
         .mobile-dropdown__parent-icon {
             @include flex(0 0 auto);
+            display: contents;
+            margin-left: auto;
             width: rem(16);
             height: rem(16);
 
