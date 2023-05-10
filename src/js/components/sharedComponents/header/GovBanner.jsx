@@ -21,7 +21,7 @@ const GovBanner = () => {
                                 className="usa-banner__header-flag"
                                 alt="U.S. flag"
                                 src="img/uswds/us_flag_small.png" />
-                            <div className="usa-banner__header-text">&nbsp;&nbsp;<span>An official website of the <span style={{ whiteSpace: 'nowrap' }}>United States government&nbsp;</span></span>
+                            <div className="usa-banner__header-text">&nbsp;&nbsp;<span>An official website of the <span style={{ whiteSpace: 'nowrap' }}>United States government</span></span>
                                 <button
                                     type="button"
                                     onClick={toggleAccordion}
@@ -29,7 +29,6 @@ const GovBanner = () => {
                                     aria-expanded="false"
                                     aria-controls="gov-banner">
                                     <span className="usa-banner__button-text">Here’s how you know</span>
-                                    <span>&nbsp;&nbsp;</span>
                                     <FontAwesomeIcon width="11.7px" icon={accordionOpen === true ? "chevron-up" : "chevron-down"} alt="Expanded menu" />
                                 </button>
                             </div>
@@ -43,15 +42,13 @@ const GovBanner = () => {
                     </header>
                     <div
                         className={`usa-banner__content usa-accordion__content ${accordionOpen === true ? "" : "closed"}`}
-                        style={{ marginLeft: "-24px" }}
                         hidden=""
                         id="gov-banner">
                         <div className="usa-banner__guidance">
                             <div className="usa-media-block__body">
                                 <img
-                                    className="usa-banner__content-lock"
+                                    className="usa-banner__content-icon"
                                     alt="Lock"
-                                    style={{ width: "40px" }}
                                     src="img/uswds/icon-dot-gov.svg" />
                                 <p><strong>Official websites use .gov</strong><br />A <strong>.gov</strong> website belongs to an official government organization in the United States.</p>
                             </div>
@@ -59,15 +56,13 @@ const GovBanner = () => {
                         <div className="usa-banner__guidance tablet:grid-col-6">
                             <div className="usa-media-block__body">
                                 <img
-                                    className="usa-banner__content-lock"
+                                    className="usa-banner__content-icon"
                                     alt="Lock"
-                                    style={{ width: "40px" }}
                                     src="img/uswds/icon-https.svg" />
                                 <p><strong>Secure .gov websites use HTTPS</strong><br />A <strong>lock (
                                     <img
                                         className="usa-banner__content-lock"
                                         alt="Lock"
-                                        style={{ width: "9.5px" }}
                                         src="img/uswds/lock.svg" />
                                     )
                                 </strong> or <strong>https://</strong> means

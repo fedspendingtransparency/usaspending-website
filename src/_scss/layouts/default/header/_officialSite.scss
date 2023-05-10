@@ -10,13 +10,13 @@
   &.open {
     height: 100%;
 
-    @media(max-width: $tablet-screen) {
+    @media(max-width: $tablet-screen - 1) {
       .usa-banner__button {
         display: none;
       }
       .usa-banner__header-text > span {
         display: inline-block;
-        width: 200px;
+        max-width: 380px;
       }
     }
 
@@ -63,6 +63,8 @@
 
   .usa-banner__header-text {
     font-size: rem(12.8);
+    margin-left: 8px;
+    margin-right: 8px;
   }
 
   .usa-banner__header-action {
@@ -70,10 +72,17 @@
     height: 15px;
     margin: 0 2px 1px 0;
     font-size: 12.8px;
-    line-height: 1.1;
+    line-height: 14.08px;
     text-align: left;
     color: $theme-color-1;
     text-decoration: underline;
+
+  }
+
+  .usa-banner__button {
+    &:hover {
+      color: $blue-vivid-70;
+    }
   }
 
   .usa-banner__inner {
@@ -94,25 +103,27 @@
 
   .usa-banner__button-text {
     text-decoration: underline;
+    margin-right: 2px;
   }
 
   .usa-accordion__content {
     display: flex;
     flex-direction: column;
-
-    @media(min-width: $tablet-screen) {
-      flex-direction: row;
-      > .usa-banner__guidance {
-        margin: rem(24);
-      }
-    }
+    margin-left: 8px;
 
     > .usa-banner__guidance {
-      margin: 40px 0 0 16px;
+      margin: 40px 16px 0 16px;
     }
 
     > .usa-banner__guidance ~ .usa-banner__guidance {
-      margin: 24px 0 24px 16px;
+      margin: 16px 16px 24px 16px;
+    }
+
+    @media(min-width: $tablet-screen) {
+      flex-direction: row;
+      .usa-banner__guidance {
+        margin: rem(24);
+      }
     }
 
     &.closed {
@@ -126,6 +137,14 @@
       p {
         margin: 0 0 0 8px;
       }
+    }
+
+    .usa-banner__content-icon {
+      width: 40px;
+    }
+
+    .usa-banner__content-lock {
+      width: 9.5px;
     }
   }
 }
