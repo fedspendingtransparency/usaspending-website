@@ -9,9 +9,6 @@ import { ShareIcon } from 'data-transparency-ui';
 import { explorerPageMetaTags } from 'helpers/metaTagHelper';
 import { getBaseUrl, handleShareOptionClick } from 'helpers/socialShare';
 import PageWrapper from 'components/sharedComponents/PageWrapper';
-import { GovBanner } from '@trussworks/react-uswds';
-// eslint-disable-next-line import/no-extraneous-dependencies
-import '@trussworks/react-uswds/lib/index.css';
 const propTypes = {
     children: PropTypes.element,
     showShareIcon: PropTypes.bool
@@ -48,7 +45,6 @@ const ExplorerWrapperPage = (props) => {
             <main
                 id="main-content"
                 className="main-content">
-                <GovBanner/>
                 {props.children}
             </main>
         </PageWrapper>

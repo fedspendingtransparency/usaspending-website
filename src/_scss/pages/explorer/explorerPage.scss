@@ -1,14 +1,14 @@
 .usa-da-explorer-page {
-    //@import "all";
-    //@import "layouts/default/default";
-    //@import "layouts/default/stickyHeader/header";
+    @import "all";
+    @import "layouts/default/default";
+    @import "layouts/default/stickyHeader/header";
 
 
 
-    //@import "../../components/atdButton";
-    //.main-content {
-    //    @import "./landing/explorerLanding";
-    //    @import "./detail/explorerDetail";
-    //    @import "components/aboutTheDataSidebar/aboutTheData";
-    //}
+    @import "../../components/atdButton";
+    .main-content {
+        @import "./landing/explorerLanding";
+        @import "./detail/explorerDetail";
+        @import "components/aboutTheDataSidebar/aboutTheData";
+    }
 }
