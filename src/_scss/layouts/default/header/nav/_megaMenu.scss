@@ -247,7 +247,7 @@
       .dropdown-section__section-list {
         margin: 0 !important;
         padding: 0;
-
+        display: inline;
         li {
           margin-top: $global-margin * 2;
           margin-bottom: $global-margin * .5;

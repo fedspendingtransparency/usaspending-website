@@ -1,4 +1,5 @@
 import React from "react";
+import { FlexGridCol } from 'data-transparency-ui';
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
@@ -70,14 +71,14 @@ const ItemContent = ({
                         <p className="dropdown-section__section-title">{section3Title}</p>
                         <div className="dropdown-section__section-list">
                             {section3Items.map((item, index) => (
-                                <>
+                                <FlexGridCol desktop={6}>
                                     <div className="dropdown-section__section-list-item" key={`third-section-link-${index}`}>
                                         <div className="dropdown-item__link-desc">
                                             <Link className="dropdown-item__link-label" to={item.url}>{item.label}</Link>
                                             <div className="dropdown-item__description">{item.description}</div>
                                         </div>
                                     </div>
-                                </>
+                                </FlexGridCol>
                             ))}
                         </div>
                     </div>
