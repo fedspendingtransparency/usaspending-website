@@ -36,9 +36,11 @@ const GovBanner = () => {
                                     </button>
                                 </div>
                             </div>
-                            {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
                             <div
                                 className="usa-banner-close"
+                                tabIndex={0}
+                                role="button"
+                                onKeyDown={(e) => { if (e.key === "Enter") closeAccordion(); }}
                                 onClick={closeAccordion}>
                                 <Icons.Close alt="Close Top Hat Mobile Menu" />
                             </div>
@@ -63,13 +65,14 @@ const GovBanner = () => {
                                     className="usa-banner__content-icon"
                                     alt="Lock"
                                     src="img/uswds/icon-https.svg" />
-                                <p><strong>Secure .gov websites use HTTPS</strong><br />A <strong>lock (
-                                    <img
-                                        className="usa-banner__content-lock"
-                                        alt="Lock"
-                                        src="img/uswds/lock.svg" />
-                                    )
-                                </strong> or <strong>https://</strong> means
+                                <p><strong>Secure .gov websites use HTTPS</strong><br />A&nbsp;
+                                    <strong>lock (
+                                        <img
+                                            className="usa-banner__content-lock"
+                                            alt="Lock"
+                                            src="img/uswds/lock.svg" />
+                                        )
+                                    </strong> or <strong>https://</strong> means
                                     you’ve safely connected to the .gov website. Share sensitive information only on official,
                                     secure websites.
                                 </p>

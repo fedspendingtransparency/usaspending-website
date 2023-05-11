@@ -25,7 +25,6 @@ const PageWrapper = ({
 }) => (
     <div className={classNames} ref={ref}>
         <MetaTags {...metaTagProps} />
-        {/*<GovBanner />*/}
         <Header />
         {noHeader ? null : <PageHeader
             title={title}
