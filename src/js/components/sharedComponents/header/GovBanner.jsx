@@ -1,9 +1,27 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import * as Icons from 'components/sharedComponents/icons/Icons';
+import { throttle } from "lodash";
+import { tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
+
 
 const GovBanner = () => {
     const [accordionOpen, setAccordionOpen] = useState(false);
+    const [isMobile, setIsMobile] = useState(window.innerWidth < tabletScreen);
+    const [windowWidth, setWindowWidth] = useState(0);
+
+    useEffect(() => {
+        const handleResize = throttle(() => {
+            const newWidth = window.innerWidth;
+            if (windowWidth !== newWidth) {
+                setWindowWidth(newWidth);
+                setIsMobile(newWidth < tabletScreen);
+            }
+        }, 50);
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, [windowWidth]);
+
     const toggleAccordion = () => {
         setAccordionOpen((prevState) => !prevState);
     };
@@ -12,22 +30,37 @@ const GovBanner = () => {
         setAccordionOpen(false);
     };
 
+    useEffect(() => {
+        if (isMobile && document.querySelector(".usa-banner-close").style.display === "none") {
+            // isMobile
+        }
+    }, [isMobile]);
+
     return (
         <div className={`usa-banner__wrapper ${accordionOpen ? "open" : ""}`}>
             <section className="usa-banner" data-testid="govBanner">
                 <div className="usa-accordion">
                     <header className="usa-banner__header">
-                        <div className="usa-banner__inner" data-testid="banner-header-inner-div">
+                        <div
+                            className="usa-banner__inner"
+                            tabIndex={0}
+                            role="button"
+                            onKeyDown={(e) => {
+                                if (e.key === "Enter" && isMobile) toggleAccordion();
+                            }}
+                            onClick={() => ((isMobile) ? toggleAccordion() : "")}
+                            data-testid="banner-header-inner-div">
                             <div className="usa-banner__header-text-wrapper">
                                 <img
                                     className="usa-banner__header-flag"
                                     alt="U.S. flag"
                                     src="img/uswds/us_flag_small.png" />
-                                <div className="usa-banner__header-text">
+                                <div
+                                    className="usa-banner__header-text">
                                     <div className="usa-banner__header-sub-text">An official website of the <span style={{ whiteSpace: 'nowrap' }}>United States </span>government</div>
                                     <button
                                         type="button"
-                                        onClick={toggleAccordion}
+                                        onClick={() => (!isMobile ? toggleAccordion() : "")}
                                         className="usa-accordion__button usa-banner__button"
                                         aria-expanded="false"
                                         aria-controls="gov-banner">
@@ -40,8 +73,10 @@ const GovBanner = () => {
                                 className="usa-banner-close"
                                 tabIndex={0}
                                 role="button"
-                                onKeyDown={(e) => { if (e.key === "Enter") closeAccordion(); }}
-                                onClick={closeAccordion}>
+                                onKeyDown={(e) => {
+                                    if (e.key === "Enter" && !isMobile) closeAccordion();
+                                }}
+                                onClick={() => (!isMobile ? closeAccordion() : "")}>
                                 <Icons.Close alt="Close Top Hat Mobile Menu" />
                             </div>
                         </div>

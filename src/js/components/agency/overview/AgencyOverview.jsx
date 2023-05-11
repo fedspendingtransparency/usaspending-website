@@ -26,7 +26,6 @@ const AgencyOverview = ({ fy, dataThroughDate }) => {
         showAboutData
     } = useSelector((state) => state.agency.overview);
 
-    const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
     useEffect(() => {
         const handleResize = throttle(() => {

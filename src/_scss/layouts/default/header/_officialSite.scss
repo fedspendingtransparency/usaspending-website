@@ -2,7 +2,7 @@
   background-color: $theme-color-background;
   color: $gray-90;
   min-height: 24px;
-  display: flex;
+  width: 100%;
 
   .usa-banner__button {
     display: flex;
@@ -37,7 +37,7 @@
       width: 48px;
       margin-top: -4px;
       .usa-da-icon-close {
-        width: 40px;
+        width: rem(24);
         fill: $blue-60v;
       }
     }
@@ -61,8 +61,8 @@
 
   .usa-banner__header-flag {
     width: rem(16);
-    height: rem(14);
-    margin-bottom: 2px;
+    height: rem(11);
+    margin-top: 3px;
   }
 
   .usa-banner__header-text-wrapper {
@@ -106,6 +106,11 @@
     justify-content: space-between;
     margin-top: 4px;
     margin-bottom: 4px;
+    cursor: pointer;
+
+    @media(min-width: $tablet-screen) {
+      cursor: default;
+    }
   }
 
   button {
@@ -120,26 +125,26 @@
 
   .usa-banner__button-text {
     text-decoration: underline;
-    margin-right: 2px;
+    margin-right: 4px;
   }
 
   .usa-accordion__content {
     display: flex;
     flex-direction: column;
     align-items: start;
-    margin-left: 8px;
     max-width: 1000px;
 
     > .usa-banner__guidance {
-      margin: 40px 16px 0 16px;
+      margin: 16px 16px 0 0;
     }
 
     > .usa-banner__guidance ~ .usa-banner__guidance {
-      margin: 16px 16px 24px 16px;
+      margin: 16px 16px 16px 0;
     }
 
     @media(min-width: $tablet-screen) {
       flex-direction: row;
+      margin-left: rem(8);
       > .usa-banner__guidance {
         margin: rem(24) rem(12) rem(24) rem(24);
         width: 100%;
@@ -174,10 +179,6 @@
 
     .usa-banner__content-lock {
       width: 9.5px;
-    }
-
-    .usa-da-icon-close {
-      width: 40px;
     }
   }
 }
