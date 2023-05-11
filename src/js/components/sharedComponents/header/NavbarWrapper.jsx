@@ -20,8 +20,10 @@ const NavbarWrapper = () => {
 
     useEffect(() => {
         if (showMobileNav) {
+            // disable body scrolling
             document.querySelector('body').classList.add('show-mobile-nav');
         } else {
+            // re-enable body scrolling
             document.querySelector('body').classList.remove('show-mobile-nav');
         }
     }
@@ -35,12 +37,10 @@ const NavbarWrapper = () => {
     };
 
     const displayMobileNav = () => {
-    // disable body scrolling
         setShowMobileNav(true);
     };
 
     const hideMobileNav = () => {
-    // re-enable body scrolling
         setShowMobileNav(false);
     };
 
