@@ -53,6 +53,14 @@
     z-index: 150;
   }
 
+  .dropdown-slot-2 .dropdown-background {
+    transform: translateX(-100px);
+  }
+
+  .dropdown-slot-3 .dropdown-background {
+    transform: translateX(-250px);
+  }
+
   .dropdown-section__wrapper {
     display: block;
     background-color: $color-white;
@@ -101,6 +109,7 @@
         margin: 0;
         padding: 0;
         text-transform: uppercase;
+        margin-bottom: rem(24);
       }
 
       .dropdown-section__section-subtitle {
@@ -123,15 +132,31 @@
         padding: 0;
 
         div {
-          .dropdown-item__link-label {
-            font-size: $font-size-16;
-            font-weight: $font-semibold;
-            font-stretch: normal;
-            font-style: normal;
-            line-height: 1.25;
-            letter-spacing: normal;
-            text-align: left;
-            color: $gray-90;
+          .dropdown-item__link-desc {
+            display: block;
+
+            .dropdown-item__link-label {
+              font-size: $font-size-16;
+              font-weight: $font-semibold;
+              font-stretch: normal;
+              font-style: normal;
+              line-height: 1.25;
+              letter-spacing: normal;
+              text-align: left;
+              color: $gray-90;
+            }
+
+            .dropdown-item__description {
+              display: flex;
+              margin: $global-margin * .5 0 0 0;
+              font-size: $font-size-12;
+              font-weight: normal;
+              font-stretch: normal;
+              font-style: normal;
+              line-height: 1.5;
+              letter-spacing: normal;
+              color: $gray-60;
+            }
           }
         }
 
@@ -208,6 +233,14 @@
       .dropdown-section__section-list {
         margin: 0 !important;
         padding: 0;
+
+        div {
+          &:hover {
+            background: $gray-cool-3;
+            border-radius: rem(8);
+            cursor: pointer;
+          }
+        }
 
         li {
           margin-top: $global-margin * 2;

@@ -38,7 +38,7 @@ const NavbarItem = (props) => {
                             <FontAwesomeIcon icon={navChevronDirection} alt={iconAlt} />
                         </div>
                     </button>
-                    <div className="dropdown-slot">{children}</div>
+                    <div className={`dropdown-slot dropdown-slot-${index}`}>{children}</div>
                 </>
             }
         </li>
