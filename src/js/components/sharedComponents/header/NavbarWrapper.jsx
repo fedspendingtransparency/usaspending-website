@@ -16,7 +16,7 @@ const NavbarWrapper = () => {
         if (pathname === "/") {
             setIsHomepage(true);
         }
-    }, [pathname]);
+    }, []);
 
     useEffect(() => {
         if (showMobileNav) {
