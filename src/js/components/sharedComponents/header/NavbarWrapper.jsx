@@ -9,12 +9,6 @@ import MegaMenu from "./megaMenu/MegaMenu";
 const NavbarWrapper = () => {
     const [showMobileNav, setShowMobileNav] = useState(false);
     const [isHomepage, setIsHomepage] = useState(false);
-    let siteBody = null;
-
-    useEffect(() => {
-        siteBody = document.querySelector('body');
-    }
-    , []);
 
     const { pathname } = useLocation();
 
@@ -22,7 +16,16 @@ const NavbarWrapper = () => {
         if (pathname === "/") {
             setIsHomepage(true);
         }
-    }, []);
+    }, [pathname]);
+
+    useEffect(() => {
+        if (showMobileNav) {
+            document.querySelector('body').classList.add('show-mobile-nav');
+        } else {
+            document.querySelector('body').classList.remove('show-mobile-nav');
+        }
+    }
+    , [showMobileNav]);
 
     const clickedHeaderLink = (route) => {
         Analytics.event({
@@ -33,13 +36,11 @@ const NavbarWrapper = () => {
 
     const displayMobileNav = () => {
     // disable body scrolling
-        siteBody.classList.add('show-mobile-nav');
         setShowMobileNav(true);
     };
 
     const hideMobileNav = () => {
     // re-enable body scrolling
-        siteBody.classList.remove('show-mobile-nav');
         setShowMobileNav(false);
     };
 
