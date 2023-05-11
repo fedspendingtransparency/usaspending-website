@@ -2,6 +2,7 @@ import React from "react";
 import { FlexGridRow } from 'data-transparency-ui';
 import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { uniqueId } from 'lodash';
 
 const ItemContent = ({
     section1Title,
@@ -18,7 +19,7 @@ const ItemContent = ({
 }) => (
     <div className="dropdown-section__wrapper">
         <div className="dropdown-section__top-columns">
-            <div className="dropdown-section first-dropdown-section" data-first-dropdown-section>
+            <div key={uniqueId()} className="dropdown-section first-dropdown-section" data-first-dropdown-section>
                 {section1Icon && section1Icon !== null && section1Icon !== '' ? <FontAwesomeIcon size="lg" className="" icon={section1Icon} /> : ''}
                 <div>
                     <p className="dropdown-section__section-title">{section1Title}</p>
@@ -27,7 +28,7 @@ const ItemContent = ({
                     <ul className="dropdown-section__section-list">
                         {section1Items.map((item, index) => (
                             <>
-                                <li key={`link-${index}`}>
+                                <li key={`link-${uniqueId(index)}`}>
                                     {item.icon && item.icon !== '' && item.icon !== null ? <FontAwesomeIcon size="lg" className="" icon={item.icon} /> : ''}
                                     <div className="dropdown-item__link-desc">
                                         <Link className="dropdown-item__link-label" to={item.url}>{item.label}</Link>
@@ -39,7 +40,7 @@ const ItemContent = ({
                     </ul>
                 </div>
             </div>
-            <div className="dropdown-section">
+            <div key={uniqueId()} className="dropdown-section">
                 <div className="dropdown-section__alternate-top">
                     {section2Icon && section2Icon !== null && section2Icon !== '' ? <FontAwesomeIcon size="lg" className="" icon={section2Icon} /> : ''}
                     <div>
@@ -49,7 +50,7 @@ const ItemContent = ({
                         <ul className="dropdown-section__section-list">
                             {section2Items.map((item, index) => (
                                 <>
-                                    <li key={`second-section-link-${index}`}>
+                                    <li key={`second-section-link-${uniqueId(index)}`}>
                                         {item.icon && item.icon !== '' && item.icon !== null ? <FontAwesomeIcon size="lg" className="" icon={item.icon} /> : ''}
                                         <div className="dropdown-item__link-desc">
                                             <Link className="dropdown-item__link-label" to={item.url}>{item.label}</Link>
@@ -64,21 +65,23 @@ const ItemContent = ({
             </div>
         </div>
         {section3Title !== null && section3Title !== undefined && section3Title !== '' ?
-            <div className="dropdown-section dropdown-section__bottom-portion">
+            <div key={uniqueId()} className="dropdown-section dropdown-section__bottom-portion">
                 <div className="dropdown-section__alternate-top">
                     {section3Icon && section3Icon !== null && section3Icon !== '' ? <FontAwesomeIcon size="lg" className="" icon={section3Icon} /> : ''}
                     <div>
                         <p className="dropdown-section__section-title">{section3Title}</p>
                         <div className="dropdown-section__section-list">
                             {section3Items.map((item, index) => (
-                                <FlexGridRow desktop={6} width={6}>
-                                    <div className="dropdown-section__section-list-item" key={`third-section-link-${index}`}>
-                                        <div className="dropdown-item__link-desc">
-                                            <Link className="dropdown-item__link-label" to={item.url}>{item.label}</Link>
-                                            <div className="dropdown-item__description">{item.description}</div>
+                                <div key={`third-section-link-${uniqueId(index)}`}>
+                                    <FlexGridRow desktop={6} width={6} >
+                                        <div className="dropdown-section__section-list-item">
+                                            <div className="dropdown-item__link-desc">
+                                                <Link className="dropdown-item__link-label" to={item.url}>{item.label}</Link>
+                                                <div className="dropdown-item__description">{item.description}</div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </FlexGridRow>
+                                    </FlexGridRow>
+                                </div>
                             ))}
                         </div>
                     </div>
