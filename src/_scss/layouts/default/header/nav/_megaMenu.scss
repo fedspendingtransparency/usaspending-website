@@ -55,6 +55,7 @@
 
   .dropdown-section__wrapper {
     display: block;
+    background-color: $color-white;
 
     @media(min-width: $medium-screen) {
       width: rem(720);
@@ -74,7 +75,7 @@
     .dropdown-section {
       position: relative;
       z-index: 1;
-      
+
       .dropdown-section__alternate-top {
         display: flex;
       }
@@ -123,7 +124,7 @@
           margin-top: $global-margin * 2;
           margin-bottom: $global-margin * .5;
           display: flex;
-          padding: $global-padding;
+          padding: $global-padding 0;
 
           &:hover {
             background: $gray-cool-3;
@@ -178,6 +179,8 @@
 
     .dropdown-section__bottom-portion {
       background: $gray-cool-2;
+      margin: -40px;
+      padding: 40px;
 
       .dropdown-section__alternate-top {
         display: flex;
