@@ -153,7 +153,7 @@ export const developerOptions = [
         url: 'https://api.usaspending.gov/docs/intro-tutorial',
         enabled: true,
         shouldOpenNewTab: true,
-        description: '',
+        description: 'API endpoints and how they power the data on USAspending.gov',
         externalLink: true
     },
     {
