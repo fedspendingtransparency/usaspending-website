@@ -31,8 +31,9 @@ const ItemContent = ({
                                 <li key={`link-${uniqueId(index)}`}>
                                     {item.icon && item.icon !== '' && item.icon !== null ? <FontAwesomeIcon size="lg" className="" icon={item.icon} /> : ''}
                                     <div className="dropdown-item__link-desc">
-                                        <Link className="dropdown-item__link-label" to={item.url}>{item.label}</Link>
-                                        <span className="dropdown-item__description">{item.description}</span>
+                                        <Link className="dropdown-item__link-label" to={item.url}>{item.label}
+                                            <span className="dropdown-item__description">{item.description}</span>
+                                        </Link>
                                     </div>
                                 </li>
                             </>
@@ -53,8 +54,9 @@ const ItemContent = ({
                                     <li key={`second-section-link-${uniqueId(index)}`}>
                                         {item.icon && item.icon !== '' && item.icon !== null ? <FontAwesomeIcon size="lg" className="" icon={item.icon} /> : ''}
                                         <div className="dropdown-item__link-desc">
-                                            <Link className="dropdown-item__link-label" to={item.url}>{item.label}</Link>
-                                            <span className="dropdown-item__description">{item.description}</span>
+                                            <Link className="dropdown-item__link-label" to={item.url}>{item.label}
+                                                <span className="dropdown-item__description">{item.description}</span>
+                                            </Link>
                                         </div>
                                     </li>
                                 </>
@@ -76,8 +78,9 @@ const ItemContent = ({
                                     <FlexGridRow desktop={6} width={6} >
                                         <div className="dropdown-section__section-list-item">
                                             <div className="dropdown-item__link-desc">
-                                                <Link className="dropdown-item__link-label" to={item.url}>{item.label}</Link>
-                                                <div className="dropdown-item__description">{item.description}</div>
+                                                <Link className="dropdown-item__link-label" to={item.url}>{item.label}
+                                                    <div className="dropdown-item__description">{item.description}</div>
+                                                </Link>
                                             </div>
                                         </div>
                                     </FlexGridRow>
