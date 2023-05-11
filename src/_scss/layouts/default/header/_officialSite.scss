@@ -38,7 +38,7 @@
       margin-top: -4px;
       .usa-da-icon-close {
         width: 40px;
-        fill: #005ea2;
+        fill: $blue-60v;
       }
     }
   }
@@ -106,10 +106,6 @@
     justify-content: space-between;
     margin-top: 4px;
     margin-bottom: 4px;
-    @media(min-width: $x-large-screen) {
-      //margin: rem(16) auto;
-      //max-width: rem(1600);
-    }
   }
 
   button {
