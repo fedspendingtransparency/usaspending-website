@@ -18,12 +18,13 @@ const GovBanner = () => {
                 <div className="usa-accordion">
                     <header className="usa-banner__header">
                         <div className="usa-banner__inner" data-testid="banner-header-inner-div">
-                            <div>
+                            <div className="usa-banner__header-text-wrapper">
                                 <img
                                     className="usa-banner__header-flag"
                                     alt="U.S. flag"
                                     src="img/uswds/us_flag_small.png" />
-                                <div className="usa-banner__header-text">&nbsp;&nbsp;<span>An official website of the <span style={{ whiteSpace: 'nowrap' }}>United States government</span></span>
+                                <div className="usa-banner__header-text">
+                                    <div className="usa-banner__header-sub-text">An official website of the <span style={{ whiteSpace: 'nowrap' }}>United States </span>government</div>
                                     <button
                                         type="button"
                                         onClick={toggleAccordion}
