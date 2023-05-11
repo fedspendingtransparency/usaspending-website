@@ -43,7 +43,7 @@ const GovBanner = () => {
                     <header className="usa-banner__header">
                         <div
                             className="usa-banner__inner"
-                            tabIndex={0}
+                            tabIndex={isMobile ? 0 : ""}
                             role="button"
                             onKeyDown={(e) => {
                                 if (e.key === "Enter" && isMobile) toggleAccordion();
@@ -60,6 +60,7 @@ const GovBanner = () => {
                                     <div className="usa-banner__header-sub-text">An official website of the <span style={{ whiteSpace: 'nowrap' }}>United States </span>government</div>
                                     <button
                                         type="button"
+                                        tabIndex={!isMobile ? 0 : -1}
                                         onClick={() => (!isMobile ? toggleAccordion() : "")}
                                         className="usa-accordion__button usa-banner__button"
                                         aria-expanded="false"
