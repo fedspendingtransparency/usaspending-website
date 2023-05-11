@@ -55,8 +55,8 @@
     margin: 0 rem(36) 0 rem(40);
   }
   @media(min-width: $x-large-screen) {
-    margin: rem(16) auto;
-    max-width: rem(1600);
+    margin: 0 auto;
+    width: rem(1600);
   }
 
   .usa-banner__header-flag {
@@ -132,6 +132,7 @@
     flex-direction: column;
     align-items: start;
     margin-left: 8px;
+    max-width: 1000px;
 
     > .usa-banner__guidance {
       margin: 40px 16px 0 16px;
@@ -152,6 +153,10 @@
         margin: rem(24) rem(24) rem(24) rem(12);
         width: 100%;
       }
+    }
+
+    .usa-banner__content {
+      max-width: 1000px;
     }
 
     &.closed {
