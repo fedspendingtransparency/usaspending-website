@@ -178,6 +178,39 @@ const MobileDropdownItem = ({
                     </ul>
                 }
             </div>
+            <div className="mobile-dropdown__title">
+                {section2Options[index].title}
+            </div>
+            <div className="mobile-dropdown__sub">
+                {section2Options[index].sub}
+            </div>
+            <div className="mobile-dropdown__section-container">
+                {index === 1 &&
+                    <ul>
+                        {section2Items.map((item, i) => (
+                            <li key={i}>
+                                <div className="mobile-dropdown__section-row-one">
+                                    <div className="mobile-dropdown__section-icon">
+                                        <FontAwesomeIcon icon={item.icon} size="sm" />
+                                    </div>
+                                    <div className="mobile-dropdown__section-label">
+                                        {item.label}
+                                    </div>
+                                </div>
+                                <div className="mobile-dropdown__section-description">
+                                    {item.description}
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+                }
+            </div>
+            <div className="mobile-dropdown__title">
+                {section3Options[index].title}
+            </div>
+            <div className="mobile-dropdown__sub">
+                {section3Options[index].sub}
+            </div>
         </div>
     );
 MobileDropdownItem.propTypes = propTypes;

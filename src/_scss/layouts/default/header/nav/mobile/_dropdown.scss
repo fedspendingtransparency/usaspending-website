@@ -50,21 +50,23 @@
 
         }
 
-        .mobile-dropdown__section-row-one {
-            display: flex;
-            flex-direction: column;
+        .mobile-dropdown__section-container {
 
-            .mobile-dropdown__section-icon {
+            .mobile-dropdown__section-row-one {
+                display: flex;
+                flex-direction: column;
 
+                .mobile-dropdown__section-icon {
+
+                }
+                .mobile-dropdown__section-label {
+
+                }
             }
-            .mobile-dropdown__section-label {
+            .mobile-dropdown__section-description {
 
             }
         }
-        .mobile-dropdown__section-description {
-
-        }
-
     }
 
     ul.mobile-dropdown__list {
