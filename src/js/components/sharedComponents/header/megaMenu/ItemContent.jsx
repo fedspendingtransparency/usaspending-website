@@ -11,71 +11,73 @@ const ItemContent = ({
     section3Items,
     section1Sub,
     section2Sub,
-    section3Sub,
     section1Icon,
     section2Icon,
     section3Icon
 }) => (
     <div className="dropdown-section__wrapper">
         <div className="dropdown-section__top-columns">
-            <div className="dropdown-section" data-first-dropdown-section>
-                <div>
-                    {section1Icon && section1Icon !== null && section1Icon !== '' ? <FontAwesomeIcon size="lg" className="" icon={section1Icon} /> : ''}<p className="dropdown-section__section-title">{section1Title}</p>
-                    {section1Sub !== null && section1Sub !== undefined && section1Sub !== '' ?
-                        <span className="dropdown-section__section-subtitle">{section1Sub}</span> : ''}
-                    <ul className="dropdown-section__section-list">
-                        {section1Items.map((item, index) => (
-                            <>
-                                <li key={`link-${index}`}>
-                                    {item.icon && item.icon !== '' && item.icon !== null ? <FontAwesomeIcon size="lg" className="" icon={item.icon} /> : ''}
-                                    <div className="dropdown-item__link-desc">
-                                        <Link className="dropdown-item__link-label" to={item.url}>{item.label}</Link>
-                                        <span className="dropdown-item__description">{item.description}</span>
-                                    </div>
-                                </li>
-                            </>
-                        ))}
-                    </ul>
-                </div>
+            <div className="dropdown-section first-dropdown-section" data-first-dropdown-section>
+                {section1Icon && section1Icon !== null && section1Icon !== '' ? <FontAwesomeIcon size="lg" className="" icon={section1Icon} /> : ''}
+                <p className="dropdown-section__section-title">{section1Title}</p>
+                {section1Sub !== null && section1Sub !== undefined && section1Sub !== '' ?
+                    <span className="dropdown-section__section-subtitle">{section1Sub}</span> : ''}
+                <ul className="dropdown-section__section-list">
+                    {section1Items.map((item, index) => (
+                        <>
+                            <li key={`link-${index}`}>
+                                {item.icon && item.icon !== '' && item.icon !== null ? <FontAwesomeIcon size="lg" className="" icon={item.icon} /> : ''}
+                                <div className="dropdown-item__link-desc">
+                                    <Link className="dropdown-item__link-label" to={item.url}>{item.label}</Link>
+                                    <span className="dropdown-item__description">{item.description}</span>
+                                </div>
+                            </li>
+                        </>
+                    ))}
+                </ul>
             </div>
             <div className="dropdown-section">
-                <div>
-                    {section2Icon && section2Icon !== null && section2Icon !== '' ? <FontAwesomeIcon size="lg" className="" icon={section2Icon} /> : ''}<p className="dropdown-section__section-title">{section2Title}</p>
-                    {section2Sub !== null && section2Sub !== undefined && section2Sub !== '' ?
-                        <span className="dropdown-section__section-subtitle">{section2Sub}</span> : ''}
-                    <ul className="dropdown-section__section-list">
-                        {section2Items.map((item, index) => (
-                            <>
-                                <li key={`second-section-link-${index}`}>
-                                    {item.icon && item.icon !== '' && item.icon !== null ? <FontAwesomeIcon size="lg" className="" icon={item.icon} /> : ''}
-                                    <div className="dropdown-item__link-desc">
-                                        <Link className="dropdown-item__link-label" to={item.url}>{item.label}</Link>
-                                        <span className="dropdown-item__description">{item.description}</span>
-                                    </div>
-                                </li>
-                            </>
-                        ))}
-                    </ul>
+                <div className="dropdown-section__alternate-top">
+                    {section2Icon && section2Icon !== null && section2Icon !== '' ? <FontAwesomeIcon size="lg" className="" icon={section2Icon} /> : ''}
+                    <div>
+                        <p className="dropdown-section__section-title">{section2Title}</p>
+                        {section2Sub !== null && section2Sub !== undefined && section2Sub !== '' ?
+                            <span className="dropdown-section__section-subtitle">{section2Sub}</span> : ''}
+                    </div>
                 </div>
+                <ul className="dropdown-section__section-list">
+                    {section2Items.map((item, index) => (
+                        <>
+                            <li key={`second-section-link-${index}`}>
+                                {item.icon && item.icon !== '' && item.icon !== null ? <FontAwesomeIcon size="lg" className="" icon={item.icon} /> : ''}
+                                <div className="dropdown-item__link-desc">
+                                    <Link className="dropdown-item__link-label" to={item.url}>{item.label}</Link>
+                                    <span className="dropdown-item__description">{item.description}</span>
+                                </div>
+                            </li>
+                        </>
+                    ))}
+                </ul>
             </div>
         </div>
         {section3Title !== null && section3Title !== undefined && section3Title !== '' ?
-            <div className="dropdown-section">
-                <div>
-                    {section3Icon && section3Icon !== null && section3Icon !== '' ? <FontAwesomeIcon size="lg" className="" icon={section3Icon} /> : ''}<p className="dropdown-section__section-title">{section3Title}</p>
-                    {section3Sub !== null && section3Sub !== undefined && section3Sub !== '' ?
-                        <span className="dropdown-section__section-subtitle">{section3Sub}</span> : ''}
-                    <ul>
-                        {section3Items.map((item, index) => (
-                            <>
-                                <li key={`third-section-link-${index}`}>
-                                    <Link to={item.url}>{item.label}</Link>
-                                </li>
-                                <span className="dropdown-item__description">{item.description}</span>
-                            </>
-                        ))}
-                    </ul>
+            <div className="dropdown-section dropdown-section__bottom-portion">
+                <div className="dropdown-section__alternate-top">
+                    {section3Icon && section3Icon !== null && section3Icon !== '' ? <FontAwesomeIcon size="lg" className="" icon={section3Icon} /> : ''}
+                    <p className="dropdown-section__section-title">{section3Title}</p>
                 </div>
+                <ul className="dropdown-section__section-list">
+                    {section3Items.map((item, index) => (
+                        <>
+                            <li key={`third-section-link-${index}`}>
+                                <div className="dropdown-item__link-desc">
+                                    <Link className="dropdown-item__link-label" to={item.url}>{item.label}</Link>
+                                    <span className="dropdown-item__description">{item.description}</span>
+                                </div>
+                            </li>
+                        </>
+                    ))}
+                </ul>
             </div> : ''}
     </div>
 
