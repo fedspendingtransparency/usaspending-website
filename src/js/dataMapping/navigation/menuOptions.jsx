@@ -157,19 +157,19 @@ export const developerOptions = [
         externalLink: true
     },
     {
-        label: 'Release Notes',
-        url: 'https://github.com/fedspendingtransparency/usaspending-website/wiki',
-        enabled: true,
-        shouldOpenNewTab: true,
-        description: 'Summary of the latest changes on USAspending.gov',
-        externalLink: true
-    },
-    {
         label: 'USAspending GitHub',
         url: 'https://github.com/fedspendingtransparency/usaspending-website/tree/master',
         enabled: true,
         shouldOpenNewTab: true,
         description: 'Open-source code for USAspending.gov',
+        externalLink: true
+    },
+    {
+        label: 'Release Notes',
+        url: 'https://github.com/fedspendingtransparency/usaspending-website/wiki',
+        enabled: true,
+        shouldOpenNewTab: true,
+        description: 'Summary of the latest changes on USAspending.gov',
         externalLink: true
     }
 ];

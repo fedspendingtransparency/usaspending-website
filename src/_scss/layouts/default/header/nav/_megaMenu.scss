@@ -246,6 +246,8 @@
       .dropdown-section__section-list {
         margin: 0 !important;
         padding: 0;
+        display: flex;
+        flex-wrap: wrap;
 
         li {
           margin-top: $global-margin * 2;
@@ -335,11 +337,6 @@
   }
 
   .dropdown-section__bottom-portion .dropdown-section__section-list {
-    display: flex;
-    div {
-      width: 100%;
-    }
-
     .dropdown-section__section-list-item {
       padding: $global-padding;
       border-radius: rem(8);

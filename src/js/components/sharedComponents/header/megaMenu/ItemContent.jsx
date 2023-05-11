@@ -71,7 +71,7 @@ const ItemContent = ({
                         <p className="dropdown-section__section-title">{section3Title}</p>
                         <div className="dropdown-section__section-list">
                             {section3Items.map((item, index) => (
-                                <FlexGridRow desktop={7} width={7}>
+                                <FlexGridRow desktop={6} width={6}>
                                     <div className="dropdown-section__section-list-item" key={`third-section-link-${index}`}>
                                         <div className="dropdown-item__link-desc">
                                             <Link className="dropdown-item__link-label" to={item.url}>{item.label}</Link>
