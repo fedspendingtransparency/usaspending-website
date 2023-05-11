@@ -32,7 +32,7 @@ const GovBanner = () => {
                                         aria-expanded="false"
                                         aria-controls="gov-banner">
                                         <span className="usa-banner__button-text">Here’s how you know</span>
-                                        <FontAwesomeIcon width="11.7px" icon={accordionOpen === true ? "chevron-up" : "chevron-down"} alt="Expanded menu" />
+                                        <div style={{ marginTop: "3px" }}><FontAwesomeIcon width="11.7px" height="6.9px" icon={accordionOpen === true ? "chevron-up" : "chevron-down"} alt="Expanded menu" /></div>
                                     </button>
                                 </div>
                             </div>
@@ -57,7 +57,7 @@ const GovBanner = () => {
                                 <p><strong>Official websites use .gov</strong><br />A <strong>.gov</strong> website belongs to an official government organization in the United States.</p>
                             </div>
                         </div>
-                        <div className="usa-banner__guidance tablet:grid-col-6">
+                        <div className="usa-banner__guidance">
                             <div className="usa-media-block__body">
                                 <img
                                     className="usa-banner__content-icon"
