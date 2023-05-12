@@ -82,21 +82,21 @@ const ItemContent = ({
                         {section3Icon && section3Icon !== null && section3Icon !== '' ? <FontAwesomeIcon size="lg" className="" icon={section3Icon} /> : ''}
                         <div>
                             <p className="dropdown-section__section-title">{section3Title}</p>
-                            <div className="dropdown-section__section-list">
+                            <ul className="dropdown-section__section-list">
                                 {section3Items.map((item, index) => (
-                                    <div key={`third-section-link-${uniqueId(index)}`}>
+                                    <li
+                                        className="dropdown-section__bottom-portion-list-item"
+                                        key={`third-section-link-${uniqueId(index)}`}>
                                         <FlexGridRow desktop={6} width={6} >
-                                            <div className="dropdown-section__section-list-item">
-                                                <div className="dropdown-item__link-desc">
-                                                    <Link className="dropdown-item__link-label" to={item.url}>{item.label}
-                                                        <div className="dropdown-item__description">{item.description}</div>
-                                                    </Link>
-                                                </div>
+                                            <div className="dropdown-item__link-desc">
+                                                <Link className="dropdown-item__link-label" to={item.url}>{item.label}
+                                                    <div className="dropdown-item__description">{item.description}</div>
+                                                </Link>
                                             </div>
                                         </FlexGridRow>
-                                    </div>
+                                    </li>
                                 ))}
-                            </div>
+                            </ul>
                         </div>
                     </div>
                 </div> : ''}
