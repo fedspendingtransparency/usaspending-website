@@ -74,7 +74,7 @@
       display: flex !important;
       background-color: $color-white;
       background-clip: padding-box;
-      margin-bottom: rem(12);
+      margin-bottom: rem(24);
       .first-dropdown-section {
         display: flex;
         margin-right: $global-margin * 4;
@@ -178,7 +178,7 @@
         }
 
         li {
-          margin-top: $global-margin * 2;
+          margin-top: 0;
           display: flex;
           padding: $global-padding !important;
           transform: translateX(-8px);
@@ -191,6 +191,12 @@
             svg {
               background-color: $blue-warm-10;
               color: $blue-warm-80;
+            }
+
+            .dropdown-item__link-desc {
+              .dropdown-item__description {
+                color: $gray-90;
+              }
             }
           }
 
@@ -238,8 +244,8 @@
 
     .dropdown-section__bottom-portion {
       background: $gray-cool-2;
-      margin: 0 -40px -40px;
-      padding: 24px 40px 40px;
+      margin: 0 $global-margin * -5 $global-margin * -5;
+      padding: rem(24) $global-padding * 5 $global-padding * 5;
 
       .dropdown-section__alternate-top {
         display: flex;
@@ -252,7 +258,7 @@
         flex-wrap: wrap;
 
         li {
-          margin-top: $global-margin * 2;
+          margin-top: 0;
           display: flex;
           padding: $global-padding !important;
           transform: translateX(-8px);
