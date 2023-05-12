@@ -39,12 +39,14 @@ const ItemContent = ({
                             {section1Items.map((item, index) => (
                                 <>
                                     <li key={`link-${uniqueId(index)}`}>
-                                        {item.icon && item.icon !== '' && item.icon !== null ? <FontAwesomeIcon size="lg" className="" icon={item.icon} /> : ''}
-                                        <div className="dropdown-item__link-desc">
-                                            <Link className="dropdown-item__link-label" to={item.url}>{item.label}
-                                                <span className="dropdown-item__description">{item.description}</span>
-                                            </Link>
-                                        </div>
+                                        <Link className="dropdown--item__link">
+                                            {item.icon && item.icon !== '' && item.icon !== null ? <FontAwesomeIcon size="lg" className="" icon={item.icon} /> : ''}
+                                            <div className="dropdown-item__link-desc">
+                                                <div className="dropdown-item__link-label" to={item.url}>{item.label}
+                                                    <span className="dropdown-item__description">{item.description}</span>
+                                                </div>
+                                            </div>
+                                        </Link>
                                     </li>
                                 </>
                             ))}
