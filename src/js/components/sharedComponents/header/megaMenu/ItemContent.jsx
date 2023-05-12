@@ -88,9 +88,11 @@ const ItemContent = ({
                         {section3Icon && section3Icon !== null && section3Icon !== '' ? <FontAwesomeIcon size="lg" className="" icon={section3Icon} /> : ''}
                         <div>
                             <p className="dropdown-section__section-title">{section3Title}</p>
-                            <div className="dropdown-section__section-list">
+                            <ul className="dropdown-section__section-list">
                                 {section3Items.map((item, index) => (
-                                    <div key={`third-section-link-${uniqueId(index)}`}>
+                                    <li
+                                        className="dropdown-section__bottom-portion-list-item"
+                                        key={`third-section-link-${uniqueId(index)}`}>
                                         <FlexGridRow desktop={6} width={6} >
                                             <Link className="dropdown--item__link" to={item.url}>
                                                 <div className="dropdown-section__section-list-item">
@@ -103,9 +105,9 @@ const ItemContent = ({
                                                 </div>
                                             </Link>
                                         </FlexGridRow>
-                                    </div>
+                                    </li>
                                 ))}
-                            </div>
+                            </ul>
                         </div>
                     </div>
                 </div> : ''}
