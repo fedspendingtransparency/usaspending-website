@@ -204,8 +204,8 @@
             color: $blue-warm-60;
             padding: $global-padding * .5;
             border-radius: rem(4);
-            width: rem(20);
-            height: rem(20);
+            width: rem(20) !important;
+            height: rem(20) !important;
             margin-right: $global-margin;
           }
 
@@ -317,7 +317,7 @@
       padding: $global-padding $global-padding*2 $global-padding $global-padding*2;
       border-radius: rem(8);
       &:hover {
-        background: $gray-cool-5;
+        background: $gray-cool-5 !important;
       }
     }
 
