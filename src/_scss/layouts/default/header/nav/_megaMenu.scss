@@ -122,7 +122,7 @@
         margin: 0;
         padding: 0;
         text-transform: uppercase;
-        margin-bottom: rem(24);
+        margin-bottom: rem(4);
       }
 
       .dropdown-section__section-subtitle {
@@ -181,7 +181,7 @@
           margin-top: $global-margin * 2;
           display: flex;
           padding: $global-padding !important;
-
+          transform: translateX(-8px);
           &:hover {
             background: $gray-cool-3;
             border-radius: rem(8);
