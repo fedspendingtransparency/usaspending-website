@@ -79,7 +79,13 @@ import {
     faUserTie,
     faWindowRestore,
     faFingerprint,
-    faScroll
+    faScroll,
+    faListAlt,
+    faTh,
+    faMoneyBillWave,
+    faServer,
+    faGraduationCap,
+    faCodeBranch
 } from "@fortawesome/free-solid-svg-icons";
 
 export default function registerIcons() {
@@ -158,6 +164,12 @@ export default function registerIcons() {
         faUserTie,
         faWindowRestore,
         faAngleDoubleDown,
-        faScroll
+        faScroll,
+        faListAlt,
+        faTh,
+        faMoneyBillWave,
+        faServer,
+        faGraduationCap,
+        faCodeBranch
     );
 }

@@ -21,15 +21,15 @@ import AnalystGuideIntro from "./AnalystGuideIntro";
 
 
 const AnalystGuidePage = () => {
-    const slug = 'analyst-guide';
+    const slug = 'federal-spending-guide';
     const [windowWidth, setWindowWidth] = useState(0);
     const [isMobile, setIsMobile] = useState(window.innerWidth < mediumScreen);
 
     const onShareClick = (name) => {
-        const emailSubject = `USAspending.gov Analyst's Guide`;
+        const emailSubject = `USAspending.gov Federal Spending Guide`;
         const emailArgs = {
             subject: `${emailSubject}`,
-            body: `Interested in learning how to effectively use Federal Spending Data? Check out #USAspending Analyst Guide! ${getBaseUrl(slug)}`
+            body: `Interested in learning how to effectively use Federal Spending Data? Check out #USAspending Federal Spending Guide! ${getBaseUrl(slug)}`
         };
         handleShareOptionClick(name, slug, emailArgs);
     };
@@ -55,13 +55,13 @@ const AnalystGuidePage = () => {
 
     return (
         <PageWrapper
-            pageName="AnalystGuide"
+            pageName="FederalSpendingGuide"
             classNames="usa-da-analyst-guide-page"
             noHeader
             metaTagProps={{ ...analystGuideMetaTags }}>
             <main id="main-content" className="main-content">
                 <section>
-                    <AnalystGuideHeader title="Analyst&apos;s Guide to Federal Spending Data" subtitle="Guidance on effectively using USAspending.gov data." />
+                    <AnalystGuideHeader title="Federal Spending Guide" subtitle="Questions and answers about USAspending data and federal spending concepts" />
                 </section>
                 <FlexGridRow style={{ justifyContent: 'center' }}>
                     <FlexGridCol desktop={6} tablet={12} className="analyst-guide-body">
@@ -75,12 +75,13 @@ const AnalystGuidePage = () => {
                             </div>
                             <div className="analyst-guide__download-wrapper">
                                 <a
-                                    href="/data/analyst-guide-download.pdf"
+                                    href="/data/Federal-Spending-Guide.pdf"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="analyst-guide__download-button"
+                                    aria-label="download"
                                     download>
-                                    <FontAwesomeIcon data-href="/data/analyst-guide-download.pdf" icon={faFileDownload} className="analyst-guide__download-icon" />
+                                    <FontAwesomeIcon data-href="/data/Federal-Spending-Guide.pdf" icon={faFileDownload} className="analyst-guide__download-icon" />
                                 </a>
                                 <div>
                                     <span>Download</span>

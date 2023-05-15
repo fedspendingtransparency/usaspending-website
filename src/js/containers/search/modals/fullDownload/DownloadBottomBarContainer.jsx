@@ -53,7 +53,7 @@ export class DownloadBottomBarContainer extends React.Component {
     }
 
     componentDidMount() {
-        if (this.props.download.pendingDownload && this.props.download.showCollapsedProgress &&
+        if (this.props.download?.pendingDownload && this.props.download?.showCollapsedProgress &&
             !this.state.visible) {
             this.requestDownload(this.props.filters,
                 this.props.download.columns, this.props.download.type);
@@ -62,7 +62,7 @@ export class DownloadBottomBarContainer extends React.Component {
     }
 
     componentDidUpdate() {
-        if (this.props.download.pendingDownload && this.props.download.showCollapsedProgress &&
+        if (this.props.download?.pendingDownload && this.props.download?.showCollapsedProgress &&
             !this.state.visible) {
             this.requestDownload(this.props.filters,
                 this.props.download.columns, this.props.download.type);
@@ -77,7 +77,7 @@ export class DownloadBottomBarContainer extends React.Component {
     }
 
     displayBar() {
-    // monitor for window close events
+        // monitor for window close events
         window.addEventListener('beforeunload', this.windowWillClose);
         this.setState({
             visible: true,
@@ -249,7 +249,7 @@ export class DownloadBottomBarContainer extends React.Component {
     // we need to modify the browser event to trigger a warning message
         e.returnValue = `You have a file that is still being generated. If you leave, the file \
 will no longer download to your computer. Are you sure you want to do this?`;
-    /* eslint-ensable no-param-reassign */
+    /* eslint-enable no-param-reassign */
     }
 
     render() {

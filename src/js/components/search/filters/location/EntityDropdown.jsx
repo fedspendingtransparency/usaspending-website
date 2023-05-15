@@ -8,15 +8,11 @@ import PropTypes from 'prop-types';
 import Mousetrap from 'mousetrap';
 import { uniqueId, isEqual } from 'lodash';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { TooltipWrapper } from "data-transparency-ui";
 import { defaultLocationValues }
     from "containers/search/filters/location/LocationPickerContainer";
-
 import EntityDropdownList from './EntityDropdownList';
 import EntityWarning from './EntityWarning';
 import { EntityDropdownAutocomplete } from './EntityDropdownAutocomplete';
-import FeatureFlag from "../../../sharedComponents/FeatureFlag";
-import { CDTooltip } from "../tooltips/AdvancedSearchTooltip";
 
 const propTypes = {
     value: PropTypes.object,
@@ -148,7 +144,13 @@ export default class EntityDropdown extends React.Component {
             // just update the search string, don't perform search
             this.props.setSearchString(item.name, false);
         }
-        if (item.code !== "NA-000") {
+        if (this.props.title.includes("Original Congressional")) {
+            this.props.selectEntity("originalDistrict", item);
+        }
+        else if (this.props.title.includes("Current Congressional")) {
+            this.props.selectEntity("currentDistrict", item);
+        }
+        else if (item.code !== "NA-000") {
             this.props.selectEntity(this.props.field, item);
         }
         this.closeDropdown();
@@ -190,7 +192,7 @@ export default class EntityDropdown extends React.Component {
             // nth-child is 1 indexed but listindex is based on the array so it is 0 indexed
             // add 1 to the index to bring them in line
             const currentIndex = parseInt(active.getAttribute('data-listindex'), 10) + 1;
-            if (currentIndex + 1 < this.props.options.length) {
+            if (currentIndex + 1 <= this.props.options.length) {
                 // we're not at the end of the list
                 const nextItem = document.querySelector(`.geo-entity-list li:nth-child(${currentIndex + 1}) .list-item`);
                 if (nextItem) {
@@ -290,23 +292,18 @@ export default class EntityDropdown extends React.Component {
         return (
             <div
                 className="geo-entity-item">
-                <div className="location-label__with-tt">
+                {(this.props.title.includes('Congressional Districts')) ?
+                    <label
+                        className={`location-label__overline ${disabled}`}
+                        htmlFor={`${field}-${type}-${uniqueIdentifier}`}>
+                        {this.props.title}
+                    </label> :
                     <label
                         className={`location-label ${disabled}`}
                         htmlFor={`${field}-${type}-${uniqueIdentifier}`}>
                         {this.props.title}
                     </label>
-                    {this.props.title === 'CONGRESSIONAL DISTRICT (US ONLY)' ?
-                        <FeatureFlag>
-                            <div>
-                                <TooltipWrapper
-                                    className="advanced-search__cd-tooltip"
-                                    icon="info"
-                                    tooltipComponent={<CDTooltip />} />
-                            </div>
-                        </FeatureFlag>
-                        : ''}
-                </div>
+                }
                 <div
                     id={`${field}-${type}-${uniqueIdentifier}`}
                     className={`geo-entity-dropdown ${disabled} ${autocompleteClass}`}
@@ -373,3 +370,4 @@ export default class EntityDropdown extends React.Component {
 
 EntityDropdown.propTypes = propTypes;
 EntityDropdown.defaultProps = defaultProps;
+

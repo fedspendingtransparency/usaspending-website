@@ -12,6 +12,7 @@
             .status-of-funds__controls-mobile-row-one {
             display: flex;
             justify-content: space-between;
+            align-items: center;
 
             .rounded-toggle__wrapper {
                 align-self: center;
@@ -22,8 +23,12 @@
         .status-of-funds__controls-desktop-row-one {
             display: flex;
             justify-content: space-between;
+            align-items: center;
+            @media(min-width: $tablet-screen) {
+                margin: rem(24) 0 rem(8);
+            }
             @media(min-width: $large-screen) {
-                margin-bottom: rem(16);
+                margin: rem(16) 0 rem(24) rem(32);
             }
         }
 
@@ -112,10 +117,100 @@
         }
     }
 
-    .status-of-funds__emphasis {
-        white-space: nowrap;
-        font-weight: $font-semibold;
+    .status-of-funds__controls-heading-container {
+        display: flex;
+        flex-wrap: wrap;
+        margin: rem(8) 0;
+        @media(min-width: $tablet-screen) {
+            margin: 0;
+        }
+
+        .status-of-funds__controls-heading {
+            font-size: rem(20);
+            font-weight: $font-normal;
+            color: $gray-90;
+            display: flex;
+            flex-wrap: wrap;
+            align-content: center;
+            height: rem(36);
+
+            &.emphasis {
+                white-space: nowrap;
+                font-weight: $font-semibold;
+            }
+        }
+        .status-of-funds__chart-picker {
+            font-size: $font-size-24;
+            text-align: center;
+            border-radius: 4px;
+            border: solid 2px $gray-cool-10;
+            background-color: $color-white;
+            color: $gray-cool-60;
+            margin: 0 rem(6);
+            height: rem(36);
+
+            .usa-dt-picker__button {
+                padding: rem(4) rem(10);
+                margin: 0;
+
+                .usa-dt-picker__button-text {
+                    font-size: $font-size-16;
+                    font-weight: $font-semibold;
+                    line-height: 1.5;
+                    color: $gray-cool-60;
+                    white-space: nowrap;
+                }
+                .usa-dt-picker__button-icon {
+                    width: 13px;
+                    height: 13px;
+                    margin-bottom: 6px;
+                    flex-basis: unset;
+                }
+                .svg-inline--fa {
+                    color: $theme-color-1;
+                    height: 12px;
+                    width: 12px;
+                }
+            }
+        }
     }
+
+    .usa-dt-picker__list {
+        overflow: hidden;
+    }
+
+    .usa-dt-picker__dropdown-container {
+        width: rem(156);
+    }
+
+    .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__list-item {
+        border-top: none;
+    }
+
+    .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__button .usa-dt-picker__button-text, .usa-dt-picker .usa-dt-picker__item {
+        font-size: $font-size-16;
+        font-weight: $font-semibold;
+        line-height: 1.5;
+        color: $gray-cool-60;
+    }
+
+    .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item:hover {
+        background-color: $gray-cool-3;
+    }
+
+    .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item.active {
+        color: $gray-cool-60;
+        background-color: $gray-cool-5;
+    }
+
+    .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item.active:hover {
+        background-color: $gray-cool-10;
+    }
+
+    .usa-dt-picker .usa-dt-picker__dropdown-container .usa-dt-picker__list .usa-dt-picker__item:focus {
+        background-color: $gray-cool-3;
+    }
+
 
     .usa-dt-pagination__totals {
         @media(min-width: $large-screen) {
@@ -124,12 +219,11 @@
     }
     .drilldown-back-button {
         @media(max-width: $medium-screen) {
-            margin-top: 3rem;
+            margin-top: rem(24);
         }
         @media(min-width: $large-screen) {
             margin-left: rem(32);
         }
-        margin-bottom: 2rem;
         font-size: rem(16);
         padding: 0;
         border: none;
@@ -167,17 +261,6 @@
             @media(max-width: 350px) {
                 font-size: rem(44);
             }
-        }
-    }
-    h6 {
-        font-size: rem(20);
-        font-weight: $font-normal;
-        color: $gray-90;
-        @media(min-width: $medium-screen) {
-            margin-top: rem(16);
-        }
-        @media(min-width: $large-screen) {
-            margin-left: rem(32);
         }
     }
     .tickLines-vertical {

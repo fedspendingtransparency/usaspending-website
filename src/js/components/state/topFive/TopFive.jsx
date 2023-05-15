@@ -51,6 +51,7 @@ const TopFive = (props) => {
                 <img
                     className="category-table__title-icon"
                     src={`img/state-categories/${props.category}.png`}
+                    aria-hidden="true"
                     alt="" />
                 <div className="category-table__title-name">
                     {props.category === "district" ?
