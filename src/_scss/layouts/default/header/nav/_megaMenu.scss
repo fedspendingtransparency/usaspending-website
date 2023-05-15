@@ -313,11 +313,14 @@
   }
 
   .dropdown-section__bottom-portion .dropdown-section__section-list {
+    li:hover {
+      background: unset !important;
+    }
     .dropdown-section__section-list-item {
       padding: $global-padding $global-padding*2 $global-padding $global-padding*2;
       border-radius: rem(8);
       &:hover {
-        background: $gray-cool-5 !important;
+        background: $gray-cool-5;
       }
     }
 
