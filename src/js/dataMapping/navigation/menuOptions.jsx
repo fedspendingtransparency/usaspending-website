@@ -114,7 +114,7 @@ export const learnResourceOptions = [
 export const referenceMaterialsOptions = [
     {
         label: 'Glossary',
-        url: '/?glossary',
+        url: '?glossary',
         description: 'Definitions for commonly used terms',
         enabled: true,
         appendToExistingUrl: true
