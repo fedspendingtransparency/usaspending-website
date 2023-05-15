@@ -18,7 +18,8 @@ const ItemContent = ({
     section2Sub,
     section1Icon,
     section2Icon,
-    section3Icon
+    section3Icon,
+    menuIndex
 }) => {
     const dispatch = useDispatch();
 
@@ -38,7 +39,7 @@ const ItemContent = ({
                         <ul className="dropdown-section__section-list">
                             {section1Items.map((item, index) => (
                                 <>
-                                    <li key={`link-${uniqueId(index)}`}>
+                                    <li key={`link-${uniqueId(index)}`} className={menuIndex > 1 ? 'list__extra-padding' : ''}>
                                         <Link className="dropdown--item__link" to={item.url}>
                                             {item.icon && item.icon !== '' && item.icon !== null ? <FontAwesomeIcon size="lg" className="" icon={item.icon} /> : ''}
                                             <div className="dropdown-item__link-desc">
@@ -64,7 +65,7 @@ const ItemContent = ({
                             <ul className="dropdown-section__section-list">
                                 {section2Items.map((item, index) => (
                                     <>
-                                        <li key={`second-section-link-${uniqueId(index)}`}>
+                                        <li key={`second-section-link-${uniqueId(index)}`} className={menuIndex > 1 ? 'list__extra-padding' : ''}>
                                             <Link className="dropdown--item__link" to={item.url !== "?about-the-data" ? item.url : ''} onMouseUp={item.url !== '?about-the-data' ? '' : openATD}>
                                                 {item.icon && item.icon !== '' && item.icon !== null ? <FontAwesomeIcon size="lg" className="" icon={item.icon} /> : ''}
                                                 <div className="dropdown-item__link-desc">

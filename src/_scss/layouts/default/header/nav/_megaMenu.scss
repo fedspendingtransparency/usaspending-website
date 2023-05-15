@@ -237,6 +237,11 @@
             }
           }
         }
+        .list__extra-padding {
+          padding: $global-padding $global-padding*2 $global-padding $global-padding*2 !important;
+          transform: translateX(-16px);
+        }
+
         li:first-of-type {
           margin-top: $global-margin;
         }
