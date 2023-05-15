@@ -18,7 +18,6 @@ import SearchSidebar from './SearchSidebar';
 import SearchResults from './SearchResults';
 import NoDownloadHover from './header/NoDownloadHover';
 import KeywordSearchLink from "./KeywordSearchLink";
-import FeatureFlag from "../sharedComponents/FeatureFlag";
 
 const propTypes = {
     download: PropTypes.object,
