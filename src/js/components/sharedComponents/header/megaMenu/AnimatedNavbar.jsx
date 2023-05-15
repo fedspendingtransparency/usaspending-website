@@ -1,6 +1,19 @@
 import React, { Component } from "react";
 import { Flipper } from "react-flip-toolkit";
-import { profileOptions, downloadOptions, resourceOptions } from 'dataMapping/navigation/menuOptions';
+import {
+    spendingOptions,
+    profileOptions,
+    learnResourceOptions,
+    referenceMaterialsOptions,
+    developerOptions,
+    awardDownloadOptions,
+    accountDataOptions,
+    allDownloadOptions,
+    section1Options,
+    section2Options,
+    section3Options
+} from 'dataMapping/navigation/menuOptions';
+import { uniqueId } from 'lodash';
 import Navbar from "./Navbar";
 import DropdownContainer from "./DropdownContainer";
 import NavbarItem from './NavbarItem';
@@ -13,18 +26,32 @@ const navbarConfig = [
     },
     {
         title: "Explore the Data",
-        items: profileOptions,
-        dropdown: ItemContent
+        section1Items: spendingOptions,
+        section2Items: profileOptions,
+        dropdown: ItemContent,
+        section1Options,
+        section2Options,
+        section3Options
     },
     {
         title: "Download the Data",
-        items: downloadOptions,
-        dropdown: ItemContent
+        section1Items: awardDownloadOptions,
+        section2Items: accountDataOptions,
+        section3Items: allDownloadOptions,
+        dropdown: ItemContent,
+        section1Options,
+        section2Options,
+        section3Options
     },
     {
         title: "Find Resources",
-        items: resourceOptions,
-        dropdown: ItemContent
+        section1Items: learnResourceOptions,
+        section2Items: referenceMaterialsOptions,
+        section3Items: developerOptions,
+        dropdown: ItemContent,
+        section1Options,
+        section2Options,
+        section3Options
     }
 ];
 
@@ -73,8 +100,23 @@ export default class AnimatedNavbar extends Component {
         let CurrentDropdown;
         let PrevDropdown;
         let direction;
-        let currentProps;
-        let prevProps;
+
+        let currentSection1Props;
+        let currentSection2Props;
+        let currentSection3Props;
+        let prevSection1Props;
+        let prevSection2Props;
+        let prevSection3Props;
+
+        let currentSection1Title;
+        let currentSection2Title;
+        let currentSection3Title;
+        let currentSection1Sub;
+        let currentSection2Sub;
+        let currentSection3Sub;
+        let currentSection1Icon;
+        let currentSection2Icon;
+        let currentSection3Icon;
 
         const currentIndex = this.state.activeIndices[
             this.state.activeIndices.length - 1
@@ -85,10 +127,27 @@ export default class AnimatedNavbar extends Component {
 
         if (typeof currentIndex === "number") {
             CurrentDropdown = navbarConfig[currentIndex]?.dropdown;
-            currentProps = navbarConfig[currentIndex].items;
-        } else if (typeof prevIndex === "number") {
+            currentSection1Props = navbarConfig[currentIndex].section1Items;
+            currentSection2Props = navbarConfig[currentIndex].section2Items;
+            currentSection3Props = navbarConfig[currentIndex].section3Items;
+
+            currentSection1Title = navbarConfig[currentIndex].section1Options[currentIndex]?.title;
+            currentSection2Title = navbarConfig[currentIndex].section2Options[currentIndex]?.title;
+            currentSection3Title = navbarConfig[currentIndex].section3Options[currentIndex]?.title;
+
+            currentSection1Sub = navbarConfig[currentIndex].section1Options[currentIndex]?.sub;
+            currentSection2Sub = navbarConfig[currentIndex].section2Options[currentIndex]?.sub;
+            currentSection3Sub = navbarConfig[currentIndex].section3Options[currentIndex]?.sub;
+
+            currentSection1Icon = navbarConfig[currentIndex].section1Options[currentIndex]?.icon;
+            currentSection2Icon = navbarConfig[currentIndex].section2Options[currentIndex]?.icon;
+            currentSection3Icon = navbarConfig[currentIndex].section3Options[currentIndex]?.icon;
+        }
+        else if (typeof prevIndex === "number") {
             PrevDropdown = navbarConfig[prevIndex].dropdown;
-            prevProps = navbarConfig[prevIndex].items;
+            prevSection1Props = navbarConfig[prevIndex].section1Items;
+            prevSection2Props = navbarConfig[prevIndex].section2Items;
+            prevSection3Props = navbarConfig[prevIndex].section3Items;
 
             direction = currentIndex > prevIndex ? "right" : "left";
         }
@@ -98,6 +157,7 @@ export default class AnimatedNavbar extends Component {
                 <Navbar onMouseLeave={this.onMouseLeave}>
                     {navbarConfig.map((n, index) => (
                         <NavbarItem
+                            key={`navbaritem-${uniqueId(index)}`}
                             title={n.title}
                             index={index}
                             url={n.url}
@@ -108,8 +168,20 @@ export default class AnimatedNavbar extends Component {
                                     direction={direction}
                                     animatingOut={this.state.animatingOut}
                                     tweenConfig={this.props.tweenConfig}>
-                                    <CurrentDropdown items={currentProps} />
-                                    {PrevDropdown && <PrevDropdown items={prevProps} />}
+                                    <CurrentDropdown
+                                        section1Items={currentSection1Props}
+                                        section2Items={currentSection2Props}
+                                        section3Items={currentSection3Props}
+                                        section1Title={currentSection1Title}
+                                        section2Title={currentSection2Title}
+                                        section3Title={currentSection3Title}
+                                        section1Sub={currentSection1Sub}
+                                        section2Sub={currentSection2Sub}
+                                        section3Sub={currentSection3Sub}
+                                        section1Icon={currentSection1Icon}
+                                        section2Icon={currentSection2Icon}
+                                        section3Icon={currentSection3Icon} />
+                                    {PrevDropdown && <PrevDropdown section1Items={prevSection1Props} section2Items={prevSection2Props} section3Items={prevSection3Props} />}
                                 </DropdownContainer>
                             )}
                         </NavbarItem>

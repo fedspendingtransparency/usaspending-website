@@ -23,17 +23,6 @@ const dropdownRoot = (props) => ({
     top: "-20px"
 });
 
-const altBackgroundStyles = (props) => ({
-    backgroundColor: "#f0f0f0",
-    width: "200%",
-    height: "100%",
-    position: "absolute",
-    top: "0",
-    left: "-50%",
-    transformOrigin: "0 0",
-    zIndex: "0",
-    transition: `transform ${props.duration}ms`
-});
 
 const getFirstDropdownSectionHeight = (el) => {
     if (!el) return null;
@@ -114,7 +103,6 @@ export default class DropdownContainer extends Component {
                         <Flipped inverseFlipId="dropdown" scale>
                             <div>
                                 <div
-                                    style={altBackgroundStyles(this.props)}
                                     /* eslint-disable-next-line no-return-assign */
                                     ref={(el) => (this.altBackgroundEl = el)}
                                     duration={tweenConfig.duration} />
