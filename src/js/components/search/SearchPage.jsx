@@ -154,9 +154,7 @@ export default class SearchPage extends React.Component {
                         <div className="full-search-sidebar">
                             { fullSidebar }
                             {this.state.isMobile === false ?
-                                <FeatureFlag>
-                                    <KeywordSearchLink />
-                                </FeatureFlag>
+                                <KeywordSearchLink />
                                 : '' }
                         </div>
                         <Helmet>
