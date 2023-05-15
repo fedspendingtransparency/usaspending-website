@@ -4,8 +4,10 @@
  */
 
 import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from 'prop-types';
+import { Picker } from "data-transparency-ui";
 import { levels } from './StatusOfFunds';
 import StatusOfFundsChart from '../visualizations/StatusOfFundsChart';
 import RoundedToggle from "../../sharedComponents/RoundedToggle";
@@ -20,21 +22,14 @@ const propTypes = {
     onKeyToggle: PropTypes.func,
     level: PropTypes.number.isRequired,
     setDrilldownLevel: PropTypes.func,
-    loading: PropTypes.bool,
-    setLoading: PropTypes.func,
-    agencyName: PropTypes.string,
     fy: PropTypes.string,
     results: PropTypes.array,
-    selectedLevelData: PropTypes.shape({
-        name: PropTypes.string,
-        id: PropTypes.string,
-        budgetaryResources: PropTypes.string,
-        obligations: PropTypes.string
-    }),
     isMobile: PropTypes.bool,
     viewType: PropTypes.string,
     setViewType: PropTypes.func,
-    maxLevel: PropTypes.number
+    maxLevel: PropTypes.number,
+    dropdownSelection: PropTypes.string,
+    setDropdownSelection: PropTypes.func
 };
 
 const VisualizationSection = ({
@@ -43,17 +38,35 @@ const VisualizationSection = ({
     onToggle,
     level,
     setDrilldownLevel,
-    agencyName,
     fy,
     results,
-    selectedLevelData,
     isMobile,
     viewType,
     setViewType,
-    maxLevel
+    maxLevel,
+    dropdownSelection,
+    setDropdownSelection
 }) => {
     const [open, setOpen] = useState(false);
     const accordionTitle = (<span>What&nbsp;is&nbsp;this?</span>);
+
+    const name = useSelector((state) => state.agency.currentLevelNameAndId.name);
+    const id = useSelector((state) => state.agency.currentLevelNameAndId.id);
+    const currentLevelData = {
+        name,
+        id
+    };
+
+    const tasName = useSelector((state) => state.agency.selectedTas?.name);
+    const tasId = useSelector((state) => state.agency.selectedTas?.id);
+    const tasObligation = useSelector((state) => state.agency.selectedTas?._obligations);
+    const tasOutlays = useSelector((state) => state.agency.selectedTas?._outlays);
+    const currentTasData = {
+        name: tasName,
+        id: tasId,
+        _obligations: tasObligation,
+        _outlays: tasOutlays
+    };
 
     const changeView = (label) => {
         setViewType(label);
@@ -67,6 +80,52 @@ const VisualizationSection = ({
 
     const maxLevelClass = level !== maxLevel ? ' not-max-level' : '';
 
+    const dropdownClickFunction = (value) => {
+        setDropdownSelection(value);
+
+        if (value === 'Object Class') {
+            setDrilldownLevel(level, currentTasData, true);
+        }
+        else {
+            setDrilldownLevel(level, currentTasData);
+        }
+    };
+
+    const options = [{
+        name: 'Program Activity',
+        value: 'Program Activity',
+        onClick: dropdownClickFunction
+    },
+    {
+        name: 'Object Class',
+        value: 'Object Class',
+        onClick: dropdownClickFunction
+    }];
+
+    // the dtui picker component will put the options in alpha order if no sort fn is given
+    // in this case we want the order to always be the same, hence...
+    const sortButNotReally = () => options;
+
+    const chartHeadingWithDropdown = (
+        <div className="status-of-funds__controls-heading-container">
+            <div className="status-of-funds__controls-heading">{currentLevelData.name} by&thinsp;</div>
+            {level === 3 ? (
+                <Picker
+                    className="status-of-funds__chart-picker"
+                    sortFn={sortButNotReally}
+                    options={options}
+                    dropdownDirection="right"
+                    backgroundColor="#ffffff"
+                    selectedOption={dropdownSelection} />
+            ) :
+                <div className="status-of-funds__controls-heading emphasis">
+                    {levels[level]}&thinsp;
+                </div>
+            }
+            <div className="status-of-funds__controls-heading">for FY {fy}</div>
+        </div>
+    );
+
     return (
         <div
             className="status-of-funds__visualization"
@@ -78,8 +137,7 @@ const VisualizationSection = ({
             }}>
             {isMobile ? (
                 <>
-                    <h6>{level === 0 ? agencyName : selectedLevelData?.name } by <span className="status-of-funds__emphasis">{levels[level]}</span> for FY {fy}
-                    </h6>
+                    {chartHeadingWithDropdown}
                     <div className="status-of-funds__controls-mobile">
                         <div className="status-of-funds__controls-mobile-row-one">
                             <RoundedToggle toggle={toggle} onKeyToggle={onKeyToggle} onToggle={onToggle} label="View Outlays" />
@@ -94,8 +152,7 @@ const VisualizationSection = ({
                     <>
                         <div className="status-of-funds__controls">
                             <div className="status-of-funds__controls-desktop-row-one">
-                                <h6>{level === 0 ? agencyName : selectedLevelData?.name } by <span className="status-of-funds__emphasis">{levels[level]}</span> for FY {fy}
-                                </h6>
+                                {chartHeadingWithDropdown}
                                 {chartTableToggle}
                             </div>
                             <div className="status-of-funds__controls-desktop-row-two">
