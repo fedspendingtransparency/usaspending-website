@@ -64,7 +64,7 @@
   .dropdown-section__wrapper {
     display: block;
     background-color: $color-white;
-
+    border: solid 1px $gray-cool-5;
     @media(min-width: $medium-screen) {
       width: rem(720);
       padding: $global-padding * 5;
