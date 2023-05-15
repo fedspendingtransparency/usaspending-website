@@ -13,7 +13,7 @@ const tempPage = () => {
         <PageFeatureFlag>
             <PageWrapper
                 pageName="Test Page"
-                classNames="usa-da-about-page"
+                classNames="usa-da-home-page"
                 title="Test Page">
                 <main id="main-content" className="main-content">
                     <div className="flex-gap" style={{ display: 'inline-flex', 'flex-wrap': 'wrap', gap: '12px' }}>

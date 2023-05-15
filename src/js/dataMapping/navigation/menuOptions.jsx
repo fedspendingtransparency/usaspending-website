@@ -153,15 +153,7 @@ export const developerOptions = [
         url: 'https://api.usaspending.gov/docs/intro-tutorial',
         enabled: true,
         shouldOpenNewTab: true,
-        description: '',
-        externalLink: true
-    },
-    {
-        label: 'Release Notes',
-        url: 'https://github.com/fedspendingtransparency/usaspending-website/wiki',
-        enabled: true,
-        shouldOpenNewTab: true,
-        description: 'Summary of the latest changes on USAspending.gov',
+        description: 'API endpoints and how they power the data on USAspending.gov',
         externalLink: true
     },
     {
@@ -170,6 +162,14 @@ export const developerOptions = [
         enabled: true,
         shouldOpenNewTab: true,
         description: 'Open-source code for USAspending.gov',
+        externalLink: true
+    },
+    {
+        label: 'Release Notes',
+        url: 'https://github.com/fedspendingtransparency/usaspending-website/wiki',
+        enabled: true,
+        shouldOpenNewTab: true,
+        description: 'Summary of the latest changes on USAspending.gov',
         externalLink: true
     }
 ];
