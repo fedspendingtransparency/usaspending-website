@@ -134,7 +134,7 @@
         letter-spacing: normal;
         text-align: left;
         color: $gray-60;
-        width: rem(300);
+        width: rem(274);
         display: flex;
         word-wrap: break-word;
       }
@@ -258,8 +258,8 @@
         display: flex;
         flex-wrap: wrap;
 
-        .dropdown-section__bottom-portion-list-item:nth-child(odd) {
-          margin-right: $global-margin * 8;
+        .dropdown-section__bottom-portion-list-item:nth-child(even) {
+          margin-left: $global-margin * 8;
         }
 
         .dropdown-section__section-list-item {
