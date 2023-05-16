@@ -66,7 +66,7 @@ const ItemContent = ({
                                 {section2Items.map((item, index) => (
                                     <>
                                         <li key={`second-section-link-${uniqueId(index)}`} className={menuIndex > 1 ? 'list__extra-padding' : ''}>
-                                            <Link className="dropdown--item__link" to={item.url !== "?about-the-data" ? item.url : ''} onMouseUp={item.url !== '?about-the-data' ? '' : openATD}>
+                                            <Link className="dropdown--item__link" onMouseUp={item.url !== '?about-the-data' ? '' : openATD}>
                                                 {item.icon && item.icon !== '' && item.icon !== null ? <FontAwesomeIcon size="lg" className="" icon={item.icon} /> : ''}
                                                 <div className="dropdown-item__link-desc">
                                                     <div className="dropdown-item__link-label">
