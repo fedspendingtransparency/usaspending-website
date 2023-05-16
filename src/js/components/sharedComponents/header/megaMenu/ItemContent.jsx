@@ -29,7 +29,7 @@ const ItemContent = ({
     };
     return (
         <div className="dropdown-section__wrapper">
-            <div className="dropdown-section__top-columns">
+            <div className={menuIndex === 1 ? "dropdown-section__top-columns undo__bottom-padding" : "dropdown-section__top-columns"}>
                 <div key={uniqueId()} className="dropdown-section first-dropdown-section" data-first-dropdown-section>
                     {section1Icon && section1Icon !== null && section1Icon !== '' ? <FontAwesomeIcon size="lg" className="" icon={section1Icon} /> : ''}
                     <div>
