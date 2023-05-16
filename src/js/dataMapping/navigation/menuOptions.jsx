@@ -149,7 +149,7 @@ export const referenceMaterialsOptions = [
 ];
 export const developerOptions = [
     {
-        label: 'API Tutorial',
+        label: 'USAspending API',
         url: 'https://api.usaspending.gov/docs/intro-tutorial',
         enabled: true,
         shouldOpenNewTab: true,
