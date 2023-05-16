@@ -24,9 +24,9 @@ const ItemContent = ({
     const dispatch = useDispatch();
 
     const openATD = (e) => {
-        e.preventDefault();
         dispatch(aboutTheDataActions.showAboutTheData());
         dispatch(slideoutActions.setLastOpenedSlideout('atd'));
+        e.preventDefault();
     };
     return (
         <div className="dropdown-section__wrapper">
@@ -69,11 +69,9 @@ const ItemContent = ({
                                         <li key={`second-section-link-${uniqueId(index)}`} className={menuIndex > 1 ? 'list__extra-padding' : ''}>
                                             <Link
                                                 className="dropdown--item__link"
-                                                to={item.url !== '?about-the-data' ? item.url : () => {
-                                                    const currentLocation = window.location.href;
-                                                    return { pathname: currentLocation };
-                                                }}
-                                                onMouseUp={item.url !== '?about-the-data' ? null : openATD}>
+                                                to={item.url !== "?about-the-data" ? item.url : ''}
+                                                onClick={item.url !== '?about-the-data' ? '' : openATD}
+                                                onMouseUp={item.url !== '?about-the-data' ? '' : openATD}>
                                                 {item.icon && item.icon !== '' && item.icon !== null ? <FontAwesomeIcon role="presentation" size="lg" className="" icon={item.icon} /> : ''}
                                                 <div className="dropdown-item__link-desc">
                                                     <div className="dropdown-item__link-label">
