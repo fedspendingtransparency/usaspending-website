@@ -23,21 +23,21 @@ export const spendingOptions = [
     {
         label: 'Budget Function ',
         description: 'Drilldown from high-level categories addressing national needs',
-        url: '/explorer/budget_function',
+        url: 'explorer/budget_function',
         enabled: true,
         icon: 'list-alt'
     },
     {
         label: 'Agency',
         description: 'Drilldown from federal agencies',
-        url: '/explorer/agency',
+        url: 'explorer/agency',
         enabled: true,
         icon: 'landmark'
     },
     {
         label: 'Object Class',
         description: 'Drilldown from items or services purchased',
-        url: '/explorer/object_class',
+        url: 'explorer/object_class',
         enabled: true,
         icon: 'th'
     }
@@ -46,34 +46,34 @@ export const profileOptions = [
     {
         label: 'Agencies',
         description: 'Status of funds and award spending for federal agencies',
-        url: '/agency',
+        url: 'agency',
         enabled: true,
         icon: 'landmark'
     },
     {
         label: 'Federal Accounts',
-        url: '/federal_account',
+        url: 'federal_account',
         description: 'Spending details for accounts within federal agencies',
         enabled: true,
         icon: 'money-check-alt'
     },
     {
         label: 'State & Territories',
-        url: '/state',
+        url: 'state',
         description: 'Award amounts to states & territories',
         enabled: true,
         icon: 'map-marker-alt'
     },
     {
         label: 'Recipients',
-        url: '/recipient',
+        url: 'recipient',
         description: 'Award amounts to federal award recipients',
         enabled: true,
         icon: 'building'
     },
     {
         label: "COVID-19 Spending",
-        url: '/disaster/covid-19',
+        url: 'disaster/covid-19',
         description: 'Total spending and award spending in response to COVID-19',
         enabled: true,
         icon: 'hand-holding-medical'
@@ -84,7 +84,7 @@ export const learnResourceOptions = [
     {
         label: 'Federal Spending Guide',
         type: 'federal-spending-guide',
-        url: '/federal-spending-guide',
+        url: 'federal-spending-guide',
         description: 'Questions and answers about federal spending concepts',
         shouldOpenNewTab: false,
         enabled: true,
@@ -95,7 +95,7 @@ export const learnResourceOptions = [
         type: 'data-sources',
         enabled: true,
         description: 'Interactive explainer for the data sources on USAspending.gov',
-        url: '/data-sources',
+        url: 'data-sources',
         callToAction: 'Explore the Data Sources',
         shouldOpenNewTab: false,
         externalLink: false
@@ -104,7 +104,7 @@ export const learnResourceOptions = [
         label: 'Training Videos',
         type: 'training-videos',
         description: 'Tutorials for how to use the data and features on USAspending.gov',
-        url: '/training-videos',
+        url: 'training-videos',
         shouldOpenNewTab: false,
         enabled: true,
         externalLink: false,
@@ -129,7 +129,7 @@ export const referenceMaterialsOptions = [
     {
         label: 'Data Dictionary',
         type: 'data-dictionary',
-        url: '/data-dictionary',
+        url: 'data-dictionary',
         code: 'dictionary',
         description: 'Details about the data elements in downloads',
         callToAction: 'Explore the Data Dictionary',
@@ -140,7 +140,7 @@ export const referenceMaterialsOptions = [
     {
         label: "Agency Submission Statistics",
         url: {
-            pathname: '/submission-statistics',
+            pathname: 'submission-statistics',
             search: '?tab=submissions'
         },
         description: 'Status of agency financial submissions to USAspending.gov',
@@ -150,11 +150,11 @@ export const referenceMaterialsOptions = [
 export const developerOptions = [
     {
         label: 'USAspending API',
-        url: 'https://api.usaspending.gov/docs/intro-tutorial',
+        url: 'https://api.usaspending.gov/',
         enabled: true,
         shouldOpenNewTab: true,
         description: 'API endpoints and how they power the data on USAspending.gov',
-        externalLink: true
+        externalLink: false
     },
     {
         label: 'USAspending GitHub',
