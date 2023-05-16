@@ -77,9 +77,13 @@
       margin-bottom: rem(24);
       .first-dropdown-section {
         display: flex;
-        margin-right: $global-margin * 4;
+        margin-right: $global-margin * 5;
         background-color: $color-white;
       }
+    }
+    
+    .undo__bottom-padding {
+      margin-bottom: 0;
     }
 
     .dropdown-section {
@@ -237,6 +241,11 @@
             }
           }
         }
+        .list__extra-padding {
+          padding: $global-padding $global-padding*2 $global-padding $global-padding*2 !important;
+          transform: translateX(-16px);
+        }
+
         li:first-of-type {
           margin-top: $global-margin;
         }

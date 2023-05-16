@@ -180,8 +180,9 @@ export default class AnimatedNavbar extends Component {
                                         section3Sub={currentSection3Sub}
                                         section1Icon={currentSection1Icon}
                                         section2Icon={currentSection2Icon}
-                                        section3Icon={currentSection3Icon} />
-                                    {PrevDropdown && <PrevDropdown section1Items={prevSection1Props} section2Items={prevSection2Props} section3Items={prevSection3Props} />}
+                                        section3Icon={currentSection3Icon}
+                                        menuIndex={index} />
+                                    {PrevDropdown && <PrevDropdown section1Items={prevSection1Props} section2Items={prevSection2Props} section3Items={prevSection3Props} menuIndex={index} />}
                                 </DropdownContainer>
                             )}
                         </NavbarItem>

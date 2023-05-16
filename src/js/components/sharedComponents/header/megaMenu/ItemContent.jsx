@@ -18,19 +18,21 @@ const ItemContent = ({
     section2Sub,
     section1Icon,
     section2Icon,
-    section3Icon
+    section3Icon,
+    menuIndex
 }) => {
     const dispatch = useDispatch();
 
-    const openATD = () => {
+    const openATD = (e) => {
         dispatch(aboutTheDataActions.showAboutTheData());
         dispatch(slideoutActions.setLastOpenedSlideout('atd'));
+        e.preventDefault();
     };
     return (
         <div className="dropdown-section__wrapper">
-            <div className="dropdown-section__top-columns">
+            <div className={menuIndex === 1 ? "dropdown-section__top-columns undo__bottom-padding" : "dropdown-section__top-columns"}>
                 <div key={uniqueId()} className="dropdown-section first-dropdown-section" data-first-dropdown-section>
-                    {section1Icon && section1Icon !== null && section1Icon !== '' ? <FontAwesomeIcon size="lg" className="" icon={section1Icon} /> : ''}
+                    {section1Icon && section1Icon !== null && section1Icon !== '' ? <FontAwesomeIcon role="presentation" size="lg" className="" icon={section1Icon} /> : ''}
                     <div>
                         <p className="dropdown-section__section-title">{section1Title}</p>
                         {section1Sub !== null && section1Sub !== undefined && section1Sub !== '' ?
@@ -38,9 +40,9 @@ const ItemContent = ({
                         <ul className="dropdown-section__section-list">
                             {section1Items.map((item, index) => (
                                 <>
-                                    <li key={`link-${uniqueId(index)}`}>
+                                    <li key={`link-${uniqueId(index)}`} className={menuIndex > 1 ? 'list__extra-padding' : ''}>
                                         <Link className="dropdown--item__link" to={item.url}>
-                                            {item.icon && item.icon !== '' && item.icon !== null ? <FontAwesomeIcon size="lg" className="" icon={item.icon} /> : ''}
+                                            {item.icon && item.icon !== '' && item.icon !== null ? <FontAwesomeIcon role="presentation" size="lg" className="" icon={item.icon} /> : ''}
                                             <div className="dropdown-item__link-desc">
                                                 <div className="dropdown-item__link-label">
                                                     {item.label}
@@ -56,7 +58,7 @@ const ItemContent = ({
                 </div>
                 <div key={uniqueId()} className="dropdown-section">
                     <div className="dropdown-section__alternate-top">
-                        {section2Icon && section2Icon !== null && section2Icon !== '' ? <FontAwesomeIcon size="lg" className="" icon={section2Icon} /> : ''}
+                        {section2Icon && section2Icon !== null && section2Icon !== '' ? <FontAwesomeIcon role="presentation" size="lg" className="" icon={section2Icon} /> : ''}
                         <div>
                             <p className="dropdown-section__section-title">{section2Title}</p>
                             {section2Sub !== null && section2Sub !== undefined && section2Sub !== '' ?
@@ -64,9 +66,13 @@ const ItemContent = ({
                             <ul className="dropdown-section__section-list">
                                 {section2Items.map((item, index) => (
                                     <>
-                                        <li key={`second-section-link-${uniqueId(index)}`}>
-                                            <Link className="dropdown--item__link" to={item.url !== "?about-the-data" ? item.url : ''} onMouseUp={item.url !== '?about-the-data' ? '' : openATD}>
-                                                {item.icon && item.icon !== '' && item.icon !== null ? <FontAwesomeIcon size="lg" className="" icon={item.icon} /> : ''}
+                                        <li key={`second-section-link-${uniqueId(index)}`} className={menuIndex > 1 ? 'list__extra-padding' : ''}>
+                                            <Link
+                                                className="dropdown--item__link"
+                                                to={item.url !== "?about-the-data" ? item.url : ''}
+                                                onClick={item.url !== '?about-the-data' ? '' : openATD}
+                                                onMouseUp={item.url !== '?about-the-data' ? '' : openATD}>
+                                                {item.icon && item.icon !== '' && item.icon !== null ? <FontAwesomeIcon role="presentation" size="lg" className="" icon={item.icon} /> : ''}
                                                 <div className="dropdown-item__link-desc">
                                                     <div className="dropdown-item__link-label">
                                                         {item.label}
@@ -85,7 +91,7 @@ const ItemContent = ({
             {section3Title !== null && section3Title !== undefined && section3Title !== '' ?
                 <div key={uniqueId()} className="dropdown-section dropdown-section__bottom-portion">
                     <div className="dropdown-section__alternate-top">
-                        {section3Icon && section3Icon !== null && section3Icon !== '' ? <FontAwesomeIcon size="lg" className="" icon={section3Icon} /> : ''}
+                        {section3Icon && section3Icon !== null && section3Icon !== '' ? <FontAwesomeIcon role="presentation" size="lg" className="" icon={section3Icon} /> : ''}
                         <div>
                             <p className="dropdown-section__section-title">{section3Title}</p>
                             <ul className="dropdown-section__section-list">
@@ -94,7 +100,7 @@ const ItemContent = ({
                                         className="dropdown-section__bottom-portion-list-item"
                                         key={`third-section-link-${uniqueId(index)}`}>
                                         <FlexGridRow desktop={6} width={6} >
-                                            <Link className="dropdown--item__link" to={item.url}>
+                                            <Link target="_blank" rel="noopener noreferrer" className="dropdown--item__link" to={{ pathname: item.url }}>
                                                 <div className="dropdown-section__section-list-item">
                                                     <div className="dropdown-item__link-desc">
                                                         <div className="dropdown-item__link-label">
