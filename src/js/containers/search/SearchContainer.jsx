@@ -114,7 +114,7 @@ const SearchContainer = ({ history }) => {
                 setDownloadInFlight(false);
                 request.current = null;
             });
-    }, [stagedFilters, appliedFilters]);
+    }, [stagedFilters]);
 
     useEffect(() => {
         areAppliedFiltersEmptyRef.current = areAppliedFiltersEmpty;
@@ -176,6 +176,7 @@ const SearchContainer = ({ history }) => {
             dispatch(resetAppliedFilters());
             dispatch(clearAllFilters());
         };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
@@ -187,6 +188,7 @@ const SearchContainer = ({ history }) => {
             });
             setDownloadAvailable(false);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [areAppliedFiltersEmpty, urlHash]);
 
     const generateHash = useCallback(() => {
@@ -218,6 +220,7 @@ const SearchContainer = ({ history }) => {
                     request.current = null;
                 }
             });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [appliedFilters, generateHashInFlight]);
 
     useEffect(() => {
@@ -236,12 +239,14 @@ const SearchContainer = ({ history }) => {
             generateHash();
             setDownloadAvailability();
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [appliedFilters, urlHash]);
 
     useEffect(() => {
         if (SearchHelper.areFiltersDifferent(appliedFilters, stagedFilters) && SearchHelper.areFiltersDifferent(prevAppliedFilters, appliedFilters)) {
             dispatch(restoreHashedFilters(appliedFilters));
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [appliedFilters, stagedFilters]);
 
     return (

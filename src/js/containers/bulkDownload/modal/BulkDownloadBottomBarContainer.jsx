@@ -47,7 +47,7 @@ export class BulkDownloadBottomBarContainer extends React.Component {
     }
 
     componentDidMount() {
-        if (this.props.bulkDownload.download.pendingDownload && this.props.bulkDownload.download.showCollapsedProgress &&
+        if (this.props.bulkDownload?.download.pendingDownload && this.props.bulkDownload?.download.showCollapsedProgress &&
             !this.state.visible) {
             this.checkStatus();
             this.displayBar();
@@ -55,7 +55,7 @@ export class BulkDownloadBottomBarContainer extends React.Component {
     }
 
     componentDidUpdate() {
-        if (this.props.bulkDownload.download.pendingDownload && this.props.bulkDownload.download.showCollapsedProgress && !this.state.visible) {
+        if (this.props.bulkDownload?.download.pendingDownload && this.props.bulkDownload?.download.showCollapsedProgress && !this.state.visible) {
             this.checkStatus();
             this.displayBar();
         }
@@ -80,7 +80,7 @@ export class BulkDownloadBottomBarContainer extends React.Component {
     }
 
     checkStatus() {
-        if (this.props.bulkDownload.download.expectedFile !== '') {
+        if (this.props.bulkDownload?.download.expectedFile !== '') {
             if (this.statusRequest) {
                 this.statusRequest.cancel();
             }

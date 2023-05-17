@@ -15,11 +15,18 @@ const propTypes = {
     active: PropTypes.bool,
     goBack: PropTypes.func,
     toggle: PropTypes.bool,
-    outlay: PropTypes.string
+    outlay: PropTypes.string,
+    obligatedText: PropTypes.object
 };
 
-const DrilldownSidebar = ({
-    label, name, obligated, budgetaryResources, active, goBack, toggle, outlay
+const DrilldownSidebarLevel = ({
+    label,
+    name,
+    active,
+    goBack,
+    toggle,
+    outlay,
+    obligatedText
 }) => (
     <div className={`drilldown-level${active ? ' drilldown-level_active' : ''}`}>
         {goBack ? (
@@ -35,14 +42,11 @@ const DrilldownSidebar = ({
                 </div>
                 <div>
                     <div className="drilldown-level__name">{name}</div>
-                    {!toggle &&
-                        <div className="drilldown-level__description">
-                            <strong>{obligated}</strong> committed of <strong>{budgetaryResources}</strong>  Total Budgetary Resources
-                        </div>}
+                    {!toggle && obligatedText}
                     {toggle &&
-                        <div className="drilldown-level__description">
-                            <strong>{outlay}</strong> has been paid out
-                        </div>
+                            <div className="drilldown-level__description">
+                                <strong>{outlay}</strong> has been paid out
+                            </div>
                     }
                 </div>
             </div>
@@ -50,5 +54,5 @@ const DrilldownSidebar = ({
     </div>
 );
 
-DrilldownSidebar.propTypes = propTypes;
-export default DrilldownSidebar;
+DrilldownSidebarLevel.propTypes = propTypes;
+export default DrilldownSidebarLevel;

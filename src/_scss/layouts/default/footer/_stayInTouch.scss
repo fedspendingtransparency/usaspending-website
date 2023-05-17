@@ -1,21 +1,23 @@
 .stay-in-touch__section {
+  width: 100%;
   background-color: $theme-color-5;
   padding: $global-padding * 3 $global-padding * 2;
   @media (min-width: $tablet-screen) {
     padding: $global-padding * 3 $global-padding * 4;
   }
-  @media (min-width: 1400px) {
-    padding: $global-padding * 3 0;
+  @media (min-width: $m-large-screen) {
+    padding: $global-padding * 3 $global-padding * 18;
   }
 
   .stay-in-touch__container-row {
-    max-width: 1400px;
     @media (min-width: $medium-screen) {
       flex-flow: row nowrap;
       justify-content: flex-start;
     }
-    @media (min-width: 1400px) and (max-width: 1468px) {
-      margin: 0 rem(32);
+
+    @media (min-width: $m-large-screen) {
+      // this is a hacky fix bc it needs to match the footer, which isn't using Grid system
+      padding-left: $global-padding * 2;
     }
 
     .stay-in-touch__title-col {
@@ -28,8 +30,8 @@
         margin-right: $global-margin * 3;
       }
 
-      @media (min-width: 1400px) {
-        margin-right: $global-margin * 3;
+      @media (min-width: $m-large-screen) {
+        margin: 0 $global-margin * 3 0 0;
         padding: 0;
       }
 
@@ -42,7 +44,7 @@
       width: rem(35);
       height: rem(35);
       border-radius: 4px;
-      background-color: $theme-color-3;
+      background-color: $theme-color-dark-blue-bg;
       display: flex;
       justify-content: center;
       svg {
@@ -63,8 +65,11 @@
     }
 
     .stay-in-touch__second-row-container {
-      @media (min-width: 1400px) {
+      @media (min-width: $m-large-screen) {
         padding: 0;
+      }
+      @media (min-width: $m-large-screen) and (max-width: 1466px) {
+        margin-right: $global-margin * 4;
       }
       &.top {
         @media (max-width: $tablet-screen) {

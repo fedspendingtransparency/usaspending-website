@@ -1,75 +1,182 @@
-@import "../../../mixins/fullSectionWrap";
+.usa-banner__wrapper {
+  background-color: $theme-color-background;
+  color: $gray-90;
+  min-height: 24px;
+  width: 100%;
 
-.official-banner {
-    padding: rem(5) 0;
-    background-color: #002A43;
+  .usa-banner__button {
+    display: flex;
+    align-items: center;
+  }
 
-    .official-banner__wrapper {
-        @include fullSectionWrap(0, 0);
+  .usa-banner-close {
+    display: none;
+  }
+  &.open {
+    height: 100%;
 
-        @include media($tablet-screen) {
-            @include display(flex);
-            @include justify-content(space-between);
-            @include align-items(center);
-        }
+    @media(max-width: $tablet-screen - 1) {
+      .usa-banner__button {
+        display: none;
+      }
+      .usa-banner__header-text > span {
+        display: inline-block;
+        max-width: 380px;
+      }
     }
 
-    .official-banner__site-list {
-        @include media($tablet-screen) {
-            @include flex(1 1 auto);
-        }
-
-        @include unstyled-list;
-        @include display(flex);
-        @include justify-content(flex-start);
-        @include align-items(center);
+    .usa-banner-close {
+      @media(min-width: $tablet-screen) {
+        display: none;
+      }
+      display: flex;
+      justify-content: center;
+      background-color: $gray-10;
+      right: 2.2px;
+      height: 48px;
+      width: 48px;
+      margin-top: -4px;
+      .usa-da-icon-close {
+        width: rem(24);
+        fill: $blue-60v;
+      }
     }
-
-    .official-banner__site-item {
-        @include flex(0 0 rem(100));
-
-        &.official-banner__site-item_spacer {
-            @include flex(0 0 auto);
-            margin: 0 rem(15) 0 rem(10);
-            color: $color-white;
-            font-size: rem(13);
-            font-weight: $font-normal;
-        }
-    }
-
-    .official-banner__site-link {
-        display: block;
-        color: $color-white;
-        font-size: rem(13);
-        font-weight: $font-normal;
-        text-decoration: none;
-        &:hover {
-            font-weight: $font-semibold;
-        }
-    }
-
-    .official-banner__message {
-        @include display(flex);
-        @include align-items(center);
-        margin-top: rem(4);
-
-        @include media($tablet-screen) {
-            margin-top: 0;
-        }
-    }
-
-    .official-banner__text {
-        @include flex(0 0 auto);
-        margin: 0;
-        font-size: rem(12);
-        line-height: rem(13);
-        color: $color-white;
-    }
-
-    .official-banner__flag {
-        @include flex(0 0 auto);
-        width: rem(16);
-        height: rem(11);
-        margin-left: rem(10);
-    }
+  }
 }
+
+.usa-banner {
+  @media(max-width: $tablet-screen) {
+    margin: 0 0 0 rem(20);
+  }
+  @media(min-width: $tablet-screen) {
+    margin: 0 0 0 rem(20);
+  }
+  @media(min-width: $large-screen) {
+    margin: 0 rem(36) 0 rem(40);
+  }
+  @media(min-width: $x-large-screen) {
+    margin: 0 auto;
+    width: rem(1600);
+  }
+
+  .usa-banner__header-flag {
+    width: rem(16);
+    height: rem(11);
+    margin-top: rem(3);
+  }
+
+  .usa-banner__header-text-wrapper {
+    display: flex;
+  }
+
+  .usa-banner__header-text {
+    display: flex;
+    flex-wrap: wrap;
+    font-size: rem(12.8);
+    margin-left: 8px;
+    margin-right: 8px;
+      .usa-banner__header-sub-text {
+        margin-right: 8px;
+      }
+  }
+
+  .usa-banner__header-action {
+    width: 114px;
+    height: 15px;
+    margin: 0 2px 1px 0;
+    font-size: 12.8px;
+    line-height: 14.08px;
+    text-align: left;
+    color: $theme-color-1;
+    text-decoration: underline;
+
+  }
+
+  .usa-banner__button {
+    &:hover {
+      color: $blue-vivid-70;
+    }
+  }
+
+  .usa-banner__inner {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 4px;
+    margin-bottom: 4px;
+    cursor: pointer;
+
+    @media(min-width: $tablet-screen) {
+      cursor: default;
+    }
+  }
+
+  button {
+    background: none;
+    color: $theme-color-1;
+    margin: 0;
+    padding: 0;
+    font-weight: normal;
+    font-size: inherit;
+    text-decoration: underline;
+  }
+
+  .usa-banner__button-text {
+    text-decoration: underline;
+    margin-right: 4px;
+  }
+
+  .usa-accordion__content {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    max-width: 1000px;
+
+    > .usa-banner__guidance {
+      margin: 16px 16px 0 0;
+    }
+
+    > .usa-banner__guidance ~ .usa-banner__guidance {
+      margin: 16px 16px 20px 0;
+    }
+
+    @media(min-width: $tablet-screen) {
+      flex-direction: row;
+      margin-left: rem(8);
+      > .usa-banner__guidance {
+        margin: rem(24) rem(12) rem(24) rem(24);
+        width: 100%;
+      }
+
+      > .usa-banner__guidance ~ .usa-banner__guidance {
+        margin: rem(24) rem(24) rem(24) rem(12);
+        width: 100%;
+      }
+    }
+
+    .usa-banner__content {
+      max-width: 1000px;
+    }
+
+    &.closed {
+      display: none;
+    }
+
+    .usa-media-block__body {
+      display: flex;
+      align-items: start;
+
+      p {
+        margin: 0 0 0 8px;
+      }
+    }
+
+    .usa-banner__content-icon {
+      width: 40px;
+    }
+
+    .usa-banner__content-lock {
+      width: 9.5px;
+    }
+  }
+}
+

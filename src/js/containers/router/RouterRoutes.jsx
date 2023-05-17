@@ -213,11 +213,6 @@ export const routes = [
         exact: true
     },
     {
-        path: '/analyst-guide',
-        component: AnalystGuidePage,
-        exact: true
-    },
-    {
         path: '/data-dives/equity-COVID-19-spending',
         component: EquityCovidSpendingPage,
         exact: true
@@ -233,9 +228,12 @@ export const routes = [
         exact: true
     },
     {
+        path: '/federal-spending-guide',
+        component: AnalystGuidePage
+    },
+    {
         path: '*',
         component: ErrorPage
     }
 ];
-/* eslint-enable import/prefer-default-export */
 
