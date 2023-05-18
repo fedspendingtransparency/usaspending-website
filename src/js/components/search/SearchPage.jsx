@@ -18,7 +18,6 @@ import SearchSidebar from './SearchSidebar';
 import SearchResults from './SearchResults';
 import NoDownloadHover from './header/NoDownloadHover';
 import KeywordSearchLink from "./KeywordSearchLink";
-import FeatureFlag from "../sharedComponents/FeatureFlag";
 
 const propTypes = {
     download: PropTypes.object,
@@ -154,9 +153,7 @@ export default class SearchPage extends React.Component {
                         <div className="full-search-sidebar">
                             { fullSidebar }
                             {this.state.isMobile === false ?
-                                <FeatureFlag>
-                                    <KeywordSearchLink />
-                                </FeatureFlag>
+                                <KeywordSearchLink />
                                 : '' }
                         </div>
                         <Helmet>

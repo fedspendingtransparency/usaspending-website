@@ -57,7 +57,7 @@ const GovBanner = () => {
                                     src="img/uswds/us_flag_small.png" />
                                 <div
                                     className="usa-banner__header-text">
-                                    <div className="usa-banner__header-sub-text">An official website of the <span style={{ whiteSpace: 'nowrap' }}>United States </span>government</div>
+                                    <div className="usa-banner__header-sub-text">An official website of the United States government</div>
                                     <button
                                         type="button"
                                         tabIndex={!isMobile ? 0 : -1}

@@ -62,14 +62,11 @@
   .usa-banner__header-flag {
     width: rem(16);
     height: rem(11);
-    margin-top: 3px;
+    margin-top: rem(3);
   }
 
   .usa-banner__header-text-wrapper {
     display: flex;
-    @media(min-width: $tablet-screen) {
-      align-items: center;
-    }
   }
 
   .usa-banner__header-text {
@@ -139,7 +136,7 @@
     }
 
     > .usa-banner__guidance ~ .usa-banner__guidance {
-      margin: 16px 16px 16px 0;
+      margin: 16px 16px 20px 0;
     }
 
     @media(min-width: $tablet-screen) {
