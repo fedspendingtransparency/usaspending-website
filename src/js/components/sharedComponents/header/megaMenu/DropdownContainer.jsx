@@ -96,7 +96,10 @@ export default class DropdownContainer extends Component {
                 direction={direction}
                 duration={tweenConfig.duration} >
                 <Flipped flipId="dropdown-caret">
-                    <div className="caret" />
+                    <div style={{ height: "24px" }}>
+                        <div className="caret" />
+                        <div className="smaller-caret" />
+                    </div>
                 </Flipped>
                 <Flipped flipId="dropdown">
                     <div className="dropdown-background">
