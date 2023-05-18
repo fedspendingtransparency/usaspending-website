@@ -90,6 +90,7 @@ export default class DropdownContainer extends Component {
         } = this.props;
 
         const [currentDropdown, prevDropdown] = Children.toArray(children);
+        // to get an outline around a caret you have to add a larger caret behind a white one and then get them to line up
         return (
             <div
                 style={dropdownRoot(this.props)}
