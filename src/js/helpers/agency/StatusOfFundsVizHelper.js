@@ -31,3 +31,8 @@ export const parseRows = (data, id) => {
 };
 
 export const toTitleCase = (str) => str.toLowerCase().split(' ').map((word) => (word.charAt(0).toUpperCase() + word.slice(1))).join(' ');
+
+export const getLevel5Data = (name, level4ApiResponse) => {
+    const answer = level4ApiResponse.res.filter((item) => name === toTitleCase(item.name));
+    return answer[0].children;
+};

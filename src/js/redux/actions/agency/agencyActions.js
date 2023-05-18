@@ -42,6 +42,16 @@ export const setCurrentLevelNameAndId = (nameAndId) => ({
     nameAndId
 });
 
+export const setLevel4ApiResponse = (resObject) => ({
+    type: 'SET_LEVEL_4_API_RESPONSE',
+    resObject
+});
+
+export const setLevel5Data = (childrenArray) => ({
+    type: 'SET_LEVEL_5_DATA',
+    childrenArray
+});
+
 export const setAgencyRecipients = (recipientDistribution) => ({
     type: 'SET_AGENCY_RECIPIENTS',
     recipientDistribution
