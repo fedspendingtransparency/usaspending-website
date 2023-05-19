@@ -79,7 +79,7 @@
 
       .first-dropdown-section {
         display: flex;
-        margin-right: $global-margin * 4;
+        margin-right: $global-margin * 5;
         background-color: $color-white;
       }
     }
@@ -140,7 +140,8 @@
         letter-spacing: normal;
         text-align: left;
         color: $gray-60;
-        width: rem(272);
+        width: auto;
+        max-width: rem(272);
         display: flex;
         word-wrap: break-word;
       }
@@ -270,14 +271,18 @@
           padding-right: $global-padding * 2;
           transform: translateX(-16px) !important;
           width: rem(272) !important;
+          height: min-content !important;
 
           &:hover {
             background: $gray-cool-5 !important;
           }
         } 
-        
+
         .list__extra-padding:nth-child(even) {
           margin-left: $global-margin * 8;
+        }
+        .third__item-margin:nth-child(even) {
+          margin-left: $global-margin * 8.5 !important;
         }
 
         .dropdown-section__bottom-portion-list-item:first-of-type {

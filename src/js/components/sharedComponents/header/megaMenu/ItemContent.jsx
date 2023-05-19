@@ -97,7 +97,7 @@ const ItemContent = ({
                             <ul className="dropdown-section__section-list">
                                 {section3Items.map((item, index) => (
                                     <>
-                                        <li key={`third-section-link-${uniqueId(index)}`} className={menuIndex > 1 ? 'list__extra-padding' : ''}>
+                                        <li key={`third-section-link-${uniqueId(index)}`} className={menuIndex > 2 ? 'list__extra-padding third__item-margin' : 'list__extra-padding'}>
                                             <FlexGridRow width={6} desktop={6}>
                                                 <Link
                                                     className="dropdown--item__link"
