@@ -57,7 +57,7 @@ const ItemContent = ({
                     </div>
                 </div>
                 <div key={uniqueId()} className="dropdown-section">
-                    <div className="dropdown-section__alternate-top">
+                    <div className={menuIndex > 1 ? "dropdown-section__alternate-top" : ""}>
                         {section2Icon && section2Icon !== null && section2Icon !== '' ? <FontAwesomeIcon role="presentation" size="lg" className="" icon={section2Icon} /> : ''}
                         <div>
                             <p className="dropdown-section__section-title">{section2Title}</p>
