@@ -37,6 +37,11 @@ export const setSelectedTas = (tas) => ({
     tas
 });
 
+export const setSelectedPrgActivityOrObjectClass = (prgActivityOrObjectClass) => ({
+    type: 'SET_PA_OR_OC',
+    prgActivityOrObjectClass
+});
+
 export const setCurrentLevelNameAndId = (nameAndId) => ({
     type: 'SET_CURRENT_LEVEL_NAME_AND_ID',
     nameAndId

@@ -7,6 +7,7 @@ import BaseAgencyRecipients from 'models/v2/agency/BaseAgencyRecipients';
 import BaseAgencySubagencyCount from 'models/v2/agency/BaseAgencySubagencyCount';
 import BaseSubagencySpendingRow from 'models/v2/agency/BaseSubagencySpendingRow';
 import BaseAgencySubcomponentsList from 'models/v2/agency/BaseAgencySubcomponentsList';
+import { setSelectedPrgActivityOrObjectClass } from "../../actions/agency/agencyActions";
 
 // Create an empty recipient object for the initial state
 const recipientDistribution = Object.create(BaseAgencyRecipients);
@@ -38,6 +39,7 @@ export const initialState = {
     selectedSubcomponent: null,
     selectedFederalAccount: null,
     selectedTas: null,
+    selectedPrgActivityOrObjectClass: null,
     currentLevelNameAndId: null,
     level4ApiResponse: null,
     agencySubcomponentsList,
@@ -80,6 +82,11 @@ const agencyReducer = (state = initialState, action) => {
             return {
                 ...state,
                 selectedTas: action.tas
+            };
+        case 'SET_PA_OR_OC':
+            return {
+                ...state,
+                selectedPrgActivityOrObjectClass: action.prgActivityOrObjectClass
             };
         case 'SET_CURRENT_LEVEL_NAME_AND_ID':
             return {

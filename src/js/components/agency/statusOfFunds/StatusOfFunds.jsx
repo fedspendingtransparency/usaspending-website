@@ -11,7 +11,7 @@ import { tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { throttle } from "lodash";
 
 import { FlexGridRow, FlexGridCol, Pagination, LoadingMessage, ErrorMessage } from 'data-transparency-ui';
-import { setDataThroughDates, setSelectedSubcomponent, setSelectedFederalAccount, setSelectedTas, setCurrentLevelNameAndId, setLevel4ApiResponse } from "redux/actions/agency/agencyActions";
+import { setDataThroughDates, setSelectedSubcomponent, setSelectedFederalAccount, setSelectedTas, setSelectedPrgActivityOrObjectClass, setCurrentLevelNameAndId, setLevel4ApiResponse } from "redux/actions/agency/agencyActions";
 import { fetchSubcomponentsList, fetchFederalAccountsList, fetchTasList, fetchProgramActivityByTas, fetchObjectClassByTas } from 'apis/agency';
 import { parseRows, getLevel5Data } from 'helpers/agency/StatusOfFundsVizHelper';
 import { useStateWithPrevious } from 'helpers';
@@ -325,6 +325,7 @@ const StatusOfFunds = ({ fy }) => {
 
         if (selectedLevel === 4) {
             fetchLevel5Data(parentData);
+            dispatch(setSelectedPrgActivityOrObjectClass(parentData));
             return;
         }
 

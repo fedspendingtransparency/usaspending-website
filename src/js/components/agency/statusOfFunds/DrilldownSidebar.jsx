@@ -44,6 +44,11 @@ const DrilldownSidebar = ({
     const tasObligation = MoneyFormatter.formatMoneyWithUnitsShortLabel(useSelector((state) => state.agency.selectedTas?._obligations), 2);
     const tasOutlays = MoneyFormatter.formatMoneyWithUnitsShortLabel(useSelector((state) => state.agency.selectedTas?._outlays), 2);
 
+    const prgActivityOrObjectClassName = useSelector((state) => state.agency.selectedPrgActivityOrObjectClass?.name);
+    const prgActivityOrObjectClassObligation = MoneyFormatter.formatMoneyWithUnitsShortLabel(useSelector((state) => state.agency.selectedPrgActivityOrObjectClass?._obligations), 2);
+    const prgActivityOrObjectClassOutlays = MoneyFormatter.formatMoneyWithUnitsShortLabel(useSelector((state) => state.agency.selectedPrgActivityOrObjectClass?._outlays), 2);
+
+
     return (
         <>
             <DrilldownSidebarLevel
@@ -102,6 +107,21 @@ const DrilldownSidebar = ({
                         </div>
                     )}
                     outlay={tasOutlays}
+                    goBack={goBack}
+                    toggle={toggle} />
+            }
+            {level >= 4 &&
+                <DrilldownSidebarLevel
+                    key="Program Activity or Object Class"
+                    label="Program Activity or Object Class"
+                    name={prgActivityOrObjectClassName}
+                    active={level === 4}
+                    obligatedText={(
+                        <div className="drilldown-level__description">
+                            <strong>{prgActivityOrObjectClassObligation}</strong> committed
+                        </div>
+                    )}
+                    outlay={prgActivityOrObjectClassOutlays}
                     goBack={goBack}
                     toggle={toggle} />
             }
