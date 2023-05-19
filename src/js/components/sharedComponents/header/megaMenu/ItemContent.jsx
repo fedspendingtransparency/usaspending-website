@@ -90,28 +90,29 @@ const ItemContent = ({
             </div>
             {section3Title !== null && section3Title !== undefined && section3Title !== '' ?
                 <div key={uniqueId()} className="dropdown-section dropdown-section__bottom-portion">
-                    <div className="dropdown-section__alternate-top">
+                    <div className={menuIndex > 1 ? "dropdown-section__alternate-top" : ""}>
                         {section3Icon && section3Icon !== null && section3Icon !== '' ? <FontAwesomeIcon role="presentation" size="lg" className="" icon={section3Icon} /> : ''}
                         <div>
                             <p className="dropdown-section__section-title">{section3Title}</p>
                             <ul className="dropdown-section__section-list">
                                 {section3Items.map((item, index) => (
-                                    <li
-                                        className="dropdown-section__bottom-portion-list-item"
-                                        key={`third-section-link-${uniqueId(index)}`}>
-                                        <FlexGridRow desktop={6} width={6} >
-                                            <Link target="_blank" rel="noopener noreferrer" className="dropdown--item__link" to={{ pathname: item.url }}>
-                                                <div className="dropdown-section__section-list-item">
+                                    <>
+                                        <li key={`third-section-link-${uniqueId(index)}`} className={menuIndex > 1 ? 'list__extra-padding' : ''}>
+                                            <FlexGridRow width={6} desktop={6}>
+                                                <Link
+                                                    className="dropdown--item__link"
+                                                    to={item.url}>
+                                                    {item.icon && item.icon !== '' && item.icon !== null ? <FontAwesomeIcon role="presentation" size="lg" className="" icon={item.icon} /> : ''}
                                                     <div className="dropdown-item__link-desc">
                                                         <div className="dropdown-item__link-label">
                                                             {item.label}
-                                                            <div className="dropdown-item__description">{item.description}</div>
+                                                            <span className="dropdown-item__description">{item.description}</span>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </Link>
-                                        </FlexGridRow>
-                                    </li>
+                                                </Link>
+                                            </FlexGridRow>
+                                        </li>
+                                    </>
                                 ))}
                             </ul>
                         </div>
