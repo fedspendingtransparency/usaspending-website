@@ -553,6 +553,9 @@ export const awardAmountsInfo = (
                         or child IDV orders.
                     </em>
                 </li>
+                <li>
+                Obligations represent the amount that the government has promised to pay, whereas outlays represent the amount that the government has paid. Regarding outlay data, please note that the Office of Management and Budget (OMB) required agencies to provide outlay data at the award summary level for each award that received COVID-19 supplemental funding starting in Fiscal Year (FY) 2020, and for all awards starting in FY 2022. As a result, award-level outlay data are incomplete prior to FY 2022, and almost entirely absent prior to FY 2020.
+                </li>
             </ul>
         </div>
     </div>
@@ -1125,11 +1128,12 @@ export const ContractAwardAmountsInfo = (
         </div>
         <div className="tooltip__text">
             <p>This section illustrates how much the government has spent on this award.</p>
-            <p>The Obligated Amount of a contract represents the amount an agency has promised to pay the vendor in its financial system. It usually matches the current value of the contract, but certain agencies (e.g., DOD) are allowed to incrementally fund some contracts in their financial systems. In these cases, the Obligated Amount may lag behind the Current Award Amount.</p>
-            <p>The current value of a contract (Current Award Amount) represents the value of the base contract and any exercised options. </p>
-            <p>The potential value of a contract (Potential Award Amount) represents the value of the base contract and all options, if they happen to be exercised in the future. This is sometimes called the contract ceiling or capacity.</p>
+            <p>The outlayed amount of a contract represents the amount an agency has paid the vendor as recorded in the agency’s financial system. Please note that the Office of Management and Budget (OMB) required agencies to provide outlay data at the award summary level for each award that received COVID-19 supplemental funding starting in Fiscal Year (FY) 2020, and for all awards starting in FY 2022. As a result, award-level outlay data are incomplete prior to FY 2022, and almost entirely absent prior to FY 2020.</p>
+            <p>The obligated amount of a contract represents the amount an agency has promised to pay the vendor as recorded in the agnecy's financial system. It usually matches the current value of the contract, but certain agencies (e.g., DOD) are allowed to incrementally fund some contracts in their financial systems. In these cases, the obligated amount may lag behind the current award amount.</p>
+            <p>The current value of a contract (current award amount) represents the value of the base contract and any exercised options. </p>
+            <p>The potential value of a contract (potential award amount) represents the value of the base contract and all options, if they happen to be exercised in the future. This is sometimes called the contract ceiling or capacity.</p>
             <p>If a recipient fails to deliver on the terms of the contract, the contract can end or be modified, reducing the current and potential value through a deobligation.</p>
-            <p>This visual depicts the Obligated Amount, Current Award Amount, and Potential Award Amount of the contract.</p>
+            <p>This visual depicts the outlayed amount, obligated amount, current award amount, and potential award amount of the contract.</p>
             <p>Hover over the chart for more information about the specific amounts displayed.</p>
         </div>
     </div>
@@ -1143,6 +1147,7 @@ export const AsstAwardAmountsInfo = (
         <div className="tooltip__text">
             <p>This section illustrates the total value of this award, which is a combination of any obligated federal dollars and non-federal funding provided.</p>
             <p>Hover over the chart for more information about the specific amounts displayed.</p>
+            <p>Obligations represent the amount that the government has promised to pay, whereas outlays represent the amount that the government has paid. Regarding outlay data, please note that the Office of Management and Budget (OMB) required agencies to provide outlay data at the award summary level for each award that received COVID-19 supplemental funding starting in Fiscal Year (FY) 2020, and for all awards starting in FY 2022. As a result, award-level outlay data are incomplete prior to FY 2022, and almost entirely absent prior to FY 2020.</p>
         </div>
     </div>
 );
@@ -1154,7 +1159,8 @@ export const LoanAwardAmountsInfo = (
         </div>
         <div className="tooltip__text">
             <p>This section illustrates the total value of this loan to the recipient and its expected cost to the government.</p>
-            <p>The total face value of the loan is shown with the original subsidy cost as a portion of that face value.  The original subsidy cost is the long-term estimated cost of this loan to the government based on the modeled risk that the recipient will default. Administrative costs of running the loan program itself are excluded from this number.</p>
+            <p>The total face value of the loan is shown with the original subsidy cost as a portion of that face value. The original subsidy cost is the long-term estimated cost of this loan to the government based on the modeled risk that the recipient will default. This cost is essentially the “obligated amount” for a loan award; a positive amount indicates an estimated cost to the government, and a negative amount indicates an estimated amount to be gained by the government. Administrative costs of running the loan program itself are excluded from this number.</p>
+            <p>Regarding outlay data, please note that the Office of Management and Budget (OMB) required agencies to provide outlay data at the award summary level for each award that received COVID-19 supplemental funding starting in Fiscal Year (FY) 2020, and for all awards starting in FY 2022. As a result, award-level outlay data are incomplete prior to FY 2022, and almost entirely absent prior to FY 2020.</p>
             <p>Hover over the chart for more information about the specific amounts displayed.</p>
         </div>
     </div>
