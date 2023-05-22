@@ -59,7 +59,6 @@ const StatusOfFundsTable = ({
         ]));
 
     const onClickHandler = (item) => {
-        console.log('onClickHandler', item);
         const itemName = item[0] || '';
         const data = results.find(({ name }) => name === itemName);
         if (level < maxLevel) {

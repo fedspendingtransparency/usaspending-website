@@ -26,7 +26,7 @@ const propTypes = {
     fy: PropTypes.string
 };
 
-export const levels = ['Sub-Component', 'Federal Account', 'Treasury Account Symbol', 'Program Activity or Object Class'];
+export const levels = ['Sub-Component', 'Federal Account', 'Treasury Account Symbol', '', 'Program Activity or Object Class'];
 
 const StatusOfFunds = ({ fy }) => {
     const dispatch = useDispatch();
