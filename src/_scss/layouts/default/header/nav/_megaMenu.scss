@@ -48,7 +48,7 @@
   .dropdown-slot {
     position: absolute;
     left: 50%;
-    transform: translate(-50%, -16px);
+    transform: translate(-50%, -10px);
     perspective: 1500px;
     z-index: 150;
   }
@@ -75,7 +75,7 @@
       display: flex !important;
       background-color: $color-white;
       background-clip: padding-box;
-      margin-bottom: rem(24);
+      margin-bottom: rem(16);
 
       .first-dropdown-section {
         display: flex;
@@ -318,7 +318,7 @@
     z-index: 1;
     position: relative;
     /* prevent any gap in between caret and main dropdown */
-    top: 7px;
+    top: 9px;
   }
 
   .smaller-caret {
