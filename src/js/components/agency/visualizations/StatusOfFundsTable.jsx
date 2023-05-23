@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table } from 'data-transparency-ui';
 import PropTypes from 'prop-types';
 import { formatMoneyWithPrecision } from 'helpers/moneyFormatter';
@@ -17,6 +17,7 @@ const propTypes = {
 const StatusOfFundsTable = ({
     results, fy, setDrilldownLevel, level, toggle, isMobile, maxLevel
 }) => {
+    const [atMaxLevel, setAtMaxLevel] = useState(false);
     const fyString = `FY${fy.slice(2)}`;
 
     const columns = toggle ?
@@ -66,6 +67,10 @@ const StatusOfFundsTable = ({
         }
     };
 
+    useEffect(() => {
+        setAtMaxLevel(level === maxLevel);
+    }, [level, maxLevel]);
+
     return (
         <Table
             classNames="award-type-tooltip__table"
@@ -73,6 +78,7 @@ const StatusOfFundsTable = ({
             rows={rows}
             onClickHandler={onClickHandler}
             isMobile={isMobile}
+            atMaxLevel={atMaxLevel}
             isStacked />
     );
 };
