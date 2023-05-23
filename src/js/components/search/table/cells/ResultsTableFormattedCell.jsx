@@ -18,8 +18,6 @@ const propTypes = {
 
 export default class ResultsTableFormattedCell extends React.Component {
     formatContent(original, type) {
-        console.log('original', original);
-        console.log('type', type);
         if (type === 'date') {
             // format the content as a date
             return moment(original, 'YYYY-MM-DD').format('M/D/YYYY');
