@@ -32,7 +32,7 @@ const ItemContent = ({
         <div className="dropdown-section__wrapper">
             <div className={menuIndex === 1 ? "dropdown-section__top-columns undo__bottom-padding" : "dropdown-section__top-columns"}>
                 <div key={uniqueId()} className="dropdown-section first-dropdown-section" data-first-dropdown-section>
-                    {section1Icon && section1Icon !== null && section1Icon !== '' ? <FontAwesomeIcon role="presentation" size="lg" className="" icon={section1Icon} /> : ''}
+                    {section1Icon && section1Icon !== null && section1Icon !== '' ? <FontAwesomeIcon role="presentation" icon={section1Icon} style={{ width: "18px", height: "18px" }} /> : ''}
                     <div>
                         <p className="dropdown-section__section-title">{section1Title}</p>
                         {section1Sub !== null && section1Sub !== undefined && section1Sub !== '' ?
@@ -42,7 +42,7 @@ const ItemContent = ({
                                 <>
                                     <li key={`link-${uniqueId(index)}`} className={menuIndex > 1 ? 'list__extra-padding' : ''}>
                                         <Link className="dropdown--item__link" to={item.url}>
-                                            {item.icon && item.icon !== '' && item.icon !== null ? <FontAwesomeIcon role="presentation" size="lg" className="" icon={item.icon} /> : ''}
+                                            {item.icon && item.icon !== '' && item.icon !== null ? <FontAwesomeIcon role="presentation" icon={item.icon} style={{ width: "20px", height: "20px" }} /> : ''}
                                             <div className="dropdown-item__link-desc">
                                                 <div className="dropdown-item__link-label">
                                                     {item.label}
@@ -58,7 +58,7 @@ const ItemContent = ({
                 </div>
                 <div key={uniqueId()} className="dropdown-section">
                     <div className={menuIndex > 1 ? "dropdown-section__alternate-top" : ""}>
-                        {section2Icon && section2Icon !== null && section2Icon !== '' ? <FontAwesomeIcon role="presentation" size="lg" className="" icon={section2Icon} /> : ''}
+                        {section2Icon && section2Icon !== null && section2Icon !== '' ? <FontAwesomeIcon role="presentation" icon={section2Icon} style={{ width: "18px", height: "18px" }} /> : ''}
                         <div>
                             <p className="dropdown-section__section-title">{section2Title}</p>
                             {section2Sub !== null && section2Sub !== undefined && section2Sub !== '' ?
@@ -72,7 +72,7 @@ const ItemContent = ({
                                                 to={item.url !== "?about-the-data" ? item.url : ''}
                                                 onClick={item.url !== '?about-the-data' ? '' : openATD}
                                                 onMouseUp={item.url !== '?about-the-data' ? '' : openATD}>
-                                                {item.icon && item.icon !== '' && item.icon !== null ? <FontAwesomeIcon role="presentation" size="lg" className="" icon={item.icon} /> : ''}
+                                                {item.icon && item.icon !== '' && item.icon !== null ? <FontAwesomeIcon role="presentation" icon={item.icon} style={{ width: "20px", height: "20px" }} /> : ''}
                                                 <div className="dropdown-item__link-desc">
                                                     <div className="dropdown-item__link-label">
                                                         {item.label}
@@ -91,7 +91,7 @@ const ItemContent = ({
             {section3Title !== null && section3Title !== undefined && section3Title !== '' ?
                 <div key={uniqueId()} className="dropdown-section dropdown-section__bottom-portion">
                     <div className={menuIndex > 1 ? "dropdown-section__alternate-top" : ""}>
-                        {section3Icon && section3Icon !== null && section3Icon !== '' ? <FontAwesomeIcon role="presentation" size="lg" className="" icon={section3Icon} /> : ''}
+                        {section3Icon && section3Icon !== null && section3Icon !== '' ? <FontAwesomeIcon role="presentation" style={{ width: "18px", height: "18px" }} icon={section3Icon} /> : ''}
                         <div>
                             <p className="dropdown-section__section-title">{section3Title}</p>
                             <ul className="dropdown-section__section-list">
@@ -102,7 +102,7 @@ const ItemContent = ({
                                                 <Link
                                                     className="dropdown--item__link"
                                                     to={item.url}>
-                                                    {item.icon && item.icon !== '' && item.icon !== null ? <FontAwesomeIcon role="presentation" size="lg" className="" icon={item.icon} /> : ''}
+                                                    {item.icon && item.icon !== '' && item.icon !== null ? <FontAwesomeIcon role="presentation" style={{ width: "20px", height: "20px" }} icon={item.icon} /> : ''}
                                                     <div className="dropdown-item__link-desc">
                                                         <div className="dropdown-item__link-label">
                                                             {item.label}
