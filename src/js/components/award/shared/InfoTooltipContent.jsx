@@ -1146,8 +1146,8 @@ export const AsstAwardAmountsInfo = (
         </div>
         <div className="tooltip__text">
             <p>This section illustrates the total value of this award, which is a combination of any obligated federal dollars and non-federal funding provided.</p>
-            <p>Hover over the chart for more information about the specific amounts displayed.</p>
             <p>Obligations represent the amount that the government has promised to pay, whereas outlays represent the amount that the government has paid. Regarding outlay data, please note that the Office of Management and Budget (OMB) required agencies to provide outlay data at the award summary level for each award that received COVID-19 supplemental funding starting in Fiscal Year (FY) 2020, and for all awards starting in FY 2022. As a result, award-level outlay data are incomplete prior to FY 2022, and almost entirely absent prior to FY 2020.</p>
+            <p>Hover over the chart for more information about the specific amounts displayed.</p>
         </div>
     </div>
 );
