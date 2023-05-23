@@ -26,9 +26,6 @@ const propTypes = {
     fy: PropTypes.string
 };
 
-// empty string here because level 4 shows the dropdown instead of one of these labels
-// export const levels = ['Sub-Component', 'Federal Account', 'Treasury Account Symbol', '', 'Program Activity or Object Class'];
-
 const StatusOfFunds = ({ fy }) => {
     const dispatch = useDispatch();
     const [level, setLevel] = useState(0);
