@@ -2,7 +2,6 @@ import React from 'react';
 import { Table } from 'data-transparency-ui';
 import PropTypes from 'prop-types';
 import { formatMoneyWithPrecision } from 'helpers/moneyFormatter';
-import { levels } from "../statusOfFunds/StatusOfFunds";
 
 const propTypes = {
     fy: PropTypes.string,
@@ -11,13 +10,16 @@ const propTypes = {
     setDrilldownLevel: PropTypes.func,
     toggle: PropTypes.bool,
     isMobile: PropTypes.bool,
-    maxLevel: PropTypes.number
+    maxLevel: PropTypes.number,
+    dropdownSelection: PropTypes.string
 };
 
 const StatusOfFundsTable = ({
-    results, fy, setDrilldownLevel, level, toggle, isMobile, maxLevel
+    results, fy, setDrilldownLevel, level, toggle, isMobile, maxLevel, dropdownSelection
 }) => {
     const fyString = `FY${fy.slice(2)}`;
+    // the table now gets its own array for these labels, because of the differences in levels 4 and 5
+    const levels = ['Sub-Component', 'Federal Account', 'Treasury Account Symbol', `${dropdownSelection}`, `${dropdownSelection}`];
 
     const columns = toggle ?
         [
