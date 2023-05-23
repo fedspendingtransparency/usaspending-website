@@ -18,8 +18,16 @@ const StatusOfFundsTable = ({
     results, fy, setDrilldownLevel, level, toggle, isMobile, maxLevel, dropdownSelection
 }) => {
     const fyString = `FY${fy.slice(2)}`;
-    // the table now gets its own array for these labels, because of the differences in levels 4 and 5
-    const levels = ['Sub-Component', 'Federal Account', 'Treasury Account Symbol', `${dropdownSelection}`, `${dropdownSelection}`];
+
+    // this table now gets its own array for these labels, because of the differences in
+    // levels 4 and 5 between chart and table
+    const levels = [
+        'Sub-Component',
+        'Federal Account',
+        'Treasury Account Symbol',
+        `${dropdownSelection}`,
+        `${dropdownSelection === 'Program Activity' ? 'Object Class' : 'Program Activity'}`
+    ];
 
     const columns = toggle ?
         [
