@@ -13,14 +13,16 @@ const propTypes = {
     toggle: PropTypes.bool.isRequired,
     level: PropTypes.number.isRequired,
     goBack: PropTypes.func,
-    fy: PropTypes.string.isRequired
+    fy: PropTypes.string.isRequired,
+    dropdownSelection: PropTypes.string
 };
 
 const DrilldownSidebar = ({
     toggle,
     level,
     goBack,
-    fy
+    fy,
+    dropdownSelection
 }) => {
     const { agencyBudgetShort, agencyObligatedShort } = useSelector((state) => state.agency.budgetaryResources?.[fy]) || '--';
     const { toptierCode } = useSelector((state) => state.agency.overview) || '--';
@@ -112,8 +114,8 @@ const DrilldownSidebar = ({
             }
             {level >= 4 &&
                 <DrilldownSidebarLevel
-                    key="Program Activity or Object Class"
-                    label="Program Activity or Object Class"
+                    key={dropdownSelection}
+                    label={dropdownSelection}
                     name={prgActivityOrObjectClassName}
                     active={level === 4}
                     obligatedText={(

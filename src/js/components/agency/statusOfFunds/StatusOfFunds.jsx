@@ -387,6 +387,7 @@ const StatusOfFunds = ({ fy }) => {
                         toggle={toggle}
                         level={level}
                         goBack={goBack}
+                        dropdownSelection={dropdownSelection}
                         fy={fy} />
                 </FlexGridCol>
                 <FlexGridCol className="status-of-funds__visualization" desktop={9}>
