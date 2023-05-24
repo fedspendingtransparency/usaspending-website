@@ -185,6 +185,7 @@ const MobileDropdownItem = ({
                 {section2Options[index].sub}
             </div>
             <div className="mobile-dropdown__section-container">
+                <hr />
                 {index === 1 &&
                     <ul>
                         {section2Items.map((item, i) => (
