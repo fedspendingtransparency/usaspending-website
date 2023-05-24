@@ -236,8 +236,7 @@ const subawardColumns = [
     'Prime Recipient Name'
 ];
 
-const awardColWidth = 280;
-const covidColWidth = 190;
+const amountWidth = 190;
 const descWidth = 380;
 const datesWidth = 210;
 const covidColor = '#6E338E';
@@ -248,8 +247,8 @@ const defaultContract = [
     { title: 'Recipient Name' },
     { title: 'Start Date', subtitle: '(Period of Performance)', customWidth: datesWidth },
     { title: 'End Date', subtitle: '(Period of Performance)', customWidth: datesWidth },
-    { title: 'Award Amount', subtitle: '(Total Award Obligations to Date)', customWidth: awardColWidth },
-    { title: 'Total Outlays', customWidth: awardColWidth },
+    { title: 'Award Amount', displayName: 'Total Obligations to Date', customWidth: amountWidth },
+    { title: 'Total Outlays', displayName: 'Total Outlays to Date', customWidth: amountWidth },
     { title: 'Awarding Agency' },
     { title: 'Awarding Sub Agency' },
     { title: 'Contract Award Type' }
@@ -260,8 +259,8 @@ const defaultGrant = [
     { title: 'Recipient Name' },
     { title: 'Start Date', subtitle: '(Period of Performance)', customWidth: datesWidth },
     { title: 'End Date', subtitle: '(Period of Performance)', customWidth: datesWidth },
-    { title: 'Award Amount', subtitle: '(Total Award Obligations to Date)', customWidth: awardColWidth },
-    { title: 'Total Outlays', customWidth: awardColWidth },
+    { title: 'Award Amount', displayName: 'Total Obligations to Date' },
+    { title: 'Total Outlays', displayName: 'Total Outlays to Date' },
     { title: 'Awarding Agency' },
     { title: 'Awarding Sub Agency' },
     { title: 'Award Type' }
@@ -272,8 +271,8 @@ const defaultDirectPayment = [
     { title: 'Recipient Name' },
     { title: 'Start Date', subtitle: '(Period of Performance)', customWidth: datesWidth },
     { title: 'End Date', subtitle: '(Period of Performance)', customWidth: datesWidth },
-    { title: 'Award Amount', subtitle: '(Total Award Obligations to Date)', customWidth: awardColWidth },
-    { title: 'Total Outlays', customWidth: awardColWidth },
+    { title: 'Award Amount', displayName: 'Total Obligations to Date' },
+    { title: 'Total Outlays', displayName: 'Total Outlays to Date' },
     { title: 'Awarding Agency' },
     { title: 'Awarding Sub Agency' },
     { title: 'Award Type' }
@@ -300,8 +299,8 @@ const defaultOther = [
     { title: 'Recipient Name' },
     { title: 'Start Date', subtitle: '(Period of Performance)', customWidth: datesWidth },
     { title: 'End Date', subtitle: '(Period of Performance)', customWidth: datesWidth },
-    { title: 'Award Amount', subtitle: '(Total Award Obligations to Date)', customWidth: awardColWidth },
-    { title: 'Total Outlays', customWidth: awardColWidth },
+    { title: 'Award Amount', displayName: 'Total Obligations to Date' },
+    { title: 'Total Outlays', displayName: 'Total Outlays to Date' },
     { title: 'Awarding Agency' },
     { title: 'Awarding Sub Agency' },
     { title: 'Award Type' }
@@ -312,32 +311,35 @@ const defaultIdvColumns = [
     { title: 'Recipient Name' },
     { title: 'Start Date', subtitle: '(Period of Performance)', customWidth: datesWidth },
     { title: 'Last Date to Order', displayName: 'Ordering Period End Date', customWidth: 170 },
-    { title: 'Award Amount', subtitle: '(Total Award Obligations to Date)', customWidth: awardColWidth },
-    { title: 'Total Outlays', customWidth: awardColWidth },
+    { title: 'Award Amount', displayName: 'Total Obligations to Date' },
+    { title: 'Total Outlays', displayName: 'Total Outlays to Date' },
     { title: 'Awarding Agency' },
     { title: 'Awarding Sub Agency' },
     { title: 'Contract Award Type' }
 ];
+
 const infrastructureObligationsCol = {
     title: 'Infrastructure Obligations',
     background: infrastructureColor,
-    customWidth: covidColWidth
+    customWidth: amountWidth
 };
+
 const infrastructureOutlaysCol = {
     title: 'Infrastructure Outlays',
     background: infrastructureColor,
-    customWidth: covidColWidth
+    customWidth: amountWidth
 };
+
 const covidObligationsCol = {
     title: 'COVID-19 Obligations',
     background: covidColor,
-    customWidth: covidColWidth
+    customWidth: amountWidth
 };
 
 const covidOutlaysCol = {
     title: 'COVID-19 Outlays',
     background: covidColor,
-    customWidth: covidColWidth
+    customWidth: amountWidth
 };
 
 const covidDefCCol = {
