@@ -94,8 +94,8 @@ export default class ResultsTable extends React.Component {
             }
         }
         else if (column.columnName === 'Total Outlays') {
-            if (this.props.results[rowIndex]['Total Outlays'] === null) {
-                this.props.results[rowIndex]['Total Outlays'] = '--';
+            if (!this.props.results[rowIndex]['Total Outlays']) {
+                props.value = '--';
             }
         }
         else if ((column.columnName === 'Sub-Award ID') && this.props.subaward) {
