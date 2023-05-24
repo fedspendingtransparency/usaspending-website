@@ -38,7 +38,9 @@ export const initialState = {
     selectedSubcomponent: null,
     selectedFederalAccount: null,
     selectedTas: null,
+    selectedPrgActivityOrObjectClass: null,
     currentLevelNameAndId: null,
+    level4ApiResponse: null,
     agencySubcomponentsList,
     awardSpendingDataThroughDate: null
 };
@@ -80,10 +82,20 @@ const agencyReducer = (state = initialState, action) => {
                 ...state,
                 selectedTas: action.tas
             };
+        case 'SET_PA_OR_OC':
+            return {
+                ...state,
+                selectedPrgActivityOrObjectClass: action.prgActivityOrObjectClass
+            };
         case 'SET_CURRENT_LEVEL_NAME_AND_ID':
             return {
                 ...state,
                 currentLevelNameAndId: action.nameAndId
+            };
+        case 'SET_LEVEL_4_API_RESPONSE':
+            return {
+                ...state,
+                level4ApiResponse: action.resObject
             };
         case 'SET_AGENCY_RECIPIENTS':
             return {
