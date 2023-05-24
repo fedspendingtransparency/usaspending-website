@@ -155,6 +155,7 @@ export default class SearchPage extends React.Component {
                 toolBarComponents={[
                     <ShareIcon
                         isEnabled={this.props.downloadAvailable}
+                        downloadInFlight={this.props.downloadInFlight}
                         url={getBaseUrl(this.getSlugWithHash())}
                         onShareOptionClick={this.handleShare} />,
                     <DownloadIconButton
