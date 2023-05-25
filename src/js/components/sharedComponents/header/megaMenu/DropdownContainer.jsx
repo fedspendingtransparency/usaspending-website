@@ -90,13 +90,17 @@ export default class DropdownContainer extends Component {
         } = this.props;
 
         const [currentDropdown, prevDropdown] = Children.toArray(children);
+        // to get an outline around a caret you have to add a larger caret behind a white one and then get them to line up
         return (
             <div
                 style={dropdownRoot(this.props)}
                 direction={direction}
                 duration={tweenConfig.duration} >
                 <Flipped flipId="dropdown-caret">
-                    <div className="caret" />
+                    <div style={{ height: "24px" }}>
+                        <div className="caret" />
+                        <div className="smaller-caret" />
+                    </div>
                 </Flipped>
                 <Flipped flipId="dropdown">
                     <div className="dropdown-background">
