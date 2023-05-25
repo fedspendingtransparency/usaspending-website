@@ -71,6 +71,11 @@ const navbarConfig = [
 
 const MobileNav = (hideMobileNav, location, props) => {
     const [url, setUrl] = useState('');
+    const [hideNavMenu, setHideNavMenu] = useState(false);
+
+    const toggleNavMenu = () => {
+        setHideNavMenu(!hideMobileNav);
+    };
 
     const clickedLink = (e) => {
         const route = e.target.name;
@@ -120,7 +125,6 @@ const MobileNav = (hideMobileNav, location, props) => {
                                         section1Options={navbarConfig[index].section1Options}
                                         section2Options={navbarConfig[index].section2Options}
                                         section3Options={navbarConfig[index].section3Options}
-                                        sectoion1Icon={navbarConfig[index].section1Icon}
                                         index={index}
                                         active={url} />
                                 }

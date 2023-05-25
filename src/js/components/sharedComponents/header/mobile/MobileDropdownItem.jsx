@@ -61,7 +61,7 @@ const MobileDropdownItem = ({
     (
         <div className="mobile-dropdown__layout-container">
             <div className="mobile-dropdown__section-icon">
-                <FontAwesomeIcon icon={section2Options[index].icon} />
+                <FontAwesomeIcon icon={section1Options[index].icon} />
             </div>
             <div className="mobile-dropdown__title">
                 {section1Options[index].title}
@@ -163,7 +163,7 @@ const MobileDropdownItem = ({
                 }
             </div>
             <div className="mobile-dropdown__section-icon">
-                <FontAwesomeIcon icon={section2Options[index].icon} />
+                <FontAwesomeIcon icon={section3Options[index].icon} />
             </div>
             <div className="mobile-dropdown__title">
                 {section3Options[index].title}
