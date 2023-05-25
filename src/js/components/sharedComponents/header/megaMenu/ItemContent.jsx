@@ -29,7 +29,7 @@ const ItemContent = ({
         e.preventDefault();
     };
     return (
-        <div className="dropdown-section__wrapper">
+        <div className="dropdown-section__wrapper" key={uniqueId()}>
             <div className={menuIndex === 1 ? "dropdown-section__top-columns undo__bottom-padding" : "dropdown-section__top-columns"}>
                 <div key={uniqueId()} className="dropdown-section first-dropdown-section" data-first-dropdown-section>
                     {section1Icon && section1Icon !== null && section1Icon !== '' ? <FontAwesomeIcon role="presentation" size="lg" className="" icon={section1Icon} /> : ''}
@@ -70,8 +70,12 @@ const ItemContent = ({
                                             <Link
                                                 className="dropdown--item__link"
                                                 to={item.url !== "?about-the-data" ? item.url : ''}
-                                                onClick={item.url !== '?about-the-data' ? '' : openATD}
-                                                onMouseUp={item.url !== '?about-the-data' ? '' : openATD}>
+                                                onClick={(e) => {
+                                                    if (item.url === '?about-the-data') openATD(e);
+                                                }}
+                                                onMouseUp={(e) => {
+                                                    if (item.url === '?about-the-data') openATD(e);
+                                                }}>
                                                 {item.icon && item.icon !== '' && item.icon !== null ? <FontAwesomeIcon role="presentation" size="lg" className="" icon={item.icon} /> : ''}
                                                 <div className="dropdown-item__link-desc">
                                                     <div className="dropdown-item__link-label">

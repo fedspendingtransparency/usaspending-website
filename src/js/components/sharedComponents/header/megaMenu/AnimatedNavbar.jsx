@@ -157,7 +157,7 @@ export default class AnimatedNavbar extends Component {
                 <Navbar onMouseLeave={this.onMouseLeave}>
                     {navbarConfig.map((n, index) => (
                         <NavbarItem
-                            key={`navbaritem-${uniqueId(index)}`}
+                            key={`navbaritem-${index}`}
                             title={n.title}
                             index={index}
                             url={n.url}
