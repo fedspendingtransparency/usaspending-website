@@ -13,14 +13,16 @@ const propTypes = {
     toggle: PropTypes.bool.isRequired,
     level: PropTypes.number.isRequired,
     goBack: PropTypes.func,
-    fy: PropTypes.string.isRequired
+    fy: PropTypes.string.isRequired,
+    dropdownSelection: PropTypes.string
 };
 
 const DrilldownSidebar = ({
     toggle,
     level,
     goBack,
-    fy
+    fy,
+    dropdownSelection
 }) => {
     const { agencyBudgetShort, agencyObligatedShort } = useSelector((state) => state.agency.budgetaryResources?.[fy]) || '--';
     const { toptierCode } = useSelector((state) => state.agency.overview) || '--';
@@ -43,6 +45,11 @@ const DrilldownSidebar = ({
     useSelector((state) => state.agency.selectedFederalAccount?._budgetaryResources);
     const tasObligation = MoneyFormatter.formatMoneyWithUnitsShortLabel(useSelector((state) => state.agency.selectedTas?._obligations), 2);
     const tasOutlays = MoneyFormatter.formatMoneyWithUnitsShortLabel(useSelector((state) => state.agency.selectedTas?._outlays), 2);
+
+    const prgActivityOrObjectClassName = useSelector((state) => state.agency.selectedPrgActivityOrObjectClass?.name);
+    const prgActivityOrObjectClassObligation = MoneyFormatter.formatMoneyWithUnitsShortLabel(useSelector((state) => state.agency.selectedPrgActivityOrObjectClass?._obligations), 2);
+    const prgActivityOrObjectClassOutlays = MoneyFormatter.formatMoneyWithUnitsShortLabel(useSelector((state) => state.agency.selectedPrgActivityOrObjectClass?._outlays), 2);
+
 
     return (
         <>
@@ -102,6 +109,21 @@ const DrilldownSidebar = ({
                         </div>
                     )}
                     outlay={tasOutlays}
+                    goBack={goBack}
+                    toggle={toggle} />
+            }
+            {level >= 4 &&
+                <DrilldownSidebarLevel
+                    key={dropdownSelection}
+                    label={dropdownSelection}
+                    name={prgActivityOrObjectClassName}
+                    active={level === 4}
+                    obligatedText={(
+                        <div className="drilldown-level__description">
+                            <strong>{prgActivityOrObjectClassObligation}</strong> committed
+                        </div>
+                    )}
+                    outlay={prgActivityOrObjectClassOutlays}
                     goBack={goBack}
                     toggle={toggle} />
             }

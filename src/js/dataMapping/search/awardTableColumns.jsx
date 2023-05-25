@@ -240,7 +240,7 @@ const amountWidth = 190;
 const descWidth = 380;
 const datesWidth = 210;
 const covidColor = '#6E338E';
-const infrastructureColor = '#5b616b';
+const infrastructureColor = '#2D6878';
 
 const defaultContract = [
     { title: 'Award ID' },
