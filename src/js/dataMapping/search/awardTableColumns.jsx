@@ -259,8 +259,8 @@ const defaultGrant = [
     { title: 'Recipient Name' },
     { title: 'Start Date', subtitle: '(Period of Performance)', customWidth: datesWidth },
     { title: 'End Date', subtitle: '(Period of Performance)', customWidth: datesWidth },
-    { title: 'Award Amount', displayName: 'Total Obligations to Date' },
-    { title: 'Total Outlays', displayName: 'Total Outlays to Date' },
+    { title: 'Award Amount', displayName: 'Total Obligations to Date', customWidth: amountWidth },
+    { title: 'Total Outlays', displayName: 'Total Outlays to Date', customWidth: amountWidth },
     { title: 'Awarding Agency' },
     { title: 'Awarding Sub Agency' },
     { title: 'Award Type' }
@@ -271,8 +271,8 @@ const defaultDirectPayment = [
     { title: 'Recipient Name' },
     { title: 'Start Date', subtitle: '(Period of Performance)', customWidth: datesWidth },
     { title: 'End Date', subtitle: '(Period of Performance)', customWidth: datesWidth },
-    { title: 'Award Amount', displayName: 'Total Obligations to Date' },
-    { title: 'Total Outlays', displayName: 'Total Outlays to Date' },
+    { title: 'Award Amount', displayName: 'Total Obligations to Date', customWidth: amountWidth },
+    { title: 'Total Outlays', displayName: 'Total Outlays to Date', customWidth: amountWidth },
     { title: 'Awarding Agency' },
     { title: 'Awarding Sub Agency' },
     { title: 'Award Type' }
@@ -299,8 +299,8 @@ const defaultOther = [
     { title: 'Recipient Name' },
     { title: 'Start Date', subtitle: '(Period of Performance)', customWidth: datesWidth },
     { title: 'End Date', subtitle: '(Period of Performance)', customWidth: datesWidth },
-    { title: 'Award Amount', displayName: 'Total Obligations to Date' },
-    { title: 'Total Outlays', displayName: 'Total Outlays to Date' },
+    { title: 'Award Amount', displayName: 'Total Obligations to Date', customWidth: amountWidth },
+    { title: 'Total Outlays', displayName: 'Total Outlays to Date', customWidth: amountWidth },
     { title: 'Awarding Agency' },
     { title: 'Awarding Sub Agency' },
     { title: 'Award Type' }
@@ -311,8 +311,8 @@ const defaultIdvColumns = [
     { title: 'Recipient Name' },
     { title: 'Start Date', subtitle: '(Period of Performance)', customWidth: datesWidth },
     { title: 'Last Date to Order', displayName: 'Ordering Period End Date', customWidth: 170 },
-    { title: 'Award Amount', displayName: 'Total Obligations to Date' },
-    { title: 'Total Outlays', displayName: 'Total Outlays to Date' },
+    { title: 'Award Amount', displayName: 'Total Obligations to Date', customWidth: amountWidth },
+    { title: 'Total Outlays', displayName: 'Total Outlays to Date', customWidth: amountWidth },
     { title: 'Awarding Agency' },
     { title: 'Awarding Sub Agency' },
     { title: 'Contract Award Type' }
