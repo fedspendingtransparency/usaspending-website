@@ -11,6 +11,15 @@
     @import "./mobile/mobileSidebar";
     @import "./mobile/mobileResults";
 
+    .usda-page-header .usda-page-header__container .usda-page-header__toolbar {
+        .usda-download-btn {
+            span {
+                margin-top: rem(4);
+                line-height: 0.9;
+            }
+        }
+    }
+
     #main-content {
         padding-bottom: rem(32);
         @import "components/aboutTheDataSidebar/aboutTheData";
@@ -40,6 +49,6 @@
                 }
             }
         }
-        
+
     }
 }
