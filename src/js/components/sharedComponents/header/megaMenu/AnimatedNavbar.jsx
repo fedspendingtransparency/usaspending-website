@@ -13,7 +13,6 @@ import {
     section2Options,
     section3Options
 } from 'dataMapping/navigation/menuOptions';
-import { uniqueId } from 'lodash';
 import Navbar from "./Navbar";
 import DropdownContainer from "./DropdownContainer";
 import NavbarItem from './NavbarItem';
