@@ -55,19 +55,6 @@ export default class MobileDropdown extends React.Component {
         }
 
 
-        // const items = this.props.items.map((item) => (
-        //     <MobileDropdownItem
-        //         {...item}
-        //         key={item.url}
-        //         comingSoon={!item.enabled}
-        //         title={item.label}
-        //         isNewTab={item.isNewTab}
-        //         url={item.url}
-        //         active={item.url === this.props.active}
-        //         externalLink={item.externalLink}
-        //         hideMobileNav={this.props.hideMobileNav} />
-        // ));
-
         // TODO - REPLACE THIS WITH AN INDIVIDUAL PROP FOR NEW ITEM
         // const containsNewNavItem = this.props.items.some(({ isNewTab }) => isNewTab);
 
@@ -78,11 +65,6 @@ export default class MobileDropdown extends React.Component {
                     title={this.props.title || this.props.label}
                     onClick={this.toggleDropdown}>
                     <span className="mobile-dropdown__parent-label">
-                        {/* {containsNewNavItem && */}
-                        {/*     <div className="new-badge-outer"> */}
-                        {/*         <FontAwesomeIcon icon="circle" /> */}
-                        {/*     </div> */}
-                        {/* } */}
                         {this.props.label}
                     </span>
                     <span className="mobile-dropdown__parent-icon">

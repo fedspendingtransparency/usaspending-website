@@ -55,7 +55,8 @@ const navbarConfig = [
         section3Items: allDownloadOptions,
         section1Options,
         section2Options,
-        section3Options
+        section3Options,
+        sectoion1Icon: "hand-holding-usd"
     },
     {
         title: "Find Resources",
@@ -119,6 +120,7 @@ const MobileNav = (hideMobileNav, location, props) => {
                                         section1Options={navbarConfig[index].section1Options}
                                         section2Options={navbarConfig[index].section2Options}
                                         section3Options={navbarConfig[index].section3Options}
+                                        sectoion1Icon={navbarConfig[index].section1Icon}
                                         index={index}
                                         active={url} />
                                 }
