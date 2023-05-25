@@ -11,12 +11,11 @@ import { tabletScreen } from 'dataMapping/shared/mobileBreakpoints';
 import { throttle } from "lodash";
 
 import { FlexGridRow, FlexGridCol, Pagination, LoadingMessage, ErrorMessage } from 'data-transparency-ui';
-import { setDataThroughDates, setSelectedSubcomponent, setSelectedFederalAccount, setSelectedTas, setCurrentLevelNameAndId } from "redux/actions/agency/agencyActions";
+import { setDataThroughDates, setSelectedSubcomponent, setSelectedFederalAccount, setSelectedTas, setSelectedPrgActivityOrObjectClass, setCurrentLevelNameAndId, setLevel4ApiResponse } from "redux/actions/agency/agencyActions";
 import { fetchSubcomponentsList, fetchFederalAccountsList, fetchTasList, fetchProgramActivityByTas, fetchObjectClassByTas } from 'apis/agency';
-import { parseRows } from 'helpers/agency/StatusOfFundsVizHelper';
+import { parseRows, getLevel5Data } from 'helpers/agency/StatusOfFundsVizHelper';
 import { useStateWithPrevious } from 'helpers';
 import { useLatestAccountData } from 'containers/account/WithLatestFy';
-import BaseStatusOfFundsLevel from 'models/v2/agency/BaseStatusOfFundsLevel';
 import Note from 'components/sharedComponents/Note';
 
 import DrilldownSidebar from './DrilldownSidebar';
@@ -26,8 +25,6 @@ import IntroSection from './IntroSection';
 const propTypes = {
     fy: PropTypes.string
 };
-
-export const levels = ['Sub-Component', 'Federal Account', 'Treasury Account Symbol'];
 
 const StatusOfFunds = ({ fy }) => {
     const dispatch = useDispatch();
@@ -61,7 +58,12 @@ const StatusOfFunds = ({ fy }) => {
         name: useSelector((state) => state.agency.selectedTas?.name)
     };
 
-    const maxLevel = 3;
+    // this one is used to get level 5 data, which is sent as children array of level 4 data
+    const level4ApiResponse = {
+        res: useSelector((state) => state.agency.level4ApiResponse)
+    };
+
+    const maxLevel = 4;
 
     // TODO not sure if this is necessary
     // eslint-disable-next-line eqeqeq
@@ -226,6 +228,9 @@ const StatusOfFunds = ({ fy }) => {
         const programActivityRequest = request.current;
         programActivityRequest.promise
             .then((res) => {
+                // store the api res in redux so that when the user clicks one of the bars you can use the id
+                // from that click to get the children of that id to set as results for level 5
+                dispatch(setLevel4ApiResponse(res.data.results));
                 const parsedData = parseRows(res.data.results, tas.id);
                 const nameAndId = {
                     name: `${tas.name}`,
@@ -243,6 +248,19 @@ const StatusOfFunds = ({ fy }) => {
             });
     });
 
+    const fetchLevel5Data = (prgActivityOrObjClass) => {
+        const newData = getLevel5Data(prgActivityOrObjClass.name, level4ApiResponse);
+        const parsedData = parseRows(newData, prgActivityOrObjClass.id);
+        const nameAndId = {
+            name: `${prgActivityOrObjClass.name}`,
+            id: `${prgActivityOrObjClass.id}`
+        };
+        dispatch(setCurrentLevelNameAndId(nameAndId));
+        setLevel(4);
+        setResults(parsedData);
+        setTotalItems(newData.length);
+    };
+
     useEffect(() => {
         if (resetPageChange) {
             setResetPageChange(false);
@@ -259,6 +277,9 @@ const StatusOfFunds = ({ fy }) => {
             }
             if (prevPage !== currentPage && level === 3) {
                 fetchDataByTas(selectedTasNameAndId, dropdownSelection === 'Object Class');
+            }
+            if (prevPage !== currentPage && level === 4) {
+                fetchLevel5Data(selectedTasNameAndId);
             }
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -300,10 +321,13 @@ const StatusOfFunds = ({ fy }) => {
             dispatch(setSelectedTas(parentData));
         }
 
+        if (selectedLevel === 4) {
+            fetchLevel5Data(parentData);
+            dispatch(setSelectedPrgActivityOrObjectClass(parentData));
+            return;
+        }
+
         setResetPageChange(true);
-        const subcomponentTotalData = Object.create(BaseStatusOfFundsLevel);
-        subcomponentTotalData.populate(parentData);
-        setResults(subcomponentTotalData);
     };
 
     const goBack = () => {
@@ -322,11 +346,24 @@ const StatusOfFunds = ({ fy }) => {
             }
             if (level === 3) {
                 setLevel(2);
+                setDropdownSelection('Program Activity');
                 if (currentPage === 1) {
                     fetchTas(selectedFederalAccountNameId);
                 }
             }
+            if (level === 4) {
+                setLevel(3);
+                if (currentPage === 1) {
+                    fetchDataByTas(selectedTasNameAndId, dropdownSelection === 'Object Class');
+                }
+            }
 
+            // this is a convoluted way to handle back
+            // if the currentPage is anything other than 1, we change it to 1 here
+            // which kicks of a useEffect which just calls the fetch fns that we're calling above if currentLevel is 1
+            // why don't we just call the fetch fn here no matter what currentPage is?
+            // OR just set currentPage to 1 after setLevel and not call the apis here
+            // i think we're calling the apis twice in these situations
             changeCurrentPage(1);
         }
     };
@@ -350,6 +387,7 @@ const StatusOfFunds = ({ fy }) => {
                         toggle={toggle}
                         level={level}
                         goBack={goBack}
+                        dropdownSelection={dropdownSelection}
                         fy={fy} />
                 </FlexGridCol>
                 <FlexGridCol className="status-of-funds__visualization" desktop={9}>
