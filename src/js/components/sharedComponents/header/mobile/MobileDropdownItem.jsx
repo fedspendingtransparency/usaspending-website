@@ -15,7 +15,6 @@ import { Link, useLocation } from 'react-router-dom';
 import Analytics from 'helpers/analytics/Analytics';
 import { getNewUrlForGlossary } from 'helpers/glossaryHelper';
 import DropdownComingSoon from '../DropdownComingSoon';
-import { section1Options } from "../../../../dataMapping/navigation/menuOptions";
 
 
 const propTypes = {
@@ -42,27 +41,19 @@ const propTypes = {
 
 const MobileDropdownItem = ({
     // hideMobileNav = false,
-    hideMobileNav,
-    active,
-    title,
-    label,
     section1Items,
-    section2Items,
-    section3Items,
     section1Options,
     section2Options,
     section3Options,
     section1Icon,
-    section2Icon,
-    section3Icon,
     index
 }) =>
 
     (
         <div className="mobile-dropdown__layout-container">
-            <div className="mobile-dropdown__section-icon">
-                <FontAwesomeIcon icon={section1Options[index].icon} />
-            </div>
+            {/*<div className="mobile-dropdown__section-icon">*/}
+            {/*    <FontAwesomeIcon icon={section1Options[index].icon} />*/}
+            {/*</div>*/}
             <div className="mobile-dropdown__title">
                 {section1Options[index].title}
             </div>
@@ -77,7 +68,7 @@ const MobileDropdownItem = ({
                                 <li key={i}>
                                     <div className="mobile-dropdown__section-row-one">
                                         <div className="mobile-dropdown__section-icon">
-                                            <FontAwesomeIcon icon={item.icon} size="sm" />
+                                            {/*<FontAwesomeIcon icon={item.icon} size="sm" />*/}
                                         </div>
                                         <div className="mobile-dropdown__section-label">
                                             {item.label}
@@ -114,7 +105,7 @@ const MobileDropdownItem = ({
             </div>
             <hr />
             <div className="mobile-dropdown__section-icon">
-                <FontAwesomeIcon icon={section2Options[index].icon} />
+                {/*<FontAwesomeIcon icon={section2Options[index].icon} />*/}
             </div>
             <div className="mobile-dropdown__title">
                 {section2Options[index].title}
@@ -129,7 +120,7 @@ const MobileDropdownItem = ({
                             <li key={i}>
                                 <div className="mobile-dropdown__section-row-one">
                                     <div className="mobile-dropdown__section-icon">
-                                        <FontAwesomeIcon icon={item.icon} size="sm" />
+                                        {/*<FontAwesomeIcon icon={item.icon} size="sm" />*/}
                                     </div>
                                     <div className="mobile-dropdown__section-label">
                                         {item.label}
@@ -163,7 +154,7 @@ const MobileDropdownItem = ({
                 }
             </div>
             <div className="mobile-dropdown__section-icon">
-                <FontAwesomeIcon icon={section3Options[index].icon} />
+                {/*<FontAwesomeIcon icon={section3Options[index].icon} />*/}
             </div>
             <div className="mobile-dropdown__title">
                 {section3Options[index].title}
