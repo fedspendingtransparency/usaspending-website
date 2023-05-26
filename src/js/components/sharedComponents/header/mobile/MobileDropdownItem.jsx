@@ -5,16 +5,11 @@
 
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { uniqueId } from 'lodash';
 
 import { useDispatch } from 'react-redux';
 import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
 import * as slideoutActions from 'redux/actions/slideouts/slideoutActions';
 import PropTypes from 'prop-types';
-import { Link, useLocation } from 'react-router-dom';
-import Analytics from 'helpers/analytics/Analytics';
-import { getNewUrlForGlossary } from 'helpers/glossaryHelper';
-import DropdownComingSoon from '../DropdownComingSoon';
 
 
 const propTypes = {
@@ -45,15 +40,14 @@ const MobileDropdownItem = ({
     section1Options,
     section2Options,
     section3Options,
-    section1Icon,
     index
 }) =>
 
     (
         <div className="mobile-dropdown__layout-container">
-            {/*<div className="mobile-dropdown__section-icon">*/}
-            {/*    <FontAwesomeIcon icon={section1Options[index].icon} />*/}
-            {/*</div>*/}
+            <div className="mobile-dropdown__section-icon">
+                <FontAwesomeIcon icon={section1Options[index].icon} />
+            </div>
             <div className="mobile-dropdown__title">
                 {section1Options[index].title}
             </div>
@@ -68,7 +62,7 @@ const MobileDropdownItem = ({
                                 <li key={i}>
                                     <div className="mobile-dropdown__section-row-one">
                                         <div className="mobile-dropdown__section-icon">
-                                            {/*<FontAwesomeIcon icon={item.icon} size="sm" />*/}
+                                            <FontAwesomeIcon icon={item.icon} size="sm" />
                                         </div>
                                         <div className="mobile-dropdown__section-label">
                                             {item.label}
@@ -84,7 +78,6 @@ const MobileDropdownItem = ({
                     </>
                     :
                     <>
-                        {console.log("section1Icon", section1Icon)}
                         <ul>
                             {section1Items.map((item, i) => (
                                 <li key={i}>
@@ -105,7 +98,7 @@ const MobileDropdownItem = ({
             </div>
             <hr />
             <div className="mobile-dropdown__section-icon">
-                {/*<FontAwesomeIcon icon={section2Options[index].icon} />*/}
+                <FontAwesomeIcon icon={section2Options[index].icon} />
             </div>
             <div className="mobile-dropdown__title">
                 {section2Options[index].title}
@@ -120,7 +113,7 @@ const MobileDropdownItem = ({
                             <li key={i}>
                                 <div className="mobile-dropdown__section-row-one">
                                     <div className="mobile-dropdown__section-icon">
-                                        {/*<FontAwesomeIcon icon={item.icon} size="sm" />*/}
+                                        <FontAwesomeIcon icon={item.icon} size="sm" />
                                     </div>
                                     <div className="mobile-dropdown__section-label">
                                         {item.label}
@@ -154,7 +147,7 @@ const MobileDropdownItem = ({
                 }
             </div>
             <div className="mobile-dropdown__section-icon">
-                {/*<FontAwesomeIcon icon={section3Options[index].icon} />*/}
+                <FontAwesomeIcon icon={section3Options[index].icon} />
             </div>
             <div className="mobile-dropdown__title">
                 {section3Options[index].title}

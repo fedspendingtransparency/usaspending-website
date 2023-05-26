@@ -70,7 +70,8 @@ const navbarConfig = [
     }
 ];
 
-const MobileNav = (hideMobileNav, location, props) => {
+const MobileNav = (props) => {
+    const { location } = props;
     const [url, setUrl] = useState('');
     const [detailMobileNavIsHidden, setHideDetailMobileNav] = useState(true);
     const [currentIndex, setCurrentIndex] = useState(null);
@@ -88,7 +89,7 @@ const MobileNav = (hideMobileNav, location, props) => {
     const clickedLink = (e) => {
         const route = e.target.name;
         clickedHeaderLink(route);
-        hideMobileNav();
+        props.hideMobileNav();
     };
     const checkCurrentProfile = () => {
         const currentUrl = location.pathname;
@@ -105,7 +106,10 @@ const MobileNav = (hideMobileNav, location, props) => {
     return (
         <div className="mobile-nav">
             <div className="mobile-nav__top">
-                <MobileTop closeDetailedMobileNav={closeDetailedMobileNav} detailMobileNavIsHidden={detailMobileNavIsHidden}  />
+                <MobileTop
+                    closeDetailedMobileNav={closeDetailedMobileNav}
+                    detailMobileNavIsHidden={detailMobileNavIsHidden}
+                    hideMobileNav={clickedLink} />
             </div>
             <div className="mobile-nav-content">
                 <ul className="mobile-nav-content__list" style={detailMobileNavIsHidden ? {} : { display: "none" }}>
@@ -138,18 +142,6 @@ const MobileNav = (hideMobileNav, location, props) => {
                                             </span>
                                         </button>
                                     </div>
-                                    // <MobileDropdown
-                                    //     {...props}
-                                    //     label={navbarConfig[index].title}
-                                    //     title={navbarConfig[index].title}
-                                    //     section1Items={navbarConfig[index].section1Items}
-                                    //     section2Items={navbarConfig[index].section2Items}
-                                    //     section3Items={navbarConfig[index].section3Items}
-                                    //     section1Options={navbarConfig[index].section1Options}
-                                    //     section2Options={navbarConfig[index].section2Options}
-                                    //     section3Options={navbarConfig[index].section3Options}
-                                    //     index={index}
-                                    //     active={url} />
                                 }
                             </li>
                         </>
@@ -167,8 +159,7 @@ const MobileNav = (hideMobileNav, location, props) => {
                         section2Options={navbarConfig[currentIndex].section2Options}
                         section3Options={navbarConfig[currentIndex].section3Options}
                         index={currentIndex}
-                        active={url}
-                        />}
+                        active={url} />}
                 </ul>
             </div>
         </div>
