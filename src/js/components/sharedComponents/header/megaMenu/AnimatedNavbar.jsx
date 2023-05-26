@@ -13,7 +13,6 @@ import {
     section2Options,
     section3Options
 } from 'dataMapping/navigation/menuOptions';
-import { uniqueId } from 'lodash';
 import Navbar from "./Navbar";
 import DropdownContainer from "./DropdownContainer";
 import NavbarItem from './NavbarItem';
@@ -157,7 +156,7 @@ export default class AnimatedNavbar extends Component {
                 <Navbar onMouseLeave={this.onMouseLeave}>
                     {navbarConfig.map((n, index) => (
                         <NavbarItem
-                            key={`navbaritem-${uniqueId(index)}`}
+                            key={`navbaritem-${index}`}
                             title={n.title}
                             index={index}
                             url={n.url}
