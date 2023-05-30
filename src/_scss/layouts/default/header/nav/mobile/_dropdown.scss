@@ -27,10 +27,10 @@
             display: contents;
             color: $blue-50;
             margin-left: auto;
-            width: rem(16);
-            height: rem(16);
+            width: rem(20);
+            height: rem(20);
             object-fit: contain;
-
+            background-color: $blue-warm-5;
             svg {
                 width: rem(6);
                 height: rem(9.8);
@@ -45,8 +45,8 @@
     .mobile-dropdown__section-icon {
         color: $blue-warm-60;
         background-color: $blue-warm-5;
-        width: rem(20);
-        height: rem(20);
+        width: rem(18);
+        height: rem(18);
     }
 
     .mobile-dropdown__layout-container {
@@ -70,7 +70,7 @@
         .mobile-dropdown__sub-two {
             font-size: $font-size-12;
             color: $gray-60;
-            padding-left: rem(28);
+            padding-left: rem(26);
         }
 
         .mobile-dropdown__section-container {
@@ -100,7 +100,7 @@
                     color: $gray-90;
                 }
                 .mobile-dropdown__section-label-section-two {
-                    padding-left: rem(26);
+                    padding-left: rem(24);
                     font-size: $font-size-16;
                     font-weight: $font-semibold;
                     color: $gray-90;
@@ -111,7 +111,11 @@
                 font-size: $font-size-12;
             }
             .mobile-dropdown__section-description-two {
-                padding-left: rem(8);
+                padding-left: rem(6);
+                font-size: $font-size-12;
+            }
+            .mobile-dropdown__section-description-three{
+                padding-left: rem(26);
                 font-size: $font-size-12;
             }
         }

@@ -6,9 +6,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
-import { Link, useLocation } from 'react-router-dom';
-
-
 
 const propTypes = {
     hideMobileNav: PropTypes.func,
@@ -90,7 +87,7 @@ const MobileDropdownItem = ({
                                             {item.label}
                                         </div>
                                     </div>
-                                    <div className="mobile-dropdown__section-description">
+                                    <div className="mobile-dropdown__section-description-three">
                                         {item.description}
                                     </div>
                                 </li>
