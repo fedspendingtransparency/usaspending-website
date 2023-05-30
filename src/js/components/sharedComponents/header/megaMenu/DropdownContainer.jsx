@@ -101,16 +101,14 @@ export default class DropdownContainer extends Component {
 
     render() {
         const {
-            children, direction, tweenConfig
+            children, direction, tweenConfig, animatingOut
         } = this.props;
 
         const [currentDropdown, prevDropdown] = Children.toArray(children);
         // to get an outline around a caret you have to add a larger caret behind a white one and then get them to line up
         return (
             <div
-                style={dropdownRoot(this.props)}
-                direction={direction}
-                duration={tweenConfig.duration} >
+                style={dropdownRoot(this.props)}>
                 <Flipped flipId="dropdown-caret">
                     <div style={{ height: "24px" }}>
                         <div className="caret" />
@@ -123,8 +121,7 @@ export default class DropdownContainer extends Component {
                             <div>
                                 <div
                                     /* eslint-disable-next-line no-return-assign */
-                                    ref={(el) => (this.altBackgroundEl = el)}
-                                    duration={tweenConfig.duration} />
+                                    ref={(el) => (this.altBackgroundEl = el)} />
                                 <FadeContents
                                     direction={direction}
                                     duration={tweenConfig.duration}
@@ -134,6 +131,7 @@ export default class DropdownContainer extends Component {
                                 </FadeContents>
                                 {prevDropdown && (
                                     <FadeContents
+                                        animatingOut={animatingOut}
                                         direction={direction}
                                         duration={tweenConfig.duration}
                                         /* eslint-disable-next-line no-return-assign */

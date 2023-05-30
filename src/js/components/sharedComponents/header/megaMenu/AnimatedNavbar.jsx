@@ -95,6 +95,7 @@ export default class AnimatedNavbar extends Component {
     };
 
     render() {
+        console.log(this.state.anim)
         const { tweenConfig } = this.props;
 
         let CurrentDropdown;
