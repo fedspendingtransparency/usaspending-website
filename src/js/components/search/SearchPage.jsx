@@ -75,7 +75,7 @@ export default class SearchPage extends React.Component {
     handleShare = (name) => {
         handleShareOptionClick(name, this.getSlugWithHash(), {
             subject: emailSubject,
-            body: `View search results for federal awards on USAspending.gov:  ${getBaseUrl(slug)}`
+            body: `View search results for federal awards on USAspending.gov:  ${getBaseUrl(this.getSlugWithHash())}`
         });
     };
 
