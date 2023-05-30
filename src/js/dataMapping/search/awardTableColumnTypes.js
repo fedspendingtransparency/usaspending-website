@@ -13,6 +13,7 @@ export const awardTableColumnTypes = {
     'End Date': 'date',
     'Last Date to Order': 'date',
     'Award Amount': 'currency',
+    'Total Outlays': 'currency',
     'COVID-19 Outlays': 'currency',
     'COVID-19 Obligations': 'currency',
     'Infrastructure Obligations': 'currency',

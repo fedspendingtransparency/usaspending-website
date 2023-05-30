@@ -325,7 +325,8 @@ export class ResultsTableContainer extends React.Component {
                 else {
                     requestFields.push(field);
                 }
-            } else if (field === "Action Date") {
+            }
+            else if (field === "Action Date") {
                 requestFields.push('Sub-Award Date');
             }
         });
@@ -454,7 +455,8 @@ export class ResultsTableContainer extends React.Component {
             }, () => {
                 this.performSearch(true);
             });
-        } else {
+        }
+        else {
             this.setState({
                 sort: {
                     field,
@@ -464,7 +466,7 @@ export class ResultsTableContainer extends React.Component {
                 this.performSearch(true);
             });
         }
-    };
+    }
 
     awardIdClick = (id) => {
         Analytics.event({
