@@ -76,7 +76,7 @@ const ItemContent = ({
                                                 onMouseUp={(e) => {
                                                     if (item.url === '?about-the-data') openATD(e);
                                                 }}>
-                                                {item.icon && item.icon !== '' && item.icon !== null ? <FontAwesomeIcon role="presentation" size="lg" className="" icon={item.icon} /> : ''}
+                                                {item.icon && item.icon !== '' && item.icon !== null ? <FontAwesomeIcon role="presentation" size="lg" className="" icon={item.icon} style={{ width: "20px", height: "20px" }} /> : ''}
                                                 <div className="dropdown-item__link-desc">
                                                     <div className="dropdown-item__link-label">
                                                         {item.label}
