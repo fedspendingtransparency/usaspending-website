@@ -38,6 +38,16 @@
             }
         }
     }
+    .mobile-dropdown_main-container {
+        display: flex;
+        padding-right: rem(8);
+    }
+    .mobile-dropdown__section-icon {
+        color: $blue-warm-60;
+        background-color: $blue-warm-5;
+        width: rem(20);
+        height: rem(20);
+    }
 
     .mobile-dropdown__layout-container {
         display: flex;
@@ -46,6 +56,11 @@
         .mobile-dropdown__title {
             font-size: $font-size-14;
             color: $gray-90;
+        }
+        .mobile-dropdown__title-section-2 {
+            font-size: $font-size-14;
+            color: $gray-90;
+            padding-left: rem(8);
         }
 
         .mobile-dropdown__sub {
@@ -61,6 +76,7 @@
             hr {
                 height: rem(2);
                 color: $gray-cool-5;
+                margin: rem(24) rem(0);
             }
             .mobile-dropdown__section-row-one {
                 display: flex;
@@ -74,6 +90,12 @@
                 }
                 .mobile-dropdown__section-label {
                     padding-left: rem(8);
+                    font-size: $font-size-16;
+                    font-weight: $font-semibold;
+                    color: $gray-90;
+                }
+                .mobile-dropdown__section-label-section-2 {
+                    padding-left: rem(26);
                     font-size: $font-size-16;
                     font-weight: $font-semibold;
                     color: $gray-90;

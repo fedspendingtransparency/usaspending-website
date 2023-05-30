@@ -5,17 +5,9 @@
 
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { uniqueId } from 'lodash';
-
-import { useDispatch } from 'react-redux';
-import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
-import * as slideoutActions from 'redux/actions/slideouts/slideoutActions';
 import PropTypes from 'prop-types';
 import { Link, useLocation } from 'react-router-dom';
-import Analytics from 'helpers/analytics/Analytics';
-import { getNewUrlForGlossary } from 'helpers/glossaryHelper';
-import DropdownComingSoon from '../DropdownComingSoon';
-import { section1Options } from "../../../../dataMapping/navigation/menuOptions";
+
 
 
 const propTypes = {
@@ -42,10 +34,6 @@ const propTypes = {
 
 const MobileDropdownItem = ({
     // hideMobileNav = false,
-    hideMobileNav,
-    active,
-    title,
-    label,
     section1Items,
     section2Items,
     section3Items,
@@ -53,8 +41,6 @@ const MobileDropdownItem = ({
     section2Options,
     section3Options,
     section1Icon,
-    section2Icon,
-    section3Icon,
     index
 }) =>
 
@@ -98,7 +84,7 @@ const MobileDropdownItem = ({
                             {section1Items.map((item, i) => (
                                 <li key={i}>
                                     <div className="mobile-dropdown__section-row-one">
-                                        <div className="mobile-dropdown__section-label">
+                                        <div className="mobile-dropdown__section-label-section-2">
                                             {item.label}
                                         </div>
                                     </div>
@@ -112,20 +98,20 @@ const MobileDropdownItem = ({
                     </>
                 }
             </div>
-            <hr />
             <div className="mobile-dropdown__section-icon">
                 <FontAwesomeIcon icon={section2Options[index].icon} />
             </div>
-            <div className="mobile-dropdown__title">
+            <div className={index === 1 ? "mobile-dropdown__title" : "mobile-dropdown__title-section-2"}>
                 {section2Options[index].title}
             </div>
+
             <div className="mobile-dropdown__sub">
                 {section2Options[index].sub}
             </div>
             <div className="mobile-dropdown__section-container">
                 {index === 1 ?
                     <ul>
-                        {section1Items.map((item, i) => (
+                        {section2Items.map((item, i) => (
                             <li key={i}>
                                 <div className="mobile-dropdown__section-row-one">
                                     <div className="mobile-dropdown__section-icon">
@@ -144,10 +130,10 @@ const MobileDropdownItem = ({
                     :
                     <>
                         <ul>
-                            {section1Items.map((item, i) => (
+                            {section2Items.map((item, i) => (
                                 <li key={i}>
                                     <div className="mobile-dropdown__section-row-one">
-                                        <div className="mobile-dropdown__section-label">
+                                        <div className="mobile-dropdown__section-label-section-2">
                                             {item.label}
                                         </div>
                                     </div>
@@ -162,20 +148,22 @@ const MobileDropdownItem = ({
 
                 }
             </div>
-            <div className="mobile-dropdown__section-icon">
-                <FontAwesomeIcon icon={section3Options[index].icon} />
-            </div>
-            <div className="mobile-dropdown__title">
-                {section3Options[index].title}
-            </div>
-            <div className="mobile-dropdown__sub">
-                {section3Options[index].sub}
-            </div>
-            <div className="mobile-dropdown__section-container">
-                {index >= 2 &&
+            <div className="mobile-dropdown_main-container">
+                <div className="mobile-dropdown__section-icon">
+                    <FontAwesomeIcon icon={section3Options[index].icon} />
+                </div>
+                <div>
+                    <div className={index === 1 ? "mobile-dropdown__title" : "mobile-dropdown__title-section-2"}>
+                        {section3Options[index].title}
+                    </div>
+                    <div className="mobile-dropdown__sub">
+                        {section3Options[index].sub}
+                    </div>
+                    <div className="mobile-dropdown__section-container">
+                        {index >= 2 &&
                 <>
                     <ul>
-                        {section1Items.map((item, i) => (
+                        {section3Items.map((item, i) => (
                             <li key={i}>
                                 <div className="mobile-dropdown__section-row-one">
                                     <div className="mobile-dropdown__section-label">
@@ -189,7 +177,9 @@ const MobileDropdownItem = ({
                         ))}
                     </ul>
                 </>
-                }
+                        }
+                    </div>
+                </div>
             </div>
         </div>
     );
