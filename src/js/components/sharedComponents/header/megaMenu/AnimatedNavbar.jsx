@@ -88,7 +88,8 @@ export default class AnimatedNavbar extends Component {
     resetDropdownState = (i) => {
         this.setState({
             activeIndices: typeof i === "number" ? [i] : [],
-            animatingOut: false
+            animatingOut: false,
+            direction: null
         });
         delete this.animatingOutTimeout;
     };
@@ -98,7 +99,6 @@ export default class AnimatedNavbar extends Component {
 
         let CurrentDropdown;
         let PrevDropdown;
-        let direction;
 
         let currentSection1Props;
         let currentSection2Props;
@@ -142,14 +142,18 @@ export default class AnimatedNavbar extends Component {
             currentSection2Icon = navbarConfig[currentIndex].section2Options[currentIndex]?.icon;
             currentSection3Icon = navbarConfig[currentIndex].section3Options[currentIndex]?.icon;
         }
-        else if (typeof prevIndex === "number") {
-            PrevDropdown = navbarConfig[prevIndex].dropdown;
-            prevSection1Props = navbarConfig[prevIndex].section1Items;
-            prevSection2Props = navbarConfig[prevIndex].section2Items;
-            prevSection3Props = navbarConfig[prevIndex].section3Items;
+        setTimeout(() => {
+            if (typeof prevIndex === "number") {
+                PrevDropdown = navbarConfig[prevIndex].dropdown;
+                prevSection1Props = navbarConfig[prevIndex].section1Items;
+                prevSection2Props = navbarConfig[prevIndex].section2Items;
+                prevSection3Props = navbarConfig[prevIndex].section3Items;
 
-            direction = currentIndex > prevIndex ? "right" : "left";
-        }
+                this.setState({
+                    direction: currentIndex > prevIndex ? "right" : "left"
+                });
+            }
+        }, 10);
 
         return (
             <Flipper flipKey={currentIndex} {...tweenConfig}>
@@ -164,7 +168,7 @@ export default class AnimatedNavbar extends Component {
                             onMouseEnter={this.onMouseEnter}>
                             {currentIndex === index && (
                                 <DropdownContainer
-                                    direction={direction}
+                                    direction={this.state.direction}
                                     animatingOut={this.state.animatingOut}
                                     tweenConfig={this.props.tweenConfig}>
                                     <CurrentDropdown

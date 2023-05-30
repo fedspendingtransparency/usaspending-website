@@ -61,6 +61,7 @@ const FadeContents = (props) => {
         <div
             style={fadeContainerStyles}
             // prevent screen readers from reading out hidden content
+            animatingOut={animatingOut}
             aria-hidden={animatingOut}
             direction={direction}
             duration={duration}
