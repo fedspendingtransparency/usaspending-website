@@ -3,26 +3,40 @@ import PropTypes from "prop-types";
 import { Flipped } from "react-flip-toolkit";
 import FadeContents from "./FadeContents";
 
-const getDropdownRootKeyFrame = ({ animatingOut, direction }) => {
-    if (!animatingOut && direction) return null;
+const getDropdownRootKeyFrame = (animatingOut) => {
     if (animatingOut) return "dropdown-animate-out";
     return "dropdown-animate-in";
 };
 
-const dropdownRoot = (props) => ({
-    transformOrigin: "0 0",
-    animationName: getDropdownRootKeyFrame(props),
-    animationDuration: '300ms',
-    /* use 'forwards' to prevent flicker on leave animation */
-    animationFillMode: "forwards",
-    /* flex styles will center the caret child component */
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    position: "relative",
-    top: "-20px"
-});
-
+const dropdownRoot = ({ animatingOut, direction }) => {
+    if (!animatingOut && direction) {
+        return {
+            transformOrigin: "0 0",
+            animationDuration: '225ms',
+            /* use 'forwards' to prevent flicker on leave animation */
+            animationFillMode: "forwards",
+            /* flex styles will center the caret child component */
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            position: "relative",
+            top: "-20px"
+        };
+    }
+    return {
+        transformOrigin: "0 0",
+        animationName: getDropdownRootKeyFrame(animatingOut),
+        animationDuration: '225ms',
+        /* use 'forwards' to prevent flicker on leave animation */
+        animationFillMode: "forwards",
+        /* flex styles will center the caret child component */
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        position: "relative",
+        top: "-20px"
+    };
+};
 
 const getFirstDropdownSectionHeight = (el) => {
     if (!el) return null;
@@ -83,6 +97,7 @@ export default class DropdownContainer extends Component {
             tweenConfig: this.props.tweenConfig
         });
     }
+
 
     render() {
         const {
