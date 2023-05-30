@@ -57,7 +57,7 @@
             font-size: $font-size-14;
             color: $gray-90;
         }
-        .mobile-dropdown__title-section-2 {
+        .mobile-dropdown__title-section-two {
             font-size: $font-size-14;
             color: $gray-90;
             padding-left: rem(8);
@@ -66,6 +66,11 @@
         .mobile-dropdown__sub {
             font-size: $font-size-12;
             color: $gray-60;
+        }
+        .mobile-dropdown__sub-two {
+            font-size: $font-size-12;
+            color: $gray-60;
+            padding-left: rem(28);
         }
 
         .mobile-dropdown__section-container {
@@ -94,7 +99,7 @@
                     font-weight: $font-semibold;
                     color: $gray-90;
                 }
-                .mobile-dropdown__section-label-section-2 {
+                .mobile-dropdown__section-label-section-two {
                     padding-left: rem(26);
                     font-size: $font-size-16;
                     font-weight: $font-semibold;
@@ -102,7 +107,11 @@
                 }
             }
             .mobile-dropdown__section-description {
-                padding-left: rem(22);
+                padding-left: rem(28);
+                font-size: $font-size-12;
+            }
+            .mobile-dropdown__section-description-two {
+                padding-left: rem(8);
                 font-size: $font-size-12;
             }
         }
