@@ -77,10 +77,11 @@ export default class AnimatedNavbar extends Component {
     };
     onMouseLeave = () => {
         this.setState({
-            animatingOut: true
+            animatingOut: true,
+            direction: null
         });
         this.animatingOutTimeout = setTimeout(
-            this.resetDropdownState,
+            this.resetDropdownState(),
             this.props.tweenConfig.duration
         );
     };
@@ -143,18 +144,32 @@ export default class AnimatedNavbar extends Component {
             currentSection3Icon = navbarConfig[currentIndex].section3Options[currentIndex]?.icon;
         }
 
-        if (typeof prevIndex === "number") {
-            prevSection1Props = navbarConfig[prevIndex].section1Items;
-            prevSection2Props = navbarConfig[prevIndex].section2Items;
-            prevSection3Props = navbarConfig[prevIndex].section3Items;
-            PrevDropdown = navbarConfig[prevIndex].dropdown;
+        setTimeout(() => {
+            if (typeof prevIndex === "number") {
+                prevSection1Props = navbarConfig[prevIndex].section1Items;
+                prevSection2Props = navbarConfig[prevIndex].section2Items;
+                prevSection3Props = navbarConfig[prevIndex].section3Items;
+                PrevDropdown = navbarConfig[prevIndex].dropdown;
 
-            setTimeout(() => {
-                this.setState({
-                    direction: currentIndex > prevIndex ? "right" : "left"
-                });
-            }, 10);
-        }
+                if (currentIndex && prevIndex) {
+                    if (currentIndex <= prevIndex) {
+                        if (this.state.direction === "left") {
+                            return;
+                        }
+                        this.setState({
+                            direction: "left"
+                        });
+                    } else {
+                        if (this.state.direction === "right") {
+                            return;
+                        }
+                        this.setState({
+                            direction: "right"
+                        });
+                    }
+                }
+            }
+        }, 10);
 
         return (
             <Flipper flipKey={currentIndex} {...tweenConfig}>

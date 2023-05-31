@@ -61,11 +61,9 @@ const FadeContents = (props) => {
         children,
         duration,
         animatingOut,
-        direction,
-        currentState
+        direction
     } = props;
 
-    console.log(currentState);
     return (
         <div
             style={fadeContainer(duration, animatingOut, direction)}
