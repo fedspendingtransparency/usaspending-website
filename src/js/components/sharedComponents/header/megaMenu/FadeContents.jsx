@@ -61,16 +61,16 @@ const FadeContents = (props) => {
         children,
         duration,
         animatingOut,
-        innerRefFn,
-        direction
+        direction,
+        currentState
     } = props;
 
+    console.log(currentState);
     return (
         <div
             style={fadeContainer(duration, animatingOut, direction)}
             // prevent screen readers from reading out hidden content
-            aria-hidden={animatingOut}
-            ref={(el) => innerRefFn(el)}>
+            aria-hidden={animatingOut}>
             {children}
         </div>
     );

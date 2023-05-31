@@ -95,7 +95,6 @@ export default class AnimatedNavbar extends Component {
     };
 
     render() {
-        console.log(this.state.anim)
         const { tweenConfig } = this.props;
 
         let CurrentDropdown;
@@ -143,18 +142,19 @@ export default class AnimatedNavbar extends Component {
             currentSection2Icon = navbarConfig[currentIndex].section2Options[currentIndex]?.icon;
             currentSection3Icon = navbarConfig[currentIndex].section3Options[currentIndex]?.icon;
         }
-        setTimeout(() => {
-            if (typeof prevIndex === "number") {
-                PrevDropdown = navbarConfig[prevIndex].dropdown;
-                prevSection1Props = navbarConfig[prevIndex].section1Items;
-                prevSection2Props = navbarConfig[prevIndex].section2Items;
-                prevSection3Props = navbarConfig[prevIndex].section3Items;
 
+        if (typeof prevIndex === "number") {
+            prevSection1Props = navbarConfig[prevIndex].section1Items;
+            prevSection2Props = navbarConfig[prevIndex].section2Items;
+            prevSection3Props = navbarConfig[prevIndex].section3Items;
+            PrevDropdown = navbarConfig[prevIndex].dropdown;
+
+            setTimeout(() => {
                 this.setState({
                     direction: currentIndex > prevIndex ? "right" : "left"
                 });
-            }
-        }, 10);
+            }, 10);
+        }
 
         return (
             <Flipper flipKey={currentIndex} {...tweenConfig}>
