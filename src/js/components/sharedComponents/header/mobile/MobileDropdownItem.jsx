@@ -42,6 +42,8 @@ const propTypes = {
 const MobileDropdownItem = ({
     // hideMobileNav = false,
     section1Items,
+    section2Items,
+    section3Items,
     section1Options,
     section2Options,
     section3Options,
