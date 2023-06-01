@@ -1,9 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
 const getFadeContainerKeyFrame = (animatingOut, direction) => {
-    if (!direction) return null;
-
     if (animatingOut) {
         return `fade-content-animate-out-${direction}`;
     }
@@ -24,16 +22,31 @@ const getPosition = (animatingOut) => {
     return "relative";
 };
 
-const fadeContainer = (duration, animatingOut, direction) => ({
-    animationName: getFadeContainerKeyFrame(animatingOut, direction),
-    animationDuration: '225ms',
-    animationFillMode: "forwards",
-    position: getPosition(animatingOut),
-    opacity: getOpacity(direction, animatingOut),
-    animationTimingFunction: "linear",
-    top: "0",
-    left: "0"
-});
+const fadeContainer = (duration, animatingOut, direction) => {
+    if (!direction) {
+        return {
+            animationDuration: '225ms',
+            animationFillMode: "forwards",
+            position: getPosition(animatingOut),
+            opacity: getOpacity(direction, animatingOut),
+            animationTimingFunction: "linear",
+            top: "0",
+            left: "0"
+        };
+    }
+
+    return {
+        animationName: getFadeContainerKeyFrame(animatingOut, direction),
+        animationDuration: '225ms',
+        animationFillMode: "forwards",
+        position: getPosition(animatingOut),
+        opacity: getOpacity(direction, animatingOut),
+        animationTimingFunction: "linear",
+        top: "0",
+        left: "0"
+    };
+};
+
 
 const propTypes = {
     duration: PropTypes.number,
@@ -48,23 +61,14 @@ const FadeContents = (props) => {
         children,
         duration,
         animatingOut,
-        innerRefFn,
         direction
     } = props;
 
-    const [fadeContainerStyles, setFadeContainerStyles] = useState();
-    useEffect(() => {
-        setFadeContainerStyles(fadeContainer(duration, animatingOut, direction));
-    }, [animatingOut, direction, duration, props]);
-
     return (
         <div
-            style={fadeContainerStyles}
+            style={fadeContainer(duration, animatingOut, direction)}
             // prevent screen readers from reading out hidden content
-            aria-hidden={animatingOut}
-            direction={direction}
-            duration={duration}
-            ref={(el) => innerRefFn(el)}>
+            aria-hidden={animatingOut}>
             {children}
         </div>
     );

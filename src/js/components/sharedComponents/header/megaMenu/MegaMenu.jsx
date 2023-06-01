@@ -2,7 +2,7 @@ import React from 'react';
 import AnimatedNavbar from './AnimatedNavbar';
 
 const MegaMenu = () => {
-    const duration = 300;
+    const duration = 800;
     const ease = "easeOutExpo";
 
     return (

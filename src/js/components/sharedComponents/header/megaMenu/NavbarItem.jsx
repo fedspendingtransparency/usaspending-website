@@ -25,14 +25,14 @@ const NavbarItem = (props) => {
 
     return (
         <li className="navbar-item-el">
-            {url ? <Link onMouseEnter={closeDropdown} className="navbar-item-title" to={url}>{title}</Link>
+            {url ? <Link onMouseEnter={() => closeDropdown()} className="navbar-item-title" to={url}>{title}</Link>
                 :
                 <>
                     <button
                         className={`navbar-item-title navbar-item-title-${index}`}
-                        onMouseEnter={onMouseEnter}
-                        onMouseLeave={onMouseLeave}
-                        onFocus={onMouseEnter}>
+                        onMouseEnter={() => onMouseEnter(index)}
+                        onMouseLeave={() => onMouseLeave()}
+                        onFocus={() => onMouseEnter(index)}>
                         {title}
                         <div className="navbar-chevron-icon">
                             <FontAwesomeIcon icon={navChevronDirection} alt={iconAlt} />
