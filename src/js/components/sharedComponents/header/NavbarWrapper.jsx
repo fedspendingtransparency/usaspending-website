@@ -43,7 +43,7 @@ const NavbarWrapper = () => {
 
     const hideMobileNav = () => {
     // re-enable body scrolling
-        siteBody.classList.remove('show-mobile-nav');
+        document.querySelector('body').classList.remove('show-mobile-nav');
         setShowMobileNav(false);
     };
 

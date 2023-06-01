@@ -5,7 +5,17 @@
 
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+
+import { useDispatch } from 'react-redux';
+import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
+import * as slideoutActions from 'redux/actions/slideouts/slideoutActions';
 import PropTypes from 'prop-types';
+import { Link, useLocation } from 'react-router-dom';
+import Analytics from 'helpers/analytics/Analytics';
+import { getNewUrlForGlossary } from 'helpers/glossaryHelper';
+import DropdownComingSoon from '../DropdownComingSoon';
+import { section1Options } from "../../../../dataMapping/navigation/menuOptions";
+
 
 const propTypes = {
     hideMobileNav: PropTypes.func,
@@ -32,12 +42,12 @@ const propTypes = {
 const MobileDropdownItem = ({
     // hideMobileNav = false,
     section1Items,
-    section2Items,
-    section3Items,
     section1Options,
     section2Options,
     section3Options,
     section1Icon,
+    section2Icon,
+    section3Icon,
     index
 }) =>
 
@@ -78,7 +88,6 @@ const MobileDropdownItem = ({
                     </>
                     :
                     <>
-                        {console.log("section1Icon", section1Icon)}
                         <ul>
                             {section1Items.map((item, i) => (
                                 <li key={i}>
