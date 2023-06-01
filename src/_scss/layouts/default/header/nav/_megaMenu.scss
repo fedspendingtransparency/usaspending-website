@@ -391,6 +391,7 @@
   @keyframes fade-content-animate-out-left {
     from {
       transform: translateX(0);
+      opacity: 1;
     }
 
     to {
@@ -402,6 +403,7 @@
   @keyframes fade-content-animate-out-right {
     from {
       transform: translateX(0);
+      opacity: 1;
     }
 
     to {
