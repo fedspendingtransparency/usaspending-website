@@ -1,41 +1,84 @@
-.mobile-dropdown {
-    @import "../_comingSoon";
-    button.mobile-dropdown__parent {
-        @include button-unstyled;
-        @include display(flex);
-        @include align-items(center);
-        @include justify-content(space-between);
-        position: relative;
-        color: $gray-90;
-        font-size: $font-size-16;
-        line-height: rem(36);
-        font-weight: $font-semibold;
+.mobile-dropdown__layout-container {
+    display: flex;
+    flex-direction: column;
+    margin: rem(16) rem(0);
+    padding: rem(0) rem(32);
+    @media (max-width: $tablet-screen) {
+        padding: rem(0) rem(16);
+    }
+    hr {
         width: 100%;
-        padding-right: rem(8);
-        &:active, &:hover {
-            opacity: 1;
-        }
+        height: rem(2);
+        color: $gray-cool-10;
+        margin-right: rem(16);
+    }
+    .mobile-dropdown__section {
+        padding-left: rem(26);
+    }
+    .mobile-dropdown__section-three {
+        padding-left: rem(8);
+    }
+    .mobile-dropdown_parent-title{
+        font-size: $font-size-16;
+        font-weight: $font-semibold;
+        color: $gray-90;
+        padding: 24px 0px;
+    }
+    .mobile-dropdown__title {
+        font-size: $font-size-14;
+        color: $gray-90;
+    }
+    .mobile-dropdown__title-section-two {
+        font-size: $font-size-14;
+        margin-bottom: 4px;
+        color: $gray-90;
+        padding-left: rem(8);
+    }
 
-        .mobile-dropdown__parent-label {
+    .mobile-dropdown__sub {
+        font-size: $font-size-12;
+        color: $gray-60;
+    }
+    .mobile-dropdown__sub-two {
+        font-size: $font-size-12;
+        color: $gray-60;
+        padding-left: rem(26);
+    }
+
+    .mobile-dropdown__section-container {
+        ul {
+            list-style: none;
+            padding-left: rem(0);
+        }
+        hr {
+            height: rem(2);
+            color: $gray-cool-5;
+            margin: rem(24) rem(0);
+        }
+        .mobile-dropdown__section-row-one {
             display: flex;
-            text-align: left;
-            @import "components/_newBadge.scss";
-        }
+            flex-direction: row;
 
-        .mobile-dropdown__parent-icon {
-            @include flex(0 0 auto);
-            display: contents;
-            color: $blue-50;
-            margin-left: auto;
-            width: rem(20);
-            height: rem(20);
-            object-fit: contain;
-            background-color: $blue-warm-5;
-            svg {
-                width: rem(6);
-                height: rem(9.8);
-                fill: $blue-50;
+            .mobile-dropdown__section-icon {
+                color: $blue-warm-60;
+                background-color: $blue-warm-5;
+                width: rem(20);
+                height: rem(20);
             }
+            .mobile-dropdown__section-label {
+                font-size: $font-size-16;
+                font-weight: $font-semibold;
+                color: $gray-90;
+            }
+        }
+        .mobile-dropdown__section-description {
+            font-size: $font-size-12;
+            color: $gray-60;
+        }
+        .mobile-dropdown__section-one-description {
+            font-size: $font-size-12;
+            color: $gray-60;
+            padding-left: rem(22);
         }
     }
     .mobile-dropdown_main-container {
@@ -48,104 +91,6 @@
         width: rem(18);
         height: rem(18);
     }
-
-    .mobile-dropdown__layout-container {
-        display: flex;
-        flex-direction: column;
-
-        .mobile-dropdown__title {
-            font-size: $font-size-14;
-            color: $gray-90;
-        }
-        .mobile-dropdown__title-section-two {
-            font-size: $font-size-14;
-            color: $gray-90;
-            padding-left: rem(8);
-        }
-
-        .mobile-dropdown__sub {
-            font-size: $font-size-12;
-            color: $gray-60;
-        }
-        .mobile-dropdown__sub-two {
-            font-size: $font-size-12;
-            color: $gray-60;
-            padding-left: rem(26);
-        }
-
-        .mobile-dropdown__section-container {
-            ul {
-                list-style: none;
-                padding-left: rem(0);
-            }
-            hr {
-                height: rem(2);
-                color: $gray-cool-5;
-                margin: rem(24) rem(0);
-            }
-            .mobile-dropdown__section-row-one {
-                display: flex;
-                flex-direction: row;
-
-                .mobile-dropdown__section-icon {
-                    color: $blue-warm-60;
-                    background-color: $blue-warm-5;
-                    width: rem(20);
-                    height: rem(20);
-                }
-                .mobile-dropdown__section-label {
-                    padding-left: rem(8);
-                    font-size: $font-size-16;
-                    font-weight: $font-semibold;
-                    color: $gray-90;
-                }
-                .mobile-dropdown__section-label-section-two {
-                    padding-left: rem(24);
-                    font-size: $font-size-16;
-                    font-weight: $font-semibold;
-                    color: $gray-90;
-                }
-            }
-            .mobile-dropdown__section-description {
-                padding-left: rem(28);
-                font-size: $font-size-12;
-            }
-            .mobile-dropdown__section-description-two {
-                padding-left: rem(6);
-                font-size: $font-size-12;
-            }
-            .mobile-dropdown__section-description-three{
-                padding-left: rem(26);
-                font-size: $font-size-12;
-            }
-        }
-    }
-
-    ul.mobile-dropdown__list {
-        padding-left: 0;
-        &.mobile-dropdown__list_hide {
-            display: none;
-        }
-
-        li.mobile-dropdown__item {
-            margin-top: rem(10);
-            margin-bottom: rem(10);
-
-            &.mobile-dropdown__item_coming-soon {
-                opacity: 0.4;
-                pointer-events: none;
-            }
-        }
-        @import "../../../../../components/newBadge";
-    }
-
-    .mobile-dropdown__coming-soon {
-        display: block;
-        width: rem(150);
-        margin-left: auto;
-        margin-right: auto;
-    }
-
     a.mobile-dropdown__link {
         font-size: rem(24);
         line-height: rem(28);
@@ -154,16 +99,10 @@
         @include display(flex);
         @include justify-content(center);
         @include align-items(center);
-
+    
         &:hover, &:active, &.mobile-dropdown__link_active {
             text-decoration: none;
         }
     }
-
-    button.mobile-dropdown__link {
-        @include button-unstyled;
-        font-size: rem(24);
-        line-height: rem(28);
-        color: $color-base;
-    }
 }
+

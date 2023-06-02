@@ -5,6 +5,31 @@
     @include align-items(center);
 
     padding: rem(0) rem(0);
+    .usa-banner__wrapper  {
+        margin-left: 0 !important;
+        background-color: $theme-color-background;
+    }
+
+    .mobile-nav_back-button-container {
+        display: flex;  
+        color: #2378c3;
+        padding-top: rem(23);
+        .mobile-nav_back-button{
+            padding-left: rem(2);
+            font-size: $font-size-14;
+            font-weight: $font-semibold;
+            object-fit: contain;
+            margin: 1px 4px 1px 0;
+        }
+        .mobile-nav_back-button-icon {
+            width: rem(16);
+            height: rem(16);
+            line-height: 1.29;
+            svg {
+                width: 6px;
+            }
+        }
+    }
 
     .mobile-nav-header__logo {
         @include flex(0 1 auto);
@@ -16,18 +41,71 @@
         position: relative;
         height: rem(26);
         width: rem(26);
-
+        color: $gray-cool-90;
         .mobile-nav-header__close-button {
             @include button-unstyled;
             height: rem(26);
             width: rem(26);
             svg {
-                height: rem(15);
-                width: rem(15);
-                fill: $color-gray;
+                height: rem(16);
+                width: rem(16);
+                color: $gray-cool-90;
             }
         }
+        .mobile-nav-header__close-button-section { 
+            margin-top: rem(12) !important;
+            @include button-unstyled;
+            height: rem(26);
+            width: rem(26);
+            svg {
+                height: rem(16);
+                width: rem(16);
+                color: $gray-cool-90;
+            }
+        }
+
     }
 
     @import "../_logo";
+}
+
+.mobile-dropdown {
+    button.mobile-dropdown__parent {
+        @include button-unstyled;
+        @include display(flex);
+        @include align-items(center);
+        @include justify-content(space-between);
+        position: relative;
+        color: $gray-90;
+        font-size: $font-size-16;
+        line-height: rem(36);
+        font-weight: $font-semibold;
+        width: 100%;
+        padding-right: rem(8);
+        &:active, &:hover {
+            opacity: 1;
+        }
+
+        .mobile-dropdown__parent-label {
+            display: flex;
+            text-align: left;
+            @import "components/_newBadge.scss";
+        }
+
+        .mobile-dropdown__parent-icon {
+            @include flex(0 0 auto);
+            display: contents;
+            color: $blue-50;
+            margin-left: auto;
+            width: rem(20);
+            height: rem(20);
+            object-fit: contain;
+            background-color: $blue-warm-5;
+            svg {
+                width: rem(6);
+                height: rem(9.8);
+                fill: $blue-50;
+            }
+        }
+    }
 }

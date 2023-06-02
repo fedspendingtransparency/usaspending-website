@@ -120,7 +120,7 @@ const MobileNav = (props) => {
                                 {index === 0 ?
                                     <Link
                                         className="mobile-nav-content__link"
-                                        to="/explorer"
+                                        to="/search"
                                         title="Spending Explorer"
                                         name="explorer"
                                         onClick={clickedLink}>
@@ -150,6 +150,7 @@ const MobileNav = (props) => {
                 <ul className="mobile-dropdown__list" style={detailMobileNavIsHidden ? { display: "none" } : {}}>
                     {currentIndex && <MobileDropdownItem
                         {...props}
+                        mainTitle={navbarConfig[currentIndex].title}
                         label={navbarConfig[currentIndex].title}
                         title={navbarConfig[currentIndex].title}
                         section1Items={navbarConfig[currentIndex].section1Items}
