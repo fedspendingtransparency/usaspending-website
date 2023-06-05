@@ -849,6 +849,71 @@ const metaData = {
                 projection: "rectangular",
                 hasCustomThumbnail: true
             }
+        },
+        {
+            kind: "youtube#video",
+            etag: "7dNgkHvz9UsA6ZQKTvvfjrqV5K0",
+            id: "z6QwQR_7beM",
+            snippet: {
+                publishedAt: "2023-05-15T12:00:49Z",
+                channelId: "UCyDn83O-0XC98H3TCV-VCGQ",
+                title: "OVERVIEW: Getting Started with USAspending.gov",
+                description: "Ever wondered what was possible with government spending data? Here is the ONE video that you'll need to overview the major features and data on USAspending.gov. Learn about our interactive tools and ready-made analyses — all accessible from the homepage!\n\nWe want to hear your ideas for future videos. Drop us a comment below! \n\nCHAPTERS:\n\n0:00 Welcome!\n\n0:47 Spending Explorer tool (drilldown into spending categories)\n\n1:24 Advanced Search tool (search for data about federal awards such as contracts, grants, and loans)\n\n2:39 Spending Profile pages (readymade analyses on spending topics)\n\n3:21 Download and API (tools to provide access to bulk data)\n\n3:40 Resources (reference and learning materials to help you use the website and data)\n\nLINKS: \n\n • Visit USAspending.gov: <https://www.usaspending.gov/> \n\n • Sign up for our email list to receive updates and release notes by sending an email to: join-usaspending@lists.fiscal.treasury.gov \n\n • Ask questions about the tools, features, and data on USAspending.gov by sending an email to: usaspending.help@fiscal.treasury.gov\n\n • Request customized training on USAspending.gov for your organization: <https://www.usaspending.gov/about?sec...> \n\nWe look forward to hearing from you!",
+                thumbnails: {
+                    default: {
+                        url: "https://i.ytimg.com/vi/z6QwQR_7beM/default.jpg",
+                        width: 120,
+                        height: 90
+                    },
+                    medium: {
+                        url: "https://i.ytimg.com/vi/z6QwQR_7beM/mqdefault.jpg",
+                        width: 320,
+                        height: 180
+                    },
+                    high: {
+                        url: "https://i.ytimg.com/vi/z6QwQR_7beM/hqdefault.jpg",
+                        width: 480,
+                        height: 360
+                    },
+                    standard: {
+                        url: "https://i.ytimg.com/vi/z6QwQR_7beM/sddefault.jpg",
+                        width: 640,
+                        height: 480
+                    },
+                    maxres: {
+                        url: "https://i.ytimg.com/vi/z6QwQR_7beM/maxresdefault.jpg",
+                        width: 1280,
+                        height: 720
+                    }
+                },
+                channelTitle: "USAspending",
+                tags: [
+                    "Spending Explorer",
+                    "Advanced Search",
+                    "Account Spending",
+                    "Contracts",
+                    "Financial Assistance",
+                    "Download",
+                    "API"
+                ],
+                categoryId: "27",
+                liveBroadcastContent: "none",
+                localized: {
+                    title: "OVERVIEW: Getting Started with USAspending.gov",
+                    description: "Ever wondered what was possible with government spending data? Here is the ONE video that you'll need to overview the major features and data on USAspending.gov. Learn about our interactive tools and ready-made analyses — all accessible from the homepage!\n\nWe want to hear your ideas for future videos. Drop us a comment below! \n\nCHAPTERS:\n\n0:00 Welcome!\n\n0:47 Spending Explorer tool (drilldown into spending categories)\n\n1:24 Advanced Search tool (search for data about federal awards such as contracts, grants, and loans)\n\n2:39 Spending Profile pages (readymade analyses on spending topics)\n\n3:21 Download and API (tools to provide access to bulk data)\n\n3:40 Resources (reference and learning materials to help you use the website and data)\n\nLINKS: \n\n • Visit USAspending.gov: <https://www.usaspending.gov/> \n\n • Sign up for our email list to receive updates and release notes by sending an email to: join-usaspending@lists.fiscal.treasury.gov \n\n • Ask questions about the tools, features, and data on USAspending.gov by sending an email to: usaspending.help@fiscal.treasury.gov\n\n • Request customized training on USAspending.gov for your organization: <https://www.usaspending.gov/about?sec...> \n\nWe look forward to hearing from you!"
+                },
+                defaultAudioLanguage: "en"
+            },
+            contentDetails: {
+                duration: "PT4M41S",
+                dimension: "2d",
+                definition: "hd",
+                caption: "true",
+                licensedContent: false,
+                contentRating: {},
+                projection: "rectangular",
+                hasCustomThumbnail: true
+            }
         }
     ]
 };

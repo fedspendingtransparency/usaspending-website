@@ -29,14 +29,14 @@ export const homePageMetaTags = {
     og_image: `${productionURL}${imgDirectory}${facebookImage}`
 };
 
-export const searchPageMetaTags = {
+export const getSearchPageMetaTags = (searchPageHash) => ({
     og_url: `${productionURL}search`,
     og_title: 'Federal Awards | Advanced Search | USAspending',
     og_description:
-        'Advanced Search gives you a variety of filters to find federal awards such as loans, grants, and contracts.',
+        `View search results for federal awards on USAspending.gov: ${productionURL}search${searchPageHash ? `?hash=${searchPageHash}` : ''}`,
     og_site_name: siteName,
     og_image: `${productionURL}${imgDirectory}${facebookImage}`
-};
+});
 
 export const explorerPageMetaTags = {
     og_url: `${productionURL}explorer`,

@@ -93,6 +93,11 @@ export default class ResultsTable extends React.Component {
                 props.onClick = () => this.props.awardIdClick(props.id);
             }
         }
+        else if (column.columnName === 'Total Outlays') {
+            if (!this.props.results[rowIndex]['Total Outlays']) {
+                props.value = '--';
+            }
+        }
         else if ((column.columnName === 'Sub-Award ID') && this.props.subaward) {
             const row = this.props.results[rowIndex];
             cellClass = ResultsTableLinkCell;

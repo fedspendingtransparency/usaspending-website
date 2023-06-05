@@ -59,7 +59,6 @@
         @include justify-content(center);
         @include align-items(center);
         position: relative;
-        z-index: 2;
         margin-right: rem(4);
         padding: rem(20);
         background-color: $gray-cool-10;

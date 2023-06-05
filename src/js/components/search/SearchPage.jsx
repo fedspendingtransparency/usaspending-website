@@ -6,8 +6,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { throttle } from 'lodash';
-import { DownloadIconButton } from 'data-transparency-ui';
+import { DownloadIconButton, ShareIcon } from 'data-transparency-ui';
 import { Helmet } from 'react-helmet';
+import { handleShareOptionClick, getBaseUrl } from 'helpers/socialShare';
 
 import * as MetaTagHelper from 'helpers/metaTagHelper';
 
@@ -32,6 +33,9 @@ const propTypes = {
     showAboutTheDataIcon: PropTypes.bool
 };
 
+const slug = 'search/';
+const emailSubject = 'Award Search results on USAspending.gov';
+
 export default class SearchPage extends React.Component {
     constructor(props) {
         super(props);
@@ -40,10 +44,11 @@ export default class SearchPage extends React.Component {
             showMobileFilters: false,
             filterCount: 0,
             isMobile: false,
-            showFullDownload: false
+            showFullDownload: false,
+            hash: props.hash
         };
 
-        // throttle the ocurrences of the scroll callback to once every 50ms
+        // throttle the occurrences of the scroll callback to once every 50ms
         this.handleWindowResize = throttle(this.handleWindowResize.bind(this), 50);
 
         this.updateFilterCount = this.updateFilterCount.bind(this);
@@ -59,10 +64,28 @@ export default class SearchPage extends React.Component {
         this.handleWindowResize();
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.hash !== this.props.hash) {
+            this.state.hash = this.props.hash;
+        }
+    }
+
     componentWillUnmount() {
     // stop observing scroll and resize events
         window.removeEventListener('resize', this.handleWindowResize);
     }
+
+
+    getSlugWithHash() {
+        return `${slug}?hash=${this.props.hash}`;
+    }
+
+    handleShare = (name) => {
+        handleShareOptionClick(name, this.getSlugWithHash(), {
+            subject: emailSubject,
+            body: `View search results for federal awards on USAspending.gov:  ${getBaseUrl(this.getSlugWithHash())}`
+        });
+    };
 
     handleWindowResize() {
         const windowWidth = window.innerWidth || document.documentElement.clientWidth
@@ -136,8 +159,13 @@ export default class SearchPage extends React.Component {
                 pageName="Advanced Search"
                 classNames="usa-da-search-page"
                 title="Advanced Search"
-                metaTagProps={MetaTagHelper.searchPageMetaTags}
+                metaTagProps={MetaTagHelper.getSearchPageMetaTags(this.state.hash)}
                 toolBarComponents={[
+                    <ShareIcon
+                        isEnabled={this.props.downloadAvailable}
+                        downloadInFlight={this.props.downloadInFlight}
+                        url={getBaseUrl(this.getSlugWithHash())}
+                        onShareOptionClick={this.handleShare} />,
                     <DownloadIconButton
                         tooltipComponent={(!this.props.downloadAvailable && this.props.hash)
                             ? <NoDownloadHover />
