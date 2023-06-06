@@ -49,7 +49,7 @@ const VisualizationSection = ({
     const [open, setOpen] = useState(false);
     const accordionTitle = (<span>What&nbsp;is&nbsp;this?</span>);
     // empty string here because level 4 shows the dropdown instead of one of these labels
-    const levelsLabelArray = ['Sub-Component', 'Federal Account', 'Treasury Account Symbol', '', `${dropdownSelection}`];
+    const levelsLabelArray = ['Sub-Component', 'Federal Account', 'Treasury Account Symbol', '', `${dropdownSelection === 'Program Activity' ? 'Object Class' : 'Program Activity'}`];
 
     const name = useSelector((state) => state.agency.currentLevelNameAndId.name);
     const id = useSelector((state) => state.agency.currentLevelNameAndId.id);
