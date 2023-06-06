@@ -12,6 +12,7 @@ const contractColumns = [
     'Start Date (Period of Performance)',
     'End Date (Period of Performance)',
     'Award Amount',
+    'Total Outlays',
     'Funding Agency',
     'Funding Sub Agency',
     'Contract Award Type',
@@ -93,6 +94,7 @@ const grantColumns = [
     'Start Date (Period of Performance)',
     'End Date (Period of Performance)',
     'Award Amount',
+    'Total Outlays',
     'Awarding Agency',
     'Awarding Sub Agency',
     'Award Type',
@@ -118,6 +120,7 @@ const directPaymentColumns = [
     'Start Date (Period of Performance)',
     'End Date (Period of Performance)',
     'Award Amount',
+    'Total Outlays',
     'Awarding Agency',
     'Awarding Sub Agency',
     'Award Type',
@@ -131,6 +134,7 @@ const otherColumns = [
     'Start Date (Period of Performance)',
     'End Date (Period of Performance)',
     'Award Amount',
+    'Total Outlays',
     'Awarding Agency',
     'Awarding Sub Agency',
     'Award Type',
@@ -144,6 +148,7 @@ const idvColumns = [
     'Start Date (Period of Performance)',
     'Last Date to Order',
     'Award Amount',
+    'Total Outlays',
     'Funding Agency',
     'Funding Sub Agency',
     'Contract Award Type',
@@ -231,19 +236,19 @@ const subawardColumns = [
     'Prime Recipient Name'
 ];
 
-const awardColWidth = 280;
-const covidColWidth = 190;
+const amountWidth = 190;
 const descWidth = 380;
 const datesWidth = 210;
 const covidColor = '#6E338E';
-const infrastructureColor = '#5b616b';
+const infrastructureColor = '#2D6878';
 
 const defaultContract = [
     { title: 'Award ID' },
     { title: 'Recipient Name' },
     { title: 'Start Date', subtitle: '(Period of Performance)', customWidth: datesWidth },
     { title: 'End Date', subtitle: '(Period of Performance)', customWidth: datesWidth },
-    { title: 'Award Amount', subtitle: '(Total Award Obligations to Date)', customWidth: awardColWidth },
+    { title: 'Award Amount', displayName: 'Total Obligations to Date', customWidth: amountWidth },
+    { title: 'Total Outlays', displayName: 'Total Outlays to Date', customWidth: amountWidth },
     { title: 'Awarding Agency' },
     { title: 'Awarding Sub Agency' },
     { title: 'Contract Award Type' }
@@ -254,7 +259,8 @@ const defaultGrant = [
     { title: 'Recipient Name' },
     { title: 'Start Date', subtitle: '(Period of Performance)', customWidth: datesWidth },
     { title: 'End Date', subtitle: '(Period of Performance)', customWidth: datesWidth },
-    { title: 'Award Amount', subtitle: '(Total Award Obligations to Date)', customWidth: awardColWidth },
+    { title: 'Award Amount', displayName: 'Total Obligations to Date', customWidth: amountWidth },
+    { title: 'Total Outlays', displayName: 'Total Outlays to Date', customWidth: amountWidth },
     { title: 'Awarding Agency' },
     { title: 'Awarding Sub Agency' },
     { title: 'Award Type' }
@@ -265,7 +271,8 @@ const defaultDirectPayment = [
     { title: 'Recipient Name' },
     { title: 'Start Date', subtitle: '(Period of Performance)', customWidth: datesWidth },
     { title: 'End Date', subtitle: '(Period of Performance)', customWidth: datesWidth },
-    { title: 'Award Amount', subtitle: '(Total Award Obligations to Date)', customWidth: awardColWidth },
+    { title: 'Award Amount', displayName: 'Total Obligations to Date', customWidth: amountWidth },
+    { title: 'Total Outlays', displayName: 'Total Outlays to Date', customWidth: amountWidth },
     { title: 'Awarding Agency' },
     { title: 'Awarding Sub Agency' },
     { title: 'Award Type' }
@@ -292,7 +299,8 @@ const defaultOther = [
     { title: 'Recipient Name' },
     { title: 'Start Date', subtitle: '(Period of Performance)', customWidth: datesWidth },
     { title: 'End Date', subtitle: '(Period of Performance)', customWidth: datesWidth },
-    { title: 'Award Amount', subtitle: '(Total Award Obligations to Date)', customWidth: awardColWidth },
+    { title: 'Award Amount', displayName: 'Total Obligations to Date', customWidth: amountWidth },
+    { title: 'Total Outlays', displayName: 'Total Outlays to Date', customWidth: amountWidth },
     { title: 'Awarding Agency' },
     { title: 'Awarding Sub Agency' },
     { title: 'Award Type' }
@@ -303,31 +311,35 @@ const defaultIdvColumns = [
     { title: 'Recipient Name' },
     { title: 'Start Date', subtitle: '(Period of Performance)', customWidth: datesWidth },
     { title: 'Last Date to Order', displayName: 'Ordering Period End Date', customWidth: 170 },
-    { title: 'Award Amount', subtitle: '(Total Award Obligations to Date)', customWidth: awardColWidth },
+    { title: 'Award Amount', displayName: 'Total Obligations to Date', customWidth: amountWidth },
+    { title: 'Total Outlays', displayName: 'Total Outlays to Date', customWidth: amountWidth },
     { title: 'Awarding Agency' },
     { title: 'Awarding Sub Agency' },
     { title: 'Contract Award Type' }
 ];
+
 const infrastructureObligationsCol = {
     title: 'Infrastructure Obligations',
     background: infrastructureColor,
-    customWidth: covidColWidth
+    customWidth: amountWidth
 };
+
 const infrastructureOutlaysCol = {
     title: 'Infrastructure Outlays',
     background: infrastructureColor,
-    customWidth: covidColWidth
+    customWidth: amountWidth
 };
+
 const covidObligationsCol = {
     title: 'COVID-19 Obligations',
     background: covidColor,
-    customWidth: covidColWidth
+    customWidth: amountWidth
 };
 
 const covidOutlaysCol = {
     title: 'COVID-19 Outlays',
     background: covidColor,
-    customWidth: covidColWidth
+    customWidth: amountWidth
 };
 
 const covidDefCCol = {
@@ -352,12 +364,12 @@ const tabsWithAdditionalCols = [
 
 // Insert COVID columns
 tabsWithAdditionalCols.forEach((tab) => {
-    tab.splice(5, 0, descriptionCol);
-    tab.splice(6, 0, covidDefCCol);
-    tab.splice(7, 0, covidObligationsCol);
-    tab.splice(8, 0, covidOutlaysCol);
-    tab.splice(9, 0, infrastructureObligationsCol);
-    tab.splice(10, 0, infrastructureOutlaysCol);
+    tab.splice(6, 0, descriptionCol);
+    tab.splice(7, 0, covidDefCCol);
+    tab.splice(8, 0, covidObligationsCol);
+    tab.splice(9, 0, covidOutlaysCol);
+    tab.splice(10, 0, infrastructureObligationsCol);
+    tab.splice(11, 0, infrastructureOutlaysCol);
 });
 
 const defaultSub = [

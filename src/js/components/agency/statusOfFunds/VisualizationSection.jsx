@@ -8,7 +8,6 @@ import { useSelector } from 'react-redux';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import PropTypes from 'prop-types';
 import { Picker } from "data-transparency-ui";
-import { levels } from './StatusOfFunds';
 import StatusOfFundsChart from '../visualizations/StatusOfFundsChart';
 import RoundedToggle from "../../sharedComponents/RoundedToggle";
 import Accordion from "../../sharedComponents/accordion/Accordion";
@@ -49,6 +48,8 @@ const VisualizationSection = ({
 }) => {
     const [open, setOpen] = useState(false);
     const accordionTitle = (<span>What&nbsp;is&nbsp;this?</span>);
+    // empty string here because level 4 shows the dropdown instead of one of these labels
+    const levelsLabelArray = ['Sub-Component', 'Federal Account', 'Treasury Account Symbol', '', `${dropdownSelection === 'Program Activity' ? 'Object Class' : 'Program Activity'}`];
 
     const name = useSelector((state) => state.agency.currentLevelNameAndId.name);
     const id = useSelector((state) => state.agency.currentLevelNameAndId.id);
@@ -119,7 +120,7 @@ const VisualizationSection = ({
                     selectedOption={dropdownSelection} />
             ) :
                 <div className="status-of-funds__controls-heading emphasis">
-                    {levels[level]}&thinsp;
+                    {levelsLabelArray[level]}&thinsp;
                 </div>
             }
             <div className="status-of-funds__controls-heading">for FY {fy}</div>
@@ -193,6 +194,7 @@ const VisualizationSection = ({
                             setDrilldownLevel={setDrilldownLevel}
                             isMobile={isMobile}
                             toggle={toggle}
+                            dropdownSelection={dropdownSelection}
                             maxLevel={maxLevel} />
                     </div>
                 )}

@@ -56,12 +56,15 @@ export default class GlossaryDefinition extends React.Component {
     }
 
     getCopyFn() {
-        document.getElementById('slug').select();
-        document.execCommand("copy");
-        this.setState({ showCopiedConfirmation: true });
-        this.showCopiedConfirmation = window.setTimeout(() => {
-            this.setState({ showCopiedConfirmation: false });
-        }, 1750);
+        const slug = `?glossary=${this.props.glossary.term.toJS().slug}`;
+        const value = window.location.href + slug;
+        if (window.navigator && window.navigator.clipboard && window.navigator.clipboard.writeText) {
+            window.navigator.clipboard.writeText(value);
+            this.setState({ showCopiedConfirmation: true });
+            this.showCopiedConfirmation = window.setTimeout(() => {
+                this.setState({ showCopiedConfirmation: false });
+            }, 1750);
+        }
     }
 
     checkDefinitions(props) {

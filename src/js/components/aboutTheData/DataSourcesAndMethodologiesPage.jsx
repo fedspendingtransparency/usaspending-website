@@ -244,10 +244,10 @@ const DataSourcesAndMethodologiesPage = () => {
                                     <p>For each column, the numbers are based on the sum of two counts:</p>
                                     <ol className="about-section-content__numbered-list">
                                         <li>
-                                            The count of the agency’s D1 or D2 awards with activity in the selected submission period (i.e., <span className="about-section-content__italic">action_date</span> in the period) that aren’t linked to any of the agency’s File C awards <span className="about-section-content__italic">across all time.</span>
+                                            The count of the agency’s D1 or D2 awards with activity in the selected submission period (i.e., action_date in the period) that aren’t linked to any of the agency’s File C awards across all time.
                                         </li>
                                         <li>
-                                            The count of the agency’s File C awards with obligation activity in the selected submission period that aren’t linked to any D1 or D2 awards <span className="about-section-content__italic">across all time.</span>
+                                            The count of the agency’s File C awards with obligation activity in the selected submission period that aren’t linked to any D1 or D2 awards across all time. Obligation activity is defined as having non-null values in the Transaction Obligated Amount column. (Note that rows with null obligation activity are rows with outlay balance data.)
                                         </li>
                                     </ol>
                                     <p>

@@ -37,9 +37,24 @@ export const setSelectedTas = (tas) => ({
     tas
 });
 
+export const setSelectedPrgActivityOrObjectClass = (prgActivityOrObjectClass) => ({
+    type: 'SET_PA_OR_OC',
+    prgActivityOrObjectClass
+});
+
 export const setCurrentLevelNameAndId = (nameAndId) => ({
     type: 'SET_CURRENT_LEVEL_NAME_AND_ID',
     nameAndId
+});
+
+export const setLevel4ApiResponse = (resObject) => ({
+    type: 'SET_LEVEL_4_API_RESPONSE',
+    resObject
+});
+
+export const setLevel5Data = (childrenArray) => ({
+    type: 'SET_LEVEL_5_DATA',
+    childrenArray
 });
 
 export const setAgencyRecipients = (recipientDistribution) => ({

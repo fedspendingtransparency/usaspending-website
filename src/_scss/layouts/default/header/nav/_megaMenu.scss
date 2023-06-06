@@ -48,23 +48,24 @@
   .dropdown-slot {
     position: absolute;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, -10px);
     perspective: 1500px;
     z-index: 150;
   }
 
   .dropdown-slot-2 .dropdown-background {
-    transform: translateX(-100px);
+    transform: translateX(-140px);
   }
 
   .dropdown-slot-3 .dropdown-background {
-    transform: translateX(-250px);
+    transform: translateX(-275px);
   }
 
   .dropdown-section__wrapper {
     display: block;
     background-color: $color-white;
     border: solid 1px $gray-cool-5;
+
     @media(min-width: $medium-screen) {
       width: rem(720);
       padding: $global-padding * 5;
@@ -74,14 +75,15 @@
       display: flex !important;
       background-color: $color-white;
       background-clip: padding-box;
-      margin-bottom: rem(24);
+      margin-bottom: rem(16);
+
       .first-dropdown-section {
         display: flex;
         margin-right: $global-margin * 5;
         background-color: $color-white;
       }
     }
-    
+
     .undo__bottom-padding {
       margin-bottom: 0;
     }
@@ -89,10 +91,10 @@
     .dropdown-section {
       position: relative;
       z-index: 1;
+      flex-basis: 100%;
 
       .dropdown-section__alternate-top {
         display: flex;
-
         .dropdown-item__description {
           display: flex;
           margin: $global-margin * .5 0 0 0;
@@ -111,8 +113,7 @@
         color: $blue-warm-60;
         padding: $global-padding * .5;
         border-radius: rem(4);
-        width: rem(20) !important;
-        height: rem(20) !important;
+
         margin-right: $global-margin;
       }
 
@@ -138,7 +139,8 @@
         letter-spacing: normal;
         text-align: left;
         color: $gray-60;
-        width: rem(274);
+        width: auto;
+        max-width: rem(240);
         display: flex;
         word-wrap: break-word;
       }
@@ -151,9 +153,7 @@
           .dropdown-item__link-desc {
             display: block;
             border-radius: rem(8);
-            &:hover {
-              background: $gray-cool-5;
-            }
+
             .dropdown-item__link-label {
               font-size: $font-size-16;
               font-weight: $font-semibold;
@@ -182,10 +182,9 @@
         li {
           margin-top: 0;
           display: flex;
-          padding: $global-padding !important;
+          padding: $global-padding;
           transform: translateX(-8px);
           margin-bottom: 0;
-          width: 272px;
           &:hover {
             background: $gray-cool-3;
             border-radius: rem(8);
@@ -208,8 +207,6 @@
             color: $blue-warm-60;
             padding: $global-padding * .5;
             border-radius: rem(4);
-            width: rem(20) !important;
-            height: rem(20) !important;
             margin-right: $global-margin;
           }
 
@@ -237,14 +234,16 @@
               line-height: 1.5;
               letter-spacing: normal;
               color: $gray-60;
-              width: auto;
             }
           }
         }
+
         .list__extra-padding {
-          padding: $global-padding $global-padding*2 $global-padding $global-padding*2 !important;
-          transform: translateX(-16px);
-        }
+          padding-left: $global-padding * 2;
+          padding-right: $global-padding * 2;
+          transform: translateX(-16px) !important;
+          width: rem(272) !important;
+        } 
 
         li:first-of-type {
           margin-top: $global-margin;
@@ -257,24 +256,33 @@
       margin: 0 $global-margin * -5 $global-margin * -5;
       padding: rem(24) $global-padding * 5 $global-padding * 5;
 
-      .dropdown-section__alternate-top {
-        display: flex;
-      }
-
       .dropdown-section__section-list {
         margin: 0 !important;
         padding: 0;
         display: flex;
         flex-wrap: wrap;
 
-        .dropdown-section__bottom-portion-list-item:nth-child(even) {
-          margin-left: $global-margin * 8;
+        .list__extra-padding {
+          padding-left: $global-padding * 2;
+          padding-right: $global-padding * 2;
+          transform: translateX(-16px) !important;
+          width: rem(272) !important;
+          height: min-content !important;
+
+          &:hover {
+            background: $gray-cool-5 !important;
+          }
+        } 
+
+        .list__extra-padding:nth-child(even) {
+          margin-left: rem(66);
+        }
+        .third__item-margin:nth-child(even) {
+          margin-left: $global-margin * 8.5 !important;
         }
 
-        .dropdown-section__section-list-item {
-          transform: translateX(-16px);
-          width: 274px;
-
+        .dropdown-section__bottom-portion-list-item:first-of-type {
+          margin-top: 0;
         }
       }
     }
@@ -299,14 +307,27 @@
   .caret {
     width: 0;
     height: 0;
-    border-width: 10px;
+    border-width: 9px;
+    border-style: solid;
+    border-color: transparent transparent $gray-cool-5;
+    /* make sure it's above the main dropdown container so now box-shadow bleeds over it */
+    z-index: 1;
+    position: relative;
+    /* prevent any gap in between caret and main dropdown */
+    top: 7px;
+  }
+
+  .smaller-caret {
+    width: 0;
+    height: 0;
+    border-width: 9px;
     border-style: solid;
     border-color: transparent transparent $color-white;
     /* make sure it's above the main dropdown container so now box-shadow bleeds over it */
     z-index: 1;
     position: relative;
     /* prevent any gap in between caret and main dropdown */
-    top: 1px;
+    top: -9px;
   }
 
   .dropdown-background {
@@ -315,6 +336,7 @@
     overflow: hidden;
     position: relative;
     box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.1);
+    background-color: $color-white;
   }
 
   .fade-container {
@@ -325,12 +347,10 @@
     li:hover {
       background: unset !important;
     }
+
     .dropdown-section__section-list-item {
       padding: $global-padding $global-padding*2 $global-padding $global-padding*2;
       border-radius: rem(8);
-      &:hover {
-        background: $gray-cool-5;
-      }
     }
 
     .dropdown-section__section-list-item:nth-child(2) {
@@ -371,6 +391,7 @@
   @keyframes fade-content-animate-out-left {
     from {
       transform: translateX(0);
+      opacity: 1;
     }
 
     to {
@@ -382,6 +403,7 @@
   @keyframes fade-content-animate-out-right {
     from {
       transform: translateX(0);
+      opacity: 1;
     }
 
     to {

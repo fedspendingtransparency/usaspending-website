@@ -49,7 +49,7 @@ const VideoCard = ({
     }, []);
     let changedTitle;
     let overline;
-    if (title.startsWith("TUTORIAL:")) {
+    if (title.startsWith("TUTORIAL:") || title.startsWith("OVERVIEW:")) {
         changedTitle = title.substring(10);
         overline = title.substring(0, 8);
     } else if (title.startsWith("QUICK START:")) {
