@@ -115,7 +115,7 @@ const DrilldownSidebar = ({
             {level >= 4 &&
                 <DrilldownSidebarLevel
                     key={dropdownSelection}
-                    label={dropdownSelection}
+                    label={`${dropdownSelection === 'Program Activity' ? 'Object Class' : 'Program Activity'}`}
                     name={prgActivityOrObjectClassName}
                     active={level === 4}
                     obligatedText={(
