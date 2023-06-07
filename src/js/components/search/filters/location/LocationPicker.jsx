@@ -10,7 +10,6 @@ import { TooltipWrapper } from "data-transparency-ui";
 import EntityDropdown from './EntityDropdown';
 import ZIPField from './ZIPField';
 import { defaultLocationValues } from "../../../../containers/search/filters/location/LocationPickerContainer";
-import FeatureFlag from "../../../sharedComponents/FeatureFlag";
 import { CDTooltip } from "../tooltips/AdvancedSearchTooltip";
 
 const propTypes = {
@@ -293,29 +292,26 @@ export default class LocationPicker extends React.Component {
 
                     <div className={`location-item__cd ${isDistrictEnabled === false ? "disabled" : ""}`}>
                         <span className="location-label__with-tt">CONGRESSIONAL DISTRICT (US ONLY)</span>
-                        <FeatureFlag>
-                            <div>
-                                <TooltipWrapper
-                                    className="advanced-search__cd-tooltip"
-                                    icon="info"
-                                    tooltipComponent={<CDTooltip />} />
-                            </div>
-                        </FeatureFlag>
-                    </div>
-                    <FeatureFlag>
-                        <div className="location-item__with-overline">
-                            <EntityDropdown
-                                field="district"
-                                matchKey="district"
-                                placeholder={districtPlaceholder}
-                                title="Current Congressional Districts (based on 2023 redistricting) - for QAT only"
-                                value={this.props.currentDistrict}
-                                selectEntity={this.props.selectEntity}
-                                options={this.props.availableCurrentDistricts}
-                                enabled={isCurrentDistrictEnabled}
-                                generateDisclaimer={this.generateDisclaimer} />
+
+                        <div>
+                            <TooltipWrapper
+                                className="advanced-search__cd-tooltip"
+                                icon="info"
+                                tooltipComponent={<CDTooltip />} />
                         </div>
-                    </FeatureFlag>
+                    </div>
+                    <div className="location-item__with-overline">
+                        <EntityDropdown
+                            field="district"
+                            matchKey="district"
+                            placeholder={districtPlaceholder}
+                            title="Current Congressional Districts (based on 2023 redistricting) - for QAT only"
+                            value={this.props.currentDistrict}
+                            selectEntity={this.props.selectEntity}
+                            options={this.props.availableCurrentDistricts}
+                            enabled={isCurrentDistrictEnabled}
+                            generateDisclaimer={this.generateDisclaimer} />
+                    </div>
                     <div className="location-item__with-overline">
                         <EntityDropdown
                             field="district"
