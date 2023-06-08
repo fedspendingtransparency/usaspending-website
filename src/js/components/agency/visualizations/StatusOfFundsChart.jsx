@@ -332,16 +332,8 @@ const StatusOfFundsChart = ({
             const maxNegObl = negativeObligationsArray.length ? negativeObligationsArray.reduce((a, b) => Math.max(Math.abs(a), Math.abs(b))) : null;
 
             const arrayOfMaxValues = [];
-            if (negativeTbr) {
-                arrayOfMaxValues.push(maxNegTbr);
-            }
-            else arrayOfMaxValues.push(maxPosTbr);
-            if (negativeObl) {
-                arrayOfMaxValues.push(maxNegObl);
-            }
-            else {
-                arrayOfMaxValues.push(maxPosObl);
-            }
+            arrayOfMaxValues.push(Math.abs(maxNegTbr) > Math.abs(maxPosTbr) ? maxNegTbr : maxPosTbr);
+            arrayOfMaxValues.push(Math.abs(maxNegObl) > Math.abs(maxPosObl) ? maxNegObl : maxPosObl);
 
             if (negativeTbr || negativeObl) {
                 x.domain(d3.extent(arrayOfMaxValues)).nice(2);
