@@ -44,7 +44,8 @@ export default class SearchPage extends React.Component {
             showMobileFilters: false,
             filterCount: 0,
             isMobile: false,
-            showFullDownload: false
+            showFullDownload: false,
+            hash: props.hash
         };
 
         // throttle the occurrences of the scroll callback to once every 50ms
@@ -63,10 +64,17 @@ export default class SearchPage extends React.Component {
         this.handleWindowResize();
     }
 
+    componentDidUpdate(prevProps, prevState) {
+        if (prevState.hash !== this.props.hash) {
+            this.state.hash = this.props.hash;
+        }
+    }
+
     componentWillUnmount() {
     // stop observing scroll and resize events
         window.removeEventListener('resize', this.handleWindowResize);
     }
+
 
     getSlugWithHash() {
         return `${slug}?hash=${this.props.hash}`;
@@ -75,7 +83,7 @@ export default class SearchPage extends React.Component {
     handleShare = (name) => {
         handleShareOptionClick(name, this.getSlugWithHash(), {
             subject: emailSubject,
-            body: `View search results for federal awards on USAspending.gov:  ${getBaseUrl(slug)}`
+            body: `View search results for federal awards on USAspending.gov:  ${getBaseUrl(this.getSlugWithHash())}`
         });
     };
 
@@ -151,7 +159,7 @@ export default class SearchPage extends React.Component {
                 pageName="Advanced Search"
                 classNames="usa-da-search-page"
                 title="Advanced Search"
-                metaTagProps={MetaTagHelper.searchPageMetaTags}
+                metaTagProps={MetaTagHelper.getSearchPageMetaTags(this.state.hash)}
                 toolBarComponents={[
                     <ShareIcon
                         isEnabled={this.props.downloadAvailable}
