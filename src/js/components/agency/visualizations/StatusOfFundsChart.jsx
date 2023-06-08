@@ -207,15 +207,29 @@ const StatusOfFundsChart = ({
     let tooltipName = null;
     const tooltip = (data) => {
         if (hoverData) {
-            if (data.name.length <= 33) {
-                tooltipName = data.name.length + 230;
-            }
-            else if (data.name.length > 33 && data.name.length < 66) {
-                tooltipName = data.name.length + 215;
+            if (level !== 4) {
+                if (data.name.length <= 33) {
+                    tooltipName = data.name.length + 230;
+                    console.log("tooltipName1", tooltipName);
+                    console.log("level", level);
+                }
+                else if (data.name.length > 33 && data.name.length < 66) {
+                    tooltipName = data.name.length + 215;
+                    console.log("tooltipName2", tooltipName);
+                    console.log("level", level);
+                }
+                else {
+                    tooltipName = data.name.length + 200;
+                    console.log("tooltipName3b", tooltipName);
+                    console.log("level", level);
+                }
             }
             else {
-                tooltipName = data.name.length + 200;
+                tooltipName = data.name.length + 125;
+                console.log("tooltipName3b", tooltipName);
+                console.log("level", level);
             }
+
             return (
                 <div className="sof-chart-tooltip">
                     <div className="tooltip__title">
