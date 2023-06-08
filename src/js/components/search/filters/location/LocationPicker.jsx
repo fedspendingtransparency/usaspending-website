@@ -5,7 +5,9 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Link } from 'react-router-dom';
 import { isEqual } from 'lodash';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { TooltipWrapper } from "data-transparency-ui";
 import EntityDropdown from './EntityDropdown';
 import ZIPField from './ZIPField';
@@ -120,7 +122,7 @@ export default class LocationPicker extends React.Component {
     }
 
     submitForm(e) {
-    // don't reload the page on submit
+        // don't reload the page on submit
         e.preventDefault();
     }
 
@@ -273,23 +275,23 @@ export default class LocationPicker extends React.Component {
                             generateDisclaimer={this.generateDisclaimer} />
                     </div>
                     {this.props.enableCitySearch &&
-                    <div className="location-item">
-                        <EntityDropdown
-                            type="autocomplete"
-                            loading={this.props.loading}
-                            field="city"
-                            scope={this.props.scope}
-                            placeholder="Enter a City"
-                            title="CITY"
-                            value={this.props.city}
-                            options={this.props.availableCities}
-                            selectEntity={this.props.selectEntity}
-                            enabled={isCityEnabled}
-                            generateDisclaimer={this.generateDisclaimer}
-                            setSearchString={this.props.setCitySearchString}
-                            searchString={this.props.citySearchString}
-                            showDisclaimer={showDisclaimer} />
-                    </div>}
+                        <div className="location-item">
+                            <EntityDropdown
+                                type="autocomplete"
+                                loading={this.props.loading}
+                                field="city"
+                                scope={this.props.scope}
+                                placeholder="Enter a City"
+                                title="CITY"
+                                value={this.props.city}
+                                options={this.props.availableCities}
+                                selectEntity={this.props.selectEntity}
+                                enabled={isCityEnabled}
+                                generateDisclaimer={this.generateDisclaimer}
+                                setSearchString={this.props.setCitySearchString}
+                                searchString={this.props.citySearchString}
+                                showDisclaimer={showDisclaimer} />
+                        </div>}
 
                     <div className={`location-item__cd ${isDistrictEnabled === false ? "disabled" : ""}`}>
                         <span className="location-label__with-tt">CONGRESSIONAL DISTRICT (US ONLY)</span>
@@ -327,6 +329,11 @@ export default class LocationPicker extends React.Component {
                             options={this.props.availableOriginalDistricts}
                             enabled={isOriginalDistrictEnabled}
                             generateDisclaimer={this.generateDisclaimer} />
+                    </div>
+                    <div className="location-filter__link-container">
+                        <Link className="location-filter__atd-link" to="/">
+                            <FontAwesomeIcon className="location-filter__atd-info" icon="info-circle" /> <span className="location-filter__atd-text">Learn about congressional redistricting</span>
+                        </Link>
                     </div>
                     <button
                         className="add-location"
