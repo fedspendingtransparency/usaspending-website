@@ -13,7 +13,6 @@ import {
     section2Options,
     section3Options
 } from 'dataMapping/navigation/menuOptions';
-import { uniqueId } from 'lodash';
 import Navbar from "./Navbar";
 import DropdownContainer from "./DropdownContainer";
 import NavbarItem from './NavbarItem';
@@ -78,10 +77,11 @@ export default class AnimatedNavbar extends Component {
     };
     onMouseLeave = () => {
         this.setState({
-            animatingOut: true
+            animatingOut: true,
+            direction: null
         });
         this.animatingOutTimeout = setTimeout(
-            this.resetDropdownState,
+            this.resetDropdownState(),
             this.props.tweenConfig.duration
         );
     };
@@ -89,7 +89,8 @@ export default class AnimatedNavbar extends Component {
     resetDropdownState = (i) => {
         this.setState({
             activeIndices: typeof i === "number" ? [i] : [],
-            animatingOut: false
+            animatingOut: false,
+            direction: null
         });
         delete this.animatingOutTimeout;
     };
@@ -99,7 +100,6 @@ export default class AnimatedNavbar extends Component {
 
         let CurrentDropdown;
         let PrevDropdown;
-        let direction;
 
         let currentSection1Props;
         let currentSection2Props;
@@ -143,21 +143,40 @@ export default class AnimatedNavbar extends Component {
             currentSection2Icon = navbarConfig[currentIndex].section2Options[currentIndex]?.icon;
             currentSection3Icon = navbarConfig[currentIndex].section3Options[currentIndex]?.icon;
         }
-        else if (typeof prevIndex === "number") {
-            PrevDropdown = navbarConfig[prevIndex].dropdown;
-            prevSection1Props = navbarConfig[prevIndex].section1Items;
-            prevSection2Props = navbarConfig[prevIndex].section2Items;
-            prevSection3Props = navbarConfig[prevIndex].section3Items;
 
-            direction = currentIndex > prevIndex ? "right" : "left";
-        }
+        setTimeout(() => {
+            if (typeof prevIndex === "number") {
+                prevSection1Props = navbarConfig[prevIndex].section1Items;
+                prevSection2Props = navbarConfig[prevIndex].section2Items;
+                prevSection3Props = navbarConfig[prevIndex].section3Items;
+                PrevDropdown = navbarConfig[prevIndex].dropdown;
+
+                if (currentIndex && prevIndex) {
+                    if (currentIndex <= prevIndex) {
+                        if (this.state.direction === "left") {
+                            return;
+                        }
+                        this.setState({
+                            direction: "left"
+                        });
+                    } else {
+                        if (this.state.direction === "right") {
+                            return;
+                        }
+                        this.setState({
+                            direction: "right"
+                        });
+                    }
+                }
+            }
+        }, 10);
 
         return (
             <Flipper flipKey={currentIndex} {...tweenConfig}>
                 <Navbar onMouseLeave={this.onMouseLeave}>
                     {navbarConfig.map((n, index) => (
                         <NavbarItem
-                            key={`navbaritem-${uniqueId(index)}`}
+                            key={`navbaritem-${index}`}
                             title={n.title}
                             index={index}
                             url={n.url}
@@ -165,7 +184,7 @@ export default class AnimatedNavbar extends Component {
                             onMouseEnter={this.onMouseEnter}>
                             {currentIndex === index && (
                                 <DropdownContainer
-                                    direction={direction}
+                                    direction={this.state.direction}
                                     animatingOut={this.state.animatingOut}
                                     tweenConfig={this.props.tweenConfig}>
                                     <CurrentDropdown

@@ -2,6 +2,11 @@
   @import 'all';
   @import "./_analystGuideHeader.scss";
 
+  .usa-accordion__button.usa-banner__button {
+    &:hover {
+      background-color: transparent !important;
+    }
+  }
   background-color: $color-white;
 
   .main-content {
