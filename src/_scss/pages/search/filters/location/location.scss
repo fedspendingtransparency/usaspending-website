@@ -39,11 +39,14 @@
 
             .location-filter__atd-link {
                 align-items: center;
+                display: flex;
                 &:hover {
                     color: $blue-vivid-70;
                     cursor: pointer;
                 }
                 .location-filter__atd-info {
+                    width: rem(18);
+                    height: rem(18);
                     margin-right: $global-margin;
                 }
 
