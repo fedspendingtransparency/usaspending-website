@@ -49,8 +49,9 @@ export default class Header extends React.Component {
                         borderTopColor="#97d4ea"
                         borderBottomColor="#c3ebfa"
                         backgroundColor="#e1f3f8"
-                        title={<>Love using USAspending.gov?&nbsp;<br className="info-banner__linebreak" />Tell us more!</>}
-                        content={<>USAspending.gov is looking to share stories of how federal spending data has improved your life or increased your trust in government.&nbsp;<ExternalLink isCard url="https://forms.office.com/g/neemMd2J4a">Share your story and you may be featured in an upcoming USAspending Youtube video!</ExternalLink></>} />
+                        title={<>New congressional district data available</>}
+                        content={<>USAspending.gov now has new congressional district data as a result of the 2020 census. Districts are identified sitewide as “current” or “submitted” (i.e., original). Learn more about redistricting and the changes you’ll find on the site.</>} />
+                    {/* // content={<>USAspending.gov is looking to share stories of how federal spending data has improved your life or increased your trust in government.&nbsp;<ExternalLink isCard url="https://forms.office.com/g/neemMd2J4a">Share your story and you may be featured in an upcoming USAspending Youtube video!</ExternalLink></>} /> */}
                     <GovBanner />
                     <NavbarWrapper />
                 </header>
