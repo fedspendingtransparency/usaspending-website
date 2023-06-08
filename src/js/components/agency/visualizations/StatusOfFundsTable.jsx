@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Table } from 'data-transparency-ui';
 import PropTypes from 'prop-types';
 import { formatMoneyWithPrecision } from 'helpers/moneyFormatter';
@@ -17,6 +17,7 @@ const propTypes = {
 const StatusOfFundsTable = ({
     results, fy, setDrilldownLevel, level, toggle, isMobile, maxLevel, dropdownSelection
 }) => {
+    const [atMaxLevel, setAtMaxLevel] = useState(false);
     const fyString = `FY${fy.slice(2)}`;
 
     // this table now gets its own array for these labels, because of the differences in
@@ -76,6 +77,10 @@ const StatusOfFundsTable = ({
         }
     };
 
+    useEffect(() => {
+        setAtMaxLevel(level === maxLevel);
+    }, [level, maxLevel]);
+
     return (
         <Table
             classNames="award-type-tooltip__table"
@@ -83,6 +88,7 @@ const StatusOfFundsTable = ({
             rows={rows}
             onClickHandler={onClickHandler}
             isMobile={isMobile}
+            atMaxLevel={atMaxLevel}
             isStacked />
     );
 };
