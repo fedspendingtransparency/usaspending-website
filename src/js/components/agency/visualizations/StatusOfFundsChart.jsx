@@ -210,24 +210,16 @@ const StatusOfFundsChart = ({
             if (level !== 4) {
                 if (data.name.length <= 33) {
                     tooltipName = data.name.length + 230;
-                    console.log("tooltipName1", tooltipName);
-                    console.log("level", level);
                 }
                 else if (data.name.length > 33 && data.name.length < 66) {
                     tooltipName = data.name.length + 215;
-                    console.log("tooltipName2", tooltipName);
-                    console.log("level", level);
                 }
                 else {
                     tooltipName = data.name.length + 200;
-                    console.log("tooltipName3b", tooltipName);
-                    console.log("level", level);
                 }
             }
             else {
                 tooltipName = data.name.length + 125;
-                console.log("tooltipName3b", tooltipName);
-                console.log("level", level);
             }
 
             return (
