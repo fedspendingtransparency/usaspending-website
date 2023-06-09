@@ -1,3 +1,6 @@
+.mobile-nav__top .usa-banner {
+    margin-left: -4px !important;
+}
 .mobile-nav-header {
     @include display(flex);
     @include justify-content(space-between);
@@ -14,6 +17,9 @@
         display: flex;  
         color: #2378c3;
         padding-top: rem(23);
+        &:hover {
+            cursor: pointer;
+        }
         .mobile-nav_back-button{
             padding-left: rem(2);
             font-size: $font-size-14;

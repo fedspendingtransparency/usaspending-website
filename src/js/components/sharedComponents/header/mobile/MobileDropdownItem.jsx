@@ -63,7 +63,7 @@ const MobileDropdownItem = ({
                                 <li key={i}>
                                     <Link to={item.url} className="mobile-dropdown__section-row-one">
                                         <div className="mobile-dropdown__section-icon">
-                                            <FontAwesomeIcon icon={item.icon} size="sm" />
+                                            {item.icon && item.icon !== '' && item.icon !== null ? <FontAwesomeIcon role="presentation" icon={item.icon} style={{ width: "12px", height: "10.5px" }} /> : ''}
                                         </div>
                                         <div className="mobile-dropdown__section-label">
                                             {item.label}
@@ -98,8 +98,8 @@ const MobileDropdownItem = ({
                 }
             </div>
             <div className={index >= 2 ? "mobile-dropdown_main-container" : ""}>
-                <div className="mobile-dropdown__section-icon">
-                    <FontAwesomeIcon icon={section2Options[index].icon} />
+                <div className={section2Options[index].icon && section2Options[index].icon !== null && section2Options[index].icon !== '' ? "mobile-dropdown__section-icon" : ""}>
+                    <FontAwesomeIcon role="presentation" icon={section2Options[index].icon} style={{ width: "12px", height: "10.5px" }} />
                 </div>
                 <div className={index === 1 ? "mobile-dropdown__title" : "mobile-dropdown__title-section-two"}>
                     {section2Options[index].title}
@@ -114,8 +114,8 @@ const MobileDropdownItem = ({
                         {section2Items.map((item, i) => (
                             <li key={i}>
                                 <Link to={item.url} className="mobile-dropdown__section-row-one">
-                                    <div className="mobile-dropdown__section-icon">
-                                        <FontAwesomeIcon icon={item.icon} size="sm" />
+                                    <div className={item.icon && item.icon !== '' && item.icon !== null ? "mobile-dropdown__section-icon" : ""}>
+                                        <FontAwesomeIcon role="presentation" icon={item.icon} style={{ width: "12px", height: "10.5px" }} />
                                     </div>
                                     <div className="mobile-dropdown__section-label">
                                         {item.label}

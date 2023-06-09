@@ -2,6 +2,9 @@
     ul.mobile-nav-content__list {
         @include unstyled-list;
         margin-top: rem(0);
+        // @media (min-width: $tablet-screen) {
+        //     padding-left: rem(20);
+        // }
 
         li.mobile-nav-content__list-item {
             text-align: left;
