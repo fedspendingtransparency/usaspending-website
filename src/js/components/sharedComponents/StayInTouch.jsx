@@ -21,19 +21,28 @@ const StayInTouch = (pageName) => {
         action: 'Link',
         label: 'sign-up'
     });
-
-    const handleSignUp = () => {
-        trackLinkSignUp();
-        window.location.href = "mailto:join-usaspending@lists.fiscal.treasury.gov?subject=Yes!%20I'd%20like%20to%20receive%20updates.";
-    };
     const trackLinkLearnMore = () => Analytics.event({
         category: pageName,
         action: 'Link',
         label: 'learn-more'
     });
+    const trackLinkSurvey = () => Analytics.event({
+        category: pageName,
+        action: 'Survey',
+        label: 'survey'
+    });
+
+    const handleSignUp = () => {
+        trackLinkSignUp();
+        window.location.href = "mailto:join-usaspending@lists.fiscal.treasury.gov?subject=Yes!%20I'd%20like%20to%20receive%20updates.";
+    };
     const handleLearnMore = () => {
         trackLinkLearnMore();
         window.open("/about?section=training", "_self");
+    };
+    const handleSurveyClick = () => {
+        trackLinkSurvey();
+        console.log('open survey here');
     };
 
     return (
@@ -42,7 +51,8 @@ const StayInTouch = (pageName) => {
                 <FlexGridCol
                     className="stay-in-touch__title-col"
                     mobile={12}
-                    tablet={12}>
+                    tablet={12}
+                    desktop={3}>
                     <FlexGridRow className="stay-in-touch__title-row">
                         <div className="stay-in-touch__icon-container">
                             <FontAwesomeIcon icon={faPaperPlane} />
@@ -55,7 +65,32 @@ const StayInTouch = (pageName) => {
                 <FlexGridCol
                     className="stay-in-touch__second-row-container top"
                     mobile={12}
-                    tablet={6}>
+                    tablet={12}
+                    desktop={3}>
+                    <div className="stay-in-touch__second-row-title">
+                        Your Data, Your Story
+                    </div>
+                    <div className="stay-in-touch__second-row-text">
+                        Love USAspending.gov? Help others learn about how you use the data!
+                    </div>
+                    <div className="stay-in-touch__second-row-link">
+                        <Button
+                            copy="Share your story"
+                            buttonTitle="Share your story"
+                            buttonSize="md"
+                            onClick={handleSurveyClick}
+                            buttonType="text"
+                            backgroundColor="light"
+                            imageAlignment="right"
+                            textAlignment="left"
+                            image={<FontAwesomeIcon icon={faArrowRight} style={{ height: '16px', width: '14px' }} />} />
+                    </div>
+                </FlexGridCol>
+                <FlexGridCol
+                    className="stay-in-touch__second-row-container top"
+                    mobile={12}
+                    tablet={12}
+                    desktop={3}>
                     <div className="stay-in-touch__second-row-title">
                                 Get release notes delivered to your inbox
                     </div>
@@ -78,7 +113,8 @@ const StayInTouch = (pageName) => {
                 <FlexGridCol
                     className="stay-in-touch__second-row-container"
                     mobile={12}
-                    tablet={6}>
+                    tablet={12}
+                    desktop={3}>
                     <div className="stay-in-touch__second-row-title">
                                 Request a USAspending training session
                     </div>
