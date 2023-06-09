@@ -10,9 +10,6 @@
   }
 
   .stay-in-touch__container-row {
-    @media (min-width: $tablet-screen) and (max-width: $medium-screen) {
-      text-align: center;
-    }
     @media (min-width: $medium-screen) {
       flex-flow: row nowrap;
       justify-content: flex-start;
@@ -40,9 +37,6 @@
 
       .stay-in-touch__title-row {
         flex-flow: row nowrap;
-        @media (min-width: $tablet-screen) and (max-width: $medium-screen) {
-          justify-content: center;
-        }
       }
     }
 
@@ -109,10 +103,6 @@
           svg {
             margin-left: $global-margin;
           }
-        }
-        @media (min-width: $tablet-screen) and (max-width: $medium-screen) {
-          display: flex;
-          justify-content: center;
         }
       }
     }
