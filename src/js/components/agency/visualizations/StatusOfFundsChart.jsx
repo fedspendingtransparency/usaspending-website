@@ -207,7 +207,7 @@ const StatusOfFundsChart = ({
     let tooltipName = null;
     const tooltip = (data) => {
         if (hoverData) {
-            if (level !== 4) {
+            if (level < 3) {
                 if (data.name.length <= 33) {
                     tooltipName = data.name.length + 230;
                 }
@@ -217,6 +217,9 @@ const StatusOfFundsChart = ({
                 else {
                     tooltipName = data.name.length + 200;
                 }
+            }
+            else if (level === 3) {
+                tooltipName = data.name.length + 200;
             }
             else {
                 tooltipName = data.name.length + 125;
