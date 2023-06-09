@@ -15,11 +15,6 @@
         height: rem(45);
         position: relative;
         width: rem(48);
-
-        &:hover {
-            @include transition(all 0.25s $ease-in-out-sine);
-            background: $color-primary;
-        }
     }
 
     .mobile-hamburger__meat-buns {
@@ -47,23 +42,6 @@
         &::after {
             top: 7px;
             @include transition(all 0.50s $ease-in-out-sine);
-        }
-    }
-
-    .mobile-hamburger__button {
-        &:hover {
-            .mobile-hamburger__meat-buns {
-                @include transition(all 0.75s $ease-in-out-sine);
-                background: white;
-                &::before,
-                &::after {
-                    @include transition(all 0.50s $ease-in-out-sine);
-                    background: white;
-                }
-                &::after {
-                    @include transition(all 1s $ease-in-out-sine);
-                }
-            }
         }
     }
 }

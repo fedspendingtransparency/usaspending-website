@@ -86,18 +86,7 @@ const NavbarWrapper = () => {
                         </button>
                     </div>
                 </div>
-                <div className="mobile-nav-animations">
-                    <TransitionGroup>
-                        {showMobileNav && (
-                            <CSSTransition
-                                classNames="mobile-nav-slide"
-                                timeout={{ enter: 225, exit: 195 }}
-                                exit>
-                                <MobileNav hideMobileNav={hideMobileNav} />
-                            </CSSTransition>
-                        )}
-                    </TransitionGroup>
-                </div>
+                {showMobileNav && <MobileNav hideMobileNav={hideMobileNav} />}
                 <div className="site-navigation__menu full-menu">
                     <MegaMenu />
                 </div>
