@@ -149,7 +149,7 @@ const MobileDropdownItem = ({
                 }
             </div>
             <div className="mobile-dropdown_main-container">
-                <div className="mobile-dropdown__section-icon">
+                <div className={section3Options[index].icon && section3Options[index].icon !== null && section3Options[index].icon !== '' ? "mobile-dropdown__section-icon" : ""}>
                     <FontAwesomeIcon icon={section3Options[index].icon} />
                 </div>
                 <div>
