@@ -169,7 +169,6 @@ export class AwardContainer extends React.Component {
     }
 
     fetchAwardDownloadFile(awardCategory = this.props.award.category, awardId = this.props.match.params.awardId) {
-        console.log("award profile download -", awardId, awardCategory)
         Analytics.event({
             category: 'Award Profile',
             action: 'Download Initiated',
