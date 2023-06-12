@@ -5,12 +5,19 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { isEqual } from 'lodash';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { TooltipWrapper } from "data-transparency-ui";
 import EntityDropdown from './EntityDropdown';
 import ZIPField from './ZIPField';
 import { defaultLocationValues } from "../../../../containers/search/filters/location/LocationPickerContainer";
 import { CDTooltip } from "../tooltips/AdvancedSearchTooltip";
+import {
+    setAboutTheDataTermFromUrl,
+    showAboutTheData
+} from "../../../../redux/actions/aboutTheDataSidebar/aboutTheDataActions";
+import { setLastOpenedSlideout } from "../../../../redux/actions/slideouts/slideoutActions";
 
 const propTypes = {
     selectedLocations: PropTypes.object,
@@ -50,12 +57,13 @@ const defaultProps = {
     enableCitySearch: false
 };
 
-export default class LocationPicker extends React.Component {
+class LocationPicker extends React.Component {
     constructor(props) {
         super(props);
 
         this.submitForm = this.submitForm.bind(this);
         this.generateDisclaimer = this.generateDisclaimer.bind(this);
+        this.atdClick = this.atdClick.bind(this);
     }
 
     componentDidUpdate(prevProps) {
@@ -119,8 +127,15 @@ export default class LocationPicker extends React.Component {
     }
 
     submitForm(e) {
-    // don't reload the page on submit
+        // don't reload the page on submit
         e.preventDefault();
+    }
+
+    atdClick() {
+        this.props.openATD();
+        // make sure it will open on top of glossary if glossary is already open
+        this.props.setSlideout('atd');
+        this.props.setATDTerm('congressional-district-data');
     }
 
     generateDisclaimer(field) {
@@ -272,23 +287,23 @@ export default class LocationPicker extends React.Component {
                             generateDisclaimer={this.generateDisclaimer} />
                     </div>
                     {this.props.enableCitySearch &&
-                    <div className="location-item">
-                        <EntityDropdown
-                            type="autocomplete"
-                            loading={this.props.loading}
-                            field="city"
-                            scope={this.props.scope}
-                            placeholder="Enter a City"
-                            title="CITY"
-                            value={this.props.city}
-                            options={this.props.availableCities}
-                            selectEntity={this.props.selectEntity}
-                            enabled={isCityEnabled}
-                            generateDisclaimer={this.generateDisclaimer}
-                            setSearchString={this.props.setCitySearchString}
-                            searchString={this.props.citySearchString}
-                            showDisclaimer={showDisclaimer} />
-                    </div>}
+                        <div className="location-item">
+                            <EntityDropdown
+                                type="autocomplete"
+                                loading={this.props.loading}
+                                field="city"
+                                scope={this.props.scope}
+                                placeholder="Enter a City"
+                                title="CITY"
+                                value={this.props.city}
+                                options={this.props.availableCities}
+                                selectEntity={this.props.selectEntity}
+                                enabled={isCityEnabled}
+                                generateDisclaimer={this.generateDisclaimer}
+                                setSearchString={this.props.setCitySearchString}
+                                searchString={this.props.citySearchString}
+                                showDisclaimer={showDisclaimer} />
+                        </div>}
 
                     <div className={`location-item__cd ${isDistrictEnabled === false ? "disabled" : ""}`}>
                         <span className="location-label__with-tt">CONGRESSIONAL DISTRICT (US ONLY)</span>
@@ -324,6 +339,20 @@ export default class LocationPicker extends React.Component {
                             enabled={isOriginalDistrictEnabled}
                             generateDisclaimer={this.generateDisclaimer} />
                     </div>
+                    <div className="location-filter__link-container">
+                        <span
+                            role="link"
+                            tabIndex={0}
+                            className="location-filter__atd-link"
+                            onClick={this.atdClick}
+                            onKeyUp={(e) => {
+                                if (e.key === 'Enter') {
+                                    this.atdClick();
+                                }
+                            }}>
+                            <FontAwesomeIcon className="location-filter__atd-info" icon="info-circle" /> <span className="location-filter__atd-text">Learn about congressional redistricting</span>
+                        </span>
+                    </div>
                     <button
                         className="add-location"
                         onClick={this.props.addLocation}
@@ -349,3 +378,10 @@ export default class LocationPicker extends React.Component {
 
 LocationPicker.propTypes = propTypes;
 LocationPicker.defaultProps = defaultProps;
+
+const mapDispatchToProps = (dispatch) => ({
+    openATD: () => dispatch(showAboutTheData()),
+    setATDTerm: (term) => dispatch(setAboutTheDataTermFromUrl(term)),
+    setSlideout: (str) => dispatch(setLastOpenedSlideout(str))
+});
+export default connect(null, mapDispatchToProps)(LocationPicker);
