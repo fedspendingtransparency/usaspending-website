@@ -6,6 +6,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { isEqual } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { TooltipWrapper } from "data-transparency-ui";
@@ -14,6 +15,8 @@ import ZIPField from './ZIPField';
 import { defaultLocationValues } from "../../../../containers/search/filters/location/LocationPickerContainer";
 import FeatureFlag from "../../../sharedComponents/FeatureFlag";
 import { CDTooltip } from "../tooltips/AdvancedSearchTooltip";
+import * as aboutTheDataActions from '../../../../redux/actions/aboutTheDataSidebar/aboutTheDataActions';
+import * as slideoutActions from '../../../../redux/actions/slideouts/slideoutActions';
 
 const propTypes = {
     selectedLocations: PropTypes.object,
@@ -53,7 +56,7 @@ const defaultProps = {
     enableCitySearch: false
 };
 
-export default class LocationPicker extends React.Component {
+class LocationPicker extends React.Component {
     constructor(props) {
         super(props);
 
@@ -180,6 +183,9 @@ export default class LocationPicker extends React.Component {
         );
     }
 
+    openATD (e) {
+        
+    }
     render() {
         const isUSA = this.props.country.code === "USA";
 
@@ -331,9 +337,17 @@ export default class LocationPicker extends React.Component {
                             generateDisclaimer={this.generateDisclaimer} />
                     </div>
                     <div className="location-filter__link-container">
-                        <Link className="location-filter__atd-link" to="/">
+                        <a
+                            role="link"
+                            className="location-filter__atd-link"
+                            onClick={openATD(e)}
+                            onKeyUp={(e) => {
+                                if (e.key === 'Enter') {
+                                    openATD(e);
+                                }
+                            }}>
                             <FontAwesomeIcon className="location-filter__atd-info" icon="info-circle" /> <span className="location-filter__atd-text">Learn about congressional redistricting</span>
-                        </Link>
+                        </a>
                     </div>
                     <button
                         className="add-location"
@@ -360,3 +374,13 @@ export default class LocationPicker extends React.Component {
 
 LocationPicker.propTypes = propTypes;
 LocationPicker.defaultProps = defaultProps;
+
+const mapDispatchToProps = (dispatch) => ({
+    openATD: (e) => {
+        dispatch(aboutTheDataActions.showAboutTheData());
+        dispatch(slideoutActions.setLastOpenedSlideout('atd'));
+        e.preventDefault();
+    }
+});
+
+export default connect(null, mapDispatchToProps)(LocationPicker);
