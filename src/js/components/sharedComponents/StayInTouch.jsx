@@ -67,7 +67,7 @@ const StayInTouch = (pageName) => {
                     </FlexGridRow>
                 </FlexGridCol>
                 <FlexGridCol
-                    className="stay-in-touch__second-row-container top"
+                    className="stay-in-touch__second-row-container"
                     mobile={12}
                     tablet={12}
                     desktop={3}>
@@ -115,7 +115,7 @@ const StayInTouch = (pageName) => {
                     </div>
                 </FlexGridCol>
                 <FlexGridCol
-                    className="stay-in-touch__second-row-container top"
+                    className="stay-in-touch__second-row-container"
                     mobile={12}
                     tablet={12}
                     desktop={3}>
