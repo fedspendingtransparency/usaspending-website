@@ -306,13 +306,16 @@
 
   .caret {
     width: rem(18);
-    height: rem(14);
+    height: rem(16);
+    border-width: 2px;
+    border-style: solid;
+    border-color: transparent transparent $color-white;
     /* make sure it's above the main dropdown container so now box-shadow bleeds over it */
     z-index: 1;
     position: relative;
     margin-top: $global-margin * .5;
     margin-bottom:0;
-    bottom: -4px;
+    bottom: -5px;
   }
 
   .dropdown-background {
