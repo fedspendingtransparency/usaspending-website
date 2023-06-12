@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from "react-redux";
 import PropTypes from 'prop-types';
-import { Link } from "react-router-dom";
 import GlossaryContainer from 'containers/glossary/GlossaryContainer';
 import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
 import AboutTheDataContainer from "containers/aboutTheDataSidebar/AboutTheDataContainer";
@@ -64,7 +63,18 @@ export class Header extends React.Component {
                         backgroundColor="#e1f3f8"
                         title={<>New congressional district data available</>}
                         content={<>USAspending.gov now has new congressional district data as a result of the 2020 census. Districts are identified sitewide as “current” or “submitted” (i.e., original).{' '}
-                            <Link onClick={this.atdClick}>Learn more about redistricting and the changes you’ll find on the site. </Link>
+                            {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
+                            <span
+                                role="link"
+                                tabIndex={0}
+                                className="info-banner__description-external-link"
+                                onClick={this.atdClick}
+                                onKeyUp={(e) => {
+                                    if (e.key === 'Enter') {
+                                        this.atdClick();
+                                    }
+                                }}>Learn more about redistricting and the changes you’ll find on the site.
+                            </span>
                         </>} />
                     <GovBanner />
                     <NavbarWrapper />
