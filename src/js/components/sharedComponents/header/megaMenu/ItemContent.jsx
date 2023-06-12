@@ -103,9 +103,9 @@ const ItemContent = ({
                                     <>
                                         <li key={`third-section-link-${uniqueId(index)}`} className={menuIndex > 2 ? 'list__extra-padding third__item-margin' : 'list__extra-padding'}>
                                             <FlexGridRow width={6} desktop={6}>
-                                                <Link
+                                                <a
                                                     className="dropdown--item__link"
-                                                    to={item.url}>
+                                                    href={item.url}>
                                                     {item.icon && item.icon !== '' && item.icon !== null ? <FontAwesomeIcon role="presentation" style={{ width: "20px", height: "20px" }} icon={item.icon} /> : ''}
                                                     <div className="dropdown-item__link-desc">
                                                         <div className="dropdown-item__link-label">
@@ -113,7 +113,7 @@ const ItemContent = ({
                                                             <span className="dropdown-item__description">{item.description}</span>
                                                         </div>
                                                     </div>
-                                                </Link>
+                                                </a>
                                             </FlexGridRow>
                                         </li>
                                     </>
