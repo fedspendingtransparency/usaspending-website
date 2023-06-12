@@ -4,6 +4,8 @@
  */
 
 import React from 'react';
+import { useDispatch } from 'react-redux';
+import { showModal } from 'redux/actions/modal/modalActions';
 import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 import PropTypes from "prop-types";
 import Analytics from 'helpers/analytics/Analytics';
@@ -16,6 +18,8 @@ const propTypes = {
 };
 
 const StayInTouch = (pageName) => {
+    const dispatch = useDispatch();
+
     const trackLinkSignUp = () => Analytics.event({
         category: pageName,
         action: 'Link',
@@ -42,7 +46,7 @@ const StayInTouch = (pageName) => {
     };
     const handleSurveyClick = () => {
         trackLinkSurvey();
-        console.log('open survey here');
+        dispatch(showModal("https://forms.office.com/g/neemMd2J4a"));
     };
 
     return (
@@ -87,30 +91,6 @@ const StayInTouch = (pageName) => {
                     </div>
                 </FlexGridCol>
                 <FlexGridCol
-                    className="stay-in-touch__second-row-container top"
-                    mobile={12}
-                    tablet={12}
-                    desktop={3}>
-                    <div className="stay-in-touch__second-row-title">
-                                Get release notes delivered to your inbox
-                    </div>
-                    <div className="stay-in-touch__second-row-text">
-                                Sign up to receive our release notes to keep up with what’s new on USAspending.gov.
-                    </div>
-                    <div className="stay-in-touch__second-row-link">
-                        <Button
-                            copy="Sign Up"
-                            buttonTitle="Sign Up"
-                            buttonSize="md"
-                            onClick={handleSignUp}
-                            buttonType="text"
-                            backgroundColor="light"
-                            imageAlignment="right"
-                            textAlignment="left"
-                            image={<FontAwesomeIcon icon={faArrowRight} style={{ height: '16px', width: '14px' }} />} />
-                    </div>
-                </FlexGridCol>
-                <FlexGridCol
                     className="stay-in-touch__second-row-container"
                     mobile={12}
                     tablet={12}
@@ -131,6 +111,30 @@ const StayInTouch = (pageName) => {
                             backgroundColor="light"
                             textAlignment="left"
                             imageAlignment="right"
+                            image={<FontAwesomeIcon icon={faArrowRight} style={{ height: '16px', width: '14px' }} />} />
+                    </div>
+                </FlexGridCol>
+                <FlexGridCol
+                    className="stay-in-touch__second-row-container top"
+                    mobile={12}
+                    tablet={12}
+                    desktop={3}>
+                    <div className="stay-in-touch__second-row-title">
+                        Get release notes delivered to your inbox
+                    </div>
+                    <div className="stay-in-touch__second-row-text">
+                        Sign up to receive our release notes to keep up with what’s new on USAspending.gov.
+                    </div>
+                    <div className="stay-in-touch__second-row-link">
+                        <Button
+                            copy="Sign Up"
+                            buttonTitle="Sign Up"
+                            buttonSize="md"
+                            onClick={handleSignUp}
+                            buttonType="text"
+                            backgroundColor="light"
+                            imageAlignment="right"
+                            textAlignment="left"
                             image={<FontAwesomeIcon icon={faArrowRight} style={{ height: '16px', width: '14px' }} />} />
                     </div>
                 </FlexGridCol>
