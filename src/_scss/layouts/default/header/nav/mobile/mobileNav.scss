@@ -10,10 +10,7 @@
 
     .mobile-nav__top {
         position: relative;
-        padding: rem(0) rem(32);
-        @media (max-width: $tablet-screen) {
-            padding: rem(0) rem(16);
-    }
+        padding: rem(0) rem(0);
     }
     ul.mobile-dropdown__list {
         padding-left: 0 !important;

@@ -9,6 +9,9 @@
         li.mobile-nav-content__list-item {
             text-align: left;
             padding: rem(0) rem(16) rem(24) rem(16);
+            @media (min-width: $tablet-screen) {
+                padding-left: rem(32);
+        }
             &.mobile-nav-content__list-item_no-phone {
                 @media screen and (max-width: 450px) {
                     display: none;

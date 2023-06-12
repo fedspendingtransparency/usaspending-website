@@ -62,12 +62,15 @@
             .mobile-dropdown__section-icon {
                 color: $blue-warm-60;
                 background-color: $blue-warm-5;
-                width: rem(18);
-                height: rem(18);
+                text-align: center;
+                width: rem(20);
+                height: rem(20);
                 border-radius: rem(4);
+                margin-top: rem(2);
                 .svg {
-                    margin-top: $global-margin * .5;
-                    margin-left: $global-margin * .5;
+                    display: inline;
+                    margin: auto;
+                    vertical-align: middle;
                 }
             }
             .mobile-dropdown__section-label {
@@ -93,12 +96,14 @@
     .mobile-dropdown__section-icon {
         color: $blue-warm-60;
         background-color: $blue-warm-5;
+        text-align: center;
         width: rem(18);
         height: rem(18);
         border-radius: rem(4);
         .svg {
-            margin-top: $global-margin * .5;
-            margin-left: $global-margin * .5;
+            display: inline;
+            margin: auto;
+            vertical-align: middle;
         }
     }
     a.mobile-dropdown__link {
