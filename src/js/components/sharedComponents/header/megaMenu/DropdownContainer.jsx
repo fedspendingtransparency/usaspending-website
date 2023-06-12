@@ -60,10 +60,7 @@ export default class DropdownContainer extends Component {
             <div
                 style={dropdownRoot(this.props)}>
                 <Flipped flipId="dropdown-caret">
-                    <div style={{ height: "24px" }}>
-                        <div className="caret" />
-                        <div className="smaller-caret" />
-                    </div>
+                    <img role="presentation" src="img/caret.svg" alt="" className="caret" />
                 </Flipped>
                 <Flipped flipId="dropdown">
                     <div className="dropdown-background">

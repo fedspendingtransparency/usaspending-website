@@ -305,29 +305,17 @@
   }
 
   .caret {
-    width: 0;
-    height: 0;
-    border-width: 9px;
-    border-style: solid;
-    border-color: transparent transparent $gray-cool-5;
-    /* make sure it's above the main dropdown container so now box-shadow bleeds over it */
-    z-index: 1;
-    position: relative;
-    /* prevent any gap in between caret and main dropdown */
-    top: 7px;
-  }
-
-  .smaller-caret {
-    width: 0;
-    height: 0;
-    border-width: 9px;
+    width: rem(18);
+    height: rem(16);
+    border-width: 1px;
     border-style: solid;
     border-color: transparent transparent $color-white;
     /* make sure it's above the main dropdown container so now box-shadow bleeds over it */
     z-index: 1;
     position: relative;
-    /* prevent any gap in between caret and main dropdown */
-    top: -9px;
+    margin-top: $global-margin * .5;
+    margin-bottom:0;
+    bottom: -5px;
   }
 
   .dropdown-background {
