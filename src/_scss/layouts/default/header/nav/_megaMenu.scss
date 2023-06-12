@@ -307,7 +307,7 @@
   .caret {
     width: rem(18);
     height: rem(16);
-    border-width: 2px;
+    border-width: 1px;
     border-style: solid;
     border-color: transparent transparent $color-white;
     /* make sure it's above the main dropdown container so now box-shadow bleeds over it */
