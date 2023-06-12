@@ -50,12 +50,7 @@ export const defaultLocationValues = {
         name: "",
         code: ""
     },
-    originalDistrict: {
-        code: "",
-        district: "",
-        name: ""
-    },
-    currentDistrict: {
+    district: {
         code: "",
         district: "",
         name: ""
@@ -66,13 +61,12 @@ export const defaultLocationValues = {
     }
 };
 
-const locationProperties = ["country", "state", "originalDistrict", "currentDistrict", "county", "city"];
+const locationProperties = ["country", "state", "district", "county", "city"];
 // Map to unique value for this.state.locationProperty
 const locationPropertyAccessorMap = {
     country: 'code',
     city: 'name',
-    originalDistrict: 'originalDistrict',
-    currentDistrict: 'currentDistrict',
+    district: 'district',
     state: 'code',
     county: 'fips'
 };
@@ -85,15 +79,13 @@ export default class LocationPickerContainer extends React.Component {
             availableCountries: [],
             availableStates: [],
             availableCounties: [],
-            availableOriginalDistricts: [],
-            availableCurrentDistricts: [],
+            availableDistricts: [],
             availableCities: [],
             country: Object.assign({}, defaultLocationValues.country),
             state: Object.assign({}, defaultLocationValues.state),
             county: Object.assign({}, defaultLocationValues.county),
             city: Object.assign({}, defaultLocationValues.city),
-            currentDistrict: Object.assign({}, defaultLocationValues.currentDistrict),
-            originalDistrict: Object.assign({}, defaultLocationValues.originalDistrict),
+            district: Object.assign({}, defaultLocationValues.district),
             zip: Object.assign({}, defaultLocationValues.zip),
             citySearchString: "",
             loading: false
@@ -111,8 +103,7 @@ export default class LocationPickerContainer extends React.Component {
 
         this.clearStates = this.clearStates.bind(this);
         this.clearCounties = this.clearCounties.bind(this);
-        this.clearOriginalDistricts = this.clearOriginalDistricts.bind(this);
-        this.clearCurrentDistricts = this.clearCurrentDistricts.bind(this);
+        this.clearDistricts = this.clearDistricts.bind(this);
         this.clearCitiesAndSelectedCity = this.clearCitiesAndSelectedCity.bind(this);
 
         this.selectEntity = this.selectEntity.bind(this);
@@ -278,22 +269,11 @@ export default class LocationPickerContainer extends React.Component {
             this.districtRequest.cancel();
         }
 
-        this.districtRequest = fetchLocationList(`congressional/current/${state}_districts`);
-        this.districtRequest.promise
-            .then((res) => {
-                this.parseCurrentDistricts(res.data);
-            })
-            .catch((err) => {
-                if (!isCancel(err)) {
-                    console.log(err);
-                }
-            });
-
-        this.districtRequest = fetchLocationList(`congressional/original/${state}_districts`);
+        this.districtRequest = fetchLocationList(`congressional/${state}_districts`);
 
         this.districtRequest.promise
             .then((res) => {
-                this.parseOriginalDistricts(res.data);
+                this.parseDistricts(res.data);
             })
             .catch((err) => {
                 if (!isCancel(err)) {
@@ -302,13 +282,13 @@ export default class LocationPickerContainer extends React.Component {
             });
     }
 
-    parseOriginalDistricts(data) {
+    parseDistricts(data) {
     // prepend a blank district to act as a de-select option
         let districts = [];
         if (data.districts.length > 0) {
             districts = concat(
                 [
-                    Object.assign({}, defaultLocationValues.originalDistrict, {
+                    Object.assign({}, defaultLocationValues.district, {
                         name: "All congressional districts"
                     })
                 ],
@@ -317,41 +297,15 @@ export default class LocationPickerContainer extends React.Component {
         }
 
         this.setState({
-            availableOriginalDistricts: districts,
-            originalDistrict: Object.assign({}, defaultLocationValues.originalDistrict)
+            availableDistricts: districts,
+            district: Object.assign({}, defaultLocationValues.district)
         });
     }
 
-    parseCurrentDistricts(data) {
-        // prepend a blank district to act as a de-select option
-        let districts = [];
-        if (data.districts.length > 0) {
-            districts = concat(
-                [
-                    Object.assign({}, defaultLocationValues.currentDistrict, {
-                        name: "All congressional districts"
-                    })
-                ],
-                data.districts
-            );
-        }
-
+    clearDistricts() {
         this.setState({
-            availableCurrentDistricts: districts,
-            currentDistrict: Object.assign({}, defaultLocationValues.currentDistrict)
-        });
-    }
-
-    clearOriginalDistricts() {
-        this.setState({
-            availableOriginalDistricts: [],
-            originalDistrict: Object.assign({}, defaultLocationValues.originalDistrict)
-        });
-    }
-    clearCurrentDistricts() {
-        this.setState({
-            availableCurrentDistricts: [],
-            currentDistrict: Object.assign({}, defaultLocationValues.currentDistrict)
+            availableDistricts: [],
+            district: Object.assign({}, defaultLocationValues.district)
         });
     }
 
@@ -386,7 +340,6 @@ export default class LocationPickerContainer extends React.Component {
                 );
             this.setState({ country: countryFromCity });
         }
-
         this.setState({
             [level]: value
         });
@@ -434,20 +387,6 @@ export default class LocationPickerContainer extends React.Component {
                 const parsedKeyValue = prop === 'city'
                     ? this.state.city.name.split(", ").filter((str) => str !== this.state.city.code).join(", ")
                     : this.state[prop][accessor];
-
-                let entityValue = '';
-                if (prop === 'district') {
-                    entityValue = 'Congressional district';
-                }
-                else if (prop === 'originalDistrict') {
-                    entityValue = 'Original congressional district';
-                }
-                else if (prop === 'currentDistrict') {
-                    entityValue = 'Current congressional district';
-                }
-                else {
-                    entityValue = `${prop.substr(0, 1).toUpperCase()}${prop.substr(1)}`;
-                }
                 return {
                     identifier: prop === 'country' // init identifier value w/o appended '_'
                         ? this.state.country.code
@@ -457,7 +396,9 @@ export default class LocationPickerContainer extends React.Component {
                         [prop]: parsedKeyValue
                     },
                     display: {
-                        entity: `${entityValue}`,
+                        entity: prop === 'district'
+                            ? 'Congressional district'
+                            : `${prop.substr(0, 1).toUpperCase()}${prop.substr(1)}`,
                         standalone: prop === 'county'
                             ? `${this.state.county.name}, ${this.state.state.code}`
                             : this.state[prop].name,
@@ -622,8 +563,7 @@ export default class LocationPickerContainer extends React.Component {
                 clearStates={this.clearStates}
                 clearCitiesAndSelectedCity={this.clearCitiesAndSelectedCity}
                 clearCounties={this.clearCounties}
-                clearOriginalDistricts={this.clearOriginalDistricts}
-                clearCurrentDistricts={this.clearCurrentDistricts}
+                clearDistricts={this.clearDistricts}
                 selectEntity={this.selectEntity}
                 createLocationObject={this.createLocationObject}
                 addLocation={this.addLocation}
