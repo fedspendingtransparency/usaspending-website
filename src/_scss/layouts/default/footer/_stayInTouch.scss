@@ -12,7 +12,7 @@
   .stay-in-touch__container-row {
     @media (min-width: $medium-screen) {
       flex-flow: row nowrap;
-      justify-content: flex-start;
+      justify-content: space-between;
     }
 
     @media (min-width: $m-large-screen) {
