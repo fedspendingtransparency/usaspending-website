@@ -40,6 +40,7 @@
             .location-filter__atd-link {
                 align-items: center;
                 display: flex;
+                color: $blue-50;
                 &:hover {
                     color: $blue-vivid-70;
                     cursor: pointer;

@@ -5,7 +5,6 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { isEqual } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -15,8 +14,11 @@ import ZIPField from './ZIPField';
 import { defaultLocationValues } from "../../../../containers/search/filters/location/LocationPickerContainer";
 import FeatureFlag from "../../../sharedComponents/FeatureFlag";
 import { CDTooltip } from "../tooltips/AdvancedSearchTooltip";
-import * as aboutTheDataActions from '../../../../redux/actions/aboutTheDataSidebar/aboutTheDataActions';
-import * as slideoutActions from '../../../../redux/actions/slideouts/slideoutActions';
+import {
+    setAboutTheDataTermFromUrl,
+    showAboutTheData
+} from "../../../../redux/actions/aboutTheDataSidebar/aboutTheDataActions";
+import { setLastOpenedSlideout } from "../../../../redux/actions/slideouts/slideoutActions";
 
 const propTypes = {
     selectedLocations: PropTypes.object,
@@ -62,6 +64,7 @@ class LocationPicker extends React.Component {
 
         this.submitForm = this.submitForm.bind(this);
         this.generateDisclaimer = this.generateDisclaimer.bind(this);
+        this.atdClick = this.atdClick.bind(this);
     }
 
     componentDidUpdate(prevProps) {
@@ -129,6 +132,13 @@ class LocationPicker extends React.Component {
         e.preventDefault();
     }
 
+    atdClick() {
+        this.props.openATD();
+        // make sure it will open on top of glossary if glossary is already open
+        this.props.setSlideout('atd');
+        this.props.setATDTerm('congressional-district-data');
+    }
+
     generateDisclaimer(field) {
         if (!this.props.country.code) {
             // no country provided
@@ -183,9 +193,6 @@ class LocationPicker extends React.Component {
         );
     }
 
-    openATD (e) {
-        
-    }
     render() {
         const isUSA = this.props.country.code === "USA";
 
@@ -337,17 +344,18 @@ class LocationPicker extends React.Component {
                             generateDisclaimer={this.generateDisclaimer} />
                     </div>
                     <div className="location-filter__link-container">
-                        <a
+                        <span
                             role="link"
+                            tabIndex={0}
                             className="location-filter__atd-link"
-                            onClick={openATD(e)}
+                            onClick={this.atdClick}
                             onKeyUp={(e) => {
                                 if (e.key === 'Enter') {
-                                    openATD(e);
+                                    this.atdClick();
                                 }
                             }}>
                             <FontAwesomeIcon className="location-filter__atd-info" icon="info-circle" /> <span className="location-filter__atd-text">Learn about congressional redistricting</span>
-                        </a>
+                        </span>
                     </div>
                     <button
                         className="add-location"
@@ -376,11 +384,8 @@ LocationPicker.propTypes = propTypes;
 LocationPicker.defaultProps = defaultProps;
 
 const mapDispatchToProps = (dispatch) => ({
-    openATD: (e) => {
-        dispatch(aboutTheDataActions.showAboutTheData());
-        dispatch(slideoutActions.setLastOpenedSlideout('atd'));
-        e.preventDefault();
-    }
+    openATD: () => dispatch(showAboutTheData()),
+    setATDTerm: (term) => dispatch(setAboutTheDataTermFromUrl(term)),
+    setSlideout: (str) => dispatch(setLastOpenedSlideout(str))
 });
-
 export default connect(null, mapDispatchToProps)(LocationPicker);
