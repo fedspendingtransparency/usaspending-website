@@ -72,15 +72,15 @@ const StayInTouch = (pageName) => {
                     tablet={12}
                     desktop={3}>
                     <div className="stay-in-touch__second-row-title">
-                        Your Data, Your Story
+                        Share your story
                     </div>
                     <div className="stay-in-touch__second-row-text">
-                        Love USAspending.gov? Help others learn about how you use the data!
+                        Love USAspending.gov? Join the "Your Data, Your Story" campaign to share how you use the data!
                     </div>
                     <div className="stay-in-touch__second-row-link">
                         <Button
-                            copy="Share your story"
-                            buttonTitle="Share your story"
+                            copy="Sign Up"
+                            buttonTitle="Sign Up"
                             buttonSize="md"
                             onClick={handleSurveyClick}
                             buttonType="text"
@@ -96,7 +96,7 @@ const StayInTouch = (pageName) => {
                     tablet={12}
                     desktop={3}>
                     <div className="stay-in-touch__second-row-title">
-                                Request a USAspending training session
+                                Request a training session
                     </div>
                     <div className="stay-in-touch__second-row-text">
                                 Receive customized training for your organization on how to use our tools and data.
@@ -120,7 +120,7 @@ const StayInTouch = (pageName) => {
                     tablet={12}
                     desktop={3}>
                     <div className="stay-in-touch__second-row-title">
-                        Get release notes delivered to your inbox
+                        Get release notes to your inbox
                     </div>
                     <div className="stay-in-touch__second-row-text">
                         Sign up to receive our release notes to keep up with what’s new on USAspending.gov.
