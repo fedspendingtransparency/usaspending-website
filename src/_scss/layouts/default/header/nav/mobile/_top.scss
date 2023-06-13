@@ -5,12 +5,14 @@
         padding-left: rem(16);
         @media (min-width: $tablet-screen) {
             padding-left: rem(32);
+        }
     }
-    }
-    .usa-banner__wrapper  {
-        margin-left: 0 !important;
-        background-color: $theme-color-background;
-        padding: rem(0) rem(16) rem(24) rem(16);
+}
+.usa-banner__wrapper  {
+    margin-left: 0 !important;
+    background-color: $theme-color-background;
+    @media (max-width: $tablet-screen) {
+        padding-bottom: rem(9);
     }
 }
 .mobile-nav-header {

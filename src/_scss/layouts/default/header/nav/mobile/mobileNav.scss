@@ -7,6 +7,9 @@
     z-index: $z-mobile-nav;
     overflow-y: auto;
     background-color: $color-white;
+    @media (min-width: $medium-screen) {
+        display: none;
+    }
 
     .mobile-nav__top {
         position: relative;

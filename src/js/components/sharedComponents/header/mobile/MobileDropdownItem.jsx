@@ -65,7 +65,7 @@ const MobileDropdownItem = ({
                                         <div className="mobile-dropdown__section-icon">
                                             {item.icon && item.icon !== '' && item.icon !== null ? <FontAwesomeIcon role="presentation" icon={item.icon} style={{ width: "12px", height: "100%" }} /> : ''}
                                         </div>
-                                        <div className="mobile-dropdown__section-label">
+                                        <div className="mobile-dropdown__section-one-label">
                                             {item.label}
                                         </div>
                                     </Link>
@@ -117,7 +117,7 @@ const MobileDropdownItem = ({
                                     <div className={item.icon && item.icon !== '' && item.icon !== null ? "mobile-dropdown__section-icon" : ""}>
                                         <FontAwesomeIcon role="presentation" icon={item.icon} style={{ width: "12px", height: "100%" }} />
                                     </div>
-                                    <div className="mobile-dropdown__section-label">
+                                    <div className="mobile-dropdown__section-label-section-one">
                                         {item.label}
                                     </div>
                                 </Link>

@@ -78,6 +78,12 @@
                 font-weight: $font-semibold;
                 color: $gray-90;
             }
+            .mobile-dropdown__section-one-label {
+                padding-left: rem(4);
+                font-size: $font-size-16;
+                font-weight: $font-semibold;
+                color: $gray-90;
+            }
         }
         .mobile-dropdown__section-description {
             font-size: $font-size-12;
@@ -86,7 +92,7 @@
         .mobile-dropdown__section-one-description {
             font-size: $font-size-12;
             color: $gray-60;
-            padding-left: rem(22);
+            padding-left: rem(24);
         }
     }
     .mobile-dropdown_main-container {
