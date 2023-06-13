@@ -170,7 +170,7 @@ export default class EntityDropdown extends React.Component {
         }
         if (this.props.type === "button") {
             // we don't want to move focus to the dropdown if we're using autocomplete
-            activeSelection.focus();
+            activeSelection?.focus();
         }
     }
 
