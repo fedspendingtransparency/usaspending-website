@@ -108,7 +108,9 @@ const HomepageResources = () => {
                 dispatch(glossaryActions.clearGlossaryTerm());
                 dispatch(glossaryActions.showGlossary());
                 dispatch(slideoutActions.setLastOpenedSlideout('glossary'));
-            }
+            },
+            govLink: false,
+            onlyPerformAction: true
         }
     ];
 
@@ -149,6 +151,7 @@ const HomepageResources = () => {
                                                 text={card.buttonText}
                                                 link={card.buttonLink}
                                                 govLink={card.govLink}
+                                                onlyPerformAction={card.onlyPerformAction}
                                                 action={card.action} />
                                         </CardBody>
                                     </CardContainer>
