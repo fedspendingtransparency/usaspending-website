@@ -33,6 +33,9 @@
     &:active {
       color: $gray-60;
     }
+    .navbar-item-title-hover {
+      color: $gray-60 !important;
+    }
 
     .navbar-chevron-icon {
       svg {
