@@ -12,7 +12,7 @@
   .stay-in-touch__container-row {
     @media (min-width: $medium-screen) {
       flex-flow: row nowrap;
-      justify-content: flex-start;
+      justify-content: space-between;
     }
 
     @media (min-width: $m-large-screen) {
@@ -71,10 +71,8 @@
       @media (min-width: $m-large-screen) and (max-width: 1466px) {
         margin-right: $global-margin * 4;
       }
-      &.top {
-        @media (max-width: $tablet-screen) {
-          margin-bottom: $global-margin * 3;
-        }
+      @media (max-width: $medium-screen) {
+        margin-bottom: $global-margin * 3;
       }
       .stay-in-touch__second-row-title {
         font-size: $font-size-20;
