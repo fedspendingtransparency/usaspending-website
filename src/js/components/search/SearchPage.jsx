@@ -77,7 +77,10 @@ export default class SearchPage extends React.Component {
 
 
     getSlugWithHash() {
-        return `${slug}?hash=${this.props.hash}`;
+        if (this.props.hash) {
+            return `${slug}?hash=${this.props.hash}`;
+        }
+        return slug;
     }
 
     handleShare = (name) => {
