@@ -168,6 +168,7 @@
     "data-transparency-ui": "github:fedspendingtransparency/data-transparency-ui#v5.6.2",
     "date-fns": "^2.16.1",
     "dompurify": "^2.4.1",
+    "dottie": "^2.0.4",
     "file-loader": "^6.2.0",
     "focus-trap-react": "^9.0.2",
     "history": "^4.6.1",

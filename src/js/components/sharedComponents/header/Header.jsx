@@ -1,21 +1,26 @@
 import React from 'react';
+import { connect } from "react-redux";
 import PropTypes from 'prop-types';
-
 import GlossaryContainer from 'containers/glossary/GlossaryContainer';
 import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
 import AboutTheDataContainer from "containers/aboutTheDataSidebar/AboutTheDataContainer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import ExternalLink from 'components/sharedComponents/ExternalLink';
 import NavbarWrapper from './NavbarWrapper';
 import InfoBanner from "./InfoBanner";
 import GovBanner from "./GovBanner";
+import {
+    setAboutTheDataTermFromUrl,
+    showAboutTheData
+} from "../../../redux/actions/aboutTheDataSidebar/aboutTheDataActions";
+import { setLastOpenedSlideout } from "../../../redux/actions/slideouts/slideoutActions";
 
-export default class Header extends React.Component {
+export class Header extends React.Component {
     constructor(props) {
         super(props);
 
         // bind functions
         this.skippedNav = this.skippedNav.bind(this);
+        this.atdClick = this.atdClick.bind(this);
     }
 
     skippedNav(e) {
@@ -30,6 +35,13 @@ export default class Header extends React.Component {
         if (mainFocus) {
             mainFocus.focus();
         }
+    }
+
+    atdClick() {
+        this.props.openATD();
+        // make sure it will open on top of glossary if glossary is already open
+        this.props.setSlideout('atd');
+        this.props.setATDTerm('congressional-district-data');
     }
 
     render() {
@@ -49,8 +61,21 @@ export default class Header extends React.Component {
                         borderTopColor="#97d4ea"
                         borderBottomColor="#c3ebfa"
                         backgroundColor="#e1f3f8"
-                        title={<>Love using USAspending.gov?&nbsp;<br className="info-banner__linebreak" />Tell us more!</>}
-                        content={<>USAspending.gov is looking to share stories of how federal spending data has improved your life or increased your trust in government.&nbsp;<ExternalLink isCard url="https://forms.office.com/g/neemMd2J4a">Share your story and you may be featured in an upcoming USAspending Youtube video!</ExternalLink></>} />
+                        title={<>New congressional district data available</>}
+                        content={<>USAspending.gov now has new congressional district data as a result of the 2020 census. Districts are identified sitewide as “current” or “submitted” (i.e., original).{' '}
+                            {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events */}
+                            <span
+                                role="link"
+                                tabIndex={0}
+                                className="info-banner__description-external-link"
+                                onClick={this.atdClick}
+                                onKeyUp={(e) => {
+                                    if (e.key === 'Enter') {
+                                        this.atdClick();
+                                    }
+                                }}>Learn more about redistricting and the changes you’ll find on the site.
+                            </span>
+                        </>} />
                     <GovBanner />
                     <NavbarWrapper />
                 </header>
@@ -63,5 +88,17 @@ export default class Header extends React.Component {
 }
 
 Header.propTypes = {
-    showModal: PropTypes.func
+    showModal: PropTypes.func,
+    openATD: PropTypes.func,
+    setATDTerm: PropTypes.func,
+    setSlideout: PropTypes.func
 };
+
+const mapDispatchToProps = (dispatch) => ({
+    openATD: () => dispatch(showAboutTheData()),
+    setATDTerm: (term) => dispatch(setAboutTheDataTermFromUrl(term)),
+    setSlideout: (str) => dispatch(setLastOpenedSlideout(str))
+});
+
+export default connect(null, mapDispatchToProps)(Header);
+

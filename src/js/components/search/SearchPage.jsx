@@ -162,8 +162,7 @@ export default class SearchPage extends React.Component {
                 metaTagProps={MetaTagHelper.getSearchPageMetaTags(this.state.hash)}
                 toolBarComponents={[
                     <ShareIcon
-                        isEnabled={this.props.downloadAvailable}
-                        downloadInFlight={this.props.downloadInFlight}
+                        isEnabled
                         url={getBaseUrl(this.getSlugWithHash())}
                         onShareOptionClick={this.handleShare} />,
                     <DownloadIconButton
