@@ -15,6 +15,9 @@
         height: rem(45);
         position: relative;
         width: rem(48);
+        .svg {
+            color: $gray-cool-90;
+        }
     }
 
     .mobile-hamburger__meat-buns {

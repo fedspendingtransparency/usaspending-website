@@ -8,9 +8,9 @@
 
         li.mobile-nav-content__list-item {
             text-align: left;
-            padding: rem(0) rem(16) rem(24) rem(16);
+            margin: rem(0) rem(16) rem(24) rem(16);
             @media (min-width: $tablet-screen) {
-                padding-left: rem(32);
+                margin: rem(0) rem(32) rem(24) rem(32);
         }
             &.mobile-nav-content__list-item_no-phone {
                 @media screen and (max-width: 450px) {
@@ -46,11 +46,11 @@
         hr.mobile-nav-content__divider {
             border: none;
             border-bottom: 2px solid $gray-cool-10;
-            width: 100%;
-            margin-left: auto;
-            margin-right: auto;
-            margin-top: rem(0);
-            margin-bottom: rem(20);
+            width: auto;
+            margin: rem(0) rem(16) rem(24) rem(16);
+            @media (min-width: $tablet-screen) {
+                margin: rem(0) rem(32) rem(24) rem(32);
+        }
         }
     }
 }

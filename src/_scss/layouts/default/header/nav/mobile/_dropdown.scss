@@ -3,14 +3,14 @@
     flex-direction: column;
     margin: rem(16) rem(0);
     padding: rem(0) rem(32);
-    @media (max-width: $tablet-screen) {
+    @media (max-width: $tablet-screen - 1) {
         padding: rem(0) rem(16);
     }
     hr {
+        border: none;
+        border-bottom: 2px solid $gray-cool-10;
         width: 100%;
-        height: rem(2);
-        color: $gray-cool-10;
-        margin-right: rem(16);
+        margin: rem(8) auto rem(0) auto;
     }
     .mobile-dropdown__section {
         padding-left: rem(26);
@@ -37,11 +37,14 @@
 
     .mobile-dropdown__sub {
         font-size: $font-size-12;
+        line-height: $base-line-height;
         color: $gray-60;
+        padding-top: rem(4);
     }
     .mobile-dropdown__sub-two {
         font-size: $font-size-12;
         color: $gray-60;
+        line-height: $base-line-height;
         padding-left: rem(26);
     }
 
@@ -51,8 +54,7 @@
             padding-left: rem(0);
         }
         hr {
-            height: rem(2);
-            color: $gray-cool-5;
+            border-bottom: 2px solid $gray-cool-5;
             margin: rem(24) rem(0);
         }
         .mobile-dropdown__section-row-one {
@@ -79,7 +81,7 @@
                 color: $gray-90;
             }
             .mobile-dropdown__section-one-label {
-                padding-left: rem(4);
+                padding-left: rem(8);
                 font-size: $font-size-16;
                 font-weight: $font-semibold;
                 color: $gray-90;
@@ -92,7 +94,7 @@
         .mobile-dropdown__section-one-description {
             font-size: $font-size-12;
             color: $gray-60;
-            padding-left: rem(24);
+            padding-left: rem(28);
         }
     }
     .mobile-dropdown_main-container {
