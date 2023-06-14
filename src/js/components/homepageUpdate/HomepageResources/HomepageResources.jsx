@@ -67,7 +67,7 @@ const HomepageResources = () => {
             headline: 'About the Data',
             text: 'Read important data disclosures',
             buttonText: (
-                <div className="homepage-resources__atd-link-container">
+                <div className="homepage-resources__link-container">
                     View the disclosures&nbsp;&nbsp;
                     <FontAwesomeIcon icon="arrow-right" />
                 </div>
@@ -93,7 +93,7 @@ const HomepageResources = () => {
             headline: 'Glossary',
             text: 'Learn about spending terms',
             buttonText: (
-                <div className="homepage-resources__glossary-link-container">
+                <div className="homepage-resources__link-container">
                     <div>View the glossary&nbsp;&nbsp;
                         <FontAwesomeIcon icon="arrow-right" />
                     </div>
