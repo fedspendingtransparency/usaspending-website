@@ -8,9 +8,9 @@ const globalInfoBanner = 'usaspending_info-banner';
 
 const propTypes = {
     closeBanner: PropTypes.func,
-    title: PropTypes.string,
-    content: PropTypes.string,
-    icon: PropTypes.string
+    title: PropTypes.object,
+    content: PropTypes.object,
+    icon: PropTypes.object
 };
 
 const InfoBanner = (props) => {
@@ -41,7 +41,7 @@ const InfoBanner = (props) => {
                 borderBottom: `1px solid ${props.borderBottomColor}`
             }}>
             <div className="info-banner__content">
-                <div className="info-banner__icon">
+                <div>
                     {props.icon}
                 </div>
                 <>
