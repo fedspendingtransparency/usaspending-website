@@ -8,11 +8,15 @@ import PropTypes from 'prop-types';
 import Mousetrap from 'mousetrap';
 import { uniqueId, isEqual } from 'lodash';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { TooltipWrapper } from "data-transparency-ui";
 import { defaultLocationValues }
     from "containers/search/filters/location/LocationPickerContainer";
+
 import EntityDropdownList from './EntityDropdownList';
 import EntityWarning from './EntityWarning';
 import { EntityDropdownAutocomplete } from './EntityDropdownAutocomplete';
+import FeatureFlag from "../../../sharedComponents/FeatureFlag";
+import { CDTooltip } from "../tooltips/AdvancedSearchTooltip";
 
 const propTypes = {
     value: PropTypes.object,
@@ -144,13 +148,7 @@ export default class EntityDropdown extends React.Component {
             // just update the search string, don't perform search
             this.props.setSearchString(item.name, false);
         }
-        if (this.props.title.includes("Original Congressional")) {
-            this.props.selectEntity("originalDistrict", item);
-        }
-        else if (this.props.title.includes("Current Congressional")) {
-            this.props.selectEntity("currentDistrict", item);
-        }
-        else if (item.code !== "NA-000") {
+        if (item.code !== "NA-000") {
             this.props.selectEntity(this.props.field, item);
         }
         this.closeDropdown();
@@ -172,7 +170,7 @@ export default class EntityDropdown extends React.Component {
         }
         if (this.props.type === "button") {
             // we don't want to move focus to the dropdown if we're using autocomplete
-            activeSelection.focus();
+            activeSelection?.focus();
         }
     }
 
@@ -292,18 +290,23 @@ export default class EntityDropdown extends React.Component {
         return (
             <div
                 className="geo-entity-item">
-                {(this.props.title.includes('Congressional Districts')) ?
-                    <label
-                        className={`location-label__overline ${disabled}`}
-                        htmlFor={`${field}-${type}-${uniqueIdentifier}`}>
-                        {this.props.title}
-                    </label> :
+                <div className="location-label__with-tt">
                     <label
                         className={`location-label ${disabled}`}
                         htmlFor={`${field}-${type}-${uniqueIdentifier}`}>
                         {this.props.title}
                     </label>
-                }
+                    {this.props.title === 'CONGRESSIONAL DISTRICT (US ONLY)' ?
+                        <FeatureFlag>
+                            <div>
+                                <TooltipWrapper
+                                    className="advanced-search__cd-tooltip"
+                                    icon="info"
+                                    tooltipComponent={<CDTooltip />} />
+                            </div>
+                        </FeatureFlag>
+                        : ''}
+                </div>
                 <div
                     id={`${field}-${type}-${uniqueIdentifier}`}
                     className={`geo-entity-dropdown ${disabled} ${autocompleteClass}`}
@@ -370,4 +373,3 @@ export default class EntityDropdown extends React.Component {
 
 EntityDropdown.propTypes = propTypes;
 EntityDropdown.defaultProps = defaultProps;
-

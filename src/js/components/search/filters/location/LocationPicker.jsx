@@ -5,13 +5,10 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { isEqual } from 'lodash';
-import { TooltipWrapper } from "data-transparency-ui";
+
 import EntityDropdown from './EntityDropdown';
 import ZIPField from './ZIPField';
 import { defaultLocationValues } from "../../../../containers/search/filters/location/LocationPickerContainer";
-import FeatureFlag from "../../../sharedComponents/FeatureFlag";
-import { CDTooltip } from "../tooltips/AdvancedSearchTooltip";
 
 const propTypes = {
     selectedLocations: PropTypes.object,
@@ -19,14 +16,12 @@ const propTypes = {
     state: PropTypes.object,
     county: PropTypes.object,
     city: PropTypes.object,
-    currentDistrict: PropTypes.object,
-    originalDistrict: PropTypes.object,
+    district: PropTypes.object,
     zip: PropTypes.object,
     availableCountries: PropTypes.array,
     availableStates: PropTypes.array,
     availableCounties: PropTypes.array,
-    availableCurrentDistricts: PropTypes.array,
-    availableOriginalDistricts: PropTypes.array,
+    availableDistricts: PropTypes.array,
     availableCities: PropTypes.array,
     selectEntity: PropTypes.func,
     loadStates: PropTypes.func,
@@ -34,8 +29,7 @@ const propTypes = {
     loadDistricts: PropTypes.func,
     clearStates: PropTypes.func,
     clearCounties: PropTypes.func,
-    clearOriginalDistricts: PropTypes.func,
-    clearCurrentDistricts: PropTypes.func,
+    clearDistricts: PropTypes.func,
     clearCitiesAndSelectedCity: PropTypes.func,
     createLocationObject: PropTypes.func,
     addLocation: PropTypes.func,
@@ -60,12 +54,11 @@ export default class LocationPicker extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-        // a state that was autoPopulated and then removed via city de-selection will have prevProps.state.autoPopulated === true
+    // a state that was autoPopulated and then removed via city de-selection will have prevProps.state.autoPopulated === true
         const manuallyPopulatedStateChanged = (!prevProps.state.autoPopulated && (prevProps.state.code !== this.props.state.code));
         const manuallyPopulatedCountryChanged = (!this.props.country.autoPopulated && (prevProps.country.code !== this.props.country.code));
         const stateChanged = (prevProps.state.code !== this.props.state.code);
         const countryChanged = (prevProps.country.code !== this.props.country.code);
-
         const isCityInState = ( // selected city is w/in the selected state
             this.props.country.code === 'USA' &&
             this.props.state.code === this.props.city.code &&
@@ -103,8 +96,7 @@ export default class LocationPicker extends React.Component {
         else if (stateChanged && !this.props.state.code) {
             // manually selected state was removed, clear counties, districts & cities
             this.props.clearCounties();
-            this.props.clearOriginalDistricts();
-            this.props.clearCurrentDistricts();
+            this.props.clearDistricts();
             if (manuallyPopulatedStateChanged) {
                 this.props.clearCitiesAndSelectedCity();
             }
@@ -145,12 +137,11 @@ export default class LocationPicker extends React.Component {
         else if (this.props.country.code === 'USA') {
             const {
                 state,
-                originalDistrict,
-                currentDistrict,
+                district,
                 county,
                 city
             } = this.props;
-            const countyOrDistrictSelected = ((originalDistrict.district || currentDistrict.district) || county.code);
+            const countyOrDistrictSelected = (district.district || county.code);
             if (!state.code) {
                 // no state
                 return (
@@ -161,8 +152,8 @@ export default class LocationPicker extends React.Component {
                     </span>
                 );
             }
-            else if (countyOrDistrictSelected || (city.code && ((!originalDistrict || !currentDistrict) || !county.code))) {
-                const selectedField = (originalDistrict.district || currentDistrict.district) ? "congressional district" : "county"; // if evaluates to county, double check it's not actually city
+            else if (countyOrDistrictSelected || (city.code && (!district.district || !county.code))) {
+                const selectedField = (district.district) ? "congressional district" : "county"; // if evaluates to county, double check it's not actually city
                 return (
                     <span>
                         You cannot select both a <span className="field">{(selectedField === "county" && !county.code) ? "city" : selectedField}</span> and a <span className="field"> {field}</span>.
@@ -184,13 +175,11 @@ export default class LocationPicker extends React.Component {
         const isCityEnabled = (
             this.props.country.code !== "" &&
             !this.props.county.code &&
-            !this.props.currentDistrict?.district &&
-            !this.props.originalDistrict?.district
+            !this.props.district.district
         );
         const isCountyEnabled = (
             this.props.state.code !== "" &&
-            !this.props.currentDistrict?.district &&
-            !this.props.originalDistrict?.district &&
+            !this.props.district.district &&
             !this.props.city.code
         );
         const isDistrictEnabled = (
@@ -199,20 +188,8 @@ export default class LocationPicker extends React.Component {
             !this.props.city.code
         );
 
-        const isOriginalDistrictEnabled = (isDistrictEnabled && (isEqual(this.props.currentDistrict, defaultLocationValues.currentDistrict) || isEqual(this.props.currentDistrict, {
-            code: '',
-            district: '',
-            name: 'All congressional districts'
-        })));
-        const isCurrentDistrictEnabled = (isDistrictEnabled && (isEqual(this.props.originalDistrict, defaultLocationValues.originalDistrict) || isEqual(this.props.originalDistrict, {
-            code: '',
-            district: '',
-            name: 'All congressional districts'
-        })));
-
         let districtPlaceholder = 'Select a congressional district';
-
-        if (this.props.state.code !== '' && (this.props.availableOriginalDistricts?.length === 0 || this.props.availableCurrentDistricts?.length === 0)) {
+        if (this.props.state.code !== '' && this.props.availableDistricts.length === 0) {
             // no districts in this state
             districtPlaceholder = 'No congressional districts in territory';
         }
@@ -235,6 +212,7 @@ export default class LocationPicker extends React.Component {
             this.props.country.code !== 'USA' &&
             this.props.country.code !== ''
         );
+
         return (
             <div>
                 <form
@@ -290,42 +268,16 @@ export default class LocationPicker extends React.Component {
                             searchString={this.props.citySearchString}
                             showDisclaimer={showDisclaimer} />
                     </div>}
-
-                    <div className={`location-item__cd ${isDistrictEnabled === false ? "disabled" : ""}`}>
-                        <span className="location-label__with-tt">CONGRESSIONAL DISTRICT (US ONLY)</span>
-                        <FeatureFlag>
-                            <div>
-                                <TooltipWrapper
-                                    className="advanced-search__cd-tooltip"
-                                    icon="info"
-                                    tooltipComponent={<CDTooltip />} />
-                            </div>
-                        </FeatureFlag>
-                    </div>
-                    <FeatureFlag>
-                        <div className="location-item__with-overline">
-                            <EntityDropdown
-                                field="district"
-                                matchKey="district"
-                                placeholder={districtPlaceholder}
-                                title="Current Congressional Districts (based on 2023 redistricting) - for QAT only"
-                                value={this.props.currentDistrict}
-                                selectEntity={this.props.selectEntity}
-                                options={this.props.availableCurrentDistricts}
-                                enabled={isCurrentDistrictEnabled}
-                                generateDisclaimer={this.generateDisclaimer} />
-                        </div>
-                    </FeatureFlag>
-                    <div className="location-item__with-overline">
+                    <div className="location-item">
                         <EntityDropdown
                             field="district"
                             matchKey="district"
                             placeholder={districtPlaceholder}
-                            title="Original Congressional Districts (as reported by federal agencies)"
-                            value={this.props.originalDistrict}
+                            title="CONGRESSIONAL DISTRICT (US ONLY)"
+                            value={this.props.district}
                             selectEntity={this.props.selectEntity}
-                            options={this.props.availableOriginalDistricts}
-                            enabled={isOriginalDistrictEnabled}
+                            options={this.props.availableDistricts}
+                            enabled={isDistrictEnabled}
                             generateDisclaimer={this.generateDisclaimer} />
                     </div>
                     <button

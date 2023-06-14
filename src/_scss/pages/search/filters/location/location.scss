@@ -20,30 +20,11 @@
     
             .location-item {
                 margin-top: rem(15);
-                &:first-child {
-                    margin-top: rem(10);
-                }
-            }
-
-            .location-item__with-overline {
-                margin-top: rem(10);
-                &:last-child {
-                    margin-bottom: rem(15);
-                }
-            }
-
-            .location-item__cd {
-                display: flex;
-                align-items: center;
-                margin-top: rem(15);
     
                 &:first-child {
                     margin-top: rem(10);
                 }
-                &.disabled {
-                    opacity: 0.4;
-                }
-
+    
                 .location-label__with-tt {
                     display: flex;
                     align-items: center;
@@ -53,6 +34,7 @@
                         display: unset;
                         text-transform: none !important;
                     }
+    
                 }
             }
 
@@ -61,15 +43,6 @@
             font-size: $base-font-size;
             text-transform: uppercase;
 
-            &.disabled {
-                opacity: 0.4;
-            }
-        }
-
-        .location-label__overline {
-            padding: rem(5) 0;
-            margin: rem(10) rem(5) rem(5) 0;
-            font-size: $font-size-14;
             &.disabled {
                 opacity: 0.4;
             }
