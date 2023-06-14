@@ -25,8 +25,8 @@ const propTypes = {
     state: PropTypes.object,
     county: PropTypes.object,
     city: PropTypes.object,
-    currentDistrict: PropTypes.object,
-    originalDistrict: PropTypes.object,
+    district_current: PropTypes.object,
+    district_submitted: PropTypes.object,
     zip: PropTypes.object,
     availableCountries: PropTypes.array,
     availableStates: PropTypes.array,
@@ -159,12 +159,12 @@ class LocationPicker extends React.Component {
         else if (this.props.country.code === 'USA') {
             const {
                 state,
-                originalDistrict,
-                currentDistrict,
+                district_submitted,
+                district_current,
                 county,
                 city
             } = this.props;
-            const countyOrDistrictSelected = ((originalDistrict.district || currentDistrict.district) || county.code);
+            const countyOrDistrictSelected = ((district_submitted.district || district_current.district) || county.code);
             if (!state.code) {
                 // no state
                 return (
@@ -175,8 +175,8 @@ class LocationPicker extends React.Component {
                     </span>
                 );
             }
-            else if (countyOrDistrictSelected || (city.code && ((!originalDistrict || !currentDistrict) || !county.code))) {
-                const selectedField = (originalDistrict.district || currentDistrict.district) ? "congressional district" : "county"; // if evaluates to county, double check it's not actually city
+            else if (countyOrDistrictSelected || (city.code && ((!district_submitted || !district_current) || !county.code))) {
+                const selectedField = (district_submitted.district || district_current.district) ? "congressional district" : "county"; // if evaluates to county, double check it's not actually city
                 return (
                     <span>
                         You cannot select both a <span className="field">{(selectedField === "county" && !county.code) ? "city" : selectedField}</span> and a <span className="field"> {field}</span>.
@@ -198,13 +198,13 @@ class LocationPicker extends React.Component {
         const isCityEnabled = (
             this.props.country.code !== "" &&
             !this.props.county.code &&
-            !this.props.currentDistrict?.district &&
-            !this.props.originalDistrict?.district
+            !this.props.district_current?.district &&
+            !this.props.district_submitted?.district
         );
         const isCountyEnabled = (
             this.props.state.code !== "" &&
-            !this.props.currentDistrict?.district &&
-            !this.props.originalDistrict?.district &&
+            !this.props.district_current?.district &&
+            !this.props.district_submitted?.district &&
             !this.props.city.code
         );
         const isDistrictEnabled = (
@@ -213,12 +213,12 @@ class LocationPicker extends React.Component {
             !this.props.city.code
         );
 
-        const isOriginalDistrictEnabled = (isDistrictEnabled && (isEqual(this.props.currentDistrict, defaultLocationValues.currentDistrict) || isEqual(this.props.currentDistrict, {
+        const isOriginalDistrictEnabled = (isDistrictEnabled && (isEqual(this.props.district_current, defaultLocationValues.district_current) || isEqual(this.props.district_current, {
             code: '',
             district: '',
             name: 'All congressional districts'
         })));
-        const isCurrentDistrictEnabled = (isDistrictEnabled && (isEqual(this.props.originalDistrict, defaultLocationValues.originalDistrict) || isEqual(this.props.originalDistrict, {
+        const isCurrentDistrictEnabled = (isDistrictEnabled && (isEqual(this.props.district_submitted, defaultLocationValues.district_submitted) || isEqual(this.props.district_submitted, {
             code: '',
             district: '',
             name: 'All congressional districts'
@@ -321,7 +321,7 @@ class LocationPicker extends React.Component {
                             matchKey="district"
                             placeholder={districtPlaceholder}
                             title="Current Congressional Districts (based on 2023 redistricting)"
-                            value={this.props.currentDistrict}
+                            value={this.props.district_current}
                             selectEntity={this.props.selectEntity}
                             options={this.props.availableCurrentDistricts}
                             enabled={isCurrentDistrictEnabled}
@@ -333,7 +333,7 @@ class LocationPicker extends React.Component {
                             matchKey="district"
                             placeholder={districtPlaceholder}
                             title="Original Congressional Districts (as reported by federal agencies)"
-                            value={this.props.originalDistrict}
+                            value={this.props.district_submitted}
                             selectEntity={this.props.selectEntity}
                             options={this.props.availableOriginalDistricts}
                             enabled={isOriginalDistrictEnabled}

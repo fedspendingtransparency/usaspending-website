@@ -152,7 +152,7 @@ describe('LocationPickerContainer', () => {
             container.instance().clearOriginalDistricts();
 
             expect(container.state().availableOriginalDistricts).toEqual([]);
-            expect(container.state().originalDistrict).toEqual({
+            expect(container.state().district_submitted).toEqual({
                 code: '',
                 district: '',
                 name: ''
@@ -385,9 +385,9 @@ describe('LocationPickerContainer', () => {
                     fips: 'XX',
                     name: 'Alaska'
                 },
-                originalDistrict: {
+                district_submitted: {
                     code: 'XX',
-                    originalDistrict: '99',
+                    district_submitted: '99',
                     name: 'AK-99'
                 }
             });
@@ -401,12 +401,12 @@ describe('LocationPickerContainer', () => {
                 expect(location.filter).toEqual({
                     country: 'ABC',
                     state: 'AK',
-                    originalDistrict: '99'
+                    district_submitted: '99'
                 });
             });
             it('locationObject.display is correct', () => {
                 expect(location.display).toEqual({
-                    entity: 'Submitted congressional district',
+                    entity: 'Original congressional district',
                     title: 'AK-99',
                     standalone: 'AK-99'
                 });

@@ -50,12 +50,12 @@ export const defaultLocationValues = {
         name: "",
         code: ""
     },
-    originalDistrict: {
+    district_submitted: {
         code: "",
         district: "",
         name: ""
     },
-    currentDistrict: {
+    district_current: {
         code: "",
         district: "",
         name: ""
@@ -66,13 +66,13 @@ export const defaultLocationValues = {
     }
 };
 
-const locationProperties = ["country", "state", "originalDistrict", "currentDistrict", "county", "city"];
+const locationProperties = ["country", "state", "district_submitted", "district_current", "county", "city"];
 // Map to unique value for this.state.locationProperty
 const locationPropertyAccessorMap = {
     country: 'code',
     city: 'name',
-    originalDistrict: 'originalDistrict',
-    currentDistrict: 'currentDistrict',
+    district_submitted: 'district_submitted',
+    district_current: 'district_current',
     state: 'code',
     county: 'fips'
 };
@@ -92,8 +92,8 @@ export default class LocationPickerContainer extends React.Component {
             state: Object.assign({}, defaultLocationValues.state),
             county: Object.assign({}, defaultLocationValues.county),
             city: Object.assign({}, defaultLocationValues.city),
-            currentDistrict: Object.assign({}, defaultLocationValues.currentDistrict),
-            originalDistrict: Object.assign({}, defaultLocationValues.originalDistrict),
+            district_current: Object.assign({}, defaultLocationValues.district_current),
+            district_submitted: Object.assign({}, defaultLocationValues.district_submitted),
             zip: Object.assign({}, defaultLocationValues.zip),
             citySearchString: "",
             loading: false
@@ -308,7 +308,7 @@ export default class LocationPickerContainer extends React.Component {
         if (data.districts.length > 0) {
             districts = concat(
                 [
-                    Object.assign({}, defaultLocationValues.originalDistrict, {
+                    Object.assign({}, defaultLocationValues.district_submitted, {
                         name: "All congressional districts"
                     })
                 ],
@@ -318,7 +318,7 @@ export default class LocationPickerContainer extends React.Component {
 
         this.setState({
             availableOriginalDistricts: districts,
-            originalDistrict: Object.assign({}, defaultLocationValues.originalDistrict)
+            district_submitted: Object.assign({}, defaultLocationValues.district_submitted)
         });
     }
 
@@ -328,7 +328,7 @@ export default class LocationPickerContainer extends React.Component {
         if (data.districts.length > 0) {
             districts = concat(
                 [
-                    Object.assign({}, defaultLocationValues.currentDistrict, {
+                    Object.assign({}, defaultLocationValues.district_current, {
                         name: "All congressional districts"
                     })
                 ],
@@ -338,20 +338,20 @@ export default class LocationPickerContainer extends React.Component {
 
         this.setState({
             availableCurrentDistricts: districts,
-            currentDistrict: Object.assign({}, defaultLocationValues.currentDistrict)
+            district_current: Object.assign({}, defaultLocationValues.district_current)
         });
     }
 
     clearOriginalDistricts() {
         this.setState({
             availableOriginalDistricts: [],
-            originalDistrict: Object.assign({}, defaultLocationValues.originalDistrict)
+            district_submitted: Object.assign({}, defaultLocationValues.district_submitted)
         });
     }
     clearCurrentDistricts() {
         this.setState({
             availableCurrentDistricts: [],
-            currentDistrict: Object.assign({}, defaultLocationValues.currentDistrict)
+            district_current: Object.assign({}, defaultLocationValues.district_current)
         });
     }
 
@@ -439,10 +439,10 @@ export default class LocationPickerContainer extends React.Component {
                 if (prop === 'district') {
                     entityValue = 'Congressional district';
                 }
-                else if (prop === 'originalDistrict') {
+                else if (prop === 'district_submitted') {
                     entityValue = 'Original congressional district';
                 }
-                else if (prop === 'currentDistrict') {
+                else if (prop === 'district_current') {
                     entityValue = 'Current congressional district';
                 }
                 else {

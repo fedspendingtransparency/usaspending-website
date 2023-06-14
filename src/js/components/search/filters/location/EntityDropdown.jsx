@@ -145,10 +145,10 @@ export default class EntityDropdown extends React.Component {
             this.props.setSearchString(item.name, false);
         }
         if (this.props.title.includes("Original Congressional")) {
-            this.props.selectEntity("originalDistrict", item);
+            this.props.selectEntity("district_submitted", item);
         }
         else if (this.props.title.includes("Current Congressional")) {
-            this.props.selectEntity("currentDistrict", item);
+            this.props.selectEntity("district_current", item);
         }
         else if (item.code !== "NA-000") {
             this.props.selectEntity(this.props.field, item);

@@ -351,6 +351,7 @@ export class ResultsTableContainer extends React.Component {
         };
 
         // Set the params needed for download API call
+        console.debug("PARAMS: ", params);
         this.searchRequest = SearchHelper.performSpendingByAwardSearch(params);
         return this.searchRequest.promise
             .then((res) => {
