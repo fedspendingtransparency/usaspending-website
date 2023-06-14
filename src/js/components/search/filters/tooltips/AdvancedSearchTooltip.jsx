@@ -108,7 +108,7 @@ export const CDTooltip = () => (
                 <em>&#42;Court-ordered redistricting might alter the time frame when a congressional district is in effect.</em>
             </p>
             <p>
-                <strong>Submitted Congressional Districts (as reported by federal agencies)</strong>
+                <strong>Original Congressional Districts (as reported by federal agencies)</strong>
             </p>
             <p>
                 Use this filter to find spending based on the congressional district boundaries that were in effect when an award was issued.
