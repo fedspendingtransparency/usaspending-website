@@ -320,7 +320,7 @@ class LocationPicker extends React.Component {
                             field="district"
                             matchKey="district"
                             placeholder={districtPlaceholder}
-                            title="Current Congressional Districts (based on 2023 redistricting) - for QAT only"
+                            title="Current Congressional Districts (based on 2023 redistricting)"
                             value={this.props.currentDistrict}
                             selectEntity={this.props.selectEntity}
                             options={this.props.availableCurrentDistricts}
@@ -332,7 +332,7 @@ class LocationPicker extends React.Component {
                             field="district"
                             matchKey="district"
                             placeholder={districtPlaceholder}
-                            title="Original Congressional Districts (as reported by federal agencies)"
+                            title="Submitted Congressional Districts (as reported by federal agencies)"
                             value={this.props.originalDistrict}
                             selectEntity={this.props.selectEntity}
                             options={this.props.availableOriginalDistricts}
