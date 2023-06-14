@@ -440,7 +440,7 @@ export default class LocationPickerContainer extends React.Component {
                     entityValue = 'Congressional district';
                 }
                 else if (prop === 'originalDistrict') {
-                    entityValue = 'Submitted congressional district';
+                    entityValue = 'Original congressional district';
                 }
                 else if (prop === 'currentDistrict') {
                     entityValue = 'Current congressional district';
