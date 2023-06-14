@@ -332,7 +332,7 @@ class LocationPicker extends React.Component {
                             field="district"
                             matchKey="district"
                             placeholder={districtPlaceholder}
-                            title="Submitted Congressional Districts (as reported by federal agencies)"
+                            title="Original Congressional Districts (as reported by federal agencies)"
                             value={this.props.originalDistrict}
                             selectEntity={this.props.selectEntity}
                             options={this.props.availableOriginalDistricts}
