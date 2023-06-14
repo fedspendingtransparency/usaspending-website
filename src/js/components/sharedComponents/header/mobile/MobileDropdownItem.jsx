@@ -10,7 +10,6 @@ import { Link } from 'react-router-dom';
 
 
 const propTypes = {
-    active: PropTypes.string,
     title: PropTypes.string,
     label: PropTypes.string.isRequired,
     section1Items: PropTypes.array,
@@ -21,13 +20,6 @@ const propTypes = {
     section3Options: PropTypes.array,
     index: PropTypes.number
 };
-
-// const clickedHeaderLink = (route) => {
-//     Analytics.event({
-//         category: 'Header - Link',
-//         action: route
-//     });
-// };
 
 const MobileDropdownItem = ({
     title,

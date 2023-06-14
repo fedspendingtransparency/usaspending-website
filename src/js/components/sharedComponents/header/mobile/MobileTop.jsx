@@ -5,12 +5,10 @@
 
 import React from 'react';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Analytics from 'helpers/analytics/Analytics';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import GovBanner from "./../GovBanner";
-import Analytics from 'helpers/analytics/Analytics';
-
-
 
 const clickedHeaderLink = (route) => {
     Analytics.event({
