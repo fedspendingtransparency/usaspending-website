@@ -53,14 +53,14 @@ const MobileDropdownItem = ({
                         <ul>
                             {section1Items.map((item, i) => (
                                 <li key={i}>
-                                    <Link to={item.url} className="mobile-dropdown__section-row-one">
+                                    <a href={item.url} className="mobile-dropdown__section-row-one">
                                         <div className="mobile-dropdown__section-icon">
                                             {item.icon && item.icon !== '' && item.icon !== null ? <FontAwesomeIcon role="presentation" icon={item.icon} style={{ width: "12px", height: "100%" }} /> : ''}
                                         </div>
                                         <div className="mobile-dropdown__section-one-label">
                                             {item.label}
                                         </div>
-                                    </Link>
+                                    </a>
                                     <div className="mobile-dropdown__section-one-description">
                                         {item.description}
                                     </div>
@@ -74,11 +74,11 @@ const MobileDropdownItem = ({
                         <ul>
                             {section1Items.map((item, i) => (
                                 <li className="mobile-dropdown__section" key={i}>
-                                    <Link to={item.url} className="mobile-dropdown__section-row-one">
+                                    <a href={item.url} className="mobile-dropdown__section-row-one">
                                         <div className="mobile-dropdown__section-label">
                                             {item.label}
                                         </div>
-                                    </Link>
+                                    </a>
                                     <div className="mobile-dropdown__section-description">
                                         {item.description}
                                     </div>
@@ -105,14 +105,14 @@ const MobileDropdownItem = ({
                     <ul>
                         {section2Items.map((item, i) => (
                             <li key={i}>
-                                <Link to={item.url} className="mobile-dropdown__section-row-one">
+                                <a href={item.url} className="mobile-dropdown__section-row-one">
                                     <div className={item.icon && item.icon !== '' && item.icon !== null ? "mobile-dropdown__section-icon" : ""}>
                                         <FontAwesomeIcon role="presentation" icon={item.icon} style={{ width: "12px", height: "100%" }} />
                                     </div>
                                     <div className="mobile-dropdown__section-one-label">
                                         {item.label}
                                     </div>
-                                </Link>
+                                </a>
                                 <div className="mobile-dropdown__section-one-description">
                                     {item.description}
                                 </div>
@@ -124,14 +124,14 @@ const MobileDropdownItem = ({
                         <ul>
                             {section2Items.map((item, i) => (
                                 <li className="mobile-dropdown__section" key={i}>
-                                    <Link to={item.url} className="mobile-dropdown__section-row-one">
+                                    <a href={item.url} className="mobile-dropdown__section-row-one">
                                         <div className="mobile-dropdown__section-label">
                                             {item.label}
                                             <span className="mobile-dropdown__section-description">
                                                 {item.description}
                                             </span>
                                         </div>
-                                    </Link>
+                                    </a>
                                 </li>
                             ))}
                         </ul>
