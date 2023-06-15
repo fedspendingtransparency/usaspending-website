@@ -156,7 +156,7 @@ const MobileDropdownItem = ({
                     <ul>
                         {section3Items.map((item, i) => (
                             <li className="mobile-dropdown__section-three" key={i}>
-                                <a href={item.url} className="mobile-dropdown__section-row-one">
+                                <a href={item.url} target="_blank" rel="noopener noreferrer" className="mobile-dropdown__section-row-one">
                                     <div className="mobile-dropdown__section-label">
                                         {item.label}
                                         <span className="mobile-dropdown__section-description">

@@ -51,7 +51,19 @@ export default class MobileTop extends React.Component {
                         </div>
                     </div>
                     {/* eslint-disable-next-line jsx-a11y/click-events-have-key-events,jsx-a11y/no-static-element-interactions */}
-                    <div className="mobile-nav_back-button-container" tabIndex="0" role="button" onClick={(e) => this.props.closeDetailedMobileNav(e)} style={this.props.detailMobileNavIsHidden ? { display: "none" } : {}}>
+                    <div
+                        className="mobile-nav_back-button-container"
+                        tabIndex="0"
+                        role="button"
+                        style={this.props.detailMobileNavIsHidden ? { display: "none" } : {}}
+                        onClick={(e) => this.props.closeDetailedMobileNav(e)}
+                        onKeyUp={(e) => {
+                            e.persist();
+                            if (e.key === 'Enter') {
+                                this.props.closeDetailedMobileNav(e);
+                            }
+                        }
+                        }>
                         <div className="mobile-nav_back-button-icon">
                             <FontAwesomeIcon icon="chevron-left" />
                         </div>
