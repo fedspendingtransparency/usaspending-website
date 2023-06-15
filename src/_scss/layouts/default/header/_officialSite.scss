@@ -46,10 +46,10 @@
 
 .usa-banner {
   @media(max-width: $tablet-screen) {
-    margin: 0 0 0 rem(20);
+    margin: 0 0 0 rem(16);
   }
   @media(min-width: $tablet-screen) {
-    margin: 0 0 0 rem(20);
+    margin: 0 0 0 rem(32);
   }
   @media(min-width: $large-screen) {
     margin: 0 rem(36) 0 rem(40);
