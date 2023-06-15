@@ -160,6 +160,7 @@ const MobileNav = (props) => {
                         section2Options={navbarConfig[currentIndex].section2Options}
                         section3Options={navbarConfig[currentIndex].section3Options}
                         index={currentIndex}
+                        onClick={clickedLink}
                         active={url} />}
                 </ul>
             </div>
