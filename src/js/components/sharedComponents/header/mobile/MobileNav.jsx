@@ -4,6 +4,7 @@
  */
 
 import React, { useEffect, useState } from 'react';
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 import PropTypes from 'prop-types';
 import { withRouter, Link } from 'react-router-dom';
 import Analytics from 'helpers/analytics/Analytics';
@@ -73,16 +74,16 @@ const navbarConfig = [
 const MobileNav = (props) => {
     const { location } = props;
     const [url, setUrl] = useState('');
-    const [detailMobileNavIsHidden, setHideDetailMobileNav] = useState(true);
+    const [detailMobileNavIsHidden, setDetailMobileNavIsHidden] = useState(true);
     const [currentIndex, setCurrentIndex] = useState(null);
 
     const openDetailedMobileNav = (index) => {
-        setHideDetailMobileNav(false);
+        setDetailMobileNavIsHidden(false);
         setCurrentIndex(index);
     };
 
     const closeDetailedMobileNav = () => {
-        setHideDetailMobileNav(true);
+        setDetailMobileNavIsHidden(true);
         setCurrentIndex(null);
     };
 
@@ -147,21 +148,30 @@ const MobileNav = (props) => {
                         </>
                     ))}
                 </ul>
-                <ul className="mobile-dropdown__list" style={detailMobileNavIsHidden ? { display: "none" } : {}}>
-                    {currentIndex && <MobileDropdownItem
-                        {...props}
-                        mainTitle={navbarConfig[currentIndex].title}
-                        label={navbarConfig[currentIndex].title}
-                        title={navbarConfig[currentIndex].title}
-                        section1Items={navbarConfig[currentIndex].section1Items}
-                        section2Items={navbarConfig[currentIndex].section2Items}
-                        section3Items={navbarConfig[currentIndex].section3Items}
-                        section1Options={navbarConfig[currentIndex].section1Options}
-                        section2Options={navbarConfig[currentIndex].section2Options}
-                        section3Options={navbarConfig[currentIndex].section3Options}
-                        index={currentIndex}
-                        onClick={clickedLink}
-                        active={url} />}
+                <ul className="mobile-dropdown__list mobile-nav-animations">
+                    <TransitionGroup>
+                        {currentIndex && (
+                            <CSSTransition
+                                classNames="mobile-nav-slide"
+                                timeout={{ enter: 225, exit: 195 }}
+                                exit>
+                                <MobileDropdownItem
+                                    {...props}
+                                    mainTitle={navbarConfig[currentIndex].title}
+                                    label={navbarConfig[currentIndex].title}
+                                    title={navbarConfig[currentIndex].title}
+                                    section1Items={navbarConfig[currentIndex].section1Items}
+                                    section2Items={navbarConfig[currentIndex].section2Items}
+                                    section3Items={navbarConfig[currentIndex].section3Items}
+                                    section1Options={navbarConfig[currentIndex].section1Options}
+                                    section2Options={navbarConfig[currentIndex].section2Options}
+                                    section3Options={navbarConfig[currentIndex].section3Options}
+                                    index={currentIndex}
+                                    onClick={clickedLink}
+                                    active={url} />
+                            </CSSTransition>
+                        )}
+                    </TransitionGroup>
                 </ul>
             </div>
         </div>
