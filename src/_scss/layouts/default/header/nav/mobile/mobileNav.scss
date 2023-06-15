@@ -5,7 +5,7 @@
     left: 0;
     right: 0;
     z-index: $z-mobile-nav;
-    overflow-y: auto;
+    overflow: hidden;
     background-color: $color-white;
     @media (min-width: $medium-screen) {
         display: none;
