@@ -98,8 +98,11 @@
         .text {
           margin-bottom: $global-margin * 2;
         }
-        .homepage-resources__atd-link-container {
+        .homepage-resources__link-container {
           cursor: pointer;
+          svg {
+            height: 16px;
+          }
         }
         .homepage-resources__glossary-link-container {
           cursor: pointer;

@@ -118,12 +118,16 @@
 
   .word-of-the-day__button {
     cursor: pointer;
-    border-color: $card-outline-color !important;
-    color: $card-outline-color !important;
-    width: rem(106) !important;
+    border-color: $card-outline-color;
+    color: $card-outline-color;
+    width: rem(106);
+    height: rem(42);
+    line-height: rem(21);
+    font-size: rem(14);
+    justify-content: center;
     &:hover {
-      border-color: $gray-cool-5 !important;
-      color: $gray-cool-5 !important;
+      border-color: $gray-cool-5;
+      color: $gray-cool-5;
     }
   }
 
@@ -145,7 +149,7 @@
     margin-top: rem(4);
   }
 
-  .word-of-the-day-button {
+  .word-of-the-day-error-button {
     border-radius: rem(4);
     border: solid rem(1) $gray-cool-10;
     background-color: $blue-warm-70v;

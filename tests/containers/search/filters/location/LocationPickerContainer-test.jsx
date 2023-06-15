@@ -84,12 +84,12 @@ describe('LocationPickerContainer', () => {
             ]);
         });
     });
-    describe('parseOriginalDistricts', () => {
+    describe('parseDistricts', () => {
         it('should be the API response prepended with an All congressional districts option', () => {
             const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
-            container.instance().parseOriginalDistricts(mockDistricts);
+            container.instance().parseDistricts(mockDistricts);
 
-            expect(container.state().availableOriginalDistricts).toEqual([
+            expect(container.state().availableDistricts).toEqual([
                 {
                     code: '',
                     district: '',
@@ -141,18 +141,18 @@ describe('LocationPickerContainer', () => {
             });
         });
     });
-    describe('clearOriginalDistricts', () => {
+    describe('clearDistricts', () => {
         it('should clear the available congressional districts and reset the selected congressional district to a blank value', () => {
             const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
             container.setState({
-                availableOriginalDistricts: mockDistricts.districts,
+                availableDistricts: mockDistricts.districts,
                 district: mockDistricts.districts[0]
             });
 
-            container.instance().clearOriginalDistricts();
+            container.instance().clearDistricts();
 
-            expect(container.state().availableOriginalDistricts).toEqual([]);
-            expect(container.state().originalDistrict).toEqual({
+            expect(container.state().availableDistricts).toEqual([]);
+            expect(container.state().district).toEqual({
                 code: '',
                 district: '',
                 name: ''
@@ -385,9 +385,9 @@ describe('LocationPickerContainer', () => {
                     fips: 'XX',
                     name: 'Alaska'
                 },
-                originalDistrict: {
+                district: {
                     code: 'XX',
-                    originalDistrict: '99',
+                    district: '99',
                     name: 'AK-99'
                 }
             });
@@ -401,12 +401,12 @@ describe('LocationPickerContainer', () => {
                 expect(location.filter).toEqual({
                     country: 'ABC',
                     state: 'AK',
-                    originalDistrict: '99'
+                    district: '99'
                 });
             });
             it('locationObject.display is correct', () => {
                 expect(location.display).toEqual({
-                    entity: 'Original congressional district',
+                    entity: 'Congressional district',
                     title: 'AK-99',
                     standalone: 'AK-99'
                 });
