@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /**
  * LocationPicker.jsx
  * Created by Kevin Li 10/30/17
@@ -215,12 +216,12 @@ class LocationPicker extends React.Component {
 
         const isOriginalDistrictEnabled = (isDistrictEnabled && (isEqual(this.props.district_current, defaultLocationValues.district_current) || isEqual(this.props.district_current, {
             code: '',
-            district: '',
+            district_submitted: '',
             name: 'All congressional districts'
         })));
         const isCurrentDistrictEnabled = (isDistrictEnabled && (isEqual(this.props.district_submitted, defaultLocationValues.district_submitted) || isEqual(this.props.district_submitted, {
             code: '',
-            district: '',
+            district_current: '',
             name: 'All congressional districts'
         })));
 
