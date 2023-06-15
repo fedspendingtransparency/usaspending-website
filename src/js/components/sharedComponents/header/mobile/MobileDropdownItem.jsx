@@ -14,7 +14,6 @@ import * as slideoutActions from 'redux/actions/slideouts/slideoutActions';
 
 const propTypes = {
     title: PropTypes.string,
-    label: PropTypes.string.isRequired,
     section1Items: PropTypes.array,
     section2Items: PropTypes.array,
     section3Items: PropTypes.array,
@@ -80,15 +79,15 @@ const MobileDropdownItem = ({
                                     <Link
                                         to={item.url} 
                                         onClick={clickedLink}
-                                        className="mobile-dropdown__section-row-one">
+                                        className="mobile-dropdown__section-link">
                                         <div className="mobile-dropdown__section-icon">
                                             {item.icon && item.icon !== '' && item.icon !== null ? <FontAwesomeIcon role="presentation" icon={item.icon} style={{ width: "12px", height: "100%" }} /> : ''}
                                         </div>
-                                        <div className="mobile-dropdown__section-one-label">
+                                        <div className="mobile-dropdown__section-etd-label">
                                             {item.label}
                                         </div>
                                     </Link>
-                                    <div className="mobile-dropdown__section-one-description">
+                                    <div className="mobile-dropdown__section-etd-description">
                                         {item.description}
                                     </div>
                                 </li>
@@ -101,7 +100,7 @@ const MobileDropdownItem = ({
                         <ul>
                             {section1Items.map((item, i) => (
                                 <li className="mobile-dropdown__section" key={i}>
-                                    <Link to={item.url} onClick={clickedLink} className="mobile-dropdown__section-row-one">
+                                    <Link to={item.url} onClick={clickedLink} className="mobile-dropdown__section-link">
                                         <div className="mobile-dropdown__section-label">
                                             {item.label}
                                         </div>
@@ -133,17 +132,17 @@ const MobileDropdownItem = ({
                         {section2Items.map((item, i) => (
                             <li key={i}>
                                 <Link
-                                    className="mobile-dropdown__section-row-one"
+                                    className="mobile-dropdown__section-link"
                                     to={item.url}
                                     onClick={clickedLink}>
                                     <div className={item.icon && item.icon !== '' && item.icon !== null ? "mobile-dropdown__section-icon" : ""}>
                                         <FontAwesomeIcon role="presentation" icon={item.icon} style={{ width: "12px", height: "100%" }} />
                                     </div>
-                                    <div className="mobile-dropdown__section-one-label">
+                                    <div className="mobile-dropdown__section-etd-label">
                                         {item.label}
                                     </div>
                                 </Link>
-                                <div className="mobile-dropdown__section-one-description">
+                                <div className="mobile-dropdown__section-etd-description">
                                     {item.description}
                                 </div>
                             </li>
@@ -155,7 +154,7 @@ const MobileDropdownItem = ({
                             {section2Items.map((item, i) => (
                                 <li className="mobile-dropdown__section" key={i}>
                                     <Link
-                                        className="mobile-dropdown__section-row-one"
+                                        className="mobile-dropdown__section-link"
                                         to={item.url !== "?about-the-data" ? item.url : ''}
                                         onClick={(e) => {
                                             if (item.url === '?about-the-data') {
@@ -201,8 +200,8 @@ const MobileDropdownItem = ({
                 <>
                     <ul>
                         {section3Items.map((item, i) => (
-                            <li className="mobile-dropdown__section-three" key={i}>
-                                <a href={item.url} target="_blank" rel="noopener noreferrer" className="mobile-dropdown__section-row-one">
+                            <li className="mobile-dropdown__section-downloads" key={i}>
+                                <a href={item.url} target="_blank" rel="noopener noreferrer" className="mobile-dropdown__section-link">
                                     <div className="mobile-dropdown__section-label">
                                         {item.label}
                                         <span className="mobile-dropdown__section-description">

@@ -15,7 +15,7 @@
     .mobile-dropdown__section {
         padding-left: rem(26);
     }
-    .mobile-dropdown__section-three {
+    .mobile-dropdown__section-downloads {
         padding-left: rem(8);
     }
     .mobile-dropdown_parent-title{
@@ -63,7 +63,7 @@
             border-bottom: 2px solid $gray-cool-5;
             margin: rem(24) rem(0);
         }
-        .mobile-dropdown__section-row-one {
+        .mobile-dropdown__section-link {
             display: flex;
             flex-direction: row;
 
@@ -87,7 +87,7 @@
                 font-weight: $font-semibold;
                 color: $gray-90;
             }
-            .mobile-dropdown__section-one-label {
+            .mobile-dropdown__section-etd-label {
                 padding-left: rem(8);
                 font-size: $font-size-16;
                 font-weight: $font-semibold;
@@ -100,7 +100,7 @@
             padding-top:rem(4);
             color: $gray-60;
         }
-        .mobile-dropdown__section-one-description {
+        .mobile-dropdown__section-etd-description {
             padding-top: 4px;
             font-size: $font-size-12;
             color: $gray-60;
