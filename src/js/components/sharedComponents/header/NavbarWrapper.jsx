@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { Link, useLocation } from 'react-router-dom';
-
 import Analytics from 'helpers/analytics/Analytics';
 import MobileNav from './mobile/MobileNav';
 import MegaMenu from "./megaMenu/MegaMenu";
@@ -16,6 +14,7 @@ const NavbarWrapper = () => {
         if (pathname === "/") {
             setIsHomepage(true);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
@@ -41,6 +40,8 @@ const NavbarWrapper = () => {
     };
 
     const hideMobileNav = () => {
+    // re-enable body scrolling
+        document.querySelector('body').classList.remove('show-mobile-nav');
         setShowMobileNav(false);
     };
 
@@ -83,18 +84,7 @@ const NavbarWrapper = () => {
                         </button>
                     </div>
                 </div>
-                <div className="mobile-nav-animations">
-                    <TransitionGroup>
-                        {showMobileNav && (
-                            <CSSTransition
-                                classNames="mobile-nav-slide"
-                                timeout={{ enter: 225, exit: 195 }}
-                                exit>
-                                <MobileNav hideMobileNav={hideMobileNav} />
-                            </CSSTransition>
-                        )}
-                    </TransitionGroup>
-                </div>
+                {showMobileNav && <MobileNav hideMobileNav={hideMobileNav} />}
                 <div className="site-navigation__menu full-menu">
                     <MegaMenu />
                 </div>
