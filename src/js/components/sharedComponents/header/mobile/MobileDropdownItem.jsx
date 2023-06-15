@@ -77,7 +77,7 @@ const MobileDropdownItem = ({
                             {section1Items.map((item, i) => (
                                 <li key={i}>
                                     <Link
-                                        to={item.url} 
+                                        to={item.url}
                                         onClick={clickedLink}
                                         className="mobile-dropdown__section-link">
                                         <div className="mobile-dropdown__section-icon">
