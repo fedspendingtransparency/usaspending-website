@@ -12,8 +12,6 @@ import PropTypes from 'prop-types';
 import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
 import * as slideoutActions from 'redux/actions/slideouts/slideoutActions';
 
-
-
 const propTypes = {
     title: PropTypes.string,
     label: PropTypes.string.isRequired,
