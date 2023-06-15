@@ -33,6 +33,8 @@
         margin-bottom: 4px;
         color: $gray-90;
         padding-left: rem(8);
+        font-weight: $font-normal;
+        text-transform: uppercase;
     }
 
     .mobile-dropdown__sub {
@@ -52,6 +54,9 @@
         ul {
             list-style: none;
             padding-left: rem(0);
+        }
+        li {
+            margin-bottom: rem(16);
         }
         hr {
             border-bottom: 2px solid $gray-cool-5;
@@ -76,6 +81,7 @@
                 }
             }
             .mobile-dropdown__section-label {
+                display: grid;
                 font-size: $font-size-16;
                 font-weight: $font-semibold;
                 color: $gray-90;
@@ -88,10 +94,13 @@
             }
         }
         .mobile-dropdown__section-description {
+            font-weight: $font-normal;
             font-size: $font-size-12;
+            padding-top:rem(4);
             color: $gray-60;
         }
         .mobile-dropdown__section-one-description {
+            padding-top: 4px;
             font-size: $font-size-12;
             color: $gray-60;
             padding-left: rem(28);

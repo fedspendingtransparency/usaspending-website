@@ -32,6 +32,7 @@
     .mobile-nav_back-button-container {
         display: flex;  
         color: #2378c3;
+        background-color: $color-white;
         padding-top: rem(23);
         &:hover {
             cursor: pointer;

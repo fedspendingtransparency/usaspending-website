@@ -124,13 +124,13 @@ const MobileDropdownItem = ({
                         <ul>
                             {section2Items.map((item, i) => (
                                 <li className="mobile-dropdown__section" key={i}>
-                                    <div className="mobile-dropdown__section-row-one">
+                                    <Link to={item.url} className="mobile-dropdown__section-row-one">
                                         <div className="mobile-dropdown__section-label">
                                             {item.label}
+                                            <span className="mobile-dropdown__section-description">
+                                                {item.description}
+                                            </span>
                                         </div>
-                                    </div>
-                                    <Link to={item.url} className="mobile-dropdown__section-description">
-                                        {item.description}
                                     </Link>
                                 </li>
                             ))}
@@ -157,14 +157,14 @@ const MobileDropdownItem = ({
                     <ul>
                         {section3Items.map((item, i) => (
                             <li className="mobile-dropdown__section-three" key={i}>
-                                <div to={item.url} className="mobile-dropdown__section-row-one">
+                                <a href={item.url} className="mobile-dropdown__section-row-one">
                                     <div className="mobile-dropdown__section-label">
                                         {item.label}
+                                        <span className="mobile-dropdown__section-description">
+                                            {item.description}
+                                        </span>
                                     </div>
-                                </div>
-                                <Link to={item.url} className="mobile-dropdown__section-description">
-                                    {item.description}
-                                </Link>
+                                </a>
                             </li>
                         ))}
                     </ul>
