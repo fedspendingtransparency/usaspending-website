@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { Link, useLocation } from 'react-router-dom';
 import Analytics from 'helpers/analytics/Analytics';
 import MobileNav from './mobile/MobileNav';
@@ -21,7 +22,8 @@ const NavbarWrapper = () => {
         if (showMobileNav) {
             // disable body scrolling
             document.querySelector('body').classList.add('show-mobile-nav');
-        } else {
+        }
+        else {
             // re-enable body scrolling
             document.querySelector('body').classList.remove('show-mobile-nav');
         }
@@ -84,7 +86,18 @@ const NavbarWrapper = () => {
                         </button>
                     </div>
                 </div>
-                {showMobileNav && <MobileNav hideMobileNav={hideMobileNav} />}
+                <div className="mobile-nav-animations">
+                    <TransitionGroup>
+                        {showMobileNav && (
+                            <CSSTransition
+                                classNames="mobile-nav-slide"
+                                timeout={{ enter: 225, exit: 195 }}
+                                exit>
+                                <MobileNav hideMobileNav={hideMobileNav} />
+                            </CSSTransition>
+                        )}
+                    </TransitionGroup>
+                </div>
                 <div className="site-navigation__menu full-menu">
                     <MegaMenu />
                 </div>
