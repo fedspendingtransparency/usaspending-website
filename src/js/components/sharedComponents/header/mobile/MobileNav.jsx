@@ -92,6 +92,7 @@ const MobileNav = (props) => {
         clickedHeaderLink(route);
         props.hideMobileNav();
     };
+
     const checkCurrentProfile = () => {
         const currentUrl = location.pathname;
         if (url !== currentUrl) {
@@ -110,7 +111,7 @@ const MobileNav = (props) => {
                 <MobileTop
                     closeDetailedMobileNav={closeDetailedMobileNav}
                     detailMobileNavIsHidden={detailMobileNavIsHidden}
-                    hideMobileNav={clickedLink} />
+                    hideMobileNav={props.hideMobileNav} />
             </div>
             <div className="mobile-nav-content">
                 <ul className="mobile-nav-content__list" style={detailMobileNavIsHidden ? {} : { display: "none" }}>
