@@ -117,8 +117,8 @@ const MobileNav = (props) => {
                 <ul className="mobile-nav-content__list" style={detailMobileNavIsHidden ? {} : { display: "none" }}>
                     {navbarConfig.map((n, index) => (
                         <>
-                            <hr className="mobile-nav-content__divider" />
-                            <li className="mobile-nav-content__list-item">
+                            <hr className="mobile-nav-content__divider mobile-nav__animation" />
+                            <li className="mobile-nav-content__list-item mobile-nav__animation">
                                 {index === 0 ?
                                     <Link
                                         className="mobile-nav-content__link"

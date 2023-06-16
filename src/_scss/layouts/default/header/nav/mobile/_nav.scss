@@ -2,6 +2,28 @@
     ul.mobile-nav-content__list {
         @include unstyled-list;
 
+        .mobile-nav__animation {
+            animation: mobileNavEnter 0.225s ease-in forwards;
+        }
+
+        @keyframes mobileNavEnter {
+            0% {
+                transform: translate(0, -100vh);
+            }
+            100% {
+                transform: translate(0, 0);
+            }
+        }
+
+        @keyframes mobileNavExit {
+            0% {
+                transform: translate(0, 0);
+            }
+            100% {
+                transform: translate(0, -100vh);
+            }
+        }
+
         li.mobile-nav-content__list-item {
             text-align: left;
             margin: rem(0) rem(16) rem(24) rem(16);
