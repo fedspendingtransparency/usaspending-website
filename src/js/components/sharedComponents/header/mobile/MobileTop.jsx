@@ -85,5 +85,7 @@ export default class MobileTop extends React.Component {
 }
 
 MobileTop.propTypes = {
-    hideMobileNav: PropTypes.func
+    hideMobileNav: PropTypes.func,
+    detailMobileNavIsHidden: PropTypes.bool,
+    closeDetailedMobileNav: PropTypes.func
 };
