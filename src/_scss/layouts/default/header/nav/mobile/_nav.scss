@@ -2,10 +2,6 @@
     ul.mobile-nav-content__list {
         @include unstyled-list;
 
-        .mobile-nav__animation {
-            animation: mobileNavEnter 0.225s ease-in forwards;
-        }
-
         @keyframes mobileNavEnter {
             0% {
                 transform: translate(0, -100vh);
@@ -22,6 +18,14 @@
             100% {
                 transform: translate(0, -100vh);
             }
+        }
+
+        .animation-enter {
+            animation: mobileNavEnter 0.1s ease-in forwards;
+        }
+
+        .animation-exit {
+            animation: mobileNavExit 0.1s ease-in forwards;
         }
 
         li.mobile-nav-content__list-item {
