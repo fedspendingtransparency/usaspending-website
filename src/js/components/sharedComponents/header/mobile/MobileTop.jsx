@@ -71,7 +71,8 @@ export default class MobileTop extends React.Component {
                     </div>
                     <div className="mobile-nav-header__close">
                         <button
-                            className={this.props.detailMobileNavIsHidden ? "mobile-nav-header__close-button animation-enter" : "mobile-nav-header__close-button-section animation-exit"}
+                            // className={this.props.detailMobileNavIsHidden ? "mobile-nav-header__close-button animation-enter" : "mobile-nav-header__close-button-section animation-exit"}
+                            className={this.props.detailMobileNavIsHidden ? "mobile-nav-header__close-button" : "mobile-nav-header__close-button-section"}
                             title="Close menu"
                             aria-label="Close menu"
                             onClick={(e) => this.props.hideMobileNav(e)}>
