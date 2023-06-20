@@ -34,7 +34,7 @@ export default class MobileTop extends React.Component {
             <div>
                 <GovBanner />
                 <div className="mobile-nav-header">
-                    <div style={this.props.detailMobileNavIsHidden ? {} : { display: "none" }} className="mobile-nav-header__logo site-logo">
+                    <div style={this.props.detailMobileNavIsHidden ? {} : { display: "none" }} className={`mobile-nav-header__logo site-logo ${this.props.detailMobileNavIsHidden ? " animation-enter" : " animation-exit"}`}>
                         <div className="site-logo__wrapper" id="logo-nav">
                             <Link
                                 className="site-logo__link"
@@ -71,7 +71,7 @@ export default class MobileTop extends React.Component {
                     </div>
                     <div className="mobile-nav-header__close">
                         <button
-                            className={this.props.detailMobileNavIsHidden ? "mobile-nav-header__close-button" : "mobile-nav-header__close-button-section"}
+                            className={this.props.detailMobileNavIsHidden ? "mobile-nav-header__close-button animation-enter" : "mobile-nav-header__close-button-section animation-exit"}
                             title="Close menu"
                             aria-label="Close menu"
                             onClick={(e) => this.props.hideMobileNav(e)}>

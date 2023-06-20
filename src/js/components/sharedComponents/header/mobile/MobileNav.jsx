@@ -114,7 +114,9 @@ const MobileNav = (props) => {
                     hideMobileNav={props.hideMobileNav} />
             </div>
             <div className="mobile-nav-content">
-                <ul className="mobile-nav-content__list" style={detailMobileNavIsHidden ? {} : { display: "none" }}>
+                <ul
+                    className="mobile-nav-content__list"
+                    style={detailMobileNavIsHidden ? {} : { display: "none" }}>
                     {navbarConfig.map((n, index) => (
                         <>
                             <hr className={`mobile-nav-content__divider ${detailMobileNavIsHidden ? " animation-enter" : " animation-exit"}`} />
@@ -149,7 +151,9 @@ const MobileNav = (props) => {
                         </>
                     ))}
                 </ul>
-                <ul className="mobile-dropdown__list mobile-nav-animations">
+                <ul
+                    className="mobile-dropdown__list mobile-nav-animations"
+                    style={!detailMobileNavIsHidden ? {} : { display: "none" }}>
                     <TransitionGroup>
                         {currentIndex && (
                             <CSSTransition

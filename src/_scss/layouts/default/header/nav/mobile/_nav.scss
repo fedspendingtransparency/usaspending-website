@@ -2,30 +2,30 @@
     ul.mobile-nav-content__list {
         @include unstyled-list;
 
-        @keyframes mobileNavEnter {
+        @keyframes mobileNavEnterLtoR {
             0% {
-                transform: translate(0, -100vh);
+                transform: translateX(-100%);
             }
             100% {
-                transform: translate(0, 0);
+                transform: translateX(0);
             }
         }
 
-        @keyframes mobileNavExit {
+        @keyframes mobileNavExitRtoL {
             0% {
-                transform: translate(0, 0);
+                transform: translateX(0);
             }
             100% {
-                transform: translate(0, -100vh);
+                transform: translateX(-100%);
             }
         }
 
         .animation-enter {
-            animation: mobileNavEnter 0.1s ease-in forwards;
+            animation: mobileNavEnterLtoR 0.225s ease-in forwards;
         }
 
         .animation-exit {
-            animation: mobileNavExit 0.1s ease-in forwards;
+            animation: mobileNavExitRtoL 0.225s ease-in forwards;
         }
 
         li.mobile-nav-content__list-item {
