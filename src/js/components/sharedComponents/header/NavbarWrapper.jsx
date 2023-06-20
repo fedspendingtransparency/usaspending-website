@@ -91,8 +91,7 @@ const NavbarWrapper = () => {
                         {showMobileNav && (
                             <CSSTransition
                                 classNames="mobile-nav-slide"
-                                timeout={{ enter: 225, exit: 195 }}
-                                exit>
+                                timeout={{ enter: 225, exit: 225 }}>
                                 <MobileNav hideMobileNav={hideMobileNav} />
                             </CSSTransition>
                         )}
