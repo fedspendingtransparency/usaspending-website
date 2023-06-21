@@ -10,6 +10,7 @@ import NavbarWrapper from './NavbarWrapper';
 import InfoBanner from "./InfoBanner";
 import GovBanner from "./GovBanner";
 import {
+    setAboutTheDataTerm,
     setAboutTheDataTermFromUrl,
     showAboutTheData
 } from "../../../redux/actions/aboutTheDataSidebar/aboutTheDataActions";
