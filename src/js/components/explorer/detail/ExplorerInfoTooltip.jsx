@@ -82,6 +82,7 @@ export default class ExplorerInfoTooltip extends React.Component {
             <div
                 ref={this.setWrapperRef}
                 className="homepage-hero-tooltip"
+                onMouseLeave={this.props.closeTooltip}
                 style={{
                     top: this.state.iconTop,
                     right: this.state.iconRight

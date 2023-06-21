@@ -77,13 +77,11 @@ export default class RootHeader extends React.Component {
                         <span>
                             <button
                                 id="detail-header__icon"
-                                onMouseLeave={this.closeTooltip}
                                 onBlur={this.closeTooltip}
                                 className="detail-header__icon"
                                 onFocus={this.showTooltip}
                                 onMouseEnter={this.showTooltip}
-                                onClick={this.showTooltip}
-                                onTouchStart={this.showTooltip}>
+                                onClick={this.showTooltip}>
                                 <InfoCircle alt="Information" />
                             </button>
                         </span>
