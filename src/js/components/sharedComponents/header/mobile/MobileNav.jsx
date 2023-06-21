@@ -123,7 +123,7 @@ const MobileNav = (props) => {
                     style={detailMobileNavIsHidden ? {} : { display: "none" }}>
                     {navbarConfig.map((n, index) => (
                         <>
-                            <hr className={`mobile-nav-content__divider ${detailMobileNavIsHidden ? " animation-enter" : " animation-exit"}`} />
+                            <hr className={`mobile-nav-content__divider ${detailMobileNavIsHidden ? " animation-enter" : " "}`} />
                             <li className={`mobile-nav-content__list-item ${detailMobileNavIsHidden ? " animation-enter" : " "}`}>
                                 {index === 0 ?
                                     <Link
