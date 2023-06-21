@@ -25,12 +25,27 @@
     @include flex-direction(row);
     @include align-items(center);
 
+    @keyframes mobileNavEnterLtoR {
+        0% {
+            transform: translateX(-100%);
+        }
+        100% {
+            transform: translateX(0);
+        }
+    }
+
+    // there is no need for an animation-exit class here bc
+    // we're using display none which overrides the animation
+    .animation-enter {
+        animation: mobileNavEnterLtoR 0.225s ease-in forwards;
+    }
+
     margin: rem(0) rem(16);
     @media (min-width: $tablet-screen) {
         margin: rem(0) rem(32);
 }
     .mobile-nav_back-button-container {
-        display: flex;  
+        display: flex;
         color: #2378c3;
         background-color: $color-white;
         padding-top: rem(23);
@@ -75,7 +90,7 @@
                 color: $gray-cool-90;
             }
         }
-        .mobile-nav-header__close-button-section { 
+        .mobile-nav-header__close-button-section {
             margin-top: rem(12) !important;
             @include button-unstyled;
             height: rem(26);

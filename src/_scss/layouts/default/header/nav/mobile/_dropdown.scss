@@ -132,7 +132,7 @@
         @include display(flex);
         @include justify-content(center);
         @include align-items(center);
-    
+
         &:hover, &:active, &.mobile-dropdown__link_active {
             text-decoration: none;
         }

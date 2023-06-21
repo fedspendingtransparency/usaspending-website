@@ -4,6 +4,7 @@
  */
 
 import React, { useEffect, useState } from 'react';
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 import PropTypes from 'prop-types';
 import { withRouter, Link } from 'react-router-dom';
 import Analytics from 'helpers/analytics/Analytics';
@@ -33,7 +34,9 @@ const clickedHeaderLink = (route) => {
 
 const propTypes = {
     hideMobileNav: PropTypes.func,
-    location: PropTypes.object
+    location: PropTypes.object,
+    mobileNavInitialState: PropTypes.bool,
+    setMobileNavInitialState: PropTypes.func
 };
 
 const navbarConfig = [
@@ -71,18 +74,19 @@ const navbarConfig = [
 ];
 
 const MobileNav = (props) => {
-    const { location } = props;
+    const { location, mobileNavInitialState, setMobileNavInitialState } = props;
     const [url, setUrl] = useState('');
-    const [detailMobileNavIsHidden, setHideDetailMobileNav] = useState(true);
+    const [detailMobileNavIsHidden, setDetailMobileNavIsHidden] = useState(true);
     const [currentIndex, setCurrentIndex] = useState(null);
 
     const openDetailedMobileNav = (index) => {
-        setHideDetailMobileNav(false);
+        setDetailMobileNavIsHidden(false);
+        setMobileNavInitialState(false);
         setCurrentIndex(index);
     };
 
     const closeDetailedMobileNav = () => {
-        setHideDetailMobileNav(true);
+        setDetailMobileNavIsHidden(true);
         setCurrentIndex(null);
     };
 
@@ -91,6 +95,7 @@ const MobileNav = (props) => {
         clickedHeaderLink(route);
         props.hideMobileNav();
     };
+
     const checkCurrentProfile = () => {
         const currentUrl = location.pathname;
         if (url !== currentUrl) {
@@ -109,14 +114,17 @@ const MobileNav = (props) => {
                 <MobileTop
                     closeDetailedMobileNav={closeDetailedMobileNav}
                     detailMobileNavIsHidden={detailMobileNavIsHidden}
-                    hideMobileNav={clickedLink} />
+                    mobileNavInitialState={mobileNavInitialState}
+                    hideMobileNav={props.hideMobileNav} />
             </div>
             <div className="mobile-nav-content">
-                <ul className="mobile-nav-content__list" style={detailMobileNavIsHidden ? {} : { display: "none" }}>
+                <ul
+                    className="mobile-nav-content__list"
+                    style={detailMobileNavIsHidden ? {} : { display: "none" }}>
                     {navbarConfig.map((n, index) => (
                         <>
-                            <hr className="mobile-nav-content__divider" />
-                            <li className="mobile-nav-content__list-item">
+                            <hr className={`mobile-nav-content__divider ${detailMobileNavIsHidden ? " animation-enter" : " "}`} />
+                            <li className={`mobile-nav-content__list-item ${detailMobileNavIsHidden ? " animation-enter" : " "}`}>
                                 {index === 0 ?
                                     <Link
                                         className="mobile-nav-content__link"
@@ -147,21 +155,32 @@ const MobileNav = (props) => {
                         </>
                     ))}
                 </ul>
-                <ul className="mobile-dropdown__list" style={detailMobileNavIsHidden ? { display: "none" } : {}}>
-                    {currentIndex && <MobileDropdownItem
-                        {...props}
-                        mainTitle={navbarConfig[currentIndex].title}
-                        label={navbarConfig[currentIndex].title}
-                        title={navbarConfig[currentIndex].title}
-                        section1Items={navbarConfig[currentIndex].section1Items}
-                        section2Items={navbarConfig[currentIndex].section2Items}
-                        section3Items={navbarConfig[currentIndex].section3Items}
-                        section1Options={navbarConfig[currentIndex].section1Options}
-                        section2Options={navbarConfig[currentIndex].section2Options}
-                        section3Options={navbarConfig[currentIndex].section3Options}
-                        index={currentIndex}
-                        onClick={clickedLink}
-                        active={url} />}
+                <ul
+                    className="mobile-dropdown__list mobile-nav-animations"
+                    style={!detailMobileNavIsHidden ? {} : { display: "none" }}>
+                    <TransitionGroup>
+                        {currentIndex && (
+                            <CSSTransition
+                                classNames="mobile-nav-side-slide"
+                                timeout={{ enter: 225, exit: 225 }}
+                                exit>
+                                <MobileDropdownItem
+                                    {...props}
+                                    mainTitle={navbarConfig[currentIndex].title}
+                                    label={navbarConfig[currentIndex].title}
+                                    title={navbarConfig[currentIndex].title}
+                                    section1Items={navbarConfig[currentIndex].section1Items}
+                                    section2Items={navbarConfig[currentIndex].section2Items}
+                                    section3Items={navbarConfig[currentIndex].section3Items}
+                                    section1Options={navbarConfig[currentIndex].section1Options}
+                                    section2Options={navbarConfig[currentIndex].section2Options}
+                                    section3Options={navbarConfig[currentIndex].section3Options}
+                                    index={currentIndex}
+                                    onClick={clickedLink}
+                                    active={url} />
+                            </CSSTransition>
+                        )}
+                    </TransitionGroup>
                 </ul>
             </div>
         </div>
