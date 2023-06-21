@@ -1,7 +1,5 @@
 import React from 'react';
-import { connect } from "react-redux";
 import PropTypes from 'prop-types';
-import { Link } from "react-router-dom";
 import GlossaryContainer from 'containers/glossary/GlossaryContainer';
 import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
 import AboutTheDataContainer from "containers/aboutTheDataSidebar/AboutTheDataContainer";
@@ -9,20 +7,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import NavbarWrapper from './NavbarWrapper';
 import InfoBanner from "./InfoBanner";
 import GovBanner from "./GovBanner";
-import {
-    setAboutTheDataTerm,
-    setAboutTheDataTermFromUrl,
-    showAboutTheData
-} from "../../../redux/actions/aboutTheDataSidebar/aboutTheDataActions";
-import { setLastOpenedSlideout } from "../../../redux/actions/slideouts/slideoutActions";
 
-export class Header extends React.Component {
+export default class Header extends React.Component {
     constructor(props) {
         super(props);
 
         // bind functions
         this.skippedNav = this.skippedNav.bind(this);
-        this.atdClick = this.atdClick.bind(this);
     }
 
     skippedNav(e) {
@@ -37,13 +28,6 @@ export class Header extends React.Component {
         if (mainFocus) {
             mainFocus.focus();
         }
-    }
-
-    atdClick() {
-        this.props.openATD();
-        // make sure it will open on top of glossary if glossary is already open
-        this.props.setSlideout('atd');
-        this.props.setATDTerm('congressional-district-data');
     }
 
     render() {
@@ -64,9 +48,7 @@ export class Header extends React.Component {
                         borderBottomColor="#c3ebfa"
                         backgroundColor="#e1f3f8"
                         title={<>New congressional district data available</>}
-                        content={<>USAspending.gov now has new congressional district data as a result of the 2020 census. Districts are identified sitewide as “current” or “submitted” (i.e., original).{' '}
-                            <Link onClick={this.atdClick}>Learn more about redistricting and the changes you’ll find on the site. </Link>
-                        </>} />
+                        content={<>USAspending.gov now has new congressional district data as a result of the 2020 census. Districts are identified sitewide as “current” or “submitted” (i.e., original). Learn more about redistricting and the changes you’ll find on the site.</>} />
                     <GovBanner />
                     <NavbarWrapper />
                 </header>
@@ -79,17 +61,5 @@ export class Header extends React.Component {
 }
 
 Header.propTypes = {
-    showModal: PropTypes.func,
-    openATD: PropTypes.func,
-    setATDTerm: PropTypes.func,
-    setSlideout: PropTypes.func
+    showModal: PropTypes.func
 };
-
-const mapDispatchToProps = (dispatch) => ({
-    openATD: () => dispatch(showAboutTheData()),
-    setATDTerm: (term) => dispatch(setAboutTheDataTermFromUrl(term)),
-    setSlideout: (str) => dispatch(setLastOpenedSlideout(str))
-});
-
-export default connect(null, mapDispatchToProps)(Header);
-
