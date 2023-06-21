@@ -2,55 +2,33 @@
     // slide in animation
     @keyframes mobileNavEnter {
         // slide in from top
-        //0% {
-        //    transform: translate(0, -100vh);
-        //}
-        //100% {
-        //    transform: translate(0, 0);
-        //}
-
-        // left to right variation
         0% {
-            transform: translateX(-100%);
+            transform: translate(0, -100vh);
         }
         100% {
-            transform: translateX(0);
+            transform: translate(0, 0);
         }
     }
 
     @keyframes mobileNavExit {
         // slide out to top
-        //0% {
-        //    transform: translate(0, 0);
-        //}
-        //100% {
-        //    transform: translate(0, -100vh);
-        //}
-
-        // right to left variation
         0% {
-            transform: translateX(0);
+            transform: translate(0, 0);
         }
         100% {
-            transform: translateX(-100%);
+            transform: translate(0, -100vh);
         }
     }
 
+    // this one applies to the mobile-dropdown__list
+    // and we only have Enter here because we're using
+    // display none to hide it
     @keyframes mobileNavSideEnter {
         0% {
             transform: translateX(100%);
         }
         100% {
             transform: translateX(0);
-        }
-    }
-
-    @keyframes mobileNavSideExit {
-        0% {
-            transform: translateX(0);
-        }
-        100% {
-            transform: translateX(100%);
         }
     }
 
@@ -64,9 +42,5 @@
 
     .mobile-nav-side-slide-enter, .mobile-nav-side-slide-enter-active {
         @include animation(mobileNavSideEnter 0.225s ease-in forwards);
-    }
-
-    .mobile-nav-side-slide-exit, .mobile-nav-side-slide-exit-active {
-        @include animation(mobileNavSideExit 0.225s ease-in forwards);
     }
 }

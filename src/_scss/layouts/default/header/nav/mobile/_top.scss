@@ -34,21 +34,10 @@
         }
     }
 
-    @keyframes mobileNavExitRtoL {
-        0% {
-            transform: translateX(0);
-        }
-        100% {
-            transform: translateX(-100%);
-        }
-    }
-
+    // there is no need for an animation-exit class here bc
+    // we're using display none which overrides the animation
     .animation-enter {
         animation: mobileNavEnterLtoR 0.225s ease-in forwards;
-    }
-
-    .animation-exit {
-        animation: mobileNavExitRtoL 0.225s ease-in forwards;
     }
 
     margin: rem(0) rem(16);

@@ -9,6 +9,10 @@ const NavbarWrapper = () => {
     const [showMobileNav, setShowMobileNav] = useState(false);
     const [isHomepage, setIsHomepage] = useState(false);
 
+    // the purpose of this var is to prevent the usas logo from sliding in from
+    // the left when the menu opens initially
+    const [mobileNavInitialState, setMobileNavInitialState] = useState(true);
+
     const { pathname } = useLocation();
 
     useEffect(() => {
@@ -27,8 +31,7 @@ const NavbarWrapper = () => {
             // re-enable body scrolling
             document.querySelector('body').classList.remove('show-mobile-nav');
         }
-    }
-    , [showMobileNav]);
+    }, [showMobileNav]);
 
     const clickedHeaderLink = (route) => {
         Analytics.event({
@@ -45,6 +48,7 @@ const NavbarWrapper = () => {
     // re-enable body scrolling
         document.querySelector('body').classList.remove('show-mobile-nav');
         setShowMobileNav(false);
+        setMobileNavInitialState(true);
     };
 
     const toggleMobileNav = () => {
@@ -92,7 +96,10 @@ const NavbarWrapper = () => {
                             <CSSTransition
                                 classNames="mobile-nav-slide"
                                 timeout={{ enter: 225, exit: 225 }}>
-                                <MobileNav hideMobileNav={hideMobileNav} />
+                                <MobileNav
+                                    hideMobileNav={hideMobileNav}
+                                    mobileNavInitialState={mobileNavInitialState}
+                                    setMobileNavInitialState={setMobileNavInitialState} />
                             </CSSTransition>
                         )}
                     </TransitionGroup>

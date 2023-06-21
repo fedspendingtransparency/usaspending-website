@@ -8,7 +8,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Analytics from 'helpers/analytics/Analytics';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
-import GovBanner from "./../GovBanner";
 
 const clickedHeaderLink = (route) => {
     Analytics.event({
@@ -32,9 +31,8 @@ export default class MobileTop extends React.Component {
     render() {
         return (
             <div>
-                <GovBanner />
                 <div className="mobile-nav-header">
-                    <div style={this.props.detailMobileNavIsHidden ? {} : { display: "none" }} className={`mobile-nav-header__logo site-logo ${this.props.detailMobileNavIsHidden ? " animation-enter" : " animation-exit"}`}>
+                    <div style={this.props.detailMobileNavIsHidden ? {} : { display: "none" }} className={`mobile-nav-header__logo site-logo ${(this.props.detailMobileNavIsHidden && !this.props.mobileNavInitialState) ? " animation-enter" : " "}`}>
                         <div className="site-logo__wrapper" id="logo-nav">
                             <Link
                                 className="site-logo__link"
@@ -87,5 +85,6 @@ export default class MobileTop extends React.Component {
 MobileTop.propTypes = {
     hideMobileNav: PropTypes.func,
     detailMobileNavIsHidden: PropTypes.bool,
-    closeDetailedMobileNav: PropTypes.func
+    closeDetailedMobileNav: PropTypes.func,
+    mobileNavInitialState: PropTypes.bool
 };

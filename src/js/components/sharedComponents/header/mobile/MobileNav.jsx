@@ -34,7 +34,9 @@ const clickedHeaderLink = (route) => {
 
 const propTypes = {
     hideMobileNav: PropTypes.func,
-    location: PropTypes.object
+    location: PropTypes.object,
+    mobileNavInitialState: PropTypes.bool,
+    setMobileNavInitialState: PropTypes.func
 };
 
 const navbarConfig = [
@@ -72,13 +74,14 @@ const navbarConfig = [
 ];
 
 const MobileNav = (props) => {
-    const { location } = props;
+    const { location, mobileNavInitialState, setMobileNavInitialState } = props;
     const [url, setUrl] = useState('');
     const [detailMobileNavIsHidden, setDetailMobileNavIsHidden] = useState(true);
     const [currentIndex, setCurrentIndex] = useState(null);
 
     const openDetailedMobileNav = (index) => {
         setDetailMobileNavIsHidden(false);
+        setMobileNavInitialState(false);
         setCurrentIndex(index);
     };
 
@@ -111,6 +114,7 @@ const MobileNav = (props) => {
                 <MobileTop
                     closeDetailedMobileNav={closeDetailedMobileNav}
                     detailMobileNavIsHidden={detailMobileNavIsHidden}
+                    mobileNavInitialState={mobileNavInitialState}
                     hideMobileNav={props.hideMobileNav} />
             </div>
             <div className="mobile-nav-content">
@@ -120,7 +124,7 @@ const MobileNav = (props) => {
                     {navbarConfig.map((n, index) => (
                         <>
                             <hr className={`mobile-nav-content__divider ${detailMobileNavIsHidden ? " animation-enter" : " animation-exit"}`} />
-                            <li className={`mobile-nav-content__list-item ${detailMobileNavIsHidden ? " animation-enter" : " animation-exit"}`}>
+                            <li className={`mobile-nav-content__list-item ${detailMobileNavIsHidden ? " animation-enter" : " "}`}>
                                 {index === 0 ?
                                     <Link
                                         className="mobile-nav-content__link"
