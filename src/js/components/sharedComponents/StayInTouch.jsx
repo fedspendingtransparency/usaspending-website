@@ -4,8 +4,6 @@
  */
 
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { showModal } from 'redux/actions/modal/modalActions';
 import { FlexGridRow, FlexGridCol } from 'data-transparency-ui';
 import PropTypes from "prop-types";
 import Analytics from 'helpers/analytics/Analytics';
@@ -18,8 +16,6 @@ const propTypes = {
 };
 
 const StayInTouch = (pageName) => {
-    const dispatch = useDispatch();
-
     const trackLinkSignUp = () => Analytics.event({
         category: pageName,
         action: 'Link',
@@ -46,7 +42,7 @@ const StayInTouch = (pageName) => {
     };
     const handleSurveyClick = () => {
         trackLinkSurvey();
-        dispatch(showModal("https://forms.office.com/g/neemMd2J4a"));
+        console.log('open survey here');
     };
 
     return (
@@ -67,22 +63,46 @@ const StayInTouch = (pageName) => {
                     </FlexGridRow>
                 </FlexGridCol>
                 <FlexGridCol
-                    className="stay-in-touch__second-row-container"
+                    className="stay-in-touch__second-row-container top"
                     mobile={12}
                     tablet={12}
                     desktop={3}>
                     <div className="stay-in-touch__second-row-title">
-                        Share your story
+                        Your Data, Your Story
                     </div>
                     <div className="stay-in-touch__second-row-text">
-                        Love USAspending.gov? Join the "Your Data, Your Story" campaign to share how you use the data!
+                        Love USAspending.gov? Help others learn about how you use the data!
+                    </div>
+                    <div className="stay-in-touch__second-row-link">
+                        <Button
+                            copy="Share your story"
+                            buttonTitle="Share your story"
+                            buttonSize="md"
+                            onClick={handleSurveyClick}
+                            buttonType="text"
+                            backgroundColor="light"
+                            imageAlignment="right"
+                            textAlignment="left"
+                            image={<FontAwesomeIcon icon={faArrowRight} style={{ height: '16px', width: '14px' }} />} />
+                    </div>
+                </FlexGridCol>
+                <FlexGridCol
+                    className="stay-in-touch__second-row-container top"
+                    mobile={12}
+                    tablet={12}
+                    desktop={3}>
+                    <div className="stay-in-touch__second-row-title">
+                                Get release notes delivered to your inbox
+                    </div>
+                    <div className="stay-in-touch__second-row-text">
+                                Sign up to receive our release notes to keep up with what’s new on USAspending.gov.
                     </div>
                     <div className="stay-in-touch__second-row-link">
                         <Button
                             copy="Sign Up"
                             buttonTitle="Sign Up"
                             buttonSize="md"
-                            onClick={handleSurveyClick}
+                            onClick={handleSignUp}
                             buttonType="text"
                             backgroundColor="light"
                             imageAlignment="right"
@@ -96,7 +116,7 @@ const StayInTouch = (pageName) => {
                     tablet={12}
                     desktop={3}>
                     <div className="stay-in-touch__second-row-title">
-                                Request a training session
+                                Request a USAspending training session
                     </div>
                     <div className="stay-in-touch__second-row-text">
                                 Receive customized training for your organization on how to use our tools and data.
@@ -111,30 +131,6 @@ const StayInTouch = (pageName) => {
                             backgroundColor="light"
                             textAlignment="left"
                             imageAlignment="right"
-                            image={<FontAwesomeIcon icon={faArrowRight} style={{ height: '16px', width: '14px' }} />} />
-                    </div>
-                </FlexGridCol>
-                <FlexGridCol
-                    className="stay-in-touch__second-row-container"
-                    mobile={12}
-                    tablet={12}
-                    desktop={3}>
-                    <div className="stay-in-touch__second-row-title">
-                        Get release notes to your inbox
-                    </div>
-                    <div className="stay-in-touch__second-row-text">
-                        Sign up to receive our release notes to keep up with what’s new on USAspending.gov.
-                    </div>
-                    <div className="stay-in-touch__second-row-link">
-                        <Button
-                            copy="Sign Up"
-                            buttonTitle="Sign Up"
-                            buttonSize="md"
-                            onClick={handleSignUp}
-                            buttonType="text"
-                            backgroundColor="light"
-                            imageAlignment="right"
-                            textAlignment="left"
                             image={<FontAwesomeIcon icon={faArrowRight} style={{ height: '16px', width: '14px' }} />} />
                     </div>
                 </FlexGridCol>
