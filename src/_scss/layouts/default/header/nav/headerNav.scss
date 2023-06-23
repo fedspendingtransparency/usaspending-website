@@ -20,10 +20,7 @@ header.site-header__wrapper {
             @include flex-direction(row);
             @include align-items(center);
             // style the primary menu
-            margin: 0 rem(16);
-            @media (min-width: $tablet-screen) {
-                margin: 0 rem(32);
-            }
+            margin: 0 rem(24);
         }
 
         .site-navigation__logo {
