@@ -1,11 +1,11 @@
 .usa-da-error-page {
-    text-align: center;
     @import "all";
-    @import "layouts/default/stickyHeader/header";
+    @import "layouts/default/default";
 
     .main-content {
         @import "../../mixins/fullSectionWrap";
-        @include fullSectionWrap(($global-mrg * 2), ($global-mrg * 2));
+        text-align: center;
+        @include fullSectionWrap(($global-margin * 2), ($global-margin * 2));
         padding: 2.5rem 2rem;
         background-color: $color-white;
         box-shadow: $container-shadow;
@@ -21,8 +21,8 @@
             line-height: 3.4rem;
         }
         img {
-            width: 249px;
-            height: 123px;
+            width: 210px;
+            height: 120px;
         }
         p {
             font-weight: $font-semibold;
@@ -43,8 +43,8 @@
                 margin-bottom: 5.9rem;
             }
             img {
-                width: 586px;
-                height: 288px;
+                width: 300px;
+                height: 150px;
             }
             p {
                 font-size: 1.8rem;
