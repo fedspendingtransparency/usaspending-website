@@ -1,23 +1,35 @@
 .mobile-nav-content {
     ul.mobile-nav-content__list {
         @include unstyled-list;
-        margin-top: rem(50);
+
+        @keyframes mobileNavEnterLtoR {
+            0% {
+                transform: translateX(-100%);
+            }
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        // there is no need for an animation-exit class here bc
+        // we're using display none which overrides the animation
+        .animation-enter {
+            animation: mobileNavEnterLtoR 0.225s ease-in forwards;
+        }
 
         li.mobile-nav-content__list-item {
-            text-align: center;
-            &.mobile-nav-content__list-item_no-phone {
-                @media screen and (max-width: 450px) {
-                    display: none;
-                }
+            text-align: left;
+            margin: rem(0) rem(16) rem(24) rem(16);
+            @media (min-width: $tablet-screen) {
+                margin: rem(0) rem(32) rem(24) rem(32);
             }
         }
 
         a.mobile-nav-content__link {
-            color: $color-gray;
-            font-size: rem(30);
-            line-height: rem(36);
-            opacity: 0.6;
-
+            color: $gray-90;
+            font-weight: $font-semibold;
+            font-size: $font-size-16;
+            line-height: 1.25;
             &:active, &:hover {
                 text-decoration: none;
                 opacity: 1;
@@ -39,15 +51,12 @@
 
         hr.mobile-nav-content__divider {
             border: none;
-            border-bottom: 2px solid $color-gray;
-            width: rem(50);
-            margin-left: auto;
-            margin-right: auto;
-            margin-top: rem(20);
-            margin-bottom: rem(20);
-            opacity: 0.6;
+            border-bottom: 2px solid $gray-cool-10;
+            width: auto;
+            margin: rem(0) rem(16) rem(24) rem(16);
+            @media (min-width: $tablet-screen) {
+                margin: rem(0) rem(32) rem(24) rem(32);
+            }
         }
-
-        @import "./_dropdown";
     }
 }

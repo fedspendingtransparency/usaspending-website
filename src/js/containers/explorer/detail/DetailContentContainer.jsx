@@ -317,8 +317,8 @@ export class DetailContentContainer extends React.Component {
         const filterBy = this.props.explorer.active.subdivision;
         if (filterBy === 'award') {
             // we are at the bottom of the path, go to the award page
-            // TODO: fix for BrowserRouter
-            this.props.history.push(`/award/${id}`);
+            // and open in new tab
+            window.open(`/award/${id}`, "_blank");
 
             Analytics.event({
                 category: 'Spending Explorer - Exit',

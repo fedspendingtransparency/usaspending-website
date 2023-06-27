@@ -1,18 +1,29 @@
 /**
  * MobileNav.jsx
- * Created by Kevin Li 9/15/17
+ * Created by Chas Stevens 5/10/2023
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 import PropTypes from 'prop-types';
 import { withRouter, Link } from 'react-router-dom';
-
 import Analytics from 'helpers/analytics/Analytics';
-
-import { searchOptions, profileOptions, downloadOptions, resourceOptions } from 'dataMapping/navigation/menuOptions';
-
+import {
+    spendingOptions,
+    profileOptions,
+    learnResourceOptions,
+    referenceMaterialsOptions,
+    developerOptions,
+    awardDownloadOptions,
+    accountDataOptions,
+    allDownloadOptions,
+    section1Options,
+    section2Options,
+    section3Options
+} from 'dataMapping/navigation/menuOptions';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import MobileTop from './MobileTop';
-import MobileDropdown from './MobileDropdown';
+import MobileDropdownItem from "./MobileDropdownItem";
 
 const clickedHeaderLink = (route) => {
     Analytics.event({
@@ -23,98 +34,158 @@ const clickedHeaderLink = (route) => {
 
 const propTypes = {
     hideMobileNav: PropTypes.func,
-    location: PropTypes.object
+    location: PropTypes.object,
+    mobileNavInitialState: PropTypes.bool,
+    setMobileNavInitialState: PropTypes.func
 };
 
-export class MobileNav extends React.Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            url: ''
-        };
-
-        this.clickedLink = this.clickedLink.bind(this);
+const navbarConfig = [
+    {
+        title: "Search Award Data",
+        url: '/search'
+    },
+    {
+        title: "Explore the Data",
+        section1Items: spendingOptions,
+        section2Items: profileOptions,
+        section1Options,
+        section2Options,
+        section3Options
+    },
+    {
+        title: "Download the Data",
+        section1Items: awardDownloadOptions,
+        section2Items: accountDataOptions,
+        section3Items: allDownloadOptions,
+        section1Options,
+        section2Options,
+        section3Options,
+        sectoion1Icon: "hand-holding-usd"
+    },
+    {
+        title: "Find Resources",
+        section1Items: learnResourceOptions,
+        section2Items: referenceMaterialsOptions,
+        section3Items: developerOptions,
+        section1Options,
+        section2Options,
+        section3Options
     }
+];
 
-    componentDidMount() {
-        this.checkCurrentProfile();
-    }
+const MobileNav = (props) => {
+    const { location, mobileNavInitialState, setMobileNavInitialState } = props;
+    const [url, setUrl] = useState('');
+    const [detailMobileNavIsHidden, setDetailMobileNavIsHidden] = useState(true);
+    const [currentIndex, setCurrentIndex] = useState(null);
 
-    clickedLink(e) {
+    const openDetailedMobileNav = (index) => {
+        setDetailMobileNavIsHidden(false);
+        setMobileNavInitialState(false);
+        setCurrentIndex(index);
+    };
+
+    const closeDetailedMobileNav = () => {
+        setDetailMobileNavIsHidden(true);
+        setCurrentIndex(null);
+    };
+
+    const clickedLink = (e) => {
         const route = e.target.name;
         clickedHeaderLink(route);
-        this.props.hideMobileNav();
-    }
+        props.hideMobileNav();
+    };
 
-    checkCurrentProfile() {
-    // determine if we need to highlight a dropdown menu option
-        const currentUrl = this.props.location.pathname;
-        if (this.state.url !== currentUrl) {
-            this.setState({
-                url: currentUrl
-            });
+    const checkCurrentProfile = () => {
+        const currentUrl = location.pathname;
+        if (url !== currentUrl) {
+            setUrl(currentUrl);
         }
-    }
+    };
 
-    render() {
-        return (
-            <div className="mobile-nav">
-                <div className="mobile-nav__top">
-                    <MobileTop {...this.props} />
-                </div>
-                <div className="mobile-nav-content">
-                    <ul
-                        className="mobile-nav-content__list">
-                        <li className="mobile-nav-content__list-item">
-                            <Link
-                                className="mobile-nav-content__link"
-                                to="/explorer"
-                                title="Spending Explorer"
-                                name="explorer"
-                                onClick={this.clickedLink}>
-                                Spending Explorer
-                            </Link>
-                            <hr className="mobile-nav-content__divider" />
-                        </li>
-                        <li className="mobile-nav-content__list-item">
-                            <MobileDropdown
-                                {...this.props}
-                                label="Award Search"
-                                items={searchOptions}
-                                active={this.state.url} />
-                            <hr className="mobile-nav-content__divider" />
-                        </li>
-                        <li className="mobile-nav-content__list-item">
-                            <MobileDropdown
-                                {...this.props}
-                                label="Profiles"
-                                items={profileOptions}
-                                active={this.state.url} />
-                            <hr className="mobile-nav-content__divider" />
-                        </li>
-                        <li className="mobile-nav-content__list-item mobile-nav-content__list-item_no-phone">
-                            <MobileDropdown
-                                {...this.props}
-                                label="Download Center"
-                                items={downloadOptions}
-                                active={this.state.url} />
-                            <hr className="mobile-nav-content__divider" />
-                        </li>
-                        <li className="mobile-nav-content__list-item">
-                            <MobileDropdown
-                                {...this.props}
-                                label="Resources"
-                                items={resourceOptions}
-                                active={this.state.url} />
-                            <hr className="mobile-nav-content__divider" />
-                        </li>
-                    </ul>
-                </div>
+    useEffect(() => {
+        checkCurrentProfile();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [location.pathname]);
+
+    return (
+        <div className="mobile-nav">
+            <div className="mobile-nav__top">
+                <MobileTop
+                    closeDetailedMobileNav={closeDetailedMobileNav}
+                    detailMobileNavIsHidden={detailMobileNavIsHidden}
+                    mobileNavInitialState={mobileNavInitialState}
+                    hideMobileNav={props.hideMobileNav} />
             </div>
-        );
-    }
-}
+            <div className="mobile-nav-content">
+                <ul
+                    className="mobile-nav-content__list"
+                    style={detailMobileNavIsHidden ? {} : { display: "none" }}>
+                    {navbarConfig.map((n, index) => (
+                        <>
+                            <hr className={`mobile-nav-content__divider ${detailMobileNavIsHidden ? " animation-enter" : " "}`} />
+                            <li className={`mobile-nav-content__list-item ${detailMobileNavIsHidden ? " animation-enter" : " "}`}>
+                                {index === 0 ?
+                                    <Link
+                                        className="mobile-nav-content__link"
+                                        to="/search"
+                                        title="Spending Explorer"
+                                        name="explorer"
+                                        onClick={clickedLink}>
+                                        Search Award Data
+                                    </Link>
+                                    :
+                                    <div className="mobile-dropdown">
+                                        <button
+                                            className="mobile-dropdown__parent"
+                                            title={navbarConfig[index].title}
+                                            onClick={() => {
+                                                openDetailedMobileNav(index);
+                                            }}>
+                                            <span className="mobile-dropdown__parent-label">
+                                                {navbarConfig[index].title}
+                                            </span>
+                                            <span className="mobile-dropdown__parent-icon">
+                                                <FontAwesomeIcon icon="chevron-right" />
+                                            </span>
+                                        </button>
+                                    </div>
+                                }
+                            </li>
+                        </>
+                    ))}
+                </ul>
+                <ul
+                    className="mobile-dropdown__list mobile-nav-animations"
+                    style={!detailMobileNavIsHidden ? {} : { display: "none" }}>
+                    <TransitionGroup>
+                        {currentIndex && (
+                            <CSSTransition
+                                classNames="mobile-nav-side-slide"
+                                timeout={{ enter: 225, exit: 225 }}
+                                exit>
+                                <MobileDropdownItem
+                                    {...props}
+                                    mainTitle={navbarConfig[currentIndex].title}
+                                    label={navbarConfig[currentIndex].title}
+                                    title={navbarConfig[currentIndex].title}
+                                    section1Items={navbarConfig[currentIndex].section1Items}
+                                    section2Items={navbarConfig[currentIndex].section2Items}
+                                    section3Items={navbarConfig[currentIndex].section3Items}
+                                    section1Options={navbarConfig[currentIndex].section1Options}
+                                    section2Options={navbarConfig[currentIndex].section2Options}
+                                    section3Options={navbarConfig[currentIndex].section3Options}
+                                    index={currentIndex}
+                                    onClick={clickedLink}
+                                    active={url} />
+                            </CSSTransition>
+                        )}
+                    </TransitionGroup>
+                </ul>
+            </div>
+        </div>
+    );
+};
 
 MobileNav.propTypes = propTypes;
 export default withRouter(MobileNav);

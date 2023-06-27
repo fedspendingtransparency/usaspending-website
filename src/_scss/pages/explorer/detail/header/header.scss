@@ -83,7 +83,7 @@
           margin: 0;
           background-color: transparent;
 
-     
+
              svg {
                  width: rem(10);
                  height: rem(10);
@@ -96,13 +96,13 @@
         @include flex(0 1 auto);
         width: rem(150);
         margin-left: rem(10);
-        
+
         @include media($medium-screen) {
             width: rem(250);
             margin-left: rem(50);
         }
         @include media($x-large-screen) {
-            margin-left: rem(150);    
+            margin-left: rem(150);
         }
 
         .amount-header {
@@ -141,7 +141,7 @@
   z-index: 1;
   width: rem(220);
   .homepage-hero-tooltip__text_holder {
-    height: rem(90);
+    height: rem(200);
     padding: rem(7) rem(20) 0 rem(35);
   }
 
