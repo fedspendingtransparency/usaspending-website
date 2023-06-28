@@ -66,11 +66,12 @@ class LocationPicker extends React.Component {
     }
 
     componentDidUpdate(prevProps) {
-    // a state that was autoPopulated and then removed via city de-selection will have prevProps.state.autoPopulated === true
+        // a state that was autoPopulated and then removed via city de-selection will have prevProps.state.autoPopulated === true
         const manuallyPopulatedStateChanged = (!prevProps.state.autoPopulated && (prevProps.state.code !== this.props.state.code));
         const manuallyPopulatedCountryChanged = (!this.props.country.autoPopulated && (prevProps.country.code !== this.props.country.code));
         const stateChanged = (prevProps.state.code !== this.props.state.code);
         const countryChanged = (prevProps.country.code !== this.props.country.code);
+
         const isCityInState = ( // selected city is w/in the selected state
             this.props.country.code === 'USA' &&
             this.props.state.code === this.props.city.code &&
@@ -108,7 +109,8 @@ class LocationPicker extends React.Component {
         else if (stateChanged && !this.props.state.code) {
             // manually selected state was removed, clear counties, districts & cities
             this.props.clearCounties();
-            this.props.clearDistricts();
+            this.props.clearOriginalDistricts();
+            this.props.clearCurrentDistricts();
             if (manuallyPopulatedStateChanged) {
                 this.props.clearCitiesAndSelectedCity();
             }
@@ -222,7 +224,7 @@ class LocationPicker extends React.Component {
         })));
 
         let districtPlaceholder = 'Select a congressional district';
-        if (this.props.state.code !== '' && this.props.availableDistricts.length === 0) {
+        if (this.props.state.code !== '' && (this.props.availableOriginalDistricts?.length === 0 || this.props.availableCurrentDistricts?.length === 0)) {
             // no districts in this state
             districtPlaceholder = 'No congressional districts in territory';
         }
@@ -332,8 +334,8 @@ class LocationPicker extends React.Component {
                             title="Original Congressional Districts (as reported by federal agencies)"
                             value={this.props.district_original}
                             selectEntity={this.props.selectEntity}
-                            options={this.props.availableDistricts}
-                            enabled={isDistrictEnabled}
+                            options={this.props.availableOriginalDistricts}
+                            enabled={isOriginalDistrictEnabled}
                             generateDisclaimer={this.generateDisclaimer} />
                     </div>
                     <div className="location-filter__link-container">
