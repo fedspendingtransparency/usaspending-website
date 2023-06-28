@@ -10,8 +10,5 @@
 
     img.site-logo__image {
         max-height: rem(32);
-        @media(max-width: 1200px) {
-            transform:translateX(-4px);
-        }
     }
 }

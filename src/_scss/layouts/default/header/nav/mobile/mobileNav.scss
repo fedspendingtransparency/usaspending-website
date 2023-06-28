@@ -5,18 +5,25 @@
     left: 0;
     right: 0;
     z-index: $z-mobile-nav;
-
     overflow-y: auto;
-
-    background-color: $color-gray-lightest;
+    background-color: $color-white;
+    @media (min-width: $medium-screen) {
+        display: none;
+    }
 
     .mobile-nav__top {
         position: relative;
-        margin: rem(0) rem(20);
+        padding: rem(0) rem(0);
+    }
+
+    .mobile-dropdown__list {
+        padding-left: 0 !important;
     }
 
     @import "./_top";
     @import "./_nav";
+    @import "./_dropdown";
+    @import "./../../officialSite";
 }
 
 @import "./_animations";

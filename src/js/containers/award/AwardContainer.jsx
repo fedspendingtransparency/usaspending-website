@@ -33,6 +33,7 @@ import {
 } from 'helpers/downloadHelper';
 import withDefCodes from 'containers/covid19/WithDefCodes';
 import { getAwardHistoryCounts } from "../../helpers/awardHistoryHelper";
+import Analytics from "../../helpers/analytics/Analytics";
 
 require('pages/award/awardPage.scss');
 
@@ -168,6 +169,12 @@ export class AwardContainer extends React.Component {
     }
 
     fetchAwardDownloadFile(awardCategory = this.props.award.category, awardId = this.props.match.params.awardId) {
+        Analytics.event({
+            category: 'Award Profile',
+            action: 'Download Initiated',
+            label: `Award Id ${awardId}`
+        });
+
         if (awardCategory === 'idv') {
             return fetchIdvDownloadFile(awardId);
         }

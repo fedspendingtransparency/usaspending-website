@@ -112,7 +112,7 @@ const ListOfVideos = ({ videos }) => {
                             <VideoCard
                                 onKeyUp={(e) => {
                                     e.persist();
-                                    if (e.key === 'Enter') {
+                                    if (e.key === 'Enter' && (e.target.className !== 'usa-dt-picker__button' && !e.target.className.includes('text'))) {
                                         dispatch(showTrainingVideoModal({
                                             url: video.thumbnails.maxres.url, modalType: 'training-videos', title: video.title, description: video.description, publishedAt: video.publishedAt, duration: video.duration, id: video.id
                                         }));
