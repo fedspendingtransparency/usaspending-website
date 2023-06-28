@@ -214,12 +214,12 @@ class LocationPicker extends React.Component {
 
         const isOriginalDistrictEnabled = (isDistrictEnabled && (isEqual(this.props.district_current, defaultLocationValues.district_current) || isEqual(this.props.district_current, {
             code: '',
-            district_original: '',
+            district: '',
             name: 'All congressional districts'
         })));
         const isCurrentDistrictEnabled = (isDistrictEnabled && (isEqual(this.props.district_original, defaultLocationValues.district_original) || isEqual(this.props.district_original, {
             code: '',
-            district_current: '',
+            district: '',
             name: 'All congressional districts'
         })));
 
