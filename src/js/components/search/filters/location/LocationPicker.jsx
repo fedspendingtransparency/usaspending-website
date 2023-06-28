@@ -27,7 +27,7 @@ const propTypes = {
     county: PropTypes.object,
     city: PropTypes.object,
     district_current: PropTypes.object,
-    district_submitted: PropTypes.object,
+    district_original: PropTypes.object,
     zip: PropTypes.object,
     availableCountries: PropTypes.array,
     availableStates: PropTypes.array,
@@ -156,12 +156,12 @@ class LocationPicker extends React.Component {
         else if (this.props.country.code === 'USA') {
             const {
                 state,
-                district_submitted,
+                district_original,
                 district_current,
                 county,
                 city
             } = this.props;
-            const countyOrDistrictSelected = ((district_submitted.district || district_current.district) || county.code);
+            const countyOrDistrictSelected = ((district_original.district || district_current.district) || county.code);
             if (!state.code) {
                 // no state
                 return (
@@ -172,8 +172,8 @@ class LocationPicker extends React.Component {
                     </span>
                 );
             }
-            else if (countyOrDistrictSelected || (city.code && ((!district_submitted || !district_current) || !county.code))) {
-                const selectedField = (district_submitted.district || district_current.district) ? "congressional district" : "county"; // if evaluates to county, double check it's not actually city
+            else if (countyOrDistrictSelected || (city.code && ((!district_original || !district_current) || !county.code))) {
+                const selectedField = (district_original.district || district_current.district) ? "congressional district" : "county"; // if evaluates to county, double check it's not actually city
                 return (
                     <span>
                         You cannot select both a <span className="field">{(selectedField === "county" && !county.code) ? "city" : selectedField}</span> and a <span className="field"> {field}</span>.
@@ -196,12 +196,12 @@ class LocationPicker extends React.Component {
             this.props.country.code !== "" &&
             !this.props.county.code &&
             !this.props.district_current?.district &&
-            !this.props.district_submitted?.district
+            !this.props.district_original?.district
         );
         const isCountyEnabled = (
             this.props.state.code !== "" &&
             !this.props.district_current?.district &&
-            !this.props.district_submitted?.district &&
+            !this.props.district_original?.district &&
             !this.props.city.code
         );
         const isDistrictEnabled = (
@@ -212,10 +212,10 @@ class LocationPicker extends React.Component {
 
         const isOriginalDistrictEnabled = (isDistrictEnabled && (isEqual(this.props.district_current, defaultLocationValues.district_current) || isEqual(this.props.district_current, {
             code: '',
-            district_submitted: '',
+            district_original: '',
             name: 'All congressional districts'
         })));
-        const isCurrentDistrictEnabled = (isDistrictEnabled && (isEqual(this.props.district_submitted, defaultLocationValues.district_submitted) || isEqual(this.props.district_submitted, {
+        const isCurrentDistrictEnabled = (isDistrictEnabled && (isEqual(this.props.district_original, defaultLocationValues.district_original) || isEqual(this.props.district_original, {
             code: '',
             district_current: '',
             name: 'All congressional districts'
@@ -330,7 +330,7 @@ class LocationPicker extends React.Component {
                             matchKey="district"
                             placeholder={districtPlaceholder}
                             title="Original Congressional Districts (as reported by federal agencies)"
-                            value={this.props.district_submitted}
+                            value={this.props.district_original}
                             selectEntity={this.props.selectEntity}
                             options={this.props.availableDistricts}
                             enabled={isDistrictEnabled}
