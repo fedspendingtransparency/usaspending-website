@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { Link, useLocation } from 'react-router-dom';
-
 import Analytics from 'helpers/analytics/Analytics';
 import MobileNav from './mobile/MobileNav';
 import MegaMenu from "./megaMenu/MegaMenu";
@@ -10,24 +9,29 @@ const NavbarWrapper = () => {
     const [showMobileNav, setShowMobileNav] = useState(false);
     const [isHomepage, setIsHomepage] = useState(false);
 
+    // the purpose of this var is to prevent the usas logo from sliding in from
+    // the left when the menu opens initially
+    const [mobileNavInitialState, setMobileNavInitialState] = useState(true);
+
     const { pathname } = useLocation();
 
     useEffect(() => {
         if (pathname === "/") {
             setIsHomepage(true);
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     useEffect(() => {
         if (showMobileNav) {
             // disable body scrolling
             document.querySelector('body').classList.add('show-mobile-nav');
-        } else {
+        }
+        else {
             // re-enable body scrolling
             document.querySelector('body').classList.remove('show-mobile-nav');
         }
-    }
-    , [showMobileNav]);
+    }, [showMobileNav]);
 
     const clickedHeaderLink = (route) => {
         Analytics.event({
@@ -41,7 +45,10 @@ const NavbarWrapper = () => {
     };
 
     const hideMobileNav = () => {
+    // re-enable body scrolling
+        document.querySelector('body').classList.remove('show-mobile-nav');
         setShowMobileNav(false);
+        setMobileNavInitialState(true);
     };
 
     const toggleMobileNav = () => {
@@ -88,9 +95,11 @@ const NavbarWrapper = () => {
                         {showMobileNav && (
                             <CSSTransition
                                 classNames="mobile-nav-slide"
-                                timeout={{ enter: 225, exit: 195 }}
-                                exit>
-                                <MobileNav hideMobileNav={hideMobileNav} />
+                                timeout={{ enter: 225, exit: 225 }}>
+                                <MobileNav
+                                    hideMobileNav={hideMobileNav}
+                                    mobileNavInitialState={mobileNavInitialState}
+                                    setMobileNavInitialState={setMobileNavInitialState} />
                             </CSSTransition>
                         )}
                     </TransitionGroup>

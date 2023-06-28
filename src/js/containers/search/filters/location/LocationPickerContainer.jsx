@@ -15,7 +15,7 @@ import {
     getCitySearchRequestObj
 } from "helpers/mapHelper";
 
-import LocationPicker from "components/search/filters/location/LocationPicker";
+import LocationPicker from "../../../../components/search/filters/location/LocationPicker";
 
 const propTypes = {
     selectedLocations: PropTypes.object,
@@ -85,8 +85,7 @@ export default class LocationPickerContainer extends React.Component {
             availableCountries: [],
             availableStates: [],
             availableCounties: [],
-            availableOriginalDistricts: [],
-            availableCurrentDistricts: [],
+            availableDistricts: [],
             availableCities: [],
             country: Object.assign({}, defaultLocationValues.country),
             state: Object.assign({}, defaultLocationValues.state),
@@ -111,8 +110,7 @@ export default class LocationPickerContainer extends React.Component {
 
         this.clearStates = this.clearStates.bind(this);
         this.clearCounties = this.clearCounties.bind(this);
-        this.clearOriginalDistricts = this.clearOriginalDistricts.bind(this);
-        this.clearCurrentDistricts = this.clearCurrentDistricts.bind(this);
+        this.clearDistricts = this.clearDistricts.bind(this);
         this.clearCitiesAndSelectedCity = this.clearCitiesAndSelectedCity.bind(this);
 
         this.selectEntity = this.selectEntity.bind(this);
@@ -278,22 +276,11 @@ export default class LocationPickerContainer extends React.Component {
             this.districtRequest.cancel();
         }
 
-        this.districtRequest = fetchLocationList(`congressional/current/${state}_districts`);
-        this.districtRequest.promise
-            .then((res) => {
-                this.parseCurrentDistricts(res.data);
-            })
-            .catch((err) => {
-                if (!isCancel(err)) {
-                    console.log(err);
-                }
-            });
-
-        this.districtRequest = fetchLocationList(`congressional/original/${state}_districts`);
+        this.districtRequest = fetchLocationList(`congressional/${state}_districts`);
 
         this.districtRequest.promise
             .then((res) => {
-                this.parseOriginalDistricts(res.data);
+                this.parseDistricts(res.data);
             })
             .catch((err) => {
                 if (!isCancel(err)) {
@@ -302,7 +289,7 @@ export default class LocationPickerContainer extends React.Component {
             });
     }
 
-    parseOriginalDistricts(data) {
+    parseDistricts(data) {
     // prepend a blank district to act as a de-select option
         let districts = [];
         if (data.districts.length > 0) {
@@ -386,7 +373,6 @@ export default class LocationPickerContainer extends React.Component {
                 );
             this.setState({ country: countryFromCity });
         }
-
         this.setState({
             [level]: value
         });
@@ -457,7 +443,9 @@ export default class LocationPickerContainer extends React.Component {
                         [prop]: parsedKeyValue
                     },
                     display: {
-                        entity: `${entityValue}`,
+                        entity: prop === 'district'
+                            ? 'Congressional district'
+                            : `${prop.substr(0, 1).toUpperCase()}${prop.substr(1)}`,
                         standalone: prop === 'county'
                             ? `${this.state.county.name}, ${this.state.state.code}`
                             : this.state[prop].name,
@@ -622,8 +610,7 @@ export default class LocationPickerContainer extends React.Component {
                 clearStates={this.clearStates}
                 clearCitiesAndSelectedCity={this.clearCitiesAndSelectedCity}
                 clearCounties={this.clearCounties}
-                clearOriginalDistricts={this.clearOriginalDistricts}
-                clearCurrentDistricts={this.clearCurrentDistricts}
+                clearDistricts={this.clearDistricts}
                 selectEntity={this.selectEntity}
                 createLocationObject={this.createLocationObject}
                 addLocation={this.addLocation}

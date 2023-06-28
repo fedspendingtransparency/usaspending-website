@@ -18,8 +18,6 @@ describe('componentDidMount', () => {
         availableCountries: [],
         selectEntity: jest.fn(),
         createLocationObject: jest.fn(),
-        clearOriginalDistricts: jest.fn(),
-        clearCurrentDistricts: jest.fn(),
         ...mockRedux,
         ...mockPickerRedux,
         ...getSelectedLocationProps(),
