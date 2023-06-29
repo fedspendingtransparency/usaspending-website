@@ -430,7 +430,7 @@ export default class LocationPickerContainer extends React.Component {
             .reduce((acc, prop) => {
                 const accessor = locationPropertyAccessorMap[prop];
                 // removes ', <State/Country>' appended to city
-                const parsedKeyValue = prop === 'city'
+                let parsedKeyValue = prop === 'city'
                     ? this.state.city.name.split(", ").filter((str) => str !== this.state.city.code).join(", ")
                     : this.state[prop][accessor];
 
@@ -447,7 +447,12 @@ export default class LocationPickerContainer extends React.Component {
                 else {
                     entityValue = `${prop.substr(0, 1).toUpperCase()}${prop.substr(1)}`;
                 }
-                return {
+
+                if (parsedKeyValue === undefined && (prop === 'district_current' || prop === 'district_original')) {
+                    parsedKeyValue = this.state[prop].district;
+                }
+
+                const toReturn = {
                     identifier: prop === 'country' // init identifier value w/o appended '_'
                         ? this.state.country.code
                         : `${acc.identifier}_${parsedKeyValue}`,
@@ -463,6 +468,7 @@ export default class LocationPickerContainer extends React.Component {
                         title: this.state[prop].name
                     }
                 };
+                return toReturn;
             }, { identifier: '', display: { entity: '', title: '', standalone: '' }, filter: {} });
 
         return this.cleanBadLocationData(locationObject);
