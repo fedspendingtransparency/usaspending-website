@@ -361,7 +361,7 @@ export default class TimePeriod extends React.Component {
                     <SubmitHint
                         ref={(component) => {
                             this.hint = component;
-                        }}>HERE
+                        }}>
                     </SubmitHint>
                     }
                 </div>
