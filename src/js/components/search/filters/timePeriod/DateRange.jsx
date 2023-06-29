@@ -175,7 +175,7 @@ export default class DateRange extends React.Component {
                         accessibility={accessibility} />
                 </form>
                 <div
-                    className={`selected-filters ${hideTags}`}
+                    className={`s ${hideTags}`}
                     id="selected-date-range"
                     aria-hidden={noDates}
                     role="status">

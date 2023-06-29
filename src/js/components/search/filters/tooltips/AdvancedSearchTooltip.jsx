@@ -36,6 +36,45 @@ export const TimePeriodTooltip = () => (
     </div>
 );
 
+export const NewAwardsTooltip = () => (
+    <div className="advanced-search-tt">
+        <h3 className="advanced-search-tt__header">
+            Show New Awards Only
+        </h3>
+        <div className="advanced-search-tt__body">
+            <p>
+                Either a fiscal year has to be selected or a date range has to be specified
+                in order for the “Show New Awards Only” checkbox to become available. Please
+                note that combining the “All Fiscal Years” filter with the “Show New Awards
+                Only” checkbox will return all new awards for all fiscal years.
+            </p>
+            <p>
+                Selecting the “Show New Awards Only” checkbox will display any prime award
+                whose <strong>base transaction action date</strong> (the date of the first
+                transaction of a prime award) falls within the selected time period.
+            </p>
+            <p>
+                If not selected, search results in the Table tab will display prime awards
+                whose <strong>base transaction action date</strong> and <strong>latest
+                transaction action date
+                </strong> (the date of the latest transaction of a
+                prime award) overlap in any way with the selected time period. For example,
+                for the selected time period of Mar. 1-31, 2022, you would see results in
+                the Table tab for an award with a <strong>base transaction action date</strong> of
+                Jan. 1, 2022 and a <strong>latest transaction action date</strong> of
+                Dec. 31, 2022, even if there is no transaction activity for that award within
+                the period of Mar. 1-31, 2022.
+            </p>
+            <p>
+                Since there is no concept of “subaward modification” or “subaward summary
+                level” in the FFATA Subaward Reporting System (FSRS) data model, all subawards
+                are considered “new.” Therefore, the “Show New Awards Only” checkbox becomes
+                disabled and has no effect on searches for subawards.
+            </p>
+        </div>
+    </div>
+);
+
 export const KeyWordTooltip = () => (
     <div className="advanced-search-tt">
         <h3 className="advanced-search-tt__header">

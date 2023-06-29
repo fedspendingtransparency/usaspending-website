@@ -5,12 +5,12 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { NewAwardsTooltip } from 'components/search/filters/tooltips/AdvancedSearchTooltip';
+import { TooltipWrapper } from 'data-transparency-ui';
 import moment from 'moment';
 import { Set } from 'immutable';
 import { isEqual } from 'lodash';
-
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
-
 import DateRange from './DateRange';
 import AllFiscalYears from './AllFiscalYears';
 import DateRangeError from './DateRangeError';
@@ -60,6 +60,7 @@ export default class TimePeriod extends React.Component {
         this.validateDates = this.validateDates.bind(this);
         this.removeDateRange = this.removeDateRange.bind(this);
         this.clearHint = this.clearHint.bind(this);
+        this.newAwardsFn = this.newAwardsFn.bind(this);
     }
 
     componentDidMount() {
@@ -254,6 +255,11 @@ export default class TimePeriod extends React.Component {
         });
     }
 
+    newAwardsFn() {
+        // eslint-disable-next-line no-console
+        console.log('newAwardsFn');
+    }
+
     render() {
         let errorDetails = null;
         let showFilter = null;
@@ -296,6 +302,25 @@ export default class TimePeriod extends React.Component {
             activeClassDR = 'hidden';
         }
 
+        const newAwardsFilter = (
+            <label
+                className="new-awards-wrapper"
+                htmlFor="new-awards-checkbox">
+                <input
+                    type="checkbox"
+                    className="new-awards-checkbox"
+                    id="new-awards-checkbox"
+                    value="new-awards-checkbox"
+                    onChange={this.newAwardsFn} />
+                <span className="new-awards-label">
+                    Show New Awards Only
+                </span>
+                <TooltipWrapper
+                    icon="info"
+                    tooltipComponent={<NewAwardsTooltip />} />
+            </label>
+        );
+
         return (
             <div className="tab-filter-wrap">
                 <div className="filter-item-wrap">
@@ -331,11 +356,13 @@ export default class TimePeriod extends React.Component {
                     </ul>
                     { showFilter }
                     { errorDetails }
+                    { newAwardsFilter }
                     {!this.state.clearHint &&
                     <SubmitHint
                         ref={(component) => {
                             this.hint = component;
-                        }} />
+                        }}>HERE
+                    </SubmitHint>
                     }
                 </div>
             </div>
