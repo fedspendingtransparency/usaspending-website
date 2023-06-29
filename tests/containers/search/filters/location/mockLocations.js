@@ -20,7 +20,7 @@ export const getSelectedLocationProps = (props = defaultLocationValues) => ({
     state: props.state,
     county: props.county,
     city: props.city,
-    district: props.district,
+    district_original: props.district,
     zip: props.zip
 });
 

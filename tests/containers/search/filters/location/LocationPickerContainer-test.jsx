@@ -92,11 +92,11 @@ describe('LocationPickerContainer', () => {
             expect(container.state().availableDistricts).toEqual([
                 {
                     code: '',
-                    district: '',
+                    district_original: '',
                     name: 'All congressional districts'
                 }, {
                     code: '00XX',
-                    district: 'XX',
+                    district_original: 'XX',
                     name: 'IN-XX'
                 }
             ]);
@@ -145,8 +145,8 @@ describe('LocationPickerContainer', () => {
         it('should clear the available congressional districts and reset the selected congressional district to a blank value', () => {
             const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
             container.setState({
-                availableDistricts: mockDistricts.districts,
-                district: mockDistricts.districts[0]
+                availableOriginalDistricts: mockDistricts.districts,
+                district_original: mockDistricts.districts[0]
             });
 
             container.instance().clearDistricts();
