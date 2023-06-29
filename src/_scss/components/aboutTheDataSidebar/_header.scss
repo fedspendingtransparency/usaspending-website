@@ -8,10 +8,10 @@
 
     .close-button {
         @include button-unstyled;
-        width: 16px;
-        height: 16px;
+        width: rem(30);
+        height: rem(30);
         float: right;
-
+        text-align: center;
         svg {
             width: 16px;
             height: 16px;
