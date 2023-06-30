@@ -13,7 +13,7 @@
     "errors": "./node_modules/.bin/eslint --config .eslintrc --ext .jsx,.js \"src/js/**\" --quiet; exit 0;",
     "dev": "webpack --progress --config ./webpack/webpack.dev.config.js",
     "prod": "webpack --progress --config ./webpack/webpack.prod.config.js",
-    "travis": "npm audit --audit-level=high --production && ./node_modules/.bin/eslint --quiet --config .eslintrc --ext .jsx,.js \"src/js/**\" && ./node_modules/.bin/jest",
+    "travis": "npm audit --audit-level=moderate --production && ./node_modules/.bin/eslint --quiet --config .eslintrc --ext .jsx,.js \"src/js/**\" && ./node_modules/.bin/jest",
     "lhci:wizard": "lhci wizard",
     "lhci:server": "lhci server --storage.storageMethod=sql --storage.sqlDialect=sqlite --storage.sqlDatabasePath=./db.sql",
     "lhci:audit": "npx webpack --progress --config ./webpack/webpack.prod.config.js ; npx lhci autorun",
@@ -29,6 +29,7 @@
   },
   "license": "SEE LICENSE IN LICENSE.MD",
   "devDependencies": {
+    "@aashutoshrathi/word-wrap": "^1.2.6",
     "@babel/cli": "^7.10.5",
     "@babel/core": "^7.17.10",
     "@babel/node": "^7.10.5",
@@ -75,7 +76,7 @@
     "css-minimizer-webpack-plugin": "^3.4.1",
     "debug": "^2.6.9",
     "enzyme": "^3.9.0",
-    "eslint": "8.22.0",
+    "eslint": "^8.34.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-babel": "^5.3.0",
     "eslint-plugin-import": "^2.1.0",
@@ -143,10 +144,11 @@
     "http-cache-semantic": "4.1.1",
     "sequelize": "6.29.0",
     "yaml": "2.2.2",
-    "semver": "7.5.3"
+    "semver": "7.5.3",
+    "optionator": "0.9.3",
+    "word-wrap": "npm:@aashutoshrathi/word-wrap@1.2.6"
   },
   "dependencies": {
-    "@aashutoshrathi/word-wrap": "^1.2.6",
     "@babel/eslint-parser": "^7.17.0",
     "@fortawesome/fontawesome-svg-core": "^1.2.15",
     "@fortawesome/free-brands-svg-icons": "^5.13.0",
