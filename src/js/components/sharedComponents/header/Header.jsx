@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import NavbarWrapper from './NavbarWrapper';
 import InfoBanner from "./InfoBanner";
 import GovBanner from "./GovBanner";
+import AboutTheDataLink from "../AboutTheDataLink";
 
 export default class Header extends React.Component {
     constructor(props) {
@@ -49,7 +50,7 @@ export default class Header extends React.Component {
                         borderBottomColor="#c3ebfa"
                         backgroundColor="#e1f3f8"
                         title={<>New congressional district data available</>}
-                        content={<>USAspending.gov now has new congressional district data as a result of the 2020 census. Districts are identified sitewide as “current” or “submitted” (i.e., original). Learn more about redistricting and the changes you’ll find on the site.</>} />
+                        content={<>USAspending.gov now has new congressional district data as a result of the 2020 census. Districts are identified sitewide as “current” or “submitted” (i.e., original). <AboutTheDataLink slug="congressional-district-data">Learn more about redistricting and the changes you’ll find on the site.</AboutTheDataLink></>} />
                     <GovBanner />
                     <NavbarWrapper />
                 </header>
