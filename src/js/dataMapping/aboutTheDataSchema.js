@@ -178,6 +178,10 @@ const schema = {
                 slug: "medicare-location-data"
             },
             {
+                name: "Congressional District Data",
+                slug: "congressional-district-data"
+            },
+            {
                 name: "Personally Identifiable Information (PII) and Aggregate Records",
                 slug: "pii-and-aggregate-records"
             },
