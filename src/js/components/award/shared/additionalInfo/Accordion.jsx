@@ -11,7 +11,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { createOnKeyDownHandler } from 'helpers/keyboardEventsHelper';
 import { TooltipWrapper } from "data-transparency-ui";
 import { CondensedCDTooltip } from 'components/award/shared/InfoTooltipContent';
-import FeatureFlag from "../../../sharedComponents/FeatureFlag";
 
 const awardIdField = 'Unique Award Key';
 
@@ -117,14 +116,12 @@ export default class Accordion extends React.Component {
                             {data}
                         </div>
                         {(this.state.open && this.state.showCDTooltip) && (
-                            <FeatureFlag>
-                                <div className="accordion-row__data-tooltip">
-                                    <TooltipWrapper
-                                        className="homepage__covid-19-tt"
-                                        icon="info"
-                                        tooltipComponent={<CondensedCDTooltip title="Congressional District" />} />
-                                </div>
-                            </FeatureFlag>
+                            <div className="accordion-row__data-tooltip">
+                                <TooltipWrapper
+                                    className="homepage__covid-19-tt"
+                                    icon="info"
+                                    tooltipComponent={<CondensedCDTooltip title="Congressional District" />} />
+                            </div>
                         )}
                     </div>
                 </div>
