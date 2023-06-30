@@ -5,7 +5,6 @@ import GlossaryContainer from 'containers/glossary/GlossaryContainer';
 import GlobalModalContainer from 'containers/globalModal/GlobalModalContainer';
 import AboutTheDataContainer from "containers/aboutTheDataSidebar/AboutTheDataContainer";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import ExternalLink from 'components/sharedComponents/ExternalLink';
 import NavbarWrapper from './NavbarWrapper';
 import InfoBanner from "./InfoBanner";
 import GovBanner from "./GovBanner";
