@@ -32,8 +32,7 @@ const propTypes = {
     updateFilter: PropTypes.func,
     changeTab: PropTypes.func,
     disableDateRange: PropTypes.bool,
-    dirtyFilters: PropTypes.symbol,
-    setNewAwardFilterActive: PropTypes.func
+    dirtyFilters: PropTypes.symbol
 };
 
 export default class TimePeriod extends React.Component {
@@ -49,7 +48,8 @@ export default class TimePeriod extends React.Component {
             isActive: false,
             selectedFY: new Set(),
             allFY: false,
-            clearHint: false
+            clearHint: false,
+            newAwardFilterActive: false,
         };
 
         // bind functions
@@ -61,6 +61,7 @@ export default class TimePeriod extends React.Component {
         this.validateDates = this.validateDates.bind(this);
         this.removeDateRange = this.removeDateRange.bind(this);
         this.clearHint = this.clearHint.bind(this);
+        this.setNewAwardFilterActive = this.setNewAwardFilterActive.bind(this);
         this.newAwardsFn = this.newAwardsFn.bind(this);
     }
 
@@ -80,6 +81,16 @@ export default class TimePeriod extends React.Component {
                 this.hint.showHint();
             }
         }
+        if (prevProps.filterTimePeriodFY !== this.props.filterTimePeriodFY) {
+            this.setNewAwardFilterActive(!!this.props.filterTimePeriodFY.size);
+        }
+    }
+
+    setNewAwardFilterActive(bool) {
+        console.log('setNewAwardFilterActive bool prop', bool);
+        this.setState({
+            newAwardFilterActive: bool
+        });
     }
 
     clearHint(val) {
@@ -267,6 +278,8 @@ export default class TimePeriod extends React.Component {
         let activeClassFY = null;
         let activeClassDR = null;
 
+        console.log('newAwardFilterActive', this.state.newAwardFilterActive);
+
         if (this.state.showError && this.props.activeTab === 'dr') {
             errorDetails = (<DateRangeError
                 header={this.state.header}
@@ -295,7 +308,7 @@ export default class TimePeriod extends React.Component {
                 hideError={this.hideError}
                 applyDateRange={this.validateDates}
                 removeDateRange={this.removeDateRange}
-                setNewAwardFilterActive={this.props.setNewAwardFilterActive} />);
+                setNewAwardFilterActive={this.setNewAwardFilterActive} />);
             activeClassFY = 'inactive';
             activeClassDR = '';
         }
