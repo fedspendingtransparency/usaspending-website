@@ -35,12 +35,14 @@ export class TimePeriodContainer extends React.Component {
             activeTab: 'fy',
             cachedTimePeriods: Set(),
             cachedStart: null,
-            cachedEnd: null
+            cachedEnd: null,
+            newAwardFilterActive: false
         };
 
         // bind functions
         this.updateFilter = this.updateFilter.bind(this);
         this.changeTab = this.changeTab.bind(this);
+        this.setNewAwardFilterActive = this.setNewAwardFilterActive.bind(this);
     }
 
     componentDidMount() {
@@ -51,11 +53,21 @@ export class TimePeriodContainer extends React.Component {
         if (prevProps.filterTimePeriodType !== this.props.filterTimePeriodType) {
             this.setUpdateState(this.props);
         }
+        if (prevProps.filterTimePeriodFY !== this.props.filterTimePeriodFY) {
+            this.setNewAwardFilterActive(!!this.props.filterTimePeriodFY.size);
+        }
     }
 
     setUpdateState(props) {
         this.setState({
             activeTab: props.filterTimePeriodType
+        });
+    }
+
+    setNewAwardFilterActive(bool) {
+        console.log('setNewAwardFilterActive bool prop', bool);
+        this.setState({
+            newAwardFilterActive: bool
         });
     }
 
@@ -146,6 +158,9 @@ export class TimePeriodContainer extends React.Component {
     }
 
     render() {
+        console.log('newAwardFilterActive', this.state.newAwardFilterActive);
+        console.log('filterTimePeriodStart', this.state.filterTimePeriodStart);
+        console.log('filterTimePeriodEnd', this.state.filterTimePeriodEnd);
         return (
             <TimePeriod
                 {...this.props}
@@ -153,7 +168,8 @@ export class TimePeriodContainer extends React.Component {
                 activeTab={this.state.activeTab}
                 timePeriods={this.state.timePeriods}
                 updateFilter={this.updateFilter}
-                changeTab={this.changeTab} />
+                changeTab={this.changeTab}
+                setNewAwardFilterActive={this.setNewAwardFilterActive} />
         );
     }
 }

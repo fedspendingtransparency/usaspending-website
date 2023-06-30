@@ -27,7 +27,8 @@ const propTypes = {
     showError: PropTypes.func,
     hideError: PropTypes.func,
     applyDateRange: PropTypes.func,
-    removeDateRange: PropTypes.func
+    removeDateRange: PropTypes.func,
+    setNewAwardFilterActive: PropTypes.func
 };
 
 export default class DateRange extends React.Component {
@@ -37,6 +38,7 @@ export default class DateRange extends React.Component {
             showError: false,
             header: '',
             errorMessage: ''
+            // noDates: true
         };
 
         this.submitRange = this.submitRange.bind(this);
@@ -52,7 +54,17 @@ export default class DateRange extends React.Component {
             // the end date was reset to null, clear the picker
             this.endPicker.clearValue();
         }
+        // if (prevProps.startDate !== this.props.startDate && prevProps.endDate !== this.props.endDate) {
+        //     this.setNoDates(this.props.startDate || this.props.endDate);
+        // }
     }
+
+    // setNoDates(bool) {
+    //     console.log('setNoDates bool', bool);
+    //     this.setState({
+    //         noDates: bool
+    //     });
+    // }
 
     submitRange(e) {
     // allow the user to change date ranges by keyboard and pressing enter
@@ -131,6 +143,12 @@ export default class DateRange extends React.Component {
         if (!this.props.startDate && !this.props.endDate) {
             noDates = true;
         }
+
+        // if (!this.props.startDate && !this.props.endDate) {
+        //     this.setState({
+        //         noDates: true
+        //     });
+        // }
 
         const accessibility = {
             'aria-controls': 'selected-date-range'

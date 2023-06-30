@@ -32,7 +32,8 @@ const propTypes = {
     updateFilter: PropTypes.func,
     changeTab: PropTypes.func,
     disableDateRange: PropTypes.bool,
-    dirtyFilters: PropTypes.symbol
+    dirtyFilters: PropTypes.symbol,
+    setNewAwardFilterActive: PropTypes.func
 };
 
 export default class TimePeriod extends React.Component {
@@ -293,7 +294,8 @@ export default class TimePeriod extends React.Component {
                 showError={this.showError}
                 hideError={this.hideError}
                 applyDateRange={this.validateDates}
-                removeDateRange={this.removeDateRange} />);
+                removeDateRange={this.removeDateRange}
+                setNewAwardFilterActive={this.props.setNewAwardFilterActive} />);
             activeClassFY = 'inactive';
             activeClassDR = '';
         }
