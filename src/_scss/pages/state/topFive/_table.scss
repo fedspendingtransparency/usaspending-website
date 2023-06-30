@@ -63,8 +63,11 @@
       }
 
       .tooltip-spacer {
-        max-width: 286px;
-        transform: translate(-125px, 10px);
+        max-width: rem(314);
+        transform: translate(-125px, 8px);
+        .tooltip-pointer {
+          left: calc(50% - 20px);
+        }
 
         @media(max-width: 767px) {
           position:absolute;
