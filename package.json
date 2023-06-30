@@ -25,10 +25,11 @@
   "author": "",
   "engines": {
     "node": ">=16.14.2",
-    "npm": ">=8.5.1"
+    "npm": ">=8.5.0"
   },
   "license": "SEE LICENSE IN LICENSE.MD",
   "devDependencies": {
+    "@aashutoshrathi/word-wrap": "^1.2.6",
     "@babel/cli": "^7.10.5",
     "@babel/core": "^7.17.10",
     "@babel/node": "^7.10.5",
@@ -75,7 +76,7 @@
     "css-minimizer-webpack-plugin": "^3.4.1",
     "debug": "^2.6.9",
     "enzyme": "^3.9.0",
-    "eslint": "8.22.0",
+    "eslint": "^8.34.0",
     "eslint-config-airbnb": "^16.1.0",
     "eslint-plugin-babel": "^5.3.0",
     "eslint-plugin-import": "^2.1.0",
@@ -142,7 +143,10 @@
     "json5": "2.2.3",
     "http-cache-semantic": "4.1.1",
     "sequelize": "6.29.0",
-    "yaml": "2.2.2"
+    "yaml": "2.2.2",
+    "semver": "7.5.3",
+    "optionator": "0.9.3",
+    "word-wrap": "npm:@aashutoshrathi/word-wrap@1.2.6"
   },
   "dependencies": {
     "@babel/eslint-parser": "^7.17.0",

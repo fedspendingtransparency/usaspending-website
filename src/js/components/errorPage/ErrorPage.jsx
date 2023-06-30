@@ -37,10 +37,10 @@ const ErrorPage = () => (
                     <Link to="/search">Search Award Data</Link>
                 </li>
                 <li>
-                    <a href="https://api.usaspending.gov/">Learn about our APIs</a>
+                    <a href="https://api.usaspending.gov/" rel="noopener noreferrer" target="_blank">Learn about our APIs</a>
                 </li>
                 <li>
-                    <a href="https://fiscalservice.force.com/usaspending/s/">Visit our Community Page</a>
+                    <a href="https://fiscalservice.force.com/usaspending/s/" rel="noopener noreferrer" target="_blank">Visit our Community Page</a>
                 </li>
             </ul>
         </main>
