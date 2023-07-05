@@ -69,7 +69,7 @@ export default class TimePeriod extends React.Component {
         this.prepopulateDatePickers();
     }
 
-    componentDidUpdate(prevProps) {
+    componentDidUpdate(prevProps, prevState) {
         if (!isEqual(prevProps, this.props)) {
             this.synchronizeDatePickers(this.props);
         }
@@ -84,11 +84,9 @@ export default class TimePeriod extends React.Component {
         if (prevProps.filterTimePeriodFY !== this.props.filterTimePeriodFY) {
             this.setNewAwardFilterActive(!!this.props.filterTimePeriodFY.size);
         }
-        // this is the block that should set this bool for the date range filter,
-        // but it's causing an infinite loop
-        // if (this.state.startDateUI || this.state.endDateUI) {
-        //     this.setNewAwardFilterActive(true);
-        // }
+        if ((prevState.startDateUI !== this.state.startDateUI || prevState.endDateUI !== this.state.endDateUI) && (this.state.startDateUI || this.state.endDateUI)) {
+            this.setNewAwardFilterActive(true);
+        }
     }
 
     setNewAwardFilterActive(bool) {
