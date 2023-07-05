@@ -129,13 +129,9 @@ export default class DateRange extends React.Component {
         }
 
         let noDates = false;
-        // this.props.setNewAwardFilterActive(true);
         if (!this.props.startDate && !this.props.endDate) {
             noDates = true;
-            // this.props.setNewAwardFilterActive(false);
         }
-
-        console.log('noDates', noDates);
 
         const accessibility = {
             'aria-controls': 'selected-date-range'

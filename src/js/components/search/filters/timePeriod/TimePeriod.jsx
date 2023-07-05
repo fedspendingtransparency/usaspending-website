@@ -49,7 +49,7 @@ export default class TimePeriod extends React.Component {
             selectedFY: new Set(),
             allFY: false,
             clearHint: false,
-            newAwardFilterActive: false,
+            newAwardFilterActive: false
         };
 
         // bind functions
@@ -84,10 +84,12 @@ export default class TimePeriod extends React.Component {
         if (prevProps.filterTimePeriodFY !== this.props.filterTimePeriodFY) {
             this.setNewAwardFilterActive(!!this.props.filterTimePeriodFY.size);
         }
+        if (this.state.startDateUI || this.state.endDateUI) {
+            this.setNewAwardFilterActive(true);
+        }
     }
 
     setNewAwardFilterActive(bool) {
-        console.log('setNewAwardFilterActive bool prop', bool);
         this.setState({
             newAwardFilterActive: bool
         });
