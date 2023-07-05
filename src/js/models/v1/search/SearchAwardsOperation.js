@@ -21,6 +21,8 @@ class SearchAwardsOperation {
         this.timePeriodFY = [];
         this.timePeriodRange = [];
 
+        this.dateType = '';
+
         this.awardType = [];
 
         this.awardingAgencies = [];
@@ -61,6 +63,8 @@ class SearchAwardsOperation {
             this.timePeriodRange = [state.timePeriodStart, state.timePeriodEnd];
             this.timePeriodFY = [];
         }
+
+        this.dateType = state.dateType;
 
         this.awardType = state.awardType.toArray();
 

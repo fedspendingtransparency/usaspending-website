@@ -291,7 +291,7 @@ export class ResultsTableContainer extends React.Component {
                 this.state.searchParams.awardType);
             if (!intersectingTypes || intersectingTypes.length === 0) {
                 // the filtered types and the table type do not align
-                // in this case, send an array of non-existant types because the endpoint requires
+                // in this case, send an array of non-existent types because the endpoint requires
                 // an award type parameter
                 intersectingTypes = ['no intersection'];
             }
@@ -352,6 +352,7 @@ export class ResultsTableContainer extends React.Component {
 
         // Set the params needed for download API call
         this.searchRequest = SearchHelper.performSpendingByAwardSearch(params);
+        console.log('params', params);
         return this.searchRequest.promise
             .then((res) => {
                 const newState = {
