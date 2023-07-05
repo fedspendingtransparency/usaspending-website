@@ -35,8 +35,7 @@ export class TimePeriodContainer extends React.Component {
             activeTab: 'fy',
             cachedTimePeriods: Set(),
             cachedStart: null,
-            cachedEnd: null,
-            newAwardFilterActive: false
+            cachedEnd: null
         };
 
         // bind functions

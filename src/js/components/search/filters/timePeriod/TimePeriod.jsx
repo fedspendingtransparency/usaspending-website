@@ -84,9 +84,11 @@ export default class TimePeriod extends React.Component {
         if (prevProps.filterTimePeriodFY !== this.props.filterTimePeriodFY) {
             this.setNewAwardFilterActive(!!this.props.filterTimePeriodFY.size);
         }
-        if (this.state.startDateUI || this.state.endDateUI) {
-            this.setNewAwardFilterActive(true);
-        }
+        // this is the block that should set this bool for the date range filter,
+        // but it's causing an infinite loop
+        // if (this.state.startDateUI || this.state.endDateUI) {
+        //     this.setNewAwardFilterActive(true);
+        // }
     }
 
     setNewAwardFilterActive(bool) {
@@ -309,8 +311,7 @@ export default class TimePeriod extends React.Component {
                 showError={this.showError}
                 hideError={this.hideError}
                 applyDateRange={this.validateDates}
-                removeDateRange={this.removeDateRange}
-                setNewAwardFilterActive={this.setNewAwardFilterActive} />);
+                removeDateRange={this.removeDateRange} />);
             activeClassFY = 'inactive';
             activeClassDR = '';
         }
@@ -378,8 +379,7 @@ export default class TimePeriod extends React.Component {
                     <SubmitHint
                         ref={(component) => {
                             this.hint = component;
-                        }}>
-                    </SubmitHint>
+                        }} />
                     }
                 </div>
             </div>

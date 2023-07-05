@@ -27,8 +27,7 @@ const propTypes = {
     showError: PropTypes.func,
     hideError: PropTypes.func,
     applyDateRange: PropTypes.func,
-    removeDateRange: PropTypes.func,
-    setNewAwardFilterActive: PropTypes.func
+    removeDateRange: PropTypes.func
 };
 
 export default class DateRange extends React.Component {
@@ -176,7 +175,7 @@ export default class DateRange extends React.Component {
                         accessibility={accessibility} />
                 </form>
                 <div
-                    className={`s ${hideTags}`}
+                    className={`selected-filters ${hideTags}`}
                     id="selected-date-range"
                     aria-hidden={noDates}
                     role="status">
