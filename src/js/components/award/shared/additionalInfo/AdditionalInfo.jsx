@@ -56,6 +56,7 @@ export default class AdditionalInfo extends React.Component {
                 globalToggle={this.state.globalToggle} />
         );
         if (this.props.overview._category !== 'idv') {
+            console.debug("place of performance: ", data.placeOfPerformance);
             placeOfPerformance = (
                 <Accordion
                     key="PlaceOfPerformance"
@@ -141,6 +142,7 @@ export default class AdditionalInfo extends React.Component {
     faColumns() {
         const { overview } = this.props;
         const data = this.data();
+        console.debug("recipient details: ", data.recipientDetails);
         const columnOne = [
             (<Accordion
                 key="UniqueAwardKey"

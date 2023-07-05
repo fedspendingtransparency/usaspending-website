@@ -56,6 +56,7 @@ export default class Accordion extends React.Component {
     // e.g. ['1234 Sleepy Ghost Lane', 'Las Vegas, Nevada', 'Some Country']
     address(arrayOfRows) {
     // if no data return --
+        console.debug(arrayOfRows);
         const array = compact(arrayOfRows);
         if (array.length === 0) return '--';
         return (
