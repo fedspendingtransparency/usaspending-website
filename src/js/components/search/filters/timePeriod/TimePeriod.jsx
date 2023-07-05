@@ -274,6 +274,9 @@ export default class TimePeriod extends React.Component {
     newAwardsFn() {
         // eslint-disable-next-line no-console
         console.log('newAwardsFn');
+        if (this.hint) {
+            this.hint.showHint();
+        }
     }
 
     render() {
