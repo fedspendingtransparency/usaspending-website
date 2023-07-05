@@ -24,12 +24,22 @@
                 height: rem(14);
                 width: rem(14);
                 cursor: pointer;
+
+                &.not-active {
+                    opacity: 0.5;
+                    cursor: default;
+                }
             }
 
             .new-awards-label {
                 margin-left: rem(6);
                 font-size: rem(12);
                 cursor: pointer;
+
+                &.not-active {
+                    opacity: 0.5;
+                    cursor: default;
+                }
 
                 @include media($large-screen) {
                     font-size: $small-font-size;

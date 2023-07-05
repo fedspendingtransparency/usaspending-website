@@ -326,11 +326,12 @@ export default class TimePeriod extends React.Component {
                 htmlFor="new-awards-checkbox">
                 <input
                     type="checkbox"
-                    className="new-awards-checkbox"
+                    className={`new-awards-checkbox ${this.state.newAwardFilterActive ? '' : 'not-active'}`}
+                    disabled={!this.state.newAwardFilterActive}
                     id="new-awards-checkbox"
                     value="new-awards-checkbox"
                     onChange={this.newAwardsFn} />
-                <span className="new-awards-label">
+                <span className={`new-awards-label ${this.state.newAwardFilterActive ? '' : 'not-active'}`}>
                     Show New Awards Only
                 </span>
                 <TooltipWrapper
