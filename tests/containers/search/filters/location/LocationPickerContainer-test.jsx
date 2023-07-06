@@ -149,7 +149,7 @@ describe('LocationPickerContainer', () => {
                 district_original: mockDistricts.districts[0]
             });
 
-            container.instance().clearDistricts();
+            container.instance().clearOriginalDistricts();
 
             expect(container.state().availableOriginalDistricts).toEqual([]);
             expect(container.state().district_original).toEqual({
