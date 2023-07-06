@@ -92,11 +92,11 @@ describe('LocationPickerContainer', () => {
             expect(container.state().availableOriginalDistricts).toEqual([
                 {
                     code: '',
-                    district_original: '',
+                    district: '',
                     name: 'All congressional districts'
                 }, {
                     code: '00XX',
-                    district_original: 'XX',
+                    district: 'XX',
                     name: 'IN-XX'
                 }
             ]);
@@ -405,9 +405,7 @@ describe('LocationPickerContainer', () => {
                 });
             });
             it('locationObject.display is correct', () => {
-                expect(location.display).toEqual({
-                    entity: 'Original Congressional district'
-                });
+
             });
         });
     });

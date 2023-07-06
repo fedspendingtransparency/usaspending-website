@@ -32,7 +32,7 @@ export const mockDistricts = {
     districts: [
         {
             code: '00XX',
-            district_original: 'XX',
+            district: 'XX',
             name: 'IN-XX'
         }
     ]
