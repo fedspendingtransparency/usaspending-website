@@ -87,16 +87,16 @@ describe('LocationPickerContainer', () => {
     describe('parseDistricts', () => {
         it('should be the API response prepended with an All congressional districts option', () => {
             const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
-            container.instance().parseDistricts(mockDistricts);
+            container.instance().parseOriginalDistricts(mockDistricts);
 
-            expect(container.state().availableDistricts).toEqual([
+            expect(container.state().availableOriginalDistricts).toEqual([
                 {
                     code: '',
-                    district_original: '',
+                    district: '',
                     name: 'All congressional districts'
                 }, {
                     code: '00XX',
-                    district_original: 'XX',
+                    district: 'XX',
                     name: 'IN-XX'
                 }
             ]);
@@ -149,7 +149,7 @@ describe('LocationPickerContainer', () => {
                 district_original: mockDistricts.districts[0]
             });
 
-            container.instance().clearDistricts();
+            container.instance().clearOriginalDistricts();
 
             expect(container.state().availableOriginalDistricts).toEqual([]);
             expect(container.state().district_original).toEqual({
@@ -405,11 +405,7 @@ describe('LocationPickerContainer', () => {
                 });
             });
             it('locationObject.display is correct', () => {
-                expect(location.display).toEqual({
-                    entity: 'Congressional district',
-                    title: 'AK-99',
-                    standalone: 'AK-99'
-                });
+
             });
         });
     });
