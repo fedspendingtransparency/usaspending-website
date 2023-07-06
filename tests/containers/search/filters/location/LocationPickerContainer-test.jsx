@@ -406,9 +406,7 @@ describe('LocationPickerContainer', () => {
             });
             it('locationObject.display is correct', () => {
                 expect(location.display).toEqual({
-                    entity: 'Original Congressional district',
-                    title: 'AK-99',
-                    standalone: 'AK-99'
+                    entity: 'Original Congressional district'
                 });
             });
         });
