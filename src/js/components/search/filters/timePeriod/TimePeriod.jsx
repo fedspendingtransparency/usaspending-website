@@ -334,23 +334,24 @@ export class TimePeriod extends React.Component {
         }
 
         const newAwardsFilter = (
-            <label
-                className="new-awards-wrapper"
-                htmlFor="new-awards-checkbox">
-                <input
-                    type="checkbox"
-                    className={`new-awards-checkbox ${this.state.newAwardFilterActive ? '' : 'not-active'}`}
-                    disabled={!this.state.newAwardFilterActive}
-                    id="new-awards-checkbox"
-                    value="new-awards-checkbox"
-                    onChange={this.newAwardsFn} />
-                <span className={`new-awards-label ${this.state.newAwardFilterActive ? '' : 'not-active'}`}>
+            <div className="new-awards-wrapper">
+                <label
+                    htmlFor="new-awards-checkbox">
+                    <input
+                        type="checkbox"
+                        className={`new-awards-checkbox ${this.state.newAwardFilterActive ? '' : 'not-active'}`}
+                        disabled={!this.state.newAwardFilterActive}
+                        id="new-awards-checkbox"
+                        value="new-awards-checkbox"
+                        onChange={this.newAwardsFn} />
+                    <span className={`new-awards-label ${this.state.newAwardFilterActive ? '' : 'not-active'}`}>
                     Show New Awards Only
-                </span>
+                    </span>
+                </label>
                 <TooltipWrapper
                     icon="info"
                     tooltipComponent={<NewAwardsTooltip />} />
-            </label>
+            </div>
         );
 
         return (
