@@ -87,9 +87,9 @@ describe('LocationPickerContainer', () => {
     describe('parseDistricts', () => {
         it('should be the API response prepended with an All congressional districts option', () => {
             const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
-            container.instance().parseDistricts(mockDistricts);
+            container.instance().parseOriginalDistricts(mockDistricts);
 
-            expect(container.state().availableDistricts).toEqual([
+            expect(container.state().availableOriginalDistricts).toEqual([
                 {
                     code: '',
                     district_original: '',
