@@ -51,7 +51,8 @@ export class TimePeriod extends React.Component {
             selectedFY: new Set(),
             allFY: false,
             clearHint: false,
-            newAwardFilterActive: false
+            newAwardFilterActive: false,
+            newAwardFilterActiveSubAwardsToggleBoolWithAReallyLongName: false
         };
 
         // bind functions
@@ -83,21 +84,13 @@ export class TimePeriod extends React.Component {
                 this.hint.showHint();
             }
         }
-        if (prevProps.filterTimePeriodFY !== this.props.filterTimePeriodFY) {
-            this.setNewAwardFilterActive(!!this.props.filterTimePeriodFY.size);
-        }
-        if ((prevState.startDateUI !== this.state.startDateUI || prevState.endDateUI !== this.state.endDateUI) && (this.state.startDateUI || this.state.endDateUI)) {
-            this.setNewAwardFilterActive(true);
-        }
-        if ((prevState.startDateUI !== this.state.startDateUI || prevState.endDateUI !== this.state.endDateUI) && (!this.state.startDateUI && !this.state.endDateUI)) {
-            this.setNewAwardFilterActive(false);
-        }
+        this.determineNewAwardFilterState(prevProps, prevState);
         if (this.props.subaward && prevProps.subaward !== this.props.subaward) {
             this.setNewAwardFilterActive(false);
         }
         if (!this.props.subaward && prevProps.subaward !== this.props.subaward) {
-            // todo - but only set to true if the other fy or date range conditions are true
-            this.setNewAwardFilterActive(true);
+            // only set to true if the other fy or date range conditions are true
+            this.setNewAwardFilterActive(this.state.newAwardFilterActiveSubAwardsToggleBoolWithAReallyLongName);
         }
     }
 
@@ -105,6 +98,27 @@ export class TimePeriod extends React.Component {
         this.setState({
             newAwardFilterActive: bool
         });
+    }
+
+    setNewAwardFilterActiveSubAwardsToggleBoolWithAReallyLongName(bool) {
+        this.setState({
+            newAwardFilterActiveSubAwardsToggleBoolWithAReallyLongName: bool
+        });
+    }
+
+    determineNewAwardFilterState(prevProps, prevState) {
+        if (prevProps.filterTimePeriodFY !== this.props.filterTimePeriodFY) {
+            this.setNewAwardFilterActive(!!this.props.filterTimePeriodFY.size);
+            this.setNewAwardFilterActiveSubAwardsToggleBoolWithAReallyLongName(!!this.props.filterTimePeriodFY.size);
+        }
+        if ((prevState.startDateUI !== this.state.startDateUI || prevState.endDateUI !== this.state.endDateUI) && (this.state.startDateUI || this.state.endDateUI)) {
+            this.setNewAwardFilterActive(true);
+            this.setNewAwardFilterActiveSubAwardsToggleBoolWithAReallyLongName(true);
+        }
+        if ((prevState.startDateUI !== this.state.startDateUI || prevState.endDateUI !== this.state.endDateUI) && (!this.state.startDateUI && !this.state.endDateUI)) {
+            this.setNewAwardFilterActive(false);
+            this.setNewAwardFilterActiveSubAwardsToggleBoolWithAReallyLongName(false);
+        }
     }
 
     clearHint(val) {
