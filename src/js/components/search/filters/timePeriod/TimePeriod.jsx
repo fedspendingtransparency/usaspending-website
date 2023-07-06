@@ -5,6 +5,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 import { NewAwardsTooltip } from 'components/search/filters/tooltips/AdvancedSearchTooltip';
 import { TooltipWrapper } from 'data-transparency-ui';
 import moment from 'moment';
@@ -32,10 +33,11 @@ const propTypes = {
     updateFilter: PropTypes.func,
     changeTab: PropTypes.func,
     disableDateRange: PropTypes.bool,
-    dirtyFilters: PropTypes.symbol
+    dirtyFilters: PropTypes.symbol,
+    subaward: PropTypes.bool
 };
 
-export default class TimePeriod extends React.Component {
+export class TimePeriod extends React.Component {
     constructor(props) {
         super(props);
 
@@ -85,6 +87,16 @@ export default class TimePeriod extends React.Component {
             this.setNewAwardFilterActive(!!this.props.filterTimePeriodFY.size);
         }
         if ((prevState.startDateUI !== this.state.startDateUI || prevState.endDateUI !== this.state.endDateUI) && (this.state.startDateUI || this.state.endDateUI)) {
+            this.setNewAwardFilterActive(true);
+        }
+        if ((prevState.startDateUI !== this.state.startDateUI || prevState.endDateUI !== this.state.endDateUI) && (!this.state.startDateUI && !this.state.endDateUI)) {
+            this.setNewAwardFilterActive(false);
+        }
+        if (this.props.subaward && prevProps.subaward !== this.props.subaward) {
+            this.setNewAwardFilterActive(false);
+        }
+        if (!this.props.subaward && prevProps.subaward !== this.props.subaward) {
+            // todo - but only set to true if the other fy or date range conditions are true
             this.setNewAwardFilterActive(true);
         }
     }
@@ -391,3 +403,9 @@ export default class TimePeriod extends React.Component {
 
 TimePeriod.propTypes = propTypes;
 TimePeriod.defaultProps = defaultProps;
+
+export default connect(
+    (state) => ({
+        subaward: state.searchView.subaward
+    })
+)(TimePeriod);
