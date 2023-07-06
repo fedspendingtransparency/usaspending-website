@@ -56,7 +56,6 @@ export default class Accordion extends React.Component {
     // e.g. ['1234 Sleepy Ghost Lane', 'Las Vegas, Nevada', 'Some Country']
     address(arrayOfRows) {
     // if no data return --
-        console.debug(arrayOfRows);
         const array = compact(arrayOfRows);
         if (array.length === 0) return '--';
         return (
@@ -103,7 +102,7 @@ export default class Accordion extends React.Component {
                 if (specialType) {
                     data = this[awardInfo.type](awardInfo.data);
                 }
-                if (specialType === 'address') {
+                if (specialType === 'address' || key === 'Congressional District') {
                     this.state.showCDTooltip = true;
                 }
             }
@@ -116,7 +115,7 @@ export default class Accordion extends React.Component {
                         <div className={`${this.state.open ? 'tab-enabled' : 'tab-disabled'}`}>
                             {data}
                         </div>
-                        {(this.state.open && this.state.showCDTooltip) && (
+                        {(key === 'Congressional District' && this.state.open && this.state.showCDTooltip) && (
                             <div className="accordion-row__data-tooltip">
                                 <TooltipWrapper
                                     className="homepage__covid-19-tt"
