@@ -56,7 +56,7 @@ export default class AdditionalInfo extends React.Component {
             data.placeOfPerformance["Congressional District"] = splitCDPOP[1];
         }
 
-        const cdRD = data.recipientDetails["Recipient Address"].data.pop().trim();
+        const cdRD = data.recipientDetails["Congressional District"].data.pop().trim();
         const splitCDRD = cdRD.split(": ");
         if (splitCDRD.length === 2) {
             data.recipientDetails["Congressional District"] = splitCDPOP[1];
@@ -160,11 +160,11 @@ export default class AdditionalInfo extends React.Component {
             data.placeOfPerformance["Congressional District"] = splitCDPOP[1];
         }
 
-        // const cdRD = data.recipientDetails["Recipient Address"].data.pop().trim();
-        // const splitCDRD = cdRD.split(": ");
-        // if (splitCDRD.length === 2) {
-        //     data.recipientDetails["Congressional District"] = splitCDPOP[1];
-        // }
+        const cdRD = data.recipientDetails["Congressional District"].data.pop().trim();
+        const splitCDRD = cdRD.split(": ");
+        if (splitCDRD.length === 2) {
+            data.recipientDetails["Congressional District"] = splitCDPOP[1];
+        }
         const columnOne = [
             (<Accordion
                 key="UniqueAwardKey"
