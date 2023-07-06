@@ -137,9 +137,12 @@ const additionalDetailsContracts = (awardData) => {
                 data: [
                     `${recipient.location.streetAddress}`,
                     `${recipient.location.regionalAddress}`,
-                    `${recipient.location._country}`,
-                    `${recipient.location.fullCongressionalDistrict}`
+                    `${recipient.location._country}`
                 ]
+            },
+            'Congressional District': {
+                type: 'address',
+                data: [`${recipient.location.fullCongressionalDistrict}`]
             },
             'Business Types': {
                 type: 'list',
