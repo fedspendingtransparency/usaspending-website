@@ -52,7 +52,7 @@ export class TimePeriod extends React.Component {
             allFY: false,
             clearHint: false,
             newAwardFilterActive: false,
-            newAwardFilterActiveSubAwardsToggleBoolWithAReallyLongName: false
+            newAwardFilterActiveFromFYOrDateRange: false
         };
 
         // bind functions
@@ -90,7 +90,7 @@ export class TimePeriod extends React.Component {
         }
         if (!this.props.subaward && prevProps.subaward !== this.props.subaward) {
             // only set to true if the other fy or date range conditions are true
-            this.setNewAwardFilterActive(this.state.newAwardFilterActiveSubAwardsToggleBoolWithAReallyLongName);
+            this.setNewAwardFilterActive(this.state.newAwardFilterActiveFromFYOrDateRange);
         }
     }
 
@@ -100,24 +100,24 @@ export class TimePeriod extends React.Component {
         });
     }
 
-    setNewAwardFilterActiveSubAwardsToggleBoolWithAReallyLongName(bool) {
+    setNewAwardFilterActiveFromFYOrDateRange(bool) {
         this.setState({
-            newAwardFilterActiveSubAwardsToggleBoolWithAReallyLongName: bool
+            newAwardFilterActiveFromFYOrDateRange: bool
         });
     }
 
     determineNewAwardFilterState(prevProps, prevState) {
         if (prevProps.filterTimePeriodFY !== this.props.filterTimePeriodFY) {
             this.setNewAwardFilterActive(!!this.props.filterTimePeriodFY.size);
-            this.setNewAwardFilterActiveSubAwardsToggleBoolWithAReallyLongName(!!this.props.filterTimePeriodFY.size);
+            this.setNewAwardFilterActiveFromFYOrDateRange(!!this.props.filterTimePeriodFY.size);
         }
         if ((prevState.startDateUI !== this.state.startDateUI || prevState.endDateUI !== this.state.endDateUI) && (this.state.startDateUI || this.state.endDateUI)) {
             this.setNewAwardFilterActive(true);
-            this.setNewAwardFilterActiveSubAwardsToggleBoolWithAReallyLongName(true);
+            this.setNewAwardFilterActiveFromFYOrDateRange(true);
         }
         if ((prevState.startDateUI !== this.state.startDateUI || prevState.endDateUI !== this.state.endDateUI) && (!this.state.startDateUI && !this.state.endDateUI)) {
             this.setNewAwardFilterActive(false);
-            this.setNewAwardFilterActiveSubAwardsToggleBoolWithAReallyLongName(false);
+            this.setNewAwardFilterActiveFromFYOrDateRange(false);
         }
     }
 
@@ -308,8 +308,6 @@ export class TimePeriod extends React.Component {
         let showFilter = null;
         let activeClassFY = null;
         let activeClassDR = null;
-
-        console.log('newAwardFilterActive', this.state.newAwardFilterActive);
 
         if (this.state.showError && this.props.activeTab === 'dr') {
             errorDetails = (<DateRangeError
