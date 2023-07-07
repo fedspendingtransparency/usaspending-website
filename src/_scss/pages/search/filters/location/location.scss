@@ -36,19 +36,22 @@
 
         .location-filter__link-container {
             margin-top: rem(15);
-
             .location-filter__atd-link {
                 align-items: center;
                 display: flex;
                 color: $blue-50;
+                justify-content: center;
                 &:hover {
                     color: $blue-vivid-70;
-                    cursor: pointer;
+                    cursor: pointer !important;
                 }
                 .location-filter__atd-info {
                     width: rem(18);
                     height: rem(18);
                     margin-right: $global-margin;
+                    &:hover {
+                        cursor: pointer;
+                    }
                 }
 
                 .location-filter__atd-text {
@@ -58,6 +61,9 @@
                     font-style: normal;
                     line-height: 1.5;
                     letter-spacing: normal;
+                    &:hover {
+                        cursor: pointer;
+                    }
                 }
             }
         }
