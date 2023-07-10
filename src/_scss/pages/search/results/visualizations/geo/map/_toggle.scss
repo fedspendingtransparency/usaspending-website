@@ -42,7 +42,8 @@
             }
             .map-layer__cd-tooltip {
                 svg { 
-                    margin:0  rem(5);
+                    margin-left: rem(5);
+                    margin-right: rem(7.5);
                 }
             }
         }
@@ -56,10 +57,13 @@
             line-height: rem(18);
             padding: 0;
             border-bottom: rem(4) solid $color-white;
+            max-width: rem(134);
 
             &.active, &:hover, &:active {
                 font-weight: $font-bold;
                 border-bottom: rem(4) solid $color-primary-darker;
+                max-width: rem(142);
+
             }
 
             &:before {
