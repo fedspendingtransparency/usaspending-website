@@ -59,7 +59,7 @@ export default class AdditionalInfo extends React.Component {
         const cdRD = data.recipientDetails["Congressional District"].data.pop().trim();
         const splitCDRD = cdRD.split(": ");
         if (splitCDRD.length === 2) {
-            data.recipientDetails["Congressional District"] = splitCDPOP[1];
+            data.recipientDetails["Congressional District"] = splitCDRD[1];
         }
         let periodOfPerformance = (
             <IdvPeriodOfPerformance
