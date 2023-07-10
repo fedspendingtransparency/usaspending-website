@@ -140,7 +140,7 @@ export const referenceMaterialsOptions = [
     {
         label: "Agency Submission Statistics",
         url: {
-            pathname: 'submission-statistics',
+            pathname: '/submission-statistics',
             search: '?tab=submissions'
         },
         description: 'Status of agency financial submissions to USAspending.gov',
