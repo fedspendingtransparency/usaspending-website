@@ -189,6 +189,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
             }
         }
 
+        console.log(entities)
         this.setState({
             visibleEntities: entities
         }, () => {
