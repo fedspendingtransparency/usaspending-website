@@ -128,7 +128,7 @@
                         &.show-tooltip {
                             display: flex;
                             flex-flow: row nowrap;
-
+                            align-items: center;
                             .accordion-row__data-tooltip {
                                 align-self: flex-end;
 
