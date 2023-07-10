@@ -23,7 +23,8 @@ const propTypes = {
     filterTimePeriodFY: PropTypes.instanceOf(Set),
     filterTimePeriodStart: PropTypes.string,
     filterTimePeriodEnd: PropTypes.string,
-    appliedFilters: PropTypes.object
+    appliedFilters: PropTypes.object,
+    updateNewAwardsOnly: PropTypes.func
 };
 
 export class TimePeriodContainer extends React.Component {
@@ -59,6 +60,15 @@ export class TimePeriodContainer extends React.Component {
         });
     }
 
+    setNewAwardsOnly(bool) {
+        console.log('setNewAwardsOnly', bool);
+
+        // todo - this fn isn't being recognized for some reason
+        // but i'm importing it the same way the fns from searchFilterActions
+        // are imported, in AgencyContainer, for example
+        this.props.updateNewAwardsOnly(bool);
+    }
+
     generateTimePeriods() {
         const timePeriods = [];
 
@@ -81,7 +91,7 @@ export class TimePeriodContainer extends React.Component {
     }
 
     updateFilter(params) {
-    // set the state to a clone of the filter subobject merged with the param object
+        // set the state to a clone of the filter subobject merged with the param object
         const currentFilters = {
             dateType: this.state.activeTab,
             fy: this.props.filterTimePeriodFY,
@@ -153,6 +163,7 @@ export class TimePeriodContainer extends React.Component {
                 activeTab={this.state.activeTab}
                 timePeriods={this.state.timePeriods}
                 updateFilter={this.updateFilter}
+                setNewAwardsOnly={this.setNewAwardsOnly}
                 changeTab={this.changeTab} />
         );
     }

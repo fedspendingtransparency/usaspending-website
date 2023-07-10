@@ -70,6 +70,8 @@ export class TopFilterBarContainer extends React.Component {
             filters.push(timeFilters);
         }
 
+        // todo - add new block to check for newAwardsOnly
+
         // prepare the award filters
         const awardFilters = this.prepareAwardTypes(props);
         if (awardFilters) {

@@ -31,6 +31,7 @@ const propTypes = {
     timePeriods: PropTypes.array,
     activeTab: PropTypes.string,
     updateFilter: PropTypes.func,
+    setNewAwardsOnly: PropTypes.func,
     changeTab: PropTypes.func,
     disableDateRange: PropTypes.bool,
     dirtyFilters: PropTypes.symbol,
@@ -52,7 +53,8 @@ export class TimePeriod extends React.Component {
             allFY: false,
             clearHint: false,
             newAwardFilterActive: false,
-            newAwardFilterActiveFromFYOrDateRange: false
+            newAwardFilterActiveFromFYOrDateRange: false,
+            newAwardsOnlySelected: false
         };
 
         // bind functions
@@ -295,9 +297,15 @@ export class TimePeriod extends React.Component {
         });
     }
 
-    newAwardsFn() {
-        // eslint-disable-next-line no-console
-        console.log('newAwardsFn');
+    newAwardsFn(e) {
+        console.log('newAwardsFn e.target.checked', e.target.checked);
+        // this state var may not be necessary here
+        // if sending target.checked to setNewAwardsOnly will change
+        // newAwardsOnly in redux AppliedFilters.filters
+        this.setState({
+            newAwardsOnlySelected: e.target.checked
+        });
+        this.props.setNewAwardsOnly(e.target.checked);
         if (this.hint) {
             this.hint.showHint();
         }
