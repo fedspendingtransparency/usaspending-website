@@ -50,7 +50,7 @@ export default class AdditionalInfo extends React.Component {
         // Do not display the Place of Performance section for IDVs
         let placeOfPerformance = null;
 
-        const cdPOP = data.placeOfPerformance.Address.data.pop().trim();
+        const cdPOP = data.placeOfPerformance["Congressional District"].data.pop().trim();
         const splitCDPOP = cdPOP.split(": ");
         if (splitCDPOP.length === 2) {
             data.placeOfPerformance["Congressional District"] = splitCDPOP[1];
@@ -154,7 +154,7 @@ export default class AdditionalInfo extends React.Component {
         const { overview } = this.props;
         const data = this.data();
 
-        const cdPOP = data.placeOfPerformance.Address.data.pop().trim();
+        const cdPOP = data.placeOfPerformance["Congressional District"].data.pop().trim();
         const splitCDPOP = cdPOP.split(": ");
         if (splitCDPOP.length === 2) {
             data.placeOfPerformance["Congressional District"] = splitCDPOP[1];
