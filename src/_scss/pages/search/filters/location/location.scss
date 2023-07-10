@@ -85,8 +85,11 @@
                 display: flex;
                 align-items: center;
 
+                &.disabled {
+                    opacity: 0.4;
+                }
+
                 .advanced-search__cd-tooltip {
-                    opacity: 1;
                     white-space: normal;
                     display: unset;
                     text-transform: none !important;

@@ -305,9 +305,8 @@ class LocationPicker extends React.Component {
                                 showDisclaimer={showDisclaimer} />
                         </div>}
 
-                    <div className={`location-item__cd ${isDistrictEnabled === false ? "disabled" : ""}`}>
-                        <span className="location-label__with-tt">CONGRESSIONAL DISTRICT (US ONLY)</span>
-
+                    <div className="location-item__cd">
+                        <span className={`location-label__with-tt ${isDistrictEnabled === false ? "disabled" : ""}`}>CONGRESSIONAL DISTRICT (US ONLY)</span>
                         <div>
                             <TooltipWrapper
                                 className="advanced-search__cd-tooltip"
