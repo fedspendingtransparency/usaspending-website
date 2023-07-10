@@ -1344,13 +1344,13 @@ export const CondensedCDTooltip = ({ title }) => (
         </div>
         <div className="tooltip__text">
             <p>
-                The congressional districts displayed reflect their current geographic boundaries and are based on the 2020 Census. These districts will be in effect from 2023 – 2033.&#42;
+                The congressional districts displayed reflect their current geographic boundaries and are based on the 2020 census. These districts will be in effect from 2023 – 2033.&#42;
             </p>
             <p>
-                Additional information on congressional districts and how they are displayed on the site can be found within the Congressional District section of the <strong>About the Data</strong> module under <strong>Resources</strong>.
+                Additional information can be found within the Congressional District section of the <strong>About the Data</strong> module under <strong>Find Resources</strong>.
             </p>
             <p>
-                <em>&#42;Court-ordered redistricting might alter the time frame a congressional district is in effect.</em>
+                <em>&#42;Court-ordered redistricting might alter the time frame when a congressional district is in effect.</em>
             </p>
         </div>
     </div>

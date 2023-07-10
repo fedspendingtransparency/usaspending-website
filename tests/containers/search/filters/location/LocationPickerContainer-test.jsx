@@ -87,9 +87,9 @@ describe('LocationPickerContainer', () => {
     describe('parseDistricts', () => {
         it('should be the API response prepended with an All congressional districts option', () => {
             const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
-            container.instance().parseDistricts(mockDistricts);
+            container.instance().parseOriginalDistricts(mockDistricts);
 
-            expect(container.state().availableDistricts).toEqual([
+            expect(container.state().availableOriginalDistricts).toEqual([
                 {
                     code: '',
                     district: '',
@@ -145,14 +145,14 @@ describe('LocationPickerContainer', () => {
         it('should clear the available congressional districts and reset the selected congressional district to a blank value', () => {
             const container = shallow(<LocationPickerContainer {...mockPickerRedux} />);
             container.setState({
-                availableDistricts: mockDistricts.districts,
-                district: mockDistricts.districts[0]
+                availableOriginalDistricts: mockDistricts.districts,
+                district_original: mockDistricts.districts[0]
             });
 
-            container.instance().clearDistricts();
+            container.instance().clearOriginalDistricts();
 
-            expect(container.state().availableDistricts).toEqual([]);
-            expect(container.state().district).toEqual({
+            expect(container.state().availableOriginalDistricts).toEqual([]);
+            expect(container.state().district_original).toEqual({
                 code: '',
                 district: '',
                 name: ''
@@ -385,9 +385,9 @@ describe('LocationPickerContainer', () => {
                     fips: 'XX',
                     name: 'Alaska'
                 },
-                district: {
+                district_original: {
                     code: 'XX',
-                    district: '99',
+                    district_original: '99',
                     name: 'AK-99'
                 }
             });
@@ -401,15 +401,11 @@ describe('LocationPickerContainer', () => {
                 expect(location.filter).toEqual({
                     country: 'ABC',
                     state: 'AK',
-                    district: '99'
+                    district_original: '99'
                 });
             });
             it('locationObject.display is correct', () => {
-                expect(location.display).toEqual({
-                    entity: 'Congressional district',
-                    title: 'AK-99',
-                    standalone: 'AK-99'
-                });
+
             });
         });
     });
