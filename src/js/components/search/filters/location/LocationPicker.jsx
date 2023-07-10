@@ -346,7 +346,7 @@ class LocationPicker extends React.Component {
                                     this.atdClick();
                                 }
                             }}
-                            additionalClassnames="location-filter__atd-info"
+                            additionalClassnames="location-filter__atd-link"
                             copy="Learn about congressional redistricting"
                             buttonSize="sm"
                             buttonType="text"
