@@ -1130,7 +1130,7 @@ export const ContractAwardAmountsInfo = (
             <p>The current value of a contract (current award amount) represents the value of the base contract and any exercised options. </p>
             <p>The potential value of a contract (potential award amount) represents the value of the base contract and all options, if they happen to be exercised in the future. This is sometimes called the contract ceiling or capacity.</p>
             <p>If a recipient fails to deliver on the terms of the contract, the contract can end or be modified, reducing the current and potential value through a deobligation.</p>
-            <p>This visual depicts the obligated amount, current award amount, and potential award amount of the contract.</p>
+            <p>This visual depicts the outlayed amount, obligated amount, current award amount, and potential award amount of the contract.</p>
             <p>Hover over the chart for more information about the specific amounts displayed.</p>
         </div>
     </div>
