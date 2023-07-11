@@ -54,6 +54,8 @@ class SearchAwardsOperation {
     }
 
     fromState(state) {
+        console.log('fromState', state);
+
         this.keyword = state.keyword.toArray();
 
         this.timePeriodFY = state.timePeriodFY.toArray();
@@ -64,7 +66,7 @@ class SearchAwardsOperation {
             this.timePeriodFY = [];
         }
 
-        this.dateType = state.dateType;
+        this.dateType = state.newAwardsOnly;
 
         this.awardType = state.awardType.toArray();
 
@@ -114,6 +116,11 @@ class SearchAwardsOperation {
         // Add keyword
         if (this.keyword.length > 0) {
             filters[rootKeys.keywords] = this.keyword;
+        }
+
+        // Add dateType
+        if (this.dateType) {
+            filters[rootKeys.dateType] = 'new_awards_only';
         }
 
         // Add Time Period

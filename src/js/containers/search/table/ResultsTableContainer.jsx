@@ -340,6 +340,8 @@ export class ResultsTableContainer extends React.Component {
             sortDirection = 'desc';
         }
 
+        console.log('searchParams', searchParams);
+
         const params = {
             filters: searchParams.toParams(),
             fields: requestFields,
