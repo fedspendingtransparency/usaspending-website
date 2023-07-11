@@ -70,10 +70,14 @@ const mapboxSources = {
         filterKey: 'GEOID' // the county GEOID is state FIPS + county FIPS
     },
     congressionalDistrict: {
+        // label: 'congressional district',
+        // url: 'mapbox://usaspending.3kh310z9',
+        // layer: 'tl_2018_us_cd116',
+        // filterKey: 'GEOID' // the GEOID is state FIPS + district
         label: 'congressional district',
-        url: 'mapbox://usaspending.tl_rd22_02_cd118',
-        layer: 'tl_rd22_02_cd118',
-        filterKey: 'GEOID' // the GEOID is state FIPS + district
+        url: 'mapbox://usaspending.6aou5ss4',
+        layer: '118-CD-071123-4gmpts',
+        filterKey: 'GEOID20' // the GEOID is state FIPS + district
     },
     zip: {
         label: 'ZIP Code Tabulation Area',
