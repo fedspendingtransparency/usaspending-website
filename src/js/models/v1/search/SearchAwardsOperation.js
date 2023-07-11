@@ -54,8 +54,6 @@ class SearchAwardsOperation {
     }
 
     fromState(state) {
-        console.log('fromState', state);
-
         this.keyword = state.keyword.toArray();
 
         this.timePeriodFY = state.timePeriodFY.toArray();
