@@ -17,6 +17,7 @@ import { generateUrlHash } from "../../helpers/searchHelper";
 import FaceValueOfLoans from '../sharedComponents/FaceValueOfLoans';
 import RecipientMultiParentCollapse from './RecipientMultiParentCollapse';
 import { REQUEST_VERSION } from "../../GlobalConstants";
+import FeatureFlag from "../sharedComponents/FeatureFlag";
 import { CondensedCDTooltip } from '../../components/award/shared/InfoTooltipContent';
 
 const propTypes = {
@@ -217,14 +218,16 @@ const RecipientOverview = (props) => {
                                         <div className="details__table-cd-text">
                                             Congressional District
                                         </div>
-                                        <TooltipWrapper
-                                            className="congressional-district__tt"
-                                            icon="info"
-                                            tooltipPosition="bottom"
-                                            styles={{
-                                                position: 'relative'
-                                            }}
-                                            tooltipComponent={<CondensedCDTooltip title="Congressional District" />} />
+                                        <FeatureFlag>
+                                            <TooltipWrapper
+                                                className="congressional-district__tt"
+                                                icon="info"
+                                                tooltipPosition="bottom"
+                                                styles={{
+                                                    position: 'relative'
+                                                }}
+                                                tooltipComponent={<CondensedCDTooltip title="Congressional District" />} />
+                                        </FeatureFlag>
                                     </th>
                                     {congressionalDistrict}
                                 </tr>
@@ -243,4 +246,3 @@ const RecipientOverview = (props) => {
 
 RecipientOverview.propTypes = propTypes;
 export default RecipientOverview;
-
