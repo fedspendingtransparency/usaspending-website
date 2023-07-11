@@ -5,7 +5,6 @@
 
 export const rootKeys = {
     keywords: 'keywords',
-    dateType: 'date_type',
     timePeriod: 'time_period',
     awardType: 'award_type_codes',
     agencies: 'agencies',
@@ -35,7 +34,8 @@ export const checkboxTreeKeys = {
 
 export const timePeriodKeys = {
     startDate: 'start_date',
-    endDate: 'end_date'
+    endDate: 'end_date',
+    dateType: 'date_type'
 };
 
 export const agencyKeys = {

@@ -116,11 +116,6 @@ class SearchAwardsOperation {
             filters[rootKeys.keywords] = this.keyword;
         }
 
-        // Add dateType
-        if (this.dateType) {
-            filters[rootKeys.dateType] = 'new_awards_only';
-        }
-
         // Add Time Period
         if (this.timePeriodFY.length > 0 || this.timePeriodRange.length === 2) {
             if (this.timePeriodType === 'fy' && this.timePeriodFY.length > 0) {
@@ -170,6 +165,15 @@ class SearchAwardsOperation {
                 [timePeriodKeys.startDate]: FiscalYearHelper.convertFYToDateRange(initialYear)[0],
                 [timePeriodKeys.endDate]: FiscalYearHelper.convertFYToDateRange(currentYear)[1]
             }];
+        }
+
+        // Add dateType to timePeriod object
+        if (this.dateType) {
+            filters[rootKeys.timePeriod] = [
+                {
+                    [timePeriodKeys.dateType]: 'new_awards_only'
+                }
+            ];
         }
 
         // Add award types
