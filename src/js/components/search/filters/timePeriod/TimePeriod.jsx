@@ -18,7 +18,6 @@ import DateRange from './DateRange';
 import AllFiscalYears from './AllFiscalYears';
 import DateRangeError from './DateRangeError';
 import GlossaryLink from "../../../sharedComponents/GlossaryLink";
-import { updateNewAwardsOnly } from "../../../../redux/actions/search/searchFilterActions";
 
 const defaultProps = {
     activeTab: 'fy',

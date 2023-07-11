@@ -23,8 +23,7 @@ const propTypes = {
     filterTimePeriodFY: PropTypes.instanceOf(Set),
     filterTimePeriodStart: PropTypes.string,
     filterTimePeriodEnd: PropTypes.string,
-    appliedFilters: PropTypes.object,
-    updateNewAwardsOnly: PropTypes.func
+    appliedFilters: PropTypes.object
 };
 
 export class TimePeriodContainer extends React.Component {
