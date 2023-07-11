@@ -77,7 +77,7 @@
 
             .tooltip-pointer {
                 &.left {
-                    left: rem(-16);
+                    left: rem(-27) !important;
                 }
             }
         }
@@ -97,7 +97,7 @@
                         left: rem(-30) !important;
 
                         .smart-bottom-right {
-                            left: 24.3rem;
+                            left: rem(235);
                             
                         }
                     }
@@ -106,7 +106,7 @@
                         left: rem(-20) !important;
 
                         .smart-bottom-right {
-                            left: 24.3rem;
+                            left: rem(235);
                             
                         }
                     }
