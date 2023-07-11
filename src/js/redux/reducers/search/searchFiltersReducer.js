@@ -100,7 +100,6 @@ const searchFiltersReducer = (state = initialState, action) => {
 
         // New Awards Only Filter
         case 'UPDATE_SEARCH_FILTER_NEW_AWARDS_ONLY': {
-            console.log('reducer action param', action);
             return Object.assign({}, state, {
                 newAwardsOnly: action.filterValue
             });

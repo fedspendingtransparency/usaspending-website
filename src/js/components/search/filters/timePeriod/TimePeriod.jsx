@@ -5,17 +5,20 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from "redux";
 import { connect } from 'react-redux';
 import { NewAwardsTooltip } from 'components/search/filters/tooltips/AdvancedSearchTooltip';
 import { TooltipWrapper } from 'data-transparency-ui';
 import moment from 'moment';
 import { Set } from 'immutable';
 import { isEqual } from 'lodash';
+import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import DateRange from './DateRange';
 import AllFiscalYears from './AllFiscalYears';
 import DateRangeError from './DateRangeError';
 import GlossaryLink from "../../../sharedComponents/GlossaryLink";
+import { updateNewAwardsOnly } from "../../../../redux/actions/search/searchFilterActions";
 
 const defaultProps = {
     activeTab: 'fy',
@@ -31,7 +34,7 @@ const propTypes = {
     timePeriods: PropTypes.array,
     activeTab: PropTypes.string,
     updateFilter: PropTypes.func,
-    setNewAwardsOnly: PropTypes.func,
+    updateNewAwardsOnly: PropTypes.func,
     changeTab: PropTypes.func,
     disableDateRange: PropTypes.bool,
     dirtyFilters: PropTypes.symbol,
@@ -53,8 +56,7 @@ export class TimePeriod extends React.Component {
             allFY: false,
             clearHint: false,
             newAwardFilterActive: false,
-            newAwardFilterActiveFromFYOrDateRange: false,
-            newAwardsOnlySelected: false
+            newAwardFilterActiveFromFYOrDateRange: false
         };
 
         // bind functions
@@ -298,14 +300,7 @@ export class TimePeriod extends React.Component {
     }
 
     newAwardsFn(e) {
-        console.log('newAwardsFn e.target.checked', e.target.checked);
-        // this state var may not be necessary here
-        // if sending target.checked to setNewAwardsOnly will change
-        // newAwardsOnly in redux AppliedFilters.filters
-        this.setState({
-            newAwardsOnlySelected: e.target.checked
-        });
-        this.props.setNewAwardsOnly(e.target.checked);
+        this.props.updateNewAwardsOnly(e.target.checked);
         if (this.hint) {
             this.hint.showHint();
         }
@@ -428,5 +423,6 @@ TimePeriod.defaultProps = defaultProps;
 export default connect(
     (state) => ({
         subaward: state.searchView.subaward
-    })
+    }),
+    (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(TimePeriod);

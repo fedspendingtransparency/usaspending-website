@@ -70,7 +70,11 @@ export class TopFilterBarContainer extends React.Component {
             filters.push(timeFilters);
         }
 
-        // todo - add new block to check for newAwardsOnly
+        // prepare the newAwardsOnly filters
+        const newAwardOnlyFilters = this.prepareNewAwardsOnly(props);
+        if (newAwardOnlyFilters) {
+            filters.push(newAwardOnlyFilters);
+        }
 
         // prepare the award filters
         const awardFilters = this.prepareAwardTypes(props);
@@ -247,6 +251,29 @@ export class TopFilterBarContainer extends React.Component {
         }
 
         if (selected) {
+            return filter;
+        }
+        return null;
+    }
+
+    /**
+     * Logic for parsing the current Redux newAwardsOnly filter into a JS object that can be parsed by the
+     * top filter bar
+     */
+    prepareNewAwardsOnly(props) {
+        let selected = false;
+        const filter = {
+            values: []
+        };
+
+        if (props.newAwardsOnly) {
+            selected = true;
+            filter.values = true;
+        }
+
+        if (selected) {
+            filter.code = 'newAwardsOnly';
+            filter.name = null;
             return filter;
         }
         return null;

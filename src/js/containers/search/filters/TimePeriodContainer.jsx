@@ -60,15 +60,6 @@ export class TimePeriodContainer extends React.Component {
         });
     }
 
-    setNewAwardsOnly(bool) {
-        console.log('setNewAwardsOnly', bool);
-
-        // todo - this fn isn't being recognized for some reason
-        // but i'm importing it the same way the fns from searchFilterActions
-        // are imported, in AgencyContainer, for example
-        this.props.updateNewAwardsOnly(bool);
-    }
-
     generateTimePeriods() {
         const timePeriods = [];
 
@@ -163,7 +154,6 @@ export class TimePeriodContainer extends React.Component {
                 activeTab={this.state.activeTab}
                 timePeriods={this.state.timePeriods}
                 updateFilter={this.updateFilter}
-                setNewAwardsOnly={this.setNewAwardsOnly}
                 changeTab={this.changeTab} />
         );
     }
