@@ -141,10 +141,10 @@ export const CDTooltip = () => (
                 Use this filter to find spending based on the current geographic boundaries of each congressional district, including for awards that predated those districts.
             </p>
             <p>
-                Search results will reflect current congressional districts based on redistricting as a result of the 2020 Census. These districts will be in effect from 2023 – 2033.&#42;
+                Search results will reflect current congressional districts based on redistricting as a result of the 2020 census. These districts will be in effect from 2023 – 2033.&#42;
             </p>
             <p>
-                <em>&#42;Court-ordered redistricting might alter the time frame a congressional district is in effect.</em>
+                <em>&#42;Court-ordered redistricting might alter the time frame when a congressional district is in effect.</em>
             </p>
             <p>
                 <strong>Original Congressional Districts (as reported by federal agencies)</strong>
@@ -153,7 +153,10 @@ export const CDTooltip = () => (
                 Use this filter to find spending based on the congressional district boundaries that were in effect when an award was issued.
             </p>
             <p>
-                Note that district boundaries have changed over time.
+                Note that some district boundaries have changed over time.
+            </p>
+            <p>
+            Additional information can be found in the “Congressional District Data” section of the <strong>About the Data</strong> module under <strong>Find Resources</strong>.
             </p>
         </div>
     </div>

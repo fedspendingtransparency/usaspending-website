@@ -93,9 +93,12 @@ const additionalDetailsContracts = (awardData) => {
                 type: 'address',
                 data: [
                     `${placeOfPerformance.regionalAddress}`,
-                    `${placeOfPerformance._country}`,
-                    `${placeOfPerformance.fullCongressionalDistrict}`
+                    `${placeOfPerformance._country}`
                 ]
+            },
+            'Congressional District': {
+                type: 'address',
+                data: [`${placeOfPerformance.fullCongressionalDistrict}`]
             }
         },
         periodOfPerformance: {
@@ -137,9 +140,12 @@ const additionalDetailsContracts = (awardData) => {
                 data: [
                     `${recipient.location.streetAddress}`,
                     `${recipient.location.regionalAddress}`,
-                    `${recipient.location._country}`,
-                    `${recipient.location.fullCongressionalDistrict}`
+                    `${recipient.location._country}`
                 ]
+            },
+            'Congressional District': {
+                type: 'address',
+                data: [`${recipient.location.fullCongressionalDistrict}`]
             },
             'Business Types': {
                 type: 'list',
