@@ -21,7 +21,7 @@
 
     .list-item {
         @include button-unstyled;
-        color: $color-gray;
+        color: $color-placeholder;
         font-size: $small-font-size;
         padding: rem(10);
 
