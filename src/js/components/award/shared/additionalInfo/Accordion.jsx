@@ -11,7 +11,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { createOnKeyDownHandler } from 'helpers/keyboardEventsHelper';
 import { TooltipWrapper } from "data-transparency-ui";
 import { CondensedCDTooltip } from 'components/award/shared/InfoTooltipContent';
-import FeatureFlag from "../../../sharedComponents/FeatureFlag";
 
 const awardIdField = 'Unique Award Key';
 
@@ -103,7 +102,7 @@ export default class Accordion extends React.Component {
                 if (specialType) {
                     data = this[awardInfo.type](awardInfo.data);
                 }
-                if (specialType === 'address') {
+                if (specialType === 'address' || key === 'Congressional District') {
                     this.state.showCDTooltip = true;
                 }
             }
@@ -116,15 +115,13 @@ export default class Accordion extends React.Component {
                         <div className={`${this.state.open ? 'tab-enabled' : 'tab-disabled'}`}>
                             {data}
                         </div>
-                        {(this.state.open && this.state.showCDTooltip) && (
-                            <FeatureFlag>
-                                <div className="accordion-row__data-tooltip">
-                                    <TooltipWrapper
-                                        className="homepage__covid-19-tt"
-                                        icon="info"
-                                        tooltipComponent={<CondensedCDTooltip title="Congressional District" />} />
-                                </div>
-                            </FeatureFlag>
+                        {(key === 'Congressional District' && this.state.open && this.state.showCDTooltip) && (
+                            <div className="accordion-row__data-tooltip">
+                                <TooltipWrapper
+                                    className="homepage__covid-19-tt"
+                                    icon="info"
+                                    tooltipComponent={<CondensedCDTooltip title="Congressional District" />} />
+                            </div>
                         )}
                     </div>
                 </div>

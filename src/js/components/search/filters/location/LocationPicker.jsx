@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { isEqual } from 'lodash';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { TooltipWrapper } from "data-transparency-ui";
+import { TooltipWrapper, Button } from "data-transparency-ui";
 import EntityDropdown from './EntityDropdown';
 import ZIPField from './ZIPField';
 import { defaultLocationValues } from "../../../../containers/search/filters/location/LocationPickerContainer";
@@ -305,9 +305,8 @@ class LocationPicker extends React.Component {
                                 showDisclaimer={showDisclaimer} />
                         </div>}
 
-                    <div className={`location-item__cd ${isDistrictEnabled === false ? "disabled" : ""}`}>
-                        <span className="location-label__with-tt">CONGRESSIONAL DISTRICT (US ONLY)</span>
-
+                    <div className="location-item__cd">
+                        <span className={`location-label__with-tt ${isDistrictEnabled === false ? "disabled" : ""}`}>CONGRESSIONAL DISTRICT (US ONLY)</span>
                         <div>
                             <TooltipWrapper
                                 className="advanced-search__cd-tooltip"
@@ -340,18 +339,20 @@ class LocationPicker extends React.Component {
                             generateDisclaimer={this.generateDisclaimer} />
                     </div>
                     <div className="location-filter__link-container">
-                        <span
-                            role="link"
-                            tabIndex={0}
-                            className="location-filter__atd-link"
+                        <Button
                             onClick={this.atdClick}
                             onKeyUp={(e) => {
                                 if (e.key === 'Enter') {
                                     this.atdClick();
                                 }
-                            }}>
-                            <FontAwesomeIcon className="location-filter__atd-info" icon="info-circle" /> <span className="location-filter__atd-text">Learn about congressional redistricting</span>
-                        </span>
+                            }}
+                            additionalClassnames="location-filter__atd-info"
+                            copy="Learn about congressional redistricting"
+                            buttonSize="sm"
+                            buttonType="text"
+                            backgroundColor="light"
+                            imageAlignment="left"
+                            image={<FontAwesomeIcon className="location-filter__atd-info" icon="info-circle" />} />
                     </div>
                     <button
                         className="add-location"

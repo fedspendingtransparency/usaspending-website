@@ -35,20 +35,26 @@
         }
 
         .location-filter__link-container {
-            margin-top: rem(15);
-
+            margin-top: rem(8);
+            margin-bottom: rem(8);
+            display: flex;
+            height: rem(20);
+            justify-content: center;
             .location-filter__atd-link {
                 align-items: center;
                 display: flex;
                 color: $blue-50;
+                justify-content: center;
+                margin: 0;
                 &:hover {
                     color: $blue-vivid-70;
-                    cursor: pointer;
+                    cursor: pointer !important;
                 }
                 .location-filter__atd-info {
-                    width: rem(18);
-                    height: rem(18);
-                    margin-right: $global-margin;
+                    margin: 0 $global-margin 0 0;
+                    &:hover {
+                        cursor: pointer;
+                    }
                 }
 
                 .location-filter__atd-text {
@@ -58,6 +64,9 @@
                     font-style: normal;
                     line-height: 1.5;
                     letter-spacing: normal;
+                    &:hover {
+                        cursor: pointer;
+                    }
                 }
             }
         }
@@ -79,8 +88,11 @@
                 display: flex;
                 align-items: center;
 
+                &.disabled {
+                    opacity: 0.4;
+                }
+
                 .advanced-search__cd-tooltip {
-                    opacity: 1;
                     white-space: normal;
                     display: unset;
                     text-transform: none !important;

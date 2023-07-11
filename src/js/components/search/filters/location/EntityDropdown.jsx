@@ -15,7 +15,6 @@ import { defaultLocationValues }
 import EntityDropdownList from './EntityDropdownList';
 import EntityWarning from './EntityWarning';
 import { EntityDropdownAutocomplete } from './EntityDropdownAutocomplete';
-import FeatureFlag from "../../../sharedComponents/FeatureFlag";
 import { CDTooltip } from "../tooltips/AdvancedSearchTooltip";
 
 const propTypes = {
@@ -303,14 +302,12 @@ export default class EntityDropdown extends React.Component {
                         {this.props.title}
                     </label>
                     {this.props.title === 'CONGRESSIONAL DISTRICT (US ONLY)' ?
-                        <FeatureFlag>
-                            <div>
-                                <TooltipWrapper
-                                    className="advanced-search__cd-tooltip"
-                                    icon="info"
-                                    tooltipComponent={<CDTooltip />} />
-                            </div>
-                        </FeatureFlag>
+                        <div>
+                            <TooltipWrapper
+                                className="advanced-search__cd-tooltip"
+                                icon="info"
+                                tooltipComponent={<CDTooltip />} />
+                        </div>
                         : ''}
                 </div>
                 <div

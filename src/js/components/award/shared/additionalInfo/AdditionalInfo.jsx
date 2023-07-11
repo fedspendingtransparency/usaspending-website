@@ -49,6 +49,18 @@ export default class AdditionalInfo extends React.Component {
         const data = this.data();
         // Do not display the Place of Performance section for IDVs
         let placeOfPerformance = null;
+
+        const cdPOP = data.placeOfPerformance["Congressional District"].data.pop().trim();
+        const splitCDPOP = cdPOP.split(": ");
+        if (splitCDPOP.length === 2) {
+            data.placeOfPerformance["Congressional District"] = splitCDPOP[1];
+        }
+
+        const cdRD = data.recipientDetails["Congressional District"].data.pop().trim();
+        const splitCDRD = cdRD.split(": ");
+        if (splitCDRD.length === 2) {
+            data.recipientDetails["Congressional District"] = splitCDRD[1];
+        }
         let periodOfPerformance = (
             <IdvPeriodOfPerformance
                 key="IdvPeriodOfPerformance"
@@ -141,6 +153,13 @@ export default class AdditionalInfo extends React.Component {
     faColumns() {
         const { overview } = this.props;
         const data = this.data();
+
+        const cdPOP = data.placeOfPerformance["Congressional District"].data.pop().trim();
+        const splitCDPOP = cdPOP.split(": ");
+        if (splitCDPOP.length === 2) {
+            data.placeOfPerformance["Congressional District"] = splitCDPOP[1];
+        }
+
         const columnOne = [
             (<Accordion
                 key="UniqueAwardKey"
