@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 
 import { tabs, awardTypesWithSubawards } from 'dataMapping/award/awardHistorySection';
 import { getToolTipBySectionAndAwardType } from 'dataMapping/award/tooltips';
+import { Tabs, TooltipWrapper } from "data-transparency-ui";
 import TransactionsTableContainer from 'containers/award/table/TransactionsTableContainer';
 import FederalAccountTableContainer from 'containers/award/table/FederalAccountTableContainer';
 import SubawardsContainer from 'containers/award/table/SubawardsContainer';
@@ -15,6 +16,7 @@ import ResultsTablePicker from 'components/search/table/ResultsTablePicker';
 import { AwardLoop } from 'components/sharedComponents/icons/Icons';
 import DetailsTabBar from 'components/award/table/DetailsTabBar';
 import AwardSectionHeader from 'components/award/shared/AwardSectionHeader';
+import { tabTooltips } from './../../../components/aboutTheData/componentMapping/tooltipContentMapping';
 
 import { getAwardHistoryCounts } from "../../../helpers/awardHistoryHelper";
 
@@ -22,6 +24,8 @@ const propTypes = {
     overview: PropTypes.object,
     setActiveTab: PropTypes.func,
     activeTab: PropTypes.string,
+    tooltipContent: PropTypes.node,
+    tooltipProps: PropTypes.shape({ wide: PropTypes.bool }),
     awardId: PropTypes.string
 };
 
@@ -142,7 +146,15 @@ export class AwardHistory extends React.Component {
             ? "Award History for this IDV"
             : "Award History";
         const tooltip = getToolTipBySectionAndAwardType('awardHistory', overview.category);
-
+        let infoTooltip = null;
+        if (this.props.tooltipContent) {
+            infoTooltip = (
+                <TooltipWrapper
+                    className="award-section-tt"
+                    icon="info"
+                    tooltipComponent={this.props.tooltipContent}
+                    {...this.props.tooltipProps} />);
+        }
         return (
             <div id="award-award-history" className="award-viz award-history">
                 <AwardSectionHeader
@@ -156,6 +168,29 @@ export class AwardHistory extends React.Component {
                         tabOptions={tabOptions}
                         activeTab={activeTab}
                         clickTab={setActiveTab} />
+                    <Tabs
+                        awardId={awardId}
+                        types={tabOptions}
+                        active={activeTab}
+                        switchTab={setActiveTab}
+                        tooltip={infoTooltip} />
+                    <Tabs
+                        awardId={awardId}
+                        types={[
+                            {
+                                internal: 'transaction',
+                                label: 'tabOptions',
+                                tooltip: infoTooltip
+                            },
+                            {
+                                internal: 'federal_account',
+                                label: 'tabOptions',
+                                tooltip: tabTooltips["Updates by Fiscal Year"]
+                            }
+                        ]}
+                        active={activeTab}
+                        switchTab={setActiveTab}
+                        tooltip={infoTooltip} />
                     <ResultsTablePicker
                         types={tabOptions}
                         active={activeTab}
