@@ -150,6 +150,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
 
     prepareFetch(forced = false) {
         if (this.state.loadingTiles) {
+            console.log(this.state.loadingTiles)
             // we can't measure visible entities if the tiles aren't loaded yet, so stop
             return;
         }
@@ -161,6 +162,9 @@ export class GeoVisualizationSectionContainer extends React.Component {
     // check if the inbound list of entities is different from the existing visible entities
         const current = keyBy(this.state.visibleEntities);
         const inbound = keyBy(entities);
+
+        console.log("current", current);
+        console.log("inbound", inbound);
 
         for (const entity of entities) {
             if (!current[entity]) {

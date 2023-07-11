@@ -11,7 +11,7 @@ const filesServerUrlByEnv = {
 };
 
 const globalConstants = {
-    API: process.env.USASPENDING_API,
+    API: ' https://qat-api.usaspending.gov/api/', // to point to QAT
     LOCAL: false,
     PERF_LOG: false,
     MAPBOX_TOKEN: 'pk.eyJ1IjoidXNhc3BlbmRpbmciLCJhIjoiY2l6ZnZjcmh0MDBtbDMybWt6NDR4cjR6ZSJ9.zsCqjJgrMDOA-i1RcCvGvg',

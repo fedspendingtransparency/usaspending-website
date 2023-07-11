@@ -19,6 +19,10 @@ class MapBroadcaster {
         }
 
         // subtract 1 to return the index position of the listener
+
+        console.log(eventName)
+        console.log(this._events[eventName].length - 1)
+
         return {
             event: eventName,
             id: this._events[eventName].length - 1
