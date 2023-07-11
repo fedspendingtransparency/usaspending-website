@@ -35,11 +35,16 @@
         }
 
         .location-filter__link-container {
-            margin-top: rem(8);
-            margin-bottom: rem(8);
+            margin-top: rem(15);
             display: flex;
             height: rem(20);
             justify-content: center;
+
+            .button-type__text-left-icon-light {
+                &:hover {
+                    cursor: pointer;
+                }
+            }
             .location-filter__atd-link {
                 align-items: center;
                 display: flex;
@@ -48,13 +53,9 @@
                 margin: 0;
                 &:hover {
                     color: $blue-vivid-70;
-                    cursor: pointer !important;
                 }
                 .location-filter__atd-info {
                     margin: 0 $global-margin 0 0;
-                    &:hover {
-                        cursor: pointer;
-                    }
                 }
 
                 .location-filter__atd-text {
