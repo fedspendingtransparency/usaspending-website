@@ -266,6 +266,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
      * @returns {null}
      */
     handleMapLegendToggleChange = () => {
+        console.log("map legend change");
         this.setState({
             data: Object.assign({}, this.valuesLocationsLabelsFromAPIData()),
             renderHash: `geo-${uniqueId()}`
