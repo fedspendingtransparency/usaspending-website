@@ -8,6 +8,7 @@ import PropTypes from 'prop-types';
 import { AddresskeysByAwardType } from 'dataMapping/award/awardOverview';
 import { TooltipWrapper } from "data-transparency-ui";
 import { CondensedCDTooltip } from 'components/award/shared/InfoTooltipContent';
+import FeatureFlag from "../../../sharedComponents/FeatureFlag";
 
 const propTypes = {
     aggregateRecordType: PropTypes.string,
@@ -38,12 +39,14 @@ const RecipientAddress = ({ recipientLocation, aggregateRecordType }) => {
             <div className="award-overview__left-section__recipient__recipient-address">
                 { !addressContainsLetters ? '--' : recipientAddress }
             </div>
-            <div className="award-overview__left-section__recipient-tooltip">
-                <TooltipWrapper
-                    className="homepage__covid-19-tt"
-                    icon="info"
-                    tooltipComponent={<CondensedCDTooltip title="Congressional District" />} />
-            </div>
+            <FeatureFlag>
+                <div className="award-overview__left-section__recipient-tooltip">
+                    <TooltipWrapper
+                        className="homepage__covid-19-tt"
+                        icon="info"
+                        tooltipComponent={<CondensedCDTooltip title="Congressional District" />} />
+                </div>
+            </FeatureFlag>
         </div>
     );
 };
