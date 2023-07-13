@@ -118,6 +118,7 @@ export const filtersOnClickHandler = {
     awardType: 'updateAwardTypeFilter'
 };
 
+// Still in use for COVID profile map
 export const mapboxSources = {
     state: {
         label: 'state',
