@@ -71,8 +71,8 @@ const mapboxSources = {
     },
     congressionalDistrict: {
         label: 'congressional district',
-        url: 'mapbox://usaspending.6aou5ss4',
-        layer: '118-CD-071123-4gmpts',
+        url: 'mapbox://usaspending.118-CD-tiles',
+        layer: '118-CD',
         filterKey: 'GEOID20' // the GEOID is state FIPS + district
     },
     zip: {
