@@ -1347,7 +1347,7 @@ export const CondensedCDTooltip = ({ title }) => (
                 The congressional districts displayed reflect their current geographic boundaries and are based on the 2020 census. These districts will be in effect from 2023 – 2033.&#42;
             </p>
             <p>
-                Additional information can be found within the Congressional District section of the <strong>About the Data</strong> module under <strong>Find Resources</strong>.
+                Additional information can be found in the "Congressional District Data" section of the <strong>About the Data</strong> module under <strong>Find Resources</strong>.
             </p>
             <p>
                 <em>&#42;Court-ordered redistricting might alter the time frame when a congressional district is in effect.</em>
