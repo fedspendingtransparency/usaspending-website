@@ -38,12 +38,12 @@ const RecipientAddress = ({ recipientLocation, aggregateRecordType }) => {
             <div className="award-overview__left-section__recipient__recipient-address">
                 { !addressContainsLetters ? '--' : recipientAddress }
             </div>
-                <div className="award-overview__left-section__recipient-tooltip">
-                    <TooltipWrapper
-                        className="homepage__covid-19-tt"
-                        icon="info"
-                        tooltipComponent={<CondensedCDTooltip title="Congressional District" />} />
-                </div>
+            <div className="award-overview__left-section__recipient-tooltip">
+                <TooltipWrapper
+                    className="homepage__covid-19-tt"
+                    icon="info"
+                    tooltipComponent={<CondensedCDTooltip title="Congressional District" />} />
+            </div>
         </div>
     );
 };
