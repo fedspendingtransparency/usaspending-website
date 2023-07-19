@@ -35,10 +35,6 @@ const aboutSections = [
         label: 'Development and Releases'
     },
     {
-        section: 'careers',
-        label: 'Careers'
-    },
-    {
         section: 'licensing',
         label: 'Licensing'
     },
@@ -107,7 +103,6 @@ const AboutContent = () => {
                     <Mission />
                     <Background />
                     <Development />
-                    <Careers />
                     <Licensing />
                     <MoreInfo />
                     <Contact />
