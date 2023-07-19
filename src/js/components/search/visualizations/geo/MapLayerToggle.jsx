@@ -7,7 +7,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { TooltipWrapper } from 'data-transparency-ui';
 import { CondensedCDTooltip } from '../../../award/shared/InfoTooltipContent';
-import FeatureFlag from '../../../sharedComponents/FeatureFlag';
 import { tabletScreen, mLargeScreen } from '../../../../dataMapping/shared/mobileBreakpoints';
 
 const propTypes = {
@@ -58,15 +57,13 @@ const MapLayerToggle = (props) => {
                     {title}
                 </button>
                 {title === "Congressional Districts" ?
-                    <FeatureFlag>
-                        <div className="map-layer__cd-tooltip">
-                            <TooltipWrapper
-                                icon="info"
-                                className={props.className}
-                                tooltipPosition={(window.innerWidth >= tabletScreen && window.innerWidth <= mLargeScreen) ? 'left' : 'right'}
-                                tooltipComponent={<CondensedCDTooltip title="Congressional Districts" />} />
-                        </div>
-                    </FeatureFlag>
+                    <div className="map-layer__cd-tooltip">
+                        <TooltipWrapper
+                            icon="info"
+                            className={props.className}
+                            tooltipPosition={(window.innerWidth >= tabletScreen && window.innerWidth <= mLargeScreen) ? 'left' : 'right'}
+                            tooltipComponent={<CondensedCDTooltip title="Congressional Districts" />} />
+                    </div>
                     : null}
             </li>
         );

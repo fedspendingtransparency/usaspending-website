@@ -246,4 +246,3 @@ const RecipientOverview = (props) => {
 
 RecipientOverview.propTypes = propTypes;
 export default RecipientOverview;
-

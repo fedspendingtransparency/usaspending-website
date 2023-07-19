@@ -39,12 +39,18 @@
                     height: rem(14);
                     width: rem(14);
                 }
+                svg {
+                    margin: 0 rem(7.5);
+                }
             }
         }
     }
     // recipient text
     .award-overview__left-section__aggregated-text {
-      font-size: rem(14);
-      font-weight: $font-light;
+        font-size: rem(14);
+        font-weight: $font-light;
+    }
+    .award-overview__left-section__aggregated-text:last-of-type {
+        padding-top: 5px;
     }
 }
