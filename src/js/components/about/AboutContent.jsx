@@ -17,7 +17,6 @@ import Background from './Background';
 import MoreInfo from './MoreInfo';
 import Contact from './Contact';
 import Development from './Development';
-import Careers from './Careers';
 import Licensing from './Licensing';
 import TrainingContent from "./TrainingContent";
 
