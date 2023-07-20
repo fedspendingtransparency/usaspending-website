@@ -29,6 +29,11 @@
       "district": "06",
       "code": "4106",
       "name": "OR-06"
+    },
+    {
+      "district": "90",
+      "code": "4190",
+      "name": "OR-90"
     }
   ]
 }
