@@ -42,7 +42,8 @@
             }
             .map-layer__cd-tooltip {
                 svg { 
-                    margin-left: 8px;
+                    margin-left: rem(5);
+                    margin-right: rem(7.5);
                 }
             }
         }
@@ -56,10 +57,13 @@
             line-height: rem(18);
             padding: 0;
             border-bottom: rem(4) solid $color-white;
+            max-width: rem(134);
 
             &.active, &:hover, &:active {
                 font-weight: $font-bold;
                 border-bottom: rem(4) solid $color-primary-darker;
+                max-width: rem(142);
+
             }
 
             &:before {
@@ -73,7 +77,7 @@
 
             .tooltip-pointer {
                 &.left {
-                    left: rem(-16);
+                    left: rem(-27) !important;
                 }
             }
         }
@@ -93,7 +97,7 @@
                         left: rem(-30) !important;
 
                         .smart-bottom-right {
-                            left: 24.3rem;
+                            left: rem(235);
                             
                         }
                     }
@@ -102,7 +106,7 @@
                         left: rem(-20) !important;
 
                         .smart-bottom-right {
-                            left: 24.3rem;
+                            left: rem(235);
                             
                         }
                     }
