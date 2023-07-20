@@ -17,7 +17,6 @@ import Background from './Background';
 import MoreInfo from './MoreInfo';
 import Contact from './Contact';
 import Development from './Development';
-import Careers from './Careers';
 import Licensing from './Licensing';
 import TrainingContent from "./TrainingContent";
 
@@ -33,10 +32,6 @@ const aboutSections = [
     {
         section: 'development',
         label: 'Development and Releases'
-    },
-    {
-        section: 'careers',
-        label: 'Careers'
     },
     {
         section: 'licensing',
@@ -107,7 +102,6 @@ const AboutContent = () => {
                     <Mission />
                     <Background />
                     <Development />
-                    <Careers />
                     <Licensing />
                     <MoreInfo />
                     <Contact />
