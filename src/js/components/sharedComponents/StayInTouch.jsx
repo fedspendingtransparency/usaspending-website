@@ -42,7 +42,7 @@ const StayInTouch = (pageName) => {
     };
     const handleLearnMore = () => {
         trackLinkLearnMore();
-        window.open("/about?section=training", "_self");
+        window.open("/training-videos", "_self");
     };
     const handleSurveyClick = () => {
         trackLinkSurvey();
@@ -96,10 +96,10 @@ const StayInTouch = (pageName) => {
                     tablet={12}
                     desktop={3}>
                     <div className="stay-in-touch__second-row-title">
-                                Request a training session
+                        Learn how to use USAspending
                     </div>
                     <div className="stay-in-touch__second-row-text">
-                                Receive customized training for your organization on how to use our tools and data.
+                        Access specialized training videos on how to use our tools and data.
                     </div>
                     <div className="stay-in-touch__second-row-link">
                         <Button
