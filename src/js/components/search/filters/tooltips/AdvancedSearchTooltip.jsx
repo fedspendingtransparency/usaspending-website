@@ -16,7 +16,7 @@ export const TimePeriodTooltip = () => (
         <div className="advanced-search-tt__body">
             <p>
                 Prime award summary results in the Table tab will overlap with the selected
-                time period based on their prime award <strong>base transaction action data</strong>{' '}
+                time period based on their prime award <strong>base transaction action date</strong>{' '}
                 and prime award <strong>latest transaction action date</strong>.
                 Individual transactions for any single award summary result may not exist
                 within the selected time period.
