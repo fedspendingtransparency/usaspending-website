@@ -114,7 +114,8 @@ const AwardAmountsTable = ({
                     hide = true;
                 }
             });
-        } else {
+        }
+        else {
             allExclusions.forEach((item) => {
                 if (title === item) {
                     hide = true;

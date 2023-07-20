@@ -248,10 +248,10 @@ export const buildLoanProps = (awardAmounts, hasOutlays, showFilecCovid, awardTy
             children: [{
                 labelPosition: 'top',
                 labelSortOrder: 1,
-                rawValue: getAwardObligatedRawValue(awardAmounts, awardType, fileCType),
-                value: getAwardObligatedValue(awardAmounts, awardType, fileCType),
-                text: getAwardTypeText(awardType, "Obligated", fileCType),
-                className: showFilecCovid ? `loan-file-c-obligated` : 'asst-obligation',
+                // rawValue: getAwardObligatedRawValue(awardAmounts, awardType, fileCType),
+                // value: getAwardObligatedValue(awardAmounts, awardType, fileCType),
+                // text: getAwardTypeText(awardType, "Obligated", fileCType),
+                // className: showFilecCovid ? `loan-file-c-obligated` : 'asst-obligation',
                 denominatorValue: awardAmounts._subsidy,
                 lineOffset: lineOffsetsBySpendingCategory.loanFileCObligated,
                 color: getAwardColor(obligatedColor, infrastructureObligatedColor, covidObligatedColor, fileCType)
@@ -270,12 +270,12 @@ export const buildLoanProps = (awardAmounts, hasOutlays, showFilecCovid, awardTy
         numerator2: {
             labelSortOrder: 0,
             labelPosition: 'top',
-            className: `${awardType}-outlayed`,
-            rawValue: getAwardOutlayRawValue(awardAmounts, awardType, fileCType),
-            value: getAwardOutlayValue(awardAmounts, awardType, fileCType),
+            // className: `${awardType}-outlayed`,
+            // rawValue: getAwardOutlayRawValue(awardAmounts, awardType, fileCType),
+            // value: getAwardOutlayValue(awardAmounts, awardType, fileCType),
             color: getAwardColor(outlayColor, infrastructureOutlayColor, covidColor, fileCType),
-            lineOffset: lineOffsetsBySpendingCategory.potential,
-            text: getAwardTypeText(awardType, "Outlayed", fileCType)
+            lineOffset: lineOffsetsBySpendingCategory.potential
+            // text: getAwardTypeText(awardType, "Outlayed", fileCType)
         }
     };
     return props;
