@@ -88,7 +88,7 @@ const NavbarWrapper = () => {
                         <button
                             className="mobile-hamburger__button"
                             onClick={toggleMobileNav}>
-                            <FontAwesomeIcon icon={faBars} />
+                            <FontAwesomeIcon className="mobile-hamburger__buns" icon={faBars} size="lg" />
                         </button>
                     </div>
                 </div>
