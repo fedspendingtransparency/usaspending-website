@@ -245,17 +245,10 @@ export const buildLoanProps = (awardAmounts, hasOutlays, showFilecCovid, awardTy
             text: 'Original Subsidy Cost',
             color: subsidyColor,
             denominatorValue: awardAmounts.faceValueAbbreviated,
-            children: [{
-                labelPosition: 'top',
-                labelSortOrder: 1,
-                // rawValue: getAwardObligatedRawValue(awardAmounts, awardType, fileCType),
-                // value: getAwardObligatedValue(awardAmounts, awardType, fileCType),
-                // text: getAwardTypeText(awardType, "Obligated", fileCType),
-                // className: showFilecCovid ? `loan-file-c-obligated` : 'asst-obligation',
-                denominatorValue: awardAmounts._subsidy,
-                lineOffset: lineOffsetsBySpendingCategory.loanFileCObligated,
-                color: getAwardColor(obligatedColor, infrastructureObligatedColor, covidObligatedColor, fileCType)
-            }]
+            // ticket 9885 requested we remove the obligation amounts from loans pages
+            // all the obligation info was in this children array
+            // but HorizontalSingleStackedBarViz will fail if we do not send this array
+            children: [{}]
         },
         denominator: {
             labelPosition: 'bottom',
@@ -267,16 +260,10 @@ export const buildLoanProps = (awardAmounts, hasOutlays, showFilecCovid, awardTy
             color: faceValueColor,
             text: 'Face Value of Direct Loan'
         },
-        numerator2: {
-            labelSortOrder: 0,
-            labelPosition: 'top',
-            // className: `${awardType}-outlayed`,
-            // rawValue: getAwardOutlayRawValue(awardAmounts, awardType, fileCType),
-            // value: getAwardOutlayValue(awardAmounts, awardType, fileCType),
-            color: getAwardColor(outlayColor, infrastructureOutlayColor, covidColor, fileCType),
-            lineOffset: lineOffsetsBySpendingCategory.potential
-            // text: getAwardTypeText(awardType, "Outlayed", fileCType)
-        }
+        // ticket 9885 requested we remove the outlay amounts from loans pages
+        // all the outlay info was in this numerator2 object
+        // but HorizontalSingleStackedBarViz will fail if we do not send this obj
+        numerator2: {}
     };
     return props;
 };
