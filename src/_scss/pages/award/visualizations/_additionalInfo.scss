@@ -128,10 +128,11 @@
                         &.show-tooltip {
                             display: flex;
                             flex-flow: row nowrap;
-
+                            align-items: center;
                             .accordion-row__data-tooltip {
-                                align-self: flex-end;
-
+                                @media(min-width:$large-screen) {
+                                    align-self: flex-end;
+                                }
                                 .tooltip-wrapper {
                                     .tooltip__icon {
                                         height: rem(14);
