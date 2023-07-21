@@ -233,7 +233,7 @@ export const buildGrantsDirectOtherProps = (awardType, awardAmounts, hasOutlays,
 };
 
 
-export const buildLoanProps = (awardAmounts, hasOutlays, showFilecCovid, awardType) => {
+export const buildLoanProps = (awardAmounts, awardType) => {
     const props = {
         numerator: {
             labelPosition: 'bottom',
