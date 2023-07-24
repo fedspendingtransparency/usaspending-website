@@ -1,6 +1,10 @@
 .category-row {
-  display: flex;
+  display: block;
   width: 100%;
+  @media(min-width: $medium-screen) {
+    display: flex;
+    width: 100%;
+  }
 }
 
 .category-table {
