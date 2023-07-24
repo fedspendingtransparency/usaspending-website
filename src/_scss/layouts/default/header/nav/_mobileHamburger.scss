@@ -11,40 +11,20 @@
         @include button-unstyled;
         @include transition(all 0.75s $ease-in-out-sine);
         cursor: pointer;
-        display: block;
+        display: flex;
+        align-items: center;
+        justify-content: right;
         height: rem(45);
         position: relative;
         width: rem(48);
         .svg {
             color: $gray-cool-90;
         }
+
+        .mobile-hamburger__buns {
+            color: $gray-cool-90;
+            width: rem(16);
+        }
     }
 
-    .mobile-hamburger__meat-buns {
-        @include transition(all 0.75s $ease-in-out-sine);
-        background: $gray-cool-90;
-        display: inline-block;
-        height: rem(3);
-        left: rem(10);
-        position: absolute;
-        top: rem(20);
-        width: rem(28);
-        &::before,
-        &::after {
-            content: "";
-            background: $gray-cool-90;
-            display: block;
-            height: rem(3);
-            position: absolute;
-            width: rem(28);
-        }
-        &::before {
-            top: -7px;
-            @include transition(all 1s $ease-in-out-sine);
-        }
-        &::after {
-            top: 7px;
-            @include transition(all 0.50s $ease-in-out-sine);
-        }
-    }
 }

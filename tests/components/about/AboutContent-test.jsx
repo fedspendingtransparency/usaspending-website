@@ -13,12 +13,12 @@ describe('About Page content', () => {
     it('should set the active section based if a section is provided via a query param', () => {
         render((
             <Route location={{
-                search: '?section=careers'
+                search: '?section=licensing'
             }}>
                 <AboutContent />
             </Route >
         ));
-        const sidebarLink = screen.queryAllByText('Careers')[0];
+        const sidebarLink = screen.queryAllByText('Licensing')[0];
         expect(sidebarLink).toHaveClass('active');
     });
 });
