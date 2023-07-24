@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { CSSTransition, TransitionGroup } from "react-transition-group";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link, useLocation } from 'react-router-dom';
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 import Analytics from 'helpers/analytics/Analytics';
 import MobileNav from './mobile/MobileNav';
 import MegaMenu from "./megaMenu/MegaMenu";
@@ -86,7 +88,7 @@ const NavbarWrapper = () => {
                         <button
                             className="mobile-hamburger__button"
                             onClick={toggleMobileNav}>
-                            <span className="mobile-hamburger__meat-buns" />
+                            <FontAwesomeIcon className="mobile-hamburger__buns" icon={faBars} size="lg" />
                         </button>
                     </div>
                 </div>
