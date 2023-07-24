@@ -15,8 +15,9 @@ import SubawardsContainer from 'containers/award/table/SubawardsContainer';
 import ResultsTablePicker from 'components/search/table/ResultsTablePicker';
 import { AwardLoop } from 'components/sharedComponents/icons/Icons';
 import AwardSectionHeader from 'components/award/shared/AwardSectionHeader';
+import { tabTooltips } from './../../../components/aboutTheData/componentMapping/tooltipContentMapping';
 import { transactionHistoryInfoGeneric, subAwardsTabContract, federalAccountFundingInfoIDV } from "./../../../components/award/shared/InfoTooltipContent";
-
+import { formatNumber } from './../../../helpers/moneyFormatter';
 
 import { getAwardHistoryCounts } from "../../../helpers/awardHistoryHelper";
 
@@ -24,7 +25,8 @@ const propTypes = {
     overview: PropTypes.object,
     setActiveTab: PropTypes.func,
     activeTab: PropTypes.string,
-    awardId: PropTypes.string
+    awardId: PropTypes.string,
+    count: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 };
 
 export class AwardHistory extends React.Component {
@@ -144,7 +146,6 @@ export class AwardHistory extends React.Component {
             ? "Award History for this IDV"
             : "Award History";
         const tooltip = getToolTipBySectionAndAwardType('awardHistory', overview.category);
-
         return (
             <div id="award-award-history" className="award-viz award-history">
                 <AwardSectionHeader
@@ -158,7 +159,6 @@ export class AwardHistory extends React.Component {
                         types={tabOptions}
                         active={activeTab}
                         switchTab={setActiveTab} />
-
                     <ResultsTablePicker
                         types={tabOptions}
                         active={activeTab}

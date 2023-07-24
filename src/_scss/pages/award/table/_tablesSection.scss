@@ -4,6 +4,14 @@
     margin-top: rem(20);
     margin-bottom: rem(20);
     transition: opacity 0.25s ease;
+    z-index: 15;
+    .usa-dt-tab:focus {
+        outline: none;
+        z-index: 15;
+    }
+    .usa-dt-tab-list {
+        z-index: 15;
+    }
 
     .tables-width-master {
         width: 100%;
