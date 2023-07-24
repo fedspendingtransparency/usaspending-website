@@ -123,7 +123,7 @@ const StayInTouch = (pageName) => {
                         Sign up for release notes
                     </div>
                     <div className="stay-in-touch__second-row-text">
-                        Get release notes to your inbox to keep up with what's new on USAspending.gov
+                        Get release notes to your inbox to keep up with what's new on USAspending.gov.
                     </div>
                     <div className="stay-in-touch__second-row-link">
                         <Button
