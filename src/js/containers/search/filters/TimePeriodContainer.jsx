@@ -166,7 +166,8 @@ export default connect(
         filterTimePeriodFY: state.filters.timePeriodFY,
         filterTimePeriodStart: state.filters.timePeriodStart,
         filterTimePeriodEnd: state.filters.timePeriodEnd,
-        appliedFilters: state.appliedFilters.filters
+        appliedFilters: state.appliedFilters.filters,
+        subaward: state.searchView.subaward
     }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(TimePeriodContainer);

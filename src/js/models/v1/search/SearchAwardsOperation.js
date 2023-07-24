@@ -54,6 +54,7 @@ class SearchAwardsOperation {
     }
 
     fromState(state) {
+        // console.log('fromState state', state);
         this.keyword = state.keyword.toArray();
 
         this.timePeriodFY = state.timePeriodFY.toArray();
@@ -167,13 +168,16 @@ class SearchAwardsOperation {
             }];
         }
 
+        console.log('this.dateType', this.dateType);
+
         // Add dateType to timePeriod object
+        // todo - but make sure only to do this if subawards is not true
         if (this.dateType) {
-            filters[rootKeys.timePeriod] = [
+            filters[rootKeys.timePeriod].push(
                 {
                     [timePeriodKeys.dateType]: 'new_awards_only'
                 }
-            ];
+            );
         }
 
         // Add award types

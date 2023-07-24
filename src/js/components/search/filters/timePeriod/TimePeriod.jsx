@@ -5,14 +5,14 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-import { bindActionCreators } from "redux";
-import { connect } from 'react-redux';
+// import { bindActionCreators } from "redux";
+// import { connect } from 'react-redux';
 import { NewAwardsTooltip } from 'components/search/filters/tooltips/AdvancedSearchTooltip';
 import { TooltipWrapper } from 'data-transparency-ui';
 import moment from 'moment';
 import { Set } from 'immutable';
 import { isEqual } from 'lodash';
-import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
+// import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import DateRange from './DateRange';
 import AllFiscalYears from './AllFiscalYears';
@@ -40,7 +40,7 @@ const propTypes = {
     subaward: PropTypes.bool
 };
 
-export class TimePeriod extends React.Component {
+export default class TimePeriod extends React.Component {
     constructor(props) {
         super(props);
 
@@ -68,7 +68,7 @@ export class TimePeriod extends React.Component {
         this.removeDateRange = this.removeDateRange.bind(this);
         this.clearHint = this.clearHint.bind(this);
         this.setNewAwardFilterActive = this.setNewAwardFilterActive.bind(this);
-        this.newAwardsFn = this.newAwardsFn.bind(this);
+        this.newAwardsClick = this.newAwardsClick.bind(this);
     }
 
     componentDidMount() {
@@ -298,7 +298,7 @@ export class TimePeriod extends React.Component {
         });
     }
 
-    newAwardsFn(e) {
+    newAwardsClick(e) {
         this.props.updateNewAwardsOnly(e.target.checked);
         if (this.hint) {
             this.hint.showHint();
@@ -357,7 +357,7 @@ export class TimePeriod extends React.Component {
                         disabled={!this.state.newAwardFilterActive}
                         id="new-awards-checkbox"
                         value="new-awards-checkbox"
-                        onChange={this.newAwardsFn} />
+                        onChange={this.newAwardsClick} />
                     <span className={`new-awards-label ${this.state.newAwardFilterActive ? '' : 'not-active'}`}>
                     Show New Awards Only
                     </span>
@@ -418,10 +418,3 @@ export class TimePeriod extends React.Component {
 
 TimePeriod.propTypes = propTypes;
 TimePeriod.defaultProps = defaultProps;
-
-export default connect(
-    (state) => ({
-        subaward: state.searchView.subaward
-    }),
-    (dispatch) => bindActionCreators(searchFilterActions, dispatch)
-)(TimePeriod);
