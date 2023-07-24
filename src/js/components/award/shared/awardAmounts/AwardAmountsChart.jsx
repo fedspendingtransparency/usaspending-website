@@ -31,7 +31,7 @@ const AwardAmountsChart = ({
             return <HorizontalSingleStackedBarViz {...buildGrantsDirectOtherProps(type, awardAmounts, hasOutlays, showFilecCovid, fileCType)} />;
         }
         else if (type === 'loan' && isNormal) {
-            return <HorizontalSingleStackedBarViz {...buildLoanProps(awardAmounts, hasOutlays, showFilecCovid, type, fileCType)} />;
+            return <HorizontalSingleStackedBarViz {...buildLoanProps(awardAmounts, type)} />;
         }
         else if ((type === 'idv' || type === 'contract') && isNormal) {
             return <HorizontalSingleStackedBarViz {...buildContractIDVProps(type, awardAmounts, showFilecCovid, hasOutlays, fileCType)} />;
