@@ -5,16 +5,12 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-
+import { InformationBoxes } from "data-transparency-ui";
 import { measureTableHeader } from 'helpers/textMeasurement';
-
 import IBTable from 'components/sharedComponents/IBTable/IBTable';
-
 import subawardFields from 'dataMapping/contracts/subawardTable';
-
 import TransactionTableGenericCell from '../table/cells/TransactionTableGenericCell';
 import SubawardsHeaderCell from './cells/SubawardsHeaderCell';
-
 import ResultsTableNoResults from '../../search/table/ResultsTableNoResults';
 import ResultsTableErrorMessage from '../../search/table/ResultsTableErrorMessage';
 
@@ -137,9 +133,6 @@ export default class SubawardsTable extends React.Component {
         if (inFlight) {
             loadingClass = 'loading';
         }
-
-        const totalValue = award.subawardTotal;
-
         let message = null;
         if (subawards.length === 0 && !inFlight) {
             message = this.props.error
@@ -149,33 +142,25 @@ export default class SubawardsTable extends React.Component {
 
         const totalSubAwardLabel = 'Total Count of Sub-Award Transactions: ';
         const totalSubAwardAmountLabel = 'Total Amount of Sub-Awards: ';
+        console.debug(award);
         return (
             <div>
                 <div className="subaward-totals">
-                    <div className="total-item">
-                        <span className="total-label">
-                            {totalSubAwardLabel}
-                        </span>
-                        <span className="total-value">
-                            {award.subawardCount}
-                        </span>
-                    </div>
-                    <div className="total-item">
-                        <span className="total-label">
-                            {totalSubAwardAmountLabel}
-                        </span>
-                        <span className="total-value">
-                            {totalValue}
-                        </span>
-                    </div>
-                    <div className="total-item">
-                        <span className="total-label">
-                            Percent of Prime Award Obligated Amount:&nbsp;
-                        </span>
-                        <span className="total-value">
-                            {award.subAwardedPercent}
-                        </span>
-                    </div>
+                    <InformationBoxes boxes={[{
+                        title: totalSubAwardLabel,
+                        type: 'totalSubAward',
+                        amount: award.subawardCount
+                    }, {
+                        title: totalSubAwardAmountLabel,
+                        type: 'totalSubAwardAmount',
+                        amount: `${award._subawardTotal}`,
+                        isMonetary: true
+                    }, {
+                        title: 'Percent of Prime Award Obligated Amount: ',
+                        type: 'subAwardedPercent',
+                        isString: true,
+                        amount: `${award.subAwardedPercent}`
+                    }]} />
                 </div>
                 <div
                     className={`subawards-table ${loadingClass}`}
