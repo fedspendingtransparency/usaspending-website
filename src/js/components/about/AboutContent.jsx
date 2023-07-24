@@ -18,7 +18,6 @@ import MoreInfo from './MoreInfo';
 import Contact from './Contact';
 import Development from './Development';
 import Licensing from './Licensing';
-import TrainingContent from "./TrainingContent";
 
 const aboutSections = [
     {
@@ -44,10 +43,6 @@ const aboutSections = [
     {
         section: 'contact',
         label: 'Contact'
-    },
-    {
-        section: 'training',
-        label: 'Training'
     }
 ];
 
@@ -105,7 +100,6 @@ const AboutContent = () => {
                     <Licensing />
                     <MoreInfo />
                     <Contact />
-                    <TrainingContent />
                 </div>
             </div>
         </div>
