@@ -25,7 +25,7 @@ export const orderedTableTitles = [
 ];
 
 export const spendingCategoriesByAwardType = {
-    loan: ['_totalOutlay', '_totalObligation', '_subsidy', '_faceValue'],
+    loan: ['_subsidy', '_faceValue'],
     contract: ['_totalObligation', '_baseExercisedOptions', '_baseAndAllOptions', '_totalOutlay'],
     idv: ['_totalObligation', '_baseExercisedOptions', '_baseAndAllOptions', '_totalOutlay'],
     idv_aggregated: ['_totalObligation', '_baseExercisedOptions', '_baseAndAllOptions', '_combinedOutlay']
@@ -88,14 +88,8 @@ export const formattedSpendingCategoriesByAwardType = {
         'infrastructureObligationFormatted'
     ],
     loan: [
-        'fileCObligatedFormatted',
-        'fileCOutlayFormatted',
         'subsidyFormatted',
-        'faceValueFormatted',
-        'totalOutlayFormatted',
-        'totalObligationFormatted',
-        'infrastructureOutlayFormatted',
-        'infrastructureObligationFormatted'
+        'faceValueFormatted'
     ]
 };
 
@@ -165,13 +159,7 @@ export const tableTitlesBySpendingCategoryAndAwardType = {
     },
     loan: {
         subsidyFormatted: 'Original Subsidy Cost',
-        faceValueFormatted: 'Face Value of Direct Loan',
-        fileCOutlayFormatted: 'COVID-19 Outlayed Amount',
-        fileCObligatedFormatted: 'COVID-19 Obligated Amount',
-        totalOutlayFormatted: 'Outlayed Amount',
-        totalObligationFormatted: 'Obligated Amount',
-        infrastructureOutlayFormatted: 'Infrastructure Outlayed Amounts',
-        infrastructureObligationFormatted: 'Infrastructure Obligated Amounts'
+        faceValueFormatted: 'Face Value of Direct Loan'
     }
 };
 
