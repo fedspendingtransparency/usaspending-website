@@ -138,7 +138,7 @@ const AwardAmountsTable = ({
                                 <span className={`award-amounts__data-icon ${awardTableClassMap[title]}`} />
                                 {title}
                             </div>
-                            <span>{amountMapByCategoryTitle[title] === "$0.00" || amountMapByCategoryTitle[title] === null ? "--" : amountMapByCategoryTitle[title]}</span>
+                            <span>{amountMapByCategoryTitle[title] === null ? "--" : amountMapByCategoryTitle[title]}</span>
                         </div>
                 ))
             }
