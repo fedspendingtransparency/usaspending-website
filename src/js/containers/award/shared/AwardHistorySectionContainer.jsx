@@ -12,7 +12,6 @@ import { Tabs } from "data-transparency-ui";
 import TransactionsTableContainer from 'containers/award/table/TransactionsTableContainer';
 import FederalAccountTableContainer from 'containers/award/table/FederalAccountTableContainer';
 import SubawardsContainer from 'containers/award/table/SubawardsContainer';
-import ResultsTablePicker from 'components/search/table/ResultsTablePicker';
 import { AwardLoop } from 'components/sharedComponents/icons/Icons';
 import AwardSectionHeader from 'components/award/shared/AwardSectionHeader';
 import { getAwardHistoryCounts } from "../../../helpers/awardHistoryHelper";
@@ -21,7 +20,6 @@ const propTypes = {
     overview: PropTypes.object,
     setActiveTab: PropTypes.func,
     activeTab: PropTypes.string,
-    awardId: PropTypes.string,
     count: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 };
 
@@ -134,8 +132,7 @@ export class AwardHistory extends React.Component {
         const {
             overview,
             setActiveTab,
-            activeTab,
-            awardId
+            activeTab
         } = this.props;
         const sectionTitle = (overview.category === 'idv')
             ? "Award History for this IDV"
@@ -151,7 +148,6 @@ export class AwardHistory extends React.Component {
                     tooltipWide={(overview.category === 'contract')} />
                 <div className="tables-section">
                     <Tabs
-                        awardId={awardId}
                         types={tabOptions}
                         active={activeTab}
                         switchTab={setActiveTab} />
