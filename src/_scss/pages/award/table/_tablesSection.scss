@@ -4,13 +4,24 @@
     margin-top: rem(20);
     margin-bottom: rem(20);
     transition: opacity 0.25s ease;
-    z-index: 15;
     .usa-dt-tab:focus {
         outline: none;
-        z-index: 15;
     }
     .usa-dt-tab-list {
-        z-index: 15;
+        overflow-x: visible;
+        overflow-y: visible;
+        .award-summary-tooltip{
+            .tooltip__title {
+                display: none;
+            }
+            .tooltip__text {
+                white-space: normal;
+                padding: 0;
+            }
+        }
+        .tooltip__text {
+            white-space: normal;
+        }
     }
 
     .tables-width-master {
