@@ -92,13 +92,12 @@
              }
              .tooltip-spacer{
                 top: rem(-12) !important;
-                max-width: rem(400);
              }
              .tooltip-pointer {
-                right: rem(4) !important;
+                right: rem(0) !important;
              }
              .tooltip__content {
-                left: rem(4);
+                left: rem(8);
              }
          }
     }
