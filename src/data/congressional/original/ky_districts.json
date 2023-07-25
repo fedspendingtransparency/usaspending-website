@@ -29,6 +29,11 @@
             "code": "2106",
             "district": "06",
             "name": "KY-06"
+        },
+        {
+            "code": "2190",
+            "district": "90",
+            "name": "KY-90"
         }
     ]
 }
