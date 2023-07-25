@@ -196,8 +196,13 @@ export class ResultsTableContainer extends React.Component {
         });
 
         const searchParams = new SearchAwardsOperation();
-        // todo - check here if subaward, if yes make a copy of the params and remove the dateType field
         searchParams.fromState(this.props.filters);
+
+        // if subawards is true, newAwardsOnly cannot be true, so we remove dateType for this request; also has to be done for the main request, in performSearch
+        if (this.props.subaward && searchParams.dateType) {
+            delete searchParams.dateType;
+        }
+
         this.tabCountRequest = SearchHelper.performSpendingByAwardTabCountSearch({
             filters: searchParams.toParams(),
             subawards: this.props.subaward,
@@ -257,6 +262,12 @@ export class ResultsTableContainer extends React.Component {
     updateFilters() {
         const newSearch = new SearchAwardsOperation();
         newSearch.fromState(this.props.filters);
+
+        // if subawards is true, newAwardsOnly cannot be true, so we remove dateType for this request; also has to be done for the tabCounts request
+        if (this.props.subaward && newSearch.dateType) {
+            delete newSearch.dateType;
+        }
+
         this.setState({
             searchParams: newSearch,
             page: 1
