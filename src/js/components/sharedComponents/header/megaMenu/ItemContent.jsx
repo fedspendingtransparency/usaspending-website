@@ -107,8 +107,8 @@ const ItemContent = ({
                                                 <a
                                                     className="dropdown--item__link"
                                                     href={item.url}
-                                                    onBlur={() => {
-                                                        if (item.label === 'Release Notes') {
+                                                    onKeyDown={(e) => {
+                                                        if (item.label === 'Release Notes' && e.key === 'Tab') {
                                                             closeDropdown();
                                                         }
                                                     }}>
