@@ -24,6 +24,11 @@
       "district": "05",
       "code": "0905",
       "name": "CT-05"
+    },
+    {
+      "district": "90",
+      "code": "0990",
+      "name": "CT-90"
     }
   ]
 }

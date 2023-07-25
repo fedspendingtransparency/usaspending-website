@@ -59,6 +59,11 @@
             "code": "3412",
             "district": "12",
             "name": "NJ-12"
+        },
+        {
+            "code": "3490",
+            "district": "90",
+            "name": "NJ-90"
         }
     ]
 }

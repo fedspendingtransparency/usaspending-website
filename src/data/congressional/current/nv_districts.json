@@ -19,6 +19,11 @@
       "district": "04",
       "code": "3204",
       "name": "NV-04"
+    },
+    {
+      "district": "90",
+      "code": "3290",
+      "name": "NV-90"
     }
   ]
 }
