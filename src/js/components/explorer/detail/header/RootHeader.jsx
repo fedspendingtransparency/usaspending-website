@@ -9,10 +9,10 @@ import PropTypes from 'prop-types';
 import moment from 'moment';
 
 import { sidebarTypes } from 'dataMapping/explorer/sidebarStrings';
+import { TooltipWrapper } from 'data-transparency-ui';
 import { formatTreemapValues } from 'helpers/moneyFormatter';
 import { generateSingular } from 'helpers/singularityHelper';
-import { InfoCircle } from 'components/sharedComponents/icons/Icons';
-import ExplorerInfoToolTip from 'components/explorer/detail/ExplorerInfoTooltip';
+import { ExplorerInfoToolTip } from './../../../award/shared/InfoTooltipContent';
 
 const propTypes = {
     isLoading: PropTypes.bool,
@@ -75,19 +75,13 @@ export default class RootHeader extends React.Component {
                     <div className="detail-header__fy">
                             FY {this.props.fy} obligated amount
                         <span>
-                            <button
-                                id="detail-header__icon"
-                                onMouseLeave={this.closeTooltip}
-                                onBlur={this.closeTooltip}
+                            <TooltipWrapper
                                 className="detail-header__icon"
-                                onFocus={this.showTooltip}
-                                onMouseEnter={this.showTooltip}
-                                onClick={this.showTooltip}>
-                                <InfoCircle alt="Information" />
-                            </button>
+                                icon="info"
+                                tooltipPosition="left"
+                                tooltipComponent={ExplorerInfoToolTip} />
                         </span>
                     </div>
-                    {tooltip}
                     <div className="detail-header__value">
                         {this.props.isLoading ? '--' : formatTreemapValues(this.props.total)}
                     </div>

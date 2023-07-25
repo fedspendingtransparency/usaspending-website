@@ -78,16 +78,27 @@
 
 
         .detail-header__icon {
-          padding: 0 0 0 rem(5);
-          cursor: default;
-          margin: 0;
-          background-color: transparent;
+            display: inline-block;
+            padding: 0 0 0 rem(5);
+            cursor: default;
+            margin: 0;
+            background-color: transparent;
 
 
              svg {
                  width: rem(10);
-                 height: rem(10);
-                 fill: $color-base;
+                 height: rem(16);
+                 color: $color-base;
+             }
+             .tooltip-spacer{
+                top: rem(-12) !important;
+                max-width: rem(400);
+             }
+             .tooltip-pointer {
+                right: rem(4) !important;
+             }
+             .tooltip__content {
+                left: rem(4);
              }
          }
     }
