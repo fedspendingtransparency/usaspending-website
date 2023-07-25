@@ -6,14 +6,11 @@
 import React, { useEffect, useCallback, useState } from 'react';
 import PropTypes from 'prop-types';
 
-import { bindActionCreators } from "redux";
-import * as searchViewActions from 'redux/actions/search/searchViewActions';
-
 import Analytics from 'helpers/analytics/Analytics';
 import { withRouter } from "react-router-dom";
 import { showModal } from 'redux/actions/modal/modalActions';
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { connect, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import ResultsTableContainer from 'containers/search/table/ResultsTableContainer';
 import TimeVisualizationSectionContainer from
     'containers/search/visualizations/time/TimeVisualizationSectionContainer';
@@ -37,8 +34,7 @@ const propTypes = {
     type: PropTypes.string,
     subaward: PropTypes.bool,
     setSearchViewType: PropTypes.func,
-    setSearchViewSubaward: PropTypes.func,
-    updateNewAwardsOnly: PropTypes.func
+    setSearchViewSubaward: PropTypes.func
 };
 
 export const VisualizationWrapper = (props) => {
@@ -142,8 +138,7 @@ export const VisualizationWrapper = (props) => {
                     image={<FontAwesomeIcon icon="window-restore" />} />
                 <SubawardToggle
                     subaward={props.subaward}
-                    setSearchViewSubaward={props.setSearchViewSubaward}
-                    updateNewAwardsOnly={props.updateNewAwardsOnly} />
+                    setSearchViewSubaward={props.setSearchViewSubaward} />
             </div>
             <div className="visualization-tabs">
                 <div
@@ -155,8 +150,7 @@ export const VisualizationWrapper = (props) => {
                 <div className="visualization-tabs__toggle">
                     <SubawardToggle
                         subaward={props.subaward}
-                        setSearchViewSubaward={props.setSearchViewSubaward}
-                        updateNewAwardsOnly={props.updateNewAwardsOnly} />
+                        setSearchViewSubaward={props.setSearchViewSubaward} />
                 </div>
             </div>
             <div className="visualization-content-wrapper">

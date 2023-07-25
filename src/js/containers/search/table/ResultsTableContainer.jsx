@@ -196,6 +196,7 @@ export class ResultsTableContainer extends React.Component {
         });
 
         const searchParams = new SearchAwardsOperation();
+        // todo - check here if subaward, if yes make a copy of the params and remove the dateType field
         searchParams.fromState(this.props.filters);
         this.tabCountRequest = SearchHelper.performSpendingByAwardTabCountSearch({
             filters: searchParams.toParams(),

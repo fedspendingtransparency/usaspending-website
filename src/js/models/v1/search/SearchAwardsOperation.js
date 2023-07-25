@@ -65,6 +65,8 @@ class SearchAwardsOperation {
             this.timePeriodFY = [];
         }
 
+        console.log('fromState state.newAwardsOnly', state.newAwardsOnly);
+
         this.dateType = state.newAwardsOnly;
 
         this.awardType = state.awardType.toArray();
@@ -167,8 +169,6 @@ class SearchAwardsOperation {
                 [timePeriodKeys.endDate]: FiscalYearHelper.convertFYToDateRange(currentYear)[1]
             }];
         }
-
-        console.log('this.dateType', this.dateType);
 
         // Add dateType to timePeriod object
         if (this.dateType) {
