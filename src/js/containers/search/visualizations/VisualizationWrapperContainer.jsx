@@ -7,6 +7,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import * as searchViewActions from 'redux/actions/search/searchViewActions';
+import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 
 import VisualizationWrapper from 'components/search/visualizations/VisualizationWrapper';
 
@@ -14,5 +15,12 @@ export default connect(
     (state) => (
         state.searchView
     ),
-    (dispatch) => bindActionCreators(searchViewActions, dispatch)
+    (dispatch) => bindActionCreators(
+        Object.assign(
+            {},
+            searchViewActions,
+            searchFilterActions
+        ),
+        dispatch
+    )
 )(VisualizationWrapper);

@@ -5,14 +5,11 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { bindActionCreators } from "redux";
-// import { connect } from 'react-redux';
 import { NewAwardsTooltip } from 'components/search/filters/tooltips/AdvancedSearchTooltip';
 import { TooltipWrapper } from 'data-transparency-ui';
 import moment from 'moment';
 import { Set } from 'immutable';
 import { isEqual } from 'lodash';
-// import * as searchFilterActions from 'redux/actions/search/searchFilterActions';
 import SubmitHint from 'components/sharedComponents/filterSidebar/SubmitHint';
 import DateRange from './DateRange';
 import AllFiscalYears from './AllFiscalYears';

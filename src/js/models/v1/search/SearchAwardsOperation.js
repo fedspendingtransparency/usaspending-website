@@ -171,7 +171,6 @@ class SearchAwardsOperation {
         console.log('this.dateType', this.dateType);
 
         // Add dateType to timePeriod object
-        // todo - but make sure only to do this if subawards is not true
         if (this.dateType) {
             filters[rootKeys.timePeriod].push(
                 {

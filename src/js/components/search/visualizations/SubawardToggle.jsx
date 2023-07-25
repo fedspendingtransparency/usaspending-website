@@ -10,7 +10,8 @@ import Analytics from 'helpers/analytics/Analytics';
 
 const propTypes = {
     subaward: PropTypes.bool,
-    setSearchViewSubaward: PropTypes.func
+    setSearchViewSubaward: PropTypes.func,
+    updateNewAwardsOnly: PropTypes.func
 };
 
 export default class SubawardToggle extends React.Component {
@@ -21,13 +22,14 @@ export default class SubawardToggle extends React.Component {
     }
     toggledSwitch() {
         const newValue = !this.props.subaward;
+        this.props.updateNewAwardsOnly(!newValue);
+        this.props.setSearchViewSubaward(newValue);
         if (newValue) {
             Analytics.event({
                 category: 'Advanced Search - Search Fields',
                 action: 'Subawards Search'
             });
         }
-        this.props.setSearchViewSubaward(newValue);
     }
 
     render() {
