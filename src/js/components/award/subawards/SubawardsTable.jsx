@@ -140,8 +140,8 @@ export default class SubawardsTable extends React.Component {
                 : <ResultsTableNoResults />;
         }
 
-        const totalSubAwardLabel = 'Number of Sub-Award Transactions: ';
-        const totalSubAwardAmountLabel = 'Sub-Award Obligations: ';
+        const totalSubAwardLabel = 'Number of Sub-Award Transactions';
+        const totalSubAwardAmountLabel = 'Sub-Award Obligations';
         console.debug(award);
         return (
             <div>
@@ -156,7 +156,7 @@ export default class SubawardsTable extends React.Component {
                         amount: `${award._subawardTotal}`,
                         isMonetary: true
                     }, {
-                        title: 'Percent of Prime Award Obligations: ',
+                        title: 'Percent of Prime Award Obligations',
                         type: 'subAwardedPercent',
                         isString: true,
                         amount: `${award.subAwardedPercent}`
