@@ -37,7 +37,7 @@ const propTypes = {
     setSearchViewSubaward: PropTypes.func
 };
 
-export const VisualizationWrapper = (props) => {
+const VisualizationWrapper = (props) => {
     const [_mounted, setMounted] = useState(false);
     const dispatch = useDispatch();
     let _queuedAnalyticEvent = null;
