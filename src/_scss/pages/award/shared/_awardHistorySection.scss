@@ -9,8 +9,7 @@
     }
     .subaward-totals {
         @include display(flex);
-        margin-top: 1.5rem;
-        justify-content: flex-start;
+        justify-content: center;
         .total-item {
             padding: $global-pad;
             .total-value {
