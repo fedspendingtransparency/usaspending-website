@@ -29,6 +29,11 @@
             "code": "2206",
             "district": "06",
             "name": "LA-06"
+        },
+        {
+            "code": "2290",
+            "district": "90",
+            "name": "LA-90"
         }
     ]
 }
