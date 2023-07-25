@@ -14,6 +14,11 @@
             "code": "3503",
             "district": "03",
             "name": "NM-03"
+        },
+        {
+            "code": "3590",
+            "district": "90",
+            "name": "NM-90"
         }
     ]
 }
