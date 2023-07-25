@@ -34,6 +34,11 @@
             "code": "0107",
             "district": "07",
             "name": "AL-07"
+        },
+        {
+            "code": "0190",
+            "district": "90",
+            "name": "AL-90"
         }
     ]
 }

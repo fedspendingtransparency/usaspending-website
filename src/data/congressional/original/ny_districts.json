@@ -134,6 +134,11 @@
             "code": "3627",
             "district": "27",
             "name": "NY-27"
+        },
+        {
+            "code": "3690",
+            "district": "90",
+            "name": "NY-90"
         }
     ]
 }
