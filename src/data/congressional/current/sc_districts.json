@@ -34,6 +34,11 @@
       "district": "07",
       "code": "4507",
       "name": "SC-07"
+    },
+    {
+      "district": "90",
+      "code": "4590",
+      "name": "SC-90"
     }
   ]
 }

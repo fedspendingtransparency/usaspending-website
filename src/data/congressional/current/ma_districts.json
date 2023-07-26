@@ -44,6 +44,11 @@
       "district": "09",
       "code": "2509",
       "name": "MA-09"
+    },
+    {
+      "district": "90",
+      "code": "2590",
+      "name": "MA-90"
     }
   ]
 }
