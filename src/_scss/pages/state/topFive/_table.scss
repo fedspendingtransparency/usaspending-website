@@ -1,6 +1,7 @@
 .category-row {
   display: block;
   width: 100%;
+
   @media(min-width: $medium-screen) {
     display: flex;
     width: 100%;
@@ -17,9 +18,11 @@
     grid-auto-rows: 0fr 1fr 1fr 1fr;
   }
 
-  @include media($tablet-screen) {
+  @include media($medium-screen) {
     @include flex(0 0 50%);
+  }
 
+  @media(min-width: $medium-screen) {
     // Evenly distribute padding between tables
     &:nth-child(odd) {
       padding-right: rem(15);
@@ -69,12 +72,13 @@
       .tooltip-spacer {
         max-width: rem(314);
         transform: translate(-128px, 12px);
+
         .tooltip-pointer {
           left: calc(50% - 20px);
         }
 
         @media(max-width: 767px) {
-          position:absolute;
+          position: absolute;
           left: 0 !important;
           transform: translateX(-224px);
         }
