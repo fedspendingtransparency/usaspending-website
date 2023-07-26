@@ -9,6 +9,11 @@
       "district": "02",
       "code": "4402",
       "name": "RI-02"
+    },
+    {
+      "district": "90",
+      "code": "4490",
+      "name": "RI-90"
     }
   ]
 }

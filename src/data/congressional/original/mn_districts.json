@@ -39,6 +39,11 @@
             "code": "2708",
             "district": "08",
             "name": "MN-08"
+        },
+        {
+            "code": "2790",
+            "district": "90",
+            "name": "MN-90"
         }
     ]
 }

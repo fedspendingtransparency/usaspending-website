@@ -19,6 +19,11 @@
             "code": "2004",
             "district": "04",
             "name": "KS-04"
+        },
+        {
+            "code": "2090",
+            "district": "90",
+            "name": "KS-90"
         }
     ]
 }
