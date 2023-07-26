@@ -47,15 +47,6 @@ export default class RootHeader extends React.Component {
     }
 
     render() {
-        let tooltip = null;
-        if (this.state.showInfoTooltip) {
-            tooltip = (
-                <ExplorerInfoToolTip
-                    showInfoTooltip={this.state.showInfoTooltip}
-                    closeTooltip={this.closeTooltip} />
-            );
-        }
-
         const type = sidebarTypes[this.props.root];
         const header = (
             <div className="detail-header__labels">
