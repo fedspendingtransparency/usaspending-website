@@ -69,7 +69,7 @@ export default class RootHeader extends React.Component {
                         <TooltipWrapper
                             className="award-section-tt"
                             icon="info"
-                            tooltipPosition={left ? 'left' : 'right'}
+                            tooltipPosition="left"
                             tooltipComponent={ExplorerInfoToolTip} />
 
                     </div>
