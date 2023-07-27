@@ -6,7 +6,6 @@ import * as Icons from 'components/sharedComponents/icons/Icons';
 // Mapping of section identifier to tooltip content JSX
 export const transactionHistoryInfoGeneric = (
     <div className="award-summary-tooltip transaction-history-tt">
-        <div className="tooltip__title">Transaction History</div>
         <div className="tooltip__text">
             <p>
                The Transaction History tab displays modification records
