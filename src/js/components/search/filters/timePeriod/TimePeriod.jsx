@@ -89,8 +89,8 @@ export default class TimePeriod extends React.Component {
         if (this.props.subaward && prevProps.subaward !== this.props.subaward) {
             this.setNewAwardFilterActive(false);
         }
-        if (!this.props.subaward && prevProps.subaward !== this.props.subaward) {
-            // only set to true if the other fy or date range conditions are true
+        else if (!this.props.subaward && prevProps.subaward !== this.props.subaward) {
+            // only set to true if new awards only had been set to true before
             this.setNewAwardFilterActive(this.state.newAwardFilterActiveFromFYOrDateRange);
         }
     }
@@ -112,11 +112,11 @@ export default class TimePeriod extends React.Component {
             this.setNewAwardFilterActive(!!this.props.filterTimePeriodFY.size);
             this.setNewAwardFilterActiveFromFYOrDateRange(!!this.props.filterTimePeriodFY.size);
         }
-        if ((prevState.startDateUI !== this.state.startDateUI || prevState.endDateUI !== this.state.endDateUI) && (this.state.startDateUI || this.state.endDateUI)) {
+        else if ((prevState.startDateUI !== this.state.startDateUI || prevState.endDateUI !== this.state.endDateUI) && (this.state.startDateUI || this.state.endDateUI)) {
             this.setNewAwardFilterActive(true);
             this.setNewAwardFilterActiveFromFYOrDateRange(true);
         }
-        if ((prevState.startDateUI !== this.state.startDateUI || prevState.endDateUI !== this.state.endDateUI) && (!this.state.startDateUI && !this.state.endDateUI)) {
+        else if ((prevState.startDateUI !== this.state.startDateUI || prevState.endDateUI !== this.state.endDateUI) && (!this.state.startDateUI && !this.state.endDateUI)) {
             this.setNewAwardFilterActive(false);
             this.setNewAwardFilterActiveFromFYOrDateRange(false);
         }

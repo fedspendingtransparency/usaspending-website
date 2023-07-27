@@ -537,6 +537,7 @@ export default connect(
         subaward: state.searchView.subaward
     }),
     (dispatch) => bindActionCreators(
+        // access multiple redux actions
         Object.assign(
             {},
             searchActions,
