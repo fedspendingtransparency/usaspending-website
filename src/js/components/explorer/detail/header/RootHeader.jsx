@@ -47,7 +47,6 @@ export default class RootHeader extends React.Component {
     }
 
     render() {
-        const left = true;
         const type = sidebarTypes[this.props.root];
         const header = (
             <div className="detail-header__labels">
