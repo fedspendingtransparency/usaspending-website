@@ -34,7 +34,8 @@ const propTypes = {
     changeTab: PropTypes.func,
     disableDateRange: PropTypes.bool,
     dirtyFilters: PropTypes.symbol,
-    subaward: PropTypes.bool
+    subaward: PropTypes.bool,
+    newAwardsOnlySelected: PropTypes.bool
 };
 
 export default class TimePeriod extends React.Component {
@@ -351,9 +352,10 @@ export default class TimePeriod extends React.Component {
                     <input
                         type="checkbox"
                         className={`new-awards-checkbox ${this.state.newAwardFilterActive ? '' : 'not-active'}`}
-                        disabled={!this.state.newAwardFilterActive}
                         id="new-awards-checkbox"
                         value="new-awards-checkbox"
+                        disabled={!this.state.newAwardFilterActive}
+                        checked={this.props.newAwardsOnlySelected}
                         onChange={this.newAwardsClick} />
                     <span className={`new-awards-label ${this.state.newAwardFilterActive ? '' : 'not-active'}`}>
                     Show New Awards Only

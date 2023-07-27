@@ -150,6 +150,7 @@ export class TimePeriodContainer extends React.Component {
             <TimePeriod
                 {...this.props}
                 dirtyFilters={this.dirtyFilters()}
+                newAwardsOnlySelected={this.props.newAwardsOnlySelected}
                 activeTab={this.state.activeTab}
                 timePeriods={this.state.timePeriods}
                 updateFilter={this.updateFilter}
@@ -166,6 +167,7 @@ export default connect(
         filterTimePeriodFY: state.filters.timePeriodFY,
         filterTimePeriodStart: state.filters.timePeriodStart,
         filterTimePeriodEnd: state.filters.timePeriodEnd,
+        newAwardsOnlySelected: state.filters.newAwardsOnly,
         appliedFilters: state.appliedFilters.filters,
         subaward: state.searchView.subaward
     }),
