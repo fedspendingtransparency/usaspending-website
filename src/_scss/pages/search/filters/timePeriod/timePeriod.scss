@@ -73,9 +73,11 @@
                     @include singleSubmit;
                     @include media($large-screen) {
                         @include flex(0 0 auto);
-                        @include align-self(flex-end);
                         margin: 0;
                         margin-bottom: rem(3);
+                    }
+                    @media(min-width: 1336px) {
+                        @include align-self(flex-end);
                     }
                 }
             }

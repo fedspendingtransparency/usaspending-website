@@ -5,14 +5,14 @@
     @include align-items(flex-start);
     @include justify-content(flex-start);
 
-    @include media($large-screen) {
+    @media(min-width: 1336px) {
         @include flex-direction(row);
     }
 }
 
 .generate-datepicker-wrap {
     @include flex(1 1 auto);
-    width: 100%;
+    width: auto;
     position: relative;
 
     @include media($large-screen) {
@@ -117,7 +117,6 @@
 
     @include media($large-screen) {
         @include flex(0 0 auto);
-        @include align-self(flex-end);
         margin: 0;
         margin-bottom: rem(3);
         width: rem(15);
