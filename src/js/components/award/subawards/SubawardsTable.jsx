@@ -142,7 +142,6 @@ export default class SubawardsTable extends React.Component {
 
         const totalSubAwardLabel = 'Number of Sub-Award Transactions';
         const totalSubAwardAmountLabel = 'Sub-Award Obligations';
-        console.debug(award);
         return (
             <div>
                 <div className="subaward-totals">
