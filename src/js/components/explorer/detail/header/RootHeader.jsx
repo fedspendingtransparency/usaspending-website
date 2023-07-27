@@ -47,6 +47,7 @@ export default class RootHeader extends React.Component {
     }
 
     render() {
+        const left = true;
         const type = sidebarTypes[this.props.root];
         const header = (
             <div className="detail-header__labels">
@@ -64,14 +65,13 @@ export default class RootHeader extends React.Component {
                 {header}
                 <div className="detail-header__amounts">
                     <div className="detail-header__fy">
-                            FY {this.props.fy} obligated amount
-                        <span>
-                            <TooltipWrapper
-                                className="detail-header__icon"
-                                icon="info"
-                                tooltipPosition="left"
-                                tooltipComponent={ExplorerInfoToolTip} />
-                        </span>
+                        <>FY {this.props.fy} obligated amount</>
+                        <TooltipWrapper
+                            className="award-section-tt"
+                            icon="info"
+                            tooltipPosition={left ? 'left' : 'right'}
+                            tooltipComponent={ExplorerInfoToolTip} />
+
                     </div>
                     <div className="detail-header__value">
                         {this.props.isLoading ? '--' : formatTreemapValues(this.props.total)}
