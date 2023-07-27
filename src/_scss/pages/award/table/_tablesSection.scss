@@ -4,6 +4,35 @@
     margin-top: rem(20);
     margin-bottom: rem(20);
     transition: opacity 0.25s ease;
+    z-index: 15;
+    .usa-dt-tab:focus {
+        outline: none;
+    }
+    @media (min-width: $tablet-screen) {
+        .usa-dt-tab-list {
+          overflow-x: visible;
+          overflow-y: visible;
+        }
+        .award-summary-tooltip{
+            .tooltip__title {
+                display: none;
+            }
+            .tooltip__text {
+                white-space: normal;
+                padding: 0;
+            }
+        }
+        .tooltip__text {
+            white-space: normal;
+        }
+    }
+    .tooltip-wrapper {
+        display: none;
+        @media (min-width: $tablet-screen) {
+            @include display(flex);
+            white-space: normal;
+        }
+    }
 
     .tables-width-master {
         width: 100%;

@@ -12,19 +12,15 @@ import { Tabs } from "data-transparency-ui";
 import TransactionsTableContainer from 'containers/award/table/TransactionsTableContainer';
 import FederalAccountTableContainer from 'containers/award/table/FederalAccountTableContainer';
 import SubawardsContainer from 'containers/award/table/SubawardsContainer';
-import ResultsTablePicker from 'components/search/table/ResultsTablePicker';
 import { AwardLoop } from 'components/sharedComponents/icons/Icons';
 import AwardSectionHeader from 'components/award/shared/AwardSectionHeader';
-import { transactionHistoryInfoGeneric, subAwardsTabContract, federalAccountFundingInfoIDV } from "./../../../components/award/shared/InfoTooltipContent";
-
-
 import { getAwardHistoryCounts } from "../../../helpers/awardHistoryHelper";
 
 const propTypes = {
     overview: PropTypes.object,
     setActiveTab: PropTypes.func,
     activeTab: PropTypes.string,
-    awardId: PropTypes.string
+    count: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
 };
 
 export class AwardHistory extends React.Component {
@@ -136,15 +132,13 @@ export class AwardHistory extends React.Component {
         const {
             overview,
             setActiveTab,
-            activeTab,
-            awardId
+            activeTab
         } = this.props;
-        const tabOptions = this.state.tabs;
         const sectionTitle = (overview.category === 'idv')
             ? "Award History for this IDV"
             : "Award History";
         const tooltip = getToolTipBySectionAndAwardType('awardHistory', overview.category);
-
+        const tabOptions = this.state.tabs;
         return (
             <div id="award-award-history" className="award-viz award-history">
                 <AwardSectionHeader
@@ -154,12 +148,6 @@ export class AwardHistory extends React.Component {
                     tooltipWide={(overview.category === 'contract')} />
                 <div className="tables-section">
                     <Tabs
-                        awardId={awardId}
-                        types={tabOptions}
-                        active={activeTab}
-                        switchTab={setActiveTab} />
-
-                    <ResultsTablePicker
                         types={tabOptions}
                         active={activeTab}
                         switchTab={setActiveTab} />

@@ -19,7 +19,8 @@ const ItemContent = ({
     section1Icon,
     section2Icon,
     section3Icon,
-    menuIndex
+    menuIndex,
+    closeDropdown
 }) => {
     const dispatch = useDispatch();
 
@@ -105,7 +106,12 @@ const ItemContent = ({
                                             <FlexGridRow width={6} desktop={6}>
                                                 <a
                                                     className="dropdown--item__link"
-                                                    href={item.url}>
+                                                    href={item.url}
+                                                    onKeyDown={(e) => {
+                                                        if (item.label === 'Release Notes' && e.key === 'Tab') {
+                                                            closeDropdown();
+                                                        }
+                                                    }}>
                                                     {item.icon && item.icon !== '' && item.icon !== null ? <FontAwesomeIcon role="presentation" style={{ width: "20px", height: "20px" }} icon={item.icon} /> : ''}
                                                     <div className="dropdown-item__link-desc">
                                                         <div className="dropdown-item__link-label">
