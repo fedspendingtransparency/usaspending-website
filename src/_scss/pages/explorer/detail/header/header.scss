@@ -95,6 +95,7 @@
     }
     .tooltip-spacer {
         transform: translate(-8px, 2px);
+        text-transform: none;
         .tooltip__content{
             left: rem(16);
         }
