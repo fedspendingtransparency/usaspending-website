@@ -22,6 +22,7 @@ const propTypes = {
 };
 
 const TopFilterBar = (props) => {
+    const newAwardsOnlyPresent = props.filters.find((el) => el.code === 'newAwardsOnly');
     const filters = props.filters.map((filter) =>
         props.groupGenerator({
             filter,
@@ -69,7 +70,7 @@ const TopFilterBar = (props) => {
                 </div>
                 <div className="search-top-filters">
                     <div
-                        className="search-top-filters-content"
+                        className={`search-top-filters-content ${newAwardsOnlyPresent ? 'newAwardsOnlyPresent' : ''}`}
                         role="list">
                         {filters}
                     </div>
