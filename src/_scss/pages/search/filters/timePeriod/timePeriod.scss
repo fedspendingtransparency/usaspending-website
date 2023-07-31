@@ -15,7 +15,12 @@
         .new-awards-wrapper {
             display: flex;
             align-items: baseline;
-            margin: rem(15) 0 0 rem(15);
+            margin: rem(15) 0 0 0;
+
+            // this inactive class refers to the 'activeClassDR' var in TimePeriod.jsx; used here to left-align the new awards only checkbox in both Time Period and Date Range tabs
+            &.inactive {
+                margin: rem(15) 0 0 rem(15);
+            }
 
             @import '../../tooltips';
 

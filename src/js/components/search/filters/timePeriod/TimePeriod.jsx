@@ -346,7 +346,7 @@ export default class TimePeriod extends React.Component {
         }
 
         const newAwardsFilter = (
-            <div className="new-awards-wrapper">
+            <div className={`new-awards-wrapper ${activeClassDR}`}>
                 <label
                     htmlFor="new-awards-checkbox">
                     <input
