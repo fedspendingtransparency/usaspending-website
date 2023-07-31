@@ -79,6 +79,14 @@
                     @media(min-width: 1336px) {
                         @include align-self(flex-end);
                     }
+
+                    @media (max-width: 1335px) {
+                        margin-top: rem(15);
+                    }
+                    @media (min-width: $medium-screen) and (max-width: 1335px) {
+                        width: 100%;
+                        align-self: center;
+                    }
                 }
             }
         }

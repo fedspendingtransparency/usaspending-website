@@ -14,15 +14,19 @@
     @include flex(1 1 auto);
     width: auto;
     position: relative;
-
     @include media($large-screen) {
         width: auto;
-        margin-right: rem(5);
         &:last-child{
             margin-right: 0;
         }
     }
+    @media(min-width: $medium-screen) and (max-width: 1335px) {
+        width: 100%;
+    }
 
+    @media(min-width: 1336px) {
+        margin-right: rem(5);
+    }
     .generate-datepicker {
         input {
             @import "../../elements/_inputs";
