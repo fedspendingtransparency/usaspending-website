@@ -56,7 +56,7 @@
 
             // all this is to ensure that the New Awards Only chip is grouped with the other Time Period chips
             .filter-group-container {
-                margin-left: 15px;
+                margin-left: rem(15);
             }
             .filter-group-container:first-child {
                 margin-left: 0;
