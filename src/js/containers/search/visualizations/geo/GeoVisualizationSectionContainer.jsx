@@ -202,7 +202,7 @@ export class GeoVisualizationSectionContainer extends React.Component {
         const operation = new SearchAwardsOperation();
         operation.fromState(this.props.reduxFilters);
 
-        // if no entities are visible, don't make an API rquest because nothing in the US is visible
+        // if no entities are visible, don't make an API request because nothing in the US is visible
         if (this.state.visibleEntities.length === 0) {
             this.setState({
                 loading: false,
@@ -213,6 +213,12 @@ export class GeoVisualizationSectionContainer extends React.Component {
                 }
             });
             return;
+        }
+
+        // if subawards is true, newAwardsOnly cannot be true, so we remove
+        // dateType for this request
+        if (this.props.subaward && operation.dateType) {
+            delete operation.dateType;
         }
 
         const searchParams = operation.toParams();

@@ -81,7 +81,7 @@ export class TimePeriodContainer extends React.Component {
     }
 
     updateFilter(params) {
-    // set the state to a clone of the filter subobject merged with the param object
+        // set the state to a clone of the filter subobject merged with the param object
         const currentFilters = {
             dateType: this.state.activeTab,
             fy: this.props.filterTimePeriodFY,
@@ -150,6 +150,7 @@ export class TimePeriodContainer extends React.Component {
             <TimePeriod
                 {...this.props}
                 dirtyFilters={this.dirtyFilters()}
+                newAwardsOnlySelected={this.props.newAwardsOnlySelected}
                 activeTab={this.state.activeTab}
                 timePeriods={this.state.timePeriods}
                 updateFilter={this.updateFilter}
@@ -166,7 +167,9 @@ export default connect(
         filterTimePeriodFY: state.filters.timePeriodFY,
         filterTimePeriodStart: state.filters.timePeriodStart,
         filterTimePeriodEnd: state.filters.timePeriodEnd,
-        appliedFilters: state.appliedFilters.filters
+        newAwardsOnlySelected: state.filters.newAwardsOnly,
+        appliedFilters: state.appliedFilters.filters,
+        subaward: state.searchView.subaward
     }),
     (dispatch) => bindActionCreators(searchFilterActions, dispatch)
 )(TimePeriodContainer);

@@ -34,7 +34,8 @@ export const checkboxTreeKeys = {
 
 export const timePeriodKeys = {
     startDate: 'start_date',
-    endDate: 'end_date'
+    endDate: 'end_date',
+    dateType: 'date_type'
 };
 
 export const agencyKeys = {
