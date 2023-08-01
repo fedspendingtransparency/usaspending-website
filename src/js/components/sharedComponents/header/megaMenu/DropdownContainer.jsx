@@ -1,7 +1,6 @@
-import React, { Children, Component } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { Flipped } from "react-flip-toolkit";
-import FadeContents from "./FadeContents";
 
 const getDropdownRootKeyFrame = (animatingOut) => {
     if (animatingOut) return "dropdown-animate-out";
@@ -38,40 +37,37 @@ const dropdownRoot = ({ animatingOut, direction }) => {
     };
 };
 
-export default class DropdownContainer extends Component {
-    static propTypes = {
-        children: PropTypes.node.isRequired,
-        animatingOut: PropTypes.bool,
-        direction: PropTypes.oneOf(["left", "right"]),
-        tweenConfig: PropTypes.shape({
-            duration: PropTypes.number,
-            easing: PropTypes.string
-        })
-    };
+const propTypes = {
+    children: PropTypes.node.isRequired,
+    animatingOut: PropTypes.bool,
+    direction: PropTypes.oneOf(["left", "right"]),
+    tweenConfig: PropTypes.shape({
+        duration: PropTypes.number,
+        easing: PropTypes.string
+    })
+};
+const DropdownContainer = (props) => {
+    const { children } = props;
 
-    render() {
-        const {
-            children, direction, tweenConfig
-        } = this.props;
+    // to get an outline around a caret you have to add a larger caret behind a white one and then get them to line up
+    return (
+        <div
+            style={dropdownRoot(props)}>
+            <Flipped flipId="dropdown-caret">
+                <img role="presentation" src="img/caret.svg" alt="" className="caret" />
+            </Flipped>
+            <Flipped flipId="dropdown">
+                <div className="dropdown-background">
+                    <Flipped inverseFlipId="dropdown" scale>
+                        <div>
+                            {children}
+                        </div>
+                    </Flipped>
+                </div>
+            </Flipped>
+        </div>
+    );
+};
 
-        const [currentDropdown, prevDropdown] = Children.toArray(children);
-        // to get an outline around a caret you have to add a larger caret behind a white one and then get them to line up
-        return (
-            <div
-                style={dropdownRoot(this.props)}>
-                <Flipped flipId="dropdown-caret">
-                    <img role="presentation" src="img/caret.svg" alt="" className="caret" />
-                </Flipped>
-                <Flipped flipId="dropdown">
-                    <div className="dropdown-background">
-                        <Flipped inverseFlipId="dropdown" scale>
-                            <div>
-                                {children}
-                            </div>
-                        </Flipped>
-                    </div>
-                </Flipped>
-            </div>
-        );
-    }
-}
+DropdownContainer.propTypes = propTypes;
+export default DropdownContainer;

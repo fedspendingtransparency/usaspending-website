@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from 'react-redux';
 import { FlexGridRow } from 'data-transparency-ui';
 import { Link } from "react-router-dom";
@@ -8,27 +8,42 @@ import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutThe
 import * as slideoutActions from 'redux/actions/slideouts/slideoutActions';
 
 const ItemContent = ({
-    section1Title,
-    section2Title,
-    section3Title,
-    section1Items,
-    section2Items,
-    section3Items,
-    section1Sub,
-    section2Sub,
-    section1Icon,
-    section2Icon,
-    section3Icon,
+    navbarConfig,
     menuIndex,
     closeDropdown
 }) => {
     const dispatch = useDispatch();
+
+    const {
+        section1Items,
+        section2Items,
+        section3Items
+    } = navbarConfig;
+
+    const section1Title = navbarConfig.section1Options[menuIndex]?.title;
+    const section2Title = navbarConfig.section2Options[menuIndex]?.title;
+    const section3Title = navbarConfig.section3Options[menuIndex]?.title;
+
+    const section1Sub = navbarConfig.section1Options[menuIndex]?.sub;
+    const section2Sub = navbarConfig.section2Options[menuIndex]?.sub;
+
+    const section1Icon = navbarConfig.section1Options[menuIndex]?.icon;
+    const section2Icon = navbarConfig.section2Options[menuIndex]?.icon;
+    const section3Icon = navbarConfig.section3Options[menuIndex]?.icon;
 
     const openATD = (e) => {
         dispatch(aboutTheDataActions.showAboutTheData());
         dispatch(slideoutActions.setLastOpenedSlideout('atd'));
         e.preventDefault();
     };
+
+    useEffect(() => {
+        console.log("mounted");
+        return () => {
+            console.log("unmounted");
+        };
+    });
+
     return (
         <div className="dropdown-section__wrapper" key={uniqueId()}>
             <div className={menuIndex === 1 ? "dropdown-section__top-columns undo__bottom-padding" : "dropdown-section__top-columns"}>
@@ -129,7 +144,6 @@ const ItemContent = ({
                     </div>
                 </div> : ''}
         </div>
-
     );
 };
 

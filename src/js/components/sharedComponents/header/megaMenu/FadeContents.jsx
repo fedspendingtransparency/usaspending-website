@@ -95,8 +95,7 @@ const FadeContents = (props) => {
             timeout={100}
             nodeRef={nodeRef}
             in={!unMount}
-            exit={unMount}
-            onExit={() => window.alert("exit")}>
+            exit={unMount}>
             <div ref={nodeRef} aria-hidden={onLoad}>
                 {children}
             </div>

@@ -1,5 +1,6 @@
-import React, { Component } from "react";
+import React, { useEffect, useState } from "react";
 import { Flipper } from "react-flip-toolkit";
+
 import {
     spendingOptions,
     profileOptions,
@@ -28,7 +29,6 @@ const navbarConfig = [
         title: "Explore the Data",
         section1Items: spendingOptions,
         section2Items: profileOptions,
-        dropdown: ItemContent,
         section1Options,
         section2Options,
         section3Options
@@ -38,7 +38,6 @@ const navbarConfig = [
         section1Items: awardDownloadOptions,
         section2Items: accountDataOptions,
         section3Items: allDownloadOptions,
-        dropdown: ItemContent,
         section1Options,
         section2Options,
         section3Options
@@ -48,175 +47,110 @@ const navbarConfig = [
         section1Items: learnResourceOptions,
         section2Items: referenceMaterialsOptions,
         section3Items: developerOptions,
-        dropdown: ItemContent,
         section1Options,
         section2Options,
         section3Options
     }
 ];
 
-export default class AnimatedNavbar extends Component {
-    state = {
-        activeIndices: []
+const AnimatedNavbar = () => {
+    const [activeIndices, setActiveIndices] = useState([]);
+    const [animatingOut, setAnimatingOut] = useState(false);
+    const [direction, setDirection] = useState(null);
+
+    let animatingOutTimeout = null;
+
+    const resetDropdownState = (i) => {
+        setActiveIndices(typeof i === "number" ? [i] : []);
+        setAnimatingOut(false);
+        setDirection(null);
+
+        animatingOutTimeout = null;
     };
 
-    onMouseEnter = (i) => {
-        if (this.animatingOutTimeout) {
-            clearTimeout(this.animatingOutTimeout);
-            this.resetDropdownState(i);
+    const onMouseEnter = (i) => {
+        if (animatingOutTimeout) {
+            clearTimeout(animatingOutTimeout);
+            resetDropdownState(i);
             return;
         }
 
-        if (this.state.activeIndices[this.state.activeIndices.length - 1] === i) {
+        if (activeIndices[activeIndices?.length - 1] === i) {
             return;
         }
 
-        this.setState((prevState) => ({
-            activeIndices: prevState.activeIndices.concat(i),
-            animatingOut: false
-        }));
+        setActiveIndices((prevState) => [...prevState, i]);
+
+        setAnimatingOut(false);
     };
-    onMouseLeave = () => {
-        this.setState({
-            animatingOut: true,
-            direction: null
-        });
-        this.animatingOutTimeout = setTimeout(
-            this.resetDropdownState(),
-            this.props.tweenConfig.duration
+    const onMouseLeave = () => {
+        setAnimatingOut(true);
+        setDirection(null);
+
+        animatingOutTimeout = setTimeout(
+            resetDropdownState(), 300
         );
     };
 
-    resetDropdownState = (i) => {
-        this.setState({
-            activeIndices: typeof i === "number" ? [i] : [],
-            animatingOut: false,
-            direction: null
-        });
-        delete this.animatingOutTimeout;
-    };
+    let currentSections;
 
-    render() {
-        const { tweenConfig } = this.props;
+    const currentIndex = activeIndices[activeIndices.length - 1];
+    const prevIndex =
+        activeIndices.length > 1 &&
+        activeIndices[activeIndices.length - 2];
 
-        let CurrentDropdown;
-        let PrevDropdown;
+    if (typeof currentIndex === "number") {
+        currentSections = navbarConfig[currentIndex];
+    }
 
-        let currentSection1Props;
-        let currentSection2Props;
-        let currentSection3Props;
-        let prevSection1Props;
-        let prevSection2Props;
-        let prevSection3Props;
-
-        let currentSection1Title;
-        let currentSection2Title;
-        let currentSection3Title;
-        let currentSection1Sub;
-        let currentSection2Sub;
-        let currentSection3Sub;
-        let currentSection1Icon;
-        let currentSection2Icon;
-        let currentSection3Icon;
-
-        const currentIndex = this.state.activeIndices[
-            this.state.activeIndices.length - 1
-        ];
-        const prevIndex =
-            this.state.activeIndices.length > 1 &&
-            this.state.activeIndices[this.state.activeIndices.length - 2];
-
-        if (typeof currentIndex === "number") {
-            CurrentDropdown = navbarConfig[currentIndex]?.dropdown;
-            currentSection1Props = navbarConfig[currentIndex].section1Items;
-            currentSection2Props = navbarConfig[currentIndex].section2Items;
-            currentSection3Props = navbarConfig[currentIndex].section3Items;
-
-            currentSection1Title = navbarConfig[currentIndex].section1Options[currentIndex]?.title;
-            currentSection2Title = navbarConfig[currentIndex].section2Options[currentIndex]?.title;
-            currentSection3Title = navbarConfig[currentIndex].section3Options[currentIndex]?.title;
-
-            currentSection1Sub = navbarConfig[currentIndex].section1Options[currentIndex]?.sub;
-            currentSection2Sub = navbarConfig[currentIndex].section2Options[currentIndex]?.sub;
-            currentSection3Sub = navbarConfig[currentIndex].section3Options[currentIndex]?.sub;
-
-            currentSection1Icon = navbarConfig[currentIndex].section1Options[currentIndex]?.icon;
-            currentSection2Icon = navbarConfig[currentIndex].section2Options[currentIndex]?.icon;
-            currentSection3Icon = navbarConfig[currentIndex].section3Options[currentIndex]?.icon;
-        }
-
-        setTimeout(() => {
-            if (typeof prevIndex === "number") {
-                prevSection1Props = navbarConfig[prevIndex].section1Items;
-                prevSection2Props = navbarConfig[prevIndex].section2Items;
-                prevSection3Props = navbarConfig[prevIndex].section3Items;
-                PrevDropdown = navbarConfig[prevIndex].dropdown;
-
-                if (currentIndex && prevIndex) {
-                    if (currentIndex <= prevIndex) {
-                        if (this.state.direction === "left") {
-                            return;
-                        }
-                        this.setState({
-                            direction: "left"
-                        });
-                    } else {
-                        if (this.state.direction === "right") {
-                            return;
-                        }
-                        this.setState({
-                            direction: "right"
-                        });
+    setTimeout(() => {
+        if (typeof prevIndex === "number") {
+            if (currentIndex && prevIndex) {
+                if (currentIndex <= prevIndex) {
+                    if (direction === "left") {
+                        return;
                     }
+                    setDirection("left");
+                } else {
+                    if (direction === "right") {
+                        return;
+                    }
+                    setDirection("right");
                 }
             }
-        }, 10);
+        }
+    }, 10);
 
-        return (
-            <Flipper flipKey={currentIndex} {...tweenConfig}>
-                <Navbar onMouseLeave={this.onMouseLeave}>
-                    {navbarConfig.map((n, index) => (
-                        <NavbarItem
-                            key={`navbaritem-${index}`}
-                            title={n.title}
-                            index={index}
-                            url={n.url}
-                            closeDropdown={this.onMouseLeave}
-                            onMouseEnter={this.onMouseEnter}>
-                            {currentIndex === index && (
-                                <DropdownContainer
-                                    direction={this.state.direction}
-                                    animatingOut={this.state.animatingOut}
-                                    tweenConfig={this.props.tweenConfig}>
-                                    <FadeContents
-                                        direction={this.state.direction}
-                                        animatingOut={this.state.animatingOut}
-                                        tweenConfig={this.props.tweenConfig}
-                                        menuIndex={index}>
-                                        <ItemContent
-                                            section1Items={currentSection1Props}
-                                            section2Items={currentSection2Props}
-                                            section3Items={currentSection3Props}
-                                            section1Title={currentSection1Title}
-                                            section2Title={currentSection2Title}
-                                            section3Title={currentSection3Title}
-                                            section1Sub={currentSection1Sub}
-                                            section2Sub={currentSection2Sub}
-                                            section3Sub={currentSection3Sub}
-                                            section1Icon={currentSection1Icon}
-                                            section2Icon={currentSection2Icon}
-                                            section3Icon={currentSection3Icon}
-                                            menuIndex={index}
-                                            closeDropdown={this.onMouseLeave} />
-                                    </FadeContents>
+    return (
+        <Flipper flipKey={currentIndex}>
+            <Navbar onMouseLeave={onMouseLeave}>
+                {navbarConfig.map((n, index) => (
+                    <NavbarItem
+                        key={`navbaritem-${index}`}
+                        title={n.title}
+                        index={index}
+                        url={n.url}
+                        closeDropdown={onMouseLeave}
+                        onMouseEnter={onMouseEnter}>
+                        {currentIndex === index && (
+                            <DropdownContainer
+                                direction={direction}
+                                animatingOut={animatingOut}>
+                                <FadeContents
+                                    direction={direction}
+                                    menuIndex={index}>
+                                    <ItemContent
+                                        navbarConfig={currentSections}
+                                        menuIndex={index}
+                                        closeDropdown={onMouseLeave} />
+                                </FadeContents>
+                            </DropdownContainer>
+                        )}
+                    </NavbarItem>
+                ))}
+            </Navbar>
+        </Flipper>
+    );
+};
 
-                                    {/*{PrevDropdown && <PrevDropdown section1Items={prevSection1Props} section2Items={prevSection2Props} section3Items={prevSection3Props} menuIndex={index} closeDropdown={this.onMouseLeave} />}*/}
-                                </DropdownContainer>
-                            )}
-                        </NavbarItem>
-                    ))}
-                </Navbar>
-            </Flipper>
-        );
-    }
-}
+export default AnimatedNavbar;
