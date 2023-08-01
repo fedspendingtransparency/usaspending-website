@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Flipper } from "react-flip-toolkit";
+import { Flipped, Flipper } from "react-flip-toolkit";
 
 import {
     spendingOptions,
@@ -15,7 +15,6 @@ import {
     section3Options
 } from 'dataMapping/navigation/menuOptions';
 import Navbar from "./Navbar";
-import DropdownContainer from "./DropdownContainer";
 import NavbarItem from './NavbarItem';
 import ItemContent from './ItemContent';
 import FadeContents from "./FadeContents";
@@ -53,19 +52,57 @@ const navbarConfig = [
     }
 ];
 
-const AnimatedNavbar = () => {
+const AnimatedNavbar = React.memo(() => {
     const [activeIndices, setActiveIndices] = useState([]);
     const [animatingOut, setAnimatingOut] = useState(false);
     const [direction, setDirection] = useState(null);
 
     let animatingOutTimeout = null;
 
+    useEffect(() => {
+        console.log("dropdown rerender");
+    }, []);
     const resetDropdownState = (i) => {
         setActiveIndices(typeof i === "number" ? [i] : []);
         setAnimatingOut(false);
         setDirection(null);
 
         animatingOutTimeout = null;
+    };
+
+    const getDropdownRootKeyFrame = () => {
+        if (animatingOut) return "dropdown-animate-out";
+        return "dropdown-animate-in";
+    };
+
+    const dropdownRoot = () => {
+        if (!animatingOut && direction) {
+            return {
+                transformOrigin: "0 0",
+                animationDuration: '225ms',
+                /* use 'forwards' to prevent flicker on leave animation */
+                animationFillMode: "forwards",
+                /* flex styles will center the caret child component */
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                position: "relative",
+                top: "-20px"
+            };
+        }
+        return {
+            transformOrigin: "0 0",
+            animationName: getDropdownRootKeyFrame(animatingOut),
+            animationDuration: '225ms',
+            /* use 'forwards' to prevent flicker on leave animation */
+            animationFillMode: "forwards",
+            /* flex styles will center the caret child component */
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            position: "relative",
+            top: "-20px"
+        };
     };
 
     const onMouseEnter = (i) => {
@@ -79,7 +116,7 @@ const AnimatedNavbar = () => {
             return;
         }
 
-        setActiveIndices((prevState) => [...prevState, i]);
+        setActiveIndices((prevState) => prevState.concat(i));
 
         setAnimatingOut(false);
     };
@@ -133,24 +170,33 @@ const AnimatedNavbar = () => {
                         closeDropdown={onMouseLeave}
                         onMouseEnter={onMouseEnter}>
                         {currentIndex === index && (
-                            <DropdownContainer
-                                direction={direction}
-                                animatingOut={animatingOut}>
-                                <FadeContents
-                                    direction={direction}
-                                    menuIndex={index}>
-                                    <ItemContent
-                                        navbarConfig={currentSections}
-                                        menuIndex={index}
-                                        closeDropdown={onMouseLeave} />
-                                </FadeContents>
-                            </DropdownContainer>
+                            <div
+                                style={dropdownRoot()}>
+                                <Flipped flipId="dropdown-caret">
+                                    <img role="presentation" src="img/caret.svg" alt="" className="caret" />
+                                </Flipped>
+                                <Flipped flipId="dropdown">
+                                    <div className="dropdown-background">
+                                        <Flipped inverseFlipId="dropdown" scale>
+                                            <div>
+                                                <FadeContents
+                                                    direction={direction}>
+                                                    <ItemContent
+                                                        navbarConfig={currentSections}
+                                                        menuIndex={index}
+                                                        closeDropdown={onMouseLeave} />
+                                                </FadeContents>
+                                            </div>
+                                        </Flipped>
+                                    </div>
+                                </Flipped>
+                            </div>
                         )}
                     </NavbarItem>
                 ))}
             </Navbar>
         </Flipper>
     );
-};
+});
 
 export default AnimatedNavbar;

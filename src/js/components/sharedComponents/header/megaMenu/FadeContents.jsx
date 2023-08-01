@@ -56,7 +56,7 @@ const propTypes = {
     innerRefFn: PropTypes.func
 };
 
-const FadeContents = (props) => {
+const FadeContents = React.memo((props) => {
     const {
         children,
         direction
@@ -64,8 +64,6 @@ const FadeContents = (props) => {
 
     const nodeRef = useRef(null);
     const [unMount, setUnMount] = useState(false);
-    const [menuIndex, setMenuIndex] = useState(null);
-    const [onLoad, setOnLoad] = useState(false);
 
     useEffect(() => {
         console.log('mount');
@@ -74,21 +72,6 @@ const FadeContents = (props) => {
         });
     });
 
-    useEffect(() => {
-        if (menuIndex !== props.menuIndex) {
-            setOnLoad(false);
-            setMenuIndex(props.menuIndex);
-        }
-    }, [props]);
-
-    useEffect(() => {
-        if (menuIndex > 0 && menuIndex <= 3) {
-            setOnLoad(true);
-        } else {
-            setOnLoad(false);
-        }
-    }, [menuIndex]);
-
     return (
         <CSSTransition
             classNames={direction ? `fadex-${direction}` : `fadex`}
@@ -96,12 +79,12 @@ const FadeContents = (props) => {
             nodeRef={nodeRef}
             in={!unMount}
             exit={unMount}>
-            <div ref={nodeRef} aria-hidden={onLoad}>
+            <div ref={nodeRef} aria-hidden={!unMount}>
                 {children}
             </div>
         </CSSTransition>
     );
-};
+});
 
 FadeContents.propTypes = propTypes;
 export default FadeContents;

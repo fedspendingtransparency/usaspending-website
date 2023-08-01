@@ -7,7 +7,7 @@ import { uniqueId } from 'lodash';
 import * as aboutTheDataActions from 'redux/actions/aboutTheDataSidebar/aboutTheDataActions';
 import * as slideoutActions from 'redux/actions/slideouts/slideoutActions';
 
-const ItemContent = ({
+const ItemContent = React.memo(({
     navbarConfig,
     menuIndex,
     closeDropdown
@@ -145,6 +145,6 @@ const ItemContent = ({
                 </div> : ''}
         </div>
     );
-};
+});
 
 export default ItemContent;
