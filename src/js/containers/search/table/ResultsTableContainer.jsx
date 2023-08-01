@@ -263,7 +263,8 @@ export class ResultsTableContainer extends React.Component {
         const newSearch = new SearchAwardsOperation();
         newSearch.fromState(this.props.filters);
 
-        // if subawards is true, newAwardsOnly cannot be true, so we remove dateType for this request; also has to be done for the tabCounts request
+        // if subawards is true, newAwardsOnly cannot be true, so we remove
+        // dateType for this request; also has to be done for the tabCounts request
         if (this.props.subaward && newSearch.dateType) {
             delete newSearch.dateType;
         }
