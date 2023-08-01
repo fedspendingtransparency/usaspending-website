@@ -355,6 +355,82 @@
     height: 100%;
   }
 
+  .fadex-enter {
+    background-color: green;
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  .fadex-enter-active {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 300ms, transform 300ms;
+  }
+  .fadex-exit {
+    background-color: red;
+    opacity: 1;
+  }
+  .fadex-exit-active {
+    background-color: yellow;
+    opacity: 0;
+    transform: scale(0.9);
+    transition: opacity 300ms, transform 300ms;
+  }
+
+  .fadex-left-enter, .fadex-left-enter-active {
+    opacity: 1;
+    animation-name: fade-content-animate-in-left;
+    animation-duration: 225ms;
+    animation-fill-mode: forwards;
+    position: relative;
+    animation-timing-function: linear;
+    top: 0;
+    left: 0;
+  }
+
+
+  .fadex-right-enter, .fadex-right-enter-active {
+    opacity: 1;
+    animation-name: fade-content-animate-in-right;
+    animation-duration: 225ms;
+    animation-fill-mode: forwards;
+    position: relative;
+    animation-timing-function: linear;
+    top: 0;
+    left: 0;
+  }
+
+  .fadex-right-exit, .fadex-right-exit-active {
+    animation-name: fade-content-animate-out-right;
+    animation-duration: 225ms;
+    animation-fill-mode: forwards;
+    position: absolute;
+    opacity: 0;
+    animation-timing-function: linear;
+    top: 0;
+    left: 0;
+  }
+
+  .fadex-enter, .fadex-enter-active {
+    opacity: 1;
+    animation-duration: 225ms;
+    animation-fill-mode: forwards;
+    position: relative;
+    animation-timing-function: linear;
+    top: 0;
+    left: 0;
+  }
+
+  .fadex-exit, .fadex-exit-active {
+    animation-duration: 225ms;
+    animation-fill-mode: forwards;
+    position: absolute;
+    opacity: 0;
+    animation-timing-function: linear;
+    top: 0;
+    left: 0;
+  }
+
   @keyframes dropdown-animate-out {
     from {
       transform: rotateX(0);

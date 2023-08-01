@@ -66,7 +66,7 @@ export default class DropdownContainer extends Component {
                     <div className="dropdown-background">
                         <Flipped inverseFlipId="dropdown" scale>
                             <div>
-                                {currentDropdown}
+                                {children}
                             </div>
                         </Flipped>
                     </div>
