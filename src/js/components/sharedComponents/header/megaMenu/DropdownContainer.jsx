@@ -66,20 +66,7 @@ export default class DropdownContainer extends Component {
                     <div className="dropdown-background">
                         <Flipped inverseFlipId="dropdown" scale>
                             <div>
-                                <FadeContents
-                                    animatingOut={this.props.animatingOut}
-                                    direction={direction}
-                                    duration={tweenConfig.duration}>
-                                    {currentDropdown}
-                                </FadeContents>
-                                {prevDropdown && (
-                                    <FadeContents
-                                        animatingOut={this.props.animatingOut}
-                                        direction={direction}
-                                        duration={tweenConfig.duration}>
-                                        {prevDropdown}
-                                    </FadeContents>
-                                )}
+                                {currentDropdown}
                             </div>
                         </Flipped>
                     </div>

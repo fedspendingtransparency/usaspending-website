@@ -17,6 +17,7 @@ import Navbar from "./Navbar";
 import DropdownContainer from "./DropdownContainer";
 import NavbarItem from './NavbarItem';
 import ItemContent from './ItemContent';
+import FadeContents from "./FadeContents";
 
 const navbarConfig = [
     {
@@ -187,22 +188,29 @@ export default class AnimatedNavbar extends Component {
                                     direction={this.state.direction}
                                     animatingOut={this.state.animatingOut}
                                     tweenConfig={this.props.tweenConfig}>
-                                    <CurrentDropdown
-                                        section1Items={currentSection1Props}
-                                        section2Items={currentSection2Props}
-                                        section3Items={currentSection3Props}
-                                        section1Title={currentSection1Title}
-                                        section2Title={currentSection2Title}
-                                        section3Title={currentSection3Title}
-                                        section1Sub={currentSection1Sub}
-                                        section2Sub={currentSection2Sub}
-                                        section3Sub={currentSection3Sub}
-                                        section1Icon={currentSection1Icon}
-                                        section2Icon={currentSection2Icon}
-                                        section3Icon={currentSection3Icon}
-                                        menuIndex={index}
-                                        closeDropdown={this.onMouseLeave} />
-                                    {PrevDropdown && <PrevDropdown section1Items={prevSection1Props} section2Items={prevSection2Props} section3Items={prevSection3Props} menuIndex={index} closeDropdown={this.onMouseLeave} />}
+                                    <FadeContents
+                                        direction={this.state.direction}
+                                        animatingOut={this.state.animatingOut}
+                                        tweenConfig={this.props.tweenConfig}
+                                        menuIndex={index}>
+                                        <ItemContent
+                                            section1Items={currentSection1Props}
+                                            section2Items={currentSection2Props}
+                                            section3Items={currentSection3Props}
+                                            section1Title={currentSection1Title}
+                                            section2Title={currentSection2Title}
+                                            section3Title={currentSection3Title}
+                                            section1Sub={currentSection1Sub}
+                                            section2Sub={currentSection2Sub}
+                                            section3Sub={currentSection3Sub}
+                                            section1Icon={currentSection1Icon}
+                                            section2Icon={currentSection2Icon}
+                                            section3Icon={currentSection3Icon}
+                                            menuIndex={index}
+                                            closeDropdown={this.onMouseLeave} />
+                                    </FadeContents>
+
+                                    {/*{PrevDropdown && <PrevDropdown section1Items={prevSection1Props} section2Items={prevSection2Props} section3Items={prevSection3Props} menuIndex={index} closeDropdown={this.onMouseLeave} />}*/}
                                 </DropdownContainer>
                             )}
                         </NavbarItem>
