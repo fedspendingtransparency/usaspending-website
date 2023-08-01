@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Flipped, Flipper } from "react-flip-toolkit";
 
 import {
@@ -58,9 +58,6 @@ const AnimatedNavbar = React.memo(() => {
 
     let animatingOutTimeout = null;
 
-    useEffect(() => {
-        console.log("dropdown rerender");
-    }, []);
     const resetDropdownState = (i) => {
         setActiveIndices(typeof i === "number" ? [i] : []);
         setAnimatingOut(false);

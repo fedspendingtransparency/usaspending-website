@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useDispatch } from 'react-redux';
 import { FlexGridRow } from 'data-transparency-ui';
 import { Link } from "react-router-dom";
@@ -22,25 +22,10 @@ const ItemContent = React.memo(({
         e.preventDefault();
     };
 
-    const [isMounted, setIsMounted] = useState(false);
-    let isInitialLoad = false;
-
-    useEffect(() => {
-        isInitialLoad = true;
-        return () => {
-            console.log("unmounted");
-        };
-    }, []);
-
-    useEffect(() => {
-        if (isInitialLoad) {
-
-        }
-    }, [menuIndex]);
-
     return <>
         {navbarConfig.map((section, i) => {
             if (i <= 0) {
+                // eslint-disable-next-line array-callback-return
                 return;
             }
 
@@ -63,6 +48,7 @@ const ItemContent = React.memo(({
             return (
                 <FadeContents hide={menuIndex !== i} direction={direction}>
                     <div
+                        style={!direction && menuIndex !== i ? { display: "none" } : {}}
                         className="dropdown-section__wrapper"
                         key={uniqueId()}>
                         <div
