@@ -17,7 +17,8 @@ const searchViewReducer = (state = initialState, action) => {
 
         case 'SET_SEARCH_VIEW_SUBAWARD':
             return Object.assign({}, state, {
-                subaward: action.value
+                subaward: action.value,
+                newAwardsOnly: !action.value
             });
 
         default:

@@ -66,6 +66,12 @@
                     margin-left: 0;
                 }
             }
+            // New Awards Only chip has to disappear if subawards is also selected
+            &.subAward.newAwardsOnlyPresent {
+                .filter-group-container:nth-child(2) {
+                    display: none;
+                }
+            }
         }
 
         @import "./_group";
